@@ -247,7 +247,7 @@
         "formula-CH3OH"
       ],
       "sections": 6,
-      "characters": 13332,
+      "characters": 13388,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Methanol",
         "https://en.wikipedia.org/wiki/Methanol",
@@ -263,7 +263,7 @@
         "lab3d-334"
       ],
       "sections": 6,
-      "characters": 10387,
+      "characters": 10443,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Aceton",
         "https://en.wikipedia.org/wiki/Acetone",
@@ -279,7 +279,7 @@
         "chem-ch3cooh"
       ],
       "sections": 6,
-      "characters": 13671,
+      "characters": 13727,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Acid_acetic",
         "https://en.wikipedia.org/wiki/Acetic_acid",
@@ -322,7 +322,7 @@
         "cid-783"
       ],
       "sections": 6,
-      "characters": 11293,
+      "characters": 11349,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Hydro",
         "https://en.wikipedia.org/wiki/Hydrogen",
@@ -352,7 +352,7 @@
         "cid-6324"
       ],
       "sections": 6,
-      "characters": 10392,
+      "characters": 10448,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Ethan",
         "https://en.wikipedia.org/wiki/Ethane",
@@ -367,7 +367,7 @@
         "cid-6325"
       ],
       "sections": 6,
-      "characters": 11751,
+      "characters": 11807,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Ethylen",
         "https://en.wikipedia.org/wiki/Ethylene",
@@ -382,7 +382,7 @@
         "cid-6326"
       ],
       "sections": 6,
-      "characters": 10774,
+      "characters": 10830,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Acetylen",
         "https://en.wikipedia.org/wiki/Acetylene",
@@ -397,7 +397,7 @@
         "cid-6334"
       ],
       "sections": 6,
-      "characters": 9652,
+      "characters": 9708,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Propan",
         "https://cactus.nci.nih.gov/chemical/structure/propane/file?format=sdf&get3d=true",
@@ -411,7 +411,7 @@
         "cid-8252"
       ],
       "sections": 6,
-      "characters": 9451,
+      "characters": 9507,
       "externalSources": [
         "https://en.wikipedia.org/wiki/C3H6",
         "https://cactus.nci.nih.gov/chemical/structure/propylene/file?format=sdf&get3d=true",
@@ -425,7 +425,7 @@
         "cid-7843"
       ],
       "sections": 6,
-      "characters": 10104,
+      "characters": 10160,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Butan",
         "https://en.wikipedia.org/wiki/Butane",
@@ -440,7 +440,7 @@
         "cid-6360"
       ],
       "sections": 6,
-      "characters": 10176,
+      "characters": 10232,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Butan",
         "https://en.wikipedia.org/wiki/Butane",
@@ -455,7 +455,7 @@
         "cid-241"
       ],
       "sections": 6,
-      "characters": 10405,
+      "characters": 10461,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Benzen",
         "https://en.wikipedia.org/wiki/Benzene",
@@ -470,7 +470,7 @@
         "cid-1140"
       ],
       "sections": 6,
-      "characters": 9931,
+      "characters": 9987,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Toluen",
         "https://en.wikipedia.org/wiki/C7H8",
@@ -486,7 +486,7 @@
         "chem-phenol"
       ],
       "sections": 6,
-      "characters": 10156,
+      "characters": 10212,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Phenol",
         "https://en.wikipedia.org/wiki/C6H6O",
@@ -501,7 +501,7 @@
         "cid-6115"
       ],
       "sections": 6,
-      "characters": 10190,
+      "characters": 10246,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Anilin",
         "https://en.wikipedia.org/wiki/Aniline",
@@ -516,7 +516,7 @@
         "cid-712"
       ],
       "sections": 6,
-      "characters": 10365,
+      "characters": 10421,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Formaldehyde",
         "https://en.wikipedia.org/wiki/Formaldehyde",
@@ -532,7 +532,7 @@
         "chem-ch3cho"
       ],
       "sections": 6,
-      "characters": 11770,
+      "characters": 11826,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Acetaldehyde",
         "https://en.wikipedia.org/wiki/Acetaldehyde",
@@ -548,7 +548,7 @@
         "chem-hcooh"
       ],
       "sections": 6,
-      "characters": 12523,
+      "characters": 12579,
       "externalSources": [
         "https://en.wikipedia.org/wiki/Formic_acid",
         "https://cactus.nci.nih.gov/chemical/structure/formic%20acid/file?format=sdf&get3d=true",
@@ -563,7 +563,7 @@
         "chem-ch3cooc2h5"
       ],
       "sections": 6,
-      "characters": 11253,
+      "characters": 11309,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Ethyl_acetat",
         "https://en.wikipedia.org/wiki/Ethyl_acetate",
@@ -578,7 +578,7 @@
         "cid-178"
       ],
       "sections": 6,
-      "characters": 11316,
+      "characters": 11372,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/C2H5NO",
         "https://en.wikipedia.org/wiki/Acetamide",
@@ -593,7 +593,7 @@
         "cid-1176"
       ],
       "sections": 6,
-      "characters": 11348,
+      "characters": 11404,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Ure",
         "https://en.wikipedia.org/wiki/CH4N2O",
@@ -609,7 +609,7 @@
         "chem-c6h12o6"
       ],
       "sections": 6,
-      "characters": 11419,
+      "characters": 11475,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Glucose",
         "https://en.wikipedia.org/wiki/C6H12O6",
@@ -624,7 +624,7 @@
         "cid-5984"
       ],
       "sections": 6,
-      "characters": 11418,
+      "characters": 11474,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Glucose",
         "https://en.wikipedia.org/wiki/C6H12O6",
@@ -639,7 +639,7 @@
         "cid-5988"
       ],
       "sections": 6,
-      "characters": 10361,
+      "characters": 10417,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Saccarose",
         "https://en.wikipedia.org/wiki/C12H22O11",
@@ -655,7 +655,7 @@
         "chem-c3h5oh3"
       ],
       "sections": 6,
-      "characters": 10002,
+      "characters": 10058,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Glycerin",
         "https://en.wikipedia.org/wiki/Glycerol",
@@ -671,7 +671,7 @@
         "chem-h2o2"
       ],
       "sections": 6,
-      "characters": 9670,
+      "characters": 9726,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Hydro_peroxide",
         "https://en.wikipedia.org/wiki/Hydrogen_peroxide",
@@ -749,7 +749,7 @@
         "chem-hcl"
       ],
       "sections": 7,
-      "characters": 13574,
+      "characters": 13630,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Hydro_chloride",
         "https://en.wikipedia.org/wiki/Hydrogen_chloride",
@@ -765,7 +765,7 @@
         "chem-hf"
       ],
       "sections": 6,
-      "characters": 9966,
+      "characters": 10022,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Hydro_fluoride",
         "https://en.wikipedia.org/wiki/Hydrogen_fluoride",
@@ -781,7 +781,7 @@
         "chem-h2s"
       ],
       "sections": 6,
-      "characters": 11127,
+      "characters": 11183,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/H2S",
         "https://en.wikipedia.org/wiki/Hydrogen_sulfide",
@@ -797,7 +797,7 @@
         "chem-hno3"
       ],
       "sections": 7,
-      "characters": 14844,
+      "characters": 14900,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Acid_nitric",
         "https://en.wikipedia.org/wiki/Nitric_acid",
@@ -813,7 +813,7 @@
         "chem-h2so4"
       ],
       "sections": 7,
-      "characters": 14776,
+      "characters": 14832,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Acid_sulfuric",
         "https://en.wikipedia.org/wiki/Sulfuric_acid",
@@ -829,7 +829,7 @@
         "chem-h3po4"
       ],
       "sections": 6,
-      "characters": 10319,
+      "characters": 10375,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Acid_phosphoric",
         "https://en.wikipedia.org/wiki/Phosphoric_acid",
@@ -844,7 +844,7 @@
         "cid-8078"
       ],
       "sections": 6,
-      "characters": 10958,
+      "characters": 11014,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Cyclohexan",
         "https://en.wikipedia.org/wiki/Cyclohexane",
@@ -859,7 +859,7 @@
         "cid-931"
       ],
       "sections": 6,
-      "characters": 9819,
+      "characters": 9875,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Naphthalen",
         "https://en.wikipedia.org/wiki/Naphthalene",
@@ -874,7 +874,7 @@
         "cid-2244"
       ],
       "sections": 6,
-      "characters": 9918,
+      "characters": 9974,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Aspirin",
         "https://en.wikipedia.org/wiki/Aspirin",
@@ -889,7 +889,7 @@
         "cid-2519"
       ],
       "sections": 6,
-      "characters": 11620,
+      "characters": 11676,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Cafein",
         "https://en.wikipedia.org/wiki/Caffeine",
@@ -904,7 +904,7 @@
         "cid-769"
       ],
       "sections": 6,
-      "characters": 9902,
+      "characters": 9958,
       "externalSources": [
         "https://en.wikipedia.org/wiki/Bicarbonate",
         "https://cactus.nci.nih.gov/chemical/structure/bicarbonate/file?format=sdf&get3d=true",
@@ -947,7 +947,7 @@
         "cid-223"
       ],
       "sections": 6,
-      "characters": 8697,
+      "characters": 8753,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Amoni",
         "https://en.wikipedia.org/wiki/Ammonium",
@@ -962,7 +962,7 @@
         "cid-961"
       ],
       "sections": 6,
-      "characters": 9867,
+      "characters": 9923,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Ch%C6%B0%C6%A1ng_tr%C3%ACnh_Ra_%C4%91i_C%C3%B3_tr%E1%BA%ADt_t%E1%BB%B1",
         "https://en.wikipedia.org/wiki/Hydroxide",
@@ -1033,7 +1033,7 @@
         "chem-naoh"
       ],
       "sections": 7,
-      "characters": 14694,
+      "characters": 14750,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Natri_hydroxide",
         "https://en.wikipedia.org/wiki/Sodium_hydroxide"
@@ -1046,7 +1046,7 @@
         "chem-koh"
       ],
       "sections": 7,
-      "characters": 13918,
+      "characters": 13974,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Kali_hydroxide",
         "https://en.wikipedia.org/wiki/KOH"
@@ -1059,7 +1059,7 @@
         "chem-baoh2"
       ],
       "sections": 7,
-      "characters": 13802,
+      "characters": 13858,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Bari_hydroxide",
         "https://en.wikipedia.org/wiki/Barium_hydroxide"
@@ -1150,7 +1150,7 @@
         "chem-nahco3"
       ],
       "sections": 7,
-      "characters": 15314,
+      "characters": 15370,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Natri_bicarbonat",
         "https://en.wikipedia.org/wiki/Sodium_bicarbonate"
@@ -1202,7 +1202,7 @@
         "chem-zn"
       ],
       "sections": 6,
-      "characters": 12750,
+      "characters": 12771,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/K%E1%BA%BDm",
         "https://en.wikipedia.org/wiki/Zinc",
@@ -1229,7 +1229,7 @@
         "chem-phenolphthalein"
       ],
       "sections": 6,
-      "characters": 10498,
+      "characters": 10554,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Phenolphthalein",
         "https://en.wikipedia.org/wiki/C20H14O4",
@@ -1243,7 +1243,7 @@
         "chem-litmus"
       ],
       "sections": 6,
-      "characters": 9765,
+      "characters": 9821,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/N%C6%B0%E1%BB%9Bc",
         "https://en.wikipedia.org/wiki/Litmus"
@@ -1256,7 +1256,7 @@
         "chem-universal-indicator"
       ],
       "sections": 6,
-      "characters": 9808,
+      "characters": 9864,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/N%C6%B0%E1%BB%9Bc",
         "https://en.wikipedia.org/wiki/Universal_indicator"
@@ -1269,7 +1269,7 @@
         "chem-caoh2"
       ],
       "sections": 7,
-      "characters": 15071,
+      "characters": 15127,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Calci_hydroxide",
         "https://en.wikipedia.org/wiki/Calcium_hydroxide"
@@ -1282,7 +1282,7 @@
         "chem-fe"
       ],
       "sections": 6,
-      "characters": 12967,
+      "characters": 13041,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/S%E1%BA%AFt",
         "https://en.wikipedia.org/wiki/Iron",
@@ -1296,7 +1296,7 @@
         "chem-cu"
       ],
       "sections": 6,
-      "characters": 13025,
+      "characters": 13046,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%93ng",
         "https://en.wikipedia.org/wiki/Copper",
@@ -1310,7 +1310,7 @@
         "chem-al"
       ],
       "sections": 6,
-      "characters": 12156,
+      "characters": 12587,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Nh%C3%B4m",
         "https://en.wikipedia.org/wiki/Aluminium",
@@ -1324,7 +1324,7 @@
         "chem-mg"
       ],
       "sections": 6,
-      "characters": 12386,
+      "characters": 12561,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Magnesi",
         "https://en.wikipedia.org/wiki/Magnesium",
@@ -1338,7 +1338,7 @@
         "chem-na"
       ],
       "sections": 6,
-      "characters": 10630,
+      "characters": 10832,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Natri",
         "https://en.wikipedia.org/wiki/Sodium",
@@ -1443,7 +1443,7 @@
         "chem-nh4cl"
       ],
       "sections": 7,
-      "characters": 13500,
+      "characters": 13556,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Amoni_chloride",
         "https://en.wikipedia.org/wiki/Ammonium_chloride"
@@ -1493,7 +1493,7 @@
         "chem-starch"
       ],
       "sections": 6,
-      "characters": 10111,
+      "characters": 10167,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/H%E1%BB%93_tinh_b%E1%BB%99t",
         "https://en.wikipedia.org/wiki/C6H10O5",
@@ -1507,7 +1507,7 @@
         "chem-h2so3"
       ],
       "sections": 6,
-      "characters": 10936,
+      "characters": 10992,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Acid_sulfur%C6%A1",
         "https://en.wikipedia.org/wiki/Sulfurous_acid"
@@ -1520,7 +1520,7 @@
         "chem-mgoh2"
       ],
       "sections": 7,
-      "characters": 14735,
+      "characters": 14791,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Magnesi_hydroxide",
         "https://en.wikipedia.org/wiki/Magnesium_hydroxide"
@@ -1533,7 +1533,7 @@
         "chem-aloh3"
       ],
       "sections": 7,
-      "characters": 14626,
+      "characters": 14682,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Nh%C3%B4m_hydroxide",
         "https://en.wikipedia.org/wiki/Aluminium_hydroxide"
@@ -1546,7 +1546,7 @@
         "chem-znoh2"
       ],
       "sections": 7,
-      "characters": 14836,
+      "characters": 14892,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/K%E1%BA%BDm_hydroxide",
         "https://en.wikipedia.org/wiki/Zinc_hydroxide"
@@ -1559,7 +1559,7 @@
         "chem-feoh2"
       ],
       "sections": 7,
-      "characters": 14526,
+      "characters": 14582,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/S%E1%BA%AFt(II",
         "https://en.wikipedia.org/wiki/Iron(II"
@@ -1572,7 +1572,7 @@
         "chem-feoh3"
       ],
       "sections": 7,
-      "characters": 14278,
+      "characters": 14334,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/S%E1%BA%AFt(III"
       ]
@@ -1584,7 +1584,7 @@
         "chem-cuoh2"
       ],
       "sections": 7,
-      "characters": 15011,
+      "characters": 15067,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%93ng(II",
         "https://en.wikipedia.org/wiki/Copper(II"
@@ -1711,7 +1711,7 @@
         "chem-nh4no3"
       ],
       "sections": 7,
-      "characters": 14444,
+      "characters": 14500,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Amoni_nitrat",
         "https://en.wikipedia.org/wiki/Ammonium_nitrate"
@@ -1724,7 +1724,7 @@
         "chem-nh42so4"
       ],
       "sections": 7,
-      "characters": 15347,
+      "characters": 15403,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Amoni_sulfat",
         "https://en.wikipedia.org/wiki/Ammonium_sulfate"
@@ -1864,7 +1864,7 @@
         "chem-s"
       ],
       "sections": 6,
-      "characters": 10174,
+      "characters": 10256,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/L%C6%B0u_hu%E1%BB%B3nh",
         "https://en.wikipedia.org/wiki/Sulfur",
@@ -1878,7 +1878,7 @@
         "chem-c"
       ],
       "sections": 6,
-      "characters": 11340,
+      "characters": 11179,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Carbon",
         "https://en.wikipedia.org/wiki/Carbon",
@@ -1892,7 +1892,7 @@
         "chem-p"
       ],
       "sections": 6,
-      "characters": 9806,
+      "characters": 10012,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Phosphor",
         "https://en.wikipedia.org/wiki/Phosphorus",
@@ -1957,7 +1957,7 @@
         "chem-methyl-orange"
       ],
       "sections": 6,
-      "characters": 12007,
+      "characters": 12063,
       "externalSources": [
         "https://pubchem.ncbi.nlm.nih.gov/compound/23673835"
       ]
@@ -1969,7 +1969,7 @@
         "chem-thymolphthalein"
       ],
       "sections": 6,
-      "characters": 10447,
+      "characters": 10503,
       "externalSources": [
         "https://en.wikipedia.org/wiki/Thymolphthalein",
         "https://pubchem.ncbi.nlm.nih.gov/compound/31316"
@@ -1982,7 +1982,7 @@
         "chem-na2hpo4"
       ],
       "sections": 6,
-      "characters": 11457,
+      "characters": 11513,
       "externalSources": [
         "https://en.wikipedia.org/wiki/Disodium_phosphate"
       ]
@@ -2007,7 +2007,7 @@
         "chem-ch3coona"
       ],
       "sections": 7,
-      "characters": 15689,
+      "characters": 15745,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Natri_acetat",
         "https://en.wikipedia.org/wiki/Sodium_acetate"
@@ -2020,7 +2020,7 @@
         "formula-Ag"
       ],
       "sections": 6,
-      "characters": 11922,
+      "characters": 11879,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/B%E1%BA%A1c",
         "https://en.wikipedia.org/wiki/AG",
@@ -2149,7 +2149,7 @@
         "formula-Ba(CH3COO)2"
       ],
       "sections": 7,
-      "characters": 15270,
+      "characters": 15326,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Bari_acetat",
         "https://en.wikipedia.org/wiki/Barium_acetate"
@@ -2162,7 +2162,7 @@
         "formula-Ba(HCOO)2"
       ],
       "sections": 7,
-      "characters": 13541,
+      "characters": 13597,
       "externalSources": []
     },
     {
@@ -2298,7 +2298,7 @@
         "formula-C2H5COOC2H5"
       ],
       "sections": 6,
-      "characters": 10581,
+      "characters": 10637,
       "externalSources": []
     },
     {
@@ -2308,7 +2308,7 @@
         "formula-C2H5COOC3H7"
       ],
       "sections": 6,
-      "characters": 10634,
+      "characters": 10690,
       "externalSources": []
     },
     {
@@ -2318,7 +2318,7 @@
         "formula-C2H5COOC4H9"
       ],
       "sections": 6,
-      "characters": 10698,
+      "characters": 10754,
       "externalSources": []
     },
     {
@@ -2328,7 +2328,7 @@
         "formula-C2H5COOCH3"
       ],
       "sections": 6,
-      "characters": 10580,
+      "characters": 10636,
       "externalSources": []
     },
     {
@@ -2338,7 +2338,7 @@
         "formula-C2H5COOH"
       ],
       "sections": 6,
-      "characters": 11564,
+      "characters": 11620,
       "externalSources": [
         "https://en.wikipedia.org/wiki/Propionic_acid"
       ]
@@ -2350,7 +2350,7 @@
         "formula-C2H5COOK"
       ],
       "sections": 7,
-      "characters": 12889,
+      "characters": 12945,
       "externalSources": []
     },
     {
@@ -2360,7 +2360,7 @@
         "formula-C2H5COOLi"
       ],
       "sections": 7,
-      "characters": 12927,
+      "characters": 12844,
       "externalSources": []
     },
     {
@@ -2370,7 +2370,7 @@
         "formula-C2H5COONa"
       ],
       "sections": 7,
-      "characters": 12990,
+      "characters": 13046,
       "externalSources": []
     },
     {
@@ -2380,7 +2380,7 @@
         "formula-C3H4"
       ],
       "sections": 6,
-      "characters": 9634,
+      "characters": 9690,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/C3H4",
         "https://en.wikipedia.org/wiki/C3H4"
@@ -2393,7 +2393,7 @@
         "formula-C3H7COOC2H5"
       ],
       "sections": 6,
-      "characters": 10581,
+      "characters": 10637,
       "externalSources": []
     },
     {
@@ -2403,7 +2403,7 @@
         "formula-C3H7COOC3H7"
       ],
       "sections": 6,
-      "characters": 10639,
+      "characters": 10695,
       "externalSources": []
     },
     {
@@ -2413,7 +2413,7 @@
         "formula-C3H7COOC4H9"
       ],
       "sections": 6,
-      "characters": 10660,
+      "characters": 10716,
       "externalSources": []
     },
     {
@@ -2423,7 +2423,7 @@
         "formula-C3H7COOCH3"
       ],
       "sections": 6,
-      "characters": 10564,
+      "characters": 10620,
       "externalSources": []
     },
     {
@@ -2433,7 +2433,7 @@
         "formula-C3H7COOH"
       ],
       "sections": 6,
-      "characters": 11443,
+      "characters": 11499,
       "externalSources": [
         "https://en.wikipedia.org/wiki/Butyric_acid"
       ]
@@ -2445,7 +2445,7 @@
         "formula-C3H7COOK"
       ],
       "sections": 7,
-      "characters": 12831,
+      "characters": 12887,
       "externalSources": []
     },
     {
@@ -2455,7 +2455,7 @@
         "formula-C3H7COOLi"
       ],
       "sections": 7,
-      "characters": 12903,
+      "characters": 12820,
       "externalSources": []
     },
     {
@@ -2465,7 +2465,7 @@
         "formula-C3H7COONa"
       ],
       "sections": 7,
-      "characters": 12931,
+      "characters": 12987,
       "externalSources": []
     },
     {
@@ -2475,7 +2475,7 @@
         "formula-C4H6"
       ],
       "sections": 6,
-      "characters": 9389,
+      "characters": 9445,
       "externalSources": [
         "https://en.wikipedia.org/wiki/C4H6"
       ]
@@ -2487,7 +2487,7 @@
         "formula-C4H8"
       ],
       "sections": 6,
-      "characters": 9616,
+      "characters": 9672,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/C4H8",
         "https://en.wikipedia.org/wiki/C4H8"
@@ -2500,7 +2500,7 @@
         "formula-C5H10"
       ],
       "sections": 6,
-      "characters": 9343,
+      "characters": 9399,
       "externalSources": [
         "https://en.wikipedia.org/wiki/C5H10"
       ]
@@ -2512,7 +2512,7 @@
         "formula-C5H12"
       ],
       "sections": 6,
-      "characters": 9384,
+      "characters": 9440,
       "externalSources": [
         "https://en.wikipedia.org/wiki/C5H12"
       ]
@@ -2524,7 +2524,7 @@
         "formula-C5H8"
       ],
       "sections": 6,
-      "characters": 9740,
+      "characters": 9796,
       "externalSources": [
         "https://en.wikipedia.org/wiki/C5H8"
       ]
@@ -2536,7 +2536,7 @@
         "formula-C6H14"
       ],
       "sections": 6,
-      "characters": 9344,
+      "characters": 9400,
       "externalSources": [
         "https://en.wikipedia.org/wiki/C6H14"
       ]
@@ -2548,7 +2548,7 @@
         "formula-C7H14"
       ],
       "sections": 6,
-      "characters": 9316,
+      "characters": 9372,
       "externalSources": [
         "https://en.wikipedia.org/wiki/C7H14"
       ]
@@ -2560,7 +2560,7 @@
         "formula-C7H16"
       ],
       "sections": 6,
-      "characters": 9378,
+      "characters": 9434,
       "externalSources": [
         "https://en.wikipedia.org/wiki/C7H16"
       ]
@@ -2572,7 +2572,7 @@
         "formula-C8H16"
       ],
       "sections": 6,
-      "characters": 9404,
+      "characters": 9460,
       "externalSources": [
         "https://en.wikipedia.org/wiki/C8H16"
       ]
@@ -2584,7 +2584,7 @@
         "formula-C8H18"
       ],
       "sections": 6,
-      "characters": 9609,
+      "characters": 9665,
       "externalSources": [
         "https://en.wikipedia.org/wiki/C8H18"
       ]
@@ -2596,7 +2596,7 @@
         "formula-Ca"
       ],
       "sections": 6,
-      "characters": 10588,
+      "characters": 10791,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Calci",
         "https://en.wikipedia.org/wiki/Calcium",
@@ -2610,7 +2610,7 @@
         "formula-Ca(CH3COO)2"
       ],
       "sections": 7,
-      "characters": 15692,
+      "characters": 15748,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Calci_acetat",
         "https://en.wikipedia.org/wiki/Calcium_acetate"
@@ -2623,7 +2623,7 @@
         "formula-Ca(HCOO)2"
       ],
       "sections": 7,
-      "characters": 14271,
+      "characters": 14327,
       "externalSources": [
         "https://en.wikipedia.org/wiki/Calcium_formate"
       ]
@@ -2713,7 +2713,7 @@
         "formula-Cd"
       ],
       "sections": 6,
-      "characters": 11669,
+      "characters": 11636,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Cadmi",
         "https://en.wikipedia.org/wiki/Cadmium",
@@ -2727,7 +2727,7 @@
         "formula-Cd(CH3COO)2"
       ],
       "sections": 7,
-      "characters": 15194,
+      "characters": 15250,
       "externalSources": [
         "https://en.wikipedia.org/wiki/Cadmium_acetate"
       ]
@@ -2739,7 +2739,7 @@
         "formula-Cd(HCOO)2"
       ],
       "sections": 7,
-      "characters": 13667,
+      "characters": 13723,
       "externalSources": []
     },
     {
@@ -2762,7 +2762,7 @@
         "formula-Cd(OH)2"
       ],
       "sections": 7,
-      "characters": 13897,
+      "characters": 13953,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Cadmi(II",
         "https://en.wikipedia.org/wiki/Cadmium_hydroxide"
@@ -2872,7 +2872,7 @@
         "formula-CH3CH2CH2CH2OH"
       ],
       "sections": 6,
-      "characters": 13104,
+      "characters": 13160,
       "externalSources": [
         "https://en.wikipedia.org/wiki/1-Butanol"
       ]
@@ -2884,7 +2884,7 @@
         "formula-CH3CH2CH2OH"
       ],
       "sections": 6,
-      "characters": 12674,
+      "characters": 12730,
       "externalSources": [
         "https://en.wikipedia.org/wiki/1-Propanol"
       ]
@@ -2896,7 +2896,7 @@
         "formula-CH3COOAg"
       ],
       "sections": 7,
-      "characters": 14311,
+      "characters": 14367,
       "externalSources": []
     },
     {
@@ -2906,7 +2906,7 @@
         "formula-CH3COOC3H7"
       ],
       "sections": 6,
-      "characters": 10640,
+      "characters": 10696,
       "externalSources": []
     },
     {
@@ -2916,7 +2916,7 @@
         "formula-CH3COOC4H9"
       ],
       "sections": 6,
-      "characters": 10721,
+      "characters": 10777,
       "externalSources": []
     },
     {
@@ -2926,7 +2926,7 @@
         "formula-CH3COOCH3"
       ],
       "sections": 6,
-      "characters": 10603,
+      "characters": 10659,
       "externalSources": []
     },
     {
@@ -2936,7 +2936,7 @@
         "formula-CH3COOK"
       ],
       "sections": 7,
-      "characters": 14490,
+      "characters": 14546,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Kali_acetat"
       ]
@@ -2948,7 +2948,7 @@
         "formula-CH3COOLi"
       ],
       "sections": 7,
-      "characters": 14173,
+      "characters": 14090,
       "externalSources": []
     },
     {
@@ -2971,7 +2971,7 @@
         "formula-Co"
       ],
       "sections": 6,
-      "characters": 11621,
+      "characters": 11643,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Cobalt",
         "https://en.wikipedia.org/wiki/Cobalt",
@@ -2985,7 +2985,7 @@
         "formula-Co(CH3COO)2"
       ],
       "sections": 7,
-      "characters": 15811,
+      "characters": 15867,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Cobalt(II",
         "https://en.wikipedia.org/wiki/Cobalt(II"
@@ -2998,7 +2998,7 @@
         "formula-Co(HCOO)2"
       ],
       "sections": 7,
-      "characters": 14036,
+      "characters": 14092,
       "externalSources": [
         "https://en.wikipedia.org/wiki/Cobalt(II"
       ]
@@ -3023,7 +3023,7 @@
         "formula-Co(OH)2"
       ],
       "sections": 7,
-      "characters": 13726,
+      "characters": 13782,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Cobalt(II",
         "https://en.wikipedia.org/wiki/Cobalt(II"
@@ -3138,7 +3138,7 @@
         "formula-Cr(OH)3"
       ],
       "sections": 7,
-      "characters": 14842,
+      "characters": 14898,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Chromi(III",
         "https://en.wikipedia.org/wiki/Chromium(III"
@@ -3214,7 +3214,7 @@
         "formula-Cu(CH3COO)2"
       ],
       "sections": 7,
-      "characters": 15714,
+      "characters": 15770,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%93ng(II",
         "https://en.wikipedia.org/wiki/Copper(II"
@@ -3266,7 +3266,7 @@
         "formula-Fe(CH3COO)2"
       ],
       "sections": 7,
-      "characters": 14662,
+      "characters": 14718,
       "externalSources": []
     },
     {
@@ -3276,7 +3276,7 @@
         "formula-Fe(HCOO)2"
       ],
       "sections": 7,
-      "characters": 13726,
+      "characters": 13782,
       "externalSources": []
     },
     {
@@ -3386,7 +3386,7 @@
         "formula-HBr"
       ],
       "sections": 7,
-      "characters": 13142,
+      "characters": 13198,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Acid_hydrobromic",
         "https://en.wikipedia.org/wiki/HBR"
@@ -3399,7 +3399,7 @@
         "formula-HCOOC2H5"
       ],
       "sections": 6,
-      "characters": 10429,
+      "characters": 10485,
       "externalSources": []
     },
     {
@@ -3409,7 +3409,7 @@
         "formula-HCOOC3H7"
       ],
       "sections": 6,
-      "characters": 10448,
+      "characters": 10504,
       "externalSources": []
     },
     {
@@ -3419,7 +3419,7 @@
         "formula-HCOOC4H9"
       ],
       "sections": 6,
-      "characters": 10452,
+      "characters": 10508,
       "externalSources": []
     },
     {
@@ -3429,7 +3429,7 @@
         "formula-HCOOCH3"
       ],
       "sections": 6,
-      "characters": 11068,
+      "characters": 11124,
       "externalSources": [
         "https://en.wikipedia.org/wiki/Methyl_formate"
       ]
@@ -3441,7 +3441,7 @@
         "formula-HCOOK"
       ],
       "sections": 7,
-      "characters": 14339,
+      "characters": 14395,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Kali_format"
       ]
@@ -3453,7 +3453,7 @@
         "formula-HCOOLi"
       ],
       "sections": 7,
-      "characters": 14039,
+      "characters": 13956,
       "externalSources": []
     },
     {
@@ -3463,7 +3463,7 @@
         "formula-HCOONa"
       ],
       "sections": 7,
-      "characters": 14324,
+      "characters": 14380,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Natri_format"
       ]
@@ -3475,7 +3475,7 @@
         "formula-HI"
       ],
       "sections": 7,
-      "characters": 12699,
+      "characters": 12755,
       "externalSources": [
         "https://en.wikipedia.org/wiki/HI"
       ]
@@ -3487,7 +3487,7 @@
         "formula-K"
       ],
       "sections": 6,
-      "characters": 10527,
+      "characters": 10616,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Kali",
         "https://en.wikipedia.org/wiki/K",
@@ -3595,7 +3595,7 @@
         "formula-KHCO3"
       ],
       "sections": 7,
-      "characters": 13470,
+      "characters": 13526,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Kali_bicarbonat"
       ]
@@ -3617,7 +3617,7 @@
         "formula-Li"
       ],
       "sections": 6,
-      "characters": 11549,
+      "characters": 11791,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Lithi",
         "https://en.wikipedia.org/wiki/Lithium",
@@ -3631,7 +3631,7 @@
         "formula-Li2CO3"
       ],
       "sections": 7,
-      "characters": 12925,
+      "characters": 12786,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Lithi_carbonat",
         "https://en.wikipedia.org/wiki/Lithium_carbonate"
@@ -3644,7 +3644,7 @@
         "formula-Li2O"
       ],
       "sections": 6,
-      "characters": 9621,
+      "characters": 9482,
       "externalSources": [
         "https://en.wikipedia.org/wiki/Lithium_oxide"
       ]
@@ -3656,7 +3656,7 @@
         "formula-Li2SO4"
       ],
       "sections": 7,
-      "characters": 14480,
+      "characters": 14341,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Lithi_sulfat",
         "https://en.wikipedia.org/wiki/Lithium_sulfate"
@@ -3669,7 +3669,7 @@
         "formula-LiBr"
       ],
       "sections": 7,
-      "characters": 13499,
+      "characters": 13360,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Lithi_bromide",
         "https://en.wikipedia.org/wiki/Lithium_bromide"
@@ -3682,7 +3682,7 @@
         "formula-LiCl"
       ],
       "sections": 7,
-      "characters": 13710,
+      "characters": 13571,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Lithi_chloride",
         "https://en.wikipedia.org/wiki/Lithium_chloride"
@@ -3695,7 +3695,7 @@
         "formula-LiF"
       ],
       "sections": 7,
-      "characters": 12126,
+      "characters": 11987,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Lithi_fluoride",
         "https://en.wikipedia.org/wiki/Lithium_fluoride"
@@ -3708,7 +3708,7 @@
         "formula-LiI"
       ],
       "sections": 7,
-      "characters": 13639,
+      "characters": 13500,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Lithi_iodide",
         "https://en.wikipedia.org/wiki/Lithium_iodide"
@@ -3721,7 +3721,7 @@
         "formula-LiNO3"
       ],
       "sections": 7,
-      "characters": 14616,
+      "characters": 14477,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Lithi_nitrat",
         "https://en.wikipedia.org/wiki/Lithium_nitrate"
@@ -3734,7 +3734,7 @@
         "formula-LiOH"
       ],
       "sections": 7,
-      "characters": 14471,
+      "characters": 14388,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Lithi_hydroxide",
         "https://en.wikipedia.org/wiki/Lithium_hydroxide"
@@ -3747,7 +3747,7 @@
         "formula-Mg(CH3COO)2"
       ],
       "sections": 7,
-      "characters": 15288,
+      "characters": 15344,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Magnesi_acetat",
         "https://en.wikipedia.org/wiki/Magnesium_acetate"
@@ -3760,7 +3760,7 @@
         "formula-Mg(HCOO)2"
       ],
       "sections": 7,
-      "characters": 14369,
+      "characters": 14425,
       "externalSources": [
         "https://en.wikipedia.org/wiki/Magnesium_formate"
       ]
@@ -3875,7 +3875,7 @@
         "formula-Mn"
       ],
       "sections": 6,
-      "characters": 11729,
+      "characters": 11827,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Mangan",
         "https://en.wikipedia.org/wiki/Manganese",
@@ -3889,7 +3889,7 @@
         "formula-Mn(CH3COO)2"
       ],
       "sections": 7,
-      "characters": 15294,
+      "characters": 15350,
       "externalSources": [
         "https://en.wikipedia.org/wiki/Manganese(II"
       ]
@@ -3901,7 +3901,7 @@
         "formula-Mn(HCOO)2"
       ],
       "sections": 7,
-      "characters": 13752,
+      "characters": 13808,
       "externalSources": []
     },
     {
@@ -3924,7 +3924,7 @@
         "formula-Mn(OH)2"
       ],
       "sections": 7,
-      "characters": 14225,
+      "characters": 14281,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Mangan(II",
         "https://en.wikipedia.org/wiki/Manganese(II"
@@ -4073,7 +4073,7 @@
         "formula-Na2Zn(OH)4"
       ],
       "sections": 6,
-      "characters": 11242,
+      "characters": 11298,
       "externalSources": []
     },
     {
@@ -4096,7 +4096,7 @@
         "formula-NaAl(OH)4"
       ],
       "sections": 6,
-      "characters": 11217,
+      "characters": 11273,
       "externalSources": []
     },
     {
@@ -4140,7 +4140,7 @@
         "formula-NH4Br"
       ],
       "sections": 7,
-      "characters": 13911,
+      "characters": 13967,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Amoni_bromide",
         "https://en.wikipedia.org/wiki/Ammonium_bromide"
@@ -4153,7 +4153,7 @@
         "formula-NH4CH3COO"
       ],
       "sections": 7,
-      "characters": 14359,
+      "characters": 14415,
       "externalSources": [
         "https://en.wikipedia.org/wiki/Ammonium_acetate"
       ]
@@ -4165,7 +4165,7 @@
         "formula-NH4I"
       ],
       "sections": 7,
-      "characters": 13510,
+      "characters": 13566,
       "externalSources": [
         "https://en.wikipedia.org/wiki/Ammonium_iodide"
       ]
@@ -4177,7 +4177,7 @@
         "formula-Ni"
       ],
       "sections": 6,
-      "characters": 11855,
+      "characters": 11937,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Nickel",
         "https://en.wikipedia.org/wiki/Nickel",
@@ -4191,7 +4191,7 @@
         "formula-Ni(CH3COO)2"
       ],
       "sections": 7,
-      "characters": 15277,
+      "characters": 15333,
       "externalSources": [
         "https://en.wikipedia.org/wiki/Nickel(II"
       ]
@@ -4203,7 +4203,7 @@
         "formula-Ni(HCOO)2"
       ],
       "sections": 7,
-      "characters": 13099,
+      "characters": 13155,
       "externalSources": []
     },
     {
@@ -4226,7 +4226,7 @@
         "formula-Ni(OH)2"
       ],
       "sections": 7,
-      "characters": 14872,
+      "characters": 14928,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Nickel(II",
         "https://en.wikipedia.org/wiki/Nickel(II"
@@ -4340,7 +4340,7 @@
         "formula-Pb"
       ],
       "sections": 6,
-      "characters": 11025,
+      "characters": 10954,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Ch%C3%AC",
         "https://en.wikipedia.org/wiki/Lead",
@@ -4354,7 +4354,7 @@
         "formula-Pb(CH3COO)2"
       ],
       "sections": 7,
-      "characters": 15827,
+      "characters": 15883,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Ch%C3%AC(II",
         "https://en.wikipedia.org/wiki/Lead(II"
@@ -4367,7 +4367,7 @@
         "formula-Pb(HCOO)2"
       ],
       "sections": 7,
-      "characters": 13083,
+      "characters": 13139,
       "externalSources": []
     },
     {
@@ -4377,7 +4377,7 @@
         "formula-Pb(OH)2"
       ],
       "sections": 7,
-      "characters": 14362,
+      "characters": 14418,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Ch%C3%AC(II",
         "https://en.wikipedia.org/wiki/Lead(II"
@@ -4505,7 +4505,7 @@
         "formula-Sn"
       ],
       "sections": 6,
-      "characters": 10836,
+      "characters": 10911,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Tin",
         "https://en.wikipedia.org/wiki/Tin",
@@ -4557,7 +4557,7 @@
         "formula-Sr(CH3COO)2"
       ],
       "sections": 7,
-      "characters": 14448,
+      "characters": 14504,
       "externalSources": []
     },
     {
@@ -4567,7 +4567,7 @@
         "formula-Sr(HCOO)2"
       ],
       "sections": 7,
-      "characters": 13628,
+      "characters": 13684,
       "externalSources": []
     },
     {
@@ -4590,7 +4590,7 @@
         "formula-Sr(OH)2"
       ],
       "sections": 7,
-      "characters": 13937,
+      "characters": 13993,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Stronti_hydroxide",
         "https://en.wikipedia.org/wiki/Strontium_hydroxide"
@@ -4720,7 +4720,7 @@
         "formula-Zn(CH3COO)2"
       ],
       "sections": 7,
-      "characters": 15311,
+      "characters": 15367,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/K%E1%BA%BDm_acetat",
         "https://en.wikipedia.org/wiki/Zinc_acetate"
@@ -4733,7 +4733,7 @@
         "formula-Zn(HCOO)2"
       ],
       "sections": 7,
-      "characters": 13534,
+      "characters": 13590,
       "externalSources": []
     },
     {
@@ -4840,7 +4840,7 @@
         "lab3d-330"
       ],
       "sections": 6,
-      "characters": 10317,
+      "characters": 10373,
       "externalSources": [
         "https://en.wikipedia.org/wiki/Oxalic_acid"
       ]
@@ -4864,7 +4864,7 @@
         "lab3d-332"
       ],
       "sections": 6,
-      "characters": 11159,
+      "characters": 11215,
       "externalSources": [
         "https://en.wikipedia.org/wiki/Sodium_bisulfite"
       ]
@@ -4876,7 +4876,7 @@
         "lab3d-333"
       ],
       "sections": 6,
-      "characters": 10451,
+      "characters": 10507,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/H%E1%BB%93_tinh_b%E1%BB%99t",
         "https://en.wikipedia.org/wiki/C6H10O5",
@@ -4890,7 +4890,7 @@
         "lab3d-335"
       ],
       "sections": 6,
-      "characters": 9986,
+      "characters": 10042,
       "externalSources": [
         "https://en.wikipedia.org/wiki/C6H14",
         "https://pubchem.ncbi.nlm.nih.gov/compound/8058"
@@ -4903,7 +4903,7 @@
         "lab3d-336"
       ],
       "sections": 6,
-      "characters": 12954,
+      "characters": 13010,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%93ng",
         "https://en.wikipedia.org/wiki/Copper(II"
@@ -4916,7 +4916,7 @@
         "lab3d-337"
       ],
       "sections": 6,
-      "characters": 10984,
+      "characters": 11040,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Cobalt"
       ]
@@ -4928,7 +4928,7 @@
         "lab3d-338"
       ],
       "sections": 6,
-      "characters": 11297,
+      "characters": 11353,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Nickel"
       ]
@@ -4940,7 +4940,7 @@
         "lab3d-339"
       ],
       "sections": 6,
-      "characters": 12880,
+      "characters": 12936,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/S%E1%BA%AFt"
       ]
@@ -4952,7 +4952,7 @@
         "lab3d-340"
       ],
       "sections": 6,
-      "characters": 12534,
+      "characters": 12590,
       "externalSources": [
         "https://en.wikipedia.org/wiki/Bromothymol_blue",
         "https://pubchem.ncbi.nlm.nih.gov/compound/6450"
@@ -4965,7 +4965,7 @@
         "atom-He"
       ],
       "sections": 6,
-      "characters": 11428,
+      "characters": 11622,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Heli",
         "https://en.wikipedia.org/wiki/Helium",
@@ -4979,7 +4979,7 @@
         "atom-Be"
       ],
       "sections": 6,
-      "characters": 9690,
+      "characters": 9749,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Beri",
         "https://en.wikipedia.org/wiki/Beryllium",
@@ -4993,7 +4993,7 @@
         "atom-B"
       ],
       "sections": 6,
-      "characters": 9749,
+      "characters": 9807,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Bo",
         "https://en.wikipedia.org/wiki/Boron",
@@ -5007,7 +5007,7 @@
         "atom-N"
       ],
       "sections": 6,
-      "characters": 10528,
+      "characters": 10571,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Nit%C6%A1",
         "https://en.wikipedia.org/wiki/Nitrogen",
@@ -5021,7 +5021,7 @@
         "atom-O"
       ],
       "sections": 6,
-      "characters": 10153,
+      "characters": 10250,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/O",
         "https://en.wikipedia.org/wiki/Oxygen",
@@ -5035,7 +5035,7 @@
         "atom-F"
       ],
       "sections": 6,
-      "characters": 10312,
+      "characters": 10549,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Fluor",
         "https://en.wikipedia.org/wiki/Fluorine",
@@ -5049,7 +5049,7 @@
         "atom-Ne"
       ],
       "sections": 6,
-      "characters": 9771,
+      "characters": 9671,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Neon",
         "https://en.wikipedia.org/wiki/Neon",
@@ -5063,7 +5063,7 @@
         "atom-Si"
       ],
       "sections": 6,
-      "characters": 10158,
+      "characters": 10312,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Silic",
         "https://en.wikipedia.org/wiki/Si",
@@ -5077,7 +5077,7 @@
         "atom-Cl"
       ],
       "sections": 6,
-      "characters": 10040,
+      "characters": 10122,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Chlor",
         "https://en.wikipedia.org/wiki/Chlorine",
@@ -5091,7 +5091,7 @@
         "atom-Ar"
       ],
       "sections": 6,
-      "characters": 9979,
+      "characters": 9726,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Argon",
         "https://en.wikipedia.org/wiki/Argon",
@@ -5105,7 +5105,7 @@
         "atom-Sc"
       ],
       "sections": 6,
-      "characters": 10213,
+      "characters": 10411,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Scandi",
         "https://en.wikipedia.org/wiki/Scandium",
@@ -5119,7 +5119,7 @@
         "atom-Ti"
       ],
       "sections": 6,
-      "characters": 10386,
+      "characters": 10440,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Titani",
         "https://ciaaw.org/abridged-atomic-weights.htm"
@@ -5132,7 +5132,7 @@
         "atom-V"
       ],
       "sections": 6,
-      "characters": 9764,
+      "characters": 9803,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Vanadi",
         "https://en.wikipedia.org/wiki/V",
@@ -5146,7 +5146,7 @@
         "atom-Cr"
       ],
       "sections": 6,
-      "characters": 10352,
+      "characters": 10513,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Chromi",
         "https://en.wikipedia.org/wiki/Chromium",
@@ -5160,7 +5160,7 @@
         "atom-Ga"
       ],
       "sections": 6,
-      "characters": 9626,
+      "characters": 9587,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Gali",
         "https://en.wikipedia.org/wiki/Gallium",
@@ -5174,7 +5174,7 @@
         "atom-Ge"
       ],
       "sections": 6,
-      "characters": 9253,
+      "characters": 9274,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Germani",
         "https://en.wikipedia.org/wiki/Germanium",
@@ -5188,7 +5188,7 @@
         "atom-As"
       ],
       "sections": 6,
-      "characters": 9998,
+      "characters": 10079,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Arsenic",
         "https://en.wikipedia.org/wiki/Arsenic",
@@ -5202,7 +5202,7 @@
         "atom-Se"
       ],
       "sections": 6,
-      "characters": 10352,
+      "characters": 10297,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Seleni",
         "https://en.wikipedia.org/wiki/Se",
@@ -5216,7 +5216,7 @@
         "atom-Br"
       ],
       "sections": 6,
-      "characters": 9733,
+      "characters": 9695,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Brom",
         "https://en.wikipedia.org/wiki/Bromine",
@@ -5230,7 +5230,7 @@
         "atom-Kr"
       ],
       "sections": 6,
-      "characters": 9201,
+      "characters": 8968,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Krypton",
         "https://en.wikipedia.org/wiki/Krypton",
@@ -5244,7 +5244,7 @@
         "atom-Rb"
       ],
       "sections": 6,
-      "characters": 10153,
+      "characters": 10029,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Rubidi",
         "https://en.wikipedia.org/wiki/Rubidium",
@@ -5258,7 +5258,7 @@
         "atom-Sr"
       ],
       "sections": 6,
-      "characters": 9199,
+      "characters": 9326,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Stronti",
         "https://en.wikipedia.org/wiki/Strontium",
@@ -5272,7 +5272,7 @@
         "atom-Y"
       ],
       "sections": 6,
-      "characters": 9379,
+      "characters": 9276,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Y",
         "https://en.wikipedia.org/wiki/Y",
@@ -5286,7 +5286,7 @@
         "atom-Zr"
       ],
       "sections": 6,
-      "characters": 9621,
+      "characters": 9480,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Zirconi",
         "https://ciaaw.org/abridged-atomic-weights.htm"
@@ -5299,7 +5299,7 @@
         "atom-Nb"
       ],
       "sections": 6,
-      "characters": 9468,
+      "characters": 9222,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Niobi",
         "https://en.wikipedia.org/wiki/Niobium",
@@ -5313,7 +5313,7 @@
         "atom-Mo"
       ],
       "sections": 6,
-      "characters": 9790,
+      "characters": 9637,
       "externalSources": [
         "https://en.wikipedia.org/wiki/Molybdenum",
         "https://ciaaw.org/abridged-atomic-weights.htm"
@@ -5326,7 +5326,7 @@
         "atom-Tc"
       ],
       "sections": 6,
-      "characters": 8703,
+      "characters": 9673,
       "externalSources": [
         "https://en.wikipedia.org/wiki/Technetium"
       ]
@@ -5338,7 +5338,7 @@
         "atom-Ru"
       ],
       "sections": 6,
-      "characters": 9365,
+      "characters": 9317,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Rutheni",
         "https://en.wikipedia.org/wiki/Ru",
@@ -5352,7 +5352,7 @@
         "atom-Rh"
       ],
       "sections": 6,
-      "characters": 9272,
+      "characters": 9340,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Rhodi",
         "https://en.wikipedia.org/wiki/Rhodium",
@@ -5366,7 +5366,7 @@
         "atom-Pd"
       ],
       "sections": 6,
-      "characters": 9913,
+      "characters": 9767,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Paladi",
         "https://en.wikipedia.org/wiki/Palladium",
@@ -5380,7 +5380,7 @@
         "atom-In"
       ],
       "sections": 6,
-      "characters": 9691,
+      "characters": 9518,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Indi",
         "https://en.wikipedia.org/wiki/Indium",
@@ -5394,7 +5394,7 @@
         "atom-Sb"
       ],
       "sections": 6,
-      "characters": 9339,
+      "characters": 9399,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Antimon",
         "https://en.wikipedia.org/wiki/Antimony",
@@ -5408,7 +5408,7 @@
         "atom-Te"
       ],
       "sections": 6,
-      "characters": 8643,
+      "characters": 8609,
       "externalSources": [
         "https://ciaaw.org/abridged-atomic-weights.htm"
       ]
@@ -5420,7 +5420,7 @@
         "atom-I"
       ],
       "sections": 6,
-      "characters": 9530,
+      "characters": 9554,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Iod",
         "https://en.wikipedia.org/wiki/Iodine",
@@ -5434,7 +5434,7 @@
         "atom-Xe"
       ],
       "sections": 6,
-      "characters": 9272,
+      "characters": 9300,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Xenon",
         "https://en.wikipedia.org/wiki/Xe",
@@ -5448,7 +5448,7 @@
         "atom-Cs"
       ],
       "sections": 6,
-      "characters": 10272,
+      "characters": 10074,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Caesi",
         "https://ciaaw.org/abridged-atomic-weights.htm"
@@ -5461,7 +5461,7 @@
         "atom-Ba"
       ],
       "sections": 6,
-      "characters": 9907,
+      "characters": 9904,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Bari",
         "https://en.wikipedia.org/wiki/Barium",
@@ -5475,7 +5475,7 @@
         "atom-La"
       ],
       "sections": 6,
-      "characters": 9239,
+      "characters": 10150,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/La",
         "https://en.wikipedia.org/wiki/Lanthanum",
@@ -5489,7 +5489,7 @@
         "atom-Ce"
       ],
       "sections": 6,
-      "characters": 9004,
+      "characters": 9968,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Ceri",
         "https://en.wikipedia.org/wiki/Cerium",
@@ -5503,7 +5503,7 @@
         "atom-Pr"
       ],
       "sections": 6,
-      "characters": 9206,
+      "characters": 10183,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Praseodymi",
         "https://en.wikipedia.org/wiki/Praseodymium",
@@ -5517,7 +5517,7 @@
         "atom-Nd"
       ],
       "sections": 6,
-      "characters": 9128,
+      "characters": 10090,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/ND",
         "https://en.wikipedia.org/wiki/Neodymium",
@@ -5531,7 +5531,7 @@
         "atom-Pm"
       ],
       "sections": 6,
-      "characters": 9178,
+      "characters": 10530,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Promethi",
         "https://en.wikipedia.org/wiki/Promethium"
@@ -5544,7 +5544,7 @@
         "atom-Sm"
       ],
       "sections": 6,
-      "characters": 9097,
+      "characters": 10010,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Samari",
         "https://en.wikipedia.org/wiki/Samarium",
@@ -5558,7 +5558,7 @@
         "atom-Eu"
       ],
       "sections": 6,
-      "characters": 9194,
+      "characters": 9966,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Europi",
         "https://en.wikipedia.org/wiki/Europium",
@@ -5572,7 +5572,7 @@
         "atom-Gd"
       ],
       "sections": 6,
-      "characters": 9150,
+      "characters": 10169,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Gadolini",
         "https://en.wikipedia.org/wiki/Gadolinium",
@@ -5586,7 +5586,7 @@
         "atom-Tb"
       ],
       "sections": 6,
-      "characters": 8179,
+      "characters": 9159,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Terbi",
         "https://ciaaw.org/abridged-atomic-weights.htm"
@@ -5599,7 +5599,7 @@
         "atom-Dy"
       ],
       "sections": 6,
-      "characters": 9064,
+      "characters": 10035,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Dysprosi",
         "https://en.wikipedia.org/wiki/Dysprosium",
@@ -5613,7 +5613,7 @@
         "atom-Ho"
       ],
       "sections": 6,
-      "characters": 9366,
+      "characters": 10271,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Holmi",
         "https://en.wikipedia.org/wiki/Holmium",
@@ -5627,7 +5627,7 @@
         "atom-Er"
       ],
       "sections": 6,
-      "characters": 9162,
+      "characters": 10034,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Erbi",
         "https://en.wikipedia.org/wiki/Erbium",
@@ -5641,7 +5641,7 @@
         "atom-Tm"
       ],
       "sections": 6,
-      "characters": 8293,
+      "characters": 8990,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Thulium",
         "https://ciaaw.org/abridged-atomic-weights.htm"
@@ -5654,7 +5654,7 @@
         "atom-Yb"
       ],
       "sections": 6,
-      "characters": 8479,
+      "characters": 9493,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Yb",
         "https://en.wikipedia.org/wiki/Yb",
@@ -5668,7 +5668,7 @@
         "atom-Lu"
       ],
       "sections": 6,
-      "characters": 8538,
+      "characters": 9485,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Luteti",
         "https://en.wikipedia.org/wiki/Lutetium",
@@ -5682,7 +5682,7 @@
         "atom-Hf"
       ],
       "sections": 6,
-      "characters": 9367,
+      "characters": 9308,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Hafni",
         "https://en.wikipedia.org/wiki/Hafnium",
@@ -5696,7 +5696,7 @@
         "atom-Ta"
       ],
       "sections": 6,
-      "characters": 9362,
+      "characters": 9248,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Tantal",
         "https://en.wikipedia.org/wiki/Tantalum",
@@ -5710,7 +5710,7 @@
         "atom-W"
       ],
       "sections": 6,
-      "characters": 9713,
+      "characters": 9601,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/W",
         "https://en.wikipedia.org/wiki/W",
@@ -5724,7 +5724,7 @@
         "atom-Re"
       ],
       "sections": 6,
-      "characters": 10250,
+      "characters": 10130,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Rheni",
         "https://en.wikipedia.org/wiki/Re",
@@ -5738,7 +5738,7 @@
         "atom-Os"
       ],
       "sections": 6,
-      "characters": 9615,
+      "characters": 9527,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Osmi",
         "https://en.wikipedia.org/wiki/Osmium",
@@ -5752,7 +5752,7 @@
         "atom-Ir"
       ],
       "sections": 6,
-      "characters": 10356,
+      "characters": 10296,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Iridi",
         "https://en.wikipedia.org/wiki/Iridium",
@@ -5766,7 +5766,7 @@
         "atom-Pt"
       ],
       "sections": 6,
-      "characters": 10516,
+      "characters": 10309,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/PT",
         "https://en.wikipedia.org/wiki/Platinum",
@@ -5780,7 +5780,7 @@
         "atom-Au"
       ],
       "sections": 6,
-      "characters": 10539,
+      "characters": 10362,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/V%C3%A0ng",
         "https://en.wikipedia.org/wiki/Gold",
@@ -5794,7 +5794,7 @@
         "atom-Hg"
       ],
       "sections": 6,
-      "characters": 10596,
+      "characters": 10537,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Th%E1%BB%A7y_ng%C3%A2n",
         "https://en.wikipedia.org/wiki/Mercury",
@@ -5808,7 +5808,7 @@
         "atom-Tl"
       ],
       "sections": 6,
-      "characters": 9207,
+      "characters": 9125,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Thali",
         "https://en.wikipedia.org/wiki/Thallium",
@@ -5822,7 +5822,7 @@
         "atom-Bi"
       ],
       "sections": 6,
-      "characters": 8463,
+      "characters": 9319,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Bismuth",
         "https://en.wikipedia.org/wiki/Bismuth",
@@ -5836,7 +5836,7 @@
         "atom-Po"
       ],
       "sections": 6,
-      "characters": 9288,
+      "characters": 9609,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Poloni",
         "https://en.wikipedia.org/wiki/Po"
@@ -5849,7 +5849,7 @@
         "atom-At"
       ],
       "sections": 6,
-      "characters": 9342,
+      "characters": 10168,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Astatin",
         "https://en.wikipedia.org/wiki/Astatine"
@@ -5862,7 +5862,7 @@
         "atom-Rn"
       ],
       "sections": 6,
-      "characters": 9237,
+      "characters": 10047,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Radon",
         "https://en.wikipedia.org/wiki/Radon"
@@ -5875,7 +5875,7 @@
         "atom-Fr"
       ],
       "sections": 6,
-      "characters": 9382,
+      "characters": 10031,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Franci",
         "https://en.wikipedia.org/wiki/Francium"
@@ -5888,7 +5888,7 @@
         "atom-Ra"
       ],
       "sections": 6,
-      "characters": 8304,
+      "characters": 9316,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Ra",
         "https://en.wikipedia.org/wiki/Ra"
@@ -5901,7 +5901,7 @@
         "atom-Ac"
       ],
       "sections": 6,
-      "characters": 8366,
+      "characters": 9838,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Actini",
         "https://en.wikipedia.org/wiki/Actinium"
@@ -5914,7 +5914,7 @@
         "atom-Th"
       ],
       "sections": 6,
-      "characters": 8477,
+      "characters": 9751,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Thori",
         "https://ciaaw.org/abridged-atomic-weights.htm"
@@ -5927,7 +5927,7 @@
         "atom-Pa"
       ],
       "sections": 6,
-      "characters": 8612,
+      "characters": 9987,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Pa",
         "https://en.wikipedia.org/wiki/Pa",
@@ -5941,7 +5941,7 @@
         "atom-U"
       ],
       "sections": 6,
-      "characters": 8559,
+      "characters": 9720,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/U",
         "https://en.wikipedia.org/wiki/U",
@@ -5955,7 +5955,7 @@
         "atom-Np"
       ],
       "sections": 6,
-      "characters": 9455,
+      "characters": 10628,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Neptuni",
         "https://en.wikipedia.org/wiki/Neptunium"
@@ -5968,7 +5968,7 @@
         "atom-Pu"
       ],
       "sections": 6,
-      "characters": 9474,
+      "characters": 10649,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Plutoni",
         "https://en.wikipedia.org/wiki/Plutonium"
@@ -5981,7 +5981,7 @@
         "atom-Am"
       ],
       "sections": 6,
-      "characters": 8991,
+      "characters": 10109,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Americi",
         "https://en.wikipedia.org/wiki/Americium"
@@ -5994,7 +5994,7 @@
         "atom-Cm"
       ],
       "sections": 6,
-      "characters": 8526,
+      "characters": 9688,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Curium",
         "https://en.wikipedia.org/wiki/Curium"
@@ -6007,7 +6007,7 @@
         "atom-Bk"
       ],
       "sections": 6,
-      "characters": 9252,
+      "characters": 10387,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Berkeli",
         "https://en.wikipedia.org/wiki/Berkelium"
@@ -6020,7 +6020,7 @@
         "atom-Cf"
       ],
       "sections": 6,
-      "characters": 9004,
+      "characters": 10048,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Californi",
         "https://en.wikipedia.org/wiki/Californium"
@@ -6033,7 +6033,7 @@
         "atom-Es"
       ],
       "sections": 6,
-      "characters": 8723,
+      "characters": 9622,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Einsteini",
         "https://en.wikipedia.org/wiki/Einsteinium"
@@ -6046,7 +6046,7 @@
         "atom-Fm"
       ],
       "sections": 6,
-      "characters": 9145,
+      "characters": 9897,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Fermi",
         "https://en.wikipedia.org/wiki/Fermium"
@@ -6059,7 +6059,7 @@
         "atom-Md"
       ],
       "sections": 6,
-      "characters": 8438,
+      "characters": 9226,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Mendelevi",
         "https://en.wikipedia.org/wiki/MD"
@@ -6072,7 +6072,7 @@
         "atom-No"
       ],
       "sections": 6,
-      "characters": 8337,
+      "characters": 8996,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/No",
         "https://en.wikipedia.org/wiki/No"
@@ -6085,7 +6085,7 @@
         "atom-Lr"
       ],
       "sections": 6,
-      "characters": 8657,
+      "characters": 9293,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Lawrenci",
         "https://en.wikipedia.org/wiki/LR"
@@ -6098,7 +6098,7 @@
         "atom-Rf"
       ],
       "sections": 6,
-      "characters": 9230,
+      "characters": 10021,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Rutherfordi",
         "https://en.wikipedia.org/wiki/Rutherfordium"
@@ -6111,7 +6111,7 @@
         "atom-Db"
       ],
       "sections": 6,
-      "characters": 8397,
+      "characters": 9088,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Dubni",
         "https://en.wikipedia.org/wiki/Dubnium"
@@ -6124,7 +6124,7 @@
         "atom-Sg"
       ],
       "sections": 6,
-      "characters": 9254,
+      "characters": 10012,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Seaborgi",
         "https://en.wikipedia.org/wiki/Seaborgium"
@@ -6137,7 +6137,7 @@
         "atom-Bh"
       ],
       "sections": 6,
-      "characters": 9184,
+      "characters": 9882,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Bohri",
         "https://en.wikipedia.org/wiki/Bohrium"
@@ -6150,7 +6150,7 @@
         "atom-Hs"
       ],
       "sections": 6,
-      "characters": 8598,
+      "characters": 9097,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Hassi",
         "https://en.wikipedia.org/wiki/Hassium"
@@ -6163,7 +6163,7 @@
         "atom-Mt"
       ],
       "sections": 6,
-      "characters": 8553,
+      "characters": 9136,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Meitneri",
         "https://en.wikipedia.org/wiki/MT"
@@ -6176,7 +6176,7 @@
         "atom-Ds"
       ],
       "sections": 6,
-      "characters": 8642,
+      "characters": 9155,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Darmstadti",
         "https://en.wikipedia.org/wiki/Darmstadtium"
@@ -6189,7 +6189,7 @@
         "atom-Rg"
       ],
       "sections": 6,
-      "characters": 8693,
+      "characters": 9270,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Roentgeni",
         "https://en.wikipedia.org/wiki/Roentgenium"
@@ -6202,7 +6202,7 @@
         "atom-Cn"
       ],
       "sections": 6,
-      "characters": 9003,
+      "characters": 9605,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Copernici",
         "https://en.wikipedia.org/wiki/Copernicium"
@@ -6215,7 +6215,7 @@
         "atom-Nh"
       ],
       "sections": 6,
-      "characters": 8911,
+      "characters": 9509,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Nihoni",
         "https://en.wikipedia.org/wiki/Nihonium"
@@ -6228,7 +6228,7 @@
         "atom-Fl"
       ],
       "sections": 6,
-      "characters": 9317,
+      "characters": 9952,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Flerovi",
         "https://en.wikipedia.org/wiki/Flerovium"
@@ -6241,7 +6241,7 @@
         "atom-Mc"
       ],
       "sections": 6,
-      "characters": 8491,
+      "characters": 9059,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/MC_(%C4%91%E1%BB%8Bnh_h%C6%B0%E1%BB%9Bng",
         "https://en.wikipedia.org/wiki/Moscovium"
@@ -6254,7 +6254,7 @@
         "atom-Lv"
       ],
       "sections": 6,
-      "characters": 8812,
+      "characters": 9378,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Livermori",
         "https://en.wikipedia.org/wiki/LV"
@@ -6267,7 +6267,7 @@
         "atom-Ts"
       ],
       "sections": 6,
-      "characters": 8431,
+      "characters": 9168,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Tennessine",
         "https://en.wikipedia.org/wiki/Tennessine"
@@ -6280,7 +6280,7 @@
         "atom-Og"
       ],
       "sections": 6,
-      "characters": 9437,
+      "characters": 9801,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Oganesson",
         "https://en.wikipedia.org/wiki/Og"

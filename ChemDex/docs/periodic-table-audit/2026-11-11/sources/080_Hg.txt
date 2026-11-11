@@ -1,0 +1,105 @@
+001: Mercury (Hg)
+002: Thông tin chung
+003: Tên Latin: Hydrargyrum
+004: Tên Tiếng Anh: Mercury
+005: Đồng vị: ¹⁹⁶Hg, ¹⁹⁸Hg, ¹⁹⁹Hg, ²⁰⁰Hg, ²⁰¹Hg, ²⁰²Hg, ²⁰⁴Hg
+006: Vị trí: Nhóm IIB | Chu kỳ 6
+007: Số Oxy hóa: +1, +2
+008: Độ âm điện: 2.00
+009: Lịch sử khám phá
+010: Phát hiện bởi: Không xác định — Mercury đã được con người biết đến từ thời cổ đại.
+011: Năm công bố: Thời cổ đại
+012: Nơi khám phá: Không xác định
+013: Mô tả: Mercury là một trong những nguyên tố đã được con người biết đến từ thời cổ đại. Các vật thể chứa Mercury đã được tìm thấy trong những di tích cổ. Người Hy Lạp và La Mã đã biết đến và sử dụng Mercury trong nhiều mục đích khác nhau.
+014: Tên Mercury trong tiếng Anh bắt nguồn từ tên vị thần Mercury của La Mã, còn ký hiệu Hg bắt nguồn từ tên Latin Hydrargyrum, có nghĩa gần với “bạc lỏng”.
+015: 3. Cấu tạo
+016: a. Cấu tạo nguyên tử
+017: Hoạt họa cấu hình e: [Xe] 4f¹⁴ 5d¹⁰ 6s²
+018: Mô hình mạng tinh thể: Lập phương nguyên thủy (Primitive cubic, PC) (ở trạng thái rắn)
+019: Số hiệu nguyên tử: 80
+020: Nguyên tử khối: 200.592 g/mol
+021: Vỏ nguyên tử: 80 electron
+022: K: 2 | L: 8 | M: 18 | N: 32 | O: 18 | P: 2
+023: Hạt nhân: 80 proton, 122 neutron đối với ²⁰²Hg
+024: Cấu hình e: [Xe] 4f¹⁴ 5d¹⁰ 6s²
+025: Loại mạng: Lập phương nguyên thủy (Primitive cubic, PC) (ở trạng thái rắn)
+026: b. Trạng thái tự nhiên
+027: Trạng thái: Mercury là kim loại lỏng ở điều kiện thường.
+028: Có trong: Chủ yếu tồn tại trong khoáng vật Cinnabar (HgS).
+029: Đơn chất: Hg
+030: Hợp chất: HgS, HgO, HgCl₂, Hg₂Cl₂, Hg(NO₃)₂...
+031: c. Đồng vị
+032: Đồng vị: ¹⁹⁶Hg, ¹⁹⁸Hg, ¹⁹⁹Hg, ²⁰⁰Hg, ²⁰¹Hg, ²⁰²Hg, ²⁰⁴Hg
+033: Mercury có 7 đồng vị tự nhiên ổn định, trong đó:
+034: ²⁰²Hg: phổ biến nhất, khoảng 29.9%.
+035: ²⁰⁰Hg: khoảng 23.1%.
+036: ¹⁹⁸Hg: khoảng 10.0%.
+037: ¹⁹⁹Hg: khoảng 16.9%.
+038: ²⁰¹Hg: khoảng 13.2%.
+039: ²⁰⁴Hg: khoảng 6.9%.
+040: ¹⁹⁶Hg: khoảng 0.15%.
+041: Tính chất
+042: Tính chất vật lý
+043: Là kim loại chuyển tiếp.
+044: Là kim loại duy nhất ở trạng thái lỏng trong điều kiện thường.
+045: Có màu bạc sáng.
+046: Có ánh kim.
+047: Khối lượng riêng: khoảng 13.53 g/cm³.
+048: Nhiệt độ nóng chảy: khoảng −38.83 °C.
+049: Nhiệt độ sôi: khoảng 356.73 °C.
+050: Dẫn điện.
+051: Dẫn nhiệt kém hơn nhiều kim loại khác.
+052: Dễ tạo hỗn hống (amalgam) với nhiều kim loại.
+053: Tính chất hóa học
+054: Số Oxy hóa phổ biến: +1 và +2.
+055: Mercury(I) thường tồn tại dưới dạng ion Hg₂²⁺.
+056: Mercury(II) tồn tại dưới dạng Hg²⁺.
+057: Phản ứng với Oxygen khi đun nóng tạo Mercury(II) oxide.
+058: Phản ứng với Halogen tạo Mercury halide.
+059: Không phản ứng đáng kể với nhiều acid không Oxy hóa.
+060: Tan trong Nitric acid và nước cường toan.
+061: Hơi Mercury và nhiều hợp chất Mercury độc, vì vậy cần được xử lý rất cẩn thận.
+062: Điều chế
+063: Điều chế trong công nghiệp
+064: Mercury (Hg) chủ yếu được điều chế từ quặng cinnabar (HgS). Quặng được nung trong không khí để phân hủy thành Mercury và Sulfur dioxide. Hơi Mercury sau đó được làm lạnh và ngưng tụ thành kim loại lỏng.
+065: Phương trình:
+066: HgS + O₂ → Hg + SO₂
+067: Điều chế trong phòng thí nghiệm
+068: Có thể điều chế Mercury bằng cách nung Mercury(II) oxide để thu Mercury và Oxygen.
+069: Phương trình:
+070: 2HgO → 2Hg + O₂
+071: Nhận biết
+072: Nhận biết Hg²⁺
+073: Một phương pháp định tính là cho Hg²⁺ tác dụng với Iodide:
+074: Hg²⁺ + 2I⁻ → HgI₂↓
+075: Hiện tượng: Xuất hiện kết tủa đỏ cam Mercury(II) iodide.
+076: Khi tiếp tục cho dư Iodide, HgI₂ có thể hòa tan tạo phức:
+077: HgI₂ + 2I⁻ → [HgI₄]²⁻
+078: Phương trình
+079: Tác dụng với Oxygen
+080: 2Hg + O₂ → 2HgO
+081: Tác dụng với Chlorine
+082: Hg + Cl₂ → HgCl₂
+083: Tác dụng với Sulfur
+084: Hg + S → HgS
+085: Tác dụng với Iodine
+086: Hg + I₂ → HgI₂
+087: Tác dụng với Nitric acid
+088: Hg + 4HNO₃ → Hg(NO₃)₂ + 2NO₂ + 2H₂O
+089: Tạo Mercury(I) chloride
+090: Hg₂²⁺ + 2Cl⁻ → Hg₂Cl₂↓
+091: Tạo Mercury(II) iodide
+092: Hg²⁺ + 2I⁻ → HgI₂↓
+093: Ứng dụng thực tế
+094: Thiết bị đo: Mercury từng được sử dụng rộng rãi trong nhiệt kế, áp kế và các thiết bị đo áp suất.
+095: Đèn Mercury: Mercury được sử dụng trong một số loại đèn phóng điện và đèn huỳnh quang.
+096: Công nghiệp hóa chất: Một số hợp chất Mercury được sử dụng làm chất xúc tác hoặc nguyên liệu trong các quá trình hóa học.
+097: Điện hóa: Mercury từng được sử dụng trong một số loại điện cực và pin.
+098: Khai thác Gold: Mercury từng được sử dụng để tạo hỗn hống với Gold trong quá trình khai thác và tinh chế Gold, nhưng phương pháp này gây ô nhiễm nghiêm trọng và nguy hiểm.
+099: Lưu ý: Do Mercury và nhiều hợp chất của nó có độc tính cao, việc sử dụng Mercury ngày nay đã bị hạn chế hoặc thay thế trong nhiều lĩnh vực.
+100: Tổng quan
+101: Mercury là nguyên tố số 80, thuộc nhóm IIB | chu kỳ 6 và là một kim loại chuyển tiếp.
+102: Mercury có cấu hình electron [Xe] 4f¹⁴ 5d¹⁰ 6s², với số Oxy hóa phổ biến là +1 và +2.
+103: Đặc điểm nổi bật nhất của Mercury là trạng thái lỏng ở điều kiện thường, với nhiệt độ nóng chảy chỉ khoảng −38.83 °C.
+104: Mercury chủ yếu được khai thác từ Cinnabar (HgS) và có lịch sử sử dụng lâu đời trong nhiệt kế, áp kế, đèn phóng điện và công nghiệp hóa chất.
+105: Tuy nhiên, do độc tính cao của Mercury và nhiều hợp chất của nó, việc sử dụng nguyên tố này hiện nay được kiểm soát nghiêm ngặt và nhiều ứng dụng truyền thống đã được thay thế bằng vật liệu an toàn hơn.

@@ -1,0 +1,372 @@
+{
+  "number": 59,
+  "symbol": "Pr",
+  "nameVi": "Praseodymium",
+  "nameEn": "Praseodymium",
+  "mass": 140.91,
+  "massStandardText": "140.91 ± 0.01",
+  "massStandardSource": "https://ciaaw.org/abridged-atomic-weights.htm",
+  "massKind": "standard-atomic-weight",
+  "category": "lanthanide",
+  "hasData": true,
+  "file": "elements/059_Pr.json",
+  "general": {
+    "latinName": "Praseodymium",
+    "englishName": "Praseodymium",
+    "electronConfig": "[Xe] 4f³ 6s²",
+    "isotope": "¹⁴¹Pr",
+    "group": null,
+    "groupLabel": "Lanthanide",
+    "series": "Lanthanide",
+    "period": 6,
+    "state": "Rắn",
+    "oxidation": "+3, +4",
+    "electronegativity": 1.13,
+    "electronegativityNote": "Thang Pauling; số liệu tổng hợp PubChem.",
+    "density": "6,77 g/cm³.",
+    "meltingPoint": "931°C",
+    "boilingPoint": "3520°C",
+    "crystalStructure": "Lục phương kép xếp chặt (DHCP) ở áp suất thường; cấu trúc thay đổi theo nhiệt độ và áp suất.",
+    "CAS": "7440-10-0"
+  },
+  "history": {
+    "discoverer": "Carl Auer von Welsbach",
+    "year": "1885",
+    "discoveryLocation": "Vienna, Áo-Hung",
+    "description": "Praseodymium được Carl Auer von Welsbach tách ra từ một chất trước đó được gọi là Didymium. Didymium ban đầu được cho là một nguyên tố duy nhất, nhưng Welsbach chứng minh rằng nó thực chất là hỗn hợp của Praseodymium và Neodymium. Tên Praseodymium bắt nguồn từ tiếng Hy Lạp prasios (πράσιος, “xanh lục”) và didymos (δίδυμος, “sinh đôi”), có thể hiểu là “sinh đôi màu xanh lục”, liên quan đến màu sắc của các hợp chất của nguyên tố."
+  },
+  "structure": {
+    "protons": 59,
+    "electrons": 59,
+    "neutrons": 82,
+    "nucleusIsotope": "¹⁴¹Pr",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 59,
+      "neutron": 82
+    },
+    "electronShells": [
+      2,
+      8,
+      18,
+      21,
+      8,
+      2
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      21,
+      8,
+      2
+    ],
+    "valenceElectrons": 2,
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+    "lattice": "Lục phương kép xếp chặt (DHCP) ở áp suất thường; cấu trúc thay đổi theo nhiệt độ và áp suất.",
+    "latticeEvidence": "source-reviewed"
+  },
+  "structureType": "Lục phương kép xếp chặt (DHCP) ở áp suất thường; cấu trúc thay đổi theo nhiệt độ và áp suất.",
+  "occurrence": {
+    "description": "Chất rắn",
+    "simple": [
+      "Pr"
+    ],
+    "compounds": [
+      "Pr₂O₃",
+      "Pr₆O₁₁",
+      "PrCl₃",
+      "PrF₃"
+    ],
+    "ores": [
+      "Monazite và Bastnäsite"
+    ],
+    "details": [
+      "Trạng thái: Chất rắn",
+      "Màu sắc: Trắng bạc, hơi vàng",
+      "Có trong: Monazite và Bastnäsite.",
+      "Đơn chất: Pr",
+      "Hợp chất phổ biến: Pr₂O₃, Pr₆O₁₁, PrCl₃, PrF₃"
+    ],
+    "mineral": {
+      "available": true,
+      "id": "monazite",
+      "name": "Monazite-(Ce)",
+      "formula": "(Ce,La,Nd,Th)PO₄",
+      "habit": "prismatic",
+      "color": "#b98a4c",
+      "crystalSystem": "monoclinic",
+      "relation": "Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Monazite-(Ce)",
+      "model": "/assets/periodic-table/minerals/monazite.glb",
+      "preview": "/assets/periodic-table/minerals/monazite.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  },
+  "naturalState": {
+    "image": "/assets/periodic-table/photos/059_Pr.jpg",
+    "alt": "Praseodymium: ảnh tham chiếu từ Commons",
+    "kind": "photo",
+    "source": "https://commons.wikimedia.org/wiki/File:Praseodymium.jpg",
+    "caption": "Ảnh tham chiếu mẫu Praseodymium (Pr); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+    "credit": "Jurii · CC BY 3.0"
+  },
+  "isotopes": [
+    {
+      "isotope": "¹⁴¹Pr",
+      "massNumber": 141,
+      "protons": 59,
+      "neutrons": 82,
+      "stable": true,
+      "abundancePercent": "100",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Là kim loại đất hiếm.</li><li>Thuộc họ Lanthanide.</li><li>Có màu trắng bạc hơi vàng.</li><li>Khá mềm và dễ gia công.</li><li>Có tính dẫn điện và dẫn nhiệt.</li><li>Có tính thuận từ.</li><li>Dễ bị oxy hóa khi tiếp xúc với không khí.</li><li>Có nhiệt độ nóng chảy khoảng 931 °C.</li><li>Có nhiệt độ sôi khoảng 3520 °C.</li><li>Khối lượng riêng khoảng 6,77 g/cm³.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Trạng thái Oxy hóa phổ biến nhất là +3.</li><li>Praseodymium cũng có thể tồn tại ở trạng thái +4, đặc biệt trong một số oxide.</li><li>Dễ phản ứng với Oxygen:</li><li class=\"source-equation\">12Pr + 11O₂ → 2Pr₆O₁₁<small>Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.</small></li><li>Phản ứng với Acid tạo muối Pr³⁺ và giải phóng Hydrogen.</li><li>Các hợp chất của Praseodymium có thể có màu sắc đặc trưng do sự chuyển mức năng lượng của electron 4f.</li></ul>",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "desc": "",
+      "equation": "12Pr + 11O₂ → 2Pr₆O₁₁",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 72,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tác dụng với Hydrochloric acid",
+      "desc": "",
+      "equation": "2Pr + 6HCl → 2PrCl₃ + 3H₂",
+      "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+      "kind": "chemical",
+      "sourceLine": 74,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tác dụng với nước",
+      "desc": "",
+      "equation": "2Pr + 6H₂O → 2Pr(OH)₃ + 3H₂",
+      "condition": "Tiếp xúc với nước; tốc độ phụ thuộc nhiệt độ, kích thước và lớp oxide bề mặt.",
+      "kind": "chemical",
+      "sourceLine": 76,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tạo Praseodymium(III) hydroxide",
+      "desc": "",
+      "equation": "PrCl₃ + 3NaOH → Pr(OH)₃↓ + 3NaCl",
+      "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+      "kind": "chemical",
+      "sourceLine": 78,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Điều chế kim loại Praseodymium",
+      "desc": "",
+      "equation": "2PrCl₃ + 3Ca → 2Pr + 3CaCl₂",
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 80,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "preparations": {
+    "lab": [
+      {
+        "title": "Có thể điều chế Praseodymium bằng cách khử Praseodymium chloride khan bằng Calcium.",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "2PrCl₃ + 3Ca → 2Pr + 3CaCl₂",
+            "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+            "kind": "chemical",
+            "sourceLine": 62,
+            "sourceSection": "lab",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          60,
+          62
+        ],
+        "equation": "2PrCl₃ + 3Ca → 2Pr + 3CaCl₂"
+      }
+    ],
+    "industry": [
+      {
+        "title": "Praseodymium (Pr) chủ yếu được điều chế từ quặng monazite và bastnaesite. Sau khi tách khỏi hỗn hợp đất hiếm, Praseodymium được thu bằng phương pháp điện phân muối nóng chảy hoặc khử Praseodymium fluoride bằng Calcium.",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "2PrF₃ + 3Ca → 2Pr + 3CaF₂",
+            "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+            "kind": "chemical",
+            "sourceLine": 58,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          56,
+          58
+        ],
+        "equation": "2PrF₃ + 3Ca → 2Pr + 3CaF₂"
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Có thể nhận biết Praseodymium bằng",
+      "desc": "Phổ phát xạ nguyên tử. ICP-OES hoặc ICP-MS. Phổ hấp thụ đặc trưng của ion Pr³⁺. Màu sắc đặc trưng của một số hợp chất Praseodymium. Ion Pr³⁺ thường tạo các dung dịch có màu xanh lục nhạt.",
+      "result": "",
+      "equations": [],
+      "sourceLines": [
+        64,
+        65,
+        66,
+        67,
+        68,
+        69
+      ],
+      "equation": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Nam châm",
+      "desc": "Praseodymium được sử dụng cùng Neodymium trong nam châm vĩnh cửu mạnh như Nd-Fe-B, dùng trong động cơ điện, máy phát điện và các thiết bị điện tử.",
+      "sourceLine": 82
+    },
+    {
+      "title": "Kính",
+      "desc": "Các hợp chất Praseodymium được sử dụng để tạo kính màu, đặc biệt là màu vàng-xanh.",
+      "sourceLine": 83
+    },
+    {
+      "title": "Kính bảo vệ",
+      "desc": "Praseodymium được sử dụng trong một số loại kính dùng cho thợ hàn và các ứng dụng yêu cầu lọc ánh sáng mạnh.",
+      "sourceLine": 84
+    },
+    {
+      "title": "Hợp kim",
+      "desc": "Praseodymium được thêm vào một số hợp kim để cải thiện tính chất vật liệu.",
+      "sourceLine": 85
+    },
+    {
+      "title": "Gốm",
+      "desc": "Một số oxide Praseodymium được sử dụng làm chất tạo màu cho ceramic và glass.",
+      "sourceLine": 86
+    }
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Praseodymium là nguyên tố số 59, thuộc nhóm IIIB | chu kỳ 6 và là nguyên tố thứ ba trong họ Lanthanide.</li><li>Praseodymium được Carl Auer von Welsbach phát hiện vào năm 1885 khi ông tách Didymium thành Praseodymium và Neodymium. Tên nguyên tố bắt nguồn từ tiếng Hy Lạp, mang nghĩa “sinh đôi màu xanh lục”.</li><li>Praseodymium là kim loại đất hiếm màu trắng bạc hơi vàng, khá mềm và có tính hoạt động hóa học cao. Số Oxy hóa phổ biến nhất là +3, ngoài ra +4 cũng có thể tồn tại trong một số hợp chất.</li><li>Praseodymium có vai trò quan trọng trong nam châm Nd-Fe-B, kính màu, kính bảo vệ, hợp kim và vật liệu ceramic.</li><li>Mạng tinh thể: Lục phương kép xếp chặt (DHCP) ở áp suất thường; cấu trúc thay đổi theo nhiệt độ và áp suất.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/photos/059_Pr.jpg",
+      "title": "Praseodymium (Pr)",
+      "desc": "Ảnh tham chiếu mẫu Praseodymium (Pr); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+      "source": "https://commons.wikimedia.org/wiki/File:Praseodymium.jpg",
+      "author": "Jurii",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0"
+    }
+  ],
+  "mediaBlocks": [
+    {
+      "type": "model",
+      "section": "structure",
+      "title": "Mẫu khoáng vật 3D · Monazite-(Ce)",
+      "src": "/assets/periodic-table/minerals/monazite.glb",
+      "preview": "/assets/periodic-table/minerals/monazite.png",
+      "desc": "(Ce,La,Nd,Th)PO₄. Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  ],
+  "sources": [
+    {
+      "title": "059_Pr.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "fe2e989ae4aad6916eae8c4e529e0015ee7c08061119ce555e08c37c97597b34"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/59/praseodymium"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "lightRareEarthStructures",
+      "url": "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.21.1524"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "059_Pr.docx",
+    "sourceSha256": "fe2e989ae4aad6916eae8c4e529e0015ee7c08061119ce555e08c37c97597b34",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/059_Pr.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
+}

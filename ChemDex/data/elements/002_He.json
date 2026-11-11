@@ -1,243 +1,396 @@
 {
   "number": 2,
   "symbol": "He",
+  "nameVi": "Heli",
+  "nameEn": "Helium",
   "mass": 4.0026,
+  "massStandardText": "4.0026 ± 0.0001",
+  "massStandardSource": "https://ciaaw.org/abridged-atomic-weights.htm",
+  "massKind": "standard-atomic-weight",
   "category": "khi-hiem",
   "hasData": true,
+  "file": "elements/002_He.json",
   "general": {
     "latinName": "Helium",
     "englishName": "Helium",
     "electronConfig": "1s²",
-    "isotope": "³He, ⁴He",
+    "isotope": "³He, ⁴He, ⁵He, ¹⁰He",
     "group": 18,
+    "groupLabel": "18",
+    "series": "",
     "period": 1,
-    "block": "s",
     "state": "Khí",
     "oxidation": "0",
-    "electronegativity": "Không xác định",
-    "density": "0,1786 g/L (0°C, 1 atm)",
-    "meltingPoint": "-272,20°C (ở ~2,5 MPa)",
-    "boilingPoint": "-268,93°C",
-    "crystalStructure": "hcp (khi rắn, áp suất cao)"
+    "electronegativity": null,
+    "electronegativityNote": "Chưa có giá trị Pauling đủ cơ sở trong bản đối chiếu; không coi 0 là giá trị đã đo.",
+    "density": "khoảng 0.1786 g/L ở 0 °C và 1 atm.",
+    "meltingPoint": "Không hóa rắn ở áp suất khí quyển; pha rắn cần áp suất cao, giá trị phụ thuộc áp suất.",
+    "boilingPoint": "−268.93 °C (4.22 K – thấp nhất trong mọi nguyên tố hóa học).",
+    "crystalStructure": "Khí đơn nguyên tử ở điều kiện thường; He rắn ở áp suất cao có các pha HCP hoặc FCC tùy điều kiện.",
+    "CAS": "7440-59-7"
   },
   "history": {
-    "discoverer": "Jules Janssen, Norman Lockyer",
-    "discovererUrl": "https://en.wikipedia.org/wiki/Jules_Janssen",
-    "discoverers": [
-      {
-        "name": "Jules Janssen",
-        "url": "https://en.wikipedia.org/wiki/Jules_Janssen"
-      },
-      {
-        "name": "Norman Lockyer",
-        "url": "https://en.wikipedia.org/wiki/Norman_Lockyer"
-      },
-      {
-        "name": "William Ramsay",
-        "url": "https://en.wikipedia.org/wiki/William_Ramsay"
-      }
-    ],
-    "year": 1868,
-    "discoveryLocation": "Ấn Độ / Anh",
-    "description": "Năm 1868, nhà thiên văn học người Pháp Jules Janssen đã ghi nhận một vạch quang phổ màu vàng chưa từng biết đến trong một lần quan sát nhật thực toàn phần tại Ấn Độ. Cùng năm đó, Norman Lockyer người Anh cũng quan sát thấy vạch này và đặt tên cho nguyên tố mới là 'Helium' theo tiếng Hy Lạp 'Helios' nghĩa là Mặt Trời. Đến năm 1895, nhà hóa học Sir William Ramsay lần đầu tiên cô lập được Helium trên Trái Đất khi xử lý quặng cleveite với axit, xác nhận nó là một nguyên tố thực sự hiện diện trên hành tinh của chúng ta."
+    "discoverer": "Pierre Janssen, Joseph Norman Lockyer và William Ramsay",
+    "year": "1868 (thiên văn), 1895 (cô lập trên Trái Đất)",
+    "discoveryLocation": "Quan sát quang phổ Mặt Trời tại Guntur, Ấn Độ (1868); nghiên cứu tại Anh và cô lập trên Trái Đất tại London (1895).",
+    "description": "Năm 1868, nhà thiên văn học người Pháp Pierre Janssen quan sát quang phổ mặt trời trong một lần nhật thực tại Ấn Độ và phát hiện một vạch vàng chưa từng biết tới. Nhà thiên văn học người Anh Joseph Norman Lockyer sau đó kết luận đây là một nguyên tố mới và đặt tên là Helium (theo tên Helios – thần Mặt Trời trong thần thoại Hy Lạp). Đến năm 1895, nhà hóa học người Scotland William Ramsay đã cô lập thành công Helium trên Trái Đất bằng cách xử lý khoáng vật cleveite bằng acid."
   },
   "structure": {
     "protons": 2,
-    "neutrons": 2,
     "electrons": 2,
-    "electronShells": [
-      2
-    ],
-    "valenceElectrons": 2,
-    "lattice": "khong co",
+    "neutrons": 2,
+    "nucleusIsotope": "⁴He",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
     "nucleus": {
       "proton": 2,
       "neutron": 2
     },
-    "orbitalDistribution": {
-      "s": 2,
-      "p": 0,
-      "d": 0,
-      "f": 0
-    }
-  },
-  "occurrence": {
-    "description": "Helium là nguyên tố phổ biến thứ hai trong vũ trụ (chiếm khoảng 24% khối lượng), chỉ đứng sau hydrogen. Mặc dù rất phổ biến trong vũ trụ, nhưng trên Trái Đất, Helium lại rất hiếm do đặc tính nhẹ nên dễ dàng thoát khỏi bầu khí quyển. Nó được sinh ra liên tục dưới lòng đất do sự phân rã phóng xạ của các nguyên tố nặng như Uranium và Thorium.",
-    "simple": [
-      "He"
+    "electronShells": [
+      2
     ],
-    "compounds": [],
-    "ores": [
-      "Khí tự nhiên",
-      "Quặng Uraninite (Cleveite)",
-      "Suối khoáng nóng"
-    ]
+    "shells": [
+      2
+    ],
+    "valenceElectrons": 2,
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+    "lattice": "Khí đơn nguyên tử ở điều kiện thường; He rắn ở áp suất cao có các pha HCP hoặc FCC tùy điều kiện.",
+    "latticeEvidence": "phase-dependent"
+  },
+  "structureType": "Khí đơn nguyên tử ở điều kiện thường; He rắn ở áp suất cao có các pha HCP hoặc FCC tùy điều kiện.",
+  "occurrence": {
+    "description": "Helium là nguyên tố phổ biến thứ hai trong vũ trụ (chiếm khoảng 24% khối lượng vũ trụ), chủ yếu sinh ra từ phản ứng nhiệt hạch trong các ngôi sao. Trên Trái Đất, Helium tương đối hiếm trong khí quyển do quá nhẹ và dễ thoát ra không gian; phần lớn Helium trên Trái Đất sinh ra từ quá trình phân rã phóng xạ alpha ngầm trong vỏ đất đá và được giữ lại trong các mỏ khí thiên nhiên.",
+    "simple": [
+      "He (khí đơn nguyên tử)"
+    ],
+    "compounds": [
+      "Không tồn tại hợp chất hóa học bền vững trong tự nhiên ở điều kiện chuẩn"
+    ],
+    "ores": [],
+    "details": [
+      "Trạng thái: Helium là nguyên tố phổ biến thứ hai trong vũ trụ (chiếm khoảng 24% khối lượng vũ trụ), chủ yếu sinh ra từ phản ứng nhiệt hạch trong các ngôi sao. Trên Trái Đất, Helium tương đối hiếm trong khí quyển do quá nhẹ và dễ thoát ra không gian; phần lớn Helium trên Trái Đất sinh ra từ quá trình phân rã phóng xạ alpha ngầm trong vỏ đất đá và được giữ lại trong các mỏ khí thiên nhiên.",
+      "Đơn chất: He (khí đơn nguyên tử)",
+      "Hợp chất: Không tồn tại hợp chất hóa học bền vững trong tự nhiên ở điều kiện chuẩn."
+    ],
+    "mineral": {
+      "available": false,
+      "reason": "Nguồn chủ yếu là khí quyển, nước hoặc nước muối; không có mẫu quặng riêng đại diện."
+    }
   },
   "naturalState": {
-    "title": "Helium trong tự nhiên",
-    "description": "Trong vũ trụ, Helium chủ yếu được tạo ra từ phản ứng nhiệt hạch trong lõi của các ngôi sao. Trên Trái Đất, nguồn cung cấp Helium chủ yếu đến từ các mỏ khí tự nhiên khổng lồ (đặc biệt ở Mỹ, Qatar và Algeria), nơi nó bị giữ lại dưới các lớp đá không thấm khí."
+    "image": "/assets/periodic-table/diagrams/002_He.svg",
+    "alt": "Helium: sơ đồ minh họa nguyên tố",
+    "kind": "diagram",
+    "source": "",
+    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+    "credit": ""
   },
-  "mediaBlocks": [
+  "isotopes": [
     {
-      "section": "history",
-      "type": "video",
-      "title": "Lịch sử phát hiện Helium",
-      "src": "https://www.youtube.com/watch?v=YbfeDnQbHLo&list=RDYbfeDnQbHLo&start_radio=1",
-      "questions": [
-        {
-          "time": "00:45",
-          "question": "Helium được phát hiện đầu tiên trong quang phổ của thiên thể nào?",
-          "options": [
-            "Mặt Trời",
-            "Mặt Trăng",
-            "Sao Hỏa",
-            "Sao Mộc"
-          ],
-          "correct": 0,
-          "explain": "Helium được phát hiện lần đầu tiên thông qua vạch quang phổ màu vàng trong ánh sáng Mặt Trời vào năm 1868."
-        },
-        {
-          "time": "01:52",
-          "question": "Ai là người cô lập được Helium trên Trái Đất?",
-          "options": [
-            "Henry Cavendish",
-            "William Ramsay",
-            "John Dalton",
-            "Dmitri Mendeleev"
-          ],
-          "correct": 1,
-          "explain": "William Ramsay là người đầu tiên cô lập thành công Helium từ khoáng vật cleveite vào năm 1895."
-        }
-      ]
+      "isotope": "³He",
+      "massNumber": 3,
+      "protons": 2,
+      "neutrons": 1,
+      "stable": true,
+      "abundancePercent": "0.0002",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
     },
     {
-      "section": "history",
-      "type": "3d",
-      "model": "./assets/elements/002_helium/model/2_He.glb",
-      "title": "Mô hình nguyên tử Helium",
-      "description": "Mô phỏng cấu trúc với 2 proton, 2 neutron và 2 electron quay quanh hạt nhân."
+      "isotope": "⁴He",
+      "massNumber": 4,
+      "protons": 2,
+      "neutrons": 2,
+      "stable": true,
+      "abundancePercent": "99.9998",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
     },
     {
-      "section": "occurrence",
-      "type": "3d",
-      "model": "./assets/elements/002_helium/model/2_He.glb",
-      "title": "Mô hình bình chứa Helium công nghiệp",
-      "description": "Mô hình hệ thống lưu trữ helium lỏng sử dụng trong công nghiệp cryogenic."
+      "isotope": "⁵He",
+      "massNumber": 5,
+      "protons": 2,
+      "neutrons": 3,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "0.648 MeV",
+      "halfLife": "0.648 MeV",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": "N",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹⁰He",
+      "massNumber": 10,
+      "protons": 2,
+      "neutrons": 8,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "300 ± 200 keV",
+      "halfLife": "300 keV",
+      "halfLifeUncertainty": "200",
+      "halfLifeQualifier": null,
+      "decay": "N",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
     }
   ],
-  "physical": "\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Là chất khí không màu, không mùi, không vị và không độc hại.</li>\n  <li>Khối lượng riêng cực kỳ thấp (khoảng <b>0,1786 g/L</b>), nhẹ thứ hai chỉ sau Hydrogen.</li>\n  <li>Nhiệt độ sôi rất thấp: <b>-268,9 °C</b> (chỉ khoảng 4,2 K).</li>\n  <li>Điểm độc đáo nhất: Helium là chất lỏng duy nhất không thể bị đóng băng bằng cách hạ nhiệt độ ở áp suất thường. Để hóa rắn Helium, cần tạo một áp suất cực lớn (khoảng 25 atm).</li>\n  <li>Khi hạ nhiệt độ xuống dưới 2,17 K, Helium lỏng chuyển sang trạng thái siêu lỏng (Superfluid), có độ nhớt bằng 0 và có khả năng chảy ngược lên thành bình.</li>\n  <li>Độ dẫn nhiệt cực cao, cao thứ hai trong các chất khí.</li>\n</ul>\n",
-  "chemical": "\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Là khí hiếm (noble gas) và trơ nhất trong tất cả các nguyên tố. Cấu hình electron 1s² đã bão hòa tuyệt đối.</li>\n  <li>Trong điều kiện nhiệt độ và áp suất tiêu chuẩn, Helium <b>không tạo thành bất kỳ hợp chất hóa học nào</b> một cách tự nhiên.</li>\n  <li>Helium không cháy và hoàn toàn không duy trì sự cháy.</li>\n  <li>Chỉ tạo ra hợp chất ở những điều kiện cực kỳ khắc nghiệt: ion hóa trong trạng thái plasma tạo ra các phân tử excimer (He₂) hoặc tạo thành Sodium helide (Na₂He) dưới mức áp suất hàng trăm gigapascal.</li>\n  <li>Phản ứng hóa học nổi tiếng trong vũ trụ: ion He⁺ phản ứng với H để tạo thành HeH⁺ (Helium hydride ion) - một trong những ion phân tử đầu tiên hình thành trong vũ trụ.</li>\n</ul>\n",
-  "preparation": {
-    "laboratory": [
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Chất khí không màu, không mùi, không vị, không độc hại.</li><li>Là chất khí nhẹ thứ hai trong tự nhiên (tỉ khối so với không khí d ≈ 4/29 ≈ 0.138).</li><li>Khối lượng mol của He: 4.0026 g/mol.</li><li>Khối lượng riêng: khoảng 0.1786 g/L ở 0 °C và 1 atm.</li><li>Độ tan trong nước cực kỳ thấp (khoảng 8.61 mL trong 1 L nước ở 20 °C).</li><li>Nhiệt độ nóng chảy: −272.20 °C (ở áp suất khoảng 25 atm; không hóa rắn ở áp suất thường dù đạt 0 K).</li><li>Nhiệt độ sôi: −268.93 °C (4.22 K – thấp nhất trong mọi nguyên tố hóa học).</li><li>Helium lỏng (pha Helium II) dưới 2.17 K biểu hiện trạng thái siêu lỏng (superfluidity) với độ nhớt bằng 0 và độ dẫn nhiệt cực cao.</li><li>Có tính nghịch từ.</li><li>Không cháy và không duy trì sự cháy.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Là khí hiếm (khí trơ) đầu tiên của nhóm VIIIA.</li><li>Lớp vỏ electron bão hòa đôi (duplet: 1s²) cực kỳ bền vững.</li><li>Có năng lượng ion hóa thứ nhất cao nhất trong tất cả các nguyên tố hóa học (24.59 eV).</li><li>Trơ hoàn toàn về mặt hóa học ở điều kiện thông thường, không tham gia phản ứng với các nguyên tố khác để tạo liên kết ion hay cộng hóa trị chuẩn.</li><li>Chỉ tạo được các liên kết van der Waals cực yếu (như dime He₂ ở nhiệt độ siêu hàn).</li><li>Có thể tạo hợp chất hóa học đặc biệt dưới điều kiện áp suất cực cao (ví dụ hợp chất Na₂He ở áp suất trên 113 GPa).</li><li>Có khả năng tạo trạng thái excimer (như phân tử kích thích He₂*) hoặc ion phân tử (như HeH⁺) trong môi trường plasma hoặc phóng điện cực mạnh.</li></ul>",
+  "reactions": [
+    {
+      "type": "Phản ứng nhiệt hạch tổng hợp Helium trong lõi Mặt Trời (Chu trình Proton-Proton)",
+      "desc": "",
+      "equation": "4¹H → ⁴He + 2e⁺ + 2νₑ",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 70,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Phản ứng nhiệt hạch Deuterium – Tritium",
+      "desc": "",
+      "equation": "²H + ³H → ⁴He + n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 72,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Phân rã phóng xạ Alpha phát ra hạt nhân ⁴He",
+      "desc": "",
+      "equation": "²³⁸U → ²³⁴Th + ⁴He",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 74,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Ion hóa nguyên tử Helium",
+      "desc": "",
+      "equation": "He → He⁺ + e⁻",
+      "condition": "Kích thích, ion hóa hoặc kết hợp bức xạ trong pha khí; cần cung cấp/trao đổi năng lượng.",
+      "kind": "physical",
+      "sourceLine": 76,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tạo ion hydridohelium trong môi trường plasma",
+      "desc": "",
+      "equation": "He + H⁺ → HeH⁺ + hν",
+      "condition": "Kích thích, ion hóa hoặc kết hợp bức xạ trong pha khí; cần cung cấp/trao đổi năng lượng.",
+      "kind": "physical",
+      "sourceLine": 78,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tạo trạng thái kích thích Excimer trong ống phóng điện",
+      "desc": "",
+      "equation": "He* + He → He₂* + hν",
+      "condition": "Kích thích, ion hóa hoặc kết hợp bức xạ trong pha khí; cần cung cấp/trao đổi năng lượng.",
+      "kind": "physical",
+      "sourceLine": 80,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Phản ứng tạo hợp chất ở áp suất cực cao (trên 113 GPa)",
+      "desc": "",
+      "equation": "2Na + He → Na₂He",
+      "condition": "Áp suất trên 113 GPa; hợp chất bền ở điều kiện áp suất cao.",
+      "kind": "chemical",
+      "sourceLine": 82,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "preparations": {
+    "lab": [
       {
-        "title": "Điều chế phòng thí nghiệm bằng khoáng vật",
-        "desc": "Trong phòng thí nghiệm, rất hiếm khi người ta điều chế Helium vì khí này có thể mua sẵn dễ dàng. Tuy nhiên, theo lịch sử, có thể thu khí Helium bằng cách đun nóng hoặc dùng acid xử lý các khoáng vật chứa Uranium hoặc Thorium (như monazite, cleveite). Khí thoát ra sẽ chứa Helium cùng với nhiều khí tạp khác.",
-        "condition": "Nhiệt độ cao / Acid đặc"
+        "title": "Trong thực tế phòng thí nghiệm không tự tổng hợp Helium qua phản ứng hóa học thông thường vì tính trơ của nó, mà sử dụng trực tiếp từ các bình khí nén thương mại.",
+        "desc": "Về mặt lịch sử / nguyên lý phóng xạ: Thu khí Helium sinh ra từ sự phân rã phóng xạ alpha của các khoáng vật chứa Uranium hoặc Thorium khi nung nóng hoặc hòa tan trong acid:",
+        "result": "",
+        "equations": [],
+        "sourceLines": [
+          59,
+          60
+        ],
+        "equation": ""
       }
     ],
     "industry": [
       {
-        "title": "Tách chiết từ khí thiên nhiên",
-        "desc": "Helium công nghiệp hầu như được tách toàn bộ từ các giếng khí tự nhiên (nơi hàm lượng Helium có thể lên đến 7%). Phương pháp hóa lỏng phân đoạn (cryogenic fractional distillation) được sử dụng để làm lạnh khí tự nhiên. Vì Helium có nhiệt độ sôi thấp nhất, nó vẫn ở thể khí trong khi các chất khác (methane, nitrogen) hóa lỏng, nhờ đó Helium được tách ra với độ tinh khiết >99.99%.",
-        "condition": "Nhiệt độ cực thấp (-193°C)"
+        "title": "Chưng cất phân đoạn khí thiên nhiên ở nhiệt độ thấp: Khí thiên nhiên chứa nồng độ Helium từ 0.3% đến vài % được làm sạch, nén và làm lạnh sâu theo từng giai đoạn để hóa lỏng toàn bộ hydrocarbon và nitrogen, để lại khí thô giàu Helium.",
+        "desc": "Tinh chế bằng công nghệ PSA (Pressure Swing Adsorption): Khí Helium thô được cho qua các tháp hấp phụ rây phân tử để loại bỏ hoàn toàn tạp chất còn sót lại, thu được Helium có độ tinh khiết cao lên tới 99.999% hoặc cao hơn.",
+        "result": "",
+        "equations": [],
+        "sourceLines": [
+          56,
+          57
+        ],
+        "equation": ""
       }
     ]
   },
-  "recognition": {
-    "tests": [
-      {
-        "title": "Phân tích quang phổ phát xạ (Emission Spectroscopy)",
-        "desc": "Vì Helium là khí trơ, không thể nhận biết bằng các phản ứng hóa học thông thường. Phương pháp duy nhất và chính xác nhất là sử dụng quang phổ phát xạ. Khi phóng điện qua ống chứa khí Helium ở áp suất thấp, nó phát ra ánh sáng màu cam nhạt rực rỡ, kèm theo một vạch màu vàng rất đặc trưng (ở bước sóng 587.49 nm).",
-        "result": "Xuất hiện vạch phổ màu vàng đặc trưng."
-      }
-    ]
-  },
-  "reactions": [
+  "recognition": [
     {
-      "type": "Ion hóa helium",
-      "equation": "He + hν → He⁺ + e⁻",
-      "related": "He",
-      "condition": "Năng lượng cực cao / UV / Plasma",
-      "desc": "Helium chỉ phản ứng rõ rệt khi bị ion hóa trong môi trường năng lượng cao. Quá trình này đòi hỏi năng lượng ion hóa rất lớn (24.6 eV).",
-      "mediaBlocks": [
-        {
-          "type": "video",
-          "title": "Ion hóa helium trong plasma",
-          "src": "https://www.youtube.com/watch?v=Z1Yd7upQsXY",
-          "questions": [
-            {
-              "time": "00:30",
-              "question": "Trong video, helium được ion hóa bằng cách nào?",
-              "options": [
-                "Năng lượng nhiệt",
-                "Năng lượng điện cao áp",
-                "Năng lượng ánh sáng",
-                "Năng lượng cơ học"
-              ],
-              "correct": 1
-            },
-            {
-              "time": "01:15",
-              "question": "He⁺ là gì?",
-              "options": [
-                "Nguyên tử helium trung hòa",
-                "Cation helium",
-                "Anion helium",
-                "Phân tử helium"
-              ],
-              "correct": 1
-            }
-          ]
-        }
-      ]
+      "title": "Phóng điện trong ống phóng khí: Khí phát ra ánh sáng màu vàng cam hoặc hồng cam rực rỡ đặc trưng khi có dòng điện cao áp đi qua.",
+      "desc": "Phổ phát xạ nguyên tử: Xuất hiện vạch quang phổ màu vàng sáng đặc trưng ở bước sóng 587.49 nm (vạch D3). Thử nghiệm ngọn lửa: Dập tắt tàn đóm và ngọn lửa ngay lập tức do ngăn cách nguồn oxygen và không tham gia phản ứng cháy.",
+      "result": "",
+      "equations": [],
+      "sourceLines": [
+        63,
+        64,
+        65
+      ],
+      "equation": ""
     },
     {
-      "type": "Sự hình thành Helium Hydride ion",
-      "equation": "He⁺ + H₂ → HeH⁺ + H",
-      "related": "H",
-      "condition": "Môi trường plasma / Trong các tinh vân thiên văn",
-      "desc": "HeH⁺ được cho là hợp chất đầu tiên xuất hiện trong vũ trụ sau Big Bang, đóng vai trò quan trọng trong việc làm nguội vũ trụ thuở sơ khai."
-    },
-    {
-      "type": "Phản ứng ở siêu áp suất",
-      "equation": "2Na + He → Na₂He",
-      "related": "Na",
-      "condition": "Áp suất khổng lồ (>113 GPa)",
-      "desc": "Nghiên cứu mô phỏng và thực nghiệm hiện đại chỉ ra rằng ở áp suất lõi Trái Đất, Helium có thể kết hợp với Sodium tạo thành hợp chất xen kẽ không có liên kết hóa học truyền thống."
+      "title": "Nhận biết bằng phổ phát xạ và phổ khối; không hít He để thử giọng. He có thể gây ngạt do thay thế oxygen trong khí thở.",
+      "desc": "Đặc điểm: Khí trơ hoàn toàn, không tạo kết tủa, không làm đổi màu các chất chỉ thị màu hay dung dịch hóa chất.",
+      "result": "",
+      "equations": [],
+      "sourceLines": [
+        66,
+        67
+      ],
+      "equation": ""
     }
   ],
   "applications": [
     {
-      "title": "Công nghệ Cryogenic (Làm lạnh sâu)",
-      "desc": "Đây là ứng dụng lớn nhất của Helium. Heli lỏng (ở -269°C) được dùng để làm mát các nam châm siêu dẫn cực mạnh, đặc biệt là trong máy quét MRI y tế, máy gia tốc hạt (như CERN) và các thiết bị quang phổ NMR."
+      "title": "Làm mát siêu dẫn",
+      "desc": "Helium lỏng là chất làm lạnh cốt lõi để duy trì nhiệt độ siêu thấp cho các cuộn nam châm siêu dẫn trong máy chụp cộng hưởng từ (MRI) y tế và máy gia tốc hạt năng lượng cao.",
+      "sourceLine": 84
     },
     {
-      "title": "Khí bay cho khinh khí cầu",
-      "desc": "Với tính chất cực nhẹ và hoàn toàn không bắt lửa, Helium là giải pháp an toàn tuyệt đối thay thế cho Hydrogen để bơm vào bóng bay dự báo thời tiết, khinh khí cầu và tàu lượn (blimps)."
+      "title": "Hàng không và khí cầu",
+      "desc": "He dùng để bơm khí cầu vì nhẹ và không cháy; khí nén và môi trường thiếu oxygen vẫn có rủi ro.",
+      "sourceLine": 85
     },
     {
-      "title": "Môi trường hàn bảo vệ (Khí trơ)",
-      "desc": "Trong công nghiệp luyện kim và hàn hồ quang (như hàn TIG/MIG), Helium được sử dụng làm khí bảo vệ để ngăn kim loại nóng chảy phản ứng với Oxygen hoặc Nitrogen trong không khí, đặc biệt khi hàn nhôm hoặc thép không gỉ."
+      "title": "Khí bảo vệ trong hàn kim loại",
+      "desc": "Dùng làm môi trường khí trơ bảo vệ trong hàn hồ quang (MIG, TIG) cho các kim loại và hợp kim dễ bị oxy hóa như nhôm, magnesi, titan, thép không gỉ.",
+      "sourceLine": 86
     },
     {
-      "title": "Phát hiện rò rỉ (Leak Detection)",
-      "desc": "Nhờ kích thước nguyên tử cực kỳ nhỏ gọn, Helium có khả năng khuếch tán qua cả những khe nứt siêu nhỏ, do đó nó được dùng trong các máy phổ khối lượng dò rò rỉ để kiểm tra chân không hoặc đường ống dẫn."
+      "title": "Công nghệ bán dẫn và cáp quang",
+      "desc": "Môi trường bảo vệ trơ và truyền nhiệt hiệu quả trong sản xuất vi mạch silicon, màn hình phẳng và quá trình kéo sợi thủy tinh quang học.",
+      "sourceLine": 87
     },
     {
-      "title": "Khí nén tạo áp suất",
-      "desc": "Helium được sử dụng trong ngành không gian vũ trụ để đẩy nhiên liệu lỏng (như hydro lỏng) vào buồng đốt tên lửa vì nó không hóa lỏng ở nhiệt độ của nhiên liệu và không gây phản ứng cháy nổ."
+      "title": "Lặn biển sâu chuyên nghiệp",
+      "desc": "Pha chế hỗn hợp khí thở Trimix (Helium – Nitrogen – Oxygen) hoặc Heliox (Helium – Oxygen) cho thợ lặn ở độ sâu lớn để loại bỏ chứng say nitơ và giảm sức cản hô hấp.",
+      "sourceLine": 88
     },
     {
-      "title": "Hỗn hợp khí lặn sâu",
-      "desc": "Thợ lặn chuyên nghiệp thường thở bằng 'Trimix' hoặc 'Heliox' (hỗn hợp Helium và Oxygen). Helium thay thế Nitrogen để tránh hiện tượng 'say nitơ' và hội chứng giảm áp nguy hiểm ở dưới đáy biển sâu."
+      "title": "Hàng không vũ trụ",
+      "desc": "Dùng để điều áp cho các thùng chứa nhiên liệu lỏng (LH2/LOX) của động cơ tên lửa và làm sạch hệ thống đường ống nhiên liệu trước khi phóng.",
+      "sourceLine": 89
     },
     {
-      "title": "Làm mát lò phản ứng hạt nhân",
-      "desc": "Trong một số hệ thống lò phản ứng hạt nhân thế hệ mới (như lò phản ứng làm mát bằng khí), Helium được dùng làm chất tải nhiệt vì nó không có khả năng trở thành chất phóng xạ khi bị neutron bắn phá."
+      "title": "Kiểm tra rò rỉ chân không",
+      "desc": "Nhờ kích thước nguyên tử siêu nhỏ và tính trơ, Helium được dùng làm khí dò tìm rò rỉ trong các hệ thống chân không cao, ống dẫn nhiên liệu và thiết bị đóng gói kín.",
+      "sourceLine": 90
     }
   ],
-  "notes": "\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Helium là nguyên tố khí hiếm duy nhất không tuân theo quy tắc bát tử (bát tử có 8e, He chỉ cần 2e để bão hòa).</li>\n  <li>Việc tiêu thụ quá mức tài nguyên Helium tự nhiên trên Trái Đất (chủ yếu từ các mỏ khí tại Texas, Hoa Kỳ) đã dấy lên mối lo ngại về nguy cơ cạn kiệt nguồn tài nguyên không thể tái tạo này.</li>\n  <li>Trò đùa thay đổi giọng nói (giọng cao như vịt Donald) khi hít khí Helium là do tốc độ truyền âm trong Helium nhanh hơn gấp 3 lần so với không khí bình thường. Tuy nhiên, việc này rất nguy hiểm nếu lạm dụng do gây thiếu hụt oxy.</li>\n</ul>\n",
-  "nameVi": "Helium",
-  "nameEn": "Helium",
-  "file": "elements/002_He.json"
+  "notes": "<ul class=\"element-prose-list\"><li>Helium là nguyên tố thứ 2 trong bảng tuần hoàn (số hiệu nguyên tử 2), thuộc nhóm VIIIA | chu kỳ 1.</li><li>Ở điều kiện thường, Helium tồn tại dưới dạng khí đơn nguyên tử He không màu, không mùi, không độc, là chất khí nhẹ thứ hai trong tự nhiên và sở hữu điểm sôi thấp nhất trong mọi chất đã biết. Helium là nguyên tố dồi dào thứ hai trong toàn vũ trụ nhưng lại là nguồn tài nguyên khan hiếm và không thể tái tạo trên Trái Đất.</li><li>Helium sở hữu tính trơ hóa học tuyệt đối ở điều kiện chuẩn nhờ cấu hình electron bão hòa 1s² có năng lượng ion hóa cực cao, không tham gia các phản ứng hóa học thông thường.</li><li>Helium giữ vai trò chiến lược không thể thay thế trong chẩn đoán hình ảnh y tế (làm mát máy MRI), nghiên cứu vật lý nhiệt độ siêu hàn, công nghiệp bán dẫn, hàng không vũ trụ và các kỹ thuật lặn sâu.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/diagrams/002_He.svg",
+      "title": "Heli (He)",
+      "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+      "source": "",
+      "author": "ChemDex",
+      "license": "ChemDex schematic diagram",
+      "licenseUrl": ""
+    }
+  ],
+  "mediaBlocks": [],
+  "sources": [
+    {
+      "title": "002_He.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "1c80ec6cd4e7232655783c5e08f7fcee5e8cff78523c68c369690eac2a9ad5d2"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/2/helium"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "002_He.docx",
+    "sourceSha256": "1c80ec6cd4e7232655783c5e08f7fcee5e8cff78523c68c369690eac2a9ad5d2",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/002_He.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
 }

@@ -1,0 +1,1205 @@
+{
+  "symbol": "Zr",
+  "number": 40,
+  "source": "040_Zr.docx",
+  "sourceSha256": "b230d28f6d52e0b4c5ffb44b67c309cbf390e09e6311a90c1664abf55fb26147",
+  "paragraphCount": 103,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 4,
+    "structure": 9,
+    "occurrence": 4,
+    "isotopes": 6,
+    "physical": 9,
+    "chemical": 7,
+    "lab": 4,
+    "industry": 4,
+    "recognition": 5,
+    "reactions": 15,
+    "applications": 6,
+    "notes": 5
+  },
+  "editorialDecisions": [
+    {
+      "line": 60,
+      "before": "ZrSiO₄ + 2C → ZrO₂ + Si + 2CO",
+      "after": null,
+      "reason": "Không dùng sơ đồ khử zircon bằng C để thu đồng thời ZrO₂ và Si như quy trình chuẩn; cần phá khoáng/chlorine hóa có kiểm soát."
+    },
+    {
+      "line": 80,
+      "before": "Zr + N₂ → ZrN",
+      "after": "2Zr + N₂ → 2ZrN",
+      "reason": "Sửa hệ số Zr và ZrN để bảo toàn nitrogen."
+    },
+    {
+      "line": 84,
+      "before": "Zr + 4HCl → ZrCl₄ + 2H₂↑",
+      "after": null,
+      "reason": "Zirconium được thụ động hóa mạnh, bền với HCl thông thường; bỏ khẳng định hòa tan trực tiếp giải phóng H₂ không có điều kiện xác nhận."
+    }
+  ],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "[Kr] 4d² 5s²",
+      "publishedValue": "[Kr] 4d² 5s²",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Lục phương (Hexagonal)",
+      "publishedValue": "Lục phương (Hexagonal)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "1.33",
+      "publishedValue": 1.33,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm IVB | Chu kỳ 5",
+      "publishedValue": "4",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Zirconium là kim loại rắn, màu trắng xám, có độ bền và khả năng chống ăn mòn cao.",
+      "publishedValue": "Rắn",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 32,
+      "sourceText": "⁹⁰Zr: Đồng vị bền, chiếm khoảng 51.45%.",
+      "reference": {
+        "isotope": "⁹⁰Zr",
+        "massNumber": 90,
+        "protons": 40,
+        "neutrons": 50,
+        "stable": true,
+        "abundancePercent": "51.45",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 33,
+      "sourceText": "⁹¹Zr: Đồng vị bền, chiếm khoảng 11.22%.",
+      "reference": {
+        "isotope": "⁹¹Zr",
+        "massNumber": 91,
+        "protons": 40,
+        "neutrons": 51,
+        "stable": true,
+        "abundancePercent": "11.22",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 34,
+      "sourceText": "⁹²Zr: Đồng vị bền, chiếm khoảng 17.15%.",
+      "reference": {
+        "isotope": "⁹²Zr",
+        "massNumber": 92,
+        "protons": 40,
+        "neutrons": 52,
+        "stable": true,
+        "abundancePercent": "17.15",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 35,
+      "sourceText": "⁹⁴Zr: Đồng vị bền, chiếm khoảng 17.38%.",
+      "reference": {
+        "isotope": "⁹⁴Zr",
+        "massNumber": 94,
+        "protons": 40,
+        "neutrons": 54,
+        "stable": true,
+        "abundancePercent": "17.38",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 36,
+      "sourceText": "⁹⁶Zr: Đồng vị phóng xạ có chu kỳ bán rã cực dài.",
+      "reference": {
+        "isotope": "⁹⁶Zr",
+        "massNumber": 96,
+        "protons": 40,
+        "neutrons": 56,
+        "stable": false,
+        "abundancePercent": "2.80",
+        "halfLifeDisplay": "2.0E+19 ± 4E+18 năm",
+        "halfLife": "2.0E+19 Y",
+        "halfLifeUncertainty": "4",
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 60,
+      "text": "ZrSiO₄ + 2C → ZrO₂ + Si + 2CO",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 61,
+      "text": "ZrO₂ + 2C + 2Cl₂ → ZrCl₄ + 2CO",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 62,
+      "text": "ZrCl₄ + 2Mg → Zr + 2MgCl₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 66,
+      "text": "ZrCl₄ + 2Mg → Zr + 2MgCl₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 67,
+      "text": "ZrCl₄ + 4Na → Zr + 4NaCl",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 71,
+      "text": "Zr⁴⁺ + 4OH⁻ → Zr(OH)₄↓",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 76,
+      "text": "Zr + O₂ → ZrO₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 78,
+      "text": "Zr + 2Cl₂ → ZrCl₄",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 80,
+      "text": "Zr + N₂ → ZrN",
+      "status": "unbalanced",
+      "kind": "chemical",
+      "delta": {
+        "N": -1.0
+      }
+    },
+    {
+      "line": 82,
+      "text": "Zr + C → ZrC",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 84,
+      "text": "Zr + 4HCl → ZrCl₄ + 2H₂↑",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 86,
+      "text": "Zr⁴⁺ + 4OH⁻ → Zr(OH)₄↓",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 88,
+      "text": "Zr(OH)₄ + 4HCl → ZrCl₄ + 4H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 90,
+      "text": "ZrCl₄ + 2Mg → Zr + 2MgCl₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "lab",
+      "equation": "ZrCl₄ + 2Mg → Zr + 2MgCl₂",
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 66,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "lab",
+      "equation": "ZrCl₄ + 4Na → Zr + 4NaCl",
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 67,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "ZrO₂ + 2C + 2Cl₂ → ZrCl₄ + 2CO",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 61,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "ZrCl₄ + 2Mg → Zr + 2MgCl₂",
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 62,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "recognition",
+      "equation": "Zr⁴⁺ + 4OH⁻ → Zr(OH)₄↓",
+      "condition": "Sơ đồ ion giản lược: trong nước tồn tại phức aquo/hydroxo; oxide hydrate hoặc kết tủa thực tế phụ thuộc pH và phối tử. Không xem đây là phép thử đặc hiệu.",
+      "kind": "formal",
+      "sourceLine": 71,
+      "sourceSection": "recognition",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Zr + O₂ → ZrO₂",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 76,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Zr + 2Cl₂ → ZrCl₄",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 78,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2Zr + N₂ → 2ZrN",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 80,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Zr + C → ZrC",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 82,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Zr⁴⁺ + 4OH⁻ → Zr(OH)₄↓",
+      "condition": "Sơ đồ ion giản lược: trong nước tồn tại phức aquo/hydroxo; oxide hydrate hoặc kết tủa thực tế phụ thuộc pH và phối tử. Không xem đây là phép thử đặc hiệu.",
+      "kind": "formal",
+      "sourceLine": 86,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Zr(OH)₄ + 4HCl → ZrCl₄ + 4H₂O",
+      "condition": "Dung dịch acid; phản ứng trung hòa, tốc độ phụ thuộc độ tan của chất rắn.",
+      "kind": "chemical",
+      "sourceLine": 88,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "ZrCl₄ + 2Mg → Zr + 2MgCl₂",
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 90,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": [
+        {
+          "title": "Công nghiệp hạt nhân",
+          "desc": "Zirconium được sử dụng làm vật liệu bọc nhiên liệu hạt nhân vì có khả năng chống ăn mòn và hấp thụ neutron thấp."
+        },
+        {
+          "title": "Hợp kim",
+          "desc": "Zirconium được sử dụng để tạo các hợp kim có độ bền và khả năng chịu nhiệt cao."
+        },
+        {
+          "title": "Gốm kỹ thuật",
+          "desc": "Zirconium dioxide (ZrO₂) được sử dụng trong vật liệu gốm chịu nhiệt và vật liệu kỹ thuật."
+        },
+        {
+          "title": "Dao cắt",
+          "desc": "Một số Zirconium compounds được sử dụng trong vật liệu gốm có độ cứng cao."
+        },
+        {
+          "title": "Chống ăn mòn",
+          "desc": "Zirconium được sử dụng trong thiết bị xử lý hóa chất nhờ khả năng chống ăn mòn tốt."
+        },
+        {
+          "title": "Zircon",
+          "desc": "Zirconium silicate được sử dụng trong gốm sứ, vật liệu chịu lửa và một số ứng dụng quang học."
+        }
+      ],
+      "after": [
+        {
+          "title": "Công nghiệp hạt nhân",
+          "desc": "Zirconium được sử dụng làm vật liệu bọc nhiên liệu hạt nhân vì có khả năng chống ăn mòn và hấp thụ neutron thấp.",
+          "sourceLine": 92
+        },
+        {
+          "title": "Hợp kim",
+          "desc": "Zirconium được sử dụng để tạo các hợp kim có độ bền và khả năng chịu nhiệt cao.",
+          "sourceLine": 93
+        },
+        {
+          "title": "Gốm kỹ thuật",
+          "desc": "Zirconium dioxide (ZrO₂) được sử dụng trong vật liệu gốm chịu nhiệt và vật liệu kỹ thuật.",
+          "sourceLine": 94
+        },
+        {
+          "title": "Dao cắt",
+          "desc": "Một số Zirconium compounds được sử dụng trong vật liệu gốm có độ cứng cao.",
+          "sourceLine": 95
+        },
+        {
+          "title": "Chống ăn mòn",
+          "desc": "Zirconium được sử dụng trong thiết bị xử lý hóa chất nhờ khả năng chống ăn mòn tốt.",
+          "sourceLine": 96
+        },
+        {
+          "title": "Zircon",
+          "desc": "Zirconium silicate được sử dụng trong gốm sứ, vật liệu chịu lửa và một số ứng dụng quang học.",
+          "sourceLine": 97
+        }
+      ]
+    },
+    {
+      "field": "chemical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Số Oxy hóa phổ biến nhất là +4.</li>\n      <li>Tương đối bền trong không khí nhờ lớp Zirconium oxide bảo vệ.</li>\n      <li>Phản ứng với Oxygen khi nung nóng.</li>\n      <li>Phản ứng với Halogen tạo Zirconium halide.</li>\n      <li>Có thể phản ứng với acid và kiềm mạnh trong những điều kiện thích hợp.</li>\n      <li>Zirconium có ái lực rất mạnh với Oxygen.</li>\n      <li>Zirconium carbide và Zirconium nitride có độ cứng và độ bền nhiệt cao.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Số Oxy hóa phổ biến nhất là +4.</li><li>Tương đối bền trong không khí nhờ lớp Zirconium oxide bảo vệ.</li><li>Phản ứng với Oxygen khi nung nóng.</li><li>Phản ứng với Halogen tạo Zirconium halide.</li><li>Có thể phản ứng với acid và kiềm mạnh trong những điều kiện thích hợp.</li><li>Zirconium có ái lực rất mạnh với Oxygen.</li><li>Zirconium carbide và Zirconium nitride có độ cứng và độ bền nhiệt cao.</li></ul>"
+    },
+    {
+      "field": "general.CAS",
+      "before": null,
+      "after": "7440-67-7"
+    },
+    {
+      "field": "general.electronegativityNote",
+      "before": null,
+      "after": "Thang Pauling; số liệu tổng hợp PubChem."
+    },
+    {
+      "field": "general.groupLabel",
+      "before": null,
+      "after": "4"
+    },
+    {
+      "field": "general.series",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "general.state",
+      "before": "",
+      "after": "Rắn"
+    },
+    {
+      "field": "history.year",
+      "before": 1789,
+      "after": "1789"
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/diagrams/040_Zr.svg",
+          "title": "Zirconium (Zr)",
+          "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+          "source": "",
+          "author": "ChemDex",
+          "license": "ChemDex schematic diagram",
+          "licenseUrl": ""
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "⁹⁰Zr",
+          "massNumber": 90,
+          "protons": 40,
+          "neutrons": 50,
+          "stable": true,
+          "abundancePercent": "51.45",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "⁹¹Zr",
+          "massNumber": 91,
+          "protons": 40,
+          "neutrons": 51,
+          "stable": true,
+          "abundancePercent": "11.22",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "⁹²Zr",
+          "massNumber": 92,
+          "protons": 40,
+          "neutrons": 52,
+          "stable": true,
+          "abundancePercent": "17.15",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "⁹⁴Zr",
+          "massNumber": 94,
+          "protons": 40,
+          "neutrons": 54,
+          "stable": true,
+          "abundancePercent": "17.38",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "⁹⁶Zr",
+          "massNumber": 96,
+          "protons": 40,
+          "neutrons": 56,
+          "stable": false,
+          "abundancePercent": "2.80",
+          "halfLifeDisplay": "2.0E+19 ± 4E+18 năm",
+          "halfLife": "2.0E+19 Y",
+          "halfLifeUncertainty": "4",
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "mass",
+      "before": 91.224,
+      "after": 91.222
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "standard-atomic-weight"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "91.222 ± 0.003"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": [
+        {
+          "type": "model",
+          "section": "structure",
+          "title": "Mẫu khoáng vật 3D · Zircon",
+          "src": "/assets/periodic-table/minerals/zircon.glb",
+          "preview": "/assets/periodic-table/minerals/zircon.png",
+          "desc": "ZrSiO₄. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "naturalState.alt",
+      "before": null,
+      "after": "Zirconium: sơ đồ minh họa nguyên tố"
+    },
+    {
+      "field": "naturalState.caption",
+      "before": null,
+      "after": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật."
+    },
+    {
+      "field": "naturalState.credit",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "naturalState.image",
+      "before": null,
+      "after": "/assets/periodic-table/diagrams/040_Zr.svg"
+    },
+    {
+      "field": "naturalState.kind",
+      "before": null,
+      "after": "diagram"
+    },
+    {
+      "field": "naturalState.source",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "notes",
+      "before": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Zirconium là nguyên tố số 40, thuộc nhóm IVB | chu kỳ 5 và là một kim loại chuyển tiếp.</li>\n  <li>Zirconium có cấu hình electron [Kr] 4d² 5s², với số Oxy hóa phổ biến nhất là +4.</li>\n  <li>Zirconium có độ bền cơ học cao, chịu nhiệt tốt và đặc biệt chống ăn mòn nhờ hình thành lớp oxide bảo vệ trên bề mặt.</li>\n  <li>Trong tự nhiên, Zirconium chủ yếu tồn tại trong Zircon (ZrSiO₄) và Baddeleyite (ZrO₂). Kim loại Zirconium được sản xuất công nghiệp chủ yếu bằng quy trình Kroll, trong đó ZrCl₄ được khử bằng Magnesium.</li>\n  <li>Zirconium có vai trò quan trọng trong công nghiệp hạt nhân, hợp kim, hóa chất, gốm kỹ thuật và vật liệu chịu nhiệt.</li>\n</ul>\n",
+      "after": "<ul class=\"element-prose-list\"><li>Zirconium là nguyên tố số 40, thuộc nhóm IVB | chu kỳ 5 và là một kim loại chuyển tiếp.</li><li>Zirconium có cấu hình electron [Kr] 4d² 5s², với số Oxy hóa phổ biến nhất là +4.</li><li>Zirconium có độ bền cơ học cao, chịu nhiệt tốt và đặc biệt chống ăn mòn nhờ hình thành lớp oxide bảo vệ trên bề mặt.</li><li>Trong tự nhiên, Zirconium chủ yếu tồn tại trong Zircon (ZrSiO₄) và Baddeleyite (ZrO₂). Kim loại Zirconium được sản xuất công nghiệp chủ yếu bằng quy trình Kroll, trong đó ZrCl₄ được khử bằng Magnesium.</li><li>Zirconium có vai trò quan trọng trong công nghiệp hạt nhân, hợp kim, hóa chất, gốm kỹ thuật và vật liệu chịu nhiệt.</li></ul>"
+    },
+    {
+      "field": "occurrence.details",
+      "before": null,
+      "after": [
+        "Trạng thái: Zirconium là kim loại rắn, màu trắng xám, có độ bền và khả năng chống ăn mòn cao.",
+        "Có trong: Zircon (ZrSiO₄) và Baddeleyite (ZrO₂).",
+        "Đơn chất: Zr",
+        "Hợp chất: ZrO₂, ZrCl₄, ZrSiO₄, ZrC, ZrN..."
+      ]
+    },
+    {
+      "field": "occurrence.mineral",
+      "before": null,
+      "after": {
+        "available": true,
+        "id": "zircon",
+        "name": "Zircon",
+        "formula": "ZrSiO₄",
+        "habit": "bipyramid",
+        "color": "#b88655",
+        "crystalSystem": "tetragonal",
+        "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+        "source": "https://www.handbookofmineralogy.org/",
+        "sourceSearch": "https://rruff.info/Zircon",
+        "model": "/assets/periodic-table/minerals/zircon.glb",
+        "preview": "/assets/periodic-table/minerals/zircon.png",
+        "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      }
+    },
+    {
+      "field": "physical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại chuyển tiếp.</li>\n      <li>Màu trắng xám.</li>\n      <li>Cứng và bền.</li>\n      <li>Khối lượng riêng: khoảng 6.52 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 1855 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 4409 °C.</li>\n      <li>Chống ăn mòn rất tốt.</li>\n      <li>Có khả năng chịu nhiệt cao.</li>\n      <li>Dẫn nhiệt và dẫn điện.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Là kim loại chuyển tiếp.</li><li>Màu trắng xám.</li><li>Cứng và bền.</li><li>Khối lượng riêng: khoảng 6.52 g/cm³.</li><li>Nhiệt độ nóng chảy: khoảng 1855 °C.</li><li>Nhiệt độ sôi: khoảng 4409 °C.</li><li>Chống ăn mòn rất tốt.</li><li>Có khả năng chịu nhiệt cao.</li><li>Dẫn nhiệt và dẫn điện.</li></ul>"
+    },
+    {
+      "field": "preparations.industry",
+      "before": [
+        {
+          "title": "Zirconium chủ yếu được điều chế từ Zircon (ZrSiO₄).",
+          "equation": "",
+          "desc": ""
+        },
+        {
+          "title": "Zircon được chuyển thành Zirconium tetrachloride:",
+          "equation": "ZrSiO₄ + 2Cl₂ + 2C → ZrCl₄ + SiO₂ + 2CO <br> ZrCl₄ + 2Mg → Zr + 2MgCl₂",
+          "desc": "Sau đó Zirconium tetrachloride được khử bằng Magnesium theo quy trình Kroll:"
+        }
+      ],
+      "after": [
+        {
+          "title": "Zirconium chủ yếu được điều chế từ quặng Zircon (ZrSiO₄). Quặng được chuyển thành Zirconium dioxide, sau đó tạo Zirconium tetrachloride và khử bằng Magnesium theo quy trình Kroll.",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "ZrO₂ + 2C + 2Cl₂ → ZrCl₄ + 2CO",
+              "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+              "kind": "chemical",
+              "sourceLine": 61,
+              "sourceSection": "industry",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            },
+            {
+              "equation": "ZrCl₄ + 2Mg → Zr + 2MgCl₂",
+              "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+              "kind": "chemical",
+              "sourceLine": 62,
+              "sourceSection": "industry",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            58,
+            61,
+            62
+          ],
+          "equation": "ZrO₂ + 2C + 2Cl₂ → ZrCl₄ + 2CO"
+        }
+      ]
+    },
+    {
+      "field": "preparations.lab",
+      "before": [],
+      "after": [
+        {
+          "title": "Có thể điều chế Zirconium bằng cách khử Zirconium tetrachloride bằng Magnesium hoặc Sodium ở nhiệt độ cao.",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "ZrCl₄ + 2Mg → Zr + 2MgCl₂",
+              "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+              "kind": "chemical",
+              "sourceLine": 66,
+              "sourceSection": "lab",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            },
+            {
+              "equation": "ZrCl₄ + 4Na → Zr + 4NaCl",
+              "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+              "kind": "chemical",
+              "sourceLine": 67,
+              "sourceSection": "lab",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            64,
+            66,
+            67
+          ],
+          "equation": "ZrCl₄ + 2Mg → Zr + 2MgCl₂"
+        }
+      ]
+    },
+    {
+      "field": "reactions",
+      "before": [
+        {
+          "type": "Tác dụng với Oxygen",
+          "equation": "Zr + O₂ → ZrO₂",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Chlorine",
+          "equation": "Zr + 2Cl₂ → ZrCl₄",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Nitrogen",
+          "equation": "Zr + N₂ → ZrN",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Carbon",
+          "equation": "Zr + C → ZrC",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Hydrochloric acid",
+          "equation": "Zr + 4HCl → ZrCl₄ + 2H₂↑",
+          "desc": ""
+        },
+        {
+          "type": "Tạo Zirconium hydroxide",
+          "equation": "Zr⁴⁺ + 4OH⁻ → Zr(OH)₄↓",
+          "desc": ""
+        },
+        {
+          "type": "Zirconium hydroxide tác dụng với acid",
+          "equation": "Zr(OH)₄ + 4HCl → ZrCl₄ + 4H₂O",
+          "desc": ""
+        },
+        {
+          "type": "Điều chế Zirconium",
+          "equation": "ZrCl₄ + 2Mg → Zr + 2MgCl₂",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "type": "Tác dụng với Oxygen",
+          "desc": "",
+          "equation": "Zr + O₂ → ZrO₂",
+          "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+          "kind": "chemical",
+          "sourceLine": 76,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Chlorine",
+          "desc": "",
+          "equation": "Zr + 2Cl₂ → ZrCl₄",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 78,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Nitrogen",
+          "desc": "",
+          "equation": "2Zr + N₂ → 2ZrN",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 80,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Carbon",
+          "desc": "",
+          "equation": "Zr + C → ZrC",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 82,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Zirconium hydroxide",
+          "desc": "",
+          "equation": "Zr⁴⁺ + 4OH⁻ → Zr(OH)₄↓",
+          "condition": "Sơ đồ ion giản lược: trong nước tồn tại phức aquo/hydroxo; oxide hydrate hoặc kết tủa thực tế phụ thuộc pH và phối tử. Không xem đây là phép thử đặc hiệu.",
+          "kind": "formal",
+          "sourceLine": 86,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Zirconium hydroxide tác dụng với acid",
+          "desc": "",
+          "equation": "Zr(OH)₄ + 4HCl → ZrCl₄ + 4H₂O",
+          "condition": "Dung dịch acid; phản ứng trung hòa, tốc độ phụ thuộc độ tan của chất rắn.",
+          "kind": "chemical",
+          "sourceLine": 88,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Điều chế Zirconium",
+          "desc": "",
+          "equation": "ZrCl₄ + 2Mg → Zr + 2MgCl₂",
+          "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+          "kind": "chemical",
+          "sourceLine": 90,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": [
+        {
+          "title": "Nhận biết",
+          "reagent": "Nhận biết Zr⁴⁺",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Zr⁴⁺ có thể tạo kết tủa Zirconium hydroxide khi tác dụng với hydroxide",
+          "reagent": "",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "",
+          "result": "",
+          "equation": "Zr⁴⁺ + 4OH⁻ → Zr(OH)₄↓"
+        },
+        {
+          "title": "Hiện tượng",
+          "reagent": "",
+          "result": "Xuất hiện kết tủa trắng.",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "Trong thực tế, việc xác định Zirconium thường sử dụng các phương pháp phân tích chuyên dụng do các phản ứng nhận biết đơn giản không có tính đặc hiệu cao.",
+          "result": "",
+          "equation": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Nhận biết Zr⁴⁺",
+          "desc": "Zr⁴⁺ có thể tạo kết tủa Zirconium hydroxide khi tác dụng với hydroxide: Trong thực tế, việc xác định Zirconium thường sử dụng các phương pháp phân tích chuyên dụng do các phản ứng nhận biết đơn giản không có tính đặc hiệu cao.",
+          "result": "Xuất hiện kết tủa trắng.",
+          "equations": [
+            {
+              "equation": "Zr⁴⁺ + 4OH⁻ → Zr(OH)₄↓",
+              "condition": "Sơ đồ ion giản lược: trong nước tồn tại phức aquo/hydroxo; oxide hydrate hoặc kết tủa thực tế phụ thuộc pH và phối tử. Không xem đây là phép thử đặc hiệu.",
+              "kind": "formal",
+              "sourceLine": 71,
+              "sourceSection": "recognition",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            69,
+            70,
+            71,
+            72,
+            73
+          ],
+          "equation": "Zr⁴⁺ + 4OH⁻ → Zr(OH)₄↓"
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "040_Zr.docx",
+        "sourceSha256": "b230d28f6d52e0b4c5ffb44b67c309cbf390e09e6311a90c1664abf55fb26147",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/040_Zr.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "040_Zr.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "b230d28f6d52e0b4c5ffb44b67c309cbf390e09e6311a90c1664abf55fb26147"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/40/zirconium"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure.latticeEvidence",
+      "before": null,
+      "after": "source-reviewed"
+    },
+    {
+      "field": "structure.nucleusIsotope",
+      "before": null,
+      "after": "⁹⁰Zr"
+    },
+    {
+      "field": "structure.nucleusNote",
+      "before": null,
+      "after": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác."
+    },
+    {
+      "field": "structure.valenceNote",
+      "before": null,
+      "after": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp."
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "Zr",
+      "status": "diagram",
+      "reason": "Chưa xác nhận giấy phép dùng lại: FAL"
+    },
+    "mineral": {
+      "available": true,
+      "id": "zircon",
+      "name": "Zircon",
+      "formula": "ZrSiO₄",
+      "habit": "bipyramid",
+      "color": "#b88655",
+      "crystalSystem": "tetragonal",
+      "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Zircon",
+      "model": "/assets/periodic-table/minerals/zircon.glb",
+      "preview": "/assets/periodic-table/minerals/zircon.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "Zr",
+      "z": 40,
+      "url": "https://periodic-table.rsc.org/element/40/zirconium",
+      "status": "retrieved",
+      "bytes": 159692,
+      "sha256": "dc67b59bb33442b361fc6eed01d75c77eecb73cfa648799291cac9259b6907a9",
+      "facts": {
+        "Group": "4",
+        "Melting point": "1854°C, 3369°F, 2127 K",
+        "Period": "5",
+        "Boiling point": "4406°C, 7963°F, 4679 K",
+        "Block": "d",
+        "Density (g cm−³)": "6.52",
+        "Atomic number": "40",
+        "Relative atomic mass": "91.224",
+        "State at 20°C": "Solid",
+        "Key isotopes": "⁹⁰Zr, ⁹²Zr, ⁹⁴Zr",
+        "Electron configuration": "[Kr] 4d²5s²",
+        "CAS number": "7440-67-7",
+        "ChemSpider ID": "22431",
+        "electronegativity": "1.33"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "40",
+      "Symbol": "Zr",
+      "Name": "Zirconium",
+      "AtomicMass": "91.22",
+      "CPKHexColor": "94E0E0",
+      "ElectronConfiguration": "[Kr]5s2 4d2",
+      "Electronegativity": "1.33",
+      "AtomicRadius": "186",
+      "IonizationEnergy": "6.634",
+      "ElectronAffinity": "0.426",
+      "OxidationStates": "+4",
+      "StandardState": "Solid",
+      "MeltingPoint": "2128",
+      "BoilingPoint": "4682",
+      "Density": "6.52",
+      "GroupBlock": "Transition metal",
+      "YearDiscovered": "1789"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

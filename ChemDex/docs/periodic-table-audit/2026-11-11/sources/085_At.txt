@@ -1,0 +1,85 @@
+001: Astatine (At)
+002: Thông tin chung
+003: Tên Latin: Astatium
+004: Tên Tiếng Anh: Astatine
+005: Đồng vị: ¹⁹¹At → ²²³At
+006: Vị trí: Nhóm VIIA | Chu kỳ 6
+007: Số Oxy hóa: −1, +1, +3, +5, +7
+008: Độ âm điện: 2.2
+009: Lịch sử khám phá
+010: Phát hiện bởi: Dale R. Corson, Kenneth Ross MacKenzie và Emilio G. Segrè
+011: Năm công bố: 1940
+012: Nơi khám phá: Hoa Kỳ
+013: Mô tả: Astatine được tổng hợp lần đầu tại University of California, Berkeley vào năm 1940 bằng cách bắn phá Bismuth-209 bằng hạt Alpha. Tên Astatine bắt nguồn từ tiếng Hy Lạp astatos, nghĩa là “không ổn định”, phản ánh tính phóng xạ và sự không bền của nguyên tố này.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁵
+017: Mô hình mạng tinh thể: Lập phương tâm mặt (Face-centered cubic, FCC) (được dự đoán)
+018: Số hiệu nguyên tử: 85
+019: Nguyên tử khối: [210] g/mol
+020: Vỏ nguyên tử: 85 electron
+021: K: 2 | L: 8 | M: 18 | N: 32 | O: 18 | P: 7
+022: Hạt nhân: 85 proton
+023: Cấu hình e: [Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁵
+024: Loại mạng: Lập phương tâm mặt (Face-centered cubic, FCC) (được dự đoán)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Chất rắn ở điều kiện thường.
+027: Có trong: Tồn tại tự nhiên với lượng cực kỳ nhỏ trong các quặng Uranium và Thorium, chủ yếu là sản phẩm trung gian của các chuỗi phân rã phóng xạ.
+028: Đơn chất: At
+029: Hợp chất: HAt, AtCl, AtBr, AtO⁻, AtO₃⁻...
+030: c. Đồng vị
+031: Astatine không có đồng vị bền.
+032: Có khoảng hơn 40 đồng vị phóng xạ đã được biết đến. Các đồng vị có số khối khoảng 191–229.
+033: Một số đồng vị đáng chú ý:
+034: ²¹⁰At: chu kỳ bán rã khoảng 8.1 giờ.
+035: ²¹¹At: chu kỳ bán rã khoảng 7.2 giờ và có tiềm năng ứng dụng trong y học hạt nhân.
+036: ²¹⁸At: có trong chuỗi phân rã của Uranium-238.
+037: Tính chất
+038: Tính chất vật lí
+039: Là Halogen.
+040: Là một trong những nguyên tố hiếm nhất trên Trái Đất.
+041: Có tính phóng xạ mạnh.
+042: Là chất rắn ở điều kiện thường.
+043: Được dự đoán có màu tối, có thể gần với màu đen.
+044: Nhiệt độ nóng chảy: khoảng 302 °C.
+045: Nhiệt độ sôi: khoảng 337 °C.
+046: Có tính chất vật lý nằm giữa Halogen và kim loại.
+047: Tính chất hóa học
+048: Có tính chất của Halogen nhưng kém hoạt động hơn Iodine.
+049: Có thể tồn tại ở nhiều số Oxy hóa: −1, +1, +3, +5, +7.
+050: Có thể tạo hợp chất với Hydrogen, Chlorine, Bromine và Oxygen.
+051: Ion At⁻ có thể tồn tại trong dung dịch.
+052: Một số hợp chất Astatine thể hiện tính chất giống Iodine.
+053: Tất cả các đồng vị đều phóng xạ.
+054: Điều chế
+055: Điều chế trong công nghiệp
+056: Astatine (At) không tồn tại với lượng đáng kể trong tự nhiên và chủ yếu được điều chế nhân tạo trong các máy gia tốc hạt.
+057: Phương pháp phổ biến là bắn phá Bismuth-209 bằng hạt alpha để tạo ra Astatine-211.
+058: Phương trình hạt nhân:
+059: ²⁰⁹Bi + ⁴He → ²¹¹At + 2¹n
+060: Điều chế trong phòng thí nghiệm
+061: Astatine có thể được tạo ra với lượng cực nhỏ bằng phản ứng hạt nhân trong máy gia tốc tại các cơ sở nghiên cứu chuyên dụng. Không có phương pháp điều chế hóa học thông thường để tạo ra nguyên tố này.
+062: Nhận biết
+063: Astatine được nhận biết chủ yếu bằng phương pháp phóng xạ và kỹ thuật hạt nhân, vì lượng Astatine tạo ra rất nhỏ và các đồng vị của nó có thời gian sống ngắn.
+064: Tính chất hóa học của At⁻ có thể được nghiên cứu thông qua các phản ứng tương tự Halogen, nhưng việc thực hiện cần thiết bị chuyên dụng.
+065: Phương trình
+066: Điều chế Astatine-211
+067: ²⁰⁹Bi + ⁴He → ²¹¹At + 2n
+068: Phân rã Alpha của Astatine-211
+069: ²¹¹At → ²⁰⁷Bi + α
+070: Tạo Hydrogen astatide
+071: H₂ + At₂ → 2HAt
+072: Tạo Astatine chloride
+073: At₂ + Cl₂ → 2AtCl
+074: Tạo ion Astatide
+075: At₂ + 2e⁻ → 2At⁻
+076: Ứng dụng thực tế
+077: Y học hạt nhân: ²¹¹At được nghiên cứu để sử dụng trong alpha-targeted therapy (liệu pháp nhắm trúng đích bằng hạt Alpha).
+078: Nghiên cứu: Astatine được sử dụng trong nghiên cứu hóa học phóng xạ và vật lý hạt nhân.
+079: Nghiên cứu Halogen: Do vị trí nằm dưới Iodine trong nhóm VIIA, Astatine giúp các nhà khoa học nghiên cứu xu hướng tính chất của Halogen nặng.
+080: Astatine không có ứng dụng công nghiệp thông thường do cực kỳ hiếm và phóng xạ mạnh.
+081: Tổng quan
+082: Astatine là nguyên tố số 85, thuộc nhóm VIIA | chu kỳ 6 và là một Halogen phóng xạ.
+083: Astatine không có đồng vị bền và chỉ tồn tại trong tự nhiên với lượng cực kỳ nhỏ. Phần lớn Astatine dùng cho nghiên cứu được tổng hợp nhân tạo.
+084: Đặc điểm nổi bật của Astatine là tính chất nằm giữa Halogen và kim loại, đồng thời có tính phóng xạ rất mạnh. Trong số các đồng vị, ²¹¹At đặc biệt được quan tâm vì có tiềm năng trong liệu pháp điều trị ung thư bằng hạt Alpha.
+085: Mạng tinh thể: Astatine chưa có đủ dữ liệu thực nghiệm đáng tin cậy về cấu trúc tinh thể của mẫu nguyên chất do lượng tồn tại cực kỳ nhỏ. Vì vậy, lập phương tâm mặt (FCC) chỉ nên ghi là cấu trúc được dự đoán, không phải cấu trúc đã được xác nhận thực nghiệm.

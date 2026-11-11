@@ -1,0 +1,91 @@
+001: Tantalum (Ta)
+002: Thông tin chung
+003: Tên Latin: Tantalum
+004: Tên Tiếng Anh: Tantalum
+005: Đồng vị: ¹⁸⁰mTa, ¹⁸¹Ta
+006: Vị trí: Nhóm VB | Chu kỳ 6
+007: Số Oxy hóa: +5
+008: Độ âm điện: 1.50
+009: Lịch sử khám phá
+010: Phát hiện bởi: Anders Gustaf Ekeberg
+011: Năm công bố: 1802
+012: Nơi khám phá: Thụy Điển
+013: Mô tả: Anders Gustaf Ekeberg phát hiện Tantalum khi nghiên cứu một loại khoáng vật chứa Tantalum. Tên nguyên tố bắt nguồn từ Tantalus, một nhân vật trong thần thoại Hy Lạp, do Tantalum oxide có tính chất khó hòa tan trong acid.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Xe] 4f¹⁴ 5d³ 6s²
+017: Mô hình mạng tinh thể: Lập phương tâm khối (Body-centered cubic, BCC)
+018: Số hiệu nguyên tử: 73
+019: Nguyên tử khối: 180.948 g/mol
+020: Vỏ nguyên tử: 73 electron
+021: K: 2 | L: 8 | M: 18 | N: 32 | O: 11 | P: 2
+022: Hạt nhân: 73 proton, 108 neutron đối với ¹⁸¹Ta
+023: Cấu hình e: [Xe] 4f¹⁴ 5d³ 6s²
+024: Loại mạng: Lập phương tâm khối (Body-centered cubic, BCC)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Tantalum là kim loại rắn, màu xám bạc, cứng và nặng.
+027: Có trong: Chủ yếu tồn tại trong khoáng vật Tantalite và Columbite-tantalite (Coltan), thường đi cùng Niobium.
+028: Đơn chất: Ta
+029: Hợp chất: Ta₂O₅, TaCl₅, TaC, TaN...
+030: c. Đồng vị
+031: Đồng vị: ¹⁸⁰mTa, ¹⁸¹Ta
+032: ¹⁸¹Ta: Đồng vị bền, chiếm gần như toàn bộ Tantalum tự nhiên.
+033: ¹⁸⁰mTa: Đồng phân hạt nhân (nuclear isomer) tự nhiên cực kỳ hiếm và có thời gian sống rất dài.
+034: Tính chất
+035: Tính chất vật lý
+036: Là kim loại chuyển tiếp.
+037: Màu xám bạc.
+038: Cứng, dẻo và có độ bền cao.
+039: Khối lượng riêng: khoảng 16.65 g/cm³.
+040: Nhiệt độ nóng chảy: khoảng 3017 °C.
+041: Nhiệt độ sôi: khoảng 5458 °C.
+042: Có khả năng dẫn điện và dẫn nhiệt.
+043: Có khả năng chịu nhiệt rất tốt.
+044: Tính chất hóa học
+045: Số Oxy hóa phổ biến nhất là +5.
+046: Có khả năng chống ăn mòn rất cao.
+047: Bề mặt nhanh chóng hình thành lớp Ta₂O₅ bảo vệ.
+048: Hầu như không phản ứng với nhiều acid ở điều kiện thường.
+049: Phản ứng với Fluorine và một số Halogen.
+050: Tantalum carbide (TaC) có nhiệt độ nóng chảy rất cao.
+051: Điều chế
+052: Điều chế trong công nghiệp
+053: Tantalum (Ta) chủ yếu được điều chế từ quặng tantalite và columbite. Sau khi tinh chế thành Tantalum pentoxide, hợp chất này được chuyển thành Tantalum fluoride phức rồi khử bằng Sodium nóng chảy.
+054: Phương trình:
+055: K₂TaF₇ + 5Na → Ta + 5NaF + 2KF
+056: Điều chế trong phòng thí nghiệm
+057: Có thể điều chế Tantalum bằng cách khử Tantalum pentoxide bằng Aluminium ở nhiệt độ cao.
+058: Phương trình:
+059: 3Ta₂O₅ + 10Al → 6Ta + 5Al₂O₃
+060: Nhận biết
+061: Tantalum thường được xác định bằng phân tích quang phổ hoặc các phương pháp hóa học chuyên dụng.
+062: Ion Ta(V) có thể tạo hợp chất oxide/hydroxide khó tan trong nước:
+063: Ta⁵⁺ + 5OH⁻ → Ta(OH)₅↓
+064: Hiện tượng: Xuất hiện kết tủa màu trắng.
+065: Phương trình
+066: Tác dụng với Oxygen
+067: 4Ta + 5O₂ → 2Ta₂O₅
+068: Tác dụng với Chlorine
+069: 2Ta + 5Cl₂ → 2TaCl₅
+070: Tác dụng với Fluorine
+071: 2Ta + 5F₂ → 2TaF₅
+072: Tác dụng với Carbon
+073: Ta + C → TaC
+074: Tác dụng với Nitrogen
+075: 2Ta + N₂ → 2TaN
+076: Tạo Tantalum hydroxide
+077: Ta⁵⁺ + 5OH⁻ → Ta(OH)₅↓
+078: Điều chế Tantalum
+079: Ta₂O₅ + 5C → 2Ta + 5CO↑
+080: Ứng dụng thực tế
+081: Tụ điện: Tantalum được sử dụng để sản xuất Tantalum capacitors, có kích thước nhỏ và độ ổn định cao.
+082: Điện tử: Tantalum và các hợp chất của nó được sử dụng trong nhiều linh kiện điện tử.
+083: Y tế: Tantalum có khả năng chống ăn mòn và tương thích sinh học tốt nên được sử dụng trong một số vật liệu cấy ghép và dụng cụ y tế.
+084: Hợp kim: Được thêm vào các hợp kim chịu nhiệt để tăng độ bền và khả năng chống ăn mòn.
+085: Công nghiệp hóa chất: Tantalum được sử dụng trong các thiết bị phải tiếp xúc với hóa chất ăn mòn mạnh.
+086: Vật liệu chịu nhiệt: Tantalum carbide (TaC) được sử dụng trong một số ứng dụng yêu cầu khả năng chịu nhiệt cực cao.
+087: Tổng quan
+088: Tantalum là nguyên tố số 73, thuộc nhóm VB | chu kỳ 6 và là một kim loại chuyển tiếp.
+089: Tantalum có cấu hình electron [Xe] 4f¹⁴ 5d³ 6s², với số Oxy hóa phổ biến nhất là +5.
+090: Đây là kim loại cứng, nặng, chịu nhiệt và có khả năng chống ăn mòn cực tốt nhờ lớp Ta₂O₅ bảo vệ trên bề mặt.
+091: Tantalum có vai trò đặc biệt quan trọng trong ngành điện tử, nhất là sản xuất tụ điện Tantalum. Ngoài ra, nó còn được sử dụng trong y tế, hợp kim, công nghiệp hóa chất và vật liệu chịu nhiệt cao.

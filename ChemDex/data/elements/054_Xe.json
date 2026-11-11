@@ -3,7 +3,10 @@
   "symbol": "Xe",
   "nameVi": "Xenon",
   "nameEn": "Xenon",
-  "mass": 131.293,
+  "mass": 131.29,
+  "massStandardText": "131.29 ± 0.01",
+  "massStandardSource": "https://ciaaw.org/abridged-atomic-weights.htm",
+  "massKind": "standard-atomic-weight",
   "category": "khi-hiem",
   "hasData": true,
   "file": "elements/054_Xe.json",
@@ -13,25 +16,35 @@
     "electronConfig": "[Kr] 4d¹⁰ 5s² 5p⁶",
     "isotope": "¹²⁴Xe, ¹²⁶Xe, ¹²⁸Xe, ¹²⁹Xe, ¹³⁰Xe, ¹³¹Xe, ¹³²Xe, ¹³⁴Xe, ¹³⁶Xe",
     "group": 18,
+    "groupLabel": "18",
+    "series": "",
     "period": 5,
-    "state": "",
+    "state": "Khí",
     "oxidation": "0, +2, +4, +6, +8",
     "electronegativity": 2.6,
-    "density": "",
+    "electronegativityNote": "Thang Pauling; số liệu tổng hợp PubChem.",
+    "density": "0.005366 g/cm³ (theo bảng RSC)",
     "meltingPoint": "khoảng −111.8 °C.",
     "boilingPoint": "khoảng −108.1 °C.",
-    "crystalStructure": "Lập phương tâm mặt (Face-centered cubic, FCC)"
+    "crystalStructure": "Lập phương tâm mặt (Face-centered cubic, FCC)",
+    "CAS": "7440-63-3"
   },
   "history": {
     "discoverer": "William Ramsay và Morris Travers",
-    "year": 1898,
+    "year": "1898",
     "discoveryLocation": "Anh",
     "description": "Năm 1898, William Ramsay và Morris Travers phát hiện Xenon khi nghiên cứu phần cặn còn lại sau khi tách các khí khác khỏi không khí hóa lỏng. Tên Xenon bắt nguồn từ tiếng Hy Lạp xenos, nghĩa là “xa lạ” hoặc “người khách”."
   },
   "structure": {
     "protons": 54,
-    "neutrons": 77,
     "electrons": 54,
+    "neutrons": 77,
+    "nucleusIsotope": "¹³¹Xe",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 54,
+      "neutron": 77
+    },
     "electronShells": [
       2,
       8,
@@ -47,12 +60,11 @@
       8
     ],
     "valenceElectrons": 8,
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương tâm mặt (Face-centered cubic, FCC)",
-    "nucleus": {
-      "proton": 54,
-      "neutron": 77
-    }
+    "latticeEvidence": "source-reviewed"
   },
+  "structureType": "Lập phương tâm mặt (Face-centered cubic, FCC)",
   "occurrence": {
     "description": "Xenon là khí không màu, không mùi ở điều kiện thường.",
     "simple": [
@@ -67,99 +79,366 @@
     ],
     "ores": [
       "Tồn tại với hàm lượng rất nhỏ trong khí quyển Trái Đất"
-    ]
+    ],
+    "details": [
+      "Trạng thái: Xenon là khí không màu, không mùi ở điều kiện thường.",
+      "Có trong: Tồn tại với hàm lượng rất nhỏ trong khí quyển Trái Đất.",
+      "Đơn chất: Xe",
+      "Hợp chất: XeF₂, XeF₄, XeF₆, XeO₃, XeO₄..."
+    ],
+    "mineral": {
+      "available": false,
+      "reason": "Nguồn chủ yếu là khí quyển, nước hoặc nước muối; không có mẫu quặng riêng đại diện."
+    }
   },
-  "naturalState": {},
-  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là khí hiếm, thuộc nhóm VIIIA.</li>\n      <li>Không màu, không mùi.</li>\n      <li>Tồn tại dạng khí đơn nguyên tử.</li>\n      <li>Khối lượng riêng của khí ở điều kiện tiêu chuẩn: khoảng 5.9 g/L.</li>\n      <li>Nhiệt độ nóng chảy: khoảng −111.8 °C.</li>\n      <li>Nhiệt độ sôi: khoảng −108.1 °C.</li>\n      <li>Không cháy.</li>\n      <li>Có khả năng phát ánh sáng xanh tím khi bị kích thích bằng điện.</li>\n    </ul>\n  ",
-  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Ở trạng thái cơ bản, Xenon có số Oxy hóa 0.</li>\n      <li>Có thể tạo hợp chất với Fluorine và Oxygen.</li>\n      <li>Có các số Oxy hóa dương như +2, +4, +6 và +8 trong một số hợp chất.</li>\n      <li>Kém hoạt động hóa học hơn hầu hết các nguyên tố.</li>\n      <li>Có thể tạo nhiều hợp chất đặc biệt như Xenon difluoride (XeF₂), Xenon tetrafluoride (XeF₄) và Xenon hexafluoride (XeF₆).</li>\n    </ul>\n  ",
+  "naturalState": {
+    "image": "/assets/periodic-table/diagrams/054_Xe.svg",
+    "alt": "Xenon: sơ đồ minh họa nguyên tố",
+    "kind": "diagram",
+    "source": "",
+    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+    "credit": ""
+  },
+  "isotopes": [
+    {
+      "isotope": "¹²⁴Xe",
+      "massNumber": 124,
+      "protons": 54,
+      "neutrons": 70,
+      "stable": false,
+      "abundancePercent": "0.095",
+      "halfLifeDisplay": "Cỡ 10²² năm Y",
+      "halfLife": "Cỡ 10²² năm Y",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": "GE",
+      "decay": "2B+",
+      "source": "https://www.nature.com/articles/s41586-019-1124-4",
+      "note": "Bắt hai electron đã quan sát; số đo phụ thuộc thí nghiệm."
+    },
+    {
+      "isotope": "¹²⁶Xe",
+      "massNumber": 126,
+      "protons": 54,
+      "neutrons": 72,
+      "stable": true,
+      "abundancePercent": "0.089",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹²⁸Xe",
+      "massNumber": 128,
+      "protons": 54,
+      "neutrons": 74,
+      "stable": true,
+      "abundancePercent": "1.910",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹²⁹Xe",
+      "massNumber": 129,
+      "protons": 54,
+      "neutrons": 75,
+      "stable": true,
+      "abundancePercent": "26.401",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹³⁰Xe",
+      "massNumber": 130,
+      "protons": 54,
+      "neutrons": 76,
+      "stable": true,
+      "abundancePercent": "4.071",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹³¹Xe",
+      "massNumber": 131,
+      "protons": 54,
+      "neutrons": 77,
+      "stable": true,
+      "abundancePercent": "21.232",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹³²Xe",
+      "massNumber": 132,
+      "protons": 54,
+      "neutrons": 78,
+      "stable": true,
+      "abundancePercent": "26.909",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹³⁴Xe",
+      "massNumber": 134,
+      "protons": 54,
+      "neutrons": 80,
+      "stable": false,
+      "abundancePercent": "10.436",
+      "halfLifeDisplay": "GT 5.8E+22 năm",
+      "halfLife": "5.8E+22 Y",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": "GT",
+      "decay": "2B-",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹³⁶Xe",
+      "massNumber": 136,
+      "protons": 54,
+      "neutrons": 82,
+      "stable": false,
+      "abundancePercent": "8.857",
+      "halfLifeDisplay": "2.165E21 ± 6.1E+19 năm",
+      "halfLife": "2.165E21 Y",
+      "halfLifeUncertainty": "61",
+      "halfLifeQualifier": null,
+      "decay": "2B-",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Là khí hiếm, thuộc nhóm VIIIA.</li><li>Không màu, không mùi.</li><li>Tồn tại dạng khí đơn nguyên tử.</li><li>Khối lượng riêng của khí ở điều kiện tiêu chuẩn: khoảng 5.9 g/L.</li><li>Nhiệt độ nóng chảy: khoảng −111.8 °C.</li><li>Nhiệt độ sôi: khoảng −108.1 °C.</li><li>Không cháy.</li><li>Có khả năng phát ánh sáng xanh tím khi bị kích thích bằng điện.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Ở trạng thái cơ bản, Xenon có số Oxy hóa 0.</li><li>Có thể tạo hợp chất với Fluorine và Oxygen.</li><li>Có các số Oxy hóa dương như +2, +4, +6 và +8 trong một số hợp chất.</li><li>Kém hoạt động hóa học hơn hầu hết các nguyên tố.</li><li>Có thể tạo nhiều hợp chất đặc biệt như Xenon difluoride (XeF₂), Xenon tetrafluoride (XeF₄) và Xenon hexafluoride (XeF₆).</li></ul>",
   "reactions": [
     {
       "type": "Tác dụng với Fluorine",
+      "desc": "",
       "equation": "Xe + F₂ → XeF₂",
-      "desc": ""
+      "condition": "Đun nóng Xe và F₂ trong thiết bị phù hợp; sản phẩm phụ thuộc tỉ lệ F₂/Xe, nhiệt độ và áp suất.",
+      "kind": "chemical",
+      "sourceLine": 63,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tạo Xenon tetrafluoride",
+      "desc": "",
       "equation": "Xe + 2F₂ → XeF₄",
-      "desc": ""
+      "condition": "Đun nóng Xe và F₂ trong thiết bị phù hợp; sản phẩm phụ thuộc tỉ lệ F₂/Xe, nhiệt độ và áp suất.",
+      "kind": "chemical",
+      "sourceLine": 65,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tạo Xenon hexafluoride",
+      "desc": "",
       "equation": "Xe + 3F₂ → XeF₆",
-      "desc": ""
+      "condition": "Đun nóng Xe và F₂ trong thiết bị phù hợp; sản phẩm phụ thuộc tỉ lệ F₂/Xe, nhiệt độ và áp suất.",
+      "kind": "chemical",
+      "sourceLine": 67,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Xenon difluoride thủy phân",
+      "desc": "",
       "equation": "2XeF₂ + 2H₂O → 2Xe + 4HF + O₂",
-      "desc": ""
+      "condition": "Thủy phân trong nước; phản ứng tạo HF.",
+      "kind": "chemical",
+      "sourceLine": 69,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Xenon trioxide phân hủy",
+      "desc": "",
       "equation": "2XeO₃ → 2Xe + 3O₂",
-      "desc": ""
+      "condition": "Gia nhiệt để phân hủy; nhiệt độ phụ thuộc chất và áp suất khí sản phẩm.",
+      "kind": "chemical",
+      "sourceLine": 71,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     }
   ],
-  "applications": [
-    {
-      "title": "Đèn Xenon",
-      "desc": "Xenon được sử dụng trong đèn flash, đèn chiếu sáng cường độ cao và một số loại đèn pha."
-    },
-    {
-      "title": "Laser",
-      "desc": "Xenon được sử dụng trong một số hệ thống laser excimer."
-    },
-    {
-      "title": "Y học",
-      "desc": "Xenon có thể được sử dụng trong một số nghiên cứu và ứng dụng y học chuyên biệt."
-    },
-    {
-      "title": "Nhiếp ảnh",
-      "desc": "Đèn flash Xenon tạo ra ánh sáng mạnh trong thời gian rất ngắn."
-    },
-    {
-      "title": "Động cơ ion",
-      "desc": "Xenon được sử dụng làm chất đẩy trong một số hệ thống động cơ ion của tàu vũ trụ."
-    },
-    {
-      "title": "Nghiên cứu khoa học",
-      "desc": "Xenon được sử dụng trong các thí nghiệm vật lý và hóa học, bao gồm nghiên cứu vật chất tối và neutrino."
-    }
-  ],
-  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Xenon là nguyên tố số 54, thuộc nhóm VIIIA | chu kỳ 5 và là một khí hiếm.</li>\n  <li>Xenon có cấu hình electron [Kr] 4d¹⁰ 5s² 5p⁶, với lớp electron ngoài cùng đã bão hòa nên ở điều kiện thường rất ít phản ứng hóa học.</li>\n  <li>Xenon là khí không màu, không mùi, tồn tại với hàm lượng rất nhỏ trong khí quyển. Điểm đặc biệt của Xenon là dù thuộc khí hiếm, nó vẫn có thể tạo ra các hợp chất với Fluorine và Oxygen.</li>\n  <li>Xenon có nhiều ứng dụng trong đèn chiếu sáng, đèn flash, laser, y học, động cơ ion và nghiên cứu khoa học.</li>\n</ul>\n",
   "preparations": {
-    "lab": [],
+    "lab": [
+      {
+        "title": "Xenon không được điều chế bằng phản ứng hóa học thông thường mà được thu hồi từ hỗn hợp khí chứa Xenon, sau đó tinh chế bằng các phương pháp vật lý.",
+        "desc": "Không có phương trình phản ứng hóa học.",
+        "result": "",
+        "equations": [],
+        "sourceLines": [
+          55,
+          56
+        ],
+        "equation": ""
+      }
+    ],
     "industry": [
       {
-        "title": "Xenon được thu nhận chủ yếu từ không khí hóa lỏng bằng phương pháp chưng cất phân đoạn.",
-        "equation": "",
-        "desc": ""
-      },
-      {
-        "title": "Trong quá trình hóa lỏng và phân tách không khí, Xenon được tách cùng với các khí hiếm nặng khác như Krypton.",
-        "equation": "",
-        "desc": ""
+        "title": "Xenon (Xe) được thu hồi từ không khí hóa lỏng trong quá trình sản xuất Oxygen và Nitrogen. Do có hàm lượng rất thấp trong không khí, Xenon được tách bằng phương pháp chưng cất phân đoạn và các công đoạn tinh chế khí.",
+        "desc": "Không có phương trình phản ứng hóa học vì đây là quá trình tách hỗn hợp khí.",
+        "result": "",
+        "equations": [],
+        "sourceLines": [
+          52,
+          53
+        ],
+        "equation": ""
       }
     ]
   },
   "recognition": [
     {
-      "title": "Nhận biết",
-      "reagent": "Xenon không có phản ứng hóa học đơn giản, đặc trưng để nhận biết trong điều kiện thông thường.",
-      "result": "",
-      "equation": ""
-    },
-    {
-      "title": "Một phương pháp nhận biết là dựa vào phổ phát xạ",
-      "reagent": "",
-      "result": "",
-      "equation": ""
-    },
-    {
-      "title": "Hiện tượng",
-      "reagent": "",
+      "title": "Xenon không có phản ứng hóa học đơn giản, đặc trưng để nhận biết trong điều kiện thông thường.",
+      "desc": "Một phương pháp nhận biết là dựa vào phổ phát xạ:",
       "result": "Khi bị kích thích bằng điện, Xenon phát ra ánh sáng đặc trưng, có thể quan sát dưới dạng ánh sáng xanh tím/trắng.",
+      "equations": [],
+      "sourceLines": [
+        58,
+        59,
+        60
+      ],
       "equation": ""
     }
   ],
-  "structureType": "Lập phương tâm mặt (Face-centered cubic, FCC)"
+  "applications": [
+    {
+      "title": "Đèn Xenon",
+      "desc": "Xenon được sử dụng trong đèn flash, đèn chiếu sáng cường độ cao và một số loại đèn pha.",
+      "sourceLine": 73
+    },
+    {
+      "title": "Laser",
+      "desc": "Xenon được sử dụng trong một số hệ thống laser excimer.",
+      "sourceLine": 74
+    },
+    {
+      "title": "Y học",
+      "desc": "Xenon có thể được sử dụng trong một số nghiên cứu và ứng dụng y học chuyên biệt.",
+      "sourceLine": 75
+    },
+    {
+      "title": "Nhiếp ảnh",
+      "desc": "Đèn flash Xenon tạo ra ánh sáng mạnh trong thời gian rất ngắn.",
+      "sourceLine": 76
+    },
+    {
+      "title": "Động cơ ion",
+      "desc": "Xenon được sử dụng làm chất đẩy trong một số hệ thống động cơ ion của tàu vũ trụ.",
+      "sourceLine": 77
+    },
+    {
+      "title": "Nghiên cứu khoa học",
+      "desc": "Xenon được sử dụng trong các thí nghiệm vật lý và hóa học, bao gồm nghiên cứu vật chất tối và neutrino.",
+      "sourceLine": 78
+    }
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Xenon là nguyên tố số 54, thuộc nhóm VIIIA | chu kỳ 5 và là một khí hiếm.</li><li>Xenon có cấu hình electron [Kr] 4d¹⁰ 5s² 5p⁶, với lớp electron ngoài cùng đã bão hòa nên ở điều kiện thường rất ít phản ứng hóa học.</li><li>Xenon là khí không màu, không mùi, tồn tại với hàm lượng rất nhỏ trong khí quyển. Điểm đặc biệt của Xenon là dù thuộc khí hiếm, nó vẫn có thể tạo ra các hợp chất với Fluorine và Oxygen.</li><li>Xenon có nhiều ứng dụng trong đèn chiếu sáng, đèn flash, laser, y học, động cơ ion và nghiên cứu khoa học.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/diagrams/054_Xe.svg",
+      "title": "Xenon (Xe)",
+      "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+      "source": "",
+      "author": "ChemDex",
+      "license": "ChemDex schematic diagram",
+      "licenseUrl": ""
+    }
+  ],
+  "mediaBlocks": [],
+  "sources": [
+    {
+      "title": "054_Xe.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "fb0196dcaac2e181116fb28fd61c3ae93874aa41a309fdfd450730a59b37e8cd"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/54/xenon"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "xenon124",
+      "url": "https://www.nature.com/articles/s41586-019-1124-4"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "054_Xe.docx",
+    "sourceSha256": "fb0196dcaac2e181116fb28fd61c3ae93874aa41a309fdfd450730a59b37e8cd",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/054_Xe.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
 }

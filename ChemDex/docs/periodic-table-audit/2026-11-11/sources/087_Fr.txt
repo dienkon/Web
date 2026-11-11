@@ -1,0 +1,87 @@
+001: Francium (Fr)
+002: Thông tin chung
+003: Tên Latin: Francium
+004: Tên Tiếng Anh: Francium
+005: Đồng vị: ²²¹Fr, ²²³Fr
+006: Vị trí: Nhóm IA | Chu kỳ 7
+007: Số Oxy hóa: +1
+008: Độ âm điện: 0.7
+009: Lịch sử khám phá
+010: Phát hiện bởi: Marguerite Perey
+011: Năm công bố: 1939
+012: Nơi khám phá: Pháp
+013: Mô tả: Francium được Marguerite Perey phát hiện vào năm 1939 khi bà nghiên cứu sự phân rã của Actinium-227. Bà nhận thấy một sản phẩm phân rã mới và xác định đó là nguyên tố số 87. Nguyên tố được đặt tên Francium để vinh danh nước Pháp (France).
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Rn] 7s¹
+017: Mô hình mạng tinh thể: Lập phương tâm khối (Body-centered cubic, BCC) (được dự đoán)
+018: Số hiệu nguyên tử: 87
+019: Nguyên tử khối: [223] g/mol
+020: Vỏ nguyên tử: 87 electron
+021: K: 2 | L: 8 | M: 18 | N: 32 | O: 18 | P: 8 | Q: 1
+022: Hạt nhân: 87 proton
+023: Cấu hình e: [Rn] 7s¹
+024: Loại mạng: Lập phương tâm khối (Body-centered cubic, BCC) (được dự đoán)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Kim loại rắn (được dự đoán).
+027: Có trong: Tồn tại tự nhiên với lượng cực kỳ nhỏ trong các quặng Uranium và Thorium, chủ yếu được tạo ra từ sự phân rã phóng xạ của Actinium-227.
+028: Đơn chất: Fr
+029: Hợp chất: FrCl, FrOH, Fr₂O...
+030: c. Đồng vị
+031: Francium không có đồng vị bền.
+032: Có hơn 30 đồng vị phóng xạ đã biết, nhưng đáng chú ý nhất là:
+033: ²²³Fr: chu kỳ bán rã khoảng 22 phút, là đồng vị phổ biến nhất trong tự nhiên.
+034: ²²¹Fr: chu kỳ bán rã khoảng 4.8 phút.
+035: ²²³Fr được tạo ra trong chuỗi phân rã của Actinium-227:
+036: ²²⁷Ac → ²²³Fr + α
+037: Do chu kỳ bán rã rất ngắn, Francium chỉ tồn tại trong tự nhiên với lượng cực kỳ nhỏ.
+038: Tính chất
+039: Tính chất vật lý
+040: Là kim loại kiềm.
+041: Có tính phóng xạ rất mạnh.
+042: Là nguyên tố tự nhiên cực kỳ hiếm.
+043: Kim loại Francium nguyên chất chưa thể được quan sát với lượng đủ lớn để đo trực tiếp đầy đủ các tính chất vật lý.
+044: Nhiệt độ nóng chảy được ước tính khoảng 27 °C.
+045: Khối lượng riêng được ước tính khoảng 2.5 g/cm³.
+046: Tính chất hóa học
+047: Có 1 electron hóa trị.
+048: Số Oxy hóa đặc trưng: +1.
+049: Được dự đoán là một trong những kim loại hoạt động hóa học mạnh nhất.
+050: Có xu hướng dễ mất electron để tạo Fr⁺.
+051: Phản ứng với nước được dự đoán là rất mạnh.
+052: Tính chất hóa học tương tự các kim loại kiềm khác như Cesium và Potassium.
+053: Điều chế
+054: Điều chế trong công nghiệp
+055: Francium (Fr) không được sản xuất công nghiệp do tính phóng xạ cao, thời gian bán rã ngắn và độ khan hiếm. Nguyên tố này có thể được tạo ra nhân tạo bằng phản ứng hạt nhân, chẳng hạn bắn phá Thorium-232 bằng proton.
+056: Phương trình hạt nhân:
+057: ²³²Th + ¹H → ²²¹Fr + 3¹n
+058: Điều chế trong phòng thí nghiệm
+059: Francium được tạo ra với lượng cực nhỏ trong các cơ sở nghiên cứu hạt nhân bằng phản ứng bắn phá hạt nhân. Không có phương pháp điều chế hóa học thông thường để thu được Francium.
+060: Nhận biết
+061: Francium được nhận biết chủ yếu bằng phương pháp phóng xạ và kỹ thuật hạt nhân.
+062: Do các đồng vị Francium có chu kỳ bán rã rất ngắn và tồn tại với lượng cực nhỏ, không thể nhận biết bằng các phản ứng hóa học thông thường như những nguyên tố bền.
+063: Phương trình
+064: Tạo Francium-223
+065: ²²⁷Ac → ²²³Fr + ⁴He
+066: Phân rã Francium-223
+067: ²²³Fr → ²²³Ra + β⁻
+068: Tạo Francium chloride
+069: 2Fr + Cl₂ → 2FrCl
+070: Tác dụng với Oxygen
+071: 4Fr + O₂ → 2Fr₂O
+072: Tác dụng với nước
+073: 2Fr + 2H₂O → 2FrOH + H₂↑
+074: Các phương trình phản ứng hóa học của Francium chủ yếu mang tính dự đoán do không thể nghiên cứu một lượng Francium kim loại đủ lớn.
+075: Ứng dụng thực tế
+076: Francium hầu như không có ứng dụng thực tế hoặc công nghiệp do:
+077: Cực kỳ hiếm.
+078: Tất cả đồng vị đều phóng xạ.
+079: Chu kỳ bán rã rất ngắn.
+080: Rất khó thu thập với lượng đáng kể.
+081: Nghiên cứu khoa học: Francium được sử dụng trong nghiên cứu cấu trúc nguyên tử, vật lý hạt nhân và các tính chất của nguyên tố siêu nặng.
+082: Tổng quan
+083: Francium là nguyên tố số 87, thuộc nhóm IA | chu kỳ 7 và là kim loại kiềm.
+084: Francium có cấu hình electron [Rn] 7s¹, vì vậy có xu hướng mất electron 7s để tạo ion Fr⁺. Nó được dự đoán là một trong những nguyên tố có tính kim loại và hoạt động hóa học mạnh nhất.
+085: Francium không có đồng vị bền; đồng vị tự nhiên quan trọng nhất là ²²³Fr, có chu kỳ bán rã chỉ khoảng 22 phút.
+086: Mạng tinh thể: Lập phương tâm khối (BCC) — giá trị được dự đoán, vì chưa thể thu được lượng Francium kim loại đủ lớn để xác định trực tiếp cấu trúc tinh thể.
+087: Do cực kỳ hiếm và phóng xạ mạnh, Francium không có ứng dụng thương mại đáng kể, chủ yếu chỉ có giá trị trong nghiên cứu khoa học.

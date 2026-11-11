@@ -1,0 +1,110 @@
+001: Zinc (Zn)
+002: Thông tin chung
+003: Tên Latin: Zincum
+004: Tên Tiếng Anh: Zinc
+005: Đồng vị: ⁶⁴Zn, ⁶⁶Zn, ⁶⁷Zn, ⁶⁸Zn, ⁷⁰Zn
+006: Vị trí: Nhóm IIB | Chu kỳ 4
+007: Số Oxy hóa: +2
+008: Độ âm điện: 1.65
+009: Lịch sử khám phá
+010: Phát hiện bởi: Không xác định chính xác. Zinc đã được sử dụng từ thời cổ đại; Zinc kim loại được điều chế và sử dụng rộng rãi ở Ấn Độ.
+011: Năm công bố: Khoảng thế kỷ XII–XIII
+012: Nơi khám phá: Ấn Độ
+013: Mô tả: Zinc compounds đã được sử dụng từ thời cổ đại, đặc biệt trong sản xuất Brass. Zinc kim loại được sản xuất ở quy mô đáng kể tại Ấn Độ vào khoảng thế kỷ XII–XIII. Sau đó, kỹ thuật sản xuất Zinc được truyền sang Trung Quốc và châu Âu. Tên Zinc trong tiếng Anh bắt nguồn từ tiếng Đức Zink.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Ar] 3d¹⁰ 4s²
+017: Mô hình mạng tinh thể: Lục phương (Hexagonal)
+018: Số hiệu nguyên tử: 30
+019: Nguyên tử khối: 65.38 g/mol
+020: Vỏ nguyên tử: 30 electron
+021: K: 2 | L: 8 | M: 18 | N: 2
+022: Hạt nhân: 30 proton, 34 neutron đối với ⁶⁴Zn
+023: Cấu hình e: [Ar] 3d¹⁰ 4s²
+024: Loại mạng: Lục phương (Hexagonal)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Zinc là kim loại rắn, màu trắng xanh ở điều kiện thường.
+027: Có trong: Sphalerite (ZnS), Smithsonite (ZnCO₃), Zincite (ZnO) và Franklinite.
+028: Đơn chất: Zn
+029: Hợp chất: ZnO, ZnS, ZnCl₂, ZnSO₄, ZnCO₃, Zn(OH)₂...
+030: c. Đồng vị
+031: Đồng vị: ⁶⁴Zn, ⁶⁶Zn, ⁶⁷Zn, ⁶⁸Zn, ⁷⁰Zn
+032: ⁶⁴Zn: Đồng vị bền, chiếm khoảng 48.6%.
+033: ⁶⁶Zn: Đồng vị bền, chiếm khoảng 27.9%.
+034: ⁶⁷Zn: Đồng vị bền, chiếm khoảng 4.1%.
+035: ⁶⁸Zn: Đồng vị bền, chiếm khoảng 18.8%.
+036: ⁷⁰Zn: Đồng vị phóng xạ, tồn tại trong tự nhiên với lượng rất nhỏ.
+037: Tính chất
+038: Tính chất vật lý
+039: Là kim loại thuộc nhóm IIB.
+040: Có màu trắng xanh.
+041: Khá giòn ở nhiệt độ thường.
+042: Trở nên dẻo hơn khi được nung nóng khoảng 100–150 °C.
+043: Khối lượng riêng: khoảng 7.14 g/cm³.
+044: Nhiệt độ nóng chảy: khoảng 419.5 °C.
+045: Nhiệt độ sôi: khoảng 907 °C.
+046: Dẫn điện và dẫn nhiệt.
+047: Có khả năng chống ăn mòn nhờ hình thành lớp bảo vệ trên bề mặt.
+048: Tính chất hóa học
+049: Có số Oxy hóa phổ biến là +2.
+050: Có tính khử tương đối mạnh.
+051: Dễ phản ứng với acid tạo Zinc salt và Hydrogen.
+052: Phản ứng với Oxygen tạo Zinc oxide.
+053: Phản ứng với Halogen tạo Zinc halide.
+054: ZnO và Zn(OH)₂ có tính lưỡng tính.
+055: Có thể phản ứng với cả acid và kiềm mạnh.
+056: Điều chế
+057: Điều chế trong công nghiệp
+058: Zinc chủ yếu được sản xuất từ quặng Sphalerite (ZnS).
+059: Trước tiên, quặng được nung trong không khí để chuyển thành Zinc oxide:
+060: 2ZnS + 3O₂ → 2ZnO + 2SO₂
+061: Sau đó Zinc oxide được khử bằng Carbon:
+062: ZnO + C → Zn + CO
+063: Zinc cũng có thể được sản xuất bằng phương pháp điện phân dung dịch Zinc sulfate.
+064: Điều chế trong phòng thí nghiệm
+065: Zinc có thể được điều chế bằng cách khử Zinc oxide bằng Carbon ở nhiệt độ cao:
+066: ZnO + C → Zn + CO
+067: Nhận biết
+068: Nhận biết Zn²⁺
+069: Cho dung dịch chứa Zn²⁺ tác dụng với hydroxide:
+070: Zn²⁺ + 2OH⁻ → Zn(OH)₂↓
+071: Hiện tượng: Xuất hiện kết tủa trắng Zinc hydroxide.
+072: Khi cho dư Sodium hydroxide, kết tủa tan:
+073: Zn(OH)₂ + 2OH⁻ → [Zn(OH)₄]²⁻
+074: Hiện tượng: Kết tủa trắng tan trong kiềm dư.
+075: Phương trình
+076: Tác dụng với Oxygen
+077: 2Zn + O₂ → 2ZnO
+078: Tác dụng với Chlorine
+079: Zn + Cl₂ → ZnCl₂
+080: Tác dụng với Sulfur
+081: Zn + S → ZnS
+082: Tác dụng với Hydrochloric acid
+083: Zn + 2HCl → ZnCl₂ + H₂↑
+084: Tác dụng với Sulfuric acid loãng
+085: Zn + H₂SO₄ → ZnSO₄ + H₂↑
+086: Tác dụng với Copper(II) sulfate
+087: Zn + CuSO₄ → ZnSO₄ + Cu
+088: Tạo Zinc hydroxide
+089: Zn²⁺ + 2OH⁻ → Zn(OH)₂↓
+090: Zinc hydroxide tác dụng với acid
+091: Zn(OH)₂ + 2HCl → ZnCl₂ + 2H₂O
+092: Zinc hydroxide tác dụng với kiềm
+093: Zn(OH)₂ + 2NaOH → Na₂[Zn(OH)₄]
+094: Nung Zinc carbonate
+095: ZnCO₃ → ZnO + CO₂↑
+096: Điều chế Zinc từ Zinc oxide
+097: ZnO + C → Zn + CO
+098: Ứng dụng thực tế
+099: Mạ Zinc: Zinc được dùng để mạ lên Iron và Steel nhằm bảo vệ kim loại khỏi ăn mòn, gọi là Galvanization.
+100: Sản xuất Brass: Zinc được sử dụng cùng Copper để tạo Brass.
+101: Pin: Zinc được sử dụng làm điện cực trong nhiều loại pin, như Zinc–carbon và Alkaline batteries.
+102: Đúc hợp kim: Zinc alloys được sử dụng để chế tạo nhiều chi tiết có hình dạng phức tạp.
+103: Sản xuất Zinc oxide: ZnO được sử dụng trong cao su, gốm, sơn và nhiều sản phẩm công nghiệp.
+104: Nông nghiệp: Một số Zinc compounds được sử dụng làm nguồn Zinc trong phân bón.
+105: Sinh học: Zinc là nguyên tố vi lượng cần thiết cho nhiều enzyme và quá trình sinh học.
+106: Tổng quan
+107: Zinc là nguyên tố số 30, thuộc nhóm IIB | chu kỳ 4.
+108: Zinc có cấu hình electron [Ar] 3d¹⁰ 4s² và số Oxy hóa phổ biến nhất là +2.
+109: Zinc là kim loại màu trắng xanh, có khả năng chống ăn mòn tốt và có tính khử tương đối mạnh. Trong tự nhiên, Zinc chủ yếu tồn tại trong quặng Sphalerite (ZnS).
+110: Zinc được sử dụng rộng rãi trong mạ kim loại, sản xuất Brass, pin, hợp kim và sản xuất Zinc oxide. Ngoài vai trò công nghiệp, Zinc còn là một nguyên tố vi lượng thiết yếu đối với sinh vật.

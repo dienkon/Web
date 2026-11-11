@@ -1,0 +1,883 @@
+{
+  "symbol": "Ds",
+  "number": 110,
+  "source": "110_Ds.docx",
+  "sourceSha256": "984361f62acd34de3f4f9c997becb6b9dbb4ec5eeac5d017be9b7ecb77c1c545",
+  "paragraphCount": 89,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 6,
+    "structure": 8,
+    "occurrence": 4,
+    "isotopes": 8,
+    "physical": 7,
+    "chemical": 4,
+    "lab": 2,
+    "industry": 1,
+    "recognition": 7,
+    "reactions": 9,
+    "applications": 5,
+    "notes": 5
+  },
+  "editorialDecisions": [],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "[Rn] 5f¹⁴ 6d⁸ 7s² (dự đoán)",
+      "publishedValue": "[Rn] 5f¹⁴ 6d⁹ 7s¹ (dự đoán)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+      "publishedValue": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "Không xác định",
+      "publishedValue": null,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm VIIIB | Chu kỳ 7",
+      "publishedValue": "10",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Chất rắn (dự đoán)",
+      "publishedValue": "Chưa đo trạng thái vĩ mô; các giá trị pha chỉ là dự đoán",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 34,
+      "sourceText": "²⁶⁷Ds: chu kỳ bán rã khoảng 3,1 giây.",
+      "reference": {
+        "isotope": "²⁶⁷Ds",
+        "massNumber": 267,
+        "protons": 110,
+        "neutrons": 157,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "3 (+13/−1) us",
+        "halfLife": "3 us",
+        "halfLifeUncertainty": "+13-1",
+        "halfLifeQualifier": null,
+        "decay": "A",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 35,
+      "sourceText": "²⁶⁹Ds: chu kỳ bán rã khoảng 0,18 giây.",
+      "reference": {
+        "isotope": "²⁶⁹Ds",
+        "massNumber": 269,
+        "protons": 110,
+        "neutrons": 159,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "0.18 (+0.21/−0.06) ms",
+        "halfLife": "0.18 ms",
+        "halfLifeUncertainty": "+21-6",
+        "halfLifeQualifier": null,
+        "decay": "A",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 36,
+      "sourceText": "²⁷⁰Ds: chu kỳ bán rã khoảng 0,1 giây.",
+      "reference": {
+        "isotope": "²⁷⁰Ds",
+        "massNumber": 270,
+        "protons": 110,
+        "neutrons": 160,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "0.20 (+0.07/−0.04) ms",
+        "halfLife": "0.20 ms",
+        "halfLifeUncertainty": "+7-4",
+        "halfLifeQualifier": null,
+        "decay": "A",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 37,
+      "sourceText": "²⁷¹Ds: chu kỳ bán rã khoảng 0,1 giây.",
+      "reference": {
+        "isotope": "²⁷¹Ds",
+        "massNumber": 271,
+        "protons": 110,
+        "neutrons": 161,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "1.6 (+0.4/−0.3) ms",
+        "halfLife": "1.6 ms",
+        "halfLifeUncertainty": "+4-3",
+        "halfLifeQualifier": null,
+        "decay": "A",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 38,
+      "sourceText": "²⁷⁶Ds: chu kỳ bán rã khoảng 0,1 giây.",
+      "reference": null,
+      "assessment": "Không có trong snapshot đối chiếu; chưa công bố như số liệu đã xác nhận."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 14,
+      "text": "²⁰⁸Pb + ⁶²Ni → ²⁶⁹Ds + n",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 59,
+      "text": "²⁰⁸Pb + ⁶²Ni → ²⁶⁹Ds + ¹n",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 70,
+      "text": "²⁰⁸Pb + ⁶²Ni → ²⁶⁹Ds + n",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 72,
+      "text": "²⁷¹Ds → ²⁶⁷Hs + ⁴He",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 74,
+      "text": "Ds + 2Cl₂ → DsCl₄",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 76,
+      "text": "Ds + O₂ → DsO₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "history",
+      "equation": "²⁰⁸Pb + ⁶²Ni → ²⁶⁹Ds + n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 14,
+      "sourceSection": "history",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "lab",
+      "equation": "²⁰⁸Pb + ⁶²Ni → ²⁶⁹Ds + ¹n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 59,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "²⁰⁸Pb + ⁶²Ni → ²⁶⁹Ds + n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 70,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "²⁷¹Ds → ²⁶⁷Hs + ⁴He",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 72,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Ds + 2Cl₂ → DsCl₄",
+      "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+      "kind": "formal",
+      "sourceLine": 74,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Ds + O₂ → DsO₂",
+      "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+      "kind": "formal",
+      "sourceLine": 76,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [
+    275,
+    276
+  ],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": null,
+      "after": [
+        {
+          "title": "Ứng dụng",
+          "desc": "Darmstadtium không có ứng dụng công nghiệp hoặc dân dụng.",
+          "sourceLine": 79
+        },
+        {
+          "title": "Chủ yếu được sử dụng trong",
+          "desc": "",
+          "sourceLine": 80
+        },
+        {
+          "title": "Nghiên cứu hạt nhân",
+          "desc": "Nghiên cứu tính ổn định của các hạt nhân siêu nặng.",
+          "sourceLine": 81
+        },
+        {
+          "title": "Hóa học nguyên tố siêu nặng",
+          "desc": "So sánh Darmstadtium với Platinum, nguyên tố cùng nhóm.",
+          "sourceLine": 82
+        },
+        {
+          "title": "Nghiên cứu hiệu ứng tương đối tính",
+          "desc": "Tìm hiểu ảnh hưởng của số hiệu nguyên tử rất lớn đến cấu trúc electron và tính chất hóa học.",
+          "sourceLine": 83
+        }
+      ]
+    },
+    {
+      "field": "category",
+      "before": null,
+      "after": "chuyen-tiep"
+    },
+    {
+      "field": "chemical",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Được dự đoán có tính chất tương tự Platinum (Pt).</li><li>Có thể có nhiều số Oxy hóa, trong đó +2 và +4 có thể tương đối quan trọng.</li><li>Các hiệu ứng tương đối tính mạnh có thể ảnh hưởng đáng kể đến tính chất hóa học.</li><li>Hầu hết tính chất hóa học của Darmstadtium vẫn là dự đoán lý thuyết.</li></ul>"
+    },
+    {
+      "field": "file",
+      "before": null,
+      "after": "elements/110_Ds.json"
+    },
+    {
+      "field": "general",
+      "before": null,
+      "after": {
+        "latinName": "Darmstadtium",
+        "englishName": "Darmstadtium",
+        "electronConfig": "[Rn] 5f¹⁴ 6d⁹ 7s¹ (dự đoán)",
+        "isotope": "²⁶⁷Ds, ²⁶⁹Ds, ²⁷⁰Ds, ²⁷¹Ds, ²⁷³Ds, ²⁷⁷Ds, ²⁷⁹Ds, ²⁸¹Ds",
+        "group": 10,
+        "groupLabel": "10",
+        "series": "",
+        "period": 7,
+        "state": "Chưa đo trạng thái vĩ mô; các giá trị pha chỉ là dự đoán",
+        "oxidation": "+2, +4, +6, +8 (dự đoán)",
+        "electronegativity": null,
+        "electronegativityNote": "Chưa có giá trị Pauling đủ cơ sở trong bản đối chiếu; không coi 0 là giá trị đã đo.",
+        "density": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+        "meltingPoint": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+        "boilingPoint": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+        "crystalStructure": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+        "CAS": "54083-77-1"
+      }
+    },
+    {
+      "field": "hasData",
+      "before": null,
+      "after": true
+    },
+    {
+      "field": "history",
+      "before": null,
+      "after": {
+        "discoverer": "Nhóm nghiên cứu tại Gesellschaft für Schwerionenforschung (GSI)",
+        "year": "1994",
+        "discoveryLocation": "Darmstadt, Đức",
+        "description": "Darmstadtium được tổng hợp lần đầu vào ngày 9/11/1994 tại GSI bằng cách bắn phá Nickel-62 vào Lead-208: ²⁰⁸Pb + ⁶²Ni → ²⁶⁹Ds + n Tên Darmstadtium được đặt theo Darmstadt, thành phố nơi GSI tiến hành thí nghiệm phát hiện nguyên tố."
+      }
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/diagrams/110_Ds.svg",
+          "title": "Darmstadtium (Ds)",
+          "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+          "source": "",
+          "author": "ChemDex",
+          "license": "ChemDex schematic diagram",
+          "licenseUrl": ""
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "²⁶⁷Ds",
+          "massNumber": 267,
+          "protons": 110,
+          "neutrons": 157,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "3 (+13/−1) us",
+          "halfLife": "3 us",
+          "halfLifeUncertainty": "+13-1",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁶⁹Ds",
+          "massNumber": 269,
+          "protons": 110,
+          "neutrons": 159,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "0.18 (+0.21/−0.06) ms",
+          "halfLife": "0.18 ms",
+          "halfLifeUncertainty": "+21-6",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁷⁰Ds",
+          "massNumber": 270,
+          "protons": 110,
+          "neutrons": 160,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "0.20 (+0.07/−0.04) ms",
+          "halfLife": "0.20 ms",
+          "halfLifeUncertainty": "+7-4",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁷¹Ds",
+          "massNumber": 271,
+          "protons": 110,
+          "neutrons": 161,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "1.6 (+0.4/−0.3) ms",
+          "halfLife": "1.6 ms",
+          "halfLifeUncertainty": "+4-3",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁷³Ds",
+          "massNumber": 273,
+          "protons": 110,
+          "neutrons": 163,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "0.19 (+0.14/−0.06) ms",
+          "halfLife": "0.19 ms",
+          "halfLifeUncertainty": "+14-6",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁷⁷Ds",
+          "massNumber": 277,
+          "protons": 110,
+          "neutrons": 167,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "3.5 (+2.1/−1.0) ms",
+          "halfLife": "3.5 ms",
+          "halfLifeUncertainty": "+21-10",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁷⁹Ds",
+          "massNumber": 279,
+          "protons": 110,
+          "neutrons": 169,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "0.216 (+0.047/−0.033) s",
+          "halfLife": "0.216 s",
+          "halfLifeUncertainty": "+47-33",
+          "halfLifeQualifier": null,
+          "decay": "SF",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁸¹Ds",
+          "massNumber": 281,
+          "protons": 110,
+          "neutrons": 171,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "12 (+4/−2) s",
+          "halfLife": "12 s",
+          "halfLifeUncertainty": "+4-2",
+          "halfLifeQualifier": null,
+          "decay": "SF",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "mass",
+      "before": null,
+      "after": 281
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "reference-isotope-mass-number"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://periodic-table.rsc.org/element/110/darmstadtium"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "[281] — số khối đồng vị tham chiếu, không phải nguyên tử khối chuẩn"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": []
+    },
+    {
+      "field": "nameEn",
+      "before": null,
+      "after": "Darmstadtium"
+    },
+    {
+      "field": "nameVi",
+      "before": null,
+      "after": "Darmstadtium"
+    },
+    {
+      "field": "naturalState",
+      "before": null,
+      "after": {
+        "image": "/assets/periodic-table/diagrams/110_Ds.svg",
+        "alt": "Darmstadtium: sơ đồ minh họa nguyên tố",
+        "kind": "diagram",
+        "source": "",
+        "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+        "credit": ""
+      }
+    },
+    {
+      "field": "notes",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Darmstadtium là nguyên tố số 110, thuộc nhóm VIIIB | chu kỳ 7 và là một kim loại chuyển tiếp siêu nặng.</li><li>Darmstadtium được phát hiện tại Darmstadt, Đức vào năm 1994 bằng phản ứng giữa Lead-208 và Nickel-62. Tên nguyên tố được đặt theo thành phố Darmstadt.</li><li>Cấu hình electron được dự đoán là [Rn] 5f¹⁴ 6d⁸ 7s². Darmstadtium được dự đoán có một số đặc điểm tương tự Platinum, nhưng các hiệu ứng tương đối tính có thể làm thay đổi đáng kể hóa học của nguyên tố.</li><li>Darmstadtium không có đồng vị bền, có tính phóng xạ rất mạnh và chỉ tạo được một lượng cực nhỏ. Vì vậy, nó không có ứng dụng thực tế, chủ yếu phục vụ nghiên cứu khoa học.</li><li>Mạng tinh thể: Lập phương tâm khối (BCC) — dự đoán, vì chưa thể thu được lượng Darmstadtium đủ lớn để xác định trực tiếp cấu trúc tinh thể.</li></ul>"
+    },
+    {
+      "field": "number",
+      "before": null,
+      "after": 110
+    },
+    {
+      "field": "occurrence",
+      "before": null,
+      "after": {
+        "description": "Chất rắn (dự đoán)",
+        "simple": [
+          "Ds"
+        ],
+        "compounds": [
+          "DsO₂",
+          "DsCl₄... (dự đoán)"
+        ],
+        "ores": [
+          "Không tồn tại tự nhiên với lượng đáng kể. Darmstadtium chỉ được tổng hợp nhân tạo"
+        ],
+        "details": [
+          "Trạng thái: Chất rắn (dự đoán)",
+          "Có trong: Không tồn tại tự nhiên với lượng đáng kể. Darmstadtium chỉ được tổng hợp nhân tạo.",
+          "Đơn chất: Ds",
+          "Hợp chất: DsO₂, DsCl₄... (dự đoán)"
+        ],
+        "mineral": {
+          "available": false,
+          "reason": "Nguyên tố nhân tạo hoặc chỉ có vết tự nhiên; không có quặng khai thác riêng để dựng mẫu."
+        }
+      }
+    },
+    {
+      "field": "physical",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Là kim loại chuyển tiếp.</li><li>Thuộc nhóm VIIIB | chu kỳ 7.</li><li>Là nguyên tố siêu nặng.</li><li>Có tính phóng xạ cực mạnh.</li><li>Được dự đoán là chất rắn ở điều kiện thường.</li><li>Ước tính trong tài liệu, chưa đo trên mẫu vĩ mô: Có thể có khối lượng riêng rất lớn.</li><li>Nhiệt độ nóng chảy và nhiệt độ sôi chưa được xác định thực nghiệm.</li></ul>"
+    },
+    {
+      "field": "preparations",
+      "before": null,
+      "after": {
+        "lab": [
+          {
+            "title": "Darmstadtium được tổng hợp bằng cách bắn phá Lead-208 bằng ion Nickel-62 trong máy gia tốc hạt.",
+            "desc": "",
+            "result": "",
+            "equations": [
+              {
+                "equation": "²⁰⁸Pb + ⁶²Ni → ²⁶⁹Ds + ¹n",
+                "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+                "kind": "nuclear",
+                "sourceLine": 59,
+                "sourceSection": "lab",
+                "balance": {
+                  "status": "balanced",
+                  "kind": "nuclear",
+                  "delta": {}
+                },
+                "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+              }
+            ],
+            "sourceLines": [
+              58,
+              59
+            ],
+            "equation": "²⁰⁸Pb + ⁶²Ni → ²⁶⁹Ds + ¹n"
+          }
+        ],
+        "industry": [
+          {
+            "title": "Darmstadtium (Ds) không được sản xuất công nghiệp do tính phóng xạ rất cao và thời gian bán rã ngắn. Nguyên tố này chỉ được tổng hợp với lượng cực nhỏ trong các cơ sở nghiên cứu hạt nhân.",
+            "desc": "",
+            "result": "",
+            "equations": [],
+            "sourceLines": [
+              56
+            ],
+            "equation": ""
+          }
+        ]
+      }
+    },
+    {
+      "field": "reactions",
+      "before": null,
+      "after": [
+        {
+          "type": "Tổng hợp Darmstadtium-269",
+          "desc": "",
+          "equation": "²⁰⁸Pb + ⁶²Ni → ²⁶⁹Ds + n",
+          "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+          "kind": "nuclear",
+          "sourceLine": 70,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Phân rã Alpha",
+          "desc": "",
+          "equation": "²⁷¹Ds → ²⁶⁷Hs + ⁴He",
+          "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+          "kind": "nuclear",
+          "sourceLine": 72,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Darmstadtium(IV) chloride",
+          "desc": "",
+          "equation": "Ds + 2Cl₂ → DsCl₄",
+          "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+          "kind": "formal",
+          "sourceLine": 74,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Darmstadtium(IV) oxide",
+          "desc": "",
+          "equation": "Ds + O₂ → DsO₂",
+          "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+          "kind": "formal",
+          "sourceLine": 76,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": null,
+      "after": [
+        {
+          "title": "Darmstadtium được nhận biết thông qua",
+          "desc": "Năng lượng của các hạt Alpha. Chu kỳ bán rã. Chuỗi phân rã phóng xạ. Xác định các hạt nhân con. So sánh chuỗi phân rã với các đồng vị đã biết. Không thể nhận biết bằng các phản ứng hóa học thông thường vì chỉ tạo được một lượng cực kỳ nhỏ nguyên tử Ds.",
+          "result": "",
+          "equations": [],
+          "sourceLines": [
+            61,
+            62,
+            63,
+            64,
+            65,
+            66,
+            67
+          ],
+          "equation": ""
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "110_Ds.docx",
+        "sourceSha256": "984361f62acd34de3f4f9c997becb6b9dbb4ec5eeac5d017be9b7ecb77c1c545",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/110_Ds.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "110_Ds.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "984361f62acd34de3f4f9c997becb6b9dbb4ec5eeac5d017be9b7ecb77c1c545"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/110/darmstadtium"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure",
+      "before": null,
+      "after": {
+        "protons": 110,
+        "electrons": 110,
+        "neutrons": 171,
+        "nucleusIsotope": "²⁸¹Ds",
+        "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+        "nucleus": {
+          "proton": 110,
+          "neutron": 171
+        },
+        "electronShells": [
+          2,
+          8,
+          18,
+          32,
+          32,
+          17,
+          1
+        ],
+        "shells": [
+          2,
+          8,
+          18,
+          32,
+          32,
+          17,
+          1
+        ],
+        "valenceElectrons": 1,
+        "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+        "lattice": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+        "latticeEvidence": "predicted"
+      }
+    },
+    {
+      "field": "structureType",
+      "before": null,
+      "after": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)"
+    },
+    {
+      "field": "symbol",
+      "before": null,
+      "after": "Ds"
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "Ds",
+      "status": "diagram",
+      "reason": "Không dùng ảnh mẫu vĩ mô không xác minh cho nguyên tố cực hiếm/nhân tạo."
+    },
+    "mineral": {
+      "available": false,
+      "reason": "Nguyên tố nhân tạo hoặc chỉ có vết tự nhiên; không có quặng khai thác riêng để dựng mẫu."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "Ds",
+      "z": 110,
+      "url": "https://periodic-table.rsc.org/element/110/darmstadtium",
+      "status": "retrieved",
+      "bytes": 144017,
+      "sha256": "12bdb335bfa991858e288c5b58d5d4c16ea96e1dbc73049bdfb634395f963753",
+      "facts": {
+        "Group": "10",
+        "Melting point": "Unknown",
+        "Period": "7",
+        "Boiling point": "Unknown",
+        "Block": "d",
+        "Density (g cm−³)": "Unknown",
+        "Atomic number": "110",
+        "Relative atomic mass": "[281]",
+        "State at 20°C": "Solid",
+        "Key isotopes": "²⁸¹Ds",
+        "Electron configuration": "[Rn] 5f¹⁴6d⁹7s¹",
+        "CAS number": "54083-77-1",
+        "ChemSpider ID": "-",
+        "electronegativity": "Unknown"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "110",
+      "Symbol": "Ds",
+      "Name": "Darmstadtium",
+      "AtomicMass": "282.166",
+      "CPKHexColor": "",
+      "ElectronConfiguration": "[Rn]7s2 5f14 6d8 (predicted)",
+      "Electronegativity": "",
+      "AtomicRadius": "",
+      "IonizationEnergy": "",
+      "ElectronAffinity": "",
+      "OxidationStates": "8, 6, 4, 2, 0",
+      "StandardState": "Expected to be a Solid",
+      "MeltingPoint": "",
+      "BoilingPoint": "",
+      "Density": "",
+      "GroupBlock": "Transition metal",
+      "YearDiscovered": "1994"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

@@ -1,0 +1,98 @@
+001: Mendelevium (Md)
+002: Thông tin chung
+003: Tên Latin: Mendelevium
+004: Tên Tiếng Anh: Mendelevium
+005: Đồng vị: ²⁵⁶Md, ²⁵⁷Md, ²⁵⁸Md, ²⁵⁹Md, ²⁶⁰Md, ²⁶¹Md, ²⁶²Md
+006: Vị trí: Nhóm IIIB | Chu kỳ 7 | Họ Actinide
+007: Số Oxy hóa: +2, +3
+008: Độ âm điện: 1,3 (Pauling)
+009: Lịch sử khám phá
+010: Phát hiện bởi: Albert Ghiorso, Bernard G. Harvey, Gregory R. Choppin, Stanley G. Thompson và Glenn T. Seaborg
+011: Năm công bố: 1955
+012: Nơi khám phá: Berkeley, California, Hoa Kỳ
+013: Mô tả: Mendelevium được tạo ra lần đầu tiên vào năm 1955 bằng cách bắn phá Einsteinium-253 bằng các hạt alpha trong cyclotron.
+014: Phản ứng:
+015: ²⁵³Es + ⁴He → ²⁵⁶Md + n
+016: Chỉ 17 nguyên tử Mendelevium được tạo ra trong thí nghiệm ban đầu.
+017: Tên Mendelevium được đặt để vinh danh Dmitri Mendeleev, nhà hóa học người Nga và là người xây dựng bảng tuần hoàn các nguyên tố.
+018: 3. Cấu tạo
+019: a. Cấu tạo nguyên tử
+020: Cấu hình electron: [Rn] 5f¹³ 7s²
+021: Mô hình mạng tinh thể: Chưa xác định thực nghiệm
+022: Số hiệu nguyên tử: 101
+023: Nguyên tử khối: 258,09843 g/mol (giá trị quy ước cho đồng vị ²⁵⁸Md)
+024: Vỏ nguyên tử: 101 electron
+025: Hạt nhân: 101 proton
+026: Cấu hình e đầy đủ: [Rn] 5f¹³ 7s²
+027: Loại mạng: Chưa xác định do chỉ tạo được lượng nguyên tử cực nhỏ.
+028: b. Trạng thái tự nhiên
+029: Trạng thái: Chất rắn (dự đoán)
+030: Màu sắc: Bạc trắng (dự đoán)
+031: Có trong: Không tồn tại tự nhiên; được tạo ra nhân tạo.
+032: Đơn chất: Md
+033: Hợp chất: MdCl₂, MdCl₃ và một số hợp chất khác được nghiên cứu ở quy mô nguyên tử.
+034: c. Đồng vị
+035: Mendelevium không có đồng vị bền.
+036: Một số đồng vị quan trọng:
+037: ²⁵⁶Md: chu kỳ bán rã khoảng 77 phút.
+038: ²⁵⁷Md: chu kỳ bán rã khoảng 4,3 giờ.
+039: ²⁵⁸Md: chu kỳ bán rã khoảng 51 ngày.
+040: ²⁵⁹Md: chu kỳ bán rã khoảng 1,6 giờ.
+041: ²⁶⁰Md: chu kỳ bán rã khoảng 31 ngày.
+042: ²⁶¹Md: chu kỳ bán rã khoảng 4,3 phút.
+043: ²⁶²Md: chu kỳ bán rã khoảng 1,4 giờ.
+044: ²⁵⁸Md là một trong những đồng vị Mendelevium có chu kỳ bán rã dài nhất.
+045: Tính chất
+046: Tính chất vật lý
+047: Là nguyên tố phóng xạ nhân tạo.
+048: Thuộc họ Actinide.
+049: Các tính chất vật lý vĩ mô chưa thể đo trực tiếp đầy đủ.
+050: Được dự đoán là kim loại.
+051: Có thể có màu bạc trắng.
+052: Có tính phóng xạ rất mạnh.
+053: Chỉ có thể tạo ra một lượng cực kỳ nhỏ.
+054: Tính chất hóa học
+055: Mendelevium có hai trạng thái Oxy hóa chính:
+056: +2
+057: +3
+058: Trong đó +3 là trạng thái phổ biến hơn, tương tự nhiều Actinide.
+059: Một đặc điểm đáng chú ý là Md²⁺ tương đối bền, do cấu hình electron của nó gần với trạng thái 5f¹³.
+060: Mendelevium có thể tạo các hợp chất như:
+061: MdCl₂
+062: Và
+063: MdCl₃
+064: Điều chế
+065: Điều chế trong công nghiệp:
+066: Mendelevium (Md) được điều chế bằng cách chiếu xạ các nguyên tố Actinide trong lò phản ứng hạt nhân, sau đó tách sản phẩm bằng phương pháp hóa học.
+067: Điều chế trong phòng thí nghiệm:
+068: Mendelevium được tổng hợp bằng cách bắn phá Einsteinium-253 bằng hạt Helium-4 (hạt alpha) trong máy gia tốc hạt.
+069: ²⁵³Es + ⁴He → ²⁵⁶Md + ¹n
+070: Nhận biết
+071: Có thể nhận biết Mendelevium bằng:
+072: Phổ alpha.
+073: Phân tích chuỗi phân rã.
+074: Phổ gamma của sản phẩm phân rã.
+075: Phân tích đồng vị bằng phương pháp phổ khối.
+076: Các phương pháp hóa phóng xạ ở quy mô nguyên tử.
+077: Do số lượng nguyên tử được tạo ra cực kỳ nhỏ, việc nhận biết dựa chủ yếu vào đặc tính phân rã phóng xạ.
+078: Phương trình
+079: Điều chế Mendelevium-256
+080: ²⁵³Es + ⁴He → ²⁵⁶Md + n
+081: Phân rã Alpha của Mendelevium-256
+082: ²⁵⁶Md → ²⁵²Es + α
+083: Tạo ion Mendelevium(II)
+084: Md → Md²⁺ + 2e⁻
+085: Tạo ion Mendelevium(III)
+086: Md → Md³⁺ + 3e⁻
+087: Ứng dụng thực tế
+088: Nghiên cứu hạt nhân: Mendelevium được sử dụng gần như hoàn toàn trong nghiên cứu vật lý hạt nhân và hóa học Actinide.
+089: Nghiên cứu cấu trúc electron: Mendelevium giúp các nhà khoa học nghiên cứu sự thay đổi tính chất hóa học của các nguyên tố Actinide nặng.
+090: Nghiên cứu nguyên tố siêu nặng: Các đồng vị Mendelevium có thể đóng vai trò trong việc nghiên cứu các phản ứng hạt nhân tạo ra những hạt nhân nặng hơn.
+091: Do chỉ tạo được từng lượng nguyên tử rất nhỏ và có tính phóng xạ cao, Mendelevium không có ứng dụng công nghiệp hoặc đời sống thông thường.
+092: Tổng quan
+093: Mendelevium là nguyên tố số 101, thuộc nhóm IIIB | chu kỳ 7 và là nguyên tố thứ mười ba trong họ Actinide.
+094: Mendelevium được Albert Ghiorso, Bernard G. Harvey, Gregory R. Choppin, Stanley G. Thompson và Glenn T. Seaborg phát hiện vào năm 1955 tại Berkeley, Hoa Kỳ.
+095: Đây là nguyên tố đầu tiên được tạo ra với số nguyên tử lớn hơn 100 bằng cách bắn phá một nguyên tố Actinide khác. Tên Mendelevium được đặt để vinh danh Dmitri Mendeleev, người đặt nền móng cho bảng tuần hoàn hiện đại.
+096: Mendelevium là nguyên tố phóng xạ nhân tạo, không có đồng vị bền. Hai trạng thái Oxy hóa quan trọng nhất là +2 và +3. Đặc biệt, Md²⁺ có độ ổn định tương đối cao so với nhiều Actinide khác.
+097: Do chỉ tạo ra được lượng cực nhỏ, Mendelevium chủ yếu có giá trị trong nghiên cứu khoa học, đặc biệt là nghiên cứu cấu trúc nguyên tử, hóa học Actinide và vật lý hạt nhân.
+098: Mạng tinh thể: Chưa xác định thực nghiệm do không thể tạo ra lượng đủ lớn để nghiên cứu cấu trúc vật liệu.

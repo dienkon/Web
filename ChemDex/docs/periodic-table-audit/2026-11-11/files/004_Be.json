@@ -1,0 +1,1074 @@
+{
+  "symbol": "Be",
+  "number": 4,
+  "source": "004_Be.docx",
+  "sourceSha256": "96cc7d9da2bfb5d4f10e4968b8172ae0a926218767e1c1146e3fd8886e203909",
+  "paragraphCount": 94,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 4,
+    "structure": 9,
+    "occurrence": 4,
+    "isotopes": 4,
+    "physical": 9,
+    "chemical": 8,
+    "lab": 2,
+    "industry": 4,
+    "recognition": 3,
+    "reactions": 14,
+    "applications": 6,
+    "notes": 4
+  },
+  "editorialDecisions": [],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "1s² 2s²",
+      "publishedValue": "[He] 2s²",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Lục phương xếp chặt (HCP)",
+      "publishedValue": "Lục phương xếp chặt (HCP)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "1.57",
+      "publishedValue": 1.57,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm IIA | Chu kỳ 2",
+      "publishedValue": "2",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Beryllium không tồn tại ở dạng đơn chất tự do trong tự nhiên do có tính hoạt động hóa học. Chủ yếu tồn tại trong các khoáng vật chứa Beryllium.",
+      "publishedValue": "Rắn",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 32,
+      "sourceText": "⁷Be: Đồng vị phóng xạ, chu kỳ bán rã khoảng 53 ngày.",
+      "reference": {
+        "isotope": "⁷Be",
+        "massNumber": 7,
+        "protons": 4,
+        "neutrons": 3,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "53.22 ± 0.06 d",
+        "halfLife": "53.22 d",
+        "halfLifeUncertainty": "6",
+        "halfLifeQualifier": null,
+        "decay": "EC",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 33,
+      "sourceText": "⁹Be: Đồng vị bền duy nhất của Beryllium và chiếm gần như toàn bộ Beryllium tự nhiên.",
+      "reference": {
+        "isotope": "⁹Be",
+        "massNumber": 9,
+        "protons": 4,
+        "neutrons": 5,
+        "stable": true,
+        "abundancePercent": "100",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 34,
+      "sourceText": "¹⁰Be: Đồng vị phóng xạ, chu kỳ bán rã khoảng 1.39 triệu năm; có thể hình thành do tác động của tia vũ trụ.",
+      "reference": {
+        "isotope": "¹⁰Be",
+        "massNumber": 10,
+        "protons": 4,
+        "neutrons": 6,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "1.51E+6 ± 4E+4 năm",
+        "halfLife": "1.51E+6 Y",
+        "halfLifeUncertainty": "4",
+        "halfLifeQualifier": null,
+        "decay": "B-",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 58,
+      "text": "Be(OH)2 + 2HCl → BeCl2 + 2H2O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 60,
+      "text": "BeCl2 → Be + Cl2",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 63,
+      "text": "BeCl2 + Mg → Be + MgCl2",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 70,
+      "text": "2Be + O2 → 2BeO",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 72,
+      "text": "Be + 2HCl → BeCl2 + H2↑",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 74,
+      "text": "Be + Cl2 → BeCl2",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 76,
+      "text": "Be + S → BeS",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 78,
+      "text": "Be + 2NaOH + 2H2O → Na2[Be(OH)4] + H2↑",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 80,
+      "text": "Be(OH)2 + 2HCl → BeCl2 + 2H2O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 82,
+      "text": "Be(OH)2 + 2NaOH → Na2[Be(OH)4]",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "lab",
+      "equation": "BeCl₂ + Mg → Be + MgCl₂",
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 63,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "Be(OH)₂ + 2HCl → BeCl₂ + 2H₂O",
+      "condition": "Dung dịch acid; phản ứng trung hòa, tốc độ phụ thuộc độ tan của chất rắn.",
+      "kind": "chemical",
+      "sourceLine": 58,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "BeCl₂ → Be + Cl₂",
+      "condition": "Điện phân muối khan nóng chảy; không điện phân dung dịch nước để thu kim loại kiềm/kiềm thổ.",
+      "kind": "chemical",
+      "sourceLine": 60,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2Be + O₂ → 2BeO",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 70,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Be + 2HCl → BeCl₂ + H₂↑",
+      "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+      "kind": "chemical",
+      "sourceLine": 72,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Be + Cl₂ → BeCl₂",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 74,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Be + S → BeS",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 76,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Be + 2NaOH + 2H₂O → Na₂[Be(OH)₄] + H₂↑",
+      "condition": "Dung dịch NaOH, lớp oxide bảo vệ được hòa tan; sản phẩm aluminate/beryllate trong nước.",
+      "kind": "chemical",
+      "sourceLine": 78,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Be(OH)₂ + 2HCl → BeCl₂ + 2H₂O",
+      "condition": "Dung dịch acid; phản ứng trung hòa, tốc độ phụ thuộc độ tan của chất rắn.",
+      "kind": "chemical",
+      "sourceLine": 80,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Be(OH)₂ + 2NaOH → Na₂[Be(OH)₄]",
+      "condition": "Dung dịch kiềm dư; hòa tan hydroxide lưỡng tính tạo phức hydroxo.",
+      "kind": "chemical",
+      "sourceLine": 82,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": [
+        {
+          "title": "Hợp kim",
+          "desc": "Tạo hợp kim Beryllium-Copper có độ cứng, độ bền và độ dẫn điện tốt."
+        },
+        {
+          "title": "Hàng không vũ trụ",
+          "desc": "Sử dụng trong các bộ phận cần vật liệu nhẹ, cứng và ổn định kích thước."
+        },
+        {
+          "title": "Công nghệ tia X",
+          "desc": "Dùng làm cửa sổ cho một số thiết bị tia X do hấp thụ tia X tương đối thấp."
+        },
+        {
+          "title": "Công nghệ hạt nhân",
+          "desc": "Beryllium được sử dụng trong một số hệ thống liên quan đến neutron."
+        },
+        {
+          "title": "Điện tử",
+          "desc": "Hợp kim Beryllium-Copper được dùng trong đầu nối, tiếp điểm và linh kiện điện tử."
+        },
+        {
+          "title": "Dụng cụ",
+          "desc": "Một số hợp kim Beryllium-Copper được dùng chế tạo dụng cụ có yêu cầu hạn chế phát tia lửa."
+        }
+      ],
+      "after": [
+        {
+          "title": "Hợp kim",
+          "desc": "Tạo hợp kim Beryllium-Copper có độ cứng, độ bền và độ dẫn điện tốt.",
+          "sourceLine": 84
+        },
+        {
+          "title": "Hàng không vũ trụ",
+          "desc": "Sử dụng trong các bộ phận cần vật liệu nhẹ, cứng và ổn định kích thước.",
+          "sourceLine": 85
+        },
+        {
+          "title": "Công nghệ tia X",
+          "desc": "Dùng làm cửa sổ cho một số thiết bị tia X do hấp thụ tia X tương đối thấp.",
+          "sourceLine": 86
+        },
+        {
+          "title": "Công nghệ hạt nhân",
+          "desc": "Beryllium được sử dụng trong một số hệ thống liên quan đến neutron.",
+          "sourceLine": 87
+        },
+        {
+          "title": "Điện tử",
+          "desc": "Hợp kim Beryllium-Copper được dùng trong đầu nối, tiếp điểm và linh kiện điện tử.",
+          "sourceLine": 88
+        },
+        {
+          "title": "Dụng cụ",
+          "desc": "Một số hợp kim Beryllium-Copper được dùng chế tạo dụng cụ có yêu cầu hạn chế phát tia lửa.",
+          "sourceLine": 89
+        }
+      ]
+    },
+    {
+      "field": "chemical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại kiềm thổ.</li>\n      <li>Có tính khử.</li>\n      <li>Số Oxy hóa phổ biến: +2.</li>\n      <li>Phản ứng với Oxygen khi nung nóng tạo Beryllium oxide.</li>\n      <li>Phản ứng với Halogen tạo Beryllium halide.</li>\n      <li>Phản ứng với acid tạo muối Beryllium và Hydrogen.</li>\n      <li>Không phản ứng đáng kể với nước ở điều kiện thường do có lớp oxide bảo vệ.</li>\n      <li>Beryllium oxide và Beryllium hydroxide có tính lưỡng tính.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Là kim loại kiềm thổ.</li><li>Có tính khử.</li><li>Số Oxy hóa phổ biến: +2.</li><li>Phản ứng với Oxygen khi nung nóng tạo Beryllium oxide.</li><li>Phản ứng với Halogen tạo Beryllium halide.</li><li>Phản ứng với acid tạo muối Beryllium và Hydrogen.</li><li>Không phản ứng đáng kể với nước ở điều kiện thường do có lớp oxide bảo vệ.</li><li>Beryllium oxide và Beryllium hydroxide có tính lưỡng tính.</li></ul>"
+    },
+    {
+      "field": "general.CAS",
+      "before": null,
+      "after": "7440-41-7"
+    },
+    {
+      "field": "general.electronConfig",
+      "before": "1s² 2s²",
+      "after": "[He] 2s²"
+    },
+    {
+      "field": "general.electronegativityNote",
+      "before": null,
+      "after": "Thang Pauling; số liệu tổng hợp PubChem."
+    },
+    {
+      "field": "general.groupLabel",
+      "before": null,
+      "after": "2"
+    },
+    {
+      "field": "general.series",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "general.state",
+      "before": "",
+      "after": "Rắn"
+    },
+    {
+      "field": "history.year",
+      "before": 1798,
+      "after": "1798"
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/photos/004_Be.jpg",
+          "title": "Beri (Be)",
+          "desc": "Ảnh tham chiếu mẫu Beryllium (Be); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+          "source": "https://commons.wikimedia.org/wiki/File:Be-140g.jpg",
+          "author": "Alchemist-hp = Alchemist-hp ( pse-mendelejew.de )",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "⁷Be",
+          "massNumber": 7,
+          "protons": 4,
+          "neutrons": 3,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "53.22 ± 0.06 d",
+          "halfLife": "53.22 d",
+          "halfLifeUncertainty": "6",
+          "halfLifeQualifier": null,
+          "decay": "EC",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "⁹Be",
+          "massNumber": 9,
+          "protons": 4,
+          "neutrons": 5,
+          "stable": true,
+          "abundancePercent": "100",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "¹⁰Be",
+          "massNumber": 10,
+          "protons": 4,
+          "neutrons": 6,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "1.51E+6 ± 4E+4 năm",
+          "halfLife": "1.51E+6 Y",
+          "halfLifeUncertainty": "4",
+          "halfLifeQualifier": null,
+          "decay": "B-",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "standard-atomic-weight"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "9.0122 ± 0.0001"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": [
+        {
+          "type": "model",
+          "section": "structure",
+          "title": "Mẫu khoáng vật 3D · Beryl",
+          "src": "/assets/periodic-table/minerals/beryl.glb",
+          "preview": "/assets/periodic-table/minerals/beryl.png",
+          "desc": "Be₃Al₂Si₆O₁₈. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "nameVi",
+      "before": "Beryllium",
+      "after": "Beri"
+    },
+    {
+      "field": "naturalState.alt",
+      "before": null,
+      "after": "Beryllium: ảnh tham chiếu từ Commons"
+    },
+    {
+      "field": "naturalState.caption",
+      "before": null,
+      "after": "Ảnh tham chiếu mẫu Beryllium (Be); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc."
+    },
+    {
+      "field": "naturalState.compounds",
+      "before": [
+        "BeO",
+        "Be(OH)₂",
+        "BeCl₂",
+        "BeF₂",
+        "BeCO₃",
+        "Be₃Al₂Si₆O₁₈"
+      ],
+      "after": null
+    },
+    {
+      "field": "naturalState.credit",
+      "before": null,
+      "after": "Alchemist-hp = Alchemist-hp ( pse-mendelejew.de ) · CC BY-SA 3.0"
+    },
+    {
+      "field": "naturalState.description",
+      "before": "Beryllium không tồn tại ở dạng đơn chất tự do trong tự nhiên do có tính hoạt động hóa học. Chủ yếu tồn tại trong các khoáng vật chứa Beryllium.",
+      "after": null
+    },
+    {
+      "field": "naturalState.image",
+      "before": null,
+      "after": "/assets/periodic-table/photos/004_Be.jpg"
+    },
+    {
+      "field": "naturalState.kind",
+      "before": null,
+      "after": "photo"
+    },
+    {
+      "field": "naturalState.minerals",
+      "before": [
+        "Beryll",
+        "Emerald",
+        "Aquamarine",
+        "Bertrandite"
+      ],
+      "after": null
+    },
+    {
+      "field": "naturalState.simple",
+      "before": [
+        "Be"
+      ],
+      "after": null
+    },
+    {
+      "field": "naturalState.source",
+      "before": null,
+      "after": "https://commons.wikimedia.org/wiki/File:Be-140g.jpg"
+    },
+    {
+      "field": "notes",
+      "before": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Beryllium là nguyên tố số 4, thuộc nhóm IIA | chu kỳ 2 và là kim loại kiềm thổ nhẹ.</li>\n  <li>Beryllium có khối lượng riêng thấp, độ cứng cao, nhiệt độ nóng chảy cao và khả năng dẫn nhiệt tốt. Trong tự nhiên, Beryllium chủ yếu tồn tại trong các khoáng vật như Beryll và Bertrandite.</li>\n  <li>Beryllium chủ yếu có số Oxy hóa +2. Beryllium oxide và Beryllium hydroxide có tính lưỡng tính, là đặc điểm hóa học nổi bật của nguyên tố này.</li>\n  <li>Beryllium và các hợp kim của nó được sử dụng trong hàng không vũ trụ, điện tử, công nghệ tia X và kỹ thuật hạt nhân.</li>\n</ul>\n",
+      "after": "<ul class=\"element-prose-list\"><li>Beryllium là nguyên tố số 4, thuộc nhóm IIA | chu kỳ 2 và là kim loại kiềm thổ nhẹ.</li><li>Beryllium có khối lượng riêng thấp, độ cứng cao, nhiệt độ nóng chảy cao và khả năng dẫn nhiệt tốt. Trong tự nhiên, Beryllium chủ yếu tồn tại trong các khoáng vật như Beryll và Bertrandite.</li><li>Beryllium chủ yếu có số Oxy hóa +2. Beryllium oxide và Beryllium hydroxide có tính lưỡng tính, là đặc điểm hóa học nổi bật của nguyên tố này.</li><li>Beryllium và các hợp kim của nó được sử dụng trong hàng không vũ trụ, điện tử, công nghệ tia X và kỹ thuật hạt nhân.</li></ul>"
+    },
+    {
+      "field": "occurrence.details",
+      "before": null,
+      "after": [
+        "Trạng thái: Beryllium không tồn tại ở dạng đơn chất tự do trong tự nhiên do có tính hoạt động hóa học. Chủ yếu tồn tại trong các khoáng vật chứa Beryllium.",
+        "Có trong: Beryll, Emerald, Aquamarine, Bertrandite và một số khoáng vật khác.",
+        "Đơn chất: Be",
+        "Hợp chất: BeO, Be(OH)₂, BeCl₂, BeF₂, BeCO₃, Be₃Al₂Si₆O₁₈..."
+      ]
+    },
+    {
+      "field": "occurrence.mineral",
+      "before": null,
+      "after": {
+        "available": true,
+        "id": "beryl",
+        "name": "Beryl",
+        "formula": "Be₃Al₂Si₆O₁₈",
+        "habit": "hexagonal",
+        "color": "#68b9b2",
+        "crystalSystem": "hexagonal",
+        "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+        "source": "https://www.handbookofmineralogy.org/",
+        "sourceSearch": "https://rruff.info/Beryl",
+        "model": "/assets/periodic-table/minerals/beryl.glb",
+        "preview": "/assets/periodic-table/minerals/beryl.png",
+        "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      }
+    },
+    {
+      "field": "physical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Kim loại màu xám bạc.</li>\n      <li>Nhẹ và cứng.</li>\n      <li>Có độ cứng cao so với nhiều kim loại nhẹ.</li>\n      <li>Khối lượng riêng: 1.848 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: 1287 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 2469 °C.</li>\n      <li>Dẫn nhiệt tốt.</li>\n      <li>Có độ ổn định kích thước cao.</li>\n      <li>Hấp thụ tia X tương đối thấp.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Kim loại màu xám bạc.</li><li>Nhẹ và cứng.</li><li>Có độ cứng cao so với nhiều kim loại nhẹ.</li><li>Khối lượng riêng: 1.848 g/cm³.</li><li>Nhiệt độ nóng chảy: 1287 °C.</li><li>Nhiệt độ sôi: khoảng 2469 °C.</li><li>Dẫn nhiệt tốt.</li><li>Có độ ổn định kích thước cao.</li><li>Hấp thụ tia X tương đối thấp.</li></ul>"
+    },
+    {
+      "field": "preparations.industry",
+      "before": [
+        {
+          "title": "Beryllium thường được sản xuất từ Beryllium hydroxide và chuyển thành Beryllium chloride:",
+          "equation": "Be(OH)2 + 2HCl → BeCl2 + 2H2O <br> BeCl2 → Be + Cl2",
+          "desc": "Beryllium chloride khan sau đó được điện phân trong môi trường muối nóng chảy để thu Beryllium:"
+        }
+      ],
+      "after": [
+        {
+          "title": "Beryllium thường được sản xuất từ Beryllium hydroxide và chuyển thành Beryllium chloride",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "Be(OH)₂ + 2HCl → BeCl₂ + 2H₂O",
+              "condition": "Dung dịch acid; phản ứng trung hòa, tốc độ phụ thuộc độ tan của chất rắn.",
+              "kind": "chemical",
+              "sourceLine": 58,
+              "sourceSection": "industry",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            57,
+            58
+          ],
+          "equation": "Be(OH)₂ + 2HCl → BeCl₂ + 2H₂O"
+        },
+        {
+          "title": "Beryllium chloride khan sau đó được điện phân trong môi trường muối nóng chảy để thu Beryllium",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "BeCl₂ → Be + Cl₂",
+              "condition": "Điện phân muối khan nóng chảy; không điện phân dung dịch nước để thu kim loại kiềm/kiềm thổ.",
+              "kind": "chemical",
+              "sourceLine": 60,
+              "sourceSection": "industry",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            59,
+            60
+          ],
+          "equation": "BeCl₂ → Be + Cl₂"
+        }
+      ]
+    },
+    {
+      "field": "preparations.lab",
+      "before": [
+        {
+          "title": "Có thể điều chế Beryllium bằng cách khử Beryllium chloride bằng Magnesium:",
+          "equation": "BeCl2 + Mg → Be + MgCl2",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Có thể điều chế Beryllium bằng cách khử Beryllium chloride bằng Magnesium",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "BeCl₂ + Mg → Be + MgCl₂",
+              "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+              "kind": "chemical",
+              "sourceLine": 63,
+              "sourceSection": "lab",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            62,
+            63
+          ],
+          "equation": "BeCl₂ + Mg → Be + MgCl₂"
+        }
+      ]
+    },
+    {
+      "field": "reactions",
+      "before": [
+        {
+          "type": "Tác dụng với Oxygen",
+          "equation": "2Be + O2 → 2BeO",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Hydrochloric acid",
+          "equation": "Be + 2HCl → BeCl2 + H2↑",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Chlorine",
+          "equation": "Be + Cl2 → BeCl2",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Sulfur",
+          "equation": "Be + S → BeS",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Sodium hydroxide",
+          "equation": "Be + 2NaOH + 2H2O → Na2[Be(OH)4] + H2↑",
+          "desc": ""
+        },
+        {
+          "type": "Beryllium hydroxide tác dụng với acid",
+          "equation": "Be(OH)2 + 2HCl → BeCl2 + 2H2O",
+          "desc": ""
+        },
+        {
+          "type": "Beryllium hydroxide tác dụng với base",
+          "equation": "Be(OH)2 + 2NaOH → Na2[Be(OH)4]",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "type": "Tác dụng với Oxygen",
+          "desc": "",
+          "equation": "2Be + O₂ → 2BeO",
+          "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+          "kind": "chemical",
+          "sourceLine": 70,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Hydrochloric acid",
+          "desc": "",
+          "equation": "Be + 2HCl → BeCl₂ + H₂↑",
+          "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+          "kind": "chemical",
+          "sourceLine": 72,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Chlorine",
+          "desc": "",
+          "equation": "Be + Cl₂ → BeCl₂",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 74,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Sulfur",
+          "desc": "",
+          "equation": "Be + S → BeS",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 76,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Sodium hydroxide",
+          "desc": "",
+          "equation": "Be + 2NaOH + 2H₂O → Na₂[Be(OH)₄] + H₂↑",
+          "condition": "Dung dịch NaOH, lớp oxide bảo vệ được hòa tan; sản phẩm aluminate/beryllate trong nước.",
+          "kind": "chemical",
+          "sourceLine": 78,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Beryllium hydroxide tác dụng với acid",
+          "desc": "",
+          "equation": "Be(OH)₂ + 2HCl → BeCl₂ + 2H₂O",
+          "condition": "Dung dịch acid; phản ứng trung hòa, tốc độ phụ thuộc độ tan của chất rắn.",
+          "kind": "chemical",
+          "sourceLine": 80,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Beryllium hydroxide tác dụng với base",
+          "desc": "",
+          "equation": "Be(OH)₂ + 2NaOH → Na₂[Be(OH)₄]",
+          "condition": "Dung dịch kiềm dư; hòa tan hydroxide lưỡng tính tạo phức hydroxo.",
+          "kind": "chemical",
+          "sourceLine": 82,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": [
+        {
+          "title": "Phổ nguyên tử",
+          "reagent": "",
+          "result": "Beryllium có thể được nhận biết bằng các vạch phổ đặc trưng.",
+          "equation": ""
+        },
+        {
+          "title": "Ion Be²⁺",
+          "reagent": "",
+          "result": "Có thể xác định bằng các phương pháp phân tích hóa học chuyên biệt.",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "Không có một phản ứng đơn giản, phổ biến dùng để nhận biết Beryllium như phép thử Ag⁺ với Cl⁻.",
+          "result": "",
+          "equation": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Phổ nguyên tử: Beryllium có thể được nhận biết bằng các vạch phổ đặc trưng.",
+          "desc": "Ion Be²⁺: Có thể xác định bằng các phương pháp phân tích hóa học chuyên biệt. Không có một phản ứng đơn giản, phổ biến dùng để nhận biết Beryllium như phép thử Ag⁺ với Cl⁻.",
+          "result": "",
+          "equations": [],
+          "sourceLines": [
+            65,
+            66,
+            67
+          ],
+          "equation": ""
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "004_Be.docx",
+        "sourceSha256": "96cc7d9da2bfb5d4f10e4968b8172ae0a926218767e1c1146e3fd8886e203909",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/004_Be.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "004_Be.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "96cc7d9da2bfb5d4f10e4968b8172ae0a926218767e1c1146e3fd8886e203909"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/4/beryllium"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure.latticeEvidence",
+      "before": null,
+      "after": "source-reviewed"
+    },
+    {
+      "field": "structure.nucleusIsotope",
+      "before": null,
+      "after": "⁹Be"
+    },
+    {
+      "field": "structure.nucleusNote",
+      "before": null,
+      "after": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác."
+    },
+    {
+      "field": "structure.valenceNote",
+      "before": null,
+      "after": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp."
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "Be",
+      "status": "downloaded",
+      "file": "/assets/periodic-table/photos/004_Be.jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:Be-140g.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Be-140g.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Be-140g.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "filename": "Be-140g.jpg",
+      "title": "Be-140g",
+      "description": "Beryllium , &gt;99 % pure, crystalline big fragment &gt;140 g",
+      "author": "Alchemist-hp = Alchemist-hp ( pse-mendelejew.de )",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "credit": "Own work",
+      "sha256": "a633e389e1c0690bfa4fc56236c74b6b9bea894ccc8f6c3dbdbfbb423a728d87",
+      "bytes": 262866
+    },
+    "mineral": {
+      "available": true,
+      "id": "beryl",
+      "name": "Beryl",
+      "formula": "Be₃Al₂Si₆O₁₈",
+      "habit": "hexagonal",
+      "color": "#68b9b2",
+      "crystalSystem": "hexagonal",
+      "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Beryl",
+      "model": "/assets/periodic-table/minerals/beryl.glb",
+      "preview": "/assets/periodic-table/minerals/beryl.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "Be",
+      "z": 4,
+      "url": "https://periodic-table.rsc.org/element/4/beryllium",
+      "status": "retrieved",
+      "bytes": 154267,
+      "sha256": "75713de13c53f5f0198a855b791fd9e45a07e2c0658f132c1206af6adb2fae71",
+      "facts": {
+        "Group": "2",
+        "Melting point": "1287°C, 2349°F, 1560 K",
+        "Period": "2",
+        "Boiling point": "2468°C, 4474°F, 2741 K",
+        "Block": "s",
+        "Density (g cm−³)": "1.85",
+        "Atomic number": "4",
+        "Relative atomic mass": "9.012",
+        "State at 20°C": "Solid",
+        "Key isotopes": "⁹Be",
+        "Electron configuration": "[He] 2s²",
+        "CAS number": "7440-41-7",
+        "ChemSpider ID": "4573986",
+        "electronegativity": "1.57"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "4",
+      "Symbol": "Be",
+      "Name": "Beryllium",
+      "AtomicMass": "9.012183",
+      "CPKHexColor": "C2FF00",
+      "ElectronConfiguration": "[He]2s2",
+      "Electronegativity": "1.57",
+      "AtomicRadius": "153",
+      "IonizationEnergy": "9.323",
+      "ElectronAffinity": "",
+      "OxidationStates": "+2",
+      "StandardState": "Solid",
+      "MeltingPoint": "1560",
+      "BoilingPoint": "2744",
+      "Density": "1.85",
+      "GroupBlock": "Alkaline earth metal",
+      "YearDiscovered": "1798"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

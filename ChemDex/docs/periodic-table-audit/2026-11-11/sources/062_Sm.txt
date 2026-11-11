@@ -1,0 +1,99 @@
+001: Samarium (Sm)
+002: Thông tin chung
+003: Tên Latin: Samarium
+004: Tên Tiếng Anh: Samarium
+005: Đồng vị: ¹⁴⁴Sm, ¹⁴⁷Sm, ¹⁴⁸Sm, ¹⁴⁹Sm, ¹⁵⁰Sm, ¹⁵²Sm, ¹⁵⁴Sm
+006: Vị trí: Nhóm IIIB | Chu kỳ 6 | Họ Lanthanide
+007: Số Oxy hóa: +2, +3
+008: Độ âm điện: 1,17 (Pauling)
+009: Lịch sử khám phá
+010: Phát hiện bởi: Paul-Émile Lecoq de Boisbaudran
+011: Năm công bố: 1879
+012: Nơi khám phá: Pháp
+013: Mô tả: Samarium được phát hiện khi Paul-Émile Lecoq de Boisbaudran nghiên cứu khoáng vật Samarskite. Ông phát hiện các vạch phổ mới và xác định sự tồn tại của một nguyên tố đất hiếm mới.
+014: Sau đó, Samarium được điều chế ở dạng tương đối tinh khiết hơn.
+015: Tên Samarium bắt nguồn từ tên khoáng vật Samarskite, vốn được đặt theo tên của Vasili Samarsky-Bykhovets, một kỹ sư khai mỏ người Nga.
+016: 3. Cấu tạo
+017: a. Cấu tạo nguyên tử
+018: Cấu hình electron: [Xe] 4f⁶ 6s²
+019: Mô hình mạng tinh thể: Rhombohedral (cấu trúc biến đổi theo nhiệt độ; ở điều kiện thường thuộc hệ tinh thể rhombohedral)
+020: Số hiệu nguyên tử: 62
+021: Nguyên tử khối: 150,36 g/mol
+022: Vỏ nguyên tử: 62 electron
+023: Hạt nhân: 62 proton
+024: Cấu hình e đầy đủ: 1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰ 4p⁶ 5s² 4d¹⁰ 5p⁶ 4f⁶ 6s²
+025: Loại mạng: Rhombohedral
+026: b. Trạng thái tự nhiên
+027: Trạng thái: Chất rắn
+028: Màu sắc: Trắng bạc
+029: Có trong: Monazite, Bastnäsite và Samarskite.
+030: Đơn chất: Sm
+031: Hợp chất phổ biến: Sm₂O₃, SmCl₃, Sm₂O₃, SmS
+032: c. Đồng vị
+033: Samarium có 7 đồng vị tự nhiên:
+034: ¹⁴⁴Sm: khoảng 3,1%, phóng xạ.
+035: ¹⁴⁷Sm: khoảng 15,0%, phóng xạ, chu kỳ bán rã khoảng 1,06 × 10¹¹ năm.
+036: ¹⁴⁸Sm: khoảng 11,2%, phóng xạ cực yếu.
+037: ¹⁴⁹Sm: khoảng 13,8%, bền.
+038: ¹⁵⁰Sm: khoảng 7,4%, phóng xạ cực yếu.
+039: ¹⁵²Sm: khoảng 26,7%, bền.
+040: ¹⁵⁴Sm: khoảng 22,7%, bền.
+041: ¹⁵²Sm là đồng vị tự nhiên phổ biến nhất.
+042: Tính chất
+043: Tính chất vật lý
+044: Là kim loại đất hiếm.
+045: Thuộc họ Lanthanide.
+046: Có màu trắng bạc.
+047: Khá mềm.
+048: Có tính thuận từ mạnh.
+049: Dễ bị oxy hóa trong không khí.
+050: Có nhiệt độ nóng chảy khoảng 1072 °C.
+051: Có nhiệt độ sôi khoảng 1794 °C.
+052: Khối lượng riêng khoảng 7,52 g/cm³.
+053: Tính chất hóa học
+054: Số Oxy hóa phổ biến nhất là +3.
+055: +2 cũng tương đối đặc trưng và có thể tồn tại trong một số hợp chất.
+056: Samarium phản ứng với Oxygen tạo Samarium(III) oxide:
+057: 4Sm + 3O₂ → 2Sm₂O₃
+058: Phản ứng với Acid tạo muối Sm³⁺ và giải phóng Hydrogen.
+059: Samarium có khả năng hấp thụ neutron khá mạnh, đặc biệt là ¹⁴⁹Sm.
+060: Điều chế
+061: Điều chế trong công nghiệp
+062: Samarium (Sm) chủ yếu được điều chế từ quặng monazite và bastnaesite. Sau khi tách khỏi hỗn hợp đất hiếm, Samarium được thu bằng phương pháp khử Samarium oxide bằng Lanthanum ở nhiệt độ cao.
+063: Phương trình:
+064: Sm₂O₃ + 2La → 2Sm + La₂O₃
+065: Samarium thu được được tinh chế để loại bỏ tạp chất.
+066: Điều chế trong phòng thí nghiệm
+067: Có thể điều chế Samarium bằng cách khử Samarium chloride khan bằng Calcium.
+068: Phương trình:
+069: 2SmCl₃ + 3Ca → 2Sm + 3CaCl₂
+070: Nhận biết
+071: Có thể nhận biết Samarium bằng:
+072: Phổ phát xạ nguyên tử.
+073: ICP-OES hoặc ICP-MS.
+074: Phổ hấp thụ đặc trưng của ion Sm³⁺.
+075: Các tính chất từ đặc trưng.
+076: Ion Sm³⁺ trong dung dịch thường có màu vàng nhạt.
+077: Phương trình
+078: Tác dụng với Oxygen
+079: 4Sm + 3O₂ → 2Sm₂O₃
+080: Tác dụng với Hydrochloric acid
+081: 2Sm + 6HCl → 2SmCl₃ + 3H₂
+082: Tạo Samarium(III) hydroxide
+083: SmCl₃ + 3NaOH → Sm(OH)₃↓ + 3NaCl
+084: Điều chế Samarium
+085: 2SmCl₃ + 3Ca → 2Sm + 3CaCl₂
+086: Phản ứng hấp thụ neutron của Samarium-149
+087: ¹⁴⁹Sm + n → ¹⁵⁰Sm
+088: Ứng dụng thực tế
+089: Nam châm: Samarium được sử dụng để chế tạo Samarium–Cobalt (SmCo), một loại nam châm vĩnh cửu mạnh có khả năng hoạt động tốt ở nhiệt độ cao.
+090: Lò phản ứng hạt nhân: Do ¹⁴⁹Sm có tiết diện bắt neutron rất lớn, Samarium có vai trò trong việc hấp thụ neutron và kiểm soát phản ứng hạt nhân.
+091: Laser: Một số tinh thể pha tạp Samarium được sử dụng trong các hệ thống laser và vật liệu quang học.
+092: Kính quang học: Samarium compounds có thể được sử dụng trong kính hấp thụ tia hồng ngoại và một số ứng dụng quang học.
+093: Điện tử: Một số hợp chất Samarium được dùng trong vật liệu điện tử và từ tính.
+094: Tổng quan
+095: Samarium là nguyên tố số 62, thuộc nhóm IIIB | chu kỳ 6 và là nguyên tố thứ sáu trong họ Lanthanide.
+096: Samarium được Paul-Émile Lecoq de Boisbaudran phát hiện vào năm 1879 khi nghiên cứu khoáng vật Samarskite. Tên nguyên tố bắt nguồn từ tên khoáng vật này, vốn được đặt theo Vasili Samarsky-Bykhovets.
+097: Samarium là kim loại đất hiếm màu trắng bạc, có tính thuận từ mạnh. Trạng thái Oxy hóa phổ biến nhất là +3, ngoài ra +2 cũng có thể tồn tại trong một số hợp chất.
+098: Samarium có ứng dụng quan trọng trong nam châm SmCo, công nghệ hạt nhân, laser, kính quang học và vật liệu điện tử. Đặc biệt, đồng vị ¹⁴⁹Sm có khả năng hấp thụ neutron rất mạnh.
+099: Mạng tinh thể: Rhombohedral ở điều kiện thường.

@@ -1,0 +1,102 @@
+001: Antimony (Sb)
+002: Thông tin chung
+003: Tên Latin: Stibium
+004: Tên Tiếng Anh: Antimony
+005: Đồng vị: ¹²¹Sb, ¹²³Sb
+006: Vị trí: Nhóm VA | Chu kỳ 5
+007: Số Oxy hóa: −3, +3, +5
+008: Độ âm điện: 2.05
+009: Lịch sử khám phá
+010: Phát hiện bởi: Không xác định — Antimony và các hợp chất của nó đã được con người biết đến từ thời cổ đại.
+011: Năm công bố: Khoảng 3000 TCN
+012: Nơi khám phá: Không xác định
+013: Mô tả: Các hợp chất của Antimony đã được sử dụng từ thời cổ đại. Antimony nguyên chất được xác định và điều chế rõ ràng hơn trong thời kỳ Trung Cổ. Ký hiệu Sb bắt nguồn từ tên Latin Stibium.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Kr] 4d¹⁰ 5s² 5p³
+017: Mô hình mạng tinh thể: Lục phương (Hexagonal)
+018: Số hiệu nguyên tử: 51
+019: Nguyên tử khối: 121.760 g/mol
+020: Vỏ nguyên tử: 51 electron
+021: K: 2 | L: 8 | M: 18 | N: 18 | O: 5
+022: Hạt nhân: 51 proton, 70 neutron đối với ¹²¹Sb
+023: Cấu hình e: [Kr] 4d¹⁰ 5s² 5p³
+024: Loại mạng: Lục phương (Hexagonal)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Antimony là chất rắn, màu trắng bạc, có ánh kim và khá giòn.
+027: Có trong: Chủ yếu tồn tại trong quặng Stibnite (Sb₂S₃).
+028: Đơn chất: Sb
+029: Hợp chất: Sb₂S₃, Sb₂O₃, Sb₂O₅, SbCl₃, SbCl₅...
+030: c. Đồng vị
+031: Đồng vị: ¹²¹Sb, ¹²³Sb
+032: Trong tự nhiên, Antimony có 2 đồng vị bền:
+033: ¹²¹Sb: chiếm khoảng 57.2%.
+034: ¹²³Sb: chiếm khoảng 42.8%.
+035: Ngoài ra còn có nhiều đồng vị phóng xạ được tạo ra nhân tạo.
+036: Tính chất
+037: Tính chất vật lý
+038: Là á kim.
+039: Màu trắng bạc, ánh kim.
+040: Giòn và dễ vỡ.
+041: Khối lượng riêng: khoảng 6.68 g/cm³.
+042: Nhiệt độ nóng chảy: khoảng 630.6 °C.
+043: Nhiệt độ sôi: khoảng 1587 °C.
+044: Dẫn điện và dẫn nhiệt kém hơn kim loại.
+045: Có một số dạng thù hình.
+046: Tính chất hóa học
+047: Có các số Oxy hóa phổ biến −3, +3 và +5.
+048: Sb(III) và Sb(V) là hai trạng thái Oxy hóa quan trọng.
+049: Phản ứng với Oxygen khi nung nóng tạo Antimony oxide.
+050: Phản ứng với Halogen tạo Antimony halide.
+051: Có thể phản ứng với một số acid và base mạnh.
+052: Có khả năng tạo hợp chất với Sulfur.
+053: Một số hợp chất Antimony có tính độc.
+054: Điều chế
+055: Điều chế trong công nghiệp
+056: Antimony chủ yếu được điều chế từ quặng Stibnite (Sb₂S₃) qua hai phương pháp:
+057: Nung quặng trong không khí để tạo Antimony(III) oxide, sau đó khử bằng Carbon:
+058: 2Sb₂S₃ + 9O₂ → 2Sb₂O₃ + 6SO₂
+059: 2Sb₂O₃ + 3C → 4Sb + 3CO₂
+060: Hoặc khử trực tiếp quặng bằng Iron:
+061: Sb₂S₃ + 3Fe → 2Sb + 3FeS
+062: Antimony thô được tinh chế để loại bỏ tạp chất.
+063: Điều chế trong phòng thí nghiệm
+064: Có thể điều chế Antimony bằng cách khử Antimony(III) chloride bằng Zinc:
+065: 2SbCl₃ + 3Zn → 2Sb + 3ZnCl₂
+066: Nhận biết
+067: Nhận biết Sb³⁺
+068: Cho Sb³⁺ tác dụng với Sulfide:
+069: 2Sb³⁺ + 3S²⁻ → Sb₂S₃↓
+070: Hiện tượng: Xuất hiện kết tủa màu cam hoặc cam đỏ Antimony(III) sulfide.
+071: Nhận biết Sb⁵⁺
+072: 2Sb⁵⁺ + 5S²⁻ → Sb₂S₅↓
+073: Hiện tượng: Xuất hiện kết tủa màu vàng Antimony(V) sulfide.
+074: Phương trình
+075: Tác dụng với Oxygen
+076: 4Sb + 3O₂ → 2Sb₂O₃
+077: Tác dụng với Chlorine
+078: 2Sb + 3Cl₂ → 2SbCl₃
+079: Tác dụng với Sulfur
+080: 2Sb + 3S → Sb₂S₃
+081: Tác dụng với Hydrochloric acid
+082: 2Sb + 6HCl → 2SbCl₃ + 3H₂↑
+083: Tạo Antimony(III) sulfide
+084: 2Sb³⁺ + 3S²⁻ → Sb₂S₃↓
+085: Tạo Antimony(V) sulfide
+086: 2Sb⁵⁺ + 5S²⁻ → Sb₂S₅↓
+087: Nung Stibnite trong Oxygen
+088: 2Sb₂S₃ + 9O₂ → 2Sb₂O₃ + 6SO₂
+089: Điều chế Antimony
+090: Sb₂O₃ + 3C → 2Sb + 3CO↑
+091: Ứng dụng thực tế
+092: Hợp kim: Antimony được thêm vào Lead và một số kim loại khác để tăng độ cứng và độ bền.
+093: Ắc quy: Antimony được sử dụng trong một số hợp kim Lead dùng cho ắc quy chì–acid.
+094: Chất chống cháy: Một số hợp chất Antimony, đặc biệt là Antimony trioxide (Sb₂O₃), được sử dụng làm chất hỗ trợ chống cháy.
+095: Bán dẫn: Một số hợp chất như Indium antimonide (InSb) và Gallium antimonide (GaSb) được sử dụng trong công nghệ bán dẫn.
+096: Sản xuất kính: Một số hợp chất Antimony được sử dụng trong quá trình sản xuất và xử lý kính.
+097: Hóa chất: Các hợp chất Antimony được sử dụng trong nhiều quá trình công nghiệp và tổng hợp hóa học.
+098: Tổng quan
+099: Antimony là nguyên tố số 51, thuộc nhóm VA | chu kỳ 5 và được xếp vào nhóm á kim.
+100: Antimony có cấu hình electron [Kr] 4d¹⁰ 5s² 5p³, với các số Oxy hóa phổ biến là −3, +3 và +5.
+101: Antimony có màu trắng bạc, ánh kim nhưng giòn và dẫn điện kém, thể hiện tính chất trung gian giữa kim loại và phi kim. Trong tự nhiên, nguồn Antimony quan trọng nhất là Stibnite (Sb₂S₃).
+102: Antimony được sử dụng chủ yếu trong hợp kim, ắc quy, chất chống cháy, bán dẫn và công nghiệp kính. Trong đó, Antimony trioxide (Sb₂O₃) là một hợp chất công nghiệp quan trọng.

@@ -1,0 +1,98 @@
+001: Cerium (Ce)
+002: Thông tin chung
+003: Tên Latin: Cerium
+004: Tên Tiếng Anh: Cerium
+005: Đồng vị: ¹³⁶Ce, ¹³⁸Ce, ¹⁴⁰Ce, ¹⁴²Ce
+006: Vị trí: Nhóm IIIB | Chu kỳ 6 | Họ Lanthanide
+007: Số Oxy hóa: +3, +4
+008: Độ âm điện: 1,12 (Pauling)
+009: Lịch sử khám phá
+010: Phát hiện bởi: Jöns Jacob Berzelius và Wilhelm Hisinger; Martin Heinrich Klaproth độc lập phát hiện Cerium oxide.
+011: Năm công bố: 1803
+012: Nơi khám phá: Thụy Điển và Đức
+013: Mô tả: Năm 1803, Berzelius và Hisinger nghiên cứu một khoáng vật mới ở Thụy Điển và phát hiện một nguyên tố mới. Cùng thời gian đó, Martin Heinrich Klaproth ở Đức cũng độc lập phát hiện oxide của nguyên tố này.
+014: Ban đầu Cerium được phát hiện dưới dạng Cerium oxide, còn kim loại Cerium tinh khiết được điều chế sau đó.
+015: Tên Cerium được đặt theo Ceres, một hành tinh lùn được phát hiện vào năm 1801.
+016: 3. Cấu tạo
+017: a. Cấu tạo nguyên tử
+018: Cấu hình electron: [Xe] 4f¹ 5d¹ 6s²
+019: Mô hình mạng tinh thể: Lập phương tâm diện (Face-centered cubic, FCC)
+020: Số hiệu nguyên tử: 58
+021: Nguyên tử khối: 140,116 g/mol
+022: Vỏ nguyên tử: 58 electron
+023: Hạt nhân: 58 proton
+024: Cấu hình e đầy đủ: 1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰ 4p⁶ 5s² 4d¹⁰ 5p⁶ 4f¹ 5d¹ 6s²
+025: Loại mạng: Lập phương tâm diện (FCC)
+026: b. Trạng thái tự nhiên
+027: Trạng thái: Chất rắn
+028: Màu sắc: Trắng bạc
+029: Có trong: Monazite, Bastnäsite và một số khoáng vật đất hiếm khác.
+030: Đơn chất: Ce
+031: Hợp chất phổ biến: CeO₂, Ce₂O₃, CeCl₃, Ce(SO₄)₂
+032: c. Đồng vị
+033: Cerium có 4 đồng vị tự nhiên:
+034: ¹³⁶Ce: khoảng 0,19%, bền.
+035: ¹³⁸Ce: khoảng 0,25%, bền.
+036: ¹⁴⁰Ce: khoảng 88,45%, bền.
+037: ¹⁴²Ce: khoảng 11,11%, bền.
+038: Trong đó ¹⁴⁰Ce là đồng vị phổ biến nhất.
+039: Cerium cũng có nhiều đồng vị phóng xạ nhân tạo.
+040: Tính chất
+041: Tính chất vật lý
+042: Là kim loại đất hiếm.
+043: Thuộc họ Lanthanide.
+044: Có màu trắng bạc.
+045: Khá mềm và có thể dễ dàng gia công.
+046: Có tính dẫn điện và dẫn nhiệt.
+047: Dễ bị oxy hóa trong không khí.
+048: Có nhiệt độ nóng chảy khoảng 798 °C.
+049: Có nhiệt độ sôi khoảng 3443 °C.
+050: Khối lượng riêng khoảng 6,77 g/cm³.
+051: Tính chất hóa học
+052: Cerium có điểm đặc biệt là có thể tồn tại ổn định ở hai trạng thái Oxy hóa +3 và +4.
+053: Ce³⁺ thường gặp trong nhiều hợp chất Cerium.
+054: Ce⁴⁺ có tính Oxy hóa mạnh, đặc biệt trong môi trường Acid.
+055: Cerium dễ phản ứng với Oxygen:
+056: Ce + O₂ → CeO₂
+057: Cerium cũng phản ứng với nước và Acid.
+058: Điều chế
+059: Điều chế trong công nghiệp
+060: Cerium (Ce) chủ yếu được điều chế từ quặng monazite và bastnaesite. Sau khi tách Cerium khỏi hỗn hợp đất hiếm, Cerium được thu bằng phương pháp điện phân muối nóng chảy hoặc khử Cerium fluoride bằng Calcium.
+061: Phương trình:
+062: 2CeF₃ + 3Ca → 2Ce + 3CaF₂
+063: Điều chế trong phòng thí nghiệm
+064: Có thể điều chế Cerium bằng cách khử Cerium chloride khan bằng Calcium.
+065: Phương trình:
+066: 2CeCl₃ + 3Ca → 2Ce + 3CaCl₂
+067: Nhận biết
+068: Có thể nhận biết Cerium bằng:
+069: Phổ phát xạ nguyên tử.
+070: ICP-OES hoặc ICP-MS.
+071: Phản ứng đặc trưng của Ce⁴⁺.
+072: Ce⁴⁺ có màu vàng trong dung dịch và có tính Oxy hóa mạnh.
+073: Một phản ứng minh họa:
+074: 2Ce⁴⁺ + 2I⁻ → 2Ce³⁺ + I₂
+075: Ce⁴⁺ Oxy hóa I⁻ thành I₂ và bị khử thành Ce³⁺.
+076: Phương trình
+077: Tác dụng với Oxygen
+078: Ce + O₂ → CeO₂
+079: Tác dụng với nước
+080: 2Ce + 6H₂O → 2Ce(OH)₃ + 3H₂
+081: Tác dụng với Hydrochloric acid
+082: 2Ce + 6HCl → 2CeCl₃ + 3H₂
+083: Tạo Cerium(IV) oxide
+084: Ce + O₂ → CeO₂
+085: Khử Ce⁴⁺
+086: 2Ce⁴⁺ + 2I⁻ → 2Ce³⁺ + I₂
+087: Ứng dụng thực tế
+088: Đánh bóng kính: Cerium oxide (CeO₂) là một trong những vật liệu quan trọng để đánh bóng kính và thủy tinh, đặc biệt nhờ khả năng loại bỏ các lớp bề mặt rất mỏng.
+089: Bộ chuyển đổi xúc tác: Các oxide Cerium được sử dụng trong catalytic converters của ô tô nhờ khả năng chuyển đổi thuận nghịch giữa Ce³⁺ và Ce⁴⁺, giúp lưu trữ và giải phóng Oxygen.
+090: Đá đánh lửa: Hợp kim Mischmetal chứa Cerium được sử dụng trong đá đánh lửa.
+091: Kính: Cerium compounds được sử dụng trong một số loại kính để hấp thụ tia UV và giảm ảnh hưởng của bức xạ tử ngoại.
+092: Xúc tác: Cerium oxide được sử dụng trong nhiều hệ thống xúc tác công nghiệp.
+093: Tổng quan
+094: Cerium là nguyên tố số 58, thuộc nhóm IIIB | chu kỳ 6 và là nguyên tố thứ hai trong họ Lanthanide.
+095: Cerium được phát hiện vào năm 1803 bởi Jöns Jacob Berzelius và Wilhelm Hisinger, đồng thời được Martin Heinrich Klaproth độc lập phát hiện dưới dạng oxide. Tên Cerium bắt nguồn từ Ceres, được phát hiện hai năm trước đó.
+096: Cerium là kim loại màu trắng bạc, khá mềm và có tính hoạt động hóa học cao. Điểm đặc biệt của Cerium là có thể tồn tại ở cả hai trạng thái Oxy hóa +3 và +4, trong đó Ce⁴⁺ là một chất Oxy hóa mạnh.
+097: Hợp chất quan trọng nhất của Cerium là Cerium(IV) oxide (CeO₂), được sử dụng rộng rãi trong đánh bóng kính, xúc tác, xử lý khí thải và vật liệu quang học.
+098: Mạng tinh thể: Lập phương tâm diện (FCC) ở điều kiện thường.

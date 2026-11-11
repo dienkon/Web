@@ -1,0 +1,100 @@
+001: Lawrencium (Lr)
+002: Thông tin chung
+003: Tên Latin: Lawrencium
+004: Tên Tiếng Anh: Lawrencium
+005: Đồng vị: ²⁵¹Lr, ²⁵²Lr, ²⁵³Lr, ²⁵⁴Lr, ²⁵⁵Lr, ²⁵⁶Lr, ²⁵⁷Lr, ²⁵⁸Lr, ²⁵⁹Lr, ²⁶⁰Lr, ²⁶¹Lr, ²⁶²Lr
+006: Vị trí: Nhóm IIIB | Chu kỳ 7 | Họ Actinide
+007: Số Oxy hóa: +3
+008: Độ âm điện: 1,3 (Pauling, giá trị ước tính)
+009: Lịch sử khám phá
+010: Phát hiện bởi: Albert Ghiorso và cộng sự tại Lawrence Radiation Laboratory, cùng các nhà khoa học của Joint Institute for Nuclear Research (JINR).
+011: Năm công bố: 1961
+012: Nơi khám phá: Berkeley, California, Hoa Kỳ
+013: Mô tả: Lawrencium được tạo ra lần đầu tiên bằng cách bắn phá Californium-252 bằng các ion Boron-10.
+014: Phản ứng:
+015: ²⁵²Cf + ¹⁰B → ²⁶¹Lr + n
+016: Tên Lawrencium được đặt để vinh danh Ernest O. Lawrence, nhà vật lý người Mỹ và là người phát minh cyclotron.
+017: 3. Cấu tạo
+018: a. Cấu tạo nguyên tử
+019: Cấu hình electron: [Rn] 5f¹⁴ 7s² 7p¹
+020: Mô hình mạng tinh thể: Chưa xác định thực nghiệm
+021: Số hiệu nguyên tử: 103
+022: Nguyên tử khối: 262,10963 g/mol (giá trị quy ước cho đồng vị ²⁶²Lr)
+023: Vỏ nguyên tử: 103 electron
+024: Hạt nhân: 103 proton
+025: Cấu hình e đầy đủ: [Rn] 5f¹⁴ 7s² 7p¹
+026: Loại mạng: Chưa xác định do chỉ tạo được lượng nguyên tử cực nhỏ.
+027: b. Trạng thái tự nhiên
+028: Trạng thái: Chất rắn (dự đoán)
+029: Màu sắc: Bạc trắng (dự đoán)
+030: Có trong: Không tồn tại tự nhiên; được tạo ra nhân tạo.
+031: Đơn chất: Lr
+032: Hợp chất: Lr³⁺ và một số hợp chất Halide được nghiên cứu ở quy mô nguyên tử.
+033: c. Đồng vị
+034: Lawrencium không có đồng vị bền.
+035: Một số đồng vị quan trọng:
+036: ²⁵¹Lr: chu kỳ bán rã khoảng 27 giây.
+037: ²⁵²Lr: khoảng 390 mili giây.
+038: ²⁵³Lr: khoảng 0,57 giây.
+039: ²⁵⁴Lr: khoảng 10 giây.
+040: ²⁵⁵Lr: khoảng 31 giây.
+041: ²⁵⁶Lr: khoảng 27 giây.
+042: ²⁵⁷Lr: khoảng 0,65 giây.
+043: ²⁵⁸Lr: khoảng 4,1 giây.
+044: ²⁵⁹Lr: khoảng 6,2 giây.
+045: ²⁶⁰Lr: khoảng 2,7 phút.
+046: ²⁶¹Lr: khoảng 39 phút.
+047: ²⁶²Lr: khoảng 2,7 phút.
+048: ²⁶¹Lr là một trong những đồng vị có chu kỳ bán rã dài nhất của Lawrencium.
+049: Tính chất
+050: Tính chất vật lý
+051: Là nguyên tố phóng xạ nhân tạo.
+052: Thuộc họ Actinide.
+053: Được dự đoán là kim loại.
+054: Có thể có màu bạc trắng.
+055: Có tính phóng xạ rất mạnh.
+056: Chỉ có thể tạo ra với lượng cực kỳ nhỏ.
+057: Chưa thể nghiên cứu đầy đủ các tính chất vật lý vĩ mô.
+058: Tính chất hóa học
+059: Lawrencium chủ yếu có trạng thái Oxy hóa:
+060: +3
+061: Điểm đặc biệt của Lawrencium là cấu hình electron ở trạng thái cơ bản được xác định là:
+062: [Rn] 5f¹⁴ 7s² 7p¹
+063: Đây là điểm khác biệt so với nhiều Actinide trước đó, vốn thường có electron cuối cùng nằm ở orbital 6d.
+064: Ion Lr³⁺ có cấu hình:
+065: [Rn] 5f¹⁴
+066: Điều này làm Lawrencium trở thành một nguyên tố đặc biệt trong việc nghiên cứu giới hạn của dãy Actinide.
+067: Điều chế
+068: Điều chế trong công nghiệp:
+069: Lawrencium (Lr) không được sản xuất công nghiệp do tính phóng xạ cao và thời gian bán rã ngắn. Nguyên tố này chỉ được tổng hợp trong các cơ sở nghiên cứu hạt nhân.
+070: Điều chế trong phòng thí nghiệm:
+071: Lawrencium được tổng hợp bằng cách bắn phá Californium-249 bằng ion Boron-11 trong máy gia tốc hạt.
+072: ²⁴⁹Cf + ¹¹B → ²⁵⁶Lr + 4¹n
+073: Nhận biết
+074: Có thể nhận biết Lawrencium thông qua:
+075: Phổ alpha.
+076: Chuỗi phân rã phóng xạ.
+077: Phổ gamma của sản phẩm phân rã.
+078: Xác định thời gian sống của hạt nhân.
+079: Phân tích các sản phẩm con cháu trong chuỗi phân rã.
+080: Do Lawrencium có chu kỳ bán rã ngắn và chỉ được tạo ra với số lượng cực nhỏ, không thể nhận biết bằng các phương pháp hóa học thông thường.
+081: Phương trình
+082: Điều chế Lawrencium-261
+083: ²⁵²Cf + ¹⁰B → ²⁶¹Lr + n
+084: Tạo ion Lawrencium(III)
+085: Lr → Lr³⁺ + 3e⁻
+086: Phân rã Alpha của Lawrencium-261
+087: ²⁶¹Lr → ²⁵⁷Md + α
+088: Ứng dụng thực tế
+089: Nghiên cứu hạt nhân: Lawrencium được sử dụng gần như hoàn toàn trong nghiên cứu vật lý hạt nhân và hóa học Actinide.
+090: Nghiên cứu cấu hình electron: Lawrencium rất quan trọng vì nó giúp xác định cấu hình electron ở cuối dãy Actinide.
+091: Nghiên cứu nguyên tố siêu nặng: Lawrencium được sử dụng để nghiên cứu sự ổn định của hạt nhân nặng và các quy luật của bảng tuần hoàn ở vùng nguyên tố siêu nặng.
+092: Do chỉ tạo ra được lượng cực nhỏ và có tính phóng xạ mạnh, Lawrencium không có ứng dụng công nghiệp hoặc đời sống thông thường.
+093: Tổng quan
+094: Lawrencium là nguyên tố số 103, thuộc nhóm IIIB | chu kỳ 7 và là nguyên tố cuối cùng của họ Actinide.
+095: Lawrencium được phát hiện vào năm 1961 bởi Albert Ghiorso và cộng sự tại Berkeley, Hoa Kỳ. Nguyên tố được đặt tên để vinh danh Ernest O. Lawrence, người phát minh cyclotron.
+096: Lawrencium là một nguyên tố phóng xạ nhân tạo, không có đồng vị bền. Trạng thái Oxy hóa chủ yếu là +3.
+097: Điểm đặc biệt nhất của Lawrencium là cấu hình electron:
+098: [Rn] 5f¹⁴ 7s² 7p¹
+099: Khác với dự đoán đơn giản rằng electron cuối cùng sẽ đi vào orbital 6d. Điều này khiến Lawrencium trở thành một nguyên tố rất quan trọng trong nghiên cứu cấu trúc nguyên tử và giới hạn của dãy Actinide.
+100: Mạng tinh thể: Chưa xác định thực nghiệm do chỉ tạo được lượng nguyên tử cực nhỏ.

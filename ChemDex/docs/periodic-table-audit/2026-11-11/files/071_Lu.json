@@ -1,0 +1,833 @@
+{
+  "symbol": "Lu",
+  "number": 71,
+  "source": "071_Lu.docx",
+  "sourceSha256": "8cabe5e012ad3da2f4ac9d4e93a695534ec887f1847435b3075b5ea61a07bc99",
+  "paragraphCount": 92,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 6,
+    "structure": 8,
+    "occurrence": 5,
+    "isotopes": 4,
+    "physical": 9,
+    "chemical": 6,
+    "lab": 2,
+    "industry": 3,
+    "recognition": 6,
+    "reactions": 8,
+    "applications": 5,
+    "notes": 5
+  },
+  "editorialDecisions": [],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "[Xe] 4f¹⁴ 5d¹ 6s²",
+      "publishedValue": "[Xe] 4f¹⁴ 5d¹ 6s²",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Lục phương xếp chặt (HCP)",
+      "publishedValue": "Lục phương xếp chặt (HCP)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "1,27 (Pauling)",
+      "publishedValue": 1.27,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm IIIB | Chu kỳ 6 | Họ Lanthanide",
+      "publishedValue": "Lanthanide",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Chất rắn",
+      "publishedValue": "Rắn",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 34,
+      "sourceText": "¹⁷⁵Lu: khoảng 97,4%, bền.",
+      "reference": {
+        "isotope": "¹⁷⁵Lu",
+        "massNumber": 175,
+        "protons": 71,
+        "neutrons": 104,
+        "stable": true,
+        "abundancePercent": "97.401",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 35,
+      "sourceText": "¹⁷⁶Lu: khoảng 2,6%, phóng xạ, chu kỳ bán rã khoảng 3,78 × 10¹⁰ năm.",
+      "reference": {
+        "isotope": "¹⁷⁶Lu",
+        "massNumber": 176,
+        "protons": 71,
+        "neutrons": 105,
+        "stable": false,
+        "abundancePercent": "2.599",
+        "halfLifeDisplay": "3.76E+10 ± 7E+8 năm",
+        "halfLife": "3.76E+10 Y",
+        "halfLifeUncertainty": "7",
+        "halfLifeQualifier": null,
+        "decay": "B-",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 36,
+      "sourceText": "¹⁷⁵Lu là đồng vị phổ biến nhất.",
+      "reference": {
+        "isotope": "¹⁷⁵Lu",
+        "massNumber": 175,
+        "protons": 71,
+        "neutrons": 104,
+        "stable": true,
+        "abundancePercent": "97.401",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 53,
+      "text": "4Lu + 3O₂ → 2Lu₂O₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 59,
+      "text": "2LuF₃ + 3Ca → 2Lu + 3CaF₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 64,
+      "text": "2LuCl₃ + 3Ca → 2Lu + 3CaCl₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 74,
+      "text": "4Lu + 3O₂ → 2Lu₂O₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 76,
+      "text": "2Lu + 6HCl → 2LuCl₃ + 3H₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 78,
+      "text": "LuCl₃ + 3NaOH → Lu(OH)₃↓ + 3NaCl",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 80,
+      "text": "2LuCl₃ + 3Ca → 2Lu + 3CaCl₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "chemical",
+      "equation": "4Lu + 3O₂ → 2Lu₂O₃",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 53,
+      "sourceSection": "chemical",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "lab",
+      "equation": "2LuCl₃ + 3Ca → 2Lu + 3CaCl₂",
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 64,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "2LuF₃ + 3Ca → 2Lu + 3CaF₂",
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 59,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "4Lu + 3O₂ → 2Lu₂O₃",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 74,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2Lu + 6HCl → 2LuCl₃ + 3H₂",
+      "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+      "kind": "chemical",
+      "sourceLine": 76,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "LuCl₃ + 3NaOH → Lu(OH)₃↓ + 3NaCl",
+      "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+      "kind": "chemical",
+      "sourceLine": 78,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2LuCl₃ + 3Ca → 2Lu + 3CaCl₂",
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 80,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": null,
+      "after": [
+        {
+          "title": "Y học hạt nhân",
+          "desc": "Đồng vị ¹⁷⁷Lu là một trong những đồng vị phóng xạ nhân tạo quan trọng của Lutetium. Nó được sử dụng trong liệu pháp phóng xạ nhắm trúng đích (targeted radionuclide therapy).",
+          "sourceLine": 82
+        },
+        {
+          "title": "Điều trị ung thư",
+          "desc": "Các hợp chất chứa ¹⁷⁷Lu có thể liên kết với các phân tử nhắm vào tế bào ung thư, đưa bức xạ đến khu vực cần điều trị.",
+          "sourceLine": 83
+        },
+        {
+          "title": "PET",
+          "desc": "Lu₂SiO₅ (LSO) và Lu₂Si₂O₇ (LSO/LYSO-related scintillators) là những vật liệu scintillator quan trọng trong các hệ thống PET (Positron Emission Tomography).",
+          "sourceLine": 84
+        },
+        {
+          "title": "Laser",
+          "desc": "Một số hợp chất Lutetium được nghiên cứu và sử dụng trong vật liệu laser.",
+          "sourceLine": 85
+        },
+        {
+          "title": "Nghiên cứu khoa học",
+          "desc": "Lutetium được sử dụng trong các nghiên cứu về vật liệu, quang học và hạt nhân.",
+          "sourceLine": 86
+        }
+      ]
+    },
+    {
+      "field": "category",
+      "before": null,
+      "after": "lanthanide"
+    },
+    {
+      "field": "chemical",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Trạng thái Oxy hóa phổ biến và ổn định nhất là +3.</li><li>Ion Lu³⁺ có cấu hình electron 4f¹⁴, với phân lớp 4f đã được lấp đầy.</li><li>Là một trong những Lanthanide có bán kính nguyên tử và ion nhỏ nhất.</li><li>Phản ứng với Oxygen:</li><li class=\"source-equation\">4Lu + 3O₂ → 2Lu₂O₃<small>Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.</small></li><li>Phản ứng với Acid tạo muối Lutetium(III) và giải phóng Hydrogen.</li></ul>"
+    },
+    {
+      "field": "file",
+      "before": null,
+      "after": "elements/071_Lu.json"
+    },
+    {
+      "field": "general",
+      "before": null,
+      "after": {
+        "latinName": "Lutetium",
+        "englishName": "Lutetium",
+        "electronConfig": "[Xe] 4f¹⁴ 5d¹ 6s²",
+        "isotope": "¹⁷⁵Lu, ¹⁷⁶Lu",
+        "group": null,
+        "groupLabel": "Lanthanide",
+        "series": "Lanthanide",
+        "period": 6,
+        "state": "Rắn",
+        "oxidation": "+3",
+        "electronegativity": 1.27,
+        "electronegativityNote": "Thang Pauling; số liệu tổng hợp PubChem.",
+        "density": "9,84 g/cm³.",
+        "meltingPoint": "1663°C",
+        "boilingPoint": "3402°C",
+        "crystalStructure": "Lục phương xếp chặt (HCP)",
+        "CAS": "7439-94-3"
+      }
+    },
+    {
+      "field": "hasData",
+      "before": null,
+      "after": true
+    },
+    {
+      "field": "history",
+      "before": null,
+      "after": {
+        "discoverer": "Georges Urbain",
+        "year": "1907",
+        "discoveryLocation": "Paris, Pháp",
+        "description": "Lutetium được phát hiện vào năm 1907 bởi nhà hóa học người Pháp Georges Urbain khi ông nghiên cứu và tách Ytterbium thành các thành phần khác nhau. Cùng thời gian đó, Carl Auer von Welsbach ở Áo cũng nghiên cứu Ytterbium và phát hiện một nguyên tố tương ứng, nhưng Urbain là người được công nhận chính thức về việc đặt tên và công bố Lutetium. Tên Lutetium bắt nguồn từ Lutetia, tên Latin cổ của Paris."
+      }
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/diagrams/071_Lu.svg",
+          "title": "Lutetium (Lu)",
+          "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+          "source": "",
+          "author": "ChemDex",
+          "license": "ChemDex schematic diagram",
+          "licenseUrl": ""
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "¹⁷⁵Lu",
+          "massNumber": 175,
+          "protons": 71,
+          "neutrons": 104,
+          "stable": true,
+          "abundancePercent": "97.401",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "¹⁷⁶Lu",
+          "massNumber": 176,
+          "protons": 71,
+          "neutrons": 105,
+          "stable": false,
+          "abundancePercent": "2.599",
+          "halfLifeDisplay": "3.76E+10 ± 7E+8 năm",
+          "halfLife": "3.76E+10 Y",
+          "halfLifeUncertainty": "7",
+          "halfLifeQualifier": null,
+          "decay": "B-",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "mass",
+      "before": null,
+      "after": 174.97
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "standard-atomic-weight"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "174.97 ± 0.01"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": [
+        {
+          "type": "model",
+          "section": "structure",
+          "title": "Mẫu khoáng vật 3D · Xenotime-(Y)",
+          "src": "/assets/periodic-table/minerals/xenotime.glb",
+          "preview": "/assets/periodic-table/minerals/xenotime.png",
+          "desc": "YPO₄. Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "nameEn",
+      "before": null,
+      "after": "Lutetium"
+    },
+    {
+      "field": "nameVi",
+      "before": null,
+      "after": "Lutetium"
+    },
+    {
+      "field": "naturalState",
+      "before": null,
+      "after": {
+        "image": "/assets/periodic-table/diagrams/071_Lu.svg",
+        "alt": "Lutetium: sơ đồ minh họa nguyên tố",
+        "kind": "diagram",
+        "source": "",
+        "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+        "credit": ""
+      }
+    },
+    {
+      "field": "notes",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Lutetium là nguyên tố số 71, thuộc nhóm IIIB | chu kỳ 6 và là nguyên tố cuối cùng của họ Lanthanide.</li><li>Lutetium được Georges Urbain phát hiện vào năm 1907 tại Paris, Pháp. Tên nguyên tố bắt nguồn từ Lutetia, tên Latin cổ của Paris.</li><li>Lutetium là kim loại màu trắng bạc, tương đối cứng và đặc. Trạng thái Oxy hóa chủ yếu là +3, với ion Lu³⁺ có cấu hình 4f¹⁴ hoàn toàn lấp đầy. Đây cũng là một trong những nguyên tố Lanthanide có kích thước ion nhỏ nhất.</li><li>Một ứng dụng đặc biệt quan trọng của Lutetium là ¹⁷⁷Lu trong y học hạt nhân, đặc biệt trong các liệu pháp phóng xạ nhắm trúng đích. Ngoài ra, các vật liệu chứa Lutetium như LSO/LYSO có vai trò trong các máy PET.</li><li>Mạng tinh thể: Lục phương xếp chặt (HCP) ở điều kiện thường.</li></ul>"
+    },
+    {
+      "field": "number",
+      "before": null,
+      "after": 71
+    },
+    {
+      "field": "occurrence",
+      "before": null,
+      "after": {
+        "description": "Chất rắn",
+        "simple": [
+          "Lu"
+        ],
+        "compounds": [
+          "Lu₂O₃",
+          "LuCl₃",
+          "LuF₃",
+          "Lu(OH)₃"
+        ],
+        "ores": [
+          "Monazite",
+          "Xenotime và một số khoáng vật đất hiếm"
+        ],
+        "details": [
+          "Trạng thái: Chất rắn",
+          "Màu sắc: Trắng bạc",
+          "Có trong: Monazite, Xenotime và một số khoáng vật đất hiếm.",
+          "Đơn chất: Lu",
+          "Hợp chất phổ biến: Lu₂O₃, LuCl₃, LuF₃, Lu(OH)₃"
+        ],
+        "mineral": {
+          "available": true,
+          "id": "xenotime",
+          "name": "Xenotime-(Y)",
+          "formula": "YPO₄",
+          "habit": "bipyramid",
+          "color": "#af8c55",
+          "crystalSystem": "tetragonal",
+          "relation": "Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+          "source": "https://www.handbookofmineralogy.org/",
+          "sourceSearch": "https://rruff.info/Xenotime-(Y)",
+          "model": "/assets/periodic-table/minerals/xenotime.glb",
+          "preview": "/assets/periodic-table/minerals/xenotime.png",
+          "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+        }
+      }
+    },
+    {
+      "field": "physical",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Là kim loại đất hiếm.</li><li>Thuộc họ Lanthanide.</li><li>Là nguyên tố cuối cùng của dãy Lanthanide.</li><li>Có màu trắng bạc.</li><li>Khá cứng và đặc.</li><li>Có tính thuận từ.</li><li>Có nhiệt độ nóng chảy khoảng 1663 °C.</li><li>Có nhiệt độ sôi khoảng 3402 °C.</li><li>Khối lượng riêng khoảng 9,84 g/cm³.</li></ul>"
+    },
+    {
+      "field": "preparations",
+      "before": null,
+      "after": {
+        "lab": [
+          {
+            "title": "Có thể điều chế Lutetium bằng cách khử Lutetium chloride khan bằng Calcium.",
+            "desc": "",
+            "result": "",
+            "equations": [
+              {
+                "equation": "2LuCl₃ + 3Ca → 2Lu + 3CaCl₂",
+                "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+                "kind": "chemical",
+                "sourceLine": 64,
+                "sourceSection": "lab",
+                "balance": {
+                  "status": "balanced",
+                  "kind": "chemical",
+                  "delta": {}
+                },
+                "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+              }
+            ],
+            "sourceLines": [
+              62,
+              64
+            ],
+            "equation": "2LuCl₃ + 3Ca → 2Lu + 3CaCl₂"
+          }
+        ],
+        "industry": [
+          {
+            "title": "Lutetium (Lu) chủ yếu được điều chế từ quặng monazite và xenotime. Sau khi tách khỏi hỗn hợp đất hiếm, Lutetium được thu bằng phương pháp khử Lutetium fluoride bằng Calcium.",
+            "desc": "Lutetium thu được được tinh chế để loại bỏ tạp chất.",
+            "result": "",
+            "equations": [
+              {
+                "equation": "2LuF₃ + 3Ca → 2Lu + 3CaF₂",
+                "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+                "kind": "chemical",
+                "sourceLine": 59,
+                "sourceSection": "industry",
+                "balance": {
+                  "status": "balanced",
+                  "kind": "chemical",
+                  "delta": {}
+                },
+                "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+              }
+            ],
+            "sourceLines": [
+              57,
+              59,
+              60
+            ],
+            "equation": "2LuF₃ + 3Ca → 2Lu + 3CaF₂"
+          }
+        ]
+      }
+    },
+    {
+      "field": "reactions",
+      "before": null,
+      "after": [
+        {
+          "type": "Tác dụng với Oxygen",
+          "desc": "",
+          "equation": "4Lu + 3O₂ → 2Lu₂O₃",
+          "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+          "kind": "chemical",
+          "sourceLine": 74,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Hydrochloric acid",
+          "desc": "",
+          "equation": "2Lu + 6HCl → 2LuCl₃ + 3H₂",
+          "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+          "kind": "chemical",
+          "sourceLine": 76,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Lutetium(III) hydroxide",
+          "desc": "",
+          "equation": "LuCl₃ + 3NaOH → Lu(OH)₃↓ + 3NaCl",
+          "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+          "kind": "chemical",
+          "sourceLine": 78,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Điều chế Lutetium",
+          "desc": "",
+          "equation": "2LuCl₃ + 3Ca → 2Lu + 3CaCl₂",
+          "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+          "kind": "chemical",
+          "sourceLine": 80,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": null,
+      "after": [
+        {
+          "title": "Có thể nhận biết Lutetium bằng",
+          "desc": "Phổ phát xạ nguyên tử. ICP-OES hoặc ICP-MS. Phổ hấp thụ đặc trưng của Lu³⁺. Phân tích tính chất vật lý và hóa học đặc trưng. Các ion Lu³⁺ thường tạo dung dịch không màu.",
+          "result": "",
+          "equations": [],
+          "sourceLines": [
+            66,
+            67,
+            68,
+            69,
+            70,
+            71
+          ],
+          "equation": ""
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "071_Lu.docx",
+        "sourceSha256": "8cabe5e012ad3da2f4ac9d4e93a695534ec887f1847435b3075b5ea61a07bc99",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/071_Lu.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "071_Lu.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "8cabe5e012ad3da2f4ac9d4e93a695534ec887f1847435b3075b5ea61a07bc99"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/71/lutetium"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure",
+      "before": null,
+      "after": {
+        "protons": 71,
+        "electrons": 71,
+        "neutrons": 104,
+        "nucleusIsotope": "¹⁷⁵Lu",
+        "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+        "nucleus": {
+          "proton": 71,
+          "neutron": 104
+        },
+        "electronShells": [
+          2,
+          8,
+          18,
+          32,
+          9,
+          2
+        ],
+        "shells": [
+          2,
+          8,
+          18,
+          32,
+          9,
+          2
+        ],
+        "valenceElectrons": 2,
+        "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+        "lattice": "Lục phương xếp chặt (HCP)",
+        "latticeEvidence": "source-reviewed"
+      }
+    },
+    {
+      "field": "structureType",
+      "before": null,
+      "after": "Lục phương xếp chặt (HCP)"
+    },
+    {
+      "field": "symbol",
+      "before": null,
+      "after": "Lu"
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "Lu",
+      "status": "diagram",
+      "reason": "Chưa xác nhận giấy phép dùng lại: FAL"
+    },
+    "mineral": {
+      "available": true,
+      "id": "xenotime",
+      "name": "Xenotime-(Y)",
+      "formula": "YPO₄",
+      "habit": "bipyramid",
+      "color": "#af8c55",
+      "crystalSystem": "tetragonal",
+      "relation": "Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Xenotime-(Y)",
+      "model": "/assets/periodic-table/minerals/xenotime.glb",
+      "preview": "/assets/periodic-table/minerals/xenotime.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "Lu",
+      "z": 71,
+      "url": "https://periodic-table.rsc.org/element/71/lutetium",
+      "status": "retrieved",
+      "bytes": 156456,
+      "sha256": "b810788a4e3b3f592a40c9cdbecf798c23afd971cd4cd72bfb892476a90a190a",
+      "facts": {
+        "Group": "Lanthanides",
+        "Melting point": "1663°C, 3025°F, 1936 K",
+        "Period": "6",
+        "Boiling point": "3402°C, 6156°F, 3675 K",
+        "Block": "f",
+        "Density (g cm−³)": "9.84",
+        "Atomic number": "71",
+        "Relative atomic mass": "174.967",
+        "State at 20°C": "Solid",
+        "Key isotopes": "¹⁷⁵Lu",
+        "Electron configuration": "[Xe] 4f¹⁴5d¹6s²",
+        "CAS number": "7439-94-3",
+        "ChemSpider ID": "22371",
+        "electronegativity": "1.0"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "71",
+      "Symbol": "Lu",
+      "Name": "Lutetium",
+      "AtomicMass": "174.9667",
+      "CPKHexColor": "00AB24",
+      "ElectronConfiguration": "[Xe]6s2 4f14 5d1",
+      "Electronegativity": "1.27",
+      "AtomicRadius": "221",
+      "IonizationEnergy": "5.426",
+      "ElectronAffinity": "",
+      "OxidationStates": "+3",
+      "StandardState": "Solid",
+      "MeltingPoint": "1936",
+      "BoilingPoint": "3675",
+      "Density": "9.84",
+      "GroupBlock": "Lanthanide",
+      "YearDiscovered": "1907"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

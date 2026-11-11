@@ -1,0 +1,422 @@
+{
+  "number": 93,
+  "symbol": "Np",
+  "nameVi": "Neptunium",
+  "nameEn": "Neptunium",
+  "mass": 237,
+  "massStandardText": "[237] — số khối đồng vị tham chiếu, không phải nguyên tử khối chuẩn",
+  "massStandardSource": "https://periodic-table.rsc.org/element/93/neptunium",
+  "massKind": "reference-isotope-mass-number",
+  "category": "actinide",
+  "hasData": true,
+  "file": "elements/093_Np.json",
+  "general": {
+    "latinName": "Neptunium",
+    "englishName": "Neptunium",
+    "electronConfig": "[Rn] 5f⁴ 6d¹ 7s²",
+    "isotope": "²³⁶Np, ²³⁷Np, ²³⁸Np, ²³⁹Np, ²⁴⁰Np",
+    "group": null,
+    "groupLabel": "Actinide",
+    "series": "Actinide",
+    "period": 7,
+    "state": "Rắn",
+    "oxidation": "+3, +4, +5, +6, +7",
+    "electronegativity": 1.36,
+    "electronegativityNote": "Thang Pauling; số liệu tổng hợp PubChem.",
+    "density": "20,5 g/cm³ đối với dạng α-Np.",
+    "meltingPoint": "644°C",
+    "boilingPoint": "3902°C",
+    "crystalStructure": "Trực thoi (Orthorhombic)",
+    "CAS": "7439-99-8"
+  },
+  "history": {
+    "discoverer": "Edwin McMillan và Philip H. Abelson",
+    "year": "1940",
+    "discoveryLocation": "Berkeley, California, Hoa Kỳ",
+    "description": "Năm 1940, Edwin McMillan và Philip H. Abelson tạo ra Neptunium bằng cách bắn phá Uranium-238 bằng neutron trong máy gia tốc hạt. Sản phẩm ban đầu là Neptunium-239. ²³⁸U + n → ²³⁹U ²³⁹U → ²³⁹Np + β⁻ Đây là nguyên tố siêu Uranium (transuranium) đầu tiên được phát hiện. Tên Neptunium được đặt theo Neptune (Hải Vương tinh), vì Neptunium đứng ngay sau Uranium trong bảng tuần hoàn, tương tự như Neptune nằm sau Uranus trong hệ Mặt Trời."
+  },
+  "structure": {
+    "protons": 93,
+    "electrons": 93,
+    "neutrons": 144,
+    "nucleusIsotope": "²³⁷Np",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 93,
+      "neutron": 144
+    },
+    "electronShells": [
+      2,
+      8,
+      18,
+      32,
+      22,
+      9,
+      2
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      32,
+      22,
+      9,
+      2
+    ],
+    "valenceElectrons": 2,
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+    "lattice": "Trực thoi (Orthorhombic)",
+    "latticeEvidence": "source-reviewed"
+  },
+  "structureType": "Trực thoi (Orthorhombic)",
+  "occurrence": {
+    "description": "Chất rắn",
+    "simple": [
+      "Np"
+    ],
+    "compounds": [
+      "NpO₂",
+      "Np₂O₅",
+      "NpCl₃",
+      "NpCl₄",
+      "NpCl₅"
+    ],
+    "ores": [
+      "Một lượng cực nhỏ trong quặng Uranium",
+      "phần lớn Neptunium được tạo ra nhân tạo trong lò phản ứng hạt nhân"
+    ],
+    "details": [
+      "Trạng thái: Chất rắn",
+      "Màu sắc: Bạc kim loại",
+      "Có trong: Một lượng cực nhỏ trong quặng Uranium; phần lớn Neptunium được tạo ra nhân tạo trong lò phản ứng hạt nhân.",
+      "Đơn chất: Np",
+      "Hợp chất phổ biến: NpO₂, Np₂O₅, NpCl₃, NpCl₄, NpCl₅"
+    ],
+    "mineral": {
+      "available": false,
+      "reason": "Nguyên tố nhân tạo hoặc chỉ có vết tự nhiên; không có quặng khai thác riêng để dựng mẫu."
+    }
+  },
+  "naturalState": {
+    "image": "/assets/periodic-table/diagrams/093_Np.svg",
+    "alt": "Neptunium: sơ đồ minh họa nguyên tố",
+    "kind": "diagram",
+    "source": "",
+    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+    "credit": ""
+  },
+  "isotopes": [
+    {
+      "isotope": "²³⁶Np",
+      "massNumber": 236,
+      "protons": 93,
+      "neutrons": 143,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "1.55E+5 ± 1E+3 năm",
+      "halfLife": "1.55E+5 Y",
+      "halfLifeUncertainty": "1",
+      "halfLifeQualifier": null,
+      "decay": "EC",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²³⁷Np",
+      "massNumber": 237,
+      "protons": 93,
+      "neutrons": 144,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "2.144E+6 ± 7E+3 năm",
+      "halfLife": "2.144E+6 Y",
+      "halfLifeUncertainty": "7",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²³⁸Np",
+      "massNumber": 238,
+      "protons": 93,
+      "neutrons": 145,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "2.099 ± 0.002 d",
+      "halfLife": "2.099 d",
+      "halfLifeUncertainty": "2",
+      "halfLifeQualifier": null,
+      "decay": "B-",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²³⁹Np",
+      "massNumber": 239,
+      "protons": 93,
+      "neutrons": 146,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "2.356 ± 0.003 d",
+      "halfLife": "2.356 d",
+      "halfLifeUncertainty": "3",
+      "halfLifeQualifier": null,
+      "decay": "B-",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁴⁰Np",
+      "massNumber": 240,
+      "protons": 93,
+      "neutrons": 147,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "61.9 ± 0.2 phút",
+      "halfLife": "61.9 m",
+      "halfLifeUncertainty": "2",
+      "halfLifeQualifier": null,
+      "decay": "B-",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Là kim loại phóng xạ.</li><li>Thuộc họ Actinide.</li><li>Có màu bạc kim loại.</li><li>Khá nặng và có khối lượng riêng cao.</li><li>Có nhiều dạng thù hình.</li><li>Có tính phóng xạ.</li><li>Khối lượng riêng khoảng 20,5 g/cm³ đối với dạng α-Np.</li><li>Có nhiệt độ nóng chảy khoảng 644 °C.</li><li>Có nhiệt độ sôi khoảng 3902 °C.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Neptunium có nhiều trạng thái Oxy hóa:</li><li>+3</li><li>+4</li><li>+5</li><li>+6</li><li>+7</li><li>Đây là một đặc điểm nổi bật của Neptunium.</li><li>Trong dung dịch, các ion Neptunium có thể có màu sắc khác nhau tùy trạng thái Oxy hóa.</li><li>Ví dụ, Np(V) thường tồn tại dưới dạng neptunyl, còn Np(VI) dưới dạng NpO₂²⁺.</li><li>Neptunium tạo nhiều oxide:</li><li class=\"source-equation\">Np + O₂ → NpO₂<small>Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.</small></li></ul>",
+  "reactions": [
+    {
+      "type": "Tạo Neptunium-239 từ Uranium-238",
+      "desc": "",
+      "equation": "²³⁸U + n → ²³⁹U + γ",
+      "condition": "Chiếu neutron trong cơ sở nghiên cứu; bắt neutron và phát gamma nếu không có sản phẩm bay hơi.",
+      "kind": "nuclear",
+      "sourceLine": 81,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Phân rã của Uranium-239",
+      "desc": "",
+      "equation": "²³⁹U → ²³⁹Np + β⁻ + ν̅ₑ",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 83,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Phân rã của Neptunium-239",
+      "desc": "",
+      "equation": "²³⁹Np → ²³⁹Pu + β⁻ + ν̅ₑ",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 85,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tác dụng với Oxygen",
+      "desc": "",
+      "equation": "Np + O₂ → NpO₂",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 87,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Phân rã Alpha của Neptunium-237",
+      "desc": "",
+      "equation": "²³⁷Np → ²³³Pa + α",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 89,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "preparations": {
+    "lab": [
+      {
+        "title": "Neptunium có thể được tạo ra với lượng nhỏ bằng phản ứng hạt nhân trong cơ sở nghiên cứu chuyên dụng hoặc tách từ nhiên liệu hạt nhân đã qua sử dụng. Không có phương pháp điều chế hóa học thông thường để tổng hợp nguyên tố này.",
+        "desc": "",
+        "result": "",
+        "equations": [],
+        "sourceLines": [
+          70
+        ],
+        "equation": ""
+      }
+    ],
+    "industry": [
+      {
+        "title": "Neptunium (Np) chủ yếu được tạo ra nhân tạo trong các lò phản ứng hạt nhân. Neptunium-237 hình thành khi Uranium-238 hấp thụ neutron, tạo Uranium-239 rồi phân rã beta qua Neptunium-239 và cuối cùng tạo Plutonium-239. Một phần Neptunium-237 hình thành qua các phản ứng bắt neutron tiếp theo.",
+        "desc": "Chuỗi phản ứng minh họa:",
+        "result": "",
+        "equations": [
+          {
+            "equation": "²³⁸U + ¹n → ²³⁹U + γ",
+            "condition": "Chiếu neutron trong cơ sở nghiên cứu; bắt neutron và phát gamma nếu không có sản phẩm bay hơi.",
+            "kind": "nuclear",
+            "sourceLine": 66,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "nuclear",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          },
+          {
+            "equation": "²³⁹U → ²³⁹Np + β⁻ + ν̅ₑ",
+            "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+            "kind": "nuclear",
+            "sourceLine": 67,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "nuclear",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          },
+          {
+            "equation": "²³⁹Np → ²³⁹Pu + β⁻ + ν̅ₑ",
+            "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+            "kind": "nuclear",
+            "sourceLine": 68,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "nuclear",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          64,
+          65,
+          66,
+          67,
+          68
+        ],
+        "equation": "²³⁸U + ¹n → ²³⁹U + γ"
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Có thể nhận biết Neptunium bằng",
+      "desc": "Phổ alpha và beta. Đo hoạt độ phóng xạ. Phổ gamma của các đồng vị. ICP-MS và các phương pháp phân tích đồng vị. Phân tích trạng thái Oxy hóa đặc trưng. Do Neptunium phóng xạ và thường chỉ tồn tại với lượng rất nhỏ, việc nhận biết chủ yếu dựa trên phân tích hạt nhân và phổ học.",
+      "result": "",
+      "equations": [],
+      "sourceLines": [
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78
+      ],
+      "equation": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Nghiên cứu hạt nhân",
+      "desc": "Neptunium chủ yếu được sử dụng trong nghiên cứu vật lý hạt nhân và hóa học Actinide.",
+      "sourceLine": 91
+    },
+    {
+      "title": "Sản xuất Plutonium-238",
+      "desc": "²³⁷Np có thể được sử dụng làm nguyên liệu để sản xuất ²³⁸Pu, một đồng vị có ứng dụng trong nguồn năng lượng cho các hệ thống không gian.",
+      "sourceLine": 92
+    },
+    {
+      "title": "Nghiên cứu chất thải hạt nhân",
+      "desc": "²³⁷Np là một trong những đồng vị được quan tâm trong nghiên cứu lưu trữ và xử lý chất thải phóng xạ lâu dài, do chu kỳ bán rã rất dài.",
+      "sourceLine": 93
+    },
+    {
+      "title": "Nghiên cứu địa hóa",
+      "desc": "Các đồng vị Neptunium được sử dụng để nghiên cứu sự vận chuyển của Actinide trong môi trường.",
+      "sourceLine": 94
+    }
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Neptunium là nguyên tố số 93, thuộc nhóm IIIB | chu kỳ 7 và là nguyên tố thứ năm trong họ Actinide.</li><li>Neptunium được Edwin McMillan và Philip H. Abelson phát hiện vào năm 1940 tại Berkeley, Hoa Kỳ. Đây là nguyên tố siêu Uranium đầu tiên được phát hiện.</li><li>Tên Neptunium được đặt theo Neptune, tương tự như Uranium được đặt theo Uranus.</li><li>Neptunium là kim loại phóng xạ màu bạc, có nhiều trạng thái Oxy hóa từ +3 đến +7. Đồng vị quan trọng nhất là ²³⁷Np, có chu kỳ bán rã khoảng 2,14 triệu năm.</li><li>Neptunium chủ yếu có giá trị trong nghiên cứu hạt nhân. Đặc biệt, ²³⁷Np có thể đóng vai trò là nguyên liệu để sản xuất ²³⁸Pu, đồng vị được sử dụng trong các nguồn năng lượng phóng xạ cho một số hệ thống không gian.</li><li>Mạng tinh thể: Trực thoi (Orthorhombic) ở điều kiện thường.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/diagrams/093_Np.svg",
+      "title": "Neptunium (Np)",
+      "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+      "source": "",
+      "author": "ChemDex",
+      "license": "ChemDex schematic diagram",
+      "licenseUrl": ""
+    }
+  ],
+  "mediaBlocks": [],
+  "sources": [
+    {
+      "title": "093_Np.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "06f23c30dcfe0d6f1edf5a4b3b194c7463d0e0943be0439d69266be587290b2c"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/93/neptunium"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "093_Np.docx",
+    "sourceSha256": "06f23c30dcfe0d6f1edf5a4b3b194c7463d0e0943be0439d69266be587290b2c",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/093_Np.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
+}

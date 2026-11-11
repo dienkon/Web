@@ -1,0 +1,94 @@
+001: Beryllium (Be)
+002: Thông tin chung
+003: Tên Latin: Beryllium
+004: Tên tiếng Anh: Beryllium
+005: Đồng vị: ⁷Be, ⁹Be, ¹⁰Be
+006: Vị trí: Nhóm IIA | Chu kỳ 2
+007: Số Oxy hóa: +2
+008: Độ âm điện: 1.57
+009: Lịch sử khám phá
+010: Phát hiện bởi: Louis Nicolas Vauquelin
+011: Năm công bố: 1798
+012: Nơi khám phá: Pháp
+013: Mô tả: Năm 1798, Louis Nicolas Vauquelin phát hiện một oxide mới khi phân tích Beryll và Emerald. Kim loại Beryllium sau đó được Friedrich Wöhler và Antoine Bussy điều chế độc lập vào năm 1828.
+014: 3. Cấu tạo
+015: a. Cấu tạo
+016: Hoạt họa cấu hình e: 1s² 2s²
+017: Mô hình mạng tinh thể: Lục phương xếp chặt (HCP)
+018: Số hiệu nguyên tử: 4
+019: Nguyên tử khối: 9.0122 g/mol
+020: Vỏ nguyên tử: 4 electron
+021: K: 2 | L: 2
+022: Hạt nhân: 4 proton, 5 neutron đối với ⁹Be
+023: Cấu hình e: 1s² 2s²
+024: Loại mạng: Lục phương xếp chặt (HCP)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Beryllium không tồn tại ở dạng đơn chất tự do trong tự nhiên do có tính hoạt động hóa học. Chủ yếu tồn tại trong các khoáng vật chứa Beryllium.
+027: Có trong: Beryll, Emerald, Aquamarine, Bertrandite và một số khoáng vật khác.
+028: Đơn chất: Be
+029: Hợp chất: BeO, Be(OH)₂, BeCl₂, BeF₂, BeCO₃, Be₃Al₂Si₆O₁₈...
+030: c. Đồng vị
+031: Đồng vị: ⁷Be, ⁹Be, ¹⁰Be
+032: ⁷Be: Đồng vị phóng xạ, chu kỳ bán rã khoảng 53 ngày.
+033: ⁹Be: Đồng vị bền duy nhất của Beryllium và chiếm gần như toàn bộ Beryllium tự nhiên.
+034: ¹⁰Be: Đồng vị phóng xạ, chu kỳ bán rã khoảng 1.39 triệu năm; có thể hình thành do tác động của tia vũ trụ.
+035: Tính chất
+036: Tính chất vật lý
+037: Kim loại màu xám bạc.
+038: Nhẹ và cứng.
+039: Có độ cứng cao so với nhiều kim loại nhẹ.
+040: Khối lượng riêng: 1.848 g/cm³.
+041: Nhiệt độ nóng chảy: 1287 °C.
+042: Nhiệt độ sôi: khoảng 2469 °C.
+043: Dẫn nhiệt tốt.
+044: Có độ ổn định kích thước cao.
+045: Hấp thụ tia X tương đối thấp.
+046: Tính chất hóa học
+047: Là kim loại kiềm thổ.
+048: Có tính khử.
+049: Số Oxy hóa phổ biến: +2.
+050: Phản ứng với Oxygen khi nung nóng tạo Beryllium oxide.
+051: Phản ứng với Halogen tạo Beryllium halide.
+052: Phản ứng với acid tạo muối Beryllium và Hydrogen.
+053: Không phản ứng đáng kể với nước ở điều kiện thường do có lớp oxide bảo vệ.
+054: Beryllium oxide và Beryllium hydroxide có tính lưỡng tính.
+055: Điều chế
+056: Điều chế trong công nghiệp
+057: Beryllium thường được sản xuất từ Beryllium hydroxide và chuyển thành Beryllium chloride:
+058: Be(OH)2 + 2HCl → BeCl2 + 2H2O
+059: Beryllium chloride khan sau đó được điện phân trong môi trường muối nóng chảy để thu Beryllium:
+060: BeCl2 → Be + Cl2
+061: Điều chế trong phòng thí nghiệm
+062: Có thể điều chế Beryllium bằng cách khử Beryllium chloride bằng Magnesium:
+063: BeCl2 + Mg → Be + MgCl2
+064: Nhận biết
+065: Phổ nguyên tử: Beryllium có thể được nhận biết bằng các vạch phổ đặc trưng.
+066: Ion Be²⁺: Có thể xác định bằng các phương pháp phân tích hóa học chuyên biệt.
+067: Không có một phản ứng đơn giản, phổ biến dùng để nhận biết Beryllium như phép thử Ag⁺ với Cl⁻.
+068: Phương trình
+069: Tác dụng với Oxygen
+070: 2Be + O2 → 2BeO
+071: Tác dụng với Hydrochloric acid
+072: Be + 2HCl → BeCl2 + H2↑
+073: Tác dụng với Chlorine
+074: Be + Cl2 → BeCl2
+075: Tác dụng với Sulfur
+076: Be + S → BeS
+077: Tác dụng với Sodium hydroxide
+078: Be + 2NaOH + 2H2O → Na2[Be(OH)4] + H2↑
+079: Beryllium hydroxide tác dụng với acid
+080: Be(OH)2 + 2HCl → BeCl2 + 2H2O
+081: Beryllium hydroxide tác dụng với base
+082: Be(OH)2 + 2NaOH → Na2[Be(OH)4]
+083: Ứng dụng thực tế
+084: Hợp kim: Tạo hợp kim Beryllium-Copper có độ cứng, độ bền và độ dẫn điện tốt.
+085: Hàng không vũ trụ: Sử dụng trong các bộ phận cần vật liệu nhẹ, cứng và ổn định kích thước.
+086: Công nghệ tia X: Dùng làm cửa sổ cho một số thiết bị tia X do hấp thụ tia X tương đối thấp.
+087: Công nghệ hạt nhân: Beryllium được sử dụng trong một số hệ thống liên quan đến neutron.
+088: Điện tử: Hợp kim Beryllium-Copper được dùng trong đầu nối, tiếp điểm và linh kiện điện tử.
+089: Dụng cụ: Một số hợp kim Beryllium-Copper được dùng chế tạo dụng cụ có yêu cầu hạn chế phát tia lửa.
+090: 9. Tổng quan
+091: Beryllium là nguyên tố số 4, thuộc nhóm IIA | chu kỳ 2 và là kim loại kiềm thổ nhẹ.
+092: Beryllium có khối lượng riêng thấp, độ cứng cao, nhiệt độ nóng chảy cao và khả năng dẫn nhiệt tốt. Trong tự nhiên, Beryllium chủ yếu tồn tại trong các khoáng vật như Beryll và Bertrandite.
+093: Beryllium chủ yếu có số Oxy hóa +2. Beryllium oxide và Beryllium hydroxide có tính lưỡng tính, là đặc điểm hóa học nổi bật của nguyên tố này.
+094: Beryllium và các hợp kim của nó được sử dụng trong hàng không vũ trụ, điện tử, công nghệ tia X và kỹ thuật hạt nhân.

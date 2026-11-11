@@ -1,0 +1,100 @@
+001: Sodium (Na)
+002: Thông tin chung
+003: Tên Latin: Natrium
+004: Tên tiếng Anh: Sodium
+005: Đồng vị: ²²Na, ²³Na, ²⁴Na
+006: Vị trí: Nhóm IA | Chu kỳ 3
+007: Số Oxy hóa: +1
+008: Độ âm điện: 0.93
+009: Lịch sử khám phá
+010: Phát hiện bởi: Humphry Davy
+011: Năm công bố: 1807
+012: Nơi khám phá: Anh
+013: Mô tả: Năm 1807, Humphry Davy lần đầu tiên cô lập được Sodium bằng phương pháp điện phân Sodium hydroxide nóng chảy. Trước đó, các hợp chất của Sodium như Sodium carbonate đã được con người biết đến từ lâu.
+014: 3. Cấu tạo
+015: a. Cấu tạo
+016: Hoạt họa cấu hình e: 1s² 2s² 2p⁶ 3s¹
+017: Mô hình mạng tinh thể: Lập phương tâm khối (BCC)
+018: Số hiệu nguyên tử: 11
+019: Nguyên tử khối: 22.990 g/mol
+020: Vỏ nguyên tử: 11 electron
+021: K: 2 | L: 8 | M: 1
+022: Hạt nhân: 11 proton, 12 neutron đối với ²³Na
+023: Cấu hình e: 1s² 2s² 2p⁶ 3s¹
+024: Loại mạng: Lập phương tâm khối (BCC)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Sodium là kim loại hoạt động mạnh nên không tồn tại tự do trong tự nhiên. Chủ yếu tồn tại dưới dạng hợp chất.
+027: Có trong: Nước biển, muối mỏ, khoáng vật Halite, nước tự nhiên và nhiều khoáng vật.
+028: Đơn chất: Na
+029: Hợp chất: NaCl, NaOH, Na₂CO₃, NaHCO₃, NaNO₃, Na₂SO₄...
+030: c. Đồng vị
+031: Đồng vị: ²²Na, ²³Na, ²⁴Na
+032: ²³Na: Đồng vị bền duy nhất của Sodium và gần như chiếm toàn bộ Sodium tự nhiên.
+033: ²²Na: Đồng vị phóng xạ, có chu kỳ bán rã khoảng 2.6 năm.
+034: ²⁴Na: Đồng vị phóng xạ, có chu kỳ bán rã khoảng 15 giờ.
+035: Tính chất
+036: Tính chất vật lý
+037: Là kim loại màu trắng bạc.
+038: Mềm, có thể cắt bằng dao.
+039: Nhẹ hơn nước.
+040: Khối lượng riêng: khoảng 0.968 g/cm³.
+041: Nhiệt độ nóng chảy: 97.79 °C.
+042: Nhiệt độ sôi: 883 °C.
+043: Dẫn điện và dẫn nhiệt tốt.
+044: Có ánh kim khi mới cắt.
+045: Nhanh chóng bị Oxy hóa trong không khí.
+046: Tính chất hóa học
+047: Là kim loại kiềm có tính khử mạnh.
+048: Có số Oxy hóa phổ biến là +1.
+049: Phản ứng mạnh với nước tạo Sodium hydroxide và Hydrogen.
+050: Phản ứng với Oxygen tạo các Sodium oxide/peroxide tùy điều kiện.
+051: Phản ứng mạnh với Halogen tạo muối Halide.
+052: Phản ứng với Hydrogen tạo Sodium hydride.
+053: Phản ứng với nhiều acid tạo muối và Hydrogen.
+054: Có ngọn lửa màu vàng đặc trưng.
+055: Điều chế
+056: Điều chế trong công nghiệp
+057: Sodium được điều chế chủ yếu bằng điện phân Sodium chloride nóng chảy trong quy trình Downs.
+058: Tại cathode:
+059: Na⁺ + e⁻ → Na
+060: Tại anode:
+061: 2Cl⁻ → Cl₂ + 2e⁻
+062: Phương trình tổng quát:
+063: 2NaCl(l) → 2Na(l) + Cl₂(g)
+064: Điều chế trong phòng thí nghiệm
+065: Sodium không thường được điều chế trong phòng thí nghiệm phổ thông vì phản ứng rất mạnh và kim loại Sodium dễ gây cháy.
+066: Về nguyên tắc, Sodium được điều chế bằng điện phân Sodium chloride nóng chảy:
+067: 2NaCl(l) → 2Na(l) + Cl₂(g)
+068: Nhận biết
+069: Thử màu ngọn lửa: Sodium tạo ngọn lửa màu vàng rất đặc trưng.
+070: Na → Na*
+071: Na* → Na + hν
+072: Đây là phương pháp nhận biết ion Sodium phổ biến trong phân tích định tính.
+073: Phương trình
+074: Tác dụng với nước
+075: 2Na + 2H2O → 2NaOH + H2↑
+076: Tác dụng với Oxygen
+077: 4Na + O2 → 2Na2O
+078: Tác dụng với Chlorine
+079: 2Na + Cl2 → 2NaCl
+080: Tác dụng với Hydrogen
+081: 2Na + H2 → 2NaH
+082: Tác dụng với Hydrochloric acid
+083: 2Na + 2HCl → 2NaCl + H2↑
+084: Tác dụng với Sulfur
+085: 2Na + S → Na2S
+086: Tác dụng với Ammonia
+087: Ở nhiệt độ thích hợp:
+088: 2Na + 2NH3 → 2NaNH2 + H2
+089: Ứng dụng thực tế
+090: Sản xuất Sodium compounds: Sodium được sử dụng làm nguyên liệu để sản xuất nhiều hợp chất Sodium.
+091: Hợp kim: Sodium được sử dụng trong một số hợp kim và vật liệu đặc biệt.
+092: Chất truyền nhiệt: Sodium lỏng có khả năng truyền nhiệt tốt và được sử dụng trong một số hệ thống kỹ thuật.
+093: Đèn Sodium: Sodium được sử dụng trong đèn hơi Sodium, đặc biệt là các loại đèn chiếu sáng đường phố.
+094: Công nghiệp hóa chất: Sodium là nguyên liệu quan trọng trong nhiều quá trình hóa học.
+095: Nghiên cứu: Sodium được sử dụng trong một số thí nghiệm và nghiên cứu hóa học.
+096: Tổng quan
+097: Sodium là nguyên tố số 11, thuộc nhóm IA | chu kỳ 3 và là một kim loại kiềm.
+098: Sodium có cấu hình electron 1s² 2s² 2p⁶ 3s¹, vì vậy dễ mất electron lớp ngoài cùng để tạo ion Na⁺. Sodium có tính khử mạnh và phản ứng rất mạnh với nước.
+099: Trong tự nhiên, Sodium không tồn tại ở dạng đơn chất mà chủ yếu tồn tại dưới dạng hợp chất, đặc biệt là Sodium chloride (NaCl) trong nước biển và các mỏ muối.
+100: Sodium kim loại được sản xuất chủ yếu bằng điện phân Sodium chloride nóng chảy. Sodium và các hợp chất của nó có nhiều ứng dụng trong công nghiệp hóa chất, chiếu sáng và các hệ thống kỹ thuật đặc biệt.

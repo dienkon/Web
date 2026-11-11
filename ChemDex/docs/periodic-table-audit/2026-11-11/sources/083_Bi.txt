@@ -1,0 +1,95 @@
+001: Bismuth (Bi)
+002: Thông tin chung
+003: Tên Latin: Bismuthum
+004: Tên Tiếng Anh: Bismuth
+005: Đồng vị: ²⁰⁹Bi
+006: Vị trí: Nhóm VA | Chu kỳ 6
+007: Số Oxy hóa: +3, +5
+008: Độ âm điện: 2.02
+009: Lịch sử khám phá
+010: Phát hiện bởi: Không xác định — Bismuth đã được biết đến từ thời cổ đại.
+011: Năm công bố: Thời cổ đại
+012: Nơi khám phá: Không xác định
+013: Mô tả: Bismuth đã được con người biết đến từ thời cổ đại, nhưng trong thời gian dài bị nhầm lẫn với Lead và Tin do có vẻ ngoài và một số tính chất tương tự. Đến thế kỷ XVIII, Bismuth được xác định là một nguyên tố riêng biệt. Claude François Geoffroy đã chứng minh vào năm 1753 rằng Bismuth khác với Lead.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Xe] 4f¹⁴ 5d¹⁰ 6s² 6p³
+017: Mô hình mạng tinh thể: Lập phương tâm mặt (Face-centered cubic, FCC)
+018: Số hiệu nguyên tử: 83
+019: Nguyên tử khối: 208.980 g/mol
+020: Vỏ nguyên tử: 83 electron
+021: K: 2 | L: 8 | M: 18 | N: 32 | O: 18 | P: 5
+022: Hạt nhân: 83 proton, 126 neutron đối với ²⁰⁹Bi
+023: Cấu hình e: [Xe] 4f¹⁴ 5d¹⁰ 6s² 6p³
+024: Loại mạng: Lập phương tâm mặt (Face-centered cubic, FCC)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Bismuth là kim loại rắn, màu trắng bạc với ánh hồng nhẹ.
+027: Có trong: Có thể tồn tại ở dạng Bismuth tự nhiên và trong các khoáng vật như Bismuthinite (Bi₂S₃).
+028: Đơn chất: Bi
+029: Hợp chất: Bi₂O₃, Bi₂S₃, BiCl₃, Bi(NO₃)₃...
+030: c. Đồng vị
+031: Đồng vị: ²⁰⁹Bi
+032: ²⁰⁹Bi: Từng được xem là đồng vị bền duy nhất của Bismuth. Hiện nay được biết nó phóng xạ cực kỳ yếu, với chu kỳ bán rã khoảng 2 × 10¹⁹ năm, dài hơn rất nhiều lần tuổi của Vũ trụ.
+033: Ngoài ra có nhiều đồng vị phóng xạ nhân tạo.
+034: Tính chất
+035: Tính chất vật lý
+036: Là kim loại hậu chuyển tiếp.
+037: Màu trắng bạc, ánh hồng.
+038: Khá giòn.
+039: Có khối lượng riêng lớn.
+040: Khối lượng riêng: khoảng 9.78 g/cm³.
+041: Nhiệt độ nóng chảy: khoảng 271.4 °C.
+042: Nhiệt độ sôi: khoảng 1564 °C.
+043: Dẫn điện và dẫn nhiệt tương đối kém.
+044: Có tính nghịch từ mạnh.
+045: Khi đông đặc, Bismuth nở thể tích, tương tự như Water.
+046: Tính chất hóa học
+047: Số Oxy hóa phổ biến nhất là +3.
+048: Trạng thái +5 kém bền hơn.
+049: Phản ứng với Oxygen tạo Bismuth(III) oxide.
+050: Phản ứng với Halogen tạo Bismuth halide.
+051: Có thể phản ứng với acid tạo muối Bismuth.
+052: Bismuth nhìn chung ít độc hơn nhiều kim loại nặng như Lead.
+053: Điều chế
+054: Bismuth thô được tinh chế bằng các phương pháp luyện kim thích hợp.
+055: Điều chế trong phòng thí nghiệm
+056: Có thể điều chế Bismuth bằng cách khử Bismuth(III) chloride bằng kim loại hoạt động mạnh hơn như Zinc:
+057: 2BiCl₃ + 3Zn → 2Bi + 3ZnCl₂
+058: Nhận biết
+059: Nhận biết Bi³⁺
+060: Cho Bi³⁺ tác dụng với Hydroxide:
+061: Bi³⁺ + 3OH⁻ → Bi(OH)₃↓
+062: Hiện tượng: Xuất hiện kết tủa trắng Bismuth(III) hydroxide.
+063: Kết tủa Bi(OH)₃ có thể chuyển thành Bismuth oxide khi đun nóng:
+064: 2Bi(OH)₃ → Bi₂O₃ + 3H₂O
+065: Hiện tượng: Tạo chất rắn vàng Bi₂O₃.
+066: Phương trình
+067: Tác dụng với Oxygen
+068: 4Bi + 3O₂ → 2Bi₂O₃
+069: Tác dụng với Chlorine
+070: 2Bi + 3Cl₂ → 2BiCl₃
+071: Tác dụng với Bromine
+072: 2Bi + 3Br₂ → 2BiBr₃
+073: Tác dụng với Sulfur
+074: 2Bi + 3S → Bi₂S₃
+075: Tác dụng với Nitric acid
+076: Bi + 4HNO₃ → Bi(NO₃)₃ + NO + 2H₂O
+077: Tạo Bismuth hydroxide
+078: Bi³⁺ + 3OH⁻ → Bi(OH)₃↓
+079: Nhiệt phân Bismuth hydroxide
+080: 2Bi(OH)₃ → Bi₂O₃ + 3H₂O
+081: Điều chế Bismuth
+082: Bi₂O₃ + 3C → 2Bi + 3CO↑
+083: Ứng dụng thực tế
+084: Y học: Một số hợp chất Bismuth được sử dụng trong thuốc điều trị các vấn đề về tiêu hóa. Ví dụ, Bismuth subsalicylate được sử dụng trong một số thuốc không kê đơn.
+085: Mỹ phẩm: Một số hợp chất Bismuth được sử dụng trong mỹ phẩm, đặc biệt là Bismuth oxychloride (BiOCl), tạo hiệu ứng ánh ngọc trai.
+086: Hợp kim: Bismuth được sử dụng trong các hợp kim có nhiệt độ nóng chảy thấp.
+087: Vật liệu dễ nóng chảy: Một số hợp kim Bismuth được sử dụng trong cầu chì nhiệt, thiết bị an toàn và hệ thống kiểm soát nhiệt.
+088: Điện tử: Bismuth được nghiên cứu và sử dụng trong một số vật liệu bán dẫn và vật liệu nhiệt điện.
+089: Đúc kim loại: Bismuth có khả năng nở khi đông đặc nên hữu ích trong một số hợp kim và quy trình đúc chính xác.
+090: Tổng quan
+091: Bismuth là nguyên tố số 83, thuộc nhóm VA | chu kỳ 6 và là một kim loại hậu chuyển tiếp.
+092: Bismuth có cấu hình electron [Xe] 4f¹⁴ 5d¹⁰ 6s² 6p³, với số Oxy hóa phổ biến nhất là +3.
+093: Đây là kim loại nặng, giòn, có màu trắng bạc ánh hồng và nhiệt độ nóng chảy tương đối thấp. Một đặc điểm đặc biệt của Bismuth là nở ra khi đông đặc.
+094: ²⁰⁹Bi từng được coi là đồng vị bền nhưng hiện được xác định là phóng xạ cực yếu, với chu kỳ bán rã khoảng 2 × 10¹⁹ năm.
+095: Bismuth có nhiều ứng dụng trong y học, mỹ phẩm, hợp kim dễ nóng chảy, đúc kim loại và vật liệu nhiệt điện, đồng thời có ưu điểm là độc tính thấp hơn đáng kể so với nhiều kim loại nặng khác.

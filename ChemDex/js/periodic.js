@@ -24,7 +24,7 @@ import {
 import { mountMediaBlocks } from "./model-media.js";
 
 const tableContainer = document.getElementById("periodic-table");
-// The original table keeps English labels; search also accepts Vietnamese names.
+// Reviewed profiles use Vietnamese labels; search accepts Vietnamese and English names.
 const elementSearchNames = await fetch(new URL('../shared/elements.json', import.meta.url))
   .then(response => response.ok ? response.json() : [])
   .then(rows => new Map(rows.map(row => [row.symbol, row.name_vi])))
@@ -101,7 +101,7 @@ function renderPeriodicTable() {
     let color = categories[categoryKey]?.color || "#cbd5e1";
     ph.style.setProperty("--color", color);
     ph.innerHTML = `<span class="text-center leading-tight">${text} <i class="fa-solid fa-chevron-down ml-1 text-[9px]"></i></span>`;
-    
+
     ph.addEventListener("click", () => {
         const els = document.querySelectorAll(`.${targetClass}`);
         // Check state using first element that HAS data
@@ -273,6 +273,7 @@ function renderMethodCard(item = {}, idx = 0, fallback = "Phương pháp") {
   const desc = item.desc || item.description || item.note || "";
   const reagent = item.reagent || item.reagents || item.chemical || "";
   const result = item.result || item.observation || item.signal || "";
+  const equations = Array.isArray(item.equations) && item.equations.length ? item.equations : eq ? [{ equation: eq, condition: item.condition }] : [];
   return `
     <div class="rounded-2xl border border-slate-700 bg-slate-900/70 p-5">
       <div class="flex items-center justify-between gap-3 mb-3">
@@ -280,7 +281,7 @@ function renderMethodCard(item = {}, idx = 0, fallback = "Phương pháp") {
         ${item.condition ? `<span class="visual-badge">${escapeHtml(item.condition)}</span>` : ""}
       </div>
       ${reagent ? `<p class="text-sm text-cyan-300 mb-2"><span class="text-slate-400">Thuốc thử/chất dùng:</span> ${escapeHtml(Array.isArray(reagent) ? reagent.join(", ") : reagent)}</p>` : ""}
-      ${eq ? `<div class="equation-latex text-xl md:text-2xl font-mono text-emerald-300 mb-3 font-bold bg-slate-900 p-4 rounded-lg overflow-x-auto whitespace-nowrap flex items-center">${buildReactionLatex({ equation: eq, condition: item.condition })}</div>` : ""}
+      ${equations.map(reaction => `<div class="method-equation"><div class="equation-latex text-xl md:text-2xl font-mono text-emerald-300 mb-3 font-bold bg-slate-900 p-4 rounded-lg overflow-x-auto whitespace-nowrap flex items-center">${buildReactionLatex(reaction)}</div>${reaction.kind === 'nuclear' || reaction.kind === 'formal' ? `<span class="reaction-kind">${reaction.kind === 'nuclear' ? 'Phản ứng hạt nhân' : 'Sơ đồ hình thức / dự đoán'}</span>` : ''}${reaction.condition ? `<p class="reaction-condition"><strong>Điều kiện:</strong> ${escapeHtml(reaction.condition)}</p>` : ''}</div>`).join('')}
       ${result ? `<p class="text-amber-200 mb-2"><span class="text-slate-400">Hiện tượng:</span> ${escapeHtml(result)}</p>` : ""}
       ${desc ? `<p class="text-slate-400 leading-relaxed">${escapeHtml(desc)}</p>` : ""}
     </div>
@@ -388,8 +389,10 @@ function showElementDetails(el) {
                 ${categories[el.category]?.name.toUpperCase() || "CHƯA XÁC ĐỊNH"}
               </span>
               <h2 class="text-5xl font-bold text-white mb-2">${el.nameVi}</h2>
-              <p class="text-xl text-slate-300">${el.nameEn} • Nguyên tử khối: ${escapeHtml(el.massStandardText ?? el.mass ?? "Chưa có dữ liệu")}</p>
-              ${el.massStandardSource ? `<a class="text-sm text-cyan-300" href="${escapeHtml(el.massStandardSource)}" target="_blank" rel="noreferrer">Nguồn: CIAAW 2024 ↗</a>` : ""}
+              <p class="text-xl text-slate-300">${el.nameEn} • ${el.massKind === 'reference-isotope-mass-number' ? `Số khối tham chiếu: [${escapeHtml(el.mass)}]` : `Nguyên tử khối: ${escapeHtml(el.massStandardText ?? el.mass ?? "Chưa có dữ liệu")}`}</p>
+              ${el.massKind === 'reference-isotope-mass-number' ? '<p class="element-fact-note">Không có nguyên tử khối chuẩn; số trong ngoặc là số khối một đồng vị tham chiếu.</p>' : ''}
+              ${el.massStandardSource ? `<a class="text-sm text-cyan-300" href="${escapeHtml(el.massStandardSource)}" target="_blank" rel="noreferrer">${el.massKind === 'reference-isotope-mass-number' ? 'Nguồn đồng vị tham chiếu' : 'Nguồn: CIAAW 2024'} ↗</a>` : ""}
+              ${el.review ? `<p class="element-review-date">Đối chiếu dữ liệu · 11/11/2026</p>` : ""}
             </div>
           </div>
         `;
@@ -504,10 +507,11 @@ function showElementDetails(el) {
               <div class="glass p-4 rounded-xl border border-slate-700/50"><p class="text-slate-400 text-sm mb-1">Tên Latin</p><p class="text-lg font-mono text-yellow-300 font-bold">${escapeHtml(el.general?.latinName || "...")}</p></div>
               <div class="glass p-4 rounded-xl border border-slate-700/50"><p class="text-slate-400 text-sm mb-1">Tên Tiếng Anh</p><p class="text-lg font-mono text-green-300 font-bold">${escapeHtml(el.general?.englishName || "...")}</p></div>
               <div class="glass p-4 rounded-xl border border-slate-700/50"><p class="text-slate-400 text-sm mb-1">Đồng vị</p><p class="text-lg font-mono text-blue-300 font-bold">${formatIsotopeText(el.general?.isotope || "...")}</p></div>
-              <div class="glass p-4 rounded-xl border border-slate-700/50"><p class="text-slate-400 text-sm mb-1">Vị trí</p><p class="text-lg text-white">Nhóm ${escapeHtml(el.general?.group || "?")} | Chu kì ${escapeHtml(el.general?.period || "?")}</p></div>
+              <div class="glass p-4 rounded-xl border border-slate-700/50"><p class="text-slate-400 text-sm mb-1">Vị trí</p><p class="text-lg text-white">${el.general?.group ? `Nhóm ${escapeHtml(el.general.group)}` : `Họ ${escapeHtml(el.general?.series || 'Chưa xác định')}`} · Chu kì ${escapeHtml(el.general?.period || "?")}</p></div>
               <div class="glass p-4 rounded-xl border border-slate-700/50"><p class="text-slate-400 text-sm mb-1">Số Oxy hóa</p><p class="text-lg text-white">${escapeHtml(el.general?.oxidation || "...")}</p></div>
-              <div class="glass p-4 rounded-xl border border-slate-700/50"><p class="text-slate-400 text-sm mb-1">Độ âm điện</p><p class="text-lg text-white">${escapeHtml(el.general?.electronegativity || "...")}</p></div>
+              <div class="glass p-4 rounded-xl border border-slate-700/50"><p class="text-slate-400 text-sm mb-1">Độ âm điện · Pauling</p><p class="text-lg text-white">${escapeHtml(el.general?.electronegativity ?? "Chưa xác định")}</p><p class="element-fact-note">${escapeHtml(el.general?.electronegativityNote || '')}</p></div>
             </div>
+            ${el.review ? `<dl class="element-fact-strip">${[['Trạng thái',el.general.state],['Khối lượng riêng',el.general.density],['Nóng chảy',el.general.meltingPoint],['Sôi',el.general.boilingPoint]].map(([label,value])=>`<div><dt>${label}</dt><dd>${escapeHtml(value || 'Chưa xác định')}</dd></div>`).join('')}</dl>` : ''}
             ${sectionMedia("general")}
           </section>
         `;
@@ -569,7 +573,8 @@ function showElementDetails(el) {
                   </div>
                   <div class="glass p-4 rounded-xl border border-slate-700/50">
                     <p class="text-slate-400 text-sm mb-1">Hạt nhân</p>
-                    <p class="text-lg font-bold text-white">${structure.protons ?? "?"} proton, ${structure.neutrons ?? "?"} neutron</p>
+                    <p class="text-lg font-bold text-white">${structure.protons ?? "?"} proton, ${structure.neutrons ?? "?"} neutron${structure.nucleusIsotope ? ` · ${escapeHtml(structure.nucleusIsotope)}` : ''}</p>
+                    ${structure.nucleusNote ? `<p class="element-fact-note">${escapeHtml(structure.nucleusNote)}</p>` : ''}
                   </div>
                   <div class="glass p-4 rounded-xl border border-slate-700/50">
                     <p class="text-slate-400 text-sm mb-1">Cấu hình e</p>
@@ -589,7 +594,7 @@ function showElementDetails(el) {
                   <div class="h-44 bg-slate-900/50 rounded-xl flex items-center justify-center overflow-hidden">
                     ${
                       el.naturalState?.image
-                        ? `<img src="${escapeHtml(el.naturalState.image)}" class="w-full h-full object-cover" alt="Trạng thái" onerror="this.classList.add('hidden'); this.nextElementSibling?.classList.remove('hidden');"><i class="fa-solid fa-gem hidden text-4xl text-slate-600"></i>`
+                        ? `<img src="${escapeHtml(el.naturalState.image)}" class="w-full h-full object-contain" loading="lazy" alt="${escapeHtml(el.naturalState.alt || 'Mẫu tham chiếu')}" onerror="this.classList.add('hidden'); this.nextElementSibling?.classList.remove('hidden');"><i class="fa-solid fa-gem hidden text-4xl text-slate-600"></i>`
                         : `<i class="fa-solid fa-gem text-4xl text-slate-600"></i>`
                     }
                   </div>
@@ -606,13 +611,15 @@ function showElementDetails(el) {
                       <p class="text-sky-400 font-medium">Hợp chất</p>
                       <p>${(occurrence.compounds || []).join(", ") || "Chưa có dữ liệu"}</p>
                     </div>
+                    ${(occurrence.ores || []).length ? `<div><p class="text-amber-300 font-medium">Nguồn tự nhiên và khoáng vật</p><p>${escapeHtml(occurrence.ores.join('; '))}</p></div>` : ''}
+                    ${occurrence.mineral ? `<p class="element-fact-note">${escapeHtml(occurrence.mineral.available ? occurrence.mineral.relation : occurrence.mineral.reason)}</p>` : ''}
                   </div>
                 </div>
               </div>
 
               <div id="sec-structure-isotopes" class="glass p-5 rounded-2xl border border-slate-700 scroll-mt-24">
                 <h4 class="text-white font-semibold mb-4">c. Đồng vị</h4>
-                <div class="text-slate-300 leading-relaxed whitespace-pre-wrap font-sans text-[15px] tracking-wide" style="line-height: 1.8;">${formatIsotopeText(el.general?.isotope || "Chưa có dữ liệu đồng vị trong phiên bản này.")}</div>
+                ${Array.isArray(el.isotopes) && el.isotopes.length ? `<p class="element-fact-note">${escapeHtml(el.isotopeNote)}</p><div class="isotope-table-wrap"><table class="isotope-table"><thead><tr><th>Đồng vị</th><th>Neutron</th><th>Hàm lượng tự nhiên</th><th>Độ bền / Chu kỳ bán rã</th><th>Nguồn</th></tr></thead><tbody>${el.isotopes.map(row=>`<tr><th scope="row">${escapeHtml(row.isotope)}</th><td>${row.neutrons}</td><td>${escapeHtml(row.abundancePercent ? row.abundancePercent+' %' : '—')}</td><td>${escapeHtml(row.halfLifeDisplay || row.halfLife)}${row.note ? `<small>${escapeHtml(row.note)}</small>` : ''}</td><td><a href="${escapeHtml(row.source)}" target="_blank" rel="noopener noreferrer">↗<span class="sr-only">Nguồn ${escapeHtml(row.isotope)}</span></a></td></tr>`).join('')}</tbody></table></div>` : `<div class="text-slate-300 leading-relaxed">${formatIsotopeText(el.general?.isotope || "Chưa có dữ liệu đồng vị trong phiên bản này.")}</div>`}
               </div>
 
               <div class="mt-5">
@@ -667,7 +674,7 @@ function showElementDetails(el) {
       ? el.reactions
           .map((r, idx) => renderEquationBlock(r, { el, index: idx }))
           .join("")
-      : '<p class="text-slate-500 italic">Đang cập nhật dữ liệu phản ứng...</p>';
+      : '<p class="text-slate-400">Không có phương trình hóa học thông thường đủ cơ sở để trình bày trong hồ sơ này.</p>';
 
   html += `
           <section id="sec-reactions" class="scroll-mt-24 animate-fade-up">
@@ -707,6 +714,9 @@ function showElementDetails(el) {
           </section>
         `;
 
+  if (Array.isArray(el.sources) && el.sources.length) {
+    html += `<section id="sec-sources" class="element-sources"><h3>Nguồn và phạm vi dữ liệu</h3><p>Hồ sơ được biên tập từ ${escapeHtml(el.review?.sourceFile || 'tài liệu nguyên tố')}, đối chiếu dữ liệu tham chiếu. Phương trình tổng quát và mô hình minh họa không thay thế quy trình thực nghiệm.</p><ul>${el.sources.filter(source=>source.url).map(source=>`<li><a href="${escapeHtml(source.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(source.title)} ↗</a></li>`).join('')}</ul></section>`;
+  }
   document.getElementById("article-content").innerHTML = html;
   mountDetailVisuals(el);
   mountMediaBlocks(el);
@@ -896,7 +906,7 @@ function buildRelatedSuggestions(el) {
 
       <div class="w-full">
         <div class="suggestion-card p-5 w-full">
-          
+
 
           <div class="grid md:grid-cols-3 gap-3">
             <a
@@ -951,7 +961,7 @@ function enhanceDetailPage(el) {
             <button id="share-element-btn" data-symbol="${escapeHtml(el.symbol)}" class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-600 bg-slate-900/70 hover:bg-slate-800 transition-colors">
               <i class="fa-solid fa-share-nodes text-sky-300"></i> Chia sẻ
             </button>
-            
+
           `;
     if (!hero.querySelector("#share-element-btn")) {
       hero.appendChild(actions);
@@ -989,16 +999,19 @@ function enhanceDetailPage(el) {
   setupChatbotContext(el);
 
   // Kích hoạt hiệu ứng cuộn trang (Intersection Observer)
+  window.__detailAnimationObserver?.disconnect();
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
         }
       });
     },
-    { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+    { threshold: 0, rootMargin: "50px 0px" }
   );
+  window.__detailAnimationObserver = observer;
   document.querySelectorAll(".animate-fade-up, .animate-zoom-in, .animate-stagger").forEach((el) => {
     observer.observe(el);
   });

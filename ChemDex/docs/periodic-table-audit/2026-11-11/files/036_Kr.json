@@ -1,0 +1,688 @@
+{
+  "symbol": "Kr",
+  "number": 36,
+  "source": "036_Kr.docx",
+  "sourceSha256": "b7b09bca43fcf25515ff83a465a4c9c8ac109ef8459e2d06ad1183b185398c92",
+  "paragraphCount": 78,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 4,
+    "structure": 9,
+    "occurrence": 4,
+    "isotopes": 2,
+    "physical": 8,
+    "chemical": 6,
+    "lab": 2,
+    "industry": 1,
+    "recognition": 3,
+    "reactions": 5,
+    "applications": 6,
+    "notes": 5
+  },
+  "editorialDecisions": [],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "[Ar] 3d¹⁰ 4s² 4p⁶",
+      "publishedValue": "[Ar] 3d¹⁰ 4s² 4p⁶",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Lập phương tâm mặt (Face-centered cubic, FCC)",
+      "publishedValue": "Lập phương tâm mặt (Face-centered cubic, FCC)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "3.00",
+      "publishedValue": 3.0,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm VIIIA | Chu kỳ 4",
+      "publishedValue": "18",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Krypton là khí không màu, không mùi, rất ít phản ứng hóa học ở điều kiện thường.",
+      "publishedValue": "Khí",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [],
+  "originalEquations": [
+    {
+      "line": 55,
+      "text": "²³⁵U + ¹n → ⁹²Kr + ¹⁴¹Ba + 3¹n",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 63,
+      "text": "Kr + F₂ → KrF₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 65,
+      "text": "KrF₂ → Kr + F₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "lab",
+      "equation": "²³⁵U + ¹n → ⁹²Kr + ¹⁴¹Ba + 3¹n",
+      "condition": "Chiếu neutron trong cơ sở nghiên cứu; bắt neutron và phát gamma nếu không có sản phẩm bay hơi.",
+      "kind": "nuclear",
+      "sourceLine": 55,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Kr + F₂ → KrF₂",
+      "condition": "Hỗn hợp Kr/F₂ ở nhiệt độ thấp, kích thích bằng UV hoặc phóng điện; KrF₂ kém bền.",
+      "kind": "chemical",
+      "sourceLine": 63,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "KrF₂ → Kr + F₂",
+      "condition": "Gia nhiệt hoặc điều kiện chuyên dụng theo quá trình đã mô tả; không suy ra tốc độ từ hệ số phản ứng.",
+      "kind": "chemical",
+      "sourceLine": 65,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": [
+        {
+          "title": "Đèn chiếu sáng",
+          "desc": "Krypton được sử dụng trong một số loại đèn và nguồn sáng đặc biệt."
+        },
+        {
+          "title": "Laser",
+          "desc": "Krypton được sử dụng trong một số hệ thống laser, đặc biệt là Krypton ion laser."
+        },
+        {
+          "title": "Đèn flash",
+          "desc": "Krypton có thể được sử dụng trong một số loại đèn flash và đèn phóng điện."
+        },
+        {
+          "title": "Cách nhiệt",
+          "desc": "Krypton được sử dụng làm khí trơ trong một số loại cửa sổ kính cách nhiệt."
+        },
+        {
+          "title": "Nghiên cứu khoa học",
+          "desc": "Krypton được sử dụng trong nghiên cứu vật lý, hóa học và quang phổ."
+        },
+        {
+          "title": "Định tuổi vật liệu",
+          "desc": "Một số đồng vị Krypton được sử dụng trong nghiên cứu địa chất và môi trường."
+        }
+      ],
+      "after": [
+        {
+          "title": "Đèn chiếu sáng",
+          "desc": "Krypton được sử dụng trong một số loại đèn và nguồn sáng đặc biệt.",
+          "sourceLine": 67
+        },
+        {
+          "title": "Laser",
+          "desc": "Krypton được sử dụng trong một số hệ thống laser, đặc biệt là Krypton ion laser.",
+          "sourceLine": 68
+        },
+        {
+          "title": "Đèn flash",
+          "desc": "Krypton có thể được sử dụng trong một số loại đèn flash và đèn phóng điện.",
+          "sourceLine": 69
+        },
+        {
+          "title": "Cách nhiệt",
+          "desc": "Krypton được sử dụng làm khí trơ trong một số loại cửa sổ kính cách nhiệt.",
+          "sourceLine": 70
+        },
+        {
+          "title": "Nghiên cứu khoa học",
+          "desc": "Krypton được sử dụng trong nghiên cứu vật lý, hóa học và quang phổ.",
+          "sourceLine": 71
+        },
+        {
+          "title": "Định tuổi vật liệu",
+          "desc": "Một số đồng vị Krypton được sử dụng trong nghiên cứu địa chất và môi trường.",
+          "sourceLine": 72
+        }
+      ]
+    },
+    {
+      "field": "chemical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có lớp electron ngoài cùng bão hòa.</li>\n      <li>Rất trơ về mặt hóa học.</li>\n      <li>Số Oxy hóa phổ biến nhất là 0.</li>\n      <li>Có thể tạo một số hợp chất trong điều kiện đặc biệt.</li>\n      <li>Krypton difluoride (KrF₂) là hợp chất Krypton nổi bật nhất.</li>\n      <li>Có thể tạo một số species chứa Krypton trong điều kiện nghiên cứu đặc biệt.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Có lớp electron ngoài cùng bão hòa.</li><li>Rất trơ về mặt hóa học.</li><li>Số Oxy hóa phổ biến nhất là 0.</li><li>Có thể tạo một số hợp chất trong điều kiện đặc biệt.</li><li>Krypton difluoride (KrF₂) là hợp chất Krypton nổi bật nhất.</li><li>Có thể tạo một số species chứa Krypton trong điều kiện nghiên cứu đặc biệt.</li></ul>"
+    },
+    {
+      "field": "general.CAS",
+      "before": null,
+      "after": "7439-90-9"
+    },
+    {
+      "field": "general.electronegativityNote",
+      "before": null,
+      "after": "Thang Pauling; số liệu tổng hợp PubChem."
+    },
+    {
+      "field": "general.groupLabel",
+      "before": null,
+      "after": "18"
+    },
+    {
+      "field": "general.series",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "general.state",
+      "before": "",
+      "after": "Khí"
+    },
+    {
+      "field": "history.year",
+      "before": 1898,
+      "after": "1898"
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/diagrams/036_Kr.svg",
+          "title": "Kripton (Kr)",
+          "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+          "source": "",
+          "author": "ChemDex",
+          "license": "ChemDex schematic diagram",
+          "licenseUrl": ""
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "⁷⁸Kr",
+          "massNumber": 78,
+          "protons": 36,
+          "neutrons": 42,
+          "stable": true,
+          "abundancePercent": "0.355",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "⁸⁰Kr",
+          "massNumber": 80,
+          "protons": 36,
+          "neutrons": 44,
+          "stable": true,
+          "abundancePercent": "2.286",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "⁸²Kr",
+          "massNumber": 82,
+          "protons": 36,
+          "neutrons": 46,
+          "stable": true,
+          "abundancePercent": "11.593",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "⁸³Kr",
+          "massNumber": 83,
+          "protons": 36,
+          "neutrons": 47,
+          "stable": true,
+          "abundancePercent": "11.500",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "⁸⁴Kr",
+          "massNumber": 84,
+          "protons": 36,
+          "neutrons": 48,
+          "stable": true,
+          "abundancePercent": "56.987",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "⁸⁶Kr",
+          "massNumber": 86,
+          "protons": 36,
+          "neutrons": 50,
+          "stable": true,
+          "abundancePercent": "17.279",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "standard-atomic-weight"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "83.798 ± 0.002"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": []
+    },
+    {
+      "field": "nameVi",
+      "before": "Krypton",
+      "after": "Kripton"
+    },
+    {
+      "field": "naturalState.alt",
+      "before": null,
+      "after": "Krypton: sơ đồ minh họa nguyên tố"
+    },
+    {
+      "field": "naturalState.caption",
+      "before": null,
+      "after": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật."
+    },
+    {
+      "field": "naturalState.credit",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "naturalState.image",
+      "before": null,
+      "after": "/assets/periodic-table/diagrams/036_Kr.svg"
+    },
+    {
+      "field": "naturalState.kind",
+      "before": null,
+      "after": "diagram"
+    },
+    {
+      "field": "naturalState.source",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "notes",
+      "before": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Krypton là nguyên tố số 36, thuộc nhóm VIIIA | chu kỳ 4 và là một khí hiếm.</li>\n  <li>Krypton có cấu hình electron [Ar] 3d¹⁰ 4s² 4p⁶, với lớp electron ngoài cùng đã bão hòa nên có độ hoạt động hóa học rất thấp.</li>\n  <li>Ở điều kiện thường, Krypton tồn tại dưới dạng khí đơn nguyên tử, không màu và không mùi. Trong tự nhiên, Krypton chỉ chiếm một lượng rất nhỏ trong khí quyển.</li>\n  <li>Krypton chủ yếu được thu hồi bằng cách chưng cất phân đoạn không khí lỏng. Mặc dù rất trơ, Krypton vẫn có thể tạo một số hợp chất, tiêu biểu là Krypton difluoride (KrF₂).</li>\n  <li>Krypton có ứng dụng trong chiếu sáng, laser, kính cách nhiệt và nghiên cứu khoa học.</li>\n</ul>\n",
+      "after": "<ul class=\"element-prose-list\"><li>Krypton là nguyên tố số 36, thuộc nhóm VIIIA | chu kỳ 4 và là một khí hiếm.</li><li>Krypton có cấu hình electron [Ar] 3d¹⁰ 4s² 4p⁶, với lớp electron ngoài cùng đã bão hòa nên có độ hoạt động hóa học rất thấp.</li><li>Ở điều kiện thường, Krypton tồn tại dưới dạng khí đơn nguyên tử, không màu và không mùi. Trong tự nhiên, Krypton chỉ chiếm một lượng rất nhỏ trong khí quyển.</li><li>Krypton chủ yếu được thu hồi bằng cách chưng cất phân đoạn không khí lỏng. Mặc dù rất trơ, Krypton vẫn có thể tạo một số hợp chất, tiêu biểu là Krypton difluoride (KrF₂).</li><li>Krypton có ứng dụng trong chiếu sáng, laser, kính cách nhiệt và nghiên cứu khoa học.</li></ul>"
+    },
+    {
+      "field": "occurrence.details",
+      "before": null,
+      "after": [
+        "Trạng thái: Krypton là khí không màu, không mùi, rất ít phản ứng hóa học ở điều kiện thường.",
+        "Có trong: Khí quyển Trái Đất với hàm lượng rất nhỏ.",
+        "Đơn chất: Kr",
+        "Hợp chất: KrF₂ và một số hợp chất Krypton khác được tạo ra trong điều kiện đặc biệt."
+      ]
+    },
+    {
+      "field": "occurrence.mineral",
+      "before": null,
+      "after": {
+        "available": false,
+        "reason": "Nguồn chủ yếu là khí quyển, nước hoặc nước muối; không có mẫu quặng riêng đại diện."
+      }
+    },
+    {
+      "field": "physical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là khí hiếm thuộc nhóm VIIIA.</li>\n      <li>Không màu, không mùi.</li>\n      <li>Khối lượng riêng: khoảng 3.75 g/L.</li>\n      <li>Nhiệt độ nóng chảy: khoảng −157.4 °C.</li>\n      <li>Nhiệt độ sôi: khoảng −153.4 °C.</li>\n      <li>Tồn tại dưới dạng nguyên tử đơn Kr.</li>\n      <li>Phát ra ánh sáng đặc trưng khi bị kích thích bằng điện.</li>\n      <li>Rất ít tan trong nước.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Là khí hiếm thuộc nhóm VIIIA.</li><li>Không màu, không mùi.</li><li>Khối lượng riêng: khoảng 3.75 g/L.</li><li>Nhiệt độ nóng chảy: khoảng −157.4 °C.</li><li>Nhiệt độ sôi: khoảng −153.4 °C.</li><li>Tồn tại dưới dạng nguyên tử đơn Kr.</li><li>Phát ra ánh sáng đặc trưng khi bị kích thích bằng điện.</li><li>Rất ít tan trong nước.</li></ul>"
+    },
+    {
+      "field": "preparations.industry",
+      "before": [
+        {
+          "title": "Krypton không được điều chế bằng phản ứng hóa học thông thường mà chủ yếu được tách từ không khí lỏng.",
+          "equation": "",
+          "desc": ""
+        },
+        {
+          "title": "Trong quá trình chưng cất phân đoạn không khí lỏng, Krypton được thu hồi cùng với các khí hiếm khác và tiếp tục được tinh chế.",
+          "equation": "",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Krypton được tách từ không khí hóa lỏng bằng phương pháp chưng cất phân đoạn, sau đó tinh chế để thu Krypton tinh khiết.",
+          "desc": "",
+          "result": "",
+          "equations": [],
+          "sourceLines": [
+            52
+          ],
+          "equation": ""
+        }
+      ]
+    },
+    {
+      "field": "preparations.lab",
+      "before": [],
+      "after": [
+        {
+          "title": "Krypton có thể được tạo ra trong phản ứng phân hạch hạt nhân của Uranium-235",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "²³⁵U + ¹n → ⁹²Kr + ¹⁴¹Ba + 3¹n",
+              "condition": "Chiếu neutron trong cơ sở nghiên cứu; bắt neutron và phát gamma nếu không có sản phẩm bay hơi.",
+              "kind": "nuclear",
+              "sourceLine": 55,
+              "sourceSection": "lab",
+              "balance": {
+                "status": "balanced",
+                "kind": "nuclear",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            54,
+            55
+          ],
+          "equation": "²³⁵U + ¹n → ⁹²Kr + ¹⁴¹Ba + 3¹n"
+        }
+      ]
+    },
+    {
+      "field": "reactions",
+      "before": [
+        {
+          "type": "Tạo Krypton difluoride",
+          "equation": "Kr + F₂ → KrF₂",
+          "desc": ""
+        },
+        {
+          "type": "Phân hủy Krypton difluoride",
+          "equation": "KrF₂ → Kr + F₂",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "type": "Tạo Krypton difluoride",
+          "desc": "",
+          "equation": "Kr + F₂ → KrF₂",
+          "condition": "Hỗn hợp Kr/F₂ ở nhiệt độ thấp, kích thích bằng UV hoặc phóng điện; KrF₂ kém bền.",
+          "kind": "chemical",
+          "sourceLine": 63,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Phân hủy Krypton difluoride",
+          "desc": "",
+          "equation": "KrF₂ → Kr + F₂",
+          "condition": "Gia nhiệt hoặc điều kiện chuyên dụng theo quá trình đã mô tả; không suy ra tốc độ từ hệ số phản ứng.",
+          "kind": "chemical",
+          "sourceLine": 65,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": [
+        {
+          "title": "Nhận biết",
+          "reagent": "Krypton có thể được nhận biết dựa trên phổ phát xạ đặc trưng khi bị kích thích bằng điện.",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Hiện tượng",
+          "reagent": "",
+          "result": "Krypton phát ra ánh sáng với các vạch phổ đặc trưng.",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "Do Krypton là khí hiếm và có nồng độ rất thấp trong không khí, việc nhận biết chính xác thường cần thiết bị phân tích chuyên dụng.",
+          "result": "",
+          "equation": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Krypton có thể được nhận biết dựa trên phổ phát xạ đặc trưng khi bị kích thích bằng điện.",
+          "desc": "Do Krypton là khí hiếm và có nồng độ rất thấp trong không khí, việc nhận biết chính xác thường cần thiết bị phân tích chuyên dụng.",
+          "result": "Krypton phát ra ánh sáng với các vạch phổ đặc trưng.",
+          "equations": [],
+          "sourceLines": [
+            57,
+            58,
+            59
+          ],
+          "equation": ""
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "036_Kr.docx",
+        "sourceSha256": "b7b09bca43fcf25515ff83a465a4c9c8ac109ef8459e2d06ad1183b185398c92",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/036_Kr.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "036_Kr.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "b7b09bca43fcf25515ff83a465a4c9c8ac109ef8459e2d06ad1183b185398c92"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/36/krypton"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure.latticeEvidence",
+      "before": null,
+      "after": "source-reviewed"
+    },
+    {
+      "field": "structure.nucleusIsotope",
+      "before": null,
+      "after": "⁸⁴Kr"
+    },
+    {
+      "field": "structure.nucleusNote",
+      "before": null,
+      "after": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác."
+    },
+    {
+      "field": "structure.valenceNote",
+      "before": null,
+      "after": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp."
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "Kr",
+      "status": "diagram",
+      "reason": "Chưa xác nhận giấy phép dùng lại: GFDL 1.2"
+    },
+    "mineral": {
+      "available": false,
+      "reason": "Nguồn chủ yếu là khí quyển, nước hoặc nước muối; không có mẫu quặng riêng đại diện."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "Kr",
+      "z": 36,
+      "url": "https://periodic-table.rsc.org/element/36/krypton",
+      "status": "retrieved",
+      "bytes": 158244,
+      "sha256": "ebe67d2185140080aef594c059516487371eb6a055ff0be5cdb6db36c6241712",
+      "facts": {
+        "Group": "18",
+        "Melting point": "−157.37°C, −251.27°F, 115.78 K",
+        "Period": "4",
+        "Boiling point": "−153.415°C, −244.147°F, 119.735 K",
+        "Block": "p",
+        "Density (g cm−³)": "0.003425",
+        "Atomic number": "36",
+        "Relative atomic mass": "83.798",
+        "State at 20°C": "Gas",
+        "Key isotopes": "⁸⁴Kr",
+        "Electron configuration": "[Ar] 3d¹⁰4s²4p⁶",
+        "CAS number": "7439-90-9",
+        "ChemSpider ID": "5223",
+        "electronegativity": "Unknown"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "36",
+      "Symbol": "Kr",
+      "Name": "Krypton",
+      "AtomicMass": "83.80",
+      "CPKHexColor": "5CB8D1",
+      "ElectronConfiguration": "[Ar]4s2 3d10 4p6",
+      "Electronegativity": "3",
+      "AtomicRadius": "202",
+      "IonizationEnergy": "14.000",
+      "ElectronAffinity": "",
+      "OxidationStates": "0",
+      "StandardState": "Gas",
+      "MeltingPoint": "115.79",
+      "BoilingPoint": "119.93",
+      "Density": "0.003733",
+      "GroupBlock": "Noble gas",
+      "YearDiscovered": "1898"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

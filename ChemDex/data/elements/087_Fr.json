@@ -1,0 +1,371 @@
+{
+  "number": 87,
+  "symbol": "Fr",
+  "nameVi": "Francium",
+  "nameEn": "Francium",
+  "mass": 223,
+  "massStandardText": "[223] — số khối đồng vị tham chiếu, không phải nguyên tử khối chuẩn",
+  "massStandardSource": "https://periodic-table.rsc.org/element/87/francium",
+  "massKind": "reference-isotope-mass-number",
+  "category": "kiem",
+  "hasData": true,
+  "file": "elements/087_Fr.json",
+  "general": {
+    "latinName": "Francium",
+    "englishName": "Francium",
+    "electronConfig": "[Rn] 7s¹",
+    "isotope": "²²¹Fr, ²²³Fr",
+    "group": 1,
+    "groupLabel": "1",
+    "series": "",
+    "period": 7,
+    "state": "Chưa đo trạng thái vĩ mô; các giá trị pha chỉ là dự đoán",
+    "oxidation": "+1",
+    "electronegativity": 0.7,
+    "electronegativityNote": "Giá trị ước tính; không phải phép đo trên mẫu vĩ mô.",
+    "density": "Chưa xác định thực nghiệm g/cm³ (theo bảng RSC)",
+    "meltingPoint": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+    "boilingPoint": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+    "crystalStructure": "Lập phương tâm khối (Body-centered cubic, BCC) (được dự đoán)",
+    "CAS": "7440-73-5"
+  },
+  "history": {
+    "discoverer": "Marguerite Perey",
+    "year": "1939",
+    "discoveryLocation": "Pháp",
+    "description": "Francium được Marguerite Perey phát hiện vào năm 1939 khi bà nghiên cứu sự phân rã của Actinium-227. Bà nhận thấy một sản phẩm phân rã mới và xác định đó là nguyên tố số 87. Nguyên tố được đặt tên Francium để vinh danh nước Pháp (France)."
+  },
+  "structure": {
+    "protons": 87,
+    "electrons": 87,
+    "neutrons": 136,
+    "nucleusIsotope": "²²³Fr",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 87,
+      "neutron": 136
+    },
+    "electronShells": [
+      2,
+      8,
+      18,
+      32,
+      18,
+      8,
+      1
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      32,
+      18,
+      8,
+      1
+    ],
+    "valenceElectrons": 1,
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+    "lattice": "Lập phương tâm khối (Body-centered cubic, BCC) (được dự đoán)",
+    "latticeEvidence": "source-reviewed"
+  },
+  "structureType": "Lập phương tâm khối (Body-centered cubic, BCC) (được dự đoán)",
+  "occurrence": {
+    "description": "Kim loại rắn (được dự đoán).",
+    "simple": [
+      "Fr"
+    ],
+    "compounds": [
+      "FrCl",
+      "FrOH",
+      "Fr₂O"
+    ],
+    "ores": [
+      "Tồn tại tự nhiên với lượng cực kỳ nhỏ trong các quặng Uranium và Thorium",
+      "chủ yếu được tạo ra từ sự phân rã phóng xạ của Actinium-227"
+    ],
+    "details": [
+      "Trạng thái: Kim loại rắn (được dự đoán).",
+      "Có trong: Tồn tại tự nhiên với lượng cực kỳ nhỏ trong các quặng Uranium và Thorium, chủ yếu được tạo ra từ sự phân rã phóng xạ của Actinium-227.",
+      "Đơn chất: Fr",
+      "Hợp chất: FrCl, FrOH, Fr₂O..."
+    ],
+    "mineral": {
+      "available": true,
+      "id": "uraninite",
+      "name": "Uraninite",
+      "formula": "UO₂₊ₓ (có sản phẩm phân rã và tạp chất)",
+      "habit": "cubic",
+      "color": "#45534a",
+      "crystalSystem": "cubic",
+      "relation": "Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Uraninite",
+      "model": "/assets/periodic-table/minerals/uraninite.glb",
+      "preview": "/assets/periodic-table/minerals/uraninite.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  },
+  "naturalState": {
+    "image": "/assets/periodic-table/diagrams/087_Fr.svg",
+    "alt": "Francium: sơ đồ minh họa nguyên tố",
+    "kind": "diagram",
+    "source": "",
+    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+    "credit": ""
+  },
+  "isotopes": [
+    {
+      "isotope": "²²¹Fr",
+      "massNumber": 221,
+      "protons": 87,
+      "neutrons": 134,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "4.9 ± 0.2 phút",
+      "halfLife": "4.9 m",
+      "halfLifeUncertainty": "2",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²²³Fr",
+      "massNumber": 223,
+      "protons": 87,
+      "neutrons": 136,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "22.00 ± 0.07 phút",
+      "halfLife": "22.00 m",
+      "halfLifeUncertainty": "7",
+      "halfLifeQualifier": null,
+      "decay": "B-",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Là kim loại kiềm.</li><li>Có tính phóng xạ rất mạnh.</li><li>Là nguyên tố tự nhiên cực kỳ hiếm.</li><li>Kim loại Francium nguyên chất chưa thể được quan sát với lượng đủ lớn để đo trực tiếp đầy đủ các tính chất vật lý.</li><li>Nhiệt độ nóng chảy được ước tính khoảng 27 °C.</li><li>Khối lượng riêng được ước tính khoảng 2.5 g/cm³.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Có 1 electron hóa trị.</li><li>Số Oxy hóa đặc trưng: +1.</li><li>Được dự đoán là một trong những kim loại hoạt động hóa học mạnh nhất.</li><li>Có xu hướng dễ mất electron để tạo Fr⁺.</li><li>Phản ứng với nước được dự đoán là rất mạnh.</li></ul>",
+  "reactions": [
+    {
+      "type": "Tạo Francium-223",
+      "desc": "",
+      "equation": "²²⁷Ac → ²²³Fr + ⁴He",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 65,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Phân rã Francium-223",
+      "desc": "",
+      "equation": "²²³Fr → ²²³Ra + β⁻ + ν̅ₑ",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 67,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tạo Francium chloride",
+      "desc": "",
+      "equation": "2Fr + Cl₂ → 2FrCl",
+      "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+      "kind": "formal",
+      "sourceLine": 69,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tác dụng với Oxygen",
+      "desc": "",
+      "equation": "4Fr + O₂ → 2Fr₂O",
+      "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+      "kind": "formal",
+      "sourceLine": 71,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tác dụng với nước",
+      "desc": "",
+      "equation": "2Fr + 2H₂O → 2FrOH + H₂↑",
+      "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+      "kind": "formal",
+      "sourceLine": 73,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "preparations": {
+    "lab": [
+      {
+        "title": "Francium được tạo ra với lượng cực nhỏ trong các cơ sở nghiên cứu hạt nhân bằng phản ứng bắn phá hạt nhân. Không có phương pháp điều chế hóa học thông thường để thu được Francium.",
+        "desc": "",
+        "result": "",
+        "equations": [],
+        "sourceLines": [
+          59
+        ],
+        "equation": ""
+      }
+    ],
+    "industry": [
+      {
+        "title": "Francium (Fr) không được sản xuất công nghiệp do tính phóng xạ cao, thời gian bán rã ngắn và độ khan hiếm. Nguyên tố này có thể được tạo ra nhân tạo bằng phản ứng hạt nhân, chẳng hạn bắn phá Thorium-232 bằng proton.",
+        "desc": "Phương trình hạt nhân:",
+        "result": "",
+        "equations": [
+          {
+            "equation": "²²⁷Ac → ²²³Fr + ⁴He",
+            "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+            "kind": "nuclear",
+            "sourceLine": 57,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "nuclear",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          55,
+          56,
+          57
+        ],
+        "equation": "²²⁷Ac → ²²³Fr + ⁴He"
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Francium được nhận biết chủ yếu bằng phương pháp phóng xạ và kỹ thuật hạt nhân.",
+      "desc": "Do các đồng vị Francium có chu kỳ bán rã rất ngắn và tồn tại với lượng cực nhỏ, không thể nhận biết bằng các phản ứng hóa học thông thường như những nguyên tố bền.",
+      "result": "",
+      "equations": [],
+      "sourceLines": [
+        61,
+        62
+      ],
+      "equation": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Francium hầu như không có ứng dụng thực tế hoặc công nghiệp do",
+      "desc": "",
+      "sourceLine": 76
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Cực kỳ hiếm.",
+      "sourceLine": 77
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Tất cả đồng vị đều phóng xạ.",
+      "sourceLine": 78
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Chu kỳ bán rã rất ngắn.",
+      "sourceLine": 79
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Rất khó thu thập với lượng đáng kể.",
+      "sourceLine": 80
+    },
+    {
+      "title": "Nghiên cứu khoa học",
+      "desc": "Francium được sử dụng trong nghiên cứu cấu trúc nguyên tử, vật lý hạt nhân và các tính chất của nguyên tố siêu nặng.",
+      "sourceLine": 81
+    }
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Francium là nguyên tố số 87, thuộc nhóm IA | chu kỳ 7 và là kim loại kiềm.</li><li>Francium có cấu hình electron [Rn] 7s¹, vì vậy có xu hướng mất electron 7s để tạo ion Fr⁺. Nó được dự đoán là một trong những nguyên tố có tính kim loại và hoạt động hóa học mạnh nhất.</li><li>Francium không có đồng vị bền; đồng vị tự nhiên quan trọng nhất là ²²³Fr, có chu kỳ bán rã chỉ khoảng 22 phút.</li><li>Mạng tinh thể: Lập phương tâm khối (BCC) — giá trị được dự đoán, vì chưa thể thu được lượng Francium kim loại đủ lớn để xác định trực tiếp cấu trúc tinh thể.</li><li>Do cực kỳ hiếm và phóng xạ mạnh, Francium không có ứng dụng thương mại đáng kể, chủ yếu chỉ có giá trị trong nghiên cứu khoa học.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/diagrams/087_Fr.svg",
+      "title": "Francium (Fr)",
+      "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+      "source": "",
+      "author": "ChemDex",
+      "license": "ChemDex schematic diagram",
+      "licenseUrl": ""
+    }
+  ],
+  "mediaBlocks": [
+    {
+      "type": "model",
+      "section": "structure",
+      "title": "Mẫu khoáng vật 3D · Uraninite",
+      "src": "/assets/periodic-table/minerals/uraninite.glb",
+      "preview": "/assets/periodic-table/minerals/uraninite.png",
+      "desc": "UO₂₊ₓ (có sản phẩm phân rã và tạp chất). Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  ],
+  "sources": [
+    {
+      "title": "087_Fr.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "3dc32671a19abbee38bcbb68f27cb257eaa8601eb26bd3e01a2e7616cafb7382"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/87/francium"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "087_Fr.docx",
+    "sourceSha256": "3dc32671a19abbee38bcbb68f27cb257eaa8601eb26bd3e01a2e7616cafb7382",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/087_Fr.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
+}

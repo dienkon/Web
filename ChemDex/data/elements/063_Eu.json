@@ -1,0 +1,387 @@
+{
+  "number": 63,
+  "symbol": "Eu",
+  "nameVi": "Europium",
+  "nameEn": "Europium",
+  "mass": 151.96,
+  "massStandardText": "151.96 ± 0.01",
+  "massStandardSource": "https://ciaaw.org/abridged-atomic-weights.htm",
+  "massKind": "standard-atomic-weight",
+  "category": "lanthanide",
+  "hasData": true,
+  "file": "elements/063_Eu.json",
+  "general": {
+    "latinName": "Europium",
+    "englishName": "Europium",
+    "electronConfig": "[Xe] 4f⁷ 6s²",
+    "isotope": "¹⁵¹Eu, ¹⁵³Eu",
+    "group": null,
+    "groupLabel": "Lanthanide",
+    "series": "Lanthanide",
+    "period": 6,
+    "state": "Rắn",
+    "oxidation": "+2, +3",
+    "electronegativity": null,
+    "electronegativityNote": "Chưa có giá trị Pauling đủ cơ sở trong bản đối chiếu; không coi 0 là giá trị đã đo.",
+    "density": "5,24 g/cm³.",
+    "meltingPoint": "822°C",
+    "boilingPoint": "1529°C",
+    "crystalStructure": "Lập phương tâm khối (BCC)",
+    "CAS": "7440-53-1"
+  },
+  "history": {
+    "discoverer": "Eugène-Anatole Demarçay",
+    "year": "1901",
+    "discoveryLocation": "Pháp",
+    "description": "Năm 1892, Paul-Émile Lecoq de Boisbaudran nhận thấy một số vạch phổ bất thường trong Samarium. Sau đó, Eugène-Anatole Demarçay tiến hành nghiên cứu và tách được nguyên tố mới từ các mẫu Samarium. Năm 1901, Demarçay công bố việc phát hiện Europium. Tên Europium được đặt theo Europe (châu Âu)."
+  },
+  "structure": {
+    "protons": 63,
+    "electrons": 63,
+    "neutrons": 90,
+    "nucleusIsotope": "¹⁵³Eu",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 63,
+      "neutron": 90
+    },
+    "electronShells": [
+      2,
+      8,
+      18,
+      25,
+      8,
+      2
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      25,
+      8,
+      2
+    ],
+    "valenceElectrons": 2,
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+    "lattice": "Lập phương tâm khối (BCC)",
+    "latticeEvidence": "source-reviewed"
+  },
+  "structureType": "Lập phương tâm khối (BCC)",
+  "occurrence": {
+    "description": "Chất rắn",
+    "simple": [
+      "Eu"
+    ],
+    "compounds": [
+      "Eu₂O₃",
+      "EuO",
+      "EuCl₂",
+      "EuCl₃"
+    ],
+    "ores": [
+      "Monazite",
+      "Bastnäsite và một số khoáng vật đất hiếm"
+    ],
+    "details": [
+      "Trạng thái: Chất rắn",
+      "Màu sắc: Trắng bạc",
+      "Có trong: Monazite, Bastnäsite và một số khoáng vật đất hiếm.",
+      "Đơn chất: Eu",
+      "Hợp chất phổ biến: Eu₂O₃, EuO, EuCl₂, EuCl₃"
+    ],
+    "mineral": {
+      "available": true,
+      "id": "monazite",
+      "name": "Monazite-(Ce)",
+      "formula": "(Ce,La,Nd,Th)PO₄",
+      "habit": "prismatic",
+      "color": "#b98a4c",
+      "crystalSystem": "monoclinic",
+      "relation": "Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Monazite-(Ce)",
+      "model": "/assets/periodic-table/minerals/monazite.glb",
+      "preview": "/assets/periodic-table/minerals/monazite.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  },
+  "naturalState": {
+    "image": "/assets/periodic-table/photos/063_Eu.jpg",
+    "alt": "Europium: ảnh tham chiếu từ Commons",
+    "kind": "photo",
+    "source": "https://commons.wikimedia.org/wiki/File:Europium.jpg",
+    "caption": "Ảnh tham chiếu mẫu Europium (Eu); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+    "credit": "Jurii · CC BY 3.0"
+  },
+  "isotopes": [
+    {
+      "isotope": "¹⁵¹Eu",
+      "massNumber": 151,
+      "protons": 63,
+      "neutrons": 88,
+      "stable": false,
+      "abundancePercent": "47.81",
+      "halfLifeDisplay": "GE 1.7E+18 năm",
+      "halfLife": "1.7E+18 Y",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": "GE",
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹⁵³Eu",
+      "massNumber": 153,
+      "protons": 63,
+      "neutrons": 90,
+      "stable": true,
+      "abundancePercent": "52.19",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Là kim loại đất hiếm.</li><li>Thuộc họ Lanthanide.</li><li>Có màu trắng bạc.</li><li>Là một trong những Lanthanide hoạt động hóa học mạnh nhất.</li><li>Khá mềm.</li><li>Có tính thuận từ.</li><li>Dễ bị oxy hóa trong không khí.</li><li>Có nhiệt độ nóng chảy khoảng 822 °C.</li><li>Có nhiệt độ sôi khoảng 1529 °C.</li><li>Khối lượng riêng khoảng 5,24 g/cm³.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Europium có hai trạng thái Oxy hóa quan trọng:</li><li>Eu²⁺ — tương đối ổn định do cấu hình 4f⁷ bán đầy.</li><li>Eu³⁺ — trạng thái Oxy hóa phổ biến trong nhiều hợp chất.</li><li>Europium phản ứng mạnh với Oxygen:</li><li class=\"source-equation\">4Eu + 3O₂ → 2Eu₂O₃<small>Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.</small></li><li>Europium cũng phản ứng với nước và Acid.</li></ul>",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "desc": "",
+      "equation": "4Eu + 3O₂ → 2Eu₂O₃",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 77,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tác dụng với nước",
+      "desc": "",
+      "equation": "2Eu + 6H₂O → 2Eu(OH)₃ + 3H₂",
+      "condition": "Tiếp xúc với nước; tốc độ phụ thuộc nhiệt độ, kích thước và lớp oxide bề mặt.",
+      "kind": "chemical",
+      "sourceLine": 79,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tác dụng với Hydrochloric acid",
+      "desc": "",
+      "equation": "2Eu + 6HCl → 2EuCl₃ + 3H₂",
+      "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+      "kind": "chemical",
+      "sourceLine": 81,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tạo Europium(III) hydroxide",
+      "desc": "",
+      "equation": "EuCl₃ + 3NaOH → Eu(OH)₃↓ + 3NaCl",
+      "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+      "kind": "chemical",
+      "sourceLine": 83,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Điều chế Europium",
+      "desc": "",
+      "equation": "EuCl₂ + Ca → Eu + CaCl₂",
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 85,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "preparations": {
+    "lab": [
+      {
+        "title": "Có thể điều chế Europium bằng cách khử Europium chloride khan bằng Calcium.",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "2EuCl₃ + 3Ca → 2Eu + 3CaCl₂",
+            "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+            "kind": "chemical",
+            "sourceLine": 65,
+            "sourceSection": "lab",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          63,
+          65
+        ],
+        "equation": "2EuCl₃ + 3Ca → 2Eu + 3CaCl₂"
+      }
+    ],
+    "industry": [
+      {
+        "title": "Europium (Eu) chủ yếu được điều chế từ quặng monazite và bastnaesite. Sau khi tách khỏi hỗn hợp đất hiếm, Europium được thu bằng cách khử Europium(III) oxide bằng Lanthanum ở nhiệt độ cao.",
+        "desc": "Europium thu được được tinh chế để loại bỏ tạp chất.",
+        "result": "",
+        "equations": [
+          {
+            "equation": "Eu₂O₃ + 2La → 2Eu + La₂O₃",
+            "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+            "kind": "chemical",
+            "sourceLine": 60,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          58,
+          60,
+          61
+        ],
+        "equation": "Eu₂O₃ + 2La → 2Eu + La₂O₃"
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Có thể nhận biết Europium bằng",
+      "desc": "Phổ phát xạ nguyên tử. ICP-OES hoặc ICP-MS. Phổ hấp thụ đặc trưng của Eu²⁺ và Eu³⁺. Đặc tính phát quang rất mạnh của một số hợp chất Europium. Một trong những đặc điểm nổi bật là: Eu³⁺ thường tạo phát quang đỏ trong nhiều vật liệu phát quang. Eu²⁺ có thể tạo phát quang xanh lam hoặc xanh lục, tùy vật liệu chủ.",
+      "result": "",
+      "equations": [],
+      "sourceLines": [
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74
+      ],
+      "equation": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Màn hình và TV",
+      "desc": "Europium compounds là chất phát quang quan trọng, đặc biệt tạo màu đỏ trong màn hình và các hệ thống hiển thị.",
+      "sourceLine": 87
+    },
+    {
+      "title": "Đèn huỳnh quang",
+      "desc": "Europium được sử dụng trong phosphor để tạo ánh sáng màu đỏ và góp phần tạo ánh sáng trắng.",
+      "sourceLine": 88
+    },
+    {
+      "title": "LED",
+      "desc": "Các vật liệu phosphor chứa Europium được sử dụng trong một số loại LED trắng.",
+      "sourceLine": 89
+    },
+    {
+      "title": "Tiền giấy",
+      "desc": "Một số hợp chất Europium được sử dụng làm mực phát quang chống giả, giúp kiểm tra tiền giấy dưới tia UV.",
+      "sourceLine": 90
+    },
+    {
+      "title": "Laser",
+      "desc": "Một số vật liệu pha tạp Europium được nghiên cứu và sử dụng trong các ứng dụng quang học.",
+      "sourceLine": 91
+    }
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Europium là nguyên tố số 63, thuộc nhóm IIIB | chu kỳ 6 và là nguyên tố thứ bảy trong họ Lanthanide.</li><li>Europium được Eugène-Anatole Demarçay phát hiện và công bố vào năm 1901 tại Pháp. Tên nguyên tố được đặt theo Europe (châu Âu).</li><li>Europium là kim loại đất hiếm màu trắng bạc và có tính hoạt động hóa học khá mạnh. Điểm đặc biệt của Europium là có thể tồn tại ở cả Eu²⁺ và Eu³⁺, trong đó Eu²⁺ tương đối ổn định nhờ cấu hình electron 4f⁷ bán đầy.</li><li>Europium đặc biệt quan trọng trong công nghệ phát quang. Các hợp chất Europium được sử dụng để tạo màu đỏ, xanh lam và xanh lục, đóng vai trò trong màn hình, đèn huỳnh quang, LED và mực chống tiền giả.</li><li>Mạng tinh thể: Lập phương tâm khối (BCC) ở điều kiện thường.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/photos/063_Eu.jpg",
+      "title": "Europium (Eu)",
+      "desc": "Ảnh tham chiếu mẫu Europium (Eu); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+      "source": "https://commons.wikimedia.org/wiki/File:Europium.jpg",
+      "author": "Jurii",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0"
+    }
+  ],
+  "mediaBlocks": [
+    {
+      "type": "model",
+      "section": "structure",
+      "title": "Mẫu khoáng vật 3D · Monazite-(Ce)",
+      "src": "/assets/periodic-table/minerals/monazite.glb",
+      "preview": "/assets/periodic-table/minerals/monazite.png",
+      "desc": "(Ce,La,Nd,Th)PO₄. Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  ],
+  "sources": [
+    {
+      "title": "063_Eu.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "732c1202ab32c682d6644053a58d0753d33d37d968ee78b5c65821173a66adac"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/63/europium"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "063_Eu.docx",
+    "sourceSha256": "732c1202ab32c682d6644053a58d0753d33d37d968ee78b5c65821173a66adac",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/063_Eu.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
+}

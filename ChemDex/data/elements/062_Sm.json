@@ -1,0 +1,460 @@
+{
+  "number": 62,
+  "symbol": "Sm",
+  "nameVi": "Samarium",
+  "nameEn": "Samarium",
+  "mass": 150.36,
+  "massStandardText": "150.36 ± 0.02",
+  "massStandardSource": "https://ciaaw.org/abridged-atomic-weights.htm",
+  "massKind": "standard-atomic-weight",
+  "category": "lanthanide",
+  "hasData": true,
+  "file": "elements/062_Sm.json",
+  "general": {
+    "latinName": "Samarium",
+    "englishName": "Samarium",
+    "electronConfig": "[Xe] 4f⁶ 6s²",
+    "isotope": "¹⁴⁴Sm, ¹⁴⁷Sm, ¹⁴⁸Sm, ¹⁴⁹Sm, ¹⁵⁰Sm, ¹⁵²Sm, ¹⁵⁴Sm",
+    "group": null,
+    "groupLabel": "Lanthanide",
+    "series": "Lanthanide",
+    "period": 6,
+    "state": "Rắn",
+    "oxidation": "+2, +3",
+    "electronegativity": 1.17,
+    "electronegativityNote": "Thang Pauling; số liệu tổng hợp PubChem.",
+    "density": "7,52 g/cm³.",
+    "meltingPoint": "1072°C",
+    "boilingPoint": "1794°C",
+    "crystalStructure": "Rhombohedral",
+    "CAS": "7440-19-9"
+  },
+  "history": {
+    "discoverer": "Paul-Émile Lecoq de Boisbaudran",
+    "year": "1879",
+    "discoveryLocation": "Pháp",
+    "description": "Samarium được phát hiện khi Paul-Émile Lecoq de Boisbaudran nghiên cứu khoáng vật Samarskite. Ông phát hiện các vạch phổ mới và xác định sự tồn tại của một nguyên tố đất hiếm mới. Sau đó, Samarium được điều chế ở dạng tương đối tinh khiết hơn. Tên Samarium bắt nguồn từ tên khoáng vật Samarskite, vốn được đặt theo tên của Vasili Samarsky-Bykhovets, một kỹ sư khai mỏ người Nga."
+  },
+  "structure": {
+    "protons": 62,
+    "electrons": 62,
+    "neutrons": 90,
+    "nucleusIsotope": "¹⁵²Sm",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 62,
+      "neutron": 90
+    },
+    "electronShells": [
+      2,
+      8,
+      18,
+      24,
+      8,
+      2
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      24,
+      8,
+      2
+    ],
+    "valenceElectrons": 2,
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+    "lattice": "Rhombohedral",
+    "latticeEvidence": "source-reviewed"
+  },
+  "structureType": "Rhombohedral",
+  "occurrence": {
+    "description": "Chất rắn",
+    "simple": [
+      "Sm"
+    ],
+    "compounds": [
+      "Sm₂O₃",
+      "SmCl₃",
+      "Sm₂O₃",
+      "SmS"
+    ],
+    "ores": [
+      "Monazite",
+      "Bastnäsite và Samarskite"
+    ],
+    "details": [
+      "Trạng thái: Chất rắn",
+      "Màu sắc: Trắng bạc",
+      "Có trong: Monazite, Bastnäsite và Samarskite.",
+      "Đơn chất: Sm",
+      "Hợp chất phổ biến: Sm₂O₃, SmCl₃, Sm₂O₃, SmS"
+    ],
+    "mineral": {
+      "available": true,
+      "id": "monazite",
+      "name": "Monazite-(Ce)",
+      "formula": "(Ce,La,Nd,Th)PO₄",
+      "habit": "prismatic",
+      "color": "#b98a4c",
+      "crystalSystem": "monoclinic",
+      "relation": "Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Monazite-(Ce)",
+      "model": "/assets/periodic-table/minerals/monazite.glb",
+      "preview": "/assets/periodic-table/minerals/monazite.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  },
+  "naturalState": {
+    "image": "/assets/periodic-table/photos/062_Sm.jpg",
+    "alt": "Samarium: ảnh tham chiếu từ Commons",
+    "kind": "photo",
+    "source": "https://commons.wikimedia.org/wiki/File:Samarium-2.jpg",
+    "caption": "Ảnh tham chiếu mẫu Samarium (Sm); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+    "credit": "Unknown author Unknown author · CC BY 3.0"
+  },
+  "isotopes": [
+    {
+      "isotope": "¹⁴⁴Sm",
+      "massNumber": 144,
+      "protons": 62,
+      "neutrons": 82,
+      "stable": true,
+      "abundancePercent": "3.08",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹⁴⁷Sm",
+      "massNumber": 147,
+      "protons": 62,
+      "neutrons": 85,
+      "stable": false,
+      "abundancePercent": "15.00",
+      "halfLifeDisplay": "1.073E11 ± 1.0E+9 năm",
+      "halfLife": "1.073E11 Y",
+      "halfLifeUncertainty": "10",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹⁴⁸Sm",
+      "massNumber": 148,
+      "protons": 62,
+      "neutrons": 86,
+      "stable": false,
+      "abundancePercent": "11.25",
+      "halfLifeDisplay": "7E+15 ± 3E+15 năm",
+      "halfLife": "7E+15 Y",
+      "halfLifeUncertainty": "3",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹⁴⁹Sm",
+      "massNumber": 149,
+      "protons": 62,
+      "neutrons": 87,
+      "stable": true,
+      "abundancePercent": "13.82",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹⁵⁰Sm",
+      "massNumber": 150,
+      "protons": 62,
+      "neutrons": 88,
+      "stable": true,
+      "abundancePercent": "7.37",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹⁵²Sm",
+      "massNumber": 152,
+      "protons": 62,
+      "neutrons": 90,
+      "stable": true,
+      "abundancePercent": "26.74",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹⁵⁴Sm",
+      "massNumber": 154,
+      "protons": 62,
+      "neutrons": 92,
+      "stable": true,
+      "abundancePercent": "22.74",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Là kim loại đất hiếm.</li><li>Thuộc họ Lanthanide.</li><li>Có màu trắng bạc.</li><li>Khá mềm.</li><li>Có tính thuận từ mạnh.</li><li>Dễ bị oxy hóa trong không khí.</li><li>Có nhiệt độ nóng chảy khoảng 1072 °C.</li><li>Có nhiệt độ sôi khoảng 1794 °C.</li><li>Khối lượng riêng khoảng 7,52 g/cm³.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Số Oxy hóa phổ biến nhất là +3.</li><li>+2 cũng tương đối đặc trưng và có thể tồn tại trong một số hợp chất.</li><li>Samarium phản ứng với Oxygen tạo Samarium(III) oxide:</li><li class=\"source-equation\">4Sm + 3O₂ → 2Sm₂O₃<small>Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.</small></li><li>Phản ứng với Acid tạo muối Sm³⁺ và giải phóng Hydrogen.</li><li>Samarium có khả năng hấp thụ neutron khá mạnh, đặc biệt là ¹⁴⁹Sm.</li></ul>",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "desc": "",
+      "equation": "4Sm + 3O₂ → 2Sm₂O₃",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 79,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tác dụng với Hydrochloric acid",
+      "desc": "",
+      "equation": "2Sm + 6HCl → 2SmCl₃ + 3H₂",
+      "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+      "kind": "chemical",
+      "sourceLine": 81,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tạo Samarium(III) hydroxide",
+      "desc": "",
+      "equation": "SmCl₃ + 3NaOH → Sm(OH)₃↓ + 3NaCl",
+      "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+      "kind": "chemical",
+      "sourceLine": 83,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Điều chế Samarium",
+      "desc": "",
+      "equation": "2SmCl₃ + 3Ca → 2Sm + 3CaCl₂",
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 85,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Phản ứng hấp thụ neutron của Samarium-149",
+      "desc": "",
+      "equation": "¹⁴⁹Sm + n → ¹⁵⁰Sm + γ",
+      "condition": "Chiếu neutron trong cơ sở nghiên cứu; bắt neutron và phát gamma nếu không có sản phẩm bay hơi.",
+      "kind": "nuclear",
+      "sourceLine": 87,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "preparations": {
+    "lab": [
+      {
+        "title": "Có thể điều chế Samarium bằng cách khử Samarium chloride khan bằng Calcium.",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "2SmCl₃ + 3Ca → 2Sm + 3CaCl₂",
+            "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+            "kind": "chemical",
+            "sourceLine": 69,
+            "sourceSection": "lab",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          67,
+          69
+        ],
+        "equation": "2SmCl₃ + 3Ca → 2Sm + 3CaCl₂"
+      }
+    ],
+    "industry": [
+      {
+        "title": "Samarium (Sm) chủ yếu được điều chế từ quặng monazite và bastnaesite. Sau khi tách khỏi hỗn hợp đất hiếm, Samarium được thu bằng phương pháp khử Samarium oxide bằng Lanthanum ở nhiệt độ cao.",
+        "desc": "Samarium thu được được tinh chế để loại bỏ tạp chất.",
+        "result": "",
+        "equations": [
+          {
+            "equation": "Sm₂O₃ + 2La → 2Sm + La₂O₃",
+            "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+            "kind": "chemical",
+            "sourceLine": 64,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          62,
+          64,
+          65
+        ],
+        "equation": "Sm₂O₃ + 2La → 2Sm + La₂O₃"
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Có thể nhận biết Samarium bằng",
+      "desc": "Phổ phát xạ nguyên tử. ICP-OES hoặc ICP-MS. Phổ hấp thụ đặc trưng của ion Sm³⁺. Các tính chất từ đặc trưng. Ion Sm³⁺ trong dung dịch thường có màu vàng nhạt.",
+      "result": "",
+      "equations": [],
+      "sourceLines": [
+        71,
+        72,
+        73,
+        74,
+        75,
+        76
+      ],
+      "equation": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Nam châm",
+      "desc": "Samarium được sử dụng để chế tạo Samarium–Cobalt (SmCo), một loại nam châm vĩnh cửu mạnh có khả năng hoạt động tốt ở nhiệt độ cao.",
+      "sourceLine": 89
+    },
+    {
+      "title": "Lò phản ứng hạt nhân",
+      "desc": "Do ¹⁴⁹Sm có tiết diện bắt neutron rất lớn, Samarium có vai trò trong việc hấp thụ neutron và kiểm soát phản ứng hạt nhân.",
+      "sourceLine": 90
+    },
+    {
+      "title": "Laser",
+      "desc": "Một số tinh thể pha tạp Samarium được sử dụng trong các hệ thống laser và vật liệu quang học.",
+      "sourceLine": 91
+    },
+    {
+      "title": "Kính quang học",
+      "desc": "Samarium compounds có thể được sử dụng trong kính hấp thụ tia hồng ngoại và một số ứng dụng quang học.",
+      "sourceLine": 92
+    },
+    {
+      "title": "Điện tử",
+      "desc": "Một số hợp chất Samarium được dùng trong vật liệu điện tử và từ tính.",
+      "sourceLine": 93
+    }
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Samarium là nguyên tố số 62, thuộc nhóm IIIB | chu kỳ 6 và là nguyên tố thứ sáu trong họ Lanthanide.</li><li>Samarium được Paul-Émile Lecoq de Boisbaudran phát hiện vào năm 1879 khi nghiên cứu khoáng vật Samarskite. Tên nguyên tố bắt nguồn từ tên khoáng vật này, vốn được đặt theo Vasili Samarsky-Bykhovets.</li><li>Samarium là kim loại đất hiếm màu trắng bạc, có tính thuận từ mạnh. Trạng thái Oxy hóa phổ biến nhất là +3, ngoài ra +2 cũng có thể tồn tại trong một số hợp chất.</li><li>Samarium có ứng dụng quan trọng trong nam châm SmCo, công nghệ hạt nhân, laser, kính quang học và vật liệu điện tử. Đặc biệt, đồng vị ¹⁴⁹Sm có khả năng hấp thụ neutron rất mạnh.</li><li>Mạng tinh thể: Rhombohedral ở điều kiện thường.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/photos/062_Sm.jpg",
+      "title": "Samarium (Sm)",
+      "desc": "Ảnh tham chiếu mẫu Samarium (Sm); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+      "source": "https://commons.wikimedia.org/wiki/File:Samarium-2.jpg",
+      "author": "Unknown author Unknown author",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0"
+    }
+  ],
+  "mediaBlocks": [
+    {
+      "type": "model",
+      "section": "structure",
+      "title": "Mẫu khoáng vật 3D · Monazite-(Ce)",
+      "src": "/assets/periodic-table/minerals/monazite.glb",
+      "preview": "/assets/periodic-table/minerals/monazite.png",
+      "desc": "(Ce,La,Nd,Th)PO₄. Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  ],
+  "sources": [
+    {
+      "title": "062_Sm.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "8f232b332f9db87c04418298f9a00cc790e8582b6382cdd232fdcd6435697797"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/62/samarium"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "062_Sm.docx",
+    "sourceSha256": "8f232b332f9db87c04418298f9a00cc790e8582b6382cdd232fdcd6435697797",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/062_Sm.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
+}

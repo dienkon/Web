@@ -1,0 +1,91 @@
+001: Rubidium (Rb)
+002: Thông tin chung
+003: Tên Latin: Rubidium
+004: Tên Tiếng Anh: Rubidium
+005: Đồng vị: ⁸⁵Rb, ⁸⁷Rb
+006: Vị trí: Nhóm IA | Chu kỳ 5
+007: Số Oxy hóa: +1
+008: Độ âm điện: 0.82
+009: Lịch sử khám phá
+010: Phát hiện bởi: Robert Bunsen và Gustav Kirchhoff
+011: Năm công bố: 1861
+012: Nơi khám phá: Đức
+013: Mô tả: Rubidium được phát hiện năm 1861 khi Robert Bunsen và Gustav Kirchhoff phân tích khoáng vật Lepidolite bằng phương pháp quang phổ. Họ nhận ra hai vạch phổ màu đỏ đặc trưng chưa từng được quan sát trước đó. Tên Rubidium bắt nguồn từ tiếng Latin rubidus, nghĩa là “đỏ sẫm”.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Kr] 5s¹
+017: Mô hình mạng tinh thể: Lập phương tâm khối (Body-centered cubic, BCC)
+018: Số hiệu nguyên tử: 37
+019: Nguyên tử khối: 85.468 g/mol
+020: Vỏ nguyên tử: 37 electron
+021: K: 2 | L: 8 | M: 18 | N: 8 | O: 1
+022: Hạt nhân: 37 proton, 48 neutron đối với ⁸⁵Rb
+023: Cấu hình e: [Kr] 5s¹
+024: Loại mạng: Lập phương tâm khối (Body-centered cubic, BCC)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Rubidium là kim loại rắn, mềm, có màu trắng bạc ở điều kiện thường.
+027: Có trong: Một số khoáng vật như Lepidolite và Pollucite, thường tồn tại cùng các kim loại kiềm khác.
+028: Đơn chất: Rb
+029: Hợp chất: RbCl, RbOH, Rb₂O, Rb₂CO₃, RbNO₃...
+030: c. Đồng vị
+031: Đồng vị: ⁸⁵Rb, ⁸⁷Rb
+032: ⁸⁵Rb: Đồng vị bền, chiếm khoảng 72.2%.
+033: ⁸⁷Rb: Đồng vị phóng xạ tự nhiên, chiếm khoảng 27.8%, có chu kỳ bán rã rất dài.
+034: Tính chất
+035: Tính chất vật lý
+036: Là kim loại kiềm.
+037: Màu trắng bạc.
+038: Rất mềm.
+039: Khối lượng riêng: khoảng 1.53 g/cm³.
+040: Nhiệt độ nóng chảy: khoảng 39.3 °C.
+041: Nhiệt độ sôi: khoảng 688 °C.
+042: Có thể nóng chảy ở nhiệt độ hơi cao hơn nhiệt độ phòng.
+043: Dẫn điện và dẫn nhiệt tốt.
+044: Có thể tạo ngọn lửa màu đỏ tím khi bị đốt nóng.
+045: Tính chất hóa học
+046: Là kim loại có hoạt tính hóa học rất cao.
+047: Có tính khử mạnh.
+048: Dễ mất electron 5s¹ để tạo Rb⁺.
+049: Phản ứng mạnh với nước tạo Rubidium hydroxide và Hydrogen.
+050: Phản ứng nhanh với Oxygen.
+051: Phản ứng mạnh với Halogen tạo Rubidium halide.
+052: Phản ứng với nhiều chất phi kim khác.
+053: Cần được bảo quản tránh tiếp xúc với nước và không khí ẩm.
+054: Điều chế
+055: Điều chế trong công nghiệp
+056: Rubidium được điều chế bằng cách khử Rubidium chloride bằng Calcium ở nhiệt độ cao trong điều kiện chân không, sau đó chưng cất để thu Rubidium.
+057: Phương trình hóa học:
+058: 2RbCl + Ca → 2Rb + CaCl₂
+059: Điều chế trong phòng thí nghiệm
+060: Rubidium có thể được điều chế bằng phương pháp điện phân nóng chảy Rubidium chloride. Tuy nhiên, do tính hoạt động hóa học rất mạnh, phương pháp này ít được sử dụng trong phòng thí nghiệm thông thường.
+061: Phương trình điện phân:
+062: 2RbCl(l) → 2Rb(l) + Cl₂(g)
+063: Nhận biết
+064: Nhận biết Rb⁺
+065: Rubidium có thể được nhận biết bằng phép thử ngọn lửa.
+066: Hiện tượng: Ngọn lửa có màu đỏ tím đặc trưng.
+067: Do màu ngọn lửa có thể bị che lấp bởi các ion kim loại khác, phương pháp quang phổ thường được sử dụng để xác định chính xác hơn.
+068: Phương trình
+069: Tác dụng với nước
+070: 2Rb + 2H₂O → 2RbOH + H₂↑
+071: Tác dụng với Oxygen
+072: 4Rb + O₂ → 2Rb₂O
+073: Tác dụng với Chlorine
+074: 2Rb + Cl₂ → 2RbCl
+075: Tác dụng với Hydrogen
+076: 2Rb + H₂ → 2RbH
+077: Tác dụng với Sulfur
+078: 2Rb + S → Rb₂S
+079: Điện phân Rubidium chloride nóng chảy
+080: 2RbCl → 2Rb + Cl₂
+081: Ứng dụng thực tế
+082: Đồng hồ nguyên tử: Rubidium được sử dụng trong một số loại Rubidium atomic clocks nhờ đặc tính chuyển mức năng lượng ổn định của nguyên tử.
+083: Nghiên cứu vật lý: Rubidium được sử dụng trong nghiên cứu nguyên tử lạnh và Bose–Einstein condensate.
+084: Điện tử: Một số Rubidium compounds được sử dụng trong sản xuất vật liệu và thiết bị điện tử đặc biệt.
+085: Y học và nghiên cứu: Một số đồng vị Rubidium được sử dụng trong nghiên cứu sinh học và y học.
+086: Nghiên cứu địa chất: ⁸⁷Rb được sử dụng trong phương pháp định tuổi Rubidium–Strontium.
+087: Tổng quan
+088: Rubidium là nguyên tố số 37, thuộc nhóm IA | chu kỳ 5 và là một kim loại kiềm.
+089: Rubidium có cấu hình electron [Kr] 5s¹, vì vậy rất dễ mất electron để tạo ion Rb⁺. Đây là nguyên nhân khiến Rubidium có tính khử và độ hoạt động hóa học rất cao.
+090: Rubidium là kim loại mềm, màu trắng bạc, có nhiệt độ nóng chảy thấp và có thể tạo ngọn lửa đỏ tím đặc trưng.
+091: Trong tự nhiên, Rubidium thường tồn tại trong các khoáng vật cùng với các kim loại kiềm khác. Rubidium có ứng dụng đáng chú ý trong đồng hồ nguyên tử, nghiên cứu vật lý, định tuổi địa chất và một số lĩnh vực điện tử, y học.

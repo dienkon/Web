@@ -1,37 +1,50 @@
 {
   "number": 12,
   "symbol": "Mg",
-  "nameVi": "⁠Magnesium",
+  "nameVi": "Magie",
   "nameEn": "Magnesium",
   "mass": 24.305,
+  "massStandardText": "24.305 ± 0.002",
+  "massStandardSource": "https://ciaaw.org/abridged-atomic-weights.htm",
+  "massKind": "standard-atomic-weight",
   "category": "kiem-tho",
   "hasData": true,
   "file": "elements/012_Mg.json",
   "general": {
     "latinName": "Magnesium",
     "englishName": "Magnesium",
-    "electronConfig": "1s² 2s² 2p⁶ 3s²",
+    "electronConfig": "[Ne] 3s²",
     "isotope": "²⁴Mg, ²⁵Mg, ²⁶Mg",
     "group": 2,
+    "groupLabel": "2",
+    "series": "",
     "period": 3,
-    "state": "",
+    "state": "Rắn",
     "oxidation": "+2",
     "electronegativity": 1.31,
+    "electronegativityNote": "Thang Pauling; số liệu tổng hợp PubChem.",
     "density": "khoảng 1.738 g/cm³.",
     "meltingPoint": "650 °C.",
     "boilingPoint": "1090 °C.",
-    "crystalStructure": "Lục phương xếp chặt (HCP)"
+    "crystalStructure": "Lục phương xếp chặt (HCP)",
+    "CAS": "7439-95-4"
   },
   "history": {
     "discoverer": "Joseph Black",
-    "year": 1755,
+    "year": "1755",
     "discoveryLocation": "Scotland",
     "description": "Năm 1755, Joseph Black phân biệt Magnesium compounds với Calcium compounds và xác định Magnesium là một thành phần riêng biệt. Đến năm 1808, Humphry Davy cô lập được Magnesium ở dạng kim loại bằng phương pháp điện hóa."
   },
   "structure": {
     "protons": 12,
-    "neutrons": 12,
     "electrons": 12,
+    "neutrons": 12,
+    "nucleusIsotope": "²⁴Mg",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 12,
+      "neutron": 12
+    },
     "electronShells": [
       2,
       8,
@@ -43,12 +56,11 @@
       2
     ],
     "valenceElectrons": 2,
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lục phương xếp chặt (HCP)",
-    "nucleus": {
-      "proton": 12,
-      "neutron": 12
-    }
+    "latticeEvidence": "source-reviewed"
   },
+  "structureType": "Lục phương xếp chặt (HCP)",
   "occurrence": {
     "description": "Magnesium là kim loại hoạt động hóa học nên không tồn tại tự do trong tự nhiên. Nó chủ yếu tồn tại dưới dạng hợp chất trong khoáng vật và nước biển.",
     "simple": [
@@ -68,147 +80,469 @@
       "Brucite",
       "Carnallite",
       "nước biển và một số khoáng vật Silicate"
-    ]
+    ],
+    "details": [
+      "Trạng thái: Magnesium là kim loại hoạt động hóa học nên không tồn tại tự do trong tự nhiên. Nó chủ yếu tồn tại dưới dạng hợp chất trong khoáng vật và nước biển.",
+      "Có trong: Magnesite, Dolomite, Brucite, Carnallite, nước biển và một số khoáng vật Silicate.",
+      "Đơn chất: Mg",
+      "Hợp chất: MgO, Mg(OH)₂, MgCO₃, MgCl₂, MgSO₄, Mg₃Si₂O₅(OH)₄..."
+    ],
+    "mineral": {
+      "available": true,
+      "id": "magnesite",
+      "name": "Magnesite",
+      "formula": "MgCO₃",
+      "habit": "rhombohedral",
+      "color": "#d2cec0",
+      "crystalSystem": "trigonal",
+      "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Magnesite",
+      "model": "/assets/periodic-table/minerals/magnesite.glb",
+      "preview": "/assets/periodic-table/minerals/magnesite.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
   },
-  "naturalState": {},
-  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại màu trắng bạc.</li>\n      <li>Nhẹ.</li>\n      <li>Có độ bền cơ học tương đối tốt.</li>\n      <li>Khối lượng riêng: khoảng 1.738 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: 650 °C.</li>\n      <li>Nhiệt độ sôi: 1090 °C.</li>\n      <li>Dẫn điện và dẫn nhiệt tốt.</li>\n      <li>Có thể tạo ánh sáng trắng rất sáng khi cháy.</li>\n      <li>Dễ gia công khi ở điều kiện thích hợp.</li>\n    </ul>\n  ",
-  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại kiềm thổ.</li>\n      <li>Có tính khử.</li>\n      <li>Số Oxy hóa phổ biến: +2.</li>\n      <li>Phản ứng với Oxygen tạo Magnesium oxide.</li>\n      <li>Phản ứng với acid tạo muối Magnesium và Hydrogen.</li>\n      <li>Phản ứng chậm với nước lạnh và nhanh hơn với nước nóng.</li>\n      <li>Có thể phản ứng với Steam tạo Magnesium oxide và Hydrogen.</li>\n      <li>Phản ứng với Halogen tạo Magnesium halide.</li>\n      <li>Có thể khử một số oxide kim loại ở nhiệt độ cao.</li>\n      <li>Khi cháy tạo ánh sáng trắng mạnh.</li>\n    </ul>\n  ",
+  "naturalState": {
+    "image": "/assets/periodic-table/photos/012_Mg.jpg",
+    "alt": "Magnesium: ảnh tham chiếu từ Commons",
+    "kind": "photo",
+    "source": "https://commons.wikimedia.org/wiki/File:CSIRO_ScienceImage_2893_Crystalised_magnesium.jpg",
+    "caption": "Ảnh tham chiếu mẫu Magnesium (Mg); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+    "credit": "Mark Fergus, CSIRO · CC BY 3.0"
+  },
+  "isotopes": [
+    {
+      "isotope": "²⁴Mg",
+      "massNumber": 24,
+      "protons": 12,
+      "neutrons": 12,
+      "stable": true,
+      "abundancePercent": "78.965",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁵Mg",
+      "massNumber": 25,
+      "protons": 12,
+      "neutrons": 13,
+      "stable": true,
+      "abundancePercent": "10.011",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁶Mg",
+      "massNumber": 26,
+      "protons": 12,
+      "neutrons": 14,
+      "stable": true,
+      "abundancePercent": "11.025",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Là kim loại màu trắng bạc.</li><li>Nhẹ.</li><li>Có độ bền cơ học tương đối tốt.</li><li>Khối lượng riêng: khoảng 1.738 g/cm³.</li><li>Nhiệt độ nóng chảy: 650 °C.</li><li>Nhiệt độ sôi: 1090 °C.</li><li>Dẫn điện và dẫn nhiệt tốt.</li><li>Có thể tạo ánh sáng trắng rất sáng khi cháy.</li><li>Dễ gia công khi ở điều kiện thích hợp.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Là kim loại kiềm thổ.</li><li>Có tính khử.</li><li>Số Oxy hóa phổ biến: +2.</li><li>Phản ứng với Oxygen tạo Magnesium oxide.</li><li>Phản ứng với acid tạo muối Magnesium và Hydrogen.</li><li>Phản ứng chậm với nước lạnh và nhanh hơn với nước nóng.</li><li>Có thể phản ứng với Steam tạo Magnesium oxide và Hydrogen.</li><li>Phản ứng với Halogen tạo Magnesium halide.</li><li>Có thể khử một số oxide kim loại ở nhiệt độ cao.</li><li>Khi cháy tạo ánh sáng trắng mạnh.</li></ul>",
   "reactions": [
     {
       "type": "Tác dụng với Oxygen",
-      "equation": "2Mg + O2 → 2MgO",
-      "desc": ""
+      "desc": "",
+      "equation": "2Mg + O₂ → 2MgO",
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 80,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
-      "type": "Tác dụng với Nitrogen",
-      "equation": "3Mg + N2 → Mg3N2",
-      "desc": "Khi nung nóng:"
+      "type": "Khi nung nóng",
+      "desc": "",
+      "equation": "3Mg + N₂ → Mg₃N₂",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 83,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Chlorine",
-      "equation": "Mg + Cl2 → MgCl2",
-      "desc": ""
+      "desc": "",
+      "equation": "Mg + Cl₂ → MgCl₂",
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 85,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Hydrochloric acid",
-      "equation": "Mg + 2HCl → MgCl2 + H2↑",
-      "desc": ""
+      "desc": "",
+      "equation": "Mg + 2HCl → MgCl₂ + H₂↑",
+      "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+      "kind": "chemical",
+      "sourceLine": 87,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Sulfuric acid loãng",
-      "equation": "Mg + H2SO4 → MgSO4 + H2↑",
-      "desc": ""
+      "desc": "",
+      "equation": "Mg + H₂SO₄ → MgSO₄ + H₂↑",
+      "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+      "kind": "chemical",
+      "sourceLine": 89,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
-      "type": "Tác dụng với nước",
-      "equation": "Mg + 2H2O → Mg(OH)2 + H2↑",
-      "desc": "Với nước nóng:"
+      "type": "Với nước nóng",
+      "desc": "",
+      "equation": "Mg + 2H₂O → Mg(OH)₂ + H₂↑",
+      "condition": "Nước nóng; với nước lạnh phản ứng rất chậm do lớp hydroxide bảo vệ.",
+      "kind": "chemical",
+      "sourceLine": 92,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
-      "type": "Tác dụng với nước",
-      "equation": "Mg + H2O(g) → MgO + H2↑",
-      "desc": "Với Steam:"
+      "type": "Với Steam",
+      "desc": "",
+      "equation": "Mg + H₂O(g) → MgO + H₂↑",
+      "condition": "Hơi nước nóng, nung kim loại.",
+      "kind": "chemical",
+      "sourceLine": 94,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
-      "type": "Tác dụng với Carbon dioxide",
-      "equation": "2Mg + CO2 → 2MgO + C",
-      "desc": "Khi đốt Magnesium:"
+      "type": "Khi đốt Magnesium",
+      "desc": "",
+      "equation": "2Mg + CO₂ → 2MgO + C",
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 97,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
-      "type": "Tác dụng với Carbon",
-      "equation": "2Mg + C → Mg2C3",
-      "desc": "Ở nhiệt độ cao:"
+      "type": "Ở nhiệt độ cao",
+      "desc": "",
+      "equation": "2Mg + 3C → Mg₂C₃",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 100,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Khử Copper(II) oxide",
+      "desc": "",
       "equation": "Mg + CuO → MgO + Cu",
-      "desc": ""
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 102,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     }
   ],
-  "applications": [
-    {
-      "title": "Hợp kim",
-      "desc": "Magnesium được sử dụng để sản xuất các hợp kim nhẹ cho phương tiện và thiết bị kỹ thuật."
-    },
-    {
-      "title": "Hàng không",
-      "desc": "Hợp kim Magnesium được sử dụng trong một số bộ phận cần giảm khối lượng."
-    },
-    {
-      "title": "Pháo sáng và tín hiệu",
-      "desc": "Magnesium tạo ánh sáng trắng mạnh khi cháy nên được sử dụng trong một số loại pháo sáng và thiết bị tín hiệu."
-    },
-    {
-      "title": "Luyện kim",
-      "desc": "Magnesium được sử dụng làm chất khử và trong quá trình sản xuất một số kim loại."
-    },
-    {
-      "title": "Công nghiệp hóa chất",
-      "desc": "Dùng để sản xuất nhiều Magnesium compounds."
-    },
-    {
-      "title": "Bảo vệ chống ăn mòn",
-      "desc": "Magnesium có thể được sử dụng làm anode hy sinh trong một số hệ thống bảo vệ kim loại."
-    },
-    {
-      "title": "Vật liệu",
-      "desc": "Magnesium và hợp kim của nó được sử dụng trong các sản phẩm yêu cầu vật liệu nhẹ."
-    }
-  ],
-  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Magnesium là nguyên tố số 12, thuộc nhóm IIA | chu kỳ 3 và là một kim loại kiềm thổ.</li>\n  <li>Magnesium có cấu hình electron 1s² 2s² 2p⁶ 3s², dễ mất hai electron lớp ngoài cùng để tạo ion Mg²⁺. Magnesium có tính khử tương đối mạnh và có thể cháy trong Oxygen với ánh sáng trắng rất mạnh.</li>\n  <li>Trong tự nhiên, Magnesium không tồn tại ở dạng đơn chất mà chủ yếu có trong khoáng vật, nước biển và các hợp chất Silicate.</li>\n  <li>Magnesium kim loại chủ yếu được sản xuất bằng điện phân Magnesium chloride nóng chảy. Nhờ khối lượng riêng thấp và khả năng tạo hợp kim, Magnesium có vai trò quan trọng trong vật liệu nhẹ, luyện kim, công nghiệp hóa chất và kỹ thuật.</li>\n</ul>\n",
   "preparations": {
     "lab": [
       {
-        "title": "Về nguyên tắc, có thể điều chế bằng điện phân Magnesium chloride nóng chảy:",
-        "equation": "MgCl₂(l) → Mg(l) + Cl₂(g)",
-        "desc": ""
+        "title": "Magnesium không thường được điều chế trong phòng thí nghiệm phổ thông vì cần điện phân muối nóng chảy ở nhiệt độ cao.",
+        "desc": "Về nguyên tắc, có thể điều chế bằng điện phân Magnesium chloride nóng chảy:",
+        "result": "",
+        "equations": [
+          {
+            "equation": "MgCl₂(l) → Mg(l) + Cl₂(g)",
+            "condition": "Điện phân muối khan nóng chảy; không điện phân dung dịch nước để thu kim loại kiềm/kiềm thổ.",
+            "kind": "chemical",
+            "sourceLine": 71,
+            "sourceSection": "lab",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          69,
+          70,
+          71
+        ],
+        "equation": "MgCl₂(l) → Mg(l) + Cl₂(g)"
       }
     ],
     "industry": [
       {
         "title": "Magnesium được sản xuất chủ yếu bằng điện phân Magnesium chloride nóng chảy.",
-        "equation": "",
-        "desc": ""
+        "desc": "Tại cathode:",
+        "result": "",
+        "equations": [
+          {
+            "equation": "Mg²⁺ + 2e⁻ → Mg",
+            "condition": "Điện cực của bình điện phân; muối khan nóng chảy đối với kim loại hoạt động mạnh, không dùng dung dịch nước để thu kim loại.",
+            "kind": "chemical",
+            "sourceLine": 62,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          60,
+          61,
+          62
+        ],
+        "equation": "Mg²⁺ + 2e⁻ → Mg"
       },
       {
-        "title": "Tại cathode:",
-        "equation": "Mg²⁺ + 2e⁻ → Mg <br> 2Cl⁻ → Cl₂ + 2e⁻ <br> MgCl₂(l) → Mg(l) + Cl₂(g)",
-        "desc": "Tại anode: Phương trình tổng quát: Magnesium chloride có thể được thu từ nước biển hoặc các khoáng vật chứa Magnesium."
+        "title": "Tại anode",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "2Cl⁻ → Cl₂ + 2e⁻",
+            "condition": "Điện cực của bình điện phân; muối khan nóng chảy đối với kim loại hoạt động mạnh, không dùng dung dịch nước để thu kim loại.",
+            "kind": "chemical",
+            "sourceLine": 64,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          63,
+          64
+        ],
+        "equation": "2Cl⁻ → Cl₂ + 2e⁻"
+      },
+      {
+        "title": "Phương trình tổng quát",
+        "desc": "Magnesium chloride có thể được thu từ nước biển hoặc các khoáng vật chứa Magnesium.",
+        "result": "",
+        "equations": [
+          {
+            "equation": "MgCl₂(l) → Mg(l) + Cl₂(g)",
+            "condition": "Điện phân muối khan nóng chảy; không điện phân dung dịch nước để thu kim loại kiềm/kiềm thổ.",
+            "kind": "chemical",
+            "sourceLine": 66,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          65,
+          66,
+          67
+        ],
+        "equation": "MgCl₂(l) → Mg(l) + Cl₂(g)"
       }
     ]
   },
   "recognition": [
     {
-      "title": "Thử màu ngọn lửa",
-      "reagent": "",
-      "result": "Magnesium không có màu ngọn lửa đặc trưng đủ mạnh để dùng làm phép thử định tính phổ thông.",
-      "equation": ""
-    },
-    {
-      "title": "Phản ứng tạo kết tủa",
-      "reagent": "",
-      "result": "Ion Mg²⁺ có thể được nhận biết thông qua các phản ứng tạo kết tủa với một số thuốc thử thích hợp.",
-      "equation": ""
-    },
-    {
-      "title": "Ví dụ với Sodium hydroxide",
-      "reagent": "",
-      "result": "",
-      "equation": ""
-    },
-    {
-      "title": "Nhận biết",
-      "reagent": "",
-      "result": "",
-      "equation": "Mg²⁺ + 2OH⁻ → Mg(OH)₂↓"
-    },
-    {
-      "title": "Hiện tượng",
-      "reagent": "",
+      "title": "Thử màu ngọn lửa: Magnesium không có màu ngọn lửa đặc trưng đủ mạnh để dùng làm phép thử định tính phổ thông.",
+      "desc": "Phản ứng tạo kết tủa: Ion Mg²⁺ có thể được nhận biết thông qua các phản ứng tạo kết tủa với một số thuốc thử thích hợp. Ví dụ với Sodium hydroxide:",
       "result": "Xuất hiện kết tủa trắng Magnesium hydroxide.",
-      "equation": ""
+      "equations": [
+        {
+          "equation": "Mg²⁺ + 2OH⁻ → Mg(OH)₂↓",
+          "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+          "kind": "chemical",
+          "sourceLine": 76,
+          "sourceSection": "recognition",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ],
+      "sourceLines": [
+        73,
+        74,
+        75,
+        76,
+        77
+      ],
+      "equation": "Mg²⁺ + 2OH⁻ → Mg(OH)₂↓"
     }
   ],
-  "images": {},
-  "structureType": "Lục phương xếp chặt (HCP)"
+  "applications": [
+    {
+      "title": "Hợp kim",
+      "desc": "Magnesium được sử dụng để sản xuất các hợp kim nhẹ cho phương tiện và thiết bị kỹ thuật.",
+      "sourceLine": 104
+    },
+    {
+      "title": "Hàng không",
+      "desc": "Hợp kim Magnesium được sử dụng trong một số bộ phận cần giảm khối lượng.",
+      "sourceLine": 105
+    },
+    {
+      "title": "Pháo sáng và tín hiệu",
+      "desc": "Magnesium tạo ánh sáng trắng mạnh khi cháy nên được sử dụng trong một số loại pháo sáng và thiết bị tín hiệu.",
+      "sourceLine": 106
+    },
+    {
+      "title": "Luyện kim",
+      "desc": "Magnesium được sử dụng làm chất khử và trong quá trình sản xuất một số kim loại.",
+      "sourceLine": 107
+    },
+    {
+      "title": "Công nghiệp hóa chất",
+      "desc": "Dùng để sản xuất nhiều Magnesium compounds.",
+      "sourceLine": 108
+    },
+    {
+      "title": "Bảo vệ chống ăn mòn",
+      "desc": "Magnesium có thể được sử dụng làm anode hy sinh trong một số hệ thống bảo vệ kim loại.",
+      "sourceLine": 109
+    },
+    {
+      "title": "Vật liệu",
+      "desc": "Magnesium và hợp kim của nó được sử dụng trong các sản phẩm yêu cầu vật liệu nhẹ.",
+      "sourceLine": 110
+    }
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Magnesium là nguyên tố số 12, thuộc nhóm IIA | chu kỳ 3 và là một kim loại kiềm thổ.</li><li>Magnesium có cấu hình electron 1s² 2s² 2p⁶ 3s², dễ mất hai electron lớp ngoài cùng để tạo ion Mg²⁺. Magnesium có tính khử tương đối mạnh và có thể cháy trong Oxygen với ánh sáng trắng rất mạnh.</li><li>Trong tự nhiên, Magnesium không tồn tại ở dạng đơn chất mà chủ yếu có trong khoáng vật, nước biển và các hợp chất Silicate.</li><li>Magnesium kim loại chủ yếu được sản xuất bằng điện phân Magnesium chloride nóng chảy. Nhờ khối lượng riêng thấp và khả năng tạo hợp kim, Magnesium có vai trò quan trọng trong vật liệu nhẹ, luyện kim, công nghiệp hóa chất và kỹ thuật.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/photos/012_Mg.jpg",
+      "title": "Magie (Mg)",
+      "desc": "Ảnh tham chiếu mẫu Magnesium (Mg); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+      "source": "https://commons.wikimedia.org/wiki/File:CSIRO_ScienceImage_2893_Crystalised_magnesium.jpg",
+      "author": "Mark Fergus, CSIRO",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0"
+    }
+  ],
+  "mediaBlocks": [
+    {
+      "type": "model",
+      "section": "structure",
+      "title": "Mẫu khoáng vật 3D · Magnesite",
+      "src": "/assets/periodic-table/minerals/magnesite.glb",
+      "preview": "/assets/periodic-table/minerals/magnesite.png",
+      "desc": "MgCO₃. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  ],
+  "sources": [
+    {
+      "title": "012_Mg.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "c3608273a126a6d77026cccad8f321d6245ec377a70cab18e39c348f73abf8ec"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/12/magnesium"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "012_Mg.docx",
+    "sourceSha256": "c3608273a126a6d77026cccad8f321d6245ec377a70cab18e39c348f73abf8ec",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/012_Mg.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
 }

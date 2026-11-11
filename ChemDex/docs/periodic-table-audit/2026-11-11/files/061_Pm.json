@@ -1,0 +1,1023 @@
+{
+  "symbol": "Pm",
+  "number": 61,
+  "source": "061_Pm.docx",
+  "sourceSha256": "518ff2f9298379b06be66a16a2a991a3800d327f2b0c63403e854d29d22a76b5",
+  "paragraphCount": 101,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 6,
+    "structure": 8,
+    "occurrence": 5,
+    "isotopes": 9,
+    "physical": 9,
+    "chemical": 6,
+    "lab": 4,
+    "industry": 3,
+    "recognition": 7,
+    "reactions": 10,
+    "applications": 5,
+    "notes": 5
+  },
+  "editorialDecisions": [
+    {
+      "line": 64,
+      "before": "²³⁵U + ¹n → ¹⁴⁷Pm + sản phẩm phân hạch khác",
+      "after": null,
+      "reason": "Đây là sơ đồ phân hạch không đủ sản phẩm nên không thể kiểm tra bảo toàn; giữ mô tả quá trình bằng lời."
+    },
+    {
+      "line": 87,
+      "before": "¹⁴⁶Nd + n → ¹⁴⁷Nd → ¹⁴⁷Pm + β⁻",
+      "after": "¹⁴⁷Nd → ¹⁴⁷Pm + β⁻ + ν̅ₑ",
+      "reason": "Tách chuỗi hai mũi tên; bước bắt neutron được giữ riêng trong điều chế."
+    },
+    {
+      "line": 19,
+      "before": "Mô hình mạng tinh thể: Lục phương xếp chặt (Hexagonal close-packed, HCP)",
+      "after": "Mô hình mạng tinh thể: Lục phương kép xếp chặt (DHCP) ở áp suất thường; cấu trúc thay đổi theo nhiệt độ và áp suất.",
+      "reason": "Phân biệt DHCP (xếp lớp ABAC) với HCP (ABAB); không dùng một ô HCP đơn để thay thế."
+    },
+    {
+      "line": 25,
+      "before": "Loại mạng: Lục phương xếp chặt (HCP)",
+      "after": "Loại mạng: Lục phương kép xếp chặt (DHCP) ở áp suất thường; cấu trúc thay đổi theo nhiệt độ và áp suất.",
+      "reason": "Phân biệt DHCP (xếp lớp ABAC) với HCP (ABAB); không dùng một ô HCP đơn để thay thế."
+    }
+  ],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "[Xe] 4f⁵ 6s²",
+      "publishedValue": "[Xe] 4f⁵ 6s²",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Lục phương xếp chặt (HCP)",
+      "publishedValue": "Lục phương kép xếp chặt (DHCP) ở áp suất thường; cấu trúc thay đổi theo nhiệt độ và áp suất.",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "1,13 (Pauling, giá trị ước tính)",
+      "publishedValue": null,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm IIIB | Chu kỳ 6 | Họ Lanthanide",
+      "publishedValue": "Lanthanide",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Chất rắn",
+      "publishedValue": "Rắn",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 35,
+      "sourceText": "¹⁴⁵Pm: chu kỳ bán rã khoảng 17,7 năm.",
+      "reference": {
+        "isotope": "¹⁴⁵Pm",
+        "massNumber": 145,
+        "protons": 61,
+        "neutrons": 84,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "17.7 ± 0.4 năm",
+        "halfLife": "17.7 Y",
+        "halfLifeUncertainty": "4",
+        "halfLifeQualifier": null,
+        "decay": "EC",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 36,
+      "sourceText": "¹⁴⁶Pm: chu kỳ bán rã khoảng 5,53 năm.",
+      "reference": {
+        "isotope": "¹⁴⁶Pm",
+        "massNumber": 146,
+        "protons": 61,
+        "neutrons": 85,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "5.53 ± 0.05 năm",
+        "halfLife": "5.53 Y",
+        "halfLifeUncertainty": "5",
+        "halfLifeQualifier": null,
+        "decay": "EC",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 37,
+      "sourceText": "¹⁴⁷Pm: chu kỳ bán rã khoảng 2,62 năm, là đồng vị được sử dụng nhiều nhất.",
+      "reference": {
+        "isotope": "¹⁴⁷Pm",
+        "massNumber": 147,
+        "protons": 61,
+        "neutrons": 86,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "2.6234 ± 0.0004 năm",
+        "halfLife": "2.6234 Y",
+        "halfLifeUncertainty": "4",
+        "halfLifeQualifier": null,
+        "decay": "B-",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 38,
+      "sourceText": "¹⁴⁸Pm: chu kỳ bán rã khoảng 5,37 ngày.",
+      "reference": {
+        "isotope": "¹⁴⁸Pm",
+        "massNumber": 148,
+        "protons": 61,
+        "neutrons": 87,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "5.368 ± 0.007 d",
+        "halfLife": "5.368 d",
+        "halfLifeUncertainty": "7",
+        "halfLifeQualifier": null,
+        "decay": "B-",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 39,
+      "sourceText": "¹⁴⁹Pm: chu kỳ bán rã khoảng 53,1 giờ.",
+      "reference": {
+        "isotope": "¹⁴⁹Pm",
+        "massNumber": 149,
+        "protons": 61,
+        "neutrons": 88,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "53.08 ± 0.09 h",
+        "halfLife": "53.08 h",
+        "halfLifeUncertainty": "9",
+        "halfLifeQualifier": null,
+        "decay": "B-",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 40,
+      "sourceText": "¹⁵¹Pm: chu kỳ bán rã khoảng 28 giờ.",
+      "reference": {
+        "isotope": "¹⁵¹Pm",
+        "massNumber": 151,
+        "protons": 61,
+        "neutrons": 90,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "28.40 ± 0.04 h",
+        "halfLife": "28.40 h",
+        "halfLifeUncertainty": "4",
+        "halfLifeQualifier": null,
+        "decay": "B-",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 41,
+      "sourceText": "¹⁴⁷Pm là đồng vị quan trọng nhất về mặt ứng dụng.",
+      "reference": {
+        "isotope": "¹⁴⁷Pm",
+        "massNumber": 147,
+        "protons": 61,
+        "neutrons": 86,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "2.6234 ± 0.0004 năm",
+        "halfLife": "2.6234 Y",
+        "halfLifeUncertainty": "4",
+        "halfLifeQualifier": null,
+        "decay": "B-",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 58,
+      "text": "4Pm + 3O₂ → 2Pm₂O₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 64,
+      "text": "²³⁵U + ¹n → ¹⁴⁷Pm + sản phẩm phân hạch khác",
+      "status": "unparsed",
+      "kind": "nuclear",
+      "reason": "Unrecognised nuclide: sản phẩm phân hạch khác"
+    },
+    {
+      "line": 68,
+      "text": "¹⁴⁶Nd + ¹n → ¹⁴⁷Nd",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 70,
+      "text": "¹⁴⁷Nd → ¹⁴⁷Pm + β⁻",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 81,
+      "text": "4Pm + 3O₂ → 2Pm₂O₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 83,
+      "text": "2Pm + 6HCl → 2PmCl₃ + 3H₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 85,
+      "text": "PmCl₃ + 3NaOH → Pm(OH)₃↓ + 3NaCl",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 87,
+      "text": "¹⁴⁶Nd + n → ¹⁴⁷Nd → ¹⁴⁷Pm + β⁻",
+      "status": "schematic",
+      "reason": "Not a single reaction equation"
+    },
+    {
+      "line": 89,
+      "text": "¹⁴⁷Pm → ¹⁴⁷Sm + β⁻",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "chemical",
+      "equation": "4Pm + 3O₂ → 2Pm₂O₃",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 58,
+      "sourceSection": "chemical",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "lab",
+      "equation": "¹⁴⁶Nd + ¹n → ¹⁴⁷Nd + γ",
+      "condition": "Chiếu neutron trong cơ sở nghiên cứu; bắt neutron và phát gamma nếu không có sản phẩm bay hơi.",
+      "kind": "nuclear",
+      "sourceLine": 68,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "lab",
+      "equation": "¹⁴⁷Nd → ¹⁴⁷Pm + β⁻ + ν̅ₑ",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 70,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "4Pm + 3O₂ → 2Pm₂O₃",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 81,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2Pm + 6HCl → 2PmCl₃ + 3H₂",
+      "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+      "kind": "chemical",
+      "sourceLine": 83,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "PmCl₃ + 3NaOH → Pm(OH)₃↓ + 3NaCl",
+      "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+      "kind": "chemical",
+      "sourceLine": 85,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "¹⁴⁷Nd → ¹⁴⁷Pm + β⁻ + ν̅ₑ",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 87,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "¹⁴⁷Pm → ¹⁴⁷Sm + β⁻ + ν̅ₑ",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 89,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": null,
+      "after": [
+        {
+          "title": "Nguồn phóng xạ",
+          "desc": "Promethium-147 phát ra bức xạ Beta và từng được sử dụng làm nguồn năng lượng cho các thiết bị đặc biệt.",
+          "sourceLine": 91
+        },
+        {
+          "title": "Pin hạt nhân",
+          "desc": "Pm-147 có thể được sử dụng trong một số loại nuclear battery và nguồn năng lượng phóng xạ công suất nhỏ.",
+          "sourceLine": 92
+        },
+        {
+          "title": "Thiết bị đo độ dày",
+          "desc": "Nguồn Pm-147 từng được sử dụng trong các thiết bị đo độ dày vật liệu công nghiệp.",
+          "sourceLine": 93
+        },
+        {
+          "title": "Nghiên cứu",
+          "desc": "Promethium được sử dụng để nghiên cứu tính chất của Lanthanide và các quá trình phóng xạ.",
+          "sourceLine": 94
+        },
+        {
+          "title": "Ứng dụng",
+          "desc": "Do tính phóng xạ và độ hiếm, ứng dụng của Promethium rất hạn chế.",
+          "sourceLine": 95
+        }
+      ]
+    },
+    {
+      "field": "category",
+      "before": null,
+      "after": "lanthanide"
+    },
+    {
+      "field": "chemical",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Số Oxy hóa đặc trưng và gần như duy nhất là +3.</li><li>Tạo ion Pm³⁺ trong các hợp chất.</li><li>Có tính chất hóa học tương tự các Lanthanide lân cận như Neodymium và Samarium.</li><li>Phản ứng với Oxygen:</li><li class=\"source-equation\">4Pm + 3O₂ → 2Pm₂O₃<small>Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.</small></li><li>Phản ứng với Acid tạo muối Promethium(III) và giải phóng Hydrogen.</li></ul>"
+    },
+    {
+      "field": "file",
+      "before": null,
+      "after": "elements/061_Pm.json"
+    },
+    {
+      "field": "general",
+      "before": null,
+      "after": {
+        "latinName": "Promethium",
+        "englishName": "Promethium",
+        "electronConfig": "[Xe] 4f⁵ 6s²",
+        "isotope": "¹⁴⁵Pm, ¹⁴⁶Pm, ¹⁴⁷Pm, ¹⁴⁸Pm, ¹⁴⁹Pm, ¹⁵¹Pm",
+        "group": null,
+        "groupLabel": "Lanthanide",
+        "series": "Lanthanide",
+        "period": 6,
+        "state": "Rắn",
+        "oxidation": "+3",
+        "electronegativity": null,
+        "electronegativityNote": "Chưa có giá trị Pauling đủ cơ sở trong bản đối chiếu; không coi 0 là giá trị đã đo.",
+        "density": "6,48 g/cm³.",
+        "meltingPoint": "1042°C",
+        "boilingPoint": "3000°C",
+        "crystalStructure": "Lục phương kép xếp chặt (DHCP) ở áp suất thường; cấu trúc thay đổi theo nhiệt độ và áp suất.",
+        "CAS": "7440-12-2"
+      }
+    },
+    {
+      "field": "hasData",
+      "before": null,
+      "after": true
+    },
+    {
+      "field": "history",
+      "before": null,
+      "after": {
+        "discoverer": "Jacob A. Marinsky, Lawrence E. Glendenin và Charles D. Coryell",
+        "year": "1945",
+        "discoveryLocation": "Oak Ridge, Tennessee, Hoa Kỳ",
+        "description": "Promethium được phát hiện khi nhóm nghiên cứu phân tích các sản phẩm phân hạch của Uranium tại Oak Ridge. Họ đã tách và xác định một nguyên tố đất hiếm mới, có số hiệu nguyên tử 61. Promethium là nguyên tố Lanthanide duy nhất không có đồng vị bền và không tồn tại tự nhiên với lượng đáng kể. Tên Promethium được đặt theo Prometheus, vị thần trong thần thoại Hy Lạp, người đã lấy lửa từ các vị thần đem cho con người."
+      }
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/diagrams/061_Pm.svg",
+          "title": "Promethium (Pm)",
+          "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+          "source": "",
+          "author": "ChemDex",
+          "license": "ChemDex schematic diagram",
+          "licenseUrl": ""
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "¹⁴⁵Pm",
+          "massNumber": 145,
+          "protons": 61,
+          "neutrons": 84,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "17.7 ± 0.4 năm",
+          "halfLife": "17.7 Y",
+          "halfLifeUncertainty": "4",
+          "halfLifeQualifier": null,
+          "decay": "EC",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "¹⁴⁶Pm",
+          "massNumber": 146,
+          "protons": 61,
+          "neutrons": 85,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "5.53 ± 0.05 năm",
+          "halfLife": "5.53 Y",
+          "halfLifeUncertainty": "5",
+          "halfLifeQualifier": null,
+          "decay": "EC",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "¹⁴⁷Pm",
+          "massNumber": 147,
+          "protons": 61,
+          "neutrons": 86,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "2.6234 ± 0.0004 năm",
+          "halfLife": "2.6234 Y",
+          "halfLifeUncertainty": "4",
+          "halfLifeQualifier": null,
+          "decay": "B-",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "¹⁴⁸Pm",
+          "massNumber": 148,
+          "protons": 61,
+          "neutrons": 87,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "5.368 ± 0.007 d",
+          "halfLife": "5.368 d",
+          "halfLifeUncertainty": "7",
+          "halfLifeQualifier": null,
+          "decay": "B-",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "¹⁴⁹Pm",
+          "massNumber": 149,
+          "protons": 61,
+          "neutrons": 88,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "53.08 ± 0.09 h",
+          "halfLife": "53.08 h",
+          "halfLifeUncertainty": "9",
+          "halfLifeQualifier": null,
+          "decay": "B-",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "¹⁵¹Pm",
+          "massNumber": 151,
+          "protons": 61,
+          "neutrons": 90,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "28.40 ± 0.04 h",
+          "halfLife": "28.40 h",
+          "halfLifeUncertainty": "4",
+          "halfLifeQualifier": null,
+          "decay": "B-",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "mass",
+      "before": null,
+      "after": 145
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "reference-isotope-mass-number"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://periodic-table.rsc.org/element/61/promethium"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "[145] — số khối đồng vị tham chiếu, không phải nguyên tử khối chuẩn"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": []
+    },
+    {
+      "field": "nameEn",
+      "before": null,
+      "after": "Promethium"
+    },
+    {
+      "field": "nameVi",
+      "before": null,
+      "after": "Promethium"
+    },
+    {
+      "field": "naturalState",
+      "before": null,
+      "after": {
+        "image": "/assets/periodic-table/diagrams/061_Pm.svg",
+        "alt": "Promethium: sơ đồ minh họa nguyên tố",
+        "kind": "diagram",
+        "source": "",
+        "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+        "credit": ""
+      }
+    },
+    {
+      "field": "notes",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Promethium là nguyên tố số 61, thuộc nhóm IIIB | chu kỳ 6 và là nguyên tố thứ năm trong họ Lanthanide.</li><li>Promethium được Jacob A. Marinsky, Lawrence E. Glendenin và Charles D. Coryell phát hiện vào năm 1945 tại Oak Ridge, Hoa Kỳ. Tên nguyên tố được đặt theo Prometheus trong thần thoại Hy Lạp.</li><li>Đây là Lanthanide duy nhất không có đồng vị bền. Promethium có số Oxy hóa đặc trưng là +3 và có tính chất hóa học tương tự các Lanthanide lân cận.</li><li>Đồng vị quan trọng nhất là Promethium-147, có chu kỳ bán rã khoảng 2,62 năm và phát ra bức xạ Beta. Nó từng được sử dụng trong nguồn phóng xạ, pin hạt nhân và thiết bị đo độ dày.</li><li>Mạng tinh thể: Lục phương xếp chặt (HCP) ở điều kiện thường.</li></ul>"
+    },
+    {
+      "field": "number",
+      "before": null,
+      "after": 61
+    },
+    {
+      "field": "occurrence",
+      "before": null,
+      "after": {
+        "description": "Chất rắn",
+        "simple": [
+          "Pm"
+        ],
+        "compounds": [
+          "Pm₂O₃",
+          "PmCl₃",
+          "Pm(OH)₃"
+        ],
+        "ores": [
+          "Không tồn tại tự nhiên với lượng đáng kể. Một lượng cực nhỏ có thể hình thành tự nhiên từ quá trình phân hạch Uranium và sự phân rã của các hạt nhân khác"
+        ],
+        "details": [
+          "Trạng thái: Chất rắn",
+          "Màu sắc: Trắng bạc",
+          "Có trong: Không tồn tại tự nhiên với lượng đáng kể. Một lượng cực nhỏ có thể hình thành tự nhiên từ quá trình phân hạch Uranium và sự phân rã của các hạt nhân khác.",
+          "Đơn chất: Pm",
+          "Hợp chất phổ biến: Pm₂O₃, PmCl₃, Pm(OH)₃"
+        ],
+        "mineral": {
+          "available": false,
+          "reason": "Nguyên tố nhân tạo hoặc chỉ có vết tự nhiên; không có quặng khai thác riêng để dựng mẫu."
+        }
+      }
+    },
+    {
+      "field": "physical",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Là kim loại đất hiếm.</li><li>Thuộc họ Lanthanide.</li><li>Có màu trắng bạc.</li><li>Là nguyên tố phóng xạ.</li><li>Có tính thuận từ.</li><li>Khá mềm.</li><li>Có nhiệt độ nóng chảy khoảng 1042 °C.</li><li>Có nhiệt độ sôi khoảng 3000 °C.</li><li>Khối lượng riêng khoảng 6,48 g/cm³.</li></ul>"
+    },
+    {
+      "field": "preparations",
+      "before": null,
+      "after": {
+        "lab": [
+          {
+            "title": "Promethium có thể được tạo ra bằng phản ứng hạt nhân, chẳng hạn chiếu xạ Neodymium-146 bằng neutron",
+            "desc": "",
+            "result": "",
+            "equations": [
+              {
+                "equation": "¹⁴⁶Nd + ¹n → ¹⁴⁷Nd + γ",
+                "condition": "Chiếu neutron trong cơ sở nghiên cứu; bắt neutron và phát gamma nếu không có sản phẩm bay hơi.",
+                "kind": "nuclear",
+                "sourceLine": 68,
+                "sourceSection": "lab",
+                "balance": {
+                  "status": "balanced",
+                  "kind": "nuclear",
+                  "delta": {}
+                },
+                "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+              }
+            ],
+            "sourceLines": [
+              67,
+              68
+            ],
+            "equation": "¹⁴⁶Nd + ¹n → ¹⁴⁷Nd + γ"
+          },
+          {
+            "title": "Sau đó, Neodymium-147 phân rã beta thành Promethium-147",
+            "desc": "",
+            "result": "",
+            "equations": [
+              {
+                "equation": "¹⁴⁷Nd → ¹⁴⁷Pm + β⁻ + ν̅ₑ",
+                "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+                "kind": "nuclear",
+                "sourceLine": 70,
+                "sourceSection": "lab",
+                "balance": {
+                  "status": "balanced",
+                  "kind": "nuclear",
+                  "delta": {}
+                },
+                "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+              }
+            ],
+            "sourceLines": [
+              69,
+              70
+            ],
+            "equation": "¹⁴⁷Nd → ¹⁴⁷Pm + β⁻ + ν̅ₑ"
+          }
+        ],
+        "industry": [
+          {
+            "title": "Promethium (Pm) không có nguồn quặng tự nhiên đáng kể do tất cả các đồng vị đều phóng xạ. Nguyên tố này chủ yếu được thu hồi từ các sản phẩm phân hạch của Uranium trong lò phản ứng hạt nhân.",
+            "desc": "Promethium có thể được tạo ra từ sự phân hạch của Uranium-235: Promethium được tách khỏi hỗn hợp sản phẩm phóng xạ bằng các phương pháp chuyên dụng.",
+            "result": "",
+            "equations": [],
+            "sourceLines": [
+              62,
+              63,
+              65
+            ],
+            "equation": ""
+          }
+        ]
+      }
+    },
+    {
+      "field": "reactions",
+      "before": null,
+      "after": [
+        {
+          "type": "Tác dụng với Oxygen",
+          "desc": "",
+          "equation": "4Pm + 3O₂ → 2Pm₂O₃",
+          "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+          "kind": "chemical",
+          "sourceLine": 81,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Hydrochloric acid",
+          "desc": "",
+          "equation": "2Pm + 6HCl → 2PmCl₃ + 3H₂",
+          "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+          "kind": "chemical",
+          "sourceLine": 83,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Promethium(III) hydroxide",
+          "desc": "",
+          "equation": "PmCl₃ + 3NaOH → Pm(OH)₃↓ + 3NaCl",
+          "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+          "kind": "chemical",
+          "sourceLine": 85,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Điều chế Promethium-147",
+          "desc": "",
+          "equation": "¹⁴⁷Nd → ¹⁴⁷Pm + β⁻ + ν̅ₑ",
+          "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+          "kind": "nuclear",
+          "sourceLine": 87,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Phân rã Beta của Promethium-147",
+          "desc": "",
+          "equation": "¹⁴⁷Pm → ¹⁴⁷Sm + β⁻ + ν̅ₑ",
+          "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+          "kind": "nuclear",
+          "sourceLine": 89,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": null,
+      "after": [
+        {
+          "title": "Có thể nhận biết Promethium bằng",
+          "desc": "Phổ phát xạ nguyên tử. ICP-MS. Đo phóng xạ Beta. Xác định chu kỳ bán rã và năng lượng bức xạ đặc trưng. Phân tích các sản phẩm phân rã. Promethium đặc biệt dễ được phân biệt với các Lanthanide bền khác nhờ tính phóng xạ.",
+          "result": "",
+          "equations": [],
+          "sourceLines": [
+            72,
+            73,
+            74,
+            75,
+            76,
+            77,
+            78
+          ],
+          "equation": ""
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "061_Pm.docx",
+        "sourceSha256": "518ff2f9298379b06be66a16a2a991a3800d327f2b0c63403e854d29d22a76b5",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/061_Pm.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "061_Pm.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "518ff2f9298379b06be66a16a2a991a3800d327f2b0c63403e854d29d22a76b5"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/61/promethium"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        },
+        {
+          "title": "promethiumStructure",
+          "url": "https://doi.org/10.1016/0022-5088(71)90101-9"
+        }
+      ]
+    },
+    {
+      "field": "structure",
+      "before": null,
+      "after": {
+        "protons": 61,
+        "electrons": 61,
+        "neutrons": 84,
+        "nucleusIsotope": "¹⁴⁵Pm",
+        "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+        "nucleus": {
+          "proton": 61,
+          "neutron": 84
+        },
+        "electronShells": [
+          2,
+          8,
+          18,
+          23,
+          8,
+          2
+        ],
+        "shells": [
+          2,
+          8,
+          18,
+          23,
+          8,
+          2
+        ],
+        "valenceElectrons": 2,
+        "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+        "lattice": "Lục phương kép xếp chặt (DHCP) ở áp suất thường; cấu trúc thay đổi theo nhiệt độ và áp suất.",
+        "latticeEvidence": "source-reviewed"
+      }
+    },
+    {
+      "field": "structureType",
+      "before": null,
+      "after": "Lục phương kép xếp chặt (DHCP) ở áp suất thường; cấu trúc thay đổi theo nhiệt độ và áp suất."
+    },
+    {
+      "field": "symbol",
+      "before": null,
+      "after": "Pm"
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "Pm",
+      "status": "diagram",
+      "reason": "Không dùng ảnh mẫu vĩ mô không xác minh cho nguyên tố cực hiếm/nhân tạo."
+    },
+    "mineral": {
+      "available": false,
+      "reason": "Nguyên tố nhân tạo hoặc chỉ có vết tự nhiên; không có quặng khai thác riêng để dựng mẫu."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "Pm",
+      "z": 61,
+      "url": "https://periodic-table.rsc.org/element/61/promethium",
+      "status": "retrieved",
+      "bytes": 146237,
+      "sha256": "c8991134248b29e136e797b03d995dbddb5bb559067da2ead9cb878f810c72da",
+      "facts": {
+        "Group": "Lanthanides",
+        "Melting point": "1042°C, 1908°F, 1315 K",
+        "Period": "6",
+        "Boiling point": "3000°C, 5432°F, 3273 K",
+        "Block": "f",
+        "Density (g cm−³)": "7.26",
+        "Atomic number": "61",
+        "Relative atomic mass": "[145]",
+        "State at 20°C": "Solid",
+        "Key isotopes": "¹⁴⁵Pm, ¹⁴⁷Pm",
+        "Electron configuration": "[Xe] 4f⁵6s²",
+        "CAS number": "7440-12-2",
+        "ChemSpider ID": "22386",
+        "electronegativity": "Unknown"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "61",
+      "Symbol": "Pm",
+      "Name": "Promethium",
+      "AtomicMass": "144.91276",
+      "CPKHexColor": "A3FFC7",
+      "ElectronConfiguration": "[Xe]6s2 4f5",
+      "Electronegativity": "",
+      "AtomicRadius": "236",
+      "IonizationEnergy": "5.55",
+      "ElectronAffinity": "",
+      "OxidationStates": "+3",
+      "StandardState": "Solid",
+      "MeltingPoint": "1315",
+      "BoilingPoint": "3273",
+      "Density": "7.26",
+      "GroupBlock": "Lanthanide",
+      "YearDiscovered": "1945"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

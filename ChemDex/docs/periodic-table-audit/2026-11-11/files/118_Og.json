@@ -1,0 +1,915 @@
+{
+  "symbol": "Og",
+  "number": 118,
+  "source": "118_Og.docx",
+  "sourceSha256": "950ca9ef21576e92f1036c0c8791965db0e7c48850d4a652491aed0d02a038c5",
+  "paragraphCount": 91,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 6,
+    "structure": 8,
+    "occurrence": 4,
+    "isotopes": 7,
+    "physical": 7,
+    "chemical": 6,
+    "lab": 2,
+    "industry": 1,
+    "recognition": 7,
+    "reactions": 9,
+    "applications": 6,
+    "notes": 5
+  },
+  "editorialDecisions": [
+    {
+      "line": 14,
+      "before": "²⁴⁸Ca + ²⁴⁹Cf → ²⁹⁴Og + 3n",
+      "after": "⁴⁸Ca + ²⁴⁹Cf → ²⁹⁴Og + 3¹n",
+      "reason": "Calcium sử dụng là ⁴⁸Ca, không phải ²⁴⁸Ca; sửa sai 200 đơn vị số khối."
+    },
+    {
+      "line": 27,
+      "before": "Trạng thái: Khí (dự đoán)",
+      "after": "Trạng thái: Chưa đo thực nghiệm trên mẫu vĩ mô; dự đoán phụ thuộc mô hình, không khẳng định là khí ở điều kiện thường.",
+      "reason": "Không suy trạng thái khí chỉ từ việc thuộc nhóm 18."
+    },
+    {
+      "line": 45,
+      "before": "Được dự đoán có thể là chất khí hoặc chất lỏng ở điều kiện thường tùy theo mô hình tính toán, khác với các khí hiếm nhẹ.",
+      "after": "Chưa đo được trạng thái vật lý vĩ mô ở điều kiện thường; một số tính toán dự đoán trạng thái ngưng tụ. Các dự đoán không phải số liệu thực nghiệm.",
+      "reason": "Không giới hạn dự đoán vào khí hoặc lỏng khi có mô hình dự đoán rắn."
+    },
+    {
+      "line": 71,
+      "before": "²⁴⁸Ca + ²⁴⁹Cf → ²⁹⁴Og + 3n",
+      "after": "⁴⁸Ca + ²⁴⁹Cf → ²⁹⁴Og + 3¹n",
+      "reason": "Đồng bộ kênh tổng hợp với phần lịch sử và điều chế."
+    }
+  ],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁶ (dự đoán)",
+      "publishedValue": "[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁶ (dự đoán)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Lập phương tâm diện (Face-centered cubic, FCC) (dự đoán)",
+      "publishedValue": "Lập phương tâm diện (Face-centered cubic, FCC) (dự đoán)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "Không xác định",
+      "publishedValue": null,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm VIIIA | Chu kỳ 7",
+      "publishedValue": "18",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Khí (dự đoán)",
+      "publishedValue": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 34,
+      "sourceText": "²⁹³Og: chu kỳ bán rã rất ngắn.",
+      "reference": null,
+      "assessment": "Không có trong snapshot đối chiếu; chưa công bố như số liệu đã xác nhận."
+    },
+    {
+      "line": 35,
+      "sourceText": "²⁹⁴Og: chu kỳ bán rã khoảng 0,7 mili giây.",
+      "reference": {
+        "isotope": "²⁹⁴Og",
+        "massNumber": 294,
+        "protons": 118,
+        "neutrons": 176,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "0.58 (+0.44/−0.18) ms",
+        "halfLife": "0.58 ms",
+        "halfLifeUncertainty": "+44-18",
+        "halfLifeQualifier": null,
+        "decay": "A",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 36,
+      "sourceText": "²⁹⁵Og: được dự đoán có độ ổn định cao hơn.",
+      "reference": null,
+      "assessment": "Không có trong snapshot đối chiếu; chưa công bố như số liệu đã xác nhận."
+    },
+    {
+      "line": 37,
+      "sourceText": "²⁹⁶Og: có thể có độ ổn định cao hơn một số đồng vị nhẹ hơn.",
+      "reference": null,
+      "assessment": "Không có trong snapshot đối chiếu; chưa công bố như số liệu đã xác nhận."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 14,
+      "text": "²⁴⁸Ca + ²⁴⁹Cf → ²⁹⁴Og + 3n",
+      "status": "unbalanced",
+      "kind": "nuclear",
+      "delta": {
+        "A": -200.0
+      }
+    },
+    {
+      "line": 60,
+      "text": "²⁴⁹Cf + ⁴⁸Ca → ²⁹⁴Og + 3¹n",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 71,
+      "text": "²⁴⁸Ca + ²⁴⁹Cf → ²⁹⁴Og + 3n",
+      "status": "unbalanced",
+      "kind": "nuclear",
+      "delta": {
+        "A": -200.0
+      }
+    },
+    {
+      "line": 73,
+      "text": "²⁹⁴Og → ²⁹⁰Lv + ⁴He",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 75,
+      "text": "Og + F₂ → OgF₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 77,
+      "text": "Og + 2F₂ → OgF₄",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "history",
+      "equation": "⁴⁸Ca + ²⁴⁹Cf → ²⁹⁴Og + 3¹n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 14,
+      "sourceSection": "history",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "lab",
+      "equation": "²⁴⁹Cf + ⁴⁸Ca → ²⁹⁴Og + 3¹n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 60,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "⁴⁸Ca + ²⁴⁹Cf → ²⁹⁴Og + 3¹n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 71,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "²⁹⁴Og → ²⁹⁰Lv + ⁴He",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 73,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Og + F₂ → OgF₂",
+      "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+      "kind": "formal",
+      "sourceLine": 75,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Og + 2F₂ → OgF₄",
+      "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+      "kind": "formal",
+      "sourceLine": 77,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [
+    292,
+    293,
+    295,
+    296
+  ],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": [
+        {
+          "title": "Nghiên cứu hạt nhân siêu nặng",
+          "desc": "Dùng để khảo sát giới hạn của bảng tuần hoàn và độ bền hạt nhân."
+        },
+        {
+          "title": "Mô hình hóa lượng tử",
+          "desc": "Giúp kiểm tra các hiệu ứng tương đối tính trong nguyên tử cực nặng."
+        },
+        {
+          "title": "Nghiên cứu chuỗi phân rã",
+          "desc": "Được dùng để nhận diện và truy vết các hạt nhân con trong vật lý hạt nhân."
+        }
+      ],
+      "after": [
+        {
+          "title": "Ứng dụng",
+          "desc": "Oganesson không có ứng dụng công nghiệp hoặc dân dụng.",
+          "sourceLine": 80
+        },
+        {
+          "title": "Nó chủ yếu được sử dụng trong",
+          "desc": "",
+          "sourceLine": 81
+        },
+        {
+          "title": "Nghiên cứu hạt nhân",
+          "desc": "Nghiên cứu các hạt nhân siêu nặng và giới hạn của độ bền hạt nhân.",
+          "sourceLine": 82
+        },
+        {
+          "title": "Nghiên cứu “đảo ổn định”",
+          "desc": "Oganesson nằm ở vùng cuối của bảng tuần hoàn hiện tại và có vai trò quan trọng trong nghiên cứu các hạt nhân siêu nặng.",
+          "sourceLine": 83
+        },
+        {
+          "title": "Hóa học nguyên tố siêu nặng",
+          "desc": "Nghiên cứu xem Oganesson có thực sự thể hiện đầy đủ tính chất của một khí hiếm hay không.",
+          "sourceLine": 84
+        },
+        {
+          "title": "Vật lý nguyên tử",
+          "desc": "Nghiên cứu ảnh hưởng của hiệu ứng tương đối tính cực mạnh lên electron của nguyên tử có Z = 118.",
+          "sourceLine": 85
+        }
+      ]
+    },
+    {
+      "field": "chemical",
+      "before": "\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Oganesson là khí hiếm siêu nặng, nhưng có thể không “trơ” hoàn toàn như các khí hiếm nhẹ hơn.</li>\n  <li>Các tính chất hóa học của nó chủ yếu mới dừng ở mức dự đoán.</li>\n  <li>Có thể có độ phân cực lớn và hành vi khác thường do hiệu ứng tương đối tính.</li>\n  <li>Chưa có nhiều hợp chất bền được xác nhận thực nghiệm.</li>\n  <li>Phần lớn nghiên cứu hiện nay tập trung vào mô hình hóa lý thuyết và chuỗi phân rã hạt nhân.</li>\n</ul>\n",
+      "after": "<ul class=\"element-prose-list\"><li>Có cấu hình electron lớp ngoài cùng 7s² 7p⁶, tương ứng với lớp electron đóng hoàn toàn.</li><li>Được xếp vào khí hiếm, nhưng có thể hoạt động hóa học hơn các khí hiếm nhẹ.</li><li>Các số Oxy hóa +2, +4, +6 được dự đoán có thể tồn tại trong một số hợp chất.</li><li>Hiệu ứng tương đối tính cực mạnh có thể làm thay đổi đáng kể tính chất của Oganesson.</li><li>Có thể có khả năng tạo hợp chất với Fluorine và một số nguyên tố khác.</li><li>Nhiều tính chất vẫn chỉ là dự đoán lý thuyết vì Oganesson có chu kỳ sống cực ngắn.</li></ul>"
+    },
+    {
+      "field": "general.CAS",
+      "before": null,
+      "after": "54144-19-3"
+    },
+    {
+      "field": "general.block",
+      "before": "p",
+      "after": null
+    },
+    {
+      "field": "general.boilingPoint",
+      "before": "Chưa xác định",
+      "after": "Chưa xác định thực nghiệm trên mẫu vĩ mô"
+    },
+    {
+      "field": "general.crystalStructure",
+      "before": "Chưa xác định",
+      "after": "Lập phương tâm diện (Face-centered cubic, FCC) (dự đoán)"
+    },
+    {
+      "field": "general.density",
+      "before": "Chưa xác định",
+      "after": "Chưa xác định thực nghiệm trên mẫu vĩ mô"
+    },
+    {
+      "field": "general.electronConfig",
+      "before": "[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁶",
+      "after": "[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁶ (dự đoán)"
+    },
+    {
+      "field": "general.electronegativity",
+      "before": "Không xác định",
+      "after": null
+    },
+    {
+      "field": "general.electronegativityNote",
+      "before": null,
+      "after": "Chưa có giá trị Pauling đủ cơ sở trong bản đối chiếu; không coi 0 là giá trị đã đo."
+    },
+    {
+      "field": "general.groupLabel",
+      "before": null,
+      "after": "18"
+    },
+    {
+      "field": "general.meltingPoint",
+      "before": "Chưa xác định",
+      "after": "Chưa xác định thực nghiệm trên mẫu vĩ mô"
+    },
+    {
+      "field": "general.oxidation",
+      "before": "0 (dự đoán)",
+      "after": "0, +2, +4, +6 (dự đoán)"
+    },
+    {
+      "field": "general.series",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "general.state",
+      "before": "Rắn (dự đoán)",
+      "after": "Chưa xác định thực nghiệm trên mẫu vĩ mô"
+    },
+    {
+      "field": "history.description",
+      "before": "Oganesson được tổng hợp lần đầu vào năm 2002 trong các thí nghiệm va chạm hạt nhân siêu nặng. Năm 2016, IUPAC chính thức công nhận và đặt tên nguyên tố này là oganesson (Og), theo tên nhà vật lý hạt nhân Yuri Oganessian.",
+      "after": "Oganesson được tổng hợp lần đầu vào năm 2002 bằng cách bắn phá Calcium-48 vào Californium-249: ⁴⁸Ca + ²⁴⁹Cf → ²⁹⁴Og + 3¹n Tên Oganesson được đặt để vinh danh nhà vật lý hạt nhân Yuri Oganessian, người có đóng góp quan trọng trong việc phát hiện nhiều nguyên tố siêu nặng."
+    },
+    {
+      "field": "history.discoverer",
+      "before": "Nhóm JINR–LLNL",
+      "after": "Joint Institute for Nuclear Research (JINR) phối hợp với Lawrence Livermore National Laboratory (LLNL)"
+    },
+    {
+      "field": "history.discovererUrl",
+      "before": "https://iupac.org/iupac-announces-the-names-of-the-elements-113-115-117-and-118/",
+      "after": null
+    },
+    {
+      "field": "history.discoverers",
+      "before": [
+        {
+          "name": "JINR (Dubna)",
+          "url": "https://www.jinr.ru/"
+        },
+        {
+          "name": "Lawrence Livermore National Laboratory",
+          "url": "https://www.llnl.gov/"
+        },
+        {
+          "name": "IUPAC",
+          "url": "https://iupac.org/"
+        }
+      ],
+      "after": null
+    },
+    {
+      "field": "history.discoveryLocation",
+      "before": "Dubna / Nga",
+      "after": "Dubna, Nga"
+    },
+    {
+      "field": "history.year",
+      "before": 2002,
+      "after": "2002"
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/diagrams/118_Og.svg",
+          "title": "Oganesson (Og)",
+          "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+          "source": "",
+          "author": "ChemDex",
+          "license": "ChemDex schematic diagram",
+          "licenseUrl": ""
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "²⁹⁴Og",
+          "massNumber": 294,
+          "protons": 118,
+          "neutrons": 176,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "0.58 (+0.44/−0.18) ms",
+          "halfLife": "0.58 ms",
+          "halfLifeUncertainty": "+44-18",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "reference-isotope-mass-number"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://periodic-table.rsc.org/element/118/oganesson"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "[294] — số khối đồng vị tham chiếu, không phải nguyên tử khối chuẩn"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": [
+        {
+          "section": "history",
+          "type": "video",
+          "title": "Lịch sử phát hiện Oganesson",
+          "src": "https://www.youtube.com/watch?v=YbfeDnQbHLo",
+          "questions": [
+            {
+              "time": "00:20",
+              "question": "Oganesson là nguyên tố số mấy?",
+              "options": [
+                "116",
+                "117",
+                "118",
+                "119"
+              ],
+              "correct": 2
+            },
+            {
+              "time": "00:40",
+              "question": "Og thuộc nhóm nào trong bảng tuần hoàn?",
+              "options": [
+                "Nhóm 17",
+                "Nhóm 18",
+                "Nhóm 1",
+                "Nhóm 2"
+              ],
+              "correct": 1
+            }
+          ]
+        }
+      ],
+      "after": []
+    },
+    {
+      "field": "naturalState.alt",
+      "before": null,
+      "after": "Oganesson: sơ đồ minh họa nguyên tố"
+    },
+    {
+      "field": "naturalState.caption",
+      "before": null,
+      "after": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật."
+    },
+    {
+      "field": "naturalState.credit",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "naturalState.description",
+      "before": "Oganesson không có nguồn gốc tự nhiên bền vững. Mọi nguyên tử đã biết đều là sản phẩm nhân tạo trong nghiên cứu hạt nhân.",
+      "after": null
+    },
+    {
+      "field": "naturalState.image",
+      "before": null,
+      "after": "/assets/periodic-table/diagrams/118_Og.svg"
+    },
+    {
+      "field": "naturalState.kind",
+      "before": null,
+      "after": "diagram"
+    },
+    {
+      "field": "naturalState.source",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "naturalState.title",
+      "before": "Oganesson trong tự nhiên",
+      "after": null
+    },
+    {
+      "field": "notes",
+      "before": "\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Nguyên tố số 118 trong bảng tuần hoàn.</li>\n  <li>Là nguyên tố cuối cùng của chu kỳ 7.</li>\n  <li>Thuộc nhóm khí hiếm nhưng có tính chất dự đoán rất bất thường.</li>\n  <li>Phần lớn dữ liệu hiện nay là từ mô hình lý thuyết và thí nghiệm hạt nhân siêu nặng.</li>\n</ul>\n",
+      "after": "<ul class=\"element-prose-list\"><li>Oganesson là nguyên tố số 118, thuộc nhóm VIIIA | chu kỳ 7 và là khí hiếm siêu nặng. Đây là nguyên tố có số hiệu nguyên tử lớn nhất trong bảng tuần hoàn hiện nay.</li><li>Oganesson được tổng hợp lần đầu vào năm 2002 tại Dubna, Nga, bằng phản ứng giữa Calcium-48 và Californium-249. Tên nguyên tố được đặt để vinh danh nhà vật lý hạt nhân Yuri Oganessian.</li><li>Cấu hình electron được dự đoán là [Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁶. Mặc dù nằm trong nhóm khí hiếm, Oganesson có thể có tính chất khác biệt đáng kể so với các khí hiếm nhẹ do hiệu ứng tương đối tính cực mạnh.</li><li>Oganesson không có đồng vị bền, có tính phóng xạ cực mạnh và chỉ tạo được vài nguyên tử trong các thí nghiệm. Vì vậy, nó không có ứng dụng thực tế, chủ yếu phục vụ nghiên cứu vật lý hạt nhân và hóa học nguyên tố siêu nặng.</li><li>Mạng tinh thể: Lập phương tâm diện (FCC) — dự đoán, nếu Oganesson có trạng thái ngưng tụ phù hợp; cấu trúc tinh thể thực tế chưa thể xác định bằng thực nghiệm do thời gian sống cực ngắn.</li></ul>"
+    },
+    {
+      "field": "occurrence.compounds",
+      "before": [],
+      "after": [
+        "OgF₂",
+        "OgF₄... (dự đoán)"
+      ]
+    },
+    {
+      "field": "occurrence.description",
+      "before": "Oganesson không tồn tại tự nhiên với lượng đáng kể trên Trái Đất. Đây là nguyên tố nhân tạo, chỉ được tạo ra trong các máy gia tốc hạt và tồn tại trong thời gian cực ngắn.",
+      "after": "Chưa đo thực nghiệm trên mẫu vĩ mô; dự đoán phụ thuộc mô hình, không khẳng định là khí ở điều kiện thường."
+    },
+    {
+      "field": "occurrence.details",
+      "before": null,
+      "after": [
+        "Trạng thái: Chưa đo thực nghiệm trên mẫu vĩ mô; dự đoán phụ thuộc mô hình, không khẳng định là khí ở điều kiện thường.",
+        "Có trong: Không tồn tại tự nhiên với lượng đáng kể. Oganesson chỉ được tổng hợp nhân tạo.",
+        "Đơn chất: Og",
+        "Hợp chất: OgF₂, OgF₄... (dự đoán)"
+      ]
+    },
+    {
+      "field": "occurrence.mineral",
+      "before": null,
+      "after": {
+        "available": false,
+        "reason": "Nguyên tố nhân tạo hoặc chỉ có vết tự nhiên; không có quặng khai thác riêng để dựng mẫu."
+      }
+    },
+    {
+      "field": "occurrence.ores",
+      "before": [],
+      "after": [
+        "Không tồn tại tự nhiên với lượng đáng kể. Oganesson chỉ được tổng hợp nhân tạo"
+      ]
+    },
+    {
+      "field": "physical",
+      "before": "\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Là nguyên tố siêu nặng, tổng hợp nhân tạo.</li>\n  <li>Thuộc nhóm khí hiếm, nhưng tính chất thực nghiệm còn rất hạn chế.</li>\n  <li>Trạng thái ở nhiệt độ phòng được dự đoán là <b>rắn</b>.</li>\n  <li>Có số nguyên tử lớn nhất trong các nguyên tố đã biết.</li>\n  <li>Thời gian sống của các đồng vị đã tạo ra là cực ngắn.</li>\n  <li>Các tính chất vật lý chi tiết hiện vẫn chủ yếu là dự đoán lý thuyết.</li>\n</ul>\n",
+      "after": "<ul class=\"element-prose-list\"><li>Là nguyên tố thuộc nhóm VIIIA | chu kỳ 7.</li><li>Thuộc nhóm khí hiếm.</li><li>Là nguyên tố có số hiệu nguyên tử lớn nhất hiện được công nhận.</li><li>Có tính phóng xạ cực mạnh.</li><li>Chưa đo được trạng thái vật lý vĩ mô ở điều kiện thường; một số tính toán dự đoán trạng thái ngưng tụ. Các dự đoán không phải số liệu thực nghiệm.</li><li>Ước tính trong tài liệu, chưa đo trên mẫu vĩ mô: Có thể có nhiệt độ sôi tương đối cao so với các khí hiếm nhẹ.</li><li>Các tính chất vật lý thực nghiệm còn rất hạn chế.</li></ul>"
+    },
+    {
+      "field": "preparation",
+      "before": "\n<div class=\"space-y-3\">\n\n  <div>\n    <h4 class=\"font-bold text-cyan-400\">\n      Tổng hợp trong máy gia tốc hạt\n    </h4>\n\n    <p>\n      Oganesson được tạo ra bằng cách bắn phá hạt nhân rất nặng trong các thí nghiệm va chạm hạt nhân.\n    </p>\n  </div>\n\n  <div>\n    <h4 class=\"font-bold text-cyan-400\">\n      Quan sát chuỗi phân rã\n    </h4>\n\n    <p>\n      Nguyên tử Og được nhận diện thông qua các hạt nhân con sinh ra từ chuỗi phân rã alpha.\n    </p>\n  </div>\n\n</div>\n",
+      "after": null
+    },
+    {
+      "field": "preparations",
+      "before": null,
+      "after": {
+        "lab": [
+          {
+            "title": "Oganesson được tổng hợp bằng cách bắn phá Californium-249 bằng ion Calcium-48 trong máy gia tốc hạt.",
+            "desc": "",
+            "result": "",
+            "equations": [
+              {
+                "equation": "²⁴⁹Cf + ⁴⁸Ca → ²⁹⁴Og + 3¹n",
+                "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+                "kind": "nuclear",
+                "sourceLine": 60,
+                "sourceSection": "lab",
+                "balance": {
+                  "status": "balanced",
+                  "kind": "nuclear",
+                  "delta": {}
+                },
+                "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+              }
+            ],
+            "sourceLines": [
+              59,
+              60
+            ],
+            "equation": "²⁴⁹Cf + ⁴⁸Ca → ²⁹⁴Og + 3¹n"
+          }
+        ],
+        "industry": [
+          {
+            "title": "Oganesson (Og) không được sản xuất công nghiệp do tính phóng xạ cực cao và thời gian tồn tại rất ngắn. Nguyên tố này chỉ được tổng hợp với số lượng nguyên tử rất nhỏ trong các cơ sở nghiên cứu hạt nhân.",
+            "desc": "",
+            "result": "",
+            "equations": [],
+            "sourceLines": [
+              57
+            ],
+            "equation": ""
+          }
+        ]
+      }
+    },
+    {
+      "field": "reactions",
+      "before": [
+        {
+          "type": "Tổng hợp oganesson-294",
+          "equation": "²⁴⁹Cf + ⁴⁸Ca → ²⁹⁴Og + 3n",
+          "related": "Cf",
+          "condition": "máy gia tốc hạt / thí nghiệm hạt nhân siêu nặng",
+          "desc": "Đây là con đường đã dùng để tạo ra các nguyên tử oganesson đầu tiên."
+        },
+        {
+          "type": "Phân rã alpha",
+          "equation": "²⁹⁴Og → ²⁹⁰Lv + ⁴He",
+          "related": "Lv",
+          "condition": "tự phát",
+          "desc": "Oganesson không bền và phân rã rất nhanh qua chuỗi hạt nhân con."
+        }
+      ],
+      "after": [
+        {
+          "type": "Tổng hợp Oganesson-294",
+          "desc": "",
+          "equation": "⁴⁸Ca + ²⁴⁹Cf → ²⁹⁴Og + 3¹n",
+          "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+          "kind": "nuclear",
+          "sourceLine": 71,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Phân rã Alpha",
+          "desc": "",
+          "equation": "²⁹⁴Og → ²⁹⁰Lv + ⁴He",
+          "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+          "kind": "nuclear",
+          "sourceLine": 73,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Oganesson(II) fluoride",
+          "desc": "",
+          "equation": "Og + F₂ → OgF₂",
+          "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+          "kind": "formal",
+          "sourceLine": 75,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Oganesson(IV) fluoride",
+          "desc": "",
+          "equation": "Og + 2F₂ → OgF₄",
+          "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+          "kind": "formal",
+          "sourceLine": 77,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": null,
+      "after": [
+        {
+          "title": "Oganesson được nhận biết thông qua",
+          "desc": "Năng lượng của các hạt Alpha. Chu kỳ bán rã. Chuỗi phân rã phóng xạ. Xác định các hạt nhân con. Đối chiếu chuỗi phân rã với các hạt nhân đã biết. Do chỉ tạo ra được vài nguyên tử trong mỗi thí nghiệm, không thể nhận biết Oganesson bằng phương pháp hóa học thông thường.",
+          "result": "",
+          "equations": [],
+          "sourceLines": [
+            62,
+            63,
+            64,
+            65,
+            66,
+            67,
+            68
+          ],
+          "equation": ""
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "118_Og.docx",
+        "sourceSha256": "950ca9ef21576e92f1036c0c8791965db0e7c48850d4a652491aed0d02a038c5",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/118_Og.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "118_Og.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "950ca9ef21576e92f1036c0c8791965db0e7c48850d4a652491aed0d02a038c5"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/118/oganesson"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure.lattice",
+      "before": "Chưa xác định",
+      "after": "Lập phương tâm diện (Face-centered cubic, FCC) (dự đoán)"
+    },
+    {
+      "field": "structure.latticeEvidence",
+      "before": null,
+      "after": "predicted"
+    },
+    {
+      "field": "structure.nucleusIsotope",
+      "before": null,
+      "after": "²⁹⁴Og"
+    },
+    {
+      "field": "structure.nucleusNote",
+      "before": null,
+      "after": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác."
+    },
+    {
+      "field": "structure.orbitalDistribution",
+      "before": {
+        "s": 2,
+        "p": 6,
+        "d": 10,
+        "f": 14
+      },
+      "after": null
+    },
+    {
+      "field": "structure.shells",
+      "before": null,
+      "after": [
+        2,
+        8,
+        18,
+        32,
+        32,
+        18,
+        8
+      ]
+    },
+    {
+      "field": "structure.valenceNote",
+      "before": null,
+      "after": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp."
+    },
+    {
+      "field": "structureType",
+      "before": null,
+      "after": "Lập phương tâm diện (Face-centered cubic, FCC) (dự đoán)"
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "Og",
+      "status": "diagram",
+      "reason": "Không dùng ảnh mẫu vĩ mô không xác minh cho nguyên tố cực hiếm/nhân tạo."
+    },
+    "mineral": {
+      "available": false,
+      "reason": "Nguyên tố nhân tạo hoặc chỉ có vết tự nhiên; không có quặng khai thác riêng để dựng mẫu."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "Og",
+      "z": 118,
+      "url": "https://periodic-table.rsc.org/element/118/oganesson",
+      "status": "retrieved",
+      "bytes": 143967,
+      "sha256": "48172a72b3933bc9ee5550f69e44506693500d431ddf2f23cf90007675159c78",
+      "facts": {
+        "Group": "18",
+        "Melting point": "Unknown",
+        "Period": "7",
+        "Boiling point": "Unknown",
+        "Block": "p",
+        "Density (g cm−³)": "Unknown",
+        "Atomic number": "118",
+        "Relative atomic mass": "[294]",
+        "State at 20°C": "Solid",
+        "Key isotopes": "²⁹⁴Og",
+        "Electron configuration": "[Rn] 5f¹⁴6d¹⁰7s²7p⁶",
+        "CAS number": "54144-19-3",
+        "ChemSpider ID": "-",
+        "electronegativity": "Unknown"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "118",
+      "Symbol": "Og",
+      "Name": "Oganesson",
+      "AtomicMass": "295.216",
+      "CPKHexColor": "",
+      "ElectronConfiguration": "[Rn]7s2 7p6 5f14 6d10 (predicted)",
+      "Electronegativity": "",
+      "AtomicRadius": "",
+      "IonizationEnergy": "",
+      "ElectronAffinity": "",
+      "OxidationStates": "+6, +4, +2, +1, 0, -1",
+      "StandardState": "Expected to be a Gas",
+      "MeltingPoint": "",
+      "BoilingPoint": "",
+      "Density": "",
+      "GroupBlock": "Noble gas",
+      "YearDiscovered": "2006"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

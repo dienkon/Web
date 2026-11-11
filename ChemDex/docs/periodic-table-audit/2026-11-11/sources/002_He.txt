@@ -1,0 +1,95 @@
+001: Helium (He)
+002: Thông tin chung
+003: Tên Latin: Helium
+004: Tên tiếng Anh: Helium
+005: Đồng vị: ³He, ⁴He
+006: Vị trí: Nhóm VIIIA | Chu kỳ 1
+007: Số Oxy hóa: 0
+008: Độ âm điện: Không áp dụng (không xác định theo thang Pauling)
+009: Lịch sử khám phá
+010: Phát hiện bởi: Pierre Janssen, Joseph Norman Lockyer và William Ramsay
+011: Năm công bố: 1868 (thiên văn), 1895 (cô lập trên Trái Đất)
+012: Nơi khám phá: Pháp, Anh và Scotland
+013: Mô tả: Năm 1868, nhà thiên văn học người Pháp Pierre Janssen quan sát quang phổ mặt trời trong một lần nhật thực tại Ấn Độ và phát hiện một vạch vàng chưa từng biết tới. Nhà thiên văn học người Anh Joseph Norman Lockyer sau đó kết luận đây là một nguyên tố mới và đặt tên là Helium (theo tên Helios – thần Mặt Trời trong thần thoại Hy Lạp). Đến năm 1895, nhà hóa học người Scotland William Ramsay đã cô lập thành công Helium trên Trái Đất bằng cách xử lý khoáng vật cleveite bằng acid.
+014: 3. Cấu tạo
+015: a. Cấu tạo
+016: Hoạt họa cấu hình e: 1s²
+017: Mô hình mạng tinh thể: Helium ở điều kiện thường tồn tại dưới dạng khí đơn nguyên tử He nên không có mạng tinh thể. Ở áp suất cực cao (trên 25 atm) và nhiệt độ siêu thấp gần độ không tuyệt đối, Helium rắn kết tinh chủ yếu theo cấu trúc lục phương xếp chặt (hcp) hoặc lập phương tâm diện (fcc).
+018: Số hiệu nguyên tử: 2
+019: Nguyên tử khối: 4.0026 g/mol
+020: Vỏ nguyên tử: 2 electron
+021: K: 2
+022: Hạt nhân: 2 proton, 2 neutron đối với ⁴He
+023: Cấu hình e: 1s²
+024: Loại mạng: Khí đơn nguyên tử; ở áp suất cao (> 25 atm) và nhiệt độ cực thấp tạo tinh thể phân tử lục phương xếp chặt (hcp).
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Helium là nguyên tố phổ biến thứ hai trong vũ trụ (chiếm khoảng 24% khối lượng vũ trụ), chủ yếu sinh ra từ phản ứng nhiệt hạch trong các ngôi sao. Trên Trái Đất, Helium tương đối hiếm trong khí quyển do quá nhẹ và dễ thoát ra không gian; phần lớn Helium trên Trái Đất sinh ra từ quá trình phân rã phóng xạ alpha ngầm trong vỏ đất đá và được giữ lại trong các mỏ khí thiên nhiên.
+027: Đơn chất: He (khí đơn nguyên tử)
+028: Hợp chất: Không tồn tại hợp chất hóa học bền vững trong tự nhiên ở điều kiện chuẩn.
+029: c. Đồng vị
+030: Đồng vị: ³He, ⁴He
+031: ³He: Khoảng 0.000137% (khoảng 1.34 ppm), là đồng vị bền quý hiếm (hạt nhân gồm 2 proton, 1 neutron).
+032: ⁴He: Khoảng 99.99986%, là đồng vị bền và áp đảo tuyệt đối trong tự nhiên (hạt nhân gồm 2 proton, 2 neutron – tương đương hạt alpha).
+033: Ngoài hai đồng vị bền, các nhà khoa học đã tạo ra các đồng vị phóng xạ nhân tạo từ ⁵He đến ¹⁰He với thời gian sống cực ngắn.
+034: Tính chất
+035: Tính chất vật lý
+036: Chất khí không màu, không mùi, không vị, không độc hại.
+037: Là chất khí nhẹ thứ hai trong tự nhiên (tỉ khối so với không khí d ≈ 4/29 ≈ 0.138).
+038: Khối lượng mol của He: 4.0026 g/mol.
+039: Khối lượng riêng: khoảng 0.1786 g/L ở 0 °C và 1 atm.
+040: Độ tan trong nước cực kỳ thấp (khoảng 8.61 mL trong 1 L nước ở 20 °C).
+041: Nhiệt độ nóng chảy: −272.20 °C (ở áp suất khoảng 25 atm; không hóa rắn ở áp suất thường dù đạt 0 K).
+042: Nhiệt độ sôi: −268.93 °C (4.22 K – thấp nhất trong mọi nguyên tố hóa học).
+043: Helium lỏng (pha Helium II) dưới 2.17 K biểu hiện trạng thái siêu lỏng (superfluidity) với độ nhớt bằng 0 và độ dẫn nhiệt cực cao.
+044: Có tính nghịch từ.
+045: Không cháy và không duy trì sự cháy.
+046: Tính chất hóa học
+047: Là khí hiếm (khí trơ) đầu tiên của nhóm VIIIA.
+048: Lớp vỏ electron bão hòa đôi (duplet: 1s²) cực kỳ bền vững.
+049: Có năng lượng ion hóa thứ nhất cao nhất trong tất cả các nguyên tố hóa học (24.59 eV).
+050: Trơ hoàn toàn về mặt hóa học ở điều kiện thông thường, không tham gia phản ứng với các nguyên tố khác để tạo liên kết ion hay cộng hóa trị chuẩn.
+051: Chỉ tạo được các liên kết van der Waals cực yếu (như dime He₂ ở nhiệt độ siêu hàn).
+052: Có thể tạo hợp chất hóa học đặc biệt dưới điều kiện áp suất cực cao (ví dụ hợp chất Na₂He ở áp suất trên 113 GPa).
+053: Có khả năng tạo trạng thái excimer (như phân tử kích thích He₂*) hoặc ion phân tử (như HeH⁺) trong môi trường plasma hoặc phóng điện cực mạnh.
+054: Điều chế
+055: Điều chế trong công nghiệp
+056: Chưng cất phân đoạn khí thiên nhiên ở nhiệt độ thấp: Khí thiên nhiên chứa nồng độ Helium từ 0.3% đến vài % được làm sạch, nén và làm lạnh sâu theo từng giai đoạn để hóa lỏng toàn bộ hydrocarbon và nitrogen, để lại khí thô giàu Helium.
+057: Tinh chế bằng công nghệ PSA (Pressure Swing Adsorption): Khí Helium thô được cho qua các tháp hấp phụ rây phân tử để loại bỏ hoàn toàn tạp chất còn sót lại, thu được Helium có độ tinh khiết cao lên tới 99.999% hoặc cao hơn.
+058: Điều chế trong phòng thí nghiệm
+059: Trong thực tế phòng thí nghiệm không tự tổng hợp Helium qua phản ứng hóa học thông thường vì tính trơ của nó, mà sử dụng trực tiếp từ các bình khí nén thương mại.
+060: Về mặt lịch sử / nguyên lý phóng xạ: Thu khí Helium sinh ra từ sự phân rã phóng xạ alpha của các khoáng vật chứa Uranium hoặc Thorium khi nung nóng hoặc hòa tan trong acid:
+061: Uraninite / Monazite + Acid/Nhiệt → Khí Helium (⁴He)
+062: Nhận biết
+063: Phóng điện trong ống phóng khí: Khí phát ra ánh sáng màu vàng cam hoặc hồng cam rực rỡ đặc trưng khi có dòng điện cao áp đi qua.
+064: Phổ phát xạ nguyên tử: Xuất hiện vạch quang phổ màu vàng sáng đặc trưng ở bước sóng 587.49 nm (vạch D3).
+065: Thử nghiệm ngọn lửa: Dập tắt tàn đóm và ngọn lửa ngay lập tức do ngăn cách nguồn oxygen và không tham gia phản ứng cháy.
+066: Khí nhẹ làm đổi giọng nói: Khí nhẹ làm bóng bay lơ lửng; khi hít một lượng nhỏ, tần số cộng hưởng của thanh quản tăng cao làm giọng nói tạm thời the thé (do tốc độ truyền âm trong Helium nhanh gấp 2.7 lần trong không khí).
+067: Đặc điểm: Khí trơ hoàn toàn, không tạo kết tủa, không làm đổi màu các chất chỉ thị màu hay dung dịch hóa chất.
+068: Phương trình
+069: Phản ứng nhiệt hạch tổng hợp Helium trong lõi Mặt Trời (Chu trình Proton-Proton)
+070: 4¹H → ⁴He + 2e⁺ + 2νₑ
+071: Phản ứng nhiệt hạch Deuterium – Tritium
+072: ²H + ³H → ⁴He + n
+073: Phân rã phóng xạ Alpha phát ra hạt nhân ⁴He
+074: ²³⁸U → ²³⁴Th + ⁴He
+075: Ion hóa nguyên tử Helium
+076: He → He⁺ + e⁻
+077: Tạo ion hydridohelium trong môi trường plasma
+078: He + H⁺ → HeH⁺
+079: Tạo trạng thái kích thích Excimer trong ống phóng điện
+080: He* + He → He2*
+081: Phản ứng tạo hợp chất ở áp suất cực cao (trên 113 GPa)
+082: 2Na + He → Na2He
+083: Ứng dụng thực tế
+084: Làm mát siêu dẫn: Helium lỏng là chất làm lạnh cốt lõi để duy trì nhiệt độ siêu thấp cho các cuộn nam châm siêu dẫn trong máy chụp cộng hưởng từ (MRI) y tế và máy gia tốc hạt năng lượng cao.
+085: Hàng không và thám hiểm khí quyển: Bơm khinh khí cầu, khí cầu nghiên cứu thời tiết và bóng bay trang trí do nhẹ hơn không khí và hoàn toàn an toàn (không gây cháy nổ như Hydrogen).
+086: Khí bảo vệ trong hàn kim loại: Dùng làm môi trường khí trơ bảo vệ trong hàn hồ quang (MIG, TIG) cho các kim loại và hợp kim dễ bị oxy hóa như nhôm, magnesi, titan, thép không gỉ.
+087: Công nghệ bán dẫn và cáp quang: Môi trường bảo vệ trơ và truyền nhiệt hiệu quả trong sản xuất vi mạch silicon, màn hình phẳng và quá trình kéo sợi thủy tinh quang học.
+088: Lặn biển sâu chuyên nghiệp: Pha chế hỗn hợp khí thở Trimix (Helium – Nitrogen – Oxygen) hoặc Heliox (Helium – Oxygen) cho thợ lặn ở độ sâu lớn để loại bỏ chứng say nitơ và giảm sức cản hô hấp.
+089: Hàng không vũ trụ: Dùng để điều áp cho các thùng chứa nhiên liệu lỏng (LH2/LOX) của động cơ tên lửa và làm sạch hệ thống đường ống nhiên liệu trước khi phóng.
+090: Kiểm tra rò rỉ chân không: Nhờ kích thước nguyên tử siêu nhỏ và tính trơ, Helium được dùng làm khí dò tìm rò rỉ trong các hệ thống chân không cao, ống dẫn nhiên liệu và thiết bị đóng gói kín.
+091: Tổng quan
+092: Helium là nguyên tố thứ 2 trong bảng tuần hoàn (số hiệu nguyên tử 2), thuộc nhóm VIIIA | chu kỳ 1.
+093: Ở điều kiện thường, Helium tồn tại dưới dạng khí đơn nguyên tử He không màu, không mùi, không độc, là chất khí nhẹ thứ hai trong tự nhiên và sở hữu điểm sôi thấp nhất trong mọi chất đã biết. Helium là nguyên tố dồi dào thứ hai trong toàn vũ trụ nhưng lại là nguồn tài nguyên khan hiếm và không thể tái tạo trên Trái Đất.
+094: Helium sở hữu tính trơ hóa học tuyệt đối ở điều kiện chuẩn nhờ cấu hình electron bão hòa 1s² có năng lượng ion hóa cực cao, không tham gia các phản ứng hóa học thông thường.
+095: Helium giữ vai trò chiến lược không thể thay thế trong chẩn đoán hình ảnh y tế (làm mát máy MRI), nghiên cứu vật lý nhiệt độ siêu hàn, công nghiệp bán dẫn, hàng không vũ trụ và các kỹ thuật lặn sâu.

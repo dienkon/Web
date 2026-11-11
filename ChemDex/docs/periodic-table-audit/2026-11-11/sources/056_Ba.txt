@@ -1,0 +1,97 @@
+001: Barium (Ba)
+002: Thông tin chung
+003: Tên Latin: Barium
+004: Tên Tiếng Anh: Barium
+005: Đồng vị: ¹³⁰Ba, ¹³²Ba, ¹³⁴Ba, ¹³⁵Ba, ¹³⁶Ba, ¹³⁷Ba, ¹³⁸Ba
+006: Vị trí: Nhóm IIA | Chu kỳ 6
+007: Số Oxy hóa: +2
+008: Độ âm điện: 0.89
+009: Lịch sử khám phá
+010: Phát hiện bởi: Humphry Davy
+011: Năm công bố: 1808
+012: Nơi khám phá: Anh
+013: Mô tả: Barium được Humphry Davy cô lập lần đầu vào năm 1808 bằng phương pháp điện phân Barium oxide nóng chảy. Trước đó, các hợp chất của Barium đã được biết đến và nghiên cứu từ thế kỷ XVIII.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Xe] 6s²
+017: Mô hình mạng tinh thể: Lập phương tâm khối (Body-centered cubic, BCC)
+018: Số hiệu nguyên tử: 56
+019: Nguyên tử khối: 137.327 g/mol
+020: Vỏ nguyên tử: 56 electron
+021: K: 2 | L: 8 | M: 18 | N: 18 | O: 8 | P: 2
+022: Hạt nhân: 56 proton, 81 neutron đối với ¹³⁷Ba
+023: Cấu hình e: [Xe] 6s²
+024: Loại mạng: Lập phương tâm khối (Body-centered cubic, BCC)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Barium là kim loại rắn, màu trắng bạc và tương đối mềm.
+027: Có trong: Chủ yếu tồn tại trong các khoáng vật như Barite (BaSO₄) và Witherite (BaCO₃).
+028: Đơn chất: Ba
+029: Hợp chất: BaSO₄, BaCO₃, BaO, BaCl₂, Ba(OH)₂, Ba(NO₃)₂...
+030: c. Đồng vị
+031: Đồng vị: ¹³⁰Ba, ¹³²Ba, ¹³⁴Ba, ¹³⁵Ba, ¹³⁶Ba, ¹³⁷Ba, ¹³⁸Ba
+032: Barium có 7 đồng vị tự nhiên. Trong đó ¹³⁰Ba và ¹³²Ba có tính phóng xạ cực yếu với chu kỳ bán rã rất dài; các đồng vị còn lại trong tự nhiên được xem là ổn định.
+033: ¹³⁸Ba: Là đồng vị phổ biến nhất, chiếm khoảng 71.7%.
+034: Tính chất
+035: Tính chất vật lý
+036: Là kim loại kiềm thổ.
+037: Màu trắng bạc.
+038: Tương đối mềm.
+039: Khối lượng riêng: khoảng 3.62 g/cm³.
+040: Nhiệt độ nóng chảy: khoảng 727 °C.
+041: Nhiệt độ sôi: khoảng 1897 °C.
+042: Dẫn điện và dẫn nhiệt.
+043: Dễ bị oxy hóa trong không khí.
+044: Tính chất hóa học
+045: Có số Oxy hóa đặc trưng là +2.
+046: Hoạt động hóa học mạnh.
+047: Phản ứng với Oxygen tạo Barium oxide hoặc peroxide.
+048: Phản ứng với nước tạo Barium hydroxide và Hydrogen.
+049: Phản ứng với Halogen tạo Barium halide.
+050: Phản ứng với acid tạo muối Barium và Hydrogen.
+051: Nhiều hợp chất Barium tan trong nước có tính độc, trong khi BaSO₄ rất ít tan và được sử dụng trong y tế.
+052: Điều chế
+053: Điều chế trong công nghiệp
+054: Barium (Ba) được điều chế chủ yếu bằng phương pháp điện phân Barium chloride nóng chảy hoặc khử Barium oxide bằng Aluminium ở nhiệt độ cao trong điều kiện chân không.
+055: Phương trình:
+056: BaCl₂(l) → Ba(l) + Cl₂(g)
+057: 3BaO + 2Al → 3Ba + Al₂O₃
+058: Barium thu được được tinh chế để loại bỏ tạp chất.
+059: Điều chế trong phòng thí nghiệm
+060: Có thể điều chế Barium bằng phương pháp điện phân Barium chloride nóng chảy.
+061: Phương trình:
+062: BaCl₂(l) → Ba(l) + Cl₂(g)
+063: Nhận biết
+064: Nhận biết Ba²⁺
+065: Cho dung dịch chứa Ba²⁺ tác dụng với Sulfate:
+066: Ba²⁺ + SO₄²⁻ → BaSO₄↓
+067: Hiện tượng: Xuất hiện kết tủa trắng Barium sulfate.
+068: Nhận biết bằng phép thử ngọn lửa
+069: Barium tạo màu xanh lục vàng (xanh lá nhạt) đặc trưng trên ngọn lửa.
+070: Phương trình
+071: Tác dụng với Oxygen
+072: 2Ba + O₂ → 2BaO
+073: Tác dụng với nước
+074: Ba + 2H₂O → Ba(OH)₂ + H₂↑
+075: Tác dụng với Chlorine
+076: Ba + Cl₂ → BaCl₂
+077: Tác dụng với Hydrochloric acid
+078: Ba + 2HCl → BaCl₂ + H₂↑
+079: Tạo Barium sulfate
+080: Ba²⁺ + SO₄²⁻ → BaSO₄↓
+081: Barium hydroxide tác dụng với Sulfuric acid
+082: Ba(OH)₂ + H₂SO₄ → BaSO₄↓ + 2H₂O
+083: Điều chế Barium bằng điện phân
+084: BaCl₂ → Ba + Cl₂↑
+085: Ứng dụng thực tế
+086: Y tế: Barium sulfate (BaSO₄) được sử dụng làm chất cản quang trong một số phương pháp chẩn đoán hình ảnh đường tiêu hóa.
+087: Khoan dầu khí: Barite (BaSO₄) được sử dụng trong dung dịch khoan nhờ khối lượng riêng cao.
+088: Pháo hoa: Một số hợp chất Barium tạo màu xanh lục trong pháo hoa.
+089: Sản xuất thủy tinh: Barium compounds được sử dụng trong một số loại kính và thủy tinh đặc biệt.
+090: Gốm: Một số hợp chất Barium được sử dụng trong sản xuất gốm và vật liệu điện tử.
+091: Điện tử: Barium titanate (BaTiO₃) được sử dụng trong tụ điện và các vật liệu điện môi.
+092: Tổng quan
+093: Barium là nguyên tố số 56, thuộc nhóm IIA | chu kỳ 6 và là một kim loại kiềm thổ.
+094: Barium có cấu hình electron [Xe] 6s², với số Oxy hóa đặc trưng là +2.
+095: Barium là kim loại trắng bạc, tương đối mềm và hoạt động hóa học mạnh. Trong tự nhiên, Barium chủ yếu tồn tại trong các khoáng vật Barite (BaSO₄) và Witherite (BaCO₃).
+096: Ion Ba²⁺ có thể được nhận biết thông qua kết tủa trắng BaSO₄, trong khi các hợp chất Barium có thể tạo màu xanh lục đặc trưng trong phép thử ngọn lửa.
+097: Barium có nhiều ứng dụng trong y tế, khoan dầu khí, sản xuất thủy tinh, gốm, pháo hoa và vật liệu điện tử.

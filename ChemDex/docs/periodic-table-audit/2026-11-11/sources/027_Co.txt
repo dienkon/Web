@@ -1,0 +1,98 @@
+001: Cobalt (Co)
+002: Thông tin chung
+003: Tên Latin: Cobaltum
+004: Tên Tiếng Anh: Cobalt
+005: Đồng vị: ⁵⁹Co
+006: Vị trí: Nhóm VIIIB | Chu kỳ 4
+007: Số Oxy hóa: +2, +3
+008: Độ âm điện: 1.88
+009: Lịch sử khám phá
+010: Phát hiện bởi: Georg Brandt
+011: Năm công bố: 1735
+012: Nơi khám phá: Thụy Điển
+013: Mô tả: Năm 1735, Georg Brandt đã chứng minh rằng một chất có trong các quặng Cobalt là một nguyên tố kim loại mới, khác với Bismuth. Ông nghiên cứu Cobalt vì các hợp chất của nó đã được sử dụng từ trước để tạo màu xanh cho thủy tinh và đồ gốm.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Ar] 3d⁷ 4s²
+017: Mô hình mạng tinh thể: Lục phương (Hexagonal)
+018: Số hiệu nguyên tử: 27
+019: Nguyên tử khối: 58.933 g/mol
+020: Vỏ nguyên tử: 27 electron
+021: K: 2 | L: 8 | M: 15 | N: 2
+022: Hạt nhân: 27 proton, 32 neutron đối với ⁵⁹Co
+023: Cấu hình e: [Ar] 3d⁷ 4s²
+024: Loại mạng: Lục phương (Hexagonal)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Cobalt là kim loại rắn, màu trắng bạc hơi xanh ở điều kiện thường.
+027: Có trong: Cobaltite (CoAsS), Erythrite (Co₃(AsO₄)₂·8H₂O), Skutterudite và các quặng Nickel, Copper.
+028: Đơn chất: Co
+029: Hợp chất: CoO, Co₃O₄, CoCl₂, CoSO₄, Co(NO₃)₂...
+030: c. Đồng vị
+031: Đồng vị: ⁵⁹Co
+032: ⁵⁹Co: Đồng vị bền duy nhất của Cobalt, chiếm gần 100% Cobalt tự nhiên.
+033: Cobalt có nhiều đồng vị phóng xạ nhân tạo, trong đó ⁶⁰Co là đồng vị quan trọng.
+034: Tính chất
+035: Tính chất vật lý
+036: Là kim loại chuyển tiếp.
+037: Có màu trắng bạc hơi xanh.
+038: Cứng và có độ bền cao.
+039: Khối lượng riêng: khoảng 8.90 g/cm³.
+040: Nhiệt độ nóng chảy: khoảng 1495 °C.
+041: Nhiệt độ sôi: khoảng 2927 °C.
+042: Dẫn điện và dẫn nhiệt.
+043: Có tính sắt từ ở nhiệt độ thường.
+044: Có khả năng chống mài mòn tốt.
+045: Tính chất hóa học
+046: Có tính chất tương tự Nickel và Iron.
+047: Số Oxy hóa phổ biến: +2 và +3.
+048: Co²⁺ là trạng thái Oxy hóa phổ biến.
+049: Một số Co³⁺ compounds có tính Oxy hóa mạnh.
+050: Phản ứng với Oxygen khi nung nóng.
+051: Phản ứng với Halogen tạo Cobalt halide.
+052: Phản ứng với acid tạo muối Cobalt và Hydrogen.
+053: Có khả năng tạo nhiều phức chất.
+054: Điều chế
+055: Điều chế trong công nghiệp
+056: Cobalt thường được thu hồi như sản phẩm phụ trong quá trình xử lý quặng Copper và Nickel.
+057: Cobalt compounds được chuyển thành Cobalt oxide rồi khử bằng Carbon hoặc Hydrogen để thu Cobalt:
+058: CoO + C → Co + CO
+059: Hoặc:
+060: CoO + H₂ → Co + H₂O
+061: Điều chế trong phòng thí nghiệm
+062: Cobalt có thể được điều chế bằng cách khử Cobalt(II) oxide bằng Hydrogen ở nhiệt độ cao:
+063: CoO + H₂ → Co + H₂O
+064: Nhận biết
+065: Nhận biết Co²⁺
+066: Cho dung dịch chứa Co²⁺ tác dụng với hydroxide:
+067: Co²⁺ + 2OH⁻ → Co(OH)₂↓
+068: Hiện tượng: Xuất hiện kết tủa xanh lam hoặc xanh tím Cobalt(II) hydroxide.
+069: Trong dung dịch, Co²⁺ thường có màu hồng.
+070: Phương trình
+071: Tác dụng với Oxygen
+072: 3Co + 2O₂ → Co₃O₄
+073: Tác dụng với Chlorine
+074: Co + Cl₂ → CoCl₂
+075: Tác dụng với Sulfur
+076: Co + S → CoS
+077: Tác dụng với Hydrochloric acid
+078: Co + 2HCl → CoCl₂ + H₂↑
+079: Tạo Cobalt(II) hydroxide
+080: Co²⁺ + 2OH⁻ → Co(OH)₂↓
+081: Cobalt(II) hydroxide tác dụng với acid
+082: Co(OH)₂ + 2HCl → CoCl₂ + 2H₂O
+083: Khử Cobalt(II) oxide bằng Hydrogen
+084: CoO + H₂ → Co + H₂O
+085: Oxy hóa Cobalt(II)
+086: 4Co(OH)₂ + O₂ + 2H₂O → 4Co(OH)₃
+087: Ứng dụng thực tế
+088: Pin Lithium-ion: Cobalt compounds được sử dụng trong một số loại cathode của pin Lithium-ion.
+089: Hợp kim: Cobalt được sử dụng để tạo các hợp kim có khả năng chịu nhiệt, chịu mài mòn và chịu ăn mòn cao.
+090: Nam châm: Một số Cobalt alloys được sử dụng để chế tạo nam châm vĩnh cửu có tính từ mạnh.
+091: Pigment: Cobalt compounds được sử dụng để tạo các pigment màu xanh lam trong thủy tinh, gốm và sơn.
+092: Hàng không: Một số Cobalt-based superalloys được sử dụng trong các bộ phận chịu nhiệt cao.
+093: Y học: ⁶⁰Co là nguồn bức xạ được sử dụng trong một số thiết bị xạ trị và khử trùng.
+094: Tổng quan
+095: Cobalt là nguyên tố số 27, thuộc nhóm VIIIB | chu kỳ 4 và là một kim loại chuyển tiếp.
+096: Cobalt có cấu hình electron [Ar] 3d⁷ 4s², trong đó +2 và +3 là những số Oxy hóa quan trọng.
+097: Cobalt có màu trắng bạc hơi xanh, cứng, bền và có tính sắt từ. Trong tự nhiên, Cobalt thường không tồn tại thành các mỏ kim loại riêng biệt mà thường được thu hồi cùng với Copper và Nickel.
+098: Cobalt có vai trò quan trọng trong sản xuất pin Lithium-ion, hợp kim chịu nhiệt, nam châm, pigment và các ứng dụng liên quan đến đồng vị phóng xạ ⁶⁰Co.

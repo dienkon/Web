@@ -1,9 +1,12 @@
 {
   "number": 56,
   "symbol": "Ba",
-  "nameVi": "Barium",
+  "nameVi": "Bari",
   "nameEn": "Barium",
-  "mass": 137.327,
+  "mass": 137.33,
+  "massStandardText": "137.33 ± 0.01",
+  "massStandardSource": "https://ciaaw.org/abridged-atomic-weights.htm",
+  "massKind": "standard-atomic-weight",
   "category": "kiem-tho",
   "hasData": true,
   "file": "elements/056_Ba.json",
@@ -13,25 +16,35 @@
     "electronConfig": "[Xe] 6s²",
     "isotope": "¹³⁰Ba, ¹³²Ba, ¹³⁴Ba, ¹³⁵Ba, ¹³⁶Ba, ¹³⁷Ba, ¹³⁸Ba",
     "group": 2,
+    "groupLabel": "2",
+    "series": "",
     "period": 6,
-    "state": "",
+    "state": "Rắn",
     "oxidation": "+2",
     "electronegativity": 0.89,
+    "electronegativityNote": "Thang Pauling; số liệu tổng hợp PubChem.",
     "density": "khoảng 3.62 g/cm³.",
     "meltingPoint": "khoảng 727 °C.",
     "boilingPoint": "khoảng 1897 °C.",
-    "crystalStructure": "Lập phương tâm khối (Body-centered cubic, BCC)"
+    "crystalStructure": "Lập phương tâm khối (Body-centered cubic, BCC)",
+    "CAS": "7440-39-3"
   },
   "history": {
     "discoverer": "Humphry Davy",
-    "year": 1808,
+    "year": "1808",
     "discoveryLocation": "Anh",
     "description": "Barium được Humphry Davy cô lập lần đầu vào năm 1808 bằng phương pháp điện phân Barium oxide nóng chảy. Trước đó, các hợp chất của Barium đã được biết đến và nghiên cứu từ thế kỷ XVIII."
   },
   "structure": {
     "protons": 56,
-    "neutrons": 81,
     "electrons": 56,
+    "neutrons": 81,
+    "nucleusIsotope": "¹³⁷Ba",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 56,
+      "neutron": 81
+    },
     "electronShells": [
       2,
       8,
@@ -49,12 +62,11 @@
       2
     ],
     "valenceElectrons": 2,
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương tâm khối (Body-centered cubic, BCC)",
-    "nucleus": {
-      "proton": 56,
-      "neutron": 81
-    }
+    "latticeEvidence": "source-reviewed"
   },
+  "structureType": "Lập phương tâm khối (Body-centered cubic, BCC)",
   "occurrence": {
     "description": "Barium là kim loại rắn, màu trắng bạc và tương đối mềm.",
     "simple": [
@@ -70,123 +82,451 @@
     ],
     "ores": [
       "Chủ yếu tồn tại trong các khoáng vật như Barite (BaSO₄) và Witherite (BaCO₃)"
-    ]
+    ],
+    "details": [
+      "Trạng thái: Barium là kim loại rắn, màu trắng bạc và tương đối mềm.",
+      "Có trong: Chủ yếu tồn tại trong các khoáng vật như Barite (BaSO₄) và Witherite (BaCO₃).",
+      "Đơn chất: Ba",
+      "Hợp chất: BaSO₄, BaCO₃, BaO, BaCl₂, Ba(OH)₂, Ba(NO₃)₂..."
+    ],
+    "mineral": {
+      "available": true,
+      "id": "barite",
+      "name": "Barite",
+      "formula": "BaSO₄",
+      "habit": "blades",
+      "color": "#d6c5ab",
+      "crystalSystem": "orthorhombic",
+      "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Barite",
+      "model": "/assets/periodic-table/minerals/barite.glb",
+      "preview": "/assets/periodic-table/minerals/barite.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
   },
-  "naturalState": {},
-  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại kiềm thổ.</li>\n      <li>Màu trắng bạc.</li>\n      <li>Tương đối mềm.</li>\n      <li>Khối lượng riêng: khoảng 3.62 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 727 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 1897 °C.</li>\n      <li>Dẫn điện và dẫn nhiệt.</li>\n      <li>Dễ bị oxy hóa trong không khí.</li>\n    </ul>\n  ",
-  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có số Oxy hóa đặc trưng là +2.</li>\n      <li>Hoạt động hóa học mạnh.</li>\n      <li>Phản ứng với Oxygen tạo Barium oxide hoặc peroxide.</li>\n      <li>Phản ứng với nước tạo Barium hydroxide và Hydrogen.</li>\n      <li>Phản ứng với Halogen tạo Barium halide.</li>\n      <li>Phản ứng với acid tạo muối Barium và Hydrogen.</li>\n      <li>Nhiều hợp chất Barium tan trong nước có tính độc, trong khi BaSO₄ rất ít tan và được sử dụng trong y tế.</li>\n    </ul>\n  ",
+  "naturalState": {
+    "image": "/assets/periodic-table/photos/056_Ba.jpg",
+    "alt": "Barium: ảnh tham chiếu từ Commons",
+    "kind": "photo",
+    "source": "https://commons.wikimedia.org/wiki/File:Barium_unter_Argon_Schutzgas_Atmosph%C3%A4re.jpg",
+    "caption": "Ảnh tham chiếu mẫu Barium (Ba); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+    "credit": "Matthias Zepper · Public domain"
+  },
+  "isotopes": [
+    {
+      "isotope": "¹³⁰Ba",
+      "massNumber": 130,
+      "protons": 56,
+      "neutrons": 74,
+      "stable": true,
+      "abundancePercent": "0.11",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹³²Ba",
+      "massNumber": 132,
+      "protons": 56,
+      "neutrons": 76,
+      "stable": false,
+      "abundancePercent": "0.10",
+      "halfLifeDisplay": "GT 3.0E+21 năm",
+      "halfLife": "3.0E+21 Y",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": "GT",
+      "decay": "2B+",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹³⁴Ba",
+      "massNumber": 134,
+      "protons": 56,
+      "neutrons": 78,
+      "stable": true,
+      "abundancePercent": "2.42",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹³⁵Ba",
+      "massNumber": 135,
+      "protons": 56,
+      "neutrons": 79,
+      "stable": true,
+      "abundancePercent": "6.59",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹³⁶Ba",
+      "massNumber": 136,
+      "protons": 56,
+      "neutrons": 80,
+      "stable": true,
+      "abundancePercent": "7.85",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹³⁷Ba",
+      "massNumber": 137,
+      "protons": 56,
+      "neutrons": 81,
+      "stable": true,
+      "abundancePercent": "11.23",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹³⁸Ba",
+      "massNumber": 138,
+      "protons": 56,
+      "neutrons": 82,
+      "stable": true,
+      "abundancePercent": "71.70",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Là kim loại kiềm thổ.</li><li>Màu trắng bạc.</li><li>Tương đối mềm.</li><li>Khối lượng riêng: khoảng 3.62 g/cm³.</li><li>Nhiệt độ nóng chảy: khoảng 727 °C.</li><li>Nhiệt độ sôi: khoảng 1897 °C.</li><li>Dẫn điện và dẫn nhiệt.</li><li>Dễ bị oxy hóa trong không khí.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Có số Oxy hóa đặc trưng là +2.</li><li>Hoạt động hóa học mạnh.</li><li>Phản ứng với Oxygen tạo Barium oxide hoặc peroxide.</li><li>Phản ứng với nước tạo Barium hydroxide và Hydrogen.</li><li>Phản ứng với Halogen tạo Barium halide.</li><li>Phản ứng với acid tạo muối Barium và Hydrogen.</li><li>Nhiều hợp chất Barium tan trong nước có tính độc, trong khi BaSO₄ rất ít tan và được sử dụng trong y tế.</li></ul>",
   "reactions": [
     {
       "type": "Tác dụng với Oxygen",
+      "desc": "",
       "equation": "2Ba + O₂ → 2BaO",
-      "desc": ""
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 72,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với nước",
+      "desc": "",
       "equation": "Ba + 2H₂O → Ba(OH)₂ + H₂↑",
-      "desc": ""
+      "condition": "Tiếp xúc với nước; tốc độ phụ thuộc nhiệt độ, kích thước và lớp oxide bề mặt.",
+      "kind": "chemical",
+      "sourceLine": 74,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Chlorine",
+      "desc": "",
       "equation": "Ba + Cl₂ → BaCl₂",
-      "desc": ""
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 76,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Hydrochloric acid",
+      "desc": "",
       "equation": "Ba + 2HCl → BaCl₂ + H₂↑",
-      "desc": ""
+      "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+      "kind": "chemical",
+      "sourceLine": 78,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tạo Barium sulfate",
+      "desc": "",
       "equation": "Ba²⁺ + SO₄²⁻ → BaSO₄↓",
-      "desc": ""
+      "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+      "kind": "chemical",
+      "sourceLine": 80,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Barium hydroxide tác dụng với Sulfuric acid",
+      "desc": "",
       "equation": "Ba(OH)₂ + H₂SO₄ → BaSO₄↓ + 2H₂O",
-      "desc": ""
+      "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+      "kind": "chemical",
+      "sourceLine": 82,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Điều chế Barium bằng điện phân",
+      "desc": "",
       "equation": "BaCl₂ → Ba + Cl₂↑",
-      "desc": ""
+      "condition": "Điện phân muối khan nóng chảy; không điện phân dung dịch nước để thu kim loại kiềm/kiềm thổ.",
+      "kind": "chemical",
+      "sourceLine": 84,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     }
   ],
-  "applications": [
-    {
-      "title": "Y tế",
-      "desc": "Barium sulfate (BaSO₄) được sử dụng làm chất cản quang trong một số phương pháp chẩn đoán hình ảnh đường tiêu hóa."
-    },
-    {
-      "title": "Khoan dầu khí",
-      "desc": "Barite (BaSO₄) được sử dụng trong dung dịch khoan nhờ khối lượng riêng cao."
-    },
-    {
-      "title": "Pháo hoa",
-      "desc": "Một số hợp chất Barium tạo màu xanh lục trong pháo hoa."
-    },
-    {
-      "title": "Sản xuất thủy tinh",
-      "desc": "Barium compounds được sử dụng trong một số loại kính và thủy tinh đặc biệt."
-    },
-    {
-      "title": "Gốm",
-      "desc": "Một số hợp chất Barium được sử dụng trong sản xuất gốm và vật liệu điện tử."
-    },
-    {
-      "title": "Điện tử",
-      "desc": "Barium titanate (BaTiO₃) được sử dụng trong tụ điện và các vật liệu điện môi."
-    }
-  ],
-  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Barium là nguyên tố số 56, thuộc nhóm IIA | chu kỳ 6 và là một kim loại kiềm thổ.</li>\n  <li>Barium có cấu hình electron [Xe] 6s², với số Oxy hóa đặc trưng là +2.</li>\n  <li>Barium là kim loại trắng bạc, tương đối mềm và hoạt động hóa học mạnh. Trong tự nhiên, Barium chủ yếu tồn tại trong các khoáng vật Barite (BaSO₄) và Witherite (BaCO₃).</li>\n  <li>Ion Ba²⁺ có thể được nhận biết thông qua kết tủa trắng BaSO₄, trong khi các hợp chất Barium có thể tạo màu xanh lục đặc trưng trong phép thử ngọn lửa.</li>\n  <li>Barium có nhiều ứng dụng trong y tế, khoan dầu khí, sản xuất thủy tinh, gốm, pháo hoa và vật liệu điện tử.</li>\n</ul>\n",
   "preparations": {
-    "lab": [],
+    "lab": [
+      {
+        "title": "Có thể điều chế Barium bằng phương pháp điện phân Barium chloride nóng chảy.",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "BaCl₂(l) → Ba(l) + Cl₂(g)",
+            "condition": "Điện phân muối khan nóng chảy; không điện phân dung dịch nước để thu kim loại kiềm/kiềm thổ.",
+            "kind": "chemical",
+            "sourceLine": 62,
+            "sourceSection": "lab",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          60,
+          62
+        ],
+        "equation": "BaCl₂(l) → Ba(l) + Cl₂(g)"
+      }
+    ],
     "industry": [
       {
-        "title": "Barium kim loại có thể được điều chế bằng cách điện phân Barium chloride nóng chảy:",
-        "equation": "BaCl₂ → Ba + Cl₂↑ <br> Catot: Ba²⁺ + 2e⁻ → Ba <br> Anot: 2Cl⁻ → Cl₂ + 2e⁻",
-        "desc": "Trong đó:"
+        "title": "Barium (Ba) được điều chế chủ yếu bằng phương pháp điện phân Barium chloride nóng chảy hoặc khử Barium oxide bằng Aluminium ở nhiệt độ cao trong điều kiện chân không.",
+        "desc": "Barium thu được được tinh chế để loại bỏ tạp chất.",
+        "result": "",
+        "equations": [
+          {
+            "equation": "BaCl₂(l) → Ba(l) + Cl₂(g)",
+            "condition": "Điện phân muối khan nóng chảy; không điện phân dung dịch nước để thu kim loại kiềm/kiềm thổ.",
+            "kind": "chemical",
+            "sourceLine": 56,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          },
+          {
+            "equation": "3BaO + 2Al → 3Ba + Al₂O₃",
+            "condition": "Khơi mào phản ứng nhiệt nhôm; chất đầu khan, phản ứng tự tỏa nhiệt mạnh.",
+            "kind": "chemical",
+            "sourceLine": 57,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          54,
+          56,
+          57,
+          58
+        ],
+        "equation": "BaCl₂(l) → Ba(l) + Cl₂(g)"
       }
     ]
   },
   "recognition": [
     {
-      "title": "Nhận biết",
-      "reagent": "Nhận biết Ba²⁺",
-      "result": "",
-      "equation": ""
-    },
-    {
-      "title": "Cho dung dịch chứa Ba²⁺ tác dụng với Sulfate",
-      "reagent": "",
-      "result": "",
-      "equation": ""
-    },
-    {
-      "title": "Nhận biết",
-      "reagent": "",
-      "result": "",
+      "title": "Nhận biết Ba²⁺",
+      "desc": "Cho dung dịch chứa Ba²⁺ tác dụng với Sulfate:",
+      "result": "Xuất hiện kết tủa trắng Barium sulfate.",
+      "equations": [
+        {
+          "equation": "Ba²⁺ + SO₄²⁻ → BaSO₄↓",
+          "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+          "kind": "chemical",
+          "sourceLine": 66,
+          "sourceSection": "recognition",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ],
+      "sourceLines": [
+        64,
+        65,
+        66,
+        67
+      ],
       "equation": "Ba²⁺ + SO₄²⁻ → BaSO₄↓"
     },
     {
-      "title": "Hiện tượng",
-      "reagent": "",
-      "result": "Xuất hiện kết tủa trắng Barium sulfate.",
-      "equation": ""
-    },
-    {
-      "title": "Nhận biết",
-      "reagent": "Nhận biết bằng phép thử ngọn lửa",
+      "title": "Nhận biết bằng phép thử ngọn lửa",
+      "desc": "Barium tạo màu xanh lục vàng (xanh lá nhạt) đặc trưng trên ngọn lửa.",
       "result": "",
-      "equation": ""
-    },
-    {
-      "title": "Nhận biết",
-      "reagent": "Barium tạo màu xanh lục vàng (xanh lá nhạt) đặc trưng trên ngọn lửa.",
-      "result": "",
+      "equations": [],
+      "sourceLines": [
+        68,
+        69
+      ],
       "equation": ""
     }
   ],
-  "images": {},
-  "structureType": "Lập phương tâm khối (Body-centered cubic, BCC)"
+  "applications": [
+    {
+      "title": "Y tế",
+      "desc": "Barium sulfate (BaSO₄) được sử dụng làm chất cản quang trong một số phương pháp chẩn đoán hình ảnh đường tiêu hóa.",
+      "sourceLine": 86
+    },
+    {
+      "title": "Khoan dầu khí",
+      "desc": "Barite (BaSO₄) được sử dụng trong dung dịch khoan nhờ khối lượng riêng cao.",
+      "sourceLine": 87
+    },
+    {
+      "title": "Pháo hoa",
+      "desc": "Một số hợp chất Barium tạo màu xanh lục trong pháo hoa.",
+      "sourceLine": 88
+    },
+    {
+      "title": "Sản xuất thủy tinh",
+      "desc": "Barium compounds được sử dụng trong một số loại kính và thủy tinh đặc biệt.",
+      "sourceLine": 89
+    },
+    {
+      "title": "Gốm",
+      "desc": "Một số hợp chất Barium được sử dụng trong sản xuất gốm và vật liệu điện tử.",
+      "sourceLine": 90
+    },
+    {
+      "title": "Điện tử",
+      "desc": "Barium titanate (BaTiO₃) được sử dụng trong tụ điện và các vật liệu điện môi.",
+      "sourceLine": 91
+    }
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Barium là nguyên tố số 56, thuộc nhóm IIA | chu kỳ 6 và là một kim loại kiềm thổ.</li><li>Barium có cấu hình electron [Xe] 6s², với số Oxy hóa đặc trưng là +2.</li><li>Barium là kim loại trắng bạc, tương đối mềm và hoạt động hóa học mạnh. Trong tự nhiên, Barium chủ yếu tồn tại trong các khoáng vật Barite (BaSO₄) và Witherite (BaCO₃).</li><li>Ion Ba²⁺ có thể được nhận biết thông qua kết tủa trắng BaSO₄, trong khi các hợp chất Barium có thể tạo màu xanh lục đặc trưng trong phép thử ngọn lửa.</li><li>Barium có nhiều ứng dụng trong y tế, khoan dầu khí, sản xuất thủy tinh, gốm, pháo hoa và vật liệu điện tử.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/photos/056_Ba.jpg",
+      "title": "Bari (Ba)",
+      "desc": "Ảnh tham chiếu mẫu Barium (Ba); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+      "source": "https://commons.wikimedia.org/wiki/File:Barium_unter_Argon_Schutzgas_Atmosph%C3%A4re.jpg",
+      "author": "Matthias Zepper",
+      "license": "Public domain",
+      "licenseUrl": ""
+    }
+  ],
+  "mediaBlocks": [
+    {
+      "type": "model",
+      "section": "structure",
+      "title": "Mẫu khoáng vật 3D · Barite",
+      "src": "/assets/periodic-table/minerals/barite.glb",
+      "preview": "/assets/periodic-table/minerals/barite.png",
+      "desc": "BaSO₄. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  ],
+  "sources": [
+    {
+      "title": "056_Ba.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "a9d1de52bdb5bb8029d4652360b6794619d696b777f23a768e686c57cea425f3"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/56/barium"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "056_Ba.docx",
+    "sourceSha256": "a9d1de52bdb5bb8029d4652360b6794619d696b777f23a768e686c57cea425f3",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/056_Ba.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
 }

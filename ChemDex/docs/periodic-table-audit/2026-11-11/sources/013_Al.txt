@@ -1,0 +1,109 @@
+001: Aluminium (Al)
+002: Thông tin chung
+003: Tên Latin: Aluminium
+004: Tên tiếng Anh: Aluminium
+005: Đồng vị: ²⁶Al, ²⁷Al
+006: Vị trí: Nhóm IIIA | Chu kỳ 3
+007: Số Oxy hóa: +3
+008: Độ âm điện: 1.61
+009: Lịch sử khám phá
+010: Phát hiện bởi: Hans Christian Ørsted
+011: Năm công bố: 1825
+012: Nơi khám phá: Đan Mạch
+013: Mô tả: Năm 1825, Hans Christian Ørsted công bố việc điều chế một dạng Aluminium không tinh khiết từ Aluminium chloride bằng cách khử với hỗn hợp Potassium và Mercury amalgam. Friedrich Wöhler tiếp tục nghiên cứu và đến năm 1827 điều chế được Aluminium ở dạng tương đối tinh khiết hơn.
+014: 3. Cấu tạo
+015: a. Cấu tạo
+016: Hoạt họa cấu hình e: 1s² 2s² 2p⁶ 3s² 3p¹
+017: Mô hình mạng tinh thể: Lập phương tâm mặt (FCC)
+018: Số hiệu nguyên tử: 13
+019: Nguyên tử khối: 26.982 g/mol
+020: Vỏ nguyên tử: 13 electron
+021: K: 2 | L: 8 | M: 3
+022: Hạt nhân: 13 proton, 14 neutron đối với ²⁷Al
+023: Cấu hình e: 1s² 2s² 2p⁶ 3s² 3p¹
+024: Loại mạng: Lập phương tâm mặt (FCC)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Aluminium là kim loại hoạt động hóa học nên không tồn tại tự do đáng kể trong tự nhiên. Chủ yếu tồn tại dưới dạng khoáng vật.
+027: Có trong: Bauxite, Feldspar, Kaolinite, Mica, Corundum và Cryolite.
+028: Đơn chất: Al
+029: Hợp chất: Al₂O₃, Al(OH)₃, AlCl₃, Al₂(SO₄)₃, Na₃AlF₆...
+030: c. Đồng vị
+031: Đồng vị: ²⁶Al, ²⁷Al
+032: ²⁷Al: Đồng vị bền duy nhất của Aluminium, chiếm gần như 100% Aluminium tự nhiên.
+033: ²⁶Al: Đồng vị phóng xạ, có chu kỳ bán rã khoảng 717.000 năm. Có thể hình thành tự nhiên do tác động của tia vũ trụ.
+034: Tính chất
+035: Tính chất vật lý
+036: Là kim loại màu trắng bạc.
+037: Nhẹ.
+038: Có độ dẻo cao.
+039: Dễ dát mỏng và kéo sợi.
+040: Khối lượng riêng: khoảng 2.70 g/cm³.
+041: Nhiệt độ nóng chảy: 660.3 °C.
+042: Nhiệt độ sôi: khoảng 2470 °C.
+043: Dẫn điện và dẫn nhiệt tốt.
+044: Có khả năng phản xạ ánh sáng tốt.
+045: Bề mặt Aluminium nhanh chóng hình thành lớp Aluminium oxide bảo vệ.
+046: Tính chất hóa học
+047: Là kim loại có tính khử.
+048: Số Oxy hóa phổ biến: +3.
+049: Có tính lưỡng tính ở Aluminium oxide và Aluminium hydroxide.
+050: Phản ứng với Oxygen tạo Aluminium oxide.
+051: Phản ứng với acid tạo muối Aluminium và Hydrogen.
+052: Phản ứng với base mạnh tạo Aluminate và Hydrogen.
+053: Phản ứng với Halogen tạo Aluminium halide.
+054: Có thể khử một số oxide kim loại ở nhiệt độ cao.
+055: Có tính thụ động với một số môi trường Oxy hóa mạnh do lớp oxide bảo vệ.
+056: Điều chế
+057: Điều chế trong công nghiệp
+058: Aluminium được sản xuất chủ yếu từ Aluminium oxide (Al₂O₃) thu được từ Bauxite.
+059: Aluminium oxide được hòa tan trong Cryolite nóng chảy và điện phân trong quy trình Hall–Héroult.
+060: Tại cathode:
+061: Al³⁺ + 3e⁻ → Al
+062: Tại anode:
+063: 2O²⁻ → O₂ + 4e⁻
+064: Trong công nghiệp, anode Carbon bị tiêu hao nên phương trình tổng quát thường được biểu diễn:
+065: 2Al₂O₃ + 3C → 4Al + 3CO₂
+066: Điều chế trong phòng thí nghiệm
+067: Aluminium không thường được điều chế bằng các phương pháp hóa học thông thường trong phòng thí nghiệm vì Aluminium có tính hoạt động cao.
+068: Về nguyên tắc, Aluminium có thể được điều chế bằng điện phân Aluminium oxide nóng chảy:
+069: 2Al₂O₃(l) → 4Al + 3O₂
+070: Tuy nhiên, Aluminium oxide có nhiệt độ nóng chảy rất cao nên trong công nghiệp phải sử dụng Cryolite để hạ nhiệt độ làm việc và tăng độ dẫn điện.
+071: Nhận biết
+072: Tạo kết tủa Aluminium hydroxide: Ion Al³⁺ phản ứng với hydroxide tạo kết tủa trắng:
+073: Al³⁺ + 3OH⁻ → Al(OH)₃↓
+074: Hiện tượng: Xuất hiện kết tủa trắng.
+075: Kết tủa này tan trong base dư do tính lưỡng tính:
+076: Al(OH)₃ + OH⁻ → [Al(OH)₄]⁻
+077: Phương trình
+078: Tác dụng với Oxygen
+079: 4Al + 3O₂ → 2Al₂O₃
+080: Tác dụng với Hydrochloric acid
+081: 2Al + 6HCl → 2AlCl₃ + 3H₂↑
+082: Tác dụng với Sulfuric acid loãng
+083: 2Al + 3H₂SO₄ → Al₂(SO₄)₃ + 3H₂↑
+084: Tác dụng với Sodium hydroxide
+085: 2Al + 2NaOH + 6H₂O → 2Na[Al(OH)₄] + 3H₂↑
+086: Tác dụng với Chlorine
+087: 2Al + 3Cl₂ → 2AlCl₃
+088: Tác dụng với Bromine
+089: 2Al + 3Br₂ → 2AlBr₃
+090: Phản ứng nhiệt nhôm
+091: 2Al + Fe₂O₃ → Al₂O₃ + 2Fe
+092: Tác dụng với nước
+093: Aluminium nguyên chất được bảo vệ bởi lớp Aluminium oxide nên không phản ứng đáng kể với nước ở điều kiện thường.
+094: Khi lớp oxide bị loại bỏ và trong điều kiện thích hợp:
+095: 2Al + 6H₂O → 2Al(OH)₃ + 3H₂↑
+096: Ứng dụng thực tế
+097: Hàng không và giao thông: Aluminium và các hợp kim của nó được sử dụng rộng rãi nhờ khối lượng thấp và độ bền tốt.
+098: Xây dựng: Dùng trong cửa, khung, mái và nhiều cấu kiện xây dựng.
+099: Bao bì: Aluminium được sử dụng trong lon, giấy Aluminium và nhiều loại bao bì.
+100: Dây dẫn điện: Aluminium được sử dụng làm dây dẫn điện nhờ khối lượng thấp và khả năng dẫn điện tốt.
+101: Đồ gia dụng: Sử dụng trong dụng cụ nấu ăn và nhiều sản phẩm gia dụng.
+102: Luyện kim: Aluminium được dùng làm chất khử trong một số phản ứng nhiệt luyện.
+103: Công nghiệp hóa chất: Aluminium compounds được sử dụng trong sản xuất nhiều vật liệu và hóa chất.
+104: Xử lý nước: Một số Aluminium compounds như Aluminium sulfate được sử dụng làm chất keo tụ.
+105: Tổng quan
+106: Aluminium là nguyên tố số 13, thuộc nhóm IIIA | chu kỳ 3 và là kim loại phổ biến trong lớp vỏ Trái Đất.
+107: Aluminium có cấu hình electron 1s² 2s² 2p⁶ 3s² 3p¹ và số Oxy hóa phổ biến là +3. Kim loại Aluminium có khối lượng riêng thấp, dễ gia công, dẫn điện tốt và có khả năng chống ăn mòn nhờ lớp Aluminium oxide bảo vệ trên bề mặt.
+108: Trong tự nhiên, Aluminium chủ yếu tồn tại trong Bauxite và các khoáng vật Aluminosilicate. Aluminium kim loại được sản xuất công nghiệp chủ yếu bằng quy trình Hall–Héroult.
+109: Nhờ tính nhẹ, độ bền, khả năng chống ăn mòn và khả năng tái chế, Aluminium có vai trò quan trọng trong giao thông, hàng không, xây dựng, điện, bao bì và công nghiệp.

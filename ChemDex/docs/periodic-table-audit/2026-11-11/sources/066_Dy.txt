@@ -1,0 +1,98 @@
+001: Dysprosium (Dy)
+002: Thông tin chung
+003: Tên Latin: Dysprosium
+004: Tên Tiếng Anh: Dysprosium
+005: Đồng vị: ¹⁵⁶Dy, ¹⁵⁸Dy, ¹⁶⁰Dy, ¹⁶¹Dy, ¹⁶²Dy, ¹⁶³Dy, ¹⁶⁴Dy
+006: Vị trí: Nhóm IIIB | Chu kỳ 6 | Họ Lanthanide
+007: Số Oxy hóa: +3
+008: Độ âm điện: 1,22 (Pauling)
+009: Lịch sử khám phá
+010: Phát hiện bởi: Paul-Émile Lecoq de Boisbaudran
+011: Năm công bố: 1886
+012: Nơi khám phá: Pháp
+013: Mô tả: Năm 1886, Paul-Émile Lecoq de Boisbaudran phát hiện Dysprosium khi nghiên cứu Holmium oxide. Ông nhận thấy một chất mới thông qua các đặc điểm phổ và tiến hành nhiều bước tinh chế để tách nó khỏi các nguyên tố đất hiếm khác.
+014: Tên Dysprosium bắt nguồn từ tiếng Hy Lạp dysprositos, nghĩa là “khó có được” hoặc “khó tiếp cận”, phản ánh việc nguyên tố này rất khó tách khỏi các Lanthanide khác.
+015: 3. Cấu tạo
+016: a. Cấu tạo nguyên tử
+017: Cấu hình electron: [Xe] 4f¹⁰ 6s²
+018: Mô hình mạng tinh thể: Lục phương xếp chặt (Hexagonal close-packed, HCP)
+019: Số hiệu nguyên tử: 66
+020: Nguyên tử khối: 162,500 g/mol
+021: Vỏ nguyên tử: 66 electron
+022: Hạt nhân: 66 proton
+023: Cấu hình e đầy đủ: 1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰ 4p⁶ 5s² 4d¹⁰ 5p⁶ 4f¹⁰ 6s²
+024: Loại mạng: Lục phương xếp chặt (HCP)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Chất rắn
+027: Màu sắc: Trắng bạc
+028: Có trong: Xenotime, Monazite và một số khoáng vật đất hiếm.
+029: Đơn chất: Dy
+030: Hợp chất phổ biến: Dy₂O₃, DyCl₃, Dy(OH)₃, DyF₃
+031: c. Đồng vị
+032: Dysprosium có 7 đồng vị tự nhiên:
+033: ¹⁵⁶Dy: khoảng 0,06%, bền.
+034: ¹⁵⁸Dy: khoảng 0,10%, bền.
+035: ¹⁶⁰Dy: khoảng 2,34%, bền.
+036: ¹⁶¹Dy: khoảng 18,91%, bền.
+037: ¹⁶²Dy: khoảng 25,51%, bền.
+038: ¹⁶³Dy: khoảng 24,90%, bền.
+039: ¹⁶⁴Dy: khoảng 28,18%, bền.
+040: ¹⁶⁴Dy là đồng vị tự nhiên phổ biến nhất.
+041: Tính chất
+042: Tính chất vật lý
+043: Là kim loại đất hiếm.
+044: Thuộc họ Lanthanide.
+045: Có màu trắng bạc.
+046: Khá mềm và có thể gia công.
+047: Có tính thuận từ mạnh.
+048: Có tính chất từ đặc biệt ở nhiệt độ thấp.
+049: Có nhiệt độ nóng chảy khoảng 1407 °C.
+050: Có nhiệt độ sôi khoảng 2567 °C.
+051: Khối lượng riêng khoảng 8,54 g/cm³.
+052: Tính chất hóa học
+053: Trạng thái Oxy hóa phổ biến và ổn định nhất là +3.
+054: Ion Dy³⁺ có cấu hình electron 4f⁹.
+055: Dysprosium phản ứng với Oxygen:
+056: 4Dy + 3O₂ → 2Dy₂O₃
+057: Phản ứng với Acid tạo muối Dysprosium(III) và giải phóng Hydrogen.
+058: Dysprosium có khả năng hấp thụ neutron rất mạnh, đặc biệt hữu ích trong công nghệ hạt nhân.
+059: Điều chế
+060: Điều chế trong công nghiệp
+061: Dysprosium (Dy) chủ yếu được điều chế từ quặng monazite và xenotime. Sau khi tách khỏi hỗn hợp đất hiếm, Dysprosium được thu bằng phương pháp điện phân muối nóng chảy hoặc khử Dysprosium fluoride bằng Calcium.
+062: Phương trình:
+063: 2DyF₃ + 3Ca → 2Dy + 3CaF₂
+064: Dysprosium thu được được tinh chế để loại bỏ tạp chất.
+065: Điều chế trong phòng thí nghiệm
+066: Có thể điều chế Dysprosium bằng cách khử Dysprosium chloride khan bằng Calcium.
+067: Phương trình:
+068: 2DyCl₃ + 3Ca → 2Dy + 3CaCl₂
+069: Nhận biết
+070: Có thể nhận biết Dysprosium bằng:
+071: Phổ phát xạ nguyên tử.
+072: ICP-OES hoặc ICP-MS.
+073: Phổ hấp thụ đặc trưng của Dy³⁺.
+074: Đặc tính từ đặc trưng.
+075: Ion Dy³⁺ trong dung dịch thường có màu vàng nhạt.
+076: Phương trình
+077: Tác dụng với Oxygen
+078: 4Dy + 3O₂ → 2Dy₂O₃
+079: Tác dụng với Hydrochloric acid
+080: 2Dy + 6HCl → 2DyCl₃ + 3H₂
+081: Tạo Dysprosium(III) hydroxide
+082: DyCl₃ + 3NaOH → Dy(OH)₃↓ + 3NaCl
+083: Điều chế Dysprosium
+084: 2DyCl₃ + 3Ca → 2Dy + 3CaCl₂
+085: Phản ứng hấp thụ neutron
+086: ¹⁶⁴Dy + n → ¹⁶⁵Dy
+087: Ứng dụng thực tế
+088: Nam châm Nd-Fe-B: Dysprosium được thêm vào nam châm Neodymium–Iron–Boron (Nd-Fe-B) để tăng khả năng duy trì từ tính ở nhiệt độ cao, đặc biệt trong động cơ điện và các thiết bị công suất cao.
+089: Lò phản ứng hạt nhân: Dysprosium có khả năng hấp thụ neutron mạnh nên được sử dụng trong một số vật liệu hấp thụ neutron.
+090: Laser: Một số hợp chất Dysprosium được sử dụng trong vật liệu laser và quang học.
+091: Vật liệu từ: Dysprosium được sử dụng trong nghiên cứu và chế tạo các vật liệu có tính chất từ đặc biệt.
+092: Điện tử: Một số hợp chất Dysprosium được dùng trong các vật liệu điện tử và quang điện tử.
+093: Tổng quan
+094: Dysprosium là nguyên tố số 66, thuộc nhóm IIIB | chu kỳ 6 và là nguyên tố thứ mười trong họ Lanthanide.
+095: Dysprosium được Paul-Émile Lecoq de Boisbaudran phát hiện vào năm 1886 tại Pháp. Tên nguyên tố bắt nguồn từ tiếng Hy Lạp dysprositos, nghĩa là “khó có được”, do quá trình tách Dysprosium khỏi các Lanthanide khác rất khó khăn.
+096: Dysprosium là kim loại đất hiếm màu trắng bạc, có tính thuận từ mạnh và trạng thái Oxy hóa phổ biến nhất là +3.
+097: Đặc điểm nổi bật của Dysprosium là tính chất từ mạnh và khả năng hấp thụ neutron cao. Nó đặc biệt quan trọng trong việc cải thiện hiệu suất của nam châm Nd-Fe-B, đồng thời được sử dụng trong công nghệ hạt nhân, vật liệu từ và quang học.
+098: Mạng tinh thể: Lục phương xếp chặt (HCP) ở điều kiện thường.

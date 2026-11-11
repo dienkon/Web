@@ -1,0 +1,14 @@
+{
+  "date": "2026-11-11",
+  "valid": true,
+  "profiles": 118,
+  "equations": 1110,
+  "isotopes": 523,
+  "modelBindings": 79,
+  "images": 118,
+  "glbModels": 49,
+  "sourceDocuments": 118,
+  "sourceParagraphs": 11426,
+  "errors": [],
+  "scope": "All published profiles, source SHA-256, atomic/electron/nuclear conservation, equation conditions, isotope identities, local images, attribution and GLB structure. Not an experimental certification of every claim."
+}

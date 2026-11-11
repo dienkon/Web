@@ -1,0 +1,400 @@
+{
+  "number": 69,
+  "symbol": "Tm",
+  "nameVi": "Thulium",
+  "nameEn": "Thulium",
+  "mass": 168.93,
+  "massStandardText": "168.93 ± 0.01",
+  "massStandardSource": "https://ciaaw.org/abridged-atomic-weights.htm",
+  "massKind": "standard-atomic-weight",
+  "category": "lanthanide",
+  "hasData": true,
+  "file": "elements/069_Tm.json",
+  "general": {
+    "latinName": "Thulium",
+    "englishName": "Thulium",
+    "electronConfig": "[Xe] 4f¹³ 6s²",
+    "isotope": "¹⁶⁸Tm, ¹⁶⁹Tm, ¹⁷⁰Tm, ¹⁷¹Tm",
+    "group": null,
+    "groupLabel": "Lanthanide",
+    "series": "Lanthanide",
+    "period": 6,
+    "state": "Rắn",
+    "oxidation": "+2, +3",
+    "electronegativity": 1.25,
+    "electronegativityNote": "Thang Pauling; số liệu tổng hợp PubChem.",
+    "density": "9,32 g/cm³.",
+    "meltingPoint": "1545°C",
+    "boilingPoint": "1950°C",
+    "crystalStructure": "Lục phương xếp chặt (HCP)",
+    "CAS": "7440-30-4"
+  },
+  "history": {
+    "discoverer": "Per Teodor Cleve",
+    "year": "1879",
+    "discoveryLocation": "Uppsala, Thụy Điển",
+    "description": "Năm 1879, Per Teodor Cleve nghiên cứu Erbia và nhận thấy nó chứa nhiều thành phần khác nhau. Ông tách được hai chất mới, trong đó có Thulia, sau này được xác định là oxide của Thulium. Tên Thulium bắt nguồn từ Thule, tên cổ được dùng để chỉ một vùng đất xa xôi ở phía Bắc châu Âu."
+  },
+  "structure": {
+    "protons": 69,
+    "electrons": 69,
+    "neutrons": 100,
+    "nucleusIsotope": "¹⁶⁹Tm",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 69,
+      "neutron": 100
+    },
+    "electronShells": [
+      2,
+      8,
+      18,
+      31,
+      8,
+      2
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      31,
+      8,
+      2
+    ],
+    "valenceElectrons": 2,
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+    "lattice": "Lục phương xếp chặt (HCP)",
+    "latticeEvidence": "source-reviewed"
+  },
+  "structureType": "Lục phương xếp chặt (HCP)",
+  "occurrence": {
+    "description": "Chất rắn",
+    "simple": [
+      "Tm"
+    ],
+    "compounds": [
+      "Tm₂O₃",
+      "TmCl₃",
+      "TmF₃",
+      "Tm(OH)₃"
+    ],
+    "ores": [
+      "Monazite",
+      "Xenotime và một số khoáng vật đất hiếm khác"
+    ],
+    "details": [
+      "Trạng thái: Chất rắn",
+      "Màu sắc: Trắng bạc",
+      "Có trong: Monazite, Xenotime và một số khoáng vật đất hiếm khác.",
+      "Đơn chất: Tm",
+      "Hợp chất phổ biến: Tm₂O₃, TmCl₃, TmF₃, Tm(OH)₃"
+    ],
+    "mineral": {
+      "available": true,
+      "id": "xenotime",
+      "name": "Xenotime-(Y)",
+      "formula": "YPO₄",
+      "habit": "bipyramid",
+      "color": "#af8c55",
+      "crystalSystem": "tetragonal",
+      "relation": "Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Xenotime-(Y)",
+      "model": "/assets/periodic-table/minerals/xenotime.glb",
+      "preview": "/assets/periodic-table/minerals/xenotime.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  },
+  "naturalState": {
+    "image": "/assets/periodic-table/diagrams/069_Tm.svg",
+    "alt": "Thulium: sơ đồ minh họa nguyên tố",
+    "kind": "diagram",
+    "source": "",
+    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+    "credit": ""
+  },
+  "isotopes": [
+    {
+      "isotope": "¹⁶⁸Tm",
+      "massNumber": 168,
+      "protons": 69,
+      "neutrons": 99,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "93.1 ± 0.2 d",
+      "halfLife": "93.1 d",
+      "halfLifeUncertainty": "2",
+      "halfLifeQualifier": null,
+      "decay": "EC+B+",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹⁶⁹Tm",
+      "massNumber": 169,
+      "protons": 69,
+      "neutrons": 100,
+      "stable": true,
+      "abundancePercent": "100",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹⁷⁰Tm",
+      "massNumber": 170,
+      "protons": 69,
+      "neutrons": 101,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "128.6 ± 0.3 d",
+      "halfLife": "128.6 d",
+      "halfLifeUncertainty": "3",
+      "halfLifeQualifier": null,
+      "decay": "B-",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹⁷¹Tm",
+      "massNumber": 171,
+      "protons": 69,
+      "neutrons": 102,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "1.92 ± 0.01 năm",
+      "halfLife": "1.92 Y",
+      "halfLifeUncertainty": "1",
+      "halfLifeQualifier": null,
+      "decay": "B-",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Là kim loại đất hiếm.</li><li>Thuộc họ Lanthanide.</li><li>Có màu trắng bạc.</li><li>Khá mềm.</li><li>Có tính thuận từ.</li><li>Là một trong những Lanthanide ít phổ biến nhất trong tự nhiên.</li><li>Có nhiệt độ nóng chảy khoảng 1545 °C.</li><li>Có nhiệt độ sôi khoảng 1950 °C.</li><li>Khối lượng riêng khoảng 9,32 g/cm³.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Trạng thái Oxy hóa phổ biến nhất là +3.</li><li>+2 có thể tồn tại trong một số hợp chất.</li><li>Ion Tm³⁺ có cấu hình electron 4f¹².</li><li>Thulium phản ứng với Oxygen:</li><li class=\"source-equation\">4Tm + 3O₂ → 2Tm₂O₃<small>Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.</small></li><li>Phản ứng với Acid tạo muối Thulium(III) và giải phóng Hydrogen.</li></ul>",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "desc": "",
+      "equation": "4Tm + 3O₂ → 2Tm₂O₃",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 72,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tác dụng với Hydrochloric acid",
+      "desc": "",
+      "equation": "2Tm + 6HCl → 2TmCl₃ + 3H₂",
+      "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+      "kind": "chemical",
+      "sourceLine": 74,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tạo Thulium(III) hydroxide",
+      "desc": "",
+      "equation": "TmCl₃ + 3NaOH → Tm(OH)₃↓ + 3NaCl",
+      "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+      "kind": "chemical",
+      "sourceLine": 76,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Điều chế Thulium",
+      "desc": "",
+      "equation": "2TmCl₃ + 3Ca → 2Tm + 3CaCl₂",
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 78,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "preparations": {
+    "lab": [
+      {
+        "title": "Có thể điều chế Thulium bằng cách khử Thulium chloride khan bằng Calcium.",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "2TmCl₃ + 3Ca → 2Tm + 3CaCl₂",
+            "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+            "kind": "chemical",
+            "sourceLine": 62,
+            "sourceSection": "lab",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          60,
+          62
+        ],
+        "equation": "2TmCl₃ + 3Ca → 2Tm + 3CaCl₂"
+      }
+    ],
+    "industry": [
+      {
+        "title": "Thulium (Tm) chủ yếu được điều chế từ quặng monazite và xenotime. Sau khi tách khỏi hỗn hợp đất hiếm, Thulium được thu bằng phương pháp khử Thulium fluoride bằng Calcium hoặc điện phân muối nóng chảy.",
+        "desc": "Thulium thu được được tinh chế để loại bỏ tạp chất.",
+        "result": "",
+        "equations": [
+          {
+            "equation": "2TmF₃ + 3Ca → 2Tm + 3CaF₂",
+            "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+            "kind": "chemical",
+            "sourceLine": 57,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          55,
+          57,
+          58
+        ],
+        "equation": "2TmF₃ + 3Ca → 2Tm + 3CaF₂"
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Có thể nhận biết Thulium bằng",
+      "desc": "Phổ phát xạ nguyên tử. ICP-OES hoặc ICP-MS. Phổ hấp thụ đặc trưng của Tm³⁺. Phân tích tính chất quang học của ion Tm³⁺. Các hợp chất của Tm³⁺ có thể thể hiện màu xanh lam đặc trưng trong một số điều kiện phát quang.",
+      "result": "",
+      "equations": [],
+      "sourceLines": [
+        64,
+        65,
+        66,
+        67,
+        68,
+        69
+      ],
+      "equation": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Nguồn tia X",
+      "desc": "¹⁷⁰Tm có thể được sử dụng làm nguồn bức xạ trong một số thiết bị chuyên dụng.",
+      "sourceLine": 80
+    },
+    {
+      "title": "Laser",
+      "desc": "Thulium được sử dụng trong laser pha tạp Thulium, đặc biệt là các laser phát bức xạ hồng ngoại.",
+      "sourceLine": 81
+    },
+    {
+      "title": "Y tế",
+      "desc": "Laser Thulium được nghiên cứu và sử dụng trong một số ứng dụng y tế, bao gồm một số thủ thuật trong tiết niệu.",
+      "sourceLine": 82
+    },
+    {
+      "title": "Nghiên cứu quang học",
+      "desc": "Tm³⁺ được sử dụng trong các vật liệu phát quang và vật liệu quang tử.",
+      "sourceLine": 83
+    },
+    {
+      "title": "Thiết bị điện tử",
+      "desc": "Một số hợp chất Thulium được sử dụng trong nghiên cứu vật liệu từ và quang điện tử.",
+      "sourceLine": 84
+    }
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Thulium là nguyên tố số 69, thuộc nhóm IIIB | chu kỳ 6 và là nguyên tố thứ mười ba trong họ Lanthanide.</li><li>Thulium được Per Teodor Cleve phát hiện vào năm 1879 tại Thụy Điển. Tên nguyên tố bắt nguồn từ Thule, tên cổ dùng để chỉ một vùng đất xa xôi ở phía Bắc châu Âu.</li><li>Thulium là kim loại đất hiếm màu trắng bạc, khá mềm và tương đối hiếm trong tự nhiên. Trạng thái Oxy hóa phổ biến nhất là +3, trong khi +2 cũng có thể tồn tại.</li><li>Thulium có ứng dụng trong laser hồng ngoại, nguồn bức xạ, vật liệu quang học và một số ứng dụng y tế. Mặc dù là một trong những Lanthanide hiếm nhất, các tính chất quang học và hạt nhân đặc biệt khiến Thulium vẫn có giá trị trong những lĩnh vực chuyên dụng.</li><li>Mạng tinh thể: Lục phương xếp chặt (HCP) ở điều kiện thường.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/diagrams/069_Tm.svg",
+      "title": "Thulium (Tm)",
+      "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+      "source": "",
+      "author": "ChemDex",
+      "license": "ChemDex schematic diagram",
+      "licenseUrl": ""
+    }
+  ],
+  "mediaBlocks": [
+    {
+      "type": "model",
+      "section": "structure",
+      "title": "Mẫu khoáng vật 3D · Xenotime-(Y)",
+      "src": "/assets/periodic-table/minerals/xenotime.glb",
+      "preview": "/assets/periodic-table/minerals/xenotime.png",
+      "desc": "YPO₄. Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  ],
+  "sources": [
+    {
+      "title": "069_Tm.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "889a3b372fd8ba20b6ea86db9ab963170b310ad5ac5ca1123b7a64098092798e"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/69/thulium"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "069_Tm.docx",
+    "sourceSha256": "889a3b372fd8ba20b6ea86db9ab963170b310ad5ac5ca1123b7a64098092798e",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/069_Tm.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
+}

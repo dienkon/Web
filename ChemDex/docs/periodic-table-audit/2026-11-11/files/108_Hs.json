@@ -1,0 +1,898 @@
+{
+  "symbol": "Hs",
+  "number": 108,
+  "source": "108_Hs.docx",
+  "sourceSha256": "021af08f6b7fed65b8a9930fe3e68a1c8e99fdfeaf09db431f73352986aec34e",
+  "paragraphCount": 90,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 6,
+    "structure": 8,
+    "occurrence": 4,
+    "isotopes": 8,
+    "physical": 7,
+    "chemical": 5,
+    "lab": 2,
+    "industry": 1,
+    "recognition": 7,
+    "reactions": 9,
+    "applications": 5,
+    "notes": 5
+  },
+  "editorialDecisions": [],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "[Rn] 5f¹⁴ 6d⁶ 7s² (dự đoán)",
+      "publishedValue": "[Rn] 5f¹⁴ 6d⁶ 7s² (dự đoán)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+      "publishedValue": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "Không xác định",
+      "publishedValue": null,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm VIIIB | Chu kỳ 7",
+      "publishedValue": "8",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Chất rắn (dự đoán).",
+      "publishedValue": "Chưa đo trạng thái vĩ mô; các giá trị pha chỉ là dự đoán",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 34,
+      "sourceText": "²⁶⁵Hs: chu kỳ bán rã khoảng 2 mili giây.",
+      "reference": {
+        "isotope": "²⁶⁵Hs",
+        "massNumber": 265,
+        "protons": 108,
+        "neutrons": 157,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "2.0 (+0.3/−0.2) ms",
+        "halfLife": "2.0 ms",
+        "halfLifeUncertainty": "+3-2",
+        "halfLifeQualifier": null,
+        "decay": "A",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 35,
+      "sourceText": "²⁶⁷Hs: chu kỳ bán rã khoảng 55 mili giây.",
+      "reference": {
+        "isotope": "²⁶⁷Hs",
+        "massNumber": 267,
+        "protons": 108,
+        "neutrons": 159,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "43 (+9/−6) ms",
+        "halfLife": "43 ms",
+        "halfLifeUncertainty": "+9-6",
+        "halfLifeQualifier": null,
+        "decay": "A",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 36,
+      "sourceText": "²⁶⁹Hs: chu kỳ bán rã khoảng 14 giây.",
+      "reference": {
+        "isotope": "²⁶⁹Hs",
+        "massNumber": 269,
+        "protons": 108,
+        "neutrons": 161,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "13 (+10/−4) s",
+        "halfLife": "13 s",
+        "halfLifeUncertainty": "+10-4",
+        "halfLifeQualifier": null,
+        "decay": "A",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 37,
+      "sourceText": "²⁷⁰Hs: chu kỳ bán rã khoảng 3.6 giây.",
+      "reference": {
+        "isotope": "²⁷⁰Hs",
+        "massNumber": 270,
+        "protons": 108,
+        "neutrons": 162,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "7.6 (+4.9/−2.2) s",
+        "halfLife": "7.6 s",
+        "halfLifeUncertainty": "+49-22",
+        "halfLifeQualifier": null,
+        "decay": "A",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 38,
+      "sourceText": "²⁷⁷Hs: chu kỳ bán rã khoảng 11 giây.",
+      "reference": {
+        "isotope": "²⁷⁷Hs",
+        "massNumber": 277,
+        "protons": 108,
+        "neutrons": 169,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "3 (+15/−1) ms",
+        "halfLife": "3 ms",
+        "halfLifeUncertainty": "+15-1",
+        "halfLifeQualifier": null,
+        "decay": "SF",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 14,
+      "text": "²⁰⁸Pb + ⁵⁸Fe → ²⁶⁵Hs + n",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 60,
+      "text": "²⁰⁸Pb + ⁵⁸Fe → ²⁶⁵Hs + ¹n",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 71,
+      "text": "²⁰⁸Pb + ⁵⁸Fe → ²⁶⁵Hs + n",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 73,
+      "text": "²⁶⁹Hs → ²⁶⁵Sg + ⁴He",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 75,
+      "text": "Hs + 2O₂ → HsO₄",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 77,
+      "text": "Hs + 2Cl₂ → HsCl₄",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "history",
+      "equation": "²⁰⁸Pb + ⁵⁸Fe → ²⁶⁵Hs + n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 14,
+      "sourceSection": "history",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "lab",
+      "equation": "²⁰⁸Pb + ⁵⁸Fe → ²⁶⁵Hs + ¹n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 60,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "²⁰⁸Pb + ⁵⁸Fe → ²⁶⁵Hs + n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 71,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "²⁶⁹Hs → ²⁶⁵Sg + ⁴He",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 73,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Hs + 2O₂ → HsO₄",
+      "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+      "kind": "formal",
+      "sourceLine": 75,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Hs + 2Cl₂ → HsCl₄",
+      "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+      "kind": "formal",
+      "sourceLine": 77,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [
+    272,
+    274,
+    276
+  ],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": null,
+      "after": [
+        {
+          "title": "Ứng dụng",
+          "desc": "Hassium không có ứng dụng công nghiệp hoặc dân dụng.",
+          "sourceLine": 80
+        },
+        {
+          "title": "Nó chủ yếu được sử dụng trong",
+          "desc": "",
+          "sourceLine": 81
+        },
+        {
+          "title": "Nghiên cứu hạt nhân",
+          "desc": "Nghiên cứu tính ổn định của các nguyên tố siêu nặng.",
+          "sourceLine": 82
+        },
+        {
+          "title": "Hóa học nguyên tố siêu nặng",
+          "desc": "So sánh Hassium với Osmium, đặc biệt về trạng thái Oxy hóa +8.",
+          "sourceLine": 83
+        },
+        {
+          "title": "Nghiên cứu hiệu ứng tương đối tính",
+          "desc": "Hassium giúp kiểm tra cách các hiệu ứng tương đối tính ảnh hưởng đến tính chất của nguyên tử rất nặng.",
+          "sourceLine": 84
+        }
+      ]
+    },
+    {
+      "field": "category",
+      "before": null,
+      "after": "chuyen-tiep"
+    },
+    {
+      "field": "chemical",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Được dự đoán có tính chất tương tự Osmium (Os).</li><li>Số Oxy hóa +8 là trạng thái đặc biệt quan trọng.</li><li>Hassium có thể tạo Hassium(VIII) oxide (HsO₄).</li><li>Các nghiên cứu hóa học ở cấp độ từng nguyên tử cho thấy HsO₄ có tính chất tương tự Osmium tetroxide (OsO₄).</li><li>Do hiệu ứng tương đối tính mạnh, hóa học của Hassium có thể khác một phần so với Osmium.</li></ul>"
+    },
+    {
+      "field": "file",
+      "before": null,
+      "after": "elements/108_Hs.json"
+    },
+    {
+      "field": "general",
+      "before": null,
+      "after": {
+        "latinName": "Hassium",
+        "englishName": "Hassium",
+        "electronConfig": "[Rn] 5f¹⁴ 6d⁶ 7s² (dự đoán)",
+        "isotope": "²⁶⁵Hs, ²⁶⁷Hs, ²⁶⁹Hs, ²⁷⁰Hs, ²⁷¹Hs, ²⁷³Hs, ²⁷⁵Hs, ²⁷⁷Hs",
+        "group": 8,
+        "groupLabel": "8",
+        "series": "",
+        "period": 7,
+        "state": "Chưa đo trạng thái vĩ mô; các giá trị pha chỉ là dự đoán",
+        "oxidation": "+8 (dự đoán)",
+        "electronegativity": null,
+        "electronegativityNote": "Chưa có giá trị Pauling đủ cơ sở trong bản đối chiếu; không coi 0 là giá trị đã đo.",
+        "density": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+        "meltingPoint": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+        "boilingPoint": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+        "crystalStructure": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+        "CAS": "54037-57-9"
+      }
+    },
+    {
+      "field": "hasData",
+      "before": null,
+      "after": true
+    },
+    {
+      "field": "history",
+      "before": null,
+      "after": {
+        "discoverer": "Nhóm nghiên cứu tại Gesellschaft für Schwerionenforschung (GSI)",
+        "year": "1984",
+        "discoveryLocation": "Darmstadt, Tây Đức",
+        "description": "Hassium được tổng hợp lần đầu vào năm 1984 tại GSI bằng cách bắn phá Lead-208 bằng Iron-58: ²⁰⁸Pb + ⁵⁸Fe → ²⁶⁵Hs + n Tên Hassium bắt nguồn từ Hassia, tên Latin của bang Hesse ở Đức, nơi đặt phòng thí nghiệm GSI."
+      }
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/diagrams/108_Hs.svg",
+          "title": "Hassium (Hs)",
+          "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+          "source": "",
+          "author": "ChemDex",
+          "license": "ChemDex schematic diagram",
+          "licenseUrl": ""
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "²⁶⁵Hs",
+          "massNumber": 265,
+          "protons": 108,
+          "neutrons": 157,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "2.0 (+0.3/−0.2) ms",
+          "halfLife": "2.0 ms",
+          "halfLifeUncertainty": "+3-2",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁶⁷Hs",
+          "massNumber": 267,
+          "protons": 108,
+          "neutrons": 159,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "43 (+9/−6) ms",
+          "halfLife": "43 ms",
+          "halfLifeUncertainty": "+9-6",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁶⁹Hs",
+          "massNumber": 269,
+          "protons": 108,
+          "neutrons": 161,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "13 (+10/−4) s",
+          "halfLife": "13 s",
+          "halfLifeUncertainty": "+10-4",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁷⁰Hs",
+          "massNumber": 270,
+          "protons": 108,
+          "neutrons": 162,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "7.6 (+4.9/−2.2) s",
+          "halfLife": "7.6 s",
+          "halfLifeUncertainty": "+49-22",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁷¹Hs",
+          "massNumber": 271,
+          "protons": 108,
+          "neutrons": 163,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "Chưa có giá trị trong bản đối chiếu",
+          "halfLife": "Chưa có giá trị trong bản đối chiếu",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁷³Hs",
+          "massNumber": 273,
+          "protons": 108,
+          "neutrons": 165,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "0.51 (+0.30/−0.13) s",
+          "halfLife": "0.51 s",
+          "halfLifeUncertainty": "+30-13",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁷⁵Hs",
+          "massNumber": 275,
+          "protons": 108,
+          "neutrons": 167,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "0.20 (+0.19/−0.07) s",
+          "halfLife": "0.20 s",
+          "halfLifeUncertainty": "+19-7",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁷⁷Hs",
+          "massNumber": 277,
+          "protons": 108,
+          "neutrons": 169,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "3 (+15/−1) ms",
+          "halfLife": "3 ms",
+          "halfLifeUncertainty": "+15-1",
+          "halfLifeQualifier": null,
+          "decay": "SF",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "mass",
+      "before": null,
+      "after": 270
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "reference-isotope-mass-number"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://periodic-table.rsc.org/element/108/hassium"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "[270] — số khối đồng vị tham chiếu, không phải nguyên tử khối chuẩn"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": []
+    },
+    {
+      "field": "nameEn",
+      "before": null,
+      "after": "Hassium"
+    },
+    {
+      "field": "nameVi",
+      "before": null,
+      "after": "Hassium"
+    },
+    {
+      "field": "naturalState",
+      "before": null,
+      "after": {
+        "image": "/assets/periodic-table/diagrams/108_Hs.svg",
+        "alt": "Hassium: sơ đồ minh họa nguyên tố",
+        "kind": "diagram",
+        "source": "",
+        "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+        "credit": ""
+      }
+    },
+    {
+      "field": "notes",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Hassium là nguyên tố số 108, thuộc nhóm VIIIB | chu kỳ 7 và là một kim loại chuyển tiếp siêu nặng.</li><li>Hassium được tổng hợp lần đầu vào năm 1984 tại GSI ở Darmstadt. Tên nguyên tố xuất phát từ Hassia, tên Latin của bang Hesse, Đức.</li><li>Cấu hình electron được dự đoán là [Rn] 5f¹⁴ 6d⁶ 7s². Đặc điểm hóa học nổi bật nhất là trạng thái Oxy hóa +8, tương tự Osmium. Đặc biệt, các nhà khoa học đã nghiên cứu được Hassium tetroxide (HsO₄) ở quy mô nguyên tử.</li><li>Hassium không có đồng vị bền, rất phóng xạ và chỉ được tạo ra với số lượng cực nhỏ. Vì vậy, nó không có ứng dụng thực tế, chủ yếu phục vụ nghiên cứu khoa học.</li><li>Mạng tinh thể: Lập phương tâm khối (BCC) — dự đoán, vì chưa thể thu được lượng Hassium đủ lớn để xác định trực tiếp cấu trúc tinh thể.</li></ul>"
+    },
+    {
+      "field": "number",
+      "before": null,
+      "after": 108
+    },
+    {
+      "field": "occurrence",
+      "before": null,
+      "after": {
+        "description": "Chất rắn (dự đoán).",
+        "simple": [
+          "Hs"
+        ],
+        "compounds": [
+          "HsO₄",
+          "HsCl₄... (một số đã được nghiên cứu ở cấp độ nguyên tử)"
+        ],
+        "ores": [
+          "Không tồn tại tự nhiên với lượng đáng kể. Hassium chỉ được tổng hợp nhân tạo trong phòng thí nghiệm"
+        ],
+        "details": [
+          "Trạng thái: Chất rắn (dự đoán).",
+          "Có trong: Không tồn tại tự nhiên với lượng đáng kể. Hassium chỉ được tổng hợp nhân tạo trong phòng thí nghiệm.",
+          "Đơn chất: Hs",
+          "Hợp chất: HsO₄, HsCl₄... (một số đã được nghiên cứu ở cấp độ nguyên tử)"
+        ],
+        "mineral": {
+          "available": false,
+          "reason": "Nguyên tố nhân tạo hoặc chỉ có vết tự nhiên; không có quặng khai thác riêng để dựng mẫu."
+        }
+      }
+    },
+    {
+      "field": "physical",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Là kim loại chuyển tiếp.</li><li>Thuộc nhóm VIIIB | chu kỳ 7.</li><li>Là nguyên tố siêu nặng.</li><li>Có tính phóng xạ rất mạnh.</li><li>Được dự đoán là chất rắn ở điều kiện thường.</li><li>Được dự đoán có khối lượng riêng rất lớn, khoảng 27–29 g/cm³.</li><li>Nhiệt độ nóng chảy và nhiệt độ sôi chưa được xác định thực nghiệm.</li></ul>"
+    },
+    {
+      "field": "preparations",
+      "before": null,
+      "after": {
+        "lab": [
+          {
+            "title": "Hassium được tổng hợp bằng cách bắn phá Lead-208 bằng ion Iron-58 trong máy gia tốc hạt.",
+            "desc": "",
+            "result": "",
+            "equations": [
+              {
+                "equation": "²⁰⁸Pb + ⁵⁸Fe → ²⁶⁵Hs + ¹n",
+                "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+                "kind": "nuclear",
+                "sourceLine": 60,
+                "sourceSection": "lab",
+                "balance": {
+                  "status": "balanced",
+                  "kind": "nuclear",
+                  "delta": {}
+                },
+                "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+              }
+            ],
+            "sourceLines": [
+              59,
+              60
+            ],
+            "equation": "²⁰⁸Pb + ⁵⁸Fe → ²⁶⁵Hs + ¹n"
+          }
+        ],
+        "industry": [
+          {
+            "title": "Hassium (Hs) không được sản xuất công nghiệp do tính phóng xạ rất cao và thời gian bán rã ngắn. Nguyên tố này chỉ được tổng hợp với lượng cực nhỏ trong các cơ sở nghiên cứu hạt nhân.",
+            "desc": "",
+            "result": "",
+            "equations": [],
+            "sourceLines": [
+              57
+            ],
+            "equation": ""
+          }
+        ]
+      }
+    },
+    {
+      "field": "reactions",
+      "before": null,
+      "after": [
+        {
+          "type": "Tổng hợp Hassium-265",
+          "desc": "",
+          "equation": "²⁰⁸Pb + ⁵⁸Fe → ²⁶⁵Hs + n",
+          "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+          "kind": "nuclear",
+          "sourceLine": 71,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Phân rã Alpha",
+          "desc": "",
+          "equation": "²⁶⁹Hs → ²⁶⁵Sg + ⁴He",
+          "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+          "kind": "nuclear",
+          "sourceLine": 73,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Hassium(VIII) oxide",
+          "desc": "",
+          "equation": "Hs + 2O₂ → HsO₄",
+          "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+          "kind": "formal",
+          "sourceLine": 75,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Hassium chloride",
+          "desc": "",
+          "equation": "Hs + 2Cl₂ → HsCl₄",
+          "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+          "kind": "formal",
+          "sourceLine": 77,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": null,
+      "after": [
+        {
+          "title": "Hassium được nhận biết thông qua",
+          "desc": "Năng lượng các hạt Alpha phát ra. Chu kỳ bán rã. Chuỗi phân rã đặc trưng. Xác định các hạt nhân con sau phân rã. Nghiên cứu hóa học của các nguyên tử Hs riêng lẻ. Đặc biệt, sự hình thành HsO₄ và tính chất của nó là một bằng chứng quan trọng về hóa học của Hassium.",
+          "result": "",
+          "equations": [],
+          "sourceLines": [
+            62,
+            63,
+            64,
+            65,
+            66,
+            67,
+            68
+          ],
+          "equation": ""
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "108_Hs.docx",
+        "sourceSha256": "021af08f6b7fed65b8a9930fe3e68a1c8e99fdfeaf09db431f73352986aec34e",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/108_Hs.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "108_Hs.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "021af08f6b7fed65b8a9930fe3e68a1c8e99fdfeaf09db431f73352986aec34e"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/108/hassium"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure",
+      "before": null,
+      "after": {
+        "protons": 108,
+        "electrons": 108,
+        "neutrons": 162,
+        "nucleusIsotope": "²⁷⁰Hs",
+        "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+        "nucleus": {
+          "proton": 108,
+          "neutron": 162
+        },
+        "electronShells": [
+          2,
+          8,
+          18,
+          32,
+          32,
+          14,
+          2
+        ],
+        "shells": [
+          2,
+          8,
+          18,
+          32,
+          32,
+          14,
+          2
+        ],
+        "valenceElectrons": 2,
+        "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+        "lattice": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+        "latticeEvidence": "predicted"
+      }
+    },
+    {
+      "field": "structureType",
+      "before": null,
+      "after": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)"
+    },
+    {
+      "field": "symbol",
+      "before": null,
+      "after": "Hs"
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "Hs",
+      "status": "diagram",
+      "reason": "Không dùng ảnh mẫu vĩ mô không xác minh cho nguyên tố cực hiếm/nhân tạo."
+    },
+    "mineral": {
+      "available": false,
+      "reason": "Nguyên tố nhân tạo hoặc chỉ có vết tự nhiên; không có quặng khai thác riêng để dựng mẫu."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "Hs",
+      "z": 108,
+      "url": "https://periodic-table.rsc.org/element/108/hassium",
+      "status": "retrieved",
+      "bytes": 143348,
+      "sha256": "da5fffb5eec8405a33aead65485e735bad3c75178c3b50699325caf614ec730e",
+      "facts": {
+        "Group": "8",
+        "Melting point": "Unknown",
+        "Period": "7",
+        "Boiling point": "Unknown",
+        "Block": "d",
+        "Density (g cm−³)": "Unknown",
+        "Atomic number": "108",
+        "Relative atomic mass": "[269]",
+        "State at 20°C": "Solid",
+        "Key isotopes": "²⁷⁰Hs",
+        "Electron configuration": "[Rn] 5f¹⁴6d⁶7s²",
+        "CAS number": "54037-57-9",
+        "ChemSpider ID": "-",
+        "electronegativity": "Unknown"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "108",
+      "Symbol": "Hs",
+      "Name": "Hassium",
+      "AtomicMass": "269.1336",
+      "CPKHexColor": "E6002E",
+      "ElectronConfiguration": "[Rn]7s2 5f14 6d6",
+      "Electronegativity": "",
+      "AtomicRadius": "",
+      "IonizationEnergy": "",
+      "ElectronAffinity": "",
+      "OxidationStates": "8, 6, 5, 4, 3, 2",
+      "StandardState": "Solid",
+      "MeltingPoint": "",
+      "BoilingPoint": "",
+      "Density": "",
+      "GroupBlock": "Transition metal",
+      "YearDiscovered": "1984"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

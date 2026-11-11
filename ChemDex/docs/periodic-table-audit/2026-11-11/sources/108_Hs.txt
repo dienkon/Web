@@ -1,0 +1,90 @@
+001: Hassium (Hs)
+002: Thông tin chung
+003: Tên Latin: Hassium
+004: Tên Tiếng Anh: Hassium
+005: Đồng vị: ²⁶⁵Hs, ²⁶⁷Hs, ²⁶⁹Hs, ²⁷⁰Hs, ²⁷¹Hs, ²⁷²Hs, ²⁷³Hs, ²⁷⁴Hs, ²⁷⁵Hs, ²⁷⁶Hs, ²⁷⁷Hs
+006: Vị trí: Nhóm VIIIB | Chu kỳ 7
+007: Số Oxy hóa: +8 (dự đoán)
+008: Độ âm điện: Không xác định
+009: Lịch sử khám phá
+010: Phát hiện bởi: Nhóm nghiên cứu tại Gesellschaft für Schwerionenforschung (GSI)
+011: Năm công bố: 1984
+012: Nơi khám phá: Darmstadt, Tây Đức
+013: Mô tả: Hassium được tổng hợp lần đầu vào năm 1984 tại GSI bằng cách bắn phá Lead-208 bằng Iron-58:
+014: ²⁰⁸Pb + ⁵⁸Fe → ²⁶⁵Hs + n
+015: Tên Hassium bắt nguồn từ Hassia, tên Latin của bang Hesse ở Đức, nơi đặt phòng thí nghiệm GSI.
+016: 3. Cấu tạo
+017: a. Cấu tạo nguyên tử
+018: Hoạt họa cấu hình e: [Rn] 5f¹⁴ 6d⁶ 7s² (dự đoán)
+019: Mô hình mạng tinh thể: Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)
+020: Số hiệu nguyên tử: 108
+021: Nguyên tử khối: [269] g/mol
+022: Vỏ nguyên tử: 108 electron
+023: Hạt nhân: 108 proton
+024: Cấu hình e: [Rn] 5f¹⁴ 6d⁶ 7s² (dự đoán)
+025: Loại mạng: Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)
+026: b. Trạng thái tự nhiên
+027: Trạng thái: Chất rắn (dự đoán).
+028: Có trong: Không tồn tại tự nhiên với lượng đáng kể. Hassium chỉ được tổng hợp nhân tạo trong phòng thí nghiệm.
+029: Đơn chất: Hs
+030: Hợp chất: HsO₄, HsCl₄... (một số đã được nghiên cứu ở cấp độ nguyên tử)
+031: c. Đồng vị
+032: Hassium không có đồng vị bền.
+033: Một số đồng vị đã được biết đến:
+034: ²⁶⁵Hs: chu kỳ bán rã khoảng 2 mili giây.
+035: ²⁶⁷Hs: chu kỳ bán rã khoảng 55 mili giây.
+036: ²⁶⁹Hs: chu kỳ bán rã khoảng 14 giây.
+037: ²⁷⁰Hs: chu kỳ bán rã khoảng 3.6 giây.
+038: ²⁷⁷Hs: chu kỳ bán rã khoảng 11 giây.
+039: Các đồng vị Hassium chủ yếu phân rã bằng phân rã Alpha.
+040: Tính chất
+041: Tính chất vật lý
+042: Là kim loại chuyển tiếp.
+043: Thuộc nhóm VIIIB | chu kỳ 7.
+044: Là nguyên tố siêu nặng.
+045: Có tính phóng xạ rất mạnh.
+046: Được dự đoán là chất rắn ở điều kiện thường.
+047: Được dự đoán có khối lượng riêng rất lớn, khoảng 27–29 g/cm³.
+048: Nhiệt độ nóng chảy và nhiệt độ sôi chưa được xác định thực nghiệm.
+049: Tính chất hóa học
+050: Được dự đoán có tính chất tương tự Osmium (Os).
+051: Số Oxy hóa +8 là trạng thái đặc biệt quan trọng.
+052: Hassium có thể tạo Hassium(VIII) oxide (HsO₄).
+053: Các nghiên cứu hóa học ở cấp độ từng nguyên tử cho thấy HsO₄ có tính chất tương tự Osmium tetroxide (OsO₄).
+054: Do hiệu ứng tương đối tính mạnh, hóa học của Hassium có thể khác một phần so với Osmium.
+055: Điều chế
+056: Điều chế trong công nghiệp:
+057: Hassium (Hs) không được sản xuất công nghiệp do tính phóng xạ rất cao và thời gian bán rã ngắn. Nguyên tố này chỉ được tổng hợp với lượng cực nhỏ trong các cơ sở nghiên cứu hạt nhân.
+058: Điều chế trong phòng thí nghiệm:
+059: Hassium được tổng hợp bằng cách bắn phá Lead-208 bằng ion Iron-58 trong máy gia tốc hạt.
+060: ²⁰⁸Pb + ⁵⁸Fe → ²⁶⁵Hs + ¹n
+061: Nhận biết
+062: Hassium được nhận biết thông qua:
+063: Năng lượng các hạt Alpha phát ra.
+064: Chu kỳ bán rã.
+065: Chuỗi phân rã đặc trưng.
+066: Xác định các hạt nhân con sau phân rã.
+067: Nghiên cứu hóa học của các nguyên tử Hs riêng lẻ.
+068: Đặc biệt, sự hình thành HsO₄ và tính chất của nó là một bằng chứng quan trọng về hóa học của Hassium.
+069: Phương trình
+070: Tổng hợp Hassium-265
+071: ²⁰⁸Pb + ⁵⁸Fe → ²⁶⁵Hs + n
+072: Phân rã Alpha
+073: ²⁶⁹Hs → ²⁶⁵Sg + ⁴He
+074: Tạo Hassium(VIII) oxide
+075: Hs + 2O₂ → HsO₄
+076: Tạo Hassium chloride
+077: Hs + 2Cl₂ → HsCl₄
+078: Các phương trình hóa học của Hassium được nghiên cứu ở quy mô nguyên tử; không thể thực hiện theo cách điều chế hóa học thông thường.
+079: Ứng dụng thực tế
+080: Hassium không có ứng dụng công nghiệp hoặc dân dụng.
+081: Nó chủ yếu được sử dụng trong:
+082: Nghiên cứu hạt nhân: Nghiên cứu tính ổn định của các nguyên tố siêu nặng.
+083: Hóa học nguyên tố siêu nặng: So sánh Hassium với Osmium, đặc biệt về trạng thái Oxy hóa +8.
+084: Nghiên cứu hiệu ứng tương đối tính: Hassium giúp kiểm tra cách các hiệu ứng tương đối tính ảnh hưởng đến tính chất của nguyên tử rất nặng.
+085: Tổng quan
+086: Hassium là nguyên tố số 108, thuộc nhóm VIIIB | chu kỳ 7 và là một kim loại chuyển tiếp siêu nặng.
+087: Hassium được tổng hợp lần đầu vào năm 1984 tại GSI ở Darmstadt. Tên nguyên tố xuất phát từ Hassia, tên Latin của bang Hesse, Đức.
+088: Cấu hình electron được dự đoán là [Rn] 5f¹⁴ 6d⁶ 7s². Đặc điểm hóa học nổi bật nhất là trạng thái Oxy hóa +8, tương tự Osmium. Đặc biệt, các nhà khoa học đã nghiên cứu được Hassium tetroxide (HsO₄) ở quy mô nguyên tử.
+089: Hassium không có đồng vị bền, rất phóng xạ và chỉ được tạo ra với số lượng cực nhỏ. Vì vậy, nó không có ứng dụng thực tế, chủ yếu phục vụ nghiên cứu khoa học.
+090: Mạng tinh thể: Lập phương tâm khối (BCC) — dự đoán, vì chưa thể thu được lượng Hassium đủ lớn để xác định trực tiếp cấu trúc tinh thể.

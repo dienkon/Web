@@ -1,0 +1,1055 @@
+{
+  "symbol": "Th",
+  "number": 90,
+  "source": "090_Th.docx",
+  "sourceSha256": "f582d9813e2054b89a90bd4b2e975d5fcfdbf52ca2768099e752ab4333d8db66",
+  "paragraphCount": 102,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 6,
+    "structure": 8,
+    "occurrence": 5,
+    "isotopes": 5,
+    "physical": 8,
+    "chemical": 6,
+    "lab": 3,
+    "industry": 5,
+    "recognition": 7,
+    "reactions": 15,
+    "applications": 5,
+    "notes": 6
+  },
+  "editorialDecisions": [],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "[Rn] 6d² 7s²",
+      "publishedValue": "[Rn] 6d² 7s²",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Lập phương tâm diện (FCC)",
+      "publishedValue": "Lập phương tâm diện (FCC)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "1,30 (Pauling)",
+      "publishedValue": 1.3,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm IIIB | Chu kỳ 7 | Họ Actinide",
+      "publishedValue": "Actinide",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Chất rắn",
+      "publishedValue": "Rắn",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 34,
+      "sourceText": "²³²Th: gần như 100%, phóng xạ, chu kỳ bán rã khoảng 14,05 tỷ năm.",
+      "reference": {
+        "isotope": "²³²Th",
+        "massNumber": 232,
+        "protons": 90,
+        "neutrons": 142,
+        "stable": false,
+        "abundancePercent": "99.98",
+        "halfLifeDisplay": "1.40E10 ± 1E+8 năm",
+        "halfLife": "1.40E10 Y",
+        "halfLifeUncertainty": "1",
+        "halfLifeQualifier": null,
+        "decay": "A",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 35,
+      "sourceText": "²³⁰Th: tồn tại với lượng rất nhỏ, là sản phẩm trong chuỗi phân rã của Uranium-238.",
+      "reference": {
+        "isotope": "²³⁰Th",
+        "massNumber": 230,
+        "protons": 90,
+        "neutrons": 140,
+        "stable": false,
+        "abundancePercent": "0.02",
+        "halfLifeDisplay": "7.54E+4 ± 3E+2 năm",
+        "halfLife": "7.54E+4 Y",
+        "halfLifeUncertainty": "3",
+        "halfLifeQualifier": null,
+        "decay": "A",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 37,
+      "sourceText": "²³²Th là đồng vị Thorium quan trọng nhất và là một nuclide sinh nhiên liệu (fertile nuclide), có thể chuyển thành ²³³U sau khi hấp thụ neutron.",
+      "reference": {
+        "isotope": "²³²Th",
+        "massNumber": 232,
+        "protons": 90,
+        "neutrons": 142,
+        "stable": false,
+        "abundancePercent": "99.98",
+        "halfLifeDisplay": "1.40E10 ± 1E+8 năm",
+        "halfLife": "1.40E10 Y",
+        "halfLifeUncertainty": "1",
+        "halfLifeQualifier": null,
+        "decay": "A",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 52,
+      "text": "Th + O₂ → ThO₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 60,
+      "text": "ThO₂ + 4HF → ThF₄ + 2H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 61,
+      "text": "ThF₄ + 2Ca → Th + 2CaF₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 65,
+      "text": "ThF₄ + 2Ca → Th + 2CaF₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 76,
+      "text": "Th + O₂ → ThO₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 78,
+      "text": "Th + 4HCl → ThCl₄ + 2H₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 80,
+      "text": "ThCl₄ + 4NaOH → Th(OH)₄↓ + 4NaCl",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 82,
+      "text": "ThCl₄ + 2Ca → Th + 2CaCl₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 85,
+      "text": "²³²Th + n → ²³³Th",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 87,
+      "text": "²³³Th → ²³³Pa + β⁻",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 89,
+      "text": "²³³Pa → ²³³U + β⁻",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "chemical",
+      "equation": "Th + O₂ → ThO₂",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 52,
+      "sourceSection": "chemical",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "lab",
+      "equation": "ThF₄ + 2Ca → Th + 2CaF₂",
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 65,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "ThO₂ + 4HF → ThF₄ + 2H₂O",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 60,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "ThF₄ + 2Ca → Th + 2CaF₂",
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 61,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Th + O₂ → ThO₂",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 76,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Th + 4HCl → ThCl₄ + 2H₂",
+      "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+      "kind": "chemical",
+      "sourceLine": 78,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "ThCl₄ + 4NaOH → Th(OH)₄↓ + 4NaCl",
+      "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+      "kind": "chemical",
+      "sourceLine": 80,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "ThCl₄ + 2Ca → Th + 2CaCl₂",
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 82,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "²³²Th + n → ²³³Th + γ",
+      "condition": "Chiếu neutron trong cơ sở nghiên cứu; bắt neutron và phát gamma nếu không có sản phẩm bay hơi.",
+      "kind": "nuclear",
+      "sourceLine": 85,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "²³³Th → ²³³Pa + β⁻ + ν̅ₑ",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 87,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "²³³Pa → ²³³U + β⁻ + ν̅ₑ",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 89,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": null,
+      "after": [
+        {
+          "title": "Năng lượng hạt nhân",
+          "desc": "²³²Th có thể hấp thụ neutron và qua chuỗi biến đổi hạt nhân tạo thành ²³³U, một đồng vị có khả năng phân hạch. Vì vậy Thorium được nghiên cứu như một nguồn nhiên liệu hạt nhân tiềm năng.",
+          "sourceLine": 91
+        },
+        {
+          "title": "Vật liệu chịu nhiệt",
+          "desc": "ThO₂ có nhiệt độ nóng chảy rất cao và từng được sử dụng trong một số vật liệu chịu nhiệt.",
+          "sourceLine": 92
+        },
+        {
+          "title": "Điện cực hàn",
+          "desc": "Thorium dioxide từng được sử dụng làm chất pha vào điện cực Tungsten để cải thiện đặc tính phát xạ electron. Việc sử dụng bị hạn chế do tính phóng xạ của Thorium.",
+          "sourceLine": 93
+        },
+        {
+          "title": "Quang học",
+          "desc": "Một số hợp chất Thorium từng được sử dụng trong kính quang học có chiết suất cao, mặc dù ứng dụng này ngày nay bị hạn chế.",
+          "sourceLine": 94
+        },
+        {
+          "title": "Nghiên cứu địa chất",
+          "desc": "²³⁰Th và các đồng vị Thorium khác được sử dụng trong một số phương pháp định tuổi địa chất và khảo cổ.",
+          "sourceLine": 95
+        }
+      ]
+    },
+    {
+      "field": "category",
+      "before": null,
+      "after": "actinide"
+    },
+    {
+      "field": "chemical",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Trạng thái Oxy hóa phổ biến và ổn định nhất là +4.</li><li>Thorium có tính điện dương và phản ứng với nhiều phi kim.</li><li>Phản ứng với Oxygen tạo Thorium dioxide:</li><li class=\"source-equation\">Th + O₂ → ThO₂<small>Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.</small></li><li>ThO₂ là một oxide rất bền, có nhiệt độ nóng chảy cực cao.</li><li>Thorium phản ứng chậm với nước lạnh nhưng có thể phản ứng mạnh hơn trong những điều kiện thích hợp.</li></ul>"
+    },
+    {
+      "field": "file",
+      "before": null,
+      "after": "elements/090_Th.json"
+    },
+    {
+      "field": "general",
+      "before": null,
+      "after": {
+        "latinName": "Thorium",
+        "englishName": "Thorium",
+        "electronConfig": "[Rn] 6d² 7s²",
+        "isotope": "²²⁷Th, ²²⁸Th, ²²⁹Th, ²³⁰Th, ²³²Th, ²³³Th, ²³⁴Th",
+        "group": null,
+        "groupLabel": "Actinide",
+        "series": "Actinide",
+        "period": 7,
+        "state": "Rắn",
+        "oxidation": "+4",
+        "electronegativity": 1.3,
+        "electronegativityNote": "Thang Pauling; số liệu tổng hợp PubChem.",
+        "density": "11,7 g/cm³.",
+        "meltingPoint": "1750°C",
+        "boilingPoint": "4785°C",
+        "crystalStructure": "Lập phương tâm diện (FCC)",
+        "CAS": "7440-29-1"
+      }
+    },
+    {
+      "field": "hasData",
+      "before": null,
+      "after": true
+    },
+    {
+      "field": "history",
+      "before": null,
+      "after": {
+        "discoverer": "Morten Thrane Esmark và Jöns Jacob Berzelius",
+        "year": "1828",
+        "discoveryLocation": "Na Uy và Thụy Điển",
+        "description": "Năm 1828, nhà khoáng vật học Morten Thrane Esmark phát hiện một khoáng vật màu đen trên đảo Løvøya, Na Uy. Ông gửi mẫu cho Jöns Jacob Berzelius nghiên cứu. Berzelius xác định trong khoáng vật có một nguyên tố mới và đặt tên là Thorium, theo Thor, vị thần sấm sét trong thần thoại Bắc Âu. Đến năm 1898, Marie Curie và Gerhard Carl Schmidt độc lập phát hiện Thorium có tính phóng xạ."
+      }
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/diagrams/090_Th.svg",
+          "title": "Thorium (Th)",
+          "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+          "source": "",
+          "author": "ChemDex",
+          "license": "ChemDex schematic diagram",
+          "licenseUrl": ""
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "²²⁷Th",
+          "massNumber": 227,
+          "protons": 90,
+          "neutrons": 137,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "18.697 ± 0.007 d",
+          "halfLife": "18.697 d",
+          "halfLifeUncertainty": "7",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²²⁸Th",
+          "massNumber": 228,
+          "protons": 90,
+          "neutrons": 138,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "1.9116 ± 0.0016 năm",
+          "halfLife": "1.9116 Y",
+          "halfLifeUncertainty": "16",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²²⁹Th",
+          "massNumber": 229,
+          "protons": 90,
+          "neutrons": 139,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "7880 ± 120 năm",
+          "halfLife": "7880 Y",
+          "halfLifeUncertainty": "120",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²³⁰Th",
+          "massNumber": 230,
+          "protons": 90,
+          "neutrons": 140,
+          "stable": false,
+          "abundancePercent": "0.02",
+          "halfLifeDisplay": "7.54E+4 ± 3E+2 năm",
+          "halfLife": "7.54E+4 Y",
+          "halfLifeUncertainty": "3",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²³²Th",
+          "massNumber": 232,
+          "protons": 90,
+          "neutrons": 142,
+          "stable": false,
+          "abundancePercent": "99.98",
+          "halfLifeDisplay": "1.40E10 ± 1E+8 năm",
+          "halfLife": "1.40E10 Y",
+          "halfLifeUncertainty": "1",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²³³Th",
+          "massNumber": 233,
+          "protons": 90,
+          "neutrons": 143,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "21.83 ± 0.04 phút",
+          "halfLife": "21.83 m",
+          "halfLifeUncertainty": "4",
+          "halfLifeQualifier": null,
+          "decay": "B-",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²³⁴Th",
+          "massNumber": 234,
+          "protons": 90,
+          "neutrons": 144,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "24.10 ± 0.03 d",
+          "halfLife": "24.10 d",
+          "halfLifeUncertainty": "3",
+          "halfLifeQualifier": null,
+          "decay": "B-",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "mass",
+      "before": null,
+      "after": 232.04
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "standard-atomic-weight"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "232.04 ± 0.01"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": [
+        {
+          "type": "model",
+          "section": "structure",
+          "title": "Mẫu khoáng vật 3D · Thorite",
+          "src": "/assets/periodic-table/minerals/thorite.glb",
+          "preview": "/assets/periodic-table/minerals/thorite.png",
+          "desc": "ThSiO₄. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "nameEn",
+      "before": null,
+      "after": "Thorium"
+    },
+    {
+      "field": "nameVi",
+      "before": null,
+      "after": "Thorium"
+    },
+    {
+      "field": "naturalState",
+      "before": null,
+      "after": {
+        "image": "/assets/periodic-table/diagrams/090_Th.svg",
+        "alt": "Thorium: sơ đồ minh họa nguyên tố",
+        "kind": "diagram",
+        "source": "",
+        "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+        "credit": ""
+      }
+    },
+    {
+      "field": "notes",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Thorium là nguyên tố số 90, thuộc nhóm IIIB | chu kỳ 7 và là nguyên tố thứ hai trong họ Actinide.</li><li>Thorium được Jöns Jacob Berzelius xác định là nguyên tố mới vào năm 1828 sau khi nghiên cứu khoáng vật được Morten Thrane Esmark phát hiện ở Na Uy. Tên nguyên tố được đặt theo Thor, vị thần sấm sét trong thần thoại Bắc Âu.</li><li>Thorium là kim loại phóng xạ màu trắng bạc, có trạng thái Oxy hóa chủ yếu là +4. Đồng vị tự nhiên quan trọng nhất là ²³²Th, có chu kỳ bán rã khoảng 14,05 tỷ năm.</li><li>Điểm đặc biệt của Thorium là ²³²Th có thể chuyển đổi thành ²³³U, khiến Thorium trở thành một ứng viên quan trọng được nghiên cứu cho nhiên liệu hạt nhân thế hệ tương lai.</li><li>Ngoài lĩnh vực hạt nhân, Thorium và các hợp chất của nó còn từng được sử dụng trong vật liệu chịu nhiệt, điện cực Tungsten, kính quang học và nghiên cứu địa chất.</li><li>Mạng tinh thể: Lập phương tâm diện (FCC) ở điều kiện thường.</li></ul>"
+    },
+    {
+      "field": "number",
+      "before": null,
+      "after": 90
+    },
+    {
+      "field": "occurrence",
+      "before": null,
+      "after": {
+        "description": "Chất rắn",
+        "simple": [
+          "Th"
+        ],
+        "compounds": [
+          "ThO₂",
+          "ThCl₄",
+          "ThF₄",
+          "Th(OH)₄"
+        ],
+        "ores": [
+          "Monazite",
+          "Thorite và một số khoáng vật đất hiếm"
+        ],
+        "details": [
+          "Trạng thái: Chất rắn",
+          "Màu sắc: Trắng bạc",
+          "Có trong: Monazite, Thorite và một số khoáng vật đất hiếm.",
+          "Đơn chất: Th",
+          "Hợp chất phổ biến: ThO₂, ThCl₄, ThF₄, Th(OH)₄"
+        ],
+        "mineral": {
+          "available": true,
+          "id": "thorite",
+          "name": "Thorite",
+          "formula": "ThSiO₄",
+          "habit": "bipyramid",
+          "color": "#8d6548",
+          "crystalSystem": "tetragonal",
+          "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+          "source": "https://www.handbookofmineralogy.org/",
+          "sourceSearch": "https://rruff.info/Thorite",
+          "model": "/assets/periodic-table/minerals/thorite.glb",
+          "preview": "/assets/periodic-table/minerals/thorite.png",
+          "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+        }
+      }
+    },
+    {
+      "field": "physical",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Là kim loại phóng xạ.</li><li>Thuộc họ Actinide.</li><li>Có màu trắng bạc khi mới cắt.</li><li>Bề mặt nhanh chóng bị oxy hóa trong không khí.</li><li>Khá mềm và dễ gia công.</li><li>Có nhiệt độ nóng chảy khoảng 1750 °C.</li><li>Có nhiệt độ sôi khoảng 4788 °C.</li><li>Khối lượng riêng khoảng 11,7 g/cm³.</li></ul>"
+    },
+    {
+      "field": "preparations",
+      "before": null,
+      "after": {
+        "lab": [
+          {
+            "title": "Có thể điều chế Thorium kim loại bằng cách khử Thorium tetrafluoride bằng Calcium trong điều kiện chuyên dụng.",
+            "desc": "Phương trình hoá học:",
+            "result": "",
+            "equations": [
+              {
+                "equation": "ThF₄ + 2Ca → Th + 2CaF₂",
+                "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+                "kind": "chemical",
+                "sourceLine": 65,
+                "sourceSection": "lab",
+                "balance": {
+                  "status": "balanced",
+                  "kind": "chemical",
+                  "delta": {}
+                },
+                "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+              }
+            ],
+            "sourceLines": [
+              63,
+              64,
+              65
+            ],
+            "equation": "ThF₄ + 2Ca → Th + 2CaF₂"
+          }
+        ],
+        "industry": [
+          {
+            "title": "Thorium (Th) chủ yếu được điều chế từ quặng Monazite, chứa Thorium phosphate cùng các nguyên tố đất hiếm.",
+            "desc": "Quặng được xử lý bằng acid sulfuric hoặc kiềm để chuyển Thorium thành hợp chất có thể tách riêng. Sau khi tinh chế thành Thorium dioxide, hợp chất này được chuyển thành Thorium tetrafluoride rồi khử bằng Calcium để thu Thorium kim loại.",
+            "result": "",
+            "equations": [
+              {
+                "equation": "ThO₂ + 4HF → ThF₄ + 2H₂O",
+                "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+                "kind": "chemical",
+                "sourceLine": 60,
+                "sourceSection": "industry",
+                "balance": {
+                  "status": "balanced",
+                  "kind": "chemical",
+                  "delta": {}
+                },
+                "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+              },
+              {
+                "equation": "ThF₄ + 2Ca → Th + 2CaF₂",
+                "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+                "kind": "chemical",
+                "sourceLine": 61,
+                "sourceSection": "industry",
+                "balance": {
+                  "status": "balanced",
+                  "kind": "chemical",
+                  "delta": {}
+                },
+                "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+              }
+            ],
+            "sourceLines": [
+              57,
+              58,
+              60,
+              61
+            ],
+            "equation": "ThO₂ + 4HF → ThF₄ + 2H₂O"
+          }
+        ]
+      }
+    },
+    {
+      "field": "reactions",
+      "before": null,
+      "after": [
+        {
+          "type": "Tác dụng với Oxygen",
+          "desc": "",
+          "equation": "Th + O₂ → ThO₂",
+          "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+          "kind": "chemical",
+          "sourceLine": 76,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Hydrochloric acid",
+          "desc": "",
+          "equation": "Th + 4HCl → ThCl₄ + 2H₂",
+          "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+          "kind": "chemical",
+          "sourceLine": 78,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Thorium(IV) hydroxide",
+          "desc": "",
+          "equation": "ThCl₄ + 4NaOH → Th(OH)₄↓ + 4NaCl",
+          "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+          "kind": "chemical",
+          "sourceLine": 80,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Điều chế Thorium",
+          "desc": "",
+          "equation": "ThCl₄ + 2Ca → Th + 2CaCl₂",
+          "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+          "kind": "chemical",
+          "sourceLine": 82,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Trong lò phản ứng, quá trình tổng quát",
+          "desc": "",
+          "equation": "²³²Th + n → ²³³Th + γ",
+          "condition": "Chiếu neutron trong cơ sở nghiên cứu; bắt neutron và phát gamma nếu không có sản phẩm bay hơi.",
+          "kind": "nuclear",
+          "sourceLine": 85,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Sau đó",
+          "desc": "",
+          "equation": "²³³Th → ²³³Pa + β⁻ + ν̅ₑ",
+          "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+          "kind": "nuclear",
+          "sourceLine": 87,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Và",
+          "desc": "",
+          "equation": "²³³Pa → ²³³U + β⁻ + ν̅ₑ",
+          "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+          "kind": "nuclear",
+          "sourceLine": 89,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": null,
+      "after": [
+        {
+          "title": "Có thể nhận biết Thorium bằng",
+          "desc": "Phổ phóng xạ. Đo hoạt độ phóng xạ. Phổ alpha. Phân tích phổ khối. Các phản ứng hóa học đặc trưng của Th⁴⁺. Thorium được nhận biết trong tự nhiên chủ yếu thông qua đặc tính phóng xạ và phân tích thành phần khoáng vật.",
+          "result": "",
+          "equations": [],
+          "sourceLines": [
+            67,
+            68,
+            69,
+            70,
+            71,
+            72,
+            73
+          ],
+          "equation": ""
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "090_Th.docx",
+        "sourceSha256": "f582d9813e2054b89a90bd4b2e975d5fcfdbf52ca2768099e752ab4333d8db66",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/090_Th.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "090_Th.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "f582d9813e2054b89a90bd4b2e975d5fcfdbf52ca2768099e752ab4333d8db66"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/90/thorium"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure",
+      "before": null,
+      "after": {
+        "protons": 90,
+        "electrons": 90,
+        "neutrons": 140,
+        "nucleusIsotope": "²³⁰Th",
+        "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+        "nucleus": {
+          "proton": 90,
+          "neutron": 140
+        },
+        "electronShells": [
+          2,
+          8,
+          18,
+          32,
+          18,
+          10,
+          2
+        ],
+        "shells": [
+          2,
+          8,
+          18,
+          32,
+          18,
+          10,
+          2
+        ],
+        "valenceElectrons": 2,
+        "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+        "lattice": "Lập phương tâm diện (FCC)",
+        "latticeEvidence": "source-reviewed"
+      }
+    },
+    {
+      "field": "structureType",
+      "before": null,
+      "after": "Lập phương tâm diện (FCC)"
+    },
+    {
+      "field": "symbol",
+      "before": null,
+      "after": "Th"
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "Th",
+      "status": "diagram",
+      "reason": "Chưa xác nhận giấy phép dùng lại: FAL"
+    },
+    "mineral": {
+      "available": true,
+      "id": "thorite",
+      "name": "Thorite",
+      "formula": "ThSiO₄",
+      "habit": "bipyramid",
+      "color": "#8d6548",
+      "crystalSystem": "tetragonal",
+      "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Thorite",
+      "model": "/assets/periodic-table/minerals/thorite.glb",
+      "preview": "/assets/periodic-table/minerals/thorite.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "Th",
+      "z": 90,
+      "url": "https://periodic-table.rsc.org/element/90/thorium",
+      "status": "retrieved",
+      "bytes": 158246,
+      "sha256": "4da388e05683a98780bcb9a2bc9680298a83eda01d2a65e78f2ef08b3a73d5f1",
+      "facts": {
+        "Group": "Actinides",
+        "Melting point": "1750°C, 3182°F, 2023 K",
+        "Period": "7",
+        "Boiling point": "4785°C, 8645°F, 5058 K",
+        "Block": "f",
+        "Density (g cm−³)": "11.7",
+        "Atomic number": "90",
+        "Relative atomic mass": "232.038",
+        "State at 20°C": "Solid",
+        "Key isotopes": "²³⁰Th, ²³²Th",
+        "Electron configuration": "[Rn] 6d²7s²",
+        "CAS number": "7440-29-1",
+        "ChemSpider ID": "22399",
+        "electronegativity": "1.3"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "90",
+      "Symbol": "Th",
+      "Name": "Thorium",
+      "AtomicMass": "232.038",
+      "CPKHexColor": "00BAFF",
+      "ElectronConfiguration": "[Rn]7s2 6d2",
+      "Electronegativity": "1.3",
+      "AtomicRadius": "237",
+      "IonizationEnergy": "6.08",
+      "ElectronAffinity": "",
+      "OxidationStates": "+4",
+      "StandardState": "Solid",
+      "MeltingPoint": "2023",
+      "BoilingPoint": "5061",
+      "Density": "11.72",
+      "GroupBlock": "Actinide",
+      "YearDiscovered": "1828"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

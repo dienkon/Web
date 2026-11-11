@@ -1,0 +1,375 @@
+{
+  "number": 101,
+  "symbol": "Md",
+  "nameVi": "Mendelevium",
+  "nameEn": "Mendelevium",
+  "mass": 258,
+  "massStandardText": "[258] — số khối đồng vị tham chiếu, không phải nguyên tử khối chuẩn",
+  "massStandardSource": "https://periodic-table.rsc.org/element/101/mendelevium",
+  "massKind": "reference-isotope-mass-number",
+  "category": "actinide",
+  "hasData": true,
+  "file": "elements/101_Md.json",
+  "general": {
+    "latinName": "Mendelevium",
+    "englishName": "Mendelevium",
+    "electronConfig": "[Rn] 5f¹³ 7s²",
+    "isotope": "²⁵⁶Md, ²⁵⁷Md, ²⁵⁸Md, ²⁵⁹Md, ²⁶⁰Md",
+    "group": null,
+    "groupLabel": "Actinide",
+    "series": "Actinide",
+    "period": 7,
+    "state": "Chưa đo trạng thái vĩ mô; các giá trị pha chỉ là dự đoán",
+    "oxidation": "+2, +3",
+    "electronegativity": null,
+    "electronegativityNote": "Chưa có giá trị Pauling đủ cơ sở trong bản đối chiếu; không coi 0 là giá trị đã đo.",
+    "density": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+    "meltingPoint": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+    "boilingPoint": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+    "crystalStructure": "Chưa xác định do chỉ tạo được lượng nguyên tử cực nhỏ.",
+    "CAS": "7440-11-1"
+  },
+  "history": {
+    "discoverer": "Albert Ghiorso, Bernard G. Harvey, Gregory R. Choppin, Stanley G. Thompson và Glenn T. Seaborg",
+    "year": "1955",
+    "discoveryLocation": "Berkeley, California, Hoa Kỳ",
+    "description": "Mendelevium được tạo ra lần đầu tiên vào năm 1955 bằng cách bắn phá Einsteinium-253 bằng các hạt alpha trong cyclotron. Phản ứng: ²⁵³Es + ⁴He → ²⁵⁶Md + n Chỉ 17 nguyên tử Mendelevium được tạo ra trong thí nghiệm ban đầu. Tên Mendelevium được đặt để vinh danh Dmitri Mendeleev, nhà hóa học người Nga và là người xây dựng bảng tuần hoàn các nguyên tố."
+  },
+  "structure": {
+    "protons": 101,
+    "electrons": 101,
+    "neutrons": 157,
+    "nucleusIsotope": "²⁵⁸Md",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 101,
+      "neutron": 157
+    },
+    "electronShells": [
+      2,
+      8,
+      18,
+      32,
+      31,
+      8,
+      2
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      32,
+      31,
+      8,
+      2
+    ],
+    "valenceElectrons": 2,
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+    "lattice": "Chưa xác định do chỉ tạo được lượng nguyên tử cực nhỏ.",
+    "latticeEvidence": "predicted"
+  },
+  "structureType": "Chưa xác định do chỉ tạo được lượng nguyên tử cực nhỏ.",
+  "occurrence": {
+    "description": "Chất rắn (dự đoán)",
+    "simple": [
+      "Md"
+    ],
+    "compounds": [
+      "MdCl₂",
+      "MdCl₃ và một số hợp chất khác được nghiên cứu ở quy mô nguyên tử"
+    ],
+    "ores": [
+      "Không tồn tại tự nhiên",
+      "được tạo ra nhân tạo"
+    ],
+    "details": [
+      "Trạng thái: Chất rắn (dự đoán)",
+      "Màu sắc: Bạc trắng (dự đoán)",
+      "Có trong: Không tồn tại tự nhiên; được tạo ra nhân tạo.",
+      "Đơn chất: Md",
+      "Hợp chất: MdCl₂, MdCl₃ và một số hợp chất khác được nghiên cứu ở quy mô nguyên tử."
+    ],
+    "mineral": {
+      "available": false,
+      "reason": "Nguyên tố nhân tạo hoặc chỉ có vết tự nhiên; không có quặng khai thác riêng để dựng mẫu."
+    }
+  },
+  "naturalState": {
+    "image": "/assets/periodic-table/diagrams/101_Md.svg",
+    "alt": "Mendelevium: sơ đồ minh họa nguyên tố",
+    "kind": "diagram",
+    "source": "",
+    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+    "credit": ""
+  },
+  "isotopes": [
+    {
+      "isotope": "²⁵⁶Md",
+      "massNumber": 256,
+      "protons": 101,
+      "neutrons": 155,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "77.7 ± 1.8 phút",
+      "halfLife": "77.7 m",
+      "halfLifeUncertainty": "18",
+      "halfLifeQualifier": null,
+      "decay": "EC",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁵⁷Md",
+      "massNumber": 257,
+      "protons": 101,
+      "neutrons": 156,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "5.52 ± 0.05 h",
+      "halfLife": "5.52 h",
+      "halfLifeUncertainty": "5",
+      "halfLifeQualifier": null,
+      "decay": "EC",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁵⁸Md",
+      "massNumber": 258,
+      "protons": 101,
+      "neutrons": 157,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "51.50 ± 0.29 d",
+      "halfLife": "51.50 d",
+      "halfLifeUncertainty": "29",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁵⁹Md",
+      "massNumber": 259,
+      "protons": 101,
+      "neutrons": 158,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "1.60 ± 0.06 h",
+      "halfLife": "1.60 h",
+      "halfLifeUncertainty": "6",
+      "halfLifeQualifier": null,
+      "decay": "SF",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁶⁰Md",
+      "massNumber": 260,
+      "protons": 101,
+      "neutrons": 159,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "31.8 ± 0.5 d",
+      "halfLife": "31.8 d",
+      "halfLifeUncertainty": "5",
+      "halfLifeQualifier": null,
+      "decay": "SF",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Là nguyên tố phóng xạ nhân tạo.</li><li>Thuộc họ Actinide.</li><li>Các tính chất vật lý vĩ mô chưa thể đo trực tiếp đầy đủ.</li><li>Được dự đoán là kim loại.</li><li>Có thể có màu bạc trắng.</li><li>Có tính phóng xạ rất mạnh.</li><li>Chỉ có thể tạo ra một lượng cực kỳ nhỏ.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Mendelevium có hai trạng thái Oxy hóa chính:</li><li>+2</li><li>+3</li><li>Trong đó +3 là trạng thái phổ biến hơn, tương tự nhiều Actinide.</li><li>Một đặc điểm đáng chú ý là Md²⁺ tương đối bền, do cấu hình electron của nó gần với trạng thái 5f¹³.</li><li>Mendelevium có thể tạo các hợp chất như:</li><li>MdCl₂</li><li>Và</li><li>MdCl₃</li></ul>",
+  "reactions": [
+    {
+      "type": "Điều chế Mendelevium-256",
+      "desc": "",
+      "equation": "²⁵³Es + ⁴He → ²⁵⁶Md + n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 80,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Phân rã Alpha của Mendelevium-256",
+      "desc": "",
+      "equation": "²⁵⁶Md → ²⁵²Es + α",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 82,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tạo ion Mendelevium(II)",
+      "desc": "",
+      "equation": "Md → Md²⁺ + 2e⁻",
+      "condition": "Kích thích, ion hóa hoặc kết hợp bức xạ trong pha khí; cần cung cấp/trao đổi năng lượng.",
+      "kind": "physical",
+      "sourceLine": 84,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tạo ion Mendelevium(III)",
+      "desc": "",
+      "equation": "Md → Md³⁺ + 3e⁻",
+      "condition": "Kích thích, ion hóa hoặc kết hợp bức xạ trong pha khí; cần cung cấp/trao đổi năng lượng.",
+      "kind": "physical",
+      "sourceLine": 86,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "preparations": {
+    "lab": [
+      {
+        "title": "Mendelevium được tổng hợp bằng cách bắn phá Einsteinium-253 bằng hạt Helium-4 (hạt alpha) trong máy gia tốc hạt.",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "²⁵³Es + ⁴He → ²⁵⁶Md + ¹n",
+            "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+            "kind": "nuclear",
+            "sourceLine": 69,
+            "sourceSection": "lab",
+            "balance": {
+              "status": "balanced",
+              "kind": "nuclear",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          68,
+          69
+        ],
+        "equation": "²⁵³Es + ⁴He → ²⁵⁶Md + ¹n"
+      }
+    ],
+    "industry": [
+      {
+        "title": "Mendelevium (Md) được điều chế bằng cách chiếu xạ các nguyên tố Actinide trong lò phản ứng hạt nhân, sau đó tách sản phẩm bằng phương pháp hóa học.",
+        "desc": "",
+        "result": "",
+        "equations": [],
+        "sourceLines": [
+          66
+        ],
+        "equation": ""
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Có thể nhận biết Mendelevium bằng",
+      "desc": "Phổ alpha. Phân tích chuỗi phân rã. Phổ gamma của sản phẩm phân rã. Phân tích đồng vị bằng phương pháp phổ khối. Các phương pháp hóa phóng xạ ở quy mô nguyên tử. Do số lượng nguyên tử được tạo ra cực kỳ nhỏ, việc nhận biết dựa chủ yếu vào đặc tính phân rã phóng xạ.",
+      "result": "",
+      "equations": [],
+      "sourceLines": [
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77
+      ],
+      "equation": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Nghiên cứu hạt nhân",
+      "desc": "Mendelevium được sử dụng gần như hoàn toàn trong nghiên cứu vật lý hạt nhân và hóa học Actinide.",
+      "sourceLine": 88
+    },
+    {
+      "title": "Nghiên cứu cấu trúc electron",
+      "desc": "Mendelevium giúp các nhà khoa học nghiên cứu sự thay đổi tính chất hóa học của các nguyên tố Actinide nặng.",
+      "sourceLine": 89
+    },
+    {
+      "title": "Nghiên cứu nguyên tố siêu nặng",
+      "desc": "Các đồng vị Mendelevium có thể đóng vai trò trong việc nghiên cứu các phản ứng hạt nhân tạo ra những hạt nhân nặng hơn.",
+      "sourceLine": 90
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Do chỉ tạo được từng lượng nguyên tử rất nhỏ và có tính phóng xạ cao, Mendelevium không có ứng dụng công nghiệp hoặc đời sống thông thường.",
+      "sourceLine": 91
+    }
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Mendelevium là nguyên tố số 101, thuộc nhóm IIIB | chu kỳ 7 và là nguyên tố thứ mười ba trong họ Actinide.</li><li>Mendelevium được Albert Ghiorso, Bernard G. Harvey, Gregory R. Choppin, Stanley G. Thompson và Glenn T. Seaborg phát hiện vào năm 1955 tại Berkeley, Hoa Kỳ.</li><li>Đây là nguyên tố đầu tiên được tạo ra với số nguyên tử lớn hơn 100 bằng cách bắn phá một nguyên tố Actinide khác. Tên Mendelevium được đặt để vinh danh Dmitri Mendeleev, người đặt nền móng cho bảng tuần hoàn hiện đại.</li><li>Mendelevium là nguyên tố phóng xạ nhân tạo, không có đồng vị bền. Hai trạng thái Oxy hóa quan trọng nhất là +2 và +3. Đặc biệt, Md²⁺ có độ ổn định tương đối cao so với nhiều Actinide khác.</li><li>Do chỉ tạo ra được lượng cực nhỏ, Mendelevium chủ yếu có giá trị trong nghiên cứu khoa học, đặc biệt là nghiên cứu cấu trúc nguyên tử, hóa học Actinide và vật lý hạt nhân.</li><li>Mạng tinh thể: Chưa xác định thực nghiệm do không thể tạo ra lượng đủ lớn để nghiên cứu cấu trúc vật liệu.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/diagrams/101_Md.svg",
+      "title": "Mendelevium (Md)",
+      "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+      "source": "",
+      "author": "ChemDex",
+      "license": "ChemDex schematic diagram",
+      "licenseUrl": ""
+    }
+  ],
+  "mediaBlocks": [],
+  "sources": [
+    {
+      "title": "101_Md.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "2dd1c11665c0bf41446506c1b3531855e2ac3894218ff714e3cf6fe3d0c107bb"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/101/mendelevium"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "101_Md.docx",
+    "sourceSha256": "2dd1c11665c0bf41446506c1b3531855e2ac3894218ff714e3cf6fe3d0c107bb",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/101_Md.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
+}

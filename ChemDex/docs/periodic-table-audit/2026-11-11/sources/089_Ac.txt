@@ -1,0 +1,94 @@
+001: Actinium (Ac)
+002: Thông tin chung
+003: Tên Latin: Actinium
+004: Tên Tiếng Anh: Actinium
+005: Đồng vị: ²²⁵Ac, ²²⁶Ac, ²²⁷Ac
+006: Vị trí: Nhóm IIIB | Chu kỳ 7 | Họ Actinide
+007: Số Oxy hóa: +3
+008: Độ âm điện: 1,1 (Pauling)
+009: Lịch sử khám phá
+010: Phát hiện bởi: Friedrich Oskar Giesel
+011: Năm công bố: 1899
+012: Nơi khám phá: Braunschweig, Đức
+013: Mô tả: Năm 1899, Friedrich Oskar Giesel phát hiện một chất phóng xạ mới trong Pitchblende và đặt tên là Emanium.
+014: Tuy nhiên, trước đó vào năm 1899, nhà hóa học người Pháp André-Louis Debierne đã phát hiện một nguyên tố phóng xạ mới trong các sản phẩm của Pitchblende và đặt tên là Actinium. Phát hiện của Debierne được công nhận là phát hiện chính thức của nguyên tố.
+015: Tên Actinium bắt nguồn từ tiếng Hy Lạp aktis/aktinos, nghĩa là “tia sáng”, do tính phóng xạ mạnh của nguyên tố.
+016: 3. Cấu tạo
+017: a. Cấu tạo nguyên tử
+018: Cấu hình electron: [Rn] 6d¹ 7s²
+019: Mô hình mạng tinh thể: Lập phương tâm diện (Face-centered cubic, FCC)
+020: Số hiệu nguyên tử: 89
+021: Nguyên tử khối: 227,0278 g/mol (giá trị quy ước cho đồng vị ²²⁷Ac)
+022: Vỏ nguyên tử: 89 electron
+023: Hạt nhân: 89 proton
+024: Cấu hình e đầy đủ: [Rn] 6d¹ 7s²
+025: Loại mạng: Lập phương tâm diện (FCC)
+026: b. Trạng thái tự nhiên
+027: Trạng thái: Chất rắn
+028: Màu sắc: Trắng bạc
+029: Có trong: Các quặng Uranium như Uraninite/Pitchblende, với lượng cực nhỏ.
+030: Đơn chất: Ac
+031: Hợp chất phổ biến: Ac₂O₃, AcCl₃, Ac(OH)₃
+032: c. Đồng vị
+033: Actinium không có đồng vị bền.
+034: Các đồng vị quan trọng:
+035: ²²⁷Ac: chu kỳ bán rã khoảng 21,77 năm, là đồng vị Actinium tự nhiên quan trọng nhất.
+036: ²²⁵Ac: chu kỳ bán rã khoảng 9,92 ngày, là đồng vị đặc biệt quan trọng trong nghiên cứu và y học hạt nhân.
+037: ²²⁷Ac là sản phẩm trung gian trong chuỗi phân rã của ²³⁵U.
+038: Tính chất
+039: Tính chất vật lý
+040: Là kim loại phóng xạ.
+041: Thuộc họ Actinide.
+042: Có màu trắng bạc.
+043: Rất hiếm trong tự nhiên.
+044: Có tính phóng xạ mạnh.
+045: Có nhiệt độ nóng chảy khoảng 1050 °C.
+046: Có nhiệt độ sôi khoảng 3200 °C (giá trị ước tính).
+047: Khối lượng riêng khoảng 10,1 g/cm³.
+048: Tính chất hóa học
+049: Trạng thái Oxy hóa phổ biến nhất là +3.
+050: Ion Ac³⁺ có tính chất hóa học tương tự một số Lanthanide, đặc biệt là Lanthanum.
+051: Actinium phản ứng với Oxygen tạo Actinium oxide:
+052: 4Ac + 3O₂ → 2Ac₂O₃
+053: Phản ứng với Acid tạo muối Actinium(III).
+054: Do tính phóng xạ và độ hiếm cao, các tính chất hóa học của Actinium kim loại khó được nghiên cứu trực tiếp.
+055: Điều chế
+056: Điều chế trong công nghiệp
+057: Actinium (Ac) chủ yếu được điều chế nhân tạo trong các lò phản ứng hạt nhân. Một phương pháp là chiếu neutron vào Radium-226 để tạo Radium-227, sau đó Radium-227 phân rã beta thành Actinium-227.
+058: Phương trình hạt nhân:
+059: ²²⁶Ra + ¹n → ²²⁷Ra
+060: ²²⁷Ra → ²²⁷Ac + β⁻
+061: Actinium cũng tồn tại với lượng vết trong quặng Uranium do quá trình phân rã phóng xạ tự nhiên.
+062: Điều chế trong phòng thí nghiệm
+063: Actinium có thể được tạo ra trong các cơ sở nghiên cứu hạt nhân bằng phản ứng chiếu neutron nói trên. Ngoài ra, nó có thể được tách hóa học từ vật liệu chứa Actinium trong nghiên cứu chuyên dụng. Không có phương pháp điều chế hóa học thông thường để tổng hợp nguyên tố này.
+064: Nhận biết
+065: Có thể nhận biết Actinium bằng:
+066: Phổ phóng xạ.
+067: Đo hoạt độ phóng xạ.
+068: Phân tích phổ alpha.
+069: Phương pháp phổ khối.
+070: Xác định chuỗi phân rã đặc trưng.
+071: Trong thực tế, Actinium được nhận biết chủ yếu dựa trên đặc tính phóng xạ và sản phẩm phân rã, thay vì các phản ứng hóa học thông thường.
+072: Phương trình
+073: Phản ứng với Oxygen
+074: 4Ac + 3O₂ → 2Ac₂O₃
+075: Tác dụng với Hydrochloric acid
+076: 2Ac + 6HCl → 2AcCl₃ + 3H₂
+077: Tạo Actinium(III) hydroxide
+078: AcCl₃ + 3NaOH → Ac(OH)₃↓ + 3NaCl
+079: Phân rã Alpha của Actinium-225
+080: ²²⁵Ac → ²²¹Fr + α
+081: Phân rã Alpha của Actinium-227
+082: ²²⁷Ac → ²²³Fr + α
+083: Ứng dụng thực tế
+084: Y học hạt nhân: ²²⁵Ac là ứng viên quan trọng cho liệu pháp alpha nhắm trúng đích (Targeted Alpha Therapy – TAT).
+085: ²²⁵Ac phát ra các hạt alpha có năng lượng cao và quãng đường tác động rất ngắn trong mô. Khi được gắn với một phân tử có khả năng nhận diện mục tiêu, nó có thể đưa bức xạ đến các tế bào cần điều trị.
+086: Nghiên cứu ung thư: ²²⁵Ac được nghiên cứu rộng rãi cho các phương pháp điều trị ung thư bằng dược chất phóng xạ.
+087: Nguồn neutron: Một số nguồn neutron trong nghiên cứu sử dụng Actinium hoặc các sản phẩm phân rã của nó, nhưng đây là ứng dụng chuyên dụng.
+088: Nghiên cứu hạt nhân: Actinium được sử dụng để nghiên cứu chuỗi phân rã phóng xạ và cấu trúc hạt nhân.
+089: Tổng quan
+090: Actinium là nguyên tố số 89, thuộc nhóm IIIB | chu kỳ 7 và là nguyên tố đầu tiên của họ Actinide.
+091: Actinium được André-Louis Debierne phát hiện vào năm 1899 trong các sản phẩm từ Pitchblende. Tên Actinium bắt nguồn từ tiếng Hy Lạp aktinos, nghĩa là “tia sáng”, ám chỉ tính phóng xạ của nguyên tố.
+092: Actinium là một kim loại phóng xạ cực hiếm, không có đồng vị bền. Đồng vị tự nhiên quan trọng nhất là ²²⁷Ac, trong khi ²²⁵Ac có ý nghĩa đặc biệt trong y học hạt nhân.
+093: Đáng chú ý nhất là ²²⁵Ac, một nguồn phát hạt alpha được nghiên cứu và phát triển cho liệu pháp alpha nhắm trúng đích, trong đó bức xạ được đưa đến các tế bào mục tiêu thông qua các phân tử mang thuốc phóng xạ.
+094: Mạng tinh thể: Lập phương tâm diện (FCC) ở điều kiện thường.

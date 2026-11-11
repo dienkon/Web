@@ -1,37 +1,50 @@
 {
   "number": 8,
   "symbol": "O",
-  "nameVi": "Oxygen",
+  "nameVi": "Oxi",
   "nameEn": "Oxygen",
   "mass": 15.999,
+  "massStandardText": "15.999 ± 0.001",
+  "massStandardSource": "https://ciaaw.org/abridged-atomic-weights.htm",
+  "massKind": "standard-atomic-weight",
   "category": "phi-kim",
   "hasData": true,
   "file": "elements/008_O.json",
   "general": {
     "latinName": "Oxygenium",
     "englishName": "Oxygen",
-    "electronConfig": "1s² 2s² 2p⁴",
+    "electronConfig": "[He] 2s² 2p⁴",
     "isotope": "¹⁶O, ¹⁷O, ¹⁸O",
     "group": 16,
+    "groupLabel": "16",
+    "series": "",
     "period": 2,
-    "state": "",
+    "state": "Khí",
     "oxidation": "−2, −1, 0, +1, +2",
     "electronegativity": 3.44,
+    "electronegativityNote": "Thang Pauling; số liệu tổng hợp PubChem.",
     "density": "khoảng 1.429 g/L ở 0 °C và 1 atm.",
     "meltingPoint": "−218.79 °C.",
     "boilingPoint": "−182.95 °C.",
-    "crystalStructure": "Đơn tà (monoclinic) ở pha α-O2; Tam tà (triclinic) ở pha β-O2; Lập phương đơn giản (SC) ở pha γ-O2"
+    "crystalStructure": "O₂ là khí ở điều kiện thường. O₂ rắn có pha α đơn tà, pha β mặt thoi và pha γ lập phương, tùy nhiệt độ.",
+    "CAS": "7782-44-7"
   },
   "history": {
     "discoverer": "Joseph Priestley và Carl Wilhelm Scheele",
-    "year": 1774,
+    "year": "1774",
     "discoveryLocation": "Anh và Thụy Điển",
     "description": "Năm 1774, Joseph Priestley điều chế được Oxygen bằng cách nung Mercury(II) oxide và công bố kết quả. Carl Wilhelm Scheele cũng điều chế được Oxygen độc lập trước đó, khoảng năm 1772, nhưng công trình của ông được công bố sau. Antoine Lavoisier sau đó xác định vai trò của Oxygen trong sự cháy và hô hấp, đồng thời đặt tên Oxygen."
   },
   "structure": {
     "protons": 8,
-    "neutrons": 8,
     "electrons": 8,
+    "neutrons": 8,
+    "nucleusIsotope": "¹⁶O",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 8,
+      "neutron": 8
+    },
     "electronShells": [
       2,
       6
@@ -41,12 +54,11 @@
       6
     ],
     "valenceElectrons": 6,
-    "lattice": "Đơn tà (monoclinic) ở pha α-O2; Tam tà (triclinic) ở pha β-O2; Lập phương đơn giản (SC) ở pha γ-O2",
-    "nucleus": {
-      "proton": 8,
-      "neutron": 8
-    }
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+    "lattice": "O₂ là khí ở điều kiện thường. O₂ rắn có pha α đơn tà, pha β mặt thoi và pha γ lập phương, tùy nhiệt độ.",
+    "latticeEvidence": "phase-dependent"
   },
+  "structureType": "O₂ là khí ở điều kiện thường. O₂ rắn có pha α đơn tà, pha β mặt thoi và pha γ lập phương, tùy nhiệt độ.",
   "occurrence": {
     "description": "Oxygen là nguyên tố phổ biến trong vũ trụ và là nguyên tố phổ biến nhất theo khối lượng trong lớp vỏ Trái Đất. Trong khí quyển, Oxygen chủ yếu tồn tại dưới dạng O₂.",
     "simple": [
@@ -62,147 +74,406 @@
       "H₂SO₄",
       "CaCO₃"
     ],
-    "ores": []
+    "ores": [],
+    "details": [
+      "Trạng thái: Oxygen là nguyên tố phổ biến trong vũ trụ và là nguyên tố phổ biến nhất theo khối lượng trong lớp vỏ Trái Đất. Trong khí quyển, Oxygen chủ yếu tồn tại dưới dạng O₂.",
+      "Đơn chất: O₂, O₃",
+      "Hợp chất: H₂O, CO₂, SiO₂, Fe₂O₃, Al₂O₃, H₂SO₄, CaCO₃..."
+    ],
+    "mineral": {
+      "available": false,
+      "reason": "Nguồn chủ yếu là khí quyển, nước hoặc nước muối; không có mẫu quặng riêng đại diện."
+    }
   },
   "naturalState": {
-    "description": "Oxygen là nguyên tố phổ biến trong vũ trụ và là nguyên tố phổ biến nhất theo khối lượng trong lớp vỏ Trái Đất. Trong khí quyển, Oxygen chủ yếu tồn tại dưới dạng O₂.",
-    "simple": [
-      "O₂",
-      "O₃"
-    ],
-    "compounds": [
-      "H₂O",
-      "CO₂",
-      "SiO₂",
-      "Fe₂O₃",
-      "Al₂O₃",
-      "H₂SO₄",
-      "CaCO₃"
-    ],
-    "minerals": [
-      "Vỏ Trái Đất",
-      "Khí quyển",
-      "Nước"
-    ]
+    "image": "/assets/periodic-table/photos/008_O.jpg",
+    "alt": "Oxygen: ảnh tham chiếu từ Commons",
+    "kind": "photo",
+    "source": "https://commons.wikimedia.org/wiki/File:Liquid_oxygen_in_a_beaker_(cropped_and_retouched).jpg",
+    "caption": "Oxygen lỏng màu xanh nhạt; không phải trạng thái ở nhiệt độ phòng.",
+    "credit": "Staff Sgt. Nika Glover, U.S. Air Force · Public domain"
   },
-  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Chất khí không màu, không mùi, không vị.</li>\n      <li>Chiếm khoảng 20.95% thể tích khí quyển.</li>\n      <li>Khối lượng mol của O₂: 31.998 g/mol.</li>\n      <li>Khối lượng riêng: khoảng 1.429 g/L ở 0 °C và 1 atm.</li>\n      <li>Ít tan trong nước.</li>\n      <li>Nhiệt độ nóng chảy: −218.79 °C.</li>\n      <li>Nhiệt độ sôi: −182.95 °C.</li>\n      <li>Oxygen lỏng có màu xanh lam nhạt.</li>\n      <li>Có tính thuận từ.</li>\n      <li>Không cháy nhưng duy trì sự cháy mạnh.</li>\n    </ul>\n  ",
-  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là phi kim có độ âm điện cao.</li>\n      <li>Có tính Oxy hóa mạnh.</li>\n      <li>Dễ phản ứng với nhiều kim loại tạo oxide.</li>\n      <li>Phản ứng với nhiều phi kim tạo oxide.</li>\n      <li>Phản ứng với Hydrogen tạo nước.</li>\n      <li>Duy trì quá trình cháy.</li>\n      <li>Tham gia quá trình hô hấp hiếu khí.</li>\n      <li>Có thể tạo peroxide và các hợp chất Oxygen khác.</li>\n      <li>Có thể mang số Oxy hóa dương khi phản ứng với Fluorine.</li>\n    </ul>\n  ",
+  "isotopes": [
+    {
+      "isotope": "¹⁶O",
+      "massNumber": 16,
+      "protons": 8,
+      "neutrons": 8,
+      "stable": true,
+      "abundancePercent": "99.757",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹⁷O",
+      "massNumber": 17,
+      "protons": 8,
+      "neutrons": 9,
+      "stable": true,
+      "abundancePercent": "0.03835",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹⁸O",
+      "massNumber": 18,
+      "protons": 8,
+      "neutrons": 10,
+      "stable": true,
+      "abundancePercent": "0.2045",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Chất khí không màu, không mùi, không vị.</li><li>Chiếm khoảng 20.95% thể tích khí quyển.</li><li>Khối lượng mol của O₂: 31.998 g/mol.</li><li>Khối lượng riêng: khoảng 1.429 g/L ở 0 °C và 1 atm.</li><li>Ít tan trong nước.</li><li>Nhiệt độ nóng chảy: −218.79 °C.</li><li>Nhiệt độ sôi: −182.95 °C.</li><li>Oxygen lỏng có màu xanh lam nhạt.</li><li>Có tính thuận từ.</li><li>Không cháy nhưng duy trì sự cháy mạnh.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Là phi kim có độ âm điện cao.</li><li>Có tính Oxy hóa mạnh.</li><li>Dễ phản ứng với nhiều kim loại tạo oxide.</li><li>Phản ứng với nhiều phi kim tạo oxide.</li><li>Phản ứng với Hydrogen tạo nước.</li><li>Duy trì quá trình cháy.</li><li>Tham gia quá trình hô hấp hiếu khí.</li><li>Có thể tạo peroxide và các hợp chất Oxygen khác.</li><li>Có thể mang số Oxy hóa dương khi phản ứng với Fluorine.</li></ul>",
   "reactions": [
     {
       "type": "Tác dụng với Magnesium",
-      "equation": "2Mg + O2 → 2MgO",
-      "desc": ""
+      "desc": "",
+      "equation": "2Mg + O₂ → 2MgO",
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 73,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Hydrogen",
-      "equation": "2H2 + O2 → 2H2O",
-      "desc": ""
+      "desc": "",
+      "equation": "2H₂ + O₂ → 2H₂O",
+      "condition": "Khơi mào bằng nhiệt hoặc tia lửa; phản ứng cháy tỏa nhiệt.",
+      "kind": "chemical",
+      "sourceLine": 75,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Carbon",
-      "equation": "C + O2 → CO2",
-      "desc": ""
+      "desc": "",
+      "equation": "C + O₂ → CO₂",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 77,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Iron",
-      "equation": "3Fe + 2O2 → Fe3O4",
-      "desc": ""
+      "desc": "",
+      "equation": "3Fe + 2O₂ → Fe₃O₄",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 79,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Sulfur",
-      "equation": "S + O2 → SO2",
-      "desc": ""
+      "desc": "",
+      "equation": "S + O₂ → SO₂",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 81,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Oxi hóa Carbon monoxide",
-      "equation": "2CO + O2 → 2CO2",
-      "desc": ""
+      "desc": "",
+      "equation": "2CO + O₂ → 2CO₂",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 83,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Oxi hóa Sulfur dioxide",
-      "equation": "2SO2 + O2 ⇌ 2SO3",
-      "desc": ""
+      "desc": "",
+      "equation": "2SO₂ + O₂ ⇌ 2SO₃",
+      "condition": "Xúc tác V₂O₅, khoảng 400–450 °C; phản ứng thuận nghịch.",
+      "kind": "chemical",
+      "sourceLine": 85,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm.",
+      "sourceCondition": "Xúc tác: Vanadium(V) oxide."
     },
     {
       "type": "Phân hủy Hydrogen peroxide",
-      "equation": "2H2O2 → 2H2O + O2",
-      "desc": ""
+      "desc": "",
+      "equation": "2H₂O₂ → 2H₂O + O₂",
+      "condition": "MnO₂ xúc tác; tốc độ phụ thuộc nồng độ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 88,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm.",
+      "sourceCondition": "Xúc tác: Manganese(IV) oxide."
     },
     {
-      "type": "Tác dụng với Fluorine",
-      "equation": "O2 + 2F2 → 2OF2",
-      "desc": ""
+      "type": "Điều chế oxygen difluoride",
+      "desc": "",
+      "equation": "2F₂ + 2NaOH → OF₂ + 2NaF + H₂O",
+      "condition": "F₂ tác dụng với dung dịch NaOH loãng; có thể đồng thời tạo O₂.",
+      "kind": "chemical",
+      "sourceLine": 91,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     }
   ],
-  "applications": [
-    {
-      "title": "Y tế",
-      "desc": "Cung cấp Oxygen cho bệnh nhân cần hỗ trợ hô hấp."
-    },
-    {
-      "title": "Luyện kim",
-      "desc": "Tăng hiệu quả luyện và tinh chế kim loại, đặc biệt trong sản xuất thép."
-    },
-    {
-      "title": "Hàn và cắt kim loại",
-      "desc": "Kết hợp với các nhiên liệu khí để tạo ngọn lửa nhiệt độ cao."
-    },
-    {
-      "title": "Công nghiệp hóa chất",
-      "desc": "Sử dụng trong nhiều quá trình Oxy hóa và sản xuất hóa chất."
-    },
-    {
-      "title": "Hàng không vũ trụ",
-      "desc": "Oxygen lỏng (LOX) được sử dụng làm chất Oxy hóa trong động cơ tên lửa."
-    },
-    {
-      "title": "Xử lý nước",
-      "desc": "Tăng Oxygen hòa tan và hỗ trợ các quá trình xử lý sinh học."
-    },
-    {
-      "title": "Nuôi trồng thủy sản",
-      "desc": "Bổ sung Oxygen cho môi trường nước."
-    },
-    {
-      "title": "Công nghiệp thủy tinh và xi măng",
-      "desc": "Hỗ trợ quá trình đốt và tăng hiệu suất sản xuất."
-    }
-  ],
-  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Oxygen là nguyên tố số 8 trong bảng tuần hoàn, thuộc nhóm VIA | chu kỳ 2.</li>\n  <li>Ở điều kiện thường, Oxygen tồn tại chủ yếu dưới dạng phân tử O₂. Đây là thành phần chiếm khoảng 20.95% thể tích khí quyển và có mặt trong nước, khoáng vật cũng như rất nhiều hợp chất hữu cơ.</li>\n  <li>Oxygen có độ âm điện cao và tính Oxy hóa mạnh, đóng vai trò quan trọng trong sự cháy, hô hấp, Oxy hóa và nhiều quá trình hóa học tự nhiên.</li>\n  <li>Oxygen được ứng dụng rộng rãi trong y tế, luyện kim, công nghiệp hóa chất, hàn cắt, xử lý nước và công nghệ hàng không vũ trụ.</li>\n</ul>\n",
   "preparations": {
     "lab": [
       {
-        "title": "Phân hủy Hydrogen peroxide:",
-        "equation": "2H2O2 → 2H2O + O2 <br> 2KClO3 → 2KCl + 3O2 <br> 2KMnO4 → K2MnO4 + MnO2 + O2",
-        "desc": "Nhiệt phân Potassium chlorate: Nhiệt phân Potassium permanganate:"
+        "title": "Phân hủy Hydrogen peroxide",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "2H₂O₂ → 2H₂O + O₂",
+            "condition": "MnO₂ xúc tác; tốc độ phụ thuộc nồng độ và nhiệt độ.",
+            "kind": "chemical",
+            "sourceLine": 63,
+            "sourceSection": "lab",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          62,
+          63
+        ],
+        "equation": "2H₂O₂ → 2H₂O + O₂"
+      },
+      {
+        "title": "Nhiệt phân Potassium chlorate",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "2KClO₃ → 2KCl + 3O₂",
+            "condition": "Gia nhiệt để phân hủy; nhiệt độ phụ thuộc chất và áp suất khí sản phẩm.",
+            "kind": "chemical",
+            "sourceLine": 65,
+            "sourceSection": "lab",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          64,
+          65
+        ],
+        "equation": "2KClO₃ → 2KCl + 3O₂"
+      },
+      {
+        "title": "Nhiệt phân Potassium permanganate",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "2KMnO₄ → K₂MnO₄ + MnO₂ + O₂",
+            "condition": "Gia nhiệt để phân hủy; nhiệt độ phụ thuộc chất và áp suất khí sản phẩm.",
+            "kind": "chemical",
+            "sourceLine": 67,
+            "sourceSection": "lab",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          66,
+          67
+        ],
+        "equation": "2KMnO₄ → K₂MnO₄ + MnO₂ + O₂"
       }
     ],
     "industry": [
       {
         "title": "Chưng cất phân đoạn không khí lỏng: Không khí được làm sạch, nén và làm lạnh để hóa lỏng. Oxygen sau đó được tách khỏi Nitrogen và các thành phần khác dựa trên sự khác nhau về nhiệt độ sôi.",
-        "equation": "",
-        "desc": ""
-      },
-      {
-        "title": "Pressure Swing Adsorption (PSA): Sử dụng vật liệu hấp phụ để tách Nitrogen khỏi không khí, thu được khí giàu Oxygen.",
-        "equation": "",
-        "desc": ""
+        "desc": "Pressure Swing Adsorption (PSA): Sử dụng vật liệu hấp phụ để tách Nitrogen khỏi không khí, thu được khí giàu Oxygen.",
+        "result": "",
+        "equations": [],
+        "sourceLines": [
+          59,
+          60
+        ],
+        "equation": ""
       }
     ]
   },
   "recognition": [
     {
-      "title": "Que đóm còn tàn đỏ",
-      "reagent": "",
-      "result": "Oxygen làm que đóm còn tàn đỏ bùng cháy trở lại.",
-      "equation": ""
-    },
-    {
-      "title": "Đặc điểm",
-      "reagent": "",
-      "result": "Oxygen không cháy nhưng duy trì sự cháy.",
+      "title": "Que đóm còn tàn đỏ: Oxygen làm que đóm còn tàn đỏ bùng cháy trở lại.",
+      "desc": "Đặc điểm: Oxygen không cháy nhưng duy trì sự cháy.",
+      "result": "",
+      "equations": [],
+      "sourceLines": [
+        69,
+        70
+      ],
       "equation": ""
     }
   ],
-  "structureType": "Đơn tà (monoclinic) ở pha α-O2; Tam tà (triclinic) ở pha β-O2; Lập phương đơn giản (SC) ở pha γ-O2"
+  "applications": [
+    {
+      "title": "Y tế",
+      "desc": "Cung cấp Oxygen cho bệnh nhân cần hỗ trợ hô hấp.",
+      "sourceLine": 93
+    },
+    {
+      "title": "Luyện kim",
+      "desc": "Tăng hiệu quả luyện và tinh chế kim loại, đặc biệt trong sản xuất thép.",
+      "sourceLine": 94
+    },
+    {
+      "title": "Hàn và cắt kim loại",
+      "desc": "Kết hợp với các nhiên liệu khí để tạo ngọn lửa nhiệt độ cao.",
+      "sourceLine": 95
+    },
+    {
+      "title": "Công nghiệp hóa chất",
+      "desc": "Sử dụng trong nhiều quá trình Oxy hóa và sản xuất hóa chất.",
+      "sourceLine": 96
+    },
+    {
+      "title": "Hàng không vũ trụ",
+      "desc": "Oxygen lỏng (LOX) được sử dụng làm chất Oxy hóa trong động cơ tên lửa.",
+      "sourceLine": 97
+    },
+    {
+      "title": "Xử lý nước",
+      "desc": "Tăng Oxygen hòa tan và hỗ trợ các quá trình xử lý sinh học.",
+      "sourceLine": 98
+    },
+    {
+      "title": "Nuôi trồng thủy sản",
+      "desc": "Bổ sung Oxygen cho môi trường nước.",
+      "sourceLine": 99
+    },
+    {
+      "title": "Công nghiệp thủy tinh và xi măng",
+      "desc": "Hỗ trợ quá trình đốt và tăng hiệu suất sản xuất.",
+      "sourceLine": 100
+    }
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Oxygen là nguyên tố số 8 trong bảng tuần hoàn, thuộc nhóm VIA | chu kỳ 2.</li><li>Ở điều kiện thường, Oxygen tồn tại chủ yếu dưới dạng phân tử O₂. Đây là thành phần chiếm khoảng 20.95% thể tích khí quyển và có mặt trong nước, khoáng vật cũng như rất nhiều hợp chất hữu cơ.</li><li>Oxygen có độ âm điện cao và tính Oxy hóa mạnh, đóng vai trò quan trọng trong sự cháy, hô hấp, Oxy hóa và nhiều quá trình hóa học tự nhiên.</li><li>Oxygen được ứng dụng rộng rãi trong y tế, luyện kim, công nghiệp hóa chất, hàn cắt, xử lý nước và công nghệ hàng không vũ trụ.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/photos/008_O.jpg",
+      "title": "Oxi (O)",
+      "desc": "Oxygen lỏng màu xanh nhạt; không phải trạng thái ở nhiệt độ phòng.",
+      "source": "https://commons.wikimedia.org/wiki/File:Liquid_oxygen_in_a_beaker_(cropped_and_retouched).jpg",
+      "author": "Staff Sgt. Nika Glover, U.S. Air Force",
+      "license": "Public domain",
+      "licenseUrl": ""
+    }
+  ],
+  "mediaBlocks": [],
+  "sources": [
+    {
+      "title": "008_O.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "db62e515f077859199a833993a94cff7d1fccd08b08480d6a274ab0048942901"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/8/oxygen"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "008_O.docx",
+    "sourceSha256": "db62e515f077859199a833993a94cff7d1fccd08b08480d6a274ab0048942901",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/008_O.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
 }

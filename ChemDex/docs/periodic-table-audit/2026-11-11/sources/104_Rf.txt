@@ -1,0 +1,88 @@
+001: Rutherfordium (Rf)
+002: Thông tin chung
+003: Tên Latin: Rutherfordium
+004: Tên Tiếng Anh: Rutherfordium
+005: Đồng vị: ²⁶⁷Rf, ²⁶⁸Rf, ²⁶⁹Rf, ²⁷⁰Rf, ²⁷¹Rf, ²⁷²Rf
+006: Vị trí: Nhóm IVB | Chu kỳ 7
+007: Số Oxy hóa: +4 (dự đoán)
+008: Độ âm điện: Không xác định
+009: Lịch sử khám phá
+010: Phát hiện bởi: Nhóm nghiên cứu tại Joint Institute for Nuclear Research (JINR) và Lawrence Berkeley National Laboratory (LBNL)
+011: Năm công bố: 1964
+012: Nơi khám phá: Dubna, Liên Xô
+013: Mô tả: Rutherfordium được tạo ra lần đầu năm 1964 tại Dubna bằng cách bắn phá Plutonium-242 bằng ion Neon-22:
+014: ²⁴²Pu + ²²Ne → ²⁶⁰Rf + 4n
+015: Việc phát hiện nguyên tố này sau đó trở thành một phần của tranh chấp tên nguyên tố giữa các nhóm nghiên cứu ở Liên Xô và Hoa Kỳ. Cuối cùng, IUPAC chính thức đặt tên Rutherfordium vào năm 1997 để vinh danh nhà vật lý Ernest Rutherford.
+016: 3. Cấu tạo
+017: a. Cấu tạo nguyên tử
+018: Hoạt họa cấu hình e: [Rn] 5f¹⁴ 6d² 7s² (dự đoán)
+019: Mô hình mạng tinh thể: Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)
+020: Số hiệu nguyên tử: 104
+021: Nguyên tử khối: [267] g/mol
+022: Vỏ nguyên tử: 104 electron
+023: Hạt nhân: 104 proton
+024: Cấu hình e: [Rn] 5f¹⁴ 6d² 7s² (dự đoán)
+025: Loại mạng: Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)
+026: b. Trạng thái tự nhiên
+027: Trạng thái: Chất rắn (dự đoán).
+028: Có trong: Không tồn tại tự nhiên với lượng đáng kể; được tổng hợp nhân tạo trong các phòng thí nghiệm.
+029: Đơn chất: Rf
+030: Hợp chất: RfCl₄, RfO₂... (chủ yếu dự đoán)
+031: c. Đồng vị
+032: Rutherfordium không có đồng vị bền.
+033: Tất cả các đồng vị Rutherfordium đều phóng xạ và có chu kỳ bán rã rất ngắn.
+034: Một số đồng vị đáng chú ý:
+035: ²⁶⁷Rf: chu kỳ bán rã khoảng 1,3 giờ.
+036: ²⁶⁸Rf: chu kỳ bán rã khoảng 1,4 phút.
+037: ²⁶⁹Rf: chu kỳ bán rã khoảng 3,1 giây.
+038: ²⁷⁰Rf: chu kỳ bán rã khoảng 23 giây.
+039: Do chỉ tạo được một số lượng vài nguyên tử tại một thời điểm, phần lớn tính chất của Rutherfordium được suy ra từ lý thuyết và thí nghiệm hóa học hạt nhân quy mô cực nhỏ.
+040: Tính chất
+041: Tính chất vật lý
+042: Là kim loại chuyển tiếp.
+043: Thuộc nhóm IVB | chu kỳ 7.
+044: Là nguyên tố siêu nặng.
+045: Có tính phóng xạ rất mạnh.
+046: Được dự đoán là chất rắn ở điều kiện thường.
+047: Các tính chất như khối lượng riêng, nhiệt độ nóng chảy và nhiệt độ sôi chưa được xác định trực tiếp.
+048: Tính chất hóa học
+049: Có tính chất dự kiến tương tự Hafnium (Hf).
+050: Số Oxy hóa quan trọng nhất được dự đoán là +4.
+051: Có khả năng tạo các hợp chất dạng RfCl₄ và RfO₂.
+052: Rutherfordium thể hiện hóa học của một kim loại chuyển tiếp nhóm 4.
+053: Do có thời gian sống cực ngắn, hóa học của nguyên tố này chỉ có thể nghiên cứu với số lượng nguyên tử cực nhỏ.
+054: Điều chế
+055: Điều chế trong công nghiệp:
+056: Rutherfordium (Rf) không được sản xuất công nghiệp do tính phóng xạ cao và thời gian bán rã ngắn. Nguyên tố này chỉ được tổng hợp trong các cơ sở nghiên cứu hạt nhân.
+057: Điều chế trong phòng thí nghiệm:
+058: Rutherfordium được tổng hợp bằng cách bắn phá Plutonium-242 bằng ion Neon-22 trong máy gia tốc hạt.
+059: ²⁴²Pu + ²²Ne → ²⁶¹Rf + 3¹n
+060: Nhận biết
+061: Rutherfordium được nhận biết bằng:
+062: Chuỗi phân rã phóng xạ đặc trưng.
+063: Xác định năng lượng của các hạt Alpha phát ra.
+064: Xác định thời gian sống của hạt nhân.
+065: Theo dõi các sản phẩm con trong chuỗi phân rã.
+066: Không thể nhận biết Rutherfordium bằng các phản ứng hóa học thông thường do lượng nguyên tố tạo ra cực kỳ nhỏ.
+067: Phương trình
+068: Phản ứng tổng hợp Rutherfordium
+069: ²⁴²Pu + ²²Ne → ²⁶⁰Rf + 4n
+070: Phân rã Alpha của Rutherfordium-267
+071: ²⁶⁷Rf → ²⁶³No + ⁴He
+072: Tạo Rutherfordium(IV) chloride
+073: Rf + 2Cl₂ → RfCl₄
+074: Tạo Rutherfordium(IV) oxide
+075: Rf + O₂ → RfO₂
+076: Các phương trình hóa học trên chủ yếu mang tính mô tả/dự đoán vì Rutherfordium chỉ được tạo ra với lượng cực nhỏ.
+077: Ứng dụng thực tế
+078: Rutherfordium không có ứng dụng công nghiệp hoặc dân dụng.
+079: Nó chủ yếu được sử dụng trong:
+080: Nghiên cứu hạt nhân: Nghiên cứu cấu trúc và tính ổn định của các hạt nhân siêu nặng.
+081: Hóa học nguyên tố siêu nặng: Nghiên cứu xem các nguyên tố siêu nặng có tuân theo xu hướng hóa học của các nguyên tố cùng nhóm hay không.
+082: Nghiên cứu cấu trúc nguyên tử: Giúp kiểm tra các dự đoán về cấu hình electron và hiệu ứng tương đối tính trong nguyên tử rất nặng.
+083: Tổng quan
+084: Rutherfordium là nguyên tố số 104, thuộc nhóm IVB | chu kỳ 7 và là một kim loại chuyển tiếp siêu nặng.
+085: Rutherfordium được tổng hợp lần đầu vào năm 1964 tại Dubna. Tên nguyên tố được đặt để vinh danh Ernest Rutherford.
+086: Cấu hình electron được dự đoán là [Rn] 5f¹⁴ 6d² 7s², và số Oxy hóa quan trọng nhất là +4, tương tự Zirconium và Hafnium.
+087: Rutherfordium không có đồng vị bền, tất cả các đồng vị đều phóng xạ và có chu kỳ bán rã ngắn. Vì chỉ có thể tạo ra một lượng cực nhỏ nguyên tố này, hầu hết các tính chất vật lý của Rutherfordium vẫn chưa được đo trực tiếp.
+088: Mạng tinh thể: Lập phương tâm khối (BCC) — dự đoán, vì chưa thể thu được lượng Rutherfordium đủ lớn để xác định thực nghiệm.

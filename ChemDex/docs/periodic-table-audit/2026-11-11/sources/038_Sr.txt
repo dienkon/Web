@@ -1,0 +1,99 @@
+001: Strontium (Sr)
+002: Thông tin chung
+003: Tên Latin: Strontium
+004: Tên Tiếng Anh: Strontium
+005: Đồng vị: ⁸⁴Sr, ⁸⁶Sr, ⁸⁷Sr, ⁸⁸Sr
+006: Vị trí: Nhóm IIA | Chu kỳ 5
+007: Số Oxy hóa: +2
+008: Độ âm điện: 0.95
+009: Lịch sử khám phá
+010: Phát hiện bởi: Adair Crawford
+011: Năm công bố: 1790
+012: Nơi khám phá: Scotland
+013: Mô tả: Năm 1790, Adair Crawford nhận ra một khoáng vật được tìm thấy gần Strontian, Scotland có tính chất khác với các hợp chất Barium đã biết. Đến năm 1808, Humphry Davy lần đầu tiên cô lập được Strontium kim loại bằng phương pháp điện phân.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Kr] 5s²
+017: Mô hình mạng tinh thể: Lập phương tâm mặt (Face-centered cubic, FCC)
+018: Số hiệu nguyên tử: 38
+019: Nguyên tử khối: 87.62 g/mol
+020: Vỏ nguyên tử: 38 electron
+021: K: 2 | L: 8 | M: 18 | N: 8 | O: 2
+022: Hạt nhân: 38 proton, 50 neutron đối với ⁸⁸Sr
+023: Cấu hình e: [Kr] 5s²
+024: Loại mạng: Lập phương tâm mặt (Face-centered cubic, FCC)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Strontium là kim loại rắn, mềm, màu trắng bạc.
+027: Có trong: Celestine (SrSO₄) và Strontianite (SrCO₃).
+028: Đơn chất: Sr
+029: Hợp chất: SrO, Sr(OH)₂, SrCO₃, SrSO₄, SrCl₂, Sr(NO₃)₂...
+030: c. Đồng vị
+031: Đồng vị: ⁸⁴Sr, ⁸⁶Sr, ⁸⁷Sr, ⁸⁸Sr
+032: ⁸⁴Sr: Đồng vị bền, chiếm khoảng 0.56%.
+033: ⁸⁶Sr: Đồng vị bền, chiếm khoảng 9.86%.
+034: ⁸⁷Sr: Đồng vị bền, chiếm khoảng 7.0%; một phần được hình thành từ sự phân rã của ⁸⁷Rb.
+035: ⁸⁸Sr: Đồng vị bền phổ biến nhất, chiếm khoảng 82.58%.
+036: Tính chất
+037: Tính chất vật lý
+038: Là kim loại kiềm thổ.
+039: Màu trắng bạc.
+040: Mềm hơn Calcium.
+041: Khối lượng riêng: khoảng 2.64 g/cm³.
+042: Nhiệt độ nóng chảy: khoảng 777 °C.
+043: Nhiệt độ sôi: khoảng 1382 °C.
+044: Dẫn điện và dẫn nhiệt.
+045: Khi đốt nóng, Strontium tạo ngọn lửa đỏ thẫm.
+046: Tính chất hóa học
+047: Có số Oxy hóa gần như duy nhất là +2.
+048: Hoạt động hóa học mạnh.
+049: Dễ mất hai electron lớp ngoài cùng để tạo Sr²⁺.
+050: Phản ứng với nước tạo Strontium hydroxide và Hydrogen.
+051: Phản ứng với Oxygen tạo Strontium oxide.
+052: Phản ứng với Halogen tạo Strontium halide.
+053: Phản ứng với acid tạo Strontium salt và Hydrogen.
+054: Các hợp chất Strontium tan thường tạo ion Sr²⁺.
+055: Điều chế
+056: Điều chế trong công nghiệp
+057: Strontium chủ yếu được điều chế từ quặng Celestite (SrSO₄). Quặng được chuyển thành Strontium carbonate, sau đó nung thành Strontium oxide và khử bằng Aluminium ở nhiệt độ cao trong điều kiện chân không.
+058: Phương trình hóa học:
+059: SrSO₄ + Na₂CO₃ → SrCO₃ + Na₂SO₄
+060: SrCO₃ → SrO + CO₂
+061: 3SrO + 2Al → 3Sr + Al₂O₃
+062: Điều chế trong phòng thí nghiệm
+063: Có thể điều chế Strontium bằng phương pháp điện phân nóng chảy Strontium chloride. Strontium tạo thành ở cathode, Chlorine thoát ra ở anode.
+064: Phương trình điện phân:
+065: SrCl₂(l) → Sr(l) + Cl₂(g)
+066: Nhận biết
+067: Nhận biết Sr²⁺
+068: Strontium có thể được nhận biết bằng phép thử ngọn lửa.
+069: Hiện tượng: Ngọn lửa có màu đỏ thẫm / đỏ carmine đặc trưng.
+070: Có thể sử dụng phương pháp quang phổ để xác định chính xác hơn.
+071: Phương trình
+072: Tác dụng với Oxygen
+073: 2Sr + O₂ → 2SrO
+074: Tác dụng với nước
+075: Sr + 2H₂O → Sr(OH)₂ + H₂↑
+076: Tác dụng với Chlorine
+077: Sr + Cl₂ → SrCl₂
+078: Tác dụng với Hydrogen
+079: Sr + H₂ → SrH₂
+080: Tác dụng với Sulfur
+081: Sr + S → SrS
+082: Tác dụng với Hydrochloric acid
+083: Sr + 2HCl → SrCl₂ + H₂↑
+084: Nhiệt phân Strontium carbonate
+085: SrCO₃ → SrO + CO₂↑
+086: Điều chế Strontium bằng điện phân
+087: SrCl₂ → Sr + Cl₂
+088: Ứng dụng thực tế
+089: Pháo hoa: Strontium compounds tạo màu đỏ đặc trưng trong pháo hoa và pháo sáng.
+090: Tín hiệu cảnh báo: Một số Strontium compounds được sử dụng trong pháo sáng và thiết bị tín hiệu.
+091: Nam châm Ferrite: Strontium ferrite được sử dụng để sản xuất nam châm Ferrite.
+092: Gốm: Một số Strontium compounds được sử dụng trong vật liệu gốm và điện tử.
+093: Kính: Strontium được sử dụng trong một số loại kính chuyên dụng.
+094: Y học: Một số Strontium compounds/radioisotopes có ứng dụng trong nghiên cứu và y học dưới sự kiểm soát chuyên môn.
+095: Tổng quan
+096: Strontium là nguyên tố số 38, thuộc nhóm IIA | chu kỳ 5 và là một kim loại kiềm thổ.
+097: Strontium có cấu hình electron [Kr] 5s², dễ mất hai electron để tạo Sr²⁺, do đó số Oxy hóa đặc trưng là +2.
+098: Strontium là kim loại mềm, màu trắng bạc và có tính hoạt động hóa học khá cao. Khi bị kích thích trong ngọn lửa, Strontium tạo màu đỏ thẫm đặc trưng.
+099: Trong tự nhiên, Strontium chủ yếu tồn tại trong Celestine (SrSO₄) và Strontianite (SrCO₃). Strontium có ứng dụng quan trọng trong pháo hoa, pháo sáng, nam châm Ferrite, gốm, kính và một số lĩnh vực y học.

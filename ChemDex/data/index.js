@@ -270,6 +270,10 @@ export const categories = {
     name: "Kim loại chuyển tiếp",
     color: "#ef4444",
   },
+  "kim-loai-sau-chuyen-tiep": {
+    name: "Kim loại hậu chuyển tiếp",
+    color: "#60a5fa",
+  },
   lanthanide: {
     name: "Họ Lanthanide",
     color: "#ec4899",

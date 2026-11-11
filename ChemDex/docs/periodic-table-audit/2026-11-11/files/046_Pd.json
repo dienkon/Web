@@ -1,0 +1,1020 @@
+{
+  "symbol": "Pd",
+  "number": 46,
+  "source": "046_Pd.docx",
+  "sourceSha256": "556e9eec6069dd4cce29139571ed3648af231ccd98b28c90d97f192fb028cf88",
+  "paragraphCount": 91,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 4,
+    "structure": 9,
+    "occurrence": 4,
+    "isotopes": 2,
+    "physical": 8,
+    "chemical": 7,
+    "lab": 4,
+    "industry": 3,
+    "recognition": 5,
+    "reactions": 12,
+    "applications": 6,
+    "notes": 4
+  },
+  "editorialDecisions": [],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "[Kr] 4d¹⁰",
+      "publishedValue": "[Kr] 4d¹⁰",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Lập phương tâm mặt (Face-centered cubic, FCC)",
+      "publishedValue": "Lập phương tâm mặt (Face-centered cubic, FCC)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "2.20",
+      "publishedValue": 2.2,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm VIIIB | Chu kỳ 5",
+      "publishedValue": "10",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Palladium là kim loại rắn, màu trắng bạc, sáng bóng.",
+      "publishedValue": "Rắn",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [],
+  "originalEquations": [
+    {
+      "line": 55,
+      "text": "PdCl₂ + H₂ → Pd + 2HCl",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 59,
+      "text": "PdCl₂ + H₂ → Pd + 2HCl",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 60,
+      "text": "PdCl₂ + Zn → Pd + ZnCl₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 64,
+      "text": "Pd²⁺ + S²⁻ → PdS↓",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 69,
+      "text": "2Pd + O₂ → 2PdO",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 71,
+      "text": "Pd + Cl₂ → PdCl₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 73,
+      "text": "Pd²⁺ + S²⁻ → PdS↓",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 75,
+      "text": "Pd²⁺ + 2OH⁻ → Pd(OH)₂↓",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 77,
+      "text": "Pd(OH)₂ + 2HCl → PdCl₂ + 2H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 79,
+      "text": "PdCl₂ + H₂ → Pd + 2HCl",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "lab",
+      "equation": "PdCl₂ + H₂ → Pd + 2HCl",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 59,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "lab",
+      "equation": "PdCl₂ + Zn → Pd + ZnCl₂",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 60,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "PdCl₂ + H₂ → Pd + 2HCl",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 55,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "recognition",
+      "equation": "Pd²⁺ + S²⁻ → PdS↓",
+      "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+      "kind": "chemical",
+      "sourceLine": 64,
+      "sourceSection": "recognition",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2Pd + O₂ → 2PdO",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 69,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Pd + Cl₂ → PdCl₂",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 71,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Pd²⁺ + S²⁻ → PdS↓",
+      "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+      "kind": "chemical",
+      "sourceLine": 73,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Pd²⁺ + 2OH⁻ → Pd(OH)₂↓",
+      "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+      "kind": "chemical",
+      "sourceLine": 75,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Pd(OH)₂ + 2HCl → PdCl₂ + 2H₂O",
+      "condition": "Dung dịch acid; phản ứng trung hòa, tốc độ phụ thuộc độ tan của chất rắn.",
+      "kind": "chemical",
+      "sourceLine": 77,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "PdCl₂ + H₂ → Pd + 2HCl",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 79,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": [
+        {
+          "title": "Bộ chuyển đổi xúc tác",
+          "desc": "Palladium là chất xúc tác quan trọng trong hệ thống xử lý khí thải của ô tô."
+        },
+        {
+          "title": "Xúc tác hóa học",
+          "desc": "Được sử dụng rộng rãi trong tổng hợp hữu cơ và công nghiệp hóa chất."
+        },
+        {
+          "title": "Điện tử",
+          "desc": "Palladium được sử dụng trong một số linh kiện điện tử và vật liệu dẫn điện."
+        },
+        {
+          "title": "Trang sức",
+          "desc": "Palladium được sử dụng để chế tạo trang sức và hợp kim kim loại quý."
+        },
+        {
+          "title": "Lọc Hydrogen",
+          "desc": "Palladium có khả năng hấp thụ và khuếch tán Hydrogen, nên được sử dụng trong một số công nghệ tinh chế Hydrogen."
+        },
+        {
+          "title": "Nha khoa",
+          "desc": "Một số hợp kim chứa Palladium được sử dụng trong vật liệu nha khoa."
+        }
+      ],
+      "after": [
+        {
+          "title": "Bộ chuyển đổi xúc tác",
+          "desc": "Palladium là chất xúc tác quan trọng trong hệ thống xử lý khí thải của ô tô.",
+          "sourceLine": 81
+        },
+        {
+          "title": "Xúc tác hóa học",
+          "desc": "Được sử dụng rộng rãi trong tổng hợp hữu cơ và công nghiệp hóa chất.",
+          "sourceLine": 82
+        },
+        {
+          "title": "Điện tử",
+          "desc": "Palladium được sử dụng trong một số linh kiện điện tử và vật liệu dẫn điện.",
+          "sourceLine": 83
+        },
+        {
+          "title": "Trang sức",
+          "desc": "Palladium được sử dụng để chế tạo trang sức và hợp kim kim loại quý.",
+          "sourceLine": 84
+        },
+        {
+          "title": "Lọc Hydrogen",
+          "desc": "Palladium có khả năng hấp thụ và khuếch tán Hydrogen, nên được sử dụng trong một số công nghệ tinh chế Hydrogen.",
+          "sourceLine": 85
+        },
+        {
+          "title": "Nha khoa",
+          "desc": "Một số hợp kim chứa Palladium được sử dụng trong vật liệu nha khoa.",
+          "sourceLine": 86
+        }
+      ]
+    },
+    {
+      "field": "chemical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Số Oxy hóa phổ biến nhất là +2.</li>\n      <li>Tương đối trơ ở điều kiện thường.</li>\n      <li>Có thể phản ứng với Oxygen khi nung nóng tạo Palladium oxide.</li>\n      <li>Phản ứng với Halogen tạo Palladium halide.</li>\n      <li>Có khả năng tạo nhiều phức chất.</li>\n      <li>Có tính chất xúc tác rất tốt.</li>\n      <li>Đặc biệt có khả năng xúc tác cho các phản ứng liên quan đến Hydrogen.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Số Oxy hóa phổ biến nhất là +2.</li><li>Tương đối trơ ở điều kiện thường.</li><li>Có thể phản ứng với Oxygen khi nung nóng tạo Palladium oxide.</li><li>Phản ứng với Halogen tạo Palladium halide.</li><li>Có khả năng tạo nhiều phức chất.</li><li>Có tính chất xúc tác rất tốt.</li><li>Đặc biệt có khả năng xúc tác cho các phản ứng liên quan đến Hydrogen.</li></ul>"
+    },
+    {
+      "field": "general.CAS",
+      "before": null,
+      "after": "7440-05-3"
+    },
+    {
+      "field": "general.electronegativityNote",
+      "before": null,
+      "after": "Thang Pauling; số liệu tổng hợp PubChem."
+    },
+    {
+      "field": "general.group",
+      "before": 8,
+      "after": 10
+    },
+    {
+      "field": "general.groupLabel",
+      "before": null,
+      "after": "10"
+    },
+    {
+      "field": "general.series",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "general.state",
+      "before": "",
+      "after": "Rắn"
+    },
+    {
+      "field": "history.year",
+      "before": 1803,
+      "after": "1803"
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/photos/046_Pd.jpg",
+          "title": "Palladium (Pd)",
+          "desc": "Ảnh tham chiếu mẫu Palladium (Pd); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+          "source": "https://commons.wikimedia.org/wiki/File:Palladium_(46_Pd).jpg",
+          "author": "Hi-Res Images of Chemical Elements",
+          "license": "CC BY 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/3.0"
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "¹⁰²Pd",
+          "massNumber": 102,
+          "protons": 46,
+          "neutrons": 56,
+          "stable": true,
+          "abundancePercent": "1.02",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "¹⁰⁴Pd",
+          "massNumber": 104,
+          "protons": 46,
+          "neutrons": 58,
+          "stable": true,
+          "abundancePercent": "11.14",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "¹⁰⁵Pd",
+          "massNumber": 105,
+          "protons": 46,
+          "neutrons": 59,
+          "stable": true,
+          "abundancePercent": "22.33",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "¹⁰⁶Pd",
+          "massNumber": 106,
+          "protons": 46,
+          "neutrons": 60,
+          "stable": true,
+          "abundancePercent": "27.33",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "¹⁰⁸Pd",
+          "massNumber": 108,
+          "protons": 46,
+          "neutrons": 62,
+          "stable": true,
+          "abundancePercent": "26.46",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "¹¹⁰Pd",
+          "massNumber": 110,
+          "protons": 46,
+          "neutrons": 64,
+          "stable": true,
+          "abundancePercent": "11.72",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "standard-atomic-weight"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "106.42 ± 0.01"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": [
+        {
+          "type": "model",
+          "section": "structure",
+          "title": "Mẫu khoáng vật 3D · Platinum tự sinh",
+          "src": "/assets/periodic-table/minerals/native-platinum.glb",
+          "preview": "/assets/periodic-table/minerals/native-platinum.png",
+          "desc": "Pt (thường chứa kim loại nhóm platinum khác). Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "naturalState.alt",
+      "before": null,
+      "after": "Palladium: ảnh tham chiếu từ Commons"
+    },
+    {
+      "field": "naturalState.caption",
+      "before": null,
+      "after": "Ảnh tham chiếu mẫu Palladium (Pd); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc."
+    },
+    {
+      "field": "naturalState.credit",
+      "before": null,
+      "after": "Hi-Res Images of Chemical Elements · CC BY 3.0"
+    },
+    {
+      "field": "naturalState.image",
+      "before": null,
+      "after": "/assets/periodic-table/photos/046_Pd.jpg"
+    },
+    {
+      "field": "naturalState.kind",
+      "before": null,
+      "after": "photo"
+    },
+    {
+      "field": "naturalState.source",
+      "before": null,
+      "after": "https://commons.wikimedia.org/wiki/File:Palladium_(46_Pd).jpg"
+    },
+    {
+      "field": "notes",
+      "before": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Palladium là nguyên tố số 46, thuộc nhóm VIIIB | chu kỳ 5 và là một kim loại chuyển tiếp thuộc nhóm Platinum.</li>\n  <li>Palladium có cấu hình electron đặc biệt [Kr] 4d¹⁰, với số Oxy hóa phổ biến nhất là +2.</li>\n  <li>Palladium là kim loại trắng bạc, mềm, dễ gia công và chống ăn mòn tốt. Đặc điểm nổi bật của Palladium là khả năng hấp thụ Hydrogen và hoạt tính xúc tác cao.</li>\n  <li>Palladium có vai trò quan trọng trong bộ chuyển đổi xúc tác ô tô, công nghiệp hóa chất, điện tử, công nghệ Hydrogen, trang sức và nha khoa.</li>\n</ul>\n",
+      "after": "<ul class=\"element-prose-list\"><li>Palladium là nguyên tố số 46, thuộc nhóm VIIIB | chu kỳ 5 và là một kim loại chuyển tiếp thuộc nhóm Platinum.</li><li>Palladium có cấu hình electron đặc biệt [Kr] 4d¹⁰, với số Oxy hóa phổ biến nhất là +2.</li><li>Palladium là kim loại trắng bạc, mềm, dễ gia công và chống ăn mòn tốt. Đặc điểm nổi bật của Palladium là khả năng hấp thụ Hydrogen và hoạt tính xúc tác cao.</li><li>Palladium có vai trò quan trọng trong bộ chuyển đổi xúc tác ô tô, công nghiệp hóa chất, điện tử, công nghệ Hydrogen, trang sức và nha khoa.</li></ul>"
+    },
+    {
+      "field": "occurrence.details",
+      "before": null,
+      "after": [
+        "Trạng thái: Palladium là kim loại rắn, màu trắng bạc, sáng bóng.",
+        "Có trong: Thường tồn tại cùng Platinum, Rhodium, Nickel và các kim loại nhóm Platinum khác.",
+        "Đơn chất: Pd",
+        "Hợp chất: PdCl₂, PdO, PdBr₂, Pd(NO₃)₂..."
+      ]
+    },
+    {
+      "field": "occurrence.mineral",
+      "before": null,
+      "after": {
+        "available": true,
+        "id": "native-platinum",
+        "name": "Platinum tự sinh",
+        "formula": "Pt (thường chứa kim loại nhóm platinum khác)",
+        "habit": "nugget",
+        "color": "#afb4c1",
+        "crystalSystem": "cubic",
+        "relation": "Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+        "source": "https://www.handbookofmineralogy.org/",
+        "sourceSearch": "https://rruff.info/Platinum",
+        "model": "/assets/periodic-table/minerals/native-platinum.glb",
+        "preview": "/assets/periodic-table/minerals/native-platinum.png",
+        "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      }
+    },
+    {
+      "field": "physical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại chuyển tiếp thuộc nhóm Platinum.</li>\n      <li>Màu trắng bạc.</li>\n      <li>Mềm, dễ uốn và dễ gia công.</li>\n      <li>Khối lượng riêng: khoảng 12.02 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 1555 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 2963 °C.</li>\n      <li>Chống ăn mòn tốt.</li>\n      <li>Có khả năng hấp thụ một lượng lớn Hydrogen.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Là kim loại chuyển tiếp thuộc nhóm Platinum.</li><li>Màu trắng bạc.</li><li>Mềm, dễ uốn và dễ gia công.</li><li>Khối lượng riêng: khoảng 12.02 g/cm³.</li><li>Nhiệt độ nóng chảy: khoảng 1555 °C.</li><li>Nhiệt độ sôi: khoảng 2963 °C.</li><li>Chống ăn mòn tốt.</li><li>Có khả năng hấp thụ một lượng lớn Hydrogen.</li></ul>"
+    },
+    {
+      "field": "preparations.industry",
+      "before": [
+        {
+          "title": "Palladium chủ yếu được thu hồi như sản phẩm phụ trong quá trình khai thác và tinh chế Nickel, Copper và các kim loại nhóm Platinum.",
+          "equation": "",
+          "desc": ""
+        },
+        {
+          "title": "Sau quá trình tách và tinh chế, các hợp chất Palladium có thể được khử để thu kim loại.",
+          "equation": "",
+          "desc": ""
+        },
+        {
+          "title": "Ví dụ:",
+          "equation": "PdCl₂ + H₂ → Pd + 2HCl",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Palladium chủ yếu được thu hồi từ quặng Nickel–Copper và quặng chứa Platinum. Sau khi tuyển và hòa tách quặng, Palladium được tách khỏi các kim loại khác, chuyển thành Palladium(II) chloride rồi khử bằng Hydrogen.",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "PdCl₂ + H₂ → Pd + 2HCl",
+              "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+              "kind": "chemical",
+              "sourceLine": 55,
+              "sourceSection": "industry",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            53,
+            55
+          ],
+          "equation": "PdCl₂ + H₂ → Pd + 2HCl"
+        }
+      ]
+    },
+    {
+      "field": "preparations.lab",
+      "before": [],
+      "after": [
+        {
+          "title": "Có thể điều chế Palladium bằng cách khử Palladium(II) chloride bằng Hydrogen hoặc bằng kim loại mạnh hơn như Zinc.",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "PdCl₂ + H₂ → Pd + 2HCl",
+              "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+              "kind": "chemical",
+              "sourceLine": 59,
+              "sourceSection": "lab",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            },
+            {
+              "equation": "PdCl₂ + Zn → Pd + ZnCl₂",
+              "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+              "kind": "chemical",
+              "sourceLine": 60,
+              "sourceSection": "lab",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            57,
+            59,
+            60
+          ],
+          "equation": "PdCl₂ + H₂ → Pd + 2HCl"
+        }
+      ]
+    },
+    {
+      "field": "reactions",
+      "before": [
+        {
+          "type": "Tác dụng với Oxygen",
+          "equation": "2Pd + O₂ → 2PdO",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Chlorine",
+          "equation": "Pd + Cl₂ → PdCl₂",
+          "desc": ""
+        },
+        {
+          "type": "Tạo Palladium sulfide",
+          "equation": "Pd²⁺ + S²⁻ → PdS↓",
+          "desc": ""
+        },
+        {
+          "type": "Tạo Palladium hydroxide",
+          "equation": "Pd²⁺ + 2OH⁻ → Pd(OH)₂↓",
+          "desc": ""
+        },
+        {
+          "type": "Palladium hydroxide tác dụng với acid",
+          "equation": "Pd(OH)₂ + 2HCl → PdCl₂ + 2H₂O",
+          "desc": ""
+        },
+        {
+          "type": "Khử Palladium chloride",
+          "equation": "PdCl₂ + H₂ → Pd + 2HCl",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "type": "Tác dụng với Oxygen",
+          "desc": "",
+          "equation": "2Pd + O₂ → 2PdO",
+          "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+          "kind": "chemical",
+          "sourceLine": 69,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Chlorine",
+          "desc": "",
+          "equation": "Pd + Cl₂ → PdCl₂",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 71,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Palladium sulfide",
+          "desc": "",
+          "equation": "Pd²⁺ + S²⁻ → PdS↓",
+          "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+          "kind": "chemical",
+          "sourceLine": 73,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Palladium hydroxide",
+          "desc": "",
+          "equation": "Pd²⁺ + 2OH⁻ → Pd(OH)₂↓",
+          "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+          "kind": "chemical",
+          "sourceLine": 75,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Palladium hydroxide tác dụng với acid",
+          "desc": "",
+          "equation": "Pd(OH)₂ + 2HCl → PdCl₂ + 2H₂O",
+          "condition": "Dung dịch acid; phản ứng trung hòa, tốc độ phụ thuộc độ tan của chất rắn.",
+          "kind": "chemical",
+          "sourceLine": 77,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Khử Palladium chloride",
+          "desc": "",
+          "equation": "PdCl₂ + H₂ → Pd + 2HCl",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 79,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": [
+        {
+          "title": "Nhận biết",
+          "reagent": "Nhận biết Pd²⁺",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Pd²⁺ có thể tạo kết tủa Palladium sulfide khi tác dụng với Sulfide",
+          "reagent": "",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "",
+          "result": "",
+          "equation": "Pd²⁺ + S²⁻ → PdS↓"
+        },
+        {
+          "title": "Hiện tượng",
+          "reagent": "",
+          "result": "Xuất hiện kết tủa đen hoặc nâu đen Palladium sulfide.",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "Trong phân tích chính xác, Palladium thường được xác định bằng các phương pháp phân tích chuyên dụng.",
+          "result": "",
+          "equation": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Nhận biết Pd²⁺",
+          "desc": "Pd²⁺ có thể tạo kết tủa Palladium sulfide khi tác dụng với Sulfide: Trong phân tích chính xác, Palladium thường được xác định bằng các phương pháp phân tích chuyên dụng.",
+          "result": "Xuất hiện kết tủa đen hoặc nâu đen Palladium sulfide.",
+          "equations": [
+            {
+              "equation": "Pd²⁺ + S²⁻ → PdS↓",
+              "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+              "kind": "chemical",
+              "sourceLine": 64,
+              "sourceSection": "recognition",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            62,
+            63,
+            64,
+            65,
+            66
+          ],
+          "equation": "Pd²⁺ + S²⁻ → PdS↓"
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "046_Pd.docx",
+        "sourceSha256": "556e9eec6069dd4cce29139571ed3648af231ccd98b28c90d97f192fb028cf88",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/046_Pd.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "046_Pd.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "556e9eec6069dd4cce29139571ed3648af231ccd98b28c90d97f192fb028cf88"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/46/palladium"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure.latticeEvidence",
+      "before": null,
+      "after": "source-reviewed"
+    },
+    {
+      "field": "structure.nucleusIsotope",
+      "before": null,
+      "after": "¹⁰⁶Pd"
+    },
+    {
+      "field": "structure.nucleusNote",
+      "before": null,
+      "after": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác."
+    },
+    {
+      "field": "structure.valenceNote",
+      "before": null,
+      "after": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp."
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "Pd",
+      "status": "downloaded",
+      "file": "/assets/periodic-table/photos/046_Pd.jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:Palladium_(46_Pd).jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/d/d7/Palladium_%2846_Pd%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/d/d7/Palladium_%2846_Pd%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "filename": "Palladium_(46_Pd).jpg",
+      "title": "Palladium (46 Pd)",
+      "description": "The noble metal palladium is very similar to platinum, and, like platinum, is often used for catalysts and for jewellery. Palladium is more reactive than platinum. Palladium has excellent capability to absorb, store, and then release hydrogen.",
+      "author": "Hi-Res Images of Chemical Elements",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+      "credit": "http://images-of-elements.com/palladium.php",
+      "sha256": "02a271d72af987febeefe4112d5a869905b8c805b9f940fedea6999563c17b03",
+      "bytes": 159840
+    },
+    "mineral": {
+      "available": true,
+      "id": "native-platinum",
+      "name": "Platinum tự sinh",
+      "formula": "Pt (thường chứa kim loại nhóm platinum khác)",
+      "habit": "nugget",
+      "color": "#afb4c1",
+      "crystalSystem": "cubic",
+      "relation": "Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Platinum",
+      "model": "/assets/periodic-table/minerals/native-platinum.glb",
+      "preview": "/assets/periodic-table/minerals/native-platinum.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "Pd",
+      "z": 46,
+      "url": "https://periodic-table.rsc.org/element/46/palladium",
+      "status": "retrieved",
+      "bytes": 158159,
+      "sha256": "170c0d1b9231af1bbfebbbb77759920cc11231cebaebe75b340dbd3a41a63d91",
+      "facts": {
+        "Group": "10",
+        "Melting point": "1554.8°C, 2830.6°F, 1828 K",
+        "Period": "5",
+        "Boiling point": "2963°C, 5365°F, 3236 K",
+        "Block": "d",
+        "Density (g cm−³)": "12.0",
+        "Atomic number": "46",
+        "Relative atomic mass": "106.42",
+        "State at 20°C": "Solid",
+        "Key isotopes": "¹⁰⁶Pd",
+        "Electron configuration": "[Kr] 4d¹⁰",
+        "CAS number": "7440-05-3",
+        "ChemSpider ID": "22380",
+        "electronegativity": "2.20"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "46",
+      "Symbol": "Pd",
+      "Name": "Palladium",
+      "AtomicMass": "106.42",
+      "CPKHexColor": "6985",
+      "ElectronConfiguration": "[Kr]4d10",
+      "Electronegativity": "2.2",
+      "AtomicRadius": "202",
+      "IonizationEnergy": "8.337",
+      "ElectronAffinity": "0.557",
+      "OxidationStates": "+3, +2",
+      "StandardState": "Solid",
+      "MeltingPoint": "1828.05",
+      "BoilingPoint": "3236",
+      "Density": "12.0",
+      "GroupBlock": "Transition metal",
+      "YearDiscovered": "1803"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

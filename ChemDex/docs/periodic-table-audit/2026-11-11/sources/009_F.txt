@@ -1,0 +1,105 @@
+001: Fluorine (F)
+002: Thông tin chung
+003: Tên Latin: Fluorum
+004: Tên tiếng Anh: Fluorine
+005: Đồng vị: ¹⁷F, ¹⁸F, ¹⁹F, ²⁰F
+006: Vị trí: Nhóm VIIA | Chu kỳ 2
+007: Số Oxy hóa: −1, 0
+008: Độ âm điện: 3.98
+009: Lịch sử khám phá
+010: Phát hiện bởi: Henri Moissan
+011: Năm công bố: 1886
+012: Nơi khám phá: Pháp
+013: Mô tả: Fluorine là nguyên tố rất khó cô lập do tính Oxy hóa cực mạnh. Năm 1886, Henri Moissan lần đầu tiên điều chế được Fluorine dạng đơn chất bằng phương pháp điện phân hỗn hợp Hydrogen fluoride và Potassium fluoride nóng chảy. Ông được trao giải Nobel Hóa học năm 1906 cho công trình nghiên cứu Fluorine.
+014: 3. Cấu tạo
+015: a. Cấu tạo
+016: Hoạt họa cấu hình e: 1s² 2s² 2p⁵
+017: Mô hình mạng tinh thể: Lập phương tâm mặt (FCC)
+018: Số hiệu nguyên tử: 9
+019: Nguyên tử khối: 18.998 g/mol
+020: Vỏ nguyên tử: 9 electron
+021: K: 2 | L: 7
+022: Hạt nhân: 9 proton, 10 neutron đối với ¹⁹F
+023: Cấu hình e: 1s² 2s² 2p⁵
+024: Loại mạng: Lập phương tâm mặt (FCC)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Fluorine có tính Oxy hóa rất mạnh nên không tồn tại tự do trong tự nhiên. Nó chủ yếu tồn tại dưới dạng Fluoride trong khoáng vật.
+027: Có trong: Fluorite, Cryolite, Fluorapatite và nước biển.
+028: Đơn chất: F₂
+029: Hợp chất: CaF₂, Na₃AlF₆, NaF, HF, SF₆, CF₄...
+030: c. Đồng vị
+031: Đồng vị: ¹⁷F, ¹⁸F, ¹⁹F, ²⁰F
+032: ¹⁹F: Đồng vị bền duy nhất và gần như chiếm toàn bộ Fluorine tự nhiên.
+033: ¹⁸F: Đồng vị phóng xạ có chu kỳ bán rã khoảng 110 phút, được sử dụng rộng rãi trong y học hạt nhân.
+034: ¹⁷F, ²⁰F: Các đồng vị phóng xạ có thời gian sống rất ngắn.
+035: Tính chất
+036: Tính chất vật lý
+037: Là chất khí màu vàng nhạt ở điều kiện thường.
+038: Có mùi hắc, kích thích mạnh.
+039: Là nguyên tố có độ âm điện cao nhất.
+040: Là halogen nhẹ nhất.
+041: Khối lượng mol của F₂: 37.9968 g/mol.
+042: Khối lượng riêng: khoảng 1.70 g/L ở 0 °C và 1 atm.
+043: Nhiệt độ nóng chảy: −219.67 °C.
+044: Nhiệt độ sôi: −188.11 °C.
+045: Ít tan trong nước và phản ứng với nước.
+046: Có tính Oxy hóa cực mạnh.
+047: Tính chất hóa học
+048: Là phi kim thuộc nhóm VIIA.
+049: Có độ âm điện cao nhất trong bảng tuần hoàn.
+050: Là chất Oxy hóa mạnh nhất trong các nguyên tố.
+051: Số Oxy hóa phổ biến nhất: −1.
+052: Phản ứng mạnh với hầu hết các kim loại tạo Fluoride.
+053: Phản ứng với nhiều phi kim.
+054: Phản ứng với Hydrogen tạo Hydrogen fluoride.
+055: Có thể phản ứng với nước tạo HF và Oxygen.
+056: Có khả năng Oxy hóa các halogen khác.
+057: Phản ứng với nhiều hợp chất hữu cơ và vô cơ.
+058: Điều chế
+059: Điều chế trong công nghiệp
+060: Fluorine được sản xuất chủ yếu bằng điện phân hỗn hợp Hydrogen fluoride và Potassium fluoride nóng chảy.
+061: Quá trình điện phân:
+062: Tại anode:
+063: 2F⁻ → F₂ + 2e⁻
+064: Tại cathode:
+065: 2H⁺ + 2e⁻ → H₂
+066: Phương trình tổng quát:
+067: 2HF → H₂ + F₂
+068: Potassium fluoride được sử dụng để tạo môi trường điện phân thích hợp vì Hydrogen fluoride tinh khiết có độ dẫn điện thấp.
+069: Điều chế trong phòng thí nghiệm
+070: Fluorine không được điều chế bằng các phản ứng hóa học thông thường trong phòng thí nghiệm do tính Oxy hóa cực mạnh.
+071: Phương pháp điều chế vẫn dựa trên điện phân hỗn hợp Hydrogen fluoride và Potassium fluoride nóng chảy:
+072: 2HF → H₂ + F₂
+073: Nhận biết
+074: Giấy thử: Fluorine không có một phép thử đơn giản, an toàn và đặc hiệu thường dùng trong phòng thí nghiệm phổ thông.
+075: Đặc điểm: Fluorine là khí màu vàng nhạt và có tính Oxy hóa rất mạnh, nhưng màu sắc không được xem là phương pháp nhận biết chính xác.
+076: Phương trình
+077: Tác dụng với Hydrogen
+078: H₂ + F₂ → 2HF
+079: Tác dụng với Sodium
+080: 2Na + F₂ → 2NaF
+081: Tác dụng với Calcium
+082: Ca + F₂ → CaF₂
+083: Tác dụng với Iron
+084: 2Fe + 3F₂ → 2FeF₃
+085: Tác dụng với Sulfur
+086: S + 3F₂ → SF₆
+087: Tác dụng với Phosphorus
+088: 2P + 5F₂ → 2PF₅
+089: Tác dụng với nước
+090: 2F₂ + 2H₂O → 4HF + O₂
+091: Oxi hóa Chlorine
+092: F₂ + 2Cl⁻ → 2F⁻ + Cl₂
+093: Ứng dụng thực tế
+094: Sản xuất Fluoride: Fluorine được sử dụng để sản xuất nhiều hợp chất Fluoride.
+095: Công nghiệp hạt nhân: Một số hợp chất Fluorine, đặc biệt Uranium hexafluoride (UF₆), được sử dụng trong quá trình xử lý và làm giàu Uranium.
+096: Vật liệu chống dính: Fluorine được sử dụng để sản xuất các polymer chứa Fluorine như PTFE.
+097: Công nghiệp hóa chất: Sản xuất nhiều hợp chất Fluorine dùng trong hóa chất và vật liệu kỹ thuật.
+098: Y học: ¹⁸F được sử dụng trong Positron Emission Tomography (PET) để tạo các chất đánh dấu phóng xạ.
+099: Kem đánh răng: Fluoride compounds như Sodium fluoride được sử dụng để giúp bảo vệ men răng.
+100: Làm lạnh: Một số hợp chất Fluorine được sử dụng làm môi chất lạnh.
+101: Tổng quan
+102: Fluorine là nguyên tố số 9, thuộc nhóm VIIA | chu kỳ 2 và là halogen.
+103: Fluorine có độ âm điện cao nhất trong bảng tuần hoàn (3.98) và là chất Oxy hóa mạnh nhất trong các nguyên tố. Ở điều kiện thường, Fluorine tồn tại dưới dạng phân tử F₂, có màu vàng nhạt.
+104: Do tính phản ứng cực mạnh, Fluorine không tồn tại tự do trong tự nhiên mà chủ yếu tồn tại dưới dạng Fluoride trong khoáng vật.
+105: Fluorine và các hợp chất của nó có nhiều ứng dụng trong công nghiệp hóa chất, vật liệu chống dính, công nghệ hạt nhân, y học và chăm sóc răng miệng.

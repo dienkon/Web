@@ -1,0 +1,1061 @@
+{
+  "symbol": "Br",
+  "number": 35,
+  "source": "035_Br.docx",
+  "sourceSha256": "8cf962deef556002ed1c11e09811b0d46117f1b816215b8f12d3c49a7e3aedff",
+  "paragraphCount": 101,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 4,
+    "structure": 9,
+    "occurrence": 4,
+    "isotopes": 4,
+    "physical": 9,
+    "chemical": 8,
+    "lab": 2,
+    "industry": 4,
+    "recognition": 5,
+    "reactions": 18,
+    "applications": 6,
+    "notes": 5
+  },
+  "editorialDecisions": [],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "[Ar] 3d¹⁰ 4s² 4p⁵",
+      "publishedValue": "[Ar] 3d¹⁰ 4s² 4p⁵",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Trực thoi (Orthorhombic)",
+      "publishedValue": "Trực thoi (Orthorhombic)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "2.96",
+      "publishedValue": 2.96,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm VIIA | Chu kỳ 4",
+      "publishedValue": "17",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Bromine là chất lỏng màu nâu đỏ, có mùi đặc trưng và dễ bay hơi ở điều kiện thường.",
+      "publishedValue": "Lỏng",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 32,
+      "sourceText": "⁷⁹Br: Đồng vị bền, chiếm khoảng 50.69%.",
+      "reference": {
+        "isotope": "⁷⁹Br",
+        "massNumber": 79,
+        "protons": 35,
+        "neutrons": 44,
+        "stable": true,
+        "abundancePercent": "50.65",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 33,
+      "sourceText": "⁸¹Br: Đồng vị bền, chiếm khoảng 49.31%.",
+      "reference": {
+        "isotope": "⁸¹Br",
+        "massNumber": 81,
+        "protons": 35,
+        "neutrons": 46,
+        "stable": true,
+        "abundancePercent": "49.35",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 59,
+      "text": "Cl₂ + 2Br⁻ → 2Cl⁻ + Br₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 63,
+      "text": "Cl₂ + 2KBr → 2KCl + Br₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 67,
+      "text": "Ag⁺ + Br⁻ → AgBr↓",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 72,
+      "text": "H₂ + Br₂ ⇌ 2HBr",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 74,
+      "text": "2Fe + 3Br₂ → 2FeBr₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 76,
+      "text": "2Al + 3Br₂ → 2AlBr₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 78,
+      "text": "Br₂ + 2KI → 2KBr + I₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 80,
+      "text": "Br₂ + H₂O ⇌ HBr + HBrO",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 82,
+      "text": "Br₂ + 2NaOH → NaBr + NaBrO + H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 84,
+      "text": "3Br₂ + 6NaOH → 5NaBr + NaBrO₃ + 3H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 86,
+      "text": "Ag⁺ + Br⁻ → AgBr↓",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 88,
+      "text": "Cl₂ + 2Br⁻ → 2Cl⁻ + Br₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "lab",
+      "equation": "Cl₂ + 2KBr → 2KCl + Br₂",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 63,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "Cl₂ + 2Br⁻ → 2Cl⁻ + Br₂",
+      "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+      "kind": "chemical",
+      "sourceLine": 59,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "recognition",
+      "equation": "Ag⁺ + Br⁻ → AgBr↓",
+      "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+      "kind": "chemical",
+      "sourceLine": 67,
+      "sourceSection": "recognition",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "H₂ + Br₂ ⇌ 2HBr",
+      "condition": "Gia nhiệt; phản ứng thuận nghịch, mức chuyển hóa phụ thuộc nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 72,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2Fe + 3Br₂ → 2FeBr₃",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 74,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2Al + 3Br₂ → 2AlBr₃",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 76,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Br₂ + 2KI → 2KBr + I₂",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 78,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Br₂ + H₂O ⇌ HBr + HBrO",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 80,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Br₂ + 2NaOH → NaBr + NaBrO + H₂O",
+      "condition": "Dung dịch kiềm loãng, lạnh; không gia nhiệt để tránh tạo halate.",
+      "kind": "chemical",
+      "sourceLine": 82,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "3Br₂ + 6NaOH → 5NaBr + NaBrO₃ + 3H₂O",
+      "condition": "Dung dịch kiềm nóng, đậm đặc; tự oxi hóa–khử halogen.",
+      "kind": "chemical",
+      "sourceLine": 84,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Ag⁺ + Br⁻ → AgBr↓",
+      "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+      "kind": "chemical",
+      "sourceLine": 86,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Cl₂ + 2Br⁻ → 2Cl⁻ + Br₂",
+      "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+      "kind": "chemical",
+      "sourceLine": 88,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": [
+        {
+          "title": "Chất chống cháy",
+          "desc": "Một số Brominated compounds được sử dụng làm chất chống cháy trong một số vật liệu."
+        },
+        {
+          "title": "Nhiếp ảnh",
+          "desc": "Silver bromide (AgBr) từng có vai trò quan trọng trong phim ảnh và giấy ảnh truyền thống."
+        },
+        {
+          "title": "Dược phẩm",
+          "desc": "Một số Bromine compounds được sử dụng trong quá trình tổng hợp dược phẩm."
+        },
+        {
+          "title": "Hóa chất",
+          "desc": "Bromine được sử dụng làm nguyên liệu để sản xuất nhiều Bromine compounds."
+        },
+        {
+          "title": "Xử lý nước",
+          "desc": "Một số Bromine-based compounds được sử dụng làm chất khử trùng trong các hệ thống xử lý nước."
+        },
+        {
+          "title": "Khoan dầu khí",
+          "desc": "Một số Bromide compounds được sử dụng trong các dung dịch có tỷ trọng cao phục vụ ngành dầu khí."
+        }
+      ],
+      "after": [
+        {
+          "title": "Chất chống cháy",
+          "desc": "Một số Brominated compounds được sử dụng làm chất chống cháy trong một số vật liệu.",
+          "sourceLine": 90
+        },
+        {
+          "title": "Nhiếp ảnh",
+          "desc": "Silver bromide (AgBr) từng có vai trò quan trọng trong phim ảnh và giấy ảnh truyền thống.",
+          "sourceLine": 91
+        },
+        {
+          "title": "Dược phẩm",
+          "desc": "Một số Bromine compounds được sử dụng trong quá trình tổng hợp dược phẩm.",
+          "sourceLine": 92
+        },
+        {
+          "title": "Hóa chất",
+          "desc": "Bromine được sử dụng làm nguyên liệu để sản xuất nhiều Bromine compounds.",
+          "sourceLine": 93
+        },
+        {
+          "title": "Xử lý nước",
+          "desc": "Một số Bromine-based compounds được sử dụng làm chất khử trùng trong các hệ thống xử lý nước.",
+          "sourceLine": 94
+        },
+        {
+          "title": "Khoan dầu khí",
+          "desc": "Một số Bromide compounds được sử dụng trong các dung dịch có tỷ trọng cao phục vụ ngành dầu khí.",
+          "sourceLine": 95
+        }
+      ]
+    },
+    {
+      "field": "chemical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là chất Oxy hóa mạnh, nhưng yếu hơn Chlorine và Fluorine.</li>\n      <li>Có tính phi kim.</li>\n      <li>Số Oxy hóa phổ biến nhất là −1.</li>\n      <li>Phản ứng với kim loại tạo Bromide.</li>\n      <li>Phản ứng với Hydrogen tạo Hydrogen bromide.</li>\n      <li>Có thể đẩy Iodine ra khỏi Iodide.</li>\n      <li>Phản ứng với nước và một số dung dịch kiềm.</li>\n      <li>Có thể tạo các Oxoacid và Oxoanion với nhiều số Oxy hóa khác nhau.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Là chất Oxy hóa mạnh, nhưng yếu hơn Chlorine và Fluorine.</li><li>Có tính phi kim.</li><li>Số Oxy hóa phổ biến nhất là −1.</li><li>Phản ứng với kim loại tạo Bromide.</li><li>Phản ứng với Hydrogen tạo Hydrogen bromide.</li><li>Có thể đẩy Iodine ra khỏi Iodide.</li><li>Phản ứng với nước và một số dung dịch kiềm.</li><li>Có thể tạo các Oxoacid và Oxoanion với nhiều số Oxy hóa khác nhau.</li></ul>"
+    },
+    {
+      "field": "general.CAS",
+      "before": null,
+      "after": "7726-95-6"
+    },
+    {
+      "field": "general.electronegativityNote",
+      "before": null,
+      "after": "Thang Pauling; số liệu tổng hợp PubChem."
+    },
+    {
+      "field": "general.groupLabel",
+      "before": null,
+      "after": "17"
+    },
+    {
+      "field": "general.series",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "general.state",
+      "before": "",
+      "after": "Lỏng"
+    },
+    {
+      "field": "history.year",
+      "before": 1826,
+      "after": "1826"
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/photos/035_Br.jpg",
+          "title": "Brom (Br)",
+          "desc": "Ảnh tham chiếu mẫu Bromine (Br); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+          "source": "https://commons.wikimedia.org/wiki/File:Bromine_vial_in_acrylic_cube.jpg",
+          "author": "Alchemist-hp ( pse-mendelejew.de )",
+          "license": "CC BY-SA 3.0 de",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en"
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "⁷⁹Br",
+          "massNumber": 79,
+          "protons": 35,
+          "neutrons": 44,
+          "stable": true,
+          "abundancePercent": "50.65",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "⁸¹Br",
+          "massNumber": 81,
+          "protons": 35,
+          "neutrons": 46,
+          "stable": true,
+          "abundancePercent": "49.35",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "standard-atomic-weight"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "79.904 ± 0.003"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": []
+    },
+    {
+      "field": "nameVi",
+      "before": "Bromine",
+      "after": "Brom"
+    },
+    {
+      "field": "naturalState.alt",
+      "before": null,
+      "after": "Bromine: ảnh tham chiếu từ Commons"
+    },
+    {
+      "field": "naturalState.caption",
+      "before": null,
+      "after": "Ảnh tham chiếu mẫu Bromine (Br); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc."
+    },
+    {
+      "field": "naturalState.credit",
+      "before": null,
+      "after": "Alchemist-hp ( pse-mendelejew.de ) · CC BY-SA 3.0 de"
+    },
+    {
+      "field": "naturalState.image",
+      "before": null,
+      "after": "/assets/periodic-table/photos/035_Br.jpg"
+    },
+    {
+      "field": "naturalState.kind",
+      "before": null,
+      "after": "photo"
+    },
+    {
+      "field": "naturalState.source",
+      "before": null,
+      "after": "https://commons.wikimedia.org/wiki/File:Bromine_vial_in_acrylic_cube.jpg"
+    },
+    {
+      "field": "notes",
+      "before": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Bromine là nguyên tố số 35, thuộc nhóm VIIA | chu kỳ 4 và là một Halogen.</li>\n  <li>Bromine có cấu hình electron [Ar] 3d¹⁰ 4s² 4p⁵, với số Oxy hóa phổ biến nhất là −1.</li>\n  <li>Bromine là một trong số rất ít nguyên tố tồn tại ở dạng chất lỏng ở điều kiện thường. Đơn chất Bromine tồn tại chủ yếu dưới dạng phân tử Br₂, có màu nâu đỏ và dễ bay hơi.</li>\n  <li>Trong tự nhiên, Bromine chủ yếu tồn tại dưới dạng Bromide trong nước biển và các mỏ muối. Bromine có thể được điều chế bằng cách Oxy hóa Bromide bằng Chlorine.</li>\n  <li>Bromine và các hợp chất của nó có ứng dụng trong công nghiệp hóa chất, dược phẩm, xử lý nước, vật liệu chống cháy và nhiếp ảnh.</li>\n</ul>\n",
+      "after": "<ul class=\"element-prose-list\"><li>Bromine là nguyên tố số 35, thuộc nhóm VIIA | chu kỳ 4 và là một Halogen.</li><li>Bromine có cấu hình electron [Ar] 3d¹⁰ 4s² 4p⁵, với số Oxy hóa phổ biến nhất là −1.</li><li>Bromine là một trong số rất ít nguyên tố tồn tại ở dạng chất lỏng ở điều kiện thường. Đơn chất Bromine tồn tại chủ yếu dưới dạng phân tử Br₂, có màu nâu đỏ và dễ bay hơi.</li><li>Trong tự nhiên, Bromine chủ yếu tồn tại dưới dạng Bromide trong nước biển và các mỏ muối. Bromine có thể được điều chế bằng cách Oxy hóa Bromide bằng Chlorine.</li><li>Bromine và các hợp chất của nó có ứng dụng trong công nghiệp hóa chất, dược phẩm, xử lý nước, vật liệu chống cháy và nhiếp ảnh.</li></ul>"
+    },
+    {
+      "field": "occurrence.details",
+      "before": null,
+      "after": [
+        "Trạng thái: Bromine là chất lỏng màu nâu đỏ, có mùi đặc trưng và dễ bay hơi ở điều kiện thường.",
+        "Có trong: Chủ yếu tồn tại dưới dạng Bromide trong nước biển, nước muối và các mỏ muối tự nhiên.",
+        "Đơn chất: Br₂",
+        "Hợp chất: HBr, NaBr, KBr, AgBr, KBrO₃..."
+      ]
+    },
+    {
+      "field": "occurrence.mineral",
+      "before": null,
+      "after": {
+        "available": false,
+        "reason": "Nguồn chủ yếu là khí quyển, nước hoặc nước muối; không có mẫu quặng riêng đại diện."
+      }
+    },
+    {
+      "field": "physical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là phi kim, thuộc nhóm Halogen.</li>\n      <li>Là chất lỏng ở điều kiện thường.</li>\n      <li>Có màu nâu đỏ.</li>\n      <li>Có mùi hắc và dễ bay hơi.</li>\n      <li>Khối lượng riêng: khoảng 3.12 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng −7.2 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 58.8 °C.</li>\n      <li>Hơi Bromine có màu nâu đỏ.</li>\n      <li>Tan ít trong nước nhưng tan tốt hơn trong một số dung môi hữu cơ.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Là phi kim, thuộc nhóm Halogen.</li><li>Là chất lỏng ở điều kiện thường.</li><li>Có màu nâu đỏ.</li><li>Có mùi hắc và dễ bay hơi.</li><li>Khối lượng riêng: khoảng 3.12 g/cm³.</li><li>Nhiệt độ nóng chảy: khoảng −7.2 °C.</li><li>Nhiệt độ sôi: khoảng 58.8 °C.</li><li>Hơi Bromine có màu nâu đỏ.</li><li>Tan ít trong nước nhưng tan tốt hơn trong một số dung môi hữu cơ.</li></ul>"
+    },
+    {
+      "field": "preparations.industry",
+      "before": [
+        {
+          "title": "Bromine chủ yếu được sản xuất từ nước biển và nước muối giàu Bromide.",
+          "equation": "",
+          "desc": ""
+        },
+        {
+          "title": "Ion Bromide được Oxy hóa bằng Chlorine:",
+          "equation": "Cl₂ + 2Br⁻ → 2Cl⁻ + Br₂",
+          "desc": "Bromine được giải phóng sau đó được tách và tinh chế."
+        }
+      ],
+      "after": [
+        {
+          "title": "Bromine chủ yếu được sản xuất từ nước biển và nước muối giàu Bromide.",
+          "desc": "Ion Bromide được Oxy hóa bằng Chlorine: Bromine được giải phóng sau đó được tách và tinh chế.",
+          "result": "",
+          "equations": [
+            {
+              "equation": "Cl₂ + 2Br⁻ → 2Cl⁻ + Br₂",
+              "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+              "kind": "chemical",
+              "sourceLine": 59,
+              "sourceSection": "industry",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            57,
+            58,
+            59,
+            60
+          ],
+          "equation": "Cl₂ + 2Br⁻ → 2Cl⁻ + Br₂"
+        }
+      ]
+    },
+    {
+      "field": "preparations.lab",
+      "before": [
+        {
+          "title": "Có thể điều chế Bromine bằng cách cho Potassium bromide tác dụng với Chlorine:",
+          "equation": "Cl₂ + 2KBr → 2KCl + Br₂",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Có thể điều chế Bromine bằng cách cho Potassium bromide tác dụng với Chlorine",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "Cl₂ + 2KBr → 2KCl + Br₂",
+              "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+              "kind": "chemical",
+              "sourceLine": 63,
+              "sourceSection": "lab",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            62,
+            63
+          ],
+          "equation": "Cl₂ + 2KBr → 2KCl + Br₂"
+        }
+      ]
+    },
+    {
+      "field": "reactions",
+      "before": [
+        {
+          "type": "Tác dụng với Hydrogen",
+          "equation": "H₂ + Br₂ ⇌ 2HBr",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Iron",
+          "equation": "2Fe + 3Br₂ → 2FeBr₃",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Aluminium",
+          "equation": "2Al + 3Br₂ → 2AlBr₃",
+          "desc": ""
+        },
+        {
+          "type": "Đẩy Iodine khỏi Iodide",
+          "equation": "Br₂ + 2KI → 2KBr + I₂",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với nước",
+          "equation": "Br₂ + H₂O ⇌ HBr + HBrO",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Sodium hydroxide loãng, lạnh",
+          "equation": "Br₂ + 2NaOH → NaBr + NaBrO + H₂O",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Sodium hydroxide đặc, nóng",
+          "equation": "3Br₂ + 6NaOH → 5NaBr + NaBrO₃ + 3H₂O",
+          "desc": ""
+        },
+        {
+          "type": "Nhận biết Bromide",
+          "equation": "Ag⁺ + Br⁻ → AgBr↓",
+          "desc": ""
+        },
+        {
+          "type": "Điều chế Bromine",
+          "equation": "Cl₂ + 2Br⁻ → 2Cl⁻ + Br₂",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "type": "Tác dụng với Hydrogen",
+          "desc": "",
+          "equation": "H₂ + Br₂ ⇌ 2HBr",
+          "condition": "Gia nhiệt; phản ứng thuận nghịch, mức chuyển hóa phụ thuộc nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 72,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Iron",
+          "desc": "",
+          "equation": "2Fe + 3Br₂ → 2FeBr₃",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 74,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Aluminium",
+          "desc": "",
+          "equation": "2Al + 3Br₂ → 2AlBr₃",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 76,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Đẩy Iodine khỏi Iodide",
+          "desc": "",
+          "equation": "Br₂ + 2KI → 2KBr + I₂",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 78,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với nước",
+          "desc": "",
+          "equation": "Br₂ + H₂O ⇌ HBr + HBrO",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 80,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Sodium hydroxide loãng, lạnh",
+          "desc": "",
+          "equation": "Br₂ + 2NaOH → NaBr + NaBrO + H₂O",
+          "condition": "Dung dịch kiềm loãng, lạnh; không gia nhiệt để tránh tạo halate.",
+          "kind": "chemical",
+          "sourceLine": 82,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Sodium hydroxide đặc, nóng",
+          "desc": "",
+          "equation": "3Br₂ + 6NaOH → 5NaBr + NaBrO₃ + 3H₂O",
+          "condition": "Dung dịch kiềm nóng, đậm đặc; tự oxi hóa–khử halogen.",
+          "kind": "chemical",
+          "sourceLine": 84,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Nhận biết Bromide",
+          "desc": "",
+          "equation": "Ag⁺ + Br⁻ → AgBr↓",
+          "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+          "kind": "chemical",
+          "sourceLine": 86,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Điều chế Bromine",
+          "desc": "",
+          "equation": "Cl₂ + 2Br⁻ → 2Cl⁻ + Br₂",
+          "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+          "kind": "chemical",
+          "sourceLine": 88,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": [
+        {
+          "title": "Nhận biết",
+          "reagent": "Nhận biết Br⁻",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Cho dung dịch chứa Br⁻ tác dụng với Silver nitrate",
+          "reagent": "",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "",
+          "result": "",
+          "equation": "Ag⁺ + Br⁻ → AgBr↓"
+        },
+        {
+          "title": "Hiện tượng",
+          "reagent": "",
+          "result": "Xuất hiện kết tủa màu kem hoặc vàng nhạt Silver bromide.",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "AgBr ít tan trong nước và nhạy sáng.",
+          "result": "",
+          "equation": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Nhận biết Br⁻",
+          "desc": "Cho dung dịch chứa Br⁻ tác dụng với Silver nitrate: AgBr ít tan trong nước và nhạy sáng.",
+          "result": "Xuất hiện kết tủa màu kem hoặc vàng nhạt Silver bromide.",
+          "equations": [
+            {
+              "equation": "Ag⁺ + Br⁻ → AgBr↓",
+              "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+              "kind": "chemical",
+              "sourceLine": 67,
+              "sourceSection": "recognition",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            65,
+            66,
+            67,
+            68,
+            69
+          ],
+          "equation": "Ag⁺ + Br⁻ → AgBr↓"
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "035_Br.docx",
+        "sourceSha256": "8cf962deef556002ed1c11e09811b0d46117f1b816215b8f12d3c49a7e3aedff",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/035_Br.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "035_Br.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "8cf962deef556002ed1c11e09811b0d46117f1b816215b8f12d3c49a7e3aedff"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/35/bromine"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure.latticeEvidence",
+      "before": null,
+      "after": "source-reviewed"
+    },
+    {
+      "field": "structure.nucleusIsotope",
+      "before": null,
+      "after": "⁷⁹Br"
+    },
+    {
+      "field": "structure.nucleusNote",
+      "before": null,
+      "after": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác."
+    },
+    {
+      "field": "structure.valenceNote",
+      "before": null,
+      "after": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp."
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "Br",
+      "status": "downloaded",
+      "file": "/assets/periodic-table/photos/035_Br.jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:Bromine_vial_in_acrylic_cube.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/3/35/Bromine_vial_in_acrylic_cube.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "thumbnail": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/35/Bromine_vial_in_acrylic_cube.jpg/960px-Bromine_vial_in_acrylic_cube.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "filename": "Bromine_vial_in_acrylic_cube.jpg",
+      "title": "Bromine vial in acrylic cube",
+      "description": "The chemical element bromine , purity 99,8%, amount ~2g, sealed in a borosilicate glass vial (ampoule), sealed in a 2-inch cube of acrylic.",
+      "author": "Alchemist-hp ( pse-mendelejew.de )",
+      "license": "CC BY-SA 3.0 de",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en",
+      "credit": "Own work",
+      "sha256": "d83dc924e1b1e9d28ca67205fc7f8553935f27324cffabaa412472560371f8e8",
+      "bytes": 94479
+    },
+    "mineral": {
+      "available": false,
+      "reason": "Nguồn chủ yếu là khí quyển, nước hoặc nước muối; không có mẫu quặng riêng đại diện."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "Br",
+      "z": 35,
+      "url": "https://periodic-table.rsc.org/element/35/bromine",
+      "status": "retrieved",
+      "bytes": 161199,
+      "sha256": "29416c766356bcb27534deaad9d0ccded30ef563c8b78f5c121de6842e77babd",
+      "facts": {
+        "Group": "17",
+        "Melting point": "−7.2°C, 19°F, 266 K",
+        "Period": "4",
+        "Boiling point": "58.8°C, 137.8°F, 332 K",
+        "Block": "p",
+        "Density (g cm−³)": "3.1028",
+        "Atomic number": "35",
+        "Relative atomic mass": "79.904",
+        "State at 20°C": "Liquid",
+        "Key isotopes": "⁷⁹Br",
+        "Electron configuration": "[Ar] 3d¹⁰4s²4p⁵",
+        "CAS number": "7726-95-6",
+        "ChemSpider ID": "4514586",
+        "electronegativity": "2.96"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "35",
+      "Symbol": "Br",
+      "Name": "Bromine",
+      "AtomicMass": "79.90",
+      "CPKHexColor": "A62929",
+      "ElectronConfiguration": "[Ar]4s2 3d10 4p5",
+      "Electronegativity": "2.96",
+      "AtomicRadius": "183",
+      "IonizationEnergy": "11.814",
+      "ElectronAffinity": "3.365",
+      "OxidationStates": "+5, +1, -1",
+      "StandardState": "Liquid",
+      "MeltingPoint": "265.95",
+      "BoilingPoint": "331.95",
+      "Density": "3.11",
+      "GroupBlock": "Halogen",
+      "YearDiscovered": "1826"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

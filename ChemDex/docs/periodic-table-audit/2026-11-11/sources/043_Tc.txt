@@ -1,0 +1,96 @@
+001: Technetium (Tc)
+002: Thông tin chung
+003: Tên Latin: Technetium
+004: Tên Tiếng Anh: Technetium
+005: Đồng vị: ⁹⁷Tc, ⁹⁸Tc, ⁹⁹Tc và nhiều đồng vị phóng xạ khác
+006: Vị trí: Nhóm VIIB | Chu kỳ 5
+007: Số Oxy hóa: −1, +2, +3, +4, +5, +6, +7
+008: Độ âm điện: 1.9
+009: Lịch sử khám phá
+010: Phát hiện bởi: Carlo Perrier và Emilio Segrè
+011: Năm công bố: 1937
+012: Nơi khám phá: Ý
+013: Mô tả: Năm 1937, Carlo Perrier và Emilio Segrè đã tách được Technetium từ một mẫu Molybdenum bị chiếu xạ trong cyclotron. Technetium là nguyên tố đầu tiên được tạo ra nhân tạo, và tên gọi bắt nguồn từ tiếng Hy Lạp technē, nghĩa là “nhân tạo”.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Kr] 4d⁵ 5s²
+017: Mô hình mạng tinh thể: Lục phương (Hexagonal)
+018: Số hiệu nguyên tử: 43
+019: Nguyên tử khối: [98] g/mol
+020: Vỏ nguyên tử: 43 electron
+021: K: 2 | L: 8 | M: 18 | N: 13 | O: 2
+022: Hạt nhân: 43 proton
+023: Cấu hình e: [Kr] 4d⁵ 5s²
+024: Loại mạng: Lục phương (Hexagonal)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Technetium là kim loại rắn, màu xám bạc.
+027: Có trong: Technetium gần như không tồn tại với lượng đáng kể trong tự nhiên vì tất cả các đồng vị đều phóng xạ. Một lượng cực nhỏ có thể hình thành tự nhiên từ quá trình phân hạch của Uranium hoặc các phản ứng hạt nhân tự nhiên.
+028: Đơn chất: Tc
+029: Hợp chất: TcO₂, Tc₂O₇, TcCl₄, NH₄TcO₄...
+030: c. Đồng vị
+031: Technetium không có đồng vị bền.
+032: Một số đồng vị đáng chú ý:
+033: ⁹⁷Tc: Phóng xạ, chu kỳ bán rã khoảng 2,6 triệu năm.
+034: ⁹⁸Tc: Phóng xạ.
+035: ⁹⁹Tc: Phóng xạ, chu kỳ bán rã khoảng 211.000 năm; là một trong những đồng vị Technetium quan trọng nhất.
+036: ⁹⁹ᵐTc: Đồng vị kích thích có chu kỳ bán rã khoảng 6 giờ, được sử dụng rộng rãi trong y học hạt nhân.
+037: Tính chất
+038: Tính chất vật lý
+039: Là kim loại chuyển tiếp.
+040: Màu xám bạc.
+041: Có tính phóng xạ.
+042: Khối lượng riêng: khoảng 11.5 g/cm³.
+043: Nhiệt độ nóng chảy: khoảng 2157 °C.
+044: Nhiệt độ sôi: khoảng 4265 °C.
+045: Có tính chất gần với Manganese và Rhenium.
+046: Có thể tạo nhiều hợp chất với các số Oxy hóa khác nhau.
+047: Tính chất hóa học
+048: Có nhiều số Oxy hóa từ −1 đến +7.
+049: Trạng thái +7 khá phổ biến.
+050: Có thể phản ứng với Oxygen tạo Technetium oxides.
+051: Phản ứng với Halogen tạo Technetium halides.
+052: Tạo các Oxoanion như Pertechnetate (TcO₄⁻).
+053: Một số hợp chất Technetium có tính Oxy hóa mạnh.
+054: Technetium có tính chất hóa học khá tương đồng với Rhenium.
+055: Điều chế
+056: Điều chế trong công nghiệp
+057: Technetium không có nguồn quặng tự nhiên đáng kể, chủ yếu được sản xuất từ phản ứng phân hạch Uranium-235 trong lò phản ứng hạt nhân. Sau đó, Technetium được tách khỏi hỗn hợp sản phẩm phân hạch và tinh chế.
+058: Phương trình hạt nhân minh họa:
+059: ²³⁵U + ¹n → ⁹⁹Tc + ¹³⁴Sn + 3¹n
+060: Điều chế trong phòng thí nghiệm
+061: Technetium có thể được tạo ra bằng cách chiếu xạ Molybdenum-98 bằng neutron. Molybdenum-99 sau đó phân rã beta thành Technetium-99m.
+062: Phương trình hạt nhân:
+063: ⁹⁸Mo + ¹n → ⁹⁹Mo
+064: ⁹⁹Mo → ⁹⁹ᵐTc + β⁻ + ν̅ₑ
+065: Technetium-99m tiếp tục chuyển thành Technetium-99:
+066: ⁹⁹ᵐTc → ⁹⁹Tc + γ
+067: Nhận biết
+068: Nhận biết Technetium
+069: Do Technetium là nguyên tố phóng xạ và không có đồng vị bền, việc nhận biết thường dựa trên đặc tính phóng xạ và phương pháp phân tích chuyên dụng.
+070: Ion Pertechnetate:
+071: TcO₄⁻
+072: Là dạng Technetium phổ biến trong dung dịch nước.
+073: Trong y học hạt nhân, ⁹⁹ᵐTc được nhận biết và theo dõi thông qua bức xạ gamma đặc trưng của nó.
+074: Phương trình
+075: Tạo Technetium(VII) oxide
+076: 4Tc + 7O₂ → 2Tc₂O₇
+077: Tạo Technetium chloride
+078: Tc + 2Cl₂ → TcCl₄
+079: Tạo Pertechnetate
+080: Tc₂O₇ + 2OH⁻ → 2TcO₄⁻ + H₂O
+081: Phân rã Molybdenum-99
+082: ⁹⁹Mo → ⁹⁹ᵐTc + β⁻
+083: Phân rã Technetium-99m
+084: ⁹⁹ᵐTc → ⁹⁹Tc + γ
+085: Tạo Technetium dioxide
+086: Tc + O₂ → TcO₂
+087: Ứng dụng thực tế
+088: Y học hạt nhân: ⁹⁹ᵐTc là ứng dụng quan trọng nhất của Technetium. Nó được sử dụng làm chất đánh dấu phóng xạ trong nhiều kỹ thuật chẩn đoán hình ảnh.
+089: Nghiên cứu y sinh: Các hợp chất chứa ⁹⁹ᵐTc được gắn với những chất có khả năng tập trung tại các cơ quan khác nhau để tạo hình ảnh.
+090: Chống ăn mòn: Một số hợp chất Technetium từng được nghiên cứu về khả năng ức chế ăn mòn thép.
+091: Nghiên cứu khoa học: Technetium được sử dụng để nghiên cứu hóa học hạt nhân và tính chất của các nguyên tố chuyển tiếp.
+092: Tổng quan
+093: Technetium là nguyên tố số 43, thuộc nhóm VIIB | chu kỳ 5 và là một kim loại chuyển tiếp phóng xạ.
+094: Technetium đặc biệt vì không có đồng vị bền. Nó là nguyên tố đầu tiên được phát hiện sau khi được tạo ra nhân tạo, mặc dù về sau người ta xác định được một lượng cực nhỏ Technetium hình thành tự nhiên.
+095: Technetium có nhiều số Oxy hóa, trong đó +7 là một trạng thái quan trọng. Trong dung dịch, Technetium thường tồn tại dưới dạng Pertechnetate (TcO₄⁻).
+096: Đồng vị ⁹⁹ᵐTc có chu kỳ bán rã ngắn và phát ra tia gamma, khiến nó trở thành một trong những đồng vị quan trọng nhất trong y học hạt nhân và chẩn đoán hình ảnh.

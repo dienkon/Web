@@ -1,0 +1,84 @@
+001: Neon (Ne)
+002: Thông tin chung
+003: Tên Latin: Neon
+004: Tên tiếng Anh: Neon
+005: Đồng vị: ²⁰Ne, ²¹Ne, ²²Ne
+006: Vị trí: Nhóm VIIIA | Chu kỳ 2
+007: Số Oxy hóa: 0
+008: Độ âm điện: Không xác định theo thang Pauling
+009: Lịch sử khám phá
+010: Phát hiện bởi: William Ramsay và Morris Travers
+011: Năm công bố: 1898
+012: Nơi khám phá: Anh
+013: Mô tả: Năm 1898, William Ramsay và Morris Travers phát hiện Neon khi nghiên cứu phần khí còn lại sau khi hóa lỏng và tách các thành phần của không khí. Họ thu được một khí mới có quang phổ đặc trưng. Tên Neon bắt nguồn từ tiếng Hy Lạp neos, nghĩa là “mới”.
+014: 3. Cấu tạo
+015: a. Cấu tạo
+016: Hoạt họa cấu hình e: 1s² 2s² 2p⁶
+017: Mô hình mạng tinh thể: Lập phương tâm mặt (FCC)
+018: Số hiệu nguyên tử: 10
+019: Nguyên tử khối: 20.180 g/mol
+020: Vỏ nguyên tử: 10 electron
+021: K: 2 | L: 8
+022: Hạt nhân: 10 proton, 10 neutron đối với ²⁰Ne
+023: Cấu hình e: 1s² 2s² 2p⁶
+024: Loại mạng: Lập phương tâm mặt (FCC)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Neon là khí hiếm, tồn tại dưới dạng khí đơn nguyên tử trong khí quyển. Neon có hàm lượng rất nhỏ trong không khí.
+027: Có trong: Khí quyển Trái Đất và một lượng rất nhỏ trong một số khí tự nhiên.
+028: Đơn chất: Ne
+029: Hợp chất: Hầu như không tạo hợp chất hóa học bền trong điều kiện thường.
+030: c. Đồng vị
+031: Đồng vị: ²⁰Ne, ²¹Ne, ²²Ne
+032: ²⁰Ne: Đồng vị bền, chiếm khoảng 90.48% Neon tự nhiên.
+033: ²¹Ne: Đồng vị bền, chiếm khoảng 0.27%.
+034: ²²Ne: Đồng vị bền, chiếm khoảng 9.25%.
+035: Cả ba đồng vị tự nhiên đều bền.
+036: Tính chất
+037: Tính chất vật lý
+038: Là chất khí không màu, không mùi, không vị.
+039: Là khí hiếm thuộc nhóm VIIIA.
+040: Khối lượng mol: 20.180 g/mol.
+041: Khối lượng riêng: khoảng 0.900 g/L ở 0 °C và 1 atm.
+042: Nhiệt độ nóng chảy: −248.59 °C.
+043: Nhiệt độ sôi: −246.08 °C.
+044: Rất ít tan trong nước.
+045: Nhẹ hơn không khí.
+046: Khi bị kích thích bằng điện, phát ra ánh sáng đỏ cam đặc trưng.
+047: Có nhiệt dung riêng và khả năng dẫn nhiệt tương đối cao so với nhiều khí khác.
+048: Tính chất hóa học
+049: Là khí hiếm và có tính trơ hóa học rất cao.
+050: Có cấu hình electron lớp ngoài cùng bão hòa.
+051: Hầu như không tham gia phản ứng hóa học ở điều kiện thường.
+052: Không cháy.
+053: Không duy trì sự cháy.
+054: Không có số Oxy hóa dương hoặc âm phổ biến trong các hợp chất ổn định.
+055: Không dễ tạo ion hoặc liên kết hóa học.
+056: Điều chế
+057: Điều chế trong công nghiệp
+058: Neon được thu chủ yếu từ không khí lỏng.
+059: Không khí được làm sạch, hóa lỏng và tách thành các thành phần bằng chưng cất phân đoạn. Neon được thu từ các dòng khí nhẹ chứa Neon và các khí hiếm khác, sau đó tiếp tục được tinh chế.
+060: Điều chế trong phòng thí nghiệm
+061: Neon không được điều chế bằng phản ứng hóa học thông thường vì là khí hiếm rất trơ.
+062: Trong phòng thí nghiệm, Neon thường được sử dụng từ Neon đã được tinh chế sẵn.
+063: Nhận biết
+064: Phổ phát xạ: Khi cho dòng điện đi qua Neon trong ống phóng điện, Neon phát ra ánh sáng đỏ cam đặc trưng.
+065: Phổ nguyên tử: Neon có các vạch phổ đặc trưng, có thể dùng để xác định chính xác nguyên tố.
+066: Phương trình
+067: Neon là khí hiếm và hầu như không tham gia phản ứng hóa học trong điều kiện thường.
+068: Không có phương trình phản ứng hóa học đặc trưng phổ biến của Neon.
+069: Quá trình phát sáng trong ống phóng điện có thể biểu diễn khái quát:
+070: Ne + năng lượng điện → Ne*
+071: Sau đó nguyên tử Neon kích thích trở về trạng thái năng lượng thấp hơn và phát ra photon:
+072: Ne* → Ne + hν
+073: Ứng dụng thực tế
+074: Đèn Neon: Dùng trong biển hiệu và các loại đèn phóng điện tạo ánh sáng đỏ cam đặc trưng.
+075: Đèn báo: Sử dụng trong một số thiết bị điện và điện tử.
+076: Laser: Neon được sử dụng trong một số loại laser, đặc biệt là laser Helium-Neon.
+077: Điện tử: Được sử dụng trong một số ống phóng điện và thiết bị điện tử.
+078: Làm lạnh: Neon lỏng có thể được sử dụng làm chất làm lạnh ở nhiệt độ rất thấp.
+079: Nghiên cứu khoa học: Được sử dụng trong nghiên cứu vật lý plasma, quang phổ và khí hiếm.
+080: Tổng quan
+081: Neon là nguyên tố số 10, thuộc nhóm VIIIA | chu kỳ 2 và là một khí hiếm.
+082: Neon có cấu hình electron 1s² 2s² 2p⁶, với lớp electron ngoài cùng đã bão hòa nên có tính trơ hóa học rất cao. Ở điều kiện thường, Neon tồn tại dưới dạng khí đơn nguyên tử Ne.
+083: Neon có ba đồng vị bền tự nhiên là ²⁰Ne, ²¹Ne và ²²Ne. Khi được kích thích bằng điện, Neon phát ra ánh sáng đỏ cam đặc trưng, tạo nên ứng dụng nổi tiếng nhất của nguyên tố này trong đèn Neon.
+084: Neon chủ yếu được sử dụng trong chiếu sáng, biển hiệu, thiết bị điện tử, laser và nghiên cứu khoa học.

@@ -1,0 +1,449 @@
+{
+  "number": 103,
+  "symbol": "Lr",
+  "nameVi": "Lawrencium",
+  "nameEn": "Lawrencium",
+  "mass": 262,
+  "massStandardText": "[262] — số khối đồng vị tham chiếu, không phải nguyên tử khối chuẩn",
+  "massStandardSource": "https://periodic-table.rsc.org/element/103/lawrencium",
+  "massKind": "reference-isotope-mass-number",
+  "category": "actinide",
+  "hasData": true,
+  "file": "elements/103_Lr.json",
+  "general": {
+    "latinName": "Lawrencium",
+    "englishName": "Lawrencium",
+    "electronConfig": "[Rn] 5f¹⁴ 7s² 7p¹",
+    "isotope": "²⁵²Lr, ²⁵³Lr, ²⁵⁴Lr, ²⁵⁵Lr, ²⁵⁶Lr, ²⁵⁷Lr, ²⁵⁸Lr, ²⁵⁹Lr, ²⁶⁰Lr, ²⁶¹Lr, ²⁶²Lr",
+    "group": null,
+    "groupLabel": "Actinide",
+    "series": "Actinide",
+    "period": 7,
+    "state": "Chưa đo trạng thái vĩ mô; các giá trị pha chỉ là dự đoán",
+    "oxidation": "+3",
+    "electronegativity": null,
+    "electronegativityNote": "Chưa có giá trị Pauling đủ cơ sở trong bản đối chiếu; không coi 0 là giá trị đã đo.",
+    "density": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+    "meltingPoint": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+    "boilingPoint": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+    "crystalStructure": "Chưa xác định do chỉ tạo được lượng nguyên tử cực nhỏ.",
+    "CAS": "22537-19-5"
+  },
+  "history": {
+    "discoverer": "Albert Ghiorso và cộng sự tại Lawrence Radiation Laboratory, cùng các nhà khoa học của Joint Institute for Nuclear Research (JINR).",
+    "year": "1961",
+    "discoveryLocation": "Berkeley, California, Hoa Kỳ",
+    "description": "Lawrencium được tạo ra lần đầu tiên bằng cách bắn phá Californium-252 bằng các ion Boron-10. Phản ứng: ²⁵²Cf + ¹⁰B → ²⁶¹Lr + n Tên Lawrencium được đặt để vinh danh Ernest O. Lawrence, nhà vật lý người Mỹ và là người phát minh cyclotron."
+  },
+  "structure": {
+    "protons": 103,
+    "electrons": 103,
+    "neutrons": 159,
+    "nucleusIsotope": "²⁶²Lr",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 103,
+      "neutron": 159
+    },
+    "electronShells": [
+      2,
+      8,
+      18,
+      32,
+      32,
+      8,
+      3
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      32,
+      32,
+      8,
+      3
+    ],
+    "valenceElectrons": 3,
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+    "lattice": "Chưa xác định do chỉ tạo được lượng nguyên tử cực nhỏ.",
+    "latticeEvidence": "predicted"
+  },
+  "structureType": "Chưa xác định do chỉ tạo được lượng nguyên tử cực nhỏ.",
+  "occurrence": {
+    "description": "Chất rắn (dự đoán)",
+    "simple": [
+      "Lr"
+    ],
+    "compounds": [
+      "Lr³⁺ và một số hợp chất Halide được nghiên cứu ở quy mô nguyên tử"
+    ],
+    "ores": [
+      "Không tồn tại tự nhiên",
+      "được tạo ra nhân tạo"
+    ],
+    "details": [
+      "Trạng thái: Chất rắn (dự đoán)",
+      "Màu sắc: Bạc trắng (dự đoán)",
+      "Có trong: Không tồn tại tự nhiên; được tạo ra nhân tạo.",
+      "Đơn chất: Lr",
+      "Hợp chất: Lr³⁺ và một số hợp chất Halide được nghiên cứu ở quy mô nguyên tử."
+    ],
+    "mineral": {
+      "available": false,
+      "reason": "Nguyên tố nhân tạo hoặc chỉ có vết tự nhiên; không có quặng khai thác riêng để dựng mẫu."
+    }
+  },
+  "naturalState": {
+    "image": "/assets/periodic-table/diagrams/103_Lr.svg",
+    "alt": "Lawrencium: sơ đồ minh họa nguyên tố",
+    "kind": "diagram",
+    "source": "",
+    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+    "credit": ""
+  },
+  "isotopes": [
+    {
+      "isotope": "²⁵²Lr",
+      "massNumber": 252,
+      "protons": 103,
+      "neutrons": 149,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "0.33 (+0.08/−0.07) s",
+      "halfLife": "0.33 s",
+      "halfLifeUncertainty": "+8-7",
+      "halfLifeQualifier": null,
+      "decay": "EC+B+",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁵³Lr",
+      "massNumber": 253,
+      "protons": 103,
+      "neutrons": 150,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "0.57 (+0.07/−0.06) s",
+      "halfLife": "0.57 s",
+      "halfLifeUncertainty": "+7-6",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁵⁴Lr",
+      "massNumber": 254,
+      "protons": 103,
+      "neutrons": 151,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "18.1 ± 1.8 s",
+      "halfLife": "18.1 s",
+      "halfLifeUncertainty": "18",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁵⁵Lr",
+      "massNumber": 255,
+      "protons": 103,
+      "neutrons": 152,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "31.1 ± 1.1 s",
+      "halfLife": "31.1 s",
+      "halfLifeUncertainty": "11",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁵⁶Lr",
+      "massNumber": 256,
+      "protons": 103,
+      "neutrons": 153,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "27.9 ± 1.0 s",
+      "halfLife": "27.9 s",
+      "halfLifeUncertainty": "10",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁵⁷Lr",
+      "massNumber": 257,
+      "protons": 103,
+      "neutrons": 154,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "AP 4 s",
+      "halfLife": "4 s",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": "AP",
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁵⁸Lr",
+      "massNumber": 258,
+      "protons": 103,
+      "neutrons": 155,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "3.92 ± 0.33 s",
+      "halfLife": "3.92 s",
+      "halfLifeUncertainty": "33",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁵⁹Lr",
+      "massNumber": 259,
+      "protons": 103,
+      "neutrons": 156,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "6.2 ± 0.3 s",
+      "halfLife": "6.2 s",
+      "halfLifeUncertainty": "3",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁶⁰Lr",
+      "massNumber": 260,
+      "protons": 103,
+      "neutrons": 157,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "180 ± 30 s",
+      "halfLife": "180 s",
+      "halfLifeUncertainty": "30",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁶¹Lr",
+      "massNumber": 261,
+      "protons": 103,
+      "neutrons": 158,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "39 ± 12 phút",
+      "halfLife": "39 m",
+      "halfLifeUncertainty": "12",
+      "halfLifeQualifier": null,
+      "decay": "SF",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁶²Lr",
+      "massNumber": 262,
+      "protons": 103,
+      "neutrons": 159,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "AP 4 h",
+      "halfLife": "4 h",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": "AP",
+      "decay": "SF",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Là nguyên tố phóng xạ nhân tạo.</li><li>Thuộc họ Actinide.</li><li>Được dự đoán là kim loại.</li><li>Có thể có màu bạc trắng.</li><li>Có tính phóng xạ rất mạnh.</li><li>Chỉ có thể tạo ra với lượng cực kỳ nhỏ.</li><li>Chưa thể nghiên cứu đầy đủ các tính chất vật lý vĩ mô.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Lawrencium chủ yếu có trạng thái Oxy hóa:</li><li>+3</li><li>Điểm đặc biệt của Lawrencium là cấu hình electron ở trạng thái cơ bản được xác định là:</li><li>[Rn] 5f¹⁴ 7s² 7p¹</li><li>Đây là điểm khác biệt so với nhiều Actinide trước đó, vốn thường có electron cuối cùng nằm ở orbital 6d.</li><li>Ion Lr³⁺ có cấu hình:</li><li>[Rn] 5f¹⁴</li><li>Điều này làm Lawrencium trở thành một nguyên tố đặc biệt trong việc nghiên cứu giới hạn của dãy Actinide.</li></ul>",
+  "reactions": [
+    {
+      "type": "Điều chế Lawrencium-261",
+      "desc": "",
+      "equation": "²⁵²Cf + ¹⁰B → ²⁶¹Lr + n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 83,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tạo ion Lawrencium(III)",
+      "desc": "",
+      "equation": "Lr → Lr³⁺ + 3e⁻",
+      "condition": "Kích thích, ion hóa hoặc kết hợp bức xạ trong pha khí; cần cung cấp/trao đổi năng lượng.",
+      "kind": "physical",
+      "sourceLine": 85,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Phân rã Alpha của Lawrencium-261",
+      "desc": "",
+      "equation": "²⁶¹Lr → ²⁵⁷Md + α",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 87,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "preparations": {
+    "lab": [
+      {
+        "title": "Lawrencium được tổng hợp bằng cách bắn phá Californium-249 bằng ion Boron-11 trong máy gia tốc hạt.",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "²⁴⁹Cf + ¹¹B → ²⁵⁶Lr + 4¹n",
+            "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+            "kind": "nuclear",
+            "sourceLine": 72,
+            "sourceSection": "lab",
+            "balance": {
+              "status": "balanced",
+              "kind": "nuclear",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          71,
+          72
+        ],
+        "equation": "²⁴⁹Cf + ¹¹B → ²⁵⁶Lr + 4¹n"
+      }
+    ],
+    "industry": [
+      {
+        "title": "Lawrencium (Lr) không được sản xuất công nghiệp do tính phóng xạ cao và thời gian bán rã ngắn. Nguyên tố này chỉ được tổng hợp trong các cơ sở nghiên cứu hạt nhân.",
+        "desc": "",
+        "result": "",
+        "equations": [],
+        "sourceLines": [
+          69
+        ],
+        "equation": ""
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Có thể nhận biết Lawrencium thông qua",
+      "desc": "Phổ alpha. Chuỗi phân rã phóng xạ. Phổ gamma của sản phẩm phân rã. Xác định thời gian sống của hạt nhân. Phân tích các sản phẩm con cháu trong chuỗi phân rã. Do Lawrencium có chu kỳ bán rã ngắn và chỉ được tạo ra với số lượng cực nhỏ, không thể nhận biết bằng các phương pháp hóa học thông thường.",
+      "result": "",
+      "equations": [],
+      "sourceLines": [
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80
+      ],
+      "equation": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Nghiên cứu hạt nhân",
+      "desc": "Lawrencium được sử dụng gần như hoàn toàn trong nghiên cứu vật lý hạt nhân và hóa học Actinide.",
+      "sourceLine": 89
+    },
+    {
+      "title": "Nghiên cứu cấu hình electron",
+      "desc": "Lawrencium rất quan trọng vì nó giúp xác định cấu hình electron ở cuối dãy Actinide.",
+      "sourceLine": 90
+    },
+    {
+      "title": "Nghiên cứu nguyên tố siêu nặng",
+      "desc": "Lawrencium được sử dụng để nghiên cứu sự ổn định của hạt nhân nặng và các quy luật của bảng tuần hoàn ở vùng nguyên tố siêu nặng.",
+      "sourceLine": 91
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Do chỉ tạo ra được lượng cực nhỏ và có tính phóng xạ mạnh, Lawrencium không có ứng dụng công nghiệp hoặc đời sống thông thường.",
+      "sourceLine": 92
+    }
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Lawrencium là nguyên tố số 103, thuộc nhóm IIIB | chu kỳ 7 và là nguyên tố cuối cùng của họ Actinide.</li><li>Lawrencium được phát hiện vào năm 1961 bởi Albert Ghiorso và cộng sự tại Berkeley, Hoa Kỳ. Nguyên tố được đặt tên để vinh danh Ernest O. Lawrence, người phát minh cyclotron.</li><li>Lawrencium là một nguyên tố phóng xạ nhân tạo, không có đồng vị bền. Trạng thái Oxy hóa chủ yếu là +3.</li><li>Điểm đặc biệt nhất của Lawrencium là cấu hình electron:</li><li>[Rn] 5f¹⁴ 7s² 7p¹</li><li>Khác với dự đoán đơn giản rằng electron cuối cùng sẽ đi vào orbital 6d. Điều này khiến Lawrencium trở thành một nguyên tố rất quan trọng trong nghiên cứu cấu trúc nguyên tử và giới hạn của dãy Actinide.</li><li>Mạng tinh thể: Chưa xác định thực nghiệm do chỉ tạo được lượng nguyên tử cực nhỏ.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/diagrams/103_Lr.svg",
+      "title": "Lawrencium (Lr)",
+      "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+      "source": "",
+      "author": "ChemDex",
+      "license": "ChemDex schematic diagram",
+      "licenseUrl": ""
+    }
+  ],
+  "mediaBlocks": [],
+  "sources": [
+    {
+      "title": "103_Lr.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "d20d931a498b24b7c085b255de0290d2cd668ffa6a09b98efe65ac090b0dce82"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/103/lawrencium"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "103_Lr.docx",
+    "sourceSha256": "d20d931a498b24b7c085b255de0290d2cd668ffa6a09b98efe65ac090b0dce82",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/103_Lr.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
+}

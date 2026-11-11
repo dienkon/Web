@@ -1,0 +1,1050 @@
+{
+  "symbol": "Pu",
+  "number": 94,
+  "source": "094_Pu.docx",
+  "sourceSha256": "0cba7024642c3d76a72173b6085b1be4e8e62e8a136d9d881d6183495c651494",
+  "paragraphCount": 102,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 7,
+    "structure": 8,
+    "occurrence": 5,
+    "isotopes": 7,
+    "physical": 8,
+    "chemical": 10,
+    "lab": 1,
+    "industry": 6,
+    "recognition": 7,
+    "reactions": 10,
+    "applications": 4,
+    "notes": 6
+  },
+  "editorialDecisions": [],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "[Rn] 5f⁶ 7s²",
+      "publishedValue": "[Rn] 5f⁶ 7s²",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Đơn tà (Monoclinic) ở điều kiện thường.",
+      "publishedValue": "Đơn tà (Monoclinic) ở điều kiện thường.",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "1,28 (Pauling)",
+      "publishedValue": 1.28,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm IIIB | Chu kỳ 7 | Họ Actinide",
+      "publishedValue": "Actinide",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Chất rắn",
+      "publishedValue": "Rắn",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 35,
+      "sourceText": "²³⁸Pu: chu kỳ bán rã khoảng 87,7 năm; phát alpha mạnh.",
+      "reference": {
+        "isotope": "²³⁸Pu",
+        "massNumber": 238,
+        "protons": 94,
+        "neutrons": 144,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "87.7 ± 0.1 năm",
+        "halfLife": "87.7 Y",
+        "halfLifeUncertainty": "1",
+        "halfLifeQualifier": null,
+        "decay": "A",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 36,
+      "sourceText": "²³⁹Pu: chu kỳ bán rã khoảng 24.110 năm; có khả năng phân hạch.",
+      "reference": {
+        "isotope": "²³⁹Pu",
+        "massNumber": 239,
+        "protons": 94,
+        "neutrons": 145,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "24110 ± 30 năm",
+        "halfLife": "24110 Y",
+        "halfLifeUncertainty": "30",
+        "halfLifeQualifier": null,
+        "decay": "A",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 37,
+      "sourceText": "²⁴⁰Pu: chu kỳ bán rã khoảng 6.560 năm.",
+      "reference": {
+        "isotope": "²⁴⁰Pu",
+        "massNumber": 240,
+        "protons": 94,
+        "neutrons": 146,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "6561 ± 7 năm",
+        "halfLife": "6561 Y",
+        "halfLifeUncertainty": "7",
+        "halfLifeQualifier": null,
+        "decay": "A",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 38,
+      "sourceText": "²⁴¹Pu: chu kỳ bán rã khoảng 14,3 năm.",
+      "reference": {
+        "isotope": "²⁴¹Pu",
+        "massNumber": 241,
+        "protons": 94,
+        "neutrons": 147,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "14.329 ± 0.029 năm",
+        "halfLife": "14.329 Y",
+        "halfLifeUncertainty": "29",
+        "halfLifeQualifier": null,
+        "decay": "B-",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 39,
+      "sourceText": "²⁴²Pu: chu kỳ bán rã khoảng 373.000 năm.",
+      "reference": {
+        "isotope": "²⁴²Pu",
+        "massNumber": 242,
+        "protons": 94,
+        "neutrons": 148,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "3.73E+5 ± 2E+3 năm",
+        "halfLife": "3.73E+5 Y",
+        "halfLifeUncertainty": "2",
+        "halfLifeQualifier": null,
+        "decay": "A",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 14,
+      "text": "²³⁸U + ²H → ²³⁸Np + 2n",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 15,
+      "text": "²³⁸Np → ²³⁸Pu + β⁻",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 60,
+      "text": "Pu + O₂ → PuO₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 66,
+      "text": "²³⁸U + ¹n → ²³⁹U",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 67,
+      "text": "²³⁹U → ²³⁹Np + β⁻",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 68,
+      "text": "²³⁹Np → ²³⁹Pu + β⁻",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 82,
+      "text": "²³⁸U + n → ²³⁹U",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 83,
+      "text": "²³⁹U → ²³⁹Np + β⁻",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 84,
+      "text": "²³⁹Np → ²³⁹Pu + β⁻",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 86,
+      "text": "Pu + O₂ → PuO₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 88,
+      "text": "²³⁹Pu → ²³⁵U + α",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 90,
+      "text": "²³⁸Pu → ²³⁴U + α",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "history",
+      "equation": "²³⁸U + ²H → ²³⁸Np + 2n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 14,
+      "sourceSection": "history",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "history",
+      "equation": "²³⁸Np → ²³⁸Pu + β⁻ + ν̅ₑ",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 15,
+      "sourceSection": "history",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "chemical",
+      "equation": "Pu + O₂ → PuO₂",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 60,
+      "sourceSection": "chemical",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "²³⁸U + ¹n → ²³⁹U + γ",
+      "condition": "Chiếu neutron trong cơ sở nghiên cứu; bắt neutron và phát gamma nếu không có sản phẩm bay hơi.",
+      "kind": "nuclear",
+      "sourceLine": 66,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "²³⁹U → ²³⁹Np + β⁻ + ν̅ₑ",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 67,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "²³⁹Np → ²³⁹Pu + β⁻ + ν̅ₑ",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 68,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "²³⁸U + n → ²³⁹U + γ",
+      "condition": "Chiếu neutron trong cơ sở nghiên cứu; bắt neutron và phát gamma nếu không có sản phẩm bay hơi.",
+      "kind": "nuclear",
+      "sourceLine": 82,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "²³⁹U → ²³⁹Np + β⁻ + ν̅ₑ",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 83,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "²³⁹Np → ²³⁹Pu + β⁻ + ν̅ₑ",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 84,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Pu + O₂ → PuO₂",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 86,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "²³⁹Pu → ²³⁵U + α",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 88,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "²³⁸Pu → ²³⁴U + α",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 90,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": null,
+      "after": [
+        {
+          "title": "Năng lượng hạt nhân",
+          "desc": "Một số đồng vị Plutonium, đặc biệt ²³⁹Pu, có khả năng phân hạch và có thể được sử dụng trong nhiên liệu hạt nhân trong các hệ thống được quản lý nghiêm ngặt.",
+          "sourceLine": 92
+        },
+        {
+          "title": "Nguồn năng lượng cho tàu vũ trụ",
+          "desc": "²³⁸Pu được sử dụng trong Radioisotope Thermoelectric Generator (RTG) để cung cấp điện cho một số tàu thăm dò và thiết bị không gian. Nhiệt sinh ra từ quá trình phân rã phóng xạ được chuyển thành điện năng.",
+          "sourceLine": 93
+        },
+        {
+          "title": "Nghiên cứu khoa học",
+          "desc": "Plutonium được sử dụng để nghiên cứu vật lý hạt nhân, hóa học Actinide và tính chất vật liệu phóng xạ.",
+          "sourceLine": 94
+        },
+        {
+          "title": "Định tuổi và truy vết môi trường",
+          "desc": "Một số đồng vị Plutonium có thể được sử dụng làm chất đánh dấu trong nghiên cứu môi trường và lịch sử phát tán vật liệu phóng xạ.",
+          "sourceLine": 95
+        }
+      ]
+    },
+    {
+      "field": "category",
+      "before": null,
+      "after": "actinide"
+    },
+    {
+      "field": "chemical",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Plutonium có nhiều trạng thái Oxy hóa:</li><li>+3</li><li>+4</li><li>+5</li><li>+6</li><li>+7</li><li>Trong đó +3, +4, +5 và +6 thường gặp hơn.</li><li>Plutonium dễ phản ứng với Oxygen tạo các oxide khác nhau. Một oxide quan trọng là Plutonium dioxide (PuO₂):</li><li class=\"source-equation\">Pu + O₂ → PuO₂<small>Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.</small></li><li>Plutonium cũng có thể tạo nhiều hợp chất với Halogen như Chlorine và Fluorine.</li></ul>"
+    },
+    {
+      "field": "file",
+      "before": null,
+      "after": "elements/094_Pu.json"
+    },
+    {
+      "field": "general",
+      "before": null,
+      "after": {
+        "latinName": "Plutonium",
+        "englishName": "Plutonium",
+        "electronConfig": "[Rn] 5f⁶ 7s²",
+        "isotope": "²³⁸Pu, ²³⁹Pu, ²⁴⁰Pu, ²⁴¹Pu, ²⁴²Pu, ²⁴⁴Pu",
+        "group": null,
+        "groupLabel": "Actinide",
+        "series": "Actinide",
+        "period": 7,
+        "state": "Rắn",
+        "oxidation": "+3, +4, +5, +6, +7",
+        "electronegativity": 1.28,
+        "electronegativityNote": "Thang Pauling; số liệu tổng hợp PubChem.",
+        "density": "19.7 g/cm³ (theo bảng RSC)",
+        "meltingPoint": "640°C",
+        "boilingPoint": "3228°C",
+        "crystalStructure": "Đơn tà (Monoclinic) ở điều kiện thường.",
+        "CAS": "7440-07-5"
+      }
+    },
+    {
+      "field": "hasData",
+      "before": null,
+      "after": true
+    },
+    {
+      "field": "history",
+      "before": null,
+      "after": {
+        "discoverer": "Glenn T. Seaborg, Arthur Wahl, Joseph W. Kennedy và Edwin McMillan",
+        "year": "1940",
+        "discoveryLocation": "Berkeley, California, Hoa Kỳ",
+        "description": "Plutonium được tạo ra lần đầu tiên vào tháng 12 năm 1940 bằng cách bắn phá Uranium-238 bằng Deuteron. Quá trình này tạo ra Neptunium-238, sau đó phân rã beta thành Plutonium-238. ²³⁸U + ²H → ²³⁸Np + 2n ²³⁸Np → ²³⁸Pu + β⁻ Tên Plutonium được đặt theo Pluto, tiếp nối cách đặt tên của Uranium và Neptunium theo các thiên thể."
+      }
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/diagrams/094_Pu.svg",
+          "title": "Plutonium (Pu)",
+          "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+          "source": "",
+          "author": "ChemDex",
+          "license": "ChemDex schematic diagram",
+          "licenseUrl": ""
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "²³⁸Pu",
+          "massNumber": 238,
+          "protons": 94,
+          "neutrons": 144,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "87.7 ± 0.1 năm",
+          "halfLife": "87.7 Y",
+          "halfLifeUncertainty": "1",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²³⁹Pu",
+          "massNumber": 239,
+          "protons": 94,
+          "neutrons": 145,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "24110 ± 30 năm",
+          "halfLife": "24110 Y",
+          "halfLifeUncertainty": "30",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁴⁰Pu",
+          "massNumber": 240,
+          "protons": 94,
+          "neutrons": 146,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "6561 ± 7 năm",
+          "halfLife": "6561 Y",
+          "halfLifeUncertainty": "7",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁴¹Pu",
+          "massNumber": 241,
+          "protons": 94,
+          "neutrons": 147,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "14.329 ± 0.029 năm",
+          "halfLife": "14.329 Y",
+          "halfLifeUncertainty": "29",
+          "halfLifeQualifier": null,
+          "decay": "B-",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁴²Pu",
+          "massNumber": 242,
+          "protons": 94,
+          "neutrons": 148,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "3.73E+5 ± 2E+3 năm",
+          "halfLife": "3.73E+5 Y",
+          "halfLifeUncertainty": "2",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁴⁴Pu",
+          "massNumber": 244,
+          "protons": 94,
+          "neutrons": 150,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "8.13E+7 ± 3E+5 năm",
+          "halfLife": "8.13E+7 Y",
+          "halfLifeUncertainty": "3",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "mass",
+      "before": null,
+      "after": 238
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "reference-isotope-mass-number"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://periodic-table.rsc.org/element/94/plutonium"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "[238] — số khối đồng vị tham chiếu, không phải nguyên tử khối chuẩn"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": []
+    },
+    {
+      "field": "nameEn",
+      "before": null,
+      "after": "Plutonium"
+    },
+    {
+      "field": "nameVi",
+      "before": null,
+      "after": "Plutonium"
+    },
+    {
+      "field": "naturalState",
+      "before": null,
+      "after": {
+        "image": "/assets/periodic-table/diagrams/094_Pu.svg",
+        "alt": "Plutonium: sơ đồ minh họa nguyên tố",
+        "kind": "diagram",
+        "source": "",
+        "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+        "credit": ""
+      }
+    },
+    {
+      "field": "notes",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Plutonium là nguyên tố số 94, thuộc nhóm IIIB | chu kỳ 7 và là nguyên tố thứ sáu trong họ Actinide.</li><li>Plutonium được Glenn T. Seaborg, Arthur Wahl, Joseph W. Kennedy và Edwin McMillan phát hiện vào năm 1940 tại Berkeley, Hoa Kỳ. Tên nguyên tố được đặt theo Pluto, tiếp nối Uranium và Neptunium.</li><li>Plutonium là một kim loại phóng xạ, có nhiều dạng thù hình và nhiều trạng thái Oxy hóa. Trong số các đồng vị của nó, ²³⁸Pu nổi bật với khả năng tạo nhiệt lâu dài thông qua phân rã alpha, còn ²³⁹Pu có tính chất phân hạch quan trọng.</li><li>Ứng dụng dân sự nổi bật nhất của Plutonium là ²³⁸Pu trong RTG, cung cấp năng lượng cho các thiết bị không gian trong thời gian dài. Plutonium cũng có vai trò trong nghiên cứu hạt nhân và công nghệ năng lượng.</li><li>Do tính phóng xạ cao và những yêu cầu an toàn đặc biệt, Plutonium được quản lý rất nghiêm ngặt và không phải là vật liệu sử dụng thông thường.</li><li>Mạng tinh thể: Đơn tà (Monoclinic, pha α-Pu) ở điều kiện thường.</li></ul>"
+    },
+    {
+      "field": "number",
+      "before": null,
+      "after": 94
+    },
+    {
+      "field": "occurrence",
+      "before": null,
+      "after": {
+        "description": "Chất rắn",
+        "simple": [
+          "Pu"
+        ],
+        "compounds": [
+          "PuO₂",
+          "Pu₂O₃",
+          "PuCl₃",
+          "PuCl₄",
+          "PuF₄"
+        ],
+        "ores": [
+          "Chỉ tồn tại với lượng cực kỳ nhỏ trong tự nhiên",
+          "phần lớn Plutonium được sản xuất nhân tạo"
+        ],
+        "details": [
+          "Trạng thái: Chất rắn",
+          "Màu sắc: Bạc xám",
+          "Có trong: Chỉ tồn tại với lượng cực kỳ nhỏ trong tự nhiên; phần lớn Plutonium được sản xuất nhân tạo.",
+          "Đơn chất: Pu",
+          "Hợp chất phổ biến: PuO₂, Pu₂O₃, PuCl₃, PuCl₄, PuF₄"
+        ],
+        "mineral": {
+          "available": false,
+          "reason": "Nguyên tố nhân tạo hoặc chỉ có vết tự nhiên; không có quặng khai thác riêng để dựng mẫu."
+        }
+      }
+    },
+    {
+      "field": "physical",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Là kim loại phóng xạ.</li><li>Thuộc họ Actinide.</li><li>Có màu bạc xám khi bề mặt mới.</li><li>Có nhiều dạng thù hình với cấu trúc tinh thể khác nhau.</li><li>Khối lượng riêng thay đổi đáng kể tùy pha.</li><li>Có nhiệt độ nóng chảy khoảng 639 °C.</li><li>Có nhiệt độ sôi khoảng 3228 °C.</li><li>Có tính phóng xạ và tỏa nhiệt do quá trình phân rã.</li></ul>"
+    },
+    {
+      "field": "preparations",
+      "before": null,
+      "after": {
+        "lab": [
+          {
+            "title": "Plutonium không được điều chế bằng phản ứng hóa học thông thường. Việc tạo ra và tách nguyên tố này chỉ diễn ra trong các cơ sở hạt nhân được kiểm soát nghiêm ngặt.",
+            "desc": "",
+            "result": "",
+            "equations": [],
+            "sourceLines": [
+              71
+            ],
+            "equation": ""
+          }
+        ],
+        "industry": [
+          {
+            "title": "Plutonium (Pu) chủ yếu được tạo ra trong lò phản ứng hạt nhân khi Uranium-238 hấp thụ neutron, tạo Uranium-239 rồi trải qua hai lần phân rã beta để hình thành Plutonium-239.",
+            "desc": "Phương trình hạt nhân: Plutonium được thu hồi từ nhiên liệu hạt nhân đã qua sử dụng trong các cơ sở chuyên dụng.",
+            "result": "",
+            "equations": [
+              {
+                "equation": "²³⁸U + ¹n → ²³⁹U + γ",
+                "condition": "Chiếu neutron trong cơ sở nghiên cứu; bắt neutron và phát gamma nếu không có sản phẩm bay hơi.",
+                "kind": "nuclear",
+                "sourceLine": 66,
+                "sourceSection": "industry",
+                "balance": {
+                  "status": "balanced",
+                  "kind": "nuclear",
+                  "delta": {}
+                },
+                "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+              },
+              {
+                "equation": "²³⁹U → ²³⁹Np + β⁻ + ν̅ₑ",
+                "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+                "kind": "nuclear",
+                "sourceLine": 67,
+                "sourceSection": "industry",
+                "balance": {
+                  "status": "balanced",
+                  "kind": "nuclear",
+                  "delta": {}
+                },
+                "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+              },
+              {
+                "equation": "²³⁹Np → ²³⁹Pu + β⁻ + ν̅ₑ",
+                "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+                "kind": "nuclear",
+                "sourceLine": 68,
+                "sourceSection": "industry",
+                "balance": {
+                  "status": "balanced",
+                  "kind": "nuclear",
+                  "delta": {}
+                },
+                "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+              }
+            ],
+            "sourceLines": [
+              64,
+              65,
+              66,
+              67,
+              68,
+              69
+            ],
+            "equation": "²³⁸U + ¹n → ²³⁹U + γ"
+          }
+        ]
+      }
+    },
+    {
+      "field": "reactions",
+      "before": null,
+      "after": [
+        {
+          "type": "Tạo Plutonium-239 từ Uranium-238",
+          "desc": "",
+          "equation": "²³⁸U + n → ²³⁹U + γ",
+          "condition": "Chiếu neutron trong cơ sở nghiên cứu; bắt neutron và phát gamma nếu không có sản phẩm bay hơi.",
+          "kind": "nuclear",
+          "sourceLine": 82,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Plutonium-239 từ Uranium-238",
+          "desc": "",
+          "equation": "²³⁹U → ²³⁹Np + β⁻ + ν̅ₑ",
+          "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+          "kind": "nuclear",
+          "sourceLine": 83,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Plutonium-239 từ Uranium-238",
+          "desc": "",
+          "equation": "²³⁹Np → ²³⁹Pu + β⁻ + ν̅ₑ",
+          "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+          "kind": "nuclear",
+          "sourceLine": 84,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Oxygen",
+          "desc": "",
+          "equation": "Pu + O₂ → PuO₂",
+          "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+          "kind": "chemical",
+          "sourceLine": 86,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Phân rã Alpha của Plutonium-239",
+          "desc": "",
+          "equation": "²³⁹Pu → ²³⁵U + α",
+          "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+          "kind": "nuclear",
+          "sourceLine": 88,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Phân rã Alpha của Plutonium-238",
+          "desc": "",
+          "equation": "²³⁸Pu → ²³⁴U + α",
+          "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+          "kind": "nuclear",
+          "sourceLine": 90,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": null,
+      "after": [
+        {
+          "title": "Có thể nhận biết Plutonium bằng",
+          "desc": "Phổ alpha. Phổ gamma. Đo hoạt độ phóng xạ. ICP-MS và các phương pháp phân tích đồng vị. Phân tích trạng thái Oxy hóa. Mỗi đồng vị Plutonium có đặc trưng phóng xạ và chu kỳ bán rã riêng, giúp xác định thành phần đồng vị.",
+          "result": "",
+          "equations": [],
+          "sourceLines": [
+            73,
+            74,
+            75,
+            76,
+            77,
+            78,
+            79
+          ],
+          "equation": ""
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "094_Pu.docx",
+        "sourceSha256": "0cba7024642c3d76a72173b6085b1be4e8e62e8a136d9d881d6183495c651494",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/094_Pu.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "094_Pu.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "0cba7024642c3d76a72173b6085b1be4e8e62e8a136d9d881d6183495c651494"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/94/plutonium"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure",
+      "before": null,
+      "after": {
+        "protons": 94,
+        "electrons": 94,
+        "neutrons": 144,
+        "nucleusIsotope": "²³⁸Pu",
+        "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+        "nucleus": {
+          "proton": 94,
+          "neutron": 144
+        },
+        "electronShells": [
+          2,
+          8,
+          18,
+          32,
+          24,
+          8,
+          2
+        ],
+        "shells": [
+          2,
+          8,
+          18,
+          32,
+          24,
+          8,
+          2
+        ],
+        "valenceElectrons": 2,
+        "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+        "lattice": "Đơn tà (Monoclinic) ở điều kiện thường.",
+        "latticeEvidence": "source-reviewed"
+      }
+    },
+    {
+      "field": "structureType",
+      "before": null,
+      "after": "Đơn tà (Monoclinic) ở điều kiện thường."
+    },
+    {
+      "field": "symbol",
+      "before": null,
+      "after": "Pu"
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "Pu",
+      "status": "diagram",
+      "reason": "Không dùng ảnh mẫu vĩ mô không xác minh cho nguyên tố cực hiếm/nhân tạo."
+    },
+    "mineral": {
+      "available": false,
+      "reason": "Nguyên tố nhân tạo hoặc chỉ có vết tự nhiên; không có quặng khai thác riêng để dựng mẫu."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "Pu",
+      "z": 94,
+      "url": "https://periodic-table.rsc.org/element/94/plutonium",
+      "status": "retrieved",
+      "bytes": 154337,
+      "sha256": "da8a628787fc569c7c0f9be92d9206546bbcfe865ff714e249804315fe8105f5",
+      "facts": {
+        "Group": "Actinides",
+        "Melting point": "640°C, 1184°F, 913 K",
+        "Period": "7",
+        "Boiling point": "3228°C, 5842°F, 3501 K",
+        "Block": "f",
+        "Density (g cm−³)": "19.7",
+        "Atomic number": "94",
+        "Relative atomic mass": "[244]",
+        "State at 20°C": "Solid",
+        "Key isotopes": "²³⁸Pu, ²³⁹Pu, ²⁴⁰Pu",
+        "Electron configuration": "[Rn] 5f⁶7s²",
+        "CAS number": "7440-07-5",
+        "ChemSpider ID": "22382",
+        "electronegativity": "1.3"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "94",
+      "Symbol": "Pu",
+      "Name": "Plutonium",
+      "AtomicMass": "244.06420",
+      "CPKHexColor": "006BFF",
+      "ElectronConfiguration": "[Rn]7s2 5f6",
+      "Electronegativity": "1.28",
+      "AtomicRadius": "243",
+      "IonizationEnergy": "6.06",
+      "ElectronAffinity": "",
+      "OxidationStates": "+6, +5, +4, +3",
+      "StandardState": "Solid",
+      "MeltingPoint": "913",
+      "BoilingPoint": "3501",
+      "Density": "19.84",
+      "GroupBlock": "Actinide",
+      "YearDiscovered": "1940"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

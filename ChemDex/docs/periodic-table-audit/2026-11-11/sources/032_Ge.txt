@@ -1,0 +1,99 @@
+001: Germanium (Ge)
+002: Thông tin chung
+003: Tên Latin: Germanium
+004: Tên Tiếng Anh: Germanium
+005: Đồng vị: ⁷⁰Ge, ⁷²Ge, ⁷³Ge, ⁷⁴Ge, ⁷⁶Ge
+006: Vị trí: Nhóm IVA | Chu kỳ 4
+007: Số Oxy hóa: −4, +2, +4
+008: Độ âm điện: 2.01
+009: Lịch sử khám phá
+010: Phát hiện bởi: Clemens Winkler
+011: Năm công bố: 1886
+012: Nơi khám phá: Đức
+013: Mô tả: Năm 1886, Clemens Winkler phát hiện Germanium khi phân tích khoáng vật Argyrodite. Sự tồn tại của nguyên tố này trước đó đã được Dmitri Mendeleev dự đoán và gọi là Eka-silicon.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Ar] 3d¹⁰ 4s² 4p²
+017: Mô hình mạng tinh thể: Lập phương kim cương (Diamond cubic)
+018: Số hiệu nguyên tử: 32
+019: Nguyên tử khối: 72.630 g/mol
+020: Vỏ nguyên tử: 32 electron
+021: K: 2 | L: 8 | M: 18 | N: 4
+022: Hạt nhân: 32 proton, 38 neutron đối với ⁷⁰Ge
+023: Cấu hình e: [Ar] 3d¹⁰ 4s² 4p²
+024: Loại mạng: Lập phương kim cương (Diamond cubic)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Germanium là chất rắn, có màu trắng xám và ánh kim.
+027: Có trong: Argyrodite, Germanite, Renierite và một số quặng Zinc, Copper.
+028: Đơn chất: Ge
+029: Hợp chất: GeO₂, GeCl₄, GeS₂, GeH₄, GeBr₄...
+030: c. Đồng vị
+031: Đồng vị: ⁷⁰Ge, ⁷²Ge, ⁷³Ge, ⁷⁴Ge, ⁷⁶Ge
+032: ⁷⁰Ge: Đồng vị bền, chiếm khoảng 20.5%.
+033: ⁷²Ge: Đồng vị bền, chiếm khoảng 27.4%.
+034: ⁷³Ge: Đồng vị bền, chiếm khoảng 7.8%.
+035: ⁷⁴Ge: Đồng vị bền, chiếm khoảng 36.5%.
+036: ⁷⁶Ge: Đồng vị bền, chiếm khoảng 7.8%.
+037: Tính chất
+038: Tính chất vật lý
+039: Là á kim.
+040: Có màu trắng xám và ánh kim.
+041: Cứng nhưng giòn.
+042: Khối lượng riêng: khoảng 5.32 g/cm³.
+043: Nhiệt độ nóng chảy: khoảng 938.3 °C.
+044: Nhiệt độ sôi: khoảng 2820 °C.
+045: Có tính chất bán dẫn.
+046: Độ dẫn điện tăng khi nhiệt độ tăng.
+047: Có cấu trúc tinh thể tương tự Diamond và Silicon.
+048: Tính chất hóa học
+049: Có các số Oxy hóa phổ biến là +2 và +4.
+050: +4 là trạng thái Oxy hóa phổ biến nhất.
+051: Tương đối bền ở nhiệt độ thường.
+052: Phản ứng với Oxygen khi nung nóng tạo Germanium dioxide.
+053: Phản ứng với Halogen tạo Germanium halide.
+054: Có thể tạo các hợp chất với Hydrogen.
+055: Germanium dioxide (GeO₂) có tính chất tương tự Silicon dioxide (SiO₂).
+056: Điều chế
+057: Điều chế trong công nghiệp
+058: Germanium thường được thu hồi như sản phẩm phụ trong quá trình xử lý quặng Zinc và một số loại than.
+059: Germanium compounds được chuyển thành Germanium dioxide:
+060: GeS₂ + 2O₂ → GeO₂ + 2SO₂
+061: Sau đó GeO₂ được khử bằng Hydrogen:
+062: GeO₂ + 2H₂ → Ge + 2H₂O
+063: Germanium sau đó được tinh chế để đạt độ tinh khiết cao, đặc biệt cho ngành bán dẫn.
+064: Điều chế trong phòng thí nghiệm
+065: Có thể điều chế Germanium bằng cách khử Germanium dioxide bằng Hydrogen ở nhiệt độ cao:
+066: GeO₂ + 2H₂ → Ge + 2H₂O
+067: Nhận biết
+068: Nhận biết Ge⁴⁺
+069: Cho dung dịch chứa Ge⁴⁺ tác dụng với hydroxide:
+070: Ge⁴⁺ + 4OH⁻ → Ge(OH)₄↓
+071: Hiện tượng: Xuất hiện kết tủa trắng Germanium hydroxide.
+072: Ge(OH)₄ có thể tan trong kiềm mạnh do tính lưỡng tính.
+073: Phương trình
+074: Tác dụng với Oxygen
+075: Ge + O₂ → GeO₂
+076: Tác dụng với Chlorine
+077: Ge + 2Cl₂ → GeCl₄
+078: Tác dụng với Bromine
+079: Ge + 2Br₂ → GeBr₄
+080: Khử Germanium dioxide
+081: GeO₂ + 2H₂ → Ge + 2H₂O
+082: Tạo Germanium hydroxide
+083: Ge⁴⁺ + 4OH⁻ → Ge(OH)₄↓
+084: Germanium dioxide tác dụng với kiềm
+085: GeO₂ + 2NaOH → Na₂GeO₃ + H₂O
+086: Tạo Germanium tetrachloride
+087: Ge + 2Cl₂ → GeCl₄
+088: Ứng dụng thực tế
+089: Chất bán dẫn: Germanium được sử dụng trong một số linh kiện bán dẫn và nghiên cứu vật liệu điện tử.
+090: Sợi quang: Germanium dioxide được sử dụng để điều chỉnh chiết suất của thủy tinh trong sợi quang.
+091: Quang học hồng ngoại: Germanium có khả năng truyền bức xạ hồng ngoại nên được sử dụng trong một số thấu kính và thiết bị quang học.
+092: Transistor: Germanium từng đóng vai trò quan trọng trong sự phát triển ban đầu của transistor.
+093: Solar cells: Một số hợp chất Germanium được sử dụng trong các tế bào quang điện hiệu suất cao.
+094: Vật liệu điện tử: Germanium được sử dụng trong nghiên cứu các vật liệu bán dẫn và hợp chất bán dẫn.
+095: Tổng quan
+096: Germanium là nguyên tố số 32, thuộc nhóm IVA | chu kỳ 4 và là một á kim.
+097: Germanium có cấu hình electron [Ar] 3d¹⁰ 4s² 4p², với các số Oxy hóa phổ biến là +2 và +4.
+098: Germanium có tính chất trung gian giữa kim loại và phi kim, đặc biệt nổi bật với tính bán dẫn. Trong tự nhiên, Germanium thường được tìm thấy với hàm lượng nhỏ trong các quặng Zinc và một số loại than.
+099: Germanium có vai trò quan trọng trong công nghệ bán dẫn, sợi quang, quang học hồng ngoại và các thiết bị điện tử.

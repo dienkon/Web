@@ -1,0 +1,94 @@
+001: Indium (In)
+002: Thông tin chung
+003: Tên Latin: Indium
+004: Tên Tiếng Anh: Indium
+005: Đồng vị: ¹¹³In, ¹¹⁵In
+006: Vị trí: Nhóm IIIA | Chu kỳ 5
+007: Số Oxy hóa: +1, +3
+008: Độ âm điện: 1.78
+009: Lịch sử khám phá
+010: Phát hiện bởi: Ferdinand Reich và Hieronymus Theodor Richter
+011: Năm công bố: 1863
+012: Nơi khám phá: Đức
+013: Mô tả: Năm 1863, Ferdinand Reich và Hieronymus Theodor Richter phát hiện Indium khi phân tích quặng Zinc bằng phương pháp quang phổ. Họ nhận thấy một vạch phổ màu chàm đặc trưng chưa từng được biết đến. Từ đó, nguyên tố mới được đặt tên là Indium.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Kr] 4d¹⁰ 5s² 5p¹
+017: Mô hình mạng tinh thể: Tứ phương (Tetragonal)
+018: Số hiệu nguyên tử: 49
+019: Nguyên tử khối: 114.818 g/mol
+020: Vỏ nguyên tử: 49 electron
+021: K: 2 | L: 8 | M: 18 | N: 18 | O: 3
+022: Hạt nhân: 49 proton, 64 neutron đối với ¹¹³In
+023: Cấu hình e: [Kr] 4d¹⁰ 5s² 5p¹
+024: Loại mạng: Tứ phương (Tetragonal)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Indium là kim loại rắn, màu trắng bạc, rất mềm.
+027: Có trong: Chủ yếu tồn tại dưới dạng tạp chất trong các quặng Zinc, đặc biệt là Sphalerite (ZnS).
+028: Đơn chất: In
+029: Hợp chất: In₂O₃, InCl₃, In₂S₃, In(OH)₃, InP, InAs...
+030: c. Đồng vị
+031: Đồng vị: ¹¹³In, ¹¹⁵In
+032: ¹¹³In: Đồng vị ổn định, chiếm khoảng 4.3%.
+033: ¹¹⁵In: Chiếm khoảng 95.7% và có tính phóng xạ cực yếu với chu kỳ bán rã rất dài.
+034: Tính chất
+035: Tính chất vật lý
+036: Là kim loại thuộc nhóm IIIA.
+037: Màu trắng bạc, có ánh kim.
+038: Rất mềm và dễ dát mỏng.
+039: Có thể để lại vệt trên giấy.
+040: Khối lượng riêng: khoảng 7.31 g/cm³.
+041: Nhiệt độ nóng chảy: khoảng 156.6 °C.
+042: Nhiệt độ sôi: khoảng 2072 °C.
+043: Dẫn điện và dẫn nhiệt tốt.
+044: Có tính dẻo cao.
+045: Tính chất hóa học
+046: Có số Oxy hóa phổ biến là +3, ngoài ra có +1.
+047: Tương đối ổn định trong không khí ở nhiệt độ thường.
+048: Khi nung nóng phản ứng với Oxygen tạo Indium oxide.
+049: Phản ứng với Halogen tạo Indium halide.
+050: Phản ứng với acid tạo muối Indium và Hydrogen.
+051: Một số hợp chất Indium có tính bán dẫn quan trọng.
+052: Điều chế
+053: Điều chế trong công nghiệp
+054: Indium chủ yếu được thu hồi như sản phẩm phụ trong quá trình luyện Zinc từ quặng Sphalerite (ZnS). Quặng được xử lí để đưa Indium vào dung dịch, sau đó tách và tinh chế bằng phương pháp điện phân.
+055: Phương trình hóa học:
+056: In₂O₃ + 3H₂SO₄ → In₂(SO₄)₃ + 3H₂O
+057: 2In³⁺ + 3Zn → 2In + 3Zn²⁺
+058: Điều chế trong phòng thí nghiệm
+059: Có thể điều chế Indium bằng cách khử Indium(III) oxide bằng Hydrogen ở nhiệt độ cao.
+060: Phương trình hóa học:
+061: In₂O₃ + 3H₂ → 2In + 3H₂O
+062: Nhận biết
+063: Nhận biết In³⁺
+064: Cho In³⁺ tác dụng với hydroxide:
+065: In³⁺ + 3OH⁻ → In(OH)₃↓
+066: Hiện tượng: Xuất hiện kết tủa trắng Indium hydroxide.
+067: Phương trình
+068: Tác dụng với Oxygen
+069: 4In + 3O₂ → 2In₂O₃
+070: Tác dụng với Chlorine
+071: 2In + 3Cl₂ → 2InCl₃
+072: Tác dụng với Sulfur
+073: 2In + 3S → In₂S₃
+074: Tác dụng với Hydrochloric acid
+075: 2In + 6HCl → 2InCl₃ + 3H₂↑
+076: Tạo Indium hydroxide
+077: In³⁺ + 3OH⁻ → In(OH)₃↓
+078: Indium hydroxide tác dụng với acid
+079: In(OH)₃ + 3HCl → InCl₃ + 3H₂O
+080: Điều chế Indium
+081: In₂O₃ + 3H₂ → 2In + 3H₂O
+082: Ứng dụng thực tế
+083: Màn hình cảm ứng: Indium tin oxide (ITO) được sử dụng rộng rãi làm lớp phủ dẫn điện trong màn hình cảm ứng và màn hình phẳng.
+084: Màn hình LCD: ITO cũng được sử dụng trong các điện cực trong suốt của màn hình LCD.
+085: Pin mặt trời: Các hợp chất như Indium gallium selenide (CIGS) được sử dụng trong một số loại pin mặt trời màng mỏng.
+086: Bán dẫn: Indium phosphide (InP) được sử dụng trong linh kiện bán dẫn và công nghệ quang điện tử.
+087: Hợp kim: Indium có nhiệt độ nóng chảy thấp nên được sử dụng trong một số hợp kim và vật liệu hàn.
+088: Kính phủ dẫn điện: Indium tin oxide tạo lớp phủ vừa trong suốt vừa dẫn điện.
+089: Tổng quan
+090: Indium là nguyên tố số 49, thuộc nhóm IIIA | chu kỳ 5.
+091: Indium có cấu hình electron [Kr] 4d¹⁰ 5s² 5p¹, với số Oxy hóa phổ biến là +3.
+092: Indium là kim loại rất mềm, màu trắng bạc và có nhiệt độ nóng chảy thấp. Trong tự nhiên, Indium thường tồn tại với hàm lượng rất nhỏ trong các quặng Zinc và chủ yếu được thu hồi như sản phẩm phụ của ngành luyện Zinc.
+093: Indium đặc biệt quan trọng trong công nghệ hiện đại nhờ khả năng tạo Indium tin oxide (ITO) — vật liệu trong suốt nhưng dẫn điện tốt, được sử dụng trong màn hình cảm ứng, LCD và các thiết bị hiển thị.
+094: Ngoài ra, Indium còn có vai trò trong bán dẫn, quang điện tử, pin mặt trời và vật liệu hàn.

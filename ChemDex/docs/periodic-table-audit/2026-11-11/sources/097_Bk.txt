@@ -1,0 +1,104 @@
+001: Berkelium (Bk)
+002: Thông tin chung
+003: Tên Latin: Berkelium
+004: Tên Tiếng Anh: Berkelium
+005: Đồng vị: ²⁴⁵Bk, ²⁴⁶Bk, ²⁴⁷Bk, ²⁴⁸Bk, ²⁴⁹Bk, ²⁵⁰Bk
+006: Vị trí: Nhóm IIIB | Chu kỳ 7 | Họ Actinide
+007: Số Oxy hóa: +3, +4
+008: Độ âm điện: 1,3 (Pauling)
+009: Lịch sử khám phá
+010: Phát hiện bởi: Stanley G. Thompson, Albert Ghiorso và Glenn T. Seaborg
+011: Năm công bố: 1949
+012: Nơi khám phá: Berkeley, California, Hoa Kỳ
+013: Mô tả: Berkelium được tạo ra lần đầu tiên vào tháng 12 năm 1949 tại University of California, Berkeley bằng cách bắn phá Americium-241 bằng các hạt alpha trong cyclotron.
+014: Phản ứng tạo ra Berkelium-243:
+015: ²⁴¹Am + ⁴He → ²⁴³Bk + 2n
+016: Tên Berkelium được đặt theo Berkeley, thành phố nơi nguyên tố được phát hiện.
+017: 3. Cấu tạo
+018: a. Cấu tạo nguyên tử
+019: Cấu hình electron: [Rn] 5f⁹ 7s²
+020: Mô hình mạng tinh thể: Lục phương (Hexagonal)
+021: Số hiệu nguyên tử: 97
+022: Nguyên tử khối: 247,07031 g/mol (giá trị quy ước cho đồng vị ²⁴⁷Bk)
+023: Vỏ nguyên tử: 97 electron
+024: Hạt nhân: 97 proton
+025: Cấu hình e đầy đủ: [Rn] 5f⁹ 7s²
+026: Loại mạng: Lục phương (Hexagonal)
+027: b. Trạng thái tự nhiên
+028: Trạng thái: Chất rắn
+029: Màu sắc: Bạc trắng
+030: Có trong: Không tồn tại tự nhiên với lượng đáng kể; được tạo ra nhân tạo.
+031: Đơn chất: Bk
+032: Hợp chất phổ biến: Bk₂O₃, BkO₂, BkCl₃, BkF₃
+033: c. Đồng vị
+034: Berkelium không có đồng vị bền.
+035: Một số đồng vị quan trọng:
+036: ²⁴⁵Bk: chu kỳ bán rã khoảng 4,94 ngày.
+037: ²⁴⁶Bk: chu kỳ bán rã khoảng 1,8 ngày.
+038: ²⁴⁷Bk: chu kỳ bán rã khoảng 1.380 năm.
+039: ²⁴⁸Bk: chu kỳ bán rã khoảng 23 giờ.
+040: ²⁴⁹Bk: chu kỳ bán rã khoảng 330 ngày.
+041: ²⁵⁰Bk: chu kỳ bán rã khoảng 3,2 giờ.
+042: ²⁴⁷Bk có chu kỳ bán rã dài nhất trong các đồng vị Berkelium được biết đến.
+043: Tính chất
+044: Tính chất vật lý
+045: Là kim loại phóng xạ.
+046: Thuộc họ Actinide.
+047: Có màu bạc trắng.
+048: Rất hiếm và chỉ được tạo ra với lượng cực nhỏ.
+049: Có tính phóng xạ mạnh.
+050: Có thể có nhiều dạng cấu trúc tinh thể.
+051: Nhiệt độ nóng chảy khoảng 986 °C.
+052: Khối lượng riêng khoảng 14,8 g/cm³.
+053: Tính chất hóa học
+054: Berkelium có hai trạng thái Oxy hóa đáng chú ý:
+055: +3: phổ biến nhất.
+056: +4: có thể tồn tại trong một số hợp chất, đặc biệt là oxide.
+057: Bk³⁺ có cấu hình electron 5f⁸.
+058: Berkelium có thể tạo Berkelium(III) oxide:
+059: 4Bk + 3O₂ → 2Bk₂O₃
+060: Ngoài ra, Berkelium có thể tạo Berkelium(IV) oxide:
+061: Bk + O₂ → BkO₂
+062: Điều chế
+063: Điều chế trong công nghiệp
+064: Berkelium (Bk) được điều chế nhân tạo trong các lò phản ứng hạt nhân bằng cách chiếu neutron vào Curium. Một phương pháp tạo Berkelium-249 là chiếu neutron vào Curium-248.
+065: Phương trình hạt nhân:
+066: ²⁴⁸Cm + ¹n → ²⁴⁹Cm
+067: ²⁴⁹Cm → ²⁴⁹Bk + β⁻
+068: Berkelium được thu hồi và tinh chế trong các cơ sở nghiên cứu hạt nhân chuyên dụng.
+069: Điều chế trong phòng thí nghiệm
+070: Berkelium được tạo ra với lượng cực nhỏ bằng phản ứng hạt nhân trong các cơ sở nghiên cứu chuyên dụng. Không có phương pháp điều chế hóa học thông thường để tổng hợp nguyên tố này.
+071: Nhận biết
+072: Có thể nhận biết Berkelium bằng:
+073: Phổ alpha.
+074: Phổ gamma.
+075: Đo hoạt độ phóng xạ.
+076: Phân tích phổ khối.
+077: Các phương pháp hóa phóng xạ chuyên dụng.
+078: Phân tích trạng thái Oxy hóa của Bk.
+079: Do Berkelium được tạo ra với lượng rất nhỏ, việc xác định nó chủ yếu dựa vào đặc tính phóng xạ và phân tích đồng vị.
+080: Phương trình
+081: Điều chế Berkelium-243
+082: ²⁴¹Am + ⁴He → ²⁴³Bk + 2n
+083: Phân rã Berkelium-243
+084: ²⁴³Bk → ²⁴³Cf + β⁻
+085: Tác dụng với Oxygen
+086: 4Bk + 3O₂ → 2Bk₂O₃
+087: Tạo Berkelium(IV) oxide
+088: Bk + O₂ → BkO₂
+089: Phân rã Alpha của Berkelium-249
+090: ²⁴⁹Bk → ²⁴⁵Am + α
+091: Ứng dụng thực tế
+092: Nghiên cứu hạt nhân: Berkelium chủ yếu được sử dụng trong nghiên cứu vật lý hạt nhân và hóa học Actinide.
+093: Tổng hợp nguyên tố siêu nặng: Đây là ứng dụng khoa học đặc biệt quan trọng. ²⁴⁹Bk từng được sử dụng làm bia trong các thí nghiệm tổng hợp Tennessine (Ts, nguyên tố 117).
+094: Phản ứng tổng quát:
+095: ²⁴⁹Bk + ⁴⁸Ca → ²⁹⁷Ts + 3n
+096: Sự kiện này đóng vai trò quan trọng trong việc mở rộng bảng tuần hoàn đến các nguyên tố siêu nặng.
+097: Nghiên cứu hóa học Actinide: Berkelium giúp các nhà khoa học nghiên cứu sự thay đổi tính chất hóa học dọc theo dãy Actinide.
+098: Do độ hiếm và tính phóng xạ cao, Berkelium không có ứng dụng thương mại hoặc đời sống thông thường.
+099: Tổng quan
+100: Berkelium là nguyên tố số 97, thuộc nhóm IIIB | chu kỳ 7 và là nguyên tố thứ chín trong họ Actinide.
+101: Berkelium được Stanley G. Thompson, Albert Ghiorso và Glenn T. Seaborg phát hiện vào năm 1949 tại Berkeley, Hoa Kỳ. Tên nguyên tố được đặt theo thành phố Berkeley, nơi nó được phát hiện.
+102: Berkelium là kim loại phóng xạ nhân tạo, không có đồng vị bền. Trạng thái Oxy hóa phổ biến nhất là +3, ngoài ra +4 cũng có thể tồn tại.
+103: Đồng vị ²⁴⁹Bk đặc biệt quan trọng trong nghiên cứu nguyên tố siêu nặng. Nó đã được sử dụng làm bia để tạo Tennessine (Ts, Z = 117), giúp các nhà khoa học tiếp tục mở rộng bảng tuần hoàn.
+104: Mạng tinh thể: Lục phương (Hexagonal) ở điều kiện thường.

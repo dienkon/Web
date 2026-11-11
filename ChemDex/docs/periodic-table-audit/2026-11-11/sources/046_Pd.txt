@@ -1,0 +1,91 @@
+001: Palladium (Pd)
+002: Thông tin chung
+003: Tên Latin: Palladium
+004: Tên Tiếng Anh: Palladium
+005: Đồng vị: ¹⁰²Pd, ¹⁰⁴Pd, ¹⁰⁵Pd, ¹⁰⁶Pd, ¹⁰⁸Pd, ¹¹⁰Pd
+006: Vị trí: Nhóm VIIIB | Chu kỳ 5
+007: Số Oxy hóa: +2, +4
+008: Độ âm điện: 2.20
+009: Lịch sử khám phá
+010: Phát hiện bởi: William Hyde Wollaston
+011: Năm công bố: 1803
+012: Nơi khám phá: Anh
+013: Mô tả: Năm 1803, William Hyde Wollaston phát hiện Palladium khi nghiên cứu quặng Platinum. Ông đặt tên nguyên tố theo Pallas, một tiểu hành tinh được phát hiện vào năm 1802.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Kr] 4d¹⁰
+017: Mô hình mạng tinh thể: Lập phương tâm mặt (Face-centered cubic, FCC)
+018: Số hiệu nguyên tử: 46
+019: Nguyên tử khối: 106.42 g/mol
+020: Vỏ nguyên tử: 46 electron
+021: K: 2 | L: 8 | M: 18 | N: 18
+022: Hạt nhân: 46 proton, 60 neutron đối với ¹⁰⁶Pd
+023: Cấu hình e: [Kr] 4d¹⁰
+024: Loại mạng: Lập phương tâm mặt (Face-centered cubic, FCC)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Palladium là kim loại rắn, màu trắng bạc, sáng bóng.
+027: Có trong: Thường tồn tại cùng Platinum, Rhodium, Nickel và các kim loại nhóm Platinum khác.
+028: Đơn chất: Pd
+029: Hợp chất: PdCl₂, PdO, PdBr₂, Pd(NO₃)₂...
+030: c. Đồng vị
+031: Đồng vị: ¹⁰²Pd, ¹⁰⁴Pd, ¹⁰⁵Pd, ¹⁰⁶Pd, ¹⁰⁸Pd, ¹¹⁰Pd
+032: Palladium có 6 đồng vị tự nhiên, trong đó ¹⁰²Pd và ¹¹⁰Pd có tính phóng xạ với chu kỳ bán rã cực dài; các đồng vị còn lại trong tự nhiên được xem là ổn định.
+033: Tính chất
+034: Tính chất vật lý
+035: Là kim loại chuyển tiếp thuộc nhóm Platinum.
+036: Màu trắng bạc.
+037: Mềm, dễ uốn và dễ gia công.
+038: Khối lượng riêng: khoảng 12.02 g/cm³.
+039: Nhiệt độ nóng chảy: khoảng 1555 °C.
+040: Nhiệt độ sôi: khoảng 2963 °C.
+041: Chống ăn mòn tốt.
+042: Có khả năng hấp thụ một lượng lớn Hydrogen.
+043: Tính chất hóa học
+044: Số Oxy hóa phổ biến nhất là +2.
+045: Tương đối trơ ở điều kiện thường.
+046: Có thể phản ứng với Oxygen khi nung nóng tạo Palladium oxide.
+047: Phản ứng với Halogen tạo Palladium halide.
+048: Có khả năng tạo nhiều phức chất.
+049: Có tính chất xúc tác rất tốt.
+050: Đặc biệt có khả năng xúc tác cho các phản ứng liên quan đến Hydrogen.
+051: Điều chế
+052: Điều chế trong công nghiệp
+053: Palladium chủ yếu được thu hồi từ quặng Nickel–Copper và quặng chứa Platinum. Sau khi tuyển và hòa tách quặng, Palladium được tách khỏi các kim loại khác, chuyển thành Palladium(II) chloride rồi khử bằng Hydrogen.
+054: Phương trình hóa học:
+055: PdCl₂ + H₂ → Pd + 2HCl
+056: Điều chế trong phòng thí nghiệm
+057: Có thể điều chế Palladium bằng cách khử Palladium(II) chloride bằng Hydrogen hoặc bằng kim loại mạnh hơn như Zinc.
+058: Phương trình hóa học:
+059: PdCl₂ + H₂ → Pd + 2HCl
+060: PdCl₂ + Zn → Pd + ZnCl₂
+061: Nhận biết
+062: Nhận biết Pd²⁺
+063: Pd²⁺ có thể tạo kết tủa Palladium sulfide khi tác dụng với Sulfide:
+064: Pd²⁺ + S²⁻ → PdS↓
+065: Hiện tượng: Xuất hiện kết tủa đen hoặc nâu đen Palladium sulfide.
+066: Trong phân tích chính xác, Palladium thường được xác định bằng các phương pháp phân tích chuyên dụng.
+067: Phương trình
+068: Tác dụng với Oxygen
+069: 2Pd + O₂ → 2PdO
+070: Tác dụng với Chlorine
+071: Pd + Cl₂ → PdCl₂
+072: Tạo Palladium sulfide
+073: Pd²⁺ + S²⁻ → PdS↓
+074: Tạo Palladium hydroxide
+075: Pd²⁺ + 2OH⁻ → Pd(OH)₂↓
+076: Palladium hydroxide tác dụng với acid
+077: Pd(OH)₂ + 2HCl → PdCl₂ + 2H₂O
+078: Khử Palladium chloride
+079: PdCl₂ + H₂ → Pd + 2HCl
+080: Ứng dụng thực tế
+081: Bộ chuyển đổi xúc tác: Palladium là chất xúc tác quan trọng trong hệ thống xử lý khí thải của ô tô.
+082: Xúc tác hóa học: Được sử dụng rộng rãi trong tổng hợp hữu cơ và công nghiệp hóa chất.
+083: Điện tử: Palladium được sử dụng trong một số linh kiện điện tử và vật liệu dẫn điện.
+084: Trang sức: Palladium được sử dụng để chế tạo trang sức và hợp kim kim loại quý.
+085: Lọc Hydrogen: Palladium có khả năng hấp thụ và khuếch tán Hydrogen, nên được sử dụng trong một số công nghệ tinh chế Hydrogen.
+086: Nha khoa: Một số hợp kim chứa Palladium được sử dụng trong vật liệu nha khoa.
+087: Tổng quan
+088: Palladium là nguyên tố số 46, thuộc nhóm VIIIB | chu kỳ 5 và là một kim loại chuyển tiếp thuộc nhóm Platinum.
+089: Palladium có cấu hình electron đặc biệt [Kr] 4d¹⁰, với số Oxy hóa phổ biến nhất là +2.
+090: Palladium là kim loại trắng bạc, mềm, dễ gia công và chống ăn mòn tốt. Đặc điểm nổi bật của Palladium là khả năng hấp thụ Hydrogen và hoạt tính xúc tác cao.
+091: Palladium có vai trò quan trọng trong bộ chuyển đổi xúc tác ô tô, công nghiệp hóa chất, điện tử, công nghệ Hydrogen, trang sức và nha khoa.

@@ -1,0 +1,699 @@
+{
+  "symbol": "Ne",
+  "number": 10,
+  "source": "010_Ne.docx",
+  "sourceSha256": "518310aecee2c575f8d128049275b6c65491ff56d3ed5a31b4062cdca300b7f9",
+  "paragraphCount": 84,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 4,
+    "structure": 9,
+    "occurrence": 4,
+    "isotopes": 5,
+    "physical": 10,
+    "chemical": 7,
+    "lab": 2,
+    "industry": 2,
+    "recognition": 2,
+    "reactions": 6,
+    "applications": 6,
+    "notes": 4
+  },
+  "editorialDecisions": [],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "1s² 2s² 2p⁶",
+      "publishedValue": "[He] 2s² 2p⁶",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Lập phương tâm mặt (FCC)",
+      "publishedValue": "Lập phương tâm mặt (FCC)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "Không xác định theo thang Pauling",
+      "publishedValue": null,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm VIIIA | Chu kỳ 2",
+      "publishedValue": "18",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Neon là khí hiếm, tồn tại dưới dạng khí đơn nguyên tử trong khí quyển. Neon có hàm lượng rất nhỏ trong không khí.",
+      "publishedValue": "Khí",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 32,
+      "sourceText": "²⁰Ne: Đồng vị bền, chiếm khoảng 90.48% Neon tự nhiên.",
+      "reference": {
+        "isotope": "²⁰Ne",
+        "massNumber": 20,
+        "protons": 10,
+        "neutrons": 10,
+        "stable": true,
+        "abundancePercent": "90.48",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 33,
+      "sourceText": "²¹Ne: Đồng vị bền, chiếm khoảng 0.27%.",
+      "reference": {
+        "isotope": "²¹Ne",
+        "massNumber": 21,
+        "protons": 10,
+        "neutrons": 11,
+        "stable": true,
+        "abundancePercent": "0.27",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 34,
+      "sourceText": "²²Ne: Đồng vị bền, chiếm khoảng 9.25%.",
+      "reference": {
+        "isotope": "²²Ne",
+        "massNumber": 22,
+        "protons": 10,
+        "neutrons": 12,
+        "stable": true,
+        "abundancePercent": "9.25",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 70,
+      "text": "Ne + năng lượng điện → Ne*",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 72,
+      "text": "Ne* → Ne + hν",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "reactions",
+      "equation": "Ne + năng lượng điện → Ne*",
+      "condition": "Kích thích, ion hóa hoặc kết hợp bức xạ trong pha khí; cần cung cấp/trao đổi năng lượng.",
+      "kind": "physical",
+      "sourceLine": 70,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Ne* → Ne + hν",
+      "condition": "Kích thích, ion hóa hoặc kết hợp bức xạ trong pha khí; cần cung cấp/trao đổi năng lượng.",
+      "kind": "physical",
+      "sourceLine": 72,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": [
+        {
+          "title": "Đèn Neon",
+          "desc": "Dùng trong biển hiệu và các loại đèn phóng điện tạo ánh sáng đỏ cam đặc trưng."
+        },
+        {
+          "title": "Đèn báo",
+          "desc": "Sử dụng trong một số thiết bị điện và điện tử."
+        },
+        {
+          "title": "Laser",
+          "desc": "Neon được sử dụng trong một số loại laser, đặc biệt là laser Helium-Neon."
+        },
+        {
+          "title": "Điện tử",
+          "desc": "Được sử dụng trong một số ống phóng điện và thiết bị điện tử."
+        },
+        {
+          "title": "Làm lạnh",
+          "desc": "Neon lỏng có thể được sử dụng làm chất làm lạnh ở nhiệt độ rất thấp."
+        },
+        {
+          "title": "Nghiên cứu khoa học",
+          "desc": "Được sử dụng trong nghiên cứu vật lý plasma, quang phổ và khí hiếm."
+        }
+      ],
+      "after": [
+        {
+          "title": "Đèn Neon",
+          "desc": "Dùng trong biển hiệu và các loại đèn phóng điện tạo ánh sáng đỏ cam đặc trưng.",
+          "sourceLine": 74
+        },
+        {
+          "title": "Đèn báo",
+          "desc": "Sử dụng trong một số thiết bị điện và điện tử.",
+          "sourceLine": 75
+        },
+        {
+          "title": "Laser",
+          "desc": "Neon được sử dụng trong một số loại laser, đặc biệt là laser Helium-Neon.",
+          "sourceLine": 76
+        },
+        {
+          "title": "Điện tử",
+          "desc": "Được sử dụng trong một số ống phóng điện và thiết bị điện tử.",
+          "sourceLine": 77
+        },
+        {
+          "title": "Làm lạnh",
+          "desc": "Neon lỏng có thể được sử dụng làm chất làm lạnh ở nhiệt độ rất thấp.",
+          "sourceLine": 78
+        },
+        {
+          "title": "Nghiên cứu khoa học",
+          "desc": "Được sử dụng trong nghiên cứu vật lý plasma, quang phổ và khí hiếm.",
+          "sourceLine": 79
+        }
+      ]
+    },
+    {
+      "field": "chemical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là khí hiếm và có tính trơ hóa học rất cao.</li>\n      <li>Có cấu hình electron lớp ngoài cùng bão hòa.</li>\n      <li>Hầu như không tham gia phản ứng hóa học ở điều kiện thường.</li>\n      <li>Không cháy.</li>\n      <li>Không duy trì sự cháy.</li>\n      <li>Không có số Oxy hóa dương hoặc âm phổ biến trong các hợp chất ổn định.</li>\n      <li>Không dễ tạo ion hoặc liên kết hóa học.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Là khí hiếm và có tính trơ hóa học rất cao.</li><li>Có cấu hình electron lớp ngoài cùng bão hòa.</li><li>Hầu như không tham gia phản ứng hóa học ở điều kiện thường.</li><li>Không cháy.</li><li>Không duy trì sự cháy.</li><li>Không có số Oxy hóa dương hoặc âm phổ biến trong các hợp chất ổn định.</li><li>Không dễ tạo ion hoặc liên kết hóa học.</li></ul>"
+    },
+    {
+      "field": "general.CAS",
+      "before": null,
+      "after": "7440-01-9"
+    },
+    {
+      "field": "general.electronConfig",
+      "before": "1s² 2s² 2p⁶",
+      "after": "[He] 2s² 2p⁶"
+    },
+    {
+      "field": "general.electronegativity",
+      "before": "Không xác định theo thang Pauling",
+      "after": null
+    },
+    {
+      "field": "general.electronegativityNote",
+      "before": null,
+      "after": "Chưa có giá trị Pauling đủ cơ sở trong bản đối chiếu; không coi 0 là giá trị đã đo."
+    },
+    {
+      "field": "general.groupLabel",
+      "before": null,
+      "after": "18"
+    },
+    {
+      "field": "general.series",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "general.state",
+      "before": "",
+      "after": "Khí"
+    },
+    {
+      "field": "history.year",
+      "before": 1898,
+      "after": "1898"
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/diagrams/010_Ne.svg",
+          "title": "Neon (Ne)",
+          "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+          "source": "",
+          "author": "ChemDex",
+          "license": "ChemDex schematic diagram",
+          "licenseUrl": ""
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "²⁰Ne",
+          "massNumber": 20,
+          "protons": 10,
+          "neutrons": 10,
+          "stable": true,
+          "abundancePercent": "90.48",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²¹Ne",
+          "massNumber": 21,
+          "protons": 10,
+          "neutrons": 11,
+          "stable": true,
+          "abundancePercent": "0.27",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²²Ne",
+          "massNumber": 22,
+          "protons": 10,
+          "neutrons": 12,
+          "stable": true,
+          "abundancePercent": "9.25",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "standard-atomic-weight"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "20.180 ± 0.001"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": []
+    },
+    {
+      "field": "naturalState.alt",
+      "before": null,
+      "after": "Neon: sơ đồ minh họa nguyên tố"
+    },
+    {
+      "field": "naturalState.caption",
+      "before": null,
+      "after": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật."
+    },
+    {
+      "field": "naturalState.compounds",
+      "before": [],
+      "after": null
+    },
+    {
+      "field": "naturalState.credit",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "naturalState.description",
+      "before": "Neon là khí hiếm, tồn tại dưới dạng khí đơn nguyên tử trong khí quyển. Neon có hàm lượng rất nhỏ trong không khí.",
+      "after": null
+    },
+    {
+      "field": "naturalState.image",
+      "before": null,
+      "after": "/assets/periodic-table/diagrams/010_Ne.svg"
+    },
+    {
+      "field": "naturalState.kind",
+      "before": null,
+      "after": "diagram"
+    },
+    {
+      "field": "naturalState.minerals",
+      "before": [
+        "Khí quyển Trái Đất",
+        "Khí tự nhiên"
+      ],
+      "after": null
+    },
+    {
+      "field": "naturalState.simple",
+      "before": [
+        "Ne"
+      ],
+      "after": null
+    },
+    {
+      "field": "naturalState.source",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "notes",
+      "before": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Neon là nguyên tố số 10, thuộc nhóm VIIIA | chu kỳ 2 và là một khí hiếm.</li>\n  <li>Neon có cấu hình electron 1s² 2s² 2p⁶, với lớp electron ngoài cùng đã bão hòa nên có tính trơ hóa học rất cao. Ở điều kiện thường, Neon tồn tại dưới dạng khí đơn nguyên tử Ne.</li>\n  <li>Neon có ba đồng vị bền tự nhiên là ²⁰Ne, ²¹Ne và ²²Ne. Khi được kích thích bằng điện, Neon phát ra ánh sáng đỏ cam đặc trưng, tạo nên ứng dụng nổi tiếng nhất của nguyên tố này trong đèn Neon.</li>\n  <li>Neon chủ yếu được sử dụng trong chiếu sáng, biển hiệu, thiết bị điện tử, laser và nghiên cứu khoa học.</li>\n</ul>\n",
+      "after": "<ul class=\"element-prose-list\"><li>Neon là nguyên tố số 10, thuộc nhóm VIIIA | chu kỳ 2 và là một khí hiếm.</li><li>Neon có cấu hình electron 1s² 2s² 2p⁶, với lớp electron ngoài cùng đã bão hòa nên có tính trơ hóa học rất cao. Ở điều kiện thường, Neon tồn tại dưới dạng khí đơn nguyên tử Ne.</li><li>Neon có ba đồng vị bền tự nhiên là ²⁰Ne, ²¹Ne và ²²Ne. Khi được kích thích bằng điện, Neon phát ra ánh sáng đỏ cam đặc trưng, tạo nên ứng dụng nổi tiếng nhất của nguyên tố này trong đèn Neon.</li><li>Neon chủ yếu được sử dụng trong chiếu sáng, biển hiệu, thiết bị điện tử, laser và nghiên cứu khoa học.</li></ul>"
+    },
+    {
+      "field": "occurrence.details",
+      "before": null,
+      "after": [
+        "Trạng thái: Neon là khí hiếm, tồn tại dưới dạng khí đơn nguyên tử trong khí quyển. Neon có hàm lượng rất nhỏ trong không khí.",
+        "Có trong: Khí quyển Trái Đất và một lượng rất nhỏ trong một số khí tự nhiên.",
+        "Đơn chất: Ne",
+        "Hợp chất: Hầu như không tạo hợp chất hóa học bền trong điều kiện thường."
+      ]
+    },
+    {
+      "field": "occurrence.mineral",
+      "before": null,
+      "after": {
+        "available": false,
+        "reason": "Nguồn chủ yếu là khí quyển, nước hoặc nước muối; không có mẫu quặng riêng đại diện."
+      }
+    },
+    {
+      "field": "physical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là chất khí không màu, không mùi, không vị.</li>\n      <li>Là khí hiếm thuộc nhóm VIIIA.</li>\n      <li>Khối lượng mol: 20.180 g/mol.</li>\n      <li>Khối lượng riêng: khoảng 0.900 g/L ở 0 °C và 1 atm.</li>\n      <li>Nhiệt độ nóng chảy: −248.59 °C.</li>\n      <li>Nhiệt độ sôi: −246.08 °C.</li>\n      <li>Rất ít tan trong nước.</li>\n      <li>Nhẹ hơn không khí.</li>\n      <li>Khi bị kích thích bằng điện, phát ra ánh sáng đỏ cam đặc trưng.</li>\n      <li>Có nhiệt dung riêng và khả năng dẫn nhiệt tương đối cao so với nhiều khí khác.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Là chất khí không màu, không mùi, không vị.</li><li>Là khí hiếm thuộc nhóm VIIIA.</li><li>Khối lượng mol: 20.180 g/mol.</li><li>Khối lượng riêng: khoảng 0.900 g/L ở 0 °C và 1 atm.</li><li>Nhiệt độ nóng chảy: −248.59 °C.</li><li>Nhiệt độ sôi: −246.08 °C.</li><li>Rất ít tan trong nước.</li><li>Nhẹ hơn không khí.</li><li>Khi bị kích thích bằng điện, phát ra ánh sáng đỏ cam đặc trưng.</li><li>Có nhiệt dung riêng và khả năng dẫn nhiệt tương đối cao so với nhiều khí khác.</li></ul>"
+    },
+    {
+      "field": "preparations.industry",
+      "before": [
+        {
+          "title": "Neon được thu chủ yếu từ không khí lỏng.",
+          "equation": "",
+          "desc": ""
+        },
+        {
+          "title": "Không khí được làm sạch, hóa lỏng và tách thành các thành phần bằng chưng cất phân đoạn. Neon được thu từ các dòng khí nhẹ chứa Neon và các khí hiếm khác, sau đó tiếp tục được tinh chế.",
+          "equation": "",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Neon được thu chủ yếu từ không khí lỏng.",
+          "desc": "Không khí được làm sạch, hóa lỏng và tách thành các thành phần bằng chưng cất phân đoạn. Neon được thu từ các dòng khí nhẹ chứa Neon và các khí hiếm khác, sau đó tiếp tục được tinh chế.",
+          "result": "",
+          "equations": [],
+          "sourceLines": [
+            58,
+            59
+          ],
+          "equation": ""
+        }
+      ]
+    },
+    {
+      "field": "preparations.lab",
+      "before": [
+        {
+          "title": "Neon không được điều chế bằng phản ứng hóa học thông thường vì là khí hiếm rất trơ.",
+          "equation": "",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Neon không được điều chế bằng phản ứng hóa học thông thường vì là khí hiếm rất trơ.",
+          "desc": "Trong phòng thí nghiệm, Neon thường được sử dụng từ Neon đã được tinh chế sẵn.",
+          "result": "",
+          "equations": [],
+          "sourceLines": [
+            61,
+            62
+          ],
+          "equation": ""
+        }
+      ]
+    },
+    {
+      "field": "reactions",
+      "before": [
+        {
+          "type": "Không có phương trình phản ứng hóa học đặc trưng phổ biến của Neon.",
+          "equation": "Ne + năng lượng điện → Ne*",
+          "desc": "Quá trình phát sáng trong ống phóng điện có thể biểu diễn khái quát:"
+        },
+        {
+          "type": "Không có phương trình phản ứng hóa học đặc trưng phổ biến của Neon.",
+          "equation": "Ne* → Ne + hν",
+          "desc": "Sau đó nguyên tử Neon kích thích trở về trạng thái năng lượng thấp hơn và phát ra photon:"
+        }
+      ],
+      "after": [
+        {
+          "type": "Quá trình phát sáng trong ống phóng điện có thể biểu diễn khái quát",
+          "desc": "",
+          "equation": "Ne + năng lượng điện → Ne*",
+          "condition": "Kích thích, ion hóa hoặc kết hợp bức xạ trong pha khí; cần cung cấp/trao đổi năng lượng.",
+          "kind": "physical",
+          "sourceLine": 70,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Sau đó nguyên tử Neon kích thích trở về trạng thái năng lượng thấp hơn và phát ra photon",
+          "desc": "",
+          "equation": "Ne* → Ne + hν",
+          "condition": "Kích thích, ion hóa hoặc kết hợp bức xạ trong pha khí; cần cung cấp/trao đổi năng lượng.",
+          "kind": "physical",
+          "sourceLine": 72,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": [
+        {
+          "title": "Phổ phát xạ",
+          "reagent": "",
+          "result": "Khi cho dòng điện đi qua Neon trong ống phóng điện, Neon phát ra ánh sáng đỏ cam đặc trưng.",
+          "equation": ""
+        },
+        {
+          "title": "Phổ nguyên tử",
+          "reagent": "",
+          "result": "Neon có các vạch phổ đặc trưng, có thể dùng để xác định chính xác nguyên tố.",
+          "equation": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Phổ phát xạ: Khi cho dòng điện đi qua Neon trong ống phóng điện, Neon phát ra ánh sáng đỏ cam đặc trưng.",
+          "desc": "Phổ nguyên tử: Neon có các vạch phổ đặc trưng, có thể dùng để xác định chính xác nguyên tố.",
+          "result": "",
+          "equations": [],
+          "sourceLines": [
+            64,
+            65
+          ],
+          "equation": ""
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "010_Ne.docx",
+        "sourceSha256": "518310aecee2c575f8d128049275b6c65491ff56d3ed5a31b4062cdca300b7f9",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/010_Ne.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "010_Ne.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "518310aecee2c575f8d128049275b6c65491ff56d3ed5a31b4062cdca300b7f9"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/10/neon"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure.latticeEvidence",
+      "before": null,
+      "after": "source-reviewed"
+    },
+    {
+      "field": "structure.nucleusIsotope",
+      "before": null,
+      "after": "²⁰Ne"
+    },
+    {
+      "field": "structure.nucleusNote",
+      "before": null,
+      "after": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác."
+    },
+    {
+      "field": "structure.valenceNote",
+      "before": null,
+      "after": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp."
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "Ne",
+      "status": "diagram",
+      "reason": "Chưa xác nhận giấy phép dùng lại: GFDL 1.2"
+    },
+    "mineral": {
+      "available": false,
+      "reason": "Nguồn chủ yếu là khí quyển, nước hoặc nước muối; không có mẫu quặng riêng đại diện."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "Ne",
+      "z": 10,
+      "url": "https://periodic-table.rsc.org/element/10/neon",
+      "status": "retrieved",
+      "bytes": 155785,
+      "sha256": "18d7538b8094cd50e7a54376fd1df12f670e9da2fd3d6b84aac74ab435db7622",
+      "facts": {
+        "Group": "18",
+        "Melting point": "−248.59°C, −415.46°F, 24.56 K",
+        "Period": "2",
+        "Boiling point": "−246.046°C, −410.883°F, 27.104 K",
+        "Block": "p",
+        "Density (g cm−³)": "0.000825",
+        "Atomic number": "10",
+        "Relative atomic mass": "20.180",
+        "State at 20°C": "Gas",
+        "Key isotopes": "²⁰Ne",
+        "Electron configuration": "[He] 2s²2p⁶",
+        "CAS number": "7440-01-9",
+        "ChemSpider ID": "22377",
+        "electronegativity": "Unknown"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "10",
+      "Symbol": "Ne",
+      "Name": "Neon",
+      "AtomicMass": "20.180",
+      "CPKHexColor": "B3E3F5",
+      "ElectronConfiguration": "[He]2s2 2p6",
+      "Electronegativity": "",
+      "AtomicRadius": "154",
+      "IonizationEnergy": "21.565",
+      "ElectronAffinity": "",
+      "OxidationStates": "0",
+      "StandardState": "Gas",
+      "MeltingPoint": "24.56",
+      "BoilingPoint": "27.07",
+      "Density": "0.0008999",
+      "GroupBlock": "Noble gas",
+      "YearDiscovered": "1898"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

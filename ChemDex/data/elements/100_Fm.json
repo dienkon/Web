@@ -1,0 +1,332 @@
+{
+  "number": 100,
+  "symbol": "Fm",
+  "nameVi": "Fermium",
+  "nameEn": "Fermium",
+  "mass": 257,
+  "massStandardText": "[257] — số khối đồng vị tham chiếu, không phải nguyên tử khối chuẩn",
+  "massStandardSource": "https://periodic-table.rsc.org/element/100/fermium",
+  "massKind": "reference-isotope-mass-number",
+  "category": "actinide",
+  "hasData": true,
+  "file": "elements/100_Fm.json",
+  "general": {
+    "latinName": "Fermium",
+    "englishName": "Fermium",
+    "electronConfig": "[Rn] 5f¹² 7s²",
+    "isotope": "²⁵⁷Fm, ²⁵⁸Fm, ²⁵⁹Fm",
+    "group": null,
+    "groupLabel": "Actinide",
+    "series": "Actinide",
+    "period": 7,
+    "state": "Chưa đo trạng thái vĩ mô; các giá trị pha chỉ là dự đoán",
+    "oxidation": "+2, +3",
+    "electronegativity": null,
+    "electronegativityNote": "Chưa có giá trị Pauling đủ cơ sở trong bản đối chiếu; không coi 0 là giá trị đã đo.",
+    "density": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+    "meltingPoint": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+    "boilingPoint": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+    "crystalStructure": "Lập phương tâm diện (FCC)",
+    "CAS": "7440-72-4"
+  },
+  "history": {
+    "discoverer": "Albert Ghiorso và cộng sự",
+    "year": "1952",
+    "discoveryLocation": "Phòng thí nghiệm quốc gia Lawrence Berkeley, California, Hoa Kỳ",
+    "description": "Fermium được phát hiện cùng Einsteinium trong các mảnh vụn của vụ thử nhiệt hạch Ivy Mike năm 1952. Đồng vị đầu tiên được xác định là Fermium-255 (²⁵⁵Fm). Nó được hình thành sau khi Uranium-238 hấp thụ nhiều neutron trong quá trình vụ nổ, sau đó trải qua một chuỗi phân rã beta. Phát hiện này ban đầu được giữ bí mật và chỉ được công bố vào năm 1955. Tên Fermium được đặt để vinh danh nhà vật lý Enrico Fermi."
+  },
+  "structure": {
+    "protons": 100,
+    "electrons": 100,
+    "neutrons": 157,
+    "nucleusIsotope": "²⁵⁷Fm",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 100,
+      "neutron": 157
+    },
+    "electronShells": [
+      2,
+      8,
+      18,
+      32,
+      30,
+      8,
+      2
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      32,
+      30,
+      8,
+      2
+    ],
+    "valenceElectrons": 2,
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+    "lattice": "Lập phương tâm diện (FCC)",
+    "latticeEvidence": "predicted"
+  },
+  "structureType": "Lập phương tâm diện (FCC)",
+  "occurrence": {
+    "description": "Chất rắn",
+    "simple": [
+      "Fm"
+    ],
+    "compounds": [
+      "Fm₂O₃",
+      "FmCl₂",
+      "FmCl₃"
+    ],
+    "ores": [
+      "Không tồn tại tự nhiên với lượng đáng kể",
+      "chỉ được tạo ra nhân tạo"
+    ],
+    "details": [
+      "Trạng thái: Chất rắn",
+      "Màu sắc: Bạc (dự đoán)",
+      "Có trong: Không tồn tại tự nhiên với lượng đáng kể; chỉ được tạo ra nhân tạo.",
+      "Đơn chất: Fm",
+      "Hợp chất: Fm₂O₃, FmCl₂, FmCl₃"
+    ],
+    "mineral": {
+      "available": false,
+      "reason": "Nguyên tố nhân tạo hoặc chỉ có vết tự nhiên; không có quặng khai thác riêng để dựng mẫu."
+    }
+  },
+  "naturalState": {
+    "image": "/assets/periodic-table/diagrams/100_Fm.svg",
+    "alt": "Fermium: sơ đồ minh họa nguyên tố",
+    "kind": "diagram",
+    "source": "",
+    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+    "credit": ""
+  },
+  "isotopes": [
+    {
+      "isotope": "²⁵⁷Fm",
+      "massNumber": 257,
+      "protons": 100,
+      "neutrons": 157,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "100.5 ± 0.2 d",
+      "halfLife": "100.5 d",
+      "halfLifeUncertainty": "2",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁵⁸Fm",
+      "massNumber": 258,
+      "protons": 100,
+      "neutrons": 158,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "370 ± 14 us",
+      "halfLife": "370 us",
+      "halfLifeUncertainty": "14",
+      "halfLifeQualifier": null,
+      "decay": "SF",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁵⁹Fm",
+      "massNumber": 259,
+      "protons": 100,
+      "neutrons": 159,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "1.5 ± 0.2 s",
+      "halfLife": "1.5 s",
+      "halfLifeUncertainty": "2",
+      "halfLifeQualifier": null,
+      "decay": "SF",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Là kim loại phóng xạ.</li><li>Thuộc họ Actinide.</li><li>Có màu bạc (dự đoán).</li><li>Chỉ tạo ra được với lượng cực kỳ nhỏ.</li><li>Có tính phóng xạ rất mạnh.</li><li>Các tính chất vật lý vĩ mô của Fermium chưa thể nghiên cứu đầy đủ vì không thể tạo ra lượng lớn vật chất.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Fermium có hai trạng thái Oxy hóa chính:</li><li>+2</li><li>+3</li><li>Trong đó +3 là trạng thái phổ biến hơn.</li><li>Một điểm đáng chú ý là Fm²⁺ tương đối ổn định so với các Actinide lân cận. Điều này liên quan đến cấu hình electron của ion Fm²⁺.</li><li>Fermium có thể tạo các hợp chất như FmCl₂ và FmCl₃.</li></ul>",
+  "reactions": [
+    {
+      "type": "Tạo ion Fermium(III)",
+      "desc": "",
+      "equation": "Fm → Fm³⁺ + 3e⁻",
+      "condition": "Kích thích, ion hóa hoặc kết hợp bức xạ trong pha khí; cần cung cấp/trao đổi năng lượng.",
+      "kind": "physical",
+      "sourceLine": 79,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tạo Fermium(II)",
+      "desc": "",
+      "equation": "Fm → Fm²⁺ + 2e⁻",
+      "condition": "Kích thích, ion hóa hoặc kết hợp bức xạ trong pha khí; cần cung cấp/trao đổi năng lượng.",
+      "kind": "physical",
+      "sourceLine": 81,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Phân rã Alpha của Fermium-257",
+      "desc": "",
+      "equation": "²⁵⁷Fm → ²⁵³Cf + α",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 83,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "preparations": {
+    "lab": [
+      {
+        "title": "Fermium có thể được tạo ra bằng cách bắn phá Uranium-238 bằng ion Oxygen-16 trong máy gia tốc hạt.",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "²³⁸U + ¹⁶O → ²⁵⁰Fm + 4¹n",
+            "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+            "kind": "nuclear",
+            "sourceLine": 63,
+            "sourceSection": "lab",
+            "balance": {
+              "status": "balanced",
+              "kind": "nuclear",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          62,
+          63
+        ],
+        "equation": "²³⁸U + ¹⁶O → ²⁵⁰Fm + 4¹n"
+      }
+    ],
+    "industry": [
+      {
+        "title": "Fermium (Fm) được tạo ra bằng cách chiếu xạ neutron cường độ cao lên Uranium hoặc các nguyên tố Actinide trong lò phản ứng hạt nhân. Sau đó, sản phẩm được tách và tinh chế bằng phương pháp hóa học.",
+        "desc": "",
+        "result": "",
+        "equations": [],
+        "sourceLines": [
+          58
+        ],
+        "equation": ""
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Có thể nhận biết Fermium bằng",
+      "desc": "Phổ alpha. Phổ gamma. Đo hoạt độ phóng xạ. Phân tích phổ khối. Theo dõi chuỗi phân rã phóng xạ. Các phương pháp hóa phóng xạ. Do lượng Fermium tạo ra rất nhỏ, việc xác định nguyên tố chủ yếu dựa trên đặc điểm phân rã và nhận dạng đồng vị.",
+      "result": "",
+      "equations": [],
+      "sourceLines": [
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72
+      ],
+      "equation": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Nghiên cứu hạt nhân",
+      "desc": "Fermium được sử dụng gần như hoàn toàn trong nghiên cứu vật lý hạt nhân và hóa học Actinide.",
+      "sourceLine": 85
+    },
+    {
+      "title": "Nghiên cứu nguyên tố siêu nặng",
+      "desc": "Fermium có vai trò trong việc nghiên cứu các phản ứng tạo ra các hạt nhân nặng hơn, góp phần tìm hiểu giới hạn của bảng tuần hoàn.",
+      "sourceLine": 86
+    },
+    {
+      "title": "Nghiên cứu cấu trúc electron",
+      "desc": "Các hợp chất Fermium giúp nghiên cứu sự thay đổi tính chất hóa học trong dãy Actinide.",
+      "sourceLine": 87
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Do chỉ có thể tạo ra lượng cực kỳ nhỏ và các đồng vị có chu kỳ bán rã ngắn, Fermium không có ứng dụng công nghiệp hoặc đời sống thông thường.",
+      "sourceLine": 88
+    }
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Fermium là nguyên tố số 100, thuộc nhóm IIIB | chu kỳ 7 và là nguyên tố thứ mười hai trong họ Actinide.</li><li>Fermium được phát hiện vào năm 1952 bởi Albert Ghiorso và cộng sự trong các sản phẩm của vụ thử nhiệt hạch Ivy Mike. Tên nguyên tố được đặt để vinh danh nhà vật lý Enrico Fermi.</li><li>Fermium là kim loại phóng xạ nhân tạo, không có đồng vị bền. Hai trạng thái Oxy hóa quan trọng là +2 và +3, trong đó +3 phổ biến hơn.</li><li>Đồng vị ²⁵⁷Fm có chu kỳ bán rã khoảng 100,5 ngày, là đồng vị Fermium có thời gian tồn tại tương đối dài. Vì Fermium chỉ được tạo ra với lượng cực nhỏ, giá trị của nó chủ yếu nằm trong nghiên cứu hạt nhân và hóa học Actinide, chứ không có ứng dụng đời sống thông thường.</li><li>Mạng tinh thể: Lập phương tâm diện (FCC) ở điều kiện thường.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/diagrams/100_Fm.svg",
+      "title": "Fermium (Fm)",
+      "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+      "source": "",
+      "author": "ChemDex",
+      "license": "ChemDex schematic diagram",
+      "licenseUrl": ""
+    }
+  ],
+  "mediaBlocks": [],
+  "sources": [
+    {
+      "title": "100_Fm.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "0e30100dbaa298c3db65971a012c59452f9789cca84f2779270ea4c18ca05782"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/100/fermium"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "100_Fm.docx",
+    "sourceSha256": "0e30100dbaa298c3db65971a012c59452f9789cca84f2779270ea4c18ca05782",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/100_Fm.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
+}

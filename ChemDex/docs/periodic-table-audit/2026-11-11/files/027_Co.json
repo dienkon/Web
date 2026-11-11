@@ -1,0 +1,1074 @@
+{
+  "symbol": "Co",
+  "number": 27,
+  "source": "027_Co.docx",
+  "sourceSha256": "467ce9dd0ae7acf913daf8936fb5199f83bd49fff43f9511b74508aa64e9db7c",
+  "paragraphCount": 98,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 4,
+    "structure": 9,
+    "occurrence": 4,
+    "isotopes": 3,
+    "physical": 9,
+    "chemical": 8,
+    "lab": 2,
+    "industry": 5,
+    "recognition": 5,
+    "reactions": 16,
+    "applications": 6,
+    "notes": 4
+  },
+  "editorialDecisions": [],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "[Ar] 3d⁷ 4s²",
+      "publishedValue": "[Ar] 3d⁷ 4s²",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Lục phương (Hexagonal)",
+      "publishedValue": "Lục phương (Hexagonal)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "1.88",
+      "publishedValue": 1.88,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm VIIIB | Chu kỳ 4",
+      "publishedValue": "9",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Cobalt là kim loại rắn, màu trắng bạc hơi xanh ở điều kiện thường.",
+      "publishedValue": "Rắn",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 32,
+      "sourceText": "⁵⁹Co: Đồng vị bền duy nhất của Cobalt, chiếm gần 100% Cobalt tự nhiên.",
+      "reference": {
+        "isotope": "⁵⁹Co",
+        "massNumber": 59,
+        "protons": 27,
+        "neutrons": 32,
+        "stable": true,
+        "abundancePercent": "100",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 58,
+      "text": "CoO + C → Co + CO",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 60,
+      "text": "CoO + H₂ → Co + H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 63,
+      "text": "CoO + H₂ → Co + H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 67,
+      "text": "Co²⁺ + 2OH⁻ → Co(OH)₂↓",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 72,
+      "text": "3Co + 2O₂ → Co₃O₄",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 74,
+      "text": "Co + Cl₂ → CoCl₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 76,
+      "text": "Co + S → CoS",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 78,
+      "text": "Co + 2HCl → CoCl₂ + H₂↑",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 80,
+      "text": "Co²⁺ + 2OH⁻ → Co(OH)₂↓",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 82,
+      "text": "Co(OH)₂ + 2HCl → CoCl₂ + 2H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 84,
+      "text": "CoO + H₂ → Co + H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 86,
+      "text": "4Co(OH)₂ + O₂ + 2H₂O → 4Co(OH)₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "lab",
+      "equation": "CoO + H₂ → Co + H₂O",
+      "condition": "Gia nhiệt; môi trường khử, thành phần khí và việc loại nước/CO₂ chi phối mức khử.",
+      "kind": "chemical",
+      "sourceLine": 63,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "CoO + C → Co + CO",
+      "condition": "Gia nhiệt; môi trường khử, thành phần khí và việc loại nước/CO₂ chi phối mức khử.",
+      "kind": "chemical",
+      "sourceLine": 58,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "CoO + H₂ → Co + H₂O",
+      "condition": "Gia nhiệt; môi trường khử, thành phần khí và việc loại nước/CO₂ chi phối mức khử.",
+      "kind": "chemical",
+      "sourceLine": 60,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "recognition",
+      "equation": "Co²⁺ + 2OH⁻ → Co(OH)₂↓",
+      "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+      "kind": "chemical",
+      "sourceLine": 67,
+      "sourceSection": "recognition",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "3Co + 2O₂ → Co₃O₄",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 72,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Co + Cl₂ → CoCl₂",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 74,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Co + S → CoS",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 76,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Co + 2HCl → CoCl₂ + H₂↑",
+      "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+      "kind": "chemical",
+      "sourceLine": 78,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Co²⁺ + 2OH⁻ → Co(OH)₂↓",
+      "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+      "kind": "chemical",
+      "sourceLine": 80,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Co(OH)₂ + 2HCl → CoCl₂ + 2H₂O",
+      "condition": "Dung dịch acid; phản ứng trung hòa, tốc độ phụ thuộc độ tan của chất rắn.",
+      "kind": "chemical",
+      "sourceLine": 82,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "CoO + H₂ → Co + H₂O",
+      "condition": "Gia nhiệt; môi trường khử, thành phần khí và việc loại nước/CO₂ chi phối mức khử.",
+      "kind": "chemical",
+      "sourceLine": 84,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "4Co(OH)₂ + O₂ + 2H₂O → 4Co(OH)₃",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 86,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": [
+        {
+          "title": "Pin Lithium-ion",
+          "desc": "Cobalt compounds được sử dụng trong một số loại cathode của pin Lithium-ion."
+        },
+        {
+          "title": "Hợp kim",
+          "desc": "Cobalt được sử dụng để tạo các hợp kim có khả năng chịu nhiệt, chịu mài mòn và chịu ăn mòn cao."
+        },
+        {
+          "title": "Nam châm",
+          "desc": "Một số Cobalt alloys được sử dụng để chế tạo nam châm vĩnh cửu có tính từ mạnh."
+        },
+        {
+          "title": "Pigment",
+          "desc": "Cobalt compounds được sử dụng để tạo các pigment màu xanh lam trong thủy tinh, gốm và sơn."
+        },
+        {
+          "title": "Hàng không",
+          "desc": "Một số Cobalt-based superalloys được sử dụng trong các bộ phận chịu nhiệt cao."
+        },
+        {
+          "title": "Y học",
+          "desc": "⁶⁰Co là nguồn bức xạ được sử dụng trong một số thiết bị xạ trị và khử trùng."
+        }
+      ],
+      "after": [
+        {
+          "title": "Pin Lithium-ion",
+          "desc": "Cobalt compounds được sử dụng trong một số loại cathode của pin Lithium-ion.",
+          "sourceLine": 88
+        },
+        {
+          "title": "Hợp kim",
+          "desc": "Cobalt được sử dụng để tạo các hợp kim có khả năng chịu nhiệt, chịu mài mòn và chịu ăn mòn cao.",
+          "sourceLine": 89
+        },
+        {
+          "title": "Nam châm",
+          "desc": "Một số Cobalt alloys được sử dụng để chế tạo nam châm vĩnh cửu có tính từ mạnh.",
+          "sourceLine": 90
+        },
+        {
+          "title": "Pigment",
+          "desc": "Cobalt compounds được sử dụng để tạo các pigment màu xanh lam trong thủy tinh, gốm và sơn.",
+          "sourceLine": 91
+        },
+        {
+          "title": "Hàng không",
+          "desc": "Một số Cobalt-based superalloys được sử dụng trong các bộ phận chịu nhiệt cao.",
+          "sourceLine": 92
+        },
+        {
+          "title": "Y học",
+          "desc": "⁶⁰Co là nguồn bức xạ được sử dụng trong một số thiết bị xạ trị và khử trùng.",
+          "sourceLine": 93
+        }
+      ]
+    },
+    {
+      "field": "chemical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có tính chất tương tự Nickel và Iron.</li>\n      <li>Số Oxy hóa phổ biến: +2 và +3.</li>\n      <li>Co²⁺ là trạng thái Oxy hóa phổ biến.</li>\n      <li>Một số Co³⁺ compounds có tính Oxy hóa mạnh.</li>\n      <li>Phản ứng với Oxygen khi nung nóng.</li>\n      <li>Phản ứng với Halogen tạo Cobalt halide.</li>\n      <li>Phản ứng với acid tạo muối Cobalt và Hydrogen.</li>\n      <li>Có khả năng tạo nhiều phức chất.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Có tính chất tương tự Nickel và Iron.</li><li>Số Oxy hóa phổ biến: +2 và +3.</li><li>Co²⁺ là trạng thái Oxy hóa phổ biến.</li><li>Một số Co³⁺ compounds có tính Oxy hóa mạnh.</li><li>Phản ứng với Oxygen khi nung nóng.</li><li>Phản ứng với Halogen tạo Cobalt halide.</li><li>Phản ứng với acid tạo muối Cobalt và Hydrogen.</li><li>Có khả năng tạo nhiều phức chất.</li></ul>"
+    },
+    {
+      "field": "general.CAS",
+      "before": null,
+      "after": "7440-48-4"
+    },
+    {
+      "field": "general.electronegativityNote",
+      "before": null,
+      "after": "Thang Pauling; số liệu tổng hợp PubChem."
+    },
+    {
+      "field": "general.group",
+      "before": 8,
+      "after": 9
+    },
+    {
+      "field": "general.groupLabel",
+      "before": null,
+      "after": "9"
+    },
+    {
+      "field": "general.isotope",
+      "before": "⁵⁹Co",
+      "after": "⁵⁹Co, ⁶⁰Co"
+    },
+    {
+      "field": "general.series",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "general.state",
+      "before": "",
+      "after": "Rắn"
+    },
+    {
+      "field": "history.year",
+      "before": 1735,
+      "after": "1735"
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/diagrams/027_Co.svg",
+          "title": "Coban (Co)",
+          "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+          "source": "",
+          "author": "ChemDex",
+          "license": "ChemDex schematic diagram",
+          "licenseUrl": ""
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "⁵⁹Co",
+          "massNumber": 59,
+          "protons": 27,
+          "neutrons": 32,
+          "stable": true,
+          "abundancePercent": "100",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "⁶⁰Co",
+          "massNumber": 60,
+          "protons": 27,
+          "neutrons": 33,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "1925.28 ± 0.14 d",
+          "halfLife": "1925.28 d",
+          "halfLifeUncertainty": "14",
+          "halfLifeQualifier": null,
+          "decay": "B-",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "standard-atomic-weight"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "58.933 ± 0.001"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": [
+        {
+          "type": "model",
+          "section": "structure",
+          "title": "Mẫu khoáng vật 3D · Cobaltite",
+          "src": "/assets/periodic-table/minerals/cobaltite.glb",
+          "preview": "/assets/periodic-table/minerals/cobaltite.png",
+          "desc": "CoAsS. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "nameVi",
+      "before": "Cobalt",
+      "after": "Coban"
+    },
+    {
+      "field": "naturalState.alt",
+      "before": null,
+      "after": "Cobalt: sơ đồ minh họa nguyên tố"
+    },
+    {
+      "field": "naturalState.caption",
+      "before": null,
+      "after": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật."
+    },
+    {
+      "field": "naturalState.credit",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "naturalState.image",
+      "before": null,
+      "after": "/assets/periodic-table/diagrams/027_Co.svg"
+    },
+    {
+      "field": "naturalState.kind",
+      "before": null,
+      "after": "diagram"
+    },
+    {
+      "field": "naturalState.source",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "notes",
+      "before": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Cobalt là nguyên tố số 27, thuộc nhóm VIIIB | chu kỳ 4 và là một kim loại chuyển tiếp.</li>\n  <li>Cobalt có cấu hình electron [Ar] 3d⁷ 4s², trong đó +2 và +3 là những số Oxy hóa quan trọng.</li>\n  <li>Cobalt có màu trắng bạc hơi xanh, cứng, bền và có tính sắt từ. Trong tự nhiên, Cobalt thường không tồn tại thành các mỏ kim loại riêng biệt mà thường được thu hồi cùng với Copper và Nickel.</li>\n  <li>Cobalt có vai trò quan trọng trong sản xuất pin Lithium-ion, hợp kim chịu nhiệt, nam châm, pigment và các ứng dụng liên quan đến đồng vị phóng xạ ⁶⁰Co.</li>\n</ul>\n",
+      "after": "<ul class=\"element-prose-list\"><li>Cobalt là nguyên tố số 27, thuộc nhóm VIIIB | chu kỳ 4 và là một kim loại chuyển tiếp.</li><li>Cobalt có cấu hình electron [Ar] 3d⁷ 4s², trong đó +2 và +3 là những số Oxy hóa quan trọng.</li><li>Cobalt có màu trắng bạc hơi xanh, cứng, bền và có tính sắt từ. Trong tự nhiên, Cobalt thường không tồn tại thành các mỏ kim loại riêng biệt mà thường được thu hồi cùng với Copper và Nickel.</li><li>Cobalt có vai trò quan trọng trong sản xuất pin Lithium-ion, hợp kim chịu nhiệt, nam châm, pigment và các ứng dụng liên quan đến đồng vị phóng xạ ⁶⁰Co.</li></ul>"
+    },
+    {
+      "field": "occurrence.details",
+      "before": null,
+      "after": [
+        "Trạng thái: Cobalt là kim loại rắn, màu trắng bạc hơi xanh ở điều kiện thường.",
+        "Có trong: Cobaltite (CoAsS), Erythrite (Co₃(AsO₄)₂·8H₂O), Skutterudite và các quặng Nickel, Copper.",
+        "Đơn chất: Co",
+        "Hợp chất: CoO, Co₃O₄, CoCl₂, CoSO₄, Co(NO₃)₂..."
+      ]
+    },
+    {
+      "field": "occurrence.mineral",
+      "before": null,
+      "after": {
+        "available": true,
+        "id": "cobaltite",
+        "name": "Cobaltite",
+        "formula": "CoAsS",
+        "habit": "cubic",
+        "color": "#9ca2b0",
+        "crystalSystem": "orthorhombic",
+        "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+        "source": "https://www.handbookofmineralogy.org/",
+        "sourceSearch": "https://rruff.info/Cobaltite",
+        "model": "/assets/periodic-table/minerals/cobaltite.glb",
+        "preview": "/assets/periodic-table/minerals/cobaltite.png",
+        "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      }
+    },
+    {
+      "field": "physical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại chuyển tiếp.</li>\n      <li>Có màu trắng bạc hơi xanh.</li>\n      <li>Cứng và có độ bền cao.</li>\n      <li>Khối lượng riêng: khoảng 8.90 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 1495 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 2927 °C.</li>\n      <li>Dẫn điện và dẫn nhiệt.</li>\n      <li>Có tính sắt từ ở nhiệt độ thường.</li>\n      <li>Có khả năng chống mài mòn tốt.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Là kim loại chuyển tiếp.</li><li>Có màu trắng bạc hơi xanh.</li><li>Cứng và có độ bền cao.</li><li>Khối lượng riêng: khoảng 8.90 g/cm³.</li><li>Nhiệt độ nóng chảy: khoảng 1495 °C.</li><li>Nhiệt độ sôi: khoảng 2927 °C.</li><li>Dẫn điện và dẫn nhiệt.</li><li>Có tính sắt từ ở nhiệt độ thường.</li><li>Có khả năng chống mài mòn tốt.</li></ul>"
+    },
+    {
+      "field": "preparations.industry",
+      "before": [
+        {
+          "title": "Cobalt thường được thu hồi như sản phẩm phụ trong quá trình xử lý quặng Copper và Nickel.",
+          "equation": "",
+          "desc": ""
+        },
+        {
+          "title": "Cobalt compounds được chuyển thành Cobalt oxide rồi khử bằng Carbon hoặc Hydrogen để thu Cobalt:",
+          "equation": "CoO + C → Co + CO <br> CoO + H₂ → Co + H₂O",
+          "desc": "Hoặc:"
+        }
+      ],
+      "after": [
+        {
+          "title": "Cobalt thường được thu hồi như sản phẩm phụ trong quá trình xử lý quặng Copper và Nickel.",
+          "desc": "Cobalt compounds được chuyển thành Cobalt oxide rồi khử bằng Carbon hoặc Hydrogen để thu Cobalt:",
+          "result": "",
+          "equations": [
+            {
+              "equation": "CoO + C → Co + CO",
+              "condition": "Gia nhiệt; môi trường khử, thành phần khí và việc loại nước/CO₂ chi phối mức khử.",
+              "kind": "chemical",
+              "sourceLine": 58,
+              "sourceSection": "industry",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            56,
+            57,
+            58
+          ],
+          "equation": "CoO + C → Co + CO"
+        },
+        {
+          "title": "Hoặc",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "CoO + H₂ → Co + H₂O",
+              "condition": "Gia nhiệt; môi trường khử, thành phần khí và việc loại nước/CO₂ chi phối mức khử.",
+              "kind": "chemical",
+              "sourceLine": 60,
+              "sourceSection": "industry",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            59,
+            60
+          ],
+          "equation": "CoO + H₂ → Co + H₂O"
+        }
+      ]
+    },
+    {
+      "field": "preparations.lab",
+      "before": [
+        {
+          "title": "Cobalt có thể được điều chế bằng cách khử Cobalt(II) oxide bằng Hydrogen ở nhiệt độ cao:",
+          "equation": "CoO + H₂ → Co + H₂O",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Cobalt có thể được điều chế bằng cách khử Cobalt(II) oxide bằng Hydrogen ở nhiệt độ cao",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "CoO + H₂ → Co + H₂O",
+              "condition": "Gia nhiệt; môi trường khử, thành phần khí và việc loại nước/CO₂ chi phối mức khử.",
+              "kind": "chemical",
+              "sourceLine": 63,
+              "sourceSection": "lab",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            62,
+            63
+          ],
+          "equation": "CoO + H₂ → Co + H₂O"
+        }
+      ]
+    },
+    {
+      "field": "reactions",
+      "before": [
+        {
+          "type": "Tác dụng với Oxygen",
+          "equation": "3Co + 2O₂ → Co₃O₄",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Chlorine",
+          "equation": "Co + Cl₂ → CoCl₂",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Sulfur",
+          "equation": "Co + S → CoS",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Hydrochloric acid",
+          "equation": "Co + 2HCl → CoCl₂ + H₂↑",
+          "desc": ""
+        },
+        {
+          "type": "Tạo Cobalt(II) hydroxide",
+          "equation": "Co²⁺ + 2OH⁻ → Co(OH)₂↓",
+          "desc": ""
+        },
+        {
+          "type": "Cobalt(II) hydroxide tác dụng với acid",
+          "equation": "Co(OH)₂ + 2HCl → CoCl₂ + 2H₂O",
+          "desc": ""
+        },
+        {
+          "type": "Khử Cobalt(II) oxide bằng Hydrogen",
+          "equation": "CoO + H₂ → Co + H₂O",
+          "desc": ""
+        },
+        {
+          "type": "Oxy hóa Cobalt(II)",
+          "equation": "4Co(OH)₂ + O₂ + 2H₂O → 4Co(OH)₃",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "type": "Tác dụng với Oxygen",
+          "desc": "",
+          "equation": "3Co + 2O₂ → Co₃O₄",
+          "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+          "kind": "chemical",
+          "sourceLine": 72,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Chlorine",
+          "desc": "",
+          "equation": "Co + Cl₂ → CoCl₂",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 74,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Sulfur",
+          "desc": "",
+          "equation": "Co + S → CoS",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 76,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Hydrochloric acid",
+          "desc": "",
+          "equation": "Co + 2HCl → CoCl₂ + H₂↑",
+          "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+          "kind": "chemical",
+          "sourceLine": 78,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Cobalt(II) hydroxide",
+          "desc": "",
+          "equation": "Co²⁺ + 2OH⁻ → Co(OH)₂↓",
+          "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+          "kind": "chemical",
+          "sourceLine": 80,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Cobalt(II) hydroxide tác dụng với acid",
+          "desc": "",
+          "equation": "Co(OH)₂ + 2HCl → CoCl₂ + 2H₂O",
+          "condition": "Dung dịch acid; phản ứng trung hòa, tốc độ phụ thuộc độ tan của chất rắn.",
+          "kind": "chemical",
+          "sourceLine": 82,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Khử Cobalt(II) oxide bằng Hydrogen",
+          "desc": "",
+          "equation": "CoO + H₂ → Co + H₂O",
+          "condition": "Gia nhiệt; môi trường khử, thành phần khí và việc loại nước/CO₂ chi phối mức khử.",
+          "kind": "chemical",
+          "sourceLine": 84,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Oxy hóa Cobalt(II)",
+          "desc": "",
+          "equation": "4Co(OH)₂ + O₂ + 2H₂O → 4Co(OH)₃",
+          "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+          "kind": "chemical",
+          "sourceLine": 86,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": [
+        {
+          "title": "Nhận biết",
+          "reagent": "Nhận biết Co²⁺",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Cho dung dịch chứa Co²⁺ tác dụng với hydroxide",
+          "reagent": "",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "",
+          "result": "",
+          "equation": "Co²⁺ + 2OH⁻ → Co(OH)₂↓"
+        },
+        {
+          "title": "Hiện tượng",
+          "reagent": "",
+          "result": "Xuất hiện kết tủa xanh lam hoặc xanh tím Cobalt(II) hydroxide.",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "Trong dung dịch, Co²⁺ thường có màu hồng.",
+          "result": "",
+          "equation": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Nhận biết Co²⁺",
+          "desc": "Cho dung dịch chứa Co²⁺ tác dụng với hydroxide: Trong dung dịch, Co²⁺ thường có màu hồng.",
+          "result": "Xuất hiện kết tủa xanh lam hoặc xanh tím Cobalt(II) hydroxide.",
+          "equations": [
+            {
+              "equation": "Co²⁺ + 2OH⁻ → Co(OH)₂↓",
+              "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+              "kind": "chemical",
+              "sourceLine": 67,
+              "sourceSection": "recognition",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            65,
+            66,
+            67,
+            68,
+            69
+          ],
+          "equation": "Co²⁺ + 2OH⁻ → Co(OH)₂↓"
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "027_Co.docx",
+        "sourceSha256": "467ce9dd0ae7acf913daf8936fb5199f83bd49fff43f9511b74508aa64e9db7c",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/027_Co.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "027_Co.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "467ce9dd0ae7acf913daf8936fb5199f83bd49fff43f9511b74508aa64e9db7c"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/27/cobalt"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure.latticeEvidence",
+      "before": null,
+      "after": "source-reviewed"
+    },
+    {
+      "field": "structure.nucleusIsotope",
+      "before": null,
+      "after": "⁵⁹Co"
+    },
+    {
+      "field": "structure.nucleusNote",
+      "before": null,
+      "after": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác."
+    },
+    {
+      "field": "structure.valenceNote",
+      "before": null,
+      "after": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp."
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "Co",
+      "status": "diagram",
+      "reason": "Chưa xác nhận giấy phép dùng lại: FAL"
+    },
+    "mineral": {
+      "available": true,
+      "id": "cobaltite",
+      "name": "Cobaltite",
+      "formula": "CoAsS",
+      "habit": "cubic",
+      "color": "#9ca2b0",
+      "crystalSystem": "orthorhombic",
+      "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Cobaltite",
+      "model": "/assets/periodic-table/minerals/cobaltite.glb",
+      "preview": "/assets/periodic-table/minerals/cobaltite.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "Co",
+      "z": 27,
+      "url": "https://periodic-table.rsc.org/element/27/cobalt",
+      "status": "retrieved",
+      "bytes": 156721,
+      "sha256": "a8905f23216e567d9dd4bbe36622d59b39217d22a5194cdb0918d5c013d011a7",
+      "facts": {
+        "Group": "9",
+        "Melting point": "1495°C, 2723°F, 1768 K",
+        "Period": "4",
+        "Boiling point": "2927°C, 5301°F, 3200 K",
+        "Block": "d",
+        "Density (g cm−³)": "8.86",
+        "Atomic number": "27",
+        "Relative atomic mass": "58.933",
+        "State at 20°C": "Solid",
+        "Key isotopes": "⁵⁹Co",
+        "Electron configuration": "[Ar] 3d⁷4s²",
+        "CAS number": "7440-48-4",
+        "ChemSpider ID": "94547",
+        "electronegativity": "1.88"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "27",
+      "Symbol": "Co",
+      "Name": "Cobalt",
+      "AtomicMass": "58.93319",
+      "CPKHexColor": "F090A0",
+      "ElectronConfiguration": "[Ar]4s2 3d7",
+      "Electronegativity": "1.88",
+      "AtomicRadius": "192",
+      "IonizationEnergy": "7.881",
+      "ElectronAffinity": "0.661",
+      "OxidationStates": "+3, +2",
+      "StandardState": "Solid",
+      "MeltingPoint": "1768",
+      "BoilingPoint": "3200",
+      "Density": "8.86",
+      "GroupBlock": "Transition metal",
+      "YearDiscovered": "1735"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

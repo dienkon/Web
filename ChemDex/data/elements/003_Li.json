@@ -4,317 +4,499 @@
   "nameVi": "Liti",
   "nameEn": "Lithium",
   "mass": 6.94,
+  "massStandardText": "6.94 ± 0.06",
+  "massStandardSource": "https://ciaaw.org/abridged-atomic-weights.htm",
+  "massKind": "standard-atomic-weight",
   "category": "kiem",
   "hasData": true,
+  "file": "elements/003_Li.json",
   "general": {
     "latinName": "Lithium",
     "englishName": "Lithium",
-    "isotope": "⁶Li (7.5%), ⁷Li (92.5%)",
+    "electronConfig": "[He] 2s¹",
+    "isotope": "⁴Li, ⁶Li, ⁷Li, ¹²Li",
     "group": 1,
+    "groupLabel": "1",
+    "series": "",
     "period": 2,
-    "oxidation": "+1",
+    "state": "Rắn",
+    "oxidation": "0, +1",
     "electronegativity": 0.98,
-    "electronConfig": "1s² 2s¹",
-    "density": "0.534 g/cm³ (ở 20°C)",
-    "meltingPoint": "180.5°C",
-    "boilingPoint": "1342°C",
-    "atomicRadius": "152 pm",
-    "ionicRadius": "76 pm (Li⁺)",
-    "hardness": "0.6 (Mohs scale)"
-  },
-  "structure": {
-    "electrons": 3,
-    "protons": 3,
-    "neutrons": 3,
-    "latticeType": "body-centered-cubic",
-    "latticeParameter": "a = 3.507 Å"
-  },
-  "naturalState": {
-    "description": "Liti là một kim loại mềm, bạc trắng, được tìm thấy chủ yếu trong các khoáng sản như spodumene (LiAlSi₂O₆), lepidolite (K(Li,Al)₃(Al,Si,Rb)₄O₁₀(F,OH)₂) và trong nước biển dưới dạng ion Li⁺. Chứ không tồn tại ở dạng tự do trong tự nhiên do tính chất hoạt động cao.",
-    "simple": [
-      "Đá spodumene",
-      "Muối liti trong nước biển",
-      "Khoáng lepidolite"
-    ],
-    "compounds": [
-      "Li₂O (Oxy hóa liti - Lithium oxide)",
-      "LiOH (Hydroxit liti - Lithium hydroxide)",
-      "LiCl (Chloride liti - Lithium chloride)",
-      "Li₂CO₃ (Cacbonate liti - Lithium carbonate)",
-      "LiF (Fluoride liti - Lithium fluoride)",
-      "Li₂SO₄ (Sulfate liti - Lithium sulfate)"
-    ],
-    "image": "https://images.unsplash.com/photo-1579274455652-2da3d28b0f4d?w=600"
+    "electronegativityNote": "Thang Pauling; số liệu tổng hợp PubChem.",
+    "density": "khoảng 0.534 g/cm³ ở 20 °C (nhẹ hơn nước và nhẹ hơn cả dầu khoáng thông thường, nổi trên mặt nước).",
+    "meltingPoint": "180.50 °C (cao nhất trong các kim loại kiềm).",
+    "boilingPoint": "1342 °C.",
+    "crystalStructure": "Tinh thể kim loại lập phương tâm khối (bcc).",
+    "CAS": "7439-93-2"
   },
   "history": {
-    "discoverers": [
-      {
-        "name": "Johan August Arfwedson",
-        "url": "https://en.wikipedia.org/wiki/Johan_August_Arfwedson"
-      }
-    ],
-    "year": 1817,
+    "discoverer": "Johan August Arfwedson",
+    "year": "1817",
     "discoveryLocation": "Thụy Điển",
-    "description": "Johan August Arfwedson, một hóa học gia Thụy Điển, phát hiện liti vào năm 1817 khi phân tích khoáng lepidolite. Ông phát hiện một chất lạ không phải là natrium hay kali, và đặt tên là 'lithium' từ tiếng Hy Lạp 'lithos' (đá) vì nó được tìm thấy trong các loại đá. William Thomas Brande đã lần đầu tiên phát tích Li bằng điện phân vào năm 1821."
+    "description": "Johan August Arfwedson nhận ra Lithium trong petalite năm 1817. Tên gọi gắn với nguồn gốc khoáng vật. Kim loại được cô lập sau đó bằng điện phân các hợp chất lithium."
   },
-  "physical": "<p><strong>Tính chất vật lí của Liti (Li):</strong></p><ul><li><strong>Trạng thái:</strong> Kim loại rắn ở nhiệt độ phòng</li><li><strong>Màu sắc:</strong> Bạc trắng, sáng bóng</li><li><strong>Mật độ:</strong> 0.534 g/cm³ - Kim loại nhẹ nhất trong tất cả các kim loại rắn, nhẹ hơn cả nước!</li><li><strong>Điểm nóng chảy:</strong> 180.5°C</li><li><strong>Điểm sôi:</strong> 1342°C</li><li><strong>Độ cứng:</strong> Rất mềm, có thể cắt bằng dao</li><li><strong>Độ dẫn điện:</strong> Dẫn điện tốt</li><li><strong>Độ dẫn nhiệt:</strong> Dẫn nhiệt tốt</li><li><strong>Cấu trúc tinh thể:</strong> Khối lập phương tâm bên (BCC)</li></ul><p><strong>Các đặc tính nổi bật:</strong></p><ul><li>Kim loại nhẹ nhất trong tất cả các kim loại (nhẹ hơn nước)</li><li>Có tính chất siêu dẫn ở các nhiệt độ thấp</li><li>Giãn nở khi đông lạnh (bất thường)</li></ul>",
-  "chemical": "<p><strong>Tính chất hóa học của Liti (Li):</strong></p><ul><li><strong>Độ hoạt động:</strong> Rất hoạt động, xếp thứ hai trong nhóm kim loại kiềm (sau Natrium)</li><li><strong>Tương tác với Oxigen (O₂):</strong> 4Li + O₂ → 2Li₂O (Cháy với ngọn lửa đỏ tím)</li><li><strong>Tương tác với Nước (H₂O):</strong> 2Li + 2H₂O → 2LiOH + H₂↑ (Phản ứng rất mạnh)</li><li><strong>Tương tác với Clo (Cl₂):</strong> 2Li + Cl₂ → 2LiCl</li><li><strong>Tương tác với Bromine (Br₂):</strong> 2Li + Br₂ → 2LiBr</li><li><strong>Tương tác với Axit (HCl, H₂SO₄):</strong> 2Li + 2HCl → 2LiCl + H₂↑</li><li><strong>Trạng thái oxy hóa:</strong> +1 (thường duy nhất)</li><li><strong>Độ âm điện:</strong> 0.98 (Pauling scale) - Rất âm điện thấp</li></ul><p><strong>Đặc điểm nổi bật:</strong></p><ul><li>Là kim loại hoạt động nhất trong tất cả các kim loại có ứng dụng thương mại</li><li>Hợp chất liti là những bazơ mạnh</li><li>Hình thành các liên kết kộng hóa đặc biệt</li><li>Tác dụng chọn lọc cao với hữu cơ</li></ul>",
-  "preparation": {
+  "structure": {
+    "protons": 3,
+    "electrons": 3,
+    "neutrons": 4,
+    "nucleusIsotope": "⁷Li",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 3,
+      "neutron": 4
+    },
+    "electronShells": [
+      2,
+      1
+    ],
+    "shells": [
+      2,
+      1
+    ],
+    "valenceElectrons": 1,
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+    "lattice": "Tinh thể kim loại lập phương tâm khối (bcc).",
+    "latticeEvidence": "source-reviewed"
+  },
+  "structureType": "Tinh thể kim loại lập phương tâm khối (bcc).",
+  "occurrence": {
+    "description": "Lithium là kim loại kiềm hoạt động hóa học mạnh nên không bao giờ tồn tại ở dạng đơn chất tự do trong tự nhiên. Nó chiếm khoảng 20–70 ppm khối lượng vỏ Trái Đất, phân bố chủ yếu trong các mỏ nước muối ngầm (brine lakes) và trong các mạch đá magma pegmatite.",
+    "simple": [
+      "Li (không tồn tại tự do trong tự nhiên)"
+    ],
+    "compounds": [
+      "Spodumene (LiAl(SiO₃)₂)",
+      "petalite (LiAlSi₄O₁₀)",
+      "lepidolite",
+      "Li₂CO₃",
+      "LiCl trong nước muối hồ cạn"
+    ],
+    "ores": [],
+    "details": [
+      "Trạng thái: Lithium là kim loại kiềm hoạt động hóa học mạnh nên không bao giờ tồn tại ở dạng đơn chất tự do trong tự nhiên. Nó chiếm khoảng 20–70 ppm khối lượng vỏ Trái Đất, phân bố chủ yếu trong các mỏ nước muối ngầm (brine lakes) và trong các mạch đá magma pegmatite.",
+      "Đơn chất: Li (không tồn tại tự do trong tự nhiên)",
+      "Hợp chất: Spodumene (LiAl(SiO₃)₂), petalite (LiAlSi₄O₁₀), lepidolite, Li₂CO₃, LiCl trong nước muối hồ cạn..."
+    ],
+    "mineral": {
+      "available": true,
+      "id": "spodumene",
+      "name": "Spodumene",
+      "formula": "LiAlSi₂O₆",
+      "habit": "prismatic",
+      "color": "#b7c9a2",
+      "crystalSystem": "monoclinic",
+      "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Spodumene",
+      "model": "/assets/periodic-table/minerals/spodumene.glb",
+      "preview": "/assets/periodic-table/minerals/spodumene.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  },
+  "naturalState": {
+    "image": "/assets/periodic-table/photos/003_Li.png",
+    "alt": "Lithium: ảnh tham chiếu từ Commons",
+    "kind": "photo",
+    "source": "https://commons.wikimedia.org/wiki/File:Purified_lithium_in_an_ampoule_under_argon,_dark_background.png",
+    "caption": "Ảnh tham chiếu mẫu Lithium (Li); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+    "credit": "AdvancedTinkering · CC BY-SA 4.0"
+  },
+  "isotopes": [
+    {
+      "isotope": "⁴Li",
+      "massNumber": 4,
+      "protons": 3,
+      "neutrons": 1,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "Chưa có giá trị trong bản đối chiếu",
+      "halfLife": "Chưa có giá trị trong bản đối chiếu",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": "P",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "⁶Li",
+      "massNumber": 6,
+      "protons": 3,
+      "neutrons": 3,
+      "stable": true,
+      "abundancePercent": "4.85",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "⁷Li",
+      "massNumber": 7,
+      "protons": 3,
+      "neutrons": 4,
+      "stable": true,
+      "abundancePercent": "95.15",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹²Li",
+      "massNumber": 12,
+      "protons": 3,
+      "neutrons": 9,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "Chưa có giá trị trong bản đối chiếu",
+      "halfLife": "Chưa có giá trị trong bản đối chiếu",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": "N",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Kim loại màu trắng bạc, bề mặt mới cắt có ánh kim sáng nhưng nhanh chóng bị xỉn màu trong không khí ẩm.</li><li>Mềm, dễ cắt bằng dao thép, có độ dẻo và tính dát mỏng tốt.</li><li>Là kim loại nhẹ nhất và là đơn chất rắn nhẹ nhất trong mọi nguyên tố ở điều kiện chuẩn.</li><li>Khối lượng mol của Li: 6.94 g/mol.</li><li>Khối lượng riêng: khoảng 0.534 g/cm³ ở 20 °C (nhẹ hơn nước và nhẹ hơn cả dầu khoáng thông thường, nổi trên mặt nước).</li><li>Nhiệt độ nóng chảy: 180.50 °C (cao nhất trong các kim loại kiềm).</li><li>Nhiệt độ sôi: 1342 °C.</li><li>Dẫn điện và dẫn nhiệt tốt.</li><li>Có tính thuận từ.</li><li>Khi cháy phát ra ngọn lửa màu đỏ thắm (đỏ carmine) đặc trưng.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Là kim loại kiềm có tính khử rất mạnh (thế điện cực chuẩn E°(Li⁺/Li) = −3.04 V, âm nhất trong dãy điện hóa ở môi trường nước).</li><li>Phản ứng với nước tạo LiOH và H₂, thường chậm hơn Na và K; tốc độ và khả năng bắt cháy phụ thuộc kích thước, nhiệt độ và điều kiện tiếp xúc.</li><li>Tác dụng trực tiếp với Oxygen tạo oxide chính là Li₂O (hầu như không tạo peroxide hay superoxide như các kim loại kiềm khác).</li><li>Phản ứng trực tiếp với khí Nitrogen ngay ở nhiệt độ phòng tạo lithium nitride (đây là kim loại kiềm duy nhất có tính chất này).</li><li>Tác dụng mãnh liệt với các halogen tạo muối halide.</li><li>Phản ứng với Hydrogen ở nhiệt độ cao tạo hydride ion (LiH).</li><li>Tác dụng với các acid giải phóng khí Hydrogen rất mãnh liệt.</li></ul>",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "desc": "",
+      "equation": "4Li + O₂ → 2Li₂O",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 73,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tác dụng với Nước",
+      "desc": "",
+      "equation": "2Li + 2H₂O → 2LiOH + H₂",
+      "condition": "Tiếp xúc với nước; tốc độ phụ thuộc nhiệt độ, kích thước và lớp oxide bề mặt.",
+      "kind": "chemical",
+      "sourceLine": 75,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tác dụng với Nitrogen (ở nhiệt độ phòng)",
+      "desc": "",
+      "equation": "6Li + N₂ → 2Li₃N",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 77,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "desc": "",
+      "equation": "2Li + Cl₂ → 2LiCl",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 79,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tác dụng với Hydrogen",
+      "desc": "",
+      "equation": "2Li + H₂ → 2LiH",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 81,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tác dụng với Sulfur",
+      "desc": "",
+      "equation": "2Li + S → Li₂S",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 83,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tác dụng với Hydrochloric acid",
+      "desc": "",
+      "equation": "2Li + 2HCl → 2LiCl + H₂",
+      "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+      "kind": "chemical",
+      "sourceLine": 85,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Điện phân nóng chảy Lithium chloride",
+      "desc": "",
+      "equation": "2LiCl → 2Li + Cl₂",
+      "condition": "Điện phân muối khan nóng chảy; không điện phân dung dịch nước để thu kim loại kiềm/kiềm thổ.",
+      "kind": "chemical",
+      "sourceLine": 87,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Nhiệt phân Lithium carbonate",
+      "desc": "",
+      "equation": "Li₂CO₃ → Li₂O + CO₂",
+      "condition": "Gia nhiệt để phân hủy; nhiệt độ phụ thuộc chất và áp suất khí sản phẩm.",
+      "kind": "chemical",
+      "sourceLine": 89,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Hấp thụ khí Carbon dioxide bằng Lithium hydroxide",
+      "desc": "",
+      "equation": "2LiOH + CO₂ → Li₂CO₃ + H₂O",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 91,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "preparations": {
     "lab": [
       {
-        "title": "Từ LiCl bằng điện phân",
-        "equation": "2LiCl(l) →(electrolysis) 2Li + Cl₂↑",
-        "condition": "850°C, cathode: Fe, anode: C",
-        "reagent": [
-          "LiCl (muối liti nóng chảy)",
-          "Cellule điện phân"
+        "title": "Trong thực tế phòng thí nghiệm không tự điều chế kim loại Lithium từ phản ứng hóa học thông thường mà sử dụng sản phẩm thương mại được ngâm trong parafin lỏng, dầu khoáng đặc dụng hoặc đóng gói trong bầu khí trơ (Argon).",
+        "desc": "Có thể thực hiện điện phân quy mô nhỏ muối LiCl nóng chảy bằng bộ điện phân mini chuyên dụng.",
+        "result": "",
+        "equations": [],
+        "sourceLines": [
+          63,
+          64
         ],
-        "desc": "Điện phân LiCl nóng chảy tạo ra liti kim loại tại cathode và khí clo tại anode.",
-        "result": "Liti kim loại nóng chảy và khí clo được phát sinh"
-      },
-      {
-        "title": "Từ Li₂CO₃ bằng điện phân",
-        "equation": "Li₂CO₃(l) →(electrolysis) 2Li + CO₂↑ + ½O₂↑",
-        "condition": "Ở trên điểm nóng chảy của Li₂CO₃",
-        "reagent": [
-          "Li₂CO₃ (Cacbonate liti)",
-          "Cathode:Fe hoặc Cu",
-          "Anode: C"
-        ],
-        "desc": "Một phương pháp khác sử dụng cacbonate liti",
-        "result": "Liti kim loại tại cathode"
+        "equation": ""
       }
     ],
     "industry": [
       {
-        "title": "Khai thác từ nước biển",
-        "equation": "Quy trình: Li⁺(aq) → Li₂CO₃(s) → Li₂CO₃ + HCl → LiCl → điện phân → Li",
-        "condition": "Công nghiệp, quy mô lớn",
-        "reagent": [
-          "Nước biển chứa Li⁺",
-          "Na₂CO₃",
-          "HCl",
-          "Cellule điện phân"
+        "title": "Điện phân muối nóng chảy hỗn hợp Lithium chloride (LiCl) và Potassium chloride (KCl)",
+        "desc": "LiCl được phối trộn KCl để hạ nhiệt độ nóng chảy; điện phân hỗn hợp muối nóng chảy khan, không điện phân dung dịch nước để thu Li kim loại. Chế hóa từ quặng và nước muối: Khai thác dung dịch nước muối giàu Lithium, làm bay hơi tự nhiên để kết tủa muối rồi chuyển hóa thành Li₂CO₃, sau đó phản ứng với dung dịch HCl để tạo muối LiCl tinh khiết dùng cho điện phân.",
+        "result": "",
+        "equations": [
+          {
+            "equation": "2LiCl (đpnc) → 2Li + Cl₂",
+            "condition": "Điện phân muối khan nóng chảy; không điện phân dung dịch nước để thu kim loại kiềm/kiềm thổ.",
+            "kind": "chemical",
+            "sourceLine": 58,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          },
+          {
+            "equation": "Li⁺ + e⁻ → Li",
+            "condition": "Điện cực của bình điện phân; muối khan nóng chảy đối với kim loại hoạt động mạnh, không dùng dung dịch nước để thu kim loại.",
+            "kind": "chemical",
+            "sourceLine": 59,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          },
+          {
+            "equation": "2Cl⁻ → Cl₂ + 2e⁻",
+            "condition": "Điện cực của bình điện phân; muối khan nóng chảy đối với kim loại hoạt động mạnh, không dùng dung dịch nước để thu kim loại.",
+            "kind": "chemical",
+            "sourceLine": 60,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
         ],
-        "desc": "Quá trình công nghiệp chính để sản xuất liti. Đầu tiên, ion Li⁺ được tập trung từ nước biển bằng cách thêm Na₂CO₃ để tạo Li₂CO₃ kém tan. Sau đó Li₂CO₃ được chuyển hóa thành LiCl và điện phân để thu liti kim loại.",
-        "result": "Liti kim loại sạch, năng suất cao"
-      },
-      {
-        "title": "Khai thác từ khoáng spodumene",
-        "equation": "Quy trình: LiAlSi₂O₆ → Li₂CO₃ → LiCl → Li",
-        "condition": "Quy mô công nghiệp",
-        "reagent": [
-          "Khoáng spodumene",
-          "H₂SO₄",
-          "Na₂CO₃",
-          "HCl"
+        "sourceLines": [
+          56,
+          57,
+          58,
+          59,
+          60,
+          61
         ],
-        "desc": "Khai thác liti từ khoáng spodumene bằng cách nung nóng rồi tác dụng với axit, sau đó trung hòa tạo cacbonate, rồi chuyển hóa thành cloride và điện phân.",
-        "result": "Sản phẩm liti từ các khoáng"
+        "equation": "2LiCl (đpnc) → 2Li + Cl₂"
       }
     ]
   },
-  "recognition": {
-    "tests": [
-      {
-        "title": "Kiểm tra bằng ngọn lửa",
-        "reagent": "Muốn liti hoặc hợp chất liti trong nước chua",
-        "equation": "2Li⁺ + nhiệt → các photon với bước sóng 670 nm",
-        "condition": "Đưa một vài giọt dung dịch chứa Li⁺ vào khoảng ngọn lửa",
-        "result": "Ngọn lửa màu đỏ tím (crimson) đặc trưng - đây là dấu hiệu nhận biết Li⁺"
-      },
-      {
-        "title": "Kiểm tra với NaOH",
-        "reagent": [
-          "Dung dịch chứa Li⁺",
-          "NaOH dung dịch"
-        ],
-        "equation": "Li⁺ + OH⁻ → không có kết tủa (dung dịch vẫn trong)",
-        "condition": "Thêm NaOH vào dung dịch chứa Li⁺",
-        "result": "Không có kết tủa hình thành - điểm khác biệt với Na⁺ và K⁺"
-      },
-      {
-        "title": "Kiểm tra với Na₂CO₃",
-        "reagent": [
-          "Dung dịch chứa Li⁺",
-          "Na₂CO₃ dung dịch"
-        ],
-        "equation": "2Li⁺ + CO₃²⁻ → Li₂CO₃↓ (trắng)",
-        "condition": "Thêm Na₂CO₃ vào dung dịch chứa Li⁺",
-        "result": "Kết tủa trắng Li₂CO₃, tan trong axit dư thừa"
-      },
-      {
-        "title": "Kiểm tra với Na₂HPO₄",
-        "reagent": [
-          "Dung dịch chứa Li⁺",
-          "Na₂HPO₄"
-        ],
-        "equation": "3Li⁺ + HPO₄²⁻ + 2OH⁻ → Li₃PO₄↓",
-        "condition": "Thêm Na₂HPO₄ vào dung dịch kiềm chứa Li⁺",
-        "result": "Kết tủa trắng Li₃PO₄"
-      }
-    ],
-    "distinguish": [
-      {
-        "title": "Phân biệt Li⁺ với Na⁺ và K⁺",
-        "reagent": "Ngọn lửa",
-        "equation": "Li⁺: đỏ tím, Na⁺: vàng cam, K⁺: tím",
-        "condition": "Kiểm tra bằng kỹ thuật ngọn lửa (flame test)",
-        "result": "Mỗi kim loại kiềm có màu ngọn lửa riêng - Li có màu đỏ tím đặc biệt"
-      },
-      {
-        "title": "Li⁺ vs Na⁺ với NaOH",
-        "reagent": [
-          "Li⁺ hoặc Na⁺",
-          "NaOH dung dịch"
-        ],
-        "equation": "Na⁺ + OH⁻ → dung dịch rõ ràng (không có sự thay đổi); Li⁺ cũng không tạo kết tủa",
-        "condition": "Thêm NaOH từ từ",
-        "result": "Cả Li⁺ và Na⁺ không tạo kết tủa với NaOH - khó phân biệt bằng NaOH"
-      },
-      {
-        "title": "Li⁺ vs Na⁺ với Na₂CO₃",
-        "reagent": [
-          "Li⁺ hoặc Na⁺",
-          "Na₂CO₃"
-        ],
-        "equation": "Li⁺ + CO₃²⁻ → Li₂CO₃↓ (kết tủa trắng); Na⁺ không tạo kết tủa",
-        "condition": "Thêm Na₂CO₃ dung dịch",
-        "result": "Li⁺ tạo kết tủa trắng, Na⁺ không - cách hay để phân biệt Li⁺"
-      }
-    ]
-  },
-  "reactions": [
+  "recognition": [
     {
-      "title": "Liti với Oxigen",
-      "equation": "4Li + O₂ → 2Li₂O",
-      "condition": "Nhiệt độ bình thường hoặc nung nóng",
-      "reagent": "Li kim loại, O₂",
-      "result": "Oxy hóa liti (Li₂O) màu trắng; nếu dư O₂ tạo thêm Li₂O₂",
-      "note": "Khi cháy, liti tạo ngọn lửa vàng-trắng sáng"
-    },
-    {
-      "title": "Liti với Nước",
-      "equation": "2Li + 2H₂O → 2LiOH + H₂↑",
-      "condition": "Nhiệt độ bình thường",
-      "reagent": "Li kim loại, H₂O",
-      "result": "Dung dịch LiOH (hydroxit liti) + khí H₂; phản ứng rất mạnh, có thể cháy ngọn lửa",
-      "note": "Phản ứng exothermic, khí H₂ sinh ra có thể tự bắt lửa"
-    },
-    {
-      "title": "Liti với Clo",
-      "equation": "2Li + Cl₂ → 2LiCl",
-      "condition": "Ở nhiệt độ bình thường hoặc nung nóng",
-      "reagent": "Li kim loại, Cl₂ khí",
-      "result": "LiCl (Liti Clorit) - chất rắn trắng",
-      "note": "Phản ứng nhanh, tỏa nhiệt"
-    },
-    {
-      "title": "Liti với Nitơ",
-      "equation": "6Li + N₂ → 2Li₃N",
-      "condition": "Nung nóng mạnh, 300-400°C",
-      "reagent": "Li kim loại, N₂",
-      "result": "Liti Nitrit (Li₃N) - chất rắn đỏ-nâu",
-      "note": "Liti là kim loại kiềm duy nhất tạo nitrit dễ dàng"
-    },
-    {
-      "title": "Liti với Axit Clohydric",
-      "equation": "2Li + 2HCl → 2LiCl + H₂↑",
-      "condition": "Nhiệt độ bình thường",
-      "reagent": "Li kim loại, HCl dung dịch",
-      "result": "Dung dịch LiCl trắng + khí H₂ được phát sinh",
-      "note": "Phản ứng rất mạnh và exothermic"
-    },
-    {
-      "title": "Liti với Axit Sunfuric",
-      "equation": "2Li + H₂SO₄ → Li₂SO₄ + H₂↑",
-      "condition": "Nhiệt độ bình thường",
-      "reagent": "Li kim loại, H₂SO₄ dung dịch loãng",
-      "result": "Dung dịch Li₂SO₄ + khí H₂",
-      "note": "Phản ứng exothermic rất mạnh"
-    },
-    {
-      "title": "Hydroxit Liti với Khí CO₂",
-      "equation": "2LiOH + CO₂ → Li₂CO₃ + H₂O",
-      "condition": "Nhiệt độ bình thường",
-      "reagent": "LiOH dung dịch hoặc rắn, CO₂ khí",
-      "result": "Cacbonate Liti (Li₂CO₃) trắng kết tủa + nước",
-      "note": "Phản ứng trung hòa"
-    },
-    {
-      "title": "Cacbonate Liti với Axit Clohydric",
-      "equation": "Li₂CO₃ + 2HCl → 2LiCl + CO₂↑ + H₂O",
-      "condition": "Nhiệt độ bình thường",
-      "reagent": "Li₂CO₃ rắn, HCl dung dịch",
-      "result": "Dung dịch LiCl + khí CO₂ (tạo bọt) + nước",
-      "note": "Phản ứng điển hình axit-bazơ"
+      "title": "Thử màu ngọn lửa: Khi đưa muối hoặc hợp chất của Lithium vào ngọn lửa không màu của đèn khí, ngọn lửa chuyển sang màu đỏ thắm (đỏ carmine) rực rỡ.",
+      "desc": "Phổ phát xạ nguyên tử: Vạch quang phổ màu đỏ sáng đặc trưng ở bước sóng 670.8 nm. Thả vào nước: Mẩu kim loại nổi trên mặt nước, tan dần và sủi bọt khí H₂ êm dịu; nhỏ vài giọt dung dịch phenolphthalein vào thấy chuyển sang màu hồng tím. Phản ứng với khí Nitrogen ở nhiệt độ phòng: Bề mặt kim loại bị phủ một lớp màng màu đỏ nâu hoặc đen của Lithium nitride (Li₃N). Đặc điểm: Kim loại siêu nhẹ, cắt mềm, cháy cho ngọn lửa đỏ thắm, dung dịch kiềm LiOH tạo kết tủa trắng với muối carbonate (Li₂CO₃ ít tan).",
+      "result": "",
+      "equations": [],
+      "sourceLines": [
+        66,
+        67,
+        68,
+        69,
+        70
+      ],
+      "equation": ""
     }
   ],
   "applications": [
     {
-      "title": "Pin Lithium (Lithium Batteries)",
-      "desc": "Liti được sử dụng rộng rãi trong pin lithium-ion, là nguồn năng lượng chính cho điện thoại di động, laptop, ô tô điện và nhiều thiết bị công nghệ. Pin lithium có mật độ năng lượng cao, tuổi thọ dài và hiệu suất tốt.",
-      "image": "https://images.unsplash.com/photo-1639405767917-e47a3dff0e3f?w=600",
-      "emoji": "🔋"
+      "title": "Pin và ắc quy",
+      "desc": "Nguyên liệu cốt lõi để sản xuất pin Lithium-ion và pin Lithium kim loại cho điện thoại thông minh, máy tính xách tay, xe điện (EV) và các trạm lưu trữ năng lượng tái tạo.",
+      "sourceLine": 93
     },
     {
-      "title": "Dược phẩm - Điều trị bệnh tâm thần",
-      "desc": "Muối liti (đặc biệt là lithium carbonate và lithium citrate) được dùng trong y học để điều trị chứng rối loạn lưỡng cực (bipolar disorder) và trầm cảm. Đây là một trong những ứng dụng dược phẩm quan trọng nhất của liti, giúp cân bằng hóa chất trong não.",
-      "image": "https://images.unsplash.com/photo-1587854692152-cbe660dbde0f?w=600",
-      "emoji": "💊"
+      "title": "Y tế và tâm thần học",
+      "desc": "Hợp chất Lithium carbonate (Li₂CO₃) và Lithium citrate là thuốc ổn định khí sắc nền tảng trong điều trị rối loạn lưỡng cực và trầm cảm kháng trị.",
+      "sourceLine": 94
     },
     {
-      "title": "Hợp kim nhẹ (Lightweight Alloys)",
-      "desc": "Liti được thêm vào các hợp kim nhôm và magiê để tạo ra các vật liệu nhẹ, bền nhưng vẫn rất mạnh. Những hợp kim này được sử dụng trong ngành hàng không (máy bay), tàu vũ trụ, và các phương tiện giao thông hiện đại.",
-      "image": "https://images.unsplash.com/photo-1581092161562-40038f5c261c?w=600",
-      "emoji": "✈️"
+      "title": "Hợp kim siêu nhẹ",
+      "desc": "Tạo hợp kim với Nhôm (Al) và Magnesi (Mg) có độ bền cao và trọng lượng siêu nhẹ, ứng dụng làm khung máy bay, tên lửa và linh kiện hàng không vũ trụ.",
+      "sourceLine": 95
     },
     {
-      "title": "Kính và Gốm (Glass & Ceramics)",
-      "desc": "Cacbonate liti được sử dụng trong sản xuất kính và gốm, đặc biệt là trong các loại kính chuyên dụng có điểm nóng chảy thấp. Li₂O cải thiện tính chất quang học của kính.",
-      "image": "https://images.unsplash.com/photo-1578500494198-246f612d03b3?w=600",
-      "emoji": "🔬"
+      "title": "Chất bôi trơn công nghiệp",
+      "desc": "Xà phòng lithium (lithium stearate) là thành phần làm đặc trong mỡ bôi trơn đa dụng, chịu nhiệt cao và kháng nước cho động cơ và thiết bị cơ khí nặng.",
+      "sourceLine": 96
     },
     {
-      "title": "Tuyl chế tạo (Welding & Brazing)",
-      "desc": "Muối liti được dùng trong thuốc hàn và xuyên lực để cải thiện khả năng chảy và độ bền của các đường hàn. Nó giảm nhiệt độ cần thiết và cải thiện chất lượng hàn.",
-      "image": "https://images.unsplash.com/photo-1518611505868-48510c8b2e38?w=600",
-      "emoji": "🔧"
+      "title": "Sản xuất gốm sứ và thủy tinh",
+      "desc": "Lithium oxide (Li₂O) làm giảm hệ số giãn nở nhiệt, tăng khả năng chống sốc nhiệt cho mặt bếp từ, kính thiên văn và gốm sứ cao cấp.",
+      "sourceLine": 97
     },
     {
-      "title": "Dầu mỡ (Lubricants & Grease)",
-      "desc": "Stearate Liti được sử dụng làm cơ sở cho dầu mỡ chuyên dụng. Những loại dầu mỡ này có khả năng chịu nhiệt cao và bền lâu, được dùng trong các ứng dụng công nghiệp khắt khe.",
-      "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600",
-      "emoji": "🛢️"
+      "title": "Hệ thống hỗ trợ sự sống",
+      "desc": "Lithium hydroxide (LiOH) có khả năng hấp thụ khí CO₂ hiệu quả với khối lượng nhẹ, được sử dụng trong hệ thống lọc khí thở trên tàu ngầm và trạm vũ trụ quốc tế (ISS).",
+      "sourceLine": 98
     },
     {
-      "title": "Lạnh tập trung (Air Conditioning & Refrigeration)",
-      "desc": "Bromide liti (LiBr) được sử dụng làm chất hấp thụ trong các hệ thống làm lạnh hấp thụ, giúp chuyển đổi năng lượng và làm mát một cách hiệu quả.",
-      "image": "https://images.unsplash.com/photo-1585080362953-a467ed1fb64f?w=600",
-      "emoji": "❄️"
+      "title": "Công nghệ hạt nhân",
+      "desc": "Đồng vị ⁶Li dùng làm bia bắn neutron để sản xuất Tritium phục vụ nghiên cứu phản ứng nhiệt hạch; ⁷LiOH dùng để điều chỉnh độ pH trong hệ thống làm mát của lò phản ứng hạt nhân.",
+      "sourceLine": 99
     }
   ],
+  "notes": "<ul class=\"element-prose-list\"><li>Lithium là nguyên tố thứ 3 trong bảng tuần hoàn (số hiệu nguyên tử 3), thuộc nhóm IA | chu kỳ 2.</li><li>Ở điều kiện thường, Lithium là kim loại kiềm có ánh bạc, mềm và là kim loại nhẹ nhất trong tự nhiên (nổi trên cả nước và dầu khoáng). Do có hoạt tính hóa học mạnh, Lithium không tồn tại ở trạng thái tự do trên Trái Đất mà nằm rải rác trong các quặng pegmatite và tập trung tại các mỏ nước muối mặn dưới lòng đất.</li><li>Lithium sở hữu tính khử cực mạnh với thế điện cực chuẩn âm nhất trong các nguyên tố hóa học, đồng thời có những tính chất đặc trưng khác biệt so với các kim loại kiềm còn lại như khả năng phản ứng với nitrogen ở nhiệt độ thường và chỉ tạo oxide thông thường (Li₂O) khi đốt trong oxygen.</li><li>Lithium được coi là “vàng trắng” của kỷ nguyên chuyển dịch năng lượng xanh, giữ vai trò chiến lược sống còn trong công nghiệp sản xuất pin xe điện, thiết bị điện tử, y dược học thần kinh và công nghệ hàng không vũ trụ.</li></ul>",
   "images": [
     {
-      "title": "Liti kim loại tự nhiên",
-      "url": "https://images.unsplash.com/photo-1579274455652-2da3d28b0f4d?w=600",
-      "desc": "Mẫu liti kim loại bạc trắng sáng"
-    },
-    {
-      "title": "Muối Lithium Chloride",
-      "url": "https://images.unsplash.com/photo-1581092160562-40038f5c261c?w=600",
-      "desc": "LiCl - muối liti clorit kết tinh"
-    },
-    {
-      "title": "Cacbonate Liti",
-      "url": "https://images.unsplash.com/photo-1578500494198-246f612d03b3?w=600",
-      "desc": "Li₂CO₃ - bột trắng dùng trong dược phẩm"
-    },
-    {
-      "title": "Pin Lithium-Ion",
-      "url": "https://images.unsplash.com/photo-1639405767917-e47a3dff0e3f?w=600",
-      "desc": "Công nghệ pin lithium hiện đại"
+      "src": "/assets/periodic-table/photos/003_Li.png",
+      "title": "Liti (Li)",
+      "desc": "Ảnh tham chiếu mẫu Lithium (Li); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+      "source": "https://commons.wikimedia.org/wiki/File:Purified_lithium_in_an_ampoule_under_argon,_dark_background.png",
+      "author": "AdvancedTinkering",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
     }
   ],
-  "notes": "<p><strong>Tóm tắt về Lithium (Li):</strong></p><p>Lithium là nguyên tố hóa học số hiệu 3, thuộc nhóm I (Kim loại Kiềm) của bảng tuần hoàn. Đây là một kim loại kiềm cực kỳ hoạt động, nhẹ nhất trong tất cả các kim loại và có nhiều ứng dụng quan trọng trong hiện đại.</p><p><strong>Đặc điểm quan trọng:</strong></p><ul><li>Kim loại nhẹ nhất (mật độ: 0.534 g/cm³ - nhẹ hơn nước)</li><li>Hoạt động hóa học cao, dễ bị oxy hóa trong không khí ẩm</li><li>Phản ứng mạnh mẽ với nước, tạo LiOH + H₂ gas</li><li>Ngọn lửa đặc trưng: màu đỏ tím (crimson)</li><li>Ứng dụng chính: pin lithium-ion, dược phẩm, hợp kim nhẹ</li></ul><p><strong>Ứng dụng thực tế:</strong></p><ul><li><strong>Công nghệ:</strong> Pin điện thoại, laptop, ô tô điện</li><li><strong>Y tế:</strong> Điều trị bệnh tâm thần (lithium therapy)</li><li><strong>Hàng không vũ trụ:</strong> Hợp kim nhẹ cho máy bay, tàu vũ trụ</li><li><strong>Công nghiệp:</strong> Kính, gốm, dầu mỡ, làm lạnh</li></ul><p><strong>Lịch sử:</strong> Liti được phát hiện vào năm 1817 bởi Johan August Arfwedson, nhà hóa học Thụy Điển, từ khoáng lepidolite. Tên 'lithium' xuất phát từ tiếng Hy Lạp 'lithos' (đá).</p><p><strong>An toàn:</strong> Liti hoạt động mạnh với nước và oxy, nên phải bảo quản trong dầu khoáng hoặc khí trơn. Tiếp xúc trực tiếp với da có thể gây bỏng hóa học.</p>"
+  "mediaBlocks": [
+    {
+      "type": "model",
+      "section": "structure",
+      "title": "Mẫu khoáng vật 3D · Spodumene",
+      "src": "/assets/periodic-table/minerals/spodumene.glb",
+      "preview": "/assets/periodic-table/minerals/spodumene.png",
+      "desc": "LiAlSi₂O₆. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  ],
+  "sources": [
+    {
+      "title": "003_Li.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "72f24b4a2a91c4a6312e06e97945bda6139276eaa1684fbbb972acea258aec35"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/3/lithium"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "003_Li.docx",
+    "sourceSha256": "72f24b4a2a91c4a6312e06e97945bda6139276eaa1684fbbb972acea258aec35",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/003_Li.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
 }

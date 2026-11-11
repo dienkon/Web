@@ -1,0 +1,110 @@
+001: Nickel (Ni)
+002: Thông tin chung
+003: Tên Latin: Niccolum
+004: Tên Tiếng Anh: Nickel
+005: Đồng vị: ⁵⁸Ni, ⁶⁰Ni, ⁶¹Ni, ⁶²Ni, ⁶⁴Ni
+006: Vị trí: Nhóm VIIIB | Chu kỳ 4
+007: Số Oxy hóa: −1, 0, +1, +2, +3, +4
+008: Độ âm điện: 1.91
+009: Lịch sử khám phá
+010: Phát hiện bởi: Axel Fredrik Cronstedt
+011: Năm công bố: 1751
+012: Nơi khám phá: Thụy Điển
+013: Mô tả: Năm 1751, Axel Fredrik Cronstedt nghiên cứu một loại quặng màu đỏ nâu được gọi là Kupfernickel. Ông nhận ra quặng này chứa một kim loại mới và đặt tên nguyên tố là Nickel, bắt nguồn từ tên gọi Kupfernickel.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Ar] 3d⁸ 4s²
+017: Mô hình mạng tinh thể: Lập phương tâm mặt (Face-centered cubic, FCC)
+018: Số hiệu nguyên tử: 28
+019: Nguyên tử khối: 58.6934 g/mol
+020: Vỏ nguyên tử: 28 electron
+021: K: 2 | L: 8 | M: 16 | N: 2
+022: Hạt nhân: 28 proton, 30 neutron đối với ⁵⁸Ni
+023: Cấu hình e: [Ar] 3d⁸ 4s²
+024: Loại mạng: Lập phương tâm mặt (Face-centered cubic, FCC)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Nickel là kim loại rắn, màu trắng bạc, hơi ánh vàng ở điều kiện thường.
+027: Có trong: Pentlandite, Garnierite, Nickeliferous laterite và một số thiên thạch.
+028: Đơn chất: Ni
+029: Hợp chất: NiO, Ni₂O₃, NiCl₂, NiSO₄, Ni(OH)₂...
+030: c. Đồng vị
+031: Đồng vị: ⁵⁸Ni, ⁶⁰Ni, ⁶¹Ni, ⁶²Ni, ⁶⁴Ni
+032: ⁵⁸Ni: Đồng vị bền, chiếm khoảng 68.08%.
+033: ⁶⁰Ni: Đồng vị bền, chiếm khoảng 26.22%.
+034: ⁶¹Ni: Đồng vị bền, chiếm khoảng 1.14%.
+035: ⁶²Ni: Đồng vị bền, chiếm khoảng 3.63%.
+036: ⁶⁴Ni: Đồng vị bền, chiếm khoảng 0.93%.
+037: Tính chất
+038: Tính chất vật lý
+039: Là kim loại chuyển tiếp.
+040: Có màu trắng bạc hơi ánh vàng.
+041: Cứng, dai và có độ bền cao.
+042: Khối lượng riêng: khoảng 8.91 g/cm³.
+043: Nhiệt độ nóng chảy: khoảng 1455 °C.
+044: Nhiệt độ sôi: khoảng 2913 °C.
+045: Dẫn điện và dẫn nhiệt tốt.
+046: Có tính sắt từ ở nhiệt độ thường.
+047: Có khả năng chống ăn mòn tốt.
+048: Tính chất hóa học
+049: Có tính khử.
+050: Số Oxy hóa phổ biến nhất là +2.
+051: Có khả năng tạo nhiều phức chất.
+052: Tương đối bền trong không khí ở nhiệt độ thường.
+053: Phản ứng với Oxygen khi nung nóng.
+054: Phản ứng với Halogen tạo Nickel halide.
+055: Phản ứng với acid tạo muối Nickel và Hydrogen.
+056: Nickel có thể xúc tác cho nhiều phản ứng hóa học, đặc biệt là phản ứng Hydrogenation.
+057: Điều chế
+058: Điều chế trong công nghiệp
+059: Nickel được sản xuất từ các quặng sulfide hoặc laterite.
+060: Đối với quặng sulfide, Nickel compounds được chuyển thành Nickel oxide rồi khử bằng Carbon:
+061: NiO + C → Ni + CO
+062: Ngoài ra, Nickel có thể được tinh chế bằng Mond process, trong đó Nickel phản ứng với Carbon monoxide tạo Nickel carbonyl:
+063: Ni + 4CO ⇌ Ni(CO)₄
+064: Sau đó Nickel carbonyl bị phân hủy ở nhiệt độ cao:
+065: Ni(CO)₄ → Ni + 4CO
+066: Điều chế trong phòng thí nghiệm
+067: Nickel có thể được điều chế bằng cách khử Nickel(II) oxide bằng Hydrogen ở nhiệt độ cao:
+068: NiO + H₂ → Ni + H₂O
+069: Nhận biết
+070: Nhận biết Ni²⁺
+071: Cho dung dịch chứa Ni²⁺ tác dụng với hydroxide:
+072: Ni²⁺ + 2OH⁻ → Ni(OH)₂↓
+073: Hiện tượng: Xuất hiện kết tủa xanh lục Nickel(II) hydroxide.
+074: Một thuốc thử đặc trưng cho Ni²⁺ là Dimethylglyoxime (DMG):
+075: Ni²⁺ + 2DMG → Ni(DMG)₂↓
+076: Hiện tượng: Xuất hiện kết tủa đỏ hồng đặc trưng.
+077: Phương trình
+078: Tác dụng với Oxygen
+079: 2Ni + O₂ → 2NiO
+080: Tác dụng với Chlorine
+081: Ni + Cl₂ → NiCl₂
+082: Tác dụng với Sulfur
+083: Ni + S → NiS
+084: Tác dụng với Hydrochloric acid
+085: Ni + 2HCl → NiCl₂ + H₂↑
+086: Tạo Nickel(II) hydroxide
+087: Ni²⁺ + 2OH⁻ → Ni(OH)₂↓
+088: Nickel(II) hydroxide tác dụng với acid
+089: Ni(OH)₂ + 2HCl → NiCl₂ + 2H₂O
+090: Khử Nickel(II) oxide
+091: NiO + H₂ → Ni + H₂O
+092: Mond process
+093: Ni + 4CO ⇌ Ni(CO)₄
+094: Ni(CO)₄ → Ni + 4CO
+095: Hydrogenation
+096: C₂H₄ + H₂ → C₂H₆
+097: (Ni là chất xúc tác.)
+098: Ứng dụng thực tế
+099: Thép không gỉ: Nickel được sử dụng trong nhiều loại Stainless steel để tăng khả năng chống ăn mòn và cải thiện tính chất cơ học.
+100: Hợp kim: Được sử dụng trong các hợp kim chịu nhiệt, chịu ăn mòn và có độ bền cao.
+101: Pin: Nickel được sử dụng trong các loại pin như Nickel–metal hydride (NiMH) và Nickel–cadmium (NiCd).
+102: Mạ Nickel: Được sử dụng để tạo lớp phủ bảo vệ và tăng độ bền cho bề mặt kim loại.
+103: Tiền xu: Nickel và các hợp kim của nó được sử dụng trong một số loại tiền xu.
+104: Chất xúc tác: Nickel là chất xúc tác quan trọng trong Hydrogenation và nhiều phản ứng công nghiệp.
+105: Công nghiệp hóa chất: Nickel compounds được sử dụng trong sản xuất và xử lý nhiều hóa chất.
+106: Tổng quan
+107: Nickel là nguyên tố số 28, thuộc nhóm VIIIB | chu kỳ 4 và là một kim loại chuyển tiếp.
+108: Nickel có cấu hình electron [Ar] 3d⁸ 4s², trong đó +2 là số Oxy hóa phổ biến nhất.
+109: Nickel có màu trắng bạc hơi ánh vàng, cứng, bền và có khả năng chống ăn mòn tốt. Ở điều kiện thường, Nickel có cấu trúc tinh thể lập phương tâm mặt (FCC).
+110: Nickel có vai trò quan trọng trong sản xuất Stainless steel, hợp kim, pin, mạ kim loại và chất xúc tác. Trong tự nhiên, Nickel chủ yếu được khai thác từ quặng sulfide và laterite.

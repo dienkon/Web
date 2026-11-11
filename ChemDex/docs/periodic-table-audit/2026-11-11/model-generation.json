@@ -1,0 +1,301 @@
+{
+  "date": "2026-11-11",
+  "models": [
+    {
+      "id": "spodumene",
+      "meshes": 176,
+      "triangles": 3260,
+      "bytes": 373604
+    },
+    {
+      "id": "beryl",
+      "meshes": 141,
+      "triangles": 3120,
+      "bytes": 335536
+    },
+    {
+      "id": "borax",
+      "meshes": 176,
+      "triangles": 3260,
+      "bytes": 372652
+    },
+    {
+      "id": "graphite",
+      "meshes": 176,
+      "triangles": 4380,
+      "bytes": 454360
+    },
+    {
+      "id": "fluorite",
+      "meshes": 36,
+      "triangles": 460,
+      "bytes": 61912
+    },
+    {
+      "id": "halite",
+      "meshes": 176,
+      "triangles": 2280,
+      "bytes": 287580
+    },
+    {
+      "id": "magnesite",
+      "meshes": 176,
+      "triangles": 2280,
+      "bytes": 288432
+    },
+    {
+      "id": "bauxite",
+      "meshes": 36,
+      "triangles": 2980,
+      "bytes": 243580
+    },
+    {
+      "id": "quartz",
+      "meshes": 176,
+      "triangles": 3750,
+      "bytes": 408148
+    },
+    {
+      "id": "apatite",
+      "meshes": 141,
+      "triangles": 3120,
+      "bytes": 336492
+    },
+    {
+      "id": "sulfur",
+      "meshes": 36,
+      "triangles": 460,
+      "bytes": 62232
+    },
+    {
+      "id": "sylvite",
+      "meshes": 176,
+      "triangles": 2280,
+      "bytes": 288072
+    },
+    {
+      "id": "calcite",
+      "meshes": 176,
+      "triangles": 2280,
+      "bytes": 288308
+    },
+    {
+      "id": "thortveitite",
+      "meshes": 176,
+      "triangles": 3260,
+      "bytes": 374252
+    },
+    {
+      "id": "rutile",
+      "meshes": 176,
+      "triangles": 3260,
+      "bytes": 373112
+    },
+    {
+      "id": "vanadinite",
+      "meshes": 141,
+      "triangles": 3120,
+      "bytes": 336240
+    },
+    {
+      "id": "chromite",
+      "meshes": 36,
+      "triangles": 460,
+      "bytes": 61924
+    },
+    {
+      "id": "pyrolusite",
+      "meshes": 176,
+      "triangles": 3260,
+      "bytes": 374100
+    },
+    {
+      "id": "hematite",
+      "meshes": 176,
+      "triangles": 4380,
+      "bytes": 454464
+    },
+    {
+      "id": "cobaltite",
+      "meshes": 176,
+      "triangles": 2280,
+      "bytes": 289032
+    },
+    {
+      "id": "pentlandite",
+      "meshes": 36,
+      "triangles": 2980,
+      "bytes": 243632
+    },
+    {
+      "id": "chalcopyrite",
+      "meshes": 36,
+      "triangles": 460,
+      "bytes": 62080
+    },
+    {
+      "id": "sphalerite",
+      "meshes": 36,
+      "triangles": 320,
+      "bytes": 51924
+    },
+    {
+      "id": "germanite",
+      "meshes": 36,
+      "triangles": 2980,
+      "bytes": 243572
+    },
+    {
+      "id": "arsenopyrite",
+      "meshes": 176,
+      "triangles": 3260,
+      "bytes": 374060
+    },
+    {
+      "id": "clausthalite",
+      "meshes": 176,
+      "triangles": 2280,
+      "bytes": 289128
+    },
+    {
+      "id": "lepidolite",
+      "meshes": 176,
+      "triangles": 4380,
+      "bytes": 458084
+    },
+    {
+      "id": "celestine",
+      "meshes": 141,
+      "triangles": 2840,
+      "bytes": 315716
+    },
+    {
+      "id": "xenotime",
+      "meshes": 36,
+      "triangles": 460,
+      "bytes": 62060
+    },
+    {
+      "id": "zircon",
+      "meshes": 36,
+      "triangles": 460,
+      "bytes": 61832
+    },
+    {
+      "id": "columbite",
+      "meshes": 176,
+      "triangles": 3260,
+      "bytes": 374696
+    },
+    {
+      "id": "molybdenite",
+      "meshes": 176,
+      "triangles": 4380,
+      "bytes": 454508
+    },
+    {
+      "id": "laurite",
+      "meshes": 36,
+      "triangles": 460,
+      "bytes": 61824
+    },
+    {
+      "id": "native-platinum",
+      "meshes": 36,
+      "triangles": 6480,
+      "bytes": 495944
+    },
+    {
+      "id": "acanthite",
+      "meshes": 176,
+      "triangles": 3260,
+      "bytes": 373568
+    },
+    {
+      "id": "cassiterite",
+      "meshes": 36,
+      "triangles": 460,
+      "bytes": 62100
+    },
+    {
+      "id": "stibnite",
+      "meshes": 176,
+      "triangles": 3260,
+      "bytes": 373372
+    },
+    {
+      "id": "calaverite",
+      "meshes": 176,
+      "triangles": 3260,
+      "bytes": 373648
+    },
+    {
+      "id": "pollucite",
+      "meshes": 36,
+      "triangles": 2980,
+      "bytes": 243520
+    },
+    {
+      "id": "barite",
+      "meshes": 141,
+      "triangles": 2840,
+      "bytes": 315112
+    },
+    {
+      "id": "monazite",
+      "meshes": 176,
+      "triangles": 3260,
+      "bytes": 374232
+    },
+    {
+      "id": "tantalite",
+      "meshes": 176,
+      "triangles": 3260,
+      "bytes": 374804
+    },
+    {
+      "id": "scheelite",
+      "meshes": 36,
+      "triangles": 460,
+      "bytes": 61912
+    },
+    {
+      "id": "native-gold",
+      "meshes": 36,
+      "triangles": 6480,
+      "bytes": 495860
+    },
+    {
+      "id": "cinnabar",
+      "meshes": 176,
+      "triangles": 2280,
+      "bytes": 288696
+    },
+    {
+      "id": "galena",
+      "meshes": 176,
+      "triangles": 2280,
+      "bytes": 288352
+    },
+    {
+      "id": "bismuthinite",
+      "meshes": 176,
+      "triangles": 3260,
+      "bytes": 373800
+    },
+    {
+      "id": "uraninite",
+      "meshes": 176,
+      "triangles": 2280,
+      "bytes": 289240
+    },
+    {
+      "id": "thorite",
+      "meshes": 36,
+      "triangles": 460,
+      "bytes": 61872
+    }
+  ],
+  "diagrams": 118,
+  "interpretation": "Schematic crystal habits, approximate colors, arbitrary scale; no crystallographic atomic coordinates or specimen scans."
+}

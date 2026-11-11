@@ -1,0 +1,361 @@
+{
+  "number": 99,
+  "symbol": "Es",
+  "nameVi": "Einsteinium",
+  "nameEn": "Einsteinium",
+  "mass": 252,
+  "massStandardText": "[252] — số khối đồng vị tham chiếu, không phải nguyên tử khối chuẩn",
+  "massStandardSource": "https://periodic-table.rsc.org/element/99/einsteinium",
+  "massKind": "reference-isotope-mass-number",
+  "category": "actinide",
+  "hasData": true,
+  "file": "elements/099_Es.json",
+  "general": {
+    "latinName": "Einsteinium",
+    "englishName": "Einsteinium",
+    "electronConfig": "[Rn] 5f¹¹ 7s²",
+    "isotope": "²⁵²Es, ²⁵³Es, ²⁵⁴Es, ²⁵⁵Es",
+    "group": null,
+    "groupLabel": "Actinide",
+    "series": "Actinide",
+    "period": 7,
+    "state": "Rắn",
+    "oxidation": "+2, +3",
+    "electronegativity": null,
+    "electronegativityNote": "Chưa có giá trị Pauling đủ cơ sở trong bản đối chiếu; không coi 0 là giá trị đã đo.",
+    "density": "Chưa xác định thực nghiệm g/cm³ (theo bảng RSC)",
+    "meltingPoint": "860°C",
+    "boilingPoint": "Chưa xác định thực nghiệm",
+    "crystalStructure": "Lập phương tâm diện (FCC)",
+    "CAS": "7429-92-7"
+  },
+  "history": {
+    "discoverer": "Albert Ghiorso và cộng sự",
+    "year": "1952",
+    "discoveryLocation": "Phòng thí nghiệm quốc gia Lawrence Berkeley, California, Hoa Kỳ",
+    "description": "Einsteinium được phát hiện trong các mảnh vụn của vụ thử Ivy Mike, vụ thử bom nhiệt hạch đầu tiên của Hoa Kỳ vào năm 1952. Một lượng cực kỳ nhỏ Einsteinium-253 được hình thành do các hạt nhân Uranium hấp thụ nhiều neutron liên tiếp rồi trải qua các quá trình phân rã beta. Ban đầu, thông tin về việc phát hiện Einsteinium được giữ bí mật do liên quan đến chương trình quân sự. Sau đó, phát hiện được công bố vào năm 1955. Tên Einsteinium được đặt để vinh danh nhà vật lý Albert Einstein."
+  },
+  "structure": {
+    "protons": 99,
+    "electrons": 99,
+    "neutrons": 153,
+    "nucleusIsotope": "²⁵²Es",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 99,
+      "neutron": 153
+    },
+    "electronShells": [
+      2,
+      8,
+      18,
+      32,
+      29,
+      8,
+      2
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      32,
+      29,
+      8,
+      2
+    ],
+    "valenceElectrons": 2,
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+    "lattice": "Lập phương tâm diện (FCC)",
+    "latticeEvidence": "source-reviewed"
+  },
+  "structureType": "Lập phương tâm diện (FCC)",
+  "occurrence": {
+    "description": "Chất rắn",
+    "simple": [
+      "Es"
+    ],
+    "compounds": [
+      "Es₂O₃",
+      "EsCl₃",
+      "EsF₃"
+    ],
+    "ores": [
+      "Không tồn tại tự nhiên với lượng đáng kể",
+      "được tạo ra nhân tạo"
+    ],
+    "details": [
+      "Trạng thái: Chất rắn",
+      "Màu sắc: Bạc",
+      "Có trong: Không tồn tại tự nhiên với lượng đáng kể; được tạo ra nhân tạo.",
+      "Đơn chất: Es",
+      "Hợp chất phổ biến: Es₂O₃, EsCl₃, EsF₃"
+    ],
+    "mineral": {
+      "available": false,
+      "reason": "Nguyên tố nhân tạo hoặc chỉ có vết tự nhiên; không có quặng khai thác riêng để dựng mẫu."
+    }
+  },
+  "naturalState": {
+    "image": "/assets/periodic-table/diagrams/099_Es.svg",
+    "alt": "Einsteinium: sơ đồ minh họa nguyên tố",
+    "kind": "diagram",
+    "source": "",
+    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+    "credit": ""
+  },
+  "isotopes": [
+    {
+      "isotope": "²⁵²Es",
+      "massNumber": 252,
+      "protons": 99,
+      "neutrons": 153,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "471.7 ± 1.9 d",
+      "halfLife": "471.7 d",
+      "halfLifeUncertainty": "19",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁵³Es",
+      "massNumber": 253,
+      "protons": 99,
+      "neutrons": 154,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "20.47 ± 0.03 d",
+      "halfLife": "20.47 d",
+      "halfLifeUncertainty": "3",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁵⁴Es",
+      "massNumber": 254,
+      "protons": 99,
+      "neutrons": 155,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "275.7 ± 0.5 d",
+      "halfLife": "275.7 d",
+      "halfLifeUncertainty": "5",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁵⁵Es",
+      "massNumber": 255,
+      "protons": 99,
+      "neutrons": 156,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "39.8 ± 1.2 d",
+      "halfLife": "39.8 d",
+      "halfLifeUncertainty": "12",
+      "halfLifeQualifier": null,
+      "decay": "B-",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Là kim loại phóng xạ.</li><li>Thuộc họ Actinide.</li><li>Có màu bạc.</li><li>Chỉ được tạo ra với lượng cực kỳ nhỏ.</li><li>Có tính phóng xạ mạnh.</li><li>Có nhiệt độ nóng chảy khoảng 860 °C.</li><li>Khối lượng riêng ước tính khoảng 8,8 g/cm³.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Einsteinium chủ yếu có các trạng thái Oxy hóa:</li><li>+2</li><li>+3</li><li>Trong đó +3 là trạng thái phổ biến và ổn định hơn.</li><li>Es³⁺ có cấu hình electron 5f¹⁰.</li><li>Einsteinium có thể tạo oxide:</li><li class=\"source-equation\">4Es + 3O₂ → 2Es₂O₃<small>Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.</small></li><li>Ngoài ra, Es(III) tạo các hợp chất Halide như EsCl₃ và EsF₃.</li></ul>",
+  "reactions": [
+    {
+      "type": "Tạo Einsteinium-253",
+      "desc": "",
+      "equation": "²⁵²Cf + n → ²⁵³Cf + γ",
+      "condition": "Chiếu neutron trong cơ sở nghiên cứu; bắt neutron và phát gamma nếu không có sản phẩm bay hơi.",
+      "kind": "nuclear",
+      "sourceLine": 75,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tạo Einsteinium-253",
+      "desc": "",
+      "equation": "²⁵³Cf → ²⁵³Es + β⁻ + ν̅ₑ",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 76,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tác dụng với Oxygen",
+      "desc": "",
+      "equation": "4Es + 3O₂ → 2Es₂O₃",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 78,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Phân rã Alpha của Einsteinium-253",
+      "desc": "",
+      "equation": "²⁵³Es → ²⁴⁹Bk + α",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 80,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "preparations": {
+    "lab": [
+      {
+        "title": "Einsteinium có thể được tạo ra bằng cách bắn phá Uranium-238 bằng ion Nitrogen-14 trong máy gia tốc.",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "²³⁸U + ¹⁴N → ²⁴⁹Es + 3¹n",
+            "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+            "kind": "nuclear",
+            "sourceLine": 64,
+            "sourceSection": "lab",
+            "balance": {
+              "status": "balanced",
+              "kind": "nuclear",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          63,
+          64
+        ],
+        "equation": "²³⁸U + ¹⁴N → ²⁴⁹Es + 3¹n"
+      }
+    ],
+    "industry": [
+      {
+        "title": "Einsteinium (Es) được điều chế bằng cách chiếu xạ neutron nhiều lần lên Plutonium hoặc các đồng vị Curium trong lò phản ứng hạt nhân, sau đó tách Es bằng phương pháp hóa học.",
+        "desc": "",
+        "result": "",
+        "equations": [],
+        "sourceLines": [
+          60
+        ],
+        "equation": ""
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Có thể nhận biết Einsteinium bằng",
+      "desc": "Phổ alpha. Phổ gamma. Đo hoạt độ phóng xạ. Phân tích phổ khối. Các phương pháp hóa phóng xạ. Do chỉ tạo được lượng cực nhỏ, việc nhận biết chủ yếu dựa trên đặc tính phóng xạ và xác định đồng vị.",
+      "result": "",
+      "equations": [],
+      "sourceLines": [
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72
+      ],
+      "equation": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Nghiên cứu khoa học",
+      "desc": "Einsteinium hầu như chỉ được sử dụng trong nghiên cứu vật lý hạt nhân và hóa học Actinide.",
+      "sourceLine": 82
+    },
+    {
+      "title": "Tổng hợp nguyên tố nặng hơn",
+      "desc": "Một số đồng vị Einsteinium có thể được sử dụng làm vật liệu nghiên cứu trong các phản ứng tạo ra những hạt nhân nặng hơn.",
+      "sourceLine": 83
+    },
+    {
+      "title": "Nghiên cứu tính chất Actinide",
+      "desc": "Einsteinium giúp các nhà khoa học nghiên cứu sự thay đổi của cấu trúc electron và tính chất hóa học khi tiến dọc theo dãy Actinide.",
+      "sourceLine": 84
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Do chỉ sản xuất được lượng cực nhỏ và có tính phóng xạ cao, Einsteinium không có ứng dụng thương mại hoặc đời sống thông thường.",
+      "sourceLine": 85
+    }
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Einsteinium là nguyên tố số 99, thuộc nhóm IIIB | chu kỳ 7 và là nguyên tố thứ mười một trong họ Actinide.</li><li>Einsteinium được phát hiện vào năm 1952 bởi Albert Ghiorso và cộng sự trong các sản phẩm của vụ thử nhiệt hạch Ivy Mike. Tên nguyên tố được đặt để vinh danh Albert Einstein.</li><li>Đây là một kim loại phóng xạ nhân tạo, không có đồng vị bền. Trạng thái Oxy hóa phổ biến nhất là +3.</li><li>Einsteinium chủ yếu có giá trị trong nghiên cứu khoa học, đặc biệt là nghiên cứu cấu trúc hạt nhân, hóa học Actinide và các nguyên tố siêu nặng. Vì rất khó sản xuất và chỉ tồn tại với lượng cực nhỏ, nó gần như không có ứng dụng thực tế thông thường.</li><li>Mạng tinh thể: Lập phương tâm diện (FCC) ở điều kiện thường.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/diagrams/099_Es.svg",
+      "title": "Einsteinium (Es)",
+      "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+      "source": "",
+      "author": "ChemDex",
+      "license": "ChemDex schematic diagram",
+      "licenseUrl": ""
+    }
+  ],
+  "mediaBlocks": [],
+  "sources": [
+    {
+      "title": "099_Es.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "aa06ab4d41bb5323ebb41dea46f55106f7aa845244764dfa8ac223862c33d8c3"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/99/einsteinium"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "099_Es.docx",
+    "sourceSha256": "aa06ab4d41bb5323ebb41dea46f55106f7aa845244764dfa8ac223862c33d8c3",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/099_Es.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
+}

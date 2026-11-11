@@ -1,0 +1,461 @@
+{
+  "number": 64,
+  "symbol": "Gd",
+  "nameVi": "Gadolinium",
+  "nameEn": "Gadolinium",
+  "mass": 157.25,
+  "massStandardText": "157.25 ± 0.01",
+  "massStandardSource": "https://ciaaw.org/abridged-atomic-weights.htm",
+  "massKind": "standard-atomic-weight",
+  "category": "lanthanide",
+  "hasData": true,
+  "file": "elements/064_Gd.json",
+  "general": {
+    "latinName": "Gadolinium",
+    "englishName": "Gadolinium",
+    "electronConfig": "[Xe] 4f⁷ 5d¹ 6s²",
+    "isotope": "¹⁵²Gd, ¹⁵⁴Gd, ¹⁵⁵Gd, ¹⁵⁶Gd, ¹⁵⁷Gd, ¹⁵⁸Gd, ¹⁶⁰Gd",
+    "group": null,
+    "groupLabel": "Lanthanide",
+    "series": "Lanthanide",
+    "period": 6,
+    "state": "Rắn",
+    "oxidation": "+3",
+    "electronegativity": 1.2,
+    "electronegativityNote": "Thang Pauling; số liệu tổng hợp PubChem.",
+    "density": "7,90 g/cm³.",
+    "meltingPoint": "1313°C",
+    "boilingPoint": "3273°C",
+    "crystalStructure": "Lục phương xếp chặt (HCP)",
+    "CAS": "7440-54-2"
+  },
+  "history": {
+    "discoverer": "Jean Charles Galissard de Marignac",
+    "year": "1880",
+    "discoveryLocation": "Geneva, Thụy Sĩ",
+    "description": "Năm 1880, Jean Charles Galissard de Marignac phát hiện một nguyên tố đất hiếm mới trong Didymium và Samarium thông qua sự khác biệt về tính chất và phổ của các hợp chất. Sau đó, Paul-Émile Lecoq de Boisbaudran đã tách được Gadolinium tương đối tinh khiết vào năm 1886. Tên Gadolinium được đặt theo tên nhà hóa học người Phần Lan Johan Gadolin, người có nhiều đóng góp trong nghiên cứu các nguyên tố đất hiếm."
+  },
+  "structure": {
+    "protons": 64,
+    "electrons": 64,
+    "neutrons": 94,
+    "nucleusIsotope": "¹⁵⁸Gd",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 64,
+      "neutron": 94
+    },
+    "electronShells": [
+      2,
+      8,
+      18,
+      25,
+      9,
+      2
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      25,
+      9,
+      2
+    ],
+    "valenceElectrons": 2,
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+    "lattice": "Lục phương xếp chặt (HCP)",
+    "latticeEvidence": "source-reviewed"
+  },
+  "structureType": "Lục phương xếp chặt (HCP)",
+  "occurrence": {
+    "description": "Chất rắn",
+    "simple": [
+      "Gd"
+    ],
+    "compounds": [
+      "Gd₂O₃",
+      "GdCl₃",
+      "Gd(OH)₃",
+      "Gd₂(SO₄)₃"
+    ],
+    "ores": [
+      "Monazite",
+      "Bastnäsite và một số khoáng vật đất hiếm khác"
+    ],
+    "details": [
+      "Trạng thái: Chất rắn",
+      "Màu sắc: Trắng bạc",
+      "Có trong: Monazite, Bastnäsite và một số khoáng vật đất hiếm khác.",
+      "Đơn chất: Gd",
+      "Hợp chất phổ biến: Gd₂O₃, GdCl₃, Gd(OH)₃, Gd₂(SO₄)₃"
+    ],
+    "mineral": {
+      "available": true,
+      "id": "monazite",
+      "name": "Monazite-(Ce)",
+      "formula": "(Ce,La,Nd,Th)PO₄",
+      "habit": "prismatic",
+      "color": "#b98a4c",
+      "crystalSystem": "monoclinic",
+      "relation": "Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Monazite-(Ce)",
+      "model": "/assets/periodic-table/minerals/monazite.glb",
+      "preview": "/assets/periodic-table/minerals/monazite.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  },
+  "naturalState": {
+    "image": "/assets/periodic-table/photos/064_Gd.jpg",
+    "alt": "Gadolinium: ảnh tham chiếu từ Commons",
+    "kind": "photo",
+    "source": "https://commons.wikimedia.org/wiki/File:Gadolinium-4.jpg",
+    "caption": "Ảnh tham chiếu mẫu Gadolinium (Gd); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+    "credit": "Unknown author Unknown author · CC BY 3.0"
+  },
+  "isotopes": [
+    {
+      "isotope": "¹⁵²Gd",
+      "massNumber": 152,
+      "protons": 64,
+      "neutrons": 88,
+      "stable": false,
+      "abundancePercent": "0.20",
+      "halfLifeDisplay": "1.08E14 ± 8E+12 năm",
+      "halfLife": "1.08E14 Y",
+      "halfLifeUncertainty": "8",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹⁵⁴Gd",
+      "massNumber": 154,
+      "protons": 64,
+      "neutrons": 90,
+      "stable": true,
+      "abundancePercent": "2.18",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹⁵⁵Gd",
+      "massNumber": 155,
+      "protons": 64,
+      "neutrons": 91,
+      "stable": true,
+      "abundancePercent": "14.80",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹⁵⁶Gd",
+      "massNumber": 156,
+      "protons": 64,
+      "neutrons": 92,
+      "stable": true,
+      "abundancePercent": "20.47",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹⁵⁷Gd",
+      "massNumber": 157,
+      "protons": 64,
+      "neutrons": 93,
+      "stable": true,
+      "abundancePercent": "15.65",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹⁵⁸Gd",
+      "massNumber": 158,
+      "protons": 64,
+      "neutrons": 94,
+      "stable": true,
+      "abundancePercent": "24.84",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹⁶⁰Gd",
+      "massNumber": 160,
+      "protons": 64,
+      "neutrons": 96,
+      "stable": true,
+      "abundancePercent": "21.86",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Là kim loại đất hiếm.</li><li>Thuộc họ Lanthanide.</li><li>Có màu trắng bạc.</li><li>Có tính thuận từ mạnh ở nhiệt độ thường.</li><li>Có nhiệt độ Curie khoảng 20 °C.</li><li>Khá mềm và dễ gia công.</li><li>Có nhiệt độ nóng chảy khoảng 1312 °C.</li><li>Có nhiệt độ sôi khoảng 3273 °C.</li><li>Khối lượng riêng khoảng 7,90 g/cm³.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Trạng thái Oxy hóa phổ biến và ổn định nhất là +3.</li><li>Gd³⁺ có cấu hình electron 4f⁷, là cấu hình bán đầy đặc biệt ổn định.</li><li>Gadolinium phản ứng với Oxygen:</li><li class=\"source-equation\">4Gd + 3O₂ → 2Gd₂O₃<small>Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.</small></li><li>Phản ứng với Acid tạo muối Gadolinium(III) và giải phóng Hydrogen.</li><li>Có khả năng hấp thụ neutron cực mạnh, đặc biệt nhờ ¹⁵⁷Gd.</li></ul>",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "desc": "",
+      "equation": "4Gd + 3O₂ → 2Gd₂O₃",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 81,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tác dụng với Hydrochloric acid",
+      "desc": "",
+      "equation": "2Gd + 6HCl → 2GdCl₃ + 3H₂",
+      "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+      "kind": "chemical",
+      "sourceLine": 83,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tạo Gadolinium(III) hydroxide",
+      "desc": "",
+      "equation": "GdCl₃ + 3NaOH → Gd(OH)₃↓ + 3NaCl",
+      "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+      "kind": "chemical",
+      "sourceLine": 85,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Điều chế Gadolinium",
+      "desc": "",
+      "equation": "2GdCl₃ + 3Ca → 2Gd + 3CaCl₂",
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 87,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Hấp thụ neutron của Gadolinium-157",
+      "desc": "",
+      "equation": "¹⁵⁷Gd + n → ¹⁵⁸Gd + γ",
+      "condition": "Chiếu neutron trong cơ sở nghiên cứu; bắt neutron và phát gamma nếu không có sản phẩm bay hơi.",
+      "kind": "nuclear",
+      "sourceLine": 89,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "preparations": {
+    "lab": [
+      {
+        "title": "Có thể điều chế Gadolinium bằng cách khử Gadolinium chloride khan bằng Calcium.",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "2GdCl₃ + 3Ca → 2Gd + 3CaCl₂",
+            "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+            "kind": "chemical",
+            "sourceLine": 70,
+            "sourceSection": "lab",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          68,
+          70
+        ],
+        "equation": "2GdCl₃ + 3Ca → 2Gd + 3CaCl₂"
+      }
+    ],
+    "industry": [
+      {
+        "title": "Gadolinium (Gd) chủ yếu được điều chế từ quặng monazite và bastnaesite. Sau khi tách khỏi hỗn hợp đất hiếm, Gadolinium được thu bằng phương pháp điện phân muối nóng chảy hoặc khử Gadolinium fluoride bằng Calcium.",
+        "desc": "Gadolinium thu được được tinh chế để loại bỏ tạp chất.",
+        "result": "",
+        "equations": [
+          {
+            "equation": "2GdF₃ + 3Ca → 2Gd + 3CaF₂",
+            "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+            "kind": "chemical",
+            "sourceLine": 65,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          63,
+          65,
+          66
+        ],
+        "equation": "2GdF₃ + 3Ca → 2Gd + 3CaF₂"
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Có thể nhận biết Gadolinium bằng",
+      "desc": "Phổ phát xạ nguyên tử. ICP-OES hoặc ICP-MS. Phổ hấp thụ đặc trưng của Gd³⁺. Đo các tính chất từ đặc trưng. Phân tích khả năng hấp thụ neutron. Ion Gd³⁺ trong dung dịch thường không có màu rõ rệt.",
+      "result": "",
+      "equations": [],
+      "sourceLines": [
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78
+      ],
+      "equation": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "MRI",
+      "desc": "Các hợp chất phức của Gd³⁺ được sử dụng làm chất tương phản trong chụp cộng hưởng từ (MRI), giúp làm nổi bật một số mô và cấu trúc trong hình ảnh.",
+      "sourceLine": 91
+    },
+    {
+      "title": "Lò phản ứng hạt nhân",
+      "desc": "Do khả năng hấp thụ neutron rất mạnh, Gadolinium được sử dụng trong thanh điều khiển và vật liệu hấp thụ neutron.",
+      "sourceLine": 92
+    },
+    {
+      "title": "Vật liệu từ",
+      "desc": "Gadolinium có tính chất từ đặc biệt và được sử dụng trong nghiên cứu và chế tạo một số vật liệu từ.",
+      "sourceLine": 93
+    },
+    {
+      "title": "Hợp kim",
+      "desc": "Gadolinium có thể được thêm vào một số hợp kim để cải thiện tính chất vật liệu.",
+      "sourceLine": 94
+    },
+    {
+      "title": "Điện tử",
+      "desc": "Một số hợp chất Gadolinium được sử dụng trong vật liệu quang học, điện tử và từ tính.",
+      "sourceLine": 95
+    }
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Gadolinium là nguyên tố số 64, thuộc nhóm IIIB | chu kỳ 6 và là nguyên tố thứ tám trong họ Lanthanide.</li><li>Gadolinium được Jean Charles Galissard de Marignac phát hiện vào năm 1880 tại Geneva. Tên nguyên tố được đặt theo tên Johan Gadolin, nhà hóa học người Phần Lan có đóng góp quan trọng trong nghiên cứu đất hiếm.</li><li>Gadolinium là kim loại màu trắng bạc, có tính thuận từ mạnh và có điểm Curie gần nhiệt độ phòng. Trạng thái Oxy hóa phổ biến nhất là +3, với cấu hình 4f⁷ bán đầy đặc biệt ổn định.</li><li>Đặc điểm nổi bật nhất của Gadolinium là khả năng hấp thụ neutron cực mạnh, đặc biệt ở đồng vị ¹⁵⁷Gd. Vì vậy, nó có vai trò quan trọng trong công nghệ hạt nhân. Ngoài ra, các phức Gd³⁺ còn được sử dụng làm chất tương phản trong MRI.</li><li>Mạng tinh thể: Lục phương xếp chặt (HCP) ở điều kiện thường.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/photos/064_Gd.jpg",
+      "title": "Gadolinium (Gd)",
+      "desc": "Ảnh tham chiếu mẫu Gadolinium (Gd); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+      "source": "https://commons.wikimedia.org/wiki/File:Gadolinium-4.jpg",
+      "author": "Unknown author Unknown author",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0"
+    }
+  ],
+  "mediaBlocks": [
+    {
+      "type": "model",
+      "section": "structure",
+      "title": "Mẫu khoáng vật 3D · Monazite-(Ce)",
+      "src": "/assets/periodic-table/minerals/monazite.glb",
+      "preview": "/assets/periodic-table/minerals/monazite.png",
+      "desc": "(Ce,La,Nd,Th)PO₄. Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  ],
+  "sources": [
+    {
+      "title": "064_Gd.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "278306ac18d53e6ff73aab281a8ba917b8f284ba13eef5c58caca78c8a09756b"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/64/gadolinium"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "064_Gd.docx",
+    "sourceSha256": "278306ac18d53e6ff73aab281a8ba917b8f284ba13eef5c58caca78c8a09756b",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/064_Gd.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
+}

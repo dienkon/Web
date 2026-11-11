@@ -1,0 +1,1102 @@
+{
+  "symbol": "Si",
+  "number": 14,
+  "source": "014_Si.docx",
+  "sourceSha256": "eb789324d11613c0589b59d2c75954b6d6be7a13a37ff7b206e9ec41e37217bb",
+  "paragraphCount": 104,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 4,
+    "structure": 9,
+    "occurrence": 4,
+    "isotopes": 5,
+    "physical": 10,
+    "chemical": 9,
+    "lab": 2,
+    "industry": 4,
+    "recognition": 2,
+    "reactions": 21,
+    "applications": 7,
+    "notes": 4
+  },
+  "editorialDecisions": [
+    {
+      "line": 24,
+      "before": "Loại mạng: Lập phương tâm mặt (FCC)",
+      "after": "Loại mạng: Lập phương kim cương (diamond cubic), liên kết cộng hóa trị theo tứ diện.",
+      "reason": "Silicon không có mạng kim loại FCC đơn nguyên tử."
+    }
+  ],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "1s² 2s² 2p⁶ 3s² 3p²",
+      "publishedValue": "[Ne] 3s² 3p²",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Lập phương tâm mặt (FCC)",
+      "publishedValue": "Lập phương kim cương (diamond cubic), liên kết cộng hóa trị theo tứ diện.",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "1.90",
+      "publishedValue": 1.9,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm IVA | Chu kỳ 3",
+      "publishedValue": "14",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Silicon là một á kim và không tồn tại tự do đáng kể trong tự nhiên. Nó chủ yếu tồn tại dưới dạng Silicon dioxide và các Silicate.",
+      "publishedValue": "Rắn",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 32,
+      "sourceText": "²⁸Si: Đồng vị bền, chiếm khoảng 92.23% Silicon tự nhiên.",
+      "reference": {
+        "isotope": "²⁸Si",
+        "massNumber": 28,
+        "protons": 14,
+        "neutrons": 14,
+        "stable": true,
+        "abundancePercent": "92.2545",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 33,
+      "sourceText": "²⁹Si: Đồng vị bền, chiếm khoảng 4.67%.",
+      "reference": {
+        "isotope": "²⁹Si",
+        "massNumber": 29,
+        "protons": 14,
+        "neutrons": 15,
+        "stable": true,
+        "abundancePercent": "4.672",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 34,
+      "sourceText": "³⁰Si: Đồng vị bền, chiếm khoảng 3.10%.",
+      "reference": {
+        "isotope": "³⁰Si",
+        "massNumber": 30,
+        "protons": 14,
+        "neutrons": 16,
+        "stable": true,
+        "abundancePercent": "3.0735",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 61,
+      "text": "SiO₂ + 2C → Si + 2CO",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 66,
+      "text": "SiO₂ + 2Mg → Si + 2MgO",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 72,
+      "text": "Si + O₂ → SiO₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 74,
+      "text": "Si + 2Cl₂ → SiCl₄",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 76,
+      "text": "Si + 2F₂ → SiF₄",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 79,
+      "text": "Si + C → SiC",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 81,
+      "text": "Si + 2Mg → Mg₂Si",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 84,
+      "text": "Si + 2NaOH + H₂O → Na₂SiO₃ + 2H₂↑",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 86,
+      "text": "SiO₂ + 2NaOH → Na₂SiO₃ + H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 89,
+      "text": "SiO₂ + CaO → CaSiO₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 91,
+      "text": "SiO₂ + 4HF → SiF₄ + 2H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "lab",
+      "equation": "SiO₂ + 2Mg → Si + 2MgO",
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 66,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "SiO₂ + 2C → Si + 2CO",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 61,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Si + O₂ → SiO₂",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 72,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Si + 2Cl₂ → SiCl₄",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 74,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Si + 2F₂ → SiF₄",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 76,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Si + C → SiC",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 79,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Si + 2Mg → Mg₂Si",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 81,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Si + 2NaOH + H₂O → Na₂SiO₃ + 2H₂↑",
+      "condition": "Dung dịch NaOH, lớp oxide bảo vệ được hòa tan; sản phẩm aluminate/beryllate trong nước.",
+      "kind": "chemical",
+      "sourceLine": 84,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "SiO₂ + 2NaOH → Na₂SiO₃ + H₂O",
+      "condition": "Kiềm đậm đặc, gia nhiệt hoặc nóng chảy tùy oxide; không mặc định xảy ra nhanh trong dung dịch loãng.",
+      "kind": "chemical",
+      "sourceLine": 86,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "SiO₂ + CaO → CaSiO₃",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 89,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "SiO₂ + 4HF → SiF₄ + 2H₂O",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 91,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": [
+        {
+          "title": "Chất bán dẫn",
+          "desc": "Silicon là vật liệu quan trọng nhất trong sản xuất chip và linh kiện bán dẫn."
+        },
+        {
+          "title": "Pin mặt trời",
+          "desc": "Silicon tinh thể được sử dụng rộng rãi trong các tế bào quang điện."
+        },
+        {
+          "title": "Điện tử",
+          "desc": "Được sử dụng để sản xuất transistor, diode và các vi mạch."
+        },
+        {
+          "title": "Hợp kim",
+          "desc": "Silicon được thêm vào một số hợp kim Aluminium, Iron và các kim loại khác để cải thiện tính chất vật liệu."
+        },
+        {
+          "title": "Silicone",
+          "desc": "Silicon compounds là nguyên liệu để sản xuất Silicone dùng trong nhiều ngành công nghiệp."
+        },
+        {
+          "title": "Vật liệu xây dựng",
+          "desc": "Silicon dioxide và Silicate là thành phần quan trọng của thủy tinh, xi măng, gốm và bê tông."
+        },
+        {
+          "title": "Silicon carbide",
+          "desc": "SiC được sử dụng làm vật liệu mài mòn và vật liệu kỹ thuật chịu nhiệt cao."
+        }
+      ],
+      "after": [
+        {
+          "title": "Chất bán dẫn",
+          "desc": "Silicon là vật liệu quan trọng nhất trong sản xuất chip và linh kiện bán dẫn.",
+          "sourceLine": 93
+        },
+        {
+          "title": "Pin mặt trời",
+          "desc": "Silicon tinh thể được sử dụng rộng rãi trong các tế bào quang điện.",
+          "sourceLine": 94
+        },
+        {
+          "title": "Điện tử",
+          "desc": "Được sử dụng để sản xuất transistor, diode và các vi mạch.",
+          "sourceLine": 95
+        },
+        {
+          "title": "Hợp kim",
+          "desc": "Silicon được thêm vào một số hợp kim Aluminium, Iron và các kim loại khác để cải thiện tính chất vật liệu.",
+          "sourceLine": 96
+        },
+        {
+          "title": "Silicone",
+          "desc": "Silicon compounds là nguyên liệu để sản xuất Silicone dùng trong nhiều ngành công nghiệp.",
+          "sourceLine": 97
+        },
+        {
+          "title": "Vật liệu xây dựng",
+          "desc": "Silicon dioxide và Silicate là thành phần quan trọng của thủy tinh, xi măng, gốm và bê tông.",
+          "sourceLine": 98
+        },
+        {
+          "title": "Silicon carbide",
+          "desc": "SiC được sử dụng làm vật liệu mài mòn và vật liệu kỹ thuật chịu nhiệt cao.",
+          "sourceLine": 99
+        }
+      ]
+    },
+    {
+      "field": "chemical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có tính chất trung gian giữa kim loại và phi kim.</li>\n      <li>Số Oxy hóa phổ biến: −4 và +4.</li>\n      <li>Có khả năng tạo liên kết cộng hóa trị mạnh.</li>\n      <li>Phản ứng với Oxygen khi nung nóng tạo Silicon dioxide.</li>\n      <li>Phản ứng với Halogen tạo Silicon halide.</li>\n      <li>Phản ứng với một số kim loại tạo Silicide.</li>\n      <li>Tương đối trơ với nước ở điều kiện thường.</li>\n      <li>Không phản ứng đáng kể với nhiều acid, nhưng phản ứng với Hydrofluoric acid.</li>\n      <li>Silicon dioxide có tính acid và phản ứng với base mạnh.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Có tính chất trung gian giữa kim loại và phi kim.</li><li>Số Oxy hóa phổ biến: −4 và +4.</li><li>Có khả năng tạo liên kết cộng hóa trị mạnh.</li><li>Phản ứng với Oxygen khi nung nóng tạo Silicon dioxide.</li><li>Phản ứng với Halogen tạo Silicon halide.</li><li>Phản ứng với một số kim loại tạo Silicide.</li><li>Tương đối trơ với nước ở điều kiện thường.</li><li>Không phản ứng đáng kể với nhiều acid, nhưng phản ứng với Hydrofluoric acid.</li><li>Silicon dioxide có tính acid và phản ứng với base mạnh.</li></ul>"
+    },
+    {
+      "field": "general.CAS",
+      "before": null,
+      "after": "7440-21-3"
+    },
+    {
+      "field": "general.crystalStructure",
+      "before": "Lập phương tâm mặt (FCC)",
+      "after": "Lập phương kim cương (diamond cubic), liên kết cộng hóa trị theo tứ diện."
+    },
+    {
+      "field": "general.electronConfig",
+      "before": "1s² 2s² 2p⁶ 3s² 3p²",
+      "after": "[Ne] 3s² 3p²"
+    },
+    {
+      "field": "general.electronegativityNote",
+      "before": null,
+      "after": "Thang Pauling; số liệu tổng hợp PubChem."
+    },
+    {
+      "field": "general.groupLabel",
+      "before": null,
+      "after": "14"
+    },
+    {
+      "field": "general.series",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "general.state",
+      "before": "",
+      "after": "Rắn"
+    },
+    {
+      "field": "history.year",
+      "before": 1824,
+      "after": "1824"
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/photos/014_Si.jpg",
+          "title": "Silic (Si)",
+          "desc": "Ảnh tham chiếu mẫu Silicon (Si); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+          "source": "https://commons.wikimedia.org/wiki/File:A_piece_of_zone_refined_silicon.JPG",
+          "author": "Rasiel Suarez on behalf of Luciteria LLC",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "²⁸Si",
+          "massNumber": 28,
+          "protons": 14,
+          "neutrons": 14,
+          "stable": true,
+          "abundancePercent": "92.2545",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁹Si",
+          "massNumber": 29,
+          "protons": 14,
+          "neutrons": 15,
+          "stable": true,
+          "abundancePercent": "4.672",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "³⁰Si",
+          "massNumber": 30,
+          "protons": 14,
+          "neutrons": 16,
+          "stable": true,
+          "abundancePercent": "3.0735",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "standard-atomic-weight"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "28.085 ± 0.001"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": [
+        {
+          "type": "model",
+          "section": "structure",
+          "title": "Mẫu khoáng vật 3D · Quartz",
+          "src": "/assets/periodic-table/minerals/quartz.glb",
+          "preview": "/assets/periodic-table/minerals/quartz.png",
+          "desc": "SiO₂. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "nameVi",
+      "before": "Silicon",
+      "after": "Silic"
+    },
+    {
+      "field": "naturalState.alt",
+      "before": null,
+      "after": "Silicon: ảnh tham chiếu từ Commons"
+    },
+    {
+      "field": "naturalState.caption",
+      "before": null,
+      "after": "Ảnh tham chiếu mẫu Silicon (Si); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc."
+    },
+    {
+      "field": "naturalState.credit",
+      "before": null,
+      "after": "Rasiel Suarez on behalf of Luciteria LLC · CC BY-SA 4.0"
+    },
+    {
+      "field": "naturalState.image",
+      "before": null,
+      "after": "/assets/periodic-table/photos/014_Si.jpg"
+    },
+    {
+      "field": "naturalState.kind",
+      "before": null,
+      "after": "photo"
+    },
+    {
+      "field": "naturalState.source",
+      "before": null,
+      "after": "https://commons.wikimedia.org/wiki/File:A_piece_of_zone_refined_silicon.JPG"
+    },
+    {
+      "field": "notes",
+      "before": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Silicon là nguyên tố số 14, thuộc nhóm IVA | chu kỳ 3 và là một á kim.</li>\n  <li>Silicon có cấu hình electron 1s² 2s² 2p⁶ 3s² 3p² và có 4 electron hóa trị. Silicon có khả năng tạo liên kết cộng hóa trị mạnh và có cấu trúc tinh thể tương tự Diamond.</li>\n  <li>Trong tự nhiên, Silicon là một trong những nguyên tố phổ biến nhất trong lớp vỏ Trái Đất, chủ yếu tồn tại dưới dạng Silicon dioxide và Silicate.</li>\n  <li>Silicon có tính bán dẫn, là cơ sở của ngành công nghiệp điện tử hiện đại. Silicon và các hợp chất của nó được sử dụng rộng rãi trong vi điện tử, pin mặt trời, vật liệu xây dựng, thủy tinh, gốm, hợp kim và vật liệu kỹ thuật.</li>\n</ul>\n",
+      "after": "<ul class=\"element-prose-list\"><li>Silicon là nguyên tố số 14, thuộc nhóm IVA | chu kỳ 3 và là một á kim.</li><li>Silicon có cấu hình electron 1s² 2s² 2p⁶ 3s² 3p² và có 4 electron hóa trị. Silicon có khả năng tạo liên kết cộng hóa trị mạnh và có cấu trúc tinh thể tương tự Diamond.</li><li>Trong tự nhiên, Silicon là một trong những nguyên tố phổ biến nhất trong lớp vỏ Trái Đất, chủ yếu tồn tại dưới dạng Silicon dioxide và Silicate.</li><li>Silicon có tính bán dẫn, là cơ sở của ngành công nghiệp điện tử hiện đại. Silicon và các hợp chất của nó được sử dụng rộng rãi trong vi điện tử, pin mặt trời, vật liệu xây dựng, thủy tinh, gốm, hợp kim và vật liệu kỹ thuật.</li></ul>"
+    },
+    {
+      "field": "occurrence.details",
+      "before": null,
+      "after": [
+        "Trạng thái: Silicon là một á kim và không tồn tại tự do đáng kể trong tự nhiên. Nó chủ yếu tồn tại dưới dạng Silicon dioxide và các Silicate.",
+        "Có trong: Cát, Quartz, đất đá, khoáng vật Silicate và lớp vỏ Trái Đất.",
+        "Đơn chất: Si",
+        "Hợp chất: SiO₂, SiC, SiCl₄, Na₂SiO₃, CaSiO₃, SiH₄..."
+      ]
+    },
+    {
+      "field": "occurrence.mineral",
+      "before": null,
+      "after": {
+        "available": true,
+        "id": "quartz",
+        "name": "Quartz",
+        "formula": "SiO₂",
+        "habit": "quartz",
+        "color": "#c3d9e8",
+        "crystalSystem": "trigonal",
+        "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+        "source": "https://www.handbookofmineralogy.org/",
+        "sourceSearch": "https://rruff.info/Quartz",
+        "model": "/assets/periodic-table/minerals/quartz.glb",
+        "preview": "/assets/periodic-table/minerals/quartz.png",
+        "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      }
+    },
+    {
+      "field": "physical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là chất rắn ở điều kiện thường.</li>\n      <li>Có màu xám đen và ánh kim.</li>\n      <li>Là á kim.</li>\n      <li>Có tính bán dẫn.</li>\n      <li>Khối lượng riêng: khoảng 2.329 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 1414 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 3265 °C.</li>\n      <li>Cứng và giòn.</li>\n      <li>Độ dẫn điện tăng khi nhiệt độ tăng.</li>\n      <li>Có cấu trúc tinh thể tương tự Diamond.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Là chất rắn ở điều kiện thường.</li><li>Có màu xám đen và ánh kim.</li><li>Là á kim.</li><li>Có tính bán dẫn.</li><li>Khối lượng riêng: khoảng 2.329 g/cm³.</li><li>Nhiệt độ nóng chảy: khoảng 1414 °C.</li><li>Nhiệt độ sôi: khoảng 3265 °C.</li><li>Cứng và giòn.</li><li>Độ dẫn điện tăng khi nhiệt độ tăng.</li><li>Có cấu trúc tinh thể tương tự Diamond.</li></ul>"
+    },
+    {
+      "field": "preparations.industry",
+      "before": [
+        {
+          "title": "Silicon được sản xuất chủ yếu bằng cách khử Silicon dioxide bằng Carbon trong lò điện ở nhiệt độ cao:",
+          "equation": "SiO₂ + 2C → Si + 2CO",
+          "desc": "Đối với Silicon điện tử có độ tinh khiết rất cao, Silicon có thể được chuyển thành các hợp chất dễ tinh chế rồi tái lắng đọng thành Silicon tinh khiết."
+        }
+      ],
+      "after": [
+        {
+          "title": "Silicon được sản xuất chủ yếu bằng cách khử Silicon dioxide bằng Carbon trong lò điện ở nhiệt độ cao",
+          "desc": "Silicon thu được có độ tinh khiết cao hơn nguyên liệu ban đầu nhưng vẫn cần tinh chế thêm khi sử dụng trong công nghiệp bán dẫn. Đối với Silicon điện tử có độ tinh khiết rất cao, Silicon có thể được chuyển thành các hợp chất dễ tinh chế rồi tái lắng đọng thành Silicon tinh khiết.",
+          "result": "",
+          "equations": [
+            {
+              "equation": "SiO₂ + 2C → Si + 2CO",
+              "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+              "kind": "chemical",
+              "sourceLine": 61,
+              "sourceSection": "industry",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            60,
+            61,
+            62,
+            63
+          ],
+          "equation": "SiO₂ + 2C → Si + 2CO"
+        }
+      ]
+    },
+    {
+      "field": "preparations.lab",
+      "before": [
+        {
+          "title": "Có thể điều chế Silicon bằng cách khử Silicon dioxide bằng Magnesium:",
+          "equation": "SiO₂ + 2Mg → Si + 2MgO",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Có thể điều chế Silicon bằng cách khử Silicon dioxide bằng Magnesium",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "SiO₂ + 2Mg → Si + 2MgO",
+              "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+              "kind": "chemical",
+              "sourceLine": 66,
+              "sourceSection": "lab",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            65,
+            66
+          ],
+          "equation": "SiO₂ + 2Mg → Si + 2MgO"
+        }
+      ]
+    },
+    {
+      "field": "reactions",
+      "before": [
+        {
+          "type": "Tác dụng với Oxygen",
+          "equation": "Si + O₂ → SiO₂",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Chlorine",
+          "equation": "Si + 2Cl₂ → SiCl₄",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Fluorine",
+          "equation": "Si + 2F₂ → SiF₄",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Carbon",
+          "equation": "Si + C → SiC",
+          "desc": "Ở nhiệt độ cao:"
+        },
+        {
+          "type": "Tác dụng với Magnesium",
+          "equation": "Si + 2Mg → Mg₂Si",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Sodium hydroxide",
+          "equation": "Si + 2NaOH + H₂O → Na₂SiO₃ + 2H₂↑",
+          "desc": "Trong dung dịch kiềm:"
+        },
+        {
+          "type": "Silicon dioxide tác dụng với Sodium hydroxide",
+          "equation": "SiO₂ + 2NaOH → Na₂SiO₃ + H₂O",
+          "desc": ""
+        },
+        {
+          "type": "Silicon dioxide tác dụng với Calcium oxide",
+          "equation": "SiO₂ + CaO → CaSiO₃",
+          "desc": "Ở nhiệt độ cao:"
+        },
+        {
+          "type": "Silicon dioxide tác dụng với Hydrofluoric acid",
+          "equation": "SiO₂ + 4HF → SiF₄ + 2H₂O",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "type": "Tác dụng với Oxygen",
+          "desc": "",
+          "equation": "Si + O₂ → SiO₂",
+          "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+          "kind": "chemical",
+          "sourceLine": 72,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Chlorine",
+          "desc": "",
+          "equation": "Si + 2Cl₂ → SiCl₄",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 74,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Fluorine",
+          "desc": "",
+          "equation": "Si + 2F₂ → SiF₄",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 76,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Ở nhiệt độ cao",
+          "desc": "",
+          "equation": "Si + C → SiC",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 79,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Magnesium",
+          "desc": "",
+          "equation": "Si + 2Mg → Mg₂Si",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 81,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Trong dung dịch kiềm",
+          "desc": "",
+          "equation": "Si + 2NaOH + H₂O → Na₂SiO₃ + 2H₂↑",
+          "condition": "Dung dịch NaOH, lớp oxide bảo vệ được hòa tan; sản phẩm aluminate/beryllate trong nước.",
+          "kind": "chemical",
+          "sourceLine": 84,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Silicon dioxide tác dụng với Sodium hydroxide",
+          "desc": "",
+          "equation": "SiO₂ + 2NaOH → Na₂SiO₃ + H₂O",
+          "condition": "Kiềm đậm đặc, gia nhiệt hoặc nóng chảy tùy oxide; không mặc định xảy ra nhanh trong dung dịch loãng.",
+          "kind": "chemical",
+          "sourceLine": 86,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Ở nhiệt độ cao",
+          "desc": "",
+          "equation": "SiO₂ + CaO → CaSiO₃",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 89,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Silicon dioxide tác dụng với Hydrofluoric acid",
+          "desc": "",
+          "equation": "SiO₂ + 4HF → SiF₄ + 2H₂O",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 91,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": [
+        {
+          "title": "Phương pháp hóa học",
+          "reagent": "",
+          "result": "Silicon đơn chất không có phản ứng nhận biết đơn giản và đặc hiệu trong chương trình phổ thông.",
+          "equation": ""
+        },
+        {
+          "title": "Tính chất bán dẫn",
+          "reagent": "",
+          "result": "Silicon có thể được xác định bằng các phương pháp vật lý và phân tích chuyên dụng dựa trên tính chất bán dẫn và cấu trúc tinh thể.",
+          "equation": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Phương pháp hóa học: Silicon đơn chất không có phản ứng nhận biết đơn giản và đặc hiệu trong chương trình phổ thông.",
+          "desc": "Tính chất bán dẫn: Silicon có thể được xác định bằng các phương pháp vật lý và phân tích chuyên dụng dựa trên tính chất bán dẫn và cấu trúc tinh thể.",
+          "result": "",
+          "equations": [],
+          "sourceLines": [
+            68,
+            69
+          ],
+          "equation": ""
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "014_Si.docx",
+        "sourceSha256": "eb789324d11613c0589b59d2c75954b6d6be7a13a37ff7b206e9ec41e37217bb",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/014_Si.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "014_Si.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "eb789324d11613c0589b59d2c75954b6d6be7a13a37ff7b206e9ec41e37217bb"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/14/silicon"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure.lattice",
+      "before": "Lập phương tâm mặt (FCC)",
+      "after": "Lập phương kim cương (diamond cubic), liên kết cộng hóa trị theo tứ diện."
+    },
+    {
+      "field": "structure.latticeEvidence",
+      "before": null,
+      "after": "source-reviewed"
+    },
+    {
+      "field": "structure.nucleusIsotope",
+      "before": null,
+      "after": "²⁸Si"
+    },
+    {
+      "field": "structure.nucleusNote",
+      "before": null,
+      "after": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác."
+    },
+    {
+      "field": "structure.valenceNote",
+      "before": null,
+      "after": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp."
+    },
+    {
+      "field": "structureType",
+      "before": "Lập phương tâm mặt (FCC)",
+      "after": "Lập phương kim cương (diamond cubic), liên kết cộng hóa trị theo tứ diện."
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "Si",
+      "status": "downloaded",
+      "file": "/assets/periodic-table/photos/014_Si.jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:A_piece_of_zone_refined_silicon.JPG",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/c/c9/A_piece_of_zone_refined_silicon.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "thumbnail": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c9/A_piece_of_zone_refined_silicon.JPG/960px-A_piece_of_zone_refined_silicon.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "filename": "A_piece_of_zone_refined_silicon.JPG",
+      "title": "A piece of zone refined silicon",
+      "description": "A piece of zone refined silicon",
+      "author": "Rasiel Suarez on behalf of Luciteria LLC",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "credit": "Own work",
+      "sha256": "809dbf7985ff9ada8a2ba75c494a178bb9e2849c3117e183e3dc2152606f9ba3",
+      "bytes": 64295
+    },
+    "mineral": {
+      "available": true,
+      "id": "quartz",
+      "name": "Quartz",
+      "formula": "SiO₂",
+      "habit": "quartz",
+      "color": "#c3d9e8",
+      "crystalSystem": "trigonal",
+      "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Quartz",
+      "model": "/assets/periodic-table/minerals/quartz.glb",
+      "preview": "/assets/periodic-table/minerals/quartz.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "Si",
+      "z": 14,
+      "url": "https://periodic-table.rsc.org/element/14/silicon",
+      "status": "retrieved",
+      "bytes": 165149,
+      "sha256": "5f0eb1eee586cd2ae6a00c6f87e6c82d37f644c6605a545b72d687c30538366e",
+      "facts": {
+        "Group": "14",
+        "Melting point": "1414°C, 2577°F, 1687 K",
+        "Period": "3",
+        "Boiling point": "3265°C, 5909°F, 3538 K",
+        "Block": "p",
+        "Density (g cm−³)": "2.3296",
+        "Atomic number": "14",
+        "Relative atomic mass": "28.085",
+        "State at 20°C": "Solid",
+        "Key isotopes": "²⁸Si, ³⁰Si",
+        "Electron configuration": "[Ne] 3s²3p²",
+        "CAS number": "7440-21-3",
+        "ChemSpider ID": "4574465",
+        "electronegativity": "1.90"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "14",
+      "Symbol": "Si",
+      "Name": "Silicon",
+      "AtomicMass": "28.085",
+      "CPKHexColor": "F0C8A0",
+      "ElectronConfiguration": "[Ne]3s2 3p2",
+      "Electronegativity": "1.9",
+      "AtomicRadius": "210",
+      "IonizationEnergy": "8.152",
+      "ElectronAffinity": "1.385",
+      "OxidationStates": "+4, +2, -4",
+      "StandardState": "Solid",
+      "MeltingPoint": "1687",
+      "BoilingPoint": "3538",
+      "Density": "2.3296",
+      "GroupBlock": "Metalloid",
+      "YearDiscovered": "1854"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

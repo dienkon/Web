@@ -1,0 +1,93 @@
+001: Gold (Au)
+002: Thông tin chung
+003: Tên Latin: Aurum
+004: Tên Tiếng Anh: Gold
+005: Đồng vị: ¹⁹⁷Au
+006: Vị trí: Nhóm IB | Chu kỳ 6
+007: Số Oxy hóa: −1, +1, +3, +5
+008: Độ âm điện: 2.54
+009: Lịch sử khám phá
+010: Phát hiện bởi: Không xác định — Gold đã được con người biết đến từ thời tiền sử.
+011: Năm công bố: Thời tiền sử
+012: Nơi khám phá: Không xác định
+013: Mô tả: Gold là một trong những nguyên tố đầu tiên được con người biết đến và sử dụng. Các đồ vật bằng Gold đã được tìm thấy trong nhiều nền văn minh cổ đại. Do Gold có thể tồn tại ở dạng kim loại tự nhiên và không dễ bị Oxy hóa, nó có thể được thu thập và gia công mà không cần các kỹ thuật luyện kim phức tạp.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Xe] 4f¹⁴ 5d¹⁰ 6s¹
+017: Mô hình mạng tinh thể: Lập phương tâm mặt (Face-centered cubic, FCC)
+018: Số hiệu nguyên tử: 79
+019: Nguyên tử khối: 196.967 g/mol
+020: Vỏ nguyên tử: 79 electron
+021: K: 2 | L: 8 | M: 18 | N: 32 | O: 18 | P: 1
+022: Hạt nhân: 79 proton, 118 neutron đối với ¹⁹⁷Au
+023: Cấu hình e: [Xe] 4f¹⁴ 5d¹⁰ 6s¹
+024: Loại mạng: Lập phương tâm mặt (Face-centered cubic, FCC)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Gold là kim loại rắn, màu vàng ánh kim đặc trưng.
+027: Có trong: Có thể tồn tại ở dạng Gold tự nhiên trong các mỏ và trầm tích, ngoài ra còn có trong một số quặng chứa các kim loại khác.
+028: Đơn chất: Au
+029: Hợp chất: AuCl, AuCl₃, Au₂O₃, HAuCl₄...
+030: c. Đồng vị
+031: Đồng vị: ¹⁹⁷Au
+032: ¹⁹⁷Au: Là đồng vị bền duy nhất của Gold trong tự nhiên.
+033: Gold cũng có nhiều đồng vị phóng xạ nhân tạo.
+034: Tính chất
+035: Tính chất vật lý
+036: Là kim loại chuyển tiếp.
+037: Có màu vàng ánh kim đặc trưng.
+038: Rất dẻo và dễ dát mỏng.
+039: Có thể kéo thành sợi rất mảnh.
+040: Khối lượng riêng: khoảng 19.30 g/cm³.
+041: Nhiệt độ nóng chảy: khoảng 1064 °C.
+042: Nhiệt độ sôi: khoảng 2856 °C.
+043: Dẫn điện và dẫn nhiệt tốt.
+044: Không dễ bị Oxy hóa trong không khí.
+045: Tính chất hóa học
+046: Tương đối trơ về mặt hóa học.
+047: Các số Oxy hóa phổ biến là +1 và +3.
+048: Không phản ứng đáng kể với Oxygen ở điều kiện thường.
+049: Không tan trong Hydrochloric acid hoặc Nitric acid riêng biệt.
+050: Tan trong nước cường toan.
+051: Có thể tạo nhiều phức chất, đặc biệt là phức Chloride và Cyanide.
+052: Điều chế
+053: Điều chế trong công nghiệp
+054: Gold (Au) chủ yếu được tách từ quặng Gold bằng phương pháp hòa tách Cyanide. Gold được hòa tan tạo phức Au(I), sau đó được thu hồi bằng cách khử bằng Zinc.
+055: Phương trình:
+056: 2Au(CN)₂⁻ + Zn → 2Au + Zn(CN)₄²⁻
+057: Điều chế trong phòng thí nghiệm
+058: Có thể thu Gold từ dung dịch muối Gold bằng cách khử Gold(III) chloride bằng các chất khử thích hợp.
+059: Phương trình:
+060: 2AuCl₃ + 3Zn → 2Au + 3ZnCl₂
+061: Nhận biết
+062: Nhận biết Au³⁺
+063: Một phương pháp phân tích là cho Au³⁺ phản ứng với chất khử thích hợp để tạo Gold kim loại.
+064: Ví dụ, dùng Iron(II) sulfate:
+065: 2Au³⁺ + 3Fe²⁺ → 2Au↓ + 3Fe³⁺
+066: Hiện tượng: Xuất hiện Gold kim loại.
+067: Nhận biết trong dung dịch
+068: Dung dịch chứa Gold(III) chloride thường có màu vàng/cam, tùy nồng độ và thành phần phức.
+069: Phương trình
+070: Tạo Gold(I) chloride
+071: 2Au + Cl₂ → 2AuCl
+072: Tạo Gold(III) chloride
+073: 2Au + 3Cl₂ → 2AuCl₃
+074: Tạo Gold(III) oxide
+075: 4Au + 3O₂ → 2Au₂O₃
+076: Hòa tan Gold trong nước cường toan
+077: Au + HNO₃ + 4HCl → HAuCl₄ + NO + 2H₂O
+078: Khử Au³⁺ bằng Fe²⁺
+079: 2Au³⁺ + 3Fe²⁺ → 2Au↓ + 3Fe³⁺
+080: Khử Chloroauric acid bằng Sulfur dioxide
+081: 2HAuCl₄ + 3SO₂ + 6H₂O → 2Au + 3H₂SO₄ + 8HCl
+082: Ứng dụng thực tế
+083: Trang sức: Gold được sử dụng rộng rãi trong trang sức nhờ màu sắc đặc trưng, độ bền và khả năng chống ăn mòn.
+084: Tài chính: Gold được sử dụng làm tài sản dự trữ và trong một số loại tiền xu, thỏi Gold.
+085: Điện tử: Gold được sử dụng trong các đầu nối, tiếp điểm và dây dẫn điện tử nhờ khả năng dẫn điện và chống Oxy hóa.
+086: Y học: Một số hợp chất và đồng vị của Gold được sử dụng trong nghiên cứu và một số ứng dụng y học.
+087: Hàng không vũ trụ: Gold có thể được sử dụng trong lớp phủ của một số thiết bị để phản xạ bức xạ và bảo vệ linh kiện.
+088: Công nghiệp: Gold được sử dụng làm chất xúc tác trong một số phản ứng hóa học và trong các vật liệu công nghệ cao.
+089: Tổng quan
+090: Gold là nguyên tố số 79, thuộc nhóm IB | chu kỳ 6 và là một kim loại chuyển tiếp.
+091: Gold có cấu hình electron [Xe] 4f¹⁴ 5d¹⁰ 6s¹, với số Oxy hóa phổ biến nhất là +1 và +3.
+092: Gold nổi bật với màu vàng ánh kim, độ dẻo cao, khả năng dẫn điện tốt và tính trơ hóa học. Nó hầu như không bị Oxy hóa trong không khí và không tan trong hầu hết acid thông thường.
+093: Gold có giá trị lớn trong trang sức, tài chính, điện tử, công nghệ hàng không vũ trụ và một số ứng dụng y học.

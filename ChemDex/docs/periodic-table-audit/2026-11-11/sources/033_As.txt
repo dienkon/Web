@@ -1,0 +1,95 @@
+001: Arsenic (As)
+002: Thông tin chung
+003: Tên Latin: Arsenicum
+004: Tên Tiếng Anh: Arsenic
+005: Đồng vị: ⁷³As, ⁷⁵As
+006: Vị trí: Nhóm VA | Chu kỳ 4
+007: Số Oxy hóa: −3, +3, +5
+008: Độ âm điện: 2.18
+009: Lịch sử khám phá
+010: Phát hiện bởi: Albertus Magnus
+011: Năm công bố: Khoảng năm 1250
+012: Nơi khám phá: Đức
+013: Mô tả: Albertus Magnus được ghi nhận là người đầu tiên mô tả việc điều chế Arsenic kim loại bằng cách nung nóng Arsenic sulfide với xà phòng. Tuy nhiên, các Arsenic compounds đã được con người biết đến và sử dụng từ thời cổ đại.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Ar] 3d¹⁰ 4s² 4p³
+017: Mô hình mạng tinh thể: Lục phương (Hexagonal)
+018: Số hiệu nguyên tử: 33
+019: Nguyên tử khối: 74.922 g/mol
+020: Vỏ nguyên tử: 33 electron
+021: K: 2 | L: 8 | M: 18 | N: 5
+022: Hạt nhân: 33 proton, 42 neutron đối với ⁷⁵As
+023: Cấu hình e: [Ar] 3d¹⁰ 4s² 4p³
+024: Loại mạng: Lục phương (Hexagonal)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Arsenic là chất rắn, thường có dạng màu xám kim loại ở dạng ổn định nhất.
+027: Có trong: Arsenopyrite (FeAsS), Realgar (As₄S₄), Orpiment (As₂S₃) và nhiều khoáng vật khác.
+028: Đơn chất: As
+029: Hợp chất: As₂O₃, As₂O₅, As₂S₃, As₄S₄, AsH₃, H₃AsO₄...
+030: c. Đồng vị
+031: Đồng vị: ⁷³As, ⁷⁵As
+032: ⁷³As: Đồng vị phóng xạ, có chu kỳ bán rã khoảng 80 ngày.
+033: ⁷⁵As: Đồng vị bền duy nhất của Arsenic, chiếm gần 100% Arsenic tự nhiên.
+034: Tính chất
+035: Tính chất vật lý
+036: Là á kim.
+037: Dạng ổn định nhất có màu xám kim loại.
+038: Giòn và dễ vỡ.
+039: Khối lượng riêng: khoảng 5.73 g/cm³.
+040: Không có nhiệt độ nóng chảy ở áp suất thường do thăng hoa trước khi nóng chảy.
+041: Thăng hoa ở khoảng 615 °C.
+042: Có nhiều dạng thù hình.
+043: Dẫn điện kém hơn kim loại.
+044: Tính chất hóa học
+045: Có nhiều số Oxy hóa, phổ biến nhất là −3, +3 và +5.
+046: Có thể phản ứng với Oxygen tạo Arsenic oxide.
+047: Phản ứng với Halogen tạo Arsenic halide.
+048: Có thể tạo hydride là Arsine (AsH₃).
+049: Các hợp chất Arsenic(III) và Arsenic(V) có tính chất hóa học khác nhau.
+050: Một số Arsenic compounds có tính độc cao.
+051: Điều chế
+052: Điều chế trong công nghiệp
+053: Arsenic thường được thu hồi từ các quặng chứa Arsenic, đặc biệt là Arsenopyrite.
+054: Khi nung Arsenic sulfide trong không khí, có thể tạo Arsenic(III) oxide:
+055: 4As₂S₃ + 9O₂ → 2As₄O₆ + 6SO₂
+056: Sau đó Arsenic(III) oxide được khử bằng Carbon:
+057: As₄O₆ + 6C → 4As + 6CO
+058: Điều chế trong phòng thí nghiệm
+059: Có thể điều chế Arsenic bằng cách khử Arsenic(III) oxide bằng Carbon:
+060: As₄O₆ + 6C → 4As + 6CO
+061: Nhận biết
+062: Nhận biết As³⁺
+063: Cho ion As³⁺ tác dụng với Hydrogen sulfide trong môi trường acid:
+064: 2As³⁺ + 3H₂S → As₂S₃↓ + 6H⁺
+065: Hiện tượng: Xuất hiện kết tủa vàng Arsenic(III) sulfide.
+066: Nhận biết As⁵⁺
+067: As⁵⁺ có thể được chuyển về As³⁺ rồi tiếp tục nhận biết thông qua sự tạo thành As₂S₃.
+068: Phương trình
+069: Tác dụng với Oxygen
+070: 4As + 3O₂ → 2As₂O₃
+071: Tác dụng với Chlorine
+072: 2As + 3Cl₂ → 2AsCl₃
+073: Tác dụng với Sulfur
+074: 2As + 3S → As₂S₃
+075: Tạo Arsenic(III) sulfide
+076: 2As³⁺ + 3H₂S → As₂S₃↓ + 6H⁺
+077: Khử Arsenic(III) oxide
+078: As₄O₆ + 6C → 4As + 6CO
+079: Tạo Arsine
+080: 2As + 3H₂ → 2AsH₃
+081: Oxy hóa Arsenic(III) oxide
+082: 2As₂O₃ + O₂ → 2As₂O₅
+083: Arsenic(III) oxide tác dụng với kiềm
+084: As₂O₃ + 6NaOH → 2Na₃AsO₃ + 3H₂O
+085: Ứng dụng thực tế
+086: Bán dẫn: Arsenic được sử dụng để tạo các vật liệu bán dẫn như Gallium arsenide (GaAs).
+087: Hợp kim: Một lượng nhỏ Arsenic có thể được sử dụng trong một số hợp kim để cải thiện tính chất vật liệu.
+088: Điện tử: Gallium arsenide có ứng dụng trong các thiết bị điện tử và quang điện tử tốc độ cao.
+089: Kính: Một số Arsenic compounds từng được sử dụng trong sản xuất và xử lý thủy tinh.
+090: Bảo quản gỗ: Một số hợp chất chứa Arsenic từng được sử dụng trong chất bảo quản gỗ, nhưng việc sử dụng bị hạn chế nghiêm ngặt do độc tính.
+091: Tổng quan
+092: Arsenic là nguyên tố số 33, thuộc nhóm VA | chu kỳ 4 và là một á kim.
+093: Arsenic có cấu hình electron [Ar] 3d¹⁰ 4s² 4p³, với các số Oxy hóa phổ biến là −3, +3 và +5.
+094: Arsenic tồn tại trong tự nhiên chủ yếu dưới dạng các khoáng vật như Arsenopyrite (FeAsS), Realgar (As₄S₄) và Orpiment (As₂S₃).
+095: Arsenic có vai trò trong công nghệ bán dẫn và sản xuất vật liệu, đặc biệt thông qua các hợp chất như Gallium arsenide (GaAs). Tuy nhiên, nhiều Arsenic compounds có độc tính cao, vì vậy việc sử dụng và xử lý chúng cần được kiểm soát nghiêm ngặt.

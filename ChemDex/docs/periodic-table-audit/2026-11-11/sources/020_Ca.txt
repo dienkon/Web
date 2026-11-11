@@ -1,0 +1,110 @@
+001: Calcium (Ca)
+002: Thông tin chung
+003: Tên Latin: Calcium
+004: Tên Tiếng Anh: Calcium
+005: Đồng vị: ⁴⁰Ca, ⁴¹Ca, ⁴²Ca, ⁴³Ca, ⁴⁴Ca, ⁴⁶Ca, ⁴⁸Ca
+006: Vị trí: Nhóm IIA | Chu kỳ 4
+007: Số Oxy hóa: +2
+008: Độ âm điện: 1.00
+009: Lịch sử khám phá
+010: Phát hiện bởi: Humphry Davy
+011: Năm công bố: 1808
+012: Nơi khám phá: Anh
+013: Mô tả: Năm 1808, Humphry Davy điều chế được Calcium kim loại bằng phương pháp điện phân hỗn hợp nóng chảy chứa Calcium oxide và Mercury(II) oxide. Sau đó ông loại Mercury để thu được Calcium.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: 1s² 2s² 2p⁶ 3s² 3p⁶ 4s²
+017: Mô hình mạng tinh thể: Lập phương tâm mặt (Face-centered cubic, FCC)
+018: Số hiệu nguyên tử: 20
+019: Nguyên tử khối: 40.078 g/mol
+020: Vỏ nguyên tử: 20 electron
+021: K: 2 | L: 8 | M: 8 | N: 2
+022: Hạt nhân: 20 proton, 20 neutron đối với ⁴⁰Ca
+023: Cấu hình e: 1s² 2s² 2p⁶ 3s² 3p⁶ 4s²
+024: Loại mạng: Lập phương tâm mặt (Face-centered cubic, FCC)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Calcium là kim loại rắn, màu trắng bạc ở điều kiện thường. Do có hoạt tính hóa học cao, Calcium không tồn tại tự do trong tự nhiên.
+027: Có trong: Đá vôi, Calcite, Dolomite, Gypsum, nước biển, đất và cơ thể sinh vật.
+028: Đơn chất: Ca
+029: Hợp chất: CaCO₃, CaO, Ca(OH)₂, CaSO₄, Ca₃(PO₄)₂, CaCl₂...
+030: c. Đồng vị
+031: Đồng vị: ⁴⁰Ca, ⁴¹Ca, ⁴²Ca, ⁴³Ca, ⁴⁴Ca, ⁴⁶Ca, ⁴⁸Ca
+032: ⁴⁰Ca: Đồng vị bền, chiếm khoảng 96.94% Calcium tự nhiên.
+033: ⁴²Ca: Đồng vị bền, chiếm khoảng 0.65%.
+034: ⁴³Ca: Đồng vị bền, chiếm khoảng 0.14%.
+035: ⁴⁴Ca: Đồng vị bền, chiếm khoảng 2.09%.
+036: ⁴⁶Ca: Đồng vị bền, chiếm khoảng 0.004%.
+037: ⁴⁸Ca: Đồng vị bền, chiếm khoảng 0.19%.
+038: ⁴¹Ca: Đồng vị phóng xạ, có chu kỳ bán rã khoảng 99.4 nghìn năm.
+039: Tính chất
+040: Tính chất vật lý
+041: Là kim loại kiềm thổ.
+042: Là chất rắn màu trắng bạc.
+043: Tương đối mềm.
+044: Có khối lượng riêng khoảng 1.55 g/cm³.
+045: Nhiệt độ nóng chảy: khoảng 842 °C.
+046: Nhiệt độ sôi: khoảng 1484 °C.
+047: Dẫn điện và dẫn nhiệt tốt.
+048: Bề mặt nhanh chóng bị oxy hóa khi tiếp xúc với không khí.
+049: Tính chất hóa học
+050: Có tính khử mạnh.
+051: Dễ nhường 2 electron tạo Ca²⁺.
+052: Phản ứng với nước tạo Calcium hydroxide và Hydrogen.
+053: Phản ứng với Oxygen tạo Calcium oxide.
+054: Phản ứng với Halogen tạo Calcium halide.
+055: Phản ứng với Hydrogen tạo Calcium hydride.
+056: Phản ứng với acid tạo muối Calcium và Hydrogen.
+057: Có thể khử một số oxide kim loại ở nhiệt độ cao.
+058: Điều chế
+059: Điều chế trong công nghiệp
+060: Calcium được điều chế chủ yếu bằng điện phân Calcium chloride nóng chảy:
+061: CaCl₂ → Ca + Cl₂
+062: Cathode:
+063: Ca²⁺ + 2e⁻ → Ca
+064: Anode:
+065: 2Cl⁻ → Cl₂ + 2e⁻
+066: Điều chế trong phòng thí nghiệm
+067: Calcium kim loại không thường được điều chế trong phòng thí nghiệm phổ thông do tính hoạt động hóa học cao.
+068: Về nguyên tắc, có thể điều chế bằng điện phân Calcium chloride nóng chảy:
+069: CaCl₂ → Ca + Cl₂
+070: Nhận biết
+071: Nhận biết ion Calcium (Ca²⁺)
+072: Thử ngọn lửa: Calcium tạo màu đỏ gạch / đỏ cam.
+073: Ngoài ra, Ca²⁺ có thể tạo kết tủa Calcium oxalate với Oxalate:
+074: Ca²⁺ + C₂O₄²⁻ → CaC₂O₄↓
+075: Hiện tượng: Xuất hiện kết tủa trắng Calcium oxalate.
+076: Phương trình
+077: Tác dụng với Oxygen
+078: 2Ca + O₂ → 2CaO
+079: Tác dụng với nước
+080: Ca + 2H₂O → Ca(OH)₂ + H₂↑
+081: Tác dụng với Hydrogen
+082: Ca + H₂ → CaH₂
+083: Tác dụng với Chlorine
+084: Ca + Cl₂ → CaCl₂
+085: Tác dụng với Nitrogen
+086: Ở nhiệt độ cao:
+087: 3Ca + N₂ → Ca₃N₂
+088: Tác dụng với Hydrochloric acid
+089: Ca + 2HCl → CaCl₂ + H₂↑
+090: Tác dụng với Sulfur
+091: Ca + S → CaS
+092: Nhiệt phân Calcium carbonate
+093: CaCO₃ → CaO + CO₂↑
+094: Calcium oxide tác dụng với nước
+095: CaO + H₂O → Ca(OH)₂
+096: Calcium hydroxide tác dụng với Carbon dioxide
+097: Ca(OH)₂ + CO₂ → CaCO₃↓ + H₂O
+098: Ứng dụng thực tế
+099: Xây dựng: Calcium compounds như Calcium carbonate và Calcium oxide được sử dụng rộng rãi trong sản xuất xi măng, vôi và vật liệu xây dựng.
+100: Luyện kim: Calcium được sử dụng làm chất khử và chất loại bỏ một số tạp chất trong luyện kim.
+101: Sản xuất hợp kim: Calcium được sử dụng trong một số hợp kim đặc biệt.
+102: Xử lý nước: Calcium hydroxide được sử dụng để điều chỉnh pH và xử lý nước.
+103: Nông nghiệp: Calcium compounds được sử dụng để cải thiện đất và điều chỉnh độ acid của đất.
+104: Sinh học: Ca²⁺ đóng vai trò quan trọng trong xương, răng, co cơ, truyền tín hiệu tế bào và đông máu.
+105: Sản xuất hóa chất: Calcium là nguyên liệu để sản xuất nhiều Calcium compounds.
+106: Tổng quan
+107: Calcium là nguyên tố số 20, thuộc nhóm IIA | chu kỳ 4 và là một kim loại kiềm thổ.
+108: Calcium có cấu hình electron 1s² 2s² 2p⁶ 3s² 3p⁶ 4s², với 2 electron hóa trị. Calcium dễ nhường 2 electron để tạo ion Ca²⁺, vì vậy số Oxy hóa phổ biến của nó là +2.
+109: Trong tự nhiên, Calcium không tồn tại ở dạng đơn chất mà chủ yếu tồn tại trong các khoáng vật như Calcium carbonate, Calcium sulfate và Calcium phosphate. Calcium cũng là một nguyên tố quan trọng trong cơ thể sinh vật.
+110: Calcium và các hợp chất của nó có vai trò lớn trong xây dựng, luyện kim, sản xuất hóa chất, xử lý nước, nông nghiệp và các quá trình sinh học.

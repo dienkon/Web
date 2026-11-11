@@ -72,7 +72,7 @@ function applyAssetDefaults(element = {}, meta = {}) {
     },
     naturalState: {
       ...(element.naturalState || {}),
-      image: `${assetBase}/img/${NATURAL_STATE_IMAGE}`,
+      image: element.naturalState?.image || `${assetBase}/img/${NATURAL_STATE_IMAGE}`,
     },
   };
 }

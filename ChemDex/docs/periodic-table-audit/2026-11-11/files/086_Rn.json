@@ -1,0 +1,800 @@
+{
+  "symbol": "Rn",
+  "number": 86,
+  "source": "086_Rn.docx",
+  "sourceSha256": "21365e8fa28b24abfccdaa69d2e96e08a904e9563618f8f73ef8da661865a1b2",
+  "paragraphCount": 85,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 4,
+    "structure": 9,
+    "occurrence": 4,
+    "isotopes": 6,
+    "physical": 8,
+    "chemical": 5,
+    "lab": 3,
+    "industry": 4,
+    "recognition": 2,
+    "reactions": 8,
+    "applications": 4,
+    "notes": 4
+  },
+  "editorialDecisions": [],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁶",
+      "publishedValue": "[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁶",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Lập phương tâm mặt (Face-centered cubic, FCC) (ở trạng thái rắn)",
+      "publishedValue": "Lập phương tâm mặt (Face-centered cubic, FCC) (ở trạng thái rắn)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "Không xác định",
+      "publishedValue": null,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm VIIIA | Chu kỳ 6",
+      "publishedValue": "18",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Khí ở điều kiện thường.",
+      "publishedValue": "Khí",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 33,
+      "sourceText": "²²²Rn: chu kỳ bán rã khoảng 3.82 ngày, là đồng vị phổ biến nhất.",
+      "reference": {
+        "isotope": "²²²Rn",
+        "massNumber": 222,
+        "protons": 86,
+        "neutrons": 136,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "3.8235 ± 0.0003 d",
+        "halfLife": "3.8235 d",
+        "halfLifeUncertainty": "3",
+        "halfLifeQualifier": null,
+        "decay": "A",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 34,
+      "sourceText": "²²⁰Rn: chu kỳ bán rã khoảng 55.6 giây, thuộc chuỗi phân rã Thorium-232.",
+      "reference": {
+        "isotope": "²²⁰Rn",
+        "massNumber": 220,
+        "protons": 86,
+        "neutrons": 134,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "55.6 ± 0.1 s",
+        "halfLife": "55.6 s",
+        "halfLifeUncertainty": "1",
+        "halfLifeQualifier": null,
+        "decay": "A",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 35,
+      "sourceText": "²¹⁹Rn: chu kỳ bán rã khoảng 3.96 giây, thuộc chuỗi phân rã Actinium-235.",
+      "reference": {
+        "isotope": "²¹⁹Rn",
+        "massNumber": 219,
+        "protons": 86,
+        "neutrons": 133,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "3.96 ± 0.01 s",
+        "halfLife": "3.96 s",
+        "halfLifeUncertainty": "1",
+        "halfLifeQualifier": null,
+        "decay": "A",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 57,
+      "text": "²²⁶Ra → ²²²Rn + ⁴He",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 62,
+      "text": "²²⁶Ra → ²²²Rn + ⁴He",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 69,
+      "text": "²²⁶Ra → ²²²Rn + ⁴He",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 71,
+      "text": "²²²Rn → ²¹⁸Po + ⁴He",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 73,
+      "text": "²²⁰Rn → ²¹⁶Po + ⁴He",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 75,
+      "text": "²¹⁹Rn → ²¹⁵Po + ⁴He",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "lab",
+      "equation": "²²⁶Ra → ²²²Rn + ⁴He",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 62,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "²²⁶Ra → ²²²Rn + ⁴He",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 57,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "²²⁶Ra → ²²²Rn + ⁴He",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 69,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "²²²Rn → ²¹⁸Po + ⁴He",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 71,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "²²⁰Rn → ²¹⁶Po + ⁴He",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 73,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "²¹⁹Rn → ²¹⁵Po + ⁴He",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 75,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": null,
+      "after": [
+        {
+          "title": "Nghiên cứu phóng xạ",
+          "desc": "Radon được sử dụng để nghiên cứu các quá trình phân rã và chuỗi phóng xạ tự nhiên.",
+          "sourceLine": 77
+        },
+        {
+          "title": "Địa chất",
+          "desc": "Nồng độ Radon trong đất và đá có thể được sử dụng để nghiên cứu một số đặc điểm địa chất.",
+          "sourceLine": 78
+        },
+        {
+          "title": "Nghiên cứu khí quyển",
+          "desc": "Radon được sử dụng như một chất chỉ thị trong một số nghiên cứu về sự chuyển động và trao đổi của không khí gần mặt đất.",
+          "sourceLine": 79
+        },
+        {
+          "title": "Y học",
+          "desc": "Radon từng được sử dụng trong một số phương pháp điều trị phóng xạ lịch sử, nhưng những phương pháp này hiện không còn được sử dụng rộng rãi.",
+          "sourceLine": 80
+        }
+      ]
+    },
+    {
+      "field": "category",
+      "before": null,
+      "after": "khi-hiem"
+    },
+    {
+      "field": "chemical",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Có lớp electron ngoài cùng đã bão hòa.</li><li>Rất ít hoạt động hóa học, giống các khí hiếm khác.</li><li>Số Oxy hóa thông thường: 0.</li><li>Có khả năng tạo một số hợp chất trong điều kiện đặc biệt.</li><li>Hóa học của Radon khó nghiên cứu do tính phóng xạ và thời gian tồn tại ngắn.</li></ul>"
+    },
+    {
+      "field": "file",
+      "before": null,
+      "after": "elements/086_Rn.json"
+    },
+    {
+      "field": "general",
+      "before": null,
+      "after": {
+        "latinName": "Radon",
+        "englishName": "Radon",
+        "electronConfig": "[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁶",
+        "isotope": "²¹¹Rn, ²¹⁹Rn, ²²⁰Rn, ²²²Rn",
+        "group": 18,
+        "groupLabel": "18",
+        "series": "",
+        "period": 6,
+        "state": "Khí",
+        "oxidation": "0",
+        "electronegativity": null,
+        "electronegativityNote": "Chưa có giá trị Pauling đủ cơ sở trong bản đối chiếu; không coi 0 là giá trị đã đo.",
+        "density": "0.009074 g/cm³ (theo bảng RSC)",
+        "meltingPoint": "khoảng −71 °C.",
+        "boilingPoint": "khoảng −61.7 °C.",
+        "crystalStructure": "Lập phương tâm mặt (Face-centered cubic, FCC) (ở trạng thái rắn)",
+        "CAS": "10043-92-2"
+      }
+    },
+    {
+      "field": "hasData",
+      "before": null,
+      "after": true
+    },
+    {
+      "field": "history",
+      "before": null,
+      "after": {
+        "discoverer": "Friedrich Ernst Dorn",
+        "year": "1900",
+        "discoveryLocation": "Đức",
+        "description": "Radon được Friedrich Ernst Dorn phát hiện vào năm 1900 khi nghiên cứu chất khí phóng xạ sinh ra từ Radium. Ban đầu, chất này được gọi là Radium emanation (Radium emanation). Sau đó, nó được xác định là một nguyên tố mới và mang tên Radon."
+      }
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/diagrams/086_Rn.svg",
+          "title": "Radon (Rn)",
+          "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+          "source": "",
+          "author": "ChemDex",
+          "license": "ChemDex schematic diagram",
+          "licenseUrl": ""
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "²¹¹Rn",
+          "massNumber": 211,
+          "protons": 86,
+          "neutrons": 125,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "14.6 ± 0.2 h",
+          "halfLife": "14.6 h",
+          "halfLifeUncertainty": "2",
+          "halfLifeQualifier": null,
+          "decay": "EC",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²¹⁹Rn",
+          "massNumber": 219,
+          "protons": 86,
+          "neutrons": 133,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "3.96 ± 0.01 s",
+          "halfLife": "3.96 s",
+          "halfLifeUncertainty": "1",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²²⁰Rn",
+          "massNumber": 220,
+          "protons": 86,
+          "neutrons": 134,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "55.6 ± 0.1 s",
+          "halfLife": "55.6 s",
+          "halfLifeUncertainty": "1",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²²²Rn",
+          "massNumber": 222,
+          "protons": 86,
+          "neutrons": 136,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "3.8235 ± 0.0003 d",
+          "halfLife": "3.8235 d",
+          "halfLifeUncertainty": "3",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "mass",
+      "before": null,
+      "after": 211
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "reference-isotope-mass-number"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://periodic-table.rsc.org/element/86/radon"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "[211] — số khối đồng vị tham chiếu, không phải nguyên tử khối chuẩn"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": []
+    },
+    {
+      "field": "nameEn",
+      "before": null,
+      "after": "Radon"
+    },
+    {
+      "field": "nameVi",
+      "before": null,
+      "after": "Radon"
+    },
+    {
+      "field": "naturalState",
+      "before": null,
+      "after": {
+        "image": "/assets/periodic-table/diagrams/086_Rn.svg",
+        "alt": "Radon: sơ đồ minh họa nguyên tố",
+        "kind": "diagram",
+        "source": "",
+        "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+        "credit": ""
+      }
+    },
+    {
+      "field": "notes",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Radon là nguyên tố số 86, thuộc nhóm VIIIA | chu kỳ 6 và là một khí hiếm phóng xạ.</li><li>Radon không có đồng vị bền. Đồng vị quan trọng nhất trong tự nhiên là ²²²Rn, có chu kỳ bán rã khoảng 3.82 ngày và được tạo ra từ sự phân rã của ²²⁶Ra.</li><li>Radon là khí không màu, không mùi, không vị và rất ít phản ứng hóa học. Do là chất phóng xạ và có thể tích tụ trong không gian kín, Radon là một chất cần được kiểm soát trong môi trường sống.</li><li>Mạng tinh thể: Lập phương tâm mặt (FCC) là cấu trúc của Radon khi ở trạng thái rắn.</li></ul>"
+    },
+    {
+      "field": "number",
+      "before": null,
+      "after": 86
+    },
+    {
+      "field": "occurrence",
+      "before": null,
+      "after": {
+        "description": "Khí ở điều kiện thường.",
+        "simple": [
+          "Rn"
+        ],
+        "compounds": [
+          "RnF₂ (được nghiên cứu/dự đoán)"
+        ],
+        "ores": [
+          "Sinh ra tự nhiên từ quá trình phân rã phóng xạ của Radium",
+          "đặc biệt trong chuỗi phân rã của Uranium-238"
+        ],
+        "details": [
+          "Trạng thái: Khí ở điều kiện thường.",
+          "Có trong: Sinh ra tự nhiên từ quá trình phân rã phóng xạ của Radium, đặc biệt trong chuỗi phân rã của Uranium-238.",
+          "Đơn chất: Rn",
+          "Hợp chất: RnF₂ (được nghiên cứu/dự đoán)"
+        ],
+        "mineral": {
+          "available": false,
+          "reason": "Nguồn chủ yếu là khí quyển, nước hoặc nước muối; không có mẫu quặng riêng đại diện."
+        }
+      }
+    },
+    {
+      "field": "physical",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Là khí hiếm.</li><li>Không màu, không mùi, không vị.</li><li>Là chất khí ở điều kiện thường.</li><li>Có tính phóng xạ mạnh.</li><li>Khối lượng nguyên tử lớn.</li><li>Nhiệt độ nóng chảy: khoảng −71 °C.</li><li>Nhiệt độ sôi: khoảng −61.7 °C.</li><li>Ở nhiệt độ rất thấp, Radon có thể phát quang với màu vàng cam/đỏ cam.</li></ul>"
+    },
+    {
+      "field": "preparations",
+      "before": null,
+      "after": {
+        "lab": [
+          {
+            "title": "Radon được tạo ra bằng cách cho Radium-226 phân rã phóng xạ trong thiết bị kín chuyên dụng.",
+            "desc": "Không có phương pháp điều chế hóa học thông thường để tạo ra Radon.",
+            "result": "",
+            "equations": [
+              {
+                "equation": "²²⁶Ra → ²²²Rn + ⁴He",
+                "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+                "kind": "nuclear",
+                "sourceLine": 62,
+                "sourceSection": "lab",
+                "balance": {
+                  "status": "balanced",
+                  "kind": "nuclear",
+                  "delta": {}
+                },
+                "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+              }
+            ],
+            "sourceLines": [
+              60,
+              62,
+              63
+            ],
+            "equation": "²²⁶Ra → ²²²Rn + ⁴He"
+          }
+        ],
+        "industry": [
+          {
+            "title": "Radon (Rn) không được sản xuất công nghiệp với quy mô thương mại thông thường. Nguyên tố này được tạo ra tự nhiên từ quá trình phân rã phóng xạ của Radium-226 trong chuỗi phân rã Uranium-238.",
+            "desc": "Phương trình phân rã: Radon có thể được thu hồi từ khí thoát ra khi Radium phân rã trong các hệ thống nghiên cứu chuyên dụng.",
+            "result": "",
+            "equations": [
+              {
+                "equation": "²²⁶Ra → ²²²Rn + ⁴He",
+                "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+                "kind": "nuclear",
+                "sourceLine": 57,
+                "sourceSection": "industry",
+                "balance": {
+                  "status": "balanced",
+                  "kind": "nuclear",
+                  "delta": {}
+                },
+                "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+              }
+            ],
+            "sourceLines": [
+              55,
+              56,
+              57,
+              58
+            ],
+            "equation": "²²⁶Ra → ²²²Rn + ⁴He"
+          }
+        ]
+      }
+    },
+    {
+      "field": "reactions",
+      "before": null,
+      "after": [
+        {
+          "type": "Radium phân rã tạo Radon",
+          "desc": "",
+          "equation": "²²⁶Ra → ²²²Rn + ⁴He",
+          "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+          "kind": "nuclear",
+          "sourceLine": 69,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Radon-222 phân rã",
+          "desc": "",
+          "equation": "²²²Rn → ²¹⁸Po + ⁴He",
+          "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+          "kind": "nuclear",
+          "sourceLine": 71,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Radon-220 phân rã",
+          "desc": "",
+          "equation": "²²⁰Rn → ²¹⁶Po + ⁴He",
+          "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+          "kind": "nuclear",
+          "sourceLine": 73,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Radon-219 phân rã",
+          "desc": "",
+          "equation": "²¹⁹Rn → ²¹⁵Po + ⁴He",
+          "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+          "kind": "nuclear",
+          "sourceLine": 75,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": null,
+      "after": [
+        {
+          "title": "Radon được nhận biết và đo chủ yếu bằng các thiết bị phát hiện bức xạ, dựa trên bức xạ sinh ra trong quá trình phân rã.",
+          "desc": "Do Radon là khí không màu, không mùi và không vị, không thể nhận biết bằng các giác quan thông thường.",
+          "result": "",
+          "equations": [],
+          "sourceLines": [
+            65,
+            66
+          ],
+          "equation": ""
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "086_Rn.docx",
+        "sourceSha256": "21365e8fa28b24abfccdaa69d2e96e08a904e9563618f8f73ef8da661865a1b2",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/086_Rn.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "086_Rn.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "21365e8fa28b24abfccdaa69d2e96e08a904e9563618f8f73ef8da661865a1b2"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/86/radon"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure",
+      "before": null,
+      "after": {
+        "protons": 86,
+        "electrons": 86,
+        "neutrons": 125,
+        "nucleusIsotope": "²¹¹Rn",
+        "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+        "nucleus": {
+          "proton": 86,
+          "neutron": 125
+        },
+        "electronShells": [
+          2,
+          8,
+          18,
+          32,
+          18,
+          8
+        ],
+        "shells": [
+          2,
+          8,
+          18,
+          32,
+          18,
+          8
+        ],
+        "valenceElectrons": 8,
+        "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+        "lattice": "Lập phương tâm mặt (Face-centered cubic, FCC) (ở trạng thái rắn)",
+        "latticeEvidence": "source-reviewed"
+      }
+    },
+    {
+      "field": "structureType",
+      "before": null,
+      "after": "Lập phương tâm mặt (Face-centered cubic, FCC) (ở trạng thái rắn)"
+    },
+    {
+      "field": "symbol",
+      "before": null,
+      "after": "Rn"
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "Rn",
+      "status": "diagram",
+      "reason": "Không dùng ảnh mẫu vĩ mô không xác minh cho nguyên tố cực hiếm/nhân tạo."
+    },
+    "mineral": {
+      "available": false,
+      "reason": "Nguồn chủ yếu là khí quyển, nước hoặc nước muối; không có mẫu quặng riêng đại diện."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "Rn",
+      "z": 86,
+      "url": "https://periodic-table.rsc.org/element/86/radon",
+      "status": "retrieved",
+      "bytes": 155717,
+      "sha256": "9b51500a2038f1b23eadd10cbbcd77886e812a71525c47197c34c76db5dd27e7",
+      "facts": {
+        "Group": "18",
+        "Melting point": "−71°C, −96°F, 202 K",
+        "Period": "6",
+        "Boiling point": "−61.7°C, −79.1°F, 211.5 K",
+        "Block": "p",
+        "Density (g cm−³)": "0.009074",
+        "Atomic number": "86",
+        "Relative atomic mass": "[222]",
+        "State at 20°C": "Gas",
+        "Key isotopes": "²¹¹Rn, ²²⁰Rn, ²²²Rn",
+        "Electron configuration": "[Xe] 4f¹⁴5d¹⁰6s²6p⁶",
+        "CAS number": "10043-92-2",
+        "ChemSpider ID": "23240",
+        "electronegativity": "Unknown"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "86",
+      "Symbol": "Rn",
+      "Name": "Radon",
+      "AtomicMass": "222.01758",
+      "CPKHexColor": "428296",
+      "ElectronConfiguration": "[Xe]6s2 4f14 5d10 6p6",
+      "Electronegativity": "",
+      "AtomicRadius": "220",
+      "IonizationEnergy": "10.745",
+      "ElectronAffinity": "",
+      "OxidationStates": "0",
+      "StandardState": "Gas",
+      "MeltingPoint": "202",
+      "BoilingPoint": "211.45",
+      "Density": "0.00973",
+      "GroupBlock": "Noble gas",
+      "YearDiscovered": "1900"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

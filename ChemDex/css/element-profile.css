@@ -1,0 +1,43 @@
+#article-content { min-width: 0; overflow-wrap: anywhere; }
+#article-content section, #article-content .glass, #article-content .structure-visual-grid > * { min-width: 0; }
+#article-content .grid > *, .method-equation { min-width: 0; max-width: 100%; }
+#article-content .equation-latex { width: 100%; min-width: 0; max-width: 100%; white-space: nowrap; overflow-wrap: normal; word-break: normal; flex-wrap: nowrap; }
+.equation-side { display: inline-block; flex: 0 0 auto; white-space: nowrap; }
+#article-content img[src$=".svg"] { object-fit: contain; }
+.element-prose-list { list-style: disc; padding-left: 1.3rem; }
+.element-prose-list li { padding-left: .15rem; margin: .65rem 0; line-height: 1.8; }
+.element-prose-list .source-equation { list-style: none; margin-left: -1rem; padding: 1rem; background: #0c1728; border-radius: .7rem; color: #9ce5ce; }
+.source-equation small { display: block; color: #aebed1; font: 400 .82rem/1.6 Inter,sans-serif; margin-top: .55rem; }
+.element-fact-note, .element-image-credit { color: #a5b5c9; font-size: .79rem; line-height: 1.65; margin-top: .6rem; }
+.element-image-credit a, .element-sources a, .isotope-table a { color: #79cce3; text-underline-offset: 3px; }
+.element-image-credit a:hover, .element-sources a:hover { text-decoration: underline; }
+.element-review-date { font-size: .72rem; letter-spacing: .07em; color: #9bb8c9; margin-top: .85rem; }
+.element-fact-strip { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 1rem; margin-top: 1.2rem; padding: 1.25rem; background: #101d2dcc; border: 1px solid #314155; border-radius: 1rem; }
+.element-fact-strip dt { color: #8eabc0; font-size: .75rem; margin-bottom: .5rem; }
+.element-fact-strip dd { color: #e0edf5; font-size: .88rem; line-height: 1.6; }
+.isotope-table-wrap { overflow-x: auto; margin-top: 1rem; border: 1px solid #33465c; border-radius: .7rem; max-height: 420px; }
+.isotope-table { width: 100%; border-collapse: collapse; min-width: 550px; font-size: .86rem; line-height: 1.6; }
+.isotope-table th, .isotope-table td { padding: .8rem 1rem; text-align: left; border-bottom: 1px solid #2d4055; }
+.isotope-table thead th { background: #203348; color: #a4d5e2; font-size: .72rem; font-weight: 600; position: sticky; top: 0; z-index: 1; }
+.isotope-table tbody tr:nth-child(even) { background: #14233888; }
+.isotope-table tbody th { color: #daeef6; font-family: ui-monospace,monospace; font-size: 1rem; white-space: nowrap; }
+.isotope-table small { display: block; max-width: 28rem; margin-top: .3rem; color: #94adc1; }
+.reaction-kind { display: inline-block; margin: 0 .4rem .6rem; padding: .3rem .6rem; font-size: .68rem; border: 1px solid #42546b; border-radius: 1rem; color: #bbcfdf; }
+.reaction-kind-formal { color: #f4cd86; border-color: #78603c; }
+.reaction-kind-nuclear { color: #e1b6fa; border-color: #674b7d; }
+.reaction-condition { font-size: .82rem; line-height: 1.7; color: #b3c4d5; padding: .3rem .1rem .8rem; white-space: normal; overflow-wrap: anywhere; }
+.reaction-condition strong { color: #e0eaf3; font-weight: 500; }
+.method-equation + .method-equation { margin-top: 1rem; }
+.crystal-explanation { min-height: 260px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 1rem; padding: 1.5rem; background: radial-gradient(ellipse at top,#20364c,#0b1523); }
+.crystal-explanation p { color: #c8dfed; line-height: 1.75; font-size: .9rem; }
+.crystal-explanation small { color: #8ca9bd; line-height: 1.6; }
+.mineral-poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.model-shell { height: clamp(320px,36vw,430px); }
+.mineral-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; font-size: .75rem; }
+.mineral-toolbar button,.mineral-toolbar a { border: 1px solid #38516a; color: #bad9e8; padding: .5rem .7rem; border-radius: .5rem; background: #142235; }
+.mineral-toolbar button:hover,.mineral-toolbar a:hover { background: #223b51; }
+.mineral-toolbar span { color: #8faabd; margin-left: auto; }
+.element-sources { border-top: 1px solid #35485f; margin-top: 2rem; padding-top: 1.5rem; color: #9fb5c9; font-size: .8rem; line-height: 1.8; }
+.element-sources h3 { color: #d5e4ef; font-size: 1rem; margin-bottom: .75rem; }
+.element-sources ul { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; margin-top: 1rem; }
+@media(max-width:640px) { #detail-hero h2 { font-size: clamp(2rem,9.5vw,3rem); } .element-fact-strip { grid-template-columns: repeat(2,minmax(0,1fr)); padding: 1rem; } .mineral-toolbar span { width: 100%; margin-left: 0; } }

@@ -1,0 +1,89 @@
+001: Bohrium (Bh)
+002: Thông tin chung
+003: Tên Latin: Bohrium
+004: Tên Tiếng Anh: Bohrium
+005: Đồng vị: ²⁶⁷Bh, ²⁷⁰Bh, ²⁷¹Bh, ²⁷²Bh, ²⁷³Bh, ²⁷⁴Bh, ²⁷⁵Bh, ²⁷⁶Bh, ²⁷⁷Bh
+006: Vị trí: Nhóm VIIB | Chu kỳ 7
+007: Số Oxy hóa: +7 (dự đoán)
+008: Độ âm điện: Không xác định
+009: Lịch sử khám phá
+010: Phát hiện bởi: Nhóm nghiên cứu tại Joint Institute for Nuclear Research (JINR) và Gesellschaft für Schwerionenforschung (GSI)
+011: Năm công bố: 1981
+012: Nơi khám phá: Darmstadt, Tây Đức
+013: Mô tả: Bohrium được tổng hợp lần đầu năm 1981 tại GSI bằng cách bắn phá Bismuth-209 bằng hạt nhân Chromium-54:
+014: ²⁰⁹Bi + ⁵⁴Cr → ²⁶²Bh + n
+015: Nguyên tố được đặt tên Bohrium để vinh danh nhà vật lý Đan Mạch Niels Bohr, người có những đóng góp quan trọng cho việc phát triển mô hình nguyên tử và cơ học lượng tử.
+016: 3. Cấu tạo
+017: a. Cấu tạo nguyên tử
+018: Hoạt họa cấu hình e: [Rn] 5f¹⁴ 6d⁵ 7s² (dự đoán)
+019: Mô hình mạng tinh thể: Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)
+020: Số hiệu nguyên tử: 107
+021: Nguyên tử khối: [270] g/mol
+022: Vỏ nguyên tử: 107 electron
+023: Hạt nhân: 107 proton
+024: Cấu hình e: [Rn] 5f¹⁴ 6d⁵ 7s² (dự đoán)
+025: Loại mạng: Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)
+026: b. Trạng thái tự nhiên
+027: Trạng thái: Chất rắn (dự đoán).
+028: Có trong: Không tồn tại tự nhiên với lượng đáng kể. Bohrium chỉ được tổng hợp nhân tạo trong phòng thí nghiệm.
+029: Đơn chất: Bh
+030: Hợp chất: BhO₃, BhO₂Cl... (chủ yếu dự đoán)
+031: c. Đồng vị
+032: Bohrium không có đồng vị bền.
+033: Một số đồng vị đã được phát hiện:
+034: ²⁶⁷Bh: chu kỳ bán rã khoảng 17 giây.
+035: ²⁷⁰Bh: chu kỳ bán rã khoảng 61 giây.
+036: ²⁷¹Bh: chu kỳ bán rã khoảng 10 giây.
+037: ²⁷²Bh: chu kỳ bán rã khoảng 10 giây.
+038: ²⁷⁴Bh: chu kỳ bán rã khoảng 40 giây.
+039: Các đồng vị Bohrium phân rã chủ yếu thông qua phân rã Alpha hoặc các quá trình phóng xạ khác.
+040: Tính chất
+041: Tính chất vật lý
+042: Là kim loại chuyển tiếp.
+043: Thuộc nhóm VIIB | chu kỳ 7.
+044: Là nguyên tố siêu nặng.
+045: Có tính phóng xạ rất mạnh.
+046: Được dự đoán là chất rắn ở điều kiện thường.
+047: Các tính chất vĩ mô như màu sắc, khối lượng riêng, nhiệt độ nóng chảy và nhiệt độ sôi chưa được xác định thực nghiệm.
+048: Tính chất hóa học
+049: Được dự đoán có tính chất tương tự Manganese (Mn) và Technetium (Tc).
+050: Số Oxy hóa +7 được dự đoán là trạng thái quan trọng.
+051: Có thể tạo các hợp chất chứa Bohrium ở trạng thái Oxy hóa cao.
+052: Một số thí nghiệm đã cho thấy Bohrium có thể tạo các hợp chất dễ bay hơi với Chlorine và Oxygen.
+053: Hóa học của Bohrium chỉ có thể nghiên cứu ở cấp độ từng nguyên tử.
+054: Điều chế
+055: Điều chế trong công nghiệp:
+056: Bohrium (Bh) không được sản xuất công nghiệp do tính phóng xạ cao và thời gian bán rã ngắn. Nguyên tố này chỉ được tổng hợp với lượng rất nhỏ trong các cơ sở nghiên cứu hạt nhân.
+057: Điều chế trong phòng thí nghiệm:
+058: Bohrium được tổng hợp bằng cách bắn phá Bismuth-209 bằng ion Chromium-54 trong máy gia tốc hạt.
+059: ²⁰⁹Bi + ⁵⁴Cr → ²⁶²Bh + ¹n
+060: Nhận biết
+061: Bohrium được nhận biết thông qua:
+062: Năng lượng của các hạt Alpha phát ra.
+063: Chu kỳ bán rã.
+064: Chuỗi phân rã đặc trưng.
+065: Xác định các hạt nhân con tạo thành sau phân rã.
+066: Nghiên cứu hóa học phóng xạ ở cấp độ từng nguyên tử.
+067: Không thể sử dụng các phản ứng hóa học thông thường để nhận biết Bohrium do lượng tạo ra cực kỳ nhỏ.
+068: Phương trình
+069: Tổng hợp Bohrium-262
+070: ²⁰⁹Bi + ⁵⁴Cr → ²⁶²Bh + n
+071: Phân rã Alpha của Bohrium-270
+072: ²⁷⁰Bh → ²⁶⁶Db + ⁴He
+073: Tạo Bohrium(VII) oxide
+074: 4Bh + 7O₂ → 2Bh₂O₇
+075: Tạo Bohrium(V) chloride
+076: 2Bh + 5Cl₂ → 2BhCl₅
+077: Các phương trình hóa học của Bohrium chủ yếu mang tính dự đoán do không thể thu được lượng nguyên tố đủ lớn để nghiên cứu ở quy mô thông thường.
+078: Ứng dụng thực tế
+079: Bohrium không có ứng dụng công nghiệp hoặc dân dụng.
+080: Nó chủ yếu được sử dụng trong:
+081: Nghiên cứu hạt nhân: Nghiên cứu tính chất của các hạt nhân siêu nặng.
+082: Hóa học nguyên tố siêu nặng: So sánh Bohrium với Manganese và Technetium, qua đó kiểm tra sự thay đổi tính chất hóa học trong nhóm VII.
+083: Nghiên cứu chuỗi phân rã: Các đồng vị Bohrium giúp xác định và nghiên cứu những hạt nhân nặng hơn được tạo ra trong các phản ứng tổng hợp.
+084: Tổng quan
+085: Bohrium là nguyên tố số 107, thuộc nhóm VIIB | chu kỳ 7 và là một kim loại chuyển tiếp siêu nặng.
+086: Bohrium được tổng hợp lần đầu vào năm 1981 tại GSI ở Darmstadt bằng phản ứng giữa Bismuth-209 và Chromium-54. Nguyên tố được đặt tên để vinh danh Niels Bohr.
+087: Cấu hình electron được dự đoán là [Rn] 5f¹⁴ 6d⁵ 7s², với số Oxy hóa cao nhất được dự đoán là +7.
+088: Bohrium không có đồng vị bền, tất cả đều phóng xạ và có chu kỳ bán rã ngắn. Do chỉ tạo được một lượng cực nhỏ, Bohrium không có ứng dụng thực tế, mà chủ yếu được dùng cho nghiên cứu vật lý hạt nhân và hóa học nguyên tố siêu nặng.
+089: Mạng tinh thể: Lập phương tâm khối (BCC) — dự đoán, vì chưa thể thu được lượng Bohrium đủ lớn để xác định trực tiếp cấu trúc tinh thể.

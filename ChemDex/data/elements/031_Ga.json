@@ -1,10 +1,13 @@
 {
   "number": 31,
   "symbol": "Ga",
-  "nameVi": "Gallium",
+  "nameVi": "Gali",
   "nameEn": "Gallium",
   "mass": 69.723,
-  "category": "unknown",
+  "massStandardText": "69.723 ± 0.001",
+  "massStandardSource": "https://ciaaw.org/abridged-atomic-weights.htm",
+  "massKind": "standard-atomic-weight",
+  "category": "kim-loai-sau-chuyen-tiep",
   "hasData": true,
   "file": "elements/031_Ga.json",
   "general": {
@@ -13,25 +16,35 @@
     "electronConfig": "[Ar] 3d¹⁰ 4s² 4p¹",
     "isotope": "⁶⁹Ga, ⁷¹Ga",
     "group": 13,
+    "groupLabel": "13",
+    "series": "",
     "period": 4,
-    "state": "",
+    "state": "Rắn",
     "oxidation": "+1, +2, +3",
     "electronegativity": 1.81,
+    "electronegativityNote": "Thang Pauling; số liệu tổng hợp PubChem.",
     "density": "khoảng 5.91 g/cm³.",
-    "meltingPoint": "",
+    "meltingPoint": "29.7646°C",
     "boilingPoint": "khoảng 2204 °C.",
-    "crystalStructure": "Trực thoi (Orthorhombic)"
+    "crystalStructure": "Trực thoi (Orthorhombic)",
+    "CAS": "7440-55-3"
   },
   "history": {
     "discoverer": "Paul-Émile Lecoq de Boisbaudran",
-    "year": 1875,
+    "year": "1875",
     "discoveryLocation": "Pháp",
     "description": "Năm 1875, Paul-Émile Lecoq de Boisbaudran phát hiện Gallium trong một mẫu Sphalerite bằng phương pháp quang phổ. Sự tồn tại của Gallium trước đó đã được Dmitri Mendeleev dự đoán dựa trên khoảng trống trong bảng tuần hoàn và ông gọi nguyên tố chưa biết là Eka-aluminium."
   },
   "structure": {
     "protons": 31,
-    "neutrons": 38,
     "electrons": 31,
+    "neutrons": 38,
+    "nucleusIsotope": "⁶⁹Ga",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 31,
+      "neutron": 38
+    },
     "electronShells": [
       2,
       8,
@@ -45,12 +58,11 @@
       3
     ],
     "valenceElectrons": 3,
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Trực thoi (Orthorhombic)",
-    "nucleus": {
-      "proton": 31,
-      "neutron": 38
-    }
+    "latticeEvidence": "source-reviewed"
   },
+  "structureType": "Trực thoi (Orthorhombic)",
   "occurrence": {
     "description": "Gallium là kim loại rắn ở nhiệt độ thường nhưng có nhiệt độ nóng chảy rất thấp.",
     "simple": [
@@ -66,142 +78,371 @@
     "ores": [
       "Gallium không thường tồn tại dưới dạng quặng riêng biệt",
       "mà chủ yếu là sản phẩm phụ khi khai thác và tinh chế Bauxite và Sphalerite"
-    ]
+    ],
+    "details": [
+      "Trạng thái: Gallium là kim loại rắn ở nhiệt độ thường nhưng có nhiệt độ nóng chảy rất thấp.",
+      "Có trong: Gallium không thường tồn tại dưới dạng quặng riêng biệt, mà chủ yếu là sản phẩm phụ khi khai thác và tinh chế Bauxite và Sphalerite.",
+      "Đơn chất: Ga",
+      "Hợp chất: Ga₂O₃, GaCl₃, Ga₂S₃, GaAs, GaN..."
+    ],
+    "mineral": {
+      "available": true,
+      "id": "bauxite",
+      "name": "Bauxite",
+      "formula": "Hỗn hợp gibbsite, boehmite, diaspore và tạp chất",
+      "habit": "aggregate",
+      "color": "#b86b42",
+      "crystalSystem": "mixture",
+      "relation": "Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Bauxite",
+      "model": "/assets/periodic-table/minerals/bauxite.glb",
+      "preview": "/assets/periodic-table/minerals/bauxite.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
   },
-  "naturalState": {},
-  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại thuộc nhóm IIIA.</li>\n      <li>Có màu trắng bạc.</li>\n      <li>Mềm và dễ dát mỏng.</li>\n      <li>Nhiệt độ nóng chảy rất thấp: khoảng 29.76 °C.</li>\n      <li>Có thể nóng chảy khi cầm trong tay.</li>\n      <li>Nhiệt độ sôi: khoảng 2204 °C.</li>\n      <li>Khối lượng riêng: khoảng 5.91 g/cm³.</li>\n      <li>Gallium lỏng có khoảng nhiệt độ tồn tại ở trạng thái lỏng rất rộng.</li>\n      <li>Có thể làm ướt và bám vào nhiều vật liệu.</li>\n    </ul>\n  ",
-  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Số Oxy hóa phổ biến nhất là +3.</li>\n      <li>Có tính chất tương tự Aluminium.</li>\n      <li>Tạo lớp oxide bảo vệ trên bề mặt trong không khí.</li>\n      <li>Phản ứng với acid tạo Gallium salt và Hydrogen.</li>\n      <li>Phản ứng với Halogen tạo Gallium halide.</li>\n      <li>Gallium oxide và Gallium hydroxide có tính lưỡng tính.</li>\n      <li>Có thể tạo các hợp chất bán dẫn quan trọng như Gallium arsenide (GaAs) và Gallium nitride (GaN).</li>\n    </ul>\n  ",
+  "naturalState": {
+    "image": "/assets/periodic-table/photos/031_Ga.png",
+    "alt": "Gallium: ảnh tham chiếu từ Commons",
+    "kind": "photo",
+    "source": "https://commons.wikimedia.org/wiki/File:Gallium_bar_cracked_open_to_show_crystal_structure_with_scale_1.png",
+    "caption": "Ảnh tham chiếu mẫu Gallium (Ga); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+    "credit": "Arònel123 · CC BY 4.0"
+  },
+  "isotopes": [
+    {
+      "isotope": "⁶⁹Ga",
+      "massNumber": 69,
+      "protons": 31,
+      "neutrons": 38,
+      "stable": true,
+      "abundancePercent": "60.108",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "⁷¹Ga",
+      "massNumber": 71,
+      "protons": 31,
+      "neutrons": 40,
+      "stable": true,
+      "abundancePercent": "39.892",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Là kim loại thuộc nhóm IIIA.</li><li>Có màu trắng bạc.</li><li>Mềm và dễ dát mỏng.</li><li>Nhiệt độ nóng chảy rất thấp: khoảng 29.76 °C.</li><li>Có thể nóng chảy khi cầm trong tay.</li><li>Nhiệt độ sôi: khoảng 2204 °C.</li><li>Khối lượng riêng: khoảng 5.91 g/cm³.</li><li>Gallium lỏng có khoảng nhiệt độ tồn tại ở trạng thái lỏng rất rộng.</li><li>Có thể làm ướt và bám vào nhiều vật liệu.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Số Oxy hóa phổ biến nhất là +3.</li><li>Có tính chất tương tự Aluminium.</li><li>Tạo lớp oxide bảo vệ trên bề mặt trong không khí.</li><li>Phản ứng với acid tạo Gallium salt và Hydrogen.</li><li>Phản ứng với Halogen tạo Gallium halide.</li><li>Gallium oxide và Gallium hydroxide có tính lưỡng tính.</li><li>Có thể tạo các hợp chất bán dẫn quan trọng như Gallium arsenide (GaAs) và Gallium nitride (GaN).</li></ul>",
   "reactions": [
     {
       "type": "Tác dụng với Oxygen",
+      "desc": "",
       "equation": "4Ga + 3O₂ → 2Ga₂O₃",
-      "desc": ""
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 69,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Chlorine",
+      "desc": "",
       "equation": "2Ga + 3Cl₂ → 2GaCl₃",
-      "desc": ""
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 71,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Hydrochloric acid",
+      "desc": "",
       "equation": "2Ga + 6HCl → 2GaCl₃ + 3H₂↑",
-      "desc": ""
+      "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+      "kind": "chemical",
+      "sourceLine": 73,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tạo Gallium hydroxide",
+      "desc": "",
       "equation": "Ga³⁺ + 3OH⁻ → Ga(OH)₃↓",
-      "desc": ""
+      "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+      "kind": "chemical",
+      "sourceLine": 75,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Gallium hydroxide tác dụng với acid",
+      "desc": "",
       "equation": "Ga(OH)₃ + 3HCl → GaCl₃ + 3H₂O",
-      "desc": ""
+      "condition": "Dung dịch acid; phản ứng trung hòa, tốc độ phụ thuộc độ tan của chất rắn.",
+      "kind": "chemical",
+      "sourceLine": 77,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Gallium hydroxide tác dụng với kiềm",
+      "desc": "",
       "equation": "Ga(OH)₃ + NaOH → Na[Ga(OH)₄]",
-      "desc": ""
+      "condition": "Dung dịch kiềm dư; hòa tan hydroxide lưỡng tính tạo phức hydroxo.",
+      "kind": "chemical",
+      "sourceLine": 79,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tạo Gallium nitride",
+      "desc": "",
       "equation": "2Ga + N₂ → 2GaN",
-      "desc": ""
+      "condition": "Sơ đồ thành phần; N₂ phải được hoạt hóa hoặc dùng điều kiện chuyên biệt, không mặc định phản ứng trực tiếp ở điều kiện thường.",
+      "kind": "formal",
+      "sourceLine": 81,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tạo Gallium arsenide",
+      "desc": "",
       "equation": "4Ga + As₄ → 4GaAs",
-      "desc": ""
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 83,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     }
   ],
-  "applications": [
-    {
-      "title": "Chất bán dẫn",
-      "desc": "Gallium là thành phần quan trọng của Gallium arsenide (GaAs) và Gallium nitride (GaN)."
-    },
-    {
-      "title": "LED",
-      "desc": "GaN được sử dụng rộng rãi trong LED xanh lam, LED trắng và các thiết bị quang điện."
-    },
-    {
-      "title": "Điện tử công suất",
-      "desc": "GaN được sử dụng trong transistor và các linh kiện điện tử công suất cao."
-    },
-    {
-      "title": "Laser diode",
-      "desc": "GaAs được sử dụng trong nhiều loại laser diode và thiết bị quang điện."
-    },
-    {
-      "title": "Thiết bị tần số cao",
-      "desc": "GaAs có tính chất điện tử phù hợp với các thiết bị vi sóng và thông tin liên lạc."
-    },
-    {
-      "title": "Nhiệt kế",
-      "desc": "Gallium có nhiệt độ nóng chảy thấp và khoảng tồn tại ở trạng thái lỏng rộng nên được sử dụng trong một số loại nhiệt kế chuyên dụng."
-    },
-    {
-      "title": "Nghiên cứu vật liệu",
-      "desc": "Gallium được sử dụng trong nghiên cứu và chế tạo các vật liệu bán dẫn tiên tiến."
-    }
-  ],
-  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Gallium là nguyên tố số 31, thuộc nhóm IIIA | chu kỳ 4.</li>\n  <li>Gallium có cấu hình electron [Ar] 3d¹⁰ 4s² 4p¹, với số Oxy hóa phổ biến nhất là +3.</li>\n  <li>Gallium có nhiệt độ nóng chảy rất thấp, chỉ khoảng 29.76 °C, nên có thể tồn tại ở dạng lỏng khi nhiệt độ môi trường đủ cao.</li>\n  <li>Gallium thường được thu hồi như sản phẩm phụ của quá trình sản xuất Aluminium và Zinc. Nguyên tố này đặc biệt quan trọng trong công nghệ bán dẫn thông qua các vật liệu như Gallium arsenide (GaAs) và Gallium nitride (GaN).</li>\n  <li>Gallium có vai trò lớn trong LED, laser diode, điện tử công suất, vi điện tử và công nghệ thông tin liên lạc.</li>\n</ul>\n",
   "preparations": {
     "lab": [
       {
-        "title": "Gallium có thể được điều chế bằng điện phân dung dịch chứa Gallium(III) compounds:",
-        "equation": "Ga³⁺ + 3e⁻ → Ga",
-        "desc": ""
+        "title": "Gallium có thể được điều chế bằng điện phân dung dịch chứa Gallium(III) compounds",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "Ga³⁺ + 3e⁻ → Ga",
+            "condition": "Điện phân dung dịch muối thích hợp; thế điện cực và vật liệu điện cực quyết định sản phẩm.",
+            "kind": "chemical",
+            "sourceLine": 59,
+            "sourceSection": "lab",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          58,
+          59
+        ],
+        "equation": "Ga³⁺ + 3e⁻ → Ga"
       }
     ],
     "industry": [
       {
         "title": "Gallium chủ yếu được thu hồi như sản phẩm phụ trong quá trình xử lý quặng Bauxite để sản xuất Aluminium.",
-        "equation": "",
-        "desc": ""
-      },
-      {
-        "title": "Gallium được tách khỏi dung dịch kiềm trong quá trình xử lý Aluminium và sau đó được tinh chế bằng các phương pháp hóa học hoặc điện phân.",
-        "equation": "",
-        "desc": ""
+        "desc": "Gallium được tách khỏi dung dịch kiềm trong quá trình xử lý Aluminium và sau đó được tinh chế bằng các phương pháp hóa học hoặc điện phân.",
+        "result": "",
+        "equations": [],
+        "sourceLines": [
+          55,
+          56
+        ],
+        "equation": ""
       }
     ]
   },
   "recognition": [
     {
-      "title": "Nhận biết",
-      "reagent": "Nhận biết Ga³⁺",
-      "result": "",
-      "equation": ""
-    },
-    {
-      "title": "Cho dung dịch chứa Ga³⁺ tác dụng với hydroxide",
-      "reagent": "",
-      "result": "",
-      "equation": ""
-    },
-    {
-      "title": "Nhận biết",
-      "reagent": "",
-      "result": "",
-      "equation": "Ga³⁺ + 3OH⁻ → Ga(OH)₃↓"
-    },
-    {
-      "title": "Hiện tượng",
-      "reagent": "",
+      "title": "Nhận biết Ga³⁺",
+      "desc": "Cho dung dịch chứa Ga³⁺ tác dụng với hydroxide: Gallium hydroxide có tính lưỡng tính và tan trong acid hoặc kiềm mạnh.",
       "result": "Xuất hiện kết tủa trắng Gallium hydroxide.",
-      "equation": ""
-    },
-    {
-      "title": "Nhận biết",
-      "reagent": "Gallium hydroxide có tính lưỡng tính và tan trong acid hoặc kiềm mạnh.",
-      "result": "",
-      "equation": ""
-    },
-    {
-      "title": "Nhận biết",
-      "reagent": "",
-      "result": "",
-      "equation": "Ga(OH)₃ + OH⁻ → [Ga(OH)₄]⁻"
+      "equations": [
+        {
+          "equation": "Ga³⁺ + 3OH⁻ → Ga(OH)₃↓",
+          "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+          "kind": "chemical",
+          "sourceLine": 63,
+          "sourceSection": "recognition",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "equation": "Ga(OH)₃ + OH⁻ → [Ga(OH)₄]⁻",
+          "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+          "kind": "chemical",
+          "sourceLine": 66,
+          "sourceSection": "recognition",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ],
+      "sourceLines": [
+        61,
+        62,
+        63,
+        64,
+        65,
+        66
+      ],
+      "equation": "Ga³⁺ + 3OH⁻ → Ga(OH)₃↓"
     }
   ],
-  "structureType": "Trực thoi (Orthorhombic)"
+  "applications": [
+    {
+      "title": "Chất bán dẫn",
+      "desc": "Gallium là thành phần quan trọng của Gallium arsenide (GaAs) và Gallium nitride (GaN).",
+      "sourceLine": 85
+    },
+    {
+      "title": "LED",
+      "desc": "GaN được sử dụng rộng rãi trong LED xanh lam, LED trắng và các thiết bị quang điện.",
+      "sourceLine": 86
+    },
+    {
+      "title": "Điện tử công suất",
+      "desc": "GaN được sử dụng trong transistor và các linh kiện điện tử công suất cao.",
+      "sourceLine": 87
+    },
+    {
+      "title": "Laser diode",
+      "desc": "GaAs được sử dụng trong nhiều loại laser diode và thiết bị quang điện.",
+      "sourceLine": 88
+    },
+    {
+      "title": "Thiết bị tần số cao",
+      "desc": "GaAs có tính chất điện tử phù hợp với các thiết bị vi sóng và thông tin liên lạc.",
+      "sourceLine": 89
+    },
+    {
+      "title": "Nhiệt kế",
+      "desc": "Gallium có nhiệt độ nóng chảy thấp và khoảng tồn tại ở trạng thái lỏng rộng nên được sử dụng trong một số loại nhiệt kế chuyên dụng.",
+      "sourceLine": 90
+    },
+    {
+      "title": "Nghiên cứu vật liệu",
+      "desc": "Gallium được sử dụng trong nghiên cứu và chế tạo các vật liệu bán dẫn tiên tiến.",
+      "sourceLine": 91
+    }
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Gallium là nguyên tố số 31, thuộc nhóm IIIA | chu kỳ 4.</li><li>Gallium có cấu hình electron [Ar] 3d¹⁰ 4s² 4p¹, với số Oxy hóa phổ biến nhất là +3.</li><li>Gallium có nhiệt độ nóng chảy rất thấp, chỉ khoảng 29.76 °C, nên có thể tồn tại ở dạng lỏng khi nhiệt độ môi trường đủ cao.</li><li>Gallium thường được thu hồi như sản phẩm phụ của quá trình sản xuất Aluminium và Zinc. Nguyên tố này đặc biệt quan trọng trong công nghệ bán dẫn thông qua các vật liệu như Gallium arsenide (GaAs) và Gallium nitride (GaN).</li><li>Gallium có vai trò lớn trong LED, laser diode, điện tử công suất, vi điện tử và công nghệ thông tin liên lạc.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/photos/031_Ga.png",
+      "title": "Gali (Ga)",
+      "desc": "Ảnh tham chiếu mẫu Gallium (Ga); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+      "source": "https://commons.wikimedia.org/wiki/File:Gallium_bar_cracked_open_to_show_crystal_structure_with_scale_1.png",
+      "author": "Arònel123",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+    }
+  ],
+  "mediaBlocks": [
+    {
+      "type": "model",
+      "section": "structure",
+      "title": "Mẫu khoáng vật 3D · Bauxite",
+      "src": "/assets/periodic-table/minerals/bauxite.glb",
+      "preview": "/assets/periodic-table/minerals/bauxite.png",
+      "desc": "Hỗn hợp gibbsite, boehmite, diaspore và tạp chất. Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  ],
+  "sources": [
+    {
+      "title": "031_Ga.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "50460c966f4790f2c4140cf2dadc3869adb4f62c4ba6dc432800dbacd510f431"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/31/gallium"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "031_Ga.docx",
+    "sourceSha256": "50460c966f4790f2c4140cf2dadc3869adb4f62c4ba6dc432800dbacd510f431",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/031_Ga.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
 }

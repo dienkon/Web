@@ -1,0 +1,748 @@
+{
+  "symbol": "Rf",
+  "number": 104,
+  "source": "104_Rf.docx",
+  "sourceSha256": "a173e199ca4089b8517904c9db7ad334eb8450fb22a8a6a106adac7b9fedd293",
+  "paragraphCount": 88,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 6,
+    "structure": 8,
+    "occurrence": 4,
+    "isotopes": 8,
+    "physical": 6,
+    "chemical": 5,
+    "lab": 2,
+    "industry": 1,
+    "recognition": 6,
+    "reactions": 9,
+    "applications": 5,
+    "notes": 5
+  },
+  "editorialDecisions": [],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "[Rn] 5f¹⁴ 6d² 7s² (dự đoán)",
+      "publishedValue": "[Rn] 5f¹⁴ 6d² 7s² (dự đoán)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+      "publishedValue": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "Không xác định",
+      "publishedValue": null,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm IVB | Chu kỳ 7",
+      "publishedValue": "4",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Chất rắn (dự đoán).",
+      "publishedValue": "Chưa đo trạng thái vĩ mô; các giá trị pha chỉ là dự đoán",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 35,
+      "sourceText": "²⁶⁷Rf: chu kỳ bán rã khoảng 1,3 giờ.",
+      "reference": {
+        "isotope": "²⁶⁷Rf",
+        "massNumber": 267,
+        "protons": 104,
+        "neutrons": 163,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "1.3 (+2.3/−0.5) h",
+        "halfLife": "1.3 h",
+        "halfLifeUncertainty": "+23-5",
+        "halfLifeQualifier": null,
+        "decay": "SF",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 36,
+      "sourceText": "²⁶⁸Rf: chu kỳ bán rã khoảng 1,4 phút.",
+      "reference": null,
+      "assessment": "Không có trong snapshot đối chiếu; chưa công bố như số liệu đã xác nhận."
+    },
+    {
+      "line": 37,
+      "sourceText": "²⁶⁹Rf: chu kỳ bán rã khoảng 3,1 giây.",
+      "reference": null,
+      "assessment": "Không có trong snapshot đối chiếu; chưa công bố như số liệu đã xác nhận."
+    },
+    {
+      "line": 38,
+      "sourceText": "²⁷⁰Rf: chu kỳ bán rã khoảng 23 giây.",
+      "reference": null,
+      "assessment": "Không có trong snapshot đối chiếu; chưa công bố như số liệu đã xác nhận."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 14,
+      "text": "²⁴²Pu + ²²Ne → ²⁶⁰Rf + 4n",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 59,
+      "text": "²⁴²Pu + ²²Ne → ²⁶¹Rf + 3¹n",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 69,
+      "text": "²⁴²Pu + ²²Ne → ²⁶⁰Rf + 4n",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 71,
+      "text": "²⁶⁷Rf → ²⁶³No + ⁴He",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 73,
+      "text": "Rf + 2Cl₂ → RfCl₄",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 75,
+      "text": "Rf + O₂ → RfO₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "history",
+      "equation": "²⁴²Pu + ²²Ne → ²⁶⁰Rf + 4n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 14,
+      "sourceSection": "history",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "lab",
+      "equation": "²⁴²Pu + ²²Ne → ²⁶¹Rf + 3¹n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 59,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "²⁴²Pu + ²²Ne → ²⁶⁰Rf + 4n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 69,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "²⁶⁷Rf → ²⁶³No + ⁴He",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 71,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Rf + 2Cl₂ → RfCl₄",
+      "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+      "kind": "formal",
+      "sourceLine": 73,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Rf + O₂ → RfO₂",
+      "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+      "kind": "formal",
+      "sourceLine": 75,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [
+    268,
+    269,
+    270,
+    271,
+    272
+  ],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": null,
+      "after": [
+        {
+          "title": "Ứng dụng",
+          "desc": "Rutherfordium không có ứng dụng công nghiệp hoặc dân dụng.",
+          "sourceLine": 78
+        },
+        {
+          "title": "Nó chủ yếu được sử dụng trong",
+          "desc": "",
+          "sourceLine": 79
+        },
+        {
+          "title": "Nghiên cứu hạt nhân",
+          "desc": "Nghiên cứu cấu trúc và tính ổn định của các hạt nhân siêu nặng.",
+          "sourceLine": 80
+        },
+        {
+          "title": "Hóa học nguyên tố siêu nặng",
+          "desc": "Nghiên cứu xem các nguyên tố siêu nặng có tuân theo xu hướng hóa học của các nguyên tố cùng nhóm hay không.",
+          "sourceLine": 81
+        },
+        {
+          "title": "Nghiên cứu cấu trúc nguyên tử",
+          "desc": "Giúp kiểm tra các dự đoán về cấu hình electron và hiệu ứng tương đối tính trong nguyên tử rất nặng.",
+          "sourceLine": 82
+        }
+      ]
+    },
+    {
+      "field": "category",
+      "before": null,
+      "after": "chuyen-tiep"
+    },
+    {
+      "field": "chemical",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Có tính chất dự kiến tương tự Hafnium (Hf).</li><li>Số Oxy hóa quan trọng nhất được dự đoán là +4.</li><li>Có khả năng tạo các hợp chất dạng RfCl₄ và RfO₂.</li><li>Rutherfordium thể hiện hóa học của một kim loại chuyển tiếp nhóm 4.</li><li>Do có thời gian sống cực ngắn, hóa học của nguyên tố này chỉ có thể nghiên cứu với số lượng nguyên tử cực nhỏ.</li></ul>"
+    },
+    {
+      "field": "file",
+      "before": null,
+      "after": "elements/104_Rf.json"
+    },
+    {
+      "field": "general",
+      "before": null,
+      "after": {
+        "latinName": "Rutherfordium",
+        "englishName": "Rutherfordium",
+        "electronConfig": "[Rn] 5f¹⁴ 6d² 7s² (dự đoán)",
+        "isotope": "²⁶⁵Rf, ²⁶⁷Rf",
+        "group": 4,
+        "groupLabel": "4",
+        "series": "",
+        "period": 7,
+        "state": "Chưa đo trạng thái vĩ mô; các giá trị pha chỉ là dự đoán",
+        "oxidation": "+4 (dự đoán)",
+        "electronegativity": null,
+        "electronegativityNote": "Chưa có giá trị Pauling đủ cơ sở trong bản đối chiếu; không coi 0 là giá trị đã đo.",
+        "density": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+        "meltingPoint": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+        "boilingPoint": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+        "crystalStructure": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+        "CAS": "53850-36-5"
+      }
+    },
+    {
+      "field": "hasData",
+      "before": null,
+      "after": true
+    },
+    {
+      "field": "history",
+      "before": null,
+      "after": {
+        "discoverer": "Nhóm nghiên cứu tại Joint Institute for Nuclear Research (JINR) và Lawrence Berkeley National Laboratory (LBNL)",
+        "year": "1964",
+        "discoveryLocation": "Dubna, Liên Xô",
+        "description": "Rutherfordium được tạo ra lần đầu năm 1964 tại Dubna bằng cách bắn phá Plutonium-242 bằng ion Neon-22: ²⁴²Pu + ²²Ne → ²⁶⁰Rf + 4n Việc phát hiện nguyên tố này sau đó trở thành một phần của tranh chấp tên nguyên tố giữa các nhóm nghiên cứu ở Liên Xô và Hoa Kỳ. Cuối cùng, IUPAC chính thức đặt tên Rutherfordium vào năm 1997 để vinh danh nhà vật lý Ernest Rutherford."
+      }
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/diagrams/104_Rf.svg",
+          "title": "Rutherfordium (Rf)",
+          "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+          "source": "",
+          "author": "ChemDex",
+          "license": "ChemDex schematic diagram",
+          "licenseUrl": ""
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "²⁶⁵Rf",
+          "massNumber": 265,
+          "protons": 104,
+          "neutrons": 161,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "1.0 (+1.2/−0.3) phút",
+          "halfLife": "1.0 m",
+          "halfLifeUncertainty": "+12-3",
+          "halfLifeQualifier": null,
+          "decay": "SF",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁶⁷Rf",
+          "massNumber": 267,
+          "protons": 104,
+          "neutrons": 163,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "1.3 (+2.3/−0.5) h",
+          "halfLife": "1.3 h",
+          "halfLifeUncertainty": "+23-5",
+          "halfLifeQualifier": null,
+          "decay": "SF",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "mass",
+      "before": null,
+      "after": 265
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "reference-isotope-mass-number"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://periodic-table.rsc.org/element/104/rutherfordium"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "[265] — số khối đồng vị tham chiếu, không phải nguyên tử khối chuẩn"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": []
+    },
+    {
+      "field": "nameEn",
+      "before": null,
+      "after": "Rutherfordium"
+    },
+    {
+      "field": "nameVi",
+      "before": null,
+      "after": "Rutherfordium"
+    },
+    {
+      "field": "naturalState",
+      "before": null,
+      "after": {
+        "image": "/assets/periodic-table/diagrams/104_Rf.svg",
+        "alt": "Rutherfordium: sơ đồ minh họa nguyên tố",
+        "kind": "diagram",
+        "source": "",
+        "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+        "credit": ""
+      }
+    },
+    {
+      "field": "notes",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Rutherfordium là nguyên tố số 104, thuộc nhóm IVB | chu kỳ 7 và là một kim loại chuyển tiếp siêu nặng.</li><li>Rutherfordium được tổng hợp lần đầu vào năm 1964 tại Dubna. Tên nguyên tố được đặt để vinh danh Ernest Rutherford.</li><li>Cấu hình electron được dự đoán là [Rn] 5f¹⁴ 6d² 7s², và số Oxy hóa quan trọng nhất là +4, tương tự Zirconium và Hafnium.</li><li>Rutherfordium không có đồng vị bền, tất cả các đồng vị đều phóng xạ và có chu kỳ bán rã ngắn. Vì chỉ có thể tạo ra một lượng cực nhỏ nguyên tố này, hầu hết các tính chất vật lý của Rutherfordium vẫn chưa được đo trực tiếp.</li><li>Mạng tinh thể: Lập phương tâm khối (BCC) — dự đoán, vì chưa thể thu được lượng Rutherfordium đủ lớn để xác định thực nghiệm.</li></ul>"
+    },
+    {
+      "field": "number",
+      "before": null,
+      "after": 104
+    },
+    {
+      "field": "occurrence",
+      "before": null,
+      "after": {
+        "description": "Chất rắn (dự đoán).",
+        "simple": [
+          "Rf"
+        ],
+        "compounds": [
+          "RfCl₄",
+          "RfO₂... (chủ yếu dự đoán)"
+        ],
+        "ores": [
+          "Không tồn tại tự nhiên với lượng đáng kể",
+          "được tổng hợp nhân tạo trong các phòng thí nghiệm"
+        ],
+        "details": [
+          "Trạng thái: Chất rắn (dự đoán).",
+          "Có trong: Không tồn tại tự nhiên với lượng đáng kể; được tổng hợp nhân tạo trong các phòng thí nghiệm.",
+          "Đơn chất: Rf",
+          "Hợp chất: RfCl₄, RfO₂... (chủ yếu dự đoán)"
+        ],
+        "mineral": {
+          "available": false,
+          "reason": "Nguyên tố nhân tạo hoặc chỉ có vết tự nhiên; không có quặng khai thác riêng để dựng mẫu."
+        }
+      }
+    },
+    {
+      "field": "physical",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Là kim loại chuyển tiếp.</li><li>Thuộc nhóm IVB | chu kỳ 7.</li><li>Là nguyên tố siêu nặng.</li><li>Có tính phóng xạ rất mạnh.</li><li>Được dự đoán là chất rắn ở điều kiện thường.</li><li>Các tính chất như khối lượng riêng, nhiệt độ nóng chảy và nhiệt độ sôi chưa được xác định trực tiếp.</li></ul>"
+    },
+    {
+      "field": "preparations",
+      "before": null,
+      "after": {
+        "lab": [
+          {
+            "title": "Rutherfordium được tổng hợp bằng cách bắn phá Plutonium-242 bằng ion Neon-22 trong máy gia tốc hạt.",
+            "desc": "",
+            "result": "",
+            "equations": [
+              {
+                "equation": "²⁴²Pu + ²²Ne → ²⁶¹Rf + 3¹n",
+                "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+                "kind": "nuclear",
+                "sourceLine": 59,
+                "sourceSection": "lab",
+                "balance": {
+                  "status": "balanced",
+                  "kind": "nuclear",
+                  "delta": {}
+                },
+                "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+              }
+            ],
+            "sourceLines": [
+              58,
+              59
+            ],
+            "equation": "²⁴²Pu + ²²Ne → ²⁶¹Rf + 3¹n"
+          }
+        ],
+        "industry": [
+          {
+            "title": "Rutherfordium (Rf) không được sản xuất công nghiệp do tính phóng xạ cao và thời gian bán rã ngắn. Nguyên tố này chỉ được tổng hợp trong các cơ sở nghiên cứu hạt nhân.",
+            "desc": "",
+            "result": "",
+            "equations": [],
+            "sourceLines": [
+              56
+            ],
+            "equation": ""
+          }
+        ]
+      }
+    },
+    {
+      "field": "reactions",
+      "before": null,
+      "after": [
+        {
+          "type": "Phản ứng tổng hợp Rutherfordium",
+          "desc": "",
+          "equation": "²⁴²Pu + ²²Ne → ²⁶⁰Rf + 4n",
+          "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+          "kind": "nuclear",
+          "sourceLine": 69,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Phân rã Alpha của Rutherfordium-267",
+          "desc": "",
+          "equation": "²⁶⁷Rf → ²⁶³No + ⁴He",
+          "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+          "kind": "nuclear",
+          "sourceLine": 71,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Rutherfordium(IV) chloride",
+          "desc": "",
+          "equation": "Rf + 2Cl₂ → RfCl₄",
+          "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+          "kind": "formal",
+          "sourceLine": 73,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Rutherfordium(IV) oxide",
+          "desc": "",
+          "equation": "Rf + O₂ → RfO₂",
+          "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+          "kind": "formal",
+          "sourceLine": 75,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": null,
+      "after": [
+        {
+          "title": "Rutherfordium được nhận biết bằng",
+          "desc": "Chuỗi phân rã phóng xạ đặc trưng. Xác định năng lượng của các hạt Alpha phát ra. Xác định thời gian sống của hạt nhân. Theo dõi các sản phẩm con trong chuỗi phân rã. Không thể nhận biết Rutherfordium bằng các phản ứng hóa học thông thường do lượng nguyên tố tạo ra cực kỳ nhỏ.",
+          "result": "",
+          "equations": [],
+          "sourceLines": [
+            61,
+            62,
+            63,
+            64,
+            65,
+            66
+          ],
+          "equation": ""
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "104_Rf.docx",
+        "sourceSha256": "a173e199ca4089b8517904c9db7ad334eb8450fb22a8a6a106adac7b9fedd293",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/104_Rf.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "104_Rf.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "a173e199ca4089b8517904c9db7ad334eb8450fb22a8a6a106adac7b9fedd293"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/104/rutherfordium"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure",
+      "before": null,
+      "after": {
+        "protons": 104,
+        "electrons": 104,
+        "neutrons": 161,
+        "nucleusIsotope": "²⁶⁵Rf",
+        "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+        "nucleus": {
+          "proton": 104,
+          "neutron": 161
+        },
+        "electronShells": [
+          2,
+          8,
+          18,
+          32,
+          32,
+          10,
+          2
+        ],
+        "shells": [
+          2,
+          8,
+          18,
+          32,
+          32,
+          10,
+          2
+        ],
+        "valenceElectrons": 2,
+        "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+        "lattice": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+        "latticeEvidence": "predicted"
+      }
+    },
+    {
+      "field": "structureType",
+      "before": null,
+      "after": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)"
+    },
+    {
+      "field": "symbol",
+      "before": null,
+      "after": "Rf"
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "Rf",
+      "status": "diagram",
+      "reason": "Không dùng ảnh mẫu vĩ mô không xác minh cho nguyên tố cực hiếm/nhân tạo."
+    },
+    "mineral": {
+      "available": false,
+      "reason": "Nguyên tố nhân tạo hoặc chỉ có vết tự nhiên; không có quặng khai thác riêng để dựng mẫu."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "Rf",
+      "z": 104,
+      "url": "https://periodic-table.rsc.org/element/104/rutherfordium",
+      "status": "retrieved",
+      "bytes": 143902,
+      "sha256": "49c8b1a362fb683f0b44a05cc92b807f99b3a0d50e5e2b20209ffc6f5f5cbd7e",
+      "facts": {
+        "Group": "4",
+        "Melting point": "Unknown",
+        "Period": "7",
+        "Boiling point": "Unknown",
+        "Block": "d",
+        "Density (g cm−³)": "Unknown",
+        "Atomic number": "104",
+        "Relative atomic mass": "[267]",
+        "State at 20°C": "Solid",
+        "Key isotopes": "²⁶⁵Rf",
+        "Electron configuration": "[Rn] 5f¹⁴6d²7s²",
+        "CAS number": "53850-36-5",
+        "ChemSpider ID": "11201447",
+        "electronegativity": "Unknown"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "104",
+      "Symbol": "Rf",
+      "Name": "Rutherfordium",
+      "AtomicMass": "267.122",
+      "CPKHexColor": "CC0059",
+      "ElectronConfiguration": "[Rn]7s2 5f14 6d2",
+      "Electronegativity": "",
+      "AtomicRadius": "",
+      "IonizationEnergy": "",
+      "ElectronAffinity": "",
+      "OxidationStates": "+4",
+      "StandardState": "Solid",
+      "MeltingPoint": "",
+      "BoilingPoint": "",
+      "Density": "",
+      "GroupBlock": "Transition metal",
+      "YearDiscovered": "1964"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

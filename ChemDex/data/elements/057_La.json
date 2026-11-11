@@ -1,0 +1,405 @@
+{
+  "number": 57,
+  "symbol": "La",
+  "nameVi": "Lanthanum",
+  "nameEn": "Lanthanum",
+  "mass": 138.91,
+  "massStandardText": "138.91 ± 0.01",
+  "massStandardSource": "https://ciaaw.org/abridged-atomic-weights.htm",
+  "massKind": "standard-atomic-weight",
+  "category": "lanthanide",
+  "hasData": true,
+  "file": "elements/057_La.json",
+  "general": {
+    "latinName": "Lanthanum",
+    "englishName": "Lanthanum",
+    "electronConfig": "[Xe] 5d¹ 6s²",
+    "isotope": "¹³⁸La, ¹³⁹La",
+    "group": null,
+    "groupLabel": "Lanthanide",
+    "series": "Lanthanide",
+    "period": 6,
+    "state": "Rắn",
+    "oxidation": "+3",
+    "electronegativity": 1.1,
+    "electronegativityNote": "Thang Pauling; số liệu tổng hợp PubChem.",
+    "density": "6,15 g/cm³.",
+    "meltingPoint": "920°C",
+    "boilingPoint": "3464°C",
+    "crystalStructure": "Lục phương kép xếp chặt (DHCP) ở nhiệt độ thường.",
+    "CAS": "7439-91-0"
+  },
+  "history": {
+    "discoverer": "Carl Gustaf Mosander",
+    "year": "1839",
+    "discoveryLocation": "Stockholm, Thụy Điển",
+    "description": "Lanthanum được Carl Gustaf Mosander phát hiện khi ông nghiên cứu Cerium. Ông nhận thấy Cerium oxide chứa một nguyên tố mới và tách được oxide của Lanthanum. Tên Lanthanum bắt nguồn từ tiếng Hy Lạp λανθάνειν (lanthanein), có nghĩa là “ẩn giấu”, vì nguyên tố này ban đầu ẩn trong khoáng chất Cerium."
+  },
+  "structure": {
+    "protons": 57,
+    "electrons": 57,
+    "neutrons": 82,
+    "nucleusIsotope": "¹³⁹La",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 57,
+      "neutron": 82
+    },
+    "electronShells": [
+      2,
+      8,
+      18,
+      18,
+      9,
+      2
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      18,
+      9,
+      2
+    ],
+    "valenceElectrons": 2,
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+    "lattice": "Lục phương kép xếp chặt (DHCP) ở nhiệt độ thường.",
+    "latticeEvidence": "source-reviewed"
+  },
+  "structureType": "Lục phương kép xếp chặt (DHCP) ở nhiệt độ thường.",
+  "occurrence": {
+    "description": "Chất rắn",
+    "simple": [
+      "La"
+    ],
+    "compounds": [
+      "La₂O₃",
+      "LaCl₃",
+      "La₂(CO₃)₃"
+    ],
+    "ores": [
+      "Khoáng vật đất hiếm như Monazite và Bastnäsite"
+    ],
+    "details": [
+      "Trạng thái: Chất rắn",
+      "Màu sắc: Trắng bạc",
+      "Có trong: Khoáng vật đất hiếm như Monazite và Bastnäsite",
+      "Đơn chất: La",
+      "Hợp chất phổ biến: La₂O₃, LaCl₃, La₂(CO₃)₃"
+    ],
+    "mineral": {
+      "available": true,
+      "id": "monazite",
+      "name": "Monazite-(Ce)",
+      "formula": "(Ce,La,Nd,Th)PO₄",
+      "habit": "prismatic",
+      "color": "#b98a4c",
+      "crystalSystem": "monoclinic",
+      "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Monazite-(Ce)",
+      "model": "/assets/periodic-table/minerals/monazite.glb",
+      "preview": "/assets/periodic-table/minerals/monazite.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  },
+  "naturalState": {
+    "image": "/assets/periodic-table/photos/057_La.jpg",
+    "alt": "Lanthanum: ảnh tham chiếu từ Commons",
+    "kind": "photo",
+    "source": "https://commons.wikimedia.org/wiki/File:Lanthanum-2.jpg",
+    "caption": "Ảnh tham chiếu mẫu Lanthanum (La); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+    "credit": "Jurii (Original uploader was Lanthanum-138 at en.wikipedia · CC BY 3.0"
+  },
+  "isotopes": [
+    {
+      "isotope": "¹³⁸La",
+      "massNumber": 138,
+      "protons": 57,
+      "neutrons": 81,
+      "stable": false,
+      "abundancePercent": "0.08881",
+      "halfLifeDisplay": "1.03E+11 ± 1E+9 năm",
+      "halfLife": "1.03E+11 Y",
+      "halfLifeUncertainty": "1",
+      "halfLifeQualifier": null,
+      "decay": "EC+B+",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹³⁹La",
+      "massNumber": 139,
+      "protons": 57,
+      "neutrons": 82,
+      "stable": true,
+      "abundancePercent": "99.91119",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Là kim loại đất hiếm.</li><li>Thuộc họ Lanthanide.</li><li>Mềm và tương đối dễ dát mỏng.</li><li>Có màu trắng bạc.</li><li>Dẫn điện và dẫn nhiệt tốt.</li><li>Bề mặt nhanh chóng bị oxy hóa khi tiếp xúc với không khí.</li><li>Có nhiệt độ nóng chảy khoảng 920 °C.</li><li>Có nhiệt độ sôi khoảng 3464 °C.</li><li>Khối lượng riêng khoảng 6,15 g/cm³.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Lanthanum có tính điện dương và hoạt động hóa học khá mạnh.</li><li>Số Oxy hóa phổ biến và ổn định nhất là +3.</li><li>Dễ phản ứng với Oxygen:</li><li class=\"source-equation\">4La + 3O₂ → 2La₂O₃<small>Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.</small></li><li>Phản ứng với nước chậm ở nhiệt độ thường và nhanh hơn khi đun nóng:</li><li class=\"source-equation\">2La + 6H₂O → 2La(OH)₃ + 3H₂<small>Tiếp xúc với nước; tốc độ phụ thuộc nhiệt độ, kích thước và lớp oxide bề mặt.</small></li><li>Phản ứng với Acid tạo muối Lanthanum và giải phóng Hydrogen.</li></ul>",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "desc": "",
+      "equation": "4La + 3O₂ → 2La₂O₃",
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 75,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tác dụng với nước",
+      "desc": "",
+      "equation": "2La + 6H₂O → 2La(OH)₃ + 3H₂",
+      "condition": "Tiếp xúc với nước; tốc độ phụ thuộc nhiệt độ, kích thước và lớp oxide bề mặt.",
+      "kind": "chemical",
+      "sourceLine": 77,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tác dụng với Hydrochloric acid",
+      "desc": "",
+      "equation": "2La + 6HCl → 2LaCl₃ + 3H₂",
+      "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+      "kind": "chemical",
+      "sourceLine": 79,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tạo Lanthanum hydroxide",
+      "desc": "",
+      "equation": "LaCl₃ + 3NaOH → La(OH)₃↓ + 3NaCl",
+      "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+      "kind": "chemical",
+      "sourceLine": 81,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tạo Lanthanum oxide",
+      "desc": "",
+      "equation": "2La(OH)₃ → La₂O₃ + 3H₂O",
+      "condition": "Gia nhiệt để phân hủy; nhiệt độ phụ thuộc chất và áp suất khí sản phẩm.",
+      "kind": "chemical",
+      "sourceLine": 83,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "preparations": {
+    "lab": [
+      {
+        "title": "Có thể điều chế Lanthanum bằng cách khử Lanthanum chloride khan bằng Calcium.",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "2LaCl₃ + 3Ca → 2La + 3CaCl₂",
+            "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+            "kind": "chemical",
+            "sourceLine": 64,
+            "sourceSection": "lab",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          62,
+          64
+        ],
+        "equation": "2LaCl₃ + 3Ca → 2La + 3CaCl₂"
+      }
+    ],
+    "industry": [
+      {
+        "title": "Lanthanum (La) chủ yếu được điều chế từ quặng monazite và bastnaesite. Sau khi tách các hợp chất Lanthanum khỏi hỗn hợp đất hiếm, Lanthanum được thu bằng phương pháp điện phân muối nóng chảy hoặc khử Lanthanum fluoride bằng Calcium.",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "2LaF₃ + 3Ca → 2La + 3CaF₂",
+            "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+            "kind": "chemical",
+            "sourceLine": 60,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          58,
+          60
+        ],
+        "equation": "2LaF₃ + 3Ca → 2La + 3CaF₂"
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Có thể nhận biết Lanthanum thông qua",
+      "desc": "Phổ phát xạ nguyên tử với các vạch phổ đặc trưng. Phân tích bằng ICP-OES/ICP-MS. Ion La³⁺ có thể tạo kết tủa hoặc phức đặc trưng với một số thuốc thử. Lanthanum hydroxide là kết tủa màu trắng.",
+      "result": "",
+      "equations": [
+        {
+          "equation": "La³⁺ + 3OH⁻ → La(OH)₃↓",
+          "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+          "kind": "chemical",
+          "sourceLine": 71,
+          "sourceSection": "recognition",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ],
+      "sourceLines": [
+        66,
+        67,
+        68,
+        69,
+        71,
+        72
+      ],
+      "equation": "La³⁺ + 3OH⁻ → La(OH)₃↓"
+    }
+  ],
+  "applications": [
+    {
+      "title": "Kính quang học",
+      "desc": "Lanthanum oxide được sử dụng để chế tạo các loại kính có chiết suất cao và tính chất quang học đặc biệt.",
+      "sourceLine": 85
+    },
+    {
+      "title": "Ống kính máy ảnh",
+      "desc": "Một số hợp chất Lanthanum được sử dụng trong kính quang học chất lượng cao.",
+      "sourceLine": 86
+    },
+    {
+      "title": "Điện cực",
+      "desc": "Lanthanum được sử dụng trong một số loại điện cực và vật liệu điện hóa.",
+      "sourceLine": 87
+    },
+    {
+      "title": "Pin",
+      "desc": "Các hợp chất Lanthanum, đặc biệt trong vật liệu LaNi₅, được sử dụng trong pin Nickel–metal hydride (NiMH).",
+      "sourceLine": 88
+    },
+    {
+      "title": "Xúc tác",
+      "desc": "Một số hợp chất Lanthanum được sử dụng làm chất xúc tác hoặc chất hỗ trợ xúc tác trong công nghiệp.",
+      "sourceLine": 89
+    },
+    {
+      "title": "Vật liệu phát sáng",
+      "desc": "Một số hợp chất Lanthanum pha tạp đất hiếm được sử dụng trong vật liệu quang học và phát quang.",
+      "sourceLine": 90
+    }
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Lanthanum là nguyên tố số 57, thuộc nhóm IIIB | chu kỳ 6 và là nguyên tố đầu tiên thường được xếp trong họ Lanthanide.</li><li>Lanthanum được Carl Gustaf Mosander phát hiện vào năm 1839 tại Thụy Điển. Tên nguyên tố bắt nguồn từ tiếng Hy Lạp lanthanein, nghĩa là “ẩn giấu”, do Lanthanum ban đầu bị “ẩn” trong khoáng vật chứa Cerium.</li><li>Lanthanum là một kim loại màu trắng bạc, khá mềm và có tính hoạt động hóa học cao. Trạng thái Oxy hóa +3 là trạng thái đặc trưng nhất. Trong tự nhiên, Lanthanum chủ yếu tồn tại trong các khoáng vật đất hiếm như Monazite và Bastnäsite.</li><li>Lanthanum có nhiều ứng dụng trong kính quang học, ống kính, pin NiMH, xúc tác và vật liệu điện hóa.</li><li>Mạng tinh thể: DHCP ở nhiệt độ thường; cấu trúc phụ thuộc nhiệt độ.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/photos/057_La.jpg",
+      "title": "Lanthanum (La)",
+      "desc": "Ảnh tham chiếu mẫu Lanthanum (La); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+      "source": "https://commons.wikimedia.org/wiki/File:Lanthanum-2.jpg",
+      "author": "Jurii (Original uploader was Lanthanum-138 at en.wikipedia",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0"
+    }
+  ],
+  "mediaBlocks": [
+    {
+      "type": "model",
+      "section": "structure",
+      "title": "Mẫu khoáng vật 3D · Monazite-(Ce)",
+      "src": "/assets/periodic-table/minerals/monazite.glb",
+      "preview": "/assets/periodic-table/minerals/monazite.png",
+      "desc": "(Ce,La,Nd,Th)PO₄. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  ],
+  "sources": [
+    {
+      "title": "057_La.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "a1a2f6dd18b4d18c3283979a2322e2c23758851ea58bb60b66b1388c8ac94884"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/57/lanthanum"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "lightRareEarthStructures",
+      "url": "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.21.1524"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "057_La.docx",
+    "sourceSha256": "a1a2f6dd18b4d18c3283979a2322e2c23758851ea58bb60b66b1388c8ac94884",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/057_La.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
+}

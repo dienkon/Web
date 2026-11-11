@@ -1,9 +1,12 @@
 {
   "number": 34,
   "symbol": "Se",
-  "nameVi": "Selenium",
+  "nameVi": "Selen",
   "nameEn": "Selenium",
   "mass": 78.971,
+  "massStandardText": "78.971 ± 0.008",
+  "massStandardSource": "https://ciaaw.org/abridged-atomic-weights.htm",
+  "massKind": "standard-atomic-weight",
   "category": "phi-kim",
   "hasData": true,
   "file": "elements/034_Se.json",
@@ -13,25 +16,35 @@
     "electronConfig": "[Ar] 3d¹⁰ 4s² 4p⁴",
     "isotope": "⁷⁴Se, ⁷⁶Se, ⁷⁷Se, ⁷⁸Se, ⁸⁰Se, ⁸²Se",
     "group": 16,
+    "groupLabel": "16",
+    "series": "",
     "period": 4,
-    "state": "",
+    "state": "Rắn",
     "oxidation": "−2, +4, +6",
     "electronegativity": 2.55,
+    "electronegativityNote": "Thang Pauling; số liệu tổng hợp PubChem.",
     "density": "khoảng 4.81 g/cm³ đối với Selenium xám.",
     "meltingPoint": "khoảng 221 °C.",
     "boilingPoint": "khoảng 685 °C.",
-    "crystalStructure": "Lục phương (Hexagonal)"
+    "crystalStructure": "Lục phương (Hexagonal)",
+    "CAS": "7782-49-2"
   },
   "history": {
     "discoverer": "Jöns Jacob Berzelius và Johan Gottlieb Gahn",
-    "year": 1817,
+    "year": "1817",
     "discoveryLocation": "Thụy Điển",
     "description": "Năm 1817, Jöns Jacob Berzelius phát hiện Selenium khi nghiên cứu một chất cặn trong quá trình sản xuất Sulfuric acid. Ban đầu, ông cho rằng đó là Tellurium, nhưng sau khi nghiên cứu thêm, ông xác định đây là một nguyên tố mới. Tên Selenium bắt nguồn từ tiếng Hy Lạp Selene, nghĩa là Mặt Trăng."
   },
   "structure": {
     "protons": 34,
-    "neutrons": 44,
     "electrons": 34,
+    "neutrons": 44,
+    "nucleusIsotope": "⁷⁸Se",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 34,
+      "neutron": 44
+    },
     "electronShells": [
       2,
       8,
@@ -45,12 +58,11 @@
       6
     ],
     "valenceElectrons": 6,
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lục phương (Hexagonal)",
-    "nucleus": {
-      "proton": 34,
-      "neutron": 44
-    }
+    "latticeEvidence": "source-reviewed"
   },
+  "structureType": "Lục phương (Hexagonal)",
   "occurrence": {
     "description": "Selenium là chất rắn, có thể tồn tại dưới dạng màu xám kim loại, đỏ hoặc đen tùy dạng thù hình.",
     "simple": [
@@ -68,171 +80,417 @@
       "Thường tồn tại với lượng nhỏ trong các quặng Sulfide của Copper",
       "Lead",
       "Silver và Nickel"
-    ]
+    ],
+    "details": [
+      "Trạng thái: Selenium là chất rắn, có thể tồn tại dưới dạng màu xám kim loại, đỏ hoặc đen tùy dạng thù hình.",
+      "Có trong: Thường tồn tại với lượng nhỏ trong các quặng Sulfide của Copper, Lead, Silver và Nickel.",
+      "Đơn chất: Se",
+      "Hợp chất: SeO₂, SeO₃, H₂Se, H₂SeO₃, H₂SeO₄, SeS₂..."
+    ],
+    "mineral": {
+      "available": true,
+      "id": "clausthalite",
+      "name": "Clausthalite",
+      "formula": "PbSe",
+      "habit": "cubic",
+      "color": "#8b939b",
+      "crystalSystem": "cubic",
+      "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Clausthalite",
+      "model": "/assets/periodic-table/minerals/clausthalite.glb",
+      "preview": "/assets/periodic-table/minerals/clausthalite.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
   },
-  "naturalState": {},
-  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là phi kim, thuộc nhóm Chalcogen.</li>\n      <li>Có nhiều dạng thù hình.</li>\n      <li>Selenium xám có ánh kim và tính bán dẫn.</li>\n      <li>Selenium đỏ thường có màu đỏ hoặc đỏ nâu.</li>\n      <li>Selenium đen có dạng vô định hình.</li>\n      <li>Khối lượng riêng: khoảng 4.81 g/cm³ đối với Selenium xám.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 221 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 685 °C.</li>\n      <li>Có tính quang dẫn: độ dẫn điện tăng khi được chiếu sáng.</li>\n    </ul>\n  ",
-  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có các số Oxy hóa phổ biến −2, +4 và +6.</li>\n      <li>Phản ứng với Oxygen tạo Selenium dioxide.</li>\n      <li>Phản ứng với Hydrogen tạo Hydrogen selenide.</li>\n      <li>Phản ứng với nhiều kim loại tạo Selenide.</li>\n      <li>Phản ứng với Halogen tạo Selenium halide.</li>\n      <li>Có thể vừa thể hiện tính Oxy hóa vừa thể hiện tính khử tùy phản ứng.</li>\n    </ul>\n  ",
+  "naturalState": {
+    "image": "/assets/periodic-table/photos/034_Se.jpg",
+    "alt": "Selenium: ảnh tham chiếu từ Commons",
+    "kind": "photo",
+    "source": "https://commons.wikimedia.org/wiki/File:SeBlackRed.jpg",
+    "caption": "Ảnh tham chiếu mẫu Selenium (Se); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+    "credit": "W. Oelen · CC BY-SA 3.0"
+  },
+  "isotopes": [
+    {
+      "isotope": "⁷⁴Se",
+      "massNumber": 74,
+      "protons": 34,
+      "neutrons": 40,
+      "stable": true,
+      "abundancePercent": "0.86",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "⁷⁶Se",
+      "massNumber": 76,
+      "protons": 34,
+      "neutrons": 42,
+      "stable": true,
+      "abundancePercent": "9.23",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "⁷⁷Se",
+      "massNumber": 77,
+      "protons": 34,
+      "neutrons": 43,
+      "stable": true,
+      "abundancePercent": "7.60",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "⁷⁸Se",
+      "massNumber": 78,
+      "protons": 34,
+      "neutrons": 44,
+      "stable": true,
+      "abundancePercent": "23.69",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "⁸⁰Se",
+      "massNumber": 80,
+      "protons": 34,
+      "neutrons": 46,
+      "stable": true,
+      "abundancePercent": "49.80",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": "2B-",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "⁸²Se",
+      "massNumber": 82,
+      "protons": 34,
+      "neutrons": 48,
+      "stable": false,
+      "abundancePercent": "8.82",
+      "halfLifeDisplay": "9.6E+19 ± 1.0E+19 năm",
+      "halfLife": "9.6E+19 Y",
+      "halfLifeUncertainty": "10",
+      "halfLifeQualifier": null,
+      "decay": "2B-",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Là phi kim, thuộc nhóm Chalcogen.</li><li>Có nhiều dạng thù hình.</li><li>Selenium xám có ánh kim và tính bán dẫn.</li><li>Selenium đỏ thường có màu đỏ hoặc đỏ nâu.</li><li>Selenium đen có dạng vô định hình.</li><li>Khối lượng riêng: khoảng 4.81 g/cm³ đối với Selenium xám.</li><li>Nhiệt độ nóng chảy: khoảng 221 °C.</li><li>Nhiệt độ sôi: khoảng 685 °C.</li><li>Có tính quang dẫn: độ dẫn điện tăng khi được chiếu sáng.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Có các số Oxy hóa phổ biến −2, +4 và +6.</li><li>Có tính chất hóa học tương tự Sulfur.</li><li>Phản ứng với Oxygen tạo Selenium dioxide.</li><li>Phản ứng với Hydrogen tạo Hydrogen selenide.</li><li>Phản ứng với nhiều kim loại tạo Selenide.</li><li>Phản ứng với Halogen tạo Selenium halide.</li><li>Có thể vừa thể hiện tính Oxy hóa vừa thể hiện tính khử tùy phản ứng.</li></ul>",
   "reactions": [
     {
       "type": "Tác dụng với Oxygen",
+      "desc": "",
       "equation": "Se + O₂ → SeO₂",
-      "desc": ""
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 79,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Hydrogen",
+      "desc": "",
       "equation": "H₂ + Se → H₂Se",
-      "desc": ""
-    },
-    {
-      "type": "Tác dụng với Sulfur",
-      "equation": "Se + S → SeS",
-      "desc": ""
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 81,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Chlorine",
+      "desc": "",
       "equation": "Se + 2Cl₂ → SeCl₄",
-      "desc": ""
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 85,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tạo Hydrogen selenide",
+      "desc": "",
       "equation": "H₂ + Se → H₂Se",
-      "desc": ""
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 87,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Khử Selenium dioxide",
+      "desc": "",
       "equation": "SeO₂ + 2SO₂ + 2H₂O → Se + 2H₂SO₄",
-      "desc": ""
+      "condition": "Dung dịch nước có tính acid, sục SO₂; oxi hóa SO₂ thành sulfate.",
+      "kind": "chemical",
+      "sourceLine": 89,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Selenium dioxide tác dụng với nước",
+      "desc": "",
       "equation": "SeO₂ + H₂O → H₂SeO₃",
-      "desc": ""
-    },
-    {
-      "type": "Oxy hóa Selenium dioxide",
-      "equation": "2SeO₂ + O₂ → 2SeO₃",
-      "desc": ""
+      "condition": "Tiếp xúc với nước; phản ứng/hydrat hóa tỏa nhiệt hoặc tạo cân bằng acid.",
+      "kind": "chemical",
+      "sourceLine": 91,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     }
   ],
-  "applications": [
-    {
-      "title": "Điện tử",
-      "desc": "Selenium có tính quang dẫn nên từng được sử dụng trong một số thiết bị quang điện."
-    },
-    {
-      "title": "Kính",
-      "desc": "Selenium compounds được sử dụng để khử màu hoặc tạo màu cho thủy tinh."
-    },
-    {
-      "title": "Pigment",
-      "desc": "Một số Selenium compounds được sử dụng để tạo pigment màu đỏ."
-    },
-    {
-      "title": "Solar cells",
-      "desc": "Selenium được sử dụng trong một số vật liệu quang điện và công nghệ tế bào mặt trời."
-    },
-    {
-      "title": "Luyện kim",
-      "desc": "Selenium được thêm vào một số hợp kim để cải thiện khả năng gia công."
-    },
-    {
-      "title": "Nông nghiệp",
-      "desc": "Selenium là nguyên tố vi lượng cần thiết với một số sinh vật, nhưng lượng quá cao có thể gây độc."
-    },
-    {
-      "title": "Công nghiệp hóa chất",
-      "desc": "Selenium compounds được sử dụng trong một số quá trình tổng hợp hóa học."
-    }
-  ],
-  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Selenium là nguyên tố số 34, thuộc nhóm VIA | chu kỳ 4 và thuộc nhóm Chalcogen.</li>\n  <li>Selenium có cấu hình electron [Ar] 3d¹⁰ 4s² 4p⁴, với các số Oxy hóa phổ biến là −2, +4 và +6.</li>\n  <li>Selenium có nhiều dạng thù hình, trong đó Selenium xám có ánh kim và thể hiện tính quang dẫn rõ rệt. Trong tự nhiên, Selenium thường tồn tại với hàm lượng nhỏ trong các quặng Sulfide của Copper, Lead, Silver và Nickel.</li>\n  <li>Selenium có ứng dụng trong công nghiệp thủy tinh, điện tử, vật liệu quang điện, luyện kim và hóa chất. Đồng thời, Selenium là nguyên tố vi lượng quan trọng đối với sinh vật ở lượng thích hợp.</li>\n</ul>\n",
   "preparations": {
     "lab": [
       {
-        "title": "Có thể điều chế Selenium bằng cách khử Selenium dioxide bằng Sulfur dioxide:",
-        "equation": "SeO₂ + 2SO₂ + 2H₂O → Se + 2H₂SO₄",
-        "desc": ""
+        "title": "Có thể điều chế Selenium bằng cách khử Selenium dioxide bằng Sulfur dioxide",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "SeO₂ + 2SO₂ + 2H₂O → Se + 2H₂SO₄",
+            "condition": "Dung dịch nước có tính acid, sục SO₂; oxi hóa SO₂ thành sulfate.",
+            "kind": "chemical",
+            "sourceLine": 65,
+            "sourceSection": "lab",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          64,
+          65
+        ],
+        "equation": "SeO₂ + 2SO₂ + 2H₂O → Se + 2H₂SO₄"
       }
     ],
     "industry": [
       {
         "title": "Selenium chủ yếu được thu hồi như sản phẩm phụ trong quá trình tinh chế Copper.",
-        "equation": "",
-        "desc": ""
-      },
-      {
-        "title": "Cặn anode chứa Selenium được xử lý để thu Selenium compounds, sau đó Selenium được khử để thu Selenium nguyên tố.",
-        "equation": "",
-        "desc": ""
-      },
-      {
-        "title": "Một phản ứng tổng quát:",
-        "equation": "SeO₂ + 2SO₂ + 2H₂O → Se + 2H₂SO₄",
-        "desc": ""
+        "desc": "Cặn anode chứa Selenium được xử lý để thu Selenium compounds, sau đó Selenium được khử để thu Selenium nguyên tố. Một phản ứng tổng quát:",
+        "result": "",
+        "equations": [
+          {
+            "equation": "SeO₂ + 2SO₂ + 2H₂O → Se + 2H₂SO₄",
+            "condition": "Dung dịch nước có tính acid, sục SO₂; oxi hóa SO₂ thành sulfate.",
+            "kind": "chemical",
+            "sourceLine": 62,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          59,
+          60,
+          61,
+          62
+        ],
+        "equation": "SeO₂ + 2SO₂ + 2H₂O → Se + 2H₂SO₄"
       }
     ]
   },
   "recognition": [
     {
-      "title": "Nhận biết",
-      "reagent": "Nhận biết Se²⁻",
+      "title": "Nhận biết Se²⁻",
+      "desc": "Cho ion Se²⁻ tác dụng với Hydrogen sulfide hoặc các ion kim loại thích hợp có thể tạo Selenium compounds đặc trưng. Một phản ứng tạo Selenium sulfide: H₂Se có thể phản ứng với các ion kim loại tạo kết tủa Selenide.",
       "result": "",
-      "equation": ""
-    },
-    {
-      "title": "Nhận biết",
-      "reagent": "Cho ion Se²⁻ tác dụng với Hydrogen sulfide hoặc các ion kim loại thích hợp có thể tạo Selenium compounds đặc trưng.",
-      "result": "",
-      "equation": ""
-    },
-    {
-      "title": "Một phản ứng tạo Selenium sulfide",
-      "reagent": "",
-      "result": "",
-      "equation": ""
-    },
-    {
-      "title": "Nhận biết",
-      "reagent": "",
-      "result": "",
+      "equations": [
+        {
+          "equation": "Se²⁻ + 2H⁺ → H₂Se",
+          "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+          "kind": "chemical",
+          "sourceLine": 70,
+          "sourceSection": "recognition",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ],
+      "sourceLines": [
+        67,
+        68,
+        69,
+        70,
+        71
+      ],
       "equation": "Se²⁻ + 2H⁺ → H₂Se"
     },
     {
-      "title": "Nhận biết",
-      "reagent": "H₂Se có thể phản ứng với các ion kim loại tạo kết tủa Selenide.",
+      "title": "Nhận biết Selenium nguyên tố",
+      "desc": "Selenium có nhiều dạng màu sắc khác nhau tùy cấu trúc: Selenium xám: màu xám kim loại. Selenium đỏ: màu đỏ hoặc đỏ nâu. Selenium đen: màu đen.",
       "result": "",
-      "equation": ""
-    },
-    {
-      "title": "Nhận biết",
-      "reagent": "Nhận biết Selenium nguyên tố",
-      "result": "",
-      "equation": ""
-    },
-    {
-      "title": "Selenium có nhiều dạng màu sắc khác nhau tùy cấu trúc",
-      "reagent": "",
-      "result": "",
-      "equation": ""
-    },
-    {
-      "title": "Selenium xám",
-      "reagent": "",
-      "result": "màu xám kim loại.",
-      "equation": ""
-    },
-    {
-      "title": "Selenium đỏ",
-      "reagent": "",
-      "result": "màu đỏ hoặc đỏ nâu.",
-      "equation": ""
-    },
-    {
-      "title": "Selenium đen",
-      "reagent": "",
-      "result": "màu đen.",
+      "equations": [],
+      "sourceLines": [
+        72,
+        73,
+        74,
+        75,
+        76
+      ],
       "equation": ""
     }
   ],
-  "structureType": "Lục phương (Hexagonal)"
+  "applications": [
+    {
+      "title": "Điện tử",
+      "desc": "Selenium có tính quang dẫn nên từng được sử dụng trong một số thiết bị quang điện.",
+      "sourceLine": 95
+    },
+    {
+      "title": "Kính",
+      "desc": "Selenium compounds được sử dụng để khử màu hoặc tạo màu cho thủy tinh.",
+      "sourceLine": 96
+    },
+    {
+      "title": "Pigment",
+      "desc": "Một số Selenium compounds được sử dụng để tạo pigment màu đỏ.",
+      "sourceLine": 97
+    },
+    {
+      "title": "Solar cells",
+      "desc": "Selenium được sử dụng trong một số vật liệu quang điện và công nghệ tế bào mặt trời.",
+      "sourceLine": 98
+    },
+    {
+      "title": "Luyện kim",
+      "desc": "Selenium được thêm vào một số hợp kim để cải thiện khả năng gia công.",
+      "sourceLine": 99
+    },
+    {
+      "title": "Nông nghiệp",
+      "desc": "Selenium là nguyên tố vi lượng cần thiết với một số sinh vật, nhưng lượng quá cao có thể gây độc.",
+      "sourceLine": 100
+    },
+    {
+      "title": "Công nghiệp hóa chất",
+      "desc": "Selenium compounds được sử dụng trong một số quá trình tổng hợp hóa học.",
+      "sourceLine": 101
+    }
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Selenium là nguyên tố số 34, thuộc nhóm VIA | chu kỳ 4 và thuộc nhóm Chalcogen.</li><li>Selenium có cấu hình electron [Ar] 3d¹⁰ 4s² 4p⁴, với các số Oxy hóa phổ biến là −2, +4 và +6.</li><li>Selenium có nhiều dạng thù hình, trong đó Selenium xám có ánh kim và thể hiện tính quang dẫn rõ rệt. Trong tự nhiên, Selenium thường tồn tại với hàm lượng nhỏ trong các quặng Sulfide của Copper, Lead, Silver và Nickel.</li><li>Selenium có ứng dụng trong công nghiệp thủy tinh, điện tử, vật liệu quang điện, luyện kim và hóa chất. Đồng thời, Selenium là nguyên tố vi lượng quan trọng đối với sinh vật ở lượng thích hợp.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/photos/034_Se.jpg",
+      "title": "Selen (Se)",
+      "desc": "Ảnh tham chiếu mẫu Selenium (Se); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+      "source": "https://commons.wikimedia.org/wiki/File:SeBlackRed.jpg",
+      "author": "W. Oelen",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+    }
+  ],
+  "mediaBlocks": [
+    {
+      "type": "model",
+      "section": "structure",
+      "title": "Mẫu khoáng vật 3D · Clausthalite",
+      "src": "/assets/periodic-table/minerals/clausthalite.glb",
+      "preview": "/assets/periodic-table/minerals/clausthalite.png",
+      "desc": "PbSe. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  ],
+  "sources": [
+    {
+      "title": "034_Se.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "a7ef1344d42324586baa3129517fcb0f6265ff394c170aa0163226c3d0d058c8"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/34/selenium"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "034_Se.docx",
+    "sourceSha256": "a7ef1344d42324586baa3129517fcb0f6265ff394c170aa0163226c3d0d058c8",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/034_Se.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
 }

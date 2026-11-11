@@ -1,0 +1,96 @@
+001: Lanthanum (La)
+002: Thông tin chung
+003: Tên Latin: Lanthanum
+004: Tên Tiếng Anh: Lanthanum
+005: Đồng vị: ¹³⁸La, ¹³⁹La
+006: Vị trí: Nhóm IIIB | Chu kỳ 6 | Họ Lanthanide
+007: Số Oxy hóa: +3
+008: Độ âm điện: 1,10 (Pauling)
+009: Lịch sử khám phá
+010: Phát hiện bởi: Carl Gustaf Mosander
+011: Năm công bố: 1839
+012: Nơi khám phá: Stockholm, Thụy Điển
+013: Mô tả: Lanthanum được Carl Gustaf Mosander phát hiện khi ông nghiên cứu Cerium. Ông nhận thấy Cerium oxide chứa một nguyên tố mới và tách được oxide của Lanthanum.
+014: Tên Lanthanum bắt nguồn từ tiếng Hy Lạp λανθάνειν (lanthanein), có nghĩa là “ẩn giấu”, vì nguyên tố này ban đầu ẩn trong khoáng chất Cerium.
+015: 3. Cấu tạo
+016: a. Cấu tạo nguyên tử
+017: Cấu hình electron: [Xe] 5d¹ 6s²
+018: Mô hình mạng tinh thể: Lập phương tâm diện (Face-centered cubic, FCC)
+019: Số hiệu nguyên tử: 57
+020: Nguyên tử khối: 138,90547 g/mol
+021: Vỏ nguyên tử: 57 electron
+022: Hạt nhân: 57 proton
+023: Số neutron phổ biến: 82
+024: Cấu hình e đầy đủ: 1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰ 4p⁶ 5s² 4d¹⁰ 5p⁶ 5d¹ 6s²
+025: Loại mạng: Lập phương tâm diện (FCC)
+026: b. Trạng thái tự nhiên
+027: Trạng thái: Chất rắn
+028: Màu sắc: Trắng bạc
+029: Có trong: Khoáng vật đất hiếm như Monazite và Bastnäsite
+030: Đơn chất: La
+031: Hợp chất phổ biến: La₂O₃, LaCl₃, La₂(CO₃)₃
+032: c. Đồng vị
+033: Lanthanum tự nhiên có hai đồng vị:
+034: ¹³⁹La: chiếm khoảng 99,91%, là đồng vị bền.
+035: ¹³⁸La: chiếm khoảng 0,09%, có tính phóng xạ và có chu kỳ bán rã khoảng 1,02 × 10¹¹ năm.
+036: ¹³⁸La là một trong những đồng vị tự nhiên có chu kỳ bán rã cực kỳ dài.
+037: Tính chất
+038: Tính chất vật lý
+039: Là kim loại đất hiếm.
+040: Thuộc họ Lanthanide.
+041: Mềm và tương đối dễ dát mỏng.
+042: Có màu trắng bạc.
+043: Dẫn điện và dẫn nhiệt tốt.
+044: Bề mặt nhanh chóng bị oxy hóa khi tiếp xúc với không khí.
+045: Có nhiệt độ nóng chảy khoảng 920 °C.
+046: Có nhiệt độ sôi khoảng 3464 °C.
+047: Khối lượng riêng khoảng 6,15 g/cm³.
+048: Tính chất hóa học
+049: Lanthanum có tính điện dương và hoạt động hóa học khá mạnh.
+050: Số Oxy hóa phổ biến và ổn định nhất là +3.
+051: Dễ phản ứng với Oxygen:
+052: 4La + 3O₂ → 2La₂O₃
+053: Phản ứng với nước chậm ở nhiệt độ thường và nhanh hơn khi đun nóng:
+054: 2La + 6H₂O → 2La(OH)₃ + 3H₂
+055: Phản ứng với Acid tạo muối Lanthanum và giải phóng Hydrogen.
+056: Điều chế
+057: Điều chế trong công nghiệp
+058: Lanthanum (La) chủ yếu được điều chế từ quặng monazite và bastnaesite. Sau khi tách các hợp chất Lanthanum khỏi hỗn hợp đất hiếm, Lanthanum được thu bằng phương pháp điện phân muối nóng chảy hoặc khử Lanthanum fluoride bằng Calcium.
+059: Phương trình:
+060: 2LaF₃ + 3Ca → 2La + 3CaF₂
+061: Điều chế trong phòng thí nghiệm
+062: Có thể điều chế Lanthanum bằng cách khử Lanthanum chloride khan bằng Calcium.
+063: Phương trình:
+064: 2LaCl₃ + 3Ca → 2La + 3CaCl₂
+065: Nhận biết
+066: Có thể nhận biết Lanthanum thông qua:
+067: Phổ phát xạ nguyên tử với các vạch phổ đặc trưng.
+068: Phân tích bằng ICP-OES/ICP-MS.
+069: Ion La³⁺ có thể tạo kết tủa hoặc phức đặc trưng với một số thuốc thử.
+070: Một phản ứng minh họa:
+071: La³⁺ + 3OH⁻ → La(OH)₃↓
+072: Lanthanum hydroxide là kết tủa màu trắng.
+073: Phương trình
+074: Tác dụng với Oxygen
+075: 4La + 3O₂ → 2La₂O₃
+076: Tác dụng với nước
+077: 2La + 6H₂O → 2La(OH)₃ + 3H₂
+078: Tác dụng với Hydrochloric acid
+079: 2La + 6HCl → 2LaCl₃ + 3H₂
+080: Tạo Lanthanum hydroxide
+081: LaCl₃ + 3NaOH → La(OH)₃↓ + 3NaCl
+082: Tạo Lanthanum oxide
+083: 2La(OH)₃ → La₂O₃ + 3H₂O
+084: Ứng dụng thực tế
+085: Kính quang học: Lanthanum oxide được sử dụng để chế tạo các loại kính có chiết suất cao và tính chất quang học đặc biệt.
+086: Ống kính máy ảnh: Một số hợp chất Lanthanum được sử dụng trong kính quang học chất lượng cao.
+087: Điện cực: Lanthanum được sử dụng trong một số loại điện cực và vật liệu điện hóa.
+088: Pin: Các hợp chất Lanthanum, đặc biệt trong vật liệu LaNi₅, được sử dụng trong pin Nickel–metal hydride (NiMH).
+089: Xúc tác: Một số hợp chất Lanthanum được sử dụng làm chất xúc tác hoặc chất hỗ trợ xúc tác trong công nghiệp.
+090: Vật liệu phát sáng: Một số hợp chất Lanthanum pha tạp đất hiếm được sử dụng trong vật liệu quang học và phát quang.
+091: Tổng quan
+092: Lanthanum là nguyên tố số 57, thuộc nhóm IIIB | chu kỳ 6 và là nguyên tố đầu tiên thường được xếp trong họ Lanthanide.
+093: Lanthanum được Carl Gustaf Mosander phát hiện vào năm 1839 tại Thụy Điển. Tên nguyên tố bắt nguồn từ tiếng Hy Lạp lanthanein, nghĩa là “ẩn giấu”, do Lanthanum ban đầu bị “ẩn” trong khoáng vật chứa Cerium.
+094: Lanthanum là một kim loại màu trắng bạc, khá mềm và có tính hoạt động hóa học cao. Trạng thái Oxy hóa +3 là trạng thái đặc trưng nhất. Trong tự nhiên, Lanthanum chủ yếu tồn tại trong các khoáng vật đất hiếm như Monazite và Bastnäsite.
+095: Lanthanum có nhiều ứng dụng trong kính quang học, ống kính, pin NiMH, xúc tác và vật liệu điện hóa.
+096: Mạng tinh thể: Lập phương tâm diện (FCC) ở điều kiện thường.

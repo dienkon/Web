@@ -1,0 +1,90 @@
+001: Rhenium (Re)
+002: Thông tin chung
+003: Tên Latin: Rhenium
+004: Tên Tiếng Anh: Rhenium
+005: Đồng vị: ¹⁸⁵Re, ¹⁸⁷Re
+006: Vị trí: Nhóm VIIB | Chu kỳ 6
+007: Số Oxy hóa: −1, +1, +2, +3, +4, +5, +6, +7
+008: Độ âm điện: 1.90
+009: Lịch sử khám phá
+010: Phát hiện bởi: Walter Noddack, Ida Tacke và Otto Berg
+011: Năm công bố: 1925
+012: Nơi khám phá: Đức
+013: Mô tả: Rhenium được phát hiện năm 1925 thông qua phân tích quang phổ của quặng Platinum và Columbite. Đây là một trong những nguyên tố cuối cùng được phát hiện có đồng vị bền tồn tại tự nhiên. Tên Rhenium bắt nguồn từ Rhenus, tên Latin của sông Rhine.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Xe] 4f¹⁴ 5d⁵ 6s²
+017: Mô hình mạng tinh thể: Lục phương (Hexagonal)
+018: Số hiệu nguyên tử: 75
+019: Nguyên tử khối: 186.207 g/mol
+020: Vỏ nguyên tử: 75 electron
+021: K: 2 | L: 8 | M: 18 | N: 32 | O: 13 | P: 2
+022: Hạt nhân: 75 proton, 110 neutron đối với ¹⁸⁵Re
+023: Cấu hình e: [Xe] 4f¹⁴ 5d⁵ 6s²
+024: Loại mạng: Lục phương (Hexagonal)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Rhenium là kim loại rắn, màu trắng bạc, rất nặng và cứng.
+027: Có trong: Thường tồn tại với hàm lượng rất nhỏ trong các khoáng vật chứa Molybdenum và Copper, đặc biệt trong Molybdenite (MoS₂).
+028: Đơn chất: Re
+029: Hợp chất: Re₂O₇, ReO₂, ReCl₅, NH₄ReO₄, ReS₂...
+030: c. Đồng vị
+031: Đồng vị: ¹⁸⁵Re, ¹⁸⁷Re
+032: ¹⁸⁵Re: Đồng vị bền, chiếm khoảng 37.4%.
+033: ¹⁸⁷Re: Đồng vị phóng xạ tự nhiên, chiếm khoảng 62.6%, có chu kỳ bán rã rất dài.
+034: Tính chất
+035: Tính chất vật lý
+036: Là kim loại chuyển tiếp.
+037: Màu trắng bạc.
+038: Rất cứng và có độ bền cao.
+039: Khối lượng riêng: khoảng 21.02 g/cm³.
+040: Nhiệt độ nóng chảy: khoảng 3186 °C.
+041: Nhiệt độ sôi: khoảng 5596 °C.
+042: Có khả năng chịu nhiệt cực tốt.
+043: Có độ bền cơ học cao ở nhiệt độ cao.
+044: Tính chất hóa học
+045: Có nhiều số Oxy hóa, phổ biến nhất là +7 và +6.
+046: Khá bền trong không khí ở nhiệt độ thường.
+047: Khi nung nóng phản ứng với Oxygen tạo Rhenium oxide.
+048: Phản ứng với Halogen tạo Rhenium halide.
+049: Có thể tạo nhiều hợp chất phức.
+050: Có khả năng chống ăn mòn tương đối tốt
+051: Điều chế
+052: Điều chế trong công nghiệp
+053: Rhenium (Re) chủ yếu được thu hồi như sản phẩm phụ trong quá trình xử lý quặng Copper và Molybdenum. Rhenium thường được tách từ bụi lò nung quặng Molybdenum dưới dạng ammonium perrhenate, sau đó chuyển thành Rhenium oxide và khử bằng Hydrogen ở nhiệt độ cao.
+054: Phương trình:
+055: Re₂O₇ + 7H₂ → 2Re + 7H₂O
+056: Điều chế trong phòng thí nghiệm
+057: Có thể điều chế Rhenium bằng cách khử Ammonium perrhenate bằng Hydrogen khi đun nóng.
+058: Phương trình:
+059: 2NH₄ReO₄ + 7H₂ → 2Re + 2NH₃ + 8H₂O
+060: Nhận biết
+061: Rhenium thường được xác định bằng phân tích quang phổ hoặc các phương pháp phân tích hóa học chuyên dụng.
+062: Một hợp chất đặc trưng là Ammonium perrhenate:
+063: NH₄ReO₄
+064: Trong phân tích định tính, ion Perrhenate (ReO₄⁻) có thể được sử dụng để xác định sự hiện diện của Rhenium.
+065: Phương trình
+066: Tác dụng với Oxygen
+067: 4Re + 7O₂ → 2Re₂O₇
+068: Tác dụng với Chlorine
+069: 2Re + 5Cl₂ → 2ReCl₅
+070: Tác dụng với Fluorine
+071: 2Re + 7F₂ → 2ReF₇
+072: Tạo Rhenium disulfide
+073: Re + 2S → ReS₂
+074: Tác dụng với Oxygen tạo Rhenium dioxide
+075: Re + O₂ → ReO₂
+076: Khử Rhenium heptoxide
+077: Re₂O₇ + 7H₂ → 2Re + 7H₂O
+078: Ứng dụng thực tế
+079: Siêu hợp kim: Rhenium là thành phần quan trọng trong một số superalloy dùng cho động cơ phản lực và turbine khí.
+080: Động cơ hàng không: Hợp kim Nickel–Rhenium có khả năng chịu nhiệt và giữ độ bền tốt ở nhiệt độ cao.
+081: Xúc tác: Rhenium được sử dụng làm chất xúc tác trong một số quá trình lọc dầu, đặc biệt trong quá trình reforming xúc tác.
+082: Dây tóc và linh kiện nhiệt: Rhenium được sử dụng trong một số dây tóc, cặp nhiệt điện và linh kiện chịu nhiệt cao.
+083: Nhiệt điện: Hợp kim Tungsten–Rhenium được sử dụng trong các cặp nhiệt điện đo nhiệt độ rất cao.
+084: Y học: Một số đồng vị phóng xạ của Rhenium được nghiên cứu và sử dụng trong các ứng dụng y học hạt nhân.
+085: Tổng quan
+086: Rhenium là nguyên tố số 75, thuộc nhóm VIIB | chu kỳ 6 và là một kim loại chuyển tiếp.
+087: Rhenium có cấu hình electron [Xe] 4f¹⁴ 5d⁵ 6s², với các số Oxy hóa phổ biến là +6 và +7.
+088: Rhenium là kim loại rất nặng, cứng, chịu nhiệt và có nhiệt độ nóng chảy cực cao. Nó là một trong những kim loại có nhiệt độ nóng chảy cao nhất.
+089: Trong tự nhiên, Rhenium rất hiếm và thường được thu hồi như sản phẩm phụ từ quặng Molybdenum, đặc biệt là Molybdenite (MoS₂).
+090: Rhenium có giá trị cao trong superalloy, động cơ phản lực, turbine khí, xúc tác lọc dầu và các thiết bị đo nhiệt độ cao, nhờ khả năng duy trì độ bền trong môi trường nhiệt độ cực cao.

@@ -1,0 +1,114 @@
+001: Sulfur (S)
+002: Thông tin chung
+003: Tên Latin: Sulfur
+004: Tên tiếng Anh: Sulfur
+005: Đồng vị: ³²S, ³³S, ³⁴S, ³⁶S
+006: Vị trí: Nhóm VIA | Chu kỳ 3
+007: Số Oxy hóa: −2, +2, +4, +6
+008: Độ âm điện: 2.58
+009: Lịch sử khám phá
+010: Phát hiện bởi: Đã được biết đến từ thời cổ đại
+011: Năm công bố: Không xác định
+012: Nơi khám phá: Không xác định
+013: Mô tả: Sulfur đã được con người biết đến và sử dụng từ thời cổ đại. Các nền văn minh cổ đã sử dụng Sulfur trong y học, tôn giáo và các hoạt động khác. Đến cuối thế kỷ XVIII, Antoine Lavoisier xác định Sulfur là một nguyên tố hóa học chứ không phải hợp chất.
+014: 3. Cấu tạo
+015: a. Cấu tạo
+016: Hoạt họa cấu hình e: 1s² 2s² 2p⁶ 3s² 3p⁴
+017: Mô hình mạng tinh thể: Trực thoi (Orthorhombic)
+018: Số hiệu nguyên tử: 16
+019: Nguyên tử khối: 32.06 g/mol
+020: Vỏ nguyên tử: 16 electron
+021: K: 2 | L: 8 | M: 6
+022: Hạt nhân: 16 proton, 16 neutron đối với ³²S
+023: Cấu hình e: 1s² 2s² 2p⁶ 3s² 3p⁴
+024: Loại mạng: Trực thoi (Orthorhombic)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Sulfur là chất rắn màu vàng ở điều kiện thường. Trong tự nhiên, Sulfur có thể tồn tại dưới dạng đơn chất hoặc hợp chất.
+027: Có trong: Mỏ Sulfur tự nhiên, khu vực núi lửa, khoáng vật Sulfide và Sulfate, dầu mỏ và khí tự nhiên.
+028: Đơn chất: S₈
+029: Hợp chất: H₂S, SO₂, SO₃, H₂SO₄, FeS₂, ZnS, CaSO₄...
+030: c. Đồng vị
+031: Đồng vị: ³²S, ³³S, ³⁴S, ³⁶S
+032: ³²S: Đồng vị bền, chiếm khoảng 94.99% Sulfur tự nhiên.
+033: ³³S: Đồng vị bền, chiếm khoảng 0.75%.
+034: ³⁴S: Đồng vị bền, chiếm khoảng 4.25%.
+035: ³⁶S: Đồng vị bền, chiếm khoảng 0.01%.
+036: Tính chất
+037: Tính chất vật lý
+038: Là chất rắn màu vàng ở điều kiện thường.
+039: Có nhiều dạng thù hình.
+040: Dạng ổn định ở nhiệt độ thường là Sulfur trực thoi.
+041: Giòn và không dẫn điện tốt.
+042: Không tan trong nước.
+043: Tan tốt hơn trong một số dung môi hữu cơ.
+044: Khối lượng riêng: khoảng 2.07 g/cm³.
+045: Nhiệt độ nóng chảy: khoảng 115.2 °C.
+046: Nhiệt độ sôi: khoảng 444.6 °C.
+047: Có thể tạo hơi Sulfur khi được nung nóng.
+048: Tính chất hóa học
+049: Là phi kim.
+050: Có tính Oxy hóa và tính khử tùy phản ứng.
+051: Số Oxy hóa phổ biến: −2, +4, +6.
+052: Phản ứng với Oxygen tạo Sulfur dioxide.
+053: Phản ứng với Hydrogen tạo Hydrogen sulfide.
+054: Phản ứng với nhiều kim loại tạo Metal sulfide.
+055: Phản ứng với Halogen tạo Sulfur halide.
+056: Có thể bị Oxy hóa tiếp thành Sulfur trioxide.
+057: Sulfur dioxide có thể tiếp tục bị Oxy hóa thành Sulfur trioxide trong điều kiện thích hợp.
+058: Điều chế
+059: Điều chế trong công nghiệp
+060: Sulfur được thu hồi chủ yếu từ Hydrogen sulfide (H₂S) trong dầu mỏ và khí tự nhiên bằng Claus process.
+061: Phản ứng tổng quát:
+062: 2H₂S + O₂ → 2S + 2H₂O
+063: Một phần H₂S được đốt tạo Sulfur dioxide:
+064: 2H₂S + 3O₂ → 2SO₂ + 2H₂O
+065: Sau đó SO₂ phản ứng với H₂S:
+066: 2H₂S + SO₂ → 3S + 2H₂O
+067: Điều chế trong phòng thí nghiệm
+068: Sulfur có thể được tạo ra bằng cách cho Hydrogen sulfide phản ứng với Sulfur dioxide:
+069: 2H₂S + SO₂ → 3S↓ + 2H₂O
+070: Sulfur thu được có màu vàng.
+071: Nhận biết
+072: Nhận biết Sulfide (S²⁻):
+073: Cho ion Sulfide tác dụng với ion Lead(II):
+074: S²⁻ + Pb²⁺ → PbS↓
+075: Hiện tượng: Xuất hiện kết tủa đen Lead(II) sulfide.
+076: Nhận biết Sulfate (SO₄²⁻):
+077: SO₄²⁻ + Ba²⁺ → BaSO₄↓
+078: Hiện tượng: Xuất hiện kết tủa trắng Barium sulfate.
+079: Phương trình
+080: Tác dụng với Oxygen
+081: S + O₂ → SO₂
+082: Oxy hóa Sulfur dioxide
+083: 2SO₂ + O₂ ⇌ 2SO₃
+084: Tác dụng với Hydrogen
+085: H₂ + S → H₂S
+086: Tác dụng với Iron
+087: Fe + S → FeS
+088: Tác dụng với Zinc
+089: Zn + S → ZnS
+090: Tác dụng với Copper
+091: 2Cu + S → Cu₂S
+092: Tác dụng với Carbon
+093: Ở nhiệt độ cao:
+094: C + 2S → CS₂
+095: Tác dụng với Chlorine
+096: S + Cl₂ → SCl₂
+097: Tạo Sulfuric acid
+098: SO₃ + H₂O → H₂SO₄
+099: Sulfur dioxide tác dụng với Hydrogen sulfide
+100: 2H₂S + SO₂ → 3S + 2H₂O
+101: Ứng dụng thực tế
+102: Sản xuất Sulfuric acid: Đây là ứng dụng quan trọng nhất của Sulfur.
+103: Phân bón: Sulfuric acid và Sulfur compounds được sử dụng trong sản xuất phân bón.
+104: Lưu hóa cao su: Sulfur được sử dụng để tạo liên kết chéo trong cao su, giúp cải thiện độ bền và tính đàn hồi.
+105: Sản xuất hóa chất: Dùng để sản xuất nhiều Sulfur compounds.
+106: Thuốc bảo vệ thực vật: Một số chế phẩm Sulfur được sử dụng trong nông nghiệp.
+107: Sản xuất thuốc: Sulfur compounds được sử dụng trong một số quy trình sản xuất dược phẩm.
+108: Diêm và pháo: Một số hợp chất chứa Sulfur được sử dụng trong các sản phẩm tạo lửa và pháo hoa.
+109: Lọc dầu: Sulfur được thu hồi trong quá trình xử lý dầu mỏ và khí tự nhiên nhằm loại bỏ Hydrogen sulfide.
+110: Tổng quan
+111: Sulfur là nguyên tố số 16, thuộc nhóm VIA | chu kỳ 3 và là một phi kim.
+112: Sulfur có cấu hình electron 1s² 2s² 2p⁶ 3s² 3p⁴, với 6 electron hóa trị. Sulfur có nhiều dạng thù hình và có thể thể hiện cả tính Oxy hóa lẫn tính khử tùy vào phản ứng.
+113: Trong tự nhiên, Sulfur tồn tại cả ở dạng đơn chất S₈ và dưới dạng nhiều hợp chất Sulfide, Sulfate. Sulfur cũng có mặt đáng kể trong dầu mỏ và khí tự nhiên dưới dạng Hydrogen sulfide.
+114: Sulfur có vai trò rất quan trọng trong công nghiệp, đặc biệt là sản xuất Sulfuric acid, phân bón, lưu hóa cao su, hóa chất và xử lý dầu mỏ.

@@ -1,0 +1,1137 @@
+{
+  "symbol": "Ag",
+  "number": 47,
+  "source": "047_Ag.docx",
+  "sourceSha256": "6f203f7d3334e86d223c6541ed06cc5df01d77a38d9014ceb322a992d0d26db9",
+  "paragraphCount": 101,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 4,
+    "structure": 9,
+    "occurrence": 4,
+    "isotopes": 4,
+    "physical": 9,
+    "chemical": 7,
+    "lab": 3,
+    "industry": 4,
+    "recognition": 7,
+    "reactions": 14,
+    "applications": 8,
+    "notes": 5
+  },
+  "editorialDecisions": [
+    {
+      "line": 58,
+      "before": "4Ag₂S + 8NaCN + O₂ + 2H₂O → 8Na[Ag(CN)₂] + 4NaOH",
+      "after": "Ag₂S + 4NaCN ⇌ 2Na[Ag(CN)₂] + Na₂S",
+      "reason": "Phương trình gốc làm mất sulfur và không bảo toàn Na/C/N; dùng cân bằng tạo phức, không trình bày là toàn bộ quy trình hòa tách."
+    },
+    {
+      "line": 70,
+      "before": "AgCl + 2NH₃ → [Ag(NH₃)₂]Cl",
+      "after": "AgCl + 2NH₃ ⇌ [Ag(NH₃)₂]⁺ + Cl⁻",
+      "reason": "Dùng cân bằng ion tạo phức trong dung dịch."
+    },
+    {
+      "line": 86,
+      "before": "AgCl + 2NH₃ → [Ag(NH₃)₂]Cl",
+      "after": "AgCl + 2NH₃ ⇌ [Ag(NH₃)₂]⁺ + Cl⁻",
+      "reason": "Đồng bộ phản ứng tạo phức với phần nhận biết."
+    }
+  ],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "[Kr] 4d¹⁰ 5s¹",
+      "publishedValue": "[Kr] 4d¹⁰ 5s¹",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Lập phương tâm mặt (Face-centered cubic, FCC)",
+      "publishedValue": "Lập phương tâm mặt (Face-centered cubic, FCC)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "1.93",
+      "publishedValue": 1.93,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm IB | Chu kỳ 5",
+      "publishedValue": "11",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Silver là kim loại rắn, màu trắng bạc và có độ bóng cao.",
+      "publishedValue": "Rắn",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 32,
+      "sourceText": "¹⁰⁷Ag: Đồng vị bền, chiếm khoảng 51.84%.",
+      "reference": {
+        "isotope": "¹⁰⁷Ag",
+        "massNumber": 107,
+        "protons": 47,
+        "neutrons": 60,
+        "stable": true,
+        "abundancePercent": "51.839",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 33,
+      "sourceText": "¹⁰⁹Ag: Đồng vị bền, chiếm khoảng 48.16%.",
+      "reference": {
+        "isotope": "¹⁰⁹Ag",
+        "massNumber": 109,
+        "protons": 47,
+        "neutrons": 62,
+        "stable": true,
+        "abundancePercent": "48.161",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 58,
+      "text": "4Ag₂S + 8NaCN + O₂ + 2H₂O → 8Na[Ag(CN)₂] + 4NaOH",
+      "status": "unbalanced",
+      "kind": "chemical",
+      "delta": {
+        "S": -4.0,
+        "Na": 4.0,
+        "C": 8.0,
+        "N": 8.0
+      }
+    },
+    {
+      "line": 59,
+      "text": "2Na[Ag(CN)₂] + Zn → Na₂[Zn(CN)₄] + 2Ag",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 63,
+      "text": "Cu + 2AgNO₃ → Cu(NO₃)₂ + 2Ag",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 67,
+      "text": "Ag⁺ + Cl⁻ → AgCl↓",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 70,
+      "text": "AgCl + 2NH₃ → [Ag(NH₃)₂]Cl",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 74,
+      "text": "2Ag + S → Ag₂S",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 76,
+      "text": "2Ag + Cl₂ → 2AgCl",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 78,
+      "text": "Ag⁺ + Cl⁻ → AgCl↓",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 80,
+      "text": "Ag⁺ + Br⁻ → AgBr↓",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 82,
+      "text": "Ag⁺ + I⁻ → AgI↓",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 84,
+      "text": "2Ag₂O → 4Ag + O₂↑",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 86,
+      "text": "AgCl + 2NH₃ → [Ag(NH₃)₂]Cl",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "lab",
+      "equation": "Cu + 2AgNO₃ → Cu(NO₃)₂ + 2Ag",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 63,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "Ag₂S + 4NaCN ⇌ 2Na[Ag(CN)₂] + Na₂S",
+      "condition": "Dung dịch cyanide kiềm; đây là cân bằng tạo phức hoặc phản ứng thế, không phải toàn bộ quy trình hòa tách.",
+      "kind": "chemical",
+      "sourceLine": 58,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "2Na[Ag(CN)₂] + Zn → Na₂[Zn(CN)₄] + 2Ag",
+      "condition": "Dung dịch cyanide kiềm; đây là cân bằng tạo phức hoặc phản ứng thế, không phải toàn bộ quy trình hòa tách.",
+      "kind": "chemical",
+      "sourceLine": 59,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "recognition",
+      "equation": "Ag⁺ + Cl⁻ → AgCl↓",
+      "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+      "kind": "chemical",
+      "sourceLine": 67,
+      "sourceSection": "recognition",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "recognition",
+      "equation": "AgCl + 2NH₃ ⇌ [Ag(NH₃)₂]⁺ + Cl⁻",
+      "condition": "Dung dịch NH₃ dư; cân bằng tạo phức diamminesilver(I).",
+      "kind": "chemical",
+      "sourceLine": 70,
+      "sourceSection": "recognition",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2Ag + S → Ag₂S",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 74,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2Ag + Cl₂ → 2AgCl",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 76,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Ag⁺ + Cl⁻ → AgCl↓",
+      "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+      "kind": "chemical",
+      "sourceLine": 78,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Ag⁺ + Br⁻ → AgBr↓",
+      "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+      "kind": "chemical",
+      "sourceLine": 80,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Ag⁺ + I⁻ → AgI↓",
+      "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+      "kind": "chemical",
+      "sourceLine": 82,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2Ag₂O → 4Ag + O₂↑",
+      "condition": "Gia nhiệt để phân hủy; nhiệt độ phụ thuộc chất và áp suất khí sản phẩm.",
+      "kind": "chemical",
+      "sourceLine": 84,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "AgCl + 2NH₃ ⇌ [Ag(NH₃)₂]⁺ + Cl⁻",
+      "condition": "Dung dịch NH₃ dư; cân bằng tạo phức diamminesilver(I).",
+      "kind": "chemical",
+      "sourceLine": 86,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": [
+        {
+          "title": "Điện tử",
+          "desc": "Silver được sử dụng trong các tiếp điểm, mạch điện và vật liệu dẫn điện nhờ độ dẫn điện rất cao."
+        },
+        {
+          "title": "Trang sức",
+          "desc": "Silver được sử dụng rộng rãi để chế tạo trang sức, đồ trang trí và vật dụng."
+        },
+        {
+          "title": "Tiền xu",
+          "desc": "Silver từng được sử dụng phổ biến để đúc tiền."
+        },
+        {
+          "title": "Gương",
+          "desc": "Silver có khả năng phản xạ ánh sáng cao nên được sử dụng trong một số loại gương."
+        },
+        {
+          "title": "Y tế",
+          "desc": "Một số hợp chất Silver được sử dụng nhờ tính kháng khuẩn."
+        },
+        {
+          "title": "Nhiếp ảnh",
+          "desc": "Silver halide như AgBr từng đóng vai trò quan trọng trong phim ảnh truyền thống."
+        },
+        {
+          "title": "Pin",
+          "desc": "Silver compounds được sử dụng trong một số loại pin có hiệu suất cao."
+        },
+        {
+          "title": "Hàn",
+          "desc": "Một số hợp kim hàn chứa Silver được sử dụng trong điện tử và kỹ thuật."
+        }
+      ],
+      "after": [
+        {
+          "title": "Điện tử",
+          "desc": "Silver được sử dụng trong các tiếp điểm, mạch điện và vật liệu dẫn điện nhờ độ dẫn điện rất cao.",
+          "sourceLine": 88
+        },
+        {
+          "title": "Trang sức",
+          "desc": "Silver được sử dụng rộng rãi để chế tạo trang sức, đồ trang trí và vật dụng.",
+          "sourceLine": 89
+        },
+        {
+          "title": "Tiền xu",
+          "desc": "Silver từng được sử dụng phổ biến để đúc tiền.",
+          "sourceLine": 90
+        },
+        {
+          "title": "Gương",
+          "desc": "Silver có khả năng phản xạ ánh sáng cao nên được sử dụng trong một số loại gương.",
+          "sourceLine": 91
+        },
+        {
+          "title": "Y tế",
+          "desc": "Một số hợp chất Silver được sử dụng nhờ tính kháng khuẩn.",
+          "sourceLine": 92
+        },
+        {
+          "title": "Nhiếp ảnh",
+          "desc": "Silver halide như AgBr từng đóng vai trò quan trọng trong phim ảnh truyền thống.",
+          "sourceLine": 93
+        },
+        {
+          "title": "Pin",
+          "desc": "Silver compounds được sử dụng trong một số loại pin có hiệu suất cao.",
+          "sourceLine": 94
+        },
+        {
+          "title": "Hàn",
+          "desc": "Một số hợp kim hàn chứa Silver được sử dụng trong điện tử và kỹ thuật.",
+          "sourceLine": 95
+        }
+      ]
+    },
+    {
+      "field": "chemical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Số Oxy hóa phổ biến nhất là +1.</li>\n      <li>Tương đối kém hoạt động hóa học.</li>\n      <li>Không phản ứng với Oxygen ở điều kiện thường.</li>\n      <li>Phản ứng với Sulfur và Hydrogen sulfide tạo Silver sulfide.</li>\n      <li>Phản ứng với Halogen tạo Silver halide.</li>\n      <li>Ag⁺ dễ tạo kết tủa với Cl⁻, Br⁻ và I⁻.</li>\n      <li>Silver và một số hợp chất Silver có tính kháng khuẩn.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Số Oxy hóa phổ biến nhất là +1.</li><li>Tương đối kém hoạt động hóa học.</li><li>Không phản ứng với Oxygen ở điều kiện thường.</li><li>Phản ứng với Sulfur và Hydrogen sulfide tạo Silver sulfide.</li><li>Phản ứng với Halogen tạo Silver halide.</li><li>Ag⁺ dễ tạo kết tủa với Cl⁻, Br⁻ và I⁻.</li><li>Silver và một số hợp chất Silver có tính kháng khuẩn.</li></ul>"
+    },
+    {
+      "field": "general.CAS",
+      "before": null,
+      "after": "7440-22-4"
+    },
+    {
+      "field": "general.electronegativityNote",
+      "before": null,
+      "after": "Thang Pauling; số liệu tổng hợp PubChem."
+    },
+    {
+      "field": "general.groupLabel",
+      "before": null,
+      "after": "11"
+    },
+    {
+      "field": "general.series",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "general.state",
+      "before": "",
+      "after": "Rắn"
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/photos/047_Ag.jpg",
+          "title": "Bạc (Ag)",
+          "desc": "Ảnh tham chiếu mẫu Silver (Ag); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+          "source": "https://commons.wikimedia.org/wiki/File:Silver_crystal.jpg",
+          "author": "Alchemist-hp ( talk ) ( www.pse-mendelejew.de )",
+          "license": "CC BY-SA 3.0 de",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en"
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "¹⁰⁷Ag",
+          "massNumber": 107,
+          "protons": 47,
+          "neutrons": 60,
+          "stable": true,
+          "abundancePercent": "51.839",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "¹⁰⁹Ag",
+          "massNumber": 109,
+          "protons": 47,
+          "neutrons": 62,
+          "stable": true,
+          "abundancePercent": "48.161",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "mass",
+      "before": 107.868,
+      "after": 107.87
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "standard-atomic-weight"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "107.87 ± 0.01"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": [
+        {
+          "type": "model",
+          "section": "structure",
+          "title": "Mẫu khoáng vật 3D · Acanthite",
+          "src": "/assets/periodic-table/minerals/acanthite.glb",
+          "preview": "/assets/periodic-table/minerals/acanthite.png",
+          "desc": "Ag₂S. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "nameVi",
+      "before": "Silver",
+      "after": "Bạc"
+    },
+    {
+      "field": "naturalState.alt",
+      "before": null,
+      "after": "Silver: ảnh tham chiếu từ Commons"
+    },
+    {
+      "field": "naturalState.caption",
+      "before": null,
+      "after": "Ảnh tham chiếu mẫu Silver (Ag); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc."
+    },
+    {
+      "field": "naturalState.credit",
+      "before": null,
+      "after": "Alchemist-hp ( talk ) ( www.pse-mendelejew.de ) · CC BY-SA 3.0 de"
+    },
+    {
+      "field": "naturalState.image",
+      "before": null,
+      "after": "/assets/periodic-table/photos/047_Ag.jpg"
+    },
+    {
+      "field": "naturalState.kind",
+      "before": null,
+      "after": "photo"
+    },
+    {
+      "field": "naturalState.source",
+      "before": null,
+      "after": "https://commons.wikimedia.org/wiki/File:Silver_crystal.jpg"
+    },
+    {
+      "field": "notes",
+      "before": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Silver là nguyên tố số 47, thuộc nhóm IB | chu kỳ 5 và là một kim loại chuyển tiếp.</li>\n  <li>Silver có cấu hình electron [Kr] 4d¹⁰ 5s¹, với số Oxy hóa phổ biến nhất là +1.</li>\n  <li>Silver nổi bật nhờ độ dẫn điện và dẫn nhiệt rất cao, đồng thời có tính dẻo, dễ gia công và khả năng phản xạ ánh sáng tốt.</li>\n  <li>Trong tự nhiên, Silver có thể tồn tại ở dạng kim loại tự sinh hoặc trong các quặng Sulfide, Halide. Hai đồng vị tự nhiên chính là ¹⁰⁷Ag và ¹⁰⁹Ag.</li>\n  <li>Silver có nhiều ứng dụng trong điện tử, trang sức, y tế, gương, nhiếp ảnh, pin và công nghiệp hàn.</li>\n</ul>\n",
+      "after": "<ul class=\"element-prose-list\"><li>Silver là nguyên tố số 47, thuộc nhóm IB | chu kỳ 5 và là một kim loại chuyển tiếp.</li><li>Silver có cấu hình electron [Kr] 4d¹⁰ 5s¹, với số Oxy hóa phổ biến nhất là +1.</li><li>Silver nổi bật nhờ độ dẫn điện và dẫn nhiệt rất cao, đồng thời có tính dẻo, dễ gia công và khả năng phản xạ ánh sáng tốt.</li><li>Trong tự nhiên, Silver có thể tồn tại ở dạng kim loại tự sinh hoặc trong các quặng Sulfide, Halide. Hai đồng vị tự nhiên chính là ¹⁰⁷Ag và ¹⁰⁹Ag.</li><li>Silver có nhiều ứng dụng trong điện tử, trang sức, y tế, gương, nhiếp ảnh, pin và công nghiệp hàn.</li></ul>"
+    },
+    {
+      "field": "occurrence.details",
+      "before": null,
+      "after": [
+        "Trạng thái: Silver là kim loại rắn, màu trắng bạc và có độ bóng cao.",
+        "Có trong: Tồn tại ở dạng Silver tự sinh và trong các quặng như Argentite (Ag₂S), Chlorargyrite (AgCl), thường đi kèm với quặng Lead, Copper và Zinc.",
+        "Đơn chất: Ag",
+        "Hợp chất: AgNO₃, AgCl, Ag₂S, Ag₂O, AgBr, AgI..."
+      ]
+    },
+    {
+      "field": "occurrence.mineral",
+      "before": null,
+      "after": {
+        "available": true,
+        "id": "acanthite",
+        "name": "Acanthite",
+        "formula": "Ag₂S",
+        "habit": "prismatic",
+        "color": "#626374",
+        "crystalSystem": "monoclinic",
+        "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+        "source": "https://www.handbookofmineralogy.org/",
+        "sourceSearch": "https://rruff.info/Acanthite",
+        "model": "/assets/periodic-table/minerals/acanthite.glb",
+        "preview": "/assets/periodic-table/minerals/acanthite.png",
+        "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      }
+    },
+    {
+      "field": "physical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại chuyển tiếp.</li>\n      <li>Màu trắng bạc, sáng bóng.</li>\n      <li>Là kim loại có độ dẫn điện cao nhất trong các kim loại.</li>\n      <li>Có khả năng dẫn nhiệt rất tốt.</li>\n      <li>Dẻo và dễ dát mỏng.</li>\n      <li>Khối lượng riêng: khoảng 10.49 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 961.8 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 2162 °C.</li>\n      <li>Có độ phản xạ ánh sáng cao.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Là kim loại chuyển tiếp.</li><li>Màu trắng bạc, sáng bóng.</li><li>Là kim loại có độ dẫn điện cao nhất trong các kim loại.</li><li>Có khả năng dẫn nhiệt rất tốt.</li><li>Dẻo và dễ dát mỏng.</li><li>Khối lượng riêng: khoảng 10.49 g/cm³.</li><li>Nhiệt độ nóng chảy: khoảng 961.8 °C.</li><li>Nhiệt độ sôi: khoảng 2162 °C.</li><li>Có độ phản xạ ánh sáng cao.</li></ul>"
+    },
+    {
+      "field": "preparations.industry",
+      "before": [
+        {
+          "title": "Silver thường được thu hồi từ các quặng chứa Silver hoặc là sản phẩm phụ trong quá trình luyện Lead, Copper và Zinc.",
+          "equation": "",
+          "desc": ""
+        },
+        {
+          "title": "Một phương pháp điều chế Silver từ Silver oxide:",
+          "equation": "2Ag₂O → 4Ag + O₂↑",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Silver chủ yếu được thu hồi từ quặng Argentite (Ag₂S) và các quặng chì, kẽm, đồng. Với quặng Argentite, bạc được hòa tách bằng Sodium cyanide, sau đó thu hồi bằng Zinc và tinh chế bằng điện phân.",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "Ag₂S + 4NaCN ⇌ 2Na[Ag(CN)₂] + Na₂S",
+              "condition": "Dung dịch cyanide kiềm; đây là cân bằng tạo phức hoặc phản ứng thế, không phải toàn bộ quy trình hòa tách.",
+              "kind": "chemical",
+              "sourceLine": 58,
+              "sourceSection": "industry",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            },
+            {
+              "equation": "2Na[Ag(CN)₂] + Zn → Na₂[Zn(CN)₄] + 2Ag",
+              "condition": "Dung dịch cyanide kiềm; đây là cân bằng tạo phức hoặc phản ứng thế, không phải toàn bộ quy trình hòa tách.",
+              "kind": "chemical",
+              "sourceLine": 59,
+              "sourceSection": "industry",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            56,
+            58,
+            59
+          ],
+          "equation": "Ag₂S + 4NaCN ⇌ 2Na[Ag(CN)₂] + Na₂S"
+        }
+      ]
+    },
+    {
+      "field": "preparations.lab",
+      "before": [],
+      "after": [
+        {
+          "title": "Có thể điều chế Silver bằng cách cho Copper tác dụng với dung dịch Silver nitrate, tạo kết tủa bạc kim loại.",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "Cu + 2AgNO₃ → Cu(NO₃)₂ + 2Ag",
+              "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+              "kind": "chemical",
+              "sourceLine": 63,
+              "sourceSection": "lab",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            61,
+            63
+          ],
+          "equation": "Cu + 2AgNO₃ → Cu(NO₃)₂ + 2Ag"
+        }
+      ]
+    },
+    {
+      "field": "reactions",
+      "before": [
+        {
+          "type": "Tác dụng với Sulfur",
+          "equation": "2Ag + S → Ag₂S",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Chlorine",
+          "equation": "2Ag + Cl₂ → 2AgCl",
+          "desc": ""
+        },
+        {
+          "type": "Tạo Silver chloride",
+          "equation": "Ag⁺ + Cl⁻ → AgCl↓",
+          "desc": ""
+        },
+        {
+          "type": "Tạo Silver bromide",
+          "equation": "Ag⁺ + Br⁻ → AgBr↓",
+          "desc": ""
+        },
+        {
+          "type": "Tạo Silver iodide",
+          "equation": "Ag⁺ + I⁻ → AgI↓",
+          "desc": ""
+        },
+        {
+          "type": "Silver oxide phân hủy khi đun nóng",
+          "equation": "2Ag₂O → 4Ag + O₂↑",
+          "desc": ""
+        },
+        {
+          "type": "AgCl tác dụng với Ammonia",
+          "equation": "AgCl + 2NH₃ → [Ag(NH₃)₂]Cl",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "type": "Tác dụng với Sulfur",
+          "desc": "",
+          "equation": "2Ag + S → Ag₂S",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 74,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Chlorine",
+          "desc": "",
+          "equation": "2Ag + Cl₂ → 2AgCl",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 76,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Silver chloride",
+          "desc": "",
+          "equation": "Ag⁺ + Cl⁻ → AgCl↓",
+          "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+          "kind": "chemical",
+          "sourceLine": 78,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Silver bromide",
+          "desc": "",
+          "equation": "Ag⁺ + Br⁻ → AgBr↓",
+          "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+          "kind": "chemical",
+          "sourceLine": 80,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Silver iodide",
+          "desc": "",
+          "equation": "Ag⁺ + I⁻ → AgI↓",
+          "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+          "kind": "chemical",
+          "sourceLine": 82,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Silver oxide phân hủy khi đun nóng",
+          "desc": "",
+          "equation": "2Ag₂O → 4Ag + O₂↑",
+          "condition": "Gia nhiệt để phân hủy; nhiệt độ phụ thuộc chất và áp suất khí sản phẩm.",
+          "kind": "chemical",
+          "sourceLine": 84,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "AgCl tác dụng với Ammonia",
+          "desc": "",
+          "equation": "AgCl + 2NH₃ ⇌ [Ag(NH₃)₂]⁺ + Cl⁻",
+          "condition": "Dung dịch NH₃ dư; cân bằng tạo phức diamminesilver(I).",
+          "kind": "chemical",
+          "sourceLine": 86,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": [
+        {
+          "title": "Nhận biết",
+          "reagent": "Nhận biết Ag⁺",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Cho dung dịch chứa Ag⁺ tác dụng với Chloride",
+          "reagent": "",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "",
+          "result": "",
+          "equation": "Ag⁺ + Cl⁻ → AgCl↓"
+        },
+        {
+          "title": "Hiện tượng",
+          "reagent": "",
+          "result": "Xuất hiện kết tủa trắng Silver chloride.",
+          "equation": ""
+        },
+        {
+          "title": "AgCl tan trong dung dịch Ammonia",
+          "reagent": "",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "",
+          "result": "",
+          "equation": "AgCl + 2NH₃ → [Ag(NH₃)₂]Cl"
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "Đây là một phản ứng đặc trưng để nhận biết Ag⁺.",
+          "result": "",
+          "equation": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Nhận biết Ag⁺",
+          "desc": "Cho dung dịch chứa Ag⁺ tác dụng với Chloride:",
+          "result": "Xuất hiện kết tủa trắng Silver chloride.",
+          "equations": [
+            {
+              "equation": "Ag⁺ + Cl⁻ → AgCl↓",
+              "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+              "kind": "chemical",
+              "sourceLine": 67,
+              "sourceSection": "recognition",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            65,
+            66,
+            67,
+            68
+          ],
+          "equation": "Ag⁺ + Cl⁻ → AgCl↓"
+        },
+        {
+          "title": "AgCl tan trong dung dịch Ammonia",
+          "desc": "Đây là một phản ứng đặc trưng để nhận biết Ag⁺.",
+          "result": "",
+          "equations": [
+            {
+              "equation": "AgCl + 2NH₃ ⇌ [Ag(NH₃)₂]⁺ + Cl⁻",
+              "condition": "Dung dịch NH₃ dư; cân bằng tạo phức diamminesilver(I).",
+              "kind": "chemical",
+              "sourceLine": 70,
+              "sourceSection": "recognition",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            69,
+            70,
+            71
+          ],
+          "equation": "AgCl + 2NH₃ ⇌ [Ag(NH₃)₂]⁺ + Cl⁻"
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "047_Ag.docx",
+        "sourceSha256": "6f203f7d3334e86d223c6541ed06cc5df01d77a38d9014ceb322a992d0d26db9",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/047_Ag.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "047_Ag.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "6f203f7d3334e86d223c6541ed06cc5df01d77a38d9014ceb322a992d0d26db9"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/47/silver"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure.latticeEvidence",
+      "before": null,
+      "after": "source-reviewed"
+    },
+    {
+      "field": "structure.nucleusIsotope",
+      "before": null,
+      "after": "¹⁰⁷Ag"
+    },
+    {
+      "field": "structure.nucleusNote",
+      "before": null,
+      "after": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác."
+    },
+    {
+      "field": "structure.valenceNote",
+      "before": null,
+      "after": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp."
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "Ag",
+      "status": "downloaded",
+      "file": "/assets/periodic-table/photos/047_Ag.jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:Silver_crystal.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/5/55/Silver_crystal.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "thumbnail": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/55/Silver_crystal.jpg/960px-Silver_crystal.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "filename": "Silver_crystal.jpg",
+      "title": "Silver crystal",
+      "description": "A pure (&gt;99.95%) silver crystal, synthetic electrolytic made with visible dendritic structures. Weight ≈11g. this image was made from 12 single pictures via focus stacking",
+      "author": "Alchemist-hp ( talk ) ( www.pse-mendelejew.de )",
+      "license": "CC BY-SA 3.0 de",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en",
+      "credit": "Own work (additional processed by Waugsberg )",
+      "sha256": "1108519b96416a2c19dc221fcff17f5d4513c9f5e262d9c6b71334118400c9d2",
+      "bytes": 161371
+    },
+    "mineral": {
+      "available": true,
+      "id": "acanthite",
+      "name": "Acanthite",
+      "formula": "Ag₂S",
+      "habit": "prismatic",
+      "color": "#626374",
+      "crystalSystem": "monoclinic",
+      "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Acanthite",
+      "model": "/assets/periodic-table/minerals/acanthite.glb",
+      "preview": "/assets/periodic-table/minerals/acanthite.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "Ag",
+      "z": 47,
+      "url": "https://periodic-table.rsc.org/element/47/silver",
+      "status": "retrieved",
+      "bytes": 153819,
+      "sha256": "c705eac0ec9272e13f193e8c49c93f8c75bdc15cbb495a4afbcb19917cc5bd94",
+      "facts": {
+        "Group": "11",
+        "Melting point": "961.78°C, 1763.2°F, 1234.93 K",
+        "Period": "5",
+        "Boiling point": "2162°C, 3924°F, 2435 K",
+        "Block": "d",
+        "Density (g cm−³)": "10.5",
+        "Atomic number": "47",
+        "Relative atomic mass": "107.868",
+        "State at 20°C": "Solid",
+        "Key isotopes": "¹⁰⁷Ag",
+        "Electron configuration": "[Kr] 4d¹⁰5s¹",
+        "CAS number": "7440-22-4",
+        "ChemSpider ID": "22394",
+        "electronegativity": "1.93"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "47",
+      "Symbol": "Ag",
+      "Name": "Silver",
+      "AtomicMass": "107.868",
+      "CPKHexColor": "C0C0C0",
+      "ElectronConfiguration": "[Kr]5s1 4d10",
+      "Electronegativity": "1.93",
+      "AtomicRadius": "172",
+      "IonizationEnergy": "7.576",
+      "ElectronAffinity": "1.302",
+      "OxidationStates": "+1",
+      "StandardState": "Solid",
+      "MeltingPoint": "1234.93",
+      "BoilingPoint": "2435",
+      "Density": "10.501",
+      "GroupBlock": "Transition metal",
+      "YearDiscovered": "Ancient"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

@@ -1,0 +1,91 @@
+001: Copernicium (Cn)
+002: Thông tin chung
+003: Tên Latin: Copernicium
+004: Tên Tiếng Anh: Copernicium
+005: Đồng vị: ²⁷⁷Cn, ²⁷⁸Cn, ²⁷⁹Cn, ²⁸¹Cn, ²⁸²Cn, ²⁸³Cn, ²⁸⁴Cn
+006: Vị trí: Nhóm IIB | Chu kỳ 7
+007: Số Oxy hóa: +2, +4 (dự đoán)
+008: Độ âm điện: Không xác định
+009: Lịch sử khám phá
+010: Phát hiện bởi: Nhóm nghiên cứu tại Gesellschaft für Schwerionenforschung (GSI)
+011: Năm công bố: 1996
+012: Nơi khám phá: Darmstadt, Đức
+013: Mô tả: Copernicium được tổng hợp lần đầu vào năm 1996 tại GSI bằng cách bắn phá Lead-208 bằng Zinc-70:
+014: ²⁰⁸Pb + ⁷⁰Zn → ²⁷⁷Cn + n
+015: Tên Copernicium được đặt để vinh danh nhà thiên văn học Nicolaus Copernicus, người đề xuất mô hình Nhật tâm.
+016: 3. Cấu tạo
+017: a. Cấu tạo nguyên tử
+018: Hoạt họa cấu hình e: [Rn] 5f¹⁴ 6d¹⁰ 7s² (dự đoán)
+019: Mô hình mạng tinh thể: Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)
+020: Số hiệu nguyên tử: 112
+021: Nguyên tử khối: [285] g/mol
+022: Vỏ nguyên tử: 112 electron
+023: Hạt nhân: 112 proton
+024: Cấu hình e: [Rn] 5f¹⁴ 6d¹⁰ 7s² (dự đoán)
+025: Loại mạng: Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)
+026: b. Trạng thái tự nhiên
+027: Trạng thái: Chất rắn (dự đoán)
+028: Có trong: Không tồn tại tự nhiên với lượng đáng kể. Copernicium chỉ được tổng hợp nhân tạo trong phòng thí nghiệm.
+029: Đơn chất: Cn
+030: Hợp chất: CnCl₂, CnO... (dự đoán)
+031: c. Đồng vị
+032: Copernicium không có đồng vị bền.
+033: Một số đồng vị đáng chú ý:
+034: ²⁷⁷Cn: chu kỳ bán rã khoảng 0,24 mili giây.
+035: ²⁷⁸Cn: chu kỳ bán rã khoảng 0,27 mili giây.
+036: ²⁷⁹Cn: chu kỳ bán rã khoảng 0,15 giây.
+037: ²⁸¹Cn: chu kỳ bán rã khoảng 0,18 giây.
+038: ²⁸³Cn: chu kỳ bán rã khoảng 4 giây.
+039: ²⁸⁵Cn: được dự đoán có độ ổn định cao hơn các đồng vị nhẹ hơn.
+040: Các đồng vị Copernicium chủ yếu phân rã bâng phân rã Alpha.
+041: Tính chất
+042: Tính chất vật lý
+043: Là nguyên tố thuộc nhóm IIB | chu kỳ 7.
+044: Là nguyên tố siêu nặng.
+045: Có tính phóng xạ rất mạnh.
+046: Được dự đoán là chất rắn ở điều kiện thường.
+047: Có thể có nhiệt độ nóng chảy rất thấp so với các nguyên tố cùng nhóm.
+048: Được dự đoán có tính chất giống một kim loại nặng, nhưng một số mô hình cho rằng Copernicium có thể có đặc tính khá khác biệt.
+049: Khối lượng riêng, nhiệt độ nóng chảy và nhiệt độ sôi chưa được xác định trực tiếp.
+050: Tính chất hóa học
+051: Có cấu hình electron hóa trị 7s².
+052: Số Oxy hóa +2 được dự đoán là quan trọng nhất.
+053: Có thể có trạng thái +4.
+054: Do hiệu ứng tương đối tính rất mạnh, electron 7s bị giữ chặt, khiến Copernicium có tính chất hóa học khác biệt đáng kể so với Zinc, Cadmium và Mercury.
+055: Có thể có tính dễ bay hơi cao bất thường đối với một kim loại.
+056: Điều chế
+057: Điều chế trong công nghiệp:
+058: Copernicium (Cn) không được sản xuất công nghiệp do tính phóng xạ rất cao và thời gian bán rã ngắn. Nguyên tố này chỉ được tổng hợp với lượng cực nhỏ trong các cơ sở nghiên cứu hạt nhân.
+059: Điều chế trong phòng thí nghiệm:
+060: Copernicium được tổng hợp bằng cách bắn phá Lead-208 bằng ion Zinc-70 trong máy gia tốc hạt.
+061: ²⁰⁸Pb + ⁷⁰Zn → ²⁷⁷Cn + ¹n
+062: Nhận biết
+063: Copernicium được nhận biết thông qua:
+064: Năng lượng của các hạt Alpha.
+065: Chu kỳ bán rã.
+066: Chuỗi phân rã đặc trưng.
+067: Xác định các hạt nhân con.
+068: Trong một số thí nghiệm, nghiên cứu tính bay hơi và hành vi hóa học của nguyên tử Cn.
+069: Không thể nhận biết bằng phản ứng hóa học thông thường vì chỉ tạo được một lượng cực nhỏ nguyên tử.
+070: Phương trình
+071: Tổng hợp Copernicium-277
+072: ²⁰⁸Pb + ⁷⁰Zn → ²⁷⁷Cn + n
+073: Phân rã Alpha
+074: ²⁸³Cn → ²⁷⁹Ds + ⁴He
+075: Tạo Copernicium(II) chloride
+076: Cn + Cl₂ → CnCl₂
+077: Tạo Copernicium(II) oxide
+078: 2Cn + O₂ → 2CnO
+079: Các phương trình hóa học của Copernicium chủ yếu mang tính dự đoán.
+080: Ứng dụng thực tế
+081: Copernicium không có ứng dụng công nghiệp hoặc dân dụng.
+082: Nó chủ yếu được sử dụng trong:
+083: Nghiên cứu hạt nhân: Nghiên cứu các hạt nhân siêu nặng và độ ổn định của chúng.
+084: Hóa học nguyên tố siêu nặng: Nghiên cứu vị trí của Copernicium trong nhóm IIB và so sánh với Zinc, Cadmium và Mercury.
+085: Nghiên cứu hiệu ứng tương đối tính: Copernicium là một ví dụ đặc biệt về việc hiệu ứng tương đối tính có thể làm thay đổi mạnh tính chất của nguyên tử siêu nặng.
+086: Tổng quan
+087: Copernicium là nguyên tố số 112, thuộc nhóm IIB | chu kỳ 7 và là một nguyên tố siêu nặng.
+088: Copernicium được tổng hợp lần đầu vào năm 1996 tại Darmstadt, Đức, bằng phản ứng giữa Lead-208 và Zinc-70. Tên nguyên tố được đặt để vinh danh Nicolaus Copernicus.
+089: Cấu hình electron được dự đoán là [Rn] 5f¹⁴ 6d¹⁰ 7s², với số Oxy hóa chủ yếu là +2. Do hiệu ứng tương đối tính cực mạnh, Copernicium có thể có những tính chất khác biệt đáng kể so với các nguyên tố cùng nhóm.
+090: Copernicium không có đồng vị bền, rất phóng xạ và chỉ được tạo ra với số lượng cực nhỏ. Vì vậy, nó không có ứng dụng thực tế, chủ yếu phục vụ nghiên cứu khoa học.
+091: Mạng tinh thể: Lập phương tâm khối (BCC) — dự đoán, vì chưa thể thu được lượng Copernicium đủ lớn để xác định trực tiếp cấu trúc tinh thể.

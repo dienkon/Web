@@ -21,17 +21,18 @@ function createModelViewerBlock(container, block, el) {
   container.innerHTML = `
           <div class="grid gap-3">
             <div class="detail-media-note flex flex-wrap items-center gap-2">
-              <span class="visual-badge"><i class="fa-solid fa-cube"></i> 3D theo dữ liệu</span>
-              <span class="visual-badge">${escapeHtml(el?.symbol || "")} • Nhóm ${escapeHtml(el?.general?.group || "?")} • Chu kì ${escapeHtml(el?.general?.period || "?")}</span>
+              <span class="visual-badge"><i class="fa-solid fa-cube"></i> Mô hình hình thái · Minh họa</span>
+              <span class="visual-badge">${escapeHtml(el?.symbol || "")} • ${el?.general?.group ? `Nhóm ${escapeHtml(el.general.group)}` : escapeHtml(el?.general?.series || '')} • Chu kì ${escapeHtml(el?.general?.period || "?")}</span>
             </div>
             <div class="model-shell group relative cursor-pointer min-h-[300px] bg-slate-900 border border-slate-700 rounded-xl overflow-hidden" id="model-shell-${el.symbol}-${block._idx}">
-              <div class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/80 hover:bg-slate-800 transition-colors z-10" id="model-overlay-${el.symbol}-${block._idx}">
+              ${block.preview ? `<img class="mineral-poster" src="${escapeHtml(block.preview)}" alt="${escapeHtml(block.title)} — hình render minh họa" loading="lazy">` : ''}
+              <button type="button" class="absolute inset-0 w-full flex flex-col items-center justify-center bg-slate-900/60 hover:bg-slate-800/80 transition-colors z-10" id="model-overlay-${el.symbol}-${block._idx}">
                  <i class="fa-solid fa-cube text-4xl text-blue-400 mb-3 group-hover:scale-110 transition-transform duration-300"></i>
                  <span class="text-white font-semibold">Nhấn để xem mô hình 3D</span>
                  <span class="text-xs text-slate-400 mt-1">Giúp tối ưu hiệu suất trình duyệt</span>
-              </div>
+              </button>
             </div>
-            ${block.desc ? `<div class="detail-media-note">${escapeHtml(block.desc)}</div>` : ""}
+            <div class="mineral-toolbar"><button type="button" data-model-rotate>Tạm dừng xoay</button><button type="button" data-model-reset>Góc nhìn ban đầu</button><a href="${escapeHtml(modelPath)}" download>Tải mô hình GLB</a><span>Kéo để xoay · Cuộn để phóng to</span></div>
             <div class="detail-media-note hidden" id="model-status-${el.symbol}-${block._idx}"></div>
           </div>
         `;
@@ -54,9 +55,16 @@ function createModelViewerBlock(container, block, el) {
   let visibilityObserver = null;
   let isIntersecting = false;
   let isInitialized = false;
+  let destroyed = false;
+  let autoRotate = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const rotateButton = container.querySelector('[data-model-rotate]');
+  const updateRotateButton = () => { rotateButton.textContent = autoRotate ? 'Tạm dừng xoay' : 'Tự động xoay'; rotateButton.setAttribute('aria-pressed', String(autoRotate)); };
+  updateRotateButton();
+  rotateButton.addEventListener('click', () => { autoRotate = !autoRotate; updateRotateButton(); });
+  container.querySelector('[data-model-reset]').addEventListener('click', () => { if (current) { current.rotation.set(0,0,0); fit(current); } });
 
   function setStatus(msg) {
-    if (status) {
+    if (status && !destroyed) {
       status.textContent = msg;
       status.classList.remove("hidden");
     }
@@ -103,7 +111,7 @@ function createModelViewerBlock(container, block, el) {
     let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
     cameraZ *= 1.8;
 
-    const direction = new THREE.Vector3(0, 0, 1);
+    const direction = new THREE.Vector3(1.3, .8, 1.8).normalize();
     camera.position.copy(center).add(direction.multiplyScalar(cameraZ));
     camera.near = Math.max(cameraZ / 100, 0.01);
     camera.far = cameraZ * 100;
@@ -115,6 +123,7 @@ function createModelViewerBlock(container, block, el) {
   }
 
   function finalize(object3d) {
+    if (destroyed) { object3d?.traverse(disposeNode); return; }
     clearModel();
     object3d.traverse((child) => {
       if (child.isMesh) {
@@ -128,13 +137,14 @@ function createModelViewerBlock(container, block, el) {
     scene.add(object3d);
     current = object3d;
     fit(object3d);
-    setStatus(`Đã tải mô hình: ${modelPath}`);
-    setTimeout(() => { if (status) status.classList.add("hidden"); }, 2000);
+    setStatus('Mô hình sẵn sàng. Kéo để xoay, cuộn để phóng to.');
+    status.dataset.state = 'ready';
+    shell.querySelector('.mineral-poster')?.remove();
   }
 
   async function loadModel() {
     clearModel();
-    setStatus(`Đang tải: ${modelPath}`);
+    setStatus('Đang tải mô hình khoáng vật…');
     const lower = modelPath.toLowerCase();
 
     try {
@@ -184,7 +194,7 @@ function createModelViewerBlock(container, block, el) {
 
   const loop = () => {
     if (isIntersecting && isInitialized) {
-      if (current) current.rotation.y += 0.0025;
+      if (current && autoRotate) current.rotation.y += 0.0025;
       controls.update();
       renderer.render(scene, camera);
     }
@@ -203,10 +213,13 @@ function createModelViewerBlock(container, block, el) {
     camera = new THREE.PerspectiveCamera(50, 1, 0.1, 5000);
     camera.position.set(0, 1.5, 4);
 
-    renderer = new THREE.WebGLRenderer({
+    try { renderer = new THREE.WebGLRenderer({
       antialias: true,
       alpha: false,
-    });
+    }); } catch {
+      setStatus('Trình duyệt chưa hỗ trợ WebGL. Bạn có thể xem ảnh render hoặc tải mô hình GLB.');
+      return;
+    }
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.shadowMap.enabled = true;
@@ -214,6 +227,7 @@ function createModelViewerBlock(container, block, el) {
     renderer.domElement.style.inset = "0";
     renderer.domElement.style.width = "100%";
     renderer.domElement.style.height = "100%";
+    renderer.domElement.setAttribute('aria-label', block.title || 'Mô hình khoáng vật 3D');
     shell.appendChild(renderer.domElement);
 
     controls = new OrbitControls(camera, renderer.domElement);
@@ -248,12 +262,15 @@ function createModelViewerBlock(container, block, el) {
 
   return {
     destroy() {
+      destroyed = true;
       cancelAnimationFrame(raf);
       resizeObserver?.disconnect();
       visibilityObserver?.disconnect();
       if (controls) controls.dispose();
       clearModel();
       if (renderer) renderer.dispose();
+      grid?.geometry?.dispose();
+      grid?.material?.dispose();
       container.innerHTML = "";
     },
   };

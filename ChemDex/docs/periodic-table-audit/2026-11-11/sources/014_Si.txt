@@ -1,0 +1,104 @@
+001: Silicon (Si)
+002: Thông tin chung
+003: Tên Latin: Silicium
+004: Tên tiếng Anh: Silicon
+005: Đồng vị: ²⁸Si, ²⁹Si, ³⁰Si
+006: Vị trí: Nhóm IVA | Chu kỳ 3
+007: Số Oxy hóa: −4, +2, +4
+008: Độ âm điện: 1.90
+009: Lịch sử khám phá
+010: Phát hiện bởi: Jöns Jacob Berzelius
+011: Năm công bố: 1824
+012: Nơi khám phá: Thụy Điển
+013: Mô tả: Năm 1824, Jöns Jacob Berzelius điều chế được Silicon vô định hình bằng cách khử Silicon tetrafluoride với Potassium. Ông nhận ra đây là một nguyên tố mới. Silicon tinh khiết hơn được điều chế sau đó bằng các phương pháp khác.
+014: 3. Cấu tạo
+015: a. Cấu tạo
+016: Hoạt họa cấu hình e: 1s² 2s² 2p⁶ 3s² 3p²
+017: Mô hình mạng tinh thể: Lập phương tâm mặt (FCC)
+018: Số hiệu nguyên tử: 14
+019: Nguyên tử khối: 28.085 g/mol
+020: Vỏ nguyên tử: 14 electron
+021: K: 2 | L: 8 | M: 4
+022: Hạt nhân: 14 proton, 14 neutron đối với ²⁸Si
+023: Cấu hình e: 1s² 2s² 2p⁶ 3s² 3p²
+024: Loại mạng: Lập phương tâm mặt (FCC)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Silicon là một á kim và không tồn tại tự do đáng kể trong tự nhiên. Nó chủ yếu tồn tại dưới dạng Silicon dioxide và các Silicate.
+027: Có trong: Cát, Quartz, đất đá, khoáng vật Silicate và lớp vỏ Trái Đất.
+028: Đơn chất: Si
+029: Hợp chất: SiO₂, SiC, SiCl₄, Na₂SiO₃, CaSiO₃, SiH₄...
+030: c. Đồng vị
+031: Đồng vị: ²⁸Si, ²⁹Si, ³⁰Si
+032: ²⁸Si: Đồng vị bền, chiếm khoảng 92.23% Silicon tự nhiên.
+033: ²⁹Si: Đồng vị bền, chiếm khoảng 4.67%.
+034: ³⁰Si: Đồng vị bền, chiếm khoảng 3.10%.
+035: Cả ba đồng vị tự nhiên đều bền.
+036: Tính chất
+037: Tính chất vật lý
+038: Là chất rắn ở điều kiện thường.
+039: Có màu xám đen và ánh kim.
+040: Là á kim.
+041: Có tính bán dẫn.
+042: Khối lượng riêng: khoảng 2.329 g/cm³.
+043: Nhiệt độ nóng chảy: khoảng 1414 °C.
+044: Nhiệt độ sôi: khoảng 3265 °C.
+045: Cứng và giòn.
+046: Độ dẫn điện tăng khi nhiệt độ tăng.
+047: Có cấu trúc tinh thể tương tự Diamond.
+048: Tính chất hóa học
+049: Có tính chất trung gian giữa kim loại và phi kim.
+050: Số Oxy hóa phổ biến: −4 và +4.
+051: Có khả năng tạo liên kết cộng hóa trị mạnh.
+052: Phản ứng với Oxygen khi nung nóng tạo Silicon dioxide.
+053: Phản ứng với Halogen tạo Silicon halide.
+054: Phản ứng với một số kim loại tạo Silicide.
+055: Tương đối trơ với nước ở điều kiện thường.
+056: Không phản ứng đáng kể với nhiều acid, nhưng phản ứng với Hydrofluoric acid.
+057: Silicon dioxide có tính acid và phản ứng với base mạnh.
+058: Điều chế
+059: Điều chế trong công nghiệp
+060: Silicon được sản xuất chủ yếu bằng cách khử Silicon dioxide bằng Carbon trong lò điện ở nhiệt độ cao:
+061: SiO₂ + 2C → Si + 2CO
+062: Silicon thu được có độ tinh khiết cao hơn nguyên liệu ban đầu nhưng vẫn cần tinh chế thêm khi sử dụng trong công nghiệp bán dẫn.
+063: Đối với Silicon điện tử có độ tinh khiết rất cao, Silicon có thể được chuyển thành các hợp chất dễ tinh chế rồi tái lắng đọng thành Silicon tinh khiết.
+064: Điều chế trong phòng thí nghiệm
+065: Có thể điều chế Silicon bằng cách khử Silicon dioxide bằng Magnesium:
+066: SiO₂ + 2Mg → Si + 2MgO
+067: Nhận biết
+068: Phương pháp hóa học: Silicon đơn chất không có phản ứng nhận biết đơn giản và đặc hiệu trong chương trình phổ thông.
+069: Tính chất bán dẫn: Silicon có thể được xác định bằng các phương pháp vật lý và phân tích chuyên dụng dựa trên tính chất bán dẫn và cấu trúc tinh thể.
+070: Phương trình
+071: Tác dụng với Oxygen
+072: Si + O₂ → SiO₂
+073: Tác dụng với Chlorine
+074: Si + 2Cl₂ → SiCl₄
+075: Tác dụng với Fluorine
+076: Si + 2F₂ → SiF₄
+077: Tác dụng với Carbon
+078: Ở nhiệt độ cao:
+079: Si + C → SiC
+080: Tác dụng với Magnesium
+081: Si + 2Mg → Mg₂Si
+082: Tác dụng với Sodium hydroxide
+083: Trong dung dịch kiềm:
+084: Si + 2NaOH + H₂O → Na₂SiO₃ + 2H₂↑
+085: Silicon dioxide tác dụng với Sodium hydroxide
+086: SiO₂ + 2NaOH → Na₂SiO₃ + H₂O
+087: Silicon dioxide tác dụng với Calcium oxide
+088: Ở nhiệt độ cao:
+089: SiO₂ + CaO → CaSiO₃
+090: Silicon dioxide tác dụng với Hydrofluoric acid
+091: SiO₂ + 4HF → SiF₄ + 2H₂O
+092: Ứng dụng thực tế
+093: Chất bán dẫn: Silicon là vật liệu quan trọng nhất trong sản xuất chip và linh kiện bán dẫn.
+094: Pin mặt trời: Silicon tinh thể được sử dụng rộng rãi trong các tế bào quang điện.
+095: Điện tử: Được sử dụng để sản xuất transistor, diode và các vi mạch.
+096: Hợp kim: Silicon được thêm vào một số hợp kim Aluminium, Iron và các kim loại khác để cải thiện tính chất vật liệu.
+097: Silicone: Silicon compounds là nguyên liệu để sản xuất Silicone dùng trong nhiều ngành công nghiệp.
+098: Vật liệu xây dựng: Silicon dioxide và Silicate là thành phần quan trọng của thủy tinh, xi măng, gốm và bê tông.
+099: Silicon carbide: SiC được sử dụng làm vật liệu mài mòn và vật liệu kỹ thuật chịu nhiệt cao.
+100: Tổng quan
+101: Silicon là nguyên tố số 14, thuộc nhóm IVA | chu kỳ 3 và là một á kim.
+102: Silicon có cấu hình electron 1s² 2s² 2p⁶ 3s² 3p² và có 4 electron hóa trị. Silicon có khả năng tạo liên kết cộng hóa trị mạnh và có cấu trúc tinh thể tương tự Diamond.
+103: Trong tự nhiên, Silicon là một trong những nguyên tố phổ biến nhất trong lớp vỏ Trái Đất, chủ yếu tồn tại dưới dạng Silicon dioxide và Silicate.
+104: Silicon có tính bán dẫn, là cơ sở của ngành công nghiệp điện tử hiện đại. Silicon và các hợp chất của nó được sử dụng rộng rãi trong vi điện tử, pin mặt trời, vật liệu xây dựng, thủy tinh, gốm, hợp kim và vật liệu kỹ thuật.

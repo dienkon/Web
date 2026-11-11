@@ -1,0 +1,92 @@
+001: Tennessine (Ts)
+002: Thông tin chung
+003: Tên Latin: Tennessine
+004: Tên Tiếng Anh: Tennessine
+005: Đồng vị: ²⁹³Ts, ²⁹⁴Ts, ²⁹⁵Ts, ²⁹⁶Ts
+006: Vị trí: Nhóm VIIA | Chu kỳ 7
+007: Số Oxy hóa: −1, +1, +3, +5 (dự đoán)
+008: Độ âm điện: Không xác định
+009: Lịch sử khám phá
+010: Phát hiện bởi: Joint Institute for Nuclear Research (JINR), Oak Ridge National Laboratory (ORNL), Lawrence Livermore National Laboratory (LLNL) và Vanderbilt University
+011: Năm công bố: 2010
+012: Nơi khám phá: Dubna, Nga
+013: Mô tả: Tennessine được tổng hợp lần đầu vào năm 2010 bằng cách bắn phá Berkelium-249 bằng Calcium-48:
+014: ²⁴⁹Bk + ⁴⁸Ca → ²⁹⁷Ts + 0n
+015: Thực tế, phản ứng tạo ra các đồng vị Tennessine thông qua các kênh phát neutron, trong đó đáng chú ý là:
+016: ²⁴⁹Bk + ⁴⁸Ca → ²⁹⁴Ts + 3n
+017: Tên Tennessine được đặt theo Tennessee, Hoa Kỳ, nhằm ghi nhận những đóng góp của các cơ sở nghiên cứu tại bang Tennessee, đặc biệt là Oak Ridge National Laboratory.
+018: 3. Cấu tạo
+019: a. Cấu tạo nguyên tử
+020: Hoạt họa cấu hình e: [Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁵ (dự đoán)
+021: Mô hình mạng tinh thể: Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)
+022: Số hiệu nguyên tử: 117
+023: Nguyên tử khối: [294] g/mol
+024: Vỏ nguyên tử: 117 electron
+025: Hạt nhân: 117 proton
+026: Cấu hình e: [Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁵ (dự đoán)
+027: Loại mạng: Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)
+028: b. Trạng thái tự nhiên
+029: Trạng thái: Chất rắn (dự đoán)
+030: Có trong: Không tồn tại tự nhiên với lượng đáng kể. Tennessine chỉ được tổng hợp nhân tạo.
+031: Đơn chất: Ts
+032: Hợp chất: TsCl, TsF, TsOH... (dự đoán)
+033: c. Đồng vị
+034: Tennessine không có đồng vị bền.
+035: Một số đồng vị:
+036: ²⁹³Ts: chu kỳ bán rã khoảng 22 mili giây.
+037: ²⁹⁴Ts: chu kỳ bán rã khoảng 50 mili giây.
+038: ²⁹⁵Ts: được dự đoán có độ ổn định cao hơn một số đồng vị nhẹ hơn.
+039: ²⁹⁶Ts: đang được nghiên cứu về độ ổn định hạt nhân.
+040: Các đồng vị Tennessine chủ yếu phân rã bằng phân rã Alpha.
+041: Tính chất
+042: Tính chất vật lý
+043: Là nguyên tố thuộc nhóm VIIA | chu kỳ 7.
+044: Thuộc nhóm Halogen.
+045: Là nguyên tố siêu nặng.
+046: Có tính phóng xạ cực mạnh.
+047: Được dự đoán là chất rắn ở điều kiện thường.
+048: Có thể có tính chất kim loại rõ hơn các halogen nhẹ hơn.
+049: Khối lượng riêng, nhiệt độ nóng chảy và nhiệt độ sôi chưa được xác định trực tiếp.
+050: Tính chất hóa học
+051: Có cấu hình electron hóa trị 7s² 7p⁵.
+052: Có thể có số Oxy hóa −1, +1, +3, +5.
+053: Khác với các halogen nhẹ, Tennessine được dự đoán có tính chất kim loại hơn.
+054: Hiệu ứng tương đối tính mạnh ảnh hưởng đáng kể đến các electron hóa trị.
+055: Trạng thái −1 có thể kém ổn định hơn so với các halogen nhẹ.
+056: Tính chất hóa học thực nghiệm của Tennessine hiện vẫn rất hạn chế.
+057: Điều chế
+058: Điều chế trong công nghiệp:
+059: Tennessine (Ts) không được sản xuất công nghiệp do tính phóng xạ rất cao và thời gian bán rã ngắn. Nguyên tố này chỉ được tổng hợp với lượng cực nhỏ trong các cơ sở nghiên cứu hạt nhân.
+060: Điều chế trong phòng thí nghiệm:
+061: Tennessine được tổng hợp bằng cách bắn phá Berkelium-249 bằng ion Calcium-48 trong máy gia tốc hạt.
+062: ²⁴⁹Bk + ⁴⁸Ca → ²⁹⁴Ts + 3¹n
+063: Nhận biết
+064: Tennessine được nhận biết thông qua:
+065: Năng lượng của các hạt Alpha.
+066: Chu kỳ bán rã.
+067: Chuỗi phân rã phóng xạ.
+068: Xác định các hạt nhân con.
+069: Đối chiếu chuỗi phân rã với các đồng vị đã biết.
+070: Do chỉ tạo được số lượng cực nhỏ nguyên tử Ts, không thể nhận biết bằng phản ứng hóa học thông thường.
+071: Phương trình
+072: Tổng hợp Tennessine-294
+073: ²⁴⁹Bk + ⁴⁸Ca → ²⁹⁴Ts + 3n
+074: Phân rã Alpha
+075: ²⁹⁴Ts → ²⁹⁰Mc + ⁴He
+076: Tạo Tennessine(I) chloride
+077: 2Ts + Cl₂ → 2TsCl
+078: Tạo Tennessine(I) fluoride
+079: 2Ts + F₂ → 2TsF
+080: Các phương trình hóa học trên chủ yếu mang tính dự đoán.
+081: Ứng dụng thực tế
+082: Tennessine không có ứng dụng công nghiệp hoặc dân dụng.
+083: Nó chủ yếu được sử dụng trong:
+084: Nghiên cứu hạt nhân: Nghiên cứu các hạt nhân siêu nặng.
+085: Nghiên cứu “đảo ổn định”: Nghiên cứu độ ổn định của các hạt nhân ở vùng nguyên tố siêu nặng.
+086: Hóa học nguyên tố siêu nặng: Nghiên cứu sự thay đổi tính chất của nhóm halogen khi số hiệu nguyên tử tăng lên rất lớn.
+087: Tổng quan
+088: Tennessine là nguyên tố số 117, thuộc nhóm VIIA | chu kỳ 7 và là halogen siêu nặng.
+089: Tennessine được tổng hợp lần đầu vào năm 2010 tại Dubna, Nga, bằng phản ứng giữa Berkelium-249 và Calcium-48. Tên nguyên tố được đặt theo Tennessee, Hoa Kỳ, nhằm ghi nhận những đóng góp của các cơ sở nghiên cứu tại đây.
+090: Cấu hình electron được dự đoán là [Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁵. Mặc dù nằm trong nhóm halogen, Tennessine được dự đoán có tính chất kim loại hơn đáng kể so với các halogen nhẹ như Chlorine hay Bromine do hiệu ứng tương đối tính mạnh.
+091: Tennessine không có đồng vị bền, có tính phóng xạ rất mạnh và chỉ được tạo ra với số lượng cực nhỏ. Vì vậy, nó không có ứng dụng thực tế, chủ yếu phục vụ nghiên cứu vật lý hạt nhân và hóa học nguyên tố siêu nặng.
+092: Mạng tinh thể: Lập phương tâm khối (BCC) — dự đoán, vì chưa thể thu được lượng Tennessine đủ lớn để xác định trực tiếp cấu trúc tinh thể.

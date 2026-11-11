@@ -4,6 +4,9 @@
   "nameVi": "Molybdenum",
   "nameEn": "Molybdenum",
   "mass": 95.95,
+  "massStandardText": "95.95 ± 0.01",
+  "massStandardSource": "https://ciaaw.org/abridged-atomic-weights.htm",
+  "massKind": "standard-atomic-weight",
   "category": "chuyen-tiep",
   "hasData": true,
   "file": "elements/042_Mo.json",
@@ -13,25 +16,35 @@
     "electronConfig": "[Kr] 4d⁵ 5s¹",
     "isotope": "⁹²Mo, ⁹⁴Mo, ⁹⁵Mo, ⁹⁶Mo, ⁹⁷Mo, ⁹⁸Mo, ¹⁰⁰Mo",
     "group": 6,
+    "groupLabel": "6",
+    "series": "",
     "period": 5,
-    "state": "",
+    "state": "Rắn",
     "oxidation": "+2, +3, +4, +5, +6",
     "electronegativity": 2.16,
+    "electronegativityNote": "Thang Pauling; số liệu tổng hợp PubChem.",
     "density": "khoảng 10.28 g/cm³.",
     "meltingPoint": "khoảng 2623 °C.",
     "boilingPoint": "khoảng 4639 °C.",
-    "crystalStructure": "Lập phương tâm khối (Body-centered cubic, BCC)"
+    "crystalStructure": "Lập phương tâm khối (Body-centered cubic, BCC)",
+    "CAS": "7439-98-7"
   },
   "history": {
     "discoverer": "Carl Wilhelm Scheele",
-    "year": 1778,
+    "year": "1778",
     "discoveryLocation": "Thụy Điển",
     "description": "Năm 1778, Carl Wilhelm Scheele xác định rằng Molybdenite (MoS₂) không phải là hợp chất của Lead như từng nghĩ mà chứa một nguyên tố mới. Đến năm 1781, Peter Jacob Hjelm điều chế được Molybdenum kim loại tương đối tinh khiết."
   },
   "structure": {
     "protons": 42,
-    "neutrons": 54,
     "electrons": 42,
+    "neutrons": 54,
+    "nucleusIsotope": "⁹⁶Mo",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 42,
+      "neutron": 54
+    },
     "electronShells": [
       2,
       8,
@@ -47,12 +60,11 @@
       1
     ],
     "valenceElectrons": 1,
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương tâm khối (Body-centered cubic, BCC)",
-    "nucleus": {
-      "proton": 42,
-      "neutron": 54
-    }
+    "latticeEvidence": "source-reviewed"
   },
+  "structureType": "Lập phương tâm khối (Body-centered cubic, BCC)",
   "occurrence": {
     "description": "Molybdenum là kim loại rắn, màu trắng bạc hoặc xám kim loại.",
     "simple": [
@@ -68,131 +80,468 @@
     "ores": [
       "Chủ yếu trong quặng Molybdenite (MoS₂)",
       "ngoài ra còn có Wulfenite (PbMoO₄) và một số khoáng vật khác"
-    ]
+    ],
+    "details": [
+      "Trạng thái: Molybdenum là kim loại rắn, màu trắng bạc hoặc xám kim loại.",
+      "Có trong: Chủ yếu trong quặng Molybdenite (MoS₂), ngoài ra còn có Wulfenite (PbMoO₄) và một số khoáng vật khác.",
+      "Đơn chất: Mo",
+      "Hợp chất: MoS₂, MoO₃, MoCl₅, MoO₂, Mo₂C..."
+    ],
+    "mineral": {
+      "available": true,
+      "id": "molybdenite",
+      "name": "Molybdenite",
+      "formula": "MoS₂",
+      "habit": "plates",
+      "color": "#737b91",
+      "crystalSystem": "hexagonal",
+      "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Molybdenite",
+      "model": "/assets/periodic-table/minerals/molybdenite.glb",
+      "preview": "/assets/periodic-table/minerals/molybdenite.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
   },
-  "naturalState": {},
-  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại chuyển tiếp.</li>\n      <li>Màu trắng bạc hoặc xám kim loại.</li>\n      <li>Cứng và có độ bền cao.</li>\n      <li>Khối lượng riêng: khoảng 10.28 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 2623 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 4639 °C.</li>\n      <li>Có nhiệt độ nóng chảy rất cao.</li>\n      <li>Giữ được độ bền ở nhiệt độ cao.</li>\n      <li>Dẫn điện và dẫn nhiệt tốt.</li>\n    </ul>\n  ",
-  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có nhiều số Oxy hóa từ +2 đến +6.</li>\n      <li>Trạng thái +6 rất phổ biến.</li>\n      <li>Tương đối bền trong không khí ở điều kiện thường.</li>\n      <li>Khi nung nóng có thể phản ứng với Oxygen tạo Molybdenum trioxide.</li>\n      <li>Phản ứng với Halogen tạo Molybdenum halide.</li>\n      <li>Có thể tạo Sulfide, Carbide và Nitride.</li>\n      <li>Molybdenum disulfide (MoS₂) có tính bôi trơn đặc biệt.</li>\n    </ul>\n  ",
+  "naturalState": {
+    "image": "/assets/periodic-table/diagrams/042_Mo.svg",
+    "alt": "Molybdenum: sơ đồ minh họa nguyên tố",
+    "kind": "diagram",
+    "source": "",
+    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+    "credit": ""
+  },
+  "isotopes": [
+    {
+      "isotope": "⁹²Mo",
+      "massNumber": 92,
+      "protons": 42,
+      "neutrons": 50,
+      "stable": true,
+      "abundancePercent": "14.649",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "⁹⁴Mo",
+      "massNumber": 94,
+      "protons": 42,
+      "neutrons": 52,
+      "stable": true,
+      "abundancePercent": "9.187",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "⁹⁵Mo",
+      "massNumber": 95,
+      "protons": 42,
+      "neutrons": 53,
+      "stable": true,
+      "abundancePercent": "15.873",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "⁹⁶Mo",
+      "massNumber": 96,
+      "protons": 42,
+      "neutrons": 54,
+      "stable": true,
+      "abundancePercent": "16.673",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "⁹⁷Mo",
+      "massNumber": 97,
+      "protons": 42,
+      "neutrons": 55,
+      "stable": true,
+      "abundancePercent": "9.582",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "⁹⁸Mo",
+      "massNumber": 98,
+      "protons": 42,
+      "neutrons": 56,
+      "stable": true,
+      "abundancePercent": "24.292",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹⁰⁰Mo",
+      "massNumber": 100,
+      "protons": 42,
+      "neutrons": 58,
+      "stable": false,
+      "abundancePercent": "9.744",
+      "halfLifeDisplay": "7.01E+18 (+2.1E+17/−1.7E+17) năm",
+      "halfLife": "7.01E+18 Y",
+      "halfLifeUncertainty": "+21-17",
+      "halfLifeQualifier": null,
+      "decay": "2B-",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Là kim loại chuyển tiếp.</li><li>Màu trắng bạc hoặc xám kim loại.</li><li>Cứng và có độ bền cao.</li><li>Khối lượng riêng: khoảng 10.28 g/cm³.</li><li>Nhiệt độ nóng chảy: khoảng 2623 °C.</li><li>Nhiệt độ sôi: khoảng 4639 °C.</li><li>Có nhiệt độ nóng chảy rất cao.</li><li>Giữ được độ bền ở nhiệt độ cao.</li><li>Dẫn điện và dẫn nhiệt tốt.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Có nhiều số Oxy hóa từ +2 đến +6.</li><li>Trạng thái +6 rất phổ biến.</li><li>Tương đối bền trong không khí ở điều kiện thường.</li><li>Khi nung nóng có thể phản ứng với Oxygen tạo Molybdenum trioxide.</li><li>Phản ứng với Halogen tạo Molybdenum halide.</li><li>Có thể tạo Sulfide, Carbide và Nitride.</li><li>Molybdenum disulfide (MoS₂) có tính bôi trơn đặc biệt.</li></ul>",
   "reactions": [
     {
       "type": "Tác dụng với Oxygen",
+      "desc": "",
       "equation": "2Mo + 3O₂ → 2MoO₃",
-      "desc": ""
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 72,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Chlorine",
-      "equation": "Mo + 3Cl₂ → MoCl₆",
-      "desc": ""
+      "desc": "",
+      "equation": "2Mo + 5Cl₂ → 2MoCl₅",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 74,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Sulfur",
+      "desc": "",
       "equation": "Mo + 2S → MoS₂",
-      "desc": ""
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 76,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tạo Molybdenum disulfide",
+      "desc": "",
       "equation": "Mo + 2S → MoS₂",
-      "desc": ""
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 78,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Khử Molybdenum trioxide",
+      "desc": "",
       "equation": "MoO₃ + 3H₂ → Mo + 3H₂O",
-      "desc": ""
+      "condition": "Gia nhiệt; môi trường khử, thành phần khí và việc loại nước/CO₂ chi phối mức khử.",
+      "kind": "chemical",
+      "sourceLine": 80,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Nung Molybdenite trong Oxygen",
+      "desc": "",
       "equation": "2MoS₂ + 7O₂ → 2MoO₃ + 4SO₂",
-      "desc": ""
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 82,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tạo Lead molybdate",
+      "desc": "",
       "equation": "Pb²⁺ + MoO₄²⁻ → PbMoO₄↓",
-      "desc": ""
+      "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+      "kind": "chemical",
+      "sourceLine": 84,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     }
   ],
-  "applications": [
-    {
-      "title": "Thép hợp kim",
-      "desc": "Molybdenum được thêm vào thép để tăng độ cứng, độ bền và khả năng chịu nhiệt."
-    },
-    {
-      "title": "Hợp kim chịu nhiệt",
-      "desc": "Dùng trong các bộ phận phải làm việc ở nhiệt độ cao."
-    },
-    {
-      "title": "Công nghiệp dầu khí",
-      "desc": "Một số Molybdenum compounds được sử dụng làm chất xúc tác trong quá trình lọc dầu."
-    },
-    {
-      "title": "Chất bôi trơn",
-      "desc": "Molybdenum disulfide (MoS₂) là chất bôi trơn rắn, hoạt động tốt ở nhiệt độ và áp suất cao."
-    },
-    {
-      "title": "Điện tử",
-      "desc": "Molybdenum được sử dụng trong một số linh kiện và vật liệu điện tử."
-    },
-    {
-      "title": "Kính và vật liệu",
-      "desc": "Molybdenum được sử dụng trong điện cực, vật liệu chịu nhiệt và một số thiết bị công nghiệp."
-    },
-    {
-      "title": "Sinh học",
-      "desc": "Molybdenum là nguyên tố vi lượng cần thiết cho nhiều sinh vật và là thành phần của một số enzyme."
-    }
-  ],
-  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Molybdenum là nguyên tố số 42, thuộc nhóm VIB | chu kỳ 5 và là một kim loại chuyển tiếp.</li>\n  <li>Molybdenum có cấu hình electron [Kr] 4d⁵ 5s¹, với nhiều số Oxy hóa, trong đó +6 là trạng thái phổ biến.</li>\n  <li>Molybdenum có nhiệt độ nóng chảy rất cao, độ bền tốt và khả năng duy trì tính chất cơ học ở nhiệt độ cao. Trong tự nhiên, nguồn Molybdenum quan trọng nhất là Molybdenite (MoS₂).</li>\n  <li>Molybdenum có vai trò quan trọng trong thép hợp kim, vật liệu chịu nhiệt, chất xúc tác, chất bôi trơn và công nghiệp điện tử. Đặc biệt, MoS₂ là một chất bôi trơn rắn có giá trị trong các môi trường khắc nghiệt.</li>\n</ul>\n",
   "preparations": {
-    "lab": [],
+    "lab": [
+      {
+        "title": "Có thể điều chế Molybdenum bằng cách khử Molybdenum trioxide bằng Hydrogen ở nhiệt độ cao.",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "MoO₃ + 3H₂ → Mo + 3H₂O",
+            "condition": "Gia nhiệt; môi trường khử, thành phần khí và việc loại nước/CO₂ chi phối mức khử.",
+            "kind": "chemical",
+            "sourceLine": 62,
+            "sourceSection": "lab",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          60,
+          62
+        ],
+        "equation": "MoO₃ + 3H₂ → Mo + 3H₂O"
+      }
+    ],
     "industry": [
       {
-        "title": "Molybdenum chủ yếu được sản xuất từ quặng Molybdenite (MoS₂).",
-        "equation": "",
-        "desc": ""
-      },
-      {
-        "title": "Trước tiên, quặng được nung trong Oxygen để tạo Molybdenum trioxide:",
-        "equation": "2MoS₂ + 7O₂ → 2MoO₃ + 4SO₂ <br> MoO₃ + 3H₂ → Mo + 3H₂O",
-        "desc": "Sau đó MoO₃ được khử bằng Hydrogen ở nhiệt độ cao:"
+        "title": "Molybdenum chủ yếu được điều chế từ quặng Molybdenite (MoS₂). Quặng được nung trong không khí để tạo Molybdenum trioxide (MoO₃), sau đó khử bằng Hydrogen ở nhiệt độ cao.",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "2MoS₂ + 7O₂ → 2MoO₃ + 4SO₂",
+            "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+            "kind": "chemical",
+            "sourceLine": 56,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          },
+          {
+            "equation": "MoO₃ + H₂ → MoO₂ + H₂O",
+            "condition": "Gia nhiệt; môi trường khử, thành phần khí và việc loại nước/CO₂ chi phối mức khử.",
+            "kind": "chemical",
+            "sourceLine": 57,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          },
+          {
+            "equation": "MoO₂ + 2H₂ → Mo + 2H₂O",
+            "condition": "Gia nhiệt; môi trường khử, thành phần khí và việc loại nước/CO₂ chi phối mức khử.",
+            "kind": "chemical",
+            "sourceLine": 58,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          54,
+          56,
+          57,
+          58
+        ],
+        "equation": "2MoS₂ + 7O₂ → 2MoO₃ + 4SO₂"
       }
     ]
   },
   "recognition": [
     {
-      "title": "Nhận biết",
-      "reagent": "Nhận biết Mo⁶⁺",
-      "result": "",
-      "equation": ""
-    },
-    {
-      "title": "Nhận biết",
-      "reagent": "Ion Molybdate (MoO₄²⁻) có thể được sử dụng để nhận biết Molybdenum.",
-      "result": "",
-      "equation": ""
-    },
-    {
-      "title": "Một phản ứng tạo kết tủa",
-      "reagent": "",
-      "result": "",
-      "equation": ""
-    },
-    {
-      "title": "Nhận biết",
-      "reagent": "",
-      "result": "",
-      "equation": "Pb²⁺ + MoO₄²⁻ → PbMoO₄↓"
-    },
-    {
-      "title": "Hiện tượng",
-      "reagent": "",
+      "title": "Nhận biết Mo⁶⁺",
+      "desc": "Ion Molybdate (MoO₄²⁻) có thể được sử dụng để nhận biết Molybdenum. Một phản ứng tạo kết tủa: Trong phân tích định tính chính xác, Molybdenum thường cần các phương pháp chuyên dụng.",
       "result": "Xuất hiện kết tủa trắng hoặc vàng nhạt Lead molybdate.",
-      "equation": ""
-    },
-    {
-      "title": "Nhận biết",
-      "reagent": "Trong phân tích định tính chính xác, Molybdenum thường cần các phương pháp chuyên dụng.",
-      "result": "",
-      "equation": ""
+      "equations": [
+        {
+          "equation": "Pb²⁺ + MoO₄²⁻ → PbMoO₄↓",
+          "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+          "kind": "chemical",
+          "sourceLine": 67,
+          "sourceSection": "recognition",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ],
+      "sourceLines": [
+        64,
+        65,
+        66,
+        67,
+        68,
+        69
+      ],
+      "equation": "Pb²⁺ + MoO₄²⁻ → PbMoO₄↓"
     }
   ],
-  "structureType": "Lập phương tâm khối (Body-centered cubic, BCC)"
+  "applications": [
+    {
+      "title": "Thép hợp kim",
+      "desc": "Molybdenum được thêm vào thép để tăng độ cứng, độ bền và khả năng chịu nhiệt.",
+      "sourceLine": 86
+    },
+    {
+      "title": "Hợp kim chịu nhiệt",
+      "desc": "Dùng trong các bộ phận phải làm việc ở nhiệt độ cao.",
+      "sourceLine": 87
+    },
+    {
+      "title": "Công nghiệp dầu khí",
+      "desc": "Một số Molybdenum compounds được sử dụng làm chất xúc tác trong quá trình lọc dầu.",
+      "sourceLine": 88
+    },
+    {
+      "title": "Chất bôi trơn",
+      "desc": "Molybdenum disulfide (MoS₂) là chất bôi trơn rắn, hoạt động tốt ở nhiệt độ và áp suất cao.",
+      "sourceLine": 89
+    },
+    {
+      "title": "Điện tử",
+      "desc": "Molybdenum được sử dụng trong một số linh kiện và vật liệu điện tử.",
+      "sourceLine": 90
+    },
+    {
+      "title": "Kính và vật liệu",
+      "desc": "Molybdenum được sử dụng trong điện cực, vật liệu chịu nhiệt và một số thiết bị công nghiệp.",
+      "sourceLine": 91
+    },
+    {
+      "title": "Sinh học",
+      "desc": "Molybdenum là nguyên tố vi lượng cần thiết cho nhiều sinh vật và là thành phần của một số enzyme.",
+      "sourceLine": 92
+    }
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Molybdenum là nguyên tố số 42, thuộc nhóm VIB | chu kỳ 5 và là một kim loại chuyển tiếp.</li><li>Molybdenum có cấu hình electron [Kr] 4d⁵ 5s¹, với nhiều số Oxy hóa, trong đó +6 là trạng thái phổ biến.</li><li>Molybdenum có nhiệt độ nóng chảy rất cao, độ bền tốt và khả năng duy trì tính chất cơ học ở nhiệt độ cao. Trong tự nhiên, nguồn Molybdenum quan trọng nhất là Molybdenite (MoS₂).</li><li>Molybdenum có vai trò quan trọng trong thép hợp kim, vật liệu chịu nhiệt, chất xúc tác, chất bôi trơn và công nghiệp điện tử. Đặc biệt, MoS₂ là một chất bôi trơn rắn có giá trị trong các môi trường khắc nghiệt.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/diagrams/042_Mo.svg",
+      "title": "Molybdenum (Mo)",
+      "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+      "source": "",
+      "author": "ChemDex",
+      "license": "ChemDex schematic diagram",
+      "licenseUrl": ""
+    }
+  ],
+  "mediaBlocks": [
+    {
+      "type": "model",
+      "section": "structure",
+      "title": "Mẫu khoáng vật 3D · Molybdenite",
+      "src": "/assets/periodic-table/minerals/molybdenite.glb",
+      "preview": "/assets/periodic-table/minerals/molybdenite.png",
+      "desc": "MoS₂. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  ],
+  "sources": [
+    {
+      "title": "042_Mo.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "32e98c3c00353fc1d76d5d3c377f3f8641cf76b1f7f040e5b6e6037802b2a938"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/42/molybdenum"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "halides",
+      "url": "https://doi.org/10.1002/anie.201207552"
+    },
+    {
+      "title": "molybdenumChlorination",
+      "url": "https://www.jstage.jst.go.jp/article/jesj/33/1/33_53/_pdf"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "042_Mo.docx",
+    "sourceSha256": "32e98c3c00353fc1d76d5d3c377f3f8641cf76b1f7f040e5b6e6037802b2a938",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/042_Mo.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
 }

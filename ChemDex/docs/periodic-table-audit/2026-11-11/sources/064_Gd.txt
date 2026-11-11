@@ -1,0 +1,101 @@
+001: Gadolinium (Gd)
+002: Thông tin chung
+003: Tên Latin: Gadolinium
+004: Tên Tiếng Anh: Gadolinium
+005: Đồng vị: ¹⁵²Gd, ¹⁵⁴Gd, ¹⁵⁵Gd, ¹⁵⁶Gd, ¹⁵⁷Gd, ¹⁵⁸Gd, ¹⁶⁰Gd
+006: Vị trí: Nhóm IIIB | Chu kỳ 6 | Họ Lanthanide
+007: Số Oxy hóa: +3
+008: Độ âm điện: 1,20 (Pauling)
+009: Lịch sử khám phá
+010: Phát hiện bởi: Jean Charles Galissard de Marignac
+011: Năm công bố: 1880
+012: Nơi khám phá: Geneva, Thụy Sĩ
+013: Mô tả: Năm 1880, Jean Charles Galissard de Marignac phát hiện một nguyên tố đất hiếm mới trong Didymium và Samarium thông qua sự khác biệt về tính chất và phổ của các hợp chất.
+014: Sau đó, Paul-Émile Lecoq de Boisbaudran đã tách được Gadolinium tương đối tinh khiết vào năm 1886.
+015: Tên Gadolinium được đặt theo tên nhà hóa học người Phần Lan Johan Gadolin, người có nhiều đóng góp trong nghiên cứu các nguyên tố đất hiếm.
+016: 3. Cấu tạo
+017: a. Cấu tạo nguyên tử
+018: Cấu hình electron: [Xe] 4f⁷ 5d¹ 6s²
+019: Mô hình mạng tinh thể: Lục phương xếp chặt (Hexagonal close-packed, HCP)
+020: Số hiệu nguyên tử: 64
+021: Nguyên tử khối: 157,249 g/mol
+022: Vỏ nguyên tử: 64 electron
+023: Hạt nhân: 64 proton
+024: Cấu hình e đầy đủ: 1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰ 4p⁶ 5s² 4d¹⁰ 5p⁶ 4f⁷ 5d¹ 6s²
+025: Loại mạng: Lục phương xếp chặt (HCP)
+026: b. Trạng thái tự nhiên
+027: Trạng thái: Chất rắn
+028: Màu sắc: Trắng bạc
+029: Có trong: Monazite, Bastnäsite và một số khoáng vật đất hiếm khác.
+030: Đơn chất: Gd
+031: Hợp chất phổ biến: Gd₂O₃, GdCl₃, Gd(OH)₃, Gd₂(SO₄)₃
+032: c. Đồng vị
+033: Gadolinium có 7 đồng vị tự nhiên:
+034: ¹⁵²Gd: khoảng 0,20%, phóng xạ cực yếu.
+035: ¹⁵⁴Gd: khoảng 2,18%, bền.
+036: ¹⁵⁵Gd: khoảng 14,80%, bền.
+037: ¹⁵⁶Gd: khoảng 20,47%, bền.
+038: ¹⁵⁷Gd: khoảng 15,65%, bền.
+039: ¹⁵⁸Gd: khoảng 24,84%, bền.
+040: ¹⁶⁰Gd: khoảng 21,86%, bền.
+041: ¹⁵⁸Gd là đồng vị tự nhiên phổ biến nhất.
+042: Đặc biệt, ¹⁵⁷Gd có tiết diện bắt neutron nhiệt cực lớn.
+043: Tính chất
+044: Tính chất vật lý
+045: Là kim loại đất hiếm.
+046: Thuộc họ Lanthanide.
+047: Có màu trắng bạc.
+048: Có tính thuận từ mạnh ở nhiệt độ thường.
+049: Có nhiệt độ Curie khoảng 20 °C.
+050: Khá mềm và dễ gia công.
+051: Có nhiệt độ nóng chảy khoảng 1312 °C.
+052: Có nhiệt độ sôi khoảng 3273 °C.
+053: Khối lượng riêng khoảng 7,90 g/cm³.
+054: Tính chất hóa học
+055: Trạng thái Oxy hóa phổ biến và ổn định nhất là +3.
+056: Gd³⁺ có cấu hình electron 4f⁷, là cấu hình bán đầy đặc biệt ổn định.
+057: Gadolinium phản ứng với Oxygen:
+058: 4Gd + 3O₂ → 2Gd₂O₃
+059: Phản ứng với Acid tạo muối Gadolinium(III) và giải phóng Hydrogen.
+060: Có khả năng hấp thụ neutron cực mạnh, đặc biệt nhờ ¹⁵⁷Gd.
+061: Điều chế
+062: Điều chế trong công nghiệp
+063: Gadolinium (Gd) chủ yếu được điều chế từ quặng monazite và bastnaesite. Sau khi tách khỏi hỗn hợp đất hiếm, Gadolinium được thu bằng phương pháp điện phân muối nóng chảy hoặc khử Gadolinium fluoride bằng Calcium.
+064: Phương trình:
+065: 2GdF₃ + 3Ca → 2Gd + 3CaF₂
+066: Gadolinium thu được được tinh chế để loại bỏ tạp chất.
+067: Điều chế trong phòng thí nghiệm
+068: Có thể điều chế Gadolinium bằng cách khử Gadolinium chloride khan bằng Calcium.
+069: Phương trình:
+070: 2GdCl₃ + 3Ca → 2Gd + 3CaCl₂
+071: Nhận biết
+072: Có thể nhận biết Gadolinium bằng:
+073: Phổ phát xạ nguyên tử.
+074: ICP-OES hoặc ICP-MS.
+075: Phổ hấp thụ đặc trưng của Gd³⁺.
+076: Đo các tính chất từ đặc trưng.
+077: Phân tích khả năng hấp thụ neutron.
+078: Ion Gd³⁺ trong dung dịch thường không có màu rõ rệt.
+079: Phương trình
+080: Tác dụng với Oxygen
+081: 4Gd + 3O₂ → 2Gd₂O₃
+082: Tác dụng với Hydrochloric acid
+083: 2Gd + 6HCl → 2GdCl₃ + 3H₂
+084: Tạo Gadolinium(III) hydroxide
+085: GdCl₃ + 3NaOH → Gd(OH)₃↓ + 3NaCl
+086: Điều chế Gadolinium
+087: 2GdCl₃ + 3Ca → 2Gd + 3CaCl₂
+088: Hấp thụ neutron của Gadolinium-157
+089: ¹⁵⁷Gd + n → ¹⁵⁸Gd
+090: Ứng dụng thực tế
+091: MRI: Các hợp chất phức của Gd³⁺ được sử dụng làm chất tương phản trong chụp cộng hưởng từ (MRI), giúp làm nổi bật một số mô và cấu trúc trong hình ảnh.
+092: Lò phản ứng hạt nhân: Do khả năng hấp thụ neutron rất mạnh, Gadolinium được sử dụng trong thanh điều khiển và vật liệu hấp thụ neutron.
+093: Vật liệu từ: Gadolinium có tính chất từ đặc biệt và được sử dụng trong nghiên cứu và chế tạo một số vật liệu từ.
+094: Hợp kim: Gadolinium có thể được thêm vào một số hợp kim để cải thiện tính chất vật liệu.
+095: Điện tử: Một số hợp chất Gadolinium được sử dụng trong vật liệu quang học, điện tử và từ tính.
+096: Tổng quan
+097: Gadolinium là nguyên tố số 64, thuộc nhóm IIIB | chu kỳ 6 và là nguyên tố thứ tám trong họ Lanthanide.
+098: Gadolinium được Jean Charles Galissard de Marignac phát hiện vào năm 1880 tại Geneva. Tên nguyên tố được đặt theo tên Johan Gadolin, nhà hóa học người Phần Lan có đóng góp quan trọng trong nghiên cứu đất hiếm.
+099: Gadolinium là kim loại màu trắng bạc, có tính thuận từ mạnh và có điểm Curie gần nhiệt độ phòng. Trạng thái Oxy hóa phổ biến nhất là +3, với cấu hình 4f⁷ bán đầy đặc biệt ổn định.
+100: Đặc điểm nổi bật nhất của Gadolinium là khả năng hấp thụ neutron cực mạnh, đặc biệt ở đồng vị ¹⁵⁷Gd. Vì vậy, nó có vai trò quan trọng trong công nghệ hạt nhân. Ngoài ra, các phức Gd³⁺ còn được sử dụng làm chất tương phản trong MRI.
+101: Mạng tinh thể: Lục phương xếp chặt (HCP) ở điều kiện thường.

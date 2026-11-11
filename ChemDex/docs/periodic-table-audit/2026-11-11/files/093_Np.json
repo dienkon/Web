@@ -1,0 +1,938 @@
+{
+  "symbol": "Np",
+  "number": 93,
+  "source": "093_Np.docx",
+  "sourceSha256": "06f23c30dcfe0d6f1edf5a4b3b194c7463d0e0943be0439d69266be587290b2c",
+  "paragraphCount": 101,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 8,
+    "structure": 8,
+    "occurrence": 5,
+    "isotopes": 4,
+    "physical": 9,
+    "chemical": 11,
+    "lab": 1,
+    "industry": 5,
+    "recognition": 7,
+    "reactions": 10,
+    "applications": 4,
+    "notes": 6
+  },
+  "editorialDecisions": [],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "[Rn] 5f⁴ 6d¹ 7s²",
+      "publishedValue": "[Rn] 5f⁴ 6d¹ 7s²",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Trực thoi (Orthorhombic)",
+      "publishedValue": "Trực thoi (Orthorhombic)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "1,36 (Pauling)",
+      "publishedValue": 1.36,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm IIIB | Chu kỳ 7 | Họ Actinide",
+      "publishedValue": "Actinide",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Chất rắn",
+      "publishedValue": "Rắn",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 36,
+      "sourceText": "²³⁷Np: chu kỳ bán rã khoảng 2,14 triệu năm, là đồng vị tồn tại lâu nhất và quan trọng nhất.",
+      "reference": {
+        "isotope": "²³⁷Np",
+        "massNumber": 237,
+        "protons": 93,
+        "neutrons": 144,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "2.144E+6 ± 7E+3 năm",
+        "halfLife": "2.144E+6 Y",
+        "halfLifeUncertainty": "7",
+        "halfLifeQualifier": null,
+        "decay": "A",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 37,
+      "sourceText": "²³⁹Np: chu kỳ bán rã khoảng 2,36 ngày, là sản phẩm trung gian quan trọng khi tạo Plutonium-239 từ Uranium-238.",
+      "reference": {
+        "isotope": "²³⁹Np",
+        "massNumber": 239,
+        "protons": 93,
+        "neutrons": 146,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "2.356 ± 0.003 d",
+        "halfLife": "2.356 d",
+        "halfLifeUncertainty": "3",
+        "halfLifeQualifier": null,
+        "decay": "B-",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 14,
+      "text": "²³⁸U + n → ²³⁹U",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 15,
+      "text": "²³⁹U → ²³⁹Np + β⁻",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 61,
+      "text": "Np + O₂ → NpO₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 66,
+      "text": "²³⁸U + ¹n → ²³⁹U",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 67,
+      "text": "²³⁹U → ²³⁹Np + β⁻",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 68,
+      "text": "²³⁹Np → ²³⁹Pu + β⁻",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 81,
+      "text": "²³⁸U + n → ²³⁹U",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 83,
+      "text": "²³⁹U → ²³⁹Np + β⁻",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 85,
+      "text": "²³⁹Np → ²³⁹Pu + β⁻",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 87,
+      "text": "Np + O₂ → NpO₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 89,
+      "text": "²³⁷Np → ²³³Pa + α",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "history",
+      "equation": "²³⁸U + n → ²³⁹U + γ",
+      "condition": "Chiếu neutron trong cơ sở nghiên cứu; bắt neutron và phát gamma nếu không có sản phẩm bay hơi.",
+      "kind": "nuclear",
+      "sourceLine": 14,
+      "sourceSection": "history",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "history",
+      "equation": "²³⁹U → ²³⁹Np + β⁻ + ν̅ₑ",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 15,
+      "sourceSection": "history",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "chemical",
+      "equation": "Np + O₂ → NpO₂",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 61,
+      "sourceSection": "chemical",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "²³⁸U + ¹n → ²³⁹U + γ",
+      "condition": "Chiếu neutron trong cơ sở nghiên cứu; bắt neutron và phát gamma nếu không có sản phẩm bay hơi.",
+      "kind": "nuclear",
+      "sourceLine": 66,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "²³⁹U → ²³⁹Np + β⁻ + ν̅ₑ",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 67,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "²³⁹Np → ²³⁹Pu + β⁻ + ν̅ₑ",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 68,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "²³⁸U + n → ²³⁹U + γ",
+      "condition": "Chiếu neutron trong cơ sở nghiên cứu; bắt neutron và phát gamma nếu không có sản phẩm bay hơi.",
+      "kind": "nuclear",
+      "sourceLine": 81,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "²³⁹U → ²³⁹Np + β⁻ + ν̅ₑ",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 83,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "²³⁹Np → ²³⁹Pu + β⁻ + ν̅ₑ",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 85,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Np + O₂ → NpO₂",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 87,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "²³⁷Np → ²³³Pa + α",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 89,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": null,
+      "after": [
+        {
+          "title": "Nghiên cứu hạt nhân",
+          "desc": "Neptunium chủ yếu được sử dụng trong nghiên cứu vật lý hạt nhân và hóa học Actinide.",
+          "sourceLine": 91
+        },
+        {
+          "title": "Sản xuất Plutonium-238",
+          "desc": "²³⁷Np có thể được sử dụng làm nguyên liệu để sản xuất ²³⁸Pu, một đồng vị có ứng dụng trong nguồn năng lượng cho các hệ thống không gian.",
+          "sourceLine": 92
+        },
+        {
+          "title": "Nghiên cứu chất thải hạt nhân",
+          "desc": "²³⁷Np là một trong những đồng vị được quan tâm trong nghiên cứu lưu trữ và xử lý chất thải phóng xạ lâu dài, do chu kỳ bán rã rất dài.",
+          "sourceLine": 93
+        },
+        {
+          "title": "Nghiên cứu địa hóa",
+          "desc": "Các đồng vị Neptunium được sử dụng để nghiên cứu sự vận chuyển của Actinide trong môi trường.",
+          "sourceLine": 94
+        }
+      ]
+    },
+    {
+      "field": "category",
+      "before": null,
+      "after": "actinide"
+    },
+    {
+      "field": "chemical",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Neptunium có nhiều trạng thái Oxy hóa:</li><li>+3</li><li>+4</li><li>+5</li><li>+6</li><li>+7</li><li>Đây là một đặc điểm nổi bật của Neptunium.</li><li>Trong dung dịch, các ion Neptunium có thể có màu sắc khác nhau tùy trạng thái Oxy hóa.</li><li>Ví dụ, Np(V) thường tồn tại dưới dạng neptunyl, còn Np(VI) dưới dạng NpO₂²⁺.</li><li>Neptunium tạo nhiều oxide:</li><li class=\"source-equation\">Np + O₂ → NpO₂<small>Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.</small></li></ul>"
+    },
+    {
+      "field": "file",
+      "before": null,
+      "after": "elements/093_Np.json"
+    },
+    {
+      "field": "general",
+      "before": null,
+      "after": {
+        "latinName": "Neptunium",
+        "englishName": "Neptunium",
+        "electronConfig": "[Rn] 5f⁴ 6d¹ 7s²",
+        "isotope": "²³⁶Np, ²³⁷Np, ²³⁸Np, ²³⁹Np, ²⁴⁰Np",
+        "group": null,
+        "groupLabel": "Actinide",
+        "series": "Actinide",
+        "period": 7,
+        "state": "Rắn",
+        "oxidation": "+3, +4, +5, +6, +7",
+        "electronegativity": 1.36,
+        "electronegativityNote": "Thang Pauling; số liệu tổng hợp PubChem.",
+        "density": "20,5 g/cm³ đối với dạng α-Np.",
+        "meltingPoint": "644°C",
+        "boilingPoint": "3902°C",
+        "crystalStructure": "Trực thoi (Orthorhombic)",
+        "CAS": "7439-99-8"
+      }
+    },
+    {
+      "field": "hasData",
+      "before": null,
+      "after": true
+    },
+    {
+      "field": "history",
+      "before": null,
+      "after": {
+        "discoverer": "Edwin McMillan và Philip H. Abelson",
+        "year": "1940",
+        "discoveryLocation": "Berkeley, California, Hoa Kỳ",
+        "description": "Năm 1940, Edwin McMillan và Philip H. Abelson tạo ra Neptunium bằng cách bắn phá Uranium-238 bằng neutron trong máy gia tốc hạt. Sản phẩm ban đầu là Neptunium-239. ²³⁸U + n → ²³⁹U ²³⁹U → ²³⁹Np + β⁻ Đây là nguyên tố siêu Uranium (transuranium) đầu tiên được phát hiện. Tên Neptunium được đặt theo Neptune (Hải Vương tinh), vì Neptunium đứng ngay sau Uranium trong bảng tuần hoàn, tương tự như Neptune nằm sau Uranus trong hệ Mặt Trời."
+      }
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/diagrams/093_Np.svg",
+          "title": "Neptunium (Np)",
+          "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+          "source": "",
+          "author": "ChemDex",
+          "license": "ChemDex schematic diagram",
+          "licenseUrl": ""
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "²³⁶Np",
+          "massNumber": 236,
+          "protons": 93,
+          "neutrons": 143,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "1.55E+5 ± 1E+3 năm",
+          "halfLife": "1.55E+5 Y",
+          "halfLifeUncertainty": "1",
+          "halfLifeQualifier": null,
+          "decay": "EC",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²³⁷Np",
+          "massNumber": 237,
+          "protons": 93,
+          "neutrons": 144,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "2.144E+6 ± 7E+3 năm",
+          "halfLife": "2.144E+6 Y",
+          "halfLifeUncertainty": "7",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²³⁸Np",
+          "massNumber": 238,
+          "protons": 93,
+          "neutrons": 145,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "2.099 ± 0.002 d",
+          "halfLife": "2.099 d",
+          "halfLifeUncertainty": "2",
+          "halfLifeQualifier": null,
+          "decay": "B-",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²³⁹Np",
+          "massNumber": 239,
+          "protons": 93,
+          "neutrons": 146,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "2.356 ± 0.003 d",
+          "halfLife": "2.356 d",
+          "halfLifeUncertainty": "3",
+          "halfLifeQualifier": null,
+          "decay": "B-",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁴⁰Np",
+          "massNumber": 240,
+          "protons": 93,
+          "neutrons": 147,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "61.9 ± 0.2 phút",
+          "halfLife": "61.9 m",
+          "halfLifeUncertainty": "2",
+          "halfLifeQualifier": null,
+          "decay": "B-",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "mass",
+      "before": null,
+      "after": 237
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "reference-isotope-mass-number"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://periodic-table.rsc.org/element/93/neptunium"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "[237] — số khối đồng vị tham chiếu, không phải nguyên tử khối chuẩn"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": []
+    },
+    {
+      "field": "nameEn",
+      "before": null,
+      "after": "Neptunium"
+    },
+    {
+      "field": "nameVi",
+      "before": null,
+      "after": "Neptunium"
+    },
+    {
+      "field": "naturalState",
+      "before": null,
+      "after": {
+        "image": "/assets/periodic-table/diagrams/093_Np.svg",
+        "alt": "Neptunium: sơ đồ minh họa nguyên tố",
+        "kind": "diagram",
+        "source": "",
+        "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+        "credit": ""
+      }
+    },
+    {
+      "field": "notes",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Neptunium là nguyên tố số 93, thuộc nhóm IIIB | chu kỳ 7 và là nguyên tố thứ năm trong họ Actinide.</li><li>Neptunium được Edwin McMillan và Philip H. Abelson phát hiện vào năm 1940 tại Berkeley, Hoa Kỳ. Đây là nguyên tố siêu Uranium đầu tiên được phát hiện.</li><li>Tên Neptunium được đặt theo Neptune, tương tự như Uranium được đặt theo Uranus.</li><li>Neptunium là kim loại phóng xạ màu bạc, có nhiều trạng thái Oxy hóa từ +3 đến +7. Đồng vị quan trọng nhất là ²³⁷Np, có chu kỳ bán rã khoảng 2,14 triệu năm.</li><li>Neptunium chủ yếu có giá trị trong nghiên cứu hạt nhân. Đặc biệt, ²³⁷Np có thể đóng vai trò là nguyên liệu để sản xuất ²³⁸Pu, đồng vị được sử dụng trong các nguồn năng lượng phóng xạ cho một số hệ thống không gian.</li><li>Mạng tinh thể: Trực thoi (Orthorhombic) ở điều kiện thường.</li></ul>"
+    },
+    {
+      "field": "number",
+      "before": null,
+      "after": 93
+    },
+    {
+      "field": "occurrence",
+      "before": null,
+      "after": {
+        "description": "Chất rắn",
+        "simple": [
+          "Np"
+        ],
+        "compounds": [
+          "NpO₂",
+          "Np₂O₅",
+          "NpCl₃",
+          "NpCl₄",
+          "NpCl₅"
+        ],
+        "ores": [
+          "Một lượng cực nhỏ trong quặng Uranium",
+          "phần lớn Neptunium được tạo ra nhân tạo trong lò phản ứng hạt nhân"
+        ],
+        "details": [
+          "Trạng thái: Chất rắn",
+          "Màu sắc: Bạc kim loại",
+          "Có trong: Một lượng cực nhỏ trong quặng Uranium; phần lớn Neptunium được tạo ra nhân tạo trong lò phản ứng hạt nhân.",
+          "Đơn chất: Np",
+          "Hợp chất phổ biến: NpO₂, Np₂O₅, NpCl₃, NpCl₄, NpCl₅"
+        ],
+        "mineral": {
+          "available": false,
+          "reason": "Nguyên tố nhân tạo hoặc chỉ có vết tự nhiên; không có quặng khai thác riêng để dựng mẫu."
+        }
+      }
+    },
+    {
+      "field": "physical",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Là kim loại phóng xạ.</li><li>Thuộc họ Actinide.</li><li>Có màu bạc kim loại.</li><li>Khá nặng và có khối lượng riêng cao.</li><li>Có nhiều dạng thù hình.</li><li>Có tính phóng xạ.</li><li>Khối lượng riêng khoảng 20,5 g/cm³ đối với dạng α-Np.</li><li>Có nhiệt độ nóng chảy khoảng 644 °C.</li><li>Có nhiệt độ sôi khoảng 3902 °C.</li></ul>"
+    },
+    {
+      "field": "preparations",
+      "before": null,
+      "after": {
+        "lab": [
+          {
+            "title": "Neptunium có thể được tạo ra với lượng nhỏ bằng phản ứng hạt nhân trong cơ sở nghiên cứu chuyên dụng hoặc tách từ nhiên liệu hạt nhân đã qua sử dụng. Không có phương pháp điều chế hóa học thông thường để tổng hợp nguyên tố này.",
+            "desc": "",
+            "result": "",
+            "equations": [],
+            "sourceLines": [
+              70
+            ],
+            "equation": ""
+          }
+        ],
+        "industry": [
+          {
+            "title": "Neptunium (Np) chủ yếu được tạo ra nhân tạo trong các lò phản ứng hạt nhân. Neptunium-237 hình thành khi Uranium-238 hấp thụ neutron, tạo Uranium-239 rồi phân rã beta qua Neptunium-239 và cuối cùng tạo Plutonium-239. Một phần Neptunium-237 hình thành qua các phản ứng bắt neutron tiếp theo.",
+            "desc": "Chuỗi phản ứng minh họa:",
+            "result": "",
+            "equations": [
+              {
+                "equation": "²³⁸U + ¹n → ²³⁹U + γ",
+                "condition": "Chiếu neutron trong cơ sở nghiên cứu; bắt neutron và phát gamma nếu không có sản phẩm bay hơi.",
+                "kind": "nuclear",
+                "sourceLine": 66,
+                "sourceSection": "industry",
+                "balance": {
+                  "status": "balanced",
+                  "kind": "nuclear",
+                  "delta": {}
+                },
+                "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+              },
+              {
+                "equation": "²³⁹U → ²³⁹Np + β⁻ + ν̅ₑ",
+                "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+                "kind": "nuclear",
+                "sourceLine": 67,
+                "sourceSection": "industry",
+                "balance": {
+                  "status": "balanced",
+                  "kind": "nuclear",
+                  "delta": {}
+                },
+                "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+              },
+              {
+                "equation": "²³⁹Np → ²³⁹Pu + β⁻ + ν̅ₑ",
+                "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+                "kind": "nuclear",
+                "sourceLine": 68,
+                "sourceSection": "industry",
+                "balance": {
+                  "status": "balanced",
+                  "kind": "nuclear",
+                  "delta": {}
+                },
+                "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+              }
+            ],
+            "sourceLines": [
+              64,
+              65,
+              66,
+              67,
+              68
+            ],
+            "equation": "²³⁸U + ¹n → ²³⁹U + γ"
+          }
+        ]
+      }
+    },
+    {
+      "field": "reactions",
+      "before": null,
+      "after": [
+        {
+          "type": "Tạo Neptunium-239 từ Uranium-238",
+          "desc": "",
+          "equation": "²³⁸U + n → ²³⁹U + γ",
+          "condition": "Chiếu neutron trong cơ sở nghiên cứu; bắt neutron và phát gamma nếu không có sản phẩm bay hơi.",
+          "kind": "nuclear",
+          "sourceLine": 81,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Phân rã của Uranium-239",
+          "desc": "",
+          "equation": "²³⁹U → ²³⁹Np + β⁻ + ν̅ₑ",
+          "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+          "kind": "nuclear",
+          "sourceLine": 83,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Phân rã của Neptunium-239",
+          "desc": "",
+          "equation": "²³⁹Np → ²³⁹Pu + β⁻ + ν̅ₑ",
+          "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+          "kind": "nuclear",
+          "sourceLine": 85,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Oxygen",
+          "desc": "",
+          "equation": "Np + O₂ → NpO₂",
+          "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+          "kind": "chemical",
+          "sourceLine": 87,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Phân rã Alpha của Neptunium-237",
+          "desc": "",
+          "equation": "²³⁷Np → ²³³Pa + α",
+          "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+          "kind": "nuclear",
+          "sourceLine": 89,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": null,
+      "after": [
+        {
+          "title": "Có thể nhận biết Neptunium bằng",
+          "desc": "Phổ alpha và beta. Đo hoạt độ phóng xạ. Phổ gamma của các đồng vị. ICP-MS và các phương pháp phân tích đồng vị. Phân tích trạng thái Oxy hóa đặc trưng. Do Neptunium phóng xạ và thường chỉ tồn tại với lượng rất nhỏ, việc nhận biết chủ yếu dựa trên phân tích hạt nhân và phổ học.",
+          "result": "",
+          "equations": [],
+          "sourceLines": [
+            72,
+            73,
+            74,
+            75,
+            76,
+            77,
+            78
+          ],
+          "equation": ""
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "093_Np.docx",
+        "sourceSha256": "06f23c30dcfe0d6f1edf5a4b3b194c7463d0e0943be0439d69266be587290b2c",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/093_Np.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "093_Np.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "06f23c30dcfe0d6f1edf5a4b3b194c7463d0e0943be0439d69266be587290b2c"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/93/neptunium"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure",
+      "before": null,
+      "after": {
+        "protons": 93,
+        "electrons": 93,
+        "neutrons": 144,
+        "nucleusIsotope": "²³⁷Np",
+        "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+        "nucleus": {
+          "proton": 93,
+          "neutron": 144
+        },
+        "electronShells": [
+          2,
+          8,
+          18,
+          32,
+          22,
+          9,
+          2
+        ],
+        "shells": [
+          2,
+          8,
+          18,
+          32,
+          22,
+          9,
+          2
+        ],
+        "valenceElectrons": 2,
+        "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+        "lattice": "Trực thoi (Orthorhombic)",
+        "latticeEvidence": "source-reviewed"
+      }
+    },
+    {
+      "field": "structureType",
+      "before": null,
+      "after": "Trực thoi (Orthorhombic)"
+    },
+    {
+      "field": "symbol",
+      "before": null,
+      "after": "Np"
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "Np",
+      "status": "diagram",
+      "reason": "Không dùng ảnh mẫu vĩ mô không xác minh cho nguyên tố cực hiếm/nhân tạo."
+    },
+    "mineral": {
+      "available": false,
+      "reason": "Nguyên tố nhân tạo hoặc chỉ có vết tự nhiên; không có quặng khai thác riêng để dựng mẫu."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "Np",
+      "z": 93,
+      "url": "https://periodic-table.rsc.org/element/93/neptunium",
+      "status": "retrieved",
+      "bytes": 146315,
+      "sha256": "80626a9370f9ec90deec3b5c1f0cb950c160905cfc258b90a5ded5157a664322",
+      "facts": {
+        "Group": "Actinides",
+        "Melting point": "644°C, 1191°F, 917 K",
+        "Period": "7",
+        "Boiling point": "3902°C, 7056°F, 4175 K",
+        "Block": "f",
+        "Density (g cm−³)": "20.2",
+        "Atomic number": "93",
+        "Relative atomic mass": "[237]",
+        "State at 20°C": "Solid",
+        "Key isotopes": "²³⁷Np",
+        "Electron configuration": "[Rn] 5f⁴6d¹7s²",
+        "CAS number": "7439-99-8",
+        "ChemSpider ID": "22375",
+        "electronegativity": "1.3"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "93",
+      "Symbol": "Np",
+      "Name": "Neptunium",
+      "AtomicMass": "237.048172",
+      "CPKHexColor": "0080FF",
+      "ElectronConfiguration": "[Rn]7s2 5f4 6d1",
+      "Electronegativity": "1.36",
+      "AtomicRadius": "221",
+      "IonizationEnergy": "6.266",
+      "ElectronAffinity": "",
+      "OxidationStates": "+6, +5, +4, +3",
+      "StandardState": "Solid",
+      "MeltingPoint": "917",
+      "BoilingPoint": "4175",
+      "Density": "20.25",
+      "GroupBlock": "Actinide",
+      "YearDiscovered": "1940"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

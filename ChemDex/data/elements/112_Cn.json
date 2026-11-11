@@ -1,0 +1,393 @@
+{
+  "number": 112,
+  "symbol": "Cn",
+  "nameVi": "Copernicium",
+  "nameEn": "Copernicium",
+  "mass": 285,
+  "massStandardText": "[285] — số khối đồng vị tham chiếu, không phải nguyên tử khối chuẩn",
+  "massStandardSource": "https://periodic-table.rsc.org/element/112/copernicium",
+  "massKind": "reference-isotope-mass-number",
+  "category": "chuyen-tiep",
+  "hasData": true,
+  "file": "elements/112_Cn.json",
+  "general": {
+    "latinName": "Copernicium",
+    "englishName": "Copernicium",
+    "electronConfig": "[Rn] 5f¹⁴ 6d¹⁰ 7s² (dự đoán)",
+    "isotope": "²⁷⁷Cn, ²⁸¹Cn, ²⁸²Cn, ²⁸³Cn, ²⁸⁴Cn, ²⁸⁵Cn",
+    "group": 12,
+    "groupLabel": "12",
+    "series": "",
+    "period": 7,
+    "state": "Chưa đo trạng thái vĩ mô; các giá trị pha chỉ là dự đoán",
+    "oxidation": "+2, +4 (dự đoán)",
+    "electronegativity": null,
+    "electronegativityNote": "Chưa có giá trị Pauling đủ cơ sở trong bản đối chiếu; không coi 0 là giá trị đã đo.",
+    "density": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+    "meltingPoint": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+    "boilingPoint": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+    "crystalStructure": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+    "CAS": "54084-26-3"
+  },
+  "history": {
+    "discoverer": "Nhóm nghiên cứu tại Gesellschaft für Schwerionenforschung (GSI)",
+    "year": "1996",
+    "discoveryLocation": "Darmstadt, Đức",
+    "description": "Copernicium được tổng hợp lần đầu vào năm 1996 tại GSI bằng cách bắn phá Lead-208 bằng Zinc-70: ²⁰⁸Pb + ⁷⁰Zn → ²⁷⁷Cn + n Tên Copernicium được đặt để vinh danh nhà thiên văn học Nicolaus Copernicus, người đề xuất mô hình Nhật tâm."
+  },
+  "structure": {
+    "protons": 112,
+    "electrons": 112,
+    "neutrons": 173,
+    "nucleusIsotope": "²⁸⁵Cn",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 112,
+      "neutron": 173
+    },
+    "electronShells": [
+      2,
+      8,
+      18,
+      32,
+      32,
+      18,
+      2
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      32,
+      32,
+      18,
+      2
+    ],
+    "valenceElectrons": 2,
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+    "lattice": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+    "latticeEvidence": "predicted"
+  },
+  "structureType": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+  "occurrence": {
+    "description": "Chất rắn (dự đoán)",
+    "simple": [
+      "Cn"
+    ],
+    "compounds": [
+      "CnCl₂",
+      "CnO... (dự đoán)"
+    ],
+    "ores": [
+      "Không tồn tại tự nhiên với lượng đáng kể. Copernicium chỉ được tổng hợp nhân tạo trong phòng thí nghiệm"
+    ],
+    "details": [
+      "Trạng thái: Chất rắn (dự đoán)",
+      "Có trong: Không tồn tại tự nhiên với lượng đáng kể. Copernicium chỉ được tổng hợp nhân tạo trong phòng thí nghiệm.",
+      "Đơn chất: Cn",
+      "Hợp chất: CnCl₂, CnO... (dự đoán)"
+    ],
+    "mineral": {
+      "available": false,
+      "reason": "Nguyên tố nhân tạo hoặc chỉ có vết tự nhiên; không có quặng khai thác riêng để dựng mẫu."
+    }
+  },
+  "naturalState": {
+    "image": "/assets/periodic-table/diagrams/112_Cn.svg",
+    "alt": "Copernicium: sơ đồ minh họa nguyên tố",
+    "kind": "diagram",
+    "source": "",
+    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+    "credit": ""
+  },
+  "isotopes": [
+    {
+      "isotope": "²⁷⁷Cn",
+      "massNumber": 277,
+      "protons": 112,
+      "neutrons": 165,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "0.61 (+0.46/−0.18) ms",
+      "halfLife": "0.61 ms",
+      "halfLifeUncertainty": "+46-18",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁸¹Cn",
+      "massNumber": 281,
+      "protons": 112,
+      "neutrons": 169,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "0.18 (+0.10/−0.05) s",
+      "halfLife": "0.18 s",
+      "halfLifeUncertainty": "+10-5",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁸²Cn",
+      "massNumber": 282,
+      "protons": 112,
+      "neutrons": 170,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "0.96 (+0.35/−0.20) ms",
+      "halfLife": "0.96 ms",
+      "halfLifeUncertainty": "+35-20",
+      "halfLifeQualifier": null,
+      "decay": "SF",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁸³Cn",
+      "massNumber": 283,
+      "protons": 112,
+      "neutrons": 171,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "4.6 (+1.0/−0.7) s",
+      "halfLife": "4.6 s",
+      "halfLifeUncertainty": "+10-7",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁸⁴Cn",
+      "massNumber": 284,
+      "protons": 112,
+      "neutrons": 172,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "108 (+20/−14) ms",
+      "halfLife": "108 ms",
+      "halfLifeUncertainty": "+20-14",
+      "halfLifeQualifier": null,
+      "decay": "SF",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁸⁵Cn",
+      "massNumber": 285,
+      "protons": 112,
+      "neutrons": 173,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "33 (+10/−6) s",
+      "halfLife": "33 s",
+      "halfLifeUncertainty": "+10-6",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Là nguyên tố thuộc nhóm IIB | chu kỳ 7.</li><li>Là nguyên tố siêu nặng.</li><li>Có tính phóng xạ rất mạnh.</li><li>Được dự đoán là chất rắn ở điều kiện thường.</li><li>Ước tính trong tài liệu, chưa đo trên mẫu vĩ mô: Có thể có nhiệt độ nóng chảy rất thấp so với các nguyên tố cùng nhóm.</li><li>Được dự đoán có tính chất giống một kim loại nặng, nhưng một số mô hình cho rằng Copernicium có thể có đặc tính khá khác biệt.</li><li>Khối lượng riêng, nhiệt độ nóng chảy và nhiệt độ sôi chưa được xác định trực tiếp.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Có cấu hình electron hóa trị 7s².</li><li>Số Oxy hóa +2 được dự đoán là quan trọng nhất.</li><li>Có thể có trạng thái +4.</li><li>Do hiệu ứng tương đối tính rất mạnh, electron 7s bị giữ chặt, khiến Copernicium có tính chất hóa học khác biệt đáng kể so với Zinc, Cadmium và Mercury.</li><li>Có thể có tính dễ bay hơi cao bất thường đối với một kim loại.</li></ul>",
+  "reactions": [
+    {
+      "type": "Tổng hợp Copernicium-277",
+      "desc": "",
+      "equation": "²⁰⁸Pb + ⁷⁰Zn → ²⁷⁷Cn + n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 72,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Phân rã Alpha",
+      "desc": "",
+      "equation": "²⁸³Cn → ²⁷⁹Ds + ⁴He",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 74,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tạo Copernicium(II) chloride",
+      "desc": "",
+      "equation": "Cn + Cl₂ → CnCl₂",
+      "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+      "kind": "formal",
+      "sourceLine": 76,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tạo Copernicium(II) oxide",
+      "desc": "",
+      "equation": "2Cn + O₂ → 2CnO",
+      "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+      "kind": "formal",
+      "sourceLine": 78,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "preparations": {
+    "lab": [
+      {
+        "title": "Copernicium được tổng hợp bằng cách bắn phá Lead-208 bằng ion Zinc-70 trong máy gia tốc hạt.",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "²⁰⁸Pb + ⁷⁰Zn → ²⁷⁷Cn + ¹n",
+            "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+            "kind": "nuclear",
+            "sourceLine": 61,
+            "sourceSection": "lab",
+            "balance": {
+              "status": "balanced",
+              "kind": "nuclear",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          60,
+          61
+        ],
+        "equation": "²⁰⁸Pb + ⁷⁰Zn → ²⁷⁷Cn + ¹n"
+      }
+    ],
+    "industry": [
+      {
+        "title": "Copernicium (Cn) không được sản xuất công nghiệp do tính phóng xạ rất cao và thời gian bán rã ngắn. Nguyên tố này chỉ được tổng hợp với lượng cực nhỏ trong các cơ sở nghiên cứu hạt nhân.",
+        "desc": "",
+        "result": "",
+        "equations": [],
+        "sourceLines": [
+          58
+        ],
+        "equation": ""
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Copernicium được nhận biết thông qua",
+      "desc": "Năng lượng của các hạt Alpha. Chu kỳ bán rã. Chuỗi phân rã đặc trưng. Xác định các hạt nhân con. Trong một số thí nghiệm, nghiên cứu tính bay hơi và hành vi hóa học của nguyên tử Cn. Không thể nhận biết bằng phản ứng hóa học thông thường vì chỉ tạo được một lượng cực nhỏ nguyên tử.",
+      "result": "",
+      "equations": [],
+      "sourceLines": [
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69
+      ],
+      "equation": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Ứng dụng",
+      "desc": "Copernicium không có ứng dụng công nghiệp hoặc dân dụng.",
+      "sourceLine": 81
+    },
+    {
+      "title": "Nó chủ yếu được sử dụng trong",
+      "desc": "",
+      "sourceLine": 82
+    },
+    {
+      "title": "Nghiên cứu hạt nhân",
+      "desc": "Nghiên cứu các hạt nhân siêu nặng và độ ổn định của chúng.",
+      "sourceLine": 83
+    },
+    {
+      "title": "Hóa học nguyên tố siêu nặng",
+      "desc": "Nghiên cứu vị trí của Copernicium trong nhóm IIB và so sánh với Zinc, Cadmium và Mercury.",
+      "sourceLine": 84
+    },
+    {
+      "title": "Nghiên cứu hiệu ứng tương đối tính",
+      "desc": "Copernicium là một ví dụ đặc biệt về việc hiệu ứng tương đối tính có thể làm thay đổi mạnh tính chất của nguyên tử siêu nặng.",
+      "sourceLine": 85
+    }
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Copernicium là nguyên tố số 112, thuộc nhóm IIB | chu kỳ 7 và là một nguyên tố siêu nặng.</li><li>Copernicium được tổng hợp lần đầu vào năm 1996 tại Darmstadt, Đức, bằng phản ứng giữa Lead-208 và Zinc-70. Tên nguyên tố được đặt để vinh danh Nicolaus Copernicus.</li><li>Cấu hình electron được dự đoán là [Rn] 5f¹⁴ 6d¹⁰ 7s², với số Oxy hóa chủ yếu là +2. Do hiệu ứng tương đối tính cực mạnh, Copernicium có thể có những tính chất khác biệt đáng kể so với các nguyên tố cùng nhóm.</li><li>Copernicium không có đồng vị bền, rất phóng xạ và chỉ được tạo ra với số lượng cực nhỏ. Vì vậy, nó không có ứng dụng thực tế, chủ yếu phục vụ nghiên cứu khoa học.</li><li>Mạng tinh thể: Lập phương tâm khối (BCC) — dự đoán, vì chưa thể thu được lượng Copernicium đủ lớn để xác định trực tiếp cấu trúc tinh thể.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/diagrams/112_Cn.svg",
+      "title": "Copernicium (Cn)",
+      "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+      "source": "",
+      "author": "ChemDex",
+      "license": "ChemDex schematic diagram",
+      "licenseUrl": ""
+    }
+  ],
+  "mediaBlocks": [],
+  "sources": [
+    {
+      "title": "112_Cn.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "87ebd26901395f173cc116e42ff96fd56b4c1ae245846608c38b70073b009907"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/112/copernicium"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "112_Cn.docx",
+    "sourceSha256": "87ebd26901395f173cc116e42ff96fd56b4c1ae245846608c38b70073b009907",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/112_Cn.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
+}

@@ -1,0 +1,100 @@
+001: Curium (Cm)
+002: Thông tin chung
+003: Tên Latin: Curium
+004: Tên Tiếng Anh: Curium
+005: Đồng vị: ²³⁸Cm, ²³⁹Cm, ²⁴⁰Cm, ²⁴¹Cm, ²⁴²Cm, ²⁴³Cm, ²⁴⁴Cm, ²⁴⁵Cm, ²⁴⁶Cm, ²⁴⁷Cm, ²⁴⁸Cm, ²⁵⁰Cm
+006: Vị trí: Nhóm IIIB | Chu kỳ 7 | Họ Actinide
+007: Số Oxy hóa: +3, +4
+008: Độ âm điện: 1,30 (Pauling)
+009: Lịch sử khám phá
+010: Phát hiện bởi: Glenn T. Seaborg, Ralph A. James và Albert Ghiorso
+011: Năm công bố: 1944
+012: Nơi khám phá: Berkeley, California, Hoa Kỳ
+013: Mô tả: Curium được tạo ra lần đầu tiên vào năm 1944 bằng cách bắn phá Plutonium-239 bằng các hạt alpha trong máy gia tốc hạt.
+014: Phản ứng tạo Curium-242:
+015: ²³⁹Pu + ⁴He → ²⁴²Cm + n
+016: Curium được đặt tên để vinh danh Marie Curie và Pierre Curie, những người có đóng góp quan trọng trong nghiên cứu phóng xạ.
+017: 3. Cấu tạo
+018: a. Cấu tạo nguyên tử
+019: Cấu hình electron: [Rn] 5f⁷ 6d¹ 7s²
+020: Mô hình mạng tinh thể: Lục phương (Hexagonal)
+021: Số hiệu nguyên tử: 96
+022: Nguyên tử khối: 247,07035 g/mol (giá trị quy ước cho đồng vị ²⁴⁷Cm)
+023: Vỏ nguyên tử: 96 electron
+024: Hạt nhân: 96 proton
+025: Cấu hình e đầy đủ: [Rn] 5f⁷ 6d¹ 7s²
+026: Loại mạng: Lục phương (Hexagonal)
+027: b. Trạng thái tự nhiên
+028: Trạng thái: Chất rắn
+029: Màu sắc: Bạc trắng
+030: Có trong: Hầu như không tồn tại tự nhiên với lượng đáng kể; chủ yếu được tạo ra nhân tạo.
+031: Đơn chất: Cm
+032: Hợp chất phổ biến: Cm₂O₃, CmO₂, CmCl₃, CmF₃
+033: c. Đồng vị
+034: Curium không có đồng vị bền.
+035: Một số đồng vị quan trọng:
+036: ²⁴²Cm: chu kỳ bán rã khoảng 162,8 ngày.
+037: ²⁴³Cm: chu kỳ bán rã khoảng 29,1 năm.
+038: ²⁴⁴Cm: chu kỳ bán rã khoảng 18,1 năm.
+039: ²⁴⁵Cm: chu kỳ bán rã khoảng 8.500 năm.
+040: ²⁴⁶Cm: chu kỳ bán rã khoảng 4.730 năm.
+041: ²⁴⁷Cm: chu kỳ bán rã khoảng 15,6 triệu năm.
+042: ²⁴⁸Cm: chu kỳ bán rã khoảng 348.000 năm.
+043: Trong đó ²⁴²Cm và ²⁴⁴Cm đáng chú ý vì chúng phát ra lượng nhiệt đáng kể thông qua phân rã alpha.
+044: Tính chất
+045: Tính chất vật lý
+046: Là kim loại phóng xạ.
+047: Thuộc họ Actinide.
+048: Có màu bạc trắng.
+049: Rất hiếm và chỉ được sản xuất với lượng nhỏ.
+050: Có tính phóng xạ mạnh.
+051: Có nhiều dạng thù hình.
+052: Nhiệt độ nóng chảy khoảng 1345 °C.
+053: Khối lượng riêng khoảng 13,5 g/cm³.
+054: Tính chất hóa học
+055: Curium chủ yếu tồn tại ở trạng thái Oxy hóa:
+056: +3: phổ biến nhất.
+057: +4: có thể tồn tại, đặc biệt trong một số oxide.
+058: Ion Cm³⁺ có cấu hình electron 5f⁷, tương ứng với một phân lớp 5f bán đầy, tạo nên một số tính chất từ đặc biệt.
+059: Curium phản ứng với Oxygen:
+060: 4Cm + 3O₂ → 2Cm₂O₃
+061: Curium cũng có thể tạo Curium dioxide:
+062: Cm + O₂ → CmO₂
+063: Điều chế
+064: Điều chế trong công nghiệp
+065: Curium (Cm) được điều chế nhân tạo trong các lò phản ứng hạt nhân bằng cách cho Plutonium hoặc Americium hấp thụ neutron liên tiếp. Curium-242 và Curium-244 là những đồng vị có thể thu được qua các quá trình này.
+066: ²³⁹Pu + ⁴He → ²⁴²Cm + n
+067: Curium được tách khỏi các sản phẩm hạt nhân khác bằng những quy trình xử lý hóa học chuyên dụng.
+068: Điều chế trong phòng thí nghiệm
+069: Curium được tạo ra với lượng rất nhỏ bằng phản ứng hạt nhân tại các cơ sở nghiên cứu chuyên dụng. Không có phương pháp điều chế hóa học thông thường để tổng hợp nguyên tố này.
+070: Nhận biết
+071: Có thể nhận biết Curium bằng:
+072: Phổ alpha.
+073: Phổ gamma.
+074: Đo hoạt độ phóng xạ.
+075: ICP-MS và phân tích đồng vị.
+076: Phân tích các đặc tính hóa học của Cm³⁺.
+077: Các đồng vị khác nhau có chu kỳ bán rã và kiểu phân rã đặc trưng, giúp xác định chúng.
+078: Phương trình
+079: Điều chế Curium-242
+080: ²³⁹Pu + ⁴He → ²⁴²Cm + n
+081: Tác dụng với Oxygen
+082: 4Cm + 3O₂ → 2Cm₂O₃
+083: Tạo Curium dioxide
+084: Cm + O₂ → CmO₂
+085: Phân rã Alpha của Curium-242
+086: ²⁴²Cm → ²³⁸Pu + α
+087: Phân rã Alpha của Curium-244
+088: ²⁴⁴Cm → ²⁴⁰Pu + α
+089: Ứng dụng thực tế
+090: Nguồn năng lượng phóng xạ: Một số đồng vị Curium có khả năng giải phóng lượng nhiệt đáng kể khi phân rã. Vì vậy chúng được nghiên cứu cho nguồn năng lượng đồng vị phóng xạ (radioisotope power sources).
+091: Nghiên cứu không gian: Curium từng được xem xét và nghiên cứu như một nguồn nhiệt tiềm năng cho các hệ thống không gian, mặc dù ²³⁸Pu thường phù hợp hơn cho RTG thực tế.
+092: Nghiên cứu hạt nhân: Curium được sử dụng để nghiên cứu phản ứng hạt nhân, phóng xạ và hóa học Actinide.
+093: Tạo các nguyên tố nặng hơn: Một số đồng vị Curium được dùng làm bia trong các phản ứng hạt nhân để tạo ra các nguyên tố siêu nặng hơn.
+094: Ví dụ, Curium-248 đã được sử dụng trong các thí nghiệm tạo nguyên tố rất nặng.
+095: Tổng quan
+096: Curium là nguyên tố số 96, thuộc nhóm IIIB | chu kỳ 7 và là nguyên tố thứ tám trong họ Actinide.
+097: Curium được Glenn T. Seaborg, Ralph A. James và Albert Ghiorso phát hiện vào năm 1944 tại Berkeley, Hoa Kỳ. Nguyên tố được đặt tên để vinh danh Marie Curie và Pierre Curie.
+098: Curium là một kim loại phóng xạ nhân tạo, không có đồng vị bền. Trạng thái Oxy hóa phổ biến nhất là +3. Một đặc điểm đáng chú ý là nhiều đồng vị Curium phát ra hạt alpha và giải phóng nhiệt trong quá trình phân rã.
+099: Các đồng vị như ²⁴²Cm và ²⁴⁴Cm có thể tạo ra nhiệt đáng kể, khiến Curium có giá trị trong nghiên cứu nguồn năng lượng phóng xạ. Ngoài ra, Curium còn đóng vai trò quan trọng trong nghiên cứu Actinide và tổng hợp các nguyên tố nặng hơn.
+100: Mạng tinh thể: Lục phương (Hexagonal) ở điều kiện thường.

@@ -1,10 +1,13 @@
 {
   "number": 82,
   "symbol": "Pb",
-  "nameVi": "Lead",
+  "nameVi": "Chì",
   "nameEn": "Lead",
   "mass": 207.2,
-  "category": "unknown",
+  "massStandardText": "207.2 ± 1.1",
+  "massStandardSource": "https://ciaaw.org/abridged-atomic-weights.htm",
+  "massKind": "standard-atomic-weight",
+  "category": "kim-loai-sau-chuyen-tiep",
   "hasData": true,
   "file": "elements/082_Pb.json",
   "general": {
@@ -13,14 +16,18 @@
     "electronConfig": "[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p²",
     "isotope": "²⁰⁴Pb, ²⁰⁶Pb, ²⁰⁷Pb, ²⁰⁸Pb",
     "group": 14,
+    "groupLabel": "14",
+    "series": "",
     "period": 6,
-    "state": "",
+    "state": "Rắn",
     "oxidation": "+2, +4",
     "electronegativity": 2.33,
+    "electronegativityNote": "Thang Pauling; số liệu tổng hợp PubChem.",
     "density": "khoảng 11.34 g/cm³.",
     "meltingPoint": "khoảng 327.5 °C.",
     "boilingPoint": "khoảng 1749 °C.",
-    "crystalStructure": "Lập phương tâm mặt (Face-centered cubic, FCC)"
+    "crystalStructure": "Lập phương tâm mặt (Face-centered cubic, FCC)",
+    "CAS": "7439-92-1"
   },
   "history": {
     "discoverer": "Không xác định — Lead đã được con người biết đến từ thời cổ đại.",
@@ -30,8 +37,14 @@
   },
   "structure": {
     "protons": 82,
-    "neutrons": 125,
     "electrons": 82,
+    "neutrons": 125,
+    "nucleusIsotope": "²⁰⁷Pb",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 82,
+      "neutron": 125
+    },
     "electronShells": [
       2,
       8,
@@ -49,12 +62,11 @@
       4
     ],
     "valenceElectrons": 4,
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương tâm mặt (Face-centered cubic, FCC)",
-    "nucleus": {
-      "proton": 82,
-      "neutron": 125
-    }
+    "latticeEvidence": "source-reviewed"
   },
+  "structureType": "Lập phương tâm mặt (Face-centered cubic, FCC)",
   "occurrence": {
     "description": "Lead là kim loại rắn, mềm, nặng, có màu xám xanh.",
     "simple": [
@@ -70,144 +82,436 @@
     ],
     "ores": [
       "Chủ yếu trong khoáng vật Galena (PbS)"
-    ]
+    ],
+    "details": [
+      "Trạng thái: Lead là kim loại rắn, mềm, nặng, có màu xám xanh.",
+      "Có trong: Chủ yếu trong khoáng vật Galena (PbS).",
+      "Đơn chất: Pb",
+      "Hợp chất: PbS, PbO, PbO₂, PbCl₂, Pb(NO₃)₂, PbCO₃..."
+    ],
+    "mineral": {
+      "available": true,
+      "id": "galena",
+      "name": "Galena",
+      "formula": "PbS",
+      "habit": "cubic",
+      "color": "#8c96a5",
+      "crystalSystem": "cubic",
+      "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Galena",
+      "model": "/assets/periodic-table/minerals/galena.glb",
+      "preview": "/assets/periodic-table/minerals/galena.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
   },
-  "naturalState": {},
-  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại hậu chuyển tiếp.</li>\n      <li>Màu xám xanh.</li>\n      <li>Rất mềm và dễ dát mỏng.</li>\n      <li>Có khối lượng riêng lớn.</li>\n      <li>Khối lượng riêng: khoảng 11.34 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 327.5 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 1749 °C.</li>\n      <li>Dẫn điện và dẫn nhiệt.</li>\n      <li>Có khả năng hấp thụ bức xạ tốt.</li>\n    </ul>\n  ",
-  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có hai số Oxy hóa chính: +2 và +4.</li>\n      <li>+2 ổn định hơn +4 do hiệu ứng cặp electron trơ.</li>\n      <li>Bề mặt Lead có thể hình thành lớp oxide bảo vệ.</li>\n      <li>Phản ứng với Oxygen tạo Lead oxide.</li>\n      <li>Phản ứng với Halogen tạo Lead halide.</li>\n      <li>Một số muối Lead ít tan trong nước, chẳng hạn PbCl₂.</li>\n      <li>Nhiều hợp chất Lead có độc tính cao.</li>\n    </ul>\n  ",
+  "naturalState": {
+    "image": "/assets/periodic-table/diagrams/082_Pb.svg",
+    "alt": "Lead: sơ đồ minh họa nguyên tố",
+    "kind": "diagram",
+    "source": "",
+    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+    "credit": ""
+  },
+  "isotopes": [
+    {
+      "isotope": "²⁰⁴Pb",
+      "massNumber": 204,
+      "protons": 82,
+      "neutrons": 122,
+      "stable": false,
+      "abundancePercent": "1.4",
+      "halfLifeDisplay": "GE 1.4E+17 năm",
+      "halfLife": "1.4E+17 Y",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": "GE",
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁰⁶Pb",
+      "massNumber": 206,
+      "protons": 82,
+      "neutrons": 124,
+      "stable": true,
+      "abundancePercent": "24.1",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁰⁷Pb",
+      "massNumber": 207,
+      "protons": 82,
+      "neutrons": 125,
+      "stable": true,
+      "abundancePercent": "22.1",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁰⁸Pb",
+      "massNumber": 208,
+      "protons": 82,
+      "neutrons": 126,
+      "stable": true,
+      "abundancePercent": "52.4",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Là kim loại hậu chuyển tiếp.</li><li>Màu xám xanh.</li><li>Rất mềm và dễ dát mỏng.</li><li>Có khối lượng riêng lớn.</li><li>Khối lượng riêng: khoảng 11.34 g/cm³.</li><li>Nhiệt độ nóng chảy: khoảng 327.5 °C.</li><li>Nhiệt độ sôi: khoảng 1749 °C.</li><li>Dẫn điện và dẫn nhiệt.</li><li>Có khả năng hấp thụ bức xạ tốt.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Có hai số Oxy hóa chính: +2 và +4.</li><li>+2 ổn định hơn +4 do hiệu ứng cặp electron trơ.</li><li>Bề mặt Lead có thể hình thành lớp oxide bảo vệ.</li><li>Phản ứng với Oxygen tạo Lead oxide.</li><li>Phản ứng với Halogen tạo Lead halide.</li><li>Một số muối Lead ít tan trong nước, chẳng hạn PbCl₂.</li><li>Nhiều hợp chất Lead có độc tính cao.</li></ul>",
   "reactions": [
     {
       "type": "Tác dụng với Oxygen",
+      "desc": "",
       "equation": "2Pb + O₂ → 2PbO",
-      "desc": ""
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 79,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Sulfur",
+      "desc": "",
       "equation": "Pb + S → PbS",
-      "desc": ""
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 81,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Chlorine",
+      "desc": "",
       "equation": "Pb + Cl₂ → PbCl₂",
-      "desc": ""
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 83,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Bromine",
+      "desc": "",
       "equation": "Pb + Br₂ → PbBr₂",
-      "desc": ""
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 85,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Iodine",
+      "desc": "",
       "equation": "Pb + I₂ → PbI₂",
-      "desc": ""
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 87,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Nitric acid",
+      "desc": "",
       "equation": "3Pb + 8HNO₃ → 3Pb(NO₃)₂ + 2NO + 4H₂O",
-      "desc": ""
+      "condition": "HNO₃ loãng, tạo NO; khí NO có thể bị oxi hóa tiếp ngoài không khí.",
+      "kind": "chemical",
+      "sourceLine": 89,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Điều chế Lead từ Lead(II) oxide",
+      "desc": "",
       "equation": "2PbO + C → 2Pb + CO₂",
-      "desc": ""
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 91,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Nhận biết Pb²⁺ bằng Iodide",
+      "desc": "",
       "equation": "Pb²⁺ + 2I⁻ → PbI₂↓",
-      "desc": ""
+      "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+      "kind": "chemical",
+      "sourceLine": 93,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     }
   ],
-  "applications": [
-    {
-      "title": "Ắc quy",
-      "desc": "Lead là vật liệu quan trọng trong ắc quy Lead–acid, đặc biệt trong ô tô và hệ thống lưu trữ điện."
-    },
-    {
-      "title": "Chống bức xạ",
-      "desc": "Do có khối lượng riêng lớn và khả năng hấp thụ bức xạ tốt, Lead được sử dụng trong vật liệu che chắn bức xạ."
-    },
-    {
-      "title": "Hợp kim",
-      "desc": "Lead được sử dụng trong một số hợp kim có nhiệt độ nóng chảy thấp."
-    },
-    {
-      "title": "Cáp và thiết bị",
-      "desc": "Trước đây Lead từng được sử dụng làm lớp bảo vệ cáp điện và trong nhiều thiết bị công nghiệp."
-    },
-    {
-      "title": "Xây dựng",
-      "desc": "Một số vật liệu chứa Lead từng được sử dụng trong xây dựng và chống thấm, nhưng nhiều ứng dụng đã bị hạn chế vì độc tính."
-    },
-    {
-      "title": "Đạn dược",
-      "desc": "Lead từng được sử dụng rộng rãi trong một số loại đạn và vật liệu liên quan, nhưng việc sử dụng Lead ngày càng được hạn chế vì tác động độc hại đến sức khỏe và môi trường."
-    }
-  ],
-  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Lead là nguyên tố số 82, thuộc nhóm IVA | chu kỳ 6 và là một kim loại hậu chuyển tiếp.</li>\n  <li>Lead có cấu hình electron [Xe] 4f¹⁴ 5d¹⁰ 6s² 6p², với hai số Oxy hóa chính là +2 và +4, trong đó +2 ổn định hơn.</li>\n  <li>Lead là kim loại mềm, nặng, dễ gia công và có nhiệt độ nóng chảy tương đối thấp. Đặc biệt, Lead có khả năng hấp thụ bức xạ tốt.</li>\n  <li>Lead có vai trò quan trọng trong ắc quy Lead–acid, vật liệu che chắn bức xạ và một số hợp kim. Tuy nhiên, do Lead và nhiều hợp chất của nó có độc tính cao, việc sử dụng Lead trong nhiều sản phẩm đã được hạn chế hoặc thay thế bằng vật liệu an toàn hơn.</li>\n</ul>\n",
   "preparations": {
-    "lab": [],
+    "lab": [
+      {
+        "title": "Có thể điều chế Lead bằng cách khử Lead(II) oxide bằng Carbon khi đun nóng.",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "2PbO + C → 2Pb + CO₂",
+            "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+            "kind": "chemical",
+            "sourceLine": 67,
+            "sourceSection": "lab",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          65,
+          67
+        ],
+        "equation": "2PbO + C → 2Pb + CO₂"
+      }
+    ],
     "industry": [
       {
-        "title": "Lead chủ yếu được điều chế từ Galena (PbS).",
-        "equation": "",
-        "desc": ""
-      },
-      {
-        "title": "Trước tiên, PbS được nung trong Oxygen để tạo Lead(II) oxide:",
-        "equation": "2PbS + 3O₂ → 2PbO + 2SO₂ <br> 2PbO + C → 2Pb + CO₂",
-        "desc": "Sau đó PbO được khử bằng Carbon:"
+        "title": "Lead (Pb) chủ yếu được điều chế từ quặng galena (PbS). Quặng được nung trong không khí để chuyển một phần Lead sulfide thành Lead oxide, sau đó Lead oxide phản ứng với phần Lead sulfide còn lại tạo thành Lead kim loại.",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "2PbS + 3O₂ → 2PbO + 2SO₂",
+            "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+            "kind": "chemical",
+            "sourceLine": 62,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          },
+          {
+            "equation": "2PbO + PbS → 3Pb + SO₂",
+            "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+            "kind": "chemical",
+            "sourceLine": 63,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          60,
+          62,
+          63
+        ],
+        "equation": "2PbS + 3O₂ → 2PbO + 2SO₂"
       }
     ]
   },
   "recognition": [
     {
-      "title": "Nhận biết",
-      "reagent": "Nhận biết Pb²⁺",
-      "result": "",
-      "equation": ""
-    },
-    {
-      "title": "Cho ion Pb²⁺ tác dụng với Chloride",
-      "reagent": "",
-      "result": "",
-      "equation": ""
-    },
-    {
-      "title": "Nhận biết",
-      "reagent": "",
-      "result": "",
+      "title": "Nhận biết Pb²⁺",
+      "desc": "Cho ion Pb²⁺ tác dụng với Chloride: PbCl₂ tan tốt hơn trong nước nóng.",
+      "result": "Xuất hiện kết tủa trắng PbCl₂.",
+      "equations": [
+        {
+          "equation": "Pb²⁺ + 2Cl⁻ → PbCl₂↓",
+          "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+          "kind": "chemical",
+          "sourceLine": 71,
+          "sourceSection": "recognition",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ],
+      "sourceLines": [
+        69,
+        70,
+        71,
+        72,
+        73
+      ],
       "equation": "Pb²⁺ + 2Cl⁻ → PbCl₂↓"
     },
     {
-      "title": "Hiện tượng",
-      "reagent": "",
-      "result": "Xuất hiện kết tủa trắng PbCl₂.",
-      "equation": ""
-    },
-    {
-      "title": "Nhận biết",
-      "reagent": "PbCl₂ tan tốt hơn trong nước nóng.",
-      "result": "",
-      "equation": ""
-    },
-    {
       "title": "Một phản ứng đặc trưng khác",
-      "reagent": "",
-      "result": "",
-      "equation": ""
-    },
-    {
-      "title": "Nhận biết",
-      "reagent": "",
-      "result": "",
-      "equation": "Pb²⁺ + 2I⁻ → PbI₂↓"
-    },
-    {
-      "title": "Hiện tượng",
-      "reagent": "",
+      "desc": "",
       "result": "Xuất hiện kết tủa vàng sáng PbI₂.",
-      "equation": ""
+      "equations": [
+        {
+          "equation": "Pb²⁺ + 2I⁻ → PbI₂↓",
+          "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+          "kind": "chemical",
+          "sourceLine": 75,
+          "sourceSection": "recognition",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ],
+      "sourceLines": [
+        74,
+        75,
+        76
+      ],
+      "equation": "Pb²⁺ + 2I⁻ → PbI₂↓"
     }
   ],
-  "structureType": "Lập phương tâm mặt (Face-centered cubic, FCC)"
+  "applications": [
+    {
+      "title": "Ắc quy",
+      "desc": "Lead là vật liệu quan trọng trong ắc quy Lead–acid, đặc biệt trong ô tô và hệ thống lưu trữ điện.",
+      "sourceLine": 95
+    },
+    {
+      "title": "Chống bức xạ",
+      "desc": "Do có khối lượng riêng lớn và khả năng hấp thụ bức xạ tốt, Lead được sử dụng trong vật liệu che chắn bức xạ.",
+      "sourceLine": 96
+    },
+    {
+      "title": "Hợp kim",
+      "desc": "Lead được sử dụng trong một số hợp kim có nhiệt độ nóng chảy thấp.",
+      "sourceLine": 97
+    },
+    {
+      "title": "Cáp và thiết bị",
+      "desc": "Trước đây Lead từng được sử dụng làm lớp bảo vệ cáp điện và trong nhiều thiết bị công nghiệp.",
+      "sourceLine": 98
+    },
+    {
+      "title": "Xây dựng",
+      "desc": "Một số vật liệu chứa Lead từng được sử dụng trong xây dựng và chống thấm, nhưng nhiều ứng dụng đã bị hạn chế vì độc tính.",
+      "sourceLine": 99
+    },
+    {
+      "title": "Đạn dược",
+      "desc": "Lead từng được sử dụng rộng rãi trong một số loại đạn và vật liệu liên quan, nhưng việc sử dụng Lead ngày càng được hạn chế vì tác động độc hại đến sức khỏe và môi trường.",
+      "sourceLine": 100
+    }
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Lead là nguyên tố số 82, thuộc nhóm IVA | chu kỳ 6 và là một kim loại hậu chuyển tiếp.</li><li>Lead có cấu hình electron [Xe] 4f¹⁴ 5d¹⁰ 6s² 6p², với hai số Oxy hóa chính là +2 và +4, trong đó +2 ổn định hơn.</li><li>Lead là kim loại mềm, nặng, dễ gia công và có nhiệt độ nóng chảy tương đối thấp. Đặc biệt, Lead có khả năng hấp thụ bức xạ tốt.</li><li>Lead có vai trò quan trọng trong ắc quy Lead–acid, vật liệu che chắn bức xạ và một số hợp kim. Tuy nhiên, do Lead và nhiều hợp chất của nó có độc tính cao, việc sử dụng Lead trong nhiều sản phẩm đã được hạn chế hoặc thay thế bằng vật liệu an toàn hơn.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/diagrams/082_Pb.svg",
+      "title": "Chì (Pb)",
+      "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+      "source": "",
+      "author": "ChemDex",
+      "license": "ChemDex schematic diagram",
+      "licenseUrl": ""
+    }
+  ],
+  "mediaBlocks": [
+    {
+      "type": "model",
+      "section": "structure",
+      "title": "Mẫu khoáng vật 3D · Galena",
+      "src": "/assets/periodic-table/minerals/galena.glb",
+      "preview": "/assets/periodic-table/minerals/galena.png",
+      "desc": "PbS. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  ],
+  "sources": [
+    {
+      "title": "082_Pb.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "dfc0604f59f4cd875d8856691995b1a4d9ad7792c674d220d2e5b2c577f60650"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/82/lead"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "082_Pb.docx",
+    "sourceSha256": "dfc0604f59f4cd875d8856691995b1a4d9ad7792c674d220d2e5b2c577f60650",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/082_Pb.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
 }

@@ -1,0 +1,89 @@
+001: Dubnium (Db)
+002: Thông tin chung
+003: Tên Latin: Dubnium
+004: Tên Tiếng Anh: Dubnium
+005: Đồng vị: ²⁶⁷Db, ²⁶⁸Db, ²⁶⁹Db, ²⁷⁰Db, ²⁷¹Db, ²⁷²Db, ²⁷³Db, ²⁷⁴Db, ²⁷⁵Db, ²⁷⁶Db
+006: Vị trí: Nhóm VB | Chu kỳ 7
+007: Số Oxy hóa: +5 (phổ biến nhất, dự đoán)
+008: Độ âm điện: Không xác định
+009: Lịch sử khám phá
+010: Phát hiện bởi: Nhóm nghiên cứu tại Joint Institute for Nuclear Research (JINR) và nhóm tại Lawrence Berkeley Laboratory (LBL)
+011: Năm công bố: 1967
+012: Nơi khám phá: Dubna, Liên Xô
+013: Mô tả: Dubnium được tổng hợp lần đầu vào khoảng năm 1967 tại Dubna bằng cách bắn phá Americium-243 bằng ion Neon-22:
+014: ²⁴³Am + ²²Ne → ²⁶¹Db + 4n
+015: Việc phát hiện Dubnium cũng dẫn đến tranh chấp về tên gọi giữa các nhóm nghiên cứu. Năm 1997, IUPAC chính thức chấp nhận tên Dubnium, lấy theo Dubna, nơi nguyên tố được nghiên cứu và tổng hợp.
+016: 3. Cấu tạo
+017: a. Cấu tạo nguyên tử
+018: Hoạt họa cấu hình e: [Rn] 5f¹⁴ 6d³ 7s² (dự đoán)
+019: Mô hình mạng tinh thể: Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)
+020: Số hiệu nguyên tử: 105
+021: Nguyên tử khối: [268] g/mol
+022: Vỏ nguyên tử: 105 electron
+023: Hạt nhân: 105 proton
+024: Cấu hình e: [Rn] 5f¹⁴ 6d³ 7s² (dự đoán)
+025: Loại mạng: Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)
+026: b. Trạng thái tự nhiên
+027: Trạng thái: Chất rắn (dự đoán).
+028: Có trong: Không tồn tại tự nhiên với lượng đáng kể. Dubnium chỉ được tổng hợp nhân tạo trong phòng thí nghiệm.
+029: Đơn chất: Db
+030: Hợp chất: DbCl₅, DbO₂⁺... (chủ yếu được dự đoán hoặc nghiên cứu ở quy mô nguyên tử)
+031: c. Đồng vị
+032: Dubnium không có đồng vị bền.
+033: Tất cả các đồng vị đều phóng xạ và có thời gian sống ngắn.
+034: Một số đồng vị:
+035: ²⁶⁷Db: chu kỳ bán rã khoảng 1,2 ngày.
+036: ²⁶⁸Db: chu kỳ bán rã khoảng 1,2 ngày.
+037: ²⁶⁹Db: chu kỳ bán rã khoảng 29 giờ.
+038: ²⁷⁰Db: chu kỳ bán rã khoảng 1,3 ngày.
+039: ²⁷¹Db: chu kỳ bán rã khoảng 2,4 giờ.
+040: Do Dubnium chỉ được tạo ra với số lượng rất nhỏ, phần lớn thông tin về các đồng vị được xác định thông qua chuỗi phân rã phóng xạ.
+041: Tính chất
+042: Tính chất vật lý
+043: Là kim loại chuyển tiếp.
+044: Thuộc nhóm VB | chu kỳ 7.
+045: Là nguyên tố siêu nặng.
+046: Có tính phóng xạ mạnh.
+047: Được dự đoán là chất rắn ở điều kiện thường.
+048: Chưa xác định trực tiếp được màu sắc, khối lượng riêng, nhiệt độ nóng chảy và nhiệt độ sôi.
+049: Tính chất hóa học
+050: Được dự đoán có tính chất tương tự Vanadium (V) và Niobium (Nb).
+051: Số Oxy hóa +5 được xem là trạng thái quan trọng nhất.
+052: Có thể tạo các hợp chất như DbCl₅.
+053: Hóa học của Dubnium có nhiều điểm tương đồng với các nguyên tố nhóm 5.
+054: Các nghiên cứu hóa học chỉ được thực hiện với một số lượng nguyên tử cực nhỏ.
+055: Điều chế
+056: Điều chế trong công nghiệp:
+057: Dubnium (Db) không được sản xuất công nghiệp do tính phóng xạ cao và thời gian bán ra ngắn. Nguyên tố này chỉ được tổng hợp trong các cơ sở nghiên cứu hạt nhân.
+058: Điều chế trong phòng thí nghiệm:
+059: Dubnium được tổng hợp bằng cách bắn phá Americium-243 bằng ion Neon-22 trong máy gia tốc hạt.
+060: ²⁴³Am + ²²Ne → ²⁶¹Db + 4¹n
+061: Nhận biết
+062: Dubnium được nhận biết thông qua:
+063: Năng lượng của các hạt Alpha phát ra.
+064: Chu kỳ bán rã.
+065: Chuỗi phân rã đặc trưng.
+066: Nhận diện các hạt nhân con được tạo ra sau phân rã.
+067: Không thể nhận biết bằng các phản ứng hóa học thông thường do lượng Dubnium được tạo ra cực kỳ nhỏ.
+068: Phương trình
+069: Tổng hợp Dubnium-261
+070: ²⁴³Am + ²²Ne → ²⁶¹Db + 4n
+071: Phân rã Alpha của Dubnium-268
+072: ²⁶⁸Db → ²⁶⁴Lr + ⁴He
+073: Tạo Dubnium(V) chloride
+074: Db + 5Cl₂ → DbCl₅
+075: Tạo oxide
+076: 4Db + 5O₂ → 2Db₂O₅
+077: Các phương trình hóa học trên chủ yếu mang tính dự đoán/mô tả vì chưa thể thu được lượng Dubnium đủ lớn để nghiên cứu hóa học vĩ mô.
+078: Ứng dụng thực tế
+079: Dubnium không có ứng dụng công nghiệp hoặc dân dụng.
+080: Nó chủ yếu được sử dụng trong:
+081: Nghiên cứu hạt nhân: Nghiên cứu tính chất của các nguyên tố siêu nặng và cấu trúc hạt nhân.
+082: Hóa học nguyên tố siêu nặng: Kiểm tra sự tương đồng hóa học giữa Dubnium và các nguyên tố nhóm 5 như Vanadium, Niobium và Tantalum.
+083: Nghiên cứu chuỗi phân rã: Một số đồng vị Dubnium đóng vai trò trung gian trong nghiên cứu các hạt nhân siêu nặng hơn.
+084: Tổng quan
+085: Dubnium là nguyên tố số 105, thuộc nhóm VB | chu kỳ 7 và là một kim loại chuyển tiếp siêu nặng.
+086: Dubnium được tổng hợp lần đầu tại Dubna vào cuối thập niên 1960. Tên Dubnium được IUPAC chính thức chấp nhận năm 1997, lấy theo địa danh Dubna.
+087: Cấu hình electron được dự đoán là [Rn] 5f¹⁴ 6d³ 7s², với số Oxy hóa quan trọng nhất là +5. Về mặt hóa học, Dubnium được dự đoán có nhiều điểm tương đồng với Vanadium, Niobium và Tantalum.
+088: Dubnium không có đồng vị bền và chỉ được tạo ra với số lượng cực kỳ nhỏ, vì vậy không có ứng dụng thực tế ngoài nghiên cứu khoa học.
+089: Mạng tinh thể: Lập phương tâm khối (BCC) — dự đoán, do chưa thể thu được lượng Dubnium đủ lớn để xác định trực tiếp cấu trúc tinh thể.

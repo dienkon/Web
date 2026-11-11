@@ -1,0 +1,807 @@
+{
+  "symbol": "Db",
+  "number": 105,
+  "source": "105_Db.docx",
+  "sourceSha256": "98be6f2ab4789093311104f1f518f78997f6564afdc687faaef9647f836d1611",
+  "paragraphCount": 89,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 6,
+    "structure": 8,
+    "occurrence": 4,
+    "isotopes": 9,
+    "physical": 6,
+    "chemical": 5,
+    "lab": 2,
+    "industry": 1,
+    "recognition": 6,
+    "reactions": 9,
+    "applications": 5,
+    "notes": 5
+  },
+  "editorialDecisions": [
+    {
+      "line": 74,
+      "before": "Db + 5Cl₂ → DbCl₅",
+      "after": "2Db + 5Cl₂ → 2DbCl₅",
+      "reason": "Sửa hệ số hình thức; gắn nhãn sơ đồ lý thuyết, chưa xác nhận phản ứng trực tiếp."
+    }
+  ],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "[Rn] 5f¹⁴ 6d³ 7s² (dự đoán)",
+      "publishedValue": "[Rn] 5f¹⁴ 6d³ 7s² (dự đoán)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+      "publishedValue": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "Không xác định",
+      "publishedValue": null,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm VB | Chu kỳ 7",
+      "publishedValue": "5",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Chất rắn (dự đoán).",
+      "publishedValue": "Chưa đo trạng thái vĩ mô; các giá trị pha chỉ là dự đoán",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 35,
+      "sourceText": "²⁶⁷Db: chu kỳ bán rã khoảng 1,2 ngày.",
+      "reference": {
+        "isotope": "²⁶⁷Db",
+        "massNumber": 267,
+        "protons": 105,
+        "neutrons": 162,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "79 (+94/−28) phút",
+        "halfLife": "79 m",
+        "halfLifeUncertainty": "+94-28",
+        "halfLifeQualifier": null,
+        "decay": "SF",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 36,
+      "sourceText": "²⁶⁸Db: chu kỳ bán rã khoảng 1,2 ngày.",
+      "reference": {
+        "isotope": "²⁶⁸Db",
+        "massNumber": 268,
+        "protons": 105,
+        "neutrons": 163,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "28 ± 3 h",
+        "halfLife": "28 h",
+        "halfLifeUncertainty": "3",
+        "halfLifeQualifier": null,
+        "decay": "SF",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 37,
+      "sourceText": "²⁶⁹Db: chu kỳ bán rã khoảng 29 giờ.",
+      "reference": null,
+      "assessment": "Không có trong snapshot đối chiếu; chưa công bố như số liệu đã xác nhận."
+    },
+    {
+      "line": 38,
+      "sourceText": "²⁷⁰Db: chu kỳ bán rã khoảng 1,3 ngày.",
+      "reference": {
+        "isotope": "²⁷⁰Db",
+        "massNumber": 270,
+        "protons": 105,
+        "neutrons": 165,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "15 (+10/−4) h",
+        "halfLife": "15 h",
+        "halfLifeUncertainty": "+10-4",
+        "halfLifeQualifier": null,
+        "decay": "SF",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 39,
+      "sourceText": "²⁷¹Db: chu kỳ bán rã khoảng 2,4 giờ.",
+      "reference": null,
+      "assessment": "Không có trong snapshot đối chiếu; chưa công bố như số liệu đã xác nhận."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 14,
+      "text": "²⁴³Am + ²²Ne → ²⁶¹Db + 4n",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 60,
+      "text": "²⁴³Am + ²²Ne → ²⁶¹Db + 4¹n",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 70,
+      "text": "²⁴³Am + ²²Ne → ²⁶¹Db + 4n",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 72,
+      "text": "²⁶⁸Db → ²⁶⁴Lr + ⁴He",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 74,
+      "text": "Db + 5Cl₂ → DbCl₅",
+      "status": "unbalanced",
+      "kind": "chemical",
+      "delta": {
+        "Cl": -5.0
+      }
+    },
+    {
+      "line": 76,
+      "text": "4Db + 5O₂ → 2Db₂O₅",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "history",
+      "equation": "²⁴³Am + ²²Ne → ²⁶¹Db + 4n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 14,
+      "sourceSection": "history",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "lab",
+      "equation": "²⁴³Am + ²²Ne → ²⁶¹Db + 4¹n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 60,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "²⁴³Am + ²²Ne → ²⁶¹Db + 4n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 70,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "²⁶⁸Db → ²⁶⁴Lr + ⁴He",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 72,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2Db + 5Cl₂ → 2DbCl₅",
+      "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+      "kind": "formal",
+      "sourceLine": 74,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "4Db + 5O₂ → 2Db₂O₅",
+      "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+      "kind": "formal",
+      "sourceLine": 76,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [
+    269,
+    271,
+    272,
+    273,
+    274,
+    275,
+    276
+  ],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": null,
+      "after": [
+        {
+          "title": "Ứng dụng",
+          "desc": "Dubnium không có ứng dụng công nghiệp hoặc dân dụng.",
+          "sourceLine": 79
+        },
+        {
+          "title": "Nó chủ yếu được sử dụng trong",
+          "desc": "",
+          "sourceLine": 80
+        },
+        {
+          "title": "Nghiên cứu hạt nhân",
+          "desc": "Nghiên cứu tính chất của các nguyên tố siêu nặng và cấu trúc hạt nhân.",
+          "sourceLine": 81
+        },
+        {
+          "title": "Hóa học nguyên tố siêu nặng",
+          "desc": "Kiểm tra sự tương đồng hóa học giữa Dubnium và các nguyên tố nhóm 5 như Vanadium, Niobium và Tantalum.",
+          "sourceLine": 82
+        },
+        {
+          "title": "Nghiên cứu chuỗi phân rã",
+          "desc": "Một số đồng vị Dubnium đóng vai trò trung gian trong nghiên cứu các hạt nhân siêu nặng hơn.",
+          "sourceLine": 83
+        }
+      ]
+    },
+    {
+      "field": "category",
+      "before": null,
+      "after": "chuyen-tiep"
+    },
+    {
+      "field": "chemical",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Được dự đoán có tính chất tương tự Vanadium (V) và Niobium (Nb).</li><li>Số Oxy hóa +5 được xem là trạng thái quan trọng nhất.</li><li>Có thể tạo các hợp chất như DbCl₅.</li><li>Hóa học của Dubnium có nhiều điểm tương đồng với các nguyên tố nhóm 5.</li><li>Các nghiên cứu hóa học chỉ được thực hiện với một số lượng nguyên tử cực nhỏ.</li></ul>"
+    },
+    {
+      "field": "file",
+      "before": null,
+      "after": "elements/105_Db.json"
+    },
+    {
+      "field": "general",
+      "before": null,
+      "after": {
+        "latinName": "Dubnium",
+        "englishName": "Dubnium",
+        "electronConfig": "[Rn] 5f¹⁴ 6d³ 7s² (dự đoán)",
+        "isotope": "²⁶⁷Db, ²⁶⁸Db, ²⁷⁰Db",
+        "group": 5,
+        "groupLabel": "5",
+        "series": "",
+        "period": 7,
+        "state": "Chưa đo trạng thái vĩ mô; các giá trị pha chỉ là dự đoán",
+        "oxidation": "+5 (phổ biến nhất, dự đoán)",
+        "electronegativity": null,
+        "electronegativityNote": "Chưa có giá trị Pauling đủ cơ sở trong bản đối chiếu; không coi 0 là giá trị đã đo.",
+        "density": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+        "meltingPoint": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+        "boilingPoint": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+        "crystalStructure": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+        "CAS": "53850-35-4"
+      }
+    },
+    {
+      "field": "hasData",
+      "before": null,
+      "after": true
+    },
+    {
+      "field": "history",
+      "before": null,
+      "after": {
+        "discoverer": "Nhóm nghiên cứu tại Joint Institute for Nuclear Research (JINR) và nhóm tại Lawrence Berkeley Laboratory (LBL)",
+        "year": "1967",
+        "discoveryLocation": "Dubna, Liên Xô",
+        "description": "Dubnium được tổng hợp lần đầu vào khoảng năm 1967 tại Dubna bằng cách bắn phá Americium-243 bằng ion Neon-22: ²⁴³Am + ²²Ne → ²⁶¹Db + 4n Việc phát hiện Dubnium cũng dẫn đến tranh chấp về tên gọi giữa các nhóm nghiên cứu. Năm 1997, IUPAC chính thức chấp nhận tên Dubnium, lấy theo Dubna, nơi nguyên tố được nghiên cứu và tổng hợp."
+      }
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/diagrams/105_Db.svg",
+          "title": "Dubnium (Db)",
+          "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+          "source": "",
+          "author": "ChemDex",
+          "license": "ChemDex schematic diagram",
+          "licenseUrl": ""
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "²⁶⁷Db",
+          "massNumber": 267,
+          "protons": 105,
+          "neutrons": 162,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "79 (+94/−28) phút",
+          "halfLife": "79 m",
+          "halfLifeUncertainty": "+94-28",
+          "halfLifeQualifier": null,
+          "decay": "SF",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁶⁸Db",
+          "massNumber": 268,
+          "protons": 105,
+          "neutrons": 163,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "28 ± 3 h",
+          "halfLife": "28 h",
+          "halfLifeUncertainty": "3",
+          "halfLifeQualifier": null,
+          "decay": "SF",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁷⁰Db",
+          "massNumber": 270,
+          "protons": 105,
+          "neutrons": 165,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "15 (+10/−4) h",
+          "halfLife": "15 h",
+          "halfLifeUncertainty": "+10-4",
+          "halfLifeQualifier": null,
+          "decay": "SF",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "mass",
+      "before": null,
+      "after": 268
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "reference-isotope-mass-number"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://periodic-table.rsc.org/element/105/dubnium"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "[268] — số khối đồng vị tham chiếu, không phải nguyên tử khối chuẩn"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": []
+    },
+    {
+      "field": "nameEn",
+      "before": null,
+      "after": "Dubnium"
+    },
+    {
+      "field": "nameVi",
+      "before": null,
+      "after": "Dubnium"
+    },
+    {
+      "field": "naturalState",
+      "before": null,
+      "after": {
+        "image": "/assets/periodic-table/diagrams/105_Db.svg",
+        "alt": "Dubnium: sơ đồ minh họa nguyên tố",
+        "kind": "diagram",
+        "source": "",
+        "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+        "credit": ""
+      }
+    },
+    {
+      "field": "notes",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Dubnium là nguyên tố số 105, thuộc nhóm VB | chu kỳ 7 và là một kim loại chuyển tiếp siêu nặng.</li><li>Dubnium được tổng hợp lần đầu tại Dubna vào cuối thập niên 1960. Tên Dubnium được IUPAC chính thức chấp nhận năm 1997, lấy theo địa danh Dubna.</li><li>Cấu hình electron được dự đoán là [Rn] 5f¹⁴ 6d³ 7s², với số Oxy hóa quan trọng nhất là +5. Về mặt hóa học, Dubnium được dự đoán có nhiều điểm tương đồng với Vanadium, Niobium và Tantalum.</li><li>Dubnium không có đồng vị bền và chỉ được tạo ra với số lượng cực kỳ nhỏ, vì vậy không có ứng dụng thực tế ngoài nghiên cứu khoa học.</li><li>Mạng tinh thể: Lập phương tâm khối (BCC) — dự đoán, do chưa thể thu được lượng Dubnium đủ lớn để xác định trực tiếp cấu trúc tinh thể.</li></ul>"
+    },
+    {
+      "field": "number",
+      "before": null,
+      "after": 105
+    },
+    {
+      "field": "occurrence",
+      "before": null,
+      "after": {
+        "description": "Chất rắn (dự đoán).",
+        "simple": [
+          "Db"
+        ],
+        "compounds": [
+          "DbCl₅",
+          "DbO₂⁺... (chủ yếu được dự đoán hoặc nghiên cứu ở quy mô nguyên tử)"
+        ],
+        "ores": [
+          "Không tồn tại tự nhiên với lượng đáng kể. Dubnium chỉ được tổng hợp nhân tạo trong phòng thí nghiệm"
+        ],
+        "details": [
+          "Trạng thái: Chất rắn (dự đoán).",
+          "Có trong: Không tồn tại tự nhiên với lượng đáng kể. Dubnium chỉ được tổng hợp nhân tạo trong phòng thí nghiệm.",
+          "Đơn chất: Db",
+          "Hợp chất: DbCl₅, DbO₂⁺... (chủ yếu được dự đoán hoặc nghiên cứu ở quy mô nguyên tử)"
+        ],
+        "mineral": {
+          "available": false,
+          "reason": "Nguyên tố nhân tạo hoặc chỉ có vết tự nhiên; không có quặng khai thác riêng để dựng mẫu."
+        }
+      }
+    },
+    {
+      "field": "physical",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Là kim loại chuyển tiếp.</li><li>Thuộc nhóm VB | chu kỳ 7.</li><li>Là nguyên tố siêu nặng.</li><li>Có tính phóng xạ mạnh.</li><li>Được dự đoán là chất rắn ở điều kiện thường.</li><li>Chưa xác định trực tiếp được màu sắc, khối lượng riêng, nhiệt độ nóng chảy và nhiệt độ sôi.</li></ul>"
+    },
+    {
+      "field": "preparations",
+      "before": null,
+      "after": {
+        "lab": [
+          {
+            "title": "Dubnium được tổng hợp bằng cách bắn phá Americium-243 bằng ion Neon-22 trong máy gia tốc hạt.",
+            "desc": "",
+            "result": "",
+            "equations": [
+              {
+                "equation": "²⁴³Am + ²²Ne → ²⁶¹Db + 4¹n",
+                "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+                "kind": "nuclear",
+                "sourceLine": 60,
+                "sourceSection": "lab",
+                "balance": {
+                  "status": "balanced",
+                  "kind": "nuclear",
+                  "delta": {}
+                },
+                "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+              }
+            ],
+            "sourceLines": [
+              59,
+              60
+            ],
+            "equation": "²⁴³Am + ²²Ne → ²⁶¹Db + 4¹n"
+          }
+        ],
+        "industry": [
+          {
+            "title": "Dubnium (Db) không được sản xuất công nghiệp do tính phóng xạ cao và thời gian bán ra ngắn. Nguyên tố này chỉ được tổng hợp trong các cơ sở nghiên cứu hạt nhân.",
+            "desc": "",
+            "result": "",
+            "equations": [],
+            "sourceLines": [
+              57
+            ],
+            "equation": ""
+          }
+        ]
+      }
+    },
+    {
+      "field": "reactions",
+      "before": null,
+      "after": [
+        {
+          "type": "Tổng hợp Dubnium-261",
+          "desc": "",
+          "equation": "²⁴³Am + ²²Ne → ²⁶¹Db + 4n",
+          "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+          "kind": "nuclear",
+          "sourceLine": 70,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Phân rã Alpha của Dubnium-268",
+          "desc": "",
+          "equation": "²⁶⁸Db → ²⁶⁴Lr + ⁴He",
+          "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+          "kind": "nuclear",
+          "sourceLine": 72,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Dubnium(V) chloride",
+          "desc": "",
+          "equation": "2Db + 5Cl₂ → 2DbCl₅",
+          "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+          "kind": "formal",
+          "sourceLine": 74,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo oxide",
+          "desc": "",
+          "equation": "4Db + 5O₂ → 2Db₂O₅",
+          "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+          "kind": "formal",
+          "sourceLine": 76,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": null,
+      "after": [
+        {
+          "title": "Dubnium được nhận biết thông qua",
+          "desc": "Năng lượng của các hạt Alpha phát ra. Chu kỳ bán rã. Chuỗi phân rã đặc trưng. Nhận diện các hạt nhân con được tạo ra sau phân rã. Không thể nhận biết bằng các phản ứng hóa học thông thường do lượng Dubnium được tạo ra cực kỳ nhỏ.",
+          "result": "",
+          "equations": [],
+          "sourceLines": [
+            62,
+            63,
+            64,
+            65,
+            66,
+            67
+          ],
+          "equation": ""
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "105_Db.docx",
+        "sourceSha256": "98be6f2ab4789093311104f1f518f78997f6564afdc687faaef9647f836d1611",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/105_Db.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "105_Db.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "98be6f2ab4789093311104f1f518f78997f6564afdc687faaef9647f836d1611"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/105/dubnium"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure",
+      "before": null,
+      "after": {
+        "protons": 105,
+        "electrons": 105,
+        "neutrons": 163,
+        "nucleusIsotope": "²⁶⁸Db",
+        "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+        "nucleus": {
+          "proton": 105,
+          "neutron": 163
+        },
+        "electronShells": [
+          2,
+          8,
+          18,
+          32,
+          32,
+          11,
+          2
+        ],
+        "shells": [
+          2,
+          8,
+          18,
+          32,
+          32,
+          11,
+          2
+        ],
+        "valenceElectrons": 2,
+        "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+        "lattice": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+        "latticeEvidence": "predicted"
+      }
+    },
+    {
+      "field": "structureType",
+      "before": null,
+      "after": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)"
+    },
+    {
+      "field": "symbol",
+      "before": null,
+      "after": "Db"
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "Db",
+      "status": "diagram",
+      "reason": "Không dùng ảnh mẫu vĩ mô không xác minh cho nguyên tố cực hiếm/nhân tạo."
+    },
+    "mineral": {
+      "available": false,
+      "reason": "Nguyên tố nhân tạo hoặc chỉ có vết tự nhiên; không có quặng khai thác riêng để dựng mẫu."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "Db",
+      "z": 105,
+      "url": "https://periodic-table.rsc.org/element/105/dubnium",
+      "status": "retrieved",
+      "bytes": 142489,
+      "sha256": "94c7764f47936614ddaad8c4856e4b26a673847a8cd97e21d863d5704ab72db2",
+      "facts": {
+        "Group": "5",
+        "Melting point": "Unknown",
+        "Period": "7",
+        "Boiling point": "Unknown",
+        "Block": "d",
+        "Density (g cm−³)": "Unknown",
+        "Atomic number": "105",
+        "Relative atomic mass": "[268]",
+        "State at 20°C": "Solid",
+        "Key isotopes": "²⁶⁸Db",
+        "Electron configuration": "[Rn] 5f¹⁴6d³7s²",
+        "CAS number": "53850-35-4",
+        "ChemSpider ID": "-",
+        "electronegativity": "Unknown"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "105",
+      "Symbol": "Db",
+      "Name": "Dubnium",
+      "AtomicMass": "268.126",
+      "CPKHexColor": "D1004F",
+      "ElectronConfiguration": "[Rn]7s2 5f14 6d3",
+      "Electronegativity": "",
+      "AtomicRadius": "",
+      "IonizationEnergy": "",
+      "ElectronAffinity": "",
+      "OxidationStates": "5, 4, 3",
+      "StandardState": "Solid",
+      "MeltingPoint": "",
+      "BoilingPoint": "",
+      "Density": "",
+      "GroupBlock": "Transition metal",
+      "YearDiscovered": "1967"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

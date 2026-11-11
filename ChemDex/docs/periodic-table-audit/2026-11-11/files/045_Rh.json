@@ -1,0 +1,946 @@
+{
+  "symbol": "Rh",
+  "number": 45,
+  "source": "045_Rh.docx",
+  "sourceSha256": "bd3c23372558870d03f40c86e0c5c26dd6cf046b196fa3c19c24419952987e08",
+  "paragraphCount": 91,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 4,
+    "structure": 9,
+    "occurrence": 4,
+    "isotopes": 3,
+    "physical": 9,
+    "chemical": 6,
+    "lab": 3,
+    "industry": 3,
+    "recognition": 5,
+    "reactions": 12,
+    "applications": 6,
+    "notes": 4
+  },
+  "editorialDecisions": [
+    {
+      "line": 56,
+      "before": "2Rh₂O₃ + 3H₂ → 4Rh + 3H₂O",
+      "after": "Rh₂O₃ + 3H₂ → 2Rh + 3H₂O",
+      "reason": "Sửa hệ số oxide và kim loại để bảo toàn oxygen."
+    }
+  ],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "[Kr] 4d⁸ 5s¹",
+      "publishedValue": "[Kr] 4d⁸ 5s¹",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Lập phương tâm mặt (Face-centered cubic, FCC)",
+      "publishedValue": "Lập phương tâm mặt (Face-centered cubic, FCC)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "2.28",
+      "publishedValue": 2.28,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm VIIIB | Chu kỳ 5",
+      "publishedValue": "9",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Rhodium là kim loại rắn, màu trắng bạc, sáng bóng.",
+      "publishedValue": "Rắn",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 32,
+      "sourceText": "¹⁰³Rh: Đồng vị bền duy nhất của Rhodium trong tự nhiên.",
+      "reference": {
+        "isotope": "¹⁰³Rh",
+        "massNumber": 103,
+        "protons": 45,
+        "neutrons": 58,
+        "stable": true,
+        "abundancePercent": "100",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 56,
+      "text": "2Rh₂O₃ + 3H₂ → 4Rh + 3H₂O",
+      "status": "unbalanced",
+      "kind": "chemical",
+      "delta": {
+        "O": -3.0
+      }
+    },
+    {
+      "line": 60,
+      "text": "2RhCl₃ + 3H₂ → 2Rh + 6HCl",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 64,
+      "text": "Rh³⁺ + 3OH⁻ → Rh(OH)₃↓",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 69,
+      "text": "2Rh + 3Cl₂ → 2RhCl₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 71,
+      "text": "4Rh + 3O₂ → 2Rh₂O₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 73,
+      "text": "Rh³⁺ + 3OH⁻ → Rh(OH)₃↓",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 75,
+      "text": "Rh(OH)₃ + 3HCl → RhCl₃ + 3H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 77,
+      "text": "2RhCl₃ + 3H₂ → 2Rh + 6HCl",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 79,
+      "text": "2Rh + 3S → Rh₂S₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "lab",
+      "equation": "2RhCl₃ + 3H₂ → 2Rh + 6HCl",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 60,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "Rh₂O₃ + 3H₂ → 2Rh + 3H₂O",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 56,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "recognition",
+      "equation": "Rh³⁺ + 3OH⁻ → Rh(OH)₃↓",
+      "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+      "kind": "chemical",
+      "sourceLine": 64,
+      "sourceSection": "recognition",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2Rh + 3Cl₂ → 2RhCl₃",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 69,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "4Rh + 3O₂ → 2Rh₂O₃",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 71,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Rh³⁺ + 3OH⁻ → Rh(OH)₃↓",
+      "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+      "kind": "chemical",
+      "sourceLine": 73,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Rh(OH)₃ + 3HCl → RhCl₃ + 3H₂O",
+      "condition": "Dung dịch acid; phản ứng trung hòa, tốc độ phụ thuộc độ tan của chất rắn.",
+      "kind": "chemical",
+      "sourceLine": 75,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2RhCl₃ + 3H₂ → 2Rh + 6HCl",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 77,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2Rh + 3S → Rh₂S₃",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 79,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": [
+        {
+          "title": "Bộ chuyển đổi xúc tác",
+          "desc": "Rhodium là một trong những kim loại xúc tác quan trọng trong bộ chuyển đổi xúc tác của ô tô, giúp xử lý các khí thải như NOₓ."
+        },
+        {
+          "title": "Mạ kim loại",
+          "desc": "Rhodium được dùng để mạ trang sức và các bề mặt kim loại nhằm tạo lớp phủ sáng bóng và chống ăn mòn."
+        },
+        {
+          "title": "Xúc tác hóa học",
+          "desc": "Rhodium compounds được sử dụng trong nhiều phản ứng tổng hợp hữu cơ."
+        },
+        {
+          "title": "Hợp kim",
+          "desc": "Rhodium được thêm vào Platinum và Palladium để tăng độ cứng và khả năng chịu nhiệt."
+        },
+        {
+          "title": "Thiết bị quang học",
+          "desc": "Rhodium có độ phản xạ ánh sáng cao nên được sử dụng trong một số ứng dụng quang học."
+        },
+        {
+          "title": "Điện tử",
+          "desc": "Rhodium được sử dụng trong một số tiếp điểm và linh kiện điện tử nhờ khả năng chống ăn mòn."
+        }
+      ],
+      "after": [
+        {
+          "title": "Bộ chuyển đổi xúc tác",
+          "desc": "Rhodium là một trong những kim loại xúc tác quan trọng trong bộ chuyển đổi xúc tác của ô tô, giúp xử lý các khí thải như NOₓ.",
+          "sourceLine": 81
+        },
+        {
+          "title": "Mạ kim loại",
+          "desc": "Rhodium được dùng để mạ trang sức và các bề mặt kim loại nhằm tạo lớp phủ sáng bóng và chống ăn mòn.",
+          "sourceLine": 82
+        },
+        {
+          "title": "Xúc tác hóa học",
+          "desc": "Rhodium compounds được sử dụng trong nhiều phản ứng tổng hợp hữu cơ.",
+          "sourceLine": 83
+        },
+        {
+          "title": "Hợp kim",
+          "desc": "Rhodium được thêm vào Platinum và Palladium để tăng độ cứng và khả năng chịu nhiệt.",
+          "sourceLine": 84
+        },
+        {
+          "title": "Thiết bị quang học",
+          "desc": "Rhodium có độ phản xạ ánh sáng cao nên được sử dụng trong một số ứng dụng quang học.",
+          "sourceLine": 85
+        },
+        {
+          "title": "Điện tử",
+          "desc": "Rhodium được sử dụng trong một số tiếp điểm và linh kiện điện tử nhờ khả năng chống ăn mòn.",
+          "sourceLine": 86
+        }
+      ]
+    },
+    {
+      "field": "chemical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Số Oxy hóa phổ biến nhất là +3.</li>\n      <li>Tương đối trơ ở điều kiện thường.</li>\n      <li>Không dễ phản ứng với Oxygen hoặc nước.</li>\n      <li>Có khả năng tạo nhiều phức chất.</li>\n      <li>Rhodium compounds có hoạt tính xúc tác cao.</li>\n      <li>Rhodium có khả năng chống oxy hóa và ăn mòn tốt.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Số Oxy hóa phổ biến nhất là +3.</li><li>Tương đối trơ ở điều kiện thường.</li><li>Không dễ phản ứng với Oxygen hoặc nước.</li><li>Có khả năng tạo nhiều phức chất.</li><li>Rhodium compounds có hoạt tính xúc tác cao.</li><li>Rhodium có khả năng chống oxy hóa và ăn mòn tốt.</li></ul>"
+    },
+    {
+      "field": "general.CAS",
+      "before": null,
+      "after": "7440-16-6"
+    },
+    {
+      "field": "general.electronegativityNote",
+      "before": null,
+      "after": "Thang Pauling; số liệu tổng hợp PubChem."
+    },
+    {
+      "field": "general.group",
+      "before": 8,
+      "after": 9
+    },
+    {
+      "field": "general.groupLabel",
+      "before": null,
+      "after": "9"
+    },
+    {
+      "field": "general.series",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "general.state",
+      "before": "",
+      "after": "Rắn"
+    },
+    {
+      "field": "history.year",
+      "before": 1803,
+      "after": "1803"
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/photos/045_Rh.jpg",
+          "title": "Rhodium (Rh)",
+          "desc": "Ảnh tham chiếu mẫu Rhodium (Rh); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+          "source": "https://commons.wikimedia.org/wiki/File:Rhodium_powder_pressed_melted.jpg",
+          "author": "Alchemist-hp ( talk ) www.pse-mendelejew.de derivative work: Purpy Pupple ( talk )",
+          "license": "CC BY-SA 3.0 de",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en"
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "¹⁰³Rh",
+          "massNumber": 103,
+          "protons": 45,
+          "neutrons": 58,
+          "stable": true,
+          "abundancePercent": "100",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "mass",
+      "before": 102.906,
+      "after": 102.91
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "standard-atomic-weight"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "102.91 ± 0.01"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": [
+        {
+          "type": "model",
+          "section": "structure",
+          "title": "Mẫu khoáng vật 3D · Platinum tự sinh",
+          "src": "/assets/periodic-table/minerals/native-platinum.glb",
+          "preview": "/assets/periodic-table/minerals/native-platinum.png",
+          "desc": "Pt (thường chứa kim loại nhóm platinum khác). Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "naturalState.alt",
+      "before": null,
+      "after": "Rhodium: ảnh tham chiếu từ Commons"
+    },
+    {
+      "field": "naturalState.caption",
+      "before": null,
+      "after": "Ảnh tham chiếu mẫu Rhodium (Rh); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc."
+    },
+    {
+      "field": "naturalState.credit",
+      "before": null,
+      "after": "Alchemist-hp ( talk ) www.pse-mendelejew.de derivative work: Purpy Pupple ( talk ) · CC BY-SA 3.0 de"
+    },
+    {
+      "field": "naturalState.image",
+      "before": null,
+      "after": "/assets/periodic-table/photos/045_Rh.jpg"
+    },
+    {
+      "field": "naturalState.kind",
+      "before": null,
+      "after": "photo"
+    },
+    {
+      "field": "naturalState.source",
+      "before": null,
+      "after": "https://commons.wikimedia.org/wiki/File:Rhodium_powder_pressed_melted.jpg"
+    },
+    {
+      "field": "notes",
+      "before": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Rhodium là nguyên tố số 45, thuộc nhóm VIIIB | chu kỳ 5 và là một kim loại chuyển tiếp thuộc nhóm Platinum.</li>\n  <li>Rhodium có cấu hình electron [Kr] 4d⁸ 5s¹, trong đó số Oxy hóa +3 là trạng thái phổ biến nhất.</li>\n  <li>Rhodium là kim loại trắng bạc, cứng, rất bền và có khả năng chống ăn mòn cao. Nó cũng là một trong những nguyên tố kim loại quý hiếm nhất trong tự nhiên.</li>\n  <li>Ứng dụng quan trọng nhất của Rhodium là làm chất xúc tác trong bộ chuyển đổi xúc tác ô tô, đặc biệt trong việc xử lý các Oxide Nitrogen (NOₓ). Ngoài ra, Rhodium còn được sử dụng trong mạ kim loại, xúc tác hóa học, hợp kim và điện tử.</li>\n</ul>\n",
+      "after": "<ul class=\"element-prose-list\"><li>Rhodium là nguyên tố số 45, thuộc nhóm VIIIB | chu kỳ 5 và là một kim loại chuyển tiếp thuộc nhóm Platinum.</li><li>Rhodium có cấu hình electron [Kr] 4d⁸ 5s¹, trong đó số Oxy hóa +3 là trạng thái phổ biến nhất.</li><li>Rhodium là kim loại trắng bạc, cứng, rất bền và có khả năng chống ăn mòn cao. Nó cũng là một trong những nguyên tố kim loại quý hiếm nhất trong tự nhiên.</li><li>Ứng dụng quan trọng nhất của Rhodium là làm chất xúc tác trong bộ chuyển đổi xúc tác ô tô, đặc biệt trong việc xử lý các Oxide Nitrogen (NOₓ). Ngoài ra, Rhodium còn được sử dụng trong mạ kim loại, xúc tác hóa học, hợp kim và điện tử.</li></ul>"
+    },
+    {
+      "field": "occurrence.details",
+      "before": null,
+      "after": [
+        "Trạng thái: Rhodium là kim loại rắn, màu trắng bạc, sáng bóng.",
+        "Có trong: Thường tồn tại cùng Platinum, Palladium và các kim loại nhóm Platinum khác.",
+        "Đơn chất: Rh",
+        "Hợp chất: RhCl₃, Rh₂O₃, RhBr₃, Rh₂(SO₄)₃..."
+      ]
+    },
+    {
+      "field": "occurrence.mineral",
+      "before": null,
+      "after": {
+        "available": true,
+        "id": "native-platinum",
+        "name": "Platinum tự sinh",
+        "formula": "Pt (thường chứa kim loại nhóm platinum khác)",
+        "habit": "nugget",
+        "color": "#afb4c1",
+        "crystalSystem": "cubic",
+        "relation": "Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+        "source": "https://www.handbookofmineralogy.org/",
+        "sourceSearch": "https://rruff.info/Platinum",
+        "model": "/assets/periodic-table/minerals/native-platinum.glb",
+        "preview": "/assets/periodic-table/minerals/native-platinum.png",
+        "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      }
+    },
+    {
+      "field": "physical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại chuyển tiếp thuộc nhóm Platinum.</li>\n      <li>Màu trắng bạc, có độ bóng cao.</li>\n      <li>Rất cứng và bền.</li>\n      <li>Khối lượng riêng: khoảng 12.41 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 1964 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 3695 °C.</li>\n      <li>Chống ăn mòn rất tốt.</li>\n      <li>Có khả năng phản xạ ánh sáng cao.</li>\n      <li>Là một trong những kim loại quý hiếm.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Là kim loại chuyển tiếp thuộc nhóm Platinum.</li><li>Màu trắng bạc, có độ bóng cao.</li><li>Rất cứng và bền.</li><li>Khối lượng riêng: khoảng 12.41 g/cm³.</li><li>Nhiệt độ nóng chảy: khoảng 1964 °C.</li><li>Nhiệt độ sôi: khoảng 3695 °C.</li><li>Chống ăn mòn rất tốt.</li><li>Có khả năng phản xạ ánh sáng cao.</li><li>Là một trong những kim loại quý hiếm.</li></ul>"
+    },
+    {
+      "field": "preparations.industry",
+      "before": [
+        {
+          "title": "Rhodium chủ yếu được thu hồi như sản phẩm phụ trong quá trình khai thác và tinh chế quặng Platinum và Nickel.",
+          "equation": "",
+          "desc": ""
+        },
+        {
+          "title": "Quá trình tách Rhodium thường bao gồm nhiều bước hòa tan, kết tủa và tinh chế để tách nó khỏi các kim loại nhóm Platinum khác.",
+          "equation": "",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Rhodium chủ yếu được thu hồi từ quặng Nickel–Copper và quặng chứa Platinum. Sau khi tách khỏi các kim loại nhóm Platinum khác, Rhodium được chuyển thành Rhodium(III) oxide rồi khử bằng Hydrogen ở nhiệt độ cao.",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "Rh₂O₃ + 3H₂ → 2Rh + 3H₂O",
+              "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+              "kind": "chemical",
+              "sourceLine": 56,
+              "sourceSection": "industry",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            54,
+            56
+          ],
+          "equation": "Rh₂O₃ + 3H₂ → 2Rh + 3H₂O"
+        }
+      ]
+    },
+    {
+      "field": "preparations.lab",
+      "before": [
+        {
+          "title": "Ví dụ:",
+          "equation": "2RhCl₃ + 3H₂ → 2Rh + 6HCl",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Có thể điều chế Rhodium bằng cách khử Rhodium(III) chloride bằng Hydrogen ở nhiệt độ cao.",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "2RhCl₃ + 3H₂ → 2Rh + 6HCl",
+              "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+              "kind": "chemical",
+              "sourceLine": 60,
+              "sourceSection": "lab",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            58,
+            60
+          ],
+          "equation": "2RhCl₃ + 3H₂ → 2Rh + 6HCl"
+        }
+      ]
+    },
+    {
+      "field": "reactions",
+      "before": [
+        {
+          "type": "Tác dụng với Chlorine",
+          "equation": "2Rh + 3Cl₂ → 2RhCl₃",
+          "desc": ""
+        },
+        {
+          "type": "Tạo Rhodium(III) oxide",
+          "equation": "4Rh + 3O₂ → 2Rh₂O₃",
+          "desc": ""
+        },
+        {
+          "type": "Tạo Rhodium hydroxide",
+          "equation": "Rh³⁺ + 3OH⁻ → Rh(OH)₃↓",
+          "desc": ""
+        },
+        {
+          "type": "Rhodium hydroxide tác dụng với acid",
+          "equation": "Rh(OH)₃ + 3HCl → RhCl₃ + 3H₂O",
+          "desc": ""
+        },
+        {
+          "type": "Khử Rhodium chloride",
+          "equation": "2RhCl₃ + 3H₂ → 2Rh + 6HCl",
+          "desc": ""
+        },
+        {
+          "type": "Tạo Rhodium sulfide",
+          "equation": "2Rh + 3S → Rh₂S₃",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "type": "Tác dụng với Chlorine",
+          "desc": "",
+          "equation": "2Rh + 3Cl₂ → 2RhCl₃",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 69,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Rhodium(III) oxide",
+          "desc": "",
+          "equation": "4Rh + 3O₂ → 2Rh₂O₃",
+          "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+          "kind": "chemical",
+          "sourceLine": 71,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Rhodium hydroxide",
+          "desc": "",
+          "equation": "Rh³⁺ + 3OH⁻ → Rh(OH)₃↓",
+          "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+          "kind": "chemical",
+          "sourceLine": 73,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Rhodium hydroxide tác dụng với acid",
+          "desc": "",
+          "equation": "Rh(OH)₃ + 3HCl → RhCl₃ + 3H₂O",
+          "condition": "Dung dịch acid; phản ứng trung hòa, tốc độ phụ thuộc độ tan của chất rắn.",
+          "kind": "chemical",
+          "sourceLine": 75,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Khử Rhodium chloride",
+          "desc": "",
+          "equation": "2RhCl₃ + 3H₂ → 2Rh + 6HCl",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 77,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Rhodium sulfide",
+          "desc": "",
+          "equation": "2Rh + 3S → Rh₂S₃",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 79,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": [
+        {
+          "title": "Nhận biết",
+          "reagent": "Nhận biết Rh³⁺",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Rhodium(III) có thể tạo kết tủa hydroxide",
+          "reagent": "",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "",
+          "result": "",
+          "equation": "Rh³⁺ + 3OH⁻ → Rh(OH)₃↓"
+        },
+        {
+          "title": "Hiện tượng",
+          "reagent": "",
+          "result": "Xuất hiện kết tủa hydroxide Rhodium.",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "Trong thực tế, Rhodium thường được xác định bằng phương pháp quang phổ hoặc phân tích hóa học chuyên dụng, vì các phản ứng đơn giản không đủ đặc hiệu.",
+          "result": "",
+          "equation": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Nhận biết Rh³⁺",
+          "desc": "Rhodium(III) có thể tạo kết tủa hydroxide: Trong thực tế, Rhodium thường được xác định bằng phương pháp quang phổ hoặc phân tích hóa học chuyên dụng, vì các phản ứng đơn giản không đủ đặc hiệu.",
+          "result": "Xuất hiện kết tủa hydroxide Rhodium.",
+          "equations": [
+            {
+              "equation": "Rh³⁺ + 3OH⁻ → Rh(OH)₃↓",
+              "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+              "kind": "chemical",
+              "sourceLine": 64,
+              "sourceSection": "recognition",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            62,
+            63,
+            64,
+            65,
+            66
+          ],
+          "equation": "Rh³⁺ + 3OH⁻ → Rh(OH)₃↓"
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "045_Rh.docx",
+        "sourceSha256": "bd3c23372558870d03f40c86e0c5c26dd6cf046b196fa3c19c24419952987e08",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/045_Rh.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "045_Rh.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "bd3c23372558870d03f40c86e0c5c26dd6cf046b196fa3c19c24419952987e08"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/45/rhodium"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure.latticeEvidence",
+      "before": null,
+      "after": "source-reviewed"
+    },
+    {
+      "field": "structure.nucleusIsotope",
+      "before": null,
+      "after": "¹⁰³Rh"
+    },
+    {
+      "field": "structure.nucleusNote",
+      "before": null,
+      "after": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác."
+    },
+    {
+      "field": "structure.valenceNote",
+      "before": null,
+      "after": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp."
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "Rh",
+      "status": "downloaded",
+      "file": "/assets/periodic-table/photos/045_Rh.jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:Rhodium_powder_pressed_melted.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/9/98/Rhodium_powder_pressed_melted.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "thumbnail": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/98/Rhodium_powder_pressed_melted.jpg/960px-Rhodium_powder_pressed_melted.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "filename": "Rhodium_powder_pressed_melted.jpg",
+      "title": "Rhodium powder pressed melted",
+      "description": "the chemical element Rhodium : processing: 1g powder, 1g pressed cylinder, 1 g argon arc remelted pellet.",
+      "author": "Alchemist-hp ( talk ) www.pse-mendelejew.de derivative work: Purpy Pupple ( talk )",
+      "license": "CC BY-SA 3.0 de",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en",
+      "credit": "Own work",
+      "sha256": "7a0f9c603a4d4911914e7e2b39db255438ec34a2e917f23babdaac5c29294618",
+      "bytes": 118084
+    },
+    "mineral": {
+      "available": true,
+      "id": "native-platinum",
+      "name": "Platinum tự sinh",
+      "formula": "Pt (thường chứa kim loại nhóm platinum khác)",
+      "habit": "nugget",
+      "color": "#afb4c1",
+      "crystalSystem": "cubic",
+      "relation": "Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Platinum",
+      "model": "/assets/periodic-table/minerals/native-platinum.glb",
+      "preview": "/assets/periodic-table/minerals/native-platinum.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "Rh",
+      "z": 45,
+      "url": "https://periodic-table.rsc.org/element/45/rhodium",
+      "status": "retrieved",
+      "bytes": 154927,
+      "sha256": "a7d4e7e6c4234f0f39a39aa4ebb7777f08ff37710bd5ed87951973c0f5158f32",
+      "facts": {
+        "Group": "9",
+        "Melting point": "1963°C, 3565°F, 2236 K",
+        "Period": "5",
+        "Boiling point": "3695°C, 6683°F, 3968 K",
+        "Block": "d",
+        "Density (g cm−³)": "12.4",
+        "Atomic number": "45",
+        "Relative atomic mass": "102.906",
+        "State at 20°C": "Solid",
+        "Key isotopes": "¹⁰³Rh",
+        "Electron configuration": "[Kr] 4d⁸5s¹",
+        "CAS number": "7440-16-6",
+        "ChemSpider ID": "22389",
+        "electronegativity": "2.28"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "45",
+      "Symbol": "Rh",
+      "Name": "Rhodium",
+      "AtomicMass": "102.9055",
+      "CPKHexColor": "0A7D8C",
+      "ElectronConfiguration": "[Kr]5s1 4d8",
+      "Electronegativity": "2.28",
+      "AtomicRadius": "195",
+      "IonizationEnergy": "7.459",
+      "ElectronAffinity": "1.137",
+      "OxidationStates": "+3",
+      "StandardState": "Solid",
+      "MeltingPoint": "2237",
+      "BoilingPoint": "3968",
+      "Density": "12.4",
+      "GroupBlock": "Transition metal",
+      "YearDiscovered": "1803"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

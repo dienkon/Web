@@ -1,0 +1,1022 @@
+{
+  "symbol": "W",
+  "number": 74,
+  "source": "074_W.docx",
+  "sourceSha256": "e2127d815a8dddae4b3c4887199b7328865a84ba0548f9182eb9f04b3469b703",
+  "paragraphCount": 92,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 4,
+    "structure": 9,
+    "occurrence": 4,
+    "isotopes": 3,
+    "physical": 9,
+    "chemical": 6,
+    "lab": 2,
+    "industry": 2,
+    "recognition": 4,
+    "reactions": 14,
+    "applications": 6,
+    "notes": 4
+  },
+  "editorialDecisions": [
+    {
+      "line": 64,
+      "before": "W + 3O₂ → WO₃",
+      "after": "2W + 3O₂ → 2WO₃",
+      "reason": "Sửa hệ số oxygen ở phần nhận biết."
+    }
+  ],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "[Xe] 4f¹⁴ 5d⁴ 6s²",
+      "publishedValue": "[Xe] 4f¹⁴ 5d⁴ 6s²",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Lập phương tâm khối (Body-centered cubic, BCC)",
+      "publishedValue": "Lập phương tâm khối (Body-centered cubic, BCC)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "2.36",
+      "publishedValue": 2.36,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm VIB | Chu kỳ 6",
+      "publishedValue": "6",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Tungsten là kim loại rắn, màu xám bạc, rất cứng và nặng.",
+      "publishedValue": "Rắn",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 33,
+      "sourceText": "¹⁸⁴W: Là một trong những đồng vị phổ biến của Tungsten.",
+      "reference": {
+        "isotope": "¹⁸⁴W",
+        "massNumber": 184,
+        "protons": 74,
+        "neutrons": 110,
+        "stable": true,
+        "abundancePercent": "30.64",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 56,
+      "text": "WO₃ + 3H₂ → W + 3H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 60,
+      "text": "WO₃ + 2Al → W + Al₂O₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 64,
+      "text": "W + 3O₂ → WO₃",
+      "status": "unbalanced",
+      "kind": "chemical",
+      "delta": {
+        "O": -3.0
+      }
+    },
+    {
+      "line": 68,
+      "text": "2W + 3O₂ → 2WO₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 70,
+      "text": "W + 3Cl₂ → WCl₆",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 72,
+      "text": "W + C → WC",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 74,
+      "text": "W + 3F₂ → WF₆",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 76,
+      "text": "W + 2S → WS₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 78,
+      "text": "WO₃ + 3H₂ → W + 3H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 80,
+      "text": "W + C → WC",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "lab",
+      "equation": "WO₃ + 2Al → W + Al₂O₃",
+      "condition": "Khơi mào phản ứng nhiệt nhôm; chất đầu khan, phản ứng tự tỏa nhiệt mạnh.",
+      "kind": "chemical",
+      "sourceLine": 60,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "WO₃ + 3H₂ → W + 3H₂O",
+      "condition": "Gia nhiệt; môi trường khử, thành phần khí và việc loại nước/CO₂ chi phối mức khử.",
+      "kind": "chemical",
+      "sourceLine": 56,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "recognition",
+      "equation": "2W + 3O₂ → 2WO₃",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 64,
+      "sourceSection": "recognition",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2W + 3O₂ → 2WO₃",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 68,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "W + 3Cl₂ → WCl₆",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 70,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "W + C → WC",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 72,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "W + 3F₂ → WF₆",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 74,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "W + 2S → WS₂",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 76,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "WO₃ + 3H₂ → W + 3H₂O",
+      "condition": "Gia nhiệt; môi trường khử, thành phần khí và việc loại nước/CO₂ chi phối mức khử.",
+      "kind": "chemical",
+      "sourceLine": 78,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "W + C → WC",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 80,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": [
+        {
+          "title": "Dây tóc bóng đèn",
+          "desc": "Tungsten có nhiệt độ nóng chảy cực cao nên từng được sử dụng rộng rãi làm dây tóc bóng đèn sợi đốt."
+        },
+        {
+          "title": "Công cụ cắt",
+          "desc": "Tungsten carbide (WC) được sử dụng trong mũi khoan, dao cắt và các dụng cụ gia công có độ cứng cao."
+        },
+        {
+          "title": "Hợp kim",
+          "desc": "Tungsten được thêm vào thép và các hợp kim đặc biệt để tăng độ cứng, độ bền và khả năng chịu nhiệt."
+        },
+        {
+          "title": "Hàng không vũ trụ",
+          "desc": "Tungsten được sử dụng trong một số bộ phận chịu nhiệt cao."
+        },
+        {
+          "title": "Điện tử",
+          "desc": "Tungsten được sử dụng trong một số linh kiện và vật liệu điện tử chịu nhiệt."
+        },
+        {
+          "title": "Đối trọng",
+          "desc": "Do có khối lượng riêng rất lớn, Tungsten được sử dụng trong một số vật liệu cần khối lượng cao nhưng kích thước nhỏ."
+        }
+      ],
+      "after": [
+        {
+          "title": "Dây tóc bóng đèn",
+          "desc": "Tungsten có nhiệt độ nóng chảy cực cao nên từng được sử dụng rộng rãi làm dây tóc bóng đèn sợi đốt.",
+          "sourceLine": 82
+        },
+        {
+          "title": "Công cụ cắt",
+          "desc": "Tungsten carbide (WC) được sử dụng trong mũi khoan, dao cắt và các dụng cụ gia công có độ cứng cao.",
+          "sourceLine": 83
+        },
+        {
+          "title": "Hợp kim",
+          "desc": "Tungsten được thêm vào thép và các hợp kim đặc biệt để tăng độ cứng, độ bền và khả năng chịu nhiệt.",
+          "sourceLine": 84
+        },
+        {
+          "title": "Hàng không vũ trụ",
+          "desc": "Tungsten được sử dụng trong một số bộ phận chịu nhiệt cao.",
+          "sourceLine": 85
+        },
+        {
+          "title": "Điện tử",
+          "desc": "Tungsten được sử dụng trong một số linh kiện và vật liệu điện tử chịu nhiệt.",
+          "sourceLine": 86
+        },
+        {
+          "title": "Đối trọng",
+          "desc": "Do có khối lượng riêng rất lớn, Tungsten được sử dụng trong một số vật liệu cần khối lượng cao nhưng kích thước nhỏ.",
+          "sourceLine": 87
+        }
+      ]
+    },
+    {
+      "field": "chemical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có nhiều số Oxy hóa, phổ biến nhất là +6.</li>\n      <li>Ở nhiệt độ thường khá bền trong không khí.</li>\n      <li>Khi nung nóng phản ứng với Oxygen tạo Tungsten oxide.</li>\n      <li>Phản ứng với Halogen ở nhiệt độ cao.</li>\n      <li>Tungsten carbide (WC) có độ cứng rất cao.</li>\n      <li>Có khả năng chống ăn mòn tốt trong nhiều môi trường.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Có nhiều số Oxy hóa, phổ biến nhất là +6.</li><li>Ở nhiệt độ thường khá bền trong không khí.</li><li>Khi nung nóng phản ứng với Oxygen tạo Tungsten oxide.</li><li>Phản ứng với Halogen ở nhiệt độ cao.</li><li>Tungsten carbide (WC) có độ cứng rất cao.</li><li>Có khả năng chống ăn mòn tốt trong nhiều môi trường.</li></ul>"
+    },
+    {
+      "field": "general.CAS",
+      "before": null,
+      "after": "7440-33-7"
+    },
+    {
+      "field": "general.electronegativityNote",
+      "before": null,
+      "after": "Thang Pauling; số liệu tổng hợp PubChem."
+    },
+    {
+      "field": "general.groupLabel",
+      "before": null,
+      "after": "6"
+    },
+    {
+      "field": "general.series",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "general.state",
+      "before": "",
+      "after": "Rắn"
+    },
+    {
+      "field": "history.year",
+      "before": 1783,
+      "after": "1783"
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/diagrams/074_W.svg",
+          "title": "Tungsten (W)",
+          "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+          "source": "",
+          "author": "ChemDex",
+          "license": "ChemDex schematic diagram",
+          "licenseUrl": ""
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "¹⁸⁰W",
+          "massNumber": 180,
+          "protons": 74,
+          "neutrons": 106,
+          "stable": false,
+          "abundancePercent": "0.12",
+          "halfLifeDisplay": "1.8E18 ± 2E+17 năm",
+          "halfLife": "1.8E18 Y",
+          "halfLifeUncertainty": "2",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "¹⁸²W",
+          "massNumber": 182,
+          "protons": 74,
+          "neutrons": 108,
+          "stable": true,
+          "abundancePercent": "26.50",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "¹⁸³W",
+          "massNumber": 183,
+          "protons": 74,
+          "neutrons": 109,
+          "stable": false,
+          "abundancePercent": "14.31",
+          "halfLifeDisplay": "GE 6.7E+20 năm",
+          "halfLife": "6.7E+20 Y",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": "GE",
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "¹⁸⁴W",
+          "massNumber": 184,
+          "protons": 74,
+          "neutrons": 110,
+          "stable": true,
+          "abundancePercent": "30.64",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "¹⁸⁶W",
+          "massNumber": 186,
+          "protons": 74,
+          "neutrons": 112,
+          "stable": true,
+          "abundancePercent": "28.43",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "standard-atomic-weight"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "183.84 ± 0.01"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": [
+        {
+          "type": "model",
+          "section": "structure",
+          "title": "Mẫu khoáng vật 3D · Scheelite",
+          "src": "/assets/periodic-table/minerals/scheelite.glb",
+          "preview": "/assets/periodic-table/minerals/scheelite.png",
+          "desc": "CaWO₄. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "naturalState.alt",
+      "before": null,
+      "after": "Tungsten: sơ đồ minh họa nguyên tố"
+    },
+    {
+      "field": "naturalState.caption",
+      "before": null,
+      "after": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật."
+    },
+    {
+      "field": "naturalState.credit",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "naturalState.image",
+      "before": null,
+      "after": "/assets/periodic-table/diagrams/074_W.svg"
+    },
+    {
+      "field": "naturalState.kind",
+      "before": null,
+      "after": "diagram"
+    },
+    {
+      "field": "naturalState.source",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "notes",
+      "before": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Tungsten là nguyên tố số 74, thuộc nhóm VIB | chu kỳ 6 và là một kim loại chuyển tiếp.</li>\n  <li>Tungsten có cấu hình electron [Xe] 4f¹⁴ 5d⁴ 6s², với số Oxy hóa phổ biến nhất là +6.</li>\n  <li>Đây là kim loại có nhiệt độ nóng chảy cao nhất trong số các kim loại, đồng thời có khối lượng riêng lớn, độ cứng và khả năng chịu nhiệt rất cao.</li>\n  <li>Trong tự nhiên, Tungsten chủ yếu được khai thác từ Wolframite và Scheelite. Tungsten và đặc biệt là Tungsten carbide (WC) có vai trò quan trọng trong công cụ cắt, hợp kim chịu nhiệt, điện tử, hàng không vũ trụ và các vật liệu kỹ thuật đặc biệt.</li>\n</ul>\n",
+      "after": "<ul class=\"element-prose-list\"><li>Tungsten là nguyên tố số 74, thuộc nhóm VIB | chu kỳ 6 và là một kim loại chuyển tiếp.</li><li>Tungsten có cấu hình electron [Xe] 4f¹⁴ 5d⁴ 6s², với số Oxy hóa phổ biến nhất là +6.</li><li>Đây là kim loại có nhiệt độ nóng chảy cao nhất trong số các kim loại, đồng thời có khối lượng riêng lớn, độ cứng và khả năng chịu nhiệt rất cao.</li><li>Trong tự nhiên, Tungsten chủ yếu được khai thác từ Wolframite và Scheelite. Tungsten và đặc biệt là Tungsten carbide (WC) có vai trò quan trọng trong công cụ cắt, hợp kim chịu nhiệt, điện tử, hàng không vũ trụ và các vật liệu kỹ thuật đặc biệt.</li></ul>"
+    },
+    {
+      "field": "occurrence.details",
+      "before": null,
+      "after": [
+        "Trạng thái: Tungsten là kim loại rắn, màu xám bạc, rất cứng và nặng.",
+        "Có trong: Chủ yếu trong các khoáng vật Wolframite ((Fe,Mn)WO₄) và Scheelite (CaWO₄).",
+        "Đơn chất: W",
+        "Hợp chất: WO₃, CaWO₄, FeWO₄, WS₂, WCl₆, WC..."
+      ]
+    },
+    {
+      "field": "occurrence.mineral",
+      "before": null,
+      "after": {
+        "available": true,
+        "id": "scheelite",
+        "name": "Scheelite",
+        "formula": "CaWO₄",
+        "habit": "bipyramid",
+        "color": "#d2aa71",
+        "crystalSystem": "tetragonal",
+        "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+        "source": "https://www.handbookofmineralogy.org/",
+        "sourceSearch": "https://rruff.info/Scheelite",
+        "model": "/assets/periodic-table/minerals/scheelite.glb",
+        "preview": "/assets/periodic-table/minerals/scheelite.png",
+        "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      }
+    },
+    {
+      "field": "occurrence.ores",
+      "before": [
+        "Chủ yếu trong các khoáng vật Wolframite ((Fe",
+        "Mn)WO₄) và Scheelite (CaWO₄)"
+      ],
+      "after": [
+        "Chủ yếu trong các khoáng vật Wolframite ((Fe,Mn)WO₄) và Scheelite (CaWO₄)"
+      ]
+    },
+    {
+      "field": "physical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại chuyển tiếp.</li>\n      <li>Màu xám bạc.</li>\n      <li>Rất cứng và có độ bền cao.</li>\n      <li>Có nhiệt độ nóng chảy cao nhất trong số các kim loại.</li>\n      <li>Khối lượng riêng: khoảng 19.25 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 3422 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 5555 °C.</li>\n      <li>Dẫn điện và dẫn nhiệt.</li>\n      <li>Có khả năng chịu nhiệt và chống biến dạng tốt.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Là kim loại chuyển tiếp.</li><li>Màu xám bạc.</li><li>Rất cứng và có độ bền cao.</li><li>Có nhiệt độ nóng chảy cao nhất trong số các kim loại.</li><li>Khối lượng riêng: khoảng 19.25 g/cm³.</li><li>Nhiệt độ nóng chảy: khoảng 3422 °C.</li><li>Nhiệt độ sôi: khoảng 5555 °C.</li><li>Dẫn điện và dẫn nhiệt.</li><li>Có khả năng chịu nhiệt và chống biến dạng tốt.</li></ul>"
+    },
+    {
+      "field": "preparations.industry",
+      "before": [
+        {
+          "title": "Tungsten thường được điều chế từ các quặng Wolframite hoặc Scheelite.",
+          "equation": "",
+          "desc": ""
+        },
+        {
+          "title": "Quặng được chuyển thành Tungsten trioxide (WO₃), sau đó WO₃ được khử bằng Hydrogen ở nhiệt độ cao:",
+          "equation": "WO₃ + 3H₂ → W + 3H₂O",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Tungsten (W) chủ yếu được điều chế từ quặng wolframite và scheelite. Quặng được tinh chế thành Tungsten trioxide, sau đó khử bằng Hydrogen ở nhiệt độ cao để thu Tungsten kim loại.",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "WO₃ + 3H₂ → W + 3H₂O",
+              "condition": "Gia nhiệt; môi trường khử, thành phần khí và việc loại nước/CO₂ chi phối mức khử.",
+              "kind": "chemical",
+              "sourceLine": 56,
+              "sourceSection": "industry",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            54,
+            56
+          ],
+          "equation": "WO₃ + 3H₂ → W + 3H₂O"
+        }
+      ]
+    },
+    {
+      "field": "preparations.lab",
+      "before": [],
+      "after": [
+        {
+          "title": "Có thể điều chế Tungsten bằng cách khử Tungsten trioxide bằng Aluminium ở nhiệt độ cao.",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "WO₃ + 2Al → W + Al₂O₃",
+              "condition": "Khơi mào phản ứng nhiệt nhôm; chất đầu khan, phản ứng tự tỏa nhiệt mạnh.",
+              "kind": "chemical",
+              "sourceLine": 60,
+              "sourceSection": "lab",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            58,
+            60
+          ],
+          "equation": "WO₃ + 2Al → W + Al₂O₃"
+        }
+      ]
+    },
+    {
+      "field": "reactions",
+      "before": [
+        {
+          "type": "Tác dụng với Oxygen",
+          "equation": "2W + 3O₂ → 2WO₃",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Chlorine",
+          "equation": "W + 3Cl₂ → WCl₆",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Carbon",
+          "equation": "W + C → WC",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Fluorine",
+          "equation": "W + 3F₂ → WF₆",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Sulfur",
+          "equation": "W + 2S → WS₂",
+          "desc": ""
+        },
+        {
+          "type": "Khử Tungsten trioxide",
+          "equation": "WO₃ + 3H₂ → W + 3H₂O",
+          "desc": ""
+        },
+        {
+          "type": "Tạo Tungsten carbide",
+          "equation": "W + C → WC",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "type": "Tác dụng với Oxygen",
+          "desc": "",
+          "equation": "2W + 3O₂ → 2WO₃",
+          "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+          "kind": "chemical",
+          "sourceLine": 68,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Chlorine",
+          "desc": "",
+          "equation": "W + 3Cl₂ → WCl₆",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 70,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Carbon",
+          "desc": "",
+          "equation": "W + C → WC",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 72,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Fluorine",
+          "desc": "",
+          "equation": "W + 3F₂ → WF₆",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 74,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Sulfur",
+          "desc": "",
+          "equation": "W + 2S → WS₂",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 76,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Khử Tungsten trioxide",
+          "desc": "",
+          "equation": "WO₃ + 3H₂ → W + 3H₂O",
+          "condition": "Gia nhiệt; môi trường khử, thành phần khí và việc loại nước/CO₂ chi phối mức khử.",
+          "kind": "chemical",
+          "sourceLine": 78,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Tungsten carbide",
+          "desc": "",
+          "equation": "W + C → WC",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 80,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": [
+        {
+          "title": "Nhận biết",
+          "reagent": "Tungsten thường được xác định bằng phương pháp quang phổ hoặc phân tích hóa học chuyên dụng.",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Một hợp chất đặc trưng là Tungsten trioxide (WO₃), có màu vàng",
+          "reagent": "",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "",
+          "result": "",
+          "equation": "W + 3O₂ → WO₃"
+        },
+        {
+          "title": "Hiện tượng",
+          "reagent": "",
+          "result": "Tạo chất rắn màu vàng WO₃.",
+          "equation": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Tungsten thường được xác định bằng phương pháp quang phổ hoặc phân tích hóa học chuyên dụng.",
+          "desc": "Một hợp chất đặc trưng là Tungsten trioxide (WO₃), có màu vàng:",
+          "result": "Tạo chất rắn màu vàng WO₃.",
+          "equations": [
+            {
+              "equation": "2W + 3O₂ → 2WO₃",
+              "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+              "kind": "chemical",
+              "sourceLine": 64,
+              "sourceSection": "recognition",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            62,
+            63,
+            64,
+            65
+          ],
+          "equation": "2W + 3O₂ → 2WO₃"
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "074_W.docx",
+        "sourceSha256": "e2127d815a8dddae4b3c4887199b7328865a84ba0548f9182eb9f04b3469b703",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/074_W.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "074_W.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "e2127d815a8dddae4b3c4887199b7328865a84ba0548f9182eb9f04b3469b703"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/74/tungsten"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure.latticeEvidence",
+      "before": null,
+      "after": "source-reviewed"
+    },
+    {
+      "field": "structure.nucleusIsotope",
+      "before": null,
+      "after": "¹⁸⁴W"
+    },
+    {
+      "field": "structure.nucleusNote",
+      "before": null,
+      "after": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác."
+    },
+    {
+      "field": "structure.valenceNote",
+      "before": null,
+      "after": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp."
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "W",
+      "status": "diagram",
+      "reason": "Chưa xác nhận giấy phép dùng lại: FAL"
+    },
+    "mineral": {
+      "available": true,
+      "id": "scheelite",
+      "name": "Scheelite",
+      "formula": "CaWO₄",
+      "habit": "bipyramid",
+      "color": "#d2aa71",
+      "crystalSystem": "tetragonal",
+      "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Scheelite",
+      "model": "/assets/periodic-table/minerals/scheelite.glb",
+      "preview": "/assets/periodic-table/minerals/scheelite.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "W",
+      "z": 74,
+      "url": "https://periodic-table.rsc.org/element/74/tungsten",
+      "status": "retrieved",
+      "bytes": 157606,
+      "sha256": "c4676ba982abfb7c24922676984bf44b167dcceedb898f7ccdbc4acd829d48f1",
+      "facts": {
+        "Group": "6",
+        "Melting point": "3414°C, 6177°F, 3687 K",
+        "Period": "6",
+        "Boiling point": "5555°C, 10031°F, 5828 K",
+        "Block": "d",
+        "Density (g cm−³)": "19.3",
+        "Atomic number": "74",
+        "Relative atomic mass": "183.84",
+        "State at 20°C": "Solid",
+        "Key isotopes": "¹⁸²W, ¹⁸⁴W, ¹⁸⁶W",
+        "Electron configuration": "[Xe] 4f¹⁴5d⁴6s²",
+        "CAS number": "7440-33-7",
+        "ChemSpider ID": "22403",
+        "electronegativity": "1.7"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "74",
+      "Symbol": "W",
+      "Name": "Tungsten",
+      "AtomicMass": "183.84",
+      "CPKHexColor": "2194D6",
+      "ElectronConfiguration": "[Xe]6s2 4f14 5d4",
+      "Electronegativity": "2.36",
+      "AtomicRadius": "210",
+      "IonizationEnergy": "7.98",
+      "ElectronAffinity": "0.815",
+      "OxidationStates": "+6",
+      "StandardState": "Solid",
+      "MeltingPoint": "3695",
+      "BoilingPoint": "5828",
+      "Density": "19.3",
+      "GroupBlock": "Transition metal",
+      "YearDiscovered": "1783"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

@@ -1,0 +1,108 @@
+001: Uranium (U)
+002: Thông tin chung
+003: Tên Latin: Uranium
+004: Tên Tiếng Anh: Uranium
+005: Đồng vị: ²³⁴U, ²³⁵U, ²³⁶U, ²³⁸U
+006: Vị trí: Nhóm IIIB | Chu kỳ 7 | Họ Actinide
+007: Số Oxy hóa: +3, +4, +5, +6
+008: Độ âm điện: 1,38 (Pauling)
+009: Lịch sử khám phá
+010: Phát hiện bởi: Martin Heinrich Klaproth
+011: Năm công bố: 1789
+012: Nơi khám phá: Berlin, Phổ
+013: Mô tả: Năm 1789, Martin Heinrich Klaproth phân tích khoáng vật Pitchblende và phát hiện một nguyên tố mới. Ông đặt tên nguyên tố là Uranium, theo tên hành tinh Uranus.
+014: Ban đầu Klaproth chỉ tách được Uranium oxide, chưa phải Uranium kim loại tinh khiết. Đến năm 1841, Eugène-Melchior Peligot mới điều chế được Uranium kim loại.
+015: Tính phóng xạ của Uranium được phát hiện vào năm 1896 bởi Henri Becquerel.
+016: 3. Cấu tạo
+017: a. Cấu tạo nguyên tử
+018: Cấu hình electron: [Rn] 5f³ 6d¹ 7s²
+019: Mô hình mạng tinh thể: Trực thoi (Orthorhombic)
+020: Số hiệu nguyên tử: 92
+021: Nguyên tử khối: 238,02891 g/mol
+022: Vỏ nguyên tử: 92 electron
+023: Hạt nhân: 92 proton
+024: Cấu hình e đầy đủ: [Rn] 5f³ 6d¹ 7s²
+025: Loại mạng: Trực thoi (Orthorhombic) ở điều kiện thường.
+026: b. Trạng thái tự nhiên
+027: Trạng thái: Chất rắn
+028: Màu sắc: Trắng bạc đến xám kim loại
+029: Có trong: Uraninite (Pitchblende), Carnotite, Autunite và một số khoáng vật Uranium khác.
+030: Đơn chất: U
+031: Hợp chất phổ biến: UO₂, U₃O₈, UO₃, UF₆, UCl₄
+032: c. Đồng vị
+033: Uranium tự nhiên chủ yếu gồm ba đồng vị:
+034: ²³⁴U: khoảng 0,0055%
+035: ²³⁵U: khoảng 0,72%
+036: ²³⁸U: khoảng 99,27%
+037: Trong đó:
+038: ²³⁸U là đồng vị phổ biến nhất.
+039: ²³⁵U là đồng vị phân hạch được bằng neutron chậm, có vai trò quan trọng trong năng lượng hạt nhân.
+040: ²³⁴U được tạo ra trong chuỗi phân rã của ²³⁸U.
+041: ²³⁸U có chu kỳ bán rã khoảng 4,47 tỷ năm, còn ²³⁵U khoảng 704 triệu năm.
+042: Tính chất
+043: Tính chất vật lý
+044: Là kim loại phóng xạ.
+045: Thuộc họ Actinide.
+046: Có màu trắng bạc/xám kim loại.
+047: Kim loại Uranium khá nặng và có khối lượng riêng cao.
+048: Có tính phóng xạ tự nhiên.
+049: Có nhiệt độ nóng chảy khoảng 1135 °C.
+050: Có nhiệt độ sôi khoảng 4131 °C.
+051: Khối lượng riêng khoảng 19,1 g/cm³.
+052: Tính chất hóa học
+053: Uranium có nhiều trạng thái Oxy hóa:
+054: +3
+055: +4
+056: +5
+057: +6
+058: Trong đó +4 và +6 là những trạng thái quan trọng nhất.
+059: Uranium phản ứng với Oxygen tạo nhiều oxide khác nhau. Một phản ứng đơn giản:
+060: U + O₂ → UO₂
+061: Uranium(VI) thường tồn tại dưới dạng ion uranyl, UO₂²⁺, trong nhiều hợp chất.
+062: Một đặc điểm quan trọng là Uranium có thể tham gia phản ứng hạt nhân, khác với các phản ứng hóa học thông thường.
+063: Điều chế
+064: Điều chế trong công nghiệp
+065: Uranium (U) chủ yếu được điều chế từ các quặng Uranium như Uraninite (U₃O₈) và Carnotite. Quặng được nghiền, xử lý bằng acid hoặc kiềm để hòa tan Uranium, sau đó tinh chế và kết tủa thành Uranium oxide.
+066: Uranium oxide được chuyển thành Uranium tetrafluoride rồi khử bằng Calcium hoặc Magnesium để thu Uranium kim loại.
+067: Phương trình hóa học:
+068: U₃O₈ + 2H₂ → 3UO₂ + 2H₂O
+069: UO₂ + 4HF → UF₄ + 2H₂O
+070: UF₄ + 2Ca → U + 2CaF₂
+071: Điều chế trong phòng thí nghiệm
+072: Uranium kim loại có thể được điều chế bằng phương pháp khử Uranium tetrafluoride bằng Calcium hoặc Magnesium trong điều kiện chuyên dụng.
+073: Phương trình hóa học:
+074: UF₄ + 2Ca → U + 2CaF₂
+075: Nhận biết
+076: Có thể nhận biết Uranium bằng:
+077: Phổ gamma.
+078: Phổ alpha.
+079: Đo hoạt độ phóng xạ.
+080: ICP-MS hoặc các phương pháp phân tích nguyên tố.
+081: Các phản ứng hóa học đặc trưng của ion Uranium.
+082: Một số hợp chất Uranium có màu vàng, xanh lục hoặc cam đặc trưng tùy trạng thái hóa học.
+083: Phương trình
+084: Tác dụng với Oxygen
+085: U + O₂ → UO₂
+086: Tạo Uranium(VI) oxide
+087: 2U + 3O₂ → 2UO₃
+088: Tác dụng với Chlorine
+089: U + 2Cl₂ → UCl₄
+090: Điều chế Uranium
+091: UCl₄ + 4Na → U + 4NaCl
+092: Phân rã Alpha của Uranium-238
+093: ²³⁸U → ²³⁴Th + α
+094: Phân rã Alpha của Uranium-235
+095: ²³⁵U → ²³¹Th + α
+096: Ứng dụng thực tế
+097: Năng lượng hạt nhân: Uranium là một trong những nhiên liệu quan trọng nhất của lò phản ứng hạt nhân. ²³⁵U có thể duy trì phản ứng phân hạch dây chuyền có kiểm soát trong điều kiện thích hợp.
+098: Nhiên liệu hạt nhân: Uranium được chế biến thành các dạng nhiên liệu phù hợp cho lò phản ứng, thường dưới dạng UO₂.
+099: Nghiên cứu địa chất: Các hệ đồng vị Uranium–Thorium và Uranium–Lead được sử dụng để định tuổi đá và khoáng vật.
+100: Thiết bị đối trọng: Uranium nghèo từng được sử dụng trong một số ứng dụng cần vật liệu có khối lượng riêng rất cao, chẳng hạn đối trọng kỹ thuật.
+101: Nghiên cứu khoa học: Uranium đóng vai trò quan trọng trong nghiên cứu vật lý hạt nhân, hóa học Actinide và phóng xạ.
+102: Tổng quan
+103: Uranium là nguyên tố số 92, thuộc nhóm IIIB | chu kỳ 7 và là nguyên tố thứ tư trong họ Actinide.
+104: Uranium được Martin Heinrich Klaproth phát hiện vào năm 1789 tại Berlin. Ông đặt tên nguyên tố theo Uranus, hành tinh vừa được phát hiện vào thời điểm đó. Đến năm 1841, Eugène-Melchior Peligot mới điều chế được Uranium kim loại.
+105: Uranium là kim loại phóng xạ nặng, có nhiều trạng thái Oxy hóa, trong đó +4 và +6 đặc biệt quan trọng. Trong tự nhiên, Uranium chủ yếu tồn tại dưới dạng ²³⁸U, cùng một lượng nhỏ ²³⁵U và ²³⁴U.
+106: Điểm quan trọng nhất của Uranium là khả năng tham gia phản ứng phân hạch hạt nhân. ²³⁵U có thể phân hạch khi hấp thụ neutron và vì vậy được sử dụng làm nhiên liệu trong năng lượng hạt nhân.
+107: Ngoài năng lượng hạt nhân, Uranium còn có vai trò trong định tuổi địa chất, nghiên cứu hạt nhân và hóa học Actinide.
+108: Mạng tinh thể: Trực thoi (Orthorhombic) ở điều kiện thường.

@@ -1,0 +1,101 @@
+001: Neptunium (Np)
+002: Thông tin chung
+003: Tên Latin: Neptunium
+004: Tên Tiếng Anh: Neptunium
+005: Đồng vị: ²³⁶Np, ²³⁷Np, ²³⁸Np, ²³⁹Np, ²⁴⁰Np
+006: Vị trí: Nhóm IIIB | Chu kỳ 7 | Họ Actinide
+007: Số Oxy hóa: +3, +4, +5, +6, +7
+008: Độ âm điện: 1,36 (Pauling)
+009: Lịch sử khám phá
+010: Phát hiện bởi: Edwin McMillan và Philip H. Abelson
+011: Năm công bố: 1940
+012: Nơi khám phá: Berkeley, California, Hoa Kỳ
+013: Mô tả: Năm 1940, Edwin McMillan và Philip H. Abelson tạo ra Neptunium bằng cách bắn phá Uranium-238 bằng neutron trong máy gia tốc hạt. Sản phẩm ban đầu là Neptunium-239.
+014: ²³⁸U + n → ²³⁹U
+015: ²³⁹U → ²³⁹Np + β⁻
+016: Đây là nguyên tố siêu Uranium (transuranium) đầu tiên được phát hiện.
+017: Tên Neptunium được đặt theo Neptune (Hải Vương tinh), vì Neptunium đứng ngay sau Uranium trong bảng tuần hoàn, tương tự như Neptune nằm sau Uranus trong hệ Mặt Trời.
+018: 3. Cấu tạo
+019: a. Cấu tạo nguyên tử
+020: Cấu hình electron: [Rn] 5f⁴ 6d¹ 7s²
+021: Mô hình mạng tinh thể: Trực thoi (Orthorhombic) ở nhiệt độ phòng
+022: Số hiệu nguyên tử: 93
+023: Nguyên tử khối: 237,0482 g/mol (giá trị quy ước cho đồng vị ²³⁷Np)
+024: Vỏ nguyên tử: 93 electron
+025: Hạt nhân: 93 proton
+026: Cấu hình e đầy đủ: [Rn] 5f⁴ 6d¹ 7s²
+027: Loại mạng: Trực thoi (Orthorhombic)
+028: b. Trạng thái tự nhiên
+029: Trạng thái: Chất rắn
+030: Màu sắc: Bạc kim loại
+031: Có trong: Một lượng cực nhỏ trong quặng Uranium; phần lớn Neptunium được tạo ra nhân tạo trong lò phản ứng hạt nhân.
+032: Đơn chất: Np
+033: Hợp chất phổ biến: NpO₂, Np₂O₅, NpCl₃, NpCl₄, NpCl₅
+034: c. Đồng vị
+035: Neptunium có nhiều đồng vị phóng xạ, trong đó quan trọng nhất là:
+036: ²³⁷Np: chu kỳ bán rã khoảng 2,14 triệu năm, là đồng vị tồn tại lâu nhất và quan trọng nhất.
+037: ²³⁹Np: chu kỳ bán rã khoảng 2,36 ngày, là sản phẩm trung gian quan trọng khi tạo Plutonium-239 từ Uranium-238.
+038: Không có đồng vị Neptunium nào bền.
+039: Tính chất
+040: Tính chất vật lý
+041: Là kim loại phóng xạ.
+042: Thuộc họ Actinide.
+043: Có màu bạc kim loại.
+044: Khá nặng và có khối lượng riêng cao.
+045: Có nhiều dạng thù hình.
+046: Có tính phóng xạ.
+047: Khối lượng riêng khoảng 20,5 g/cm³ đối với dạng α-Np.
+048: Có nhiệt độ nóng chảy khoảng 644 °C.
+049: Có nhiệt độ sôi khoảng 3902 °C.
+050: Tính chất hóa học
+051: Neptunium có nhiều trạng thái Oxy hóa:
+052: +3
+053: +4
+054: +5
+055: +6
+056: +7
+057: Đây là một đặc điểm nổi bật của Neptunium.
+058: Trong dung dịch, các ion Neptunium có thể có màu sắc khác nhau tùy trạng thái Oxy hóa.
+059: Ví dụ, Np(V) thường tồn tại dưới dạng neptunyl, còn Np(VI) dưới dạng NpO₂²⁺.
+060: Neptunium tạo nhiều oxide:
+061: Np + O₂ → NpO₂
+062: Điều chế
+063: Điều chế trong công nghiệp
+064: Neptunium (Np) chủ yếu được tạo ra nhân tạo trong các lò phản ứng hạt nhân. Neptunium-237 hình thành khi Uranium-238 hấp thụ neutron, tạo Uranium-239 rồi phân rã beta qua Neptunium-239 và cuối cùng tạo Plutonium-239. Một phần Neptunium-237 hình thành qua các phản ứng bắt neutron tiếp theo.
+065: Chuỗi phản ứng minh họa:
+066: ²³⁸U + ¹n → ²³⁹U
+067: ²³⁹U → ²³⁹Np + β⁻
+068: ²³⁹Np → ²³⁹Pu + β⁻
+069: Điều chế trong phòng thí nghiệm
+070: Neptunium có thể được tạo ra với lượng nhỏ bằng phản ứng hạt nhân trong cơ sở nghiên cứu chuyên dụng hoặc tách từ nhiên liệu hạt nhân đã qua sử dụng. Không có phương pháp điều chế hóa học thông thường để tổng hợp nguyên tố này.
+071: Nhận biết
+072: Có thể nhận biết Neptunium bằng:
+073: Phổ alpha và beta.
+074: Đo hoạt độ phóng xạ.
+075: Phổ gamma của các đồng vị.
+076: ICP-MS và các phương pháp phân tích đồng vị.
+077: Phân tích trạng thái Oxy hóa đặc trưng.
+078: Do Neptunium phóng xạ và thường chỉ tồn tại với lượng rất nhỏ, việc nhận biết chủ yếu dựa trên phân tích hạt nhân và phổ học.
+079: Phương trình
+080: Tạo Neptunium-239 từ Uranium-238
+081: ²³⁸U + n → ²³⁹U
+082: Phân rã của Uranium-239
+083: ²³⁹U → ²³⁹Np + β⁻
+084: Phân rã của Neptunium-239
+085: ²³⁹Np → ²³⁹Pu + β⁻
+086: Tác dụng với Oxygen
+087: Np + O₂ → NpO₂
+088: Phân rã Alpha của Neptunium-237
+089: ²³⁷Np → ²³³Pa + α
+090: Ứng dụng thực tế
+091: Nghiên cứu hạt nhân: Neptunium chủ yếu được sử dụng trong nghiên cứu vật lý hạt nhân và hóa học Actinide.
+092: Sản xuất Plutonium-238: ²³⁷Np có thể được sử dụng làm nguyên liệu để sản xuất ²³⁸Pu, một đồng vị có ứng dụng trong nguồn năng lượng cho các hệ thống không gian.
+093: Nghiên cứu chất thải hạt nhân: ²³⁷Np là một trong những đồng vị được quan tâm trong nghiên cứu lưu trữ và xử lý chất thải phóng xạ lâu dài, do chu kỳ bán rã rất dài.
+094: Nghiên cứu địa hóa: Các đồng vị Neptunium được sử dụng để nghiên cứu sự vận chuyển của Actinide trong môi trường.
+095: Tổng quan
+096: Neptunium là nguyên tố số 93, thuộc nhóm IIIB | chu kỳ 7 và là nguyên tố thứ năm trong họ Actinide.
+097: Neptunium được Edwin McMillan và Philip H. Abelson phát hiện vào năm 1940 tại Berkeley, Hoa Kỳ. Đây là nguyên tố siêu Uranium đầu tiên được phát hiện.
+098: Tên Neptunium được đặt theo Neptune, tương tự như Uranium được đặt theo Uranus.
+099: Neptunium là kim loại phóng xạ màu bạc, có nhiều trạng thái Oxy hóa từ +3 đến +7. Đồng vị quan trọng nhất là ²³⁷Np, có chu kỳ bán rã khoảng 2,14 triệu năm.
+100: Neptunium chủ yếu có giá trị trong nghiên cứu hạt nhân. Đặc biệt, ²³⁷Np có thể đóng vai trò là nguyên liệu để sản xuất ²³⁸Pu, đồng vị được sử dụng trong các nguồn năng lượng phóng xạ cho một số hệ thống không gian.
+101: Mạng tinh thể: Trực thoi (Orthorhombic) ở điều kiện thường.

@@ -50,7 +50,7 @@ npm run preview
 
 **URL:** `/`, `/nguyen-to.html?element=Cu`.
 
-Tra 118 nguyên tố theo tên, ký hiệu và số hiệu; mở hồ sơ có cấu hình electron, tính chất, lịch sử, ứng dụng, mô hình nguyên tử/tinh thể và media tùy nội dung có sẵn. `data/manifest.json` có 118 mục; `data/elements/` hiện có **68 file hồ sơ**, với độ sâu nội dung khác nhau.
+Tra 118 nguyên tố theo tên, ký hiệu và số hiệu; mở hồ sơ có cấu hình electron, tính chất, lịch sử, ứng dụng, mô hình nguyên tử/tinh thể và media tùy nội dung có sẵn. `data/manifest.json` và `data/elements/` có đủ **118 hồ sơ**, được nhập lại từ 118 tài liệu trong `DATA PERIOD TABLE` và đối chiếu ngày **11/11/2026**. Hồ sơ có bảng đồng vị, nguồn số liệu, điều kiện phương trình và media có xuất xứ. Kho 49 mô hình hình thái khoáng vật được liên kết với 79 nguyên tố; những nguyên tố không có quặng riêng được giải thích rõ. Xem [audit từng file và kết quả kiểm tra](docs/periodic-table-audit/2026-11-11/README.md), [changelog](docs/periodic-table-audit/2026-11-11/CHANGELOG.md) và [nhật ký thao tác](docs/periodic-table-audit/2026-11-11/OPERATIONS.md).
 
 ![Hồ sơ nguyên tố đồng](docs/images/element.webp)
 

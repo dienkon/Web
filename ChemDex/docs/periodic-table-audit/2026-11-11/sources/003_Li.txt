@@ -1,0 +1,104 @@
+001: Lithium (Li)
+002: Thông tin chung
+003: Tên Latin: Lithium
+004: Tên tiếng Anh: Lithium
+005: Đồng vị: ⁶Li, ⁷Li
+006: Vị trí: Nhóm IA | Chu kỳ 2
+007: Số Oxy hóa: 0, +1
+008: Độ âm điện: 0.98
+009: Lịch sử khám phá
+010: Phát hiện bởi: Johan August Arfwedson
+011: Năm công bố: 1817
+012: Nơi khám phá: Thụy Điển
+013: Mô tả: Năm 1817, nhà hóa học người Thụy Điển Johan August Arfwedson phát hiện ra Lithium khi đang phân tích khoáng vật petalite trong phòng thí nghiệm của Jöns Jacob Berzelius. Berzelius đặt tên cho nguyên tố này là “Lithium” (bắt nguồn từ tiếng Hy Lạp “lithos” có nghĩa là “đá”, nhằm chỉ rõ nguồn gốc khoáng vật, phân biệt với potassium từ tro thực vật và sodium từ mô động vật). Năm 1818, William Thomas Brande và Humphry Davy đã lần đầu tiên cô lập được một lượng nhỏ kim loại Lithium nguyên chất bằng phương pháp điện phân lithium oxide.
+014: 3. Cấu tạo
+015: a. Cấu tạo
+016: Hoạt họa cấu hình e: 1s² 2s¹
+017: Mô hình mạng tinh thể: Lithium ở điều kiện chuẩn có cấu trúc mạng tinh thể lập phương tâm khối (bcc – body-centered cubic). Ở nhiệt độ rất thấp (dưới khoảng 78 K), nó chuyển sang pha cấu trúc lục phương xếp chặt (hcp).
+018: Số hiệu nguyên tử: 3
+019: Nguyên tử khối: 6.94 g/mol
+020: Vỏ nguyên tử: 3 electron
+021: K: 2 | L: 1
+022: Hạt nhân: 3 proton, 4 neutron đối với ⁷Li
+023: Cấu hình e: 1s² 2s¹ (hoặc [He] 2s¹)
+024: Loại mạng: Tinh thể kim loại lập phương tâm khối (bcc).
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Lithium là kim loại kiềm hoạt động hóa học mạnh nên không bao giờ tồn tại ở dạng đơn chất tự do trong tự nhiên. Nó chiếm khoảng 20–70 ppm khối lượng vỏ Trái Đất, phân bố chủ yếu trong các mỏ nước muối ngầm (brine lakes) và trong các mạch đá magma pegmatite.
+027: Đơn chất: Li (không tồn tại tự do trong tự nhiên)
+028: Hợp chất: Spodumene (LiAl(SiO₃)₂), petalite (LiAlSi₄O₁₀), lepidolite, Li₂CO₃, LiCl trong nước muối hồ cạn...
+029: c. Đồng vị
+030: Đồng vị: ⁶Li, ⁷Li
+031: ⁶Li: Khoảng 7.59%, là đồng vị bền (có vai trò quan trọng trong việc thu nhận tritium phục vụ phản ứng nhiệt hạch).
+032: ⁷Li: Khoảng 92.41%, là đồng vị bền và dồi dào nhất trong tự nhiên.
+033: Ngoài hai đồng vị bền trên, các nhà khoa học đã tổng hợp được các đồng vị phóng xạ từ ⁴Li đến ¹²Li với chu kỳ bán rã cực kỳ ngắn.
+034: Tính chất
+035: Tính chất vật lý
+036: Kim loại màu trắng bạc, bề mặt mới cắt có ánh kim sáng nhưng nhanh chóng bị xỉn màu trong không khí ẩm.
+037: Mềm, dễ cắt bằng dao thép, có độ dẻo và tính dát mỏng tốt.
+038: Là kim loại nhẹ nhất và là đơn chất rắn nhẹ nhất trong mọi nguyên tố ở điều kiện chuẩn.
+039: Khối lượng mol của Li: 6.94 g/mol.
+040: Khối lượng riêng: khoảng 0.534 g/cm³ ở 20 °C (nhẹ hơn nước và nhẹ hơn cả dầu khoáng thông thường, nổi trên mặt nước).
+041: Nhiệt độ nóng chảy: 180.50 °C (cao nhất trong các kim loại kiềm).
+042: Nhiệt độ sôi: 1342 °C.
+043: Dẫn điện và dẫn nhiệt tốt.
+044: Có tính thuận từ.
+045: Khi cháy phát ra ngọn lửa màu đỏ thắm (đỏ carmine) đặc trưng.
+046: Tính chất hóa học
+047: Là kim loại kiềm có tính khử rất mạnh (thế điện cực chuẩn E°(Li⁺/Li) = −3.04 V, âm nhất trong dãy điện hóa ở môi trường nước).
+048: Phản ứng với nước giải phóng khí Hydrogen và tạo dung dịch base mạnh (phản ứng êm dịu hơn so với Sodium và Potassium, không tự bốc cháy).
+049: Tác dụng trực tiếp với Oxygen tạo oxide chính là Li₂O (hầu như không tạo peroxide hay superoxide như các kim loại kiềm khác).
+050: Phản ứng trực tiếp với khí Nitrogen ngay ở nhiệt độ phòng tạo lithium nitride (đây là kim loại kiềm duy nhất có tính chất này).
+051: Tác dụng mãnh liệt với các halogen tạo muối halide.
+052: Phản ứng với Hydrogen ở nhiệt độ cao tạo hydride ion (LiH).
+053: Tác dụng với các acid giải phóng khí Hydrogen rất mãnh liệt.
+054: Điều chế
+055: Điều chế trong công nghiệp
+056: Điện phân muối nóng chảy hỗn hợp Lithium chloride (LiCl) và Potassium chloride (KCl):
+057: Do LiCl nguyên chất có nhiệt độ nóng chảy cao (khoảng 610 °C), công nghiệp phối trộn hỗn hợp eutecti gồm khoảng 55% LiCl và 45% KCl để hạ nhiệt độ nóng chảy xuống xấp xỉ 450 °C, giúp tiết kiệm năng lượng và hạn chế kim loại Li bay hơi:
+058: 2LiCl (đpnc) → 2Li + Cl2
+059: Cực âm (catot – thép): Li⁺ + e⁻ → Li (nổi lên trên bề mặt muối nóng chảy và được thu hồi).
+060: Cực dương (anot – than chì): 2Cl⁻ → Cl₂ + 2e⁻
+061: Chế hóa từ quặng và nước muối: Khai thác dung dịch nước muối giàu Lithium, làm bay hơi tự nhiên để kết tủa muối rồi chuyển hóa thành Li₂CO₃, sau đó phản ứng với dung dịch HCl để tạo muối LiCl tinh khiết dùng cho điện phân.
+062: Điều chế trong phòng thí nghiệm
+063: Trong thực tế phòng thí nghiệm không tự điều chế kim loại Lithium từ phản ứng hóa học thông thường mà sử dụng sản phẩm thương mại được ngâm trong parafin lỏng, dầu khoáng đặc dụng hoặc đóng gói trong bầu khí trơ (Argon).
+064: Có thể thực hiện điện phân quy mô nhỏ muối LiCl nóng chảy bằng bộ điện phân mini chuyên dụng.
+065: Nhận biết
+066: Thử màu ngọn lửa: Khi đưa muối hoặc hợp chất của Lithium vào ngọn lửa không màu của đèn khí, ngọn lửa chuyển sang màu đỏ thắm (đỏ carmine) rực rỡ.
+067: Phổ phát xạ nguyên tử: Vạch quang phổ màu đỏ sáng đặc trưng ở bước sóng 670.8 nm.
+068: Thả vào nước: Mẩu kim loại nổi trên mặt nước, tan dần và sủi bọt khí H₂ êm dịu; nhỏ vài giọt dung dịch phenolphthalein vào thấy chuyển sang màu hồng tím.
+069: Phản ứng với khí Nitrogen ở nhiệt độ phòng: Bề mặt kim loại bị phủ một lớp màng màu đỏ nâu hoặc đen của Lithium nitride (Li₃N).
+070: Đặc điểm: Kim loại siêu nhẹ, cắt mềm, cháy cho ngọn lửa đỏ thắm, dung dịch kiềm LiOH tạo kết tủa trắng với muối carbonate (Li₂CO₃ ít tan).
+071: Phương trình
+072: Tác dụng với Oxygen
+073: 4Li + O2 → 2Li2O
+074: Tác dụng với Nước
+075: 2Li + 2H2O → 2LiOH + H2
+076: Tác dụng với Nitrogen (ở nhiệt độ phòng)
+077: 6Li + N2 → 2Li3N
+078: Tác dụng với Chlorine
+079: 2Li + Cl2 → 2LiCl
+080: Tác dụng với Hydrogen
+081: 2Li + H2 → 2LiH
+082: Tác dụng với Sulfur
+083: 2Li + S → Li2S
+084: Tác dụng với Hydrochloric acid
+085: 2Li + 2HCl → 2LiCl + H2
+086: Điện phân nóng chảy Lithium chloride
+087: 2LiCl → 2Li + Cl2
+088: Nhiệt phân Lithium carbonate
+089: Li2CO3 → Li2O + CO2
+090: Hấp thụ khí Carbon dioxide bằng Lithium hydroxide
+091: 2LiOH + CO2 → Li2CO3 + H2O
+092: Ứng dụng thực tế
+093: Pin và ắc quy: Nguyên liệu cốt lõi để sản xuất pin Lithium-ion và pin Lithium kim loại cho điện thoại thông minh, máy tính xách tay, xe điện (EV) và các trạm lưu trữ năng lượng tái tạo.
+094: Y tế và tâm thần học: Hợp chất Lithium carbonate (Li₂CO₃) và Lithium citrate là thuốc ổn định khí sắc nền tảng trong điều trị rối loạn lưỡng cực và trầm cảm kháng trị.
+095: Hợp kim siêu nhẹ: Tạo hợp kim với Nhôm (Al) và Magnesi (Mg) có độ bền cao và trọng lượng siêu nhẹ, ứng dụng làm khung máy bay, tên lửa và linh kiện hàng không vũ trụ.
+096: Chất bôi trơn công nghiệp: Xà phòng lithium (lithium stearate) là thành phần làm đặc trong mỡ bôi trơn đa dụng, chịu nhiệt cao và kháng nước cho động cơ và thiết bị cơ khí nặng.
+097: Sản xuất gốm sứ và thủy tinh: Lithium oxide (Li₂O) làm giảm hệ số giãn nở nhiệt, tăng khả năng chống sốc nhiệt cho mặt bếp từ, kính thiên văn và gốm sứ cao cấp.
+098: Hệ thống hỗ trợ sự sống: Lithium hydroxide (LiOH) có khả năng hấp thụ khí CO₂ hiệu quả với khối lượng nhẹ, được sử dụng trong hệ thống lọc khí thở trên tàu ngầm và trạm vũ trụ quốc tế (ISS).
+099: Công nghệ hạt nhân: Đồng vị ⁶Li dùng làm bia bắn neutron để sản xuất Tritium phục vụ nghiên cứu phản ứng nhiệt hạch; ⁷LiOH dùng để điều chỉnh độ pH trong hệ thống làm mát của lò phản ứng hạt nhân.
+100: Tổng quan
+101: Lithium là nguyên tố thứ 3 trong bảng tuần hoàn (số hiệu nguyên tử 3), thuộc nhóm IA | chu kỳ 2.
+102: Ở điều kiện thường, Lithium là kim loại kiềm có ánh bạc, mềm và là kim loại nhẹ nhất trong tự nhiên (nổi trên cả nước và dầu khoáng). Do có hoạt tính hóa học mạnh, Lithium không tồn tại ở trạng thái tự do trên Trái Đất mà nằm rải rác trong các quặng pegmatite và tập trung tại các mỏ nước muối mặn dưới lòng đất.
+103: Lithium sở hữu tính khử cực mạnh với thế điện cực chuẩn âm nhất trong các nguyên tố hóa học, đồng thời có những tính chất đặc trưng khác biệt so với các kim loại kiềm còn lại như khả năng phản ứng với nitrogen ở nhiệt độ thường và chỉ tạo oxide thông thường (Li₂O) khi đốt trong oxygen.
+104: Lithium được coi là “vàng trắng” của kỷ nguyên chuyển dịch năng lượng xanh, giữ vai trò chiến lược sống còn trong công nghiệp sản xuất pin xe điện, thiết bị điện tử, y dược học thần kinh và công nghệ hàng không vũ trụ.

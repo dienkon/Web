@@ -1,0 +1,96 @@
+001: Scandium (Sc)
+002: Thông tin chung
+003: Tên Latin: Scandium
+004: Tên Tiếng Anh: Scandium
+005: Đồng vị: ⁴⁵Sc
+006: Vị trí: Nhóm IIIB | Chu kỳ 4
+007: Số Oxy hóa: +3
+008: Độ âm điện: 1.36
+009: Lịch sử khám phá
+010: Phát hiện bởi: Lars Fredrik Nilson
+011: Năm công bố: 1879
+012: Nơi khám phá: Thụy Điển
+013: Mô tả: Năm 1879, Lars Fredrik Nilson phát hiện Scandium khi nghiên cứu các khoáng vật chứa Rare earth elements. Ông tách được một oxide mới và xác định đó là oxide của một nguyên tố chưa được biết đến. Sau đó nguyên tố này được đặt tên là Scandium, bắt nguồn từ Scandia, tên Latin của Scandinavia. Việc phát hiện Scandium cũng xác nhận dự đoán trước đó của Dmitri Mendeleev về nguyên tố mà ông gọi là “eka-boron”.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Ar] 3d¹ 4s²
+017: Mô hình mạng tinh thể: Lục phương (Hexagonal)
+018: Số hiệu nguyên tử: 21
+019: Nguyên tử khối: 44.956 g/mol
+020: Vỏ nguyên tử: 21 electron
+021: K: 2 | L: 8 | M: 9 | N: 2
+022: Hạt nhân: 21 proton, 24 neutron đối với ⁴⁵Sc
+023: Cấu hình e: [Ar] 3d¹ 4s²
+024: Loại mạng: Lục phương (Hexagonal)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Scandium là kim loại rắn, màu trắng bạc ở điều kiện thường. Scandium phân bố khá rộng nhưng thường tồn tại với hàm lượng rất nhỏ trong khoáng vật.
+027: Có trong: Khoáng vật Thortveitite, Wolframite, các khoáng vật Rare earth và một số quặng Uranium.
+028: Đơn chất: Sc
+029: Hợp chất: Sc₂O₃, ScCl₃, ScF₃, Sc₂(SO₄)₃, Sc(OH)₃...
+030: c. Đồng vị
+031: Đồng vị: ⁴⁵Sc
+032: ⁴⁵Sc: Đồng vị bền duy nhất của Scandium, chiếm gần 100% Scandium tự nhiên.
+033: Scandium có nhiều đồng vị phóng xạ nhân tạo, nhưng chúng không tồn tại đáng kể trong tự nhiên.
+034: Tính chất
+035: Tính chất vật lý
+036: Là kim loại chuyển tiếp.
+037: Có màu trắng bạc.
+038: Tương đối nhẹ.
+039: Khối lượng riêng: khoảng 2.985 g/cm³.
+040: Nhiệt độ nóng chảy: khoảng 1541 °C.
+041: Nhiệt độ sôi: khoảng 2836 °C.
+042: Dẫn điện và dẫn nhiệt tốt.
+043: Có độ cứng tương đối cao.
+044: Scandium tinh khiết khá mềm nhưng có thể tạo hợp kim có độ bền cao.
+045: Tính chất hóa học
+046: Có tính chất đặc trưng của kim loại chuyển tiếp.
+047: Số Oxy hóa ổn định và phổ biến nhất là +3.
+048: Dễ tạo ion Sc³⁺.
+049: Phản ứng với Oxygen tạo Scandium oxide.
+050: Phản ứng với Halogen tạo Scandium halide.
+051: Phản ứng với acid tạo muối Scandium và Hydrogen.
+052: Scandium oxide và Scandium hydroxide có tính lưỡng tính yếu.
+053: Dễ bị oxy hóa khi nung nóng trong không khí.
+054: Điều chế
+055: Điều chế trong công nghiệp
+056: Scandium thường được thu hồi như sản phẩm phụ từ quá trình xử lý một số quặng và chất thải công nghiệp chứa Scandium.
+057: Sau quá trình tách và tinh chế, Scandium có thể được chuyển thành Scandium chloride rồi khử bằng Calcium:
+058: 2ScCl₃ + 3Ca → 2Sc + 3CaCl₂
+059: Điều chế trong phòng thí nghiệm
+060: Scandium kim loại không thường được điều chế trong phòng thí nghiệm thông thường.
+061: Về nguyên tắc, có thể điều chế bằng cách khử Scandium chloride khan bằng Calcium:
+062: 2ScCl₃ + 3Ca → 2Sc + 3CaCl₂
+063: Nhận biết
+064: Nhận biết Sc³⁺
+065: Scandium ion có thể được nhận biết thông qua các phương pháp phân tích chuyên dụng như phổ phát xạ, phổ hấp thụ hoặc phản ứng tạo phức.
+066: Một phản ứng tạo kết tủa:
+067: Sc³⁺ + 3OH⁻ → Sc(OH)₃↓
+068: Hiện tượng: Xuất hiện kết tủa trắng Scandium hydroxide.
+069: Phương trình
+070: Tác dụng với Oxygen
+071: 4Sc + 3O₂ → 2Sc₂O₃
+072: Tác dụng với Chlorine
+073: 2Sc + 3Cl₂ → 2ScCl₃
+074: Tác dụng với Fluorine
+075: 2Sc + 3F₂ → 2ScF₃
+076: Tác dụng với Hydrochloric acid
+077: 2Sc + 6HCl → 2ScCl₃ + 3H₂↑
+078: Tác dụng với Sulfuric acid
+079: 2Sc + 3H₂SO₄ → Sc₂(SO₄)₃ + 3H₂↑
+080: Tạo Scandium hydroxide
+081: Sc³⁺ + 3OH⁻ → Sc(OH)₃↓
+082: Nhiệt phân Scandium hydroxide
+083: 2Sc(OH)₃ → Sc₂O₃ + 3H₂O
+084: Khử Scandium chloride
+085: 2ScCl₃ + 3Ca → 2Sc + 3CaCl₂
+086: Ứng dụng thực tế
+087: Hợp kim Aluminium: Scandium được thêm vào Aluminium để tăng độ bền, độ cứng và khả năng chịu nhiệt của hợp kim.
+088: Hàng không vũ trụ: Aluminium–Scandium alloys được nghiên cứu và sử dụng trong một số bộ phận yêu cầu vật liệu nhẹ nhưng bền.
+089: Đèn Scandium: Scandium iodide được sử dụng trong một số loại đèn Metal halide để tạo ánh sáng gần với ánh sáng tự nhiên.
+090: Thiết bị thể thao: Một số hợp kim Aluminium–Scandium được sử dụng trong các thiết bị cần độ bền cao và trọng lượng thấp.
+091: Nghiên cứu hạt nhân: Một số đồng vị phóng xạ của Scandium được sử dụng trong nghiên cứu và các ứng dụng y học hạt nhân.
+092: Tổng quan
+093: Scandium là nguyên tố số 21, thuộc nhóm IIIB | chu kỳ 4 và là một kim loại chuyển tiếp.
+094: Scandium có cấu hình electron [Ar] 3d¹ 4s² và thường có số Oxy hóa +3. Ở dạng ion Sc³⁺, electron 3d được loại bỏ, tạo cấu hình tương đối bền.
+095: Scandium là một nguyên tố tương đối hiếm và thường phân bố với hàm lượng nhỏ trong nhiều khoáng vật thay vì tập trung thành các mỏ lớn. Đồng vị tự nhiên duy nhất của Scandium là ⁴⁵Sc.
+096: Ứng dụng quan trọng của Scandium nằm ở hợp kim Aluminium–Scandium, đèn Metal halide và một số ứng dụng nghiên cứu, y học hạt nhân.

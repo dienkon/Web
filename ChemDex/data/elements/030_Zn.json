@@ -1,9 +1,12 @@
 {
   "number": 30,
   "symbol": "Zn",
-  "nameVi": "Zinc",
+  "nameVi": "Kẽm",
   "nameEn": "Zinc",
   "mass": 65.38,
+  "massStandardText": "65.38 ± 0.02",
+  "massStandardSource": "https://ciaaw.org/abridged-atomic-weights.htm",
+  "massKind": "standard-atomic-weight",
   "category": "chuyen-tiep",
   "hasData": true,
   "file": "elements/030_Zn.json",
@@ -13,14 +16,18 @@
     "electronConfig": "[Ar] 3d¹⁰ 4s²",
     "isotope": "⁶⁴Zn, ⁶⁶Zn, ⁶⁷Zn, ⁶⁸Zn, ⁷⁰Zn",
     "group": 12,
+    "groupLabel": "12",
+    "series": "",
     "period": 4,
-    "state": "",
+    "state": "Rắn",
     "oxidation": "+2",
     "electronegativity": 1.65,
+    "electronegativityNote": "Thang Pauling; số liệu tổng hợp PubChem.",
     "density": "khoảng 7.14 g/cm³.",
     "meltingPoint": "khoảng 419.5 °C.",
     "boilingPoint": "khoảng 907 °C.",
-    "crystalStructure": "Lục phương (Hexagonal)"
+    "crystalStructure": "Lục phương (Hexagonal)",
+    "CAS": "7440-66-6"
   },
   "history": {
     "discoverer": "Không xác định chính xác. Zinc đã được sử dụng từ thời cổ đại; Zinc kim loại được điều chế và sử dụng rộng rãi ở Ấn Độ.",
@@ -30,8 +37,14 @@
   },
   "structure": {
     "protons": 30,
-    "neutrons": 34,
     "electrons": 30,
+    "neutrons": 34,
+    "nucleusIsotope": "⁶⁴Zn",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 30,
+      "neutron": 34
+    },
     "electronShells": [
       2,
       8,
@@ -45,12 +58,11 @@
       2
     ],
     "valenceElectrons": 2,
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lục phương (Hexagonal)",
-    "nucleus": {
-      "proton": 30,
-      "neutron": 34
-    }
+    "latticeEvidence": "source-reviewed"
   },
+  "structureType": "Lục phương (Hexagonal)",
   "occurrence": {
     "description": "Zinc là kim loại rắn, màu trắng xanh ở điều kiện thường.",
     "simple": [
@@ -68,163 +80,513 @@
       "Sphalerite (ZnS)",
       "Smithsonite (ZnCO₃)",
       "Zincite (ZnO) và Franklinite"
-    ]
+    ],
+    "details": [
+      "Trạng thái: Zinc là kim loại rắn, màu trắng xanh ở điều kiện thường.",
+      "Có trong: Sphalerite (ZnS), Smithsonite (ZnCO₃), Zincite (ZnO) và Franklinite.",
+      "Đơn chất: Zn",
+      "Hợp chất: ZnO, ZnS, ZnCl₂, ZnSO₄, ZnCO₃, Zn(OH)₂..."
+    ],
+    "mineral": {
+      "available": true,
+      "id": "sphalerite",
+      "name": "Sphalerite",
+      "formula": "ZnS",
+      "habit": "tetrahedral",
+      "color": "#a68046",
+      "crystalSystem": "cubic",
+      "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Sphalerite",
+      "model": "/assets/periodic-table/minerals/sphalerite.glb",
+      "preview": "/assets/periodic-table/minerals/sphalerite.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
   },
-  "naturalState": {},
-  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại thuộc nhóm IIB.</li>\n      <li>Có màu trắng xanh.</li>\n      <li>Khá giòn ở nhiệt độ thường.</li>\n      <li>Trở nên dẻo hơn khi được nung nóng khoảng 100–150 °C.</li>\n      <li>Khối lượng riêng: khoảng 7.14 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 419.5 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 907 °C.</li>\n      <li>Dẫn điện và dẫn nhiệt.</li>\n      <li>Có khả năng chống ăn mòn nhờ hình thành lớp bảo vệ trên bề mặt.</li>\n    </ul>\n  ",
-  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có số Oxy hóa phổ biến là +2.</li>\n      <li>Có tính khử tương đối mạnh.</li>\n      <li>Dễ phản ứng với acid tạo Zinc salt và Hydrogen.</li>\n      <li>Phản ứng với Oxygen tạo Zinc oxide.</li>\n      <li>Phản ứng với Halogen tạo Zinc halide.</li>\n      <li>ZnO và Zn(OH)₂ có tính lưỡng tính.</li>\n      <li>Có thể phản ứng với cả acid và kiềm mạnh.</li>\n    </ul>\n  ",
+  "naturalState": {
+    "image": "/assets/periodic-table/diagrams/030_Zn.svg",
+    "alt": "Zinc: sơ đồ minh họa nguyên tố",
+    "kind": "diagram",
+    "source": "",
+    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+    "credit": ""
+  },
+  "isotopes": [
+    {
+      "isotope": "⁶⁴Zn",
+      "massNumber": 64,
+      "protons": 30,
+      "neutrons": 34,
+      "stable": true,
+      "abundancePercent": "49.17",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "⁶⁶Zn",
+      "massNumber": 66,
+      "protons": 30,
+      "neutrons": 36,
+      "stable": true,
+      "abundancePercent": "27.73",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "⁶⁷Zn",
+      "massNumber": 67,
+      "protons": 30,
+      "neutrons": 37,
+      "stable": true,
+      "abundancePercent": "4.04",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "⁶⁸Zn",
+      "massNumber": 68,
+      "protons": 30,
+      "neutrons": 38,
+      "stable": true,
+      "abundancePercent": "18.45",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "⁷⁰Zn",
+      "massNumber": 70,
+      "protons": 30,
+      "neutrons": 40,
+      "stable": false,
+      "abundancePercent": "0.61",
+      "halfLifeDisplay": "GE 3.8E18 năm",
+      "halfLife": "3.8E18 Y",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": "GE",
+      "decay": "2B-",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Là kim loại thuộc nhóm IIB.</li><li>Có màu trắng xanh.</li><li>Khá giòn ở nhiệt độ thường.</li><li>Trở nên dẻo hơn khi được nung nóng khoảng 100–150 °C.</li><li>Khối lượng riêng: khoảng 7.14 g/cm³.</li><li>Nhiệt độ nóng chảy: khoảng 419.5 °C.</li><li>Nhiệt độ sôi: khoảng 907 °C.</li><li>Dẫn điện và dẫn nhiệt.</li><li>Có khả năng chống ăn mòn nhờ hình thành lớp bảo vệ trên bề mặt.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Có số Oxy hóa phổ biến là +2.</li><li>Có tính khử tương đối mạnh.</li><li>Dễ phản ứng với acid tạo Zinc salt và Hydrogen.</li><li>Phản ứng với Oxygen tạo Zinc oxide.</li><li>Phản ứng với Halogen tạo Zinc halide.</li><li>ZnO và Zn(OH)₂ có tính lưỡng tính.</li><li>Có thể phản ứng với cả acid và kiềm mạnh.</li></ul>",
   "reactions": [
     {
       "type": "Tác dụng với Oxygen",
+      "desc": "",
       "equation": "2Zn + O₂ → 2ZnO",
-      "desc": ""
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 77,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Chlorine",
+      "desc": "",
       "equation": "Zn + Cl₂ → ZnCl₂",
-      "desc": ""
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 79,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Sulfur",
+      "desc": "",
       "equation": "Zn + S → ZnS",
-      "desc": ""
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 81,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Hydrochloric acid",
+      "desc": "",
       "equation": "Zn + 2HCl → ZnCl₂ + H₂↑",
-      "desc": ""
+      "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+      "kind": "chemical",
+      "sourceLine": 83,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Sulfuric acid loãng",
+      "desc": "",
       "equation": "Zn + H₂SO₄ → ZnSO₄ + H₂↑",
-      "desc": ""
+      "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+      "kind": "chemical",
+      "sourceLine": 85,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Copper(II) sulfate",
+      "desc": "",
       "equation": "Zn + CuSO₄ → ZnSO₄ + Cu",
-      "desc": ""
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 87,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tạo Zinc hydroxide",
+      "desc": "",
       "equation": "Zn²⁺ + 2OH⁻ → Zn(OH)₂↓",
-      "desc": ""
+      "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+      "kind": "chemical",
+      "sourceLine": 89,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Zinc hydroxide tác dụng với acid",
+      "desc": "",
       "equation": "Zn(OH)₂ + 2HCl → ZnCl₂ + 2H₂O",
-      "desc": ""
+      "condition": "Dung dịch acid; phản ứng trung hòa, tốc độ phụ thuộc độ tan của chất rắn.",
+      "kind": "chemical",
+      "sourceLine": 91,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Zinc hydroxide tác dụng với kiềm",
+      "desc": "",
       "equation": "Zn(OH)₂ + 2NaOH → Na₂[Zn(OH)₄]",
-      "desc": ""
+      "condition": "Dung dịch kiềm dư; hòa tan hydroxide lưỡng tính tạo phức hydroxo.",
+      "kind": "chemical",
+      "sourceLine": 93,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Nung Zinc carbonate",
+      "desc": "",
       "equation": "ZnCO₃ → ZnO + CO₂↑",
-      "desc": ""
+      "condition": "Gia nhiệt để phân hủy; nhiệt độ phụ thuộc chất và áp suất khí sản phẩm.",
+      "kind": "chemical",
+      "sourceLine": 95,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Điều chế Zinc từ Zinc oxide",
+      "desc": "",
       "equation": "ZnO + C → Zn + CO",
-      "desc": ""
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 97,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     }
   ],
-  "applications": [
-    {
-      "title": "Mạ Zinc",
-      "desc": "Zinc được dùng để mạ lên Iron và Steel nhằm bảo vệ kim loại khỏi ăn mòn, gọi là Galvanization."
-    },
-    {
-      "title": "Sản xuất Brass",
-      "desc": "Zinc được sử dụng cùng Copper để tạo Brass."
-    },
-    {
-      "title": "Pin",
-      "desc": "Zinc được sử dụng làm điện cực trong nhiều loại pin, như Zinc–carbon và Alkaline batteries."
-    },
-    {
-      "title": "Đúc hợp kim",
-      "desc": "Zinc alloys được sử dụng để chế tạo nhiều chi tiết có hình dạng phức tạp."
-    },
-    {
-      "title": "Sản xuất Zinc oxide",
-      "desc": "ZnO được sử dụng trong cao su, gốm, sơn và nhiều sản phẩm công nghiệp."
-    },
-    {
-      "title": "Nông nghiệp",
-      "desc": "Một số Zinc compounds được sử dụng làm nguồn Zinc trong phân bón."
-    },
-    {
-      "title": "Sinh học",
-      "desc": "Zinc là nguyên tố vi lượng cần thiết cho nhiều enzyme và quá trình sinh học."
-    }
-  ],
-  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Zinc là nguyên tố số 30, thuộc nhóm IIB | chu kỳ 4.</li>\n  <li>Zinc có cấu hình electron [Ar] 3d¹⁰ 4s² và số Oxy hóa phổ biến nhất là +2.</li>\n  <li>Zinc là kim loại màu trắng xanh, có khả năng chống ăn mòn tốt và có tính khử tương đối mạnh. Trong tự nhiên, Zinc chủ yếu tồn tại trong quặng Sphalerite (ZnS).</li>\n  <li>Zinc được sử dụng rộng rãi trong mạ kim loại, sản xuất Brass, pin, hợp kim và sản xuất Zinc oxide. Ngoài vai trò công nghiệp, Zinc còn là một nguyên tố vi lượng thiết yếu đối với sinh vật.</li>\n</ul>\n",
   "preparations": {
     "lab": [
       {
-        "title": "Zinc có thể được điều chế bằng cách khử Zinc oxide bằng Carbon ở nhiệt độ cao:",
-        "equation": "ZnO + C → Zn + CO",
-        "desc": ""
+        "title": "Zinc có thể được điều chế bằng cách khử Zinc oxide bằng Carbon ở nhiệt độ cao",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "ZnO + C → Zn + CO",
+            "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+            "kind": "chemical",
+            "sourceLine": 66,
+            "sourceSection": "lab",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          65,
+          66
+        ],
+        "equation": "ZnO + C → Zn + CO"
       }
     ],
     "industry": [
       {
         "title": "Zinc chủ yếu được sản xuất từ quặng Sphalerite (ZnS).",
-        "equation": "",
-        "desc": ""
+        "desc": "Trước tiên, quặng được nung trong không khí để chuyển thành Zinc oxide:",
+        "result": "",
+        "equations": [
+          {
+            "equation": "2ZnS + 3O₂ → 2ZnO + 2SO₂",
+            "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+            "kind": "chemical",
+            "sourceLine": 60,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          58,
+          59,
+          60
+        ],
+        "equation": "2ZnS + 3O₂ → 2ZnO + 2SO₂"
       },
       {
-        "title": "Trước tiên, quặng được nung trong không khí để chuyển thành Zinc oxide:",
-        "equation": "2ZnS + 3O₂ → 2ZnO + 2SO₂ <br> ZnO + C → Zn + CO",
-        "desc": "Sau đó Zinc oxide được khử bằng Carbon: Zinc cũng có thể được sản xuất bằng phương pháp điện phân dung dịch Zinc sulfate."
+        "title": "Sau đó Zinc oxide được khử bằng Carbon",
+        "desc": "Zinc cũng có thể được sản xuất bằng phương pháp điện phân dung dịch Zinc sulfate.",
+        "result": "",
+        "equations": [
+          {
+            "equation": "ZnO + C → Zn + CO",
+            "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+            "kind": "chemical",
+            "sourceLine": 62,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          61,
+          62,
+          63
+        ],
+        "equation": "ZnO + C → Zn + CO"
       }
     ]
   },
   "recognition": [
     {
-      "title": "Nhận biết",
-      "reagent": "Nhận biết Zn²⁺",
-      "result": "",
-      "equation": ""
-    },
-    {
-      "title": "Cho dung dịch chứa Zn²⁺ tác dụng với hydroxide",
-      "reagent": "",
-      "result": "",
-      "equation": ""
-    },
-    {
-      "title": "Nhận biết",
-      "reagent": "",
-      "result": "",
+      "title": "Nhận biết Zn²⁺",
+      "desc": "Cho dung dịch chứa Zn²⁺ tác dụng với hydroxide:",
+      "result": "Xuất hiện kết tủa trắng Zinc hydroxide.",
+      "equations": [
+        {
+          "equation": "Zn²⁺ + 2OH⁻ → Zn(OH)₂↓",
+          "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+          "kind": "chemical",
+          "sourceLine": 70,
+          "sourceSection": "recognition",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ],
+      "sourceLines": [
+        68,
+        69,
+        70,
+        71
+      ],
       "equation": "Zn²⁺ + 2OH⁻ → Zn(OH)₂↓"
     },
     {
-      "title": "Hiện tượng",
-      "reagent": "",
-      "result": "Xuất hiện kết tủa trắng Zinc hydroxide.",
-      "equation": ""
-    },
-    {
       "title": "Khi cho dư Sodium hydroxide, kết tủa tan",
-      "reagent": "",
-      "result": "",
-      "equation": ""
-    },
-    {
-      "title": "Nhận biết",
-      "reagent": "",
-      "result": "",
-      "equation": "Zn(OH)₂ + 2OH⁻ → [Zn(OH)₄]²⁻"
-    },
-    {
-      "title": "Hiện tượng",
-      "reagent": "",
+      "desc": "",
       "result": "Kết tủa trắng tan trong kiềm dư.",
-      "equation": ""
+      "equations": [
+        {
+          "equation": "Zn(OH)₂ + 2OH⁻ → [Zn(OH)₄]²⁻",
+          "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+          "kind": "chemical",
+          "sourceLine": 73,
+          "sourceSection": "recognition",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ],
+      "sourceLines": [
+        72,
+        73,
+        74
+      ],
+      "equation": "Zn(OH)₂ + 2OH⁻ → [Zn(OH)₄]²⁻"
     }
   ],
-  "structureType": "Lục phương (Hexagonal)"
+  "applications": [
+    {
+      "title": "Mạ Zinc",
+      "desc": "Zinc được dùng để mạ lên Iron và Steel nhằm bảo vệ kim loại khỏi ăn mòn, gọi là Galvanization.",
+      "sourceLine": 99
+    },
+    {
+      "title": "Sản xuất Brass",
+      "desc": "Zinc được sử dụng cùng Copper để tạo Brass.",
+      "sourceLine": 100
+    },
+    {
+      "title": "Pin",
+      "desc": "Zinc được sử dụng làm điện cực trong nhiều loại pin, như Zinc–carbon và Alkaline batteries.",
+      "sourceLine": 101
+    },
+    {
+      "title": "Đúc hợp kim",
+      "desc": "Zinc alloys được sử dụng để chế tạo nhiều chi tiết có hình dạng phức tạp.",
+      "sourceLine": 102
+    },
+    {
+      "title": "Sản xuất Zinc oxide",
+      "desc": "ZnO được sử dụng trong cao su, gốm, sơn và nhiều sản phẩm công nghiệp.",
+      "sourceLine": 103
+    },
+    {
+      "title": "Nông nghiệp",
+      "desc": "Một số Zinc compounds được sử dụng làm nguồn Zinc trong phân bón.",
+      "sourceLine": 104
+    },
+    {
+      "title": "Sinh học",
+      "desc": "Zinc là nguyên tố vi lượng cần thiết cho nhiều enzyme và quá trình sinh học.",
+      "sourceLine": 105
+    }
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Zinc là nguyên tố số 30, thuộc nhóm IIB | chu kỳ 4.</li><li>Zinc có cấu hình electron [Ar] 3d¹⁰ 4s² và số Oxy hóa phổ biến nhất là +2.</li><li>Zinc là kim loại màu trắng xanh, có khả năng chống ăn mòn tốt và có tính khử tương đối mạnh. Trong tự nhiên, Zinc chủ yếu tồn tại trong quặng Sphalerite (ZnS).</li><li>Zinc được sử dụng rộng rãi trong mạ kim loại, sản xuất Brass, pin, hợp kim và sản xuất Zinc oxide. Ngoài vai trò công nghiệp, Zinc còn là một nguyên tố vi lượng thiết yếu đối với sinh vật.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/diagrams/030_Zn.svg",
+      "title": "Kẽm (Zn)",
+      "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+      "source": "",
+      "author": "ChemDex",
+      "license": "ChemDex schematic diagram",
+      "licenseUrl": ""
+    }
+  ],
+  "mediaBlocks": [
+    {
+      "type": "model",
+      "section": "structure",
+      "title": "Mẫu khoáng vật 3D · Sphalerite",
+      "src": "/assets/periodic-table/minerals/sphalerite.glb",
+      "preview": "/assets/periodic-table/minerals/sphalerite.png",
+      "desc": "ZnS. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  ],
+  "sources": [
+    {
+      "title": "030_Zn.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "4ea06e525281476b7647eb414046a088da9a403caf7a530ab9d87e2c386a68f1"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/30/zinc"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "030_Zn.docx",
+    "sourceSha256": "4ea06e525281476b7647eb414046a088da9a403caf7a530ab9d87e2c386a68f1",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/030_Zn.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
 }

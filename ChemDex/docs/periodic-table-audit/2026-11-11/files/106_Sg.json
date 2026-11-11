@@ -1,0 +1,838 @@
+{
+  "symbol": "Sg",
+  "number": 106,
+  "source": "106_Sg.docx",
+  "sourceSha256": "a103b128852476870efa6f471c4bfae621d29d1e46128f3a3cf4ff9d543f1839",
+  "paragraphCount": 91,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 7,
+    "structure": 8,
+    "occurrence": 4,
+    "isotopes": 9,
+    "physical": 6,
+    "chemical": 5,
+    "lab": 2,
+    "industry": 1,
+    "recognition": 7,
+    "reactions": 9,
+    "applications": 5,
+    "notes": 5
+  },
+  "editorialDecisions": [
+    {
+      "line": 76,
+      "before": "Sg + 3O₂ → SgO₃",
+      "after": "2Sg + 3O₂ → 2SgO₃",
+      "reason": "Sửa hệ số hình thức; không đồng nhất cân bằng với bằng chứng tổng hợp oxide trực tiếp."
+    }
+  ],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "[Rn] 5f¹⁴ 6d⁴ 7s² (dự đoán)",
+      "publishedValue": "[Rn] 5f¹⁴ 6d⁴ 7s² (dự đoán)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+      "publishedValue": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "Không xác định",
+      "publishedValue": null,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm VIB | Chu kỳ 7",
+      "publishedValue": "6",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Chất rắn (dự đoán).",
+      "publishedValue": "Chưa đo trạng thái vĩ mô; các giá trị pha chỉ là dự đoán",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 36,
+      "sourceText": "²⁶⁶Sg: chu kỳ bán rã khoảng vài mili giây.",
+      "reference": {
+        "isotope": "²⁶⁶Sg",
+        "massNumber": 266,
+        "protons": 106,
+        "neutrons": 160,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "0.34 (+0.19/−0.09) s",
+        "halfLife": "0.34 s",
+        "halfLifeUncertainty": "+19-9",
+        "halfLifeQualifier": null,
+        "decay": "SF",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 37,
+      "sourceText": "²⁶⁷Sg: chu kỳ bán rã khoảng vài giây.",
+      "reference": {
+        "isotope": "²⁶⁷Sg",
+        "massNumber": 267,
+        "protons": 106,
+        "neutrons": 161,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "84 (+55/−24) s",
+        "halfLife": "84 s",
+        "halfLifeUncertainty": "+55-24",
+        "halfLifeQualifier": null,
+        "decay": "SF",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 38,
+      "sourceText": "²⁶⁸Sg: chu kỳ bán rã khoảng vài giây.",
+      "reference": null,
+      "assessment": "Không có trong snapshot đối chiếu; chưa công bố như số liệu đã xác nhận."
+    },
+    {
+      "line": 39,
+      "sourceText": "²⁶⁹Sg: chu kỳ bán rã khoảng vài giây.",
+      "reference": {
+        "isotope": "²⁶⁹Sg",
+        "massNumber": 269,
+        "protons": 106,
+        "neutrons": 163,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "1.3E2 (+1.0E+2/−4E+1) s",
+        "halfLife": "1.3E2 s",
+        "halfLifeUncertainty": "+10-4",
+        "halfLifeQualifier": null,
+        "decay": "A",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 40,
+      "sourceText": "²⁷¹Sg: có chu kỳ bán rã dài hơn một số đồng vị nhẹ hơn.",
+      "reference": {
+        "isotope": "²⁷¹Sg",
+        "massNumber": 271,
+        "protons": 106,
+        "neutrons": 165,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "96 (+88/−31) s",
+        "halfLife": "96 s",
+        "halfLifeUncertainty": "+88-31",
+        "halfLifeQualifier": null,
+        "decay": "A",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 14,
+      "text": "²⁴⁹Cf + ¹⁸O → ²⁶³Sg + 4n",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 61,
+      "text": "²⁴⁹Cf + ¹⁸O → ²⁶³Sg + 4¹n",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 72,
+      "text": "²⁴⁹Cf + ¹⁸O → ²⁶³Sg + 4n",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 74,
+      "text": "²⁶⁹Sg → ²⁶⁵Rf + ⁴He",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 76,
+      "text": "Sg + 3O₂ → SgO₃",
+      "status": "unbalanced",
+      "kind": "chemical",
+      "delta": {
+        "O": -3.0
+      }
+    },
+    {
+      "line": 78,
+      "text": "Sg + 3Cl₂ → SgCl₆",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "history",
+      "equation": "²⁴⁹Cf + ¹⁸O → ²⁶³Sg + 4n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 14,
+      "sourceSection": "history",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "lab",
+      "equation": "²⁴⁹Cf + ¹⁸O → ²⁶³Sg + 4¹n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 61,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "²⁴⁹Cf + ¹⁸O → ²⁶³Sg + 4n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 72,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "²⁶⁹Sg → ²⁶⁵Rf + ⁴He",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 74,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2Sg + 3O₂ → 2SgO₃",
+      "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+      "kind": "formal",
+      "sourceLine": 76,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Sg + 3Cl₂ → SgCl₆",
+      "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+      "kind": "formal",
+      "sourceLine": 78,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [
+    268,
+    270,
+    272,
+    273,
+    274,
+    275,
+    276
+  ],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": null,
+      "after": [
+        {
+          "title": "Ứng dụng",
+          "desc": "Seaborgium không có ứng dụng công nghiệp hoặc dân dụng.",
+          "sourceLine": 81
+        },
+        {
+          "title": "Nó chủ yếu được sử dụng trong",
+          "desc": "",
+          "sourceLine": 82
+        },
+        {
+          "title": "Nghiên cứu hạt nhân",
+          "desc": "Nghiên cứu tính chất của các nguyên tố siêu nặng.",
+          "sourceLine": 83
+        },
+        {
+          "title": "Hóa học nguyên tố siêu nặng",
+          "desc": "So sánh Seaborgium với Chromium và Molybdenum, qua đó kiểm tra các xu hướng tuần hoàn ở nguyên tố có số hiệu nguyên tử rất lớn.",
+          "sourceLine": 84
+        },
+        {
+          "title": "Nghiên cứu cấu trúc hạt nhân",
+          "desc": "Giúp nghiên cứu độ ổn định và chuỗi phân rã của các hạt nhân siêu nặng.",
+          "sourceLine": 85
+        }
+      ]
+    },
+    {
+      "field": "category",
+      "before": null,
+      "after": "chuyen-tiep"
+    },
+    {
+      "field": "chemical",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Được dự đoán có tính chất tương tự Chromium (Cr) và Molybdenum (Mo).</li><li>Số Oxy hóa +6 được xem là trạng thái quan trọng.</li><li>Có thể hình thành các hợp chất chứa Sg ở trạng thái Oxy hóa cao.</li><li>Seaborgium thể hiện xu hướng hóa học phù hợp với vị trí của nó trong nhóm 6.</li><li>Một số thí nghiệm hóa học ở cấp độ từng nguyên tử đã được thực hiện.</li></ul>"
+    },
+    {
+      "field": "file",
+      "before": null,
+      "after": "elements/106_Sg.json"
+    },
+    {
+      "field": "general",
+      "before": null,
+      "after": {
+        "latinName": "Seaborgium",
+        "englishName": "Seaborgium",
+        "electronConfig": "[Rn] 5f¹⁴ 6d⁴ 7s² (dự đoán)",
+        "isotope": "²⁶⁶Sg, ²⁶⁷Sg, ²⁶⁹Sg, ²⁷¹Sg",
+        "group": 6,
+        "groupLabel": "6",
+        "series": "",
+        "period": 7,
+        "state": "Chưa đo trạng thái vĩ mô; các giá trị pha chỉ là dự đoán",
+        "oxidation": "+6 (dự đoán)",
+        "electronegativity": null,
+        "electronegativityNote": "Chưa có giá trị Pauling đủ cơ sở trong bản đối chiếu; không coi 0 là giá trị đã đo.",
+        "density": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+        "meltingPoint": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+        "boilingPoint": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+        "crystalStructure": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+        "CAS": "54038-81-2"
+      }
+    },
+    {
+      "field": "hasData",
+      "before": null,
+      "after": true
+    },
+    {
+      "field": "history",
+      "before": null,
+      "after": {
+        "discoverer": "Albert Ghiorso và cộng sự",
+        "year": "1974",
+        "discoveryLocation": "Lawrence Berkeley Laboratory, Hoa Kỳ",
+        "description": "Seaborgium được tổng hợp lần đầu năm 1974 tại Lawrence Berkeley Laboratory bằng cách bắn phá Californium-249 bằng ion Oxygen-18: ²⁴⁹Cf + ¹⁸O → ²⁶³Sg + 4n Nguyên tố được đặt tên Seaborgium để vinh danh nhà hóa học người Mỹ Glenn T. Seaborg, một trong những nhà khoa học quan trọng trong việc phát hiện nhiều nguyên tố Actinide. Đây là một trường hợp đặc biệt vì Seaborgium là nguyên tố được đặt tên theo một nhà khoa học khi người đó vẫn còn sống."
+      }
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/diagrams/106_Sg.svg",
+          "title": "Seaborgium (Sg)",
+          "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+          "source": "",
+          "author": "ChemDex",
+          "license": "ChemDex schematic diagram",
+          "licenseUrl": ""
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "²⁶⁶Sg",
+          "massNumber": 266,
+          "protons": 106,
+          "neutrons": 160,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "0.34 (+0.19/−0.09) s",
+          "halfLife": "0.34 s",
+          "halfLifeUncertainty": "+19-9",
+          "halfLifeQualifier": null,
+          "decay": "SF",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁶⁷Sg",
+          "massNumber": 267,
+          "protons": 106,
+          "neutrons": 161,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "84 (+55/−24) s",
+          "halfLife": "84 s",
+          "halfLifeUncertainty": "+55-24",
+          "halfLifeQualifier": null,
+          "decay": "SF",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁶⁹Sg",
+          "massNumber": 269,
+          "protons": 106,
+          "neutrons": 163,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "1.3E2 (+1.0E+2/−4E+1) s",
+          "halfLife": "1.3E2 s",
+          "halfLifeUncertainty": "+10-4",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁷¹Sg",
+          "massNumber": 271,
+          "protons": 106,
+          "neutrons": 165,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "96 (+88/−31) s",
+          "halfLife": "96 s",
+          "halfLifeUncertainty": "+88-31",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "mass",
+      "before": null,
+      "after": 271
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "reference-isotope-mass-number"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://periodic-table.rsc.org/element/106/seaborgium"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "[271] — số khối đồng vị tham chiếu, không phải nguyên tử khối chuẩn"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": []
+    },
+    {
+      "field": "nameEn",
+      "before": null,
+      "after": "Seaborgium"
+    },
+    {
+      "field": "nameVi",
+      "before": null,
+      "after": "Seaborgium"
+    },
+    {
+      "field": "naturalState",
+      "before": null,
+      "after": {
+        "image": "/assets/periodic-table/diagrams/106_Sg.svg",
+        "alt": "Seaborgium: sơ đồ minh họa nguyên tố",
+        "kind": "diagram",
+        "source": "",
+        "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+        "credit": ""
+      }
+    },
+    {
+      "field": "notes",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Seaborgium là nguyên tố số 106, thuộc nhóm VIB | chu kỳ 7 và là một kim loại chuyển tiếp siêu nặng.</li><li>Seaborgium được tổng hợp lần đầu vào năm 1974 tại Lawrence Berkeley Laboratory. Nguyên tố được đặt tên để vinh danh Glenn T. Seaborg.</li><li>Cấu hình electron được dự đoán là [Rn] 5f¹⁴ 6d⁴ 7s², với số Oxy hóa quan trọng nhất là +6. Về mặt hóa học, Seaborgium được dự đoán và một phần quan sát thấy có tính chất tương tự Chromium và Molybdenum.</li><li>Seaborgium không có đồng vị bền, cực kỳ phóng xạ và chỉ được tạo ra với số lượng rất nhỏ. Vì vậy, nguyên tố này chưa có ứng dụng thực tế, chủ yếu phục vụ nghiên cứu khoa học.</li><li>Mạng tinh thể: Lập phương tâm khối (BCC) — dự đoán, vì chưa thể thu được lượng Seaborgium đủ lớn để xác định trực tiếp cấu trúc tinh thể.</li></ul>"
+    },
+    {
+      "field": "number",
+      "before": null,
+      "after": 106
+    },
+    {
+      "field": "occurrence",
+      "before": null,
+      "after": {
+        "description": "Chất rắn (dự đoán).",
+        "simple": [
+          "Sg"
+        ],
+        "compounds": [
+          "SgO₃",
+          "SgO₂Cl₂",
+          "SgCl₆²⁻... (được nghiên cứu/dự đoán ở quy mô nguyên tử)"
+        ],
+        "ores": [
+          "Không tồn tại tự nhiên với lượng đáng kể. Seaborgium chỉ được tổng hợp nhân tạo trong phòng thí nghiệm"
+        ],
+        "details": [
+          "Trạng thái: Chất rắn (dự đoán).",
+          "Có trong: Không tồn tại tự nhiên với lượng đáng kể. Seaborgium chỉ được tổng hợp nhân tạo trong phòng thí nghiệm.",
+          "Đơn chất: Sg",
+          "Hợp chất: SgO₃, SgO₂Cl₂, SgCl₆²⁻... (được nghiên cứu/dự đoán ở quy mô nguyên tử)"
+        ],
+        "mineral": {
+          "available": false,
+          "reason": "Nguyên tố nhân tạo hoặc chỉ có vết tự nhiên; không có quặng khai thác riêng để dựng mẫu."
+        }
+      }
+    },
+    {
+      "field": "physical",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Là kim loại chuyển tiếp.</li><li>Thuộc nhóm VIB | chu kỳ 7.</li><li>Là nguyên tố siêu nặng.</li><li>Có tính phóng xạ rất mạnh.</li><li>Được dự đoán là chất rắn ở điều kiện thường.</li><li>Chưa thể xác định trực tiếp các tính chất vĩ mô như màu sắc, khối lượng riêng, nhiệt độ nóng chảy và nhiệt độ sôi.</li></ul>"
+    },
+    {
+      "field": "preparations",
+      "before": null,
+      "after": {
+        "lab": [
+          {
+            "title": "Seaborgium được tổng hợp bằng cách bắn phá Californium-249 bằng ion Oxygen-18 trong máy gia tốc hạt.",
+            "desc": "",
+            "result": "",
+            "equations": [
+              {
+                "equation": "²⁴⁹Cf + ¹⁸O → ²⁶³Sg + 4¹n",
+                "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+                "kind": "nuclear",
+                "sourceLine": 61,
+                "sourceSection": "lab",
+                "balance": {
+                  "status": "balanced",
+                  "kind": "nuclear",
+                  "delta": {}
+                },
+                "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+              }
+            ],
+            "sourceLines": [
+              60,
+              61
+            ],
+            "equation": "²⁴⁹Cf + ¹⁸O → ²⁶³Sg + 4¹n"
+          }
+        ],
+        "industry": [
+          {
+            "title": "Seaborgium (Sg) không được sản xuất công nghiệp do tính phóng xạ rất cao và thời gian bán rã ngắn. Nguyên tố này chỉ được tổng hợp trong các cơ sở nghiên cứu hạt nhân.",
+            "desc": "",
+            "result": "",
+            "equations": [],
+            "sourceLines": [
+              58
+            ],
+            "equation": ""
+          }
+        ]
+      }
+    },
+    {
+      "field": "reactions",
+      "before": null,
+      "after": [
+        {
+          "type": "Tổng hợp Seaborgium-263",
+          "desc": "",
+          "equation": "²⁴⁹Cf + ¹⁸O → ²⁶³Sg + 4n",
+          "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+          "kind": "nuclear",
+          "sourceLine": 72,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Phân rã Alpha",
+          "desc": "",
+          "equation": "²⁶⁹Sg → ²⁶⁵Rf + ⁴He",
+          "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+          "kind": "nuclear",
+          "sourceLine": 74,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Seaborgium(VI) oxide",
+          "desc": "",
+          "equation": "2Sg + 3O₂ → 2SgO₃",
+          "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+          "kind": "formal",
+          "sourceLine": 76,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Seaborgium(VI) chloride",
+          "desc": "",
+          "equation": "Sg + 3Cl₂ → SgCl₆",
+          "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+          "kind": "formal",
+          "sourceLine": 78,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": null,
+      "after": [
+        {
+          "title": "Seaborgium được nhận biết thông qua",
+          "desc": "Năng lượng của bức xạ Alpha. Chu kỳ bán rã. Chuỗi phân rã đặc trưng. Xác định các hạt nhân con sinh ra sau phân rã. Trong một số thí nghiệm, nghiên cứu hành vi hóa học của từng nguyên tử Sg. Do chỉ tạo được một vài nguyên tử trong mỗi thí nghiệm, không thể nhận biết Seaborgium bằng các phản ứng hóa học thông thường.",
+          "result": "",
+          "equations": [],
+          "sourceLines": [
+            63,
+            64,
+            65,
+            66,
+            67,
+            68,
+            69
+          ],
+          "equation": ""
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "106_Sg.docx",
+        "sourceSha256": "a103b128852476870efa6f471c4bfae621d29d1e46128f3a3cf4ff9d543f1839",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/106_Sg.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "106_Sg.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "a103b128852476870efa6f471c4bfae621d29d1e46128f3a3cf4ff9d543f1839"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/106/seaborgium"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure",
+      "before": null,
+      "after": {
+        "protons": 106,
+        "electrons": 106,
+        "neutrons": 165,
+        "nucleusIsotope": "²⁷¹Sg",
+        "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+        "nucleus": {
+          "proton": 106,
+          "neutron": 165
+        },
+        "electronShells": [
+          2,
+          8,
+          18,
+          32,
+          32,
+          12,
+          2
+        ],
+        "shells": [
+          2,
+          8,
+          18,
+          32,
+          32,
+          12,
+          2
+        ],
+        "valenceElectrons": 2,
+        "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+        "lattice": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+        "latticeEvidence": "predicted"
+      }
+    },
+    {
+      "field": "structureType",
+      "before": null,
+      "after": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)"
+    },
+    {
+      "field": "symbol",
+      "before": null,
+      "after": "Sg"
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "Sg",
+      "status": "diagram",
+      "reason": "Không dùng ảnh mẫu vĩ mô không xác minh cho nguyên tố cực hiếm/nhân tạo."
+    },
+    "mineral": {
+      "available": false,
+      "reason": "Nguyên tố nhân tạo hoặc chỉ có vết tự nhiên; không có quặng khai thác riêng để dựng mẫu."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "Sg",
+      "z": 106,
+      "url": "https://periodic-table.rsc.org/element/106/seaborgium",
+      "status": "retrieved",
+      "bytes": 143388,
+      "sha256": "7e0ecd1c85be4bd4dbdd74ab7a2dd052741cc7c6e60fa4bde703499867c3e249",
+      "facts": {
+        "Group": "6",
+        "Melting point": "Unknown",
+        "Period": "7",
+        "Boiling point": "Unknown",
+        "Block": "d",
+        "Density (g cm−³)": "Unknown",
+        "Atomic number": "106",
+        "Relative atomic mass": "[269]",
+        "State at 20°C": "Solid",
+        "Key isotopes": "²⁷¹Sg",
+        "Electron configuration": "[Rn] 5f¹⁴6d⁴7s²",
+        "CAS number": "54038-81-2",
+        "ChemSpider ID": "-",
+        "electronegativity": "Unknown"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "106",
+      "Symbol": "Sg",
+      "Name": "Seaborgium",
+      "AtomicMass": "269.128",
+      "CPKHexColor": "D90045",
+      "ElectronConfiguration": "[Rn]7s2 5f14 6d4",
+      "Electronegativity": "",
+      "AtomicRadius": "",
+      "IonizationEnergy": "",
+      "ElectronAffinity": "",
+      "OxidationStates": "6, 5, 4, 3, 0",
+      "StandardState": "Solid",
+      "MeltingPoint": "",
+      "BoilingPoint": "",
+      "Density": "",
+      "GroupBlock": "Transition metal",
+      "YearDiscovered": "1974"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

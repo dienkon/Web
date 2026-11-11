@@ -1,0 +1,103 @@
+001: Californium (Cf)
+002: Thông tin chung
+003: Tên Latin: Californium
+004: Tên Tiếng Anh: Californium
+005: Đồng vị: ²⁴⁵Cf, ²⁴⁶Cf, ²⁴⁷Cf, ²⁴⁸Cf, ²⁴⁹Cf, ²⁵⁰Cf, ²⁵¹Cf, ²⁵²Cf, ²⁵³Cf, ²⁵⁴Cf
+006: Vị trí: Nhóm IIIB | Chu kỳ 7 | Họ Actinide
+007: Số Oxy hóa: +2, +3, +4
+008: Độ âm điện: 1,3 (Pauling)
+009: Lịch sử khám phá
+010: Phát hiện bởi: Stanley G. Thompson, Kenneth Street Jr., Albert Ghiorso và Glenn T. Seaborg
+011: Năm công bố: 1950
+012: Nơi khám phá: Berkeley, California, Hoa Kỳ
+013: Mô tả: Californium được tạo ra lần đầu tiên vào năm 1950 bằng cách bắn phá Curium-242 bằng các hạt alpha trong cyclotron.
+014: Phản ứng tạo Californium-245:
+015: ²⁴²Cm + ⁴He → ²⁴⁵Cf + n
+016: Tên Californium được đặt theo California, nơi nguyên tố được phát hiện.
+017: 3. Cấu tạo
+018: a. Cấu tạo nguyên tử
+019: Cấu hình electron: [Rn] 5f¹⁰ 7s²
+020: Mô hình mạng tinh thể: Lục phương (Hexagonal)
+021: Số hiệu nguyên tử: 98
+022: Nguyên tử khối: 251,07959 g/mol (giá trị quy ước cho đồng vị ²⁵¹Cf)
+023: Vỏ nguyên tử: 98 electron
+024: Hạt nhân: 98 proton
+025: Cấu hình e đầy đủ: [Rn] 5f¹⁰ 7s²
+026: Loại mạng: Lục phương (Hexagonal)
+027: b. Trạng thái tự nhiên
+028: Trạng thái: Chất rắn
+029: Màu sắc: Bạc trắng
+030: Có trong: Không tồn tại tự nhiên với lượng đáng kể; được tạo ra nhân tạo.
+031: Đơn chất: Cf
+032: Hợp chất phổ biến: Cf₂O₃, CfO₂, CfCl₃, CfF₃
+033: c. Đồng vị
+034: Californium không có đồng vị bền.
+035: Một số đồng vị quan trọng:
+036: ²⁴⁹Cf: chu kỳ bán rã khoảng 351 năm.
+037: ²⁵⁰Cf: chu kỳ bán rã khoảng 13,1 năm.
+038: ²⁵¹Cf: chu kỳ bán rã khoảng 900 năm.
+039: ²⁵²Cf: chu kỳ bán rã khoảng 2,65 năm.
+040: ²⁵³Cf: chu kỳ bán rã khoảng 17,8 ngày.
+041: ²⁵⁴Cf: chu kỳ bán rã khoảng 60,5 ngày.
+042: ²⁵²Cf là đồng vị đặc biệt quan trọng vì nó có tốc độ phát neutron tự phát cao.
+043: Tính chất
+044: Tính chất vật lý
+045: Là kim loại phóng xạ.
+046: Thuộc họ Actinide.
+047: Có màu bạc trắng.
+048: Rất hiếm và chỉ được sản xuất với lượng cực nhỏ.
+049: Có tính phóng xạ mạnh.
+050: Có nhiệt độ nóng chảy khoảng 900 °C.
+051: Khối lượng riêng khoảng 15,1 g/cm³.
+052: Tính chất hóa học
+053: Californium có các trạng thái Oxy hóa:
+054: +2
+055: +3
+056: +4
+057: Trong đó +3 là trạng thái phổ biến nhất.
+058: Californium có thể tạo Californium(III) oxide:
+059: 4Cf + 3O₂ → 2Cf₂O₃
+060: Ngoài ra có thể tạo Californium(IV) oxide:
+061: Cf + O₂ → CfO₂
+062: Điều chế
+063: Điều chế trong công nghiệp
+064: Californium (Cf) được điều chế bằng cách chiếu xạ neutron lên Curium trong lò phản ứng hạt nhân, sau đó tách Californium bằng phương pháp hóa học.
+065: ²⁴⁴Cm + ¹n → ²⁴⁵Cm
+066: ²⁴⁵Cm + ¹n → ²⁴⁶Cm
+067: ²⁴⁶Cm + ¹n → ²⁴⁷Cm
+068: Điều chế trong phòng thí nghiệm:
+069: Californium có thể được tạo ra bằng cách bắn phá Curium-242 bằng hạt Helium-4 (hạt alpha).
+070: ²⁴²Cm + ⁴He → ²⁴⁵Cf + ¹n
+071: Nhận biết
+072: Có thể nhận biết Californium bằng:
+073: Phổ alpha.
+074: Phổ gamma.
+075: Phân tích neutron.
+076: Đo hoạt độ phóng xạ.
+077: Phân tích phổ khối.
+078: Các phương pháp hóa phóng xạ.
+079: Đối với ²⁵²Cf, khả năng phát neutron tự phát là một đặc điểm rất đặc trưng.
+080: Phương trình
+081: Điều chế Californium-245
+082: ²⁴²Cm + ⁴He → ²⁴⁵Cf + n
+083: Tác dụng với Oxygen
+084: 4Cf + 3O₂ → 2Cf₂O₃
+085: Tạo Californium(IV) oxide
+086: Cf + O₂ → CfO₂
+087: Phân rã Alpha của Californium-252
+088: ²⁵²Cf → ²⁴⁸Cm + α
+089: Phân rã của Californium-249
+090: ²⁴⁹Cf → ²⁴⁵Cm + α
+091: Ứng dụng thực tế
+092: Nguồn neutron: ²⁵²Cf là nguồn neutron mạnh và có thể được sử dụng trong các thiết bị chuyên dụng tạo neutron.
+093: Phân tích vật liệu: Nguồn neutron từ ²⁵²Cf được sử dụng trong một số kỹ thuật phân tích kích hoạt neutron để xác định thành phần nguyên tố của vật liệu.
+094: Thăm dò giếng dầu: Nguồn neutron Californium từng được sử dụng trong một số thiết bị đo địa vật lý giếng khoan, giúp nghiên cứu thành phần và đặc tính của các lớp đất đá.
+095: Điều trị ung thư: Nguồn neutron từ ²⁵²Cf từng được nghiên cứu và sử dụng trong một số phương pháp xạ trị neutron.
+096: Nghiên cứu hạt nhân: Californium được sử dụng để nghiên cứu vật lý hạt nhân và các nguyên tố siêu nặng.
+097: Do tính phóng xạ cao và việc sản xuất khó khăn, Californium có giá trị rất lớn và chỉ được sử dụng trong những lĩnh vực chuyên biệt.
+098: Tổng quan
+099: Californium là nguyên tố số 98, thuộc nhóm IIIB | chu kỳ 7 và là nguyên tố thứ mười trong họ Actinide.
+100: Californium được Stanley G. Thompson, Kenneth Street Jr., Albert Ghiorso và Glenn T. Seaborg phát hiện vào năm 1950 tại Berkeley, California. Tên nguyên tố được đặt theo bang California.
+101: Californium là một kim loại phóng xạ nhân tạo, không có đồng vị bền. Trạng thái Oxy hóa phổ biến nhất là +3.
+102: Đồng vị nổi bật nhất là ²⁵²Cf, có khả năng phát ra một lượng lớn neutron tự phát. Đặc tính này khiến Californium có những ứng dụng đặc biệt trong nguồn neutron, phân tích vật liệu, địa vật lý và nghiên cứu hạt nhân.
+103: Mạng tinh thể: Lục phương (Hexagonal) ở điều kiện thường.

@@ -1,0 +1,1378 @@
+{
+  "symbol": "S",
+  "number": 16,
+  "source": "016_S.docx",
+  "sourceSha256": "86705c1c5a2e9e94636aad1dd434e4a5d565d30710f5c75b54a99be3c3fdeb2d",
+  "paragraphCount": 114,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 4,
+    "structure": 9,
+    "occurrence": 4,
+    "isotopes": 5,
+    "physical": 10,
+    "chemical": 9,
+    "lab": 3,
+    "industry": 7,
+    "recognition": 7,
+    "reactions": 21,
+    "applications": 8,
+    "notes": 4
+  },
+  "editorialDecisions": [
+    {
+      "line": 96,
+      "before": "S + Cl₂ → SCl₂",
+      "after": "2S + Cl₂ → S₂Cl₂",
+      "reason": "Chlorine hóa sulfur có kiểm soát tạo disulfur dichloride; tránh mặc định SCl₂ không bền là sản phẩm duy nhất."
+    }
+  ],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "1s² 2s² 2p⁶ 3s² 3p⁴",
+      "publishedValue": "[Ne] 3s² 3p⁴",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Trực thoi (Orthorhombic)",
+      "publishedValue": "Trực thoi (Orthorhombic)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "2.58",
+      "publishedValue": 2.58,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm VIA | Chu kỳ 3",
+      "publishedValue": "16",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Sulfur là chất rắn màu vàng ở điều kiện thường. Trong tự nhiên, Sulfur có thể tồn tại dưới dạng đơn chất hoặc hợp chất.",
+      "publishedValue": "Rắn",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 32,
+      "sourceText": "³²S: Đồng vị bền, chiếm khoảng 94.99% Sulfur tự nhiên.",
+      "reference": {
+        "isotope": "³²S",
+        "massNumber": 32,
+        "protons": 16,
+        "neutrons": 16,
+        "stable": true,
+        "abundancePercent": "94.850",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 33,
+      "sourceText": "³³S: Đồng vị bền, chiếm khoảng 0.75%.",
+      "reference": {
+        "isotope": "³³S",
+        "massNumber": 33,
+        "protons": 16,
+        "neutrons": 17,
+        "stable": true,
+        "abundancePercent": "0.763",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 34,
+      "sourceText": "³⁴S: Đồng vị bền, chiếm khoảng 4.25%.",
+      "reference": {
+        "isotope": "³⁴S",
+        "massNumber": 34,
+        "protons": 16,
+        "neutrons": 18,
+        "stable": true,
+        "abundancePercent": "4.365",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 35,
+      "sourceText": "³⁶S: Đồng vị bền, chiếm khoảng 0.01%.",
+      "reference": {
+        "isotope": "³⁶S",
+        "massNumber": 36,
+        "protons": 16,
+        "neutrons": 20,
+        "stable": true,
+        "abundancePercent": "0.0158",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 62,
+      "text": "2H₂S + O₂ → 2S + 2H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 64,
+      "text": "2H₂S + 3O₂ → 2SO₂ + 2H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 66,
+      "text": "2H₂S + SO₂ → 3S + 2H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 69,
+      "text": "2H₂S + SO₂ → 3S↓ + 2H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 74,
+      "text": "S²⁻ + Pb²⁺ → PbS↓",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 77,
+      "text": "SO₄²⁻ + Ba²⁺ → BaSO₄↓",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 81,
+      "text": "S + O₂ → SO₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 83,
+      "text": "2SO₂ + O₂ ⇌ 2SO₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 85,
+      "text": "H₂ + S → H₂S",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 87,
+      "text": "Fe + S → FeS",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 89,
+      "text": "Zn + S → ZnS",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 91,
+      "text": "2Cu + S → Cu₂S",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 94,
+      "text": "C + 2S → CS₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 96,
+      "text": "S + Cl₂ → SCl₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 98,
+      "text": "SO₃ + H₂O → H₂SO₄",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 100,
+      "text": "2H₂S + SO₂ → 3S + 2H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "lab",
+      "equation": "2H₂S + SO₂ → 3S↓ + 2H₂O",
+      "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+      "kind": "chemical",
+      "sourceLine": 69,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "2H₂S + O₂ → 2S + 2H₂O",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 62,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "2H₂S + 3O₂ → 2SO₂ + 2H₂O",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 64,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "2H₂S + SO₂ → 3S + 2H₂O",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 66,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "recognition",
+      "equation": "S²⁻ + Pb²⁺ → PbS↓",
+      "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+      "kind": "chemical",
+      "sourceLine": 74,
+      "sourceSection": "recognition",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "recognition",
+      "equation": "SO₄²⁻ + Ba²⁺ → BaSO₄↓",
+      "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+      "kind": "chemical",
+      "sourceLine": 77,
+      "sourceSection": "recognition",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "S + O₂ → SO₂",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 81,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2SO₂ + O₂ ⇌ 2SO₃",
+      "condition": "Xúc tác V₂O₅, khoảng 400–450 °C; phản ứng thuận nghịch.",
+      "kind": "chemical",
+      "sourceLine": 83,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "H₂ + S → H₂S",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 85,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Fe + S → FeS",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 87,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Zn + S → ZnS",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 89,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2Cu + S → Cu₂S",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 91,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "C + 2S → CS₂",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 94,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2S + Cl₂ → S₂Cl₂",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 96,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "SO₃ + H₂O → H₂SO₄",
+      "condition": "Tiếp xúc với nước; phản ứng/hydrat hóa tỏa nhiệt hoặc tạo cân bằng acid.",
+      "kind": "chemical",
+      "sourceLine": 98,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2H₂S + SO₂ → 3S + 2H₂O",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 100,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": [
+        {
+          "title": "Sản xuất Sulfuric acid",
+          "desc": "Đây là ứng dụng quan trọng nhất của Sulfur."
+        },
+        {
+          "title": "Phân bón",
+          "desc": "Sulfuric acid và Sulfur compounds được sử dụng trong sản xuất phân bón."
+        },
+        {
+          "title": "Lưu hóa cao su",
+          "desc": "Sulfur được sử dụng để tạo liên kết chéo trong cao su, giúp cải thiện độ bền và tính đàn hồi."
+        },
+        {
+          "title": "Sản xuất hóa chất",
+          "desc": "Dùng để sản xuất nhiều Sulfur compounds."
+        },
+        {
+          "title": "Thuốc bảo vệ thực vật",
+          "desc": "Một số chế phẩm Sulfur được sử dụng trong nông nghiệp."
+        },
+        {
+          "title": "Sản xuất thuốc",
+          "desc": "Sulfur compounds được sử dụng trong một số quy trình sản xuất dược phẩm."
+        },
+        {
+          "title": "Diêm và pháo",
+          "desc": "Một số hợp chất chứa Sulfur được sử dụng trong các sản phẩm tạo lửa và pháo hoa."
+        },
+        {
+          "title": "Lọc dầu",
+          "desc": "Sulfur được thu hồi trong quá trình xử lý dầu mỏ và khí tự nhiên nhằm loại bỏ Hydrogen sulfide."
+        }
+      ],
+      "after": [
+        {
+          "title": "Sản xuất Sulfuric acid",
+          "desc": "Đây là ứng dụng quan trọng nhất của Sulfur.",
+          "sourceLine": 102
+        },
+        {
+          "title": "Phân bón",
+          "desc": "Sulfuric acid và Sulfur compounds được sử dụng trong sản xuất phân bón.",
+          "sourceLine": 103
+        },
+        {
+          "title": "Lưu hóa cao su",
+          "desc": "Sulfur được sử dụng để tạo liên kết chéo trong cao su, giúp cải thiện độ bền và tính đàn hồi.",
+          "sourceLine": 104
+        },
+        {
+          "title": "Sản xuất hóa chất",
+          "desc": "Dùng để sản xuất nhiều Sulfur compounds.",
+          "sourceLine": 105
+        },
+        {
+          "title": "Thuốc bảo vệ thực vật",
+          "desc": "Một số chế phẩm Sulfur được sử dụng trong nông nghiệp.",
+          "sourceLine": 106
+        },
+        {
+          "title": "Sản xuất thuốc",
+          "desc": "Sulfur compounds được sử dụng trong một số quy trình sản xuất dược phẩm.",
+          "sourceLine": 107
+        },
+        {
+          "title": "Diêm và pháo",
+          "desc": "Một số hợp chất chứa Sulfur được sử dụng trong các sản phẩm tạo lửa và pháo hoa.",
+          "sourceLine": 108
+        },
+        {
+          "title": "Lọc dầu",
+          "desc": "Sulfur được thu hồi trong quá trình xử lý dầu mỏ và khí tự nhiên nhằm loại bỏ Hydrogen sulfide.",
+          "sourceLine": 109
+        }
+      ]
+    },
+    {
+      "field": "chemical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là phi kim.</li>\n      <li>Có tính Oxy hóa và tính khử tùy phản ứng.</li>\n      <li>Số Oxy hóa phổ biến: −2, +4, +6.</li>\n      <li>Phản ứng với Oxygen tạo Sulfur dioxide.</li>\n      <li>Phản ứng với Hydrogen tạo Hydrogen sulfide.</li>\n      <li>Phản ứng với nhiều kim loại tạo Metal sulfide.</li>\n      <li>Phản ứng với Halogen tạo Sulfur halide.</li>\n      <li>Có thể bị Oxy hóa tiếp thành Sulfur trioxide.</li>\n      <li>Sulfur dioxide có thể tiếp tục bị Oxy hóa thành Sulfur trioxide trong điều kiện thích hợp.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Là phi kim.</li><li>Có tính Oxy hóa và tính khử tùy phản ứng.</li><li>Số Oxy hóa phổ biến: −2, +4, +6.</li><li>Phản ứng với Oxygen tạo Sulfur dioxide.</li><li>Phản ứng với Hydrogen tạo Hydrogen sulfide.</li><li>Phản ứng với nhiều kim loại tạo Metal sulfide.</li><li>Phản ứng với Halogen tạo Sulfur halide.</li><li>Có thể bị Oxy hóa tiếp thành Sulfur trioxide.</li><li>Sulfur dioxide có thể tiếp tục bị Oxy hóa thành Sulfur trioxide trong điều kiện thích hợp.</li></ul>"
+    },
+    {
+      "field": "general.CAS",
+      "before": null,
+      "after": "7704-34-9"
+    },
+    {
+      "field": "general.electronConfig",
+      "before": "1s² 2s² 2p⁶ 3s² 3p⁴",
+      "after": "[Ne] 3s² 3p⁴"
+    },
+    {
+      "field": "general.electronegativityNote",
+      "before": null,
+      "after": "Thang Pauling; số liệu tổng hợp PubChem."
+    },
+    {
+      "field": "general.groupLabel",
+      "before": null,
+      "after": "16"
+    },
+    {
+      "field": "general.series",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "general.state",
+      "before": "",
+      "after": "Rắn"
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/photos/016_S.jpg",
+          "title": "Lưu huỳnh (S)",
+          "desc": "Ảnh tham chiếu mẫu Sulfur (S); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+          "source": "https://commons.wikimedia.org/wiki/File:Sulfur_-_El_Desierto_mine,_San_Pablo_de_Napa,_Daniel_Campos_Province,_Potos%C3%AD,_Bolivia.jpg",
+          "author": "Ivar Leidus",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "³²S",
+          "massNumber": 32,
+          "protons": 16,
+          "neutrons": 16,
+          "stable": true,
+          "abundancePercent": "94.850",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "³³S",
+          "massNumber": 33,
+          "protons": 16,
+          "neutrons": 17,
+          "stable": true,
+          "abundancePercent": "0.763",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "³⁴S",
+          "massNumber": 34,
+          "protons": 16,
+          "neutrons": 18,
+          "stable": true,
+          "abundancePercent": "4.365",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "³⁶S",
+          "massNumber": 36,
+          "protons": 16,
+          "neutrons": 20,
+          "stable": true,
+          "abundancePercent": "0.0158",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "standard-atomic-weight"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "32.06 ± 0.02"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": [
+        {
+          "type": "model",
+          "section": "structure",
+          "title": "Mẫu khoáng vật 3D · Sulfur tự sinh",
+          "src": "/assets/periodic-table/minerals/sulfur.glb",
+          "preview": "/assets/periodic-table/minerals/sulfur.png",
+          "desc": "S₈. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "nameVi",
+      "before": "Sulfur",
+      "after": "Lưu huỳnh"
+    },
+    {
+      "field": "naturalState.alt",
+      "before": null,
+      "after": "Sulfur: ảnh tham chiếu từ Commons"
+    },
+    {
+      "field": "naturalState.caption",
+      "before": null,
+      "after": "Ảnh tham chiếu mẫu Sulfur (S); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc."
+    },
+    {
+      "field": "naturalState.credit",
+      "before": null,
+      "after": "Ivar Leidus · CC BY-SA 4.0"
+    },
+    {
+      "field": "naturalState.image",
+      "before": null,
+      "after": "/assets/periodic-table/photos/016_S.jpg"
+    },
+    {
+      "field": "naturalState.kind",
+      "before": null,
+      "after": "photo"
+    },
+    {
+      "field": "naturalState.source",
+      "before": null,
+      "after": "https://commons.wikimedia.org/wiki/File:Sulfur_-_El_Desierto_mine,_San_Pablo_de_Napa,_Daniel_Campos_Province,_Potos%C3%AD,_Bolivia.jpg"
+    },
+    {
+      "field": "notes",
+      "before": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Sulfur là nguyên tố số 16, thuộc nhóm VIA | chu kỳ 3 và là một phi kim.</li>\n  <li>Sulfur có cấu hình electron 1s² 2s² 2p⁶ 3s² 3p⁴, với 6 electron hóa trị. Sulfur có nhiều dạng thù hình và có thể thể hiện cả tính Oxy hóa lẫn tính khử tùy vào phản ứng.</li>\n  <li>Trong tự nhiên, Sulfur tồn tại cả ở dạng đơn chất S₈ và dưới dạng nhiều hợp chất Sulfide, Sulfate. Sulfur cũng có mặt đáng kể trong dầu mỏ và khí tự nhiên dưới dạng Hydrogen sulfide.</li>\n  <li>Sulfur có vai trò rất quan trọng trong công nghiệp, đặc biệt là sản xuất Sulfuric acid, phân bón, lưu hóa cao su, hóa chất và xử lý dầu mỏ.</li>\n</ul>\n",
+      "after": "<ul class=\"element-prose-list\"><li>Sulfur là nguyên tố số 16, thuộc nhóm VIA | chu kỳ 3 và là một phi kim.</li><li>Sulfur có cấu hình electron 1s² 2s² 2p⁶ 3s² 3p⁴, với 6 electron hóa trị. Sulfur có nhiều dạng thù hình và có thể thể hiện cả tính Oxy hóa lẫn tính khử tùy vào phản ứng.</li><li>Trong tự nhiên, Sulfur tồn tại cả ở dạng đơn chất S₈ và dưới dạng nhiều hợp chất Sulfide, Sulfate. Sulfur cũng có mặt đáng kể trong dầu mỏ và khí tự nhiên dưới dạng Hydrogen sulfide.</li><li>Sulfur có vai trò rất quan trọng trong công nghiệp, đặc biệt là sản xuất Sulfuric acid, phân bón, lưu hóa cao su, hóa chất và xử lý dầu mỏ.</li></ul>"
+    },
+    {
+      "field": "occurrence.details",
+      "before": null,
+      "after": [
+        "Trạng thái: Sulfur là chất rắn màu vàng ở điều kiện thường. Trong tự nhiên, Sulfur có thể tồn tại dưới dạng đơn chất hoặc hợp chất.",
+        "Có trong: Mỏ Sulfur tự nhiên, khu vực núi lửa, khoáng vật Sulfide và Sulfate, dầu mỏ và khí tự nhiên.",
+        "Đơn chất: S₈",
+        "Hợp chất: H₂S, SO₂, SO₃, H₂SO₄, FeS₂, ZnS, CaSO₄..."
+      ]
+    },
+    {
+      "field": "occurrence.mineral",
+      "before": null,
+      "after": {
+        "available": true,
+        "id": "sulfur",
+        "name": "Sulfur tự sinh",
+        "formula": "S₈",
+        "habit": "bipyramid",
+        "color": "#e6c342",
+        "crystalSystem": "orthorhombic",
+        "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+        "source": "https://www.handbookofmineralogy.org/",
+        "sourceSearch": "https://rruff.info/Sulfur",
+        "model": "/assets/periodic-table/minerals/sulfur.glb",
+        "preview": "/assets/periodic-table/minerals/sulfur.png",
+        "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      }
+    },
+    {
+      "field": "physical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là chất rắn màu vàng ở điều kiện thường.</li>\n      <li>Có nhiều dạng thù hình.</li>\n      <li>Dạng ổn định ở nhiệt độ thường là Sulfur trực thoi.</li>\n      <li>Giòn và không dẫn điện tốt.</li>\n      <li>Không tan trong nước.</li>\n      <li>Tan tốt hơn trong một số dung môi hữu cơ.</li>\n      <li>Khối lượng riêng: khoảng 2.07 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 115.2 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 444.6 °C.</li>\n      <li>Có thể tạo hơi Sulfur khi được nung nóng.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Là chất rắn màu vàng ở điều kiện thường.</li><li>Có nhiều dạng thù hình.</li><li>Dạng ổn định ở nhiệt độ thường là Sulfur trực thoi.</li><li>Giòn và không dẫn điện tốt.</li><li>Không tan trong nước.</li><li>Tan tốt hơn trong một số dung môi hữu cơ.</li><li>Khối lượng riêng: khoảng 2.07 g/cm³.</li><li>Nhiệt độ nóng chảy: khoảng 115.2 °C.</li><li>Nhiệt độ sôi: khoảng 444.6 °C.</li><li>Có thể tạo hơi Sulfur khi được nung nóng.</li></ul>"
+    },
+    {
+      "field": "preparations.industry",
+      "before": [
+        {
+          "title": "Sulfur được thu hồi chủ yếu từ Hydrogen sulfide (H₂S) trong dầu mỏ và khí tự nhiên bằng Claus process.",
+          "equation": "",
+          "desc": ""
+        },
+        {
+          "title": "Phản ứng tổng quát:",
+          "equation": "2H₂S + O₂ → 2S + 2H₂O <br> 2H₂S + 3O₂ → 2SO₂ + 2H₂O <br> 2H₂S + SO₂ → 3S + 2H₂O",
+          "desc": "Một phần H₂S được đốt tạo Sulfur dioxide: Sau đó SO₂ phản ứng với H₂S:"
+        }
+      ],
+      "after": [
+        {
+          "title": "Sulfur được thu hồi chủ yếu từ Hydrogen sulfide (H₂S) trong dầu mỏ và khí tự nhiên bằng Claus process.",
+          "desc": "Phản ứng tổng quát:",
+          "result": "",
+          "equations": [
+            {
+              "equation": "2H₂S + O₂ → 2S + 2H₂O",
+              "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+              "kind": "chemical",
+              "sourceLine": 62,
+              "sourceSection": "industry",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            60,
+            61,
+            62
+          ],
+          "equation": "2H₂S + O₂ → 2S + 2H₂O"
+        },
+        {
+          "title": "Một phần H₂S được đốt tạo Sulfur dioxide",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "2H₂S + 3O₂ → 2SO₂ + 2H₂O",
+              "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+              "kind": "chemical",
+              "sourceLine": 64,
+              "sourceSection": "industry",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            63,
+            64
+          ],
+          "equation": "2H₂S + 3O₂ → 2SO₂ + 2H₂O"
+        },
+        {
+          "title": "Sau đó SO₂ phản ứng với H₂S",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "2H₂S + SO₂ → 3S + 2H₂O",
+              "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+              "kind": "chemical",
+              "sourceLine": 66,
+              "sourceSection": "industry",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            65,
+            66
+          ],
+          "equation": "2H₂S + SO₂ → 3S + 2H₂O"
+        }
+      ]
+    },
+    {
+      "field": "preparations.lab",
+      "before": [
+        {
+          "title": "Sulfur có thể được tạo ra bằng cách cho Hydrogen sulfide phản ứng với Sulfur dioxide:",
+          "equation": "2H₂S + SO₂ → 3S↓ + 2H₂O",
+          "desc": "Sulfur thu được có màu vàng."
+        }
+      ],
+      "after": [
+        {
+          "title": "Sulfur có thể được tạo ra bằng cách cho Hydrogen sulfide phản ứng với Sulfur dioxide",
+          "desc": "Sulfur thu được có màu vàng.",
+          "result": "",
+          "equations": [
+            {
+              "equation": "2H₂S + SO₂ → 3S↓ + 2H₂O",
+              "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+              "kind": "chemical",
+              "sourceLine": 69,
+              "sourceSection": "lab",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            68,
+            69,
+            70
+          ],
+          "equation": "2H₂S + SO₂ → 3S↓ + 2H₂O"
+        }
+      ]
+    },
+    {
+      "field": "reactions",
+      "before": [
+        {
+          "type": "Tác dụng với Oxygen",
+          "equation": "S + O₂ → SO₂",
+          "desc": ""
+        },
+        {
+          "type": "Oxy hóa Sulfur dioxide",
+          "equation": "2SO₂ + O₂ ⇌ 2SO₃",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Hydrogen",
+          "equation": "H₂ + S → H₂S",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Iron",
+          "equation": "Fe + S → FeS",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Zinc",
+          "equation": "Zn + S → ZnS",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Copper",
+          "equation": "2Cu + S → Cu₂S",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Carbon",
+          "equation": "C + 2S → CS₂",
+          "desc": "Ở nhiệt độ cao:"
+        },
+        {
+          "type": "Tác dụng với Chlorine",
+          "equation": "S + Cl₂ → SCl₂",
+          "desc": ""
+        },
+        {
+          "type": "Tạo Sulfuric acid",
+          "equation": "SO₃ + H₂O → H₂SO₄",
+          "desc": ""
+        },
+        {
+          "type": "Sulfur dioxide tác dụng với Hydrogen sulfide",
+          "equation": "2H₂S + SO₂ → 3S + 2H₂O",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "type": "Tác dụng với Oxygen",
+          "desc": "",
+          "equation": "S + O₂ → SO₂",
+          "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+          "kind": "chemical",
+          "sourceLine": 81,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Oxy hóa Sulfur dioxide",
+          "desc": "",
+          "equation": "2SO₂ + O₂ ⇌ 2SO₃",
+          "condition": "Xúc tác V₂O₅, khoảng 400–450 °C; phản ứng thuận nghịch.",
+          "kind": "chemical",
+          "sourceLine": 83,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Hydrogen",
+          "desc": "",
+          "equation": "H₂ + S → H₂S",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 85,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Iron",
+          "desc": "",
+          "equation": "Fe + S → FeS",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 87,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Zinc",
+          "desc": "",
+          "equation": "Zn + S → ZnS",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 89,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Copper",
+          "desc": "",
+          "equation": "2Cu + S → Cu₂S",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 91,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Ở nhiệt độ cao",
+          "desc": "",
+          "equation": "C + 2S → CS₂",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 94,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Chlorine",
+          "desc": "",
+          "equation": "2S + Cl₂ → S₂Cl₂",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 96,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Sulfuric acid",
+          "desc": "",
+          "equation": "SO₃ + H₂O → H₂SO₄",
+          "condition": "Tiếp xúc với nước; phản ứng/hydrat hóa tỏa nhiệt hoặc tạo cân bằng acid.",
+          "kind": "chemical",
+          "sourceLine": 98,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Sulfur dioxide tác dụng với Hydrogen sulfide",
+          "desc": "",
+          "equation": "2H₂S + SO₂ → 3S + 2H₂O",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 100,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": [
+        {
+          "title": "Nhận biết Sulfide (S²⁻)",
+          "reagent": "",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Cho ion Sulfide tác dụng với ion Lead(II)",
+          "reagent": "",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "",
+          "result": "",
+          "equation": "S²⁻ + Pb²⁺ → PbS↓"
+        },
+        {
+          "title": "Hiện tượng",
+          "reagent": "",
+          "result": "Xuất hiện kết tủa đen Lead(II) sulfide.",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết Sulfate (SO₄²⁻)",
+          "reagent": "",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "",
+          "result": "",
+          "equation": "SO₄²⁻ + Ba²⁺ → BaSO₄↓"
+        },
+        {
+          "title": "Hiện tượng",
+          "reagent": "",
+          "result": "Xuất hiện kết tủa trắng Barium sulfate.",
+          "equation": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Nhận biết Sulfide (S²⁻)",
+          "desc": "Cho ion Sulfide tác dụng với ion Lead(II):",
+          "result": "Xuất hiện kết tủa đen Lead(II) sulfide.",
+          "equations": [
+            {
+              "equation": "S²⁻ + Pb²⁺ → PbS↓",
+              "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+              "kind": "chemical",
+              "sourceLine": 74,
+              "sourceSection": "recognition",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            72,
+            73,
+            74,
+            75
+          ],
+          "equation": "S²⁻ + Pb²⁺ → PbS↓"
+        },
+        {
+          "title": "Nhận biết Sulfate (SO₄²⁻)",
+          "desc": "",
+          "result": "Xuất hiện kết tủa trắng Barium sulfate.",
+          "equations": [
+            {
+              "equation": "SO₄²⁻ + Ba²⁺ → BaSO₄↓",
+              "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+              "kind": "chemical",
+              "sourceLine": 77,
+              "sourceSection": "recognition",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            76,
+            77,
+            78
+          ],
+          "equation": "SO₄²⁻ + Ba²⁺ → BaSO₄↓"
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "016_S.docx",
+        "sourceSha256": "86705c1c5a2e9e94636aad1dd434e4a5d565d30710f5c75b54a99be3c3fdeb2d",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/016_S.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "016_S.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "86705c1c5a2e9e94636aad1dd434e4a5d565d30710f5c75b54a99be3c3fdeb2d"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/16/sulfur"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure.latticeEvidence",
+      "before": null,
+      "after": "phase-dependent"
+    },
+    {
+      "field": "structure.nucleusIsotope",
+      "before": null,
+      "after": "³²S"
+    },
+    {
+      "field": "structure.nucleusNote",
+      "before": null,
+      "after": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác."
+    },
+    {
+      "field": "structure.valenceNote",
+      "before": null,
+      "after": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp."
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "S",
+      "status": "downloaded",
+      "file": "/assets/periodic-table/photos/016_S.jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:Sulfur_-_El_Desierto_mine,_San_Pablo_de_Napa,_Daniel_Campos_Province,_Potos%C3%AD,_Bolivia.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/8/88/Sulfur_-_El_Desierto_mine%2C_San_Pablo_de_Napa%2C_Daniel_Campos_Province%2C_Potos%C3%AD%2C_Bolivia.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "thumbnail": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/88/Sulfur_-_El_Desierto_mine%2C_San_Pablo_de_Napa%2C_Daniel_Campos_Province%2C_Potos%C3%AD%2C_Bolivia.jpg/960px-Sulfur_-_El_Desierto_mine%2C_San_Pablo_de_Napa%2C_Daniel_Campos_Province%2C_Potos%C3%AD%2C_Bolivia.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "filename": "Sulfur_-_El_Desierto_mine,_San_Pablo_de_Napa,_Daniel_Campos_Province,_Potosí,_Bolivia.jpg",
+      "title": "Sulfur - El Desierto mine, San Pablo de Napa, Daniel Campos Province, Potosí, Bolivia",
+      "description": "Sulfur crystals on the matrix (4.8 × 3.5 × 3 cm). Found from El Desierto mine, San Pablo de Napa, Daniel Campos Province, Potosí, Bolivia",
+      "author": "Ivar Leidus",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "credit": "Own work",
+      "sha256": "e3903fd479346fbaaa7f90668ad6f50519820567f53858c7aa43fda7b265c1ec",
+      "bytes": 175009
+    },
+    "mineral": {
+      "available": true,
+      "id": "sulfur",
+      "name": "Sulfur tự sinh",
+      "formula": "S₈",
+      "habit": "bipyramid",
+      "color": "#e6c342",
+      "crystalSystem": "orthorhombic",
+      "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Sulfur",
+      "model": "/assets/periodic-table/minerals/sulfur.glb",
+      "preview": "/assets/periodic-table/minerals/sulfur.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "S",
+      "z": 16,
+      "url": "https://periodic-table.rsc.org/element/16/sulfur",
+      "status": "retrieved",
+      "bytes": 164687,
+      "sha256": "786a5c6ee0742317cbc022953749c176608e85fd28110d6a7d50584fc65c49a9",
+      "facts": {
+        "Group": "16",
+        "Melting point": "115.21°C, 239.38°F, 388.36 K",
+        "Period": "3",
+        "Boiling point": "444.61°C, 832.3°F, 717.76 K",
+        "Block": "p",
+        "Density (g cm−³)": "2.07",
+        "Atomic number": "16",
+        "Relative atomic mass": "32.06",
+        "State at 20°C": "Solid",
+        "Key isotopes": "³²S",
+        "Electron configuration": "[Ne] 3s²3p⁴",
+        "CAS number": "7704-34-9",
+        "ChemSpider ID": "4515054",
+        "electronegativity": "2.58"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "16",
+      "Symbol": "S",
+      "Name": "Sulfur",
+      "AtomicMass": "32.07",
+      "CPKHexColor": "FFFF30",
+      "ElectronConfiguration": "[Ne]3s2 3p4",
+      "Electronegativity": "2.58",
+      "AtomicRadius": "180",
+      "IonizationEnergy": "10.360",
+      "ElectronAffinity": "2.077",
+      "OxidationStates": "+6, +4, -2",
+      "StandardState": "Solid",
+      "MeltingPoint": "388.36",
+      "BoilingPoint": "717.75",
+      "Density": "2.067",
+      "GroupBlock": "Nonmetal",
+      "YearDiscovered": "Ancient"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

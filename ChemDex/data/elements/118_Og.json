@@ -1,50 +1,50 @@
 {
   "number": 118,
   "symbol": "Og",
+  "nameVi": "Oganesson",
+  "nameEn": "Oganesson",
   "mass": 294,
+  "massStandardText": "[294] — số khối đồng vị tham chiếu, không phải nguyên tử khối chuẩn",
+  "massStandardSource": "https://periodic-table.rsc.org/element/118/oganesson",
+  "massKind": "reference-isotope-mass-number",
   "category": "khi-hiem",
   "hasData": true,
+  "file": "elements/118_Og.json",
   "general": {
     "latinName": "Oganesson",
     "englishName": "Oganesson",
-    "electronConfig": "[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁶",
+    "electronConfig": "[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁶ (dự đoán)",
     "isotope": "²⁹⁴Og",
     "group": 18,
+    "groupLabel": "18",
+    "series": "",
     "period": 7,
-    "block": "p",
-    "state": "Rắn (dự đoán)",
-    "oxidation": "0 (dự đoán)",
-    "electronegativity": "Không xác định",
-    "density": "Chưa xác định",
-    "meltingPoint": "Chưa xác định",
-    "boilingPoint": "Chưa xác định",
-    "crystalStructure": "Chưa xác định"
+    "state": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+    "oxidation": "0, +2, +4, +6 (dự đoán)",
+    "electronegativity": null,
+    "electronegativityNote": "Chưa có giá trị Pauling đủ cơ sở trong bản đối chiếu; không coi 0 là giá trị đã đo.",
+    "density": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+    "meltingPoint": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+    "boilingPoint": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+    "crystalStructure": "Lập phương tâm diện (Face-centered cubic, FCC) (dự đoán)",
+    "CAS": "54144-19-3"
   },
   "history": {
-    "discoverer": "Nhóm JINR–LLNL",
-    "discovererUrl": "https://iupac.org/iupac-announces-the-names-of-the-elements-113-115-117-and-118/",
-    "discoverers": [
-      {
-        "name": "JINR (Dubna)",
-        "url": "https://www.jinr.ru/"
-      },
-      {
-        "name": "Lawrence Livermore National Laboratory",
-        "url": "https://www.llnl.gov/"
-      },
-      {
-        "name": "IUPAC",
-        "url": "https://iupac.org/"
-      }
-    ],
-    "year": 2002,
-    "discoveryLocation": "Dubna / Nga",
-    "description": "Oganesson được tổng hợp lần đầu vào năm 2002 trong các thí nghiệm va chạm hạt nhân siêu nặng. Năm 2016, IUPAC chính thức công nhận và đặt tên nguyên tố này là oganesson (Og), theo tên nhà vật lý hạt nhân Yuri Oganessian."
+    "discoverer": "Joint Institute for Nuclear Research (JINR) phối hợp với Lawrence Livermore National Laboratory (LLNL)",
+    "year": "2002",
+    "discoveryLocation": "Dubna, Nga",
+    "description": "Oganesson được tổng hợp lần đầu vào năm 2002 bằng cách bắn phá Calcium-48 vào Californium-249: ⁴⁸Ca + ²⁴⁹Cf → ²⁹⁴Og + 3¹n Tên Oganesson được đặt để vinh danh nhà vật lý hạt nhân Yuri Oganessian, người có đóng góp quan trọng trong việc phát hiện nhiều nguyên tố siêu nặng."
   },
   "structure": {
     "protons": 118,
-    "neutrons": 176,
     "electrons": 118,
+    "neutrons": 176,
+    "nucleusIsotope": "²⁹⁴Og",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 118,
+      "neutron": 176
+    },
     "electronShells": [
       2,
       8,
@@ -54,98 +54,270 @@
       18,
       8
     ],
+    "shells": [
+      2,
+      8,
+      18,
+      32,
+      32,
+      18,
+      8
+    ],
     "valenceElectrons": 8,
-    "lattice": "Chưa xác định",
-    "nucleus": {
-      "proton": 118,
-      "neutron": 176
-    },
-    "orbitalDistribution": {
-      "s": 2,
-      "p": 6,
-      "d": 10,
-      "f": 14
-    }
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+    "lattice": "Lập phương tâm diện (Face-centered cubic, FCC) (dự đoán)",
+    "latticeEvidence": "predicted"
   },
+  "structureType": "Lập phương tâm diện (Face-centered cubic, FCC) (dự đoán)",
   "occurrence": {
-    "description": "Oganesson không tồn tại tự nhiên với lượng đáng kể trên Trái Đất. Đây là nguyên tố nhân tạo, chỉ được tạo ra trong các máy gia tốc hạt và tồn tại trong thời gian cực ngắn.",
+    "description": "Chưa đo thực nghiệm trên mẫu vĩ mô; dự đoán phụ thuộc mô hình, không khẳng định là khí ở điều kiện thường.",
     "simple": [
       "Og"
     ],
-    "compounds": [],
-    "ores": []
+    "compounds": [
+      "OgF₂",
+      "OgF₄... (dự đoán)"
+    ],
+    "ores": [
+      "Không tồn tại tự nhiên với lượng đáng kể. Oganesson chỉ được tổng hợp nhân tạo"
+    ],
+    "details": [
+      "Trạng thái: Chưa đo thực nghiệm trên mẫu vĩ mô; dự đoán phụ thuộc mô hình, không khẳng định là khí ở điều kiện thường.",
+      "Có trong: Không tồn tại tự nhiên với lượng đáng kể. Oganesson chỉ được tổng hợp nhân tạo.",
+      "Đơn chất: Og",
+      "Hợp chất: OgF₂, OgF₄... (dự đoán)"
+    ],
+    "mineral": {
+      "available": false,
+      "reason": "Nguyên tố nhân tạo hoặc chỉ có vết tự nhiên; không có quặng khai thác riêng để dựng mẫu."
+    }
   },
   "naturalState": {
-    "title": "Oganesson trong tự nhiên",
-    "description": "Oganesson không có nguồn gốc tự nhiên bền vững. Mọi nguyên tử đã biết đều là sản phẩm nhân tạo trong nghiên cứu hạt nhân."
+    "image": "/assets/periodic-table/diagrams/118_Og.svg",
+    "alt": "Oganesson: sơ đồ minh họa nguyên tố",
+    "kind": "diagram",
+    "source": "",
+    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+    "credit": ""
   },
-  "mediaBlocks": [
+  "isotopes": [
     {
-      "section": "history",
-      "type": "video",
-      "title": "Lịch sử phát hiện Oganesson",
-      "src": "https://www.youtube.com/watch?v=YbfeDnQbHLo",
-      "questions": [
-        {
-          "time": "00:20",
-          "question": "Oganesson là nguyên tố số mấy?",
-          "options": [
-            "116",
-            "117",
-            "118",
-            "119"
-          ],
-          "correct": 2
-        },
-        {
-          "time": "00:40",
-          "question": "Og thuộc nhóm nào trong bảng tuần hoàn?",
-          "options": [
-            "Nhóm 17",
-            "Nhóm 18",
-            "Nhóm 1",
-            "Nhóm 2"
-          ],
-          "correct": 1
-        }
-      ]
+      "isotope": "²⁹⁴Og",
+      "massNumber": 294,
+      "protons": 118,
+      "neutrons": 176,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "0.58 (+0.44/−0.18) ms",
+      "halfLife": "0.58 ms",
+      "halfLifeUncertainty": "+44-18",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
     }
   ],
-  "physical": "\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Là nguyên tố siêu nặng, tổng hợp nhân tạo.</li>\n  <li>Thuộc nhóm khí hiếm, nhưng tính chất thực nghiệm còn rất hạn chế.</li>\n  <li>Trạng thái ở nhiệt độ phòng được dự đoán là <b>rắn</b>.</li>\n  <li>Có số nguyên tử lớn nhất trong các nguyên tố đã biết.</li>\n  <li>Thời gian sống của các đồng vị đã tạo ra là cực ngắn.</li>\n  <li>Các tính chất vật lý chi tiết hiện vẫn chủ yếu là dự đoán lý thuyết.</li>\n</ul>\n",
-  "chemical": "\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Oganesson là khí hiếm siêu nặng, nhưng có thể không “trơ” hoàn toàn như các khí hiếm nhẹ hơn.</li>\n  <li>Các tính chất hóa học của nó chủ yếu mới dừng ở mức dự đoán.</li>\n  <li>Có thể có độ phân cực lớn và hành vi khác thường do hiệu ứng tương đối tính.</li>\n  <li>Chưa có nhiều hợp chất bền được xác nhận thực nghiệm.</li>\n  <li>Phần lớn nghiên cứu hiện nay tập trung vào mô hình hóa lý thuyết và chuỗi phân rã hạt nhân.</li>\n</ul>\n",
-  "preparation": "\n<div class=\"space-y-3\">\n\n  <div>\n    <h4 class=\"font-bold text-cyan-400\">\n      Tổng hợp trong máy gia tốc hạt\n    </h4>\n\n    <p>\n      Oganesson được tạo ra bằng cách bắn phá hạt nhân rất nặng trong các thí nghiệm va chạm hạt nhân.\n    </p>\n  </div>\n\n  <div>\n    <h4 class=\"font-bold text-cyan-400\">\n      Quan sát chuỗi phân rã\n    </h4>\n\n    <p>\n      Nguyên tử Og được nhận diện thông qua các hạt nhân con sinh ra từ chuỗi phân rã alpha.\n    </p>\n  </div>\n\n</div>\n",
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Là nguyên tố thuộc nhóm VIIIA | chu kỳ 7.</li><li>Thuộc nhóm khí hiếm.</li><li>Là nguyên tố có số hiệu nguyên tử lớn nhất hiện được công nhận.</li><li>Có tính phóng xạ cực mạnh.</li><li>Chưa đo được trạng thái vật lý vĩ mô ở điều kiện thường; một số tính toán dự đoán trạng thái ngưng tụ. Các dự đoán không phải số liệu thực nghiệm.</li><li>Ước tính trong tài liệu, chưa đo trên mẫu vĩ mô: Có thể có nhiệt độ sôi tương đối cao so với các khí hiếm nhẹ.</li><li>Các tính chất vật lý thực nghiệm còn rất hạn chế.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Có cấu hình electron lớp ngoài cùng 7s² 7p⁶, tương ứng với lớp electron đóng hoàn toàn.</li><li>Được xếp vào khí hiếm, nhưng có thể hoạt động hóa học hơn các khí hiếm nhẹ.</li><li>Các số Oxy hóa +2, +4, +6 được dự đoán có thể tồn tại trong một số hợp chất.</li><li>Hiệu ứng tương đối tính cực mạnh có thể làm thay đổi đáng kể tính chất của Oganesson.</li><li>Có thể có khả năng tạo hợp chất với Fluorine và một số nguyên tố khác.</li><li>Nhiều tính chất vẫn chỉ là dự đoán lý thuyết vì Oganesson có chu kỳ sống cực ngắn.</li></ul>",
   "reactions": [
     {
-      "type": "Tổng hợp oganesson-294",
-      "equation": "²⁴⁹Cf + ⁴⁸Ca → ²⁹⁴Og + 3n",
-      "related": "Cf",
-      "condition": "máy gia tốc hạt / thí nghiệm hạt nhân siêu nặng",
-      "desc": "Đây là con đường đã dùng để tạo ra các nguyên tử oganesson đầu tiên."
+      "type": "Tổng hợp Oganesson-294",
+      "desc": "",
+      "equation": "⁴⁸Ca + ²⁴⁹Cf → ²⁹⁴Og + 3¹n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 71,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
-      "type": "Phân rã alpha",
+      "type": "Phân rã Alpha",
+      "desc": "",
       "equation": "²⁹⁴Og → ²⁹⁰Lv + ⁴He",
-      "related": "Lv",
-      "condition": "tự phát",
-      "desc": "Oganesson không bền và phân rã rất nhanh qua chuỗi hạt nhân con."
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 73,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tạo Oganesson(II) fluoride",
+      "desc": "",
+      "equation": "Og + F₂ → OgF₂",
+      "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+      "kind": "formal",
+      "sourceLine": 75,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tạo Oganesson(IV) fluoride",
+      "desc": "",
+      "equation": "Og + 2F₂ → OgF₄",
+      "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+      "kind": "formal",
+      "sourceLine": 77,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "preparations": {
+    "lab": [
+      {
+        "title": "Oganesson được tổng hợp bằng cách bắn phá Californium-249 bằng ion Calcium-48 trong máy gia tốc hạt.",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "²⁴⁹Cf + ⁴⁸Ca → ²⁹⁴Og + 3¹n",
+            "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+            "kind": "nuclear",
+            "sourceLine": 60,
+            "sourceSection": "lab",
+            "balance": {
+              "status": "balanced",
+              "kind": "nuclear",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          59,
+          60
+        ],
+        "equation": "²⁴⁹Cf + ⁴⁸Ca → ²⁹⁴Og + 3¹n"
+      }
+    ],
+    "industry": [
+      {
+        "title": "Oganesson (Og) không được sản xuất công nghiệp do tính phóng xạ cực cao và thời gian tồn tại rất ngắn. Nguyên tố này chỉ được tổng hợp với số lượng nguyên tử rất nhỏ trong các cơ sở nghiên cứu hạt nhân.",
+        "desc": "",
+        "result": "",
+        "equations": [],
+        "sourceLines": [
+          57
+        ],
+        "equation": ""
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Oganesson được nhận biết thông qua",
+      "desc": "Năng lượng của các hạt Alpha. Chu kỳ bán rã. Chuỗi phân rã phóng xạ. Xác định các hạt nhân con. Đối chiếu chuỗi phân rã với các hạt nhân đã biết. Do chỉ tạo ra được vài nguyên tử trong mỗi thí nghiệm, không thể nhận biết Oganesson bằng phương pháp hóa học thông thường.",
+      "result": "",
+      "equations": [],
+      "sourceLines": [
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68
+      ],
+      "equation": ""
     }
   ],
   "applications": [
     {
-      "title": "Nghiên cứu hạt nhân siêu nặng",
-      "desc": "Dùng để khảo sát giới hạn của bảng tuần hoàn và độ bền hạt nhân."
+      "title": "Ứng dụng",
+      "desc": "Oganesson không có ứng dụng công nghiệp hoặc dân dụng.",
+      "sourceLine": 80
     },
     {
-      "title": "Mô hình hóa lượng tử",
-      "desc": "Giúp kiểm tra các hiệu ứng tương đối tính trong nguyên tử cực nặng."
+      "title": "Nó chủ yếu được sử dụng trong",
+      "desc": "",
+      "sourceLine": 81
     },
     {
-      "title": "Nghiên cứu chuỗi phân rã",
-      "desc": "Được dùng để nhận diện và truy vết các hạt nhân con trong vật lý hạt nhân."
+      "title": "Nghiên cứu hạt nhân",
+      "desc": "Nghiên cứu các hạt nhân siêu nặng và giới hạn của độ bền hạt nhân.",
+      "sourceLine": 82
+    },
+    {
+      "title": "Nghiên cứu “đảo ổn định”",
+      "desc": "Oganesson nằm ở vùng cuối của bảng tuần hoàn hiện tại và có vai trò quan trọng trong nghiên cứu các hạt nhân siêu nặng.",
+      "sourceLine": 83
+    },
+    {
+      "title": "Hóa học nguyên tố siêu nặng",
+      "desc": "Nghiên cứu xem Oganesson có thực sự thể hiện đầy đủ tính chất của một khí hiếm hay không.",
+      "sourceLine": 84
+    },
+    {
+      "title": "Vật lý nguyên tử",
+      "desc": "Nghiên cứu ảnh hưởng của hiệu ứng tương đối tính cực mạnh lên electron của nguyên tử có Z = 118.",
+      "sourceLine": 85
     }
   ],
-  "notes": "\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Nguyên tố số 118 trong bảng tuần hoàn.</li>\n  <li>Là nguyên tố cuối cùng của chu kỳ 7.</li>\n  <li>Thuộc nhóm khí hiếm nhưng có tính chất dự đoán rất bất thường.</li>\n  <li>Phần lớn dữ liệu hiện nay là từ mô hình lý thuyết và thí nghiệm hạt nhân siêu nặng.</li>\n</ul>\n",
-  "nameVi": "Oganesson",
-  "nameEn": "Oganesson",
-  "file": "elements/118_Og.json"
+  "notes": "<ul class=\"element-prose-list\"><li>Oganesson là nguyên tố số 118, thuộc nhóm VIIIA | chu kỳ 7 và là khí hiếm siêu nặng. Đây là nguyên tố có số hiệu nguyên tử lớn nhất trong bảng tuần hoàn hiện nay.</li><li>Oganesson được tổng hợp lần đầu vào năm 2002 tại Dubna, Nga, bằng phản ứng giữa Calcium-48 và Californium-249. Tên nguyên tố được đặt để vinh danh nhà vật lý hạt nhân Yuri Oganessian.</li><li>Cấu hình electron được dự đoán là [Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁶. Mặc dù nằm trong nhóm khí hiếm, Oganesson có thể có tính chất khác biệt đáng kể so với các khí hiếm nhẹ do hiệu ứng tương đối tính cực mạnh.</li><li>Oganesson không có đồng vị bền, có tính phóng xạ cực mạnh và chỉ tạo được vài nguyên tử trong các thí nghiệm. Vì vậy, nó không có ứng dụng thực tế, chủ yếu phục vụ nghiên cứu vật lý hạt nhân và hóa học nguyên tố siêu nặng.</li><li>Mạng tinh thể: Lập phương tâm diện (FCC) — dự đoán, nếu Oganesson có trạng thái ngưng tụ phù hợp; cấu trúc tinh thể thực tế chưa thể xác định bằng thực nghiệm do thời gian sống cực ngắn.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/diagrams/118_Og.svg",
+      "title": "Oganesson (Og)",
+      "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+      "source": "",
+      "author": "ChemDex",
+      "license": "ChemDex schematic diagram",
+      "licenseUrl": ""
+    }
+  ],
+  "mediaBlocks": [],
+  "sources": [
+    {
+      "title": "118_Og.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "950ca9ef21576e92f1036c0c8791965db0e7c48850d4a652491aed0d02a038c5"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/118/oganesson"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "118_Og.docx",
+    "sourceSha256": "950ca9ef21576e92f1036c0c8791965db0e7c48850d4a652491aed0d02a038c5",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/118_Og.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
 }

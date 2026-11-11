@@ -1,37 +1,50 @@
 {
   "number": 9,
   "symbol": "F",
-  "nameVi": "Fluorine",
+  "nameVi": "Flo",
   "nameEn": "Fluorine",
   "mass": 18.998,
+  "massStandardText": "18.998 ± 0.001",
+  "massStandardSource": "https://ciaaw.org/abridged-atomic-weights.htm",
+  "massKind": "standard-atomic-weight",
   "category": "halogen",
   "hasData": true,
   "file": "elements/009_F.json",
   "general": {
     "latinName": "Fluorum",
     "englishName": "Fluorine",
-    "electronConfig": "1s² 2s² 2p⁵",
+    "electronConfig": "[He] 2s² 2p⁵",
     "isotope": "¹⁷F, ¹⁸F, ¹⁹F, ²⁰F",
     "group": 17,
+    "groupLabel": "17",
+    "series": "",
     "period": 2,
-    "state": "",
+    "state": "Khí",
     "oxidation": "−1, 0",
     "electronegativity": 3.98,
+    "electronegativityNote": "Thang Pauling; số liệu tổng hợp PubChem.",
     "density": "khoảng 1.70 g/L ở 0 °C và 1 atm.",
     "meltingPoint": "−219.67 °C.",
     "boilingPoint": "−188.11 °C.",
-    "crystalStructure": "Lập phương tâm mặt (FCC)"
+    "crystalStructure": "F₂ là khí ở điều kiện thường; α-F₂ rắn có cấu trúc đơn tà, β-F₂ có cấu trúc lập phương tùy nhiệt độ.",
+    "CAS": "7782-41-4"
   },
   "history": {
     "discoverer": "Henri Moissan",
-    "year": 1886,
+    "year": "1886",
     "discoveryLocation": "Pháp",
     "description": "Fluorine là nguyên tố rất khó cô lập do tính Oxy hóa cực mạnh. Năm 1886, Henri Moissan lần đầu tiên điều chế được Fluorine dạng đơn chất bằng phương pháp điện phân hỗn hợp Hydrogen fluoride và Potassium fluoride nóng chảy. Ông được trao giải Nobel Hóa học năm 1906 cho công trình nghiên cứu Fluorine."
   },
   "structure": {
     "protons": 9,
-    "neutrons": 10,
     "electrons": 9,
+    "neutrons": 10,
+    "nucleusIsotope": "¹⁹F",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 9,
+      "neutron": 10
+    },
     "electronShells": [
       2,
       7
@@ -41,12 +54,11 @@
       7
     ],
     "valenceElectrons": 7,
-    "lattice": "Lập phương tâm mặt (FCC)",
-    "nucleus": {
-      "proton": 9,
-      "neutron": 10
-    }
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+    "lattice": "F₂ là khí ở điều kiện thường; α-F₂ rắn có cấu trúc đơn tà, β-F₂ có cấu trúc lập phương tùy nhiệt độ.",
+    "latticeEvidence": "phase-dependent"
   },
+  "structureType": "F₂ là khí ở điều kiện thường; α-F₂ rắn có cấu trúc đơn tà, β-F₂ có cấu trúc lập phương tùy nhiệt độ.",
   "occurrence": {
     "description": "Fluorine có tính Oxy hóa rất mạnh nên không tồn tại tự do trong tự nhiên. Nó chủ yếu tồn tại dưới dạng Fluoride trong khoáng vật.",
     "simple": [
@@ -64,142 +76,423 @@
       "Fluorite",
       "Cryolite",
       "Fluorapatite và nước biển"
-    ]
+    ],
+    "details": [
+      "Trạng thái: Fluorine có tính Oxy hóa rất mạnh nên không tồn tại tự do trong tự nhiên. Nó chủ yếu tồn tại dưới dạng Fluoride trong khoáng vật.",
+      "Có trong: Fluorite, Cryolite, Fluorapatite và nước biển.",
+      "Đơn chất: F₂",
+      "Hợp chất: CaF₂, Na₃AlF₆, NaF, HF, SF₆, CF₄..."
+    ],
+    "mineral": {
+      "available": true,
+      "id": "fluorite",
+      "name": "Fluorite",
+      "formula": "CaF₂",
+      "habit": "octahedral",
+      "color": "#a77ae0",
+      "crystalSystem": "cubic",
+      "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Fluorite",
+      "model": "/assets/periodic-table/minerals/fluorite.glb",
+      "preview": "/assets/periodic-table/minerals/fluorite.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
   },
   "naturalState": {
-    "description": "Fluorine có tính Oxy hóa rất mạnh nên không tồn tại tự do trong tự nhiên. Nó chủ yếu tồn tại dưới dạng Fluoride trong khoáng vật.",
-    "simple": [
-      "F₂"
-    ],
-    "compounds": [
-      "CaF₂",
-      "Na₃AlF₆",
-      "NaF",
-      "HF",
-      "SF₆",
-      "CF₄"
-    ],
-    "minerals": [
-      "Fluorite",
-      "Cryolite",
-      "Fluorapatite",
-      "Nước biển"
-    ]
+    "image": "/assets/periodic-table/photos/009_F.jpg",
+    "alt": "Fluorine: ảnh tham chiếu từ Commons",
+    "kind": "photo",
+    "source": "https://commons.wikimedia.org/wiki/File:Fluoro_liquido_a_-196%C2%B0C_1.jpg",
+    "caption": "Fluorine lỏng ở −196 °C; ở nhiệt độ phòng fluorine là khí.",
+    "credit": "Fulvio314 · CC BY-SA 3.0"
   },
-  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là chất khí màu vàng nhạt ở điều kiện thường.</li>\n      <li>Có mùi hắc, kích thích mạnh.</li>\n      <li>Là nguyên tố có độ âm điện cao nhất.</li>\n      <li>Là halogen nhẹ nhất.</li>\n      <li>Khối lượng mol của F₂: 37.9968 g/mol.</li>\n      <li>Khối lượng riêng: khoảng 1.70 g/L ở 0 °C và 1 atm.</li>\n      <li>Nhiệt độ nóng chảy: −219.67 °C.</li>\n      <li>Nhiệt độ sôi: −188.11 °C.</li>\n      <li>Ít tan trong nước và phản ứng với nước.</li>\n      <li>Có tính Oxy hóa cực mạnh.</li>\n    </ul>\n  ",
-  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là phi kim thuộc nhóm VIIA.</li>\n      <li>Có độ âm điện cao nhất trong bảng tuần hoàn.</li>\n      <li>Là chất Oxy hóa mạnh nhất trong các nguyên tố.</li>\n      <li>Số Oxy hóa phổ biến nhất: −1.</li>\n      <li>Phản ứng mạnh với hầu hết các kim loại tạo Fluoride.</li>\n      <li>Phản ứng với nhiều phi kim.</li>\n      <li>Phản ứng với Hydrogen tạo Hydrogen fluoride.</li>\n      <li>Có thể phản ứng với nước tạo HF và Oxygen.</li>\n      <li>Có khả năng Oxy hóa các halogen khác.</li>\n      <li>Phản ứng với nhiều hợp chất hữu cơ và vô cơ.</li>\n    </ul>\n  ",
+  "isotopes": [
+    {
+      "isotope": "¹⁷F",
+      "massNumber": 17,
+      "protons": 9,
+      "neutrons": 8,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "64.49 ± 0.16 s",
+      "halfLife": "64.49 s",
+      "halfLifeUncertainty": "16",
+      "halfLifeQualifier": null,
+      "decay": "EC+B+",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹⁸F",
+      "massNumber": 18,
+      "protons": 9,
+      "neutrons": 9,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "109.77 ± 0.05 phút",
+      "halfLife": "109.77 m",
+      "halfLifeUncertainty": "5",
+      "halfLifeQualifier": null,
+      "decay": "EC+B+",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹⁹F",
+      "massNumber": 19,
+      "protons": 9,
+      "neutrons": 10,
+      "stable": true,
+      "abundancePercent": "100",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁰F",
+      "massNumber": 20,
+      "protons": 9,
+      "neutrons": 11,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "11.07 ± 0.06 s",
+      "halfLife": "11.07 s",
+      "halfLifeUncertainty": "6",
+      "halfLifeQualifier": null,
+      "decay": "B-",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Là chất khí màu vàng nhạt ở điều kiện thường.</li><li>Có mùi hắc, kích thích mạnh.</li><li>Là nguyên tố có độ âm điện cao nhất.</li><li>Là halogen nhẹ nhất.</li><li>Khối lượng mol của F₂: 37.9968 g/mol.</li><li>Khối lượng riêng: khoảng 1.70 g/L ở 0 °C và 1 atm.</li><li>Nhiệt độ nóng chảy: −219.67 °C.</li><li>Nhiệt độ sôi: −188.11 °C.</li><li>Ít tan trong nước và phản ứng với nước.</li><li>Có tính Oxy hóa cực mạnh.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Là phi kim thuộc nhóm VIIA.</li><li>Có độ âm điện cao nhất trong bảng tuần hoàn.</li><li>Là chất Oxy hóa mạnh nhất trong các nguyên tố.</li><li>Số Oxy hóa phổ biến nhất: −1.</li><li>Phản ứng mạnh với hầu hết các kim loại tạo Fluoride.</li><li>Phản ứng với nhiều phi kim.</li><li>Phản ứng với Hydrogen tạo Hydrogen fluoride.</li><li>Có thể phản ứng với nước tạo HF và Oxygen.</li><li>Có khả năng Oxy hóa các halogen khác.</li><li>Phản ứng với nhiều hợp chất hữu cơ và vô cơ.</li></ul>",
   "reactions": [
     {
       "type": "Tác dụng với Hydrogen",
+      "desc": "",
       "equation": "H₂ + F₂ → 2HF",
-      "desc": ""
+      "condition": "Phản ứng rất mạnh khi tiếp xúc, không cần xúc tác hay đun nóng.",
+      "kind": "chemical",
+      "sourceLine": 78,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Sodium",
+      "desc": "",
       "equation": "2Na + F₂ → 2NaF",
-      "desc": ""
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 80,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Calcium",
+      "desc": "",
       "equation": "Ca + F₂ → CaF₂",
-      "desc": ""
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 82,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Iron",
+      "desc": "",
       "equation": "2Fe + 3F₂ → 2FeF₃",
-      "desc": ""
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 84,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Sulfur",
+      "desc": "",
       "equation": "S + 3F₂ → SF₆",
-      "desc": ""
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 86,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Phosphorus",
+      "desc": "",
       "equation": "2P + 5F₂ → 2PF₅",
-      "desc": ""
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 88,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với nước",
+      "desc": "",
       "equation": "2F₂ + 2H₂O → 4HF + O₂",
-      "desc": ""
-    },
-    {
-      "type": "Oxi hóa Chlorine",
-      "equation": "F₂ + 2Cl⁻ → 2F⁻ + Cl₂",
-      "desc": ""
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 90,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     }
   ],
-  "applications": [
-    {
-      "title": "Sản xuất Fluoride",
-      "desc": "Fluorine được sử dụng để sản xuất nhiều hợp chất Fluoride."
-    },
-    {
-      "title": "Công nghiệp hạt nhân",
-      "desc": "Một số hợp chất Fluorine, đặc biệt Uranium hexafluoride (UF₆), được sử dụng trong quá trình xử lý và làm giàu Uranium."
-    },
-    {
-      "title": "Vật liệu chống dính",
-      "desc": "Fluorine được sử dụng để sản xuất các polymer chứa Fluorine như PTFE."
-    },
-    {
-      "title": "Công nghiệp hóa chất",
-      "desc": "Sản xuất nhiều hợp chất Fluorine dùng trong hóa chất và vật liệu kỹ thuật."
-    },
-    {
-      "title": "Y học",
-      "desc": "¹⁸F được sử dụng trong Positron Emission Tomography (PET) để tạo các chất đánh dấu phóng xạ."
-    },
-    {
-      "title": "Kem đánh răng",
-      "desc": "Fluoride compounds như Sodium fluoride được sử dụng để giúp bảo vệ men răng."
-    },
-    {
-      "title": "Làm lạnh",
-      "desc": "Một số hợp chất Fluorine được sử dụng làm môi chất lạnh."
-    }
-  ],
-  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Fluorine là nguyên tố số 9, thuộc nhóm VIIA | chu kỳ 2 và là halogen.</li>\n  <li>Fluorine có độ âm điện cao nhất trong bảng tuần hoàn (3.98) và là chất Oxy hóa mạnh nhất trong các nguyên tố. Ở điều kiện thường, Fluorine tồn tại dưới dạng phân tử F₂, có màu vàng nhạt.</li>\n  <li>Do tính phản ứng cực mạnh, Fluorine không tồn tại tự do trong tự nhiên mà chủ yếu tồn tại dưới dạng Fluoride trong khoáng vật.</li>\n  <li>Fluorine và các hợp chất của nó có nhiều ứng dụng trong công nghiệp hóa chất, vật liệu chống dính, công nghệ hạt nhân, y học và chăm sóc răng miệng.</li>\n</ul>\n",
   "preparations": {
     "lab": [
       {
-        "title": "Phương pháp điều chế vẫn dựa trên điện phân hỗn hợp Hydrogen fluoride và Potassium fluoride nóng chảy:",
-        "equation": "2HF → H₂ + F₂",
-        "desc": ""
+        "title": "Fluorine không được điều chế bằng các phản ứng hóa học thông thường trong phòng thí nghiệm do tính Oxy hóa cực mạnh.",
+        "desc": "Phương pháp điều chế vẫn dựa trên điện phân hỗn hợp Hydrogen fluoride và Potassium fluoride nóng chảy:",
+        "result": "",
+        "equations": [
+          {
+            "equation": "2HF → H₂ + F₂",
+            "condition": "Điện phân HF khan/KHF₂ nóng chảy, thiết bị chuyên dụng; không điện phân dung dịch HF trong nước.",
+            "kind": "chemical",
+            "sourceLine": 72,
+            "sourceSection": "lab",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          70,
+          71,
+          72
+        ],
+        "equation": "2HF → H₂ + F₂"
       }
     ],
     "industry": [
       {
         "title": "Fluorine được sản xuất chủ yếu bằng điện phân hỗn hợp Hydrogen fluoride và Potassium fluoride nóng chảy.",
-        "equation": "",
-        "desc": ""
+        "desc": "Quá trình điện phân: Tại anode:",
+        "result": "",
+        "equations": [
+          {
+            "equation": "2F⁻ → F₂ + 2e⁻",
+            "condition": "Điện cực của bình điện phân; muối khan nóng chảy đối với kim loại hoạt động mạnh, không dùng dung dịch nước để thu kim loại.",
+            "kind": "chemical",
+            "sourceLine": 63,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          60,
+          61,
+          62,
+          63
+        ],
+        "equation": "2F⁻ → F₂ + 2e⁻"
       },
       {
-        "title": "Quá trình điện phân:",
-        "equation": "",
-        "desc": ""
+        "title": "Tại cathode",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "2H⁺ + 2e⁻ → H₂",
+            "condition": "Điện cực của bình điện phân; muối khan nóng chảy đối với kim loại hoạt động mạnh, không dùng dung dịch nước để thu kim loại.",
+            "kind": "chemical",
+            "sourceLine": 65,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          64,
+          65
+        ],
+        "equation": "2H⁺ + 2e⁻ → H₂"
       },
       {
-        "title": "Tại anode:",
-        "equation": "2F⁻ → F₂ + 2e⁻ <br> 2H⁺ + 2e⁻ → H₂ <br> 2HF → H₂ + F₂",
-        "desc": "Tại cathode: Phương trình tổng quát: Potassium fluoride được sử dụng để tạo môi trường điện phân thích hợp vì Hydrogen fluoride tinh khiết có độ dẫn điện thấp."
+        "title": "Phương trình tổng quát",
+        "desc": "Potassium fluoride được sử dụng để tạo môi trường điện phân thích hợp vì Hydrogen fluoride tinh khiết có độ dẫn điện thấp.",
+        "result": "",
+        "equations": [
+          {
+            "equation": "2HF → H₂ + F₂",
+            "condition": "Điện phân HF khan/KHF₂ nóng chảy, thiết bị chuyên dụng; không điện phân dung dịch HF trong nước.",
+            "kind": "chemical",
+            "sourceLine": 67,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          66,
+          67,
+          68
+        ],
+        "equation": "2HF → H₂ + F₂"
       }
     ]
   },
   "recognition": [
     {
-      "title": "Giấy thử",
-      "reagent": "",
-      "result": "Fluorine không có một phép thử đơn giản, an toàn và đặc hiệu thường dùng trong phòng thí nghiệm phổ thông.",
-      "equation": ""
-    },
-    {
-      "title": "Đặc điểm",
-      "reagent": "",
-      "result": "Fluorine là khí màu vàng nhạt và có tính Oxy hóa rất mạnh, nhưng màu sắc không được xem là phương pháp nhận biết chính xác.",
+      "title": "Giấy thử: Fluorine không có một phép thử đơn giản, an toàn và đặc hiệu thường dùng trong phòng thí nghiệm phổ thông.",
+      "desc": "Đặc điểm: Fluorine là khí màu vàng nhạt và có tính Oxy hóa rất mạnh, nhưng màu sắc không được xem là phương pháp nhận biết chính xác.",
+      "result": "",
+      "equations": [],
+      "sourceLines": [
+        74,
+        75
+      ],
       "equation": ""
     }
   ],
-  "structureType": "Lập phương tâm mặt (FCC)"
+  "applications": [
+    {
+      "title": "Sản xuất Fluoride",
+      "desc": "Fluorine được sử dụng để sản xuất nhiều hợp chất Fluoride.",
+      "sourceLine": 94
+    },
+    {
+      "title": "Công nghiệp hạt nhân",
+      "desc": "Một số hợp chất Fluorine, đặc biệt Uranium hexafluoride (UF₆), được sử dụng trong quá trình xử lý và làm giàu Uranium.",
+      "sourceLine": 95
+    },
+    {
+      "title": "Vật liệu chống dính",
+      "desc": "Fluorine được sử dụng để sản xuất các polymer chứa Fluorine như PTFE.",
+      "sourceLine": 96
+    },
+    {
+      "title": "Công nghiệp hóa chất",
+      "desc": "Sản xuất nhiều hợp chất Fluorine dùng trong hóa chất và vật liệu kỹ thuật.",
+      "sourceLine": 97
+    },
+    {
+      "title": "Y học",
+      "desc": "¹⁸F được sử dụng trong Positron Emission Tomography (PET) để tạo các chất đánh dấu phóng xạ.",
+      "sourceLine": 98
+    },
+    {
+      "title": "Kem đánh răng",
+      "desc": "Fluoride compounds như Sodium fluoride được sử dụng để giúp bảo vệ men răng.",
+      "sourceLine": 99
+    },
+    {
+      "title": "Làm lạnh",
+      "desc": "Một số hợp chất Fluorine được sử dụng làm môi chất lạnh.",
+      "sourceLine": 100
+    }
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Fluorine là nguyên tố số 9, thuộc nhóm VIIA | chu kỳ 2 và là halogen.</li><li>Fluorine có độ âm điện cao nhất trong bảng tuần hoàn (3.98) và là chất Oxy hóa mạnh nhất trong các nguyên tố. Ở điều kiện thường, Fluorine tồn tại dưới dạng phân tử F₂, có màu vàng nhạt.</li><li>Do tính phản ứng cực mạnh, Fluorine không tồn tại tự do trong tự nhiên mà chủ yếu tồn tại dưới dạng Fluoride trong khoáng vật.</li><li>Fluorine và các hợp chất của nó có nhiều ứng dụng trong công nghiệp hóa chất, vật liệu chống dính, công nghệ hạt nhân, y học và chăm sóc răng miệng.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/photos/009_F.jpg",
+      "title": "Flo (F)",
+      "desc": "Fluorine lỏng ở −196 °C; ở nhiệt độ phòng fluorine là khí.",
+      "source": "https://commons.wikimedia.org/wiki/File:Fluoro_liquido_a_-196%C2%B0C_1.jpg",
+      "author": "Fulvio314",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+    }
+  ],
+  "mediaBlocks": [
+    {
+      "type": "model",
+      "section": "structure",
+      "title": "Mẫu khoáng vật 3D · Fluorite",
+      "src": "/assets/periodic-table/minerals/fluorite.glb",
+      "preview": "/assets/periodic-table/minerals/fluorite.png",
+      "desc": "CaF₂. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  ],
+  "sources": [
+    {
+      "title": "009_F.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "f7b630d9aac6869d3801283acc12a85b3abb84c639f00855cf6c688ccc12b76f"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/9/fluorine"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "009_F.docx",
+    "sourceSha256": "f7b630d9aac6869d3801283acc12a85b3abb84c639f00855cf6c688ccc12b76f",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/009_F.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
 }

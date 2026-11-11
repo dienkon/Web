@@ -1,183 +1,569 @@
 {
   "number": 1,
   "symbol": "H",
+  "nameVi": "Hiđro",
+  "nameEn": "Hydrogen",
   "mass": 1.008,
+  "massStandardText": "1.0080 ± 0.0002",
+  "massStandardSource": "https://ciaaw.org/abridged-atomic-weights.htm",
+  "massKind": "standard-atomic-weight",
   "category": "phi-kim",
   "hasData": true,
+  "file": "elements/001_H.json",
   "general": {
     "latinName": "Hydrogenium",
     "englishName": "Hydrogen",
     "electronConfig": "1s¹",
-    "isotope": "1H, 2H, 3H",
+    "isotope": "¹H, ²H, ³H, ⁴H, ⁷H",
     "group": 1,
+    "groupLabel": "1",
+    "series": "",
     "period": 1,
-    "block": "s",
     "state": "Khí",
-    "oxidation": "+1, -1",
+    "oxidation": "−1, 0, +1",
     "electronegativity": 2.2,
-    "density": "0,08988 g/L (0°C, 1 atm)",
-    "meltingPoint": "-259,16°C",
-    "boilingPoint": "-252,87°C",
-    "crystalStructure": "Lục giác đơn giản"
+    "electronegativityNote": "Thang Pauling; số liệu tổng hợp PubChem.",
+    "density": "khoảng 0.0899 g/L ở 0 °C và 1 atm.",
+    "meltingPoint": "−259.16 °C.",
+    "boilingPoint": "−252.87 °C.",
+    "crystalStructure": "Tinh thể phân tử; pha rắn thường có cấu trúc lục phương xếp chặt (hcp).",
+    "CAS": "1333-74-0"
   },
   "history": {
     "discoverer": "Henry Cavendish",
-    "year": 1766,
+    "year": "1766",
     "discoveryLocation": "Anh",
-    "link": true,
-    "description": "Năm 1766, Henry Cavendish nghiên cứu loại khí sinh ra khi kim loại tác dụng với axit và xác định đây là một chất hoàn toàn mới. Antoine Lavoisier sau đó đặt tên là Hydrogen, nghĩa là 'sinh ra nước'."
+    "description": "Năm 1766, Henry Cavendish là người đầu tiên công nhận Hydrogen là một chất khí riêng biệt bằng cách cho kim loại phản ứng với acid và gọi nó là “khí dễ cháy” (inflammable air). Đến năm 1783, Antoine Lavoisier đã xác định khi đốt cháy chất khí này trong oxygen sẽ tạo thành nước, từ đó đặt tên cho nguyên tố là Hydrogen (bắt nguồn từ tiếng Hy Lạp mang nghĩa “sinh ra nước”)."
   },
   "structure": {
     "protons": 1,
-    "neutrons": 0,
     "electrons": 1,
-    "electronShells": [
-      1
-    ],
-    "valenceElectrons": 1,
-    "lattice": "sh",
+    "neutrons": 0,
+    "nucleusIsotope": "¹H",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
     "nucleus": {
       "proton": 1,
       "neutron": 0
-    }
+    },
+    "electronShells": [
+      1
+    ],
+    "shells": [
+      1
+    ],
+    "valenceElectrons": 1,
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+    "lattice": "Tinh thể phân tử; pha rắn thường có cấu trúc lục phương xếp chặt (hcp).",
+    "latticeEvidence": "phase-dependent"
   },
+  "structureType": "Tinh thể phân tử; pha rắn thường có cấu trúc lục phương xếp chặt (hcp).",
   "occurrence": {
-    "description": "H2 tồn tại rất ít trong tự nhiên",
+    "description": "Hydrogen là nguyên tố phong phú nhất trong vũ trụ (chiếm khoảng 75% khối lượng vật chất thông thường), là thành phần chính cấu tạo nên các ngôi sao và hành tinh khí. Trong khí quyển Trái Đất, Hydrogen chỉ tồn tại dạng vết rất nhỏ do quá nhẹ và dễ thoát ra ngoài vũ trụ, nhưng lại cực kỳ dồi dào ở dạng hợp chất.",
     "simple": [
       "H₂"
     ],
     "compounds": [
       "H₂O",
-      "HCl",
-      "CH₄",
-      "C6H12O6",
-      "H₂SO₄",
-      "NaOH"
+      "hydrocarbon (dầu mỏ, khí thiên nhiên)",
+      "carbohydrate",
+      "protein",
+      "acid",
+      "base",
+      "khoáng vật hydrate"
     ],
-    "ores": [
-      "Nước biển",
-      "Nước ngọt",
-      "Dầu mỏ",
-      "Khí thiên nhiên",
-      "Sinh khối"
-    ]
+    "ores": [],
+    "details": [
+      "Trạng thái: Hydrogen là nguyên tố phong phú nhất trong vũ trụ (chiếm khoảng 75% khối lượng vật chất thông thường), là thành phần chính cấu tạo nên các ngôi sao và hành tinh khí. Trong khí quyển Trái Đất, Hydrogen chỉ tồn tại dạng vết rất nhỏ do quá nhẹ và dễ thoát ra ngoài vũ trụ, nhưng lại cực kỳ dồi dào ở dạng hợp chất.",
+      "Đơn chất: H₂",
+      "Hợp chất: H₂O, hydrocarbon (dầu mỏ, khí thiên nhiên), carbohydrate, protein, acid, base, khoáng vật hydrate..."
+    ],
+    "mineral": {
+      "available": false,
+      "reason": "Nguồn chủ yếu là khí quyển, nước hoặc nước muối; không có mẫu quặng riêng đại diện."
+    }
   },
-  "naturalState": {},
-  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là chất khí không màu, không mùi, không vị.</li>\n      <li>Là nguyên tố nhẹ nhất trong bảng tuần hoàn.</li>\n      <li>Khối lượng riêng: <b>0,08988 g/L</b>.</li>\n      <li>Ít tan trong nước.</li>\n      <li>Tốc độ khuếch tán rất lớn.</li>\n      <li>Nhiệt độ nóng chảy: <b>-259,16°C</b>.</li>\n      <li>Nhiệt độ sôi: <b>-252,87°C</b>.</li>\n      <li>Dẫn nhiệt tốt hơn hầu hết các chất khí khác.</li>\n      <li>Hydrogen lỏng được bảo quản ở nhiệt độ cực thấp.</li>\n    </ul>\n  ",
-  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Hydrogen là phi kim hoạt động hóa học.</li>\n      <li>Thể hiện tính khử mạnh ở nhiệt độ cao.</li>\n      <li>Phản ứng với Oxygen tạo nước.</li>\n      <li>Khử được nhiều oxide kim loại như CuO, Fe₂O₃, PbO...</li>\n      <li>Phản ứng với halogen tạo hydrogen halides.</li>\n      <li>Phản ứng với Nitrogen tạo ammonia (NH₃) trong điều kiện thích hợp.</li>\n      <li>Có thể đóng vai trò chất Oxygen hóa khi tác dụng với kim loại mạnh tạo hydride.</li>\n      <li>Cháy trong không khí tạo ngọn lửa màu xanh nhạt.</li>\n    </ul>\n  ",
+  "naturalState": {
+    "image": "/assets/periodic-table/diagrams/001_H.svg",
+    "alt": "Hydrogen: sơ đồ minh họa nguyên tố",
+    "kind": "diagram",
+    "source": "",
+    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+    "credit": ""
+  },
+  "isotopes": [
+    {
+      "isotope": "¹H",
+      "massNumber": 1,
+      "protons": 1,
+      "neutrons": 0,
+      "stable": true,
+      "abundancePercent": "99.9855",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²H",
+      "massNumber": 2,
+      "protons": 1,
+      "neutrons": 1,
+      "stable": true,
+      "abundancePercent": "0.0145",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "³H",
+      "massNumber": 3,
+      "protons": 1,
+      "neutrons": 2,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "12.32 ± 0.02 năm",
+      "halfLife": "12.32 Y",
+      "halfLifeUncertainty": "2",
+      "halfLifeQualifier": null,
+      "decay": "B-",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "⁴H",
+      "massNumber": 4,
+      "protons": 1,
+      "neutrons": 3,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "Chưa có giá trị trong bản đối chiếu",
+      "halfLife": "Chưa có giá trị trong bản đối chiếu",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": "N",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "⁷H",
+      "massNumber": 7,
+      "protons": 1,
+      "neutrons": 6,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "0.09 (+0.94/−0.06) MeV",
+      "halfLife": "0.09 MeV",
+      "halfLifeUncertainty": "+94-6",
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Chất khí không màu, không mùi, không vị.</li><li>Là chất khí nhẹ nhất trong tất cả các chất khí (tỉ khối so với không khí d ≈ 2/29 ≈ 0.069).</li><li>Khối lượng mol của H₂: 2.016 g/mol.</li><li>Khối lượng riêng: khoảng 0.0899 g/L ở 0 °C và 1 atm.</li><li>Rất ít tan trong nước; độ tan phụ thuộc nhiệt độ và áp suất riêng phần H₂.</li><li>Nhiệt độ nóng chảy: −259.16 °C.</li><li>Nhiệt độ sôi: −252.87 °C.</li><li>Hydrogen lỏng không màu, linh động.</li><li>Có tính nghịch từ.</li><li>Dễ cháy, ngọn lửa có màu xanh nhạt tỏa nhiều nhiệt; hỗn hợp nổ mạnh nhất khi tỉ lệ H₂ : O₂ là 2 : 1 về thể tích.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Là phi kim có độ âm điện trung bình.</li><li>Có tính khử mạnh trong phần lớn các phản ứng hóa học (số oxy hóa tăng từ 0 lên +1).</li><li>Thể hiện tính oxy hóa khi phản ứng với các kim loại mạnh (số oxy hóa giảm từ 0 xuống −1 tạo hydride).</li><li>Phản ứng mạnh với Oxygen tạo nước và tỏa nhiều nhiệt.</li><li>Phản ứng với các halogen tạo hydrogen halide.</li><li>H₂ khử được một số oxide kim loại khi nung nóng; khả năng khử phụ thuộc độ bền oxide, nhiệt độ và tỉ lệ H₂/H₂O.</li><li>Phản ứng với Nitrogen ở điều kiện nhiệt độ, áp suất cao và xúc tác để tạo Ammonia.</li><li>Tham gia phản ứng cộng hydro hóa các hợp chất hữu cơ chưa no.</li></ul>",
   "reactions": [
     {
-      "type": "Cháy trong Oxygen",
+      "type": "Tác dụng với Oxygen",
+      "desc": "",
       "equation": "2H₂ + O₂ → 2H₂O",
-      "related": "O",
-      "desc": "Hydro cháy mãnh liệt trong Oxygen tạo nước và tỏa nhiều nhiệt."
+      "condition": "Khơi mào bằng nhiệt hoặc tia lửa; phản ứng cháy tỏa nhiệt.",
+      "kind": "chemical",
+      "sourceLine": 77,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
-      "type": "Khử CuO",
-      "equation": "CuO + H₂ → Cu + H₂O",
-      "condition": "t°",
-      "related": "Cu",
-      "desc": "Hydro thể hiện tính khử."
-    },
-    {
-      "type": "Khử Fe₂O₃",
-      "equation": "Fe₂O₃ + 3H₂ → 2Fe + 3H₂O",
-      "condition": "t°",
-      "related": "Fe",
-      "desc": "Điều chế kim loại từ oxide."
-    },
-    {
-      "type": "Tác dụng với chlorine",
+      "type": "Tác dụng với Chlorine",
+      "desc": "",
       "equation": "H₂ + Cl₂ → 2HCl",
-      "condition": "as",
-      "related": "Cl",
-      "desc": "Tạo khí hydrogen chloride."
+      "condition": "Ánh sáng khơi mào phản ứng chuỗi; sản phẩm là HCl.",
+      "kind": "chemical",
+      "sourceLine": 79,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
-      "type": "Tổng hợp ammonia",
+      "type": "Tác dụng với Nitrogen",
+      "desc": "",
       "equation": "N₂ + 3H₂ ⇌ 2NH₃",
-      "condition": "t°, p, xt",
-      "related": "N",
-      "desc": "Phản ứng Haber-Bosch."
+      "condition": "Xúc tác sắt, nhiệt độ và áp suất cao; phản ứng thuận nghịch (Haber–Bosch).",
+      "kind": "chemical",
+      "sourceLine": 81,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm.",
+      "sourceCondition": "Xúc tác: Sắt (Fe), nhiệt độ và áp suất cao."
+    },
+    {
+      "type": "Khử Copper(II) oxide",
+      "desc": "",
+      "equation": "CuO + H₂ → Cu + H₂O",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 84,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Khử Iron(III) oxide",
+      "desc": "",
+      "equation": "Fe₂O₃ + 3H₂ → 2Fe + 3H₂O",
+      "condition": "Gia nhiệt; môi trường khử, thành phần khí và việc loại nước/CO₂ chi phối mức khử.",
+      "kind": "chemical",
+      "sourceLine": 86,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tác dụng với Carbon",
+      "desc": "",
+      "equation": "C + 2H₂ ⇌ CH₄",
+      "condition": "Nhiệt độ cao, xúc tác kim loại; sơ đồ tổng quát, mức chuyển hóa phụ thuộc điều kiện.",
+      "kind": "chemical",
+      "sourceLine": 88,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm.",
+      "sourceCondition": "Xúc tác: Nickel (Ni), nhiệt độ khoảng 500 °C."
+    },
+    {
+      "type": "Tác dụng với Sodium",
+      "desc": "",
+      "equation": "2Na + H₂ → 2NaH",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 91,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Hydro hóa Ethylene",
+      "desc": "",
+      "equation": "C₂H₄ + H₂ → C₂H₆",
+      "condition": "Xúc tác Ni (hoặc Pd/Pt), gia nhiệt; hydrogen hóa liên kết đôi.",
+      "kind": "chemical",
+      "sourceLine": 93,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm.",
+      "sourceCondition": "Xúc tác: Nickel (Ni), nhiệt độ."
+    },
+    {
+      "type": "Chuyển hóa Methane với hơi nước",
+      "desc": "",
+      "equation": "CH₄ + H₂O ⇌ CO + 3H₂",
+      "condition": "Hơi nước, xúc tác Ni, khoảng 700–1000 °C; phản ứng thuận nghịch.",
+      "kind": "chemical",
+      "sourceLine": 96,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm.",
+      "sourceCondition": "Xúc tác: Nickel (Ni)."
+    },
+    {
+      "type": "Phản ứng điều chế từ Kẽm và Acid",
+      "desc": "",
+      "equation": "Zn + 2HCl → ZnCl₂ + H₂",
+      "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+      "kind": "chemical",
+      "sourceLine": 99,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     }
   ],
-  "applications": [
-    {
-      "title": "Nhiên liệu tên lửa",
-      "desc": "Hydro lỏng là nhiên liệu có hiệu suất rất cao."
-    },
-    {
-      "title": "Pin nhiên liệu Hydrogen",
-      "desc": "Nguồn năng lượng sạch cho ô tô và thiết bị điện."
-    },
-    {
-      "title": "Sản xuất NH₃",
-      "desc": "Nguyên liệu chính trong quy trình Haber."
-    },
-    {
-      "title": "Sản xuất HCl",
-      "desc": "Nguyên liệu công nghiệp hóa chất."
-    },
-    {
-      "title": "Khử oxide kim loại",
-      "desc": "Luyện kim và tinh chế kim loại."
-    },
-    {
-      "title": "Hydrogenation dầu thực vật",
-      "desc": "Sản xuất bơ thực vật."
-    },
-    {
-      "title": "Lọc dầu",
-      "desc": "Loại bỏ lưu huỳnh trong nhiên liệu."
-    },
-    {
-      "title": "Khí bảo vệ",
-      "desc": "Dùng trong công nghiệp điện tử và luyện kim."
-    },
-    {
-      "title": "Khinh khí cầu",
-      "desc": "Do là khí nhẹ nhất."
-    }
-  ],
-  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Hydrogen là nguyên tố đầu tiên trong bảng tuần hoàn (ô số 1, chu kỳ 1, nhóm IA), có cấu tạo đơn giản nhất vũ trụ chỉ gồm 1 proton và 1 electron và cấu hình e là 1s1</li>\n  <li>Trên Trái Đất, gần như không có đơn chất khí h2 tự do (do quá nhẹ nên bị bay vào vũ trụ và bị sấm sét cổ đại đốt thành nước), nó chủ có trong hợp chất như nước và hợp chất hữu cơ. Ngược lại, trong Vũ Trụ, đơn chất H2lại là \"bá chủ\" chiếm 75% khối lượng vật chất, cấu tạo nên các ngôi sao (Mặt Trời) và các tinh vân.</li>\n  <li>Trong công nghiệp, đơn chất khí H2được sản xuất quy mô lớn bằng cách cải tạt khí tự nhiên (methane) bằng hơi nước hoặc điện phân nước. Trong phòng thí nghiệm, nó được điều chế nhanh bằng cách cho kim loại như Zn, Fe tác dụng với dung dịch acid loãng HCl và H2SO4</li>\n  <li>Hydrogen là nhiên liệu sạch lý tưởng của tương lai (năng lượng xanh, không phát thải khí nhà kính), làm nguyên liệu sản xuất ammonia NH3, chất béo nhân tạo và luyện kim. Ở dạng hợp chất, Hydrogen là thành phần không thể thiếu cấu tạo nên nước và mọi tế bào sinh học của sinh vật sống.</li>\n</ul>\n",
-  "nameVi": "Hydrogen",
-  "nameEn": "Hydrogen",
-  "file": "elements/001_H.json",
-  "structureType": "Lục phương xếp chặt.",
   "preparations": {
     "lab": [
       {
-        "title": "Kim loại tác dụng với dung dịch acid loãng",
-        "equation": "Zn + 2HCl(loãng) → ZnCl2 + H2↑ <br> Fe + H2SO4(loãng) → FeSO4 + H2↑"
+        "title": "Cho kim loại hoạt động (như Zn, Fe) tác dụng với dung dịch acid loãng (HCl, H₂SO₄ loãng)",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "Zn + 2HCl → ZnCl₂ + H₂",
+            "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+            "kind": "chemical",
+            "sourceLine": 66,
+            "sourceSection": "lab",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          65,
+          66
+        ],
+        "equation": "Zn + 2HCl → ZnCl₂ + H₂"
+      },
+      {
+        "title": "Cho kim loại lưỡng tính tác dụng với dung dịch kiềm mạnh",
+        "desc": "Điện phân nước quy mô nhỏ (sử dụng bình điện phân Hofmann).",
+        "result": "",
+        "equations": [
+          {
+            "equation": "2Al + 2NaOH + 6H₂O → 2Na[Al(OH)₄] + 3H₂",
+            "condition": "Khơi mào phản ứng nhiệt nhôm; chất đầu khan, phản ứng tự tỏa nhiệt mạnh.",
+            "kind": "chemical",
+            "sourceLine": 68,
+            "sourceSection": "lab",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          67,
+          68,
+          69
+        ],
+        "equation": "2Al + 2NaOH + 6H₂O → 2Na[Al(OH)₄] + 3H₂"
       }
     ],
     "industry": [
       {
-        "title": "Điện phân nước",
-        "equation": "2H2O → 2H2↑ + O2↑"
+        "title": "Chuyển hóa hơi nước với khí tự nhiên (Steam Methane Reforming – SMR): Cho khí methane phản ứng với hơi nước ở nhiệt độ cao (700–1000 °C) với xúc tác Nickel để tạo khí tổng hợp (syngas), sau đó tách thu H₂",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "CH₄ + H₂O ⇌ CO + 3H₂",
+            "condition": "Hơi nước, xúc tác Ni, khoảng 700–1000 °C; phản ứng thuận nghịch.",
+            "kind": "chemical",
+            "sourceLine": 59,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          58,
+          59
+        ],
+        "equation": "CH₄ + H₂O ⇌ CO + 3H₂"
       },
       {
-        "title": "Công nghệ chuyển hóa hydrocarbon",
-        "equation": "CH4 + H2O → CO + 3H2↑ (giai đoạn 1) <br> CO + H2O → CO2 + H2↑ (giai đoạn 2)"
+        "title": "Điện phân nước: Điện phân nước có hòa tan chất điện ly (như KOH hoặc acid) để tách thành khí Hydrogen và Oxygen",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "2H₂O → 2H₂ + O₂",
+            "condition": "Điện phân nước có chất điện ly; tách riêng khí ở hai điện cực.",
+            "kind": "chemical",
+            "sourceLine": 61,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          60,
+          61
+        ],
+        "equation": "2H₂O → 2H₂ + O₂"
       },
       {
-        "title": "Dùng than khử oxi của H2O ở nhiệt độ cao",
-        "equation": "C + H2O → CO + H2↑"
+        "title": "Khí hóa than đá (Gasification): Cho than phản ứng với hơi nước ở nhiệt độ cao tạo khí than ướt",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "C + H₂O ⇌ CO + H₂",
+            "condition": "Hơi nước đi qua carbon nung nóng; phản ứng khí hóa thuận nghịch.",
+            "kind": "chemical",
+            "sourceLine": 63,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          62,
+          63
+        ],
+        "equation": "C + H₂O ⇌ CO + H₂"
       }
     ]
   },
   "recognition": [
     {
-      "title": "Cách 1: Dùng bột CuO đun nóng",
-      "reagent": "Cho khí đi qua CuO nung nóng.",
-      "result": "Chất rắn màu đen (CuO) chuyển dần sang màu đỏ (Cu).",
-      "equation": "CuO + H2 → Cu + H2O"
+      "title": "Đốt ở đầu ống dẫn khí: Khí cháy với ngọn lửa màu xanh nhạt, tỏa nhiều nhiệt; khi úp cốc thủy tinh khô lên ngọn lửa sẽ thấy hơi nước ngưng tụ trên thành cốc.",
+      "desc": "Đốt lượng nhỏ trong ống nghiệm: Nghe tiếng nổ nhỏ (“bốp”) đặc trưng khi khí H₂ lẫn một ít không khí bị bắt cháy. Dẫn qua bột CuO nung nóng: Bột đồng(II) oxide màu đen chuyển dần sang màu đỏ gạch của kim loại Cu và xuất hiện các giọt nước đọng lại. Đặc điểm: Khí rất nhẹ, dễ cháy nổ khi trộn lẫn với oxygen.",
+      "result": "",
+      "equations": [],
+      "sourceLines": [
+        71,
+        72,
+        73,
+        74
+      ],
+      "equation": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Sản xuất hóa chất",
+      "desc": "Nguyên liệu cốt lõi để tổng hợp Ammonia (sản xuất phân đạm), Methanol và hydrochloric acid.",
+      "sourceLine": 101
     },
     {
-      "title": "Cách 2: Thử bằng que đốm",
-      "reagent": "Đưa que đốm đang cháy vào bình chứa khí.",
-      "result": "Khí H2 cháy trong không khí cho ngọn lửa màu xanh nhạt và tỏa nhiều nhiệt.",
-      "equation": "2H2 + O2 → 2H2O"
+      "title": "Lọc hóa dầu",
+      "desc": "Dùng trong quá trình hydrocracking (bẻ gãy mạch hydrocarbon nặng) và hydrodesulfurization (loại bỏ lưu huỳnh khỏi nhiên liệu).",
+      "sourceLine": 102
+    },
+    {
+      "title": "Luyện kim",
+      "desc": "Làm chất khử sạch để điều chế các kim loại có độ tinh khiết cao từ oxide (như Vonfram, Molypden, Đồng).",
+      "sourceLine": 103
+    },
+    {
+      "title": "Hàn và cắt kim loại",
+      "desc": "Ngọn lửa oxy-hydrogen tạo nhiệt độ cao xấp xỉ 2800 °C dùng để gia công kim loại và nấu chảy thủy tinh thạch anh.",
+      "sourceLine": 104
+    },
+    {
+      "title": "Năng lượng và giao thông",
+      "desc": "Pin nhiên liệu H₂ tạo nước tại nơi sử dụng. Phát thải toàn vòng đời phụ thuộc cách sản xuất, nén và vận chuyển H₂.",
+      "sourceLine": 105
+    },
+    {
+      "title": "Hàng không vũ trụ",
+      "desc": "Hydrogen lỏng (LH2) kết hợp với Oxygen lỏng (LOX) là hệ nhiên liệu đẩy tên lửa mạnh mẽ.",
+      "sourceLine": 106
+    },
+    {
+      "title": "Công nghiệp thực phẩm",
+      "desc": "Hydro hóa dầu thực vật dạng lỏng thành chất béo rắn hoặc bán rắn (như bơ thực vật margarine).",
+      "sourceLine": 107
+    },
+    {
+      "title": "Điện tử và bán dẫn",
+      "desc": "Làm môi trường khí bảo vệ trong quá trình sản xuất chip bán dẫn và màn hình silicon.",
+      "sourceLine": 108
     }
-  ]
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Hydrogen là nguyên tố đầu tiên trong bảng tuần hoàn (số hiệu nguyên tử 1), thuộc nhóm IA | chu kỳ 1.</li><li>Ở điều kiện thường, Hydrogen tồn tại dưới dạng phân tử khí H₂ không màu, không mùi và là chất khí nhẹ nhất trong tự nhiên. Dù ở dạng đơn chất tự do trên Trái Đất rất hiếm, Hydrogen lại dồi dào trong nước, các hợp chất hữu cơ, dầu mỏ và chiếm phần lớn khối lượng vật chất nhìn thấy được trong toàn vũ trụ.</li><li>Hydrogen sở hữu tính khử mạnh trong hầu hết phản ứng, có khả năng kết hợp mạnh mẽ với phi kim và khử oxide kim loại để giải phóng kim loại tinh khiết.</li><li>Hydrogen giữ vai trò trụ cột trong công nghiệp phân bón, lọc hóa dầu, luyện kim và đang là tâm điểm phát triển của nguồn năng lượng sạch bền vững tương lai.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/diagrams/001_H.svg",
+      "title": "Hiđro (H)",
+      "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+      "source": "",
+      "author": "ChemDex",
+      "license": "ChemDex schematic diagram",
+      "licenseUrl": ""
+    }
+  ],
+  "mediaBlocks": [],
+  "sources": [
+    {
+      "title": "001_H.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "e5169eaef4c71f814ffc338a8b0f32271442bc73ea61a3df1158bffd72d025d8"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/1/hydrogen"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "hydrogenCAS",
+      "url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C1333740"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "001_H.docx",
+    "sourceSha256": "e5169eaef4c71f814ffc338a8b0f32271442bc73ea61a3df1158bffd72d025d8",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/001_H.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
 }

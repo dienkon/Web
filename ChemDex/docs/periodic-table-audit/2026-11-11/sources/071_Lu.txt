@@ -1,0 +1,92 @@
+001: Lutetium (Lu)
+002: Thông tin chung
+003: Tên Latin: Lutetium
+004: Tên Tiếng Anh: Lutetium
+005: Đồng vị: ¹⁷⁵Lu, ¹⁷⁶Lu
+006: Vị trí: Nhóm IIIB | Chu kỳ 6 | Họ Lanthanide
+007: Số Oxy hóa: +3
+008: Độ âm điện: 1,27 (Pauling)
+009: Lịch sử khám phá
+010: Phát hiện bởi: Georges Urbain
+011: Năm công bố: 1907
+012: Nơi khám phá: Paris, Pháp
+013: Mô tả: Lutetium được phát hiện vào năm 1907 bởi nhà hóa học người Pháp Georges Urbain khi ông nghiên cứu và tách Ytterbium thành các thành phần khác nhau.
+014: Cùng thời gian đó, Carl Auer von Welsbach ở Áo cũng nghiên cứu Ytterbium và phát hiện một nguyên tố tương ứng, nhưng Urbain là người được công nhận chính thức về việc đặt tên và công bố Lutetium.
+015: Tên Lutetium bắt nguồn từ Lutetia, tên Latin cổ của Paris.
+016: 3. Cấu tạo
+017: a. Cấu tạo nguyên tử
+018: Cấu hình electron: [Xe] 4f¹⁴ 5d¹ 6s²
+019: Mô hình mạng tinh thể: Lục phương xếp chặt (Hexagonal close-packed, HCP)
+020: Số hiệu nguyên tử: 71
+021: Nguyên tử khối: 174,9668 g/mol
+022: Vỏ nguyên tử: 71 electron
+023: Hạt nhân: 71 proton
+024: Cấu hình e đầy đủ: 1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰ 4p⁶ 5s² 4d¹⁰ 5p⁶ 4f¹⁴ 5d¹ 6s²
+025: Loại mạng: Lục phương xếp chặt (HCP)
+026: b. Trạng thái tự nhiên
+027: Trạng thái: Chất rắn
+028: Màu sắc: Trắng bạc
+029: Có trong: Monazite, Xenotime và một số khoáng vật đất hiếm.
+030: Đơn chất: Lu
+031: Hợp chất phổ biến: Lu₂O₃, LuCl₃, LuF₃, Lu(OH)₃
+032: c. Đồng vị
+033: Lutetium có 2 đồng vị tự nhiên:
+034: ¹⁷⁵Lu: khoảng 97,4%, bền.
+035: ¹⁷⁶Lu: khoảng 2,6%, phóng xạ, chu kỳ bán rã khoảng 3,78 × 10¹⁰ năm.
+036: ¹⁷⁵Lu là đồng vị phổ biến nhất.
+037: Tính chất
+038: Tính chất vật lý
+039: Là kim loại đất hiếm.
+040: Thuộc họ Lanthanide.
+041: Là nguyên tố cuối cùng của dãy Lanthanide.
+042: Có màu trắng bạc.
+043: Khá cứng và đặc.
+044: Có tính thuận từ.
+045: Có nhiệt độ nóng chảy khoảng 1663 °C.
+046: Có nhiệt độ sôi khoảng 3402 °C.
+047: Khối lượng riêng khoảng 9,84 g/cm³.
+048: Tính chất hóa học
+049: Trạng thái Oxy hóa phổ biến và ổn định nhất là +3.
+050: Ion Lu³⁺ có cấu hình electron 4f¹⁴, với phân lớp 4f đã được lấp đầy.
+051: Là một trong những Lanthanide có bán kính nguyên tử và ion nhỏ nhất.
+052: Phản ứng với Oxygen:
+053: 4Lu + 3O₂ → 2Lu₂O₃
+054: Phản ứng với Acid tạo muối Lutetium(III) và giải phóng Hydrogen.
+055: Điều chế
+056: Điều chế trong công nghiệp
+057: Lutetium (Lu) chủ yếu được điều chế từ quặng monazite và xenotime. Sau khi tách khỏi hỗn hợp đất hiếm, Lutetium được thu bằng phương pháp khử Lutetium fluoride bằng Calcium.
+058: Phương trình:
+059: 2LuF₃ + 3Ca → 2Lu + 3CaF₂
+060: Lutetium thu được được tinh chế để loại bỏ tạp chất.
+061: Điều chế trong phòng thí nghiệm
+062: Có thể điều chế Lutetium bằng cách khử Lutetium chloride khan bằng Calcium.
+063: Phương trình:
+064: 2LuCl₃ + 3Ca → 2Lu + 3CaCl₂
+065: Nhận biết
+066: Có thể nhận biết Lutetium bằng:
+067: Phổ phát xạ nguyên tử.
+068: ICP-OES hoặc ICP-MS.
+069: Phổ hấp thụ đặc trưng của Lu³⁺.
+070: Phân tích tính chất vật lý và hóa học đặc trưng.
+071: Các ion Lu³⁺ thường tạo dung dịch không màu.
+072: Phương trình
+073: Tác dụng với Oxygen
+074: 4Lu + 3O₂ → 2Lu₂O₃
+075: Tác dụng với Hydrochloric acid
+076: 2Lu + 6HCl → 2LuCl₃ + 3H₂
+077: Tạo Lutetium(III) hydroxide
+078: LuCl₃ + 3NaOH → Lu(OH)₃↓ + 3NaCl
+079: Điều chế Lutetium
+080: 2LuCl₃ + 3Ca → 2Lu + 3CaCl₂
+081: Ứng dụng thực tế
+082: Y học hạt nhân: Đồng vị ¹⁷⁷Lu là một trong những đồng vị phóng xạ nhân tạo quan trọng của Lutetium. Nó được sử dụng trong liệu pháp phóng xạ nhắm trúng đích (targeted radionuclide therapy).
+083: Điều trị ung thư: Các hợp chất chứa ¹⁷⁷Lu có thể liên kết với các phân tử nhắm vào tế bào ung thư, đưa bức xạ đến khu vực cần điều trị.
+084: PET: Lu₂SiO₅ (LSO) và Lu₂Si₂O₇ (LSO/LYSO-related scintillators) là những vật liệu scintillator quan trọng trong các hệ thống PET (Positron Emission Tomography).
+085: Laser: Một số hợp chất Lutetium được nghiên cứu và sử dụng trong vật liệu laser.
+086: Nghiên cứu khoa học: Lutetium được sử dụng trong các nghiên cứu về vật liệu, quang học và hạt nhân.
+087: Tổng quan
+088: Lutetium là nguyên tố số 71, thuộc nhóm IIIB | chu kỳ 6 và là nguyên tố cuối cùng của họ Lanthanide.
+089: Lutetium được Georges Urbain phát hiện vào năm 1907 tại Paris, Pháp. Tên nguyên tố bắt nguồn từ Lutetia, tên Latin cổ của Paris.
+090: Lutetium là kim loại màu trắng bạc, tương đối cứng và đặc. Trạng thái Oxy hóa chủ yếu là +3, với ion Lu³⁺ có cấu hình 4f¹⁴ hoàn toàn lấp đầy. Đây cũng là một trong những nguyên tố Lanthanide có kích thước ion nhỏ nhất.
+091: Một ứng dụng đặc biệt quan trọng của Lutetium là ¹⁷⁷Lu trong y học hạt nhân, đặc biệt trong các liệu pháp phóng xạ nhắm trúng đích. Ngoài ra, các vật liệu chứa Lutetium như LSO/LYSO có vai trò trong các máy PET.
+092: Mạng tinh thể: Lục phương xếp chặt (HCP) ở điều kiện thường.

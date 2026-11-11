@@ -1,0 +1,110 @@
+001: Chromium (Cr)
+002: Thông tin chung
+003: Tên Latin: Chromium
+004: Tên Tiếng Anh: Chromium
+005: Đồng vị: ⁵⁰Cr, ⁵²Cr, ⁵³Cr, ⁵⁴Cr
+006: Vị trí: Nhóm VIB | Chu kỳ 4
+007: Số Oxy hóa: −2, −1, 0, +1, +2, +3, +4, +5, +6
+008: Độ âm điện: 1.66
+009: Lịch sử khám phá
+010: Phát hiện bởi: Louis Nicolas Vauquelin
+011: Năm công bố: 1797
+012: Nơi khám phá: Pháp
+013: Mô tả: Năm 1797, Louis Nicolas Vauquelin nghiên cứu khoáng vật crocoite và phát hiện một oxide mới. Năm 1798, ông điều chế được Chromium kim loại từ oxide này. Chromium được đặt tên từ tiếng Hy Lạp chrōma, có nghĩa là “màu sắc”, do các hợp chất Chromium thường có màu sắc đa dạng.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Ar] 3d⁵ 4s¹
+017: Mô hình mạng tinh thể: Lập phương tâm khối (Body-centered cubic, BCC)
+018: Số hiệu nguyên tử: 24
+019: Nguyên tử khối: 51.9961 g/mol
+020: Vỏ nguyên tử: 24 electron
+021: K: 2 | L: 8 | M: 13 | N: 1
+022: Hạt nhân: 24 proton, 28 neutron đối với ⁵²Cr
+023: Cấu hình e: [Ar] 3d⁵ 4s¹
+024: Loại mạng: Lập phương tâm khối (Body-centered cubic, BCC)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Chromium là kim loại rắn, có màu xám bạc và bề mặt sáng bóng.
+027: Có trong: Quặng Chromite (FeCr₂O₄), Crocoite (PbCrO₄) và một số khoáng vật khác.
+028: Đơn chất: Cr
+029: Hợp chất: Cr₂O₃, CrO₃, CrCl₃, K₂Cr₂O₇, K₂CrO₄, Na₂CrO₄...
+030: c. Đồng vị
+031: Đồng vị: ⁵⁰Cr, ⁵²Cr, ⁵³Cr, ⁵⁴Cr
+032: ⁵⁰Cr: Đồng vị phóng xạ, tồn tại trong tự nhiên với lượng rất nhỏ.
+033: ⁵²Cr: Đồng vị bền, chiếm khoảng 83.79%.
+034: ⁵³Cr: Đồng vị bền, chiếm khoảng 9.50%.
+035: ⁵⁴Cr: Đồng vị bền, chiếm khoảng 2.37%.
+036: Tính chất
+037: Tính chất vật lý
+038: Là kim loại chuyển tiếp.
+039: Có màu xám bạc, sáng bóng.
+040: Cứng và giòn.
+041: Khối lượng riêng: khoảng 7.19 g/cm³.
+042: Nhiệt độ nóng chảy: khoảng 1907 °C.
+043: Nhiệt độ sôi: khoảng 2671 °C.
+044: Có độ cứng cao.
+045: Dẫn điện và dẫn nhiệt.
+046: Có khả năng chống ăn mòn tốt nhờ hình thành lớp oxide bảo vệ trên bề mặt.
+047: Tính chất hóa học
+048: Có nhiều số Oxy hóa.
+049: Các trạng thái phổ biến: +2, +3 và +6.
+050: Cr(III) tương đối bền và thường tạo các hợp chất có màu xanh lục.
+051: Cr(VI) có tính Oxy hóa mạnh và nhiều hợp chất có màu vàng hoặc cam.
+052: Chromium kim loại tương đối bền trong không khí nhờ lớp Cr₂O₃ bảo vệ.
+053: Phản ứng với Oxygen khi nung nóng.
+054: Phản ứng với Halogen.
+055: Phản ứng với acid trong điều kiện thích hợp.
+056: Có thể tạo nhiều oxide và muối có màu sắc khác nhau.
+057: Điều chế
+058: Điều chế trong công nghiệp
+059: Chromium được sản xuất chủ yếu từ quặng Chromite (FeCr₂O₄).
+060: Chromite được xử lý để tạo Chromium(III) oxide:
+061: 4FeCr₂O₄ + 8Na₂CO₃ + 7O₂ → 8Na₂CrO₄ + 2Fe₂O₃ + 8CO₂
+062: Sau đó Chromium(VI) được chuyển về Chromium(III) oxide:
+063: Na₂CrO₄ + H₂SO₄ → Na₂SO₄ + H₂CrO₄
+064: Cuối cùng điều chế Chromium bằng phương pháp nhiệt luyện, thường dùng Aluminium làm chất khử:
+065: Cr₂O₃ + 2Al → 2Cr + Al₂O₃
+066: Điều chế trong phòng thí nghiệm
+067: Chromium kim loại không thường được điều chế trong phòng thí nghiệm phổ thông.
+068: Về nguyên tắc, có thể điều chế bằng phương pháp nhiệt luyện Chromium(III) oxide với Aluminium:
+069: Cr₂O₃ + 2Al → 2Cr + Al₂O₃
+070: Nhận biết
+071: Nhận biết Cr³⁺
+072: Cho dung dịch chứa Cr³⁺ tác dụng với hydroxide:
+073: Cr³⁺ + 3OH⁻ → Cr(OH)₃↓
+074: Hiện tượng: Xuất hiện kết tủa xanh lục Chromium(III) hydroxide.
+075: Cr(OH)₃ có tính lưỡng tính và tan trong acid hoặc kiềm mạnh.
+076: Nhận biết CrO₄²⁻
+077: Ion Chromate thường tạo dung dịch màu vàng.
+078: Nhận biết Cr₂O₇²⁻
+079: Ion Dichromate tạo dung dịch màu da cam.
+080: Phương trình
+081: Tác dụng với Oxygen
+082: 4Cr + 3O₂ → 2Cr₂O₃
+083: Tác dụng với Chlorine
+084: 2Cr + 3Cl₂ → 2CrCl₃
+085: Tác dụng với Hydrochloric acid
+086: Cr + 2HCl → CrCl₂ + H₂↑
+087: Tạo Chromium(III) hydroxide
+088: Cr³⁺ + 3OH⁻ → Cr(OH)₃↓
+089: Chromium(III) hydroxide tác dụng với acid
+090: Cr(OH)₃ + 3HCl → CrCl₃ + 3H₂O
+091: Chromium(III) hydroxide tác dụng với kiềm
+092: Cr(OH)₃ + 3OH⁻ → [Cr(OH)₆]³⁻
+093: Khử Chromium(III) oxide
+094: Cr₂O₃ + 2Al → 2Cr + Al₂O₃
+095: Chuyển Chromate thành Dichromate
+096: 2CrO₄²⁻ + 2H⁺ ⇌ Cr₂O₇²⁻ + H₂O
+097: Chuyển Dichromate thành Chromate
+098: Cr₂O₇²⁻ + 2OH⁻ ⇌ 2CrO₄²⁻ + H₂O
+099: Ứng dụng thực tế
+100: Sản xuất thép không gỉ: Chromium là thành phần quan trọng của Stainless steel, giúp tăng khả năng chống ăn mòn.
+101: Mạ Chromium: Chromium được dùng để tạo lớp phủ sáng bóng, cứng và chống ăn mòn trên bề mặt kim loại.
+102: Hợp kim: Chromium được sử dụng trong nhiều hợp kim chịu nhiệt và chịu ăn mòn.
+103: Chất màu: Một số Chromium compounds được sử dụng làm pigment màu xanh, vàng, cam và xanh lục.
+104: Vật liệu chịu nhiệt: Một số Chromium compounds được sử dụng trong vật liệu chịu nhiệt và gốm.
+105: Công nghiệp hóa chất: Chromium compounds được sử dụng trong nhiều quá trình hóa học và sản xuất vật liệu.
+106: Tổng quan
+107: Chromium là nguyên tố số 24, thuộc nhóm VIB | chu kỳ 4 và là một kim loại chuyển tiếp.
+108: Chromium có cấu hình electron đặc biệt [Ar] 3d⁵ 4s¹, với phân lớp 3d bán bão hòa tương đối bền. Chromium có nhiều số Oxy hóa, trong đó +2, +3 và +6 là những trạng thái quan trọng.
+109: Chromium có màu xám bạc, cứng và có khả năng chống ăn mòn tốt nhờ hình thành lớp Chromium(III) oxide (Cr₂O₃) bảo vệ trên bề mặt.
+110: Chromium được khai thác chủ yếu từ Chromite (FeCr₂O₄) và có vai trò đặc biệt quan trọng trong sản xuất Stainless steel, mạ Chromium và các hợp kim chịu ăn mòn, chịu nhiệt.

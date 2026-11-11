@@ -1,0 +1,92 @@
+001: Praseodymium (Pr)
+002: Thông tin chung
+003: Tên Latin: Praseodymium
+004: Tên Tiếng Anh: Praseodymium
+005: Đồng vị: ¹⁴¹Pr
+006: Vị trí: Nhóm IIIB | Chu kỳ 6 | Họ Lanthanide
+007: Số Oxy hóa: +3, +4
+008: Độ âm điện: 1,13 (Pauling)
+009: Lịch sử khám phá
+010: Phát hiện bởi: Carl Auer von Welsbach
+011: Năm công bố: 1885
+012: Nơi khám phá: Vienna, Áo-Hung
+013: Mô tả: Praseodymium được Carl Auer von Welsbach tách ra từ một chất trước đó được gọi là Didymium. Didymium ban đầu được cho là một nguyên tố duy nhất, nhưng Welsbach chứng minh rằng nó thực chất là hỗn hợp của Praseodymium và Neodymium.
+014: Tên Praseodymium bắt nguồn từ tiếng Hy Lạp prasios (πράσιος, “xanh lục”) và didymos (δίδυμος, “sinh đôi”), có thể hiểu là “sinh đôi màu xanh lục”, liên quan đến màu sắc của các hợp chất của nguyên tố.
+015: 3. Cấu tạo
+016: a. Cấu tạo nguyên tử
+017: Cấu hình electron: [Xe] 4f³ 6s²
+018: Mô hình mạng tinh thể: Lục phương xếp chặt (Hexagonal close-packed, HCP)
+019: Số hiệu nguyên tử: 59
+020: Nguyên tử khối: 140,90766 g/mol
+021: Vỏ nguyên tử: 59 electron
+022: Hạt nhân: 59 proton
+023: Cấu hình e đầy đủ: 1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰ 4p⁶ 5s² 4d¹⁰ 5p⁶ 4f³ 6s²
+024: Loại mạng: Lục phương xếp chặt (HCP)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Chất rắn
+027: Màu sắc: Trắng bạc, hơi vàng
+028: Có trong: Monazite và Bastnäsite.
+029: Đơn chất: Pr
+030: Hợp chất phổ biến: Pr₂O₃, Pr₆O₁₁, PrCl₃, PrF₃
+031: c. Đồng vị
+032: Praseodymium trong tự nhiên gần như chỉ có một đồng vị bền:
+033: ¹⁴¹Pr: chiếm gần 100%, là đồng vị bền duy nhất của Praseodymium.
+034: Ngoài ra còn có nhiều đồng vị phóng xạ nhân tạo.
+035: Tính chất
+036: Tính chất vật lý
+037: Là kim loại đất hiếm.
+038: Thuộc họ Lanthanide.
+039: Có màu trắng bạc hơi vàng.
+040: Khá mềm và dễ gia công.
+041: Có tính dẫn điện và dẫn nhiệt.
+042: Có tính thuận từ.
+043: Dễ bị oxy hóa khi tiếp xúc với không khí.
+044: Có nhiệt độ nóng chảy khoảng 931 °C.
+045: Có nhiệt độ sôi khoảng 3520 °C.
+046: Khối lượng riêng khoảng 6,77 g/cm³.
+047: Tính chất hóa học
+048: Trạng thái Oxy hóa phổ biến nhất là +3.
+049: Praseodymium cũng có thể tồn tại ở trạng thái +4, đặc biệt trong một số oxide.
+050: Dễ phản ứng với Oxygen:
+051: 4Pr + 3O₂ → 2Pr₂O₃
+052: Phản ứng với Acid tạo muối Pr³⁺ và giải phóng Hydrogen.
+053: Các hợp chất của Praseodymium có thể có màu sắc đặc trưng do sự chuyển mức năng lượng của electron 4f.
+054: Điều chế
+055: Điều chế trong công nghiệp
+056: Praseodymium (Pr) chủ yếu được điều chế từ quặng monazite và bastnaesite. Sau khi tách khỏi hỗn hợp đất hiếm, Praseodymium được thu bằng phương pháp điện phân muối nóng chảy hoặc khử Praseodymium fluoride bằng Calcium.
+057: Phương trình:
+058: 2PrF₃ + 3Ca → 2Pr + 3CaF₂
+059: Điều chế trong phòng thí nghiệm
+060: Có thể điều chế Praseodymium bằng cách khử Praseodymium chloride khan bằng Calcium.
+061: Phương trình:
+062: 2PrCl₃ + 3Ca → 2Pr + 3CaCl₂
+063: Nhận biết
+064: Có thể nhận biết Praseodymium bằng:
+065: Phổ phát xạ nguyên tử.
+066: ICP-OES hoặc ICP-MS.
+067: Phổ hấp thụ đặc trưng của ion Pr³⁺.
+068: Màu sắc đặc trưng của một số hợp chất Praseodymium.
+069: Ion Pr³⁺ thường tạo các dung dịch có màu xanh lục nhạt.
+070: Phương trình
+071: Tác dụng với Oxygen
+072: 4Pr + 3O₂ → 2Pr₂O₃
+073: Tác dụng với Hydrochloric acid
+074: 2Pr + 6HCl → 2PrCl₃ + 3H₂
+075: Tác dụng với nước
+076: 2Pr + 6H₂O → 2Pr(OH)₃ + 3H₂
+077: Tạo Praseodymium(III) hydroxide
+078: PrCl₃ + 3NaOH → Pr(OH)₃↓ + 3NaCl
+079: Điều chế kim loại Praseodymium
+080: 2PrCl₃ + 3Ca → 2Pr + 3CaCl₂
+081: Ứng dụng thực tế
+082: Nam châm: Praseodymium được sử dụng cùng Neodymium trong nam châm vĩnh cửu mạnh như Nd-Fe-B, dùng trong động cơ điện, máy phát điện và các thiết bị điện tử.
+083: Kính: Các hợp chất Praseodymium được sử dụng để tạo kính màu, đặc biệt là màu vàng-xanh.
+084: Kính bảo vệ: Praseodymium được sử dụng trong một số loại kính dùng cho thợ hàn và các ứng dụng yêu cầu lọc ánh sáng mạnh.
+085: Hợp kim: Praseodymium được thêm vào một số hợp kim để cải thiện tính chất vật liệu.
+086: Gốm: Một số oxide Praseodymium được sử dụng làm chất tạo màu cho ceramic và glass.
+087: Tổng quan
+088: Praseodymium là nguyên tố số 59, thuộc nhóm IIIB | chu kỳ 6 và là nguyên tố thứ ba trong họ Lanthanide.
+089: Praseodymium được Carl Auer von Welsbach phát hiện vào năm 1885 khi ông tách Didymium thành Praseodymium và Neodymium. Tên nguyên tố bắt nguồn từ tiếng Hy Lạp, mang nghĩa “sinh đôi màu xanh lục”.
+090: Praseodymium là kim loại đất hiếm màu trắng bạc hơi vàng, khá mềm và có tính hoạt động hóa học cao. Số Oxy hóa phổ biến nhất là +3, ngoài ra +4 cũng có thể tồn tại trong một số hợp chất.
+091: Praseodymium có vai trò quan trọng trong nam châm Nd-Fe-B, kính màu, kính bảo vệ, hợp kim và vật liệu ceramic.
+092: Mạng tinh thể: Lục phương xếp chặt (HCP) ở điều kiện thường.

@@ -1,0 +1,823 @@
+{
+  "symbol": "Mc",
+  "number": 115,
+  "source": "115_Mc.docx",
+  "sourceSha256": "c71ab035fd58208dc040b1080c61d5b33d4bca903d75ff70d53eb2030aa2ea7c",
+  "paragraphCount": 89,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 6,
+    "structure": 8,
+    "occurrence": 4,
+    "isotopes": 8,
+    "physical": 6,
+    "chemical": 5,
+    "lab": 2,
+    "industry": 1,
+    "recognition": 7,
+    "reactions": 9,
+    "applications": 5,
+    "notes": 5
+  },
+  "editorialDecisions": [],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p³ (dự đoán)",
+      "publishedValue": "[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p³ (dự đoán)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+      "publishedValue": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "Không xác định",
+      "publishedValue": null,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm VA | Chu kỳ 7",
+      "publishedValue": "15",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Chất rắn (dự đoán)",
+      "publishedValue": "Chưa đo trạng thái vĩ mô; các giá trị pha chỉ là dự đoán",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 34,
+      "sourceText": "²⁸⁶Mc: chu kỳ bán rã khoảng 20 mili giây.",
+      "reference": null,
+      "assessment": "Không có trong snapshot đối chiếu; chưa công bố như số liệu đã xác nhận."
+    },
+    {
+      "line": 35,
+      "sourceText": "²⁸⁷Mc: chu kỳ bán rã khoảng 32 mili giây.",
+      "reference": {
+        "isotope": "²⁸⁷Mc",
+        "massNumber": 287,
+        "protons": 115,
+        "neutrons": 172,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "37 (+44/−13) ms",
+        "halfLife": "37 ms",
+        "halfLifeUncertainty": "+44-13",
+        "halfLifeQualifier": null,
+        "decay": "A",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 36,
+      "sourceText": "²⁸⁸Mc: chu kỳ bán rã khoảng 160 mili giây.",
+      "reference": {
+        "isotope": "²⁸⁸Mc",
+        "massNumber": 288,
+        "protons": 115,
+        "neutrons": 173,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "0.17 ± 0.02 s",
+        "halfLife": "0.17 s",
+        "halfLifeUncertainty": "2",
+        "halfLifeQualifier": null,
+        "decay": "A",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 37,
+      "sourceText": "²⁸⁹Mc: chu kỳ bán rã khoảng 0,5 giây.",
+      "reference": {
+        "isotope": "²⁸⁹Mc",
+        "massNumber": 289,
+        "protons": 115,
+        "neutrons": 174,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "296 (+97/−59) ms",
+        "halfLife": "296 ms",
+        "halfLifeUncertainty": "+97-59",
+        "halfLifeQualifier": null,
+        "decay": "A",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 38,
+      "sourceText": "²⁹⁰Mc: được dự đoán có độ ổn định cao hơn.",
+      "reference": {
+        "isotope": "²⁹⁰Mc",
+        "massNumber": 290,
+        "protons": 115,
+        "neutrons": 175,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "0.65 (+0.49/−0.20) s",
+        "halfLife": "0.65 s",
+        "halfLifeUncertainty": "+49-20",
+        "halfLifeQualifier": null,
+        "decay": "A",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 14,
+      "text": "²⁴³Am + ⁴⁸Ca → ²⁸⁸Mc + 3n",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 59,
+      "text": "²⁴³Am + ⁴⁸Ca → ²⁸⁸Mc + 3¹n",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 70,
+      "text": "²⁴³Am + ⁴⁸Ca → ²⁸⁸Mc + 3n",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 72,
+      "text": "²⁸⁸Mc → ²⁸⁴Nh + ⁴He",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 74,
+      "text": "2Mc + 3Cl₂ → 2McCl₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 76,
+      "text": "4Mc + 3O₂ → 2Mc₂O₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "history",
+      "equation": "²⁴³Am + ⁴⁸Ca → ²⁸⁸Mc + 3n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 14,
+      "sourceSection": "history",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "lab",
+      "equation": "²⁴³Am + ⁴⁸Ca → ²⁸⁸Mc + 3¹n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 59,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "²⁴³Am + ⁴⁸Ca → ²⁸⁸Mc + 3n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 70,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "²⁸⁸Mc → ²⁸⁴Nh + ⁴He",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 72,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2Mc + 3Cl₂ → 2McCl₃",
+      "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+      "kind": "formal",
+      "sourceLine": 74,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "4Mc + 3O₂ → 2Mc₂O₃",
+      "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+      "kind": "formal",
+      "sourceLine": 76,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [
+    286
+  ],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": null,
+      "after": [
+        {
+          "title": "Ứng dụng",
+          "desc": "Moscovium không có ứng dụng công nghiệp hoặc dân dụng.",
+          "sourceLine": 79
+        },
+        {
+          "title": "Nó chủ yếu được sử dụng trong",
+          "desc": "",
+          "sourceLine": 80
+        },
+        {
+          "title": "Nghiên cứu hạt nhân",
+          "desc": "Nghiên cứu các hạt nhân siêu nặng và chuỗi phân rã của chúng.",
+          "sourceLine": 81
+        },
+        {
+          "title": "Nghiên cứu “đảo ổn định”",
+          "desc": "Moscovium nằm trong khu vực nguyên tố siêu nặng được quan tâm khi nghiên cứu các hạt nhân có độ ổn định tương đối cao.",
+          "sourceLine": 82
+        },
+        {
+          "title": "Hóa học nguyên tố siêu nặng",
+          "desc": "Nghiên cứu sự tương đồng giữa Moscovium và Bismuth.",
+          "sourceLine": 83
+        }
+      ]
+    },
+    {
+      "field": "category",
+      "before": null,
+      "after": "kim-loai-sau-chuyen-tiep"
+    },
+    {
+      "field": "chemical",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Có cấu hình electron hóa trị 7s² 7p³.</li><li>Các số Oxy hóa +1 và +3 được dự đoán có thể ổn định hơn +5.</li><li>Có thể có tính chất tương tự Bismuth (Bi).</li><li>Hiệu ứng tương đối tính và hiệu ứng cặp electron trơ có thể làm tăng tính ổn định của trạng thái +1.</li><li>Phần lớn tính chất hóa học vẫn dựa trên dự đoán lý thuyết.</li></ul>"
+    },
+    {
+      "field": "file",
+      "before": null,
+      "after": "elements/115_Mc.json"
+    },
+    {
+      "field": "general",
+      "before": null,
+      "after": {
+        "latinName": "Moscovium",
+        "englishName": "Moscovium",
+        "electronConfig": "[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p³ (dự đoán)",
+        "isotope": "²⁸⁷Mc, ²⁸⁸Mc, ²⁸⁹Mc, ²⁹⁰Mc",
+        "group": 15,
+        "groupLabel": "15",
+        "series": "",
+        "period": 7,
+        "state": "Chưa đo trạng thái vĩ mô; các giá trị pha chỉ là dự đoán",
+        "oxidation": "+1, +3, +5 (dự đoán)",
+        "electronegativity": null,
+        "electronegativityNote": "Chưa có giá trị Pauling đủ cơ sở trong bản đối chiếu; không coi 0 là giá trị đã đo.",
+        "density": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+        "meltingPoint": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+        "boilingPoint": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+        "crystalStructure": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+        "CAS": "54085-64-2"
+      }
+    },
+    {
+      "field": "hasData",
+      "before": null,
+      "after": true
+    },
+    {
+      "field": "history",
+      "before": null,
+      "after": {
+        "discoverer": "Nhóm nghiên cứu Joint Institute for Nuclear Research (JINR), phối hợp với Lawrence Livermore National Laboratory (LLNL)",
+        "year": "2003",
+        "discoveryLocation": "Dubna, Nga",
+        "description": "Moscovium được tổng hợp lần đầu vào năm 2003 bằng cách bắn phá Americium-243 bằng Calcium-48: ²⁴³Am + ⁴⁸Ca → ²⁸⁸Mc + 3n Tên Moscovium được đặt theo Moscow Oblast, khu vực nơi đặt Joint Institute for Nuclear Research."
+      }
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/diagrams/115_Mc.svg",
+          "title": "Moscovium (Mc)",
+          "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+          "source": "",
+          "author": "ChemDex",
+          "license": "ChemDex schematic diagram",
+          "licenseUrl": ""
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "²⁸⁷Mc",
+          "massNumber": 287,
+          "protons": 115,
+          "neutrons": 172,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "37 (+44/−13) ms",
+          "halfLife": "37 ms",
+          "halfLifeUncertainty": "+44-13",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁸⁸Mc",
+          "massNumber": 288,
+          "protons": 115,
+          "neutrons": 173,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "0.17 ± 0.02 s",
+          "halfLife": "0.17 s",
+          "halfLifeUncertainty": "2",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁸⁹Mc",
+          "massNumber": 289,
+          "protons": 115,
+          "neutrons": 174,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "296 (+97/−59) ms",
+          "halfLife": "296 ms",
+          "halfLifeUncertainty": "+97-59",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁹⁰Mc",
+          "massNumber": 290,
+          "protons": 115,
+          "neutrons": 175,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "0.65 (+0.49/−0.20) s",
+          "halfLife": "0.65 s",
+          "halfLifeUncertainty": "+49-20",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "mass",
+      "before": null,
+      "after": 289
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "reference-isotope-mass-number"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://periodic-table.rsc.org/element/115/moscovium"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "[289] — số khối đồng vị tham chiếu, không phải nguyên tử khối chuẩn"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": []
+    },
+    {
+      "field": "nameEn",
+      "before": null,
+      "after": "Moscovium"
+    },
+    {
+      "field": "nameVi",
+      "before": null,
+      "after": "Moscovium"
+    },
+    {
+      "field": "naturalState",
+      "before": null,
+      "after": {
+        "image": "/assets/periodic-table/diagrams/115_Mc.svg",
+        "alt": "Moscovium: sơ đồ minh họa nguyên tố",
+        "kind": "diagram",
+        "source": "",
+        "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+        "credit": ""
+      }
+    },
+    {
+      "field": "notes",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Moscovium là nguyên tố số 115, thuộc nhóm VA | chu kỳ 7 và là một nguyên tố siêu nặng.</li><li>Moscovium được tổng hợp lần đầu vào năm 2003 tại Dubna bằng phản ứng giữa Americium-243 và Calcium-48. Tên nguyên tố được đặt theo Moscow Oblast của Nga.</li><li>Cấu hình electron được dự đoán là [Rn] 5f¹⁴ 6d¹⁰ 7s² 7p³. Moscovium nằm cùng nhóm với Nitrogen, Phosphorus, Arsenic, Antimony và Bismuth, nhưng hiệu ứng tương đối tính mạnh khiến tính chất của nó có thể khác đáng kể. Trạng thái Oxy hóa +1 và +3 được dự đoán có vai trò quan trọng.</li><li>Moscovium không có đồng vị bền, có tính phóng xạ rất mạnh và chỉ được tạo ra với số lượng cực nhỏ. Vì vậy, nó không có ứng dụng thực tế, chủ yếu phục vụ nghiên cứu vật lý hạt nhân và hóa học nguyên tố siêu nặng.</li><li>Mạng tinh thể: Lập phương tâm khối (BCC) — dự đoán, vì chưa thể thu được lượng Moscovium đủ lớn để xác định trực tiếp cấu trúc tinh thể.</li></ul>"
+    },
+    {
+      "field": "number",
+      "before": null,
+      "after": 115
+    },
+    {
+      "field": "occurrence",
+      "before": null,
+      "after": {
+        "description": "Chất rắn (dự đoán)",
+        "simple": [
+          "Mc"
+        ],
+        "compounds": [
+          "McCl₃",
+          "McF₃",
+          "Mc₂O₃... (dự đoán)"
+        ],
+        "ores": [
+          "Không tồn tại tự nhiên với lượng đáng kể. Moscovium chỉ được tổng hợp nhân tạo"
+        ],
+        "details": [
+          "Trạng thái: Chất rắn (dự đoán)",
+          "Có trong: Không tồn tại tự nhiên với lượng đáng kể. Moscovium chỉ được tổng hợp nhân tạo.",
+          "Đơn chất: Mc",
+          "Hợp chất: McCl₃, McF₃, Mc₂O₃... (dự đoán)"
+        ],
+        "mineral": {
+          "available": false,
+          "reason": "Nguyên tố nhân tạo hoặc chỉ có vết tự nhiên; không có quặng khai thác riêng để dựng mẫu."
+        }
+      }
+    },
+    {
+      "field": "physical",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Là nguyên tố thuộc nhóm VA | chu kỳ 7.</li><li>Là nguyên tố siêu nặng.</li><li>Có tính phóng xạ rất mạnh.</li><li>Được dự đoán là chất rắn ở điều kiện thường.</li><li>Có thể có tính chất kim loại.</li><li>Khối lượng riêng, nhiệt độ nóng chảy và nhiệt độ sôi chưa được xác định trực tiếp.</li></ul>"
+    },
+    {
+      "field": "preparations",
+      "before": null,
+      "after": {
+        "lab": [
+          {
+            "title": "Moscovium được tổng hợp bằng cách bắn phá Americium-243 bằng ion Calcium-48 trong máy gia tốc hạt.",
+            "desc": "",
+            "result": "",
+            "equations": [
+              {
+                "equation": "²⁴³Am + ⁴⁸Ca → ²⁸⁸Mc + 3¹n",
+                "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+                "kind": "nuclear",
+                "sourceLine": 59,
+                "sourceSection": "lab",
+                "balance": {
+                  "status": "balanced",
+                  "kind": "nuclear",
+                  "delta": {}
+                },
+                "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+              }
+            ],
+            "sourceLines": [
+              58,
+              59
+            ],
+            "equation": "²⁴³Am + ⁴⁸Ca → ²⁸⁸Mc + 3¹n"
+          }
+        ],
+        "industry": [
+          {
+            "title": "Moscovium (Mc) không được sản xuất công nghiệp do tính phóng xạ rất cao và thời gian bán rã ngắn. Nguyên tố này chỉ được tổng hợp với lượng cực nhỏ trong các cơ sở nghiên cứu hạt nhân.",
+            "desc": "",
+            "result": "",
+            "equations": [],
+            "sourceLines": [
+              56
+            ],
+            "equation": ""
+          }
+        ]
+      }
+    },
+    {
+      "field": "reactions",
+      "before": null,
+      "after": [
+        {
+          "type": "Tổng hợp Moscovium-288",
+          "desc": "",
+          "equation": "²⁴³Am + ⁴⁸Ca → ²⁸⁸Mc + 3n",
+          "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+          "kind": "nuclear",
+          "sourceLine": 70,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Phân rã Alpha",
+          "desc": "",
+          "equation": "²⁸⁸Mc → ²⁸⁴Nh + ⁴He",
+          "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+          "kind": "nuclear",
+          "sourceLine": 72,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Moscovium(III) chloride",
+          "desc": "",
+          "equation": "2Mc + 3Cl₂ → 2McCl₃",
+          "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+          "kind": "formal",
+          "sourceLine": 74,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Moscovium(III) oxide",
+          "desc": "",
+          "equation": "4Mc + 3O₂ → 2Mc₂O₃",
+          "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+          "kind": "formal",
+          "sourceLine": 76,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": null,
+      "after": [
+        {
+          "title": "Moscovium được nhận biết thông qua",
+          "desc": "Năng lượng các hạt Alpha. Chu kỳ bán rã. Chuỗi phân rã phóng xạ. Xác định các hạt nhân con. Đối chiếu chuỗi phân rã với các đồng vị đã biết. Do chỉ tạo được một số lượng cực nhỏ nguyên tử Mc, không thể nhận biết bằng phản ứng hóa học thông thường.",
+          "result": "",
+          "equations": [],
+          "sourceLines": [
+            61,
+            62,
+            63,
+            64,
+            65,
+            66,
+            67
+          ],
+          "equation": ""
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "115_Mc.docx",
+        "sourceSha256": "c71ab035fd58208dc040b1080c61d5b33d4bca903d75ff70d53eb2030aa2ea7c",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/115_Mc.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "115_Mc.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "c71ab035fd58208dc040b1080c61d5b33d4bca903d75ff70d53eb2030aa2ea7c"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/115/moscovium"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure",
+      "before": null,
+      "after": {
+        "protons": 115,
+        "electrons": 115,
+        "neutrons": 174,
+        "nucleusIsotope": "²⁸⁹Mc",
+        "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+        "nucleus": {
+          "proton": 115,
+          "neutron": 174
+        },
+        "electronShells": [
+          2,
+          8,
+          18,
+          32,
+          32,
+          18,
+          5
+        ],
+        "shells": [
+          2,
+          8,
+          18,
+          32,
+          32,
+          18,
+          5
+        ],
+        "valenceElectrons": 5,
+        "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+        "lattice": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+        "latticeEvidence": "predicted"
+      }
+    },
+    {
+      "field": "structureType",
+      "before": null,
+      "after": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)"
+    },
+    {
+      "field": "symbol",
+      "before": null,
+      "after": "Mc"
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "Mc",
+      "status": "diagram",
+      "reason": "Không dùng ảnh mẫu vĩ mô không xác minh cho nguyên tố cực hiếm/nhân tạo."
+    },
+    "mineral": {
+      "available": false,
+      "reason": "Nguyên tố nhân tạo hoặc chỉ có vết tự nhiên; không có quặng khai thác riêng để dựng mẫu."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "Mc",
+      "z": 115,
+      "url": "https://periodic-table.rsc.org/element/115/moscovium",
+      "status": "retrieved",
+      "bytes": 133993,
+      "sha256": "d82db745a2c1f19d8a504cb06f8fb80e50769a008d789710743abfb61afb858e",
+      "facts": {
+        "Group": "15",
+        "Melting point": "Unknown",
+        "Period": "7",
+        "Boiling point": "Unknown",
+        "Block": "p",
+        "Density (g cm−³)": "Unknown",
+        "Atomic number": "115",
+        "Relative atomic mass": "[289]",
+        "State at 20°C": "Solid",
+        "Key isotopes": "²⁸⁹Mc",
+        "Electron configuration": "[Rn] 5f¹⁴6d¹⁰7s²7p³",
+        "CAS number": "54085-64-2",
+        "ChemSpider ID": "-",
+        "electronegativity": "Unknown"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "115",
+      "Symbol": "Mc",
+      "Name": "Moscovium",
+      "AtomicMass": "290.196",
+      "CPKHexColor": "",
+      "ElectronConfiguration": "[Rn]7s2 7p3 5f14 6d10 (predicted)",
+      "Electronegativity": "",
+      "AtomicRadius": "",
+      "IonizationEnergy": "",
+      "ElectronAffinity": "",
+      "OxidationStates": "3, 1",
+      "StandardState": "Expected to be a Solid",
+      "MeltingPoint": "",
+      "BoilingPoint": "",
+      "Density": "",
+      "GroupBlock": "Post-transition metal",
+      "YearDiscovered": "2003"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

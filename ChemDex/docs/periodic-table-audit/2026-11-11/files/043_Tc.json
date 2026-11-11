@@ -1,0 +1,941 @@
+{
+  "symbol": "Tc",
+  "number": 43,
+  "source": "043_Tc.docx",
+  "sourceSha256": "9630cf5d119f6db028f6bbb5f0088cc7c0f233a326ab25b376a1f21b7511ec0a",
+  "paragraphCount": 96,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 4,
+    "structure": 9,
+    "occurrence": 4,
+    "isotopes": 6,
+    "physical": 8,
+    "chemical": 7,
+    "lab": 6,
+    "industry": 2,
+    "recognition": 6,
+    "reactions": 12,
+    "applications": 4,
+    "notes": 4
+  },
+  "editorialDecisions": [
+    {
+      "line": 59,
+      "before": "²³⁵U + ¹n → ⁹⁹Tc + ¹³⁴Sn + 3¹n",
+      "after": null,
+      "reason": "Kênh phân hạch minh họa sai bảo toàn Z (92 ≠ 43 + 50); giữ đường ⁹⁸Mo(n,γ)⁹⁹Mo rồi phân rã beta đã có trong tài liệu."
+    }
+  ],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "[Kr] 4d⁵ 5s²",
+      "publishedValue": "[Kr] 4d⁵ 5s²",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Lục phương (Hexagonal)",
+      "publishedValue": "Lục phương (Hexagonal)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "1.9",
+      "publishedValue": 1.9,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm VIIB | Chu kỳ 5",
+      "publishedValue": "7",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Technetium là kim loại rắn, màu xám bạc.",
+      "publishedValue": "Rắn",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 33,
+      "sourceText": "⁹⁷Tc: Phóng xạ, chu kỳ bán rã khoảng 2,6 triệu năm.",
+      "reference": {
+        "isotope": "⁹⁷Tc",
+        "massNumber": 97,
+        "protons": 43,
+        "neutrons": 54,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "4.21E+6 ± 1.6E+5 năm",
+        "halfLife": "4.21E+6 Y",
+        "halfLifeUncertainty": "16",
+        "halfLifeQualifier": null,
+        "decay": "EC",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 34,
+      "sourceText": "⁹⁸Tc: Phóng xạ.",
+      "reference": {
+        "isotope": "⁹⁸Tc",
+        "massNumber": 98,
+        "protons": 43,
+        "neutrons": 55,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "4.2E+6 ± 3E+5 năm",
+        "halfLife": "4.2E+6 Y",
+        "halfLifeUncertainty": "3",
+        "halfLifeQualifier": null,
+        "decay": "B-",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 35,
+      "sourceText": "⁹⁹Tc: Phóng xạ, chu kỳ bán rã khoảng 211.000 năm; là một trong những đồng vị Technetium quan trọng nhất.",
+      "reference": {
+        "isotope": "⁹⁹Tc",
+        "massNumber": 99,
+        "protons": 43,
+        "neutrons": 56,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "2.111E+5 ± 1.2E+3 năm",
+        "halfLife": "2.111E+5 Y",
+        "halfLifeUncertainty": "12",
+        "halfLifeQualifier": null,
+        "decay": "B-",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 36,
+      "sourceText": "⁹⁹ᵐTc: Đồng vị kích thích có chu kỳ bán rã khoảng 6 giờ, được sử dụng rộng rãi trong y học hạt nhân.",
+      "reference": {
+        "isotope": "⁹⁹Tc",
+        "massNumber": 99,
+        "protons": 43,
+        "neutrons": 56,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "2.111E+5 ± 1.2E+3 năm",
+        "halfLife": "2.111E+5 Y",
+        "halfLifeUncertainty": "12",
+        "halfLifeQualifier": null,
+        "decay": "B-",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 59,
+      "text": "²³⁵U + ¹n → ⁹⁹Tc + ¹³⁴Sn + 3¹n",
+      "status": "unbalanced",
+      "kind": "nuclear",
+      "delta": {
+        "Z": 1.0
+      }
+    },
+    {
+      "line": 63,
+      "text": "⁹⁸Mo + ¹n → ⁹⁹Mo",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 64,
+      "text": "⁹⁹Mo → ⁹⁹ᵐTc + β⁻ + ν̅ₑ",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 66,
+      "text": "⁹⁹ᵐTc → ⁹⁹Tc + γ",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 76,
+      "text": "4Tc + 7O₂ → 2Tc₂O₇",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 78,
+      "text": "Tc + 2Cl₂ → TcCl₄",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 80,
+      "text": "Tc₂O₇ + 2OH⁻ → 2TcO₄⁻ + H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 82,
+      "text": "⁹⁹Mo → ⁹⁹ᵐTc + β⁻",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 84,
+      "text": "⁹⁹ᵐTc → ⁹⁹Tc + γ",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 86,
+      "text": "Tc + O₂ → TcO₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "lab",
+      "equation": "⁹⁸Mo + ¹n → ⁹⁹Mo + γ",
+      "condition": "Chiếu neutron trong cơ sở nghiên cứu; bắt neutron và phát gamma nếu không có sản phẩm bay hơi.",
+      "kind": "nuclear",
+      "sourceLine": 63,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "lab",
+      "equation": "⁹⁹Mo → ⁹⁹ᵐTc + β⁻ + ν̅ₑ",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 64,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "lab",
+      "equation": "⁹⁹ᵐTc → ⁹⁹Tc + γ",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 66,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "4Tc + 7O₂ → 2Tc₂O₇",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 76,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Tc + 2Cl₂ → TcCl₄",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 78,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Tc₂O₇ + 2OH⁻ → 2TcO₄⁻ + H₂O",
+      "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+      "kind": "chemical",
+      "sourceLine": 80,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "⁹⁹Mo → ⁹⁹ᵐTc + β⁻ + ν̅ₑ",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 82,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "⁹⁹ᵐTc → ⁹⁹Tc + γ",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 84,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Tc + O₂ → TcO₂",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 86,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": null,
+      "after": [
+        {
+          "title": "Y học hạt nhân",
+          "desc": "⁹⁹ᵐTc là ứng dụng quan trọng nhất của Technetium. Nó được sử dụng làm chất đánh dấu phóng xạ trong nhiều kỹ thuật chẩn đoán hình ảnh.",
+          "sourceLine": 88
+        },
+        {
+          "title": "Nghiên cứu y sinh",
+          "desc": "Các hợp chất chứa ⁹⁹ᵐTc được gắn với những chất có khả năng tập trung tại các cơ quan khác nhau để tạo hình ảnh.",
+          "sourceLine": 89
+        },
+        {
+          "title": "Chống ăn mòn",
+          "desc": "Một số hợp chất Technetium từng được nghiên cứu về khả năng ức chế ăn mòn thép.",
+          "sourceLine": 90
+        },
+        {
+          "title": "Nghiên cứu khoa học",
+          "desc": "Technetium được sử dụng để nghiên cứu hóa học hạt nhân và tính chất của các nguyên tố chuyển tiếp.",
+          "sourceLine": 91
+        }
+      ]
+    },
+    {
+      "field": "category",
+      "before": null,
+      "after": "chuyen-tiep"
+    },
+    {
+      "field": "chemical",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Có nhiều số Oxy hóa từ −1 đến +7.</li><li>Trạng thái +7 khá phổ biến.</li><li>Có thể phản ứng với Oxygen tạo Technetium oxides.</li><li>Phản ứng với Halogen tạo Technetium halides.</li><li>Tạo các Oxoanion như Pertechnetate (TcO₄⁻).</li><li>Một số hợp chất Technetium có tính Oxy hóa mạnh.</li><li>Technetium có tính chất hóa học khá tương đồng với Rhenium.</li></ul>"
+    },
+    {
+      "field": "file",
+      "before": null,
+      "after": "elements/043_Tc.json"
+    },
+    {
+      "field": "general",
+      "before": null,
+      "after": {
+        "latinName": "Technetium",
+        "englishName": "Technetium",
+        "electronConfig": "[Kr] 4d⁵ 5s²",
+        "isotope": "⁹⁷Tc, ⁹⁸Tc, ⁹⁹Tc",
+        "group": 7,
+        "groupLabel": "7",
+        "series": "",
+        "period": 5,
+        "state": "Rắn",
+        "oxidation": "−1, +2, +3, +4, +5, +6, +7",
+        "electronegativity": 1.9,
+        "electronegativityNote": "Thang Pauling; số liệu tổng hợp PubChem.",
+        "density": "khoảng 11.5 g/cm³.",
+        "meltingPoint": "khoảng 2157 °C.",
+        "boilingPoint": "khoảng 4265 °C.",
+        "crystalStructure": "Lục phương (Hexagonal)",
+        "CAS": "7440-26-8"
+      }
+    },
+    {
+      "field": "hasData",
+      "before": null,
+      "after": true
+    },
+    {
+      "field": "history",
+      "before": null,
+      "after": {
+        "discoverer": "Carlo Perrier và Emilio Segrè",
+        "year": "1937",
+        "discoveryLocation": "Ý",
+        "description": "Năm 1937, Carlo Perrier và Emilio Segrè đã tách được Technetium từ một mẫu Molybdenum bị chiếu xạ trong cyclotron. Technetium là nguyên tố đầu tiên được tạo ra nhân tạo, và tên gọi bắt nguồn từ tiếng Hy Lạp technē, nghĩa là “nhân tạo”."
+      }
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/diagrams/043_Tc.svg",
+          "title": "Technetium (Tc)",
+          "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+          "source": "",
+          "author": "ChemDex",
+          "license": "ChemDex schematic diagram",
+          "licenseUrl": ""
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "⁹⁷Tc",
+          "massNumber": 97,
+          "protons": 43,
+          "neutrons": 54,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "4.21E+6 ± 1.6E+5 năm",
+          "halfLife": "4.21E+6 Y",
+          "halfLifeUncertainty": "16",
+          "halfLifeQualifier": null,
+          "decay": "EC",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "⁹⁸Tc",
+          "massNumber": 98,
+          "protons": 43,
+          "neutrons": 55,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "4.2E+6 ± 3E+5 năm",
+          "halfLife": "4.2E+6 Y",
+          "halfLifeUncertainty": "3",
+          "halfLifeQualifier": null,
+          "decay": "B-",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "⁹⁹Tc",
+          "massNumber": 99,
+          "protons": 43,
+          "neutrons": 56,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "2.111E+5 ± 1.2E+3 năm",
+          "halfLife": "2.111E+5 Y",
+          "halfLifeUncertainty": "12",
+          "halfLifeQualifier": null,
+          "decay": "B-",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "mass",
+      "before": null,
+      "after": 97
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "reference-isotope-mass-number"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://periodic-table.rsc.org/element/43/technetium"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "[97] — số khối đồng vị tham chiếu, không phải nguyên tử khối chuẩn"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": []
+    },
+    {
+      "field": "nameEn",
+      "before": null,
+      "after": "Technetium"
+    },
+    {
+      "field": "nameVi",
+      "before": null,
+      "after": "Technetium"
+    },
+    {
+      "field": "naturalState",
+      "before": null,
+      "after": {
+        "image": "/assets/periodic-table/diagrams/043_Tc.svg",
+        "alt": "Technetium: sơ đồ minh họa nguyên tố",
+        "kind": "diagram",
+        "source": "",
+        "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+        "credit": ""
+      }
+    },
+    {
+      "field": "notes",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Technetium là nguyên tố số 43, thuộc nhóm VIIB | chu kỳ 5 và là một kim loại chuyển tiếp phóng xạ.</li><li>Technetium đặc biệt vì không có đồng vị bền. Nó là nguyên tố đầu tiên được phát hiện sau khi được tạo ra nhân tạo, mặc dù về sau người ta xác định được một lượng cực nhỏ Technetium hình thành tự nhiên.</li><li>Technetium có nhiều số Oxy hóa, trong đó +7 là một trạng thái quan trọng. Trong dung dịch, Technetium thường tồn tại dưới dạng Pertechnetate (TcO₄⁻).</li><li>Đồng vị ⁹⁹ᵐTc có chu kỳ bán rã ngắn và phát ra tia gamma, khiến nó trở thành một trong những đồng vị quan trọng nhất trong y học hạt nhân và chẩn đoán hình ảnh.</li></ul>"
+    },
+    {
+      "field": "number",
+      "before": null,
+      "after": 43
+    },
+    {
+      "field": "occurrence",
+      "before": null,
+      "after": {
+        "description": "Technetium là kim loại rắn, màu xám bạc.",
+        "simple": [
+          "Tc"
+        ],
+        "compounds": [
+          "TcO₂",
+          "Tc₂O₇",
+          "TcCl₄",
+          "NH₄TcO₄"
+        ],
+        "ores": [
+          "Technetium gần như không tồn tại với lượng đáng kể trong tự nhiên vì tất cả các đồng vị đều phóng xạ. Một lượng cực nhỏ có thể hình thành tự nhiên từ quá trình phân hạch của Uranium hoặc các phản ứng hạt nhân tự nhiên"
+        ],
+        "details": [
+          "Trạng thái: Technetium là kim loại rắn, màu xám bạc.",
+          "Có trong: Technetium gần như không tồn tại với lượng đáng kể trong tự nhiên vì tất cả các đồng vị đều phóng xạ. Một lượng cực nhỏ có thể hình thành tự nhiên từ quá trình phân hạch của Uranium hoặc các phản ứng hạt nhân tự nhiên.",
+          "Đơn chất: Tc",
+          "Hợp chất: TcO₂, Tc₂O₇, TcCl₄, NH₄TcO₄..."
+        ],
+        "mineral": {
+          "available": false,
+          "reason": "Nguyên tố nhân tạo hoặc chỉ có vết tự nhiên; không có quặng khai thác riêng để dựng mẫu."
+        }
+      }
+    },
+    {
+      "field": "physical",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Là kim loại chuyển tiếp.</li><li>Màu xám bạc.</li><li>Có tính phóng xạ.</li><li>Khối lượng riêng: khoảng 11.5 g/cm³.</li><li>Nhiệt độ nóng chảy: khoảng 2157 °C.</li><li>Nhiệt độ sôi: khoảng 4265 °C.</li><li>Có tính chất gần với Manganese và Rhenium.</li><li>Có thể tạo nhiều hợp chất với các số Oxy hóa khác nhau.</li></ul>"
+    },
+    {
+      "field": "preparations",
+      "before": null,
+      "after": {
+        "lab": [
+          {
+            "title": "Technetium có thể được tạo ra bằng cách chiếu xạ Molybdenum-98 bằng neutron. Molybdenum-99 sau đó phân rã beta thành Technetium-99m.",
+            "desc": "Phương trình hạt nhân:",
+            "result": "",
+            "equations": [
+              {
+                "equation": "⁹⁸Mo + ¹n → ⁹⁹Mo + γ",
+                "condition": "Chiếu neutron trong cơ sở nghiên cứu; bắt neutron và phát gamma nếu không có sản phẩm bay hơi.",
+                "kind": "nuclear",
+                "sourceLine": 63,
+                "sourceSection": "lab",
+                "balance": {
+                  "status": "balanced",
+                  "kind": "nuclear",
+                  "delta": {}
+                },
+                "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+              },
+              {
+                "equation": "⁹⁹Mo → ⁹⁹ᵐTc + β⁻ + ν̅ₑ",
+                "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+                "kind": "nuclear",
+                "sourceLine": 64,
+                "sourceSection": "lab",
+                "balance": {
+                  "status": "balanced",
+                  "kind": "nuclear",
+                  "delta": {}
+                },
+                "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+              }
+            ],
+            "sourceLines": [
+              61,
+              62,
+              63,
+              64
+            ],
+            "equation": "⁹⁸Mo + ¹n → ⁹⁹Mo + γ"
+          },
+          {
+            "title": "Technetium-99m tiếp tục chuyển thành Technetium-99",
+            "desc": "",
+            "result": "",
+            "equations": [
+              {
+                "equation": "⁹⁹ᵐTc → ⁹⁹Tc + γ",
+                "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+                "kind": "nuclear",
+                "sourceLine": 66,
+                "sourceSection": "lab",
+                "balance": {
+                  "status": "balanced",
+                  "kind": "nuclear",
+                  "delta": {}
+                },
+                "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+              }
+            ],
+            "sourceLines": [
+              65,
+              66
+            ],
+            "equation": "⁹⁹ᵐTc → ⁹⁹Tc + γ"
+          }
+        ],
+        "industry": [
+          {
+            "title": "Technetium không có nguồn quặng tự nhiên đáng kể, chủ yếu được sản xuất từ phản ứng phân hạch Uranium-235 trong lò phản ứng hạt nhân. Sau đó, Technetium được tách khỏi hỗn hợp sản phẩm phân hạch và tinh chế.",
+            "desc": "Phương trình hạt nhân minh họa:",
+            "result": "",
+            "equations": [],
+            "sourceLines": [
+              57,
+              58
+            ],
+            "equation": ""
+          }
+        ]
+      }
+    },
+    {
+      "field": "reactions",
+      "before": null,
+      "after": [
+        {
+          "type": "Tạo Technetium(VII) oxide",
+          "desc": "",
+          "equation": "4Tc + 7O₂ → 2Tc₂O₇",
+          "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+          "kind": "chemical",
+          "sourceLine": 76,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Technetium chloride",
+          "desc": "",
+          "equation": "Tc + 2Cl₂ → TcCl₄",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 78,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Pertechnetate",
+          "desc": "",
+          "equation": "Tc₂O₇ + 2OH⁻ → 2TcO₄⁻ + H₂O",
+          "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+          "kind": "chemical",
+          "sourceLine": 80,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Phân rã Molybdenum-99",
+          "desc": "",
+          "equation": "⁹⁹Mo → ⁹⁹ᵐTc + β⁻ + ν̅ₑ",
+          "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+          "kind": "nuclear",
+          "sourceLine": 82,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Phân rã Technetium-99m",
+          "desc": "",
+          "equation": "⁹⁹ᵐTc → ⁹⁹Tc + γ",
+          "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+          "kind": "nuclear",
+          "sourceLine": 84,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Technetium dioxide",
+          "desc": "",
+          "equation": "Tc + O₂ → TcO₂",
+          "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+          "kind": "chemical",
+          "sourceLine": 86,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": null,
+      "after": [
+        {
+          "title": "Nhận biết Technetium",
+          "desc": "Do Technetium là nguyên tố phóng xạ và không có đồng vị bền, việc nhận biết thường dựa trên đặc tính phóng xạ và phương pháp phân tích chuyên dụng. Ion Pertechnetate: TcO₄⁻ Là dạng Technetium phổ biến trong dung dịch nước. Trong y học hạt nhân, ⁹⁹ᵐTc được nhận biết và theo dõi thông qua bức xạ gamma đặc trưng của nó.",
+          "result": "",
+          "equations": [],
+          "sourceLines": [
+            68,
+            69,
+            70,
+            71,
+            72,
+            73
+          ],
+          "equation": ""
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "043_Tc.docx",
+        "sourceSha256": "9630cf5d119f6db028f6bbb5f0088cc7c0f233a326ab25b376a1f21b7511ec0a",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/043_Tc.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "043_Tc.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "9630cf5d119f6db028f6bbb5f0088cc7c0f233a326ab25b376a1f21b7511ec0a"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/43/technetium"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure",
+      "before": null,
+      "after": {
+        "protons": 43,
+        "electrons": 43,
+        "neutrons": 54,
+        "nucleusIsotope": "⁹⁷Tc",
+        "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+        "nucleus": {
+          "proton": 43,
+          "neutron": 54
+        },
+        "electronShells": [
+          2,
+          8,
+          18,
+          13,
+          2
+        ],
+        "shells": [
+          2,
+          8,
+          18,
+          13,
+          2
+        ],
+        "valenceElectrons": 2,
+        "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+        "lattice": "Lục phương (Hexagonal)",
+        "latticeEvidence": "source-reviewed"
+      }
+    },
+    {
+      "field": "structureType",
+      "before": null,
+      "after": "Lục phương (Hexagonal)"
+    },
+    {
+      "field": "symbol",
+      "before": null,
+      "after": "Tc"
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "Tc",
+      "status": "diagram",
+      "reason": "Không dùng ảnh mẫu vĩ mô không xác minh cho nguyên tố cực hiếm/nhân tạo."
+    },
+    "mineral": {
+      "available": false,
+      "reason": "Nguyên tố nhân tạo hoặc chỉ có vết tự nhiên; không có quặng khai thác riêng để dựng mẫu."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "Tc",
+      "z": 43,
+      "url": "https://periodic-table.rsc.org/element/43/technetium",
+      "status": "retrieved",
+      "bytes": 145215,
+      "sha256": "750d591668dd7e5ae471d2949eaf45f9578242fde60eaaa7bccd9b1e8ad0fc5f",
+      "facts": {
+        "Group": "7",
+        "Melting point": "2157°C, 3915°F, 2430 K",
+        "Period": "5",
+        "Boiling point": "4262°C, 7704°F, 4535 K",
+        "Block": "d",
+        "Density (g cm−³)": "11",
+        "Atomic number": "43",
+        "Relative atomic mass": "[98]",
+        "State at 20°C": "Solid",
+        "Key isotopes": "Unknown",
+        "Electron configuration": "[Kr] 4d⁵5s²",
+        "CAS number": "7440-26-8",
+        "ChemSpider ID": "22396",
+        "electronegativity": "2.10"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "43",
+      "Symbol": "Tc",
+      "Name": "Technetium",
+      "AtomicMass": "96.90636",
+      "CPKHexColor": "3B9E9E",
+      "ElectronConfiguration": "[Kr]5s2 4d5",
+      "Electronegativity": "1.9",
+      "AtomicRadius": "209",
+      "IonizationEnergy": "7.28",
+      "ElectronAffinity": "0.55",
+      "OxidationStates": "+7, +6, +4",
+      "StandardState": "Solid",
+      "MeltingPoint": "2430",
+      "BoilingPoint": "4538",
+      "Density": "11",
+      "GroupBlock": "Transition metal",
+      "YearDiscovered": "1937"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

@@ -1,0 +1,101 @@
+001: Manganese (Mn)
+002: Thông tin chung
+003: Tên Latin: Manganum
+004: Tên Tiếng Anh: Manganese
+005: Đồng vị: ⁵⁵Mn
+006: Vị trí: Nhóm VIIB | Chu kỳ 4
+007: Số Oxy hóa: +2, +3, +4, +5, +6, +7
+008: Độ âm điện: 1.55
+009: Lịch sử khám phá
+010: Phát hiện bởi: Johan Gottlieb Gahn
+011: Năm công bố: 1774
+012: Nơi khám phá: Thụy Điển
+013: Mô tả: Năm 1774, Johan Gottlieb Gahn đã điều chế được Manganese kim loại bằng cách khử Manganese dioxide (MnO₂) với Carbon. Trước đó, Manganese compounds đã được biết đến và sử dụng từ lâu, nhưng chưa được xác định là nguyên tố riêng biệt.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Ar] 3d⁵ 4s²
+017: Mô hình mạng tinh thể: Lập phương tâm khối (Body-centered cubic, BCC)
+018: Số hiệu nguyên tử: 25
+019: Nguyên tử khối: 54.938 g/mol
+020: Vỏ nguyên tử: 25 electron
+021: K: 2 | L: 8 | M: 13 | N: 2
+022: Hạt nhân: 25 proton, 30 neutron đối với ⁵⁵Mn
+023: Cấu hình e: [Ar] 3d⁵ 4s²
+024: Loại mạng: Lập phương tâm khối (Body-centered cubic, BCC)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Manganese là kim loại rắn, màu xám bạc ở điều kiện thường.
+027: Có trong: Pyrolusite (MnO₂), Manganite (MnO(OH)), Rhodochrosite (MnCO₃) và nhiều khoáng vật khác.
+028: Đơn chất: Mn
+029: Hợp chất: MnO₂, MnO, Mn₂O₃, Mn₃O₄, KMnO₄, MnSO₄...
+030: c. Đồng vị
+031: Đồng vị: ⁵⁵Mn
+032: ⁵⁵Mn: Đồng vị bền duy nhất của Manganese, chiếm gần 100% Manganese tự nhiên.
+033: Manganese có nhiều đồng vị phóng xạ nhân tạo.
+034: Tính chất
+035: Tính chất vật lý
+036: Là kim loại chuyển tiếp.
+037: Có màu xám bạc.
+038: Cứng và giòn.
+039: Khó nóng chảy.
+040: Khối lượng riêng: khoảng 7.21 g/cm³.
+041: Nhiệt độ nóng chảy: khoảng 1246 °C.
+042: Nhiệt độ sôi: khoảng 2061 °C.
+043: Dẫn điện và dẫn nhiệt tương đối kém so với nhiều kim loại.
+044: Có nhiều dạng thù hình.
+045: Tính chất hóa học
+046: Có nhiều số Oxy hóa, từ +2 đến +7.
+047: +2 là trạng thái Oxy hóa phổ biến nhất.
+048: MnO₂ thể hiện tính Oxy hóa trong nhiều phản ứng.
+049: Permanganate chứa Mn ở trạng thái +7 và có tính Oxy hóa mạnh.
+050: Phản ứng với Oxygen khi nung nóng.
+051: Phản ứng với Halogen tạo Manganese halide.
+052: Phản ứng với acid tạo muối Manganese và Hydrogen.
+053: Có thể tạo nhiều oxide với các số Oxy hóa khác nhau.
+054: Điều chế
+055: Điều chế trong công nghiệp
+056: Manganese được sản xuất chủ yếu từ quặng Manganese oxide bằng phương pháp nhiệt luyện.
+057: Một phản ứng khử đơn giản:
+058: MnO₂ + 2C → Mn + 2CO
+059: Trong sản xuất Ferroalloy, Manganese thường được dùng để sản xuất Ferromanganese và Silicomanganese.
+060: Điều chế trong phòng thí nghiệm
+061: Manganese kim loại không thường được điều chế trong phòng thí nghiệm phổ thông.
+062: Có thể điều chế bằng cách khử Manganese(II) oxide bằng Aluminium:
+063: 3MnO + 2Al → 3Mn + Al₂O₃
+064: Nhận biết
+065: Nhận biết Mn²⁺
+066: Dung dịch chứa Mn²⁺ thường không màu hoặc có màu rất nhạt.
+067: Có thể tạo kết tủa Manganese(II) hydroxide:
+068: Mn²⁺ + 2OH⁻ → Mn(OH)₂↓
+069: Hiện tượng: Xuất hiện kết tủa trắng hoặc trắng hơi hồng, nhanh chóng bị Oxygen trong không khí oxy hóa và chuyển màu nâu.
+070: Phương trình
+071: Tác dụng với Oxygen
+072: 3Mn + 2O₂ → Mn₃O₄
+073: Tác dụng với Chlorine
+074: Mn + Cl₂ → MnCl₂
+075: Tác dụng với Sulfur
+076: Mn + S → MnS
+077: Tác dụng với Hydrochloric acid
+078: Mn + 2HCl → MnCl₂ + H₂↑
+079: Tạo Manganese(II) hydroxide
+080: Mn²⁺ + 2OH⁻ → Mn(OH)₂↓
+081: Oxy hóa Manganese(II) hydroxide trong không khí
+082: 2Mn(OH)₂ + O₂ → 2MnO(OH) + H₂O
+083: Phân hủy Manganese dioxide với Hydrochloric acid
+084: MnO₂ + 4HCl → MnCl₂ + Cl₂↑ + 2H₂O
+085: Tác dụng với Potassium permanganate trong môi trường acid
+086: 2MnO₄⁻ + 5H₂O₂ + 6H⁺ → 2Mn²⁺ + 5O₂↑ + 8H₂O
+087: Điều chế Manganese
+088: 3MnO + 2Al → 3Mn + Al₂O₃
+089: Ứng dụng thực tế
+090: Sản xuất thép: Manganese là nguyên tố hợp kim quan trọng, giúp tăng độ cứng, độ bền và khả năng chịu mài mòn của thép.
+091: Ferromanganese: Được sử dụng rộng rãi trong luyện thép.
+092: Pin: Manganese dioxide (MnO₂) được sử dụng trong một số loại pin, đặc biệt là pin Zinc–carbon và Alkaline.
+093: Sản xuất hợp kim: Manganese được sử dụng trong nhiều hợp kim của sắt và các kim loại khác.
+094: Xử lý thủy tinh: Một số Manganese compounds được sử dụng để tạo màu hoặc khử màu thủy tinh.
+095: Phân bón: Một số Manganese compounds được sử dụng làm nguồn Manganese cho cây trồng.
+096: Hóa chất: Potassium permanganate (KMnO₄) là một chất Oxy hóa quan trọng trong phòng thí nghiệm và công nghiệp.
+097: Tổng quan
+098: Manganese là nguyên tố số 25, thuộc nhóm VIIB | chu kỳ 4 và là một kim loại chuyển tiếp.
+099: Manganese có cấu hình electron [Ar] 3d⁵ 4s² và có nhiều số Oxy hóa, từ +2 đến +7. Trong đó, +2 là trạng thái phổ biến nhất, còn +7 xuất hiện trong Permanganate.
+100: Manganese có vai trò đặc biệt quan trọng trong luyện thép, đặc biệt là sản xuất Ferromanganese. Ngoài ra, các hợp chất như Manganese dioxide và Potassium permanganate có nhiều ứng dụng trong pin và công nghiệp hóa chất.
+101: Trong tự nhiên, Manganese chủ yếu tồn tại trong các khoáng vật như Pyrolusite (MnO₂) và thường được khai thác cùng hoặc gần các quặng sắt.

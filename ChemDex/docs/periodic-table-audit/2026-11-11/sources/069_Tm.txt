@@ -1,0 +1,90 @@
+001: Thulium (Tm)
+002: Thông tin chung
+003: Tên Latin: Thulium
+004: Tên Tiếng Anh: Thulium
+005: Đồng vị: ¹⁶⁸Tm, ¹⁶⁹Tm, ¹⁷⁰Tm, ¹⁷¹Tm
+006: Vị trí: Nhóm IIIB | Chu kỳ 6 | Họ Lanthanide
+007: Số Oxy hóa: +2, +3
+008: Độ âm điện: 1,25 (Pauling)
+009: Lịch sử khám phá
+010: Phát hiện bởi: Per Teodor Cleve
+011: Năm công bố: 1879
+012: Nơi khám phá: Uppsala, Thụy Điển
+013: Mô tả: Năm 1879, Per Teodor Cleve nghiên cứu Erbia và nhận thấy nó chứa nhiều thành phần khác nhau. Ông tách được hai chất mới, trong đó có Thulia, sau này được xác định là oxide của Thulium.
+014: Tên Thulium bắt nguồn từ Thule, tên cổ được dùng để chỉ một vùng đất xa xôi ở phía Bắc châu Âu.
+015: 3. Cấu tạo
+016: a. Cấu tạo nguyên tử
+017: Cấu hình electron: [Xe] 4f¹³ 6s²
+018: Mô hình mạng tinh thể: Lục phương xếp chặt (Hexagonal close-packed, HCP)
+019: Số hiệu nguyên tử: 69
+020: Nguyên tử khối: 168,93422 g/mol
+021: Vỏ nguyên tử: 69 electron
+022: Hạt nhân: 69 proton
+023: Cấu hình e đầy đủ: 1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰ 4p⁶ 5s² 4d¹⁰ 5p⁶ 4f¹³ 6s²
+024: Loại mạng: Lục phương xếp chặt (HCP)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Chất rắn
+027: Màu sắc: Trắng bạc
+028: Có trong: Monazite, Xenotime và một số khoáng vật đất hiếm khác.
+029: Đơn chất: Tm
+030: Hợp chất phổ biến: Tm₂O₃, TmCl₃, TmF₃, Tm(OH)₃
+031: c. Đồng vị
+032: Thulium trong tự nhiên gần như chỉ có một đồng vị:
+033: ¹⁶⁹Tm: gần 100%, là đồng vị bền duy nhất của Thulium.
+034: Ngoài ra có nhiều đồng vị phóng xạ nhân tạo.
+035: Tính chất
+036: Tính chất vật lý
+037: Là kim loại đất hiếm.
+038: Thuộc họ Lanthanide.
+039: Có màu trắng bạc.
+040: Khá mềm.
+041: Có tính thuận từ.
+042: Là một trong những Lanthanide ít phổ biến nhất trong tự nhiên.
+043: Có nhiệt độ nóng chảy khoảng 1545 °C.
+044: Có nhiệt độ sôi khoảng 1950 °C.
+045: Khối lượng riêng khoảng 9,32 g/cm³.
+046: Tính chất hóa học
+047: Trạng thái Oxy hóa phổ biến nhất là +3.
+048: +2 có thể tồn tại trong một số hợp chất.
+049: Ion Tm³⁺ có cấu hình electron 4f¹².
+050: Thulium phản ứng với Oxygen:
+051: 4Tm + 3O₂ → 2Tm₂O₃
+052: Phản ứng với Acid tạo muối Thulium(III) và giải phóng Hydrogen.
+053: Điều chế
+054: Điều chế trong công nghiệp
+055: Thulium (Tm) chủ yếu được điều chế từ quặng monazite và xenotime. Sau khi tách khỏi hỗn hợp đất hiếm, Thulium được thu bằng phương pháp khử Thulium fluoride bằng Calcium hoặc điện phân muối nóng chảy.
+056: Phương trình:
+057: 2TmF₃ + 3Ca → 2Tm + 3CaF₂
+058: Thulium thu được được tinh chế để loại bỏ tạp chất.
+059: Điều chế trong phòng thí nghiệm
+060: Có thể điều chế Thulium bằng cách khử Thulium chloride khan bằng Calcium.
+061: Phương trình:
+062: 2TmCl₃ + 3Ca → 2Tm + 3CaCl₂
+063: Nhận biết
+064: Có thể nhận biết Thulium bằng:
+065: Phổ phát xạ nguyên tử.
+066: ICP-OES hoặc ICP-MS.
+067: Phổ hấp thụ đặc trưng của Tm³⁺.
+068: Phân tích tính chất quang học của ion Tm³⁺.
+069: Các hợp chất của Tm³⁺ có thể thể hiện màu xanh lam đặc trưng trong một số điều kiện phát quang.
+070: Phương trình
+071: Tác dụng với Oxygen
+072: 4Tm + 3O₂ → 2Tm₂O₃
+073: Tác dụng với Hydrochloric acid
+074: 2Tm + 6HCl → 2TmCl₃ + 3H₂
+075: Tạo Thulium(III) hydroxide
+076: TmCl₃ + 3NaOH → Tm(OH)₃↓ + 3NaCl
+077: Điều chế Thulium
+078: 2TmCl₃ + 3Ca → 2Tm + 3CaCl₂
+079: Ứng dụng thực tế
+080: Nguồn tia X: ¹⁷⁰Tm có thể được sử dụng làm nguồn bức xạ trong một số thiết bị chuyên dụng.
+081: Laser: Thulium được sử dụng trong laser pha tạp Thulium, đặc biệt là các laser phát bức xạ hồng ngoại.
+082: Y tế: Laser Thulium được nghiên cứu và sử dụng trong một số ứng dụng y tế, bao gồm một số thủ thuật trong tiết niệu.
+083: Nghiên cứu quang học: Tm³⁺ được sử dụng trong các vật liệu phát quang và vật liệu quang tử.
+084: Thiết bị điện tử: Một số hợp chất Thulium được sử dụng trong nghiên cứu vật liệu từ và quang điện tử.
+085: Tổng quan
+086: Thulium là nguyên tố số 69, thuộc nhóm IIIB | chu kỳ 6 và là nguyên tố thứ mười ba trong họ Lanthanide.
+087: Thulium được Per Teodor Cleve phát hiện vào năm 1879 tại Thụy Điển. Tên nguyên tố bắt nguồn từ Thule, tên cổ dùng để chỉ một vùng đất xa xôi ở phía Bắc châu Âu.
+088: Thulium là kim loại đất hiếm màu trắng bạc, khá mềm và tương đối hiếm trong tự nhiên. Trạng thái Oxy hóa phổ biến nhất là +3, trong khi +2 cũng có thể tồn tại.
+089: Thulium có ứng dụng trong laser hồng ngoại, nguồn bức xạ, vật liệu quang học và một số ứng dụng y tế. Mặc dù là một trong những Lanthanide hiếm nhất, các tính chất quang học và hạt nhân đặc biệt khiến Thulium vẫn có giá trị trong những lĩnh vực chuyên dụng.
+090: Mạng tinh thể: Lục phương xếp chặt (HCP) ở điều kiện thường.

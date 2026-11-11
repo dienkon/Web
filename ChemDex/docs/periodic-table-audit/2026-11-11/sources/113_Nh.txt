@@ -1,0 +1,90 @@
+001: Nihonium (Nh)
+002: Thông tin chung
+003: Tên Latin: Nihonium
+004: Tên Tiếng Anh: Nihonium
+005: Đồng vị: ²⁷⁸Nh, ²⁷⁹Nh, ²⁸⁰Nh, ²⁸¹Nh, ²⁸²Nh, ²⁸³Nh, ²⁸⁴Nh, ²⁸⁵Nh, ²⁸⁶Nh
+006: Vị trí: Nhóm IIIA | Chu kỳ 7
+007: Số Oxy hóa: +1, +3 (dự đoán)
+008: Độ âm điện: Không xác định
+009: Lịch sử khám phá
+010: Phát hiện bởi: Nhóm nghiên cứu tại RIKEN, Nhật Bản
+011: Năm công bố: 2004
+012: Nơi khám phá: Wako, Saitama, Nhật Bản
+013: Mô tả: Nihonium được tổng hợp lần đầu tại RIKEN bằng cách bắn phá Bismuth-209 bằng Zinc-70:
+014: ²⁰⁹Bi + ⁷⁰Zn → ²⁷⁸Nh + n
+015: Sau nhiều năm thí nghiệm, RIKEN đã tạo và xác nhận các nguyên tử Nihonium thông qua chuỗi phân rã của chúng.
+016: Tên Nihonium bắt nguồn từ Nihon (日本), một cách đọc tiếng Nhật của tên nước Nhật Bản.
+017: 3. Cấu tạo
+018: a. Cấu tạo nguyên tử
+019: Hoạt họa cấu hình e: [Rn] 5f¹⁴ 6d¹⁰ 7s² 7p¹ (dự đoán)
+020: Mô hình mạng tinh thể: Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)
+021: Số hiệu nguyên tử: 113
+022: Nguyên tử khối: [286] g/mol
+023: Vỏ nguyên tử: 113 electron
+024: Hạt nhân: 113 proton
+025: Cấu hình e: [Rn] 5f¹⁴ 6d¹⁰ 7s² 7p¹ (dự đoán)
+026: Loại mạng: Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)
+027: b. Trạng thái tự nhiên
+028: Trạng thái: Chất rắn (dự đoán)
+029: Có trong: Không tồn tại tự nhiên với lượng đáng kể. Nihonium chỉ được tổng hợp nhân tạo trong phòng thí nghiệm.
+030: Đơn chất: Nh
+031: Hợp chất: NhCl, NhCl₃, NhOH... (dự đoán)
+032: c. Đồng vị
+033: Nihonium không có đồng vị bền.
+034: Một số đồng vị:
+035: ²⁷⁸Nh: chu kỳ bán rã khoảng 2 mili giây.
+036: ²⁸²Nh: chu kỳ bán rã khoảng 70 mili giây.
+037: ²⁸³Nh: chu kỳ bán rã khoảng 0,1 giây.
+038: ²⁸⁴Nh: chu kỳ bán rã khoảng 0,5 giây.
+039: ²⁸⁶Nh: được dự đoán có độ ổn định cao hơn một số đồng vị nhẹ hơn.
+040: Các đồng vị Nihonium chủ yếu phân rã bằng phân rã Alpha.
+041: Tính chất
+042: Tính chất vật lý
+043: Là nguyên tố thuộc nhóm IIIA | chu kỳ 7.
+044: Là nguyên tố siêu nặng.
+045: Có tính phóng xạ rất mạnh.
+046: Được dự đoán là chất rắn ở điều kiện thường.
+047: Có thể có tính chất kim loại.
+048: Khối lượng riêng, nhiệt độ nóng chảy và nhiệt độ sôi chưa được xác định trực tiếp.
+049: Tính chất hóa học
+050: Có 3 electron hóa trị theo cấu hình dự đoán: 7s² 7p¹.
+051: Số Oxy hóa +1 và +3 được dự đoán.
+052: Có thể có tính chất tương tự Thallium (Tl) hơn là Aluminum hay Gallium do hiệu ứng tương đối tính.
+053: Trạng thái +1 có thể tương đối ổn định do hiệu ứng cặp electron trơ.
+054: Hầu hết tính chất hóa học vẫn dựa trên dự đoán lý thuyết.
+055: Điều chế
+056: Điều chế trong công nghiệp:
+057: Nihonium (Nh) không được sản xuất công nghiệp do tính phóng xạ rất cao và thời gian bán rã ngắn. Nguyên tố này chỉ được tổng hợp với lượng cực nhỏ trong các cơ sở nghiên cứu hạt nhân.
+058: Điều chế trong phòng thí nghiệm:
+059: Nihonium được tổng hợp bằng cách bắn phá Bismuth-209 bằng ion Zinc-70 trong máy gia tốc hạt.
+060: ²⁰⁹Bi + ⁷⁰Zn → ²⁷⁸Nh + ¹n
+061: Nhận biết
+062: Nihonium được nhận biết thông qua:
+063: Năng lượng của các hạt Alpha.
+064: Chu kỳ bán rã.
+065: Chuỗi phân rã đặc trưng.
+066: Xác định các hạt nhân con.
+067: Đối chiếu chuỗi phân rã với các hạt nhân đã biết.
+068: Do chỉ tạo ra một số lượng cực nhỏ nguyên tử Nh, không thể nhận biết bằng phản ứng hóa học thông thường.
+069: Phương trình
+070: Tổng hợp Nihonium-278
+071: ²⁰⁹Bi + ⁷⁰Zn → ²⁷⁸Nh + n
+072: Phân rã Alpha
+073: ²⁸³Nh → ²⁷⁹Rg + ⁴He
+074: Tạo Nihonium(I) chloride
+075: 2Nh + Cl₂ → 2NhCl
+076: Tạo Nihonium(III) chloride
+077: 2Nh + 3Cl₂ → 2NhCl₃
+078: Các phương trình hóa học của Nihonium chủ yếu mang tính dự đoán vì nguyên tố chỉ được tạo ra với lượng cực kỳ nhỏ.
+079: Ứng dụng thực tế
+080: Nihonium không có ứng dụng công nghiệp hoặc dân dụng.
+081: Nó chủ yếu được sử dụng trong:
+082: Nghiên cứu hạt nhân: Nghiên cứu các nguyên tố siêu nặng và độ ổn định của chúng.
+083: Hóa học nguyên tố siêu nặng: Nghiên cứu Nihonium và so sánh với Thallium, đặc biệt về trạng thái Oxy hóa +1.
+084: Nghiên cứu hiệu ứng tương đối tính: Tìm hiểu sự thay đổi tính chất hóa học của nguyên tố khi số hiệu nguyên tử tăng rất cao.
+085: Tổng quan
+086: Nihonium là nguyên tố số 113, thuộc nhóm IIIA | chu kỳ 7 và là một nguyên tố siêu nặng.
+087: Nihonium được tổng hợp lần đầu tại RIKEN, Nhật Bản vào năm 2004 bằng phản ứng giữa Bismuth-209 và Zinc-70. Đây là nguyên tố đầu tiên được phát hiện và đặt tên bởi một nhóm nghiên cứu tại Nhật Bản.
+088: Cấu hình electron được dự đoán là [Rn] 5f¹⁴ 6d¹⁰ 7s² 7p¹. Do hiệu ứng tương đối tính và hiệu ứng cặp electron trơ, Nihonium có thể có tính chất khác đáng kể so với các nguyên tố nhẹ hơn cùng nhóm.
+089: Nihonium không có đồng vị bền, rất phóng xạ và chỉ được tạo ra với số lượng cực nhỏ. Vì vậy, nó không có ứng dụng thực tế, chủ yếu phục vụ nghiên cứu khoa học.
+090: Mạng tinh thể: Lập phương tâm khối (BCC) — dự đoán, vì chưa thể thu được lượng Nihonium đủ lớn để xác định trực tiếp cấu trúc tinh thể.

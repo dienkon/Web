@@ -1,0 +1,91 @@
+001: Platinum (Pt)
+002: Thông tin chung
+003: Tên Latin: Platinum
+004: Tên Tiếng Anh: Platinum
+005: Đồng vị: ¹⁹⁰Pt, ¹⁹²Pt, ¹⁹⁴Pt, ¹⁹⁵Pt, ¹⁹⁶Pt, ¹⁹⁸Pt
+006: Vị trí: Nhóm VIIIB | Chu kỳ 6
+007: Số Oxy hóa: +2, +4
+008: Độ âm điện: 2.28
+009: Lịch sử khám phá
+010: Phát hiện bởi: Người bản địa Nam Mỹ đã sử dụng từ thời cổ đại; được Antonio de Ulloa mô tả ở châu Âu.
+011: Năm công bố: 1735
+012: Nơi khám phá: Colombia, Nam Mỹ
+013: Mô tả: Platinum đã được người bản địa Nam Mỹ sử dụng từ trước thời kỳ châu Âu tiếp xúc với châu Mỹ. Năm 1735, nhà khoa học Tây Ban Nha Antonio de Ulloa đã đưa Platinum vào tài liệu khoa học châu Âu. Tên Platinum bắt nguồn từ tiếng Tây Ban Nha platina, nghĩa là “bạc nhỏ”.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Xe] 4f¹⁴ 5d⁹ 6s¹
+017: Mô hình mạng tinh thể: Lập phương tâm mặt (Face-centered cubic, FCC)
+018: Số hiệu nguyên tử: 78
+019: Nguyên tử khối: 195.084 g/mol
+020: Vỏ nguyên tử: 78 electron
+021: K: 2 | L: 8 | M: 18 | N: 32 | O: 17 | P: 1
+022: Hạt nhân: 78 proton, 117 neutron đối với ¹⁹⁵Pt
+023: Cấu hình e: [Xe] 4f¹⁴ 5d⁹ 6s¹
+024: Loại mạng: Lập phương tâm mặt (Face-centered cubic, FCC)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Platinum là kim loại rắn, màu trắng bạc, sáng bóng.
+027: Có trong: Tồn tại trong các quặng kim loại nhóm Platinum và đôi khi ở dạng Platinum tự nhiên.
+028: Đơn chất: Pt
+029: Hợp chất: PtCl₂, PtCl₄, H₂PtCl₆, PtO₂...
+030: c. Đồng vị
+031: Đồng vị: ¹⁹⁰Pt, ¹⁹²Pt, ¹⁹⁴Pt, ¹⁹⁵Pt, ¹⁹⁶Pt, ¹⁹⁸Pt
+032: Platinum có 6 đồng vị tự nhiên.
+033: ¹⁹⁴Pt: đồng vị tự nhiên phổ biến nhất.
+034: ¹⁹⁰Pt: có tính phóng xạ cực yếu và chu kỳ bán rã rất dài.
+035: Các đồng vị còn lại về cơ bản được xem là ổn định.
+036: Tính chất
+037: Tính chất vật lý
+038: Là kim loại chuyển tiếp thuộc nhóm Platinum.
+039: Màu trắng bạc, sáng bóng.
+040: Dẻo và dễ dát mỏng.
+041: Khối lượng riêng: khoảng 21.45 g/cm³.
+042: Nhiệt độ nóng chảy: khoảng 1768 °C.
+043: Nhiệt độ sôi: khoảng 3825 °C.
+044: Dẫn điện và dẫn nhiệt.
+045: Chống ăn mòn và chống Oxy hóa rất tốt.
+046: Tính chất hóa học
+047: Có số Oxy hóa phổ biến là +2 và +4.
+048: Tương đối trơ ở điều kiện thường.
+049: Không dễ phản ứng với Oxygen.
+050: Không tan trong phần lớn acid thông thường.
+051: Tan trong nước cường toan tạo các phức Chloroplatinate.
+052: Có khả năng xúc tác nhiều phản ứng hóa học.
+053: Điều chế
+054: Điều chế trong công nghiệp
+055: Platinum (Pt) chủ yếu được thu hồi từ quặng Platinum và các quặng chứa kim loại nhóm Platinum, thường đi kèm với Nickel và Copper. Sau khi tuyển và tách các kim loại khác, Platinum được tinh chế từ các hợp chất hòa tan rồi khử để thu kim loại.
+056: Phương trình:
+057: (NH₄)₂PtCl₆ → Pt + 2NH₄Cl + 2Cl₂
+058: Điều chế trong phòng thí nghiệm
+059: Có thể điều chế Platinum bằng cách nhiệt phân Ammonium hexachloroplatinate.
+060: Phương trình:
+061: (NH₄)₂PtCl₆ → Pt + 2NH₄Cl + 2Cl₂
+062: Nhận biết
+063: Platinum thường được nhận biết bằng phân tích quang phổ hoặc các phương pháp phân tích hóa học chuyên dụng.
+064: Một phản ứng đặc trưng của Pt(IV) là tạo Ammonium hexachloroplatinate:
+065: H₂PtCl₆ + 2NH₄Cl → (NH₄)₂PtCl₆↓ + 2HCl
+066: Hiện tượng: Xuất hiện kết tủa màu vàng Ammonium hexachloroplatinate.
+067: Phương trình
+068: Tác dụng với Chlorine
+069: Pt + Cl₂ → PtCl₂
+070: Tạo Platinum(IV) chloride
+071: Pt + 2Cl₂ → PtCl₄
+072: Tạo Platinum dioxide
+073: Pt + O₂ → PtO₂
+074: Phản ứng với nước cường toan
+075: Pt + 4HCl + HNO₃ → H₂PtCl₆ + NO + 2H₂O
+076: Tạo Ammonium hexachloroplatinate
+077: H₂PtCl₆ + 2NH₄Cl → (NH₄)₂PtCl₆↓ + 2HCl
+078: Khử Platinum(IV) chloride
+079: PtCl₄ + 2H₂ → Pt + 4HCl
+080: Ứng dụng thực tế
+081: Bộ xúc tác khí thải: Platinum là chất xúc tác quan trọng trong catalytic converter, giúp chuyển hóa các khí độc trong khí thải động cơ.
+082: Trang sức: Platinum được sử dụng rộng rãi trong trang sức nhờ vẻ ngoài sáng bóng, độ bền và khả năng chống ăn mòn.
+083: Công nghiệp hóa chất: Platinum được dùng làm chất xúc tác trong nhiều quá trình hóa học.
+084: Y học: Một số hợp chất Platinum, tiêu biểu là Cisplatin, được sử dụng trong điều trị một số loại ung thư.
+085: Điện tử: Platinum được sử dụng trong một số điện cực, cảm biến và linh kiện đặc biệt.
+086: Phòng thí nghiệm: Platinum được dùng làm chén, điện cực và các dụng cụ chịu nhiệt, chịu hóa chất.
+087: Tổng quan
+088: Platinum là nguyên tố số 78, thuộc nhóm VIIIB | chu kỳ 6 và là một kim loại chuyển tiếp thuộc nhóm Platinum.
+089: Platinum có cấu hình electron [Xe] 4f¹⁴ 5d⁹ 6s¹, với số Oxy hóa phổ biến là +2 và +4.
+090: Đây là kim loại trắng bạc, nặng, dẻo, bền và có khả năng chống ăn mòn rất cao. Platinum cũng là một chất xúc tác rất hiệu quả.
+091: Platinum có vai trò quan trọng trong catalytic converter, công nghiệp hóa chất, trang sức, điện tử và y học. Đặc biệt, các hợp chất Platinum như Cisplatin có ý nghĩa lớn trong y học hiện đại.

@@ -1,0 +1,102 @@
+001: Thorium (Th)
+002: Thông tin chung
+003: Tên Latin: Thorium
+004: Tên Tiếng Anh: Thorium
+005: Đồng vị: ²²⁷Th, ²²⁸Th, ²²⁹Th, ²³⁰Th, ²³²Th, ²³³Th, ²³⁴Th
+006: Vị trí: Nhóm IIIB | Chu kỳ 7 | Họ Actinide
+007: Số Oxy hóa: +4
+008: Độ âm điện: 1,30 (Pauling)
+009: Lịch sử khám phá
+010: Phát hiện bởi: Morten Thrane Esmark và Jöns Jacob Berzelius
+011: Năm công bố: 1828
+012: Nơi khám phá: Na Uy và Thụy Điển
+013: Mô tả: Năm 1828, nhà khoáng vật học Morten Thrane Esmark phát hiện một khoáng vật màu đen trên đảo Løvøya, Na Uy. Ông gửi mẫu cho Jöns Jacob Berzelius nghiên cứu.
+014: Berzelius xác định trong khoáng vật có một nguyên tố mới và đặt tên là Thorium, theo Thor, vị thần sấm sét trong thần thoại Bắc Âu.
+015: Đến năm 1898, Marie Curie và Gerhard Carl Schmidt độc lập phát hiện Thorium có tính phóng xạ.
+016: 3. Cấu tạo
+017: a. Cấu tạo nguyên tử
+018: Cấu hình electron: [Rn] 6d² 7s²
+019: Mô hình mạng tinh thể: Lập phương tâm diện (Face-centered cubic, FCC)
+020: Số hiệu nguyên tử: 90
+021: Nguyên tử khối: 232,0377 g/mol
+022: Vỏ nguyên tử: 90 electron
+023: Hạt nhân: 90 proton
+024: Cấu hình e đầy đủ: [Rn] 6d² 7s²
+025: Loại mạng: Lập phương tâm diện (FCC)
+026: b. Trạng thái tự nhiên
+027: Trạng thái: Chất rắn
+028: Màu sắc: Trắng bạc
+029: Có trong: Monazite, Thorite và một số khoáng vật đất hiếm.
+030: Đơn chất: Th
+031: Hợp chất phổ biến: ThO₂, ThCl₄, ThF₄, Th(OH)₄
+032: c. Đồng vị
+033: Thorium tự nhiên chủ yếu gồm:
+034: ²³²Th: gần như 100%, phóng xạ, chu kỳ bán rã khoảng 14,05 tỷ năm.
+035: ²³⁰Th: tồn tại với lượng rất nhỏ, là sản phẩm trong chuỗi phân rã của Uranium-238.
+036: Các đồng vị khác chủ yếu được tạo ra nhân tạo.
+037: ²³²Th là đồng vị Thorium quan trọng nhất và là một nuclide sinh nhiên liệu (fertile nuclide), có thể chuyển thành ²³³U sau khi hấp thụ neutron.
+038: Tính chất
+039: Tính chất vật lý
+040: Là kim loại phóng xạ.
+041: Thuộc họ Actinide.
+042: Có màu trắng bạc khi mới cắt.
+043: Bề mặt nhanh chóng bị oxy hóa trong không khí.
+044: Khá mềm và dễ gia công.
+045: Có nhiệt độ nóng chảy khoảng 1750 °C.
+046: Có nhiệt độ sôi khoảng 4788 °C.
+047: Khối lượng riêng khoảng 11,7 g/cm³.
+048: Tính chất hóa học
+049: Trạng thái Oxy hóa phổ biến và ổn định nhất là +4.
+050: Thorium có tính điện dương và phản ứng với nhiều phi kim.
+051: Phản ứng với Oxygen tạo Thorium dioxide:
+052: Th + O₂ → ThO₂
+053: ThO₂ là một oxide rất bền, có nhiệt độ nóng chảy cực cao.
+054: Thorium phản ứng chậm với nước lạnh nhưng có thể phản ứng mạnh hơn trong những điều kiện thích hợp.
+055: Điều chế
+056: Điều chế trong công nghiệp
+057: Thorium (Th) chủ yếu được điều chế từ quặng Monazite, chứa Thorium phosphate cùng các nguyên tố đất hiếm.
+058: Quặng được xử lý bằng acid sulfuric hoặc kiềm để chuyển Thorium thành hợp chất có thể tách riêng. Sau khi tinh chế thành Thorium dioxide, hợp chất này được chuyển thành Thorium tetrafluoride rồi khử bằng Calcium để thu Thorium kim loại.
+059: Phương trình hóa học:
+060: ThO₂ + 4HF → ThF₄ + 2H₂O
+061: ThF₄ + 2Ca → Th + 2CaF₂
+062: Điều chế trong phòng thí nghiệm
+063: Có thể điều chế Thorium kim loại bằng cách khử Thorium tetrafluoride bằng Calcium trong điều kiện chuyên dụng.
+064: Phương trình hoá học:
+065: ThF₄ + 2Ca → Th + 2CaF₂
+066: Nhận biết
+067: Có thể nhận biết Thorium bằng:
+068: Phổ phóng xạ.
+069: Đo hoạt độ phóng xạ.
+070: Phổ alpha.
+071: Phân tích phổ khối.
+072: Các phản ứng hóa học đặc trưng của Th⁴⁺.
+073: Thorium được nhận biết trong tự nhiên chủ yếu thông qua đặc tính phóng xạ và phân tích thành phần khoáng vật.
+074: Phương trình
+075: Tác dụng với Oxygen
+076: Th + O₂ → ThO₂
+077: Tác dụng với Hydrochloric acid
+078: Th + 4HCl → ThCl₄ + 2H₂
+079: Tạo Thorium(IV) hydroxide
+080: ThCl₄ + 4NaOH → Th(OH)₄↓ + 4NaCl
+081: Điều chế Thorium
+082: ThCl₄ + 2Ca → Th + 2CaCl₂
+083: Chuyển Thorium-232 thành Uranium-233
+084: Trong lò phản ứng, quá trình tổng quát:
+085: ²³²Th + n → ²³³Th
+086: Sau đó:
+087: ²³³Th → ²³³Pa + β⁻
+088: Và:
+089: ²³³Pa → ²³³U + β⁻
+090: Ứng dụng thực tế
+091: Năng lượng hạt nhân: ²³²Th có thể hấp thụ neutron và qua chuỗi biến đổi hạt nhân tạo thành ²³³U, một đồng vị có khả năng phân hạch. Vì vậy Thorium được nghiên cứu như một nguồn nhiên liệu hạt nhân tiềm năng.
+092: Vật liệu chịu nhiệt: ThO₂ có nhiệt độ nóng chảy rất cao và từng được sử dụng trong một số vật liệu chịu nhiệt.
+093: Điện cực hàn: Thorium dioxide từng được sử dụng làm chất pha vào điện cực Tungsten để cải thiện đặc tính phát xạ electron. Việc sử dụng bị hạn chế do tính phóng xạ của Thorium.
+094: Quang học: Một số hợp chất Thorium từng được sử dụng trong kính quang học có chiết suất cao, mặc dù ứng dụng này ngày nay bị hạn chế.
+095: Nghiên cứu địa chất: ²³⁰Th và các đồng vị Thorium khác được sử dụng trong một số phương pháp định tuổi địa chất và khảo cổ.
+096: Tổng quan
+097: Thorium là nguyên tố số 90, thuộc nhóm IIIB | chu kỳ 7 và là nguyên tố thứ hai trong họ Actinide.
+098: Thorium được Jöns Jacob Berzelius xác định là nguyên tố mới vào năm 1828 sau khi nghiên cứu khoáng vật được Morten Thrane Esmark phát hiện ở Na Uy. Tên nguyên tố được đặt theo Thor, vị thần sấm sét trong thần thoại Bắc Âu.
+099: Thorium là kim loại phóng xạ màu trắng bạc, có trạng thái Oxy hóa chủ yếu là +4. Đồng vị tự nhiên quan trọng nhất là ²³²Th, có chu kỳ bán rã khoảng 14,05 tỷ năm.
+100: Điểm đặc biệt của Thorium là ²³²Th có thể chuyển đổi thành ²³³U, khiến Thorium trở thành một ứng viên quan trọng được nghiên cứu cho nhiên liệu hạt nhân thế hệ tương lai.
+101: Ngoài lĩnh vực hạt nhân, Thorium và các hợp chất của nó còn từng được sử dụng trong vật liệu chịu nhiệt, điện cực Tungsten, kính quang học và nghiên cứu địa chất.
+102: Mạng tinh thể: Lập phương tâm diện (FCC) ở điều kiện thường.

@@ -1,0 +1,95 @@
+001: Nobelium (No)
+002: Thông tin chung
+003: Tên Latin: Nobelium
+004: Tên Tiếng Anh: Nobelium
+005: Đồng vị: ²⁵³No, ²⁵⁴No, ²⁵⁵No, ²⁵⁶No, ²⁵⁷No, ²⁵⁸No, ²⁵⁹No, ²⁶⁰No
+006: Vị trí: Nhóm IIB | Chu kỳ 7 | Họ Actinide
+007: Số Oxy hóa: +2, +3
+008: Độ âm điện: 1,3 (Pauling, giá trị ước tính)
+009: Lịch sử khám phá
+010: Phát hiện: Được ghi nhận chính thức cho nhóm nghiên cứu tại Joint Institute for Nuclear Research (JINR), Dubna, do Georgy Flyorov đứng đầu.
+011: Năm công bố: 1966 (sau nhiều tranh cãi về các tuyên bố phát hiện trước đó)
+012: Nơi khám phá: Dubna, Liên Xô
+013: Mô tả: Nobelium được tạo ra bằng cách bắn phá Curium-246 bằng các ion Carbon-12:
+014: ²⁴⁶Cm + ¹²C → ²⁵⁶No + 2n
+015: Tên Nobelium được đặt để vinh danh Alfred Nobel, người sáng lập giải Nobel.
+016: 3. Cấu tạo
+017: a. Cấu tạo nguyên tử
+018: Cấu hình electron: [Rn] 5f¹⁴ 7s²
+019: Mô hình mạng tinh thể: Chưa xác định thực nghiệm
+020: Số hiệu nguyên tử: 102
+021: Nguyên tử khối: 259,10103 g/mol (giá trị quy ước cho đồng vị ²⁵⁹No)
+022: Vỏ nguyên tử: 102 electron
+023: Hạt nhân: 102 proton
+024: Cấu hình e đầy đủ: [Rn] 5f¹⁴ 7s²
+025: Loại mạng: Chưa xác định do chỉ tạo được lượng nguyên tử cực nhỏ.
+026: b. Trạng thái tự nhiên
+027: Trạng thái: Chất rắn (dự đoán)
+028: Màu sắc: Bạc trắng (dự đoán)
+029: Có trong: Không tồn tại tự nhiên; được tạo ra nhân tạo.
+030: Đơn chất: No
+031: Hợp chất: NoCl₂, NoCl₃ và một số hợp chất ion khác được nghiên cứu ở quy mô nguyên tử.
+032: c. Đồng vị
+033: Nobelium không có đồng vị bền.
+034: Một số đồng vị:
+035: ²⁵³No: chu kỳ bán rã khoảng 1,6 phút.
+036: ²⁵⁴No: khoảng 51 giây.
+037: ²⁵⁵No: khoảng 3,1 phút.
+038: ²⁵⁶No: khoảng 2,9 giây.
+039: ²⁵⁷No: khoảng 24,5 giây.
+040: ²⁵⁸No: khoảng 1,2 giây.
+041: ²⁵⁹No: khoảng 58 phút.
+042: ²⁶⁰No: khoảng 106 mili giây.
+043: ²⁵⁹No là một trong những đồng vị có chu kỳ bán rã dài nhất được biết đến của Nobelium.
+044: Tính chất
+045: Tính chất vật lý
+046: Là nguyên tố phóng xạ nhân tạo.
+047: Thuộc họ Actinide.
+048: Được dự đoán là một kim loại.
+049: Có thể có màu bạc trắng.
+050: Có tính phóng xạ rất mạnh.
+051: Chỉ được tạo ra với số lượng nguyên tử cực nhỏ.
+052: Các tính chất vật lý vĩ mô chưa thể xác định đầy đủ.
+053: Tính chất hóa học
+054: Nobelium có hai trạng thái Oxy hóa chính:
+055: +2
+056: +3
+057: Điểm đặc biệt của Nobelium là No²⁺ rất bền, thậm chí ổn định hơn No³⁺ trong nhiều điều kiện. Đây là một đặc điểm khác biệt so với nhiều Actinide trước đó.
+058: Cấu hình:
+059: No: [Rn] 5f¹⁴ 7s²
+060: No²⁺: [Rn] 5f¹⁴
+061: Phân lớp 5f được lấp đầy hoàn toàn ở No²⁺, góp phần giải thích độ ổn định tương đối cao của ion này.
+062: Điều chế
+063: Điều chế trong công nghiệp:
+064: Nobelium (No) không được sản xuất công nghiệp do tính phóng xạ cao và thời gian bán rã ngắn. Nguyên tố này chỉ được tổng hợp với lượng rất nhỏ trong các cơ sở nghiên cứu hạt nhân.
+065: Điều chế trong phòng thí nghiệm:
+066: Nobelium được tổng hợp bằng cách bắn phá Curium-244 bằng ion Carbon-12 trong máy gia tốc hạt.
+067: ²⁴⁴Cm + ¹²C → ²⁵²No + 4¹n
+068: Nhận biết
+069: Có thể nhận biết Nobelium thông qua:
+070: Phổ alpha.
+071: Chuỗi phân rã phóng xạ.
+072: Phổ gamma của các sản phẩm phân rã.
+073: Phân tích thời gian sống của hạt nhân.
+074: Các phương pháp hóa phóng xạ ở quy mô nguyên tử.
+075: Do Nobelium có chu kỳ bán rã ngắn, việc nhận biết chủ yếu dựa trên đặc điểm phân rã của từng đồng vị và các sản phẩm con cháu của chúng.
+076: Phương trình
+077: Điều chế Nobelium-256
+078: ²⁴⁶Cm + ¹²C → ²⁵⁶No + 2n
+079: Tạo Nobelium(II)
+080: No → No²⁺ + 2e⁻
+081: Tạo Nobelium(III)
+082: No → No³⁺ + 3e⁻
+083: Phân rã Alpha của Nobelium-259
+084: ²⁵⁹No → ²⁵⁵Fm + α
+085: Ứng dụng thực tế
+086: Nghiên cứu hạt nhân: Nobelium gần như chỉ được sử dụng trong nghiên cứu vật lý hạt nhân và hóa học Actinide.
+087: Nghiên cứu cấu trúc electron: Nobelium đặc biệt quan trọng để nghiên cứu ảnh hưởng của cấu hình 5f¹⁴ lên tính chất hóa học của các Actinide nặng.
+088: Nghiên cứu nguyên tố siêu nặng: Nobelium cung cấp dữ liệu để hiểu về độ ổn định của các hạt nhân nặng và giới hạn của bảng tuần hoàn.
+089: Do chỉ tạo được từng lượng nguyên tử rất nhỏ và có tính phóng xạ cao, Nobelium không có ứng dụng công nghiệp hay đời sống thông thường.
+090: Tổng quan
+091: Nobelium là nguyên tố số 102, thuộc nhóm IIB | chu kỳ 7 và là nguyên tố thứ mười bốn trong họ Actinide.
+092: Nobelium được tạo ra nhân tạo tại Dubna, Liên Xô và được đặt tên để vinh danh Alfred Nobel.
+093: Đây là một nguyên tố phóng xạ cực mạnh, không có đồng vị bền. Hai trạng thái Oxy hóa quan trọng là +2 và +3, trong đó No²⁺ đặc biệt ổn định do có cấu hình 5f¹⁴ hoàn toàn đầy.
+094: Nobelium chủ yếu có giá trị trong nghiên cứu khoa học, giúp các nhà khoa học tìm hiểu cấu trúc electron, hóa học Actinide và tính chất của các hạt nhân rất nặng.
+095: Mạng tinh thể: Chưa xác định thực nghiệm.

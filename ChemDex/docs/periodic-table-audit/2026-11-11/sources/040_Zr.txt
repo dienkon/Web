@@ -1,0 +1,103 @@
+001: Zirconium (Zr)
+002: Thông tin chung
+003: Tên Latin: Zirconium
+004: Tên Tiếng Anh: Zirconium
+005: Đồng vị: ⁹⁰Zr, ⁹¹Zr, ⁹²Zr, ⁹⁴Zr, ⁹⁶Zr
+006: Vị trí: Nhóm IVB | Chu kỳ 5
+007: Số Oxy hóa: +2, +3, +4
+008: Độ âm điện: 1.33
+009: Lịch sử khám phá
+010: Phát hiện bởi: Martin Heinrich Klaproth
+011: Năm công bố: 1789
+012: Nơi khám phá: Đức
+013: Mô tả: Năm 1789, Martin Heinrich Klaproth phát hiện một nguyên tố mới trong Zircon và xác định oxide của nó. Đến năm 1824, Jöns Jacob Berzelius điều chế được Zirconium ở dạng tương đối tinh khiết.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Kr] 4d² 5s²
+017: Mô hình mạng tinh thể: Lục phương (Hexagonal)
+018: Số hiệu nguyên tử: 40
+019: Nguyên tử khối: 91.224 g/mol
+020: Vỏ nguyên tử: 40 electron
+021: K: 2 | L: 8 | M: 18 | N: 10 | O: 2
+022: Hạt nhân: 40 proton, 50 neutron đối với ⁹⁰Zr
+023: Cấu hình e: [Kr] 4d² 5s²
+024: Loại mạng: Lục phương (Hexagonal)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Zirconium là kim loại rắn, màu trắng xám, có độ bền và khả năng chống ăn mòn cao.
+027: Có trong: Zircon (ZrSiO₄) và Baddeleyite (ZrO₂).
+028: Đơn chất: Zr
+029: Hợp chất: ZrO₂, ZrCl₄, ZrSiO₄, ZrC, ZrN...
+030: c. Đồng vị
+031: Đồng vị: ⁹⁰Zr, ⁹¹Zr, ⁹²Zr, ⁹⁴Zr, ⁹⁶Zr
+032: ⁹⁰Zr: Đồng vị bền, chiếm khoảng 51.45%.
+033: ⁹¹Zr: Đồng vị bền, chiếm khoảng 11.22%.
+034: ⁹²Zr: Đồng vị bền, chiếm khoảng 17.15%.
+035: ⁹⁴Zr: Đồng vị bền, chiếm khoảng 17.38%.
+036: ⁹⁶Zr: Đồng vị phóng xạ có chu kỳ bán rã cực dài.
+037: Tính chất
+038: Tính chất vật lý
+039: Là kim loại chuyển tiếp.
+040: Màu trắng xám.
+041: Cứng và bền.
+042: Khối lượng riêng: khoảng 6.52 g/cm³.
+043: Nhiệt độ nóng chảy: khoảng 1855 °C.
+044: Nhiệt độ sôi: khoảng 4409 °C.
+045: Chống ăn mòn rất tốt.
+046: Có khả năng chịu nhiệt cao.
+047: Dẫn nhiệt và dẫn điện.
+048: Tính chất hóa học
+049: Số Oxy hóa phổ biến nhất là +4.
+050: Tương đối bền trong không khí nhờ lớp Zirconium oxide bảo vệ.
+051: Phản ứng với Oxygen khi nung nóng.
+052: Phản ứng với Halogen tạo Zirconium halide.
+053: Có thể phản ứng với acid và kiềm mạnh trong những điều kiện thích hợp.
+054: Zirconium có ái lực rất mạnh với Oxygen.
+055: Zirconium carbide và Zirconium nitride có độ cứng và độ bền nhiệt cao.
+056: Điều chế
+057: Điều chế trong công nghiệp
+058: Zirconium chủ yếu được điều chế từ quặng Zircon (ZrSiO₄). Quặng được chuyển thành Zirconium dioxide, sau đó tạo Zirconium tetrachloride và khử bằng Magnesium theo quy trình Kroll.
+059: Phương trình hóa học:
+060: ZrSiO₄ + 2C → ZrO₂ + Si + 2CO
+061: ZrO₂ + 2C + 2Cl₂ → ZrCl₄ + 2CO
+062: ZrCl₄ + 2Mg → Zr + 2MgCl₂
+063: Điều chế trong phòng thí nghiệm
+064: Có thể điều chế Zirconium bằng cách khử Zirconium tetrachloride bằng Magnesium hoặc Sodium ở nhiệt độ cao.
+065: Phương trình hóa học:
+066: ZrCl₄ + 2Mg → Zr + 2MgCl₂
+067: ZrCl₄ + 4Na → Zr + 4NaCl
+068: Nhận biết
+069: Nhận biết Zr⁴⁺
+070: Zr⁴⁺ có thể tạo kết tủa Zirconium hydroxide khi tác dụng với hydroxide:
+071: Zr⁴⁺ + 4OH⁻ → Zr(OH)₄↓
+072: Hiện tượng: Xuất hiện kết tủa trắng.
+073: Trong thực tế, việc xác định Zirconium thường sử dụng các phương pháp phân tích chuyên dụng do các phản ứng nhận biết đơn giản không có tính đặc hiệu cao.
+074: Phương trình
+075: Tác dụng với Oxygen
+076: Zr + O₂ → ZrO₂
+077: Tác dụng với Chlorine
+078: Zr + 2Cl₂ → ZrCl₄
+079: Tác dụng với Nitrogen
+080: Zr + N₂ → ZrN
+081: Tác dụng với Carbon
+082: Zr + C → ZrC
+083: Tác dụng với Hydrochloric acid
+084: Zr + 4HCl → ZrCl₄ + 2H₂↑
+085: Tạo Zirconium hydroxide
+086: Zr⁴⁺ + 4OH⁻ → Zr(OH)₄↓
+087: Zirconium hydroxide tác dụng với acid
+088: Zr(OH)₄ + 4HCl → ZrCl₄ + 4H₂O
+089: Điều chế Zirconium
+090: ZrCl₄ + 2Mg → Zr + 2MgCl₂
+091: Ứng dụng thực tế
+092: Công nghiệp hạt nhân: Zirconium được sử dụng làm vật liệu bọc nhiên liệu hạt nhân vì có khả năng chống ăn mòn và hấp thụ neutron thấp.
+093: Hợp kim: Zirconium được sử dụng để tạo các hợp kim có độ bền và khả năng chịu nhiệt cao.
+094: Gốm kỹ thuật: Zirconium dioxide (ZrO₂) được sử dụng trong vật liệu gốm chịu nhiệt và vật liệu kỹ thuật.
+095: Dao cắt: Một số Zirconium compounds được sử dụng trong vật liệu gốm có độ cứng cao.
+096: Chống ăn mòn: Zirconium được sử dụng trong thiết bị xử lý hóa chất nhờ khả năng chống ăn mòn tốt.
+097: Zircon: Zirconium silicate được sử dụng trong gốm sứ, vật liệu chịu lửa và một số ứng dụng quang học.
+098: Tổng quan
+099: Zirconium là nguyên tố số 40, thuộc nhóm IVB | chu kỳ 5 và là một kim loại chuyển tiếp.
+100: Zirconium có cấu hình electron [Kr] 4d² 5s², với số Oxy hóa phổ biến nhất là +4.
+101: Zirconium có độ bền cơ học cao, chịu nhiệt tốt và đặc biệt chống ăn mòn nhờ hình thành lớp oxide bảo vệ trên bề mặt.
+102: Trong tự nhiên, Zirconium chủ yếu tồn tại trong Zircon (ZrSiO₄) và Baddeleyite (ZrO₂). Kim loại Zirconium được sản xuất công nghiệp chủ yếu bằng quy trình Kroll, trong đó ZrCl₄ được khử bằng Magnesium.
+103: Zirconium có vai trò quan trọng trong công nghiệp hạt nhân, hợp kim, hóa chất, gốm kỹ thuật và vật liệu chịu nhiệt.

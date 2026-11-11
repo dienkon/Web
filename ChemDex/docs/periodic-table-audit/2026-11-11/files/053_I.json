@@ -1,0 +1,1041 @@
+{
+  "symbol": "I",
+  "number": 53,
+  "source": "053_I.docx",
+  "sourceSha256": "e1aa0ddb1ef8f915bcad389e549128aeb5297fd15637b203923f62628ce26428",
+  "paragraphCount": 102,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 4,
+    "structure": 9,
+    "occurrence": 4,
+    "isotopes": 3,
+    "physical": 9,
+    "chemical": 7,
+    "lab": 2,
+    "industry": 3,
+    "recognition": 7,
+    "reactions": 17,
+    "applications": 6,
+    "notes": 5
+  },
+  "editorialDecisions": [
+    {
+      "line": 66,
+      "before": "I₂ + Starch → phức màu xanh tím",
+      "after": null,
+      "reason": "Starch là hỗn hợp polymer, phức màu xanh tím không có hệ số phân tử xác định; giữ hiện tượng ở phần nhận biết."
+    }
+  ],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "[Kr] 4d¹⁰ 5s² 5p⁵",
+      "publishedValue": "[Kr] 4d¹⁰ 5s² 5p⁵",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Trực thoi (Orthorhombic)",
+      "publishedValue": "Trực thoi (Orthorhombic)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "2.66",
+      "publishedValue": 2.66,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm VIIA | Chu kỳ 5",
+      "publishedValue": "17",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Iodine là chất rắn ở điều kiện thường, có màu xám tím hoặc đen ánh kim.",
+      "publishedValue": "Rắn",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 32,
+      "sourceText": "¹²⁷I: Là đồng vị bền duy nhất của Iodine trong tự nhiên.",
+      "reference": {
+        "isotope": "¹²⁷I",
+        "massNumber": 127,
+        "protons": 53,
+        "neutrons": 74,
+        "stable": true,
+        "abundancePercent": "100",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 58,
+      "text": "2NaI + Cl₂ → 2NaCl + I₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 62,
+      "text": "2KI + MnO₂ + 2H₂SO₄ → I₂ + MnSO₄ + K₂SO₄ + 2H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 66,
+      "text": "I₂ + Starch → phức màu xanh tím",
+      "status": "unparsed",
+      "kind": "chemical",
+      "reason": "Unrecognised formula: Starch"
+    },
+    {
+      "line": 70,
+      "text": "Ag⁺ + I⁻ → AgI↓",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 74,
+      "text": "H₂ + I₂ ⇌ 2HI",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 76,
+      "text": "2K + I₂ → 2KI",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 78,
+      "text": "2Na + I₂ → 2NaI",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 80,
+      "text": "2KI + Cl₂ → 2KCl + I₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 82,
+      "text": "Ag⁺ + I⁻ → AgI↓",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 84,
+      "text": "I₂ + H₂O ⇌ HI + HIO",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 87,
+      "text": "I₂ + 2NaOH → NaI + NaIO + H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 89,
+      "text": "3I₂ + 6NaOH → 5NaI + NaIO₃ + 3H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "lab",
+      "equation": "2KI + MnO₂ + 2H₂SO₄ → I₂ + MnSO₄ + K₂SO₄ + 2H₂O",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 62,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "2NaI + Cl₂ → 2NaCl + I₂",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 58,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "recognition",
+      "equation": "Ag⁺ + I⁻ → AgI↓",
+      "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+      "kind": "chemical",
+      "sourceLine": 70,
+      "sourceSection": "recognition",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "H₂ + I₂ ⇌ 2HI",
+      "condition": "Gia nhiệt; phản ứng thuận nghịch, mức chuyển hóa phụ thuộc nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 74,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2K + I₂ → 2KI",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 76,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2Na + I₂ → 2NaI",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 78,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2KI + Cl₂ → 2KCl + I₂",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 80,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Ag⁺ + I⁻ → AgI↓",
+      "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+      "kind": "chemical",
+      "sourceLine": 82,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "I₂ + H₂O ⇌ HI + HIO",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 84,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "I₂ + 2NaOH → NaI + NaIO + H₂O",
+      "condition": "Dung dịch kiềm lạnh; hypoiodite chỉ là sản phẩm trung gian, dễ chuyển thành iodide/iodate.",
+      "kind": "chemical",
+      "sourceLine": 87,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "3I₂ + 6NaOH → 5NaI + NaIO₃ + 3H₂O",
+      "condition": "Dung dịch kiềm nóng, đậm đặc; tự oxi hóa–khử halogen.",
+      "kind": "chemical",
+      "sourceLine": 89,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": [
+        {
+          "title": "Y tế",
+          "desc": "Iodine và một số hợp chất của nó được sử dụng trong thuốc sát khuẩn và các ứng dụng y tế."
+        },
+        {
+          "title": "Dinh dưỡng",
+          "desc": "Iodine là nguyên tố vi lượng cần thiết cho cơ thể để tổng hợp hormone tuyến giáp. Muối Iodized được sử dụng để bổ sung Iodine trong chế độ ăn."
+        },
+        {
+          "title": "Y học hạt nhân",
+          "desc": "Đồng vị phóng xạ ¹³¹I được sử dụng trong một số phương pháp chẩn đoán và điều trị bệnh tuyến giáp."
+        },
+        {
+          "title": "Nhiếp ảnh",
+          "desc": "Silver iodide (AgI) từng được sử dụng trong phim ảnh và vật liệu nhạy sáng."
+        },
+        {
+          "title": "Công nghiệp",
+          "desc": "Iodine compounds được sử dụng trong sản xuất hóa chất và một số quy trình công nghiệp."
+        },
+        {
+          "title": "Phản ứng hóa học",
+          "desc": "Iodine được sử dụng làm thuốc thử trong nhiều phản ứng phân tích và hóa học."
+        }
+      ],
+      "after": [
+        {
+          "title": "Y tế",
+          "desc": "Iodine và một số hợp chất của nó được sử dụng trong thuốc sát khuẩn và các ứng dụng y tế.",
+          "sourceLine": 91
+        },
+        {
+          "title": "Dinh dưỡng",
+          "desc": "Iodine là nguyên tố vi lượng cần thiết cho cơ thể để tổng hợp hormone tuyến giáp. Muối Iodized được sử dụng để bổ sung Iodine trong chế độ ăn.",
+          "sourceLine": 92
+        },
+        {
+          "title": "Y học hạt nhân",
+          "desc": "Đồng vị phóng xạ ¹³¹I được sử dụng trong một số phương pháp chẩn đoán và điều trị bệnh tuyến giáp.",
+          "sourceLine": 93
+        },
+        {
+          "title": "Nhiếp ảnh",
+          "desc": "Silver iodide (AgI) từng được sử dụng trong phim ảnh và vật liệu nhạy sáng.",
+          "sourceLine": 94
+        },
+        {
+          "title": "Công nghiệp",
+          "desc": "Iodine compounds được sử dụng trong sản xuất hóa chất và một số quy trình công nghiệp.",
+          "sourceLine": 95
+        },
+        {
+          "title": "Phản ứng hóa học",
+          "desc": "Iodine được sử dụng làm thuốc thử trong nhiều phản ứng phân tích và hóa học.",
+          "sourceLine": 96
+        }
+      ]
+    },
+    {
+      "field": "chemical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Số Oxy hóa phổ biến nhất là −1.</li>\n      <li>Có thể có các số Oxy hóa dương: +1, +3, +5, +7.</li>\n      <li>Có tính Oxy hóa, nhưng yếu hơn Fluorine, Chlorine và Bromine.</li>\n      <li>Phản ứng với kim loại tạo Iodide.</li>\n      <li>Phản ứng với Hydrogen tạo Hydrogen iodide.</li>\n      <li>Có thể phản ứng với Halogen khác tạo Interhalogen.</li>\n      <li>Tạo phức đặc trưng với Starch, cho màu xanh tím.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Số Oxy hóa phổ biến nhất là −1.</li><li>Có thể có các số Oxy hóa dương: +1, +3, +5, +7.</li><li>Có tính Oxy hóa, nhưng yếu hơn Fluorine, Chlorine và Bromine.</li><li>Phản ứng với kim loại tạo Iodide.</li><li>Phản ứng với Hydrogen tạo Hydrogen iodide.</li><li>Có thể phản ứng với Halogen khác tạo Interhalogen.</li><li>Tạo phức đặc trưng với Starch, cho màu xanh tím.</li></ul>"
+    },
+    {
+      "field": "general.CAS",
+      "before": null,
+      "after": "7553-56-2"
+    },
+    {
+      "field": "general.electronegativityNote",
+      "before": null,
+      "after": "Thang Pauling; số liệu tổng hợp PubChem."
+    },
+    {
+      "field": "general.groupLabel",
+      "before": null,
+      "after": "17"
+    },
+    {
+      "field": "general.isotope",
+      "before": "¹²⁷I",
+      "after": "¹²⁷I, ¹³¹I"
+    },
+    {
+      "field": "general.series",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "general.state",
+      "before": "",
+      "after": "Rắn"
+    },
+    {
+      "field": "history.year",
+      "before": 1811,
+      "after": "1811"
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/photos/053_I.jpg",
+          "title": "Iot (I)",
+          "desc": "Ảnh tham chiếu mẫu Iodine (I); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+          "source": "https://commons.wikimedia.org/wiki/File:Sample_of_iodine.jpg",
+          "author": "LHcheM",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "¹²⁷I",
+          "massNumber": 127,
+          "protons": 53,
+          "neutrons": 74,
+          "stable": true,
+          "abundancePercent": "100",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "¹³¹I",
+          "massNumber": 131,
+          "protons": 53,
+          "neutrons": 78,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "8.0252 ± 0.0006 d",
+          "halfLife": "8.0252 d",
+          "halfLifeUncertainty": "6",
+          "halfLifeQualifier": null,
+          "decay": "B-",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "mass",
+      "before": 126.904,
+      "after": 126.9
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "standard-atomic-weight"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "126.90 ± 0.01"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": []
+    },
+    {
+      "field": "nameVi",
+      "before": "Iodine",
+      "after": "Iot"
+    },
+    {
+      "field": "naturalState.alt",
+      "before": null,
+      "after": "Iodine: ảnh tham chiếu từ Commons"
+    },
+    {
+      "field": "naturalState.caption",
+      "before": null,
+      "after": "Ảnh tham chiếu mẫu Iodine (I); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc."
+    },
+    {
+      "field": "naturalState.credit",
+      "before": null,
+      "after": "LHcheM · CC BY-SA 3.0"
+    },
+    {
+      "field": "naturalState.image",
+      "before": null,
+      "after": "/assets/periodic-table/photos/053_I.jpg"
+    },
+    {
+      "field": "naturalState.kind",
+      "before": null,
+      "after": "photo"
+    },
+    {
+      "field": "naturalState.source",
+      "before": null,
+      "after": "https://commons.wikimedia.org/wiki/File:Sample_of_iodine.jpg"
+    },
+    {
+      "field": "notes",
+      "before": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Iodine là nguyên tố số 53, thuộc nhóm VIIA | chu kỳ 5 và là một Halogen.</li>\n  <li>Iodine có cấu hình electron [Kr] 4d¹⁰ 5s² 5p⁵, với số Oxy hóa phổ biến nhất là −1.</li>\n  <li>Ở điều kiện thường, Iodine là chất rắn màu xám tím hoặc đen ánh kim và có đặc điểm nổi bật là thăng hoa tạo hơi màu tím.</li>\n  <li>Iodine có phản ứng đặc trưng với Starch, tạo phức có màu xanh tím. Ion Iodide cũng có thể được nhận biết thông qua kết tủa vàng Silver iodide (AgI).</li>\n  <li>Iodine có vai trò quan trọng trong y tế, dinh dưỡng, y học hạt nhân, công nghiệp hóa chất và hóa học phân tích.</li>\n</ul>\n",
+      "after": "<ul class=\"element-prose-list\"><li>Iodine là nguyên tố số 53, thuộc nhóm VIIA | chu kỳ 5 và là một Halogen.</li><li>Iodine có cấu hình electron [Kr] 4d¹⁰ 5s² 5p⁵, với số Oxy hóa phổ biến nhất là −1.</li><li>Ở điều kiện thường, Iodine là chất rắn màu xám tím hoặc đen ánh kim và có đặc điểm nổi bật là thăng hoa tạo hơi màu tím.</li><li>Iodine có phản ứng đặc trưng với Starch, tạo phức có màu xanh tím. Ion Iodide cũng có thể được nhận biết thông qua kết tủa vàng Silver iodide (AgI).</li><li>Iodine có vai trò quan trọng trong y tế, dinh dưỡng, y học hạt nhân, công nghiệp hóa chất và hóa học phân tích.</li></ul>"
+    },
+    {
+      "field": "occurrence.details",
+      "before": null,
+      "after": [
+        "Trạng thái: Iodine là chất rắn ở điều kiện thường, có màu xám tím hoặc đen ánh kim.",
+        "Có trong: Tồn tại trong nước biển, rong biển, nước muối và một số khoáng vật. Trong tự nhiên thường tồn tại dưới dạng Iodide và Iodate.",
+        "Đơn chất: I₂",
+        "Hợp chất: KI, NaI, KIO₃, AgI, HI, ICl..."
+      ]
+    },
+    {
+      "field": "occurrence.mineral",
+      "before": null,
+      "after": {
+        "available": false,
+        "reason": "Nguồn chủ yếu là khí quyển, nước hoặc nước muối; không có mẫu quặng riêng đại diện."
+      }
+    },
+    {
+      "field": "physical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là phi kim, thuộc nhóm Halogen.</li>\n      <li>Chất rắn màu xám tím hoặc đen ánh kim.</li>\n      <li>Có thể thăng hoa tạo hơi màu tím.</li>\n      <li>Khối lượng riêng: khoảng 4.93 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 113.7 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 184.3 °C.</li>\n      <li>Ít tan trong nước.</li>\n      <li>Tan tốt hơn trong một số dung môi hữu cơ.</li>\n      <li>Là Halogen có bán kính nguyên tử lớn và độ hoạt động hóa học thấp hơn Chlorine và Bromine.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Là phi kim, thuộc nhóm Halogen.</li><li>Chất rắn màu xám tím hoặc đen ánh kim.</li><li>Có thể thăng hoa tạo hơi màu tím.</li><li>Khối lượng riêng: khoảng 4.93 g/cm³.</li><li>Nhiệt độ nóng chảy: khoảng 113.7 °C.</li><li>Nhiệt độ sôi: khoảng 184.3 °C.</li><li>Ít tan trong nước.</li><li>Tan tốt hơn trong một số dung môi hữu cơ.</li><li>Là Halogen có bán kính nguyên tử lớn và độ hoạt động hóa học thấp hơn Chlorine và Bromine.</li></ul>"
+    },
+    {
+      "field": "preparations.industry",
+      "before": [
+        {
+          "title": "Một phương pháp là Oxy hóa Iodide bằng Chlorine:",
+          "equation": "2KI + Cl₂ → 2KCl + I₂",
+          "desc": "Nếu nguồn Iodine tồn tại dưới dạng Iodate, có thể khử Iodate thành Iodide rồi Oxy hóa để thu Iodine."
+        }
+      ],
+      "after": [
+        {
+          "title": "Iodine (I) chủ yếu được thu hồi từ nước muối ngầm chứa iodide hoặc từ các nguồn nước muối tự nhiên giàu iodine.",
+          "desc": "Iodide được oxi hóa bằng Chlorine để tạo Iodine tự do, sau đó được tách và tinh chế.",
+          "result": "",
+          "equations": [
+            {
+              "equation": "2NaI + Cl₂ → 2NaCl + I₂",
+              "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+              "kind": "chemical",
+              "sourceLine": 58,
+              "sourceSection": "industry",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            55,
+            56,
+            58
+          ],
+          "equation": "2NaI + Cl₂ → 2NaCl + I₂"
+        }
+      ]
+    },
+    {
+      "field": "preparations.lab",
+      "before": [],
+      "after": [
+        {
+          "title": "Có thể điều chế Iodine bằng cách oxi hóa potassium iodide bằng Manganese dioxide trong môi trường sulfuric acid đặc.",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "2KI + MnO₂ + 2H₂SO₄ → I₂ + MnSO₄ + K₂SO₄ + 2H₂O",
+              "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+              "kind": "chemical",
+              "sourceLine": 62,
+              "sourceSection": "lab",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            60,
+            62
+          ],
+          "equation": "2KI + MnO₂ + 2H₂SO₄ → I₂ + MnSO₄ + K₂SO₄ + 2H₂O"
+        }
+      ]
+    },
+    {
+      "field": "reactions",
+      "before": [
+        {
+          "type": "Tác dụng với Hydrogen",
+          "equation": "H₂ + I₂ ⇌ 2HI",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Potassium",
+          "equation": "2K + I₂ → 2KI",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Sodium",
+          "equation": "2Na + I₂ → 2NaI",
+          "desc": ""
+        },
+        {
+          "type": "Iodine bị Chlorine Oxy hóa",
+          "equation": "2KI + Cl₂ → 2KCl + I₂",
+          "desc": ""
+        },
+        {
+          "type": "Tạo Silver iodide",
+          "equation": "Ag⁺ + I⁻ → AgI↓",
+          "desc": ""
+        },
+        {
+          "type": "Iodine tác dụng với nước",
+          "equation": "I₂ + H₂O ⇌ HI + HIO",
+          "desc": ""
+        },
+        {
+          "type": "Iodine tác dụng với Sodium hydroxide",
+          "equation": "I₂ + 2NaOH → NaI + NaIO + H₂O",
+          "desc": "Dung dịch loãng, lạnh:"
+        },
+        {
+          "type": "Iodine tác dụng với Sodium hydroxide",
+          "equation": "3I₂ + 6NaOH → 5NaI + NaIO₃ + 3H₂O",
+          "desc": "Dung dịch nóng, đặc:"
+        }
+      ],
+      "after": [
+        {
+          "type": "Tác dụng với Hydrogen",
+          "desc": "",
+          "equation": "H₂ + I₂ ⇌ 2HI",
+          "condition": "Gia nhiệt; phản ứng thuận nghịch, mức chuyển hóa phụ thuộc nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 74,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Potassium",
+          "desc": "",
+          "equation": "2K + I₂ → 2KI",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 76,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Sodium",
+          "desc": "",
+          "equation": "2Na + I₂ → 2NaI",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 78,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Iodine bị Chlorine Oxy hóa",
+          "desc": "",
+          "equation": "2KI + Cl₂ → 2KCl + I₂",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 80,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Silver iodide",
+          "desc": "",
+          "equation": "Ag⁺ + I⁻ → AgI↓",
+          "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+          "kind": "chemical",
+          "sourceLine": 82,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Iodine tác dụng với nước",
+          "desc": "",
+          "equation": "I₂ + H₂O ⇌ HI + HIO",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 84,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Dung dịch loãng, lạnh",
+          "desc": "",
+          "equation": "I₂ + 2NaOH → NaI + NaIO + H₂O",
+          "condition": "Dung dịch kiềm lạnh; hypoiodite chỉ là sản phẩm trung gian, dễ chuyển thành iodide/iodate.",
+          "kind": "chemical",
+          "sourceLine": 87,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Dung dịch nóng, đặc",
+          "desc": "",
+          "equation": "3I₂ + 6NaOH → 5NaI + NaIO₃ + 3H₂O",
+          "condition": "Dung dịch kiềm nóng, đậm đặc; tự oxi hóa–khử halogen.",
+          "kind": "chemical",
+          "sourceLine": 89,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": [
+        {
+          "title": "Nhận biết",
+          "reagent": "Nhận biết Iodine",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Cho Iodine tiếp xúc với dung dịch Starch",
+          "reagent": "",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "",
+          "result": "",
+          "equation": "I₂ + Starch → phức màu xanh tím"
+        },
+        {
+          "title": "Hiện tượng",
+          "reagent": "",
+          "result": "Xuất hiện màu xanh tím đặc trưng.",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "Nhận biết I⁻",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Cho I⁻ tác dụng với AgNO₃",
+          "reagent": "",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "",
+          "result": "",
+          "equation": "Ag⁺ + I⁻ → AgI↓"
+        },
+        {
+          "title": "Hiện tượng",
+          "reagent": "",
+          "result": "Xuất hiện kết tủa vàng Silver iodide.",
+          "equation": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Nhận biết Iodine",
+          "desc": "Cho Iodine tiếp xúc với dung dịch Starch:",
+          "result": "Xuất hiện màu xanh tím đặc trưng.",
+          "equations": [],
+          "sourceLines": [
+            64,
+            65,
+            67
+          ],
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết I⁻",
+          "desc": "Cho I⁻ tác dụng với AgNO₃:",
+          "result": "Xuất hiện kết tủa vàng Silver iodide.",
+          "equations": [
+            {
+              "equation": "Ag⁺ + I⁻ → AgI↓",
+              "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+              "kind": "chemical",
+              "sourceLine": 70,
+              "sourceSection": "recognition",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            68,
+            69,
+            70,
+            71
+          ],
+          "equation": "Ag⁺ + I⁻ → AgI↓"
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "053_I.docx",
+        "sourceSha256": "e1aa0ddb1ef8f915bcad389e549128aeb5297fd15637b203923f62628ce26428",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/053_I.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "053_I.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "e1aa0ddb1ef8f915bcad389e549128aeb5297fd15637b203923f62628ce26428"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/53/iodine"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure.latticeEvidence",
+      "before": null,
+      "after": "source-reviewed"
+    },
+    {
+      "field": "structure.nucleusIsotope",
+      "before": null,
+      "after": "¹²⁷I"
+    },
+    {
+      "field": "structure.nucleusNote",
+      "before": null,
+      "after": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác."
+    },
+    {
+      "field": "structure.valenceNote",
+      "before": null,
+      "after": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp."
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "I",
+      "status": "downloaded",
+      "file": "/assets/periodic-table/photos/053_I.jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:Sample_of_iodine.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/0/0a/Sample_of_iodine.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "thumbnail": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0a/Sample_of_iodine.jpg/960px-Sample_of_iodine.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "filename": "Sample_of_iodine.jpg",
+      "title": "Sample of iodine",
+      "description": "sample of iodine",
+      "author": "LHcheM",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "credit": "Own work",
+      "sha256": "0e17ca320e90c0a5b9b495f179d32d10b36b47deef2a527bde2bbc2097c5efb2",
+      "bytes": 97431
+    },
+    "mineral": {
+      "available": false,
+      "reason": "Nguồn chủ yếu là khí quyển, nước hoặc nước muối; không có mẫu quặng riêng đại diện."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "I",
+      "z": 53,
+      "url": "https://periodic-table.rsc.org/element/53/iodine",
+      "status": "retrieved",
+      "bytes": 161745,
+      "sha256": "7d0cf2c07d44943d25b06501c1d257c6adecc67193f05ae8d6817a3d16318c73",
+      "facts": {
+        "Group": "17",
+        "Melting point": "113.7°C, 236.7°F, 386.9 K",
+        "Period": "5",
+        "Boiling point": "184.4°C, 363.9°F, 457.6 K",
+        "Block": "p",
+        "Density (g cm−³)": "4.933",
+        "Atomic number": "53",
+        "Relative atomic mass": "126.904",
+        "State at 20°C": "Solid",
+        "Key isotopes": "¹²⁷I",
+        "Electron configuration": "[Kr] 4d¹⁰5s²5p⁵",
+        "CAS number": "7553-56-2",
+        "ChemSpider ID": "4514549",
+        "electronegativity": "2.66"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "53",
+      "Symbol": "I",
+      "Name": "Iodine",
+      "AtomicMass": "126.9045",
+      "CPKHexColor": "940094",
+      "ElectronConfiguration": "[Kr]5s2 4d10 5p5",
+      "Electronegativity": "2.66",
+      "AtomicRadius": "198",
+      "IonizationEnergy": "10.451",
+      "ElectronAffinity": "3.059",
+      "OxidationStates": "+7, +5, +1, -1",
+      "StandardState": "Solid",
+      "MeltingPoint": "386.85",
+      "BoilingPoint": "457.55",
+      "Density": "4.93",
+      "GroupBlock": "Halogen",
+      "YearDiscovered": "1811"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

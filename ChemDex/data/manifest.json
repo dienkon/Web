@@ -2,7 +2,7 @@
   {
     "number": 1,
     "symbol": "H",
-    "nameVi": "Hydrogen",
+    "nameVi": "Hiđro",
     "nameEn": "Hydrogen",
     "category": "phi-kim",
     "hasData": true,
@@ -11,7 +11,7 @@
   {
     "number": 2,
     "symbol": "He",
-    "nameVi": "Helium",
+    "nameVi": "Heli",
     "nameEn": "Helium",
     "category": "khi-hiem",
     "hasData": true,
@@ -20,7 +20,7 @@
   {
     "number": 3,
     "symbol": "Li",
-    "nameVi": "Lithium",
+    "nameVi": "Liti",
     "nameEn": "Lithium",
     "category": "kiem",
     "hasData": true,
@@ -29,7 +29,7 @@
   {
     "number": 4,
     "symbol": "Be",
-    "nameVi": "Beryllium",
+    "nameVi": "Beri",
     "nameEn": "Beryllium",
     "category": "kiem-tho",
     "hasData": true,
@@ -38,7 +38,7 @@
   {
     "number": 5,
     "symbol": "B",
-    "nameVi": "Boron",
+    "nameVi": "Bo",
     "nameEn": "Boron",
     "category": "a-kim",
     "hasData": true,
@@ -47,7 +47,7 @@
   {
     "number": 6,
     "symbol": "C",
-    "nameVi": "Carbon",
+    "nameVi": "Cacbon",
     "nameEn": "Carbon",
     "category": "phi-kim",
     "hasData": true,
@@ -56,7 +56,7 @@
   {
     "number": 7,
     "symbol": "N",
-    "nameVi": "Nitrogen",
+    "nameVi": "Nitơ",
     "nameEn": "Nitrogen",
     "category": "phi-kim",
     "hasData": true,
@@ -65,7 +65,7 @@
   {
     "number": 8,
     "symbol": "O",
-    "nameVi": "Oxygen",
+    "nameVi": "Oxi",
     "nameEn": "Oxygen",
     "category": "phi-kim",
     "hasData": true,
@@ -74,7 +74,7 @@
   {
     "number": 9,
     "symbol": "F",
-    "nameVi": "Fluorine",
+    "nameVi": "Flo",
     "nameEn": "Fluorine",
     "category": "halogen",
     "hasData": true,
@@ -92,7 +92,7 @@
   {
     "number": 11,
     "symbol": "Na",
-    "nameVi": "Sodium",
+    "nameVi": "Natri",
     "nameEn": "Sodium",
     "category": "kiem",
     "hasData": true,
@@ -101,7 +101,7 @@
   {
     "number": 12,
     "symbol": "Mg",
-    "nameVi": "⁠Magnesium",
+    "nameVi": "Magie",
     "nameEn": "Magnesium",
     "category": "kiem-tho",
     "hasData": true,
@@ -110,16 +110,16 @@
   {
     "number": 13,
     "symbol": "Al",
-    "nameVi": "Aluminium",
+    "nameVi": "Nhôm",
     "nameEn": "Aluminium",
-    "category": "unknown",
+    "category": "kim-loai-sau-chuyen-tiep",
     "hasData": true,
     "file": "elements/013_Al.json"
   },
   {
     "number": 14,
     "symbol": "Si",
-    "nameVi": "Silicon",
+    "nameVi": "Silic",
     "nameEn": "Silicon",
     "category": "a-kim",
     "hasData": true,
@@ -128,7 +128,7 @@
   {
     "number": 15,
     "symbol": "P",
-    "nameVi": "Phosphorus",
+    "nameVi": "Photpho",
     "nameEn": "Phosphorus",
     "category": "phi-kim",
     "hasData": true,
@@ -137,7 +137,7 @@
   {
     "number": 16,
     "symbol": "S",
-    "nameVi": "Sulfur",
+    "nameVi": "Lưu huỳnh",
     "nameEn": "Sulfur",
     "category": "phi-kim",
     "hasData": true,
@@ -146,7 +146,7 @@
   {
     "number": 17,
     "symbol": "Cl",
-    "nameVi": "Chlorine",
+    "nameVi": "Clo",
     "nameEn": "Chlorine",
     "category": "halogen",
     "hasData": true,
@@ -164,7 +164,7 @@
   {
     "number": 19,
     "symbol": "K",
-    "nameVi": "Potassium",
+    "nameVi": "Kali",
     "nameEn": "Potassium",
     "category": "kiem",
     "hasData": true,
@@ -173,7 +173,7 @@
   {
     "number": 20,
     "symbol": "Ca",
-    "nameVi": "Calcium",
+    "nameVi": "Canxi",
     "nameEn": "Calcium",
     "category": "kiem-tho",
     "hasData": true,
@@ -182,7 +182,7 @@
   {
     "number": 21,
     "symbol": "Sc",
-    "nameVi": "Scandium",
+    "nameVi": "Scandi",
     "nameEn": "Scandium",
     "category": "chuyen-tiep",
     "hasData": true,
@@ -191,7 +191,7 @@
   {
     "number": 22,
     "symbol": "Ti",
-    "nameVi": "Titanium",
+    "nameVi": "Titan",
     "nameEn": "Titanium",
     "category": "chuyen-tiep",
     "hasData": true,
@@ -200,7 +200,7 @@
   {
     "number": 23,
     "symbol": "V",
-    "nameVi": "Vanadium",
+    "nameVi": "Vanadi",
     "nameEn": "Vanadium",
     "category": "chuyen-tiep",
     "hasData": true,
@@ -209,7 +209,7 @@
   {
     "number": 24,
     "symbol": "Cr",
-    "nameVi": "Chromium",
+    "nameVi": "Crom",
     "nameEn": "Chromium",
     "category": "chuyen-tiep",
     "hasData": true,
@@ -218,7 +218,7 @@
   {
     "number": 25,
     "symbol": "Mn",
-    "nameVi": "Manganese",
+    "nameVi": "Mangan",
     "nameEn": "Manganese",
     "category": "chuyen-tiep",
     "hasData": true,
@@ -227,7 +227,7 @@
   {
     "number": 26,
     "symbol": "Fe",
-    "nameVi": "Iron",
+    "nameVi": "Sắt",
     "nameEn": "Iron",
     "category": "chuyen-tiep",
     "hasData": true,
@@ -236,7 +236,7 @@
   {
     "number": 27,
     "symbol": "Co",
-    "nameVi": "Cobalt",
+    "nameVi": "Coban",
     "nameEn": "Cobalt",
     "category": "chuyen-tiep",
     "hasData": true,
@@ -245,7 +245,7 @@
   {
     "number": 28,
     "symbol": "Ni",
-    "nameVi": "Nickel",
+    "nameVi": "Niken",
     "nameEn": "Nickel",
     "category": "chuyen-tiep",
     "hasData": true,
@@ -254,7 +254,7 @@
   {
     "number": 29,
     "symbol": "Cu",
-    "nameVi": "Copper",
+    "nameVi": "Đồng",
     "nameEn": "Copper",
     "category": "chuyen-tiep",
     "hasData": true,
@@ -263,7 +263,7 @@
   {
     "number": 30,
     "symbol": "Zn",
-    "nameVi": "Zinc",
+    "nameVi": "Kẽm",
     "nameEn": "Zinc",
     "category": "chuyen-tiep",
     "hasData": true,
@@ -272,16 +272,16 @@
   {
     "number": 31,
     "symbol": "Ga",
-    "nameVi": "Gallium",
+    "nameVi": "Gali",
     "nameEn": "Gallium",
-    "category": "unknown",
+    "category": "kim-loai-sau-chuyen-tiep",
     "hasData": true,
     "file": "elements/031_Ga.json"
   },
   {
     "number": 32,
     "symbol": "Ge",
-    "nameVi": "Germanium",
+    "nameVi": "Gecmani",
     "nameEn": "Germanium",
     "category": "a-kim",
     "hasData": true,
@@ -290,7 +290,7 @@
   {
     "number": 33,
     "symbol": "As",
-    "nameVi": "Arsenic",
+    "nameVi": "Asen",
     "nameEn": "Arsenic",
     "category": "a-kim",
     "hasData": true,
@@ -299,7 +299,7 @@
   {
     "number": 34,
     "symbol": "Se",
-    "nameVi": "Selenium",
+    "nameVi": "Selen",
     "nameEn": "Selenium",
     "category": "phi-kim",
     "hasData": true,
@@ -308,7 +308,7 @@
   {
     "number": 35,
     "symbol": "Br",
-    "nameVi": "Bromine",
+    "nameVi": "Brom",
     "nameEn": "Bromine",
     "category": "halogen",
     "hasData": true,
@@ -317,7 +317,7 @@
   {
     "number": 36,
     "symbol": "Kr",
-    "nameVi": "Krypton",
+    "nameVi": "Kripton",
     "nameEn": "Krypton",
     "category": "khi-hiem",
     "hasData": true,
@@ -382,9 +382,9 @@
     "symbol": "Tc",
     "nameVi": "Technetium",
     "nameEn": "Technetium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "chuyen-tiep",
+    "hasData": true,
+    "file": "elements/043_Tc.json"
   },
   {
     "number": 44,
@@ -416,7 +416,7 @@
   {
     "number": 47,
     "symbol": "Ag",
-    "nameVi": "Silver",
+    "nameVi": "Bạc",
     "nameEn": "Silver",
     "category": "chuyen-tiep",
     "hasData": true,
@@ -436,7 +436,7 @@
     "symbol": "In",
     "nameVi": "Indium",
     "nameEn": "Indium",
-    "category": "unknown",
+    "category": "kim-loai-sau-chuyen-tiep",
     "hasData": true,
     "file": "elements/049_In.json"
   },
@@ -445,7 +445,7 @@
     "symbol": "Sn",
     "nameVi": "Tin",
     "nameEn": "Tin",
-    "category": "unknown",
+    "category": "kim-loai-sau-chuyen-tiep",
     "hasData": true,
     "file": "elements/050_Sn.json"
   },
@@ -470,7 +470,7 @@
   {
     "number": 53,
     "symbol": "I",
-    "nameVi": "Iodine",
+    "nameVi": "Iot",
     "nameEn": "Iodine",
     "category": "halogen",
     "hasData": true,
@@ -497,7 +497,7 @@
   {
     "number": 56,
     "symbol": "Ba",
-    "nameVi": "Barium",
+    "nameVi": "Bari",
     "nameEn": "Barium",
     "category": "kiem-tho",
     "hasData": true,
@@ -509,7 +509,7 @@
     "nameVi": "Lanthanum",
     "nameEn": "Lanthanum",
     "category": "lanthanide",
-    "hasData": false,
+    "hasData": true,
     "file": "elements/057_La.json"
   },
   {
@@ -518,7 +518,7 @@
     "nameVi": "Cerium",
     "nameEn": "Cerium",
     "category": "lanthanide",
-    "hasData": false,
+    "hasData": true,
     "file": "elements/058_Ce.json"
   },
   {
@@ -526,45 +526,45 @@
     "symbol": "Pr",
     "nameVi": "Praseodymium",
     "nameEn": "Praseodymium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "lanthanide",
+    "hasData": true,
+    "file": "elements/059_Pr.json"
   },
   {
     "number": 60,
     "symbol": "Nd",
     "nameVi": "Neodymium",
     "nameEn": "Neodymium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "lanthanide",
+    "hasData": true,
+    "file": "elements/060_Nd.json"
   },
   {
     "number": 61,
     "symbol": "Pm",
     "nameVi": "Promethium",
     "nameEn": "Promethium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "lanthanide",
+    "hasData": true,
+    "file": "elements/061_Pm.json"
   },
   {
     "number": 62,
     "symbol": "Sm",
     "nameVi": "Samarium",
     "nameEn": "Samarium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "lanthanide",
+    "hasData": true,
+    "file": "elements/062_Sm.json"
   },
   {
     "number": 63,
     "symbol": "Eu",
     "nameVi": "Europium",
     "nameEn": "Europium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "lanthanide",
+    "hasData": true,
+    "file": "elements/063_Eu.json"
   },
   {
     "number": 64,
@@ -572,7 +572,7 @@
     "nameVi": "Gadolinium",
     "nameEn": "Gadolinium",
     "category": "lanthanide",
-    "hasData": false,
+    "hasData": true,
     "file": "elements/064_Gd.json"
   },
   {
@@ -580,63 +580,63 @@
     "symbol": "Tb",
     "nameVi": "Terbium",
     "nameEn": "Terbium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "lanthanide",
+    "hasData": true,
+    "file": "elements/065_Tb.json"
   },
   {
     "number": 66,
     "symbol": "Dy",
     "nameVi": "Dysprosium",
     "nameEn": "Dysprosium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "lanthanide",
+    "hasData": true,
+    "file": "elements/066_Dy.json"
   },
   {
     "number": 67,
     "symbol": "Ho",
     "nameVi": "Holmium",
     "nameEn": "Holmium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "lanthanide",
+    "hasData": true,
+    "file": "elements/067_Ho.json"
   },
   {
     "number": 68,
     "symbol": "Er",
     "nameVi": "Erbium",
     "nameEn": "Erbium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "lanthanide",
+    "hasData": true,
+    "file": "elements/068_Er.json"
   },
   {
     "number": 69,
     "symbol": "Tm",
     "nameVi": "Thulium",
     "nameEn": "Thulium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "lanthanide",
+    "hasData": true,
+    "file": "elements/069_Tm.json"
   },
   {
     "number": 70,
     "symbol": "Yb",
     "nameVi": "Ytterbium",
     "nameEn": "Ytterbium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "lanthanide",
+    "hasData": true,
+    "file": "elements/070_Yb.json"
   },
   {
     "number": 71,
     "symbol": "Lu",
     "nameVi": "Lutetium",
     "nameEn": "Lutetium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "lanthanide",
+    "hasData": true,
+    "file": "elements/071_Lu.json"
   },
   {
     "number": 72,
@@ -695,7 +695,7 @@
   {
     "number": 78,
     "symbol": "Pt",
-    "nameVi": "Platinum",
+    "nameVi": "Bạch kim",
     "nameEn": "Platinum",
     "category": "chuyen-tiep",
     "hasData": true,
@@ -704,7 +704,7 @@
   {
     "number": 79,
     "symbol": "Au",
-    "nameVi": "Gold",
+    "nameVi": "Vàng",
     "nameEn": "Gold",
     "category": "chuyen-tiep",
     "hasData": true,
@@ -713,7 +713,7 @@
   {
     "number": 80,
     "symbol": "Hg",
-    "nameVi": "Mercury",
+    "nameVi": "Thủy ngân",
     "nameEn": "Mercury",
     "category": "chuyen-tiep",
     "hasData": true,
@@ -724,16 +724,16 @@
     "symbol": "Tl",
     "nameVi": "Thallium",
     "nameEn": "Thallium",
-    "category": "unknown",
+    "category": "kim-loai-sau-chuyen-tiep",
     "hasData": true,
     "file": "elements/081_Tl.json"
   },
   {
     "number": 82,
     "symbol": "Pb",
-    "nameVi": "Lead",
+    "nameVi": "Chì",
     "nameEn": "Lead",
-    "category": "unknown",
+    "category": "kim-loai-sau-chuyen-tiep",
     "hasData": true,
     "file": "elements/082_Pb.json"
   },
@@ -742,9 +742,9 @@
     "symbol": "Bi",
     "nameVi": "Bismuth",
     "nameEn": "Bismuth",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "kim-loai-sau-chuyen-tiep",
+    "hasData": true,
+    "file": "elements/083_Bi.json"
   },
   {
     "number": 84,
@@ -760,27 +760,27 @@
     "symbol": "At",
     "nameVi": "Astatine",
     "nameEn": "Astatine",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "halogen",
+    "hasData": true,
+    "file": "elements/085_At.json"
   },
   {
     "number": 86,
     "symbol": "Rn",
     "nameVi": "Radon",
     "nameEn": "Radon",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "khi-hiem",
+    "hasData": true,
+    "file": "elements/086_Rn.json"
   },
   {
     "number": 87,
     "symbol": "Fr",
     "nameVi": "Francium",
     "nameEn": "Francium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "kiem",
+    "hasData": true,
+    "file": "elements/087_Fr.json"
   },
   {
     "number": 88,
@@ -788,7 +788,7 @@
     "nameVi": "Radium",
     "nameEn": "Radium",
     "category": "kiem-tho",
-    "hasData": false,
+    "hasData": true,
     "file": "elements/088_Ra.json"
   },
   {
@@ -796,18 +796,18 @@
     "symbol": "Ac",
     "nameVi": "Actinium",
     "nameEn": "Actinium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "actinide",
+    "hasData": true,
+    "file": "elements/089_Ac.json"
   },
   {
     "number": 90,
     "symbol": "Th",
     "nameVi": "Thorium",
     "nameEn": "Thorium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "actinide",
+    "hasData": true,
+    "file": "elements/090_Th.json"
   },
   {
     "number": 91,
@@ -815,7 +815,7 @@
     "nameVi": "Protactinium",
     "nameEn": "Protactinium",
     "category": "actinide",
-    "hasData": false,
+    "hasData": true,
     "file": "elements/091_Pa.json"
   },
   {
@@ -824,7 +824,7 @@
     "nameVi": "Uranium",
     "nameEn": "Uranium",
     "category": "actinide",
-    "hasData": false,
+    "hasData": true,
     "file": "elements/092_U.json"
   },
   {
@@ -832,9 +832,9 @@
     "symbol": "Np",
     "nameVi": "Neptunium",
     "nameEn": "Neptunium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "actinide",
+    "hasData": true,
+    "file": "elements/093_Np.json"
   },
   {
     "number": 94,
@@ -842,7 +842,7 @@
     "nameVi": "Plutonium",
     "nameEn": "Plutonium",
     "category": "actinide",
-    "hasData": false,
+    "hasData": true,
     "file": "elements/094_Pu.json"
   },
   {
@@ -850,207 +850,207 @@
     "symbol": "Am",
     "nameVi": "Americium",
     "nameEn": "Americium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "actinide",
+    "hasData": true,
+    "file": "elements/095_Am.json"
   },
   {
     "number": 96,
     "symbol": "Cm",
     "nameVi": "Curium",
     "nameEn": "Curium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "actinide",
+    "hasData": true,
+    "file": "elements/096_Cm.json"
   },
   {
     "number": 97,
     "symbol": "Bk",
     "nameVi": "Berkelium",
     "nameEn": "Berkelium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "actinide",
+    "hasData": true,
+    "file": "elements/097_Bk.json"
   },
   {
     "number": 98,
     "symbol": "Cf",
     "nameVi": "Californium",
     "nameEn": "Californium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "actinide",
+    "hasData": true,
+    "file": "elements/098_Cf.json"
   },
   {
     "number": 99,
     "symbol": "Es",
     "nameVi": "Einsteinium",
     "nameEn": "Einsteinium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "actinide",
+    "hasData": true,
+    "file": "elements/099_Es.json"
   },
   {
     "number": 100,
     "symbol": "Fm",
     "nameVi": "Fermium",
     "nameEn": "Fermium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "actinide",
+    "hasData": true,
+    "file": "elements/100_Fm.json"
   },
   {
     "number": 101,
     "symbol": "Md",
     "nameVi": "Mendelevium",
     "nameEn": "Mendelevium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "actinide",
+    "hasData": true,
+    "file": "elements/101_Md.json"
   },
   {
     "number": 102,
     "symbol": "No",
     "nameVi": "Nobelium",
     "nameEn": "Nobelium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "actinide",
+    "hasData": true,
+    "file": "elements/102_No.json"
   },
   {
     "number": 103,
     "symbol": "Lr",
     "nameVi": "Lawrencium",
     "nameEn": "Lawrencium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "actinide",
+    "hasData": true,
+    "file": "elements/103_Lr.json"
   },
   {
     "number": 104,
     "symbol": "Rf",
     "nameVi": "Rutherfordium",
     "nameEn": "Rutherfordium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "chuyen-tiep",
+    "hasData": true,
+    "file": "elements/104_Rf.json"
   },
   {
     "number": 105,
     "symbol": "Db",
     "nameVi": "Dubnium",
     "nameEn": "Dubnium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "chuyen-tiep",
+    "hasData": true,
+    "file": "elements/105_Db.json"
   },
   {
     "number": 106,
     "symbol": "Sg",
     "nameVi": "Seaborgium",
     "nameEn": "Seaborgium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "chuyen-tiep",
+    "hasData": true,
+    "file": "elements/106_Sg.json"
   },
   {
     "number": 107,
     "symbol": "Bh",
     "nameVi": "Bohrium",
     "nameEn": "Bohrium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "chuyen-tiep",
+    "hasData": true,
+    "file": "elements/107_Bh.json"
   },
   {
     "number": 108,
     "symbol": "Hs",
     "nameVi": "Hassium",
     "nameEn": "Hassium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "chuyen-tiep",
+    "hasData": true,
+    "file": "elements/108_Hs.json"
   },
   {
     "number": 109,
     "symbol": "Mt",
     "nameVi": "Meitnerium",
     "nameEn": "Meitnerium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "chuyen-tiep",
+    "hasData": true,
+    "file": "elements/109_Mt.json"
   },
   {
     "number": 110,
     "symbol": "Ds",
     "nameVi": "Darmstadtium",
     "nameEn": "Darmstadtium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "chuyen-tiep",
+    "hasData": true,
+    "file": "elements/110_Ds.json"
   },
   {
     "number": 111,
     "symbol": "Rg",
     "nameVi": "Roentgenium",
     "nameEn": "Roentgenium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "chuyen-tiep",
+    "hasData": true,
+    "file": "elements/111_Rg.json"
   },
   {
     "number": 112,
     "symbol": "Cn",
     "nameVi": "Copernicium",
     "nameEn": "Copernicium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "chuyen-tiep",
+    "hasData": true,
+    "file": "elements/112_Cn.json"
   },
   {
     "number": 113,
     "symbol": "Nh",
     "nameVi": "Nihonium",
     "nameEn": "Nihonium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "kim-loai-sau-chuyen-tiep",
+    "hasData": true,
+    "file": "elements/113_Nh.json"
   },
   {
     "number": 114,
     "symbol": "Fl",
     "nameVi": "Flerovium",
     "nameEn": "Flerovium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "kim-loai-sau-chuyen-tiep",
+    "hasData": true,
+    "file": "elements/114_Fl.json"
   },
   {
     "number": 115,
     "symbol": "Mc",
     "nameVi": "Moscovium",
     "nameEn": "Moscovium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "kim-loai-sau-chuyen-tiep",
+    "hasData": true,
+    "file": "elements/115_Mc.json"
   },
   {
     "number": 116,
     "symbol": "Lv",
     "nameVi": "Livermorium",
     "nameEn": "Livermorium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "kim-loai-sau-chuyen-tiep",
+    "hasData": true,
+    "file": "elements/116_Lv.json"
   },
   {
     "number": 117,
     "symbol": "Ts",
     "nameVi": "Tennessine",
     "nameEn": "Tennessine",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "halogen",
+    "hasData": true,
+    "file": "elements/117_Ts.json"
   },
   {
     "number": 118,

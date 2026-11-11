@@ -1,0 +1,89 @@
+001: Meitnerium (Mt)
+002: Thông tin chung
+003: Tên Latin: Meitnerium
+004: Tên Tiếng Anh: Meitnerium
+005: Đồng vị: ²⁶⁶Mt, ²⁶⁸Mt, ²⁷⁰Mt, ²⁷¹Mt, ²⁷²Mt, ²⁷³Mt, ²⁷⁴Mt, ²⁷⁵Mt, ²⁷⁶Mt, ²⁷⁷Mt, ²⁷⁸Mt
+006: Vị trí: Nhóm VIIIB | Chu kỳ 7
+007: Số Oxy hóa: +3, +4, +6, +8 (dự đoán)
+008: Độ âm điện: Không xác định
+009: Lịch sử khám phá
+010: Phát hiện bởi: Nhóm nghiên cứu tại Gesellschaft für Schwerionenforschung (GSI)
+011: Năm công bố: 1982
+012: Nơi khám phá: Darmstadt, Tây Đức
+013: Mô tả: Meitnerium được tổng hợp lần đầu vào năm 1982 tại GSI bằng cách bắn phá Bismuth-209 bằng Iron-58:
+014: ²⁰⁹Bi + ⁵⁸Fe → ²⁶⁶Mt + n
+015: Tên Meitnerium được đặt để vinh danh nhà vật lý Lise Meitner, người có những đóng góp quan trọng trong việc nghiên cứu hiện tượng phân hạch hạt nhân.
+016: 3. Cấu tạo
+017: a. Cấu tạo nguyên tử
+018: Hoạt họa cấu hình e: [Rn] 5f¹⁴ 6d⁷ 7s² (dự đoán)
+019: Mô hình mạng tinh thể: Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)
+020: Số hiệu nguyên tử: 109
+021: Nguyên tử khối: [278] g/mol
+022: Vỏ nguyên tử: 109 electron
+023: Hạt nhân: 109 proton
+024: Cấu hình e: [Rn] 5f¹⁴ 6d⁷ 7s² (dự đoán)
+025: Loại mạng: Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)
+026: b. Trạng thái tự nhiên
+027: Trạng thái: Chất rắn (dự đoán).
+028: Có trong: Không tồn tại tự nhiên với lượng đáng kể. Meitnerium chỉ được tổng hợp nhân tạo trong phòng thí nghiệm.
+029: Đơn chất: Mt
+030: Hợp chất: MtO, MtCl₃, MtO₃... (dự đoán)
+031: c. Đồng vị
+032: Meitnerium không có đồng vị bền.
+033: Một số đồng vị đã được biết đến:
+034: ²⁶⁶Mt: chu kỳ bán rã khoảng 3.4 mili giây.
+035: ²⁷⁰Mt: chu kỳ bán rã khoảng 0.4 giây.
+036: ²⁷¹Mt: chu kỳ bán rã khoảng 7.4 giây.
+037: ²⁷²Mt: chu kỳ bán rã khoảng 10 giây.
+038: ²⁷⁶Mt: chu kỳ bán rã khoảng 0.72 giây.
+039: Các đồng vị Meitnerium đều phóng xạ và thường phân rã bằng phân rã Alpha.
+040: Tính chất
+041: Tính chất vật lý
+042: Là kim loại chuyển tiếp.
+043: Thuộc nhóm VIIIB | chu kỳ 7.
+044: Là nguyên tố siêu nặng.
+045: Có tính phóng xạ cực mạnh.
+046: Được dự đoán là chất rắn ở điều kiện thường.
+047: Các tính chất vĩ mô như màu sắc, khối lượng riêng, nhiệt độ nóng chảy và nhiệt độ sôi chưa được xác định thực nghiệm.
+048: Tính chất hóa học
+049: Được dự đoán có tính chất tương tự Iridium (Ir).
+050: Có thể có nhiều số Oxy hóa như +3, +4, +6 và +8.
+051: Trạng thái +3 có thể là một trong những trạng thái tương đối ổn định.
+052: Các hiệu ứng tương đối tính có thể làm cho hóa học của Mt khác với Iridium.
+053: Hầu như toàn bộ tính chất hóa học của Meitnerium vẫn dựa trên dự đoán lý thuyết.
+054: Điều chế
+055: Điều chế trong công nghiệp:
+056: Meitnerium (Mt) không được sản xuất công nghiệp do tính phóng xạ rất cao và thời gian bán rã ngắn. Nguyên tố này chỉ được tổng hợp với lượng cực nhỏ trong các cơ sở nghiên cứu hạt nhân.
+057: Điều chế trong phòng thí nghiệm:
+058: Meitnerium được tổng hợp bằng cách bắn phá Bismuth-209 bằng ion Iron-58 trong máy gia tốc hạt.
+059: ²⁰⁹Bi + ⁵⁸Fe → ²⁶⁶Mt + ¹n
+060: Nhận biết
+061: Meitnerium được nhận biết thông qua:
+062: Năng lượng các hạt Alpha.
+063: Chu kỳ bán rã.
+064: Chuỗi phân rã đặc trưng.
+065: Xác định các hạt nhân con sinh ra.
+066: Đối chiếu chuỗi phân rã với các đồng vị đã biết.
+067: Do chỉ tạo được một số lượng cực nhỏ nguyên tử Mt, không thể nhận biết bằng phản ứng hóa học thông thường.
+068: Phương trình
+069: Tổng hợp Meitnerium-266
+070: ²⁰⁹Bi + ⁵⁸Fe → ²⁶⁶Mt + n
+071: Phân rã Alpha của Meitnerium-276
+072: ²⁷⁶Mt → ²⁷²Bh + ⁴He
+073: Tạo Meitnerium(III) chloride
+074: 2Mt + 3Cl₂ → 2MtCl₃
+075: Tạo Meitnerium oxide
+076: 2Mt + O₂ → 2MtO
+077: Các phương trình hóa học của Meitnerium chủ yếu mang tính dự đoán vì nguyên tố chỉ tồn tại trong thời gian rất ngắn và với lượng cực nhỏ.
+078: Ứng dụng thực tế
+079: Meitnerium không có ứng dụng công nghiệp hoặc dân dụng.
+080: Nó chủ yếu được sử dụng trong:
+081: Nghiên cứu hạt nhân: Nghiên cứu tính ổn định của các hạt nhân siêu nặng.
+082: Hóa học nguyên tố siêu nặng: Kiểm tra sự tương đồng giữa Meitnerium và Iridium.
+083: Nghiên cứu cấu trúc nguyên tử: Nghiên cứu ảnh hưởng của hiệu ứng tương đối tính lên các nguyên tử có số hiệu nguyên tử rất lớn.
+084: Tổng quan
+085: Meitnerium là nguyên tố số 109, thuộc nhóm VIIIB | chu kỳ 7 và là một kim loại chuyển tiếp siêu nặng.
+086: Meitnerium được tổng hợp lần đầu vào năm 1982 tại GSI, Darmstadt, bằng phản ứng giữa Bismuth-209 và Iron-58. Nguyên tố được đặt tên để vinh danh nhà vật lý Lise Meitner.
+087: Cấu hình electron được dự đoán là [Rn] 5f¹⁴ 6d⁷ 7s². Về mặt hóa học, Meitnerium được dự đoán có nhiều điểm tương đồng với Iridium, nhưng hiệu ứng tương đối tính có thể làm thay đổi đáng kể tính chất của nó.
+088: Meitnerium không có đồng vị bền, có tính phóng xạ rất mạnh và chỉ được tạo ra với số lượng cực nhỏ. Vì vậy, nó không có ứng dụng thực tế, chủ yếu được sử dụng trong nghiên cứu khoa học.
+089: Mạng tinh thể: Lập phương tâm khối (BCC) — dự đoán, vì chưa thể thu được lượng Meitnerium đủ lớn để xác định trực tiếp cấu trúc tinh thể.

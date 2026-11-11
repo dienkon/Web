@@ -1,0 +1,1203 @@
+{
+  "symbol": "Ti",
+  "number": 22,
+  "source": "022_Ti.docx",
+  "sourceSha256": "8744e2cd4c10f071a7a09ece6fd336798e2ff66d6bb09e34ddefefc9a0959083",
+  "paragraphCount": 106,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 4,
+    "structure": 9,
+    "occurrence": 4,
+    "isotopes": 6,
+    "physical": 9,
+    "chemical": 8,
+    "lab": 3,
+    "industry": 6,
+    "recognition": 4,
+    "reactions": 19,
+    "applications": 6,
+    "notes": 5
+  },
+  "editorialDecisions": [
+    {
+      "line": 89,
+      "before": "Ti + 4HCl → TiCl₄ + 2H₂↑",
+      "after": "2Ti + 6HCl → 2TiCl₃ + 3H₂↑",
+      "reason": "HCl là acid không oxi hóa; sản phẩm Ti(III) thích hợp hơn TiCl₄ khi hòa tan kim loại, cần acid nóng và phá lớp thụ động."
+    }
+  ],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "[Ar] 3d² 4s²",
+      "publishedValue": "[Ar] 3d² 4s²",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Lục phương (Hexagonal)",
+      "publishedValue": "Lục phương (Hexagonal)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "1.54",
+      "publishedValue": 1.54,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm IVB | Chu kỳ 4",
+      "publishedValue": "4",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Titanium là kim loại rắn, màu xám bạc ở điều kiện thường. Titanium không tồn tại tự do phổ biến trong tự nhiên mà chủ yếu tồn tại trong các khoáng vật.",
+      "publishedValue": "Rắn",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 32,
+      "sourceText": "⁴⁶Ti: Đồng vị bền, chiếm khoảng 8.25%.",
+      "reference": {
+        "isotope": "⁴⁶Ti",
+        "massNumber": 46,
+        "protons": 22,
+        "neutrons": 24,
+        "stable": true,
+        "abundancePercent": "8.25",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 33,
+      "sourceText": "⁴⁷Ti: Đồng vị bền, chiếm khoảng 7.44%.",
+      "reference": {
+        "isotope": "⁴⁷Ti",
+        "massNumber": 47,
+        "protons": 22,
+        "neutrons": 25,
+        "stable": true,
+        "abundancePercent": "7.44",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 34,
+      "sourceText": "⁴⁸Ti: Đồng vị bền, chiếm khoảng 73.72%.",
+      "reference": {
+        "isotope": "⁴⁸Ti",
+        "massNumber": 48,
+        "protons": 22,
+        "neutrons": 26,
+        "stable": true,
+        "abundancePercent": "73.72",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 35,
+      "sourceText": "⁴⁹Ti: Đồng vị bền, chiếm khoảng 5.41%.",
+      "reference": {
+        "isotope": "⁴⁹Ti",
+        "massNumber": 49,
+        "protons": 22,
+        "neutrons": 27,
+        "stable": true,
+        "abundancePercent": "5.41",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 36,
+      "sourceText": "⁵⁰Ti: Đồng vị bền, chiếm khoảng 5.18%.",
+      "reference": {
+        "isotope": "⁵⁰Ti",
+        "massNumber": 50,
+        "protons": 22,
+        "neutrons": 28,
+        "stable": true,
+        "abundancePercent": "5.18",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 61,
+      "text": "TiO₂ + 2C + 2Cl₂ → TiCl₄ + 2CO",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 63,
+      "text": "TiCl₄ + 2Mg → Ti + 2MgCl₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 68,
+      "text": "TiCl₄ + 2Mg → Ti + 2MgCl₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 72,
+      "text": "Ti⁴⁺ + H₂O₂ → [TiO₂]²⁺ + 2H⁺",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 76,
+      "text": "Ti + O₂ → TiO₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 78,
+      "text": "Ti + 2Cl₂ → TiCl₄",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 80,
+      "text": "Ti + 2Br₂ → TiBr₄",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 83,
+      "text": "2Ti + N₂ → 2TiN",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 86,
+      "text": "Ti + C → TiC",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 89,
+      "text": "Ti + 4HCl → TiCl₄ + 2H₂↑",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 91,
+      "text": "TiO₂ + 2C + 2Cl₂ → TiCl₄ + 2CO",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 93,
+      "text": "TiCl₄ + 2Mg → Ti + 2MgCl₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "lab",
+      "equation": "TiCl₄ + 2Mg → Ti + 2MgCl₂",
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 68,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "TiO₂ + 2C + 2Cl₂ → TiCl₄ + 2CO",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 61,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "TiCl₄ + 2Mg → Ti + 2MgCl₂",
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 63,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "recognition",
+      "equation": "Ti⁴⁺ + H₂O₂ → [TiO₂]²⁺ + 2H⁺",
+      "condition": "Sơ đồ ion giản lược: trong nước tồn tại phức aquo/hydroxo; oxide hydrate hoặc kết tủa thực tế phụ thuộc pH và phối tử. Không xem đây là phép thử đặc hiệu.",
+      "kind": "formal",
+      "sourceLine": 72,
+      "sourceSection": "recognition",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Ti + O₂ → TiO₂",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 76,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Ti + 2Cl₂ → TiCl₄",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 78,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Ti + 2Br₂ → TiBr₄",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 80,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2Ti + N₂ → 2TiN",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 83,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Ti + C → TiC",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 86,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2Ti + 6HCl → 2TiCl₃ + 3H₂↑",
+      "condition": "HCl nóng, khử oxygen/không khí; phản ứng bị chi phối bởi lớp thụ động TiO₂.",
+      "kind": "chemical",
+      "sourceLine": 89,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "TiO₂ + 2C + 2Cl₂ → TiCl₄ + 2CO",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 91,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "TiCl₄ + 2Mg → Ti + 2MgCl₂",
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 93,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": [
+        {
+          "title": "Hàng không và vũ trụ",
+          "desc": "Titanium alloys có độ bền cao, nhẹ và chịu nhiệt tốt nên được sử dụng trong máy bay và tàu vũ trụ."
+        },
+        {
+          "title": "Y tế",
+          "desc": "Titanium và Titanium alloys được sử dụng trong một số dụng cụ và implant y tế nhờ khả năng chống ăn mòn và tương thích sinh học tốt."
+        },
+        {
+          "title": "Công nghiệp hóa chất",
+          "desc": "Titanium được sử dụng trong các thiết bị cần khả năng chống ăn mòn cao."
+        },
+        {
+          "title": "Sơn và chất màu",
+          "desc": "Titanium dioxide (TiO₂) là một chất màu trắng quan trọng, được sử dụng rộng rãi trong sơn, nhựa và giấy."
+        },
+        {
+          "title": "Đồ dùng và thể thao",
+          "desc": "Titanium alloys được sử dụng trong một số sản phẩm yêu cầu nhẹ và bền."
+        },
+        {
+          "title": "Luyện kim",
+          "desc": "Titanium được sử dụng làm nguyên tố hợp kim để cải thiện tính chất của một số vật liệu."
+        }
+      ],
+      "after": [
+        {
+          "title": "Hàng không và vũ trụ",
+          "desc": "Titanium alloys có độ bền cao, nhẹ và chịu nhiệt tốt nên được sử dụng trong máy bay và tàu vũ trụ.",
+          "sourceLine": 95
+        },
+        {
+          "title": "Y tế",
+          "desc": "Titanium và Titanium alloys được sử dụng trong một số dụng cụ và implant y tế nhờ khả năng chống ăn mòn và tương thích sinh học tốt.",
+          "sourceLine": 96
+        },
+        {
+          "title": "Công nghiệp hóa chất",
+          "desc": "Titanium được sử dụng trong các thiết bị cần khả năng chống ăn mòn cao.",
+          "sourceLine": 97
+        },
+        {
+          "title": "Sơn và chất màu",
+          "desc": "Titanium dioxide (TiO₂) là một chất màu trắng quan trọng, được sử dụng rộng rãi trong sơn, nhựa và giấy.",
+          "sourceLine": 98
+        },
+        {
+          "title": "Đồ dùng và thể thao",
+          "desc": "Titanium alloys được sử dụng trong một số sản phẩm yêu cầu nhẹ và bền.",
+          "sourceLine": 99
+        },
+        {
+          "title": "Luyện kim",
+          "desc": "Titanium được sử dụng làm nguyên tố hợp kim để cải thiện tính chất của một số vật liệu.",
+          "sourceLine": 100
+        }
+      ]
+    },
+    {
+      "field": "chemical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có khả năng tạo lớp Titanium dioxide bảo vệ trên bề mặt nên chống ăn mòn tốt.</li>\n      <li>Các số Oxy hóa phổ biến: +2, +3, +4.</li>\n      <li>+4 là trạng thái Oxy hóa bền và phổ biến nhất.</li>\n      <li>Phản ứng với Oxygen khi nung nóng tạo Titanium dioxide.</li>\n      <li>Phản ứng với Halogen ở nhiệt độ thích hợp.</li>\n      <li>Phản ứng với acid mạnh trong những điều kiện nhất định.</li>\n      <li>Ở nhiệt độ cao, Titanium có thể phản ứng với Nitrogen và Carbon.</li>\n      <li>Titanium có hoạt tính hóa học đáng kể ở nhiệt độ cao nhưng khá bền ở điều kiện thường.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Có khả năng tạo lớp Titanium dioxide bảo vệ trên bề mặt nên chống ăn mòn tốt.</li><li>Các số Oxy hóa phổ biến: +2, +3, +4.</li><li>+4 là trạng thái Oxy hóa bền và phổ biến nhất.</li><li>Phản ứng với Oxygen khi nung nóng tạo Titanium dioxide.</li><li>Phản ứng với Halogen ở nhiệt độ thích hợp.</li><li>Phản ứng với acid mạnh trong những điều kiện nhất định.</li><li>Ở nhiệt độ cao, Titanium có thể phản ứng với Nitrogen và Carbon.</li><li>Titanium có hoạt tính hóa học đáng kể ở nhiệt độ cao nhưng khá bền ở điều kiện thường.</li></ul>"
+    },
+    {
+      "field": "general.CAS",
+      "before": null,
+      "after": "7440-32-6"
+    },
+    {
+      "field": "general.electronegativityNote",
+      "before": null,
+      "after": "Thang Pauling; số liệu tổng hợp PubChem."
+    },
+    {
+      "field": "general.groupLabel",
+      "before": null,
+      "after": "4"
+    },
+    {
+      "field": "general.series",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "general.state",
+      "before": "",
+      "after": "Rắn"
+    },
+    {
+      "field": "history.year",
+      "before": 1791,
+      "after": "1791"
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/photos/022_Ti.jpg",
+          "title": "Titan (Ti)",
+          "desc": "Ảnh tham chiếu mẫu Titanium (Ti); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+          "source": "https://commons.wikimedia.org/wiki/File:Titan-crystal_bar.JPG",
+          "author": "Alchemist-hp ( pse-mendelejew.de )",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "⁴⁶Ti",
+          "massNumber": 46,
+          "protons": 22,
+          "neutrons": 24,
+          "stable": true,
+          "abundancePercent": "8.25",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "⁴⁷Ti",
+          "massNumber": 47,
+          "protons": 22,
+          "neutrons": 25,
+          "stable": true,
+          "abundancePercent": "7.44",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "⁴⁸Ti",
+          "massNumber": 48,
+          "protons": 22,
+          "neutrons": 26,
+          "stable": true,
+          "abundancePercent": "73.72",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "⁴⁹Ti",
+          "massNumber": 49,
+          "protons": 22,
+          "neutrons": 27,
+          "stable": true,
+          "abundancePercent": "5.41",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "⁵⁰Ti",
+          "massNumber": 50,
+          "protons": 22,
+          "neutrons": 28,
+          "stable": true,
+          "abundancePercent": "5.18",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "standard-atomic-weight"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "47.867 ± 0.001"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": [
+        {
+          "type": "model",
+          "section": "structure",
+          "title": "Mẫu khoáng vật 3D · Rutile",
+          "src": "/assets/periodic-table/minerals/rutile.glb",
+          "preview": "/assets/periodic-table/minerals/rutile.png",
+          "desc": "TiO₂. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "nameVi",
+      "before": "Titanium",
+      "after": "Titan"
+    },
+    {
+      "field": "naturalState.alt",
+      "before": null,
+      "after": "Titanium: ảnh tham chiếu từ Commons"
+    },
+    {
+      "field": "naturalState.caption",
+      "before": null,
+      "after": "Ảnh tham chiếu mẫu Titanium (Ti); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc."
+    },
+    {
+      "field": "naturalState.credit",
+      "before": null,
+      "after": "Alchemist-hp ( pse-mendelejew.de ) · CC BY-SA 3.0"
+    },
+    {
+      "field": "naturalState.image",
+      "before": null,
+      "after": "/assets/periodic-table/photos/022_Ti.jpg"
+    },
+    {
+      "field": "naturalState.kind",
+      "before": null,
+      "after": "photo"
+    },
+    {
+      "field": "naturalState.source",
+      "before": null,
+      "after": "https://commons.wikimedia.org/wiki/File:Titan-crystal_bar.JPG"
+    },
+    {
+      "field": "notes",
+      "before": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Titanium là nguyên tố số 22, thuộc nhóm IVB | chu kỳ 4 và là một kim loại chuyển tiếp.</li>\n  <li>Titanium có cấu hình electron [Ar] 3d² 4s², với các số Oxy hóa phổ biến là +2, +3 và +4, trong đó +4 là trạng thái phổ biến nhất.</li>\n  <li>Titanium có độ bền cao, khối lượng riêng tương đối thấp và khả năng chống ăn mòn tốt nhờ hình thành lớp Titanium dioxide bảo vệ trên bề mặt.</li>\n  <li>Titanium được khai thác chủ yếu từ các khoáng vật như Rutile và Ilmenite. Kim loại Titanium được sản xuất công nghiệp chủ yếu bằng quy trình Kroll.</li>\n  <li>Titanium và các hợp chất của nó có vai trò quan trọng trong hàng không–vũ trụ, y tế, công nghiệp hóa chất, sản xuất chất màu và chế tạo hợp kim.</li>\n</ul>\n",
+      "after": "<ul class=\"element-prose-list\"><li>Titanium là nguyên tố số 22, thuộc nhóm IVB | chu kỳ 4 và là một kim loại chuyển tiếp.</li><li>Titanium có cấu hình electron [Ar] 3d² 4s², với các số Oxy hóa phổ biến là +2, +3 và +4, trong đó +4 là trạng thái phổ biến nhất.</li><li>Titanium có độ bền cao, khối lượng riêng tương đối thấp và khả năng chống ăn mòn tốt nhờ hình thành lớp Titanium dioxide bảo vệ trên bề mặt.</li><li>Titanium được khai thác chủ yếu từ các khoáng vật như Rutile và Ilmenite. Kim loại Titanium được sản xuất công nghiệp chủ yếu bằng quy trình Kroll.</li><li>Titanium và các hợp chất của nó có vai trò quan trọng trong hàng không–vũ trụ, y tế, công nghiệp hóa chất, sản xuất chất màu và chế tạo hợp kim.</li></ul>"
+    },
+    {
+      "field": "occurrence.details",
+      "before": null,
+      "after": [
+        "Trạng thái: Titanium là kim loại rắn, màu xám bạc ở điều kiện thường. Titanium không tồn tại tự do phổ biến trong tự nhiên mà chủ yếu tồn tại trong các khoáng vật.",
+        "Có trong: Rutile, Ilmenite, Titanite và một số khoáng vật khác.",
+        "Đơn chất: Ti",
+        "Hợp chất: TiO₂, TiCl₄, FeTiO₃, CaTiO₃, TiC..."
+      ]
+    },
+    {
+      "field": "occurrence.mineral",
+      "before": null,
+      "after": {
+        "available": true,
+        "id": "rutile",
+        "name": "Rutile",
+        "formula": "TiO₂",
+        "habit": "prismatic",
+        "color": "#9b5038",
+        "crystalSystem": "tetragonal",
+        "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+        "source": "https://www.handbookofmineralogy.org/",
+        "sourceSearch": "https://rruff.info/Rutile",
+        "model": "/assets/periodic-table/minerals/rutile.glb",
+        "preview": "/assets/periodic-table/minerals/rutile.png",
+        "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      }
+    },
+    {
+      "field": "physical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại chuyển tiếp.</li>\n      <li>Có màu xám bạc.</li>\n      <li>Nhẹ nhưng có độ bền cơ học cao.</li>\n      <li>Khối lượng riêng: khoảng 4.506 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 1668 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 3287 °C.</li>\n      <li>Dẫn nhiệt và dẫn điện tương đối thấp so với nhiều kim loại.</li>\n      <li>Có khả năng chống ăn mòn rất tốt.</li>\n      <li>Có độ bền cao so với khối lượng.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Là kim loại chuyển tiếp.</li><li>Có màu xám bạc.</li><li>Nhẹ nhưng có độ bền cơ học cao.</li><li>Khối lượng riêng: khoảng 4.506 g/cm³.</li><li>Nhiệt độ nóng chảy: khoảng 1668 °C.</li><li>Nhiệt độ sôi: khoảng 3287 °C.</li><li>Dẫn nhiệt và dẫn điện tương đối thấp so với nhiều kim loại.</li><li>Có khả năng chống ăn mòn rất tốt.</li><li>Có độ bền cao so với khối lượng.</li></ul>"
+    },
+    {
+      "field": "preparations.industry",
+      "before": [
+        {
+          "title": "Titanium được sản xuất chủ yếu bằng quy trình Kroll.",
+          "equation": "",
+          "desc": ""
+        },
+        {
+          "title": "Trước tiên, Titanium dioxide được chuyển thành Titanium tetrachloride:",
+          "equation": "TiO₂ + 2C + 2Cl₂ → TiCl₄ + 2CO <br> TiCl₄ + 2Mg → Ti + 2MgCl₂",
+          "desc": "Sau đó Titanium tetrachloride được khử bằng Magnesium ở nhiệt độ cao: Titanium thu được tiếp tục được tinh chế để loại bỏ Magnesium và Magnesium chloride còn lại."
+        }
+      ],
+      "after": [
+        {
+          "title": "Titanium được sản xuất chủ yếu bằng quy trình Kroll.",
+          "desc": "Trước tiên, Titanium dioxide được chuyển thành Titanium tetrachloride:",
+          "result": "",
+          "equations": [
+            {
+              "equation": "TiO₂ + 2C + 2Cl₂ → TiCl₄ + 2CO",
+              "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+              "kind": "chemical",
+              "sourceLine": 61,
+              "sourceSection": "industry",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            59,
+            60,
+            61
+          ],
+          "equation": "TiO₂ + 2C + 2Cl₂ → TiCl₄ + 2CO"
+        },
+        {
+          "title": "Sau đó Titanium tetrachloride được khử bằng Magnesium ở nhiệt độ cao",
+          "desc": "Titanium thu được tiếp tục được tinh chế để loại bỏ Magnesium và Magnesium chloride còn lại.",
+          "result": "",
+          "equations": [
+            {
+              "equation": "TiCl₄ + 2Mg → Ti + 2MgCl₂",
+              "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+              "kind": "chemical",
+              "sourceLine": 63,
+              "sourceSection": "industry",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            62,
+            63,
+            64
+          ],
+          "equation": "TiCl₄ + 2Mg → Ti + 2MgCl₂"
+        }
+      ]
+    },
+    {
+      "field": "preparations.lab",
+      "before": [
+        {
+          "title": "Về nguyên tắc, có thể điều chế bằng cách khử Titanium halide bằng kim loại hoạt động mạnh:",
+          "equation": "TiCl₄ + 2Mg → Ti + 2MgCl₂",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Titanium kim loại không thường được điều chế trong phòng thí nghiệm phổ thông.",
+          "desc": "Về nguyên tắc, có thể điều chế bằng cách khử Titanium halide bằng kim loại hoạt động mạnh:",
+          "result": "",
+          "equations": [
+            {
+              "equation": "TiCl₄ + 2Mg → Ti + 2MgCl₂",
+              "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+              "kind": "chemical",
+              "sourceLine": 68,
+              "sourceSection": "lab",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            66,
+            67,
+            68
+          ],
+          "equation": "TiCl₄ + 2Mg → Ti + 2MgCl₂"
+        }
+      ]
+    },
+    {
+      "field": "reactions",
+      "before": [
+        {
+          "type": "Tác dụng với Oxygen",
+          "equation": "Ti + O₂ → TiO₂",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Chlorine",
+          "equation": "Ti + 2Cl₂ → TiCl₄",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Bromine",
+          "equation": "Ti + 2Br₂ → TiBr₄",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Nitrogen",
+          "equation": "2Ti + N₂ → 2TiN",
+          "desc": "Ở nhiệt độ cao:"
+        },
+        {
+          "type": "Tác dụng với Carbon",
+          "equation": "Ti + C → TiC",
+          "desc": "Ở nhiệt độ cao:"
+        },
+        {
+          "type": "Tác dụng với Hydrochloric acid",
+          "equation": "Ti + 4HCl → TiCl₄ + 2H₂↑",
+          "desc": "Ở điều kiện thích hợp:"
+        },
+        {
+          "type": "Điều chế Titanium tetrachloride",
+          "equation": "TiO₂ + 2C + 2Cl₂ → TiCl₄ + 2CO",
+          "desc": ""
+        },
+        {
+          "type": "Khử Titanium tetrachloride",
+          "equation": "TiCl₄ + 2Mg → Ti + 2MgCl₂",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "type": "Tác dụng với Oxygen",
+          "desc": "",
+          "equation": "Ti + O₂ → TiO₂",
+          "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+          "kind": "chemical",
+          "sourceLine": 76,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Chlorine",
+          "desc": "",
+          "equation": "Ti + 2Cl₂ → TiCl₄",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 78,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Bromine",
+          "desc": "",
+          "equation": "Ti + 2Br₂ → TiBr₄",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 80,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Ở nhiệt độ cao",
+          "desc": "",
+          "equation": "2Ti + N₂ → 2TiN",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 83,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Ở nhiệt độ cao",
+          "desc": "",
+          "equation": "Ti + C → TiC",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 86,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Ở điều kiện thích hợp",
+          "desc": "",
+          "equation": "2Ti + 6HCl → 2TiCl₃ + 3H₂↑",
+          "condition": "HCl nóng, khử oxygen/không khí; phản ứng bị chi phối bởi lớp thụ động TiO₂.",
+          "kind": "chemical",
+          "sourceLine": 89,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Điều chế Titanium tetrachloride",
+          "desc": "",
+          "equation": "TiO₂ + 2C + 2Cl₂ → TiCl₄ + 2CO",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 91,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Khử Titanium tetrachloride",
+          "desc": "",
+          "equation": "TiCl₄ + 2Mg → Ti + 2MgCl₂",
+          "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+          "kind": "chemical",
+          "sourceLine": 93,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": [
+        {
+          "title": "Nhận biết",
+          "reagent": "Nhận biết Titanium(IV)",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Titanium(IV) có thể được nhận biết bằng phản ứng với Hydrogen peroxide trong môi trường acid, tạo phức màu vàng đặc trưng",
+          "reagent": "",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "",
+          "result": "",
+          "equation": "Ti⁴⁺ + H₂O₂ → [TiO₂]²⁺ + 2H⁺"
+        },
+        {
+          "title": "Hiện tượng",
+          "reagent": "",
+          "result": "Xuất hiện màu vàng đặc trưng của phức Titanium–peroxo.",
+          "equation": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Nhận biết Titanium(IV)",
+          "desc": "Titanium(IV) có thể được nhận biết bằng phản ứng với Hydrogen peroxide trong môi trường acid, tạo phức màu vàng đặc trưng:",
+          "result": "Xuất hiện màu vàng đặc trưng của phức Titanium–peroxo.",
+          "equations": [
+            {
+              "equation": "Ti⁴⁺ + H₂O₂ → [TiO₂]²⁺ + 2H⁺",
+              "condition": "Sơ đồ ion giản lược: trong nước tồn tại phức aquo/hydroxo; oxide hydrate hoặc kết tủa thực tế phụ thuộc pH và phối tử. Không xem đây là phép thử đặc hiệu.",
+              "kind": "formal",
+              "sourceLine": 72,
+              "sourceSection": "recognition",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            70,
+            71,
+            72,
+            73
+          ],
+          "equation": "Ti⁴⁺ + H₂O₂ → [TiO₂]²⁺ + 2H⁺"
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "022_Ti.docx",
+        "sourceSha256": "8744e2cd4c10f071a7a09ece6fd336798e2ff66d6bb09e34ddefefc9a0959083",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/022_Ti.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "022_Ti.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "8744e2cd4c10f071a7a09ece6fd336798e2ff66d6bb09e34ddefefc9a0959083"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/22/titanium"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure.latticeEvidence",
+      "before": null,
+      "after": "source-reviewed"
+    },
+    {
+      "field": "structure.nucleusIsotope",
+      "before": null,
+      "after": "⁴⁸Ti"
+    },
+    {
+      "field": "structure.nucleusNote",
+      "before": null,
+      "after": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác."
+    },
+    {
+      "field": "structure.valenceNote",
+      "before": null,
+      "after": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp."
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "Ti",
+      "status": "downloaded",
+      "file": "/assets/periodic-table/photos/022_Ti.jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:Titan-crystal_bar.JPG",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/d/db/Titan-crystal_bar.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "thumbnail": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/db/Titan-crystal_bar.JPG/960px-Titan-crystal_bar.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "filename": "Titan-crystal_bar.JPG",
+      "title": "Titan-crystal bar",
+      "description": "A titanium crystal bar, high purity 99,995 %, made by the iodide process at URALREDMET in the Soviet era. Weight ≈283 g, ≈5.5 \" long, ≈1 \" diameter",
+      "author": "Alchemist-hp ( pse-mendelejew.de )",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "credit": "Own work",
+      "sha256": "f41236c12a84d55fd345a4faa9456dc3716902b3fee518744d585858f4965ed5",
+      "bytes": 122697
+    },
+    "mineral": {
+      "available": true,
+      "id": "rutile",
+      "name": "Rutile",
+      "formula": "TiO₂",
+      "habit": "prismatic",
+      "color": "#9b5038",
+      "crystalSystem": "tetragonal",
+      "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Rutile",
+      "model": "/assets/periodic-table/minerals/rutile.glb",
+      "preview": "/assets/periodic-table/minerals/rutile.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "Ti",
+      "z": 22,
+      "url": "https://periodic-table.rsc.org/element/22/titanium",
+      "status": "retrieved",
+      "bytes": 158441,
+      "sha256": "f53173a00bedee7555345c9af0fa27b5afd512b380d51b827f30199bba07cfdf",
+      "facts": {
+        "Group": "4",
+        "Melting point": "1670°C, 3038°F, 1943 K",
+        "Period": "4",
+        "Boiling point": "3287°C, 5949°F, 3560 K",
+        "Block": "d",
+        "Density (g cm−³)": "4.506",
+        "Atomic number": "22",
+        "Relative atomic mass": "47.867",
+        "State at 20°C": "Solid",
+        "Key isotopes": "⁴⁸Ti",
+        "Electron configuration": "[Ar] 3d²4s²",
+        "CAS number": "7440-32-6",
+        "ChemSpider ID": "22402",
+        "electronegativity": "1.54"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "22",
+      "Symbol": "Ti",
+      "Name": "Titanium",
+      "AtomicMass": "47.867",
+      "CPKHexColor": "BFC2C7",
+      "ElectronConfiguration": "[Ar]4s2 3d2",
+      "Electronegativity": "1.54",
+      "AtomicRadius": "187",
+      "IonizationEnergy": "6.828",
+      "ElectronAffinity": "0.079",
+      "OxidationStates": "+4, +3, +2",
+      "StandardState": "Solid",
+      "MeltingPoint": "1941",
+      "BoilingPoint": "3560",
+      "Density": "4.5",
+      "GroupBlock": "Transition metal",
+      "YearDiscovered": "1791"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

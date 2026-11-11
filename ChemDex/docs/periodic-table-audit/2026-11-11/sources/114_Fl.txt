@@ -1,0 +1,89 @@
+001: Flerovium (Fl)
+002: Thông tin chung
+003: Tên Latin: Flerovium
+004: Tên Tiếng Anh: Flerovium
+005: Đồng vị: ²⁸⁵Fl, ²⁸⁶Fl, ²⁸⁷Fl, ²⁸⁸Fl, ²⁸⁹Fl
+006: Vị trí: Nhóm IVA | Chu kỳ 7
+007: Số Oxy hóa: +2, +4 (dự đoán)
+008: Độ âm điện: Không xác định
+009: Lịch sử khám phá
+010: Phát hiện bởi: Nhóm nghiên cứu tại Joint Institute for Nuclear Research (JINR) và Lawrence Livermore National Laboratory (LLNL)
+011: Năm công bố: 1999
+012: Nơi khám phá: Dubna, Nga
+013: Mô tả: Flerovium được tổng hợp lần đầu vào năm 1999 tại Dubna bằng cách bắn phá Plutonium-244 bằng Calcium-48:
+014: ²⁴⁴Pu + ⁴⁸Ca → ²⁸⁹Fl + 3n
+015: Tên Flerovium được đặt để vinh danh Georgy Flyorov, nhà vật lý hạt nhân người Nga và người sáng lập Joint Institute for Nuclear Research.
+016: 3. Cấu tạo
+017: a. Cấu tạo nguyên tử
+018: Hoạt họa cấu hình e: [Rn] 5f¹⁴ 6d¹⁰ 7s² 7p² (dự đoán)
+019: Mô hình mạng tinh thể: Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)
+020: Số hiệu nguyên tử: 114
+021: Nguyên tử khối: [289] g/mol
+022: Vỏ nguyên tử: 114 electron
+023: Hạt nhân: 114 proton
+024: Cấu hình e: [Rn] 5f¹⁴ 6d¹⁰ 7s² 7p² (dự đoán)
+025: Loại mạng: Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)
+026: b. Trạng thái tự nhiên
+027: Trạng thái: Chất rắn (dự đoán)
+028: Có trong: Không tồn tại tự nhiên với lượng đáng kể. Flerovium chỉ được tổng hợp nhân tạo trong phòng thí nghiệm.
+029: Đơn chất: Fl
+030: Hợp chất: FlCl₂, FlCl₄, FlO... (dự đoán)
+031: c. Đồng vị
+032: Flerovium không có đồng vị bền.
+033: Một số đồng vị:
+034: ²⁸⁵Fl: chu kỳ bán rã khoảng 0,1 giây.
+035: ²⁸⁶Fl: chu kỳ bán rã khoảng 0,1–0,2 giây.
+036: ²⁸⁷Fl: chu kỳ bán rã khoảng 0,5 giây.
+037: ²⁸⁸Fl: chu kỳ bán rã khoảng 0,6 giây.
+038: ²⁸⁹Fl: chu kỳ bán rã khoảng 2,6 giây.
+039: Các đồng vị Flerovium chủ yếu phân rã bằng phân rã Alpha.
+040: Tính chất
+041: Tính chất vật lý
+042: Là nguyên tố thuộc nhóm IVA | chu kỳ 7.
+043: Là nguyên tố siêu nặng.
+044: Có tính phóng xạ rất mạnh.
+045: Được dự đoán là chất rắn ở điều kiện thường.
+046: Có thể có tính chất khá dễ bay hơi so với các kim loại nặng thông thường.
+047: Khối lượng riêng, nhiệt độ nóng chảy và nhiệt độ sôi chưa được xác định trực tiếp.
+048: Tính chất hóa học
+049: Có cấu hình electron hóa trị 7s² 7p².
+050: Số Oxy hóa +2 và +4 được dự đoán.
+051: Do hiệu ứng tương đối tính mạnh, trạng thái +2 có thể ổn định hơn so với Lead.
+052: Có khả năng thể hiện một số tính chất giống Lead (Pb).
+053: Flerovium có thể là một trong những nguyên tố có tính tương tác hóa học yếu bất thường do các electron hóa trị bị giữ chặt.
+054: Điều chế
+055: Điều chế trong công nghiệp:
+056: Flerovium (Fl) không được sản xuất công nghiệp do tính phóng xạ rất cao và thời gian bán rã ngắn. Nguyên tố này chỉ được tổng hợp với lượng cực nhỏ trong các cơ sở nghiên cứu hạt nhân.
+057: Điều chế trong phòng thí nghiệm:
+058: Flerovium được tổng hợp bằng cách bắn phá Plutonium-244 bằng ion Calcium-48 trong máy gia tốc hạt.
+059: ²⁴⁴Pu + ⁴⁸Ca → ²⁸⁹Fl + 3¹n
+060: Nhận biết
+061: Flerovium được nhận biết thông qua:
+062: Năng lượng các hạt Alpha.
+063: Chu kỳ bán rã.
+064: Chuỗi phân rã phóng xạ.
+065: Xác định các hạt nhân con.
+066: Đối chiếu chuỗi phân rã với các đồng vị đã biết.
+067: Do chỉ tạo ra vài nguyên tử trong mỗi thí nghiệm, không thể nhận biết bằng phản ứng hóa học thông thường.
+068: Phương trình
+069: Tổng hợp Flerovium-289
+070: ²⁴⁴Pu + ⁴⁸Ca → ²⁸⁹Fl + 3n
+071: Phân rã Alpha
+072: ²⁸⁹Fl → ²⁸⁵Cn + ⁴He
+073: Tạo Flerovium(II) chloride
+074: Fl + Cl₂ → FlCl₂
+075: Tạo Flerovium(IV) chloride
+076: Fl + 2Cl₂ → FlCl₄
+077: Các phương trình hóa học của Flerovium chủ yếu mang tính dự đoán vì chỉ có thể tạo ra một lượng nguyên tử cực nhỏ.
+078: Ứng dụng thực tế
+079: Flerovium không có ứng dụng công nghiệp hoặc dân dụng.
+080: Nó chủ yếu được sử dụng trong:
+081: Nghiên cứu hạt nhân: Nghiên cứu tính ổn định của các hạt nhân siêu nặng.
+082: Nghiên cứu “đảo ổn định”: Flerovium nằm gần vùng các hạt nhân được dự đoán có độ ổn định tương đối cao hơn trong khu vực nguyên tố siêu nặng.
+083: Hóa học nguyên tố siêu nặng: Nghiên cứu các tính chất hóa học của Flerovium và so sánh với Lead.
+084: Tổng quan
+085: Flerovium là nguyên tố số 114, thuộc nhóm IVA | chu kỳ 7 và là một nguyên tố siêu nặng.
+086: Flerovium được tổng hợp lần đầu vào năm 1999 tại Dubna bằng phản ứng giữa Plutonium-244 và Calcium-48. Tên nguyên tố được đặt để vinh danh nhà vật lý Georgy Flyorov.
+087: Cấu hình electron được dự đoán là [Rn] 5f¹⁴ 6d¹⁰ 7s² 7p², với các số Oxy hóa có khả năng quan trọng là +2 và +4. Hiệu ứng tương đối tính mạnh khiến Flerovium có thể có những tính chất khác biệt đáng kể so với Lead.
+088: Flerovium không có đồng vị bền, có tính phóng xạ rất mạnh và chỉ được tạo ra với số lượng cực nhỏ. Vì vậy, nó không có ứng dụng thực tế, chủ yếu phục vụ nghiên cứu vật lý hạt nhân và hóa học nguyên tố siêu nặng.
+089: Mạng tinh thể: Lập phương tâm khối (BCC) — dự đoán, vì chưa thể thu được lượng Flerovium đủ lớn để xác định trực tiếp cấu trúc tinh thể.

@@ -1,0 +1,1235 @@
+{
+  "symbol": "Al",
+  "number": 13,
+  "source": "013_Al.docx",
+  "sourceSha256": "28e63f0de400702c528d57db34121ded5343f1c2a8bbc8a275cb8337ea74c8aa",
+  "paragraphCount": 109,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 4,
+    "structure": 9,
+    "occurrence": 4,
+    "isotopes": 3,
+    "physical": 10,
+    "chemical": 9,
+    "lab": 4,
+    "industry": 8,
+    "recognition": 5,
+    "reactions": 18,
+    "applications": 8,
+    "notes": 4
+  },
+  "editorialDecisions": [
+    {
+      "line": 63,
+      "before": "2O²⁻ → O₂ + 4e⁻",
+      "after": "C + 2O²⁻ → CO₂ + 4e⁻",
+      "reason": "Với anot carbon của Hall–Héroult, anot bị tiêu hao; không trình bày O₂ là sản phẩm thu cuối cùng."
+    },
+    {
+      "line": 69,
+      "before": "2Al₂O₃(l) → 4Al + 3O₂",
+      "after": "2Al₂O₃ + 3C → 4Al + 3CO₂",
+      "reason": "Quy trình Hall–Héroult dùng anot carbon; thay tổng quát anot trơ không phù hợp quy trình đã mô tả."
+    }
+  ],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "1s² 2s² 2p⁶ 3s² 3p¹",
+      "publishedValue": "[Ne] 3s² 3p¹",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Lập phương tâm mặt (FCC)",
+      "publishedValue": "Lập phương tâm mặt (FCC)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "1.61",
+      "publishedValue": 1.61,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm IIIA | Chu kỳ 3",
+      "publishedValue": "13",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Aluminium là kim loại hoạt động hóa học nên không tồn tại tự do đáng kể trong tự nhiên. Chủ yếu tồn tại dưới dạng khoáng vật.",
+      "publishedValue": "Rắn",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 32,
+      "sourceText": "²⁷Al: Đồng vị bền duy nhất của Aluminium, chiếm gần như 100% Aluminium tự nhiên.",
+      "reference": {
+        "isotope": "²⁷Al",
+        "massNumber": 27,
+        "protons": 13,
+        "neutrons": 14,
+        "stable": true,
+        "abundancePercent": "100",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 33,
+      "sourceText": "²⁶Al: Đồng vị phóng xạ, có chu kỳ bán rã khoảng 717.000 năm. Có thể hình thành tự nhiên do tác động của tia vũ trụ.",
+      "reference": {
+        "isotope": "²⁶Al",
+        "massNumber": 26,
+        "protons": 13,
+        "neutrons": 13,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "7.17E+5 ± 2.4E+4 năm",
+        "halfLife": "7.17E+5 Y",
+        "halfLifeUncertainty": "24",
+        "halfLifeQualifier": null,
+        "decay": "EC+B+",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 61,
+      "text": "Al³⁺ + 3e⁻ → Al",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 63,
+      "text": "2O²⁻ → O₂ + 4e⁻",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 65,
+      "text": "2Al₂O₃ + 3C → 4Al + 3CO₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 69,
+      "text": "2Al₂O₃(l) → 4Al + 3O₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 73,
+      "text": "Al³⁺ + 3OH⁻ → Al(OH)₃↓",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 76,
+      "text": "Al(OH)₃ + OH⁻ → [Al(OH)₄]⁻",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 79,
+      "text": "4Al + 3O₂ → 2Al₂O₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 81,
+      "text": "2Al + 6HCl → 2AlCl₃ + 3H₂↑",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 83,
+      "text": "2Al + 3H₂SO₄ → Al₂(SO₄)₃ + 3H₂↑",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 85,
+      "text": "2Al + 2NaOH + 6H₂O → 2Na[Al(OH)₄] + 3H₂↑",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 87,
+      "text": "2Al + 3Cl₂ → 2AlCl₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 89,
+      "text": "2Al + 3Br₂ → 2AlBr₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 91,
+      "text": "2Al + Fe₂O₃ → Al₂O₃ + 2Fe",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 95,
+      "text": "2Al + 6H₂O → 2Al(OH)₃ + 3H₂↑",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "lab",
+      "equation": "2Al₂O₃ + 3C → 4Al + 3CO₂",
+      "condition": "Điện phân Al₂O₃ hòa tan trong cryolite nóng chảy, anot carbon bị tiêu hao (Hall–Héroult).",
+      "kind": "chemical",
+      "sourceLine": 69,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "Al³⁺ + 3e⁻ → Al",
+      "condition": "Điện cực của bình điện phân; muối khan nóng chảy đối với kim loại hoạt động mạnh, không dùng dung dịch nước để thu kim loại.",
+      "kind": "chemical",
+      "sourceLine": 61,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "C + 2O²⁻ → CO₂ + 4e⁻",
+      "condition": "Điện cực của bình điện phân; muối khan nóng chảy đối với kim loại hoạt động mạnh, không dùng dung dịch nước để thu kim loại.",
+      "kind": "chemical",
+      "sourceLine": 63,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "2Al₂O₃ + 3C → 4Al + 3CO₂",
+      "condition": "Điện phân Al₂O₃ hòa tan trong cryolite nóng chảy, anot carbon bị tiêu hao (Hall–Héroult).",
+      "kind": "chemical",
+      "sourceLine": 65,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "recognition",
+      "equation": "Al³⁺ + 3OH⁻ → Al(OH)₃↓",
+      "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+      "kind": "chemical",
+      "sourceLine": 73,
+      "sourceSection": "recognition",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "recognition",
+      "equation": "Al(OH)₃ + OH⁻ → [Al(OH)₄]⁻",
+      "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+      "kind": "chemical",
+      "sourceLine": 76,
+      "sourceSection": "recognition",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "4Al + 3O₂ → 2Al₂O₃",
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 79,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2Al + 6HCl → 2AlCl₃ + 3H₂↑",
+      "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+      "kind": "chemical",
+      "sourceLine": 81,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2Al + 3H₂SO₄ → Al₂(SO₄)₃ + 3H₂↑",
+      "condition": "Khơi mào phản ứng nhiệt nhôm; chất đầu khan, phản ứng tự tỏa nhiệt mạnh.",
+      "kind": "chemical",
+      "sourceLine": 83,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2Al + 2NaOH + 6H₂O → 2Na[Al(OH)₄] + 3H₂↑",
+      "condition": "Khơi mào phản ứng nhiệt nhôm; chất đầu khan, phản ứng tự tỏa nhiệt mạnh.",
+      "kind": "chemical",
+      "sourceLine": 85,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2Al + 3Cl₂ → 2AlCl₃",
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 87,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2Al + 3Br₂ → 2AlBr₃",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 89,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2Al + Fe₂O₃ → Al₂O₃ + 2Fe",
+      "condition": "Khơi mào phản ứng nhiệt nhôm; chất đầu khan, phản ứng tự tỏa nhiệt mạnh.",
+      "kind": "chemical",
+      "sourceLine": 91,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2Al + 6H₂O → 2Al(OH)₃ + 3H₂↑",
+      "condition": "Tiếp xúc với nước; tốc độ phụ thuộc nhiệt độ, kích thước và lớp oxide bề mặt.",
+      "kind": "chemical",
+      "sourceLine": 95,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": [
+        {
+          "title": "Hàng không và giao thông",
+          "desc": "Aluminium và các hợp kim của nó được sử dụng rộng rãi nhờ khối lượng thấp và độ bền tốt."
+        },
+        {
+          "title": "Xây dựng",
+          "desc": "Dùng trong cửa, khung, mái và nhiều cấu kiện xây dựng."
+        },
+        {
+          "title": "Bao bì",
+          "desc": "Aluminium được sử dụng trong lon, giấy Aluminium và nhiều loại bao bì."
+        },
+        {
+          "title": "Dây dẫn điện",
+          "desc": "Aluminium được sử dụng làm dây dẫn điện nhờ khối lượng thấp và khả năng dẫn điện tốt."
+        },
+        {
+          "title": "Đồ gia dụng",
+          "desc": "Sử dụng trong dụng cụ nấu ăn và nhiều sản phẩm gia dụng."
+        },
+        {
+          "title": "Luyện kim",
+          "desc": "Aluminium được dùng làm chất khử trong một số phản ứng nhiệt luyện."
+        },
+        {
+          "title": "Công nghiệp hóa chất",
+          "desc": "Aluminium compounds được sử dụng trong sản xuất nhiều vật liệu và hóa chất."
+        },
+        {
+          "title": "Xử lý nước",
+          "desc": "Một số Aluminium compounds như Aluminium sulfate được sử dụng làm chất keo tụ."
+        }
+      ],
+      "after": [
+        {
+          "title": "Hàng không và giao thông",
+          "desc": "Aluminium và các hợp kim của nó được sử dụng rộng rãi nhờ khối lượng thấp và độ bền tốt.",
+          "sourceLine": 97
+        },
+        {
+          "title": "Xây dựng",
+          "desc": "Dùng trong cửa, khung, mái và nhiều cấu kiện xây dựng.",
+          "sourceLine": 98
+        },
+        {
+          "title": "Bao bì",
+          "desc": "Aluminium được sử dụng trong lon, giấy Aluminium và nhiều loại bao bì.",
+          "sourceLine": 99
+        },
+        {
+          "title": "Dây dẫn điện",
+          "desc": "Aluminium được sử dụng làm dây dẫn điện nhờ khối lượng thấp và khả năng dẫn điện tốt.",
+          "sourceLine": 100
+        },
+        {
+          "title": "Đồ gia dụng",
+          "desc": "Sử dụng trong dụng cụ nấu ăn và nhiều sản phẩm gia dụng.",
+          "sourceLine": 101
+        },
+        {
+          "title": "Luyện kim",
+          "desc": "Aluminium được dùng làm chất khử trong một số phản ứng nhiệt luyện.",
+          "sourceLine": 102
+        },
+        {
+          "title": "Công nghiệp hóa chất",
+          "desc": "Aluminium compounds được sử dụng trong sản xuất nhiều vật liệu và hóa chất.",
+          "sourceLine": 103
+        },
+        {
+          "title": "Xử lý nước",
+          "desc": "Một số Aluminium compounds như Aluminium sulfate được sử dụng làm chất keo tụ.",
+          "sourceLine": 104
+        }
+      ]
+    },
+    {
+      "field": "category",
+      "before": "unknown",
+      "after": "kim-loai-sau-chuyen-tiep"
+    },
+    {
+      "field": "chemical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại có tính khử.</li>\n      <li>Số Oxy hóa phổ biến: +3.</li>\n      <li>Có tính lưỡng tính ở Aluminium oxide và Aluminium hydroxide.</li>\n      <li>Phản ứng với Oxygen tạo Aluminium oxide.</li>\n      <li>Phản ứng với acid tạo muối Aluminium và Hydrogen.</li>\n      <li>Phản ứng với base mạnh tạo Aluminate và Hydrogen.</li>\n      <li>Phản ứng với Halogen tạo Aluminium halide.</li>\n      <li>Có thể khử một số oxide kim loại ở nhiệt độ cao.</li>\n      <li>Có tính thụ động với một số môi trường Oxy hóa mạnh do lớp oxide bảo vệ.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Là kim loại có tính khử.</li><li>Số Oxy hóa phổ biến: +3.</li><li>Có tính lưỡng tính ở Aluminium oxide và Aluminium hydroxide.</li><li>Phản ứng với Oxygen tạo Aluminium oxide.</li><li>Phản ứng với acid tạo muối Aluminium và Hydrogen.</li><li>Phản ứng với base mạnh tạo Aluminate và Hydrogen.</li><li>Phản ứng với Halogen tạo Aluminium halide.</li><li>Có thể khử một số oxide kim loại ở nhiệt độ cao.</li><li>Có tính thụ động với một số môi trường Oxy hóa mạnh do lớp oxide bảo vệ.</li></ul>"
+    },
+    {
+      "field": "general.CAS",
+      "before": null,
+      "after": "7429-90-5"
+    },
+    {
+      "field": "general.electronConfig",
+      "before": "1s² 2s² 2p⁶ 3s² 3p¹",
+      "after": "[Ne] 3s² 3p¹"
+    },
+    {
+      "field": "general.electronegativityNote",
+      "before": null,
+      "after": "Thang Pauling; số liệu tổng hợp PubChem."
+    },
+    {
+      "field": "general.groupLabel",
+      "before": null,
+      "after": "13"
+    },
+    {
+      "field": "general.series",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "general.state",
+      "before": "",
+      "after": "Rắn"
+    },
+    {
+      "field": "history.year",
+      "before": 1825,
+      "after": "1825"
+    },
+    {
+      "field": "images",
+      "before": {},
+      "after": [
+        {
+          "src": "/assets/periodic-table/photos/013_Al.jpg",
+          "title": "Nhôm (Al)",
+          "desc": "Ảnh tham chiếu mẫu Aluminium (Al); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+          "source": "https://commons.wikimedia.org/wiki/File:Aluminium-4.jpg",
+          "author": "Unknown author Unknown author",
+          "license": "CC BY 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/3.0"
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "²⁶Al",
+          "massNumber": 26,
+          "protons": 13,
+          "neutrons": 13,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "7.17E+5 ± 2.4E+4 năm",
+          "halfLife": "7.17E+5 Y",
+          "halfLifeUncertainty": "24",
+          "halfLifeQualifier": null,
+          "decay": "EC+B+",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁷Al",
+          "massNumber": 27,
+          "protons": 13,
+          "neutrons": 14,
+          "stable": true,
+          "abundancePercent": "100",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "standard-atomic-weight"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "26.982 ± 0.001"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": [
+        {
+          "type": "model",
+          "section": "structure",
+          "title": "Mẫu khoáng vật 3D · Bauxite",
+          "src": "/assets/periodic-table/minerals/bauxite.glb",
+          "preview": "/assets/periodic-table/minerals/bauxite.png",
+          "desc": "Hỗn hợp gibbsite, boehmite, diaspore và tạp chất. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "nameVi",
+      "before": "Aluminium",
+      "after": "Nhôm"
+    },
+    {
+      "field": "naturalState.alt",
+      "before": null,
+      "after": "Aluminium: ảnh tham chiếu từ Commons"
+    },
+    {
+      "field": "naturalState.caption",
+      "before": null,
+      "after": "Ảnh tham chiếu mẫu Aluminium (Al); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc."
+    },
+    {
+      "field": "naturalState.credit",
+      "before": null,
+      "after": "Unknown author Unknown author · CC BY 3.0"
+    },
+    {
+      "field": "naturalState.image",
+      "before": null,
+      "after": "/assets/periodic-table/photos/013_Al.jpg"
+    },
+    {
+      "field": "naturalState.kind",
+      "before": null,
+      "after": "photo"
+    },
+    {
+      "field": "naturalState.source",
+      "before": null,
+      "after": "https://commons.wikimedia.org/wiki/File:Aluminium-4.jpg"
+    },
+    {
+      "field": "notes",
+      "before": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Aluminium là nguyên tố số 13, thuộc nhóm IIIA | chu kỳ 3 và là kim loại phổ biến trong lớp vỏ Trái Đất.</li>\n  <li>Aluminium có cấu hình electron 1s² 2s² 2p⁶ 3s² 3p¹ và số Oxy hóa phổ biến là +3. Kim loại Aluminium có khối lượng riêng thấp, dễ gia công, dẫn điện tốt và có khả năng chống ăn mòn nhờ lớp Aluminium oxide bảo vệ trên bề mặt.</li>\n  <li>Trong tự nhiên, Aluminium chủ yếu tồn tại trong Bauxite và các khoáng vật Aluminosilicate. Aluminium kim loại được sản xuất công nghiệp chủ yếu bằng quy trình Hall–Héroult.</li>\n  <li>Nhờ tính nhẹ, độ bền, khả năng chống ăn mòn và khả năng tái chế, Aluminium có vai trò quan trọng trong giao thông, hàng không, xây dựng, điện, bao bì và công nghiệp.</li>\n</ul>\n",
+      "after": "<ul class=\"element-prose-list\"><li>Aluminium là nguyên tố số 13, thuộc nhóm IIIA | chu kỳ 3 và là kim loại phổ biến trong lớp vỏ Trái Đất.</li><li>Aluminium có cấu hình electron 1s² 2s² 2p⁶ 3s² 3p¹ và số Oxy hóa phổ biến là +3. Kim loại Aluminium có khối lượng riêng thấp, dễ gia công, dẫn điện tốt và có khả năng chống ăn mòn nhờ lớp Aluminium oxide bảo vệ trên bề mặt.</li><li>Trong tự nhiên, Aluminium chủ yếu tồn tại trong Bauxite và các khoáng vật Aluminosilicate. Aluminium kim loại được sản xuất công nghiệp chủ yếu bằng quy trình Hall–Héroult.</li><li>Nhờ tính nhẹ, độ bền, khả năng chống ăn mòn và khả năng tái chế, Aluminium có vai trò quan trọng trong giao thông, hàng không, xây dựng, điện, bao bì và công nghiệp.</li></ul>"
+    },
+    {
+      "field": "occurrence.details",
+      "before": null,
+      "after": [
+        "Trạng thái: Aluminium là kim loại hoạt động hóa học nên không tồn tại tự do đáng kể trong tự nhiên. Chủ yếu tồn tại dưới dạng khoáng vật.",
+        "Có trong: Bauxite, Feldspar, Kaolinite, Mica, Corundum và Cryolite.",
+        "Đơn chất: Al",
+        "Hợp chất: Al₂O₃, Al(OH)₃, AlCl₃, Al₂(SO₄)₃, Na₃AlF₆..."
+      ]
+    },
+    {
+      "field": "occurrence.mineral",
+      "before": null,
+      "after": {
+        "available": true,
+        "id": "bauxite",
+        "name": "Bauxite",
+        "formula": "Hỗn hợp gibbsite, boehmite, diaspore và tạp chất",
+        "habit": "aggregate",
+        "color": "#b86b42",
+        "crystalSystem": "mixture",
+        "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+        "source": "https://www.handbookofmineralogy.org/",
+        "sourceSearch": "https://rruff.info/Bauxite",
+        "model": "/assets/periodic-table/minerals/bauxite.glb",
+        "preview": "/assets/periodic-table/minerals/bauxite.png",
+        "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      }
+    },
+    {
+      "field": "physical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại màu trắng bạc.</li>\n      <li>Nhẹ.</li>\n      <li>Có độ dẻo cao.</li>\n      <li>Dễ dát mỏng và kéo sợi.</li>\n      <li>Khối lượng riêng: khoảng 2.70 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: 660.3 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 2470 °C.</li>\n      <li>Dẫn điện và dẫn nhiệt tốt.</li>\n      <li>Có khả năng phản xạ ánh sáng tốt.</li>\n      <li>Bề mặt Aluminium nhanh chóng hình thành lớp Aluminium oxide bảo vệ.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Là kim loại màu trắng bạc.</li><li>Nhẹ.</li><li>Có độ dẻo cao.</li><li>Dễ dát mỏng và kéo sợi.</li><li>Khối lượng riêng: khoảng 2.70 g/cm³.</li><li>Nhiệt độ nóng chảy: 660.3 °C.</li><li>Nhiệt độ sôi: khoảng 2470 °C.</li><li>Dẫn điện và dẫn nhiệt tốt.</li><li>Có khả năng phản xạ ánh sáng tốt.</li><li>Bề mặt Aluminium nhanh chóng hình thành lớp Aluminium oxide bảo vệ.</li></ul>"
+    },
+    {
+      "field": "preparations.industry",
+      "before": [
+        {
+          "title": "Aluminium được sản xuất chủ yếu từ Aluminium oxide (Al₂O₃) thu được từ Bauxite.",
+          "equation": "",
+          "desc": ""
+        },
+        {
+          "title": "Aluminium oxide được hòa tan trong Cryolite nóng chảy và điện phân trong quy trình Hall–Héroult.",
+          "equation": "",
+          "desc": ""
+        },
+        {
+          "title": "Tại cathode:",
+          "equation": "Al³⁺ + 3e⁻ → Al <br> 2O²⁻ → O₂ + 4e⁻ <br> 2Al₂O₃ + 3C → 4Al + 3CO₂",
+          "desc": "Tại anode:"
+        }
+      ],
+      "after": [
+        {
+          "title": "Aluminium được sản xuất chủ yếu từ Aluminium oxide (Al₂O₃) thu được từ Bauxite.",
+          "desc": "Aluminium oxide được hòa tan trong Cryolite nóng chảy và điện phân trong quy trình Hall–Héroult. Tại cathode:",
+          "result": "",
+          "equations": [
+            {
+              "equation": "Al³⁺ + 3e⁻ → Al",
+              "condition": "Điện cực của bình điện phân; muối khan nóng chảy đối với kim loại hoạt động mạnh, không dùng dung dịch nước để thu kim loại.",
+              "kind": "chemical",
+              "sourceLine": 61,
+              "sourceSection": "industry",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            58,
+            59,
+            60,
+            61
+          ],
+          "equation": "Al³⁺ + 3e⁻ → Al"
+        },
+        {
+          "title": "Tại anode",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "C + 2O²⁻ → CO₂ + 4e⁻",
+              "condition": "Điện cực của bình điện phân; muối khan nóng chảy đối với kim loại hoạt động mạnh, không dùng dung dịch nước để thu kim loại.",
+              "kind": "chemical",
+              "sourceLine": 63,
+              "sourceSection": "industry",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            62,
+            63
+          ],
+          "equation": "C + 2O²⁻ → CO₂ + 4e⁻"
+        },
+        {
+          "title": "Trong công nghiệp, anode Carbon bị tiêu hao nên phương trình tổng quát thường được biểu diễn",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "2Al₂O₃ + 3C → 4Al + 3CO₂",
+              "condition": "Điện phân Al₂O₃ hòa tan trong cryolite nóng chảy, anot carbon bị tiêu hao (Hall–Héroult).",
+              "kind": "chemical",
+              "sourceLine": 65,
+              "sourceSection": "industry",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            64,
+            65
+          ],
+          "equation": "2Al₂O₃ + 3C → 4Al + 3CO₂"
+        }
+      ]
+    },
+    {
+      "field": "preparations.lab",
+      "before": [
+        {
+          "title": "Về nguyên tắc, Aluminium có thể được điều chế bằng điện phân Aluminium oxide nóng chảy:",
+          "equation": "2Al₂O₃(l) → 4Al + 3O₂",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Aluminium không thường được điều chế bằng các phương pháp hóa học thông thường trong phòng thí nghiệm vì Aluminium có tính hoạt động cao.",
+          "desc": "Về nguyên tắc, Aluminium có thể được điều chế bằng điện phân Aluminium oxide nóng chảy: Tuy nhiên, Aluminium oxide có nhiệt độ nóng chảy rất cao nên trong công nghiệp phải sử dụng Cryolite để hạ nhiệt độ làm việc và tăng độ dẫn điện.",
+          "result": "",
+          "equations": [
+            {
+              "equation": "2Al₂O₃ + 3C → 4Al + 3CO₂",
+              "condition": "Điện phân Al₂O₃ hòa tan trong cryolite nóng chảy, anot carbon bị tiêu hao (Hall–Héroult).",
+              "kind": "chemical",
+              "sourceLine": 69,
+              "sourceSection": "lab",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            67,
+            68,
+            69,
+            70
+          ],
+          "equation": "2Al₂O₃ + 3C → 4Al + 3CO₂"
+        }
+      ]
+    },
+    {
+      "field": "reactions",
+      "before": [
+        {
+          "type": "Tác dụng với Oxygen",
+          "equation": "4Al + 3O₂ → 2Al₂O₃",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Hydrochloric acid",
+          "equation": "2Al + 6HCl → 2AlCl₃ + 3H₂↑",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Sulfuric acid loãng",
+          "equation": "2Al + 3H₂SO₄ → Al₂(SO₄)₃ + 3H₂↑",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Sodium hydroxide",
+          "equation": "2Al + 2NaOH + 6H₂O → 2Na[Al(OH)₄] + 3H₂↑",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Chlorine",
+          "equation": "2Al + 3Cl₂ → 2AlCl₃",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Bromine",
+          "equation": "2Al + 3Br₂ → 2AlBr₃",
+          "desc": ""
+        },
+        {
+          "type": "Phản ứng nhiệt nhôm",
+          "equation": "2Al + Fe₂O₃ → Al₂O₃ + 2Fe",
+          "desc": ""
+        },
+        {
+          "type": "Aluminium nguyên chất được bảo vệ bởi lớp Aluminium oxide nên không phản ứng đáng kể với nước ở điều kiện thường.",
+          "equation": "2Al + 6H₂O → 2Al(OH)₃ + 3H₂↑",
+          "desc": "Khi lớp oxide bị loại bỏ và trong điều kiện thích hợp:"
+        }
+      ],
+      "after": [
+        {
+          "type": "Tác dụng với Oxygen",
+          "desc": "",
+          "equation": "4Al + 3O₂ → 2Al₂O₃",
+          "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+          "kind": "chemical",
+          "sourceLine": 79,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Hydrochloric acid",
+          "desc": "",
+          "equation": "2Al + 6HCl → 2AlCl₃ + 3H₂↑",
+          "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+          "kind": "chemical",
+          "sourceLine": 81,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Sulfuric acid loãng",
+          "desc": "",
+          "equation": "2Al + 3H₂SO₄ → Al₂(SO₄)₃ + 3H₂↑",
+          "condition": "Khơi mào phản ứng nhiệt nhôm; chất đầu khan, phản ứng tự tỏa nhiệt mạnh.",
+          "kind": "chemical",
+          "sourceLine": 83,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Sodium hydroxide",
+          "desc": "",
+          "equation": "2Al + 2NaOH + 6H₂O → 2Na[Al(OH)₄] + 3H₂↑",
+          "condition": "Khơi mào phản ứng nhiệt nhôm; chất đầu khan, phản ứng tự tỏa nhiệt mạnh.",
+          "kind": "chemical",
+          "sourceLine": 85,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Chlorine",
+          "desc": "",
+          "equation": "2Al + 3Cl₂ → 2AlCl₃",
+          "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+          "kind": "chemical",
+          "sourceLine": 87,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Bromine",
+          "desc": "",
+          "equation": "2Al + 3Br₂ → 2AlBr₃",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 89,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Phản ứng nhiệt nhôm",
+          "desc": "",
+          "equation": "2Al + Fe₂O₃ → Al₂O₃ + 2Fe",
+          "condition": "Khơi mào phản ứng nhiệt nhôm; chất đầu khan, phản ứng tự tỏa nhiệt mạnh.",
+          "kind": "chemical",
+          "sourceLine": 91,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Khi lớp oxide bị loại bỏ và trong điều kiện thích hợp",
+          "desc": "",
+          "equation": "2Al + 6H₂O → 2Al(OH)₃ + 3H₂↑",
+          "condition": "Tiếp xúc với nước; tốc độ phụ thuộc nhiệt độ, kích thước và lớp oxide bề mặt.",
+          "kind": "chemical",
+          "sourceLine": 95,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": [
+        {
+          "title": "Tạo kết tủa Aluminium hydroxide",
+          "reagent": "",
+          "result": "Ion Al³⁺ phản ứng với hydroxide tạo kết tủa trắng:",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "",
+          "result": "",
+          "equation": "Al³⁺ + 3OH⁻ → Al(OH)₃↓"
+        },
+        {
+          "title": "Hiện tượng",
+          "reagent": "",
+          "result": "Xuất hiện kết tủa trắng.",
+          "equation": ""
+        },
+        {
+          "title": "Kết tủa này tan trong base dư do tính lưỡng tính",
+          "reagent": "",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "",
+          "result": "",
+          "equation": "Al(OH)₃ + OH⁻ → [Al(OH)₄]⁻"
+        }
+      ],
+      "after": [
+        {
+          "title": "Tạo kết tủa Aluminium hydroxide: Ion Al³⁺ phản ứng với hydroxide tạo kết tủa trắng",
+          "desc": "",
+          "result": "Xuất hiện kết tủa trắng.",
+          "equations": [
+            {
+              "equation": "Al³⁺ + 3OH⁻ → Al(OH)₃↓",
+              "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+              "kind": "chemical",
+              "sourceLine": 73,
+              "sourceSection": "recognition",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            72,
+            73,
+            74
+          ],
+          "equation": "Al³⁺ + 3OH⁻ → Al(OH)₃↓"
+        },
+        {
+          "title": "Kết tủa này tan trong base dư do tính lưỡng tính",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "Al(OH)₃ + OH⁻ → [Al(OH)₄]⁻",
+              "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+              "kind": "chemical",
+              "sourceLine": 76,
+              "sourceSection": "recognition",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            75,
+            76
+          ],
+          "equation": "Al(OH)₃ + OH⁻ → [Al(OH)₄]⁻"
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "013_Al.docx",
+        "sourceSha256": "28e63f0de400702c528d57db34121ded5343f1c2a8bbc8a275cb8337ea74c8aa",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/013_Al.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "013_Al.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "28e63f0de400702c528d57db34121ded5343f1c2a8bbc8a275cb8337ea74c8aa"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/13/aluminium"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure.latticeEvidence",
+      "before": null,
+      "after": "source-reviewed"
+    },
+    {
+      "field": "structure.nucleusIsotope",
+      "before": null,
+      "after": "²⁷Al"
+    },
+    {
+      "field": "structure.nucleusNote",
+      "before": null,
+      "after": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác."
+    },
+    {
+      "field": "structure.valenceNote",
+      "before": null,
+      "after": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp."
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "Al",
+      "status": "downloaded",
+      "file": "/assets/periodic-table/photos/013_Al.jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:Aluminium-4.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/5/5d/Aluminium-4.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/5/5d/Aluminium-4.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "filename": "Aluminium-4.jpg",
+      "title": "Aluminium-4",
+      "description": "Chunk of aluminium, 2.6 grams, 1 x 2 cm.",
+      "author": "Unknown author Unknown author",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+      "credit": "http://images-of-elements.com/aluminium.php",
+      "sha256": "77a9f7ffa0f58332b9b1f456e3a9b846e8c721788a0fca86a6ad7b9efc6cf752",
+      "bytes": 200038
+    },
+    "mineral": {
+      "available": true,
+      "id": "bauxite",
+      "name": "Bauxite",
+      "formula": "Hỗn hợp gibbsite, boehmite, diaspore và tạp chất",
+      "habit": "aggregate",
+      "color": "#b86b42",
+      "crystalSystem": "mixture",
+      "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Bauxite",
+      "model": "/assets/periodic-table/minerals/bauxite.glb",
+      "preview": "/assets/periodic-table/minerals/bauxite.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "Al",
+      "z": 13,
+      "url": "https://periodic-table.rsc.org/element/13/aluminium",
+      "status": "retrieved",
+      "bytes": 157936,
+      "sha256": "d9115d8c175b9d95e9598e3cd69648e7b43d7c16c85c5270f34bab7a352f65c6",
+      "facts": {
+        "Group": "13",
+        "Melting point": "660.323°C, 1220.581°F, 933.473 K",
+        "Period": "3",
+        "Boiling point": "2519°C, 4566°F, 2792 K",
+        "Block": "p",
+        "Density (g cm−³)": "2.70",
+        "Atomic number": "13",
+        "Relative atomic mass": "26.982",
+        "State at 20°C": "Solid",
+        "Key isotopes": "²⁷Al",
+        "Electron configuration": "[Ne] 3s²3p¹",
+        "CAS number": "7429-90-5",
+        "ChemSpider ID": "4514248",
+        "electronegativity": "1.61"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "13",
+      "Symbol": "Al",
+      "Name": "Aluminum",
+      "AtomicMass": "26.981538",
+      "CPKHexColor": "BFA6A6",
+      "ElectronConfiguration": "[Ne]3s2 3p1",
+      "Electronegativity": "1.61",
+      "AtomicRadius": "184",
+      "IonizationEnergy": "5.986",
+      "ElectronAffinity": "0.441",
+      "OxidationStates": "+3",
+      "StandardState": "Solid",
+      "MeltingPoint": "933.437",
+      "BoilingPoint": "2792",
+      "Density": "2.70",
+      "GroupBlock": "Post-transition metal",
+      "YearDiscovered": "Ancient"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

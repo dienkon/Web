@@ -1,0 +1,91 @@
+001: Iridium (Ir)
+002: Thông tin chung
+003: Tên Latin: Iridium
+004: Tên Tiếng Anh: Iridium
+005: Đồng vị: ¹⁹¹Ir, ¹⁹³Ir
+006: Vị trí: Nhóm VIIIB | Chu kỳ 6
+007: Số Oxy hóa: −3, −1, 0, +1, +2, +3, +4, +6
+008: Độ âm điện: 2.20
+009: Lịch sử khám phá
+010: Phát hiện bởi: Smithson Tennant
+011: Năm công bố: 1803
+012: Nơi khám phá: Anh
+013: Mô tả: Iridium được Smithson Tennant phát hiện cùng thời điểm với Osmium khi nghiên cứu phần cặn không tan của Platinum trong nước cường toan. Tên Iridium bắt nguồn từ tiếng Latin Iris, nữ thần cầu vồng trong thần thoại Hy Lạp, do màu sắc đa dạng của các hợp chất Iridium.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Xe] 4f¹⁴ 5d⁷ 6s²
+017: Mô hình mạng tinh thể: Lập phương tâm mặt (Face-centered cubic, FCC)
+018: Số hiệu nguyên tử: 77
+019: Nguyên tử khối: 192.217 g/mol
+020: Vỏ nguyên tử: 77 electron
+021: K: 2 | L: 8 | M: 18 | N: 32 | O: 15 | P: 2
+022: Hạt nhân: 77 proton, 115 neutron đối với ¹⁹²Ir
+023: Cấu hình e: [Xe] 4f¹⁴ 5d⁷ 6s²
+024: Loại mạng: Lập phương tâm mặt (Face-centered cubic, FCC)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Iridium là kim loại rắn, màu trắng bạc, rất cứng và giòn.
+027: Có trong: Thường tồn tại cùng các kim loại nhóm Platinum, đặc biệt trong quặng Platinum và Nickel.
+028: Đơn chất: Ir
+029: Hợp chất: IrO₂, IrCl₃, IrCl₄, IrF₆, Ir₂O₃...
+030: c. Đồng vị
+031: Đồng vị: ¹⁹¹Ir, ¹⁹³Ir
+032: Iridium có 2 đồng vị tự nhiên ổn định:
+033: ¹⁹¹Ir: chiếm khoảng 37.3%.
+034: ¹⁹³Ir: chiếm khoảng 62.7%.
+035: Ngoài ra có nhiều đồng vị phóng xạ nhân tạo.
+036: Tính chất
+037: Tính chất vật lý
+038: Là kim loại chuyển tiếp thuộc nhóm Platinum.
+039: Màu trắng bạc.
+040: Rất cứng và giòn.
+041: Có khối lượng riêng rất lớn.
+042: Khối lượng riêng: khoảng 22.56 g/cm³.
+043: Nhiệt độ nóng chảy: khoảng 2446 °C.
+044: Nhiệt độ sôi: khoảng 4428 °C.
+045: Dẫn điện và dẫn nhiệt.
+046: Có khả năng chống ăn mòn rất cao.
+047: Tính chất hóa học
+048: Có nhiều số Oxy hóa, phổ biến là +3 và +4.
+049: Là một trong những kim loại có khả năng chống ăn mòn tốt nhất.
+050: Khá trơ ở điều kiện thường.
+051: Có thể tạo oxide và halide khi ở điều kiện thích hợp.
+052: Phản ứng với Oxygen ở nhiệt độ cao tạo Iridium oxide.
+053: Tạo nhiều phức chất với các ligand khác nhau.
+054: Điều chế
+055: Điều chế trong công nghiệp
+056: Iridium (Ir) chủ yếu được thu hồi như sản phẩm phụ trong quá trình tinh luyện quặng Platinum và Nickel. Sau khi tách khỏi các kim loại nhóm Platinum, Iridium được tinh chế và thu hồi bằng phương pháp kết tủa hợp chất Iridium, sau đó nung và khử để thu kim loại.
+057: Phương trình:
+058: IrO₂ + 2H₂ → Ir + 2H₂O
+059: Điều chế trong phòng thí nghiệm
+060: Có thể điều chế Iridium bằng cách khử Iridium oxide bằng Hydrogen ở nhiệt độ cao.
+061: Phương trình:
+062: IrO₂ + 2H₂ → Ir + 2H₂O
+063: Nhận biết
+064: Iridium thường được xác định bằng phân tích quang phổ hoặc các phương pháp phân tích hóa học chuyên dụng.
+065: Một hợp chất đặc trưng là Iridium(IV) oxide:
+066: Ir + O₂ → IrO₂
+067: Hiện tượng: Hình thành chất rắn màu đen IrO₂.
+068: Phương trình
+069: Tác dụng với Oxygen
+070: Ir + O₂ → IrO₂
+071: Tác dụng với Chlorine
+072: 2Ir + 3Cl₂ → 2IrCl₃
+073: Tác dụng với Fluorine
+074: Ir + 3F₂ → IrF₆
+075: Tạo Iridium dioxide
+076: Ir + O₂ → IrO₂
+077: Iridium oxide bị khử
+078: IrO₂ + 2H₂ → Ir + 2H₂O
+079: Ứng dụng thực tế
+080: Bugi: Iridium được sử dụng trong điện cực của một số loại bugi do có độ cứng, nhiệt độ nóng chảy cao và khả năng chống ăn mòn tốt.
+081: Hợp kim: Được sử dụng để tạo các hợp kim có độ bền và khả năng chịu nhiệt cao.
+082: Thiết bị khoa học: Iridium được sử dụng trong một số dụng cụ và thiết bị cần khả năng chống ăn mòn.
+083: Điện hóa: Một số hợp chất Iridium, đặc biệt Iridium oxide, được sử dụng trong điện cực.
+084: Y học: Đồng vị phóng xạ ¹⁹²Ir được sử dụng trong một số phương pháp xạ trị.
+085: Nghiên cứu: Iridium và các hợp chất của nó được sử dụng làm chất xúc tác và trong nghiên cứu hóa học.
+086: Tổng quan
+087: Iridium là nguyên tố số 77, thuộc nhóm VIIIB | chu kỳ 6 và là một kim loại chuyển tiếp thuộc nhóm Platinum.
+088: Iridium có cấu hình electron [Xe] 4f¹⁴ 5d⁷ 6s², với các số Oxy hóa phổ biến là +3 và +4.
+089: Đây là kim loại rất cứng, giòn, nặng và có khả năng chống ăn mòn cực cao. Iridium cũng có nhiệt độ nóng chảy rất cao.
+090: Iridium tồn tại tự nhiên chủ yếu cùng các kim loại nhóm Platinum và được thu hồi như sản phẩm phụ trong quá trình tinh luyện các quặng kim loại khác.
+091: Iridium có ứng dụng trong bugi, hợp kim chịu nhiệt, điện cực, thiết bị khoa học và y học hạt nhân, đặc biệt là đồng vị ¹⁹²Ir trong xạ trị.

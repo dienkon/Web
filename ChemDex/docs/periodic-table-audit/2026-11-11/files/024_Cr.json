@@ -1,0 +1,1293 @@
+{
+  "symbol": "Cr",
+  "number": 24,
+  "source": "024_Cr.docx",
+  "sourceSha256": "38a1a9a9924f24415823c1eff1ec514625b0ab6deec2b7d9dad9f58c8d6f2463",
+  "paragraphCount": 110,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 4,
+    "structure": 9,
+    "occurrence": 4,
+    "isotopes": 5,
+    "physical": 9,
+    "chemical": 9,
+    "lab": 3,
+    "industry": 7,
+    "recognition": 9,
+    "reactions": 18,
+    "applications": 6,
+    "notes": 4
+  },
+  "editorialDecisions": [],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "[Ar] 3d⁵ 4s¹",
+      "publishedValue": "[Ar] 3d⁵ 4s¹",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Lập phương tâm khối (Body-centered cubic, BCC)",
+      "publishedValue": "Lập phương tâm khối (Body-centered cubic, BCC)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "1.66",
+      "publishedValue": 1.66,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm VIB | Chu kỳ 4",
+      "publishedValue": "6",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Chromium là kim loại rắn, có màu xám bạc và bề mặt sáng bóng.",
+      "publishedValue": "Rắn",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 32,
+      "sourceText": "⁵⁰Cr: Đồng vị phóng xạ, tồn tại trong tự nhiên với lượng rất nhỏ.",
+      "reference": {
+        "isotope": "⁵⁰Cr",
+        "massNumber": 50,
+        "protons": 24,
+        "neutrons": 26,
+        "stable": false,
+        "abundancePercent": "4.345",
+        "halfLifeDisplay": "GT 1.3E+18 năm",
+        "halfLife": "1.3E+18 Y",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": "GT",
+        "decay": "2EC",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 33,
+      "sourceText": "⁵²Cr: Đồng vị bền, chiếm khoảng 83.79%.",
+      "reference": {
+        "isotope": "⁵²Cr",
+        "massNumber": 52,
+        "protons": 24,
+        "neutrons": 28,
+        "stable": true,
+        "abundancePercent": "83.789",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 34,
+      "sourceText": "⁵³Cr: Đồng vị bền, chiếm khoảng 9.50%.",
+      "reference": {
+        "isotope": "⁵³Cr",
+        "massNumber": 53,
+        "protons": 24,
+        "neutrons": 29,
+        "stable": true,
+        "abundancePercent": "9.501",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 35,
+      "sourceText": "⁵⁴Cr: Đồng vị bền, chiếm khoảng 2.37%.",
+      "reference": {
+        "isotope": "⁵⁴Cr",
+        "massNumber": 54,
+        "protons": 24,
+        "neutrons": 30,
+        "stable": true,
+        "abundancePercent": "2.365",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 61,
+      "text": "4FeCr₂O₄ + 8Na₂CO₃ + 7O₂ → 8Na₂CrO₄ + 2Fe₂O₃ + 8CO₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 63,
+      "text": "Na₂CrO₄ + H₂SO₄ → Na₂SO₄ + H₂CrO₄",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 65,
+      "text": "Cr₂O₃ + 2Al → 2Cr + Al₂O₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 69,
+      "text": "Cr₂O₃ + 2Al → 2Cr + Al₂O₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 73,
+      "text": "Cr³⁺ + 3OH⁻ → Cr(OH)₃↓",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 82,
+      "text": "4Cr + 3O₂ → 2Cr₂O₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 84,
+      "text": "2Cr + 3Cl₂ → 2CrCl₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 86,
+      "text": "Cr + 2HCl → CrCl₂ + H₂↑",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 88,
+      "text": "Cr³⁺ + 3OH⁻ → Cr(OH)₃↓",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 90,
+      "text": "Cr(OH)₃ + 3HCl → CrCl₃ + 3H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 92,
+      "text": "Cr(OH)₃ + 3OH⁻ → [Cr(OH)₆]³⁻",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 94,
+      "text": "Cr₂O₃ + 2Al → 2Cr + Al₂O₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 96,
+      "text": "2CrO₄²⁻ + 2H⁺ ⇌ Cr₂O₇²⁻ + H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 98,
+      "text": "Cr₂O₇²⁻ + 2OH⁻ ⇌ 2CrO₄²⁻ + H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "lab",
+      "equation": "Cr₂O₃ + 2Al → 2Cr + Al₂O₃",
+      "condition": "Khơi mào phản ứng nhiệt nhôm; chất đầu khan, phản ứng tự tỏa nhiệt mạnh.",
+      "kind": "chemical",
+      "sourceLine": 69,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "4FeCr₂O₄ + 8Na₂CO₃ + 7O₂ → 8Na₂CrO₄ + 2Fe₂O₃ + 8CO₂",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 61,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "Na₂CrO₄ + H₂SO₄ → Na₂SO₄ + H₂CrO₄",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 63,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "Cr₂O₃ + 2Al → 2Cr + Al₂O₃",
+      "condition": "Khơi mào phản ứng nhiệt nhôm; chất đầu khan, phản ứng tự tỏa nhiệt mạnh.",
+      "kind": "chemical",
+      "sourceLine": 65,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "recognition",
+      "equation": "Cr³⁺ + 3OH⁻ → Cr(OH)₃↓",
+      "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+      "kind": "chemical",
+      "sourceLine": 73,
+      "sourceSection": "recognition",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "4Cr + 3O₂ → 2Cr₂O₃",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 82,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2Cr + 3Cl₂ → 2CrCl₃",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 84,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Cr + 2HCl → CrCl₂ + H₂↑",
+      "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+      "kind": "chemical",
+      "sourceLine": 86,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Cr³⁺ + 3OH⁻ → Cr(OH)₃↓",
+      "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+      "kind": "chemical",
+      "sourceLine": 88,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Cr(OH)₃ + 3HCl → CrCl₃ + 3H₂O",
+      "condition": "Dung dịch acid; phản ứng trung hòa, tốc độ phụ thuộc độ tan của chất rắn.",
+      "kind": "chemical",
+      "sourceLine": 90,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Cr(OH)₃ + 3OH⁻ → [Cr(OH)₆]³⁻",
+      "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+      "kind": "chemical",
+      "sourceLine": 92,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Cr₂O₃ + 2Al → 2Cr + Al₂O₃",
+      "condition": "Khơi mào phản ứng nhiệt nhôm; chất đầu khan, phản ứng tự tỏa nhiệt mạnh.",
+      "kind": "chemical",
+      "sourceLine": 94,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2CrO₄²⁻ + 2H⁺ ⇌ Cr₂O₇²⁻ + H₂O",
+      "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+      "kind": "chemical",
+      "sourceLine": 96,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Cr₂O₇²⁻ + 2OH⁻ ⇌ 2CrO₄²⁻ + H₂O",
+      "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+      "kind": "chemical",
+      "sourceLine": 98,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": [
+        {
+          "title": "Sản xuất thép không gỉ",
+          "desc": "Chromium là thành phần quan trọng của Stainless steel, giúp tăng khả năng chống ăn mòn."
+        },
+        {
+          "title": "Mạ Chromium",
+          "desc": "Chromium được dùng để tạo lớp phủ sáng bóng, cứng và chống ăn mòn trên bề mặt kim loại."
+        },
+        {
+          "title": "Hợp kim",
+          "desc": "Chromium được sử dụng trong nhiều hợp kim chịu nhiệt và chịu ăn mòn."
+        },
+        {
+          "title": "Chất màu",
+          "desc": "Một số Chromium compounds được sử dụng làm pigment màu xanh, vàng, cam và xanh lục."
+        },
+        {
+          "title": "Vật liệu chịu nhiệt",
+          "desc": "Một số Chromium compounds được sử dụng trong vật liệu chịu nhiệt và gốm."
+        },
+        {
+          "title": "Công nghiệp hóa chất",
+          "desc": "Chromium compounds được sử dụng trong nhiều quá trình hóa học và sản xuất vật liệu."
+        }
+      ],
+      "after": [
+        {
+          "title": "Sản xuất thép không gỉ",
+          "desc": "Chromium là thành phần quan trọng của Stainless steel, giúp tăng khả năng chống ăn mòn.",
+          "sourceLine": 100
+        },
+        {
+          "title": "Mạ Chromium",
+          "desc": "Chromium được dùng để tạo lớp phủ sáng bóng, cứng và chống ăn mòn trên bề mặt kim loại.",
+          "sourceLine": 101
+        },
+        {
+          "title": "Hợp kim",
+          "desc": "Chromium được sử dụng trong nhiều hợp kim chịu nhiệt và chịu ăn mòn.",
+          "sourceLine": 102
+        },
+        {
+          "title": "Chất màu",
+          "desc": "Một số Chromium compounds được sử dụng làm pigment màu xanh, vàng, cam và xanh lục.",
+          "sourceLine": 103
+        },
+        {
+          "title": "Vật liệu chịu nhiệt",
+          "desc": "Một số Chromium compounds được sử dụng trong vật liệu chịu nhiệt và gốm.",
+          "sourceLine": 104
+        },
+        {
+          "title": "Công nghiệp hóa chất",
+          "desc": "Chromium compounds được sử dụng trong nhiều quá trình hóa học và sản xuất vật liệu.",
+          "sourceLine": 105
+        }
+      ]
+    },
+    {
+      "field": "chemical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có nhiều số Oxy hóa.</li>\n      <li>Các trạng thái phổ biến: +2, +3 và +6.</li>\n      <li>Cr(III) tương đối bền và thường tạo các hợp chất có màu xanh lục.</li>\n      <li>Cr(VI) có tính Oxy hóa mạnh và nhiều hợp chất có màu vàng hoặc cam.</li>\n      <li>Chromium kim loại tương đối bền trong không khí nhờ lớp Cr₂O₃ bảo vệ.</li>\n      <li>Phản ứng với Oxygen khi nung nóng.</li>\n      <li>Phản ứng với Halogen.</li>\n      <li>Phản ứng với acid trong điều kiện thích hợp.</li>\n      <li>Có thể tạo nhiều oxide và muối có màu sắc khác nhau.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Có nhiều số Oxy hóa.</li><li>Các trạng thái phổ biến: +2, +3 và +6.</li><li>Cr(III) tương đối bền và thường tạo các hợp chất có màu xanh lục.</li><li>Cr(VI) có tính Oxy hóa mạnh và nhiều hợp chất có màu vàng hoặc cam.</li><li>Chromium kim loại tương đối bền trong không khí nhờ lớp Cr₂O₃ bảo vệ.</li><li>Phản ứng với Oxygen khi nung nóng.</li><li>Phản ứng với Halogen.</li><li>Phản ứng với acid trong điều kiện thích hợp.</li><li>Có thể tạo nhiều oxide và muối có màu sắc khác nhau.</li></ul>"
+    },
+    {
+      "field": "general.CAS",
+      "before": null,
+      "after": "7440-47-3"
+    },
+    {
+      "field": "general.electronegativityNote",
+      "before": null,
+      "after": "Thang Pauling; số liệu tổng hợp PubChem."
+    },
+    {
+      "field": "general.groupLabel",
+      "before": null,
+      "after": "6"
+    },
+    {
+      "field": "general.series",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "general.state",
+      "before": "",
+      "after": "Rắn"
+    },
+    {
+      "field": "history.year",
+      "before": 1797,
+      "after": "1797"
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/diagrams/024_Cr.svg",
+          "title": "Crom (Cr)",
+          "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+          "source": "",
+          "author": "ChemDex",
+          "license": "ChemDex schematic diagram",
+          "licenseUrl": ""
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "⁵⁰Cr",
+          "massNumber": 50,
+          "protons": 24,
+          "neutrons": 26,
+          "stable": false,
+          "abundancePercent": "4.345",
+          "halfLifeDisplay": "GT 1.3E+18 năm",
+          "halfLife": "1.3E+18 Y",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": "GT",
+          "decay": "2EC",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "⁵²Cr",
+          "massNumber": 52,
+          "protons": 24,
+          "neutrons": 28,
+          "stable": true,
+          "abundancePercent": "83.789",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "⁵³Cr",
+          "massNumber": 53,
+          "protons": 24,
+          "neutrons": 29,
+          "stable": true,
+          "abundancePercent": "9.501",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "⁵⁴Cr",
+          "massNumber": 54,
+          "protons": 24,
+          "neutrons": 30,
+          "stable": true,
+          "abundancePercent": "2.365",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "mass",
+      "before": 51.9961,
+      "after": 51.996
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "standard-atomic-weight"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "51.996 ± 0.001"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": [
+        {
+          "type": "model",
+          "section": "structure",
+          "title": "Mẫu khoáng vật 3D · Chromite",
+          "src": "/assets/periodic-table/minerals/chromite.glb",
+          "preview": "/assets/periodic-table/minerals/chromite.png",
+          "desc": "FeCr₂O₄. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "nameVi",
+      "before": "Chromium",
+      "after": "Crom"
+    },
+    {
+      "field": "naturalState.alt",
+      "before": null,
+      "after": "Chromium: sơ đồ minh họa nguyên tố"
+    },
+    {
+      "field": "naturalState.caption",
+      "before": null,
+      "after": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật."
+    },
+    {
+      "field": "naturalState.credit",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "naturalState.image",
+      "before": null,
+      "after": "/assets/periodic-table/diagrams/024_Cr.svg"
+    },
+    {
+      "field": "naturalState.kind",
+      "before": null,
+      "after": "diagram"
+    },
+    {
+      "field": "naturalState.source",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "notes",
+      "before": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Chromium là nguyên tố số 24, thuộc nhóm VIB | chu kỳ 4 và là một kim loại chuyển tiếp.</li>\n  <li>Chromium có cấu hình electron đặc biệt [Ar] 3d⁵ 4s¹, với phân lớp 3d bán bão hòa tương đối bền. Chromium có nhiều số Oxy hóa, trong đó +2, +3 và +6 là những trạng thái quan trọng.</li>\n  <li>Chromium có màu xám bạc, cứng và có khả năng chống ăn mòn tốt nhờ hình thành lớp Chromium(III) oxide (Cr₂O₃) bảo vệ trên bề mặt.</li>\n  <li>Chromium được khai thác chủ yếu từ Chromite (FeCr₂O₄) và có vai trò đặc biệt quan trọng trong sản xuất Stainless steel, mạ Chromium và các hợp kim chịu ăn mòn, chịu nhiệt.</li>\n</ul>\n",
+      "after": "<ul class=\"element-prose-list\"><li>Chromium là nguyên tố số 24, thuộc nhóm VIB | chu kỳ 4 và là một kim loại chuyển tiếp.</li><li>Chromium có cấu hình electron đặc biệt [Ar] 3d⁵ 4s¹, với phân lớp 3d bán bão hòa tương đối bền. Chromium có nhiều số Oxy hóa, trong đó +2, +3 và +6 là những trạng thái quan trọng.</li><li>Chromium có màu xám bạc, cứng và có khả năng chống ăn mòn tốt nhờ hình thành lớp Chromium(III) oxide (Cr₂O₃) bảo vệ trên bề mặt.</li><li>Chromium được khai thác chủ yếu từ Chromite (FeCr₂O₄) và có vai trò đặc biệt quan trọng trong sản xuất Stainless steel, mạ Chromium và các hợp kim chịu ăn mòn, chịu nhiệt.</li></ul>"
+    },
+    {
+      "field": "occurrence.details",
+      "before": null,
+      "after": [
+        "Trạng thái: Chromium là kim loại rắn, có màu xám bạc và bề mặt sáng bóng.",
+        "Có trong: Quặng Chromite (FeCr₂O₄), Crocoite (PbCrO₄) và một số khoáng vật khác.",
+        "Đơn chất: Cr",
+        "Hợp chất: Cr₂O₃, CrO₃, CrCl₃, K₂Cr₂O₇, K₂CrO₄, Na₂CrO₄..."
+      ]
+    },
+    {
+      "field": "occurrence.mineral",
+      "before": null,
+      "after": {
+        "available": true,
+        "id": "chromite",
+        "name": "Chromite",
+        "formula": "FeCr₂O₄",
+        "habit": "octahedral",
+        "color": "#51515d",
+        "crystalSystem": "cubic",
+        "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+        "source": "https://www.handbookofmineralogy.org/",
+        "sourceSearch": "https://rruff.info/Chromite",
+        "model": "/assets/periodic-table/minerals/chromite.glb",
+        "preview": "/assets/periodic-table/minerals/chromite.png",
+        "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      }
+    },
+    {
+      "field": "physical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại chuyển tiếp.</li>\n      <li>Có màu xám bạc, sáng bóng.</li>\n      <li>Cứng và giòn.</li>\n      <li>Khối lượng riêng: khoảng 7.19 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 1907 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 2671 °C.</li>\n      <li>Có độ cứng cao.</li>\n      <li>Dẫn điện và dẫn nhiệt.</li>\n      <li>Có khả năng chống ăn mòn tốt nhờ hình thành lớp oxide bảo vệ trên bề mặt.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Là kim loại chuyển tiếp.</li><li>Có màu xám bạc, sáng bóng.</li><li>Cứng và giòn.</li><li>Khối lượng riêng: khoảng 7.19 g/cm³.</li><li>Nhiệt độ nóng chảy: khoảng 1907 °C.</li><li>Nhiệt độ sôi: khoảng 2671 °C.</li><li>Có độ cứng cao.</li><li>Dẫn điện và dẫn nhiệt.</li><li>Có khả năng chống ăn mòn tốt nhờ hình thành lớp oxide bảo vệ trên bề mặt.</li></ul>"
+    },
+    {
+      "field": "preparations.industry",
+      "before": [
+        {
+          "title": "Chromium được sản xuất chủ yếu từ quặng Chromite (FeCr₂O₄).",
+          "equation": "",
+          "desc": ""
+        },
+        {
+          "title": "Chromite được xử lý để tạo Chromium(III) oxide:",
+          "equation": "4FeCr₂O₄ + 8Na₂CO₃ + 7O₂ → 8Na₂CrO₄ + 2Fe₂O₃ + 8CO₂ <br> Na₂CrO₄ + H₂SO₄ → Na₂SO₄ + H₂CrO₄ <br> Cr₂O₃ + 2Al → 2Cr + Al₂O₃",
+          "desc": "Sau đó Chromium(VI) được chuyển về Chromium(III) oxide: Cuối cùng điều chế Chromium bằng phương pháp nhiệt luyện, thường dùng Aluminium làm chất khử:"
+        }
+      ],
+      "after": [
+        {
+          "title": "Chromium được sản xuất chủ yếu từ quặng Chromite (FeCr₂O₄).",
+          "desc": "Chromite được xử lý để tạo Chromium(III) oxide:",
+          "result": "",
+          "equations": [
+            {
+              "equation": "4FeCr₂O₄ + 8Na₂CO₃ + 7O₂ → 8Na₂CrO₄ + 2Fe₂O₃ + 8CO₂",
+              "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+              "kind": "chemical",
+              "sourceLine": 61,
+              "sourceSection": "industry",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            59,
+            60,
+            61
+          ],
+          "equation": "4FeCr₂O₄ + 8Na₂CO₃ + 7O₂ → 8Na₂CrO₄ + 2Fe₂O₃ + 8CO₂"
+        },
+        {
+          "title": "Sau đó Chromium(VI) được chuyển về Chromium(III) oxide",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "Na₂CrO₄ + H₂SO₄ → Na₂SO₄ + H₂CrO₄",
+              "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+              "kind": "chemical",
+              "sourceLine": 63,
+              "sourceSection": "industry",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            62,
+            63
+          ],
+          "equation": "Na₂CrO₄ + H₂SO₄ → Na₂SO₄ + H₂CrO₄"
+        },
+        {
+          "title": "Cuối cùng điều chế Chromium bằng phương pháp nhiệt luyện, thường dùng Aluminium làm chất khử",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "Cr₂O₃ + 2Al → 2Cr + Al₂O₃",
+              "condition": "Khơi mào phản ứng nhiệt nhôm; chất đầu khan, phản ứng tự tỏa nhiệt mạnh.",
+              "kind": "chemical",
+              "sourceLine": 65,
+              "sourceSection": "industry",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            64,
+            65
+          ],
+          "equation": "Cr₂O₃ + 2Al → 2Cr + Al₂O₃"
+        }
+      ]
+    },
+    {
+      "field": "preparations.lab",
+      "before": [
+        {
+          "title": "Về nguyên tắc, có thể điều chế bằng phương pháp nhiệt luyện Chromium(III) oxide với Aluminium:",
+          "equation": "Cr₂O₃ + 2Al → 2Cr + Al₂O₃",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Chromium kim loại không thường được điều chế trong phòng thí nghiệm phổ thông.",
+          "desc": "Về nguyên tắc, có thể điều chế bằng phương pháp nhiệt luyện Chromium(III) oxide với Aluminium:",
+          "result": "",
+          "equations": [
+            {
+              "equation": "Cr₂O₃ + 2Al → 2Cr + Al₂O₃",
+              "condition": "Khơi mào phản ứng nhiệt nhôm; chất đầu khan, phản ứng tự tỏa nhiệt mạnh.",
+              "kind": "chemical",
+              "sourceLine": 69,
+              "sourceSection": "lab",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            67,
+            68,
+            69
+          ],
+          "equation": "Cr₂O₃ + 2Al → 2Cr + Al₂O₃"
+        }
+      ]
+    },
+    {
+      "field": "reactions",
+      "before": [
+        {
+          "type": "Tác dụng với Oxygen",
+          "equation": "4Cr + 3O₂ → 2Cr₂O₃",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Chlorine",
+          "equation": "2Cr + 3Cl₂ → 2CrCl₃",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Hydrochloric acid",
+          "equation": "Cr + 2HCl → CrCl₂ + H₂↑",
+          "desc": ""
+        },
+        {
+          "type": "Tạo Chromium(III) hydroxide",
+          "equation": "Cr³⁺ + 3OH⁻ → Cr(OH)₃↓",
+          "desc": ""
+        },
+        {
+          "type": "Chromium(III) hydroxide tác dụng với acid",
+          "equation": "Cr(OH)₃ + 3HCl → CrCl₃ + 3H₂O",
+          "desc": ""
+        },
+        {
+          "type": "Chromium(III) hydroxide tác dụng với kiềm",
+          "equation": "Cr(OH)₃ + 3OH⁻ → [Cr(OH)₆]³⁻",
+          "desc": ""
+        },
+        {
+          "type": "Khử Chromium(III) oxide",
+          "equation": "Cr₂O₃ + 2Al → 2Cr + Al₂O₃",
+          "desc": ""
+        },
+        {
+          "type": "Chuyển Chromate thành Dichromate",
+          "equation": "2CrO₄²⁻ + 2H⁺ ⇌ Cr₂O₇²⁻ + H₂O",
+          "desc": ""
+        },
+        {
+          "type": "Chuyển Dichromate thành Chromate",
+          "equation": "Cr₂O₇²⁻ + 2OH⁻ ⇌ 2CrO₄²⁻ + H₂O",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "type": "Tác dụng với Oxygen",
+          "desc": "",
+          "equation": "4Cr + 3O₂ → 2Cr₂O₃",
+          "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+          "kind": "chemical",
+          "sourceLine": 82,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Chlorine",
+          "desc": "",
+          "equation": "2Cr + 3Cl₂ → 2CrCl₃",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 84,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Hydrochloric acid",
+          "desc": "",
+          "equation": "Cr + 2HCl → CrCl₂ + H₂↑",
+          "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+          "kind": "chemical",
+          "sourceLine": 86,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Chromium(III) hydroxide",
+          "desc": "",
+          "equation": "Cr³⁺ + 3OH⁻ → Cr(OH)₃↓",
+          "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+          "kind": "chemical",
+          "sourceLine": 88,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Chromium(III) hydroxide tác dụng với acid",
+          "desc": "",
+          "equation": "Cr(OH)₃ + 3HCl → CrCl₃ + 3H₂O",
+          "condition": "Dung dịch acid; phản ứng trung hòa, tốc độ phụ thuộc độ tan của chất rắn.",
+          "kind": "chemical",
+          "sourceLine": 90,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Chromium(III) hydroxide tác dụng với kiềm",
+          "desc": "",
+          "equation": "Cr(OH)₃ + 3OH⁻ → [Cr(OH)₆]³⁻",
+          "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+          "kind": "chemical",
+          "sourceLine": 92,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Khử Chromium(III) oxide",
+          "desc": "",
+          "equation": "Cr₂O₃ + 2Al → 2Cr + Al₂O₃",
+          "condition": "Khơi mào phản ứng nhiệt nhôm; chất đầu khan, phản ứng tự tỏa nhiệt mạnh.",
+          "kind": "chemical",
+          "sourceLine": 94,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Chuyển Chromate thành Dichromate",
+          "desc": "",
+          "equation": "2CrO₄²⁻ + 2H⁺ ⇌ Cr₂O₇²⁻ + H₂O",
+          "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+          "kind": "chemical",
+          "sourceLine": 96,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Chuyển Dichromate thành Chromate",
+          "desc": "",
+          "equation": "Cr₂O₇²⁻ + 2OH⁻ ⇌ 2CrO₄²⁻ + H₂O",
+          "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+          "kind": "chemical",
+          "sourceLine": 98,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": [
+        {
+          "title": "Nhận biết",
+          "reagent": "Nhận biết Cr³⁺",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Cho dung dịch chứa Cr³⁺ tác dụng với hydroxide",
+          "reagent": "",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "",
+          "result": "",
+          "equation": "Cr³⁺ + 3OH⁻ → Cr(OH)₃↓"
+        },
+        {
+          "title": "Hiện tượng",
+          "reagent": "",
+          "result": "Xuất hiện kết tủa xanh lục Chromium(III) hydroxide.",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "Cr(OH)₃ có tính lưỡng tính và tan trong acid hoặc kiềm mạnh.",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "Nhận biết CrO₄²⁻",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "Ion Chromate thường tạo dung dịch màu vàng.",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "Nhận biết Cr₂O₇²⁻",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "Ion Dichromate tạo dung dịch màu da cam.",
+          "result": "",
+          "equation": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Nhận biết Cr³⁺",
+          "desc": "Cho dung dịch chứa Cr³⁺ tác dụng với hydroxide: Cr(OH)₃ có tính lưỡng tính và tan trong acid hoặc kiềm mạnh.",
+          "result": "Xuất hiện kết tủa xanh lục Chromium(III) hydroxide.",
+          "equations": [
+            {
+              "equation": "Cr³⁺ + 3OH⁻ → Cr(OH)₃↓",
+              "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+              "kind": "chemical",
+              "sourceLine": 73,
+              "sourceSection": "recognition",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            71,
+            72,
+            73,
+            74,
+            75
+          ],
+          "equation": "Cr³⁺ + 3OH⁻ → Cr(OH)₃↓"
+        },
+        {
+          "title": "Nhận biết CrO₄²⁻",
+          "desc": "Ion Chromate thường tạo dung dịch màu vàng.",
+          "result": "",
+          "equations": [],
+          "sourceLines": [
+            76,
+            77
+          ],
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết Cr₂O₇²⁻",
+          "desc": "Ion Dichromate tạo dung dịch màu da cam.",
+          "result": "",
+          "equations": [],
+          "sourceLines": [
+            78,
+            79
+          ],
+          "equation": ""
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "024_Cr.docx",
+        "sourceSha256": "38a1a9a9924f24415823c1eff1ec514625b0ab6deec2b7d9dad9f58c8d6f2463",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/024_Cr.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "024_Cr.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "38a1a9a9924f24415823c1eff1ec514625b0ab6deec2b7d9dad9f58c8d6f2463"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/24/chromium"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure.latticeEvidence",
+      "before": null,
+      "after": "source-reviewed"
+    },
+    {
+      "field": "structure.nucleusIsotope",
+      "before": null,
+      "after": "⁵²Cr"
+    },
+    {
+      "field": "structure.nucleusNote",
+      "before": null,
+      "after": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác."
+    },
+    {
+      "field": "structure.valenceNote",
+      "before": null,
+      "after": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp."
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "Cr",
+      "status": "diagram",
+      "reason": "Chưa xác nhận giấy phép dùng lại: FAL"
+    },
+    "mineral": {
+      "available": true,
+      "id": "chromite",
+      "name": "Chromite",
+      "formula": "FeCr₂O₄",
+      "habit": "octahedral",
+      "color": "#51515d",
+      "crystalSystem": "cubic",
+      "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Chromite",
+      "model": "/assets/periodic-table/minerals/chromite.glb",
+      "preview": "/assets/periodic-table/minerals/chromite.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "Cr",
+      "z": 24,
+      "url": "https://periodic-table.rsc.org/element/24/chromium",
+      "status": "retrieved",
+      "bytes": 159060,
+      "sha256": "2a524875d0e5e0a48f51d3003205f60226614404c2dc151d66ced208e6bdcec0",
+      "facts": {
+        "Group": "6",
+        "Melting point": "1907°C, 3465°F, 2180 K",
+        "Period": "4",
+        "Boiling point": "2671°C, 4840°F, 2944 K",
+        "Block": "d",
+        "Density (g cm−³)": "7.15",
+        "Atomic number": "24",
+        "Relative atomic mass": "51.996",
+        "State at 20°C": "Solid",
+        "Key isotopes": "⁵²Cr",
+        "Electron configuration": "[Ar] 3d⁵4s¹",
+        "CAS number": "7440-47-3",
+        "ChemSpider ID": "22412",
+        "electronegativity": "1.66"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "24",
+      "Symbol": "Cr",
+      "Name": "Chromium",
+      "AtomicMass": "51.996",
+      "CPKHexColor": "8A99C7",
+      "ElectronConfiguration": "[Ar]3d5 4s1",
+      "Electronegativity": "1.66",
+      "AtomicRadius": "189",
+      "IonizationEnergy": "6.767",
+      "ElectronAffinity": "0.666",
+      "OxidationStates": "+6, +3, +2",
+      "StandardState": "Solid",
+      "MeltingPoint": "2180",
+      "BoilingPoint": "2944",
+      "Density": "7.15",
+      "GroupBlock": "Transition metal",
+      "YearDiscovered": "1797"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

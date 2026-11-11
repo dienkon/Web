@@ -1,0 +1,1165 @@
+{
+  "symbol": "P",
+  "number": 15,
+  "source": "015_P.docx",
+  "sourceSha256": "1fe948f3bdd0873aed7c90e1c9eb6f04116982969cbf571c677f80ffc9179fc0",
+  "paragraphCount": 102,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 4,
+    "structure": 9,
+    "occurrence": 4,
+    "isotopes": 4,
+    "physical": 10,
+    "chemical": 10,
+    "lab": 3,
+    "industry": 3,
+    "recognition": 3,
+    "reactions": 18,
+    "applications": 7,
+    "notes": 4
+  },
+  "editorialDecisions": [
+    {
+      "line": 24,
+      "before": "Loại mạng: Mạng lập phương đơn giản (SC)",
+      "after": "Loại mạng: Phụ thuộc dạng thù hình; phosphorus trắng gồm phân tử P₄, phosphorus đen có mạng lớp trực thoi, phosphorus đỏ có cấu trúc biến đổi.",
+      "reason": "Không gán SC cho tất cả dạng thù hình."
+    },
+    {
+      "line": 81,
+      "before": "2P + 3S → P2S3",
+      "after": "4P + 3S → P₄S₃",
+      "reason": "Dùng phosphorus sesquisulfide P₄S₃ có cấu trúc phân tử xác định; không dùng P₂S₃ như sản phẩm chuẩn."
+    }
+  ],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "1s² 2s² 2p⁶ 3s² 3p³",
+      "publishedValue": "[Ne] 3s² 3p³",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Mạng lập phương đơn giản (SC)",
+      "publishedValue": "Phụ thuộc dạng thù hình; phosphorus trắng gồm phân tử P₄, phosphorus đen có mạng lớp trực thoi, phosphorus đỏ có cấu trúc biến đổi.",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "2.19",
+      "publishedValue": 2.19,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm VA | Chu kỳ 3",
+      "publishedValue": "15",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Phosphorus không tồn tại tự do trong tự nhiên do có tính hoạt động hóa học. Chủ yếu tồn tại dưới dạng Phosphate trong khoáng vật và sinh vật.",
+      "publishedValue": "Rắn",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 32,
+      "sourceText": "³¹P: Đồng vị bền duy nhất của Phosphorus, chiếm gần như 100% Phosphorus tự nhiên.",
+      "reference": {
+        "isotope": "³¹P",
+        "massNumber": 31,
+        "protons": 15,
+        "neutrons": 16,
+        "stable": true,
+        "abundancePercent": "100",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 33,
+      "sourceText": "³²P: Đồng vị phóng xạ, chu kỳ bán rã khoảng 14.3 ngày.",
+      "reference": {
+        "isotope": "³²P",
+        "massNumber": 32,
+        "protons": 15,
+        "neutrons": 17,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "14.268 ± 0.005 d",
+        "halfLife": "14.268 d",
+        "halfLifeUncertainty": "5",
+        "halfLifeQualifier": null,
+        "decay": "B-",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 34,
+      "sourceText": "³³P: Đồng vị phóng xạ, chu kỳ bán rã khoảng 25.4 ngày.",
+      "reference": {
+        "isotope": "³³P",
+        "massNumber": 33,
+        "protons": 15,
+        "neutrons": 18,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "25.35 ± 0.11 d",
+        "halfLife": "25.35 d",
+        "halfLifeUncertainty": "11",
+        "halfLifeQualifier": null,
+        "decay": "B-",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 61,
+      "text": "2Ca3(PO4)2 + 6SiO2 + 10C → P4 + 6CaSiO3 + 10CO",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 66,
+      "text": "2Ca3(PO4)2 + 6SiO2 + 10C → P4 + 6CaSiO3 + 10CO",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 69,
+      "text": "PO₄³⁻ + 3Ag⁺ → Ag₃PO₄↓",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 73,
+      "text": "P4 + 5O2 → P4O10",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 75,
+      "text": "P4 + 6Cl2 → 4PCl3",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 77,
+      "text": "P4 + 10Cl2 → 4PCl5",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 79,
+      "text": "P4 + 6Br2 → 4PBr3",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 81,
+      "text": "2P + 3S → P2S3",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 83,
+      "text": "3Ca + 2P → Ca3P2",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 85,
+      "text": "3Na + P → Na3P",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 87,
+      "text": "Ca3P2 + 6H2O → 3Ca(OH)2 + 2PH3↑",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 89,
+      "text": "P4O10 + 6H2O → 4H3PO4",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "lab",
+      "equation": "2Ca₃(PO₄)₂ + 6SiO₂ + 10C → P₄ + 6CaSiO₃ + 10CO",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 66,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "2Ca₃(PO₄)₂ + 6SiO₂ + 10C → P₄ + 6CaSiO₃ + 10CO",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 61,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "recognition",
+      "equation": "PO₄³⁻ + 3Ag⁺ → Ag₃PO₄↓",
+      "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+      "kind": "chemical",
+      "sourceLine": 69,
+      "sourceSection": "recognition",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "P₄ + 5O₂ → P₄O₁₀",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 73,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "P₄ + 6Cl₂ → 4PCl₃",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 75,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "P₄ + 10Cl₂ → 4PCl₅",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 77,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "P₄ + 6Br₂ → 4PBr₃",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 79,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "4P + 3S → P₄S₃",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 81,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "3Ca + 2P → Ca₃P₂",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 83,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "3Na + P → Na₃P",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 85,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Ca₃P₂ + 6H₂O → 3Ca(OH)₂ + 2PH₃↑",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 87,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "P₄O₁₀ + 6H₂O → 4H₃PO₄",
+      "condition": "Tiếp xúc với nước; phản ứng/hydrat hóa tỏa nhiệt hoặc tạo cân bằng acid.",
+      "kind": "chemical",
+      "sourceLine": 89,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": [
+        {
+          "title": "Phân bón",
+          "desc": "Phosphate compounds là nguồn Phosphorus quan trọng trong sản xuất phân bón."
+        },
+        {
+          "title": "Sản xuất Phosphoric acid",
+          "desc": "Phosphorus compounds được sử dụng để sản xuất Phosphoric acid và nhiều hóa chất Phosphate."
+        },
+        {
+          "title": "Diêm",
+          "desc": "Red phosphorus được sử dụng trong bề mặt quẹt của một số loại diêm an toàn."
+        },
+        {
+          "title": "Chất tẩy rửa",
+          "desc": "Một số Phosphate được sử dụng trong các sản phẩm tẩy rửa, mặc dù việc sử dụng bị hạn chế ở nhiều nơi do vấn đề môi trường."
+        },
+        {
+          "title": "Công nghiệp thực phẩm",
+          "desc": "Một số Phosphate được sử dụng làm chất điều chỉnh độ acid và phụ gia thực phẩm."
+        },
+        {
+          "title": "Luyện kim",
+          "desc": "Phosphorus compounds được sử dụng trong một số quá trình luyện kim."
+        },
+        {
+          "title": "Sinh học và y học",
+          "desc": "Phosphorus là thành phần quan trọng của DNA, RNA, ATP, phospholipid và xương."
+        }
+      ],
+      "after": [
+        {
+          "title": "Phân bón",
+          "desc": "Phosphate compounds là nguồn Phosphorus quan trọng trong sản xuất phân bón.",
+          "sourceLine": 91
+        },
+        {
+          "title": "Sản xuất Phosphoric acid",
+          "desc": "Phosphorus compounds được sử dụng để sản xuất Phosphoric acid và nhiều hóa chất Phosphate.",
+          "sourceLine": 92
+        },
+        {
+          "title": "Diêm",
+          "desc": "Red phosphorus được sử dụng trong bề mặt quẹt của một số loại diêm an toàn.",
+          "sourceLine": 93
+        },
+        {
+          "title": "Chất tẩy rửa",
+          "desc": "Một số Phosphate được sử dụng trong các sản phẩm tẩy rửa, mặc dù việc sử dụng bị hạn chế ở nhiều nơi do vấn đề môi trường.",
+          "sourceLine": 94
+        },
+        {
+          "title": "Công nghiệp thực phẩm",
+          "desc": "Một số Phosphate được sử dụng làm chất điều chỉnh độ acid và phụ gia thực phẩm.",
+          "sourceLine": 95
+        },
+        {
+          "title": "Luyện kim",
+          "desc": "Phosphorus compounds được sử dụng trong một số quá trình luyện kim.",
+          "sourceLine": 96
+        },
+        {
+          "title": "Sinh học và y học",
+          "desc": "Phosphorus là thành phần quan trọng của DNA, RNA, ATP, phospholipid và xương.",
+          "sourceLine": 97
+        }
+      ]
+    },
+    {
+      "field": "chemical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là phi kim.</li>\n      <li>Có nhiều dạng thù hình với tính chất khác nhau.</li>\n      <li>Có khả năng tạo nhiều hợp chất cộng hóa trị.</li>\n      <li>Có các số Oxy hóa phổ biến −3, +3 và +5.</li>\n      <li>Phosphorus trắng hoạt động hóa học mạnh hơn Phosphorus đỏ và đen.</li>\n      <li>Phản ứng với Oxygen tạo các Phosphorus oxide.</li>\n      <li>Phản ứng với Halogen tạo Phosphorus halide.</li>\n      <li>Phản ứng với kim loại tạo Phosphide.</li>\n      <li>Phosphorus có thể tạo Phosphoric acid và nhiều Phosphate.</li>\n      <li>Phosphorus là nguyên tố thiết yếu của sinh vật.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Là phi kim.</li><li>Có nhiều dạng thù hình với tính chất khác nhau.</li><li>Có khả năng tạo nhiều hợp chất cộng hóa trị.</li><li>Có các số Oxy hóa phổ biến −3, +3 và +5.</li><li>Phosphorus trắng hoạt động hóa học mạnh hơn Phosphorus đỏ và đen.</li><li>Phản ứng với Oxygen tạo các Phosphorus oxide.</li><li>Phản ứng với Halogen tạo Phosphorus halide.</li><li>Phản ứng với kim loại tạo Phosphide.</li><li>Phosphorus có thể tạo Phosphoric acid và nhiều Phosphate.</li><li>Phosphorus là nguyên tố thiết yếu của sinh vật.</li></ul>"
+    },
+    {
+      "field": "general.CAS",
+      "before": null,
+      "after": "7723-14-0"
+    },
+    {
+      "field": "general.boilingPoint",
+      "before": "",
+      "after": "Phosphorus trắng: khoảng 280,5 °C (áp suất khí quyển)."
+    },
+    {
+      "field": "general.crystalStructure",
+      "before": "Mạng lập phương đơn giản (SC)",
+      "after": "Phụ thuộc dạng thù hình; phosphorus trắng gồm phân tử P₄, phosphorus đen có mạng lớp trực thoi, phosphorus đỏ có cấu trúc biến đổi."
+    },
+    {
+      "field": "general.density",
+      "before": "",
+      "after": "1.823 (white) g/cm³ (theo bảng RSC)"
+    },
+    {
+      "field": "general.electronConfig",
+      "before": "1s² 2s² 2p⁶ 3s² 3p³",
+      "after": "[Ne] 3s² 3p³"
+    },
+    {
+      "field": "general.electronegativityNote",
+      "before": null,
+      "after": "Thang Pauling; số liệu tổng hợp PubChem."
+    },
+    {
+      "field": "general.groupLabel",
+      "before": null,
+      "after": "15"
+    },
+    {
+      "field": "general.meltingPoint",
+      "before": "",
+      "after": "Phosphorus trắng: khoảng 44,1 °C; các dạng thù hình khác có tính chất chuyển pha khác."
+    },
+    {
+      "field": "general.series",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "general.state",
+      "before": "",
+      "after": "Rắn"
+    },
+    {
+      "field": "history.year",
+      "before": 1669,
+      "after": "1669"
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/photos/015_P.jpg",
+          "title": "Photpho (P)",
+          "desc": "Phosphorus đỏ; màu và cấu trúc khác phosphorus trắng và đen.",
+          "source": "https://commons.wikimedia.org/wiki/File:Phosphor_rot.jpg",
+          "author": "Tomihahndorf",
+          "license": "Public domain",
+          "licenseUrl": ""
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "³¹P",
+          "massNumber": 31,
+          "protons": 15,
+          "neutrons": 16,
+          "stable": true,
+          "abundancePercent": "100",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "³²P",
+          "massNumber": 32,
+          "protons": 15,
+          "neutrons": 17,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "14.268 ± 0.005 d",
+          "halfLife": "14.268 d",
+          "halfLifeUncertainty": "5",
+          "halfLifeQualifier": null,
+          "decay": "B-",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "³³P",
+          "massNumber": 33,
+          "protons": 15,
+          "neutrons": 18,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "25.35 ± 0.11 d",
+          "halfLife": "25.35 d",
+          "halfLifeUncertainty": "11",
+          "halfLifeQualifier": null,
+          "decay": "B-",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "standard-atomic-weight"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "30.974 ± 0.001"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": [
+        {
+          "type": "model",
+          "section": "structure",
+          "title": "Mẫu khoáng vật 3D · Fluorapatite",
+          "src": "/assets/periodic-table/minerals/apatite.glb",
+          "preview": "/assets/periodic-table/minerals/apatite.png",
+          "desc": "Ca₅(PO₄)₃F. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "nameVi",
+      "before": "Phosphorus",
+      "after": "Photpho"
+    },
+    {
+      "field": "naturalState.alt",
+      "before": null,
+      "after": "Phosphorus: ảnh tham chiếu từ Commons"
+    },
+    {
+      "field": "naturalState.caption",
+      "before": null,
+      "after": "Phosphorus đỏ; màu và cấu trúc khác phosphorus trắng và đen."
+    },
+    {
+      "field": "naturalState.credit",
+      "before": null,
+      "after": "Tomihahndorf · Public domain"
+    },
+    {
+      "field": "naturalState.image",
+      "before": null,
+      "after": "/assets/periodic-table/photos/015_P.jpg"
+    },
+    {
+      "field": "naturalState.kind",
+      "before": null,
+      "after": "photo"
+    },
+    {
+      "field": "naturalState.source",
+      "before": null,
+      "after": "https://commons.wikimedia.org/wiki/File:Phosphor_rot.jpg"
+    },
+    {
+      "field": "notes",
+      "before": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Phosphorus là nguyên tố số 15, thuộc nhóm VA | chu kỳ 3 và là một phi kim.</li>\n  <li>Phosphorus có cấu hình electron 1s² 2s² 2p⁶ 3s² 3p³ và có 5 electron hóa trị. Nguyên tố này có nhiều dạng thù hình, trong đó quan trọng nhất là Phosphorus trắng, Phosphorus đỏ và Phosphorus đen.</li>\n  <li>Trong tự nhiên, Phosphorus chủ yếu tồn tại dưới dạng Phosphate trong khoáng vật và sinh vật. Phosphorus là nguyên tố thiết yếu của sự sống, tham gia vào cấu tạo của DNA, RNA, ATP, phospholipid và xương.</li>\n  <li>Phosphorus và các hợp chất của nó có vai trò quan trọng trong sản xuất phân bón, Phosphoric acid, diêm, hóa chất, công nghiệp thực phẩm và nhiều quá trình sinh học.</li>\n</ul>\n",
+      "after": "<ul class=\"element-prose-list\"><li>Phosphorus là nguyên tố số 15, thuộc nhóm VA | chu kỳ 3 và là một phi kim.</li><li>Phosphorus có cấu hình electron 1s² 2s² 2p⁶ 3s² 3p³ và có 5 electron hóa trị. Nguyên tố này có nhiều dạng thù hình, trong đó quan trọng nhất là Phosphorus trắng, Phosphorus đỏ và Phosphorus đen.</li><li>Trong tự nhiên, Phosphorus chủ yếu tồn tại dưới dạng Phosphate trong khoáng vật và sinh vật. Phosphorus là nguyên tố thiết yếu của sự sống, tham gia vào cấu tạo của DNA, RNA, ATP, phospholipid và xương.</li><li>Phosphorus và các hợp chất của nó có vai trò quan trọng trong sản xuất phân bón, Phosphoric acid, diêm, hóa chất, công nghiệp thực phẩm và nhiều quá trình sinh học.</li></ul>"
+    },
+    {
+      "field": "occurrence.details",
+      "before": null,
+      "after": [
+        "Trạng thái: Phosphorus không tồn tại tự do trong tự nhiên do có tính hoạt động hóa học. Chủ yếu tồn tại dưới dạng Phosphate trong khoáng vật và sinh vật.",
+        "Có trong: Phosphate rock, Apatite, đất, nước và các sinh vật sống.",
+        "Đơn chất: P₄",
+        "Hợp chất: Ca₃(PO₄)₂, H₃PO₄, P₄O₁₀, PH₃, Na₃PO₄..."
+      ]
+    },
+    {
+      "field": "occurrence.mineral",
+      "before": null,
+      "after": {
+        "available": true,
+        "id": "apatite",
+        "name": "Fluorapatite",
+        "formula": "Ca₅(PO₄)₃F",
+        "habit": "hexagonal",
+        "color": "#6dafa3",
+        "crystalSystem": "hexagonal",
+        "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+        "source": "https://www.handbookofmineralogy.org/",
+        "sourceSearch": "https://rruff.info/Fluorapatite",
+        "model": "/assets/periodic-table/minerals/apatite.glb",
+        "preview": "/assets/periodic-table/minerals/apatite.png",
+        "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      }
+    },
+    {
+      "field": "physical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là chất rắn ở điều kiện thường.</li>\n      <li>Có nhiều dạng thù hình.</li>\n      <li>Phosphorus trắng có màu trắng hoặc vàng nhạt.</li>\n      <li>Phosphorus đỏ có màu đỏ sẫm.</li>\n      <li>Phosphorus đen có màu đen và có cấu trúc ổn định hơn.</li>\n      <li>Khối lượng riêng phụ thuộc vào dạng thù hình.</li>\n      <li>Phosphorus trắng nóng chảy ở khoảng 44.1 °C.</li>\n      <li>Phosphorus trắng sôi ở khoảng 280.5 °C.</li>\n      <li>Phosphorus đỏ và đen có nhiệt độ chuyển pha khác nhau.</li>\n      <li>Phosphorus trắng phát sáng yếu trong bóng tối do phản ứng chậm với Oxygen.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Là chất rắn ở điều kiện thường.</li><li>Có nhiều dạng thù hình.</li><li>Phosphorus trắng có màu trắng hoặc vàng nhạt.</li><li>Phosphorus đỏ có màu đỏ sẫm.</li><li>Phosphorus đen có màu đen và có cấu trúc ổn định hơn.</li><li>Khối lượng riêng phụ thuộc vào dạng thù hình.</li><li>Phosphorus trắng nóng chảy ở khoảng 44.1 °C.</li><li>Phosphorus trắng sôi ở khoảng 280.5 °C.</li><li>Phosphorus đỏ và đen có nhiệt độ chuyển pha khác nhau.</li><li>Phosphorus trắng phát sáng yếu trong bóng tối do phản ứng chậm với Oxygen.</li></ul>"
+    },
+    {
+      "field": "preparations.industry",
+      "before": [
+        {
+          "title": "Phosphorus được sản xuất chủ yếu từ Phosphate rock. Nguyên liệu chứa Calcium phosphate được nung với Silica và Carbon trong lò điện:",
+          "equation": "2Ca3(PO4)2 + 6SiO2 + 10C → P4 + 6CaSiO3 + 10CO",
+          "desc": "Phosphorus được tạo ra ở dạng hơi, sau đó được làm lạnh và thu hồi."
+        }
+      ],
+      "after": [
+        {
+          "title": "Phosphorus được sản xuất chủ yếu từ Phosphate rock. Nguyên liệu chứa Calcium phosphate được nung với Silica và Carbon trong lò điện",
+          "desc": "Phosphorus được tạo ra ở dạng hơi, sau đó được làm lạnh và thu hồi.",
+          "result": "",
+          "equations": [
+            {
+              "equation": "2Ca₃(PO₄)₂ + 6SiO₂ + 10C → P₄ + 6CaSiO₃ + 10CO",
+              "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+              "kind": "chemical",
+              "sourceLine": 61,
+              "sourceSection": "industry",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            60,
+            61,
+            62
+          ],
+          "equation": "2Ca₃(PO₄)₂ + 6SiO₂ + 10C → P₄ + 6CaSiO₃ + 10CO"
+        }
+      ]
+    },
+    {
+      "field": "preparations.lab",
+      "before": [
+        {
+          "title": "Về nguyên tắc, có thể thu Phosphorus bằng cách khử các Phosphate ở nhiệt độ cao với Carbon và Silica:",
+          "equation": "2Ca3(PO4)2 + 6SiO2 + 10C → P4 + 6CaSiO3 + 10CO",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Phosphorus nguyên tố không thường được điều chế trong phòng thí nghiệm phổ thông do tính chất nguy hiểm của một số dạng thù hình.",
+          "desc": "Về nguyên tắc, có thể thu Phosphorus bằng cách khử các Phosphate ở nhiệt độ cao với Carbon và Silica:",
+          "result": "",
+          "equations": [
+            {
+              "equation": "2Ca₃(PO₄)₂ + 6SiO₂ + 10C → P₄ + 6CaSiO₃ + 10CO",
+              "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+              "kind": "chemical",
+              "sourceLine": 66,
+              "sourceSection": "lab",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            64,
+            65,
+            66
+          ],
+          "equation": "2Ca₃(PO₄)₂ + 6SiO₂ + 10C → P₄ + 6CaSiO₃ + 10CO"
+        }
+      ]
+    },
+    {
+      "field": "reactions",
+      "before": [
+        {
+          "type": "Tác dụng với Oxygen",
+          "equation": "P4 + 5O2 → P4O10",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Chlorine",
+          "equation": "P4 + 6Cl2 → 4PCl3",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Chlorine",
+          "equation": "P4 + 10Cl2 → 4PCl5",
+          "desc": "Khi Chlorine dư:"
+        },
+        {
+          "type": "Tác dụng với Bromine",
+          "equation": "P4 + 6Br2 → 4PBr3",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Sulfur",
+          "equation": "2P + 3S → P2S3",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Calcium",
+          "equation": "3Ca + 2P → Ca3P2",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Sodium",
+          "equation": "3Na + P → Na3P",
+          "desc": ""
+        },
+        {
+          "type": "Tạo Phosphine",
+          "equation": "Ca3P2 + 6H2O → 3Ca(OH)2 + 2PH3↑",
+          "desc": ""
+        },
+        {
+          "type": "Tạo Phosphoric acid",
+          "equation": "P4O10 + 6H2O → 4H3PO4",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "type": "Tác dụng với Oxygen",
+          "desc": "",
+          "equation": "P₄ + 5O₂ → P₄O₁₀",
+          "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+          "kind": "chemical",
+          "sourceLine": 73,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Chlorine",
+          "desc": "",
+          "equation": "P₄ + 6Cl₂ → 4PCl₃",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 75,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Khi Chlorine dư",
+          "desc": "",
+          "equation": "P₄ + 10Cl₂ → 4PCl₅",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 77,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Bromine",
+          "desc": "",
+          "equation": "P₄ + 6Br₂ → 4PBr₃",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 79,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Sulfur",
+          "desc": "",
+          "equation": "4P + 3S → P₄S₃",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 81,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Calcium",
+          "desc": "",
+          "equation": "3Ca + 2P → Ca₃P₂",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 83,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Sodium",
+          "desc": "",
+          "equation": "3Na + P → Na₃P",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 85,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Phosphine",
+          "desc": "",
+          "equation": "Ca₃P₂ + 6H₂O → 3Ca(OH)₂ + 2PH₃↑",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 87,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Phosphoric acid",
+          "desc": "",
+          "equation": "P₄O₁₀ + 6H₂O → 4H₃PO₄",
+          "condition": "Tiếp xúc với nước; phản ứng/hydrat hóa tỏa nhiệt hoặc tạo cân bằng acid.",
+          "kind": "chemical",
+          "sourceLine": 89,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": [
+        {
+          "title": "Ion Phosphate (PO₄³⁻)",
+          "reagent": "",
+          "result": "Có thể nhận biết bằng phản ứng tạo kết tủa màu vàng với Silver nitrate trong môi trường thích hợp:",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "",
+          "result": "",
+          "equation": "PO₄³⁻ + 3Ag⁺ → Ag₃PO₄↓"
+        },
+        {
+          "title": "Hiện tượng",
+          "reagent": "",
+          "result": "Xuất hiện kết tủa vàng Silver phosphate.",
+          "equation": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Ion Phosphate (PO₄³⁻): Có thể nhận biết bằng phản ứng tạo kết tủa màu vàng với Silver nitrate trong môi trường thích hợp",
+          "desc": "",
+          "result": "Xuất hiện kết tủa vàng Silver phosphate.",
+          "equations": [
+            {
+              "equation": "PO₄³⁻ + 3Ag⁺ → Ag₃PO₄↓",
+              "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+              "kind": "chemical",
+              "sourceLine": 69,
+              "sourceSection": "recognition",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            68,
+            69,
+            70
+          ],
+          "equation": "PO₄³⁻ + 3Ag⁺ → Ag₃PO₄↓"
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "015_P.docx",
+        "sourceSha256": "1fe948f3bdd0873aed7c90e1c9eb6f04116982969cbf571c677f80ffc9179fc0",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/015_P.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "015_P.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "1fe948f3bdd0873aed7c90e1c9eb6f04116982969cbf571c677f80ffc9179fc0"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/15/phosphorus"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure.lattice",
+      "before": "Mạng lập phương đơn giản (SC)",
+      "after": "Phụ thuộc dạng thù hình; phosphorus trắng gồm phân tử P₄, phosphorus đen có mạng lớp trực thoi, phosphorus đỏ có cấu trúc biến đổi."
+    },
+    {
+      "field": "structure.latticeEvidence",
+      "before": null,
+      "after": "phase-dependent"
+    },
+    {
+      "field": "structure.nucleusIsotope",
+      "before": null,
+      "after": "³¹P"
+    },
+    {
+      "field": "structure.nucleusNote",
+      "before": null,
+      "after": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác."
+    },
+    {
+      "field": "structure.valenceNote",
+      "before": null,
+      "after": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp."
+    },
+    {
+      "field": "structureType",
+      "before": "Mạng lập phương đơn giản (SC)",
+      "after": "Phụ thuộc dạng thù hình; phosphorus trắng gồm phân tử P₄, phosphorus đen có mạng lớp trực thoi, phosphorus đỏ có cấu trúc biến đổi."
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "P",
+      "status": "downloaded",
+      "file": "/assets/periodic-table/photos/015_P.jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:Phosphor_rot.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/c/cd/Phosphor_rot.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/c/cd/Phosphor_rot.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "filename": "Phosphor_rot.jpg",
+      "title": "Phosphor rot",
+      "description": "Red phosphor",
+      "author": "Tomihahndorf",
+      "license": "Public domain",
+      "licenseUrl": "",
+      "credit": "http://de.wikipedia.org/wiki/Bild:Phosphor_rot.jpg",
+      "sha256": "1887ad77b43171b4dd34bebb1743d7719914a105bc50758736ad9a537682703c",
+      "bytes": 42763
+    },
+    "mineral": {
+      "available": true,
+      "id": "apatite",
+      "name": "Fluorapatite",
+      "formula": "Ca₅(PO₄)₃F",
+      "habit": "hexagonal",
+      "color": "#6dafa3",
+      "crystalSystem": "hexagonal",
+      "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Fluorapatite",
+      "model": "/assets/periodic-table/minerals/apatite.glb",
+      "preview": "/assets/periodic-table/minerals/apatite.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "P",
+      "z": 15,
+      "url": "https://periodic-table.rsc.org/element/15/phosphorus",
+      "status": "retrieved",
+      "bytes": 161714,
+      "sha256": "ddca4c1ee368f80e4f051466917ec65a270ca1580f0db20515bf7f13c28cb6e9",
+      "facts": {
+        "Group": "15",
+        "Melting point": "44.15°C, 111.47°F, 317.3 K",
+        "Period": "3",
+        "Boiling point": "280.5°C, 536.9°F, 553.7 K",
+        "Block": "p",
+        "Density (g cm−³)": "1.823 (white)",
+        "Atomic number": "15",
+        "Relative atomic mass": "30.974",
+        "State at 20°C": "Solid",
+        "Key isotopes": "³¹P",
+        "Electron configuration": "[Ne] 3s²3p³",
+        "CAS number": "7723-14-0",
+        "ChemSpider ID": "4575369",
+        "electronegativity": "2.19"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "15",
+      "Symbol": "P",
+      "Name": "Phosphorus",
+      "AtomicMass": "30.97376200",
+      "CPKHexColor": "FF8000",
+      "ElectronConfiguration": "[Ne]3s2 3p3",
+      "Electronegativity": "2.19",
+      "AtomicRadius": "180",
+      "IonizationEnergy": "10.487",
+      "ElectronAffinity": "0.746",
+      "OxidationStates": "+5, +3, -3",
+      "StandardState": "Solid",
+      "MeltingPoint": "317.3",
+      "BoilingPoint": "553.65",
+      "Density": "1.82",
+      "GroupBlock": "Nonmetal",
+      "YearDiscovered": "1669"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

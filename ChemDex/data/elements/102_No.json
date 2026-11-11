@@ -1,0 +1,420 @@
+{
+  "number": 102,
+  "symbol": "No",
+  "nameVi": "Nobelium",
+  "nameEn": "Nobelium",
+  "mass": 259,
+  "massStandardText": "[259] — số khối đồng vị tham chiếu, không phải nguyên tử khối chuẩn",
+  "massStandardSource": "https://periodic-table.rsc.org/element/102/nobelium",
+  "massKind": "reference-isotope-mass-number",
+  "category": "actinide",
+  "hasData": true,
+  "file": "elements/102_No.json",
+  "general": {
+    "latinName": "Nobelium",
+    "englishName": "Nobelium",
+    "electronConfig": "[Rn] 5f¹⁴ 7s²",
+    "isotope": "²⁵³No, ²⁵⁴No, ²⁵⁵No, ²⁵⁶No, ²⁵⁷No, ²⁵⁸No, ²⁵⁹No, ²⁶⁰No",
+    "group": null,
+    "groupLabel": "Actinide",
+    "series": "Actinide",
+    "period": 7,
+    "state": "Chưa đo trạng thái vĩ mô; các giá trị pha chỉ là dự đoán",
+    "oxidation": "+2, +3",
+    "electronegativity": null,
+    "electronegativityNote": "Chưa có giá trị Pauling đủ cơ sở trong bản đối chiếu; không coi 0 là giá trị đã đo.",
+    "density": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+    "meltingPoint": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+    "boilingPoint": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+    "crystalStructure": "Chưa xác định do chỉ tạo được lượng nguyên tử cực nhỏ.",
+    "CAS": "10028-14-5"
+  },
+  "history": {
+    "discoverer": "Được ghi nhận chính thức cho nhóm nghiên cứu tại Joint Institute for Nuclear Research (JINR), Dubna, do Georgy Flyorov đứng đầu.",
+    "year": "1966 (sau nhiều tranh cãi về các tuyên bố phát hiện trước đó)",
+    "discoveryLocation": "Dubna, Liên Xô",
+    "description": "Nobelium được tạo ra bằng cách bắn phá Curium-246 bằng các ion Carbon-12: ²⁴⁶Cm + ¹²C → ²⁵⁶No + 2n Tên Nobelium được đặt để vinh danh Alfred Nobel, người sáng lập giải Nobel."
+  },
+  "structure": {
+    "protons": 102,
+    "electrons": 102,
+    "neutrons": 157,
+    "nucleusIsotope": "²⁵⁹No",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 102,
+      "neutron": 157
+    },
+    "electronShells": [
+      2,
+      8,
+      18,
+      32,
+      32,
+      8,
+      2
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      32,
+      32,
+      8,
+      2
+    ],
+    "valenceElectrons": 2,
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+    "lattice": "Chưa xác định do chỉ tạo được lượng nguyên tử cực nhỏ.",
+    "latticeEvidence": "predicted"
+  },
+  "structureType": "Chưa xác định do chỉ tạo được lượng nguyên tử cực nhỏ.",
+  "occurrence": {
+    "description": "Chất rắn (dự đoán)",
+    "simple": [
+      "No"
+    ],
+    "compounds": [
+      "NoCl₂",
+      "NoCl₃ và một số hợp chất ion khác được nghiên cứu ở quy mô nguyên tử"
+    ],
+    "ores": [
+      "Không tồn tại tự nhiên",
+      "được tạo ra nhân tạo"
+    ],
+    "details": [
+      "Trạng thái: Chất rắn (dự đoán)",
+      "Màu sắc: Bạc trắng (dự đoán)",
+      "Có trong: Không tồn tại tự nhiên; được tạo ra nhân tạo.",
+      "Đơn chất: No",
+      "Hợp chất: NoCl₂, NoCl₃ và một số hợp chất ion khác được nghiên cứu ở quy mô nguyên tử."
+    ],
+    "mineral": {
+      "available": false,
+      "reason": "Nguyên tố nhân tạo hoặc chỉ có vết tự nhiên; không có quặng khai thác riêng để dựng mẫu."
+    }
+  },
+  "naturalState": {
+    "image": "/assets/periodic-table/diagrams/102_No.svg",
+    "alt": "Nobelium: sơ đồ minh họa nguyên tố",
+    "kind": "diagram",
+    "source": "",
+    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+    "credit": ""
+  },
+  "isotopes": [
+    {
+      "isotope": "²⁵³No",
+      "massNumber": 253,
+      "protons": 102,
+      "neutrons": 151,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "1.62 ± 0.15 phút",
+      "halfLife": "1.62 m",
+      "halfLifeUncertainty": "15",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁵⁴No",
+      "massNumber": 254,
+      "protons": 102,
+      "neutrons": 152,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "51.2 ± 0.4 s",
+      "halfLife": "51.2 s",
+      "halfLifeUncertainty": "4",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁵⁵No",
+      "massNumber": 255,
+      "protons": 102,
+      "neutrons": 153,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "3.52 ± 0.21 phút",
+      "halfLife": "3.52 m",
+      "halfLifeUncertainty": "21",
+      "halfLifeQualifier": null,
+      "decay": "EC+B+",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁵⁶No",
+      "massNumber": 256,
+      "protons": 102,
+      "neutrons": 154,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "2.91 ± 0.05 s",
+      "halfLife": "2.91 s",
+      "halfLifeUncertainty": "5",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁵⁷No",
+      "massNumber": 257,
+      "protons": 102,
+      "neutrons": 155,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "24.5 ± 0.5 s",
+      "halfLife": "24.5 s",
+      "halfLifeUncertainty": "5",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁵⁸No",
+      "massNumber": 258,
+      "protons": 102,
+      "neutrons": 156,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "1.2 ± 0.2 ms",
+      "halfLife": "1.2 ms",
+      "halfLifeUncertainty": "2",
+      "halfLifeQualifier": null,
+      "decay": "SF",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁵⁹No",
+      "massNumber": 259,
+      "protons": 102,
+      "neutrons": 157,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "58 ± 5 phút",
+      "halfLife": "58 m",
+      "halfLifeUncertainty": "5",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁶⁰No",
+      "massNumber": 260,
+      "protons": 102,
+      "neutrons": 158,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "106 ± 8 ms",
+      "halfLife": "106 ms",
+      "halfLifeUncertainty": "8",
+      "halfLifeQualifier": null,
+      "decay": "SF",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Là nguyên tố phóng xạ nhân tạo.</li><li>Thuộc họ Actinide.</li><li>Được dự đoán là một kim loại.</li><li>Có thể có màu bạc trắng.</li><li>Có tính phóng xạ rất mạnh.</li><li>Chỉ được tạo ra với số lượng nguyên tử cực nhỏ.</li><li>Các tính chất vật lý vĩ mô chưa thể xác định đầy đủ.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Nobelium có hai trạng thái Oxy hóa chính:</li><li>+2</li><li>+3</li><li>Điểm đặc biệt của Nobelium là No²⁺ rất bền, thậm chí ổn định hơn No³⁺ trong nhiều điều kiện. Đây là một đặc điểm khác biệt so với nhiều Actinide trước đó.</li><li>Cấu hình:</li><li>No: [Rn] 5f¹⁴ 7s²</li><li>No²⁺: [Rn] 5f¹⁴</li><li>Phân lớp 5f được lấp đầy hoàn toàn ở No²⁺, góp phần giải thích độ ổn định tương đối cao của ion này.</li></ul>",
+  "reactions": [
+    {
+      "type": "Điều chế Nobelium-256",
+      "desc": "",
+      "equation": "²⁴⁶Cm + ¹²C → ²⁵⁶No + 2n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 78,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tạo Nobelium(II)",
+      "desc": "",
+      "equation": "No → No²⁺ + 2e⁻",
+      "condition": "Kích thích, ion hóa hoặc kết hợp bức xạ trong pha khí; cần cung cấp/trao đổi năng lượng.",
+      "kind": "physical",
+      "sourceLine": 80,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tạo Nobelium(III)",
+      "desc": "",
+      "equation": "No → No³⁺ + 3e⁻",
+      "condition": "Kích thích, ion hóa hoặc kết hợp bức xạ trong pha khí; cần cung cấp/trao đổi năng lượng.",
+      "kind": "physical",
+      "sourceLine": 82,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Phân rã Alpha của Nobelium-259",
+      "desc": "",
+      "equation": "²⁵⁹No → ²⁵⁵Fm + α",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 84,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "preparations": {
+    "lab": [
+      {
+        "title": "Nobelium được tổng hợp bằng cách bắn phá Curium-244 bằng ion Carbon-12 trong máy gia tốc hạt.",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "²⁴⁴Cm + ¹²C → ²⁵²No + 4¹n",
+            "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+            "kind": "nuclear",
+            "sourceLine": 67,
+            "sourceSection": "lab",
+            "balance": {
+              "status": "balanced",
+              "kind": "nuclear",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          66,
+          67
+        ],
+        "equation": "²⁴⁴Cm + ¹²C → ²⁵²No + 4¹n"
+      }
+    ],
+    "industry": [
+      {
+        "title": "Nobelium (No) không được sản xuất công nghiệp do tính phóng xạ cao và thời gian bán rã ngắn. Nguyên tố này chỉ được tổng hợp với lượng rất nhỏ trong các cơ sở nghiên cứu hạt nhân.",
+        "desc": "",
+        "result": "",
+        "equations": [],
+        "sourceLines": [
+          64
+        ],
+        "equation": ""
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Có thể nhận biết Nobelium thông qua",
+      "desc": "Phổ alpha. Chuỗi phân rã phóng xạ. Phổ gamma của các sản phẩm phân rã. Phân tích thời gian sống của hạt nhân. Các phương pháp hóa phóng xạ ở quy mô nguyên tử. Do Nobelium có chu kỳ bán rã ngắn, việc nhận biết chủ yếu dựa trên đặc điểm phân rã của từng đồng vị và các sản phẩm con cháu của chúng.",
+      "result": "",
+      "equations": [],
+      "sourceLines": [
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75
+      ],
+      "equation": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Nghiên cứu hạt nhân",
+      "desc": "Nobelium gần như chỉ được sử dụng trong nghiên cứu vật lý hạt nhân và hóa học Actinide.",
+      "sourceLine": 86
+    },
+    {
+      "title": "Nghiên cứu cấu trúc electron",
+      "desc": "Nobelium đặc biệt quan trọng để nghiên cứu ảnh hưởng của cấu hình 5f¹⁴ lên tính chất hóa học của các Actinide nặng.",
+      "sourceLine": 87
+    },
+    {
+      "title": "Nghiên cứu nguyên tố siêu nặng",
+      "desc": "Nobelium cung cấp dữ liệu để hiểu về độ ổn định của các hạt nhân nặng và giới hạn của bảng tuần hoàn.",
+      "sourceLine": 88
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Do chỉ tạo được từng lượng nguyên tử rất nhỏ và có tính phóng xạ cao, Nobelium không có ứng dụng công nghiệp hay đời sống thông thường.",
+      "sourceLine": 89
+    }
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Nobelium là nguyên tố số 102, thuộc nhóm IIB | chu kỳ 7 và là nguyên tố thứ mười bốn trong họ Actinide.</li><li>Nobelium được tạo ra nhân tạo tại Dubna, Liên Xô và được đặt tên để vinh danh Alfred Nobel.</li><li>Đây là một nguyên tố phóng xạ cực mạnh, không có đồng vị bền. Hai trạng thái Oxy hóa quan trọng là +2 và +3, trong đó No²⁺ đặc biệt ổn định do có cấu hình 5f¹⁴ hoàn toàn đầy.</li><li>Nobelium chủ yếu có giá trị trong nghiên cứu khoa học, giúp các nhà khoa học tìm hiểu cấu trúc electron, hóa học Actinide và tính chất của các hạt nhân rất nặng.</li><li>Mạng tinh thể: Chưa xác định thực nghiệm.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/diagrams/102_No.svg",
+      "title": "Nobelium (No)",
+      "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+      "source": "",
+      "author": "ChemDex",
+      "license": "ChemDex schematic diagram",
+      "licenseUrl": ""
+    }
+  ],
+  "mediaBlocks": [],
+  "sources": [
+    {
+      "title": "102_No.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "43745564f0160a55f30537cd7e9a6125eb58f9b6630a0492b697041017fb35fc"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/102/nobelium"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "102_No.docx",
+    "sourceSha256": "43745564f0160a55f30537cd7e9a6125eb58f9b6630a0492b697041017fb35fc",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/102_No.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
+}

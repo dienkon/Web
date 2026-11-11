@@ -1,0 +1,88 @@
+001: Polonium (Po)
+002: Thông tin chung
+003: Tên Latin: Polonium
+004: Tên Tiếng Anh: Polonium
+005: Đồng vị: ²⁰⁹Po, ²¹⁰Po, ²¹¹Po, ²¹²Po, ²¹³Po, ²¹⁴Po, ²¹⁵Po, ²¹⁶Po, ²¹⁷Po, ²¹⁸Po, ²¹⁹Po, ²²⁰Po, ²²¹Po, ²²²Po, ²²³Po, ²²⁴Po, ²²⁵Po, ²²⁶Po, ²²⁷Po, ²²⁸Po, ²²⁹Po, ²³⁰Po, ²³¹Po, ²³²Po, ²³³Po, ²³⁴Po, ²³⁵Po, ²³⁶Po, ²³⁷Po
+006: Vị trí: Nhóm VIA | Chu kỳ 6
+007: Số Oxy hóa: −2, +2, +4, +6
+008: Độ âm điện: 2.00
+009: Lịch sử khám phá
+010: Phát hiện bởi: Marie Curie và Pierre Curie
+011: Năm công bố: 1898
+012: Nơi khám phá: Pháp
+013: Mô tả: Polonium được Marie Curie và Pierre Curie phát hiện năm 1898 trong quá trình nghiên cứu khoáng vật Uraninite. Họ nhận thấy Uraninite có tính phóng xạ mạnh hơn mức có thể giải thích chỉ bằng Uranium, từ đó phát hiện một nguyên tố phóng xạ mới.
+014: Marie Curie đặt tên Polonium theo tên Latin của quê hương bà — Polonia (Ba Lan).
+015: 3. Cấu tạo
+016: a. Cấu tạo nguyên tử
+017: Hoạt họa cấu hình e: [Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁴
+018: Mô hình mạng tinh thể: Lập phương đơn giản (Simple cubic, SC)
+019: Số hiệu nguyên tử: 84
+020: Nguyên tử khối: [209] g/mol
+021: Vỏ nguyên tử: 84 electron
+022: K: 2 | L: 8 | M: 18 | N: 32 | O: 18 | P: 6
+023: Hạt nhân: 84 proton
+024: Cấu hình e: [Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁴
+025: Loại mạng: Lập phương đơn giản (Simple cubic, SC)
+026: b. Trạng thái tự nhiên
+027: Trạng thái: Kim loại rắn, có màu bạc hoặc xám.
+028: Có trong: Tồn tại với lượng cực nhỏ trong các quặng Uranium do là sản phẩm của chuỗi phân rã phóng xạ.
+029: Đơn chất: Po
+030: Hợp chất: PoO₂, PoCl₂, PoCl₄, PoS, PoSe...
+031: c. Đồng vị
+032: Polonium không có đồng vị bền.
+033: Có rất nhiều đồng vị Polonium phóng xạ. Trong tự nhiên, đáng chú ý nhất là:
+034: ²¹⁰Po: có chu kỳ bán rã khoảng 138 ngày.
+035: ²¹⁰Po là sản phẩm trong chuỗi phân rã của Uranium-238.
+036: ²¹⁰Po phát ra hạt Alpha với năng lượng cao.
+037: Tính chất
+038: Tính chất vật lý
+039: Là kim loại hậu chuyển tiếp.
+040: Có tính phóng xạ rất mạnh.
+041: Có thể có màu bạc hoặc xám.
+042: Là chất rắn ở điều kiện thường.
+043: Khối lượng riêng: khoảng 9.2 g/cm³.
+044: Nhiệt độ nóng chảy: khoảng 254 °C.
+045: Nhiệt độ sôi: khoảng 962 °C.
+046: Có khả năng tự gia nhiệt do năng lượng từ quá trình phóng xạ.
+047: Tính chất hóa học
+048: Thuộc nhóm VIA.
+049: Có số Oxy hóa −2, +2, +4 và +6.
+050: Trạng thái +4 tương đối quan trọng.
+051: Có thể tạo oxide, halide và sulfide.
+052: Dễ bị Oxy hóa.
+053: Một số hợp chất Polonium có tính dễ bay hơi.
+054: Cực kỳ độc và phóng xạ, cần được xử lý trong điều kiện kiểm soát nghiêm ngặt.
+055: Điều chế
+056: Điều chế trong công nghiệp
+057: Polonium (Po) không có nguồn quặng khai thác thương mại đáng kể. Nguyên tố này chủ yếu được sản xuất nhân tạo trong lò phản ứng hạt nhân bằng cách chiếu neutron vào Bismuth-209, tạo ra Bismuth-210 rồi phân rã beta thành Polonium-210.
+058: Phương trình hạt nhân:
+059: ²⁰⁹Bi + ¹n → ²¹⁰Bi
+060: ²¹⁰Bi → ²¹⁰Po + β⁻
+061: Điều chế trong phòng thí nghiệm
+062: Polonium có thể được tạo ra bằng phản ứng hạt nhân trong các cơ sở nghiên cứu chuyên dụng. Không có phương pháp điều chế hóa học thông thường trong phòng thí nghiệm để tạo ra nguyên tố này.
+063: Nhận biết
+064: Polonium được nhận biết chủ yếu bằng các phương pháp phóng xạ và quang phổ, đặc biệt dựa vào bức xạ Alpha đặc trưng.
+065: Do tính phóng xạ rất mạnh, việc nhận biết và nghiên cứu Polonium cần thiết bị chuyên dụng.
+066: Phương trình
+067: Tạo Polonium từ Bismuth
+068: ²⁰⁹Bi + n → ²¹⁰Bi
+069: Sau đó:
+070: ²¹⁰Bi → ²¹⁰Po + β⁻
+071: Phân rã Alpha của ²¹⁰Po
+072: ²¹⁰Po → ²⁰⁶Pb + α
+073: Tác dụng với Oxygen
+074: Po + O₂ → PoO₂
+075: Tác dụng với Chlorine
+076: Po + 2Cl₂ → PoCl₄
+077: Tác dụng với Sulfur
+078: Po + S → PoS
+079: Ứng dụng thực tế
+080: Nguồn Alpha: ²¹⁰Po từng được sử dụng làm nguồn bức xạ Alpha trong một số thiết bị chuyên dụng.
+081: Loại bỏ tĩnh điện: Polonium-210 từng được sử dụng trong một số thiết bị khử tĩnh điện.
+082: Nguồn nhiệt: ²¹⁰Po có thể tạo nhiệt đáng kể từ quá trình phân rã phóng xạ và từng được nghiên cứu làm nguồn nhiệt cho các thiết bị đặc biệt.
+083: Nghiên cứu hạt nhân: Polonium được sử dụng trong nghiên cứu phóng xạ và vật lý hạt nhân.
+084: Tổng quan
+085: Polonium là nguyên tố số 84, thuộc nhóm VIA | chu kỳ 6 và là một kim loại hậu chuyển tiếp có tính phóng xạ.
+086: Polonium không có đồng vị bền. Đồng vị đáng chú ý nhất là ²¹⁰Po, có chu kỳ bán rã khoảng 138 ngày và phân rã bằng cách phát ra hạt Alpha.
+087: Polonium được Marie Curie và Pierre Curie phát hiện năm 1898 và được đặt tên theo Ba Lan.
+088: Do có độc tính và tính phóng xạ rất cao, Polonium hầu như không có ứng dụng dân dụng thông thường. Nó chủ yếu được sử dụng trong nguồn bức xạ Alpha, thiết bị khử tĩnh điện, nguồn nhiệt đặc biệt và nghiên cứu hạt nhân.

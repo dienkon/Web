@@ -1,0 +1,85 @@
+001: Radon (Rn)
+002: Thông tin chung
+003: Tên Latin: Radon
+004: Tên Tiếng Anh: Radon
+005: Đồng vị: ²¹⁹Rn, ²²⁰Rn, ²²²Rn
+006: Vị trí: Nhóm VIIIA | Chu kỳ 6
+007: Số Oxy hóa: 0
+008: Độ âm điện: Không xác định
+009: Lịch sử khám phá
+010: Phát hiện bởi: Friedrich Ernst Dorn
+011: Năm công bố: 1900
+012: Nơi khám phá: Đức
+013: Mô tả: Radon được Friedrich Ernst Dorn phát hiện vào năm 1900 khi nghiên cứu chất khí phóng xạ sinh ra từ Radium. Ban đầu, chất này được gọi là Radium emanation (Radium emanation). Sau đó, nó được xác định là một nguyên tố mới và mang tên Radon.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁶
+017: Mô hình mạng tinh thể: Lập phương tâm mặt (Face-centered cubic, FCC) (ở trạng thái rắn)
+018: Số hiệu nguyên tử: 86
+019: Nguyên tử khối: [222] g/mol
+020: Vỏ nguyên tử: 86 electron
+021: K: 2 | L: 8 | M: 18 | N: 32 | O: 18 | P: 8
+022: Hạt nhân: 86 proton
+023: Cấu hình e: [Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁶
+024: Loại mạng: Lập phương tâm mặt (Face-centered cubic, FCC) (ở trạng thái rắn)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Khí ở điều kiện thường.
+027: Có trong: Sinh ra tự nhiên từ quá trình phân rã phóng xạ của Radium, đặc biệt trong chuỗi phân rã của Uranium-238.
+028: Đơn chất: Rn
+029: Hợp chất: RnF₂ (được nghiên cứu/dự đoán)
+030: c. Đồng vị
+031: Radon không có đồng vị bền.
+032: Các đồng vị tự nhiên đáng chú ý:
+033: ²²²Rn: chu kỳ bán rã khoảng 3.82 ngày, là đồng vị phổ biến nhất.
+034: ²²⁰Rn: chu kỳ bán rã khoảng 55.6 giây, thuộc chuỗi phân rã Thorium-232.
+035: ²¹⁹Rn: chu kỳ bán rã khoảng 3.96 giây, thuộc chuỗi phân rã Actinium-235.
+036: Trong tự nhiên, ²²²Rn là đồng vị quan trọng nhất.
+037: Tính chất
+038: Tính chất vật lý
+039: Là khí hiếm.
+040: Không màu, không mùi, không vị.
+041: Là chất khí ở điều kiện thường.
+042: Có tính phóng xạ mạnh.
+043: Khối lượng nguyên tử lớn.
+044: Nhiệt độ nóng chảy: khoảng −71 °C.
+045: Nhiệt độ sôi: khoảng −61.7 °C.
+046: Ở nhiệt độ rất thấp, Radon có thể phát quang với màu vàng cam/đỏ cam.
+047: Tính chất hóa học
+048: Có lớp electron ngoài cùng đã bão hòa.
+049: Rất ít hoạt động hóa học, giống các khí hiếm khác.
+050: Số Oxy hóa thông thường: 0.
+051: Có khả năng tạo một số hợp chất trong điều kiện đặc biệt.
+052: Hóa học của Radon khó nghiên cứu do tính phóng xạ và thời gian tồn tại ngắn.
+053: Điều chế
+054: Điều chế trong công nghiệp
+055: Radon (Rn) không được sản xuất công nghiệp với quy mô thương mại thông thường. Nguyên tố này được tạo ra tự nhiên từ quá trình phân rã phóng xạ của Radium-226 trong chuỗi phân rã Uranium-238.
+056: Phương trình phân rã:
+057: ²²⁶Ra → ²²²Rn + ⁴He
+058: Radon có thể được thu hồi từ khí thoát ra khi Radium phân rã trong các hệ thống nghiên cứu chuyên dụng.
+059: Điều chế trong phòng thí nghiệm
+060: Radon được tạo ra bằng cách cho Radium-226 phân rã phóng xạ trong thiết bị kín chuyên dụng.
+061: Phương trình:
+062: ²²⁶Ra → ²²²Rn + ⁴He
+063: Không có phương pháp điều chế hóa học thông thường để tạo ra Radon.
+064: Nhận biết
+065: Radon được nhận biết và đo chủ yếu bằng các thiết bị phát hiện bức xạ, dựa trên bức xạ sinh ra trong quá trình phân rã.
+066: Do Radon là khí không màu, không mùi và không vị, không thể nhận biết bằng các giác quan thông thường.
+067: Phương trình
+068: Radium phân rã tạo Radon
+069: ²²⁶Ra → ²²²Rn + ⁴He
+070: Radon-222 phân rã
+071: ²²²Rn → ²¹⁸Po + ⁴He
+072: Radon-220 phân rã
+073: ²²⁰Rn → ²¹⁶Po + ⁴He
+074: Radon-219 phân rã
+075: ²¹⁹Rn → ²¹⁵Po + ⁴He
+076: Ứng dụng thực tế
+077: Nghiên cứu phóng xạ: Radon được sử dụng để nghiên cứu các quá trình phân rã và chuỗi phóng xạ tự nhiên.
+078: Địa chất: Nồng độ Radon trong đất và đá có thể được sử dụng để nghiên cứu một số đặc điểm địa chất.
+079: Nghiên cứu khí quyển: Radon được sử dụng như một chất chỉ thị trong một số nghiên cứu về sự chuyển động và trao đổi của không khí gần mặt đất.
+080: Y học: Radon từng được sử dụng trong một số phương pháp điều trị phóng xạ lịch sử, nhưng những phương pháp này hiện không còn được sử dụng rộng rãi.
+081: Tổng quan
+082: Radon là nguyên tố số 86, thuộc nhóm VIIIA | chu kỳ 6 và là một khí hiếm phóng xạ.
+083: Radon không có đồng vị bền. Đồng vị quan trọng nhất trong tự nhiên là ²²²Rn, có chu kỳ bán rã khoảng 3.82 ngày và được tạo ra từ sự phân rã của ²²⁶Ra.
+084: Radon là khí không màu, không mùi, không vị và rất ít phản ứng hóa học. Do là chất phóng xạ và có thể tích tụ trong không gian kín, Radon là một chất cần được kiểm soát trong môi trường sống.
+085: Mạng tinh thể: Lập phương tâm mặt (FCC) là cấu trúc của Radon khi ở trạng thái rắn.

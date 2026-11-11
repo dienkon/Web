@@ -1,0 +1,94 @@
+001: Cadmium (Cd)
+002: Thông tin chung
+003: Tên Latin: Cadmium
+004: Tên Tiếng Anh: Cadmium
+005: Đồng vị: ¹⁰⁶Cd, ¹⁰⁸Cd, ¹¹⁰Cd, ¹¹¹Cd, ¹¹²Cd, ¹¹³Cd, ¹¹⁴Cd, ¹¹⁶Cd
+006: Vị trí: Nhóm IIB | Chu kỳ 5
+007: Số Oxy hóa: +2
+008: Độ âm điện: 1.69
+009: Lịch sử khám phá
+010: Phát hiện bởi: Friedrich Stromeyer
+011: Năm công bố: 1817
+012: Nơi khám phá: Đức
+013: Mô tả: Năm 1817, Friedrich Stromeyer phát hiện Cadmium khi nghiên cứu Zinc carbonate. Ông nhận thấy một số mẫu Zinc oxide có màu vàng bất thường và xác định nguyên nhân là do một nguyên tố mới. Tên Cadmium bắt nguồn từ cadmia, tên cổ của Zinc carbonate.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Kr] 4d¹⁰ 5s²
+017: Mô hình mạng tinh thể: Lục phương (Hexagonal)
+018: Số hiệu nguyên tử: 48
+019: Nguyên tử khối: 112.414 g/mol
+020: Vỏ nguyên tử: 48 electron
+021: K: 2 | L: 8 | M: 18 | N: 18 | O: 2
+022: Hạt nhân: 48 proton, 64 neutron đối với ¹¹²Cd
+023: Cấu hình e: [Kr] 4d¹⁰ 5s²
+024: Loại mạng: Lục phương (Hexagonal)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Cadmium là kim loại rắn, mềm, màu trắng bạc.
+027: Có trong: Thường tồn tại dưới dạng tạp chất trong quặng Zinc, đặc biệt là Sphalerite (ZnS).
+028: Đơn chất: Cd
+029: Hợp chất: CdO, CdS, CdCl₂, Cd(NO₃)₂...
+030: c. Đồng vị
+031: Đồng vị: ¹⁰⁶Cd, ¹⁰⁸Cd, ¹¹⁰Cd, ¹¹¹Cd, ¹¹²Cd, ¹¹³Cd, ¹¹⁴Cd, ¹¹⁶Cd
+032: Cadmium có 8 đồng vị tự nhiên. Một số đồng vị được xem là ổn định, trong khi ¹¹³Cd và ¹¹⁶Cd có tính phóng xạ với chu kỳ bán rã rất dài.
+033: Tính chất
+034: Tính chất vật lý
+035: Là kim loại thuộc nhóm IIB.
+036: Màu trắng bạc.
+037: Mềm và dễ dát mỏng.
+038: Khối lượng riêng: khoảng 8.65 g/cm³.
+039: Nhiệt độ nóng chảy: khoảng 321 °C.
+040: Nhiệt độ sôi: khoảng 767 °C.
+041: Dẫn điện và dẫn nhiệt.
+042: Có nhiệt độ nóng chảy tương đối thấp so với nhiều kim loại chuyển tiếp.
+043: Tính chất hóa học
+044: Số Oxy hóa phổ biến và quan trọng nhất là +2.
+045: Có tính khử.
+046: Phản ứng với Oxygen khi nung nóng tạo Cadmium oxide.
+047: Phản ứng với Halogen tạo Cadmium halide.
+048: Phản ứng với acid tạo muối Cadmium và Hydrogen.
+049: Cadmium sulfide (CdS) có màu vàng đặc trưng.
+050: Cadmium và nhiều hợp chất của nó độc, vì vậy việc sử dụng cần được kiểm soát nghiêm ngặt.
+051: Điều chế
+052: Điều chế trong công nghiệp
+053: Cadmium chủ yếu được thu hồi như sản phẩm phụ trong quá trình luyện Zinc từ quặng Sphalerite (ZnS). Quặng được nung để chuyển sulfide thành oxide, sau đó Cadmium được hòa tách, kết tủa bằng Zinc và tinh chế.
+054: Phương trình hóa học:
+055: 2CdS + 3O₂ → 2CdO + 2SO₂
+056: CdO + H₂SO₄ → CdSO₄ + H₂O
+057: CdSO₄ + Zn → ZnSO₄ + Cd
+058: Điều chế trong phòng thí nghiệm
+059: Có thể điều chế Cadmium bằng cách khử Cadmium oxide bằng Carbon ở nhiệt độ cao.
+060: Phương trình hóa học:
+061: 2CdO + C → 2Cd + CO₂
+062: Nhận biết
+063: Nhận biết Cd²⁺
+064: Cho Cd²⁺ tác dụng với Sulfide:
+065: Cd²⁺ + S²⁻ → CdS↓
+066: Hiện tượng: Xuất hiện kết tủa màu vàng Cadmium sulfide.
+067: Đây là một phản ứng đặc trưng thường được dùng để nhận biết Cd²⁺.
+068: Phương trình
+069: Tác dụng với Oxygen
+070: 2Cd + O₂ → 2CdO
+071: Tác dụng với Chlorine
+072: Cd + Cl₂ → CdCl₂
+073: Tác dụng với Sulfur
+074: Cd + S → CdS
+075: Tác dụng với Hydrochloric acid
+076: Cd + 2HCl → CdCl₂ + H₂↑
+077: Tạo Cadmium sulfide
+078: Cd²⁺ + S²⁻ → CdS↓
+079: Cadmium oxide tác dụng với acid
+080: CdO + 2HCl → CdCl₂ + H₂O
+081: Điều chế Cadmium
+082: CdO + C → Cd + CO
+083: Ứng dụng thực tế
+084: Pin Nickel-Cadmium: Cadmium từng được sử dụng rộng rãi trong pin Ni-Cd có khả năng sạc lại.
+085: Mạ kim loại: Cadmium được dùng để tạo lớp phủ bảo vệ một số kim loại khỏi ăn mòn.
+086: Chất màu: Cadmium sulfide và Cadmium selenide từng được sử dụng để tạo các sắc tố vàng, cam và đỏ.
+087: Vật liệu bán dẫn: Một số hợp chất Cadmium như CdTe được sử dụng trong công nghệ bán dẫn và pin mặt trời.
+088: Hợp kim: Cadmium được sử dụng trong một số hợp kim và vật liệu hàn chuyên dụng.
+089: Tổng quan
+090: Cadmium là nguyên tố số 48, thuộc nhóm IIB | chu kỳ 5.
+091: Cadmium có cấu hình electron [Kr] 4d¹⁰ 5s² và số Oxy hóa đặc trưng là +2.
+092: Cadmium là kim loại mềm, màu trắng bạc, có nhiệt độ nóng chảy tương đối thấp. Trong tự nhiên, Cadmium chủ yếu được tìm thấy dưới dạng tạp chất trong quặng Zinc và thường được thu hồi trong quá trình luyện Zinc.
+093: Một hợp chất đặc trưng của Cadmium là Cadmium sulfide (CdS), có màu vàng và có nhiều ứng dụng trong vật liệu.
+094: Cadmium có ứng dụng trong pin, mạ kim loại, sắc tố và vật liệu bán dẫn, nhưng do độc tính cao, việc sử dụng Cadmium và các hợp chất của nó hiện được kiểm soát chặt chẽ.

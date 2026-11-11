@@ -1,0 +1,105 @@
+001: Lead (Pb)
+002: Thông tin chung
+003: Tên Latin: Plumbum
+004: Tên Tiếng Anh: Lead
+005: Đồng vị: ²⁰⁴Pb, ²⁰⁶Pb, ²⁰⁷Pb, ²⁰⁸Pb
+006: Vị trí: Nhóm IVA | Chu kỳ 6
+007: Số Oxy hóa: +2, +4
+008: Độ âm điện: 2.33
+009: Lịch sử khám phá
+010: Phát hiện bởi: Không xác định — Lead đã được con người biết đến từ thời cổ đại.
+011: Năm công bố: Thời cổ đại
+012: Nơi khám phá: Không xác định
+013: Mô tả: Lead là một trong những kim loại được con người biết đến và sử dụng từ rất sớm. Các vật phẩm bằng Lead đã được tìm thấy trong nhiều nền văn minh cổ đại. Người Ai Cập, Hy Lạp và La Mã đã sử dụng Lead trong nhiều mục đích khác nhau, bao gồm chế tạo vật dụng và xây dựng.
+014: Ký hiệu Pb bắt nguồn từ tên Latin Plumbum.
+015: 3. Cấu tạo
+016: a. Cấu tạo nguyên tử
+017: Hoạt họa cấu hình e: [Xe] 4f¹⁴ 5d¹⁰ 6s² 6p²
+018: Mô hình mạng tinh thể: Lập phương tâm mặt (Face-centered cubic, FCC)
+019: Số hiệu nguyên tử: 82
+020: Nguyên tử khối: 207.2 g/mol
+021: Vỏ nguyên tử: 82 electron
+022: K: 2 | L: 8 | M: 18 | N: 32 | O: 18 | P: 4
+023: Hạt nhân: 82 proton, 125 neutron đối với ²⁰⁷Pb
+024: Cấu hình e: [Xe] 4f¹⁴ 5d¹⁰ 6s² 6p²
+025: Loại mạng: Lập phương tâm mặt (Face-centered cubic, FCC)
+026: b. Trạng thái tự nhiên
+027: Trạng thái: Lead là kim loại rắn, mềm, nặng, có màu xám xanh.
+028: Có trong: Chủ yếu trong khoáng vật Galena (PbS).
+029: Đơn chất: Pb
+030: Hợp chất: PbS, PbO, PbO₂, PbCl₂, Pb(NO₃)₂, PbCO₃...
+031: c. Đồng vị
+032: Đồng vị: ²⁰⁴Pb, ²⁰⁶Pb, ²⁰⁷Pb, ²⁰⁸Pb
+033: Lead có 4 đồng vị tự nhiên, trong đó:
+034: ²⁰⁴Pb: đồng vị ổn định.
+035: ²⁰⁶Pb: sản phẩm cuối của chuỗi phân rã Uranium-238.
+036: ²⁰⁷Pb: sản phẩm cuối của chuỗi phân rã Uranium-235.
+037: ²⁰⁸Pb: sản phẩm cuối của chuỗi phân rã Thorium-232.
+038: ²⁰⁸Pb là đồng vị tự nhiên phổ biến nhất, chiếm khoảng 52.4%.
+039: Tính chất
+040: Tính chất vật lý
+041: Là kim loại hậu chuyển tiếp.
+042: Màu xám xanh.
+043: Rất mềm và dễ dát mỏng.
+044: Có khối lượng riêng lớn.
+045: Khối lượng riêng: khoảng 11.34 g/cm³.
+046: Nhiệt độ nóng chảy: khoảng 327.5 °C.
+047: Nhiệt độ sôi: khoảng 1749 °C.
+048: Dẫn điện và dẫn nhiệt.
+049: Có khả năng hấp thụ bức xạ tốt.
+050: Tính chất hóa học
+051: Có hai số Oxy hóa chính: +2 và +4.
+052: +2 ổn định hơn +4 do hiệu ứng cặp electron trơ.
+053: Bề mặt Lead có thể hình thành lớp oxide bảo vệ.
+054: Phản ứng với Oxygen tạo Lead oxide.
+055: Phản ứng với Halogen tạo Lead halide.
+056: Một số muối Lead ít tan trong nước, chẳng hạn PbCl₂.
+057: Nhiều hợp chất Lead có độc tính cao.
+058: Điều chế
+059: Điều chế trong công nghiệp
+060: Lead (Pb) chủ yếu được điều chế từ quặng galena (PbS). Quặng được nung trong không khí để chuyển một phần Lead sulfide thành Lead oxide, sau đó Lead oxide phản ứng với phần Lead sulfide còn lại tạo thành Lead kim loại.
+061: Phương trình:
+062: 2PbS + 3O₂ → 2PbO + 2SO₂
+063: 2PbO + PbS → 3Pb + SO₂
+064: Điều chế trong phòng thí nghiệm
+065: Có thể điều chế Lead bằng cách khử Lead(II) oxide bằng Carbon khi đun nóng.
+066: Phương trình:
+067: 2PbO + C → 2Pb + CO₂
+068: Nhận biết
+069: Nhận biết Pb²⁺
+070: Cho ion Pb²⁺ tác dụng với Chloride:
+071: Pb²⁺ + 2Cl⁻ → PbCl₂↓
+072: Hiện tượng: Xuất hiện kết tủa trắng PbCl₂.
+073: PbCl₂ tan tốt hơn trong nước nóng.
+074: Một phản ứng đặc trưng khác:
+075: Pb²⁺ + 2I⁻ → PbI₂↓
+076: Hiện tượng: Xuất hiện kết tủa vàng sáng PbI₂.
+077: Phương trình
+078: Tác dụng với Oxygen
+079: 2Pb + O₂ → 2PbO
+080: Tác dụng với Sulfur
+081: Pb + S → PbS
+082: Tác dụng với Chlorine
+083: Pb + Cl₂ → PbCl₂
+084: Tác dụng với Bromine
+085: Pb + Br₂ → PbBr₂
+086: Tác dụng với Iodine
+087: Pb + I₂ → PbI₂
+088: Tác dụng với Nitric acid
+089: 3Pb + 8HNO₃ → 3Pb(NO₃)₂ + 2NO + 4H₂O
+090: Điều chế Lead từ Lead(II) oxide
+091: 2PbO + C → 2Pb + CO₂
+092: Nhận biết Pb²⁺ bằng Iodide
+093: Pb²⁺ + 2I⁻ → PbI₂↓
+094: Ứng dụng thực tế
+095: Ắc quy: Lead là vật liệu quan trọng trong ắc quy Lead–acid, đặc biệt trong ô tô và hệ thống lưu trữ điện.
+096: Chống bức xạ: Do có khối lượng riêng lớn và khả năng hấp thụ bức xạ tốt, Lead được sử dụng trong vật liệu che chắn bức xạ.
+097: Hợp kim: Lead được sử dụng trong một số hợp kim có nhiệt độ nóng chảy thấp.
+098: Cáp và thiết bị: Trước đây Lead từng được sử dụng làm lớp bảo vệ cáp điện và trong nhiều thiết bị công nghiệp.
+099: Xây dựng: Một số vật liệu chứa Lead từng được sử dụng trong xây dựng và chống thấm, nhưng nhiều ứng dụng đã bị hạn chế vì độc tính.
+100: Đạn dược: Lead từng được sử dụng rộng rãi trong một số loại đạn và vật liệu liên quan, nhưng việc sử dụng Lead ngày càng được hạn chế vì tác động độc hại đến sức khỏe và môi trường.
+101: Tổng quan
+102: Lead là nguyên tố số 82, thuộc nhóm IVA | chu kỳ 6 và là một kim loại hậu chuyển tiếp.
+103: Lead có cấu hình electron [Xe] 4f¹⁴ 5d¹⁰ 6s² 6p², với hai số Oxy hóa chính là +2 và +4, trong đó +2 ổn định hơn.
+104: Lead là kim loại mềm, nặng, dễ gia công và có nhiệt độ nóng chảy tương đối thấp. Đặc biệt, Lead có khả năng hấp thụ bức xạ tốt.
+105: Lead có vai trò quan trọng trong ắc quy Lead–acid, vật liệu che chắn bức xạ và một số hợp kim. Tuy nhiên, do Lead và nhiều hợp chất của nó có độc tính cao, việc sử dụng Lead trong nhiều sản phẩm đã được hạn chế hoặc thay thế bằng vật liệu an toàn hơn.

@@ -1,9 +1,12 @@
 {
   "number": 21,
   "symbol": "Sc",
-  "nameVi": "Scandium",
+  "nameVi": "Scandi",
   "nameEn": "Scandium",
   "mass": 44.956,
+  "massStandardText": "44.956 ± 0.001",
+  "massStandardSource": "https://ciaaw.org/abridged-atomic-weights.htm",
+  "massKind": "standard-atomic-weight",
   "category": "chuyen-tiep",
   "hasData": true,
   "file": "elements/021_Sc.json",
@@ -13,25 +16,35 @@
     "electronConfig": "[Ar] 3d¹ 4s²",
     "isotope": "⁴⁵Sc",
     "group": 3,
+    "groupLabel": "3",
+    "series": "",
     "period": 4,
-    "state": "",
+    "state": "Rắn",
     "oxidation": "+3",
     "electronegativity": 1.36,
+    "electronegativityNote": "Thang Pauling; số liệu tổng hợp PubChem.",
     "density": "khoảng 2.985 g/cm³.",
     "meltingPoint": "khoảng 1541 °C.",
     "boilingPoint": "khoảng 2836 °C.",
-    "crystalStructure": "Lục phương (Hexagonal)"
+    "crystalStructure": "Lục phương (Hexagonal)",
+    "CAS": "7440-20-2"
   },
   "history": {
     "discoverer": "Lars Fredrik Nilson",
-    "year": 1879,
+    "year": "1879",
     "discoveryLocation": "Thụy Điển",
     "description": "Năm 1879, Lars Fredrik Nilson phát hiện Scandium khi nghiên cứu các khoáng vật chứa Rare earth elements. Ông tách được một oxide mới và xác định đó là oxide của một nguyên tố chưa được biết đến. Sau đó nguyên tố này được đặt tên là Scandium, bắt nguồn từ Scandia, tên Latin của Scandinavia. Việc phát hiện Scandium cũng xác nhận dự đoán trước đó của Dmitri Mendeleev về nguyên tố mà ông gọi là “eka-boron”."
   },
   "structure": {
     "protons": 21,
-    "neutrons": 24,
     "electrons": 21,
+    "neutrons": 24,
+    "nucleusIsotope": "⁴⁵Sc",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 21,
+      "neutron": 24
+    },
     "electronShells": [
       2,
       8,
@@ -45,12 +58,11 @@
       2
     ],
     "valenceElectrons": 2,
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lục phương (Hexagonal)",
-    "nucleus": {
-      "proton": 21,
-      "neutron": 24
-    }
+    "latticeEvidence": "source-reviewed"
   },
+  "structureType": "Lục phương (Hexagonal)",
   "occurrence": {
     "description": "Scandium là kim loại rắn, màu trắng bạc ở điều kiện thường. Scandium phân bố khá rộng nhưng thường tồn tại với hàm lượng rất nhỏ trong khoáng vật.",
     "simple": [
@@ -67,123 +79,348 @@
       "Khoáng vật Thortveitite",
       "Wolframite",
       "các khoáng vật Rare earth và một số quặng Uranium"
-    ]
+    ],
+    "details": [
+      "Trạng thái: Scandium là kim loại rắn, màu trắng bạc ở điều kiện thường. Scandium phân bố khá rộng nhưng thường tồn tại với hàm lượng rất nhỏ trong khoáng vật.",
+      "Có trong: Khoáng vật Thortveitite, Wolframite, các khoáng vật Rare earth và một số quặng Uranium.",
+      "Đơn chất: Sc",
+      "Hợp chất: Sc₂O₃, ScCl₃, ScF₃, Sc₂(SO₄)₃, Sc(OH)₃..."
+    ],
+    "mineral": {
+      "available": true,
+      "id": "thortveitite",
+      "name": "Thortveitite",
+      "formula": "(Sc,Y)₂Si₂O₇",
+      "habit": "prismatic",
+      "color": "#6c8470",
+      "crystalSystem": "monoclinic",
+      "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Thortveitite",
+      "model": "/assets/periodic-table/minerals/thortveitite.glb",
+      "preview": "/assets/periodic-table/minerals/thortveitite.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
   },
-  "naturalState": {},
-  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại chuyển tiếp.</li>\n      <li>Có màu trắng bạc.</li>\n      <li>Tương đối nhẹ.</li>\n      <li>Khối lượng riêng: khoảng 2.985 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 1541 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 2836 °C.</li>\n      <li>Dẫn điện và dẫn nhiệt tốt.</li>\n      <li>Có độ cứng tương đối cao.</li>\n      <li>Scandium tinh khiết khá mềm nhưng có thể tạo hợp kim có độ bền cao.</li>\n    </ul>\n  ",
-  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có tính chất đặc trưng của kim loại chuyển tiếp.</li>\n      <li>Số Oxy hóa ổn định và phổ biến nhất là +3.</li>\n      <li>Dễ tạo ion Sc³⁺.</li>\n      <li>Phản ứng với Oxygen tạo Scandium oxide.</li>\n      <li>Phản ứng với Halogen tạo Scandium halide.</li>\n      <li>Phản ứng với acid tạo muối Scandium và Hydrogen.</li>\n      <li>Scandium oxide và Scandium hydroxide có tính lưỡng tính yếu.</li>\n      <li>Dễ bị oxy hóa khi nung nóng trong không khí.</li>\n    </ul>\n  ",
+  "naturalState": {
+    "image": "/assets/periodic-table/diagrams/021_Sc.svg",
+    "alt": "Scandium: sơ đồ minh họa nguyên tố",
+    "kind": "diagram",
+    "source": "",
+    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+    "credit": ""
+  },
+  "isotopes": [
+    {
+      "isotope": "⁴⁵Sc",
+      "massNumber": 45,
+      "protons": 21,
+      "neutrons": 24,
+      "stable": true,
+      "abundancePercent": "100",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Là kim loại chuyển tiếp.</li><li>Có màu trắng bạc.</li><li>Tương đối nhẹ.</li><li>Khối lượng riêng: khoảng 2.985 g/cm³.</li><li>Nhiệt độ nóng chảy: khoảng 1541 °C.</li><li>Nhiệt độ sôi: khoảng 2836 °C.</li><li>Dẫn điện và dẫn nhiệt tốt.</li><li>Có độ cứng tương đối cao.</li><li>Scandium tinh khiết khá mềm nhưng có thể tạo hợp kim có độ bền cao.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Có tính chất đặc trưng của kim loại chuyển tiếp.</li><li>Số Oxy hóa ổn định và phổ biến nhất là +3.</li><li>Dễ tạo ion Sc³⁺.</li><li>Phản ứng với Oxygen tạo Scandium oxide.</li><li>Phản ứng với Halogen tạo Scandium halide.</li><li>Phản ứng với acid tạo muối Scandium và Hydrogen.</li><li>Scandium oxide và Scandium hydroxide có tính lưỡng tính yếu.</li><li>Dễ bị oxy hóa khi nung nóng trong không khí.</li></ul>",
   "reactions": [
     {
       "type": "Tác dụng với Oxygen",
+      "desc": "",
       "equation": "4Sc + 3O₂ → 2Sc₂O₃",
-      "desc": ""
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 71,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Chlorine",
+      "desc": "",
       "equation": "2Sc + 3Cl₂ → 2ScCl₃",
-      "desc": ""
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 73,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Fluorine",
+      "desc": "",
       "equation": "2Sc + 3F₂ → 2ScF₃",
-      "desc": ""
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 75,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Hydrochloric acid",
+      "desc": "",
       "equation": "2Sc + 6HCl → 2ScCl₃ + 3H₂↑",
-      "desc": ""
+      "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+      "kind": "chemical",
+      "sourceLine": 77,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Sulfuric acid",
+      "desc": "",
       "equation": "2Sc + 3H₂SO₄ → Sc₂(SO₄)₃ + 3H₂↑",
-      "desc": ""
+      "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+      "kind": "chemical",
+      "sourceLine": 79,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tạo Scandium hydroxide",
+      "desc": "",
       "equation": "Sc³⁺ + 3OH⁻ → Sc(OH)₃↓",
-      "desc": ""
+      "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+      "kind": "chemical",
+      "sourceLine": 81,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Nhiệt phân Scandium hydroxide",
+      "desc": "",
       "equation": "2Sc(OH)₃ → Sc₂O₃ + 3H₂O",
-      "desc": ""
+      "condition": "Gia nhiệt để phân hủy; nhiệt độ phụ thuộc chất và áp suất khí sản phẩm.",
+      "kind": "chemical",
+      "sourceLine": 83,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Khử Scandium chloride",
+      "desc": "",
       "equation": "2ScCl₃ + 3Ca → 2Sc + 3CaCl₂",
-      "desc": ""
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 85,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     }
   ],
-  "applications": [
-    {
-      "title": "Hợp kim Aluminium",
-      "desc": "Scandium được thêm vào Aluminium để tăng độ bền, độ cứng và khả năng chịu nhiệt của hợp kim."
-    },
-    {
-      "title": "Hàng không vũ trụ",
-      "desc": "Aluminium–Scandium alloys được nghiên cứu và sử dụng trong một số bộ phận yêu cầu vật liệu nhẹ nhưng bền."
-    },
-    {
-      "title": "Đèn Scandium",
-      "desc": "Scandium iodide được sử dụng trong một số loại đèn Metal halide để tạo ánh sáng gần với ánh sáng tự nhiên."
-    },
-    {
-      "title": "Thiết bị thể thao",
-      "desc": "Một số hợp kim Aluminium–Scandium được sử dụng trong các thiết bị cần độ bền cao và trọng lượng thấp."
-    },
-    {
-      "title": "Nghiên cứu hạt nhân",
-      "desc": "Một số đồng vị phóng xạ của Scandium được sử dụng trong nghiên cứu và các ứng dụng y học hạt nhân."
-    }
-  ],
-  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Scandium là nguyên tố số 21, thuộc nhóm IIIB | chu kỳ 4 và là một kim loại chuyển tiếp.</li>\n  <li>Scandium có cấu hình electron [Ar] 3d¹ 4s² và thường có số Oxy hóa +3. Ở dạng ion Sc³⁺, electron 3d được loại bỏ, tạo cấu hình tương đối bền.</li>\n  <li>Scandium là một nguyên tố tương đối hiếm và thường phân bố với hàm lượng nhỏ trong nhiều khoáng vật thay vì tập trung thành các mỏ lớn. Đồng vị tự nhiên duy nhất của Scandium là ⁴⁵Sc.</li>\n  <li>Ứng dụng quan trọng của Scandium nằm ở hợp kim Aluminium–Scandium, đèn Metal halide và một số ứng dụng nghiên cứu, y học hạt nhân.</li>\n</ul>\n",
   "preparations": {
     "lab": [
       {
-        "title": "Về nguyên tắc, có thể điều chế bằng cách khử Scandium chloride khan bằng Calcium:",
-        "equation": "2ScCl₃ + 3Ca → 2Sc + 3CaCl₂",
-        "desc": ""
+        "title": "Scandium kim loại không thường được điều chế trong phòng thí nghiệm thông thường.",
+        "desc": "Về nguyên tắc, có thể điều chế bằng cách khử Scandium chloride khan bằng Calcium:",
+        "result": "",
+        "equations": [
+          {
+            "equation": "2ScCl₃ + 3Ca → 2Sc + 3CaCl₂",
+            "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+            "kind": "chemical",
+            "sourceLine": 62,
+            "sourceSection": "lab",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          60,
+          61,
+          62
+        ],
+        "equation": "2ScCl₃ + 3Ca → 2Sc + 3CaCl₂"
       }
     ],
     "industry": [
       {
-        "title": "Sau quá trình tách và tinh chế, Scandium có thể được chuyển thành Scandium chloride rồi khử bằng Calcium:",
-        "equation": "2ScCl₃ + 3Ca → 2Sc + 3CaCl₂",
-        "desc": ""
+        "title": "Scandium thường được thu hồi như sản phẩm phụ từ quá trình xử lý một số quặng và chất thải công nghiệp chứa Scandium.",
+        "desc": "Sau quá trình tách và tinh chế, Scandium có thể được chuyển thành Scandium chloride rồi khử bằng Calcium:",
+        "result": "",
+        "equations": [
+          {
+            "equation": "2ScCl₃ + 3Ca → 2Sc + 3CaCl₂",
+            "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+            "kind": "chemical",
+            "sourceLine": 58,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          56,
+          57,
+          58
+        ],
+        "equation": "2ScCl₃ + 3Ca → 2Sc + 3CaCl₂"
       }
     ]
   },
   "recognition": [
     {
-      "title": "Nhận biết",
-      "reagent": "Nhận biết Sc³⁺",
-      "result": "",
-      "equation": ""
-    },
-    {
-      "title": "Nhận biết",
-      "reagent": "Scandium ion có thể được nhận biết thông qua các phương pháp phân tích chuyên dụng như phổ phát xạ, phổ hấp thụ hoặc phản ứng tạo phức.",
-      "result": "",
-      "equation": ""
-    },
-    {
-      "title": "Một phản ứng tạo kết tủa",
-      "reagent": "",
-      "result": "",
-      "equation": ""
-    },
-    {
-      "title": "Nhận biết",
-      "reagent": "",
-      "result": "",
-      "equation": "Sc³⁺ + 3OH⁻ → Sc(OH)₃↓"
-    },
-    {
-      "title": "Hiện tượng",
-      "reagent": "",
+      "title": "Nhận biết Sc³⁺",
+      "desc": "Scandium ion có thể được nhận biết thông qua các phương pháp phân tích chuyên dụng như phổ phát xạ, phổ hấp thụ hoặc phản ứng tạo phức. Một phản ứng tạo kết tủa:",
       "result": "Xuất hiện kết tủa trắng Scandium hydroxide.",
-      "equation": ""
+      "equations": [
+        {
+          "equation": "Sc³⁺ + 3OH⁻ → Sc(OH)₃↓",
+          "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+          "kind": "chemical",
+          "sourceLine": 67,
+          "sourceSection": "recognition",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ],
+      "sourceLines": [
+        64,
+        65,
+        66,
+        67,
+        68
+      ],
+      "equation": "Sc³⁺ + 3OH⁻ → Sc(OH)₃↓"
     }
   ],
-  "structureType": "Lục phương (Hexagonal)"
+  "applications": [
+    {
+      "title": "Hợp kim Aluminium",
+      "desc": "Scandium được thêm vào Aluminium để tăng độ bền, độ cứng và khả năng chịu nhiệt của hợp kim.",
+      "sourceLine": 87
+    },
+    {
+      "title": "Hàng không vũ trụ",
+      "desc": "Aluminium–Scandium alloys được nghiên cứu và sử dụng trong một số bộ phận yêu cầu vật liệu nhẹ nhưng bền.",
+      "sourceLine": 88
+    },
+    {
+      "title": "Đèn Scandium",
+      "desc": "Scandium iodide được sử dụng trong một số loại đèn Metal halide để tạo ánh sáng gần với ánh sáng tự nhiên.",
+      "sourceLine": 89
+    },
+    {
+      "title": "Thiết bị thể thao",
+      "desc": "Một số hợp kim Aluminium–Scandium được sử dụng trong các thiết bị cần độ bền cao và trọng lượng thấp.",
+      "sourceLine": 90
+    },
+    {
+      "title": "Nghiên cứu hạt nhân",
+      "desc": "Một số đồng vị phóng xạ của Scandium được sử dụng trong nghiên cứu và các ứng dụng y học hạt nhân.",
+      "sourceLine": 91
+    }
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Scandium là nguyên tố số 21, thuộc nhóm IIIB | chu kỳ 4 và là một kim loại chuyển tiếp.</li><li>Scandium có cấu hình electron [Ar] 3d¹ 4s² và thường có số Oxy hóa +3. Ở dạng ion Sc³⁺, electron 3d được loại bỏ, tạo cấu hình tương đối bền.</li><li>Scandium là một nguyên tố tương đối hiếm và thường phân bố với hàm lượng nhỏ trong nhiều khoáng vật thay vì tập trung thành các mỏ lớn. Đồng vị tự nhiên duy nhất của Scandium là ⁴⁵Sc.</li><li>Ứng dụng quan trọng của Scandium nằm ở hợp kim Aluminium–Scandium, đèn Metal halide và một số ứng dụng nghiên cứu, y học hạt nhân.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/diagrams/021_Sc.svg",
+      "title": "Scandi (Sc)",
+      "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+      "source": "",
+      "author": "ChemDex",
+      "license": "ChemDex schematic diagram",
+      "licenseUrl": ""
+    }
+  ],
+  "mediaBlocks": [
+    {
+      "type": "model",
+      "section": "structure",
+      "title": "Mẫu khoáng vật 3D · Thortveitite",
+      "src": "/assets/periodic-table/minerals/thortveitite.glb",
+      "preview": "/assets/periodic-table/minerals/thortveitite.png",
+      "desc": "(Sc,Y)₂Si₂O₇. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  ],
+  "sources": [
+    {
+      "title": "021_Sc.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "434f21a90d8db6cdbc5ae33d51c828da9ed8f1d3dae28908d9d2ce6e2c2f9445"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/21/scandium"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "021_Sc.docx",
+    "sourceSha256": "434f21a90d8db6cdbc5ae33d51c828da9ed8f1d3dae28908d9d2ce6e2c2f9445",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/021_Sc.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
 }

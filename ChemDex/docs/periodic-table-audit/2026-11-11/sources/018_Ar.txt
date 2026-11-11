@@ -1,0 +1,82 @@
+001: Argon (Ar)
+002: Thông tin chung
+003: Tên Latin: Argon
+004: Tên Tiếng Anh: Argon
+005: Đồng vị: ³⁶Ar, ³⁷Ar, ³⁸Ar, ³⁹Ar, ⁴⁰Ar
+006: Vị trí: Nhóm VIIIA | Chu kỳ 3
+007: Số Oxy hóa: 0
+008: Độ âm điện: Không xác định
+009: Lịch sử khám phá
+010: Phát hiện bởi: Lord Rayleigh và William Ramsay
+011: Năm công bố: 1894
+012: Nơi khám phá: Anh
+013: Mô tả: Năm 1894, Lord Rayleigh và William Ramsay phát hiện Argon khi nghiên cứu Nitrogen trong không khí. Họ nhận thấy Nitrogen thu được từ không khí có khối lượng lớn hơn Nitrogen được điều chế từ các hợp chất hóa học. Sau đó, họ xác định sự tồn tại của một khí mới và đặt tên là Argon.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: 1s² 2s² 2p⁶ 3s² 3p⁶
+017: Mô hình mạng tinh thể: Lập phương tâm mặt (Face-centered cubic, FCC)
+018: Số hiệu nguyên tử: 18
+019: Nguyên tử khối: 39.948 g/mol
+020: Vỏ nguyên tử: 18 electron
+021: K: 2 | L: 8 | M: 8
+022: Hạt nhân: 18 proton, 22 neutron đối với ⁴⁰Ar
+023: Cấu hình e: 1s² 2s² 2p⁶ 3s² 3p⁶
+024: Loại mạng: Lập phương tâm mặt (Face-centered cubic, FCC)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Khí không màu, không mùi ở điều kiện thường. Argon là khí hiếm phổ biến thứ ba trong khí quyển Trái Đất.
+027: Có trong: Khí quyển, một lượng rất nhỏ trong nước và một số khoáng vật.
+028: Đơn chất: Ar
+029: Hợp chất: Rất ít hợp chất bền; Argon chủ yếu tồn tại dưới dạng nguyên tử Ar tự do.
+030: c. Đồng vị
+031: Đồng vị: ³⁶Ar, ³⁷Ar, ³⁸Ar, ³⁹Ar, ⁴⁰Ar
+032: ³⁶Ar: Đồng vị bền, chiếm khoảng 0.334%.
+033: ³⁸Ar: Đồng vị bền, chiếm khoảng 0.063%.
+034: ⁴⁰Ar: Đồng vị bền, chiếm khoảng 99.603% Argon tự nhiên.
+035: ³⁷Ar: Đồng vị phóng xạ.
+036: ³⁹Ar: Đồng vị phóng xạ.
+037: Tính chất
+038: Tính chất vật lý
+039: Là chất khí không màu, không mùi, không vị.
+040: Thuộc nhóm khí hiếm.
+041: Khối lượng riêng: khoảng 1.784 g/L ở 0 °C.
+042: Nhiệt độ nóng chảy: −189.34 °C.
+043: Nhiệt độ sôi: −185.85 °C.
+044: Ít tan trong nước.
+045: Không cháy.
+046: Nặng hơn không khí.
+047: Có tính dẫn nhiệt thấp.
+048: Tính chất hóa học
+049: Là khí hiếm, có độ hoạt động hóa học rất thấp.
+050: Có lớp electron hóa trị bão hòa.
+051: Hầu như không phản ứng với các nguyên tố khác ở điều kiện thường.
+052: Không duy trì sự cháy.
+053: Không dễ tạo ion hoặc hợp chất hóa học.
+054: Có thể tạo một số loài hóa học trong điều kiện đặc biệt.
+055: Điều chế
+056: Điều chế trong công nghiệp
+057: Argon được sản xuất chủ yếu bằng cách chưng cất phân đoạn không khí lỏng.
+058: Không khí được hóa lỏng, sau đó các thành phần được tách dựa trên sự khác nhau về nhiệt độ sôi. Argon có nhiệt độ sôi nằm giữa Nitrogen và Oxygen nên có thể được tách ra trong quá trình này.
+059: Điều chế trong phòng thí nghiệm
+060: Argon không thường được điều chế trong phòng thí nghiệm vì nó có sẵn trong không khí và có thể được tách bằng phương pháp công nghiệp.
+061: Nhận biết
+062: Argon: Không có phản ứng hóa học đặc trưng đơn giản để nhận biết Argon trong điều kiện phổ thông.
+063: Có thể nhận biết bằng phổ phát xạ. Khi Argon bị kích thích bởi dòng điện, nó phát ra ánh sáng có các vạch phổ đặc trưng.
+064: Phương trình
+065: Argon gần như không tham gia các phản ứng hóa học thông thường.
+066: Ion hóa Argon:
+067: Ar → Ar⁺ + e⁻
+068: Tạo ion trong điều kiện năng lượng cao:
+069: Ar + e⁻ → Ar⁺ + 2e⁻
+070: Argon không cháy và không duy trì sự cháy, vì vậy không có phương trình phản ứng cháy thông thường.
+071: Ứng dụng thực tế
+072: Hàn: Argon được sử dụng làm khí bảo vệ trong hàn hồ quang để ngăn kim loại nóng chảy tiếp xúc với Oxygen và Nitrogen trong không khí.
+073: Công nghiệp luyện kim: Dùng làm môi trường khí trơ trong một số quá trình xử lý kim loại.
+074: Bóng đèn: Argon được sử dụng trong bóng đèn sợi đốt để hạn chế sự oxy hóa của dây tóc.
+075: Sản xuất chất bán dẫn: Được sử dụng làm khí bảo vệ trong quá trình sản xuất Silicon và các linh kiện điện tử.
+076: Cửa sổ cách nhiệt: Argon được bơm vào giữa các lớp kính để cải thiện khả năng cách nhiệt.
+077: Laser: Argon được sử dụng trong một số loại laser khí.
+078: Tổng quan
+079: Argon là nguyên tố số 18, thuộc nhóm VIIIA | chu kỳ 3 và là một khí hiếm.
+080: Argon có cấu hình electron 1s² 2s² 2p⁶ 3s² 3p⁶, với lớp electron ngoài cùng đã bão hòa. Vì vậy Argon có độ hoạt động hóa học rất thấp và số Oxy hóa phổ biến là 0.
+081: Argon tồn tại dưới dạng nguyên tử Ar đơn nguyên tử, không tạo phân tử Ar₂ trong điều kiện thông thường. Trong khí quyển, Argon chiếm khoảng 0.934% thể tích không khí khô, là khí hiếm phổ biến nhất trong khí quyển Trái Đất.
+082: Argon có vai trò quan trọng trong hàn, luyện kim, sản xuất bóng đèn, chất bán dẫn, cửa sổ cách nhiệt và công nghệ laser.

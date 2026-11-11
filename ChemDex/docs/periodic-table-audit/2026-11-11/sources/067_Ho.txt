@@ -1,0 +1,91 @@
+001: Holmium (Ho)
+002: Thông tin chung
+003: Tên Latin: Holmium
+004: Tên Tiếng Anh: Holmium
+005: Đồng vị: ¹⁶⁵Ho
+006: Vị trí: Nhóm IIIB | Chu kỳ 6 | Họ Lanthanide
+007: Số Oxy hóa: +3
+008: Độ âm điện: 1,23 (Pauling)
+009: Lịch sử khám phá
+010: Phát hiện bởi: Per Teodor Cleve
+011: Năm công bố: 1879
+012: Nơi khám phá: Uppsala, Thụy Điển
+013: Mô tả: Năm 1879, nhà hóa học Thụy Điển Per Teodor Cleve tiến hành phân tích Erbia và nhận thấy nó chứa nhiều nguyên tố khác nhau. Ông tách được hai oxide mới và đặt tên chúng là Holmia và Thulia. Holmium được xác định từ Holmia.
+014: Đồng thời, Marc Delafontaine và Jacques-Louis Soret cũng độc lập quan sát được các vạch phổ đặc trưng của nguyên tố này.
+015: Tên Holmium bắt nguồn từ Holmia, tên Latin của Stockholm, thủ đô Thụy Điển.
+016: 3. Cấu tạo
+017: a. Cấu tạo nguyên tử
+018: Cấu hình electron: [Xe] 4f¹¹ 6s²
+019: Mô hình mạng tinh thể: Lục phương xếp chặt (Hexagonal close-packed, HCP)
+020: Số hiệu nguyên tử: 67
+021: Nguyên tử khối: 164,93033 g/mol
+022: Vỏ nguyên tử: 67 electron
+023: Hạt nhân: 67 proton
+024: Cấu hình e đầy đủ: 1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰ 4p⁶ 5s² 4d¹⁰ 5p⁶ 4f¹¹ 6s²
+025: Loại mạng: Lục phương xếp chặt (HCP)
+026: b. Trạng thái tự nhiên
+027: Trạng thái: Chất rắn
+028: Màu sắc: Trắng bạc
+029: Có trong: Monazite, Bastnäsite và Xenotime.
+030: Đơn chất: Ho
+031: Hợp chất phổ biến: Ho₂O₃, HoCl₃, HoF₃, Ho(OH)₃
+032: c. Đồng vị
+033: Holmium trong tự nhiên gần như chỉ có một đồng vị:
+034: ¹⁶⁵Ho: gần 100%, là đồng vị bền duy nhất của Holmium.
+035: Ngoài ra có nhiều đồng vị phóng xạ nhân tạo.
+036: Tính chất
+037: Tính chất vật lý
+038: Là kim loại đất hiếm.
+039: Thuộc họ Lanthanide.
+040: Có màu trắng bạc.
+041: Khá mềm và dễ gia công.
+042: Có tính thuận từ rất mạnh.
+043: Có mômen từ nguyên tử lớn.
+044: Có nhiệt độ nóng chảy khoảng 1474 °C.
+045: Có nhiệt độ sôi khoảng 2700 °C.
+046: Khối lượng riêng khoảng 8,79 g/cm³.
+047: Tính chất hóa học
+048: Trạng thái Oxy hóa phổ biến và ổn định nhất là +3.
+049: Ion Ho³⁺ có cấu hình electron 4f¹⁰.
+050: Holmium phản ứng với Oxygen:
+051: 4Ho + 3O₂ → 2Ho₂O₃
+052: Phản ứng với Acid tạo muối Holmium(III) và giải phóng Hydrogen.
+053: Các hợp chất của Ho³⁺ có tính chất quang học đặc trưng.
+054: Điều chế
+055: Điều chế trong công nghiệp
+056: Holmium (Ho) chủ yếu được điều chế từ quặng monazite và xenotime. Sau khi tách khỏi hỗn hợp đất hiếm, Holmium được thu bằng phương pháp điện phân muối nóng chảy hoặc khử Holmium fluoride bằng Calcium.
+057: Phương trình:
+058: 2HoF₃ + 3Ca → 2Ho + 3CaF₂
+059: Holmium thu được được tinh chế để loại bỏ tạp chất.
+060: Điều chế trong phòng thí nghiệm
+061: Có thể điều chế Holmium bằng cách khử Holmium chloride khan bằng Calcium.
+062: Phương trình:
+063: 2HoCl₃ + 3Ca → 2Ho + 3CaCl₂
+064: Nhận biết
+065: Có thể nhận biết Holmium bằng:
+066: Phổ phát xạ nguyên tử.
+067: ICP-OES hoặc ICP-MS.
+068: Phổ hấp thụ đặc trưng của Ho³⁺.
+069: Đặc tính từ mạnh.
+070: Dung dịch chứa Ho³⁺ thường có màu vàng nhạt.
+071: Phương trình
+072: Tác dụng với Oxygen
+073: 4Ho + 3O₂ → 2Ho₂O₃
+074: Tác dụng với Hydrochloric acid
+075: 2Ho + 6HCl → 2HoCl₃ + 3H₂
+076: Tạo Holmium(III) hydroxide
+077: HoCl₃ + 3NaOH → Ho(OH)₃↓ + 3NaCl
+078: Điều chế Holmium
+079: 2HoCl₃ + 3Ca → 2Ho + 3CaCl₂
+080: Ứng dụng thực tế
+081: Laser Ho:YAG: Holmium được sử dụng trong Holmium-doped Yttrium Aluminum Garnet (Ho:YAG), một loại laser phát ra bức xạ hồng ngoại. Nó có ứng dụng trong y tế và một số lĩnh vực kỹ thuật.
+082: Y tế: Laser Holmium được sử dụng trong một số thủ thuật y khoa, đặc biệt trong các ứng dụng liên quan đến tiết niệu.
+083: Nam châm: Do có mômen từ rất lớn, Holmium được nghiên cứu và sử dụng trong một số vật liệu từ đặc biệt.
+084: Quang học: Các ion Ho³⁺ được sử dụng trong một số vật liệu quang học và laser.
+085: Hiệu chuẩn quang phổ: Holmium oxide được sử dụng làm chuẩn bước sóng trong một số thiết bị quang phổ UV-Vis.
+086: Tổng quan
+087: Holmium là nguyên tố số 67, thuộc nhóm IIIB | chu kỳ 6 và là nguyên tố thứ mười một trong họ Lanthanide.
+088: Holmium được Per Teodor Cleve phát hiện vào năm 1879 tại Thụy Điển. Tên nguyên tố bắt nguồn từ Holmia, tên Latin của Stockholm.
+089: Holmium là kim loại đất hiếm màu trắng bạc, khá mềm và nổi bật với tính thuận từ rất mạnh. Trạng thái Oxy hóa phổ biến nhất là +3.
+090: Holmium có vai trò quan trọng trong công nghệ laser, đặc biệt là laser Ho:YAG, đồng thời được sử dụng trong y tế, quang học, vật liệu từ và hiệu chuẩn thiết bị quang phổ.
+091: Mạng tinh thể: Lục phương xếp chặt (HCP) ở điều kiện thường.

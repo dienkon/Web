@@ -1,9 +1,12 @@
 {
   "number": 80,
   "symbol": "Hg",
-  "nameVi": "Mercury",
+  "nameVi": "Thủy ngân",
   "nameEn": "Mercury",
-  "mass": 200.592,
+  "mass": 200.59,
+  "massStandardText": "200.59 ± 0.01",
+  "massStandardSource": "https://ciaaw.org/abridged-atomic-weights.htm",
+  "massKind": "standard-atomic-weight",
   "category": "chuyen-tiep",
   "hasData": true,
   "file": "elements/080_Hg.json",
@@ -13,14 +16,18 @@
     "electronConfig": "[Xe] 4f¹⁴ 5d¹⁰ 6s²",
     "isotope": "¹⁹⁶Hg, ¹⁹⁸Hg, ¹⁹⁹Hg, ²⁰⁰Hg, ²⁰¹Hg, ²⁰²Hg, ²⁰⁴Hg",
     "group": 12,
+    "groupLabel": "12",
+    "series": "",
     "period": 6,
-    "state": "",
+    "state": "Lỏng",
     "oxidation": "+1, +2",
     "electronegativity": 2.0,
+    "electronegativityNote": "Thang Pauling; số liệu tổng hợp PubChem.",
     "density": "khoảng 13.53 g/cm³.",
     "meltingPoint": "khoảng −38.83 °C.",
     "boilingPoint": "khoảng 356.73 °C.",
-    "crystalStructure": "Lập phương nguyên thủy (Primitive cubic, PC) (ở trạng thái rắn)"
+    "crystalStructure": "Mercury lỏng ở điều kiện thường; α-Hg rắn có mạng mặt thoi (rhombohedral).",
+    "CAS": "7439-97-6"
   },
   "history": {
     "discoverer": "Không xác định — Mercury đã được con người biết đến từ thời cổ đại.",
@@ -30,8 +37,14 @@
   },
   "structure": {
     "protons": 80,
-    "neutrons": 122,
     "electrons": 80,
+    "neutrons": 122,
+    "nucleusIsotope": "²⁰²Hg",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 80,
+      "neutron": 122
+    },
     "electronShells": [
       2,
       8,
@@ -49,12 +62,11 @@
       2
     ],
     "valenceElectrons": 2,
-    "lattice": "Lập phương nguyên thủy (Primitive cubic, PC) (ở trạng thái rắn)",
-    "nucleus": {
-      "proton": 80,
-      "neutron": 122
-    }
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+    "lattice": "Mercury lỏng ở điều kiện thường; α-Hg rắn có mạng mặt thoi (rhombohedral).",
+    "latticeEvidence": "phase-dependent"
   },
+  "structureType": "Mercury lỏng ở điều kiện thường; α-Hg rắn có mạng mặt thoi (rhombohedral).",
   "occurrence": {
     "description": "Mercury là kim loại lỏng ở điều kiện thường.",
     "simple": [
@@ -69,122 +81,450 @@
     ],
     "ores": [
       "Chủ yếu tồn tại trong khoáng vật Cinnabar (HgS)"
-    ]
+    ],
+    "details": [
+      "Trạng thái: Mercury là kim loại lỏng ở điều kiện thường.",
+      "Có trong: Chủ yếu tồn tại trong khoáng vật Cinnabar (HgS).",
+      "Đơn chất: Hg",
+      "Hợp chất: HgS, HgO, HgCl₂, Hg₂Cl₂, Hg(NO₃)₂..."
+    ],
+    "mineral": {
+      "available": true,
+      "id": "cinnabar",
+      "name": "Cinnabar",
+      "formula": "HgS",
+      "habit": "rhombohedral",
+      "color": "#b9303a",
+      "crystalSystem": "trigonal",
+      "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Cinnabar",
+      "model": "/assets/periodic-table/minerals/cinnabar.glb",
+      "preview": "/assets/periodic-table/minerals/cinnabar.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
   },
-  "naturalState": {},
-  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại chuyển tiếp.</li>\n      <li>Là kim loại duy nhất ở trạng thái lỏng trong điều kiện thường.</li>\n      <li>Có màu bạc sáng.</li>\n      <li>Có ánh kim.</li>\n      <li>Khối lượng riêng: khoảng 13.53 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng −38.83 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 356.73 °C.</li>\n      <li>Dẫn điện.</li>\n      <li>Dẫn nhiệt kém hơn nhiều kim loại khác.</li>\n      <li>Dễ tạo hỗn hống (amalgam) với nhiều kim loại.</li>\n    </ul>\n  ",
-  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Số Oxy hóa phổ biến: +1 và +2.</li>\n      <li>Mercury(I) thường tồn tại dưới dạng ion Hg₂²⁺.</li>\n      <li>Mercury(II) tồn tại dưới dạng Hg²⁺.</li>\n      <li>Phản ứng với Oxygen khi đun nóng tạo Mercury(II) oxide.</li>\n      <li>Phản ứng với Halogen tạo Mercury halide.</li>\n      <li>Không phản ứng đáng kể với nhiều acid không Oxy hóa.</li>\n      <li>Tan trong Nitric acid và nước cường toan.</li>\n      <li>Hơi Mercury và nhiều hợp chất Mercury độc, vì vậy cần được xử lý rất cẩn thận.</li>\n    </ul>\n  ",
+  "naturalState": {
+    "image": "/assets/periodic-table/diagrams/080_Hg.svg",
+    "alt": "Mercury: sơ đồ minh họa nguyên tố",
+    "kind": "diagram",
+    "source": "",
+    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+    "credit": ""
+  },
+  "isotopes": [
+    {
+      "isotope": "¹⁹⁶Hg",
+      "massNumber": 196,
+      "protons": 80,
+      "neutrons": 116,
+      "stable": true,
+      "abundancePercent": "0.15",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹⁹⁸Hg",
+      "massNumber": 198,
+      "protons": 80,
+      "neutrons": 118,
+      "stable": true,
+      "abundancePercent": "10.04",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹⁹⁹Hg",
+      "massNumber": 199,
+      "protons": 80,
+      "neutrons": 119,
+      "stable": true,
+      "abundancePercent": "16.94",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁰⁰Hg",
+      "massNumber": 200,
+      "protons": 80,
+      "neutrons": 120,
+      "stable": true,
+      "abundancePercent": "23.14",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁰¹Hg",
+      "massNumber": 201,
+      "protons": 80,
+      "neutrons": 121,
+      "stable": true,
+      "abundancePercent": "13.17",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁰²Hg",
+      "massNumber": 202,
+      "protons": 80,
+      "neutrons": 122,
+      "stable": true,
+      "abundancePercent": "29.74",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁰⁴Hg",
+      "massNumber": 204,
+      "protons": 80,
+      "neutrons": 124,
+      "stable": true,
+      "abundancePercent": "6.82",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Là kim loại chuyển tiếp.</li><li>Là kim loại duy nhất ở trạng thái lỏng trong điều kiện thường.</li><li>Có màu bạc sáng.</li><li>Có ánh kim.</li><li>Khối lượng riêng: khoảng 13.53 g/cm³.</li><li>Nhiệt độ nóng chảy: khoảng −38.83 °C.</li><li>Nhiệt độ sôi: khoảng 356.73 °C.</li><li>Dẫn điện.</li><li>Dẫn nhiệt kém hơn nhiều kim loại khác.</li><li>Dễ tạo hỗn hống (amalgam) với nhiều kim loại.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Số Oxy hóa phổ biến: +1 và +2.</li><li>Mercury(I) thường tồn tại dưới dạng ion Hg₂²⁺.</li><li>Mercury(II) tồn tại dưới dạng Hg²⁺.</li><li>Phản ứng với Oxygen khi đun nóng tạo Mercury(II) oxide.</li><li>Phản ứng với Halogen tạo Mercury halide.</li><li>Không phản ứng đáng kể với nhiều acid không Oxy hóa.</li><li>Tan trong Nitric acid và nước cường toan.</li><li>Hơi Mercury và nhiều hợp chất Mercury độc, vì vậy cần được xử lý rất cẩn thận.</li></ul>",
   "reactions": [
     {
       "type": "Tác dụng với Oxygen",
+      "desc": "",
       "equation": "2Hg + O₂ → 2HgO",
-      "desc": ""
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 80,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Chlorine",
+      "desc": "",
       "equation": "Hg + Cl₂ → HgCl₂",
-      "desc": ""
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 82,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Sulfur",
+      "desc": "",
       "equation": "Hg + S → HgS",
-      "desc": ""
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 84,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Iodine",
+      "desc": "",
       "equation": "Hg + I₂ → HgI₂",
-      "desc": ""
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 86,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Nitric acid",
+      "desc": "",
       "equation": "Hg + 4HNO₃ → Hg(NO₃)₂ + 2NO₂ + 2H₂O",
-      "desc": ""
+      "condition": "HNO₃ đặc, tạo NO₂.",
+      "kind": "chemical",
+      "sourceLine": 88,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tạo Mercury(I) chloride",
+      "desc": "",
       "equation": "Hg₂²⁺ + 2Cl⁻ → Hg₂Cl₂↓",
-      "desc": ""
+      "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+      "kind": "chemical",
+      "sourceLine": 90,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tạo Mercury(II) iodide",
+      "desc": "",
       "equation": "Hg²⁺ + 2I⁻ → HgI₂↓",
-      "desc": ""
+      "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+      "kind": "chemical",
+      "sourceLine": 92,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     }
   ],
-  "applications": [
-    {
-      "title": "Thiết bị đo",
-      "desc": "Mercury từng được sử dụng rộng rãi trong nhiệt kế, áp kế và các thiết bị đo áp suất."
-    },
-    {
-      "title": "Đèn Mercury",
-      "desc": "Mercury được sử dụng trong một số loại đèn phóng điện và đèn huỳnh quang."
-    },
-    {
-      "title": "Công nghiệp hóa chất",
-      "desc": "Một số hợp chất Mercury được sử dụng làm chất xúc tác hoặc nguyên liệu trong các quá trình hóa học."
-    },
-    {
-      "title": "Điện hóa",
-      "desc": "Mercury từng được sử dụng trong một số loại điện cực và pin."
-    },
-    {
-      "title": "Khai thác Gold",
-      "desc": "Mercury từng được sử dụng để tạo hỗn hống với Gold trong quá trình khai thác và tinh chế Gold, nhưng phương pháp này gây ô nhiễm nghiêm trọng và nguy hiểm."
-    },
-    {
-      "title": "Lưu ý",
-      "desc": "Do Mercury và nhiều hợp chất của nó có độc tính cao, việc sử dụng Mercury ngày nay đã bị hạn chế hoặc thay thế trong nhiều lĩnh vực."
-    }
-  ],
-  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Mercury là nguyên tố số 80, thuộc nhóm IIB | chu kỳ 6 và là một kim loại chuyển tiếp.</li>\n  <li>Mercury có cấu hình electron [Xe] 4f¹⁴ 5d¹⁰ 6s², với số Oxy hóa phổ biến là +1 và +2.</li>\n  <li>Đặc điểm nổi bật nhất của Mercury là trạng thái lỏng ở điều kiện thường, với nhiệt độ nóng chảy chỉ khoảng −38.83 °C.</li>\n  <li>Mercury chủ yếu được khai thác từ Cinnabar (HgS) và có lịch sử sử dụng lâu đời trong nhiệt kế, áp kế, đèn phóng điện và công nghiệp hóa chất.</li>\n  <li>Tuy nhiên, do độc tính cao của Mercury và nhiều hợp chất của nó, việc sử dụng nguyên tố này hiện nay được kiểm soát nghiêm ngặt và nhiều ứng dụng truyền thống đã được thay thế bằng vật liệu an toàn hơn.</li>\n</ul>\n",
   "preparations": {
-    "lab": [],
+    "lab": [
+      {
+        "title": "Có thể điều chế Mercury bằng cách nung Mercury(II) oxide để thu Mercury và Oxygen.",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "2HgO → 2Hg + O₂",
+            "condition": "Gia nhiệt để phân hủy; nhiệt độ phụ thuộc chất và áp suất khí sản phẩm.",
+            "kind": "chemical",
+            "sourceLine": 70,
+            "sourceSection": "lab",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          68,
+          70
+        ],
+        "equation": "2HgO → 2Hg + O₂"
+      }
+    ],
     "industry": [
       {
-        "title": "Mercury chủ yếu được điều chế từ quặng Cinnabar (HgS) bằng cách nung quặng trong không khí:",
-        "equation": "HgS + O₂ → Hg + SO₂",
-        "desc": "Mercury tạo thành ở dạng hơi, sau đó được làm nguội và ngưng tụ thành Mercury lỏng."
+        "title": "Mercury (Hg) chủ yếu được điều chế từ quặng cinnabar (HgS). Quặng được nung trong không khí để phân hủy thành Mercury và Sulfur dioxide. Hơi Mercury sau đó được làm lạnh và ngưng tụ thành kim loại lỏng.",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "HgS + O₂ → Hg + SO₂",
+            "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+            "kind": "chemical",
+            "sourceLine": 66,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          64,
+          66
+        ],
+        "equation": "HgS + O₂ → Hg + SO₂"
       }
     ]
   },
   "recognition": [
     {
-      "title": "Nhận biết",
-      "reagent": "Nhận biết Hg²⁺",
-      "result": "",
-      "equation": ""
-    },
-    {
-      "title": "Một phương pháp định tính là cho Hg²⁺ tác dụng với Iodide",
-      "reagent": "",
-      "result": "",
-      "equation": ""
-    },
-    {
-      "title": "Nhận biết",
-      "reagent": "",
-      "result": "",
+      "title": "Nhận biết Hg²⁺",
+      "desc": "Một phương pháp định tính là cho Hg²⁺ tác dụng với Iodide:",
+      "result": "Xuất hiện kết tủa đỏ cam Mercury(II) iodide.",
+      "equations": [
+        {
+          "equation": "Hg²⁺ + 2I⁻ → HgI₂↓",
+          "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+          "kind": "chemical",
+          "sourceLine": 74,
+          "sourceSection": "recognition",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ],
+      "sourceLines": [
+        72,
+        73,
+        74,
+        75
+      ],
       "equation": "Hg²⁺ + 2I⁻ → HgI₂↓"
     },
     {
-      "title": "Hiện tượng",
-      "reagent": "",
-      "result": "Xuất hiện kết tủa đỏ cam Mercury(II) iodide.",
-      "equation": ""
-    },
-    {
       "title": "Khi tiếp tục cho dư Iodide, HgI₂ có thể hòa tan tạo phức",
-      "reagent": "",
+      "desc": "",
       "result": "",
-      "equation": ""
-    },
-    {
-      "title": "Nhận biết",
-      "reagent": "",
-      "result": "",
+      "equations": [
+        {
+          "equation": "HgI₂ + 2I⁻ → [HgI₄]²⁻",
+          "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+          "kind": "chemical",
+          "sourceLine": 77,
+          "sourceSection": "recognition",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ],
+      "sourceLines": [
+        76,
+        77
+      ],
       "equation": "HgI₂ + 2I⁻ → [HgI₄]²⁻"
     }
   ],
-  "structureType": "Lập phương nguyên thủy (Primitive cubic, PC) (ở trạng thái rắn)"
+  "applications": [
+    {
+      "title": "Thiết bị đo",
+      "desc": "Mercury từng được sử dụng rộng rãi trong nhiệt kế, áp kế và các thiết bị đo áp suất.",
+      "sourceLine": 94
+    },
+    {
+      "title": "Đèn Mercury",
+      "desc": "Mercury được sử dụng trong một số loại đèn phóng điện và đèn huỳnh quang.",
+      "sourceLine": 95
+    },
+    {
+      "title": "Công nghiệp hóa chất",
+      "desc": "Một số hợp chất Mercury được sử dụng làm chất xúc tác hoặc nguyên liệu trong các quá trình hóa học.",
+      "sourceLine": 96
+    },
+    {
+      "title": "Điện hóa",
+      "desc": "Mercury từng được sử dụng trong một số loại điện cực và pin.",
+      "sourceLine": 97
+    },
+    {
+      "title": "Khai thác Gold",
+      "desc": "Mercury từng được sử dụng để tạo hỗn hống với Gold trong quá trình khai thác và tinh chế Gold, nhưng phương pháp này gây ô nhiễm nghiêm trọng và nguy hiểm.",
+      "sourceLine": 98
+    },
+    {
+      "title": "Lưu ý",
+      "desc": "Do Mercury và nhiều hợp chất của nó có độc tính cao, việc sử dụng Mercury ngày nay đã bị hạn chế hoặc thay thế trong nhiều lĩnh vực.",
+      "sourceLine": 99
+    }
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Mercury là nguyên tố số 80, thuộc nhóm IIB | chu kỳ 6 và là một kim loại chuyển tiếp.</li><li>Mercury có cấu hình electron [Xe] 4f¹⁴ 5d¹⁰ 6s², với số Oxy hóa phổ biến là +1 và +2.</li><li>Đặc điểm nổi bật nhất của Mercury là trạng thái lỏng ở điều kiện thường, với nhiệt độ nóng chảy chỉ khoảng −38.83 °C.</li><li>Mercury chủ yếu được khai thác từ Cinnabar (HgS) và có lịch sử sử dụng lâu đời trong nhiệt kế, áp kế, đèn phóng điện và công nghiệp hóa chất.</li><li>Tuy nhiên, do độc tính cao của Mercury và nhiều hợp chất của nó, việc sử dụng nguyên tố này hiện nay được kiểm soát nghiêm ngặt và nhiều ứng dụng truyền thống đã được thay thế bằng vật liệu an toàn hơn.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/diagrams/080_Hg.svg",
+      "title": "Thủy ngân (Hg)",
+      "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+      "source": "",
+      "author": "ChemDex",
+      "license": "ChemDex schematic diagram",
+      "licenseUrl": ""
+    }
+  ],
+  "mediaBlocks": [
+    {
+      "type": "model",
+      "section": "structure",
+      "title": "Mẫu khoáng vật 3D · Cinnabar",
+      "src": "/assets/periodic-table/minerals/cinnabar.glb",
+      "preview": "/assets/periodic-table/minerals/cinnabar.png",
+      "desc": "HgS. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  ],
+  "sources": [
+    {
+      "title": "080_Hg.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "a5f95945f2d357b2fb695d71fd8e41f8cbb4bda818b34c11009b063324e857fa"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/80/mercury"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "080_Hg.docx",
+    "sourceSha256": "a5f95945f2d357b2fb695d71fd8e41f8cbb4bda818b34c11009b063324e857fa",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/080_Hg.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
 }

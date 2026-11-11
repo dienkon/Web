@@ -1,0 +1,380 @@
+{
+  "number": 116,
+  "symbol": "Lv",
+  "nameVi": "Livermorium",
+  "nameEn": "Livermorium",
+  "mass": 293,
+  "massStandardText": "[293] — số khối đồng vị tham chiếu, không phải nguyên tử khối chuẩn",
+  "massStandardSource": "https://periodic-table.rsc.org/element/116/livermorium",
+  "massKind": "reference-isotope-mass-number",
+  "category": "kim-loai-sau-chuyen-tiep",
+  "hasData": true,
+  "file": "elements/116_Lv.json",
+  "general": {
+    "latinName": "Livermorium",
+    "englishName": "Livermorium",
+    "electronConfig": "[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁴ (dự đoán)",
+    "isotope": "²⁹⁰Lv, ²⁹¹Lv, ²⁹²Lv, ²⁹³Lv, ²⁹⁴Lv",
+    "group": 16,
+    "groupLabel": "16",
+    "series": "",
+    "period": 7,
+    "state": "Chưa đo trạng thái vĩ mô; các giá trị pha chỉ là dự đoán",
+    "oxidation": "+2, +4, +6 (dự đoán)",
+    "electronegativity": null,
+    "electronegativityNote": "Chưa có giá trị Pauling đủ cơ sở trong bản đối chiếu; không coi 0 là giá trị đã đo.",
+    "density": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+    "meltingPoint": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+    "boilingPoint": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+    "crystalStructure": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+    "CAS": "54100-71-9"
+  },
+  "history": {
+    "discoverer": "Joint Institute for Nuclear Research (JINR) phối hợp với Lawrence Livermore National Laboratory (LLNL)",
+    "year": "2000",
+    "discoveryLocation": "Dubna, Nga",
+    "description": "Livermorium được tổng hợp lần đầu vào năm 2000 bằng cách bắn phá Curium-248 bằng Calcium-48: ²⁴⁸Cm + ⁴⁸Ca → ²⁹²Lv + 4n Tên Livermorium được đặt để vinh danh Lawrence Livermore National Laboratory ở California, Hoa Kỳ, nơi có đóng góp quan trọng vào việc phát hiện nguyên tố."
+  },
+  "structure": {
+    "protons": 116,
+    "electrons": 116,
+    "neutrons": 177,
+    "nucleusIsotope": "²⁹³Lv",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 116,
+      "neutron": 177
+    },
+    "electronShells": [
+      2,
+      8,
+      18,
+      32,
+      32,
+      18,
+      6
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      32,
+      32,
+      18,
+      6
+    ],
+    "valenceElectrons": 6,
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+    "lattice": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+    "latticeEvidence": "predicted"
+  },
+  "structureType": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+  "occurrence": {
+    "description": "Chất rắn (dự đoán)",
+    "simple": [
+      "Lv"
+    ],
+    "compounds": [
+      "LvO",
+      "LvO₂",
+      "LvCl₂",
+      "LvCl₄... (dự đoán)"
+    ],
+    "ores": [
+      "Không tồn tại tự nhiên với lượng đáng kể. Livermorium chỉ được tổng hợp nhân tạo"
+    ],
+    "details": [
+      "Trạng thái: Chất rắn (dự đoán)",
+      "Có trong: Không tồn tại tự nhiên với lượng đáng kể. Livermorium chỉ được tổng hợp nhân tạo.",
+      "Đơn chất: Lv",
+      "Hợp chất: LvO, LvO₂, LvCl₂, LvCl₄... (dự đoán)"
+    ],
+    "mineral": {
+      "available": false,
+      "reason": "Nguyên tố nhân tạo hoặc chỉ có vết tự nhiên; không có quặng khai thác riêng để dựng mẫu."
+    }
+  },
+  "naturalState": {
+    "image": "/assets/periodic-table/diagrams/116_Lv.svg",
+    "alt": "Livermorium: sơ đồ minh họa nguyên tố",
+    "kind": "diagram",
+    "source": "",
+    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+    "credit": ""
+  },
+  "isotopes": [
+    {
+      "isotope": "²⁹⁰Lv",
+      "massNumber": 290,
+      "protons": 116,
+      "neutrons": 174,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "8.3 (+3.5/−1.9) ms",
+      "halfLife": "8.3 ms",
+      "halfLifeUncertainty": "+35-19",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁹¹Lv",
+      "massNumber": 291,
+      "protons": 116,
+      "neutrons": 175,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "19 (+17/−6) ms",
+      "halfLife": "19 ms",
+      "halfLifeUncertainty": "+17-6",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁹²Lv",
+      "massNumber": 292,
+      "protons": 116,
+      "neutrons": 176,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "12.8 (+7.0/−3.3) ms",
+      "halfLife": "12.8 ms",
+      "halfLifeUncertainty": "+70-33",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁹³Lv",
+      "massNumber": 293,
+      "protons": 116,
+      "neutrons": 177,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "95 (+63/−27) ms",
+      "halfLife": "95 ms",
+      "halfLifeUncertainty": "+63-27",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁹⁴Lv",
+      "massNumber": 294,
+      "protons": 116,
+      "neutrons": 178,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "Chưa có giá trị trong bản đối chiếu",
+      "halfLife": "Chưa có giá trị trong bản đối chiếu",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Là nguyên tố thuộc nhóm VIA | chu kỳ 7.</li><li>Là nguyên tố siêu nặng.</li><li>Có tính phóng xạ cực mạnh.</li><li>Được dự đoán là chất rắn ở điều kiện thường.</li><li>Có tính chất kim loại rõ hơn các nguyên tố nhẹ hơn cùng nhóm.</li><li>Khối lượng riêng, nhiệt độ nóng chảy và nhiệt độ sôi chưa được xác định trực tiếp.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Có cấu hình electron hóa trị 7s² 7p⁴.</li><li>Các số Oxy hóa +2 và +4 được dự đoán có thể ổn định hơn +6.</li><li>Có thể có tính chất tương tự Polonium (Po).</li><li>Hiệu ứng tương đối tính và hiệu ứng cặp electron trơ làm tăng khả năng ổn định của trạng thái Oxy hóa thấp.</li><li>Phần lớn tính chất hóa học vẫn dựa trên dự đoán lý thuyết.</li></ul>",
+  "reactions": [
+    {
+      "type": "Tổng hợp Livermorium-292",
+      "desc": "",
+      "equation": "²⁴⁸Cm + ⁴⁸Ca → ²⁹²Lv + 4n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 70,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Phân rã Alpha",
+      "desc": "",
+      "equation": "²⁹²Lv → ²⁸⁸Fl + ⁴He",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 72,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tạo Livermorium(II) chloride",
+      "desc": "",
+      "equation": "Lv + Cl₂ → LvCl₂",
+      "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+      "kind": "formal",
+      "sourceLine": 74,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tạo Livermorium(IV) oxide",
+      "desc": "",
+      "equation": "Lv + O₂ → LvO₂",
+      "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+      "kind": "formal",
+      "sourceLine": 76,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "preparations": {
+    "lab": [
+      {
+        "title": "Livermorium được tổng hợp bằng cách bắn phá Curium-248 bằng ion Calcium-48 trong máy gia tốc hạt.",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "²⁴⁸Cm + ⁴⁸Ca → ²⁹³Lv + 3¹n",
+            "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+            "kind": "nuclear",
+            "sourceLine": 59,
+            "sourceSection": "lab",
+            "balance": {
+              "status": "balanced",
+              "kind": "nuclear",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          58,
+          59
+        ],
+        "equation": "²⁴⁸Cm + ⁴⁸Ca → ²⁹³Lv + 3¹n"
+      }
+    ],
+    "industry": [
+      {
+        "title": "Livermorium (Lv) không được sản xuất công nghiệp do tính phóng xạ rất cao và thời gian bán rã ngắn. Nguyên tố này chỉ được tổng hợp với lượng cực nhỏ trong các cơ sở nghiên cứu hạt nhân.",
+        "desc": "",
+        "result": "",
+        "equations": [],
+        "sourceLines": [
+          56
+        ],
+        "equation": ""
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Livermorium được nhận biết thông qua",
+      "desc": "Năng lượng các hạt Alpha. Chu kỳ bán rã. Chuỗi phân rã phóng xạ. Xác định các hạt nhân con. Đối chiếu chuỗi phân rã với các đồng vị đã biết. Do chỉ tạo được một số lượng cực nhỏ nguyên tử Lv, không thể nhận biết bằng phản ứng hóa học thông thường.",
+      "result": "",
+      "equations": [],
+      "sourceLines": [
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67
+      ],
+      "equation": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Ứng dụng",
+      "desc": "Livermorium không có ứng dụng công nghiệp hoặc dân dụng.",
+      "sourceLine": 79
+    },
+    {
+      "title": "Nó chủ yếu được sử dụng trong",
+      "desc": "",
+      "sourceLine": 80
+    },
+    {
+      "title": "Nghiên cứu hạt nhân",
+      "desc": "Nghiên cứu tính ổn định của các hạt nhân siêu nặng.",
+      "sourceLine": 81
+    },
+    {
+      "title": "Nghiên cứu “đảo ổn định”",
+      "desc": "Nghiên cứu các hạt nhân gần vùng được dự đoán có độ ổn định cao hơn.",
+      "sourceLine": 82
+    },
+    {
+      "title": "Hóa học nguyên tố siêu nặng",
+      "desc": "So sánh Livermorium với Polonium và các nguyên tố nhóm VIA khác.",
+      "sourceLine": 83
+    }
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Livermorium là nguyên tố số 116, thuộc nhóm VIA | chu kỳ 7 và là một nguyên tố siêu nặng.</li><li>Livermorium được tổng hợp lần đầu vào năm 2000 tại Dubna bằng phản ứng giữa Curium-248 và Calcium-48. Tên nguyên tố được đặt để vinh danh Lawrence Livermore National Laboratory.</li><li>Cấu hình electron được dự đoán là [Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁴. Livermorium nằm cùng nhóm với Oxygen, Sulfur, Selenium, Tellurium và Polonium, nhưng do hiệu ứng tương đối tính mạnh, nó được dự đoán có tính chất kim loại rõ rệt hơn.</li><li>Livermorium không có đồng vị bền, rất phóng xạ và chỉ được tạo ra với số lượng cực nhỏ. Vì vậy, nó không có ứng dụng thực tế, chủ yếu phục vụ nghiên cứu vật lý hạt nhân và hóa học nguyên tố siêu nặng.</li><li>Mạng tinh thể: Lập phương tâm khối (BCC) — dự đoán, vì chưa thể thu được lượng Livermorium đủ lớn để xác định trực tiếp cấu trúc tinh thể.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/diagrams/116_Lv.svg",
+      "title": "Livermorium (Lv)",
+      "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+      "source": "",
+      "author": "ChemDex",
+      "license": "ChemDex schematic diagram",
+      "licenseUrl": ""
+    }
+  ],
+  "mediaBlocks": [],
+  "sources": [
+    {
+      "title": "116_Lv.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "69fd202ad85b26be0ea7aa3f0af3c2c49cc7ce4d7d82196b89584520fb5696af"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/116/livermorium"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "116_Lv.docx",
+    "sourceSha256": "69fd202ad85b26be0ea7aa3f0af3c2c49cc7ce4d7d82196b89584520fb5696af",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/116_Lv.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
+}

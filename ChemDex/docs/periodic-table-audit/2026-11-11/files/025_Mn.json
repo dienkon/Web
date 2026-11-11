@@ -1,0 +1,1085 @@
+{
+  "symbol": "Mn",
+  "number": 25,
+  "source": "025_Mn.docx",
+  "sourceSha256": "6b6c76002c8bc00f1a6923235bb5600a78bef8e61dddee7ec61b07c89049bd7a",
+  "paragraphCount": 101,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 4,
+    "structure": 9,
+    "occurrence": 4,
+    "isotopes": 3,
+    "physical": 9,
+    "chemical": 8,
+    "lab": 3,
+    "industry": 4,
+    "recognition": 5,
+    "reactions": 18,
+    "applications": 7,
+    "notes": 4
+  },
+  "editorialDecisions": [
+    {
+      "line": 24,
+      "before": "Loại mạng: Lập phương tâm khối (Body-centered cubic, BCC)",
+      "after": "Loại mạng: α-Mn ở nhiệt độ thường có ô lập phương phức tạp, 58 nguyên tử/ô (I-43m); không phải BCC đơn nguyên tử.",
+      "reason": "Mạng α-Mn có nền ô tâm khối nhưng không thể mô phỏng bằng BCC 2 nguyên tử/ô."
+    },
+    {
+      "line": 82,
+      "before": "2Mn(OH)₂ + O₂ → 2MnO(OH) + H₂O",
+      "after": "4Mn(OH)₂ + O₂ → 4MnO(OH) + 2H₂O",
+      "reason": "Sửa hệ số để bảo toàn oxygen và hydrogen; đây là biểu diễn oxi hóa thành oxyhydroxide."
+    }
+  ],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "[Ar] 3d⁵ 4s²",
+      "publishedValue": "[Ar] 3d⁵ 4s²",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Lập phương tâm khối (Body-centered cubic, BCC)",
+      "publishedValue": "α-Mn ở nhiệt độ thường có ô lập phương phức tạp, 58 nguyên tử/ô (I-43m); không phải BCC đơn nguyên tử.",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "1.55",
+      "publishedValue": 1.55,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm VIIB | Chu kỳ 4",
+      "publishedValue": "7",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Manganese là kim loại rắn, màu xám bạc ở điều kiện thường.",
+      "publishedValue": "Rắn",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 32,
+      "sourceText": "⁵⁵Mn: Đồng vị bền duy nhất của Manganese, chiếm gần 100% Manganese tự nhiên.",
+      "reference": {
+        "isotope": "⁵⁵Mn",
+        "massNumber": 55,
+        "protons": 25,
+        "neutrons": 30,
+        "stable": true,
+        "abundancePercent": "100",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 58,
+      "text": "MnO₂ + 2C → Mn + 2CO",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 63,
+      "text": "3MnO + 2Al → 3Mn + Al₂O₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 68,
+      "text": "Mn²⁺ + 2OH⁻ → Mn(OH)₂↓",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 72,
+      "text": "3Mn + 2O₂ → Mn₃O₄",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 74,
+      "text": "Mn + Cl₂ → MnCl₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 76,
+      "text": "Mn + S → MnS",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 78,
+      "text": "Mn + 2HCl → MnCl₂ + H₂↑",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 80,
+      "text": "Mn²⁺ + 2OH⁻ → Mn(OH)₂↓",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 82,
+      "text": "2Mn(OH)₂ + O₂ → 2MnO(OH) + H₂O",
+      "status": "unbalanced",
+      "kind": "chemical",
+      "delta": {
+        "O": -1.0
+      }
+    },
+    {
+      "line": 84,
+      "text": "MnO₂ + 4HCl → MnCl₂ + Cl₂↑ + 2H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 86,
+      "text": "2MnO₄⁻ + 5H₂O₂ + 6H⁺ → 2Mn²⁺ + 5O₂↑ + 8H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 88,
+      "text": "3MnO + 2Al → 3Mn + Al₂O₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "lab",
+      "equation": "3MnO + 2Al → 3Mn + Al₂O₃",
+      "condition": "Khơi mào phản ứng nhiệt nhôm; chất đầu khan, phản ứng tự tỏa nhiệt mạnh.",
+      "kind": "chemical",
+      "sourceLine": 63,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "MnO₂ + 2C → Mn + 2CO",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 58,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "recognition",
+      "equation": "Mn²⁺ + 2OH⁻ → Mn(OH)₂↓",
+      "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+      "kind": "chemical",
+      "sourceLine": 68,
+      "sourceSection": "recognition",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "3Mn + 2O₂ → Mn₃O₄",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 72,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Mn + Cl₂ → MnCl₂",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 74,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Mn + S → MnS",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 76,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Mn + 2HCl → MnCl₂ + H₂↑",
+      "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+      "kind": "chemical",
+      "sourceLine": 78,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Mn²⁺ + 2OH⁻ → Mn(OH)₂↓",
+      "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+      "kind": "chemical",
+      "sourceLine": 80,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "4Mn(OH)₂ + O₂ → 4MnO(OH) + 2H₂O",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 82,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "MnO₂ + 4HCl → MnCl₂ + Cl₂↑ + 2H₂O",
+      "condition": "HCl đặc, đun nóng.",
+      "kind": "chemical",
+      "sourceLine": 84,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2MnO₄⁻ + 5H₂O₂ + 6H⁺ → 2Mn²⁺ + 5O₂↑ + 8H₂O",
+      "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+      "kind": "chemical",
+      "sourceLine": 86,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "3MnO + 2Al → 3Mn + Al₂O₃",
+      "condition": "Khơi mào phản ứng nhiệt nhôm; chất đầu khan, phản ứng tự tỏa nhiệt mạnh.",
+      "kind": "chemical",
+      "sourceLine": 88,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": [
+        {
+          "title": "Sản xuất thép",
+          "desc": "Manganese là nguyên tố hợp kim quan trọng, giúp tăng độ cứng, độ bền và khả năng chịu mài mòn của thép."
+        },
+        {
+          "title": "Ferromanganese",
+          "desc": "Được sử dụng rộng rãi trong luyện thép."
+        },
+        {
+          "title": "Pin",
+          "desc": "Manganese dioxide (MnO₂) được sử dụng trong một số loại pin, đặc biệt là pin Zinc–carbon và Alkaline."
+        },
+        {
+          "title": "Sản xuất hợp kim",
+          "desc": "Manganese được sử dụng trong nhiều hợp kim của sắt và các kim loại khác."
+        },
+        {
+          "title": "Xử lý thủy tinh",
+          "desc": "Một số Manganese compounds được sử dụng để tạo màu hoặc khử màu thủy tinh."
+        },
+        {
+          "title": "Phân bón",
+          "desc": "Một số Manganese compounds được sử dụng làm nguồn Manganese cho cây trồng."
+        },
+        {
+          "title": "Hóa chất",
+          "desc": "Potassium permanganate (KMnO₄) là một chất Oxy hóa quan trọng trong phòng thí nghiệm và công nghiệp."
+        }
+      ],
+      "after": [
+        {
+          "title": "Sản xuất thép",
+          "desc": "Manganese là nguyên tố hợp kim quan trọng, giúp tăng độ cứng, độ bền và khả năng chịu mài mòn của thép.",
+          "sourceLine": 90
+        },
+        {
+          "title": "Ferromanganese",
+          "desc": "Được sử dụng rộng rãi trong luyện thép.",
+          "sourceLine": 91
+        },
+        {
+          "title": "Pin",
+          "desc": "Manganese dioxide (MnO₂) được sử dụng trong một số loại pin, đặc biệt là pin Zinc–carbon và Alkaline.",
+          "sourceLine": 92
+        },
+        {
+          "title": "Sản xuất hợp kim",
+          "desc": "Manganese được sử dụng trong nhiều hợp kim của sắt và các kim loại khác.",
+          "sourceLine": 93
+        },
+        {
+          "title": "Xử lý thủy tinh",
+          "desc": "Một số Manganese compounds được sử dụng để tạo màu hoặc khử màu thủy tinh.",
+          "sourceLine": 94
+        },
+        {
+          "title": "Phân bón",
+          "desc": "Một số Manganese compounds được sử dụng làm nguồn Manganese cho cây trồng.",
+          "sourceLine": 95
+        },
+        {
+          "title": "Hóa chất",
+          "desc": "Potassium permanganate (KMnO₄) là một chất Oxy hóa quan trọng trong phòng thí nghiệm và công nghiệp.",
+          "sourceLine": 96
+        }
+      ]
+    },
+    {
+      "field": "chemical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có nhiều số Oxy hóa, từ +2 đến +7.</li>\n      <li>+2 là trạng thái Oxy hóa phổ biến nhất.</li>\n      <li>MnO₂ thể hiện tính Oxy hóa trong nhiều phản ứng.</li>\n      <li>Permanganate chứa Mn ở trạng thái +7 và có tính Oxy hóa mạnh.</li>\n      <li>Phản ứng với Oxygen khi nung nóng.</li>\n      <li>Phản ứng với Halogen tạo Manganese halide.</li>\n      <li>Phản ứng với acid tạo muối Manganese và Hydrogen.</li>\n      <li>Có thể tạo nhiều oxide với các số Oxy hóa khác nhau.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Có nhiều số Oxy hóa, từ +2 đến +7.</li><li>+2 là trạng thái Oxy hóa phổ biến nhất.</li><li>MnO₂ thể hiện tính Oxy hóa trong nhiều phản ứng.</li><li>Permanganate chứa Mn ở trạng thái +7 và có tính Oxy hóa mạnh.</li><li>Phản ứng với Oxygen khi nung nóng.</li><li>Phản ứng với Halogen tạo Manganese halide.</li><li>Phản ứng với acid tạo muối Manganese và Hydrogen.</li><li>Có thể tạo nhiều oxide với các số Oxy hóa khác nhau.</li></ul>"
+    },
+    {
+      "field": "general.CAS",
+      "before": null,
+      "after": "7439-96-5"
+    },
+    {
+      "field": "general.crystalStructure",
+      "before": "Lập phương tâm khối (Body-centered cubic, BCC)",
+      "after": "α-Mn ở nhiệt độ thường có ô lập phương phức tạp, 58 nguyên tử/ô (I-43m); không phải BCC đơn nguyên tử."
+    },
+    {
+      "field": "general.electronegativityNote",
+      "before": null,
+      "after": "Thang Pauling; số liệu tổng hợp PubChem."
+    },
+    {
+      "field": "general.groupLabel",
+      "before": null,
+      "after": "7"
+    },
+    {
+      "field": "general.series",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "general.state",
+      "before": "",
+      "after": "Rắn"
+    },
+    {
+      "field": "history.year",
+      "before": 1774,
+      "after": "1774"
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/diagrams/025_Mn.svg",
+          "title": "Mangan (Mn)",
+          "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+          "source": "",
+          "author": "ChemDex",
+          "license": "ChemDex schematic diagram",
+          "licenseUrl": ""
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "⁵⁵Mn",
+          "massNumber": 55,
+          "protons": 25,
+          "neutrons": 30,
+          "stable": true,
+          "abundancePercent": "100",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "standard-atomic-weight"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "54.938 ± 0.001"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": [
+        {
+          "type": "model",
+          "section": "structure",
+          "title": "Mẫu khoáng vật 3D · Pyrolusite",
+          "src": "/assets/periodic-table/minerals/pyrolusite.glb",
+          "preview": "/assets/periodic-table/minerals/pyrolusite.png",
+          "desc": "MnO₂. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "nameVi",
+      "before": "Manganese",
+      "after": "Mangan"
+    },
+    {
+      "field": "naturalState.alt",
+      "before": null,
+      "after": "Manganese: sơ đồ minh họa nguyên tố"
+    },
+    {
+      "field": "naturalState.caption",
+      "before": null,
+      "after": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật."
+    },
+    {
+      "field": "naturalState.credit",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "naturalState.image",
+      "before": null,
+      "after": "/assets/periodic-table/diagrams/025_Mn.svg"
+    },
+    {
+      "field": "naturalState.kind",
+      "before": null,
+      "after": "diagram"
+    },
+    {
+      "field": "naturalState.source",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "notes",
+      "before": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Manganese là nguyên tố số 25, thuộc nhóm VIIB | chu kỳ 4 và là một kim loại chuyển tiếp.</li>\n  <li>Manganese có cấu hình electron [Ar] 3d⁵ 4s² và có nhiều số Oxy hóa, từ +2 đến +7. Trong đó, +2 là trạng thái phổ biến nhất, còn +7 xuất hiện trong Permanganate.</li>\n  <li>Manganese có vai trò đặc biệt quan trọng trong luyện thép, đặc biệt là sản xuất Ferromanganese. Ngoài ra, các hợp chất như Manganese dioxide và Potassium permanganate có nhiều ứng dụng trong pin và công nghiệp hóa chất.</li>\n  <li>Trong tự nhiên, Manganese chủ yếu tồn tại trong các khoáng vật như Pyrolusite (MnO₂) và thường được khai thác cùng hoặc gần các quặng sắt.</li>\n</ul>\n",
+      "after": "<ul class=\"element-prose-list\"><li>Manganese là nguyên tố số 25, thuộc nhóm VIIB | chu kỳ 4 và là một kim loại chuyển tiếp.</li><li>Manganese có cấu hình electron [Ar] 3d⁵ 4s² và có nhiều số Oxy hóa, từ +2 đến +7. Trong đó, +2 là trạng thái phổ biến nhất, còn +7 xuất hiện trong Permanganate.</li><li>Manganese có vai trò đặc biệt quan trọng trong luyện thép, đặc biệt là sản xuất Ferromanganese. Ngoài ra, các hợp chất như Manganese dioxide và Potassium permanganate có nhiều ứng dụng trong pin và công nghiệp hóa chất.</li><li>Trong tự nhiên, Manganese chủ yếu tồn tại trong các khoáng vật như Pyrolusite (MnO₂) và thường được khai thác cùng hoặc gần các quặng sắt.</li></ul>"
+    },
+    {
+      "field": "occurrence.details",
+      "before": null,
+      "after": [
+        "Trạng thái: Manganese là kim loại rắn, màu xám bạc ở điều kiện thường.",
+        "Có trong: Pyrolusite (MnO₂), Manganite (MnO(OH)), Rhodochrosite (MnCO₃) và nhiều khoáng vật khác.",
+        "Đơn chất: Mn",
+        "Hợp chất: MnO₂, MnO, Mn₂O₃, Mn₃O₄, KMnO₄, MnSO₄..."
+      ]
+    },
+    {
+      "field": "occurrence.mineral",
+      "before": null,
+      "after": {
+        "available": true,
+        "id": "pyrolusite",
+        "name": "Pyrolusite",
+        "formula": "MnO₂",
+        "habit": "needles",
+        "color": "#596070",
+        "crystalSystem": "tetragonal",
+        "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+        "source": "https://www.handbookofmineralogy.org/",
+        "sourceSearch": "https://rruff.info/Pyrolusite",
+        "model": "/assets/periodic-table/minerals/pyrolusite.glb",
+        "preview": "/assets/periodic-table/minerals/pyrolusite.png",
+        "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      }
+    },
+    {
+      "field": "physical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại chuyển tiếp.</li>\n      <li>Có màu xám bạc.</li>\n      <li>Cứng và giòn.</li>\n      <li>Khó nóng chảy.</li>\n      <li>Khối lượng riêng: khoảng 7.21 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 1246 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 2061 °C.</li>\n      <li>Dẫn điện và dẫn nhiệt tương đối kém so với nhiều kim loại.</li>\n      <li>Có nhiều dạng thù hình.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Là kim loại chuyển tiếp.</li><li>Có màu xám bạc.</li><li>Cứng và giòn.</li><li>Khó nóng chảy.</li><li>Khối lượng riêng: khoảng 7.21 g/cm³.</li><li>Nhiệt độ nóng chảy: khoảng 1246 °C.</li><li>Nhiệt độ sôi: khoảng 2061 °C.</li><li>Dẫn điện và dẫn nhiệt tương đối kém so với nhiều kim loại.</li><li>Có nhiều dạng thù hình.</li></ul>"
+    },
+    {
+      "field": "preparations.industry",
+      "before": [
+        {
+          "title": "Manganese được sản xuất chủ yếu từ quặng Manganese oxide bằng phương pháp nhiệt luyện.",
+          "equation": "",
+          "desc": ""
+        },
+        {
+          "title": "Một phản ứng khử đơn giản:",
+          "equation": "MnO₂ + 2C → Mn + 2CO",
+          "desc": "Trong sản xuất Ferroalloy, Manganese thường được dùng để sản xuất Ferromanganese và Silicomanganese."
+        }
+      ],
+      "after": [
+        {
+          "title": "Manganese được sản xuất chủ yếu từ quặng Manganese oxide bằng phương pháp nhiệt luyện.",
+          "desc": "Một phản ứng khử đơn giản: Trong sản xuất Ferroalloy, Manganese thường được dùng để sản xuất Ferromanganese và Silicomanganese.",
+          "result": "",
+          "equations": [
+            {
+              "equation": "MnO₂ + 2C → Mn + 2CO",
+              "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+              "kind": "chemical",
+              "sourceLine": 58,
+              "sourceSection": "industry",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            56,
+            57,
+            58,
+            59
+          ],
+          "equation": "MnO₂ + 2C → Mn + 2CO"
+        }
+      ]
+    },
+    {
+      "field": "preparations.lab",
+      "before": [
+        {
+          "title": "Có thể điều chế bằng cách khử Manganese(II) oxide bằng Aluminium:",
+          "equation": "3MnO + 2Al → 3Mn + Al₂O₃",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Manganese kim loại không thường được điều chế trong phòng thí nghiệm phổ thông.",
+          "desc": "Có thể điều chế bằng cách khử Manganese(II) oxide bằng Aluminium:",
+          "result": "",
+          "equations": [
+            {
+              "equation": "3MnO + 2Al → 3Mn + Al₂O₃",
+              "condition": "Khơi mào phản ứng nhiệt nhôm; chất đầu khan, phản ứng tự tỏa nhiệt mạnh.",
+              "kind": "chemical",
+              "sourceLine": 63,
+              "sourceSection": "lab",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            61,
+            62,
+            63
+          ],
+          "equation": "3MnO + 2Al → 3Mn + Al₂O₃"
+        }
+      ]
+    },
+    {
+      "field": "reactions",
+      "before": [
+        {
+          "type": "Tác dụng với Oxygen",
+          "equation": "3Mn + 2O₂ → Mn₃O₄",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Chlorine",
+          "equation": "Mn + Cl₂ → MnCl₂",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Sulfur",
+          "equation": "Mn + S → MnS",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Hydrochloric acid",
+          "equation": "Mn + 2HCl → MnCl₂ + H₂↑",
+          "desc": ""
+        },
+        {
+          "type": "Tạo Manganese(II) hydroxide",
+          "equation": "Mn²⁺ + 2OH⁻ → Mn(OH)₂↓",
+          "desc": ""
+        },
+        {
+          "type": "Oxy hóa Manganese(II) hydroxide trong không khí",
+          "equation": "2Mn(OH)₂ + O₂ → 2MnO(OH) + H₂O",
+          "desc": ""
+        },
+        {
+          "type": "Phân hủy Manganese dioxide với Hydrochloric acid",
+          "equation": "MnO₂ + 4HCl → MnCl₂ + Cl₂↑ + 2H₂O",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Potassium permanganate trong môi trường acid",
+          "equation": "2MnO₄⁻ + 5H₂O₂ + 6H⁺ → 2Mn²⁺ + 5O₂↑ + 8H₂O",
+          "desc": ""
+        },
+        {
+          "type": "Điều chế Manganese",
+          "equation": "3MnO + 2Al → 3Mn + Al₂O₃",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "type": "Tác dụng với Oxygen",
+          "desc": "",
+          "equation": "3Mn + 2O₂ → Mn₃O₄",
+          "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+          "kind": "chemical",
+          "sourceLine": 72,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Chlorine",
+          "desc": "",
+          "equation": "Mn + Cl₂ → MnCl₂",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 74,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Sulfur",
+          "desc": "",
+          "equation": "Mn + S → MnS",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 76,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Hydrochloric acid",
+          "desc": "",
+          "equation": "Mn + 2HCl → MnCl₂ + H₂↑",
+          "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+          "kind": "chemical",
+          "sourceLine": 78,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Manganese(II) hydroxide",
+          "desc": "",
+          "equation": "Mn²⁺ + 2OH⁻ → Mn(OH)₂↓",
+          "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+          "kind": "chemical",
+          "sourceLine": 80,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Oxy hóa Manganese(II) hydroxide trong không khí",
+          "desc": "",
+          "equation": "4Mn(OH)₂ + O₂ → 4MnO(OH) + 2H₂O",
+          "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+          "kind": "chemical",
+          "sourceLine": 82,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Phân hủy Manganese dioxide với Hydrochloric acid",
+          "desc": "",
+          "equation": "MnO₂ + 4HCl → MnCl₂ + Cl₂↑ + 2H₂O",
+          "condition": "HCl đặc, đun nóng.",
+          "kind": "chemical",
+          "sourceLine": 84,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Potassium permanganate trong môi trường acid",
+          "desc": "",
+          "equation": "2MnO₄⁻ + 5H₂O₂ + 6H⁺ → 2Mn²⁺ + 5O₂↑ + 8H₂O",
+          "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+          "kind": "chemical",
+          "sourceLine": 86,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Điều chế Manganese",
+          "desc": "",
+          "equation": "3MnO + 2Al → 3Mn + Al₂O₃",
+          "condition": "Khơi mào phản ứng nhiệt nhôm; chất đầu khan, phản ứng tự tỏa nhiệt mạnh.",
+          "kind": "chemical",
+          "sourceLine": 88,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": [
+        {
+          "title": "Nhận biết",
+          "reagent": "Nhận biết Mn²⁺",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "Dung dịch chứa Mn²⁺ thường không màu hoặc có màu rất nhạt.",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Có thể tạo kết tủa Manganese(II) hydroxide",
+          "reagent": "",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "",
+          "result": "",
+          "equation": "Mn²⁺ + 2OH⁻ → Mn(OH)₂↓"
+        },
+        {
+          "title": "Hiện tượng",
+          "reagent": "",
+          "result": "Xuất hiện kết tủa trắng hoặc trắng hơi hồng, nhanh chóng bị Oxygen trong không khí oxy hóa và chuyển màu nâu.",
+          "equation": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Nhận biết Mn²⁺",
+          "desc": "Dung dịch chứa Mn²⁺ thường không màu hoặc có màu rất nhạt. Có thể tạo kết tủa Manganese(II) hydroxide:",
+          "result": "Xuất hiện kết tủa trắng hoặc trắng hơi hồng, nhanh chóng bị Oxygen trong không khí oxy hóa và chuyển màu nâu.",
+          "equations": [
+            {
+              "equation": "Mn²⁺ + 2OH⁻ → Mn(OH)₂↓",
+              "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+              "kind": "chemical",
+              "sourceLine": 68,
+              "sourceSection": "recognition",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            65,
+            66,
+            67,
+            68,
+            69
+          ],
+          "equation": "Mn²⁺ + 2OH⁻ → Mn(OH)₂↓"
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "025_Mn.docx",
+        "sourceSha256": "6b6c76002c8bc00f1a6923235bb5600a78bef8e61dddee7ec61b07c89049bd7a",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/025_Mn.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "025_Mn.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "6b6c76002c8bc00f1a6923235bb5600a78bef8e61dddee7ec61b07c89049bd7a"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/25/manganese"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure.lattice",
+      "before": "Lập phương tâm khối (Body-centered cubic, BCC)",
+      "after": "α-Mn ở nhiệt độ thường có ô lập phương phức tạp, 58 nguyên tử/ô (I-43m); không phải BCC đơn nguyên tử."
+    },
+    {
+      "field": "structure.latticeEvidence",
+      "before": null,
+      "after": "source-reviewed"
+    },
+    {
+      "field": "structure.nucleusIsotope",
+      "before": null,
+      "after": "⁵⁵Mn"
+    },
+    {
+      "field": "structure.nucleusNote",
+      "before": null,
+      "after": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác."
+    },
+    {
+      "field": "structure.valenceNote",
+      "before": null,
+      "after": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp."
+    },
+    {
+      "field": "structureType",
+      "before": "Lập phương tâm khối (Body-centered cubic, BCC)",
+      "after": "α-Mn ở nhiệt độ thường có ô lập phương phức tạp, 58 nguyên tử/ô (I-43m); không phải BCC đơn nguyên tử."
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "Mn",
+      "status": "diagram",
+      "reason": "Chưa xác nhận giấy phép dùng lại: FAL"
+    },
+    "mineral": {
+      "available": true,
+      "id": "pyrolusite",
+      "name": "Pyrolusite",
+      "formula": "MnO₂",
+      "habit": "needles",
+      "color": "#596070",
+      "crystalSystem": "tetragonal",
+      "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Pyrolusite",
+      "model": "/assets/periodic-table/minerals/pyrolusite.glb",
+      "preview": "/assets/periodic-table/minerals/pyrolusite.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "Mn",
+      "z": 25,
+      "url": "https://periodic-table.rsc.org/element/25/manganese",
+      "status": "retrieved",
+      "bytes": 156209,
+      "sha256": "4c91396fa7b3029c85cc95b31fff707c3d70c0a382949cf873ce3f34275646f5",
+      "facts": {
+        "Group": "7",
+        "Melting point": "1246°C, 2275°F, 1519 K",
+        "Period": "4",
+        "Boiling point": "2061°C, 3742°F, 2334 K",
+        "Block": "d",
+        "Density (g cm−³)": "7.3",
+        "Atomic number": "25",
+        "Relative atomic mass": "54.938",
+        "State at 20°C": "Solid",
+        "Key isotopes": "⁵⁵Mn",
+        "Electron configuration": "[Ar] 3d⁵4s²",
+        "CAS number": "7439-96-5",
+        "ChemSpider ID": "22372",
+        "electronegativity": "1.55"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "25",
+      "Symbol": "Mn",
+      "Name": "Manganese",
+      "AtomicMass": "54.93804",
+      "CPKHexColor": "9C7AC7",
+      "ElectronConfiguration": "[Ar]4s2 3d5",
+      "Electronegativity": "1.55",
+      "AtomicRadius": "197",
+      "IonizationEnergy": "7.434",
+      "ElectronAffinity": "",
+      "OxidationStates": "+7, +4, +3, +2",
+      "StandardState": "Solid",
+      "MeltingPoint": "1519",
+      "BoilingPoint": "2334",
+      "Density": "7.3",
+      "GroupBlock": "Transition metal",
+      "YearDiscovered": "1774"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

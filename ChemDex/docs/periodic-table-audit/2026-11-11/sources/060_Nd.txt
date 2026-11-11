@@ -1,0 +1,98 @@
+001: Neodymium (Nd)
+002: Thông tin chung
+003: Tên Latin: Neodymium
+004: Tên Tiếng Anh: Neodymium
+005: Đồng vị: ¹⁴²Nd, ¹⁴³Nd, ¹⁴⁴Nd, ¹⁴⁵Nd, ¹⁴⁶Nd, ¹⁴⁸Nd, ¹⁵⁰Nd
+006: Vị trí: Nhóm IIIB | Chu kỳ 6 | Họ Lanthanide
+007: Số Oxy hóa: +2, +3, +4
+008: Độ âm điện: 1,14 (Pauling)
+009: Lịch sử khám phá
+010: Phát hiện bởi: Carl Auer von Welsbach
+011: Năm công bố: 1885
+012: Nơi khám phá: Vienna, Áo-Hung
+013: Mô tả: Neodymium được Carl Auer von Welsbach tách ra từ Didymium, một chất trước đó được cho là một nguyên tố duy nhất. Ông chứng minh Didymium thực chất là hỗn hợp của Praseodymium và Neodymium.
+014: Tên Neodymium bắt nguồn từ tiếng Hy Lạp neos (νέος, “mới”) và didymos (δίδυμος, “sinh đôi”), nghĩa là “sinh đôi mới”.
+015: 3. Cấu tạo
+016: a. Cấu tạo nguyên tử
+017: Cấu hình electron: [Xe] 4f⁴ 6s²
+018: Mô hình mạng tinh thể: Lục phương xếp chặt (Hexagonal close-packed, HCP)
+019: Số hiệu nguyên tử: 60
+020: Nguyên tử khối: 144,242 g/mol
+021: Vỏ nguyên tử: 60 electron
+022: Hạt nhân: 60 proton
+023: Cấu hình e đầy đủ: 1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰ 4p⁶ 5s² 4d¹⁰ 5p⁶ 4f⁴ 6s²
+024: Loại mạng: Lục phương xếp chặt (HCP)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Chất rắn
+027: Màu sắc: Trắng bạc
+028: Có trong: Monazite và Bastnäsite.
+029: Đơn chất: Nd
+030: Hợp chất phổ biến: Nd₂O₃, NdCl₃, NdF₃, Nd₂(SO₄)₃
+031: c. Đồng vị
+032: Neodymium có 7 đồng vị tự nhiên:
+033: ¹⁴²Nd: khoảng 27,2%, bền.
+034: ¹⁴³Nd: khoảng 12,2%, bền.
+035: ¹⁴⁴Nd: khoảng 23,8%, phóng xạ, chu kỳ bán rã khoảng 2,29 × 10¹⁵ năm.
+036: ¹⁴⁵Nd: khoảng 8,3%, bền.
+037: ¹⁴⁶Nd: khoảng 17,2%, bền.
+038: ¹⁴⁸Nd: khoảng 5,7%, bền.
+039: ¹⁵⁰Nd: khoảng 5,6%, phóng xạ, chu kỳ bán rã khoảng 7 × 10¹⁸ năm.
+040: Trong đó ¹⁴²Nd là đồng vị tự nhiên phổ biến nhất.
+041: Tính chất
+042: Tính chất vật lý
+043: Là kim loại đất hiếm.
+044: Thuộc họ Lanthanide.
+045: Có màu trắng bạc.
+046: Khá mềm.
+047: Có tính dẫn điện và dẫn nhiệt.
+048: Có tính thuận từ mạnh.
+049: Bề mặt dễ bị oxy hóa trong không khí.
+050: Có nhiệt độ nóng chảy khoảng 1024 °C.
+051: Có nhiệt độ sôi khoảng 3074 °C.
+052: Khối lượng riêng khoảng 7,01 g/cm³.
+053: Tính chất hóa học
+054: Số Oxy hóa phổ biến nhất là +3.
+055: Nd²⁺ và Nd⁴⁺ có thể tồn tại trong một số điều kiện đặc biệt.
+056: Dễ phản ứng với Oxygen:
+057: 4Nd + 3O₂ → 2Nd₂O₃
+058: Phản ứng với Acid tạo muối Neodymium(III) và giải phóng Hydrogen.
+059: Các ion Nd³⁺ tạo ra nhiều hợp chất có màu tím/hồng nhạt.
+060: Điều chế
+061: Điều chế trong công nghiệp
+062: Neodymium (Nd) chủ yếu được điều chế từ quặng monazite và bastnaesite. Sau khi tách khỏi hỗn hợp đất hiếm, Neodymium được thu bằng phương pháp điện phân muối nóng chảy hoặc khử Neodymium fluoride bằng Calcium.
+063: Phương trình:
+064: 2NdF₃ + 3Ca → 2Nd + 3CaF₂
+065: Điều chế trong phòng thí nghiệm
+066: Có thể điều chế Neodymium bằng cách khử Neodymium chloride khan bằng Calcium.
+067: Phương trình:
+068: 2NdCl₃ + 3Ca → 2Nd + 3CaCl₂
+069: Nhận biết
+070: Có thể nhận biết Neodymium bằng:
+071: Phổ phát xạ nguyên tử.
+072: ICP-OES hoặc ICP-MS.
+073: Phổ hấp thụ đặc trưng của Nd³⁺.
+074: Màu sắc đặc trưng của một số hợp chất Neodymium.
+075: Dung dịch chứa Nd³⁺ thường có màu tím nhạt/hồng tím.
+076: Phương trình
+077: Tác dụng với Oxygen
+078: 4Nd + 3O₂ → 2Nd₂O₃
+079: Tác dụng với Hydrochloric acid
+080: 2Nd + 6HCl → 2NdCl₃ + 3H₂
+081: Tác dụng với nước
+082: 2Nd + 6H₂O → 2Nd(OH)₃ + 3H₂
+083: Tạo Neodymium(III) hydroxide
+084: NdCl₃ + 3NaOH → Nd(OH)₃↓ + 3NaCl
+085: Điều chế Neodymium
+086: 2NdCl₃ + 3Ca → 2Nd + 3CaCl₂
+087: Ứng dụng thực tế
+088: Nam châm Nd-Fe-B: Đây là ứng dụng nổi bật nhất của Neodymium. Nam châm Neodymium–Iron–Boron (Nd-Fe-B) có từ tính rất mạnh và được sử dụng trong động cơ điện, máy phát điện, loa, tai nghe và nhiều thiết bị điện tử.
+089: Laser: Neodymium-doped Yttrium Aluminum Garnet (Nd:YAG) là vật liệu laser quan trọng, được sử dụng trong công nghiệp, nghiên cứu và một số thiết bị y tế.
+090: Kính quang học: Hợp chất Neodymium được sử dụng để tạo kính có màu đặc trưng và điều chỉnh khả năng hấp thụ ánh sáng.
+091: Kính lọc: Một số loại kính chứa Neodymium được dùng để lọc các vùng bước sóng nhất định trong quang học.
+092: Gốm và thủy tinh: Neodymium compounds được sử dụng làm chất tạo màu cho glass và ceramic.
+093: Tổng quan
+094: Neodymium là nguyên tố số 60, thuộc nhóm IIIB | chu kỳ 6 và là nguyên tố thứ tư trong họ Lanthanide.
+095: Neodymium được Carl Auer von Welsbach phát hiện vào năm 1885 khi ông tách Didymium thành Neodymium và Praseodymium. Tên nguyên tố có nghĩa là “sinh đôi mới”.
+096: Neodymium là kim loại đất hiếm màu trắng bạc, mềm và khá hoạt động hóa học. Trạng thái Oxy hóa phổ biến nhất là +3.
+097: Ứng dụng quan trọng nhất của Neodymium là chế tạo nam châm Nd-Fe-B, một trong những loại nam châm vĩnh cửu mạnh nhất hiện nay. Ngoài ra, Neodymium còn đóng vai trò quan trọng trong laser Nd:YAG, kính quang học, thiết bị điện tử và vật liệu ceramic.
+098: Mạng tinh thể: Lục phương xếp chặt (HCP) ở điều kiện thường.

@@ -1,0 +1,88 @@
+001: Osmium (Os)
+002: Thông tin chung
+003: Tên Latin: Osmium
+004: Tên Tiếng Anh: Osmium
+005: Đồng vị: ¹⁸⁴Os, ¹⁸⁶Os, ¹⁸⁷Os, ¹⁸⁸Os, ¹⁸⁹Os, ¹⁹⁰Os, ¹⁹²Os
+006: Vị trí: Nhóm VIIIB | Chu kỳ 6
+007: Số Oxy hóa: −2, −1, 0, +1, +2, +3, +4, +6, +8
+008: Độ âm điện: 2.20
+009: Lịch sử khám phá
+010: Phát hiện bởi: Smithson Tennant
+011: Năm công bố: 1803
+012: Nơi khám phá: Anh
+013: Mô tả: Osmium được Smithson Tennant phát hiện vào năm 1803 khi nghiên cứu cặn không tan còn lại sau khi hòa tan Platinum trong nước cường toan. Ông nhận thấy một chất tạo ra mùi đặc trưng và đặt tên là Osmium, bắt nguồn từ tiếng Hy Lạp osme, nghĩa là “mùi”.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Xe] 4f¹⁴ 5d⁶ 6s²
+017: Mô hình mạng tinh thể: Lục phương (Hexagonal)
+018: Số hiệu nguyên tử: 76
+019: Nguyên tử khối: 190.23 g/mol
+020: Vỏ nguyên tử: 76 electron
+021: K: 2 | L: 8 | M: 18 | N: 32 | O: 14 | P: 2
+022: Hạt nhân: 76 proton, 114 neutron đối với ¹⁹⁰Os
+023: Cấu hình e: [Xe] 4f¹⁴ 5d⁶ 6s²
+024: Loại mạng: Lục phương (Hexagonal)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Osmium là kim loại rắn, màu xanh xám hoặc trắng bạc, rất cứng và giòn.
+027: Có trong: Thường tồn tại cùng các kim loại nhóm Platinum, đặc biệt trong các khoáng vật chứa Platinum và Iridium.
+028: Đơn chất: Os
+029: Hợp chất: OsO₄, OsO₂, OsCl₃, OsCl₄, OsS₂...
+030: c. Đồng vị
+031: Đồng vị: ¹⁸⁴Os, ¹⁸⁶Os, ¹⁸⁷Os, ¹⁸⁸Os, ¹⁸⁹Os, ¹⁹⁰Os, ¹⁹²Os
+032: Osmium có 7 đồng vị tự nhiên. Trong đó ¹⁸⁴Os và ¹⁸⁶Os về cơ bản ổn định, còn ¹⁸⁷Os là sản phẩm phân rã của ¹⁸⁷Re.
+033: ¹⁹²Os: Là một trong những đồng vị tự nhiên phổ biến của Osmium.
+034: Tính chất
+035: Tính chất vật lý
+036: Là kim loại chuyển tiếp và thuộc nhóm kim loại Platinum.
+037: Màu xanh xám hoặc trắng bạc.
+038: Rất cứng và giòn.
+039: Có khối lượng riêng lớn nhất trong số các nguyên tố tự nhiên.
+040: Khối lượng riêng: khoảng 22.59 g/cm³.
+041: Nhiệt độ nóng chảy: khoảng 3033 °C.
+042: Nhiệt độ sôi: khoảng 5012 °C.
+043: Dẫn điện và dẫn nhiệt.
+044: Có khả năng chống mài mòn cao.
+045: Tính chất hóa học
+046: Có nhiều số Oxy hóa, trong đó +4 và +8 là quan trọng.
+047: Ở nhiệt độ thường tương đối bền trong không khí.
+048: Khi nung nóng phản ứng với Oxygen tạo Osmium tetroxide (OsO₄).
+049: Có thể tạo hợp chất với Halogen và Sulfur.
+050: OsO₄ là chất Oxy hóa mạnh và rất độc.
+051: Có khả năng tạo nhiều phức chất.
+052: Điều chế
+053: Điều chế trong công nghiệp
+054: Osmium (Os) chủ yếu được thu hồi như sản phẩm phụ trong quá trình tinh luyện quặng Platinum và Nickel. Osmium được tách khỏi hỗn hợp kim loại nhóm Platinum thông qua quá trình oxy hóa, tạo thành Osmium tetroxide dễ bay hơi, sau đó được chuyển hóa và khử để thu kim loại Osmium.
+055: Phương trình:
+056: OsO₄ + 4H₂ → Os + 4H₂O
+057: Điều chế trong phòng thí nghiệm
+058: Có thể điều chế Osmium bằng cách khử Osmium tetroxide bằng Hydrogen trong điều kiện thích hợp.
+059: Phương trình:
+060: OsO₄ + 4H₂ → Os + 4H₂O
+061: Nhận biết
+062: Osmium thường được xác định bằng phân tích quang phổ hoặc các phương pháp phân tích chuyên dụng.
+063: Một đặc điểm đặc trưng là khi Osmium bị Oxy hóa có thể tạo Osmium tetroxide (OsO₄):
+064: Os + 2O₂ → OsO₄
+065: Hiện tượng: OsO₄ là chất rắn dễ bay hơi, có mùi rất mạnh và độc.
+066: Phương trình
+067: Tác dụng với Oxygen
+068: Os + 2O₂ → OsO₄
+069: Tác dụng với Chlorine
+070: 2Os + 3Cl₂ → 2OsCl₃
+071: Tác dụng với Sulfur
+072: Os + 2S → OsS₂
+073: Khử Osmium tetroxide
+074: OsO₄ + 4H₂ → Os + 4H₂O
+075: Tạo Osmium dioxide
+076: Os + O₂ → OsO₂
+077: Ứng dụng thực tế
+078: Hợp kim: Osmium được sử dụng trong một số hợp kim đặc biệt để tăng độ cứng và khả năng chống mài mòn.
+079: Bút máy: Osmium từng được sử dụng trong hợp kim làm đầu ngòi bút và các chi tiết chịu mài mòn.
+080: Thiết bị chính xác: Các hợp kim chứa Osmium được sử dụng trong một số dụng cụ và linh kiện cần độ bền cao.
+081: Xúc tác: Osmium và các phức chất của nó được sử dụng trong một số phản ứng hóa học đặc biệt.
+082: Nghiên cứu: Các hợp chất Osmium được sử dụng trong nghiên cứu hóa học và vật liệu.
+083: Tổng quan
+084: Osmium là nguyên tố số 76, thuộc nhóm VIIIB | chu kỳ 6 và là một kim loại chuyển tiếp thuộc nhóm Platinum.
+085: Osmium có cấu hình electron [Xe] 4f¹⁴ 5d⁶ 6s², với các số Oxy hóa quan trọng là +4 và +8.
+086: Osmium là kim loại rất cứng, giòn và có khối lượng riêng cực lớn, khoảng 22.59 g/cm³. Đây là một trong những nguyên tố tự nhiên có khối lượng riêng lớn nhất.
+087: Đặc điểm hóa học nổi bật của Osmium là khả năng tạo Osmium tetroxide (OsO₄), một hợp chất rất độc và có tính Oxy hóa mạnh.
+088: Osmium chủ yếu được sử dụng trong hợp kim chịu mài mòn, dụng cụ chính xác, xúc tác và nghiên cứu hóa học, do độ cứng và khả năng chống mài mòn cao.

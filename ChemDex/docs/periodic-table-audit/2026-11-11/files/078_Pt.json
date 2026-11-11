@@ -1,0 +1,1016 @@
+{
+  "symbol": "Pt",
+  "number": 78,
+  "source": "078_Pt.docx",
+  "sourceSha256": "b320a172895f3507a93792413704c405abf96d9978a100ba68462813b58c76d7",
+  "paragraphCount": 91,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 4,
+    "structure": 9,
+    "occurrence": 4,
+    "isotopes": 5,
+    "physical": 8,
+    "chemical": 6,
+    "lab": 2,
+    "industry": 2,
+    "recognition": 4,
+    "reactions": 11,
+    "applications": 6,
+    "notes": 4
+  },
+  "editorialDecisions": [
+    {
+      "line": 73,
+      "before": "Pt + O₂ → PtO₂",
+      "after": null,
+      "reason": "Không trình bày Pt + O₂ là phương pháp điều chế PtO₂ thông thường; platinum bền với oxi hóa trực tiếp."
+    },
+    {
+      "line": 75,
+      "before": "Pt + 4HCl + HNO₃ → H₂PtCl₆ + NO + 2H₂O",
+      "after": "3Pt + 18HCl + 4HNO₃ → 3H₂PtCl₆ + 4NO + 8H₂O",
+      "reason": "Cân bằng lại phản ứng nước cường toan; hệ số gốc sai H/Cl và electron."
+    }
+  ],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "[Xe] 4f¹⁴ 5d⁹ 6s¹",
+      "publishedValue": "[Xe] 4f¹⁴ 5d⁹ 6s¹",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Lập phương tâm mặt (Face-centered cubic, FCC)",
+      "publishedValue": "Lập phương tâm mặt (Face-centered cubic, FCC)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "2.28",
+      "publishedValue": 2.28,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm VIIIB | Chu kỳ 6",
+      "publishedValue": "10",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Platinum là kim loại rắn, màu trắng bạc, sáng bóng.",
+      "publishedValue": "Rắn",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 33,
+      "sourceText": "¹⁹⁴Pt: đồng vị tự nhiên phổ biến nhất.",
+      "reference": {
+        "isotope": "¹⁹⁴Pt",
+        "massNumber": 194,
+        "protons": 78,
+        "neutrons": 116,
+        "stable": true,
+        "abundancePercent": "32.864",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 34,
+      "sourceText": "¹⁹⁰Pt: có tính phóng xạ cực yếu và chu kỳ bán rã rất dài.",
+      "reference": {
+        "isotope": "¹⁹⁰Pt",
+        "massNumber": 190,
+        "protons": 78,
+        "neutrons": 112,
+        "stable": false,
+        "abundancePercent": "0.012",
+        "halfLifeDisplay": "4.97E11 ± 1.6E+10 năm",
+        "halfLife": "4.97E11 Y",
+        "halfLifeUncertainty": "16",
+        "halfLifeQualifier": null,
+        "decay": "A",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 57,
+      "text": "(NH₄)₂PtCl₆ → Pt + 2NH₄Cl + 2Cl₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 61,
+      "text": "(NH₄)₂PtCl₆ → Pt + 2NH₄Cl + 2Cl₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 65,
+      "text": "H₂PtCl₆ + 2NH₄Cl → (NH₄)₂PtCl₆↓ + 2HCl",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 69,
+      "text": "Pt + Cl₂ → PtCl₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 71,
+      "text": "Pt + 2Cl₂ → PtCl₄",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 73,
+      "text": "Pt + O₂ → PtO₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 75,
+      "text": "Pt + 4HCl + HNO₃ → H₂PtCl₆ + NO + 2H₂O",
+      "status": "unbalanced",
+      "kind": "chemical",
+      "delta": {
+        "H": 1.0,
+        "Cl": 2.0
+      }
+    },
+    {
+      "line": 77,
+      "text": "H₂PtCl₆ + 2NH₄Cl → (NH₄)₂PtCl₆↓ + 2HCl",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 79,
+      "text": "PtCl₄ + 2H₂ → Pt + 4HCl",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "lab",
+      "equation": "(NH₄)₂PtCl₆ → Pt + 2NH₄Cl + 2Cl₂",
+      "condition": "Gia nhiệt hoặc điều kiện chuyên dụng theo quá trình đã mô tả; không suy ra tốc độ từ hệ số phản ứng.",
+      "kind": "chemical",
+      "sourceLine": 61,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "(NH₄)₂PtCl₆ → Pt + 2NH₄Cl + 2Cl₂",
+      "condition": "Gia nhiệt hoặc điều kiện chuyên dụng theo quá trình đã mô tả; không suy ra tốc độ từ hệ số phản ứng.",
+      "kind": "chemical",
+      "sourceLine": 57,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "recognition",
+      "equation": "H₂PtCl₆ + 2NH₄Cl → (NH₄)₂PtCl₆↓ + 2HCl",
+      "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+      "kind": "chemical",
+      "sourceLine": 65,
+      "sourceSection": "recognition",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Pt + Cl₂ → PtCl₂",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 69,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Pt + 2Cl₂ → PtCl₄",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 71,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "3Pt + 18HCl + 4HNO₃ → 3H₂PtCl₆ + 4NO + 8H₂O",
+      "condition": "Nước cường toan; phương trình tổng quát cho nhánh tạo NO, không phải cơ chế một bước.",
+      "kind": "chemical",
+      "sourceLine": 75,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "H₂PtCl₆ + 2NH₄Cl → (NH₄)₂PtCl₆↓ + 2HCl",
+      "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+      "kind": "chemical",
+      "sourceLine": 77,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "PtCl₄ + 2H₂ → Pt + 4HCl",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 79,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": [
+        {
+          "title": "Bộ xúc tác khí thải",
+          "desc": "Platinum là chất xúc tác quan trọng trong catalytic converter, giúp chuyển hóa các khí độc trong khí thải động cơ."
+        },
+        {
+          "title": "Trang sức",
+          "desc": "Platinum được sử dụng rộng rãi trong trang sức nhờ vẻ ngoài sáng bóng, độ bền và khả năng chống ăn mòn."
+        },
+        {
+          "title": "Công nghiệp hóa chất",
+          "desc": "Platinum được dùng làm chất xúc tác trong nhiều quá trình hóa học."
+        },
+        {
+          "title": "Y học",
+          "desc": "Một số hợp chất Platinum, tiêu biểu là Cisplatin, được sử dụng trong điều trị một số loại ung thư."
+        },
+        {
+          "title": "Điện tử",
+          "desc": "Platinum được sử dụng trong một số điện cực, cảm biến và linh kiện đặc biệt."
+        },
+        {
+          "title": "Phòng thí nghiệm",
+          "desc": "Platinum được dùng làm chén, điện cực và các dụng cụ chịu nhiệt, chịu hóa chất."
+        }
+      ],
+      "after": [
+        {
+          "title": "Bộ xúc tác khí thải",
+          "desc": "Platinum là chất xúc tác quan trọng trong catalytic converter, giúp chuyển hóa các khí độc trong khí thải động cơ.",
+          "sourceLine": 81
+        },
+        {
+          "title": "Trang sức",
+          "desc": "Platinum được sử dụng rộng rãi trong trang sức nhờ vẻ ngoài sáng bóng, độ bền và khả năng chống ăn mòn.",
+          "sourceLine": 82
+        },
+        {
+          "title": "Công nghiệp hóa chất",
+          "desc": "Platinum được dùng làm chất xúc tác trong nhiều quá trình hóa học.",
+          "sourceLine": 83
+        },
+        {
+          "title": "Y học",
+          "desc": "Một số hợp chất Platinum, tiêu biểu là Cisplatin, được sử dụng trong điều trị một số loại ung thư.",
+          "sourceLine": 84
+        },
+        {
+          "title": "Điện tử",
+          "desc": "Platinum được sử dụng trong một số điện cực, cảm biến và linh kiện đặc biệt.",
+          "sourceLine": 85
+        },
+        {
+          "title": "Phòng thí nghiệm",
+          "desc": "Platinum được dùng làm chén, điện cực và các dụng cụ chịu nhiệt, chịu hóa chất.",
+          "sourceLine": 86
+        }
+      ]
+    },
+    {
+      "field": "chemical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có số Oxy hóa phổ biến là +2 và +4.</li>\n      <li>Tương đối trơ ở điều kiện thường.</li>\n      <li>Không dễ phản ứng với Oxygen.</li>\n      <li>Không tan trong phần lớn acid thông thường.</li>\n      <li>Tan trong nước cường toan tạo các phức Chloroplatinate.</li>\n      <li>Có khả năng xúc tác nhiều phản ứng hóa học.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Có số Oxy hóa phổ biến là +2 và +4.</li><li>Tương đối trơ ở điều kiện thường.</li><li>Không dễ phản ứng với Oxygen.</li><li>Không tan trong phần lớn acid thông thường.</li><li>Tan trong nước cường toan tạo các phức Chloroplatinate.</li><li>Có khả năng xúc tác nhiều phản ứng hóa học.</li></ul>"
+    },
+    {
+      "field": "general.CAS",
+      "before": null,
+      "after": "7440-06-4"
+    },
+    {
+      "field": "general.electronegativityNote",
+      "before": null,
+      "after": "Thang Pauling; số liệu tổng hợp PubChem."
+    },
+    {
+      "field": "general.group",
+      "before": 8,
+      "after": 10
+    },
+    {
+      "field": "general.groupLabel",
+      "before": null,
+      "after": "10"
+    },
+    {
+      "field": "general.series",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "general.state",
+      "before": "",
+      "after": "Rắn"
+    },
+    {
+      "field": "history.year",
+      "before": 1735,
+      "after": "1735"
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/photos/078_Pt.jpg",
+          "title": "Bạch kim (Pt)",
+          "desc": "Ảnh tham chiếu mẫu Platinum (Pt); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+          "source": "https://commons.wikimedia.org/wiki/File:Platinum_crystals.jpg",
+          "author": "Periodictableru",
+          "license": "CC BY 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/3.0"
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "¹⁹⁰Pt",
+          "massNumber": 190,
+          "protons": 78,
+          "neutrons": 112,
+          "stable": false,
+          "abundancePercent": "0.012",
+          "halfLifeDisplay": "4.97E11 ± 1.6E+10 năm",
+          "halfLife": "4.97E11 Y",
+          "halfLifeUncertainty": "16",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "¹⁹²Pt",
+          "massNumber": 192,
+          "protons": 78,
+          "neutrons": 114,
+          "stable": true,
+          "abundancePercent": "0.782",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "¹⁹⁴Pt",
+          "massNumber": 194,
+          "protons": 78,
+          "neutrons": 116,
+          "stable": true,
+          "abundancePercent": "32.864",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "¹⁹⁵Pt",
+          "massNumber": 195,
+          "protons": 78,
+          "neutrons": 117,
+          "stable": true,
+          "abundancePercent": "33.775",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "¹⁹⁶Pt",
+          "massNumber": 196,
+          "protons": 78,
+          "neutrons": 118,
+          "stable": true,
+          "abundancePercent": "25.211",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "¹⁹⁸Pt",
+          "massNumber": 198,
+          "protons": 78,
+          "neutrons": 120,
+          "stable": true,
+          "abundancePercent": "7.356",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": "2B-",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "mass",
+      "before": 195.084,
+      "after": 195.08
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "standard-atomic-weight"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "195.08 ± 0.02"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": [
+        {
+          "type": "model",
+          "section": "structure",
+          "title": "Mẫu khoáng vật 3D · Platinum tự sinh",
+          "src": "/assets/periodic-table/minerals/native-platinum.glb",
+          "preview": "/assets/periodic-table/minerals/native-platinum.png",
+          "desc": "Pt (thường chứa kim loại nhóm platinum khác). Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "nameVi",
+      "before": "Platinum",
+      "after": "Bạch kim"
+    },
+    {
+      "field": "naturalState.alt",
+      "before": null,
+      "after": "Platinum: ảnh tham chiếu từ Commons"
+    },
+    {
+      "field": "naturalState.caption",
+      "before": null,
+      "after": "Ảnh tham chiếu mẫu Platinum (Pt); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc."
+    },
+    {
+      "field": "naturalState.credit",
+      "before": null,
+      "after": "Periodictableru · CC BY 3.0"
+    },
+    {
+      "field": "naturalState.image",
+      "before": null,
+      "after": "/assets/periodic-table/photos/078_Pt.jpg"
+    },
+    {
+      "field": "naturalState.kind",
+      "before": null,
+      "after": "photo"
+    },
+    {
+      "field": "naturalState.source",
+      "before": null,
+      "after": "https://commons.wikimedia.org/wiki/File:Platinum_crystals.jpg"
+    },
+    {
+      "field": "notes",
+      "before": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Platinum là nguyên tố số 78, thuộc nhóm VIIIB | chu kỳ 6 và là một kim loại chuyển tiếp thuộc nhóm Platinum.</li>\n  <li>Platinum có cấu hình electron [Xe] 4f¹⁴ 5d⁹ 6s¹, với số Oxy hóa phổ biến là +2 và +4.</li>\n  <li>Đây là kim loại trắng bạc, nặng, dẻo, bền và có khả năng chống ăn mòn rất cao. Platinum cũng là một chất xúc tác rất hiệu quả.</li>\n  <li>Platinum có vai trò quan trọng trong catalytic converter, công nghiệp hóa chất, trang sức, điện tử và y học. Đặc biệt, các hợp chất Platinum như Cisplatin có ý nghĩa lớn trong y học hiện đại.</li>\n</ul>\n",
+      "after": "<ul class=\"element-prose-list\"><li>Platinum là nguyên tố số 78, thuộc nhóm VIIIB | chu kỳ 6 và là một kim loại chuyển tiếp thuộc nhóm Platinum.</li><li>Platinum có cấu hình electron [Xe] 4f¹⁴ 5d⁹ 6s¹, với số Oxy hóa phổ biến là +2 và +4.</li><li>Đây là kim loại trắng bạc, nặng, dẻo, bền và có khả năng chống ăn mòn rất cao. Platinum cũng là một chất xúc tác rất hiệu quả.</li><li>Platinum có vai trò quan trọng trong catalytic converter, công nghiệp hóa chất, trang sức, điện tử và y học. Đặc biệt, các hợp chất Platinum như Cisplatin có ý nghĩa lớn trong y học hiện đại.</li></ul>"
+    },
+    {
+      "field": "occurrence.details",
+      "before": null,
+      "after": [
+        "Trạng thái: Platinum là kim loại rắn, màu trắng bạc, sáng bóng.",
+        "Có trong: Tồn tại trong các quặng kim loại nhóm Platinum và đôi khi ở dạng Platinum tự nhiên.",
+        "Đơn chất: Pt",
+        "Hợp chất: PtCl₂, PtCl₄, H₂PtCl₆, PtO₂..."
+      ]
+    },
+    {
+      "field": "occurrence.mineral",
+      "before": null,
+      "after": {
+        "available": true,
+        "id": "native-platinum",
+        "name": "Platinum tự sinh",
+        "formula": "Pt (thường chứa kim loại nhóm platinum khác)",
+        "habit": "nugget",
+        "color": "#afb4c1",
+        "crystalSystem": "cubic",
+        "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+        "source": "https://www.handbookofmineralogy.org/",
+        "sourceSearch": "https://rruff.info/Platinum",
+        "model": "/assets/periodic-table/minerals/native-platinum.glb",
+        "preview": "/assets/periodic-table/minerals/native-platinum.png",
+        "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      }
+    },
+    {
+      "field": "physical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại chuyển tiếp thuộc nhóm Platinum.</li>\n      <li>Màu trắng bạc, sáng bóng.</li>\n      <li>Dẻo và dễ dát mỏng.</li>\n      <li>Khối lượng riêng: khoảng 21.45 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 1768 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 3825 °C.</li>\n      <li>Dẫn điện và dẫn nhiệt.</li>\n      <li>Chống ăn mòn và chống Oxy hóa rất tốt.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Là kim loại chuyển tiếp thuộc nhóm Platinum.</li><li>Màu trắng bạc, sáng bóng.</li><li>Dẻo và dễ dát mỏng.</li><li>Khối lượng riêng: khoảng 21.45 g/cm³.</li><li>Nhiệt độ nóng chảy: khoảng 1768 °C.</li><li>Nhiệt độ sôi: khoảng 3825 °C.</li><li>Dẫn điện và dẫn nhiệt.</li><li>Chống ăn mòn và chống Oxy hóa rất tốt.</li></ul>"
+    },
+    {
+      "field": "preparations.industry",
+      "before": [
+        {
+          "title": "Platinum được khai thác chủ yếu từ các quặng chứa kim loại nhóm Platinum, thường đi kèm Nickel và Copper.",
+          "equation": "",
+          "desc": ""
+        },
+        {
+          "title": "Quá trình tinh chế gồm nhiều bước hòa tan, kết tủa và tách các kim loại nhóm Platinum khác nhau.",
+          "equation": "",
+          "desc": ""
+        },
+        {
+          "title": "Một phản ứng minh họa quá trình tạo phức:",
+          "equation": "Pt + 4HCl + HNO₃ → H₂PtCl₆ + NO + 2H₂O",
+          "desc": "Sau đó H₂PtCl₆ có thể được xử lý để thu Platinum kim loại."
+        }
+      ],
+      "after": [
+        {
+          "title": "Platinum (Pt) chủ yếu được thu hồi từ quặng Platinum và các quặng chứa kim loại nhóm Platinum, thường đi kèm với Nickel và Copper. Sau khi tuyển và tách các kim loại khác, Platinum được tinh chế từ các hợp chất hòa tan rồi khử để thu kim loại.",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "(NH₄)₂PtCl₆ → Pt + 2NH₄Cl + 2Cl₂",
+              "condition": "Gia nhiệt hoặc điều kiện chuyên dụng theo quá trình đã mô tả; không suy ra tốc độ từ hệ số phản ứng.",
+              "kind": "chemical",
+              "sourceLine": 57,
+              "sourceSection": "industry",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            55,
+            57
+          ],
+          "equation": "(NH₄)₂PtCl₆ → Pt + 2NH₄Cl + 2Cl₂"
+        }
+      ]
+    },
+    {
+      "field": "preparations.lab",
+      "before": [],
+      "after": [
+        {
+          "title": "Có thể điều chế Platinum bằng cách nhiệt phân Ammonium hexachloroplatinate.",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "(NH₄)₂PtCl₆ → Pt + 2NH₄Cl + 2Cl₂",
+              "condition": "Gia nhiệt hoặc điều kiện chuyên dụng theo quá trình đã mô tả; không suy ra tốc độ từ hệ số phản ứng.",
+              "kind": "chemical",
+              "sourceLine": 61,
+              "sourceSection": "lab",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            59,
+            61
+          ],
+          "equation": "(NH₄)₂PtCl₆ → Pt + 2NH₄Cl + 2Cl₂"
+        }
+      ]
+    },
+    {
+      "field": "reactions",
+      "before": [
+        {
+          "type": "Tác dụng với Chlorine",
+          "equation": "Pt + Cl₂ → PtCl₂",
+          "desc": ""
+        },
+        {
+          "type": "Tạo Platinum(IV) chloride",
+          "equation": "Pt + 2Cl₂ → PtCl₄",
+          "desc": ""
+        },
+        {
+          "type": "Tạo Platinum dioxide",
+          "equation": "Pt + O₂ → PtO₂",
+          "desc": ""
+        },
+        {
+          "type": "Phản ứng với nước cường toan",
+          "equation": "Pt + 4HCl + HNO₃ → H₂PtCl₆ + NO + 2H₂O",
+          "desc": ""
+        },
+        {
+          "type": "Tạo Ammonium hexachloroplatinate",
+          "equation": "H₂PtCl₆ + 2NH₄Cl → (NH₄)₂PtCl₆↓ + 2HCl",
+          "desc": ""
+        },
+        {
+          "type": "Khử Platinum(IV) chloride",
+          "equation": "PtCl₄ + 2H₂ → Pt + 4HCl",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "type": "Tác dụng với Chlorine",
+          "desc": "",
+          "equation": "Pt + Cl₂ → PtCl₂",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 69,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Platinum(IV) chloride",
+          "desc": "",
+          "equation": "Pt + 2Cl₂ → PtCl₄",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 71,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Phản ứng với nước cường toan",
+          "desc": "",
+          "equation": "3Pt + 18HCl + 4HNO₃ → 3H₂PtCl₆ + 4NO + 8H₂O",
+          "condition": "Nước cường toan; phương trình tổng quát cho nhánh tạo NO, không phải cơ chế một bước.",
+          "kind": "chemical",
+          "sourceLine": 75,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Ammonium hexachloroplatinate",
+          "desc": "",
+          "equation": "H₂PtCl₆ + 2NH₄Cl → (NH₄)₂PtCl₆↓ + 2HCl",
+          "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+          "kind": "chemical",
+          "sourceLine": 77,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Khử Platinum(IV) chloride",
+          "desc": "",
+          "equation": "PtCl₄ + 2H₂ → Pt + 4HCl",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 79,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": [
+        {
+          "title": "Nhận biết",
+          "reagent": "Platinum thường được nhận biết bằng phân tích quang phổ hoặc các phương pháp phân tích hóa học chuyên dụng.",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Một phản ứng đặc trưng của Pt(IV) là tạo Ammonium hexachloroplatinate",
+          "reagent": "",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "",
+          "result": "",
+          "equation": "H₂PtCl₆ + 2NH₄Cl → (NH₄)₂PtCl₆↓ + 2HCl"
+        },
+        {
+          "title": "Hiện tượng",
+          "reagent": "",
+          "result": "Xuất hiện kết tủa màu vàng Ammonium hexachloroplatinate.",
+          "equation": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Platinum thường được nhận biết bằng phân tích quang phổ hoặc các phương pháp phân tích hóa học chuyên dụng.",
+          "desc": "Một phản ứng đặc trưng của Pt(IV) là tạo Ammonium hexachloroplatinate:",
+          "result": "Xuất hiện kết tủa màu vàng Ammonium hexachloroplatinate.",
+          "equations": [
+            {
+              "equation": "H₂PtCl₆ + 2NH₄Cl → (NH₄)₂PtCl₆↓ + 2HCl",
+              "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+              "kind": "chemical",
+              "sourceLine": 65,
+              "sourceSection": "recognition",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            63,
+            64,
+            65,
+            66
+          ],
+          "equation": "H₂PtCl₆ + 2NH₄Cl → (NH₄)₂PtCl₆↓ + 2HCl"
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "078_Pt.docx",
+        "sourceSha256": "b320a172895f3507a93792413704c405abf96d9978a100ba68462813b58c76d7",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/078_Pt.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "078_Pt.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "b320a172895f3507a93792413704c405abf96d9978a100ba68462813b58c76d7"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/78/platinum"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure.latticeEvidence",
+      "before": null,
+      "after": "source-reviewed"
+    },
+    {
+      "field": "structure.nucleusIsotope",
+      "before": null,
+      "after": "¹⁹⁵Pt"
+    },
+    {
+      "field": "structure.nucleusNote",
+      "before": null,
+      "after": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác."
+    },
+    {
+      "field": "structure.valenceNote",
+      "before": null,
+      "after": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp."
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "Pt",
+      "status": "downloaded",
+      "file": "/assets/periodic-table/photos/078_Pt.jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:Platinum_crystals.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/6/68/Platinum_crystals.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "thumbnail": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/68/Platinum_crystals.jpg/960px-Platinum_crystals.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "filename": "Platinum_crystals.jpg",
+      "title": "Platinum crystals",
+      "description": "Crystals of pure platinum grown by gas phase transport.",
+      "author": "Periodictableru",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+      "credit": "Own work",
+      "sha256": "f5e3f9292b1e6d9a4c7307673349ab4d3c5f2abadc24f527dfb29a538ff9f102",
+      "bytes": 129474
+    },
+    "mineral": {
+      "available": true,
+      "id": "native-platinum",
+      "name": "Platinum tự sinh",
+      "formula": "Pt (thường chứa kim loại nhóm platinum khác)",
+      "habit": "nugget",
+      "color": "#afb4c1",
+      "crystalSystem": "cubic",
+      "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Platinum",
+      "model": "/assets/periodic-table/minerals/native-platinum.glb",
+      "preview": "/assets/periodic-table/minerals/native-platinum.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "Pt",
+      "z": 78,
+      "url": "https://periodic-table.rsc.org/element/78/platinum",
+      "status": "retrieved",
+      "bytes": 160842,
+      "sha256": "e082444542b5adee8ab2deb9f277d264d1f1f1e1e2ae16315f5e2dfd5bbe7529",
+      "facts": {
+        "Group": "10",
+        "Melting point": "1768.2°C, 3214.8°F, 2041.4 K",
+        "Period": "6",
+        "Boiling point": "3825°C, 6917°F, 4098 K",
+        "Block": "d",
+        "Density (g cm−³)": "21.5",
+        "Atomic number": "78",
+        "Relative atomic mass": "195.084",
+        "State at 20°C": "Solid",
+        "Key isotopes": "¹⁹⁵Pt",
+        "Electron configuration": "[Xe] 4f¹⁴5d⁹6s¹",
+        "CAS number": "7440-06-4",
+        "ChemSpider ID": "22381",
+        "electronegativity": "2.2"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "78",
+      "Symbol": "Pt",
+      "Name": "Platinum",
+      "AtomicMass": "195.08",
+      "CPKHexColor": "D0D0E0",
+      "ElectronConfiguration": "[Xe]6s1 4f14 5d9",
+      "Electronegativity": "2.28",
+      "AtomicRadius": "209",
+      "IonizationEnergy": "9",
+      "ElectronAffinity": "2.128",
+      "OxidationStates": "+4, +2",
+      "StandardState": "Solid",
+      "MeltingPoint": "2041.55",
+      "BoilingPoint": "4098",
+      "Density": "21.46",
+      "GroupBlock": "Transition metal",
+      "YearDiscovered": "1735"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

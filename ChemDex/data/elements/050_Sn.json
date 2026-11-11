@@ -4,7 +4,10 @@
   "nameVi": "Tin",
   "nameEn": "Tin",
   "mass": 118.71,
-  "category": "unknown",
+  "massStandardText": "118.71 ± 0.01",
+  "massStandardSource": "https://ciaaw.org/abridged-atomic-weights.htm",
+  "massKind": "standard-atomic-weight",
+  "category": "kim-loai-sau-chuyen-tiep",
   "hasData": true,
   "file": "elements/050_Sn.json",
   "general": {
@@ -13,14 +16,18 @@
     "electronConfig": "[Kr] 4d¹⁰ 5s² 5p²",
     "isotope": "¹¹²Sn, ¹¹⁴Sn, ¹¹⁵Sn, ¹¹⁶Sn, ¹¹⁷Sn, ¹¹⁸Sn, ¹¹⁹Sn, ¹²⁰Sn, ¹²²Sn, ¹²⁴Sn",
     "group": 14,
+    "groupLabel": "14",
+    "series": "",
     "period": 5,
-    "state": "",
+    "state": "Rắn",
     "oxidation": "+2, +4",
     "electronegativity": 1.96,
+    "electronegativityNote": "Thang Pauling; số liệu tổng hợp PubChem.",
     "density": "khoảng 7.31 g/cm³.",
     "meltingPoint": "khoảng 231.9 °C.",
     "boilingPoint": "khoảng 2602 °C.",
-    "crystalStructure": "Tứ phương (Tetragonal)"
+    "crystalStructure": "Tứ phương (Tetragonal)",
+    "CAS": "7440-31-5"
   },
   "history": {
     "discoverer": "Không xác định — Tin đã được con người biết đến từ thời cổ đại.",
@@ -30,8 +37,14 @@
   },
   "structure": {
     "protons": 50,
-    "neutrons": 68,
     "electrons": 50,
+    "neutrons": 68,
+    "nucleusIsotope": "¹¹⁸Sn",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 50,
+      "neutron": 68
+    },
     "electronShells": [
       2,
       8,
@@ -47,12 +60,11 @@
       4
     ],
     "valenceElectrons": 4,
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Tứ phương (Tetragonal)",
-    "nucleus": {
-      "proton": 50,
-      "neutron": 68
-    }
+    "latticeEvidence": "phase-dependent"
   },
+  "structureType": "Tứ phương (Tetragonal)",
   "occurrence": {
     "description": "Tin là kim loại rắn, màu trắng bạc.",
     "simple": [
@@ -68,133 +80,522 @@
     ],
     "ores": [
       "Chủ yếu trong quặng Cassiterite (SnO₂)"
-    ]
+    ],
+    "details": [
+      "Trạng thái: Tin là kim loại rắn, màu trắng bạc.",
+      "Có trong: Chủ yếu trong quặng Cassiterite (SnO₂).",
+      "Đơn chất: Sn",
+      "Hợp chất: SnO, SnO₂, SnCl₂, SnCl₄, SnS, SnS₂..."
+    ],
+    "mineral": {
+      "available": true,
+      "id": "cassiterite",
+      "name": "Cassiterite",
+      "formula": "SnO₂",
+      "habit": "bipyramid",
+      "color": "#805342",
+      "crystalSystem": "tetragonal",
+      "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Cassiterite",
+      "model": "/assets/periodic-table/minerals/cassiterite.glb",
+      "preview": "/assets/periodic-table/minerals/cassiterite.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
   },
-  "naturalState": {},
-  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại thuộc nhóm IVA.</li>\n      <li>Màu trắng bạc.</li>\n      <li>Mềm và dễ dát mỏng.</li>\n      <li>Dễ uốn.</li>\n      <li>Khối lượng riêng: khoảng 7.31 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 231.9 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 2602 °C.</li>\n      <li>Dẫn điện và dẫn nhiệt.</li>\n      <li>Có thể tồn tại dưới nhiều dạng thù hình.</li>\n    </ul>\n  ",
-  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có hai số Oxy hóa phổ biến: +2 và +4.</li>\n      <li>Sn(II) có tính khử.</li>\n      <li>Sn(IV) tương đối ổn định trong nhiều hợp chất.</li>\n      <li>Phản ứng với Oxygen tạo Tin oxide.</li>\n      <li>Phản ứng với Halogen tạo Tin halide.</li>\n      <li>Phản ứng với acid tạo muối Tin và có thể giải phóng Hydrogen.</li>\n      <li>Có khả năng tạo hợp kim với nhiều kim loại.</li>\n      <li>Bề mặt Tin tương đối bền trong không khí nhờ lớp oxide bảo vệ.</li>\n    </ul>\n  ",
+  "naturalState": {
+    "image": "/assets/periodic-table/photos/050_Sn.jpg",
+    "alt": "Tin: ảnh tham chiếu từ Commons",
+    "kind": "photo",
+    "source": "https://commons.wikimedia.org/wiki/File:Sn-Alpha-Beta.jpg",
+    "caption": "Hai dạng thù hình của tin: β-tin trắng và α-tin xám.",
+    "credit": "Alchemist-hp ( talk ) ( www.pse-mendelejew.de ) · CC BY-SA 3.0 de"
+  },
+  "isotopes": [
+    {
+      "isotope": "¹¹²Sn",
+      "massNumber": 112,
+      "protons": 50,
+      "neutrons": 62,
+      "stable": true,
+      "abundancePercent": "0.97",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹¹⁴Sn",
+      "massNumber": 114,
+      "protons": 50,
+      "neutrons": 64,
+      "stable": true,
+      "abundancePercent": "0.66",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹¹⁵Sn",
+      "massNumber": 115,
+      "protons": 50,
+      "neutrons": 65,
+      "stable": true,
+      "abundancePercent": "0.34",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹¹⁶Sn",
+      "massNumber": 116,
+      "protons": 50,
+      "neutrons": 66,
+      "stable": true,
+      "abundancePercent": "14.54",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹¹⁷Sn",
+      "massNumber": 117,
+      "protons": 50,
+      "neutrons": 67,
+      "stable": true,
+      "abundancePercent": "7.68",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹¹⁸Sn",
+      "massNumber": 118,
+      "protons": 50,
+      "neutrons": 68,
+      "stable": true,
+      "abundancePercent": "24.22",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹¹⁹Sn",
+      "massNumber": 119,
+      "protons": 50,
+      "neutrons": 69,
+      "stable": true,
+      "abundancePercent": "8.59",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹²⁰Sn",
+      "massNumber": 120,
+      "protons": 50,
+      "neutrons": 70,
+      "stable": true,
+      "abundancePercent": "32.58",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹²²Sn",
+      "massNumber": 122,
+      "protons": 50,
+      "neutrons": 72,
+      "stable": true,
+      "abundancePercent": "4.63",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹²⁴Sn",
+      "massNumber": 124,
+      "protons": 50,
+      "neutrons": 74,
+      "stable": true,
+      "abundancePercent": "5.79",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Là kim loại thuộc nhóm IVA.</li><li>Màu trắng bạc.</li><li>Mềm và dễ dát mỏng.</li><li>Dễ uốn.</li><li>Khối lượng riêng: khoảng 7.31 g/cm³.</li><li>Nhiệt độ nóng chảy: khoảng 231.9 °C.</li><li>Nhiệt độ sôi: khoảng 2602 °C.</li><li>Dẫn điện và dẫn nhiệt.</li><li>Có thể tồn tại dưới nhiều dạng thù hình.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Có hai số Oxy hóa phổ biến: +2 và +4.</li><li>Sn(II) có tính khử.</li><li>Sn(IV) tương đối ổn định trong nhiều hợp chất.</li><li>Phản ứng với Oxygen tạo Tin oxide.</li><li>Phản ứng với Halogen tạo Tin halide.</li><li>Phản ứng với acid tạo muối Tin và có thể giải phóng Hydrogen.</li><li>Có khả năng tạo hợp kim với nhiều kim loại.</li><li>Bề mặt Tin tương đối bền trong không khí nhờ lớp oxide bảo vệ.</li></ul>",
   "reactions": [
     {
       "type": "Tác dụng với Oxygen",
+      "desc": "",
       "equation": "Sn + O₂ → SnO₂",
-      "desc": ""
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 76,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Chlorine",
+      "desc": "",
       "equation": "Sn + 2Cl₂ → SnCl₄",
-      "desc": ""
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 78,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Hydrochloric acid",
+      "desc": "",
       "equation": "Sn + 2HCl → SnCl₂ + H₂↑",
-      "desc": ""
+      "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+      "kind": "chemical",
+      "sourceLine": 80,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tạo Tin(II) sulfide",
+      "desc": "",
       "equation": "Sn²⁺ + S²⁻ → SnS↓",
-      "desc": ""
+      "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+      "kind": "chemical",
+      "sourceLine": 82,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tạo Tin(IV) sulfide",
+      "desc": "",
       "equation": "Sn⁴⁺ + 2S²⁻ → SnS₂↓",
-      "desc": ""
+      "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+      "kind": "chemical",
+      "sourceLine": 84,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "SnO₂ tác dụng với Hydrochloric acid",
+      "desc": "",
       "equation": "SnO₂ + 4HCl → SnCl₄ + 2H₂O",
-      "desc": ""
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 86,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Điều chế Tin",
+      "desc": "",
       "equation": "SnO₂ + 2C → Sn + 2CO↑",
-      "desc": ""
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 88,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     }
   ],
-  "applications": [
-    {
-      "title": "Hàn",
-      "desc": "Tin là thành phần quan trọng trong nhiều loại vật liệu hàn, đặc biệt trong ngành điện tử."
-    },
-    {
-      "title": "Mạ kim loại",
-      "desc": "Tin được dùng để phủ lên thép nhằm chống ăn mòn, đặc biệt trong sản xuất hộp đựng thực phẩm."
-    },
-    {
-      "title": "Hợp kim",
-      "desc": "Tin được sử dụng trong Bronze, Solder và nhiều hợp kim khác."
-    },
-    {
-      "title": "Bao bì thực phẩm",
-      "desc": "Thép mạ Tin được sử dụng để sản xuất một số loại hộp đựng thực phẩm."
-    },
-    {
-      "title": "Kính",
-      "desc": "Tin oxide được sử dụng trong một số loại kính và lớp phủ dẫn điện."
-    },
-    {
-      "title": "Hóa chất",
-      "desc": "Các hợp chất Organotin được sử dụng trong một số ứng dụng công nghiệp."
-    }
-  ],
-  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Tin là nguyên tố số 50, thuộc nhóm IVA | chu kỳ 5.</li>\n  <li>Tin có cấu hình electron [Kr] 4d¹⁰ 5s² 5p², với hai số Oxy hóa phổ biến là +2 và +4.</li>\n  <li>Tin là kim loại mềm, dễ uốn, màu trắng bạc và có nhiệt độ nóng chảy tương đối thấp. Trong tự nhiên, Tin chủ yếu tồn tại dưới dạng Cassiterite (SnO₂).</li>\n  <li>Tin có vai trò quan trọng trong hàn, mạ kim loại, sản xuất hợp kim, bao bì thực phẩm và công nghiệp điện tử. Một đặc điểm quan trọng của Tin là khả năng tạo nhiều hợp kim, trong đó Bronze và các vật liệu hàn là những ứng dụng tiêu biểu.</li>\n</ul>\n",
   "preparations": {
-    "lab": [],
+    "lab": [
+      {
+        "title": "Có thể điều chế Tin bằng cách khử Tin(II) chloride bằng kim loại hoạt động mạnh hơn như Zinc.",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "SnCl₂ + Zn → Sn + ZnCl₂",
+            "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+            "kind": "chemical",
+            "sourceLine": 65,
+            "sourceSection": "lab",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          63,
+          65
+        ],
+        "equation": "SnCl₂ + Zn → Sn + ZnCl₂"
+      }
+    ],
     "industry": [
       {
-        "title": "Tin chủ yếu được điều chế từ quặng Cassiterite (SnO₂).",
-        "equation": "",
-        "desc": ""
+        "title": "Tin chủ yếu được điều chế từ quặng Cassiterite (SnO₂). Quặng được nghiền, tuyển và làm giàu, sau đó khử bằng Carbon hoặc Carbon monoxide ở nhiệt độ cao trong lò luyện.",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "SnO₂ + 2C → Sn + 2CO",
+            "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+            "kind": "chemical",
+            "sourceLine": 58,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          56,
+          58
+        ],
+        "equation": "SnO₂ + 2C → Sn + 2CO"
       },
       {
-        "title": "Quặng được nghiền, làm giàu rồi khử bằng Carbon ở nhiệt độ cao:",
-        "equation": "SnO₂ + 2C → Sn + 2CO↑",
-        "desc": "Sau đó Tin thô được tinh chế để loại bỏ các tạp chất."
+        "title": "Hoặc",
+        "desc": "Thiếc thô tiếp tục được tinh chế bằng phương pháp điện phân hoặc các phương pháp luyện kim thích hợp.",
+        "result": "",
+        "equations": [
+          {
+            "equation": "SnO₂ + 2CO → Sn + 2CO₂",
+            "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+            "kind": "chemical",
+            "sourceLine": 60,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          59,
+          60,
+          61
+        ],
+        "equation": "SnO₂ + 2CO → Sn + 2CO₂"
       }
     ]
   },
   "recognition": [
     {
-      "title": "Nhận biết",
-      "reagent": "Nhận biết Sn²⁺",
-      "result": "",
-      "equation": ""
-    },
-    {
-      "title": "Sn²⁺ có thể được nhận biết bằng phản ứng với ion Sulfide",
-      "reagent": "",
-      "result": "",
-      "equation": ""
-    },
-    {
-      "title": "Nhận biết",
-      "reagent": "",
-      "result": "",
+      "title": "Nhận biết Sn²⁺",
+      "desc": "Sn²⁺ có thể được nhận biết bằng phản ứng với ion Sulfide:",
+      "result": "Xuất hiện kết tủa nâu đen SnS.",
+      "equations": [
+        {
+          "equation": "Sn²⁺ + S²⁻ → SnS↓",
+          "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+          "kind": "chemical",
+          "sourceLine": 69,
+          "sourceSection": "recognition",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ],
+      "sourceLines": [
+        67,
+        68,
+        69,
+        70
+      ],
       "equation": "Sn²⁺ + S²⁻ → SnS↓"
     },
     {
-      "title": "Hiện tượng",
-      "reagent": "",
-      "result": "Xuất hiện kết tủa nâu đen SnS.",
-      "equation": ""
-    },
-    {
-      "title": "Nhận biết",
-      "reagent": "Nhận biết Sn⁴⁺",
-      "result": "",
-      "equation": ""
-    },
-    {
-      "title": "Nhận biết",
-      "reagent": "",
-      "result": "",
-      "equation": "Sn⁴⁺ + 2S²⁻ → SnS₂↓"
-    },
-    {
-      "title": "Hiện tượng",
-      "reagent": "",
+      "title": "Nhận biết Sn⁴⁺",
+      "desc": "",
       "result": "Xuất hiện kết tủa vàng SnS₂.",
-      "equation": ""
+      "equations": [
+        {
+          "equation": "Sn⁴⁺ + 2S²⁻ → SnS₂↓",
+          "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+          "kind": "chemical",
+          "sourceLine": 72,
+          "sourceSection": "recognition",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ],
+      "sourceLines": [
+        71,
+        72,
+        73
+      ],
+      "equation": "Sn⁴⁺ + 2S²⁻ → SnS₂↓"
     }
   ],
-  "structureType": "Tứ phương (Tetragonal)"
+  "applications": [
+    {
+      "title": "Hàn",
+      "desc": "Tin là thành phần quan trọng trong nhiều loại vật liệu hàn, đặc biệt trong ngành điện tử.",
+      "sourceLine": 90
+    },
+    {
+      "title": "Mạ kim loại",
+      "desc": "Tin được dùng để phủ lên thép nhằm chống ăn mòn, đặc biệt trong sản xuất hộp đựng thực phẩm.",
+      "sourceLine": 91
+    },
+    {
+      "title": "Hợp kim",
+      "desc": "Tin được sử dụng trong Bronze, Solder và nhiều hợp kim khác.",
+      "sourceLine": 92
+    },
+    {
+      "title": "Bao bì thực phẩm",
+      "desc": "Thép mạ Tin được sử dụng để sản xuất một số loại hộp đựng thực phẩm.",
+      "sourceLine": 93
+    },
+    {
+      "title": "Kính",
+      "desc": "Tin oxide được sử dụng trong một số loại kính và lớp phủ dẫn điện.",
+      "sourceLine": 94
+    },
+    {
+      "title": "Hóa chất",
+      "desc": "Các hợp chất Organotin được sử dụng trong một số ứng dụng công nghiệp.",
+      "sourceLine": 95
+    }
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Tin là nguyên tố số 50, thuộc nhóm IVA | chu kỳ 5.</li><li>Tin có cấu hình electron [Kr] 4d¹⁰ 5s² 5p², với hai số Oxy hóa phổ biến là +2 và +4.</li><li>Tin là kim loại mềm, dễ uốn, màu trắng bạc và có nhiệt độ nóng chảy tương đối thấp. Trong tự nhiên, Tin chủ yếu tồn tại dưới dạng Cassiterite (SnO₂).</li><li>Tin có vai trò quan trọng trong hàn, mạ kim loại, sản xuất hợp kim, bao bì thực phẩm và công nghiệp điện tử. Một đặc điểm quan trọng của Tin là khả năng tạo nhiều hợp kim, trong đó Bronze và các vật liệu hàn là những ứng dụng tiêu biểu.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/photos/050_Sn.jpg",
+      "title": "Tin (Sn)",
+      "desc": "Hai dạng thù hình của tin: β-tin trắng và α-tin xám.",
+      "source": "https://commons.wikimedia.org/wiki/File:Sn-Alpha-Beta.jpg",
+      "author": "Alchemist-hp ( talk ) ( www.pse-mendelejew.de )",
+      "license": "CC BY-SA 3.0 de",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en"
+    }
+  ],
+  "mediaBlocks": [
+    {
+      "type": "model",
+      "section": "structure",
+      "title": "Mẫu khoáng vật 3D · Cassiterite",
+      "src": "/assets/periodic-table/minerals/cassiterite.glb",
+      "preview": "/assets/periodic-table/minerals/cassiterite.png",
+      "desc": "SnO₂. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  ],
+  "sources": [
+    {
+      "title": "050_Sn.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "ff92c9588a2df2535448b14a25ef537ce789f370734829f9f9bf97429c1e7c58"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/50/tin"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "050_Sn.docx",
+    "sourceSha256": "ff92c9588a2df2535448b14a25ef537ce789f370734829f9f9bf97429c1e7c58",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/050_Sn.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
 }

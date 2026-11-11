@@ -1,0 +1,394 @@
+{
+  "number": 113,
+  "symbol": "Nh",
+  "nameVi": "Nihonium",
+  "nameEn": "Nihonium",
+  "mass": 286,
+  "massStandardText": "[286] — số khối đồng vị tham chiếu, không phải nguyên tử khối chuẩn",
+  "massStandardSource": "https://periodic-table.rsc.org/element/113/nihonium",
+  "massKind": "reference-isotope-mass-number",
+  "category": "kim-loai-sau-chuyen-tiep",
+  "hasData": true,
+  "file": "elements/113_Nh.json",
+  "general": {
+    "latinName": "Nihonium",
+    "englishName": "Nihonium",
+    "electronConfig": "[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p¹ (dự đoán)",
+    "isotope": "²⁷⁸Nh, ²⁸²Nh, ²⁸³Nh, ²⁸⁴Nh, ²⁸⁵Nh, ²⁸⁶Nh",
+    "group": 13,
+    "groupLabel": "13",
+    "series": "",
+    "period": 7,
+    "state": "Chưa đo trạng thái vĩ mô; các giá trị pha chỉ là dự đoán",
+    "oxidation": "+1, +3 (dự đoán)",
+    "electronegativity": null,
+    "electronegativityNote": "Chưa có giá trị Pauling đủ cơ sở trong bản đối chiếu; không coi 0 là giá trị đã đo.",
+    "density": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+    "meltingPoint": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+    "boilingPoint": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+    "crystalStructure": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+    "CAS": "54084-70-7"
+  },
+  "history": {
+    "discoverer": "Nhóm nghiên cứu tại RIKEN, Nhật Bản",
+    "year": "2004",
+    "discoveryLocation": "Wako, Saitama, Nhật Bản",
+    "description": "Nihonium được tổng hợp lần đầu tại RIKEN bằng cách bắn phá Bismuth-209 bằng Zinc-70: ²⁰⁹Bi + ⁷⁰Zn → ²⁷⁸Nh + n Sau nhiều năm thí nghiệm, RIKEN đã tạo và xác nhận các nguyên tử Nihonium thông qua chuỗi phân rã của chúng. Tên Nihonium bắt nguồn từ Nihon (日本), một cách đọc tiếng Nhật của tên nước Nhật Bản."
+  },
+  "structure": {
+    "protons": 113,
+    "electrons": 113,
+    "neutrons": 173,
+    "nucleusIsotope": "²⁸⁶Nh",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 113,
+      "neutron": 173
+    },
+    "electronShells": [
+      2,
+      8,
+      18,
+      32,
+      32,
+      18,
+      3
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      32,
+      32,
+      18,
+      3
+    ],
+    "valenceElectrons": 3,
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+    "lattice": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+    "latticeEvidence": "predicted"
+  },
+  "structureType": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+  "occurrence": {
+    "description": "Chất rắn (dự đoán)",
+    "simple": [
+      "Nh"
+    ],
+    "compounds": [
+      "NhCl",
+      "NhCl₃",
+      "NhOH... (dự đoán)"
+    ],
+    "ores": [
+      "Không tồn tại tự nhiên với lượng đáng kể. Nihonium chỉ được tổng hợp nhân tạo trong phòng thí nghiệm"
+    ],
+    "details": [
+      "Trạng thái: Chất rắn (dự đoán)",
+      "Có trong: Không tồn tại tự nhiên với lượng đáng kể. Nihonium chỉ được tổng hợp nhân tạo trong phòng thí nghiệm.",
+      "Đơn chất: Nh",
+      "Hợp chất: NhCl, NhCl₃, NhOH... (dự đoán)"
+    ],
+    "mineral": {
+      "available": false,
+      "reason": "Nguyên tố nhân tạo hoặc chỉ có vết tự nhiên; không có quặng khai thác riêng để dựng mẫu."
+    }
+  },
+  "naturalState": {
+    "image": "/assets/periodic-table/diagrams/113_Nh.svg",
+    "alt": "Nihonium: sơ đồ minh họa nguyên tố",
+    "kind": "diagram",
+    "source": "",
+    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+    "credit": ""
+  },
+  "isotopes": [
+    {
+      "isotope": "²⁷⁸Nh",
+      "massNumber": 278,
+      "protons": 113,
+      "neutrons": 165,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "1.4 (+1.9/−0.5) ms",
+      "halfLife": "1.4 ms",
+      "halfLifeUncertainty": "+19-5",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁸²Nh",
+      "massNumber": 282,
+      "protons": 113,
+      "neutrons": 169,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "0.07 (+0.14/−0.03) s",
+      "halfLife": "0.07 s",
+      "halfLifeUncertainty": "+14-3",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁸³Nh",
+      "massNumber": 283,
+      "protons": 113,
+      "neutrons": 170,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "0.07 (+0.14/−0.03) s",
+      "halfLife": "0.07 s",
+      "halfLifeUncertainty": "+14-3",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁸⁴Nh",
+      "massNumber": 284,
+      "protons": 113,
+      "neutrons": 171,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "0.97 (+0.12/−0.10) s",
+      "halfLife": "0.97 s",
+      "halfLifeUncertainty": "+12-10",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁸⁵Nh",
+      "massNumber": 285,
+      "protons": 113,
+      "neutrons": 172,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "0.93 (+0.45/−0.23) s",
+      "halfLife": "0.93 s",
+      "halfLifeUncertainty": "+45-23",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁸⁶Nh",
+      "massNumber": 286,
+      "protons": 113,
+      "neutrons": 173,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "9.5 (+6.3/−2.7) s",
+      "halfLife": "9.5 s",
+      "halfLifeUncertainty": "+63-27",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Là nguyên tố thuộc nhóm IIIA | chu kỳ 7.</li><li>Là nguyên tố siêu nặng.</li><li>Có tính phóng xạ rất mạnh.</li><li>Được dự đoán là chất rắn ở điều kiện thường.</li><li>Có thể có tính chất kim loại.</li><li>Khối lượng riêng, nhiệt độ nóng chảy và nhiệt độ sôi chưa được xác định trực tiếp.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Có 3 electron hóa trị theo cấu hình dự đoán: 7s² 7p¹.</li><li>Số Oxy hóa +1 và +3 được dự đoán.</li><li>Có thể có tính chất tương tự Thallium (Tl) hơn là Aluminum hay Gallium do hiệu ứng tương đối tính.</li><li>Trạng thái +1 có thể tương đối ổn định do hiệu ứng cặp electron trơ.</li><li>Hầu hết tính chất hóa học vẫn dựa trên dự đoán lý thuyết.</li></ul>",
+  "reactions": [
+    {
+      "type": "Tổng hợp Nihonium-278",
+      "desc": "",
+      "equation": "²⁰⁹Bi + ⁷⁰Zn → ²⁷⁸Nh + n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 71,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Phân rã Alpha",
+      "desc": "",
+      "equation": "²⁸³Nh → ²⁷⁹Rg + ⁴He",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 73,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tạo Nihonium(I) chloride",
+      "desc": "",
+      "equation": "2Nh + Cl₂ → 2NhCl",
+      "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+      "kind": "formal",
+      "sourceLine": 75,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tạo Nihonium(III) chloride",
+      "desc": "",
+      "equation": "2Nh + 3Cl₂ → 2NhCl₃",
+      "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+      "kind": "formal",
+      "sourceLine": 77,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "preparations": {
+    "lab": [
+      {
+        "title": "Nihonium được tổng hợp bằng cách bắn phá Bismuth-209 bằng ion Zinc-70 trong máy gia tốc hạt.",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "²⁰⁹Bi + ⁷⁰Zn → ²⁷⁸Nh + ¹n",
+            "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+            "kind": "nuclear",
+            "sourceLine": 60,
+            "sourceSection": "lab",
+            "balance": {
+              "status": "balanced",
+              "kind": "nuclear",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          59,
+          60
+        ],
+        "equation": "²⁰⁹Bi + ⁷⁰Zn → ²⁷⁸Nh + ¹n"
+      }
+    ],
+    "industry": [
+      {
+        "title": "Nihonium (Nh) không được sản xuất công nghiệp do tính phóng xạ rất cao và thời gian bán rã ngắn. Nguyên tố này chỉ được tổng hợp với lượng cực nhỏ trong các cơ sở nghiên cứu hạt nhân.",
+        "desc": "",
+        "result": "",
+        "equations": [],
+        "sourceLines": [
+          57
+        ],
+        "equation": ""
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nihonium được nhận biết thông qua",
+      "desc": "Năng lượng của các hạt Alpha. Chu kỳ bán rã. Chuỗi phân rã đặc trưng. Xác định các hạt nhân con. Đối chiếu chuỗi phân rã với các hạt nhân đã biết. Do chỉ tạo ra một số lượng cực nhỏ nguyên tử Nh, không thể nhận biết bằng phản ứng hóa học thông thường.",
+      "result": "",
+      "equations": [],
+      "sourceLines": [
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68
+      ],
+      "equation": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Ứng dụng",
+      "desc": "Nihonium không có ứng dụng công nghiệp hoặc dân dụng.",
+      "sourceLine": 80
+    },
+    {
+      "title": "Nó chủ yếu được sử dụng trong",
+      "desc": "",
+      "sourceLine": 81
+    },
+    {
+      "title": "Nghiên cứu hạt nhân",
+      "desc": "Nghiên cứu các nguyên tố siêu nặng và độ ổn định của chúng.",
+      "sourceLine": 82
+    },
+    {
+      "title": "Hóa học nguyên tố siêu nặng",
+      "desc": "Nghiên cứu Nihonium và so sánh với Thallium, đặc biệt về trạng thái Oxy hóa +1.",
+      "sourceLine": 83
+    },
+    {
+      "title": "Nghiên cứu hiệu ứng tương đối tính",
+      "desc": "Tìm hiểu sự thay đổi tính chất hóa học của nguyên tố khi số hiệu nguyên tử tăng rất cao.",
+      "sourceLine": 84
+    }
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Nihonium là nguyên tố số 113, thuộc nhóm IIIA | chu kỳ 7 và là một nguyên tố siêu nặng.</li><li>Nihonium được tổng hợp lần đầu tại RIKEN, Nhật Bản vào năm 2004 bằng phản ứng giữa Bismuth-209 và Zinc-70. Đây là nguyên tố đầu tiên được phát hiện và đặt tên bởi một nhóm nghiên cứu tại Nhật Bản.</li><li>Cấu hình electron được dự đoán là [Rn] 5f¹⁴ 6d¹⁰ 7s² 7p¹. Do hiệu ứng tương đối tính và hiệu ứng cặp electron trơ, Nihonium có thể có tính chất khác đáng kể so với các nguyên tố nhẹ hơn cùng nhóm.</li><li>Nihonium không có đồng vị bền, rất phóng xạ và chỉ được tạo ra với số lượng cực nhỏ. Vì vậy, nó không có ứng dụng thực tế, chủ yếu phục vụ nghiên cứu khoa học.</li><li>Mạng tinh thể: Lập phương tâm khối (BCC) — dự đoán, vì chưa thể thu được lượng Nihonium đủ lớn để xác định trực tiếp cấu trúc tinh thể.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/diagrams/113_Nh.svg",
+      "title": "Nihonium (Nh)",
+      "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+      "source": "",
+      "author": "ChemDex",
+      "license": "ChemDex schematic diagram",
+      "licenseUrl": ""
+    }
+  ],
+  "mediaBlocks": [],
+  "sources": [
+    {
+      "title": "113_Nh.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "ab6256b9ae2680a96d8573ed6871ecba175f8a685e2e73fbf01d942260e521f0"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/113/nihonium"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "113_Nh.docx",
+    "sourceSha256": "ab6256b9ae2680a96d8573ed6871ecba175f8a685e2e73fbf01d942260e521f0",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/113_Nh.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
+}

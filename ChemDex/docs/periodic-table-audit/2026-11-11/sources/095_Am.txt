@@ -1,0 +1,98 @@
+001: Americium (Am)
+002: Thông tin chung
+003: Tên Latin: Americium
+004: Tên Tiếng Anh: Americium
+005: Đồng vị: ²⁴¹Am, ²⁴²Am, ²⁴³Am, ²⁴⁴Am
+006: Vị trí: Nhóm IIIB | Chu kỳ 7 | Họ Actinide
+007: Số Oxy hóa: +2, +3, +4, +5, +6
+008: Độ âm điện: 1,13 (Pauling)
+009: Lịch sử khám phá
+010: Phát hiện bởi: Glenn T. Seaborg, Ralph A. James, Leon O. Morgan và Albert Ghiorso
+011: Năm công bố: 1944
+012: Nơi khám phá: Chicago, Illinois, Hoa Kỳ
+013: Mô tả: Americium được tạo ra lần đầu tiên vào năm 1944 bằng cách bắn phá Plutonium-239 bằng neutron, tạo ra Plutonium-240, sau đó tiếp tục trải qua các quá trình hạt nhân để hình thành Americium-241.
+014: Đồng vị ²⁴¹Am là đồng vị quan trọng nhất của nguyên tố này.
+015: Tên Americium được đặt theo Americas (châu Mỹ), tương tự cách Europium được đặt theo Europe (châu Âu).
+016: 3. Cấu tạo
+017: a. Cấu tạo nguyên tử
+018: Cấu hình electron: [Rn] 5f⁷ 7s²
+019: Mô hình mạng tinh thể: Lục phương (Hexagonal)
+020: Số hiệu nguyên tử: 95
+021: Nguyên tử khối: 243,0614 g/mol (giá trị quy ước cho đồng vị ²⁴³Am)
+022: Vỏ nguyên tử: 95 electron
+023: Hạt nhân: 95 proton
+024: Cấu hình e đầy đủ: [Rn] 5f⁷ 7s²
+025: Loại mạng: Lục phương (Hexagonal)
+026: b. Trạng thái tự nhiên
+027: Trạng thái: Chất rắn
+028: Màu sắc: Trắng bạc
+029: Có trong: Hầu như không tồn tại tự nhiên với lượng đáng kể; Americium chủ yếu được tạo ra nhân tạo trong lò phản ứng hạt nhân.
+030: Đơn chất: Am
+031: Hợp chất phổ biến: AmO₂, Am₂O₃, AmCl₃, AmF₃
+032: c. Đồng vị
+033: Americium không có đồng vị bền.
+034: Một số đồng vị quan trọng:
+035: ²⁴¹Am: chu kỳ bán rã khoảng 432,2 năm.
+036: ²⁴³Am: chu kỳ bán rã khoảng 7.370 năm.
+037: ²⁴²Am: chu kỳ bán rã khoảng 16,0 giờ.
+038: ²⁴¹Am là đồng vị Americium được biết đến và sử dụng rộng rãi nhất.
+039: Tính chất
+040: Tính chất vật lý
+041: Là kim loại phóng xạ.
+042: Thuộc họ Actinide.
+043: Có màu trắng bạc.
+044: Mềm và dễ gia công hơn một số Actinide nặng hơn.
+045: Có tính phóng xạ mạnh.
+046: Có nhiệt độ nóng chảy khoảng 1176 °C.
+047: Có nhiệt độ sôi khoảng 2607 °C.
+048: Khối lượng riêng khoảng 13,7 g/cm³.
+049: Tính chất hóa học
+050: Americium có nhiều trạng thái Oxy hóa:
+051: +2
+052: +3
+053: +4
+054: +5
+055: +6
+056: Trong đó +3 là trạng thái phổ biến và ổn định nhất trong nhiều hợp chất.
+057: Americium phản ứng với Oxygen tạo oxide:
+058: 4Am + 3O₂ → 2Am₂O₃
+059: Americium cũng tạo các hợp chất Halide như AmCl₃ và AmF₃.
+060: Điều chế
+061: Điều chế trong công nghiệp
+062: Americium (Am) được tạo ra nhân tạo trong lò phản ứng hạt nhân thông qua quá trình bắt neutron và phân rã beta của Plutonium. Một con đường hình thành Americium-241 là từ Plutonium-239 qua nhiều lần bắt neutron và phân rã.
+063: ²³⁹Pu + n → ²⁴⁰Pu
+064: ²⁴⁰Pu + n → ²⁴¹Pu
+065: ²⁴¹Pu → ²⁴¹Am + β⁻
+066: Americium sau đó được tách khỏi các Actinide khác bằng các phương pháp hóa học chuyên dụng.
+067: Điều chế trong phòng thí nghiệm
+068: Americium có thể được tạo ra với lượng rất nhỏ bằng các phản ứng hạt nhân tại cơ sở nghiên cứu chuyên dụng. Không có phương pháp điều chế hóa học thông thường để tổng hợp nguyên tố này.
+069: Nhận biết
+070: Có thể nhận biết Americium bằng:
+071: Phổ alpha.
+072: Phổ gamma.
+073: Đo hoạt độ phóng xạ.
+074: ICP-MS và các phương pháp phân tích đồng vị.
+075: Phân tích hóa học các ion Am³⁺.
+076: ²⁴¹Am có một vạch gamma đặc trưng khoảng 59,5 keV, thường được sử dụng để nhận biết đồng vị này.
+077: Phương trình
+078: Tạo Plutonium-240
+079: ²³⁹Pu + n → ²⁴⁰Pu
+080: Tạo Plutonium-241
+081: ²⁴⁰Pu + n → ²⁴¹Pu
+082: Phân rã tạo Americium-241
+083: ²⁴¹Pu → ²⁴¹Am + β⁻
+084: Tác dụng với Oxygen
+085: 4Am + 3O₂ → 2Am₂O₃
+086: Phân rã Alpha của Americium-241
+087: ²⁴¹Am → ²³⁷Np + α
+088: Ứng dụng thực tế
+089: Thiết bị báo khói: ²⁴¹Am được sử dụng trong nhiều ionization smoke detectors. Bức xạ alpha từ ²⁴¹Am giúp ion hóa không khí trong buồng cảm biến; khi khói đi vào, dòng ion bị thay đổi và thiết bị phát hiện khói.
+090: Đo độ dày: Một số nguồn Americium được sử dụng trong các thiết bị đo công nghiệp chuyên dụng.
+091: Phân tích vật liệu: Nguồn bức xạ chứa Americium có thể được sử dụng trong một số thiết bị phân tích và đo lường.
+092: Nghiên cứu hạt nhân: Americium được sử dụng để nghiên cứu vật lý hạt nhân, hóa học Actinide và phóng xạ.
+093: Tổng quan
+094: Americium là nguyên tố số 95, thuộc nhóm IIIB | chu kỳ 7 và là nguyên tố thứ bảy trong họ Actinide.
+095: Americium được Glenn T. Seaborg, Ralph A. James, Leon O. Morgan và Albert Ghiorso phát hiện vào năm 1944 tại Chicago, Hoa Kỳ. Tên nguyên tố được đặt theo châu Mỹ (Americas).
+096: Americium là kim loại phóng xạ màu trắng bạc, có nhiều trạng thái Oxy hóa, trong đó +3 phổ biến nhất. Nguyên tố này không có đồng vị bền; ²⁴¹Am là đồng vị quan trọng nhất với chu kỳ bán rã khoảng 432,2 năm.
+097: Ứng dụng nổi tiếng nhất của Americium là ²⁴¹Am trong thiết bị báo khói ion hóa. Ngoài ra, nó còn được sử dụng trong một số thiết bị đo lường công nghiệp, phân tích vật liệu và nghiên cứu hạt nhân.
+098: Mạng tinh thể: Lục phương (Hexagonal) ở điều kiện thường.

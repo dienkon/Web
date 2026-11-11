@@ -1,0 +1,871 @@
+{
+  "symbol": "Mt",
+  "number": 109,
+  "source": "109_Mt.docx",
+  "sourceSha256": "7ad37a823765e57a1be2d1fb174a5445fdf8688cad78a214f52a623c0880eb0e",
+  "paragraphCount": 89,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 6,
+    "structure": 8,
+    "occurrence": 4,
+    "isotopes": 8,
+    "physical": 6,
+    "chemical": 5,
+    "lab": 2,
+    "industry": 1,
+    "recognition": 7,
+    "reactions": 9,
+    "applications": 5,
+    "notes": 5
+  },
+  "editorialDecisions": [],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "[Rn] 5f¹⁴ 6d⁷ 7s² (dự đoán)",
+      "publishedValue": "[Rn] 5f¹⁴ 6d⁷ 7s² (dự đoán)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+      "publishedValue": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "Không xác định",
+      "publishedValue": null,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm VIIIB | Chu kỳ 7",
+      "publishedValue": "9",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Chất rắn (dự đoán).",
+      "publishedValue": "Chưa đo trạng thái vĩ mô; các giá trị pha chỉ là dự đoán",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 34,
+      "sourceText": "²⁶⁶Mt: chu kỳ bán rã khoảng 3.4 mili giây.",
+      "reference": {
+        "isotope": "²⁶⁶Mt",
+        "massNumber": 266,
+        "protons": 109,
+        "neutrons": 157,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "2.1 ± 0.7 ms",
+        "halfLife": "2.1 ms",
+        "halfLifeUncertainty": "7",
+        "halfLifeQualifier": null,
+        "decay": "A",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 35,
+      "sourceText": "²⁷⁰Mt: chu kỳ bán rã khoảng 0.4 giây.",
+      "reference": {
+        "isotope": "²⁷⁰Mt",
+        "massNumber": 270,
+        "protons": 109,
+        "neutrons": 161,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "0.48 (+0.66/−0.18) s",
+        "halfLife": "0.48 s",
+        "halfLifeUncertainty": "+66-18",
+        "halfLifeQualifier": null,
+        "decay": "A",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 36,
+      "sourceText": "²⁷¹Mt: chu kỳ bán rã khoảng 7.4 giây.",
+      "reference": null,
+      "assessment": "Không có trong snapshot đối chiếu; chưa công bố như số liệu đã xác nhận."
+    },
+    {
+      "line": 37,
+      "sourceText": "²⁷²Mt: chu kỳ bán rã khoảng 10 giây.",
+      "reference": null,
+      "assessment": "Không có trong snapshot đối chiếu; chưa công bố như số liệu đã xác nhận."
+    },
+    {
+      "line": 38,
+      "sourceText": "²⁷⁶Mt: chu kỳ bán rã khoảng 0.72 giây.",
+      "reference": {
+        "isotope": "²⁷⁶Mt",
+        "massNumber": 276,
+        "protons": 109,
+        "neutrons": 167,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "0.69 (+0.09/−0.07) s",
+        "halfLife": "0.69 s",
+        "halfLifeUncertainty": "+9-7",
+        "halfLifeQualifier": null,
+        "decay": "A",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 14,
+      "text": "²⁰⁹Bi + ⁵⁸Fe → ²⁶⁶Mt + n",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 59,
+      "text": "²⁰⁹Bi + ⁵⁸Fe → ²⁶⁶Mt + ¹n",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 70,
+      "text": "²⁰⁹Bi + ⁵⁸Fe → ²⁶⁶Mt + n",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 72,
+      "text": "²⁷⁶Mt → ²⁷²Bh + ⁴He",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 74,
+      "text": "2Mt + 3Cl₂ → 2MtCl₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 76,
+      "text": "2Mt + O₂ → 2MtO",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "history",
+      "equation": "²⁰⁹Bi + ⁵⁸Fe → ²⁶⁶Mt + n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 14,
+      "sourceSection": "history",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "lab",
+      "equation": "²⁰⁹Bi + ⁵⁸Fe → ²⁶⁶Mt + ¹n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 59,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "²⁰⁹Bi + ⁵⁸Fe → ²⁶⁶Mt + n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 70,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "²⁷⁶Mt → ²⁷²Bh + ⁴He",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 72,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2Mt + 3Cl₂ → 2MtCl₃",
+      "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+      "kind": "formal",
+      "sourceLine": 74,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2Mt + O₂ → 2MtO",
+      "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+      "kind": "formal",
+      "sourceLine": 76,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [
+    271,
+    272,
+    273
+  ],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": null,
+      "after": [
+        {
+          "title": "Ứng dụng",
+          "desc": "Meitnerium không có ứng dụng công nghiệp hoặc dân dụng.",
+          "sourceLine": 79
+        },
+        {
+          "title": "Nó chủ yếu được sử dụng trong",
+          "desc": "",
+          "sourceLine": 80
+        },
+        {
+          "title": "Nghiên cứu hạt nhân",
+          "desc": "Nghiên cứu tính ổn định của các hạt nhân siêu nặng.",
+          "sourceLine": 81
+        },
+        {
+          "title": "Hóa học nguyên tố siêu nặng",
+          "desc": "Kiểm tra sự tương đồng giữa Meitnerium và Iridium.",
+          "sourceLine": 82
+        },
+        {
+          "title": "Nghiên cứu cấu trúc nguyên tử",
+          "desc": "Nghiên cứu ảnh hưởng của hiệu ứng tương đối tính lên các nguyên tử có số hiệu nguyên tử rất lớn.",
+          "sourceLine": 83
+        }
+      ]
+    },
+    {
+      "field": "category",
+      "before": null,
+      "after": "chuyen-tiep"
+    },
+    {
+      "field": "chemical",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Được dự đoán có tính chất tương tự Iridium (Ir).</li><li>Có thể có nhiều số Oxy hóa như +3, +4, +6 và +8.</li><li>Trạng thái +3 có thể là một trong những trạng thái tương đối ổn định.</li><li>Các hiệu ứng tương đối tính có thể làm cho hóa học của Mt khác với Iridium.</li><li>Hầu như toàn bộ tính chất hóa học của Meitnerium vẫn dựa trên dự đoán lý thuyết.</li></ul>"
+    },
+    {
+      "field": "file",
+      "before": null,
+      "after": "elements/109_Mt.json"
+    },
+    {
+      "field": "general",
+      "before": null,
+      "after": {
+        "latinName": "Meitnerium",
+        "englishName": "Meitnerium",
+        "electronConfig": "[Rn] 5f¹⁴ 6d⁷ 7s² (dự đoán)",
+        "isotope": "²⁶⁶Mt, ²⁶⁸Mt, ²⁷⁰Mt, ²⁷⁴Mt, ²⁷⁵Mt, ²⁷⁶Mt, ²⁷⁷Mt, ²⁷⁸Mt",
+        "group": 9,
+        "groupLabel": "9",
+        "series": "",
+        "period": 7,
+        "state": "Chưa đo trạng thái vĩ mô; các giá trị pha chỉ là dự đoán",
+        "oxidation": "+3, +4, +6, +8 (dự đoán)",
+        "electronegativity": null,
+        "electronegativityNote": "Chưa có giá trị Pauling đủ cơ sở trong bản đối chiếu; không coi 0 là giá trị đã đo.",
+        "density": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+        "meltingPoint": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+        "boilingPoint": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+        "crystalStructure": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+        "CAS": "54038-01-6"
+      }
+    },
+    {
+      "field": "hasData",
+      "before": null,
+      "after": true
+    },
+    {
+      "field": "history",
+      "before": null,
+      "after": {
+        "discoverer": "Nhóm nghiên cứu tại Gesellschaft für Schwerionenforschung (GSI)",
+        "year": "1982",
+        "discoveryLocation": "Darmstadt, Tây Đức",
+        "description": "Meitnerium được tổng hợp lần đầu vào năm 1982 tại GSI bằng cách bắn phá Bismuth-209 bằng Iron-58: ²⁰⁹Bi + ⁵⁸Fe → ²⁶⁶Mt + n Tên Meitnerium được đặt để vinh danh nhà vật lý Lise Meitner, người có những đóng góp quan trọng trong việc nghiên cứu hiện tượng phân hạch hạt nhân."
+      }
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/diagrams/109_Mt.svg",
+          "title": "Meitnerium (Mt)",
+          "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+          "source": "",
+          "author": "ChemDex",
+          "license": "ChemDex schematic diagram",
+          "licenseUrl": ""
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "²⁶⁶Mt",
+          "massNumber": 266,
+          "protons": 109,
+          "neutrons": 157,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "2.1 ± 0.7 ms",
+          "halfLife": "2.1 ms",
+          "halfLifeUncertainty": "7",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁶⁸Mt",
+          "massNumber": 268,
+          "protons": 109,
+          "neutrons": 159,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "21 (+8/−5) ms",
+          "halfLife": "21 ms",
+          "halfLifeUncertainty": "+8-5",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁷⁰Mt",
+          "massNumber": 270,
+          "protons": 109,
+          "neutrons": 161,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "0.48 (+0.66/−0.18) s",
+          "halfLife": "0.48 s",
+          "halfLifeUncertainty": "+66-18",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁷⁴Mt",
+          "massNumber": 274,
+          "protons": 109,
+          "neutrons": 165,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "0.44 (+0.81/−0.17) s",
+          "halfLife": "0.44 s",
+          "halfLifeUncertainty": "+81-17",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁷⁵Mt",
+          "massNumber": 275,
+          "protons": 109,
+          "neutrons": 166,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "20 (+24/−7) ms",
+          "halfLife": "20 ms",
+          "halfLifeUncertainty": "+24-7",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁷⁶Mt",
+          "massNumber": 276,
+          "protons": 109,
+          "neutrons": 167,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "0.69 (+0.09/−0.07) s",
+          "halfLife": "0.69 s",
+          "halfLifeUncertainty": "+9-7",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁷⁷Mt",
+          "massNumber": 277,
+          "protons": 109,
+          "neutrons": 168,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "4 (+4/−1) ms",
+          "halfLife": "4 ms",
+          "halfLifeUncertainty": "+4-1",
+          "halfLifeQualifier": null,
+          "decay": "SF",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁷⁸Mt",
+          "massNumber": 278,
+          "protons": 109,
+          "neutrons": 169,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "4.5 (+3.5/−1.3) s",
+          "halfLife": "4.5 s",
+          "halfLifeUncertainty": "+35-13",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "mass",
+      "before": null,
+      "after": 276
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "reference-isotope-mass-number"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://periodic-table.rsc.org/element/109/meitnerium"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "[276] — số khối đồng vị tham chiếu, không phải nguyên tử khối chuẩn"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": []
+    },
+    {
+      "field": "nameEn",
+      "before": null,
+      "after": "Meitnerium"
+    },
+    {
+      "field": "nameVi",
+      "before": null,
+      "after": "Meitnerium"
+    },
+    {
+      "field": "naturalState",
+      "before": null,
+      "after": {
+        "image": "/assets/periodic-table/diagrams/109_Mt.svg",
+        "alt": "Meitnerium: sơ đồ minh họa nguyên tố",
+        "kind": "diagram",
+        "source": "",
+        "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+        "credit": ""
+      }
+    },
+    {
+      "field": "notes",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Meitnerium là nguyên tố số 109, thuộc nhóm VIIIB | chu kỳ 7 và là một kim loại chuyển tiếp siêu nặng.</li><li>Meitnerium được tổng hợp lần đầu vào năm 1982 tại GSI, Darmstadt, bằng phản ứng giữa Bismuth-209 và Iron-58. Nguyên tố được đặt tên để vinh danh nhà vật lý Lise Meitner.</li><li>Cấu hình electron được dự đoán là [Rn] 5f¹⁴ 6d⁷ 7s². Về mặt hóa học, Meitnerium được dự đoán có nhiều điểm tương đồng với Iridium, nhưng hiệu ứng tương đối tính có thể làm thay đổi đáng kể tính chất của nó.</li><li>Meitnerium không có đồng vị bền, có tính phóng xạ rất mạnh và chỉ được tạo ra với số lượng cực nhỏ. Vì vậy, nó không có ứng dụng thực tế, chủ yếu được sử dụng trong nghiên cứu khoa học.</li><li>Mạng tinh thể: Lập phương tâm khối (BCC) — dự đoán, vì chưa thể thu được lượng Meitnerium đủ lớn để xác định trực tiếp cấu trúc tinh thể.</li></ul>"
+    },
+    {
+      "field": "number",
+      "before": null,
+      "after": 109
+    },
+    {
+      "field": "occurrence",
+      "before": null,
+      "after": {
+        "description": "Chất rắn (dự đoán).",
+        "simple": [
+          "Mt"
+        ],
+        "compounds": [
+          "MtO",
+          "MtCl₃",
+          "MtO₃... (dự đoán)"
+        ],
+        "ores": [
+          "Không tồn tại tự nhiên với lượng đáng kể. Meitnerium chỉ được tổng hợp nhân tạo trong phòng thí nghiệm"
+        ],
+        "details": [
+          "Trạng thái: Chất rắn (dự đoán).",
+          "Có trong: Không tồn tại tự nhiên với lượng đáng kể. Meitnerium chỉ được tổng hợp nhân tạo trong phòng thí nghiệm.",
+          "Đơn chất: Mt",
+          "Hợp chất: MtO, MtCl₃, MtO₃... (dự đoán)"
+        ],
+        "mineral": {
+          "available": false,
+          "reason": "Nguyên tố nhân tạo hoặc chỉ có vết tự nhiên; không có quặng khai thác riêng để dựng mẫu."
+        }
+      }
+    },
+    {
+      "field": "physical",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Là kim loại chuyển tiếp.</li><li>Thuộc nhóm VIIIB | chu kỳ 7.</li><li>Là nguyên tố siêu nặng.</li><li>Có tính phóng xạ cực mạnh.</li><li>Được dự đoán là chất rắn ở điều kiện thường.</li><li>Các tính chất vĩ mô như màu sắc, khối lượng riêng, nhiệt độ nóng chảy và nhiệt độ sôi chưa được xác định thực nghiệm.</li></ul>"
+    },
+    {
+      "field": "preparations",
+      "before": null,
+      "after": {
+        "lab": [
+          {
+            "title": "Meitnerium được tổng hợp bằng cách bắn phá Bismuth-209 bằng ion Iron-58 trong máy gia tốc hạt.",
+            "desc": "",
+            "result": "",
+            "equations": [
+              {
+                "equation": "²⁰⁹Bi + ⁵⁸Fe → ²⁶⁶Mt + ¹n",
+                "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+                "kind": "nuclear",
+                "sourceLine": 59,
+                "sourceSection": "lab",
+                "balance": {
+                  "status": "balanced",
+                  "kind": "nuclear",
+                  "delta": {}
+                },
+                "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+              }
+            ],
+            "sourceLines": [
+              58,
+              59
+            ],
+            "equation": "²⁰⁹Bi + ⁵⁸Fe → ²⁶⁶Mt + ¹n"
+          }
+        ],
+        "industry": [
+          {
+            "title": "Meitnerium (Mt) không được sản xuất công nghiệp do tính phóng xạ rất cao và thời gian bán rã ngắn. Nguyên tố này chỉ được tổng hợp với lượng cực nhỏ trong các cơ sở nghiên cứu hạt nhân.",
+            "desc": "",
+            "result": "",
+            "equations": [],
+            "sourceLines": [
+              56
+            ],
+            "equation": ""
+          }
+        ]
+      }
+    },
+    {
+      "field": "reactions",
+      "before": null,
+      "after": [
+        {
+          "type": "Tổng hợp Meitnerium-266",
+          "desc": "",
+          "equation": "²⁰⁹Bi + ⁵⁸Fe → ²⁶⁶Mt + n",
+          "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+          "kind": "nuclear",
+          "sourceLine": 70,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Phân rã Alpha của Meitnerium-276",
+          "desc": "",
+          "equation": "²⁷⁶Mt → ²⁷²Bh + ⁴He",
+          "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+          "kind": "nuclear",
+          "sourceLine": 72,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Meitnerium(III) chloride",
+          "desc": "",
+          "equation": "2Mt + 3Cl₂ → 2MtCl₃",
+          "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+          "kind": "formal",
+          "sourceLine": 74,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Meitnerium oxide",
+          "desc": "",
+          "equation": "2Mt + O₂ → 2MtO",
+          "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+          "kind": "formal",
+          "sourceLine": 76,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": null,
+      "after": [
+        {
+          "title": "Meitnerium được nhận biết thông qua",
+          "desc": "Năng lượng các hạt Alpha. Chu kỳ bán rã. Chuỗi phân rã đặc trưng. Xác định các hạt nhân con sinh ra. Đối chiếu chuỗi phân rã với các đồng vị đã biết. Do chỉ tạo được một số lượng cực nhỏ nguyên tử Mt, không thể nhận biết bằng phản ứng hóa học thông thường.",
+          "result": "",
+          "equations": [],
+          "sourceLines": [
+            61,
+            62,
+            63,
+            64,
+            65,
+            66,
+            67
+          ],
+          "equation": ""
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "109_Mt.docx",
+        "sourceSha256": "7ad37a823765e57a1be2d1fb174a5445fdf8688cad78a214f52a623c0880eb0e",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/109_Mt.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "109_Mt.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "7ad37a823765e57a1be2d1fb174a5445fdf8688cad78a214f52a623c0880eb0e"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/109/meitnerium"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure",
+      "before": null,
+      "after": {
+        "protons": 109,
+        "electrons": 109,
+        "neutrons": 167,
+        "nucleusIsotope": "²⁷⁶Mt",
+        "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+        "nucleus": {
+          "proton": 109,
+          "neutron": 167
+        },
+        "electronShells": [
+          2,
+          8,
+          18,
+          32,
+          32,
+          15,
+          2
+        ],
+        "shells": [
+          2,
+          8,
+          18,
+          32,
+          32,
+          15,
+          2
+        ],
+        "valenceElectrons": 2,
+        "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+        "lattice": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+        "latticeEvidence": "predicted"
+      }
+    },
+    {
+      "field": "structureType",
+      "before": null,
+      "after": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)"
+    },
+    {
+      "field": "symbol",
+      "before": null,
+      "after": "Mt"
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "Mt",
+      "status": "diagram",
+      "reason": "Không dùng ảnh mẫu vĩ mô không xác minh cho nguyên tố cực hiếm/nhân tạo."
+    },
+    "mineral": {
+      "available": false,
+      "reason": "Nguyên tố nhân tạo hoặc chỉ có vết tự nhiên; không có quặng khai thác riêng để dựng mẫu."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "Mt",
+      "z": 109,
+      "url": "https://periodic-table.rsc.org/element/109/meitnerium",
+      "status": "retrieved",
+      "bytes": 143485,
+      "sha256": "6b102e6607cd4283862bddacd62666c7c54663647b947cb51c22f36ab79e53da",
+      "facts": {
+        "Group": "9",
+        "Melting point": "Unknown",
+        "Period": "7",
+        "Boiling point": "Unknown",
+        "Block": "d",
+        "Density (g cm−³)": "Unknown",
+        "Atomic number": "109",
+        "Relative atomic mass": "[278]",
+        "State at 20°C": "Solid",
+        "Key isotopes": "²⁷⁶Mt",
+        "Electron configuration": "[Rn] 5f¹⁴6d⁷7s²",
+        "CAS number": "54038-01-6",
+        "ChemSpider ID": "-",
+        "electronegativity": "Unknown"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "109",
+      "Symbol": "Mt",
+      "Name": "Meitnerium",
+      "AtomicMass": "277.154",
+      "CPKHexColor": "EB0026",
+      "ElectronConfiguration": "[Rn]7s2 5f14 6d7 (calculated)",
+      "Electronegativity": "",
+      "AtomicRadius": "",
+      "IonizationEnergy": "",
+      "ElectronAffinity": "",
+      "OxidationStates": "9, 8, 6, 4, 3, 1",
+      "StandardState": "Solid",
+      "MeltingPoint": "",
+      "BoilingPoint": "",
+      "Density": "",
+      "GroupBlock": "Transition metal",
+      "YearDiscovered": "1982"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

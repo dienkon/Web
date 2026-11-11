@@ -1,0 +1,94 @@
+001: Tellurium (Te)
+002: Thông tin chung
+003: Tên Latin: Tellurium
+004: Tên Tiếng Anh: Tellurium
+005: Đồng vị: ¹²⁰Te, ¹²²Te, ¹²³Te, ¹²⁴Te, ¹²⁵Te, ¹²⁶Te, ¹²⁸Te, ¹³⁰Te
+006: Vị trí: Nhóm VIA | Chu kỳ 5
+007: Số Oxy hóa: −2, +2, +4, +6
+008: Độ âm điện: 2.10
+009: Lịch sử khám phá
+010: Phát hiện bởi: Franz-Joseph Müller von Reichenstein
+011: Năm công bố: 1782
+012: Nơi khám phá: Transylvania
+013: Mô tả: Năm 1782, Franz-Joseph Müller von Reichenstein phát hiện một nguyên tố mới khi nghiên cứu quặng vàng. Sau đó, Martin Heinrich Klaproth xác nhận nguyên tố này vào năm 1798 và đặt tên là Tellurium, bắt nguồn từ tiếng Latin Tellus, nghĩa là “Trái Đất”.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Kr] 4d¹⁰ 5s² 5p⁴
+017: Mô hình mạng tinh thể: Lục phương (Hexagonal)
+018: Số hiệu nguyên tử: 52
+019: Nguyên tử khối: 127.60 g/mol
+020: Vỏ nguyên tử: 52 electron
+021: K: 2 | L: 8 | M: 18 | N: 18 | O: 6
+022: Hạt nhân: 52 proton, 76 neutron đối với ¹²⁸Te
+023: Cấu hình e: [Kr] 4d¹⁰ 5s² 5p⁴
+024: Loại mạng: Lục phương (Hexagonal)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Tellurium là chất rắn, màu trắng bạc, ánh kim và khá giòn.
+027: Có trong: Thường tồn tại dưới dạng hợp chất trong các quặng Copper, Lead, Gold và Silver; đôi khi tồn tại ở dạng Tellurium tự sinh.
+028: Đơn chất: Te
+029: Hợp chất: TeO₂, TeO₃, H₂Te, TeCl₄, Na₂TeO₃, CdTe...
+030: c. Đồng vị
+031: Đồng vị: ¹²⁰Te, ¹²²Te, ¹²³Te, ¹²⁴Te, ¹²⁵Te, ¹²⁶Te, ¹²⁸Te, ¹³⁰Te
+032: Tellurium có 8 đồng vị tự nhiên. Một số đồng vị như ¹²⁸Te và ¹³⁰Te có tính phóng xạ cực yếu với chu kỳ bán rã rất dài.
+033: Tính chất
+034: Tính chất vật lý
+035: Là á kim.
+036: Màu trắng bạc, ánh kim.
+037: Giòn và dễ vỡ.
+038: Khối lượng riêng: khoảng 6.24 g/cm³.
+039: Nhiệt độ nóng chảy: khoảng 449.5 °C.
+040: Nhiệt độ sôi: khoảng 988 °C.
+041: Có tính chất bán dẫn.
+042: Độ dẫn điện tăng khi được chiếu sáng.
+043: Tính chất hóa học
+044: Có các số Oxy hóa phổ biến −2, +4 và +6.
+045: Có tính chất hóa học tương tự Sulfur và Selenium.
+046: Phản ứng với Oxygen tạo Tellurium oxide.
+047: Phản ứng với Halogen tạo Tellurium halide.
+048: Phản ứng với Hydrogen tạo Hydrogen telluride.
+049: Có thể tạo Telluride với nhiều kim loại.
+050: Một số hợp chất Tellurium có tính độc.
+051: Điều chế
+052: Điều chế trong công nghiệp
+053: Tellurium (Te) chủ yếu được thu hồi như sản phẩm phụ trong quá trình tinh luyện Copper, đặc biệt từ bùn anode của quá trình điện phân Copper.
+054: Bùn anode được xử lý để tách Tellurium, sau đó chuyển thành các hợp chất trung gian và khử để thu Tellurium kim loại.
+055: Phương trình minh họa:
+056: TeO₂ + 2SO₂ → Te + 2SO₃
+057: Điều chế trong phòng thí nghiệm
+058: Có thể điều chế Tellurium bằng cách khử Tellurium dioxide bằng Hydrogen khi đun nóng.
+059: Phương trình:
+060: TeO₂ + 2H₂ → Te + 2H₂O
+061: Nhận biết
+062: Nhận biết Te²⁻
+063: Ion Telluride có thể phản ứng với ion kim loại để tạo Telluride không tan.
+064: Ví dụ với Lead:
+065: Pb²⁺ + Te²⁻ → PbTe↓
+066: Hiện tượng: Xuất hiện kết tủa đen Lead telluride.
+067: Trong thực tế, Tellurium thường được xác định bằng các phương pháp phân tích chuyên dụng như quang phổ.
+068: Phương trình
+069: Tác dụng với Oxygen
+070: Te + O₂ → TeO₂
+071: Tác dụng với Chlorine
+072: Te + 2Cl₂ → TeCl₄
+073: Tác dụng với Hydrogen
+074: H₂ + Te → H₂Te
+075: Tác dụng với Sodium
+076: 2Na + Te → Na₂Te
+077: Tạo Lead telluride
+078: Pb²⁺ + Te²⁻ → PbTe↓
+079: Khử Tellurium dioxide
+080: TeO₂ + 2H₂ → Te + 2H₂O
+081: Tạo Tellurium dioxide
+082: Te + O₂ → TeO₂
+083: Ứng dụng thực tế
+084: Pin mặt trời: Cadmium telluride (CdTe) được sử dụng trong pin mặt trời màng mỏng.
+085: Bán dẫn: Tellurium và các hợp chất của nó được sử dụng trong một số vật liệu bán dẫn.
+086: Nhiệt điện: Một số Telluride như Bismuth telluride (Bi₂Te₃) có tính chất nhiệt điện tốt, được sử dụng trong các thiết bị chuyển đổi nhiệt–điện.
+087: Hợp kim: Tellurium được thêm vào một số hợp kim Copper và Lead để cải thiện khả năng gia công.
+088: Cao su: Một số hợp chất Tellurium được sử dụng trong quá trình xử lý và lưu hóa cao su.
+089: Kính: Tellurium compounds được sử dụng trong một số loại kính đặc biệt.
+090: Tổng quan
+091: Tellurium là nguyên tố số 52, thuộc nhóm VIA | chu kỳ 5 và là một á kim.
+092: Tellurium có cấu hình electron [Kr] 4d¹⁰ 5s² 5p⁴, với các số Oxy hóa phổ biến là −2, +4 và +6.
+093: Tellurium có màu trắng bạc, ánh kim, khá giòn và có tính chất bán dẫn. Đặc biệt, độ dẫn điện của Tellurium có thể thay đổi dưới tác động của ánh sáng.
+094: Trong tự nhiên, Tellurium thường được thu hồi như sản phẩm phụ của quá trình tinh luyện Copper. Tellurium và các hợp chất của nó có vai trò trong pin mặt trời, vật liệu bán dẫn, thiết bị nhiệt điện, hợp kim và kính đặc biệt.

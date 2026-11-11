@@ -1,0 +1,1365 @@
+{
+  "symbol": "Cl",
+  "number": 17,
+  "source": "017_Cl.docx",
+  "sourceSha256": "51dcc8431583b73ad412b4c338d7d998a1244954f95c70ec8854d315b1bd5631",
+  "paragraphCount": 111,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 4,
+    "structure": 9,
+    "occurrence": 4,
+    "isotopes": 4,
+    "physical": 10,
+    "chemical": 9,
+    "lab": 2,
+    "industry": 7,
+    "recognition": 6,
+    "reactions": 22,
+    "applications": 7,
+    "notes": 4
+  },
+  "editorialDecisions": [],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "1s² 2s² 2p⁶ 3s² 3p⁵",
+      "publishedValue": "[Ne] 3s² 3p⁵",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Trực thoi (Orthorhombic)",
+      "publishedValue": "Trực thoi (Orthorhombic)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "3.16",
+      "publishedValue": 3.16,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm VIIA | Chu kỳ 3",
+      "publishedValue": "17",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Khí màu vàng lục ở điều kiện thường. Trong tự nhiên, Clo chủ yếu tồn tại dưới dạng hợp chất do có tính hoạt động hóa học cao.",
+      "publishedValue": "Khí",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 32,
+      "sourceText": "³⁵Cl: Đồng vị bền, chiếm khoảng 75.76% Clo tự nhiên.",
+      "reference": {
+        "isotope": "³⁵Cl",
+        "massNumber": 35,
+        "protons": 17,
+        "neutrons": 18,
+        "stable": true,
+        "abundancePercent": "75.80",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 33,
+      "sourceText": "³⁶Cl: Đồng vị phóng xạ, có chu kỳ bán rã khoảng 301.000 năm.",
+      "reference": {
+        "isotope": "³⁶Cl",
+        "massNumber": 36,
+        "protons": 17,
+        "neutrons": 19,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "3.013E+5 ± 1.5E+3 năm",
+        "halfLife": "3.013E+5 Y",
+        "halfLifeUncertainty": "15",
+        "halfLifeQualifier": null,
+        "decay": "B-",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 34,
+      "sourceText": "³⁷Cl: Đồng vị bền, chiếm khoảng 24.24% Clo tự nhiên.",
+      "reference": {
+        "isotope": "³⁷Cl",
+        "massNumber": 37,
+        "protons": 17,
+        "neutrons": 20,
+        "stable": true,
+        "abundancePercent": "24.20",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 61,
+      "text": "2Cl⁻ → Cl₂ + 2e⁻",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 63,
+      "text": "2H₂O + 2e⁻ → H₂ + 2OH⁻",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 65,
+      "text": "2NaCl + 2H₂O → Cl₂ + H₂ + 2NaOH",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 68,
+      "text": "MnO₂ + 4HCl → MnCl₂ + Cl₂↑ + 2H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 72,
+      "text": "Ag⁺ + Cl⁻ → AgCl↓",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 75,
+      "text": "AgCl + 2NH₃ → [Ag(NH₃)₂]⁺ + Cl⁻",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 78,
+      "text": "H₂ + Cl₂ → 2HCl",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 80,
+      "text": "2Na + Cl₂ → 2NaCl",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 82,
+      "text": "2Fe + 3Cl₂ → 2FeCl₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 84,
+      "text": "Cu + Cl₂ → CuCl₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 86,
+      "text": "Cl₂ + H₂O ⇌ HCl + HClO",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 88,
+      "text": "Cl₂ + 2NaOH → NaCl + NaClO + H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 90,
+      "text": "3Cl₂ + 6NaOH → 5NaCl + NaClO₃ + 3H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 92,
+      "text": "Cl₂ + 2KBr → 2KCl + Br₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 94,
+      "text": "P₄ + 6Cl₂ → 4PCl₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 96,
+      "text": "P₄ + 10Cl₂ → 4PCl₅",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 98,
+      "text": "MnO₂ + 4HCl → MnCl₂ + Cl₂↑ + 2H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "lab",
+      "equation": "MnO₂ + 4HCl → MnCl₂ + Cl₂↑ + 2H₂O",
+      "condition": "HCl đặc, đun nóng.",
+      "kind": "chemical",
+      "sourceLine": 68,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "2Cl⁻ → Cl₂ + 2e⁻",
+      "condition": "Điện cực của bình điện phân; muối khan nóng chảy đối với kim loại hoạt động mạnh, không dùng dung dịch nước để thu kim loại.",
+      "kind": "chemical",
+      "sourceLine": 61,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "2H₂O + 2e⁻ → H₂ + 2OH⁻",
+      "condition": "Tiếp xúc với nước; tốc độ phụ thuộc nhiệt độ, kích thước và lớp oxide bề mặt.",
+      "kind": "chemical",
+      "sourceLine": 63,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "2NaCl + 2H₂O → Cl₂ + H₂ + 2NaOH",
+      "condition": "Tiếp xúc với nước; tốc độ phụ thuộc nhiệt độ, kích thước và lớp oxide bề mặt.",
+      "kind": "chemical",
+      "sourceLine": 65,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "recognition",
+      "equation": "Ag⁺ + Cl⁻ → AgCl↓",
+      "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+      "kind": "chemical",
+      "sourceLine": 72,
+      "sourceSection": "recognition",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "recognition",
+      "equation": "AgCl + 2NH₃ → [Ag(NH₃)₂]⁺ + Cl⁻",
+      "condition": "Dung dịch NH₃ dư; cân bằng tạo phức diamminesilver(I).",
+      "kind": "chemical",
+      "sourceLine": 75,
+      "sourceSection": "recognition",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "H₂ + Cl₂ → 2HCl",
+      "condition": "Ánh sáng khơi mào phản ứng chuỗi; sản phẩm là HCl.",
+      "kind": "chemical",
+      "sourceLine": 78,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2Na + Cl₂ → 2NaCl",
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 80,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2Fe + 3Cl₂ → 2FeCl₃",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 82,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Cu + Cl₂ → CuCl₂",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 84,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Cl₂ + H₂O ⇌ HCl + HClO",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 86,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Cl₂ + 2NaOH → NaCl + NaClO + H₂O",
+      "condition": "Dung dịch kiềm loãng, lạnh; không gia nhiệt để tránh tạo halate.",
+      "kind": "chemical",
+      "sourceLine": 88,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "3Cl₂ + 6NaOH → 5NaCl + NaClO₃ + 3H₂O",
+      "condition": "Dung dịch kiềm nóng, đậm đặc; tự oxi hóa–khử halogen.",
+      "kind": "chemical",
+      "sourceLine": 90,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Cl₂ + 2KBr → 2KCl + Br₂",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 92,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "P₄ + 6Cl₂ → 4PCl₃",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 94,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "P₄ + 10Cl₂ → 4PCl₅",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 96,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "MnO₂ + 4HCl → MnCl₂ + Cl₂↑ + 2H₂O",
+      "condition": "HCl đặc, đun nóng.",
+      "kind": "chemical",
+      "sourceLine": 98,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": [
+        {
+          "title": "Khử trùng nước",
+          "desc": "Chlorine được sử dụng để tiêu diệt nhiều vi sinh vật trong nước uống và nước hồ bơi."
+        },
+        {
+          "title": "Sản xuất PVC",
+          "desc": "Chlorine là nguyên liệu quan trọng để sản xuất Vinyl chloride và Polyvinyl chloride (PVC)."
+        },
+        {
+          "title": "Sản xuất Hydrochloric acid",
+          "desc": "Được sử dụng trong một số quy trình sản xuất HCl."
+        },
+        {
+          "title": "Chất tẩy trắng",
+          "desc": "Một số Chlorine compounds được sử dụng để tẩy trắng giấy, vải và các vật liệu khác."
+        },
+        {
+          "title": "Công nghiệp hóa chất",
+          "desc": "Chlorine là nguyên liệu để sản xuất nhiều hợp chất Chlorine."
+        },
+        {
+          "title": "Dược phẩm",
+          "desc": "Một số Chlorine compounds được sử dụng trong quá trình sản xuất dược phẩm."
+        },
+        {
+          "title": "Xử lý nước thải",
+          "desc": "Chlorine được sử dụng trong một số quy trình khử trùng."
+        }
+      ],
+      "after": [
+        {
+          "title": "Khử trùng nước",
+          "desc": "Chlorine được sử dụng để tiêu diệt nhiều vi sinh vật trong nước uống và nước hồ bơi.",
+          "sourceLine": 100
+        },
+        {
+          "title": "Sản xuất PVC",
+          "desc": "Chlorine là nguyên liệu quan trọng để sản xuất Vinyl chloride và Polyvinyl chloride (PVC).",
+          "sourceLine": 101
+        },
+        {
+          "title": "Sản xuất Hydrochloric acid",
+          "desc": "Được sử dụng trong một số quy trình sản xuất HCl.",
+          "sourceLine": 102
+        },
+        {
+          "title": "Chất tẩy trắng",
+          "desc": "Một số Chlorine compounds được sử dụng để tẩy trắng giấy, vải và các vật liệu khác.",
+          "sourceLine": 103
+        },
+        {
+          "title": "Công nghiệp hóa chất",
+          "desc": "Chlorine là nguyên liệu để sản xuất nhiều hợp chất Chlorine.",
+          "sourceLine": 104
+        },
+        {
+          "title": "Dược phẩm",
+          "desc": "Một số Chlorine compounds được sử dụng trong quá trình sản xuất dược phẩm.",
+          "sourceLine": 105
+        },
+        {
+          "title": "Xử lý nước thải",
+          "desc": "Chlorine được sử dụng trong một số quy trình khử trùng.",
+          "sourceLine": 106
+        }
+      ]
+    },
+    {
+      "field": "chemical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là phi kim thuộc nhóm Halogen.</li>\n      <li>Có tính Oxy hóa mạnh.</li>\n      <li>Số Oxy hóa phổ biến nhất là −1.</li>\n      <li>Phản ứng với nhiều kim loại tạo Metal chloride.</li>\n      <li>Phản ứng với Hydrogen tạo Hydrogen chloride.</li>\n      <li>Phản ứng với nước tạo Hydrochloric acid và Hypochlorous acid.</li>\n      <li>Phản ứng với dung dịch kiềm.</li>\n      <li>Có thể đẩy Bromine và Iodine ra khỏi một số Halide.</li>\n      <li>Có thể tham gia phản ứng tự Oxy hóa – khử.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Là phi kim thuộc nhóm Halogen.</li><li>Có tính Oxy hóa mạnh.</li><li>Số Oxy hóa phổ biến nhất là −1.</li><li>Phản ứng với nhiều kim loại tạo Metal chloride.</li><li>Phản ứng với Hydrogen tạo Hydrogen chloride.</li><li>Phản ứng với nước tạo Hydrochloric acid và Hypochlorous acid.</li><li>Phản ứng với dung dịch kiềm.</li><li>Có thể đẩy Bromine và Iodine ra khỏi một số Halide.</li><li>Có thể tham gia phản ứng tự Oxy hóa – khử.</li></ul>"
+    },
+    {
+      "field": "general.CAS",
+      "before": null,
+      "after": "7782-50-5"
+    },
+    {
+      "field": "general.electronConfig",
+      "before": "1s² 2s² 2p⁶ 3s² 3p⁵",
+      "after": "[Ne] 3s² 3p⁵"
+    },
+    {
+      "field": "general.electronegativityNote",
+      "before": null,
+      "after": "Thang Pauling; số liệu tổng hợp PubChem."
+    },
+    {
+      "field": "general.groupLabel",
+      "before": null,
+      "after": "17"
+    },
+    {
+      "field": "general.series",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "general.state",
+      "before": "",
+      "after": "Khí"
+    },
+    {
+      "field": "history.year",
+      "before": 1774,
+      "after": "1774"
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/photos/017_Cl.jpg",
+          "title": "Clo (Cl)",
+          "desc": "Ảnh tham chiếu mẫu Chlorine (Cl); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+          "source": "https://commons.wikimedia.org/wiki/File:Chlorine_in_bottle.jpg",
+          "author": "W. Oelen",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "³⁵Cl",
+          "massNumber": 35,
+          "protons": 17,
+          "neutrons": 18,
+          "stable": true,
+          "abundancePercent": "75.80",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "³⁶Cl",
+          "massNumber": 36,
+          "protons": 17,
+          "neutrons": 19,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "3.013E+5 ± 1.5E+3 năm",
+          "halfLife": "3.013E+5 Y",
+          "halfLifeUncertainty": "15",
+          "halfLifeQualifier": null,
+          "decay": "B-",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "³⁷Cl",
+          "massNumber": 37,
+          "protons": 17,
+          "neutrons": 20,
+          "stable": true,
+          "abundancePercent": "24.20",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "standard-atomic-weight"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "35.45 ± 0.01"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": [
+        {
+          "type": "model",
+          "section": "structure",
+          "title": "Mẫu khoáng vật 3D · Halite",
+          "src": "/assets/periodic-table/minerals/halite.glb",
+          "preview": "/assets/periodic-table/minerals/halite.png",
+          "desc": "NaCl. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "nameVi",
+      "before": "Chlorine",
+      "after": "Clo"
+    },
+    {
+      "field": "naturalState.alt",
+      "before": null,
+      "after": "Chlorine: ảnh tham chiếu từ Commons"
+    },
+    {
+      "field": "naturalState.caption",
+      "before": null,
+      "after": "Ảnh tham chiếu mẫu Chlorine (Cl); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc."
+    },
+    {
+      "field": "naturalState.credit",
+      "before": null,
+      "after": "W. Oelen · CC BY-SA 3.0"
+    },
+    {
+      "field": "naturalState.image",
+      "before": null,
+      "after": "/assets/periodic-table/photos/017_Cl.jpg"
+    },
+    {
+      "field": "naturalState.kind",
+      "before": null,
+      "after": "photo"
+    },
+    {
+      "field": "naturalState.source",
+      "before": null,
+      "after": "https://commons.wikimedia.org/wiki/File:Chlorine_in_bottle.jpg"
+    },
+    {
+      "field": "notes",
+      "before": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Chlorine là nguyên tố số 17, thuộc nhóm VIIA | chu kỳ 3 và là một Halogen.</li>\n  <li>Chlorine có cấu hình electron 1s² 2s² 2p⁶ 3s² 3p⁵, với 7 electron hóa trị. Chlorine có tính Oxy hóa mạnh và thường nhận thêm một electron để tạo Cl⁻.</li>\n  <li>Ở điều kiện thường, Chlorine tồn tại dưới dạng phân tử Cl₂, là khí màu vàng lục có tính độc và hoạt động hóa học mạnh. Trong tự nhiên, Chlorine chủ yếu tồn tại dưới dạng Chloride, đặc biệt là Sodium chloride trong nước biển và các mỏ muối.</li>\n  <li>Chlorine có vai trò quan trọng trong khử trùng nước, sản xuất PVC, Hydrochloric acid, chất tẩy trắng và nhiều hóa chất công nghiệp.</li>\n</ul>\n",
+      "after": "<ul class=\"element-prose-list\"><li>Chlorine là nguyên tố số 17, thuộc nhóm VIIA | chu kỳ 3 và là một Halogen.</li><li>Chlorine có cấu hình electron 1s² 2s² 2p⁶ 3s² 3p⁵, với 7 electron hóa trị. Chlorine có tính Oxy hóa mạnh và thường nhận thêm một electron để tạo Cl⁻.</li><li>Ở điều kiện thường, Chlorine tồn tại dưới dạng phân tử Cl₂, là khí màu vàng lục có tính độc và hoạt động hóa học mạnh. Trong tự nhiên, Chlorine chủ yếu tồn tại dưới dạng Chloride, đặc biệt là Sodium chloride trong nước biển và các mỏ muối.</li><li>Chlorine có vai trò quan trọng trong khử trùng nước, sản xuất PVC, Hydrochloric acid, chất tẩy trắng và nhiều hóa chất công nghiệp.</li></ul>"
+    },
+    {
+      "field": "occurrence.details",
+      "before": null,
+      "after": [
+        "Trạng thái: Khí màu vàng lục ở điều kiện thường. Trong tự nhiên, Clo chủ yếu tồn tại dưới dạng hợp chất do có tính hoạt động hóa học cao.",
+        "Có trong: Nước biển, mỏ muối, khoáng vật và nước tự nhiên.",
+        "Đơn chất: Cl₂",
+        "Hợp chất: NaCl, KCl, MgCl₂, CaCl₂, HCl, NaClO..."
+      ]
+    },
+    {
+      "field": "occurrence.mineral",
+      "before": null,
+      "after": {
+        "available": true,
+        "id": "halite",
+        "name": "Halite",
+        "formula": "NaCl",
+        "habit": "cubic",
+        "color": "#cce8ee",
+        "crystalSystem": "cubic",
+        "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+        "source": "https://www.handbookofmineralogy.org/",
+        "sourceSearch": "https://rruff.info/Halite",
+        "model": "/assets/periodic-table/minerals/halite.glb",
+        "preview": "/assets/periodic-table/minerals/halite.png",
+        "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      }
+    },
+    {
+      "field": "physical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là chất khí màu vàng lục ở điều kiện thường.</li>\n      <li>Có mùi hắc đặc trưng.</li>\n      <li>Độc và gây kích ứng mạnh.</li>\n      <li>Tồn tại chủ yếu dưới dạng phân tử Cl₂.</li>\n      <li>Khối lượng mol của Cl₂: 70.90 g/mol.</li>\n      <li>Khối lượng riêng: khoảng 3.21 g/L ở 0 °C và 1 atm.</li>\n      <li>Nhiệt độ nóng chảy: −101.5 °C.</li>\n      <li>Nhiệt độ sôi: −34.04 °C.</li>\n      <li>Tan trong nước.</li>\n      <li>Nặng hơn không khí.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Là chất khí màu vàng lục ở điều kiện thường.</li><li>Có mùi hắc đặc trưng.</li><li>Độc và gây kích ứng mạnh.</li><li>Tồn tại chủ yếu dưới dạng phân tử Cl₂.</li><li>Khối lượng mol của Cl₂: 70.90 g/mol.</li><li>Khối lượng riêng: khoảng 3.21 g/L ở 0 °C và 1 atm.</li><li>Nhiệt độ nóng chảy: −101.5 °C.</li><li>Nhiệt độ sôi: −34.04 °C.</li><li>Tan trong nước.</li><li>Nặng hơn không khí.</li></ul>"
+    },
+    {
+      "field": "preparations.industry",
+      "before": [
+        {
+          "title": "Chlorine chủ yếu được sản xuất bằng điện phân dung dịch Sodium chloride.",
+          "equation": "",
+          "desc": ""
+        },
+        {
+          "title": "Tại anode:",
+          "equation": "2Cl⁻ → Cl₂ + 2e⁻ <br> 2H₂O + 2e⁻ → H₂ + 2OH⁻ <br> 2NaCl + 2H₂O → Cl₂ + H₂ + 2NaOH",
+          "desc": "Tại cathode: Phương trình tổng quát:"
+        }
+      ],
+      "after": [
+        {
+          "title": "Chlorine chủ yếu được sản xuất bằng điện phân dung dịch Sodium chloride.",
+          "desc": "Tại anode:",
+          "result": "",
+          "equations": [
+            {
+              "equation": "2Cl⁻ → Cl₂ + 2e⁻",
+              "condition": "Điện cực của bình điện phân; muối khan nóng chảy đối với kim loại hoạt động mạnh, không dùng dung dịch nước để thu kim loại.",
+              "kind": "chemical",
+              "sourceLine": 61,
+              "sourceSection": "industry",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            59,
+            60,
+            61
+          ],
+          "equation": "2Cl⁻ → Cl₂ + 2e⁻"
+        },
+        {
+          "title": "Tại cathode",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "2H₂O + 2e⁻ → H₂ + 2OH⁻",
+              "condition": "Tiếp xúc với nước; tốc độ phụ thuộc nhiệt độ, kích thước và lớp oxide bề mặt.",
+              "kind": "chemical",
+              "sourceLine": 63,
+              "sourceSection": "industry",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            62,
+            63
+          ],
+          "equation": "2H₂O + 2e⁻ → H₂ + 2OH⁻"
+        },
+        {
+          "title": "Phương trình tổng quát",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "2NaCl + 2H₂O → Cl₂ + H₂ + 2NaOH",
+              "condition": "Tiếp xúc với nước; tốc độ phụ thuộc nhiệt độ, kích thước và lớp oxide bề mặt.",
+              "kind": "chemical",
+              "sourceLine": 65,
+              "sourceSection": "industry",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            64,
+            65
+          ],
+          "equation": "2NaCl + 2H₂O → Cl₂ + H₂ + 2NaOH"
+        }
+      ]
+    },
+    {
+      "field": "preparations.lab",
+      "before": [
+        {
+          "title": "Chlorine có thể được điều chế bằng cách cho Manganese dioxide tác dụng với Hydrochloric acid đặc:",
+          "equation": "MnO₂ + 4HCl → MnCl₂ + Cl₂↑ + 2H₂O",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Chlorine có thể được điều chế bằng cách cho Manganese dioxide tác dụng với Hydrochloric acid đặc",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "MnO₂ + 4HCl → MnCl₂ + Cl₂↑ + 2H₂O",
+              "condition": "HCl đặc, đun nóng.",
+              "kind": "chemical",
+              "sourceLine": 68,
+              "sourceSection": "lab",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            67,
+            68
+          ],
+          "equation": "MnO₂ + 4HCl → MnCl₂ + Cl₂↑ + 2H₂O"
+        }
+      ]
+    },
+    {
+      "field": "reactions",
+      "before": [
+        {
+          "type": "Tác dụng với Hydrogen",
+          "equation": "H₂ + Cl₂ → 2HCl",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Sodium",
+          "equation": "2Na + Cl₂ → 2NaCl",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Iron",
+          "equation": "2Fe + 3Cl₂ → 2FeCl₃",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Copper",
+          "equation": "Cu + Cl₂ → CuCl₂",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với nước",
+          "equation": "Cl₂ + H₂O ⇌ HCl + HClO",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Sodium hydroxide loãng, lạnh",
+          "equation": "Cl₂ + 2NaOH → NaCl + NaClO + H₂O",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Sodium hydroxide nóng, đặc",
+          "equation": "3Cl₂ + 6NaOH → 5NaCl + NaClO₃ + 3H₂O",
+          "desc": ""
+        },
+        {
+          "type": "Đẩy Bromine khỏi Potassium bromide",
+          "equation": "Cl₂ + 2KBr → 2KCl + Br₂",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Phosphorus",
+          "equation": "P₄ + 6Cl₂ → 4PCl₃",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Phosphorus",
+          "equation": "P₄ + 10Cl₂ → 4PCl₅",
+          "desc": "Khi Chlorine dư:"
+        },
+        {
+          "type": "Điều chế Chlorine",
+          "equation": "MnO₂ + 4HCl → MnCl₂ + Cl₂↑ + 2H₂O",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "type": "Tác dụng với Hydrogen",
+          "desc": "",
+          "equation": "H₂ + Cl₂ → 2HCl",
+          "condition": "Ánh sáng khơi mào phản ứng chuỗi; sản phẩm là HCl.",
+          "kind": "chemical",
+          "sourceLine": 78,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Sodium",
+          "desc": "",
+          "equation": "2Na + Cl₂ → 2NaCl",
+          "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+          "kind": "chemical",
+          "sourceLine": 80,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Iron",
+          "desc": "",
+          "equation": "2Fe + 3Cl₂ → 2FeCl₃",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 82,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Copper",
+          "desc": "",
+          "equation": "Cu + Cl₂ → CuCl₂",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 84,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với nước",
+          "desc": "",
+          "equation": "Cl₂ + H₂O ⇌ HCl + HClO",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 86,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Sodium hydroxide loãng, lạnh",
+          "desc": "",
+          "equation": "Cl₂ + 2NaOH → NaCl + NaClO + H₂O",
+          "condition": "Dung dịch kiềm loãng, lạnh; không gia nhiệt để tránh tạo halate.",
+          "kind": "chemical",
+          "sourceLine": 88,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Sodium hydroxide nóng, đặc",
+          "desc": "",
+          "equation": "3Cl₂ + 6NaOH → 5NaCl + NaClO₃ + 3H₂O",
+          "condition": "Dung dịch kiềm nóng, đậm đặc; tự oxi hóa–khử halogen.",
+          "kind": "chemical",
+          "sourceLine": 90,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Đẩy Bromine khỏi Potassium bromide",
+          "desc": "",
+          "equation": "Cl₂ + 2KBr → 2KCl + Br₂",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 92,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Phosphorus",
+          "desc": "",
+          "equation": "P₄ + 6Cl₂ → 4PCl₃",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 94,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Khi Chlorine dư",
+          "desc": "",
+          "equation": "P₄ + 10Cl₂ → 4PCl₅",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 96,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Điều chế Chlorine",
+          "desc": "",
+          "equation": "MnO₂ + 4HCl → MnCl₂ + Cl₂↑ + 2H₂O",
+          "condition": "HCl đặc, đun nóng.",
+          "kind": "chemical",
+          "sourceLine": 98,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": [
+        {
+          "title": "Nhận biết",
+          "reagent": "Nhận biết Chloride (Cl⁻)",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Cho dung dịch chứa Cl⁻ tác dụng với Silver nitrate",
+          "reagent": "",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "",
+          "result": "",
+          "equation": "Ag⁺ + Cl⁻ → AgCl↓"
+        },
+        {
+          "title": "Hiện tượng",
+          "reagent": "",
+          "result": "Xuất hiện kết tủa trắng Silver chloride.",
+          "equation": ""
+        },
+        {
+          "title": "Kết tủa AgCl tan trong Ammonia",
+          "reagent": "",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "",
+          "result": "",
+          "equation": "AgCl + 2NH₃ → [Ag(NH₃)₂]⁺ + Cl⁻"
+        }
+      ],
+      "after": [
+        {
+          "title": "Nhận biết Chloride (Cl⁻)",
+          "desc": "Cho dung dịch chứa Cl⁻ tác dụng với Silver nitrate:",
+          "result": "Xuất hiện kết tủa trắng Silver chloride.",
+          "equations": [
+            {
+              "equation": "Ag⁺ + Cl⁻ → AgCl↓",
+              "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+              "kind": "chemical",
+              "sourceLine": 72,
+              "sourceSection": "recognition",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            70,
+            71,
+            72,
+            73
+          ],
+          "equation": "Ag⁺ + Cl⁻ → AgCl↓"
+        },
+        {
+          "title": "Kết tủa AgCl tan trong Ammonia",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "AgCl + 2NH₃ → [Ag(NH₃)₂]⁺ + Cl⁻",
+              "condition": "Dung dịch NH₃ dư; cân bằng tạo phức diamminesilver(I).",
+              "kind": "chemical",
+              "sourceLine": 75,
+              "sourceSection": "recognition",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            74,
+            75
+          ],
+          "equation": "AgCl + 2NH₃ → [Ag(NH₃)₂]⁺ + Cl⁻"
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "017_Cl.docx",
+        "sourceSha256": "51dcc8431583b73ad412b4c338d7d998a1244954f95c70ec8854d315b1bd5631",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/017_Cl.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "017_Cl.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "51dcc8431583b73ad412b4c338d7d998a1244954f95c70ec8854d315b1bd5631"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/17/chlorine"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure.latticeEvidence",
+      "before": null,
+      "after": "source-reviewed"
+    },
+    {
+      "field": "structure.nucleusIsotope",
+      "before": null,
+      "after": "³⁵Cl"
+    },
+    {
+      "field": "structure.nucleusNote",
+      "before": null,
+      "after": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác."
+    },
+    {
+      "field": "structure.valenceNote",
+      "before": null,
+      "after": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp."
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "Cl",
+      "status": "downloaded",
+      "file": "/assets/periodic-table/photos/017_Cl.jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:Chlorine_in_bottle.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/4/49/Chlorine_in_bottle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/4/49/Chlorine_in_bottle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "filename": "Chlorine_in_bottle.jpg",
+      "title": "Chlorine in bottle",
+      "description": "Chlorine gas in a bottle",
+      "author": "W. Oelen",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "credit": "https://woelen.homescience.net/science/chem/elem/elements/Cl/index.html",
+      "sha256": "7f20e021354bed8c79b1614e98dd84ae1f514aa0a653a8d6395e72aa9f627633",
+      "bytes": 45069
+    },
+    "mineral": {
+      "available": true,
+      "id": "halite",
+      "name": "Halite",
+      "formula": "NaCl",
+      "habit": "cubic",
+      "color": "#cce8ee",
+      "crystalSystem": "cubic",
+      "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Halite",
+      "model": "/assets/periodic-table/minerals/halite.glb",
+      "preview": "/assets/periodic-table/minerals/halite.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "Cl",
+      "z": 17,
+      "url": "https://periodic-table.rsc.org/element/17/chlorine",
+      "status": "retrieved",
+      "bytes": 162748,
+      "sha256": "1dc167be3b894ab0f02764c8c878982ab0b1519321e15aef6644052c4e9b2bfd",
+      "facts": {
+        "Group": "17",
+        "Melting point": "−101.5°C, −150.7°F, 171.7 K",
+        "Period": "3",
+        "Boiling point": "−34.04°C, −29.27°F, 239.11 K",
+        "Block": "p",
+        "Density (g cm−³)": "0.002898",
+        "Atomic number": "17",
+        "Relative atomic mass": "35.45",
+        "State at 20°C": "Gas",
+        "Key isotopes": "³⁵Cl, ³⁷Cl",
+        "Electron configuration": "[Ne] 3s²3p⁵",
+        "CAS number": "7782-50-5",
+        "ChemSpider ID": "4514529",
+        "electronegativity": "3.16"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "17",
+      "Symbol": "Cl",
+      "Name": "Chlorine",
+      "AtomicMass": "35.45",
+      "CPKHexColor": "1FF01F",
+      "ElectronConfiguration": "[Ne]3s2 3p5",
+      "Electronegativity": "3.16",
+      "AtomicRadius": "175",
+      "IonizationEnergy": "12.968",
+      "ElectronAffinity": "3.617",
+      "OxidationStates": "+7, +5, +1, -1",
+      "StandardState": "Gas",
+      "MeltingPoint": "171.65",
+      "BoilingPoint": "239.11",
+      "Density": "0.003214",
+      "GroupBlock": "Halogen",
+      "YearDiscovered": "1774"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

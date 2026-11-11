@@ -7,7 +7,7 @@ from xml.etree import ElementTree as ET
 
 
 ROOT = Path(__file__).resolve().parents[1]
-WORD_DIR = ROOT / "Các nguyên tố hóa học trong bảng tuần hoàn"
+WORD_DIR = ROOT / "DATA PERIOD TABLE"
 ELEMENT_DIR = ROOT / "data" / "elements"
 MANIFEST_PATH = ROOT / "data" / "manifest.json"
 W_NS = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
@@ -622,4 +622,7 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    # Keep this historical entry point, but do not let its lossy parser replace
+    # the audited 118-element import. The reviewed importer owns all writes.
+    import runpy
+    runpy.run_path(str(ROOT / 'scripts/rebuild-periodic-table.py'), run_name='__main__')

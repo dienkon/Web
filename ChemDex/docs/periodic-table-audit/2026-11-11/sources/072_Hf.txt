@@ -1,0 +1,90 @@
+001: Hafnium (Hf)
+002: Thông tin chung
+003: Tên Latin: Hafnium
+004: Tên Tiếng Anh: Hafnium
+005: Đồng vị: ¹⁷⁴Hf, ¹⁷⁶Hf, ¹⁷⁷Hf, ¹⁷⁸Hf, ¹⁷⁹Hf, ¹⁸⁰Hf
+006: Vị trí: Nhóm IVB | Chu kỳ 6
+007: Số Oxy hóa: +2, +3, +4
+008: Độ âm điện: 1.30
+009: Lịch sử khám phá
+010: Phát hiện bởi: Dirk Coster và George de Hevesy
+011: Năm công bố: 1923
+012: Nơi khám phá: Copenhagen, Đan Mạch
+013: Mô tả: Hafnium được phát hiện khi Dirk Coster và George de Hevesy phân tích Zirconium bằng phương pháp tia X. Họ xác định được một nguyên tố mới nằm cùng nhóm với Zirconium. Tên Hafnium bắt nguồn từ Hafnia, tên Latin của Copenhagen.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Xe] 4f¹⁴ 5d² 6s²
+017: Mô hình mạng tinh thể: Lục phương (Hexagonal)
+018: Số hiệu nguyên tử: 72
+019: Nguyên tử khối: 178.486 g/mol
+020: Vỏ nguyên tử: 72 electron
+021: K: 2 | L: 8 | M: 18 | N: 32 | O: 10 | P: 2
+022: Hạt nhân: 72 proton, 106 neutron đối với ¹⁷⁸Hf
+023: Cấu hình e: [Xe] 4f¹⁴ 5d² 6s²
+024: Loại mạng: Lục phương (Hexagonal)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Hafnium là kim loại rắn, màu xám bạc, bóng và khá nặng.
+027: Có trong: Hầu như luôn tồn tại cùng Zirconium trong các khoáng vật như Zircon (ZrSiO₄).
+028: Đơn chất: Hf
+029: Hợp chất: HfO₂, HfCl₄, HfC, HfN, HfSi₂...
+030: c. Đồng vị
+031: Đồng vị: ¹⁷⁴Hf, ¹⁷⁶Hf, ¹⁷⁷Hf, ¹⁷⁸Hf, ¹⁷⁹Hf, ¹⁸⁰Hf
+032: Hafnium có 6 đồng vị tự nhiên. Trong đó ¹⁷⁴Hf có tính phóng xạ cực yếu với chu kỳ bán rã rất dài; các đồng vị còn lại được xem là ổn định.
+033: ¹⁸⁰Hf: Là đồng vị tự nhiên phổ biến thứ hai, chiếm khoảng 35.1%.
+034: Tính chất
+035: Tính chất vật lý
+036: Là kim loại chuyển tiếp.
+037: Màu xám bạc.
+038: Cứng, bền và có độ chịu nhiệt cao.
+039: Khối lượng riêng: khoảng 13.31 g/cm³.
+040: Nhiệt độ nóng chảy: khoảng 2233 °C.
+041: Nhiệt độ sôi: khoảng 4603 °C.
+042: Dẫn điện và dẫn nhiệt.
+043: Có khả năng chịu ăn mòn tốt.
+044: Tính chất hóa học
+045: Số Oxy hóa phổ biến nhất là +4.
+046: Khá bền trong không khí ở nhiệt độ thường nhờ lớp oxide bảo vệ.
+047: Phản ứng với Oxygen khi nung nóng tạo Hafnium dioxide.
+048: Phản ứng với Halogen tạo Hafnium halide.
+049: Phản ứng với Carbon tạo Hafnium carbide (HfC).
+050: Hafnium có tiết diện bắt neutron nhiệt rất lớn.
+051: Điều chế
+052: Điều chế trong công nghiệp
+053: Hafnium (Hf) chủ yếu được thu hồi từ quặng zircon, thường tồn tại cùng với Zirconium. Sau khi tách Hafnium khỏi Zirconium, Hafnium được điều chế bằng cách khử Hafnium tetrachloride bằng Magnesium trong môi trường khí trơ.
+054: Phương trình:
+055: HfCl₄ + 2Mg → Hf + 2MgCl₂
+056: Điều chế trong phòng thí nghiệm
+057: Có thể điều chế Hafnium bằng cách khử Hafnium tetrachloride bằng Sodium hoặc Magnesium ở nhiệt độ cao.
+058: Phương trình:
+059: HfCl₄ + 4Na → Hf + 4NaCl
+060: Nhận biết
+061: Hafnium thường được xác định bằng phương pháp quang phổ hoặc phân tích hóa học chuyên dụng do tính chất rất giống Zirconium.
+062: Hafnium(IV) có thể tạo kết tủa hydroxide:
+063: Hf⁴⁺ + 4OH⁻ → Hf(OH)₄↓
+064: Hiện tượng: Xuất hiện kết tủa trắng Hafnium hydroxide.
+065: Phương trình
+066: Tác dụng với Oxygen
+067: Hf + O₂ → HfO₂
+068: Tác dụng với Chlorine
+069: Hf + 2Cl₂ → HfCl₄
+070: Tác dụng với Carbon
+071: Hf + C → HfC
+072: Tác dụng với Nitrogen
+073: 2Hf + N₂ → 2HfN
+074: Tạo Hafnium hydroxide
+075: Hf⁴⁺ + 4OH⁻ → Hf(OH)₄↓
+076: Hafnium dioxide tác dụng với Hydrochloric acid
+077: HfO₂ + 4HCl → HfCl₄ + 2H₂O
+078: Điều chế Hafnium
+079: HfCl₄ + 2Mg → Hf + 2MgCl₂
+080: Ứng dụng thực tế
+081: Thanh điều khiển lò phản ứng hạt nhân: Hafnium hấp thụ neutron rất mạnh nên được sử dụng trong một số hệ thống điều khiển lò phản ứng hạt nhân.
+082: Công nghệ bán dẫn: Hafnium dioxide (HfO₂) được sử dụng làm vật liệu điện môi có hằng số điện môi cao trong linh kiện bán dẫn.
+083: Hợp kim chịu nhiệt: Hafnium được thêm vào một số hợp kim để tăng khả năng chịu nhiệt và độ bền.
+084: Động cơ hàng không: Một số hợp kim chứa Hafnium được sử dụng trong các bộ phận chịu nhiệt cao.
+085: Hafnium carbide: HfC có nhiệt độ nóng chảy cực cao, phù hợp cho các ứng dụng vật liệu chịu nhiệt đặc biệt.
+086: Tổng quan
+087: Hafnium là nguyên tố số 72, thuộc nhóm IVB | chu kỳ 6 và là một kim loại chuyển tiếp.
+088: Hafnium có cấu hình electron [Xe] 4f¹⁴ 5d² 6s², với số Oxy hóa phổ biến nhất là +4.
+089: Hafnium có màu xám bạc, cứng, bền, chịu nhiệt và chống ăn mòn tốt. Trong tự nhiên, Hafnium gần như luôn đi kèm với Zirconium, đặc biệt trong khoáng vật Zircon (ZrSiO₄).
+090: Đặc điểm nổi bật của Hafnium là khả năng hấp thụ neutron rất mạnh, khiến nó có giá trị trong công nghệ hạt nhân. Ngoài ra, Hafnium dioxide và Hafnium carbide có vai trò quan trọng trong công nghệ bán dẫn và vật liệu chịu nhiệt cao.

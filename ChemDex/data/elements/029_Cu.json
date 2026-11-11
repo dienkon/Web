@@ -1,9 +1,12 @@
 {
   "number": 29,
   "symbol": "Cu",
-  "nameVi": "Copper",
+  "nameVi": "Đồng",
   "nameEn": "Copper",
   "mass": 63.546,
+  "massStandardText": "63.546 ± 0.003",
+  "massStandardSource": "https://ciaaw.org/abridged-atomic-weights.htm",
+  "massKind": "standard-atomic-weight",
   "category": "chuyen-tiep",
   "hasData": true,
   "file": "elements/029_Cu.json",
@@ -13,14 +16,18 @@
     "electronConfig": "[Ar] 3d¹⁰ 4s¹",
     "isotope": "⁶³Cu, ⁶⁵Cu",
     "group": 11,
+    "groupLabel": "11",
+    "series": "",
     "period": 4,
-    "state": "",
+    "state": "Rắn",
     "oxidation": "+1, +2, +3",
     "electronegativity": 1.9,
+    "electronegativityNote": "Thang Pauling; số liệu tổng hợp PubChem.",
     "density": "khoảng 8.96 g/cm³.",
     "meltingPoint": "khoảng 1084.6 °C.",
     "boilingPoint": "khoảng 2562 °C.",
-    "crystalStructure": "Lập phương tâm mặt (Face-centered cubic, FCC)"
+    "crystalStructure": "Lập phương tâm mặt (Face-centered cubic, FCC)",
+    "CAS": "7440-50-8"
   },
   "history": {
     "discoverer": "Không xác định — Copper đã được con người biết đến từ thời cổ đại.",
@@ -30,8 +37,14 @@
   },
   "structure": {
     "protons": 29,
-    "neutrons": 34,
     "electrons": 29,
+    "neutrons": 34,
+    "nucleusIsotope": "⁶³Cu",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 29,
+      "neutron": 34
+    },
     "electronShells": [
       2,
       8,
@@ -45,12 +58,11 @@
       1
     ],
     "valenceElectrons": 1,
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương tâm mặt (Face-centered cubic, FCC)",
-    "nucleus": {
-      "proton": 29,
-      "neutron": 34
-    }
+    "latticeEvidence": "source-reviewed"
   },
+  "structureType": "Lập phương tâm mặt (Face-centered cubic, FCC)",
   "occurrence": {
     "description": "Copper là kim loại rắn, có màu đỏ cam đặc trưng và ánh kim.",
     "simple": [
@@ -69,168 +81,483 @@
       "Chalcocite (Cu₂S)",
       "Cuprite (Cu₂O)",
       "Malachite và Azurite"
-    ]
+    ],
+    "details": [
+      "Trạng thái: Copper là kim loại rắn, có màu đỏ cam đặc trưng và ánh kim.",
+      "Có trong: Chalcopyrite (CuFeS₂), Chalcocite (Cu₂S), Cuprite (Cu₂O), Malachite và Azurite.",
+      "Đơn chất: Cu",
+      "Hợp chất: Cu₂O, CuO, CuCl, CuCl₂, CuSO₄, CuCO₃..."
+    ],
+    "mineral": {
+      "available": true,
+      "id": "chalcopyrite",
+      "name": "Chalcopyrite",
+      "formula": "CuFeS₂",
+      "habit": "bipyramid",
+      "color": "#c6a74b",
+      "crystalSystem": "tetragonal",
+      "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Chalcopyrite",
+      "model": "/assets/periodic-table/minerals/chalcopyrite.glb",
+      "preview": "/assets/periodic-table/minerals/chalcopyrite.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
   },
-  "naturalState": {},
-  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại chuyển tiếp.</li>\n      <li>Có màu đỏ cam đặc trưng.</li>\n      <li>Mềm, dẻo và dễ kéo sợi.</li>\n      <li>Khối lượng riêng: khoảng 8.96 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 1084.6 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 2562 °C.</li>\n      <li>Dẫn điện rất tốt.</li>\n      <li>Dẫn nhiệt rất tốt.</li>\n      <li>Có khả năng chống ăn mòn tương đối tốt.</li>\n      <li>Có thể tạo nhiều hợp kim quan trọng.</li>\n    </ul>\n  ",
-  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có tính khử yếu hơn nhiều kim loại hoạt động như Iron và Zinc.</li>\n      <li>Số Oxy hóa phổ biến: +1 và +2.</li>\n      <li>Cu⁺ thường không bền trong dung dịch nước và dễ chuyển thành Cu²⁺ và Cu.</li>\n      <li>Cu²⁺ là trạng thái Oxy hóa phổ biến nhất trong dung dịch.</li>\n      <li>Copper phản ứng với Oxygen khi nung nóng.</li>\n      <li>Không phản ứng với Hydrochloric acid loãng trong điều kiện thường.</li>\n      <li>Phản ứng với Nitric acid và Sulfuric acid đặc.</li>\n      <li>Có thể phản ứng với Halogen tạo Copper halide.</li>\n      <li>Copper compounds thường có màu sắc đặc trưng.</li>\n    </ul>\n  ",
+  "naturalState": {
+    "image": "/assets/periodic-table/photos/029_Cu.jpg",
+    "alt": "Copper: ảnh tham chiếu từ Commons",
+    "kind": "photo",
+    "source": "https://commons.wikimedia.org/wiki/File:NatCopper.jpg",
+    "caption": "Ảnh tham chiếu mẫu Copper (Cu); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+    "credit": "Native_Copper_Macro_Digon3.jpg : “Jonathan Zander ( Digon3 )\" derivative work: Materialscientist ( talk ) · CC BY-SA 3.0"
+  },
+  "isotopes": [
+    {
+      "isotope": "⁶³Cu",
+      "massNumber": 63,
+      "protons": 29,
+      "neutrons": 34,
+      "stable": true,
+      "abundancePercent": "69.15",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "⁶⁵Cu",
+      "massNumber": 65,
+      "protons": 29,
+      "neutrons": 36,
+      "stable": true,
+      "abundancePercent": "30.85",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Là kim loại chuyển tiếp.</li><li>Có màu đỏ cam đặc trưng.</li><li>Mềm, dẻo và dễ kéo sợi.</li><li>Khối lượng riêng: khoảng 8.96 g/cm³.</li><li>Nhiệt độ nóng chảy: khoảng 1084.6 °C.</li><li>Nhiệt độ sôi: khoảng 2562 °C.</li><li>Dẫn điện rất tốt.</li><li>Dẫn nhiệt rất tốt.</li><li>Có khả năng chống ăn mòn tương đối tốt.</li><li>Có thể tạo nhiều hợp kim quan trọng.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Có tính khử yếu hơn nhiều kim loại hoạt động như Iron và Zinc.</li><li>Số Oxy hóa phổ biến: +1 và +2.</li><li>Cu⁺ thường không bền trong dung dịch nước và dễ chuyển thành Cu²⁺ và Cu.</li><li>Cu²⁺ là trạng thái Oxy hóa phổ biến nhất trong dung dịch.</li><li>Copper phản ứng với Oxygen khi nung nóng.</li><li>Không phản ứng với Hydrochloric acid loãng trong điều kiện thường.</li><li>Phản ứng với Nitric acid và Sulfuric acid đặc.</li><li>Có thể phản ứng với Halogen tạo Copper halide.</li><li>Copper compounds thường có màu sắc đặc trưng.</li></ul>",
   "reactions": [
     {
       "type": "Tác dụng với Oxygen",
+      "desc": "",
       "equation": "2Cu + O₂ → 2CuO",
-      "desc": ""
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 77,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Chlorine",
+      "desc": "",
       "equation": "Cu + Cl₂ → CuCl₂",
-      "desc": ""
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 79,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Sulfur",
+      "desc": "",
       "equation": "2Cu + S → Cu₂S",
-      "desc": ""
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 81,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Nitric acid loãng",
+      "desc": "",
       "equation": "3Cu + 8HNO₃ → 3Cu(NO₃)₂ + 2NO↑ + 4H₂O",
-      "desc": ""
+      "condition": "HNO₃ loãng, tạo NO; khí NO có thể bị oxi hóa tiếp ngoài không khí.",
+      "kind": "chemical",
+      "sourceLine": 83,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Nitric acid đặc",
+      "desc": "",
       "equation": "Cu + 4HNO₃ → Cu(NO₃)₂ + 2NO₂↑ + 2H₂O",
-      "desc": ""
+      "condition": "HNO₃ đặc, tạo NO₂.",
+      "kind": "chemical",
+      "sourceLine": 85,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Sulfuric acid đặc",
+      "desc": "",
       "equation": "Cu + 2H₂SO₄ → CuSO₄ + SO₂↑ + 2H₂O",
-      "desc": ""
+      "condition": "H₂SO₄ đặc, nóng; acid đóng vai trò chất oxi hóa.",
+      "kind": "chemical",
+      "sourceLine": 87,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tạo Copper(II) hydroxide",
+      "desc": "",
       "equation": "Cu²⁺ + 2OH⁻ → Cu(OH)₂↓",
-      "desc": ""
+      "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+      "kind": "chemical",
+      "sourceLine": 89,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Nhiệt phân Copper(II) hydroxide",
+      "desc": "",
       "equation": "Cu(OH)₂ → CuO + H₂O",
-      "desc": ""
+      "condition": "Gia nhiệt để phân hủy; nhiệt độ phụ thuộc chất và áp suất khí sản phẩm.",
+      "kind": "chemical",
+      "sourceLine": 91,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Copper(II) oxide tác dụng với Hydrochloric acid",
+      "desc": "",
       "equation": "CuO + 2HCl → CuCl₂ + H₂O",
-      "desc": ""
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 93,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Copper tác dụng với Iron(III) chloride",
+      "desc": "",
       "equation": "Cu + 2FeCl₃ → CuCl₂ + 2FeCl₂",
-      "desc": ""
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 95,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Điều chế Copper từ Copper(I) sulfide",
+      "desc": "",
       "equation": "Cu₂S + O₂ → 2Cu + SO₂",
-      "desc": ""
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 97,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Phản ứng thế với Iron",
+      "desc": "",
       "equation": "Fe + CuSO₄ → FeSO₄ + Cu",
-      "desc": ""
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 99,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     }
   ],
-  "applications": [
-    {
-      "title": "Dây điện",
-      "desc": "Copper được sử dụng rộng rãi trong dây dẫn điện nhờ độ dẫn điện cao."
-    },
-    {
-      "title": "Thiết bị điện tử",
-      "desc": "Được sử dụng trong mạch điện, động cơ, máy phát điện và các linh kiện điện."
-    },
-    {
-      "title": "Truyền nhiệt",
-      "desc": "Copper được dùng trong bộ tản nhiệt, hệ thống trao đổi nhiệt và thiết bị làm lạnh."
-    },
-    {
-      "title": "Xây dựng",
-      "desc": "Được sử dụng trong đường ống, mái và các bộ phận của công trình."
-    },
-    {
-      "title": "Hợp kim",
-      "desc": "Copper là thành phần chính của Bronze và Brass."
-    },
-    {
-      "title": "Tiền xu",
-      "desc": "Copper và các hợp kim của nó được sử dụng trong sản xuất tiền xu."
-    },
-    {
-      "title": "Công nghiệp hóa chất",
-      "desc": "Copper compounds như Copper sulfate được sử dụng trong nhiều ứng dụng hóa học và nông nghiệp."
-    }
-  ],
-  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Copper là nguyên tố số 29, thuộc nhóm IB | chu kỳ 4 và là một kim loại chuyển tiếp.</li>\n  <li>Copper có cấu hình electron [Ar] 3d¹⁰ 4s¹, với các số Oxy hóa phổ biến là +1 và +2.</li>\n  <li>Copper có màu đỏ cam đặc trưng, rất dẻo và có độ dẫn điện, dẫn nhiệt cao. Vì vậy, đây là một trong những kim loại quan trọng nhất trong ngành điện và điện tử.</li>\n  <li>Trong tự nhiên, Copper tồn tại dưới dạng kim loại tự do và nhiều khoáng vật, đặc biệt là Chalcopyrite (CuFeS₂). Copper được sản xuất công nghiệp chủ yếu bằng quá trình luyện quặng sulfide và tinh chế điện phân.</li>\n  <li>Copper có vai trò quan trọng trong điện – điện tử, xây dựng, truyền nhiệt, sản xuất hợp kim và công nghiệp hóa chất.</li>\n</ul>\n",
   "preparations": {
     "lab": [
       {
-        "title": "Copper có thể được điều chế bằng cách cho kim loại hoạt động mạnh hơn đẩy Copper ra khỏi dung dịch Copper(II) salt:",
-        "equation": "Fe + CuSO₄ → FeSO₄ + Cu",
-        "desc": ""
+        "title": "Copper có thể được điều chế bằng cách cho kim loại hoạt động mạnh hơn đẩy Copper ra khỏi dung dịch Copper(II) salt",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "Fe + CuSO₄ → FeSO₄ + Cu",
+            "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+            "kind": "chemical",
+            "sourceLine": 66,
+            "sourceSection": "lab",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          65,
+          66
+        ],
+        "equation": "Fe + CuSO₄ → FeSO₄ + Cu"
       }
     ],
     "industry": [
       {
         "title": "Copper chủ yếu được sản xuất từ các quặng sulfide như Chalcopyrite (CuFeS₂).",
-        "equation": "",
-        "desc": ""
+        "desc": "Quặng được nung để tạo Copper(I) sulfide:",
+        "result": "",
+        "equations": [
+          {
+            "equation": "2CuFeS₂ + 4O₂ → Cu₂S + 2FeO + 3SO₂",
+            "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+            "kind": "chemical",
+            "sourceLine": 60,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          58,
+          59,
+          60
+        ],
+        "equation": "2CuFeS₂ + 4O₂ → Cu₂S + 2FeO + 3SO₂"
       },
       {
-        "title": "Quặng được nung để tạo Copper(I) sulfide:",
-        "equation": "2CuFeS₂ + 4O₂ → Cu₂S + 2FeO + 3SO₂ <br> Cu₂S + O₂ → 2Cu + SO₂",
-        "desc": "Sau đó Copper(I) sulfide được chuyển thành Copper: Copper thu được tiếp tục được tinh chế bằng điện phân để đạt độ tinh khiết cao."
+        "title": "Sau đó Copper(I) sulfide được chuyển thành Copper",
+        "desc": "Copper thu được tiếp tục được tinh chế bằng điện phân để đạt độ tinh khiết cao.",
+        "result": "",
+        "equations": [
+          {
+            "equation": "Cu₂S + O₂ → 2Cu + SO₂",
+            "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+            "kind": "chemical",
+            "sourceLine": 62,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          61,
+          62,
+          63
+        ],
+        "equation": "Cu₂S + O₂ → 2Cu + SO₂"
       }
     ]
   },
   "recognition": [
     {
-      "title": "Nhận biết",
-      "reagent": "Nhận biết Cu²⁺",
-      "result": "",
-      "equation": ""
-    },
-    {
-      "title": "Cho dung dịch chứa Cu²⁺ tác dụng với hydroxide",
-      "reagent": "",
-      "result": "",
-      "equation": ""
-    },
-    {
-      "title": "Nhận biết",
-      "reagent": "",
-      "result": "",
+      "title": "Nhận biết Cu²⁺",
+      "desc": "Cho dung dịch chứa Cu²⁺ tác dụng với hydroxide:",
+      "result": "Xuất hiện kết tủa xanh lam Copper(II) hydroxide.",
+      "equations": [
+        {
+          "equation": "Cu²⁺ + 2OH⁻ → Cu(OH)₂↓",
+          "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+          "kind": "chemical",
+          "sourceLine": 70,
+          "sourceSection": "recognition",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ],
+      "sourceLines": [
+        68,
+        69,
+        70,
+        71
+      ],
       "equation": "Cu²⁺ + 2OH⁻ → Cu(OH)₂↓"
     },
     {
-      "title": "Hiện tượng",
-      "reagent": "",
-      "result": "Xuất hiện kết tủa xanh lam Copper(II) hydroxide.",
-      "equation": ""
-    },
-    {
       "title": "Khi đun nóng",
-      "reagent": "",
-      "result": "",
-      "equation": ""
-    },
-    {
-      "title": "Nhận biết",
-      "reagent": "",
-      "result": "",
-      "equation": "Cu(OH)₂ → CuO + H₂O"
-    },
-    {
-      "title": "Hiện tượng",
-      "reagent": "",
+      "desc": "",
       "result": "Kết tủa chuyển từ xanh lam sang đen.",
-      "equation": ""
+      "equations": [
+        {
+          "equation": "Cu(OH)₂ → CuO + H₂O",
+          "condition": "Gia nhiệt để phân hủy; nhiệt độ phụ thuộc chất và áp suất khí sản phẩm.",
+          "kind": "chemical",
+          "sourceLine": 73,
+          "sourceSection": "recognition",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ],
+      "sourceLines": [
+        72,
+        73,
+        74
+      ],
+      "equation": "Cu(OH)₂ → CuO + H₂O"
     }
   ],
-  "structureType": "Lập phương tâm mặt (Face-centered cubic, FCC)"
+  "applications": [
+    {
+      "title": "Dây điện",
+      "desc": "Copper được sử dụng rộng rãi trong dây dẫn điện nhờ độ dẫn điện cao.",
+      "sourceLine": 101
+    },
+    {
+      "title": "Thiết bị điện tử",
+      "desc": "Được sử dụng trong mạch điện, động cơ, máy phát điện và các linh kiện điện.",
+      "sourceLine": 102
+    },
+    {
+      "title": "Truyền nhiệt",
+      "desc": "Copper được dùng trong bộ tản nhiệt, hệ thống trao đổi nhiệt và thiết bị làm lạnh.",
+      "sourceLine": 103
+    },
+    {
+      "title": "Xây dựng",
+      "desc": "Được sử dụng trong đường ống, mái và các bộ phận của công trình.",
+      "sourceLine": 104
+    },
+    {
+      "title": "Hợp kim",
+      "desc": "Copper là thành phần chính của Bronze và Brass.",
+      "sourceLine": 105
+    },
+    {
+      "title": "Tiền xu",
+      "desc": "Copper và các hợp kim của nó được sử dụng trong sản xuất tiền xu.",
+      "sourceLine": 106
+    },
+    {
+      "title": "Công nghiệp hóa chất",
+      "desc": "Copper compounds như Copper sulfate được sử dụng trong nhiều ứng dụng hóa học và nông nghiệp.",
+      "sourceLine": 107
+    }
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Copper là nguyên tố số 29, thuộc nhóm IB | chu kỳ 4 và là một kim loại chuyển tiếp.</li><li>Copper có cấu hình electron [Ar] 3d¹⁰ 4s¹, với các số Oxy hóa phổ biến là +1 và +2.</li><li>Copper có màu đỏ cam đặc trưng, rất dẻo và có độ dẫn điện, dẫn nhiệt cao. Vì vậy, đây là một trong những kim loại quan trọng nhất trong ngành điện và điện tử.</li><li>Trong tự nhiên, Copper tồn tại dưới dạng kim loại tự do và nhiều khoáng vật, đặc biệt là Chalcopyrite (CuFeS₂). Copper được sản xuất công nghiệp chủ yếu bằng quá trình luyện quặng sulfide và tinh chế điện phân.</li><li>Copper có vai trò quan trọng trong điện – điện tử, xây dựng, truyền nhiệt, sản xuất hợp kim và công nghiệp hóa chất.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/photos/029_Cu.jpg",
+      "title": "Đồng (Cu)",
+      "desc": "Ảnh tham chiếu mẫu Copper (Cu); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+      "source": "https://commons.wikimedia.org/wiki/File:NatCopper.jpg",
+      "author": "Native_Copper_Macro_Digon3.jpg : “Jonathan Zander ( Digon3 )\" derivative work: Materialscientist ( talk )",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+    }
+  ],
+  "mediaBlocks": [
+    {
+      "type": "model",
+      "section": "structure",
+      "title": "Mẫu khoáng vật 3D · Chalcopyrite",
+      "src": "/assets/periodic-table/minerals/chalcopyrite.glb",
+      "preview": "/assets/periodic-table/minerals/chalcopyrite.png",
+      "desc": "CuFeS₂. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  ],
+  "sources": [
+    {
+      "title": "029_Cu.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "d582574bafddad664ce8e02b095506e8ef7f3eccd869661fa9b72c8103238531"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/29/copper"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "029_Cu.docx",
+    "sourceSha256": "d582574bafddad664ce8e02b095506e8ef7f3eccd869661fa9b72c8103238531",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/029_Cu.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
 }

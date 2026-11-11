@@ -1,0 +1,507 @@
+{
+  "number": 96,
+  "symbol": "Cm",
+  "nameVi": "Curium",
+  "nameEn": "Curium",
+  "mass": 243,
+  "massStandardText": "[243] — số khối đồng vị tham chiếu, không phải nguyên tử khối chuẩn",
+  "massStandardSource": "https://periodic-table.rsc.org/element/96/curium",
+  "massKind": "reference-isotope-mass-number",
+  "category": "actinide",
+  "hasData": true,
+  "file": "elements/096_Cm.json",
+  "general": {
+    "latinName": "Curium",
+    "englishName": "Curium",
+    "electronConfig": "[Rn] 5f⁷ 6d¹ 7s²",
+    "isotope": "²³⁸Cm, ²³⁹Cm, ²⁴⁰Cm, ²⁴¹Cm, ²⁴²Cm, ²⁴³Cm, ²⁴⁴Cm, ²⁴⁵Cm, ²⁴⁶Cm, ²⁴⁷Cm, ²⁴⁸Cm, ²⁵⁰Cm",
+    "group": null,
+    "groupLabel": "Actinide",
+    "series": "Actinide",
+    "period": 7,
+    "state": "Rắn",
+    "oxidation": "+3, +4",
+    "electronegativity": null,
+    "electronegativityNote": "Chưa có giá trị Pauling đủ cơ sở trong bản đối chiếu; không coi 0 là giá trị đã đo.",
+    "density": "13,5 g/cm³.",
+    "meltingPoint": "Nhiệt độ nóng chảy khoảng 1345 °C.",
+    "boilingPoint": "Chưa xác định thực nghiệm",
+    "crystalStructure": "Lục phương kép xếp chặt (DHCP) ở áp suất thường; cấu trúc thay đổi theo nhiệt độ và áp suất.",
+    "CAS": "7440-51-9"
+  },
+  "history": {
+    "discoverer": "Glenn T. Seaborg, Ralph A. James và Albert Ghiorso",
+    "year": "1944",
+    "discoveryLocation": "Berkeley, California, Hoa Kỳ",
+    "description": "Curium được tạo ra lần đầu tiên vào năm 1944 bằng cách bắn phá Plutonium-239 bằng các hạt alpha trong máy gia tốc hạt. Phản ứng tạo Curium-242: ²³⁹Pu + ⁴He → ²⁴²Cm + n Curium được đặt tên để vinh danh Marie Curie và Pierre Curie, những người có đóng góp quan trọng trong nghiên cứu phóng xạ."
+  },
+  "structure": {
+    "protons": 96,
+    "electrons": 96,
+    "neutrons": 147,
+    "nucleusIsotope": "²⁴³Cm",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 96,
+      "neutron": 147
+    },
+    "electronShells": [
+      2,
+      8,
+      18,
+      32,
+      25,
+      9,
+      2
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      32,
+      25,
+      9,
+      2
+    ],
+    "valenceElectrons": 2,
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+    "lattice": "Lục phương kép xếp chặt (DHCP) ở áp suất thường; cấu trúc thay đổi theo nhiệt độ và áp suất.",
+    "latticeEvidence": "source-reviewed"
+  },
+  "structureType": "Lục phương kép xếp chặt (DHCP) ở áp suất thường; cấu trúc thay đổi theo nhiệt độ và áp suất.",
+  "occurrence": {
+    "description": "Chất rắn",
+    "simple": [
+      "Cm"
+    ],
+    "compounds": [
+      "Cm₂O₃",
+      "CmO₂",
+      "CmCl₃",
+      "CmF₃"
+    ],
+    "ores": [
+      "Hầu như không tồn tại tự nhiên với lượng đáng kể",
+      "chủ yếu được tạo ra nhân tạo"
+    ],
+    "details": [
+      "Trạng thái: Chất rắn",
+      "Màu sắc: Bạc trắng",
+      "Có trong: Hầu như không tồn tại tự nhiên với lượng đáng kể; chủ yếu được tạo ra nhân tạo.",
+      "Đơn chất: Cm",
+      "Hợp chất phổ biến: Cm₂O₃, CmO₂, CmCl₃, CmF₃"
+    ],
+    "mineral": {
+      "available": false,
+      "reason": "Nguyên tố nhân tạo hoặc chỉ có vết tự nhiên; không có quặng khai thác riêng để dựng mẫu."
+    }
+  },
+  "naturalState": {
+    "image": "/assets/periodic-table/diagrams/096_Cm.svg",
+    "alt": "Curium: sơ đồ minh họa nguyên tố",
+    "kind": "diagram",
+    "source": "",
+    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+    "credit": ""
+  },
+  "isotopes": [
+    {
+      "isotope": "²³⁸Cm",
+      "massNumber": 238,
+      "protons": 96,
+      "neutrons": 142,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "2.2 ± 0.4 h",
+      "halfLife": "2.2 h",
+      "halfLifeUncertainty": "4",
+      "halfLifeQualifier": null,
+      "decay": "EC",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²³⁹Cm",
+      "massNumber": 239,
+      "protons": 96,
+      "neutrons": 143,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "2.7 ± 0.8 h",
+      "halfLife": "2.7 h",
+      "halfLifeUncertainty": "8",
+      "halfLifeQualifier": null,
+      "decay": "EC",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁴⁰Cm",
+      "massNumber": 240,
+      "protons": 96,
+      "neutrons": 144,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "27 ± 1 d",
+      "halfLife": "27 d",
+      "halfLifeUncertainty": "1",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁴¹Cm",
+      "massNumber": 241,
+      "protons": 96,
+      "neutrons": 145,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "32.8 ± 0.2 d",
+      "halfLife": "32.8 d",
+      "halfLifeUncertainty": "2",
+      "halfLifeQualifier": null,
+      "decay": "EC",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁴²Cm",
+      "massNumber": 242,
+      "protons": 96,
+      "neutrons": 146,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "162.88 ± 0.08 d",
+      "halfLife": "162.88 d",
+      "halfLifeUncertainty": "8",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁴³Cm",
+      "massNumber": 243,
+      "protons": 96,
+      "neutrons": 147,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "29.1 ± 0.1 năm",
+      "halfLife": "29.1 Y",
+      "halfLifeUncertainty": "1",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁴⁴Cm",
+      "massNumber": 244,
+      "protons": 96,
+      "neutrons": 148,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "18.11 ± 0.03 năm",
+      "halfLife": "18.11 Y",
+      "halfLifeUncertainty": "3",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁴⁵Cm",
+      "massNumber": 245,
+      "protons": 96,
+      "neutrons": 149,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "8423 ± 74 năm",
+      "halfLife": "8423 Y",
+      "halfLifeUncertainty": "74",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁴⁶Cm",
+      "massNumber": 246,
+      "protons": 96,
+      "neutrons": 150,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "4706 ± 40 năm",
+      "halfLife": "4706 Y",
+      "halfLifeUncertainty": "40",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁴⁷Cm",
+      "massNumber": 247,
+      "protons": 96,
+      "neutrons": 151,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "1.56E+7 ± 5E+5 năm",
+      "halfLife": "1.56E+7 Y",
+      "halfLifeUncertainty": "5",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁴⁸Cm",
+      "massNumber": 248,
+      "protons": 96,
+      "neutrons": 152,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "3.48E+5 ± 6E+3 năm",
+      "halfLife": "3.48E+5 Y",
+      "halfLifeUncertainty": "6",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁵⁰Cm",
+      "massNumber": 250,
+      "protons": 96,
+      "neutrons": 154,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "AP 8.3E+3 năm",
+      "halfLife": "8.3E+3 Y",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": "AP",
+      "decay": "SF",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Là kim loại phóng xạ.</li><li>Thuộc họ Actinide.</li><li>Có màu bạc trắng.</li><li>Rất hiếm và chỉ được sản xuất với lượng nhỏ.</li><li>Có tính phóng xạ mạnh.</li><li>Có nhiều dạng thù hình.</li><li>Nhiệt độ nóng chảy khoảng 1345 °C.</li><li>Khối lượng riêng khoảng 13,5 g/cm³.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Curium chủ yếu tồn tại ở trạng thái Oxy hóa:</li><li>+3: phổ biến nhất.</li><li>+4: có thể tồn tại, đặc biệt trong một số oxide.</li><li>Ion Cm³⁺ có cấu hình electron 5f⁷, tương ứng với một phân lớp 5f bán đầy, tạo nên một số tính chất từ đặc biệt.</li><li>Curium phản ứng với Oxygen:</li><li class=\"source-equation\">4Cm + 3O₂ → 2Cm₂O₃<small>Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.</small></li><li>Curium cũng có thể tạo Curium dioxide:</li><li class=\"source-equation\">Cm + O₂ → CmO₂<small>Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.</small></li></ul>",
+  "reactions": [
+    {
+      "type": "Điều chế Curium-242",
+      "desc": "",
+      "equation": "²³⁹Pu + ⁴He → ²⁴²Cm + n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 80,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tác dụng với Oxygen",
+      "desc": "",
+      "equation": "4Cm + 3O₂ → 2Cm₂O₃",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 82,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tạo Curium dioxide",
+      "desc": "",
+      "equation": "Cm + O₂ → CmO₂",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 84,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Phân rã Alpha của Curium-242",
+      "desc": "",
+      "equation": "²⁴²Cm → ²³⁸Pu + α",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 86,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Phân rã Alpha của Curium-244",
+      "desc": "",
+      "equation": "²⁴⁴Cm → ²⁴⁰Pu + α",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 88,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "preparations": {
+    "lab": [
+      {
+        "title": "Curium được tạo ra với lượng rất nhỏ bằng phản ứng hạt nhân tại các cơ sở nghiên cứu chuyên dụng. Không có phương pháp điều chế hóa học thông thường để tổng hợp nguyên tố này.",
+        "desc": "",
+        "result": "",
+        "equations": [],
+        "sourceLines": [
+          69
+        ],
+        "equation": ""
+      }
+    ],
+    "industry": [
+      {
+        "title": "Curium (Cm) được điều chế nhân tạo trong các lò phản ứng hạt nhân bằng cách cho Plutonium hoặc Americium hấp thụ neutron liên tiếp. Curium-242 và Curium-244 là những đồng vị có thể thu được qua các quá trình này.",
+        "desc": "Curium được tách khỏi các sản phẩm hạt nhân khác bằng những quy trình xử lý hóa học chuyên dụng.",
+        "result": "",
+        "equations": [
+          {
+            "equation": "²³⁹Pu + ⁴He → ²⁴²Cm + n",
+            "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+            "kind": "nuclear",
+            "sourceLine": 66,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "nuclear",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          65,
+          66,
+          67
+        ],
+        "equation": "²³⁹Pu + ⁴He → ²⁴²Cm + n"
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Có thể nhận biết Curium bằng",
+      "desc": "Phổ alpha. Phổ gamma. Đo hoạt độ phóng xạ. ICP-MS và phân tích đồng vị. Phân tích các đặc tính hóa học của Cm³⁺. Các đồng vị khác nhau có chu kỳ bán rã và kiểu phân rã đặc trưng, giúp xác định chúng.",
+      "result": "",
+      "equations": [],
+      "sourceLines": [
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77
+      ],
+      "equation": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Nguồn năng lượng phóng xạ",
+      "desc": "Một số đồng vị Curium có khả năng giải phóng lượng nhiệt đáng kể khi phân rã. Vì vậy chúng được nghiên cứu cho nguồn năng lượng đồng vị phóng xạ (radioisotope power sources).",
+      "sourceLine": 90
+    },
+    {
+      "title": "Nghiên cứu không gian",
+      "desc": "Curium từng được xem xét và nghiên cứu như một nguồn nhiệt tiềm năng cho các hệ thống không gian, mặc dù ²³⁸Pu thường phù hợp hơn cho RTG thực tế.",
+      "sourceLine": 91
+    },
+    {
+      "title": "Nghiên cứu hạt nhân",
+      "desc": "Curium được sử dụng để nghiên cứu phản ứng hạt nhân, phóng xạ và hóa học Actinide.",
+      "sourceLine": 92
+    },
+    {
+      "title": "Tạo các nguyên tố nặng hơn",
+      "desc": "Một số đồng vị Curium được dùng làm bia trong các phản ứng hạt nhân để tạo ra các nguyên tố siêu nặng hơn.",
+      "sourceLine": 93
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Ví dụ, Curium-248 đã được sử dụng trong các thí nghiệm tạo nguyên tố rất nặng.",
+      "sourceLine": 94
+    }
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Curium là nguyên tố số 96, thuộc nhóm IIIB | chu kỳ 7 và là nguyên tố thứ tám trong họ Actinide.</li><li>Curium được Glenn T. Seaborg, Ralph A. James và Albert Ghiorso phát hiện vào năm 1944 tại Berkeley, Hoa Kỳ. Nguyên tố được đặt tên để vinh danh Marie Curie và Pierre Curie.</li><li>Curium là một kim loại phóng xạ nhân tạo, không có đồng vị bền. Trạng thái Oxy hóa phổ biến nhất là +3. Một đặc điểm đáng chú ý là nhiều đồng vị Curium phát ra hạt alpha và giải phóng nhiệt trong quá trình phân rã.</li><li>Các đồng vị như ²⁴²Cm và ²⁴⁴Cm có thể tạo ra nhiệt đáng kể, khiến Curium có giá trị trong nghiên cứu nguồn năng lượng phóng xạ. Ngoài ra, Curium còn đóng vai trò quan trọng trong nghiên cứu Actinide và tổng hợp các nguyên tố nặng hơn.</li><li>Mạng tinh thể: Lục phương (Hexagonal) ở điều kiện thường.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/diagrams/096_Cm.svg",
+      "title": "Curium (Cm)",
+      "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+      "source": "",
+      "author": "ChemDex",
+      "license": "ChemDex schematic diagram",
+      "licenseUrl": ""
+    }
+  ],
+  "mediaBlocks": [],
+  "sources": [
+    {
+      "title": "096_Cm.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "0fbac61c0332ca3b2a824d094da9792a0e1bbb41ecfe1298793295c426864a56"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/96/curium"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "actinideStructures",
+      "url": "https://arxiv.org/abs/2604.12249"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "096_Cm.docx",
+    "sourceSha256": "0fbac61c0332ca3b2a824d094da9792a0e1bbb41ecfe1298793295c426864a56",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/096_Cm.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
+}

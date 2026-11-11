@@ -1,0 +1,78 @@
+001: Krypton (Kr)
+002: Thông tin chung
+003: Tên Latin: Krypton
+004: Tên Tiếng Anh: Krypton
+005: Đồng vị: ⁷⁸Kr, ⁸⁰Kr, ⁸²Kr, ⁸³Kr, ⁸⁴Kr, ⁸⁶Kr
+006: Vị trí: Nhóm VIIIA | Chu kỳ 4
+007: Số Oxy hóa: 0, +2
+008: Độ âm điện: 3.00
+009: Lịch sử khám phá
+010: Phát hiện bởi: William Ramsay và Morris Travers
+011: Năm công bố: 1898
+012: Nơi khám phá: Anh
+013: Mô tả: Năm 1898, William Ramsay và Morris Travers phát hiện Krypton khi nghiên cứu phần khí còn lại sau khi làm bay hơi các thành phần chính của không khí lỏng. Tên Krypton bắt nguồn từ tiếng Hy Lạp kryptos, nghĩa là “ẩn giấu”.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Ar] 3d¹⁰ 4s² 4p⁶
+017: Mô hình mạng tinh thể: Lập phương tâm mặt (Face-centered cubic, FCC)
+018: Số hiệu nguyên tử: 36
+019: Nguyên tử khối: 83.798 g/mol
+020: Vỏ nguyên tử: 36 electron
+021: K: 2 | L: 8 | M: 18 | N: 8
+022: Hạt nhân: 36 proton, 48 neutron đối với ⁸⁴Kr
+023: Cấu hình e: [Ar] 3d¹⁰ 4s² 4p⁶
+024: Loại mạng: Lập phương tâm mặt (Face-centered cubic, FCC)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Krypton là khí không màu, không mùi, rất ít phản ứng hóa học ở điều kiện thường.
+027: Có trong: Khí quyển Trái Đất với hàm lượng rất nhỏ.
+028: Đơn chất: Kr
+029: Hợp chất: KrF₂ và một số hợp chất Krypton khác được tạo ra trong điều kiện đặc biệt.
+030: c. Đồng vị
+031: Đồng vị: ⁷⁸Kr, ⁸⁰Kr, ⁸²Kr, ⁸³Kr, ⁸⁴Kr, ⁸⁶Kr
+032: Các đồng vị tự nhiên của Krypton chủ yếu là đồng vị bền. Trong đó ⁸⁴Kr và ⁸⁶Kr là những đồng vị có hàm lượng đáng kể.
+033: Tính chất
+034: Tính chất vật lý
+035: Là khí hiếm thuộc nhóm VIIIA.
+036: Không màu, không mùi.
+037: Khối lượng riêng: khoảng 3.75 g/L.
+038: Nhiệt độ nóng chảy: khoảng −157.4 °C.
+039: Nhiệt độ sôi: khoảng −153.4 °C.
+040: Tồn tại dưới dạng nguyên tử đơn Kr.
+041: Phát ra ánh sáng đặc trưng khi bị kích thích bằng điện.
+042: Rất ít tan trong nước.
+043: Tính chất hóa học
+044: Có lớp electron ngoài cùng bão hòa.
+045: Rất trơ về mặt hóa học.
+046: Số Oxy hóa phổ biến nhất là 0.
+047: Có thể tạo một số hợp chất trong điều kiện đặc biệt.
+048: Krypton difluoride (KrF₂) là hợp chất Krypton nổi bật nhất.
+049: Có thể tạo một số species chứa Krypton trong điều kiện nghiên cứu đặc biệt.
+050: Điều chế
+051: Điều chế trong công nghiệp
+052: Krypton được tách từ không khí hóa lỏng bằng phương pháp chưng cất phân đoạn, sau đó tinh chế để thu Krypton tinh khiết.
+053: Điều chế trong phòng thí nghiệm
+054: Krypton có thể được tạo ra trong phản ứng phân hạch hạt nhân của Uranium-235:
+055: ²³⁵U + ¹n → ⁹²Kr + ¹⁴¹Ba + 3¹n
+056: Nhận biết
+057: Krypton có thể được nhận biết dựa trên phổ phát xạ đặc trưng khi bị kích thích bằng điện.
+058: Hiện tượng: Krypton phát ra ánh sáng với các vạch phổ đặc trưng.
+059: Do Krypton là khí hiếm và có nồng độ rất thấp trong không khí, việc nhận biết chính xác thường cần thiết bị phân tích chuyên dụng.
+060: Phương trình
+061: Krypton rất ít phản ứng hóa học. Một phản ứng tiêu biểu là tạo Krypton difluoride:
+062: Tạo Krypton difluoride
+063: Kr + F₂ → KrF₂
+064: Phân hủy Krypton difluoride
+065: KrF₂ → Kr + F₂
+066: Ứng dụng thực tế
+067: Đèn chiếu sáng: Krypton được sử dụng trong một số loại đèn và nguồn sáng đặc biệt.
+068: Laser: Krypton được sử dụng trong một số hệ thống laser, đặc biệt là Krypton ion laser.
+069: Đèn flash: Krypton có thể được sử dụng trong một số loại đèn flash và đèn phóng điện.
+070: Cách nhiệt: Krypton được sử dụng làm khí trơ trong một số loại cửa sổ kính cách nhiệt.
+071: Nghiên cứu khoa học: Krypton được sử dụng trong nghiên cứu vật lý, hóa học và quang phổ.
+072: Định tuổi vật liệu: Một số đồng vị Krypton được sử dụng trong nghiên cứu địa chất và môi trường.
+073: Tổng quan
+074: Krypton là nguyên tố số 36, thuộc nhóm VIIIA | chu kỳ 4 và là một khí hiếm.
+075: Krypton có cấu hình electron [Ar] 3d¹⁰ 4s² 4p⁶, với lớp electron ngoài cùng đã bão hòa nên có độ hoạt động hóa học rất thấp.
+076: Ở điều kiện thường, Krypton tồn tại dưới dạng khí đơn nguyên tử, không màu và không mùi. Trong tự nhiên, Krypton chỉ chiếm một lượng rất nhỏ trong khí quyển.
+077: Krypton chủ yếu được thu hồi bằng cách chưng cất phân đoạn không khí lỏng. Mặc dù rất trơ, Krypton vẫn có thể tạo một số hợp chất, tiêu biểu là Krypton difluoride (KrF₂).
+078: Krypton có ứng dụng trong chiếu sáng, laser, kính cách nhiệt và nghiên cứu khoa học.

@@ -1,0 +1,97 @@
+001: Gallium (Ga)
+002: Thông tin chung
+003: Tên Latin: Gallium
+004: Tên Tiếng Anh: Gallium
+005: Đồng vị: ⁶⁹Ga, ⁷¹Ga
+006: Vị trí: Nhóm IIIA | Chu kỳ 4
+007: Số Oxy hóa: +1, +2, +3
+008: Độ âm điện: 1.81
+009: Lịch sử khám phá
+010: Phát hiện bởi: Paul-Émile Lecoq de Boisbaudran
+011: Năm công bố: 1875
+012: Nơi khám phá: Pháp
+013: Mô tả: Năm 1875, Paul-Émile Lecoq de Boisbaudran phát hiện Gallium trong một mẫu Sphalerite bằng phương pháp quang phổ. Sự tồn tại của Gallium trước đó đã được Dmitri Mendeleev dự đoán dựa trên khoảng trống trong bảng tuần hoàn và ông gọi nguyên tố chưa biết là Eka-aluminium.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Ar] 3d¹⁰ 4s² 4p¹
+017: Mô hình mạng tinh thể: Trực thoi (Orthorhombic)
+018: Số hiệu nguyên tử: 31
+019: Nguyên tử khối: 69.723 g/mol
+020: Vỏ nguyên tử: 31 electron
+021: K: 2 | L: 8 | M: 18 | N: 3
+022: Hạt nhân: 31 proton, 38 neutron đối với ⁶⁹Ga
+023: Cấu hình e: [Ar] 3d¹⁰ 4s² 4p¹
+024: Loại mạng: Trực thoi (Orthorhombic)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Gallium là kim loại rắn ở nhiệt độ thường nhưng có nhiệt độ nóng chảy rất thấp.
+027: Có trong: Gallium không thường tồn tại dưới dạng quặng riêng biệt, mà chủ yếu là sản phẩm phụ khi khai thác và tinh chế Bauxite và Sphalerite.
+028: Đơn chất: Ga
+029: Hợp chất: Ga₂O₃, GaCl₃, Ga₂S₃, GaAs, GaN...
+030: c. Đồng vị
+031: Đồng vị: ⁶⁹Ga, ⁷¹Ga
+032: ⁶⁹Ga: Đồng vị bền, chiếm khoảng 60.1%.
+033: ⁷¹Ga: Đồng vị bền, chiếm khoảng 39.9%.
+034: Tính chất
+035: Tính chất vật lý
+036: Là kim loại thuộc nhóm IIIA.
+037: Có màu trắng bạc.
+038: Mềm và dễ dát mỏng.
+039: Nhiệt độ nóng chảy rất thấp: khoảng 29.76 °C.
+040: Có thể nóng chảy khi cầm trong tay.
+041: Nhiệt độ sôi: khoảng 2204 °C.
+042: Khối lượng riêng: khoảng 5.91 g/cm³.
+043: Gallium lỏng có khoảng nhiệt độ tồn tại ở trạng thái lỏng rất rộng.
+044: Có thể làm ướt và bám vào nhiều vật liệu.
+045: Tính chất hóa học
+046: Số Oxy hóa phổ biến nhất là +3.
+047: Có tính chất tương tự Aluminium.
+048: Tạo lớp oxide bảo vệ trên bề mặt trong không khí.
+049: Phản ứng với acid tạo Gallium salt và Hydrogen.
+050: Phản ứng với Halogen tạo Gallium halide.
+051: Gallium oxide và Gallium hydroxide có tính lưỡng tính.
+052: Có thể tạo các hợp chất bán dẫn quan trọng như Gallium arsenide (GaAs) và Gallium nitride (GaN).
+053: Điều chế
+054: Điều chế trong công nghiệp
+055: Gallium chủ yếu được thu hồi như sản phẩm phụ trong quá trình xử lý quặng Bauxite để sản xuất Aluminium.
+056: Gallium được tách khỏi dung dịch kiềm trong quá trình xử lý Aluminium và sau đó được tinh chế bằng các phương pháp hóa học hoặc điện phân.
+057: Điều chế trong phòng thí nghiệm
+058: Gallium có thể được điều chế bằng điện phân dung dịch chứa Gallium(III) compounds:
+059: Ga³⁺ + 3e⁻ → Ga
+060: Nhận biết
+061: Nhận biết Ga³⁺
+062: Cho dung dịch chứa Ga³⁺ tác dụng với hydroxide:
+063: Ga³⁺ + 3OH⁻ → Ga(OH)₃↓
+064: Hiện tượng: Xuất hiện kết tủa trắng Gallium hydroxide.
+065: Gallium hydroxide có tính lưỡng tính và tan trong acid hoặc kiềm mạnh.
+066: Ga(OH)₃ + OH⁻ → [Ga(OH)₄]⁻
+067: Phương trình
+068: Tác dụng với Oxygen
+069: 4Ga + 3O₂ → 2Ga₂O₃
+070: Tác dụng với Chlorine
+071: 2Ga + 3Cl₂ → 2GaCl₃
+072: Tác dụng với Hydrochloric acid
+073: 2Ga + 6HCl → 2GaCl₃ + 3H₂↑
+074: Tạo Gallium hydroxide
+075: Ga³⁺ + 3OH⁻ → Ga(OH)₃↓
+076: Gallium hydroxide tác dụng với acid
+077: Ga(OH)₃ + 3HCl → GaCl₃ + 3H₂O
+078: Gallium hydroxide tác dụng với kiềm
+079: Ga(OH)₃ + NaOH → Na[Ga(OH)₄]
+080: Tạo Gallium nitride
+081: 2Ga + N₂ → 2GaN
+082: Tạo Gallium arsenide
+083: 4Ga + As₄ → 4GaAs
+084: Ứng dụng thực tế
+085: Chất bán dẫn: Gallium là thành phần quan trọng của Gallium arsenide (GaAs) và Gallium nitride (GaN).
+086: LED: GaN được sử dụng rộng rãi trong LED xanh lam, LED trắng và các thiết bị quang điện.
+087: Điện tử công suất: GaN được sử dụng trong transistor và các linh kiện điện tử công suất cao.
+088: Laser diode: GaAs được sử dụng trong nhiều loại laser diode và thiết bị quang điện.
+089: Thiết bị tần số cao: GaAs có tính chất điện tử phù hợp với các thiết bị vi sóng và thông tin liên lạc.
+090: Nhiệt kế: Gallium có nhiệt độ nóng chảy thấp và khoảng tồn tại ở trạng thái lỏng rộng nên được sử dụng trong một số loại nhiệt kế chuyên dụng.
+091: Nghiên cứu vật liệu: Gallium được sử dụng trong nghiên cứu và chế tạo các vật liệu bán dẫn tiên tiến.
+092: Tổng quan
+093: Gallium là nguyên tố số 31, thuộc nhóm IIIA | chu kỳ 4.
+094: Gallium có cấu hình electron [Ar] 3d¹⁰ 4s² 4p¹, với số Oxy hóa phổ biến nhất là +3.
+095: Gallium có nhiệt độ nóng chảy rất thấp, chỉ khoảng 29.76 °C, nên có thể tồn tại ở dạng lỏng khi nhiệt độ môi trường đủ cao.
+096: Gallium thường được thu hồi như sản phẩm phụ của quá trình sản xuất Aluminium và Zinc. Nguyên tố này đặc biệt quan trọng trong công nghệ bán dẫn thông qua các vật liệu như Gallium arsenide (GaAs) và Gallium nitride (GaN).
+097: Gallium có vai trò lớn trong LED, laser diode, điện tử công suất, vi điện tử và công nghệ thông tin liên lạc.

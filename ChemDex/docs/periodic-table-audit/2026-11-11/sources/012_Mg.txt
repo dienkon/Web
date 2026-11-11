@@ -1,0 +1,115 @@
+001: ⁠Magnesium (Mg)
+002: Thông tin chung
+003: Tên Latin: Magnesium
+004: Tên tiếng Anh: Magnesium
+005: Đồng vị: ²⁴Mg, ²⁵Mg, ²⁶Mg
+006: Vị trí: Nhóm IIA | Chu kỳ 3
+007: Số Oxy hóa: +2
+008: Độ âm điện: 1.31
+009: Lịch sử khám phá
+010: Phát hiện bởi: Joseph Black
+011: Năm công bố: 1755
+012: Nơi khám phá: Scotland
+013: Mô tả: Năm 1755, Joseph Black phân biệt Magnesium compounds với Calcium compounds và xác định Magnesium là một thành phần riêng biệt. Đến năm 1808, Humphry Davy cô lập được Magnesium ở dạng kim loại bằng phương pháp điện hóa.
+014: 3. Cấu tạo
+015: a. Cấu tạo
+016: Hoạt họa cấu hình e: 1s² 2s² 2p⁶ 3s²
+017: Mô hình mạng tinh thể: Lục phương xếp chặt (HCP)
+018: Số hiệu nguyên tử: 12
+019: Nguyên tử khối: 24.305 g/mol
+020: Vỏ nguyên tử: 12 electron
+021: K: 2 | L: 8 | M: 2
+022: Hạt nhân: 12 proton, 12 neutron đối với ²⁴Mg
+023: Cấu hình e: 1s² 2s² 2p⁶ 3s²
+024: Loại mạng: Lục phương xếp chặt (HCP)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Magnesium là kim loại hoạt động hóa học nên không tồn tại tự do trong tự nhiên. Nó chủ yếu tồn tại dưới dạng hợp chất trong khoáng vật và nước biển.
+027: Có trong: Magnesite, Dolomite, Brucite, Carnallite, nước biển và một số khoáng vật Silicate.
+028: Đơn chất: Mg
+029: Hợp chất: MgO, Mg(OH)₂, MgCO₃, MgCl₂, MgSO₄, Mg₃Si₂O₅(OH)₄...
+030: c. Đồng vị
+031: Đồng vị: ²⁴Mg, ²⁵Mg, ²⁶Mg
+032: ²⁴Mg: Đồng vị bền, chiếm khoảng 78.99% Magnesium tự nhiên.
+033: ²⁵Mg: Đồng vị bền, chiếm khoảng 10.00%.
+034: ²⁶Mg: Đồng vị bền, chiếm khoảng 11.01%.
+035: Cả ba đồng vị đều bền và tồn tại tự nhiên.
+036: Tính chất
+037: Tính chất vật lý
+038: Là kim loại màu trắng bạc.
+039: Nhẹ.
+040: Có độ bền cơ học tương đối tốt.
+041: Khối lượng riêng: khoảng 1.738 g/cm³.
+042: Nhiệt độ nóng chảy: 650 °C.
+043: Nhiệt độ sôi: 1090 °C.
+044: Dẫn điện và dẫn nhiệt tốt.
+045: Có thể tạo ánh sáng trắng rất sáng khi cháy.
+046: Dễ gia công khi ở điều kiện thích hợp.
+047: Tính chất hóa học
+048: Là kim loại kiềm thổ.
+049: Có tính khử.
+050: Số Oxy hóa phổ biến: +2.
+051: Phản ứng với Oxygen tạo Magnesium oxide.
+052: Phản ứng với acid tạo muối Magnesium và Hydrogen.
+053: Phản ứng chậm với nước lạnh và nhanh hơn với nước nóng.
+054: Có thể phản ứng với Steam tạo Magnesium oxide và Hydrogen.
+055: Phản ứng với Halogen tạo Magnesium halide.
+056: Có thể khử một số oxide kim loại ở nhiệt độ cao.
+057: Khi cháy tạo ánh sáng trắng mạnh.
+058: Điều chế
+059: Điều chế trong công nghiệp
+060: Magnesium được sản xuất chủ yếu bằng điện phân Magnesium chloride nóng chảy.
+061: Tại cathode:
+062: Mg²⁺ + 2e⁻ → Mg
+063: Tại anode:
+064: 2Cl⁻ → Cl₂ + 2e⁻
+065: Phương trình tổng quát:
+066: MgCl₂(l) → Mg(l) + Cl₂(g)
+067: Magnesium chloride có thể được thu từ nước biển hoặc các khoáng vật chứa Magnesium.
+068: Điều chế trong phòng thí nghiệm
+069: Magnesium không thường được điều chế trong phòng thí nghiệm phổ thông vì cần điện phân muối nóng chảy ở nhiệt độ cao.
+070: Về nguyên tắc, có thể điều chế bằng điện phân Magnesium chloride nóng chảy:
+071: MgCl₂(l) → Mg(l) + Cl₂(g)
+072: Nhận biết
+073: Thử màu ngọn lửa: Magnesium không có màu ngọn lửa đặc trưng đủ mạnh để dùng làm phép thử định tính phổ thông.
+074: Phản ứng tạo kết tủa: Ion Mg²⁺ có thể được nhận biết thông qua các phản ứng tạo kết tủa với một số thuốc thử thích hợp.
+075: Ví dụ với Sodium hydroxide:
+076: Mg²⁺ + 2OH⁻ → Mg(OH)₂↓
+077: Hiện tượng: Xuất hiện kết tủa trắng Magnesium hydroxide.
+078: Phương trình
+079: Tác dụng với Oxygen
+080: 2Mg + O2 → 2MgO
+081: Tác dụng với Nitrogen
+082: Khi nung nóng:
+083: 3Mg + N2 → Mg3N2
+084: Tác dụng với Chlorine
+085: Mg + Cl2 → MgCl2
+086: Tác dụng với Hydrochloric acid
+087: Mg + 2HCl → MgCl2 + H2↑
+088: Tác dụng với Sulfuric acid loãng
+089: Mg + H2SO4 → MgSO4 + H2↑
+090: Tác dụng với nước
+091: Với nước nóng:
+092: Mg + 2H2O → Mg(OH)2 + H2↑
+093: Với Steam:
+094: Mg + H2O(g) → MgO + H2↑
+095: Tác dụng với Carbon dioxide
+096: Khi đốt Magnesium:
+097: 2Mg + CO2 → 2MgO + C
+098: Tác dụng với Carbon
+099: Ở nhiệt độ cao:
+100: 2Mg + C → Mg2C3
+101: Khử Copper(II) oxide
+102: Mg + CuO → MgO + Cu
+103: Ứng dụng thực tế
+104: Hợp kim: Magnesium được sử dụng để sản xuất các hợp kim nhẹ cho phương tiện và thiết bị kỹ thuật.
+105: Hàng không: Hợp kim Magnesium được sử dụng trong một số bộ phận cần giảm khối lượng.
+106: Pháo sáng và tín hiệu: Magnesium tạo ánh sáng trắng mạnh khi cháy nên được sử dụng trong một số loại pháo sáng và thiết bị tín hiệu.
+107: Luyện kim: Magnesium được sử dụng làm chất khử và trong quá trình sản xuất một số kim loại.
+108: Công nghiệp hóa chất: Dùng để sản xuất nhiều Magnesium compounds.
+109: Bảo vệ chống ăn mòn: Magnesium có thể được sử dụng làm anode hy sinh trong một số hệ thống bảo vệ kim loại.
+110: Vật liệu: Magnesium và hợp kim của nó được sử dụng trong các sản phẩm yêu cầu vật liệu nhẹ.
+111: Tổng quan
+112: Magnesium là nguyên tố số 12, thuộc nhóm IIA | chu kỳ 3 và là một kim loại kiềm thổ.
+113: Magnesium có cấu hình electron 1s² 2s² 2p⁶ 3s², dễ mất hai electron lớp ngoài cùng để tạo ion Mg²⁺. Magnesium có tính khử tương đối mạnh và có thể cháy trong Oxygen với ánh sáng trắng rất mạnh.
+114: Trong tự nhiên, Magnesium không tồn tại ở dạng đơn chất mà chủ yếu có trong khoáng vật, nước biển và các hợp chất Silicate.
+115: Magnesium kim loại chủ yếu được sản xuất bằng điện phân Magnesium chloride nóng chảy. Nhờ khối lượng riêng thấp và khả năng tạo hợp kim, Magnesium có vai trò quan trọng trong vật liệu nhẹ, luyện kim, công nghiệp hóa chất và kỹ thuật.

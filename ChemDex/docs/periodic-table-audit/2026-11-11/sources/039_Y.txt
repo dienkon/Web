@@ -1,0 +1,94 @@
+001: Yttrium (Y)
+002: Thông tin chung
+003: Tên Latin: Yttrium
+004: Tên Tiếng Anh: Yttrium
+005: Đồng vị: ⁸⁹Y
+006: Vị trí: Nhóm IIIB | Chu kỳ 5
+007: Số Oxy hóa: +3
+008: Độ âm điện: 1.22
+009: Lịch sử khám phá
+010: Phát hiện bởi: Johan Gadolin
+011: Năm công bố: 1794
+012: Nơi khám phá: Phần Lan
+013: Mô tả: Năm 1794, Johan Gadolin phát hiện một loại oxide mới trong khoáng vật được tìm thấy tại Ytterby, Thụy Điển. Sau đó, nhiều nguyên tố đất hiếm khác cũng được phát hiện từ cùng loại khoáng vật này. Năm 1828, Friedrich Wöhler điều chế được Yttrium tương đối tinh khiết.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Kr] 4d¹ 5s²
+017: Mô hình mạng tinh thể: Lục phương (Hexagonal)
+018: Số hiệu nguyên tử: 39
+019: Nguyên tử khối: 88.906 g/mol
+020: Vỏ nguyên tử: 39 electron
+021: K: 2 | L: 8 | M: 18 | N: 9 | O: 2
+022: Hạt nhân: 39 proton, 50 neutron đối với ⁸⁹Y
+023: Cấu hình e: [Kr] 4d¹ 5s²
+024: Loại mạng: Lục phương (Hexagonal)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Yttrium là kim loại rắn, màu trắng bạc.
+027: Có trong: Xenotime (YPO₄), Monazite và một số khoáng vật đất hiếm.
+028: Đơn chất: Y
+029: Hợp chất: Y₂O₃, YCl₃, YF₃, Y₂S₃, YAG (Y₃Al₅O₁₂)...
+030: c. Đồng vị
+031: Đồng vị: ⁸⁹Y là đồng vị tự nhiên ổn định duy nhất của Yttrium.
+032: ⁸⁹Y: Đồng vị bền, chiếm gần 100% Yttrium tự nhiên.
+033: Yttrium cũng có nhiều đồng vị phóng xạ nhân tạo.
+034: Tính chất
+035: Tính chất vật lý
+036: Là kim loại chuyển tiếp.
+037: Có màu trắng bạc.
+038: Tương đối mềm và dễ gia công.
+039: Khối lượng riêng: khoảng 4.47 g/cm³.
+040: Nhiệt độ nóng chảy: khoảng 1526 °C.
+041: Nhiệt độ sôi: khoảng 3338 °C.
+042: Dẫn điện và dẫn nhiệt.
+043: Có tính chất gần với các nguyên tố đất hiếm.
+044: Tính chất hóa học
+045: Số Oxy hóa phổ biến nhất là +3.
+046: Có tính khử.
+047: Dễ tạo Y³⁺ trong các hợp chất.
+048: Phản ứng với Oxygen tạo Yttrium oxide.
+049: Phản ứng với Halogen tạo Yttrium halide.
+050: Phản ứng với acid tạo Yttrium salt và Hydrogen.
+051: Yttrium oxide có độ bền nhiệt cao.
+052: Điều chế
+053: Điều chế trong công nghiệp
+054: Yttrium chủ yếu được điều chế từ quặng Xenotime (YPO₄). Quặng được xử lí để thu Yttrium oxide, sau đó chuyển thành Yttrium fluoride và khử bằng Calcium ở nhiệt độ cao.
+055: Phương trình hóa học:
+056: 2YPO₄ → Y₂O₃ + P₂O₅
+057: Y₂O₃ + 6HF → 2YF₃ + 3H₂O
+058: 2YF₃ + 3Ca → 2Y + 3CaF₂
+059: Điều chế trong phòng thí nghiệm
+060: Có thể điều chế Yttrium bằng phương pháp điện phân nóng chảy Yttrium chloride. Yttrium tạo thành ở cathode, Chlorine thoát ra ở anode.
+061: Phương trình điện phân:
+062: 2YCl₃(l) → 2Y + 3Cl₂(g)
+063: Nhận biết
+064: Nhận biết Y³⁺
+065: Cho dung dịch chứa Y³⁺ tác dụng với hydroxide:
+066: Y³⁺ + 3OH⁻ → Y(OH)₃↓
+067: Hiện tượng: Xuất hiện kết tủa trắng Yttrium hydroxide.
+068: Phương trình
+069: Tác dụng với Oxygen
+070: 4Y + 3O₂ → 2Y₂O₃
+071: Tác dụng với Chlorine
+072: 2Y + 3Cl₂ → 2YCl₃
+073: Tác dụng với Hydrochloric acid
+074: 2Y + 6HCl → 2YCl₃ + 3H₂↑
+075: Tác dụng với Sulfur
+076: 2Y + 3S → Y₂S₃
+077: Tạo Yttrium hydroxide
+078: Y³⁺ + 3OH⁻ → Y(OH)₃↓
+079: Yttrium hydroxide tác dụng với acid
+080: Y(OH)₃ + 3HCl → YCl₃ + 3H₂O
+081: Điều chế Yttrium
+082: 2YCl₃ + 3Ca → 2Y + 3CaCl₂
+083: Ứng dụng thực tế
+084: Laser: Yttrium được sử dụng trong các vật liệu laser như YAG (Y₃Al₅O₁₂), đặc biệt khi pha thêm các nguyên tố thích hợp.
+085: LED và màn hình: Yttrium compounds được sử dụng làm vật liệu phát quang trong một số loại LED và màn hình.
+086: Gốm kỹ thuật: Yttrium oxide được sử dụng để ổn định Zirconium oxide, tạo vật liệu gốm có độ bền cao.
+087: Siêu dẫn: Một số vật liệu chứa Yttrium có tính siêu dẫn ở nhiệt độ tương đối cao, điển hình là YBCO.
+088: Kính: Yttrium compounds được sử dụng trong một số loại kính quang học và vật liệu chịu nhiệt.
+089: Hợp kim: Yttrium được thêm vào một số hợp kim để cải thiện tính chất cơ học và khả năng chịu nhiệt.
+090: Tổng quan
+091: Yttrium là nguyên tố số 39, thuộc nhóm IIIB | chu kỳ 5 và là một kim loại chuyển tiếp.
+092: Yttrium có cấu hình electron [Kr] 4d¹ 5s², với số Oxy hóa đặc trưng là +3.
+093: Yttrium có nhiều tính chất tương tự các nguyên tố đất hiếm và thường tồn tại trong tự nhiên cùng các khoáng vật đất hiếm. Đồng vị tự nhiên ổn định duy nhất của Yttrium là ⁸⁹Y.
+094: Yttrium có vai trò quan trọng trong laser, vật liệu phát quang, gốm kỹ thuật, vật liệu siêu dẫn, kính quang học và hợp kim chịu nhiệt.

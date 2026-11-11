@@ -51,7 +51,7 @@
       "lab3d-334"
     ],
     "documentKind": "reference",
-    "readingMinutes": 11
+    "readingMinutes": 12
   },
   {
     "id": "ho-so-c6b63b291152",
@@ -212,7 +212,7 @@
       "cid-6324"
     ],
     "documentKind": "reference",
-    "readingMinutes": 11
+    "readingMinutes": 12
   },
   {
     "id": "ho-so-eb45f633bf0c",
@@ -385,7 +385,7 @@
       "cid-241"
     ],
     "documentKind": "reference",
-    "readingMinutes": 11
+    "readingMinutes": 12
   },
   {
     "id": "ho-so-79272ef44341",
@@ -540,7 +540,7 @@
       "chem-hcooh"
     ],
     "documentKind": "reference",
-    "readingMinutes": 13
+    "readingMinutes": 14
   },
   {
     "id": "ho-so-4adf2f68e45b",
@@ -643,7 +643,7 @@
       "chem-c6h12o6"
     ],
     "documentKind": "reference",
-    "readingMinutes": 12
+    "readingMinutes": 13
   },
   {
     "id": "ho-so-bd92542764e0",
@@ -667,7 +667,7 @@
       "cid-5984"
     ],
     "documentKind": "reference",
-    "readingMinutes": 12
+    "readingMinutes": 13
   },
   {
     "id": "ho-so-6a99b1e855e6",
@@ -1389,7 +1389,7 @@
       "chem-koh"
     ],
     "documentKind": "reference",
-    "readingMinutes": 15
+    "readingMinutes": 16
   },
   {
     "id": "ho-so-41b689f68f5c",
@@ -1979,7 +1979,7 @@
       "chem-mg"
     ],
     "documentKind": "reference",
-    "readingMinutes": 13
+    "readingMinutes": 14
   },
   {
     "id": "ho-so-e8f5d868a03a",
@@ -2464,7 +2464,7 @@
       "chem-feoh3"
     ],
     "documentKind": "reference",
-    "readingMinutes": 15
+    "readingMinutes": 16
   },
   {
     "id": "ho-so-8c70002007eb",
@@ -3058,7 +3058,7 @@
       "chem-s"
     ],
     "documentKind": "reference",
-    "readingMinutes": 11
+    "readingMinutes": 12
   },
   {
     "id": "ho-so-f5866d7dfd1a",
@@ -5091,7 +5091,7 @@
       "formula-CH3COOC3H7"
     ],
     "documentKind": "reference",
-    "readingMinutes": 11
+    "readingMinutes": 12
   },
   {
     "id": "ho-so-649122b9d663",
@@ -5187,7 +5187,7 @@
       "formula-CH3COOLi"
     ],
     "documentKind": "reference",
-    "readingMinutes": 16
+    "readingMinutes": 15
   },
   {
     "id": "ho-so-e0419355bd83",
@@ -6161,7 +6161,7 @@
       "formula-HCOOLi"
     ],
     "documentKind": "reference",
-    "readingMinutes": 16
+    "readingMinutes": 15
   },
   {
     "id": "ho-so-765a7229358f",
@@ -6538,7 +6538,7 @@
       "formula-Li2O"
     ],
     "documentKind": "reference",
-    "readingMinutes": 11
+    "readingMinutes": 10
   },
   {
     "id": "ho-so-6a28fe7253c0",
@@ -6730,7 +6730,7 @@
       "formula-Mg(CH3COO)2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 16
+    "readingMinutes": 17
   },
   {
     "id": "ho-so-127a378cfddc",
@@ -7870,7 +7870,7 @@
       "formula-Pb"
     ],
     "documentKind": "reference",
-    "readingMinutes": 13
+    "readingMinutes": 12
   },
   {
     "id": "ho-so-52c30c8ef827",
@@ -7918,7 +7918,7 @@
       "formula-Pb(HCOO)2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 14
+    "readingMinutes": 15
   },
   {
     "id": "ho-so-5b52956fa2fa",
@@ -9064,7 +9064,7 @@
     "title": "Heli (He) — Chân dung một nguyên tố: Lịch sử phát hiện, hình thái tự nhiên và ứng dụng",
     "author": "Hội Đồng Chuyên Khảo Cấu Trúc Phân Tử · ChemDex",
     "category": "nguyento",
-    "summary": "Hồ sơ báo chí toàn diện về Heli (He) (khởi nguồn 1868): kết hợp tư liệu bách khoa quốc tế, giải phẫu liên kết 3D và phân tích phản ứng thực nghiệm.",
+    "summary": "Hồ sơ báo chí toàn diện về Heli (He) (khởi nguồn 1868 (thiên văn), 1895 (cô lập trên Trái Đất)): kết hợp tư liệu bách khoa quốc tế, giải phẫu liên kết 3D và phân tích phản ứng thực nghiệm.",
     "image": "/assets/library/cosmic-origin.svg",
     "chemicalFormula": "He",
     "tags": [
@@ -9172,7 +9172,7 @@
       "atom-O"
     ],
     "documentKind": "reference",
-    "readingMinutes": 11
+    "readingMinutes": 12
   },
   {
     "id": "ho-so-907f9222f383",
@@ -9308,7 +9308,7 @@
       "atom-Sc"
     ],
     "documentKind": "reference",
-    "readingMinutes": 11
+    "readingMinutes": 12
   },
   {
     "id": "ho-so-55178b270394",
@@ -9581,7 +9581,7 @@
       "atom-Y"
     ],
     "documentKind": "reference",
-    "readingMinutes": 11
+    "readingMinutes": 10
   },
   {
     "id": "ho-so-468b783f8015",
@@ -9647,14 +9647,14 @@
       "atom-Mo"
     ],
     "documentKind": "reference",
-    "readingMinutes": 11
+    "readingMinutes": 10
   },
   {
     "id": "ho-so-7563607ded71",
     "title": "Technetium (Tc) — Hồ sơ khởi nguyên từ bụi sao vũ trụ đến phòng thí nghiệm hiện đại",
     "author": "Ban Biên Tập Biên Niên Sử Hóa Học · ChemDex",
     "category": "nguyento",
-    "summary": "Phóng sự khoa học chuyên sâu về Technetium (Tc): lần theo cội nguồn lịch sử, giải mã kiến trúc không gian 3 chiều và các con đường điều chế thực nghiệm.",
+    "summary": "Phóng sự khoa học chuyên sâu về Technetium (Tc): lần theo cội nguồn lịch sử từ mốc 1937, giải mã kiến trúc không gian 3 chiều và các con đường điều chế thực nghiệm.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Tc",
     "tags": [
@@ -9669,7 +9669,7 @@
       "atom-Tc"
     ],
     "documentKind": "reference",
-    "readingMinutes": 9
+    "readingMinutes": 10
   },
   {
     "id": "ho-so-b3d0fec09fc9",
@@ -9868,7 +9868,7 @@
       "atom-Cs"
     ],
     "documentKind": "reference",
-    "readingMinutes": 12
+    "readingMinutes": 11
   },
   {
     "id": "ho-so-04a8d2575a3e",
@@ -9898,7 +9898,7 @@
     "title": "Lanthanum (La) — Phóng sự giải mã nguyên tố: Từ vạch quang phổ đến đơn chất ngoài đời thực",
     "author": "Phóng Viên Phòng Thí Nghiệm & Lịch Sử Khoa Học · ChemDex",
     "category": "nguyento",
-    "summary": "Bài báo chuyên đề khắc họa chân dung hóa học của Lanthanum (La): câu chuyện lịch sử trên thế giới, cơ chế liên kết hóa trị và phản ứng đặc trưng.",
+    "summary": "Bài báo chuyên đề khắc họa chân dung hóa học của Lanthanum (La) gắn với dấu mốc 1839: câu chuyện lịch sử trên thế giới, cơ chế liên kết hóa trị và phản ứng đặc trưng.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "La",
     "tags": [
@@ -9913,14 +9913,14 @@
       "atom-La"
     ],
     "documentKind": "reference",
-    "readingMinutes": 10
+    "readingMinutes": 11
   },
   {
     "id": "ho-so-9af03ca4ce89",
     "title": "Cerium (Ce) — Từ lò luyện kim cổ truyền đến trụ cột công nghệ nguyên tố hiện đại",
     "author": "Tạp Chí Công Nghệ Hóa Chất & Vật Liệu · ChemDex",
     "category": "nguyento",
-    "summary": "Chuyên đề báo chí về Cerium (Ce): tái hiện lịch sử phát hiện, cơ chế tạo thành liên kết hóa học và vai trò trong công nghiệp – phòng lab.",
+    "summary": "Chuyên đề báo chí về Cerium (Ce) từ cột mốc 1803: tái hiện lịch sử phát hiện, cơ chế tạo thành liên kết hóa học và vai trò trong công nghiệp – phòng lab.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Ce",
     "tags": [
@@ -9935,14 +9935,14 @@
       "atom-Ce"
     ],
     "documentKind": "reference",
-    "readingMinutes": 10
+    "readingMinutes": 11
   },
   {
     "id": "ho-so-4c0c429d37ca",
     "title": "Praseodymium (Pr) — Từ lò luyện kim cổ truyền đến trụ cột công nghệ nguyên tố hiện đại",
     "author": "Tạp Chí Công Nghệ Hóa Chất & Vật Liệu · ChemDex",
     "category": "nguyento",
-    "summary": "Chuyên đề báo chí về Praseodymium (Pr): tái hiện lịch sử phát hiện, cơ chế tạo thành liên kết hóa học và vai trò trong công nghiệp – phòng lab.",
+    "summary": "Chuyên đề báo chí về Praseodymium (Pr) từ cột mốc 1885: tái hiện lịch sử phát hiện, cơ chế tạo thành liên kết hóa học và vai trò trong công nghiệp – phòng lab.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Pr",
     "tags": [
@@ -9957,14 +9957,14 @@
       "atom-Pr"
     ],
     "documentKind": "reference",
-    "readingMinutes": 10
+    "readingMinutes": 11
   },
   {
     "id": "ho-so-cda25fc250b1",
     "title": "Neodymium (Nd) — Chân dung một nguyên tố: Lịch sử phát hiện, hình thái tự nhiên và ứng dụng",
     "author": "Hội Đồng Chuyên Khảo Cấu Trúc Phân Tử · ChemDex",
     "category": "nguyento",
-    "summary": "Hồ sơ báo chí toàn diện về Neodymium (Nd): kết hợp tư liệu bách khoa quốc tế, giải phẫu liên kết 3D và phân tích phản ứng thực nghiệm.",
+    "summary": "Hồ sơ báo chí toàn diện về Neodymium (Nd) (khởi nguồn 1885): kết hợp tư liệu bách khoa quốc tế, giải phẫu liên kết 3D và phân tích phản ứng thực nghiệm.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Nd",
     "tags": [
@@ -9979,14 +9979,14 @@
       "atom-Nd"
     ],
     "documentKind": "reference",
-    "readingMinutes": 10
+    "readingMinutes": 11
   },
   {
     "id": "ho-so-5c41648ce603",
     "title": "Promethium (Pm) — Phóng sự giải mã nguyên tố: Từ vạch quang phổ đến đơn chất ngoài đời thực",
     "author": "Phóng Viên Phòng Thí Nghiệm & Lịch Sử Khoa Học · ChemDex",
     "category": "nguyento",
-    "summary": "Bài báo chuyên đề khắc họa chân dung hóa học của Promethium (Pm): câu chuyện lịch sử trên thế giới, cơ chế liên kết hóa trị và phản ứng đặc trưng.",
+    "summary": "Bài báo chuyên đề khắc họa chân dung hóa học của Promethium (Pm) gắn với dấu mốc 1945: câu chuyện lịch sử trên thế giới, cơ chế liên kết hóa trị và phản ứng đặc trưng.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Pm",
     "tags": [
@@ -10001,14 +10001,14 @@
       "atom-Pm"
     ],
     "documentKind": "reference",
-    "readingMinutes": 10
+    "readingMinutes": 11
   },
   {
     "id": "ho-so-0b9ba4255f0c",
     "title": "Samarium (Sm) — Hồ sơ khởi nguyên từ bụi sao vũ trụ đến phòng thí nghiệm hiện đại",
     "author": "Ban Biên Tập Biên Niên Sử Hóa Học · ChemDex",
     "category": "nguyento",
-    "summary": "Phóng sự khoa học chuyên sâu về Samarium (Sm): lần theo cội nguồn lịch sử, giải mã kiến trúc không gian 3 chiều và các con đường điều chế thực nghiệm.",
+    "summary": "Phóng sự khoa học chuyên sâu về Samarium (Sm): lần theo cội nguồn lịch sử từ mốc 1879, giải mã kiến trúc không gian 3 chiều và các con đường điều chế thực nghiệm.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Sm",
     "tags": [
@@ -10023,14 +10023,14 @@
       "atom-Sm"
     ],
     "documentKind": "reference",
-    "readingMinutes": 10
+    "readingMinutes": 11
   },
   {
     "id": "ho-so-33fab1c2a876",
     "title": "Europium (Eu) — Ký sự địa hóa học từ mạch quặng cổ xưa đến nguyên tố tinh khiết",
     "author": "Chuyên San Khảo Cổ & Địa Hóa Học · ChemDex",
     "category": "nguyento",
-    "summary": "Ký sự điều tra nguồn gốc địa hóa và lịch sử phát hiện Europium (Eu): từ khoáng vật tự nhiên, cấu trúc tinh thể 3D đến quy trình tổng hợp công nghiệp.",
+    "summary": "Ký sự điều tra nguồn gốc địa hóa và lịch sử phát hiện Europium (Eu) (1901): từ khoáng vật tự nhiên, cấu trúc tinh thể 3D đến quy trình tổng hợp công nghiệp.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Eu",
     "tags": [
@@ -10045,14 +10045,14 @@
       "atom-Eu"
     ],
     "documentKind": "reference",
-    "readingMinutes": 10
+    "readingMinutes": 11
   },
   {
     "id": "ho-so-3af1cfcf4222",
     "title": "Gadolinium (Gd) — Di sản thực nghiệm: Hành trình cô lập nguyên tố và giải mã bản chất hóa học",
     "author": "Chuyên Mục Di Sản Thực Nghiệm Thế Giới · ChemDex",
     "category": "nguyento",
-    "summary": "Khám phá câu chuyện riêng của Gadolinium (Gd) qua lăng kính báo chí khoa học: nguồn gốc tên gọi, lịch sử điều chế và mô hình không gian 3 chiều.",
+    "summary": "Khám phá câu chuyện riêng của Gadolinium (Gd) (dấu ấn 1880) qua lăng kính báo chí khoa học: nguồn gốc tên gọi, lịch sử điều chế và mô hình không gian 3 chiều.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Gd",
     "tags": [
@@ -10067,14 +10067,14 @@
       "atom-Gd"
     ],
     "documentKind": "reference",
-    "readingMinutes": 10
+    "readingMinutes": 11
   },
   {
     "id": "ho-so-261e976a8123",
     "title": "Terbium (Tb) — Chân dung một nguyên tố: Lịch sử phát hiện, hình thái tự nhiên và ứng dụng",
     "author": "Hội Đồng Chuyên Khảo Cấu Trúc Phân Tử · ChemDex",
     "category": "nguyento",
-    "summary": "Hồ sơ báo chí toàn diện về Terbium (Tb): kết hợp tư liệu bách khoa quốc tế, giải phẫu liên kết 3D và phân tích phản ứng thực nghiệm.",
+    "summary": "Hồ sơ báo chí toàn diện về Terbium (Tb) (khởi nguồn 1843): kết hợp tư liệu bách khoa quốc tế, giải phẫu liên kết 3D và phân tích phản ứng thực nghiệm.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Tb",
     "tags": [
@@ -10089,14 +10089,14 @@
       "atom-Tb"
     ],
     "documentKind": "reference",
-    "readingMinutes": 9
+    "readingMinutes": 10
   },
   {
     "id": "ho-so-2ab83202039e",
     "title": "Dysprosium (Dy) — Hồ sơ khởi nguyên từ bụi sao vũ trụ đến phòng thí nghiệm hiện đại",
     "author": "Ban Biên Tập Biên Niên Sử Hóa Học · ChemDex",
     "category": "nguyento",
-    "summary": "Phóng sự khoa học chuyên sâu về Dysprosium (Dy): lần theo cội nguồn lịch sử, giải mã kiến trúc không gian 3 chiều và các con đường điều chế thực nghiệm.",
+    "summary": "Phóng sự khoa học chuyên sâu về Dysprosium (Dy): lần theo cội nguồn lịch sử từ mốc 1886, giải mã kiến trúc không gian 3 chiều và các con đường điều chế thực nghiệm.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Dy",
     "tags": [
@@ -10111,14 +10111,14 @@
       "atom-Dy"
     ],
     "documentKind": "reference",
-    "readingMinutes": 10
+    "readingMinutes": 11
   },
   {
     "id": "ho-so-8dbeb579c2bd",
     "title": "Holmium (Ho) — Di sản thực nghiệm: Hành trình cô lập nguyên tố và giải mã bản chất hóa học",
     "author": "Chuyên Mục Di Sản Thực Nghiệm Thế Giới · ChemDex",
     "category": "nguyento",
-    "summary": "Khám phá câu chuyện riêng của Holmium (Ho) qua lăng kính báo chí khoa học: nguồn gốc tên gọi, lịch sử điều chế và mô hình không gian 3 chiều.",
+    "summary": "Khám phá câu chuyện riêng của Holmium (Ho) (dấu ấn 1879) qua lăng kính báo chí khoa học: nguồn gốc tên gọi, lịch sử điều chế và mô hình không gian 3 chiều.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Ho",
     "tags": [
@@ -10140,7 +10140,7 @@
     "title": "Erbium (Er) — Từ lò luyện kim cổ truyền đến trụ cột công nghệ nguyên tố hiện đại",
     "author": "Tạp Chí Công Nghệ Hóa Chất & Vật Liệu · ChemDex",
     "category": "nguyento",
-    "summary": "Chuyên đề báo chí về Erbium (Er): tái hiện lịch sử phát hiện, cơ chế tạo thành liên kết hóa học và vai trò trong công nghiệp – phòng lab.",
+    "summary": "Chuyên đề báo chí về Erbium (Er) từ cột mốc 1843: tái hiện lịch sử phát hiện, cơ chế tạo thành liên kết hóa học và vai trò trong công nghiệp – phòng lab.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Er",
     "tags": [
@@ -10155,14 +10155,14 @@
       "atom-Er"
     ],
     "documentKind": "reference",
-    "readingMinutes": 10
+    "readingMinutes": 11
   },
   {
     "id": "ho-so-b394a5bf0c76",
     "title": "Thulium (Tm) — Chân dung một nguyên tố: Lịch sử phát hiện, hình thái tự nhiên và ứng dụng",
     "author": "Hội Đồng Chuyên Khảo Cấu Trúc Phân Tử · ChemDex",
     "category": "nguyento",
-    "summary": "Hồ sơ báo chí toàn diện về Thulium (Tm): kết hợp tư liệu bách khoa quốc tế, giải phẫu liên kết 3D và phân tích phản ứng thực nghiệm.",
+    "summary": "Hồ sơ báo chí toàn diện về Thulium (Tm) (khởi nguồn 1879): kết hợp tư liệu bách khoa quốc tế, giải phẫu liên kết 3D và phân tích phản ứng thực nghiệm.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Tm",
     "tags": [
@@ -10177,14 +10177,14 @@
       "atom-Tm"
     ],
     "documentKind": "reference",
-    "readingMinutes": 9
+    "readingMinutes": 10
   },
   {
     "id": "ho-so-0c32dc7134e5",
     "title": "Ytterbium (Yb) — Hồ sơ khởi nguyên từ bụi sao vũ trụ đến phòng thí nghiệm hiện đại",
     "author": "Ban Biên Tập Biên Niên Sử Hóa Học · ChemDex",
     "category": "nguyento",
-    "summary": "Phóng sự khoa học chuyên sâu về Ytterbium (Yb): lần theo cội nguồn lịch sử, giải mã kiến trúc không gian 3 chiều và các con đường điều chế thực nghiệm.",
+    "summary": "Phóng sự khoa học chuyên sâu về Ytterbium (Yb): lần theo cội nguồn lịch sử từ mốc 1878, giải mã kiến trúc không gian 3 chiều và các con đường điều chế thực nghiệm.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Yb",
     "tags": [
@@ -10199,14 +10199,14 @@
       "atom-Yb"
     ],
     "documentKind": "reference",
-    "readingMinutes": 9
+    "readingMinutes": 10
   },
   {
     "id": "ho-so-ce138f2eda9d",
     "title": "Lutetium (Lu) — Di sản thực nghiệm: Hành trình cô lập nguyên tố và giải mã bản chất hóa học",
     "author": "Chuyên Mục Di Sản Thực Nghiệm Thế Giới · ChemDex",
     "category": "nguyento",
-    "summary": "Khám phá câu chuyện riêng của Lutetium (Lu) qua lăng kính báo chí khoa học: nguồn gốc tên gọi, lịch sử điều chế và mô hình không gian 3 chiều.",
+    "summary": "Khám phá câu chuyện riêng của Lutetium (Lu) (dấu ấn 1907) qua lăng kính báo chí khoa học: nguồn gốc tên gọi, lịch sử điều chế và mô hình không gian 3 chiều.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Lu",
     "tags": [
@@ -10221,7 +10221,7 @@
       "atom-Lu"
     ],
     "documentKind": "reference",
-    "readingMinutes": 9
+    "readingMinutes": 10
   },
   {
     "id": "ho-so-fb618e4675d5",
@@ -10376,7 +10376,7 @@
       "atom-Pt"
     ],
     "documentKind": "reference",
-    "readingMinutes": 12
+    "readingMinutes": 11
   },
   {
     "id": "ho-so-a6f337f0d16b",
@@ -10451,7 +10451,7 @@
     "title": "Bismuth (Bi) — Phóng sự giải mã nguyên tố: Từ vạch quang phổ đến đơn chất ngoài đời thực",
     "author": "Phóng Viên Phòng Thí Nghiệm & Lịch Sử Khoa Học · ChemDex",
     "category": "nguyento",
-    "summary": "Bài báo chuyên đề khắc họa chân dung hóa học của Bismuth (Bi): câu chuyện lịch sử trên thế giới, cơ chế liên kết hóa trị và phản ứng đặc trưng.",
+    "summary": "Bài báo chuyên đề khắc họa chân dung hóa học của Bismuth (Bi) gắn với dấu mốc Thời cổ đại: câu chuyện lịch sử trên thế giới, cơ chế liên kết hóa trị và phản ứng đặc trưng.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Bi",
     "tags": [
@@ -10466,7 +10466,7 @@
       "atom-Bi"
     ],
     "documentKind": "reference",
-    "readingMinutes": 9
+    "readingMinutes": 10
   },
   {
     "id": "ho-so-da7d0ed14a71",
@@ -10488,14 +10488,14 @@
       "atom-Po"
     ],
     "documentKind": "reference",
-    "readingMinutes": 10
+    "readingMinutes": 11
   },
   {
     "id": "ho-so-89445e9d79cd",
     "title": "Astatine (At) — Phóng sự giải mã nguyên tố: Từ vạch quang phổ đến đơn chất ngoài đời thực",
     "author": "Phóng Viên Phòng Thí Nghiệm & Lịch Sử Khoa Học · ChemDex",
     "category": "nguyento",
-    "summary": "Bài báo chuyên đề khắc họa chân dung hóa học của Astatine (At): câu chuyện lịch sử trên thế giới, cơ chế liên kết hóa trị và phản ứng đặc trưng.",
+    "summary": "Bài báo chuyên đề khắc họa chân dung hóa học của Astatine (At) gắn với dấu mốc 1940: câu chuyện lịch sử trên thế giới, cơ chế liên kết hóa trị và phản ứng đặc trưng.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "At",
     "tags": [
@@ -10517,7 +10517,7 @@
     "title": "Radon (Rn) — Phóng sự giải mã nguyên tố: Từ vạch quang phổ đến đơn chất ngoài đời thực",
     "author": "Phóng Viên Phòng Thí Nghiệm & Lịch Sử Khoa Học · ChemDex",
     "category": "nguyento",
-    "summary": "Bài báo chuyên đề khắc họa chân dung hóa học của Radon (Rn): câu chuyện lịch sử trên thế giới, cơ chế liên kết hóa trị và phản ứng đặc trưng.",
+    "summary": "Bài báo chuyên đề khắc họa chân dung hóa học của Radon (Rn) gắn với dấu mốc 1900: câu chuyện lịch sử trên thế giới, cơ chế liên kết hóa trị và phản ứng đặc trưng.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Rn",
     "tags": [
@@ -10539,7 +10539,7 @@
     "title": "Francium (Fr) — Hồ sơ khởi nguyên từ bụi sao vũ trụ đến phòng thí nghiệm hiện đại",
     "author": "Ban Biên Tập Biên Niên Sử Hóa Học · ChemDex",
     "category": "nguyento",
-    "summary": "Phóng sự khoa học chuyên sâu về Francium (Fr): lần theo cội nguồn lịch sử, giải mã kiến trúc không gian 3 chiều và các con đường điều chế thực nghiệm.",
+    "summary": "Phóng sự khoa học chuyên sâu về Francium (Fr): lần theo cội nguồn lịch sử từ mốc 1939, giải mã kiến trúc không gian 3 chiều và các con đường điều chế thực nghiệm.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Fr",
     "tags": [
@@ -10561,7 +10561,7 @@
     "title": "Radium (Ra) — Hồ sơ khởi nguyên từ bụi sao vũ trụ đến phòng thí nghiệm hiện đại",
     "author": "Ban Biên Tập Biên Niên Sử Hóa Học · ChemDex",
     "category": "nguyento",
-    "summary": "Phóng sự khoa học chuyên sâu về Radium (Ra): lần theo cội nguồn lịch sử, giải mã kiến trúc không gian 3 chiều và các con đường điều chế thực nghiệm.",
+    "summary": "Phóng sự khoa học chuyên sâu về Radium (Ra): lần theo cội nguồn lịch sử từ mốc 1898, giải mã kiến trúc không gian 3 chiều và các con đường điều chế thực nghiệm.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Ra",
     "tags": [
@@ -10576,14 +10576,14 @@
       "atom-Ra"
     ],
     "documentKind": "reference",
-    "readingMinutes": 9
+    "readingMinutes": 11
   },
   {
     "id": "ho-so-368a666b8450",
     "title": "Actinium (Ac) — Hồ sơ khởi nguyên từ bụi sao vũ trụ đến phòng thí nghiệm hiện đại",
     "author": "Ban Biên Tập Biên Niên Sử Hóa Học · ChemDex",
     "category": "nguyento",
-    "summary": "Phóng sự khoa học chuyên sâu về Actinium (Ac): lần theo cội nguồn lịch sử, giải mã kiến trúc không gian 3 chiều và các con đường điều chế thực nghiệm.",
+    "summary": "Phóng sự khoa học chuyên sâu về Actinium (Ac): lần theo cội nguồn lịch sử từ mốc 1899 (Debierne), 1902 (Giesel độc lập), giải mã kiến trúc không gian 3 chiều và các con đường điều chế thực nghiệm.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Ac",
     "tags": [
@@ -10598,14 +10598,14 @@
       "atom-Ac"
     ],
     "documentKind": "reference",
-    "readingMinutes": 9
+    "readingMinutes": 11
   },
   {
     "id": "ho-so-b00d4b65ee73",
     "title": "Thorium (Th) — Chân dung một nguyên tố: Lịch sử phát hiện, hình thái tự nhiên và ứng dụng",
     "author": "Hội Đồng Chuyên Khảo Cấu Trúc Phân Tử · ChemDex",
     "category": "nguyento",
-    "summary": "Hồ sơ báo chí toàn diện về Thorium (Th): kết hợp tư liệu bách khoa quốc tế, giải phẫu liên kết 3D và phân tích phản ứng thực nghiệm.",
+    "summary": "Hồ sơ báo chí toàn diện về Thorium (Th) (khởi nguồn 1828): kết hợp tư liệu bách khoa quốc tế, giải phẫu liên kết 3D và phân tích phản ứng thực nghiệm.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Th",
     "tags": [
@@ -10620,14 +10620,14 @@
       "atom-Th"
     ],
     "documentKind": "reference",
-    "readingMinutes": 10
+    "readingMinutes": 11
   },
   {
     "id": "ho-so-971ad569b0c0",
     "title": "Protactinium (Pa) — Chân dung một nguyên tố: Lịch sử phát hiện, hình thái tự nhiên và ứng dụng",
     "author": "Hội Đồng Chuyên Khảo Cấu Trúc Phân Tử · ChemDex",
     "category": "nguyento",
-    "summary": "Hồ sơ báo chí toàn diện về Protactinium (Pa): kết hợp tư liệu bách khoa quốc tế, giải phẫu liên kết 3D và phân tích phản ứng thực nghiệm.",
+    "summary": "Hồ sơ báo chí toàn diện về Protactinium (Pa) (khởi nguồn 1913): kết hợp tư liệu bách khoa quốc tế, giải phẫu liên kết 3D và phân tích phản ứng thực nghiệm.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Pa",
     "tags": [
@@ -10642,14 +10642,14 @@
       "atom-Pa"
     ],
     "documentKind": "reference",
-    "readingMinutes": 9
+    "readingMinutes": 11
   },
   {
     "id": "ho-so-2fac53f14193",
     "title": "Uranium (U) — Di sản thực nghiệm: Hành trình cô lập nguyên tố và giải mã bản chất hóa học",
     "author": "Chuyên Mục Di Sản Thực Nghiệm Thế Giới · ChemDex",
     "category": "nguyento",
-    "summary": "Khám phá câu chuyện riêng của Uranium (U) qua lăng kính báo chí khoa học: nguồn gốc tên gọi, lịch sử điều chế và mô hình không gian 3 chiều.",
+    "summary": "Khám phá câu chuyện riêng của Uranium (U) (dấu ấn 1789) qua lăng kính báo chí khoa học: nguồn gốc tên gọi, lịch sử điều chế và mô hình không gian 3 chiều.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "U",
     "tags": [
@@ -10664,14 +10664,14 @@
       "atom-U"
     ],
     "documentKind": "reference",
-    "readingMinutes": 10
+    "readingMinutes": 11
   },
   {
     "id": "ho-so-6b064a278d20",
     "title": "Neptunium (Np) — Từ lò luyện kim cổ truyền đến trụ cột công nghệ nguyên tố hiện đại",
     "author": "Tạp Chí Công Nghệ Hóa Chất & Vật Liệu · ChemDex",
     "category": "nguyento",
-    "summary": "Chuyên đề báo chí về Neptunium (Np): tái hiện lịch sử phát hiện, cơ chế tạo thành liên kết hóa học và vai trò trong công nghiệp – phòng lab.",
+    "summary": "Chuyên đề báo chí về Neptunium (Np) từ cột mốc 1940: tái hiện lịch sử phát hiện, cơ chế tạo thành liên kết hóa học và vai trò trong công nghiệp – phòng lab.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Np",
     "tags": [
@@ -10686,14 +10686,14 @@
       "atom-Np"
     ],
     "documentKind": "reference",
-    "readingMinutes": 11
+    "readingMinutes": 12
   },
   {
     "id": "ho-so-a2f5e4e6d6c0",
     "title": "Plutonium (Pu) — Phóng sự giải mã nguyên tố: Từ vạch quang phổ đến đơn chất ngoài đời thực",
     "author": "Phóng Viên Phòng Thí Nghiệm & Lịch Sử Khoa Học · ChemDex",
     "category": "nguyento",
-    "summary": "Bài báo chuyên đề khắc họa chân dung hóa học của Plutonium (Pu): câu chuyện lịch sử trên thế giới, cơ chế liên kết hóa trị và phản ứng đặc trưng.",
+    "summary": "Bài báo chuyên đề khắc họa chân dung hóa học của Plutonium (Pu) gắn với dấu mốc 1940: câu chuyện lịch sử trên thế giới, cơ chế liên kết hóa trị và phản ứng đặc trưng.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Pu",
     "tags": [
@@ -10708,14 +10708,14 @@
       "atom-Pu"
     ],
     "documentKind": "reference",
-    "readingMinutes": 11
+    "readingMinutes": 12
   },
   {
     "id": "ho-so-a8aca77e6587",
     "title": "Americium (Am) — Chân dung một nguyên tố: Lịch sử phát hiện, hình thái tự nhiên và ứng dụng",
     "author": "Hội Đồng Chuyên Khảo Cấu Trúc Phân Tử · ChemDex",
     "category": "nguyento",
-    "summary": "Hồ sơ báo chí toàn diện về Americium (Am): kết hợp tư liệu bách khoa quốc tế, giải phẫu liên kết 3D và phân tích phản ứng thực nghiệm.",
+    "summary": "Hồ sơ báo chí toàn diện về Americium (Am) (khởi nguồn 1944): kết hợp tư liệu bách khoa quốc tế, giải phẫu liên kết 3D và phân tích phản ứng thực nghiệm.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Am",
     "tags": [
@@ -10730,14 +10730,14 @@
       "atom-Am"
     ],
     "documentKind": "reference",
-    "readingMinutes": 10
+    "readingMinutes": 11
   },
   {
     "id": "ho-so-8af65dd50244",
     "title": "Curium (Cm) — Chân dung một nguyên tố: Lịch sử phát hiện, hình thái tự nhiên và ứng dụng",
     "author": "Hội Đồng Chuyên Khảo Cấu Trúc Phân Tử · ChemDex",
     "category": "nguyento",
-    "summary": "Hồ sơ báo chí toàn diện về Curium (Cm): kết hợp tư liệu bách khoa quốc tế, giải phẫu liên kết 3D và phân tích phản ứng thực nghiệm.",
+    "summary": "Hồ sơ báo chí toàn diện về Curium (Cm) (khởi nguồn 1944): kết hợp tư liệu bách khoa quốc tế, giải phẫu liên kết 3D và phân tích phản ứng thực nghiệm.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Cm",
     "tags": [
@@ -10752,14 +10752,14 @@
       "atom-Cm"
     ],
     "documentKind": "reference",
-    "readingMinutes": 10
+    "readingMinutes": 11
   },
   {
     "id": "ho-so-a7b4caf92e84",
     "title": "Berkelium (Bk) — Hồ sơ khởi nguyên từ bụi sao vũ trụ đến phòng thí nghiệm hiện đại",
     "author": "Ban Biên Tập Biên Niên Sử Hóa Học · ChemDex",
     "category": "nguyento",
-    "summary": "Phóng sự khoa học chuyên sâu về Berkelium (Bk): lần theo cội nguồn lịch sử, giải mã kiến trúc không gian 3 chiều và các con đường điều chế thực nghiệm.",
+    "summary": "Phóng sự khoa học chuyên sâu về Berkelium (Bk): lần theo cội nguồn lịch sử từ mốc 1949, giải mã kiến trúc không gian 3 chiều và các con đường điều chế thực nghiệm.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Bk",
     "tags": [
@@ -10774,14 +10774,14 @@
       "atom-Bk"
     ],
     "documentKind": "reference",
-    "readingMinutes": 10
+    "readingMinutes": 11
   },
   {
     "id": "ho-so-fdf2fcd2e1d6",
     "title": "Californium (Cf) — Hồ sơ khởi nguyên từ bụi sao vũ trụ đến phòng thí nghiệm hiện đại",
     "author": "Ban Biên Tập Biên Niên Sử Hóa Học · ChemDex",
     "category": "nguyento",
-    "summary": "Phóng sự khoa học chuyên sâu về Californium (Cf): lần theo cội nguồn lịch sử, giải mã kiến trúc không gian 3 chiều và các con đường điều chế thực nghiệm.",
+    "summary": "Phóng sự khoa học chuyên sâu về Californium (Cf): lần theo cội nguồn lịch sử từ mốc 1950, giải mã kiến trúc không gian 3 chiều và các con đường điều chế thực nghiệm.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Cf",
     "tags": [
@@ -10796,14 +10796,14 @@
       "atom-Cf"
     ],
     "documentKind": "reference",
-    "readingMinutes": 10
+    "readingMinutes": 11
   },
   {
     "id": "ho-so-09bf79787e11",
     "title": "Einsteinium (Es) — Chân dung một nguyên tố: Lịch sử phát hiện, hình thái tự nhiên và ứng dụng",
     "author": "Hội Đồng Chuyên Khảo Cấu Trúc Phân Tử · ChemDex",
     "category": "nguyento",
-    "summary": "Hồ sơ báo chí toàn diện về Einsteinium (Es): kết hợp tư liệu bách khoa quốc tế, giải phẫu liên kết 3D và phân tích phản ứng thực nghiệm.",
+    "summary": "Hồ sơ báo chí toàn diện về Einsteinium (Es) (khởi nguồn 1952): kết hợp tư liệu bách khoa quốc tế, giải phẫu liên kết 3D và phân tích phản ứng thực nghiệm.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Es",
     "tags": [
@@ -10818,14 +10818,14 @@
       "atom-Es"
     ],
     "documentKind": "reference",
-    "readingMinutes": 10
+    "readingMinutes": 11
   },
   {
     "id": "ho-so-e1f53a049549",
     "title": "Fermium (Fm) — Hồ sơ khởi nguyên từ bụi sao vũ trụ đến phòng thí nghiệm hiện đại",
     "author": "Ban Biên Tập Biên Niên Sử Hóa Học · ChemDex",
     "category": "nguyento",
-    "summary": "Phóng sự khoa học chuyên sâu về Fermium (Fm): lần theo cội nguồn lịch sử, giải mã kiến trúc không gian 3 chiều và các con đường điều chế thực nghiệm.",
+    "summary": "Phóng sự khoa học chuyên sâu về Fermium (Fm): lần theo cội nguồn lịch sử từ mốc 1952, giải mã kiến trúc không gian 3 chiều và các con đường điều chế thực nghiệm.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Fm",
     "tags": [
@@ -10840,14 +10840,14 @@
       "atom-Fm"
     ],
     "documentKind": "reference",
-    "readingMinutes": 10
+    "readingMinutes": 11
   },
   {
     "id": "ho-so-c492b6b14409",
     "title": "Mendelevium (Md) — Phóng sự giải mã nguyên tố: Từ vạch quang phổ đến đơn chất ngoài đời thực",
     "author": "Phóng Viên Phòng Thí Nghiệm & Lịch Sử Khoa Học · ChemDex",
     "category": "nguyento",
-    "summary": "Bài báo chuyên đề khắc họa chân dung hóa học của Mendelevium (Md): câu chuyện lịch sử trên thế giới, cơ chế liên kết hóa trị và phản ứng đặc trưng.",
+    "summary": "Bài báo chuyên đề khắc họa chân dung hóa học của Mendelevium (Md) gắn với dấu mốc 1955: câu chuyện lịch sử trên thế giới, cơ chế liên kết hóa trị và phản ứng đặc trưng.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Md",
     "tags": [
@@ -10862,14 +10862,14 @@
       "atom-Md"
     ],
     "documentKind": "reference",
-    "readingMinutes": 9
+    "readingMinutes": 10
   },
   {
     "id": "ho-so-b0c3f80c574d",
     "title": "Nobelium (No) — Từ lò luyện kim cổ truyền đến trụ cột công nghệ nguyên tố hiện đại",
     "author": "Tạp Chí Công Nghệ Hóa Chất & Vật Liệu · ChemDex",
     "category": "nguyento",
-    "summary": "Chuyên đề báo chí về Nobelium (No): tái hiện lịch sử phát hiện, cơ chế tạo thành liên kết hóa học và vai trò trong công nghiệp – phòng lab.",
+    "summary": "Chuyên đề báo chí về Nobelium (No) từ cột mốc 1966 (sau nhiều tranh cãi về các tuyên bố phát hiện trước đó): tái hiện lịch sử phát hiện, cơ chế tạo thành liên kết hóa học và vai trò trong công nghiệp – phòng lab.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "No",
     "tags": [
@@ -10884,14 +10884,14 @@
       "atom-No"
     ],
     "documentKind": "reference",
-    "readingMinutes": 9
+    "readingMinutes": 10
   },
   {
     "id": "ho-so-77e7471d9c61",
     "title": "Lawrencium (Lr) — Ký sự địa hóa học từ mạch quặng cổ xưa đến nguyên tố tinh khiết",
     "author": "Chuyên San Khảo Cổ & Địa Hóa Học · ChemDex",
     "category": "nguyento",
-    "summary": "Ký sự điều tra nguồn gốc địa hóa và lịch sử phát hiện Lawrencium (Lr): từ khoáng vật tự nhiên, cấu trúc tinh thể 3D đến quy trình tổng hợp công nghiệp.",
+    "summary": "Ký sự điều tra nguồn gốc địa hóa và lịch sử phát hiện Lawrencium (Lr) (1961): từ khoáng vật tự nhiên, cấu trúc tinh thể 3D đến quy trình tổng hợp công nghiệp.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Lr",
     "tags": [
@@ -10913,7 +10913,7 @@
     "title": "Rutherfordium (Rf) — Từ lò luyện kim cổ truyền đến trụ cột công nghệ nguyên tố hiện đại",
     "author": "Tạp Chí Công Nghệ Hóa Chất & Vật Liệu · ChemDex",
     "category": "nguyento",
-    "summary": "Chuyên đề báo chí về Rutherfordium (Rf): tái hiện lịch sử phát hiện, cơ chế tạo thành liên kết hóa học và vai trò trong công nghiệp – phòng lab.",
+    "summary": "Chuyên đề báo chí về Rutherfordium (Rf) từ cột mốc 1964: tái hiện lịch sử phát hiện, cơ chế tạo thành liên kết hóa học và vai trò trong công nghiệp – phòng lab.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Rf",
     "tags": [
@@ -10928,14 +10928,14 @@
       "atom-Rf"
     ],
     "documentKind": "reference",
-    "readingMinutes": 10
+    "readingMinutes": 11
   },
   {
     "id": "ho-so-5d8a8622b5ea",
     "title": "Dubnium (Db) — Phóng sự giải mã nguyên tố: Từ vạch quang phổ đến đơn chất ngoài đời thực",
     "author": "Phóng Viên Phòng Thí Nghiệm & Lịch Sử Khoa Học · ChemDex",
     "category": "nguyento",
-    "summary": "Bài báo chuyên đề khắc họa chân dung hóa học của Dubnium (Db): câu chuyện lịch sử trên thế giới, cơ chế liên kết hóa trị và phản ứng đặc trưng.",
+    "summary": "Bài báo chuyên đề khắc họa chân dung hóa học của Dubnium (Db) gắn với dấu mốc 1967: câu chuyện lịch sử trên thế giới, cơ chế liên kết hóa trị và phản ứng đặc trưng.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Db",
     "tags": [
@@ -10950,14 +10950,14 @@
       "atom-Db"
     ],
     "documentKind": "reference",
-    "readingMinutes": 9
+    "readingMinutes": 10
   },
   {
     "id": "ho-so-86c98b3965d8",
     "title": "Seaborgium (Sg) — Chân dung một nguyên tố: Lịch sử phát hiện, hình thái tự nhiên và ứng dụng",
     "author": "Hội Đồng Chuyên Khảo Cấu Trúc Phân Tử · ChemDex",
     "category": "nguyento",
-    "summary": "Hồ sơ báo chí toàn diện về Seaborgium (Sg): kết hợp tư liệu bách khoa quốc tế, giải phẫu liên kết 3D và phân tích phản ứng thực nghiệm.",
+    "summary": "Hồ sơ báo chí toàn diện về Seaborgium (Sg) (khởi nguồn 1974): kết hợp tư liệu bách khoa quốc tế, giải phẫu liên kết 3D và phân tích phản ứng thực nghiệm.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Sg",
     "tags": [
@@ -10972,14 +10972,14 @@
       "atom-Sg"
     ],
     "documentKind": "reference",
-    "readingMinutes": 10
+    "readingMinutes": 11
   },
   {
     "id": "ho-so-f253814c9667",
     "title": "Bohrium (Bh) — Ký sự địa hóa học từ mạch quặng cổ xưa đến nguyên tố tinh khiết",
     "author": "Chuyên San Khảo Cổ & Địa Hóa Học · ChemDex",
     "category": "nguyento",
-    "summary": "Ký sự điều tra nguồn gốc địa hóa và lịch sử phát hiện Bohrium (Bh): từ khoáng vật tự nhiên, cấu trúc tinh thể 3D đến quy trình tổng hợp công nghiệp.",
+    "summary": "Ký sự điều tra nguồn gốc địa hóa và lịch sử phát hiện Bohrium (Bh) (1981): từ khoáng vật tự nhiên, cấu trúc tinh thể 3D đến quy trình tổng hợp công nghiệp.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Bh",
     "tags": [
@@ -10994,14 +10994,14 @@
       "atom-Bh"
     ],
     "documentKind": "reference",
-    "readingMinutes": 10
+    "readingMinutes": 11
   },
   {
     "id": "ho-so-daa113b55b05",
     "title": "Hassium (Hs) — Di sản thực nghiệm: Hành trình cô lập nguyên tố và giải mã bản chất hóa học",
     "author": "Chuyên Mục Di Sản Thực Nghiệm Thế Giới · ChemDex",
     "category": "nguyento",
-    "summary": "Khám phá câu chuyện riêng của Hassium (Hs) qua lăng kính báo chí khoa học: nguồn gốc tên gọi, lịch sử điều chế và mô hình không gian 3 chiều.",
+    "summary": "Khám phá câu chuyện riêng của Hassium (Hs) (dấu ấn 1984) qua lăng kính báo chí khoa học: nguồn gốc tên gọi, lịch sử điều chế và mô hình không gian 3 chiều.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Hs",
     "tags": [
@@ -11023,7 +11023,7 @@
     "title": "Meitnerium (Mt) — Hồ sơ khởi nguyên từ bụi sao vũ trụ đến phòng thí nghiệm hiện đại",
     "author": "Ban Biên Tập Biên Niên Sử Hóa Học · ChemDex",
     "category": "nguyento",
-    "summary": "Phóng sự khoa học chuyên sâu về Meitnerium (Mt): lần theo cội nguồn lịch sử, giải mã kiến trúc không gian 3 chiều và các con đường điều chế thực nghiệm.",
+    "summary": "Phóng sự khoa học chuyên sâu về Meitnerium (Mt): lần theo cội nguồn lịch sử từ mốc 1982, giải mã kiến trúc không gian 3 chiều và các con đường điều chế thực nghiệm.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Mt",
     "tags": [
@@ -11045,7 +11045,7 @@
     "title": "Darmstadtium (Ds) — Từ lò luyện kim cổ truyền đến trụ cột công nghệ nguyên tố hiện đại",
     "author": "Tạp Chí Công Nghệ Hóa Chất & Vật Liệu · ChemDex",
     "category": "nguyento",
-    "summary": "Chuyên đề báo chí về Darmstadtium (Ds): tái hiện lịch sử phát hiện, cơ chế tạo thành liên kết hóa học và vai trò trong công nghiệp – phòng lab.",
+    "summary": "Chuyên đề báo chí về Darmstadtium (Ds) từ cột mốc 1994: tái hiện lịch sử phát hiện, cơ chế tạo thành liên kết hóa học và vai trò trong công nghiệp – phòng lab.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Ds",
     "tags": [
@@ -11060,14 +11060,14 @@
       "atom-Ds"
     ],
     "documentKind": "reference",
-    "readingMinutes": 9
+    "readingMinutes": 10
   },
   {
     "id": "ho-so-7e42ecb0bd82",
     "title": "Roentgenium (Rg) — Phóng sự giải mã nguyên tố: Từ vạch quang phổ đến đơn chất ngoài đời thực",
     "author": "Phóng Viên Phòng Thí Nghiệm & Lịch Sử Khoa Học · ChemDex",
     "category": "nguyento",
-    "summary": "Bài báo chuyên đề khắc họa chân dung hóa học của Roentgenium (Rg): câu chuyện lịch sử trên thế giới, cơ chế liên kết hóa trị và phản ứng đặc trưng.",
+    "summary": "Bài báo chuyên đề khắc họa chân dung hóa học của Roentgenium (Rg) gắn với dấu mốc 1994: câu chuyện lịch sử trên thế giới, cơ chế liên kết hóa trị và phản ứng đặc trưng.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Rg",
     "tags": [
@@ -11089,7 +11089,7 @@
     "title": "Copernicium (Cn) — Di sản thực nghiệm: Hành trình cô lập nguyên tố và giải mã bản chất hóa học",
     "author": "Chuyên Mục Di Sản Thực Nghiệm Thế Giới · ChemDex",
     "category": "nguyento",
-    "summary": "Khám phá câu chuyện riêng của Copernicium (Cn) qua lăng kính báo chí khoa học: nguồn gốc tên gọi, lịch sử điều chế và mô hình không gian 3 chiều.",
+    "summary": "Khám phá câu chuyện riêng của Copernicium (Cn) (dấu ấn 1996) qua lăng kính báo chí khoa học: nguồn gốc tên gọi, lịch sử điều chế và mô hình không gian 3 chiều.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Cn",
     "tags": [
@@ -11111,7 +11111,7 @@
     "title": "Nihonium (Nh) — Di sản thực nghiệm: Hành trình cô lập nguyên tố và giải mã bản chất hóa học",
     "author": "Chuyên Mục Di Sản Thực Nghiệm Thế Giới · ChemDex",
     "category": "nguyento",
-    "summary": "Khám phá câu chuyện riêng của Nihonium (Nh) qua lăng kính báo chí khoa học: nguồn gốc tên gọi, lịch sử điều chế và mô hình không gian 3 chiều.",
+    "summary": "Khám phá câu chuyện riêng của Nihonium (Nh) (dấu ấn 2004) qua lăng kính báo chí khoa học: nguồn gốc tên gọi, lịch sử điều chế và mô hình không gian 3 chiều.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Nh",
     "tags": [
@@ -11126,14 +11126,14 @@
       "atom-Nh"
     ],
     "documentKind": "reference",
-    "readingMinutes": 10
+    "readingMinutes": 11
   },
   {
     "id": "ho-so-cd0dd199e484",
     "title": "Flerovium (Fl) — Ký sự địa hóa học từ mạch quặng cổ xưa đến nguyên tố tinh khiết",
     "author": "Chuyên San Khảo Cổ & Địa Hóa Học · ChemDex",
     "category": "nguyento",
-    "summary": "Ký sự điều tra nguồn gốc địa hóa và lịch sử phát hiện Flerovium (Fl): từ khoáng vật tự nhiên, cấu trúc tinh thể 3D đến quy trình tổng hợp công nghiệp.",
+    "summary": "Ký sự điều tra nguồn gốc địa hóa và lịch sử phát hiện Flerovium (Fl) (1999): từ khoáng vật tự nhiên, cấu trúc tinh thể 3D đến quy trình tổng hợp công nghiệp.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Fl",
     "tags": [
@@ -11148,14 +11148,14 @@
       "atom-Fl"
     ],
     "documentKind": "reference",
-    "readingMinutes": 10
+    "readingMinutes": 11
   },
   {
     "id": "ho-so-289926b74674",
     "title": "Moscovium (Mc) — Hồ sơ khởi nguyên từ bụi sao vũ trụ đến phòng thí nghiệm hiện đại",
     "author": "Ban Biên Tập Biên Niên Sử Hóa Học · ChemDex",
     "category": "nguyento",
-    "summary": "Phóng sự khoa học chuyên sâu về Moscovium (Mc): lần theo cội nguồn lịch sử, giải mã kiến trúc không gian 3 chiều và các con đường điều chế thực nghiệm.",
+    "summary": "Phóng sự khoa học chuyên sâu về Moscovium (Mc): lần theo cội nguồn lịch sử từ mốc 2003, giải mã kiến trúc không gian 3 chiều và các con đường điều chế thực nghiệm.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Mc",
     "tags": [
@@ -11170,14 +11170,14 @@
       "atom-Mc"
     ],
     "documentKind": "reference",
-    "readingMinutes": 9
+    "readingMinutes": 10
   },
   {
     "id": "ho-so-db66811dfa27",
     "title": "Livermorium (Lv) — Chân dung một nguyên tố: Lịch sử phát hiện, hình thái tự nhiên và ứng dụng",
     "author": "Hội Đồng Chuyên Khảo Cấu Trúc Phân Tử · ChemDex",
     "category": "nguyento",
-    "summary": "Hồ sơ báo chí toàn diện về Livermorium (Lv): kết hợp tư liệu bách khoa quốc tế, giải phẫu liên kết 3D và phân tích phản ứng thực nghiệm.",
+    "summary": "Hồ sơ báo chí toàn diện về Livermorium (Lv) (khởi nguồn 2000): kết hợp tư liệu bách khoa quốc tế, giải phẫu liên kết 3D và phân tích phản ứng thực nghiệm.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Lv",
     "tags": [
@@ -11199,7 +11199,7 @@
     "title": "Tennessine (Ts) — Phóng sự giải mã nguyên tố: Từ vạch quang phổ đến đơn chất ngoài đời thực",
     "author": "Phóng Viên Phòng Thí Nghiệm & Lịch Sử Khoa Học · ChemDex",
     "category": "nguyento",
-    "summary": "Bài báo chuyên đề khắc họa chân dung hóa học của Tennessine (Ts): câu chuyện lịch sử trên thế giới, cơ chế liên kết hóa trị và phản ứng đặc trưng.",
+    "summary": "Bài báo chuyên đề khắc họa chân dung hóa học của Tennessine (Ts) gắn với dấu mốc 2010: câu chuyện lịch sử trên thế giới, cơ chế liên kết hóa trị và phản ứng đặc trưng.",
     "image": "/assets/library/earth-minerals.svg",
     "chemicalFormula": "Ts",
     "tags": [
@@ -11214,7 +11214,7 @@
       "atom-Ts"
     ],
     "documentKind": "reference",
-    "readingMinutes": 9
+    "readingMinutes": 10
   },
   {
     "id": "ho-so-69f24c73a593",

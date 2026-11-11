@@ -1,37 +1,50 @@
 {
   "number": 5,
   "symbol": "B",
-  "nameVi": "Boron",
+  "nameVi": "Bo",
   "nameEn": "Boron",
   "mass": 10.81,
+  "massStandardText": "10.81 ± 0.02",
+  "massStandardSource": "https://ciaaw.org/abridged-atomic-weights.htm",
+  "massKind": "standard-atomic-weight",
   "category": "a-kim",
   "hasData": true,
   "file": "elements/005_B.json",
   "general": {
     "latinName": "Borium",
     "englishName": "Boron",
-    "electronConfig": "1s² 2s² 2p¹",
+    "electronConfig": "[He] 2s² 2p¹",
     "isotope": "¹⁰B, ¹¹B",
     "group": 13,
+    "groupLabel": "13",
+    "series": "",
     "period": 2,
-    "state": "",
+    "state": "Rắn",
     "oxidation": "−3, +1, +2, +3",
     "electronegativity": 2.04,
+    "electronegativityNote": "Thang Pauling; số liệu tổng hợp PubChem.",
     "density": "khoảng 2.34 g/cm³.",
     "meltingPoint": "khoảng 2076 °C.",
     "boilingPoint": "khoảng 3927 °C.",
-    "crystalStructure": "Mạng thoi (Rhombohedral)"
+    "crystalStructure": "Mạng thoi (Rhombohedral)",
+    "CAS": "7440-42-8"
   },
   "history": {
     "discoverer": "Joseph Louis Gay-Lussac, Louis Jacques Thénard và Humphry Davy",
-    "year": 1808,
+    "year": "1808",
     "discoveryLocation": "Pháp và Anh",
     "description": "Năm 1808, Gay-Lussac và Thénard ở Pháp, cùng Davy ở Anh, độc lập điều chế được Boron ở dạng tương đối không tinh khiết từ các hợp chất của Boron. Davy đặt tên nguyên tố là Boron, liên hệ với Borax."
   },
   "structure": {
     "protons": 5,
-    "neutrons": 6,
     "electrons": 5,
+    "neutrons": 6,
+    "nucleusIsotope": "¹¹B",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 5,
+      "neutron": 6
+    },
     "electronShells": [
       2,
       3
@@ -41,12 +54,11 @@
       3
     ],
     "valenceElectrons": 3,
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Mạng thoi (Rhombohedral)",
-    "nucleus": {
-      "proton": 5,
-      "neutron": 6
-    }
+    "latticeEvidence": "source-reviewed"
   },
+  "structureType": "Mạng thoi (Rhombohedral)",
   "occurrence": {
     "description": "Boron không tồn tại tự do phổ biến trong tự nhiên. Chủ yếu tồn tại dưới dạng Borate và các khoáng vật chứa Boron.",
     "simple": [
@@ -64,135 +76,386 @@
       "Kernite",
       "Colemanite",
       "Ulexite và một số khoáng vật Borate"
-    ]
+    ],
+    "details": [
+      "Trạng thái: Boron không tồn tại tự do phổ biến trong tự nhiên. Chủ yếu tồn tại dưới dạng Borate và các khoáng vật chứa Boron.",
+      "Có trong: Borax, Kernite, Colemanite, Ulexite và một số khoáng vật Borate.",
+      "Đơn chất: B",
+      "Hợp chất: B₂O₃, H₃BO₃, Na₂B₄O₇·10H₂O, B₄C, BN..."
+    ],
+    "mineral": {
+      "available": true,
+      "id": "borax",
+      "name": "Borax",
+      "formula": "Na₂B₄O₇·10H₂O",
+      "habit": "prismatic",
+      "color": "#d7e5ef",
+      "crystalSystem": "monoclinic",
+      "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Borax",
+      "model": "/assets/periodic-table/minerals/borax.glb",
+      "preview": "/assets/periodic-table/minerals/borax.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
   },
   "naturalState": {
-    "description": "Boron không tồn tại tự do phổ biến trong tự nhiên. Chủ yếu tồn tại dưới dạng Borate và các khoáng vật chứa Boron.",
-    "simple": [
-      "B"
-    ],
-    "compounds": [
-      "B₂O₃",
-      "H₃BO₃",
-      "Na₂B₄O₇·10H₂O",
-      "B₄C",
-      "BN"
-    ],
-    "minerals": [
-      "Borax",
-      "Kernite",
-      "Colemanite",
-      "Ulexite"
-    ]
+    "image": "/assets/periodic-table/photos/005_B.jpg",
+    "alt": "Boron: ảnh tham chiếu từ Commons",
+    "kind": "photo",
+    "source": "https://commons.wikimedia.org/wiki/File:Boron_R105.jpg",
+    "caption": "Ảnh tham chiếu mẫu Boron (B); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+    "credit": "James L Marshall · CC BY-SA 3.0"
   },
-  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là chất rắn ở điều kiện thường.</li>\n      <li>Boron tinh khiết có màu đen hoặc xám đen.</li>\n      <li>Là á kim.</li>\n      <li>Rất cứng.</li>\n      <li>Có nhiệt độ nóng chảy cao.</li>\n      <li>Khối lượng riêng: khoảng 2.34 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 2076 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 3927 °C.</li>\n      <li>Dẫn điện kém ở điều kiện thường.</li>\n      <li>Độ dẫn điện tăng khi nhiệt độ tăng.</li>\n    </ul>\n  ",
-  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có tính chất trung gian giữa kim loại và phi kim.</li>\n      <li>Có số Oxy hóa phổ biến nhất là +3.</li>\n      <li>Có khả năng tạo nhiều liên kết cộng hóa trị.</li>\n      <li>Phản ứng với Oxygen khi nung nóng tạo Boron(III) oxide.</li>\n      <li>Phản ứng với một số kim loại tạo Boride.</li>\n      <li>Phản ứng với Halogen tạo Boron halide.</li>\n      <li>Boron có khả năng tạo các hợp chất có cấu trúc mạng cộng hóa trị phức tạp.</li>\n      <li>Boron tương đối trơ với nước và nhiều acid ở điều kiện thường.</li>\n      <li>Boron có thể phản ứng với base mạnh trong điều kiện thích hợp.</li>\n    </ul>\n  ",
+  "isotopes": [
+    {
+      "isotope": "¹⁰B",
+      "massNumber": 10,
+      "protons": 5,
+      "neutrons": 5,
+      "stable": true,
+      "abundancePercent": "19.65",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹¹B",
+      "massNumber": 11,
+      "protons": 5,
+      "neutrons": 6,
+      "stable": true,
+      "abundancePercent": "80.35",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Là chất rắn ở điều kiện thường.</li><li>Boron tinh khiết có màu đen hoặc xám đen.</li><li>Là á kim.</li><li>Rất cứng.</li><li>Có nhiệt độ nóng chảy cao.</li><li>Khối lượng riêng: khoảng 2.34 g/cm³.</li><li>Nhiệt độ nóng chảy: khoảng 2076 °C.</li><li>Nhiệt độ sôi: khoảng 3927 °C.</li><li>Dẫn điện kém ở điều kiện thường.</li><li>Độ dẫn điện tăng khi nhiệt độ tăng.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Có tính chất trung gian giữa kim loại và phi kim.</li><li>Có số Oxy hóa phổ biến nhất là +3.</li><li>Có khả năng tạo nhiều liên kết cộng hóa trị.</li><li>Phản ứng với Oxygen khi nung nóng tạo Boron(III) oxide.</li><li>Phản ứng với một số kim loại tạo Boride.</li><li>Phản ứng với Halogen tạo Boron halide.</li><li>Boron có khả năng tạo các hợp chất có cấu trúc mạng cộng hóa trị phức tạp.</li><li>Boron tương đối trơ với nước và nhiều acid ở điều kiện thường.</li><li>Boron có thể phản ứng với base mạnh trong điều kiện thích hợp.</li></ul>",
   "reactions": [
     {
       "type": "Tác dụng với Oxygen",
-      "equation": "4B + 3O2 → 2B2O3",
-      "desc": ""
+      "desc": "",
+      "equation": "4B + 3O₂ → 2B₂O₃",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 73,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Chlorine",
-      "equation": "2B + 3Cl2 → 2BCl3",
-      "desc": ""
+      "desc": "",
+      "equation": "2B + 3Cl₂ → 2BCl₃",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 75,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Bromine",
-      "equation": "2B + 3Br2 → 2BBr3",
-      "desc": ""
+      "desc": "",
+      "equation": "2B + 3Br₂ → 2BBr₃",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 77,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Nitrogen",
-      "equation": "2B + N2 → 2BN",
-      "desc": ""
+      "desc": "",
+      "equation": "2B + N₂ → 2BN",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 79,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Carbon",
-      "equation": "4B + C → B4C",
-      "desc": ""
+      "desc": "",
+      "equation": "4B + C → B₄C",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 81,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Magnesium",
-      "equation": "2B + 3Mg → Mg3B2",
-      "desc": ""
+      "desc": "",
+      "equation": "2B + 3Mg → Mg₃B₂",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 83,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Boron(III) oxide tác dụng với Sodium hydroxide",
-      "equation": "B2O3 + 2NaOH → 2NaBO2 + H2O",
-      "desc": ""
+      "desc": "",
+      "equation": "B₂O₃ + 2NaOH → 2NaBO₂ + H₂O",
+      "condition": "Kiềm đậm đặc, gia nhiệt hoặc nóng chảy tùy oxide; không mặc định xảy ra nhanh trong dung dịch loãng.",
+      "kind": "chemical",
+      "sourceLine": 85,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Điều chế Boron từ Boron(III) oxide",
-      "equation": "B2O3 + 3Mg → 2B + 3MgO",
-      "desc": ""
+      "desc": "",
+      "equation": "B₂O₃ + 3Mg → 2B + 3MgO",
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 87,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     }
   ],
-  "applications": [
-    {
-      "title": "Thủy tinh chịu nhiệt",
-      "desc": "Boron được sử dụng để sản xuất Borosilicate glass có khả năng chịu nhiệt và chống sốc nhiệt tốt."
-    },
-    {
-      "title": "Gốm kỹ thuật",
-      "desc": "Boron nitride và Boron carbide được sử dụng trong các vật liệu gốm có độ cứng và khả năng chịu nhiệt cao."
-    },
-    {
-      "title": "Chất bán dẫn",
-      "desc": "Boron được sử dụng làm chất pha tạp (dopant) cho Silicon trong công nghiệp bán dẫn."
-    },
-    {
-      "title": "Vật liệu chống mài mòn",
-      "desc": "Boron carbide được sử dụng trong các vật liệu có độ cứng cao."
-    },
-    {
-      "title": "Chất tẩy rửa",
-      "desc": "Một số Borate được sử dụng trong chất tẩy rửa và sản phẩm làm sạch."
-    },
-    {
-      "title": "Nông nghiệp",
-      "desc": "Boron là vi lượng thiết yếu đối với thực vật và được sử dụng trong một số loại phân bón."
-    },
-    {
-      "title": "Hấp thụ neutron",
-      "desc": "¹⁰B có khả năng hấp thụ neutron cao nên được sử dụng trong một số ứng dụng liên quan đến kiểm soát neutron."
-    },
-    {
-      "title": "Luyện kim",
-      "desc": "Một lượng nhỏ Boron được thêm vào một số hợp kim để cải thiện tính chất cơ học."
-    }
-  ],
-  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Boron là nguyên tố số 5, thuộc nhóm IIIA | chu kỳ 2 và là một á kim.</li>\n  <li>Boron có cấu hình electron 1s² 2s² 2p¹ và có khả năng tạo nhiều liên kết cộng hóa trị. Trong tự nhiên, Boron chủ yếu tồn tại trong các khoáng vật Borate thay vì ở dạng đơn chất.</li>\n  <li>Boron có nhiều dạng cấu trúc tinh thể và các dạng thù hình khác nhau. Nguyên tố này có nhiệt độ nóng chảy cao, độ cứng lớn và nhiều hợp chất có tính chất vật liệu đặc biệt.</li>\n  <li>Boron và các hợp chất của nó được sử dụng trong thủy tinh chịu nhiệt, gốm kỹ thuật, chất bán dẫn, vật liệu chống mài mòn, nông nghiệp và công nghệ hạt nhân.</li>\n</ul>\n",
   "preparations": {
     "lab": [
       {
-        "title": "Boron có thể được điều chế bằng cách khử Boron(III) oxide bằng Magnesium:",
-        "equation": "B2O3 + 3Mg → 2B + 3MgO",
-        "desc": "Sau phản ứng, sản phẩm Boron được tách khỏi các sản phẩm phụ bằng phương pháp xử lý thích hợp."
+        "title": "Boron có thể được điều chế bằng cách khử Boron(III) oxide bằng Magnesium",
+        "desc": "Sau phản ứng, sản phẩm Boron được tách khỏi các sản phẩm phụ bằng phương pháp xử lý thích hợp.",
+        "result": "",
+        "equations": [
+          {
+            "equation": "B₂O₃ + 3Mg → 2B + 3MgO",
+            "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+            "kind": "chemical",
+            "sourceLine": 66,
+            "sourceSection": "lab",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          65,
+          66,
+          67
+        ],
+        "equation": "B₂O₃ + 3Mg → 2B + 3MgO"
       }
     ],
     "industry": [
       {
-        "title": "Khử Boron halide bằng Hydrogen:",
-        "equation": "2BCl3 + 3H2 → 2B + 6HCl <br> B2O3 + 3Mg → 2B + 3MgO",
-        "desc": "Phương pháp này có thể tạo Boron có độ tinh khiết cao. Khử Boron oxide bằng Magnesium:"
+        "title": "Khử Boron halide bằng Hydrogen",
+        "desc": "Phương pháp này có thể tạo Boron có độ tinh khiết cao.",
+        "result": "",
+        "equations": [
+          {
+            "equation": "2BCl₃ + 3H₂ → 2B + 6HCl",
+            "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+            "kind": "chemical",
+            "sourceLine": 60,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          59,
+          60,
+          61
+        ],
+        "equation": "2BCl₃ + 3H₂ → 2B + 6HCl"
+      },
+      {
+        "title": "Khử Boron oxide bằng Magnesium",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "B₂O₃ + 3Mg → 2B + 3MgO",
+            "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+            "kind": "chemical",
+            "sourceLine": 63,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          62,
+          63
+        ],
+        "equation": "B₂O₃ + 3Mg → 2B + 3MgO"
       }
     ]
   },
   "recognition": [
     {
-      "title": "Phản ứng tạo ngọn lửa màu xanh lục",
-      "reagent": "",
-      "result": "Một số hợp chất Boron khi được đưa vào ngọn lửa có thể tạo màu xanh lục đặc trưng.",
-      "equation": ""
-    },
-    {
-      "title": "Phản ứng với Curcumin",
-      "reagent": "",
-      "result": "Borate có thể tạo phức màu đặc trưng với Curcumin trong môi trường thích hợp.",
+      "title": "Phản ứng tạo ngọn lửa màu xanh lục: Một số hợp chất Boron khi được đưa vào ngọn lửa có thể tạo màu xanh lục đặc trưng.",
+      "desc": "Phản ứng với Curcumin: Borate có thể tạo phức màu đặc trưng với Curcumin trong môi trường thích hợp.",
+      "result": "",
+      "equations": [],
+      "sourceLines": [
+        69,
+        70
+      ],
       "equation": ""
     }
   ],
-  "structureType": "Mạng thoi (Rhombohedral)"
+  "applications": [
+    {
+      "title": "Thủy tinh chịu nhiệt",
+      "desc": "Boron được sử dụng để sản xuất Borosilicate glass có khả năng chịu nhiệt và chống sốc nhiệt tốt.",
+      "sourceLine": 89
+    },
+    {
+      "title": "Gốm kỹ thuật",
+      "desc": "Boron nitride và Boron carbide được sử dụng trong các vật liệu gốm có độ cứng và khả năng chịu nhiệt cao.",
+      "sourceLine": 90
+    },
+    {
+      "title": "Chất bán dẫn",
+      "desc": "Boron được sử dụng làm chất pha tạp (dopant) cho Silicon trong công nghiệp bán dẫn.",
+      "sourceLine": 91
+    },
+    {
+      "title": "Vật liệu chống mài mòn",
+      "desc": "Boron carbide được sử dụng trong các vật liệu có độ cứng cao.",
+      "sourceLine": 92
+    },
+    {
+      "title": "Chất tẩy rửa",
+      "desc": "Một số Borate được sử dụng trong chất tẩy rửa và sản phẩm làm sạch.",
+      "sourceLine": 93
+    },
+    {
+      "title": "Nông nghiệp",
+      "desc": "Boron là vi lượng thiết yếu đối với thực vật và được sử dụng trong một số loại phân bón.",
+      "sourceLine": 94
+    },
+    {
+      "title": "Hấp thụ neutron",
+      "desc": "¹⁰B có khả năng hấp thụ neutron cao nên được sử dụng trong một số ứng dụng liên quan đến kiểm soát neutron.",
+      "sourceLine": 95
+    },
+    {
+      "title": "Luyện kim",
+      "desc": "Một lượng nhỏ Boron được thêm vào một số hợp kim để cải thiện tính chất cơ học.",
+      "sourceLine": 96
+    }
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Boron là nguyên tố số 5, thuộc nhóm IIIA | chu kỳ 2 và là một á kim.</li><li>Boron có cấu hình electron 1s² 2s² 2p¹ và có khả năng tạo nhiều liên kết cộng hóa trị. Trong tự nhiên, Boron chủ yếu tồn tại trong các khoáng vật Borate thay vì ở dạng đơn chất.</li><li>Boron có nhiều dạng cấu trúc tinh thể và các dạng thù hình khác nhau. Nguyên tố này có nhiệt độ nóng chảy cao, độ cứng lớn và nhiều hợp chất có tính chất vật liệu đặc biệt.</li><li>Boron và các hợp chất của nó được sử dụng trong thủy tinh chịu nhiệt, gốm kỹ thuật, chất bán dẫn, vật liệu chống mài mòn, nông nghiệp và công nghệ hạt nhân.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/photos/005_B.jpg",
+      "title": "Bo (B)",
+      "desc": "Ảnh tham chiếu mẫu Boron (B); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+      "source": "https://commons.wikimedia.org/wiki/File:Boron_R105.jpg",
+      "author": "James L Marshall",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+    }
+  ],
+  "mediaBlocks": [
+    {
+      "type": "model",
+      "section": "structure",
+      "title": "Mẫu khoáng vật 3D · Borax",
+      "src": "/assets/periodic-table/minerals/borax.glb",
+      "preview": "/assets/periodic-table/minerals/borax.png",
+      "desc": "Na₂B₄O₇·10H₂O. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  ],
+  "sources": [
+    {
+      "title": "005_B.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "e1405cfba8ade6ccbfee1fa6bc7640bb930b9af66bd812612124247f6cd5a615"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/5/boron"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "005_B.docx",
+    "sourceSha256": "e1405cfba8ade6ccbfee1fa6bc7640bb930b9af66bd812612124247f6cd5a615",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/005_B.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
 }

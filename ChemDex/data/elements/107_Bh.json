@@ -1,0 +1,378 @@
+{
+  "number": 107,
+  "symbol": "Bh",
+  "nameVi": "Bohrium",
+  "nameEn": "Bohrium",
+  "mass": 272,
+  "massStandardText": "[272] — số khối đồng vị tham chiếu, không phải nguyên tử khối chuẩn",
+  "massStandardSource": "https://periodic-table.rsc.org/element/107/bohrium",
+  "massKind": "reference-isotope-mass-number",
+  "category": "chuyen-tiep",
+  "hasData": true,
+  "file": "elements/107_Bh.json",
+  "general": {
+    "latinName": "Bohrium",
+    "englishName": "Bohrium",
+    "electronConfig": "[Rn] 5f¹⁴ 6d⁵ 7s² (dự đoán)",
+    "isotope": "²⁶⁷Bh, ²⁷⁰Bh, ²⁷¹Bh, ²⁷²Bh, ²⁷⁴Bh",
+    "group": 7,
+    "groupLabel": "7",
+    "series": "",
+    "period": 7,
+    "state": "Chưa đo trạng thái vĩ mô; các giá trị pha chỉ là dự đoán",
+    "oxidation": "+7 (dự đoán)",
+    "electronegativity": null,
+    "electronegativityNote": "Chưa có giá trị Pauling đủ cơ sở trong bản đối chiếu; không coi 0 là giá trị đã đo.",
+    "density": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+    "meltingPoint": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+    "boilingPoint": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+    "crystalStructure": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+    "CAS": "54037-14-8"
+  },
+  "history": {
+    "discoverer": "Nhóm nghiên cứu tại Joint Institute for Nuclear Research (JINR) và Gesellschaft für Schwerionenforschung (GSI)",
+    "year": "1981",
+    "discoveryLocation": "Darmstadt, Tây Đức",
+    "description": "Bohrium được tổng hợp lần đầu năm 1981 tại GSI bằng cách bắn phá Bismuth-209 bằng hạt nhân Chromium-54: ²⁰⁹Bi + ⁵⁴Cr → ²⁶²Bh + n Nguyên tố được đặt tên Bohrium để vinh danh nhà vật lý Đan Mạch Niels Bohr, người có những đóng góp quan trọng cho việc phát triển mô hình nguyên tử và cơ học lượng tử."
+  },
+  "structure": {
+    "protons": 107,
+    "electrons": 107,
+    "neutrons": 165,
+    "nucleusIsotope": "²⁷²Bh",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 107,
+      "neutron": 165
+    },
+    "electronShells": [
+      2,
+      8,
+      18,
+      32,
+      32,
+      13,
+      2
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      32,
+      32,
+      13,
+      2
+    ],
+    "valenceElectrons": 2,
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+    "lattice": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+    "latticeEvidence": "predicted"
+  },
+  "structureType": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+  "occurrence": {
+    "description": "Chất rắn (dự đoán).",
+    "simple": [
+      "Bh"
+    ],
+    "compounds": [
+      "BhO₃",
+      "BhO₂Cl... (chủ yếu dự đoán)"
+    ],
+    "ores": [
+      "Không tồn tại tự nhiên với lượng đáng kể. Bohrium chỉ được tổng hợp nhân tạo trong phòng thí nghiệm"
+    ],
+    "details": [
+      "Trạng thái: Chất rắn (dự đoán).",
+      "Có trong: Không tồn tại tự nhiên với lượng đáng kể. Bohrium chỉ được tổng hợp nhân tạo trong phòng thí nghiệm.",
+      "Đơn chất: Bh",
+      "Hợp chất: BhO₃, BhO₂Cl... (chủ yếu dự đoán)"
+    ],
+    "mineral": {
+      "available": false,
+      "reason": "Nguyên tố nhân tạo hoặc chỉ có vết tự nhiên; không có quặng khai thác riêng để dựng mẫu."
+    }
+  },
+  "naturalState": {
+    "image": "/assets/periodic-table/diagrams/107_Bh.svg",
+    "alt": "Bohrium: sơ đồ minh họa nguyên tố",
+    "kind": "diagram",
+    "source": "",
+    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+    "credit": ""
+  },
+  "isotopes": [
+    {
+      "isotope": "²⁶⁷Bh",
+      "massNumber": 267,
+      "protons": 107,
+      "neutrons": 160,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "14 (+6/−3) s",
+      "halfLife": "14 s",
+      "halfLifeUncertainty": "+6-3",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁷⁰Bh",
+      "massNumber": 270,
+      "protons": 107,
+      "neutrons": 163,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "1.0 (+4.9/−0.5) phút",
+      "halfLife": "1.0 m",
+      "halfLifeUncertainty": "+49-5",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁷¹Bh",
+      "massNumber": 271,
+      "protons": 107,
+      "neutrons": 164,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "1.5 (+2.8/−0.6) s",
+      "halfLife": "1.5 s",
+      "halfLifeUncertainty": "+28-6",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁷²Bh",
+      "massNumber": 272,
+      "protons": 107,
+      "neutrons": 165,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "10.5 (+1.5/−1.1) s",
+      "halfLife": "10.5 s",
+      "halfLifeUncertainty": "+15-11",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁷⁴Bh",
+      "massNumber": 274,
+      "protons": 107,
+      "neutrons": 167,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "44 (+34/−13) s",
+      "halfLife": "44 s",
+      "halfLifeUncertainty": "+34-13",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Là kim loại chuyển tiếp.</li><li>Thuộc nhóm VIIB | chu kỳ 7.</li><li>Là nguyên tố siêu nặng.</li><li>Có tính phóng xạ rất mạnh.</li><li>Được dự đoán là chất rắn ở điều kiện thường.</li><li>Các tính chất vĩ mô như màu sắc, khối lượng riêng, nhiệt độ nóng chảy và nhiệt độ sôi chưa được xác định thực nghiệm.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Được dự đoán có tính chất tương tự Manganese (Mn) và Technetium (Tc).</li><li>Số Oxy hóa +7 được dự đoán là trạng thái quan trọng.</li><li>Có thể tạo các hợp chất chứa Bohrium ở trạng thái Oxy hóa cao.</li><li>Một số thí nghiệm đã cho thấy Bohrium có thể tạo các hợp chất dễ bay hơi với Chlorine và Oxygen.</li><li>Hóa học của Bohrium chỉ có thể nghiên cứu ở cấp độ từng nguyên tử.</li></ul>",
+  "reactions": [
+    {
+      "type": "Tổng hợp Bohrium-262",
+      "desc": "",
+      "equation": "²⁰⁹Bi + ⁵⁴Cr → ²⁶²Bh + n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 70,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Phân rã Alpha của Bohrium-270",
+      "desc": "",
+      "equation": "²⁷⁰Bh → ²⁶⁶Db + ⁴He",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 72,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tạo Bohrium(VII) oxide",
+      "desc": "",
+      "equation": "4Bh + 7O₂ → 2Bh₂O₇",
+      "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+      "kind": "formal",
+      "sourceLine": 74,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tạo Bohrium(V) chloride",
+      "desc": "",
+      "equation": "2Bh + 5Cl₂ → 2BhCl₅",
+      "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+      "kind": "formal",
+      "sourceLine": 76,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "preparations": {
+    "lab": [
+      {
+        "title": "Bohrium được tổng hợp bằng cách bắn phá Bismuth-209 bằng ion Chromium-54 trong máy gia tốc hạt.",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "²⁰⁹Bi + ⁵⁴Cr → ²⁶²Bh + ¹n",
+            "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+            "kind": "nuclear",
+            "sourceLine": 59,
+            "sourceSection": "lab",
+            "balance": {
+              "status": "balanced",
+              "kind": "nuclear",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          58,
+          59
+        ],
+        "equation": "²⁰⁹Bi + ⁵⁴Cr → ²⁶²Bh + ¹n"
+      }
+    ],
+    "industry": [
+      {
+        "title": "Bohrium (Bh) không được sản xuất công nghiệp do tính phóng xạ cao và thời gian bán rã ngắn. Nguyên tố này chỉ được tổng hợp với lượng rất nhỏ trong các cơ sở nghiên cứu hạt nhân.",
+        "desc": "",
+        "result": "",
+        "equations": [],
+        "sourceLines": [
+          56
+        ],
+        "equation": ""
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Bohrium được nhận biết thông qua",
+      "desc": "Năng lượng của các hạt Alpha phát ra. Chu kỳ bán rã. Chuỗi phân rã đặc trưng. Xác định các hạt nhân con tạo thành sau phân rã. Nghiên cứu hóa học phóng xạ ở cấp độ từng nguyên tử. Không thể sử dụng các phản ứng hóa học thông thường để nhận biết Bohrium do lượng tạo ra cực kỳ nhỏ.",
+      "result": "",
+      "equations": [],
+      "sourceLines": [
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67
+      ],
+      "equation": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Ứng dụng",
+      "desc": "Bohrium không có ứng dụng công nghiệp hoặc dân dụng.",
+      "sourceLine": 79
+    },
+    {
+      "title": "Nó chủ yếu được sử dụng trong",
+      "desc": "",
+      "sourceLine": 80
+    },
+    {
+      "title": "Nghiên cứu hạt nhân",
+      "desc": "Nghiên cứu tính chất của các hạt nhân siêu nặng.",
+      "sourceLine": 81
+    },
+    {
+      "title": "Hóa học nguyên tố siêu nặng",
+      "desc": "So sánh Bohrium với Manganese và Technetium, qua đó kiểm tra sự thay đổi tính chất hóa học trong nhóm VII.",
+      "sourceLine": 82
+    },
+    {
+      "title": "Nghiên cứu chuỗi phân rã",
+      "desc": "Các đồng vị Bohrium giúp xác định và nghiên cứu những hạt nhân nặng hơn được tạo ra trong các phản ứng tổng hợp.",
+      "sourceLine": 83
+    }
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Bohrium là nguyên tố số 107, thuộc nhóm VIIB | chu kỳ 7 và là một kim loại chuyển tiếp siêu nặng.</li><li>Bohrium được tổng hợp lần đầu vào năm 1981 tại GSI ở Darmstadt bằng phản ứng giữa Bismuth-209 và Chromium-54. Nguyên tố được đặt tên để vinh danh Niels Bohr.</li><li>Cấu hình electron được dự đoán là [Rn] 5f¹⁴ 6d⁵ 7s², với số Oxy hóa cao nhất được dự đoán là +7.</li><li>Bohrium không có đồng vị bền, tất cả đều phóng xạ và có chu kỳ bán rã ngắn. Do chỉ tạo được một lượng cực nhỏ, Bohrium không có ứng dụng thực tế, mà chủ yếu được dùng cho nghiên cứu vật lý hạt nhân và hóa học nguyên tố siêu nặng.</li><li>Mạng tinh thể: Lập phương tâm khối (BCC) — dự đoán, vì chưa thể thu được lượng Bohrium đủ lớn để xác định trực tiếp cấu trúc tinh thể.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/diagrams/107_Bh.svg",
+      "title": "Bohrium (Bh)",
+      "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+      "source": "",
+      "author": "ChemDex",
+      "license": "ChemDex schematic diagram",
+      "licenseUrl": ""
+    }
+  ],
+  "mediaBlocks": [],
+  "sources": [
+    {
+      "title": "107_Bh.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "f9c4c2c74f000e11ccb4d08bfc444149abb6d59e773a76e0fe421801841755bf"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/107/bohrium"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "107_Bh.docx",
+    "sourceSha256": "f9c4c2c74f000e11ccb4d08bfc444149abb6d59e773a76e0fe421801841755bf",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/107_Bh.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
+}

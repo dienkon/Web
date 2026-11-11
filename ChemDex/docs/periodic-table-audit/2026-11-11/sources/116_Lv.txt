@@ -1,0 +1,89 @@
+001: Livermorium (Lv)
+002: Thông tin chung
+003: Tên Latin: Livermorium
+004: Tên Tiếng Anh: Livermorium
+005: Đồng vị: ²⁹⁰Lv, ²⁹¹Lv, ²⁹²Lv, ²⁹³Lv, ²⁹⁴Lv
+006: Vị trí: Nhóm VIA | Chu kỳ 7
+007: Số Oxy hóa: +2, +4, +6 (dự đoán)
+008: Độ âm điện: Không xác định
+009: Lịch sử khám phá
+010: Phát hiện bởi: Joint Institute for Nuclear Research (JINR) phối hợp với Lawrence Livermore National Laboratory (LLNL)
+011: Năm công bố: 2000
+012: Nơi khám phá: Dubna, Nga
+013: Mô tả: Livermorium được tổng hợp lần đầu vào năm 2000 bằng cách bắn phá Curium-248 bằng Calcium-48:
+014: ²⁴⁸Cm + ⁴⁸Ca → ²⁹²Lv + 4n
+015: Tên Livermorium được đặt để vinh danh Lawrence Livermore National Laboratory ở California, Hoa Kỳ, nơi có đóng góp quan trọng vào việc phát hiện nguyên tố.
+016: 3. Cấu tạo
+017: a. Cấu tạo nguyên tử
+018: Hoạt họa cấu hình e: [Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁴ (dự đoán)
+019: Mô hình mạng tinh thể: Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)
+020: Số hiệu nguyên tử: 116
+021: Nguyên tử khối: [293] g/mol
+022: Vỏ nguyên tử: 116 electron
+023: Hạt nhân: 116 proton
+024: Cấu hình e: [Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁴ (dự đoán)
+025: Loại mạng: Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)
+026: b. Trạng thái tự nhiên
+027: Trạng thái: Chất rắn (dự đoán)
+028: Có trong: Không tồn tại tự nhiên với lượng đáng kể. Livermorium chỉ được tổng hợp nhân tạo.
+029: Đơn chất: Lv
+030: Hợp chất: LvO, LvO₂, LvCl₂, LvCl₄... (dự đoán)
+031: c. Đồng vị
+032: Livermorium không có đồng vị bền.
+033: Một số đồng vị:
+034: ²⁹⁰Lv: chu kỳ bán rã khoảng 8 mili giây.
+035: ²⁹¹Lv: chu kỳ bán rã khoảng 18 mili giây.
+036: ²⁹²Lv: chu kỳ bán rã khoảng 18 mili giây.
+037: ²⁹³Lv: chu kỳ bán rã khoảng 60 mili giây.
+038: ²⁹⁴Lv: chu kỳ bán rã khoảng 54 mili giây.
+039: Các đồng vị Livermorium chủ yếu phân rã bằng phân rã Alpha.
+040: Tính chất
+041: Tính chất vật lý
+042: Là nguyên tố thuộc nhóm VIA | chu kỳ 7.
+043: Là nguyên tố siêu nặng.
+044: Có tính phóng xạ cực mạnh.
+045: Được dự đoán là chất rắn ở điều kiện thường.
+046: Có tính chất kim loại rõ hơn các nguyên tố nhẹ hơn cùng nhóm.
+047: Khối lượng riêng, nhiệt độ nóng chảy và nhiệt độ sôi chưa được xác định trực tiếp.
+048: Tính chất hóa học
+049: Có cấu hình electron hóa trị 7s² 7p⁴.
+050: Các số Oxy hóa +2 và +4 được dự đoán có thể ổn định hơn +6.
+051: Có thể có tính chất tương tự Polonium (Po).
+052: Hiệu ứng tương đối tính và hiệu ứng cặp electron trơ làm tăng khả năng ổn định của trạng thái Oxy hóa thấp.
+053: Phần lớn tính chất hóa học vẫn dựa trên dự đoán lý thuyết.
+054: Điều chế
+055: Điều chế trong công nghiệp:
+056: Livermorium (Lv) không được sản xuất công nghiệp do tính phóng xạ rất cao và thời gian bán rã ngắn. Nguyên tố này chỉ được tổng hợp với lượng cực nhỏ trong các cơ sở nghiên cứu hạt nhân.
+057: Điều chế trong phòng thí nghiệm:
+058: Livermorium được tổng hợp bằng cách bắn phá Curium-248 bằng ion Calcium-48 trong máy gia tốc hạt.
+059: ²⁴⁸Cm + ⁴⁸Ca → ²⁹³Lv + 3¹n
+060: Nhận biết
+061: Livermorium được nhận biết thông qua:
+062: Năng lượng các hạt Alpha.
+063: Chu kỳ bán rã.
+064: Chuỗi phân rã phóng xạ.
+065: Xác định các hạt nhân con.
+066: Đối chiếu chuỗi phân rã với các đồng vị đã biết.
+067: Do chỉ tạo được một số lượng cực nhỏ nguyên tử Lv, không thể nhận biết bằng phản ứng hóa học thông thường.
+068: Phương trình
+069: Tổng hợp Livermorium-292
+070: ²⁴⁸Cm + ⁴⁸Ca → ²⁹²Lv + 4n
+071: Phân rã Alpha
+072: ²⁹²Lv → ²⁸⁸Fl + ⁴He
+073: Tạo Livermorium(II) chloride
+074: Lv + Cl₂ → LvCl₂
+075: Tạo Livermorium(IV) oxide
+076: Lv + O₂ → LvO₂
+077: Các phương trình hóa học của Livermorium chủ yếu mang tính dự đoán.
+078: Ứng dụng thực tế
+079: Livermorium không có ứng dụng công nghiệp hoặc dân dụng.
+080: Nó chủ yếu được sử dụng trong:
+081: Nghiên cứu hạt nhân: Nghiên cứu tính ổn định của các hạt nhân siêu nặng.
+082: Nghiên cứu “đảo ổn định”: Nghiên cứu các hạt nhân gần vùng được dự đoán có độ ổn định cao hơn.
+083: Hóa học nguyên tố siêu nặng: So sánh Livermorium với Polonium và các nguyên tố nhóm VIA khác.
+084: Tổng quan
+085: Livermorium là nguyên tố số 116, thuộc nhóm VIA | chu kỳ 7 và là một nguyên tố siêu nặng.
+086: Livermorium được tổng hợp lần đầu vào năm 2000 tại Dubna bằng phản ứng giữa Curium-248 và Calcium-48. Tên nguyên tố được đặt để vinh danh Lawrence Livermore National Laboratory.
+087: Cấu hình electron được dự đoán là [Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁴. Livermorium nằm cùng nhóm với Oxygen, Sulfur, Selenium, Tellurium và Polonium, nhưng do hiệu ứng tương đối tính mạnh, nó được dự đoán có tính chất kim loại rõ rệt hơn.
+088: Livermorium không có đồng vị bền, rất phóng xạ và chỉ được tạo ra với số lượng cực nhỏ. Vì vậy, nó không có ứng dụng thực tế, chủ yếu phục vụ nghiên cứu vật lý hạt nhân và hóa học nguyên tố siêu nặng.
+089: Mạng tinh thể: Lập phương tâm khối (BCC) — dự đoán, vì chưa thể thu được lượng Livermorium đủ lớn để xác định trực tiếp cấu trúc tinh thể.

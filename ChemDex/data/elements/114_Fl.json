@@ -1,0 +1,379 @@
+{
+  "number": 114,
+  "symbol": "Fl",
+  "nameVi": "Flerovium",
+  "nameEn": "Flerovium",
+  "mass": 289,
+  "massStandardText": "[289] — số khối đồng vị tham chiếu, không phải nguyên tử khối chuẩn",
+  "massStandardSource": "https://periodic-table.rsc.org/element/114/flerovium",
+  "massKind": "reference-isotope-mass-number",
+  "category": "kim-loai-sau-chuyen-tiep",
+  "hasData": true,
+  "file": "elements/114_Fl.json",
+  "general": {
+    "latinName": "Flerovium",
+    "englishName": "Flerovium",
+    "electronConfig": "[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p² (dự đoán)",
+    "isotope": "²⁸⁵Fl, ²⁸⁶Fl, ²⁸⁷Fl, ²⁸⁸Fl, ²⁸⁹Fl",
+    "group": 14,
+    "groupLabel": "14",
+    "series": "",
+    "period": 7,
+    "state": "Chưa đo trạng thái vĩ mô; các giá trị pha chỉ là dự đoán",
+    "oxidation": "+2, +4 (dự đoán)",
+    "electronegativity": null,
+    "electronegativityNote": "Chưa có giá trị Pauling đủ cơ sở trong bản đối chiếu; không coi 0 là giá trị đã đo.",
+    "density": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+    "meltingPoint": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+    "boilingPoint": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+    "crystalStructure": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+    "CAS": "54085-16-4"
+  },
+  "history": {
+    "discoverer": "Nhóm nghiên cứu tại Joint Institute for Nuclear Research (JINR) và Lawrence Livermore National Laboratory (LLNL)",
+    "year": "1999",
+    "discoveryLocation": "Dubna, Nga",
+    "description": "Flerovium được tổng hợp lần đầu vào năm 1999 tại Dubna bằng cách bắn phá Plutonium-244 bằng Calcium-48: ²⁴⁴Pu + ⁴⁸Ca → ²⁸⁹Fl + 3n Tên Flerovium được đặt để vinh danh Georgy Flyorov, nhà vật lý hạt nhân người Nga và người sáng lập Joint Institute for Nuclear Research."
+  },
+  "structure": {
+    "protons": 114,
+    "electrons": 114,
+    "neutrons": 175,
+    "nucleusIsotope": "²⁸⁹Fl",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 114,
+      "neutron": 175
+    },
+    "electronShells": [
+      2,
+      8,
+      18,
+      32,
+      32,
+      18,
+      4
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      32,
+      32,
+      18,
+      4
+    ],
+    "valenceElectrons": 4,
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+    "lattice": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+    "latticeEvidence": "predicted"
+  },
+  "structureType": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
+  "occurrence": {
+    "description": "Chất rắn (dự đoán)",
+    "simple": [
+      "Fl"
+    ],
+    "compounds": [
+      "FlCl₂",
+      "FlCl₄",
+      "FlO... (dự đoán)"
+    ],
+    "ores": [
+      "Không tồn tại tự nhiên với lượng đáng kể. Flerovium chỉ được tổng hợp nhân tạo trong phòng thí nghiệm"
+    ],
+    "details": [
+      "Trạng thái: Chất rắn (dự đoán)",
+      "Có trong: Không tồn tại tự nhiên với lượng đáng kể. Flerovium chỉ được tổng hợp nhân tạo trong phòng thí nghiệm.",
+      "Đơn chất: Fl",
+      "Hợp chất: FlCl₂, FlCl₄, FlO... (dự đoán)"
+    ],
+    "mineral": {
+      "available": false,
+      "reason": "Nguyên tố nhân tạo hoặc chỉ có vết tự nhiên; không có quặng khai thác riêng để dựng mẫu."
+    }
+  },
+  "naturalState": {
+    "image": "/assets/periodic-table/diagrams/114_Fl.svg",
+    "alt": "Flerovium: sơ đồ minh họa nguyên tố",
+    "kind": "diagram",
+    "source": "",
+    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+    "credit": ""
+  },
+  "isotopes": [
+    {
+      "isotope": "²⁸⁵Fl",
+      "massNumber": 285,
+      "protons": 114,
+      "neutrons": 171,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "101 (+59/−27) ms",
+      "halfLife": "101 ms",
+      "halfLifeUncertainty": "+59-27",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁸⁶Fl",
+      "massNumber": 286,
+      "protons": 114,
+      "neutrons": 172,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "166 (+40/−27) ms",
+      "halfLife": "166 ms",
+      "halfLifeUncertainty": "+40-27",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁸⁷Fl",
+      "massNumber": 287,
+      "protons": 114,
+      "neutrons": 173,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "0.40 (+0.13/−0.08) s",
+      "halfLife": "0.40 s",
+      "halfLifeUncertainty": "+13-8",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁸⁸Fl",
+      "massNumber": 288,
+      "protons": 114,
+      "neutrons": 174,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "0.64 (+0.14/−0.10) s",
+      "halfLife": "0.64 s",
+      "halfLifeUncertainty": "+14-10",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²⁸⁹Fl",
+      "massNumber": 289,
+      "protons": 114,
+      "neutrons": 175,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "2.4 (+0.8/−0.5) s",
+      "halfLife": "2.4 s",
+      "halfLifeUncertainty": "+8-5",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Là nguyên tố thuộc nhóm IVA | chu kỳ 7.</li><li>Là nguyên tố siêu nặng.</li><li>Có tính phóng xạ rất mạnh.</li><li>Được dự đoán là chất rắn ở điều kiện thường.</li><li>Có thể có tính chất khá dễ bay hơi so với các kim loại nặng thông thường.</li><li>Khối lượng riêng, nhiệt độ nóng chảy và nhiệt độ sôi chưa được xác định trực tiếp.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Có cấu hình electron hóa trị 7s² 7p².</li><li>Số Oxy hóa +2 và +4 được dự đoán.</li><li>Do hiệu ứng tương đối tính mạnh, trạng thái +2 có thể ổn định hơn so với Lead.</li><li>Có khả năng thể hiện một số tính chất giống Lead (Pb).</li><li>Flerovium có thể là một trong những nguyên tố có tính tương tác hóa học yếu bất thường do các electron hóa trị bị giữ chặt.</li></ul>",
+  "reactions": [
+    {
+      "type": "Tổng hợp Flerovium-289",
+      "desc": "",
+      "equation": "²⁴⁴Pu + ⁴⁸Ca → ²⁸⁹Fl + 3n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 70,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Phân rã Alpha",
+      "desc": "",
+      "equation": "²⁸⁹Fl → ²⁸⁵Cn + ⁴He",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 72,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tạo Flerovium(II) chloride",
+      "desc": "",
+      "equation": "Fl + Cl₂ → FlCl₂",
+      "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+      "kind": "formal",
+      "sourceLine": 74,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tạo Flerovium(IV) chloride",
+      "desc": "",
+      "equation": "Fl + 2Cl₂ → FlCl₄",
+      "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+      "kind": "formal",
+      "sourceLine": 76,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "preparations": {
+    "lab": [
+      {
+        "title": "Flerovium được tổng hợp bằng cách bắn phá Plutonium-244 bằng ion Calcium-48 trong máy gia tốc hạt.",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "²⁴⁴Pu + ⁴⁸Ca → ²⁸⁹Fl + 3¹n",
+            "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+            "kind": "nuclear",
+            "sourceLine": 59,
+            "sourceSection": "lab",
+            "balance": {
+              "status": "balanced",
+              "kind": "nuclear",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          58,
+          59
+        ],
+        "equation": "²⁴⁴Pu + ⁴⁸Ca → ²⁸⁹Fl + 3¹n"
+      }
+    ],
+    "industry": [
+      {
+        "title": "Flerovium (Fl) không được sản xuất công nghiệp do tính phóng xạ rất cao và thời gian bán rã ngắn. Nguyên tố này chỉ được tổng hợp với lượng cực nhỏ trong các cơ sở nghiên cứu hạt nhân.",
+        "desc": "",
+        "result": "",
+        "equations": [],
+        "sourceLines": [
+          56
+        ],
+        "equation": ""
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Flerovium được nhận biết thông qua",
+      "desc": "Năng lượng các hạt Alpha. Chu kỳ bán rã. Chuỗi phân rã phóng xạ. Xác định các hạt nhân con. Đối chiếu chuỗi phân rã với các đồng vị đã biết. Do chỉ tạo ra vài nguyên tử trong mỗi thí nghiệm, không thể nhận biết bằng phản ứng hóa học thông thường.",
+      "result": "",
+      "equations": [],
+      "sourceLines": [
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67
+      ],
+      "equation": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Ứng dụng",
+      "desc": "Flerovium không có ứng dụng công nghiệp hoặc dân dụng.",
+      "sourceLine": 79
+    },
+    {
+      "title": "Nó chủ yếu được sử dụng trong",
+      "desc": "",
+      "sourceLine": 80
+    },
+    {
+      "title": "Nghiên cứu hạt nhân",
+      "desc": "Nghiên cứu tính ổn định của các hạt nhân siêu nặng.",
+      "sourceLine": 81
+    },
+    {
+      "title": "Nghiên cứu “đảo ổn định”",
+      "desc": "Flerovium nằm gần vùng các hạt nhân được dự đoán có độ ổn định tương đối cao hơn trong khu vực nguyên tố siêu nặng.",
+      "sourceLine": 82
+    },
+    {
+      "title": "Hóa học nguyên tố siêu nặng",
+      "desc": "Nghiên cứu các tính chất hóa học của Flerovium và so sánh với Lead.",
+      "sourceLine": 83
+    }
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Flerovium là nguyên tố số 114, thuộc nhóm IVA | chu kỳ 7 và là một nguyên tố siêu nặng.</li><li>Flerovium được tổng hợp lần đầu vào năm 1999 tại Dubna bằng phản ứng giữa Plutonium-244 và Calcium-48. Tên nguyên tố được đặt để vinh danh nhà vật lý Georgy Flyorov.</li><li>Cấu hình electron được dự đoán là [Rn] 5f¹⁴ 6d¹⁰ 7s² 7p², với các số Oxy hóa có khả năng quan trọng là +2 và +4. Hiệu ứng tương đối tính mạnh khiến Flerovium có thể có những tính chất khác biệt đáng kể so với Lead.</li><li>Flerovium không có đồng vị bền, có tính phóng xạ rất mạnh và chỉ được tạo ra với số lượng cực nhỏ. Vì vậy, nó không có ứng dụng thực tế, chủ yếu phục vụ nghiên cứu vật lý hạt nhân và hóa học nguyên tố siêu nặng.</li><li>Mạng tinh thể: Lập phương tâm khối (BCC) — dự đoán, vì chưa thể thu được lượng Flerovium đủ lớn để xác định trực tiếp cấu trúc tinh thể.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/diagrams/114_Fl.svg",
+      "title": "Flerovium (Fl)",
+      "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+      "source": "",
+      "author": "ChemDex",
+      "license": "ChemDex schematic diagram",
+      "licenseUrl": ""
+    }
+  ],
+  "mediaBlocks": [],
+  "sources": [
+    {
+      "title": "114_Fl.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "b846a90a57d20cdc2d441d9ad56d14a0a6adebbfd386a28c2e01f182168c0652"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/114/flerovium"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "114_Fl.docx",
+    "sourceSha256": "b846a90a57d20cdc2d441d9ad56d14a0a6adebbfd386a28c2e01f182168c0652",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/114_Fl.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
+}

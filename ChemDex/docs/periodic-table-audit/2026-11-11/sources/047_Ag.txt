@@ -1,0 +1,101 @@
+001: Silver (Ag)
+002: Thông tin chung
+003: Tên Latin: Argentum
+004: Tên Tiếng Anh: Silver
+005: Đồng vị: ¹⁰⁷Ag, ¹⁰⁹Ag
+006: Vị trí: Nhóm IB | Chu kỳ 5
+007: Số Oxy hóa: +1, +2, +3
+008: Độ âm điện: 1.93
+009: Lịch sử khám phá
+010: Phát hiện bởi: Chưa xác định — Silver đã được con người biết đến từ thời cổ đại.
+011: Năm công bố: Khoảng 3000 TCN
+012: Nơi khám phá: Không xác định
+013: Mô tả: Silver là một trong những kim loại được con người biết đến và sử dụng từ thời cổ đại. Nó từng được sử dụng để chế tạo đồ trang sức, tiền xu và các vật dụng khác. Ký hiệu Ag bắt nguồn từ tên Latin Argentum.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Kr] 4d¹⁰ 5s¹
+017: Mô hình mạng tinh thể: Lập phương tâm mặt (Face-centered cubic, FCC)
+018: Số hiệu nguyên tử: 47
+019: Nguyên tử khối: 107.868 g/mol
+020: Vỏ nguyên tử: 47 electron
+021: K: 2 | L: 8 | M: 18 | N: 18 | O: 1
+022: Hạt nhân: 47 proton, 60 neutron đối với ¹⁰⁷Ag
+023: Cấu hình e: [Kr] 4d¹⁰ 5s¹
+024: Loại mạng: Lập phương tâm mặt (Face-centered cubic, FCC)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Silver là kim loại rắn, màu trắng bạc và có độ bóng cao.
+027: Có trong: Tồn tại ở dạng Silver tự sinh và trong các quặng như Argentite (Ag₂S), Chlorargyrite (AgCl), thường đi kèm với quặng Lead, Copper và Zinc.
+028: Đơn chất: Ag
+029: Hợp chất: AgNO₃, AgCl, Ag₂S, Ag₂O, AgBr, AgI...
+030: c. Đồng vị
+031: Đồng vị: ¹⁰⁷Ag, ¹⁰⁹Ag
+032: ¹⁰⁷Ag: Đồng vị bền, chiếm khoảng 51.84%.
+033: ¹⁰⁹Ag: Đồng vị bền, chiếm khoảng 48.16%.
+034: Cả hai đều là đồng vị ổn định của Silver trong tự nhiên.
+035: Tính chất
+036: Tính chất vật lý
+037: Là kim loại chuyển tiếp.
+038: Màu trắng bạc, sáng bóng.
+039: Là kim loại có độ dẫn điện cao nhất trong các kim loại.
+040: Có khả năng dẫn nhiệt rất tốt.
+041: Dẻo và dễ dát mỏng.
+042: Khối lượng riêng: khoảng 10.49 g/cm³.
+043: Nhiệt độ nóng chảy: khoảng 961.8 °C.
+044: Nhiệt độ sôi: khoảng 2162 °C.
+045: Có độ phản xạ ánh sáng cao.
+046: Tính chất hóa học
+047: Số Oxy hóa phổ biến nhất là +1.
+048: Tương đối kém hoạt động hóa học.
+049: Không phản ứng với Oxygen ở điều kiện thường.
+050: Phản ứng với Sulfur và Hydrogen sulfide tạo Silver sulfide.
+051: Phản ứng với Halogen tạo Silver halide.
+052: Ag⁺ dễ tạo kết tủa với Cl⁻, Br⁻ và I⁻.
+053: Silver và một số hợp chất Silver có tính kháng khuẩn.
+054: Điều chế
+055: Điều chế trong công nghiệp
+056: Silver chủ yếu được thu hồi từ quặng Argentite (Ag₂S) và các quặng chì, kẽm, đồng. Với quặng Argentite, bạc được hòa tách bằng Sodium cyanide, sau đó thu hồi bằng Zinc và tinh chế bằng điện phân.
+057: Phương trình hóa học:
+058: 4Ag₂S + 8NaCN + O₂ + 2H₂O → 8Na[Ag(CN)₂] + 4NaOH
+059: 2Na[Ag(CN)₂] + Zn → Na₂[Zn(CN)₄] + 2Ag
+060: Điều chế trong phòng thí nghiệm
+061: Có thể điều chế Silver bằng cách cho Copper tác dụng với dung dịch Silver nitrate, tạo kết tủa bạc kim loại.
+062: Phương trình hóa học:
+063: Cu + 2AgNO₃ → Cu(NO₃)₂ + 2Ag
+064: Nhận biết
+065: Nhận biết Ag⁺
+066: Cho dung dịch chứa Ag⁺ tác dụng với Chloride:
+067: Ag⁺ + Cl⁻ → AgCl↓
+068: Hiện tượng: Xuất hiện kết tủa trắng Silver chloride.
+069: AgCl tan trong dung dịch Ammonia:
+070: AgCl + 2NH₃ → [Ag(NH₃)₂]Cl
+071: Đây là một phản ứng đặc trưng để nhận biết Ag⁺.
+072: Phương trình
+073: Tác dụng với Sulfur
+074: 2Ag + S → Ag₂S
+075: Tác dụng với Chlorine
+076: 2Ag + Cl₂ → 2AgCl
+077: Tạo Silver chloride
+078: Ag⁺ + Cl⁻ → AgCl↓
+079: Tạo Silver bromide
+080: Ag⁺ + Br⁻ → AgBr↓
+081: Tạo Silver iodide
+082: Ag⁺ + I⁻ → AgI↓
+083: Silver oxide phân hủy khi đun nóng
+084: 2Ag₂O → 4Ag + O₂↑
+085: AgCl tác dụng với Ammonia
+086: AgCl + 2NH₃ → [Ag(NH₃)₂]Cl
+087: Ứng dụng thực tế
+088: Điện tử: Silver được sử dụng trong các tiếp điểm, mạch điện và vật liệu dẫn điện nhờ độ dẫn điện rất cao.
+089: Trang sức: Silver được sử dụng rộng rãi để chế tạo trang sức, đồ trang trí và vật dụng.
+090: Tiền xu: Silver từng được sử dụng phổ biến để đúc tiền.
+091: Gương: Silver có khả năng phản xạ ánh sáng cao nên được sử dụng trong một số loại gương.
+092: Y tế: Một số hợp chất Silver được sử dụng nhờ tính kháng khuẩn.
+093: Nhiếp ảnh: Silver halide như AgBr từng đóng vai trò quan trọng trong phim ảnh truyền thống.
+094: Pin: Silver compounds được sử dụng trong một số loại pin có hiệu suất cao.
+095: Hàn: Một số hợp kim hàn chứa Silver được sử dụng trong điện tử và kỹ thuật.
+096: Tổng quan
+097: Silver là nguyên tố số 47, thuộc nhóm IB | chu kỳ 5 và là một kim loại chuyển tiếp.
+098: Silver có cấu hình electron [Kr] 4d¹⁰ 5s¹, với số Oxy hóa phổ biến nhất là +1.
+099: Silver nổi bật nhờ độ dẫn điện và dẫn nhiệt rất cao, đồng thời có tính dẻo, dễ gia công và khả năng phản xạ ánh sáng tốt.
+100: Trong tự nhiên, Silver có thể tồn tại ở dạng kim loại tự sinh hoặc trong các quặng Sulfide, Halide. Hai đồng vị tự nhiên chính là ¹⁰⁷Ag và ¹⁰⁹Ag.
+101: Silver có nhiều ứng dụng trong điện tử, trang sức, y tế, gương, nhiếp ảnh, pin và công nghiệp hàn.

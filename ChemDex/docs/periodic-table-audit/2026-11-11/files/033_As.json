@@ -1,0 +1,1124 @@
+{
+  "symbol": "As",
+  "number": 33,
+  "source": "033_As.docx",
+  "sourceSha256": "93cabcb5ac39d1ebebbc24bd5f0170d08a2f726cefe4dc93d6a5673e092a565b",
+  "paragraphCount": 95,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 4,
+    "structure": 9,
+    "occurrence": 4,
+    "isotopes": 3,
+    "physical": 8,
+    "chemical": 6,
+    "lab": 2,
+    "industry": 5,
+    "recognition": 6,
+    "reactions": 15,
+    "applications": 5,
+    "notes": 4
+  },
+  "editorialDecisions": [
+    {
+      "line": 24,
+      "before": "Loại mạng: Lục phương (Hexagonal)",
+      "after": "Loại mạng: Arsenic xám có mạng mặt thoi (rhombohedral), có thể mô tả bằng hệ trục lục phương.",
+      "reason": "Phân biệt hệ trục lục phương với mạng mặt thoi thực của As xám."
+    },
+    {
+      "line": 55,
+      "before": "4As₂S₃ + 9O₂ → 2As₄O₆ + 6SO₂",
+      "after": "2As₂S₃ + 9O₂ → As₄O₆ + 6SO₂",
+      "reason": "Sửa hệ số As₂S₃ và As₄O₆ để bảo toàn As, S, O."
+    },
+    {
+      "line": 80,
+      "before": "2As + 3H₂ → 2AsH₃",
+      "after": null,
+      "reason": "Không coi kết hợp trực tiếp As và H₂ là cách điều chế arsine; arsine thường tạo bằng khử hợp chất As."
+    },
+    {
+      "line": 82,
+      "before": "2As₂O₃ + O₂ → 2As₂O₅",
+      "after": "As₂O₃ + 4HNO₃ + H₂O → 2H₃AsO₄ + 4NO₂",
+      "reason": "Không mặc định O₂ oxi hóa As₂O₃ thành As₂O₅; dùng acid nitric làm tác nhân oxi hóa, biểu diễn sản phẩm trong dung dịch."
+    }
+  ],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "[Ar] 3d¹⁰ 4s² 4p³",
+      "publishedValue": "[Ar] 3d¹⁰ 4s² 4p³",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Lục phương (Hexagonal)",
+      "publishedValue": "Arsenic xám có mạng mặt thoi (rhombohedral), có thể mô tả bằng hệ trục lục phương.",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "2.18",
+      "publishedValue": 2.18,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm VA | Chu kỳ 4",
+      "publishedValue": "15",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Arsenic là chất rắn, thường có dạng màu xám kim loại ở dạng ổn định nhất.",
+      "publishedValue": "Rắn",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 32,
+      "sourceText": "⁷³As: Đồng vị phóng xạ, có chu kỳ bán rã khoảng 80 ngày.",
+      "reference": {
+        "isotope": "⁷³As",
+        "massNumber": 73,
+        "protons": 33,
+        "neutrons": 40,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "80.30 ± 0.06 d",
+        "halfLife": "80.30 d",
+        "halfLifeUncertainty": "6",
+        "halfLifeQualifier": null,
+        "decay": "EC",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 33,
+      "sourceText": "⁷⁵As: Đồng vị bền duy nhất của Arsenic, chiếm gần 100% Arsenic tự nhiên.",
+      "reference": {
+        "isotope": "⁷⁵As",
+        "massNumber": 75,
+        "protons": 33,
+        "neutrons": 42,
+        "stable": true,
+        "abundancePercent": "100",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 55,
+      "text": "4As₂S₃ + 9O₂ → 2As₄O₆ + 6SO₂",
+      "status": "unbalanced",
+      "kind": "chemical",
+      "delta": {
+        "S": -6.0,
+        "O": 6.0
+      }
+    },
+    {
+      "line": 57,
+      "text": "As₄O₆ + 6C → 4As + 6CO",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 60,
+      "text": "As₄O₆ + 6C → 4As + 6CO",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 64,
+      "text": "2As³⁺ + 3H₂S → As₂S₃↓ + 6H⁺",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 70,
+      "text": "4As + 3O₂ → 2As₂O₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 72,
+      "text": "2As + 3Cl₂ → 2AsCl₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 74,
+      "text": "2As + 3S → As₂S₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 76,
+      "text": "2As³⁺ + 3H₂S → As₂S₃↓ + 6H⁺",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 78,
+      "text": "As₄O₆ + 6C → 4As + 6CO",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 80,
+      "text": "2As + 3H₂ → 2AsH₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 82,
+      "text": "2As₂O₃ + O₂ → 2As₂O₅",
+      "status": "unbalanced",
+      "kind": "chemical",
+      "delta": {
+        "O": 2.0
+      }
+    },
+    {
+      "line": 84,
+      "text": "As₂O₃ + 6NaOH → 2Na₃AsO₃ + 3H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "lab",
+      "equation": "As₄O₆ + 6C → 4As + 6CO",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 60,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "2As₂S₃ + 9O₂ → As₄O₆ + 6SO₂",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 55,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "As₄O₆ + 6C → 4As + 6CO",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 57,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "recognition",
+      "equation": "2As³⁺ + 3H₂S → As₂S₃↓ + 6H⁺",
+      "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+      "kind": "chemical",
+      "sourceLine": 64,
+      "sourceSection": "recognition",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "4As + 3O₂ → 2As₂O₃",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 70,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2As + 3Cl₂ → 2AsCl₃",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 72,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2As + 3S → As₂S₃",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 74,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2As³⁺ + 3H₂S → As₂S₃↓ + 6H⁺",
+      "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+      "kind": "chemical",
+      "sourceLine": 76,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "As₄O₆ + 6C → 4As + 6CO",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 78,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "As₂O₃ + 4HNO₃ + H₂O → 2H₃AsO₄ + 4NO₂",
+      "condition": "HNO₃ đặc, tạo NO₂.",
+      "kind": "chemical",
+      "sourceLine": 82,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "As₂O₃ + 6NaOH → 2Na₃AsO₃ + 3H₂O",
+      "condition": "Kiềm đậm đặc, gia nhiệt hoặc nóng chảy tùy oxide; không mặc định xảy ra nhanh trong dung dịch loãng.",
+      "kind": "chemical",
+      "sourceLine": 84,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": [
+        {
+          "title": "Bán dẫn",
+          "desc": "Arsenic được sử dụng để tạo các vật liệu bán dẫn như Gallium arsenide (GaAs)."
+        },
+        {
+          "title": "Hợp kim",
+          "desc": "Một lượng nhỏ Arsenic có thể được sử dụng trong một số hợp kim để cải thiện tính chất vật liệu."
+        },
+        {
+          "title": "Điện tử",
+          "desc": "Gallium arsenide có ứng dụng trong các thiết bị điện tử và quang điện tử tốc độ cao."
+        },
+        {
+          "title": "Kính",
+          "desc": "Một số Arsenic compounds từng được sử dụng trong sản xuất và xử lý thủy tinh."
+        },
+        {
+          "title": "Bảo quản gỗ",
+          "desc": "Một số hợp chất chứa Arsenic từng được sử dụng trong chất bảo quản gỗ, nhưng việc sử dụng bị hạn chế nghiêm ngặt do độc tính."
+        }
+      ],
+      "after": [
+        {
+          "title": "Bán dẫn",
+          "desc": "Arsenic được sử dụng để tạo các vật liệu bán dẫn như Gallium arsenide (GaAs).",
+          "sourceLine": 86
+        },
+        {
+          "title": "Hợp kim",
+          "desc": "Một lượng nhỏ Arsenic có thể được sử dụng trong một số hợp kim để cải thiện tính chất vật liệu.",
+          "sourceLine": 87
+        },
+        {
+          "title": "Điện tử",
+          "desc": "Gallium arsenide có ứng dụng trong các thiết bị điện tử và quang điện tử tốc độ cao.",
+          "sourceLine": 88
+        },
+        {
+          "title": "Kính",
+          "desc": "Một số Arsenic compounds từng được sử dụng trong sản xuất và xử lý thủy tinh.",
+          "sourceLine": 89
+        },
+        {
+          "title": "Bảo quản gỗ",
+          "desc": "Một số hợp chất chứa Arsenic từng được sử dụng trong chất bảo quản gỗ, nhưng việc sử dụng bị hạn chế nghiêm ngặt do độc tính.",
+          "sourceLine": 90
+        }
+      ]
+    },
+    {
+      "field": "chemical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có nhiều số Oxy hóa, phổ biến nhất là −3, +3 và +5.</li>\n      <li>Có thể phản ứng với Oxygen tạo Arsenic oxide.</li>\n      <li>Phản ứng với Halogen tạo Arsenic halide.</li>\n      <li>Có thể tạo hydride là Arsine (AsH₃).</li>\n      <li>Một số Arsenic compounds có tính độc cao.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Có nhiều số Oxy hóa, phổ biến nhất là −3, +3 và +5.</li><li>Có thể phản ứng với Oxygen tạo Arsenic oxide.</li><li>Phản ứng với Halogen tạo Arsenic halide.</li><li>Có thể tạo hydride là Arsine (AsH₃).</li><li>Các hợp chất Arsenic(III) và Arsenic(V) có tính chất hóa học khác nhau.</li><li>Một số Arsenic compounds có tính độc cao.</li></ul>"
+    },
+    {
+      "field": "general.CAS",
+      "before": null,
+      "after": "7440-38-2"
+    },
+    {
+      "field": "general.boilingPoint",
+      "before": "",
+      "after": "Sublimes at 616°C"
+    },
+    {
+      "field": "general.crystalStructure",
+      "before": "Lục phương (Hexagonal)",
+      "after": "Arsenic xám có mạng mặt thoi (rhombohedral), có thể mô tả bằng hệ trục lục phương."
+    },
+    {
+      "field": "general.electronegativityNote",
+      "before": null,
+      "after": "Thang Pauling; số liệu tổng hợp PubChem."
+    },
+    {
+      "field": "general.groupLabel",
+      "before": null,
+      "after": "15"
+    },
+    {
+      "field": "general.meltingPoint",
+      "before": "",
+      "after": "Sublimes at 616°C"
+    },
+    {
+      "field": "general.series",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "general.state",
+      "before": "",
+      "after": "Rắn"
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/photos/033_As.jpg",
+          "title": "Asen (As)",
+          "desc": "Ảnh tham chiếu mẫu Arsenic (As); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+          "source": "https://commons.wikimedia.org/wiki/File:Arsen_1a.jpg",
+          "author": "Arsen_1.jpg : Original uploader was Tomihahndorf at de.wikipedia derivative work: Materialscientist ( talk )",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "⁷³As",
+          "massNumber": 73,
+          "protons": 33,
+          "neutrons": 40,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "80.30 ± 0.06 d",
+          "halfLife": "80.30 d",
+          "halfLifeUncertainty": "6",
+          "halfLifeQualifier": null,
+          "decay": "EC",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "⁷⁵As",
+          "massNumber": 75,
+          "protons": 33,
+          "neutrons": 42,
+          "stable": true,
+          "abundancePercent": "100",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "standard-atomic-weight"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "74.922 ± 0.001"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": [
+        {
+          "type": "model",
+          "section": "structure",
+          "title": "Mẫu khoáng vật 3D · Arsenopyrite",
+          "src": "/assets/periodic-table/minerals/arsenopyrite.glb",
+          "preview": "/assets/periodic-table/minerals/arsenopyrite.png",
+          "desc": "FeAsS. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "nameVi",
+      "before": "Arsenic",
+      "after": "Asen"
+    },
+    {
+      "field": "naturalState.alt",
+      "before": null,
+      "after": "Arsenic: ảnh tham chiếu từ Commons"
+    },
+    {
+      "field": "naturalState.caption",
+      "before": null,
+      "after": "Ảnh tham chiếu mẫu Arsenic (As); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc."
+    },
+    {
+      "field": "naturalState.credit",
+      "before": null,
+      "after": "Arsen_1.jpg : Original uploader was Tomihahndorf at de.wikipedia derivative work: Materialscientist ( talk ) · CC BY-SA 3.0"
+    },
+    {
+      "field": "naturalState.image",
+      "before": null,
+      "after": "/assets/periodic-table/photos/033_As.jpg"
+    },
+    {
+      "field": "naturalState.kind",
+      "before": null,
+      "after": "photo"
+    },
+    {
+      "field": "naturalState.source",
+      "before": null,
+      "after": "https://commons.wikimedia.org/wiki/File:Arsen_1a.jpg"
+    },
+    {
+      "field": "notes",
+      "before": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Arsenic là nguyên tố số 33, thuộc nhóm VA | chu kỳ 4 và là một á kim.</li>\n  <li>Arsenic có cấu hình electron [Ar] 3d¹⁰ 4s² 4p³, với các số Oxy hóa phổ biến là −3, +3 và +5.</li>\n  <li>Arsenic tồn tại trong tự nhiên chủ yếu dưới dạng các khoáng vật như Arsenopyrite (FeAsS), Realgar (As₄S₄) và Orpiment (As₂S₃).</li>\n  <li>Arsenic có vai trò trong công nghệ bán dẫn và sản xuất vật liệu, đặc biệt thông qua các hợp chất như Gallium arsenide (GaAs). Tuy nhiên, nhiều Arsenic compounds có độc tính cao, vì vậy việc sử dụng và xử lý chúng cần được kiểm soát nghiêm ngặt.</li>\n</ul>\n",
+      "after": "<ul class=\"element-prose-list\"><li>Arsenic là nguyên tố số 33, thuộc nhóm VA | chu kỳ 4 và là một á kim.</li><li>Arsenic có cấu hình electron [Ar] 3d¹⁰ 4s² 4p³, với các số Oxy hóa phổ biến là −3, +3 và +5.</li><li>Arsenic tồn tại trong tự nhiên chủ yếu dưới dạng các khoáng vật như Arsenopyrite (FeAsS), Realgar (As₄S₄) và Orpiment (As₂S₃).</li><li>Arsenic có vai trò trong công nghệ bán dẫn và sản xuất vật liệu, đặc biệt thông qua các hợp chất như Gallium arsenide (GaAs). Tuy nhiên, nhiều Arsenic compounds có độc tính cao, vì vậy việc sử dụng và xử lý chúng cần được kiểm soát nghiêm ngặt.</li></ul>"
+    },
+    {
+      "field": "occurrence.details",
+      "before": null,
+      "after": [
+        "Trạng thái: Arsenic là chất rắn, thường có dạng màu xám kim loại ở dạng ổn định nhất.",
+        "Có trong: Arsenopyrite (FeAsS), Realgar (As₄S₄), Orpiment (As₂S₃) và nhiều khoáng vật khác.",
+        "Đơn chất: As",
+        "Hợp chất: As₂O₃, As₂O₅, As₂S₃, As₄S₄, AsH₃, H₃AsO₄..."
+      ]
+    },
+    {
+      "field": "occurrence.mineral",
+      "before": null,
+      "after": {
+        "available": true,
+        "id": "arsenopyrite",
+        "name": "Arsenopyrite",
+        "formula": "FeAsS",
+        "habit": "prismatic",
+        "color": "#a7aaad",
+        "crystalSystem": "monoclinic",
+        "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+        "source": "https://www.handbookofmineralogy.org/",
+        "sourceSearch": "https://rruff.info/Arsenopyrite",
+        "model": "/assets/periodic-table/minerals/arsenopyrite.glb",
+        "preview": "/assets/periodic-table/minerals/arsenopyrite.png",
+        "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      }
+    },
+    {
+      "field": "physical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là á kim.</li>\n      <li>Dạng ổn định nhất có màu xám kim loại.</li>\n      <li>Giòn và dễ vỡ.</li>\n      <li>Khối lượng riêng: khoảng 5.73 g/cm³.</li>\n      <li>Không có nhiệt độ nóng chảy ở áp suất thường do thăng hoa trước khi nóng chảy.</li>\n      <li>Thăng hoa ở khoảng 615 °C.</li>\n      <li>Có nhiều dạng thù hình.</li>\n      <li>Dẫn điện kém hơn kim loại.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Là á kim.</li><li>Dạng ổn định nhất có màu xám kim loại.</li><li>Giòn và dễ vỡ.</li><li>Khối lượng riêng: khoảng 5.73 g/cm³.</li><li>Không có nhiệt độ nóng chảy ở áp suất thường do thăng hoa trước khi nóng chảy.</li><li>Thăng hoa ở khoảng 615 °C.</li><li>Có nhiều dạng thù hình.</li><li>Dẫn điện kém hơn kim loại.</li></ul>"
+    },
+    {
+      "field": "preparations.industry",
+      "before": [
+        {
+          "title": "Arsenic thường được thu hồi từ các quặng chứa Arsenic, đặc biệt là Arsenopyrite.",
+          "equation": "",
+          "desc": ""
+        },
+        {
+          "title": "Khi nung Arsenic sulfide trong không khí, có thể tạo Arsenic(III) oxide:",
+          "equation": "4As₂S₃ + 9O₂ → 2As₄O₆ + 6SO₂ <br> As₄O₆ + 6C → 4As + 6CO",
+          "desc": "Sau đó Arsenic(III) oxide được khử bằng Carbon:"
+        }
+      ],
+      "after": [
+        {
+          "title": "Arsenic thường được thu hồi từ các quặng chứa Arsenic, đặc biệt là Arsenopyrite.",
+          "desc": "Khi nung Arsenic sulfide trong không khí, có thể tạo Arsenic(III) oxide:",
+          "result": "",
+          "equations": [
+            {
+              "equation": "2As₂S₃ + 9O₂ → As₄O₆ + 6SO₂",
+              "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+              "kind": "chemical",
+              "sourceLine": 55,
+              "sourceSection": "industry",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            53,
+            54,
+            55
+          ],
+          "equation": "2As₂S₃ + 9O₂ → As₄O₆ + 6SO₂"
+        },
+        {
+          "title": "Sau đó Arsenic(III) oxide được khử bằng Carbon",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "As₄O₆ + 6C → 4As + 6CO",
+              "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+              "kind": "chemical",
+              "sourceLine": 57,
+              "sourceSection": "industry",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            56,
+            57
+          ],
+          "equation": "As₄O₆ + 6C → 4As + 6CO"
+        }
+      ]
+    },
+    {
+      "field": "preparations.lab",
+      "before": [
+        {
+          "title": "Có thể điều chế Arsenic bằng cách khử Arsenic(III) oxide bằng Carbon:",
+          "equation": "As₄O₆ + 6C → 4As + 6CO",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Có thể điều chế Arsenic bằng cách khử Arsenic(III) oxide bằng Carbon",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "As₄O₆ + 6C → 4As + 6CO",
+              "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+              "kind": "chemical",
+              "sourceLine": 60,
+              "sourceSection": "lab",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            59,
+            60
+          ],
+          "equation": "As₄O₆ + 6C → 4As + 6CO"
+        }
+      ]
+    },
+    {
+      "field": "reactions",
+      "before": [
+        {
+          "type": "Tác dụng với Oxygen",
+          "equation": "4As + 3O₂ → 2As₂O₃",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Chlorine",
+          "equation": "2As + 3Cl₂ → 2AsCl₃",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Sulfur",
+          "equation": "2As + 3S → As₂S₃",
+          "desc": ""
+        },
+        {
+          "type": "Tạo Arsenic(III) sulfide",
+          "equation": "2As³⁺ + 3H₂S → As₂S₃↓ + 6H⁺",
+          "desc": ""
+        },
+        {
+          "type": "Khử Arsenic(III) oxide",
+          "equation": "As₄O₆ + 6C → 4As + 6CO",
+          "desc": ""
+        },
+        {
+          "type": "Tạo Arsine",
+          "equation": "2As + 3H₂ → 2AsH₃",
+          "desc": ""
+        },
+        {
+          "type": "Oxy hóa Arsenic(III) oxide",
+          "equation": "2As₂O₃ + O₂ → 2As₂O₅",
+          "desc": ""
+        },
+        {
+          "type": "Arsenic(III) oxide tác dụng với kiềm",
+          "equation": "As₂O₃ + 6NaOH → 2Na₃AsO₃ + 3H₂O",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "type": "Tác dụng với Oxygen",
+          "desc": "",
+          "equation": "4As + 3O₂ → 2As₂O₃",
+          "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+          "kind": "chemical",
+          "sourceLine": 70,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Chlorine",
+          "desc": "",
+          "equation": "2As + 3Cl₂ → 2AsCl₃",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 72,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Sulfur",
+          "desc": "",
+          "equation": "2As + 3S → As₂S₃",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 74,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Arsenic(III) sulfide",
+          "desc": "",
+          "equation": "2As³⁺ + 3H₂S → As₂S₃↓ + 6H⁺",
+          "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+          "kind": "chemical",
+          "sourceLine": 76,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Khử Arsenic(III) oxide",
+          "desc": "",
+          "equation": "As₄O₆ + 6C → 4As + 6CO",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 78,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Oxy hóa Arsenic(III) oxide",
+          "desc": "",
+          "equation": "As₂O₃ + 4HNO₃ + H₂O → 2H₃AsO₄ + 4NO₂",
+          "condition": "HNO₃ đặc, tạo NO₂.",
+          "kind": "chemical",
+          "sourceLine": 82,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Arsenic(III) oxide tác dụng với kiềm",
+          "desc": "",
+          "equation": "As₂O₃ + 6NaOH → 2Na₃AsO₃ + 3H₂O",
+          "condition": "Kiềm đậm đặc, gia nhiệt hoặc nóng chảy tùy oxide; không mặc định xảy ra nhanh trong dung dịch loãng.",
+          "kind": "chemical",
+          "sourceLine": 84,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": [
+        {
+          "title": "Nhận biết",
+          "reagent": "Nhận biết As³⁺",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Cho ion As³⁺ tác dụng với Hydrogen sulfide trong môi trường acid",
+          "reagent": "",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "",
+          "result": "",
+          "equation": "2As³⁺ + 3H₂S → As₂S₃↓ + 6H⁺"
+        },
+        {
+          "title": "Hiện tượng",
+          "reagent": "",
+          "result": "Xuất hiện kết tủa vàng Arsenic(III) sulfide.",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "Nhận biết As⁵⁺",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "As⁵⁺ có thể được chuyển về As³⁺ rồi tiếp tục nhận biết thông qua sự tạo thành As₂S₃.",
+          "result": "",
+          "equation": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Nhận biết As³⁺",
+          "desc": "Cho ion As³⁺ tác dụng với Hydrogen sulfide trong môi trường acid:",
+          "result": "Xuất hiện kết tủa vàng Arsenic(III) sulfide.",
+          "equations": [
+            {
+              "equation": "2As³⁺ + 3H₂S → As₂S₃↓ + 6H⁺",
+              "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+              "kind": "chemical",
+              "sourceLine": 64,
+              "sourceSection": "recognition",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            62,
+            63,
+            64,
+            65
+          ],
+          "equation": "2As³⁺ + 3H₂S → As₂S₃↓ + 6H⁺"
+        },
+        {
+          "title": "Nhận biết As⁵⁺",
+          "desc": "As⁵⁺ có thể được chuyển về As³⁺ rồi tiếp tục nhận biết thông qua sự tạo thành As₂S₃.",
+          "result": "",
+          "equations": [],
+          "sourceLines": [
+            66,
+            67
+          ],
+          "equation": ""
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "033_As.docx",
+        "sourceSha256": "93cabcb5ac39d1ebebbc24bd5f0170d08a2f726cefe4dc93d6a5673e092a565b",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/033_As.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "033_As.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "93cabcb5ac39d1ebebbc24bd5f0170d08a2f726cefe4dc93d6a5673e092a565b"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/33/arsenic"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure.lattice",
+      "before": "Lục phương (Hexagonal)",
+      "after": "Arsenic xám có mạng mặt thoi (rhombohedral), có thể mô tả bằng hệ trục lục phương."
+    },
+    {
+      "field": "structure.latticeEvidence",
+      "before": null,
+      "after": "source-reviewed"
+    },
+    {
+      "field": "structure.nucleusIsotope",
+      "before": null,
+      "after": "⁷⁵As"
+    },
+    {
+      "field": "structure.nucleusNote",
+      "before": null,
+      "after": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác."
+    },
+    {
+      "field": "structure.valenceNote",
+      "before": null,
+      "after": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp."
+    },
+    {
+      "field": "structureType",
+      "before": "Lục phương (Hexagonal)",
+      "after": "Arsenic xám có mạng mặt thoi (rhombohedral), có thể mô tả bằng hệ trục lục phương."
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "As",
+      "status": "downloaded",
+      "file": "/assets/periodic-table/photos/033_As.jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:Arsen_1a.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Arsen_1a.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Arsen_1a.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "filename": "Arsen_1a.jpg",
+      "title": "Arsen 1a",
+      "description": ";Description: Elemental arsenic — mineral specimen.",
+      "author": "Arsen_1.jpg : Original uploader was Tomihahndorf at de.wikipedia derivative work: Materialscientist ( talk )",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "credit": "Arsen_1.jpg",
+      "sha256": "efd055aa6630ba53bc369f80c7c61808f2c53adae216c30b0ad56e4648280b38",
+      "bytes": 20886
+    },
+    "mineral": {
+      "available": true,
+      "id": "arsenopyrite",
+      "name": "Arsenopyrite",
+      "formula": "FeAsS",
+      "habit": "prismatic",
+      "color": "#a7aaad",
+      "crystalSystem": "monoclinic",
+      "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Arsenopyrite",
+      "model": "/assets/periodic-table/minerals/arsenopyrite.glb",
+      "preview": "/assets/periodic-table/minerals/arsenopyrite.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "As",
+      "z": 33,
+      "url": "https://periodic-table.rsc.org/element/33/arsenic",
+      "status": "retrieved",
+      "bytes": 159020,
+      "sha256": "3cdf3d4c08149b579270d42fa3a592969affdc8af106d6d2b2c90fb8b06ac66a",
+      "facts": {
+        "Group": "15",
+        "Melting point": "Sublimes at 616°C, 1141°F, 889 K",
+        "Period": "4",
+        "Boiling point": "Sublimes at 616°C, 1141°F, 889 K",
+        "Block": "p",
+        "Density (g cm−³)": "5.75",
+        "Atomic number": "33",
+        "Relative atomic mass": "74.922",
+        "State at 20°C": "Solid",
+        "Key isotopes": "⁷⁵As",
+        "Electron configuration": "[Ar] 3d¹⁰4s²4p³",
+        "CAS number": "7440-38-2",
+        "ChemSpider ID": "4514330",
+        "electronegativity": "2.18"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "33",
+      "Symbol": "As",
+      "Name": "Arsenic",
+      "AtomicMass": "74.92159",
+      "CPKHexColor": "BD80E3",
+      "ElectronConfiguration": "[Ar]4s2 3d10 4p3",
+      "Electronegativity": "2.18",
+      "AtomicRadius": "185",
+      "IonizationEnergy": "9.815",
+      "ElectronAffinity": "0.81",
+      "OxidationStates": "+5, +3, -3",
+      "StandardState": "Solid",
+      "MeltingPoint": "1090",
+      "BoilingPoint": "887",
+      "Density": "5.776",
+      "GroupBlock": "Metalloid",
+      "YearDiscovered": "Ancient"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

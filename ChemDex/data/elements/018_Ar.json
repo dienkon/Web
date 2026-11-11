@@ -3,35 +3,48 @@
   "symbol": "Ar",
   "nameVi": "Argon",
   "nameEn": "Argon",
-  "mass": 39.948,
+  "mass": 39.95,
+  "massStandardText": "39.95 ± 0.16",
+  "massStandardSource": "https://ciaaw.org/abridged-atomic-weights.htm",
+  "massKind": "standard-atomic-weight",
   "category": "khi-hiem",
   "hasData": true,
   "file": "elements/018_Ar.json",
   "general": {
     "latinName": "Argon",
     "englishName": "Argon",
-    "electronConfig": "1s² 2s² 2p⁶ 3s² 3p⁶",
+    "electronConfig": "[Ne] 3s² 3p⁶",
     "isotope": "³⁶Ar, ³⁷Ar, ³⁸Ar, ³⁹Ar, ⁴⁰Ar",
     "group": 18,
+    "groupLabel": "18",
+    "series": "",
     "period": 3,
-    "state": "",
+    "state": "Khí",
     "oxidation": "0",
-    "electronegativity": "Không xác định",
+    "electronegativity": null,
+    "electronegativityNote": "Chưa có giá trị Pauling đủ cơ sở trong bản đối chiếu; không coi 0 là giá trị đã đo.",
     "density": "khoảng 1.784 g/L ở 0 °C.",
     "meltingPoint": "−189.34 °C.",
     "boilingPoint": "−185.85 °C.",
-    "crystalStructure": "Lập phương tâm mặt (Face-centered cubic, FCC)"
+    "crystalStructure": "Lập phương tâm mặt (Face-centered cubic, FCC)",
+    "CAS": "7440-37-1"
   },
   "history": {
     "discoverer": "Lord Rayleigh và William Ramsay",
-    "year": 1894,
+    "year": "1894",
     "discoveryLocation": "Anh",
     "description": "Năm 1894, Lord Rayleigh và William Ramsay phát hiện Argon khi nghiên cứu Nitrogen trong không khí. Họ nhận thấy Nitrogen thu được từ không khí có khối lượng lớn hơn Nitrogen được điều chế từ các hợp chất hóa học. Sau đó, họ xác định sự tồn tại của một khí mới và đặt tên là Argon."
   },
   "structure": {
     "protons": 18,
-    "neutrons": 22,
     "electrons": 18,
+    "neutrons": 22,
+    "nucleusIsotope": "⁴⁰Ar",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 18,
+      "neutron": 22
+    },
     "electronShells": [
       2,
       8,
@@ -43,14 +56,13 @@
       8
     ],
     "valenceElectrons": 8,
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương tâm mặt (Face-centered cubic, FCC)",
-    "nucleus": {
-      "proton": 18,
-      "neutron": 22
-    }
+    "latticeEvidence": "source-reviewed"
   },
+  "structureType": "Lập phương tâm mặt (Face-centered cubic, FCC)",
   "occurrence": {
-    "description": "Khí không màu, không mùi ở điều kiện thường. Argon là khí hiếm phổ biến thứ ba trong khí quyển Trái Đất.",
+    "description": "Khí đơn nguyên tử không màu, không mùi. Argon là khí phổ biến thứ ba trong khí quyển khô Trái Đất, sau N₂ và O₂.",
     "simple": [
       "Ar"
     ],
@@ -61,78 +73,255 @@
     "ores": [
       "Khí quyển",
       "một lượng rất nhỏ trong nước và một số khoáng vật"
-    ]
+    ],
+    "details": [
+      "Trạng thái: Khí đơn nguyên tử không màu, không mùi. Argon là khí phổ biến thứ ba trong khí quyển khô Trái Đất, sau N₂ và O₂.",
+      "Có trong: Khí quyển, một lượng rất nhỏ trong nước và một số khoáng vật.",
+      "Đơn chất: Ar",
+      "Hợp chất: Rất ít hợp chất bền; Argon chủ yếu tồn tại dưới dạng nguyên tử Ar tự do."
+    ],
+    "mineral": {
+      "available": false,
+      "reason": "Nguồn chủ yếu là khí quyển, nước hoặc nước muối; không có mẫu quặng riêng đại diện."
+    }
   },
-  "naturalState": {},
-  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là chất khí không màu, không mùi, không vị.</li>\n      <li>Thuộc nhóm khí hiếm.</li>\n      <li>Khối lượng riêng: khoảng 1.784 g/L ở 0 °C.</li>\n      <li>Nhiệt độ nóng chảy: −189.34 °C.</li>\n      <li>Nhiệt độ sôi: −185.85 °C.</li>\n      <li>Ít tan trong nước.</li>\n      <li>Không cháy.</li>\n      <li>Nặng hơn không khí.</li>\n      <li>Có tính dẫn nhiệt thấp.</li>\n    </ul>\n  ",
-  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là khí hiếm, có độ hoạt động hóa học rất thấp.</li>\n      <li>Có lớp electron hóa trị bão hòa.</li>\n      <li>Hầu như không phản ứng với các nguyên tố khác ở điều kiện thường.</li>\n      <li>Không duy trì sự cháy.</li>\n      <li>Không dễ tạo ion hoặc hợp chất hóa học.</li>\n      <li>Có thể tạo một số loài hóa học trong điều kiện đặc biệt.</li>\n    </ul>\n  ",
+  "naturalState": {
+    "image": "/assets/periodic-table/diagrams/018_Ar.svg",
+    "alt": "Argon: sơ đồ minh họa nguyên tố",
+    "kind": "diagram",
+    "source": "",
+    "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+    "credit": ""
+  },
+  "isotopes": [
+    {
+      "isotope": "³⁶Ar",
+      "massNumber": 36,
+      "protons": 18,
+      "neutrons": 18,
+      "stable": true,
+      "abundancePercent": "0.3336",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "³⁷Ar",
+      "massNumber": 37,
+      "protons": 18,
+      "neutrons": 19,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "35.011 ± 0.019 d",
+      "halfLife": "35.011 d",
+      "halfLifeUncertainty": "19",
+      "halfLifeQualifier": null,
+      "decay": "EC",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "³⁸Ar",
+      "massNumber": 38,
+      "protons": 18,
+      "neutrons": 20,
+      "stable": true,
+      "abundancePercent": "0.0629",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "³⁹Ar",
+      "massNumber": 39,
+      "protons": 18,
+      "neutrons": 21,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "268 ± 8 năm",
+      "halfLife": "268 Y",
+      "halfLifeUncertainty": "8",
+      "halfLifeQualifier": null,
+      "decay": "B-",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "⁴⁰Ar",
+      "massNumber": 40,
+      "protons": 18,
+      "neutrons": 22,
+      "stable": true,
+      "abundancePercent": "99.6035",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Là chất khí không màu, không mùi, không vị.</li><li>Thuộc nhóm khí hiếm.</li><li>Khối lượng riêng: khoảng 1.784 g/L ở 0 °C.</li><li>Nhiệt độ nóng chảy: −189.34 °C.</li><li>Nhiệt độ sôi: −185.85 °C.</li><li>Ít tan trong nước.</li><li>Không cháy.</li><li>Nặng hơn không khí.</li><li>Có tính dẫn nhiệt thấp.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Là khí hiếm, có độ hoạt động hóa học rất thấp.</li><li>Có lớp electron hóa trị bão hòa.</li><li>Hầu như không phản ứng với các nguyên tố khác ở điều kiện thường.</li><li>Không duy trì sự cháy.</li><li>Không dễ tạo ion hoặc hợp chất hóa học.</li><li>Có thể tạo một số loài hóa học trong điều kiện đặc biệt.</li></ul>",
   "reactions": [
     {
-      "type": "Argon gần như không tham gia các phản ứng hóa học thông thường.",
+      "type": "Ion hóa Argon",
+      "desc": "",
       "equation": "Ar → Ar⁺ + e⁻",
-      "desc": "Ion hóa Argon:"
+      "condition": "Kích thích, ion hóa hoặc kết hợp bức xạ trong pha khí; cần cung cấp/trao đổi năng lượng.",
+      "kind": "physical",
+      "sourceLine": 67,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
-      "type": "Argon gần như không tham gia các phản ứng hóa học thông thường.",
+      "type": "Tạo ion trong điều kiện năng lượng cao",
+      "desc": "",
       "equation": "Ar + e⁻ → Ar⁺ + 2e⁻",
-      "desc": "Tạo ion trong điều kiện năng lượng cao:"
+      "condition": "Kích thích, ion hóa hoặc kết hợp bức xạ trong pha khí; cần cung cấp/trao đổi năng lượng.",
+      "kind": "physical",
+      "sourceLine": 69,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     }
   ],
-  "applications": [
-    {
-      "title": "Hàn",
-      "desc": "Argon được sử dụng làm khí bảo vệ trong hàn hồ quang để ngăn kim loại nóng chảy tiếp xúc với Oxygen và Nitrogen trong không khí."
-    },
-    {
-      "title": "Công nghiệp luyện kim",
-      "desc": "Dùng làm môi trường khí trơ trong một số quá trình xử lý kim loại."
-    },
-    {
-      "title": "Bóng đèn",
-      "desc": "Argon được sử dụng trong bóng đèn sợi đốt để hạn chế sự oxy hóa của dây tóc."
-    },
-    {
-      "title": "Sản xuất chất bán dẫn",
-      "desc": "Được sử dụng làm khí bảo vệ trong quá trình sản xuất Silicon và các linh kiện điện tử."
-    },
-    {
-      "title": "Cửa sổ cách nhiệt",
-      "desc": "Argon được bơm vào giữa các lớp kính để cải thiện khả năng cách nhiệt."
-    },
-    {
-      "title": "Laser",
-      "desc": "Argon được sử dụng trong một số loại laser khí."
-    }
-  ],
-  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Argon là nguyên tố số 18, thuộc nhóm VIIIA | chu kỳ 3 và là một khí hiếm.</li>\n  <li>Argon có cấu hình electron 1s² 2s² 2p⁶ 3s² 3p⁶, với lớp electron ngoài cùng đã bão hòa. Vì vậy Argon có độ hoạt động hóa học rất thấp và số Oxy hóa phổ biến là 0.</li>\n  <li>Argon tồn tại dưới dạng nguyên tử Ar đơn nguyên tử, không tạo phân tử Ar₂ trong điều kiện thông thường. Trong khí quyển, Argon chiếm khoảng 0.934% thể tích không khí khô, là khí hiếm phổ biến nhất trong khí quyển Trái Đất.</li>\n  <li>Argon có vai trò quan trọng trong hàn, luyện kim, sản xuất bóng đèn, chất bán dẫn, cửa sổ cách nhiệt và công nghệ laser.</li>\n</ul>\n",
   "preparations": {
-    "lab": [],
+    "lab": [
+      {
+        "title": "Argon không thường được điều chế trong phòng thí nghiệm vì nó có sẵn trong không khí và có thể được tách bằng phương pháp công nghiệp.",
+        "desc": "",
+        "result": "",
+        "equations": [],
+        "sourceLines": [
+          60
+        ],
+        "equation": ""
+      }
+    ],
     "industry": [
       {
         "title": "Argon được sản xuất chủ yếu bằng cách chưng cất phân đoạn không khí lỏng.",
-        "equation": "",
-        "desc": ""
-      },
-      {
-        "title": "Không khí được hóa lỏng, sau đó các thành phần được tách dựa trên sự khác nhau về nhiệt độ sôi. Argon có nhiệt độ sôi nằm giữa Nitrogen và Oxygen nên có thể được tách ra trong quá trình này.",
-        "equation": "",
-        "desc": ""
+        "desc": "Không khí được hóa lỏng, sau đó các thành phần được tách dựa trên sự khác nhau về nhiệt độ sôi. Argon có nhiệt độ sôi nằm giữa Nitrogen và Oxygen nên có thể được tách ra trong quá trình này.",
+        "result": "",
+        "equations": [],
+        "sourceLines": [
+          57,
+          58
+        ],
+        "equation": ""
       }
     ]
   },
   "recognition": [
     {
-      "title": "Argon",
-      "reagent": "",
-      "result": "Không có phản ứng hóa học đặc trưng đơn giản để nhận biết Argon trong điều kiện phổ thông.",
-      "equation": ""
-    },
-    {
-      "title": "Nhận biết",
-      "reagent": "Có thể nhận biết bằng phổ phát xạ. Khi Argon bị kích thích bởi dòng điện, nó phát ra ánh sáng có các vạch phổ đặc trưng.",
+      "title": "Argon: Không có phản ứng hóa học đặc trưng đơn giản để nhận biết Argon trong điều kiện phổ thông.",
+      "desc": "Có thể nhận biết bằng phổ phát xạ. Khi Argon bị kích thích bởi dòng điện, nó phát ra ánh sáng có các vạch phổ đặc trưng.",
       "result": "",
+      "equations": [],
+      "sourceLines": [
+        62,
+        63
+      ],
       "equation": ""
     }
   ],
-  "structureType": "Lập phương tâm mặt (Face-centered cubic, FCC)"
+  "applications": [
+    {
+      "title": "Hàn",
+      "desc": "Argon được sử dụng làm khí bảo vệ trong hàn hồ quang để ngăn kim loại nóng chảy tiếp xúc với Oxygen và Nitrogen trong không khí.",
+      "sourceLine": 72
+    },
+    {
+      "title": "Công nghiệp luyện kim",
+      "desc": "Dùng làm môi trường khí trơ trong một số quá trình xử lý kim loại.",
+      "sourceLine": 73
+    },
+    {
+      "title": "Bóng đèn",
+      "desc": "Argon được sử dụng trong bóng đèn sợi đốt để hạn chế sự oxy hóa của dây tóc.",
+      "sourceLine": 74
+    },
+    {
+      "title": "Sản xuất chất bán dẫn",
+      "desc": "Được sử dụng làm khí bảo vệ trong quá trình sản xuất Silicon và các linh kiện điện tử.",
+      "sourceLine": 75
+    },
+    {
+      "title": "Cửa sổ cách nhiệt",
+      "desc": "Argon được bơm vào giữa các lớp kính để cải thiện khả năng cách nhiệt.",
+      "sourceLine": 76
+    },
+    {
+      "title": "Laser",
+      "desc": "Argon được sử dụng trong một số loại laser khí.",
+      "sourceLine": 77
+    }
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Argon là nguyên tố số 18, thuộc nhóm VIIIA | chu kỳ 3 và là một khí hiếm.</li><li>Argon có cấu hình electron 1s² 2s² 2p⁶ 3s² 3p⁶, với lớp electron ngoài cùng đã bão hòa. Vì vậy Argon có độ hoạt động hóa học rất thấp và số Oxy hóa phổ biến là 0.</li><li>Argon tồn tại dưới dạng nguyên tử Ar đơn nguyên tử, không tạo phân tử Ar₂ trong điều kiện thông thường. Trong khí quyển, Argon chiếm khoảng 0.934% thể tích không khí khô, là khí hiếm phổ biến nhất trong khí quyển Trái Đất.</li><li>Argon có vai trò quan trọng trong hàn, luyện kim, sản xuất bóng đèn, chất bán dẫn, cửa sổ cách nhiệt và công nghệ laser.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/diagrams/018_Ar.svg",
+      "title": "Argon (Ar)",
+      "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+      "source": "",
+      "author": "ChemDex",
+      "license": "ChemDex schematic diagram",
+      "licenseUrl": ""
+    }
+  ],
+  "mediaBlocks": [],
+  "sources": [
+    {
+      "title": "018_Ar.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "399c57f1bd12a0d8157462701adbce481e844e148c56e3c0e8e4386416ee095b"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/18/argon"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "018_Ar.docx",
+    "sourceSha256": "399c57f1bd12a0d8157462701adbce481e844e148c56e3c0e8e4386416ee095b",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/018_Ar.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
 }

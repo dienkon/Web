@@ -1,0 +1,89 @@
+001: Darmstadtium (Ds)
+002: Thông tin chung
+003: Tên Latin: Darmstadtium
+004: Tên Tiếng Anh: Darmstadtium
+005: Đồng vị: ²⁶⁷Ds, ²⁶⁹Ds, ²⁷⁰Ds, ²⁷¹Ds, ²⁷³Ds, ²⁷⁵Ds, ²⁷⁶Ds, ²⁷⁷Ds, ²⁷⁹Ds
+006: Vị trí: Nhóm VIIIB | Chu kỳ 7
+007: Số Oxy hóa: +2, +4, +6, +8 (dự đoán)
+008: Độ âm điện: Không xác định
+009: Lịch sử khám phá
+010: Phát hiện bởi: Nhóm nghiên cứu tại Gesellschaft für Schwerionenforschung (GSI)
+011: Năm công bố: 1994
+012: Nơi khám phá: Darmstadt, Đức
+013: Mô tả: Darmstadtium được tổng hợp lần đầu vào ngày 9/11/1994 tại GSI bằng cách bắn phá Nickel-62 vào Lead-208:
+014: ²⁰⁸Pb + ⁶²Ni → ²⁶⁹Ds + n
+015: Tên Darmstadtium được đặt theo Darmstadt, thành phố nơi GSI tiến hành thí nghiệm phát hiện nguyên tố.
+016: 3. Cấu tạo
+017: a. Cấu tạo nguyên tử
+018: Hoạt họa cấu hình e: [Rn] 5f¹⁴ 6d⁸ 7s² (dự đoán)
+019: Mô hình mạng tinh thể: Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)
+020: Số hiệu nguyên tử: 110
+021: Nguyên tử khối: [281] g/mol
+022: Vỏ nguyên tử: 110 electron
+023: Hạt nhân: 110 proton
+024: Cấu hình e: [Rn] 5f¹⁴ 6d⁸ 7s² (dự đoán)
+025: Loại mạng: Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)
+026: b. Trạng thái tự nhiên
+027: Trạng thái: Chất rắn (dự đoán)
+028: Có trong: Không tồn tại tự nhiên với lượng đáng kể. Darmstadtium chỉ được tổng hợp nhân tạo.
+029: Đơn chất: Ds
+030: Hợp chất: DsO₂, DsCl₄... (dự đoán)
+031: c. Đồng vị
+032: Darmstadtium không có đồng vị bền.
+033: Một số đồng vị:
+034: ²⁶⁷Ds: chu kỳ bán rã khoảng 3,1 giây.
+035: ²⁶⁹Ds: chu kỳ bán rã khoảng 0,18 giây.
+036: ²⁷⁰Ds: chu kỳ bán rã khoảng 0,1 giây.
+037: ²⁷¹Ds: chu kỳ bán rã khoảng 0,1 giây.
+038: ²⁷⁶Ds: chu kỳ bán rã khoảng 0,1 giây.
+039: Các đồng vị Darmstadtium chủ yếu phân rã bằng phân rã Alpha.
+040: Tính chất
+041: Tính chất vật lý
+042: Là kim loại chuyển tiếp.
+043: Thuộc nhóm VIIIB | chu kỳ 7.
+044: Là nguyên tố siêu nặng.
+045: Có tính phóng xạ cực mạnh.
+046: Được dự đoán là chất rắn ở điều kiện thường.
+047: Có thể có khối lượng riêng rất lớn.
+048: Nhiệt độ nóng chảy và nhiệt độ sôi chưa được xác định thực nghiệm.
+049: Tính chất hóa học
+050: Được dự đoán có tính chất tương tự Platinum (Pt).
+051: Có thể có nhiều số Oxy hóa, trong đó +2 và +4 có thể tương đối quan trọng.
+052: Các hiệu ứng tương đối tính mạnh có thể ảnh hưởng đáng kể đến tính chất hóa học.
+053: Hầu hết tính chất hóa học của Darmstadtium vẫn là dự đoán lý thuyết.
+054: Điều chế
+055: Điều chế trong công nghiệp:
+056: Darmstadtium (Ds) không được sản xuất công nghiệp do tính phóng xạ rất cao và thời gian bán rã ngắn. Nguyên tố này chỉ được tổng hợp với lượng cực nhỏ trong các cơ sở nghiên cứu hạt nhân.
+057: Điều chế trong phòng thí nghiệm:
+058: Darmstadtium được tổng hợp bằng cách bắn phá Lead-208 bằng ion Nickel-62 trong máy gia tốc hạt.
+059: ²⁰⁸Pb + ⁶²Ni → ²⁶⁹Ds + ¹n
+060: Nhận biết
+061: Darmstadtium được nhận biết thông qua:
+062: Năng lượng của các hạt Alpha.
+063: Chu kỳ bán rã.
+064: Chuỗi phân rã phóng xạ.
+065: Xác định các hạt nhân con.
+066: So sánh chuỗi phân rã với các đồng vị đã biết.
+067: Không thể nhận biết bằng các phản ứng hóa học thông thường vì chỉ tạo được một lượng cực kỳ nhỏ nguyên tử Ds.
+068: Phương trình
+069: Tổng hợp Darmstadtium-269
+070: ²⁰⁸Pb + ⁶²Ni → ²⁶⁹Ds + n
+071: Phân rã Alpha
+072: ²⁷¹Ds → ²⁶⁷Hs + ⁴He
+073: Tạo Darmstadtium(IV) chloride
+074: Ds + 2Cl₂ → DsCl₄
+075: Tạo Darmstadtium(IV) oxide
+076: Ds + O₂ → DsO₂
+077: Các phương trình hóa học của Darmstadtium chủ yếu mang tính dự đoán.
+078: Ứng dụng thực tế
+079: Darmstadtium không có ứng dụng công nghiệp hoặc dân dụng.
+080: Chủ yếu được sử dụng trong:
+081: Nghiên cứu hạt nhân: Nghiên cứu tính ổn định của các hạt nhân siêu nặng.
+082: Hóa học nguyên tố siêu nặng: So sánh Darmstadtium với Platinum, nguyên tố cùng nhóm.
+083: Nghiên cứu hiệu ứng tương đối tính: Tìm hiểu ảnh hưởng của số hiệu nguyên tử rất lớn đến cấu trúc electron và tính chất hóa học.
+084: Tổng quan
+085: Darmstadtium là nguyên tố số 110, thuộc nhóm VIIIB | chu kỳ 7 và là một kim loại chuyển tiếp siêu nặng.
+086: Darmstadtium được phát hiện tại Darmstadt, Đức vào năm 1994 bằng phản ứng giữa Lead-208 và Nickel-62. Tên nguyên tố được đặt theo thành phố Darmstadt.
+087: Cấu hình electron được dự đoán là [Rn] 5f¹⁴ 6d⁸ 7s². Darmstadtium được dự đoán có một số đặc điểm tương tự Platinum, nhưng các hiệu ứng tương đối tính có thể làm thay đổi đáng kể hóa học của nguyên tố.
+088: Darmstadtium không có đồng vị bền, có tính phóng xạ rất mạnh và chỉ tạo được một lượng cực nhỏ. Vì vậy, nó không có ứng dụng thực tế, chủ yếu phục vụ nghiên cứu khoa học.
+089: Mạng tinh thể: Lập phương tâm khối (BCC) — dự đoán, vì chưa thể thu được lượng Darmstadtium đủ lớn để xác định trực tiếp cấu trúc tinh thể.

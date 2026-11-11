@@ -1,0 +1,97 @@
+001: Potassium (K)
+002: Thông tin chung
+003: Tên Latin: Kalium
+004: Tên Tiếng Anh: Potassium
+005: Đồng vị: ³⁹K, ⁴⁰K, ⁴¹K
+006: Vị trí: Nhóm IA | Chu kỳ 4
+007: Số Oxy hóa: +1
+008: Độ âm điện: 0.82
+009: Lịch sử khám phá
+010: Phát hiện bởi: Humphry Davy
+011: Năm công bố: 1807
+012: Nơi khám phá: Anh
+013: Mô tả: Năm 1807, Humphry Davy điều chế được Potassium kim loại bằng phương pháp điện phân Potassium hydroxide nóng chảy. Đây là một trong những kim loại kiềm đầu tiên được Davy tách thành công ở dạng đơn chất.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: 1s² 2s² 2p⁶ 3s² 3p⁶ 4s¹
+017: Mô hình mạng tinh thể: Lập phương tâm khối (Body-centered cubic, BCC)
+018: Số hiệu nguyên tử: 19
+019: Nguyên tử khối: 39.0983 g/mol
+020: Vỏ nguyên tử: 19 electron
+021: K: 2 | L: 8 | M: 8 | N: 1
+022: Hạt nhân: 19 proton, 20 neutron đối với ³⁹K
+023: Cấu hình e: 1s² 2s² 2p⁶ 3s² 3p⁶ 4s¹
+024: Loại mạng: Lập phương tâm khối (Body-centered cubic, BCC)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Potassium là kim loại rắn, mềm, màu trắng bạc ở điều kiện thường. Do hoạt động hóa học rất mạnh nên không tồn tại tự do trong tự nhiên.
+027: Có trong: Khoáng vật, đất, nước biển và các mô sinh vật.
+028: Đơn chất: K
+029: Hợp chất: KCl, KOH, K₂CO₃, KNO₃, K₂SO₄...
+030: c. Đồng vị
+031: Đồng vị: ³⁹K, ⁴⁰K, ⁴¹K
+032: ³⁹K: Đồng vị bền, chiếm khoảng 93.26%.
+033: ⁴⁰K: Đồng vị phóng xạ tự nhiên, chiếm khoảng 0.012%.
+034: ⁴¹K: Đồng vị bền, chiếm khoảng 6.73%.
+035: Tính chất
+036: Tính chất vật lý
+037: Là kim loại kiềm.
+038: Là chất rắn màu trắng bạc.
+039: Rất mềm, có thể cắt bằng dao.
+040: Khối lượng riêng: khoảng 0.862 g/cm³.
+041: Nhẹ hơn nước.
+042: Nhiệt độ nóng chảy: 63.38 °C.
+043: Nhiệt độ sôi: 759 °C.
+044: Dẫn điện và dẫn nhiệt tốt.
+045: Bề mặt nhanh chóng bị oxy hóa khi tiếp xúc với không khí.
+046: Tính chất hóa học
+047: Có tính khử rất mạnh.
+048: Hoạt động hóa học mạnh hơn Sodium.
+049: Dễ nhường 1 electron để tạo K⁺.
+050: Phản ứng mạnh với nước tạo Potassium hydroxide và Hydrogen.
+051: Phản ứng với Oxygen tạo các Potassium oxide và peroxide/superoxide tùy điều kiện.
+052: Phản ứng với Halogen tạo Potassium halide.
+053: Phản ứng với Hydrogen tạo Potassium hydride.
+054: Phản ứng với nhiều acid tạo muối và Hydrogen.
+055: Điều chế
+056: Điều chế trong công nghiệp
+057: Potassium được điều chế bằng điện phân Potassium hydroxide nóng chảy:
+058: 4KOH → 4K + O₂ + 2H₂O
+059: Trong thực tế, việc sản xuất Potassium kim loại cần điều kiện đặc biệt để hạn chế phản ứng của Potassium với nước và các sản phẩm phụ.
+060: Điều chế trong phòng thí nghiệm
+061: Potassium kim loại không thường được điều chế trong phòng thí nghiệm phổ thông do tính hoạt động hóa học rất mạnh.
+062: Về nguyên tắc, có thể điều chế bằng phương pháp điện phân muối nóng chảy hoặc các phương pháp khử thích hợp.
+063: Nhận biết
+064: Nhận biết ion Potassium (K⁺)
+065: Thử ngọn lửa: Potassium tạo màu tím nhạt trong phép thử ngọn lửa.
+066: Do màu tím có thể bị che bởi màu vàng của Sodium, phép thử chính xác hơn thường sử dụng kính cobalt hoặc các phương pháp phân tích quang phổ.
+067: Phương trình
+068: Tác dụng với nước
+069: 2K + 2H₂O → 2KOH + H₂↑
+070: Tác dụng với Oxygen
+071: 4K + O₂ → 2K₂O
+072: Trong Oxygen dư, Potassium có thể tạo superoxide:
+073: K + O₂ → KO₂
+074: Tác dụng với Hydrogen
+075: 2K + H₂ → 2KH
+076: Tác dụng với Chlorine
+077: 2K + Cl₂ → 2KCl
+078: Tác dụng với Bromine
+079: 2K + Br₂ → 2KBr
+080: Tác dụng với Iodine
+081: 2K + I₂ → 2KI
+082: Tác dụng với Hydrochloric acid
+083: 2K + 2HCl → 2KCl + H₂↑
+084: Tạo Potassium hydroxide
+085: K₂O + H₂O → 2KOH
+086: Ứng dụng thực tế
+087: Phân bón: Potassium compounds là nguồn Potassium quan trọng trong sản xuất phân bón.
+088: Sản xuất hóa chất: KOH, K₂CO₃ và nhiều Potassium compounds được sử dụng trong công nghiệp hóa chất.
+089: Xà phòng: Potassium hydroxide được sử dụng để sản xuất một số loại xà phòng mềm và lỏng.
+090: Thủy tinh: Một số Potassium compounds được sử dụng trong sản xuất thủy tinh đặc biệt.
+091: Thuốc súng và pháo hoa: Potassium nitrate và một số Potassium compounds có ứng dụng trong các sản phẩm tạo hiệu ứng hóa học.
+092: Sinh học: Potassium ion (K⁺) đóng vai trò quan trọng trong hoạt động của tế bào, thần kinh và cơ bắp.
+093: Tổng quan
+094: Potassium là nguyên tố số 19, thuộc nhóm IA | chu kỳ 4 và là một kim loại kiềm.
+095: Potassium có cấu hình electron 1s² 2s² 2p⁶ 3s² 3p⁶ 4s¹, với một electron hóa trị. Vì electron này dễ bị mất nên Potassium có tính khử rất mạnh và gần như luôn có số Oxy hóa +1 trong hợp chất.
+096: Potassium không tồn tại tự do trong tự nhiên mà chủ yếu tồn tại dưới dạng muối và khoáng vật. Ion K⁺ cũng là một chất điện giải thiết yếu đối với sinh vật.
+097: Potassium và các hợp chất của nó có vai trò quan trọng trong sản xuất phân bón, hóa chất, xà phòng, thủy tinh và nhiều quá trình sinh học.

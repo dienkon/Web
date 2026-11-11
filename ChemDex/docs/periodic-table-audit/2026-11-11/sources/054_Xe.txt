@@ -1,0 +1,83 @@
+001: Xenon (Xe)
+002: Thông tin chung
+003: Tên Latin: Xenon
+004: Tên Tiếng Anh: Xenon
+005: Đồng vị: ¹²⁴Xe, ¹²⁶Xe, ¹²⁸Xe, ¹²⁹Xe, ¹³⁰Xe, ¹³¹Xe, ¹³²Xe, ¹³⁴Xe, ¹³⁶Xe
+006: Vị trí: Nhóm VIIIA | Chu kỳ 5
+007: Số Oxy hóa: 0, +2, +4, +6, +8
+008: Độ âm điện: 2.60
+009: Lịch sử khám phá
+010: Phát hiện bởi: William Ramsay và Morris Travers
+011: Năm công bố: 1898
+012: Nơi khám phá: Anh
+013: Mô tả: Năm 1898, William Ramsay và Morris Travers phát hiện Xenon khi nghiên cứu phần cặn còn lại sau khi tách các khí khác khỏi không khí hóa lỏng. Tên Xenon bắt nguồn từ tiếng Hy Lạp xenos, nghĩa là “xa lạ” hoặc “người khách”.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Kr] 4d¹⁰ 5s² 5p⁶
+017: Mô hình mạng tinh thể: Lập phương tâm mặt (Face-centered cubic, FCC)
+018: Số hiệu nguyên tử: 54
+019: Nguyên tử khối: 131.293 g/mol
+020: Vỏ nguyên tử: 54 electron
+021: K: 2 | L: 8 | M: 18 | N: 18 | O: 8
+022: Hạt nhân: 54 proton, 77 neutron đối với ¹³¹Xe
+023: Cấu hình e: [Kr] 4d¹⁰ 5s² 5p⁶
+024: Loại mạng: Lập phương tâm mặt (Face-centered cubic, FCC)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Xenon là khí không màu, không mùi ở điều kiện thường.
+027: Có trong: Tồn tại với hàm lượng rất nhỏ trong khí quyển Trái Đất.
+028: Đơn chất: Xe
+029: Hợp chất: XeF₂, XeF₄, XeF₆, XeO₃, XeO₄...
+030: c. Đồng vị
+031: Đồng vị: ¹²⁴Xe, ¹²⁶Xe, ¹²⁸Xe, ¹²⁹Xe, ¹³⁰Xe, ¹³¹Xe, ¹³²Xe, ¹³⁴Xe, ¹³⁶Xe
+032: Xenon có 9 đồng vị tự nhiên, trong đó một số đồng vị có tính phóng xạ cực yếu.
+033: Ngoài ra còn có nhiều đồng vị phóng xạ nhân tạo.
+034: Tính chất
+035: Tính chất vật lý
+036: Là khí hiếm, thuộc nhóm VIIIA.
+037: Không màu, không mùi.
+038: Tồn tại dạng khí đơn nguyên tử.
+039: Khối lượng riêng của khí ở điều kiện tiêu chuẩn: khoảng 5.9 g/L.
+040: Nhiệt độ nóng chảy: khoảng −111.8 °C.
+041: Nhiệt độ sôi: khoảng −108.1 °C.
+042: Không cháy.
+043: Có khả năng phát ánh sáng xanh tím khi bị kích thích bằng điện.
+044: Tính chất hóa học
+045: Ở trạng thái cơ bản, Xenon có số Oxy hóa 0.
+046: Có thể tạo hợp chất với Fluorine và Oxygen.
+047: Có các số Oxy hóa dương như +2, +4, +6 và +8 trong một số hợp chất.
+048: Kém hoạt động hóa học hơn hầu hết các nguyên tố.
+049: Có thể tạo nhiều hợp chất đặc biệt như Xenon difluoride (XeF₂), Xenon tetrafluoride (XeF₄) và Xenon hexafluoride (XeF₆).
+050: Điều chế
+051: Điều chế trong công nghiệp
+052: Xenon (Xe) được thu hồi từ không khí hóa lỏng trong quá trình sản xuất Oxygen và Nitrogen. Do có hàm lượng rất thấp trong không khí, Xenon được tách bằng phương pháp chưng cất phân đoạn và các công đoạn tinh chế khí.
+053: Không có phương trình phản ứng hóa học vì đây là quá trình tách hỗn hợp khí.
+054: Điều chế trong phòng thí nghiệm
+055: Xenon không được điều chế bằng phản ứng hóa học thông thường mà được thu hồi từ hỗn hợp khí chứa Xenon, sau đó tinh chế bằng các phương pháp vật lý.
+056: Không có phương trình phản ứng hóa học.
+057: Nhận biết
+058: Xenon không có phản ứng hóa học đơn giản, đặc trưng để nhận biết trong điều kiện thông thường.
+059: Một phương pháp nhận biết là dựa vào phổ phát xạ:
+060: Hiện tượng: Khi bị kích thích bằng điện, Xenon phát ra ánh sáng đặc trưng, có thể quan sát dưới dạng ánh sáng xanh tím/trắng.
+061: Phương trình
+062: Tác dụng với Fluorine
+063: Xe + F₂ → XeF₂
+064: Tạo Xenon tetrafluoride
+065: Xe + 2F₂ → XeF₄
+066: Tạo Xenon hexafluoride
+067: Xe + 3F₂ → XeF₆
+068: Xenon difluoride thủy phân
+069: 2XeF₂ + 2H₂O → 2Xe + 4HF + O₂
+070: Xenon trioxide phân hủy
+071: 2XeO₃ → 2Xe + 3O₂
+072: Ứng dụng thực tế
+073: Đèn Xenon: Xenon được sử dụng trong đèn flash, đèn chiếu sáng cường độ cao và một số loại đèn pha.
+074: Laser: Xenon được sử dụng trong một số hệ thống laser excimer.
+075: Y học: Xenon có thể được sử dụng trong một số nghiên cứu và ứng dụng y học chuyên biệt.
+076: Nhiếp ảnh: Đèn flash Xenon tạo ra ánh sáng mạnh trong thời gian rất ngắn.
+077: Động cơ ion: Xenon được sử dụng làm chất đẩy trong một số hệ thống động cơ ion của tàu vũ trụ.
+078: Nghiên cứu khoa học: Xenon được sử dụng trong các thí nghiệm vật lý và hóa học, bao gồm nghiên cứu vật chất tối và neutrino.
+079: Tổng quan
+080: Xenon là nguyên tố số 54, thuộc nhóm VIIIA | chu kỳ 5 và là một khí hiếm.
+081: Xenon có cấu hình electron [Kr] 4d¹⁰ 5s² 5p⁶, với lớp electron ngoài cùng đã bão hòa nên ở điều kiện thường rất ít phản ứng hóa học.
+082: Xenon là khí không màu, không mùi, tồn tại với hàm lượng rất nhỏ trong khí quyển. Điểm đặc biệt của Xenon là dù thuộc khí hiếm, nó vẫn có thể tạo ra các hợp chất với Fluorine và Oxygen.
+083: Xenon có nhiều ứng dụng trong đèn chiếu sáng, đèn flash, laser, y học, động cơ ion và nghiên cứu khoa học.

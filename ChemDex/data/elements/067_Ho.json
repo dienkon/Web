@@ -1,0 +1,355 @@
+{
+  "number": 67,
+  "symbol": "Ho",
+  "nameVi": "Holmium",
+  "nameEn": "Holmium",
+  "mass": 164.93,
+  "massStandardText": "164.93 ± 0.01",
+  "massStandardSource": "https://ciaaw.org/abridged-atomic-weights.htm",
+  "massKind": "standard-atomic-weight",
+  "category": "lanthanide",
+  "hasData": true,
+  "file": "elements/067_Ho.json",
+  "general": {
+    "latinName": "Holmium",
+    "englishName": "Holmium",
+    "electronConfig": "[Xe] 4f¹¹ 6s²",
+    "isotope": "¹⁶⁵Ho",
+    "group": null,
+    "groupLabel": "Lanthanide",
+    "series": "Lanthanide",
+    "period": 6,
+    "state": "Rắn",
+    "oxidation": "+3",
+    "electronegativity": 1.23,
+    "electronegativityNote": "Thang Pauling; số liệu tổng hợp PubChem.",
+    "density": "8,79 g/cm³.",
+    "meltingPoint": "1472°C",
+    "boilingPoint": "2700°C",
+    "crystalStructure": "Lục phương xếp chặt (HCP)",
+    "CAS": "7440-60-0"
+  },
+  "history": {
+    "discoverer": "Per Teodor Cleve",
+    "year": "1879",
+    "discoveryLocation": "Uppsala, Thụy Điển",
+    "description": "Năm 1879, nhà hóa học Thụy Điển Per Teodor Cleve tiến hành phân tích Erbia và nhận thấy nó chứa nhiều nguyên tố khác nhau. Ông tách được hai oxide mới và đặt tên chúng là Holmia và Thulia. Holmium được xác định từ Holmia. Đồng thời, Marc Delafontaine và Jacques-Louis Soret cũng độc lập quan sát được các vạch phổ đặc trưng của nguyên tố này. Tên Holmium bắt nguồn từ Holmia, tên Latin của Stockholm, thủ đô Thụy Điển."
+  },
+  "structure": {
+    "protons": 67,
+    "electrons": 67,
+    "neutrons": 98,
+    "nucleusIsotope": "¹⁶⁵Ho",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 67,
+      "neutron": 98
+    },
+    "electronShells": [
+      2,
+      8,
+      18,
+      29,
+      8,
+      2
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      29,
+      8,
+      2
+    ],
+    "valenceElectrons": 2,
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+    "lattice": "Lục phương xếp chặt (HCP)",
+    "latticeEvidence": "source-reviewed"
+  },
+  "structureType": "Lục phương xếp chặt (HCP)",
+  "occurrence": {
+    "description": "Chất rắn",
+    "simple": [
+      "Ho"
+    ],
+    "compounds": [
+      "Ho₂O₃",
+      "HoCl₃",
+      "HoF₃",
+      "Ho(OH)₃"
+    ],
+    "ores": [
+      "Monazite",
+      "Bastnäsite và Xenotime"
+    ],
+    "details": [
+      "Trạng thái: Chất rắn",
+      "Màu sắc: Trắng bạc",
+      "Có trong: Monazite, Bastnäsite và Xenotime.",
+      "Đơn chất: Ho",
+      "Hợp chất phổ biến: Ho₂O₃, HoCl₃, HoF₃, Ho(OH)₃"
+    ],
+    "mineral": {
+      "available": true,
+      "id": "xenotime",
+      "name": "Xenotime-(Y)",
+      "formula": "YPO₄",
+      "habit": "bipyramid",
+      "color": "#af8c55",
+      "crystalSystem": "tetragonal",
+      "relation": "Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Xenotime-(Y)",
+      "model": "/assets/periodic-table/minerals/xenotime.glb",
+      "preview": "/assets/periodic-table/minerals/xenotime.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  },
+  "naturalState": {
+    "image": "/assets/periodic-table/photos/067_Ho.jpg",
+    "alt": "Holmium: ảnh tham chiếu từ Commons",
+    "kind": "photo",
+    "source": "https://commons.wikimedia.org/wiki/File:Holmium2.jpg",
+    "caption": "Ảnh tham chiếu mẫu Holmium (Ho); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+    "credit": "Unknown author Unknown author · CC BY 3.0"
+  },
+  "isotopes": [
+    {
+      "isotope": "¹⁶⁵Ho",
+      "massNumber": 165,
+      "protons": 67,
+      "neutrons": 98,
+      "stable": true,
+      "abundancePercent": "100",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Là kim loại đất hiếm.</li><li>Thuộc họ Lanthanide.</li><li>Có màu trắng bạc.</li><li>Khá mềm và dễ gia công.</li><li>Có tính thuận từ rất mạnh.</li><li>Có mômen từ nguyên tử lớn.</li><li>Có nhiệt độ nóng chảy khoảng 1474 °C.</li><li>Có nhiệt độ sôi khoảng 2700 °C.</li><li>Khối lượng riêng khoảng 8,79 g/cm³.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Trạng thái Oxy hóa phổ biến và ổn định nhất là +3.</li><li>Ion Ho³⁺ có cấu hình electron 4f¹⁰.</li><li>Holmium phản ứng với Oxygen:</li><li class=\"source-equation\">4Ho + 3O₂ → 2Ho₂O₃<small>Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.</small></li><li>Phản ứng với Acid tạo muối Holmium(III) và giải phóng Hydrogen.</li><li>Các hợp chất của Ho³⁺ có tính chất quang học đặc trưng.</li></ul>",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "desc": "",
+      "equation": "4Ho + 3O₂ → 2Ho₂O₃",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 73,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tác dụng với Hydrochloric acid",
+      "desc": "",
+      "equation": "2Ho + 6HCl → 2HoCl₃ + 3H₂",
+      "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+      "kind": "chemical",
+      "sourceLine": 75,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tạo Holmium(III) hydroxide",
+      "desc": "",
+      "equation": "HoCl₃ + 3NaOH → Ho(OH)₃↓ + 3NaCl",
+      "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+      "kind": "chemical",
+      "sourceLine": 77,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Điều chế Holmium",
+      "desc": "",
+      "equation": "2HoCl₃ + 3Ca → 2Ho + 3CaCl₂",
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 79,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "preparations": {
+    "lab": [
+      {
+        "title": "Có thể điều chế Holmium bằng cách khử Holmium chloride khan bằng Calcium.",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "2HoCl₃ + 3Ca → 2Ho + 3CaCl₂",
+            "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+            "kind": "chemical",
+            "sourceLine": 63,
+            "sourceSection": "lab",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          61,
+          63
+        ],
+        "equation": "2HoCl₃ + 3Ca → 2Ho + 3CaCl₂"
+      }
+    ],
+    "industry": [
+      {
+        "title": "Holmium (Ho) chủ yếu được điều chế từ quặng monazite và xenotime. Sau khi tách khỏi hỗn hợp đất hiếm, Holmium được thu bằng phương pháp điện phân muối nóng chảy hoặc khử Holmium fluoride bằng Calcium.",
+        "desc": "Holmium thu được được tinh chế để loại bỏ tạp chất.",
+        "result": "",
+        "equations": [
+          {
+            "equation": "2HoF₃ + 3Ca → 2Ho + 3CaF₂",
+            "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+            "kind": "chemical",
+            "sourceLine": 58,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          56,
+          58,
+          59
+        ],
+        "equation": "2HoF₃ + 3Ca → 2Ho + 3CaF₂"
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Có thể nhận biết Holmium bằng",
+      "desc": "Phổ phát xạ nguyên tử. ICP-OES hoặc ICP-MS. Phổ hấp thụ đặc trưng của Ho³⁺. Đặc tính từ mạnh. Dung dịch chứa Ho³⁺ thường có màu vàng nhạt.",
+      "result": "",
+      "equations": [],
+      "sourceLines": [
+        65,
+        66,
+        67,
+        68,
+        69,
+        70
+      ],
+      "equation": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Laser Ho",
+      "desc": "YAG: Holmium được sử dụng trong Holmium-doped Yttrium Aluminum Garnet (Ho:YAG), một loại laser phát ra bức xạ hồng ngoại. Nó có ứng dụng trong y tế và một số lĩnh vực kỹ thuật.",
+      "sourceLine": 81
+    },
+    {
+      "title": "Y tế",
+      "desc": "Laser Holmium được sử dụng trong một số thủ thuật y khoa, đặc biệt trong các ứng dụng liên quan đến tiết niệu.",
+      "sourceLine": 82
+    },
+    {
+      "title": "Nam châm",
+      "desc": "Do có mômen từ rất lớn, Holmium được nghiên cứu và sử dụng trong một số vật liệu từ đặc biệt.",
+      "sourceLine": 83
+    },
+    {
+      "title": "Quang học",
+      "desc": "Các ion Ho³⁺ được sử dụng trong một số vật liệu quang học và laser.",
+      "sourceLine": 84
+    },
+    {
+      "title": "Hiệu chuẩn quang phổ",
+      "desc": "Holmium oxide được sử dụng làm chuẩn bước sóng trong một số thiết bị quang phổ UV-Vis.",
+      "sourceLine": 85
+    }
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Holmium là nguyên tố số 67, thuộc nhóm IIIB | chu kỳ 6 và là nguyên tố thứ mười một trong họ Lanthanide.</li><li>Holmium được Per Teodor Cleve phát hiện vào năm 1879 tại Thụy Điển. Tên nguyên tố bắt nguồn từ Holmia, tên Latin của Stockholm.</li><li>Holmium là kim loại đất hiếm màu trắng bạc, khá mềm và nổi bật với tính thuận từ rất mạnh. Trạng thái Oxy hóa phổ biến nhất là +3.</li><li>Holmium có vai trò quan trọng trong công nghệ laser, đặc biệt là laser Ho:YAG, đồng thời được sử dụng trong y tế, quang học, vật liệu từ và hiệu chuẩn thiết bị quang phổ.</li><li>Mạng tinh thể: Lục phương xếp chặt (HCP) ở điều kiện thường.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/photos/067_Ho.jpg",
+      "title": "Holmium (Ho)",
+      "desc": "Ảnh tham chiếu mẫu Holmium (Ho); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+      "source": "https://commons.wikimedia.org/wiki/File:Holmium2.jpg",
+      "author": "Unknown author Unknown author",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0"
+    }
+  ],
+  "mediaBlocks": [
+    {
+      "type": "model",
+      "section": "structure",
+      "title": "Mẫu khoáng vật 3D · Xenotime-(Y)",
+      "src": "/assets/periodic-table/minerals/xenotime.glb",
+      "preview": "/assets/periodic-table/minerals/xenotime.png",
+      "desc": "YPO₄. Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  ],
+  "sources": [
+    {
+      "title": "067_Ho.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "7946aed9082cad0c4c9950c1dcdbd0b6ad770a3bf10370fbca0d6596c9358699"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/67/holmium"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "067_Ho.docx",
+    "sourceSha256": "7946aed9082cad0c4c9950c1dcdbd0b6ad770a3bf10370fbca0d6596c9358699",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/067_Ho.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
+}

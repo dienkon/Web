@@ -1,0 +1,98 @@
+001: Vanadium (V)
+002: Thông tin chung
+003: Tên Latin: Vanadium
+004: Tên Tiếng Anh: Vanadium
+005: Đồng vị: ⁵⁰V, ⁵¹V
+006: Vị trí: Nhóm VB | Chu kỳ 4
+007: Số Oxy hóa: +2, +3, +4, +5
+008: Độ âm điện: 1.63
+009: Lịch sử khám phá
+010: Phát hiện bởi: Andrés Manuel del Río
+011: Năm công bố: 1801
+012: Nơi khám phá: Mexico
+013: Mô tả: Năm 1801, Andrés Manuel del Río phát hiện một nguyên tố mới trong quặng chì ở Mexico. Ông nhận thấy các hợp chất của nguyên tố này có nhiều màu sắc khác nhau và ban đầu đặt tên là erythronium. Tuy nhiên, kết quả của ông bị bác bỏ và nguyên tố này bị cho là Chromium. Năm 1830, Nils Gabriel Sefström phát hiện lại nguyên tố này và đặt tên là Vanadium, theo Vanadís, một nữ thần trong thần thoại Bắc Âu.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Ar] 3d³ 4s²
+017: Mô hình mạng tinh thể: Lập phương tâm khối (Body-centered cubic, BCC)
+018: Số hiệu nguyên tử: 23
+019: Nguyên tử khối: 50.9415 g/mol
+020: Vỏ nguyên tử: 23 electron
+021: K: 2 | L: 8 | M: 11 | N: 2
+022: Hạt nhân: 23 proton, 28 neutron đối với ⁵¹V
+023: Cấu hình e: [Ar] 3d³ 4s²
+024: Loại mạng: Lập phương tâm khối (Body-centered cubic, BCC)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Vanadium là kim loại rắn, màu xám bạc ở điều kiện thường.
+027: Có trong: Vanadinite, Patronite, Carnotite, Magnetite và một số quặng sắt, Titanium.
+028: Đơn chất: V
+029: Hợp chất: V₂O₅, V₂O₃, VO₂, VOCl₃, NH₄VO₃...
+030: c. Đồng vị
+031: Đồng vị: ⁵⁰V, ⁵¹V
+032: ⁵⁰V: Đồng vị phóng xạ tự nhiên, chiếm khoảng 0.25%.
+033: ⁵¹V: Đồng vị bền, chiếm khoảng 99.75% Vanadium tự nhiên.
+034: Tính chất
+035: Tính chất vật lý
+036: Là kim loại chuyển tiếp.
+037: Có màu xám bạc.
+038: Cứng và tương đối giòn ở nhiệt độ thường.
+039: Khối lượng riêng: khoảng 6.11 g/cm³.
+040: Nhiệt độ nóng chảy: khoảng 1910 °C.
+041: Nhiệt độ sôi: khoảng 3407 °C.
+042: Có độ bền cơ học cao.
+043: Dẫn điện và dẫn nhiệt.
+044: Tính chất hóa học
+045: Có nhiều số Oxy hóa: +2, +3, +4, +5.
+046: Hợp chất Vanadium có nhiều màu sắc khác nhau tùy số Oxy hóa.
+047: +5 là trạng thái Oxy hóa cao và phổ biến trong nhiều hợp chất.
+048: Phản ứng với Oxygen tạo các Vanadium oxide.
+049: Phản ứng với Halogen tạo Vanadium halide.
+050: Phản ứng với acid mạnh.
+051: Ở nhiệt độ cao có thể phản ứng với Carbon và Nitrogen.
+052: Vanadium(V) oxide có tính chất quan trọng trong công nghiệp hóa học.
+053: Điều chế
+054: Điều chế trong công nghiệp
+055: Vanadium thường được thu hồi từ các quặng chứa Vanadium hoặc từ các sản phẩm phụ của quá trình luyện gang thép.
+056: Một phương pháp là chuyển Vanadium thành Vanadium(V) oxide, sau đó khử bằng Calcium:
+057: V₂O₅ + 5Ca → 2V + 5CaO
+058: Trong công nghiệp, các phương pháp nhiệt luyện và điện luyện khác cũng có thể được sử dụng tùy nguồn nguyên liệu.
+059: Điều chế trong phòng thí nghiệm
+060: Vanadium kim loại có thể được điều chế bằng cách khử Vanadium chloride bằng kim loại hoạt động mạnh:
+061: 2VCl₃ + 3Mg → 2V + 3MgCl₂
+062: Nhận biết
+063: Nhận biết Vanadium(V)
+064: Ion Vanadate có thể được nhận biết bằng phản ứng khử, trong đó màu của dung dịch thay đổi theo số Oxy hóa của Vanadium.
+065: Ví dụ, Vanadium(V) bị khử thành Vanadium(IV):
+066: VO₂⁺ + 2H⁺ + e⁻ → VO²⁺ + H₂O
+067: Hiện tượng: Dung dịch chuyển từ màu vàng của Vanadium(V) sang màu xanh lam của Vanadium(IV).
+068: Phương trình
+069: Tác dụng với Oxygen
+070: 4V + 5O₂ → 2V₂O₅
+071: Tác dụng với Chlorine
+072: 2V + 3Cl₂ → 2VCl₃
+073: Khi Chlorine dư:
+074: 2V + 5Cl₂ → 2VCl₅
+075: Tác dụng với Sulfur
+076: 2V + 3S → V₂S₃
+077: Tác dụng với Nitrogen
+078: Ở nhiệt độ cao:
+079: 2V + N₂ → 2VN
+080: Tác dụng với Hydrochloric acid
+081: Trong điều kiện thích hợp:
+082: 2V + 6HCl → 2VCl₃ + 3H₂↑
+083: Khử Vanadium(V)
+084: VO₂⁺ + 2H⁺ + e⁻ → VO²⁺ + H₂O
+085: Điều chế Vanadium
+086: V₂O₅ + 5Ca → 2V + 5CaO
+087: Ứng dụng thực tế
+088: Sản xuất thép: Vanadium được sử dụng làm nguyên tố hợp kim để tăng độ bền, độ cứng và khả năng chịu nhiệt của thép.
+089: Công cụ: Vanadium alloys được sử dụng trong một số loại dụng cụ và vật liệu chịu mài mòn.
+090: Hàng không: Một số Vanadium alloys được sử dụng trong các vật liệu yêu cầu độ bền cao và trọng lượng tương đối thấp.
+091: Chất xúc tác: Vanadium(V) oxide được sử dụng làm chất xúc tác trong quá trình sản xuất Sulfuric acid.
+092: Pin: Vanadium redox flow batteries sử dụng các ion Vanadium trong hệ thống lưu trữ năng lượng.
+093: Gốm và thủy tinh: Một số Vanadium compounds được sử dụng làm chất tạo màu.
+094: Tổng quan
+095: Vanadium là nguyên tố số 23, thuộc nhóm VB | chu kỳ 4 và là một kim loại chuyển tiếp.
+096: Vanadium có cấu hình electron [Ar] 3d³ 4s² và có nhiều số Oxy hóa, phổ biến nhất là +2, +3, +4 và +5. Các trạng thái Oxy hóa khác nhau tạo ra những hợp chất có màu sắc đặc trưng.
+097: Vanadium thường được thu hồi từ quặng và các sản phẩm phụ của ngành luyện kim. Kim loại này đặc biệt quan trọng trong việc sản xuất thép hợp kim có độ bền cao.
+098: Ngoài luyện kim, Vanadium còn có ứng dụng trong chất xúc tác, pin Vanadium redox flow, hàng không và sản xuất vật liệu đặc biệt.

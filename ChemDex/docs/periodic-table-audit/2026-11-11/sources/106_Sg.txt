@@ -1,0 +1,91 @@
+001: Seaborgium (Sg)
+002: Thông tin chung
+003: Tên Latin: Seaborgium
+004: Tên Tiếng Anh: Seaborgium
+005: Đồng vị: ²⁶⁶Sg, ²⁶⁷Sg, ²⁶⁸Sg, ²⁶⁹Sg, ²⁷⁰Sg, ²⁷¹Sg, ²⁷²Sg, ²⁷³Sg, ²⁷⁴Sg, ²⁷⁵Sg, ²⁷⁶Sg
+006: Vị trí: Nhóm VIB | Chu kỳ 7
+007: Số Oxy hóa: +6 (dự đoán)
+008: Độ âm điện: Không xác định
+009: Lịch sử khám phá
+010: Phát hiện bởi: Albert Ghiorso và cộng sự
+011: Năm công bố: 1974
+012: Nơi khám phá: Lawrence Berkeley Laboratory, Hoa Kỳ
+013: Mô tả: Seaborgium được tổng hợp lần đầu năm 1974 tại Lawrence Berkeley Laboratory bằng cách bắn phá Californium-249 bằng ion Oxygen-18:
+014: ²⁴⁹Cf + ¹⁸O → ²⁶³Sg + 4n
+015: Nguyên tố được đặt tên Seaborgium để vinh danh nhà hóa học người Mỹ Glenn T. Seaborg, một trong những nhà khoa học quan trọng trong việc phát hiện nhiều nguyên tố Actinide.
+016: Đây là một trường hợp đặc biệt vì Seaborgium là nguyên tố được đặt tên theo một nhà khoa học khi người đó vẫn còn sống.
+017: 3. Cấu tạo
+018: a. Cấu tạo nguyên tử
+019: Hoạt họa cấu hình e: [Rn] 5f¹⁴ 6d⁴ 7s² (dự đoán)
+020: Mô hình mạng tinh thể: Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)
+021: Số hiệu nguyên tử: 106
+022: Nguyên tử khối: [269] g/mol
+023: Vỏ nguyên tử: 106 electron
+024: Hạt nhân: 106 proton
+025: Cấu hình e: [Rn] 5f¹⁴ 6d⁴ 7s² (dự đoán)
+026: Loại mạng: Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)
+027: b. Trạng thái tự nhiên
+028: Trạng thái: Chất rắn (dự đoán).
+029: Có trong: Không tồn tại tự nhiên với lượng đáng kể. Seaborgium chỉ được tổng hợp nhân tạo trong phòng thí nghiệm.
+030: Đơn chất: Sg
+031: Hợp chất: SgO₃, SgO₂Cl₂, SgCl₆²⁻... (được nghiên cứu/dự đoán ở quy mô nguyên tử)
+032: c. Đồng vị
+033: Seaborgium không có đồng vị bền.
+034: Các đồng vị đều phóng xạ và có chu kỳ bán rã rất ngắn.
+035: Một số đồng vị:
+036: ²⁶⁶Sg: chu kỳ bán rã khoảng vài mili giây.
+037: ²⁶⁷Sg: chu kỳ bán rã khoảng vài giây.
+038: ²⁶⁸Sg: chu kỳ bán rã khoảng vài giây.
+039: ²⁶⁹Sg: chu kỳ bán rã khoảng vài giây.
+040: ²⁷¹Sg: có chu kỳ bán rã dài hơn một số đồng vị nhẹ hơn.
+041: Các giá trị chính xác phụ thuộc vào từng đồng vị và phương pháp đo.
+042: Tính chất
+043: Tính chất vật lý
+044: Là kim loại chuyển tiếp.
+045: Thuộc nhóm VIB | chu kỳ 7.
+046: Là nguyên tố siêu nặng.
+047: Có tính phóng xạ rất mạnh.
+048: Được dự đoán là chất rắn ở điều kiện thường.
+049: Chưa thể xác định trực tiếp các tính chất vĩ mô như màu sắc, khối lượng riêng, nhiệt độ nóng chảy và nhiệt độ sôi.
+050: Tính chất hóa học
+051: Được dự đoán có tính chất tương tự Chromium (Cr) và Molybdenum (Mo).
+052: Số Oxy hóa +6 được xem là trạng thái quan trọng.
+053: Có thể hình thành các hợp chất chứa Sg ở trạng thái Oxy hóa cao.
+054: Seaborgium thể hiện xu hướng hóa học phù hợp với vị trí của nó trong nhóm 6.
+055: Một số thí nghiệm hóa học ở cấp độ từng nguyên tử đã được thực hiện.
+056: Điều chế
+057: Điều chế trong công nghiệp:
+058: Seaborgium (Sg) không được sản xuất công nghiệp do tính phóng xạ rất cao và thời gian bán rã ngắn. Nguyên tố này chỉ được tổng hợp trong các cơ sở nghiên cứu hạt nhân.
+059: Điều chế trong phòng thí nghiệm:
+060: Seaborgium được tổng hợp bằng cách bắn phá Californium-249 bằng ion Oxygen-18 trong máy gia tốc hạt.
+061: ²⁴⁹Cf + ¹⁸O → ²⁶³Sg + 4¹n
+062: Nhận biết
+063: Seaborgium được nhận biết thông qua:
+064: Năng lượng của bức xạ Alpha.
+065: Chu kỳ bán rã.
+066: Chuỗi phân rã đặc trưng.
+067: Xác định các hạt nhân con sinh ra sau phân rã.
+068: Trong một số thí nghiệm, nghiên cứu hành vi hóa học của từng nguyên tử Sg.
+069: Do chỉ tạo được một vài nguyên tử trong mỗi thí nghiệm, không thể nhận biết Seaborgium bằng các phản ứng hóa học thông thường.
+070: Phương trình
+071: Tổng hợp Seaborgium-263
+072: ²⁴⁹Cf + ¹⁸O → ²⁶³Sg + 4n
+073: Phân rã Alpha
+074: ²⁶⁹Sg → ²⁶⁵Rf + ⁴He
+075: Tạo Seaborgium(VI) oxide
+076: Sg + 3O₂ → SgO₃
+077: Tạo Seaborgium(VI) chloride
+078: Sg + 3Cl₂ → SgCl₆
+079: Các phương trình hóa học của Seaborgium chủ yếu mang tính mô tả/dự đoán vì nguyên tố này chỉ được tạo ra với số lượng cực kỳ nhỏ.
+080: Ứng dụng thực tế
+081: Seaborgium không có ứng dụng công nghiệp hoặc dân dụng.
+082: Nó chủ yếu được sử dụng trong:
+083: Nghiên cứu hạt nhân: Nghiên cứu tính chất của các nguyên tố siêu nặng.
+084: Hóa học nguyên tố siêu nặng: So sánh Seaborgium với Chromium và Molybdenum, qua đó kiểm tra các xu hướng tuần hoàn ở nguyên tố có số hiệu nguyên tử rất lớn.
+085: Nghiên cứu cấu trúc hạt nhân: Giúp nghiên cứu độ ổn định và chuỗi phân rã của các hạt nhân siêu nặng.
+086: Tổng quan
+087: Seaborgium là nguyên tố số 106, thuộc nhóm VIB | chu kỳ 7 và là một kim loại chuyển tiếp siêu nặng.
+088: Seaborgium được tổng hợp lần đầu vào năm 1974 tại Lawrence Berkeley Laboratory. Nguyên tố được đặt tên để vinh danh Glenn T. Seaborg.
+089: Cấu hình electron được dự đoán là [Rn] 5f¹⁴ 6d⁴ 7s², với số Oxy hóa quan trọng nhất là +6. Về mặt hóa học, Seaborgium được dự đoán và một phần quan sát thấy có tính chất tương tự Chromium và Molybdenum.
+090: Seaborgium không có đồng vị bền, cực kỳ phóng xạ và chỉ được tạo ra với số lượng rất nhỏ. Vì vậy, nguyên tố này chưa có ứng dụng thực tế, chủ yếu phục vụ nghiên cứu khoa học.
+091: Mạng tinh thể: Lập phương tâm khối (BCC) — dự đoán, vì chưa thể thu được lượng Seaborgium đủ lớn để xác định trực tiếp cấu trúc tinh thể.

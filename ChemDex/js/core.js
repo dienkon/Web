@@ -229,7 +229,7 @@ function buildReactionLatex(r = {}) {
   const right = formatChemicalFormulaHtml(rightRaw, r.related);
   
   const aboveStr = normalizeText(r.catalyst || r.condition || r.cat || parsedAbove || "");
-  const above = escapeHtml(aboveStr).replace(/\\text\{([^}]*)\}/g, "$1").replace(/\^o/g, "°");
+  const above = escapeHtml(aboveStr.length > 55 ? '' : aboveStr).replace(/\\text\{([^}]*)\}/g, "$1").replace(/\^o/g, "°");
   
   const belowStr = normalizeText(r.conditionBelow || r.temperature || r.pressure || r.solvent || parsedBelow || "");
   const below = escapeHtml(belowStr).replace(/\\text\{([^}]*)\}/g, "$1").replace(/\^o/g, "°");
@@ -248,7 +248,7 @@ function buildReactionLatex(r = {}) {
       </span>`
     : `<span class="mx-4 align-middle flex items-center justify-center w-8 flex-shrink-0">${arrowSymbol === "⇌" ? arrowSvgReversible : arrowSvgRight}</span>`;
 
-  return `${left} ${arrowHtml} ${right}`.trim();
+  return `<span class="equation-side">${left}</span> ${arrowHtml} <span class="equation-side">${right}</span>`;
 }
 
 function parseElectronShellsFromConfig(config = "", atomicNumber = 0) {
@@ -315,6 +315,7 @@ function getElementElectronShells(el) {
 }
 
 function inferLatticeKey(el) {
+  if (el?.review && (el?.structure?.latticeEvidence === 'predicted' || /Khí|Lỏng|Chưa/.test(el?.general?.state || ''))) return null;
   const raw = [
     el?.structure?.lattice,
     el?.structure?.latticeType,
@@ -334,9 +335,9 @@ function inferLatticeKey(el) {
   if (/diamond|kim cương/.test(raw)) return "diamond";
   if (/bcc|body|tâm khối/.test(raw)) return "bcc";
   if (/fcc|face|tâm diện/.test(raw)) return "fcc";
-  if (/hcp|hexagonal close packed|lục giác/.test(raw)) return "hcp";
-  if (/sc|simple cubic|lập phương đơn/.test(raw)) return "sc";
-  return raw ? raw.split(/\s+/)[0] : "bcc";
+  if (/\bhcp\b|hexagonal close packed|lục phương xếp chặt|lục giác/.test(raw)) return "hcp";
+  if (/\bsc\b|simple cubic|lập phương đơn/.test(raw)) return "sc";
+  return null;
 }
 
 function inferLatticeTitle(el, key) {
@@ -534,6 +535,10 @@ function mediaToCards(source, options = {}) {
       desc: item.desc || item.note || item.caption || "",
       src,
       kind: item.kind || item.type || guessMediaKind(src, kindHint || "image"),
+      source: item.source || "",
+      author: item.author || "",
+      license: item.license || "",
+      licenseUrl: item.licenseUrl || "",
     });
   };
 
@@ -593,6 +598,7 @@ function mediaToCards(source, options = {}) {
     <div class="p-4 border-t border-slate-700/60 bg-slate-900/60">
       <div class="font-semibold text-white text-sm">${escapeHtml(item.title || defaultTitle)}</div>
       ${item.desc ? `<p class="text-slate-400 text-xs leading-relaxed mt-1">${escapeHtml(item.desc)}</p>` : ""}
+      ${item.source ? `<p class="element-image-credit"><a href="${escapeHtml(item.source)}" target="_blank" rel="noopener noreferrer">Trang ảnh gốc ↗</a>${item.author ? ` · ${escapeHtml(item.author)}` : ""}${item.licenseUrl ? ` · <a href="${escapeHtml(item.licenseUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.license)}</a>` : item.license ? ` · ${escapeHtml(item.license)}` : ""}</p>` : ""}
     </div>
   </div>
 `;
@@ -704,8 +710,10 @@ function renderEquationBlock(r = {}, options = {}) {
   return `
           <div class="bg-slate-800/40 p-5 rounded-xl border border-slate-700 mb-4 w-full">
             <span class="text-xs font-bold px-3 py-1 bg-slate-700 rounded-full text-slate-300 mb-3 inline-block">${escapeHtml(r.type || "Phản ứng")}</span>
+            ${r.kind ? `<span class="reaction-kind reaction-kind-${escapeHtml(r.kind)}">${escapeHtml(({chemical:'Hóa học',nuclear:'Hạt nhân',physical:'Quá trình vật lý',formal:'Sơ đồ hình thức / dự đoán'})[r.kind] || r.kind)}</span>` : ""}
             <div class="equation-latex text-xl md:text-2xl font-mono text-emerald-300 mb-3 font-bold bg-slate-900 p-4 rounded-lg overflow-x-auto whitespace-nowrap flex items-center">${eqHtml}</div>
             <p class="text-slate-400 mb-2 whitespace-normal">${escapeHtml(r.desc || "")}</p>
+            ${r.condition ? `<p class="reaction-condition"><strong>Điều kiện:</strong> ${escapeHtml(r.condition)}</p>` : ""}
             ${reactionMediaHtml}
           </div>
         `;
@@ -1304,6 +1312,10 @@ function createElectronWidget(container, el) {
 function createCrystalWidget(container, el) {
   const latticeKey = inferLatticeKey(el);
   const title = inferLatticeTitle(el, latticeKey);
+  if (!latticeKey) {
+    container.innerHTML = `<div class="crystal-explanation"><span class="visual-badge">Pha và cấu trúc</span><p>${escapeHtml(title)}</p><small>${el.structure?.latticeEvidence === 'predicted' ? 'Cấu trúc dự đoán; chưa có mẫu tinh thể thực nghiệm.' : 'Chưa có mô hình mạng phù hợp với pha được mô tả. Xem mô hình khoáng vật riêng bên dưới nếu có.'}</small></div>`;
+    return { destroy() { container.innerHTML = ''; } };
+  }
 
   const wrap = container;
   wrap.innerHTML = "";

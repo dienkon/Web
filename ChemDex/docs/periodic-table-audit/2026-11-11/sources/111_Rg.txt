@@ -1,0 +1,89 @@
+001: Roentgenium (Rg)
+002: Thông tin chung
+003: Tên Latin: Roentgenium
+004: Tên Tiếng Anh: Roentgenium
+005: Đồng vị: ²⁷²Rg, ²⁷³Rg, ²⁷⁴Rg, ²⁷⁵Rg, ²⁷⁶Rg, ²⁷⁷Rg, ²⁷⁸Rg, ²⁷⁹Rg, ²⁸⁰Rg, ²⁸¹Rg, ²⁸²Rg
+006: Vị trí: Nhóm IB | Chu kỳ 7
+007: Số Oxy hóa: +1, +3, +5 (dự đoán)
+008: Độ âm điện: Không xác định
+009: Lịch sử khám phá
+010: Phát hiện bởi: Nhóm nghiên cứu tại Gesellschaft für Schwerionenforschung (GSI)
+011: Năm công bố: 1994
+012: Nơi khám phá: Darmstadt, Đức
+013: Mô tả: Roentgenium được tổng hợp lần đầu vào năm 1994 tại GSI bằng cách bắn phá Bismuth-209 bằng Nickel-64:
+014: ²⁰⁹Bi + ⁶⁴Ni → ²⁷²Rg + n
+015: Tên Roentgenium được đặt để vinh danh nhà vật lý người Đức Wilhelm Conrad Röntgen, người phát hiện ra tia X.
+016: 3. Cấu tạo
+017: a. Cấu tạo nguyên tử
+018: Hoạt họa cấu hình e: [Rn] 5f¹⁴ 6d⁹ 7s² (dự đoán)
+019: Mô hình mạng tinh thể: Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)
+020: Số hiệu nguyên tử: 111
+021: Nguyên tử khối: [282] g/mol
+022: Vỏ nguyên tử: 111 electron
+023: Hạt nhân: 111 proton
+024: Cấu hình e: [Rn] 5f¹⁴ 6d⁹ 7s² (dự đoán)
+025: Loại mạng: Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)
+026: b. Trạng thái tự nhiên
+027: Trạng thái: Chất rắn (dự đoán)
+028: Có trong: Không tồn tại tự nhiên với lượng đáng kể. Roentgenium chỉ được tổng hợp nhân tạo trong phòng thí nghiệm.
+029: Đơn chất: Rg
+030: Hợp chất: RgF₃, RgCl... (dự đoán)
+031: c. Đồng vị
+032: Roentgenium không có đồng vị bền.
+033: Một số đồng vị:
+034: ²⁷²Rg: chu kỳ bán rã khoảng 1,5 mili giây.
+035: ²⁷⁴Rg: chu kỳ bán rã khoảng 1,7 giây.
+036: ²⁷⁵Rg: chu kỳ bán rã khoảng 15 mili giây.
+037: ²⁷⁷Rg: chu kỳ bán rã khoảng 1,5 giây.
+038: ²⁸²Rg: chu kỳ bán rã khoảng 1,1 phút.
+039: Các đồng vị Roentgenium chủ yếu phân rã bằng phân rã Alpha.
+040: Tính chất
+041: Tính chất vật lý
+042: Là kim loại chuyển tiếp.
+043: Thuộc nhóm IB | chu kỳ 7.
+044: Là nguyên tố siêu nặng.
+045: Có tính phóng xạ cực mạnh.
+046: Được dự đoán là chất rắn ở điều kiện thường.
+047: Có thể có khối lượng riêng rất lớn.
+048: Nhiệt độ nóng chảy và nhiệt độ sôi chưa được xác định thực nghiệm.
+049: Tính chất hóa học
+050: Được dự đoán có tính chất tương tự Gold (Au).
+051: Có thể có các số Oxy hóa +1 và +3.
+052: Do hiệu ứng tương đối tính, electron 7s của Roentgenium bị giữ tương đối chặt, có thể khiến Rg thể hiện tính chất hóa học khác đáng kể so với Gold.
+053: Hầu hết tính chất hóa học vẫn dựa trên dự đoán lý thuyết.
+054: Điều chế
+055: Điều chế trong công nghiệp:
+056: Roentgenium (Rg) không được sản xuất công nghiệp do tính phóng xạ rất cao và thời gian bán rã ngắn. Nguyên tố này chỉ được tổng hợp với lượng cực nhỏ trong các cơ sở nghiên cứu hạt nhân.
+057: Điều chế trong phòng thí nghiệm:
+058: Roentgenium được tổng hợp bằng cách bắn phá Bismuth-209 bằng ion Nickel-64 trong máy gia tốc hạt.
+059: ²⁰⁹Bi + ⁶⁴Ni → ²⁷²Rg + ¹n
+060: Nhận biết
+061: Roentgenium được nhận biết thông qua:
+062: Năng lượng các hạt Alpha.
+063: Chu kỳ bán rã.
+064: Chuỗi phân rã phóng xạ.
+065: Xác định các hạt nhân con.
+066: Đối chiếu với chuỗi phân rã của các đồng vị đã biết.
+067: Do chỉ tạo ra một số lượng nguyên tử cực nhỏ, không thể nhận biết bằng phản ứng hóa học thông thường.
+068: Phương trình
+069: Tổng hợp Roentgenium-272
+070: ²⁰⁹Bi + ⁶⁴Ni → ²⁷²Rg + n
+071: Phân rã Alpha
+072: ²⁷⁴Rg → ²⁷⁰Mt + ⁴He
+073: Tạo Roentgenium(I) chloride
+074: 2Rg + Cl₂ → 2RgCl
+075: Tạo Roentgenium(III) fluoride
+076: 2Rg + 3F₂ → 2RgF₃
+077: Các phương trình hóa học của Roentgenium chủ yếu mang tính dự đoán vì nguyên tố chỉ được tạo ra ở quy mô vài nguyên tử.
+078: Ứng dụng thực tế
+079: Roentgenium không có ứng dụng công nghiệp hoặc dân dụng.
+080: Nó chủ yếu được sử dụng trong:
+081: Nghiên cứu hạt nhân: Nghiên cứu các hạt nhân siêu nặng và chuỗi phân rã của chúng.
+082: Hóa học nguyên tố siêu nặng: So sánh Roentgenium với Copper, Silver và Gold, đặc biệt là Gold.
+083: Nghiên cứu hiệu ứng tương đối tính: Tìm hiểu sự thay đổi cấu trúc electron và tính chất hóa học ở các nguyên tố có số hiệu nguyên tử cực lớn.
+084: Tổng quan
+085: Roentgenium là nguyên tố số 111, thuộc nhóm IB | chu kỳ 7 và là một kim loại chuyển tiếp siêu nặng.
+086: Roentgenium được tổng hợp lần đầu vào năm 1994 tại Darmstadt, Đức. Tên nguyên tố được đặt để vinh danh Wilhelm Conrad Röntgen, người phát hiện tia X.
+087: Cấu hình electron được dự đoán là [Rn] 5f¹⁴ 6d⁹ 7s². Roentgenium nằm cùng nhóm với Copper, Silver và Gold, và được dự đoán có nhiều điểm tương đồng với Gold, mặc dù hiệu ứng tương đối tính rất mạnh có thể làm thay đổi tính chất của nó.
+088: Roentgenium không có đồng vị bền, cực kỳ phóng xạ và chỉ được tạo ra với số lượng rất nhỏ. Vì vậy, nó không có ứng dụng thực tế, chủ yếu phục vụ nghiên cứu khoa học.
+089: Mạng tinh thể: Lập phương tâm khối (BCC) — dự đoán, vì chưa thể thu được lượng Roentgenium đủ lớn để xác định trực tiếp cấu trúc tinh thể.

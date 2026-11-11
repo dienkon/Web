@@ -1,0 +1,467 @@
+{
+  "number": 92,
+  "symbol": "U",
+  "nameVi": "Uranium",
+  "nameEn": "Uranium",
+  "mass": 238.03,
+  "massStandardText": "238.03 ± 0.01",
+  "massStandardSource": "https://ciaaw.org/abridged-atomic-weights.htm",
+  "massKind": "standard-atomic-weight",
+  "category": "actinide",
+  "hasData": true,
+  "file": "elements/092_U.json",
+  "general": {
+    "latinName": "Uranium",
+    "englishName": "Uranium",
+    "electronConfig": "[Rn] 5f³ 6d¹ 7s²",
+    "isotope": "²³⁴U, ²³⁵U, ²³⁶U, ²³⁸U",
+    "group": null,
+    "groupLabel": "Actinide",
+    "series": "Actinide",
+    "period": 7,
+    "state": "Rắn",
+    "oxidation": "+3, +4, +5, +6",
+    "electronegativity": 1.38,
+    "electronegativityNote": "Thang Pauling; số liệu tổng hợp PubChem.",
+    "density": "19,1 g/cm³.",
+    "meltingPoint": "1135°C",
+    "boilingPoint": "4131°C",
+    "crystalStructure": "Trực thoi (Orthorhombic) ở điều kiện thường.",
+    "CAS": "7440-61-1"
+  },
+  "history": {
+    "discoverer": "Martin Heinrich Klaproth",
+    "year": "1789",
+    "discoveryLocation": "Berlin, Phổ",
+    "description": "Năm 1789, Martin Heinrich Klaproth phân tích khoáng vật Pitchblende và phát hiện một nguyên tố mới. Ông đặt tên nguyên tố là Uranium, theo tên hành tinh Uranus. Ban đầu Klaproth chỉ tách được Uranium oxide, chưa phải Uranium kim loại tinh khiết. Đến năm 1841, Eugène-Melchior Peligot mới điều chế được Uranium kim loại. Tính phóng xạ của Uranium được phát hiện vào năm 1896 bởi Henri Becquerel."
+  },
+  "structure": {
+    "protons": 92,
+    "electrons": 92,
+    "neutrons": 142,
+    "nucleusIsotope": "²³⁴U",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 92,
+      "neutron": 142
+    },
+    "electronShells": [
+      2,
+      8,
+      18,
+      32,
+      21,
+      9,
+      2
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      32,
+      21,
+      9,
+      2
+    ],
+    "valenceElectrons": 2,
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+    "lattice": "Trực thoi (Orthorhombic) ở điều kiện thường.",
+    "latticeEvidence": "source-reviewed"
+  },
+  "structureType": "Trực thoi (Orthorhombic) ở điều kiện thường.",
+  "occurrence": {
+    "description": "Chất rắn",
+    "simple": [
+      "U"
+    ],
+    "compounds": [
+      "UO₂",
+      "U₃O₈",
+      "UO₃",
+      "UF₆",
+      "UCl₄"
+    ],
+    "ores": [
+      "Uraninite (Pitchblende)",
+      "Carnotite",
+      "Autunite và một số khoáng vật Uranium khác"
+    ],
+    "details": [
+      "Trạng thái: Chất rắn",
+      "Màu sắc: Trắng bạc đến xám kim loại",
+      "Có trong: Uraninite (Pitchblende), Carnotite, Autunite và một số khoáng vật Uranium khác.",
+      "Đơn chất: U",
+      "Hợp chất phổ biến: UO₂, U₃O₈, UO₃, UF₆, UCl₄"
+    ],
+    "mineral": {
+      "available": true,
+      "id": "uraninite",
+      "name": "Uraninite",
+      "formula": "UO₂₊ₓ (có sản phẩm phân rã và tạp chất)",
+      "habit": "cubic",
+      "color": "#45534a",
+      "crystalSystem": "cubic",
+      "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Uraninite",
+      "model": "/assets/periodic-table/minerals/uraninite.glb",
+      "preview": "/assets/periodic-table/minerals/uraninite.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  },
+  "naturalState": {
+    "image": "/assets/periodic-table/photos/092_U.jpg",
+    "alt": "Uranium: ảnh tham chiếu từ Commons",
+    "kind": "photo",
+    "source": "https://commons.wikimedia.org/wiki/File:HEUraniumC.jpg",
+    "caption": "Mẫu uranium kim loại trong cơ sở nghiên cứu; không phải quặng uraninite.",
+    "credit": "Unspecified · Public domain"
+  },
+  "isotopes": [
+    {
+      "isotope": "²³⁴U",
+      "massNumber": 234,
+      "protons": 92,
+      "neutrons": 142,
+      "stable": false,
+      "abundancePercent": "0.0054",
+      "halfLifeDisplay": "2.455E+5 ± 6E+2 năm",
+      "halfLife": "2.455E+5 Y",
+      "halfLifeUncertainty": "6",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²³⁵U",
+      "massNumber": 235,
+      "protons": 92,
+      "neutrons": 143,
+      "stable": false,
+      "abundancePercent": "0.7204",
+      "halfLifeDisplay": "7.04E+8 ± 1E+6 năm",
+      "halfLife": "7.04E+8 Y",
+      "halfLifeUncertainty": "1",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²³⁶U",
+      "massNumber": 236,
+      "protons": 92,
+      "neutrons": 144,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "2.342E7 ± 4E+4 năm",
+      "halfLife": "2.342E7 Y",
+      "halfLifeUncertainty": "4",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²³⁸U",
+      "massNumber": 238,
+      "protons": 92,
+      "neutrons": 146,
+      "stable": false,
+      "abundancePercent": "99.2742",
+      "halfLifeDisplay": "4.468E9 ± 6E+6 năm",
+      "halfLife": "4.468E9 Y",
+      "halfLifeUncertainty": "6",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Là kim loại phóng xạ.</li><li>Thuộc họ Actinide.</li><li>Có màu trắng bạc/xám kim loại.</li><li>Kim loại Uranium khá nặng và có khối lượng riêng cao.</li><li>Có tính phóng xạ tự nhiên.</li><li>Có nhiệt độ nóng chảy khoảng 1135 °C.</li><li>Có nhiệt độ sôi khoảng 4131 °C.</li><li>Khối lượng riêng khoảng 19,1 g/cm³.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Uranium có nhiều trạng thái Oxy hóa:</li><li>+3</li><li>+4</li><li>+5</li><li>+6</li><li>Trong đó +4 và +6 là những trạng thái quan trọng nhất.</li><li>Uranium phản ứng với Oxygen tạo nhiều oxide khác nhau. Một phản ứng đơn giản:</li><li class=\"source-equation\">U + O₂ → UO₂<small>Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.</small></li><li>Uranium(VI) thường tồn tại dưới dạng ion uranyl, UO₂²⁺, trong nhiều hợp chất.</li><li>Một đặc điểm quan trọng là Uranium có thể tham gia phản ứng hạt nhân, khác với các phản ứng hóa học thông thường.</li></ul>",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "desc": "",
+      "equation": "U + O₂ → UO₂",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 85,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tạo Uranium(VI) oxide",
+      "desc": "",
+      "equation": "3U + 4O₂ → U₃O₈",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 87,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "desc": "",
+      "equation": "U + 2Cl₂ → UCl₄",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 89,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Điều chế Uranium",
+      "desc": "",
+      "equation": "UCl₄ + 4Na → U + 4NaCl",
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 91,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Phân rã Alpha của Uranium-238",
+      "desc": "",
+      "equation": "²³⁸U → ²³⁴Th + α",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 93,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Phân rã Alpha của Uranium-235",
+      "desc": "",
+      "equation": "²³⁵U → ²³¹Th + α",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 95,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "preparations": {
+    "lab": [
+      {
+        "title": "Uranium kim loại có thể được điều chế bằng phương pháp khử Uranium tetrafluoride bằng Calcium hoặc Magnesium trong điều kiện chuyên dụng.",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "UF₄ + 2Ca → U + 2CaF₂",
+            "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+            "kind": "chemical",
+            "sourceLine": 74,
+            "sourceSection": "lab",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          72,
+          74
+        ],
+        "equation": "UF₄ + 2Ca → U + 2CaF₂"
+      }
+    ],
+    "industry": [
+      {
+        "title": "Uranium (U) chủ yếu được điều chế từ các quặng Uranium như Uraninite (U₃O₈) và Carnotite. Quặng được nghiền, xử lý bằng acid hoặc kiềm để hòa tan Uranium, sau đó tinh chế và kết tủa thành Uranium oxide.",
+        "desc": "Uranium oxide được chuyển thành Uranium tetrafluoride rồi khử bằng Calcium hoặc Magnesium để thu Uranium kim loại.",
+        "result": "",
+        "equations": [
+          {
+            "equation": "U₃O₈ + 2H₂ → 3UO₂ + 2H₂O",
+            "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+            "kind": "chemical",
+            "sourceLine": 68,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          },
+          {
+            "equation": "UO₂ + 4HF → UF₄ + 2H₂O",
+            "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+            "kind": "chemical",
+            "sourceLine": 69,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          },
+          {
+            "equation": "UF₄ + 2Ca → U + 2CaF₂",
+            "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+            "kind": "chemical",
+            "sourceLine": 70,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          65,
+          66,
+          68,
+          69,
+          70
+        ],
+        "equation": "U₃O₈ + 2H₂ → 3UO₂ + 2H₂O"
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Có thể nhận biết Uranium bằng",
+      "desc": "Phổ gamma. Phổ alpha. Đo hoạt độ phóng xạ. ICP-MS hoặc các phương pháp phân tích nguyên tố. Các phản ứng hóa học đặc trưng của ion Uranium. Một số hợp chất Uranium có màu vàng, xanh lục hoặc cam đặc trưng tùy trạng thái hóa học.",
+      "result": "",
+      "equations": [],
+      "sourceLines": [
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82
+      ],
+      "equation": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Năng lượng hạt nhân",
+      "desc": "Uranium là một trong những nhiên liệu quan trọng nhất của lò phản ứng hạt nhân. ²³⁵U có thể duy trì phản ứng phân hạch dây chuyền có kiểm soát trong điều kiện thích hợp.",
+      "sourceLine": 97
+    },
+    {
+      "title": "Nhiên liệu hạt nhân",
+      "desc": "Uranium được chế biến thành các dạng nhiên liệu phù hợp cho lò phản ứng, thường dưới dạng UO₂.",
+      "sourceLine": 98
+    },
+    {
+      "title": "Nghiên cứu địa chất",
+      "desc": "Các hệ đồng vị Uranium–Thorium và Uranium–Lead được sử dụng để định tuổi đá và khoáng vật.",
+      "sourceLine": 99
+    },
+    {
+      "title": "Thiết bị đối trọng",
+      "desc": "Uranium nghèo từng được sử dụng trong một số ứng dụng cần vật liệu có khối lượng riêng rất cao, chẳng hạn đối trọng kỹ thuật.",
+      "sourceLine": 100
+    },
+    {
+      "title": "Nghiên cứu khoa học",
+      "desc": "Uranium đóng vai trò quan trọng trong nghiên cứu vật lý hạt nhân, hóa học Actinide và phóng xạ.",
+      "sourceLine": 101
+    }
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Uranium là nguyên tố số 92, thuộc nhóm IIIB | chu kỳ 7 và là nguyên tố thứ tư trong họ Actinide.</li><li>Uranium được Martin Heinrich Klaproth phát hiện vào năm 1789 tại Berlin. Ông đặt tên nguyên tố theo Uranus, hành tinh vừa được phát hiện vào thời điểm đó. Đến năm 1841, Eugène-Melchior Peligot mới điều chế được Uranium kim loại.</li><li>Uranium là kim loại phóng xạ nặng, có nhiều trạng thái Oxy hóa, trong đó +4 và +6 đặc biệt quan trọng. Trong tự nhiên, Uranium chủ yếu tồn tại dưới dạng ²³⁸U, cùng một lượng nhỏ ²³⁵U và ²³⁴U.</li><li>Điểm quan trọng nhất của Uranium là khả năng tham gia phản ứng phân hạch hạt nhân. ²³⁵U có thể phân hạch khi hấp thụ neutron và vì vậy được sử dụng làm nhiên liệu trong năng lượng hạt nhân.</li><li>Ngoài năng lượng hạt nhân, Uranium còn có vai trò trong định tuổi địa chất, nghiên cứu hạt nhân và hóa học Actinide.</li><li>Mạng tinh thể: Trực thoi (Orthorhombic) ở điều kiện thường.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/photos/092_U.jpg",
+      "title": "Uranium (U)",
+      "desc": "Mẫu uranium kim loại trong cơ sở nghiên cứu; không phải quặng uraninite.",
+      "source": "https://commons.wikimedia.org/wiki/File:HEUraniumC.jpg",
+      "author": "Unspecified",
+      "license": "Public domain",
+      "licenseUrl": ""
+    }
+  ],
+  "mediaBlocks": [
+    {
+      "type": "model",
+      "section": "structure",
+      "title": "Mẫu khoáng vật 3D · Uraninite",
+      "src": "/assets/periodic-table/minerals/uraninite.glb",
+      "preview": "/assets/periodic-table/minerals/uraninite.png",
+      "desc": "UO₂₊ₓ (có sản phẩm phân rã và tạp chất). Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  ],
+  "sources": [
+    {
+      "title": "092_U.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "5dc5ed4c431b9a195d43d26148171a3094462b868d23090d5ecf345ec06f0ca8"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/92/uranium"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "uraniumOxidation",
+      "url": "https://www-pub.iaea.org/MTCD/Publications/PDF/TE-2085web.pdf"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "092_U.docx",
+    "sourceSha256": "5dc5ed4c431b9a195d43d26148171a3094462b868d23090d5ecf345ec06f0ca8",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/092_U.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
+}

@@ -1,0 +1,94 @@
+001: Protactinium (Pa)
+002: Thông tin chung
+003: Tên Latin: Protactinium
+004: Tên Tiếng Anh: Protactinium
+005: Đồng vị: ²²⁹Pa, ²³⁰Pa, ²³¹Pa, ²³²Pa, ²³³Pa, ²³⁴Pa
+006: Vị trí: Nhóm IIIB | Chu kỳ 7 | Họ Actinide
+007: Số Oxy hóa: +4, +5
+008: Độ âm điện: 1,5 (Pauling)
+009: Lịch sử khám phá
+010: Phát hiện bởi: Kasimir Fajans và Oswald Helmuth Göhring
+011: Năm công bố: 1913
+012: Nơi khám phá: Karlsruhe, Đức
+013: Mô tả: Năm 1913, Kasimir Fajans và Oswald Helmuth Göhring phát hiện một đồng vị phóng xạ mới trong chuỗi phân rã của Uranium-238. Đồng vị này được xác định là ²³⁴Pa và ban đầu được gọi là Brevium, do có chu kỳ bán rã rất ngắn.
+014: Đến năm 1917, Lise Meitner và Otto Hahn độc lập xác định một đồng vị sống lâu hơn là ²³¹Pa, đồng thời làm rõ vị trí của nguyên tố này trong chuỗi phân rã của Uranium.
+015: Tên Protactinium có nghĩa gần như “tiền thân của Actinium”, bởi ²³¹Pa phân rã tạo thành Actinium-227.
+016: 3. Cấu tạo
+017: a. Cấu tạo nguyên tử
+018: Cấu hình electron: [Rn] 5f² 6d¹ 7s²
+019: Mô hình mạng tinh thể: Tứ phương tâm khối (Body-centered tetragonal, BCT)
+020: Số hiệu nguyên tử: 91
+021: Nguyên tử khối: 231,03588 g/mol
+022: Vỏ nguyên tử: 91 electron
+023: Hạt nhân: 91 proton
+024: Cấu hình e đầy đủ: [Rn] 5f² 6d¹ 7s²
+025: Loại mạng: Tứ phương tâm khối (BCT)
+026: b. Trạng thái tự nhiên
+027: Trạng thái: Chất rắn
+028: Màu sắc: Kim loại màu bạc
+029: Có trong: Các khoáng vật Uranium, đặc biệt là Uraninite/Pitchblende.
+030: Đơn chất: Pa
+031: Hợp chất phổ biến: Pa₂O₅, PaO₂, PaCl₄, PaCl₅
+032: c. Đồng vị
+033: Protactinium không có đồng vị bền.
+034: Đồng vị quan trọng nhất:
+035: ²³¹Pa: chu kỳ bán rã khoảng 32.760 năm, là đồng vị Protactinium tự nhiên quan trọng nhất.
+036: ²³⁴Pa: chu kỳ bán rã khoảng 6,70 giờ, là sản phẩm trung gian trong chuỗi phân rã của ²³⁸U.
+037: ²³¹Pa được tạo ra trong chuỗi phân rã của ²³⁵U và cuối cùng phân rã thành ²²⁷Ac.
+038: Tính chất
+039: Tính chất vật lý
+040: Là kim loại phóng xạ.
+041: Thuộc họ Actinide.
+042: Có màu bạc.
+043: Rất hiếm trong tự nhiên.
+044: Có tính phóng xạ cao.
+045: Có nhiệt độ nóng chảy khoảng 1568 °C.
+046: Khối lượng riêng khoảng 15,4 g/cm³.
+047: Tính chất hóa học
+048: Protactinium có hai trạng thái Oxy hóa quan trọng:
+049: +5: phổ biến nhất.
+050: +4: cũng có thể tồn tại.
+051: Ion Pa⁵⁺ có tính chất hóa học tương đối đặc biệt và có xu hướng tạo các hợp chất oxide và halide.
+052: Ví dụ:
+053: 4Pa + 5O₂ → 2Pa₂O₅
+054: Protactinium phản ứng với các halogen và có thể tạo nhiều hợp chất vô cơ khác nhau.
+055: Điều chế
+056: Điều chế trong công nghiệp
+057: Protactinium (Pa) cực kỳ hiếm trong tự nhiên, chủ yếu tồn tại với lượng vết trong quặng Uranium. Nguyên tố này không được sản xuất công nghiệp thông thường mà được thu hồi từ vật liệu chứa Uranium hoặc tạo ra trong các quá trình hạt nhân.
+058: Một đồng vị của Protactinium hình thành trong chuỗi phân rã Uranium-235:
+059: ²³⁵U → ²³¹Th + ⁴He
+060: ²³¹Th → ²³¹Pa + β⁻
+061: Điều chế trong phòng thí nghiệm
+062: Protactinium có thể được tạo ra bằng phản ứng hạt nhân hoặc tách chiết từ các vật liệu chứa Uranium trong những cơ sở nghiên cứu chuyên dụng. Không có phương pháp điều chế hóa học thông thường để tổng hợp nguyên tố này.
+063: Nhận biết
+064: Có thể nhận biết Protactinium bằng:
+065: Phổ phóng xạ.
+066: Đo hoạt độ phóng xạ.
+067: Phổ alpha và beta của các đồng vị.
+068: Phân tích phổ khối.
+069: Các phương pháp hóa phóng xạ chuyên dụng.
+070: Do Protactinium cực kỳ hiếm và phóng xạ, việc nhận biết chủ yếu dựa trên đặc tính hạt nhân.
+071: Phương trình
+072: Tác dụng với Oxygen
+073: 4Pa + 5O₂ → 2Pa₂O₅
+074: Tạo Protactinium(V) chloride
+075: 2Pa + 5Cl₂ → 2PaCl₅
+076: Phân rã của Thorium-234
+077: ²³⁴Th → ²³⁴Pa + β⁻
+078: Phân rã của Protactinium-234
+079: ²³⁴Pa → ²³⁴U + β⁻
+080: Phân rã của Protactinium-231
+081: ²³¹Pa → ²²⁷Ac + α
+082: Ứng dụng thực tế
+083: Nghiên cứu hạt nhân: Protactinium chủ yếu được sử dụng trong nghiên cứu khoa học, đặc biệt là nghiên cứu chuỗi phân rã phóng xạ và cấu trúc hạt nhân.
+084: Địa chất và địa niên đại: Hệ đồng vị ²³¹Pa–²³⁰Th được sử dụng trong một số phương pháp nghiên cứu tuổi và lịch sử trầm tích biển, nhờ chu kỳ bán rã tương đối dài của ²³¹Pa.
+085: Nghiên cứu Uranium: Protactinium là một sản phẩm trung gian quan trọng trong chuỗi phân rã Uranium, giúp các nhà khoa học nghiên cứu sự biến đổi phóng xạ tự nhiên.
+086: Nghiên cứu hóa học Actinide: Các hợp chất của Protactinium được nghiên cứu để hiểu rõ hơn về tính chất hóa học của các nguyên tố Actinide.
+087: Do độ hiếm, tính phóng xạ và độc tính, Protactinium hầu như không có ứng dụng công nghiệp hoặc thương mại thông thường.
+088: Tổng quan
+089: Protactinium là nguyên tố số 91, thuộc nhóm IIIB | chu kỳ 7 và là nguyên tố thứ ba trong họ Actinide.
+090: Protactinium được Kasimir Fajans và Oswald Helmuth Göhring phát hiện vào năm 1913. Sau đó, Lise Meitner và Otto Hahn đã xác định đồng vị sống lâu hơn ²³¹Pa vào năm 1917.
+091: Tên Protactinium có nghĩa là “tiền thân của Actinium”, vì ²³¹Pa phân rã alpha tạo thành ²²⁷Ac.
+092: Protactinium là một kim loại phóng xạ cực hiếm, có các trạng thái Oxy hóa chủ yếu là +5 và +4. Đồng vị tự nhiên quan trọng nhất là ²³¹Pa, có chu kỳ bán rã khoảng 32.760 năm.
+093: Protactinium gần như không có ứng dụng đời sống thông thường. Giá trị chủ yếu của nó nằm trong nghiên cứu hạt nhân, hóa học Actinide và địa niên đại, đặc biệt thông qua hệ ²³¹Pa–²³⁰Th.
+094: Mạng tinh thể: Tứ phương tâm khối (BCT) ở điều kiện thường.

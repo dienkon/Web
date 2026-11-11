@@ -1,0 +1,91 @@
+001: Oganesson (Og)
+002: Thông tin chung
+003: Tên Latin: Oganesson
+004: Tên Tiếng Anh: Oganesson
+005: Đồng vị: ²⁹²Og, ²⁹³Og, ²⁹⁴Og, ²⁹⁵Og, ²⁹⁶Og
+006: Vị trí: Nhóm VIIIA | Chu kỳ 7
+007: Số Oxy hóa: 0, +2, +4, +6 (dự đoán)
+008: Độ âm điện: Không xác định
+009: Lịch sử khám phá
+010: Phát hiện bởi: Joint Institute for Nuclear Research (JINR) phối hợp với Lawrence Livermore National Laboratory (LLNL)
+011: Năm công bố: 2002
+012: Nơi khám phá: Dubna, Nga
+013: Mô tả: Oganesson được tổng hợp lần đầu vào năm 2002 bằng cách bắn phá Calcium-48 vào Californium-249:
+014: ²⁴⁸Ca + ²⁴⁹Cf → ²⁹⁴Og + 3n
+015: Tên Oganesson được đặt để vinh danh nhà vật lý hạt nhân Yuri Oganessian, người có đóng góp quan trọng trong việc phát hiện nhiều nguyên tố siêu nặng.
+016: 3. Cấu tạo
+017: a. Cấu tạo nguyên tử
+018: Hoạt họa cấu hình e: [Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁶ (dự đoán)
+019: Mô hình mạng tinh thể: Lập phương tâm diện (Face-centered cubic, FCC) (dự đoán)
+020: Số hiệu nguyên tử: 118
+021: Nguyên tử khối: [294] g/mol
+022: Vỏ nguyên tử: 118 electron
+023: Hạt nhân: 118 proton
+024: Cấu hình e: [Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁶ (dự đoán)
+025: Loại mạng: Lập phương tâm diện (Face-centered cubic, FCC) (dự đoán)
+026: b. Trạng thái tự nhiên
+027: Trạng thái: Khí (dự đoán)
+028: Có trong: Không tồn tại tự nhiên với lượng đáng kể. Oganesson chỉ được tổng hợp nhân tạo.
+029: Đơn chất: Og
+030: Hợp chất: OgF₂, OgF₄... (dự đoán)
+031: c. Đồng vị
+032: Oganesson không có đồng vị bền.
+033: Một số đồng vị:
+034: ²⁹³Og: chu kỳ bán rã rất ngắn.
+035: ²⁹⁴Og: chu kỳ bán rã khoảng 0,7 mili giây.
+036: ²⁹⁵Og: được dự đoán có độ ổn định cao hơn.
+037: ²⁹⁶Og: có thể có độ ổn định cao hơn một số đồng vị nhẹ hơn.
+038: Các đồng vị Oganesson chủ yếu phân rã bằng phân rã Alpha.
+039: Tính chất
+040: Tính chất vật lý
+041: Là nguyên tố thuộc nhóm VIIIA | chu kỳ 7.
+042: Thuộc nhóm khí hiếm.
+043: Là nguyên tố có số hiệu nguyên tử lớn nhất hiện được công nhận.
+044: Có tính phóng xạ cực mạnh.
+045: Được dự đoán có thể là chất khí hoặc chất lỏng ở điều kiện thường tùy theo mô hình tính toán, khác với các khí hiếm nhẹ.
+046: Có thể có nhiệt độ sôi tương đối cao so với các khí hiếm nhẹ.
+047: Các tính chất vật lý thực nghiệm còn rất hạn chế.
+048: Tính chất hóa học
+049: Có cấu hình electron lớp ngoài cùng 7s² 7p⁶, tương ứng với lớp electron đóng hoàn toàn.
+050: Được xếp vào khí hiếm, nhưng có thể hoạt động hóa học hơn các khí hiếm nhẹ.
+051: Các số Oxy hóa +2, +4, +6 được dự đoán có thể tồn tại trong một số hợp chất.
+052: Hiệu ứng tương đối tính cực mạnh có thể làm thay đổi đáng kể tính chất của Oganesson.
+053: Có thể có khả năng tạo hợp chất với Fluorine và một số nguyên tố khác.
+054: Nhiều tính chất vẫn chỉ là dự đoán lý thuyết vì Oganesson có chu kỳ sống cực ngắn.
+055: Điều chế
+056: Điều chế trong công nghiệp:
+057: Oganesson (Og) không được sản xuất công nghiệp do tính phóng xạ cực cao và thời gian tồn tại rất ngắn. Nguyên tố này chỉ được tổng hợp với số lượng nguyên tử rất nhỏ trong các cơ sở nghiên cứu hạt nhân.
+058: Điều chế trong phòng thí nghiệm:
+059: Oganesson được tổng hợp bằng cách bắn phá Californium-249 bằng ion Calcium-48 trong máy gia tốc hạt.
+060: ²⁴⁹Cf + ⁴⁸Ca → ²⁹⁴Og + 3¹n
+061: Nhận biết
+062: Oganesson được nhận biết thông qua:
+063: Năng lượng của các hạt Alpha.
+064: Chu kỳ bán rã.
+065: Chuỗi phân rã phóng xạ.
+066: Xác định các hạt nhân con.
+067: Đối chiếu chuỗi phân rã với các hạt nhân đã biết.
+068: Do chỉ tạo ra được vài nguyên tử trong mỗi thí nghiệm, không thể nhận biết Oganesson bằng phương pháp hóa học thông thường.
+069: Phương trình
+070: Tổng hợp Oganesson-294
+071: ²⁴⁸Ca + ²⁴⁹Cf → ²⁹⁴Og + 3n
+072: Phân rã Alpha
+073: ²⁹⁴Og → ²⁹⁰Lv + ⁴He
+074: Tạo Oganesson(II) fluoride
+075: Og + F₂ → OgF₂
+076: Tạo Oganesson(IV) fluoride
+077: Og + 2F₂ → OgF₄
+078: Các phương trình hóa học của Oganesson chủ yếu mang tính dự đoán.
+079: Ứng dụng thực tế
+080: Oganesson không có ứng dụng công nghiệp hoặc dân dụng.
+081: Nó chủ yếu được sử dụng trong:
+082: Nghiên cứu hạt nhân: Nghiên cứu các hạt nhân siêu nặng và giới hạn của độ bền hạt nhân.
+083: Nghiên cứu “đảo ổn định”: Oganesson nằm ở vùng cuối của bảng tuần hoàn hiện tại và có vai trò quan trọng trong nghiên cứu các hạt nhân siêu nặng.
+084: Hóa học nguyên tố siêu nặng: Nghiên cứu xem Oganesson có thực sự thể hiện đầy đủ tính chất của một khí hiếm hay không.
+085: Vật lý nguyên tử: Nghiên cứu ảnh hưởng của hiệu ứng tương đối tính cực mạnh lên electron của nguyên tử có Z = 118.
+086: Tổng quan
+087: Oganesson là nguyên tố số 118, thuộc nhóm VIIIA | chu kỳ 7 và là khí hiếm siêu nặng. Đây là nguyên tố có số hiệu nguyên tử lớn nhất trong bảng tuần hoàn hiện nay.
+088: Oganesson được tổng hợp lần đầu vào năm 2002 tại Dubna, Nga, bằng phản ứng giữa Calcium-48 và Californium-249. Tên nguyên tố được đặt để vinh danh nhà vật lý hạt nhân Yuri Oganessian.
+089: Cấu hình electron được dự đoán là [Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁶. Mặc dù nằm trong nhóm khí hiếm, Oganesson có thể có tính chất khác biệt đáng kể so với các khí hiếm nhẹ do hiệu ứng tương đối tính cực mạnh.
+090: Oganesson không có đồng vị bền, có tính phóng xạ cực mạnh và chỉ tạo được vài nguyên tử trong các thí nghiệm. Vì vậy, nó không có ứng dụng thực tế, chủ yếu phục vụ nghiên cứu vật lý hạt nhân và hóa học nguyên tố siêu nặng.
+091: Mạng tinh thể: Lập phương tâm diện (FCC) — dự đoán, nếu Oganesson có trạng thái ngưng tụ phù hợp; cấu trúc tinh thể thực tế chưa thể xác định bằng thực nghiệm do thời gian sống cực ngắn.

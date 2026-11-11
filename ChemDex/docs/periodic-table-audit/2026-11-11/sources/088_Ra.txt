@@ -1,0 +1,94 @@
+001: Radium (Ra)
+002: Thông tin chung
+003: Tên Latin: Radium
+004: Tên Tiếng Anh: Radium
+005: Đồng vị: ²²³Ra, ²²⁴Ra, ²²⁶Ra, ²²⁸Ra
+006: Vị trí: Nhóm IIA | Chu kỳ 7
+007: Số Oxy hóa: +2
+008: Độ âm điện: 0.9
+009: Lịch sử khám phá
+010: Phát hiện bởi: Marie Curie và Pierre Curie
+011: Năm công bố: 1898
+012: Nơi khám phá: Pháp
+013: Mô tả: Radium được Marie Curie và Pierre Curie phát hiện vào năm 1898 khi nghiên cứu quặng Uraninite. Họ nhận thấy quặng Uranium có tính phóng xạ mạnh hơn dự kiến và sau quá trình xử lý, đã phát hiện một nguyên tố phóng xạ mới.
+014: Tên Radium bắt nguồn từ tiếng Latin radius, nghĩa là “tia”, dựa trên tính phóng xạ mạnh của nguyên tố.
+015: 3. Cấu tạo
+016: a. Cấu tạo nguyên tử
+017: Hoạt họa cấu hình e: [Rn] 7s²
+018: Mô hình mạng tinh thể: Lập phương tâm khối (Body-centered cubic, BCC)
+019: Số hiệu nguyên tử: 88
+020: Nguyên tử khối: [226] g/mol
+021: Vỏ nguyên tử: 88 electron
+022: K: 2 | L: 8 | M: 18 | N: 32 | O: 18 | P: 8 | Q: 2
+023: Hạt nhân: 88 proton
+024: Cấu hình e: [Rn] 7s²
+025: Loại mạng: Lập phương tâm khối (Body-centered cubic, BCC)
+026: b. Trạng thái tự nhiên
+027: Trạng thái: Kim loại rắn, màu trắng bạc.
+028: Có trong: Tồn tại với lượng rất nhỏ trong các quặng Uranium, đặc biệt là Uraninite.
+029: Đơn chất: Ra
+030: Hợp chất: RaO, Ra(OH)₂, RaCl₂, RaSO₄...
+031: c. Đồng vị
+032: Radium không có đồng vị bền.
+033: Một số đồng vị quan trọng:
+034: ²²⁶Ra: chu kỳ bán rã khoảng 1600 năm, là đồng vị phổ biến nhất trong tự nhiên.
+035: ²²⁸Ra: chu kỳ bán rã khoảng 5.75 năm.
+036: ²²⁴Ra: chu kỳ bán rã khoảng 3.66 ngày.
+037: ²²³Ra: chu kỳ bán rã khoảng 11.4 ngày.
+038: ²²⁶Ra nằm trong chuỗi phân rã của Uranium-238:
+039: ²³⁰Th → ²²⁶Ra + ⁴He
+040: Tính chất
+041: Tính chất vật lý
+042: Là kim loại kiềm thổ.
+043: Có tính phóng xạ mạnh.
+044: Kim loại tinh khiết có màu trắng bạc nhưng nhanh chóng bị xỉn màu trong không khí.
+045: Là chất rắn ở điều kiện thường.
+046: Khối lượng riêng: khoảng 5.5 g/cm³.
+047: Nhiệt độ nóng chảy: khoảng 700 °C.
+048: Nhiệt độ sôi: khoảng 1737 °C.
+049: Radium và các hợp chất của nó có thể phát sáng yếu do bức xạ.
+050: Tính chất hóa học
+051: Có 2 electron hóa trị.
+052: Số Oxy hóa đặc trưng: +2.
+053: Có tính chất hóa học tương tự các kim loại kiềm thổ khác, đặc biệt là Barium.
+054: Phản ứng với nước tạo Radium hydroxide và Hydrogen.
+055: Phản ứng với Halogen tạo muối Radium.
+056: Tạo các hợp chất ion như RaCl₂ và RaSO₄.
+057: Điều chế
+058: Điều chế trong công nghiệp
+059: Radium (Ra) không được sản xuất công nghiệp phổ biến. Trước đây, nguyên tố này được thu hồi từ quặng Uranium, đặc biệt là Uraninite (pitchblende), nơi Radium tồn tại với lượng rất nhỏ dưới dạng sản phẩm phân rã phóng xạ.
+060: Quặng được xử lý để tách Radium khỏi các nguyên tố khác, thường thông qua quá trình kết tủa và tinh chế muối Radium.
+061: Một phản ứng kết tủa minh họa:
+062: Ra²⁺ + SO₄²⁻ → RaSO₄↓
+063: Điều chế trong phòng thí nghiệm
+064: Radium có thể được tách từ các mẫu quặng Uranium hoặc vật liệu chứa Radium bằng những quy trình hóa học chuyên dụng. Không có phương pháp tổng hợp hóa học thông thường để tạo ra Radium từ các nguyên tố khác.
+065: Nhận biết
+066: Radium được nhận biết chủ yếu dựa vào tính phóng xạ.
+067: Về mặt hóa học, ion Ra²⁺ có tính chất tương tự Ba²⁺ và có thể tạo các muối ít tan như Radium sulfate:
+068: Ra²⁺ + SO₄²⁻ → RaSO₄↓
+069: Hiện tượng: Tạo kết tủa Radium sulfate.
+070: Tuy nhiên, việc nhận biết Radium trong thực tế chủ yếu sử dụng phương pháp đo phóng xạ, vì lượng Radium tự nhiên rất nhỏ.
+071: Phương trình
+072: Phân rã của Radium-226
+073: ²²⁶Ra → ²²²Rn + ⁴He
+074: Tác dụng với Oxygen
+075: 2Ra + O₂ → 2RaO
+076: Tác dụng với nước
+077: Ra + 2H₂O → Ra(OH)₂ + H₂↑
+078: Tác dụng với Chlorine
+079: Ra + Cl₂ → RaCl₂
+080: Tác dụng với Sulfuric acid
+081: Ra + H₂SO₄ → RaSO₄↓ + H₂↑
+082: Tạo Radium sulfate
+083: Ra²⁺ + SO₄²⁻ → RaSO₄↓
+084: Ứng dụng thực tế
+085: Y học lịch sử: Radium từng được sử dụng trong xạ trị để điều trị một số bệnh, đặc biệt là ung thư. Ngày nay nhiều ứng dụng đã được thay thế bằng các nguồn phóng xạ và công nghệ an toàn hơn.
+086: Sơn phát quang: Trong thế kỷ XX, Radium từng được sử dụng trong sơn phát quang cho đồng hồ và thiết bị đo. Ứng dụng này hiện đã bị loại bỏ do nguy cơ phóng xạ.
+087: Nghiên cứu: Radium được sử dụng trong nghiên cứu phóng xạ và chuỗi phân rã tự nhiên.
+088: Nguồn Radon: ²²⁶Ra có thể được sử dụng làm nguồn tạo Radon trong một số nghiên cứu chuyên môn.
+089: Tổng quan
+090: Radium là nguyên tố số 88, thuộc nhóm IIA | chu kỳ 7 và là một kim loại kiềm thổ phóng xạ.
+091: Radium có cấu hình electron [Rn] 7s², với số Oxy hóa đặc trưng là +2. Đồng vị tự nhiên quan trọng nhất là ²²⁶Ra, có chu kỳ bán rã khoảng 1600 năm.
+092: Radium được Marie Curie và Pierre Curie phát hiện năm 1898. Đây là một trong những nguyên tố đóng vai trò quan trọng trong lịch sử nghiên cứu phóng xạ.
+093: Mạng tinh thể: Lập phương tâm khối (BCC).
+094: Do tính phóng xạ mạnh, Radium hiện nay chủ yếu được sử dụng trong nghiên cứu khoa học, trong khi các ứng dụng y học và vật liệu phát quang trước đây phần lớn đã được thay thế bằng công nghệ an toàn hơn.

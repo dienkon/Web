@@ -1,0 +1,92 @@
+001: Tungsten (W)
+002: Thông tin chung
+003: Tên Latin: Wolframium
+004: Tên Tiếng Anh: Tungsten
+005: Đồng vị: ¹⁸⁰W, ¹⁸²W, ¹⁸³W, ¹⁸⁴W, ¹⁸⁶W
+006: Vị trí: Nhóm VIB | Chu kỳ 6
+007: Số Oxy hóa: +2, +3, +4, +5, +6
+008: Độ âm điện: 2.36
+009: Lịch sử khám phá
+010: Phát hiện bởi: Juan José và Fausto Elhuyar
+011: Năm công bố: 1783
+012: Nơi khám phá: Tây Ban Nha
+013: Mô tả: Năm 1783, hai anh em Juan José và Fausto Elhuyar đã điều chế được Tungsten bằng cách khử Tungsten oxide thu được từ khoáng vật Wolframite. Ký hiệu W bắt nguồn từ tên Wolfram, một tên gọi khác của Tungsten.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Xe] 4f¹⁴ 5d⁴ 6s²
+017: Mô hình mạng tinh thể: Lập phương tâm khối (Body-centered cubic, BCC)
+018: Số hiệu nguyên tử: 74
+019: Nguyên tử khối: 183.84 g/mol
+020: Vỏ nguyên tử: 74 electron
+021: K: 2 | L: 8 | M: 18 | N: 32 | O: 12 | P: 2
+022: Hạt nhân: 74 proton, 110 neutron đối với ¹⁸⁴W
+023: Cấu hình e: [Xe] 4f¹⁴ 5d⁴ 6s²
+024: Loại mạng: Lập phương tâm khối (Body-centered cubic, BCC)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Tungsten là kim loại rắn, màu xám bạc, rất cứng và nặng.
+027: Có trong: Chủ yếu trong các khoáng vật Wolframite ((Fe,Mn)WO₄) và Scheelite (CaWO₄).
+028: Đơn chất: W
+029: Hợp chất: WO₃, CaWO₄, FeWO₄, WS₂, WCl₆, WC...
+030: c. Đồng vị
+031: Đồng vị: ¹⁸⁰W, ¹⁸²W, ¹⁸³W, ¹⁸⁴W, ¹⁸⁶W
+032: Tungsten có 5 đồng vị tự nhiên. Trong đó ¹⁸⁰W có tính phóng xạ cực yếu với chu kỳ bán rã rất dài; các đồng vị còn lại về cơ bản được xem là ổn định.
+033: ¹⁸⁴W: Là một trong những đồng vị phổ biến của Tungsten.
+034: Tính chất
+035: Tính chất vật lý
+036: Là kim loại chuyển tiếp.
+037: Màu xám bạc.
+038: Rất cứng và có độ bền cao.
+039: Có nhiệt độ nóng chảy cao nhất trong số các kim loại.
+040: Khối lượng riêng: khoảng 19.25 g/cm³.
+041: Nhiệt độ nóng chảy: khoảng 3422 °C.
+042: Nhiệt độ sôi: khoảng 5555 °C.
+043: Dẫn điện và dẫn nhiệt.
+044: Có khả năng chịu nhiệt và chống biến dạng tốt.
+045: Tính chất hóa học
+046: Có nhiều số Oxy hóa, phổ biến nhất là +6.
+047: Ở nhiệt độ thường khá bền trong không khí.
+048: Khi nung nóng phản ứng với Oxygen tạo Tungsten oxide.
+049: Phản ứng với Halogen ở nhiệt độ cao.
+050: Tungsten carbide (WC) có độ cứng rất cao.
+051: Có khả năng chống ăn mòn tốt trong nhiều môi trường.
+052: Điều chế
+053: Điều chế trong công nghiệp
+054: Tungsten (W) chủ yếu được điều chế từ quặng wolframite và scheelite. Quặng được tinh chế thành Tungsten trioxide, sau đó khử bằng Hydrogen ở nhiệt độ cao để thu Tungsten kim loại.
+055: Phương trình:
+056: WO₃ + 3H₂ → W + 3H₂O
+057: Điều chế trong phòng thí nghiệm
+058: Có thể điều chế Tungsten bằng cách khử Tungsten trioxide bằng Aluminium ở nhiệt độ cao.
+059: Phương trình:
+060: WO₃ + 2Al → W + Al₂O₃
+061: Nhận biết
+062: Tungsten thường được xác định bằng phương pháp quang phổ hoặc phân tích hóa học chuyên dụng.
+063: Một hợp chất đặc trưng là Tungsten trioxide (WO₃), có màu vàng:
+064: W + 3O₂ → WO₃
+065: Hiện tượng: Tạo chất rắn màu vàng WO₃.
+066: Phương trình
+067: Tác dụng với Oxygen
+068: 2W + 3O₂ → 2WO₃
+069: Tác dụng với Chlorine
+070: W + 3Cl₂ → WCl₆
+071: Tác dụng với Carbon
+072: W + C → WC
+073: Tác dụng với Fluorine
+074: W + 3F₂ → WF₆
+075: Tác dụng với Sulfur
+076: W + 2S → WS₂
+077: Khử Tungsten trioxide
+078: WO₃ + 3H₂ → W + 3H₂O
+079: Tạo Tungsten carbide
+080: W + C → WC
+081: Ứng dụng thực tế
+082: Dây tóc bóng đèn: Tungsten có nhiệt độ nóng chảy cực cao nên từng được sử dụng rộng rãi làm dây tóc bóng đèn sợi đốt.
+083: Công cụ cắt: Tungsten carbide (WC) được sử dụng trong mũi khoan, dao cắt và các dụng cụ gia công có độ cứng cao.
+084: Hợp kim: Tungsten được thêm vào thép và các hợp kim đặc biệt để tăng độ cứng, độ bền và khả năng chịu nhiệt.
+085: Hàng không vũ trụ: Tungsten được sử dụng trong một số bộ phận chịu nhiệt cao.
+086: Điện tử: Tungsten được sử dụng trong một số linh kiện và vật liệu điện tử chịu nhiệt.
+087: Đối trọng: Do có khối lượng riêng rất lớn, Tungsten được sử dụng trong một số vật liệu cần khối lượng cao nhưng kích thước nhỏ.
+088: Tổng quan
+089: Tungsten là nguyên tố số 74, thuộc nhóm VIB | chu kỳ 6 và là một kim loại chuyển tiếp.
+090: Tungsten có cấu hình electron [Xe] 4f¹⁴ 5d⁴ 6s², với số Oxy hóa phổ biến nhất là +6.
+091: Đây là kim loại có nhiệt độ nóng chảy cao nhất trong số các kim loại, đồng thời có khối lượng riêng lớn, độ cứng và khả năng chịu nhiệt rất cao.
+092: Trong tự nhiên, Tungsten chủ yếu được khai thác từ Wolframite và Scheelite. Tungsten và đặc biệt là Tungsten carbide (WC) có vai trò quan trọng trong công cụ cắt, hợp kim chịu nhiệt, điện tử, hàng không vũ trụ và các vật liệu kỹ thuật đặc biệt.

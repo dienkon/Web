@@ -1,0 +1,1413 @@
+{
+  "symbol": "Ca",
+  "number": 20,
+  "source": "020_Ca.docx",
+  "sourceSha256": "3783a53d30efd7c64ec55ffefdbbe70553d776c5da24c7dac547fcd5e9f4a69c",
+  "paragraphCount": 110,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 4,
+    "structure": 9,
+    "occurrence": 4,
+    "isotopes": 8,
+    "physical": 8,
+    "chemical": 8,
+    "lab": 3,
+    "industry": 6,
+    "recognition": 5,
+    "reactions": 21,
+    "applications": 7,
+    "notes": 4
+  },
+  "editorialDecisions": [],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "1s² 2s² 2p⁶ 3s² 3p⁶ 4s²",
+      "publishedValue": "[Ar] 4s²",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Lập phương tâm mặt (Face-centered cubic, FCC)",
+      "publishedValue": "Lập phương tâm mặt (Face-centered cubic, FCC)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "1.00",
+      "publishedValue": 1.0,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm IIA | Chu kỳ 4",
+      "publishedValue": "2",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Calcium là kim loại rắn, màu trắng bạc ở điều kiện thường. Do có hoạt tính hóa học cao, Calcium không tồn tại tự do trong tự nhiên.",
+      "publishedValue": "Rắn",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 32,
+      "sourceText": "⁴⁰Ca: Đồng vị bền, chiếm khoảng 96.94% Calcium tự nhiên.",
+      "reference": {
+        "isotope": "⁴⁰Ca",
+        "massNumber": 40,
+        "protons": 20,
+        "neutrons": 20,
+        "stable": true,
+        "abundancePercent": "96.941",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 33,
+      "sourceText": "⁴²Ca: Đồng vị bền, chiếm khoảng 0.65%.",
+      "reference": {
+        "isotope": "⁴²Ca",
+        "massNumber": 42,
+        "protons": 20,
+        "neutrons": 22,
+        "stable": true,
+        "abundancePercent": "0.647",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 34,
+      "sourceText": "⁴³Ca: Đồng vị bền, chiếm khoảng 0.14%.",
+      "reference": {
+        "isotope": "⁴³Ca",
+        "massNumber": 43,
+        "protons": 20,
+        "neutrons": 23,
+        "stable": true,
+        "abundancePercent": "0.135",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 35,
+      "sourceText": "⁴⁴Ca: Đồng vị bền, chiếm khoảng 2.09%.",
+      "reference": {
+        "isotope": "⁴⁴Ca",
+        "massNumber": 44,
+        "protons": 20,
+        "neutrons": 24,
+        "stable": true,
+        "abundancePercent": "2.086",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 36,
+      "sourceText": "⁴⁶Ca: Đồng vị bền, chiếm khoảng 0.004%.",
+      "reference": {
+        "isotope": "⁴⁶Ca",
+        "massNumber": 46,
+        "protons": 20,
+        "neutrons": 26,
+        "stable": true,
+        "abundancePercent": "0.004",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 37,
+      "sourceText": "⁴⁸Ca: Đồng vị bền, chiếm khoảng 0.19%.",
+      "reference": {
+        "isotope": "⁴⁸Ca",
+        "massNumber": 48,
+        "protons": 20,
+        "neutrons": 28,
+        "stable": false,
+        "abundancePercent": "0.187",
+        "halfLifeDisplay": "2.9E19 (+4.2E+19/−1.1E+19) năm",
+        "halfLife": "2.9E19 Y",
+        "halfLifeUncertainty": "+42-11",
+        "halfLifeQualifier": null,
+        "decay": "2B-",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Sửa phân loại bền: đã quan sát phân rã."
+    },
+    {
+      "line": 38,
+      "sourceText": "⁴¹Ca: Đồng vị phóng xạ, có chu kỳ bán rã khoảng 99.4 nghìn năm.",
+      "reference": {
+        "isotope": "⁴¹Ca",
+        "massNumber": 41,
+        "protons": 20,
+        "neutrons": 21,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "9.94E+4 ± 1.5E+3 năm",
+        "halfLife": "9.94E+4 Y",
+        "halfLifeUncertainty": "15",
+        "halfLifeQualifier": null,
+        "decay": "EC",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 61,
+      "text": "CaCl₂ → Ca + Cl₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 63,
+      "text": "Ca²⁺ + 2e⁻ → Ca",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 65,
+      "text": "2Cl⁻ → Cl₂ + 2e⁻",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 69,
+      "text": "CaCl₂ → Ca + Cl₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 74,
+      "text": "Ca²⁺ + C₂O₄²⁻ → CaC₂O₄↓",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 78,
+      "text": "2Ca + O₂ → 2CaO",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 80,
+      "text": "Ca + 2H₂O → Ca(OH)₂ + H₂↑",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 82,
+      "text": "Ca + H₂ → CaH₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 84,
+      "text": "Ca + Cl₂ → CaCl₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 87,
+      "text": "3Ca + N₂ → Ca₃N₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 89,
+      "text": "Ca + 2HCl → CaCl₂ + H₂↑",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 91,
+      "text": "Ca + S → CaS",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 93,
+      "text": "CaCO₃ → CaO + CO₂↑",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 95,
+      "text": "CaO + H₂O → Ca(OH)₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 97,
+      "text": "Ca(OH)₂ + CO₂ → CaCO₃↓ + H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "lab",
+      "equation": "CaCl₂ → Ca + Cl₂",
+      "condition": "Điện phân muối khan nóng chảy; không điện phân dung dịch nước để thu kim loại kiềm/kiềm thổ.",
+      "kind": "chemical",
+      "sourceLine": 69,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "CaCl₂ → Ca + Cl₂",
+      "condition": "Điện phân muối khan nóng chảy; không điện phân dung dịch nước để thu kim loại kiềm/kiềm thổ.",
+      "kind": "chemical",
+      "sourceLine": 61,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "Ca²⁺ + 2e⁻ → Ca",
+      "condition": "Điện cực của bình điện phân; muối khan nóng chảy đối với kim loại hoạt động mạnh, không dùng dung dịch nước để thu kim loại.",
+      "kind": "chemical",
+      "sourceLine": 63,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "2Cl⁻ → Cl₂ + 2e⁻",
+      "condition": "Điện cực của bình điện phân; muối khan nóng chảy đối với kim loại hoạt động mạnh, không dùng dung dịch nước để thu kim loại.",
+      "kind": "chemical",
+      "sourceLine": 65,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "recognition",
+      "equation": "Ca²⁺ + C₂O₄²⁻ → CaC₂O₄↓",
+      "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+      "kind": "chemical",
+      "sourceLine": 74,
+      "sourceSection": "recognition",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2Ca + O₂ → 2CaO",
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 78,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Ca + 2H₂O → Ca(OH)₂ + H₂↑",
+      "condition": "Tiếp xúc với nước; tốc độ phụ thuộc nhiệt độ, kích thước và lớp oxide bề mặt.",
+      "kind": "chemical",
+      "sourceLine": 80,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Ca + H₂ → CaH₂",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 82,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Ca + Cl₂ → CaCl₂",
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 84,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "3Ca + N₂ → Ca₃N₂",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 87,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Ca + 2HCl → CaCl₂ + H₂↑",
+      "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+      "kind": "chemical",
+      "sourceLine": 89,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Ca + S → CaS",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 91,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "CaCO₃ → CaO + CO₂↑",
+      "condition": "Gia nhiệt để phân hủy; nhiệt độ phụ thuộc chất và áp suất khí sản phẩm.",
+      "kind": "chemical",
+      "sourceLine": 93,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "CaO + H₂O → Ca(OH)₂",
+      "condition": "Tiếp xúc với nước; phản ứng/hydrat hóa tỏa nhiệt hoặc tạo cân bằng acid.",
+      "kind": "chemical",
+      "sourceLine": 95,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Ca(OH)₂ + CO₂ → CaCO₃↓ + H₂O",
+      "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+      "kind": "chemical",
+      "sourceLine": 97,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": [
+        {
+          "title": "Xây dựng",
+          "desc": "Calcium compounds như Calcium carbonate và Calcium oxide được sử dụng rộng rãi trong sản xuất xi măng, vôi và vật liệu xây dựng."
+        },
+        {
+          "title": "Luyện kim",
+          "desc": "Calcium được sử dụng làm chất khử và chất loại bỏ một số tạp chất trong luyện kim."
+        },
+        {
+          "title": "Sản xuất hợp kim",
+          "desc": "Calcium được sử dụng trong một số hợp kim đặc biệt."
+        },
+        {
+          "title": "Xử lý nước",
+          "desc": "Calcium hydroxide được sử dụng để điều chỉnh pH và xử lý nước."
+        },
+        {
+          "title": "Nông nghiệp",
+          "desc": "Calcium compounds được sử dụng để cải thiện đất và điều chỉnh độ acid của đất."
+        },
+        {
+          "title": "Sinh học",
+          "desc": "Ca²⁺ đóng vai trò quan trọng trong xương, răng, co cơ, truyền tín hiệu tế bào và đông máu."
+        },
+        {
+          "title": "Sản xuất hóa chất",
+          "desc": "Calcium là nguyên liệu để sản xuất nhiều Calcium compounds."
+        }
+      ],
+      "after": [
+        {
+          "title": "Xây dựng",
+          "desc": "Calcium compounds như Calcium carbonate và Calcium oxide được sử dụng rộng rãi trong sản xuất xi măng, vôi và vật liệu xây dựng.",
+          "sourceLine": 99
+        },
+        {
+          "title": "Luyện kim",
+          "desc": "Calcium được sử dụng làm chất khử và chất loại bỏ một số tạp chất trong luyện kim.",
+          "sourceLine": 100
+        },
+        {
+          "title": "Sản xuất hợp kim",
+          "desc": "Calcium được sử dụng trong một số hợp kim đặc biệt.",
+          "sourceLine": 101
+        },
+        {
+          "title": "Xử lý nước",
+          "desc": "Calcium hydroxide được sử dụng để điều chỉnh pH và xử lý nước.",
+          "sourceLine": 102
+        },
+        {
+          "title": "Nông nghiệp",
+          "desc": "Calcium compounds được sử dụng để cải thiện đất và điều chỉnh độ acid của đất.",
+          "sourceLine": 103
+        },
+        {
+          "title": "Sinh học",
+          "desc": "Ca²⁺ đóng vai trò quan trọng trong xương, răng, co cơ, truyền tín hiệu tế bào và đông máu.",
+          "sourceLine": 104
+        },
+        {
+          "title": "Sản xuất hóa chất",
+          "desc": "Calcium là nguyên liệu để sản xuất nhiều Calcium compounds.",
+          "sourceLine": 105
+        }
+      ]
+    },
+    {
+      "field": "chemical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có tính khử mạnh.</li>\n      <li>Dễ nhường 2 electron tạo Ca²⁺.</li>\n      <li>Phản ứng với nước tạo Calcium hydroxide và Hydrogen.</li>\n      <li>Phản ứng với Oxygen tạo Calcium oxide.</li>\n      <li>Phản ứng với Halogen tạo Calcium halide.</li>\n      <li>Phản ứng với Hydrogen tạo Calcium hydride.</li>\n      <li>Phản ứng với acid tạo muối Calcium và Hydrogen.</li>\n      <li>Có thể khử một số oxide kim loại ở nhiệt độ cao.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Có tính khử mạnh.</li><li>Dễ nhường 2 electron tạo Ca²⁺.</li><li>Phản ứng với nước tạo Calcium hydroxide và Hydrogen.</li><li>Phản ứng với Oxygen tạo Calcium oxide.</li><li>Phản ứng với Halogen tạo Calcium halide.</li><li>Phản ứng với Hydrogen tạo Calcium hydride.</li><li>Phản ứng với acid tạo muối Calcium và Hydrogen.</li><li>Có thể khử một số oxide kim loại ở nhiệt độ cao.</li></ul>"
+    },
+    {
+      "field": "general.CAS",
+      "before": null,
+      "after": "7440-70-2"
+    },
+    {
+      "field": "general.density",
+      "before": "",
+      "after": "1.54 g/cm³ (theo bảng RSC)"
+    },
+    {
+      "field": "general.electronConfig",
+      "before": "1s² 2s² 2p⁶ 3s² 3p⁶ 4s²",
+      "after": "[Ar] 4s²"
+    },
+    {
+      "field": "general.electronegativityNote",
+      "before": null,
+      "after": "Thang Pauling; số liệu tổng hợp PubChem."
+    },
+    {
+      "field": "general.groupLabel",
+      "before": null,
+      "after": "2"
+    },
+    {
+      "field": "general.series",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "general.state",
+      "before": "",
+      "after": "Rắn"
+    },
+    {
+      "field": "history.year",
+      "before": 1808,
+      "after": "1808"
+    },
+    {
+      "field": "images",
+      "before": {},
+      "after": [
+        {
+          "src": "/assets/periodic-table/photos/020_Ca.jpg",
+          "title": "Canxi (Ca)",
+          "desc": "Ảnh tham chiếu mẫu Calcium (Ca); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+          "source": "https://commons.wikimedia.org/wiki/File:Calcium_crystals_in_ampoule_cropped.jpg",
+          "author": "Original upload by 范皓程",
+          "license": "CC BY 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "⁴⁰Ca",
+          "massNumber": 40,
+          "protons": 20,
+          "neutrons": 20,
+          "stable": true,
+          "abundancePercent": "96.941",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "⁴¹Ca",
+          "massNumber": 41,
+          "protons": 20,
+          "neutrons": 21,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "9.94E+4 ± 1.5E+3 năm",
+          "halfLife": "9.94E+4 Y",
+          "halfLifeUncertainty": "15",
+          "halfLifeQualifier": null,
+          "decay": "EC",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "⁴²Ca",
+          "massNumber": 42,
+          "protons": 20,
+          "neutrons": 22,
+          "stable": true,
+          "abundancePercent": "0.647",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "⁴³Ca",
+          "massNumber": 43,
+          "protons": 20,
+          "neutrons": 23,
+          "stable": true,
+          "abundancePercent": "0.135",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "⁴⁴Ca",
+          "massNumber": 44,
+          "protons": 20,
+          "neutrons": 24,
+          "stable": true,
+          "abundancePercent": "2.086",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "⁴⁶Ca",
+          "massNumber": 46,
+          "protons": 20,
+          "neutrons": 26,
+          "stable": true,
+          "abundancePercent": "0.004",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "⁴⁸Ca",
+          "massNumber": 48,
+          "protons": 20,
+          "neutrons": 28,
+          "stable": false,
+          "abundancePercent": "0.187",
+          "halfLifeDisplay": "2.9E19 (+4.2E+19/−1.1E+19) năm",
+          "halfLife": "2.9E19 Y",
+          "halfLifeUncertainty": "+42-11",
+          "halfLifeQualifier": null,
+          "decay": "2B-",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "standard-atomic-weight"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "40.078 ± 0.004"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": [
+        {
+          "type": "model",
+          "section": "structure",
+          "title": "Mẫu khoáng vật 3D · Calcite",
+          "src": "/assets/periodic-table/minerals/calcite.glb",
+          "preview": "/assets/periodic-table/minerals/calcite.png",
+          "desc": "CaCO₃. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "nameVi",
+      "before": "Calcium",
+      "after": "Canxi"
+    },
+    {
+      "field": "naturalState.alt",
+      "before": null,
+      "after": "Calcium: ảnh tham chiếu từ Commons"
+    },
+    {
+      "field": "naturalState.caption",
+      "before": null,
+      "after": "Ảnh tham chiếu mẫu Calcium (Ca); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc."
+    },
+    {
+      "field": "naturalState.credit",
+      "before": null,
+      "after": "Original upload by 范皓程 · CC BY 4.0"
+    },
+    {
+      "field": "naturalState.image",
+      "before": null,
+      "after": "/assets/periodic-table/photos/020_Ca.jpg"
+    },
+    {
+      "field": "naturalState.kind",
+      "before": null,
+      "after": "photo"
+    },
+    {
+      "field": "naturalState.source",
+      "before": null,
+      "after": "https://commons.wikimedia.org/wiki/File:Calcium_crystals_in_ampoule_cropped.jpg"
+    },
+    {
+      "field": "notes",
+      "before": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Calcium là nguyên tố số 20, thuộc nhóm IIA | chu kỳ 4 và là một kim loại kiềm thổ.</li>\n  <li>Calcium có cấu hình electron 1s² 2s² 2p⁶ 3s² 3p⁶ 4s², với 2 electron hóa trị. Calcium dễ nhường 2 electron để tạo ion Ca²⁺, vì vậy số Oxy hóa phổ biến của nó là +2.</li>\n  <li>Trong tự nhiên, Calcium không tồn tại ở dạng đơn chất mà chủ yếu tồn tại trong các khoáng vật như Calcium carbonate, Calcium sulfate và Calcium phosphate. Calcium cũng là một nguyên tố quan trọng trong cơ thể sinh vật.</li>\n  <li>Calcium và các hợp chất của nó có vai trò lớn trong xây dựng, luyện kim, sản xuất hóa chất, xử lý nước, nông nghiệp và các quá trình sinh học.</li>\n</ul>\n",
+      "after": "<ul class=\"element-prose-list\"><li>Calcium là nguyên tố số 20, thuộc nhóm IIA | chu kỳ 4 và là một kim loại kiềm thổ.</li><li>Calcium có cấu hình electron 1s² 2s² 2p⁶ 3s² 3p⁶ 4s², với 2 electron hóa trị. Calcium dễ nhường 2 electron để tạo ion Ca²⁺, vì vậy số Oxy hóa phổ biến của nó là +2.</li><li>Trong tự nhiên, Calcium không tồn tại ở dạng đơn chất mà chủ yếu tồn tại trong các khoáng vật như Calcium carbonate, Calcium sulfate và Calcium phosphate. Calcium cũng là một nguyên tố quan trọng trong cơ thể sinh vật.</li><li>Calcium và các hợp chất của nó có vai trò lớn trong xây dựng, luyện kim, sản xuất hóa chất, xử lý nước, nông nghiệp và các quá trình sinh học.</li></ul>"
+    },
+    {
+      "field": "occurrence.details",
+      "before": null,
+      "after": [
+        "Trạng thái: Calcium là kim loại rắn, màu trắng bạc ở điều kiện thường. Do có hoạt tính hóa học cao, Calcium không tồn tại tự do trong tự nhiên.",
+        "Có trong: Đá vôi, Calcite, Dolomite, Gypsum, nước biển, đất và cơ thể sinh vật.",
+        "Đơn chất: Ca",
+        "Hợp chất: CaCO₃, CaO, Ca(OH)₂, CaSO₄, Ca₃(PO₄)₂, CaCl₂..."
+      ]
+    },
+    {
+      "field": "occurrence.mineral",
+      "before": null,
+      "after": {
+        "available": true,
+        "id": "calcite",
+        "name": "Calcite",
+        "formula": "CaCO₃",
+        "habit": "rhombohedral",
+        "color": "#e5d8b9",
+        "crystalSystem": "trigonal",
+        "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+        "source": "https://www.handbookofmineralogy.org/",
+        "sourceSearch": "https://rruff.info/Calcite",
+        "model": "/assets/periodic-table/minerals/calcite.glb",
+        "preview": "/assets/periodic-table/minerals/calcite.png",
+        "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      }
+    },
+    {
+      "field": "physical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại kiềm thổ.</li>\n      <li>Là chất rắn màu trắng bạc.</li>\n      <li>Tương đối mềm.</li>\n      <li>Có khối lượng riêng khoảng 1.55 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 842 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 1484 °C.</li>\n      <li>Dẫn điện và dẫn nhiệt tốt.</li>\n      <li>Bề mặt nhanh chóng bị oxy hóa khi tiếp xúc với không khí.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Là kim loại kiềm thổ.</li><li>Là chất rắn màu trắng bạc.</li><li>Tương đối mềm.</li><li>Có khối lượng riêng khoảng 1.55 g/cm³.</li><li>Nhiệt độ nóng chảy: khoảng 842 °C.</li><li>Nhiệt độ sôi: khoảng 1484 °C.</li><li>Dẫn điện và dẫn nhiệt tốt.</li><li>Bề mặt nhanh chóng bị oxy hóa khi tiếp xúc với không khí.</li></ul>"
+    },
+    {
+      "field": "preparations.industry",
+      "before": [
+        {
+          "title": "Calcium được điều chế chủ yếu bằng điện phân Calcium chloride nóng chảy:",
+          "equation": "CaCl₂ → Ca + Cl₂ <br> Ca²⁺ + 2e⁻ → Ca <br> 2Cl⁻ → Cl₂ + 2e⁻",
+          "desc": "Cathode: Anode:"
+        }
+      ],
+      "after": [
+        {
+          "title": "Calcium được điều chế chủ yếu bằng điện phân Calcium chloride nóng chảy",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "CaCl₂ → Ca + Cl₂",
+              "condition": "Điện phân muối khan nóng chảy; không điện phân dung dịch nước để thu kim loại kiềm/kiềm thổ.",
+              "kind": "chemical",
+              "sourceLine": 61,
+              "sourceSection": "industry",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            60,
+            61
+          ],
+          "equation": "CaCl₂ → Ca + Cl₂"
+        },
+        {
+          "title": "Cathode",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "Ca²⁺ + 2e⁻ → Ca",
+              "condition": "Điện cực của bình điện phân; muối khan nóng chảy đối với kim loại hoạt động mạnh, không dùng dung dịch nước để thu kim loại.",
+              "kind": "chemical",
+              "sourceLine": 63,
+              "sourceSection": "industry",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            62,
+            63
+          ],
+          "equation": "Ca²⁺ + 2e⁻ → Ca"
+        },
+        {
+          "title": "Anode",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "2Cl⁻ → Cl₂ + 2e⁻",
+              "condition": "Điện cực của bình điện phân; muối khan nóng chảy đối với kim loại hoạt động mạnh, không dùng dung dịch nước để thu kim loại.",
+              "kind": "chemical",
+              "sourceLine": 65,
+              "sourceSection": "industry",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            64,
+            65
+          ],
+          "equation": "2Cl⁻ → Cl₂ + 2e⁻"
+        }
+      ]
+    },
+    {
+      "field": "preparations.lab",
+      "before": [
+        {
+          "title": "Về nguyên tắc, có thể điều chế bằng điện phân Calcium chloride nóng chảy:",
+          "equation": "CaCl₂ → Ca + Cl₂",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Calcium kim loại không thường được điều chế trong phòng thí nghiệm phổ thông do tính hoạt động hóa học cao.",
+          "desc": "Về nguyên tắc, có thể điều chế bằng điện phân Calcium chloride nóng chảy:",
+          "result": "",
+          "equations": [
+            {
+              "equation": "CaCl₂ → Ca + Cl₂",
+              "condition": "Điện phân muối khan nóng chảy; không điện phân dung dịch nước để thu kim loại kiềm/kiềm thổ.",
+              "kind": "chemical",
+              "sourceLine": 69,
+              "sourceSection": "lab",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            67,
+            68,
+            69
+          ],
+          "equation": "CaCl₂ → Ca + Cl₂"
+        }
+      ]
+    },
+    {
+      "field": "reactions",
+      "before": [
+        {
+          "type": "Tác dụng với Oxygen",
+          "equation": "2Ca + O₂ → 2CaO",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với nước",
+          "equation": "Ca + 2H₂O → Ca(OH)₂ + H₂↑",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Hydrogen",
+          "equation": "Ca + H₂ → CaH₂",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Chlorine",
+          "equation": "Ca + Cl₂ → CaCl₂",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Nitrogen",
+          "equation": "3Ca + N₂ → Ca₃N₂",
+          "desc": "Ở nhiệt độ cao:"
+        },
+        {
+          "type": "Tác dụng với Hydrochloric acid",
+          "equation": "Ca + 2HCl → CaCl₂ + H₂↑",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Sulfur",
+          "equation": "Ca + S → CaS",
+          "desc": ""
+        },
+        {
+          "type": "Nhiệt phân Calcium carbonate",
+          "equation": "CaCO₃ → CaO + CO₂↑",
+          "desc": ""
+        },
+        {
+          "type": "Calcium oxide tác dụng với nước",
+          "equation": "CaO + H₂O → Ca(OH)₂",
+          "desc": ""
+        },
+        {
+          "type": "Calcium hydroxide tác dụng với Carbon dioxide",
+          "equation": "Ca(OH)₂ + CO₂ → CaCO₃↓ + H₂O",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "type": "Tác dụng với Oxygen",
+          "desc": "",
+          "equation": "2Ca + O₂ → 2CaO",
+          "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+          "kind": "chemical",
+          "sourceLine": 78,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với nước",
+          "desc": "",
+          "equation": "Ca + 2H₂O → Ca(OH)₂ + H₂↑",
+          "condition": "Tiếp xúc với nước; tốc độ phụ thuộc nhiệt độ, kích thước và lớp oxide bề mặt.",
+          "kind": "chemical",
+          "sourceLine": 80,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Hydrogen",
+          "desc": "",
+          "equation": "Ca + H₂ → CaH₂",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 82,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Chlorine",
+          "desc": "",
+          "equation": "Ca + Cl₂ → CaCl₂",
+          "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+          "kind": "chemical",
+          "sourceLine": 84,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Ở nhiệt độ cao",
+          "desc": "",
+          "equation": "3Ca + N₂ → Ca₃N₂",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 87,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Hydrochloric acid",
+          "desc": "",
+          "equation": "Ca + 2HCl → CaCl₂ + H₂↑",
+          "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+          "kind": "chemical",
+          "sourceLine": 89,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Sulfur",
+          "desc": "",
+          "equation": "Ca + S → CaS",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 91,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Nhiệt phân Calcium carbonate",
+          "desc": "",
+          "equation": "CaCO₃ → CaO + CO₂↑",
+          "condition": "Gia nhiệt để phân hủy; nhiệt độ phụ thuộc chất và áp suất khí sản phẩm.",
+          "kind": "chemical",
+          "sourceLine": 93,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Calcium oxide tác dụng với nước",
+          "desc": "",
+          "equation": "CaO + H₂O → Ca(OH)₂",
+          "condition": "Tiếp xúc với nước; phản ứng/hydrat hóa tỏa nhiệt hoặc tạo cân bằng acid.",
+          "kind": "chemical",
+          "sourceLine": 95,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Calcium hydroxide tác dụng với Carbon dioxide",
+          "desc": "",
+          "equation": "Ca(OH)₂ + CO₂ → CaCO₃↓ + H₂O",
+          "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+          "kind": "chemical",
+          "sourceLine": 97,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": [
+        {
+          "title": "Nhận biết",
+          "reagent": "Nhận biết ion Calcium (Ca²⁺)",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Thử ngọn lửa",
+          "reagent": "",
+          "result": "Calcium tạo màu đỏ gạch / đỏ cam.",
+          "equation": ""
+        },
+        {
+          "title": "Ngoài ra, Ca²⁺ có thể tạo kết tủa Calcium oxalate với Oxalate",
+          "reagent": "",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "",
+          "result": "",
+          "equation": "Ca²⁺ + C₂O₄²⁻ → CaC₂O₄↓"
+        },
+        {
+          "title": "Hiện tượng",
+          "reagent": "",
+          "result": "Xuất hiện kết tủa trắng Calcium oxalate.",
+          "equation": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Nhận biết ion Calcium (Ca²⁺)",
+          "desc": "Thử ngọn lửa: Calcium tạo màu đỏ gạch / đỏ cam. Ngoài ra, Ca²⁺ có thể tạo kết tủa Calcium oxalate với Oxalate:",
+          "result": "Xuất hiện kết tủa trắng Calcium oxalate.",
+          "equations": [
+            {
+              "equation": "Ca²⁺ + C₂O₄²⁻ → CaC₂O₄↓",
+              "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+              "kind": "chemical",
+              "sourceLine": 74,
+              "sourceSection": "recognition",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            71,
+            72,
+            73,
+            74,
+            75
+          ],
+          "equation": "Ca²⁺ + C₂O₄²⁻ → CaC₂O₄↓"
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "020_Ca.docx",
+        "sourceSha256": "3783a53d30efd7c64ec55ffefdbbe70553d776c5da24c7dac547fcd5e9f4a69c",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/020_Ca.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "020_Ca.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "3783a53d30efd7c64ec55ffefdbbe70553d776c5da24c7dac547fcd5e9f4a69c"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/20/calcium"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure.latticeEvidence",
+      "before": null,
+      "after": "source-reviewed"
+    },
+    {
+      "field": "structure.nucleusIsotope",
+      "before": null,
+      "after": "⁴⁰Ca"
+    },
+    {
+      "field": "structure.nucleusNote",
+      "before": null,
+      "after": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác."
+    },
+    {
+      "field": "structure.valenceNote",
+      "before": null,
+      "after": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp."
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "Ca",
+      "status": "downloaded",
+      "file": "/assets/periodic-table/photos/020_Ca.jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:Calcium_crystals_in_ampoule_cropped.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/1/17/Calcium_crystals_in_ampoule_cropped.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "thumbnail": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/17/Calcium_crystals_in_ampoule_cropped.jpg/960px-Calcium_crystals_in_ampoule_cropped.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "filename": "Calcium_crystals_in_ampoule_cropped.jpg",
+      "title": "Calcium crystals in ampoule cropped",
+      "description": "Sealed glass ampoule containing crystals of pure calcium metal.",
+      "author": "Original upload by 范皓程",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+      "credit": "File:Calcium crystals in ampoule.jpg",
+      "sha256": "4f87fd7a846972875d8d48bb8b536abe07cc4ce7cb556eacb044139ac5d0aac4",
+      "bytes": 90567
+    },
+    "mineral": {
+      "available": true,
+      "id": "calcite",
+      "name": "Calcite",
+      "formula": "CaCO₃",
+      "habit": "rhombohedral",
+      "color": "#e5d8b9",
+      "crystalSystem": "trigonal",
+      "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Calcite",
+      "model": "/assets/periodic-table/minerals/calcite.glb",
+      "preview": "/assets/periodic-table/minerals/calcite.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "Ca",
+      "z": 20,
+      "url": "https://periodic-table.rsc.org/element/20/calcium",
+      "status": "retrieved",
+      "bytes": 160741,
+      "sha256": "0825a251d17e5228627a83d167707b0a1865cbd3603df803289375c34648c9d7",
+      "facts": {
+        "Group": "2",
+        "Melting point": "842°C, 1548°F, 1115 K",
+        "Period": "4",
+        "Boiling point": "1484°C, 2703°F, 1757 K",
+        "Block": "s",
+        "Density (g cm−³)": "1.54",
+        "Atomic number": "20",
+        "Relative atomic mass": "40.078",
+        "State at 20°C": "Solid",
+        "Key isotopes": "⁴⁰Ca",
+        "Electron configuration": "[Ar] 4s²",
+        "CAS number": "7440-70-2",
+        "ChemSpider ID": "4573905",
+        "electronegativity": "1.00"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "20",
+      "Symbol": "Ca",
+      "Name": "Calcium",
+      "AtomicMass": "40.08",
+      "CPKHexColor": "3DFF00",
+      "ElectronConfiguration": "[Ar]4s2",
+      "Electronegativity": "1",
+      "AtomicRadius": "231",
+      "IonizationEnergy": "6.113",
+      "ElectronAffinity": "",
+      "OxidationStates": "+2",
+      "StandardState": "Solid",
+      "MeltingPoint": "1115",
+      "BoilingPoint": "1757",
+      "Density": "1.54",
+      "GroupBlock": "Alkaline earth metal",
+      "YearDiscovered": "Ancient"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

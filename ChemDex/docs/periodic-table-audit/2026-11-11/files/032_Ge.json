@@ -1,0 +1,1174 @@
+{
+  "symbol": "Ge",
+  "number": 32,
+  "source": "032_Ge.docx",
+  "sourceSha256": "d5621bd1b4722ebc3f0e0096af0d283bc12cc1e71e26929e15a67764b98de651",
+  "paragraphCount": 99,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 4,
+    "structure": 9,
+    "occurrence": 4,
+    "isotopes": 6,
+    "physical": 9,
+    "chemical": 7,
+    "lab": 2,
+    "industry": 6,
+    "recognition": 5,
+    "reactions": 14,
+    "applications": 6,
+    "notes": 4
+  },
+  "editorialDecisions": [
+    {
+      "line": 60,
+      "before": "GeS₂ + 2O₂ → GeO₂ + 2SO₂",
+      "after": "GeS₂ + 3O₂ → GeO₂ + 2SO₂",
+      "reason": "Bổ sung hệ số 3 oxygen khi nung sulfide."
+    }
+  ],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "[Ar] 3d¹⁰ 4s² 4p²",
+      "publishedValue": "[Ar] 3d¹⁰ 4s² 4p²",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Lập phương kim cương (Diamond cubic)",
+      "publishedValue": "Lập phương kim cương (Diamond cubic)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "2.01",
+      "publishedValue": 2.01,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm IVA | Chu kỳ 4",
+      "publishedValue": "14",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Germanium là chất rắn, có màu trắng xám và ánh kim.",
+      "publishedValue": "Rắn",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 32,
+      "sourceText": "⁷⁰Ge: Đồng vị bền, chiếm khoảng 20.5%.",
+      "reference": {
+        "isotope": "⁷⁰Ge",
+        "massNumber": 70,
+        "protons": 32,
+        "neutrons": 38,
+        "stable": true,
+        "abundancePercent": "20.52",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 33,
+      "sourceText": "⁷²Ge: Đồng vị bền, chiếm khoảng 27.4%.",
+      "reference": {
+        "isotope": "⁷²Ge",
+        "massNumber": 72,
+        "protons": 32,
+        "neutrons": 40,
+        "stable": true,
+        "abundancePercent": "27.45",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 34,
+      "sourceText": "⁷³Ge: Đồng vị bền, chiếm khoảng 7.8%.",
+      "reference": {
+        "isotope": "⁷³Ge",
+        "massNumber": 73,
+        "protons": 32,
+        "neutrons": 41,
+        "stable": true,
+        "abundancePercent": "7.76",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 35,
+      "sourceText": "⁷⁴Ge: Đồng vị bền, chiếm khoảng 36.5%.",
+      "reference": {
+        "isotope": "⁷⁴Ge",
+        "massNumber": 74,
+        "protons": 32,
+        "neutrons": 42,
+        "stable": true,
+        "abundancePercent": "36.52",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 36,
+      "sourceText": "⁷⁶Ge: Đồng vị bền, chiếm khoảng 7.8%.",
+      "reference": {
+        "isotope": "⁷⁶Ge",
+        "massNumber": 76,
+        "protons": 32,
+        "neutrons": 44,
+        "stable": false,
+        "abundancePercent": "7.75",
+        "halfLifeDisplay": "Cỡ 10²¹ năm",
+        "halfLife": "Cỡ 10²¹ năm",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://pure.mpg.de/pubman/item/item_1781464",
+        "note": "Phân rã beta kép đã quan sát; nhãn STABLE trong bảng ground-states không đủ để kết luận bền tuyệt đối."
+      },
+      "assessment": "Sửa phân loại bền: đã quan sát phân rã."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 60,
+      "text": "GeS₂ + 2O₂ → GeO₂ + 2SO₂",
+      "status": "unbalanced",
+      "kind": "chemical",
+      "delta": {
+        "O": 2.0
+      }
+    },
+    {
+      "line": 62,
+      "text": "GeO₂ + 2H₂ → Ge + 2H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 66,
+      "text": "GeO₂ + 2H₂ → Ge + 2H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 70,
+      "text": "Ge⁴⁺ + 4OH⁻ → Ge(OH)₄↓",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 75,
+      "text": "Ge + O₂ → GeO₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 77,
+      "text": "Ge + 2Cl₂ → GeCl₄",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 79,
+      "text": "Ge + 2Br₂ → GeBr₄",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 81,
+      "text": "GeO₂ + 2H₂ → Ge + 2H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 83,
+      "text": "Ge⁴⁺ + 4OH⁻ → Ge(OH)₄↓",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 85,
+      "text": "GeO₂ + 2NaOH → Na₂GeO₃ + H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 87,
+      "text": "Ge + 2Cl₂ → GeCl₄",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "lab",
+      "equation": "GeO₂ + 2H₂ → Ge + 2H₂O",
+      "condition": "Gia nhiệt; môi trường khử, thành phần khí và việc loại nước/CO₂ chi phối mức khử.",
+      "kind": "chemical",
+      "sourceLine": 66,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "GeS₂ + 3O₂ → GeO₂ + 2SO₂",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 60,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "GeO₂ + 2H₂ → Ge + 2H₂O",
+      "condition": "Gia nhiệt; môi trường khử, thành phần khí và việc loại nước/CO₂ chi phối mức khử.",
+      "kind": "chemical",
+      "sourceLine": 62,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "recognition",
+      "equation": "Ge⁴⁺ + 4OH⁻ → Ge(OH)₄↓",
+      "condition": "Sơ đồ ion giản lược: trong nước tồn tại phức aquo/hydroxo; oxide hydrate hoặc kết tủa thực tế phụ thuộc pH và phối tử. Không xem đây là phép thử đặc hiệu.",
+      "kind": "formal",
+      "sourceLine": 70,
+      "sourceSection": "recognition",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Ge + O₂ → GeO₂",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 75,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Ge + 2Cl₂ → GeCl₄",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 77,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Ge + 2Br₂ → GeBr₄",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 79,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "GeO₂ + 2H₂ → Ge + 2H₂O",
+      "condition": "Gia nhiệt; môi trường khử, thành phần khí và việc loại nước/CO₂ chi phối mức khử.",
+      "kind": "chemical",
+      "sourceLine": 81,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Ge⁴⁺ + 4OH⁻ → Ge(OH)₄↓",
+      "condition": "Sơ đồ ion giản lược: trong nước tồn tại phức aquo/hydroxo; oxide hydrate hoặc kết tủa thực tế phụ thuộc pH và phối tử. Không xem đây là phép thử đặc hiệu.",
+      "kind": "formal",
+      "sourceLine": 83,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "GeO₂ + 2NaOH → Na₂GeO₃ + H₂O",
+      "condition": "Kiềm đậm đặc, gia nhiệt hoặc nóng chảy tùy oxide; không mặc định xảy ra nhanh trong dung dịch loãng.",
+      "kind": "chemical",
+      "sourceLine": 85,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Ge + 2Cl₂ → GeCl₄",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 87,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": [
+        {
+          "title": "Chất bán dẫn",
+          "desc": "Germanium được sử dụng trong một số linh kiện bán dẫn và nghiên cứu vật liệu điện tử."
+        },
+        {
+          "title": "Sợi quang",
+          "desc": "Germanium dioxide được sử dụng để điều chỉnh chiết suất của thủy tinh trong sợi quang."
+        },
+        {
+          "title": "Quang học hồng ngoại",
+          "desc": "Germanium có khả năng truyền bức xạ hồng ngoại nên được sử dụng trong một số thấu kính và thiết bị quang học."
+        },
+        {
+          "title": "Transistor",
+          "desc": "Germanium từng đóng vai trò quan trọng trong sự phát triển ban đầu của transistor."
+        },
+        {
+          "title": "Solar cells",
+          "desc": "Một số hợp chất Germanium được sử dụng trong các tế bào quang điện hiệu suất cao."
+        },
+        {
+          "title": "Vật liệu điện tử",
+          "desc": "Germanium được sử dụng trong nghiên cứu các vật liệu bán dẫn và hợp chất bán dẫn."
+        }
+      ],
+      "after": [
+        {
+          "title": "Chất bán dẫn",
+          "desc": "Germanium được sử dụng trong một số linh kiện bán dẫn và nghiên cứu vật liệu điện tử.",
+          "sourceLine": 89
+        },
+        {
+          "title": "Sợi quang",
+          "desc": "Germanium dioxide được sử dụng để điều chỉnh chiết suất của thủy tinh trong sợi quang.",
+          "sourceLine": 90
+        },
+        {
+          "title": "Quang học hồng ngoại",
+          "desc": "Germanium có khả năng truyền bức xạ hồng ngoại nên được sử dụng trong một số thấu kính và thiết bị quang học.",
+          "sourceLine": 91
+        },
+        {
+          "title": "Transistor",
+          "desc": "Germanium từng đóng vai trò quan trọng trong sự phát triển ban đầu của transistor.",
+          "sourceLine": 92
+        },
+        {
+          "title": "Solar cells",
+          "desc": "Một số hợp chất Germanium được sử dụng trong các tế bào quang điện hiệu suất cao.",
+          "sourceLine": 93
+        },
+        {
+          "title": "Vật liệu điện tử",
+          "desc": "Germanium được sử dụng trong nghiên cứu các vật liệu bán dẫn và hợp chất bán dẫn.",
+          "sourceLine": 94
+        }
+      ]
+    },
+    {
+      "field": "chemical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có các số Oxy hóa phổ biến là +2 và +4.</li>\n      <li>+4 là trạng thái Oxy hóa phổ biến nhất.</li>\n      <li>Tương đối bền ở nhiệt độ thường.</li>\n      <li>Phản ứng với Oxygen khi nung nóng tạo Germanium dioxide.</li>\n      <li>Phản ứng với Halogen tạo Germanium halide.</li>\n      <li>Có thể tạo các hợp chất với Hydrogen.</li>\n      <li>Germanium dioxide (GeO₂) có tính chất tương tự Silicon dioxide (SiO₂).</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Có các số Oxy hóa phổ biến là +2 và +4.</li><li>+4 là trạng thái Oxy hóa phổ biến nhất.</li><li>Tương đối bền ở nhiệt độ thường.</li><li>Phản ứng với Oxygen khi nung nóng tạo Germanium dioxide.</li><li>Phản ứng với Halogen tạo Germanium halide.</li><li>Có thể tạo các hợp chất với Hydrogen.</li><li>Germanium dioxide (GeO₂) có tính chất tương tự Silicon dioxide (SiO₂).</li></ul>"
+    },
+    {
+      "field": "general.CAS",
+      "before": null,
+      "after": "7440-56-4"
+    },
+    {
+      "field": "general.electronegativityNote",
+      "before": null,
+      "after": "Thang Pauling; số liệu tổng hợp PubChem."
+    },
+    {
+      "field": "general.groupLabel",
+      "before": null,
+      "after": "14"
+    },
+    {
+      "field": "general.series",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "general.state",
+      "before": "",
+      "after": "Rắn"
+    },
+    {
+      "field": "history.year",
+      "before": 1886,
+      "after": "1886"
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/photos/032_Ge.jpg",
+          "title": "Gecmani (Ge)",
+          "desc": "Ảnh tham chiếu mẫu Germanium (Ge); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+          "source": "https://commons.wikimedia.org/wiki/File:Polycrystalline-germanium.jpg",
+          "author": "Jurii",
+          "license": "CC BY 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/3.0"
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "⁷⁰Ge",
+          "massNumber": 70,
+          "protons": 32,
+          "neutrons": 38,
+          "stable": true,
+          "abundancePercent": "20.52",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "⁷²Ge",
+          "massNumber": 72,
+          "protons": 32,
+          "neutrons": 40,
+          "stable": true,
+          "abundancePercent": "27.45",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "⁷³Ge",
+          "massNumber": 73,
+          "protons": 32,
+          "neutrons": 41,
+          "stable": true,
+          "abundancePercent": "7.76",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "⁷⁴Ge",
+          "massNumber": 74,
+          "protons": 32,
+          "neutrons": 42,
+          "stable": true,
+          "abundancePercent": "36.52",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "⁷⁶Ge",
+          "massNumber": 76,
+          "protons": 32,
+          "neutrons": 44,
+          "stable": false,
+          "abundancePercent": "7.75",
+          "halfLifeDisplay": "Cỡ 10²¹ năm",
+          "halfLife": "Cỡ 10²¹ năm",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://pure.mpg.de/pubman/item/item_1781464",
+          "note": "Phân rã beta kép đã quan sát; nhãn STABLE trong bảng ground-states không đủ để kết luận bền tuyệt đối."
+        }
+      ]
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "standard-atomic-weight"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "72.630 ± 0.008"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": [
+        {
+          "type": "model",
+          "section": "structure",
+          "title": "Mẫu khoáng vật 3D · Germanite",
+          "src": "/assets/periodic-table/minerals/germanite.glb",
+          "preview": "/assets/periodic-table/minerals/germanite.png",
+          "desc": "Cu₂₆Fe₄Ge₄S₃₂. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "nameVi",
+      "before": "Germanium",
+      "after": "Gecmani"
+    },
+    {
+      "field": "naturalState.alt",
+      "before": null,
+      "after": "Germanium: ảnh tham chiếu từ Commons"
+    },
+    {
+      "field": "naturalState.caption",
+      "before": null,
+      "after": "Ảnh tham chiếu mẫu Germanium (Ge); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc."
+    },
+    {
+      "field": "naturalState.credit",
+      "before": null,
+      "after": "Jurii · CC BY 3.0"
+    },
+    {
+      "field": "naturalState.image",
+      "before": null,
+      "after": "/assets/periodic-table/photos/032_Ge.jpg"
+    },
+    {
+      "field": "naturalState.kind",
+      "before": null,
+      "after": "photo"
+    },
+    {
+      "field": "naturalState.source",
+      "before": null,
+      "after": "https://commons.wikimedia.org/wiki/File:Polycrystalline-germanium.jpg"
+    },
+    {
+      "field": "notes",
+      "before": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Germanium là nguyên tố số 32, thuộc nhóm IVA | chu kỳ 4 và là một á kim.</li>\n  <li>Germanium có cấu hình electron [Ar] 3d¹⁰ 4s² 4p², với các số Oxy hóa phổ biến là +2 và +4.</li>\n  <li>Germanium có tính chất trung gian giữa kim loại và phi kim, đặc biệt nổi bật với tính bán dẫn. Trong tự nhiên, Germanium thường được tìm thấy với hàm lượng nhỏ trong các quặng Zinc và một số loại than.</li>\n  <li>Germanium có vai trò quan trọng trong công nghệ bán dẫn, sợi quang, quang học hồng ngoại và các thiết bị điện tử.</li>\n</ul>\n",
+      "after": "<ul class=\"element-prose-list\"><li>Germanium là nguyên tố số 32, thuộc nhóm IVA | chu kỳ 4 và là một á kim.</li><li>Germanium có cấu hình electron [Ar] 3d¹⁰ 4s² 4p², với các số Oxy hóa phổ biến là +2 và +4.</li><li>Germanium có tính chất trung gian giữa kim loại và phi kim, đặc biệt nổi bật với tính bán dẫn. Trong tự nhiên, Germanium thường được tìm thấy với hàm lượng nhỏ trong các quặng Zinc và một số loại than.</li><li>Germanium có vai trò quan trọng trong công nghệ bán dẫn, sợi quang, quang học hồng ngoại và các thiết bị điện tử.</li></ul>"
+    },
+    {
+      "field": "occurrence.details",
+      "before": null,
+      "after": [
+        "Trạng thái: Germanium là chất rắn, có màu trắng xám và ánh kim.",
+        "Có trong: Argyrodite, Germanite, Renierite và một số quặng Zinc, Copper.",
+        "Đơn chất: Ge",
+        "Hợp chất: GeO₂, GeCl₄, GeS₂, GeH₄, GeBr₄..."
+      ]
+    },
+    {
+      "field": "occurrence.mineral",
+      "before": null,
+      "after": {
+        "available": true,
+        "id": "germanite",
+        "name": "Germanite",
+        "formula": "Cu₂₆Fe₄Ge₄S₃₂",
+        "habit": "aggregate",
+        "color": "#ad7e72",
+        "crystalSystem": "cubic",
+        "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+        "source": "https://www.handbookofmineralogy.org/",
+        "sourceSearch": "https://rruff.info/Germanite",
+        "model": "/assets/periodic-table/minerals/germanite.glb",
+        "preview": "/assets/periodic-table/minerals/germanite.png",
+        "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      }
+    },
+    {
+      "field": "physical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là á kim.</li>\n      <li>Có màu trắng xám và ánh kim.</li>\n      <li>Cứng nhưng giòn.</li>\n      <li>Khối lượng riêng: khoảng 5.32 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 938.3 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 2820 °C.</li>\n      <li>Có tính chất bán dẫn.</li>\n      <li>Độ dẫn điện tăng khi nhiệt độ tăng.</li>\n      <li>Có cấu trúc tinh thể tương tự Diamond và Silicon.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Là á kim.</li><li>Có màu trắng xám và ánh kim.</li><li>Cứng nhưng giòn.</li><li>Khối lượng riêng: khoảng 5.32 g/cm³.</li><li>Nhiệt độ nóng chảy: khoảng 938.3 °C.</li><li>Nhiệt độ sôi: khoảng 2820 °C.</li><li>Có tính chất bán dẫn.</li><li>Độ dẫn điện tăng khi nhiệt độ tăng.</li><li>Có cấu trúc tinh thể tương tự Diamond và Silicon.</li></ul>"
+    },
+    {
+      "field": "preparations.industry",
+      "before": [
+        {
+          "title": "Germanium thường được thu hồi như sản phẩm phụ trong quá trình xử lý quặng Zinc và một số loại than.",
+          "equation": "",
+          "desc": ""
+        },
+        {
+          "title": "Germanium compounds được chuyển thành Germanium dioxide:",
+          "equation": "GeS₂ + 2O₂ → GeO₂ + 2SO₂ <br> GeO₂ + 2H₂ → Ge + 2H₂O",
+          "desc": "Sau đó GeO₂ được khử bằng Hydrogen: Germanium sau đó được tinh chế để đạt độ tinh khiết cao, đặc biệt cho ngành bán dẫn."
+        }
+      ],
+      "after": [
+        {
+          "title": "Germanium thường được thu hồi như sản phẩm phụ trong quá trình xử lý quặng Zinc và một số loại than.",
+          "desc": "Germanium compounds được chuyển thành Germanium dioxide:",
+          "result": "",
+          "equations": [
+            {
+              "equation": "GeS₂ + 3O₂ → GeO₂ + 2SO₂",
+              "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+              "kind": "chemical",
+              "sourceLine": 60,
+              "sourceSection": "industry",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            58,
+            59,
+            60
+          ],
+          "equation": "GeS₂ + 3O₂ → GeO₂ + 2SO₂"
+        },
+        {
+          "title": "Sau đó GeO₂ được khử bằng Hydrogen",
+          "desc": "Germanium sau đó được tinh chế để đạt độ tinh khiết cao, đặc biệt cho ngành bán dẫn.",
+          "result": "",
+          "equations": [
+            {
+              "equation": "GeO₂ + 2H₂ → Ge + 2H₂O",
+              "condition": "Gia nhiệt; môi trường khử, thành phần khí và việc loại nước/CO₂ chi phối mức khử.",
+              "kind": "chemical",
+              "sourceLine": 62,
+              "sourceSection": "industry",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            61,
+            62,
+            63
+          ],
+          "equation": "GeO₂ + 2H₂ → Ge + 2H₂O"
+        }
+      ]
+    },
+    {
+      "field": "preparations.lab",
+      "before": [
+        {
+          "title": "Có thể điều chế Germanium bằng cách khử Germanium dioxide bằng Hydrogen ở nhiệt độ cao:",
+          "equation": "GeO₂ + 2H₂ → Ge + 2H₂O",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Có thể điều chế Germanium bằng cách khử Germanium dioxide bằng Hydrogen ở nhiệt độ cao",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "GeO₂ + 2H₂ → Ge + 2H₂O",
+              "condition": "Gia nhiệt; môi trường khử, thành phần khí và việc loại nước/CO₂ chi phối mức khử.",
+              "kind": "chemical",
+              "sourceLine": 66,
+              "sourceSection": "lab",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            65,
+            66
+          ],
+          "equation": "GeO₂ + 2H₂ → Ge + 2H₂O"
+        }
+      ]
+    },
+    {
+      "field": "reactions",
+      "before": [
+        {
+          "type": "Tác dụng với Oxygen",
+          "equation": "Ge + O₂ → GeO₂",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Chlorine",
+          "equation": "Ge + 2Cl₂ → GeCl₄",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Bromine",
+          "equation": "Ge + 2Br₂ → GeBr₄",
+          "desc": ""
+        },
+        {
+          "type": "Khử Germanium dioxide",
+          "equation": "GeO₂ + 2H₂ → Ge + 2H₂O",
+          "desc": ""
+        },
+        {
+          "type": "Tạo Germanium hydroxide",
+          "equation": "Ge⁴⁺ + 4OH⁻ → Ge(OH)₄↓",
+          "desc": ""
+        },
+        {
+          "type": "Germanium dioxide tác dụng với kiềm",
+          "equation": "GeO₂ + 2NaOH → Na₂GeO₃ + H₂O",
+          "desc": ""
+        },
+        {
+          "type": "Tạo Germanium tetrachloride",
+          "equation": "Ge + 2Cl₂ → GeCl₄",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "type": "Tác dụng với Oxygen",
+          "desc": "",
+          "equation": "Ge + O₂ → GeO₂",
+          "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+          "kind": "chemical",
+          "sourceLine": 75,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Chlorine",
+          "desc": "",
+          "equation": "Ge + 2Cl₂ → GeCl₄",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 77,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Bromine",
+          "desc": "",
+          "equation": "Ge + 2Br₂ → GeBr₄",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 79,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Khử Germanium dioxide",
+          "desc": "",
+          "equation": "GeO₂ + 2H₂ → Ge + 2H₂O",
+          "condition": "Gia nhiệt; môi trường khử, thành phần khí và việc loại nước/CO₂ chi phối mức khử.",
+          "kind": "chemical",
+          "sourceLine": 81,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Germanium hydroxide",
+          "desc": "",
+          "equation": "Ge⁴⁺ + 4OH⁻ → Ge(OH)₄↓",
+          "condition": "Sơ đồ ion giản lược: trong nước tồn tại phức aquo/hydroxo; oxide hydrate hoặc kết tủa thực tế phụ thuộc pH và phối tử. Không xem đây là phép thử đặc hiệu.",
+          "kind": "formal",
+          "sourceLine": 83,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Germanium dioxide tác dụng với kiềm",
+          "desc": "",
+          "equation": "GeO₂ + 2NaOH → Na₂GeO₃ + H₂O",
+          "condition": "Kiềm đậm đặc, gia nhiệt hoặc nóng chảy tùy oxide; không mặc định xảy ra nhanh trong dung dịch loãng.",
+          "kind": "chemical",
+          "sourceLine": 85,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Germanium tetrachloride",
+          "desc": "",
+          "equation": "Ge + 2Cl₂ → GeCl₄",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 87,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": [
+        {
+          "title": "Nhận biết",
+          "reagent": "Nhận biết Ge⁴⁺",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Cho dung dịch chứa Ge⁴⁺ tác dụng với hydroxide",
+          "reagent": "",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "",
+          "result": "",
+          "equation": "Ge⁴⁺ + 4OH⁻ → Ge(OH)₄↓"
+        },
+        {
+          "title": "Hiện tượng",
+          "reagent": "",
+          "result": "Xuất hiện kết tủa trắng Germanium hydroxide.",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "Ge(OH)₄ có thể tan trong kiềm mạnh do tính lưỡng tính.",
+          "result": "",
+          "equation": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Nhận biết Ge⁴⁺",
+          "desc": "Cho dung dịch chứa Ge⁴⁺ tác dụng với hydroxide: Ge(OH)₄ có thể tan trong kiềm mạnh do tính lưỡng tính.",
+          "result": "Xuất hiện kết tủa trắng Germanium hydroxide.",
+          "equations": [
+            {
+              "equation": "Ge⁴⁺ + 4OH⁻ → Ge(OH)₄↓",
+              "condition": "Sơ đồ ion giản lược: trong nước tồn tại phức aquo/hydroxo; oxide hydrate hoặc kết tủa thực tế phụ thuộc pH và phối tử. Không xem đây là phép thử đặc hiệu.",
+              "kind": "formal",
+              "sourceLine": 70,
+              "sourceSection": "recognition",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            68,
+            69,
+            70,
+            71,
+            72
+          ],
+          "equation": "Ge⁴⁺ + 4OH⁻ → Ge(OH)₄↓"
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "032_Ge.docx",
+        "sourceSha256": "d5621bd1b4722ebc3f0e0096af0d283bc12cc1e71e26929e15a67764b98de651",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/032_Ge.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "032_Ge.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "d5621bd1b4722ebc3f0e0096af0d283bc12cc1e71e26929e15a67764b98de651"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/32/germanium"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        },
+        {
+          "title": "germanium76",
+          "url": "https://pure.mpg.de/pubman/item/item_1781464"
+        }
+      ]
+    },
+    {
+      "field": "structure.latticeEvidence",
+      "before": null,
+      "after": "phase-dependent"
+    },
+    {
+      "field": "structure.nucleusIsotope",
+      "before": null,
+      "after": "⁷⁰Ge"
+    },
+    {
+      "field": "structure.nucleusNote",
+      "before": null,
+      "after": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác."
+    },
+    {
+      "field": "structure.valenceNote",
+      "before": null,
+      "after": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp."
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "Ge",
+      "status": "downloaded",
+      "file": "/assets/periodic-table/photos/032_Ge.jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:Polycrystalline-germanium.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/0/08/Polycrystalline-germanium.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "thumbnail": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/08/Polycrystalline-germanium.jpg/960px-Polycrystalline-germanium.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "filename": "Polycrystalline-germanium.jpg",
+      "title": "Polycrystalline-germanium",
+      "description": "12 grams polycrystalline germanium, 2*3 cm.",
+      "author": "Jurii",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+      "credit": "https://images-of-elements.com/germanium.php",
+      "sha256": "41a6d280c944be74629289539da08f77595a2f33f04eec0fffeba081549eed09",
+      "bytes": 148271
+    },
+    "mineral": {
+      "available": true,
+      "id": "germanite",
+      "name": "Germanite",
+      "formula": "Cu₂₆Fe₄Ge₄S₃₂",
+      "habit": "aggregate",
+      "color": "#ad7e72",
+      "crystalSystem": "cubic",
+      "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Germanite",
+      "model": "/assets/periodic-table/minerals/germanite.glb",
+      "preview": "/assets/periodic-table/minerals/germanite.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "Ge",
+      "z": 32,
+      "url": "https://periodic-table.rsc.org/element/32/germanium",
+      "status": "retrieved",
+      "bytes": 158926,
+      "sha256": "9a6d310ed33aa01c531f4f7b754f17632024bd0cc1448ba8cbf9c2c42f012a2c",
+      "facts": {
+        "Group": "14",
+        "Melting point": "938.25°C, 1720.85°F, 1211.4 K",
+        "Period": "4",
+        "Boiling point": "2833°C, 5131°F, 3106 K",
+        "Block": "p",
+        "Density (g cm−³)": "5.3234",
+        "Atomic number": "32",
+        "Relative atomic mass": "72.630",
+        "State at 20°C": "Solid",
+        "Key isotopes": "⁷³Ge, ⁷⁴Ge",
+        "Electron configuration": "[Ar] 3d¹⁰4s²4p²",
+        "CAS number": "7440-56-4",
+        "ChemSpider ID": "4885606",
+        "electronegativity": "2.01"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "32",
+      "Symbol": "Ge",
+      "Name": "Germanium",
+      "AtomicMass": "72.63",
+      "CPKHexColor": "668F8F",
+      "ElectronConfiguration": "[Ar]4s2 3d10 4p2",
+      "Electronegativity": "2.01",
+      "AtomicRadius": "211",
+      "IonizationEnergy": "7.900",
+      "ElectronAffinity": "1.35",
+      "OxidationStates": "+4, +2",
+      "StandardState": "Solid",
+      "MeltingPoint": "1211.4",
+      "BoilingPoint": "3106",
+      "Density": "5.323",
+      "GroupBlock": "Metalloid",
+      "YearDiscovered": "1886"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

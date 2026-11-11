@@ -1,0 +1,954 @@
+{
+  "symbol": "Bi",
+  "number": 83,
+  "source": "083_Bi.docx",
+  "sourceSha256": "af384f4a922c89417a3c8187b3bbce63371b1caaae26daa37c23c8f0980c6482",
+  "paragraphCount": 95,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 4,
+    "structure": 9,
+    "occurrence": 4,
+    "isotopes": 3,
+    "physical": 10,
+    "chemical": 6,
+    "lab": 2,
+    "industry": 1,
+    "recognition": 7,
+    "reactions": 16,
+    "applications": 6,
+    "notes": 5
+  },
+  "editorialDecisions": [
+    {
+      "line": 24,
+      "before": "Loại mạng: Lập phương tâm mặt (Face-centered cubic, FCC)",
+      "after": "Loại mạng: Mặt thoi (rhombohedral) đối với bismuth ở điều kiện thường.",
+      "reason": "Bismuth không có mạng FCC ở điều kiện thường."
+    }
+  ],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p³",
+      "publishedValue": "[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p³",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Lập phương tâm mặt (Face-centered cubic, FCC)",
+      "publishedValue": "Mặt thoi (rhombohedral) đối với bismuth ở điều kiện thường.",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "2.02",
+      "publishedValue": 2.02,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm VA | Chu kỳ 6",
+      "publishedValue": "15",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Bismuth là kim loại rắn, màu trắng bạc với ánh hồng nhẹ.",
+      "publishedValue": "Rắn",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 32,
+      "sourceText": "²⁰⁹Bi: Từng được xem là đồng vị bền duy nhất của Bismuth. Hiện nay được biết nó phóng xạ cực kỳ yếu, với chu kỳ bán rã khoảng 2 × 10¹⁹ năm, dài hơn rất nhiều lần tuổi của Vũ trụ.",
+      "reference": {
+        "isotope": "²⁰⁹Bi",
+        "massNumber": 209,
+        "protons": 83,
+        "neutrons": 126,
+        "stable": false,
+        "abundancePercent": "100",
+        "halfLifeDisplay": "2.01E19 ± 8E+17 năm",
+        "halfLife": "2.01E19 Y",
+        "halfLifeUncertainty": "8",
+        "halfLifeQualifier": null,
+        "decay": "A",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 57,
+      "text": "2BiCl₃ + 3Zn → 2Bi + 3ZnCl₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 61,
+      "text": "Bi³⁺ + 3OH⁻ → Bi(OH)₃↓",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 64,
+      "text": "2Bi(OH)₃ → Bi₂O₃ + 3H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 68,
+      "text": "4Bi + 3O₂ → 2Bi₂O₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 70,
+      "text": "2Bi + 3Cl₂ → 2BiCl₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 72,
+      "text": "2Bi + 3Br₂ → 2BiBr₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 74,
+      "text": "2Bi + 3S → Bi₂S₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 76,
+      "text": "Bi + 4HNO₃ → Bi(NO₃)₃ + NO + 2H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 78,
+      "text": "Bi³⁺ + 3OH⁻ → Bi(OH)₃↓",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 80,
+      "text": "2Bi(OH)₃ → Bi₂O₃ + 3H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 82,
+      "text": "Bi₂O₃ + 3C → 2Bi + 3CO↑",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "lab",
+      "equation": "2BiCl₃ + 3Zn → 2Bi + 3ZnCl₂",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 57,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "recognition",
+      "equation": "Bi³⁺ + 3OH⁻ → Bi(OH)₃↓",
+      "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+      "kind": "chemical",
+      "sourceLine": 61,
+      "sourceSection": "recognition",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "recognition",
+      "equation": "2Bi(OH)₃ → Bi₂O₃ + 3H₂O",
+      "condition": "Gia nhiệt để phân hủy; nhiệt độ phụ thuộc chất và áp suất khí sản phẩm.",
+      "kind": "chemical",
+      "sourceLine": 64,
+      "sourceSection": "recognition",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "4Bi + 3O₂ → 2Bi₂O₃",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 68,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2Bi + 3Cl₂ → 2BiCl₃",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 70,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2Bi + 3Br₂ → 2BiBr₃",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 72,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2Bi + 3S → Bi₂S₃",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 74,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Bi + 4HNO₃ → Bi(NO₃)₃ + NO + 2H₂O",
+      "condition": "HNO₃ loãng, tạo NO; khí NO có thể bị oxi hóa tiếp ngoài không khí.",
+      "kind": "chemical",
+      "sourceLine": 76,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Bi³⁺ + 3OH⁻ → Bi(OH)₃↓",
+      "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+      "kind": "chemical",
+      "sourceLine": 78,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2Bi(OH)₃ → Bi₂O₃ + 3H₂O",
+      "condition": "Gia nhiệt để phân hủy; nhiệt độ phụ thuộc chất và áp suất khí sản phẩm.",
+      "kind": "chemical",
+      "sourceLine": 80,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Bi₂O₃ + 3C → 2Bi + 3CO↑",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 82,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": null,
+      "after": [
+        {
+          "title": "Y học",
+          "desc": "Một số hợp chất Bismuth được sử dụng trong thuốc điều trị các vấn đề về tiêu hóa. Ví dụ, Bismuth subsalicylate được sử dụng trong một số thuốc không kê đơn.",
+          "sourceLine": 84
+        },
+        {
+          "title": "Mỹ phẩm",
+          "desc": "Một số hợp chất Bismuth được sử dụng trong mỹ phẩm, đặc biệt là Bismuth oxychloride (BiOCl), tạo hiệu ứng ánh ngọc trai.",
+          "sourceLine": 85
+        },
+        {
+          "title": "Hợp kim",
+          "desc": "Bismuth được sử dụng trong các hợp kim có nhiệt độ nóng chảy thấp.",
+          "sourceLine": 86
+        },
+        {
+          "title": "Vật liệu dễ nóng chảy",
+          "desc": "Một số hợp kim Bismuth được sử dụng trong cầu chì nhiệt, thiết bị an toàn và hệ thống kiểm soát nhiệt.",
+          "sourceLine": 87
+        },
+        {
+          "title": "Điện tử",
+          "desc": "Bismuth được nghiên cứu và sử dụng trong một số vật liệu bán dẫn và vật liệu nhiệt điện.",
+          "sourceLine": 88
+        },
+        {
+          "title": "Đúc kim loại",
+          "desc": "Bismuth có khả năng nở khi đông đặc nên hữu ích trong một số hợp kim và quy trình đúc chính xác.",
+          "sourceLine": 89
+        }
+      ]
+    },
+    {
+      "field": "category",
+      "before": null,
+      "after": "kim-loai-sau-chuyen-tiep"
+    },
+    {
+      "field": "chemical",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Số Oxy hóa phổ biến nhất là +3.</li><li>Trạng thái +5 kém bền hơn.</li><li>Phản ứng với Oxygen tạo Bismuth(III) oxide.</li><li>Phản ứng với Halogen tạo Bismuth halide.</li><li>Có thể phản ứng với acid tạo muối Bismuth.</li><li>Bismuth nhìn chung ít độc hơn nhiều kim loại nặng như Lead.</li></ul>"
+    },
+    {
+      "field": "file",
+      "before": null,
+      "after": "elements/083_Bi.json"
+    },
+    {
+      "field": "general",
+      "before": null,
+      "after": {
+        "latinName": "Bismuthum",
+        "englishName": "Bismuth",
+        "electronConfig": "[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p³",
+        "isotope": "²⁰⁹Bi",
+        "group": 15,
+        "groupLabel": "15",
+        "series": "",
+        "period": 6,
+        "state": "Rắn",
+        "oxidation": "+3, +5",
+        "electronegativity": 2.02,
+        "electronegativityNote": "Thang Pauling; số liệu tổng hợp PubChem.",
+        "density": "khoảng 9.78 g/cm³.",
+        "meltingPoint": "khoảng 271.4 °C.",
+        "boilingPoint": "khoảng 1564 °C.",
+        "crystalStructure": "Mặt thoi (rhombohedral) đối với bismuth ở điều kiện thường.",
+        "CAS": "7440-69-9"
+      }
+    },
+    {
+      "field": "hasData",
+      "before": null,
+      "after": true
+    },
+    {
+      "field": "history",
+      "before": null,
+      "after": {
+        "discoverer": "Không xác định — Bismuth đã được biết đến từ thời cổ đại.",
+        "year": "Thời cổ đại",
+        "discoveryLocation": "Không xác định",
+        "description": "Bismuth đã được con người biết đến từ thời cổ đại, nhưng trong thời gian dài bị nhầm lẫn với Lead và Tin do có vẻ ngoài và một số tính chất tương tự. Đến thế kỷ XVIII, Bismuth được xác định là một nguyên tố riêng biệt. Claude François Geoffroy đã chứng minh vào năm 1753 rằng Bismuth khác với Lead."
+      }
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/diagrams/083_Bi.svg",
+          "title": "Bismuth (Bi)",
+          "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+          "source": "",
+          "author": "ChemDex",
+          "license": "ChemDex schematic diagram",
+          "licenseUrl": ""
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "²⁰⁹Bi",
+          "massNumber": 209,
+          "protons": 83,
+          "neutrons": 126,
+          "stable": false,
+          "abundancePercent": "100",
+          "halfLifeDisplay": "2.01E19 ± 8E+17 năm",
+          "halfLife": "2.01E19 Y",
+          "halfLifeUncertainty": "8",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "mass",
+      "before": null,
+      "after": 208.98
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "standard-atomic-weight"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "208.98 ± 0.01"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": [
+        {
+          "type": "model",
+          "section": "structure",
+          "title": "Mẫu khoáng vật 3D · Bismuthinite",
+          "src": "/assets/periodic-table/minerals/bismuthinite.glb",
+          "preview": "/assets/periodic-table/minerals/bismuthinite.png",
+          "desc": "Bi₂S₃. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "nameEn",
+      "before": null,
+      "after": "Bismuth"
+    },
+    {
+      "field": "nameVi",
+      "before": null,
+      "after": "Bismuth"
+    },
+    {
+      "field": "naturalState",
+      "before": null,
+      "after": {
+        "image": "/assets/periodic-table/diagrams/083_Bi.svg",
+        "alt": "Bismuth: sơ đồ minh họa nguyên tố",
+        "kind": "diagram",
+        "source": "",
+        "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+        "credit": ""
+      }
+    },
+    {
+      "field": "notes",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Bismuth là nguyên tố số 83, thuộc nhóm VA | chu kỳ 6 và là một kim loại hậu chuyển tiếp.</li><li>Bismuth có cấu hình electron [Xe] 4f¹⁴ 5d¹⁰ 6s² 6p³, với số Oxy hóa phổ biến nhất là +3.</li><li>Đây là kim loại nặng, giòn, có màu trắng bạc ánh hồng và nhiệt độ nóng chảy tương đối thấp. Một đặc điểm đặc biệt của Bismuth là nở ra khi đông đặc.</li><li>²⁰⁹Bi từng được coi là đồng vị bền nhưng hiện được xác định là phóng xạ cực yếu, với chu kỳ bán rã khoảng 2 × 10¹⁹ năm.</li><li>Bismuth có nhiều ứng dụng trong y học, mỹ phẩm, hợp kim dễ nóng chảy, đúc kim loại và vật liệu nhiệt điện, đồng thời có ưu điểm là độc tính thấp hơn đáng kể so với nhiều kim loại nặng khác.</li></ul>"
+    },
+    {
+      "field": "number",
+      "before": null,
+      "after": 83
+    },
+    {
+      "field": "occurrence",
+      "before": null,
+      "after": {
+        "description": "Bismuth là kim loại rắn, màu trắng bạc với ánh hồng nhẹ.",
+        "simple": [
+          "Bi"
+        ],
+        "compounds": [
+          "Bi₂O₃",
+          "Bi₂S₃",
+          "BiCl₃",
+          "Bi(NO₃)₃"
+        ],
+        "ores": [
+          "Có thể tồn tại ở dạng Bismuth tự nhiên và trong các khoáng vật như Bismuthinite (Bi₂S₃)"
+        ],
+        "details": [
+          "Trạng thái: Bismuth là kim loại rắn, màu trắng bạc với ánh hồng nhẹ.",
+          "Có trong: Có thể tồn tại ở dạng Bismuth tự nhiên và trong các khoáng vật như Bismuthinite (Bi₂S₃).",
+          "Đơn chất: Bi",
+          "Hợp chất: Bi₂O₃, Bi₂S₃, BiCl₃, Bi(NO₃)₃..."
+        ],
+        "mineral": {
+          "available": true,
+          "id": "bismuthinite",
+          "name": "Bismuthinite",
+          "formula": "Bi₂S₃",
+          "habit": "needles",
+          "color": "#9b9aab",
+          "crystalSystem": "orthorhombic",
+          "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+          "source": "https://www.handbookofmineralogy.org/",
+          "sourceSearch": "https://rruff.info/Bismuthinite",
+          "model": "/assets/periodic-table/minerals/bismuthinite.glb",
+          "preview": "/assets/periodic-table/minerals/bismuthinite.png",
+          "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+        }
+      }
+    },
+    {
+      "field": "physical",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Là kim loại hậu chuyển tiếp.</li><li>Màu trắng bạc, ánh hồng.</li><li>Khá giòn.</li><li>Có khối lượng riêng lớn.</li><li>Khối lượng riêng: khoảng 9.78 g/cm³.</li><li>Nhiệt độ nóng chảy: khoảng 271.4 °C.</li><li>Nhiệt độ sôi: khoảng 1564 °C.</li><li>Dẫn điện và dẫn nhiệt tương đối kém.</li><li>Có tính nghịch từ mạnh.</li><li>Khi đông đặc, Bismuth nở thể tích, tương tự như Water.</li></ul>"
+    },
+    {
+      "field": "preparations",
+      "before": null,
+      "after": {
+        "lab": [
+          {
+            "title": "Có thể điều chế Bismuth bằng cách khử Bismuth(III) chloride bằng kim loại hoạt động mạnh hơn như Zinc",
+            "desc": "",
+            "result": "",
+            "equations": [
+              {
+                "equation": "2BiCl₃ + 3Zn → 2Bi + 3ZnCl₂",
+                "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+                "kind": "chemical",
+                "sourceLine": 57,
+                "sourceSection": "lab",
+                "balance": {
+                  "status": "balanced",
+                  "kind": "chemical",
+                  "delta": {}
+                },
+                "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+              }
+            ],
+            "sourceLines": [
+              56,
+              57
+            ],
+            "equation": "2BiCl₃ + 3Zn → 2Bi + 3ZnCl₂"
+          }
+        ],
+        "industry": [
+          {
+            "title": "Bismuth thô được tinh chế bằng các phương pháp luyện kim thích hợp.",
+            "desc": "",
+            "result": "",
+            "equations": [],
+            "sourceLines": [
+              54
+            ],
+            "equation": ""
+          }
+        ]
+      }
+    },
+    {
+      "field": "reactions",
+      "before": null,
+      "after": [
+        {
+          "type": "Tác dụng với Oxygen",
+          "desc": "",
+          "equation": "4Bi + 3O₂ → 2Bi₂O₃",
+          "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+          "kind": "chemical",
+          "sourceLine": 68,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Chlorine",
+          "desc": "",
+          "equation": "2Bi + 3Cl₂ → 2BiCl₃",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 70,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Bromine",
+          "desc": "",
+          "equation": "2Bi + 3Br₂ → 2BiBr₃",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 72,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Sulfur",
+          "desc": "",
+          "equation": "2Bi + 3S → Bi₂S₃",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 74,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Nitric acid",
+          "desc": "",
+          "equation": "Bi + 4HNO₃ → Bi(NO₃)₃ + NO + 2H₂O",
+          "condition": "HNO₃ loãng, tạo NO; khí NO có thể bị oxi hóa tiếp ngoài không khí.",
+          "kind": "chemical",
+          "sourceLine": 76,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Bismuth hydroxide",
+          "desc": "",
+          "equation": "Bi³⁺ + 3OH⁻ → Bi(OH)₃↓",
+          "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+          "kind": "chemical",
+          "sourceLine": 78,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Nhiệt phân Bismuth hydroxide",
+          "desc": "",
+          "equation": "2Bi(OH)₃ → Bi₂O₃ + 3H₂O",
+          "condition": "Gia nhiệt để phân hủy; nhiệt độ phụ thuộc chất và áp suất khí sản phẩm.",
+          "kind": "chemical",
+          "sourceLine": 80,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Điều chế Bismuth",
+          "desc": "",
+          "equation": "Bi₂O₃ + 3C → 2Bi + 3CO↑",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 82,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": null,
+      "after": [
+        {
+          "title": "Nhận biết Bi³⁺",
+          "desc": "Cho Bi³⁺ tác dụng với Hydroxide:",
+          "result": "Xuất hiện kết tủa trắng Bismuth(III) hydroxide.",
+          "equations": [
+            {
+              "equation": "Bi³⁺ + 3OH⁻ → Bi(OH)₃↓",
+              "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+              "kind": "chemical",
+              "sourceLine": 61,
+              "sourceSection": "recognition",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            59,
+            60,
+            61,
+            62
+          ],
+          "equation": "Bi³⁺ + 3OH⁻ → Bi(OH)₃↓"
+        },
+        {
+          "title": "Kết tủa Bi(OH)₃ có thể chuyển thành Bismuth oxide khi đun nóng",
+          "desc": "",
+          "result": "Tạo chất rắn vàng Bi₂O₃.",
+          "equations": [
+            {
+              "equation": "2Bi(OH)₃ → Bi₂O₃ + 3H₂O",
+              "condition": "Gia nhiệt để phân hủy; nhiệt độ phụ thuộc chất và áp suất khí sản phẩm.",
+              "kind": "chemical",
+              "sourceLine": 64,
+              "sourceSection": "recognition",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            63,
+            64,
+            65
+          ],
+          "equation": "2Bi(OH)₃ → Bi₂O₃ + 3H₂O"
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "083_Bi.docx",
+        "sourceSha256": "af384f4a922c89417a3c8187b3bbce63371b1caaae26daa37c23c8f0980c6482",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/083_Bi.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "083_Bi.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "af384f4a922c89417a3c8187b3bbce63371b1caaae26daa37c23c8f0980c6482"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/83/bismuth"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure",
+      "before": null,
+      "after": {
+        "protons": 83,
+        "electrons": 83,
+        "neutrons": 126,
+        "nucleusIsotope": "²⁰⁹Bi",
+        "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+        "nucleus": {
+          "proton": 83,
+          "neutron": 126
+        },
+        "electronShells": [
+          2,
+          8,
+          18,
+          32,
+          18,
+          5
+        ],
+        "shells": [
+          2,
+          8,
+          18,
+          32,
+          18,
+          5
+        ],
+        "valenceElectrons": 5,
+        "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+        "lattice": "Mặt thoi (rhombohedral) đối với bismuth ở điều kiện thường.",
+        "latticeEvidence": "source-reviewed"
+      }
+    },
+    {
+      "field": "structureType",
+      "before": null,
+      "after": "Mặt thoi (rhombohedral) đối với bismuth ở điều kiện thường."
+    },
+    {
+      "field": "symbol",
+      "before": null,
+      "after": "Bi"
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "Bi",
+      "status": "diagram",
+      "reason": "Chưa xác nhận giấy phép dùng lại: FAL"
+    },
+    "mineral": {
+      "available": true,
+      "id": "bismuthinite",
+      "name": "Bismuthinite",
+      "formula": "Bi₂S₃",
+      "habit": "needles",
+      "color": "#9b9aab",
+      "crystalSystem": "orthorhombic",
+      "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Bismuthinite",
+      "model": "/assets/periodic-table/minerals/bismuthinite.glb",
+      "preview": "/assets/periodic-table/minerals/bismuthinite.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "Bi",
+      "z": 83,
+      "url": "https://periodic-table.rsc.org/element/83/bismuth",
+      "status": "retrieved",
+      "bytes": 154706,
+      "sha256": "0f3d05224f2719d0238eda8db3e28181fa991f10cc6d2fec4e28418048264fb6",
+      "facts": {
+        "Group": "15",
+        "Melting point": "271.406°C, 520.531°F, 544.556 K",
+        "Period": "6",
+        "Boiling point": "1564°C, 2847°F, 1837 K",
+        "Block": "p",
+        "Density (g cm−³)": "9.79",
+        "Atomic number": "83",
+        "Relative atomic mass": "208.980",
+        "State at 20°C": "Solid",
+        "Key isotopes": "²⁰⁹Bi",
+        "Electron configuration": "[Xe] 4f¹⁴5d¹⁰6s²6p³",
+        "CAS number": "7440-69-9",
+        "ChemSpider ID": "4514266",
+        "electronegativity": "1.9"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "83",
+      "Symbol": "Bi",
+      "Name": "Bismuth",
+      "AtomicMass": "208.98040",
+      "CPKHexColor": "9E4FB5",
+      "ElectronConfiguration": "[Xe]6s2 4f14 5d10 6p3",
+      "Electronegativity": "2.02",
+      "AtomicRadius": "207",
+      "IonizationEnergy": "7.289",
+      "ElectronAffinity": "0.946",
+      "OxidationStates": "+5, +3",
+      "StandardState": "Solid",
+      "MeltingPoint": "544.55",
+      "BoilingPoint": "1837",
+      "Density": "9.807",
+      "GroupBlock": "Post-transition metal",
+      "YearDiscovered": "1753"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

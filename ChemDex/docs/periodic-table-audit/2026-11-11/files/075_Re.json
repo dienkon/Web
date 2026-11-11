@@ -1,0 +1,907 @@
+{
+  "symbol": "Re",
+  "number": 75,
+  "source": "075_Re.docx",
+  "sourceSha256": "99dd02eae9276ad1d88a9669445bd51f95ade7ecc79d17a092f685188fdb7ded",
+  "paragraphCount": 90,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 4,
+    "structure": 9,
+    "occurrence": 4,
+    "isotopes": 3,
+    "physical": 8,
+    "chemical": 6,
+    "lab": 2,
+    "industry": 2,
+    "recognition": 4,
+    "reactions": 12,
+    "applications": 6,
+    "notes": 5
+  },
+  "editorialDecisions": [],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "[Xe] 4f¹⁴ 5d⁵ 6s²",
+      "publishedValue": "[Xe] 4f¹⁴ 5d⁵ 6s²",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Lục phương (Hexagonal)",
+      "publishedValue": "Lục phương (Hexagonal)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "1.90",
+      "publishedValue": 1.9,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm VIIB | Chu kỳ 6",
+      "publishedValue": "7",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Rhenium là kim loại rắn, màu trắng bạc, rất nặng và cứng.",
+      "publishedValue": "Rắn",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 32,
+      "sourceText": "¹⁸⁵Re: Đồng vị bền, chiếm khoảng 37.4%.",
+      "reference": {
+        "isotope": "¹⁸⁵Re",
+        "massNumber": 185,
+        "protons": 75,
+        "neutrons": 110,
+        "stable": true,
+        "abundancePercent": "37.40",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 33,
+      "sourceText": "¹⁸⁷Re: Đồng vị phóng xạ tự nhiên, chiếm khoảng 62.6%, có chu kỳ bán rã rất dài.",
+      "reference": {
+        "isotope": "¹⁸⁷Re",
+        "massNumber": 187,
+        "protons": 75,
+        "neutrons": 112,
+        "stable": false,
+        "abundancePercent": "62.60",
+        "halfLifeDisplay": "4.33E+10 ± 7E+8 năm",
+        "halfLife": "4.33E+10 Y",
+        "halfLifeUncertainty": "7",
+        "halfLifeQualifier": null,
+        "decay": "B-",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 55,
+      "text": "Re₂O₇ + 7H₂ → 2Re + 7H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 59,
+      "text": "2NH₄ReO₄ + 7H₂ → 2Re + 2NH₃ + 8H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 67,
+      "text": "4Re + 7O₂ → 2Re₂O₇",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 69,
+      "text": "2Re + 5Cl₂ → 2ReCl₅",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 71,
+      "text": "2Re + 7F₂ → 2ReF₇",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 73,
+      "text": "Re + 2S → ReS₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 75,
+      "text": "Re + O₂ → ReO₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 77,
+      "text": "Re₂O₇ + 7H₂ → 2Re + 7H₂O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "lab",
+      "equation": "2NH₄ReO₄ + 7H₂ → 2Re + 2NH₃ + 8H₂O",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 59,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "Re₂O₇ + 7H₂ → 2Re + 7H₂O",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 55,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "4Re + 7O₂ → 2Re₂O₇",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 67,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2Re + 5Cl₂ → 2ReCl₅",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 69,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2Re + 7F₂ → 2ReF₇",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 71,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Re + 2S → ReS₂",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 73,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Re + O₂ → ReO₂",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 75,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Re₂O₇ + 7H₂ → 2Re + 7H₂O",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 77,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": [
+        {
+          "title": "Siêu hợp kim",
+          "desc": "Rhenium là thành phần quan trọng trong một số superalloy dùng cho động cơ phản lực và turbine khí."
+        },
+        {
+          "title": "Động cơ hàng không",
+          "desc": "Hợp kim Nickel–Rhenium có khả năng chịu nhiệt và giữ độ bền tốt ở nhiệt độ cao."
+        },
+        {
+          "title": "Xúc tác",
+          "desc": "Rhenium được sử dụng làm chất xúc tác trong một số quá trình lọc dầu, đặc biệt trong quá trình reforming xúc tác."
+        },
+        {
+          "title": "Dây tóc và linh kiện nhiệt",
+          "desc": "Rhenium được sử dụng trong một số dây tóc, cặp nhiệt điện và linh kiện chịu nhiệt cao."
+        },
+        {
+          "title": "Nhiệt điện",
+          "desc": "Hợp kim Tungsten–Rhenium được sử dụng trong các cặp nhiệt điện đo nhiệt độ rất cao."
+        },
+        {
+          "title": "Y học",
+          "desc": "Một số đồng vị phóng xạ của Rhenium được nghiên cứu và sử dụng trong các ứng dụng y học hạt nhân."
+        }
+      ],
+      "after": [
+        {
+          "title": "Siêu hợp kim",
+          "desc": "Rhenium là thành phần quan trọng trong một số superalloy dùng cho động cơ phản lực và turbine khí.",
+          "sourceLine": 79
+        },
+        {
+          "title": "Động cơ hàng không",
+          "desc": "Hợp kim Nickel–Rhenium có khả năng chịu nhiệt và giữ độ bền tốt ở nhiệt độ cao.",
+          "sourceLine": 80
+        },
+        {
+          "title": "Xúc tác",
+          "desc": "Rhenium được sử dụng làm chất xúc tác trong một số quá trình lọc dầu, đặc biệt trong quá trình reforming xúc tác.",
+          "sourceLine": 81
+        },
+        {
+          "title": "Dây tóc và linh kiện nhiệt",
+          "desc": "Rhenium được sử dụng trong một số dây tóc, cặp nhiệt điện và linh kiện chịu nhiệt cao.",
+          "sourceLine": 82
+        },
+        {
+          "title": "Nhiệt điện",
+          "desc": "Hợp kim Tungsten–Rhenium được sử dụng trong các cặp nhiệt điện đo nhiệt độ rất cao.",
+          "sourceLine": 83
+        },
+        {
+          "title": "Y học",
+          "desc": "Một số đồng vị phóng xạ của Rhenium được nghiên cứu và sử dụng trong các ứng dụng y học hạt nhân.",
+          "sourceLine": 84
+        }
+      ]
+    },
+    {
+      "field": "chemical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có nhiều số Oxy hóa, phổ biến nhất là +7 và +6.</li>\n      <li>Khá bền trong không khí ở nhiệt độ thường.</li>\n      <li>Khi nung nóng phản ứng với Oxygen tạo Rhenium oxide.</li>\n      <li>Phản ứng với Halogen tạo Rhenium halide.</li>\n      <li>Có thể tạo nhiều hợp chất phức.</li>\n      <li>Có khả năng chống ăn mòn tương đối tốt.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Có nhiều số Oxy hóa, phổ biến nhất là +7 và +6.</li><li>Khá bền trong không khí ở nhiệt độ thường.</li><li>Khi nung nóng phản ứng với Oxygen tạo Rhenium oxide.</li><li>Phản ứng với Halogen tạo Rhenium halide.</li><li>Có thể tạo nhiều hợp chất phức.</li><li>Có khả năng chống ăn mòn tương đối tốt</li></ul>"
+    },
+    {
+      "field": "general.CAS",
+      "before": null,
+      "after": "7440-15-5"
+    },
+    {
+      "field": "general.electronegativityNote",
+      "before": null,
+      "after": "Thang Pauling; số liệu tổng hợp PubChem."
+    },
+    {
+      "field": "general.groupLabel",
+      "before": null,
+      "after": "7"
+    },
+    {
+      "field": "general.series",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "general.state",
+      "before": "",
+      "after": "Rắn"
+    },
+    {
+      "field": "history.year",
+      "before": 1925,
+      "after": "1925"
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/diagrams/075_Re.svg",
+          "title": "Rhenium (Re)",
+          "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+          "source": "",
+          "author": "ChemDex",
+          "license": "ChemDex schematic diagram",
+          "licenseUrl": ""
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "¹⁸⁵Re",
+          "massNumber": 185,
+          "protons": 75,
+          "neutrons": 110,
+          "stable": true,
+          "abundancePercent": "37.40",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "¹⁸⁷Re",
+          "massNumber": 187,
+          "protons": 75,
+          "neutrons": 112,
+          "stable": false,
+          "abundancePercent": "62.60",
+          "halfLifeDisplay": "4.33E+10 ± 7E+8 năm",
+          "halfLife": "4.33E+10 Y",
+          "halfLifeUncertainty": "7",
+          "halfLifeQualifier": null,
+          "decay": "B-",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "mass",
+      "before": 186.207,
+      "after": 186.21
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "standard-atomic-weight"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "186.21 ± 0.01"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": [
+        {
+          "type": "model",
+          "section": "structure",
+          "title": "Mẫu khoáng vật 3D · Molybdenite",
+          "src": "/assets/periodic-table/minerals/molybdenite.glb",
+          "preview": "/assets/periodic-table/minerals/molybdenite.png",
+          "desc": "MoS₂. Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "naturalState.alt",
+      "before": null,
+      "after": "Rhenium: sơ đồ minh họa nguyên tố"
+    },
+    {
+      "field": "naturalState.caption",
+      "before": null,
+      "after": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật."
+    },
+    {
+      "field": "naturalState.credit",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "naturalState.image",
+      "before": null,
+      "after": "/assets/periodic-table/diagrams/075_Re.svg"
+    },
+    {
+      "field": "naturalState.kind",
+      "before": null,
+      "after": "diagram"
+    },
+    {
+      "field": "naturalState.source",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "notes",
+      "before": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Rhenium là nguyên tố số 75, thuộc nhóm VIIB | chu kỳ 6 và là một kim loại chuyển tiếp.</li>\n  <li>Rhenium có cấu hình electron [Xe] 4f¹⁴ 5d⁵ 6s², với các số Oxy hóa phổ biến là +6 và +7.</li>\n  <li>Rhenium là kim loại rất nặng, cứng, chịu nhiệt và có nhiệt độ nóng chảy cực cao. Nó là một trong những kim loại có nhiệt độ nóng chảy cao nhất.</li>\n  <li>Trong tự nhiên, Rhenium rất hiếm và thường được thu hồi như sản phẩm phụ từ quặng Molybdenum, đặc biệt là Molybdenite (MoS₂).</li>\n  <li>Rhenium có giá trị cao trong superalloy, động cơ phản lực, turbine khí, xúc tác lọc dầu và các thiết bị đo nhiệt độ cao, nhờ khả năng duy trì độ bền trong môi trường nhiệt độ cực cao.</li>\n</ul>\n",
+      "after": "<ul class=\"element-prose-list\"><li>Rhenium là nguyên tố số 75, thuộc nhóm VIIB | chu kỳ 6 và là một kim loại chuyển tiếp.</li><li>Rhenium có cấu hình electron [Xe] 4f¹⁴ 5d⁵ 6s², với các số Oxy hóa phổ biến là +6 và +7.</li><li>Rhenium là kim loại rất nặng, cứng, chịu nhiệt và có nhiệt độ nóng chảy cực cao. Nó là một trong những kim loại có nhiệt độ nóng chảy cao nhất.</li><li>Trong tự nhiên, Rhenium rất hiếm và thường được thu hồi như sản phẩm phụ từ quặng Molybdenum, đặc biệt là Molybdenite (MoS₂).</li><li>Rhenium có giá trị cao trong superalloy, động cơ phản lực, turbine khí, xúc tác lọc dầu và các thiết bị đo nhiệt độ cao, nhờ khả năng duy trì độ bền trong môi trường nhiệt độ cực cao.</li></ul>"
+    },
+    {
+      "field": "occurrence.details",
+      "before": null,
+      "after": [
+        "Trạng thái: Rhenium là kim loại rắn, màu trắng bạc, rất nặng và cứng.",
+        "Có trong: Thường tồn tại với hàm lượng rất nhỏ trong các khoáng vật chứa Molybdenum và Copper, đặc biệt trong Molybdenite (MoS₂).",
+        "Đơn chất: Re",
+        "Hợp chất: Re₂O₇, ReO₂, ReCl₅, NH₄ReO₄, ReS₂..."
+      ]
+    },
+    {
+      "field": "occurrence.mineral",
+      "before": null,
+      "after": {
+        "available": true,
+        "id": "molybdenite",
+        "name": "Molybdenite",
+        "formula": "MoS₂",
+        "habit": "plates",
+        "color": "#737b91",
+        "crystalSystem": "hexagonal",
+        "relation": "Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+        "source": "https://www.handbookofmineralogy.org/",
+        "sourceSearch": "https://rruff.info/Molybdenite",
+        "model": "/assets/periodic-table/minerals/molybdenite.glb",
+        "preview": "/assets/periodic-table/minerals/molybdenite.png",
+        "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+      }
+    },
+    {
+      "field": "physical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại chuyển tiếp.</li>\n      <li>Màu trắng bạc.</li>\n      <li>Rất cứng và có độ bền cao.</li>\n      <li>Khối lượng riêng: khoảng 21.02 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 3186 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 5596 °C.</li>\n      <li>Có khả năng chịu nhiệt cực tốt.</li>\n      <li>Có độ bền cơ học cao ở nhiệt độ cao.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Là kim loại chuyển tiếp.</li><li>Màu trắng bạc.</li><li>Rất cứng và có độ bền cao.</li><li>Khối lượng riêng: khoảng 21.02 g/cm³.</li><li>Nhiệt độ nóng chảy: khoảng 3186 °C.</li><li>Nhiệt độ sôi: khoảng 5596 °C.</li><li>Có khả năng chịu nhiệt cực tốt.</li><li>Có độ bền cơ học cao ở nhiệt độ cao.</li></ul>"
+    },
+    {
+      "field": "preparations.industry",
+      "before": [
+        {
+          "title": "Rhenium chủ yếu được thu hồi như sản phẩm phụ từ quá trình xử lý quặng Molybdenite (MoS₂).",
+          "equation": "",
+          "desc": ""
+        },
+        {
+          "title": "Một phương trình minh họa quá trình tạo Rhenium oxide:",
+          "equation": "4Re + 7O₂ → 2Re₂O₇ <br> Re₂O₇ + 7H₂ → 2Re + 7H₂O",
+          "desc": "Sau đó Re₂O₇ được chuyển hóa thành các hợp chất Rhenium dễ tinh chế và cuối cùng được khử bằng Hydrogen:"
+        }
+      ],
+      "after": [
+        {
+          "title": "Rhenium (Re) chủ yếu được thu hồi như sản phẩm phụ trong quá trình xử lý quặng Copper và Molybdenum. Rhenium thường được tách từ bụi lò nung quặng Molybdenum dưới dạng ammonium perrhenate, sau đó chuyển thành Rhenium oxide và khử bằng Hydrogen ở nhiệt độ cao.",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "Re₂O₇ + 7H₂ → 2Re + 7H₂O",
+              "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+              "kind": "chemical",
+              "sourceLine": 55,
+              "sourceSection": "industry",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            53,
+            55
+          ],
+          "equation": "Re₂O₇ + 7H₂ → 2Re + 7H₂O"
+        }
+      ]
+    },
+    {
+      "field": "preparations.lab",
+      "before": [],
+      "after": [
+        {
+          "title": "Có thể điều chế Rhenium bằng cách khử Ammonium perrhenate bằng Hydrogen khi đun nóng.",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "2NH₄ReO₄ + 7H₂ → 2Re + 2NH₃ + 8H₂O",
+              "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+              "kind": "chemical",
+              "sourceLine": 59,
+              "sourceSection": "lab",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            57,
+            59
+          ],
+          "equation": "2NH₄ReO₄ + 7H₂ → 2Re + 2NH₃ + 8H₂O"
+        }
+      ]
+    },
+    {
+      "field": "reactions",
+      "before": [
+        {
+          "type": "Tác dụng với Oxygen",
+          "equation": "4Re + 7O₂ → 2Re₂O₇",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Chlorine",
+          "equation": "2Re + 5Cl₂ → 2ReCl₅",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Fluorine",
+          "equation": "2Re + 7F₂ → 2ReF₇",
+          "desc": ""
+        },
+        {
+          "type": "Tạo Rhenium disulfide",
+          "equation": "Re + 2S → ReS₂",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Oxygen tạo Rhenium dioxide",
+          "equation": "Re + O₂ → ReO₂",
+          "desc": ""
+        },
+        {
+          "type": "Khử Rhenium heptoxide",
+          "equation": "Re₂O₇ + 7H₂ → 2Re + 7H₂O",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "type": "Tác dụng với Oxygen",
+          "desc": "",
+          "equation": "4Re + 7O₂ → 2Re₂O₇",
+          "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+          "kind": "chemical",
+          "sourceLine": 67,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Chlorine",
+          "desc": "",
+          "equation": "2Re + 5Cl₂ → 2ReCl₅",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 69,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Fluorine",
+          "desc": "",
+          "equation": "2Re + 7F₂ → 2ReF₇",
+          "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+          "kind": "chemical",
+          "sourceLine": 71,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Rhenium disulfide",
+          "desc": "",
+          "equation": "Re + 2S → ReS₂",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 73,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Oxygen tạo Rhenium dioxide",
+          "desc": "",
+          "equation": "Re + O₂ → ReO₂",
+          "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+          "kind": "chemical",
+          "sourceLine": 75,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Khử Rhenium heptoxide",
+          "desc": "",
+          "equation": "Re₂O₇ + 7H₂ → 2Re + 7H₂O",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 77,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": [
+        {
+          "title": "Nhận biết",
+          "reagent": "Rhenium thường được xác định bằng phân tích quang phổ hoặc các phương pháp phân tích hóa học chuyên dụng.",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Một hợp chất đặc trưng là Ammonium perrhenate",
+          "reagent": "",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "NH₄ReO₄",
+          "result": "",
+          "equation": ""
+        },
+        {
+          "title": "Nhận biết",
+          "reagent": "Trong phân tích định tính, ion Perrhenate (ReO₄⁻) có thể được sử dụng để xác định sự hiện diện của Rhenium.",
+          "result": "",
+          "equation": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Rhenium thường được xác định bằng phân tích quang phổ hoặc các phương pháp phân tích hóa học chuyên dụng.",
+          "desc": "Một hợp chất đặc trưng là Ammonium perrhenate: NH₄ReO₄ Trong phân tích định tính, ion Perrhenate (ReO₄⁻) có thể được sử dụng để xác định sự hiện diện của Rhenium.",
+          "result": "",
+          "equations": [],
+          "sourceLines": [
+            61,
+            62,
+            63,
+            64
+          ],
+          "equation": ""
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "075_Re.docx",
+        "sourceSha256": "99dd02eae9276ad1d88a9669445bd51f95ade7ecc79d17a092f685188fdb7ded",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/075_Re.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "075_Re.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "99dd02eae9276ad1d88a9669445bd51f95ade7ecc79d17a092f685188fdb7ded"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/75/rhenium"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure.latticeEvidence",
+      "before": null,
+      "after": "source-reviewed"
+    },
+    {
+      "field": "structure.nucleusIsotope",
+      "before": null,
+      "after": "¹⁸⁵Re"
+    },
+    {
+      "field": "structure.nucleusNote",
+      "before": null,
+      "after": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác."
+    },
+    {
+      "field": "structure.valenceNote",
+      "before": null,
+      "after": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp."
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "Re",
+      "status": "diagram",
+      "reason": "Chưa xác nhận giấy phép dùng lại: FAL"
+    },
+    "mineral": {
+      "available": true,
+      "id": "molybdenite",
+      "name": "Molybdenite",
+      "formula": "MoS₂",
+      "habit": "plates",
+      "color": "#737b91",
+      "crystalSystem": "hexagonal",
+      "relation": "Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Molybdenite",
+      "model": "/assets/periodic-table/minerals/molybdenite.glb",
+      "preview": "/assets/periodic-table/minerals/molybdenite.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "Re",
+      "z": 75,
+      "url": "https://periodic-table.rsc.org/element/75/rhenium",
+      "status": "retrieved",
+      "bytes": 155800,
+      "sha256": "2b83de7c11763fe150c962b558973febe038c2a6f8244bb38e59f34b891b021f",
+      "facts": {
+        "Group": "7",
+        "Melting point": "3185°C, 5765°F, 3458 K",
+        "Period": "6",
+        "Boiling point": "5590°C, 10094°F, 5863 K",
+        "Block": "d",
+        "Density (g cm−³)": "20.8",
+        "Atomic number": "75",
+        "Relative atomic mass": "186.207",
+        "State at 20°C": "Solid",
+        "Key isotopes": "¹⁸⁷Re",
+        "Electron configuration": "[Xe] 4f¹⁴5d⁵6s²",
+        "CAS number": "7440-15-5",
+        "ChemSpider ID": "22388",
+        "electronegativity": "1.9"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "75",
+      "Symbol": "Re",
+      "Name": "Rhenium",
+      "AtomicMass": "186.207",
+      "CPKHexColor": "267DAB",
+      "ElectronConfiguration": "[Xe]6s2 4f14 5d5",
+      "Electronegativity": "1.9",
+      "AtomicRadius": "217",
+      "IonizationEnergy": "7.88",
+      "ElectronAffinity": "0.15",
+      "OxidationStates": "+7, +6, +4",
+      "StandardState": "Solid",
+      "MeltingPoint": "3459",
+      "BoilingPoint": "5869",
+      "Density": "20.8",
+      "GroupBlock": "Transition metal",
+      "YearDiscovered": "1925"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

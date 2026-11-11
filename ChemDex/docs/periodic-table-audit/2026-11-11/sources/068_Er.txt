@@ -1,0 +1,95 @@
+001: Erbium (Er)
+002: Thông tin chung
+003: Tên Latin: Erbium
+004: Tên Tiếng Anh: Erbium
+005: Đồng vị: ¹⁶²Er, ¹⁶⁴Er, ¹⁶⁶Er, ¹⁶⁷Er, ¹⁶⁸Er, ¹⁷⁰Er
+006: Vị trí: Nhóm IIIB | Chu kỳ 6 | Họ Lanthanide
+007: Số Oxy hóa: +3
+008: Độ âm điện: 1,24 (Pauling)
+009: Lịch sử khám phá
+010: Phát hiện bởi: Carl Gustaf Mosander
+011: Năm công bố: 1843
+012: Nơi khám phá: Stockholm, Thụy Điển
+013: Mô tả: Năm 1843, Carl Gustaf Mosander phân tích Yttria thu được từ khoáng vật Gadolinite. Ông phát hiện Yttria thực chất chứa nhiều oxide của các nguyên tố khác nhau, trong đó có một oxide mà ông gọi là Erbia, từ đó dẫn đến việc phát hiện Erbium.
+014: Tên Erbium có nguồn gốc từ Ytterby, một ngôi làng ở Thụy Điển nổi tiếng với các khoáng vật đất hiếm. Ytterby cũng là nguồn gốc tên của Yttrium, Terbium và Ytterbium.
+015: 3. Cấu tạo
+016: a. Cấu tạo nguyên tử
+017: Cấu hình electron: [Xe] 4f¹² 6s²
+018: Mô hình mạng tinh thể: Lục phương xếp chặt (Hexagonal close-packed, HCP)
+019: Số hiệu nguyên tử: 68
+020: Nguyên tử khối: 167,259 g/mol
+021: Vỏ nguyên tử: 68 electron
+022: Hạt nhân: 68 proton
+023: Cấu hình e đầy đủ: 1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰ 4p⁶ 5s² 4d¹⁰ 5p⁶ 4f¹² 6s²
+024: Loại mạng: Lục phương xếp chặt (HCP)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Chất rắn
+027: Màu sắc: Trắng bạc
+028: Có trong: Monazite, Xenotime và Gadolinite.
+029: Đơn chất: Er
+030: Hợp chất phổ biến: Er₂O₃, ErCl₃, ErF₃, Er(OH)₃
+031: c. Đồng vị
+032: Erbium có 6 đồng vị tự nhiên:
+033: ¹⁶²Er: khoảng 0,14%, bền.
+034: ¹⁶⁴Er: khoảng 1,61%, bền.
+035: ¹⁶⁶Er: khoảng 33,6%, bền.
+036: ¹⁶⁷Er: khoảng 22,9%, bền.
+037: ¹⁶⁸Er: khoảng 26,8%, bền.
+038: ¹⁷⁰Er: khoảng 14,9%, bền.
+039: ¹⁶⁶Er là đồng vị tự nhiên phổ biến nhất.
+040: Tính chất
+041: Tính chất vật lý
+042: Là kim loại đất hiếm.
+043: Thuộc họ Lanthanide.
+044: Có màu trắng bạc.
+045: Khá mềm và dễ gia công.
+046: Có tính thuận từ.
+047: Có nhiệt độ nóng chảy khoảng 1529 °C.
+048: Có nhiệt độ sôi khoảng 2868 °C.
+049: Khối lượng riêng khoảng 9,07 g/cm³.
+050: Tính chất hóa học
+051: Trạng thái Oxy hóa phổ biến và ổn định nhất là +3.
+052: Ion Er³⁺ có cấu hình electron 4f¹¹.
+053: Erbium phản ứng với Oxygen:
+054: 4Er + 3O₂ → 2Er₂O₃
+055: Phản ứng với Acid tạo muối Erbium(III) và giải phóng Hydrogen.
+056: Erbium oxide có màu hồng đặc trưng.
+057: Điều chế
+058: Điều chế trong công nghiệp
+059: Erbium (Er) chủ yếu được điều chế từ quặng monazite và xenotime. Sau khi tách khỏi hỗn hợp đất hiếm, Erbium được thu bằng phương pháp điện phân muối nóng chảy hoặc khử Erbium fluoride bằng Calcium.
+060: Phương trình:
+061: 2ErF₃ + 3Ca → 2Er + 3CaF₂
+062: Erbium thu được được tinh chế để loại bỏ tạp chất.
+063: Điều chế trong phòng thí nghiệm
+064: Có thể điều chế Erbium bằng cách khử Erbium chloride khan bằng Calcium.
+065: Phương trình:
+066: 2ErCl₃ + 3Ca → 2Er + 3CaCl₂
+067: Nhận biết
+068: Có thể nhận biết Erbium bằng:
+069: Phổ phát xạ nguyên tử.
+070: ICP-OES hoặc ICP-MS.
+071: Phổ hấp thụ đặc trưng của Er³⁺.
+072: Màu sắc đặc trưng của một số hợp chất.
+073: Er₂O₃ có màu hồng và đây là một đặc điểm khá dễ nhận biết.
+074: Phương trình
+075: Tác dụng với Oxygen
+076: 4Er + 3O₂ → 2Er₂O₃
+077: Tác dụng với Hydrochloric acid
+078: 2Er + 6HCl → 2ErCl₃ + 3H₂
+079: Tạo Erbium(III) hydroxide
+080: ErCl₃ + 3NaOH → Er(OH)₃↓ + 3NaCl
+081: Điều chế Erbium
+082: 2ErCl₃ + 3Ca → 2Er + 3CaCl₂
+083: Ứng dụng thực tế
+084: Cáp quang: Đây là ứng dụng nổi tiếng nhất của Erbium. Ion Er³⁺ được sử dụng trong Erbium-doped fiber amplifier (EDFA) để khuếch đại tín hiệu trong hệ thống truyền thông sợi quang, đặc biệt ở vùng bước sóng khoảng 1550 nm.
+085: Laser: Erbium được sử dụng trong các loại laser Er:YAG và nhiều vật liệu laser khác.
+086: Y tế: Laser Er:YAG có ứng dụng trong một số thủ thuật nha khoa và da liễu.
+087: Kính: Erbium được thêm vào thủy tinh để tạo màu hồng và sử dụng trong một số loại kính quang học.
+088: Công nghệ quang học: Các vật liệu pha tạp Er³⁺ được sử dụng trong thiết bị phát quang và quang tử.
+089: Tổng quan
+090: Erbium là nguyên tố số 68, thuộc nhóm IIIB | chu kỳ 6 và là nguyên tố thứ mười hai trong họ Lanthanide.
+091: Erbium được Carl Gustaf Mosander phát hiện vào năm 1843 tại Thụy Điển. Tên nguyên tố bắt nguồn từ Ytterby, cùng nguồn gốc tên với Yttrium, Terbium và Ytterbium.
+092: Erbium là kim loại đất hiếm màu trắng bạc, khá mềm và có trạng thái Oxy hóa chủ yếu là +3. Một đặc điểm đáng chú ý là Erbium oxide (Er₂O₃) có màu hồng.
+093: Ứng dụng quan trọng nhất của Erbium là trong truyền thông sợi quang. Ion Er³⁺ trong EDFA có khả năng khuếch đại tín hiệu quang ở vùng khoảng 1550 nm, giúp truyền dữ liệu qua khoảng cách rất xa mà không cần chuyển tín hiệu quang thành tín hiệu điện tại mỗi đoạn.
+094: Ngoài ra, Erbium còn được sử dụng trong laser, nha khoa, da liễu, kính quang học và công nghệ quang tử.
+095: Mạng tinh thể: Lục phương xếp chặt (HCP) ở điều kiện thường.

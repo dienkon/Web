@@ -1,0 +1,94 @@
+001: Fermium (Fm)
+002: Thông tin chung
+003: Tên Latin: Fermium
+004: Tên Tiếng Anh: Fermium
+005: Đồng vị: ²⁵⁷Fm, ²⁵⁸Fm, ²⁵⁹Fm, ²⁶⁰Fm
+006: Vị trí: Nhóm IIIB | Chu kỳ 7 | Họ Actinide
+007: Số Oxy hóa: +2, +3
+008: Độ âm điện: 1,3 (Pauling)
+009: Lịch sử khám phá
+010: Phát hiện bởi: Albert Ghiorso và cộng sự
+011: Năm công bố: 1952
+012: Nơi khám phá: Phòng thí nghiệm quốc gia Lawrence Berkeley, California, Hoa Kỳ
+013: Mô tả: Fermium được phát hiện cùng Einsteinium trong các mảnh vụn của vụ thử nhiệt hạch Ivy Mike năm 1952.
+014: Đồng vị đầu tiên được xác định là Fermium-255 (²⁵⁵Fm). Nó được hình thành sau khi Uranium-238 hấp thụ nhiều neutron trong quá trình vụ nổ, sau đó trải qua một chuỗi phân rã beta.
+015: Phát hiện này ban đầu được giữ bí mật và chỉ được công bố vào năm 1955.
+016: Tên Fermium được đặt để vinh danh nhà vật lý Enrico Fermi.
+017: 3. Cấu tạo
+018: a. Cấu tạo nguyên tử
+019: Cấu hình electron: [Rn] 5f¹² 7s²
+020: Mô hình mạng tinh thể: Lập phương tâm diện (Face-centered cubic, FCC)
+021: Số hiệu nguyên tử: 100
+022: Nguyên tử khối: 257,09511 g/mol (giá trị quy ước cho đồng vị ²⁵⁷Fm)
+023: Vỏ nguyên tử: 100 electron
+024: Hạt nhân: 100 proton
+025: Cấu hình e đầy đủ: [Rn] 5f¹² 7s²
+026: Loại mạng: Lập phương tâm diện (FCC)
+027: b. Trạng thái tự nhiên
+028: Trạng thái: Chất rắn
+029: Màu sắc: Bạc (dự đoán)
+030: Có trong: Không tồn tại tự nhiên với lượng đáng kể; chỉ được tạo ra nhân tạo.
+031: Đơn chất: Fm
+032: Hợp chất: Fm₂O₃, FmCl₂, FmCl₃
+033: c. Đồng vị
+034: Fermium không có đồng vị bền.
+035: Một số đồng vị quan trọng:
+036: ²⁵⁷Fm: chu kỳ bán rã khoảng 100,5 ngày.
+037: ²⁵⁸Fm: chu kỳ bán rã khoảng 370 microgiây.
+038: ²⁵⁹Fm: chu kỳ bán rã khoảng 1,5 giây.
+039: ²⁶⁰Fm: chu kỳ bán rã khoảng 4 mili giây.
+040: ²⁵⁷Fm là đồng vị có chu kỳ bán rã dài nhất được biết đến của Fermium.
+041: Tính chất
+042: Tính chất vật lý
+043: Là kim loại phóng xạ.
+044: Thuộc họ Actinide.
+045: Có màu bạc (dự đoán).
+046: Chỉ tạo ra được với lượng cực kỳ nhỏ.
+047: Có tính phóng xạ rất mạnh.
+048: Các tính chất vật lý vĩ mô của Fermium chưa thể nghiên cứu đầy đủ vì không thể tạo ra lượng lớn vật chất.
+049: Tính chất hóa học
+050: Fermium có hai trạng thái Oxy hóa chính:
+051: +2
+052: +3
+053: Trong đó +3 là trạng thái phổ biến hơn.
+054: Một điểm đáng chú ý là Fm²⁺ tương đối ổn định so với các Actinide lân cận. Điều này liên quan đến cấu hình electron của ion Fm²⁺.
+055: Fermium có thể tạo các hợp chất như FmCl₂ và FmCl₃.
+056: Điều chế
+057: Điều chế trong công nghiệp:
+058: Fermium (Fm) được tạo ra bằng cách chiếu xạ neutron cường độ cao lên Uranium hoặc các nguyên tố Actinide trong lò phản ứng hạt nhân. Sau đó, sản phẩm được tách và tinh chế bằng phương pháp hóa học.
+059: ²³⁸U + ¹⁷n → ²⁵⁵U
+060: ²⁵⁵U → ²⁵⁵Fm + 8β⁻
+061: Điều chế trong phòng thí nghiệm:
+062: Fermium có thể được tạo ra bằng cách bắn phá Uranium-238 bằng ion Oxygen-16 trong máy gia tốc hạt.
+063: ²³⁸U + ¹⁶O → ²⁵⁰Fm + 4¹n
+064: Nhận biết
+065: Có thể nhận biết Fermium bằng:
+066: Phổ alpha.
+067: Phổ gamma.
+068: Đo hoạt độ phóng xạ.
+069: Phân tích phổ khối.
+070: Theo dõi chuỗi phân rã phóng xạ.
+071: Các phương pháp hóa phóng xạ.
+072: Do lượng Fermium tạo ra rất nhỏ, việc xác định nguyên tố chủ yếu dựa trên đặc điểm phân rã và nhận dạng đồng vị.
+073: Phương trình
+074: Hình thành Fermium trong chuỗi phản ứng hạt nhân
+075: Quá trình tạo Fermium thường gồm nhiều bước bắt neutron và phân rã beta, không thể biểu diễn bằng một phương trình hóa học đơn giản duy nhất.
+076: Một dạng tổng quát:
+077: ²³⁸U + n → các hạt nhân Actinide nặng hơn
+078: Tạo ion Fermium(III)
+079: Fm → Fm³⁺ + 3e⁻
+080: Tạo Fermium(II)
+081: Fm → Fm²⁺ + 2e⁻
+082: Phân rã Alpha của Fermium-257
+083: ²⁵⁷Fm → ²⁵³Cf + α
+084: Ứng dụng thực tế
+085: Nghiên cứu hạt nhân: Fermium được sử dụng gần như hoàn toàn trong nghiên cứu vật lý hạt nhân và hóa học Actinide.
+086: Nghiên cứu nguyên tố siêu nặng: Fermium có vai trò trong việc nghiên cứu các phản ứng tạo ra các hạt nhân nặng hơn, góp phần tìm hiểu giới hạn của bảng tuần hoàn.
+087: Nghiên cứu cấu trúc electron: Các hợp chất Fermium giúp nghiên cứu sự thay đổi tính chất hóa học trong dãy Actinide.
+088: Do chỉ có thể tạo ra lượng cực kỳ nhỏ và các đồng vị có chu kỳ bán rã ngắn, Fermium không có ứng dụng công nghiệp hoặc đời sống thông thường.
+089: Tổng quan
+090: Fermium là nguyên tố số 100, thuộc nhóm IIIB | chu kỳ 7 và là nguyên tố thứ mười hai trong họ Actinide.
+091: Fermium được phát hiện vào năm 1952 bởi Albert Ghiorso và cộng sự trong các sản phẩm của vụ thử nhiệt hạch Ivy Mike. Tên nguyên tố được đặt để vinh danh nhà vật lý Enrico Fermi.
+092: Fermium là kim loại phóng xạ nhân tạo, không có đồng vị bền. Hai trạng thái Oxy hóa quan trọng là +2 và +3, trong đó +3 phổ biến hơn.
+093: Đồng vị ²⁵⁷Fm có chu kỳ bán rã khoảng 100,5 ngày, là đồng vị Fermium có thời gian tồn tại tương đối dài. Vì Fermium chỉ được tạo ra với lượng cực nhỏ, giá trị của nó chủ yếu nằm trong nghiên cứu hạt nhân và hóa học Actinide, chứ không có ứng dụng đời sống thông thường.
+094: Mạng tinh thể: Lập phương tâm diện (FCC) ở điều kiện thường.

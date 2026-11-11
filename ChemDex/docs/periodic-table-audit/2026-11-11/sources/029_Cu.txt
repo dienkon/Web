@@ -1,0 +1,113 @@
+001: Copper (Cu)
+002: Thông tin chung
+003: Tên Latin: Cuprum
+004: Tên Tiếng Anh: Copper
+005: Đồng vị: ⁶³Cu, ⁶⁵Cu
+006: Vị trí: Nhóm IB | Chu kỳ 4
+007: Số Oxy hóa: +1, +2, +3
+008: Độ âm điện: 1.90
+009: Lịch sử khám phá
+010: Phát hiện bởi: Không xác định — Copper đã được con người biết đến từ thời cổ đại.
+011: Năm công bố: Khoảng 9000 TCN
+012: Nơi khám phá: Không xác định; Copper được con người sử dụng ở nhiều khu vực cổ đại.
+013: Mô tả: Copper là một trong những kim loại đầu tiên được con người khai thác và sử dụng. Copper tự nhiên có thể được tìm thấy dưới dạng kim loại tự do, nên con người có thể sử dụng nó trước khi phát triển kỹ thuật luyện kim phức tạp. Sau này, việc kết hợp Copper với Tin tạo ra Bronze, mở đầu cho thời kỳ Bronze Age.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Ar] 3d¹⁰ 4s¹
+017: Mô hình mạng tinh thể: Lập phương tâm mặt (Face-centered cubic, FCC)
+018: Số hiệu nguyên tử: 29
+019: Nguyên tử khối: 63.546 g/mol
+020: Vỏ nguyên tử: 29 electron
+021: K: 2 | L: 8 | M: 18 | N: 1
+022: Hạt nhân: 29 proton, 34 neutron đối với ⁶³Cu
+023: Cấu hình e: [Ar] 3d¹⁰ 4s¹
+024: Loại mạng: Lập phương tâm mặt (Face-centered cubic, FCC)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Copper là kim loại rắn, có màu đỏ cam đặc trưng và ánh kim.
+027: Có trong: Chalcopyrite (CuFeS₂), Chalcocite (Cu₂S), Cuprite (Cu₂O), Malachite và Azurite.
+028: Đơn chất: Cu
+029: Hợp chất: Cu₂O, CuO, CuCl, CuCl₂, CuSO₄, CuCO₃...
+030: c. Đồng vị
+031: Đồng vị: ⁶³Cu, ⁶⁵Cu
+032: ⁶³Cu: Đồng vị bền, chiếm khoảng 69.15%.
+033: ⁶⁵Cu: Đồng vị bền, chiếm khoảng 30.85%.
+034: Tính chất
+035: Tính chất vật lý
+036: Là kim loại chuyển tiếp.
+037: Có màu đỏ cam đặc trưng.
+038: Mềm, dẻo và dễ kéo sợi.
+039: Khối lượng riêng: khoảng 8.96 g/cm³.
+040: Nhiệt độ nóng chảy: khoảng 1084.6 °C.
+041: Nhiệt độ sôi: khoảng 2562 °C.
+042: Dẫn điện rất tốt.
+043: Dẫn nhiệt rất tốt.
+044: Có khả năng chống ăn mòn tương đối tốt.
+045: Có thể tạo nhiều hợp kim quan trọng.
+046: Tính chất hóa học
+047: Có tính khử yếu hơn nhiều kim loại hoạt động như Iron và Zinc.
+048: Số Oxy hóa phổ biến: +1 và +2.
+049: Cu⁺ thường không bền trong dung dịch nước và dễ chuyển thành Cu²⁺ và Cu.
+050: Cu²⁺ là trạng thái Oxy hóa phổ biến nhất trong dung dịch.
+051: Copper phản ứng với Oxygen khi nung nóng.
+052: Không phản ứng với Hydrochloric acid loãng trong điều kiện thường.
+053: Phản ứng với Nitric acid và Sulfuric acid đặc.
+054: Có thể phản ứng với Halogen tạo Copper halide.
+055: Copper compounds thường có màu sắc đặc trưng.
+056: Điều chế
+057: Điều chế trong công nghiệp
+058: Copper chủ yếu được sản xuất từ các quặng sulfide như Chalcopyrite (CuFeS₂).
+059: Quặng được nung để tạo Copper(I) sulfide:
+060: 2CuFeS₂ + 4O₂ → Cu₂S + 2FeO + 3SO₂
+061: Sau đó Copper(I) sulfide được chuyển thành Copper:
+062: Cu₂S + O₂ → 2Cu + SO₂
+063: Copper thu được tiếp tục được tinh chế bằng điện phân để đạt độ tinh khiết cao.
+064: Điều chế trong phòng thí nghiệm
+065: Copper có thể được điều chế bằng cách cho kim loại hoạt động mạnh hơn đẩy Copper ra khỏi dung dịch Copper(II) salt:
+066: Fe + CuSO₄ → FeSO₄ + Cu
+067: Nhận biết
+068: Nhận biết Cu²⁺
+069: Cho dung dịch chứa Cu²⁺ tác dụng với hydroxide:
+070: Cu²⁺ + 2OH⁻ → Cu(OH)₂↓
+071: Hiện tượng: Xuất hiện kết tủa xanh lam Copper(II) hydroxide.
+072: Khi đun nóng:
+073: Cu(OH)₂ → CuO + H₂O
+074: Hiện tượng: Kết tủa chuyển từ xanh lam sang đen.
+075: Phương trình
+076: Tác dụng với Oxygen
+077: 2Cu + O₂ → 2CuO
+078: Tác dụng với Chlorine
+079: Cu + Cl₂ → CuCl₂
+080: Tác dụng với Sulfur
+081: 2Cu + S → Cu₂S
+082: Tác dụng với Nitric acid loãng
+083: 3Cu + 8HNO₃ → 3Cu(NO₃)₂ + 2NO↑ + 4H₂O
+084: Tác dụng với Nitric acid đặc
+085: Cu + 4HNO₃ → Cu(NO₃)₂ + 2NO₂↑ + 2H₂O
+086: Tác dụng với Sulfuric acid đặc
+087: Cu + 2H₂SO₄ → CuSO₄ + SO₂↑ + 2H₂O
+088: Tạo Copper(II) hydroxide
+089: Cu²⁺ + 2OH⁻ → Cu(OH)₂↓
+090: Nhiệt phân Copper(II) hydroxide
+091: Cu(OH)₂ → CuO + H₂O
+092: Copper(II) oxide tác dụng với Hydrochloric acid
+093: CuO + 2HCl → CuCl₂ + H₂O
+094: Copper tác dụng với Iron(III) chloride
+095: Cu + 2FeCl₃ → CuCl₂ + 2FeCl₂
+096: Điều chế Copper từ Copper(I) sulfide
+097: Cu₂S + O₂ → 2Cu + SO₂
+098: Phản ứng thế với Iron
+099: Fe + CuSO₄ → FeSO₄ + Cu
+100: Ứng dụng thực tế
+101: Dây điện: Copper được sử dụng rộng rãi trong dây dẫn điện nhờ độ dẫn điện cao.
+102: Thiết bị điện tử: Được sử dụng trong mạch điện, động cơ, máy phát điện và các linh kiện điện.
+103: Truyền nhiệt: Copper được dùng trong bộ tản nhiệt, hệ thống trao đổi nhiệt và thiết bị làm lạnh.
+104: Xây dựng: Được sử dụng trong đường ống, mái và các bộ phận của công trình.
+105: Hợp kim: Copper là thành phần chính của Bronze và Brass.
+106: Tiền xu: Copper và các hợp kim của nó được sử dụng trong sản xuất tiền xu.
+107: Công nghiệp hóa chất: Copper compounds như Copper sulfate được sử dụng trong nhiều ứng dụng hóa học và nông nghiệp.
+108: Tổng quan
+109: Copper là nguyên tố số 29, thuộc nhóm IB | chu kỳ 4 và là một kim loại chuyển tiếp.
+110: Copper có cấu hình electron [Ar] 3d¹⁰ 4s¹, với các số Oxy hóa phổ biến là +1 và +2.
+111: Copper có màu đỏ cam đặc trưng, rất dẻo và có độ dẫn điện, dẫn nhiệt cao. Vì vậy, đây là một trong những kim loại quan trọng nhất trong ngành điện và điện tử.
+112: Trong tự nhiên, Copper tồn tại dưới dạng kim loại tự do và nhiều khoáng vật, đặc biệt là Chalcopyrite (CuFeS₂). Copper được sản xuất công nghiệp chủ yếu bằng quá trình luyện quặng sulfide và tinh chế điện phân.
+113: Copper có vai trò quan trọng trong điện – điện tử, xây dựng, truyền nhiệt, sản xuất hợp kim và công nghiệp hóa chất.

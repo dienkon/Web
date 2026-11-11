@@ -1,0 +1,113 @@
+001: Hydrogen (H)
+002: Thông tin chung
+003: Tên Latin: Hydrogenium
+004: Tên tiếng Anh: Hydrogen
+005: Đồng vị: ¹H, ²H, ³H
+006: Vị trí: Nhóm IA | Chu kỳ 1
+007: Số Oxy hóa: −1, 0, +1
+008: Độ âm điện: 2.20
+009: Lịch sử khám phá
+010: Phát hiện bởi: Henry Cavendish
+011: Năm công bố: 1766
+012: Nơi khám phá: Anh
+013: Mô tả: Năm 1766, Henry Cavendish là người đầu tiên công nhận Hydrogen là một chất khí riêng biệt bằng cách cho kim loại phản ứng với acid và gọi nó là “khí dễ cháy” (inflammable air). Đến năm 1783, Antoine Lavoisier đã xác định khi đốt cháy chất khí này trong oxygen sẽ tạo thành nước, từ đó đặt tên cho nguyên tố là Hydrogen (bắt nguồn từ tiếng Hy Lạp mang nghĩa “sinh ra nước”).
+014: 3. Cấu tạo
+015: a. Cấu tạo
+016: Hoạt họa cấu hình e: 1s¹
+017: Mô hình mạng tinh thể: Hydrogen ở điều kiện thường tồn tại dưới dạng phân tử H₂ nên không có mạng tinh thể. Khi ở trạng thái rắn (dưới −259.16 °C), Hydrogen tạo tinh thể phân tử với cấu trúc lục phương xếp chặt (hcp) hoặc lập phương tâm diện (fcc) tùy theo nhiệt độ và áp suất.
+018: Số hiệu nguyên tử: 1
+019: Nguyên tử khối: 1.008 g/mol
+020: Vỏ nguyên tử: 1 electron
+021: K: 1
+022: Hạt nhân: 1 proton, 0 neutron đối với ¹H
+023: Cấu hình e: 1s¹
+024: Loại mạng: Tinh thể phân tử; pha rắn thường có cấu trúc lục phương xếp chặt (hcp).
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Hydrogen là nguyên tố phong phú nhất trong vũ trụ (chiếm khoảng 75% khối lượng vật chất thông thường), là thành phần chính cấu tạo nên các ngôi sao và hành tinh khí. Trong khí quyển Trái Đất, Hydrogen chỉ tồn tại dạng vết rất nhỏ do quá nhẹ và dễ thoát ra ngoài vũ trụ, nhưng lại cực kỳ dồi dào ở dạng hợp chất.
+027: Đơn chất: H₂
+028: Hợp chất: H₂O, hydrocarbon (dầu mỏ, khí thiên nhiên), carbohydrate, protein, acid, base, khoáng vật hydrate...
+029: c. Đồng vị
+030: Đồng vị: ¹H, ²H (Deuterium – D), ³H (Tritium – T)
+031: ¹H: Khoảng 99.985%, là đồng vị bền và phổ biến nhất (hạt nhân chỉ có 1 proton).
+032: ²H: Khoảng 0.015%, là đồng vị bền (hạt nhân gồm 1 proton và 1 neutron).
+033: ³H: Dạng vết trong tự nhiên, là đồng vị phóng xạ với chu kỳ bán rã khoảng 12.32 năm (hạt nhân gồm 1 proton và 2 neutron).
+034: Ngoài ba đồng vị trên, các nhà khoa học đã tổng hợp được các đồng vị phóng xạ từ ⁴H đến ⁷H với thời gian tồn tại cực ngắn.
+035: Tính chất
+036: Tính chất vật lý
+037: Chất khí không màu, không mùi, không vị.
+038: Là chất khí nhẹ nhất trong tất cả các chất khí (tỉ khối so với không khí d ≈ 2/29 ≈ 0.069).
+039: Khối lượng mol của H₂: 2.016 g/mol.
+040: Khối lượng riêng: khoảng 0.0899 g/L ở 0 °C và 1 atm.
+041: Rất ít tan trong nước (khoảng 0.019 mL trong 1 L nước ở 20 °C).
+042: Nhiệt độ nóng chảy: −259.16 °C.
+043: Nhiệt độ sôi: −252.87 °C.
+044: Hydrogen lỏng không màu, linh động.
+045: Có tính nghịch từ.
+046: Dễ cháy, ngọn lửa có màu xanh nhạt tỏa nhiều nhiệt; hỗn hợp nổ mạnh nhất khi tỉ lệ H₂ : O₂ là 2 : 1 về thể tích.
+047: Tính chất hóa học
+048: Là phi kim có độ âm điện trung bình.
+049: Có tính khử mạnh trong phần lớn các phản ứng hóa học (số oxy hóa tăng từ 0 lên +1).
+050: Thể hiện tính oxy hóa khi phản ứng với các kim loại mạnh (số oxy hóa giảm từ 0 xuống −1 tạo hydride).
+051: Phản ứng mạnh với Oxygen tạo nước và tỏa nhiều nhiệt.
+052: Phản ứng với các halogen tạo hydrogen halide.
+053: Khử được nhiều oxide kim loại đứng sau Al ở nhiệt độ cao.
+054: Phản ứng với Nitrogen ở điều kiện nhiệt độ, áp suất cao và xúc tác để tạo Ammonia.
+055: Tham gia phản ứng cộng hydro hóa các hợp chất hữu cơ chưa no.
+056: Điều chế
+057: Điều chế trong công nghiệp
+058: Chuyển hóa hơi nước với khí tự nhiên (Steam Methane Reforming – SMR): Cho khí methane phản ứng với hơi nước ở nhiệt độ cao (700–1000 °C) với xúc tác Nickel để tạo khí tổng hợp (syngas), sau đó tách thu H₂:
+059: CH4 + H2O ⇌ CO + 3H2
+060: Điện phân nước: Điện phân nước có hòa tan chất điện ly (như KOH hoặc acid) để tách thành khí Hydrogen và Oxygen:
+061: 2H2O → 2H2 + O2
+062: Khí hóa than đá (Gasification): Cho than phản ứng với hơi nước ở nhiệt độ cao tạo khí than ướt:
+063: C + H2O ⇌ CO + H2
+064: Điều chế trong phòng thí nghiệm
+065: Cho kim loại hoạt động (như Zn, Fe) tác dụng với dung dịch acid loãng (HCl, H₂SO₄ loãng):
+066: Zn + 2HCl → ZnCl2 + H2
+067: Cho kim loại lưỡng tính tác dụng với dung dịch kiềm mạnh:
+068: 2Al + 2NaOH + 2H2O → 2NaAlO2 + 3H2
+069: Điện phân nước quy mô nhỏ (sử dụng bình điện phân Hofmann).
+070: Nhận biết
+071: Đốt ở đầu ống dẫn khí: Khí cháy với ngọn lửa màu xanh nhạt, tỏa nhiều nhiệt; khi úp cốc thủy tinh khô lên ngọn lửa sẽ thấy hơi nước ngưng tụ trên thành cốc.
+072: Đốt lượng nhỏ trong ống nghiệm: Nghe tiếng nổ nhỏ (“bốp”) đặc trưng khi khí H₂ lẫn một ít không khí bị bắt cháy.
+073: Dẫn qua bột CuO nung nóng: Bột đồng(II) oxide màu đen chuyển dần sang màu đỏ gạch của kim loại Cu và xuất hiện các giọt nước đọng lại.
+074: Đặc điểm: Khí rất nhẹ, dễ cháy nổ khi trộn lẫn với oxygen.
+075: Phương trình
+076: Tác dụng với Oxygen
+077: 2H2 + O2 → 2H2O
+078: Tác dụng với Chlorine
+079: H2 + Cl2 → 2HCl
+080: Tác dụng với Nitrogen
+081: N2 + 3H2 ⇌ 2NH3
+082: Xúc tác: Sắt (Fe), nhiệt độ và áp suất cao.
+083: Khử Copper(II) oxide
+084: CuO + H2 → Cu + H2O
+085: Khử Iron(III) oxide
+086: Fe2O3 + 3H2 → 2Fe + 3H2O
+087: Tác dụng với Carbon
+088: C + 2H2 ⇌ CH4
+089: Xúc tác: Nickel (Ni), nhiệt độ khoảng 500 °C.
+090: Tác dụng với Sodium
+091: 2Na + H2 → 2NaH
+092: Hydro hóa Ethylene
+093: C2H4 + H2 → C2H6
+094: Xúc tác: Nickel (Ni), nhiệt độ.
+095: Chuyển hóa Methane với hơi nước
+096: CH4 + H2O ⇌ CO + 3H2
+097: Xúc tác: Nickel (Ni).
+098: Phản ứng điều chế từ Kẽm và Acid
+099: Zn + 2HCl → ZnCl2 + H2
+100: Ứng dụng thực tế
+101: Sản xuất hóa chất: Nguyên liệu cốt lõi để tổng hợp Ammonia (sản xuất phân đạm), Methanol và hydrochloric acid.
+102: Lọc hóa dầu: Dùng trong quá trình hydrocracking (bẻ gãy mạch hydrocarbon nặng) và hydrodesulfurization (loại bỏ lưu huỳnh khỏi nhiên liệu).
+103: Luyện kim: Làm chất khử sạch để điều chế các kim loại có độ tinh khiết cao từ oxide (như Vonfram, Molypden, Đồng).
+104: Hàn và cắt kim loại: Ngọn lửa oxy-hydrogen tạo nhiệt độ cao xấp xỉ 2800 °C dùng để gia công kim loại và nấu chảy thủy tinh thạch anh.
+105: Năng lượng xanh và giao thông: Dùng làm nhiên liệu trong pin nhiên liệu (fuel cell) cho ô tô, xe buýt, tàu hỏa mà không phát thải khí nhà kính.
+106: Hàng không vũ trụ: Hydrogen lỏng (LH2) kết hợp với Oxygen lỏng (LOX) là hệ nhiên liệu đẩy tên lửa mạnh mẽ.
+107: Công nghiệp thực phẩm: Hydro hóa dầu thực vật dạng lỏng thành chất béo rắn hoặc bán rắn (như bơ thực vật margarine).
+108: Điện tử và bán dẫn: Làm môi trường khí bảo vệ trong quá trình sản xuất chip bán dẫn và màn hình silicon.
+109: Tổng quan
+110: Hydrogen là nguyên tố đầu tiên trong bảng tuần hoàn (số hiệu nguyên tử 1), thuộc nhóm IA | chu kỳ 1.
+111: Ở điều kiện thường, Hydrogen tồn tại dưới dạng phân tử khí H₂ không màu, không mùi và là chất khí nhẹ nhất trong tự nhiên. Dù ở dạng đơn chất tự do trên Trái Đất rất hiếm, Hydrogen lại dồi dào trong nước, các hợp chất hữu cơ, dầu mỏ và chiếm phần lớn khối lượng vật chất nhìn thấy được trong toàn vũ trụ.
+112: Hydrogen sở hữu tính khử mạnh trong hầu hết phản ứng, có khả năng kết hợp mạnh mẽ với phi kim và khử oxide kim loại để giải phóng kim loại tinh khiết.
+113: Hydrogen giữ vai trò trụ cột trong công nghiệp phân bón, lọc hóa dầu, luyện kim và đang là tâm điểm phát triển của nguồn năng lượng sạch bền vững tương lai.

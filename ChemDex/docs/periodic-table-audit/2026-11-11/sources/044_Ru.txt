@@ -1,0 +1,93 @@
+001: Ruthenium (Ru)
+002: Thông tin chung
+003: Tên Latin: Ruthenium
+004: Tên Tiếng Anh: Ruthenium
+005: Đồng vị: ⁹⁶Ru, ⁹⁸Ru, ⁹⁹Ru, ¹⁰⁰Ru, ¹⁰¹Ru, ¹⁰²Ru, ¹⁰⁴Ru
+006: Vị trí: Nhóm VIIIB | Chu kỳ 5
+007: Số Oxy hóa: −2, +2, +3, +4, +6, +8
+008: Độ âm điện: 2.20
+009: Lịch sử khám phá
+010: Phát hiện bởi: Karl Ernst Claus
+011: Năm công bố: 1844
+012: Nơi khám phá: Nga
+013: Mô tả: Năm 1844, Karl Ernst Claus đã tách và xác định Ruthenium từ quặng Platinum. Ông đặt tên nguyên tố theo Ruthenia, tên Latin của Nga.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Kr] 4d⁷ 5s¹
+017: Mô hình mạng tinh thể: Lục phương (Hexagonal)
+018: Số hiệu nguyên tử: 44
+019: Nguyên tử khối: 101.07 g/mol
+020: Vỏ nguyên tử: 44 electron
+021: K: 2 | L: 8 | M: 18 | N: 15 | O: 1
+022: Hạt nhân: 44 proton, 58 neutron đối với ¹⁰²Ru
+023: Cấu hình e: [Kr] 4d⁷ 5s¹
+024: Loại mạng: Lục phương (Hexagonal)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Ruthenium là kim loại rắn, màu trắng bạc.
+027: Có trong: Quặng Platinum và các khoáng vật chứa kim loại nhóm Platinum.
+028: Đơn chất: Ru
+029: Hợp chất: RuO₂, RuCl₃, RuO₄, RuS₂...
+030: c. Đồng vị
+031: Đồng vị: ⁹⁶Ru, ⁹⁸Ru, ⁹⁹Ru, ¹⁰⁰Ru, ¹⁰¹Ru, ¹⁰²Ru, ¹⁰⁴Ru
+032: Ruthenium có 7 đồng vị tự nhiên, trong đó phần lớn là đồng vị bền. Một số đồng vị phóng xạ được tạo ra nhân tạo.
+033: Tính chất
+034: Tính chất vật lý
+035: Là kim loại chuyển tiếp thuộc nhóm kim loại Platinum.
+036: Màu trắng bạc.
+037: Cứng và giòn.
+038: Khối lượng riêng: khoảng 12.37 g/cm³.
+039: Nhiệt độ nóng chảy: khoảng 2334 °C.
+040: Nhiệt độ sôi: khoảng 4150 °C.
+041: Có độ bền cao.
+042: Chống ăn mòn tốt.
+043: Có khả năng tạo hợp kim với nhiều kim loại khác.
+044: Tính chất hóa học
+045: Có nhiều số Oxy hóa.
+046: Số Oxy hóa +3 và +4 khá phổ biến.
+047: Có thể đạt số Oxy hóa cao nhất là +8 trong RuO₄.
+048: Tương đối trơ ở điều kiện thường.
+049: Có khả năng tạo nhiều phức chất.
+050: RuO₄ là chất Oxy hóa mạnh.
+051: Nhiều Ruthenium compounds có hoạt tính xúc tác cao.
+052: Điều chế
+053: Điều chế trong công nghiệp
+054: Ruthenium chủ yếu được thu hồi như sản phẩm phụ từ quặng Nickel–Copper và quặng chứa Platinum. Sau khi tách khỏi các kim loại khác, hợp chất Ruthenium được chuyển thành Ruthenium dioxide rồi khử bằng Hydrogen ở nhiệt độ cao.
+055: Phương trình hóa học:
+056: RuO₂ + 2H₂ → Ru + 2H₂O
+057: Điều chế trong phòng thí nghiệm
+058: Có thể điều chế Ruthenium bằng cách khử Ruthenium(III) chloride bằng Hydrogen ở nhiệt độ cao.
+059: Phương trình hóa học:
+060: 2RuCl₃ + 3H₂ → 2Ru + 6HCl
+061: Nhận biết
+062: Nhận biết Ru⁴⁺
+063: Ruthenium có thể được xác định thông qua các phản ứng tạo phức hoặc các phương pháp phân tích quang phổ.
+064: Một phản ứng tạo Ruthenium hydroxide có thể biểu diễn:
+065: Ru⁴⁺ + 4OH⁻ → Ru(OH)₄↓
+066: Hiện tượng: Có thể tạo kết tủa Ruthenium hydroxide màu tối.
+067: Trong thực tế, phổ hấp thụ, phổ phát xạ hoặc các phương pháp phân tích nguyên tố thường được sử dụng để xác định Ruthenium chính xác.
+068: Phương trình
+069: Tác dụng với Oxygen
+070: Ru + O₂ → RuO₂
+071: Tác dụng với Chlorine
+072: 2Ru + 3Cl₂ → 2RuCl₃
+073: Tạo Ruthenium dioxide
+074: Ru + O₂ → RuO₂
+075: Khử Ruthenium dioxide
+076: RuO₂ + 2H₂ → Ru + 2H₂O
+077: Tạo Ruthenium tetroxide
+078: Ru + 2O₂ → RuO₄
+079: Tạo Ruthenium sulfide
+080: Ru + 2S → RuS₂
+081: Ứng dụng thực tế
+082: Xúc tác: Ruthenium và các hợp chất của nó được sử dụng làm chất xúc tác trong nhiều phản ứng hóa học.
+083: Điện tử: Ruthenium được sử dụng trong một số lớp phủ và vật liệu điện tử.
+084: Điện cực: Ruthenium oxide được sử dụng trong một số loại điện cực và thiết bị điện hóa.
+085: Hợp kim: Ruthenium được thêm vào Platinum và Palladium để tăng độ cứng và độ bền.
+086: Chống ăn mòn: Một số lớp phủ chứa Ruthenium được sử dụng để tăng độ bền hóa học của vật liệu.
+087: Pin và siêu tụ điện: Ruthenium oxide được nghiên cứu và sử dụng trong một số vật liệu điện hóa hiệu suất cao.
+088: Hóa chất: Ruthenium compounds được sử dụng trong tổng hợp hữu cơ và hóa học phức chất.
+089: Tổng quan
+090: Ruthenium là nguyên tố số 44, thuộc nhóm VIIIB | chu kỳ 5 và là một kim loại chuyển tiếp thuộc nhóm Platinum.
+091: Ruthenium có cấu hình electron [Kr] 4d⁷ 5s¹ và có nhiều số Oxy hóa, từ −2 đến +8. Đặc biệt, Ruthenium có khả năng tạo nhiều phức chất và chất xúc tác có giá trị.
+092: Ruthenium là kim loại cứng, giòn, màu trắng bạc, có nhiệt độ nóng chảy cao và khả năng chống ăn mòn tốt.
+093: Trong tự nhiên, Ruthenium thường được tìm thấy cùng các kim loại nhóm Platinum. Nó có ứng dụng trong xúc tác, điện tử, điện hóa, hợp kim và vật liệu chống ăn mòn.

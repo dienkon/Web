@@ -4,6 +4,9 @@
   "nameVi": "Tellurium",
   "nameEn": "Tellurium",
   "mass": 127.6,
+  "massStandardText": "127.60 ± 0.03",
+  "massStandardSource": "https://ciaaw.org/abridged-atomic-weights.htm",
+  "massKind": "standard-atomic-weight",
   "category": "a-kim",
   "hasData": true,
   "file": "elements/052_Te.json",
@@ -13,25 +16,35 @@
     "electronConfig": "[Kr] 4d¹⁰ 5s² 5p⁴",
     "isotope": "¹²⁰Te, ¹²²Te, ¹²³Te, ¹²⁴Te, ¹²⁵Te, ¹²⁶Te, ¹²⁸Te, ¹³⁰Te",
     "group": 16,
+    "groupLabel": "16",
+    "series": "",
     "period": 5,
-    "state": "",
+    "state": "Rắn",
     "oxidation": "−2, +2, +4, +6",
     "electronegativity": 2.1,
+    "electronegativityNote": "Thang Pauling; số liệu tổng hợp PubChem.",
     "density": "khoảng 6.24 g/cm³.",
     "meltingPoint": "khoảng 449.5 °C.",
     "boilingPoint": "khoảng 988 °C.",
-    "crystalStructure": "Lục phương (Hexagonal)"
+    "crystalStructure": "Lục phương (Hexagonal)",
+    "CAS": "13494-80-9"
   },
   "history": {
     "discoverer": "Franz-Joseph Müller von Reichenstein",
-    "year": 1782,
+    "year": "1782",
     "discoveryLocation": "Transylvania",
     "description": "Năm 1782, Franz-Joseph Müller von Reichenstein phát hiện một nguyên tố mới khi nghiên cứu quặng vàng. Sau đó, Martin Heinrich Klaproth xác nhận nguyên tố này vào năm 1798 và đặt tên là Tellurium, bắt nguồn từ tiếng Latin Tellus, nghĩa là “Trái Đất”."
   },
   "structure": {
     "protons": 52,
-    "neutrons": 76,
     "electrons": 52,
+    "neutrons": 76,
+    "nucleusIsotope": "¹²⁸Te",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 52,
+      "neutron": 76
+    },
     "electronShells": [
       2,
       8,
@@ -47,12 +60,11 @@
       6
     ],
     "valenceElectrons": 6,
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lục phương (Hexagonal)",
-    "nucleus": {
-      "proton": 52,
-      "neutron": 76
-    }
+    "latticeEvidence": "source-reviewed"
   },
+  "structureType": "Lục phương (Hexagonal)",
   "occurrence": {
     "description": "Tellurium là chất rắn, màu trắng bạc, ánh kim và khá giòn.",
     "simple": [
@@ -71,127 +83,429 @@
       "Lead",
       "Gold và Silver",
       "đôi khi tồn tại ở dạng Tellurium tự sinh"
-    ]
+    ],
+    "details": [
+      "Trạng thái: Tellurium là chất rắn, màu trắng bạc, ánh kim và khá giòn.",
+      "Có trong: Thường tồn tại dưới dạng hợp chất trong các quặng Copper, Lead, Gold và Silver; đôi khi tồn tại ở dạng Tellurium tự sinh.",
+      "Đơn chất: Te",
+      "Hợp chất: TeO₂, TeO₃, H₂Te, TeCl₄, Na₂TeO₃, CdTe..."
+    ],
+    "mineral": {
+      "available": true,
+      "id": "calaverite",
+      "name": "Calaverite",
+      "formula": "AuTe₂",
+      "habit": "prismatic",
+      "color": "#b3a571",
+      "crystalSystem": "monoclinic",
+      "relation": "Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Calaverite",
+      "model": "/assets/periodic-table/minerals/calaverite.glb",
+      "preview": "/assets/periodic-table/minerals/calaverite.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
   },
-  "naturalState": {},
-  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là á kim.</li>\n      <li>Màu trắng bạc, ánh kim.</li>\n      <li>Giòn và dễ vỡ.</li>\n      <li>Khối lượng riêng: khoảng 6.24 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 449.5 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 988 °C.</li>\n      <li>Có tính chất bán dẫn.</li>\n      <li>Độ dẫn điện tăng khi được chiếu sáng.</li>\n    </ul>\n  ",
-  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có các số Oxy hóa phổ biến −2, +4 và +6.</li>\n      <li>Phản ứng với Oxygen tạo Tellurium oxide.</li>\n      <li>Phản ứng với Halogen tạo Tellurium halide.</li>\n      <li>Phản ứng với Hydrogen tạo Hydrogen telluride.</li>\n      <li>Có thể tạo Telluride với nhiều kim loại.</li>\n      <li>Một số hợp chất Tellurium có tính độc.</li>\n    </ul>\n  ",
+  "naturalState": {
+    "image": "/assets/periodic-table/photos/052_Te.jpg",
+    "alt": "Tellurium: ảnh tham chiếu từ Commons",
+    "kind": "photo",
+    "source": "https://commons.wikimedia.org/wiki/File:Tellurium2.jpg",
+    "caption": "Ảnh tham chiếu mẫu Tellurium (Te); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+    "credit": "Unknown author Unknown author · CC BY 3.0"
+  },
+  "isotopes": [
+    {
+      "isotope": "¹²⁰Te",
+      "massNumber": 120,
+      "protons": 52,
+      "neutrons": 68,
+      "stable": true,
+      "abundancePercent": "0.09",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹²²Te",
+      "massNumber": 122,
+      "protons": 52,
+      "neutrons": 70,
+      "stable": true,
+      "abundancePercent": "2.55",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹²³Te",
+      "massNumber": 123,
+      "protons": 52,
+      "neutrons": 71,
+      "stable": false,
+      "abundancePercent": "0.89",
+      "halfLifeDisplay": "GT 9.2E+16 năm",
+      "halfLife": "9.2E+16 Y",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": "GT",
+      "decay": "EC",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹²⁴Te",
+      "massNumber": 124,
+      "protons": 52,
+      "neutrons": 72,
+      "stable": true,
+      "abundancePercent": "4.74",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹²⁵Te",
+      "massNumber": 125,
+      "protons": 52,
+      "neutrons": 73,
+      "stable": true,
+      "abundancePercent": "7.07",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹²⁶Te",
+      "massNumber": 126,
+      "protons": 52,
+      "neutrons": 74,
+      "stable": true,
+      "abundancePercent": "18.84",
+      "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+      "halfLife": "Bền (chưa quan sát phân rã)",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": null,
+      "decay": null,
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹²⁸Te",
+      "massNumber": 128,
+      "protons": 52,
+      "neutrons": 76,
+      "stable": false,
+      "abundancePercent": "31.74",
+      "halfLifeDisplay": "7.7E+24 ± 4E+23 năm",
+      "halfLife": "7.7E+24 Y",
+      "halfLifeUncertainty": "4",
+      "halfLifeQualifier": null,
+      "decay": "2B-",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "¹³⁰Te",
+      "massNumber": 130,
+      "protons": 52,
+      "neutrons": 78,
+      "stable": false,
+      "abundancePercent": "34.08",
+      "halfLifeDisplay": "GT 0.79E+21 năm",
+      "halfLife": "0.79E+21 Y",
+      "halfLifeUncertainty": null,
+      "halfLifeQualifier": "GT",
+      "decay": "2B-",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Là á kim.</li><li>Màu trắng bạc, ánh kim.</li><li>Giòn và dễ vỡ.</li><li>Khối lượng riêng: khoảng 6.24 g/cm³.</li><li>Nhiệt độ nóng chảy: khoảng 449.5 °C.</li><li>Nhiệt độ sôi: khoảng 988 °C.</li><li>Có tính chất bán dẫn.</li><li>Độ dẫn điện tăng khi được chiếu sáng.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Có các số Oxy hóa phổ biến −2, +4 và +6.</li><li>Có tính chất hóa học tương tự Sulfur và Selenium.</li><li>Phản ứng với Oxygen tạo Tellurium oxide.</li><li>Phản ứng với Halogen tạo Tellurium halide.</li><li>Hydrogen telluride thường được điều chế từ telluride hoặc bằng khử hợp chất Te, không dùng kết hợp trực tiếp Te và H₂ như phản ứng thông thường.</li><li>Có thể tạo Telluride với nhiều kim loại.</li><li>Một số hợp chất Tellurium có tính độc.</li></ul>",
   "reactions": [
     {
       "type": "Tác dụng với Oxygen",
+      "desc": "",
       "equation": "Te + O₂ → TeO₂",
-      "desc": ""
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 70,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Chlorine",
+      "desc": "",
       "equation": "Te + 2Cl₂ → TeCl₄",
-      "desc": ""
-    },
-    {
-      "type": "Tác dụng với Hydrogen",
-      "equation": "H₂ + Te → H₂Te",
-      "desc": ""
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 72,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tác dụng với Sodium",
+      "desc": "",
       "equation": "2Na + Te → Na₂Te",
-      "desc": ""
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 76,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tạo Lead telluride",
+      "desc": "",
       "equation": "Pb²⁺ + Te²⁻ → PbTe↓",
-      "desc": ""
+      "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+      "kind": "chemical",
+      "sourceLine": 78,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Khử Tellurium dioxide",
+      "desc": "",
       "equation": "TeO₂ + 2H₂ → Te + 2H₂O",
-      "desc": ""
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 80,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     },
     {
       "type": "Tạo Tellurium dioxide",
+      "desc": "",
       "equation": "Te + O₂ → TeO₂",
-      "desc": ""
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 82,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
     }
   ],
-  "applications": [
-    {
-      "title": "Pin mặt trời",
-      "desc": "Cadmium telluride (CdTe) được sử dụng trong pin mặt trời màng mỏng."
-    },
-    {
-      "title": "Bán dẫn",
-      "desc": "Tellurium và các hợp chất của nó được sử dụng trong một số vật liệu bán dẫn."
-    },
-    {
-      "title": "Nhiệt điện",
-      "desc": "Một số Telluride như Bismuth telluride (Bi₂Te₃) có tính chất nhiệt điện tốt, được sử dụng trong các thiết bị chuyển đổi nhiệt–điện."
-    },
-    {
-      "title": "Hợp kim",
-      "desc": "Tellurium được thêm vào một số hợp kim Copper và Lead để cải thiện khả năng gia công."
-    },
-    {
-      "title": "Cao su",
-      "desc": "Một số hợp chất Tellurium được sử dụng trong quá trình xử lý và lưu hóa cao su."
-    },
-    {
-      "title": "Kính",
-      "desc": "Tellurium compounds được sử dụng trong một số loại kính đặc biệt."
-    }
-  ],
-  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Tellurium là nguyên tố số 52, thuộc nhóm VIA | chu kỳ 5 và là một á kim.</li>\n  <li>Tellurium có cấu hình electron [Kr] 4d¹⁰ 5s² 5p⁴, với các số Oxy hóa phổ biến là −2, +4 và +6.</li>\n  <li>Tellurium có màu trắng bạc, ánh kim, khá giòn và có tính chất bán dẫn. Đặc biệt, độ dẫn điện của Tellurium có thể thay đổi dưới tác động của ánh sáng.</li>\n  <li>Trong tự nhiên, Tellurium thường được thu hồi như sản phẩm phụ của quá trình tinh luyện Copper. Tellurium và các hợp chất của nó có vai trò trong pin mặt trời, vật liệu bán dẫn, thiết bị nhiệt điện, hợp kim và kính đặc biệt.</li>\n</ul>\n",
   "preparations": {
-    "lab": [],
+    "lab": [
+      {
+        "title": "Có thể điều chế Tellurium bằng cách khử Tellurium dioxide bằng Hydrogen khi đun nóng.",
+        "desc": "",
+        "result": "",
+        "equations": [
+          {
+            "equation": "TeO₂ + 2H₂ → Te + 2H₂O",
+            "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+            "kind": "chemical",
+            "sourceLine": 60,
+            "sourceSection": "lab",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          58,
+          60
+        ],
+        "equation": "TeO₂ + 2H₂ → Te + 2H₂O"
+      }
+    ],
     "industry": [
       {
-        "title": "Tellurium thường được thu hồi như sản phẩm phụ trong quá trình tinh luyện Copper, đặc biệt từ bùn anode tạo ra trong quá trình điện phân.",
-        "equation": "",
-        "desc": ""
-      },
-      {
-        "title": "Một phương pháp điều chế Tellurium từ Tellurium dioxide bằng Hydrogen:",
-        "equation": "TeO₂ + 2H₂ → Te + 2H₂O",
-        "desc": ""
+        "title": "Tellurium (Te) chủ yếu được thu hồi như sản phẩm phụ trong quá trình tinh luyện Copper, đặc biệt từ bùn anode của quá trình điện phân Copper.",
+        "desc": "Bùn anode được xử lý để tách Tellurium, sau đó chuyển thành các hợp chất trung gian và khử để thu Tellurium kim loại. Phương trình minh họa:",
+        "result": "",
+        "equations": [
+          {
+            "equation": "TeO₂ + 2SO₂ + 2H₂O → Te + 2H₂SO₄",
+            "condition": "Dung dịch nước có tính acid, sục SO₂; oxi hóa SO₂ thành sulfate.",
+            "kind": "chemical",
+            "sourceLine": 56,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          53,
+          54,
+          55,
+          56
+        ],
+        "equation": "TeO₂ + 2SO₂ + 2H₂O → Te + 2H₂SO₄"
       }
     ]
   },
   "recognition": [
     {
-      "title": "Nhận biết",
-      "reagent": "Nhận biết Te²⁻",
-      "result": "",
-      "equation": ""
-    },
-    {
-      "title": "Nhận biết",
-      "reagent": "Ion Telluride có thể phản ứng với ion kim loại để tạo Telluride không tan.",
-      "result": "",
-      "equation": ""
-    },
-    {
-      "title": "Ví dụ với Lead",
-      "reagent": "",
-      "result": "",
-      "equation": ""
-    },
-    {
-      "title": "Nhận biết",
-      "reagent": "",
-      "result": "",
-      "equation": "Pb²⁺ + Te²⁻ → PbTe↓"
-    },
-    {
-      "title": "Hiện tượng",
-      "reagent": "",
+      "title": "Nhận biết Te²⁻",
+      "desc": "Ion Telluride có thể phản ứng với ion kim loại để tạo Telluride không tan. Ví dụ với Lead: Trong thực tế, Tellurium thường được xác định bằng các phương pháp phân tích chuyên dụng như quang phổ.",
       "result": "Xuất hiện kết tủa đen Lead telluride.",
-      "equation": ""
-    },
-    {
-      "title": "Nhận biết",
-      "reagent": "Trong thực tế, Tellurium thường được xác định bằng các phương pháp phân tích chuyên dụng như quang phổ.",
-      "result": "",
-      "equation": ""
+      "equations": [
+        {
+          "equation": "Pb²⁺ + Te²⁻ → PbTe↓",
+          "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+          "kind": "chemical",
+          "sourceLine": 65,
+          "sourceSection": "recognition",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ],
+      "sourceLines": [
+        62,
+        63,
+        64,
+        65,
+        66,
+        67
+      ],
+      "equation": "Pb²⁺ + Te²⁻ → PbTe↓"
     }
   ],
-  "structureType": "Lục phương (Hexagonal)"
+  "applications": [
+    {
+      "title": "Pin mặt trời",
+      "desc": "Cadmium telluride (CdTe) được sử dụng trong pin mặt trời màng mỏng.",
+      "sourceLine": 84
+    },
+    {
+      "title": "Bán dẫn",
+      "desc": "Tellurium và các hợp chất của nó được sử dụng trong một số vật liệu bán dẫn.",
+      "sourceLine": 85
+    },
+    {
+      "title": "Nhiệt điện",
+      "desc": "Một số Telluride như Bismuth telluride (Bi₂Te₃) có tính chất nhiệt điện tốt, được sử dụng trong các thiết bị chuyển đổi nhiệt–điện.",
+      "sourceLine": 86
+    },
+    {
+      "title": "Hợp kim",
+      "desc": "Tellurium được thêm vào một số hợp kim Copper và Lead để cải thiện khả năng gia công.",
+      "sourceLine": 87
+    },
+    {
+      "title": "Cao su",
+      "desc": "Một số hợp chất Tellurium được sử dụng trong quá trình xử lý và lưu hóa cao su.",
+      "sourceLine": 88
+    },
+    {
+      "title": "Kính",
+      "desc": "Tellurium compounds được sử dụng trong một số loại kính đặc biệt.",
+      "sourceLine": 89
+    }
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Tellurium là nguyên tố số 52, thuộc nhóm VIA | chu kỳ 5 và là một á kim.</li><li>Tellurium có cấu hình electron [Kr] 4d¹⁰ 5s² 5p⁴, với các số Oxy hóa phổ biến là −2, +4 và +6.</li><li>Tellurium có màu trắng bạc, ánh kim, khá giòn và có tính chất bán dẫn. Đặc biệt, độ dẫn điện của Tellurium có thể thay đổi dưới tác động của ánh sáng.</li><li>Trong tự nhiên, Tellurium thường được thu hồi như sản phẩm phụ của quá trình tinh luyện Copper. Tellurium và các hợp chất của nó có vai trò trong pin mặt trời, vật liệu bán dẫn, thiết bị nhiệt điện, hợp kim và kính đặc biệt.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/photos/052_Te.jpg",
+      "title": "Tellurium (Te)",
+      "desc": "Ảnh tham chiếu mẫu Tellurium (Te); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+      "source": "https://commons.wikimedia.org/wiki/File:Tellurium2.jpg",
+      "author": "Unknown author Unknown author",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0"
+    }
+  ],
+  "mediaBlocks": [
+    {
+      "type": "model",
+      "section": "structure",
+      "title": "Mẫu khoáng vật 3D · Calaverite",
+      "src": "/assets/periodic-table/minerals/calaverite.glb",
+      "preview": "/assets/periodic-table/minerals/calaverite.png",
+      "desc": "AuTe₂. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  ],
+  "sources": [
+    {
+      "title": "052_Te.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "2c8c4fa5feac876b45deb7db869fe59ec64187b3d5a97de43bf621346d69f8b9"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/52/tellurium"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "052_Te.docx",
+    "sourceSha256": "2c8c4fa5feac876b45deb7db869fe59ec64187b3d5a97de43bf621346d69f8b9",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/052_Te.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
 }

@@ -1,0 +1,96 @@
+001: Niobium (Nb)
+002: Thông tin chung
+003: Tên Latin: Niobium
+004: Tên Tiếng Anh: Niobium
+005: Đồng vị: ⁹³Nb
+006: Vị trí: Nhóm VB | Chu kỳ 5
+007: Số Oxy hóa: +2, +3, +4, +5
+008: Độ âm điện: 1.6
+009: Lịch sử khám phá
+010: Phát hiện bởi: Charles Hatchett
+011: Năm công bố: 1801
+012: Nơi khám phá: Anh
+013: Mô tả: Năm 1801, Charles Hatchett nghiên cứu một loại quặng được gửi từ Mỹ và phát hiện một nguyên tố mới. Ông đặt tên nguyên tố là Columbium. Sau này, tên Niobium được quốc tế công nhận và sử dụng rộng rãi.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Kr] 4d⁴ 5s¹
+017: Mô hình mạng tinh thể: Lập phương tâm khối (Body-centered cubic, BCC)
+018: Số hiệu nguyên tử: 41
+019: Nguyên tử khối: 92.906 g/mol
+020: Vỏ nguyên tử: 41 electron
+021: K: 2 | L: 8 | M: 18 | N: 12 | O: 1
+022: Hạt nhân: 41 proton, 52 neutron đối với ⁹³Nb
+023: Cấu hình e: [Kr] 4d⁴ 5s¹
+024: Loại mạng: Lập phương tâm khối (Body-centered cubic, BCC)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Niobium là kim loại rắn, màu xám bạc, tương đối mềm và có độ bóng kim loại.
+027: Có trong: Columbite–tantalite và Pyrochlore.
+028: Đơn chất: Nb
+029: Hợp chất: Nb₂O₅, NbCl₅, NbC, NbN...
+030: c. Đồng vị
+031: Đồng vị: ⁹³Nb
+032: ⁹³Nb: Đồng vị bền duy nhất của Niobium trong tự nhiên.
+033: Niobium cũng có nhiều đồng vị phóng xạ nhân tạo.
+034: Tính chất
+035: Tính chất vật lý
+036: Là kim loại chuyển tiếp.
+037: Màu xám bạc.
+038: Mềm và dễ uốn ở trạng thái tinh khiết.
+039: Khối lượng riêng: khoảng 8.57 g/cm³.
+040: Nhiệt độ nóng chảy: khoảng 2477 °C.
+041: Nhiệt độ sôi: khoảng 4744 °C.
+042: Có khả năng chịu nhiệt cao.
+043: Có tính siêu dẫn ở nhiệt độ rất thấp.
+044: Chống ăn mòn tốt nhờ tạo lớp oxide bảo vệ.
+045: Tính chất hóa học
+046: Số Oxy hóa phổ biến nhất là +5.
+047: Có khả năng tạo lớp Nb₂O₅ bảo vệ trên bề mặt.
+048: Tương đối bền trong không khí ở điều kiện thường.
+049: Phản ứng với Oxygen khi được nung nóng.
+050: Phản ứng với Halogen tạo Niobium halide.
+051: Tạo nhiều hợp chất với Carbon và Nitrogen.
+052: Có tính chất hóa học tương tự Tantalum.
+053: Điều chế
+054: Điều chế trong công nghiệp
+055: Molybdenum chủ yếu được điều chế từ quặng Molybdenite (MoS₂). Quặng được nung trong không khí để tạo Molybdenum trioxide (MoO₃), sau đó khử bằng Hydrogen ở nhiệt độ cao.
+056: Phương trình hóa học:
+057: 2MoS₂ + 7O₂ → 2MoO₃ + 4SO₂
+058: MoO₃ + H₂ → MoO₂ + H₂O
+059: MoO₂ + 2H₂ → Mo + 2H₂O
+060: Điều chế trong phòng thí nghiệm
+061: Có thể điều chế Molybdenum bằng cách khử Molybdenum trioxide bằng Hydrogen ở nhiệt độ cao.
+062: Phương trình hóa học:
+063: MoO₃ + 3H₂ → Mo + 3H₂O
+064: Nhận biết
+065: Nhận biết Nb⁵⁺
+066: Niobium(V) có thể tạo các hợp chất hoặc kết tủa oxide/hydroxide đặc trưng.
+067: Một phản ứng đơn giản:
+068: Nb⁵⁺ + 5OH⁻ → Nb(OH)₅↓
+069: Hiện tượng: Xuất hiện kết tủa trắng Niobium hydroxide.
+070: Trong phân tích thực tế, Niobium thường được nhận biết bằng các phương pháp phân tích chuyên dụng do phản ứng hóa học của nó khá phức tạp.
+071: Phương trình
+072: Tác dụng với Oxygen
+073: 4Nb + 5O₂ → 2Nb₂O₅
+074: Tác dụng với Chlorine
+075: 2Nb + 5Cl₂ → 2NbCl₅
+076: Tác dụng với Nitrogen
+077: 2Nb + N₂ → 2NbN
+078: Tác dụng với Carbon
+079: Nb + C → NbC
+080: Tạo Niobium hydroxide
+081: Nb⁵⁺ + 5OH⁻ → Nb(OH)₅↓
+082: Điều chế Niobium
+083: 3Nb₂O₅ + 10Al → 6Nb + 5Al₂O₃
+084: Ứng dụng thực tế
+085: Hợp kim thép: Niobium được thêm vào thép để tăng độ bền và khả năng chịu nhiệt.
+086: Đường ống: Thép chứa Niobium được sử dụng trong một số đường ống dầu khí nhờ độ bền cao.
+087: Động cơ: Một số hợp kim Niobium được sử dụng trong các bộ phận chịu nhiệt cao.
+088: Siêu dẫn: Các hợp chất như Niobium–Titanium (NbTi) được sử dụng để chế tạo nam châm siêu dẫn.
+089: Máy MRI: Nam châm siêu dẫn NbTi được sử dụng trong nhiều hệ thống MRI.
+090: Công nghệ hạt nhân: Niobium được sử dụng trong một số vật liệu chịu nhiệt và chịu bức xạ.
+091: Điện tử: Một số Niobium compounds được sử dụng trong tụ điện và vật liệu điện tử.
+092: Tổng quan
+093: Niobium là nguyên tố số 41, thuộc nhóm VB | chu kỳ 5 và là một kim loại chuyển tiếp.
+094: Niobium có cấu hình electron [Kr] 4d⁴ 5s¹, với số Oxy hóa phổ biến nhất là +5.
+095: Niobium có nhiệt độ nóng chảy cao, khả năng chống ăn mòn tốt và tính siêu dẫn ở nhiệt độ thấp. Trong tự nhiên, Niobium chủ yếu được tìm thấy trong các khoáng vật như Pyrochlore và Columbite–tantalite.
+096: Niobium đặc biệt quan trọng trong sản xuất thép và siêu hợp kim, đồng thời các hợp kim như NbTi có vai trò lớn trong công nghệ nam châm siêu dẫn và máy MRI.

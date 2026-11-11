@@ -1,4 +1,5 @@
 @import "./base.css";
+@import "./element-profile.css";
 
 /* Hiệu ứng mượt mà khi cuộn trang */
 .animate-fade-up {

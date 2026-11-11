@@ -1,0 +1,985 @@
+{
+  "symbol": "Er",
+  "number": 68,
+  "source": "068_Er.docx",
+  "sourceSha256": "3c9b0d61b73f1155102600c202d908e080ac00db96072c6e87f16466f966c8bd",
+  "paragraphCount": 95,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 5,
+    "structure": 8,
+    "occurrence": 5,
+    "isotopes": 8,
+    "physical": 8,
+    "chemical": 6,
+    "lab": 2,
+    "industry": 3,
+    "recognition": 6,
+    "reactions": 8,
+    "applications": 5,
+    "notes": 6
+  },
+  "editorialDecisions": [],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "[Xe] 4f¹² 6s²",
+      "publishedValue": "[Xe] 4f¹² 6s²",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Lục phương xếp chặt (HCP)",
+      "publishedValue": "Lục phương xếp chặt (HCP)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "1,24 (Pauling)",
+      "publishedValue": 1.24,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm IIIB | Chu kỳ 6 | Họ Lanthanide",
+      "publishedValue": "Lanthanide",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Chất rắn",
+      "publishedValue": "Rắn",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 33,
+      "sourceText": "¹⁶²Er: khoảng 0,14%, bền.",
+      "reference": {
+        "isotope": "¹⁶²Er",
+        "massNumber": 162,
+        "protons": 68,
+        "neutrons": 94,
+        "stable": true,
+        "abundancePercent": "0.139",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 34,
+      "sourceText": "¹⁶⁴Er: khoảng 1,61%, bền.",
+      "reference": {
+        "isotope": "¹⁶⁴Er",
+        "massNumber": 164,
+        "protons": 68,
+        "neutrons": 96,
+        "stable": true,
+        "abundancePercent": "1.601",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 35,
+      "sourceText": "¹⁶⁶Er: khoảng 33,6%, bền.",
+      "reference": {
+        "isotope": "¹⁶⁶Er",
+        "massNumber": 166,
+        "protons": 68,
+        "neutrons": 98,
+        "stable": true,
+        "abundancePercent": "33.503",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 36,
+      "sourceText": "¹⁶⁷Er: khoảng 22,9%, bền.",
+      "reference": {
+        "isotope": "¹⁶⁷Er",
+        "massNumber": 167,
+        "protons": 68,
+        "neutrons": 99,
+        "stable": true,
+        "abundancePercent": "22.869",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 37,
+      "sourceText": "¹⁶⁸Er: khoảng 26,8%, bền.",
+      "reference": {
+        "isotope": "¹⁶⁸Er",
+        "massNumber": 168,
+        "protons": 68,
+        "neutrons": 100,
+        "stable": true,
+        "abundancePercent": "26.978",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 38,
+      "sourceText": "¹⁷⁰Er: khoảng 14,9%, bền.",
+      "reference": {
+        "isotope": "¹⁷⁰Er",
+        "massNumber": 170,
+        "protons": 68,
+        "neutrons": 102,
+        "stable": true,
+        "abundancePercent": "14.910",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 39,
+      "sourceText": "¹⁶⁶Er là đồng vị tự nhiên phổ biến nhất.",
+      "reference": {
+        "isotope": "¹⁶⁶Er",
+        "massNumber": 166,
+        "protons": 68,
+        "neutrons": 98,
+        "stable": true,
+        "abundancePercent": "33.503",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 54,
+      "text": "4Er + 3O₂ → 2Er₂O₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 61,
+      "text": "2ErF₃ + 3Ca → 2Er + 3CaF₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 66,
+      "text": "2ErCl₃ + 3Ca → 2Er + 3CaCl₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 76,
+      "text": "4Er + 3O₂ → 2Er₂O₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 78,
+      "text": "2Er + 6HCl → 2ErCl₃ + 3H₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 80,
+      "text": "ErCl₃ + 3NaOH → Er(OH)₃↓ + 3NaCl",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 82,
+      "text": "2ErCl₃ + 3Ca → 2Er + 3CaCl₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "chemical",
+      "equation": "4Er + 3O₂ → 2Er₂O₃",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 54,
+      "sourceSection": "chemical",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "lab",
+      "equation": "2ErCl₃ + 3Ca → 2Er + 3CaCl₂",
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 66,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "2ErF₃ + 3Ca → 2Er + 3CaF₂",
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 61,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "4Er + 3O₂ → 2Er₂O₃",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 76,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2Er + 6HCl → 2ErCl₃ + 3H₂",
+      "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+      "kind": "chemical",
+      "sourceLine": 78,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "ErCl₃ + 3NaOH → Er(OH)₃↓ + 3NaCl",
+      "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+      "kind": "chemical",
+      "sourceLine": 80,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2ErCl₃ + 3Ca → 2Er + 3CaCl₂",
+      "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+      "kind": "chemical",
+      "sourceLine": 82,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": null,
+      "after": [
+        {
+          "title": "Cáp quang",
+          "desc": "Đây là ứng dụng nổi tiếng nhất của Erbium. Ion Er³⁺ được sử dụng trong Erbium-doped fiber amplifier (EDFA) để khuếch đại tín hiệu trong hệ thống truyền thông sợi quang, đặc biệt ở vùng bước sóng khoảng 1550 nm.",
+          "sourceLine": 84
+        },
+        {
+          "title": "Laser",
+          "desc": "Erbium được sử dụng trong các loại laser Er:YAG và nhiều vật liệu laser khác.",
+          "sourceLine": 85
+        },
+        {
+          "title": "Y tế",
+          "desc": "Laser Er:YAG có ứng dụng trong một số thủ thuật nha khoa và da liễu.",
+          "sourceLine": 86
+        },
+        {
+          "title": "Kính",
+          "desc": "Erbium được thêm vào thủy tinh để tạo màu hồng và sử dụng trong một số loại kính quang học.",
+          "sourceLine": 87
+        },
+        {
+          "title": "Công nghệ quang học",
+          "desc": "Các vật liệu pha tạp Er³⁺ được sử dụng trong thiết bị phát quang và quang tử.",
+          "sourceLine": 88
+        }
+      ]
+    },
+    {
+      "field": "category",
+      "before": null,
+      "after": "lanthanide"
+    },
+    {
+      "field": "chemical",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Trạng thái Oxy hóa phổ biến và ổn định nhất là +3.</li><li>Ion Er³⁺ có cấu hình electron 4f¹¹.</li><li>Erbium phản ứng với Oxygen:</li><li class=\"source-equation\">4Er + 3O₂ → 2Er₂O₃<small>Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.</small></li><li>Phản ứng với Acid tạo muối Erbium(III) và giải phóng Hydrogen.</li><li>Erbium oxide có màu hồng đặc trưng.</li></ul>"
+    },
+    {
+      "field": "file",
+      "before": null,
+      "after": "elements/068_Er.json"
+    },
+    {
+      "field": "general",
+      "before": null,
+      "after": {
+        "latinName": "Erbium",
+        "englishName": "Erbium",
+        "electronConfig": "[Xe] 4f¹² 6s²",
+        "isotope": "¹⁶²Er, ¹⁶⁴Er, ¹⁶⁶Er, ¹⁶⁷Er, ¹⁶⁸Er, ¹⁷⁰Er",
+        "group": null,
+        "groupLabel": "Lanthanide",
+        "series": "Lanthanide",
+        "period": 6,
+        "state": "Rắn",
+        "oxidation": "+3",
+        "electronegativity": 1.24,
+        "electronegativityNote": "Thang Pauling; số liệu tổng hợp PubChem.",
+        "density": "9,07 g/cm³.",
+        "meltingPoint": "1529°C",
+        "boilingPoint": "2868°C",
+        "crystalStructure": "Lục phương xếp chặt (HCP)",
+        "CAS": "7440-52-0"
+      }
+    },
+    {
+      "field": "hasData",
+      "before": null,
+      "after": true
+    },
+    {
+      "field": "history",
+      "before": null,
+      "after": {
+        "discoverer": "Carl Gustaf Mosander",
+        "year": "1843",
+        "discoveryLocation": "Stockholm, Thụy Điển",
+        "description": "Năm 1843, Carl Gustaf Mosander phân tích Yttria thu được từ khoáng vật Gadolinite. Ông phát hiện Yttria thực chất chứa nhiều oxide của các nguyên tố khác nhau, trong đó có một oxide mà ông gọi là Erbia, từ đó dẫn đến việc phát hiện Erbium. Tên Erbium có nguồn gốc từ Ytterby, một ngôi làng ở Thụy Điển nổi tiếng với các khoáng vật đất hiếm. Ytterby cũng là nguồn gốc tên của Yttrium, Terbium và Ytterbium."
+      }
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/photos/068_Er.jpg",
+          "title": "Erbium (Er)",
+          "desc": "Ảnh tham chiếu mẫu Erbium (Er); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+          "source": "https://commons.wikimedia.org/wiki/File:Erbium_(68_Er).jpg",
+          "author": "Hi-Res Images of Chemical Elements",
+          "license": "CC BY 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/3.0"
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "¹⁶²Er",
+          "massNumber": 162,
+          "protons": 68,
+          "neutrons": 94,
+          "stable": true,
+          "abundancePercent": "0.139",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "¹⁶⁴Er",
+          "massNumber": 164,
+          "protons": 68,
+          "neutrons": 96,
+          "stable": true,
+          "abundancePercent": "1.601",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "¹⁶⁶Er",
+          "massNumber": 166,
+          "protons": 68,
+          "neutrons": 98,
+          "stable": true,
+          "abundancePercent": "33.503",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "¹⁶⁷Er",
+          "massNumber": 167,
+          "protons": 68,
+          "neutrons": 99,
+          "stable": true,
+          "abundancePercent": "22.869",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "¹⁶⁸Er",
+          "massNumber": 168,
+          "protons": 68,
+          "neutrons": 100,
+          "stable": true,
+          "abundancePercent": "26.978",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "¹⁷⁰Er",
+          "massNumber": 170,
+          "protons": 68,
+          "neutrons": 102,
+          "stable": true,
+          "abundancePercent": "14.910",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "mass",
+      "before": null,
+      "after": 167.26
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "standard-atomic-weight"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "167.26 ± 0.01"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": [
+        {
+          "type": "model",
+          "section": "structure",
+          "title": "Mẫu khoáng vật 3D · Xenotime-(Y)",
+          "src": "/assets/periodic-table/minerals/xenotime.glb",
+          "preview": "/assets/periodic-table/minerals/xenotime.png",
+          "desc": "YPO₄. Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "nameEn",
+      "before": null,
+      "after": "Erbium"
+    },
+    {
+      "field": "nameVi",
+      "before": null,
+      "after": "Erbium"
+    },
+    {
+      "field": "naturalState",
+      "before": null,
+      "after": {
+        "image": "/assets/periodic-table/photos/068_Er.jpg",
+        "alt": "Erbium: ảnh tham chiếu từ Commons",
+        "kind": "photo",
+        "source": "https://commons.wikimedia.org/wiki/File:Erbium_(68_Er).jpg",
+        "caption": "Ảnh tham chiếu mẫu Erbium (Er); xem mô tả mẫu, tác giả và giấy phép tại trang ảnh gốc.",
+        "credit": "Hi-Res Images of Chemical Elements · CC BY 3.0"
+      }
+    },
+    {
+      "field": "notes",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Erbium là nguyên tố số 68, thuộc nhóm IIIB | chu kỳ 6 và là nguyên tố thứ mười hai trong họ Lanthanide.</li><li>Erbium được Carl Gustaf Mosander phát hiện vào năm 1843 tại Thụy Điển. Tên nguyên tố bắt nguồn từ Ytterby, cùng nguồn gốc tên với Yttrium, Terbium và Ytterbium.</li><li>Erbium là kim loại đất hiếm màu trắng bạc, khá mềm và có trạng thái Oxy hóa chủ yếu là +3. Một đặc điểm đáng chú ý là Erbium oxide (Er₂O₃) có màu hồng.</li><li>Ứng dụng quan trọng nhất của Erbium là trong truyền thông sợi quang. Ion Er³⁺ trong EDFA có khả năng khuếch đại tín hiệu quang ở vùng khoảng 1550 nm, giúp truyền dữ liệu qua khoảng cách rất xa mà không cần chuyển tín hiệu quang thành tín hiệu điện tại mỗi đoạn.</li><li>Ngoài ra, Erbium còn được sử dụng trong laser, nha khoa, da liễu, kính quang học và công nghệ quang tử.</li><li>Mạng tinh thể: Lục phương xếp chặt (HCP) ở điều kiện thường.</li></ul>"
+    },
+    {
+      "field": "number",
+      "before": null,
+      "after": 68
+    },
+    {
+      "field": "occurrence",
+      "before": null,
+      "after": {
+        "description": "Chất rắn",
+        "simple": [
+          "Er"
+        ],
+        "compounds": [
+          "Er₂O₃",
+          "ErCl₃",
+          "ErF₃",
+          "Er(OH)₃"
+        ],
+        "ores": [
+          "Monazite",
+          "Xenotime và Gadolinite"
+        ],
+        "details": [
+          "Trạng thái: Chất rắn",
+          "Màu sắc: Trắng bạc",
+          "Có trong: Monazite, Xenotime và Gadolinite.",
+          "Đơn chất: Er",
+          "Hợp chất phổ biến: Er₂O₃, ErCl₃, ErF₃, Er(OH)₃"
+        ],
+        "mineral": {
+          "available": true,
+          "id": "xenotime",
+          "name": "Xenotime-(Y)",
+          "formula": "YPO₄",
+          "habit": "bipyramid",
+          "color": "#af8c55",
+          "crystalSystem": "tetragonal",
+          "relation": "Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+          "source": "https://www.handbookofmineralogy.org/",
+          "sourceSearch": "https://rruff.info/Xenotime-(Y)",
+          "model": "/assets/periodic-table/minerals/xenotime.glb",
+          "preview": "/assets/periodic-table/minerals/xenotime.png",
+          "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+        }
+      }
+    },
+    {
+      "field": "physical",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Là kim loại đất hiếm.</li><li>Thuộc họ Lanthanide.</li><li>Có màu trắng bạc.</li><li>Khá mềm và dễ gia công.</li><li>Có tính thuận từ.</li><li>Có nhiệt độ nóng chảy khoảng 1529 °C.</li><li>Có nhiệt độ sôi khoảng 2868 °C.</li><li>Khối lượng riêng khoảng 9,07 g/cm³.</li></ul>"
+    },
+    {
+      "field": "preparations",
+      "before": null,
+      "after": {
+        "lab": [
+          {
+            "title": "Có thể điều chế Erbium bằng cách khử Erbium chloride khan bằng Calcium.",
+            "desc": "",
+            "result": "",
+            "equations": [
+              {
+                "equation": "2ErCl₃ + 3Ca → 2Er + 3CaCl₂",
+                "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+                "kind": "chemical",
+                "sourceLine": 66,
+                "sourceSection": "lab",
+                "balance": {
+                  "status": "balanced",
+                  "kind": "chemical",
+                  "delta": {}
+                },
+                "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+              }
+            ],
+            "sourceLines": [
+              64,
+              66
+            ],
+            "equation": "2ErCl₃ + 3Ca → 2Er + 3CaCl₂"
+          }
+        ],
+        "industry": [
+          {
+            "title": "Erbium (Er) chủ yếu được điều chế từ quặng monazite và xenotime. Sau khi tách khỏi hỗn hợp đất hiếm, Erbium được thu bằng phương pháp điện phân muối nóng chảy hoặc khử Erbium fluoride bằng Calcium.",
+            "desc": "Erbium thu được được tinh chế để loại bỏ tạp chất.",
+            "result": "",
+            "equations": [
+              {
+                "equation": "2ErF₃ + 3Ca → 2Er + 3CaF₂",
+                "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+                "kind": "chemical",
+                "sourceLine": 61,
+                "sourceSection": "industry",
+                "balance": {
+                  "status": "balanced",
+                  "kind": "chemical",
+                  "delta": {}
+                },
+                "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+              }
+            ],
+            "sourceLines": [
+              59,
+              61,
+              62
+            ],
+            "equation": "2ErF₃ + 3Ca → 2Er + 3CaF₂"
+          }
+        ]
+      }
+    },
+    {
+      "field": "reactions",
+      "before": null,
+      "after": [
+        {
+          "type": "Tác dụng với Oxygen",
+          "desc": "",
+          "equation": "4Er + 3O₂ → 2Er₂O₃",
+          "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+          "kind": "chemical",
+          "sourceLine": 76,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Hydrochloric acid",
+          "desc": "",
+          "equation": "2Er + 6HCl → 2ErCl₃ + 3H₂",
+          "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+          "kind": "chemical",
+          "sourceLine": 78,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Erbium(III) hydroxide",
+          "desc": "",
+          "equation": "ErCl₃ + 3NaOH → Er(OH)₃↓ + 3NaCl",
+          "condition": "Dung dịch nước, điều chỉnh pH; tránh dư kiềm nếu hydroxide có tính lưỡng tính. Phép thử không luôn đặc hiệu.",
+          "kind": "chemical",
+          "sourceLine": 80,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Điều chế Erbium",
+          "desc": "",
+          "equation": "2ErCl₃ + 3Ca → 2Er + 3CaCl₂",
+          "condition": "Chất đầu khan, gia nhiệt trong môi trường trơ/chân không; phản ứng luyện kim hoặc khử halide.",
+          "kind": "chemical",
+          "sourceLine": 82,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": null,
+      "after": [
+        {
+          "title": "Có thể nhận biết Erbium bằng",
+          "desc": "Phổ phát xạ nguyên tử. ICP-OES hoặc ICP-MS. Phổ hấp thụ đặc trưng của Er³⁺. Màu sắc đặc trưng của một số hợp chất. Er₂O₃ có màu hồng và đây là một đặc điểm khá dễ nhận biết.",
+          "result": "",
+          "equations": [],
+          "sourceLines": [
+            68,
+            69,
+            70,
+            71,
+            72,
+            73
+          ],
+          "equation": ""
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "068_Er.docx",
+        "sourceSha256": "3c9b0d61b73f1155102600c202d908e080ac00db96072c6e87f16466f966c8bd",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/068_Er.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "068_Er.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "3c9b0d61b73f1155102600c202d908e080ac00db96072c6e87f16466f966c8bd"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/68/erbium"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure",
+      "before": null,
+      "after": {
+        "protons": 68,
+        "electrons": 68,
+        "neutrons": 98,
+        "nucleusIsotope": "¹⁶⁶Er",
+        "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+        "nucleus": {
+          "proton": 68,
+          "neutron": 98
+        },
+        "electronShells": [
+          2,
+          8,
+          18,
+          30,
+          8,
+          2
+        ],
+        "shells": [
+          2,
+          8,
+          18,
+          30,
+          8,
+          2
+        ],
+        "valenceElectrons": 2,
+        "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+        "lattice": "Lục phương xếp chặt (HCP)",
+        "latticeEvidence": "source-reviewed"
+      }
+    },
+    {
+      "field": "structureType",
+      "before": null,
+      "after": "Lục phương xếp chặt (HCP)"
+    },
+    {
+      "field": "symbol",
+      "before": null,
+      "after": "Er"
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "Er",
+      "status": "downloaded",
+      "file": "/assets/periodic-table/photos/068_Er.jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:Erbium_(68_Er).jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/8/88/Erbium_%2868_Er%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "thumbnail": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/88/Erbium_%2868_Er%29.jpg/960px-Erbium_%2868_Er%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "filename": "Erbium_(68_Er).jpg",
+      "title": "Erbium (68 Er)",
+      "description": "Erbium is used for amplifiers in optical fibres and therefore is very important for the internet and the transcontinental data transfer. Erbium oxide can double the intensity of optical light under certain conditions and so allows the signal to travel long distances without fading. This is a good example of how a neglected and mostly unknown element can certainly become very popular for a single special qualification.",
+      "author": "Hi-Res Images of Chemical Elements",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+      "credit": "http://images-of-elements.com/erbium.php",
+      "sha256": "21816f460f66c62ec1a5ae22efd1ee401ce58616e1bbb894b9478d4103dd9d9c",
+      "bytes": 124162
+    },
+    "mineral": {
+      "available": true,
+      "id": "xenotime",
+      "name": "Xenotime-(Y)",
+      "formula": "YPO₄",
+      "habit": "bipyramid",
+      "color": "#af8c55",
+      "crystalSystem": "tetragonal",
+      "relation": "Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Xenotime-(Y)",
+      "model": "/assets/periodic-table/minerals/xenotime.glb",
+      "preview": "/assets/periodic-table/minerals/xenotime.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "Er",
+      "z": 68,
+      "url": "https://periodic-table.rsc.org/element/68/erbium",
+      "status": "retrieved",
+      "bytes": 159176,
+      "sha256": "89d00c1b79cd590c6b8afb4042d9418f640f16d6cf82aea959bd136db9e1674e",
+      "facts": {
+        "Group": "Lanthanides",
+        "Melting point": "1529°C, 2784°F, 1802 K",
+        "Period": "6",
+        "Boiling point": "2868°C, 5194°F, 3141 K",
+        "Block": "f",
+        "Density (g cm−³)": "9.07",
+        "Atomic number": "68",
+        "Relative atomic mass": "167.259",
+        "State at 20°C": "Solid",
+        "Key isotopes": "¹⁶⁶Er",
+        "Electron configuration": "[Xe] 4f¹²6s²",
+        "CAS number": "7440-52-0",
+        "ChemSpider ID": "22416",
+        "electronegativity": "1.24"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "68",
+      "Symbol": "Er",
+      "Name": "Erbium",
+      "AtomicMass": "167.26",
+      "CPKHexColor": "",
+      "ElectronConfiguration": "[Xe]6s2 4f12",
+      "Electronegativity": "1.24",
+      "AtomicRadius": "235",
+      "IonizationEnergy": "6.108",
+      "ElectronAffinity": "",
+      "OxidationStates": "+3",
+      "StandardState": "Solid",
+      "MeltingPoint": "1802",
+      "BoilingPoint": "3141",
+      "Density": "9.07",
+      "GroupBlock": "Lanthanide",
+      "YearDiscovered": "1843"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

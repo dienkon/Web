@@ -2,6 +2,10 @@
   "name": "chemdex",
   "private": true,
   "scripts": {
+    "periodic:import": "python scripts/rebuild-periodic-table.py",
+    "periodic:replay": "python scripts/rebuild-periodic-table.py --snapshot",
+    "periodic:audit": "python scripts/audit-periodic-table.py",
+    "periodic:models": "node scripts/generate-mineral-assets.mjs && node scripts/render-mineral-previews.mjs",
     "dev": "node scripts/preview.mjs --rebuild",
     "start": "node scripts/preview.mjs",
     "preview": "node scripts/preview.mjs",

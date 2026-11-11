@@ -1,0 +1,1175 @@
+{
+  "symbol": "Cf",
+  "number": 98,
+  "source": "098_Cf.docx",
+  "sourceSha256": "3443832139ccada513f87f83d9a1882eb7190db867dbe5f0f57f00b4477a0054",
+  "paragraphCount": 103,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 7,
+    "structure": 8,
+    "occurrence": 5,
+    "isotopes": 9,
+    "physical": 7,
+    "chemical": 9,
+    "lab": 2,
+    "industry": 4,
+    "recognition": 8,
+    "reactions": 10,
+    "applications": 6,
+    "notes": 5
+  },
+  "editorialDecisions": [
+    {
+      "line": 20,
+      "before": "Mô hình mạng tinh thể: Lục phương (Hexagonal)",
+      "after": "Mô hình mạng tinh thể: Lục phương kép xếp chặt (DHCP) ở áp suất thường; cấu trúc thay đổi theo nhiệt độ và áp suất.",
+      "reason": "Phân biệt DHCP (xếp lớp ABAC) với HCP (ABAB); không dùng một ô HCP đơn để thay thế."
+    },
+    {
+      "line": 26,
+      "before": "Loại mạng: Lục phương (Hexagonal)",
+      "after": "Loại mạng: Lục phương kép xếp chặt (DHCP) ở áp suất thường; cấu trúc thay đổi theo nhiệt độ và áp suất.",
+      "reason": "Phân biệt DHCP (xếp lớp ABAC) với HCP (ABAB); không dùng một ô HCP đơn để thay thế."
+    }
+  ],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "[Rn] 5f¹⁰ 7s²",
+      "publishedValue": "[Rn] 5f¹⁰ 7s²",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Lục phương (Hexagonal)",
+      "publishedValue": "Lục phương kép xếp chặt (DHCP) ở áp suất thường; cấu trúc thay đổi theo nhiệt độ và áp suất.",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "1,3 (Pauling)",
+      "publishedValue": null,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm IIIB | Chu kỳ 7 | Họ Actinide",
+      "publishedValue": "Actinide",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Chất rắn",
+      "publishedValue": "Rắn",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 36,
+      "sourceText": "²⁴⁹Cf: chu kỳ bán rã khoảng 351 năm.",
+      "reference": {
+        "isotope": "²⁴⁹Cf",
+        "massNumber": 249,
+        "protons": 98,
+        "neutrons": 151,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "351 ± 2 năm",
+        "halfLife": "351 Y",
+        "halfLifeUncertainty": "2",
+        "halfLifeQualifier": null,
+        "decay": "A",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 37,
+      "sourceText": "²⁵⁰Cf: chu kỳ bán rã khoảng 13,1 năm.",
+      "reference": {
+        "isotope": "²⁵⁰Cf",
+        "massNumber": 250,
+        "protons": 98,
+        "neutrons": 152,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "13.08 ± 0.09 năm",
+        "halfLife": "13.08 Y",
+        "halfLifeUncertainty": "9",
+        "halfLifeQualifier": null,
+        "decay": "A",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 38,
+      "sourceText": "²⁵¹Cf: chu kỳ bán rã khoảng 900 năm.",
+      "reference": {
+        "isotope": "²⁵¹Cf",
+        "massNumber": 251,
+        "protons": 98,
+        "neutrons": 153,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "898 ± 44 năm",
+        "halfLife": "898 Y",
+        "halfLifeUncertainty": "44",
+        "halfLifeQualifier": null,
+        "decay": "A",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 39,
+      "sourceText": "²⁵²Cf: chu kỳ bán rã khoảng 2,65 năm.",
+      "reference": {
+        "isotope": "²⁵²Cf",
+        "massNumber": 252,
+        "protons": 98,
+        "neutrons": 154,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "2.647 ± 0.003 năm",
+        "halfLife": "2.647 Y",
+        "halfLifeUncertainty": "3",
+        "halfLifeQualifier": null,
+        "decay": "A",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 40,
+      "sourceText": "²⁵³Cf: chu kỳ bán rã khoảng 17,8 ngày.",
+      "reference": {
+        "isotope": "²⁵³Cf",
+        "massNumber": 253,
+        "protons": 98,
+        "neutrons": 155,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "17.81 ± 0.08 d",
+        "halfLife": "17.81 d",
+        "halfLifeUncertainty": "8",
+        "halfLifeQualifier": null,
+        "decay": "B-",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 41,
+      "sourceText": "²⁵⁴Cf: chu kỳ bán rã khoảng 60,5 ngày.",
+      "reference": {
+        "isotope": "²⁵⁴Cf",
+        "massNumber": 254,
+        "protons": 98,
+        "neutrons": 156,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "60.5 ± 0.2 d",
+        "halfLife": "60.5 d",
+        "halfLifeUncertainty": "2",
+        "halfLifeQualifier": null,
+        "decay": "SF",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 42,
+      "sourceText": "²⁵²Cf là đồng vị đặc biệt quan trọng vì nó có tốc độ phát neutron tự phát cao.",
+      "reference": {
+        "isotope": "²⁵²Cf",
+        "massNumber": 252,
+        "protons": 98,
+        "neutrons": 154,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "2.647 ± 0.003 năm",
+        "halfLife": "2.647 Y",
+        "halfLifeUncertainty": "3",
+        "halfLifeQualifier": null,
+        "decay": "A",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 15,
+      "text": "²⁴²Cm + ⁴He → ²⁴⁵Cf + n",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 59,
+      "text": "4Cf + 3O₂ → 2Cf₂O₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 61,
+      "text": "Cf + O₂ → CfO₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 65,
+      "text": "²⁴⁴Cm + ¹n → ²⁴⁵Cm",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 66,
+      "text": "²⁴⁵Cm + ¹n → ²⁴⁶Cm",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 67,
+      "text": "²⁴⁶Cm + ¹n → ²⁴⁷Cm",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 70,
+      "text": "²⁴²Cm + ⁴He → ²⁴⁵Cf + ¹n",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 82,
+      "text": "²⁴²Cm + ⁴He → ²⁴⁵Cf + n",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 84,
+      "text": "4Cf + 3O₂ → 2Cf₂O₃",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 86,
+      "text": "Cf + O₂ → CfO₂",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 88,
+      "text": "²⁵²Cf → ²⁴⁸Cm + α",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 90,
+      "text": "²⁴⁹Cf → ²⁴⁵Cm + α",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "history",
+      "equation": "²⁴²Cm + ⁴He → ²⁴⁵Cf + n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 15,
+      "sourceSection": "history",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "chemical",
+      "equation": "4Cf + 3O₂ → 2Cf₂O₃",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 59,
+      "sourceSection": "chemical",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "chemical",
+      "equation": "Cf + O₂ → CfO₂",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 61,
+      "sourceSection": "chemical",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "lab",
+      "equation": "²⁴²Cm + ⁴He → ²⁴⁵Cf + ¹n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 70,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "²⁴⁴Cm + ¹n → ²⁴⁵Cm + γ",
+      "condition": "Chiếu neutron trong cơ sở nghiên cứu; bắt neutron và phát gamma nếu không có sản phẩm bay hơi.",
+      "kind": "nuclear",
+      "sourceLine": 65,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "²⁴⁵Cm + ¹n → ²⁴⁶Cm + γ",
+      "condition": "Chiếu neutron trong cơ sở nghiên cứu; bắt neutron và phát gamma nếu không có sản phẩm bay hơi.",
+      "kind": "nuclear",
+      "sourceLine": 66,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "industry",
+      "equation": "²⁴⁶Cm + ¹n → ²⁴⁷Cm + γ",
+      "condition": "Chiếu neutron trong cơ sở nghiên cứu; bắt neutron và phát gamma nếu không có sản phẩm bay hơi.",
+      "kind": "nuclear",
+      "sourceLine": 67,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "²⁴²Cm + ⁴He → ²⁴⁵Cf + n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 82,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "4Cf + 3O₂ → 2Cf₂O₃",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 84,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "Cf + O₂ → CfO₂",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 86,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "²⁵²Cf → ²⁴⁸Cm + α",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 88,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "²⁴⁹Cf → ²⁴⁵Cm + α",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 90,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": null,
+      "after": [
+        {
+          "title": "Nguồn neutron",
+          "desc": "²⁵²Cf là nguồn neutron mạnh và có thể được sử dụng trong các thiết bị chuyên dụng tạo neutron.",
+          "sourceLine": 92
+        },
+        {
+          "title": "Phân tích vật liệu",
+          "desc": "Nguồn neutron từ ²⁵²Cf được sử dụng trong một số kỹ thuật phân tích kích hoạt neutron để xác định thành phần nguyên tố của vật liệu.",
+          "sourceLine": 93
+        },
+        {
+          "title": "Thăm dò giếng dầu",
+          "desc": "Nguồn neutron Californium từng được sử dụng trong một số thiết bị đo địa vật lý giếng khoan, giúp nghiên cứu thành phần và đặc tính của các lớp đất đá.",
+          "sourceLine": 94
+        },
+        {
+          "title": "Điều trị ung thư",
+          "desc": "Nguồn neutron từ ²⁵²Cf từng được nghiên cứu và sử dụng trong một số phương pháp xạ trị neutron.",
+          "sourceLine": 95
+        },
+        {
+          "title": "Nghiên cứu hạt nhân",
+          "desc": "Californium được sử dụng để nghiên cứu vật lý hạt nhân và các nguyên tố siêu nặng.",
+          "sourceLine": 96
+        },
+        {
+          "title": "Ứng dụng",
+          "desc": "Do tính phóng xạ cao và việc sản xuất khó khăn, Californium có giá trị rất lớn và chỉ được sử dụng trong những lĩnh vực chuyên biệt.",
+          "sourceLine": 97
+        }
+      ]
+    },
+    {
+      "field": "category",
+      "before": null,
+      "after": "actinide"
+    },
+    {
+      "field": "chemical",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Californium có các trạng thái Oxy hóa:</li><li>+2</li><li>+3</li><li>+4</li><li>Trong đó +3 là trạng thái phổ biến nhất.</li><li>Californium có thể tạo Californium(III) oxide:</li><li class=\"source-equation\">4Cf + 3O₂ → 2Cf₂O₃<small>Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.</small></li><li>Ngoài ra có thể tạo Californium(IV) oxide:</li><li class=\"source-equation\">Cf + O₂ → CfO₂<small>Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.</small></li></ul>"
+    },
+    {
+      "field": "file",
+      "before": null,
+      "after": "elements/098_Cf.json"
+    },
+    {
+      "field": "general",
+      "before": null,
+      "after": {
+        "latinName": "Californium",
+        "englishName": "Californium",
+        "electronConfig": "[Rn] 5f¹⁰ 7s²",
+        "isotope": "²⁴⁵Cf, ²⁴⁶Cf, ²⁴⁷Cf, ²⁴⁸Cf, ²⁴⁹Cf, ²⁵⁰Cf, ²⁵¹Cf, ²⁵²Cf, ²⁵³Cf, ²⁵⁴Cf",
+        "group": null,
+        "groupLabel": "Actinide",
+        "series": "Actinide",
+        "period": 7,
+        "state": "Rắn",
+        "oxidation": "+2, +3, +4",
+        "electronegativity": null,
+        "electronegativityNote": "Chưa có giá trị Pauling đủ cơ sở trong bản đối chiếu; không coi 0 là giá trị đã đo.",
+        "density": "15,1 g/cm³.",
+        "meltingPoint": "900°C",
+        "boilingPoint": "Chưa xác định thực nghiệm",
+        "crystalStructure": "Lục phương kép xếp chặt (DHCP) ở áp suất thường; cấu trúc thay đổi theo nhiệt độ và áp suất.",
+        "CAS": "7440-71-3"
+      }
+    },
+    {
+      "field": "hasData",
+      "before": null,
+      "after": true
+    },
+    {
+      "field": "history",
+      "before": null,
+      "after": {
+        "discoverer": "Stanley G. Thompson, Kenneth Street Jr., Albert Ghiorso và Glenn T. Seaborg",
+        "year": "1950",
+        "discoveryLocation": "Berkeley, California, Hoa Kỳ",
+        "description": "Californium được tạo ra lần đầu tiên vào năm 1950 bằng cách bắn phá Curium-242 bằng các hạt alpha trong cyclotron. Phản ứng tạo Californium-245: ²⁴²Cm + ⁴He → ²⁴⁵Cf + n Tên Californium được đặt theo California, nơi nguyên tố được phát hiện."
+      }
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/diagrams/098_Cf.svg",
+          "title": "Californium (Cf)",
+          "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+          "source": "",
+          "author": "ChemDex",
+          "license": "ChemDex schematic diagram",
+          "licenseUrl": ""
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "²⁴⁵Cf",
+          "massNumber": 245,
+          "protons": 98,
+          "neutrons": 147,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "45.0 ± 1.5 phút",
+          "halfLife": "45.0 m",
+          "halfLifeUncertainty": "15",
+          "halfLifeQualifier": null,
+          "decay": "EC",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁴⁶Cf",
+          "massNumber": 246,
+          "protons": 98,
+          "neutrons": 148,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "35.7 ± 0.5 h",
+          "halfLife": "35.7 h",
+          "halfLifeUncertainty": "5",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁴⁷Cf",
+          "massNumber": 247,
+          "protons": 98,
+          "neutrons": 149,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "3.11 ± 0.03 h",
+          "halfLife": "3.11 h",
+          "halfLifeUncertainty": "3",
+          "halfLifeQualifier": null,
+          "decay": "EC",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁴⁸Cf",
+          "massNumber": 248,
+          "protons": 98,
+          "neutrons": 150,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "333.5 ± 2.8 d",
+          "halfLife": "333.5 d",
+          "halfLifeUncertainty": "28",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁴⁹Cf",
+          "massNumber": 249,
+          "protons": 98,
+          "neutrons": 151,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "351 ± 2 năm",
+          "halfLife": "351 Y",
+          "halfLifeUncertainty": "2",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁵⁰Cf",
+          "massNumber": 250,
+          "protons": 98,
+          "neutrons": 152,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "13.08 ± 0.09 năm",
+          "halfLife": "13.08 Y",
+          "halfLifeUncertainty": "9",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁵¹Cf",
+          "massNumber": 251,
+          "protons": 98,
+          "neutrons": 153,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "898 ± 44 năm",
+          "halfLife": "898 Y",
+          "halfLifeUncertainty": "44",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁵²Cf",
+          "massNumber": 252,
+          "protons": 98,
+          "neutrons": 154,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "2.647 ± 0.003 năm",
+          "halfLife": "2.647 Y",
+          "halfLifeUncertainty": "3",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁵³Cf",
+          "massNumber": 253,
+          "protons": 98,
+          "neutrons": 155,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "17.81 ± 0.08 d",
+          "halfLife": "17.81 d",
+          "halfLifeUncertainty": "8",
+          "halfLifeQualifier": null,
+          "decay": "B-",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²⁵⁴Cf",
+          "massNumber": 254,
+          "protons": 98,
+          "neutrons": 156,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "60.5 ± 0.2 d",
+          "halfLife": "60.5 d",
+          "halfLifeUncertainty": "2",
+          "halfLifeQualifier": null,
+          "decay": "SF",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "mass",
+      "before": null,
+      "after": 249
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "reference-isotope-mass-number"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://periodic-table.rsc.org/element/98/californium"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "[249] — số khối đồng vị tham chiếu, không phải nguyên tử khối chuẩn"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": []
+    },
+    {
+      "field": "nameEn",
+      "before": null,
+      "after": "Californium"
+    },
+    {
+      "field": "nameVi",
+      "before": null,
+      "after": "Californium"
+    },
+    {
+      "field": "naturalState",
+      "before": null,
+      "after": {
+        "image": "/assets/periodic-table/diagrams/098_Cf.svg",
+        "alt": "Californium: sơ đồ minh họa nguyên tố",
+        "kind": "diagram",
+        "source": "",
+        "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+        "credit": ""
+      }
+    },
+    {
+      "field": "notes",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Californium là nguyên tố số 98, thuộc nhóm IIIB | chu kỳ 7 và là nguyên tố thứ mười trong họ Actinide.</li><li>Californium được Stanley G. Thompson, Kenneth Street Jr., Albert Ghiorso và Glenn T. Seaborg phát hiện vào năm 1950 tại Berkeley, California. Tên nguyên tố được đặt theo bang California.</li><li>Californium là một kim loại phóng xạ nhân tạo, không có đồng vị bền. Trạng thái Oxy hóa phổ biến nhất là +3.</li><li>Đồng vị nổi bật nhất là ²⁵²Cf, có khả năng phát ra một lượng lớn neutron tự phát. Đặc tính này khiến Californium có những ứng dụng đặc biệt trong nguồn neutron, phân tích vật liệu, địa vật lý và nghiên cứu hạt nhân.</li><li>Mạng tinh thể: Lục phương (Hexagonal) ở điều kiện thường.</li></ul>"
+    },
+    {
+      "field": "number",
+      "before": null,
+      "after": 98
+    },
+    {
+      "field": "occurrence",
+      "before": null,
+      "after": {
+        "description": "Chất rắn",
+        "simple": [
+          "Cf"
+        ],
+        "compounds": [
+          "Cf₂O₃",
+          "CfO₂",
+          "CfCl₃",
+          "CfF₃"
+        ],
+        "ores": [
+          "Không tồn tại tự nhiên với lượng đáng kể",
+          "được tạo ra nhân tạo"
+        ],
+        "details": [
+          "Trạng thái: Chất rắn",
+          "Màu sắc: Bạc trắng",
+          "Có trong: Không tồn tại tự nhiên với lượng đáng kể; được tạo ra nhân tạo.",
+          "Đơn chất: Cf",
+          "Hợp chất phổ biến: Cf₂O₃, CfO₂, CfCl₃, CfF₃"
+        ],
+        "mineral": {
+          "available": false,
+          "reason": "Nguyên tố nhân tạo hoặc chỉ có vết tự nhiên; không có quặng khai thác riêng để dựng mẫu."
+        }
+      }
+    },
+    {
+      "field": "physical",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Là kim loại phóng xạ.</li><li>Thuộc họ Actinide.</li><li>Có màu bạc trắng.</li><li>Rất hiếm và chỉ được sản xuất với lượng cực nhỏ.</li><li>Có tính phóng xạ mạnh.</li><li>Có nhiệt độ nóng chảy khoảng 900 °C.</li><li>Khối lượng riêng khoảng 15,1 g/cm³.</li></ul>"
+    },
+    {
+      "field": "preparations",
+      "before": null,
+      "after": {
+        "lab": [
+          {
+            "title": "Californium có thể được tạo ra bằng cách bắn phá Curium-242 bằng hạt Helium-4 (hạt alpha).",
+            "desc": "",
+            "result": "",
+            "equations": [
+              {
+                "equation": "²⁴²Cm + ⁴He → ²⁴⁵Cf + ¹n",
+                "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+                "kind": "nuclear",
+                "sourceLine": 70,
+                "sourceSection": "lab",
+                "balance": {
+                  "status": "balanced",
+                  "kind": "nuclear",
+                  "delta": {}
+                },
+                "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+              }
+            ],
+            "sourceLines": [
+              69,
+              70
+            ],
+            "equation": "²⁴²Cm + ⁴He → ²⁴⁵Cf + ¹n"
+          }
+        ],
+        "industry": [
+          {
+            "title": "Californium (Cf) được điều chế bằng cách chiếu xạ neutron lên Curium trong lò phản ứng hạt nhân, sau đó tách Californium bằng phương pháp hóa học.",
+            "desc": "",
+            "result": "",
+            "equations": [
+              {
+                "equation": "²⁴⁴Cm + ¹n → ²⁴⁵Cm + γ",
+                "condition": "Chiếu neutron trong cơ sở nghiên cứu; bắt neutron và phát gamma nếu không có sản phẩm bay hơi.",
+                "kind": "nuclear",
+                "sourceLine": 65,
+                "sourceSection": "industry",
+                "balance": {
+                  "status": "balanced",
+                  "kind": "nuclear",
+                  "delta": {}
+                },
+                "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+              },
+              {
+                "equation": "²⁴⁵Cm + ¹n → ²⁴⁶Cm + γ",
+                "condition": "Chiếu neutron trong cơ sở nghiên cứu; bắt neutron và phát gamma nếu không có sản phẩm bay hơi.",
+                "kind": "nuclear",
+                "sourceLine": 66,
+                "sourceSection": "industry",
+                "balance": {
+                  "status": "balanced",
+                  "kind": "nuclear",
+                  "delta": {}
+                },
+                "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+              },
+              {
+                "equation": "²⁴⁶Cm + ¹n → ²⁴⁷Cm + γ",
+                "condition": "Chiếu neutron trong cơ sở nghiên cứu; bắt neutron và phát gamma nếu không có sản phẩm bay hơi.",
+                "kind": "nuclear",
+                "sourceLine": 67,
+                "sourceSection": "industry",
+                "balance": {
+                  "status": "balanced",
+                  "kind": "nuclear",
+                  "delta": {}
+                },
+                "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+              }
+            ],
+            "sourceLines": [
+              64,
+              65,
+              66,
+              67
+            ],
+            "equation": "²⁴⁴Cm + ¹n → ²⁴⁵Cm + γ"
+          }
+        ]
+      }
+    },
+    {
+      "field": "reactions",
+      "before": null,
+      "after": [
+        {
+          "type": "Điều chế Californium-245",
+          "desc": "",
+          "equation": "²⁴²Cm + ⁴He → ²⁴⁵Cf + n",
+          "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+          "kind": "nuclear",
+          "sourceLine": 82,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Oxygen",
+          "desc": "",
+          "equation": "4Cf + 3O₂ → 2Cf₂O₃",
+          "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+          "kind": "chemical",
+          "sourceLine": 84,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Californium(IV) oxide",
+          "desc": "",
+          "equation": "Cf + O₂ → CfO₂",
+          "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+          "kind": "chemical",
+          "sourceLine": 86,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Phân rã Alpha của Californium-252",
+          "desc": "",
+          "equation": "²⁵²Cf → ²⁴⁸Cm + α",
+          "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+          "kind": "nuclear",
+          "sourceLine": 88,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Phân rã của Californium-249",
+          "desc": "",
+          "equation": "²⁴⁹Cf → ²⁴⁵Cm + α",
+          "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+          "kind": "nuclear",
+          "sourceLine": 90,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": null,
+      "after": [
+        {
+          "title": "Có thể nhận biết Californium bằng",
+          "desc": "Phổ alpha. Phổ gamma. Phân tích neutron. Đo hoạt độ phóng xạ. Phân tích phổ khối. Các phương pháp hóa phóng xạ. Đối với ²⁵²Cf, khả năng phát neutron tự phát là một đặc điểm rất đặc trưng.",
+          "result": "",
+          "equations": [],
+          "sourceLines": [
+            72,
+            73,
+            74,
+            75,
+            76,
+            77,
+            78,
+            79
+          ],
+          "equation": ""
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "098_Cf.docx",
+        "sourceSha256": "3443832139ccada513f87f83d9a1882eb7190db867dbe5f0f57f00b4477a0054",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/098_Cf.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "098_Cf.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "3443832139ccada513f87f83d9a1882eb7190db867dbe5f0f57f00b4477a0054"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/98/californium"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        },
+        {
+          "title": "actinideStructures",
+          "url": "https://arxiv.org/abs/2604.12249"
+        }
+      ]
+    },
+    {
+      "field": "structure",
+      "before": null,
+      "after": {
+        "protons": 98,
+        "electrons": 98,
+        "neutrons": 151,
+        "nucleusIsotope": "²⁴⁹Cf",
+        "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+        "nucleus": {
+          "proton": 98,
+          "neutron": 151
+        },
+        "electronShells": [
+          2,
+          8,
+          18,
+          32,
+          28,
+          8,
+          2
+        ],
+        "shells": [
+          2,
+          8,
+          18,
+          32,
+          28,
+          8,
+          2
+        ],
+        "valenceElectrons": 2,
+        "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+        "lattice": "Lục phương kép xếp chặt (DHCP) ở áp suất thường; cấu trúc thay đổi theo nhiệt độ và áp suất.",
+        "latticeEvidence": "source-reviewed"
+      }
+    },
+    {
+      "field": "structureType",
+      "before": null,
+      "after": "Lục phương kép xếp chặt (DHCP) ở áp suất thường; cấu trúc thay đổi theo nhiệt độ và áp suất."
+    },
+    {
+      "field": "symbol",
+      "before": null,
+      "after": "Cf"
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "Cf",
+      "status": "diagram",
+      "reason": "Không dùng ảnh mẫu vĩ mô không xác minh cho nguyên tố cực hiếm/nhân tạo."
+    },
+    "mineral": {
+      "available": false,
+      "reason": "Nguyên tố nhân tạo hoặc chỉ có vết tự nhiên; không có quặng khai thác riêng để dựng mẫu."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "Cf",
+      "z": 98,
+      "url": "https://periodic-table.rsc.org/element/98/californium",
+      "status": "retrieved",
+      "bytes": 149061,
+      "sha256": "664f6d537fa8e87cbb3f0b0f2528239d804addc8c0a477e468396235c58e4624",
+      "facts": {
+        "Group": "Actinides",
+        "Melting point": "900°C, 1652°F, 1173 K",
+        "Period": "7",
+        "Boiling point": "Unknown",
+        "Block": "f",
+        "Density (g cm−³)": "15.1",
+        "Atomic number": "98",
+        "Relative atomic mass": "[251]",
+        "State at 20°C": "Solid",
+        "Key isotopes": "²⁴⁹Cf, ²⁵²Cf",
+        "Electron configuration": "[Rn] 5f¹⁰7s²",
+        "CAS number": "7440-71-3",
+        "ChemSpider ID": "22433",
+        "electronegativity": "Unknown"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "98",
+      "Symbol": "Cf",
+      "Name": "Californium",
+      "AtomicMass": "251.07959",
+      "CPKHexColor": "A136D4",
+      "ElectronConfiguration": "[Rn]7s2 5f10",
+      "Electronegativity": "1.3",
+      "AtomicRadius": "245",
+      "IonizationEnergy": "6.30",
+      "ElectronAffinity": "",
+      "OxidationStates": "+3",
+      "StandardState": "Solid",
+      "MeltingPoint": "1173",
+      "BoilingPoint": "",
+      "Density": "",
+      "GroupBlock": "Actinide",
+      "YearDiscovered": "1950"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

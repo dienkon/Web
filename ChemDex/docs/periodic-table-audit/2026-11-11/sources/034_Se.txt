@@ -1,0 +1,106 @@
+001: Selenium (Se)
+002: Thông tin chung
+003: Tên Latin: Selenium
+004: Tên Tiếng Anh: Selenium
+005: Đồng vị: ⁷⁴Se, ⁷⁶Se, ⁷⁷Se, ⁷⁸Se, ⁸⁰Se, ⁸²Se
+006: Vị trí: Nhóm VIA | Chu kỳ 4
+007: Số Oxy hóa: −2, +4, +6
+008: Độ âm điện: 2.55
+009: Lịch sử khám phá
+010: Phát hiện bởi: Jöns Jacob Berzelius và Johan Gottlieb Gahn
+011: Năm công bố: 1817
+012: Nơi khám phá: Thụy Điển
+013: Mô tả: Năm 1817, Jöns Jacob Berzelius phát hiện Selenium khi nghiên cứu một chất cặn trong quá trình sản xuất Sulfuric acid. Ban đầu, ông cho rằng đó là Tellurium, nhưng sau khi nghiên cứu thêm, ông xác định đây là một nguyên tố mới. Tên Selenium bắt nguồn từ tiếng Hy Lạp Selene, nghĩa là Mặt Trăng.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Ar] 3d¹⁰ 4s² 4p⁴
+017: Mô hình mạng tinh thể: Lục phương (Hexagonal)
+018: Số hiệu nguyên tử: 34
+019: Nguyên tử khối: 78.971 g/mol
+020: Vỏ nguyên tử: 34 electron
+021: K: 2 | L: 8 | M: 18 | N: 6
+022: Hạt nhân: 34 proton, 44 neutron đối với ⁷⁸Se
+023: Cấu hình e: [Ar] 3d¹⁰ 4s² 4p⁴
+024: Loại mạng: Lục phương (Hexagonal)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Selenium là chất rắn, có thể tồn tại dưới dạng màu xám kim loại, đỏ hoặc đen tùy dạng thù hình.
+027: Có trong: Thường tồn tại với lượng nhỏ trong các quặng Sulfide của Copper, Lead, Silver và Nickel.
+028: Đơn chất: Se
+029: Hợp chất: SeO₂, SeO₃, H₂Se, H₂SeO₃, H₂SeO₄, SeS₂...
+030: c. Đồng vị
+031: Đồng vị: ⁷⁴Se, ⁷⁶Se, ⁷⁷Se, ⁷⁸Se, ⁸⁰Se, ⁸²Se
+032: ⁷⁴Se: Đồng vị bền, chiếm khoảng 0.9%.
+033: ⁷⁶Se: Đồng vị bền, chiếm khoảng 9.4%.
+034: ⁷⁷Se: Đồng vị bền, chiếm khoảng 7.6%.
+035: ⁷⁸Se: Đồng vị bền, chiếm khoảng 23.8%.
+036: ⁸⁰Se: Đồng vị bền, chiếm khoảng 49.6%.
+037: ⁸²Se: Đồng vị phóng xạ có chu kỳ bán rã rất dài.
+038: Tính chất
+039: Tính chất vật lý
+040: Là phi kim, thuộc nhóm Chalcogen.
+041: Có nhiều dạng thù hình.
+042: Selenium xám có ánh kim và tính bán dẫn.
+043: Selenium đỏ thường có màu đỏ hoặc đỏ nâu.
+044: Selenium đen có dạng vô định hình.
+045: Khối lượng riêng: khoảng 4.81 g/cm³ đối với Selenium xám.
+046: Nhiệt độ nóng chảy: khoảng 221 °C.
+047: Nhiệt độ sôi: khoảng 685 °C.
+048: Có tính quang dẫn: độ dẫn điện tăng khi được chiếu sáng.
+049: Tính chất hóa học
+050: Có các số Oxy hóa phổ biến −2, +4 và +6.
+051: Có tính chất hóa học tương tự Sulfur.
+052: Phản ứng với Oxygen tạo Selenium dioxide.
+053: Phản ứng với Hydrogen tạo Hydrogen selenide.
+054: Phản ứng với nhiều kim loại tạo Selenide.
+055: Phản ứng với Halogen tạo Selenium halide.
+056: Có thể vừa thể hiện tính Oxy hóa vừa thể hiện tính khử tùy phản ứng.
+057: Điều chế
+058: Điều chế trong công nghiệp
+059: Selenium chủ yếu được thu hồi như sản phẩm phụ trong quá trình tinh chế Copper.
+060: Cặn anode chứa Selenium được xử lý để thu Selenium compounds, sau đó Selenium được khử để thu Selenium nguyên tố.
+061: Một phản ứng tổng quát:
+062: SeO₂ + 2SO₂ + 2H₂O → Se + 2H₂SO₄
+063: Điều chế trong phòng thí nghiệm
+064: Có thể điều chế Selenium bằng cách khử Selenium dioxide bằng Sulfur dioxide:
+065: SeO₂ + 2SO₂ + 2H₂O → Se + 2H₂SO₄
+066: Nhận biết
+067: Nhận biết Se²⁻
+068: Cho ion Se²⁻ tác dụng với Hydrogen sulfide hoặc các ion kim loại thích hợp có thể tạo Selenium compounds đặc trưng.
+069: Một phản ứng tạo Selenium sulfide:
+070: Se²⁻ + 2H⁺ → H₂Se
+071: H₂Se có thể phản ứng với các ion kim loại tạo kết tủa Selenide.
+072: Nhận biết Selenium nguyên tố
+073: Selenium có nhiều dạng màu sắc khác nhau tùy cấu trúc:
+074: Selenium xám: màu xám kim loại.
+075: Selenium đỏ: màu đỏ hoặc đỏ nâu.
+076: Selenium đen: màu đen.
+077: Phương trình
+078: Tác dụng với Oxygen
+079: Se + O₂ → SeO₂
+080: Tác dụng với Hydrogen
+081: H₂ + Se → H₂Se
+082: Tác dụng với Sulfur
+083: Se + S → SeS
+084: Tác dụng với Chlorine
+085: Se + 2Cl₂ → SeCl₄
+086: Tạo Hydrogen selenide
+087: H₂ + Se → H₂Se
+088: Khử Selenium dioxide
+089: SeO₂ + 2SO₂ + 2H₂O → Se + 2H₂SO₄
+090: Selenium dioxide tác dụng với nước
+091: SeO₂ + H₂O → H₂SeO₃
+092: Oxy hóa Selenium dioxide
+093: 2SeO₂ + O₂ → 2SeO₃
+094: Ứng dụng thực tế
+095: Điện tử: Selenium có tính quang dẫn nên từng được sử dụng trong một số thiết bị quang điện.
+096: Kính: Selenium compounds được sử dụng để khử màu hoặc tạo màu cho thủy tinh.
+097: Pigment: Một số Selenium compounds được sử dụng để tạo pigment màu đỏ.
+098: Solar cells: Selenium được sử dụng trong một số vật liệu quang điện và công nghệ tế bào mặt trời.
+099: Luyện kim: Selenium được thêm vào một số hợp kim để cải thiện khả năng gia công.
+100: Nông nghiệp: Selenium là nguyên tố vi lượng cần thiết với một số sinh vật, nhưng lượng quá cao có thể gây độc.
+101: Công nghiệp hóa chất: Selenium compounds được sử dụng trong một số quá trình tổng hợp hóa học.
+102: Tổng quan
+103: Selenium là nguyên tố số 34, thuộc nhóm VIA | chu kỳ 4 và thuộc nhóm Chalcogen.
+104: Selenium có cấu hình electron [Ar] 3d¹⁰ 4s² 4p⁴, với các số Oxy hóa phổ biến là −2, +4 và +6.
+105: Selenium có nhiều dạng thù hình, trong đó Selenium xám có ánh kim và thể hiện tính quang dẫn rõ rệt. Trong tự nhiên, Selenium thường tồn tại với hàm lượng nhỏ trong các quặng Sulfide của Copper, Lead, Silver và Nickel.
+106: Selenium có ứng dụng trong công nghiệp thủy tinh, điện tử, vật liệu quang điện, luyện kim và hóa chất. Đồng thời, Selenium là nguyên tố vi lượng quan trọng đối với sinh vật ở lượng thích hợp.

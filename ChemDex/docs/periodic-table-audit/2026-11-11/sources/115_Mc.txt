@@ -1,0 +1,89 @@
+001: Moscovium (Mc)
+002: Thông tin chung
+003: Tên Latin: Moscovium
+004: Tên Tiếng Anh: Moscovium
+005: Đồng vị: ²⁸⁶Mc, ²⁸⁷Mc, ²⁸⁸Mc, ²⁸⁹Mc, ²⁹⁰Mc
+006: Vị trí: Nhóm VA | Chu kỳ 7
+007: Số Oxy hóa: +1, +3, +5 (dự đoán)
+008: Độ âm điện: Không xác định
+009: Lịch sử khám phá
+010: Phát hiện bởi: Nhóm nghiên cứu Joint Institute for Nuclear Research (JINR), phối hợp với Lawrence Livermore National Laboratory (LLNL)
+011: Năm công bố: 2003
+012: Nơi khám phá: Dubna, Nga
+013: Mô tả: Moscovium được tổng hợp lần đầu vào năm 2003 bằng cách bắn phá Americium-243 bằng Calcium-48:
+014: ²⁴³Am + ⁴⁸Ca → ²⁸⁸Mc + 3n
+015: Tên Moscovium được đặt theo Moscow Oblast, khu vực nơi đặt Joint Institute for Nuclear Research.
+016: 3. Cấu tạo
+017: a. Cấu tạo nguyên tử
+018: Hoạt họa cấu hình e: [Rn] 5f¹⁴ 6d¹⁰ 7s² 7p³ (dự đoán)
+019: Mô hình mạng tinh thể: Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)
+020: Số hiệu nguyên tử: 115
+021: Nguyên tử khối: [290] g/mol
+022: Vỏ nguyên tử: 115 electron
+023: Hạt nhân: 115 proton
+024: Cấu hình e: [Rn] 5f¹⁴ 6d¹⁰ 7s² 7p³ (dự đoán)
+025: Loại mạng: Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)
+026: b. Trạng thái tự nhiên
+027: Trạng thái: Chất rắn (dự đoán)
+028: Có trong: Không tồn tại tự nhiên với lượng đáng kể. Moscovium chỉ được tổng hợp nhân tạo.
+029: Đơn chất: Mc
+030: Hợp chất: McCl₃, McF₃, Mc₂O₃... (dự đoán)
+031: c. Đồng vị
+032: Moscovium không có đồng vị bền.
+033: Một số đồng vị:
+034: ²⁸⁶Mc: chu kỳ bán rã khoảng 20 mili giây.
+035: ²⁸⁷Mc: chu kỳ bán rã khoảng 32 mili giây.
+036: ²⁸⁸Mc: chu kỳ bán rã khoảng 160 mili giây.
+037: ²⁸⁹Mc: chu kỳ bán rã khoảng 0,5 giây.
+038: ²⁹⁰Mc: được dự đoán có độ ổn định cao hơn.
+039: Các đồng vị Moscovium chủ yếu phân rã bằng phân rã Alpha.
+040: Tính chất
+041: Tính chất vật lý
+042: Là nguyên tố thuộc nhóm VA | chu kỳ 7.
+043: Là nguyên tố siêu nặng.
+044: Có tính phóng xạ rất mạnh.
+045: Được dự đoán là chất rắn ở điều kiện thường.
+046: Có thể có tính chất kim loại.
+047: Khối lượng riêng, nhiệt độ nóng chảy và nhiệt độ sôi chưa được xác định trực tiếp.
+048: Tính chất hóa học
+049: Có cấu hình electron hóa trị 7s² 7p³.
+050: Các số Oxy hóa +1 và +3 được dự đoán có thể ổn định hơn +5.
+051: Có thể có tính chất tương tự Bismuth (Bi).
+052: Hiệu ứng tương đối tính và hiệu ứng cặp electron trơ có thể làm tăng tính ổn định của trạng thái +1.
+053: Phần lớn tính chất hóa học vẫn dựa trên dự đoán lý thuyết.
+054: Điều chế
+055: Điều chế trong công nghiệp:
+056: Moscovium (Mc) không được sản xuất công nghiệp do tính phóng xạ rất cao và thời gian bán rã ngắn. Nguyên tố này chỉ được tổng hợp với lượng cực nhỏ trong các cơ sở nghiên cứu hạt nhân.
+057: Điều chế trong phòng thí nghiệm:
+058: Moscovium được tổng hợp bằng cách bắn phá Americium-243 bằng ion Calcium-48 trong máy gia tốc hạt.
+059: ²⁴³Am + ⁴⁸Ca → ²⁸⁸Mc + 3¹n
+060: Nhận biết
+061: Moscovium được nhận biết thông qua:
+062: Năng lượng các hạt Alpha.
+063: Chu kỳ bán rã.
+064: Chuỗi phân rã phóng xạ.
+065: Xác định các hạt nhân con.
+066: Đối chiếu chuỗi phân rã với các đồng vị đã biết.
+067: Do chỉ tạo được một số lượng cực nhỏ nguyên tử Mc, không thể nhận biết bằng phản ứng hóa học thông thường.
+068: Phương trình
+069: Tổng hợp Moscovium-288
+070: ²⁴³Am + ⁴⁸Ca → ²⁸⁸Mc + 3n
+071: Phân rã Alpha
+072: ²⁸⁸Mc → ²⁸⁴Nh + ⁴He
+073: Tạo Moscovium(III) chloride
+074: 2Mc + 3Cl₂ → 2McCl₃
+075: Tạo Moscovium(III) oxide
+076: 4Mc + 3O₂ → 2Mc₂O₃
+077: Các phương trình hóa học của Moscovium chủ yếu mang tính dự đoán.
+078: Ứng dụng thực tế
+079: Moscovium không có ứng dụng công nghiệp hoặc dân dụng.
+080: Nó chủ yếu được sử dụng trong:
+081: Nghiên cứu hạt nhân: Nghiên cứu các hạt nhân siêu nặng và chuỗi phân rã của chúng.
+082: Nghiên cứu “đảo ổn định”: Moscovium nằm trong khu vực nguyên tố siêu nặng được quan tâm khi nghiên cứu các hạt nhân có độ ổn định tương đối cao.
+083: Hóa học nguyên tố siêu nặng: Nghiên cứu sự tương đồng giữa Moscovium và Bismuth.
+084: Tổng quan
+085: Moscovium là nguyên tố số 115, thuộc nhóm VA | chu kỳ 7 và là một nguyên tố siêu nặng.
+086: Moscovium được tổng hợp lần đầu vào năm 2003 tại Dubna bằng phản ứng giữa Americium-243 và Calcium-48. Tên nguyên tố được đặt theo Moscow Oblast của Nga.
+087: Cấu hình electron được dự đoán là [Rn] 5f¹⁴ 6d¹⁰ 7s² 7p³. Moscovium nằm cùng nhóm với Nitrogen, Phosphorus, Arsenic, Antimony và Bismuth, nhưng hiệu ứng tương đối tính mạnh khiến tính chất của nó có thể khác đáng kể. Trạng thái Oxy hóa +1 và +3 được dự đoán có vai trò quan trọng.
+088: Moscovium không có đồng vị bền, có tính phóng xạ rất mạnh và chỉ được tạo ra với số lượng cực nhỏ. Vì vậy, nó không có ứng dụng thực tế, chủ yếu phục vụ nghiên cứu vật lý hạt nhân và hóa học nguyên tố siêu nặng.
+089: Mạng tinh thể: Lập phương tâm khối (BCC) — dự đoán, vì chưa thể thu được lượng Moscovium đủ lớn để xác định trực tiếp cấu trúc tinh thể.

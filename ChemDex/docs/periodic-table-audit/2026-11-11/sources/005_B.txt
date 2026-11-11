@@ -1,0 +1,101 @@
+001: Boron (B)
+002: Thông tin chung
+003: Tên Latin: Borium
+004: Tên tiếng Anh: Boron
+005: Đồng vị: ¹⁰B, ¹¹B
+006: Vị trí: Nhóm IIIA | Chu kỳ 2
+007: Số Oxy hóa: −3, +1, +2, +3
+008: Độ âm điện: 2.04
+009: Lịch sử khám phá
+010: Phát hiện bởi: Joseph Louis Gay-Lussac, Louis Jacques Thénard và Humphry Davy
+011: Năm công bố: 1808
+012: Nơi khám phá: Pháp và Anh
+013: Mô tả: Năm 1808, Gay-Lussac và Thénard ở Pháp, cùng Davy ở Anh, độc lập điều chế được Boron ở dạng tương đối không tinh khiết từ các hợp chất của Boron. Davy đặt tên nguyên tố là Boron, liên hệ với Borax.
+014: 3. Cấu tạo
+015: a. Cấu tạo
+016: Hoạt họa cấu hình e: 1s² 2s² 2p¹
+017: Mô hình mạng tinh thể: Mạng thoi (Rhombohedral)
+018: Số hiệu nguyên tử: 5
+019: Nguyên tử khối: 10.81 g/mol
+020: Vỏ nguyên tử: 5 electron
+021: K: 2 | L: 3
+022: Hạt nhân: 5 proton, 6 neutron đối với ¹¹B
+023: Cấu hình e: 1s² 2s² 2p¹
+024: Loại mạng: Mạng thoi (Rhombohedral)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Boron không tồn tại tự do phổ biến trong tự nhiên. Chủ yếu tồn tại dưới dạng Borate và các khoáng vật chứa Boron.
+027: Có trong: Borax, Kernite, Colemanite, Ulexite và một số khoáng vật Borate.
+028: Đơn chất: B
+029: Hợp chất: B₂O₃, H₃BO₃, Na₂B₄O₇·10H₂O, B₄C, BN...
+030: c. Đồng vị
+031: Đồng vị: ¹⁰B, ¹¹B
+032: ¹⁰B: Chiếm khoảng 19.9% Boron tự nhiên, là đồng vị bền.
+033: ¹¹B: Chiếm khoảng 80.1%, là đồng vị bền và phổ biến hơn.
+034: Ngoài hai đồng vị bền, Boron còn có các đồng vị phóng xạ.
+035: Tính chất
+036: Tính chất vật lý
+037: Là chất rắn ở điều kiện thường.
+038: Boron tinh khiết có màu đen hoặc xám đen.
+039: Là á kim.
+040: Rất cứng.
+041: Có nhiệt độ nóng chảy cao.
+042: Khối lượng riêng: khoảng 2.34 g/cm³.
+043: Nhiệt độ nóng chảy: khoảng 2076 °C.
+044: Nhiệt độ sôi: khoảng 3927 °C.
+045: Dẫn điện kém ở điều kiện thường.
+046: Độ dẫn điện tăng khi nhiệt độ tăng.
+047: Tính chất hóa học
+048: Có tính chất trung gian giữa kim loại và phi kim.
+049: Có số Oxy hóa phổ biến nhất là +3.
+050: Có khả năng tạo nhiều liên kết cộng hóa trị.
+051: Phản ứng với Oxygen khi nung nóng tạo Boron(III) oxide.
+052: Phản ứng với một số kim loại tạo Boride.
+053: Phản ứng với Halogen tạo Boron halide.
+054: Boron có khả năng tạo các hợp chất có cấu trúc mạng cộng hóa trị phức tạp.
+055: Boron tương đối trơ với nước và nhiều acid ở điều kiện thường.
+056: Boron có thể phản ứng với base mạnh trong điều kiện thích hợp.
+057: Điều chế
+058: Điều chế trong công nghiệp
+059: Khử Boron halide bằng Hydrogen:
+060: 2BCl3 + 3H2 → 2B + 6HCl
+061: Phương pháp này có thể tạo Boron có độ tinh khiết cao.
+062: Khử Boron oxide bằng Magnesium:
+063: B2O3 + 3Mg → 2B + 3MgO
+064: Điều chế trong phòng thí nghiệm
+065: Boron có thể được điều chế bằng cách khử Boron(III) oxide bằng Magnesium:
+066: B2O3 + 3Mg → 2B + 3MgO
+067: Sau phản ứng, sản phẩm Boron được tách khỏi các sản phẩm phụ bằng phương pháp xử lý thích hợp.
+068: Nhận biết
+069: Phản ứng tạo ngọn lửa màu xanh lục: Một số hợp chất Boron khi được đưa vào ngọn lửa có thể tạo màu xanh lục đặc trưng.
+070: Phản ứng với Curcumin: Borate có thể tạo phức màu đặc trưng với Curcumin trong môi trường thích hợp.
+071: Phương trình
+072: Tác dụng với Oxygen
+073: 4B + 3O2 → 2B2O3
+074: Tác dụng với Chlorine
+075: 2B + 3Cl2 → 2BCl3
+076: Tác dụng với Bromine
+077: 2B + 3Br2 → 2BBr3
+078: Tác dụng với Nitrogen
+079: 2B + N2 → 2BN
+080: Tác dụng với Carbon
+081: 4B + C → B4C
+082: Tác dụng với Magnesium
+083: 2B + 3Mg → Mg3B2
+084: Boron(III) oxide tác dụng với Sodium hydroxide
+085: B2O3 + 2NaOH → 2NaBO2 + H2O
+086: Điều chế Boron từ Boron(III) oxide
+087: B2O3 + 3Mg → 2B + 3MgO
+088: Ứng dụng thực tế
+089: Thủy tinh chịu nhiệt: Boron được sử dụng để sản xuất Borosilicate glass có khả năng chịu nhiệt và chống sốc nhiệt tốt.
+090: Gốm kỹ thuật: Boron nitride và Boron carbide được sử dụng trong các vật liệu gốm có độ cứng và khả năng chịu nhiệt cao.
+091: Chất bán dẫn: Boron được sử dụng làm chất pha tạp (dopant) cho Silicon trong công nghiệp bán dẫn.
+092: Vật liệu chống mài mòn: Boron carbide được sử dụng trong các vật liệu có độ cứng cao.
+093: Chất tẩy rửa: Một số Borate được sử dụng trong chất tẩy rửa và sản phẩm làm sạch.
+094: Nông nghiệp: Boron là vi lượng thiết yếu đối với thực vật và được sử dụng trong một số loại phân bón.
+095: Hấp thụ neutron: ¹⁰B có khả năng hấp thụ neutron cao nên được sử dụng trong một số ứng dụng liên quan đến kiểm soát neutron.
+096: Luyện kim: Một lượng nhỏ Boron được thêm vào một số hợp kim để cải thiện tính chất cơ học.
+097: Tổng quan
+098: Boron là nguyên tố số 5, thuộc nhóm IIIA | chu kỳ 2 và là một á kim.
+099: Boron có cấu hình electron 1s² 2s² 2p¹ và có khả năng tạo nhiều liên kết cộng hóa trị. Trong tự nhiên, Boron chủ yếu tồn tại trong các khoáng vật Borate thay vì ở dạng đơn chất.
+100: Boron có nhiều dạng cấu trúc tinh thể và các dạng thù hình khác nhau. Nguyên tố này có nhiệt độ nóng chảy cao, độ cứng lớn và nhiều hợp chất có tính chất vật liệu đặc biệt.
+101: Boron và các hợp chất của nó được sử dụng trong thủy tinh chịu nhiệt, gốm kỹ thuật, chất bán dẫn, vật liệu chống mài mòn, nông nghiệp và công nghệ hạt nhân.

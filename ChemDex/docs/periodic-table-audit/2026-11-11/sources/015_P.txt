@@ -1,0 +1,102 @@
+001: Phosphorus (P)
+002: Thông tin chung
+003: Tên Latin: Phosphorus
+004: Tên tiếng Anh: Phosphorus
+005: Đồng vị: ³¹P, ³²P, ³³P
+006: Vị trí: Nhóm VA | Chu kỳ 3
+007: Số Oxy hóa: −3, +1, +3, +5
+008: Độ âm điện: 2.19
+009: Lịch sử khám phá
+010: Phát hiện bởi: Hennig Brand
+011: Năm công bố: 1669
+012: Nơi khám phá: Hamburg, Đức
+013: Mô tả: Năm 1669, Hennig Brand phát hiện Phosphorus khi thực hiện các thí nghiệm với nước tiểu. Ông thu được một chất phát sáng trong bóng tối và gọi nó là Phosphorus, bắt nguồn từ tiếng Hy Lạp với nghĩa là “mang ánh sáng”.
+014: 3. Cấu tạo
+015: a. Cấu tạo
+016: Hoạt họa cấu hình e: 1s² 2s² 2p⁶ 3s² 3p³
+017: Mô hình mạng tinh thể: Mạng lập phương đơn giản (SC)
+018: Số hiệu nguyên tử: 15
+019: Nguyên tử khối: 30.974 g/mol
+020: Vỏ nguyên tử: 15 electron
+021: K: 2 | L: 8 | M: 5
+022: Hạt nhân: 15 proton, 16 neutron đối với ³¹P
+023: Cấu hình e: 1s² 2s² 2p⁶ 3s² 3p³
+024: Loại mạng: Mạng lập phương đơn giản (SC)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Phosphorus không tồn tại tự do trong tự nhiên do có tính hoạt động hóa học. Chủ yếu tồn tại dưới dạng Phosphate trong khoáng vật và sinh vật.
+027: Có trong: Phosphate rock, Apatite, đất, nước và các sinh vật sống.
+028: Đơn chất: P₄
+029: Hợp chất: Ca₃(PO₄)₂, H₃PO₄, P₄O₁₀, PH₃, Na₃PO₄...
+030: c. Đồng vị
+031: Đồng vị: ³¹P, ³²P, ³³P
+032: ³¹P: Đồng vị bền duy nhất của Phosphorus, chiếm gần như 100% Phosphorus tự nhiên.
+033: ³²P: Đồng vị phóng xạ, chu kỳ bán rã khoảng 14.3 ngày.
+034: ³³P: Đồng vị phóng xạ, chu kỳ bán rã khoảng 25.4 ngày.
+035: Tính chất
+036: Tính chất vật lý
+037: Là chất rắn ở điều kiện thường.
+038: Có nhiều dạng thù hình.
+039: Phosphorus trắng có màu trắng hoặc vàng nhạt.
+040: Phosphorus đỏ có màu đỏ sẫm.
+041: Phosphorus đen có màu đen và có cấu trúc ổn định hơn.
+042: Khối lượng riêng phụ thuộc vào dạng thù hình.
+043: Phosphorus trắng nóng chảy ở khoảng 44.1 °C.
+044: Phosphorus trắng sôi ở khoảng 280.5 °C.
+045: Phosphorus đỏ và đen có nhiệt độ chuyển pha khác nhau.
+046: Phosphorus trắng phát sáng yếu trong bóng tối do phản ứng chậm với Oxygen.
+047: Tính chất hóa học
+048: Là phi kim.
+049: Có nhiều dạng thù hình với tính chất khác nhau.
+050: Có khả năng tạo nhiều hợp chất cộng hóa trị.
+051: Có các số Oxy hóa phổ biến −3, +3 và +5.
+052: Phosphorus trắng hoạt động hóa học mạnh hơn Phosphorus đỏ và đen.
+053: Phản ứng với Oxygen tạo các Phosphorus oxide.
+054: Phản ứng với Halogen tạo Phosphorus halide.
+055: Phản ứng với kim loại tạo Phosphide.
+056: Phosphorus có thể tạo Phosphoric acid và nhiều Phosphate.
+057: Phosphorus là nguyên tố thiết yếu của sinh vật.
+058: Điều chế
+059: Điều chế trong công nghiệp
+060: Phosphorus được sản xuất chủ yếu từ Phosphate rock. Nguyên liệu chứa Calcium phosphate được nung với Silica và Carbon trong lò điện:
+061: 2Ca3(PO4)2 + 6SiO2 + 10C → P4 + 6CaSiO3 + 10CO
+062: Phosphorus được tạo ra ở dạng hơi, sau đó được làm lạnh và thu hồi.
+063: Điều chế trong phòng thí nghiệm
+064: Phosphorus nguyên tố không thường được điều chế trong phòng thí nghiệm phổ thông do tính chất nguy hiểm của một số dạng thù hình.
+065: Về nguyên tắc, có thể thu Phosphorus bằng cách khử các Phosphate ở nhiệt độ cao với Carbon và Silica:
+066: 2Ca3(PO4)2 + 6SiO2 + 10C → P4 + 6CaSiO3 + 10CO
+067: Nhận biết
+068: Ion Phosphate (PO₄³⁻): Có thể nhận biết bằng phản ứng tạo kết tủa màu vàng với Silver nitrate trong môi trường thích hợp:
+069: PO₄³⁻ + 3Ag⁺ → Ag₃PO₄↓
+070: Hiện tượng: Xuất hiện kết tủa vàng Silver phosphate.
+071: Phương trình
+072: Tác dụng với Oxygen
+073: P4 + 5O2 → P4O10
+074: Tác dụng với Chlorine
+075: P4 + 6Cl2 → 4PCl3
+076: Khi Chlorine dư:
+077: P4 + 10Cl2 → 4PCl5
+078: Tác dụng với Bromine
+079: P4 + 6Br2 → 4PBr3
+080: Tác dụng với Sulfur
+081: 2P + 3S → P2S3
+082: Tác dụng với Calcium
+083: 3Ca + 2P → Ca3P2
+084: Tác dụng với Sodium
+085: 3Na + P → Na3P
+086: Tạo Phosphine
+087: Ca3P2 + 6H2O → 3Ca(OH)2 + 2PH3↑
+088: Tạo Phosphoric acid
+089: P4O10 + 6H2O → 4H3PO4
+090: Ứng dụng thực tế
+091: Phân bón: Phosphate compounds là nguồn Phosphorus quan trọng trong sản xuất phân bón.
+092: Sản xuất Phosphoric acid: Phosphorus compounds được sử dụng để sản xuất Phosphoric acid và nhiều hóa chất Phosphate.
+093: Diêm: Red phosphorus được sử dụng trong bề mặt quẹt của một số loại diêm an toàn.
+094: Chất tẩy rửa: Một số Phosphate được sử dụng trong các sản phẩm tẩy rửa, mặc dù việc sử dụng bị hạn chế ở nhiều nơi do vấn đề môi trường.
+095: Công nghiệp thực phẩm: Một số Phosphate được sử dụng làm chất điều chỉnh độ acid và phụ gia thực phẩm.
+096: Luyện kim: Phosphorus compounds được sử dụng trong một số quá trình luyện kim.
+097: Sinh học và y học: Phosphorus là thành phần quan trọng của DNA, RNA, ATP, phospholipid và xương.
+098: Tổng quan
+099: Phosphorus là nguyên tố số 15, thuộc nhóm VA | chu kỳ 3 và là một phi kim.
+100: Phosphorus có cấu hình electron 1s² 2s² 2p⁶ 3s² 3p³ và có 5 electron hóa trị. Nguyên tố này có nhiều dạng thù hình, trong đó quan trọng nhất là Phosphorus trắng, Phosphorus đỏ và Phosphorus đen.
+101: Trong tự nhiên, Phosphorus chủ yếu tồn tại dưới dạng Phosphate trong khoáng vật và sinh vật. Phosphorus là nguyên tố thiết yếu của sự sống, tham gia vào cấu tạo của DNA, RNA, ATP, phospholipid và xương.
+102: Phosphorus và các hợp chất của nó có vai trò quan trọng trong sản xuất phân bón, Phosphoric acid, diêm, hóa chất, công nghiệp thực phẩm và nhiều quá trình sinh học.

@@ -1,0 +1,96 @@
+001: Ytterbium (Yb)
+002: Thông tin chung
+003: Tên Latin: Ytterbium
+004: Tên Tiếng Anh: Ytterbium
+005: Đồng vị: ¹⁶⁸Yb, ¹⁷⁰Yb, ¹⁷¹Yb, ¹⁷²Yb, ¹⁷³Yb, ¹⁷⁴Yb, ¹⁷⁶Yb
+006: Vị trí: Nhóm IIIB | Chu kỳ 6 | Họ Lanthanide
+007: Số Oxy hóa: +2, +3
+008: Độ âm điện: 1,10 (Pauling)
+009: Lịch sử khám phá
+010: Phát hiện bởi: Jean Charles Galissard de Marignac
+011: Năm công bố: 1878
+012: Nơi khám phá: Geneva, Thụy Sĩ
+013: Mô tả: Năm 1878, Jean Charles Galissard de Marignac phát hiện một thành phần mới trong khoáng vật Erbia. Ông đặt tên cho oxide mới là Ytterbia.
+014: Sau đó, các nhà khoa học tiếp tục nghiên cứu và tách Ytterbium khỏi các nguyên tố đất hiếm khác. Năm 1953, Ytterbium kim loại tương đối tinh khiết mới được điều chế.
+015: Tên Ytterbium bắt nguồn từ Ytterby, một ngôi làng ở Thụy Điển. Đây cũng là nguồn gốc tên của Yttrium, Terbium và Erbium.
+016: 3. Cấu tạo
+017: a. Cấu tạo nguyên tử
+018: Cấu hình electron: [Xe] 4f¹⁴ 6s²
+019: Mô hình mạng tinh thể: Lập phương tâm diện (Face-centered cubic, FCC)
+020: Số hiệu nguyên tử: 70
+021: Nguyên tử khối: 173,045 g/mol
+022: Vỏ nguyên tử: 70 electron
+023: Hạt nhân: 70 proton
+024: Cấu hình e đầy đủ: 1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰ 4p⁶ 5s² 4d¹⁰ 5p⁶ 4f¹⁴ 6s²
+025: Loại mạng: Lập phương tâm diện (FCC)
+026: b. Trạng thái tự nhiên
+027: Trạng thái: Chất rắn
+028: Màu sắc: Trắng bạc
+029: Có trong: Monazite, Xenotime và một số khoáng vật đất hiếm.
+030: Đơn chất: Yb
+031: Hợp chất phổ biến: Yb₂O₃, YbO, YbCl₂, YbCl₃
+032: c. Đồng vị
+033: Ytterbium có 7 đồng vị tự nhiên:
+034: ¹⁶⁸Yb: khoảng 0,13%, bền.
+035: ¹⁷⁰Yb: khoảng 3,05%, bền.
+036: ¹⁷¹Yb: khoảng 14,3%, bền.
+037: ¹⁷²Yb: khoảng 21,8%, bền.
+038: ¹⁷³Yb: khoảng 16,1%, bền.
+039: ¹⁷⁴Yb: khoảng 31,8%, bền.
+040: ¹⁷⁶Yb: khoảng 12,7%, phóng xạ, chu kỳ bán rã khoảng 4,0 × 10²¹ năm.
+041: ¹⁷⁴Yb là đồng vị tự nhiên phổ biến nhất.
+042: Tính chất
+043: Tính chất vật lý
+044: Là kim loại đất hiếm.
+045: Thuộc họ Lanthanide.
+046: Có màu trắng bạc.
+047: Khá mềm và dễ gia công.
+048: Có tính thuận từ.
+049: Có nhiệt độ nóng chảy khoảng 824 °C.
+050: Có nhiệt độ sôi khoảng 1196 °C.
+051: Khối lượng riêng khoảng 6,90 g/cm³.
+052: Tính chất hóa học
+053: Ytterbium có hai trạng thái Oxy hóa quan trọng:
+054: +2: tương đối ổn định do cấu hình 4f¹⁴ đã được lấp đầy.
+055: +3: phổ biến trong nhiều hợp chất.
+056: Ytterbium dễ phản ứng với Oxygen:
+057: 4Yb + 3O₂ → 2Yb₂O₃
+058: Ytterbium cũng phản ứng với Acid tạo muối và giải phóng Hydrogen.
+059: Điều chế
+060: Điều chế trong công nghiệp
+061: Ytterbium (Yb) chủ yếu được điều chế từ quặng monazite và xenotime. Sau khi tách khỏi hỗn hợp đất hiếm, Ytterbium được thu bằng phương pháp khử Ytterbium oxide bằng Lanthanum hoặc điện phân muối nóng chảy.
+062: Phương trình:
+063: Yb₂O₃ + 2La → 2Yb + La₂O₃
+064: Ytterbium thu được được tinh chế để loại bỏ tạp chất.
+065: Điều chế trong phòng thí nghiệm
+066: Có thể điều chế Ytterbium bằng cách khử Ytterbium chloride khan bằng Calcium.
+067: Phương trình:
+068: 2YbCl₃ + 3Ca → 2Yb + 3CaCl₂
+069: Nhận biết
+070: Có thể nhận biết Ytterbium bằng:
+071: Phổ phát xạ nguyên tử.
+072: ICP-OES hoặc ICP-MS.
+073: Phổ hấp thụ đặc trưng của Yb²⁺ và Yb³⁺.
+074: Phân tích tính chất từ và quang học.
+075: Ion Yb³⁺ thường tạo dung dịch không màu hoặc màu rất nhạt.
+076: Phương trình
+077: Tác dụng với Oxygen
+078: 4Yb + 3O₂ → 2Yb₂O₃
+079: Tác dụng với Hydrochloric acid
+080: 2Yb + 6HCl → 2YbCl₃ + 3H₂
+081: Tạo Ytterbium(III) hydroxide
+082: YbCl₃ + 3NaOH → Yb(OH)₃↓ + 3NaCl
+083: Điều chế Ytterbium
+084: 2YbCl₃ + 3Ca → 2Yb + 3CaCl₂
+085: Ứng dụng thực tế
+086: Laser sợi quang: Ytterbium được sử dụng làm chất pha tạp trong Ytterbium-doped fiber laser, một loại laser hiệu suất cao được sử dụng trong công nghiệp và viễn thông.
+087: Laser công suất cao: Laser pha tạp Ytterbium có thể đạt công suất lớn và hiệu suất cao, được sử dụng trong cắt, hàn và gia công vật liệu.
+088: Đồng hồ nguyên tử: Một số ion Ytterbium, đặc biệt Yb⁺, được sử dụng trong nghiên cứu và chế tạo đồng hồ nguyên tử có độ chính xác rất cao.
+089: Vật liệu quang học: Các hợp chất Ytterbium được sử dụng trong vật liệu phát quang và quang tử.
+090: Y học: Một số đồng vị phóng xạ của Ytterbium được nghiên cứu cho các ứng dụng y học và nguồn bức xạ chuyên dụng.
+091: Tổng quan
+092: Ytterbium là nguyên tố số 70, thuộc nhóm IIIB | chu kỳ 6 và là nguyên tố thứ mười bốn trong họ Lanthanide.
+093: Ytterbium được Jean Charles Galissard de Marignac phát hiện vào năm 1878 tại Geneva, Thụy Sĩ. Tên nguyên tố bắt nguồn từ Ytterby, Thụy Điển.
+094: Ytterbium là kim loại đất hiếm màu trắng bạc, khá mềm và có nhiệt độ nóng chảy tương đối thấp. Điểm đặc biệt của nó là có thể tồn tại ở cả Yb²⁺ và Yb³⁺. Yb²⁺ tương đối ổn định nhờ cấu hình electron 4f¹⁴ đã lấp đầy.
+095: Ytterbium có vai trò quan trọng trong laser sợi quang, laser công suất cao, đồng hồ nguyên tử và vật liệu quang học.
+096: Mạng tinh thể: Lập phương tâm diện (FCC) ở điều kiện thường.

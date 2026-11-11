@@ -1,0 +1,118 @@
+001: Iron (Fe)
+002: Thông tin chung
+003: Tên Latin: Ferrum
+004: Tên Tiếng Anh: Iron
+005: Đồng vị: ⁵⁴Fe, ⁵⁶Fe, ⁵⁷Fe, ⁵⁸Fe
+006: Vị trí: Nhóm VIIIB | Chu kỳ 4
+007: Số Oxy hóa: +2, +3, +6
+008: Độ âm điện: 1.83
+009: Lịch sử khám phá
+010: Phát hiện bởi: Không xác định — Iron đã được con người sử dụng từ thời tiền sử.
+011: Năm công bố: Khoảng thiên niên kỷ 2 TCN đối với Iron luyện từ quặng; không có một năm phát hiện chính xác.
+012: Nơi khám phá: Không xác định; Iron được sử dụng độc lập ở nhiều nền văn minh cổ đại.
+013: Mô tả: Iron là một trong những kim loại được con người biết đến và sử dụng từ rất sớm. Iron từ thiên thạch có thể đã được sử dụng trước khi con người phát triển kỹ thuật luyện Iron từ quặng. Đến thời kỳ Iron Age, kỹ thuật luyện Iron từ quặng phát triển mạnh và Iron trở thành vật liệu quan trọng.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Ar] 3d⁶ 4s²
+017: Mô hình mạng tinh thể: Lập phương tâm khối (Body-centered cubic, BCC)
+018: Số hiệu nguyên tử: 26
+019: Nguyên tử khối: 55.845 g/mol
+020: Vỏ nguyên tử: 26 electron
+021: K: 2 | L: 8 | M: 14 | N: 2
+022: Hạt nhân: 26 proton, 30 neutron đối với ⁵⁶Fe
+023: Cấu hình e: [Ar] 3d⁶ 4s²
+024: Loại mạng: Lập phương tâm khối (Body-centered cubic, BCC)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Iron là kim loại rắn, màu xám bạc ở điều kiện thường.
+027: Có trong: Hematite (Fe₂O₃), Magnetite (Fe₃O₄), Siderite (FeCO₃), Limonite và nhiều khoáng vật khác.
+028: Đơn chất: Fe
+029: Hợp chất: FeO, Fe₂O₃, Fe₃O₄, FeCl₂, FeCl₃, FeSO₄, Fe₂(SO₄)₃...
+030: c. Đồng vị
+031: Đồng vị: ⁵⁴Fe, ⁵⁶Fe, ⁵⁷Fe, ⁵⁸Fe
+032: ⁵⁴Fe: Đồng vị bền, chiếm khoảng 5.85%.
+033: ⁵⁶Fe: Đồng vị bền, chiếm khoảng 91.75%.
+034: ⁵⁷Fe: Đồng vị bền, chiếm khoảng 2.12%.
+035: ⁵⁸Fe: Đồng vị bền, chiếm khoảng 0.28%.
+036: Tính chất
+037: Tính chất vật lý
+038: Là kim loại chuyển tiếp.
+039: Có màu xám bạc.
+040: Cứng và có độ bền cơ học cao.
+041: Có tính dẻo và dễ gia công.
+042: Khối lượng riêng: khoảng 7.87 g/cm³.
+043: Nhiệt độ nóng chảy: khoảng 1538 °C.
+044: Nhiệt độ sôi: khoảng 2862 °C.
+045: Dẫn điện và dẫn nhiệt.
+046: Có tính sắt từ ở nhiệt độ dưới khoảng 770 °C.
+047: Có nhiều dạng thù hình với cấu trúc tinh thể khác nhau.
+048: Tính chất hóa học
+049: Có tính khử.
+050: Số Oxy hóa phổ biến nhất: +2 và +3.
+051: Có thể tạo Fe²⁺ và Fe³⁺.
+052: Dễ bị Oxy hóa trong không khí ẩm tạo gỉ Iron.
+053: Phản ứng với Oxygen khi nung nóng.
+054: Phản ứng với nhiều acid tạo muối Iron và Hydrogen.
+055: Phản ứng với Halogen tạo Iron halide.
+056: Có thể tham gia phản ứng tạo hợp chất với Carbon.
+057: Fe³⁺ có tính Oxy hóa mạnh hơn Fe²⁺.
+058: Điều chế
+059: Điều chế trong công nghiệp
+060: Iron được sản xuất chủ yếu từ quặng Iron oxide trong lò cao.
+061: Một phản ứng tổng quát:
+062: Fe₂O₃ + 3CO → 2Fe + 3CO₂
+063: Carbon monoxide được tạo ra từ Carbon trong lò cao:
+064: C + O₂ → CO₂
+065: CO₂ + C → 2CO
+066: Điều chế trong phòng thí nghiệm
+067: Iron có thể được điều chế bằng cách khử Iron oxide bằng Hydrogen ở nhiệt độ cao:
+068: Fe₂O₃ + 3H₂ → 2Fe + 3H₂O
+069: Hoặc bằng phản ứng nhiệt nhôm:
+070: Fe₂O₃ + 2Al → 2Fe + Al₂O₃
+071: Nhận biết
+072: Nhận biết Fe²⁺
+073: Cho dung dịch chứa Fe²⁺ tác dụng với hydroxide:
+074: Fe²⁺ + 2OH⁻ → Fe(OH)₂↓
+075: Hiện tượng: Xuất hiện kết tủa trắng xanh, sau đó dần chuyển thành màu nâu do bị Oxygen trong không khí Oxy hóa.
+076: Nhận biết Fe³⁺
+077: Cho dung dịch chứa Fe³⁺ tác dụng với Potassium thiocyanate:
+078: Fe³⁺ + SCN⁻ ⇌ [FeSCN]²⁺
+079: Hiện tượng: Dung dịch xuất hiện màu đỏ máu đặc trưng.
+080: Ngoài ra:
+081: Fe³⁺ + 3OH⁻ → Fe(OH)₃↓
+082: Hiện tượng: Xuất hiện kết tủa nâu đỏ.
+083: Phương trình
+084: Tác dụng với Oxygen
+085: 3Fe + 2O₂ → Fe₃O₄
+086: Tác dụng với Sulfur
+087: Fe + S → FeS
+088: Tác dụng với Chlorine
+089: 2Fe + 3Cl₂ → 2FeCl₃
+090: Tác dụng với Hydrochloric acid
+091: Fe + 2HCl → FeCl₂ + H₂↑
+092: Tác dụng với Sulfuric acid loãng
+093: Fe + H₂SO₄ → FeSO₄ + H₂↑
+094: Tạo Iron(II) hydroxide
+095: Fe²⁺ + 2OH⁻ → Fe(OH)₂↓
+096: Tạo Iron(III) hydroxide
+097: Fe³⁺ + 3OH⁻ → Fe(OH)₃↓
+098: Oxy hóa Iron(II) hydroxide
+099: 4Fe(OH)₂ + O₂ + 2H₂O → 4Fe(OH)₃
+100: Khử Iron(III) oxide bằng Carbon monoxide
+101: Fe₂O₃ + 3CO → 2Fe + 3CO₂
+102: Khử Iron(III) oxide bằng Hydrogen
+103: Fe₂O₃ + 3H₂ → 2Fe + 3H₂O
+104: Phản ứng nhiệt nhôm
+105: Fe₂O₃ + 2Al → 2Fe + Al₂O₃
+106: Ứng dụng thực tế
+107: Sản xuất thép: Iron là thành phần chính của thép và nhiều loại hợp kim.
+108: Xây dựng: Steel được sử dụng rộng rãi trong cầu, nhà cao tầng, đường ray và các công trình.
+109: Cơ khí: Iron và Steel được sử dụng để chế tạo máy móc, công cụ và thiết bị.
+110: Giao thông: Steel được sử dụng trong ô tô, tàu hỏa, tàu thủy và nhiều phương tiện khác.
+111: Sản xuất nam châm: Một số Iron alloys có tính từ mạnh và được sử dụng trong các thiết bị điện.
+112: Đúc: Cast iron được sử dụng để sản xuất nhiều chi tiết máy và thiết bị.
+113: Sinh học: Iron là nguyên tố vi lượng thiết yếu, tham gia vào Hemoglobin và nhiều enzyme trong cơ thể sinh vật.
+114: Tổng quan
+115: Iron là nguyên tố số 26, thuộc nhóm VIIIB | chu kỳ 4 và là một kim loại chuyển tiếp.
+116: Iron có cấu hình electron [Ar] 3d⁶ 4s², với hai trạng thái Oxy hóa phổ biến nhất là +2 và +3.
+117: Iron là một trong những kim loại quan trọng nhất đối với nền văn minh nhân loại. Trong tự nhiên, Iron chủ yếu tồn tại dưới dạng các oxide và carbonate trong quặng như Hematite và Magnetite.
+118: Phần lớn Iron được sản xuất để chế tạo Steel, một nhóm vật liệu có vai trò đặc biệt quan trọng trong xây dựng, cơ khí và giao thông. Ngoài ra, Iron còn đóng vai trò thiết yếu trong sinh học, đặc biệt trong quá trình vận chuyển Oxygen của Hemoglobin.

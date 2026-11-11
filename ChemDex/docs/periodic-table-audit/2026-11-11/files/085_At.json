@@ -1,0 +1,857 @@
+{
+  "symbol": "At",
+  "number": 85,
+  "source": "085_At.docx",
+  "sourceSha256": "d952a0043f44ce66d3b29120fd76309f59bb88ef108ca57eb9b120a20a4a20cc",
+  "paragraphCount": 85,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 4,
+    "structure": 9,
+    "occurrence": 4,
+    "isotopes": 6,
+    "physical": 8,
+    "chemical": 6,
+    "lab": 1,
+    "industry": 4,
+    "recognition": 1,
+    "reactions": 10,
+    "applications": 4,
+    "notes": 4
+  },
+  "editorialDecisions": [],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁵",
+      "publishedValue": "[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁵",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Lập phương tâm mặt (Face-centered cubic, FCC) (được dự đoán)",
+      "publishedValue": "Lập phương tâm mặt (Face-centered cubic, FCC) (được dự đoán)",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "2.2",
+      "publishedValue": 2.2,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm VIIA | Chu kỳ 6",
+      "publishedValue": "17",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Chất rắn ở điều kiện thường.",
+      "publishedValue": "Chưa đo trạng thái vĩ mô; các giá trị pha chỉ là dự đoán",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 34,
+      "sourceText": "²¹⁰At: chu kỳ bán rã khoảng 8.1 giờ.",
+      "reference": {
+        "isotope": "²¹⁰At",
+        "massNumber": 210,
+        "protons": 85,
+        "neutrons": 125,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "8.1 ± 0.4 h",
+        "halfLife": "8.1 h",
+        "halfLifeUncertainty": "4",
+        "halfLifeQualifier": null,
+        "decay": "EC+B+",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 35,
+      "sourceText": "²¹¹At: chu kỳ bán rã khoảng 7.2 giờ và có tiềm năng ứng dụng trong y học hạt nhân.",
+      "reference": {
+        "isotope": "²¹¹At",
+        "massNumber": 211,
+        "protons": 85,
+        "neutrons": 126,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "7.214 ± 0.007 h",
+        "halfLife": "7.214 h",
+        "halfLifeUncertainty": "7",
+        "halfLifeQualifier": null,
+        "decay": "EC",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 36,
+      "sourceText": "²¹⁸At: có trong chuỗi phân rã của Uranium-238.",
+      "reference": {
+        "isotope": "²¹⁸At",
+        "massNumber": 218,
+        "protons": 85,
+        "neutrons": 133,
+        "stable": false,
+        "abundancePercent": null,
+        "halfLifeDisplay": "1.28 ± 0.06 s",
+        "halfLife": "1.28 s",
+        "halfLifeUncertainty": "6",
+        "halfLifeQualifier": null,
+        "decay": "A",
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 5,
+      "text": "Đồng vị: ¹⁹¹At → ²²³At",
+      "status": "unbalanced",
+      "kind": "nuclear",
+      "delta": {
+        "A": 32.0
+      }
+    },
+    {
+      "line": 59,
+      "text": "²⁰⁹Bi + ⁴He → ²¹¹At + 2¹n",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 67,
+      "text": "²⁰⁹Bi + ⁴He → ²¹¹At + 2n",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 69,
+      "text": "²¹¹At → ²⁰⁷Bi + α",
+      "status": "balanced",
+      "kind": "nuclear",
+      "delta": {}
+    },
+    {
+      "line": 71,
+      "text": "H₂ + At₂ → 2HAt",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 73,
+      "text": "At₂ + Cl₂ → 2AtCl",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 75,
+      "text": "At₂ + 2e⁻ → 2At⁻",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "industry",
+      "equation": "²⁰⁹Bi + ⁴He → ²¹¹At + 2¹n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 59,
+      "sourceSection": "industry",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "²⁰⁹Bi + ⁴He → ²¹¹At + 2n",
+      "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+      "kind": "nuclear",
+      "sourceLine": 67,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "²¹¹At → ²⁰⁷Bi + α",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 69,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "H₂ + At₂ → 2HAt",
+      "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+      "kind": "formal",
+      "sourceLine": 71,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "At₂ + Cl₂ → 2AtCl",
+      "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+      "kind": "formal",
+      "sourceLine": 73,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "At₂ + 2e⁻ → 2At⁻",
+      "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+      "kind": "formal",
+      "sourceLine": 75,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": null,
+      "after": [
+        {
+          "title": "Y học hạt nhân",
+          "desc": "²¹¹At được nghiên cứu để sử dụng trong alpha-targeted therapy (liệu pháp nhắm trúng đích bằng hạt Alpha).",
+          "sourceLine": 77
+        },
+        {
+          "title": "Nghiên cứu",
+          "desc": "Astatine được sử dụng trong nghiên cứu hóa học phóng xạ và vật lý hạt nhân.",
+          "sourceLine": 78
+        },
+        {
+          "title": "Nghiên cứu Halogen",
+          "desc": "Do vị trí nằm dưới Iodine trong nhóm VIIA, Astatine giúp các nhà khoa học nghiên cứu xu hướng tính chất của Halogen nặng.",
+          "sourceLine": 79
+        },
+        {
+          "title": "Ứng dụng",
+          "desc": "Astatine không có ứng dụng công nghiệp thông thường do cực kỳ hiếm và phóng xạ mạnh.",
+          "sourceLine": 80
+        }
+      ]
+    },
+    {
+      "field": "category",
+      "before": null,
+      "after": "halogen"
+    },
+    {
+      "field": "chemical",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Có tính chất của Halogen nhưng kém hoạt động hơn Iodine.</li><li>Có thể tồn tại ở nhiều số Oxy hóa: −1, +1, +3, +5, +7.</li><li>Có thể tạo hợp chất với Hydrogen, Chlorine, Bromine và Oxygen.</li><li>Ion At⁻ có thể tồn tại trong dung dịch.</li><li>Một số hợp chất Astatine thể hiện tính chất giống Iodine.</li><li>Tất cả các đồng vị đều phóng xạ.</li></ul>"
+    },
+    {
+      "field": "file",
+      "before": null,
+      "after": "elements/085_At.json"
+    },
+    {
+      "field": "general",
+      "before": null,
+      "after": {
+        "latinName": "Astatium",
+        "englishName": "Astatine",
+        "electronConfig": "[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁵",
+        "isotope": "¹⁹¹At, ²¹⁰At, ²¹¹At, ²¹⁸At, ²²³At",
+        "group": 17,
+        "groupLabel": "17",
+        "series": "",
+        "period": 6,
+        "state": "Chưa đo trạng thái vĩ mô; các giá trị pha chỉ là dự đoán",
+        "oxidation": "−1, +1, +3, +5, +7",
+        "electronegativity": 2.2,
+        "electronegativityNote": "Giá trị ước tính; không phải phép đo trên mẫu vĩ mô.",
+        "density": "Chưa xác định thực nghiệm g/cm³ (theo bảng RSC)",
+        "meltingPoint": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+        "boilingPoint": "Chưa xác định thực nghiệm trên mẫu vĩ mô",
+        "crystalStructure": "Lập phương tâm mặt (Face-centered cubic, FCC) (được dự đoán)",
+        "CAS": "7440-68-8"
+      }
+    },
+    {
+      "field": "hasData",
+      "before": null,
+      "after": true
+    },
+    {
+      "field": "history",
+      "before": null,
+      "after": {
+        "discoverer": "Dale R. Corson, Kenneth Ross MacKenzie và Emilio G. Segrè",
+        "year": "1940",
+        "discoveryLocation": "Hoa Kỳ",
+        "description": "Astatine được tổng hợp lần đầu tại University of California, Berkeley vào năm 1940 bằng cách bắn phá Bismuth-209 bằng hạt Alpha. Tên Astatine bắt nguồn từ tiếng Hy Lạp astatos, nghĩa là “không ổn định”, phản ánh tính phóng xạ và sự không bền của nguyên tố này."
+      }
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/diagrams/085_At.svg",
+          "title": "Astatine (At)",
+          "desc": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+          "source": "",
+          "author": "ChemDex",
+          "license": "ChemDex schematic diagram",
+          "licenseUrl": ""
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "¹⁹¹At",
+          "massNumber": 191,
+          "protons": 85,
+          "neutrons": 106,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "1.7 (+1.1/−0.5) ms",
+          "halfLife": "1.7 ms",
+          "halfLifeUncertainty": "+11-5",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²¹⁰At",
+          "massNumber": 210,
+          "protons": 85,
+          "neutrons": 125,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "8.1 ± 0.4 h",
+          "halfLife": "8.1 h",
+          "halfLifeUncertainty": "4",
+          "halfLifeQualifier": null,
+          "decay": "EC+B+",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²¹¹At",
+          "massNumber": 211,
+          "protons": 85,
+          "neutrons": 126,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "7.214 ± 0.007 h",
+          "halfLife": "7.214 h",
+          "halfLifeUncertainty": "7",
+          "halfLifeQualifier": null,
+          "decay": "EC",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²¹⁸At",
+          "massNumber": 218,
+          "protons": 85,
+          "neutrons": 133,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "1.28 ± 0.06 s",
+          "halfLife": "1.28 s",
+          "halfLifeUncertainty": "6",
+          "halfLifeQualifier": null,
+          "decay": "A",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "²²³At",
+          "massNumber": 223,
+          "protons": 85,
+          "neutrons": 138,
+          "stable": false,
+          "abundancePercent": null,
+          "halfLifeDisplay": "50 ± 7 s",
+          "halfLife": "50 s",
+          "halfLifeUncertainty": "7",
+          "halfLifeQualifier": null,
+          "decay": "B-",
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "mass",
+      "before": null,
+      "after": 210
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "reference-isotope-mass-number"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://periodic-table.rsc.org/element/85/astatine"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "[210] — số khối đồng vị tham chiếu, không phải nguyên tử khối chuẩn"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": [
+        {
+          "type": "model",
+          "section": "structure",
+          "title": "Mẫu khoáng vật 3D · Uraninite",
+          "src": "/assets/periodic-table/minerals/uraninite.glb",
+          "preview": "/assets/periodic-table/minerals/uraninite.png",
+          "desc": "UO₂₊ₓ (có sản phẩm phân rã và tạp chất). Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "nameEn",
+      "before": null,
+      "after": "Astatine"
+    },
+    {
+      "field": "nameVi",
+      "before": null,
+      "after": "Astatine"
+    },
+    {
+      "field": "naturalState",
+      "before": null,
+      "after": {
+        "image": "/assets/periodic-table/diagrams/085_At.svg",
+        "alt": "Astatine: sơ đồ minh họa nguyên tố",
+        "kind": "diagram",
+        "source": "",
+        "caption": "Sơ đồ định danh và lớp electron; không phải ảnh mẫu vật thật.",
+        "credit": ""
+      }
+    },
+    {
+      "field": "notes",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Astatine là nguyên tố số 85, thuộc nhóm VIIA | chu kỳ 6 và là một Halogen phóng xạ.</li><li>Astatine không có đồng vị bền và chỉ tồn tại trong tự nhiên với lượng cực kỳ nhỏ. Phần lớn Astatine dùng cho nghiên cứu được tổng hợp nhân tạo.</li><li>Đặc điểm nổi bật của Astatine là tính chất nằm giữa Halogen và kim loại, đồng thời có tính phóng xạ rất mạnh. Trong số các đồng vị, ²¹¹At đặc biệt được quan tâm vì có tiềm năng trong liệu pháp điều trị ung thư bằng hạt Alpha.</li><li>Mạng tinh thể: Astatine chưa có đủ dữ liệu thực nghiệm đáng tin cậy về cấu trúc tinh thể của mẫu nguyên chất do lượng tồn tại cực kỳ nhỏ. Vì vậy, lập phương tâm mặt (FCC) chỉ nên ghi là cấu trúc được dự đoán, không phải cấu trúc đã được xác nhận thực nghiệm.</li></ul>"
+    },
+    {
+      "field": "number",
+      "before": null,
+      "after": 85
+    },
+    {
+      "field": "occurrence",
+      "before": null,
+      "after": {
+        "description": "Chất rắn ở điều kiện thường.",
+        "simple": [
+          "At"
+        ],
+        "compounds": [
+          "HAt",
+          "AtCl",
+          "AtBr",
+          "AtO⁻",
+          "AtO₃⁻"
+        ],
+        "ores": [
+          "Tồn tại tự nhiên với lượng cực kỳ nhỏ trong các quặng Uranium và Thorium",
+          "chủ yếu là sản phẩm trung gian của các chuỗi phân rã phóng xạ"
+        ],
+        "details": [
+          "Trạng thái: Chất rắn ở điều kiện thường.",
+          "Có trong: Tồn tại tự nhiên với lượng cực kỳ nhỏ trong các quặng Uranium và Thorium, chủ yếu là sản phẩm trung gian của các chuỗi phân rã phóng xạ.",
+          "Đơn chất: At",
+          "Hợp chất: HAt, AtCl, AtBr, AtO⁻, AtO₃⁻..."
+        ],
+        "mineral": {
+          "available": true,
+          "id": "uraninite",
+          "name": "Uraninite",
+          "formula": "UO₂₊ₓ (có sản phẩm phân rã và tạp chất)",
+          "habit": "cubic",
+          "color": "#45534a",
+          "crystalSystem": "cubic",
+          "relation": "Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+          "source": "https://www.handbookofmineralogy.org/",
+          "sourceSearch": "https://rruff.info/Uraninite",
+          "model": "/assets/periodic-table/minerals/uraninite.glb",
+          "preview": "/assets/periodic-table/minerals/uraninite.png",
+          "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+        }
+      }
+    },
+    {
+      "field": "physical",
+      "before": null,
+      "after": "<ul class=\"element-prose-list\"><li>Là Halogen.</li><li>Là một trong những nguyên tố hiếm nhất trên Trái Đất.</li><li>Có tính phóng xạ mạnh.</li><li>Là chất rắn ở điều kiện thường.</li><li>Được dự đoán có màu tối, có thể gần với màu đen.</li><li>Ước tính trong tài liệu, chưa đo trên mẫu vĩ mô: Nhiệt độ nóng chảy: khoảng 302 °C.</li><li>Ước tính trong tài liệu, chưa đo trên mẫu vĩ mô: Nhiệt độ sôi: khoảng 337 °C.</li><li>Có tính chất vật lý nằm giữa Halogen và kim loại.</li></ul>"
+    },
+    {
+      "field": "preparations",
+      "before": null,
+      "after": {
+        "lab": [
+          {
+            "title": "Astatine có thể được tạo ra với lượng cực nhỏ bằng phản ứng hạt nhân trong máy gia tốc tại các cơ sở nghiên cứu chuyên dụng. Không có phương pháp điều chế hóa học thông thường để tạo ra nguyên tố này.",
+            "desc": "",
+            "result": "",
+            "equations": [],
+            "sourceLines": [
+              61
+            ],
+            "equation": ""
+          }
+        ],
+        "industry": [
+          {
+            "title": "Astatine (At) không tồn tại với lượng đáng kể trong tự nhiên và chủ yếu được điều chế nhân tạo trong các máy gia tốc hạt.",
+            "desc": "Phương pháp phổ biến là bắn phá Bismuth-209 bằng hạt alpha để tạo ra Astatine-211. Phương trình hạt nhân:",
+            "result": "",
+            "equations": [
+              {
+                "equation": "²⁰⁹Bi + ⁴He → ²¹¹At + 2¹n",
+                "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+                "kind": "nuclear",
+                "sourceLine": 59,
+                "sourceSection": "industry",
+                "balance": {
+                  "status": "balanced",
+                  "kind": "nuclear",
+                  "delta": {}
+                },
+                "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+              }
+            ],
+            "sourceLines": [
+              56,
+              57,
+              58,
+              59
+            ],
+            "equation": "²⁰⁹Bi + ⁴He → ²¹¹At + 2¹n"
+          }
+        ]
+      }
+    },
+    {
+      "field": "reactions",
+      "before": null,
+      "after": [
+        {
+          "type": "Điều chế Astatine-211",
+          "desc": "",
+          "equation": "²⁰⁹Bi + ⁴He → ²¹¹At + 2n",
+          "condition": "Bắn phá bia hạt nhân bằng chùm ion trong máy gia tốc; kênh tạo hạt nhân phụ thuộc năng lượng và đồng vị bia.",
+          "kind": "nuclear",
+          "sourceLine": 67,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Phân rã Alpha của Astatine-211",
+          "desc": "",
+          "equation": "²¹¹At → ²⁰⁷Bi + α",
+          "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+          "kind": "nuclear",
+          "sourceLine": 69,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "nuclear",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Hydrogen astatide",
+          "desc": "",
+          "equation": "H₂ + At₂ → 2HAt",
+          "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+          "kind": "formal",
+          "sourceLine": 71,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Astatine chloride",
+          "desc": "",
+          "equation": "At₂ + Cl₂ → 2AtCl",
+          "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+          "kind": "formal",
+          "sourceLine": 73,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo ion Astatide",
+          "desc": "",
+          "equation": "At₂ + 2e⁻ → 2At⁻",
+          "condition": "Sơ đồ hệ số hình thức/dự đoán; chưa xác nhận quy trình phản ứng trực tiếp trên mẫu vĩ mô.",
+          "kind": "formal",
+          "sourceLine": 75,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": null,
+      "after": [
+        {
+          "title": "Astatine được nhận biết chủ yếu bằng phương pháp phóng xạ và kỹ thuật hạt nhân, vì lượng Astatine tạo ra rất nhỏ và các đồng vị của nó có thời gian sống ngắn.",
+          "desc": "",
+          "result": "",
+          "equations": [],
+          "sourceLines": [
+            63
+          ],
+          "equation": ""
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "085_At.docx",
+        "sourceSha256": "d952a0043f44ce66d3b29120fd76309f59bb88ef108ca57eb9b120a20a4a20cc",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/085_At.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "085_At.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "d952a0043f44ce66d3b29120fd76309f59bb88ef108ca57eb9b120a20a4a20cc"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/85/astatine"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure",
+      "before": null,
+      "after": {
+        "protons": 85,
+        "electrons": 85,
+        "neutrons": 125,
+        "nucleusIsotope": "²¹⁰At",
+        "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+        "nucleus": {
+          "proton": 85,
+          "neutron": 125
+        },
+        "electronShells": [
+          2,
+          8,
+          18,
+          32,
+          18,
+          7
+        ],
+        "shells": [
+          2,
+          8,
+          18,
+          32,
+          18,
+          7
+        ],
+        "valenceElectrons": 7,
+        "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+        "lattice": "Lập phương tâm mặt (Face-centered cubic, FCC) (được dự đoán)",
+        "latticeEvidence": "source-reviewed"
+      }
+    },
+    {
+      "field": "structureType",
+      "before": null,
+      "after": "Lập phương tâm mặt (Face-centered cubic, FCC) (được dự đoán)"
+    },
+    {
+      "field": "symbol",
+      "before": null,
+      "after": "At"
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "At",
+      "status": "diagram",
+      "reason": "Không dùng ảnh mẫu vĩ mô không xác minh cho nguyên tố cực hiếm/nhân tạo."
+    },
+    "mineral": {
+      "available": true,
+      "id": "uraninite",
+      "name": "Uraninite",
+      "formula": "UO₂₊ₓ (có sản phẩm phân rã và tạp chất)",
+      "habit": "cubic",
+      "color": "#45534a",
+      "crystalSystem": "cubic",
+      "relation": "Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Uraninite",
+      "model": "/assets/periodic-table/minerals/uraninite.glb",
+      "preview": "/assets/periodic-table/minerals/uraninite.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "At",
+      "z": 85,
+      "url": "https://periodic-table.rsc.org/element/85/astatine",
+      "status": "retrieved",
+      "bytes": 145819,
+      "sha256": "43dd677e4710937b073ccac9b6b9319ffec2301c216a3485c8aaeb17bc9a088a",
+      "facts": {
+        "Group": "17",
+        "Melting point": "300°C, 572°F, 573 K",
+        "Period": "6",
+        "Boiling point": "350°C, 662°F, 623 K",
+        "Block": "p",
+        "Density (g cm−³)": "Unknown",
+        "Atomic number": "85",
+        "Relative atomic mass": "[210]",
+        "State at 20°C": "Solid",
+        "Key isotopes": "²¹⁰At, ²¹¹At",
+        "Electron configuration": "[Xe] 4f¹⁴5d¹⁰6s²6p⁵",
+        "CAS number": "7440-68-8",
+        "ChemSpider ID": "4573995",
+        "electronegativity": "2.2"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "85",
+      "Symbol": "At",
+      "Name": "Astatine",
+      "AtomicMass": "209.98715",
+      "CPKHexColor": "754F45",
+      "ElectronConfiguration": "[Xe]6s2 4f14 5d10 6p5",
+      "Electronegativity": "2.2",
+      "AtomicRadius": "202",
+      "IonizationEnergy": "9.5",
+      "ElectronAffinity": "2.8",
+      "OxidationStates": "7, 5, 3, 1, -1",
+      "StandardState": "Solid",
+      "MeltingPoint": "575",
+      "BoilingPoint": "",
+      "Density": "7",
+      "GroupBlock": "Halogen",
+      "YearDiscovered": "1940"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

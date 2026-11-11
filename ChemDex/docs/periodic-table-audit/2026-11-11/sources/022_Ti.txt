@@ -1,0 +1,106 @@
+001: Titanium (Ti)
+002: Thông tin chung
+003: Tên Latin: Titanium
+004: Tên Tiếng Anh: Titanium
+005: Đồng vị: ⁴⁶Ti, ⁴⁷Ti, ⁴⁸Ti, ⁴⁹Ti, ⁵⁰Ti
+006: Vị trí: Nhóm IVB | Chu kỳ 4
+007: Số Oxy hóa: +2, +3, +4
+008: Độ âm điện: 1.54
+009: Lịch sử khám phá
+010: Phát hiện bởi: William Gregor
+011: Năm công bố: 1791
+012: Nơi khám phá: Anh
+013: Mô tả: Năm 1791, William Gregor phát hiện một oxide mới trong khoáng vật ilmenite và nhận ra nó chứa một nguyên tố chưa được biết đến. Năm 1795, Martin Heinrich Klaproth phát hiện lại nguyên tố này trong rutile và đặt tên là Titanium, theo các Titan trong thần thoại Hy Lạp.
+014: 3. Cấu tạo
+015: a. Cấu tạo nguyên tử
+016: Hoạt họa cấu hình e: [Ar] 3d² 4s²
+017: Mô hình mạng tinh thể: Lục phương (Hexagonal)
+018: Số hiệu nguyên tử: 22
+019: Nguyên tử khối: 47.867 g/mol
+020: Vỏ nguyên tử: 22 electron
+021: K: 2 | L: 8 | M: 10 | N: 2
+022: Hạt nhân: 22 proton, 26 neutron đối với ⁴⁸Ti
+023: Cấu hình e: [Ar] 3d² 4s²
+024: Loại mạng: Lục phương (Hexagonal)
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Titanium là kim loại rắn, màu xám bạc ở điều kiện thường. Titanium không tồn tại tự do phổ biến trong tự nhiên mà chủ yếu tồn tại trong các khoáng vật.
+027: Có trong: Rutile, Ilmenite, Titanite và một số khoáng vật khác.
+028: Đơn chất: Ti
+029: Hợp chất: TiO₂, TiCl₄, FeTiO₃, CaTiO₃, TiC...
+030: c. Đồng vị
+031: Đồng vị: ⁴⁶Ti, ⁴⁷Ti, ⁴⁸Ti, ⁴⁹Ti, ⁵⁰Ti
+032: ⁴⁶Ti: Đồng vị bền, chiếm khoảng 8.25%.
+033: ⁴⁷Ti: Đồng vị bền, chiếm khoảng 7.44%.
+034: ⁴⁸Ti: Đồng vị bền, chiếm khoảng 73.72%.
+035: ⁴⁹Ti: Đồng vị bền, chiếm khoảng 5.41%.
+036: ⁵⁰Ti: Đồng vị bền, chiếm khoảng 5.18%.
+037: Tính chất
+038: Tính chất vật lý
+039: Là kim loại chuyển tiếp.
+040: Có màu xám bạc.
+041: Nhẹ nhưng có độ bền cơ học cao.
+042: Khối lượng riêng: khoảng 4.506 g/cm³.
+043: Nhiệt độ nóng chảy: khoảng 1668 °C.
+044: Nhiệt độ sôi: khoảng 3287 °C.
+045: Dẫn nhiệt và dẫn điện tương đối thấp so với nhiều kim loại.
+046: Có khả năng chống ăn mòn rất tốt.
+047: Có độ bền cao so với khối lượng.
+048: Tính chất hóa học
+049: Có khả năng tạo lớp Titanium dioxide bảo vệ trên bề mặt nên chống ăn mòn tốt.
+050: Các số Oxy hóa phổ biến: +2, +3, +4.
+051: +4 là trạng thái Oxy hóa bền và phổ biến nhất.
+052: Phản ứng với Oxygen khi nung nóng tạo Titanium dioxide.
+053: Phản ứng với Halogen ở nhiệt độ thích hợp.
+054: Phản ứng với acid mạnh trong những điều kiện nhất định.
+055: Ở nhiệt độ cao, Titanium có thể phản ứng với Nitrogen và Carbon.
+056: Titanium có hoạt tính hóa học đáng kể ở nhiệt độ cao nhưng khá bền ở điều kiện thường.
+057: Điều chế
+058: Điều chế trong công nghiệp
+059: Titanium được sản xuất chủ yếu bằng quy trình Kroll.
+060: Trước tiên, Titanium dioxide được chuyển thành Titanium tetrachloride:
+061: TiO₂ + 2C + 2Cl₂ → TiCl₄ + 2CO
+062: Sau đó Titanium tetrachloride được khử bằng Magnesium ở nhiệt độ cao:
+063: TiCl₄ + 2Mg → Ti + 2MgCl₂
+064: Titanium thu được tiếp tục được tinh chế để loại bỏ Magnesium và Magnesium chloride còn lại.
+065: Điều chế trong phòng thí nghiệm
+066: Titanium kim loại không thường được điều chế trong phòng thí nghiệm phổ thông.
+067: Về nguyên tắc, có thể điều chế bằng cách khử Titanium halide bằng kim loại hoạt động mạnh:
+068: TiCl₄ + 2Mg → Ti + 2MgCl₂
+069: Nhận biết
+070: Nhận biết Titanium(IV)
+071: Titanium(IV) có thể được nhận biết bằng phản ứng với Hydrogen peroxide trong môi trường acid, tạo phức màu vàng đặc trưng:
+072: Ti⁴⁺ + H₂O₂ → [TiO₂]²⁺ + 2H⁺
+073: Hiện tượng: Xuất hiện màu vàng đặc trưng của phức Titanium–peroxo.
+074: Phương trình
+075: Tác dụng với Oxygen
+076: Ti + O₂ → TiO₂
+077: Tác dụng với Chlorine
+078: Ti + 2Cl₂ → TiCl₄
+079: Tác dụng với Bromine
+080: Ti + 2Br₂ → TiBr₄
+081: Tác dụng với Nitrogen
+082: Ở nhiệt độ cao:
+083: 2Ti + N₂ → 2TiN
+084: Tác dụng với Carbon
+085: Ở nhiệt độ cao:
+086: Ti + C → TiC
+087: Tác dụng với Hydrochloric acid
+088: Ở điều kiện thích hợp:
+089: Ti + 4HCl → TiCl₄ + 2H₂↑
+090: Điều chế Titanium tetrachloride
+091: TiO₂ + 2C + 2Cl₂ → TiCl₄ + 2CO
+092: Khử Titanium tetrachloride
+093: TiCl₄ + 2Mg → Ti + 2MgCl₂
+094: Ứng dụng thực tế
+095: Hàng không và vũ trụ: Titanium alloys có độ bền cao, nhẹ và chịu nhiệt tốt nên được sử dụng trong máy bay và tàu vũ trụ.
+096: Y tế: Titanium và Titanium alloys được sử dụng trong một số dụng cụ và implant y tế nhờ khả năng chống ăn mòn và tương thích sinh học tốt.
+097: Công nghiệp hóa chất: Titanium được sử dụng trong các thiết bị cần khả năng chống ăn mòn cao.
+098: Sơn và chất màu: Titanium dioxide (TiO₂) là một chất màu trắng quan trọng, được sử dụng rộng rãi trong sơn, nhựa và giấy.
+099: Đồ dùng và thể thao: Titanium alloys được sử dụng trong một số sản phẩm yêu cầu nhẹ và bền.
+100: Luyện kim: Titanium được sử dụng làm nguyên tố hợp kim để cải thiện tính chất của một số vật liệu.
+101: Tổng quan
+102: Titanium là nguyên tố số 22, thuộc nhóm IVB | chu kỳ 4 và là một kim loại chuyển tiếp.
+103: Titanium có cấu hình electron [Ar] 3d² 4s², với các số Oxy hóa phổ biến là +2, +3 và +4, trong đó +4 là trạng thái phổ biến nhất.
+104: Titanium có độ bền cao, khối lượng riêng tương đối thấp và khả năng chống ăn mòn tốt nhờ hình thành lớp Titanium dioxide bảo vệ trên bề mặt.
+105: Titanium được khai thác chủ yếu từ các khoáng vật như Rutile và Ilmenite. Kim loại Titanium được sản xuất công nghiệp chủ yếu bằng quy trình Kroll.
+106: Titanium và các hợp chất của nó có vai trò quan trọng trong hàng không–vũ trụ, y tế, công nghiệp hóa chất, sản xuất chất màu và chế tạo hợp kim.

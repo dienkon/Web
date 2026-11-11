@@ -1,0 +1,101 @@
+001: Promethium (Pm)
+002: Thông tin chung
+003: Tên Latin: Promethium
+004: Tên Tiếng Anh: Promethium
+005: Đồng vị: ¹⁴⁵Pm, ¹⁴⁶Pm, ¹⁴⁷Pm, ¹⁴⁸Pm, ¹⁴⁹Pm, ¹⁵¹Pm
+006: Vị trí: Nhóm IIIB | Chu kỳ 6 | Họ Lanthanide
+007: Số Oxy hóa: +3
+008: Độ âm điện: 1,13 (Pauling, giá trị ước tính)
+009: Lịch sử khám phá
+010: Phát hiện bởi: Jacob A. Marinsky, Lawrence E. Glendenin và Charles D. Coryell
+011: Năm công bố: 1945
+012: Nơi khám phá: Oak Ridge, Tennessee, Hoa Kỳ
+013: Mô tả: Promethium được phát hiện khi nhóm nghiên cứu phân tích các sản phẩm phân hạch của Uranium tại Oak Ridge. Họ đã tách và xác định một nguyên tố đất hiếm mới, có số hiệu nguyên tử 61.
+014: Promethium là nguyên tố Lanthanide duy nhất không có đồng vị bền và không tồn tại tự nhiên với lượng đáng kể.
+015: Tên Promethium được đặt theo Prometheus, vị thần trong thần thoại Hy Lạp, người đã lấy lửa từ các vị thần đem cho con người.
+016: 3. Cấu tạo
+017: a. Cấu tạo nguyên tử
+018: Cấu hình electron: [Xe] 4f⁵ 6s²
+019: Mô hình mạng tinh thể: Lục phương xếp chặt (Hexagonal close-packed, HCP)
+020: Số hiệu nguyên tử: 61
+021: Nguyên tử khối: [145] g/mol
+022: Vỏ nguyên tử: 61 electron
+023: Hạt nhân: 61 proton
+024: Cấu hình e đầy đủ: 1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰ 4p⁶ 5s² 4d¹⁰ 5p⁶ 4f⁵ 6s²
+025: Loại mạng: Lục phương xếp chặt (HCP)
+026: b. Trạng thái tự nhiên
+027: Trạng thái: Chất rắn
+028: Màu sắc: Trắng bạc
+029: Có trong: Không tồn tại tự nhiên với lượng đáng kể. Một lượng cực nhỏ có thể hình thành tự nhiên từ quá trình phân hạch Uranium và sự phân rã của các hạt nhân khác.
+030: Đơn chất: Pm
+031: Hợp chất phổ biến: Pm₂O₃, PmCl₃, Pm(OH)₃
+032: c. Đồng vị
+033: Promethium không có đồng vị bền.
+034: Có khoảng gần 40 đồng vị của Promethium đã được biết đến, trong đó:
+035: ¹⁴⁵Pm: chu kỳ bán rã khoảng 17,7 năm.
+036: ¹⁴⁶Pm: chu kỳ bán rã khoảng 5,53 năm.
+037: ¹⁴⁷Pm: chu kỳ bán rã khoảng 2,62 năm, là đồng vị được sử dụng nhiều nhất.
+038: ¹⁴⁸Pm: chu kỳ bán rã khoảng 5,37 ngày.
+039: ¹⁴⁹Pm: chu kỳ bán rã khoảng 53,1 giờ.
+040: ¹⁵¹Pm: chu kỳ bán rã khoảng 28 giờ.
+041: ¹⁴⁷Pm là đồng vị quan trọng nhất về mặt ứng dụng.
+042: Tính chất
+043: Tính chất vật lý
+044: Là kim loại đất hiếm.
+045: Thuộc họ Lanthanide.
+046: Có màu trắng bạc.
+047: Là nguyên tố phóng xạ.
+048: Có tính thuận từ.
+049: Khá mềm.
+050: Có nhiệt độ nóng chảy khoảng 1042 °C.
+051: Có nhiệt độ sôi khoảng 3000 °C.
+052: Khối lượng riêng khoảng 6,48 g/cm³.
+053: Tính chất hóa học
+054: Số Oxy hóa đặc trưng và gần như duy nhất là +3.
+055: Tạo ion Pm³⁺ trong các hợp chất.
+056: Có tính chất hóa học tương tự các Lanthanide lân cận như Neodymium và Samarium.
+057: Phản ứng với Oxygen:
+058: 4Pm + 3O₂ → 2Pm₂O₃
+059: Phản ứng với Acid tạo muối Promethium(III) và giải phóng Hydrogen.
+060: Điều chế
+061: Điều chế trong công nghiệp
+062: Promethium (Pm) không có nguồn quặng tự nhiên đáng kể do tất cả các đồng vị đều phóng xạ. Nguyên tố này chủ yếu được thu hồi từ các sản phẩm phân hạch của Uranium trong lò phản ứng hạt nhân.
+063: Promethium có thể được tạo ra từ sự phân hạch của Uranium-235:
+064: ²³⁵U + ¹n → ¹⁴⁷Pm + sản phẩm phân hạch khác
+065: Promethium được tách khỏi hỗn hợp sản phẩm phóng xạ bằng các phương pháp chuyên dụng.
+066: Điều chế trong phòng thí nghiệm
+067: Promethium có thể được tạo ra bằng phản ứng hạt nhân, chẳng hạn chiếu xạ Neodymium-146 bằng neutron:
+068: ¹⁴⁶Nd + ¹n → ¹⁴⁷Nd
+069: Sau đó, Neodymium-147 phân rã beta thành Promethium-147:
+070: ¹⁴⁷Nd → ¹⁴⁷Pm + β⁻
+071: Nhận biết
+072: Có thể nhận biết Promethium bằng:
+073: Phổ phát xạ nguyên tử.
+074: ICP-MS.
+075: Đo phóng xạ Beta.
+076: Xác định chu kỳ bán rã và năng lượng bức xạ đặc trưng.
+077: Phân tích các sản phẩm phân rã.
+078: Promethium đặc biệt dễ được phân biệt với các Lanthanide bền khác nhờ tính phóng xạ.
+079: Phương trình
+080: Tác dụng với Oxygen
+081: 4Pm + 3O₂ → 2Pm₂O₃
+082: Tác dụng với Hydrochloric acid
+083: 2Pm + 6HCl → 2PmCl₃ + 3H₂
+084: Tạo Promethium(III) hydroxide
+085: PmCl₃ + 3NaOH → Pm(OH)₃↓ + 3NaCl
+086: Điều chế Promethium-147
+087: ¹⁴⁶Nd + n → ¹⁴⁷Nd → ¹⁴⁷Pm + β⁻
+088: Phân rã Beta của Promethium-147
+089: ¹⁴⁷Pm → ¹⁴⁷Sm + β⁻
+090: Ứng dụng thực tế
+091: Nguồn phóng xạ: Promethium-147 phát ra bức xạ Beta và từng được sử dụng làm nguồn năng lượng cho các thiết bị đặc biệt.
+092: Pin hạt nhân: Pm-147 có thể được sử dụng trong một số loại nuclear battery và nguồn năng lượng phóng xạ công suất nhỏ.
+093: Thiết bị đo độ dày: Nguồn Pm-147 từng được sử dụng trong các thiết bị đo độ dày vật liệu công nghiệp.
+094: Nghiên cứu: Promethium được sử dụng để nghiên cứu tính chất của Lanthanide và các quá trình phóng xạ.
+095: Do tính phóng xạ và độ hiếm, ứng dụng của Promethium rất hạn chế.
+096: Tổng quan
+097: Promethium là nguyên tố số 61, thuộc nhóm IIIB | chu kỳ 6 và là nguyên tố thứ năm trong họ Lanthanide.
+098: Promethium được Jacob A. Marinsky, Lawrence E. Glendenin và Charles D. Coryell phát hiện vào năm 1945 tại Oak Ridge, Hoa Kỳ. Tên nguyên tố được đặt theo Prometheus trong thần thoại Hy Lạp.
+099: Đây là Lanthanide duy nhất không có đồng vị bền. Promethium có số Oxy hóa đặc trưng là +3 và có tính chất hóa học tương tự các Lanthanide lân cận.
+100: Đồng vị quan trọng nhất là Promethium-147, có chu kỳ bán rã khoảng 2,62 năm và phát ra bức xạ Beta. Nó từng được sử dụng trong nguồn phóng xạ, pin hạt nhân và thiết bị đo độ dày.
+101: Mạng tinh thể: Lục phương xếp chặt (HCP) ở điều kiện thường.

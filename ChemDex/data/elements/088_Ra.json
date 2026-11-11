@@ -1,0 +1,425 @@
+{
+  "number": 88,
+  "symbol": "Ra",
+  "nameVi": "Radium",
+  "nameEn": "Radium",
+  "mass": 226,
+  "massStandardText": "[226] — số khối đồng vị tham chiếu, không phải nguyên tử khối chuẩn",
+  "massStandardSource": "https://periodic-table.rsc.org/element/88/radium",
+  "massKind": "reference-isotope-mass-number",
+  "category": "kiem-tho",
+  "hasData": true,
+  "file": "elements/088_Ra.json",
+  "general": {
+    "latinName": "Radium",
+    "englishName": "Radium",
+    "electronConfig": "[Rn] 7s²",
+    "isotope": "²²³Ra, ²²⁴Ra, ²²⁶Ra, ²²⁸Ra",
+    "group": 2,
+    "groupLabel": "2",
+    "series": "",
+    "period": 7,
+    "state": "Rắn",
+    "oxidation": "+2",
+    "electronegativity": 0.9,
+    "electronegativityNote": "Thang Pauling; số liệu tổng hợp PubChem.",
+    "density": "khoảng 5.5 g/cm³.",
+    "meltingPoint": "khoảng 700 °C.",
+    "boilingPoint": "khoảng 1737 °C.",
+    "crystalStructure": "Lập phương tâm khối (Body-centered cubic, BCC)",
+    "CAS": "7440-14-4"
+  },
+  "history": {
+    "discoverer": "Marie Curie và Pierre Curie",
+    "year": "1898",
+    "discoveryLocation": "Pháp",
+    "description": "Radium được Marie Curie và Pierre Curie phát hiện vào năm 1898 khi nghiên cứu quặng Uraninite. Họ nhận thấy quặng Uranium có tính phóng xạ mạnh hơn dự kiến và sau quá trình xử lý, đã phát hiện một nguyên tố phóng xạ mới. Tên Radium bắt nguồn từ tiếng Latin radius, nghĩa là “tia”, dựa trên tính phóng xạ mạnh của nguyên tố."
+  },
+  "structure": {
+    "protons": 88,
+    "electrons": 88,
+    "neutrons": 138,
+    "nucleusIsotope": "²²⁶Ra",
+    "nucleusNote": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác.",
+    "nucleus": {
+      "proton": 88,
+      "neutron": 138
+    },
+    "electronShells": [
+      2,
+      8,
+      18,
+      32,
+      18,
+      8,
+      2
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      32,
+      18,
+      8,
+      2
+    ],
+    "valenceElectrons": 2,
+    "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
+    "lattice": "Lập phương tâm khối (Body-centered cubic, BCC)",
+    "latticeEvidence": "source-reviewed"
+  },
+  "structureType": "Lập phương tâm khối (Body-centered cubic, BCC)",
+  "occurrence": {
+    "description": "Kim loại rắn, màu trắng bạc.",
+    "simple": [
+      "Ra"
+    ],
+    "compounds": [
+      "RaO",
+      "Ra(OH)₂",
+      "RaCl₂",
+      "RaSO₄"
+    ],
+    "ores": [
+      "Tồn tại với lượng rất nhỏ trong các quặng Uranium",
+      "đặc biệt là Uraninite"
+    ],
+    "details": [
+      "Trạng thái: Kim loại rắn, màu trắng bạc.",
+      "Có trong: Tồn tại với lượng rất nhỏ trong các quặng Uranium, đặc biệt là Uraninite.",
+      "Đơn chất: Ra",
+      "Hợp chất: RaO, Ra(OH)₂, RaCl₂, RaSO₄..."
+    ],
+    "mineral": {
+      "available": true,
+      "id": "uraninite",
+      "name": "Uraninite",
+      "formula": "UO₂₊ₓ (có sản phẩm phân rã và tạp chất)",
+      "habit": "cubic",
+      "color": "#45534a",
+      "crystalSystem": "cubic",
+      "relation": "Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố.",
+      "source": "https://www.handbookofmineralogy.org/",
+      "sourceSearch": "https://rruff.info/Uraninite",
+      "model": "/assets/periodic-table/minerals/uraninite.glb",
+      "preview": "/assets/periodic-table/minerals/uraninite.png",
+      "disclaimer": "Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  },
+  "naturalState": {
+    "image": "/assets/periodic-table/photos/088_Ra.jpg",
+    "alt": "Radium: ảnh tham chiếu từ Commons",
+    "kind": "photo",
+    "source": "https://commons.wikimedia.org/wiki/File:Radium226.jpg",
+    "caption": "Một lượng rất nhỏ radium mạ trên lá copper, có lớp phủ bảo vệ.",
+    "credit": "grenadier · CC BY 3.0"
+  },
+  "isotopes": [
+    {
+      "isotope": "²²³Ra",
+      "massNumber": 223,
+      "protons": 88,
+      "neutrons": 135,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "11.43 ± 0.05 d",
+      "halfLife": "11.43 d",
+      "halfLifeUncertainty": "5",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²²⁴Ra",
+      "massNumber": 224,
+      "protons": 88,
+      "neutrons": 136,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "3.6316 ± 0.0023 d",
+      "halfLife": "3.6316 d",
+      "halfLifeUncertainty": "23",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²²⁶Ra",
+      "massNumber": 226,
+      "protons": 88,
+      "neutrons": 138,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "1600 ± 7 năm",
+      "halfLife": "1600 Y",
+      "halfLifeUncertainty": "7",
+      "halfLifeQualifier": null,
+      "decay": "A",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    },
+    {
+      "isotope": "²²⁸Ra",
+      "massNumber": 228,
+      "protons": 88,
+      "neutrons": 140,
+      "stable": false,
+      "abundancePercent": null,
+      "halfLifeDisplay": "5.75 ± 0.03 năm",
+      "halfLife": "5.75 Y",
+      "halfLifeUncertainty": "3",
+      "halfLifeQualifier": null,
+      "decay": "B-",
+      "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+      "note": ""
+    }
+  ],
+  "isotopeNote": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng.",
+  "physical": "<ul class=\"element-prose-list\"><li>Là kim loại kiềm thổ.</li><li>Có tính phóng xạ mạnh.</li><li>Kim loại tinh khiết có màu trắng bạc nhưng nhanh chóng bị xỉn màu trong không khí.</li><li>Là chất rắn ở điều kiện thường.</li><li>Khối lượng riêng: khoảng 5.5 g/cm³.</li><li>Nhiệt độ nóng chảy: khoảng 700 °C.</li><li>Nhiệt độ sôi: khoảng 1737 °C.</li><li>Radium và các hợp chất của nó có thể phát sáng yếu do bức xạ.</li></ul>",
+  "chemical": "<ul class=\"element-prose-list\"><li>Có 2 electron hóa trị.</li><li>Số Oxy hóa đặc trưng: +2.</li><li>Có tính chất hóa học tương tự các kim loại kiềm thổ khác, đặc biệt là Barium.</li><li>Phản ứng với nước tạo Radium hydroxide và Hydrogen.</li><li>Phản ứng với Halogen tạo muối Radium.</li><li>Tạo các hợp chất ion như RaCl₂ và RaSO₄.</li></ul>",
+  "reactions": [
+    {
+      "type": "Phân rã của Radium-226",
+      "desc": "",
+      "equation": "²²⁶Ra → ²²²Rn + ⁴He",
+      "condition": "Phân rã phóng xạ tự phát; chu kỳ bán rã phụ thuộc đồng vị.",
+      "kind": "nuclear",
+      "sourceLine": 73,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "nuclear",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tác dụng với Oxygen",
+      "desc": "",
+      "equation": "2Ra + O₂ → 2RaO",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 75,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tác dụng với nước",
+      "desc": "",
+      "equation": "Ra + 2H₂O → Ra(OH)₂ + H₂↑",
+      "condition": "Tiếp xúc với nước; tốc độ phụ thuộc nhiệt độ, kích thước và lớp oxide bề mặt.",
+      "kind": "chemical",
+      "sourceLine": 77,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "desc": "",
+      "equation": "Ra + Cl₂ → RaCl₂",
+      "condition": "Chất đầu khan, tiếp xúc halogen có kiểm soát; thường gia nhiệt, sản phẩm phụ thuộc tỉ lệ và nhiệt độ.",
+      "kind": "chemical",
+      "sourceLine": 79,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tác dụng với Sulfuric acid",
+      "desc": "",
+      "equation": "Ra + H₂SO₄ → RaSO₄↓ + H₂↑",
+      "condition": "Dung dịch acid loãng, không oxi hóa; bề mặt kim loại phải tiếp xúc được với acid.",
+      "kind": "chemical",
+      "sourceLine": 81,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "type": "Tạo Radium sulfate",
+      "desc": "",
+      "equation": "Ra²⁺ + SO₄²⁻ → RaSO₄↓",
+      "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+      "kind": "chemical",
+      "sourceLine": 83,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "preparations": {
+    "lab": [
+      {
+        "title": "Radium có thể được tách từ các mẫu quặng Uranium hoặc vật liệu chứa Radium bằng những quy trình hóa học chuyên dụng. Không có phương pháp tổng hợp hóa học thông thường để tạo ra Radium từ các nguyên tố khác.",
+        "desc": "",
+        "result": "",
+        "equations": [],
+        "sourceLines": [
+          64
+        ],
+        "equation": ""
+      }
+    ],
+    "industry": [
+      {
+        "title": "Radium (Ra) không được sản xuất công nghiệp phổ biến. Trước đây, nguyên tố này được thu hồi từ quặng Uranium, đặc biệt là Uraninite (pitchblende), nơi Radium tồn tại với lượng rất nhỏ dưới dạng sản phẩm phân rã phóng xạ.",
+        "desc": "Quặng được xử lý để tách Radium khỏi các nguyên tố khác, thường thông qua quá trình kết tủa và tinh chế muối Radium. Một phản ứng kết tủa minh họa:",
+        "result": "",
+        "equations": [
+          {
+            "equation": "Ra²⁺ + SO₄²⁻ → RaSO₄↓",
+            "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+            "kind": "chemical",
+            "sourceLine": 62,
+            "sourceSection": "industry",
+            "balance": {
+              "status": "balanced",
+              "kind": "chemical",
+              "delta": {}
+            },
+            "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+          }
+        ],
+        "sourceLines": [
+          59,
+          60,
+          61,
+          62
+        ],
+        "equation": "Ra²⁺ + SO₄²⁻ → RaSO₄↓"
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Radium được nhận biết chủ yếu dựa vào tính phóng xạ.",
+      "desc": "Về mặt hóa học, ion Ra²⁺ có tính chất tương tự Ba²⁺ và có thể tạo các muối ít tan như Radium sulfate: Tuy nhiên, việc nhận biết Radium trong thực tế chủ yếu sử dụng phương pháp đo phóng xạ, vì lượng Radium tự nhiên rất nhỏ.",
+      "result": "Tạo kết tủa Radium sulfate.",
+      "equations": [
+        {
+          "equation": "Ra²⁺ + SO₄²⁻ → RaSO₄↓",
+          "condition": "Dung dịch nước; pH, nồng độ và ion gây nhiễu ảnh hưởng kết tủa/cân bằng.",
+          "kind": "chemical",
+          "sourceLine": 68,
+          "sourceSection": "recognition",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ],
+      "sourceLines": [
+        66,
+        67,
+        68,
+        69,
+        70
+      ],
+      "equation": "Ra²⁺ + SO₄²⁻ → RaSO₄↓"
+    }
+  ],
+  "applications": [
+    {
+      "title": "Y học lịch sử",
+      "desc": "Radium từng được sử dụng trong xạ trị để điều trị một số bệnh, đặc biệt là ung thư. Ngày nay nhiều ứng dụng đã được thay thế bằng các nguồn phóng xạ và công nghệ an toàn hơn.",
+      "sourceLine": 85
+    },
+    {
+      "title": "Sơn phát quang",
+      "desc": "Trong thế kỷ XX, Radium từng được sử dụng trong sơn phát quang cho đồng hồ và thiết bị đo. Ứng dụng này hiện đã bị loại bỏ do nguy cơ phóng xạ.",
+      "sourceLine": 86
+    },
+    {
+      "title": "Nghiên cứu",
+      "desc": "Radium được sử dụng trong nghiên cứu phóng xạ và chuỗi phân rã tự nhiên.",
+      "sourceLine": 87
+    },
+    {
+      "title": "Nguồn Radon",
+      "desc": "²²⁶Ra có thể được sử dụng làm nguồn tạo Radon trong một số nghiên cứu chuyên môn.",
+      "sourceLine": 88
+    }
+  ],
+  "notes": "<ul class=\"element-prose-list\"><li>Radium là nguyên tố số 88, thuộc nhóm IIA | chu kỳ 7 và là một kim loại kiềm thổ phóng xạ.</li><li>Radium có cấu hình electron [Rn] 7s², với số Oxy hóa đặc trưng là +2. Đồng vị tự nhiên quan trọng nhất là ²²⁶Ra, có chu kỳ bán rã khoảng 1600 năm.</li><li>Radium được Marie Curie và Pierre Curie phát hiện năm 1898. Đây là một trong những nguyên tố đóng vai trò quan trọng trong lịch sử nghiên cứu phóng xạ.</li><li>Mạng tinh thể: Lập phương tâm khối (BCC).</li><li>Do tính phóng xạ mạnh, Radium hiện nay chủ yếu được sử dụng trong nghiên cứu khoa học, trong khi các ứng dụng y học và vật liệu phát quang trước đây phần lớn đã được thay thế bằng công nghệ an toàn hơn.</li></ul>",
+  "images": [
+    {
+      "src": "/assets/periodic-table/photos/088_Ra.jpg",
+      "title": "Radium (Ra)",
+      "desc": "Một lượng rất nhỏ radium mạ trên lá copper, có lớp phủ bảo vệ.",
+      "source": "https://commons.wikimedia.org/wiki/File:Radium226.jpg",
+      "author": "grenadier",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0"
+    }
+  ],
+  "mediaBlocks": [
+    {
+      "type": "model",
+      "section": "structure",
+      "title": "Mẫu khoáng vật 3D · Uraninite",
+      "src": "/assets/periodic-table/minerals/uraninite.glb",
+      "preview": "/assets/periodic-table/minerals/uraninite.png",
+      "desc": "UO₂₊ₓ (có sản phẩm phân rã và tạp chất). Khoáng vật chứa nguyên tố dưới dạng thay thế, tạp chất hoặc sản phẩm phân rã; không phải quặng riêng của nguyên tố. Mô hình hình thái tinh thể được ChemDex dựng bằng hình học: minh họa hình dáng, màu sắc gần đúng; không phải ảnh quét mẫu thật, không theo tỉ lệ và không biểu diễn tọa độ mạng tinh thể thực nghiệm."
+    }
+  ],
+  "sources": [
+    {
+      "title": "088_Ra.docx — tài liệu người dùng",
+      "url": "",
+      "sha256": "ca990abafc5596a4f0f2ee85b2e8f0edfb0900e316fe88e3f93f140ea8a42e3e"
+    },
+    {
+      "title": "Royal Society of Chemistry — thông tin nguyên tố",
+      "url": "https://periodic-table.rsc.org/element/88/radium"
+    },
+    {
+      "title": "PubChem — dữ liệu bảng tuần hoàn",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+    },
+    {
+      "title": "CIAAW — nguyên tử khối chuẩn",
+      "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "title": "IAEA — thông số hạt nhân",
+      "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+    },
+    {
+      "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+      "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    }
+  ],
+  "review": {
+    "date": "2026-11-11",
+    "sourceFile": "088_Ra.docx",
+    "sourceSha256": "ca990abafc5596a4f0f2ee85b2e8f0edfb0900e316fe88e3f93f140ea8a42e3e",
+    "auditFile": "docs/periodic-table-audit/2026-11-11/files/088_Ra.md",
+    "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+  }
+}

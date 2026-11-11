@@ -1,0 +1,102 @@
+001: Plutonium (Pu)
+002: Thông tin chung
+003: Tên Latin: Plutonium
+004: Tên Tiếng Anh: Plutonium
+005: Đồng vị: ²³⁸Pu, ²³⁹Pu, ²⁴⁰Pu, ²⁴¹Pu, ²⁴²Pu, ²⁴⁴Pu
+006: Vị trí: Nhóm IIIB | Chu kỳ 7 | Họ Actinide
+007: Số Oxy hóa: +3, +4, +5, +6, +7
+008: Độ âm điện: 1,28 (Pauling)
+009: Lịch sử khám phá
+010: Phát hiện bởi: Glenn T. Seaborg, Arthur Wahl, Joseph W. Kennedy và Edwin McMillan
+011: Năm công bố: 1940
+012: Nơi khám phá: Berkeley, California, Hoa Kỳ
+013: Mô tả: Plutonium được tạo ra lần đầu tiên vào tháng 12 năm 1940 bằng cách bắn phá Uranium-238 bằng Deuteron. Quá trình này tạo ra Neptunium-238, sau đó phân rã beta thành Plutonium-238.
+014: ²³⁸U + ²H → ²³⁸Np + 2n
+015: ²³⁸Np → ²³⁸Pu + β⁻
+016: Tên Plutonium được đặt theo Pluto, tiếp nối cách đặt tên của Uranium và Neptunium theo các thiên thể.
+017: 3. Cấu tạo
+018: a. Cấu tạo nguyên tử
+019: Cấu hình electron: [Rn] 5f⁶ 7s²
+020: Mô hình mạng tinh thể: Đơn tà (Monoclinic, pha α-Pu) ở điều kiện thường
+021: Số hiệu nguyên tử: 94
+022: Nguyên tử khối: 244,0642 g/mol (giá trị quy ước cho đồng vị ²⁴⁴Pu)
+023: Vỏ nguyên tử: 94 electron
+024: Hạt nhân: 94 proton
+025: Cấu hình e đầy đủ: [Rn] 5f⁶ 7s²
+026: Loại mạng: Đơn tà (Monoclinic) ở điều kiện thường.
+027: b. Trạng thái tự nhiên
+028: Trạng thái: Chất rắn
+029: Màu sắc: Bạc xám
+030: Có trong: Chỉ tồn tại với lượng cực kỳ nhỏ trong tự nhiên; phần lớn Plutonium được sản xuất nhân tạo.
+031: Đơn chất: Pu
+032: Hợp chất phổ biến: PuO₂, Pu₂O₃, PuCl₃, PuCl₄, PuF₄
+033: c. Đồng vị
+034: Plutonium có nhiều đồng vị phóng xạ. Một số đồng vị quan trọng:
+035: ²³⁸Pu: chu kỳ bán rã khoảng 87,7 năm; phát alpha mạnh.
+036: ²³⁹Pu: chu kỳ bán rã khoảng 24.110 năm; có khả năng phân hạch.
+037: ²⁴⁰Pu: chu kỳ bán rã khoảng 6.560 năm.
+038: ²⁴¹Pu: chu kỳ bán rã khoảng 14,3 năm.
+039: ²⁴²Pu: chu kỳ bán rã khoảng 373.000 năm.
+040: Không có đồng vị Plutonium nào bền.
+041: Tính chất
+042: Tính chất vật lý
+043: Là kim loại phóng xạ.
+044: Thuộc họ Actinide.
+045: Có màu bạc xám khi bề mặt mới.
+046: Có nhiều dạng thù hình với cấu trúc tinh thể khác nhau.
+047: Khối lượng riêng thay đổi đáng kể tùy pha.
+048: Có nhiệt độ nóng chảy khoảng 639 °C.
+049: Có nhiệt độ sôi khoảng 3228 °C.
+050: Có tính phóng xạ và tỏa nhiệt do quá trình phân rã.
+051: Tính chất hóa học
+052: Plutonium có nhiều trạng thái Oxy hóa:
+053: +3
+054: +4
+055: +5
+056: +6
+057: +7
+058: Trong đó +3, +4, +5 và +6 thường gặp hơn.
+059: Plutonium dễ phản ứng với Oxygen tạo các oxide khác nhau. Một oxide quan trọng là Plutonium dioxide (PuO₂):
+060: Pu + O₂ → PuO₂
+061: Plutonium cũng có thể tạo nhiều hợp chất với Halogen như Chlorine và Fluorine.
+062: Điều chế
+063: Điều chế trong công nghiệp
+064: Plutonium (Pu) chủ yếu được tạo ra trong lò phản ứng hạt nhân khi Uranium-238 hấp thụ neutron, tạo Uranium-239 rồi trải qua hai lần phân rã beta để hình thành Plutonium-239.
+065: Phương trình hạt nhân:
+066: ²³⁸U + ¹n → ²³⁹U
+067: ²³⁹U → ²³⁹Np + β⁻
+068: ²³⁹Np → ²³⁹Pu + β⁻
+069: Plutonium được thu hồi từ nhiên liệu hạt nhân đã qua sử dụng trong các cơ sở chuyên dụng.
+070: Điều chế trong phòng thí nghiệm
+071: Plutonium không được điều chế bằng phản ứng hóa học thông thường. Việc tạo ra và tách nguyên tố này chỉ diễn ra trong các cơ sở hạt nhân được kiểm soát nghiêm ngặt.
+072: Nhận biết
+073: Có thể nhận biết Plutonium bằng:
+074: Phổ alpha.
+075: Phổ gamma.
+076: Đo hoạt độ phóng xạ.
+077: ICP-MS và các phương pháp phân tích đồng vị.
+078: Phân tích trạng thái Oxy hóa.
+079: Mỗi đồng vị Plutonium có đặc trưng phóng xạ và chu kỳ bán rã riêng, giúp xác định thành phần đồng vị.
+080: Phương trình
+081: Tạo Plutonium-239 từ Uranium-238
+082: ²³⁸U + n → ²³⁹U
+083: ²³⁹U → ²³⁹Np + β⁻
+084: ²³⁹Np → ²³⁹Pu + β⁻
+085: Tác dụng với Oxygen
+086: Pu + O₂ → PuO₂
+087: Phân rã Alpha của Plutonium-239
+088: ²³⁹Pu → ²³⁵U + α
+089: Phân rã Alpha của Plutonium-238
+090: ²³⁸Pu → ²³⁴U + α
+091: Ứng dụng thực tế
+092: Năng lượng hạt nhân: Một số đồng vị Plutonium, đặc biệt ²³⁹Pu, có khả năng phân hạch và có thể được sử dụng trong nhiên liệu hạt nhân trong các hệ thống được quản lý nghiêm ngặt.
+093: Nguồn năng lượng cho tàu vũ trụ: ²³⁸Pu được sử dụng trong Radioisotope Thermoelectric Generator (RTG) để cung cấp điện cho một số tàu thăm dò và thiết bị không gian. Nhiệt sinh ra từ quá trình phân rã phóng xạ được chuyển thành điện năng.
+094: Nghiên cứu khoa học: Plutonium được sử dụng để nghiên cứu vật lý hạt nhân, hóa học Actinide và tính chất vật liệu phóng xạ.
+095: Định tuổi và truy vết môi trường: Một số đồng vị Plutonium có thể được sử dụng làm chất đánh dấu trong nghiên cứu môi trường và lịch sử phát tán vật liệu phóng xạ.
+096: Tổng quan
+097: Plutonium là nguyên tố số 94, thuộc nhóm IIIB | chu kỳ 7 và là nguyên tố thứ sáu trong họ Actinide.
+098: Plutonium được Glenn T. Seaborg, Arthur Wahl, Joseph W. Kennedy và Edwin McMillan phát hiện vào năm 1940 tại Berkeley, Hoa Kỳ. Tên nguyên tố được đặt theo Pluto, tiếp nối Uranium và Neptunium.
+099: Plutonium là một kim loại phóng xạ, có nhiều dạng thù hình và nhiều trạng thái Oxy hóa. Trong số các đồng vị của nó, ²³⁸Pu nổi bật với khả năng tạo nhiệt lâu dài thông qua phân rã alpha, còn ²³⁹Pu có tính chất phân hạch quan trọng.
+100: Ứng dụng dân sự nổi bật nhất của Plutonium là ²³⁸Pu trong RTG, cung cấp năng lượng cho các thiết bị không gian trong thời gian dài. Plutonium cũng có vai trò trong nghiên cứu hạt nhân và công nghệ năng lượng.
+101: Do tính phóng xạ cao và những yêu cầu an toàn đặc biệt, Plutonium được quản lý rất nghiêm ngặt và không phải là vật liệu sử dụng thông thường.
+102: Mạng tinh thể: Đơn tà (Monoclinic, pha α-Pu) ở điều kiện thường.

@@ -1,0 +1,97 @@
+001: Europium (Eu)
+002: Thông tin chung
+003: Tên Latin: Europium
+004: Tên Tiếng Anh: Europium
+005: Đồng vị: ¹⁵¹Eu, ¹⁵³Eu
+006: Vị trí: Nhóm IIIB | Chu kỳ 6 | Họ Lanthanide
+007: Số Oxy hóa: +2, +3
+008: Độ âm điện: 1,20 (Pauling)
+009: Lịch sử khám phá
+010: Phát hiện bởi: Eugène-Anatole Demarçay
+011: Năm công bố: 1901
+012: Nơi khám phá: Pháp
+013: Mô tả: Năm 1892, Paul-Émile Lecoq de Boisbaudran nhận thấy một số vạch phổ bất thường trong Samarium. Sau đó, Eugène-Anatole Demarçay tiến hành nghiên cứu và tách được nguyên tố mới từ các mẫu Samarium.
+014: Năm 1901, Demarçay công bố việc phát hiện Europium.
+015: Tên Europium được đặt theo Europe (châu Âu).
+016: 3. Cấu tạo
+017: a. Cấu tạo nguyên tử
+018: Cấu hình electron: [Xe] 4f⁷ 6s²
+019: Mô hình mạng tinh thể: Lập phương tâm khối (Body-centered cubic, BCC)
+020: Số hiệu nguyên tử: 63
+021: Nguyên tử khối: 151,964 g/mol
+022: Vỏ nguyên tử: 63 electron
+023: Hạt nhân: 63 proton
+024: Cấu hình e đầy đủ: 1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰ 4p⁶ 5s² 4d¹⁰ 5p⁶ 4f⁷ 6s²
+025: Loại mạng: Lập phương tâm khối (BCC)
+026: b. Trạng thái tự nhiên
+027: Trạng thái: Chất rắn
+028: Màu sắc: Trắng bạc
+029: Có trong: Monazite, Bastnäsite và một số khoáng vật đất hiếm.
+030: Đơn chất: Eu
+031: Hợp chất phổ biến: Eu₂O₃, EuO, EuCl₂, EuCl₃
+032: c. Đồng vị
+033: Europium có 2 đồng vị tự nhiên:
+034: ¹⁵¹Eu: khoảng 47,8%, phóng xạ, chu kỳ bán rã khoảng 4,6 × 10¹⁸ năm.
+035: ¹⁵³Eu: khoảng 52,2%, được xem là bền về mặt thực nghiệm.
+036: Ngoài ra, Europium có nhiều đồng vị phóng xạ nhân tạo.
+037: Tính chất
+038: Tính chất vật lý
+039: Là kim loại đất hiếm.
+040: Thuộc họ Lanthanide.
+041: Có màu trắng bạc.
+042: Là một trong những Lanthanide hoạt động hóa học mạnh nhất.
+043: Khá mềm.
+044: Có tính thuận từ.
+045: Dễ bị oxy hóa trong không khí.
+046: Có nhiệt độ nóng chảy khoảng 822 °C.
+047: Có nhiệt độ sôi khoảng 1529 °C.
+048: Khối lượng riêng khoảng 5,24 g/cm³.
+049: Tính chất hóa học
+050: Europium có hai trạng thái Oxy hóa quan trọng:
+051: Eu²⁺ — tương đối ổn định do cấu hình 4f⁷ bán đầy.
+052: Eu³⁺ — trạng thái Oxy hóa phổ biến trong nhiều hợp chất.
+053: Europium phản ứng mạnh với Oxygen:
+054: 4Eu + 3O₂ → 2Eu₂O₃
+055: Europium cũng phản ứng với nước và Acid.
+056: Điều chế
+057: Điều chế trong công nghiệp
+058: Europium (Eu) chủ yếu được điều chế từ quặng monazite và bastnaesite. Sau khi tách khỏi hỗn hợp đất hiếm, Europium được thu bằng cách khử Europium(III) oxide bằng Lanthanum ở nhiệt độ cao.
+059: Phương trình:
+060: Eu₂O₃ + 2La → 2Eu + La₂O₃
+061: Europium thu được được tinh chế để loại bỏ tạp chất.
+062: Điều chế trong phòng thí nghiệm
+063: Có thể điều chế Europium bằng cách khử Europium chloride khan bằng Calcium.
+064: Phương trình:
+065: 2EuCl₃ + 3Ca → 2Eu + 3CaCl₂
+066: Nhận biết
+067: Có thể nhận biết Europium bằng:
+068: Phổ phát xạ nguyên tử.
+069: ICP-OES hoặc ICP-MS.
+070: Phổ hấp thụ đặc trưng của Eu²⁺ và Eu³⁺.
+071: Đặc tính phát quang rất mạnh của một số hợp chất Europium.
+072: Một trong những đặc điểm nổi bật là:
+073: Eu³⁺ thường tạo phát quang đỏ trong nhiều vật liệu phát quang.
+074: Eu²⁺ có thể tạo phát quang xanh lam hoặc xanh lục, tùy vật liệu chủ.
+075: Phương trình
+076: Tác dụng với Oxygen
+077: 4Eu + 3O₂ → 2Eu₂O₃
+078: Tác dụng với nước
+079: 2Eu + 6H₂O → 2Eu(OH)₃ + 3H₂
+080: Tác dụng với Hydrochloric acid
+081: 2Eu + 6HCl → 2EuCl₃ + 3H₂
+082: Tạo Europium(III) hydroxide
+083: EuCl₃ + 3NaOH → Eu(OH)₃↓ + 3NaCl
+084: Điều chế Europium
+085: EuCl₂ + Ca → Eu + CaCl₂
+086: Ứng dụng thực tế
+087: Màn hình và TV: Europium compounds là chất phát quang quan trọng, đặc biệt tạo màu đỏ trong màn hình và các hệ thống hiển thị.
+088: Đèn huỳnh quang: Europium được sử dụng trong phosphor để tạo ánh sáng màu đỏ và góp phần tạo ánh sáng trắng.
+089: LED: Các vật liệu phosphor chứa Europium được sử dụng trong một số loại LED trắng.
+090: Tiền giấy: Một số hợp chất Europium được sử dụng làm mực phát quang chống giả, giúp kiểm tra tiền giấy dưới tia UV.
+091: Laser: Một số vật liệu pha tạp Europium được nghiên cứu và sử dụng trong các ứng dụng quang học.
+092: Tổng quan
+093: Europium là nguyên tố số 63, thuộc nhóm IIIB | chu kỳ 6 và là nguyên tố thứ bảy trong họ Lanthanide.
+094: Europium được Eugène-Anatole Demarçay phát hiện và công bố vào năm 1901 tại Pháp. Tên nguyên tố được đặt theo Europe (châu Âu).
+095: Europium là kim loại đất hiếm màu trắng bạc và có tính hoạt động hóa học khá mạnh. Điểm đặc biệt của Europium là có thể tồn tại ở cả Eu²⁺ và Eu³⁺, trong đó Eu²⁺ tương đối ổn định nhờ cấu hình electron 4f⁷ bán đầy.
+096: Europium đặc biệt quan trọng trong công nghệ phát quang. Các hợp chất Europium được sử dụng để tạo màu đỏ, xanh lam và xanh lục, đóng vai trò trong màn hình, đèn huỳnh quang, LED và mực chống tiền giả.
+097: Mạng tinh thể: Lập phương tâm khối (BCC) ở điều kiện thường.

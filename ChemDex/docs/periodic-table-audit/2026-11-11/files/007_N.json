@@ -1,0 +1,1021 @@
+{
+  "symbol": "N",
+  "number": 7,
+  "source": "007_N.docx",
+  "sourceSha256": "b39df663f09728c7917722b26dd343543153622b6b9071632ac304157c6bed8a",
+  "paragraphCount": 100,
+  "sectionCounts": {
+    "title": 1,
+    "general": 6,
+    "history": 4,
+    "structure": 9,
+    "occurrence": 4,
+    "isotopes": 4,
+    "physical": 11,
+    "chemical": 8,
+    "lab": 5,
+    "industry": 2,
+    "recognition": 2,
+    "reactions": 16,
+    "applications": 8,
+    "notes": 4
+  },
+  "editorialDecisions": [
+    {
+      "line": 24,
+      "before": "Loại mạng: Lục phương (Hexagonal)",
+      "after": "Loại mạng: N₂ là khí ở điều kiện thường; pha α-N₂ rắn có cấu trúc lập phương và pha β-N₂ có cấu trúc lục phương.",
+      "reason": "Không gán một mạng lục phương cho nitrogen ở mọi trạng thái."
+    }
+  ],
+  "sourceFactComparisons": [
+    {
+      "field": "electronConfig",
+      "sourceText": "1s² 2s² 2p³",
+      "publishedValue": "[He] 2s² 2p³",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "crystalStructure",
+      "sourceText": "Lục phương (Hexagonal)",
+      "publishedValue": "N₂ là khí ở điều kiện thường; pha α-N₂ rắn có cấu trúc lập phương và pha β-N₂ có cấu trúc lục phương.",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "electronegativity",
+      "sourceText": "3.04",
+      "publishedValue": 3.04,
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "groupLabel",
+      "sourceText": "Nhóm VA | Chu kỳ 2",
+      "publishedValue": "15",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    },
+    {
+      "field": "state",
+      "sourceText": "Nitrogen là chất khí ở điều kiện thường và là thành phần chính của khí quyển Trái Đất. Nitrogen trong tự nhiên chủ yếu tồn tại dưới dạng phân tử N₂ và các hợp chất Nitrogen.",
+      "publishedValue": "Khí",
+      "reason": "Chuẩn hóa/đối chiếu theo nguồn được ghi trong hồ sơ; khác cách ghi không tự động có nghĩa bản nguồn sai."
+    }
+  ],
+  "isotopeComparisons": [
+    {
+      "line": 32,
+      "sourceText": "¹⁴N: Đồng vị bền, chiếm khoảng 99.63% Nitrogen tự nhiên.",
+      "reference": {
+        "isotope": "¹⁴N",
+        "massNumber": 14,
+        "protons": 7,
+        "neutrons": 7,
+        "stable": true,
+        "abundancePercent": "99.6205",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    },
+    {
+      "line": 33,
+      "sourceText": "¹⁵N: Đồng vị bền, chiếm khoảng 0.37%.",
+      "reference": {
+        "isotope": "¹⁵N",
+        "massNumber": 15,
+        "protons": 7,
+        "neutrons": 8,
+        "stable": true,
+        "abundancePercent": "0.3795",
+        "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+        "halfLife": "Bền (chưa quan sát phân rã)",
+        "halfLifeUncertainty": null,
+        "halfLifeQualifier": null,
+        "decay": null,
+        "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+        "note": ""
+      },
+      "assessment": "Dùng thông số tham chiếu bên cạnh; tỉ lệ gần đúng trong tài liệu có thể khác theo nguồn mẫu."
+    }
+  ],
+  "originalEquations": [
+    {
+      "line": 64,
+      "text": "NH4NO2 → N2 + 2H2O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 66,
+      "text": "NH4Cl + NaNO2 → N2 + NaCl + 2H2O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 72,
+      "text": "N2 + 3H2 ⇌ 2NH3",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 76,
+      "text": "N2 + O2 → 2NO",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 78,
+      "text": "6Li + N2 → 2Li3N",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 80,
+      "text": "3Ca + N2 → Ca3N2",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 82,
+      "text": "NH4NO2 → N2 + 2H2O",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 84,
+      "text": "2NO + O2 → 2NO2",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    },
+    {
+      "line": 86,
+      "text": "3NO2 + H2O → 2HNO3 + NO",
+      "status": "balanced",
+      "kind": "chemical",
+      "delta": {}
+    }
+  ],
+  "publishedEquations": [
+    {
+      "section": "lab",
+      "equation": "NH₄NO₂ → N₂ + 2H₂O",
+      "condition": "Gia nhiệt để phân hủy; nhiệt độ phụ thuộc chất và áp suất khí sản phẩm.",
+      "kind": "chemical",
+      "sourceLine": 64,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "lab",
+      "equation": "NH₄Cl + NaNO₂ → N₂ + NaCl + 2H₂O",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 66,
+      "sourceSection": "lab",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "N₂ + 3H₂ ⇌ 2NH₃",
+      "condition": "Xúc tác sắt, nhiệt độ và áp suất cao; phản ứng thuận nghịch (Haber–Bosch).",
+      "kind": "chemical",
+      "sourceLine": 72,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "N₂ + O₂ → 2NO",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 76,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "6Li + N₂ → 2Li₃N",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 78,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "3Ca + N₂ → Ca₃N₂",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 80,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "NH₄NO₂ → N₂ + 2H₂O",
+      "condition": "Gia nhiệt để phân hủy; nhiệt độ phụ thuộc chất và áp suất khí sản phẩm.",
+      "kind": "chemical",
+      "sourceLine": 82,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "2NO + O₂ → 2NO₂",
+      "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+      "kind": "chemical",
+      "sourceLine": 84,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    },
+    {
+      "section": "reactions",
+      "equation": "3NO₂ + H₂O → 2HNO₃ + NO",
+      "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+      "kind": "chemical",
+      "sourceLine": 86,
+      "sourceSection": "reactions",
+      "balance": {
+        "status": "balanced",
+        "kind": "chemical",
+        "delta": {}
+      },
+      "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+    }
+  ],
+  "unsupportedIsotopeNumbers": [],
+  "fieldChanges": [
+    {
+      "field": "applications",
+      "before": [
+        {
+          "title": "Sản xuất Ammonia",
+          "desc": "Nitrogen là nguyên liệu chính trong quy trình Haber-Bosch."
+        },
+        {
+          "title": "Sản xuất phân bón",
+          "desc": "Các hợp chất Nitrogen được sử dụng rộng rãi trong sản xuất phân bón."
+        },
+        {
+          "title": "Bảo quản thực phẩm",
+          "desc": "Nitrogen được sử dụng để tạo môi trường khí trơ, giúp hạn chế quá trình Oxy hóa."
+        },
+        {
+          "title": "Công nghiệp điện tử",
+          "desc": "Nitrogen được sử dụng làm khí bảo vệ trong một số quá trình sản xuất linh kiện."
+        },
+        {
+          "title": "Luyện kim",
+          "desc": "Nitrogen được sử dụng trong một số quá trình xử lý và sản xuất kim loại."
+        },
+        {
+          "title": "Nitrogen lỏng",
+          "desc": "Được sử dụng để làm lạnh, bảo quản mẫu sinh học và trong nhiều ứng dụng nhiệt độ thấp."
+        },
+        {
+          "title": "Công nghiệp hóa chất",
+          "desc": "Nitrogen được sử dụng làm khí trơ trong các quy trình cần hạn chế phản ứng với Oxygen."
+        },
+        {
+          "title": "Nghiên cứu khoa học",
+          "desc": "¹⁵N được sử dụng để nghiên cứu các quá trình sinh học, hóa học và chu trình Nitrogen."
+        }
+      ],
+      "after": [
+        {
+          "title": "Sản xuất Ammonia",
+          "desc": "Nitrogen là nguyên liệu chính trong quy trình Haber-Bosch.",
+          "sourceLine": 88
+        },
+        {
+          "title": "Sản xuất phân bón",
+          "desc": "Các hợp chất Nitrogen được sử dụng rộng rãi trong sản xuất phân bón.",
+          "sourceLine": 89
+        },
+        {
+          "title": "Bảo quản thực phẩm",
+          "desc": "Nitrogen được sử dụng để tạo môi trường khí trơ, giúp hạn chế quá trình Oxy hóa.",
+          "sourceLine": 90
+        },
+        {
+          "title": "Công nghiệp điện tử",
+          "desc": "Nitrogen được sử dụng làm khí bảo vệ trong một số quá trình sản xuất linh kiện.",
+          "sourceLine": 91
+        },
+        {
+          "title": "Luyện kim",
+          "desc": "Nitrogen được sử dụng trong một số quá trình xử lý và sản xuất kim loại.",
+          "sourceLine": 92
+        },
+        {
+          "title": "Nitrogen lỏng",
+          "desc": "Được sử dụng để làm lạnh, bảo quản mẫu sinh học và trong nhiều ứng dụng nhiệt độ thấp.",
+          "sourceLine": 93
+        },
+        {
+          "title": "Công nghiệp hóa chất",
+          "desc": "Nitrogen được sử dụng làm khí trơ trong các quy trình cần hạn chế phản ứng với Oxygen.",
+          "sourceLine": 94
+        },
+        {
+          "title": "Nghiên cứu khoa học",
+          "desc": "¹⁵N được sử dụng để nghiên cứu các quá trình sinh học, hóa học và chu trình Nitrogen.",
+          "sourceLine": 95
+        }
+      ]
+    },
+    {
+      "field": "chemical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là phi kim.</li>\n      <li>Có nhiều số Oxy hóa từ −3 đến +5.</li>\n      <li>N₂ tương đối trơ ở nhiệt độ thường do liên kết ba rất bền.</li>\n      <li>Phản ứng với Hydrogen ở nhiệt độ, áp suất và xúc tác thích hợp tạo Ammonia.</li>\n      <li>Phản ứng với Oxygen ở nhiệt độ rất cao tạo Nitrogen monoxide.</li>\n      <li>Phản ứng với một số kim loại hoạt động tạo Nitride.</li>\n      <li>Nitrogen tạo nhiều hợp chất quan trọng như Ammonia, Nitric acid và các Nitrogen oxide.</li>\n      <li>Là nguyên tố thiết yếu đối với sự sống.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Là phi kim.</li><li>Có nhiều số Oxy hóa từ −3 đến +5.</li><li>N₂ tương đối trơ ở nhiệt độ thường do liên kết ba rất bền.</li><li>Phản ứng với Hydrogen ở nhiệt độ, áp suất và xúc tác thích hợp tạo Ammonia.</li><li>Phản ứng với Oxygen ở nhiệt độ rất cao tạo Nitrogen monoxide.</li><li>Phản ứng với một số kim loại hoạt động tạo Nitride.</li><li>Nitrogen tạo nhiều hợp chất quan trọng như Ammonia, Nitric acid và các Nitrogen oxide.</li><li>Là nguyên tố thiết yếu đối với sự sống.</li></ul>"
+    },
+    {
+      "field": "general.CAS",
+      "before": null,
+      "after": "7727-37-9"
+    },
+    {
+      "field": "general.crystalStructure",
+      "before": "Lục phương (Hexagonal)",
+      "after": "N₂ là khí ở điều kiện thường; pha α-N₂ rắn có cấu trúc lập phương và pha β-N₂ có cấu trúc lục phương."
+    },
+    {
+      "field": "general.electronConfig",
+      "before": "1s² 2s² 2p³",
+      "after": "[He] 2s² 2p³"
+    },
+    {
+      "field": "general.electronegativityNote",
+      "before": null,
+      "after": "Thang Pauling; số liệu tổng hợp PubChem."
+    },
+    {
+      "field": "general.groupLabel",
+      "before": null,
+      "after": "15"
+    },
+    {
+      "field": "general.series",
+      "before": null,
+      "after": ""
+    },
+    {
+      "field": "general.state",
+      "before": "",
+      "after": "Khí"
+    },
+    {
+      "field": "history.year",
+      "before": 1772,
+      "after": "1772"
+    },
+    {
+      "field": "images",
+      "before": null,
+      "after": [
+        {
+          "src": "/assets/periodic-table/photos/007_N.jpg",
+          "title": "Nitơ (N)",
+          "desc": "Nitrogen ở pha lỏng, được giữ trong bình cách nhiệt; không phải trạng thái ở nhiệt độ phòng.",
+          "source": "https://commons.wikimedia.org/wiki/File:Fluessiger_Stickstoff.jpg",
+          "author": "Robin Müller",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+        }
+      ]
+    },
+    {
+      "field": "isotopeNote",
+      "before": null,
+      "after": "Danh sách chọn lọc; không phải toàn bộ đồng vị đã biết. Hàm lượng tự nhiên thay đổi theo nguồn mẫu; thông số IAEA ground-states và hiệu chỉnh nghiên cứu được dẫn ở từng dòng."
+    },
+    {
+      "field": "isotopes",
+      "before": null,
+      "after": [
+        {
+          "isotope": "¹⁴N",
+          "massNumber": 14,
+          "protons": 7,
+          "neutrons": 7,
+          "stable": true,
+          "abundancePercent": "99.6205",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        },
+        {
+          "isotope": "¹⁵N",
+          "massNumber": 15,
+          "protons": 7,
+          "neutrons": 8,
+          "stable": true,
+          "abundancePercent": "0.3795",
+          "halfLifeDisplay": "Bền (chưa quan sát phân rã)",
+          "halfLife": "Bền (chưa quan sát phân rã)",
+          "halfLifeUncertainty": null,
+          "halfLifeQualifier": null,
+          "decay": null,
+          "source": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "field": "massKind",
+      "before": null,
+      "after": "standard-atomic-weight"
+    },
+    {
+      "field": "massStandardSource",
+      "before": null,
+      "after": "https://ciaaw.org/abridged-atomic-weights.htm"
+    },
+    {
+      "field": "massStandardText",
+      "before": null,
+      "after": "14.007 ± 0.001"
+    },
+    {
+      "field": "mediaBlocks",
+      "before": null,
+      "after": []
+    },
+    {
+      "field": "nameVi",
+      "before": "Nitrogen",
+      "after": "Nitơ"
+    },
+    {
+      "field": "naturalState.alt",
+      "before": null,
+      "after": "Nitrogen: ảnh tham chiếu từ Commons"
+    },
+    {
+      "field": "naturalState.caption",
+      "before": null,
+      "after": "Nitrogen ở pha lỏng, được giữ trong bình cách nhiệt; không phải trạng thái ở nhiệt độ phòng."
+    },
+    {
+      "field": "naturalState.compounds",
+      "before": [
+        "NH₃",
+        "HNO₃",
+        "NO",
+        "NO₂",
+        "N₂O",
+        "NH₄NO₃",
+        "NaNO₃",
+        "protein",
+        "DNA"
+      ],
+      "after": null
+    },
+    {
+      "field": "naturalState.credit",
+      "before": null,
+      "after": "Robin Müller · CC BY-SA 3.0"
+    },
+    {
+      "field": "naturalState.description",
+      "before": "Nitrogen là chất khí ở điều kiện thường và là thành phần chính của khí quyển Trái Đất. Nitrogen trong tự nhiên chủ yếu tồn tại dưới dạng phân tử N₂ và các hợp chất Nitrogen.",
+      "after": null
+    },
+    {
+      "field": "naturalState.image",
+      "before": null,
+      "after": "/assets/periodic-table/photos/007_N.jpg"
+    },
+    {
+      "field": "naturalState.kind",
+      "before": null,
+      "after": "photo"
+    },
+    {
+      "field": "naturalState.minerals",
+      "before": [
+        "Khí quyển",
+        "Đất",
+        "Nước",
+        "Sinh vật"
+      ],
+      "after": null
+    },
+    {
+      "field": "naturalState.simple",
+      "before": [
+        "N₂"
+      ],
+      "after": null
+    },
+    {
+      "field": "naturalState.source",
+      "before": null,
+      "after": "https://commons.wikimedia.org/wiki/File:Fluessiger_Stickstoff.jpg"
+    },
+    {
+      "field": "notes",
+      "before": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Nitrogen là nguyên tố số 7, thuộc nhóm VA | chu kỳ 2.</li>\n  <li>Ở điều kiện thường, Nitrogen tồn tại chủ yếu dưới dạng phân tử N₂, chiếm khoảng 78.08% thể tích khí quyển Trái Đất. Liên kết ba N≡N rất bền khiến Nitrogen phân tử tương đối trơ ở điều kiện thường.</li>\n  <li>Nitrogen có nhiều số Oxy hóa và tạo ra một hệ thống hợp chất rất phong phú, trong đó có Ammonia, Nitric acid và các Nitrogen oxide.</li>\n  <li>Nitrogen là nguyên tố thiết yếu của sự sống, có mặt trong protein, DNA và nhiều phân tử sinh học quan trọng. Trong công nghiệp, Nitrogen đặc biệt quan trọng đối với sản xuất Ammonia, phân bón, hóa chất, bảo quản thực phẩm và tạo môi trường khí trơ.</li>\n</ul>\n",
+      "after": "<ul class=\"element-prose-list\"><li>Nitrogen là nguyên tố số 7, thuộc nhóm VA | chu kỳ 2.</li><li>Ở điều kiện thường, Nitrogen tồn tại chủ yếu dưới dạng phân tử N₂, chiếm khoảng 78.08% thể tích khí quyển Trái Đất. Liên kết ba N≡N rất bền khiến Nitrogen phân tử tương đối trơ ở điều kiện thường.</li><li>Nitrogen có nhiều số Oxy hóa và tạo ra một hệ thống hợp chất rất phong phú, trong đó có Ammonia, Nitric acid và các Nitrogen oxide.</li><li>Nitrogen là nguyên tố thiết yếu của sự sống, có mặt trong protein, DNA và nhiều phân tử sinh học quan trọng. Trong công nghiệp, Nitrogen đặc biệt quan trọng đối với sản xuất Ammonia, phân bón, hóa chất, bảo quản thực phẩm và tạo môi trường khí trơ.</li></ul>"
+    },
+    {
+      "field": "occurrence.details",
+      "before": null,
+      "after": [
+        "Trạng thái: Nitrogen là chất khí ở điều kiện thường và là thành phần chính của khí quyển Trái Đất. Nitrogen trong tự nhiên chủ yếu tồn tại dưới dạng phân tử N₂ và các hợp chất Nitrogen.",
+        "Có trong: Khí quyển, đất, nước, sinh vật và các khoáng vật chứa Nitrogen.",
+        "Đơn chất: N₂",
+        "Hợp chất: NH₃, HNO₃, NO, NO₂, N₂O, NH₄NO₃, NaNO₃, protein, DNA..."
+      ]
+    },
+    {
+      "field": "occurrence.mineral",
+      "before": null,
+      "after": {
+        "available": false,
+        "reason": "Nguồn chủ yếu là khí quyển, nước hoặc nước muối; không có mẫu quặng riêng đại diện."
+      }
+    },
+    {
+      "field": "physical",
+      "before": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là chất khí không màu, không mùi, không vị.</li>\n      <li>Chiếm khoảng 78.08% thể tích khí quyển.</li>\n      <li>Tồn tại chủ yếu dưới dạng phân tử N₂.</li>\n      <li>Khối lượng mol của N₂: 28.014 g/mol.</li>\n      <li>Khối lượng riêng: khoảng 1.251 g/L ở 0 °C và 1 atm.</li>\n      <li>Ít tan trong nước.</li>\n      <li>Nhiệt độ nóng chảy: −210.0 °C.</li>\n      <li>Nhiệt độ sôi: −195.8 °C.</li>\n      <li>Không cháy.</li>\n      <li>Không duy trì sự cháy.</li>\n      <li>Liên kết ba N≡N rất bền, khiến N₂ tương đối trơ ở điều kiện thường.</li>\n    </ul>\n  ",
+      "after": "<ul class=\"element-prose-list\"><li>Là chất khí không màu, không mùi, không vị.</li><li>Chiếm khoảng 78.08% thể tích khí quyển.</li><li>Tồn tại chủ yếu dưới dạng phân tử N₂.</li><li>Khối lượng mol của N₂: 28.014 g/mol.</li><li>Khối lượng riêng: khoảng 1.251 g/L ở 0 °C và 1 atm.</li><li>Ít tan trong nước.</li><li>Nhiệt độ nóng chảy: −210.0 °C.</li><li>Nhiệt độ sôi: −195.8 °C.</li><li>Không cháy.</li><li>Không duy trì sự cháy.</li><li>Liên kết ba N≡N rất bền, khiến N₂ tương đối trơ ở điều kiện thường.</li></ul>"
+    },
+    {
+      "field": "preparations.industry",
+      "before": [
+        {
+          "title": "Chưng cất phân đoạn không khí lỏng: Không khí được làm sạch, nén và hóa lỏng. Nitrogen được tách khỏi Oxygen dựa trên sự khác nhau về nhiệt độ sôi.",
+          "equation": "",
+          "desc": ""
+        },
+        {
+          "title": "PSA (Pressure Swing Adsorption): Sử dụng vật liệu hấp phụ để giữ Oxygen và một số khí khác, từ đó thu được dòng khí giàu Nitrogen.",
+          "equation": "",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Chưng cất phân đoạn không khí lỏng: Không khí được làm sạch, nén và hóa lỏng. Nitrogen được tách khỏi Oxygen dựa trên sự khác nhau về nhiệt độ sôi.",
+          "desc": "PSA (Pressure Swing Adsorption): Sử dụng vật liệu hấp phụ để giữ Oxygen và một số khí khác, từ đó thu được dòng khí giàu Nitrogen.",
+          "result": "",
+          "equations": [],
+          "sourceLines": [
+            59,
+            60
+          ],
+          "equation": ""
+        }
+      ]
+    },
+    {
+      "field": "preparations.lab",
+      "before": [
+        {
+          "title": "Nitrogen có thể được điều chế bằng cách loại Oxygen khỏi không khí hoặc thông qua một số phản ứng hóa học.",
+          "equation": "",
+          "desc": ""
+        },
+        {
+          "title": "Nhiệt phân Ammonium nitrite:",
+          "equation": "NH4NO2 → N2 + 2H2O <br> NH4Cl + NaNO2 → N2 + NaCl + 2H2O",
+          "desc": "Do Ammonium nitrite không bền, trong thực tế có thể tạo nó ngay trong hỗn hợp phản ứng từ Ammonium chloride và Sodium nitrite:"
+        }
+      ],
+      "after": [
+        {
+          "title": "Nitrogen có thể được điều chế bằng cách loại Oxygen khỏi không khí hoặc thông qua một số phản ứng hóa học.",
+          "desc": "Nhiệt phân Ammonium nitrite:",
+          "result": "",
+          "equations": [
+            {
+              "equation": "NH₄NO₂ → N₂ + 2H₂O",
+              "condition": "Gia nhiệt để phân hủy; nhiệt độ phụ thuộc chất và áp suất khí sản phẩm.",
+              "kind": "chemical",
+              "sourceLine": 64,
+              "sourceSection": "lab",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            62,
+            63,
+            64
+          ],
+          "equation": "NH₄NO₂ → N₂ + 2H₂O"
+        },
+        {
+          "title": "Do Ammonium nitrite không bền, trong thực tế có thể tạo nó ngay trong hỗn hợp phản ứng từ Ammonium chloride và Sodium nitrite",
+          "desc": "",
+          "result": "",
+          "equations": [
+            {
+              "equation": "NH₄Cl + NaNO₂ → N₂ + NaCl + 2H₂O",
+              "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+              "kind": "chemical",
+              "sourceLine": 66,
+              "sourceSection": "lab",
+              "balance": {
+                "status": "balanced",
+                "kind": "chemical",
+                "delta": {}
+              },
+              "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+            }
+          ],
+          "sourceLines": [
+            65,
+            66
+          ],
+          "equation": "NH₄Cl + NaNO₂ → N₂ + NaCl + 2H₂O"
+        }
+      ]
+    },
+    {
+      "field": "reactions",
+      "before": [
+        {
+          "type": "Tác dụng với Hydrogen",
+          "equation": "N2 + 3H2 ⇌ 2NH3",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Oxygen",
+          "equation": "N2 + O2 → 2NO",
+          "desc": "Ở nhiệt độ rất cao:"
+        },
+        {
+          "type": "Tác dụng với Lithium",
+          "equation": "6Li + N2 → 2Li3N",
+          "desc": ""
+        },
+        {
+          "type": "Tác dụng với Calcium",
+          "equation": "3Ca + N2 → Ca3N2",
+          "desc": ""
+        },
+        {
+          "type": "Phân hủy Ammonium nitrite",
+          "equation": "NH4NO2 → N2 + 2H2O",
+          "desc": ""
+        },
+        {
+          "type": "Oxi hóa Nitrogen monoxide",
+          "equation": "2NO + O2 → 2NO2",
+          "desc": ""
+        },
+        {
+          "type": "Tạo Nitric acid từ Nitrogen dioxide",
+          "equation": "3NO2 + H2O → 2HNO3 + NO",
+          "desc": ""
+        }
+      ],
+      "after": [
+        {
+          "type": "Tác dụng với Hydrogen",
+          "desc": "",
+          "equation": "N₂ + 3H₂ ⇌ 2NH₃",
+          "condition": "Xúc tác sắt, nhiệt độ và áp suất cao; phản ứng thuận nghịch (Haber–Bosch).",
+          "kind": "chemical",
+          "sourceLine": 72,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm.",
+          "sourceCondition": "Điều kiện: nhiệt độ, áp suất và xúc tác thích hợp."
+        },
+        {
+          "type": "Ở nhiệt độ rất cao",
+          "desc": "",
+          "equation": "N₂ + O₂ → 2NO",
+          "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+          "kind": "chemical",
+          "sourceLine": 76,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Lithium",
+          "desc": "",
+          "equation": "6Li + N₂ → 2Li₃N",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 78,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tác dụng với Calcium",
+          "desc": "",
+          "equation": "3Ca + N₂ → Ca₃N₂",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 80,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Phân hủy Ammonium nitrite",
+          "desc": "",
+          "equation": "NH₄NO₂ → N₂ + 2H₂O",
+          "condition": "Gia nhiệt để phân hủy; nhiệt độ phụ thuộc chất và áp suất khí sản phẩm.",
+          "kind": "chemical",
+          "sourceLine": 82,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Oxi hóa Nitrogen monoxide",
+          "desc": "",
+          "equation": "2NO + O₂ → 2NO₂",
+          "condition": "Gia nhiệt/khơi mào cháy; sản phẩm phụ thuộc lượng oxygen và trạng thái của mẫu.",
+          "kind": "chemical",
+          "sourceLine": 84,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        },
+        {
+          "type": "Tạo Nitric acid từ Nitrogen dioxide",
+          "desc": "",
+          "equation": "3NO₂ + H₂O → 2HNO₃ + NO",
+          "condition": "Gia nhiệt hoặc môi trường phản ứng chuyên dụng; đây là phương trình tổng quát, không phải quy trình thao tác.",
+          "kind": "chemical",
+          "sourceLine": 86,
+          "sourceSection": "reactions",
+          "balance": {
+            "status": "balanced",
+            "kind": "chemical",
+            "delta": {}
+          },
+          "conditionBasis": "Biên tập theo loại phản ứng và ngữ cảnh; không phải hiệu chuẩn thực nghiệm."
+        }
+      ]
+    },
+    {
+      "field": "recognition",
+      "before": [
+        {
+          "title": "Que đóm cháy",
+          "reagent": "",
+          "result": "Nitrogen không duy trì sự cháy. Khi đưa que đóm đang cháy vào Nitrogen, ngọn lửa sẽ tắt.",
+          "equation": ""
+        },
+        {
+          "title": "Tính chất",
+          "reagent": "",
+          "result": "Tuy nhiên, phép thử này không đặc hiệu, vì nhiều khí khác cũng không duy trì sự cháy.",
+          "equation": ""
+        }
+      ],
+      "after": [
+        {
+          "title": "Que đóm cháy: Nitrogen không duy trì sự cháy. Khi đưa que đóm đang cháy vào Nitrogen, ngọn lửa sẽ tắt.",
+          "desc": "Tính chất: Tuy nhiên, phép thử này không đặc hiệu, vì nhiều khí khác cũng không duy trì sự cháy.",
+          "result": "",
+          "equations": [],
+          "sourceLines": [
+            68,
+            69
+          ],
+          "equation": ""
+        }
+      ]
+    },
+    {
+      "field": "review",
+      "before": null,
+      "after": {
+        "date": "2026-11-11",
+        "sourceFile": "007_N.docx",
+        "sourceSha256": "b39df663f09728c7917722b26dd343543153622b6b9071632ac304157c6bed8a",
+        "auditFile": "docs/periodic-table-audit/2026-11-11/files/007_N.md",
+        "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm."
+      }
+    },
+    {
+      "field": "sources",
+      "before": null,
+      "after": [
+        {
+          "title": "007_N.docx — tài liệu người dùng",
+          "url": "",
+          "sha256": "b39df663f09728c7917722b26dd343543153622b6b9071632ac304157c6bed8a"
+        },
+        {
+          "title": "Royal Society of Chemistry — thông tin nguyên tố",
+          "url": "https://periodic-table.rsc.org/element/7/nitrogen"
+        },
+        {
+          "title": "PubChem — dữ liệu bảng tuần hoàn",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
+        },
+        {
+          "title": "CIAAW — nguyên tử khối chuẩn",
+          "url": "https://ciaaw.org/abridged-atomic-weights.htm"
+        },
+        {
+          "title": "IAEA — thông số hạt nhân",
+          "url": "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all"
+        },
+        {
+          "title": "NIST — cấu hình electron và đồng vị tham chiếu",
+          "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+        }
+      ]
+    },
+    {
+      "field": "structure.lattice",
+      "before": "Lục phương (Hexagonal)",
+      "after": "N₂ là khí ở điều kiện thường; pha α-N₂ rắn có cấu trúc lập phương và pha β-N₂ có cấu trúc lục phương."
+    },
+    {
+      "field": "structure.latticeEvidence",
+      "before": null,
+      "after": "phase-dependent"
+    },
+    {
+      "field": "structure.nucleusIsotope",
+      "before": null,
+      "after": "¹⁴N"
+    },
+    {
+      "field": "structure.nucleusNote",
+      "before": null,
+      "after": "Số neutron chỉ thuộc đồng vị tham chiếu; các đồng vị khác có số neutron khác."
+    },
+    {
+      "field": "structure.valenceNote",
+      "before": null,
+      "after": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp."
+    },
+    {
+      "field": "structureType",
+      "before": "Lục phương (Hexagonal)",
+      "after": "N₂ là khí ở điều kiện thường; pha α-N₂ rắn có cấu trúc lập phương và pha β-N₂ có cấu trúc lục phương."
+    }
+  ],
+  "media": {
+    "image": {
+      "symbol": "N",
+      "status": "downloaded",
+      "file": "/assets/periodic-table/photos/007_N.jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:Fluessiger_Stickstoff.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/f/f5/Fluessiger_Stickstoff.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "thumbnail": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f5/Fluessiger_Stickstoff.jpg/960px-Fluessiger_Stickstoff.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "filename": "Fluessiger_Stickstoff.jpg",
+      "title": "Fluessiger Stickstoff",
+      "description": "Liquid nitrogen",
+      "author": "Robin Müller",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "credit": "Self-photographed",
+      "sha256": "ec3e36ce0dd0a523c077477b0b4ffc529bcc138fca5c5998aa336bc0da9a3899",
+      "bytes": 182907
+    },
+    "mineral": {
+      "available": false,
+      "reason": "Nguồn chủ yếu là khí quyển, nước hoặc nước muối; không có mẫu quặng riêng đại diện."
+    }
+  },
+  "reference": {
+    "RSC": {
+      "symbol": "N",
+      "z": 7,
+      "url": "https://periodic-table.rsc.org/element/7/nitrogen",
+      "status": "retrieved",
+      "bytes": 163925,
+      "sha256": "23d710c4020c77760eee5fc1d5d5e0587ff22ebe88a574e7ef32e1409ec71ac3",
+      "facts": {
+        "Group": "15",
+        "Melting point": "−210.0°C, −346.0°F, 63.2 K",
+        "Period": "2",
+        "Boiling point": "−195.795°C, −320.431°F, 77.355 K",
+        "Block": "p",
+        "Density (g cm−³)": "0.001145",
+        "Atomic number": "7",
+        "Relative atomic mass": "14.007",
+        "State at 20°C": "Gas",
+        "Key isotopes": "¹⁴N",
+        "Electron configuration": "[He] 2s²2p³",
+        "CAS number": "7727-37-9",
+        "ChemSpider ID": "20473555",
+        "electronegativity": "3.04"
+      }
+    },
+    "PubChem": {
+      "AtomicNumber": "7",
+      "Symbol": "N",
+      "Name": "Nitrogen",
+      "AtomicMass": "14.007",
+      "CPKHexColor": "3050F8",
+      "ElectronConfiguration": "[He] 2s2 2p3",
+      "Electronegativity": "3.04",
+      "AtomicRadius": "155",
+      "IonizationEnergy": "14.534",
+      "ElectronAffinity": "",
+      "OxidationStates": "+5, +4, +3, +2, +1, -1, -2, -3",
+      "StandardState": "Gas",
+      "MeltingPoint": "63.15",
+      "BoilingPoint": "77.36",
+      "Density": "0.0012506",
+      "GroupBlock": "Nonmetal",
+      "YearDiscovered": "1772"
+    }
+  },
+  "limits": [
+    "Đọc và kiểm tra văn bản OOXML; không sửa hoặc render lại DOCX gốc.",
+    "Kiểm tra bảo toàn không thay thế xác nhận khả năng xảy ra, tính chọn lọc hoặc cơ chế.",
+    "Mô tả lịch sử/ứng dụng được biên tập từ tài liệu; không coi mọi câu đã được xác nhận bởi một thí nghiệm riêng.",
+    "Không suy quặng riêng từ một nguyên tố chỉ xuất hiện dạng vết hoặc từ sản phẩm phân rã."
+  ]
+}

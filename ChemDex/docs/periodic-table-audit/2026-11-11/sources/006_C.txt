@@ -1,0 +1,104 @@
+001: Carbon (C)
+002: Thông tin chung
+003: Tên Latin: Carboneum
+004: Tên tiếng Anh: Carbon
+005: Đồng vị: ¹²C, ¹³C, ¹⁴C
+006: Vị trí: Nhóm IVA | Chu kỳ 2
+007: Số Oxy hóa: −4, −3, −2, −1, 0, +1, +2, +3, +4
+008: Độ âm điện: 2.55
+009: Lịch sử khám phá
+010: Phát hiện bởi: Không xác định một cá nhân cụ thể
+011: Năm công bố: Thời cổ đại
+012: Nơi khám phá: Nhiều nền văn minh cổ đại
+013: Mô tả: Carbon đã được con người biết đến từ thời cổ đại dưới dạng than, muội than và kim cương. Carbon được công nhận là một nguyên tố hóa học vào cuối thế kỷ XVIII. Antoine Lavoisier đã xác định Carbon là một nguyên tố và nghiên cứu quá trình Carbon cháy tạo thành khí Carbon dioxide.
+014: 3. Cấu tạo
+015: a. Cấu tạo
+016: Hoạt họa cấu hình e: 1s² 2s² 2p²
+017: Mô hình mạng tinh thể: Lục phương (Hexagonal) đối với than chì (Graphite)/Lập phương tâm mặt (FCC) đối với kim cương
+018: Số hiệu nguyên tử: 6
+019: Nguyên tử khối: 12.011 g/mol
+020: Vỏ nguyên tử: 6 electron
+021: K: 2 | L: 4
+022: Hạt nhân: 6 proton, 6 neutron đối với ¹²C
+023: Cấu hình e: 1s² 2s² 2p²
+024: Loại mạng: Lục phương (Hexagonal) đối với than chì (Graphite)/Lập phương tâm mặt (FCC) đối với kim cương
+025: b. Trạng thái tự nhiên
+026: Trạng thái: Carbon tồn tại trong tự nhiên dưới nhiều dạng khác nhau. Carbon có thể tồn tại ở dạng đơn chất như kim cương, graphite và một số dạng thù hình khác; đồng thời có mặt rất phổ biến trong các hợp chất vô cơ và hữu cơ.
+027: Có trong: Than đá, dầu mỏ, khí tự nhiên, đá carbonate, khí quyển, sinh vật và các vật chất hữu cơ.
+028: Đơn chất: C
+029: Hợp chất: CO₂, CO, CaCO₃, CH₄, C₂H₅OH, C₆H₁₂O₆...
+030: c. Đồng vị
+031: Đồng vị: ¹²C, ¹³C, ¹⁴C
+032: ¹²C: Đồng vị bền, chiếm khoảng 98.93% Carbon tự nhiên.
+033: ¹³C: Đồng vị bền, chiếm khoảng 1.07%.
+034: ¹⁴C: Đồng vị phóng xạ, có chu kỳ bán rã khoảng 5730 năm. Được hình thành tự nhiên trong khí quyển do tác động của tia vũ trụ.
+035: Tính chất
+036: Tính chất vật lý
+037: Là chất rắn ở điều kiện thường.
+038: Có nhiều dạng thù hình.
+039: Kim cương không màu và cực kỳ cứng.
+040: Graphite màu đen, mềm và có khả năng dẫn điện.
+041: Khối lượng riêng của graphite: khoảng 2.27 g/cm³.
+042: Khối lượng riêng của kim cương: khoảng 3.51 g/cm³.
+043: Carbon có nhiệt độ thăng hoa rất cao.
+044: Có khả năng tạo cấu trúc liên kết cộng hóa trị rất đa dạng.
+045: Có thể tạo các cấu trúc như graphite, kim cương, graphene và fullerene.
+046: Tính chất hóa học
+047: Là phi kim.
+048: Có khả năng tạo liên kết cộng hóa trị mạnh.
+049: Có khả năng liên kết với chính nó tạo các chuỗi và cấu trúc phức tạp.
+050: Có số Oxy hóa phổ biến từ −4 đến +4.
+051: Carbon cháy trong Oxygen tạo Carbon dioxide.
+052: Khi Oxygen không đủ, Carbon có thể tạo Carbon monoxide.
+053: Ở nhiệt độ cao, Carbon có thể khử một số oxide kim loại.
+054: Phản ứng với Hydrogen tạo Hydrocarbon.
+055: Phản ứng với một số kim loại tạo Carbide.
+056: Điều chế
+057: Điều chế trong công nghiệp
+058: Carbon không được điều chế theo một phương pháp duy nhất vì nó tồn tại tự nhiên dưới nhiều dạng khác nhau.
+059: Sản xuất Carbon vô định hình: Có thể thu được từ quá trình nhiệt phân các chất hữu cơ trong điều kiện thiếu Oxygen.
+060: Sản xuất than cốc: Than đá được nung ở nhiệt độ cao trong điều kiện không có Oxygen để loại bỏ các thành phần dễ bay hơi.
+061: Sản xuất Carbon đen (Carbon black): Hydrocarbon được phân hủy hoặc đốt cháy không hoàn toàn để tạo Carbon dạng hạt mịn.
+062: Điều chế trong phòng thí nghiệm
+063: Carbon có thể được tạo ra bằng cách nhiệt phân các hợp chất hữu cơ trong điều kiện thiếu Oxygen.
+064: Ví dụ:
+065: C12H22O11 → 12C + 11H2O
+066: Phản ứng này tạo Carbon vô định hình cùng các sản phẩm khác tùy điều kiện.
+067: Nhận biết
+068: Đốt cháy: Carbon cháy hoàn toàn trong Oxygen tạo Carbon dioxide.
+069: C + O2 → CO2
+070: Khí Carbon dioxide tạo thành có thể được xác nhận bằng nước vôi trong:
+071: CO2 + Ca(OH)2 → CaCO3↓ + H2O
+072: Hiện tượng: Nước vôi trong chuyển thành vẩn đục do tạo kết tủa Calcium carbonate.
+073: Phương trình
+074: Cháy hoàn toàn trong Oxygen
+075: C + O2 → CO2
+076: Cháy không hoàn toàn
+077: 2C + O2 → 2CO
+078: Tác dụng với Carbon dioxide
+079: Ở nhiệt độ cao:
+080: C + CO2 → 2CO
+081: Khử Copper(II) oxide
+082: 2CuO + C → 2Cu + CO2
+083: Khử Iron(III) oxide
+084: 2Fe2O3 + 3C → 4Fe + 3CO2
+085: Tạo Methane
+086: C + 2H2 → CH4
+087: Tạo Calcium carbide
+088: CaO + 3C → CaC2 + CO
+089: Tạo Silicon carbide
+090: SiO2 + 3C → SiC + 2CO
+091: Ứng dụng thực tế
+092: Nhiên liệu: Than và các nhiên liệu chứa Carbon được sử dụng để sản xuất nhiệt và năng lượng.
+093: Luyện kim: Carbon và than cốc được sử dụng trong sản xuất Iron và Steel.
+094: Điện cực: Graphite được sử dụng làm điện cực nhờ khả năng dẫn điện và chịu nhiệt tốt.
+095: Bút chì: Graphite được sử dụng trong lõi bút chì.
+096: Vật liệu cứng: Kim cương được sử dụng để cắt, mài và gia công các vật liệu cứng.
+097: Lọc và hấp phụ: Activated carbon được sử dụng để hấp phụ các chất trong xử lý nước và không khí.
+098: Sản xuất vật liệu: Carbon black được sử dụng trong sản xuất cao su, mực in và nhiều vật liệu khác.
+099: Công nghệ cao: Graphene, Carbon nanotube và fullerene được nghiên cứu và ứng dụng trong điện tử, vật liệu và công nghệ nano.
+100: Tổng quan
+101: Carbon là nguyên tố số 6, thuộc nhóm IVA | chu kỳ 2 và là một trong những nguyên tố quan trọng nhất đối với sự sống.
+102: Carbon có khả năng tạo liên kết cộng hóa trị rất đa dạng và có thể liên kết với chính nó tạo thành các chuỗi, vòng và cấu trúc phức tạp. Đây là cơ sở của hóa học hữu cơ.
+103: Carbon có nhiều dạng thù hình với tính chất rất khác nhau, tiêu biểu như kim cương, graphite, graphene và fullerene.
+104: Carbon xuất hiện trong khí quyển, khoáng vật, nhiên liệu hóa thạch và mọi sinh vật sống. Các hợp chất của Carbon có vai trò quan trọng trong sinh học, công nghiệp, năng lượng, luyện kim và công nghệ vật liệu.
