@@ -3,16 +3,33 @@ import hashlib
 import json
 from pathlib import Path
 import subprocess
+import sys
+import time
 
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'docs/library-crystal-upgrade/2026-11-11'
+LIBRARY_REF = sys.argv[sys.argv.index('--library-ref')+1] if '--library-ref' in sys.argv else None
 def read(p):return json.loads(p.read_text(encoding='utf-8-sig'))
-def write(p,text):p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(text.encode())
+def write(p,text):
+    p.parent.mkdir(parents=True,exist_ok=True)
+    temporary=p.with_name(p.name+'.tmp')
+    for attempt in range(5):
+        try:
+            temporary.write_bytes(text.encode())
+            temporary.replace(p)
+            return
+        except OSError:
+            if attempt==4:raise
+            time.sleep(.2*(attempt+1))
 def dump(p,value):write(p,json.dumps(value,ensure_ascii=False,indent=2)+'\n')
 def sha(data):return hashlib.sha256(data).hexdigest()
+def library_bytes(relative):
+    if LIBRARY_REF:
+        return subprocess.check_output(['git','show',f'{LIBRARY_REF}:ChemDex/{relative}'],cwd=ROOT)
+    return (ROOT/relative).read_bytes()
 
 def main():
-    docs=read(ROOT/'trung-tam/src/data/index.json')+read(ROOT/'trung-tam/src/data/reference-index.generated.json')
+    docs=json.loads(library_bytes('trung-tam/src/data/index.json'))+json.loads(library_bytes('trung-tam/src/data/reference-index.generated.json'))
     # One Git process preserves exact bytes of all 487 baseline files.
     keys=[]
     for meta in docs:
@@ -26,7 +43,7 @@ def main():
         previous.append(process.stdout[end+1:end+1+size]);offset=end+1+size+1
     migrations=[]
     for meta,before,key in zip(docs,previous,keys):
-        newfile='trung-tam/src/data/'+meta['documentPath'];raw=(ROOT/newfile).read_bytes()
+        newfile='trung-tam/src/data/'+meta['documentPath'];raw=library_bytes(newfile)
         old=json.loads(before.decode('utf-8-sig'));full=json.loads(raw.decode('utf-8-sig'))
         content_unchanged=old['content']==full['content']
         row={'id':meta['id'],'name':meta['title'],'slug':meta['slug'],
@@ -79,6 +96,7 @@ def main():
         {'record':'Tantalite-(Fe)','mineral':'Tantalite','finding':'Snapshot không có bản ghi tantalite-(Fe) đã chọn; dùng tọa độ Mn rồi gán Fe sẽ sai thành phần.','resolution':'Dùng mẫu tantalite-(Mn) 0018628 và hiển thị công thức/loài mẫu thật.'},
         {'record':'Bauxite','mineral':'Bauxite','finding':'Bauxite là hỗn hợp đá/quặng, không có một mạng tinh thể duy nhất.','resolution':'Ba pha riêng gibbsite, boehmite, diaspore; không tạo ô bauxite giả.'},
         {'record':'Platinum_crystals.jpg','mineral':'Platinum tự sinh','finding':'Ảnh nuôi tinh thể trong phòng thí nghiệm không xác nhận trạng thái tự sinh.','resolution':'Thay bằng Platinum-274992.jpg, mẫu địa phương Fox Gulch, Alaska; CC BY-SA 3.0.'},
+        {'record':'Gold-crystals.jpg','mineral':'Gold tự sinh','finding':'Mô tả Commons xác nhận đây là tinh thể vàng tổng hợp bằng vận chuyển hóa học trong khí chlorine, không phải vàng tự sinh.','resolution':'Thay bằng Gold-280481.jpg, mẫu từ Round Mountain Mine, Nevada; CC BY-SA 3.0.'},
         {'record':'CIF viewer','mineral':'Mọi CIF nhập','finding':'Parser trước bỏ qua alpha/beta/gamma, giả định thứ tự cột, bỏ qua phép đối xứng, dùng hằng số mặc định 5.5 và suy liên kết từ khoảng cách.','resolution':'Parser CIF có tokenizer, cột theo tên, metric đầy đủ, khai triển đối xứng an toàn không eval, từ chối bản ghi thiếu và không gán bậc liên kết theo khoảng cách.'},
     ]
     dump(OUT/'source-issues.json',issues)

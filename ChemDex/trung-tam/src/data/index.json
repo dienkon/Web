@@ -214,7 +214,7 @@
     "author": "Ban Biên Tập Biên Niên Sử Hóa Học · ChemDex",
     "category": "hopchat",
     "summary": "Phóng sự lịch sử và khoa học về Nước (H₂O): từ sự ngưng tụ trong tinh vân liên sao, thí nghiệm lịch sử của Henry Cavendish & Antoine Lavoisier (1781–1783), nghịch lý tỷ trọng nuôi dưỡng sự sống đến bí ẩn bông tuyết 6 cánh của Johannes Kepler.",
-    "image": "/assets/library/lab-synthesis.svg",
+    "image": "/assets/library/thumbnails/nuoc-h2o.svg",
     "tags": [
       "H2O",
       "Câu chuyện hóa học",
@@ -239,7 +239,7 @@
     "author": "Tạp Chí Công Nghệ Hóa Chất & Vật Liệu · ChemDex",
     "category": "hopchat",
     "summary": "Biên niên sử lẫy lừng về Amoniac (NH₃): từ những tinh thể muối huyền bí ở ốc đảo Siwa Ai Cập, thí nghiệm chậu thủy ngân của Joseph Priestley (1774) đến lò phản ứng cao áp nuôi sống một nửa nhân loại.",
-    "image": "/assets/library/industrial-reactor.svg",
+    "image": "/assets/library/thumbnails/amoniac-nh3.svg",
     "tags": [
       "NH3",
       "Câu chuyện hóa học",
@@ -264,7 +264,7 @@
     "author": "Chuyên San Khảo Cổ & Địa Hóa Học · ChemDex",
     "category": "hopchat",
     "summary": "Ký sự khoa học về Natri clorua (NaCl): từ sự hình thành các đại dương nguyên thủy, giá trị tiền tệ salarium thời La Mã, cuộc điện phân lịch sử của Humphry Davy (1807) đến cuộc cách mạng nhiễu xạ tia X giải mã mạng tinh thể 3 chiều của cha con nhà Bragg (1913).",
-    "image": "/assets/library/ionic-crystal.svg",
+    "image": "/assets/library/thumbnails/natri-clorua-nacl.svg",
     "tags": [
       "NaCl",
       "Câu chuyện hóa học",
@@ -290,7 +290,7 @@
     "author": "Chuyên Mục Di Sản Thực Nghiệm Thế Giới · ChemDex",
     "category": "hopchat",
     "summary": "Biên niên sử riêng của Etanol (C₂H₅OH): từ dấu tích lên men 7000 năm TCN tại Giả Hồ, chiếc bình chưng al-ambiq của các học giả Ả Rập, cồn tuyệt đối của Lowitz (1796) đến kiến trúc nhóm chức hydroxyl —OH định hướng không gian 3 chiều.",
-    "image": "/assets/library/organic-genesis.svg",
+    "image": "/assets/library/thumbnails/etanol-c2h5oh.svg",
     "tags": [
       "C₂H₅OH",
       "Câu chuyện hóa học",
@@ -316,7 +316,7 @@
     "author": "Phóng Viên Phòng Thí Nghiệm & Lịch Sử Khoa Học · ChemDex",
     "category": "hopchat",
     "summary": "Phóng sự lịch sử và khoa học về Carbon dioxide (CO₂): khám phá Jan Baptist van Helmont sáng tạo ra khái niệm \"chất khí\" (1640), chiếc cân định lượng đá vôi của Joseph Black (1754), thí nghiệm đốt kim cương của Lavoisier và chu trình carbon toàn cầu.",
-    "image": "/assets/library/acid-base-world.svg",
+    "image": "/assets/library/thumbnails/carbon-dioxide-co2.svg",
     "tags": [
       "CO₂",
       "Câu chuyện hóa học",
@@ -342,7 +342,7 @@
     "author": "Hội Đồng Chuyên Khảo Cấu Trúc Phân Tử · ChemDex",
     "category": "hopchat",
     "summary": "Bài báo chuyên khảo về Metan (CH₄): tái hiện chuyến chèo thuyền mùa thu năm 1776 của Alessandro Volta, chiếc đèn an toàn cứu mạng thợ mỏ của Humphry Davy và phát kiến vĩ đại của Van 't Hoff về nguyên tử Carbon tứ diện trong không gian 3 chiều (1874).",
-    "image": "/assets/library/organic-genesis.svg",
+    "image": "/assets/library/thumbnails/metan-ch4.svg",
     "tags": [
       "CH₄",
       "Câu chuyện hóa học",

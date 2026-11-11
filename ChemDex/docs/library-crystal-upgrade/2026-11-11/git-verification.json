@@ -1,0 +1,20 @@
+{
+  "verifiedAtUtc": "2026-11-11T23:23:33.073972+00:00",
+  "remote": "https://github.com/dienkon/Web.git",
+  "branch": "main",
+  "verifiedPrimaryCommit": "4eece24275056e3c44bae0f65d28c8e8b26763cd",
+  "remoteMainAtVerification": "4eece24275056e3c44bae0f65d28c8e8b26763cd",
+  "primaryPushResult": "success",
+  "primaryPushRange": "f583d9c7..4eece242",
+  "goldPhotoCorrection": {
+    "old": "Gold-crystals.jpg (synthetic)",
+    "new": "Gold-280481.jpg (Round Mountain Mine, Nevada)",
+    "license": "CC BY-SA 3.0"
+  },
+  "concurrentLibraryChanges": "Preserved outside the photo correction commit. Library audits use 4eece242 snapshot.",
+  "preservedInputChanges": {
+    "deletedDocx": 63,
+    "untrackedDocx": 118
+  },
+  "followUpCommit": "See Git history of this verification file for the gold-photo correction commit."
+}

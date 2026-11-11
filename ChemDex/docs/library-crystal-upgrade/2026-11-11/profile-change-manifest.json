@@ -1918,19 +1918,19 @@
       "name": "Gold tự sinh",
       "query": "Native gold",
       "status": "downloaded",
-      "source": "https://commons.wikimedia.org/wiki/File:Gold-crystals.jpg",
-      "filename": "Gold-crystals.jpg",
-      "original": "https://upload.wikimedia.org/wikipedia/commons/d/d7/Gold-crystals.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-      "author": "Alchemist-hp ( talk ) www.pse-mendelejew.de",
-      "license": "CC BY-SA 3.0 de",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en",
-      "description": "Synthetic made gold crystals by the chemical transport reaction in chlorine gas. Purity &gt;99.99%",
+      "source": "https://commons.wikimedia.org/wiki/File:Gold-280481.jpg",
+      "filename": "Gold-280481.jpg",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/c/c5/Gold-280481.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "description": "Gold Locality: Round Mountain Mine, Round Mountain District, Nye County , Nevada , USA ( Locality at mindat.org ) Size: 3.4 x 1.9 x 0.4 cm. This is an outstanding gold specimen for the mine and the size range, from a small find of 2007 that to my mind sets the standard for gold from this locality and finally ranked it among the finest US locales for gold, period. The piece features very sharp, flattened trigons and other gold crystal habits, and is crystallized to equal quality on both sides. A small miniature or toenail in size. The photos do not convey its impact, its sheer brightness and lustre, and purity of color. This is a world class gold from a mine that before recently was not even on the map for such things, and all such specimens seem to have come out of a small area there, now a few years ago.",
       "file": "/assets/periodic-table/mineral-photos/native-gold.jpg",
-      "sha256": "be0ed703d620872aa50373079fc04bbd9b44177ca1e2853a21f19dc780d0d371",
-      "bytes": 117719
+      "sha256": "fcd6b52fe911fef55a26c51a07cf96a4c785c30b793ef1430b4933fc0bbc2ea1",
+      "bytes": 83077
     },
     "beforeSha256": "31c8ea421a321e0777f097393d9f1c349410e69c519b2dde8a0b8e3e7a08c11f",
-    "afterSha256": "9a8df5e57ac2dff9a8d5258022153812748b9c990c6e1809bf7796f551415c2e"
+    "afterSha256": "9ced2d7d598cdea7a8bf5baef5473ebb1220c01c1fe9ab38dc484d4b1d8f4ffa"
   },
   {
     "symbol": "Hg",

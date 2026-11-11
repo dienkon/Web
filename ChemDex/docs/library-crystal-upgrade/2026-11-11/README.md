@@ -4,6 +4,8 @@
 
 - **487 tài liệu** được đặt trong thư mục mang tên chất/chủ đề, thay mã `ho-so-…` và mã số. URL công khai là `/trung-tam/tai-lieu-so/<ten-chat>/`. Các bundle nội dung cũng nằm trong `assets/tai-lieu/<ten-chat>/`.
 - **468 mã liên kết cũ** được ánh xạ sang URL mới. Giữ định danh bài biên soạn, chuyển dấu trang/lịch sử và xử lý nút lùi/tiến. Nội dung 487 bài được đối chiếu với Git và giữ nguyên trong đợt đổi đường dẫn.
+
+Các đối chiếu nội dung thư viện trong báo cáo này gắn với snapshot `4eece242`. Những thay đổi nội dung thư viện đang được thực hiện đồng thời sau snapshot đó được giữ ngoài bản chỉnh ảnh vàng và không bị ghi đè.
 - **122 mô hình nguyên tử tuần hoàn**: 51 pha khoáng và 71 pha đơn chất. Có JSON tọa độ, CIF, GLB và PNG cho từng pha; 79 trang nguyên tố được liên kết tới khoáng vật phù hợp.
 - **49 ảnh mẫu khoáng vật** có trang gốc, tác giả, giấy phép và SHA-256, dùng trên 79 trang có khoáng vật đại diện. Ảnh không được khẳng định là cùng mẫu đã đo CIF.
 - **118 audit nguyên tố**, **122 audit cấu trúc** và **487 audit đường dẫn tài liệu** nằm trong các thư mục có tên tương ứng bên dưới.

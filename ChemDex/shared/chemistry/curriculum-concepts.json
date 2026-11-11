@@ -1,0 +1,955 @@
+[
+  {
+    "id": "atomic-structure-and-orbitals",
+    "topic": "Cấu tạo nguyên tử & Orbital lượng tử",
+    "grade": "Hóa học 10",
+    "title": "Thành phần nguyên tử, Orbital nguyên tử (AO) và Cấu hình electron",
+    "curriculumUnits": [
+      "Hóa học 10 - Chương 1: Cấu tạo nguyên tử (Bài 1: Thành phần nguyên tử)",
+      "Hóa học 10 - Chương 1: Cấu tạo nguyên tử (Bài 2: Nguyên tố hóa học và đồng vị)",
+      "Hóa học 10 - Chương 1: Cấu tạo nguyên tử (Bài 3: Cấu trúc lớp vỏ electron và Orbital nguyên tử)",
+      "KHTN 7 - Chủ đề 1: Nguyên tử - Nguyên tố hóa học"
+    ],
+    "summary": "Nguyên tử có kích thước khoảng 10⁻¹⁰ m (1 Å) với cấu tạo rỗng, gồm hạt nhân mang điện tích dương ở tâm và vỏ electron mang điện tích âm. Vỏ electron được mô tả bằng cơ học lượng tử thông qua các orbital nguyên tử (AO: s, p, d, f) xác định bởi đám mây xác suất tìm thấy electron. Sự phân bố electron vào các AO tuân theo ba nguyên lý bất di bất dịch: Nguyên lý vững bền Aufbau, Nguyên lý loại trừ Pauli và Quy tắc Hund.",
+    "detailedExplanation": "### 1. Thành phần và Kích thước nguyên tử\nNguyên tử là hạt vô cùng nhỏ trung hòa về điện, cấu tạo nên mọi chất. Nguyên tử gồm hai phần:\n- **Hạt nhân nguyên tử**: Nằm ở tâm, có kích thước cực nhỏ (đường kính khoảng $10^{-15}$ đến $10^{-14} \\text{ m}$, nhỏ hơn đường kính nguyên tử khoảng $10.000$ lần). Hạt nhân gồm hai loại hạt nucleon:\n  - **Proton (p)**: Mang điện tích nguyên tố dương $+1$ ($+1.602 \\times 10^{-19} \\text{ C}$), khối lượng $m_p \\approx 1.6726 \\times 10^{-27} \\text{ kg} \\approx 1.0073 \\text{ amu}$.\n  - **Neutron (n)**: Không mang điện, khối lượng $m_n \\approx 1.6749 \\times 10^{-27} \\text{ kg} \\approx 1.0087 \\text{ amu}$.\n- **Vỏ electron**: Gồm các **electron (e)** mang điện tích nguyên tố âm $-1$ ($-1.602 \\times 10^{-19} \\text{ C}$), khối lượng rất nhỏ $m_e \\approx 9.109 \\times 10^{-31} \\text{ kg} \\approx 0.00055 \\text{ amu}$ (chỉ bằng khoảng $1/1836$ khối lượng của proton). Vì khối lượng electron không đáng kể, khối lượng nguyên tử hầu như tập trung toàn bộ ở hạt nhân ($m_{\\text{nguyên tử}} \\approx m_{\\text{hạt nhân}} = m_p + m_n$).\n- **Số hiệu nguyên tử (Z)**: Đại diện cho số proton trong hạt nhân = số electron ở vỏ nguyên tử. Số khối $A = Z + N$ (với $N$ là số neutron).\n\n### 2. Mô hình nguyên tử hiện đại và Orbital nguyên tử (AO)\n- **Mô hình hành tinh nguyên tử Rutherford - Bohr**: Coi electron chuyển động theo những quỹ đạo tròn hoặc elip xác định quanh hạt nhân giống như các hành tinh quay quanh Mặt Trời.\n- **Mô hình hiện đại (Cơ học lượng tử)**: Dựa trên nguyên lý bất định Heisenberg và lưỡng tính sóng - hạt của de Broglie. Electron chuyển động rất nhanh quanh hạt nhân không theo quỹ đạo cố định nào. Ta chỉ có thể xác định **xác suất tìm thấy electron** tại một vùng không gian nhất định xung quanh hạt nhân.\n- **Orbital nguyên tử (Atomic Orbital - AO)**: Là khu vực không gian xung quanh hạt nhân mà tại đó xác suất tìm thấy electron đạt khoảng 90%.\n  - **AO s**: Có dạng hình cầu đối xứng trong không gian 3 chiều. Mỗi lớp có 1 AO s.\n  - **AO p**: Có dạng hình số 8 nổi đối xứng hai phía qua hạt nhân, gồm 3 orbital định hướng theo 3 trục tọa độ vuông góc trong không gian: $p_x, p_y, p_z$.\n  - **AO d**: Gồm 5 orbital có hình dạng cánh hoa phức tạp ($d_{xy}, d_{yz}, d_{xz}, d_{x^2-y^2}, d_{z^2}$).\n  - **AO f**: Gồm 7 orbital có hình dạng không gian đa diện phức tạp.\n\n### 3. Lớp và Phân lớp electron\n- **Lớp electron ($n$)**: Các electron có mức năng lượng gần bằng nhau được xếp vào cùng một lớp. Đánh số từ trong ra ngoài: $n = 1$ (lớp K), $n = 2$ (lớp L), $n = 3$ (lớp M), $n = 4$ (lớp N), $n = 5$ (lớp O), $n = 6$ (lớp P), $n = 7$ (lớp Q). Số electron tối đa trong lớp thứ $n$ là $2n^2$ (với $n \\le 4$).\n- **Phân lớp electron**: Mỗi lớp lại chia thành các phân lớp được ký hiệu bằng chữ cái thường $s, p, d, f$.\n  - Phân lớp s: có 1 AO, chứa tối đa 2 electron ($s^2$).\n  - Phân lớp p: có 3 AO, chứa tối đa 6 electron ($p^6$).\n  - Phân lớp d: có 5 AO, chứa tối đa 10 electron ($d^{10}$).\n  - Phân lớp f: có 7 AO, chứa tối đa 14 electron ($f^{14}$).\n\n### 4. Ba nguyên lý phân bố electron và Cấu hình electron\n- **Nguyên lý vững bền (Aufbau Principle)**: Ở trạng thái cơ bản, các electron trong nguyên tử lần lượt chiếm các mức năng lượng từ thấp đến cao:\n  $$1s \\rightarrow 2s \\rightarrow 2p \\rightarrow 3s \\rightarrow 3p \\rightarrow 4s \\rightarrow 3d \\rightarrow 4p \\rightarrow 5s \\rightarrow 4d \\rightarrow 5p \\rightarrow 6s \\rightarrow 4f \\rightarrow 5d \\rightarrow 6p \\rightarrow 7s...$$\n  *(Lưu ý hiện tượng chèn mức năng lượng: phân lớp 4s có mức năng lượng thấp hơn 3d khi chưa điền electron!)*\n- **Nguyên lý loại trừ Pauli (Pauli Exclusion Principle)**: Trên mỗi orbital nguyên tử chỉ có thể chứa tối đa 2 electron có chiều tự quay (spin) đối song nhau (ngược chiều nhau, ký hiệu là $\\uparrow\\downarrow$). Không thể có 2 electron nào trong một nguyên tử có cùng 4 số lượng tử.\n- **Quy tắc Hund**: Trong cùng một phân lớp chưa bão hòa, các electron có xu hướng phân bố đều vào các AO sao cho số electron độc thân là cực đại và các electron này phải có spin song song cùng chiều ($\\uparrow \\uparrow \\uparrow$).\n- **Hiện tượng cấu hình bền đặc biệt (Bán bão hòa và Bão hòa phân lớp d)**:\n  - Crom ($Z=24$): Cấu hình lý thuyết là $[Ar]3d^4 4s^2$, nhưng 1 electron từ 4s nhảy sang 3d để đạt trạng thái **bán bão hòa $3d^5$ bền vững hơn**: Cấu hình thực tế là $[Ar]3d^5 4s^1$.\n  - Đồng ($Z=29$): Cấu hình lý thuyết là $[Ar]3d^9 4s^2$, nhưng 1 electron từ 4s nhảy sang 3d để đạt trạng thái **bão hòa hoàn toàn $3d^{10}$ bền vững hơn**: Cấu hình thực tế là $[Ar]3d^{10} 4s^1$.",
+    "fundamentalPrinciples": [
+      {
+        "name": "Nguyên lý vững bền Aufbau",
+        "formulation": "Electron điền lần lượt vào các orbital có mức năng lượng từ thấp đến cao (1s 2s 2p 3s 3p 4s 3d 4p 5s 4d 5p...)."
+      },
+      {
+        "name": "Nguyên lý loại trừ Pauli",
+        "formulation": "Mỗi AO chứa tối đa 2 electron có spin đối song (ngược chiều nhau ↑↓)."
+      },
+      {
+        "name": "Quy tắc Hund",
+        "formulation": "Electron phân bố sao cho số electron độc thân trong cùng phân lớp đạt cực đại và có chiều spin song song."
+      },
+      {
+        "name": "Quy tắc bão hòa/bán bão hòa d",
+        "formulation": "Phân lớp d chuyển 1 electron từ s để đạt bán bão hòa d5 (Cr) hoặc bão hòa d10 (Cu)."
+      }
+    ],
+    "keyEquationsAndPhenomena": [
+      {
+        "equation": "24Cr: 1s2 2s2 2p6 3s2 3p6 3d5 4s1",
+        "phases": {
+          "Cr": "s"
+        },
+        "conditions": "Trạng thái cơ bản",
+        "observation": "Kim loại crom màu xám bạc ánh kim, có độ cứng cao nhất trong tất cả các kim loại (cắt được thủy tinh, độ cứng 8.5 trên thang Mohs) do có tới 6 electron hóa trị tham gia liên kết kim loại.",
+        "historicalNote": "Minh chứng chuẩn mực cho cấu hình bán bão hòa d5 trong SGK Hóa học 10."
+      },
+      {
+        "equation": "29Cu: 1s2 2s2 2p6 3s2 3p6 3d10 4s1",
+        "phases": {
+          "Cu": "s"
+        },
+        "conditions": "Trạng thái cơ bản",
+        "observation": "Kim loại đồng có màu đỏ cam đặc trưng, dẫn điện và dẫn nhiệt tuyệt hảo (chỉ đứng sau bạc) nhờ phân lớp 3d đã bão hòa hoàn toàn và 1 electron 4s linh động.",
+        "historicalNote": "Minh chứng cho cấu hình bão hòa d10 bền vững."
+      },
+      {
+        "equation": "Fe(s) + 2HCl(aq) -> FeCl2(aq) + H2(g)",
+        "phases": {
+          "Fe": "s",
+          "HCl": "aq",
+          "FeCl2": "aq",
+          "H2": "g"
+        },
+        "conditions": "Nhiệt độ phòng",
+        "observation": "Đinh sắt tan dần sủi bọt khí hiđro không màu, dung dịch thu được có màu xanh nhạt của ion Fe²⁺ (cấu hình [Ar]3d⁶ do mất 2 electron lớp ngoài cùng 4s²).",
+        "historicalNote": "Quy tắc viết cấu hình ion: electron ở phân lớp ngoài cùng (4s) bị tách trước khi tách electron ở phân lớp 3d."
+      }
+    ],
+    "commonMisconceptions": [
+      "Nhầm lẫn giữa thứ tự mức năng lượng (1s 2s 2p 3s 3p 4s 3d) và thứ tự viết cấu hình electron theo lớp (1s 2s 2p 3s 3p 3d 4s).",
+      "Viết sai cấu hình ion kim loại chuyển tiếp: Ví dụ Fe²⁺ bị nhầm thành [Ar]3d⁴4s² thay vì [Ar]3d⁶ (khi tạo ion, electron phân lớp ngoài cùng 4s bị nhường trước tiên!).",
+      "Nghĩ rằng orbital là một đường quỹ đạo elip cố định thay vì một đám mây xác suất lượng tử 3 chiều."
+    ],
+    "relatedElements": [
+      "H",
+      "He",
+      "C",
+      "N",
+      "O",
+      "Ne",
+      "Na",
+      "Al",
+      "Cl",
+      "Ar",
+      "K",
+      "Ca",
+      "Cr",
+      "Fe",
+      "Cu"
+    ],
+    "relatedCompounds": [
+      "FeCl2",
+      "FeCl3",
+      "Cr2O3",
+      "CuSO4"
+    ],
+    "selfTestQuestions": [
+      {
+        "question": "Nguyên tử sắt (Fe, Z = 26) có số electron độc thân ở trạng thái cơ bản là bao nhiêu?",
+        "options": [
+          "2",
+          "4",
+          "6",
+          "0"
+        ],
+        "answer": 1,
+        "explanation": "Cấu hình electron của Fe (Z=26) là [Ar] 3d⁶ 4s². Phân lớp 3d có 5 AO chứa 6 electron: theo quy tắc Hund, có 1 cặp electron ghép đôi và 4 electron độc thân phân bố vào 4 AO còn lại. Do đó có 4 electron độc thân."
+      },
+      {
+        "question": "Cấu hình electron đúng của cation đồng Cu⁺ (Z = 29) là:",
+        "options": [
+          "[Ar] 3d⁹ 4s¹",
+          "[Ar] 3d¹⁰",
+          "[Ar] 3d⁸ 4s²",
+          "[Ar] 3d¹⁰ 4s¹"
+        ],
+        "answer": 1,
+        "explanation": "Nguyên tử Cu có cấu hình [Ar] 3d¹⁰ 4s¹. Khi nhường 1 electron tạo ion Cu⁺, electron ở phân lớp ngoài cùng 4s bị tách đi, còn lại cấu hình bền bão hòa [Ar] 3d¹⁰."
+      }
+    ]
+  },
+  {
+    "id": "periodic-law-and-trends",
+    "topic": "Bảng tuần hoàn & Xu hướng tuần hoàn",
+    "grade": "Hóa học 10",
+    "title": "Định luật tuần hoàn và Xu hướng biến đổi tuần hoàn tính chất nguyên tố",
+    "curriculumUnits": [
+      "Hóa học 10 - Chương 2: Bảng tuần hoàn các nguyên tố hóa học (Bài 4: Cấu tạo bảng tuần hoàn)",
+      "Hóa học 10 - Chương 2: Bảng tuần hoàn các nguyên tố hóa học (Bài 5: Xu hướng biến đổi tính chất nguyên tử)",
+      "Hóa học 10 - Chương 2: Bảng tuần hoàn các nguyên tố hóa học (Bài 6: Xu hướng biến đổi tính chất hợp chất)",
+      "KHTN 7 - Bài: Bảng tuần hoàn các nguyên tố hóa học"
+    ],
+    "summary": "Định luật tuần hoàn: Tính chất của các đơn chất cũng như thành phần và tính chất của các hợp chất tạo nên từ các nguyên tố biến đổi tuần hoàn theo chiều tăng dần của điện tích hạt nhân (số hiệu nguyên tử Z). Quy luật này chi phối bán kính nguyên tử, năng lượng ion hóa thứ nhất (I₁), độ âm điện (χ), tính kim loại - phi kim, và tính axit - bazơ của oxit/hiđroxit cao nhất.",
+    "detailedExplanation": "### 1. Cấu trúc Bảng tuần hoàn các nguyên tố hóa học\nBảng tuần hoàn hiện đại gồm 118 nguyên tố được sắp xếp theo 3 nguyên tắc:\n1. Các nguyên tố được xếp theo chiều tăng dần của **điện tích hạt nhân nguyên tử ($Z$)**.\n2. Các nguyên tố có cùng số lớp electron trong nguyên tử được xếp thành một hàng gọi là **Chu kỳ**.\n3. Các nguyên tố có cấu hình electron tương tự nhau được xếp thành một cột gọi là **Nhóm**.\n\n- **Ô nguyên tố**: Cho biết số hiệu nguyên tử ($Z$), ký hiệu hóa học, tên nguyên tố, nguyên tử khối trung bình và độ âm điện.\n- **Chu kỳ**: Có 7 chu kỳ được đánh số từ 1 đến 7. Số thứ tự chu kỳ = Số lớp electron trong nguyên tử.\n  - Chu kỳ nhỏ: Chu kỳ 1 (2 nguyên tố), Chu kỳ 2 (8 nguyên tố), Chu kỳ 3 (8 nguyên tố).\n  - Chu kỳ lớn: Chu kỳ 4 (18 nguyên tố), Chu kỳ 5 (18 nguyên tố), Chu kỳ 6 (32 nguyên tố, chứa họ Lantan), Chu kỳ 7 (32 nguyên tố, chứa họ Actini).\n- **Nhóm nguyên tố**: Gồm 18 cột chia làm 8 nhóm A (từ IA đến VIIIA - các nguyên tố s và p, nhóm chính) và 8 nhóm B (từ IB đến VIIIB - các nguyên tố d và f, kim loại chuyển tiếp). Số thứ tự nhóm A = Số electron hóa trị = Số electron lớp ngoài cùng.\n\n### 2. Quy luật biến đổi tuần hoàn trong Chu kỳ và Nhóm A\nKhi đi từ trái sang phải trong một Chu kỳ (điện tích hạt nhân $Z$ tăng, số lớp electron không đổi):\n- **Bán kính nguyên tử ($r$) GIẢM DẦN**: Do điện tích hạt nhân $Z$ tăng làm tăng lực hút tĩnh điện giữa hạt nhân với các electron lớp ngoài cùng, kéo các electron lại gần tâm hơn.\n- **Năng lượng ion hóa thứ nhất ($I_1$) XU HƯỚNG TĂNG DẦN**: Lực hút hạt nhân mạnh hơn khiến việc bứt 1 electron ra khỏi nguyên tử ở trạng thái khí đòi hỏi năng lượng lớn hơn.\n- **Độ âm điện ($\\chi$) TĂNG DẦN**: Khả năng hút electron trong liên kết hóa học tăng lên (Flo có độ âm điện lớn nhất = 3.98).\n- **Tính kim loại (tính khử) GIẢM DẦN, tính phi kim (tính oxi hóa) TĂNG DẦN**: Đầu chu kỳ là kim loại kiềm mạnh nhất, cuối chu kỳ (trước khí hiếm) là halogen phi kim mạnh nhất.\n\nKhi đi từ trên xuống dưới trong một Nhóm A (điện tích hạt nhân $Z$ tăng, số lớp electron tăng dần):\n- **Bán kính nguyên tử ($r$) TĂNG DẦN**: Do số lớp electron tăng lên làm tăng kích thước đám mây electron và hiệu ứng chắn của các lớp electron bên trong làm giảm lực hút của hạt nhân lên electron ngoài cùng.\n- **Năng lượng ion hóa thứ nhất ($I_1$) GIẢM DẦN**: Bán kính lớn hơn và lực hút yếu hơn giúp việc bứt electron dễ dàng hơn.\n- **Độ âm điện ($\\chi$) GIẢM DẦN**: Khả năng giữ và hút electron liên kết giảm.\n- **Tính kim loại TĂNG DẦN, tính phi kim GIẢM DẦN**: Ví dụ trong nhóm IA, tính kim loại tăng dần $Li < Na < K < Rb < Cs$. Trong nhóm VIIA, tính phi kim giảm dần $F > Cl > Br > I$.\n\n### 3. Xu hướng biến đổi tính chất Hợp chất cao nhất\nTrong một chu kỳ, đi từ trái sang phải:\n- Hóa trị cao nhất của nguyên tố trong hợp chất với Oxi tăng dần từ I đến VII (bằng số thứ tự nhóm A).\n- Hóa trị của phi kim trong hợp chất khí với Hiđro giảm dần từ 4 đến 1 (Hóa trị với H = 8 - Số thứ tự nhóm A).\n- **Oxit và Hiđroxit cao nhất**:\n  - Tính bazơ giảm dần, tính axit tăng dần.\n  - Ví dụ Chu kỳ 3:\n    $$\\underbrace{Na_2O \\rightarrow MgO}_{\\text{Oxit bazơ}} \\rightarrow \\underbrace{Al_2O_3}_{\\text{Oxit lưỡng tính}} \\rightarrow \\underbrace{SiO_2 \\rightarrow P_2O_5 \\rightarrow SO_3 \\rightarrow Cl_2O_7}_{\\text{Oxit axit (tính axit tăng mạnh)}}$$\n    $$\\underbrace{NaOH}_{\\text{Bazơ mạnh}} \\rightarrow \\underbrace{Mg(OH)_2}_{\\text{Bazơ yếu}} \\rightarrow \\underbrace{Al(OH)_3}_{\\text{Hiđroxit lưỡng tính}} \\rightarrow \\underbrace{H_2SiO_3}_{\\text{Axit rất yếu}} \\rightarrow \\underbrace{H_3PO_4}_{\\text{Axit trung bình}} \\rightarrow \\underbrace{H_2SO_4}_{\\text{Axit mạnh}} \\rightarrow \\underbrace{HClO_4}_{\\text{Axit rất mạnh}}$$",
+    "fundamentalPrinciples": [
+      {
+        "name": "Định luật tuần hoàn Mendeleev hiện đại",
+        "formulation": "Tính chất các nguyên tố và hợp chất biến thiên tuần hoàn theo chiều tăng của điện tích hạt nhân nguyên tử Z."
+      },
+      {
+        "name": "Quy luật biến thiên bán kính nguyên tử",
+        "formulation": "Trong chu kỳ r giảm dần (Z tăng, n không đổi); trong nhóm A r tăng dần (số lớp n tăng)."
+      },
+      {
+        "name": "Quy luật tính Axit - Bazơ của hiđroxit cao nhất",
+        "formulation": "Trong chu kỳ từ trái sang phải: tính bazơ giảm dần, tính axit tăng dần."
+      }
+    ],
+    "keyEquationsAndPhenomena": [
+      {
+        "equation": "Cl2O7(l) + H2O(l) -> 2HClO4(aq)",
+        "phases": {
+          "Cl2O7": "l",
+          "H2O": "l",
+          "HClO4": "aq"
+        },
+        "conditions": "Nhiệt độ phòng, phản ứng tỏa nhiệt mạnh",
+        "observation": "Chất lỏng điclo heptaoxit không màu tan bốc khói trong nước tạo dung dịch axit pecloric — một trong những axit vô cơ mạnh nhất thế giới làm quỳ tím đổi sang màu đỏ rực ngay lập tức.",
+        "historicalNote": "Minh chứng cho tính axit cực đại của oxit cao nhất nhóm VIIA ở cuối chu kỳ 3."
+      },
+      {
+        "equation": "Al(OH)3(s) + NaOH(aq) -> Na[Al(OH)4](aq)",
+        "phases": {
+          "Al(OH)3": "s",
+          "NaOH": "aq",
+          "Na[Al(OH)4]": "aq"
+        },
+        "conditions": "Nhiệt độ phòng, kiềm dư",
+        "observation": "Kết tủa keo trắng nhôm hiđroxit tan biến hoàn toàn tạo dung dịch trong suốt không màu của muối natri tetrahiđroxoaluminat.",
+        "historicalNote": "Bằng chứng thực nghiệm cho tính chất lưỡng tính ở vị trí chuyển tiếp giữa kim loại và phi kim trong chu kỳ 3."
+      },
+      {
+        "equation": "Al(OH)3(s) + 3HCl(aq) -> AlCl3(aq) + 3H2O(l)",
+        "phases": {
+          "Al(OH)3": "s",
+          "HCl": "aq",
+          "AlCl3": "aq",
+          "H2O": "l"
+        },
+        "conditions": "Nhiệt độ phòng",
+        "observation": "Kết tủa keo trắng Al(OH)3 tan nhanh chóng trong dung dịch axit clohiđric tạo dung dịch muối nhôm clorua không màu.",
+        "historicalNote": "Al(OH)3 vừa tác dụng được với bazơ mạnh vừa tác dụng với axit mạnh, khẳng định tính lưỡng tính hoàn hảo."
+      }
+    ],
+    "commonMisconceptions": [
+      "Cho rằng trong chu kỳ bán kính nguyên tử tăng vì Z tăng (Sai: Z tăng kéo electron vào gần hơn làm bán kính CO LẠI).",
+      "Nhầm lẫn vị trí của khí hiếm khi so sánh độ âm điện (Khí hiếm trơ có lớp vỏ bão hòa, thường không có giá trị độ âm điện Pauling tiêu chuẩn).",
+      "Đồng nhất hóa trị cao nhất với oxi và hóa trị với hiđro (Hóa trị với H của phi kim chỉ từ 1 đến 4, trong khi hóa trị với O tăng từ 1 đến 7)."
+    ],
+    "relatedElements": [
+      "Li",
+      "Be",
+      "B",
+      "C",
+      "N",
+      "O",
+      "F",
+      "Na",
+      "Mg",
+      "Al",
+      "Si",
+      "P",
+      "S",
+      "Cl",
+      "K",
+      "Ca",
+      "Cs"
+    ],
+    "relatedCompounds": [
+      "NaOH",
+      "Mg(OH)2",
+      "Al(OH)3",
+      "H2SiO3",
+      "H3PO4",
+      "H2SO4",
+      "HClO4",
+      "Cl2O7"
+    ],
+    "selfTestQuestions": [
+      {
+        "question": "Dãy nguyên tố nào sau đây được sắp xếp theo chiều BÁN KÍNH NGUYÊN TỬ GIẢM DẦN?",
+        "options": [
+          "Na > Mg > Al > Si",
+          "Si > Al > Mg > Na",
+          "K > Na > Li > Cs",
+          "F > Cl > Br > I"
+        ],
+        "answer": 0,
+        "explanation": "Các nguyên tố Na, Mg, Al, Si thuộc cùng chu kỳ 3. Đi từ trái sang phải theo chiều Z tăng, lực hút hạt nhân tăng khiến bán kính nguyên tử giảm dần: r(Na) > r(Mg) > r(Al) > r(Si)."
+      },
+      {
+        "question": "Hiđroxit nào sau đây có tính axit mạnh nhất?",
+        "options": [
+          "HClO4",
+          "H2SO4",
+          "H3PO4",
+          "H2SiO3"
+        ],
+        "answer": 0,
+        "explanation": "Trong cùng chu kỳ 3, đi từ Si đến Cl, tính phi kim tăng dần và tính axit của hiđroxit cao nhất tăng dần: H2SiO3 (axit rất yếu) < H3PO4 (axit trung bình) < H2SO4 (axit mạnh) < HClO4 (axit rất mạnh)."
+      }
+    ]
+  },
+  {
+    "id": "chemical-bonding-and-intermolecular-forces",
+    "topic": "Liên kết hóa học & Tương tác liên phân tử",
+    "grade": "Hóa học 10",
+    "title": "Bản chất liên kết ion, liên kết cộng hóa trị, liên kết hiđro và tương tác van der Waals",
+    "curriculumUnits": [
+      "Hóa học 10 - Chương 3: Liên kết hóa học (Bài 7: Quy tắc Octet)",
+      "Hóa học 10 - Chương 3: Liên kết hóa học (Bài 8: Liên kết ion)",
+      "Hóa học 10 - Chương 3: Liên kết hóa học (Bài 9: Liên kết cộng hóa trị & Lai hóa)",
+      "Hóa học 10 - Chương 3: Liên kết hóa học (Bài 10: Tương tác van der Waals và liên kết hydrogen)",
+      "KHTN 7 - Bài: Liên kết hóa học"
+    ],
+    "summary": "Nguyên tử tạo liên kết để đạt cấu hình electron bão hòa bền vững của khí hiếm theo quy tắc bát tử (Octet rule: 8 electron lớp ngoài cùng, hoặc 2 electron kiểu Heli). Tùy thuộc vào hiệu độ âm điện Δχ, liên kết hóa học nội phân tử được chia thành liên kết ion và liên kết cộng hóa trị (không cực, phân cực, phối trí). Bên cạnh đó, các tương tác yếu liên phân tử (liên kết hiđro và lực van der Waals) đóng vai trò quyết định đến nhiệt độ sôi, trạng thái tồn tại và tính chất sinh học kỳ diệu của vật chất.",
+    "detailedExplanation": "### 1. Quy tắc bát tử (Octet Rule)\nKhi tạo thành liên kết hóa học, các nguyên tử có xu hướng nhường, nhận hoặc góp chung electron để đạt được cấu hình electron bền vững gồm 8 electron ở lớp ngoài cùng (hoặc 2 electron như khí hiếm Helium).\n- Các kim loại điển hình (nhóm IA, IIA) có xu hướng **nhường 1, 2 electron** để tạo thành cation mang điện tích dương có lớp vỏ bão hòa của khí hiếm chu kỳ trước.\n- Các phi kim điển hình (nhóm VIA, VIIA) có xu hướng **nhận 1, 2 electron** để tạo thành anion mang điện tích âm có lớp vỏ bão hòa của khí hiếm cùng chu kỳ.\n- Ngoại lệ bát tử: Một số phân tử có số electron hóa trị không đủ 8 (thiếu electron như $BF_3$, $BeCl_2$) hoặc mở rộng bát tử lên 10, 12 electron nhờ sự tham gia của phân lớp d trống (như $PCl_5$, $SF_6$).\n\n### 2. Liên kết ion (Ionic Bond)\n- **Định nghĩa**: Là liên kết được hình thành bởi lực hút tĩnh điện giữa các ion mang điện tích trái dấu (cation kim loại và anion phi kim).\n- **Điều kiện hình thành**: Thường xảy ra giữa kim loại điển hình (nhóm IA, IIA) và phi kim điển hình (nhóm VIIA, Oxi). Hiệu độ âm điện $\\Delta\\chi \\ge 1.7$.\n- **Đặc điểm tinh thể ion**:\n  - Không tồn tại phân tử riêng biệt trong pha rắn; các ion sắp xếp tuần hoàn đối xứng trong không gian 3 chiều tạo thành **mạng tinh thể ion** (ví dụ mạng lập phương tâm diện NaCl, số phối trí 6:6).\n  - Lực hút tĩnh điện rất mạnh và không định hướng, làm cho các hợp chất ion đều là chất rắn ở nhiệt độ phòng, có nhiệt độ nóng chảy và nhiệt độ sôi rất cao ($NaCl$ nóng chảy ở $801^\\circ C$).\n  - Giòn, dễ vỡ vụn khi bị tác dụng lực cơ học (do các lớp ion cùng dấu bị xô lệch đối diện nhau gây lực đẩy tĩnh điện làm nứt mạng tinh thể).\n  - Dẫn điện tốt khi nóng chảy hoặc khi hòa tan trong nước (do các ion được giải phóng tự do), nhưng không dẫn điện ở trạng thái rắn.\n\n### 3. Liên kết cộng hóa trị (Covalent Bond)\n- **Định nghĩa**: Là liên kết được hình thành giữa hai nguyên tử bằng một hay nhiều **cặp electron dùng chung**.\n- **Phân loại theo hiệu độ âm điện ($\\Delta\\chi$)**:\n  - **Liên kết CHT không phân cực ($0.0 \\le \\Delta\\chi < 0.4$)**: Cặp electron dùng chung phân bố đối xứng đều giữa hai hạt nhân (ví dụ: $H_2, Cl_2, N_2, CH_4$).\n  - **Liên kết CHT phân cực ($0.4 \\le \\Delta\\chi < 1.7$)**: Cặp electron dùng chung bị lệch về phía nguyên tử có độ âm điện lớn hơn, tạo điện tích cục bộ $\\delta^+$ và $\\delta^-$ (ví dụ: $HCl, H_2O, NH_3$).\n- **Liên kết cho - nhận (Liên kết phối trí)**: Cặp electron dùng chung chỉ do một nguyên tử đóng góp hoàn toàn (nguyên tử cho có cặp e tự do, nguyên tử nhận có orbital trống). Ký hiệu mũi tên $\\rightarrow$ hoặc gạch nối kèm dấu điện tích hình thức (ví dụ: $NH_4^+, H_3O^+, CO$).\n- **Cơ chế xen phủ orbital**:\n  - **Liên kết $\\sigma$ (sigma)**: Hình thành do sự xen phủ trục dọc theo đường nối hai tâm nguyên tử ($s-s, s-p, p-p$). Là liên kết rất bền, mọi liên kết đơn đều là liên kết $\\sigma$.\n  - **Liên kết $\\pi$ (pi)**: Hình thành do sự xen phủ bên của các orbital p song song nằm vuông góc với trục liên kết. Kém bền hơn liên kết $\\sigma$, dễ bị bẻ gãy trong các phản ứng hóa học.\n  - Liên kết đôi gồm $1\\sigma + 1\\pi$; liên kết ba gồm $1\\sigma + 2\\pi$.\n- **Thuyết Lai hóa Orbital (Hybridization theo Linus Pauling)**:\n  - **Lai hóa $sp^3$**: 1 AO s + 3 AO p $\\rightarrow$ 4 AO lai hóa $sp^3$ hướng về 4 đỉnh hình tứ diện đều, góc $109.5^\\circ$ (ví dụ: $CH_4, CCl_4$).\n  - **Lai hóa $sp^2$**: 1 AO s + 2 AO p $\\rightarrow$ 3 AO lai hóa $sp^2$ nằm trên một mặt phẳng hướng về 3 đỉnh tam giác đều, góc $120^\\circ$ (ví dụ: $BF_3, C_2H_4$).\n  - **Lai hóa $sp$**: 1 AO s + 1 AO p $\\rightarrow$ 2 AO lai hóa $sp$ định hướng thẳng hàng góc $180^\\circ$ (ví dụ: $BeH_2, C_2H_2, CO_2$).\n\n### 4. Tương tác yếu liên phân tử\n- **Liên kết hiđro (Hydrogen Bonding)**:\n  - Là tương tác tĩnh điện giữa nguyên tử Hiđro mang điện tích dương $\\delta^+$ (đã liên kết cộng hóa trị với một phi kim có độ âm điện lớn và bán kính nhỏ như F, O, N) với một cặp electron tự do của nguyên tử F, O, N mang điện tích âm $\\delta^-$ khác.\n  - Ký hiệu: Dấu ba chấm $\\cdots$ (ví dụ: $O-H \\cdots O, N-H \\cdots O, F-H \\cdots F$).\n  - **Hệ quả kỳ diệu**: Làm tăng vọt nhiệt độ sôi và nhiệt độ nóng chảy của chất ($H_2O$ sôi ở $100^\\circ C$ trong khi $H_2S$ có khối lượng lớn hơn nhiều lại sôi ở $-60^\\circ C$); làm cho nước đá có cấu trúc xốp rỗng với khối lượng riêng nhỏ hơn nước lỏng (nước đá nổi trên mặt nước bảo vệ sinh vật dưới đáy hồ); tạo độ tan vô hạn của etanol trong nước; và giữ vững chuỗi xoắn kép DNA cùng cấu trúc protein bậc cao.\n- **Tương tác van der Waals (London Dispersion & Dipole-Dipole)**:\n  - Là lực hút tĩnh điện yếu giữa các lưỡng cực cảm ứng tức thời sinh ra do sự dao động bất đối xứng của đám mây electron.\n  - Tăng lên khi khối lượng phân tử và kích thước đám mây electron tăng. Giải thích vì sao đi từ Flo đến Iot: $F_2$ và $Cl_2$ là chất khí, $Br_2$ là chất lỏng, còn $I_2$ là chất rắn thăng hoa.",
+    "fundamentalPrinciples": [
+      {
+        "name": "Quy tắc Octet (Bát tử)",
+        "formulation": "Nguyên tử có xu hướng nhường, nhận hoặc góp chung electron để đạt lớp vỏ ngoài cùng 8 electron (hoặc 2 electron như He)."
+      },
+      {
+        "name": "Quy tắc hiệu độ âm điện Pauling",
+        "formulation": "Δχ < 0.4: CHT không phân cực; 0.4 ≤ Δχ < 1.7: CHT phân cực; Δχ ≥ 1.7: Liên kết ion."
+      },
+      {
+        "name": "Điều kiện tạo liên kết hiđro",
+        "formulation": "Nguyên tử H liên kết trực tiếp với F, O, N tương tác với cặp electron chưa chia của nguyên tử F, O, N khác."
+      }
+    ],
+    "keyEquationsAndPhenomena": [
+      {
+        "equation": "2Na(s) + Cl2(g) -> 2NaCl(s)",
+        "phases": {
+          "Na": "s",
+          "Cl2": "g",
+          "NaCl": "s"
+        },
+        "conditions": "Mồi cháy ở nhiệt độ cao (phản ứng tạo liên kết ion điển hình)",
+        "observation": "Mẩu natri kim loại bốc cháy rực sáng chói mắt với ngọn lửa màu vàng trong bình chứa khí clo màu vàng lục, khói trắng dày đặc gồm hàng triệu tinh thể natri clorua NaCl bám quanh thành bình.",
+        "historicalNote": "Phản ứng kinh điển tạo liên kết ion giữa kim loại kiềm mạnh nhất và halogen điển hình."
+      },
+      {
+        "equation": "H2O(s) --(0°C, hut nhiet)--> H2O(l)",
+        "phases": {
+          "H2O": "l"
+        },
+        "conditions": "Nhiệt độ nóng chảy ở áp suất 1 atm",
+        "observation": "Cục nước đá trong suốt nổi trên mặt nước lỏng tan dần; thể tích chất lỏng co lại (nước đá nở ra khi đóng băng do mạng tinh thể tứ diện liên kết hiđro rỗng).",
+        "historicalNote": "Đặc tính dị thường của nước do mạng lưới liên kết hiđro liên phân tử tạo nên."
+      },
+      {
+        "equation": "I2(s) --(dun nhe)--> I2(g)",
+        "phases": {
+          "I2": "g"
+        },
+        "conditions": "Đun nóng nhẹ đáy ống nghiệm",
+        "observation": "Tinh thể iot màu đen tím lấp lánh thăng hoa trực tiếp thành luồng hơi màu tím biếc bay lên đỉnh ống nghiệm rồi ngưng tụ lại thành tinh thể sắc cạnh mà không qua trạng thái lỏng.",
+        "historicalNote": "Tinh thể phân tử liên kết bằng lực van der Waals yếu dễ bị phá vỡ khi gia nhiệt nhẹ."
+      }
+    ],
+    "commonMisconceptions": [
+      "Cho rằng liên kết hiđro là liên kết hóa học nội phân tử giữa H và O (Sai: Liên kết hiđro là TƯƠNG TÁC YẾU GIỮA CÁC PHÂN TỬ, yếu hơn liên kết cộng hóa trị khoảng 10-20 lần).",
+      "Nghĩ rằng mọi chất có công thức phân tử đều tồn tại phân tử riêng biệt trong pha rắn (Sai: Tinh thể ion như NaCl không có phân tử NaCl độc lập mà là mạng lưới vô tận của các ion Na⁺ và Cl⁻).",
+      "Đánh đồng hình học phân tử với kiểu lai hóa mà bỏ quên cặp electron tự do (Ví dụ H2O lai hóa sp³ nhưng góc liên kết chỉ là 104.5° dạng gấp khúc do hai cặp electron tự do đẩy mạnh)."
+    ],
+    "relatedElements": [
+      "H",
+      "C",
+      "N",
+      "O",
+      "F",
+      "Na",
+      "Mg",
+      "Al",
+      "P",
+      "S",
+      "Cl",
+      "K",
+      "Ca",
+      "Br",
+      "I"
+    ],
+    "relatedCompounds": [
+      "NaCl",
+      "H2O",
+      "NH3",
+      "CH4",
+      "CO2",
+      "HCl",
+      "C2H5OH",
+      "HF",
+      "I2"
+    ],
+    "selfTestQuestions": [
+      {
+        "question": "Chất nào sau đây có nhiệt độ sôi cao nhất ở áp suất thường?",
+        "options": [
+          "H2O",
+          "H2S",
+          "H2Se",
+          "H2Te"
+        ],
+        "answer": 0,
+        "explanation": "Mặc dù phân tử khối của H2O (18) nhỏ hơn nhiều so với H2S (34), H2Se (81), H2Te (130), nhưng giữa các phân tử H2O tồn tại mạng lưới LIÊN KẾT HIĐRO liên phân tử cực kỳ bền vững, đòi hỏi năng lượng rất lớn để bẻ gãy khi sôi. Vì vậy H2O sôi ở 100°C cao vượt trội."
+      },
+      {
+        "question": "Liên kết giữa nguyên tử N và H trong phân tử amoniac NH3 là loại liên kết nào?",
+        "options": [
+          "Liên kết cộng hóa trị phân cực",
+          "Liên kết ion",
+          "Liên kết cộng hóa trị không cực",
+          "Liên kết kim loại"
+        ],
+        "answer": 0,
+        "explanation": "Độ âm điện của N là 3.04 và của H là 2.20. Hiệu độ âm điện Δχ = 3.04 - 2.20 = 0.84 (nằm trong khoảng từ 0.4 đến 1.7). Do đó, liên kết N-H là liên kết cộng hóa trị phân cực về phía nguyên tử nitơ."
+      }
+    ]
+  },
+  {
+    "id": "thermochemistry-enthalpy",
+    "topic": "Nhiệt hóa học & Năng lượng phản ứng",
+    "grade": "Hóa học 10",
+    "title": "Biến thiên Enthalpy chuẩn, Phản ứng tỏa nhiệt - thu nhiệt và Định luật Hess",
+    "curriculumUnits": [
+      "Hóa học 10 - Chương 5: Năng lượng hóa học (Bài 13: Enthalpy tạo thành và biến thiên enthalpy của phản ứng)",
+      "Hóa học 10 - Chương 5: Năng lượng hóa học (Bài 14: Tính biến thiên enthalpy của phản ứng hóa học)",
+      "KHTN 8 - Bài: Năng lượng và biến đổi hóa học"
+    ],
+    "summary": "Mọi phản ứng hóa học đều kèm theo sự giải phóng hoặc hấp thụ năng lượng dưới dạng nhiệt do sự phá vỡ liên kết cũ và hình thành liên kết mới. Biến thiên enthalpy của phản ứng (ΔrH°₂₉₈) đo lường nhiệt lượng trao đổi ở áp suất không đổi và điều kiện chuẩn (298 K, 1 bar). Phản ứng tỏa nhiệt có ΔrH°₂₉₈ < 0; phản ứng thu nhiệt có ΔrH°₂₉₈ > 0. Biến thiên enthalpy có thể tính chính xác dựa vào Nhiệt tạo thành chuẩn (ΔfH°₂₉₈) hoặc Năng lượng liên kết (Eb).",
+    "detailedExplanation": "### 1. Phản ứng Tỏa nhiệt và Phản ứng Thu nhiệt\n- **Hệ và Môi trường**: Hệ nhiệt động là phần không gian chứa các chất đang xét; môi trường là phần còn lại bao quanh hệ.\n- **Phản ứng tỏa nhiệt (Exothermic Reaction)**: Là phản ứng giải phóng năng lượng dưới dạng nhiệt ra môi trường xung quanh. Nhiệt độ của môi trường tăng lên ($T > T_0$).\n  - Ví dụ: Phản ứng cháy của than củi, xăng dầu, phản ứng trung hòa axit - bazơ, phản ứng vôi sống tác dụng với nước.\n- **Phản ứng thu nhiệt (Endothermic Reaction)**: Là phản ứng hấp thụ năng lượng dưới dạng nhiệt từ môi trường xung quanh. Nhiệt độ của môi trường giảm xuống ($T < T_0$).\n  - Ví dụ: Phản ứng nhiệt phân đá vôi ($CaCO_3 \\rightarrow CaO + CO_2$), phản ứng nhiệt phân muối kali clorat, hòa tan phân đạm amoni nitrat vào nước (cảm giác mát lạnh buốt tay).\n\n### 2. Biến thiên Enthalpy chuẩn của phản ứng ($\\Delta_r H^\\circ_{298}$)\n- **Enthalpy ($H$)**: Đại lượng nhiệt động học đặc trưng cho năng lượng toàn phần của hệ ở áp suất không đổi.\n- **Biến thiên enthalpy phản ứng ($\\Delta_r H$)**: Là hiệu số giữa tổng enthalpy của các sản phẩm và tổng enthalpy của các chất đầu phản ứng:\n  $$\\Delta_r H = \\sum H(\\text{sản phẩm}) - \\sum H(\\text{chất đầu})$$\n- **Điều kiện chuẩn**: Nhiệt độ $298 \\text{ K}$ ($25^\\circ C$), áp suất $1 \\text{ bar}$ (khoảng $0.987 \\text{ atm}$), nồng độ chất tan $1 \\text{ mol/L}$. Ký hiệu: $\\Delta_r H^\\circ_{298}$.\n- **Dấu của $\\Delta_r H^\\circ_{298}$**:\n  - Khi $\\Delta_r H^\\circ_{298} < 0$: Phản ứng **TỎA NHIỆT** (hệ giải phóng nhiệt lượng, sản phẩm bền hơn chất đầu về mặt năng lượng).\n  - Khi $\\Delta_r H^\\circ_{298} > 0$: Phản ứng **THU NHIỆT** (hệ hấp thụ nhiệt lượng, sản phẩm có mức năng lượng cao hơn).\n\n### 3. Nhiệt tạo thành chuẩn ($\\Delta_f H^\\circ_{298}$)\n- **Định nghĩa**: Nhiệt tạo thành chuẩn (hay enthalpy tạo thành chuẩn, standard enthalpy of formation) của một chất là biến thiên enthalpy của phản ứng tạo thành **$1 \\text{ mol}$ chất đó** từ các đơn chất bền nhất ở điều kiện chuẩn ($298 \\text{ K}, 1 \\text{ bar}$). Ký hiệu là $\\Delta_f H^\\circ_{298}$ (đơn vị: $\\text{kJ/mol}$).\n- **Quy ước vàng**: Nhiệt tạo thành chuẩn của các **đơn chất ở dạng bền vững nhất** ở điều kiện chuẩn đều **BẰNG KHÔNG**:\n  $$\\Delta_f H^\\circ_{298}(O_2, g) = 0, \\quad \\Delta_f H^\\circ_{298}(H_2, g) = 0, \\quad \\Delta_f H^\\circ_{298}(N_2, g) = 0, \\quad \\Delta_f H^\\circ_{298}(C_{\\text{than chì}}, s) = 0$$\n- Ý nghĩa: Chất có $\\Delta_f H^\\circ_{298}$ càng âm thì càng bền vững về mặt nhiệt động học so với các đơn chất tạo nên nó (ví dụ $CO_2$ có $\\Delta_f H^\\circ_{298} = -393.5 \\text{ kJ/mol}$ rất bền vững).\n\n### 4. Hai phương pháp tính Biến thiên Enthalpy phản ứng ($\\Delta_r H^\\circ_{298}$)\n#### Phương pháp 1: Tính theo Nhiệt tạo thành chuẩn (Áp dụng cho mọi phản ứng)\nBiến thiên enthalpy phản ứng bằng TỔNG nhiệt tạo thành của các SẢN PHẨM trừ đi TỔNG nhiệt tạo thành của các CHẤT ĐẦU (có nhân với hệ số tỷ lượng phương trình):\n$$\\Delta_r H^\\circ_{298} = \\sum m \\cdot \\Delta_f H^\\circ_{298}(\\text{sản phẩm}) - \\sum n \\cdot \\Delta_f H^\\circ_{298}(\\text{chất đầu})$$\n\n#### Phương pháp 2: Tính theo Năng lượng liên kết $E_b$ (Chỉ áp dụng cho các chất ở thể khí!)\nĐể phản ứng xảy ra, cần cung cấp năng lượng để phá vỡ các liên kết cũ trong chất đầu (thu năng lượng), sau đó các liên kết mới hình thành giải phóng năng lượng:\n$$\\Delta_r H^\\circ_{298} = \\sum n \\cdot E_b(\\text{chất đầu}) - \\sum m \\cdot E_b(\\text{sản phẩm})$$\n*(Lưu ý: Công thức theo năng lượng liên kết là Lấy CHẤT ĐẦU trừ SẢN PHẨM, ngược lại với công thức tính theo nhiệt tạo thành!).*",
+    "fundamentalPrinciples": [
+      {
+        "name": "Dấu của biến thiên Enthalpy",
+        "formulation": "ΔrH°298 < 0: Phản ứng tỏa nhiệt; ΔrH°298 > 0: Phản ứng thu nhiệt."
+      },
+      {
+        "name": "Công thức tính theo nhiệt tạo thành chuẩn",
+        "formulation": "ΔrH°298 = Σ(sản phẩm) ΔfH°298 - Σ(chất đầu) ΔfH°298."
+      },
+      {
+        "name": "Công thức tính theo năng lượng liên kết Eb (pha khí)",
+        "formulation": "ΔrH°298 = Σ(chất đầu) Eb - Σ(sản phẩm) Eb."
+      },
+      {
+        "name": "Định luật Hess",
+        "formulation": "Biến thiên enthalpy của phản ứng chỉ phụ thuộc vào trạng thái đầu và trạng thái cuối của hệ, không phụ thuộc vào con đường đi."
+      }
+    ],
+    "keyEquationsAndPhenomena": [
+      {
+        "equation": "CaO(s) + H2O(l) -> Ca(OH)2(s)",
+        "phases": {
+          "CaO": "s",
+          "H2O": "l",
+          "Ca(OH)2": "s"
+        },
+        "conditions": "Nhiệt độ phòng (ΔrH°298 = -65.2 kJ/mol)",
+        "observation": "Vôi sống sôi sùng sục, bốc hơi nước nghi ngút, tỏa nhiệt cực kỳ mãnh liệt làm nóng cốc nước lên gần 100°C; cục vôi nứt vụn thành bột nhão vôi tôi Ca(OH)2 trắng xóa.",
+        "historicalNote": "Phản ứng tôi vôi tỏa nhiệt kinh điển quen thuộc trong đời sống xây dựng."
+      },
+      {
+        "equation": "CH4(g) + 2O2(g) -> CO2(g) + 2H2O(g)",
+        "phases": {
+          "CH4": "g",
+          "O2": "g",
+          "CO2": "g",
+          "H2O": "g"
+        },
+        "conditions": "Mồi lửa (ΔrH°298 = -802.3 kJ/mol)",
+        "observation": "Khí metan cháy với ngọn lửa màu xanh lam không muội tỏa nhiệt lượng khổng lồ dùng làm nhiên liệu khí đốt sinh hoạt và công nghiệp.",
+        "historicalNote": "Phản ứng đốt cháy nhiên liệu hóa thạch cơ bản trong chương trình GDPT 2018."
+      },
+      {
+        "equation": "CaCO3(s) --(900°C)--> CaO(s) + CO2(g)",
+        "phases": {
+          "CaCO3": "s",
+          "CaO": "s",
+          "CO2": "g"
+        },
+        "conditions": "Nung ở nhiệt độ cao 900°C - 1000°C (ΔrH°298 = +178.5 kJ/mol)",
+        "observation": "Đá vôi phải được cấp nhiệt liên tục bằng lò than đá để phân hủy tạo vôi sống và giải phóng khí cacbonic; nếu ngừng cấp nhiệt phản ứng lập tức dừng lại.",
+        "historicalNote": "Phản ứng nung vôi thu nhiệt công nghiệp điển hình."
+      }
+    ],
+    "commonMisconceptions": [
+      "Nhầm lẫn dấu công thức tính: Tính theo năng lượng liên kết Eb là [Chất đầu - Sản phẩm], trong khi tính theo nhiệt tạo thành chuẩn là [Sản phẩm - Chất đầu].",
+      "Quên nhân với hệ số tỷ lượng của các chất trong phương trình hóa học khi tính tổng enthalpy.",
+      "Quên rằng nhiệt tạo thành chuẩn của đơn chất bền (như O2, N2, H2, Fe, C than chì) bằng 0.",
+      "Nghĩ rằng phản ứng tỏa nhiệt (ΔH < 0) là tự động xảy ra ở nhiệt độ phòng mà không cần mồi lửa hoạt hóa ban đầu."
+    ],
+    "relatedElements": [
+      "C",
+      "H",
+      "O",
+      "N",
+      "Ca",
+      "S",
+      "Fe"
+    ],
+    "relatedCompounds": [
+      "CaO",
+      "Ca(OH)2",
+      "CaCO3",
+      "CO2",
+      "CH4",
+      "H2O",
+      "NH3"
+    ],
+    "selfTestQuestions": [
+      {
+        "question": "Cho phản ứng: 2SO2(g) + O2(g) -> 2SO3(g) có ΔfH°298 của SO2(g) là -296.8 kJ/mol và của SO3(g) là -395.7 kJ/mol. Biến thiên enthalpy chuẩn của phản ứng là:",
+        "options": [
+          "-197.8 kJ",
+          "+197.8 kJ",
+          "-98.9 kJ",
+          "-692.5 kJ"
+        ],
+        "answer": 0,
+        "explanation": "Áp dụng công thức: ΔrH°298 = 2 × ΔfH°298(SO3) - [2 × ΔfH°298(SO2) + 1 × ΔfH°298(O2)]. Vì O2 là đơn chất bền nên ΔfH°298(O2) = 0. Ta có: ΔrH°298 = 2 × (-395.7) - [2 × (-296.8) + 0] = -791.4 + 593.6 = -197.8 kJ."
+      },
+      {
+        "question": "Phản ứng nào sau đây là phản ứng THU NHIỆT (ΔrH°298 > 0)?",
+        "options": [
+          "CaCO3(s) -> CaO(s) + CO2(g) (Nung vôi)",
+          "C(s) + O2(g) -> CO2(g) (Đốt than)",
+          "NaOH(aq) + HCl(aq) -> NaCl(aq) + H2O(l) (Trung hòa)",
+          "CH4(g) + 2O2(g) -> CO2(g) + 2H2O(l) (Cháy khí gas)"
+        ],
+        "answer": 0,
+        "explanation": "Quá trình nung đá vôi phân hủy CaCO3 đòi hỏi phải cung cấp nhiệt lượng liên tục ở nhiệt độ cao (khoảng 900°C), có ΔrH°298 = +178.5 kJ/mol > 0 là phản ứng thu nhiệt. Các phản ứng còn lại đều là phản ứng tỏa nhiệt mạnh."
+      }
+    ]
+  },
+  {
+    "id": "chemical-kinetics-reaction-rate",
+    "topic": "Động hóa học & Tốc độ phản ứng",
+    "grade": "Hóa học 10",
+    "title": "Tốc độ phản ứng hóa học, Định luật tác dụng khối lượng và Năng lượng hoạt hóa",
+    "curriculumUnits": [
+      "Hóa học 10 - Chương 6: Tốc độ phản ứng hóa học (Bài 15: Phương trình tốc độ phản ứng và hằng số tốc độ)",
+      "Hóa học 10 - Chương 6: Tốc độ phản ứng hóa học (Bài 16: Các yếu tố ảnh hưởng đến tốc độ phản ứng)",
+      "KHTN 8 - Bài: Tốc độ phản ứng và chất xúc tác"
+    ],
+    "summary": "Tốc độ phản ứng hóa học (v) là đại lượng đặc trưng cho sự biến thiên nồng độ của chất phản ứng hoặc sản phẩm trong một đơn vị thời gian. Phản ứng xảy ra khi các tiểu phân va chạm hiệu quả với năng lượng vượt qua rào cản Năng lượng hoạt hóa (Ea). Định luật tác dụng khối lượng xác định tốc độ theo nồng độ: v = k·[A]^a·[B]^b. Năm yếu tố chi phối tốc độ phản ứng gồm: Nồng độ, Áp suất, Diện tích bề mặt tiếp xúc, Nhiệt độ (quy tắc Van 't Hoff) và Chất xúc tác.",
+    "detailedExplanation": "### 1. Khái niệm Tốc độ phản ứng hóa học\nTốc độ phản ứng hóa học là độ biến thiên nồng độ của một trong các chất phản ứng hoặc sản phẩm tạo thành trong một đơn vị thời gian (giây $s$, phút $min$, hoặc giờ $h$).\n- **Tốc độ trung bình ($\\\\bar{v}$)** của phản ứng trong khoảng thời gian từ $t_1$ đến $t_2$:\n  $$\\\\bar{v} = \\\\pm \\\\frac{\\\\Delta C}{\\\\Delta t} = - \\\\frac{1}{a} \\\\frac{\\\\Delta [A]}{\\\\Delta t} = + \\\\frac{1}{c} \\\\frac{\\\\Delta [C]}{\\\\Delta t}$$\n  *(Dấu trừ dành cho chất phản ứng vì nồng độ giảm theo thời gian; dấu cộng dành cho sản phẩm vì nồng độ tăng; chia cho hệ số tỷ lượng để tốc độ theo mọi chất là như nhau).*\n\n### 2. Định luật tác dụng khối lượng (Law of Mass Action)\nNăm 1864, hai nhà hóa học Na Uy Cato Guldberg và Peter Waage đã tìm ra định luật: Ở nhiệt độ không đổi, tốc độ của một phản ứng đơn giản tỷ lệ thuận với tích số nồng độ của các chất phản ứng nâng lên lũy thừa bằng hệ số tỷ lượng tương ứng trong phương trình hóa học.\nXét phản ứng đơn giản: $aA + bB \\rightarrow \\text{Sản phẩm}$\n$$v = k \\cdot [A]^a \\cdot [B]^b$$\n- Trong đó:\n  - $[A], [B]$: Nồng độ mol của các chất phản ứng ($mol/L$).\n  - $a, b$: Bậc riêng phần của phản ứng (đối với phản ứng đơn giản, $a$ và $b$ chính là hệ số cân bằng).\n  - $k$: **Hằng số tốc độ phản ứng** (chỉ phụ thuộc vào bản chất chất phản ứng và nhiệt độ, không phụ thuộc vào nồng độ chất phản ứng!). Khi $[A] = [B] = 1 \\text{ M}$ thì $v = k$.\n  *(Lưu ý: Chất rắn nguyên chất có nồng độ coi như không đổi nên không xuất hiện trong biểu thức tốc độ!).*\n\n### 3. Thuyết va chạm và Năng lượng hoạt hóa ($E_a$)\n- **Thuyết va chạm hoạt động (Collision Theory)**: Để phản ứng xảy ra, các phân tử chất phản ứng bắt buộc phải va chạm vào nhau. Tuy nhiên, chỉ một tỷ lệ rất nhỏ các va chạm là **va chạm hiệu quả** (va chạm có định hướng không gian phù hợp và có động năng đủ lớn để bẻ gãy các liên kết cũ).\n- **Năng lượng hoạt hóa ($E_a$, Activation Energy)**: Là năng lượng tối thiểu mà các tiểu phân va chạm cần phải có để tạo thành phức chất hoạt động trung gian và chuyển hóa thành sản phẩm (đơn vị: $kJ/mol$). $E_a$ càng nhỏ thì phản ứng xảy ra càng nhanh.\n- **Phương trình Arrhenius**: $k = A \\cdot e^{-E_a / (RT)}$ giải thích sự gia tăng hàm mũ của tốc độ phản ứng khi nhiệt độ tăng hoặc khi có chất xúc tác làm giảm $E_a$.\n\n### 4. Năm yếu tố ảnh hưởng đến Tốc độ phản ứng\n1. **Nồng độ**: Khi tăng nồng độ chất phản ứng, số hạt trong một đơn vị thể tích tăng lên $\\rightarrow$ tần số va chạm giữa các hạt tăng $\\rightarrow$ số va chạm hiệu quả tăng $\\rightarrow$ tốc độ phản ứng tăng.\n2. **Áp suất (đối với phản ứng có chất khí)**: Khi tăng áp suất (bằng cách nén thể tích bình), nồng độ các chất khí tăng lên $\\rightarrow$ tốc độ phản ứng tăng.\n3. **Diện tích bề mặt tiếp xúc (đối với chất rắn)**: Chia nhỏ chất rắn (đập vụn, nghiền thành bột mịn) làm tăng diện tích bề mặt tiếp xúc giữa các chất phản ứng $\\rightarrow$ tốc độ phản ứng tăng vượt bậc (bột than cháy nổ nhanh hơn cục than lớn rất nhiều).\n4. **Nhiệt độ**: Khi tăng nhiệt độ, động năng của các hạt tăng lên $\\rightarrow$ tốc độ chuyển động tăng làm tăng số va chạm, và đặc biệt làm tăng tỷ lệ các hạt có năng lượng vượt qua rào cản $E_a$.\n   - **Quy tắc kinh nghiệm Van 't Hoff**: Khi nhiệt độ tăng thêm $10^\\circ C$, tốc độ phản ứng tăng từ 2 đến 4 lần (hệ số nhiệt độ $\\gamma = 2 \\sim 4$):\n     $$v_2 = v_1 \\cdot \\gamma^{\\frac{T_2 - T_1}{10}}$$\n5. **Chất xúc tác (Catalyst)**: Là chất làm tăng tốc độ phản ứng nhưng không bị tiêu hao sau phản ứng.\n   - **Cơ chế hoạt động**: Chất xúc tác mở ra một con đường phản ứng mới (cơ chế phản ứng mới) có **NĂNG LƯỢNG HOẠT HÓA THẤP HƠN** ($E_a' < E_a$), giúp số phân tử đủ năng lượng phản ứng tăng vọt.\n   - Chất xúc tác có tính chọn lọc cao (men enzyme trong cơ thể sinh vật là xúc tác sinh học hoàn hảo nhất).",
+    "fundamentalPrinciples": [
+      {
+        "name": "Định luật tác dụng khối lượng Guldberg - Waage",
+        "formulation": "v = k · [A]^a · [B]^b (ở nhiệt độ không đổi, nồng độ chất rắn không ghi vào biểu thức)."
+      },
+      {
+        "name": "Bản chất chất xúc tác",
+        "formulation": "Chất xúc tác làm tăng tốc độ phản ứng bằng cách làm giảm năng lượng hoạt hóa Ea mà không làm thay đổi biến thiên enthalpy ΔH của phản ứng."
+      },
+      {
+        "name": "Quy tắc nhiệt độ Van 't Hoff",
+        "formulation": "Tăng nhiệt độ thêm 10°C làm tốc độ tăng γ lần (v2 = v1 · γ^((T2-T1)/10))."
+      }
+    ],
+    "keyEquationsAndPhenomena": [
+      {
+        "equation": "Na2S2O3(aq) + H2SO4(aq) -> Na2SO4(aq) + SO2(g) + S(s) + H2O(l)",
+        "phases": {
+          "Na2S2O3": "aq",
+          "H2SO4": "aq",
+          "Na2SO4": "aq",
+          "SO2": "g",
+          "S": "s",
+          "H2O": "l"
+        },
+        "conditions": "Nhiệt độ phòng (thí nghiệm đo tốc độ phản ứng chuẩn GDPT 2018)",
+        "observation": "Dung dịch trong suốt ban đầu dần dần mờ đục do lưu huỳnh nguyên chất sinh ra ở dạng hạt keo màu trắng sữa; khi tăng nồng độ Na2S2O3 hoặc tăng nhiệt độ, thời gian che khuất dấu chữ thập ở đáy cốc giảm đi rõ rệt.",
+        "historicalNote": "Thí nghiệm thực hành kinh điển minh họa ảnh hưởng của nồng độ và nhiệt độ lên tốc độ phản ứng."
+      },
+      {
+        "equation": "2H2O2(aq) --(xuc tac MnO2)--> 2H2O(l) + O2(g)",
+        "phases": {
+          "H2O2": "aq",
+          "MnO2": "s",
+          "H2O": "l",
+          "O2": "g"
+        },
+        "conditions": "Nhiệt độ phòng, xúc tác bột MnO2 màu đen",
+        "observation": "Ở điều kiện thường, dung dịch nước oxy già H2O2 phân hủy cực kỳ chậm hầu như không thấy bọt khí; khi thả một lượng nhỏ bột MnO2 vào, dung dịch lập tức sôi trào sủi bọt khí oxi mãnh liệt làm tàn đóm đỏ bùng cháy sáng chói.",
+        "historicalNote": "Minh chứng sống động nhất cho vai trò làm giảm năng lượng hoạt hóa của chất xúc tác."
+      },
+      {
+        "equation": "Zn(s) + 2HCl(aq) -> ZnCl2(aq) + H2(g)",
+        "phases": {
+          "Zn": "s",
+          "HCl": "aq",
+          "ZnCl2": "aq",
+          "H2": "g"
+        },
+        "conditions": "So sánh bột kẽm mịn và hạt kẽm cục",
+        "observation": "Khi cho cùng khối lượng kẽm tác dụng với axit HCl, ống nghiệm chứa kẽm bột sủi bọt khí hiđro dữ dội và kết thúc phản ứng nhanh hơn ống nghiệm chứa kẽm hạt nhiều lần do diện tích bề mặt tiếp xúc lớn hơn.",
+        "historicalNote": "Thí nghiệm chứng minh vai trò của diện tích bề mặt tiếp xúc chất rắn."
+      }
+    ],
+    "commonMisconceptions": [
+      "Cho rằng chất xúc tác làm tăng lượng sản phẩm tạo thành (Sai: Chất xúc tác chỉ làm phản ứng ĐẠT ĐÍCH NHANH HƠN, không làm tăng hiệu suất nhiệt động học cực đại).",
+      "Đưa nồng độ của chất rắn vào biểu thức định luật tác dụng khối lượng (Sai: Nồng độ chất rắn nguyên chất coi như hằng số nên được gộp vào hằng số k).",
+      "Nhầm lẫn giữa tốc độ phản ứng (động học) và độ tự phát của phản ứng (nhiệt động học)."
+    ],
+    "relatedElements": [
+      "H",
+      "O",
+      "S",
+      "Mn",
+      "Zn",
+      "Fe",
+      "Pt"
+    ],
+    "relatedCompounds": [
+      "H2O2",
+      "Na2S2O3",
+      "H2SO4",
+      "MnO2",
+      "SO2",
+      "ZnCl2"
+    ],
+    "selfTestQuestions": [
+      {
+        "question": "Khi nhiệt độ của một phản ứng tăng từ 20°C lên 50°C, biết hệ số nhiệt độ Van 't Hoff γ = 2, tốc độ của phản ứng đó tăng lên bao nhiêu lần?",
+        "options": [
+          "8 lần",
+          "6 lần",
+          "16 lần",
+          "3 lần"
+        ],
+        "answer": 0,
+        "explanation": "Độ chênh lệch nhiệt độ: ΔT = 50 - 20 = 30°C. Áp dụng quy tắc Van 't Hoff: v2/v1 = γ^(ΔT / 10) = 2^(30 / 10) = 2³ = 8 lần."
+      },
+      {
+        "question": "Chất xúc tác làm tăng tốc độ phản ứng hóa học là do:",
+        "options": [
+          "Làm giảm năng lượng hoạt hóa của phản ứng",
+          "Làm tăng biến thiên enthalpy ΔH của phản ứng",
+          "Làm tăng nồng độ của các chất phản ứng",
+          "Làm chuyển dịch cân bằng hóa học theo chiều thuận"
+        ],
+        "answer": 0,
+        "explanation": "Bản chất của chất xúc tác là tạo ra một cơ chế phản ứng trung gian mới có năng lượng hoạt hóa Ea thấp hơn nhiều so với phản ứng không có xúc tác, giúp nhiều phân tử vượt qua rào cản năng lượng để phản ứng thành công."
+      }
+    ]
+  },
+  {
+    "id": "chemical-equilibrium-le-chatelier",
+    "topic": "Cân bằng hóa học & Nguyên lý Le Chatelier",
+    "grade": "Hóa học 11",
+    "title": "Phản ứng thuận nghịch, Hằng số cân bằng Kc và Nguyên lý chuyển dịch cân bằng Le Chatelier",
+    "curriculumUnits": [
+      "Hóa học 11 - Chương 1: Cân bằng hóa học (Bài 1: Khái niệm về cân bằng hóa học)",
+      "Hóa học 11 - Chương 1: Cân bằng hóa học (Bài 2: Cân bằng trong dung dịch nước)"
+    ],
+    "summary": "Phản ứng thuận nghịch diễn ra đồng thời theo hai chiều ngược nhau trong cùng điều kiện. Cân bằng hóa học là một trạng thái cân bằng động (v_thuận = v_nghịch > 0), tại đó nồng độ của các chất không thay đổi theo thời gian. Hằng số cân bằng Kc chỉ phụ thuộc vào nhiệt độ. Nguyên lý Le Chatelier khẳng định: Một hệ đang ở trạng thái cân bằng nếu chịu một tác động bên ngoài (nồng độ, áp suất, nhiệt độ) sẽ tự chuyển dịch theo chiều làm giảm tác động đó.",
+    "detailedExplanation": "### 1. Phản ứng Một chiều và Phản ứng Thuận nghịch\n- **Phản ứng một chiều**: Là phản ứng chỉ diễn ra theo một chiều từ chất phản ứng tạo thành sản phẩm trong điều kiện xác định. Ký hiệu mũi tên một chiều $\\rightarrow$. Ví dụ: $2KClO_3 \\rightarrow 2KCl + 3O_2$.\n- **Phản ứng thuận nghịch**: Là phản ứng trong cùng điều kiện xác định, xảy ra đồng thời theo hai chiều ngược nhau: chiều từ trái sang phải gọi là **chiều thuận**, chiều từ phải sang trái gọi là **chiều nghịch**. Ký hiệu mũi tên hai chiều $\\rightleftharpoons$.\n  - Ví dụ: $N_2(g) + 3H_2(g) \\rightleftharpoons 2NH_3(g)$ hay $CH_3COOH(l) + C_2H_5OH(l) \\rightleftharpoons CH_3COOC_2H_5(l) + H_2O(l)$.\n\n### 2. Trạng thái Cân bằng Hóa học (Chemical Equilibrium)\n- Ban đầu, nồng độ chất phản ứng lớn nên tốc độ phản ứng thuận $v_t$ đạt cực đại; nồng độ sản phẩm bằng 0 nên $v_n = 0$.\n- Theo thời gian, chất phản ứng giảm dần làm $v_t$ giảm; sản phẩm tăng dần làm $v_n$ tăng.\n- Đến một thời điểm nhất định, tốc độ phản ứng thuận bằng đúng tốc độ phản ứng nghịch:\n  $$v_{\\text{thuận}} = v_{\\text{nghịch}} > 0$$\n  Trạng thái này gọi là **CÂN BẰNG HÓA HỌC**.\n- **Tính chất cốt lõi**:\n  - Cân bằng hóa học là **CÂN BẰNG ĐỘNG** (Dynamic Equilibrium): Các phản ứng thuận và nghịch vẫn liên tục diễn ra với tốc độ bằng nhau chứ không hề dừng lại!\n  - Ở trạng thái cân bằng, nồng độ của tất cả các chất trong hệ (cả chất phản ứng và sản phẩm) đều giữ nguyên không đổi theo thời gian.\n\n### 3. Hằng số Cân bằng Nồng độ ($K_c$)\nXét phản ứng thuận nghịch tổng quát:\n$$aA + bB \\rightleftharpoons cC + dD$$\nỞ trạng thái cân bằng, biểu thức hằng số cân bằng $K_c$ là:\n$$K_c = \\frac{[C]^c \\cdot [D]^d}{[A]^a \\cdot [B]^b}$$\n- Trong đó $[A], [B], [C], [D]$ là nồng độ mol của các chất Ở TRẠNG THÁI CÂN BẰNG ($mol/L$).\n- **Quy tắc vàng**: Nồng độ của **CHẤT RẮN NGUYÊN CHẤT** không được ghi vào biểu thức $K_c$ (vì nồng độ của chất rắn là hằng số đã được gộp vào $K_c$). Ví dụ: với phản ứng $CaCO_3(s) \\rightleftharpoons CaO(s) + CO_2(g)$, biểu thức chỉ là $K_c = [CO_2]$.\n- **Ý nghĩa của $K_c$**:\n  - $K_c$ chỉ phụ thuộc vào bản chất của phản ứng và **NHIỆT ĐỘ** (không phụ thuộc vào nồng độ ban đầu hay áp suất!).\n  - Giá trị $K_c$ càng lớn ($K_c \\gg 1$) chứng tỏ ở trạng thái cân bằng phản ứng tạo ra nhiều sản phẩm (hiệu suất thuận cao). $K_c$ càng nhỏ ($K_c \\ll 1$) chứng tỏ phản ứng thuận xảy ra rất kém.\n\n### 4. Nguyên lý chuyển dịch cân bằng Le Chatelier (1884)\n*\"Một phản ứng thuận nghịch đang ở trạng thái cân bằng, khi chịu một tác động từ bên ngoài như sự biến đổi nồng độ, áp suất hoặc nhiệt độ, thì cân bằng sẽ chuyển dịch theo chiều làm giảm tác động bên ngoài đó.\"*\n\n1. **Ảnh hưởng của Nồng độ**:\n   - Khi tăng nồng độ một chất, cân bằng chuyển dịch theo chiều **làm giảm nồng độ chất đó** (chiều tiêu thụ chất đó).\n   - Khi giảm nồng độ một chất (ví dụ tách sản phẩm ra khỏi hệ), cân bằng chuyển dịch theo chiều **làm tăng nồng độ chất đó** (chiều tạo thêm chất đó).\n2. **Ảnh hưởng của Áp suất (chỉ áp dụng cho hệ có chất khí và có sự chênh lệch số mol khí $\\Delta n_{\\text{khí}} \\ne 0$)**:\n   - Khi **tăng áp suất** chung của hệ (nén thể tích), cân bằng chuyển dịch theo chiều **làm giảm áp suất** $\\rightarrow$ tức chiều **LÀM GIẢM SỐ MOL KHÍ** (chiều có tổng hệ số khí nhỏ hơn).\n   - Khi **giảm áp suất**, cân bằng chuyển dịch theo chiều **LÀM TĂNG SỐ MOL KHÍ**.\n   - Nếu phản ứng có tổng số mol khí hai vế bằng nhau (ví dụ: $H_2(g) + I_2(g) \\rightleftharpoons 2HI(g)$ có $1 + 1 = 2$), áp suất **KHÔNG LÀM CHUYỂN DỊCH CÂN BẰNG**.\n3. **Ảnh hưởng của Nhiệt độ (Yếu tố duy nhất làm thay đổi giá trị $K_c$!)**:\n   - Khi **tăng nhiệt độ**, cân bằng chuyển dịch theo chiều **THU NHIỆT** (chiều có $\\Delta_r H > 0$, để hấp thụ bớt nhiệt lượng dư thừa).\n   - Khi **hạ nhiệt độ**, cân bằng chuyển dịch theo chiều **TỎA NHIỆT** (chiều có $\\Delta_r H < 0$, để bù đắp nhiệt lượng bị mất).\n4. **Vai trò của Chất xúc tác**:\n   - Chất xúc tác làm tăng tốc độ phản ứng thuận và tốc độ phản ứng nghịch với CÙNG MỘT TỶ LỆ.\n   - Do đó, **CHẤT XÚC TÁC HOÀN TOÀN KHÔNG LÀM CHUYỂN DỊCH CÂN BẰNG** và không làm thay đổi giá trị $K_c$; chất xúc tác chỉ giúp hệ **nhanh chóng đạt tới trạng thái cân bằng hơn**.",
+    "fundamentalPrinciples": [
+      {
+        "name": "Bản chất cân bằng động",
+        "formulation": "v_thuận = v_nghịch > 0 (phản ứng không dừng lại, nồng độ các chất không đổi)."
+      },
+      {
+        "name": "Nguyên lý Le Chatelier",
+        "formulation": "Hệ cân bằng tự chuyển dịch theo chiều chống lại sự thay đổi bên ngoài (nồng độ, áp suất, nhiệt độ)."
+      },
+      {
+        "name": "Quy tắc dịch chuyển theo nhiệt độ",
+        "formulation": "Tăng nhiệt độ: chuyển dịch chiều thu nhiệt (ΔH > 0); Giảm nhiệt độ: chuyển dịch chiều tỏa nhiệt (ΔH < 0)."
+      },
+      {
+        "name": "Quy tắc dịch chuyển theo áp suất",
+        "formulation": "Tăng áp suất: chuyển dịch chiều giảm số mol khí; Giảm áp suất: chuyển dịch chiều tăng số mol khí."
+      }
+    ],
+    "keyEquationsAndPhenomena": [
+      {
+        "equation": "2NO2(g) <=> N2O4(g)",
+        "phases": {
+          "NO2": "g",
+          "N2O4": "g"
+        },
+        "conditions": "ΔrH°298 = -57.2 kJ/mol (Phản ứng thuận tỏa nhiệt)",
+        "observation": "Khí NO2 có màu nâu đỏ đậm, khí N2O4 không màu. Khi ngâm ống nghiệm kín chứa hỗn hợp khí vào nước đá (hạ nhiệt độ), màu nâu đỏ nhạt dần và chuyển sang gần như không màu (cân bằng chuyển dịch theo chiều thuận tỏa nhiệt tạo N2O4). Khi ngâm vào cốc nước nóng (tăng nhiệt độ), màu nâu đỏ đậm lên rõ rệt (chuyển dịch theo chiều nghịch thu nhiệt tạo NO2).",
+        "historicalNote": "Thí nghiệm trực quan màu sắc kinh điển nhất để giảng dạy nguyên lý Le Chatelier."
+      },
+      {
+        "equation": "N2(g) + 3H2(g) <=> 2NH3(g)",
+        "phases": {
+          "N2": "g",
+          "H2": "g",
+          "NH3": "g"
+        },
+        "conditions": "Xúc tác Fe, 450°C, 200 atm (ΔrH°298 = -91.8 kJ/mol, thuận tỏa nhiệt, giảm thể tích từ 4 mol khí về 2 mol khí)",
+        "observation": "Tăng áp suất lên 200 atm thúc đẩy cân bằng chuyển dịch mạnh mẽ sang chiều thuận tạo amoniac; khí NH3 được hóa lỏng liên tục tách ra ngoài làm cân bằng tiếp tục dịch chuyển sang phải.",
+        "historicalNote": "Ứng dụng công nghiệp vĩ đại nhất của nguyên lý Le Chatelier trong quy trình Haber."
+      },
+      {
+        "equation": "CH3COOH(l) + C2H5OH(l) <=> CH3COOC2H5(l) + H2O(l)",
+        "phases": {
+          "CH3COOH": "l",
+          "C2H5OH": "l",
+          "CH3COOC2H5": "l",
+          "H2O": "l"
+        },
+        "conditions": "Xúc tác H2SO4 đặc, đun hồi lưu nhẹ 65°C - 70°C",
+        "observation": "Sau phản ứng este hóa thuận nghịch, sản phẩm etyl axetat có mùi thơm hoa quả chín nhẹ hơn nước nổi lên trên bề mặt; dùng H2SO4 đặc vừa làm xúc tác vừa hút nước để đẩy cân bằng dịch chuyển sang chiều tạo este.",
+        "historicalNote": "Cân bằng este hóa Fischer trong Hóa học hữu cơ."
+      }
+    ],
+    "commonMisconceptions": [
+      "Cho rằng khi cân bằng nồng độ các chất phản ứng phải bằng nồng độ sản phẩm (Sai: Chỉ có TỐC ĐỘ THUẬN BẰNG TỐC ĐỘ NGHỊCH, nồng độ mỗi chất là cố định nhưng không nhất thiết phải bằng nhau).",
+      "Nghĩ rằng chất xúc tác làm tăng lượng sản phẩm tạo thành trong phản ứng thuận nghịch (Sai: Chất xúc tác chỉ rút ngắn thời gian đạt tới cân bằng).",
+      "Đưa nồng độ chất rắn vào biểu thức Kc (Sai: Chất rắn nguyên chất không tham gia vào biểu thức Kc).",
+      "Cho rằng tăng áp suất làm thay đổi giá trị của hằng số cân bằng Kc (Sai: Chỉ có NHIỆT ĐỘ mới làm thay đổi giá trị của Kc)."
+    ],
+    "relatedElements": [
+      "N",
+      "H",
+      "O",
+      "C",
+      "S",
+      "Fe"
+    ],
+    "relatedCompounds": [
+      "NO2",
+      "N2O4",
+      "NH3",
+      "CH3COOH",
+      "C2H5OH",
+      "CH3COOC2H5",
+      "CaCO3",
+      "CaO",
+      "CO2"
+    ],
+    "selfTestQuestions": [
+      {
+        "question": "Cho cân bằng hóa học sau trong bình kín: CO(g) + H2O(g) <=> CO2(g) + H2(g) có ΔrH°298 = -41.2 kJ/mol. Yếu tố nào sau đây KHÔNG làm chuyển dịch cân bằng?",
+        "options": [
+          "Tăng áp suất chung của hệ",
+          "Tăng nhiệt độ của hệ",
+          "Tăng nồng độ khí CO",
+          "Giảm nồng độ khí CO2"
+        ],
+        "answer": 0,
+        "explanation": "Phản ứng có tổng số mol khí ở hai vế bằng nhau (vế trái: 1 mol CO + 1 mol H2O = 2 mol; vế phải: 1 mol CO2 + 1 mol H2 = 2 mol, Δn_khí = 0). Do đó, sự thay đổi áp suất chung hoàn toàn không làm chuyển dịch cân bằng."
+      },
+      {
+        "question": "Đối với phản ứng thuận nghịch tỏa nhiệt (ΔrH°298 < 0), khi TĂNG NHIỆT ĐỘ thì:",
+        "options": [
+          "Cân bằng chuyển dịch theo chiều nghịch, giá trị Kc giảm",
+          "Cân bằng chuyển dịch theo chiều thuận, giá trị Kc tăng",
+          "Cân bằng chuyển dịch theo chiều nghịch, giá trị Kc không đổi",
+          "Cân bằng không chuyển dịch"
+        ],
+        "answer": 0,
+        "explanation": "Theo nguyên lý Le Chatelier, khi tăng nhiệt độ, cân bằng chuyển dịch theo chiều thu nhiệt (chiều nghịch). Do nồng độ sản phẩm giảm và nồng độ chất phản ứng tăng nên giá trị hằng số cân bằng Kc = [sản phẩm]/[chất đầu] bị giảm xuống."
+      }
+    ]
+  },
+  {
+    "id": "solutions-and-acid-base-hydrolysis",
+    "topic": "Dung dịch & Cân bằng Axit - Bazơ",
+    "grade": "Hóa học 11",
+    "title": "Thuyết Bronsted - Lowry, Thang pH, Phương trình ion rút gọn và Sự thủy phân của muối",
+    "curriculumUnits": [
+      "Hóa học 11 - Chương 1: Cân bằng trong dung dịch nước (Bài 2: Cân bằng trong dung dịch nước)",
+      "Hóa học 11 - Chương 1: Cân bằng trong dung dịch nước (Bài 3: Ôn tập chương 1)",
+      "KHTN 8 - Bài: Acid - Base - pH - Oxide - Muối"
+    ],
+    "summary": "Sự điện li là quá trình phân li các chất trong nước thành các ion. Theo thuyết Bronsted - Lowry, Axit là chất nhường proton (H⁺), Bazơ là chất nhận proton (H⁺). Môi trường dung dịch được định lượng bằng thang pH (-log[H⁺]) thông qua tích số ion của nước Kw = 10⁻¹⁴ ở 25°C. Phản ứng trao đổi ion trong dung dịch thực chất diễn ra giữa các ion tự do để tạo chất kết tủa, chất khí hoặc chất điện li yếu. Sự thủy phân của muối giải thích vì sao dung dịch muối không phải lúc nào cũng trung tính.",
+    "detailedExplanation": "### 1. Thuyết Điện li và Phân loại chất điện li\n- **Chất điện li**: Là chất khi tan trong nước phân li thành các ion tự do, làm cho dung dịch có khả năng dẫn điện.\n  - **Chất điện li mạnh**: Khi tan trong nước, các phân tử hòa tan đều phân li hoàn toàn thành ion (độ điện li $\\\\alpha = 1$). Ký hiệu mũi tên một chiều $\\\\rightarrow$.\n    - Axit mạnh: $HCl, HNO_3, H_2SO_4, HClO_4, HBr, HI$.\n    - Bazơ mạnh (kiềm tan): $NaOH, KOH, Ba(OH)_2, Ca(OH)_2$.\n    - Hầu hết các muối tan: $NaCl, KNO_3, CuSO_4, Na_2CO_3...$\n  - **Chất điện li yếu**: Khi tan trong nước, chỉ một phần nhỏ số phân tử hòa tan phân li thành ion, phần lớn vẫn tồn tại ở dạng phân tử trung hòa ($0 < \\\\alpha < 1$). Quá trình điện li là thuận nghịch $\\\\rightleftharpoons$.\n    - Axit yếu: $CH_3COOH, HF, H_2S, H_2CO_3, HNO_2, H_3PO_4...$\n    - Bazơ yếu: $NH_3, Fe(OH)_2, Cu(OH)_2...$\n  - **Chất không điện li**: $C_2H_5OH$ (rượu), $C_6H_{12}O_6$ (glucozơ), $C_{12}H_{22}O_{11}$ (đường mía saccharose).\n\n### 2. Thuyết Axit - Bazơ của Brønsted - Lowry (1923)\nThuyết hiện đại trong SGK GDPT 2018 mở rộng định nghĩa ra ngoài dung môi nước:\n- **Axit**: Là chất (phân tử hoặc ion) có khả năng **NHƯỜNG PROTON ($H^+$)**.\n  - Ví dụ: $HCl + H_2O \\rightarrow H_3O^+ + Cl^-$ (HCl nhường $H^+$ cho $H_2O$ nên HCl là axit).\n  - Ion đóng vai trò axit: $NH_4^+, Al^{3+}, Fe^{3+}, HSO_4^-...$ ($NH_4^+ + H_2O \\rightleftharpoons NH_3 + H_3O^+$).\n- **Bazơ**: Là chất (phân tử hoặc ion) có khả năng **NHẬN PROTON ($H^+$)**.\n  - Ví dụ: $NH_3 + H_2O \\rightleftharpoons NH_4^+ + OH^-$ ($NH_3$ nhận $H^+$ từ $H_2O$ nên $NH_3$ là bazơ).\n  - Ion đóng vai trò bazơ: $CH_3COO^-, CO_3^{2-}, S^{2-}, SO_3^{2-}...$ ($CO_3^{2-} + H_2O \\rightleftharpoons HCO_3^- + OH^-$).\n- **Chất Lưỡng tính (Amphiprotic)**: Là chất vừa có khả năng nhường proton vừa có khả năng nhận proton tùy thuộc vào môi trường phản ứng.\n  - Phân tử nước $H_2O$: Tác dụng với axit thì đóng vai trò bazơ nhận $H^+$; tác dụng với bazơ thì đóng vai trò axit nhường $H^+$.\n  - Các anion còn hiđro của axit yếu: $HCO_3^-, HSO_3^-, HS^-, H_2PO_4^-...$\n  - Các hiđroxit kim loại: $Al(OH)_3, Zn(OH)_2, Cr(OH)_3...$\n\n### 3. Tích số ion của nước và Thang pH\nNước tinh khiết là chất điện li vô cùng yếu:\n$$H_2O + H_2O \\rightleftharpoons H_3O^+ + OH^- \\quad \\text{hoặc viết gọn:} \\quad H_2O \\rightleftharpoons H^+ + OH^-$$\n- Ở $25^\\circ C$, **Tích số ion của nước ($K_w$)** là một hằng số không đổi:\n  $$K_w = [H^+] \\cdot [OH^-] = 1.0 \\times 10^{-14}$$\n- **Thang pH**: Do nồng độ $[H^+]$ thường là những số thập phân lũy thừa âm rất nhỏ, nhà hóa học Sørensen đề xuất thang đo logarit thuận tiện:\n  $$\\text{pH} = -\\log[H^+] \\iff [H^+] = 10^{-\\text{pH}}$$\n  $$\\text{pOH} = -\\log[OH^-] \\implies \\text{pH} + \\text{pOH} = 14 \\quad (\\text{ở } 25^\\circ C)$$\n- Phân loại môi trường dung dịch ở $25^\\circ C$:\n  - Môi trường **Trung tính**: $[H^+] = [OH^-] = 10^{-7} \\text{ M} \\iff \\text{pH} = 7$.\n  - Môi trường **Axit**: $[H^+] > [OH^-] \\implies [H^+] > 10^{-7} \\text{ M} \\iff \\text{pH} < 7$ (Quỳ tím hóa đỏ).\n  - Môi trường **Bazơ (Kiềm)**: $[H^+] < [OH^-] \\implies [H^+] < 10^{-7} \\text{ M} \\iff \\text{pH} > 7$ (Quỳ tím hóa xanh, phenolphtalein hóa hồng).\n\n### 4. Phản ứng Trao đổi ion và Phương trình ion rút gọn\n- **Bản chất**: Phản ứng trong dung dịch các chất điện li thực chất là phản ứng giữa các ion tự do.\n- **Điều kiện xảy ra phản ứng trao đổi ion**: Phản ứng chỉ xảy ra khi kết hợp giữa các ion tạo thành ít nhất một trong ba sản phẩm sau:\n  1. **Chất kết tủa** (không tan, ví dụ: $BaSO_4\\downarrow, AgCl\\downarrow, CaCO_3\\downarrow, Fe(OH)_3\\downarrow$).\n  2. **Chất khí bay hơi** (ví dụ: $CO_2\\uparrow, SO_2\\uparrow, H_2S\\uparrow, NH_3\\uparrow$).\n  3. **Chất điện li rất yếu** (ví dụ: $H_2O, CH_3COOH$).\n- **Quy tắc viết phương trình ion rút gọn**:\n  - Viết phương trình phân tử cân bằng.\n  - Chuyển các chất điện li mạnh và tan thành dạng ion; giữ nguyên dạng phân tử đối với chất kết tủa, chất khí và chất điện li yếu.\n  - Lược bỏ các ion giống nhau ở cả hai vế (các \"ion khán giả\" - spectator ions).\n\n### 5. Sự Thủy phân của Muối (Salt Hydrolysis)\nKhi muối hòa tan vào nước, các ion phân li ra có thể tác dụng với nước làm thay đổi nồng độ $[H^+]$ và $[OH^-]$, khiến dung dịch muối có tính axit hoặc kiềm:\n- **Muối tạo bởi Cation bazơ mạnh và Anion axit mạnh** (ví dụ $NaCl, KNO_3, BaCl_2$): Các ion không bị thủy phân $\\rightarrow$ Dung dịch có môi trường **TRUNG TÍNH (pH = 7)**.\n- **Muối tạo bởi Cation bazơ mạnh và Anion axit yếu** (ví dụ $CH_3COONa, Na_2CO_3, K_2S$): Anion axit yếu nhận proton từ nước giải phóng $OH^-$:\n  $$CO_3^{2-}(aq) + H_2O(l) \\rightleftharpoons HCO_3^-(aq) + OH^-(aq)$$\n  $\\rightarrow$ Dung dịch có môi trường **KIỀM (pH > 7)**, quỳ tím hóa xanh!\n- **Muối tạo bởi Cation bazơ yếu và Anion axit mạnh** (ví dụ $NH_4Cl, FeCl_3, Al_2(SO_4)_3$): Cation bazơ yếu nhường proton cho nước tạo $H_3O^+$:\n  $$NH_4^+(aq) + H_2O(l) \\rightleftharpoons NH_3(aq) + H_3O^+(aq)$$\n  $\\rightarrow$ Dung dịch có môi trường **AXIT (pH < 7)**, quỳ tím hóa đỏ!",
+    "fundamentalPrinciples": [
+      {
+        "name": "Thuyết Axit - Bazơ Bronsted - Lowry",
+        "formulation": "Axit là chất cho proton (H+); Bazơ là chất nhận proton (H+)."
+      },
+      {
+        "name": "Tích số ion của nước",
+        "formulation": "Kw = [H+] · [OH-] = 1.0 × 10^-14 (ở 25°C); pH + pOH = 14."
+      },
+      {
+        "name": "Điều kiện phản ứng trao đổi ion",
+        "formulation": "Phản ứng xảy ra khi tạo thành chất kết tủa, chất khí hoặc chất điện li yếu."
+      },
+      {
+        "name": "Quy luật thủy phân muối",
+        "formulation": "Gốc axit yếu thủy phân tạo OH- (pH > 7); gốc bazơ yếu thủy phân tạo H+ (pH < 7)."
+      }
+    ],
+    "keyEquationsAndPhenomena": [
+      {
+        "equation": "BaCl2(aq) + Na2SO4(aq) -> BaSO4(s) + 2NaCl(aq)",
+        "phases": {
+          "BaCl2": "aq",
+          "Na2SO4": "aq",
+          "BaSO4": "s",
+          "NaCl": "aq"
+        },
+        "conditions": "Nhiệt độ phòng (Phương trình ion rút gọn: Ba²⁺(aq) + SO₄²⁻(aq) -> BaSO₄(s))",
+        "observation": "Trộn hai dung dịch trong suốt không màu lập tức xuất hiện kết tủa trắng tinh mịn màng của bari sunfat lắng xuống đáy ống nghiệm, không tan trong axit mạnh.",
+        "historicalNote": "Phản ứng đặc trưng dùng nhận biết ion sunfat trong hóa học phân tích."
+      },
+      {
+        "equation": "Na2CO3(aq) + 2HCl(aq) -> 2NaCl(aq) + CO2(g) + H2O(l)",
+        "phases": {
+          "Na2CO3": "aq",
+          "HCl": "aq",
+          "NaCl": "aq",
+          "CO2": "g",
+          "H2O": "l"
+        },
+        "conditions": "Nhiệt độ phòng (Phương trình ion rút gọn: CO₃²⁻(aq) + 2H⁺(aq) -> CO₂(g) + H₂O(l))",
+        "observation": "Dung dịch sủi bọt khí cuồn cuộn không màu, không mùi bay lên làm đục nước vôi trong do axit mạnh đẩy axit cacbonic yếu và kém bền.",
+        "historicalNote": "Phản ứng tạo chất khí kinh điển chứng minh điều kiện phản ứng trao đổi ion."
+      },
+      {
+        "equation": "FeCl3(aq) + 3NaOH(aq) -> Fe(OH)3(s) + 3NaCl(aq)",
+        "phases": {
+          "FeCl3": "aq",
+          "NaOH": "aq",
+          "Fe(OH)3": "s",
+          "NaCl": "aq"
+        },
+        "conditions": "Nhiệt độ phòng (Phương trình ion rút gọn: Fe³⁺(aq) + 3OH⁻(aq) -> Fe(OH)₃(s))",
+        "observation": "Dung dịch muối sắt(III) màu vàng nâu nhỏ dung dịch kiềm vào lập tức kết tủa chất rắn màu nâu đỏ nhầy đặc của sắt(III) hiđroxit.",
+        "historicalNote": "Phản ứng nhận biết cation sắt(III) trong dung dịch."
+      }
+    ],
+    "commonMisconceptions": [
+      "Cho rằng dung dịch muối luôn có pH = 7 trung tính (Sai: Muối Na2CO3 có pH ~ 11 kiềm mạnh, muối FeCl3 có pH ~ 3 axit mạnh do sự thủy phân).",
+      "Viết sai phương trình ion rút gọn: Giữ nguyên ion của các chất điện li yếu hoặc phân tách chất kết tủa thành ion (Chất kết tủa, khí và nước PHẢI GIỮ NGUYÊN dạng phân tử).",
+      "Đồng nhất độ mạnh của axit với nồng độ mol của nó (Axit HCl 0.001 M là axit mạnh nồng độ loãng; axit CH3COOH 10 M là axit yếu nồng độ đặc)."
+    ],
+    "relatedElements": [
+      "H",
+      "Na",
+      "K",
+      "Ba",
+      "Fe",
+      "Al",
+      "C",
+      "N",
+      "S",
+      "Cl"
+    ],
+    "relatedCompounds": [
+      "HCl",
+      "NaOH",
+      "BaSO4",
+      "Na2CO3",
+      "NH4Cl",
+      "FeCl3",
+      "CH3COONa",
+      "Al(OH)3"
+    ],
+    "selfTestQuestions": [
+      {
+        "question": "Dung dịch muối nào sau đây làm quỳ tím CHUYỂN SANG MÀU XANH (pH > 7)?",
+        "options": [
+          "Na2CO3",
+          "NH4Cl",
+          "NaCl",
+          "Al2(SO4)3"
+        ],
+        "answer": 0,
+        "explanation": "Muối Na2CO3 tạo bởi cation của bazơ mạnh (Na⁺) và anion của axit yếu (CO3²⁻). Anion CO3²⁻ bị thủy phân trong nước nhận H⁺ và giải phóng ion OH⁻: CO3²⁻ + H2O <=> HCO3⁻ + OH⁻, làm cho dung dịch có môi trường kiềm (pH > 7) làm quỳ tím hóa xanh."
+      },
+      {
+        "question": "Phương trình ion rút gọn của phản ứng giữa dung dịch axit clohiđric HCl và dung dịch natri hiđroxit NaOH là:",
+        "options": [
+          "H⁺(aq) + OH⁻(aq) -> H2O(l)",
+          "Na⁺(aq) + Cl⁻(aq) -> NaCl(s)",
+          "HCl(aq) + NaOH(aq) -> NaCl(aq) + H2O(l)",
+          "H⁺(aq) + Cl⁻(aq) -> HCl(aq)"
+        ],
+        "answer": 0,
+        "explanation": "Cả HCl, NaOH và NaCl đều là các chất điện li mạnh tan tốt phân li hoàn toàn thành ion: H⁺ + Cl⁻ + Na⁺ + OH⁻ -> Na⁺ + Cl⁻ + H2O. Lược bỏ các ion Na⁺ và Cl⁻ ở cả hai vế, ta được phương trình ion rút gọn cốt lõi của phản ứng trung hòa: H⁺(aq) + OH⁻(aq) -> H2O(l)."
+      }
+    ]
+  },
+  {
+    "id": "organic-chemistry-mechanisms-and-reactions",
+    "topic": "Hóa học hữu cơ & Cơ chế phản ứng",
+    "grade": "Hóa học 11 & 12",
+    "title": "Thuyết cấu tạo hóa học, Nhóm chức, Hiện tượng đồng phân và Các cơ chế phản ứng hữu cơ cốt lõi",
+    "curriculumUnits": [
+      "Hóa học 11 - Chương 4: Đại cương hóa học hữu cơ (Bài 8: Thuyết cấu tạo hóa học & Đồng phân)",
+      "Hóa học 11 - Chương 5: Hydrocarbon (Bài 11: Alkane, Bài 12: Alkene, Bài 13: Arene)",
+      "Hóa học 11 - Chương 6: Hợp chất chứa oxygen (Alcohol, Phenol, Carbonyl, Carboxylic acid)",
+      "Hóa học 12 - Chương 1: Ester - Lipid (Phản ứng este hóa & xà phòng hóa)",
+      "Hóa học 12 - Chương 3: Hợp chất chứa nitrogen (Amine, Amino acid, Peptide)",
+      "KHTN 9 - Chủ đề: Hóa học hữu cơ"
+    ],
+    "summary": "Hóa học hữu cơ là hóa học của các hợp chất Carbon. Cốt lõi của ngành dựa trên thuyết cấu tạo Butlerov (carbon hóa trị IV, tạo mạch hở/nhánh/vòng). Tính chất của chất hữu cơ được quyết định bởi Nhóm chức (functional group) và Cấu trúc không gian 3D. Các cơ chế phản ứng nền tảng trong GDPT 2018 bao gồm: Thế gốc tự do SR (alkane), Thế ái điện tử SE (arene), Cộng electrophile AE (alkene tuân theo Markovnikov), Tách E (tuân theo Zaitsev), Este hóa Fischer thuận nghịch và Xà phòng hóa este một chiều.",
+    "detailedExplanation": "### 1. Thuyết Cấu tạo Hóa học Butlerov và Hiện tượng Đồng phân\n- **Các luận điểm cốt lõi của Aleksandr Butlerov (1861)**:\n  1. Trong phân tử hợp chất hữu cơ, các nguyên tử liên kết với nhau theo đúng **hóa trị** và theo một **thứ tự liên kết nhất định**. Thứ tự liên kết đó gọi là **cấu tạo hóa học**. Sự thay đổi thứ tự liên kết tạo nên chất mới.\n  2. Nguyên tử **Carbon luôn có hóa trị IV**. Các nguyên tử carbon không những có thể liên kết với nguyên tử của các nguyên tố khác mà còn có thể liên kết trực tiếp với nhau tạo thành các loại **mạch carbon**: mạch hở không phân nhánh, mạch nhánh và mạch vòng.\n  3. Tính chất của các chất phụ thuộc vào thành phần nguyên tố và cấu tạo hóa học (thứ tự và bản chất liên kết), đồng thời phụ thuộc vào **ảnh hưởng qua lại giữa các nguyên tử** trong phân tử.\n- **Hiện tượng Đồng phân (Isomerism)**: Là hiện tượng các chất có cùng công thức phân tử nhưng có cấu tạo hóa học khác nhau, do đó có tính chất khác nhau.\n  - **Đồng phân cấu tạo**:\n    - Đồng phân mạch carbon (mạch thẳng, mạch nhánh: ví dụ butan và isobutan $C_4H_{10}$).\n    - Đồng phân vị trí nhóm chức / liên kết bội (ví dụ but-1-en và but-2-en, propan-1-ol và propan-2-ol).\n    - Đồng phân nhóm chức (khác loại nhóm chức: ví dụ ancol etylic $C_2H_5OH$ và đimetyl ete $CH_3OCH_3$; axit axetic $CH_3COOH$ và metyl fomat $HCOOCH_3$).\n  - **Đồng phân hình học (Cis - Trans)**: Xuất hiện ở các hợp chất có liên kết đôi $C=C$ (không quay tự do được) và mỗi nguyên tử carbon mang 2 nhóm thế khác nhau ($abC=Ccd$ với $a \\ne b$ và $c \\ne d$).\n    - Dạng **cis**: Hai nhóm thế lớn/giống nhau nằm về cùng một phía của mặt phẳng liên kết đôi.\n    - Dạng **trans**: Hai nhóm thế lớn nằm về hai phía khác nhau của mặt phẳng liên kết đôi (thường bền hơn dạng cis).\n\n### 2. Bảng các Nhóm chức Trọng tâm GDPT 2018\n- **Halogen**: $-X$ ($-Cl, -Br, -I$) $\\rightarrow$ Dẫn xuất halogen.\n- **Alcohol (Ancol)**: Nhóm hiđroxyl $-OH$ liên kết với $C$ no ($sp^3$) (ví dụ etanol $C_2H_5OH$).\n- **Phenol**: Nhóm $-OH$ liên kết trực tiếp với nguyên tử carbon của vòng benzen ($C_6H_5OH$).\n- **Ether (Ete)**: Cầu nối $-O-$ giữa hai gốc hydrocarbon ($R-O-R'$).\n- **Aldehyde (Anđehit)**: Nhóm formyl $-CH=O$ (ví dụ fomanđehit $HCHO$, axetanđehit $CH_3CHO$).\n- **Ketone (Xeton)**: Nhóm carbonyl $>C=O$ gắn với hai gốc hydrocarbon (ví dụ axeton $CH_3COCH_3$).\n- **Carboxylic Acid**: Nhóm carboxyl $-COOH$ (ví dụ axit fomic $HCOOH$, axit axetic $CH_3COOH$).\n- **Ester (Este)**: Nhóm $-COO-$ tạo bởi axit và ancol ($R-COO-R'$).\n- **Amine (Amin)**: Dẫn xuất của amoniac thế nguyên tử H bằng gốc hydrocarbon ($-NH_2, >NH, >N-$).\n- **Amino Acid**: Chứa đồng thời nhóm amino $-NH_2$ (tính bazơ) và nhóm carboxyl $-COOH$ (tính axit).\n\n### 3. Các Cơ chế Phản ứng Hóa học Hữu cơ Cốt lõi\n#### A. Phản ứng Thế gốc tự do ($S_R$ - Free Radical Substitution) ở Alkane\nPhản ứng halogen hóa alkane (clo hóa, brom hóa) dưới tác dụng của ánh sáng ($h\\nu$) diễn ra theo cơ chế chuỗi gốc tự do 3 giai đoạn:\n1. *Khơi mào (Initiation)*: Năng lượng photon ánh sáng bẻ gãy đồng ly liên kết halogen tạo 2 gốc tự do: $Cl-Cl \\xrightarrow{h\\nu} 2Cl^\\bullet$.\n2. *Phát triển mạch (Propagation)*: Gốc $Cl^\\bullet$ giật nguyên tử H của alkane tạo gốc alkyl, gốc alkyl tiếp tục tấn công phân tử $Cl_2$ khác:\n   $$Cl^\\bullet + CH_4 \\rightarrow \\text{HCl} + ^\\bullet CH_3$$\n   $$^\\bullet CH_3 + Cl_2 \\rightarrow CH_3Cl + Cl^\\bullet$$\n3. *Đứt mạch (Termination)*: Hai gốc tự do kết hợp triệt tiêu nhau: $^\\bullet CH_3 + Cl^\\bullet \\rightarrow CH_3Cl$ hoặc $^\\bullet CH_3 + ^\\bullet CH_3 \\rightarrow C_2H_6$.\n- **Quy tắc thế**: Halogen ưu tiên thế vào nguyên tử **Carbon bậc cao hơn** (nhiều gốc alkyl đẩy electron làm bền gốc tự do trung gian).\n\n#### B. Phản ứng Cộng electrophile ($A_E$) vào Alkene & Quy tắc Markovnikov\nLiên kết $\\pi$ giàu mật độ electron của anken đóng vai trò trung tâm ái nhân, dễ bị tác nhân ái điện tử ($E^+$ như $H^+$ trong $HX$, $H_2O$) tấn công.\n- **Quy tắc Markovnikov (1869)**: Khi cộng một tác nhân bất đối xứng ($HX$, trong đó $X$ là $OH, Cl, Br$) vào anken bất đối xứng ($R-CH=CH_2$), phần mang điện tích dương ($H^+$) sẽ ưu tiên cộng vào nguyên tử **Carbon mang liên kết đôi có NHIỀU HIĐRO HƠN** (carbon bậc thấp hơn), còn phần mang điện tích âm ($X^-$) sẽ cộng vào carbon có ít hiđro hơn (carbon bậc cao hơn) để tạo thành **sản phẩm chính**.\n\n#### C. Phản ứng Tách ($E$) & Quy tắc Zaitsev (Saytzeff)\nKhi đun nóng dẫn xuất halogen với dung dịch kiềm trong rượu ($KOH/rượu, t^\\circ$) hoặc đun nóng ancol với $H_2SO_4$ đặc ở $170^\\circ C$:\n- **Quy tắc Zaitsev (1875)**: Nguyên tử halogen ($X$) hoặc nhóm $-OH$ ưu tiên tách ra cùng với nguyên tử Hiđro ở nguyên tử **Carbon bên cạnh CÓ BẬC CAO HƠN** (ít hiđro hơn) để tạo thành **anken có nhiều nhóm thế hơn (bền vững hơn về mặt nhiệt động học) làm sản phẩm chính**.\n\n#### D. Phản ứng Thế ái điện tử ($S_E$) vào Vòng thơm Aren & Quy tắc Thế Vòng Benzen\nVòng benzen có hệ $6e$ $\\pi$ liên hợp giải tỏa thơm bền vững.\n- Khi vòng benzen đã có sẵn nhóm thế **đẩy electron** (loại 1: $-OH, -NH_2, -CH_3, -C_2H_5...$): Phản ứng thế halogen hoặc nitro hóa diễn ra **dễ dàng hơn** và ưu tiên định hướng vào vị trí **Ortho (vị trí 2, 6)** và **Para (vị trí 4)**.\n- Khi vòng benzen có sẵn nhóm thế **hút electron** (loại 2: $-NO_2, -COOH, -CHO, -SO_3H...$): Phản ứng thế diễn ra **khó khăn hơn** (cần nhiệt độ cao, xúc tác mạnh) và ưu tiên định hướng vào vị trí **Meta (vị trí 3, 5)**.\n\n#### E. Phản ứng Este hóa Fischer & Phản ứng Xà phòng hóa Este\n- **Phản ứng Este hóa (Esterification)**: Giữa axit cacboxylic và ancol đun nóng có xúc tác axit $H_2SO_4$ đặc:\n  $$R-COOH + R'-OH \\overset{H_2SO_4 \\text{ đ}, t^\\circ}{\\rightleftharpoons} R-COO-R' + H_2O$$\n  Phản ứng là **thuận nghịch**, hiệu suất không đạt 100%. Nhóm $-OH$ tách ra từ phân tử axit và nguyên tử $-H$ tách ra từ phân tử ancol (chứng minh bằng đồng vị phóng xạ O-18).\n- **Phản ứng Xà phòng hóa (Saponification)**: Thủy phân este hoặc chất béo (triglyceride) trong dung dịch kiềm nóng ($NaOH$ hoặc $KOH$):\n  $$R-COO-R' + NaOH \\xrightarrow{t^\\circ} R-COONa + R'-OH$$\n  Phản ứng xảy ra **MỘT CHIỀU HOÀN TOÀN** (do muối natri cacboxylat không phản ứng ngược lại với ancol). Đây là phản ứng sản xuất xà phòng và glixerol trong công nghiệp.",
+    "fundamentalPrinciples": [
+      {
+        "name": "Thuyết cấu tạo hóa học Butlerov",
+        "formulation": "Carbon hóa trị IV, tạo mạch hở thẳng/nhánh/vòng; tính chất phụ thuộc trật tự liên kết và ảnh hưởng qua lại giữa các nguyên tử."
+      },
+      {
+        "name": "Quy tắc cộng Markovnikov",
+        "formulation": "Trong phản ứng cộng HX vào anken bất đối xứng, H+ ưu tiên cộng vào C nối đôi có nhiều H hơn, X- vào C có ít H hơn tạo sản phẩm chính."
+      },
+      {
+        "name": "Quy tắc tách Zaitsev",
+        "formulation": "Tách HX hoặc H2O ưu tiên tách H ở C bên cạnh có bậc cao hơn (ít H hơn) tạo anken có nhiều nhóm thế hơn."
+      },
+      {
+        "name": "Quy tắc định hướng thế vòng benzen",
+        "formulation": "Nhóm đẩy electron (-CH3, -OH) định hướng ortho/para; nhóm hút electron (-NO2, -COOH) định hướng meta."
+      }
+    ],
+    "keyEquationsAndPhenomena": [
+      {
+        "equation": "CH4(g) + Cl2(g) --(anh sang)--> CH3Cl(g) + HCl(g)",
+        "phases": {
+          "CH4": "g",
+          "Cl2": "g",
+          "CH3Cl": "g",
+          "HCl": "g"
+        },
+        "conditions": "Ánh sáng khuếch tán, tỷ lệ mol 1:1",
+        "observation": "Màu vàng lục của khí clo trong ống nghiệm nhạt dần; khi mở nút ống nghiệm và đưa giấy quỳ tím ẩm vào miệng ống nghiệm, quỳ tím lập tức chuyển sang màu đỏ rực do khí hiđro clorua sinh ra.",
+        "historicalNote": "Phản ứng thế gốc tự do SR mở đầu chương trình Hóa học hữu cơ phổ thông."
+      },
+      {
+        "equation": "CH2=CH-CH3(g) + HBr(g) -> CH3-CHBr-CH3(l)",
+        "phases": {
+          "CH2=CH-CH3": "g",
+          "HBr": "g",
+          "CH3-CHBr-CH3": "l"
+        },
+        "conditions": "Nhiệt độ phòng (Sản phẩm chính 2-bromopropan tuân theo Markovnikov)",
+        "observation": "Dòng khí propilen sục vào dung dịch HBr làm dung dịch chuyển sang đồng nhất tạo chất lỏng không màu 2-bromopropan chiếm hơn 90% sản phẩm.",
+        "historicalNote": "Minh chứng chuẩn mực cho quy tắc Markovnikov năm 1869."
+      },
+      {
+        "equation": "CH3COOC2H5(l) + NaOH(aq) --(t°)--> CH3COONa(aq) + C2H5OH(aq)",
+        "phases": {
+          "CH3COOC2H5": "l",
+          "NaOH": "aq",
+          "CH3COONa": "aq",
+          "C2H5OH": "aq"
+        },
+        "conditions": "Đun sôi nhẹ cách thủy trong 5 phút",
+        "observation": "Ban đầu este không tan nổi thành lớp dầu váng phía trên mặt dung dịch kiềm; sau khi đun nóng, este tan hoàn toàn thành dung dịch đồng nhất trong suốt và mùi thơm hoa quả biến mất.",
+        "historicalNote": "Phản ứng xà phòng hóa este một chiều trong SGK Hóa học 12."
+      },
+      {
+        "equation": "CH3CHO(aq) + 2[Ag(NH3)2]OH(aq) --(t°)--> CH3COONH4(aq) + 2Ag(s) + 3NH3(g) + H2O(l)",
+        "phases": {
+          "CH3CHO": "aq",
+          "[Ag(NH3)2]OH": "aq",
+          "CH3COONH4": "aq",
+          "Ag": "s",
+          "NH3": "g",
+          "H2O": "l"
+        },
+        "conditions": "Đun cách thủy nhẹ ở 60°C - 70°C (Phản ứng tráng bạc / Tollens Test)",
+        "observation": "Dung dịch trong suốt dần dần xuất hiện lớp kim loại bạc sáng bóng lấp lánh như gương soi bám chặt vào thành ống nghiệm thủy tinh.",
+        "historicalNote": "Phản ứng định tính đặc trưng phân biệt nhóm chức anđehit với xeton."
+      }
+    ],
+    "commonMisconceptions": [
+      "Áp dụng sai quy tắc Markovnikov cho anken đối xứng (Anken đối xứng như but-2-en CH3-CH=CH-CH3 cộng HX chỉ tạo 1 sản phẩm duy nhất).",
+      "Nhầm lẫn giữa phản ứng este hóa (thuận nghịch hai chiều) và phản ứng xà phòng hóa (một chiều hoàn toàn).",
+      "Nghĩ rằng ancol tác dụng được với NaOH (Sai: Ancol không có tính axit đủ mạnh, chỉ có phenol mới tác dụng được với NaOH).",
+      "Nhầm lẫn vị trí tách nước tạo anken (170°C, H2SO4 đặc) với phản ứng tách nước tạo ete (140°C, H2SO4 đặc)."
+    ],
+    "relatedElements": [
+      "C",
+      "H",
+      "O",
+      "N",
+      "Cl",
+      "Br",
+      "Ag"
+    ],
+    "relatedCompounds": [
+      "CH4",
+      "C2H4",
+      "C2H2",
+      "C6H6",
+      "C2H5OH",
+      "CH3COOH",
+      "CH3COOC2H5",
+      "CH3CHO",
+      "C6H5OH"
+    ],
+    "selfTestQuestions": [
+      {
+        "question": "Khi cho propilen (CH2=CH-CH3) tác dụng với khí hiđro clorua (HCl), sản phẩm chính thu được theo quy tắc Markovnikov là:",
+        "options": [
+          "2-clopropan (CH3-CHCl-CH3)",
+          "1-clopropan (CH2Cl-CH2-CH3)",
+          "1,2-điclopropan",
+          "Propan"
+        ],
+        "answer": 0,
+        "explanation": "Theo quy tắc cộng Markovnikov, nguyên tử H⁺ ưu tiên cộng vào carbon mang liên kết đôi có nhiều H hơn (nhóm =CH2 bậc I), còn nguyên tử Cl⁻ ưu tiên cộng vào carbon có ít H hơn (nhóm -CH= bậc II). Do đó sản phẩm chính là 2-clopropan: CH3-CHCl-CH3."
+      },
+      {
+        "question": "Cặp chất nào sau đây là ĐỒNG PHÂN NHÓM CHỨC của nhau?",
+        "options": [
+          "Etanol (C2H5OH) và Đimetyl ete (CH3-O-CH3)",
+          "Axit axetic (CH3COOH) và Axit fomic (HCOOH)",
+          "Metan (CH4) và Etan (C2H6)",
+          "But-1-en và But-2-en"
+        ],
+        "answer": 0,
+        "explanation": "Cả etanol và đimetyl ete đều có cùng công thức phân tử là C2H6O (M = 46), nhưng một chất chứa nhóm chức ancol (-OH) còn chất kia chứa nhóm chức ete (-O-). Do đó chúng là đồng phân nhóm chức của nhau."
+      }
+    ]
+  }
+]

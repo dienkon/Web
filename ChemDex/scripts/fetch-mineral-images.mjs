@@ -7,7 +7,7 @@ const reportPath=path.join(root,'data/mineral-image-provenance.json');
 const previous=JSON.parse(await fs.readFile(reportPath,'utf8').catch(()=>'{}'));
 const clean=v=>String(v??'').replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim();
 const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
-const fileOverrides={'native-platinum':'Platinum-274992.jpg'};
+const fileOverrides={'native-platinum':'Platinum-274992.jpg','native-gold':'Gold-280481.jpg'};
 const titles={celestine:'Celestine (mineral)',apatite:'Apatite',sulfur:'Sulfur',lepidolite:'Lepidolite',xenotime:'Xenotime',columbite:'Columbite',tantalite:'Tantalite','native-gold':'Native gold','native-platinum':'Platinum',monazite:'Monazite'};
 const pages=new Map(),metadata=new Map(),results=[];
 async function json(url){const r=await fetch(url,{signal:AbortSignal.timeout(35000)});if(!r.ok)throw Error(`HTTP ${r.status}`);return r.json();}

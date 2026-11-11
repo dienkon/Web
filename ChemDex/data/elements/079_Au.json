@@ -181,19 +181,19 @@
           "preview": "/assets/periodic-table/crystals/native-gold.png"
         }
       ],
-      "photoSource": "https://commons.wikimedia.org/wiki/File:Gold-crystals.jpg"
+      "photoSource": "https://commons.wikimedia.org/wiki/File:Gold-280481.jpg"
     }
   },
   "naturalState": {
     "image": "/assets/periodic-table/mineral-photos/native-gold.jpg",
     "alt": "Gold tự sinh — ảnh mẫu khoáng vật tham chiếu",
     "kind": "photo",
-    "source": "https://commons.wikimedia.org/wiki/File:Gold-crystals.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Gold-280481.jpg",
     "caption": "Ảnh mẫu tham chiếu Gold tự sinh; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
     "credit": "Alchemist-hp ( talk ) www.pse-mendelejew.de · CC BY-SA 3.0 de",
-    "author": "Alchemist-hp ( talk ) www.pse-mendelejew.de",
-    "license": "CC BY-SA 3.0 de",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en"
+    "author": "Robert M. Lavinsky",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
   },
   "isotopes": [
     {
@@ -437,10 +437,10 @@
       "role": "natural-mineral",
       "title": "Gold tự sinh",
       "desc": "Ảnh mẫu tham chiếu Gold tự sinh; ảnh và CIF có thể thuộc các mẫu khác nhau. Khoáng vật hoặc mẫu tự sinh đại diện có liên quan tới nguồn gốc tự nhiên của nguyên tố.",
-      "source": "https://commons.wikimedia.org/wiki/File:Gold-crystals.jpg",
-      "author": "Alchemist-hp ( talk ) www.pse-mendelejew.de",
-      "license": "CC BY-SA 3.0 de",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en"
+      "source": "https://commons.wikimedia.org/wiki/File:Gold-280481.jpg",
+      "author": "Robert M. Lavinsky",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
     }
   ],
   "mediaBlocks": [

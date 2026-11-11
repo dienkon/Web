@@ -1,0 +1,657 @@
+// Part 2: Chemical Pioneers (Berzelius to Faraday)
+export const scientistsPart2 = [
+  {
+    id: 'jons-jacob-berzelius',
+    name: 'Jöns Jacob Berzelius',
+    vietnameseName: 'Giơn Gia-cốp Béc-dê-li-út',
+    lifeSpan: '1779 – 1848',
+    birthYear: 1779,
+    deathYear: 1848,
+    nationality: 'Thụy Điển',
+    avatar: '/assets/scientists/jons-jacob-berzelius.svg',
+    title: 'Giáo hoàng của Hóa học thế kỷ XIX, người sáng lập hệ thống ký hiệu hóa học hiện đại',
+    quote: 'Các ký hiệu hóa học phải là các chữ cái để tiện in ấn và đọc hiểu, lấy từ tên tiếng Latinh của nguyên tố.',
+    lifeStruggles: 'Berzelius mồ côi cha từ năm 4 tuổi, mẹ tái giá rồi cũng qua đời vài năm sau đó. Ông phải sống nhờ vả nhà người cha dượng trong sự ghẻ lạnh và thiếu thốn. Khi theo học y khoa tại Đại học Uppsala, ông từng bị đánh trượt môn thực hành hóa học vì giáo sư cho rằng ông "vụng về, cẩu thả và không có tương lai với ống nghiệm". Không nản lòng, ông mượn căn phòng nhỏ phía sau lò bánh mì ở Stockholm làm phòng thí nghiệm, tự chế tạo dụng cụ từ chai lọ vỡ và dùng tiền túi từ việc hành nghề bác sĩ nghèo để mua muối, axit. Ông phải làm việc trong điều kiện thông gió tồi tàn đến mức từng bị ngộ độc nặng khí selenua hiđro (H2Se), mất khứu giác suốt một tháng trời và viêm phế quản mãn tính.',
+    personalLore: 'Berzelius là một người có kỷ luật sắt đá và sự tỉ mỉ vượt bậc. Trong suốt hơn một thập kỷ, ông đã tự tay tiến hành hơn 2.000 phép phân tích định lượng nguyên tố để xác định khối lượng nguyên tử tương đối của gần 50 nguyên tố đã biết thời đó, tất cả chỉ với chiếc cân phân tích cơ học và ống thổi thợ kim hoàn. Bảng khối lượng nguyên tử do ông công bố năm 1818 và 1826 chính xác đến mức sai lệch rất ít so với số liệu đo bằng máy đo phổ khối hiện đại ngày nay. Tầm ảnh hưởng của ông tại châu Âu lớn đến mức được các nhà khoa học mệnh danh là "Giáo hoàng của ngành Hóa học", bất kỳ tranh luận học thuật nào chỉ cần Berzelius lên tiếng trong cuốn niên giám "Jahres-Bericht" là coi như được định đoạt.',
+    experimentalBreakthroughs: '1. Phát minh Hệ thống Ký hiệu Hóa học Hiện đại (1813–1814): Xóa bỏ hoàn toàn các biểu tượng giả kim cổ xưa rườm rà (mặt trời cho vàng, mặt trăng cho bạc, tam giác cho lửa). Ông đề xuất dùng chữ cái đầu tiên trong tên Latinh của nguyên tố làm ký hiệu (H cho Hydrogenium, C cho Carboneum, O cho Oxygenium, Fe cho Ferrum, Na cho Natrium) và nếu trùng thì thêm chữ cái thứ hai viết thường (Ca, Cl, Cu). Ông dùng các chữ số để chỉ số lượng nguyên tử trong phân tử (H2O, H2SO4) — nền tảng của toàn bộ ngôn ngữ hóa học toàn cầu ngày nay.\n2. Khám phá 4 nguyên tố hóa học mới: Cerium (Ce, 1803), Selenium (Se, 1817), Silicon (Si, 1824 - lần đầu tiên điều chế ở dạng vô định hình tinh khiết), và Thorium (Th, 1828).\n3. Định hình và đặt tên các khái niệm cốt lõi của hóa học hiện đại: Khái niệm "Xúc tác" (Catalysis, 1835), "Đồng phân" (Isomerism, 1831), "Thù hình" (Allotropy, 1841), và "Polyme" (Polymer, 1832).\n4. Thuyết nhị nguyên điện hóa học (Electrochemical Dualism): Nhận thấy mọi hợp chất muối đều gồm phần mang điện tích dương (cation) và phần mang điện tích âm (anion), đặt nền móng cho lý thuyết liên kết ion sau này.',
+    laboratoryApparatus: [
+      {
+        name: 'Ống thổi phân tích Berzelius (Berzelius Blowpipe)',
+        description: 'Ống kim loại thon nhỏ dùng để thổi luồng khí nén từ miệng qua ngọn lửa đèn cồn vào mẩu khoáng sản đặt trên than củi, tạo nhiệt độ tập trung cao kiểm tra màu ngọn lửa và khả năng khử kim loại.'
+      },
+      {
+        name: 'Giấy lọc không tàn tro cải tiến (Ashless Filter Paper)',
+        description: 'Giấy lọc được xử lý qua axit flohiđric và axit clohiđric để loại bỏ hoàn toàn silica và muối vô cơ, khi đốt cháy cùng kết tủa không để lại khối lượng tro thừa gây sai số cân.'
+      },
+      {
+        name: 'Chén nung bạch kim có nắp kín (Covered Platinum Crucibles)',
+        description: 'Chén nung bằng kim loại platin nguyên chất dùng để nung kết tủa bari sunfat và silic đioxit ở nhiệt độ trên 1.000°C.'
+      }
+    ],
+    discoveredOrRevolutionized: {
+      elements: ['Ce (Cerium)', 'Se (Selenium)', 'Si (Silicon)', 'Th (Thorium)'],
+      compounds: ['SiO2', 'H2Se', 'ThO2'],
+      concepts: ['Hệ thống ký hiệu hóa học Latinh hiện đại', 'Khái niệm Chất xúc tác (Catalysis)', 'Hiện tượng Đồng phân (Isomerism)', 'Khái niệm Thù hình (Allotropy)', 'Khái niệm Polymer']
+    },
+    keyEquations: [
+      {
+        equation: 'SiF4(g) + 4K(s) -> Si(s) + 4KF(s)',
+        phases: { SiF4: 'g', K: 's', Si: 's', KF: 's' },
+        conditions: 'Nung nóng trong ống thủy tinh kín',
+        observation: 'Kim loại kali nóng chảy phản ứng mãnh liệt với khí silic tetraflorua, chất rắn màu nâu xẫm của bột silic vô định hình được tạo thành sau khi rửa sạch muối kali florua.',
+        historicalNote: 'Thí nghiệm năm 1824 giúp Berzelius lần đầu tiên cô lập được Silic vô định hình nguyên chất.'
+      },
+      {
+        equation: '2H2O2(aq) --(MnO2)--> 2H2O(l) + O2(g)',
+        phases: { H2O2: 'aq', MnO2: 's', H2O: 'l', O2: 'g' },
+        conditions: 'Nhiệt độ phòng, có một lượng nhỏ bột MnO2 làm xúc tác',
+        observation: 'Bột MnO2 màu đen vừa rơi vào dung dịch không màu thì bọt khí oxi lập tức sủi lên cuồn cuộn tỏa nhiệt; sau phản ứng lượng bột MnO2 vẫn còn nguyên khối lượng và bản chất hóa học.',
+        historicalNote: 'Thí nghiệm kinh điển minh chứng cho định nghĩa về "lực xúc tác" của Berzelius năm 1835.'
+      }
+    ],
+    pedagogicalInsight: 'Không có Berzelius, chúng ta không thể có ngôn ngữ hóa học như ngày hôm nay. Trong GDPT 2018 (KHTN 7 & Hóa học 10), việc học sinh viết đúng ký hiệu hóa học, công thức phân tử và hiểu vai trò của chất xúc tác trong việc tăng tốc độ phản ứng mà không bị tiêu hao chính là thừa hưởng trực tiếp từ di sản của Berzelius.',
+    curriculumTags: ['Hóa học 10 - Chương 1: Cấu tạo nguyên tử (Ký hiệu nguyên tố)', 'Hóa học 10 - Chương 6: Tốc độ phản ứng hóa học (Chất xúc tác)', 'KHTN 7 - Bài: Ký hiệu hóa học']
+  },
+  {
+    id: 'robert-bunsen',
+    name: 'Robert Bunsen',
+    vietnameseName: 'Rô-bơt Bun-xen',
+    lifeSpan: '1811 – 1899',
+    birthYear: 1811,
+    deathYear: 1899,
+    nationality: 'Đức',
+    avatar: '/assets/scientists/robert-bunsen.svg',
+    title: 'Bậc thầy thực nghiệm phân tích, người phát minh Đèn Bunsen và đồng khám phá Quang phổ ngọn lửa',
+    quote: 'Một nhà hóa học không tự tay chế tạo được dụng cụ của mình thì không phải là một nhà thực nghiệm chân chính.',
+    lifeStruggles: 'Bunsen sinh ra tại Göttingen trong một gia đình học giả. Ông cống hiến toàn bộ cuộc đời cho các phòng thí nghiệm tại Marburg, Breslau và Heidelberg, không bao giờ kết hôn. Năm 1843, khi tiến hành nghiên cứu các hợp chất hữu cơ - asen cực kỳ nguy hiểm (các hợp chất cacodyl) — những chất vừa có mùi thối rữa kinh hoàng, độc tính chết người và tự bốc cháy trong không khí — một vụ nổ ống nghiệm thủy tinh bạo liệt đã thổi bay con mắt phải của ông và khiến ông bất tỉnh, nằm mê man nhiều ngày vì ngộ độc asen. Đôi bàn tay của ông chai sạn và chằng chịt các vết bỏng axit, sẹo do thủy tinh nóng đỏ đến mức ông thường thản nhiên dùng ngón tay nhấc các mẩu ống nghiệm đang nóng đỏ mà không hề có cảm giác đau đớn.',
+    personalLore: 'Bunsen nổi tiếng với tính cách hóm hỉnh và tính đãng trí khoa học kinh điển. Một lần, một phụ nữ quý tộc đến thăm phòng thí nghiệm của ông tại Đại học Heidelberg và bắt tay ông rồi khen ngợi đôi bàn tay sạch sẽ của ông, Bunsen đã cười khà khà trả lời: "Thưa bà, đó là nhờ sáng nay tôi vừa rửa tay bằng axit clohiđric loãng đấy!". Khi cùng Kirchhoff phát hiện ra các nguyên tố mới bằng máy quang phổ, Bunsen đã phải cho cô đặc hơn 40 tấn nước khoáng thiên nhiên Dürkheim để thu được vỏn vẹn vài gam muối xesi và rubidi tinh chế.',
+    experimentalBreakthroughs: '1. Phát minh Đèn Bunsen (Bunsen Burner, 1855): Trước Bunsen, các nhà hóa học dùng đèn dầu hoặc ngọn lửa khí gas thông thường, ngọn lửa vàng có nhiều muội than che khuất tầm nhìn và nhiệt độ không cao. Bunsen thiết kế chiếc đèn có lỗ hút khí ở chân đèn để trộn oxy không khí vào dòng khí gas trước khi cháy, tạo ra ngọn lửa màu xanh lam nhiệt độ cao (lên đến hơn 1.500°C), không muội than và gần như trong suốt — công cụ chuẩn hóa trong mọi phòng thí nghiệm hóa học trên thế giới đến tận ngày nay.\n2. Đồng sáng lập Phương pháp Phân tích Quang phổ phát xạ (1859 cùng Gustav Kirchhoff): Nhận thấy mỗi nguyên tố khi đưa vào ngọn lửa đèn Bunsen đều phát ra các vạch màu quang phổ độc nhất vô nhị như dấu vân tay. Họ gắn kết đèn Bunsen với một lăng kính tán sắc và kính viễn vọng để tạo ra Máy quang phổ (Spectroscope) đầu tiên.\n3. Khám phá Cesium (Cs, 1860) và Rubidium (Rb, 1861): Khi đốt cặn nước khoáng Dürkheim trên ngọn lửa, họ nhìn thấy hai vạch quang phổ màu xanh da trời chưa từng thấy (đặt tên là Cesium, từ tiếng Latinh "caesius" nghĩa là bầu trời xanh); tiếp đó thấy hai vạch đỏ thẫm (đặt tên là Rubidium, "rubidus" nghĩa là đỏ thẫm).\n4. Phát minh Pin Bunsen (Bunsen Cell) dùng điện cực than chì rẻ tiền thay cho bạch kim đắt đỏ, và Máy đo quang kế vết dầu (Grease-Spot Photometer).',
+    laboratoryApparatus: [
+      {
+        name: 'Đèn khí Bunsen (Bunsen Burner)',
+        description: 'Đèn đốt bằng kim loại có vòng xoay trượt điều chỉnh độ mở của cửa lấy khí (air collar), cho phép người dùng chuyển đổi linh hoạt giữa ngọn lửa an toàn màu vàng sáng và ngọn lửa oxi hóa màu xanh lam không muội ở nhiệt độ cao.'
+      },
+      {
+        name: 'Máy quang phổ lăng kính Kirchhoff - Bunsen (Prism Spectroscope)',
+        description: 'Hệ thống gồm 3 ống: ống chuẩn trực có khe hẹp lấy chùm sáng ngọn lửa, lăng kính thủy tinh flint tán sắc chùm sáng thành các vạch quang phổ, và kính thiên văn hội tụ để mắt quan sát vạch phổ so sánh với thang chia độ.'
+      },
+      {
+        name: 'Pin điện hóa Bunsen cực than chì (Bunsen Carbon-Zinc Cell)',
+        description: 'Hệ pin điện hóa sử dụng thanh than chì ép nhúng trong axit nitric đậm đặc và cực kẽm nhúng trong axit sunfuric loãng, cung cấp dòng điện một chiều mạnh mẽ phục vụ điện phân kim loại.'
+      }
+    ],
+    discoveredOrRevolutionized: {
+      elements: ['Cs (Cesium)', 'Rb (Rubidium)'],
+      compounds: ['Cacodyl oxide ((CH3)2As)2O', 'CsCl', 'RbCl'],
+      concepts: ['Đèn đốt phòng thí nghiệm', 'Phép phân tích quang phổ ngọn lửa phát xạ', 'Thuốc giải độc asen (sắt(III) hiđroxit Fe(OH)3)']
+    },
+    keyEquations: [
+      {
+        equation: '2Cs(s) + 2H2O(l) -> 2CsOH(aq) + H2(g)',
+        phases: { Cs: 's', H2O: 'l', CsOH: 'aq', H2: 'g' },
+        conditions: 'Nhiệt độ phòng (phản ứng nổ mãnh liệt)',
+        observation: 'Mẩu kim loại xesi vừa chạm mặt nước lập tức phát nổ dữ dội làm vỡ vụn cốc thủy tinh, ngọn lửa xanh lam chớp sáng chói mắt.',
+        historicalNote: 'Minh chứng cho tính kim loại mạnh nhất trong số các nguyên tố bền của chu kỳ Bảng tuần hoàn.'
+      },
+      {
+        equation: 'As2O3(s) + 2Fe(OH)3(s) -> 2FeAsO3(s) + 3H2O(l)',
+        phases: { As2O3: 's', 'Fe(OH)3': 's', FeAsO3: 's', H2O: 'l' },
+        conditions: 'Dung dịch nước, thuốc thử giải độc asen khẩn cấp',
+        observation: 'Kết tủa nâu đỏ của sắt(III) hiđroxit mới điều chế hấp phụ và kết tủa hoàn toàn độc chất thạch tín asen trioxit ra khỏi dung dịch.',
+        historicalNote: 'Phát minh thuốc giải độc thạch tín do chính Bunsen tìm ra năm 1834 đã cứu sống hàng ngàn người ngộ độc.'
+      }
+    ],
+    pedagogicalInsight: 'Đèn Bunsen và quang phổ ngọn lửa là hai công cụ thực hành kinh điển. Trong GDPT 2018 (Hóa học 10 - Kiểm tra màu ngọn lửa của kim loại kiềm và kiềm thổ, Hóa học 12 - Kim loại nhóm IA), học sinh được học nhận biết các ion Na+ (ngọn lửa vàng), K+ (ngọn lửa tím), Ca2+ (đỏ cam), Ba2+ (lục vàng) dựa trên nguyên lý kích thích electron lượng tử mà Bunsen và Kirchhoff tiên phong.',
+    curriculumTags: ['Hóa học 10 - Chương 1: Cấu tạo nguyên tử (Quang phổ phát xạ)', 'Hóa học 12 - Chương 6: Kim loại nhóm IA và nhóm IIA (Thử màu ngọn lửa)', 'KHTN 8 - Bài: Thực hành thí nghiệm']
+  },
+  {
+    id: 'gustav-kirchhoff',
+    name: 'Gustav Kirchhoff',
+    vietnameseName: 'Gút-xtáp Kia-khốp',
+    lifeSpan: '1824 – 1887',
+    birthYear: 1824,
+    deathYear: 1887,
+    nationality: 'Đức',
+    avatar: '/assets/scientists/gustav-kirchhoff.svg',
+    title: 'Nhà vật lý lý thuyết kiệt xuất, đồng sáng lập quang phổ học và các định luật mạch điện',
+    quote: 'Mỗi nguyên tố hóa học đều mang theo một bản hợp xướng ánh sáng độc nhất vô nhị mà vũ trụ đã trao cho nó.',
+    lifeStruggles: 'Kirchhoff sinh ra tại Königsberg (Phổ), là một thiên tài vật lý toán học từ khi còn rất trẻ (ông công bố hai Định luật mạch điện Kirchhoff nổi tiếng khi mới 21 tuổi). Tuy nhiên, về mặt thể chất, ông phải chịu đựng sự đau đớn suốt cuộc đời do một tai nạn từ thời thanh niên khiến chân bị tật nguyền nặng nề, phải chống nạng hoặc ngồi xe lăn suốt phần đời còn lại. Mặc dù gặp khó khăn to lớn trong việc di chuyển, ông không bao giờ vắng mặt trên giảng đường hay trong phòng tối quang phổ học tại Đại học Heidelberg và Đại học Berlin.',
+    personalLore: 'Khi Kirchhoff và Bunsen tuyên bố có thể xác định được thành phần hóa học của khí quyển Mặt Trời (chứa Natri, Sắt, Hydro...) cách Trái Đất 150 triệu km chỉ bằng cách nhìn vào các vạch đen Frauenhofer trên quang phổ hấp thụ, một chủ ngân hàng ở Frankfurt đã cười nhạo ông: "Biết Mặt Trời có vàng thì ích lợi gì nếu tôi không thể đem số vàng đó gửi vào két sắt ngân hàng?". Ít lâu sau, khi Kirchhoff được chính phủ Anh trao tặng Huân chương Rumford bằng vàng ròng kèm khoản tiền thưởng lớn cho công trình quang phổ, ông đã đem huân chương đến trước mặt người chủ ngân hàng nọ và hóm hỉnh nói: "Thưa ông, đây là số vàng trên Mặt Trời mà tôi vừa rút về được đấy!".',
+    experimentalBreakthroughs: '1. Định luật Bức xạ Nhiệt Kirchhoff (1859): Mọi vật thể ở trạng thái cân bằng nhiệt đều có tỷ số giữa năng suất phát xạ và hệ số hấp thụ là như nhau ở cùng bước sóng — nền móng trực tiếp dẫn Max Planck đến thuyết lượng tử năng lượng năm 1900.\n2. Giải mã các Vạch Fraunhofer trong quang phổ Mặt Trời: Chứng minh rằng các vạch tối trong quang phổ Mặt Trời xuất hiện do bầu khí quyển lạnh hơn bên ngoài của Mặt Trời đã hấp thụ đúng những bước sóng ánh sáng mà chính các nguyên tố đó phát ra khi bị đốt nóng. Điều này cho phép con người phân tích thành phần hóa học của các vì sao xa xôi trong vũ trụ mà không cần phải đặt chân tới đó.\n3. Đồng sáng chế Máy quang phổ lăng kính và đồng phát hiện Cesium và Rubidium cùng Robert Bunsen.',
+    laboratoryApparatus: [
+      {
+        name: 'Hệ máy quang phổ lăng kính phản xạ hội tụ (Kirchhoff Spectroscope Setup)',
+        description: 'Hệ thống quang học đồng trục đặt trong phòng tối hoàn toàn, sử dụng lăng kính tán sắc bằng thủy tinh chì có chiết suất cao để tách biệt các vạch quang phổ sát nhau từng phần mười nanomet.'
+      }
+    ],
+    discoveredOrRevolutionized: {
+      elements: ['Cs', 'Rb (đồng phát hiện)'],
+      compounds: ['Các muối halogenua của kiềm'],
+      concepts: ['Định luật bức xạ nhiệt Kirchhoff', 'Quang phổ hấp thụ và phát xạ', 'Phân tích thành phần hóa học thiên thể', 'Hai định luật mạch điện Kirchhoff (KCL, KVL)']
+    },
+    keyEquations: [
+      {
+        equation: 'E(lambda, T) / A(lambda, T) = J(lambda, T)',
+        phases: { E: 'năng suất phát xạ', A: 'hệ số hấp thụ', J: 'hàm số phổ biến của vật đen tuyệt đối' },
+        conditions: 'Cân bằng nhiệt động học ở nhiệt độ T',
+        observation: 'Chất khí hấp thụ ánh sáng ở đúng bước sóng mà nó phát xạ khi nung nóng; đưa ngọn lửa natri vào giữa nguồn sáng trắng và lăng kính làm xuất hiện vạch đen D đặc trưng trên nền quang phổ liên tục.',
+        historicalNote: 'Định luật bức xạ nhiệt năm 1859 mở màn cho cuộc cách mạng vật lý lượng tử thế kỷ XX.'
+      }
+    ],
+    pedagogicalInsight: 'Kirchhoff kết nối Hóa học với Vật lý thiên văn thông qua ánh sáng. Trong GDPT 2018 (Hóa học 10 - Cấu tạo vỏ nguyên tử & Vật lý 12 - Quang phổ), học sinh hiểu rằng bước chuyển dịch mức năng lượng của electron giữa các orbital lượng tử chính là cội nguồn của các vạch quang phổ đặc trưng.',
+    curriculumTags: ['Hóa học 10 - Chương 1: Cấu tạo nguyên tử (Trạng thái kích thích electron)', 'Vật lý 12 - Sóng ánh sáng và Quang phổ']
+  },
+  {
+    id: 'fritz-haber',
+    name: 'Fritz Haber',
+    vietnameseName: 'Pơ-rít Ha-bơ',
+    lifeSpan: '1868 – 1934',
+    birthYear: 1868,
+    deathYear: 1934,
+    nationality: 'Đức',
+    avatar: '/assets/scientists/fritz-haber.svg',
+    title: 'Người tạo ra bánh mì từ không khí và nhân vật bi kịch vĩ đại của lịch sử hóa học',
+    quote: 'Trong thời bình, một nhà khoa học thuộc về toàn nhân loại; nhưng trong thời chiến, anh ta thuộc về tổ quốc mình.',
+    lifeStruggles: 'Fritz Haber là một trong những nhân vật phức tạp và bi thương nhất trong lịch sử khoa học thế giới. Sinh ra tại Breslau trong một gia đình Do Thái giàu có, ông dành trọn lòng nhiệt thành và lòng yêu nước mù quáng cho Đế quốc Đức. Năm 1915, trong Thế chiến I, Haber đích thân ra mặt trận chỉ huy cuộc tấn công bằng khí độc clo đầu tiên tại Ypres (Bỉ), mở màn cho kỷ nguyên chiến tranh hóa học thảm khốc. Người vợ đầu của ông, Clara Immerwahr — người phụ nữ đầu tiên nhận bằng tiến sĩ hóa học tại Đại học Breslau — vì quá kinh hoàng và đau đớn trước hành động của chồng đã dùng chính khẩu súng ngắn quân đội của ông để tự sát trong vườn nhà vào đêm 2 tháng 5 năm 1915. Sáng hôm sau, Haber vẫn lên đường ra mặt trận phía Đông để chỉ đạo chiến sự. Năm 1933, bất chấp những cống hiến khổng lồ của ông cho nước Đức, Adolf Hitler lên nắm quyền và ban hành đạo luật kỳ thị người Do Thái. Haber bị tước bỏ mọi chức vụ, bị trục xuất khỏi Viện Hóa lý Kaiser Wilhelm do chính ông gầy dựng. Đau buồn, tan vỡ cõi lòng và mắc bệnh tim nặng, ông phải lưu vong sang Anh rồi qua đời tại một khách sạn nhỏ ở Basel (Thụy Sĩ) năm 1934.',
+    personalLore: 'Dù là "cha đẻ của vũ khí hóa học", Haber đồng thời là ân nhân cứu mạng vĩ đại nhất của loài người: nếu không có phát minh tổng hợp amoniac từ không khí của ông, thế giới đã không thể có đủ phân bón đạm để nuôi sống 8 tỷ người ngày nay. Các nhà thống kê ước tính gần một nửa số nguyên tử nitơ cấu tạo nên protein trong cơ thể của mỗi người chúng ta hiện nay đều bắt nguồn từ quy trình Haber-Bosch. Khi Haber đoạt giải Nobel Hóa học năm 1918 cho quy trình tổng hợp amoniac, một làn sóng phản đối dữ dội nổ ra từ giới khoa học Anh và Pháp vì vai trò của ông trong chiến tranh.',
+    experimentalBreakthroughs: 'Thách thức lớn nhất của hóa học đầu thế kỷ XX là liên kết ba $N \\equiv N$ trong phân tử nitơ khí quyển cực kỳ bền vững (năng lượng liên kết lên tới $945 \\text{ kJ/mol}$), khiến nitơ trơ trơ không chịu phản ứng. Trữ lượng diêm tiêu tự nhiên từ phân chim ở Chile (guano) sắp cạn kiệt, đe dọa đẩy thế giới vào nạn đói khủng khiếp.\n\nFritz Haber đã áp dụng triệt để Nhiệt động học hóa học và Nguyên lý chuyển dịch cân bằng Le Chatelier để chinh phục phản ứng:\n$$N_2(g) + 3H_2(g) \\rightleftharpoons 2NH_3(g) \\quad (\\Delta_r H^\\circ_{298} = -91.8 \\text{ kJ/mol})$$\n\n1. Phân tích cân bằng: Phản ứng là phản ứng tỏa nhiệt ($\\Delta H < 0$) và làm giảm số mol khí (từ 4 mol khí xuống 2 mol khí). Vì vậy, theo Le Chatelier, để cân bằng chuyển dịch theo chiều thuận tạo amoniac, hệ thống bắt buộc phải vận hành ở ÁP SUẤT CỰC CAO (khoảng 200 atm).\n2. Về nhiệt độ: Ở nhiệt độ thấp, cân bằng thuận lợi tạo NH3 nhưng tốc độ phản ứng lại quá chậm chạp không đáng kể; ở nhiệt độ quá cao, phản ứng diễn ra nhanh nhưng NH3 bị phân hủy ngược lại. Haber tìm ra nhiệt độ tối ưu cân bằng giữa tốc độ và hiệu suất là 400°C – 450°C.\n3. Khám phá chất xúc tác: Haber thử nghiệm hàng nghìn chất xúc tác và phát hiện kim loại chuyển tiếp hiếm Osmium (Os) và Uranium (U) có khả năng xúc tác tuyệt hảo, cho phép ông vận hành mô hình tổng hợp amoniac liên tục trong phòng lab năm 1909 với tốc độ 100 gam/giờ.',
+    laboratoryApparatus: [
+      {
+        name: 'Thiết bị tổng hợp Amoniac tuần hoàn cao áp Haber (Haber High-Pressure Bench Reactor)',
+        description: 'Hệ thống ống thép chịu áp 200 atm lót thạch anh có cuộn dây niken nung điện, kết hợp bình ngưng tụ làm lạnh amoniac thành lỏng và bơm tuần hoàn đẩy khí N2 và H2 chưa phản ứng quay lại buồng nung.'
+      },
+      {
+        name: 'Nhiệt lượng kế khí nén áp suất cao (High-Pressure Reaction Calorimeter)',
+        description: 'Dụng cụ đo nhiệt lượng phản ứng chính xác trong môi trường khí áp suất cao dùng để tính toán enthalpy phản ứng.'
+      }
+    ],
+    discoveredOrRevolutionized: {
+      elements: ['Chinh phục khí Nitơ tự do'],
+      compounds: ['NH3 (Amoniac tổng hợp)', 'NO (Oxi hóa amoniac)', 'Cl2 và Phosgene (vũ khí hóa học)'],
+      concepts: ['Quy trình tổng hợp Amoniac Haber-Bosch', 'Ứng dụng thực tiễn của Nguyên lý Le Chatelier', 'Cân bằng động học - nhiệt động học', 'Chu trình phân bón đạm nuôi sống nhân loại']
+    },
+    keyEquations: [
+      {
+        equation: 'N2(g) + 3H2(g) <=> 2NH3(g)',
+        phases: { N2: 'g', H2: 'g', NH3: 'g' },
+        conditions: 'Xúc tác Fe hoạt hóa, 450°C, 200 atm (ΔrH°298 = -91.8 kJ/mol)',
+        observation: 'Hỗn hợp khí không màu đi qua lớp xúc tác nóng đỏ được làm lạnh nhanh, chất lỏng amoniac trong suốt ngưng tụ chảy ra ở đáy buồng ngưng có mùi khai sực nức.',
+        historicalNote: 'Phản ứng công nghiệp vĩ đại nhất thế kỷ XX, giúp loài người biến không khí thành lương thực.'
+      },
+      {
+        equation: '4NH3(g) + 5O2(g) -> 4NO(g) + 6H2O(g)',
+        phases: { NH3: 'g', O2: 'g', NO: 'g', H2O: 'g' },
+        conditions: 'Xúc tác lưới bạch kim Pt, nhiệt độ 850°C - 900°C',
+        observation: 'Lưới bạch kim tự bừng sáng đỏ rực mà không cần đốt tiếp do phản ứng tỏa nhiệt mạnh mẽ, sinh ra khí NO không màu nhanh chóng hóa nâu trong không khí tạo NO2.',
+        historicalNote: 'Giai đoạn 1 của quy trình Ostwald điều chế axit nitric HNO3 dùng sản xuất phân bón nitrat.'
+      }
+    ],
+    pedagogicalInsight: 'Quy trình Haber là ví dụ giáo khoa hoàn hảo nhất trong chương trình GDPT 2018 (Hóa học 11 - Cân bằng hóa học & Hợp chất chứa Nitrogen). Học sinh phải vận dụng đồng thời ba trụ cột: Nguyên lý Le Chatelier (áp suất, nhiệt độ), Động học hóa học (chất xúc tác, diện tích tiếp xúc) và Hiệu quả kinh tế công nghiệp.',
+    curriculumTags: ['Hóa học 11 - Chương 1: Cân bằng hóa học (Nguyên lý Le Chatelier)', 'Hóa học 11 - Chương 2: Nitrogen và sulfur (Amoniac)', 'Hóa học 10 - Chương 5: Năng lượng hóa học']
+  },
+  {
+    id: 'carl-bosch',
+    name: 'Carl Bosch',
+    vietnameseName: 'Cac Bốt-sơ',
+    lifeSpan: '1874 – 1940',
+    birthYear: 1874,
+    deathYear: 1940,
+    nationality: 'Đức',
+    avatar: '/assets/scientists/carl-bosch.svg',
+    title: 'Kỹ sư hóa chất huyền thoại, người biến ý tưởng phòng lab thành đại công nghiệp cao áp',
+    quote: 'Quy mô phòng thí nghiệm chỉ là trò chơi trẻ con so với việc giữ vững hàng trăm tấn khí dễ cháy ở áp suất 200 khí quyển giữa ngọn lửa rực sáng.',
+    lifeStruggles: 'Carl Bosch sinh ra tại Cologne, là cháu ruột của nhà tư bản công nghiệp Robert Bosch. Ông được đào tạo cả về luyện kim, cơ khí lẫn hóa học. Thử thách của Bosch là một bài toán kỹ thuật dường như bất khả thi thời bấy giờ: khi mở rộng mô hình Haber từ vài gam amoniac lên hàng ngàn tấn amoniac mỗi ngày, các tháp thép dày đặc liên tục bị nổ tung chỉ sau vài ngày hoạt động. Khí hydro ở nhiệt độ 500°C và áp suất 200 atm đã thâm nhập vào các thớ thép, phản ứng với carbon trong thép tạo thành bọt khí metan, làm thép bị giòn và nứt toác (hiện tượng "Hydrogen embrittlement" / ăn mòn giòn hydro). Bosch phải chịu áp lực khủng khiếp từ tập đoàn BASF khi hàng triệu mark đầu tư có nguy cơ tan thành tro bụi. Ông cùng đồng nghiệp Alwin Mittasch đã tiến hành hơn 20.000 mẻ thử nghiệm để tìm ra chất xúc tác sắt rẻ tiền thay thế cho kim loại osmium quý hiếm của Haber.',
+    personalLore: 'Carl Bosch là người yêu thiên nhiên và say mê sưu tầm bọ cánh cứng, bướm và thiên thạch. Bộ sưu tập hàng triệu mẫu côn trùng của ông sau này được lưu giữ tại Bảo tàng Lịch sử Tự nhiên Senckenberg. Dù giữ chức Chủ tịch tập đoàn hóa chất khổng lồ IG Farben, Bosch luôn giữ tư tưởng chống phát xít kịch liệt. Khi gặp Adolf Hitler vào năm 1933, Bosch đã thẳng thắn cảnh báo Hitler rằng việc trục xuất các nhà khoa học gốc Do Thái sẽ đẩy nền khoa học Đức tụt lùi cả thế kỷ — khiến Hitler nổi cơn thịnh nộ đuổi ông ra khỏi phòng. Những năm cuối đời, Bosch rơi vào trầm cảm nặng nề trước viễn cảnh nước Đức lao vào Thế chiến II và qua đời năm 1940.',
+    experimentalBreakthroughs: '1. Sáng chế Tháp phản ứng áp suất cao hai lớp vỏ (Bosch Double-Walled Reactor): Để ngăn tháp thép bị nổ do hydro ăn mòn carbon, Bosch đã nghĩ ra giải pháp thiên tài: chế tạo tháp gồm hai lớp vỏ. Lớp vỏ bên trong làm bằng thép non không chứa carbon (mild steel) chịu được sự khuếch tán của hydro; giữa hai lớp có các rãnh thoát khí nhỏ; lớp vỏ ngoài dày bằng thép hợp kim chịu áp suất cơ học khổng lồ mà không tiếp xúc trực tiếp với hydro nóng. Thiết kế này là nền móng của toàn bộ ngành công nghiệp hóa chất áp suất cao hiện đại.\n2. Phát minh Xúc tác Sắt rẻ tiền (Promoted Iron Catalyst): Cùng Alwin Mittasch thử nghiệm hơn 20.000 mẫu quặng và tìm ra công thức xúc tác hoàn hảo: sắt oxit Fe3O4 được kích hoạt (promoted) bởi một lượng nhỏ K2O và Al2O3, giúp quy trình có tính khả thi thương mại toàn cầu.\n3. Tổng hợp Urê và Khí hóa than (Water-Gas Shift Reaction): Đưa phản ứng $CO + H2O \\rightleftharpoons CO2 + H2$ vào quy mô công nghiệp để sản xuất hydro giá rẻ từ than đá, và tổng hợp phân bón urê $(NH2)2CO$ từ amoniac và CO2.\n\nNhờ những đóng góp xuất chúng trong việc phát minh các phương pháp hóa học cao áp, Carl Bosch được trao giải Nobel Hóa học năm 1931.',
+    laboratoryApparatus: [
+      {
+        name: 'Tháp tổng hợp thép hai lớp vỏ Bosch (Bosch High-Pressure Autoclave)',
+        description: 'Cột phản ứng khổng lồ cao 8 mét bằng thép rèn đặc biệt nặng hàng chục tấn, có các rãnh thở (Bosch holes) xả hydro rò rỉ và ống trao đổi nhiệt nội tại tự duy trì nhiệt độ phản ứng.'
+      },
+      {
+        name: 'Máy nén khí piston nhiều cấp áp suất (Multi-Stage Reciprocating Compressors)',
+        description: 'Hệ thống máy nén hơi nước khổng lồ nén hỗn hợp khí N2-H2 qua 4 cấp từ 1 atm lên 200 atm với các van một chiều siêu bền.'
+      }
+    ],
+    discoveredOrRevolutionized: {
+      elements: ['Kim loại sắt xúc tác hợp kim'],
+      compounds: ['(NH2)2CO (Urê)', 'Methanol tổng hợp (CH3OH)'],
+      concepts: ['Công nghệ hóa chất áp suất cao (High-Pressure Chemistry)', 'Hiện tượng giòn hydro của kim loại', 'Sản xuất phân bón đạm quy mô hàng triệu tấn']
+    },
+    keyEquations: [
+      {
+        equation: 'CO(g) + H2O(g) <=> CO2(g) + H2(g)',
+        phases: { CO: 'g', H2O: 'g', CO2: 'g', H2: 'g' },
+        conditions: 'Xúc tác oxit sắt - crom, nhiệt độ 350°C - 450°C (Phản ứng dịch chuyển khí than)',
+        observation: 'Khí than ướt đi qua tháp chuyển hóa tạo ra lượng lớn khí H2 tinh khiết dùng cho tổng hợp amoniac, CO2 sinh ra được hấp thụ bằng dung dịch kiềm.',
+        historicalNote: 'Phản ứng sống còn tạo nguồn nguyên liệu hydro giá rẻ cho tổ hợp công nghiệp hóa chất Oppau.'
+      },
+      {
+        equation: '2NH3(g) + CO2(g) -> (NH2)2CO(s) + H2O(g)',
+        phases: { NH3: 'g', CO2: 'g', '(NH2)2CO': 's', H2O: 'g' },
+        conditions: 'Áp suất 150 - 200 atm, nhiệt độ 180°C - 200°C',
+        observation: 'Dòng khí amoniac và cacbonic kết hợp trong tháp tạo thành chất lỏng amoni carbamat rồi mất nước kết tinh thành những hạt phân đạm urê màu trắng lấp lánh.',
+        historicalNote: 'Bosch mở ra kỷ nguyên sản xuất phân đạm urê nuôi sống nông nghiệp toàn cầu.'
+      }
+    ],
+    pedagogicalInsight: 'Bosch là tấm gương sáng về việc đưa lý thuyết vào thực tiễn kỹ thuật công nghệ. Trong GDPT 2018 (Hóa học 11 - Phân bón hóa học & Hóa học 10 - Tốc độ phản ứng), bài toán sản xuất urê và amoniac kết nối học sinh với nền nông nghiệp hiện đại và giáo dục STEM hướng nghiệp.',
+    curriculumTags: ['Hóa học 11 - Chương 2: Phân bón hóa học (Phân đạm urê)', 'Hóa học 11 - Chương 1: Cân bằng hóa học trong công nghiệp', 'STEM & Ứng dụng thực tiễn']
+  },
+  {
+    id: 'gilbert-lewis',
+    name: 'Gilbert Newton Lewis',
+    vietnameseName: 'Giu-bơt Niu-tơn Lu-i-xơ',
+    lifeSpan: '1875 – 1946',
+    birthYear: 1875,
+    deathYear: 1946,
+    nationality: 'Mỹ',
+    avatar: '/assets/scientists/gilbert-lewis.svg',
+    title: 'Người giải mã liên kết cộng hóa trị, quy tắc bát tử và người khai sinh khái niệm Photon',
+    quote: 'Hai nguyên tử có thể kết hợp bền chặt với nhau bằng cách dùng chung một cặp electron.',
+    lifeStruggles: 'Lewis là một trong những nhà hóa học lý thuyết vĩ đại và có tầm ảnh hưởng lớn nhất thế kỷ XX, nhưng cuộc đời ông lại mang nỗi thất vọng học thuật sâu sắc. Ông được đề cử giải Nobel Hóa học kỷ lục tới 41 lần — nhiều hơn bất kỳ nhà khoa học nào trong lịch sử — nhưng không bao giờ đoạt giải. Nguyên nhân chủ yếu xuất phát từ mối thù hằn cá nhân gay gắt giữa ông với Walther Nernst (nhà hóa học Đức đoạt giải Nobel 1920, người có ảnh hưởng lớn đến Ủy ban Nobel Thụy Điển) và xích mích với Irving Langmuir (người đã phát triển và nhận giải Nobel năm 1932 cho công trình hóa học bề mặt dựa trên ý tưởng của Lewis). Ngày 23 tháng 3 năm 1946, sau bữa ăn trưa tranh luận căng thẳng với nhà hóa học Irving Langmuir tại Đại học California ở Berkeley, Lewis được phát hiện đã qua đời cô độc trên bàn làm việc trong phòng thí nghiệm bên cạnh một ống nghiệm chứa dung dịch hydro xianua (HCN) bị rò rỉ, để lại nhiều nghi vấn chưa có lời giải.',
+    personalLore: 'Lewis là một người nghiện xì gà nặng; ông hút tới 20 điếu xì gà mỗi ngày và người ta hiếm khi nhìn thấy ông trong khuôn viên trường Berkeley mà không có một điếu xì gà đang cháy dở trên môi. Năm 1902, khi đang giảng bài cho sinh viên về bảng tuần hoàn, ông đã vẽ phác thảo trên một mảnh giấy hình khối lập phương có 8 đỉnh đại diện cho 8 electron lớp ngoài cùng — ý tưởng phôi thai dẫn tới Thuyết bát tử (Octet rule) 14 năm sau đó. Chính Lewis vào năm 1926 cũng là người đầu tiên đặt ra thuật ngữ "Photon" cho hạt lượng tử ánh sáng trong một bức thư gửi cho tạp chí Nature.',
+    experimentalBreakthroughs: '1. Bản chất Liên kết Cộng hóa trị (Covalent Bond, 1916): Đề xuất rằng liên kết giữa các phi kim không phải do lực hút tĩnh điện giữa các ion mang điện tích trái dấu (như Berzelius nghĩ), mà được tạo thành do hai nguyên tử "dùng chung một cặp electron" (shared electron pair). Công thức electron chấm Lewis (Lewis dot structure) dùng các dấu chấm biểu diễn electron hóa trị vẫn là ngôn ngữ mô tả phân tử thông dụng nhất trên toàn cầu ngày nay.\n2. Quy tắc bát tử (Octet Rule): Các nguyên tử có xu hướng cho, nhận hoặc dùng chung electron để đạt được cấu hình electron bền vững gồm 8 electron lớp ngoài cùng giống như khí hiếm (ngoại trừ Heli là 2 electron duet).\n3. Liên kết cho - nhận (Coordinate Covalent Bond): Nhận ra trường hợp đặc biệt khi cặp electron liên kết chỉ do một nguyên tử đóng góp hoàn toàn (như trong ion amoni $NH_4^+$ hoặc phức chất).\n4. Thuyết Axit - Bazơ Lewis (1923): Mở rộng toàn diện định nghĩa axit - bazơ vượt qua giới hạn của ion H+:\n   - Bazơ Lewis là chất có khả năng cho một cặp electron tự do (electron-pair donor).\n   - Axit Lewis là chất có khả năng nhận một cặp electron (electron-pair acceptor). Định nghĩa này bao trùm cả các phản ứng tạo phức chất vô cơ và phản ứng hữu cơ không hề chứa proton (ví dụ $BF3 + :NH3$).\n5. Tách chiết Nước nặng nguyên chất (Deuterium oxide $D2O$, 1933) bằng phương pháp điện phân kéo dài.',
+    laboratoryApparatus: [
+      {
+        name: 'Hệ thống điện phân nước nặng nhiều tầng Lewis (Lewis Heavy Water Electrolysis Cascade)',
+        description: 'Tổ hợp hàng chục bình điện phân liên hoàn dùng dung dịch kiềm, cho phép làm giàu đồng vị đơteri (²H / D) để lần đầu tiên thu được 1 gam nước nặng D2O nguyên chất 99.9%.'
+      },
+      {
+        name: 'Bình Dewar chân không sâu đo nhiệt động học nhiệt độ thấp (Cryogenic Calorimeter)',
+        description: 'Bình thủy tinh hai lớp tráng bạc hút chân không cao kết hợp khí heli lỏng để kiểm tra Định luật ba nhiệt động học của Nernst và đo entropy chuẩn của các chất.'
+      }
+    ],
+    discoveredOrRevolutionized: {
+      elements: ['Đồng vị Deuterium (D / ²H) làm giàu tinh khiết'],
+      compounds: ['D2O (Nước nặng)', 'Phức chất Axit-Bazơ Lewis (F3B:NH3)'],
+      concepts: ['Công thức Lewis (Lewis Dot Structure)', 'Liên kết cộng hóa trị (Covalent Bond)', 'Quy tắc bát tử (Octet Rule)', 'Thuyết Axit - Bazơ Lewis', 'Thuật ngữ "Photon" của ánh sáng', 'Năng lượng tự do Gibbs và Hoạt độ (Activity)']
+    },
+    keyEquations: [
+      {
+        equation: 'BF3(g) + :NH3(g) -> F3B:NH3(s)',
+        phases: { BF3: 'g', NH3: 'g', 'F3B:NH3': 's' },
+        conditions: 'Nhiệt độ phòng, phản ứng pha khí tạo khói trắng',
+        observation: 'Hai chất khí không màu khi tiếp xúc nhau lập tức tạo thành làn khói trắng dày đặc gồm các hạt tinh thể muối cộng hóa trị phối trí lắng xuống thành bột màu trắng.',
+        historicalNote: 'Minh chứng chuẩn mực nhất cho Thuyết axit-bazơ Lewis năm 1923 (BF3 nhận cặp electron từ N của NH3).'
+      },
+      {
+        equation: 'H+(aq) + :NH3(aq) -> NH4+(aq)',
+        phases: { 'H+': 'aq', NH3: 'aq', 'NH4+': 'aq' },
+        conditions: 'Dung dịch nước',
+        observation: 'Ion H+ không có electron liên kết với cặp electron độc thân chưa chia trên nguyên tử nitơ của phân tử amoniac, hình thành liên kết cho-nhận tạo cation amoni bền vững.',
+        historicalNote: 'Giải thích bản chất cấu tạo của ion amoni trong chương trình Hóa học phổ thông.'
+      }
+    ],
+    pedagogicalInsight: 'Công thức Lewis và quy tắc octet là ngôn ngữ trực quan cơ bản nhất trong toàn bộ GDPT 2018 (Hóa học 10 - Chương 3: Liên kết hóa học). Học sinh học cách viết công thức electron, công thức Lewis và công thức cấu tạo của các phân tử đơn giản ($H_2, Cl_2, N_2, H_2O, CO_2, NH_3, CH_4$) để giải mã hình học phân tử và tính phân cực.',
+    curriculumTags: ['Hóa học 10 - Chương 3: Liên kết hóa học (Quy tắc Octet & Công thức Lewis)', 'Hóa học 11 - Chương 1: Cân bằng hóa học (Axit - Bazơ)', 'KHTN 7 - Bài: Liên kết hóa học']
+  },
+  {
+    id: 'linus-pauling',
+    name: 'Linus Carl Pauling',
+    vietnameseName: 'Li-nút Pô-linh',
+    lifeSpan: '1901 – 1994',
+    birthYear: 1901,
+    deathYear: 1994,
+    nationality: 'Mỹ',
+    avatar: '/assets/scientists/linus-pauling.svg',
+    title: 'Người khổng lồ của bản chất liên kết hóa học và huyền thoại hai giải Nobel độc lập',
+    quote: 'Cách tốt nhất để có được một ý tưởng tuyệt vời là hãy có thật nhiều ý tưởng, rồi vứt bỏ những ý tưởng tồi tệ đi.',
+    lifeStruggles: 'Pauling sinh ra tại Portland (Oregon). Cha ông là một dược sĩ qua đời đột ngột khi Linus mới 9 tuổi, để lại người mẹ bệnh tật và ba đứa con nhỏ trong cảnh nợ nần bần hàn. Để có tiền trang trải học phí đại học, cậu thiếu niên Pauling đã phải làm lụng quần quật từ giao báo, làm thợ phụ xưởng in, lau sàn nhà ăn cho đến phân tích đất rải đường cho cơ quan giao thông. Trong thập niên 1950, thời kỳ bóng ma chủ nghĩa McCarthy bao trùm nước Mỹ, Pauling là một trong những nhà khoa học kiên quyết nhất lên tiếng chống lại việc thử nghiệm vũ khí hạt nhân trong khí quyển. Ông bị chính phủ Mỹ coi là phần tử nguy hiểm, bị Bộ Ngoại giao Mỹ thu hồi hộ chiếu nhiều lần khiến ông không thể sang Anh tham dự hội nghị khoa học — sự kiện khiến ông lỡ mất cơ hội nhìn thấy bức ảnh nhiễu xạ tia X số 51 của Rosalind Franklin, qua đó để vuột mất việc khám phá cấu trúc xoắn kép DNA vào tay Watson và Crick.',
+    personalLore: 'Pauling là một trong bốn người duy nhất trong lịch sử từng nhận hai giải Nobel, và là NGƯỜI DUY NHẤT nhận hai giải Nobel độc lập mà không phải chia sẻ với bất kỳ ai: Giải Nobel Hóa học 1954 (cho công trình về bản chất của liên kết hóa học) và Giải Nobel Hòa bình 1962 (cho chiến dịch thu thập chữ ký của hơn 11.000 nhà khoa học toàn cầu dẫn tới Hiệp ước Cấm thử Vũ khí Hạt nhân năm 1963). Những năm cuối đời, Pauling gây xôn xao dư luận toàn cầu khi ủng hộ nhiệt thành liệu pháp dùng liều cực cao Vitamin C (Orthomolecular medicine) để tăng cường miễn dịch và phòng chống ung thư, bản thân ông mỗi ngày uống tới 18.000 miligam vitamin C và sống thọ đến 93 tuổi.',
+    experimentalBreakthroughs: '1. Thuyết Lai hóa Orbital nguyên tử (Orbital Hybridization, 1931): Áp dụng cơ học lượng tử để giải quyết câu đố hóc búa của phân tử metan ($CH_4$). Nguyên tử cacbon ở trạng thái cơ bản có cấu hình $2s^2 2p^2$ (chỉ có 2 electron độc thân), nhưng trong metan nó tạo ra 4 liên kết $C-H$ hoàn toàn tương đương nhau hướng về 4 đỉnh của một hình tứ diện đều với góc liên kết chuẩn 109.5°. Pauling chứng minh rằng 1 orbital $2s$ và 3 orbital $2p$ đã "trộn lẫn" lượng tử để tạo thành 4 orbital lai hóa $sp^3$ hoàn toàn đồng nhất. Ông tiếp tục thiết lập thuyết lai hóa $sp^2$ (hình tam giác phẳng, góc 120° trong $C_2H_4$) và $sp$ (đường thẳng, góc 180° trong $C_2H_2$).\n2. Thang Độ âm điện Pauling (Pauling Electronegativity Scale, 1932): Định lượng khả năng hút electron của nguyên tử trong liên kết hóa học dựa trên hiệu số giữa năng lượng liên kết thực tế và trung bình nhân năng lượng liên kết đơn chất. Ông quy ước Flo có độ âm điện lớn nhất (3.98), Cesium nhỏ nhất (0.79). Quy tắc hiệu độ âm điện $\\Delta\\chi$ của Pauling cho phép học sinh và nhà khoa học dự đoán chính xác loại liên kết:\n   - $\\Delta\\chi < 0.4$: Liên kết cộng hóa trị không cực.\n   - $0.4 \\le \\Delta\\chi < 1.7$: Liên kết cộng hóa trị phân cực.\n   - $\\Delta\\chi \\ge 1.7$: Liên kết ion.\n3. Thuyết Cộng hưởng (Resonance Theory): Giải thích cấu trúc đối xứng bền vững của phân tử benzen ($C_6H_6$) và ion cacbonat ($CO_3^{2-}$) không phải là sự luân phiên đơn - đôi cố định mà là sự giải tỏa electron $\\pi$ trên toàn bộ khung phân tử.\n4. Khám phá Cấu trúc Xoắn Alpha ($\\alpha$-helix) và Phiến Gấp Beta ($\\beta$-sheet) của Protein (1951) bằng mô hình gập giấy 3 chiều và liên kết hiđro.',
+    laboratoryApparatus: [
+      {
+        name: 'Máy nhiễu xạ tia X tinh thể Caltech (Caltech X-Ray Crystallography System)',
+        description: 'Hệ thống buồng chụp nhiễu xạ tia X chuyên dụng do Pauling và cộng sự vận hành tại Caltech, dùng để chiếu chùm tia X qua tinh thể khoáng sản và phân tử sinh học, ghi lại vân nhiễu xạ trên kính ảnh để tính toán khoảng cách liên kết tính bằng Angstrom.'
+      },
+      {
+        name: 'Mô hình phân tử không gian Corey-Pauling-Koltun (CPK Space-Filling Models)',
+        description: 'Bộ mô hình quả cầu nguyên tử bằng gỗ và nhựa được tiện theo đúng tỷ lệ bán kính van der Waals và góc lai hóa không gian 3 chiều.'
+      }
+    ],
+    discoveredOrRevolutionized: {
+      elements: ['Thiết lập thang độ âm điện cho toàn bộ các nguyên tố'],
+      compounds: ['Cấu trúc xoắn alpha của Protein (Keratin, Hemoglobin)', 'Cấu trúc tinh thể khoáng silicat'],
+      concepts: ['Thang độ âm điện Pauling (Electronegativity)', 'Thuyết lai hóa orbital (sp, sp2, sp3)', 'Bản chất liên kết hóa học', 'Thuyết cộng hưởng (Resonance)', 'Liên kết hiđro trong cấu trúc protein']
+    },
+    keyEquations: [
+      {
+        equation: 'Delta = D(A-B) - sqrt(D(A-A) * D(B-B))',
+        phases: { Delta: 'năng lượng ion hóa cộng thêm', 'D(A-B)': 'năng lượng phân li liên kết A-B' },
+        conditions: 'Công thức thực nghiệm xác định hiệu độ âm điện |chi_A - chi_B| = 0.102 * sqrt(Delta)',
+        observation: 'Liên kết giữa hai nguyên tử có độ âm điện khác biệt lớn (như H-F) bền hơn rất nhiều so với trung bình cộng liên kết đơn chất (H-H và F-F) do có thêm thành phần đóng góp của tương tác ion tĩnh điện.',
+        historicalNote: 'Công thức nền tảng trong bài báo kinh điển năm 1932 của Pauling khai sinh thang độ âm điện.'
+      },
+      {
+        equation: 'C(2s2 2p2) --(lai hoa sp3)--> C(sp3)4',
+        phases: { C: 'trạng thái kích thích lai hóa tứ diện' },
+        conditions: 'Khi tạo liên kết với 4 nguyên tử hiđro trong metan CH4',
+        observation: '4 orbital lai hóa sp3 hướng đối xứng về 4 đỉnh hình tứ diện đều, xen phủ trục với 4 orbital 1s của H tạo 4 liên kết xích ma (sigma) bền vững có góc 109.5°.',
+        historicalNote: 'Giải mã hoàn hảo cấu trúc không gian 3 chiều của nguyên tử Carbon trong Hóa học hữu cơ.'
+      }
+    ],
+    pedagogicalInsight: 'Pauling là linh hồn của phần liên kết hóa học trong SGK GDPT 2018 (Hóa học 10 - Chương 3). Bảng độ âm điện Pauling, hiệu độ âm điện để phân loại liên kết và khái niệm lai hóa orbital $sp, sp^2, sp^3$ là công cụ bắt buộc để học sinh giải thích góc liên kết, dạng hình học của phân tử ($H_2O$ gấp khúc 104.5°, $NH_3$ chóp tam giác 107°, $CH_4$ tứ diện 109.5°).',
+    curriculumTags: ['Hóa học 10 - Chương 3: Liên kết hóa học (Độ âm điện & Lai hóa orbital)', 'Hóa học 11 - Chương 4: Đại cương hóa học hữu cơ', 'Hóa học 12 - Chương 3: Peptide, protein']
+  },
+  {
+    id: 'svante-arrhenius',
+    name: 'Svante August Arrhenius',
+    vietnameseName: 'Xvan-te A-rê-ni-út',
+    lifeSpan: '1859 – 1927',
+    birthYear: 1859,
+    deathYear: 1927,
+    nationality: 'Thụy Điển',
+    avatar: '/assets/scientists/svante-arrhenius.svg',
+    title: 'Người khai sinh Thuyết điện li, Phương trình tốc độ Arrhenius và người dự báo Hiệu ứng nhà kính',
+    quote: 'Trong dung dịch nước, các chất điện li tự phân tách thành các ion mang điện tích dương và âm có khả năng dẫn điện.',
+    lifeStruggles: 'Arrhenius sinh ra tại Vik gần Uppsala. Luận án tiến sĩ năm 1884 của ông tại Đại học Uppsala về độ dẫn điện của dung dịch điện phân đã đề xuất ý tưởng chấn động: muối ăn NaCl khi tan vào nước không tồn tại dưới dạng phân tử trung hòa mà tự động phân ly thành các ion mang điện $Na^+$ và $Cl^-$. Hội đồng chấm thi đại học thời đó — vốn theo trường phái truyền thống cổ hủ — đã kịch liệt phản đối vì cho rằng natri là kim loại nổ tung trong nước còn clo là khí độc chết người, làm sao có thể cùng tồn tại êm ả trong cốc nước muối được! Họ đã chấm luận án của ông loại "hạng bốn" (loại kém nhất có thể đỗ nhưng không đủ điều kiện giảng dạy). May mắn thay, Arrhenius đã gửi bản sao luận án cho ba nhà khoa học trẻ có tư tưởng cấp tiến là Wilhelm Ostwald, Jacobus van \'t Hoff và Rudolf Clausius. Ostwald đã lập tức nhận ra đây là một cuộc cách mạng và đích thân đi tàu sang Uppsala để bảo vệ Arrhenius. 19 năm sau, chính luận án bị chấm điểm kém này đã mang về cho Arrhenius Giải Nobel Hóa học danh giá năm 1903.',
+    personalLore: 'Arrhenius là một nhà khoa học có tầm nhìn liên ngành vượt thời đại kinh ngạc. Năm 1896, bằng các phép tính nhiệt động lực học thủ công kéo dài hàng năm trời, ông là người đầu tiên trên thế giới tính toán định lượng được rằng: nếu hàm lượng khí cacbonic ($CO_2$) trong khí quyển Trái Đất tăng lên gấp đôi do việc đốt than đá công nghiệp, nhiệt độ bề mặt Trái Đất sẽ ấm lên khoảng 4°C đến 5°C — dự đoán chính xác tuyệt đối hiện tượng Biến đổi khí hậu toàn cầu và Hiệu ứng nhà kính mà nhân loại ngày nay đang đối mặt.',
+    experimentalBreakthroughs: '1. Thuyết Điện li Arrhenius (Electrolytic Dissociation Theory, 1884–1887):\n   - Các chất khi tan trong nước phân ly thành các hạt mang điện tự do gọi là ion, làm cho dung dịch có tính dẫn điện.\n   - Định nghĩa Axit là chất khi tan trong nước phân ly ra cation $H^+$; Bazơ là chất khi tan trong nước phân ly ra anion $OH^-$.\n   - Giải thích bản chất của phản ứng trung hòa axit - bazơ thực chất là: $H^+(aq) + OH^-(aq) \\rightarrow H_2O(l)$ với nhiệt trung hòa không đổi khoảng $-57.1 \\text{ kJ/mol}$.\n2. Phương trình Động học Arrhenius (Arrhenius Equation, 1889): Thiết lập mối quan hệ định lượng giữa hằng số tốc độ phản ứng $k$, nhiệt độ tuyệt đối $T$ và Năng lượng hoạt hóa $E_a$:\n$$k = A \\cdot e^{-E_a / (R T)}$$\nChỉ ra rằng phản ứng chỉ xảy ra khi các phân tử va chạm có năng lượng tối thiểu vượt qua rào cản năng lượng hoạt hóa $E_a$.\n3. Mô hình toán học về Hiệu ứng nhà kính khí quyển Trái Đất (1896).',
+    laboratoryApparatus: [
+      {
+        name: 'Bộ đo độ dẫn điện cầu Kohlrausch cải tiến Arrhenius (Conductivity Bridge Apparatus)',
+        description: 'Hệ thống bình đo độ dẫn có hai bản điện cực bạch kim phủ muội platin đen nhúng trong bình điều nhiệt, kết nối nguồn điện xoay chiều và tai nghe điện thoại để xác định điểm cân bằng âm thanh đo điện trở dung dịch.'
+      }
+    ],
+    discoveredOrRevolutionized: {
+      elements: ['Ion hóa học Na+, K+, Cl-, SO4(2-)'],
+      compounds: ['Các chất điện li mạnh và điện li yếu'],
+      concepts: ['Thuyết điện li (Dissociation)', 'Khái niệm Năng lượng hoạt hóa (Activation Energy Ea)', 'Phương trình tốc độ Arrhenius', 'Hiệu ứng nhà kính khí quyển toàn cầu']
+    },
+    keyEquations: [
+      {
+        equation: 'NaCl(s) --(H2O)--> Na+(aq) + Cl-(aq)',
+        phases: { NaCl: 's', 'Na+': 'aq', 'Cl-': 'aq' },
+        conditions: 'Hòa tan trong nước ở nhiệt độ phòng',
+        observation: 'Mạng tinh thể muối ăn màu trắng tan biến trong nước, bóng đèn mắc nối tiếp với hai điện cực nhúng vào dung dịch bừng sáng rực rỡ.',
+        historicalNote: 'Luận đề mở màn cuộc cách mạng thuyết điện li năm 1884 của Arrhenius.'
+      },
+      {
+        equation: 'k = A * exp(-Ea / (R*T))',
+        phases: { k: 'hằng số tốc độ', Ea: 'năng lượng hoạt hóa J/mol', T: 'nhiệt độ K' },
+        conditions: 'Áp dụng cho mọi phản ứng hóa học cơ bản',
+        observation: 'Khi nhiệt độ tăng lên, tỷ lệ các phân tử có động năng lớn hơn năng lượng hoạt hóa Ea tăng theo hàm mũ, làm tốc độ phản ứng tăng vọt.',
+        historicalNote: 'Phương trình trung tâm của toàn bộ phân môn Động hóa học hiện đại.'
+      }
+    ],
+    pedagogicalInsight: 'Thuyết điện li và phương trình Arrhenius là trụ cột của SGK Hóa học 11 (Cân bằng trong dung dịch nước) và Hóa học 10 (Tốc độ phản ứng hóa học). Học sinh học cách phân biệt chất điện li mạnh/yếu, viết phương trình ion rút gọn và hiểu vai trò của năng lượng hoạt hóa và chất xúc tác.',
+    curriculumTags: ['Hóa học 11 - Chương 1: Cân bằng trong dung dịch nước (Thuyết điện li)', 'Hóa học 10 - Chương 6: Tốc độ phản ứng hóa học (Năng lượng hoạt hóa)', 'Chuyên đề Địa hóa & Biến đổi khí hậu']
+  },
+  {
+    id: 'jacobus-van-t-hoff',
+    name: "Jacobus Henricus van 't Hoff",
+    vietnameseName: 'Gia-cốp Van Hốp',
+    lifeSpan: '1852 – 1911',
+    birthYear: 1852,
+    deathYear: 1911,
+    nationality: 'Hà Lan',
+    avatar: '/assets/scientists/jacobus-van-t-hoff.svg',
+    title: 'Người khai sinh Hóa học lập thể, Nhiệt động học hóa học và chủ nhân giải Nobel Hóa học đầu tiên trên thế giới',
+    quote: 'Trong không gian 3 chiều, bốn liên kết của nguyên tử Carbon không hề nằm trên một mặt phẳng phẳng lặng, mà hướng về bốn đỉnh của một hình tứ diện đều.',
+    lifeStruggles: 'Van \'t Hoff sinh ra tại Rotterdam (Hà Lan) trong gia đình một bác sĩ. Khi mới 22 tuổi, trước khi bảo vệ luận án tiến sĩ, ông đã dũng cảm xuất bản một tập sách mỏng vỏn vẹn 11 trang mang tên "Đề xuất mở rộng các công thức hóa học hiện tại vào không gian", khẳng định cấu trúc không gian 3 chiều tứ diện của nguyên tử carbon. Ý tưởng cấp tiến này ngay lập tức bị Herman Kolbe — một trong những nhà hóa học quyền lực và bảo thủ nhất nước Đức — công kích dữ dội trên tạp chí khoa học, gọi Van \'t Hoff là "một kẻ mơ mộng hoang đường cưỡi trên lưng con ngựa Pegasus bay lơ lửng trên trời cao mượn danh khoa học đích thực". Van \'t Hoff đã không hề tức giận mà kiên trì dùng thực nghiệm quang hoạt để chứng minh sự tồn tại của đồng phân quang học. Năm 1901, vượt qua mọi tên tuổi lớn khác, Van \'t Hoff đã vinh dự được trao tặng Giải Nobel Hóa học đầu tiên trong lịch sử nhân loại.',
+    personalLore: 'Van \'t Hoff rất thích làm thơ và yêu thiên nhiên. Ông tin rằng trí tưởng tượng bay bổng của nhà thơ chính là chìa khóa để một nhà khoa học nhìn thấy những cấu trúc không gian 3D mà mắt thường không thể nhìn thấy. Để minh họa cho lý thuyết của mình, ông đã tự tay dùng bìa các-tông cắt dán hàng trăm mô hình tứ diện nhỏ có 4 đỉnh mang 4 màu sắc khác nhau gửi tặng các giáo sư hàng đầu châu Âu.',
+    experimentalBreakthroughs: '1. Khai sinh Hóa học lập thể (Stereochemistry, 1874 đồng thời với Joseph Le Bel): Chứng minh rằng nguyên tử Carbon bất đối xứng (asymmetric carbon, liên kết với 4 nhóm thế khác nhau) tạo ra hai dạng hình thể là ảnh gương của nhau không thể chồng khít, giải thích hiện tượng quay mặt phẳng ánh sáng phân cực (đồng phân quang học / đối quang enantiomer).\n2. Thiết lập Nhiệt động học và Động học Hóa học hiện đại (1884): Xuất bản cuốn "Études de Dynamique Chimique", đưa ra phương trình đẳng áp Van \'t Hoff mô tả sự phụ thuộc của hằng số cân bằng vào nhiệt độ:\n$$\\frac{d \\ln K}{dT} = \\frac{\\Delta H^\\circ}{R T^2}$$\n3. Định luật Áp suất Thẩm thấu (Osmotic Pressure Law): Chứng minh rằng các chất tan trong dung dịch loãng tuân theo các định luật chất khí lý tưởng giống hệt như các phân tử khí tự do ($\\Pi = C \\cdot R \\cdot T$ hoặc $\\Pi = i \\cdot C \\cdot R \\cdot T$ với hệ số đẳng trương $i$ van \'t Hoff cho chất điện li).\n4. Quy tắc Nhiệt độ Van \'t Hoff (Van \'t Hoff Rule): Trong khoảng nhiệt độ thông thường, khi nhiệt độ tăng thêm 10°C, tốc độ phản ứng hóa học tăng từ 2 đến 4 lần (hệ số nhiệt độ $\\gamma = 2 \\sim 4$).',
+    laboratoryApparatus: [
+      {
+        name: 'Ẩm kế áp suất thẩm thấu màng bán thấm Pfeffer - Van \'t Hoff (Osmometer)',
+        description: 'Bình sành xốp phủ kết tủa đồng(II) feroxianua Cu2[Fe(CN)6] làm màng bán thấm nhân tạo chịu áp lực lớn nối với áp kế thủy ngân để đo áp suất thẩm thấu chất tan.'
+      },
+      {
+        name: 'Mô hình lập thể tứ diện gấp giấy Van \'t Hoff (Cardboard Tetrahedral Models)',
+        description: 'Bộ mô hình tứ diện bằng giấy gập đầu tiên trong lịch sử hóa học minh họa vị trí các đồng phân quang học.'
+      }
+    ],
+    discoveredOrRevolutionized: {
+      elements: ['Mô hình không gian 3D nguyên tử Carbon'],
+      compounds: ['Các đồng phân quang học axit tactric', 'Dung dịch thẩm thấu'],
+      concepts: ['Hóa học lập thể (Stereochemistry)', 'Carbon bất đối xứng và Đồng phân quang học', 'Hệ số nhiệt độ Van \'t Hoff (gamma)', 'Định luật áp suất thẩm thấu', 'Giải Nobel Hóa học đầu tiên trên thế giới (1901)']
+    },
+    keyEquations: [
+      {
+        equation: 'v2 = v1 * gamma^((T2 - T1) / 10)',
+        phases: { v1: 'tốc độ ở T1', v2: 'tốc độ ở T2', gamma: 'hệ số nhiệt độ Van \'t Hoff (2 đến 4)' },
+        conditions: 'Khoảng nhiệt độ phòng đến dưới 200°C',
+        observation: 'Khi đun nóng nhẹ ống nghiệm phản ứng giữa Na2S2O3 và H2SO4 thêm 10°C, thời gian làm xuất hiện kết tủa lưu huỳnh màu trắng đục giảm đi một nửa.',
+        historicalNote: 'Quy tắc kinh nghiệm nổi tiếng của Van \'t Hoff được đưa vào mọi SGK Hóa học phổ thông.'
+      },
+      {
+        equation: 'Pi = C * R * T',
+        phases: { Pi: 'áp suất thẩm thấu bar', C: 'nồng độ mol/L', T: 'nhiệt độ K' },
+        conditions: 'Dung dịch chất tan không điện li loãng',
+        observation: 'Nước tinh khiết tự động thẩm thấu qua màng bán thấm đi vào dung dịch đường làm cột chất lỏng dâng cao cho đến khi áp suất thủy tĩnh cân bằng áp suất thẩm thấu.',
+        historicalNote: 'Công trình đem lại giải Nobel Hóa học đầu tiên năm 1901 cho Van \'t Hoff.'
+      }
+    ],
+    pedagogicalInsight: 'Quy tắc Van \'t Hoff và cấu trúc không gian 3D của phân tử là nội dung không thể thiếu trong GDPT 2018 (Hóa học 10 - Tốc độ phản ứng & Hóa học 11 - Đồng phân lập thể). Học sinh học cách tính tốc độ phản ứng theo hệ số nhiệt độ $\\gamma$ và hiểu rằng thuốc y dược hay vị giác đều phụ thuộc vào hình dạng 3D của phân tử.',
+    curriculumTags: ['Hóa học 10 - Chương 6: Tốc độ phản ứng hóa học (Hệ số Van \'t Hoff)', 'Hóa học 11 - Chương 4: Đại cương hóa học hữu cơ (Đồng phân)', 'Sinh học 10 - Sự thẩm thấu qua màng tế bào']
+  },
+  {
+    id: 'friedrich-wohler',
+    name: 'Friedrich Wöhler',
+    vietnameseName: 'Pơ-ri-đơ-rich Vơ-lơ',
+    lifeSpan: '1800 – 1882',
+    birthYear: 1800,
+    deathYear: 1882,
+    nationality: 'Đức',
+    avatar: '/assets/scientists/friedrich-wohler.svg',
+    title: 'Người đánh sập Thuyết duy sinh và khai sinh ngành Hóa học hữu cơ tổng hợp',
+    quote: 'Tôi có thể tạo ra urê mà không cần đến thận của bất kỳ con người hay loài chó nào!',
+    lifeStruggles: 'Wöhler sinh ra gần Frankfurt trong gia đình một bác sĩ thú y. Ban đầu ông học y khoa tại Heidelberg và dự định làm bác sĩ sản khoa. Tuy nhiên, tình yêu với các khoáng vật và phản ứng hóa học đã thôi thúc ông sang Stockholm làm học trò thực tập tại phòng thí nghiệm nhỏ bé của Berzelius. Thời bấy giờ, toàn bộ giới khoa học thế giới bị chi phối bởi "Thuyết duy sinh" (Vitalism) — giáo điều thần bí cho rằng các hợp chất hữu cơ (như đường, mỡ, urê) chỉ có thể được tạo ra bởi sinh vật sống nhờ một "lực sống" (vital force / vis vitalis) siêu nhiên và con người tuyệt đối không bao giờ có thể tổng hợp được chất hữu cơ từ các chất vô cơ trong phòng thí nghiệm. Năm 1828, khi làm thí nghiệm nung nóng muối vô cơ amoni xianat ($NH_4OCN$), Wöhler kinh ngạc thu được những tinh thể urê hữu cơ hoàn hảo. Ông đã phải lặp lại thí nghiệm hàng chục lần vì lo sợ bị cộng đồng khoa học tẩy chay trước khi dũng cảm viết bức thư chấn động gửi cho thầy Berzelius: "Tôi phải báo cho thầy một tin rằng tôi đã làm ra urê mà không cần đến quả thận của sinh vật sống!".',
+    personalLore: 'Wöhler có tình bạn tri kỷ cảm động suốt đời với Justus von Liebig — một người khổng lồ khác của hóa học Đức. Liebig có tính cách bộc trực, nóng nảy và thích tranh luận học thuật gay gắt, trong khi Wöhler lại điềm đạm, khiêm nhường và luôn là người hòa giải. Cả hai đã cùng nhau công bố nhiều công trình chấn động về gốc benzoyl trong hóa học hữu cơ. Wöhler từng hài hước ví von: "Hóa học hữu cơ hiện nay giống như một khu rừng nhiệt đới rậm rạp nguyên sinh, đầy những cạm bẫy bí hiểm, một vùng đất hoang vu khổng lồ không lối thoát khiến người ta phải khiếp sợ khi bước chân vào".',
+    experimentalBreakthroughs: '1. Đánh sập Thuyết Duy Sinh (Shattering Vitalism, 1828): Tổng hợp chất hữu cơ Urê $(NH_2)_2CO$ hoàn toàn từ muối vô cơ amoni xianat $NH_4OCN$ (được điều chế từ bạc xianat $AgOCN$ và amoni clorua $NH_4Cl$). Thí nghiệm lịch sử này đã xóa bỏ ranh giới siêu nhiên giữa thế giới vô cơ và thế giới hữu cơ, chứng minh rằng các hợp chất hữu cơ cũng tuân theo đúng các định luật hóa học vật lý thông thường.\n2. Cô lập kim loại Nhôm (Aluminium, 1827): Bằng cách cho kali kim loại phản ứng với nhôm clorua khan $AlCl_3$ trong chén nung kín, Wöhler đã lần đầu tiên cô lập được nhôm ở dạng bột xám ánh kim và sau đó đúc thành những viên bi nhôm sáng loáng.\n3. Cô lập kim loại Beri (Be) và Ytri (Y) (1828), điều chế Silic nitrua, Canxi cacbua ($CaC_2$, năm 1862 - từ đó điều chế axetilen $C_2H_2$) và tổng hợp axit oxalic.',
+    laboratoryApparatus: [
+      {
+        name: 'Chén nung kim loại chịu áp suất Wöhler (Wöhler Sealed Reduction Crucible)',
+        description: 'Chén nung bằng sắt hoặc bạch kim có nắp vặn ren chịu lực dùng để khử nhôm clorua bằng kali nóng chảy ở nhiệt độ cao mà không bị nổ vỡ.'
+      },
+      {
+        name: 'Bình kết tinh phân đoạn thủy tinh cổ dài (Long-Necked Crystallizing Flasks)',
+        description: 'Bình thủy tinh kết tinh chậm dùng để nuôi cấy các tinh thể urê hình lăng trụ trong suốt.'
+      }
+    ],
+    discoveredOrRevolutionized: {
+      elements: ['Al (Nhôm - cô lập dạng kim loại)', 'Be (Beri)', 'Y (Ytri)'],
+      compounds: ['(NH2)2CO (Urê)', 'CaC2 (Canxi cacbua / Đất đèn)', 'C2H2 (Acetylene)'],
+      concepts: ['Khai sinh ngành Hóa học hữu cơ tổng hợp', 'Xóa bỏ Thuyết duy sinh (Vitalism)', 'Hiện tượng đồng phân cấu tạo vô cơ - hữu cơ']
+    },
+    keyEquations: [
+      {
+        equation: 'NH4OCN(s) --(t°)--> (NH2)2CO(s)',
+        phases: { NH4OCN: 's', '(NH2)2CO': 's' },
+        conditions: 'Đun nóng nhẹ dung dịch amoni xianat rồi cô cạn',
+        observation: 'Muối vô cơ amoni xianat tự sắp xếp lại liên kết nội phân tử, chuyển hóa hoàn toàn thành các tinh thể hình kim trong suốt không màu của urê — chất thải sinh học quen thuộc trong nước tiểu động vật.',
+        historicalNote: 'Bước ngoặt lịch sử năm 1828 khai sinh toàn bộ nền Hóa học hữu cơ hiện đại.'
+      },
+      {
+        equation: 'AlCl3(s) + 3K(s) -> Al(s) + 3KCl(s)',
+        phases: { AlCl3: 's', K: 's', Al: 's', KCl: 's' },
+        conditions: 'Nung nóng trong chén nung kín không có không khí',
+        observation: 'Phản ứng tỏa nhiệt dữ dội; sau khi rửa sạch muối kali clorua bằng nước, thu được bột kim loại nhôm màu xám lấp lánh ánh kim nhẹ và dẻo.',
+        historicalNote: 'Thí nghiệm năm 1827 giúp nhân loại lần đầu tiên chạm tay vào kim loại Nhôm.'
+      }
+    ],
+    pedagogicalInsight: 'Thí nghiệm của Wöhler là cánh cửa mở màn cho toàn bộ môn Hóa học hữu cơ trong GDPT 2018 (Hóa học 11 - Chương 4: Đại cương hóa học hữu cơ). Học sinh hiểu rằng hợp chất hữu cơ đơn giản chỉ là các hợp chất của carbon (trừ một số oxit, muối cacbonat, muối xianua đơn giản) và hoàn toàn có thể được tổng hợp nhân tạo từ phòng lab đến nhà máy.',
+    curriculumTags: ['Hóa học 11 - Chương 4: Đại cương hóa học hữu cơ (Lịch sử hóa hữu cơ)', 'Hóa học 12 - Chương 6: Kim loại nhôm', 'KHTN 9 - Bài: Hợp chất hữu cơ']
+  },
+  {
+    id: 'august-kekule',
+    name: 'Friedrich August Kekulé von Stradonitz',
+    vietnameseName: 'Au-gút Kê-ku-lê',
+    lifeSpan: '1829 – 1896',
+    birthYear: 1829,
+    deathYear: 1896,
+    nationality: 'Đức',
+    avatar: '/assets/scientists/august-kekule.svg',
+    title: 'Kiến trúc sư của phân tử, người giải mã vòng Benzen và cấu trúc mạch Carbon',
+    quote: 'Hãy học cách mơ mộng, các quý ông, rồi có lẽ chúng ta sẽ tìm thấy chân lý... nhưng cũng hãy cẩn trọng đừng công bố giấc mơ của mình trước khi nó được kiểm chứng bằng lý trí thức tỉnh.',
+    lifeStruggles: 'Kekulé sinh ra tại Darmstadt trong một gia đình quý tộc công chức. Ban đầu theo nguyện vọng của gia đình, ông theo học ngành Kiến trúc tại Đại học Giessen. Tuy nhiên, sau khi dự các bài giảng hóa học đầy mê hoặc của Justus von Liebig, ông đã quyết định từ bỏ kiến trúc xây dựng để chuyển sang làm "kiến trúc sư của các phân tử". Thời bấy giờ, hóa học hữu cơ rơi vào cuộc khủng hoảng bế tắc trầm trọng về công thức phân tử benzen ($C_6H_6$): với tỷ lệ số nguyên tử $C : H = 1 : 1$, benzen có độ bất bão hòa rất cao nhưng lại cực kỳ trơ lỳ, không chịu tham gia các phản ứng cộng làm mất màu dung dịch brom như anken hay ankin thông thường. Hàng trăm nhà hóa học hàng đầu châu Âu đã vẽ ra những công thức mạch hở kỳ dị nhưng đều thất bại trong việc giải thích tính chất của benzen.',
+    personalLore: 'Hai bước ngoặt vĩ đại nhất trong sự nghiệp của Kekulé đều bắt nguồn từ những giấc mơ huyền thoại:\n1. Giấc mơ trên xe buýt hai tầng London (1854): Khi đang ngồi thiu thiu ngủ trên chuyến xe buýt đêm ở London, ông nhìn thấy trong tâm trí những nguyên tử nhảy múa trước mắt: các nguyên tử nhỏ ghép cặp, các nguyên tử lớn hơn giữ chặt các nguyên tử nhỏ, và những nguyên tử lớn nhất tạo thành một chuỗi xích dài uốn lượn kéo theo các nguyên tử khác — giấc mơ gợi mở cho ông ý tưởng về Thuyết mạch cacbon (Carbon chains).\n2. Giấc mơ con rắn tự cắn đuôi (Ouroboros, mùa đông 1861–1862): Khi đang ngồi sưởi ấm bên lò sưởi ở Ghent (Bỉ), Kekulé lại chìm vào giấc mơ màng: các chuỗi nguyên tử cacbon uốn lượn xoay tròn như một bầy rắn. Đột nhiên, một trong những con rắn há miệng ngoạm chặt lấy cái đuôi của chính nó và xoay tròn chế giễu trước mắt ông. Giật mình tỉnh giấc như bị điện giật, Kekulé thốt lên: Benzen không phải là một chuỗi mạch hở, benzen là MỘT CHIẾC VÒNG LỤC GIÁC KÍN ĐỐI XỨNG!',
+    experimentalBreakthroughs: '1. Thuyết Hóa trị IV của Carbon và Mạch Carbon (1857–1858): Khẳng định rằng nguyên tử carbon luôn có hóa trị IV trong các hợp chất hữu cơ và có khả năng độc nhất vô nhị là tự liên kết với nhau để tạo thành các chuỗi mạch hở (thẳng, nhánh) và mạch vòng bền vững.\n2. Cấu trúc Vòng Benzen Lục giác (Kekulé Benzene Structure, 1865): Đề xuất phân tử benzen ($C_6H_6$) gồm 6 nguyên tử cacbon liên kết thành một vòng lục giác đều với 3 liên kết đơn xen kẽ 3 liên kết đôi luân phiên dao động cực nhanh giữa hai trạng thái cân bằng. Cấu trúc này giải thích vì sao benzen chỉ tạo ra 1 dẫn xuất monoclo ($C_6H_5Cl$) và 3 dẫn xuất diclo (ortho, meta, para).\n3. Đặt nền móng cho cuộc cách mạng Công nghiệp Thuốc nhuộm Tổng hợp và Dược phẩm Tổng hợp (như aspirin, phẩm nhuộm anilin) biến nước Đức thành cường quốc hóa chất số một thế giới cuối thế kỷ XIX.',
+    laboratoryApparatus: [
+      {
+        name: 'Mô hình khung xương phân tử Kekulé (Kekulé Roll-and-Stick Models)',
+        description: 'Bộ mô hình nguyên tử bằng gỗ hình cầu có khoan 4 lỗ định hướng tứ diện gắn các thanh đồng lò xo uốn cong để minh họa liên kết đôi, liên kết ba và các vòng carbon khép kín.'
+      }
+    ],
+    discoveredOrRevolutionized: {
+      elements: ['Nguyên tử Carbon hóa trị IV'],
+      compounds: ['C6H6 (Benzen)', 'C6H5CH3 (Toluen)', 'C6H5OH (Phenol)', 'C6H5NH2 (Anilin)'],
+      concepts: ['Cấu trúc vòng Benzen', 'Mạch Carbon hở và vòng', 'Hiện tượng đồng phân vị trí ortho, meta, para', 'Hệ liên hợp pi vòng thơm']
+    },
+    keyEquations: [
+      {
+        equation: 'C6H6(l) + Br2(l) --(FeBr3, t°)--> C6H5Br(l) + HBr(g)',
+        phases: { C6H6: 'l', Br2: 'l', C6H5Br: 'l', HBr: 'g' },
+        conditions: 'Xúc tác bột sắt/FeBr3, đun nóng nhẹ',
+        observation: 'Màu đỏ nâu của brom lỏng nguyên chất nhạt dần, chất lỏng brombenzen không tan lắng xuống đáy, khí HBr thoát ra tạo làn khói trắng với amoniac và làm quỳ tím ẩm hóa đỏ.',
+        historicalNote: 'Phản ứng thế đặc trưng chứng minh tính chất thơm kinh điển của vòng benzen Kekulé.'
+      },
+      {
+        equation: 'C6H6(l) + HNO3(d) --(H2SO4 d, 50-60°C)--> C6H5NO2(l) + H2O(l)',
+        phases: { C6H6: 'l', HNO3: 'l', C6H5NO2: 'l', H2O: 'l' },
+        conditions: 'Hỗn hợp axit sunfuric đậm đặc và axit nitric đậm đặc ở 50°C - 60°C',
+        observation: 'Dung dịch phân lớp, chất lỏng màu vàng nhạt sánh như dầu có mùi hạnh nhân đắng (nitrobenzen) lắng xuống đáy cốc.',
+        historicalNote: 'Phản ứng nitro hóa kinh điển điều chế tiền chất cho phẩm nhuộm anilin thế kỷ XIX.'
+      }
+    ],
+    pedagogicalInsight: 'Cấu trúc vòng benzen và thuyết hóa trị IV của carbon là nội dung cốt lõi của GDPT 2018 (Hóa học 11 - Chương 4: Đại cương hóa học hữu cơ & Chương 5: Hydrocarbon thơm / Arene). Học sinh học cách biểu diễn vòng benzen có vòng tròn ở giữa tượng trưng cho hệ electron liên hợp $\\pi$ giải tỏa đều và hiểu tính chất "dễ thế, khó cộng, bền với tác nhân oxi hóa".',
+    curriculumTags: ['Hóa học 11 - Chương 5: Hydrocarbon (Arene - Benzen)', 'Hóa học 11 - Chương 4: Đại cương hóa học hữu cơ', 'KHTN 9 - Bài: Hydrocarbon']
+  },
+  {
+    id: 'ernest-rutherford',
+    name: 'Ernest Rutherford (1st Baron Rutherford of Nelson)',
+    vietnameseName: 'Ơ-nít Rơ-dơ-pho',
+    lifeSpan: '1871 – 1937',
+    birthYear: 1871,
+    deathYear: 1937,
+    nationality: 'New Zealand / Anh',
+    avatar: '/assets/scientists/ernest-rutherford.svg',
+    title: 'Cha đẻ của Vật lý hạt nhân, người khám phá Hạt nhân nguyên tử và phân rã nhân tạo',
+    quote: 'Nó hoàn toàn đáng kinh ngạc như thể bạn bắn một quả đạn đại bác 15 inch vào một tờ giấy lụa mỏng và quả đạn dội ngược trở lại bắn trúng bạn!',
+    lifeStruggles: 'Rutherford sinh ra tại vùng nông thôn hẻo lánh Brightwater (New Zealand) trong một gia đình thợ đay nghèo có 12 người con. Cậu bé Ernest đã phải đào khoai tây, vắt sữa bò giúp cha mẹ trước khi nhận được học bổng sang Anh học tập tại Phòng thí nghiệm Cavendish (Đại học Cambridge) dưới sự hướng dẫn của J.J. Thomson. Thời bấy giờ, mô hình nguyên tử được công nhận rộng rãi là "Mô hình bánh mì nho khô" (Plum pudding model) của Thomson, cho rằng nguyên tử là một khối cầu mang điện tích dương đồng nhất với các hạt electron nhỏ bé cắm rải rác bên trong. Khi Rutherford cùng hai học trò trẻ Hans Geiger và Ernest Marsden thực hiện thí nghiệm bắn phá hạt alpha vào lá vàng mỏng năm 1909, kết quả thu được đã phá hủy hoàn toàn mô hình của người thầy Thomson, mở ra một bức tranh hoàn toàn mới về thế giới vi mô.',
+    personalLore: 'Rutherford là một người có vóc dáng hộ pháp, giọng nói hào sảng như sấm rền và tiếng cười vang vọng khắp các hành lang của Phòng thí nghiệm Cavendish. Ông có trực giác vật lý phi thường và khả năng đào tạo học trò xuất chúng: dưới sự dìu dắt của ông, có tới 11 học trò và cộng sự đã giành được giải Nobel (bao gồm Niels Bohr, James Chadwick, John Cockcroft, Ernest Walton, Otto Hahn, Patrick Blackett...). Khi được hỏi về việc bản thân là một nhà vật lý nhưng lại được trao Giải Nobel Hóa học năm 1908 (cho các nghiên cứu về sự phân rã của các nguyên tố và hóa học của các chất phóng xạ), Rutherford đã cười lớn đáp: "Tôi đã chứng kiến nhiều sự biến đổi nguyên tố trong đời, nhưng sự biến đổi nhanh nhất chính là việc tôi biến từ một nhà vật lý thành một nhà hóa học chỉ trong nháy mắt!".',
+    experimentalBreakthroughs: '1. Thí nghiệm Bắn phá Lá vàng mỏng (Gold Foil Experiment, 1909–1911):\n   - Dùng nguồn phóng xạ phát ra chùm hạt alpha ($\\alpha$, hạt nhân He mang điện tích +2) bắn xuyên qua một lá vàng dát siêu mỏng (chỉ dày khoảng vài trăm lớp nguyên tử).\n   - Đặt màn huỳnh quang kẽm sunfua (ZnS) xung quanh để phát hiện vị trí va chạm của hạt alpha qua các đốm sáng lóe lên trong kính hiển vi trong phòng tối.\n   - Kết quả kinh ngạc: Tuyệt đại đa số (hơn 99.99%) các hạt alpha đi thẳng xuyên qua lá vàng như không có chướng ngại vật; chỉ có một tỷ lệ cực nhỏ bị lệch hướng với các góc khác nhau; và đặc biệt cứ khoảng 8.000 hạt thì có 1 hạt bị BẬT NGƯỢC TRỞ LẠI theo hướng ban đầu!\n2. Khai sinh Mô hình Nguyên tử Hành tinh (Rutherford Atomic Model, 1911):\n   - Nguyên tử có CẤU TẠO RỖNG.\n   - Toàn bộ điện tích dương và gần như toàn bộ khối lượng của nguyên tử (hơn 99.95%) tập trung tại một thể tích vô cùng nhỏ bé ở tâm gọi là HẠT NHÂN NGUYÊN TỬ (Atomic Nucleus).\n   - Bán kính nguyên tử lớn hơn bán kính hạt nhân khoảng 10.000 đến 100.000 lần (nếu hạt nhân to bằng một hạt đậu đặt ở giữa sân vận động thì các electron chuyển động ở tít các khán đài ngoài cùng).\n3. Khám phá Hạt Proton (1919) và thực hiện phản ứng biến đổi hạt nhân nhân tạo đầu tiên trong lịch sử loài người: Bắn hạt alpha vào hạt nhân nitơ biến thành hạt nhân oxi và giải phóng proton ($^{14}N + ^4He \\rightarrow ^{17}O + ^1p$).\n4. Tiên đoán sự tồn tại của hạt Neutron không mang điện trong hạt nhân (sau này học trò James Chadwick tìm ra năm 1932).',
+    laboratoryApparatus: [
+      {
+        name: 'Hệ thống thí nghiệm tán xạ hạt alpha qua lá vàng Geiger-Marsden-Rutherford',
+        description: 'Buồng chân không kín chứa hộp chì phát hạt alpha từ muối Radi, khe hẹp định hướng chùm tia, lá vàng nguyên chất mỏng 400 nm và kính hiển vi di động gắn màn ZnS xoay được 360°.'
+      },
+      {
+        name: 'Ống đếm hạt alpha tiền thân ống đếm Geiger-Müller (Geiger Spark Counter)',
+        description: 'Ống kim loại hình trụ có dây điện cực căng ở giữa nạp khí áp suất thấp nối với điện thế cao, tạo xung điện khi có hạt ion hóa bay qua.'
+      }
+    ],
+    discoveredOrRevolutionized: {
+      elements: ['Khám phá tia alpha (He2+) và tia beta (e-)', 'Khám phá khí phóng xạ Radon (Rn)'],
+      compounds: ['Các muối urani và thori phóng xạ'],
+      concepts: ['Khái niệm Hạt nhân nguyên tử (Atomic Nucleus)', 'Cấu tạo rỗng của nguyên tử', 'Hạt Proton (p)', 'Phản ứng biến đổi hạt nhân nhân tạo đầu tiên', 'Khái niệm Chu kỳ bán rã (Half-life)']
+    },
+    keyEquations: [
+      {
+        equation: '14_7N + 4_2He -> 17_8O + 1_1p',
+        phases: { '14_7N': 'g', '4_2He': 'g', '17_8O': 'g', '1_1p': 'g' },
+        conditions: 'Bắn phá hạt alpha động năng cao vào khí nitơ trong buồng kín',
+        observation: 'Chùm hạt alpha bắn vào khí nitơ làm xuất hiện những vết ion hóa dài hơn hẳn trên màn huỳnh quang ZnS — hạt proton tự do mang điện tích +1 lần đầu tiên bước ra ánh sáng khoa học.',
+        historicalNote: 'Phản ứng hạt nhân nhân tạo đầu tiên do con người thực hiện năm 1919, biến giấc mơ giả kim thuật thành hiện thực.'
+      }
+    ],
+    pedagogicalInsight: 'Thí nghiệm tán xạ lá vàng của Rutherford là bài học nhập môn kinh điển bắt buộc trong SGK GDPT 2018 (Hóa học 10 - Chương 1: Cấu tạo nguyên tử & KHTN 7). Học sinh được rèn luyện tư duy thực nghiệm: từ hiện tượng hạt alpha đi thẳng và bật ngược để suy ra cấu tạo rỗng và kích thước siêu nhỏ của hạt nhân nguyên tử.',
+    curriculumTags: ['Hóa học 10 - Chương 1: Cấu tạo nguyên tử (Thí nghiệm Rutherford)', 'KHTN 7 - Bài: Nguyên tử (Cấu tạo hạt nhân và lớp vỏ)', 'Vật lý 12 - Vật lý hạt nhân']
+  },
+  {
+    id: 'henri-moissan',
+    name: 'Ferdinand Frédéric Henri Moissan',
+    vietnameseName: 'Ăng-ri Moa-săng',
+    lifeSpan: '1852 – 1907',
+    birthYear: 1852,
+    deathYear: 1907,
+    nationality: 'Pháp',
+    avatar: '/assets/scientists/henri-moissan.svg',
+    title: 'Hiệp sĩ chinh phục nguyên tố mãnh liệt nhất vũ trụ - Flo, và cha đẻ lò hồ quang điện',
+    quote: 'Flo là một con thú dữ của thế giới hóa học; nó tấn công và xé toạc mọi thứ tiếp xúc với nó, kể cả thủy tinh, nước và chính người điều chế ra nó.',
+    lifeStruggles: 'Moissan sinh ra tại Paris trong một gia đình nhân viên đường sắt nghèo. Ông từng phải bỏ dở trung học để làm học việc tại một hiệu thuốc cổ ở Paris trước khi thi đỗ vào Trường Dược Paris. Lịch sử của nguyên tố Flo (Fluorine, Z=9) trước thời Moissan là một bản danh sách bi thương đầy máu và nước mắt: suốt hơn 70 năm, hàng loạt nhà hóa học kiệt xuất nhất châu Âu đã tìm cách cô lập Flo nhưng đều thất bại thảm hại do Flo là phi kim có độ âm điện lớn nhất vũ trụ, phản ứng mãnh liệt với tất cả mọi vật liệu làm bình chứa (thủy tinh, thạch anh, nước, kim loại). Nhà hóa học Pháp Jérôme Nicklès và George Gore đã tử vong vì hít phải khí flo và axit flohiđric bốc khói; anh em nhà Knox bị tàn phế; ngay cả Davy và Louyet cũng bị ngộ độc nặng phổi bị tổn thương nghiêm trọng. Moissan biết rõ mối hiểm nguy chết người này nhưng vẫn dũng cảm dấn thân. Bản thân ông đã bị ngộ độc khí HF tới 4 lần, nhiều lần ngất xỉu trong phòng thí nghiệm và phải tạm dừng nghiên cứu nhiều tháng để hồi phục tính mạng.',
+    personalLore: 'Moissan là một người rất khéo tay và có tài viết kịch hài hước để giải tỏa căng thẳng sau những giờ phút nghẹt thở bên cạnh các hóa chất kịch độc. Khi nhận thấy không một kim loại hay thủy tinh nào chịu nổi sự ăn mòn của Flo, Moissan đã nảy ra ý tưởng táo bạo: làm nguội hệ thống xuống nhiệt độ cực thấp $-50^\\circ C$ để làm giảm tốc độ ăn mòn, và chế tạo toàn bộ bình điện phân bằng kim loại quý tộc Bạch kim (Platinum) có nút đậy bằng khoáng vật fluorit ($CaF_2$) tinh khiết mài nhẵn. Ngày 26 tháng 6 năm 1886, khi nhìn thấy dòng khí màu vàng lục nhạt đầu tiên thoát ra làm bốc cháy que than củi trong băng giá, Moissan đã reo lên trong nước mắt vì biết mình đã thuần hóa được "con quái vật" bất khả xâm phạm của hóa học.',
+    experimentalBreakthroughs: '1. Cô lập thành công Nguyên tố Flo (Fluorine, 1886): Điện phân dung dịch kali hiđro florua ($KHF_2$) khan hòa tan trong axit flohiđric lỏng ($HF$) ở nhiệt độ $-50^\\circ C$ trong một ống chữ U làm bằng bạch kim với hai điện cực bằng hợp kim platin - iridi. Ông thu được khí Flo ($F_2$) tinh khiết màu vàng lục nhạt có hoạt tính hóa học mãnh liệt phi thường: tác dụng mãnh liệt với silic và thủy tinh bốc cháy thành ngọn lửa, phản ứng nổ dữ dội với hiđro ngay cả trong bóng tối ở $-250^\\circ C$, và phân hủy nước lập tức giải phóng khí oxi và ozon.\n2. Phát minh Lò hồ quang điện Moissan (Electric Arc Furnace, 1892): Sử dụng hai thanh than chì khổng lồ phóng hồ quang điện tạo ra nhiệt độ lên tới hơn $3.500^\\circ C$. Chiếc lò này cho phép nấu chảy và tổng hợp hàng loạt hợp chất siêu cứng chịu nhiệt độ cao chưa từng có: cacbua silic (SiC - khoáng vật moissanite lấp lánh như kim cương được đặt theo tên ông), canxi cacbua ($CaC_2$), và hòa tan carbon trong sắt nóng chảy rồi làm lạnh đột ngột dưới áp suất cao để nỗ lực chế tạo kim cương nhân tạo đầu tiên trong lịch sử.\n\nNhờ những thành tựu vĩ đại này, Henri Moissan được trao giải Nobel Hóa học năm 1906.',
+    laboratoryApparatus: [
+      {
+        name: 'Thiết bị điện phân Flo ống chữ U bạch kim Moissan (Moissan Platinum U-Tube Apparatus)',
+        description: 'Ống chữ U bằng platin nguyên chất có hai nhánh thoát khí, nắp vặn bằng tinh thể fluorit CaF2, điện cực platin-iridi, đặt chìm trong bình chứa methyl clorua lỏng làm lạnh liên tục bằng máy nén tới -50°C.'
+      },
+      {
+        name: 'Lò hồ quang điện khối vôi sống Moissan (Electric Arc Lime Furnace)',
+        description: 'Khối đá vôi sống (CaO) khoét rỗng chịu được nhiệt độ trên 3.000°C không dẫn điện, có hai điện cực than chì đường kính lớn kết nối máy phát điện 50 mã lực.'
+      }
+    ],
+    discoveredOrRevolutionized: {
+      elements: ['F (Fluorine - cô lập lần đầu tiên)'],
+      compounds: ['HF khan', 'SiC (Silicon carbide / Moissanite)', 'CaC2', 'SF6'],
+      concepts: ['Chinh phục nguyên tố Halogen có độ âm điện lớn nhất', 'Công nghệ lò hồ quang nhiệt độ siêu cao (Arc Furnace)', 'Tổng hợp khoáng vật siêu cứng nhân tạo']
+    },
+    keyEquations: [
+      {
+        equation: '2KHF2(l) --(dien phan, -50°C)--> H2(g) + F2(g) + 2KF(s)',
+        phases: { KHF2: 'l', H2: 'g', F2: 'g', KF: 's' },
+        conditions: 'Điện phân dung dịch KHF2 trong HF lỏng ở -50°C trong ống platin',
+        observation: 'Tại cực âm thoát ra khí hiđro; tại cực dương thoát ra dòng khí màu vàng lục nhạt có mùi hắc kinh hoàng làm bốc cháy tức thì mẩu than củi, lưu huỳnh và làm thủng thủy tinh.',
+        historicalNote: 'Khoảnh khắc ngày 26 tháng 6 năm 1886 chấm dứt hơn 70 năm bi kịch săn tìm nguyên tố Flo.'
+      },
+      {
+        equation: 'SiO2(s) + 3C(s) --(lo ho quang 2000°C)--> SiC(s) + 2CO(g)',
+        phases: { SiO2: 's', C: 's', SiC: 's', CO: 'g' },
+        conditions: 'Nhiệt độ trên 2.000°C trong lò hồ quang than chì',
+        observation: 'Hồ quang điện chói lòa làm nóng chảy cát thạch anh và than cốc, tạo thành những tinh thể cacbua silic (moissanite) óng ánh nhiều màu có độ cứng xấp xỉ kim cương.',
+        historicalNote: 'Sáng chế vật liệu mài mòn và bán dẫn công nghiệp quan trọng hàng đầu thế giới.'
+      }
+    ],
+    pedagogicalInsight: 'Lịch sử cô lập Flo của Moissan là bài học sâu sắc về tinh thần dũng cảm, tính kiên nhẫn vượt qua nghịch cảnh và quy tắc kiểm soát nhiệt động học (hạ nhiệt độ để giảm tốc độ phản ứng ăn mòn). Trong GDPT 2018 (Hóa học 10 - Chương 7: Nhóm Halogen), nguyên tố Flo với độ âm điện cực đại 3.98 và tính oxi hóa mãnh liệt nhất là một trong những điểm nhấn lý thuyết trọng tâm.',
+    curriculumTags: ['Hóa học 10 - Chương 7: Nguyên tố nhóm VIIA (Flo và hợp chất)', 'Hóa học 10 - Chương 3: Liên kết hóa học (Độ âm điện cực đại của F)', 'Vật liệu mới & Lò hồ quang']
+  },
+  {
+    id: 'michael-faraday',
+    name: 'Michael Faraday',
+    vietnameseName: 'Mai-cơn Pha-ra-đây',
+    lifeSpan: '1791 – 1867',
+    birthYear: 1791,
+    deathYear: 1867,
+    nationality: 'Anh',
+    avatar: '/assets/scientists/michael-faraday.svg',
+    title: 'Hoàng tử của các nhà thực nghiệm, người cô lập Benzen và khai sinh các định luật Điện phân',
+    quote: 'Không có gì là quá kỳ diệu để trở thành sự thật nếu nó phù hợp với các định luật của tự nhiên.',
+    lifeStruggles: 'Faraday sinh ra tại Newington Butts (London) trong một gia đình thợ rèn nghèo nàn đông con. Cậu bé Michael chỉ được học đọc và viết cơ bản ở trường làng trước khi phải đi làm thuê nuôi thân năm 13 tuổi tại một hiệu đóng sách. Suốt 7 năm làm thợ đóng sách, Faraday đã tranh thủ đọc ngấu nghiến tất cả những cuốn sách khoa học mang đến xưởng đóng bìa, đặc biệt là mục "Điện học" trong Bách khoa toàn thư Britannica và cuốn "Conversations on Chemistry" của Jane Marcet. Năm 1812, một khách hàng đã tặng cậu vé nghe 4 buổi thuyết trình cuối cùng của Sir Humphry Davy tại Viện Hoàng gia. Faraday tỉ mỉ ghi chép hơn 300 trang nhật ký bằng nét chữ nắn nót kèm các hình vẽ thí nghiệm tuyệt đẹp, tự tay đóng thành cuốn sổ da gửi tặng Davy xin việc làm. Khi Davy bị tai nạn nổ hỏng mắt, ông đã nhớ tới chàng trai đóng sách nghèo và nhận Faraday vào làm phụ tá rửa ống nghiệm với mức lương ít ỏi. Vợ của Davy từng đối xử coi khinh Faraday như một người hầu hạ hạ đẳng, bắt ông ngồi ăn chung với các gia nhân trên những chuyến xe du hành châu Âu, nhưng Faraday đã nhẫn nại vượt qua mọi định kiến giai cấp nghiệt ngã để trở thành nhà khoa học thực nghiệm vĩ đại bậc nhất của nhân loại.',
+    personalLore: 'Faraday là một tín đồ phái Sandemanian sùng đạo, sống một cuộc đời thanh bạch, khiêm nhường đến mức phi thường. Ông từ chối danh hiệu hiệp sĩ Sir của Nữ hoàng Anh, từ chối chức Chủ tịch Hội Hoàng gia danh giá tới hai lần và kiên quyết từ chối chế tạo vũ khí hóa học phục vụ Chiến tranh Krym vì lý do lương tâm đạo đức. Ông là người khởi xướng chương trình "Bài giảng Giáng sinh cho thiếu nhi" (Royal Institution Christmas Lectures) từ năm 1825 — bài giảng truyền cảm hứng bằng những thí nghiệm kỳ thú bên ngọn nến mà đến tận ngày nay Viện Hoàng gia Anh vẫn duy trì hàng năm phát sóng trên truyền hình quốc tế.',
+    experimentalBreakthroughs: 'Mặc dù nổi tiếng nhất với các phát minh về Cảm ứng điện từ và Động cơ điện trong Vật lý, Faraday đồng thời là một trong những nhà hóa học kiệt xuất nhất lịch sử:\n\n1. Cô lập phân tử Benzen ($C_6H_6$, 1825): Bằng cách chưng cất phân đoạn cặn dầu còn lại ở đáy các bình chứa khí thắp sáng bằng dầu cá voi ở London, Faraday đã lần đầu tiên cô lập được một hydrocacbon thơm lỏng trong suốt có mùi thơm đặc trưng mà ông gọi là "bicarburet of hydrogen" — chính là phân tử Benzen huyền thoại.\n2. Hóa lỏng các chất khí (1823): Sử dụng áp suất cao và hỗn hợp sinh hàn trong ống thủy tinh chữ V uốn cong kín, Faraday là người đầu tiên hóa lỏng thành công khí Clo ($Cl_2$), Amoniac ($NH_3$), Khí cacbonic ($CO_2$), Hiđro sunfua ($H_2S$) và Hiđro clorua ($HCl$).\n3. Các Định luật Điện phân Faraday (Faraday\'s Laws of Electrolysis, 1834):\n   - Định luật 1: Khối lượng chất giải phóng ở điện cực tỷ lệ thuận với điện lượng $Q$ chạy qua bình điện phân ($m = k \\cdot Q$).\n   - Định luật 2: Đương lượng hóa học của các nguyên tố tỷ lệ với đương lượng gam của chúng ($m = \\frac{A \\cdot I \\cdot t}{n \\cdot F}$ với Hằng số Faraday $F \\approx 96.485 \\text{ C/mol}$). Mở đường cho việc chứng minh điện tích tồn tại dưới dạng những "hạt" rời rạc (electron).\n4. Khai sinh toàn bộ thuật ngữ Điện hóa học chuẩn hóa: Cùng học giả William Whewell đặt ra các thuật ngữ bất hủ: Điện cực (Electrode), Cực dương (Anode), Cực âm (Cathode), Hạt ion (Ion - từ tiếng Hy Lạp nghĩa là "kẻ du hành"), Cation, Anion, Chất điện giải (Electrolyte).',
+    laboratoryApparatus: [
+      {
+        name: 'Ống thủy tinh chịu áp lực hóa lỏng khí Faraday (Faraday Closed Bent Glass Tube)',
+        description: 'Ống thủy tinh dày uốn cong hình chữ V: một nhánh chứa chất phản ứng sinh khí khi hơ nóng, nhánh kia ngâm trong hỗn hợp đá muối sinh hàn để khí tự nén áp suất hóa lỏng.'
+      },
+      {
+        name: 'Điện lượng kế phân tích khí nổ Faraday (Faraday Voltameter)',
+        description: 'Bình điện phân nước có hai ống chia độ hứng khí H2 và O2 thoát ra để đo chính xác tổng điện lượng Q chạy qua mạch điện.'
+      }
+    ],
+    discoveredOrRevolutionized: {
+      elements: ['Cô lập clo lỏng tinh khiết'],
+      compounds: ['C6H6 (Benzen - phát hiện lần đầu năm 1825)', 'C2Cl6', 'C2Cl4'],
+      concepts: ['Các định luật điện phân Faraday', 'Hằng số Faraday (F = 96485 C/mol)', 'Hệ thuật ngữ Anot, Catot, Ion, Cation, Anion', 'Hóa lỏng chất khí bằng nén áp suất', 'Hiện tượng Cảm ứng điện từ và Từ trường']
+    },
+    keyEquations: [
+      {
+        equation: 'm = (A * I * t) / (n * F)',
+        phases: { m: 'khối lượng gam', A: 'nguyên tử khối', I: 'cường độ dòng điện A', t: 'thời gian giây', n: 'số electron trao đổi', F: '96485 C/mol' },
+        conditions: 'Quá trình điện phân dung dịch hoặc nóng chảy',
+        observation: 'Khi cho dòng điện I chạy qua bình điện phân đồng sunfat trong thời gian t, lớp kim loại đồng màu đỏ gạch bám dày lên trên bề mặt catot với khối lượng cân được tăng lên chuẩn xác theo lý thuyết.',
+        historicalNote: 'Định luật điện phân năm 1834 đặt nền móng cho toàn bộ ngành luyện kim điện hóa và mạ điện hiện đại.'
+      },
+      {
+        equation: '2CuSO4(aq) + 2H2O(l) --(dien phan)--> 2Cu(s) + O2(g) + 2H2SO4(aq)',
+        phases: { CuSO4: 'aq', H2O: 'l', Cu: 's', O2: 'g', H2SO4: 'aq' },
+        conditions: 'Dòng điện một chiều, điện cực trơ than chì/bạch kim',
+        observation: 'Tại catot kim loại đồng màu đỏ bám chắc, tại anot thoát ra bọt khí oxi không màu; màu xanh lam của dung dịch nhạt dần và môi trường chuyển sang axit mạnh làm đỏ quỳ tím.',
+        historicalNote: 'Thí nghiệm điện phân kinh điển minh họa định luật Faraday.'
+      }
+    ],
+    pedagogicalInsight: 'Faraday là nguồn cảm hứng bất tận về nghị lực tự học vượt qua số phận nghèo khó và sự trung thực khoa học tuyệt đối. Trong GDPT 2018 (Hóa học 12 - Chương 5: Pin điện và điện phân), định luật điện phân Faraday và công thức tính thời gian/khối lượng chất thoát ra ở điện cực ($m = \\frac{AIt}{nF}$) là dạng bài toán tính toán trọng tâm bắt buộc.',
+    curriculumTags: ['Hóa học 12 - Chương 5: Pin điện và điện phân', 'Hóa học 11 - Chương 5: Hydrocarbon (Lịch sử tìm ra Benzen)', 'Vật lý 11 - Dòng điện trong chất điện phân']
+  }
+];

@@ -1,6 +1,7 @@
 import {test,expect} from '@playwright/test';
 import fs from 'node:fs';
 const subjectLinks=JSON.parse(fs.readFileSync('shared/library-links.generated.json','utf8'));
+const libraryRoutes=JSON.parse(fs.readFileSync('shared/library-routes.generated.json','utf8'));
 test('chemical stories restore from share URLs and expose structured sections',async({page})=>{
  for(const id of ['chat-nuoc','chat-amoniac','chat-natri-clorua','chat-etanol','chat-carbon-dioxide','chat-metan']){
   await page.goto('/trung-tam/tai-lieu-so/?doc='+id);
@@ -22,8 +23,8 @@ test('the complete directory reveals batches and opens an ionic dossier from its
   await expect(results.locator('h3')).toHaveCount(48);
   await page.goto('/tien-ich/cau-truc-3d/?chemical=chem-cuso4');
   await expect(page.locator('.viewer-status')).toContainText('6 nguyên tử');
-  await page.getByRole('link',{name:'Đọc hồ sơ chất ↗'}).click();
-  await expect(page).toHaveURL(new RegExp('doc='+subjectLinks['chem-cuso4']));
+  await page.getByRole('link',{name:/Đọc (?:hồ sơ|tài liệu về) chất ↗/}).click();
+  await expect(page).toHaveURL(new RegExp('(?:doc=' + subjectLinks['chem-cuso4'] + '|/tai-lieu-so/' + (libraryRoutes[subjectLinks['chem-cuso4']] ?? 'dong-ii-sulfate-cuso4') + '/)'));
   await expect(page.locator('article')).toContainText('CuSO4');
   await expect(page.locator('article')).toContainText('Từ công thức đến các nhóm ion');
   await expect(page.locator('article details')).toBeVisible();
@@ -55,6 +56,6 @@ test('library finds chemical stories by accent-free names, aliases and subscript
   await expect(page.getByRole('heading',{name:'Không tìm thấy tài liệu'})).toBeVisible();
   await search.fill('metan');
   await results.getByRole('heading').click();
-  await expect(page).toHaveURL(/doc=chat-metan/);
+  await expect(page).toHaveURL(/(?:doc=chat-metan|\/tai-lieu-so\/metan-ch4\/)/);
   await expect(page.locator('article')).toContainText('CH₄ + 2O₂');
 });

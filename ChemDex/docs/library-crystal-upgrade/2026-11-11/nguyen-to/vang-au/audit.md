@@ -22,9 +22,9 @@
 
 ## Ảnh trạng thái tự nhiên
 
-- Trạng thái: downloaded; [trang nguồn](https://commons.wikimedia.org/wiki/File:Gold-crystals.jpg).
-- Tác giả: Alchemist-hp ( talk ) www.pse-mendelejew.de; giấy phép: CC BY-SA 3.0 de.
-- Mô tả nguồn: Synthetic made gold crystals by the chemical transport reaction in chlorine gas. Purity &gt;99.99%
+- Trạng thái: downloaded; [trang nguồn](https://commons.wikimedia.org/wiki/File:Gold-280481.jpg).
+- Tác giả: Robert M. Lavinsky; giấy phép: CC BY-SA 3.0.
+- Mô tả nguồn: Gold Locality: Round Mountain Mine, Round Mountain District, Nye County , Nevada , USA ( Locality at mindat.org ) Size: 3.4 x 1.9 x 0.4 cm. This is an outstanding gold specimen for the mine and the size range, from a small find of 2007 that to my mind sets the standard for gold from this locality and finally ranked it among the finest US locales for gold, period. The piece features very sharp, flattened trigons and other gold crystal habits, and is crystallized to equal quality on both sides. A small miniature or toenail in size. The photos do not convey its impact, its sheer brightness and lustre, and purity of color. This is a world class gold from a mine that before recently was not even on the map for such things, and all such specimens seem to have come out of a small area there, now a few years ago.
 - Không gọi ảnh tổng hợp/ảnh mẫu thí nghiệm là ảnh quặng tự nhiên nếu mô tả nguồn không xác nhận.
 
 ## Kiểm tra và giới hạn

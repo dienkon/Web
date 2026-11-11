@@ -42,6 +42,12 @@
     "resolution": "Thay bằng Platinum-274992.jpg, mẫu địa phương Fox Gulch, Alaska; CC BY-SA 3.0."
   },
   {
+    "record": "Gold-crystals.jpg",
+    "mineral": "Gold tự sinh",
+    "finding": "Mô tả Commons xác nhận đây là tinh thể vàng tổng hợp bằng vận chuyển hóa học trong khí chlorine, không phải vàng tự sinh.",
+    "resolution": "Thay bằng Gold-280481.jpg, mẫu từ Round Mountain Mine, Nevada; CC BY-SA 3.0."
+  },
+  {
     "record": "CIF viewer",
     "mineral": "Mọi CIF nhập",
     "finding": "Parser trước bỏ qua alpha/beta/gamma, giả định thứ tự cột, bỏ qua phép đối xứng, dùng hằng số mặc định 5.5 và suy liên kết từ khoảng cách.",

@@ -36,6 +36,7 @@
 - Thêm ảnh cục bộ có metadata cho 49 khoáng vật, liên kết tới 79 trang nguyên tố. Giữ ảnh đơn chất riêng trong gallery.
 - Phần trạng thái tự nhiên hiển thị tên mẫu, chú thích, trang gốc, tác giả và giấy phép để tránh nhầm ảnh quặng với ảnh đơn chất.
 - Đổi ảnh platinum nuôi tinh thể sang mẫu platinum tự sinh có địa điểm trong mô tả Commons. Sửa truy vấn Celestine sang tên trang khoáng vật để tránh trang nhập nhằng.
+- Rà lại mô tả trước bàn giao phát hiện `Gold-crystals.jpg` là vàng tổng hợp; thay bằng `Gold-280481.jpg` từ Round Mountain Mine, Nevada, CC BY-SA 3.0. Không dùng ảnh vàng tổng hợp cho mục vàng tự sinh.
 - Script tải ảnh giữ kết quả đã có, ghi báo cáo tiến độ và ghi lại toàn bộ danh mục ở cuối để không làm mất các mục được giữ từ cache.
 
 ## Kiểm thử và lưu vết

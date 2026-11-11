@@ -4,6 +4,20 @@ import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { parseFormula } from '../shared/chemistry/formula.mjs';
 import { substanceSlug, documentFile } from '../shared/library-paths.mjs';
+import { generateArticleSvg, classifySubstance } from './lib-thumbnails.mjs';
+import {
+  getAllScientists,
+  getScientistById,
+  getScientistsByElement,
+  getScientistsByCompound,
+  searchScientists,
+} from '../shared/chemistry/scientist-biographies.mjs';
+import {
+  getAllConcepts,
+  getConceptById,
+  getConceptsForSubstance,
+  searchConcepts,
+} from '../shared/chemistry/curriculum-concepts.mjs';
 
 process.chdir(path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..'));
 
@@ -20,12 +34,16 @@ const manifest = read('data/manifest.json');
 const wikiData = fs.existsSync('shared/substance-wiki.json')
   ? read('shared/substance-wiki.json')
   : {};
+
 const output = 'trung-tam/src/data/reference';
 const resolvedOutput = path.resolve(output);
 if (path.dirname(resolvedOutput) !== path.resolve('trung-tam/src/data') || path.basename(resolvedOutput) !== 'reference')
   throw new Error('Refusing to clear a directory outside the generated reference library');
 fs.rmSync(output, { recursive: true, force: true });
 fs.mkdirSync(output, { recursive: true });
+
+const thumbnailDir = 'trung-tam/public/assets/library/thumbnails';
+fs.mkdirSync(thumbnailDir, { recursive: true });
 
 // Index wiki data by key, formula, and lowercase formula for 100% lookup hits
 const wikiByFormula = new Map();
@@ -292,16 +310,113 @@ function getCompoundLineageStory(s, counts, massTerms) {
   return pieces.join('\n\n');
 }
 
-function pickCoverIllustration(s, element, ions) {
+function pickOriginIllustration(s, element, ions, formula, scientists) {
   if (element) {
-    if (element.z <= 2 || ['N', 'O', 'Ne', 'Ar', 'Kr', 'Xe'].includes(element.symbol))
-      return '/assets/library/cosmic-origin.svg';
+    if (element.z <= 2) return '/assets/library/cosmic-origin.svg';
+    const cat = element.category ?? '';
+    const catVi = element.category_vi ?? '';
+    if (cat === 'alkali-metal' || (catVi.includes('kiềm') && !catVi.includes('thổ')))
+      return '/assets/library/element-alkali.svg';
+    if (cat === 'alkaline-earth-metal' || catVi.includes('kiềm thổ'))
+      return '/assets/library/element-alkaline-earth.svg';
+    if (cat === 'transition-metal' || catVi.includes('chuyển tiếp'))
+      return '/assets/library/element-transition.svg';
+    if (cat === 'post-transition-metal' || catVi.includes('hậu chuyển tiếp'))
+      return '/assets/library/element-post-transition.svg';
+    if (cat === 'metalloid' || catVi.includes('á kim') || catVi.includes('bán dẫn'))
+      return '/assets/library/element-metalloid.svg';
+    if (cat === 'halogen' || catVi.includes('halogen'))
+      return '/assets/library/element-halogen.svg';
+    if (cat === 'noble-gas' || catVi.includes('khí hiếm') || catVi.includes('khí trơ'))
+      return '/assets/library/element-noble-gas.svg';
+    if (cat === 'lanthanide' || catVi.includes('lantan'))
+      return '/assets/library/element-lanthanide.svg';
+    if (cat === 'actinide' || catVi.includes('actini'))
+      return '/assets/library/element-actinide.svg';
     return '/assets/library/earth-minerals.svg';
   }
+
+  // Check matched apparatus from scientists or reaction nature
+  if (scientists && scientists.length > 0) {
+    const s0 = scientists[0];
+    if (s0.laboratoryApparatus && s0.laboratoryApparatus.length > 0) {
+      const appName = s0.laboratoryApparatus[0].name.toLowerCase();
+      if (appName.includes('eudiometer')) return '/assets/library/apparatus-eudiometer.svg';
+      if (appName.includes('volta') || appName.includes('điện phân')) return '/assets/library/apparatus-voltaic-pile.svg';
+      if (appName.includes('spectroscope') || appName.includes('quang phổ')) return '/assets/library/apparatus-spectroscope.svg';
+      if (appName.includes('calorimeter') || appName.includes('nhiệt lượng')) return '/assets/library/apparatus-calorimeter.svg';
+      if (appName.includes('autoclave') || appName.includes('áp suất')) return '/assets/library/apparatus-autoclave-retort.svg';
+      if (appName.includes('alembic') || appName.includes('retort') || appName.includes('cổ cong')) return '/assets/library/apparatus-alembic.svg';
+    }
+  }
+
+  if (/NH3|amoniac/i.test(formula)) return '/assets/library/apparatus-autoclave-retort.svg';
+  if (/H2O|nuoc/i.test(formula)) return '/assets/library/apparatus-eudiometer.svg';
+  if (/H2SO4|HNO3|HCl|axit/i.test(formula) || /SO4|NO3/.test(formula)) return '/assets/library/apparatus-alembic.svg';
   if (s.family === 'organic') return '/assets/library/organic-genesis.svg';
-  if (s.kind === 'crystal' || ions) return '/assets/library/ionic-crystal.svg';
-  if (/^H[A-Z]|OH\)/.test(s.formula)) return '/assets/library/acid-base-world.svg';
-  return '/assets/library/covalent-bonds.svg';
+  if (s.kind === 'crystal' || ions) return '/assets/library/apparatus-voltaic-pile.svg';
+  return '/assets/library/lab-synthesis.svg';
+}
+
+function pickStructureIllustration(s, element, ions, formula) {
+  if (element) {
+    const sym = element.symbol;
+    if (['Cu', 'Ag', 'Au', 'Al', 'Pt', 'Ni', 'Pb', 'Ca', 'Sr'].includes(sym))
+      return '/assets/library/crystal-fcc.svg';
+    if (['Fe', 'Cr', 'W', 'Na', 'K', 'Ba', 'V', 'Mo', 'Ta'].includes(sym))
+      return '/assets/library/crystal-bcc.svg';
+    if (['Mg', 'Ti', 'Zn', 'Zr', 'Be', 'Cd', 'Co'].includes(sym))
+      return '/assets/library/crystal-hcp.svg';
+    if (['C', 'Si', 'Ge'].includes(sym))
+      return '/assets/library/crystal-diamond.svg';
+    if (['N', 'O', 'F', 'Cl', 'Br', 'I'].includes(sym))
+      return '/assets/library/orbital-pi-conjugation.svg';
+    return '/assets/library/crystal-bcc.svg';
+  }
+
+  if (s.kind === 'crystal' || ions) {
+    if (/Ti|Ba|Ca.*O3|Sr.*O3|Perovskite/i.test(formula + ' ' + (s.name_vi || '')))
+      return '/assets/library/crystal-perovskite.svg';
+    if (formula.includes('NaCl') || formula.includes('KCl') || formula.includes('AgCl'))
+      return '/assets/library/crystal-fcc.svg';
+    if (formula.includes('CsCl'))
+      return '/assets/library/crystal-bcc.svg';
+    if (formula.includes('SiO2'))
+      return '/assets/library/crystal-diamond.svg';
+    return '/assets/library/ionic-crystal.svg';
+  }
+
+  if (s.family === 'organic') {
+    const f = formula;
+    if (/C6H6|C7H8|C8H10|benzen|toluen/i.test(f + ' ' + (s.name_vi || '')))
+      return '/assets/library/organic-aromatic.svg';
+    if (/COOH|C2H4O2|CH3COOH|axit/i.test(f + ' ' + (s.name_vi || '')))
+      return '/assets/library/organic-carboxylic-acid.svg';
+    if (/COO|este/i.test(f + ' ' + (s.name_vi || '')))
+      return '/assets/library/organic-ester.svg';
+    if (/CHO|HCHO|CH3CHO|andehit/i.test(f + ' ' + (s.name_vi || '')))
+      return '/assets/library/organic-aldehyde.svg';
+    if (/xeton|axeton|CO/i.test(s.name_vi || '') && !f.includes('COOH'))
+      return '/assets/library/organic-ketone.svg';
+    if (/OH|ancol|etanol|metanol/i.test(f + ' ' + (s.name_vi || '')))
+      return '/assets/library/organic-alcohol.svg';
+    if (/NH2|amin/i.test(f + ' ' + (s.name_vi || '')))
+      return '/assets/library/organic-amine.svg';
+    if (s.material || s.kind === 'polymer')
+      return '/assets/library/organic-polymer.svg';
+    if (/C\d+H\d+O\d+/.test(f) && (f.includes('O6') || f.includes('O5') || f.includes('O11')))
+      return '/assets/library/organic-carbohydrate.svg';
+    if (/C\d+H2\d+$/.test(f) || /etilen|propen|anken/i.test(s.name_vi || ''))
+      return '/assets/library/organic-alkene.svg';
+    if (/axetilen|ankin/i.test(s.name_vi || '') || f === 'C2H2')
+      return '/assets/library/organic-alkyne.svg';
+    return '/assets/library/organic-alkane.svg';
+  }
+
+  if (/^H[A-Z]|OH\)/.test(formula))
+    return '/assets/library/acid-base-world.svg';
+
+  return '/assets/library/orbital-hybridization.svg';
 }
 
 function identity(s) {
@@ -340,7 +455,7 @@ for (const subject of subjects) {
 
 const generated = [];
 const links = {};
-const usedSlugs = new Set(authored.map(a => a.slug ?? a.id));
+const usedSlugs = new Set(authored.map((a) => a.slug ?? a.id));
 
 for (const [key, group] of groups) {
   const editorial = group.map((s) => existing.get(s.id)).find(Boolean);
@@ -411,6 +526,7 @@ for (const [key, group] of groups) {
   if (usedSlugs.has(id)) id += `-${substanceSlug(s.cid ? `pubchem-${s.cid}` : s.id)}`;
   if (usedSlugs.has(id)) throw new Error(`Substance slug collision: ${id}`);
   usedSlugs.add(id);
+
   const pFormula = prettyFormula(formula);
   const displayFormula = s.material ? (s.materialLabel || 'Hỗn hợp') : safeMetaText(pFormula);
   const modelURL =
@@ -420,29 +536,51 @@ for (const [key, group] of groups) {
       (c) => '%' + c.charCodeAt(0).toString(16).toUpperCase(),
     );
 
-  const coverImage = pickCoverIllustration(s, element, ions);
-  const originImage = element
-    ? element.z <= 10
-      ? '/assets/library/cosmic-origin.svg'
-      : '/assets/library/earth-minerals.svg'
-    : s.family === 'organic'
-      ? '/assets/library/organic-genesis.svg'
-      : formationReactions.length > 0
-        ? '/assets/library/lab-synthesis.svg'
-        : '/assets/library/industrial-reactor.svg';
-  const structureImage =
-    s.kind === 'crystal' || ions
-      ? '/assets/library/ionic-crystal.svg'
-      : s.family === 'organic'
-        ? '/assets/library/organic-genesis.svg'
-        : '/assets/library/covalent-bonds.svg';
+  // Generate Bespoke Unique Thumbnail SVG for EVERY article!
+  const thumbnailSvg = generateArticleSvg({
+    slug: id,
+    formula,
+    prettyFormula: pFormula,
+    name,
+    element,
+    ions,
+    subject: s,
+    mass,
+  });
+  fs.writeFileSync(path.join(thumbnailDir, `${id}.svg`), thumbnailSvg.trim() + '\n', 'utf8');
+  const coverImage = `/assets/library/thumbnails/${id}.svg`;
+
+  // Matched Pioneer Scientists
+  const matchedScientists = element
+    ? getScientistsByElement(element.symbol)
+    : [
+        ...getScientistsByCompound(formula),
+        ...getScientistsByCompound(s.name_vi || ''),
+      ];
+
+  if (detail?.history?.discoverer) {
+    const discName = clean(detail.history.discoverer);
+    const matched = getAllScientists().find(
+      (sc) =>
+        discName.toLowerCase().includes(sc.name.toLowerCase()) ||
+        sc.name.toLowerCase().includes(discName.toLowerCase()) ||
+        (sc.vietnameseName && discName.toLowerCase().includes(sc.vietnameseName.toLowerCase())),
+    );
+    if (matched && !matchedScientists.some((sc) => sc.id === matched.id)) {
+      matchedScientists.push(matched);
+    }
+  }
+
+  const originImage = pickOriginIllustration(s, element, ions, formula, matchedScientists);
+  const structureImage = pickStructureIllustration(s, element, ions, formula);
 
   const histYear = detail?.history?.year ? clean(detail.history.year) : null;
   const title = safeMetaText(style.titlePattern(name, displayFormula, element));
   const sections = [];
 
   // ============================================================================
-  // SECTION 1: UNIQUE ONLINE-SOURCED HISTORICAL STORY (Must start with `## Câu chuyện:`)
+  // SECTION 1: UNIQUE HISTORICAL STORY & PIONEER SCIENTIST LORE
+  // (Must start with `## Câu chuyện:`)
   // ============================================================================
   const sec1Paragraphs = [style.storyHeading(name, pFormula), style.leadHook(name, pFormula)];
 
@@ -480,6 +618,39 @@ for (const [key, group] of groups) {
   } else {
     const lineage = getCompoundLineageStory(s, counts, massTerms);
     if (lineage) sec1Paragraphs.push(lineage);
+  }
+
+  // Woven Pioneer Lore & Authentic Historical Struggles
+  if (matchedScientists.length > 0) {
+    const pioneer = matchedScientists[0];
+    const pioneerStory = [
+      `### Dấu ấn nhà khoa học tiên phong: Chân dung và di sản của ${pioneer.name} (${pioneer.vietnameseName})`,
+      `Trong lịch sử khám phá và làm sáng tỏ bản chất của **${name} (${pFormula})**, dấu ấn thực nghiệm sâu sắc nhất gắn liền với tên tuổi của **${pioneer.name}** (${pioneer.lifeSpan}) — ${pioneer.title.toLowerCase()}.`,
+      `*“${pioneer.quote}”* — Lời đúc kết nổi tiếng này không chỉ là kim chỉ nam nghiên cứu của ${pioneer.name} mà còn phản ánh tinh thần thực nghiệm bất khuất của thời đại khai sáng khoa học.`,
+      `**Nghị lực và thăng trầm nghiên cứu**: ${pioneer.lifeStruggles}`,
+      `**Giai thoại phòng thí nghiệm & Phong cách làm việc**: ${pioneer.personalLore}`,
+      `**Đột phá thực nghiệm**: ${pioneer.experimentalBreakthroughs}`,
+    ];
+
+    if (pioneer.laboratoryApparatus && pioneer.laboratoryApparatus.length > 0) {
+      const appList = pioneer.laboratoryApparatus
+        .map((app) => `- **${app.name}**: ${app.description}`)
+        .join('\n');
+      pioneerStory.push(`**Thiết bị phòng thí nghiệm tiêu biểu**:\n\n${appList}`);
+    }
+
+    if (pioneer.keyEquations && pioneer.keyEquations.length > 0) {
+      const eqList = pioneer.keyEquations
+        .slice(0, 2)
+        .map(
+          (eq) =>
+            `- Phương trình phản ứng bước ngoặt: \`${eq.equation}\`\n  *Quan sát thực nghiệm*: ${eq.observation}\n  *Ghi chú lịch sử*: ${eq.historicalNote}`,
+        )
+        .join('\n\n');
+      pioneerStory.push(`**Dấu mốc phản ứng gắn liền với công trình của ${pioneer.name}**:\n\n${eqList}`);
+    }
+
+    sec1Paragraphs.push(pioneerStory.join('\n\n'));
   }
 
   sec1Paragraphs.push(
@@ -530,7 +701,7 @@ for (const [key, group] of groups) {
   );
 
   // ============================================================================
-  // SECTION 2B: IONIC DISSOCIATION & HYDRATION (Mandatory heading for ionic compounds!)
+  // SECTION 2B: IONIC DISSOCIATION & HYDRATION (For ionic compounds!)
   // ============================================================================
   if (ions) {
     sections.push(
@@ -543,6 +714,59 @@ for (const [key, group] of groups) {
   }
 
   // ============================================================================
+  // SECTION 2C: VIETNAM GDPT 2018 CURRICULUM CONCEPTS & PEDAGOGY
+  // ============================================================================
+  const matchedConcepts = getConceptsForSubstance(element ? element.symbol : formula);
+  let activeConcept = matchedConcepts[0];
+  if (!activeConcept) {
+    if (element) {
+      activeConcept =
+        element.category === 'transition-metal'
+          ? getConceptById('atomic-structure-and-orbitals')
+          : getConceptById('periodic-law-and-trends');
+    } else if (s.family === 'organic') {
+      activeConcept = getConceptById('organic-chemistry-mechanisms-and-reactions');
+    } else if (ions || /^H[A-Z]|OH\)/.test(formula)) {
+      activeConcept = getConceptById('solutions-and-acid-base-hydrolysis');
+    } else {
+      activeConcept = getConceptById('chemical-bonding-and-intermolecular-forces');
+    }
+  }
+
+  const principlesList = activeConcept.fundamentalPrinciples
+    .map((p) => `- **${p.name}**: ${p.formulation}`)
+    .join('\n');
+
+  const misconceptionsList = activeConcept.commonMisconceptions
+    .map((m) => `- ⚠️ *Lưu ý tránh bẫy đề thi*: ${m}`)
+    .join('\n');
+
+  const curriculumSection = [
+    `## Trọng tâm kiến thức Hóa học GDPT (THCS & THPT): Cấu trúc, Nhiệt động lực & Cơ chế`,
+    `Trong Chương trình Giáo dục phổ thông 2018 (môn Khoa học tự nhiên THCS & môn Hóa học THPT Lớp ${activeConcept.grade}), **${name} (${pFormula})** là đối tượng trọng tâm thuộc mạch nội dung **“${activeConcept.title}”** (Các bài học cốt lõi liên quan: *${activeConcept.curriculumUnits.join(', ')}*).`,
+    `### 1. Nguyên lý lý thuyết & Quy luật khoa học chi phối\n\n${activeConcept.summary}\n\n${principlesList}`,
+    `### 2. Phân tích sư phạm chuyên sâu đối với ${name} (${pFormula})\n\n${activeConcept.detailedExplanation.slice(0, 950)}...`,
+    `### 3. Phương trình phản ứng với trạng thái pha (s, l, g, aq) & Hiện tượng quan sát`,
+  ];
+
+  if (activeConcept.keyEquationsAndPhenomena && activeConcept.keyEquationsAndPhenomena.length > 0) {
+    const eqPedagogy = activeConcept.keyEquationsAndPhenomena
+      .slice(0, 2)
+      .map(
+        (eq) =>
+          `- **Phương trình phản ứng chuẩn mực**: \`${eq.equation}\`\n  *Điều kiện thực hiện*: ${eq.conditions}.\n  *Hiện tượng quan sát thực tế*: ${eq.observation}`,
+      )
+      .join('\n\n');
+    curriculumSection.push(eqPedagogy);
+  }
+
+  curriculumSection.push(
+    `### 4. Lưu ý sư phạm & Bẫy tư duy thường gặp trong các kỳ thi tuyển sinh\n\n${misconceptionsList}`,
+  );
+
+  sections.push(curriculumSection.join('\n\n'));
+
+  // ============================================================================
   // SECTION 3: SYNTHESIS, FORMATION & CHEMICAL TRANSFORMATIONS
   // ============================================================================
   const synthParagraphs = [style.synthHeading(name, pFormula)];
@@ -550,12 +774,18 @@ for (const [key, group] of groups) {
   if (element) {
     const prepLab = Array.isArray(detail?.preparations?.lab) && detail.preparations.lab.length
       ? detail.preparations.lab
-          .map((p) => `- **Điều chế trong phòng thí nghiệm**: ${clean(p.title)} ${p.equation ? `Phương trình phản ứng: \`${clean(p.equation)}\`.` : ''} ${clean(p.desc)}`)
+          .map(
+            (p) =>
+              `- **Điều chế trong phòng thí nghiệm**: ${clean(p.title)} ${p.equation ? `Phương trình phản ứng: \`${clean(p.equation)}\`.` : ''} ${clean(p.desc)}`,
+          )
           .join('\n')
       : `- **Phân lập trong phòng thí nghiệm**: Tùy thuộc vào độ hoạt động hóa học của ${name} (${formula}), các nhà hóa học sử dụng phương pháp khử nhiệt luyện, điện phân muối nóng chảy/dung dịch hoặc phân hủy hợp chất giàu nguyên tố này trong điều kiện kiểm soát nghiêm ngặt.`;
     const prepInd = Array.isArray(detail?.preparations?.industry) && detail.preparations.industry.length
       ? detail.preparations.industry
-          .map((p) => `- **Sản xuất quy mô công nghiệp**: ${clean(p.title)} ${p.equation ? `Phương trình chủ đạo: \`${clean(p.equation)}\`.` : ''} ${clean(p.desc)}`)
+          .map(
+            (p) =>
+              `- **Sản xuất quy mô công nghiệp**: ${clean(p.title)} ${p.equation ? `Phương trình chủ đạo: \`${clean(p.equation)}\`.` : ''} ${clean(p.desc)}`,
+          )
           .join('\n')
       : `- **Khai thác & Tinh chế công nghiệp**: Nguyên tố ${name} được tách chiết từ nguồn khoáng sản tự nhiên hoặc hỗn hợp khí tự nhiên thông qua các dây chuyền tuyển nổi, chưng cất phân đoạn hoặc tinh luyện điện hóa đạt độ tinh khiết 99,99%.`;
     const elemRxns = Array.isArray(detail?.reactions) && detail.reactions.length
@@ -583,11 +813,14 @@ for (const [key, group] of groups) {
       const roleLabel = isFormation
         ? `Con đường hình thành & điều chế #${idx + 1} (${r.topic_vi})`
         : `Con đường phản ứng & chuyển hóa #${idx + 1} (${r.topic_vi})`;
+      const deltaH = r.effects?.deltaH_kJ_per_mol
+        ? ` (Biến thiên Enthalpy chuẩn ΔrH°298 = ${r.effects.deltaH_kJ_per_mol} kJ/mol — ${r.effects.deltaH_kJ_per_mol < 0 ? 'Phản ứng tỏa nhiệt thuận lợi về mặt nhiệt động học' : 'Phản ứng thu nhiệt cần cấp nhiệt liên tục'})`
+        : '';
       synthParagraphs.push(
         `### ${roleLabel}\n\n` +
           `Phương trình hóa học cân bằng chuẩn xác:\n\n` +
           `\`${r.equation}\`\n\n` +
-          `- **Bản chất & Cơ chế phản ứng**: ${clean(r.explanation_vi || r.summary_vi || 'Phản ứng diễn ra theo quy luật bảo toàn nguyên tố và trao đổi liên kết hóa học.')}\n` +
+          `- **Bản chất & Cơ chế phản ứng**: ${clean(r.explanation_vi || r.summary_vi || 'Phản ứng diễn ra theo quy luật bảo toàn nguyên tố và trao đổi liên kết hóa học.')}${deltaH}\n` +
           `- **Điều kiện thực hiện**: ${clean(r.conditions?.description_vi || r.conditions_vi || 'Thực hiện ở điều kiện phòng thí nghiệm tiêu chuẩn.')}.\n` +
           `- **Hiện tượng quan sát thực nghiệm**: ${clean(r.observation_vi || r.phenomenon_vi || 'Các chất phản ứng chuyển hóa theo đúng tỷ lệ hệ số cân bằng.')}.\n` +
           `- **Phương trình ion rút gọn**: \`${clean(r.netIonic || r.equation)}\` (Trạng thái pha: \`${clean(r.phaseEquation || r.equation)}\`).`,
@@ -613,16 +846,12 @@ for (const [key, group] of groups) {
     );
   } else {
     appParagraphs.push(
-      `Trong dòng chảy của nền văn minh kỹ thuật và ứng dụng thực tiễn, **${name} (${pFormula})** giữ vai trò không thể thay thế trên nhiều phương diện đời sống:\n\n` +
-        `- **Trong y học, đời sống & sản xuất công nghiệp**: Tùy thuộc vào bản tính phản ứng và tính chất bề mặt của **${pFormula}**, chất này tham gia vào các chu trình xử lý môi trường, làm chất xúc tác chuyển hóa, sản xuất vật liệu tiên tiến hoặc làm nguyên liệu tổng hợp các chế phẩm có giá trị cao.\n` +
-        `- **Trong nghiên cứu học thuật & thực nghiệm phân tích**: Là nhân vật trung tâm trong các thí nghiệm chuẩn hóa, giúp các nhà nghiên cứu kiểm chứng cơ chế phản ứng và nhận diện sự hiện diện của các hợp chất đồng hành.\n` +
-        `- **Trong thế giới giáo dục trực quan**: Đóng vai trò là vật mẫu điển hình kết nối trực quan giữa công thức trên giấy và thực tế tại [Phòng thí nghiệm ChemDex](/lab-2d/) cùng [Không gian Cấu trúc 3D](${modelURL}).`,
+      `Trong dòng chảy của nền văn minh kỹ thuật và ứng dụng thực tiễn, **${name} (${pFormula})** giữ vai trò không thể thay thế trên nhiều phương diện: từ việc làm tiền chất trung gian trong các dây chuyền tổng hợp vật liệu mới, xúc tác cho các quá trình biến đổi sinh hóa cho đến việc hiện diện trong các sản phẩm tiêu dùng, y dược và phân tích môi trường hàng ngày.`,
     );
   }
 
   appParagraphs.push(
-    `### Câu chuyện lịch sử ứng dụng & Bài học kinh nghiệm thực hành\n\n` +
-      `Lịch sử ứng dụng của **${name} (${pFormula})** là một minh chứng sống động cho thấy sự am hiểu về bản chất chất hóa học có thể biến những vật chất thô sơ trong tự nhiên thành công cụ phục vụ đời sống con người. Trải qua hàng thế kỷ thực nghiệm — từ những phát hiện ngẫu nhiên trong xưởng nhuộm, mỏ quặng cho đến các dây chuyền tổng hợp hiện đại — bài học cốt lõi mà các thế hệ tiền bối để lại là luôn tôn trọng tính nết tự nhiên của chất: kiểm soát cẩn trọng nhiệt độ, môi trường tiếp xúc và trang bị đầy đủ phương tiện bảo hộ để phát huy tối đa giá trị hữu ích đồng thời ngăn ngừa mọi rủi ro tiềm ẩn trong thao tác.`,
+    `Về mặt an toàn thực nghiệm và xử lý hóa chất, việc nghiên cứu hay thao tác với **${name}** luôn đòi hỏi hiểu biết thấu đáo về tính chất lý hóa, nồng độ an toàn và trang bị bảo hộ đạt chuẩn quốc tế (kính bảo hộ, găng tay chuyên dụng và tủ hút khí độc đối với các phản ứng sinh nhiệt hoặc tỏa khí). Khi xảy ra sự cố tràn đổ hay rò rỉ, nguyên tắc trung hòa an toàn và thu gom đúng quy chuẩn hóa học luôn là bài học vỡ lòng cho bất kỳ nhà nghiên cứu nào bước chân vào phòng lab.`,
   );
 
   sections.push(appParagraphs.join('\n\n'));
@@ -644,12 +873,25 @@ for (const [key, group] of groups) {
       ? `Khi gặp dung môi nước, các phân tử nước phân cực tách các ion ra khỏi mạng lưới tinh thể, biến một chất rắn tĩnh lặng thành các hạt mang điện tự do có khả năng tham gia phản ứng trao đổi ngay lập tức.`
       : `Cấu trúc 3 chiều quyết định vị trí các nguyên tử lộ ra ngoài để tiếp xúc với thuốc thử; chính góc liên kết và sự che chắn không gian quyết định chất phản ứng dễ dàng hay trơ lỳ về mặt hóa học.`;
 
+  // GDPT Curated self-test item if available
+  let gdptQuestionBlock = '';
+  if (activeConcept.selfTestQuestions && activeConcept.selfTestQuestions.length > 0) {
+    const stq = activeConcept.selfTestQuestions[0];
+    const opts = stq.options.map((opt, i) => `   ${String.fromCharCode(65 + i)}. ${opt}`).join('\n');
+    gdptQuestionBlock =
+      `\n\n**3. Câu hỏi trắc nghiệm rèn luyện năng lực tư duy GDPT 2018**:\n\n` +
+      `*${stq.question}*\n\n` +
+      `${opts}\n\n` +
+      `- **Đáp án & Lời giải câu 3**: Chọn **${String.fromCharCode(65 + stq.answer)}**. ${stq.explanation}`;
+  }
+
   sections.push(
     `## Câu hỏi suy ngẫm & Tự kiểm tra kiến thức\n\n` +
-      `${q1}\n${q2}\n\n` +
+      `${q1}\n\n${q2}\n\n` +
       `<details><summary>Xem phân tích và lời giải chi tiết</summary>\n\n` +
-      `- **Giải đáp câu 1:** ${a1}\n` +
-      `- **Giải đáp câu 2:** ${a2}\n\n` +
+      `- **Giải đáp câu 1:** ${a1}\n\n` +
+      `- **Giải đáp câu 2:** ${a2}` +
+      `${gdptQuestionBlock}\n\n` +
       `</details>`,
   );
 
@@ -687,14 +929,14 @@ for (const [key, group] of groups) {
   sections.push(
     '## Nguồn tư liệu khoa học & Khám phá tiếp theo\n\n' +
       sourceLinks.map((a) => '- ' + a).join('\n') +
-      `\n\nBài báo chuyên khảo này thuộc hệ thống **Tạp chí Hóa Học Số ChemDex**, tổng hợp từ tư liệu lịch sử bách khoa trực tuyến, hồ sơ cấu trúc không gian 3 chiều và cơ sở dữ liệu phản ứng thực nghiệm, mang lại cái nhìn toàn diện về hành trình ra đời, cấu tạo vi mô và ứng dụng của **${name} (${pFormula})**.`,
+      `\n\nBài báo chuyên khảo này thuộc hệ thống **Tạp chí Hóa Học Số ChemDex**, tích hợp hồ sơ tiểu sử các nhà hóa học tiên phong, chuẩn mực kiến thức GDPT 2018 môn Hóa học THCS-THPT và cơ sở dữ liệu cấu trúc không gian 3 chiều tương tác, mang lại góc nhìn toàn diện về **${name} (${pFormula})**.`,
   );
 
   let fullContent = sections.join('\n\n');
   let wordCount = fullContent.trim().split(/\s+/).length;
 
-  // Guarantee >= 1,050 words for every single article!
-  if (wordCount < 1050) {
+  // Guarantee >= 1,100 words for every single article!
+  if (wordCount < 1100) {
     const extraHistoricalDeepDive =
       `## Góc nhìn chuyên sâu: Tiến trình lịch sử phân tích cấu tạo và chuẩn hóa danh pháp của ${name}\n\n` +
       `Nhìn lại lịch sử phát triển của ngành hóa học từ thế kỷ XVIII đến thế kỷ XXI, quá trình nhận diện một chất hóa học như **${name} (${pFormula})** luôn trải qua bốn giai đoạn khoa học rõ rệt. Ở giai đoạn thứ nhất — thời kỳ hóa học phôi thai và phân tích định tính — các nhà thực nghiệm dựa vào trạng thái vật lý, màu sắc ngọn lửa, mùi vị hoặc khả năng tạo kết tủa để phân biệt chất này với chất khác trong quặng mỏ và dung dịch tự nhiên. Bước sang giai đoạn thứ hai — cuộc cách mạng hóa học định lượng khởi xướng bởi **Antoine Lavoisier**, **Joseph Proust** (Định luật thành phần không đổi, 1799) và **John Dalton** (Thuyết nguyên tử, 1808) — giới khoa học bắt đầu sử dụng cân phân tích chính xác tới phần nghìn gam để đốt cháy, kết tủa và xác định tỷ lệ số nguyên tử tối giản, từ đó thiết lập nên công thức **${pFormula}** với sự đóng góp của ${massTerms.map((t) => `${t.count} nguyên tử ${t.symbol}`).join(', ')}.\n\n` +
@@ -704,7 +946,7 @@ for (const [key, group] of groups) {
     wordCount = fullContent.trim().split(/\s+/).length;
   }
 
-  if (wordCount < 1050) {
+  if (wordCount < 1100) {
     const extraLabProtocol =
       `## Kỹ thuật phân tích hiện đại, chuẩn an toàn và bảo quản ${name} trong thực nghiệm\n\n` +
       `Trong phòng thí nghiệm tiêu chuẩn quốc tế (ISO/GLP), việc làm việc với **${name} (${pFormula})** đòi hỏi sự kết hợp đồng bộ giữa kỹ thuật phân tích công cụ và quy trình an toàn hóa chất nghiêm ngặt. Để kiểm chứng độ tinh khiết và nhận diện cấu trúc của **${pFormula}**, các phòng thí nghiệm hiện đại sử dụng tổ hợp nhiều phương pháp vật lý – hóa học: phương pháp **quang phổ hấp thụ hoặc phát xạ nguyên tử (AAS / ICP-OES)** để định lượng chính xác tỷ lệ nguyên tố ${massTerms.map((t) => t.symbol).join(', ')}; phương pháp **nhiễu xạ tia X bột (XRD)** hoặc **quang phổ dao động (IR / Raman)** để đối chiếu khoảng cách liên kết và tần số dao động đặc trưng của các liên kết trong không gian 3 chiều.\n\n` +
@@ -784,6 +1026,33 @@ for (const [key, group] of groups) {
   for (const row of group) links[row.id] = id;
 }
 
+// Generate tailored SVG thumbnails for authored articles that used generic SVGs
+for (const a of authored) {
+  if (
+    a.image &&
+    a.image.startsWith('/assets/library/') &&
+    !a.image.includes('/thumbnails/') &&
+    a.chemicalFormula &&
+    a.chemicalFormula !== 'Hỗn hợp'
+  ) {
+    const rawFormula = a.chemicalFormula.replace(/[₀₁₂₃₄₅₆₇₈₉]/g, (c) => '0123456789'['₀₁₂₃₄₅₆₇₈₉'.indexOf(c)]);
+    const slug = a.slug ?? a.id;
+    const thumbSvg = generateArticleSvg({
+      slug,
+      formula: rawFormula,
+      prettyFormula: a.chemicalFormula,
+      name: a.title.split('(')[0].trim(),
+      element: byElement.get(rawFormula) ?? null,
+      ions: null,
+      subject: { formula: rawFormula, name_vi: a.title, family: 'inorganic' },
+      mass: null,
+    });
+    fs.writeFileSync(path.join(thumbnailDir, `${slug}.svg`), thumbSvg.trim() + '\n', 'utf8');
+    a.image = `/assets/library/thumbnails/${slug}.svg`;
+  }
+}
+fs.writeFileSync('trung-tam/src/data/index.json', JSON.stringify(authored, null, 2) + '\n');
+
 fs.writeFileSync(
   'trung-tam/src/data/reference-index.generated.json',
   JSON.stringify(generated, null, 2) + '\n',
@@ -795,10 +1064,11 @@ fs.writeFileSync(
 const routes = {};
 for (const doc of [...authored, ...generated])
   for (const alias of [doc.id, doc.slug ?? doc.id, ...(doc.legacyIds ?? [])]) {
-    if (routes[alias] && routes[alias] !== (doc.slug ?? doc.id)) throw new Error(`Ambiguous document alias: ${alias}`);
+    if (routes[alias] && routes[alias] !== (doc.slug ?? doc.id))
+      throw new Error(`Ambiguous document alias: ${alias}`);
     routes[alias] = doc.slug ?? doc.id;
   }
 fs.writeFileSync('shared/library-routes.generated.json', JSON.stringify(routes, null, 2) + '\n');
 console.log(
-  `Reference library: ${generated.length} unique 1000+ word articles; ${Object.keys(links).length} subject links.`,
+  `Reference library: ${generated.length} unique 1000+ word articles; ${Object.keys(links).length} subject links; custom thumbnails generated.`,
 );
