@@ -1,0 +1,1144 @@
+{
+  "schema": "chemdex.cod-crystals/1",
+  "date": "2026-11-12",
+  "structures": [
+    {
+      "id": "cod-2105348",
+      "codId": "2105348",
+      "referenceId": "cod:2105348",
+      "mineralName": "AgNO₃ · pha áp suất và nhiệt độ thường của nguồn",
+      "formula": "AgNO3",
+      "subjectIds": [
+        "chem-agno3",
+        "formula-AgNO3"
+      ],
+      "spaceGroup": "P 21 21 21",
+      "spaceGroupNumber": 19,
+      "cell": {
+        "a": 10.125,
+        "b": 7.335,
+        "c": 6.992,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 519.27399,
+      "siteCount": 40,
+      "mixedSiteCount": 0,
+      "conditions": {
+        "temperatureK": null,
+        "pressureKPa": null,
+        "hydrogenTreatment": null
+      },
+      "reference": {
+        "authors": [
+          "Meyer, P.",
+          "Rimsky, A.",
+          "Chevalier, R."
+        ],
+        "title": "Structure du nitrate d'argent a pression et temperature ordinaires.\n Exemple de cristal parfait",
+        "journal": "Acta Crystallographica B (24,1968-38,1982)",
+        "year": 1978.0,
+        "volume": "34",
+        "pages": "1457–1462",
+        "doi": "10.1107/S0567740878005907"
+      },
+      "source": "https://www.crystallography.net/cod/2105348.html",
+      "transport": "https://cod.psdi.ac.uk/cod/2105348.cif",
+      "transportSha256": "b12f992e372b696216bedae0f860f0f2b69f2890a8922e73053c79329848b3f6",
+      "evidence": "published-structure",
+      "note": "Tinh chỉnh riêng silver nitrate ở điều kiện thường, không dùng pha nhiệt độ cao hoặc pha không bền cùng danh mục.",
+      "limitations": "",
+      "coordinatePrecision": "Original CIF lexical precision and uncertainties are retained in the downloadable CIF.",
+      "data": "/assets/periodic-table/crystals/cod-2105348.json",
+      "cif": "/assets/periodic-table/crystals/cod-2105348.cif",
+      "model": "/assets/periodic-table/crystals/cod-2105348.glb",
+      "preview": "/assets/periodic-table/crystals/cod-2105348.png"
+    },
+    {
+      "id": "cod-2310631",
+      "codId": "2310631",
+      "referenceId": "cod:2310631",
+      "mineralName": "KMnO₄ · 120 K",
+      "formula": "KMnO4",
+      "subjectIds": [
+        "chem-kmno4",
+        "formula-KMnO4"
+      ],
+      "spaceGroup": "P n m a",
+      "spaceGroupNumber": 62,
+      "cell": {
+        "a": 9.0509,
+        "b": 5.6381,
+        "c": 7.3582,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 375.488057791678,
+      "siteCount": 24,
+      "mixedSiteCount": 0,
+      "conditions": {
+        "temperatureK": null,
+        "pressureKPa": null,
+        "hydrogenTreatment": null
+      },
+      "reference": {
+        "authors": [
+          "Marabello, D.",
+          "Bianchi, R.",
+          "Cargnoni, F.",
+          "Gervasio, G."
+        ],
+        "title": "An experimental (120 K) and theoretical electron-density study of KMnO₄\n and KClO₄",
+        "journal": "Acta Crystallographica Section A",
+        "year": 2004.0,
+        "volume": "60",
+        "pages": "494–501",
+        "doi": "10.1107/S0108767304015260"
+      },
+      "source": "https://www.crystallography.net/cod/2310631.html",
+      "transport": "https://cod.psdi.ac.uk/cod/2310631.cif",
+      "transportSha256": "6ee5a390904549ef6a5b27fe2be04f6eae008c42e865ef3f999faecfa0c1e1b0",
+      "evidence": "published-structure",
+      "note": "Cấu trúc thực nghiệm của nghiên cứu mật độ electron ở 120 K; không dùng cấu trúc KClO4 hoặc mẫu tính toán trong cùng công trình.",
+      "limitations": "",
+      "coordinatePrecision": "Original CIF lexical precision and uncertainties are retained in the downloadable CIF.",
+      "data": "/assets/periodic-table/crystals/cod-2310631.json",
+      "cif": "/assets/periodic-table/crystals/cod-2310631.cif",
+      "model": "/assets/periodic-table/crystals/cod-2310631.glb",
+      "preview": "/assets/periodic-table/crystals/cod-2310631.png"
+    },
+    {
+      "id": "cod-8104275",
+      "codId": "8104275",
+      "referenceId": "cod:8104275",
+      "mineralName": "NaOH khan · pha đơn tà",
+      "formula": "NaOH",
+      "subjectIds": [
+        "chem-naoh",
+        "formula-NaOH"
+      ],
+      "spaceGroup": "P 1 21/m 1",
+      "spaceGroupNumber": 11,
+      "cell": {
+        "a": 3.434,
+        "b": 3.428,
+        "c": 6.068,
+        "alpha": 90.0,
+        "beta": 109.83,
+        "gamma": 90.0
+      },
+      "volume": 67.19536745728949,
+      "siteCount": 6,
+      "mixedSiteCount": 0,
+      "conditions": {
+        "temperatureK": null,
+        "pressureKPa": null,
+        "hydrogenTreatment": null
+      },
+      "reference": {
+        "authors": [
+          "Stehr, H."
+        ],
+        "title": "Neubestimmung der Kristallstrukturen des dimorphen Natriumhydroxids, Na O\n H, bei verschiedenen Temperaturen mit Roentgenstrahl- und\n Neutronenbeugung",
+        "journal": "Zeitschrift fuer Kristallographie, Kristallgeometrie, Kristallphysik, \nKristallchemie (-144,1977)",
+        "year": 1967.0,
+        "volume": "125",
+        "pages": "332–359",
+        "doi": null
+      },
+      "source": "https://www.crystallography.net/cod/8104275.html",
+      "transport": "https://cod.psdi.ac.uk/cod/8104275.cif",
+      "transportSha256": "c602ad1d41f6eb320708cc46c8f98817825d280d98c3678f85a4c17cce70e76d",
+      "evidence": "published-structure",
+      "note": "Bản ghi đơn tà có đủ vị trí Na, O và H; loại bản trực thoi 8104274 thiếu tọa độ H. Không thay cho một mạng tinh thể của dung dịch NaOH.",
+      "limitations": "",
+      "coordinatePrecision": "Original CIF lexical precision and uncertainties are retained in the downloadable CIF.",
+      "data": "/assets/periodic-table/crystals/cod-8104275.json",
+      "cif": "/assets/periodic-table/crystals/cod-8104275.cif",
+      "model": "/assets/periodic-table/crystals/cod-8104275.glb",
+      "preview": "/assets/periodic-table/crystals/cod-8104275.png"
+    },
+    {
+      "id": "cod-1548811",
+      "codId": "1548811",
+      "referenceId": "cod:1548811",
+      "mineralName": "β-Ni(OH)₂ · 293 K",
+      "formula": "NiO2H2",
+      "subjectIds": [
+        "formula-Ni(OH)2"
+      ],
+      "spaceGroup": "P -3 m 1",
+      "spaceGroupNumber": 164,
+      "cell": {
+        "a": 3.1268,
+        "b": 3.1268,
+        "c": 4.606,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 38.99911680707083,
+      "siteCount": 5,
+      "mixedSiteCount": 0,
+      "conditions": {
+        "temperatureK": "293.",
+        "pressureKPa": null,
+        "hydrogenTreatment": null
+      },
+      "reference": {
+        "authors": [
+          "Zhao, Qing",
+          "Kulik, Heather J."
+        ],
+        "title": "Where Does the Density Localize in the Solid State? Divergent Behavior\n for Hybrids and DFT+U",
+        "journal": "Journal of Chemical Theory and Computation",
+        "year": 2018.0,
+        "volume": "14",
+        "pages": "670–683",
+        "doi": "10.1021/acs.jctc.7b01061"
+      },
+      "source": "https://www.crystallography.net/cod/1548811.html",
+      "transport": "https://cod.psdi.ac.uk/cod/1548811.cif",
+      "transportSha256": "a2d8c277020b79b9b734c642e2d80f8064fe0c1993baafceed83ef193a53e453",
+      "evidence": "published-structure",
+      "note": "Dữ liệu cấu trúc 293 K dẫn lại nghiên cứu Atomic structure and lattice dynamics of Ni and Mg hydroxides (2010), có đầy đủ H; phân biệt với phép tính DFT trong bài dẫn nguồn năm 2018.",
+      "limitations": "",
+      "coordinatePrecision": "Original CIF lexical precision and uncertainties are retained in the downloadable CIF.",
+      "data": "/assets/periodic-table/crystals/cod-1548811.json",
+      "cif": "/assets/periodic-table/crystals/cod-1548811.cif",
+      "model": "/assets/periodic-table/crystals/cod-1548811.glb",
+      "preview": "/assets/periodic-table/crystals/cod-1548811.png"
+    },
+    {
+      "id": "cod-2020897",
+      "codId": "2020897",
+      "referenceId": "cod:2020897",
+      "mineralName": "Pb(NO₃)₂",
+      "formula": "PbN2O6",
+      "subjectIds": [
+        "chem-pbno32"
+      ],
+      "spaceGroup": "P a -3",
+      "spaceGroupNumber": 205,
+      "cell": {
+        "a": 7.8586,
+        "b": 7.8586,
+        "c": 7.8586,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 485.328227894056,
+      "siteCount": 36,
+      "mixedSiteCount": 0,
+      "conditions": {
+        "temperatureK": null,
+        "pressureKPa": null,
+        "hydrogenTreatment": null
+      },
+      "reference": {
+        "authors": [
+          "Nowotny, H.",
+          "Heger, G."
+        ],
+        "title": "Structure refinement of lead nitrate",
+        "journal": "Acta Crystallographica, Section C: Crystal Structure Communications",
+        "year": 1986.0,
+        "volume": "42",
+        "pages": "133–135",
+        "doi": "10.1107/s0108270186097032"
+      },
+      "source": "https://www.crystallography.net/cod/2020897.html",
+      "transport": "https://cod.psdi.ac.uk/cod/2020897.cif",
+      "transportSha256": "eebc1e50a8da5670c69cdcdc2e405ffccadd5b559b046232fadbb267f7e9e54c",
+      "evidence": "published-structure",
+      "note": "Tinh chỉnh lead nitrate; không dùng một nitrate khác có cùng kiểu mạng.",
+      "limitations": "",
+      "coordinatePrecision": "Original CIF lexical precision and uncertainties are retained in the downloadable CIF.",
+      "data": "/assets/periodic-table/crystals/cod-2020897.json",
+      "cif": "/assets/periodic-table/crystals/cod-2020897.cif",
+      "model": "/assets/periodic-table/crystals/cod-2020897.glb",
+      "preview": "/assets/periodic-table/crystals/cod-2020897.png"
+    },
+    {
+      "id": "cod-1542184",
+      "codId": "1542184",
+      "referenceId": "cod:1542184",
+      "mineralName": "α-Cu(NO₃)₂ khan",
+      "formula": "CuN2O6",
+      "subjectIds": [
+        "chem-cuno32"
+      ],
+      "spaceGroup": "P m n 21",
+      "spaceGroupNumber": 31,
+      "cell": {
+        "a": 11.12,
+        "b": 5.05,
+        "c": 8.28,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 464.9716799999999,
+      "siteCount": 36,
+      "mixedSiteCount": 0,
+      "conditions": {
+        "temperatureK": null,
+        "pressureKPa": null,
+        "hydrogenTreatment": null
+      },
+      "reference": {
+        "authors": [
+          "Wallwork, S.C.",
+          "Addison, W.E."
+        ],
+        "title": "The Crystal Structures of Anhydrous Nitrates and Their Complexes. Part I.\n The alpha Form of Copper(II) Nitrate",
+        "journal": "Journal of the Chemical Society",
+        "year": 1965.0,
+        "volume": "1965",
+        "pages": "2925–2933",
+        "doi": null
+      },
+      "source": "https://www.crystallography.net/cod/1542184.html",
+      "transport": "https://cod.psdi.ac.uk/cod/1542184.cif",
+      "transportSha256": "7663154c09253dbdc24a30ead8f822ffba1e34c532b78be3c58130f3eaed45ce",
+      "evidence": "published-structure",
+      "note": "Bản alpha copper(II) nitrate khan; không thay cho nitrate ngậm nước hay dung dịch.",
+      "limitations": "",
+      "coordinatePrecision": "Original CIF lexical precision and uncertainties are retained in the downloadable CIF.",
+      "data": "/assets/periodic-table/crystals/cod-1542184.json",
+      "cif": "/assets/periodic-table/crystals/cod-1542184.cif",
+      "model": "/assets/periodic-table/crystals/cod-1542184.glb",
+      "preview": "/assets/periodic-table/crystals/cod-1542184.png"
+    },
+    {
+      "id": "cod-1535669",
+      "codId": "1535669",
+      "referenceId": "cod:1535669",
+      "mineralName": "AlCl₃ khan",
+      "formula": "AlCl3",
+      "subjectIds": [
+        "chem-alcl3"
+      ],
+      "spaceGroup": "C 1 2/m 1",
+      "spaceGroupNumber": 12,
+      "cell": {
+        "a": 5.914,
+        "b": 10.234,
+        "c": 6.148,
+        "alpha": 90.0,
+        "beta": 108.25,
+        "gamma": 90.0
+      },
+      "volume": 353.38379478773396,
+      "siteCount": 16,
+      "mixedSiteCount": 0,
+      "conditions": {
+        "temperatureK": null,
+        "pressureKPa": null,
+        "hydrogenTreatment": null
+      },
+      "reference": {
+        "authors": [
+          "Troyanov, S.I."
+        ],
+        "title": "Crystal structure of titanium(II) chloroaluminates Ti (Al Cl4)2 and\n refinement of Al Cl3 crystal structure.",
+        "journal": "Zhurnal Neorganicheskoi Khimii",
+        "year": 1992.0,
+        "volume": "37",
+        "pages": "266–272",
+        "doi": null
+      },
+      "source": "https://www.crystallography.net/cod/1535669.html",
+      "transport": "https://cod.psdi.ac.uk/cod/1535669.cif",
+      "transportSha256": "5e09d39453c4cfe28272041c28fcdee5989140e394f587f605f78df26f6b1dcd",
+      "evidence": "published-structure",
+      "note": "Tinh chỉnh riêng AlCl3 trong công trình chloroaluminate; không lấy cấu trúc Ti(AlCl4)2 cùng bài.",
+      "limitations": "",
+      "coordinatePrecision": "Original CIF lexical precision and uncertainties are retained in the downloadable CIF.",
+      "data": "/assets/periodic-table/crystals/cod-1535669.json",
+      "cif": "/assets/periodic-table/crystals/cod-1535669.cif",
+      "model": "/assets/periodic-table/crystals/cod-1535669.glb",
+      "preview": "/assets/periodic-table/crystals/cod-1535669.png"
+    },
+    {
+      "id": "cod-1535698",
+      "codId": "1535698",
+      "referenceId": "cod:1535698",
+      "mineralName": "AlBr₃ khan",
+      "formula": "AlBr3",
+      "subjectIds": [
+        "formula-AlBr3"
+      ],
+      "spaceGroup": "P 1 21/c 1",
+      "spaceGroupNumber": 14,
+      "cell": {
+        "a": 7.503,
+        "b": 7.073,
+        "c": 10.273,
+        "alpha": 90.0,
+        "beta": 96.39,
+        "gamma": 90.0
+      },
+      "volume": 541.7879740514057,
+      "siteCount": 16,
+      "mixedSiteCount": 0,
+      "conditions": {
+        "temperatureK": null,
+        "pressureKPa": null,
+        "hydrogenTreatment": null
+      },
+      "reference": {
+        "authors": [
+          "Troyanov, S.I."
+        ],
+        "title": "Crystal structure of aluminium tribromide and triiodide",
+        "journal": "Zhurnal Neorganicheskoi Khimii",
+        "year": 1994.0,
+        "volume": "39",
+        "pages": "552–555",
+        "doi": null
+      },
+      "source": "https://www.crystallography.net/cod/1535698.html",
+      "transport": "https://cod.psdi.ac.uk/cod/1535698.cif",
+      "transportSha256": "9b5099937e4c515a4f4d911f73271d1d8c4c14f038d4d3cc22d684555386495f",
+      "evidence": "published-structure",
+      "note": "Giữ cách xếp các đơn vị aluminium bromide theo nguồn, không dựng một phân tử AlBr3 tam giác giả làm tinh thể.",
+      "limitations": "",
+      "coordinatePrecision": "Original CIF lexical precision and uncertainties are retained in the downloadable CIF.",
+      "data": "/assets/periodic-table/crystals/cod-1535698.json",
+      "cif": "/assets/periodic-table/crystals/cod-1535698.cif",
+      "model": "/assets/periodic-table/crystals/cod-1535698.glb",
+      "preview": "/assets/periodic-table/crystals/cod-1535698.png"
+    },
+    {
+      "id": "cod-8104000",
+      "codId": "8104000",
+      "referenceId": "cod:8104000",
+      "mineralName": "AlI₃ khan",
+      "formula": "AlI3",
+      "subjectIds": [
+        "formula-AlI3"
+      ],
+      "spaceGroup": "P 1 21/c 1",
+      "spaceGroupNumber": 14,
+      "cell": {
+        "a": 9.591,
+        "b": 6.069,
+        "c": 11.902,
+        "alpha": 90.0,
+        "beta": 108.05,
+        "gamma": 90.0
+      },
+      "volume": 658.694405209189,
+      "siteCount": 16,
+      "mixedSiteCount": 0,
+      "conditions": {
+        "temperatureK": null,
+        "pressureKPa": null,
+        "hydrogenTreatment": null
+      },
+      "reference": {
+        "authors": [
+          "Troyanov, S.I.",
+          "Krahl, T.",
+          "Kemnitz, E."
+        ],
+        "title": "Crystal structures of Ga X3 (X= Cl, Br, I) and Al I3",
+        "journal": "Zeitschrift fuer Kristallographie (149,1979-)",
+        "year": 2004.0,
+        "volume": "219",
+        "pages": "88–92",
+        "doi": null
+      },
+      "source": "https://www.crystallography.net/cod/8104000.html",
+      "transport": "https://cod.psdi.ac.uk/cod/8104000.cif",
+      "transportSha256": "4896c307a006b6c883d340648664dd85889911ce74d974f7bc8353e2fbc0cf22",
+      "evidence": "published-structure",
+      "note": "Bản ghi AlI3 riêng trong công trình về GaX3/AlI3; không dùng tọa độ gallium halide.",
+      "limitations": "",
+      "coordinatePrecision": "Original CIF lexical precision and uncertainties are retained in the downloadable CIF.",
+      "data": "/assets/periodic-table/crystals/cod-8104000.json",
+      "cif": "/assets/periodic-table/crystals/cod-8104000.cif",
+      "model": "/assets/periodic-table/crystals/cod-8104000.glb",
+      "preview": "/assets/periodic-table/crystals/cod-8104000.png"
+    },
+    {
+      "id": "cod-2310480",
+      "codId": "2310480",
+      "referenceId": "cod:2310480",
+      "mineralName": "Na₂S₂O₃ khan",
+      "formula": "Na2S2O3",
+      "subjectIds": [
+        "chem-na2s2o3"
+      ],
+      "spaceGroup": "P 1 21/a 1",
+      "spaceGroupNumber": 14,
+      "cell": {
+        "a": 6.5,
+        "b": 8.12,
+        "c": 8.52,
+        "alpha": 90.0,
+        "beta": 95.07,
+        "gamma": 90.0
+      },
+      "volume": 447.92619331655015,
+      "siteCount": 28,
+      "mixedSiteCount": 0,
+      "conditions": {
+        "temperatureK": null,
+        "pressureKPa": null,
+        "hydrogenTreatment": null
+      },
+      "reference": {
+        "authors": [
+          "Sandor, E.",
+          "Csordas, L."
+        ],
+        "title": "The crystal structure of anhydrous sodium thiosulphate",
+        "journal": "Acta Crystallographica (1,1948-23,1967)",
+        "year": 1961.0,
+        "volume": "14",
+        "pages": "237–243",
+        "doi": null
+      },
+      "source": "https://www.crystallography.net/cod/2310480.html",
+      "transport": "https://cod.psdi.ac.uk/cod/2310480.cif",
+      "transportSha256": "dd6e4446aec7a463cf7a250f50a88e98318c3d7e89d68b0b8c842d6c995b9e69",
+      "evidence": "published-structure",
+      "note": "Pha anhydrous sodium thiosulfate; không thay cho pentahydrate hoặc dung dịch.",
+      "limitations": "",
+      "coordinatePrecision": "Original CIF lexical precision and uncertainties are retained in the downloadable CIF.",
+      "data": "/assets/periodic-table/crystals/cod-2310480.json",
+      "cif": "/assets/periodic-table/crystals/cod-2310480.cif",
+      "model": "/assets/periodic-table/crystals/cod-2310480.glb",
+      "preview": "/assets/periodic-table/crystals/cod-2310480.png"
+    },
+    {
+      "id": "cod-1008189",
+      "codId": "1008189",
+      "referenceId": "cod:1008189",
+      "mineralName": "H₂O₂ rắn · dữ liệu neutron",
+      "formula": "H2O2",
+      "subjectIds": [
+        "cid-784"
+      ],
+      "spaceGroup": "P 41 21 2",
+      "spaceGroupNumber": 92,
+      "cell": {
+        "a": 4.06,
+        "b": 4.06,
+        "c": 8.0,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 131.86879999999996,
+      "siteCount": 16,
+      "mixedSiteCount": 0,
+      "conditions": {
+        "temperatureK": null,
+        "pressureKPa": null,
+        "hydrogenTreatment": null
+      },
+      "reference": {
+        "authors": [
+          "Busing, William R.",
+          "Levy, Henri A."
+        ],
+        "title": "Crystal and molecular structure of hydrogen peroxide: a neutron-diffraction\n study",
+        "journal": "Journal of Chemical Physics",
+        "year": 1965.0,
+        "volume": "42",
+        "pages": "3054–3059",
+        "doi": "10.1063/1.1696379"
+      },
+      "source": "https://www.crystallography.net/cod/1008189.html",
+      "transport": "https://cod.psdi.ac.uk/cod/1008189.cif",
+      "transportSha256": "3b271e89a44f6e73b3a3e4c0d50746117d6035860ae013234bc8512c428aff26",
+      "evidence": "published-structure",
+      "note": "Cấu trúc phân tử và tinh thể hydrogen peroxide từ nhiễu xạ neutron; không rút gọn công thức HO rồi gán cho ion hydroxide.",
+      "limitations": "",
+      "coordinatePrecision": "Original CIF lexical precision and uncertainties are retained in the downloadable CIF.",
+      "data": "/assets/periodic-table/crystals/cod-1008189.json",
+      "cif": "/assets/periodic-table/crystals/cod-1008189.cif",
+      "model": "/assets/periodic-table/crystals/cod-1008189.glb",
+      "preview": "/assets/periodic-table/crystals/cod-1008189.png"
+    },
+    {
+      "id": "cod-7238223",
+      "codId": "7238223",
+      "referenceId": "cod:7238223",
+      "mineralName": "Benzen rắn · 150 K",
+      "formula": "C6H6",
+      "subjectIds": [
+        "cid-241"
+      ],
+      "spaceGroup": "P b c a",
+      "spaceGroupNumber": 61,
+      "cell": {
+        "a": 6.914,
+        "b": 7.476,
+        "c": 9.563,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 494.30251903199996,
+      "siteCount": 48,
+      "mixedSiteCount": 0,
+      "conditions": {
+        "temperatureK": "150(2)",
+        "pressureKPa": null,
+        "hydrogenTreatment": "geom"
+      },
+      "reference": {
+        "authors": [
+          "Nayak, Susanta K.",
+          "Sathishkumar, Ranganathan",
+          "Row, T. N. Guru"
+        ],
+        "title": "Directing role of functional groups in selective generation of\n C--H⋯π interactions: In situ cryo-crystallographic studies on\n benzyl derivatives",
+        "journal": "CrystEngComm",
+        "year": 2010.0,
+        "volume": "12",
+        "pages": "3112",
+        "doi": "10.1039/c001190h"
+      },
+      "source": "https://www.crystallography.net/cod/7238223.html",
+      "transport": "https://cod.psdi.ac.uk/cod/7238223.cif",
+      "transportSha256": "1e0e06a6f0e4e73cfd95c612bb667ca6cba756c22619299f9790f7f082d0c3fa",
+      "evidence": "published-structure",
+      "note": "Mẫu benzen ở 150 K, không dùng mẫu benzen đông bằng áp suất ở 296 K. Tọa độ H được dựng theo hình học trong phép tinh chỉnh của nguồn.",
+      "limitations": "",
+      "coordinatePrecision": "Original CIF lexical precision and uncertainties are retained in the downloadable CIF.",
+      "data": "/assets/periodic-table/crystals/cod-7238223.json",
+      "cif": "/assets/periodic-table/crystals/cod-7238223.cif",
+      "model": "/assets/periodic-table/crystals/cod-7238223.glb",
+      "preview": "/assets/periodic-table/crystals/cod-7238223.png"
+    },
+    {
+      "id": "cod-5910115",
+      "codId": "5910115",
+      "referenceId": "cod:5910115",
+      "mineralName": "Ethanol rắn · 87 K",
+      "formula": "C2H6O",
+      "subjectIds": [
+        "cid-702"
+      ],
+      "spaceGroup": "P 1 c 1",
+      "spaceGroupNumber": 7,
+      "cell": {
+        "a": 5.377,
+        "b": 6.882,
+        "c": 8.255,
+        "alpha": 90.0,
+        "beta": 102.2,
+        "gamma": 90.0
+      },
+      "volume": 298.5734451881616,
+      "siteCount": 36,
+      "mixedSiteCount": 0,
+      "conditions": {
+        "temperatureK": "87",
+        "pressureKPa": null,
+        "hydrogenTreatment": null
+      },
+      "reference": {
+        "authors": [
+          "P.-G. Jönsson"
+        ],
+        "title": "Hydrogen bond studies. CXIII. The crystal structure of ethanol at 87 K",
+        "journal": "Acta Crystallogr.,Sect.B:Struct.Crystallogr.Cryst.Chem.",
+        "year": 1976.0,
+        "volume": "32",
+        "pages": "232–235",
+        "doi": "10.1107/S0567740876002653"
+      },
+      "source": "https://www.crystallography.net/cod/5910115.html",
+      "transport": "https://cod.psdi.ac.uk/cod/5910115.cif",
+      "transportSha256": "52aa043390ce20714b9f720c5ec2ee40f6b63ae6a15d2bcdfcd7740912ad34a7",
+      "evidence": "published-structure",
+      "note": "Cấu trúc ethanol ở 87 K; không ghép các tinh thể dimethyl ether cùng công thức C2H6O.",
+      "limitations": "",
+      "coordinatePrecision": "Original CIF lexical precision and uncertainties are retained in the downloadable CIF.",
+      "data": "/assets/periodic-table/crystals/cod-5910115.json",
+      "cif": "/assets/periodic-table/crystals/cod-5910115.cif",
+      "model": "/assets/periodic-table/crystals/cod-5910115.glb",
+      "preview": "/assets/periodic-table/crystals/cod-5910115.png"
+    },
+    {
+      "id": "cod-4503066",
+      "codId": "4503066",
+      "referenceId": "cod:4503066",
+      "mineralName": "Methanol rắn · 122 K",
+      "formula": "CH4O",
+      "subjectIds": [
+        "cid-887"
+      ],
+      "spaceGroup": "P 21 21 21",
+      "spaceGroupNumber": 19,
+      "cell": {
+        "a": 4.6469,
+        "b": 4.9285,
+        "c": 9.0403,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 207.04318038999497,
+      "siteCount": 24,
+      "mixedSiteCount": 0,
+      "conditions": {
+        "temperatureK": "122(2)",
+        "pressureKPa": null,
+        "hydrogenTreatment": "geom"
+      },
+      "reference": {
+        "authors": [
+          "Kirchner, Michael T.",
+          "Das, Dinabandhu",
+          "Boese, Roland"
+        ],
+        "title": "Cocrystallization with Acetylene: Molecular Complex with Methanol",
+        "journal": "Crystal Growth & Design",
+        "year": 2008.0,
+        "volume": "8",
+        "pages": "763",
+        "doi": "10.1021/cg0701877"
+      },
+      "source": "https://www.crystallography.net/cod/4503066.html",
+      "transport": "https://cod.psdi.ac.uk/cod/4503066.cif",
+      "transportSha256": "32cf5c752dea004f25e971f7e466942972e942f9e84764f2323f734460d470a8",
+      "evidence": "published-structure",
+      "note": "Bản methanol tinh khiết 122 K trong công trình có cả co-crystal acetylene; không dùng bản co-crystal. H theo xử lý hình học của nguồn.",
+      "limitations": "",
+      "coordinatePrecision": "Original CIF lexical precision and uncertainties are retained in the downloadable CIF.",
+      "data": "/assets/periodic-table/crystals/cod-4503066.json",
+      "cif": "/assets/periodic-table/crystals/cod-4503066.cif",
+      "model": "/assets/periodic-table/crystals/cod-4503066.glb",
+      "preview": "/assets/periodic-table/crystals/cod-4503066.png"
+    },
+    {
+      "id": "cod-7110463",
+      "codId": "7110463",
+      "referenceId": "cod:7110463",
+      "mineralName": "Acetone rắn · 160 K",
+      "formula": "C3H6O",
+      "subjectIds": [
+        "cid-180"
+      ],
+      "spaceGroup": "C m c m",
+      "spaceGroupNumber": 63,
+      "cell": {
+        "a": 6.514,
+        "b": 5.4159,
+        "c": 10.756,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 379.46278048560004,
+      "siteCount": 40,
+      "mixedSiteCount": 0,
+      "conditions": {
+        "temperatureK": "160(2)",
+        "pressureKPa": null,
+        "hydrogenTreatment": "difmap"
+      },
+      "reference": {
+        "authors": [
+          "Allan, David R.",
+          "Clark, Stewart J.",
+          "Ibberson, Richard M.",
+          "Parsons, Simon",
+          "Pulham, Colin R.",
+          "Sawyer, Lindsay"
+        ],
+        "title": "The influence of pressure and temperature on the crystal structure of\n acetone",
+        "journal": "Chemical Communications",
+        "year": 1999.0,
+        "volume": null,
+        "pages": "751",
+        "doi": "10.1039/a900558g"
+      },
+      "source": "https://www.crystallography.net/cod/7110463.html",
+      "transport": "https://cod.psdi.ac.uk/cod/7110463.cif",
+      "transportSha256": "b100e2b96d1e91649adeb3fd629c1a01019b841592fdd4ab0ec2be79b05990bb",
+      "evidence": "published-structure",
+      "note": "Mẫu acetone ở 160 K; không dùng propanal cùng công thức hay mẫu acetone đo áp suất cao.",
+      "limitations": "",
+      "coordinatePrecision": "Original CIF lexical precision and uncertainties are retained in the downloadable CIF.",
+      "data": "/assets/periodic-table/crystals/cod-7110463.json",
+      "cif": "/assets/periodic-table/crystals/cod-7110463.cif",
+      "model": "/assets/periodic-table/crystals/cod-7110463.glb",
+      "preview": "/assets/periodic-table/crystals/cod-7110463.png"
+    },
+    {
+      "id": "cod-2008187",
+      "codId": "2008187",
+      "referenceId": "cod:2008187",
+      "mineralName": "Acid acetic rắn · 40 K",
+      "formula": "C2H4O2",
+      "subjectIds": [
+        "cid-176"
+      ],
+      "spaceGroup": "P n a 21",
+      "spaceGroupNumber": 33,
+      "cell": {
+        "a": 13.151,
+        "b": 3.923,
+        "c": 5.762,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 297.26949122599996,
+      "siteCount": 32,
+      "mixedSiteCount": 0,
+      "conditions": {
+        "temperatureK": "40(2)",
+        "pressureKPa": null,
+        "hydrogenTreatment": "refall"
+      },
+      "reference": {
+        "authors": [
+          "Boese, Roland",
+          "Bläser, Dieter",
+          "Latz, Rüdiger",
+          "Bäumen, Anja"
+        ],
+        "title": "Acetic acid at 40K",
+        "journal": "Acta Crystallographica Section C",
+        "year": 1999.0,
+        "volume": "55",
+        "pages": "IUC9900001",
+        "doi": "10.1107/S0108270199099862"
+      },
+      "source": "https://www.crystallography.net/cod/2008187.html",
+      "transport": "https://cod.psdi.ac.uk/cod/2008187.cif",
+      "transportSha256": "8f5b56484451a9be8db2508010829b5aa6e1db196ca1e3b1941e39a858b519a8",
+      "evidence": "published-structure",
+      "note": "Cấu trúc acid acetic ở 40 K có tinh chỉnh H; không gán pha rắn lạnh này cho acid acetic lỏng ở điều kiện phòng.",
+      "limitations": "",
+      "coordinatePrecision": "Original CIF lexical precision and uncertainties are retained in the downloadable CIF.",
+      "data": "/assets/periodic-table/crystals/cod-2008187.json",
+      "cif": "/assets/periodic-table/crystals/cod-2008187.cif",
+      "model": "/assets/periodic-table/crystals/cod-2008187.glb",
+      "preview": "/assets/periodic-table/crystals/cod-2008187.png"
+    },
+    {
+      "id": "cod-7050902",
+      "codId": "7050902",
+      "referenceId": "cod:7050902",
+      "mineralName": "Aspirin · 300 K · neutron",
+      "formula": "C9H8O4",
+      "subjectIds": [
+        "cid-2244"
+      ],
+      "spaceGroup": "P 1 21/c 1",
+      "spaceGroupNumber": 14,
+      "cell": {
+        "a": 11.416,
+        "b": 6.598,
+        "c": 11.483,
+        "alpha": 90.0,
+        "beta": 95.6,
+        "gamma": 90.0
+      },
+      "volume": 860.8033735914055,
+      "siteCount": 84,
+      "mixedSiteCount": 0,
+      "conditions": {
+        "temperatureK": "300(1)",
+        "pressureKPa": null,
+        "hydrogenTreatment": null
+      },
+      "reference": {
+        "authors": [
+          "Chick Wilson"
+        ],
+        "title": "Interesting proton behaviour in molecular\nstructures.  Variable temperature neutron diffraction and ab initio\nstudy of acetylsalicylic acid: characterising librational motions and\ncomparing protons in different hydrogen bonding potentials",
+        "journal": "New Journal of Chemistry",
+        "year": 2002.0,
+        "volume": "26",
+        "pages": "1733–1739",
+        "doi": "10.1039/b203775k"
+      },
+      "source": "https://www.crystallography.net/cod/7050902.html",
+      "transport": "https://cod.psdi.ac.uk/cod/7050902.cif",
+      "transportSha256": "ca3e57286ba93d79602e660d4806330e133cfb678f4cfbd9c38aae3fd162fcee",
+      "evidence": "published-structure",
+      "note": "Mẫu acetylsalicylic acid ở 300 K trong chuỗi nhiễu xạ neutron theo nhiệt độ; không dùng đồng phân methyl terephthalate cùng công thức.",
+      "limitations": "",
+      "coordinatePrecision": "Original CIF lexical precision and uncertainties are retained in the downloadable CIF.",
+      "data": "/assets/periodic-table/crystals/cod-7050902.json",
+      "cif": "/assets/periodic-table/crystals/cod-7050902.cif",
+      "model": "/assets/periodic-table/crystals/cod-7050902.glb",
+      "preview": "/assets/periodic-table/crystals/cod-7050902.png"
+    },
+    {
+      "id": "cod-4504310",
+      "codId": "4504310",
+      "referenceId": "cod:4504310",
+      "mineralName": "Caffeine khan · 100 K · bản ghi 4504310",
+      "formula": "C8H10N4O2",
+      "subjectIds": [
+        "cid-2519"
+      ],
+      "spaceGroup": "C 1 2/c 1",
+      "spaceGroupNumber": 15,
+      "cell": {
+        "a": 42.521,
+        "b": 14.948,
+        "c": 6.7923,
+        "alpha": 90.0,
+        "beta": 97.825,
+        "gamma": 90.0
+      },
+      "volume": 4277.012826327253,
+      "siteCount": 768,
+      "mixedSiteCount": 0,
+      "conditions": {
+        "temperatureK": "100(1)",
+        "pressureKPa": null,
+        "hydrogenTreatment": "geom"
+      },
+      "reference": {
+        "authors": [
+          "Enright, Gary D.",
+          "Terskikh, Victor V.",
+          "Brouwer, Darren H.",
+          "Ripmeester, John A."
+        ],
+        "title": "The Structure of Two Anhydrous Polymorphs of Caffeine from Single-Crystal\n Diffraction and Ultrahigh-Field Solid-State13C NMR Spectroscopy",
+        "journal": "Crystal Growth & Design",
+        "year": 2007.0,
+        "volume": "7",
+        "pages": "1406",
+        "doi": "10.1021/cg070291o"
+      },
+      "source": "https://www.crystallography.net/cod/4504310.html",
+      "transport": "https://cod.psdi.ac.uk/cod/4504310.cif",
+      "transportSha256": "e5186d88f7ab3f1cb1c1845f6d5ab3821df7fdc2e93759f32ada45592053085c",
+      "evidence": "published-structure",
+      "note": "Giữ các vị trí bất trật tự và occupancy của mẫu 100 K. Các vị trí bán phần biểu diễn cấu trúc trung bình, không phải tất cả nguyên tử cùng có mặt. H theo hình học nguồn.",
+      "limitations": "",
+      "coordinatePrecision": "Original CIF lexical precision and uncertainties are retained in the downloadable CIF.",
+      "data": "/assets/periodic-table/crystals/cod-4504310.json",
+      "cif": "/assets/periodic-table/crystals/cod-4504310.cif",
+      "model": "/assets/periodic-table/crystals/cod-4504310.glb",
+      "preview": "/assets/periodic-table/crystals/cod-4504310.png"
+    },
+    {
+      "id": "cod-5000067",
+      "codId": "5000067",
+      "referenceId": "cod:5000067",
+      "mineralName": "α-D-Glucose · neutron",
+      "formula": "C6H12O6",
+      "subjectIds": [
+        "cid-5793"
+      ],
+      "spaceGroup": "P 21 21 21",
+      "spaceGroupNumber": 19,
+      "cell": {
+        "a": 10.36,
+        "b": 14.84,
+        "c": 4.97,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 764.099728,
+      "siteCount": 96,
+      "mixedSiteCount": 0,
+      "conditions": {
+        "temperatureK": null,
+        "pressureKPa": null,
+        "hydrogenTreatment": null
+      },
+      "reference": {
+        "authors": [
+          "Brown, G. M.",
+          "Levy, H. A."
+        ],
+        "title": "α-D-Glucose: Precise Determination of Crystal and Molecular Structure\n by Neutron-Diffraction Analysis",
+        "journal": "Science",
+        "year": 1965.0,
+        "volume": "147",
+        "pages": "1038–1039",
+        "doi": "10.1126/science.147.3661.1038-a"
+      },
+      "source": "https://www.crystallography.net/cod/5000067.html",
+      "transport": "https://cod.psdi.ac.uk/cod/5000067.cif",
+      "transportSha256": "dd7317c317a006ce72ef91dfd4730c6c79afb0a3bd18aa4dcebc3cda2fa0bb33",
+      "evidence": "published-structure",
+      "note": "Cấu trúc alpha-D-glucose từ nhiễu xạ neutron; không dùng chung tinh thể với fructose hoặc inositol cùng công thức.",
+      "limitations": "",
+      "coordinatePrecision": "Original CIF lexical precision and uncertainties are retained in the downloadable CIF.",
+      "data": "/assets/periodic-table/crystals/cod-5000067.json",
+      "cif": "/assets/periodic-table/crystals/cod-5000067.cif",
+      "model": "/assets/periodic-table/crystals/cod-5000067.glb",
+      "preview": "/assets/periodic-table/crystals/cod-5000067.png"
+    },
+    {
+      "id": "cod-5000065",
+      "codId": "5000065",
+      "referenceId": "cod:5000065",
+      "mineralName": "β-D-Fructose",
+      "formula": "C6H12O6",
+      "subjectIds": [
+        "cid-5984"
+      ],
+      "spaceGroup": "P 21 21 21",
+      "spaceGroupNumber": 19,
+      "cell": {
+        "a": 8.088,
+        "b": 9.204,
+        "c": 10.034,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 746.950546368,
+      "siteCount": 96,
+      "mixedSiteCount": 0,
+      "conditions": {
+        "temperatureK": null,
+        "pressureKPa": null,
+        "hydrogenTreatment": null
+      },
+      "reference": {
+        "authors": [
+          "Kanters, J. A.",
+          "Roelofsen, G.",
+          "Alblas, B. P.",
+          "Meinders, I."
+        ],
+        "title": "The crystal and molecular structure of β-d-fructose, with emphasis on\n anomeric effect and hydrogen-bond interactions",
+        "journal": "Acta Crystallographica Section B",
+        "year": 1977.0,
+        "volume": "33",
+        "pages": "665–672",
+        "doi": "10.1107/S0567740877004439"
+      },
+      "source": "https://www.crystallography.net/cod/5000065.html",
+      "transport": "https://cod.psdi.ac.uk/cod/5000065.cif",
+      "transportSha256": "837d0b70cb0e71347bfc0dda098ed2c3792ac984347ad95a47a8c208b39d8721",
+      "evidence": "published-structure",
+      "note": "Bản beta-D-fructose của Kanters và cộng sự; không thay bằng glucose, inositol hoặc beta-D,L-fructose racemic.",
+      "limitations": "",
+      "coordinatePrecision": "Original CIF lexical precision and uncertainties are retained in the downloadable CIF.",
+      "data": "/assets/periodic-table/crystals/cod-5000065.json",
+      "cif": "/assets/periodic-table/crystals/cod-5000065.cif",
+      "model": "/assets/periodic-table/crystals/cod-5000065.glb",
+      "preview": "/assets/periodic-table/crystals/cod-5000065.png"
+    },
+    {
+      "id": "cod-1549467",
+      "codId": "1549467",
+      "referenceId": "cod:1549467",
+      "mineralName": "Natri acetate khan · 100 K · Pcca",
+      "formula": "C2H3NaO2",
+      "subjectIds": [
+        "chem-ch3coona"
+      ],
+      "spaceGroup": "P c c a",
+      "spaceGroupNumber": 54,
+      "cell": {
+        "a": 5.9482,
+        "b": 10.0866,
+        "c": 5.8984,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 353.886977925408,
+      "siteCount": 52,
+      "mixedSiteCount": 0,
+      "conditions": {
+        "temperatureK": "100(2)",
+        "pressureKPa": null,
+        "hydrogenTreatment": "difmap"
+      },
+      "reference": {
+        "authors": [
+          "Birger Dittrich",
+          "Justin Bergmann",
+          "Peter Roloff",
+          "Guido J. Reiss"
+        ],
+        "title": "New Polymorphs of the Phase-Change Material Sodium Acetate",
+        "journal": "Crystals",
+        "year": 2018.0,
+        "volume": "8",
+        "pages": "213",
+        "doi": "10.3390/cryst8050213"
+      },
+      "source": "https://www.crystallography.net/cod/1549467.html",
+      "transport": "https://cod.psdi.ac.uk/cod/1549467.cif",
+      "transportSha256": "a8353d2b38bac8c3157e805180d493b1d0b22f6f2fc49b2938180eaa43caae3c",
+      "evidence": "published-structure",
+      "note": "Mẫu sodium acetate Pcca ở 100 K; giữ đúng các nhóm vị trí bất trật tự và độ chiếm chỗ. Không dùng trihydrate.",
+      "limitations": "",
+      "coordinatePrecision": "Original CIF lexical precision and uncertainties are retained in the downloadable CIF.",
+      "data": "/assets/periodic-table/crystals/cod-1549467.json",
+      "cif": "/assets/periodic-table/crystals/cod-1549467.cif",
+      "model": "/assets/periodic-table/crystals/cod-1549467.glb",
+      "preview": "/assets/periodic-table/crystals/cod-1549467.png"
+    },
+    {
+      "id": "cod-2300557",
+      "codId": "2300557",
+      "referenceId": "cod:2300557",
+      "mineralName": "Sucrose · 298 K · Rietveld",
+      "formula": "C12H22O11",
+      "subjectIds": [
+        "cid-5988"
+      ],
+      "spaceGroup": "P 1 21 1",
+      "spaceGroupNumber": 4,
+      "cell": {
+        "a": 7.763,
+        "b": 8.7109,
+        "c": 10.8701,
+        "alpha": 90.0,
+        "beta": 102.937,
+        "gamma": 90.0
+      },
+      "volume": 716.4073897129048,
+      "siteCount": 90,
+      "mixedSiteCount": 0,
+      "conditions": {
+        "temperatureK": "298",
+        "pressureKPa": null,
+        "hydrogenTreatment": "mixed"
+      },
+      "reference": {
+        "authors": [
+          "Dmitrienko, Artem O.",
+          "Bushmarinov, Ivan S."
+        ],
+        "title": "Reliable structural data from Rietveld refinements <i>via</i> restraint\n consistency",
+        "journal": "Journal of Applied Crystallography",
+        "year": 2015.0,
+        "volume": "48",
+        "pages": "",
+        "doi": "10.1107/S1600576715018233"
+      },
+      "source": "https://www.crystallography.net/cod/2300557.html",
+      "transport": "https://cod.psdi.ac.uk/cod/2300557.cif",
+      "transportSha256": "885d88b5054e1fdc84284e02af5463ea325a3afb890c0605ffc6efb612cc98e3",
+      "evidence": "published-structure",
+      "note": "Dữ liệu sucrose 298 K trong nghiên cứu kiểm tra ràng buộc khi tinh chỉnh Rietveld; H và liên kết chịu các ràng buộc của phép tinh chỉnh. Không dùng lactose hay trehalose cùng công thức.",
+      "limitations": "",
+      "coordinatePrecision": "Original CIF lexical precision and uncertainties are retained in the downloadable CIF.",
+      "data": "/assets/periodic-table/crystals/cod-2300557.json",
+      "cif": "/assets/periodic-table/crystals/cod-2300557.cif",
+      "model": "/assets/periodic-table/crystals/cod-2300557.glb",
+      "preview": "/assets/periodic-table/crystals/cod-2300557.png"
+    }
+  ]
+}

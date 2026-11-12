@@ -1,0 +1,22 @@
+                                                                                                                                                                                                                   10
+
+[35]    H.  Bizette,  A.  Adam,   and  C.  Terrier,  C.  R.  Acad.  Sci.  252,  1571                           [47]    W.  N.  Hansen  and  M.  Griffel,  J.  Chem.  Phys.  30,  913  (1959).
+        (1961).                                                                                                [48]    M.  O.  Kostryukova  and  L.  V.  Luk’yanova,  Sov.  Phys.  JETP  34,
+[36]    A.  Narath  and  H.  L.  Davis,  Phys.  Rev.  137,  A163  (1965).                                              391  (1973).
+[37]    B.  Morosin  and  A.  Narath,  J.  Chem.  Phys.  40,  1958  (1964).                                    [49]    L.    D.    Jennings    and    W.    N.    Hansen,    Phys.    Rev.    139,    A1694
+[38]    G.  Kresse  and  J.  Furthm ¨uller,  Comput.  Mater.  Sci.  6,  15  (1996).                                    (1965).
+[39]    P.  E.  Bl ¨ochl,  Phys.  Rev.  B  50,  17953  (1994).                                                 [50]    Y.   Takano,    N.   Arai,    A.   Arai,    Y.   Takahashi,    K.   Takase,       and
+[40]    J.  P.  Perdew,  K.  Burke,    and  M.  Ernzerhof,  Phys.  Rev.  Lett.  77,                                    K.  Sekizawa,  J.  Magn.  Magn.  Mater.  272-276,  E593  (2004).
+        3865  (1996).                                                                                          [51]    A.   R.   Wildes,   H.   M.   Rønnow,   B.   Roessli,   M.   J.   Harris,      and
+[41]    M.  Dion,   H.  Rydberg,   E.  Schr ¨oder,   D.  C.  Langreth,     and   B.  I.                                K.  W.  Godfrey,  Phys.  Rev.  B  74,  094422  (2006).
+        Lundqvist,  Phys.  Rev.  Lett.  92,  246401  (2004).                                                   [52]    L.    Regnault    and    J.    Rossat-Mignod,    in    Magnetic    Properties
+[42]    J.   Klimeˇs,   D.   R.   Bowler,     and   A.   Michaelides,   J.   Phys.:    Con-                            of   Layered   Transition   Metal   Compounds   (Springer,   1990)   pp.
+        dens.  Matter  22,  022201  (2010).                                                                            271–321.
+[43]    T.   Thonhauser,   V.   R.   Cooper,   S.   Li,   A.   Puzder,   P.   Hyldgaard,                       [53]    A.   Banerjee,    C.   A.   Bridges,    J.   Q.   Yan,    A.   A.   Aczel,    L.   Li,
+        and  D.  C.  Langreth,  Phys.  Rev.  B  76,  125112  (2007).                                                   M.  B.  Stone,  G.  E.  Granroth,  M.  D.  Lumsden,  Y.  Yiu,  J.  Knolle,
+[44]    T.      Thonhauser,       S.      Zuluaga,       C.      A.      Arter,       K.      Berland,                 S.  Bhattacharjee,  D.  L.  Kovrizhin,  R.  Moessner,  D.  A.  Tennant,
+        E.   Schr ¨oder,      and   P.   Hyldgaard,   Phys.   Rev.   Lett.   115,   136402                             D.   G.   Mandrus,      and   S.   E.   Nagler,   Nature   Materials   15,   733
+        (2015).                                                                                                        (2016).
+[45]    H.  J.  Monkhorst  and  J.  D.  Pack,  Phys.  Rev.  B  13,  5188  (1976).                              [54]    H.  B.  Cao,  A.  Banerjee,  J.  Yan,  C.  A.  Bridges,  M.  D.  Lumsden,
+[46]    I.  Pollini  and  G.  Spinolo,  Phys.  Stat.  Sol.  41,  691  (1970).                                          D.  G.  Mandrus,  D.  A.  Tennant,  B.  C.  Chakoumakos,     and  S.  E.
+                                                                                                                       Nagler,  Phys.  Rev.  B  93,  134423  (2016).

@@ -1,0 +1,10 @@
+Supplementary References:
+1. Q. Zheng. VaspBandUnfolding. GitHub repository,
+https://github.com/QijingZheng/VaspBandUnfolding.
+2. Q. Zheng. Light–Matter Interaction and Dipole Transition Matrix.
+https://qijingzheng.github.io/posts/Light-Matter-Interaction-and-Dipole-Transition-Matrix/.
+3. Z. Wang, M. Gibertini, D. Dumcenco, T. Taniguchi, K. Watanabe, E. Giannini and A.F. Morpurgo.
+Determining the phase diagram of atomically thin layered antiferromagnet CrCl . Nat. Nanotechnol.
+3
+2019, 14 (12), 1116-1122.
+S16

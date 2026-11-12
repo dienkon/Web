@@ -1,0 +1,4 @@
+Fig. S3. Relative positions on a rectangular grid of 240 μm by 160 μm. The points are chosen with clear
+ZPL signals. Each position is marked with its polarization angle at zero magnetic field, along with a
+retrospectively-assigned Group (L or S), See Fig. 4. The colors are chosen to match those in Fig. 4.
+S7

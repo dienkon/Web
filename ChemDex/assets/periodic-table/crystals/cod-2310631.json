@@ -1,0 +1,534 @@
+{
+  "id": "cod-2310631",
+  "codId": "2310631",
+  "referenceId": "cod:2310631",
+  "mineralName": "KMnO₄ · 120 K",
+  "formula": "KMnO4",
+  "sourceFormula": "K Mn O4",
+  "subjectIds": [
+    "chem-kmno4",
+    "formula-KMnO4"
+  ],
+  "spaceGroup": "P n m a",
+  "spaceGroupNumber": 62,
+  "cell": {
+    "a": 9.0509,
+    "b": 5.6381,
+    "c": 7.3582,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "basis": [
+    [
+      9.0509,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      5.6381,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      7.3582
+    ]
+  ],
+  "volume": 375.488057791678,
+  "declaredVolume": 375.488,
+  "symmetryOperations": [
+    "x,y,z",
+    "-x+1/2,-y,z+1/2",
+    "x+1/2,-y+1/2,-z+1/2",
+    "-x,y+1/2,-z",
+    "-x,-y,-z",
+    "x-1/2,y,-z-1/2",
+    "-x-1/2,y-1/2,z-1/2",
+    "x,-y-1/2,z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "K1",
+      "element": "K",
+      "fractional": [
+        0.31877,
+        0.25,
+        0.65798
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.3107,
+        0.25,
+        0.0385
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0
+    },
+    {
+      "label": "O3",
+      "element": "O",
+      "fractional": [
+        0.41857,
+        0.0164,
+        0.3186
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0
+    },
+    {
+      "label": "Mn1",
+      "element": "Mn",
+      "fractional": [
+        0.43748,
+        0.25,
+        0.19264
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.5998,
+        0.25,
+        0.1022
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0
+    }
+  ],
+  "atoms": [
+    {
+      "label": "K1",
+      "element": "K",
+      "fractional": [
+        0.31877,
+        0.25,
+        0.65798
+      ],
+      "position": [
+        2.8851553930000002,
+        1.409525,
+        4.841548436
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "K1",
+      "element": "K",
+      "fractional": [
+        0.18123,
+        0.75,
+        0.15798
+      ],
+      "position": [
+        1.6402946070000002,
+        4.228574999999999,
+        1.162448436
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "K1",
+      "element": "K",
+      "fractional": [
+        0.81877,
+        0.25,
+        0.84202
+      ],
+      "position": [
+        7.410605393,
+        1.409525,
+        6.195751564
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "K1",
+      "element": "K",
+      "fractional": [
+        0.68123,
+        0.75,
+        0.34202
+      ],
+      "position": [
+        6.165744607000001,
+        4.228574999999999,
+        2.516651564
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.3107,
+        0.25,
+        0.0385
+      ],
+      "position": [
+        2.81211463,
+        1.409525,
+        0.2832907
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.18930000000000002,
+        0.75,
+        0.5385
+      ],
+      "position": [
+        1.7133353700000002,
+        4.228574999999999,
+        3.9623907
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.8107,
+        0.25,
+        0.4615
+      ],
+      "position": [
+        7.33756463,
+        1.409525,
+        3.3958093000000003
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.6893,
+        0.75,
+        0.9615
+      ],
+      "position": [
+        6.23878537,
+        4.228574999999999,
+        7.0749093
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O3",
+      "element": "O",
+      "fractional": [
+        0.41857,
+        0.0164,
+        0.3186
+      ],
+      "position": [
+        3.788435213,
+        0.09246484,
+        2.34432252
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O3",
+      "element": "O",
+      "fractional": [
+        0.08143,
+        0.9836,
+        0.8186
+      ],
+      "position": [
+        0.737014787,
+        5.54563516,
+        6.0234225200000004
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O3",
+      "element": "O",
+      "fractional": [
+        0.91857,
+        0.4836,
+        0.1814
+      ],
+      "position": [
+        8.313885213,
+        2.7265851599999995,
+        1.33477748
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O3",
+      "element": "O",
+      "fractional": [
+        0.58143,
+        0.5164,
+        0.6814
+      ],
+      "position": [
+        5.262464787,
+        2.9115148399999997,
+        5.01387748
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O3",
+      "element": "O",
+      "fractional": [
+        0.58143,
+        0.9836,
+        0.6814
+      ],
+      "position": [
+        5.262464787,
+        5.54563516,
+        5.01387748
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O3",
+      "element": "O",
+      "fractional": [
+        0.91857,
+        0.0164,
+        0.1814
+      ],
+      "position": [
+        8.313885213,
+        0.09246484,
+        1.33477748
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O3",
+      "element": "O",
+      "fractional": [
+        0.08143,
+        0.5164,
+        0.8186
+      ],
+      "position": [
+        0.737014787,
+        2.9115148399999997,
+        6.0234225200000004
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O3",
+      "element": "O",
+      "fractional": [
+        0.41857,
+        0.4836,
+        0.3186
+      ],
+      "position": [
+        3.788435213,
+        2.7265851599999995,
+        2.34432252
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Mn1",
+      "element": "Mn",
+      "fractional": [
+        0.43748,
+        0.25,
+        0.19264
+      ],
+      "position": [
+        3.959587732,
+        1.409525,
+        1.4174836480000002
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Mn1",
+      "element": "Mn",
+      "fractional": [
+        0.06252000000000002,
+        0.75,
+        0.69264
+      ],
+      "position": [
+        0.5658622680000002,
+        4.228574999999999,
+        5.096583648
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Mn1",
+      "element": "Mn",
+      "fractional": [
+        0.93748,
+        0.25,
+        0.30735999999999997
+      ],
+      "position": [
+        8.485037732,
+        1.409525,
+        2.261616352
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Mn1",
+      "element": "Mn",
+      "fractional": [
+        0.56252,
+        0.75,
+        0.80736
+      ],
+      "position": [
+        5.091312268,
+        4.228574999999999,
+        5.940716352
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.5998,
+        0.25,
+        0.1022
+      ],
+      "position": [
+        5.42872982,
+        1.409525,
+        0.75200804
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.9002,
+        0.75,
+        0.6022
+      ],
+      "position": [
+        8.14762018,
+        4.228574999999999,
+        4.43110804
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.09980000000000011,
+        0.25,
+        0.3978
+      ],
+      "position": [
+        0.9032798200000011,
+        1.409525,
+        2.92709196
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.4002,
+        0.75,
+        0.8978
+      ],
+      "position": [
+        3.6221701800000004,
+        4.228574999999999,
+        6.60619196
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    }
+  ],
+  "siteCount": 24,
+  "speciesPositionCount": 24,
+  "cellComposition": {
+    "K": 4.0,
+    "O": 16.0,
+    "Mn": 4.0
+  },
+  "mixedSiteCount": 0,
+  "formulaUnitsZ": 4.0,
+  "conditions": {
+    "temperatureK": null,
+    "pressureKPa": null,
+    "hydrogenTreatment": null
+  },
+  "reference": {
+    "authors": [
+      "Marabello, D.",
+      "Bianchi, R.",
+      "Cargnoni, F.",
+      "Gervasio, G."
+    ],
+    "title": "An experimental (120 K) and theoretical electron-density study of KMnO₄\n and KClO₄",
+    "journal": "Acta Crystallographica Section A",
+    "year": 2004.0,
+    "volume": "60",
+    "pages": "494–501",
+    "doi": "10.1107/S0108767304015260"
+  },
+  "source": "https://www.crystallography.net/cod/2310631.html",
+  "transport": "https://cod.psdi.ac.uk/cod/2310631.cif",
+  "transportSha256": "6ee5a390904549ef6a5b27fe2be04f6eae008c42e865ef3f999faecfa0c1e1b0",
+  "evidence": "published-structure",
+  "note": "Cấu trúc thực nghiệm của nghiên cứu mật độ electron ở 120 K; không dùng cấu trúc KClO4 hoặc mẫu tính toán trong cùng công trình.",
+  "limitations": "",
+  "coordinatePrecision": "Original CIF lexical precision and uncertainties are retained in the downloadable CIF."
+}

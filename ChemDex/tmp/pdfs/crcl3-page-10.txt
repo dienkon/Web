@@ -1,0 +1,64 @@
+                                                                                                                                                                                                      9
+
+netic  behavior  of  our  crystals  is  in  general  agreement  with  lit-                              speciﬁcally   to   elucidate   the   potential  roles   of   magnetic   ﬂuc-
+erature   reports,   indicating  ferromagnetic  correlations  emerg-                                    tuations,  short  range  order,  or  2  dimensional  order.    We   have
+ing  upon  cooling  before  entering  the  long  range  antiferromag-                                   demonstrated that  cleaving of CrCl3  crystals  into stable  mono-
+netically   ordered   ground   state.     Low   magnetic   anisotropy   is                              layer   specimens   is   possible,   and   note   several   properties   that
+observed  in  the  ordered  state.   A  spin  ﬂop  is  seen  near  150 Oe                               make CrCl3  a  promising material for incorporating magnetism
+when   the   ﬁeld   is   applied   in   plane,   and   ﬁelds   of   several   kOe                       into  van  der  Waals  heterostructures  at  low  temperatures:  bulk
+are   sufﬁcient   to   polarize   the   moments   in   any   direction.      In                         crystals  are  easily  grown,  stable  in  air,  electrically  insulating,
+addition,    we    ﬁnd    that    the    magnetic   susceptibility    shows    a                        and   have   magnetic   order   that   can   be   manipulated   with   rela-
+small  anomaly  at  the  crystallographic  transition  temperature,                                     tively  low  external  ﬁelds.
+indicating   some   coupling   of   the   magnetism   to   the   lattice   in
+the   paramagnetic   state.      Spin-lattice   coupling   is   also   appar-
+ent   in   our   ﬁrst   principles   calculations,   in   which   the   experi-                                                    ACKNOWLEDGEMENTS
+mental  structure  is  matched  only  when  magnetism  is  included
+in  the  calculations.   Our  heat  capacity  measurements  conﬁrm
+the   two-step   nature   of   the   magnetic   ordering   transition.      A                              Research  sponsored  by  the  US  Department  of  Energy,  Of-
+broad   feature   appears   near   17 K   indicating   the   development                                ﬁce   of   Science,   Basic   Energy   Sciences,   Materials   Sciences
+of  ferromagnetism  and  a   sharp,  lambda-like  anomaly  is  seen                                     and Engineering Division,  and by  the Laboratory Directed Re-
+at  14 K  as  the  antiferromagnetic  long  range  order  forms.   The                                  search and  Development Program of Oak  Ridge  National Lab-
+observed  evolution  of  the  heat  capacity  with  applied  magnetic                                   oratory,  managed  by   UT-Battelle,   LLC,   for   the   U.S.   Depart-
+ﬁeld  supports  this  scenario,  and  allows  the  construction  of  the                                ment  of  Energy  (WMC).  Computational  resources  were  pro-
+magnetic  phase   diagram  for  CrCl3   shown   in   Figure   4.    Neu-                                vided  by  the  National  Energy  Research  Scientiﬁc  Computing
+tron  scattering  experiments  would  be  highly  desirable  to  gain                                   Center  (NERSC),  which  is  supported  by  the  Ofﬁce  of  Science
+further   insight   into   the   development   of   the   magnetic   order,                             of  the  U.S.  DOE  under  Contract  No.  DE-AC02-05CH11231.
+
+
+
+
+
+ [1]    A.  K.  Geim  and  I.  V.  Geigorieva,  Nature  499,  419  (2013).                              [15]    B.   Chen,   J.-H.   Yang,   H.-D.   Wang,   M.   Imai,   H.   Ohta,   C.   Mi-
+ [2]    D.   Zhong,    K.   L.   Seyler,   X.   Linpeng,    R.   Cheng,    N.   Sivadas,                       chioka,  K.  Yoshimura,     and  M.-H.  Fang,  J.  Phys.  Soc.  Jpn.  82,
+       B.     H.     E.     Schmidgall,     T.     Taniguchi,     K.     Watanabe,     M.     A.               124711  (2013).
+       McGuire,     W.     Yao,     D.     Xiao,     K.-M.     C.     Fu,          and     X.     Xu,   [16]    A.  F.  May,  S.  Calder,  C.  Cantoni,  H.  Cao,    and  M.  A.  McGuire,
+       arXiv:1704.00841    (2017).                                                                             Phys.  Rev.  B  93,  014411  (2016).
+ [3]    V.   Nicolosi,   M.   Chhowalla,   M.   G.   Kanatzidis,   M.   S.   Strano,                    [17]    M.  A.  McGuire,  arXiv:1704.08225    (2017).
+       and  J.  N.  Coleman,  Science  340,  1226419  (2013).                                           [18]    M.  A.  McGuire,  H.  Dixit,  V.  R.  Cooper,    and  B.  C.  Sales,  Chem.
+ [4]    S.   Leb`egue,    T.   Bj ¨orkman,    M.   Klintenberg,    R.   M.   Nieminen,                         Mater.  27,  612  (2015).
+       and  O.  Eriksson,  Phys.  Rev.  X  3,  031002  (2013).                                          [19]    W.-B.  Zhang,  Q.  Qu,  P.  Zhu,     and  C.-H.  Lam,  J.  Mater.  Chem.
+ [5]    X.  Li  and  J.  Yang,  J.  Mater.  Chem.  C  2,  7071  (2014).                                        C  3,  12457  (2015).
+ [6]    L.  D.  Casto,  A.  J.  Clune,  M.  O.  Yokosuk,   J.  L.  Musfeldt,   T.  J.                   [20]    J.   Liu,   Q.   Sun,   Y.   Kawazoe,     and   P.  Jena,   Plys.  Chem.   Chem.
+       Williams,   H.   L.   Zhuang,   M.-W.   Lin,   K.   Xiao,   R.   G.   Hennig,                           Phys.  18,  8777  (2016).
+       B.   C.   Sales,    J.-Q.   Yan,       and   D.   Mandrus,   APL   Materials   3,                [21]    H.  Wang,  F.  Fan,  S.  Zhu,    and  H.  Wu,  EPL  114,  47001  (2016).
+       041515  (2015).                                                                                  [22]    W.  N.  Hansen,  J.  Appl.  Phys.  30,  304S  (1959).
+ [7]    N.  Sivadas,  M.  W.  Daniels,  R.  H.  Swendsen,  S.  Okamoto,    and                          [23]    J.  F.  Dillon,  Jr.  and  C.  E.  Olson,  J.  Appl.  Phys.  36,  1259  (1965).
+       D.  Xiao,  Phys.  Rev.  B  91,  235425  (2015).                                                  [24]    I.  Tsubokawa,  J.  Phys.  Soc.  Jpn.  15,  1664  (1960).
+ [8]    V.   Carteaux,    G.   Ouvrard,    J.   C.   Grenier,       and   Y.   Laligant,   J.           [25]    W.  N.  Hansen  and  M.  Griffel,  J.  Chem.  Phys.  28,  902  (1958).
+       Magn.  Magn.  Mater.  94,  127  (1991).                                                          [26]    J.  W.  Cable,  M.  K.  Wilkinson,   and  E.  O.  Wollan,  J.  Phys.  Chem.
+ [9]    V.   Carteaux,   D.   Brunet,   G.   Ouvrard,      and   G.   Andr´e,   J.   Phys.:                    Solids  19,  29  (1961).
+       Condens.  Matter  7,  69  (1995).                                                                [27]    H.   Wang,   V.  Eyert,     and   U.  Schwingenschl ¨ogl,   J.  Phys.:    Con-
+[10]    T.   Bj ¨orkman,    A.   Gulans,    A.   V.   Krasheninnikov,       and   R.   M.                      dens.  Matter  23,  116003  (2011).
+       Nieminen,  Phys.  Rev.  Lett.  108,  235502  (2012).                                             [28]    J.  L.  Lado  and  J.  Fern´andez-Rossier,  arXiv:1704.03849   (2017).
+[11]    M.-W.  Lin,  H.  L.  Zhuang,   J.  Yan,  T.  Z.  Ward,  A.  A.  Puretzky,                       [29]    J.   He,   S.  Ma,   P.  Lyu,     and   P.  Nachtigall,  J.   Mater.  Chem.   C  4,
+       C.  M.  Rouleau,   Z.  GAi,  L.  Liang,  V.  Meunier,   B.  G.  Sumpter,                                2518  (2016).
+       P.  Ganesh,  P.  R.  C.  Kent,  D.  B.  Geohegan,  D.  G.  Mandrus,    and                       [30]    B.     Huang,      G.     Clark,     E.     Navarro-Moratalla,     D.     R.     Klein,
+       K.  Xiao,  J.  Mater.  Chem.  C  4,  315  (2016).                                                       R.    Cheng,     K.    L.    Seyler,     D.    Zhong,     E.    Schmidgall,     M.    A.
+[12]    C.  Gong,  L.  Li,  Z.  Li,  H.  Ji,  A.  Stern,  Y.  Xia,  T.  Cao,  W.  Bao,                         McGuire,   D.   H.   Cobden,   W.   Yao,   D.   Xiao,   P.  Jarillo-Herrero,
+       C.  Wang,  Y.  Wang,   Z.  Q.  Qiu,  R.  J.  Cava,  S.  G.  Louie,   J.  Xia,                           and  X.  Xu,  arXiv:1703.05892    (2017).
+       and  X.  Zhang,  arXiv:1703.05753    (2017).                                                     [31]    W.   J.   de   Haas,   B.  H.   Schultz,     and   J.   Koolhaas,   Physica   7,   57
+[13]    H.  L.  Zhuang,  Y.  Xie,  P.  R.  C.  Kent,    and  P.  Ganesh,  Phys.  Rev.                          (1940).
+       B  92,  035407  (2015).                                                                          [32]    H.  R.  Woltjer  and  H.  K.  Onnes,  Proceedings  of  the  KNAW  26,
+[14]    H.-J.   Deiseroth,    K.   Aleksandrov,    C.   Reiner,    L.   Kienle,       and                      614  (1925).
+       R.  K.  Kremer,  Eur.  J.  Inorg.  Chem.  ,  1561  (2006).                                       [33]    C.  Starr,  F.  Bitter,   and  A.  Kaufmann,  Phys.  Rev.  58,  977  (1940).
+                                                                                                        [34]    B.  Kuhlow,  physica  status  solidi  (a)  72,  161  (1982).

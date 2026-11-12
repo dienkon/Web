@@ -1,0 +1,387 @@
+{
+  "id": "cod-8104000",
+  "codId": "8104000",
+  "referenceId": "cod:8104000",
+  "mineralName": "AlI₃ khan",
+  "formula": "AlI3",
+  "sourceFormula": "Al I3",
+  "subjectIds": [
+    "formula-AlI3"
+  ],
+  "spaceGroup": "P 1 21/c 1",
+  "spaceGroupNumber": 14,
+  "cell": {
+    "a": 9.591,
+    "b": 6.069,
+    "c": 11.902,
+    "alpha": 90.0,
+    "beta": 108.05,
+    "gamma": 90.0
+  },
+  "basis": [
+    [
+      9.591,
+      0.0,
+      -3.6877969704667035
+    ],
+    [
+      0.0,
+      6.069,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      11.316260756301817
+    ]
+  ],
+  "volume": 658.694405209189,
+  "declaredVolume": 658.694,
+  "symmetryOperations": [
+    "x,y,z",
+    "-x,y+1/2,-z+1/2",
+    "-x,-y,-z",
+    "x,-y-1/2,z-1/2"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "I2",
+      "element": "I",
+      "fractional": [
+        0.32736,
+        -0.25054,
+        0.95383
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0
+    },
+    {
+      "label": "I3",
+      "element": "I",
+      "fractional": [
+        0.00076,
+        0.23115,
+        0.88335
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0
+    },
+    {
+      "label": "Al1",
+      "element": "Al",
+      "fractional": [
+        0.1947,
+        -0.0019,
+        0.0485
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0
+    },
+    {
+      "label": "I1",
+      "element": "I",
+      "fractional": [
+        0.32952,
+        0.24475,
+        0.2094
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0
+    }
+  ],
+  "atoms": [
+    {
+      "label": "I2",
+      "element": "I",
+      "fractional": [
+        0.32736,
+        0.74946,
+        0.95383
+      ],
+      "position": [
+        -0.3778216243402559,
+        4.54847274,
+        10.793788997183363
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "I2",
+      "element": "I",
+      "fractional": [
+        0.67264,
+        0.24946000000000002,
+        0.54617
+      ],
+      "position": [
+        4.4371261686402,
+        1.51397274,
+        6.180602137269364
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "I2",
+      "element": "I",
+      "fractional": [
+        0.67264,
+        0.25054,
+        0.046170000000000044
+      ],
+      "position": [
+        6.281024653873552,
+        1.52052726,
+        0.5224717591184554
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "I2",
+      "element": "I",
+      "fractional": [
+        0.32736,
+        0.75054,
+        0.45382999999999996
+      ],
+      "position": [
+        1.4660768608930959,
+        4.55502726,
+        5.135658619032453
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "I3",
+      "element": "I",
+      "fractional": [
+        0.00076,
+        0.23115,
+        0.88335
+      ],
+      "position": [
+        -3.2503262938617623,
+        1.4028493499999999,
+        9.99621893907921
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "I3",
+      "element": "I",
+      "fractional": [
+        0.99924,
+        0.73115,
+        0.61665
+      ],
+      "position": [
+        7.3096308381617074,
+        4.43734935,
+        6.978172195373516
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "I3",
+      "element": "I",
+      "fractional": [
+        0.99924,
+        0.76885,
+        0.11665000000000003
+      ],
+      "position": [
+        9.153529323395059,
+        4.6661506500000005,
+        1.3200418172226074
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "I3",
+      "element": "I",
+      "fractional": [
+        0.00076,
+        0.26885000000000003,
+        0.3833500000000001
+      ],
+      "position": [
+        -1.406427808628411,
+        1.63165065,
+        4.338088560928303
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Al1",
+      "element": "Al",
+      "fractional": [
+        0.1947,
+        0.9981,
+        0.0485
+      ],
+      "position": [
+        1.6885095469323648,
+        6.0574689,
+        0.5488386466806382
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Al1",
+      "element": "Al",
+      "fractional": [
+        0.8053,
+        0.4981,
+        0.4515
+      ],
+      "position": [
+        6.058591967834283,
+        3.0229689,
+        5.109291731470271
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Al1",
+      "element": "Al",
+      "fractional": [
+        0.8053,
+        0.0019,
+        0.9515
+      ],
+      "position": [
+        4.21469348260093,
+        0.0115311,
+        10.76742210962118
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Al1",
+      "element": "Al",
+      "fractional": [
+        0.1947,
+        0.5019,
+        0.5485
+      ],
+      "position": [
+        -0.155388938300987,
+        3.0460311,
+        6.2069690248315466
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "I1",
+      "element": "I",
+      "fractional": [
+        0.32952,
+        0.24475,
+        0.2094
+      ],
+      "position": [
+        2.388201634384272,
+        1.48538775,
+        2.3696250023696006
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "I1",
+      "element": "I",
+      "fractional": [
+        0.67048,
+        0.74475,
+        0.29059999999999997
+      ],
+      "position": [
+        5.358899880382375,
+        4.5198877500000005,
+        3.2885053757813076
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "I1",
+      "element": "I",
+      "fractional": [
+        0.67048,
+        0.75525,
+        0.7906
+      ],
+      "position": [
+        3.5150013951490235,
+        4.58361225,
+        8.946635753932217
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "I1",
+      "element": "I",
+      "fractional": [
+        0.32952,
+        0.25525,
+        0.7094
+      ],
+      "position": [
+        0.5443031491509198,
+        1.5491122499999999,
+        8.02775538052051
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    }
+  ],
+  "siteCount": 16,
+  "speciesPositionCount": 16,
+  "cellComposition": {
+    "I": 12.0,
+    "Al": 4.0
+  },
+  "mixedSiteCount": 0,
+  "formulaUnitsZ": 4.0,
+  "conditions": {
+    "temperatureK": null,
+    "pressureKPa": null,
+    "hydrogenTreatment": null
+  },
+  "reference": {
+    "authors": [
+      "Troyanov, S.I.",
+      "Krahl, T.",
+      "Kemnitz, E."
+    ],
+    "title": "Crystal structures of Ga X3 (X= Cl, Br, I) and Al I3",
+    "journal": "Zeitschrift fuer Kristallographie (149,1979-)",
+    "year": 2004.0,
+    "volume": "219",
+    "pages": "88–92",
+    "doi": null
+  },
+  "source": "https://www.crystallography.net/cod/8104000.html",
+  "transport": "https://cod.psdi.ac.uk/cod/8104000.cif",
+  "transportSha256": "4896c307a006b6c883d340648664dd85889911ce74d974f7bc8353e2fbc0cf22",
+  "evidence": "published-structure",
+  "note": "Bản ghi AlI3 riêng trong công trình về GaX3/AlI3; không dùng tọa độ gallium halide.",
+  "limitations": "",
+  "coordinatePrecision": "Original CIF lexical precision and uncertainties are retained in the downloadable CIF."
+}

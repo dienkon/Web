@@ -1,0 +1,215 @@
+{
+  "id": "cod-8104275",
+  "codId": "8104275",
+  "referenceId": "cod:8104275",
+  "mineralName": "NaOH khan · pha đơn tà",
+  "formula": "NaOH",
+  "sourceFormula": "H Na O",
+  "subjectIds": [
+    "chem-naoh",
+    "formula-NaOH"
+  ],
+  "spaceGroup": "P 1 21/m 1",
+  "spaceGroupNumber": 11,
+  "cell": {
+    "a": 3.434,
+    "b": 3.428,
+    "c": 6.068,
+    "alpha": 90.0,
+    "beta": 109.83,
+    "gamma": 90.0
+  },
+  "basis": [
+    [
+      3.434,
+      0.0,
+      -2.0584507820585105
+    ],
+    [
+      0.0,
+      3.428,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      5.708187486220359
+    ]
+  ],
+  "volume": 67.19536745728949,
+  "declaredVolume": 67.195,
+  "symmetryOperations": [
+    "x,y,z",
+    "-x,y+1/2,-z",
+    "-x,-y,-z",
+    "x,-y-1/2,z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.164,
+        0.25,
+        0.227
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0
+    },
+    {
+      "label": "Na1",
+      "element": "Na",
+      "fractional": [
+        0.32,
+        0.25,
+        -0.171
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0
+    },
+    {
+      "label": "H1",
+      "element": "H",
+      "fractional": [
+        0.054,
+        0.25,
+        0.386
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0
+    }
+  ],
+  "atoms": [
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.164,
+        0.25,
+        0.227
+      ],
+      "position": [
+        0.09590767247271809,
+        0.857,
+        1.2957585593720216
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.836,
+        0.75,
+        0.773
+      ],
+      "position": [
+        1.279641545468771,
+        2.5709999999999997,
+        4.412428926848338
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Na1",
+      "element": "Na",
+      "fractional": [
+        0.32,
+        0.25,
+        0.829
+      ],
+      "position": [
+        -0.607575698326505,
+        0.857,
+        4.732087426076677
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Na1",
+      "element": "Na",
+      "fractional": [
+        0.6799999999999999,
+        0.75,
+        0.171
+      ],
+      "position": [
+        1.9831249162679945,
+        2.5709999999999997,
+        0.9761000601436814
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H1",
+      "element": "H",
+      "fractional": [
+        0.054,
+        0.25,
+        0.386
+      ],
+      "position": [
+        -0.609126001874585,
+        0.857,
+        2.2033603696810586
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H1",
+      "element": "H",
+      "fractional": [
+        0.946,
+        0.75,
+        0.614
+      ],
+      "position": [
+        1.9846752198160746,
+        2.5709999999999997,
+        3.5048271165393
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    }
+  ],
+  "siteCount": 6,
+  "speciesPositionCount": 6,
+  "cellComposition": {
+    "O": 2.0,
+    "Na": 2.0,
+    "H": 2.0
+  },
+  "mixedSiteCount": 0,
+  "formulaUnitsZ": 2.0,
+  "conditions": {
+    "temperatureK": null,
+    "pressureKPa": null,
+    "hydrogenTreatment": null
+  },
+  "reference": {
+    "authors": [
+      "Stehr, H."
+    ],
+    "title": "Neubestimmung der Kristallstrukturen des dimorphen Natriumhydroxids, Na O\n H, bei verschiedenen Temperaturen mit Roentgenstrahl- und\n Neutronenbeugung",
+    "journal": "Zeitschrift fuer Kristallographie, Kristallgeometrie, Kristallphysik, \nKristallchemie (-144,1977)",
+    "year": 1967.0,
+    "volume": "125",
+    "pages": "332–359",
+    "doi": null
+  },
+  "source": "https://www.crystallography.net/cod/8104275.html",
+  "transport": "https://cod.psdi.ac.uk/cod/8104275.cif",
+  "transportSha256": "c602ad1d41f6eb320708cc46c8f98817825d280d98c3678f85a4c17cce70e76d",
+  "evidence": "published-structure",
+  "note": "Bản ghi đơn tà có đủ vị trí Na, O và H; loại bản trực thoi 8104274 thiếu tọa độ H. Không thay cho một mạng tinh thể của dung dịch NaOH.",
+  "limitations": "",
+  "coordinatePrecision": "Original CIF lexical precision and uncertainties are retained in the downloadable CIF."
+}

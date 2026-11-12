@@ -5,7 +5,7 @@
     "author": "Ban Biên Tập Biên Niên Sử Hóa Học · ChemDex",
     "category": "nguyento",
     "summary": "Biên niên sử nguyên tố đầu tiên của vũ trụ: từ những hạt vật chất nguyên thủy sau Vụ Nổ Lớn, thí nghiệm bình eudiometer của Henry Cavendish năm 1766 đến chiếc nòng súng nung đỏ của Lavoisier và nền kinh tế năng lượng sạch.",
-    "image": "/assets/library/cosmic-origin.svg",
+    "image": "/assets/library/substances/hydrogen-h.svg",
     "tags": [
       "Phi kim",
       "Khí",
@@ -22,7 +22,7 @@
     "author": "Chuyên San Khảo Cổ & Địa Hóa Học · ChemDex",
     "category": "nguyento",
     "summary": "Ký sự về nguyên tố Heli: phát hiện huyền thoại trên vành nhật hoa Mặt Trời trong nhật thực năm 1868 trước khi tìm thấy trên Trái Đất, hành trình cô lập của William Ramsay và hiện tượng kỳ ảo siêu lỏng không ma sát.",
-    "image": "https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?auto=format&fit=crop&q=80&w=800",
+    "image": "/assets/library/substances/heli-he.svg",
     "tags": [
       "Khí hiếm",
       "Bóng bay",
@@ -38,7 +38,7 @@
     "author": "Tạp Chí Công Nghệ Hóa Chất & Vật Liệu · ChemDex",
     "category": "nguyento",
     "summary": "Hành trình của Liti: từ hòn đá petalite trên hòn đảo Thụy Điển năm 1817, cuộc điện phân của Humphry Davy đến phát minh pin Li-ion đoạt giải Nobel biến đổi toàn bộ thế giới di động hiện đại.",
-    "image": "https://images.unsplash.com/photo-1620283085068-5aab14e76d33?auto=format&fit=crop&q=80&w=800",
+    "image": "/assets/library/substances/liti-li.svg",
     "tags": [
       "Kim loại kiềm",
       "Pin Lithium",
@@ -54,7 +54,7 @@
     "author": "Hội Đồng Chuyên Khảo Cấu Trúc Phân Tử · ChemDex",
     "category": "nguyento",
     "summary": "Khám phá biên niên sử của nguyên tố trung tâm của sự sống: thí nghiệm đốt kim cương của Lavoisier, giấc mơ con rắn cắn đuôi Ouroboros của Kekulé đến cuộc săn tìm quả bóng Buckyball C₆₀ và tấm màng Graphene một nguyên tử.",
-    "image": "https://images.unsplash.com/photo-1587310065842-83ffb246a482?auto=format&fit=crop&q=80&w=800",
+    "image": "/assets/library/substances/carbon-c.svg",
     "tags": [
       "Phi kim",
       "Kim cương",
@@ -70,7 +70,7 @@
     "author": "Phóng Viên Phòng Thí Nghiệm & Lịch Sử Khoa Học · ChemDex",
     "category": "nguyento",
     "summary": "Phóng sự lịch sử về Nitơ: thí nghiệm chuột thở của Daniel Rutherford năm 1772, danh pháp Azote đầy định kiến của Lavoisier và cuộc bẻ gãy liên kết ba kỳ vĩ trong tháp tổng hợp công nghiệp.",
-    "image": "https://images.unsplash.com/photo-1534063879986-773a4d8dbbd3?auto=format&fit=crop&q=80&w=800",
+    "image": "/assets/library/substances/nito-n.svg",
     "tags": [
       "Khí quyển",
       "Phân bón",
@@ -86,7 +86,7 @@
     "author": "Chuyên Mục Di Sản Thực Nghiệm Thế Giới · ChemDex",
     "category": "nguyento",
     "summary": "Biên niên sử về dưỡng khí của sự sống: cuộc chạy đua kịch tính giữa Carl Wilhelm Scheele và Joseph Priestley, cái chết của thuyết nhiệt chất phlogiston và sự ra đời của nền hóa học định lượng hiện đại.",
-    "image": "https://images.unsplash.com/photo-1516629080649-74e2d3122c19?auto=format&fit=crop&q=80&w=800",
+    "image": "/assets/library/substances/oxy-o.svg",
     "tags": [
       "Khí quyển",
       "Sự sống",
@@ -102,7 +102,7 @@
     "author": "Ban Biên Tập Biên Niên Sử Hóa Học · ChemDex",
     "category": "nguyento",
     "summary": "Ký sự về Natri: từ muối tro thực vật natron ở Ai Cập cổ đại đến đêm thí nghiệm điên rồ năm 1807 khi Humphry Davy nhảy múa sung sướng khi nhìn thấy những giọt kim loại sáng bạc bốc cháy.",
-    "image": "https://images.unsplash.com/photo-1606822452097-f542fa79075e?auto=format&fit=crop&q=80&w=800",
+    "image": "/assets/library/substances/natri-na.svg",
     "tags": [
       "Kim loại kiềm",
       "Muối",
@@ -118,7 +118,7 @@
     "author": "Chuyên San Khảo Cổ & Địa Hóa Học · ChemDex",
     "category": "nguyento",
     "summary": "Khám phá lịch sử đồ sắt: thanh kiếm rèn từ thiên thạch ngoài vũ trụ của vua Tutankhamun, cuộc cách mạng lò cao luyện kim và nguyên tử sắt giữ nhịp thở trong phân tử hemoglobin của máu người.",
-    "image": "https://images.unsplash.com/photo-1535813547-99c456a41d4a?auto=format&fit=crop&q=80&w=800",
+    "image": "/assets/library/substances/sat-fe.svg",
     "tags": [
       "Kim loại chuyển tiếp",
       "Từ tính",
@@ -134,7 +134,7 @@
     "author": "Tạp Chí Công Nghệ Hóa Chất & Vật Liệu · ChemDex",
     "category": "nguyento",
     "summary": "Biên niên sử về kim loại Đồng: từ thời kỳ Đồ Đồng khai sinh văn minh, hòn đảo Cyprus huyền thoại đến những cuộn dây đồng của Faraday mở màn cho kỷ nguyên điện khí hóa toàn cầu.",
-    "image": "https://images.unsplash.com/photo-1601058268499-e52658b8bb88?auto=format&fit=crop&q=80&w=800",
+    "image": "/assets/library/substances/dong-cu.svg",
     "tags": [
       "Kim loại chuyển tiếp",
       "Dẫn điện",
@@ -150,7 +150,7 @@
     "author": "Chuyên Mục Di Sản Thực Nghiệm Thế Giới · ChemDex",
     "category": "nguyento",
     "summary": "Ký sự lịch sử về Bạc: mỏ bạc Laurion cứu nguy nền dân chủ Athens cổ đại, hiện tượng kháng khuẩn oligodynamic và cuộc cách mạng quang hóa giữ lại hình ảnh đầu tiên trong lịch sử.",
-    "image": "https://images.unsplash.com/photo-1622323869279-d2b380bf9d4c?auto=format&fit=crop&q=80&w=800",
+    "image": "/assets/library/substances/bac-ag.svg",
     "tags": [
       "Kim loại quý",
       "Trang sức",
@@ -166,7 +166,7 @@
     "author": "Hội Đồng Chuyên Khảo Cấu Trúc Phân Tử · ChemDex",
     "category": "tieusu",
     "summary": "Toàn cảnh lịch sử khám phá quy luật tuần hoàn: từ bộ ba Döbereiner, hình xoắn ốc Chancourtois, định luật bát âm Newlands đến đêm mất ngủ ngày 17/2/1869 khi Mendeleev sắp xếp những quân bài hóa học tiên tri tương lai.",
-    "image": "/assets/library/cosmic-origin.svg",
+    "image": "/assets/library/substances/bien-nien-su-bang-tuan-hoan.svg",
     "tags": [
       "Lịch sử",
       "Mendeleev",
@@ -182,7 +182,7 @@
     "author": "Phóng Viên Phòng Thí Nghiệm & Lịch Sử Khoa Học · ChemDex",
     "category": "khainiem",
     "summary": "Ký sự về lịch sử an toàn hóa chất: cái chết thương tâm ở tuổi 43 của Carl Wilhelm Scheele do nếm hóa chất, vụ nổ suýt làm mù mắt Humphry Davy và hệ thống quy ước an toàn bảo vệ sinh mạng trong phòng lab.",
-    "image": "/assets/library/lab-synthesis.svg",
+    "image": "/assets/library/substances/bai-hoc-xuong-mau-trong-phong-thi-nghiem.svg",
     "tags": [
       "An toàn",
       "Thực hành",
@@ -198,7 +198,7 @@
     "author": "Ban Biên Tập Biên Niên Sử Hóa Học · ChemDex",
     "category": "khainiem",
     "summary": "Lịch sử hình ảnh hóa thế giới vi mô: từ ký hiệu giả kim huyền bí, những quả cầu gỗ croquet của Hofmann (1865), mô hình không gian CPK của Linus Pauling đến công nghệ kết xuất 3D WebGL thế kỷ XXI.",
-    "image": "/assets/library/covalent-bonds.svg",
+    "image": "/assets/library/substances/nghe-thuat-truc-quan-hoa-phan-tu.svg",
     "tags": [
       "HTML",
       "Template",
@@ -214,7 +214,7 @@
     "author": "Ban Biên Tập Biên Niên Sử Hóa Học · ChemDex",
     "category": "hopchat",
     "summary": "Phóng sự lịch sử và khoa học về Nước (H₂O): từ sự ngưng tụ trong tinh vân liên sao, thí nghiệm lịch sử của Henry Cavendish & Antoine Lavoisier (1781–1783), nghịch lý tỷ trọng nuôi dưỡng sự sống đến bí ẩn bông tuyết 6 cánh của Johannes Kepler.",
-    "image": "/assets/library/thumbnails/nuoc-h2o.svg",
+    "image": "/assets/library/substances/nuoc-h2o.svg",
     "tags": [
       "H2O",
       "Câu chuyện hóa học",
@@ -239,7 +239,7 @@
     "author": "Tạp Chí Công Nghệ Hóa Chất & Vật Liệu · ChemDex",
     "category": "hopchat",
     "summary": "Biên niên sử lẫy lừng về Amoniac (NH₃): từ những tinh thể muối huyền bí ở ốc đảo Siwa Ai Cập, thí nghiệm chậu thủy ngân của Joseph Priestley (1774) đến lò phản ứng cao áp nuôi sống một nửa nhân loại.",
-    "image": "/assets/library/thumbnails/amoniac-nh3.svg",
+    "image": "/assets/library/substances/amoniac-nh3.svg",
     "tags": [
       "NH3",
       "Câu chuyện hóa học",
@@ -264,7 +264,7 @@
     "author": "Chuyên San Khảo Cổ & Địa Hóa Học · ChemDex",
     "category": "hopchat",
     "summary": "Ký sự khoa học về Natri clorua (NaCl): từ sự hình thành các đại dương nguyên thủy, giá trị tiền tệ salarium thời La Mã, cuộc điện phân lịch sử của Humphry Davy (1807) đến cuộc cách mạng nhiễu xạ tia X giải mã mạng tinh thể 3 chiều của cha con nhà Bragg (1913).",
-    "image": "/assets/library/thumbnails/natri-clorua-nacl.svg",
+    "image": "/assets/library/substances/natri-clorua-nacl.svg",
     "tags": [
       "NaCl",
       "Câu chuyện hóa học",
@@ -290,7 +290,7 @@
     "author": "Chuyên Mục Di Sản Thực Nghiệm Thế Giới · ChemDex",
     "category": "hopchat",
     "summary": "Biên niên sử riêng của Etanol (C₂H₅OH): từ dấu tích lên men 7000 năm TCN tại Giả Hồ, chiếc bình chưng al-ambiq của các học giả Ả Rập, cồn tuyệt đối của Lowitz (1796) đến kiến trúc nhóm chức hydroxyl —OH định hướng không gian 3 chiều.",
-    "image": "/assets/library/thumbnails/etanol-c2h5oh.svg",
+    "image": "/assets/library/substances/etanol-c2h5oh.svg",
     "tags": [
       "C₂H₅OH",
       "Câu chuyện hóa học",
@@ -316,7 +316,7 @@
     "author": "Phóng Viên Phòng Thí Nghiệm & Lịch Sử Khoa Học · ChemDex",
     "category": "hopchat",
     "summary": "Phóng sự lịch sử và khoa học về Carbon dioxide (CO₂): khám phá Jan Baptist van Helmont sáng tạo ra khái niệm \"chất khí\" (1640), chiếc cân định lượng đá vôi của Joseph Black (1754), thí nghiệm đốt kim cương của Lavoisier và chu trình carbon toàn cầu.",
-    "image": "/assets/library/thumbnails/carbon-dioxide-co2.svg",
+    "image": "/assets/library/substances/carbon-dioxide-co2.svg",
     "tags": [
       "CO₂",
       "Câu chuyện hóa học",
@@ -342,7 +342,7 @@
     "author": "Hội Đồng Chuyên Khảo Cấu Trúc Phân Tử · ChemDex",
     "category": "hopchat",
     "summary": "Bài báo chuyên khảo về Metan (CH₄): tái hiện chuyến chèo thuyền mùa thu năm 1776 của Alessandro Volta, chiếc đèn an toàn cứu mạng thợ mỏ của Humphry Davy và phát kiến vĩ đại của Van 't Hoff về nguyên tử Carbon tứ diện trong không gian 3 chiều (1874).",
-    "image": "/assets/library/thumbnails/metan-ch4.svg",
+    "image": "/assets/library/substances/metan-ch4.svg",
     "tags": [
       "CH₄",
       "Câu chuyện hóa học",

@@ -1,0 +1,60 @@
+                                                                                                                                                                                    2
+
+   The  present  work  focuses  on  chromium  trichloride.   Initial                          vations  for  the  bulk  crystals  are  in  agreement  with  previously
+studies   of   magnetism   in   this   material   date   back   nearly   100                  published  literature,  and  in  addition:   (1)  we  note  an  anomaly
+years   [32].      The   antiferromagnetic   ground   state   consists   of                   in   the   magnetic   susceptibility   at   the   crystallographic   phase
+moments  lying   in   the   plane   deﬁned  by   the   Cr   layers.    Those                  transition   indicating   some   coupling   of   the   magnetism   to   the
+moments  are  aligned  ferromagnetically within  a  layer,  and  the                          crystal  lattice,  (2)  we  ﬁnd  good  structural  agreement  between
+layers   stack   antiferromagnetically,   as   demonstrated   by   neu-                       theory   and   experiment   only   when   magnetism   is   included   in
+tron  diffraction  [26].   The  transition  temperature  of  17 K  was                        the  calculations,  again  indicating  spin-lattice  coupling,  (3)  we
+identiﬁed   by   heat   capacity   measurements   [25,   33].     Kuhlow                      obtain  an  estimate  of  the  in-plane  spin-ﬂop  ﬁeld  from  magne-
+performed Faraday  rotation  measurements  and  concluded  that                               tization  measurements,   (4)  we   observe  two   separate  heat  ca-
+upon  cooling  the  magnetic  order  appeared  to  develop  by  ﬁrst                          pacity  anomalies  associated  with  magnetic ordering indicative
+forming  two-dimensional  ferromagnetic  order  within  the  lay-                             of  short-ranged  or  two-dimensional  ferromagnetism  evolving
+ers  and then,  at  slightly lower  temperature, forming long range                           into  long-range  antiferromagnetism,  (5)  we  present  the  evolu-
+three-dimensional   order   through   antiferromagnetic   coupling                            tion  of  isothermal  magnetization  curves  that  is  consistent  with
+between  the  layers  [34].   Faraday  rotation,  magnetization,  and                         this  scenario  and  construct  a  temperature-ﬁeld  phase  diagram
+neutron  diffraction  measurements  show  that  the  ordered  state                           for  CrCl3,  and  (6)  we  demonstrate  stable  monolayer  and  few-
+has  very  little  anisotropy,  and  ﬁelds  of  only  a  few  kOe  are  re-                   layer   specimens  can   be   cleaved   from   bulk   crystals.    Overall,
+quired to  fully polarize the  magnetization in or  out of  the  plane                        it  is  apparent  that  CrCl3   is  a  promising  material  for  the  study
+[26,   34,   35].    Weak   magnetic   anisotropy  and   weakly   antifer-                    of  magnetism  in  ultrathin  crystals  and  for  incorporating  mag-
+romagnetic  interlayer  interactions  are  also  reported  from  spin                         netism  into  van  der  Waals  heterostructures.
+wave  analysis  [36].   In  addition,  CrCl3   is  known  to  undergo  a
+crystallographic  phase  transition  near  240 K,  similar  to  CrBr3
+and  CrI3,  corresponding  to  a  change  in  the  layer  stacking  ar-                                                    II.        PROCEDURES
+rangement  and  a  transition  from  monoclinic  (C2/m)  at  high
+temperature   to   rhombohedral   (R3)   at   low   temperature   with                           Crystal   growth   is   described   in   the   following   Section.      A
+little  change  in  the  intralayer  structure  [18,  37].                                    PANalytical  X-Pert  Pro  MDP  diffractometer equipped with  an
+   There     have     been     several     recent     theoretical     studies     of          Oxford   PheniX   cryostat  was   used   for   x-ray   diffraction  mea-
+CrCl3    based   on   ﬁrst   principles   electronic   structure   calcula-                   surements   (Cu-Kα1    radiation).      Heat   capacity   and   ac   mag-
+tions.       Wang    et   al.       employed   all-electron   calculations   for              netization   measurements   were   performed   using   a   Quantum
+bulk   CrCl3,   and   the   experimentally  observed  rhombohedral-                           Design   PPMS,   and   dc   magnetization   was   measured   using   a
+antiferromagnetic  ground  state  was  reproduced  for  one  of  the                          Quantum   Design   MPMS.   Optical   absorbance   A   was   deter-
+methods  used  for  incorporating U,  the  on-site  Coulomb  repul-                           mined   from   the   measured   optical   transmittance   T    by  A  =
+sion  for  Cr  [27].   The  authors  noted  that  the  energetics  of  the                    −log(T ).      Transmission   measurements   were   made   using   a
+different  crystal  and  magnetic  structures  are  sensitive  enough                         home-built   system   speciﬁcally   designed   for   small   samples.
+to  the  speciﬁc  approach  used  that  it  is  difﬁcult  to  draw  deﬁni-                    The  light  source  was  an  Energetiq  LDLS  99,  which  was  col-
+tive  conclusions  about  their  relative  stability,   consistent  with                      limated   coming   from   the   ﬁber.     The   detector   was   an   Ocean
+the   experimentally   observed   temperature   induced   crystallo-                          Optics  USB4000  0.1  meter  spectrometer  attached  to  a  600  mi-
+graphic   phase   transition   and   the   weak   magnetic   anisotropy                       cron  multimode  ﬁber.  The  sample  was  placed  directly  in  front
+in   the   antiferromagnetic   state.      Other   theoretical   studies   fo-                of  the  600  micron  entrance  of  the  ﬁber.   The  transmission  was
+cus   mainly   on   CrCl3   monolayers.     Liu   et   al.     observed   fer-                determined  by  the  ratio  of  the  spectroscopic  intensity  with  the
+romagnetic  order  below   66 K   in   Monte   Carlo   simulations  of                        sample   in   place   and   the   intensity   with   the   sample   removed.
+monolayers,   and   suggested   that   hole   doping  should   increase                       Exfoliation  of  bulk  CrCl3  was  achieved  using  mechanical  ex-
+the  Curie   temperature  [20].    The  cleavage  energy  in   the  bulk                      foliation  with  scotch  tape  onto  90 nm  SiO2  substrates.  Optical
+crystal   was   calculated   using   a   van   der   Waals   density   func-                  microscopy  images  were  obtained  using  an  Olympus  BX51M
+tional  (vdW-DF)  method  to  account  for  the  dispersion  forces                           microscope,  while  atomic  force  microscopy  (AFM)  was  car-
+in   the  bulk  crystal.    This  gave  a  very  low  cleavage  energy  of                    ried  out  using  a  Bruker  Edge  Dimension  atomic  force  micro-
+0.10−0.13 J/m2.    Zhang  et  al.    calculate  a  cleavage  energy  of                       scope.
+0.3 J/m2  using  a  different  vdW-DF  [19].  Monte  Carlo  simula-                              DFT   calculations   were   performed   using   the   Vienna   Ab-
+tions  using  their  ﬁrst  principles  calculations  results  for  mono-                      initio    Simulation   Package   (VASP)    [38]    with    the   projector-
+layer  CrCl3  suggest  a  Curie  temperature of  49 K,  which  is  pre-                       augmented  wave  (PAW)  [39]  potentials  in  order  to  understand
+dicted  to  increase  with  applied  strain.  The  results  of  those  two                    the   crystallographic  and   electronic   properties  of   bulk   CrCl3.
+studies   indicate   that   CrCl3    monolayers   should   be   mechani-                      The  exchange-correlation was  approximated  with  generalized
+cally  stable.                                                                                gradient   approximation   (GGA)   of    Perdew-Burke-Ernzerhof
+   Here  we  report  results  from  a  thorough  study  of  bulk  CrCl3                       (PBE)   functionals   [40]   as   well   as   van   der   Waals   correction
+crystals,   including  x-ray  diffraction,  magnetization,  and  heat                         using   vdW-DF-optB86b  functional   [41–44].     The   pseudopo-
+capacity   data,   along   with   van   der   Waals   density   functional                    tentials  used  explicitly  treat 3p6, 4s1, 3d5,  and 3s2, 3p5  elec-
+studies  of  the  structure  and  magnetism.  In  addition  we  include                       trons    as    valence    electrons   for    Cr    and    for    Cl,    respectively.
+optical  images  and  atomic  force microscopy measurements on                                The  Brillouin  zone  (BZ)  integration  was  performed  using  the
+ultrathin  specimens  cleaved  from  the  bulk  crystals.  Our  obser-                        Monkhorst-Pack  [45]   sampling   method   with   a   4×4×2   (R3)

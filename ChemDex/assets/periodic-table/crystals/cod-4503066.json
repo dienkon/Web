@@ -1,0 +1,540 @@
+{
+  "id": "cod-4503066",
+  "codId": "4503066",
+  "referenceId": "cod:4503066",
+  "mineralName": "Methanol rắn · 122 K",
+  "formula": "CH4O",
+  "sourceFormula": "C H4 O",
+  "subjectIds": [
+    "cid-887"
+  ],
+  "spaceGroup": "P 21 21 21",
+  "spaceGroupNumber": 19,
+  "cell": {
+    "a": 4.6469,
+    "b": 4.9285,
+    "c": 9.0403,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "basis": [
+    [
+      4.6469,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      4.9285,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      9.0403
+    ]
+  ],
+  "volume": 207.04318038999497,
+  "declaredVolume": 207.04,
+  "symmetryOperations": [
+    "x,y,z",
+    "-x+1/2,-y,z+1/2",
+    "-x,y+1/2,-z+1/2",
+    "x+1/2,-y+1/2,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.2254,
+        0.3025,
+        0.93036
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.036
+    },
+    {
+      "label": "H1",
+      "element": "H",
+      "fractional": [
+        0.3754,
+        0.2722,
+        0.9795
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.054
+    },
+    {
+      "label": "C2",
+      "element": "C",
+      "fractional": [
+        0.2535,
+        0.5526,
+        0.8549
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0397
+    },
+    {
+      "label": "H2A",
+      "element": "H",
+      "fractional": [
+        0.2754,
+        0.6997,
+        0.927
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.06
+    },
+    {
+      "label": "H2B",
+      "element": "H",
+      "fractional": [
+        0.0813,
+        0.5849,
+        0.7948
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.06
+    },
+    {
+      "label": "H2C",
+      "element": "H",
+      "fractional": [
+        0.4232,
+        0.5465,
+        0.7906
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.06
+    }
+  ],
+  "atoms": [
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.2254,
+        0.3025,
+        0.93036
+      ],
+      "position": [
+        1.0474112599999998,
+        1.4908712499999999,
+        8.410733508
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.2746,
+        0.6975,
+        0.43035999999999985
+      ],
+      "position": [
+        1.27603874,
+        3.43762875,
+        3.890583507999999
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.7254,
+        0.1975,
+        0.06964000000000004
+      ],
+      "position": [
+        3.37086126,
+        0.97337875,
+        0.6295664920000004
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.7746,
+        0.8025,
+        0.56964
+      ],
+      "position": [
+        3.5994887399999995,
+        3.9551212499999995,
+        5.1497164920000005
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H1",
+      "element": "H",
+      "fractional": [
+        0.3754,
+        0.2722,
+        0.9795
+      ],
+      "position": [
+        1.74444626,
+        1.3415377,
+        8.85497385
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H1",
+      "element": "H",
+      "fractional": [
+        0.12459999999999999,
+        0.7278,
+        0.47950000000000004
+      ],
+      "position": [
+        0.5790037399999999,
+        3.5869622999999997,
+        4.33482385
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H1",
+      "element": "H",
+      "fractional": [
+        0.8754,
+        0.2278,
+        0.020499999999999963
+      ],
+      "position": [
+        4.0678962599999995,
+        1.1227122999999999,
+        0.18532614999999966
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H1",
+      "element": "H",
+      "fractional": [
+        0.6246,
+        0.7722,
+        0.5205
+      ],
+      "position": [
+        2.90245374,
+        3.8057876999999998,
+        4.70547615
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C2",
+      "element": "C",
+      "fractional": [
+        0.2535,
+        0.5526,
+        0.8549
+      ],
+      "position": [
+        1.17798915,
+        2.7234890999999997,
+        7.72855247
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C2",
+      "element": "C",
+      "fractional": [
+        0.2465,
+        0.4474,
+        0.3549
+      ],
+      "position": [
+        1.1454608499999999,
+        2.2050109,
+        3.2084024700000002
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C2",
+      "element": "C",
+      "fractional": [
+        0.7535000000000001,
+        0.9474,
+        0.1451
+      ],
+      "position": [
+        3.50143915,
+        4.669260899999999,
+        1.31174753
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C2",
+      "element": "C",
+      "fractional": [
+        0.7464999999999999,
+        0.05259999999999998,
+        0.6451
+      ],
+      "position": [
+        3.4689108499999994,
+        0.2592390999999999,
+        5.83189753
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2A",
+      "element": "H",
+      "fractional": [
+        0.2754,
+        0.6997,
+        0.927
+      ],
+      "position": [
+        1.2797562599999999,
+        3.4484714499999995,
+        8.3803581
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2A",
+      "element": "H",
+      "fractional": [
+        0.22460000000000002,
+        0.3003,
+        0.42700000000000005
+      ],
+      "position": [
+        1.04369374,
+        1.4800285499999999,
+        3.8602081000000004
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2A",
+      "element": "H",
+      "fractional": [
+        0.7754,
+        0.8003,
+        0.07299999999999995
+      ],
+      "position": [
+        3.6032062599999994,
+        3.94427855,
+        0.6599418999999996
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2A",
+      "element": "H",
+      "fractional": [
+        0.7246,
+        0.1997,
+        0.573
+      ],
+      "position": [
+        3.36714374,
+        0.9842214499999998,
+        5.1800919
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2B",
+      "element": "H",
+      "fractional": [
+        0.0813,
+        0.5849,
+        0.7948
+      ],
+      "position": [
+        0.37779296999999995,
+        2.8826796499999996,
+        7.18523044
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2B",
+      "element": "H",
+      "fractional": [
+        0.4187,
+        0.4151,
+        0.29479999999999995
+      ],
+      "position": [
+        1.94565703,
+        2.04582035,
+        2.6650804399999997
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2B",
+      "element": "H",
+      "fractional": [
+        0.5813,
+        0.9151,
+        0.20520000000000005
+      ],
+      "position": [
+        2.70124297,
+        4.5100703499999995,
+        1.8550695600000005
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2B",
+      "element": "H",
+      "fractional": [
+        0.9187,
+        0.08489999999999998,
+        0.7052
+      ],
+      "position": [
+        4.26910703,
+        0.4184296499999999,
+        6.375219560000001
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2C",
+      "element": "H",
+      "fractional": [
+        0.4232,
+        0.5465,
+        0.7906
+      ],
+      "position": [
+        1.9665680799999998,
+        2.6934252499999998,
+        7.14726118
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2C",
+      "element": "H",
+      "fractional": [
+        0.07679999999999998,
+        0.4535,
+        0.29059999999999997
+      ],
+      "position": [
+        0.35688191999999985,
+        2.23507475,
+        2.62711118
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2C",
+      "element": "H",
+      "fractional": [
+        0.9232,
+        0.9535,
+        0.20940000000000003
+      ],
+      "position": [
+        4.290018079999999,
+        4.69932475,
+        1.8930388200000003
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2C",
+      "element": "H",
+      "fractional": [
+        0.5768,
+        0.046499999999999986,
+        0.7094
+      ],
+      "position": [
+        2.6803319199999995,
+        0.2291752499999999,
+        6.41318882
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    }
+  ],
+  "siteCount": 24,
+  "speciesPositionCount": 24,
+  "cellComposition": {
+    "O": 4.0,
+    "H": 16.0,
+    "C": 4.0
+  },
+  "mixedSiteCount": 0,
+  "formulaUnitsZ": 4.0,
+  "conditions": {
+    "temperatureK": "122(2)",
+    "pressureKPa": null,
+    "hydrogenTreatment": "geom"
+  },
+  "reference": {
+    "authors": [
+      "Kirchner, Michael T.",
+      "Das, Dinabandhu",
+      "Boese, Roland"
+    ],
+    "title": "Cocrystallization with Acetylene: Molecular Complex with Methanol",
+    "journal": "Crystal Growth & Design",
+    "year": 2008.0,
+    "volume": "8",
+    "pages": "763",
+    "doi": "10.1021/cg0701877"
+  },
+  "source": "https://www.crystallography.net/cod/4503066.html",
+  "transport": "https://cod.psdi.ac.uk/cod/4503066.cif",
+  "transportSha256": "32cf5c752dea004f25e971f7e466942972e942f9e84764f2323f734460d470a8",
+  "evidence": "published-structure",
+  "note": "Bản methanol tinh khiết 122 K trong công trình có cả co-crystal acetylene; không dùng bản co-crystal. H theo xử lý hình học của nguồn.",
+  "limitations": "",
+  "coordinatePrecision": "Original CIF lexical precision and uncertainties are retained in the downloadable CIF."
+}

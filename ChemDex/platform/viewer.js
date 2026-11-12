@@ -1,6 +1,7 @@
 import { escape, download, storage } from "./common.js";
 import { generateStructure, toSDF } from "../shared/chemistry/structure-generator.mjs";
 import { CPK_COLORS, readSDF, readCIF } from "./viewer-canvas.js";
+import { mountMolecularStudio } from './molecular-studio.js';
 
 let library;
 async function loadLibrary() {
@@ -14,6 +15,15 @@ export class ChemStructureViewer extends HTMLElement {
     this.ready = true;
     this.spinning = false;
     this.innerHTML = `<div class="viewer-toolbar"><label><span class="sr-only">Kiểu mô hình</span><select data-style><option value="ball">Cầu–que (Ball & Stick)</option><option value="stick">Que liên kết (Stick)</option><option value="sphere">Cầu đặc (Van der Waals)</option></select></label><label class="muted"><input type="checkbox" data-hydrogen checked> Hydrogen</label><label class="muted"><input type="checkbox" data-light> Đồ họa nhẹ</label><label class="muted"><input type="checkbox" data-labels> Nhãn</label><button class="button" data-spin type="button">↻ Tự xoay</button><button class="button" data-reset type="button">Đặt lại</button><button class="button" data-fullscreen type="button">Toàn màn hình</button><button class="button" data-png type="button">PNG ↓</button><button class="button" data-file type="button">SDF / CIF ↓</button></div><div class="canvas-shell" role="img" aria-label="Mô hình cấu trúc có thể xoay và phóng to"></div><div class="viewer-bond-panel"></div><div class="viewer-status" role="status">Chọn một chất để xem cấu trúc.</div><div class="atom-readout">Chọn 2 nguyên tử để đo khoảng cách, 3 nguyên tử để đo góc (trên cấu dạng đang xem).</div><div class="viewer-source"></div>`;
+    this.environmentEnabled = true;
+    this.querySelector('.viewer-toolbar').insertAdjacentHTML('beforeend','<button class="button" type="button" data-environment aria-pressed="true">Ẩn cảnh trưng bày</button>');
+    this.querySelector('[data-environment]').onclick = () => {
+      this.environmentEnabled = !this.environmentEnabled;
+      const button=this.querySelector('[data-environment]');
+      button.setAttribute('aria-pressed',String(this.environmentEnabled));
+      button.textContent=this.environmentEnabled?'Ẩn cảnh trưng bày':'Hiện cảnh trưng bày';
+      this.syncEnvironment();this.applyStyle();
+    };
     this.querySelector("[data-light]").onchange = () => {
       if (this.record) this.open(this.record);
     };
@@ -86,6 +96,7 @@ export class ChemStructureViewer extends HTMLElement {
     this.ready = false;
   }
   dispose() {
+    this.environment?.destroy();this.environment=null;
     this.fallback?.destroy();
     this.fallback = null;
     this.viewer?.destroy();
@@ -301,9 +312,12 @@ export class ChemStructureViewer extends HTMLElement {
           this.viewer.rotate(90, "y");
         else if (extents[1] < 1e-5 && Math.max(...extents) > 0)
           this.viewer.rotate(90, "x");
+        if (this.environmentEnabled) this.viewer.rotate(12, 'x');
         this.initialView = this.viewer.getView();
+        this.syncEnvironment();
         this.viewer.render();
       } catch (error) {
+        this.environment?.destroy();this.environment=null;
         this.viewer?.destroy();
         this.viewer = null;
         shell.replaceChildren();
@@ -314,6 +328,7 @@ export class ChemStructureViewer extends HTMLElement {
         this.fallback = createCanvasViewer(shell, model, (atom) =>
           this.pick(atom),
         );
+        this.applyStyle();
       }
       const bondTotal = this.parsedModel?.bonds?.length ?? 0;
       this.status(
@@ -326,6 +341,8 @@ export class ChemStructureViewer extends HTMLElement {
       this.querySelector(".viewer-source").innerHTML = generated
         ? `<span class="badge">MÔ HÌNH MINH HỌA</span><p>${escape(generated.note)}</p>`
         : `${escape(source.provenance)} · <a href="${escape(source.source)}" target="_blank" rel="noopener noreferrer">Nguồn dữ liệu ↗</a><br>Tọa độ là một cấu dạng tĩnh; không mô tả chuyển động phân tử theo thời gian thực.`;
+      this.querySelector('.viewer-source').insertAdjacentHTML('beforeend','<details class="viewer-environment-note"><summary>Quy ước cảnh trưng bày</summary>Bệ và lọ mẫu là cảnh minh họa, tách khỏi tọa độ phân tử, phép đo và file tải xuống.</details>');
+      if(this.parsedModel?.expansionWarnings?.length)this.querySelector('.viewer-source').insertAdjacentHTML('beforeend',`<details class="viewer-environment-note"><summary>Ghi chú đọc CIF</summary>${this.parsedModel.expansionWarnings.map(escape).join('<br>')}</details>`);
     } catch (error) {
       if (controller.signal.aborted) return;
       this.status(
@@ -340,12 +357,18 @@ export class ChemStructureViewer extends HTMLElement {
       shell.innerHTML = `<div class="empty"><strong>${escape(record.name_vi ?? record.name_en)}</strong><p>${escape(record.formula)}</p><p>Thông tin chất vẫn khả dụng. Có thể xem nguồn hoặc thử lại sau.</p></div>`;
     }
   }
+  syncEnvironment() {
+    this.environment?.destroy();this.environment=null;
+    if(this.viewer && this.parsedModel && this.environmentEnabled)this.environment=mountMolecularStudio(this.viewer,this.parsedModel);
+    this.viewer?.render();
+  }
   applyStyle() {
     if (this.fallback) {
       this.fallback.style({
         style: this.querySelector("[data-style]").value,
         hydrogen: this.querySelector("[data-hydrogen]").checked,
         labels: this.querySelector("[data-labels]").checked,
+        environment: this.environmentEnabled,
       });
       return;
     }

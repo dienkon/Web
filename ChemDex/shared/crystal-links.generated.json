@@ -1,0 +1,804 @@
+{
+  "atom-He": [
+    "chat-solid-helium"
+  ],
+  "formula-Li": [
+    "nguyen-to-li"
+  ],
+  "chem-c": [
+    "nguyen-to-c"
+  ],
+  "atom-N": [
+    "chat-solid-nitrogen-alpha"
+  ],
+  "atom-O": [
+    "chat-solid-oxygen-beta"
+  ],
+  "chem-na": [
+    "nguyen-to-na"
+  ],
+  "chem-fe": [
+    "nguyen-to-fe"
+  ],
+  "chem-cu": [
+    "nguyen-to-cu"
+  ],
+  "formula-Ag": [
+    "nguyen-to-ag"
+  ],
+  "cid-962": [
+    "chat-ice-ii"
+  ],
+  "crystal-nacl": [
+    "halite"
+  ],
+  "cid-702": [
+    "cod-5910115"
+  ],
+  "cid-280": [
+    "chat-dry-ice"
+  ],
+  "cid-887": [
+    "cod-4503066"
+  ],
+  "cid-180": [
+    "cod-7110463"
+  ],
+  "cid-176": [
+    "cod-2008187"
+  ],
+  "cid-947": [
+    "chat-solid-nitrogen-alpha"
+  ],
+  "cid-977": [
+    "chat-solid-oxygen-beta"
+  ],
+  "cid-281": [
+    "chat-solid-carbon-monoxide"
+  ],
+  "cid-241": [
+    "cod-7238223"
+  ],
+  "cid-178": [
+    "chat-acetamide"
+  ],
+  "cid-1176": [
+    "chat-urea"
+  ],
+  "cid-5793": [
+    "cod-5000067"
+  ],
+  "cid-5984": [
+    "cod-5000065"
+  ],
+  "cid-5988": [
+    "cod-2300557"
+  ],
+  "cid-784": [
+    "cod-1008189"
+  ],
+  "cid-1119": [
+    "chat-solid-sulfur-dioxide"
+  ],
+  "cid-24682": [
+    "chat-polymeric-sulfur-trioxide"
+  ],
+  "cid-948": [
+    "chat-solid-nitrous-oxide"
+  ],
+  "cid-313": [
+    "chat-solid-hydrogen-chloride"
+  ],
+  "cid-2244": [
+    "cod-7050902"
+  ],
+  "cid-2519": [
+    "cod-4504310"
+  ],
+  "crystal-cscl": [
+    "chat-cesium-chloride"
+  ],
+  "crystal-caf2": [
+    "fluorite"
+  ],
+  "chem-naoh": [
+    "cod-8104275"
+  ],
+  "chem-agno3": [
+    "cod-2105348"
+  ],
+  "chem-bacl2": [
+    "chat-barium-chloride"
+  ],
+  "chem-na2so4": [
+    "chat-thenardite"
+  ],
+  "chem-cuso4": [
+    "chat-chalcocyanite"
+  ],
+  "chem-fecl3": [
+    "chat-molysite"
+  ],
+  "chem-feso4": [
+    "chat-ferrous-sulfate-beta"
+  ],
+  "chem-nahco3": [
+    "chat-nahcolite"
+  ],
+  "chem-na2co3": [
+    "chat-natrite"
+  ],
+  "chem-cacl2": [
+    "chat-hydrophilite"
+  ],
+  "chem-kmno4": [
+    "cod-2310631"
+  ],
+  "chem-zn": [
+    "nguyen-to-zn"
+  ],
+  "chem-caco3": [
+    "calcite"
+  ],
+  "chem-caoh2": [
+    "chat-portlandite"
+  ],
+  "chem-al": [
+    "nguyen-to-al"
+  ],
+  "chem-mg": [
+    "nguyen-to-mg"
+  ],
+  "chem-nabr": [
+    "chat-sodium-bromide"
+  ],
+  "chem-ki": [
+    "chat-potassium-iodide"
+  ],
+  "chem-pbno32": [
+    "cod-2020897"
+  ],
+  "chem-alcl3": [
+    "cod-1535669"
+  ],
+  "chem-znso4": [
+    "chat-zincosite"
+  ],
+  "chem-na2s": [
+    "chat-sodium-sulfide"
+  ],
+  "chem-na2so3": [
+    "chat-sodium-sulfite"
+  ],
+  "chem-nh4cl": [
+    "chat-salammoniac"
+  ],
+  "chem-kscn": [
+    "chat-potassium-thiocyanate"
+  ],
+  "chem-br2": [
+    "chat-solid-bromine"
+  ],
+  "chem-i2": [
+    "nguyen-to-i"
+  ],
+  "chem-mgoh2": [
+    "chat-brucite"
+  ],
+  "chem-aloh3": [
+    "gibbsite"
+  ],
+  "chem-znoh2": [
+    "chat-zinc-hydroxide-epsilon"
+  ],
+  "chem-cuoh2": [
+    "chat-spertiniite"
+  ],
+  "chem-kcl": [
+    "sylvite"
+  ],
+  "chem-kno3": [
+    "chat-niter"
+  ],
+  "chem-nano3": [
+    "chat-nitratine"
+  ],
+  "chem-fecl2": [
+    "chat-ferrous-chloride"
+  ],
+  "chem-fe2so43": [
+    "chat-ferric-sulfate-monoclinic",
+    "chat-ferric-sulfate-rhombohedral"
+  ],
+  "chem-cucl2": [
+    "chat-tolbachite"
+  ],
+  "chem-cuno32": [
+    "cod-1542184"
+  ],
+  "chem-mgso4": [
+    "chat-magnesium-sulfate"
+  ],
+  "chem-mgcl2": [
+    "chat-magnesium-chloride"
+  ],
+  "chem-nh4no3": [
+    "chat-ammonium-nitrate-v"
+  ],
+  "chem-nh42so4": [
+    "chat-ammonium-sulfate"
+  ],
+  "chem-na2s2o3": [
+    "cod-2310480"
+  ],
+  "chem-k2cr2o7": [
+    "chat-lopezite"
+  ],
+  "chem-k2cro4": [
+    "chat-tarapacaite"
+  ],
+  "chem-fes": [
+    "chat-troilite"
+  ],
+  "chem-agcl": [
+    "chat-silver-chloride"
+  ],
+  "chem-agbr": [
+    "chat-silver-bromide"
+  ],
+  "chem-agi": [
+    "chat-silver-iodide"
+  ],
+  "chem-pbi2": [
+    "chat-lead-iodide"
+  ],
+  "chem-baso4": [
+    "barite"
+  ],
+  "chem-k2co3": [
+    "chat-potassium-carbonate"
+  ],
+  "chem-s": [
+    "nguyen-to-s"
+  ],
+  "chem-p": [
+    "nguyen-to-p"
+  ],
+  "chem-mno2": [
+    "pyrolusite"
+  ],
+  "chem-cuo": [
+    "chat-tenorite"
+  ],
+  "chem-fe2o3": [
+    "hematite"
+  ],
+  "chem-cao": [
+    "chat-lime"
+  ],
+  "chem-na2hpo4": [
+    "chat-disodium-hydrogen-phosphate"
+  ],
+  "chem-naf": [
+    "chat-villiaumite"
+  ],
+  "chem-ch3coona": [
+    "cod-1549467"
+  ],
+  "formula-Ag2CO3": [
+    "chat-silver-carbonate"
+  ],
+  "formula-Ag2O": [
+    "chat-silver-oxide"
+  ],
+  "formula-Ag3PO4": [
+    "chat-silver-phosphate"
+  ],
+  "formula-Al2(SO4)3": [
+    "chat-aluminium-sulfate"
+  ],
+  "formula-Al2O3": [
+    "chat-corundum"
+  ],
+  "formula-AlBr3": [
+    "cod-1535698"
+  ],
+  "formula-AlI3": [
+    "cod-8104000"
+  ],
+  "formula-Ba(NO3)2": [
+    "chat-barium-nitrate"
+  ],
+  "formula-BaCO3": [
+    "chat-witherite"
+  ],
+  "formula-BaF2": [
+    "chat-frankdicksonite"
+  ],
+  "formula-BaO": [
+    "chat-barium-oxide"
+  ],
+  "formula-Ca": [
+    "nguyen-to-ca"
+  ],
+  "formula-Ca3(PO4)2": [
+    "chat-tuite"
+  ],
+  "formula-CaI2": [
+    "chat-calcium-iodide"
+  ],
+  "formula-Cd": [
+    "nguyen-to-cd"
+  ],
+  "formula-CdBr2": [
+    "chat-cadmium-bromide"
+  ],
+  "formula-CdCl2": [
+    "chat-cadmium-chloride"
+  ],
+  "formula-CdCO3": [
+    "chat-otavite"
+  ],
+  "formula-CdI2": [
+    "chat-cadmium-iodide"
+  ],
+  "formula-CdO": [
+    "chat-monteponite"
+  ],
+  "formula-CdS": [
+    "chat-greenockite"
+  ],
+  "formula-Cl2": [
+    "chat-solid-chlorine"
+  ],
+  "formula-Co": [
+    "nguyen-to-co"
+  ],
+  "formula-CoBr2": [
+    "chat-cobalt-bromide"
+  ],
+  "formula-CoCl2": [
+    "chat-cobalt-chloride"
+  ],
+  "formula-CoI2": [
+    "chat-cobalt-iodide"
+  ],
+  "formula-CoO": [
+    "chat-cobalt-oxide"
+  ],
+  "formula-CoS": [
+    "chat-cobalt-sulfide"
+  ],
+  "formula-Cr2(SO4)3": [
+    "chat-chromium-sulfate"
+  ],
+  "formula-Cr2O3": [
+    "chat-eskolaite"
+  ],
+  "formula-CrBr3": [
+    "chat-chromium-bromide"
+  ],
+  "formula-CuS": [
+    "chat-covellite"
+  ],
+  "formula-FeBr2": [
+    "chat-ferrous-bromide"
+  ],
+  "formula-FeCO3": [
+    "chat-siderite"
+  ],
+  "formula-FeI2": [
+    "chat-ferrous-iodide"
+  ],
+  "formula-FeO": [
+    "chat-wustite-reference"
+  ],
+  "formula-K": [
+    "nguyen-to-k"
+  ],
+  "formula-K2O": [
+    "chat-potassium-oxide"
+  ],
+  "formula-K2S": [
+    "chat-potassium-sulfide"
+  ],
+  "formula-K2SO4": [
+    "chat-arcanite"
+  ],
+  "formula-KBr": [
+    "chat-potassium-bromide"
+  ],
+  "formula-KF": [
+    "chat-potassium-fluoride"
+  ],
+  "formula-KHCO3": [
+    "chat-kalicinite"
+  ],
+  "formula-Li2CO3": [
+    "chat-zabuyelite"
+  ],
+  "formula-Li2O": [
+    "chat-lithium-oxide"
+  ],
+  "formula-Li2SO4": [
+    "chat-lithium-sulfate"
+  ],
+  "formula-LiBr": [
+    "chat-lithium-bromide"
+  ],
+  "formula-LiCl": [
+    "chat-lithium-chloride"
+  ],
+  "formula-LiF": [
+    "chat-lithium-fluoride"
+  ],
+  "formula-LiI": [
+    "chat-lithium-iodide"
+  ],
+  "formula-LiNO3": [
+    "chat-lithium-nitrate"
+  ],
+  "formula-LiOH": [
+    "chat-lithium-hydroxide"
+  ],
+  "formula-MgBr2": [
+    "chat-magnesium-bromide"
+  ],
+  "formula-MgCO3": [
+    "magnesite"
+  ],
+  "formula-MgF2": [
+    "chat-sellaite"
+  ],
+  "formula-MgI2": [
+    "chat-magnesium-iodide"
+  ],
+  "formula-MgO": [
+    "chat-periclase"
+  ],
+  "formula-Mn": [
+    "nguyen-to-mn"
+  ],
+  "formula-MnBr2": [
+    "chat-manganese-bromide"
+  ],
+  "formula-MnCl2": [
+    "chat-manganese-chloride"
+  ],
+  "formula-MnCO3": [
+    "chat-rhodochrosite"
+  ],
+  "formula-MnI2": [
+    "chat-manganese-iodide"
+  ],
+  "formula-MnO": [
+    "chat-manganosite"
+  ],
+  "formula-MnS": [
+    "chat-alabandite"
+  ],
+  "formula-Na2CrO4": [
+    "chat-sodium-chromate"
+  ],
+  "formula-Na2O": [
+    "chat-sodium-oxide"
+  ],
+  "formula-NaI": [
+    "chat-sodium-iodide"
+  ],
+  "formula-NaNO2": [
+    "chat-sodium-nitrite"
+  ],
+  "formula-Ni": [
+    "nguyen-to-ni"
+  ],
+  "formula-Ni(OH)2": [
+    "cod-1548811"
+  ],
+  "formula-NiBr2": [
+    "chat-nickel-bromide"
+  ],
+  "formula-NiCl2": [
+    "chat-nickel-chloride"
+  ],
+  "formula-NiI2": [
+    "chat-nickel-iodide"
+  ],
+  "formula-NiO": [
+    "chat-bunsenite"
+  ],
+  "formula-NiS": [
+    "chat-millerite"
+  ],
+  "formula-Pb": [
+    "nguyen-to-pb"
+  ],
+  "formula-PbBr2": [
+    "chat-lead-bromide"
+  ],
+  "formula-PbCl2": [
+    "chat-cotunnite"
+  ],
+  "formula-PbCO3": [
+    "chat-cerussite"
+  ],
+  "formula-PbCrO4": [
+    "chat-crocoite"
+  ],
+  "formula-PbF2": [
+    "chat-lead-fluoride-beta"
+  ],
+  "formula-PbO": [
+    "chat-massicot"
+  ],
+  "formula-PbSO4": [
+    "chat-anglesite"
+  ],
+  "formula-Sn": [
+    "nguyen-to-sn"
+  ],
+  "formula-SnSO4": [
+    "chat-tin-sulfate"
+  ],
+  "formula-Sr(NO3)2": [
+    "chat-strontium-nitrate"
+  ],
+  "formula-SrBr2": [
+    "chat-strontium-bromide"
+  ],
+  "formula-SrCl2": [
+    "chat-strontium-chloride"
+  ],
+  "formula-SrCO3": [
+    "chat-strontianite"
+  ],
+  "formula-SrF2": [
+    "chat-strontium-fluoride"
+  ],
+  "formula-SrI2": [
+    "chat-strontium-iodide"
+  ],
+  "formula-SrO": [
+    "chat-strontium-oxide"
+  ],
+  "formula-SrSO4": [
+    "celestine"
+  ],
+  "formula-ZnBr2": [
+    "chat-zinc-bromide"
+  ],
+  "formula-ZnCl2": [
+    "chat-zinc-chloride"
+  ],
+  "formula-ZnCO3": [
+    "chat-smithsonite"
+  ],
+  "formula-ZnI2": [
+    "chat-zinc-iodide"
+  ],
+  "formula-ZnO": [
+    "chat-zincite"
+  ],
+  "formula-ZnS": [
+    "sphalerite"
+  ],
+  "lab3d-336": [
+    "chat-chalcanthite"
+  ],
+  "lab3d-338": [
+    "chat-retgersite"
+  ],
+  "lab3d-339": [
+    "chat-melanterite"
+  ],
+  "atom-Be": [
+    "nguyen-to-be"
+  ],
+  "atom-B": [
+    "nguyen-to-b"
+  ],
+  "atom-F": [
+    "chat-solid-fluorine-alpha"
+  ],
+  "atom-Ne": [
+    "chat-solid-neon"
+  ],
+  "atom-Si": [
+    "nguyen-to-si"
+  ],
+  "atom-Cl": [
+    "chat-solid-chlorine"
+  ],
+  "atom-Ar": [
+    "chat-solid-argon"
+  ],
+  "atom-Sc": [
+    "nguyen-to-sc"
+  ],
+  "atom-Ti": [
+    "nguyen-to-ti"
+  ],
+  "atom-V": [
+    "nguyen-to-v"
+  ],
+  "atom-Cr": [
+    "nguyen-to-cr"
+  ],
+  "atom-Ga": [
+    "nguyen-to-ga"
+  ],
+  "atom-Ge": [
+    "nguyen-to-ge"
+  ],
+  "atom-As": [
+    "nguyen-to-as"
+  ],
+  "atom-Se": [
+    "nguyen-to-se"
+  ],
+  "atom-Br": [
+    "chat-solid-bromine"
+  ],
+  "atom-Kr": [
+    "chat-solid-krypton"
+  ],
+  "atom-Rb": [
+    "nguyen-to-rb"
+  ],
+  "atom-Sr": [
+    "nguyen-to-sr"
+  ],
+  "atom-Y": [
+    "nguyen-to-y"
+  ],
+  "atom-Zr": [
+    "nguyen-to-zr"
+  ],
+  "atom-Nb": [
+    "nguyen-to-nb"
+  ],
+  "atom-Mo": [
+    "nguyen-to-mo"
+  ],
+  "atom-Tc": [
+    "nguyen-to-tc"
+  ],
+  "atom-Ru": [
+    "nguyen-to-ru"
+  ],
+  "atom-Rh": [
+    "nguyen-to-rh"
+  ],
+  "atom-Pd": [
+    "nguyen-to-pd"
+  ],
+  "atom-In": [
+    "nguyen-to-in"
+  ],
+  "atom-Sb": [
+    "nguyen-to-sb"
+  ],
+  "atom-Te": [
+    "nguyen-to-te"
+  ],
+  "atom-I": [
+    "nguyen-to-i"
+  ],
+  "atom-Xe": [
+    "chat-solid-xenon"
+  ],
+  "atom-Cs": [
+    "nguyen-to-cs"
+  ],
+  "atom-Ba": [
+    "nguyen-to-ba"
+  ],
+  "atom-La": [
+    "nguyen-to-la"
+  ],
+  "atom-Ce": [
+    "nguyen-to-ce"
+  ],
+  "atom-Pr": [
+    "nguyen-to-pr"
+  ],
+  "atom-Nd": [
+    "nguyen-to-nd"
+  ],
+  "atom-Pm": [
+    "nguyen-to-pm"
+  ],
+  "atom-Sm": [
+    "nguyen-to-sm"
+  ],
+  "atom-Eu": [
+    "nguyen-to-eu"
+  ],
+  "atom-Gd": [
+    "nguyen-to-gd"
+  ],
+  "atom-Tb": [
+    "nguyen-to-tb"
+  ],
+  "atom-Dy": [
+    "nguyen-to-dy"
+  ],
+  "atom-Ho": [
+    "nguyen-to-ho"
+  ],
+  "atom-Er": [
+    "nguyen-to-er"
+  ],
+  "atom-Tm": [
+    "nguyen-to-tm"
+  ],
+  "atom-Yb": [
+    "nguyen-to-yb"
+  ],
+  "atom-Lu": [
+    "nguyen-to-lu"
+  ],
+  "atom-Hf": [
+    "nguyen-to-hf"
+  ],
+  "atom-Ta": [
+    "nguyen-to-ta"
+  ],
+  "atom-W": [
+    "nguyen-to-w"
+  ],
+  "atom-Re": [
+    "nguyen-to-re"
+  ],
+  "atom-Os": [
+    "nguyen-to-os"
+  ],
+  "atom-Ir": [
+    "nguyen-to-ir"
+  ],
+  "atom-Pt": [
+    "nguyen-to-pt"
+  ],
+  "atom-Au": [
+    "nguyen-to-au"
+  ],
+  "atom-Tl": [
+    "nguyen-to-tl"
+  ],
+  "atom-Bi": [
+    "nguyen-to-bi"
+  ],
+  "atom-Po": [
+    "nguyen-to-po"
+  ],
+  "atom-Ra": [
+    "nguyen-to-ra"
+  ],
+  "atom-Ac": [
+    "nguyen-to-ac"
+  ],
+  "atom-Th": [
+    "nguyen-to-th"
+  ],
+  "atom-Pa": [
+    "nguyen-to-pa"
+  ],
+  "atom-U": [
+    "nguyen-to-u"
+  ],
+  "atom-Np": [
+    "nguyen-to-np"
+  ],
+  "atom-Pu": [
+    "nguyen-to-pu"
+  ],
+  "atom-Am": [
+    "nguyen-to-am"
+  ],
+  "atom-Cm": [
+    "nguyen-to-cm"
+  ],
+  "atom-Bk": [
+    "nguyen-to-bk"
+  ]
+}

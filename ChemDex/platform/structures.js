@@ -3,6 +3,7 @@ import compounds from "../shared/compounds.json";
 import coverage from "../shared/lab-structure-coverage.json";
 import generatedCatalog from "../shared/structure-catalog.generated.json";
 import libraryLinks from "../shared/library-links.generated.json";
+import crystalLinks from '../shared/crystal-links.generated.json';
 import {
   generateStructure,
   structureFormula,
@@ -36,6 +37,7 @@ let query = params.get("q") ?? "",
   request = null;
 
 const records = [...compounds, ...generatedCatalog];
+let crystalWidget;
 
 const KIND_LABELS = {
   molecule: "PHÂN TỬ",
@@ -76,8 +78,8 @@ document.querySelector("#app").innerHTML = `${
         </div>
         <div class="hero-stat structure-hero-stat">
           <strong>${records.length}</strong>
-          <span>CẤU TRÚC 3D ĐẦY ĐỦ LIÊN KẾT</span>
-          <div class="hero-stat-sub">100% đa nguyên tử có liên kết không gian</div>
+          <span>MÔ HÌNH CẤU TRÚC 3D</span>
+          <div class="hero-stat-sub">${records.filter(r=>r.structure?.dimension === '3d').length} bộ tọa độ có nguồn</div>
         </div>
       </section>`
 }
@@ -206,6 +208,7 @@ function render() {
 }
 
 async function open(record) {
+  crystalWidget?.destroy();crystalWidget=null;
   selected = record;
   document.querySelectorAll("#cards .compound-card").forEach((card) => {
     card.classList.toggle("active", card.dataset.id === record.id);
@@ -252,11 +255,31 @@ async function open(record) {
         ${lab ? `<a class="button primary" href="/lab-2d/?chemical=${encodeURIComponent(lab.chemicalId)}" target="${embedded ? "_top" : "_self"}">Mở trong lab ↗</a>` : ""}
       </div>
     </div>
+    ${!embedded && crystalLinks[record.id]?.length ? `<div class="structure-view-tabs" role="group" aria-label="Cách biểu diễn cấu trúc"><button class="button" type="button" data-model-view="molecule" aria-pressed="true">${record.kind==='molecule'?'Phân tử':record.kind==='atom'?'Nguyên tử':'Thành phần'}</button><button class="button" type="button" data-model-view="crystal" aria-pressed="false">Tinh thể</button></div>` : ''}
+    <div data-structure-molecular>
     ${record.modelNote ? `<div class="atom-readout">${escape(record.modelNote)}</div>` : ""}
     ${record.note && record.kind === "components" ? `<p class="muted">${escape(record.note)}</p>` : ""}
     <chem-structure-viewer></chem-structure-viewer>
     ${record.kind === "components" ? '<div id="components" class="viewer-toolbar"></div>' : ""}
-    <p class="muted" style="font-size:11px">${record.kind === "ion" ? "Ion đa nguyên tử được hiển thị kèm thứ bậc liên kết cộng hóa trị nội phân tử." : record.kind === "molecule" ? (record.structure?.coordinateType === "experimental" ? "Cấu trúc thực nghiệm pha khí từ NIST CCCBDB; thể hiện chính xác độ dài và góc liên kết." : "Cấu dạng 3D chuẩn hóa từ cơ sở dữ liệu hóa học; hiển thị trực quan các liên kết nguyên tử.") : "Mô hình không gian 3D hiển thị đầy đủ các nguyên tử và liên kết phối trí / hóa trị đặc trưng."}</p>`;
+    <p class="muted" style="font-size:11px">${record.kind === "ion" ? "Ion đa nguyên tử được hiển thị kèm thứ bậc liên kết cộng hóa trị nội phân tử." : record.kind === "molecule" ? (record.structure?.coordinateType === "experimental" ? "Cấu trúc thực nghiệm pha khí từ NIST CCCBDB; thể hiện chính xác độ dài và góc liên kết." : "Cấu dạng 3D chuẩn hóa từ cơ sở dữ liệu hóa học; hiển thị trực quan các liên kết nguyên tử.") : "Mô hình không gian 3D hiển thị đầy đủ các nguyên tử và liên kết phối trí / hóa trị đặc trưng."}</p></div><div data-structure-crystal hidden></div>`;
+
+  for (const button of $('selected').querySelectorAll('[data-model-view]')) button.onclick = async () => {
+    const crystal=button.dataset.modelView==='crystal';
+    const moleculeHost=$('selected').querySelector('[data-structure-molecular]');
+    const crystalHost=$('selected').querySelector('[data-structure-crystal]');
+    moleculeHost.hidden=crystal;crystalHost.hidden=!crystal;
+    $('selected').querySelectorAll('[data-model-view]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
+    if(crystal){
+      moleculeHost.querySelector('chem-structure-viewer')?.visibility?.();
+      if(!crystalWidget){
+        crystalHost.textContent='Đang tải danh mục tinh thể…';
+        try {
+          const {mountStructureCrystalPanel}=await import('./crystal-panel.js');
+          if(selected?.id===record.id && crystalHost.isConnected && !crystalWidget)crystalWidget=mountStructureCrystalPanel(crystalHost,crystalLinks[record.id]);
+        }catch{if(crystalHost.isConnected)crystalHost.textContent='Chưa tải được bộ xem tinh thể. Có thể thử lại hoặc mở hồ sơ chất.';}
+      }
+    }
+  };
 
   $("favorite").onclick = () => {
     favorites = favorites.includes(record.id)

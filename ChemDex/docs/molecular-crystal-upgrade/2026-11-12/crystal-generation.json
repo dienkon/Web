@@ -1,0 +1,159 @@
+{
+  "structures": [
+    {
+      "id": "cod-2105348",
+      "codId": "2105348",
+      "bytes": 37892,
+      "sites": 40,
+      "displaySpheres": 40
+    },
+    {
+      "id": "cod-2310631",
+      "codId": "2310631",
+      "bytes": 31904,
+      "sites": 24,
+      "displaySpheres": 24
+    },
+    {
+      "id": "cod-8104275",
+      "codId": "8104275",
+      "bytes": 27028,
+      "sites": 6,
+      "displaySpheres": 6
+    },
+    {
+      "id": "cod-1548811",
+      "codId": "1548811",
+      "bytes": 28268,
+      "sites": 5,
+      "displaySpheres": 12
+    },
+    {
+      "id": "cod-2020897",
+      "codId": "2020897",
+      "bytes": 38252,
+      "sites": 36,
+      "displaySpheres": 46
+    },
+    {
+      "id": "cod-1542184",
+      "codId": "1542184",
+      "bytes": 36888,
+      "sites": 36,
+      "displaySpheres": 40
+    },
+    {
+      "id": "cod-1535669",
+      "codId": "1535669",
+      "bytes": 32708,
+      "sites": 16,
+      "displaySpheres": 26
+    },
+    {
+      "id": "cod-1535698",
+      "codId": "1535698",
+      "bytes": 30164,
+      "sites": 16,
+      "displaySpheres": 16
+    },
+    {
+      "id": "cod-8104000",
+      "codId": "8104000",
+      "bytes": 30088,
+      "sites": 16,
+      "displaySpheres": 16
+    },
+    {
+      "id": "cod-2310480",
+      "codId": "2310480",
+      "bytes": 34328,
+      "sites": 28,
+      "displaySpheres": 28
+    },
+    {
+      "id": "cod-1008189",
+      "codId": "1008189",
+      "bytes": 29132,
+      "sites": 16,
+      "displaySpheres": 16
+    },
+    {
+      "id": "cod-7238223",
+      "codId": "7238223",
+      "bytes": 40196,
+      "sites": 48,
+      "displaySpheres": 48
+    },
+    {
+      "id": "cod-5910115",
+      "codId": "5910115",
+      "bytes": 37596,
+      "sites": 36,
+      "displaySpheres": 38
+    },
+    {
+      "id": "cod-4503066",
+      "codId": "4503066",
+      "bytes": 32548,
+      "sites": 24,
+      "displaySpheres": 24
+    },
+    {
+      "id": "cod-7110463",
+      "codId": "7110463",
+      "bytes": 39528,
+      "sites": 40,
+      "displaySpheres": 52
+    },
+    {
+      "id": "cod-2008187",
+      "codId": "2008187",
+      "bytes": 35208,
+      "sites": 32,
+      "displaySpheres": 34
+    },
+    {
+      "id": "cod-7050902",
+      "codId": "7050902",
+      "bytes": 53996,
+      "sites": 84,
+      "displaySpheres": 84
+    },
+    {
+      "id": "cod-4504310",
+      "codId": "4504310",
+      "bytes": 627796,
+      "sites": 768,
+      "displaySpheres": 1344
+    },
+    {
+      "id": "cod-5000067",
+      "codId": "5000067",
+      "bytes": 55932,
+      "sites": 96,
+      "displaySpheres": 96
+    },
+    {
+      "id": "cod-5000065",
+      "codId": "5000065",
+      "bytes": 56576,
+      "sites": 96,
+      "displaySpheres": 96
+    },
+    {
+      "id": "cod-1549467",
+      "codId": "1549467",
+      "bytes": 162128,
+      "sites": 52,
+      "displaySpheres": 98
+    },
+    {
+      "id": "cod-2300557",
+      "codId": "2300557",
+      "bytes": 56980,
+      "sites": 90,
+      "displaySpheres": 90
+    }
+  ],
+  "interpretation": "Published atomic positions or explicitly labelled reference prototype. Sphere size/color are display conventions; partial occupancies use sectors. No specimen surface or inferred bonds."
+}

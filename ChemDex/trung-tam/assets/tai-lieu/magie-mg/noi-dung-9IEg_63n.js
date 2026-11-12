@@ -1,0 +1,267 @@
+const n="magie-mg",h="magie-mg",t="reference/magie-mg/index.json",i=["ho-so-477d89b32048"],c="Magie (Mg) — Chân dung một nguyên tố: Lịch sử phát hiện, hình thái tự nhiên và ứng dụng",g="Hội Đồng Chuyên Khảo Cấu Trúc Phân Tử · ChemDex",a="nguyento",u="Hồ sơ báo chí toàn diện về Magie (Mg) (khởi nguồn 1755): kết hợp tư liệu bách khoa quốc tế, giải phẫu liên kết 3D và phân tích phản ứng thực nghiệm.",o="/assets/library/substances/magie-mg.svg",k="Mg",m=["Biên niên sử nguyên tố","Mg","Kim loại đẩy kim loại","Kim loại đẩy kim loại"],r=["Dải Magie (Ruy-băng Mg)","Magnesium Ribbon","Mg","Magiê (Dải kim loại)","Magnesium (Ribbon)","Mg (ribbon)","Magie Dải (Ruy-băng)","Magnesium Ribbon (Dải kim loại)","Mg (powder)","Bột Magie","Magnesium Powder"],l=["chem-mg"],p="reference",y=32,s={formula:"Mg",representativeId:"chem-mg",counts:{Mg:1},mass:24.305,material:!1,reactionIds:["rx_3b7ec587bc9dc466","rx_bb9ed5905380057a","rx_e107275e27e4e8c4","rx_382849b7ad494a07"]},e=`## Câu chuyện: Cội nguồn lịch sử và hành trình bước vào từ điển hóa học của Magie (Mg)
+
+Khi các nhà hóa học đặt câu hỏi *"Chất này từ đâu mà có và vì sao các nguyên tử của nó lại gắn kết bền chặt đến vậy?"*, câu trả lời dành cho **Magie (Mg)** luôn mở ra một bức tranh giao thoa thú vị giữa lịch sử văn minh nhân loại và các định luật bất di bất dịch của cơ học lượng tử.
+
+Theo hồ sơ bách khoa trực tuyến từ [Wikipedia Tiếng Việt — Magnesi](https://vi.wikipedia.org/wiki/Magnesi), bản chất và lịch sử của chất này được ghi nhận cụ thể như sau: Magnesi (tiếng Việt: Magiê, Latinh: Magnesium) là nguyên tố hóa học trong bảng tuần hoàn nguyên tố có ký hiệu Mg và số nguyên tử bằng 12.
+
+Tư liệu bách khoa quốc tế tại [Wikipedia — Magnesium](https://en.wikipedia.org/wiki/Magnesium) bổ sung thêm góc nhìn lịch sử và danh pháp quốc tế: *“Magnesium is a chemical element; it has symbol Mg and . It is a shiny gray metal having a low density, low melting point, and high chemical reactivity. Like the other alkaline earth metals (group 2 of the periodic table), it occurs naturally only in combination with other elements and almost always has an oxidation state of +2. It reacts readily with air to form a thin passivation coating of magnesium oxide that inhibits further corrosion of the metal. The free metal burns with a brilliant-white light. The metal is obtained mainly by electrolysis of magnesium salts obtained from brine. It is less dense than aluminium and is us”* — phản ánh vai trò quan trọng của **Magie (Mg)** trong hệ thống phân loại hóa chất chuẩn IUPAC và thực tiễn phòng thí nghiệm toàn cầu.
+
+Trong tiến trình kiến tạo vật chất tự nhiên, **Magie (Mg)** được tôi luyện trong tâm của các ngôi sao khổng lồ qua hàng trăm triệu năm phản ứng nhiệt hạch, trước khi các vụ nổ siêu tân tinh giải phóng và gieo mầm vào các đám mây tinh vân tiền Mặt Trời để kết tụ nên Trái Đất ngày nay. Trong lịch sử văn minh nhân loại, khoảnh khắc định danh và cô lập được **Magie** đánh dấu bước ngoặt lớn gắn liền với công trình của **Joseph Black** vào thời điểm **1755** tại **Scotland**. Tên gọi quốc tế và ký hiệu **Mg** bắt nguồn từ danh pháp Latinh **Magnesium**. Năm 1755, Joseph Black phân biệt Magnesium compounds với Calcium compounds và xác định Magnesium là một thành phần riêng biệt. Đến năm 1808, Humphry Davy cô lập được Magnesium ở dạng kim loại bằng phương pháp điện hóa. Trong tự nhiên, Magie gắn liền với các vỉa khoáng vật đặc trưng như **Magnesite, Dolomite, Brucite, Carnallite, nước biển và một số khoáng vật Silicate**.
+
+### Dấu ấn nhà khoa học tiên phong: Chân dung và di sản của Sir Humphry Davy (Hăm-phri Đê-vi)
+
+Trong lịch sử khám phá và làm sáng tỏ bản chất của **Magie (Mg)**, dấu ấn thực nghiệm sâu sắc nhất gắn liền với tên tuổi của **Sir Humphry Davy** (1778 – 1829) — phù thủy điện hóa học, người cô lập các kim loại kiềm và người thầy của faraday.
+
+*“Điện năng và ái lực hóa học thực chất chỉ là hai biểu hiện khác nhau của cùng một bản chất lực tương tác trong tự nhiên.”* — Lời đúc kết nổi tiếng này không chỉ là kim chỉ nam nghiên cứu của Sir Humphry Davy mà còn phản ánh tinh thần thực nghiệm bất khuất của thời đại khai sáng khoa học.
+
+**Nghị lực sống & Thăng trầm khoa học**: Davy sinh ra ở Penzance (Cornwall) trong gia đình thợ mộc nghèo. Năm 16 tuổi cha mất, ông phải bỏ học đi làm học việc cho một bác sĩ phẫu thuật kiêm hiệu thuốc để kiếm tiền nuôi mẹ và các em. Tính cách liều lĩnh và đam mê thực nghiệm đến mức mạo hiểm khiến ông nhiều lần suýt mất mạng. Thời trẻ tại Viện Khí học Bristol, ông đã tự mình hít thở các chất khí độc hại: hít khí CO suýt làm tim ông ngừng đập vĩnh viễn; hít khí cười N2O làm ông nghiện cảm giác hưng phấn trong nhiều tháng. Năm 1812, khi điều chế chất nổ cực kỳ nhạy nổ là nitơ triclorua (NCl3), một vụ nổ bình cầu kinh hoàng đã bắn các mảnh thủy tinh găm vào mắt và mặt ông, khiến ông bị mù tạm thời và thị lực mắt phải suy giảm suốt phần đời còn lại. Chính tai nạn này đã khiến ông phải thuê một chàng trai đóng sách trẻ tuổi tên là Michael Faraday về làm trợ lý ghi chép — cuộc gặp gỡ định mệnh của lịch sử khoa học.
+
+**Giai thoại phòng thí nghiệm & Phong cách làm việc**: Davy là một "ngôi sao đại chúng" rực rỡ tại London đầu thế kỷ XIX. Các buổi thuyết trình thực nghiệm của ông tại Viện Hoàng gia Anh (Royal Institution) thu hút hàng nghìn người tham dự, bao gồm cả các quý tộc, chính khách và phụ nữ thượng lưu. Giới quý tộc tranh nhau mua vé để được ngắm nhìn Davy biểu diễn các vụ nổ màu sắc và ngửi khí cười trên sân khấu. Khi được hỏi đâu là phát minh vĩ đại nhất trong cuộc đời mình, Davy đã mỉm cười trả lời không chút do dự: "Phát minh vĩ đại nhất của tôi chính là Michael Faraday".
+
+**Đột phá thực nghiệm lịch sử**: Davy là người tiên phong nhận ra sức mạnh của dòng điện trong việc bẻ gãy các liên kết hóa học bền vững nhất. Năm 1807, ông cho lắp đặt một hệ thống pin Volta khổng lồ gồm 2.000 cặp bản cực đồng - kẽm nhúng trong dung dịch axit tại tầng hầm Viện Hoàng gia:
+
+1. Cô lập Kali (Potassium) và Natri (Sodium) (tháng 10/1807): Trước đó, kiềm ăn da NaOH và KOH được coi là các chất đơn giản không thể phân tách. Davy đặt một mẩu KOH ẩm trên một chiếc muỗng bạch kim kết nối với cực dương, chạm dây bạch kim nối cực âm vào mẩu kiềm rồi đóng mạch điện. Ngay lập tức, chất rắn bắt đầu nóng chảy, sủi bọt khí mãnh liệt, và tại cực âm xuất hiện những hạt nhỏ lấp lánh như thủy ngân bốc cháy tạo ra ngọn lửa màu tím hoa cà rực rỡ. Ông sung sướng nhảy múa quanh phòng thí nghiệm như một người điên vì biết mình vừa giải phóng một nguyên tố kim loại mới tinh khiết chưa từng có. Vài ngày sau, ông làm điều tương tự với NaOH và cô lập được Natri.
+2. Cô lập Canxi (Ca), Magie (Mg), Stronti (Sr), Bari (Ba) và Bo (B) (1808) bằng phương pháp điện phân muối nóng chảy hoặc hỗn hợp oxit với thủy ngân (tạo hỗn hống rồi cất đuổi thủy ngân).
+3. Chứng minh Clo và Iot là các nguyên tố độc lập (1810–1813): Bác bỏ quan điểm sai lầm của Lavoisier cho rằng mọi axit đều phải chứa oxi, chứng minh axit clohiđric (HCl) chỉ chứa H và Cl.
+4. Phát minh Đèn an toàn Davy (Davy Safety Lamp, 1815): Thiết kế chiếc đèn thợ mỏ bọc lưới kim loại tản nhiệt, cứu sống hàng vạn công nhân mỏ than khắp thế giới khỏi các vụ nổ khí metan ("khí mỏ than").
+
+**Thiết bị phòng thí nghiệm đặc chế tiêu biểu**:
+
+- **Hệ pin Volta khổng lồ 2.000 cặp bản cực (Giant 2,000-Plate Voltaic Battery)**: Tổ hợp các máng sành sứ chứa đầy axit sunfuric loãng kết nối hàng nghìn cặp bản kẽm - đồng, tạo ra dòng điện một chiều có hiệu điện thế và công suất vô địch thế giới thời bấy giờ.
+- **Điện cực và muỗng nung bạch kim (Platinum Crucible & Electrodes)**: Muỗng và điện cực làm từ kim loại bạch kim nguyên chất, chịu được tính ăn mòn khủng khiếp của kiềm nóng chảy và nhiệt độ cao của hồ quang điện.
+- **Đèn thợ mỏ an toàn Davy (Davy Miner's Safety Lamp)**: Đèn dầu được bao bọc bởi lớp lưới đồng thau có mật độ mắt lưới tính toán chính xác, giúp dẫn nhiệt ngọn lửa tỏa ra xung quanh làm nhiệt độ không vượt quá điểm bắt cháy của khí metan bên ngoài mỏ.
+
+**Dấu mốc phản ứng gắn liền với công trình của Sir Humphry Davy**:
+
+- Phương trình phản ứng bước ngoặt: \`4KOH(l) -> 4K(l) + O2(g) + 2H2O(g)\`
+  *Hiện tượng quan sát thực tế*: Chất rắn chảy rữa, tại catot xuất hiện các giọt kim loại màu bạc óng ánh bốc cháy với ngọn lửa màu tím đặc trưng, tại anot thoát ra bọt khí oxi.
+  *Ghi chú lịch sử*: Khoảnh khắc tháng 10 năm 1807 khai sinh ra phương pháp điện phân cô lập kim loại kiềm.
+
+- Phương trình phản ứng bước ngoặt: \`2Na(s) + 2H2O(l) -> 2NaOH(aq) + H2(g)\`
+  *Hiện tượng quan sát thực tế*: Mẩu kim loại natri nóng chảy thành viên bi tròn vo chạy lướt trên mặt nước, phát ra tiếng xèo xèo mãnh liệt, ngọn lửa vàng cam bùng cháy làm dung dịch chuyển sang màu hồng khi nhỏ phenolphtalein.
+  *Ghi chú lịch sử*: Minh chứng cho tính khử vô cùng mãnh liệt của nhóm kim loại kiềm nhóm IA.
+
+**Bài học phương pháp luận cho học sinh GDPT**: Davy mở ra kỷ nguyên điện hóa học và chứng minh rằng liên kết hóa học có bản chất điện. Trong GDPT 2018 (Hóa học 12 - Đại cương về kim loại & Kim loại nhóm IA, IIA), các phương pháp điều chế kim loại bằng điện phân nóng chảy (NaCl, Al2O3) và tính chất hóa học của kim loại kiềm là trọng tâm kiến thức bắt buộc.
+
+![Khởi nguyên lịch sử và hành trình khám phá Magie (Mg)](/assets/library/earth-minerals.svg)
+*Hình 1. Bối cảnh lịch sử phát hiện, nguồn gốc tự nhiên và tiến trình định danh khoa học của Magie (Mg).*
+
+## Lần theo thành phần nguyên tử: Cấu trúc không gian, hình học phân tử và cá tính của Magie
+
+Để hiểu vì sao **Magie (Mg)** lại mang những tính chất vật lý và hóa học đặc thù, chúng ta cần đi sâu vào "bản thiết kế hình học" của chất này. Một đơn vị công thức **Mg** được liên kết chặt chẽ từ **1 nguyên tử** thuộc **1 nguyên tố hóa học**:
+
+- **Nguyên tố Magie (Mg)**: Góp mặt **1 nguyên tử** trong một đơn vị cấu trúc phân tử. Các nguyên tử Magie phối hợp nhịp nhàng cùng các nguyên tử đồng hành để tạo nên bộ khung không gian bền vững, định hình trực tiếp diện mạo và các đặc tính hóa học cốt lõi của **Magie**.
+
+Ở trạng thái đơn chất, **Magie (Mg)** mang trọn vẹn phong thái và tính chất đặc trưng của nhóm **nguyên tố**. Trong mạng lưới cấu trúc tự nhiên (như Lục phương xếp chặt (HCP)), các nguyên tử **Magie** gắn kết với nhau bằng những liên kết bền vững, tạo nên độ cứng, nhiệt độ chuyển pha và khả năng tương tác riêng biệt khi đặt trong môi trường thử nghiệm.
+
+![Kiến trúc liên kết không gian 3 chiều của Magie (Mg)](/assets/library/crystal-hcp.svg)
+*Hình 2. Mô phỏng trực quan sự phân bố đám mây electron, góc liên kết và trật tự phối trí không gian 3D của Magie (Mg).*
+
+| Chỉ tiêu nhận diện & Cấu trúc 3D | Tư liệu xác thực từ hệ thống ChemDex |
+|---|---|
+| Tên chất & Danh pháp quốc tế | **Magie** (Magnesium Ribbon) |
+| Công thức hóa học thực nghiệm | **Mg**  |
+| Hình thái không gian 3 chiều | Đơn chất tự nhiên () |
+| Quy mô cấu trúc vi mô | **1 nguyên tử** (1× Mg) |
+| Trạng thái & Sắc thái nhận diện | Rắn / Dung dịch thực nghiệm |
+| Phòng quan sát 3D tương tác | [Mở mô hình xoay 360° và kiểm tra góc liên kết](/tien-ich/cau-truc-3d/?compound=chem-mg) |
+
+Người đọc có thể trực tiếp xoay mô hình 360°, bật/tắt nhãn nguyên tử và kiểm tra độ dài từng liên kết (tính bằng đơn vị Ångström) của chất này tại [Phòng quan sát Cấu trúc & Liên kết 3D — Magie](/tien-ich/cau-truc-3d/?compound=chem-mg).
+
+## Trọng tâm kiến thức Hóa học GDPT (THCS & THPT): Cấu trúc, Nhiệt động lực & Cơ chế
+
+Trong Chương trình Giáo dục phổ thông 2018 (môn Khoa học tự nhiên THCS & môn Hóa học THPT Lớp Hóa học 10), **Magie (Mg)** là đối tượng trọng tâm thuộc mạch nội dung **“Định luật tuần hoàn và Xu hướng biến đổi tuần hoàn tính chất nguyên tố”** (Các bài học cốt lõi liên quan: *Hóa học 10 - Chương 2: Bảng tuần hoàn các nguyên tố hóa học (Bài 4: Cấu tạo bảng tuần hoàn), Hóa học 10 - Chương 2: Bảng tuần hoàn các nguyên tố hóa học (Bài 5: Xu hướng biến đổi tính chất nguyên tử), Hóa học 10 - Chương 2: Bảng tuần hoàn các nguyên tố hóa học (Bài 6: Xu hướng biến đổi tính chất hợp chất), KHTN 7 - Bài: Bảng tuần hoàn các nguyên tố hóa học*).
+
+### 1. Nguyên lý lý thuyết & Quy luật khoa học chi phối
+
+Định luật tuần hoàn: Tính chất của các đơn chất cũng như thành phần và tính chất của các hợp chất tạo nên từ các nguyên tố biến đổi tuần hoàn theo chiều tăng dần của điện tích hạt nhân (số hiệu nguyên tử Z). Quy luật này chi phối bán kính nguyên tử, năng lượng ion hóa thứ nhất (I₁), độ âm điện (χ), tính kim loại - phi kim, và tính axit - bazơ của oxit/hiđroxit cao nhất.
+
+- **Định luật tuần hoàn Mendeleev hiện đại**: Tính chất các nguyên tố và hợp chất biến thiên tuần hoàn theo chiều tăng của điện tích hạt nhân nguyên tử Z.
+- **Quy luật biến thiên bán kính nguyên tử**: Trong chu kỳ r giảm dần (Z tăng, n không đổi); trong nhóm A r tăng dần (số lớp n tăng).
+- **Quy luật tính Axit - Bazơ của hiđroxit cao nhất**: Trong chu kỳ từ trái sang phải: tính bazơ giảm dần, tính axit tăng dần.
+
+### 2. Phân tích sư phạm chuyên sâu đối với Magie (Mg)
+
+### 1. Cấu trúc Bảng tuần hoàn các nguyên tố hóa học
+Bảng tuần hoàn hiện đại gồm 118 nguyên tố được sắp xếp theo 3 nguyên tắc:
+1. Các nguyên tố được xếp theo chiều tăng dần của **điện tích hạt nhân nguyên tử ($Z$)**.
+2. Các nguyên tố có cùng số lớp electron trong nguyên tử được xếp thành một hàng gọi là **Chu kỳ**.
+3. Các nguyên tố có cấu hình electron tương tự nhau được xếp thành một cột gọi là **Nhóm**.
+
+- **Ô nguyên tố**: Cho biết số hiệu nguyên tử ($Z$), ký hiệu hóa học, tên nguyên tố, nguyên tử khối trung bình và độ âm điện.
+- **Chu kỳ**: Có 7 chu kỳ được đánh số từ 1 đến 7. Số thứ tự chu kỳ = Số lớp electron trong nguyên tử.
+  - Chu kỳ nhỏ: Chu kỳ 1 (2 nguyên tố), Chu kỳ 2 (8 nguyên tố), Chu kỳ 3 (8 nguyên tố).
+  - Chu kỳ lớn: Chu kỳ 4 (18 nguyên tố), Chu kỳ 5 (18 nguyên tố), Chu kỳ 6 (32 nguyên tố, chứa họ Lantan), Chu kỳ 7 (32 nguyên tố, chứa họ Actini).
+- **Nhóm nguyên tố**: Gồm 18 cột chia làm 8 nhóm A (từ IA đến VIIIA - các n...
+
+### 3. Phương trình phản ứng với trạng thái pha (s, l, g, aq) & Hiện tượng quan sát
+
+- **Phương trình phản ứng chuẩn mực**: \`Cl2O7(l) + H2O(l) -> 2HClO4(aq)\`
+  *Điều kiện thực hiện*: Nhiệt độ phòng, phản ứng tỏa nhiệt mạnh.
+  *Hiện tượng quan sát thực tế*: Chất lỏng điclo heptaoxit không màu tan bốc khói trong nước tạo dung dịch axit pecloric — một trong những axit vô cơ mạnh nhất thế giới làm quỳ tím đổi sang màu đỏ rực ngay lập tức.
+
+- **Phương trình phản ứng chuẩn mực**: \`Al(OH)3(s) + NaOH(aq) -> Na[Al(OH)4](aq)\`
+  *Điều kiện thực hiện*: Nhiệt độ phòng, kiềm dư.
+  *Hiện tượng quan sát thực tế*: Kết tủa keo trắng nhôm hiđroxit tan biến hoàn toàn tạo dung dịch trong suốt không màu của muối natri tetrahiđroxoaluminat.
+
+### 4. Lưu ý sư phạm & Bẫy tư duy thường gặp trong các kỳ thi tuyển sinh
+
+- ⚠️ *Lưu ý tránh bẫy đề thi*: Cho rằng trong chu kỳ bán kính nguyên tử tăng vì Z tăng (Sai: Z tăng kéo electron vào gần hơn làm bán kính CO LẠI).
+- ⚠️ *Lưu ý tránh bẫy đề thi*: Nhầm lẫn vị trí của khí hiếm khi so sánh độ âm điện (Khí hiếm trơ có lớp vỏ bão hòa, thường không có giá trị độ âm điện Pauling tiêu chuẩn).
+- ⚠️ *Lưu ý tránh bẫy đề thi*: Đồng nhất hóa trị cao nhất với oxi và hóa trị với hiđro (Hóa trị với H của phi kim chỉ từ 1 đến 4, trong khi hóa trị với O tăng từ 1 đến 7).
+
+## Dòng chảy phản ứng: Cách Magie ra đời và tương tác với thế giới hóa chất
+
+Trong tự nhiên, hầu hết các nguyên tố hóa học tồn tại ở dạng hợp chất bền vững về mặt nhiệt động học. Để đưa **Magie (Mg)** về trạng thái đơn chất tinh khiết phục vụ nghiên cứu và sản xuất, ngành hóa học thực nghiệm đã phát triển hai nhánh quy trình bổ trợ lẫn nhau:
+
+- **Điều chế trong phòng thí nghiệm**: Magnesium không thường được điều chế trong phòng thí nghiệm phổ thông vì cần điện phân muối nóng chảy ở nhiệt độ cao. Phương trình phản ứng: \`MgCl₂(l) → Mg(l) + Cl₂(g)\`. Về nguyên tắc, có thể điều chế bằng điện phân Magnesium chloride nóng chảy:
+- **Sản xuất quy mô công nghiệp**: Magnesium được sản xuất chủ yếu bằng điện phân Magnesium chloride nóng chảy. Phương trình chủ đạo: \`Mg²⁺ + 2e⁻ → Mg\`. Tại cathode:
+- **Sản xuất quy mô công nghiệp**: Tại anode Phương trình chủ đạo: \`2Cl⁻ → Cl₂ + 2e⁻\`. 
+- **Sản xuất quy mô công nghiệp**: Phương trình tổng quát Phương trình chủ đạo: \`MgCl₂(l) → Mg(l) + Cl₂(g)\`. Magnesium chloride có thể được thu từ nước biển hoặc các khoáng vật chứa Magnesium.
+
+Bên cạnh câu chuyện điều chế, bản chất hóa học của **Magie** còn được thể hiện sống động qua chuỗi các phản ứng đặc trưng với đơn chất và hợp chất khác:
+
+- **Tác dụng với Oxygen**: \`2Mg + O₂ → 2MgO\` 
+- **Khi nung nóng**: \`3Mg + N₂ → Mg₃N₂\` 
+- **Tác dụng với Chlorine**: \`Mg + Cl₂ → MgCl₂\` 
+- **Tác dụng với Hydrochloric acid**: \`Mg + 2HCl → MgCl₂ + H₂↑\` 
+- **Tác dụng với Sulfuric acid loãng**: \`Mg + H₂SO₄ → MgSO₄ + H₂↑\` 
+
+Trong cơ sở dữ liệu phản ứng thực nghiệm của ChemDex (với **36 phương trình** có sự góp mặt của **Mg**, trong đó có **0 con đường tổng hợp/tạo thành** và **36 con đường chuyển hóa**), hành trình ra đời và biến đổi của chất này được tái hiện sống động qua các biên niên sử phản ứng chuyên sâu sau:
+
+### Biên niên sử phản ứng chuyển hóa #1: Kim loại đẩy kim loại
+
+Phương trình hóa học biểu diễn biến đổi vật chất (có ghi rõ trạng thái pha):
+
+\`\`\`text
+Mg(s) + 2AgNO3(aq) → Mg(NO3)2(aq) + 2Ag(s)
+\`\`\`
+
+#### 1. Bối cảnh lịch sử & Dấu ấn khám phá
+Từ những thí nghiệm đun nóng đơn chất trong buồng khí kín của Lavoisier thế kỷ XVIII đến các công trình điện phân của Davy đầu thế kỷ XIX, phản ứng hóa hợp luôn là minh chứng hùng hồn nhất cho thấy các nguyên tố đơn chất với tính chất hoàn toàn trái ngược có thể hòa quyện vào nhau để tạo nên một hợp chất hoàn toàn mới. Đây là con đường chuyển hóa tiêu biểu phản ánh bản tính hóa học năng động của **Magie (Mg)** khi tiếp xúc với môi trường xung quanh.
+
+#### 2. Vũ điệu va chạm phân tử & Cơ chế vi mô
+Các phân tử đơn chất ban đầu hấp thụ năng lượng kích hoạt để bẻ gãy liên kết nội tại. Đám mây electron hóa trị được tái phân bố: các nguyên tử kim loại nhường electron cho phi kim tạo mạng tinh thể ion, hoặc các phi kim góp chung electron để tạo ra các liên kết cộng hóa trị có cực. Quá trình tạo liên kết mới giải phóng năng lượng lớn khiến đa số phản ứng hóa hợp tỏa nhiệt mạnh (ΔrH°₂₉₈ < 0). Trong phản ứng này, cặp mg/ag có chênh lệch thế chuẩn thuận lợi; bảo toàn electron và ion đối. Quá trình này diễn ra tuân theo định luật bảo toàn khối lượng và biến thiên enthalpy đặc trưng.
+
+#### 3. Kịch tính phòng thí nghiệm & Hiện tượng quan sát thực tế
+- **Điều kiện kích hoạt**: Dung dịch muối không acid hóa mạnh; bề mặt kim loại hoạt động, không có ligand chi phối; chiều thuận theo thế điện cực..
+- **Hiện tượng mắt thấy tai nghe**: Có thể xuất hiện Ag bám trên kim loại; tốc độ/hình thái phụ thuộc bề mặt..
+- **Bản chất ion rút gọn**: \`Mg(s) + 2Ag^+(aq) → Mg^2+(aq) + 2Ag(s)\` — lột tả trọn vẹn sự va chạm thực sự giữa các hạt mang điện tự do trong dung dịch mà bỏ qua các ion khán giả trung gian.
+
+#### 4. Giá trị ứng dụng & Dấu ấn văn minh
+Phản ứng hóa hợp là nền tảng của toàn bộ ngành công nghiệp tổng hợp vật liệu: từ việc tôi vôi xây dựng nhà cửa, sản xuất axit vô cơ cho đến chế tạo các hợp chất bán dẫn công nghệ cao.
+
+### Biên niên sử phản ứng chuyển hóa #2: Kim loại đẩy kim loại
+
+Phương trình hóa học biểu diễn biến đổi vật chất (có ghi rõ trạng thái pha):
+
+\`\`\`text
+Mg(s) + 2CH3COOAg(aq) → Mg(CH3COO)2(aq) + 2Ag(s)
+\`\`\`
+
+#### 1. Bối cảnh lịch sử & Dấu ấn khám phá
+Từ những thí nghiệm đun nóng đơn chất trong buồng khí kín của Lavoisier thế kỷ XVIII đến các công trình điện phân của Davy đầu thế kỷ XIX, phản ứng hóa hợp luôn là minh chứng hùng hồn nhất cho thấy các nguyên tố đơn chất với tính chất hoàn toàn trái ngược có thể hòa quyện vào nhau để tạo nên một hợp chất hoàn toàn mới. Đây là con đường chuyển hóa tiêu biểu phản ánh bản tính hóa học năng động của **Magie (Mg)** khi tiếp xúc với môi trường xung quanh.
+
+#### 2. Vũ điệu va chạm phân tử & Cơ chế vi mô
+Các phân tử đơn chất ban đầu hấp thụ năng lượng kích hoạt để bẻ gãy liên kết nội tại. Đám mây electron hóa trị được tái phân bố: các nguyên tử kim loại nhường electron cho phi kim tạo mạng tinh thể ion, hoặc các phi kim góp chung electron để tạo ra các liên kết cộng hóa trị có cực. Quá trình tạo liên kết mới giải phóng năng lượng lớn khiến đa số phản ứng hóa hợp tỏa nhiệt mạnh (ΔrH°₂₉₈ < 0). Trong phản ứng này, cặp mg/ag có chênh lệch thế chuẩn thuận lợi; bảo toàn electron và ion đối. Quá trình này diễn ra tuân theo định luật bảo toàn khối lượng và biến thiên enthalpy đặc trưng.
+
+#### 3. Kịch tính phòng thí nghiệm & Hiện tượng quan sát thực tế
+- **Điều kiện kích hoạt**: Dung dịch muối không acid hóa mạnh; bề mặt kim loại hoạt động, không có ligand chi phối; chiều thuận theo thế điện cực..
+- **Hiện tượng mắt thấy tai nghe**: Có thể xuất hiện Ag bám trên kim loại; tốc độ/hình thái phụ thuộc bề mặt..
+- **Bản chất ion rút gọn**: \`Mg(s) + 2Ag^+(aq) → Mg^2+(aq) + 2Ag(s)\` — lột tả trọn vẹn sự va chạm thực sự giữa các hạt mang điện tự do trong dung dịch mà bỏ qua các ion khán giả trung gian.
+
+#### 4. Giá trị ứng dụng & Dấu ấn văn minh
+Phản ứng hóa hợp là nền tảng của toàn bộ ngành công nghiệp tổng hợp vật liệu: từ việc tôi vôi xây dựng nhà cửa, sản xuất axit vô cơ cho đến chế tạo các hợp chất bán dẫn công nghệ cao.
+
+### Biên niên sử phản ứng chuyển hóa #3: Kim loại và axit
+
+Phương trình hóa học biểu diễn biến đổi vật chất (có ghi rõ trạng thái pha):
+
+\`\`\`text
+Mg(s) + 2HBr(aq) → MgBr2(aq) + H2(g)
+\`\`\`
+
+#### 1. Bối cảnh lịch sử & Dấu ấn khám phá
+Từ những thí nghiệm đun nóng đơn chất trong buồng khí kín của Lavoisier thế kỷ XVIII đến các công trình điện phân của Davy đầu thế kỷ XIX, phản ứng hóa hợp luôn là minh chứng hùng hồn nhất cho thấy các nguyên tố đơn chất với tính chất hoàn toàn trái ngược có thể hòa quyện vào nhau để tạo nên một hợp chất hoàn toàn mới. Đây là con đường chuyển hóa tiêu biểu phản ánh bản tính hóa học năng động của **Magie (Mg)** khi tiếp xúc với môi trường xung quanh.
+
+#### 2. Vũ điệu va chạm phân tử & Cơ chế vi mô
+Các phân tử đơn chất ban đầu hấp thụ năng lượng kích hoạt để bẻ gãy liên kết nội tại. Đám mây electron hóa trị được tái phân bố: các nguyên tử kim loại nhường electron cho phi kim tạo mạng tinh thể ion, hoặc các phi kim góp chung electron để tạo ra các liên kết cộng hóa trị có cực. Quá trình tạo liên kết mới giải phóng năng lượng lớn khiến đa số phản ứng hóa hợp tỏa nhiệt mạnh (ΔrH°₂₉₈ < 0). Trong phản ứng này, kim loại khử h+ của axit không oxi hóa thành h2; không mở rộng sang cu, ag hoặc acid oxi hóa. Quá trình này diễn ra tuân theo định luật bảo toàn khối lượng và biến thiên enthalpy đặc trưng.
+
+#### 3. Kịch tính phòng thí nghiệm & Hiện tượng quan sát thực tế
+- **Điều kiện kích hoạt**: HBr loãng, bề mặt kim loại hoạt động; tốc độ tùy kim loại, có thể cần làm ấm..
+- **Hiện tượng mắt thấy tai nghe**: Kim loại tan và H2 không màu thoát ra khi phản ứng diễn ra..
+- **Bản chất ion rút gọn**: \`Mg(s) + 2H^+(aq) → Mg^2+(aq) + H2(g)\` — lột tả trọn vẹn sự va chạm thực sự giữa các hạt mang điện tự do trong dung dịch mà bỏ qua các ion khán giả trung gian.
+
+#### 4. Giá trị ứng dụng & Dấu ấn văn minh
+Phản ứng hóa hợp là nền tảng của toàn bộ ngành công nghiệp tổng hợp vật liệu: từ việc tôi vôi xây dựng nhà cửa, sản xuất axit vô cơ cho đến chế tạo các hợp chất bán dẫn công nghệ cao.
+
+### Biên niên sử phản ứng chuyển hóa #4: Tổng hợp
+
+Phương trình hóa học biểu diễn biến đổi vật chất (có ghi rõ trạng thái pha):
+
+\`\`\`text
+2Mg(s) + O2(g) → 2MgO(s)
+\`\`\`
+
+#### 1. Bối cảnh lịch sử & Dấu ấn khám phá
+Từ những thí nghiệm đun nóng đơn chất trong buồng khí kín của Lavoisier thế kỷ XVIII đến các công trình điện phân của Davy đầu thế kỷ XIX, phản ứng hóa hợp luôn là minh chứng hùng hồn nhất cho thấy các nguyên tố đơn chất với tính chất hoàn toàn trái ngược có thể hòa quyện vào nhau để tạo nên một hợp chất hoàn toàn mới. Đây là con đường chuyển hóa tiêu biểu phản ánh bản tính hóa học năng động của **Magie (Mg)** khi tiếp xúc với môi trường xung quanh.
+
+#### 2. Vũ điệu va chạm phân tử & Cơ chế vi mô
+Các phân tử đơn chất ban đầu hấp thụ năng lượng kích hoạt để bẻ gãy liên kết nội tại. Đám mây electron hóa trị được tái phân bố: các nguyên tử kim loại nhường electron cho phi kim tạo mạng tinh thể ion, hoặc các phi kim góp chung electron để tạo ra các liên kết cộng hóa trị có cực. Quá trình tạo liên kết mới giải phóng năng lượng lớn khiến đa số phản ứng hóa hợp tỏa nhiệt mạnh (ΔrH°₂₉₈ < 0). Trong phản ứng này, phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng. Quá trình này diễn ra tuân theo định luật bảo toàn khối lượng và biến thiên enthalpy đặc trưng.
+
+#### 3. Kịch tính phòng thí nghiệm & Hiện tượng quan sát thực tế
+- **Điều kiện kích hoạt**: Mồi cháy, O2 đủ; sản phẩm trong không khí còn có thể chứa nitride..
+- **Hiện tượng mắt thấy tai nghe**: Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần..
+- **Bản chất ion rút gọn**: \`2Mg(s) + O2(g) → 2MgO(s)\` — lột tả trọn vẹn sự va chạm thực sự giữa các hạt mang điện tự do trong dung dịch mà bỏ qua các ion khán giả trung gian.
+
+#### 4. Giá trị ứng dụng & Dấu ấn văn minh
+Phản ứng hóa hợp là nền tảng của toàn bộ ngành công nghiệp tổng hợp vật liệu: từ việc tôi vôi xây dựng nhà cửa, sản xuất axit vô cơ cho đến chế tạo các hợp chất bán dẫn công nghệ cao.
+
+## Từ phòng thí nghiệm đến đời sống: Nhận diện, ứng dụng và bài học thực tiễn của Magie
+
+Từ một đối tượng nghiên cứu ban đầu trong các phòng thí nghiệm cổ điển, **Magie (Mg)** đã từng bước khẳng định vị thế to lớn trong đời sống và tiến trình văn minh nhân loại:
+
+- **Hợp kim**: Magnesium được sử dụng để sản xuất các hợp kim nhẹ cho phương tiện và thiết bị kỹ thuật.
+- **Hàng không**: Hợp kim Magnesium được sử dụng trong một số bộ phận cần giảm khối lượng.
+- **Pháo sáng và tín hiệu**: Magnesium tạo ánh sáng trắng mạnh khi cháy nên được sử dụng trong một số loại pháo sáng và thiết bị tín hiệu.
+- **Luyện kim**: Magnesium được sử dụng làm chất khử và trong quá trình sản xuất một số kim loại.
+- **Công nghiệp hóa chất**: Dùng để sản xuất nhiều Magnesium compounds.
+- **Bảo vệ chống ăn mòn**: Magnesium có thể được sử dụng làm anode hy sinh trong một số hệ thống bảo vệ kim loại.
+- **Vật liệu**: Magnesium và hợp kim của nó được sử dụng trong các sản phẩm yêu cầu vật liệu nhẹ.
+
+Về mặt an toàn thực nghiệm và xử lý hóa chất, việc nghiên cứu hay thao tác với **Magie** luôn đòi hỏi hiểu biết thấu đáo về tính chất lý hóa, nồng độ an toàn và trang bị bảo hộ đạt chuẩn quốc tế (kính bảo hộ, găng tay chuyên dụng và tủ hút khí độc đối với các phản ứng sinh nhiệt hoặc tỏa khí). Khi xảy ra sự cố tràn đổ hay rò rỉ, nguyên tắc trung hòa an toàn và thu gom đúng quy chuẩn hóa học luôn là bài học vỡ lòng cho bất kỳ nhà nghiên cứu nào bước chân vào phòng lab.
+
+## Câu hỏi suy ngẫm & Tự kiểm tra kiến thức
+
+1. Dựa vào câu chuyện lịch sử và hành trình khám phá **Magie (Mg)**, nguyên nhân vì sao tên gọi và phương pháp điều chế ban đầu của chất này lại phản ánh hoàn cảnh văn hóa và kỹ thuật của thời đại phát hiện ra nó?
+
+2. Trong phương trình hóa học \`Mg(s) + 2AgNO3(aq) → Mg(NO3)2(aq) + 2Ag(s)\`, hiện tượng thực nghiệm quan sát được hé lộ điều gì về tính cách hóa học của **Mg** khi tương tác với các chất xung quanh?
+
+<details><summary>Xem phân tích và lời giải chi tiết</summary>
+
+- **Giải đáp câu 1:** Tên gọi và phương pháp tiếp cận đầu tiên của Mg bắt nguồn trực tiếp từ nguồn khoáng sản tự nhiên hoặc hiện tượng quan sát bằng mắt thường của các nhà thực nghiệm thời kỳ đó. Chỉ khi kỹ thuật phân tích và mô hình liên kết không gian phát triển, nhân loại mới hiểu trọn vẹn bản chất cấu tạo của chất.
+
+- **Giải đáp câu 2:** Phương trình phản ứng phản ánh sự tái sắp xếp liên kết: hiện tượng Có thể xuất hiện Ag bám trên kim loại; tốc độ/hình thái phụ thuộc bề mặt. là bằng chứng vĩ mô cho thấy các nguyên tử đã đổi chỗ cho nhau để tạo thành cấu trúc mới bền vững hơn.
+
+**3. Câu hỏi trắc nghiệm rèn luyện năng lực tư duy GDPT 2018**:
+
+*Dãy nguyên tố nào sau đây được sắp xếp theo chiều BÁN KÍNH NGUYÊN TỬ GIẢM DẦN?*
+
+   A. Na > Mg > Al > Si
+   B. Si > Al > Mg > Na
+   C. K > Na > Li > Cs
+   D. F > Cl > Br > I
+
+- **Đáp án & Lời giải câu 3**: Chọn **A**. Các nguyên tố Na, Mg, Al, Si thuộc cùng chu kỳ 3. Đi từ trái sang phải theo chiều Z tăng, lực hút hạt nhân tăng khiến bán kính nguyên tử giảm dần: r(Na) > r(Mg) > r(Al) > r(Si).
+
+</details>
+
+## Nguồn tư liệu khoa học & Khám phá tiếp theo
+
+- [Phòng quan sát Cấu trúc & Liên kết 3D tương tác — Magie (Mg)](/tien-ich/cau-truc-3d/?compound=chem-mg)
+- [Bách khoa toàn thư Wikipedia Tiếng Việt — Magnesi](https://vi.wikipedia.org/wiki/Magnesi)
+- [Wikipedia Quốc tế — Magnesium](https://en.wikipedia.org/wiki/Magnesium)
+- [Hồ sơ dữ liệu nguyên tố chuyên sâu ChemDex](/data/elements/012_Mg.json)
+- [CIAAW (IUPAC) — Bảng trọng lượng nguyên tử chuẩn quốc tế](https://ciaaw.org/abridged-atomic-weights.htm)
+
+Bài báo chuyên khảo này thuộc hệ thống **Tạp chí Hóa Học Số ChemDex**, tích hợp hồ sơ tiểu sử các nhà hóa học tiên phong, chuẩn mực kiến thức GDPT 2018 môn Hóa học THCS-THPT và cơ sở dữ liệu cấu trúc không gian 3 chiều tương tác, mang lại góc nhìn toàn diện về **Magie (Mg)**.`,v={id:n,slug:h,documentPath:t,legacyIds:i,title:c,author:g,category:a,summary:u,image:o,chemicalFormula:"Mg",tags:m,aliases:r,substanceIds:l,documentKind:p,readingMinutes:32,chemicalEvidence:s,content:e};export{r as aliases,g as author,a as category,s as chemicalEvidence,k as chemicalFormula,e as content,v as default,p as documentKind,t as documentPath,n as id,o as image,i as legacyIds,y as readingMinutes,h as slug,l as substanceIds,u as summary,m as tags,c as title};

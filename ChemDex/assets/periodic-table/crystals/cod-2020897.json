@@ -1,0 +1,715 @@
+{
+  "id": "cod-2020897",
+  "codId": "2020897",
+  "referenceId": "cod:2020897",
+  "mineralName": "Pb(NO₃)₂",
+  "formula": "PbN2O6",
+  "sourceFormula": "N2 O6 Pb",
+  "subjectIds": [
+    "chem-pbno32"
+  ],
+  "spaceGroup": "P a -3",
+  "spaceGroupNumber": 205,
+  "cell": {
+    "a": 7.8586,
+    "b": 7.8586,
+    "c": 7.8586,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "basis": [
+    [
+      7.8586,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      7.8586,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      7.8586
+    ]
+  ],
+  "volume": 485.328227894056,
+  "declaredVolume": 485.33,
+  "symmetryOperations": [
+    "x,y,z",
+    "z,x,y",
+    "y,z,x",
+    "-y+1/2,-z,x+1/2",
+    "z+1/2,-x+1/2,-y",
+    "-y,z+1/2,-x+1/2",
+    "-z+1/2,-x,y+1/2",
+    "-z,x+1/2,-y+1/2",
+    "y+1/2,-z+1/2,-x",
+    "x+1/2,-y+1/2,-z",
+    "-x,y+1/2,-z+1/2",
+    "-x+1/2,-y,z+1/2",
+    "-x,-y,-z",
+    "-z,-x,-y",
+    "-y,-z,-x",
+    "y+1/2,z,-x+1/2",
+    "-z+1/2,x+1/2,y",
+    "y,-z+1/2,x+1/2",
+    "z+1/2,x,-y+1/2",
+    "z,-x+1/2,y+1/2",
+    "-y+1/2,z+1/2,x",
+    "-x+1/2,y+1/2,z",
+    "x,-y+1/2,z+1/2",
+    "x+1/2,y,-z+1/2"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Pb",
+      "element": "Pb",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0
+    },
+    {
+      "label": "N",
+      "element": "N",
+      "fractional": [
+        0.34865,
+        0.34865,
+        0.34865
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.27772,
+        0.28869,
+        0.4773
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0
+    }
+  ],
+  "atoms": [
+    {
+      "label": "Pb",
+      "element": "Pb",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Pb",
+      "element": "Pb",
+      "fractional": [
+        0.5,
+        0.0,
+        0.5
+      ],
+      "position": [
+        3.9293,
+        0.0,
+        3.9293
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Pb",
+      "element": "Pb",
+      "fractional": [
+        0.5,
+        0.5,
+        0.0
+      ],
+      "position": [
+        3.9293,
+        3.9293,
+        0.0
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Pb",
+      "element": "Pb",
+      "fractional": [
+        0.0,
+        0.5,
+        0.5
+      ],
+      "position": [
+        0.0,
+        3.9293,
+        3.9293
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "N",
+      "element": "N",
+      "fractional": [
+        0.34865,
+        0.34865,
+        0.34865
+      ],
+      "position": [
+        2.73990089,
+        2.73990089,
+        2.73990089
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "N",
+      "element": "N",
+      "fractional": [
+        0.15134999999999998,
+        0.65135,
+        0.84865
+      ],
+      "position": [
+        1.1893991099999999,
+        5.11869911,
+        6.66920089
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "N",
+      "element": "N",
+      "fractional": [
+        0.84865,
+        0.15134999999999998,
+        0.65135
+      ],
+      "position": [
+        6.66920089,
+        1.1893991099999999,
+        5.11869911
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "N",
+      "element": "N",
+      "fractional": [
+        0.65135,
+        0.84865,
+        0.15134999999999998
+      ],
+      "position": [
+        5.11869911,
+        6.66920089,
+        1.1893991099999999
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "N",
+      "element": "N",
+      "fractional": [
+        0.65135,
+        0.65135,
+        0.65135
+      ],
+      "position": [
+        5.11869911,
+        5.11869911,
+        5.11869911
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "N",
+      "element": "N",
+      "fractional": [
+        0.84865,
+        0.34865,
+        0.15134999999999998
+      ],
+      "position": [
+        6.66920089,
+        2.73990089,
+        1.1893991099999999
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "N",
+      "element": "N",
+      "fractional": [
+        0.15134999999999998,
+        0.84865,
+        0.34865
+      ],
+      "position": [
+        1.1893991099999999,
+        6.66920089,
+        2.73990089
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "N",
+      "element": "N",
+      "fractional": [
+        0.34865,
+        0.15134999999999998,
+        0.84865
+      ],
+      "position": [
+        2.73990089,
+        1.1893991099999999,
+        6.66920089
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.27772,
+        0.28869,
+        0.4773
+      ],
+      "position": [
+        2.182490392,
+        2.268699234,
+        3.75090978
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.22227999999999998,
+        0.71131,
+        0.9773000000000001
+      ],
+      "position": [
+        1.7468096079999997,
+        5.589900766,
+        7.68020978
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.77772,
+        0.21131,
+        0.5226999999999999
+      ],
+      "position": [
+        6.111790392,
+        1.660600766,
+        4.107690219999999
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.72228,
+        0.78869,
+        0.022699999999999998
+      ],
+      "position": [
+        5.676109608,
+        6.197999234,
+        0.17839022
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.4773,
+        0.27772,
+        0.28869
+      ],
+      "position": [
+        3.75090978,
+        2.182490392,
+        2.268699234
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.9773000000000001,
+        0.22227999999999998,
+        0.71131
+      ],
+      "position": [
+        7.68020978,
+        1.7468096079999997,
+        5.589900766
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.5226999999999999,
+        0.77772,
+        0.21131
+      ],
+      "position": [
+        4.107690219999999,
+        6.111790392,
+        1.660600766
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.022699999999999998,
+        0.72228,
+        0.78869
+      ],
+      "position": [
+        0.17839022,
+        5.676109608,
+        6.197999234
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.28869,
+        0.4773,
+        0.27772
+      ],
+      "position": [
+        2.268699234,
+        3.75090978,
+        2.182490392
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.71131,
+        0.9773000000000001,
+        0.22227999999999998
+      ],
+      "position": [
+        5.589900766,
+        7.68020978,
+        1.7468096079999997
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.21131,
+        0.5226999999999999,
+        0.77772
+      ],
+      "position": [
+        1.660600766,
+        4.107690219999999,
+        6.111790392
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.78869,
+        0.022699999999999998,
+        0.72228
+      ],
+      "position": [
+        6.197999234,
+        0.17839022,
+        5.676109608
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.72228,
+        0.71131,
+        0.5226999999999999
+      ],
+      "position": [
+        5.676109608,
+        5.589900766,
+        4.107690219999999
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.77772,
+        0.28869,
+        0.022699999999999998
+      ],
+      "position": [
+        6.111790392,
+        2.268699234,
+        0.17839022
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.22227999999999998,
+        0.78869,
+        0.4773
+      ],
+      "position": [
+        1.7468096079999997,
+        6.197999234,
+        3.75090978
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.27772,
+        0.21131,
+        0.9773000000000001
+      ],
+      "position": [
+        2.182490392,
+        1.660600766,
+        7.68020978
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.5226999999999999,
+        0.72228,
+        0.71131
+      ],
+      "position": [
+        4.107690219999999,
+        5.676109608,
+        5.589900766
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.022699999999999998,
+        0.77772,
+        0.28869
+      ],
+      "position": [
+        0.17839022,
+        6.111790392,
+        2.268699234
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.4773,
+        0.22227999999999998,
+        0.78869
+      ],
+      "position": [
+        3.75090978,
+        1.7468096079999997,
+        6.197999234
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.9773000000000001,
+        0.27772,
+        0.21131
+      ],
+      "position": [
+        7.68020978,
+        2.182490392,
+        1.660600766
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.71131,
+        0.5226999999999999,
+        0.72228
+      ],
+      "position": [
+        5.589900766,
+        4.107690219999999,
+        5.676109608
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.28869,
+        0.022699999999999998,
+        0.77772
+      ],
+      "position": [
+        2.268699234,
+        0.17839022,
+        6.111790392
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.78869,
+        0.4773,
+        0.22227999999999998
+      ],
+      "position": [
+        6.197999234,
+        3.75090978,
+        1.7468096079999997
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.21131,
+        0.9773000000000001,
+        0.27772
+      ],
+      "position": [
+        1.660600766,
+        7.68020978,
+        2.182490392
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    }
+  ],
+  "siteCount": 36,
+  "speciesPositionCount": 36,
+  "cellComposition": {
+    "Pb": 4.0,
+    "N": 8.0,
+    "O": 24.0
+  },
+  "mixedSiteCount": 0,
+  "formulaUnitsZ": 4.0,
+  "conditions": {
+    "temperatureK": null,
+    "pressureKPa": null,
+    "hydrogenTreatment": null
+  },
+  "reference": {
+    "authors": [
+      "Nowotny, H.",
+      "Heger, G."
+    ],
+    "title": "Structure refinement of lead nitrate",
+    "journal": "Acta Crystallographica, Section C: Crystal Structure Communications",
+    "year": 1986.0,
+    "volume": "42",
+    "pages": "133–135",
+    "doi": "10.1107/s0108270186097032"
+  },
+  "source": "https://www.crystallography.net/cod/2020897.html",
+  "transport": "https://cod.psdi.ac.uk/cod/2020897.cif",
+  "transportSha256": "eebc1e50a8da5670c69cdcdc2e405ffccadd5b559b046232fadbb267f7e9e54c",
+  "evidence": "published-structure",
+  "note": "Tinh chỉnh lead nitrate; không dùng một nitrate khác có cùng kiểu mạng.",
+  "limitations": "",
+  "coordinatePrecision": "Original CIF lexical precision and uncertainties are retained in the downloadable CIF."
+}

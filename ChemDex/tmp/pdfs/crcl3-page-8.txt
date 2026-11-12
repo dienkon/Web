@@ -1,0 +1,60 @@
+                                                                                                                                                                                                 7
+
+                                                                                                        (a)
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                                                        (b)
+
+
+
+
+
+                                                                                                                H = 0         H ≥ 6 kOe                             H ≥ 3 kOe
+
+                                                                                                     FIG.  4.   (a)  Magnetic  phase  diagram  of  CrCl3   crystals.  H   is  the  ap-
+                                                                                                     plied   external   ﬁeld,   directed   out   of   the   plane   of   the   Cr   layers.    The
+                                                                                                     points  were  determined  from  heat  capacity  measurements  like  those
+                                                                                                     shown  in  Figure  3b.   PM  =  paramagnetic,  AFM  =  antiferromagnetic,
+                                                                                                     “FM”  =  ferromagnetic-like.   (b)  Magnetic  structures  of  CrCl3  acces-
+                                                                                                     sible  with  relatively  small  applied  magnetic  ﬁelds.
+
+
+
+                                                                                                     (Fig.     2c)   show   that   the   FM-like   behavior   onsetting   at   17 K
+                                                                                                     vanishes   at   the   14 K   transition   indicating   that   the   magnetic
+                                                                                                     behavior   of   the   entire   sample   is   affected.     Fourth,   the   ferro-
+                                                                                                     magnetic   in-plane   magnetic   structure   of   CrCl3   should   result
+                                                                                                     in   less   sensitivity   to   stacking   faults   than   the   more   complex
+                                                                                                     zig-zag  antiferromagnetic  order  in  RuCl3.
+                                                                                                        Using    heat    capacity    data    like    that    shown    in    Figure    3b,
+                                                                                                     where  the  local  maxima  can  be  easily  identiﬁed  and  tracked  as
+FIG.  3.    Heat  capacity   of   CrCl3   crystals.    (a)   Data  collected   on   two              the  applied  magnetic  ﬁeld  is  changed,  the  magnetic  phase  di-
+different   samples   near   the   magnetic   ordering,   with   position   of   the                 agram  for  CrCl3  shown  in  Figure  4  can  be  constructed.  Three
+two   observed   peaks   noted.    Data   from   2   to   300   K   are   shown   in   the           regions   are   delineated:    (1)   the   paramagnetic   (PM)   phase   at
+inset.  (b)  Magnetic  ﬁeld  dependence  of  the  heat  capacity  at  low  ﬁelds                     high   temperatures   and   low   ﬁelds,   (2)   the   antiferromagnetic
+(left)  and  higher  ﬁelds  (right).  The  ﬁeld  was  applied  out  of  the  plane.                  (AFM)   region   where   the   magnetic   moments  are   aligned   fer-
+(c)   Estimated   magnetic   heat   capacity   plotted   as cmag/T    (symbols)                      romagnetically  within   layers  and  the   layers  are   stacked   anti-
+determined   for   data   collected   in   zero   ﬁeld   and   at   20   kOe,   and   the            ferromagnetically, and  (3)  a  ferromagnetic-like phase  (“FM”),
+associated  magnetic  entropies  (lines).                                                            which  is  either  ﬁeld  polarized  in  the  case  of  the  high  ﬁeld  re-
+                                                                                                     gion  or  short  ranged  or  low  dimensional  in  the  case  of  the  low
+                                                                                                     ﬁeld  region  between  the  PM  and  AFM  phases.   Note  that  the
+                                                                                                     boundaries are  not  as  well  deﬁned  as  this  depiction might  sug-
+from  the  closely  related  compound  RuCl3,  and  have  been  as-                                  gest,  especially  at  higher  magnetic  ﬁelds.
+sociated   with   different   types   of   magnetic   order   occurring   in
+different  parts  of  the  sample  that  have  different  crystal  struc-
+tures  or  stacking  fault  densities  [53,  54].  Several  observations                                 C.        Magnetic  anisotropy  and  potential  for  monolayer  and
+suggest  that   this   is   not   the   case   for   the   CrCl3   data   shown   in                                               heterostructure  studies
+Fig.     3.    First,   identical  behavior   is   observed   in   two   samples
+selected   from   separate   growths   (Fig.     3a).     Second,   the   evo-                          As   noted   above,   the   observed   magnetic   anisotropy   in   the
+lution   of   the   two   heat   capacity   anomalies   with   applied   ﬁeld                        ordered  state  is  small.   Figure  2d  shows  the  magnetic  moment
+are  coupled  as  described  above.  Third,  the  magnetization  data                                as  a  function  of  magnetic  ﬁeld  measured  at  2 K  with  the  ﬁeld

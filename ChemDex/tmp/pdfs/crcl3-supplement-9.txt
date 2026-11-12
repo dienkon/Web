@@ -1,0 +1,9 @@
+Fig. S5. Polarization-dependent PL emission recorded from positions in Group L. (a-d) Polar plots of PL
+counts plotted as a function of polarization detection analyzer angle at 2 K, with the radial scales normalized
+to the maximum value in each plot. The arrows show the preferred polarization angle. The polarization angles
+are -41º, -38º, -34º and 14º, respectively. (e-h) Temperature-dependent evolution of vibronic PL counts that
+along the preferred polarization direction and its orthogonal counterpart, normalized to the minimal PL counts
+at 30 K, corresponding to the points in (a-d). (i-l) Temperature-dependent evolution of the ZPL signal that
+along the preferred polarization direction and its orthogonal counterpart, normalized by the ZPL count
+minimum value at 30 K.
+S9

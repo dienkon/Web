@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f766e"/>
+      <stop offset="100%" stop-color="#1e3a8a"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  <rect width="800" height="450" rx="24" fill="url(#bg)"/>
+  <circle cx="710" cy="65" r="170" fill="#ffffff" opacity="0.06"/>
+  <circle cx="120" cy="390" r="190" fill="#ffffff" opacity="0.05"/>
+  <g transform="translate(48, 108)">
+    <text x="0" y="0" fill="#5eead4" font-family="system-ui, sans-serif" font-weight="800" font-size="11" letter-spacing="1">HÓA HỌC HỮU CƠ · CHẤT CAO PHÂN TỬ (POLYMER)</text>
+    <text x="0" y="38" fill="#ffffff" font-family="system-ui, sans-serif" font-weight="800" font-size="24">
+      <tspan x="0" dy="0">Mắt Xích Lặp Vô Tận &amp;</tspan>
+      <tspan x="0" dy="32">Kỷ Nguyên Vật Liệu Tổng Hợp</tspan>
+    </text>
+    <text x="0" y="140" fill="#e0f2fe" font-family="system-ui, sans-serif" font-weight="500" font-size="13.5" opacity="0.95">
+      <tspan x="0" dy="0">Hàng nghìn mắt xích monome liên kết cộng hóa trị chặt</tspan><tspan x="0" dy="21">chẽ tạo nên chuỗi đại phân tử dẻo dai, bền nhiệt và</tspan><tspan x="0" dy="21">định hình nên toàn bộ ngành nhựa, cao su và tơ sợi.</tspan>
+    </text>
+  </g>
+  <rect x="435" y="54" width="320" height="342" rx="22" fill="#0f172a" fill-opacity="0.32" stroke="#ffffff" stroke-opacity="0.22" stroke-width="1.5"/>
+  <g transform="translate(435, 54)">
+    
+      <!-- Intertwined macromolecular chains -->
+      <path d="M60 140 Q110 90 160 140 T260 140" fill="none" stroke="#22d3ee" stroke-width="6" stroke-linecap="round"/>
+      <path d="M60 170 Q110 220 160 170 T260 170" fill="none" stroke="#f472b6" stroke-width="6" stroke-linecap="round"/>
+      <!-- Repeating brackets [ -M- ]n -->
+      <text x="160" y="162" text-anchor="middle" fill="#ffffff" font-family="sans-serif" font-weight="900" font-size="22">[— CH₂—CH₂ —]ₙ</text>
+      <rect x="80" y="110" width="160" height="90" rx="8" fill="none" stroke="#fde047" stroke-width="2" stroke-dasharray="6,4"/>
+      <text x="160" y="250" text-anchor="middle" fill="#a5f3fc" font-family="sans-serif" font-weight="800" font-size="15">Trùng Hợp &amp; Trùng Ngưng</text>
+    
+    <text x="160" y="318" text-anchor="middle" fill="#f8fafc" opacity="0.85" font-family="sans-serif" font-weight="600" font-size="11.5">Độ polime hóa n · Cấu trúc mạch không phân nhánh / mạng lưới không gian</text>
+  </g>
+</svg>

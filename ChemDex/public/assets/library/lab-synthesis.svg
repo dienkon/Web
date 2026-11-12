@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0ea5e9"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+    <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fef08a" stop-opacity="1"/>
+      <stop offset="65%" stop-color="#f59e0b" stop-opacity="0.65"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="phGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ef4444"/>
+      <stop offset="30%" stop-color="#f59e0b"/>
+      <stop offset="50%" stop-color="#10b981"/>
+      <stop offset="75%" stop-color="#0ea5e9"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" rx="24" fill="url(#bg)"/>
+  <circle cx="710" cy="65" r="170" fill="#ffffff" opacity="0.07"/>
+  <circle cx="130" cy="390" r="200" fill="#ffffff" opacity="0.06"/>
+  <g transform="translate(48, 108)">
+    <text x="0" y="0" fill="#34d399" font-family="system-ui, sans-serif" font-weight="800" font-size="11" letter-spacing="0.8">KHÁM PHÁ LỊCH SỬ · ĐIỀU CHẾ PHÒNG THÍ NGHIỆM</text>
+    <text x="0" y="38" fill="#ffffff" font-family="system-ui, sans-serif" font-weight="800" font-size="24">
+      <tspan x="0" dy="0">Khoảnh Khắc Khai Sinh</tspan><tspan x="0" dy="32">Trong Phòng Thí Nghiệm</tspan>
+    </text>
+    <text x="0" y="138" fill="#e0f2fe" font-family="system-ui, sans-serif" font-weight="500" font-size="13.5" opacity="0.95">
+      <tspan x="0" dy="0">Từ những bình chưng cất cổ điển đến kỹ</tspan><tspan x="0" dy="21">thuật phân lập hiện đại giúp nhân loại</tspan><tspan x="0" dy="21">nhận diện chất mới.</tspan>
+    </text>
+  </g>
+  <rect x="435" y="54" width="320" height="342" rx="22" fill="#0f172a" fill-opacity="0.26" stroke="#ffffff" stroke-opacity="0.24" stroke-width="1.5"/>
+  
+      <path d="M567 108 L623 108 M580 108 L580 162 L520 270 Q511 286 530 286 L660 286 Q679 286 670 270 L610 162 L610 108" fill="#38bdf8" fill-opacity="0.28" stroke="#ffffff" stroke-width="3.5" stroke-linejoin="round"/>
+      <path d="M531 244 Q595 230 659 244 L667 270 Q673 282 657 282 L533 282 Q517 282 523 270 Z" fill="#34d399" opacity="0.88"/>
+      <circle cx="570" cy="258" r="6" fill="#ffffff" opacity="0.9"/>
+      <circle cx="607" cy="242" r="8" fill="#fef08a" opacity="0.95"/>
+      <circle cx="590" cy="204" r="6" fill="#ffffff" opacity="0.85"/>
+      <text x="595" y="340" text-anchor="middle" fill="#e0f2fe" font-family="sans-serif" font-weight="700" font-size="12.5">Chưng cất, kết tủa, điện phân &amp; thu khí</text>
+    
+</svg>

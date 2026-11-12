@@ -1,0 +1,377 @@
+{
+  "id": "cod-1535669",
+  "codId": "1535669",
+  "referenceId": "cod:1535669",
+  "mineralName": "AlCl₃ khan",
+  "formula": "AlCl3",
+  "sourceFormula": "Al Cl3",
+  "subjectIds": [
+    "chem-alcl3"
+  ],
+  "spaceGroup": "C 1 2/m 1",
+  "spaceGroupNumber": 12,
+  "cell": {
+    "a": 5.914,
+    "b": 10.234,
+    "c": 6.148,
+    "alpha": 90.0,
+    "beta": 108.25,
+    "gamma": 90.0
+  },
+  "basis": [
+    [
+      5.914,
+      0.0,
+      -1.9253310822620913
+    ],
+    [
+      0.0,
+      10.234,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      5.83875022788914
+    ]
+  ],
+  "volume": 353.38379478773396,
+  "declaredVolume": 353.384,
+  "symmetryOperations": [
+    "x,y,z",
+    "-x,y,-z",
+    "-x,-y,-z",
+    "x,-y,z",
+    "x+1/2,y+1/2,z",
+    "-x+1/2,y+1/2,-z",
+    "-x+1/2,-y+1/2,-z",
+    "x+1/2,-y+1/2,z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Cl2",
+      "element": "Cl",
+      "fractional": [
+        0.2482,
+        0.17869,
+        -0.2248
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0
+    },
+    {
+      "label": "Cl1",
+      "element": "Cl",
+      "fractional": [
+        0.2147,
+        0.0,
+        0.2263
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0
+    },
+    {
+      "label": "Al1",
+      "element": "Al",
+      "fractional": [
+        0.0,
+        0.1662,
+        0.0
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0
+    }
+  ],
+  "atoms": [
+    {
+      "label": "Cl2",
+      "element": "Cl",
+      "fractional": [
+        0.2482,
+        0.17869,
+        0.7752
+      ],
+      "position": [
+        -0.024661854969573183,
+        1.82871346,
+        4.526199176659661
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Cl2",
+      "element": "Cl",
+      "fractional": [
+        0.7518,
+        0.17869,
+        0.2248
+      ],
+      "position": [
+        4.013330772707482,
+        1.82871346,
+        1.3125510512294787
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Cl2",
+      "element": "Cl",
+      "fractional": [
+        0.7518,
+        0.82131,
+        0.2248
+      ],
+      "position": [
+        4.013330772707482,
+        8.40528654,
+        1.3125510512294787
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Cl2",
+      "element": "Cl",
+      "fractional": [
+        0.2482,
+        0.82131,
+        0.7752
+      ],
+      "position": [
+        -0.024661854969573183,
+        8.40528654,
+        4.526199176659661
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Cl2",
+      "element": "Cl",
+      "fractional": [
+        0.7482,
+        0.67869,
+        0.7752
+      ],
+      "position": [
+        2.9323381450304264,
+        6.94571346,
+        4.526199176659661
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Cl2",
+      "element": "Cl",
+      "fractional": [
+        0.2518,
+        0.67869,
+        0.2248
+      ],
+      "position": [
+        1.056330772707482,
+        6.94571346,
+        1.3125510512294787
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Cl2",
+      "element": "Cl",
+      "fractional": [
+        0.2518,
+        0.32131,
+        0.2248
+      ],
+      "position": [
+        1.056330772707482,
+        3.2882865399999996,
+        1.3125510512294787
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Cl2",
+      "element": "Cl",
+      "fractional": [
+        0.7482,
+        0.32131,
+        0.7752
+      ],
+      "position": [
+        2.9323381450304264,
+        3.2882865399999996,
+        4.526199176659661
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Cl1",
+      "element": "Cl",
+      "fractional": [
+        0.2147,
+        0.0,
+        0.2263
+      ],
+      "position": [
+        0.8340333760840886,
+        0.0,
+        1.3213091765713123
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Cl1",
+      "element": "Cl",
+      "fractional": [
+        0.7853,
+        0.0,
+        0.7737
+      ],
+      "position": [
+        3.1546355416538194,
+        0.0,
+        4.517441051317828
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Cl1",
+      "element": "Cl",
+      "fractional": [
+        0.7147,
+        0.5,
+        0.2263
+      ],
+      "position": [
+        3.791033376084089,
+        5.117,
+        1.3213091765713123
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Cl1",
+      "element": "Cl",
+      "fractional": [
+        0.2853,
+        0.5,
+        0.7737
+      ],
+      "position": [
+        0.1976355416538198,
+        5.117,
+        4.517441051317828
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Al1",
+      "element": "Al",
+      "fractional": [
+        0.0,
+        0.1662,
+        0.0
+      ],
+      "position": [
+        0.0,
+        1.7008907999999998,
+        0.0
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Al1",
+      "element": "Al",
+      "fractional": [
+        0.0,
+        0.8338,
+        0.0
+      ],
+      "position": [
+        0.0,
+        8.5331092,
+        0.0
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Al1",
+      "element": "Al",
+      "fractional": [
+        0.5,
+        0.6662,
+        0.0
+      ],
+      "position": [
+        2.957,
+        6.8178908,
+        0.0
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Al1",
+      "element": "Al",
+      "fractional": [
+        0.5,
+        0.3338,
+        0.0
+      ],
+      "position": [
+        2.957,
+        3.4161091999999997,
+        0.0
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    }
+  ],
+  "siteCount": 16,
+  "speciesPositionCount": 16,
+  "cellComposition": {
+    "Cl": 12.0,
+    "Al": 4.0
+  },
+  "mixedSiteCount": 0,
+  "formulaUnitsZ": 4.0,
+  "conditions": {
+    "temperatureK": null,
+    "pressureKPa": null,
+    "hydrogenTreatment": null
+  },
+  "reference": {
+    "authors": [
+      "Troyanov, S.I."
+    ],
+    "title": "Crystal structure of titanium(II) chloroaluminates Ti (Al Cl4)2 and\n refinement of Al Cl3 crystal structure.",
+    "journal": "Zhurnal Neorganicheskoi Khimii",
+    "year": 1992.0,
+    "volume": "37",
+    "pages": "266–272",
+    "doi": null
+  },
+  "source": "https://www.crystallography.net/cod/1535669.html",
+  "transport": "https://cod.psdi.ac.uk/cod/1535669.cif",
+  "transportSha256": "5e09d39453c4cfe28272041c28fcdee5989140e394f587f605f78df26f6b1dcd",
+  "evidence": "published-structure",
+  "note": "Tinh chỉnh riêng AlCl3 trong công trình chloroaluminate; không lấy cấu trúc Ti(AlCl4)2 cùng bài.",
+  "limitations": "",
+  "coordinatePrecision": "Original CIF lexical precision and uncertainties are retained in the downloadable CIF."
+}

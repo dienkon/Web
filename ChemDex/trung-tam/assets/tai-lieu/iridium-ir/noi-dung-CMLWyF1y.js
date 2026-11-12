@@ -1,0 +1,169 @@
+const n="iridium-ir",h="iridium-ir",t="reference/iridium-ir/index.json",i=["ho-so-3f4b3fc000ab"],c="Iridium (Ir) — Chân dung một nguyên tố: Lịch sử phát hiện, hình thái tự nhiên và ứng dụng",g="Hội Đồng Chuyên Khảo Cấu Trúc Phân Tử · ChemDex",u="nguyento",r="Hồ sơ báo chí toàn diện về Iridium (Ir) (khởi nguồn 1803): kết hợp tư liệu bách khoa quốc tế, giải phẫu liên kết 3D và phân tích phản ứng thực nghiệm.",a="/assets/library/substances/iridium-ir.svg",k="Ir",o=["Biên niên sử nguyên tố","Ir"],m=["Iridium","Ir"],l=["atom-Ir"],s="reference",v=22,d={formula:"Ir",representativeId:"atom-Ir",counts:{Ir:1},mass:192.22,material:!1,reactionIds:[]},p=`## Câu chuyện: Cội nguồn lịch sử và hành trình bước vào từ điển hóa học của Iridium (Ir)
+
+Khi các nhà hóa học đặt câu hỏi *"Chất này từ đâu mà có và vì sao các nguyên tử của nó lại gắn kết bền chặt đến vậy?"*, câu trả lời dành cho **Iridium (Ir)** luôn mở ra một bức tranh giao thoa thú vị giữa lịch sử văn minh nhân loại và các định luật bất di bất dịch của cơ học lượng tử.
+
+Theo hồ sơ bách khoa trực tuyến từ [Wikipedia Tiếng Việt — Iridi](https://vi.wikipedia.org/wiki/Iridi), bản chất và lịch sử của chất này được ghi nhận cụ thể như sau: Iridi là một nguyên tố hóa học với số nguyên tử 77 và ký hiệu là Ir. Là một kim loại chuyển tiếp, cứng, màu trắng bạc thuộc nhóm platin, iridi là nguyên tố đặc thứ 2 (sau osmi) và là kim loại có khả năng chống ăn mòn nhất, thậm chí ở nhiệt độ cao khoảng 2000 °C. Mặc dù chỉ các muối nóng chảy và halogen nhất định mới ăn mòn iridi rắn, bụi iridi mịn thì phản ứng mạnh hơn và thậm chí có thể cháy. Các hợp chất iridi quan trọng nhất được sử dụng là các muối và acid tạo thành với clo, mặc dù iridi cũng tạo thành một số các hợp chất kim loại hữu cơ được dùng làm chất xúc tác và nghiên cứu.191Ir và 193Ir là hai đồng vị tự nhiên của iridi và cũng là hai đồng vị bền; trong đó đồng vị 193Ir phổ biến hơn. Iridi được Smithson Tennant phát hiện năm 1803 ở Luân Đôn, Anh, trong số các tạp chất không hòa tan trong platin tự nhiên ở Nam Mỹ. Mặc dù nó là một trong những nguyên tố hiếm nhất trong vỏ Trái Đất, với sản lượng và tiêu thụ hàng năm chỉ 3 tấn, nó có nhiều ứng dụng trong công nghiệp đặc thù và trong khoa học. Iridi được dùng với chức năng chống ăn mòn cao ở nhiệt độ cao như nồi nung làm tái kết tinh của các chất bán dẫn ở nhiệt độ cao, các điện cực trong sản xuất clo, và máy phát nhiệt điện đồng vị phóng xạ được dùng trong phi thuyền không người lái. Các hợp chất iridi cũng được dùng làm các chất xúc tác trong sản xuất acid axetic. Trong công nghiệp ôtô, iridi được dùng làm bugi (high-end after-market sparkplugs) với vai trò điện cực trung tâm, thay thế việc sử dụng các kim loại thông
+
+Là một nguyên tố nặng với hành trình kiến tạo đầy kịch tính, **Iridium (Ir)** được tôi luyện từ những sự kiện vũ trụ khốc liệt nhất — những vụ va chạm dữ dội giữa các sao neutron hoặc siêu tân tinh giàu neutron, để lại những mạch quặng quý giá sâu trong lòng các tầng địa chất Trái Đất. Trong lịch sử văn minh nhân loại, khoảnh khắc định danh và cô lập được **Iridium** đánh dấu bước ngoặt lớn gắn liền với công trình của **Smithson Tennant** vào thời điểm **1803** tại **Anh**. Tên gọi quốc tế và ký hiệu **Ir** bắt nguồn từ danh pháp Latinh **Iridium**. Iridium được Smithson Tennant phát hiện cùng thời điểm với Osmium khi nghiên cứu phần cặn không tan của Platinum trong nước cường toan. Tên Iridium bắt nguồn từ tiếng Latin Iris, nữ thần cầu vồng trong thần thoại Hy Lạp, do màu sắc đa dạng của các hợp chất Iridium. Trong tự nhiên, Iridium gắn liền với các vỉa khoáng vật đặc trưng như **Thường tồn tại cùng các kim loại nhóm Platinum, đặc biệt trong quặng Platinum và Nickel**.
+
+### Dấu ấn nhà khoa học tiên phong: Chân dung và di sản của Bernard Courtois (Béc-na Cua-toa)
+
+Trong lịch sử khám phá và làm sáng tỏ bản chất của **Iridium (Ir)**, dấu ấn thực nghiệm sâu sắc nhất gắn liền với tên tuổi của **Bernard Courtois** (1777 – 1838) — người phát hiện làn hơi hoa tím biếc iodine từ tro rong biển.
+
+*“Một làn hơi màu tím biếc lộng lẫy chưa từng thấy bốc lên từ chiếc nồi đồng, rồi ngưng tụ thành những vảy tinh thể lấp lánh như kim loại.”* — Lời đúc kết nổi tiếng này không chỉ là kim chỉ nam nghiên cứu của Bernard Courtois mà còn phản ánh tinh thần thực nghiệm bất khuất của thời đại khai sáng khoa học.
+
+**Nghị lực sống & Thăng trầm khoa học**: Courtois sinh ra tại Dijon, cha là một nhà sản xuất diêm tiêu (kali nitrat - thành phần chính của thuốc súng đen). Trong các cuộc chiến tranh của Hoàng đế Napoléon Bonaparte đầu thế kỷ XIX, nước Pháp bị hải quân Anh phong tỏa hoàn toàn đường biển, dẫn đến tình trạng khan hiếm diêm tiêu trầm trọng cho quân đội. Do thiếu nguồn tro gỗ truyền thống, xưởng của gia đình Courtois tại Paris phải đốt rong biển (kelp) trôi dạt vào bờ biển Normandy và Brittany để chiết xuất muối kiềm và diêm tiêu. Dù phát hiện ra nguyên tố Iot vô cùng quý giá cho y học và nhiếp ảnh, Courtois không hề đăng ký bằng sáng chế và không có đầu óc thương mại. Khi chiến tranh Napoléon kết thúc, diêm tiêu ngoại nhập giá rẻ tràn vào khiến cơ sở kinh doanh của ông phá sản hoàn toàn. Ông qua đời trong cảnh nghèo túng bần hàn vào năm 1838, để lại người vợ và con nhỏ không có một đồng thừa kế.
+
+**Giai thoại phòng thí nghiệm & Phong cách làm việc**: Phát hiện ra Iot là một tai nạn may mắn kinh điển trong lịch sử hóa học: Cuối năm 1811, khi đang rửa sạch cặn bẩn bám dính dưới đáy chảo đồng nấu tro rong biển, Courtois đã vô tình rót quá nhiều axit sunfuric đậm đặc vào cặn tro. Ngay lập tức, một phản ứng mãnh liệt xảy ra: một đám mây hơi màu tím biếc dày đặc, lộng lẫy tuyệt đẹp bốc lên nghi ngút khắp phòng thí nghiệm và ngưng tụ trên nắp chảo lạnh thành những tinh thể vảy màu đen tím lấp lánh như than chì. Vì không có đủ thiết bị phân tích hiện đại, Courtois đã gửi mẫu chất cho hai người bạn là Charles Bernard Desormes và Nicolas Clément để công bố, sau đó Gay-Lussac và Humphry Davy xác nhận đây là nguyên tố mới và đặt tên là Iodine (từ tiếng Hy Lạp "iodes" nghĩa là màu hoa tím).
+
+**Đột phá thực nghiệm lịch sử**: 1. Khám phá Nguyên tố Iot (Iodine, I, 1811): Halogen ở thể rắn có khả năng thăng hoa trực tiếp từ thể rắn sang thể hơi màu tím biếc mà không qua trạng thái lỏng.
+2. Đặt nền móng cho Ngành Y Dược học Sát trùng & Tuyến giáp: Phát hiện cồn iot (iodine tincture) làm chất khử trùng vết thương cứu sống hàng triệu thương binh, và sau này chứng minh iot là nguyên tố vi lượng sống còn ngăn ngừa bệnh bướu cổ và đần độn ở trẻ em.
+3. Khởi đầu ngành Nhiếp ảnh Thế giới: Muối bạc iotua (AgI) là chất nhạy sáng cốt lõi trong quy trình chụp ảnh Daguerreotype đầu tiên của nhân loại.
+
+**Thiết bị phòng thí nghiệm đặc chế tiêu biểu**:
+
+- **Chảo đồng nung tro rong biển Courtois (Courtois Kelp Ash Extraction Vessel)**: Chảo đồng tráng thiếc lớn dùng để chiết nước nóng từ tro rong tảo biển và nung kết tinh muối kali sunfat.
+
+**Dấu mốc phản ứng gắn liền với công trình của Bernard Courtois**:
+
+- Phương trình phản ứng bước ngoặt: \`2NaI(aq) + 2H2SO4(d) -> I2(g) + SO2(g) + Na2SO4(aq) + 2H2O(l)\`
+  *Hiện tượng quan sát thực tế*: Luồng khói màu hoa tím biếc bốc lên cuồn cuộn huyền ảo, gặp lạnh ngưng tụ thành các lá tinh thể hình kim màu tím đen sắc cạnh lấp lánh ánh kim.
+  *Ghi chú lịch sử*: Khoảnh khắc cuối năm 1811 tại xưởng sản xuất diêm tiêu Paris khai sinh nguyên tố Iot.
+
+- Phương trình phản ứng bước ngoặt: \`I2(aq) + Ho tinh bot -> Hop chat mau xanh tim dac trung\`
+  *Hiện tượng quan sát thực tế*: Dung dịch iot màu vàng nâu nhỏ vào hồ tinh bột lập tức chuyển sang màu xanh lam tím thẫm đậm đặc; khi hơ nóng trên ngọn lửa màu xanh tím biến mất hoàn toàn, để nguội màu xanh tím lại hiện ra.
+  *Ghi chú lịch sử*: Phản ứng nhận biết đặc trưng kinh điển nhất trong chương trình Hóa học phổ thông.
+
+**Bài học phương pháp luận cho học sinh GDPT**: Hiện tượng thăng hoa của Iot và phản ứng màu với hồ tinh bột là hai bài thực hành sinh động nhất trong GDPT 2018 (Hóa học 10 - Halogen & Hóa học 12 - Carbohydrate / Tinh bột). Học sinh học cách giải thích tương tác bao bọc của chuỗi xoắn amylose đối với phân tử I2.
+
+![Khởi nguyên lịch sử và hành trình khám phá Iridium (Ir)](/assets/library/earth-minerals.svg)
+*Hình 1. Bối cảnh lịch sử phát hiện, nguồn gốc tự nhiên và tiến trình định danh khoa học của Iridium (Ir).*
+
+## Lần theo thành phần nguyên tử: Cấu trúc không gian, hình học phân tử và cá tính của Iridium
+
+Để hiểu vì sao **Iridium (Ir)** lại mang những tính chất vật lý và hóa học đặc thù, chúng ta cần đi sâu vào "bản thiết kế hình học" của chất này. Một đơn vị công thức **Ir** được liên kết chặt chẽ từ **1 nguyên tử** thuộc **1 nguyên tố hóa học**:
+
+- **Nguyên tố Iridium (Ir)**: Góp mặt **1 nguyên tử** trong một đơn vị cấu trúc phân tử. Các nguyên tử Iridium phối hợp nhịp nhàng cùng các nguyên tử đồng hành để tạo nên bộ khung không gian bền vững, định hình trực tiếp diện mạo và các đặc tính hóa học cốt lõi của **Iridium**.
+
+Ở trạng thái đơn chất, **Iridium (Ir)** mang trọn vẹn phong thái và tính chất đặc trưng của nhóm **nguyên tố**. Trong mạng lưới cấu trúc tự nhiên (như Lập phương tâm mặt (Face-centered cubic, FCC)), các nguyên tử **Iridium** gắn kết với nhau bằng những liên kết bền vững, tạo nên độ cứng, nhiệt độ chuyển pha và khả năng tương tác riêng biệt khi đặt trong môi trường thử nghiệm.
+
+![Kiến trúc liên kết không gian 3 chiều của Iridium (Ir)](/assets/library/crystal-bcc.svg)
+*Hình 2. Mô phỏng trực quan sự phân bố đám mây electron, góc liên kết và trật tự phối trí không gian 3D của Iridium (Ir).*
+
+| Chỉ tiêu nhận diện & Cấu trúc 3D | Tư liệu xác thực từ hệ thống ChemDex |
+|---|---|
+| Tên chất & Danh pháp quốc tế | **Iridium** (Iridium) |
+| Công thức hóa học thực nghiệm | **Ir**  |
+| Hình thái không gian 3 chiều | Đơn chất tự nhiên () |
+| Quy mô cấu trúc vi mô | **1 nguyên tử** (1× Ir) |
+| Trạng thái & Sắc thái nhận diện | Rắn / Dung dịch thực nghiệm |
+| Phòng quan sát 3D tương tác | [Mở mô hình xoay 360° và kiểm tra góc liên kết](/tien-ich/cau-truc-3d/?compound=atom-Ir) |
+
+Người đọc có thể trực tiếp xoay mô hình 360°, bật/tắt nhãn nguyên tử và kiểm tra độ dài từng liên kết (tính bằng đơn vị Ångström) của chất này tại [Phòng quan sát Cấu trúc & Liên kết 3D — Iridium](/tien-ich/cau-truc-3d/?compound=atom-Ir).
+
+## Trọng tâm kiến thức Hóa học GDPT (THCS & THPT): Cấu trúc, Nhiệt động lực & Cơ chế
+
+Trong Chương trình Giáo dục phổ thông 2018 (môn Khoa học tự nhiên THCS & môn Hóa học THPT Lớp Hóa học 10), **Iridium (Ir)** là đối tượng trọng tâm thuộc mạch nội dung **“Định luật tuần hoàn và Xu hướng biến đổi tuần hoàn tính chất nguyên tố”** (Các bài học cốt lõi liên quan: *Hóa học 10 - Chương 2: Bảng tuần hoàn các nguyên tố hóa học (Bài 4: Cấu tạo bảng tuần hoàn), Hóa học 10 - Chương 2: Bảng tuần hoàn các nguyên tố hóa học (Bài 5: Xu hướng biến đổi tính chất nguyên tử), Hóa học 10 - Chương 2: Bảng tuần hoàn các nguyên tố hóa học (Bài 6: Xu hướng biến đổi tính chất hợp chất), KHTN 7 - Bài: Bảng tuần hoàn các nguyên tố hóa học*).
+
+### 1. Nguyên lý lý thuyết & Quy luật khoa học chi phối
+
+Định luật tuần hoàn: Tính chất của các đơn chất cũng như thành phần và tính chất của các hợp chất tạo nên từ các nguyên tố biến đổi tuần hoàn theo chiều tăng dần của điện tích hạt nhân (số hiệu nguyên tử Z). Quy luật này chi phối bán kính nguyên tử, năng lượng ion hóa thứ nhất (I₁), độ âm điện (χ), tính kim loại - phi kim, và tính axit - bazơ của oxit/hiđroxit cao nhất.
+
+- **Định luật tuần hoàn Mendeleev hiện đại**: Tính chất các nguyên tố và hợp chất biến thiên tuần hoàn theo chiều tăng của điện tích hạt nhân nguyên tử Z.
+- **Quy luật biến thiên bán kính nguyên tử**: Trong chu kỳ r giảm dần (Z tăng, n không đổi); trong nhóm A r tăng dần (số lớp n tăng).
+- **Quy luật tính Axit - Bazơ của hiđroxit cao nhất**: Trong chu kỳ từ trái sang phải: tính bazơ giảm dần, tính axit tăng dần.
+
+### 2. Phân tích sư phạm chuyên sâu đối với Iridium (Ir)
+
+### 1. Cấu trúc Bảng tuần hoàn các nguyên tố hóa học
+Bảng tuần hoàn hiện đại gồm 118 nguyên tố được sắp xếp theo 3 nguyên tắc:
+1. Các nguyên tố được xếp theo chiều tăng dần của **điện tích hạt nhân nguyên tử ($Z$)**.
+2. Các nguyên tố có cùng số lớp electron trong nguyên tử được xếp thành một hàng gọi là **Chu kỳ**.
+3. Các nguyên tố có cấu hình electron tương tự nhau được xếp thành một cột gọi là **Nhóm**.
+
+- **Ô nguyên tố**: Cho biết số hiệu nguyên tử ($Z$), ký hiệu hóa học, tên nguyên tố, nguyên tử khối trung bình và độ âm điện.
+- **Chu kỳ**: Có 7 chu kỳ được đánh số từ 1 đến 7. Số thứ tự chu kỳ = Số lớp electron trong nguyên tử.
+  - Chu kỳ nhỏ: Chu kỳ 1 (2 nguyên tố), Chu kỳ 2 (8 nguyên tố), Chu kỳ 3 (8 nguyên tố).
+  - Chu kỳ lớn: Chu kỳ 4 (18 nguyên tố), Chu kỳ 5 (18 nguyên tố), Chu kỳ 6 (32 nguyên tố, chứa họ Lantan), Chu kỳ 7 (32 nguyên tố, chứa họ Actini).
+- **Nhóm nguyên tố**: Gồm 18 cột chia làm 8 nhóm A (từ IA đến VIIIA - các n...
+
+### 3. Phương trình phản ứng với trạng thái pha (s, l, g, aq) & Hiện tượng quan sát
+
+- **Phương trình phản ứng chuẩn mực**: \`Cl2O7(l) + H2O(l) -> 2HClO4(aq)\`
+  *Điều kiện thực hiện*: Nhiệt độ phòng, phản ứng tỏa nhiệt mạnh.
+  *Hiện tượng quan sát thực tế*: Chất lỏng điclo heptaoxit không màu tan bốc khói trong nước tạo dung dịch axit pecloric — một trong những axit vô cơ mạnh nhất thế giới làm quỳ tím đổi sang màu đỏ rực ngay lập tức.
+
+- **Phương trình phản ứng chuẩn mực**: \`Al(OH)3(s) + NaOH(aq) -> Na[Al(OH)4](aq)\`
+  *Điều kiện thực hiện*: Nhiệt độ phòng, kiềm dư.
+  *Hiện tượng quan sát thực tế*: Kết tủa keo trắng nhôm hiđroxit tan biến hoàn toàn tạo dung dịch trong suốt không màu của muối natri tetrahiđroxoaluminat.
+
+### 4. Lưu ý sư phạm & Bẫy tư duy thường gặp trong các kỳ thi tuyển sinh
+
+- ⚠️ *Lưu ý tránh bẫy đề thi*: Cho rằng trong chu kỳ bán kính nguyên tử tăng vì Z tăng (Sai: Z tăng kéo electron vào gần hơn làm bán kính CO LẠI).
+- ⚠️ *Lưu ý tránh bẫy đề thi*: Nhầm lẫn vị trí của khí hiếm khi so sánh độ âm điện (Khí hiếm trơ có lớp vỏ bão hòa, thường không có giá trị độ âm điện Pauling tiêu chuẩn).
+- ⚠️ *Lưu ý tránh bẫy đề thi*: Đồng nhất hóa trị cao nhất với oxi và hóa trị với hiđro (Hóa trị với H của phi kim chỉ từ 1 đến 4, trong khi hóa trị với O tăng từ 1 đến 7).
+
+## Dòng chảy phản ứng: Cách Iridium ra đời và tương tác với thế giới hóa chất
+
+Trong tự nhiên, hầu hết các nguyên tố hóa học tồn tại ở dạng hợp chất bền vững về mặt nhiệt động học. Để đưa **Iridium (Ir)** về trạng thái đơn chất tinh khiết phục vụ nghiên cứu và sản xuất, ngành hóa học thực nghiệm đã phát triển hai nhánh quy trình bổ trợ lẫn nhau:
+
+- **Điều chế trong phòng thí nghiệm**: Có thể điều chế Iridium bằng cách khử Iridium oxide bằng Hydrogen ở nhiệt độ cao. Phương trình phản ứng: \`IrO₂ + 2H₂ → Ir + 2H₂O\`. 
+- **Sản xuất quy mô công nghiệp**: Iridium (Ir) chủ yếu được thu hồi như sản phẩm phụ trong quá trình tinh luyện quặng Platinum và Nickel. Sau khi tách khỏi các kim loại nhóm Platinum, Iridium được tinh chế và thu hồi bằng phương pháp kết tủa hợp chất Iridium, sau đó nung và khử để thu kim loại. Phương trình chủ đạo: \`IrO₂ + 2H₂ → Ir + 2H₂O\`. 
+
+Bên cạnh câu chuyện điều chế, bản chất hóa học của **Iridium** còn được thể hiện sống động qua chuỗi các phản ứng đặc trưng với đơn chất và hợp chất khác:
+
+- **Tác dụng với Oxygen**: \`Ir + O₂ → IrO₂\` 
+- **Tác dụng với Chlorine**: \`2Ir + 3Cl₂ → 2IrCl₃\` 
+- **Tác dụng với Fluorine**: \`Ir + 3F₂ → IrF₆\` 
+- **Tạo Iridium dioxide**: \`Ir + O₂ → IrO₂\` 
+- **Iridium oxide bị khử**: \`IrO₂ + 2H₂ → Ir + 2H₂O\` 
+
+Trong thực hành hóa học, **Iridium (Ir)** được điều chế và tinh chế dựa trên nguyên lý dịch chuyển cân bằng hóa học (Nguyên lý Le Chatelier) và sự khác biệt về độ tan, nhiệt độ sôi hoặc năng lượng mạng lưới tinh thể. Khi thiết kế quy trình tổng hợp **Ir**, nhà hóa học luôn kiểm soát chặt chẽ độ tinh khiết của tiền chất, nhiệt độ phản ứng và môi trường dung môi để thu được sản phẩm có cấu trúc không gian đồng nhất như mô hình 3D đã khảo sát.
+
+## Từ phòng thí nghiệm đến đời sống: Nhận diện, ứng dụng và bài học thực tiễn của Iridium
+
+Từ một đối tượng nghiên cứu ban đầu trong các phòng thí nghiệm cổ điển, **Iridium (Ir)** đã từng bước khẳng định vị thế to lớn trong đời sống và tiến trình văn minh nhân loại:
+
+- **Bugi**: Iridium được sử dụng trong điện cực của một số loại bugi do có độ cứng, nhiệt độ nóng chảy cao và khả năng chống ăn mòn tốt.
+- **Hợp kim**: Được sử dụng để tạo các hợp kim có độ bền và khả năng chịu nhiệt cao.
+- **Thiết bị khoa học**: Iridium được sử dụng trong một số dụng cụ và thiết bị cần khả năng chống ăn mòn.
+- **Điện hóa**: Một số hợp chất Iridium, đặc biệt Iridium oxide, được sử dụng trong điện cực.
+- **Y học**: Đồng vị phóng xạ ¹⁹²Ir được sử dụng trong một số phương pháp xạ trị.
+- **Nghiên cứu**: Iridium và các hợp chất của nó được sử dụng làm chất xúc tác và trong nghiên cứu hóa học.
+
+Về mặt an toàn thực nghiệm và xử lý hóa chất, việc nghiên cứu hay thao tác với **Iridium** luôn đòi hỏi hiểu biết thấu đáo về tính chất lý hóa, nồng độ an toàn và trang bị bảo hộ đạt chuẩn quốc tế (kính bảo hộ, găng tay chuyên dụng và tủ hút khí độc đối với các phản ứng sinh nhiệt hoặc tỏa khí). Khi xảy ra sự cố tràn đổ hay rò rỉ, nguyên tắc trung hòa an toàn và thu gom đúng quy chuẩn hóa học luôn là bài học vỡ lòng cho bất kỳ nhà nghiên cứu nào bước chân vào phòng lab.
+
+## Câu hỏi suy ngẫm & Tự kiểm tra kiến thức
+
+1. Dựa vào câu chuyện lịch sử và hành trình khám phá **Iridium (Ir)**, nguyên nhân vì sao tên gọi và phương pháp điều chế ban đầu của chất này lại phản ánh hoàn cảnh văn hóa và kỹ thuật của thời đại phát hiện ra nó?
+
+2. Vì sao việc khám phá hình dáng không gian 3 chiều của **Iridium (Ir)** lại là chìa khóa để giải mã các phản ứng đặc trưng của nó thay vì chỉ nhìn vào một công thức viết phẳng?
+
+<details><summary>Xem phân tích và lời giải chi tiết</summary>
+
+- **Giải đáp câu 1:** Tên gọi và phương pháp tiếp cận đầu tiên của Ir bắt nguồn trực tiếp từ nguồn khoáng sản tự nhiên hoặc hiện tượng quan sát bằng mắt thường của các nhà thực nghiệm thời kỳ đó. Chỉ khi kỹ thuật phân tích và mô hình liên kết không gian phát triển, nhân loại mới hiểu trọn vẹn bản chất cấu tạo của chất.
+
+- **Giải đáp câu 2:** Cấu trúc 3 chiều quyết định vị trí các nguyên tử lộ ra ngoài để tiếp xúc với thuốc thử; chính góc liên kết và sự che chắn không gian quyết định chất phản ứng dễ dàng hay trơ lỳ về mặt hóa học.
+
+**3. Câu hỏi trắc nghiệm rèn luyện năng lực tư duy GDPT 2018**:
+
+*Dãy nguyên tố nào sau đây được sắp xếp theo chiều BÁN KÍNH NGUYÊN TỬ GIẢM DẦN?*
+
+   A. Na > Mg > Al > Si
+   B. Si > Al > Mg > Na
+   C. K > Na > Li > Cs
+   D. F > Cl > Br > I
+
+- **Đáp án & Lời giải câu 3**: Chọn **A**. Các nguyên tố Na, Mg, Al, Si thuộc cùng chu kỳ 3. Đi từ trái sang phải theo chiều Z tăng, lực hút hạt nhân tăng khiến bán kính nguyên tử giảm dần: r(Na) > r(Mg) > r(Al) > r(Si).
+
+</details>
+
+## Nguồn tư liệu khoa học & Khám phá tiếp theo
+
+- [Phòng quan sát Cấu trúc & Liên kết 3D tương tác — Iridium (Ir)](/tien-ich/cau-truc-3d/?compound=atom-Ir)
+- [Bách khoa toàn thư Wikipedia Tiếng Việt — Iridi](https://vi.wikipedia.org/wiki/Iridi)
+- [Wikipedia Quốc tế — Iridium](https://en.wikipedia.org/wiki/Iridium)
+- [Hồ sơ dữ liệu nguyên tố chuyên sâu ChemDex](/data/elements/077_Ir.json)
+- [CIAAW (IUPAC) — Bảng trọng lượng nguyên tử chuẩn quốc tế](https://ciaaw.org/abridged-atomic-weights.htm)
+
+Bài báo chuyên khảo này thuộc hệ thống **Tạp chí Hóa Học Số ChemDex**, tích hợp hồ sơ tiểu sử các nhà hóa học tiên phong, chuẩn mực kiến thức GDPT 2018 môn Hóa học THCS-THPT và cơ sở dữ liệu cấu trúc không gian 3 chiều tương tác, mang lại góc nhìn toàn diện về **Iridium (Ir)**.`,y={id:n,slug:h,documentPath:t,legacyIds:i,title:c,author:g,category:u,summary:r,image:a,chemicalFormula:"Ir",tags:o,aliases:m,substanceIds:l,documentKind:s,readingMinutes:22,chemicalEvidence:d,content:p};export{m as aliases,g as author,u as category,d as chemicalEvidence,k as chemicalFormula,p as content,y as default,s as documentKind,t as documentPath,n as id,a as image,i as legacyIds,v as readingMinutes,h as slug,l as substanceIds,r as summary,o as tags,c as title};

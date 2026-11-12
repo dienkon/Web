@@ -1,0 +1,791 @@
+{
+  "id": "cod-1542184",
+  "codId": "1542184",
+  "referenceId": "cod:1542184",
+  "mineralName": "α-Cu(NO₃)₂ khan",
+  "formula": "CuN2O6",
+  "sourceFormula": "Cu N2 O6",
+  "subjectIds": [
+    "chem-cuno32"
+  ],
+  "spaceGroup": "P m n 21",
+  "spaceGroupNumber": 31,
+  "cell": {
+    "a": 11.12,
+    "b": 5.05,
+    "c": 8.28,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "basis": [
+    [
+      11.12,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      5.05,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      8.28
+    ]
+  ],
+  "volume": 464.9716799999999,
+  "declaredVolume": 464.972,
+  "symmetryOperations": [
+    "x,y,z",
+    "-x+1/2,-y,z+1/2",
+    "-x,y,z",
+    "x+1/2,-y,z+1/2"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "N3",
+      "element": "N",
+      "fractional": [
+        0.5,
+        0.784,
+        0.278
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0
+    },
+    {
+      "label": "O6",
+      "element": "O",
+      "fractional": [
+        0.0,
+        0.655,
+        0.341
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0
+    },
+    {
+      "label": "N2",
+      "element": "N",
+      "fractional": [
+        0.0,
+        0.76,
+        0.21
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0
+    },
+    {
+      "label": "Cu1",
+      "element": "Cu",
+      "fractional": [
+        0.7487,
+        0.7692,
+        0.2469
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0
+    },
+    {
+      "label": "N1",
+      "element": "N",
+      "fractional": [
+        0.784,
+        0.225,
+        0.408
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.801,
+        0.388,
+        0.533
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0
+    },
+    {
+      "label": "O4",
+      "element": "O",
+      "fractional": [
+        0.902,
+        0.838,
+        0.149
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.775,
+        0.295,
+        0.275
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0
+    },
+    {
+      "label": "O7",
+      "element": "O",
+      "fractional": [
+        0.5,
+        0.971,
+        0.203
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0
+    },
+    {
+      "label": "O5",
+      "element": "O",
+      "fractional": [
+        0.596,
+        0.667,
+        0.347
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0
+    },
+    {
+      "label": "O3",
+      "element": "O",
+      "fractional": [
+        0.782,
+        -0.011,
+        0.445
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0
+    }
+  ],
+  "atoms": [
+    {
+      "label": "N3",
+      "element": "N",
+      "fractional": [
+        0.5,
+        0.784,
+        0.278
+      ],
+      "position": [
+        5.56,
+        3.9592,
+        2.30184
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "N3",
+      "element": "N",
+      "fractional": [
+        0.0,
+        0.21599999999999997,
+        0.778
+      ],
+      "position": [
+        0.0,
+        1.0907999999999998,
+        6.44184
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O6",
+      "element": "O",
+      "fractional": [
+        0.0,
+        0.655,
+        0.341
+      ],
+      "position": [
+        0.0,
+        3.30775,
+        2.82348
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O6",
+      "element": "O",
+      "fractional": [
+        0.5,
+        0.345,
+        0.841
+      ],
+      "position": [
+        5.56,
+        1.7422499999999999,
+        6.963479999999999
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "N2",
+      "element": "N",
+      "fractional": [
+        0.0,
+        0.76,
+        0.21
+      ],
+      "position": [
+        0.0,
+        3.838,
+        1.7388
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "N2",
+      "element": "N",
+      "fractional": [
+        0.5,
+        0.24,
+        0.71
+      ],
+      "position": [
+        5.56,
+        1.212,
+        5.878799999999999
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Cu1",
+      "element": "Cu",
+      "fractional": [
+        0.7487,
+        0.7692,
+        0.2469
+      ],
+      "position": [
+        8.325543999999999,
+        3.88446,
+        2.044332
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Cu1",
+      "element": "Cu",
+      "fractional": [
+        0.7513,
+        0.2308,
+        0.7469
+      ],
+      "position": [
+        8.354455999999999,
+        1.16554,
+        6.1843319999999995
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Cu1",
+      "element": "Cu",
+      "fractional": [
+        0.25129999999999997,
+        0.7692,
+        0.2469
+      ],
+      "position": [
+        2.7944559999999994,
+        3.88446,
+        2.044332
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Cu1",
+      "element": "Cu",
+      "fractional": [
+        0.24869999999999992,
+        0.2308,
+        0.7469
+      ],
+      "position": [
+        2.765543999999999,
+        1.16554,
+        6.1843319999999995
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "N1",
+      "element": "N",
+      "fractional": [
+        0.784,
+        0.225,
+        0.408
+      ],
+      "position": [
+        8.71808,
+        1.13625,
+        3.3782399999999995
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "N1",
+      "element": "N",
+      "fractional": [
+        0.716,
+        0.775,
+        0.9079999999999999
+      ],
+      "position": [
+        7.961919999999999,
+        3.91375,
+        7.518239999999999
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "N1",
+      "element": "N",
+      "fractional": [
+        0.21599999999999997,
+        0.225,
+        0.408
+      ],
+      "position": [
+        2.4019199999999996,
+        1.13625,
+        3.3782399999999995
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "N1",
+      "element": "N",
+      "fractional": [
+        0.28400000000000003,
+        0.775,
+        0.9079999999999999
+      ],
+      "position": [
+        3.15808,
+        3.91375,
+        7.518239999999999
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.801,
+        0.388,
+        0.533
+      ],
+      "position": [
+        8.907119999999999,
+        1.9594,
+        4.41324
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.699,
+        0.612,
+        0.03299999999999992
+      ],
+      "position": [
+        7.772879999999999,
+        3.0906,
+        0.2732399999999993
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.19899999999999995,
+        0.388,
+        0.533
+      ],
+      "position": [
+        2.2128799999999993,
+        1.9594,
+        4.41324
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.30100000000000016,
+        0.612,
+        0.03299999999999992
+      ],
+      "position": [
+        3.3471200000000016,
+        3.0906,
+        0.2732399999999993
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O4",
+      "element": "O",
+      "fractional": [
+        0.902,
+        0.838,
+        0.149
+      ],
+      "position": [
+        10.03024,
+        4.2318999999999996,
+        1.23372
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O4",
+      "element": "O",
+      "fractional": [
+        0.598,
+        0.16200000000000003,
+        0.649
+      ],
+      "position": [
+        6.64976,
+        0.8181000000000002,
+        5.37372
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O4",
+      "element": "O",
+      "fractional": [
+        0.09799999999999998,
+        0.838,
+        0.149
+      ],
+      "position": [
+        1.0897599999999996,
+        4.2318999999999996,
+        1.23372
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O4",
+      "element": "O",
+      "fractional": [
+        0.40200000000000014,
+        0.16200000000000003,
+        0.649
+      ],
+      "position": [
+        4.470240000000001,
+        0.8181000000000002,
+        5.37372
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.775,
+        0.295,
+        0.275
+      ],
+      "position": [
+        8.618,
+        1.48975,
+        2.277
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.725,
+        0.7050000000000001,
+        0.775
+      ],
+      "position": [
+        8.062,
+        3.5602500000000004,
+        6.417
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.22499999999999998,
+        0.295,
+        0.275
+      ],
+      "position": [
+        2.502,
+        1.48975,
+        2.277
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.2749999999999999,
+        0.7050000000000001,
+        0.775
+      ],
+      "position": [
+        3.057999999999999,
+        3.5602500000000004,
+        6.417
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O7",
+      "element": "O",
+      "fractional": [
+        0.5,
+        0.971,
+        0.203
+      ],
+      "position": [
+        5.56,
+        4.90355,
+        1.68084
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O7",
+      "element": "O",
+      "fractional": [
+        0.0,
+        0.029000000000000026,
+        0.7030000000000001
+      ],
+      "position": [
+        0.0,
+        0.14645000000000014,
+        5.8208400000000005
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O5",
+      "element": "O",
+      "fractional": [
+        0.596,
+        0.667,
+        0.347
+      ],
+      "position": [
+        6.62752,
+        3.36835,
+        2.8731599999999995
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O5",
+      "element": "O",
+      "fractional": [
+        0.904,
+        0.33299999999999996,
+        0.847
+      ],
+      "position": [
+        10.05248,
+        1.6816499999999996,
+        7.013159999999999
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O5",
+      "element": "O",
+      "fractional": [
+        0.404,
+        0.667,
+        0.347
+      ],
+      "position": [
+        4.49248,
+        3.36835,
+        2.8731599999999995
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O5",
+      "element": "O",
+      "fractional": [
+        0.09600000000000009,
+        0.33299999999999996,
+        0.847
+      ],
+      "position": [
+        1.067520000000001,
+        1.6816499999999996,
+        7.013159999999999
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O3",
+      "element": "O",
+      "fractional": [
+        0.782,
+        0.989,
+        0.445
+      ],
+      "position": [
+        8.69584,
+        4.99445,
+        3.6845999999999997
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O3",
+      "element": "O",
+      "fractional": [
+        0.718,
+        0.011,
+        0.9450000000000001
+      ],
+      "position": [
+        7.984159999999999,
+        0.055549999999999995,
+        7.8246
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O3",
+      "element": "O",
+      "fractional": [
+        0.21799999999999997,
+        0.989,
+        0.445
+      ],
+      "position": [
+        2.4241599999999996,
+        4.99445,
+        3.6845999999999997
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O3",
+      "element": "O",
+      "fractional": [
+        0.28200000000000003,
+        0.011,
+        0.9450000000000001
+      ],
+      "position": [
+        3.13584,
+        0.055549999999999995,
+        7.8246
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    }
+  ],
+  "siteCount": 36,
+  "speciesPositionCount": 36,
+  "cellComposition": {
+    "N": 8.0,
+    "O": 24.0,
+    "Cu": 4.0
+  },
+  "mixedSiteCount": 0,
+  "formulaUnitsZ": 4.0,
+  "conditions": {
+    "temperatureK": null,
+    "pressureKPa": null,
+    "hydrogenTreatment": null
+  },
+  "reference": {
+    "authors": [
+      "Wallwork, S.C.",
+      "Addison, W.E."
+    ],
+    "title": "The Crystal Structures of Anhydrous Nitrates and Their Complexes. Part I.\n The alpha Form of Copper(II) Nitrate",
+    "journal": "Journal of the Chemical Society",
+    "year": 1965.0,
+    "volume": "1965",
+    "pages": "2925–2933",
+    "doi": null
+  },
+  "source": "https://www.crystallography.net/cod/1542184.html",
+  "transport": "https://cod.psdi.ac.uk/cod/1542184.cif",
+  "transportSha256": "7663154c09253dbdc24a30ead8f822ffba1e34c532b78be3c58130f3eaed45ce",
+  "evidence": "published-structure",
+  "note": "Bản alpha copper(II) nitrate khan; không thay cho nitrate ngậm nước hay dung dịch.",
+  "limitations": "",
+  "coordinatePrecision": "Original CIF lexical precision and uncertainties are retained in the downloadable CIF."
+}

@@ -1,0 +1,36 @@
+import fs from 'node:fs/promises';
+import { chromium } from '@playwright/test';
+const base=process.env.CHEMDEX_CAPTURE_URL || 'http://127.0.0.1:4186';
+const directory='docs/molecular-crystal-upgrade/2026-11-12/screenshots';
+await fs.mkdir(directory,{recursive:true});
+const browser=await chromium.launch({headless:true,args:['--enable-unsafe-swiftshader']});
+try {
+ const page=await browser.newPage({viewport:{width:1440,height:1080}});
+ await page.goto(base+'/tien-ich/cau-truc-3d/?compound=cid-962');
+ await page.locator('chem-structure-viewer .viewer-status').filter({hasText:'3 nguyên tử'}).waitFor();
+ await page.locator('chem-structure-viewer').scrollIntoViewIfNeeded();
+ await page.screenshot({path:directory+'/phan-tu-nuoc-canh-trung-bay.png'});
+ await page.goto(base+'/tien-ich/cau-truc-3d/?compound=cid-5793');
+ await page.getByRole('group',{name:'Cách biểu diễn cấu trúc'}).getByRole('button',{name:'Tinh thể',exact:true}).click();
+ const glucose=page.locator('[data-crystal-id="cod-5000067"]');
+ await glucose.getByRole('button',{name:'Xem mạng tinh thể 3D',exact:true}).click();
+ await glucose.locator('[role=status][data-state=ready]').waitFor();
+ await glucose.scrollIntoViewIfNeeded();
+ await page.screenshot({path:directory+'/glucose-neutron.png'});
+ await page.goto(base+'/trung-tam/tai-lieu-so/aspirin-c9h8o4/');
+ await page.getByRole('button',{name:'Khám phá 3D',exact:true}).click();
+ const aspirin=page.locator('[data-crystal-id="cod-7050902"]');
+ await aspirin.getByRole('button',{name:'Xem mạng tinh thể 3D',exact:true}).click();
+ await aspirin.locator('[role=status][data-state=ready]').waitFor();
+ await aspirin.scrollIntoViewIfNeeded();
+ await page.screenshot({path:directory+'/aspirin-hai-cach-bieu-dien.png'});
+ await page.setViewportSize({width:390,height:844});
+ await page.goto(base+'/trung-tam/tai-lieu-so/thuoc-tim-kmno4/');
+ await page.getByRole('button',{name:'Khám phá 3D',exact:true}).click();
+ const permanganate=page.locator('[data-crystal-id="cod-2310631"]');
+ await permanganate.getByRole('button',{name:'Xem mạng tinh thể 3D',exact:true}).click();
+ await permanganate.locator('[role=status][data-state=ready]').waitFor();
+ await permanganate.scrollIntoViewIfNeeded();
+ await page.screenshot({path:directory+'/kmno4-dien-thoai.png'});
+ console.log('Captured 4 real model views.');
+} finally {await browser.close();}

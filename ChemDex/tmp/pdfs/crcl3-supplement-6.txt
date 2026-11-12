@@ -1,0 +1,6 @@
+Fig. S2. Integrated PL counts as a function of laser incidence angle. (a) Integrated PL counts (recorded at the
+same position as that in Fig. 1) plotted as a function of laser incidence polarization angle with the detection
+analyzer angle fixed at H (0º line), shown using blue symbols. Brown symbols are PL counts of the vibronic
+signal plotted as a function of detection analyzer angle, with the PL counts normalized to the maximum
+counts. (b) Equivalent plots for the ZPL signal.
+S6

@@ -1,0 +1,207 @@
+{
+  "id": "cod-1548811",
+  "codId": "1548811",
+  "referenceId": "cod:1548811",
+  "mineralName": "β-Ni(OH)₂ · 293 K",
+  "formula": "NiO2H2",
+  "sourceFormula": "H2 Ni O2",
+  "subjectIds": [
+    "formula-Ni(OH)2"
+  ],
+  "spaceGroup": "P -3 m 1",
+  "spaceGroupNumber": 164,
+  "cell": {
+    "a": 3.1268,
+    "b": 3.1268,
+    "c": 4.606,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 120.0
+  },
+  "basis": [
+    [
+      3.1268,
+      -1.5633999999999992,
+      0.0
+    ],
+    [
+      0.0,
+      2.7078882325531826,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      4.606
+    ]
+  ],
+  "volume": 38.99911680707083,
+  "declaredVolume": 38.999,
+  "symmetryOperations": [
+    "x-y,-y,-z",
+    "-x,-x+y,-z",
+    "y,x,-z",
+    "x-y,x,-z",
+    "y,-x+y,-z",
+    "-x,-y,-z",
+    "-x+y,y,z",
+    "x,x-y,z",
+    "-y,-x,z",
+    "-x+y,-x,z",
+    "-y,x-y,z",
+    "x,y,z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Ni1",
+      "element": "Ni",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.007599088773175333
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.3333,
+        0.6667,
+        0.2153
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.012665147955292222
+    },
+    {
+      "label": "H1",
+      "element": "H",
+      "fractional": [
+        0.3333,
+        0.6667,
+        0.4537
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.06585876936751955
+    }
+  ],
+  "atoms": [
+    {
+      "label": "Ni1",
+      "element": "Ni",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.3333,
+        0.6667,
+        0.2153
+      ],
+      "position": [
+        -0.00015633999999953296,
+        1.8053490846432068,
+        0.9916717999999999
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.6667,
+        0.3333,
+        0.7847
+      ],
+      "position": [
+        1.5635563399999999,
+        0.9025391479099757,
+        3.6143281999999997
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H1",
+      "element": "H",
+      "fractional": [
+        0.3333,
+        0.6667,
+        0.4537
+      ],
+      "position": [
+        -0.00015633999999953296,
+        1.8053490846432068,
+        2.0897422
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H1",
+      "element": "H",
+      "fractional": [
+        0.6667,
+        0.3333,
+        0.5463
+      ],
+      "position": [
+        1.5635563399999999,
+        0.9025391479099757,
+        2.5162578
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    }
+  ],
+  "siteCount": 5,
+  "speciesPositionCount": 5,
+  "cellComposition": {
+    "Ni": 1.0,
+    "O": 2.0,
+    "H": 2.0
+  },
+  "mixedSiteCount": 0,
+  "formulaUnitsZ": 1.0,
+  "conditions": {
+    "temperatureK": "293.",
+    "pressureKPa": null,
+    "hydrogenTreatment": null
+  },
+  "reference": {
+    "authors": [
+      "Zhao, Qing",
+      "Kulik, Heather J."
+    ],
+    "title": "Where Does the Density Localize in the Solid State? Divergent Behavior\n for Hybrids and DFT+U",
+    "journal": "Journal of Chemical Theory and Computation",
+    "year": 2018.0,
+    "volume": "14",
+    "pages": "670–683",
+    "doi": "10.1021/acs.jctc.7b01061"
+  },
+  "source": "https://www.crystallography.net/cod/1548811.html",
+  "transport": "https://cod.psdi.ac.uk/cod/1548811.cif",
+  "transportSha256": "a2d8c277020b79b9b734c642e2d80f8064fe0c1993baafceed83ef193a53e453",
+  "evidence": "published-structure",
+  "note": "Dữ liệu cấu trúc 293 K dẫn lại nghiên cứu Atomic structure and lattice dynamics of Ni and Mg hydroxides (2010), có đầy đủ H; phân biệt với phép tính DFT trong bài dẫn nguồn năm 2018.",
+  "limitations": "",
+  "coordinatePrecision": "Original CIF lexical precision and uncertainties are retained in the downloadable CIF."
+}

@@ -14,6 +14,7 @@ export function buildStudyReferences() {
   const wikiCrystals = read('data/wiki-crystal-models.json');
   const substanceCatalog = fs.existsSync('data/substance-crystal-models.json') ? read('data/substance-crystal-models.json') : { structures: [], elements: {} };
   const substanceCrystals = substanceCatalog.structures;
+  const codCrystals = fs.existsSync('data/cod-crystal-models.json') ? read('data/cod-crystal-models.json').structures : [];
   const elementalPhases = { ...crystalCatalog.elements, ...wikiCrystals.elements };
   for (const [symbol, phase] of Object.entries(substanceCatalog.elements ?? {})) elementalPhases[symbol] ??= phase;
   const diatomicElements = new Set(['N2', 'O2', 'F2', 'Cl2', 'Br2', 'I2']);
@@ -37,10 +38,22 @@ export function buildStudyReferences() {
     // Element catalog identities are explicit: alpha-Mn's Mn29 cell is Mn,
     // whereas reducing arbitrary molecular formulas would confuse isomers.
     const elementalSymbol = symbol ?? (elementalPhases[formula] ? formula : diatomicElements.has(formula) ? formula.slice(0, -1) : null);
-    const crystals = elementalSymbol ? [elementalPhases[elementalSymbol]].filter(Boolean) : allCrystals.filter(c => key && formulaKey(c.formula) === key);
+    const crystals = elementalSymbol ? [elementalPhases[elementalSymbol]].filter(Boolean) : [
+      ...allCrystals.filter(c => key && formulaKey(c.formula) === key),
+      // COD selections bind to a reviewed chemical identity. Formula-only
+      // matching would attach a glucose crystal to fructose or inositol.
+      ...codCrystals.filter(c => c.subjectIds?.includes(model?.id)),
+    ];
     visualIndex[doc.slug ?? doc.id] = { formula, modelId: model?.id ?? null, kind: model?.kind ?? null, source: model?.structure?.source ?? null, provenance: model?.structure?.provenance ?? null, crystals };
   }
   fs.writeFileSync('shared/substance-visuals.generated.json', JSON.stringify(visualIndex, null, 2) + '\n');
+  const crystalLinks = {};
+  for (const record of Object.values(visualIndex)) {
+    if (!record.modelId || !record.crystals.length) continue;
+    crystalLinks[record.modelId] ??= [];
+    for (const crystal of record.crystals) if (!crystalLinks[record.modelId].includes(crystal.id)) crystalLinks[record.modelId].push(crystal.id);
+  }
+  fs.writeFileSync('shared/crystal-links.generated.json', JSON.stringify(crystalLinks, null, 2) + '\n');
   for (const compound of compounds) {
     if (compound.formula && links[compound.id] && !result.formulas[compound.formula]) {
       const doc = allDocs.find(d => d.id === links[compound.id]);

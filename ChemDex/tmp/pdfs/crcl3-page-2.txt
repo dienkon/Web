@@ -1,0 +1,62 @@
+Magnetic  Behavior  and  Spin-Lattice  Coupling  in  Cleavable,  van  der  Waals  Layered  CrCl3  Crystals
+
+                                 Michael   A.   McGuire,1, ∗   Genevieve  Clark,2   Santosh   KC,1   W.   Michael   Chance,1, 3
+                               Gerald   E.   Jellison,   Jr.,1   Valentino   R.   Cooper,1   Xiaodong  Xu,2, 4   and   Brian   C.   Sales1
+                  1Materials  Science   and  Technology   Division,  Oak  Ridge  National  Laboratory,   Oak  Ridge,  Tennessee   37831   USA
+                   2Department  of  Materials  Science   and  Engineering,   University  of  Washington,   Seattle,   Washington,   98195,   USA
+                     3Department   of  Materials  Science   and   Engineering,   The  University  of  Tennessee,   Knoxville,   TN  37996,   USA
+                                      4Department   of   Physics,   University   of   Washington,   Seattle   Washington,   98195,   USA
+
+                        CrCl3   is  a  layered  insulator  that  undergoes   a  crystallographic   phase  transition  below  room  temperature   and
+                     orders  antiferromagnetically  at  low  temperature.  Weak  van  der  Waals  bonding  between  the  layers  and  ferromag-
+                     netic  in-plane  magnetic  order  make  it  a  promising  material  for  obtaining  atomically  thin  magnets  and  creating
+                     van   der   Waals   heterostructures.      In   this   work   we   have   grown   crystals   of   CrCl3,   revisited   the   structural   and
+                     thermodynamic   properties   of   the   bulk   material,   and   explored   mechanical   exfoliation   of   the   crystals.    We   ﬁnd
+                     two  distinct  anomalies  in  the  heat  capacity  at  14  and  17 K  conﬁrming  that  the  magnetic  order  develops  in  two
+                     stages  on  cooling,  with  ferromagnetic  correlations  forming  before  long  range  antiferromagnetic  order  develops
+                     between   them.     This   scenario   is   supported   by   magnetization   data.     A   magnetic   phase   diagram   is   constructed
+                     from  the  heat  capacity  and  magnetization  results.   We  also  ﬁnd  an  anomaly  in  the  magnetic  susceptibility  at  the
+                     crystallographic  phase  transition,  indicating  some  coupling  between  the  magnetism  and  the  lattice.  First  princi-
+                     ples  calculations  accounting  for  van  der  Waals  interactions  also  indicate  spin-lattice  coupling,  and  ﬁnd  multiple
+                     nearly  degenerate   crystallographic   and   magnetic  structures   consistent  with  the  experimental   observations.    Fi-
+                     nally,   we  demonstrate   that  monolayer   and   few-layer  CrCl3   specimens   can  be  produced   from  the  bulk  crystals
+                     by   exfoliation,   providing   a  path   for   the   study   of   heterostructures   and   magnetism   in  ultrathin   crystals   down   to
+                     the  monolayer  limit.
+
+
+                              I.        INTRODUCTION                                                 triiodide,   and   transition   metal   halides   in   general   [17],   have
+                                                                                                     also  been  put  forth  as  candidates  for  cleavable  magnetic  ma-
+   Recent  interest  in  layered  ferromagnetic  materials  is  driven                               terials   [18–21].     Experimentally,   CrI3   is   a   ferromagnet   with
+by  the  desire  to  develop  functional  van  der  Waals  heterostruc-                              TC  = 61    K   [18,   22,   23],   CrBr3   is   a   ferromagnet   with TC    =
+tures [1, 2].  For this  purpose materials must  be cleavable down                                   37  K  [24],   and  CrCl3   is  an  antiferromagnet  with  an  ordering
+to   very   thin,   ideally   monolayer,   specimens.    This   is   possible                        temperature   near   17   K   [25,   26].     Several   theoretical   studies
+when   the   layers   composing   the   crystal   are   held   together   by                         have  been  recently  published  on  chromium  trihalides  address-
+weak  van  der  Waals  bonds  so  they  can  be  mechanically  sepa-                                 ing  bulk  magnetic  properties  and  behavior  in  monolayer  form
+rated  or  exfoliated  by  chemical  intercalation  routes  [3].    This                             [18–21,   27,   28],   and   also   on   VCl3   and   VI3,   which   are   pre-
+led   to   the   identiﬁcation   and   study   of   CrSiTe3   and   CrGeTe3                          dicted  to  be  ferromagnetic  and  Dirac  half-metals  [29].   All  of
+[4–7].    These   are   small  band  gap  semiconductors  with   Curie                               the  calculations  predict  low  cleavage  energies  for  these  com-
+temperatures  of   33 K   for  CrSiTe3   [8]   and  61   K   for  CrGeTe3                            pounds,  similar  to  those  noted  above  for  graphite  and  MoS2.
+[9].  The  cleavage  energy  of  these  materials  is  calculated  to  be                            Recently  ferromagnetism  has  been  experimentally  conﬁrmed
+0.35-0.38  J/m2   [5],  similar  to  graphite  (0.43  J/m2)  and  MoS2                               in  monolayer  CrI3   with  intriguing  thickness  dependent  mag-
+(0.27   J/m2)   [10].     Studies   of   nanosheets   of   CrSiTe3   suggest                         netic  phases  [30],  and  heterostructures  incorporating  ultrathin
+ferromagnetism  may  persist   in   ultrathin  specimens  [11],   and                                CrI3   have   enabled  remarkable  control  of   the   spin   and   valley
+ferromagnetic   few-layer-thick   crystals   of   CrGeTe3    have   re-                              pseudospin  properties  in  monolayer  WSe2  through  a  large  ex-
+cently  been  reported  [12].    The  tin   analogue  CrSnTe3   is   also                            change  ﬁeld  effect  [2].
+predicted   to   be   a   ferromagnet   [13].      Other   recently   discov-                           It  is  interesting  to  note  that  the  magnetic  ordering  tempera-
+ered  materials  include  Fe3GeTe2   [14],   a   metal  with   itinerant                             tures  of  the  chromium  trihalides  increase  as  the  halogen  size
+ferromagnetism   below TC =220-230   K   [14–16].      Chromium                                      increases  from Cl  to  Br  to  I.  Since  the  Cr-Cr  distances  increase
+                                                                                                     with  increasing  halogen  size,  the  direct  exchange  is  expected
+                                                                                                     to  be  weakened  along  this  series.   This  indicates  that  superex-
+
+∗  McGuireMA@ornl.gov                                                                                change,  which  is  expected  to  favor  ferromagnetic  alignment,
+                                                                                                     is  the  more  important  magnetic  interaction  [28].   As  the  elec-
+   Notice:       This    manuscript    has    been    authored    by    UT-Battelle,     LLC    un-  tronegativity is  decreased  from  Cl  to  Br  to  I,  it  is  expected  that
+   der    Contract    No.       DE-AC05-00OR22725    with    the    U.S.   Department    of          the   Cr-halogen  bonding  becomes  more  covalent,   strengthen-
+   Energy.        The    United    States    Government    retains    and    the    publisher,     bying   superexchange  interactions   and   raising   ordering   temper-
+   accepting   the  article   for   publication,   acknowledges   that   the   United   States       atures.    Indeed  all   three  of   these   chromium  trihalides  exhibit
+   Government    retains    a    non-exclusive,     paid-up,     irrevocable,     world-wide         ferromagnetic ordering of Cr  moments within the layers  at  low
+   license    to    publish    or   reproduce    the    published    form    of   this    manuscript,temperature  [18,  24,  26,  31].  Moving  from  Cl  to  Br  to  I  is  also
+   or   allow   others   to   do   so,   for   United   States   Government   purposes.      The
+   Department     of    Energy    will     provide    public     access     to    these     results    ofexpected   to   increase   spin   orbit   coupling   associated   with   the
+   federally   sponsored   research   in   accordance   with   the   DOE   Public   Access           halogen,   which   has   been   identiﬁed   as   a   source   of   magnetic
+   Plan  (http://energy.gov/downloads/doe-public-access-plan).                                       anisotropy  in  these  materials  [28].

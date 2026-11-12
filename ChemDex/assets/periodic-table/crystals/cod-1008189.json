@@ -1,0 +1,366 @@
+{
+  "id": "cod-1008189",
+  "codId": "1008189",
+  "referenceId": "cod:1008189",
+  "mineralName": "H₂O₂ rắn · dữ liệu neutron",
+  "formula": "H2O2",
+  "sourceFormula": "H2 O2",
+  "subjectIds": [
+    "cid-784"
+  ],
+  "spaceGroup": "P 41 21 2",
+  "spaceGroupNumber": 92,
+  "cell": {
+    "a": 4.06,
+    "b": 4.06,
+    "c": 8.0,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "basis": [
+    [
+      4.06,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      4.06,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      8.0
+    ]
+  ],
+  "volume": 131.86879999999996,
+  "declaredVolume": 131.9,
+  "symmetryOperations": [
+    "x,y,z",
+    "-x,-y,z+1/2",
+    "-y+1/2,x+1/2,z+1/4",
+    "y+1/2,-x+1/2,z+3/4",
+    "y,x,-z",
+    "-y,-x,-z+1/2",
+    "-x+1/2,y+1/2,-z+1/4",
+    "x+1/2,-y+1/2,-z+3/4"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.0731,
+        0.167,
+        0.2213
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0
+    },
+    {
+      "label": "H1",
+      "element": "H",
+      "fractional": [
+        -0.0473,
+        0.2838,
+        0.1317
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0
+    }
+  ],
+  "atoms": [
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.0731,
+        0.167,
+        0.2213
+      ],
+      "position": [
+        0.29678599999999994,
+        0.67802,
+        1.7704
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.33299999999999996,
+        0.5730999999999999,
+        0.4713
+      ],
+      "position": [
+        1.3519799999999997,
+        2.3267859999999994,
+        3.7704
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.9269000000000001,
+        0.833,
+        0.7213
+      ],
+      "position": [
+        3.763214,
+        3.3819799999999995,
+        5.7704
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.667,
+        0.4269,
+        0.9713
+      ],
+      "position": [
+        2.70802,
+        1.7332139999999998,
+        7.7704
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.5730999999999999,
+        0.33299999999999996,
+        0.5287
+      ],
+      "position": [
+        2.3267859999999994,
+        1.3519799999999997,
+        4.2296
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.833,
+        0.9269000000000001,
+        0.2787
+      ],
+      "position": [
+        3.3819799999999995,
+        3.763214,
+        2.2296
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.4269,
+        0.667,
+        0.028700000000000003
+      ],
+      "position": [
+        1.7332139999999998,
+        2.70802,
+        0.22960000000000003
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.167,
+        0.0731,
+        0.7787
+      ],
+      "position": [
+        0.67802,
+        0.29678599999999994,
+        6.2296
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H1",
+      "element": "H",
+      "fractional": [
+        0.9527,
+        0.2838,
+        0.1317
+      ],
+      "position": [
+        3.8679619999999995,
+        1.1522279999999998,
+        1.0536
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H1",
+      "element": "H",
+      "fractional": [
+        0.2162,
+        0.4527,
+        0.38170000000000004
+      ],
+      "position": [
+        0.8777719999999999,
+        1.8379619999999999,
+        3.0536000000000003
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H1",
+      "element": "H",
+      "fractional": [
+        0.0473,
+        0.7162,
+        0.6317
+      ],
+      "position": [
+        0.192038,
+        2.9077719999999996,
+        5.0536
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H1",
+      "element": "H",
+      "fractional": [
+        0.7838,
+        0.5473,
+        0.8817
+      ],
+      "position": [
+        3.182228,
+        2.222038,
+        7.0536
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H1",
+      "element": "H",
+      "fractional": [
+        0.4527,
+        0.2162,
+        0.6183
+      ],
+      "position": [
+        1.8379619999999999,
+        0.8777719999999999,
+        4.9464
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H1",
+      "element": "H",
+      "fractional": [
+        0.7162,
+        0.0473,
+        0.36829999999999996
+      ],
+      "position": [
+        2.9077719999999996,
+        0.192038,
+        2.9463999999999997
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H1",
+      "element": "H",
+      "fractional": [
+        0.5473,
+        0.7838,
+        0.11829999999999999
+      ],
+      "position": [
+        2.222038,
+        3.182228,
+        0.9463999999999999
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H1",
+      "element": "H",
+      "fractional": [
+        0.2838,
+        0.9527,
+        0.8683
+      ],
+      "position": [
+        1.1522279999999998,
+        3.8679619999999995,
+        6.9464
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    }
+  ],
+  "siteCount": 16,
+  "speciesPositionCount": 16,
+  "cellComposition": {
+    "O": 8.0,
+    "H": 8.0
+  },
+  "mixedSiteCount": 0,
+  "formulaUnitsZ": 4.0,
+  "conditions": {
+    "temperatureK": null,
+    "pressureKPa": null,
+    "hydrogenTreatment": null
+  },
+  "reference": {
+    "authors": [
+      "Busing, William R.",
+      "Levy, Henri A."
+    ],
+    "title": "Crystal and molecular structure of hydrogen peroxide: a neutron-diffraction\n study",
+    "journal": "Journal of Chemical Physics",
+    "year": 1965.0,
+    "volume": "42",
+    "pages": "3054–3059",
+    "doi": "10.1063/1.1696379"
+  },
+  "source": "https://www.crystallography.net/cod/1008189.html",
+  "transport": "https://cod.psdi.ac.uk/cod/1008189.cif",
+  "transportSha256": "3b271e89a44f6e73b3a3e4c0d50746117d6035860ae013234bc8512c428aff26",
+  "evidence": "published-structure",
+  "note": "Cấu trúc phân tử và tinh thể hydrogen peroxide từ nhiễu xạ neutron; không rút gọn công thức HO rồi gán cho ion hydroxide.",
+  "limitations": "",
+  "coordinatePrecision": "Original CIF lexical precision and uncertainties are retained in the downloadable CIF."
+}

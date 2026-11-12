@@ -1405,3 +1405,8 @@ kbd { font: 500 10px system-ui, sans-serif; border: 1px solid var(--line); borde
 .structure-embed-only .container { width:100%; padding:0; }
 .structure-embed-only .viewer-header-card { padding:12px; }
 .structure-embed-only .viewer-actions { display:none; }
+.structure-view-tabs { display:flex; flex-wrap:wrap; gap:8px; margin:12px 0; }
+.structure-view-tabs button[aria-pressed=true] { background:#186878; border-color:#4fa4b1; color:#e5ffff; }
+[data-structure-molecular][hidden],[data-structure-crystal][hidden] { display:none; }
+.viewer-environment-note { margin-top:8px; }
+.viewer-environment-note summary { cursor:pointer; }

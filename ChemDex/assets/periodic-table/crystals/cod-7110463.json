@@ -1,0 +1,799 @@
+{
+  "id": "cod-7110463",
+  "codId": "7110463",
+  "referenceId": "cod:7110463",
+  "mineralName": "Acetone rắn · 160 K",
+  "formula": "C3H6O",
+  "sourceFormula": "C3 H6 O",
+  "subjectIds": [
+    "cid-180"
+  ],
+  "spaceGroup": "C m c m",
+  "spaceGroupNumber": 63,
+  "cell": {
+    "a": 6.514,
+    "b": 5.4159,
+    "c": 10.756,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "basis": [
+    [
+      6.514,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      5.4159,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      10.756
+    ]
+  ],
+  "volume": 379.46278048560004,
+  "declaredVolume": 379.5,
+  "symmetryOperations": [
+    "x,y,z",
+    "-x,-y,z+1/2",
+    "-x,y,-z+1/2",
+    "x,-y,-z",
+    "x+1/2,y+1/2,z",
+    "-x+1/2,-y+1/2,z+1/2",
+    "-x+1/2,y+1/2,-z+1/2",
+    "x+1/2,-y+1/2,-z",
+    "-x,-y,-z",
+    "x,y,-z-1/2",
+    "x,-y,z-1/2",
+    "-x,y,z",
+    "-x+1/2,-y+1/2,-z",
+    "x+1/2,y+1/2,-z-1/2",
+    "x+1/2,-y+1/2,z-1/2",
+    "-x+1/2,y+1/2,z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "C1",
+      "element": "C",
+      "fractional": [
+        0.0,
+        0.3438,
+        0.25
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0491
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.0,
+        0.5664,
+        0.25
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.089
+    },
+    {
+      "label": "C2",
+      "element": "C",
+      "fractional": [
+        0.0,
+        0.2021,
+        0.1327
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0643
+    },
+    {
+      "label": "H2A",
+      "element": "H",
+      "fractional": [
+        0.0,
+        0.29,
+        0.071
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.107
+    },
+    {
+      "label": "H2B",
+      "element": "H",
+      "fractional": [
+        0.127,
+        0.136,
+        0.124
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.133
+    }
+  ],
+  "atoms": [
+    {
+      "label": "C1",
+      "element": "C",
+      "fractional": [
+        0.0,
+        0.3438,
+        0.25
+      ],
+      "position": [
+        0.0,
+        1.8619864199999998,
+        2.689
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C1",
+      "element": "C",
+      "fractional": [
+        0.0,
+        0.6562,
+        0.75
+      ],
+      "position": [
+        0.0,
+        3.5539135799999997,
+        8.067
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C1",
+      "element": "C",
+      "fractional": [
+        0.5,
+        0.8438,
+        0.25
+      ],
+      "position": [
+        3.257,
+        4.569936419999999,
+        2.689
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C1",
+      "element": "C",
+      "fractional": [
+        0.5,
+        0.1562,
+        0.75
+      ],
+      "position": [
+        3.257,
+        0.8459635799999999,
+        8.067
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.0,
+        0.5664,
+        0.25
+      ],
+      "position": [
+        0.0,
+        3.06756576,
+        2.689
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.0,
+        0.4336,
+        0.75
+      ],
+      "position": [
+        0.0,
+        2.34833424,
+        8.067
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.5,
+        0.06640000000000001,
+        0.25
+      ],
+      "position": [
+        3.257,
+        0.35961576000000006,
+        2.689
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.5,
+        0.9336,
+        0.75
+      ],
+      "position": [
+        3.257,
+        5.05628424,
+        8.067
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C2",
+      "element": "C",
+      "fractional": [
+        0.0,
+        0.2021,
+        0.1327
+      ],
+      "position": [
+        0.0,
+        1.09455339,
+        1.4273212000000002
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C2",
+      "element": "C",
+      "fractional": [
+        0.0,
+        0.7979,
+        0.6327
+      ],
+      "position": [
+        0.0,
+        4.32134661,
+        6.805321200000001
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C2",
+      "element": "C",
+      "fractional": [
+        0.0,
+        0.7979,
+        0.8673
+      ],
+      "position": [
+        0.0,
+        4.32134661,
+        9.3286788
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C2",
+      "element": "C",
+      "fractional": [
+        0.0,
+        0.2021,
+        0.36729999999999996
+      ],
+      "position": [
+        0.0,
+        1.09455339,
+        3.9506787999999995
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C2",
+      "element": "C",
+      "fractional": [
+        0.5,
+        0.7021,
+        0.1327
+      ],
+      "position": [
+        3.257,
+        3.8025033899999996,
+        1.4273212000000002
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C2",
+      "element": "C",
+      "fractional": [
+        0.5,
+        0.2979,
+        0.6327
+      ],
+      "position": [
+        3.257,
+        1.61339661,
+        6.805321200000001
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C2",
+      "element": "C",
+      "fractional": [
+        0.5,
+        0.2979,
+        0.8673
+      ],
+      "position": [
+        3.257,
+        1.61339661,
+        9.3286788
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C2",
+      "element": "C",
+      "fractional": [
+        0.5,
+        0.7021,
+        0.36729999999999996
+      ],
+      "position": [
+        3.257,
+        3.8025033899999996,
+        3.9506787999999995
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2A",
+      "element": "H",
+      "fractional": [
+        0.0,
+        0.29,
+        0.071
+      ],
+      "position": [
+        0.0,
+        1.5706109999999998,
+        0.7636759999999999
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2A",
+      "element": "H",
+      "fractional": [
+        0.0,
+        0.71,
+        0.571
+      ],
+      "position": [
+        0.0,
+        3.8452889999999997,
+        6.1416759999999995
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2A",
+      "element": "H",
+      "fractional": [
+        0.0,
+        0.71,
+        0.929
+      ],
+      "position": [
+        0.0,
+        3.8452889999999997,
+        9.992324
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2A",
+      "element": "H",
+      "fractional": [
+        0.0,
+        0.29,
+        0.429
+      ],
+      "position": [
+        0.0,
+        1.5706109999999998,
+        4.614324
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2A",
+      "element": "H",
+      "fractional": [
+        0.5,
+        0.79,
+        0.071
+      ],
+      "position": [
+        3.257,
+        4.278561,
+        0.7636759999999999
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2A",
+      "element": "H",
+      "fractional": [
+        0.5,
+        0.21000000000000002,
+        0.571
+      ],
+      "position": [
+        3.257,
+        1.137339,
+        6.1416759999999995
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2A",
+      "element": "H",
+      "fractional": [
+        0.5,
+        0.21000000000000002,
+        0.929
+      ],
+      "position": [
+        3.257,
+        1.137339,
+        9.992324
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2A",
+      "element": "H",
+      "fractional": [
+        0.5,
+        0.79,
+        0.429
+      ],
+      "position": [
+        3.257,
+        4.278561,
+        4.614324
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2B",
+      "element": "H",
+      "fractional": [
+        0.127,
+        0.136,
+        0.124
+      ],
+      "position": [
+        0.8272780000000001,
+        0.7365624000000001,
+        1.333744
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2B",
+      "element": "H",
+      "fractional": [
+        0.873,
+        0.864,
+        0.624
+      ],
+      "position": [
+        5.6867220000000005,
+        4.679337599999999,
+        6.711744
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2B",
+      "element": "H",
+      "fractional": [
+        0.127,
+        0.864,
+        0.876
+      ],
+      "position": [
+        0.8272780000000001,
+        4.679337599999999,
+        9.422256
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2B",
+      "element": "H",
+      "fractional": [
+        0.873,
+        0.136,
+        0.376
+      ],
+      "position": [
+        5.6867220000000005,
+        0.7365624000000001,
+        4.044256
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2B",
+      "element": "H",
+      "fractional": [
+        0.873,
+        0.864,
+        0.876
+      ],
+      "position": [
+        5.6867220000000005,
+        4.679337599999999,
+        9.422256
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2B",
+      "element": "H",
+      "fractional": [
+        0.127,
+        0.136,
+        0.376
+      ],
+      "position": [
+        0.8272780000000001,
+        0.7365624000000001,
+        4.044256
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2B",
+      "element": "H",
+      "fractional": [
+        0.873,
+        0.136,
+        0.124
+      ],
+      "position": [
+        5.6867220000000005,
+        0.7365624000000001,
+        1.333744
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2B",
+      "element": "H",
+      "fractional": [
+        0.127,
+        0.864,
+        0.624
+      ],
+      "position": [
+        0.8272780000000001,
+        4.679337599999999,
+        6.711744
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2B",
+      "element": "H",
+      "fractional": [
+        0.627,
+        0.636,
+        0.124
+      ],
+      "position": [
+        4.084278,
+        3.4445124,
+        1.333744
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2B",
+      "element": "H",
+      "fractional": [
+        0.373,
+        0.364,
+        0.624
+      ],
+      "position": [
+        2.429722,
+        1.9713876,
+        6.711744
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2B",
+      "element": "H",
+      "fractional": [
+        0.627,
+        0.364,
+        0.876
+      ],
+      "position": [
+        4.084278,
+        1.9713876,
+        9.422256
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2B",
+      "element": "H",
+      "fractional": [
+        0.373,
+        0.636,
+        0.376
+      ],
+      "position": [
+        2.429722,
+        3.4445124,
+        4.044256
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2B",
+      "element": "H",
+      "fractional": [
+        0.373,
+        0.364,
+        0.876
+      ],
+      "position": [
+        2.429722,
+        1.9713876,
+        9.422256
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2B",
+      "element": "H",
+      "fractional": [
+        0.627,
+        0.636,
+        0.376
+      ],
+      "position": [
+        4.084278,
+        3.4445124,
+        4.044256
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2B",
+      "element": "H",
+      "fractional": [
+        0.373,
+        0.636,
+        0.124
+      ],
+      "position": [
+        2.429722,
+        3.4445124,
+        1.333744
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2B",
+      "element": "H",
+      "fractional": [
+        0.627,
+        0.364,
+        0.624
+      ],
+      "position": [
+        4.084278,
+        1.9713876,
+        6.711744
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    }
+  ],
+  "siteCount": 40,
+  "speciesPositionCount": 40,
+  "cellComposition": {
+    "C": 12.0,
+    "O": 4.0,
+    "H": 24.0
+  },
+  "mixedSiteCount": 0,
+  "formulaUnitsZ": 4.0,
+  "conditions": {
+    "temperatureK": "160(2)",
+    "pressureKPa": null,
+    "hydrogenTreatment": "difmap"
+  },
+  "reference": {
+    "authors": [
+      "Allan, David R.",
+      "Clark, Stewart J.",
+      "Ibberson, Richard M.",
+      "Parsons, Simon",
+      "Pulham, Colin R.",
+      "Sawyer, Lindsay"
+    ],
+    "title": "The influence of pressure and temperature on the crystal structure of\n acetone",
+    "journal": "Chemical Communications",
+    "year": 1999.0,
+    "volume": null,
+    "pages": "751",
+    "doi": "10.1039/a900558g"
+  },
+  "source": "https://www.crystallography.net/cod/7110463.html",
+  "transport": "https://cod.psdi.ac.uk/cod/7110463.cif",
+  "transportSha256": "b100e2b96d1e91649adeb3fd629c1a01019b841592fdd4ab0ec2be79b05990bb",
+  "evidence": "published-structure",
+  "note": "Mẫu acetone ở 160 K; không dùng propanal cùng công thức hay mẫu acetone đo áp suất cao.",
+  "limitations": "",
+  "coordinatePrecision": "Original CIF lexical precision and uncertainties are retained in the downloadable CIF."
+}

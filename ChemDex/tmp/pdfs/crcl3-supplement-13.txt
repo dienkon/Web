@@ -1,0 +1,9 @@
+Fig. S9. Simulations of polarization angles with different stacking. (a) Direction of polarization plotted as a
+function of external magnetic field for a bi-layer (2 ML) and a tri-layer (3 ML) CrCl . H is the exchange
+3 ex
+interaction field. The polarization at 0 T and the external field are co-linear in this example. (b) Evolution of
+PL intensity for a 2 ML film along 0º and 90º as a function of magnetic field, labeled min and max. (The
+polarization direction at 0 T is 0º). Both components are normalized to their values at 0 T. (c) Evolution of
+PL intensities for a 3 ML film along 0º and 90º, plotted as a function of magnetic field, labeled min and
+max. (The polarization direction at 0 T is 0º). Both components are normalized to their values at 0 T.
+S13

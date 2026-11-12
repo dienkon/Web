@@ -99,6 +99,36 @@ const server = http.createServer(async (req, res) => {
       res.writeHead(302, { Location: target });
       return res.end();
     }
+    if (pathname.startsWith("/assets/library/")) {
+      const rel = pathname.replace(/^\/assets\/library\//, "");
+      const candidates = [
+        path.join(output, "." + pathname),
+        path.join(output, "assets/library", rel),
+        path.join(root, "assets/library", rel),
+        path.join(root, "public/assets/library", rel),
+        path.join(root, "trung-tam/public/assets/library", rel),
+        path.join(root, "trung-tam/dist/assets/library", rel),
+        path.join(output, "trung-tam/assets/library", rel),
+      ];
+      for (const cand of candidates) {
+        if (fs.existsSync(cand) && fs.statSync(cand).isFile()) {
+          res.writeHead(200, {
+            "Content-Type": mime[path.extname(cand)] ?? "image/svg+xml",
+            "X-Content-Type-Options": "nosniff",
+          });
+          return fs.createReadStream(cand).pipe(res);
+        }
+      }
+      // Guaranteed fallback for missing library/substance SVGs
+      const fallback = path.join(root, "trung-tam/public/assets/library/covalent-bonds.svg");
+      if (fs.existsSync(fallback)) {
+        res.writeHead(200, {
+          "Content-Type": "image/svg+xml",
+          "X-Content-Type-Options": "nosniff",
+        });
+        return fs.createReadStream(fallback).pipe(res);
+      }
+    }
     let file = path.resolve(output, "." + pathname);
     if (file !== output && !file.startsWith(output + path.sep)) {
       res.writeHead(403);

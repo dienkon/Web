@@ -1,0 +1,66 @@
+                                                                                                                                                                                               3
+
+     (a)                                 (b)   3.0                                                                     III.        RESULTS  AND  DISCUSSION
+                      5 mm
+                                               2.0                                                       A.        Crystal  growth,  structure,  and  spin-lattice  coupling
+
+
+                                               1.0                                                     Thin,  plate-like  single  crystals  of  CrCl3  with  lateral  dimen-
+                                                                                                   sions  up  to  several  millimeters  are  easily  grown  by  recrystal-
+                                                                                                   lizing  commercial  CrCl3  using  chemical  vapor  transport  [33].
+                                               0.0                                                 Here   CrCl3   from   Alpha   Aesar   with   a   metals-basis   purity   of
+                                                   1.5    2.0    2.5    3.0    3.5                 99.9 %   was   used.      The   as-received   material,   in   the   form   of
+                                                              energy (eV)
+     (c)     5.80                                                                                  small   platelets,   was   sealed   inside   evacuated   silica   tubes.     A
+                         CrCl3                                                                     typical  growth  used   about  1 g   of   CrCl3   in   a   15 cm   long  tube
+             5.79         first                                                                    with   16 mm   inner   diameter   and   1.5 mm   wall   thickness.    The
+                          cooling                                   monoclinic                     tubes  were  placed  in  a  horizontal tube  furnace so  that  the  start-
+             5.78                                                                                  ing  material  was  at  the  end  of  the  tube  near  the  center  of  the
+
+             5.77                        rhomb. + mono.                                            furnace  and  the  other  end  of  tube  was  near  the  opening  at  the
+             5.76                                                                                  end  of  the   furnace.    The  temperature  at  the  center  of  the  fur-
+                        rhomb.                                                                     nace  was  set  to  700 ◦C,  and  the  temperature  at  the  cooler  end
+             5.75                                                                                  of   the   tube   was   measured   to   be   550 ◦C.   The   growth   begins
+                                                                                                   rapidly  and  slows  as  the  starting  material  is  consumed.  Large,
+     (d)      100                                                                                  violet-colored,   transparent  platelets   like   those   shown   in   Fig.
+                                                 R 3                                               1a  are  present  after  48 h  at  temperature,  while  it  may  take  up
+                75                                  c                           c                  to   a   week   for   all   of   the   CrCl3    to   be   transported.     After   the
+                                                b     a            C 2/m       a   b
+                50                                                                                 recrystallizations   are   complete   a   green   powder,   presumably
+                                                                                                   Cr2O3,  is  left  at  the  hot  end  of  the  tubes.   This  is  attributed  to
+                25                                                                                 oxide  impurity  in  the  starting  material.
+                                                                                                       The   optical   absorbance   of   a   CrCl3    crystal   grown   for   the
+                  0                                                                                present   study   is   shown   in   Fig.      1b.      A   color   scale   showing
+                         100        150        200        250        300                           the  approximate  color  of  the  visible  light  for  photon  energies
+     (e)                                          T (K)                                            between   1.7   and   3.3 eV   is   included   on   the   plot.     The   results
+                                                                                                   are  consistent  with  the  data  reported  in  the  thorough  study  of
+         83.8                      second                               second                     the   optical  properties  of   this  material  by  Pollini  and   Spinolo
+                                   cooling                              warming                    [46].    A   band   gap   of   3.1 eV   is   approximated  by   the   onset   of
+         83.6                                                                                      strong   absorption   at   higher   energies.     Below   the   band   edge,
+
+         83.4                                                                                      there  are  two  broad  absorptions  in  the  red  and  green  centered
+         83.2     235 K                                     250 K                                  near   1.7   and   2.3 eV,   to   which   the   violet   color   of   the   crystal
+              200   225   250   275   300          200   225   250   275   300                     can  be  attributed.   These  bands,  which  have  ﬁne  structure  not
+                            T (K)                                 T (K)                            resolved  here,  arise  from  Cr3+   d-d  transitions  as  described  in
+                                                                                                   detail  in  Ref.   [46].
+FIG.  1.    (a)   CrCl3   single   crystals   grown   for   this   study.    (b)   The   op-           As    noted    above,    CrCl3    is    known    to    undergo    a    crystal-
+tical   absorbance   spectrum   showing   strong   absorption   of   green   and                   lographic   phase   transition   below   room   temperature.      Using
+red   resulting   in   the   observed   violet   color.     (c)   Temperature   depen-             single   crystal   diffraction,   Morosin   and   Narath   [37]   demon-
+dence  of  the  layer  spacing  in  CrCl3  measured  using  x-ray  diffraction                     strated  that  CrCl3   adopts  the   monoclinic  space  group C2/m
+during   the   ﬁrst   cooling   of   the   crystal.      (d)   Relative   amount   of   the        at   room   temperature   and   the   rhombohedral  space   group R3
+monoclinic   phase   present   during   the   ﬁrst  cooling   through   the   mon-                 at  225 K.  They  used  nuclear  quadrupole  resonance  to  identify
+oclinic  to  rhombohedral  phase  transition.   The  two  crystal  structures                      the   phase   transformation   temperature   as   240 K.   The   crystal-
+are  depicted  on  this  panel  as  well.   (e)  Contour  plot  of  the  diffracted                lographic   phase   transitions   involves   mainly   a   change   in   the
+intensity  from  the   monoclinic   0 0 5   and  rhombohedral   0 0 15   reﬂec-
+tions  on  the  second  cooling  and  warming  cycles.                                             layer-to-layer   shift   in   the   stacking   sequence.     The   intralayer
+                                                                                                   structure  remains  nearly  the   same,   with   an   ideal  honeycomb
+                                                                                                   net  of  Cr  in  the  rhombohedral structure  and  a  slightly  distorted
+                                                                                                   honeycomb  net  in  the  monoclinic  structure  [18,  37].    For  ex-
+                                                                                                   ample,   in   CrCl3   the   in-plane   Cr-Cr   distances   are   3.431   ˚A   at
+                                                                                                   225 K  (rhombohedral)  and  3.440  and  3.441   ˚A  at  298 K  (mon-
+                                                                                                   oclinic)  [37].
+                                                                                                       Results    of    x-ray    diffraction    measurements    through    this
+and 4×2×2 (C2/m) k-meshes for  structural optimization.The                                         phase   transition   are   shown   in   Figure   1c-e.      During   the   ﬁrst
+energy  cutoff  was  500 eV  and  the  criteria  for  energy  and  force                           cooling   the   high   and   low   temperature   phases   coexist   over   a
+convergence  were   set   to   be 1 × 10−4  eV   and   0.01 eV/  ˚A,   re-                         relatively  wide   temperature  range  (Fig.    1c).    The   fraction  of
+spectively.                                                                                        the  monoclinic phase  present  during this  initial  cool  down,  de-

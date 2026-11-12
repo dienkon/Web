@@ -1,0 +1,693 @@
+{
+  "id": "cod-2008187",
+  "codId": "2008187",
+  "referenceId": "cod:2008187",
+  "mineralName": "Acid acetic rắn · 40 K",
+  "formula": "C2H4O2",
+  "sourceFormula": "C2 H4 O2",
+  "subjectIds": [
+    "cid-176"
+  ],
+  "spaceGroup": "P n a 21",
+  "spaceGroupNumber": 33,
+  "cell": {
+    "a": 13.151,
+    "b": 3.923,
+    "c": 5.762,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "basis": [
+    [
+      13.151,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      3.923,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      5.762
+    ]
+  ],
+  "volume": 297.26949122599996,
+  "declaredVolume": 297.27,
+  "symmetryOperations": [
+    "x,y,z",
+    "-x,-y,z+1/2",
+    "x+1/2,-y+1/2,z",
+    "-x+1/2,y+1/2,z+1/2"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.37352,
+        0.8885,
+        0.0
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0209
+    },
+    {
+      "label": "H1",
+      "element": "H",
+      "fractional": [
+        0.323,
+        0.941,
+        -0.079
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.043
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.24694,
+        0.6109,
+        0.1702
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0204
+    },
+    {
+      "label": "C1",
+      "element": "C",
+      "fractional": [
+        0.33529,
+        0.702,
+        0.1697
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.016
+    },
+    {
+      "label": "C2",
+      "element": "C",
+      "fractional": [
+        0.41068,
+        0.616,
+        0.3537
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.019
+    },
+    {
+      "label": "H2A",
+      "element": "H",
+      "fractional": [
+        0.377,
+        0.503,
+        0.482
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.045
+    },
+    {
+      "label": "H2B",
+      "element": "H",
+      "fractional": [
+        0.465,
+        0.502,
+        0.298
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.058
+    },
+    {
+      "label": "H2C",
+      "element": "H",
+      "fractional": [
+        0.442,
+        0.823,
+        0.421
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.038
+    }
+  ],
+  "atoms": [
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.37352,
+        0.8885,
+        0.0
+      ],
+      "position": [
+        4.912161520000001,
+        3.4855855,
+        0.0
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.6264799999999999,
+        0.11150000000000004,
+        0.5
+      ],
+      "position": [
+        8.238838479999998,
+        0.43741450000000015,
+        2.881
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.12647999999999998,
+        0.38850000000000007,
+        0.5
+      ],
+      "position": [
+        1.6633384799999997,
+        1.5240855000000002,
+        2.881
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.8735200000000001,
+        0.6115,
+        0.0
+      ],
+      "position": [
+        11.487661520000001,
+        2.3989145,
+        0.0
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H1",
+      "element": "H",
+      "fractional": [
+        0.323,
+        0.941,
+        0.921
+      ],
+      "position": [
+        4.2477730000000005,
+        3.691543,
+        5.306802
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H1",
+      "element": "H",
+      "fractional": [
+        0.677,
+        0.05900000000000005,
+        0.421
+      ],
+      "position": [
+        8.903227000000001,
+        0.23145700000000022,
+        2.4258019999999996
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H1",
+      "element": "H",
+      "fractional": [
+        0.177,
+        0.44099999999999984,
+        0.421
+      ],
+      "position": [
+        2.327727,
+        1.7300429999999993,
+        2.4258019999999996
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H1",
+      "element": "H",
+      "fractional": [
+        0.823,
+        0.559,
+        0.921
+      ],
+      "position": [
+        10.823272999999999,
+        2.1929570000000003,
+        5.306802
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.24694,
+        0.6109,
+        0.1702
+      ],
+      "position": [
+        3.2475079399999998,
+        2.3965607,
+        0.9806923999999999
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.7530600000000001,
+        0.3891,
+        0.6702
+      ],
+      "position": [
+        9.903492060000001,
+        1.5264393,
+        3.8616924
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.25306,
+        0.1109,
+        0.6702
+      ],
+      "position": [
+        3.32799206,
+        0.4350607,
+        3.8616924
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.7469399999999999,
+        0.8891,
+        0.1702
+      ],
+      "position": [
+        9.823007939999998,
+        3.4879393,
+        0.9806923999999999
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C1",
+      "element": "C",
+      "fractional": [
+        0.33529,
+        0.702,
+        0.1697
+      ],
+      "position": [
+        4.40939879,
+        2.753946,
+        0.9778113999999999
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C1",
+      "element": "C",
+      "fractional": [
+        0.66471,
+        0.29800000000000004,
+        0.6697
+      ],
+      "position": [
+        8.74160121,
+        1.1690540000000003,
+        3.8588113999999996
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C1",
+      "element": "C",
+      "fractional": [
+        0.16471000000000002,
+        0.20199999999999996,
+        0.6697
+      ],
+      "position": [
+        2.1661012100000003,
+        0.7924459999999999,
+        3.8588113999999996
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C1",
+      "element": "C",
+      "fractional": [
+        0.83529,
+        0.798,
+        0.1697
+      ],
+      "position": [
+        10.984898789999999,
+        3.130554,
+        0.9778113999999999
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C2",
+      "element": "C",
+      "fractional": [
+        0.41068,
+        0.616,
+        0.3537
+      ],
+      "position": [
+        5.40085268,
+        2.416568,
+        2.0380194
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C2",
+      "element": "C",
+      "fractional": [
+        0.5893200000000001,
+        0.384,
+        0.8537
+      ],
+      "position": [
+        7.750147320000001,
+        1.506432,
+        4.9190194
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C2",
+      "element": "C",
+      "fractional": [
+        0.08932000000000001,
+        0.1160000000000001,
+        0.8537
+      ],
+      "position": [
+        1.17464732,
+        0.4550680000000004,
+        4.9190194
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C2",
+      "element": "C",
+      "fractional": [
+        0.9106799999999999,
+        0.884,
+        0.3537
+      ],
+      "position": [
+        11.97635268,
+        3.4679320000000002,
+        2.0380194
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2A",
+      "element": "H",
+      "fractional": [
+        0.377,
+        0.503,
+        0.482
+      ],
+      "position": [
+        4.957927,
+        1.973269,
+        2.777284
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2A",
+      "element": "H",
+      "fractional": [
+        0.623,
+        0.497,
+        0.982
+      ],
+      "position": [
+        8.193073,
+        1.949731,
+        5.658283999999999
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2A",
+      "element": "H",
+      "fractional": [
+        0.123,
+        0.0030000000000001137,
+        0.982
+      ],
+      "position": [
+        1.617573,
+        0.011769000000000446,
+        5.658283999999999
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2A",
+      "element": "H",
+      "fractional": [
+        0.877,
+        0.997,
+        0.482
+      ],
+      "position": [
+        11.533427,
+        3.911231,
+        2.777284
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2B",
+      "element": "H",
+      "fractional": [
+        0.465,
+        0.502,
+        0.298
+      ],
+      "position": [
+        6.115215,
+        1.969346,
+        1.7170759999999998
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2B",
+      "element": "H",
+      "fractional": [
+        0.5349999999999999,
+        0.498,
+        0.798
+      ],
+      "position": [
+        7.035784999999999,
+        1.953654,
+        4.598076
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2B",
+      "element": "H",
+      "fractional": [
+        0.034999999999999976,
+        0.0020000000000000018,
+        0.798
+      ],
+      "position": [
+        0.46028499999999967,
+        0.007846000000000007,
+        4.598076
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2B",
+      "element": "H",
+      "fractional": [
+        0.9650000000000001,
+        0.998,
+        0.298
+      ],
+      "position": [
+        12.690715,
+        3.9151540000000002,
+        1.7170759999999998
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2C",
+      "element": "H",
+      "fractional": [
+        0.442,
+        0.823,
+        0.421
+      ],
+      "position": [
+        5.812742,
+        3.2286289999999997,
+        2.4258019999999996
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2C",
+      "element": "H",
+      "fractional": [
+        0.558,
+        0.17700000000000005,
+        0.921
+      ],
+      "position": [
+        7.338258000000001,
+        0.6943710000000002,
+        5.306802
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2C",
+      "element": "H",
+      "fractional": [
+        0.057999999999999996,
+        0.32299999999999995,
+        0.921
+      ],
+      "position": [
+        0.7627579999999999,
+        1.2671289999999997,
+        5.306802
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2C",
+      "element": "H",
+      "fractional": [
+        0.942,
+        0.677,
+        0.421
+      ],
+      "position": [
+        12.388242,
+        2.6558710000000003,
+        2.4258019999999996
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    }
+  ],
+  "siteCount": 32,
+  "speciesPositionCount": 32,
+  "cellComposition": {
+    "O": 8.0,
+    "H": 16.0,
+    "C": 8.0
+  },
+  "mixedSiteCount": 0,
+  "formulaUnitsZ": 4.0,
+  "conditions": {
+    "temperatureK": "40(2)",
+    "pressureKPa": null,
+    "hydrogenTreatment": "refall"
+  },
+  "reference": {
+    "authors": [
+      "Boese, Roland",
+      "Bläser, Dieter",
+      "Latz, Rüdiger",
+      "Bäumen, Anja"
+    ],
+    "title": "Acetic acid at 40K",
+    "journal": "Acta Crystallographica Section C",
+    "year": 1999.0,
+    "volume": "55",
+    "pages": "IUC9900001",
+    "doi": "10.1107/S0108270199099862"
+  },
+  "source": "https://www.crystallography.net/cod/2008187.html",
+  "transport": "https://cod.psdi.ac.uk/cod/2008187.cif",
+  "transportSha256": "8f5b56484451a9be8db2508010829b5aa6e1db196ca1e3b1941e39a858b519a8",
+  "evidence": "published-structure",
+  "note": "Cấu trúc acid acetic ở 40 K có tinh chỉnh H; không gán pha rắn lạnh này cho acid acetic lỏng ở điều kiện phòng.",
+  "limitations": "",
+  "coordinatePrecision": "Original CIF lexical precision and uncertainties are retained in the downloadable CIF."
+}

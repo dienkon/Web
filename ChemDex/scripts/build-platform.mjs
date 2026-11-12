@@ -69,6 +69,14 @@ fs.cpSync('node_modules/katex/dist/fonts', path.join(output, 'vendor/katex/fonts
 fs.copyFileSync('node_modules/katex/dist/katex.mjs', path.join(output, 'vendor/katex/katex.mjs'));
 fs.mkdirSync(path.join(output, 'vendor/katex/contrib'), { recursive: true });
 fs.copyFileSync('node_modules/katex/dist/contrib/mhchem.mjs', path.join(output, 'vendor/katex/contrib/mhchem.mjs'));
+// Ensure library visual assets (category SVGs & substance SVGs) are fully synced across public, root assets and dist
+const librarySrc = path.join(root, "trung-tam/public/assets/library");
+if (fs.existsSync(librarySrc)) {
+  fs.cpSync(librarySrc, path.join(output, "assets/library"), { recursive: true });
+  fs.cpSync(librarySrc, path.join(root, "assets/library"), { recursive: true });
+  fs.mkdirSync(path.join(root, "public/assets/library"), { recursive: true });
+  fs.cpSync(librarySrc, path.join(root, "public/assets/library"), { recursive: true });
+}
 function copyStatic(directory, relative = "") {
   for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
     const rel = path.posix.join(relative, entry.name),

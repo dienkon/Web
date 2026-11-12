@@ -69,6 +69,7 @@ test('molecular and gas-element articles open the exact model in an embedded vie
   const slug=Object.keys(visualIndex).find(s=>visualIndex[s].formula===formula);
   await page.goto(`/trung-tam/tai-lieu-so/${slug}/`);
   await page.getByRole('button',{name:'Khám phá 3D',exact:true}).click();
+  if(visualIndex[slug].crystals.length)await page.getByRole('group',{name:'Cách biểu diễn cấu trúc'}).getByRole('button',{name:'Phân tử',exact:true}).click();
   const frame=page.frameLocator('.reader-visuals iframe');
   await expect(frame.locator('chem-structure-viewer canvas').first()).toBeAttached();
   await expect(frame.locator('.viewer-status')).toContainText(/nguyên tử|Kéo để xoay/);

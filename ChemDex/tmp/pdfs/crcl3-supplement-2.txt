@@ -1,0 +1,27 @@
+_atom_site_symmetry_multiplicity
+_atom_site_Wyckoff_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+_atom_site_fract_symmform
+Cr1 Cr 2 a 0.00000 0.32961 0.00000 1.00000 0,Dy,0
+Cr2 Cr 2 a 0.00000 0.66730 0.00000 1.00000 0,Dy,0
+Cr3 Cr 4 c 0.25048 0.08313 0.00026 1.00000 Dx,Dy,Dz
+Cr4 Cr 4 c 0.25214 0.41672 -0.00273 1.00000 Dx,Dy,Dz
+Cr5 Cr 2 a 0.00000 0.83388 0.00000 1.00000 0,Dy,0
+Cr6 Cr 2 a 0.00000 0.16452 0.00000 1.00000 0,Dy,0
+Cl1 Cl 4 c 0.42881 0.25036 -0.05805 1.00000 Dx,Dy,Dz
+Cl2 Cl 4 c 0.07065 0.24814 0.05820 1.00000 Dx,Dy,Dz
+Cl3 Cl 4 c 0.67857 0.00104 -0.05892 1.00000 Dx,Dy,Dz
+Cl4 Cl 4 c 0.67883 0.49992 -0.05711 1.00000 Dx,Dy,Dz
+Cl5 Cl 4 c 0.17073 0.34297 -0.06419 1.00000 Dx,Dy,Dz
+Cl6 Cl 4 c 0.33863 0.16166 0.05753 1.00000 Dx,Dy,Dz
+Cl7 Cl 4 c 0.41128 0.08914 -0.05744 1.00000 Dx,Dy,Dz
+Cl8 Cl 4 c 0.09229 0.40934 0.05559 1.00000 Dx,Dy,Dz
+Cl9 Cl 4 c 0.66227 0.33881 -0.05605 1.00000 Dx,Dy,Dz
+Cl10 Cl 4 c 0.83923 0.16050 0.05766 1.00000 Dx,Dy,Dz
+Cl11 Cl 4 c -0.08887 0.08797 -0.05793 1.00000 Dx,Dy,Dz
+Cl12 Cl 4 c 0.58396 0.41267 0.05818 1.00000 Dx,Dy,Dz
+# end of cif
+S2

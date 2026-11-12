@@ -1,7 +1,9 @@
 import { scientistsPart1 } from './scientists-part1.mjs';
 import { scientistsPart2 } from './scientists-part2.mjs';
+import { scientistsPart3 } from './scientists-part3.mjs';
 
 export const allScientists = [
   ...scientistsPart1,
   ...scientistsPart2,
+  ...scientistsPart3,
 ];

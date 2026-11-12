@@ -1,0 +1,60 @@
+                                                                                                                                                                                            8
+
+in   the   plane   and   out   of   the   plane.     The   out   of   plane   data   is                   (a)                                                (c)
+shown  both  as  a  function  of  internal  ﬁeld  (demag.   corr.)   and                                                                                                    5 µm
+applied  ﬁeld  (no  demag.  corr.)   and  is  consistent  with  the  data
+of   Narath   and   Davis   [36].     Demagnetization   effects   are   sig-
+niﬁcant  as  expected.   An  applied  ﬁeld  of  6 kOe  is  required  to                                  10 µm
+essentially   fully   polarize   the   magnetization  out   of   the   plane,
+consistent   with   neutron   diffraction   results   [26].     This   corre-                         0.8                                         (b)
+sponds  to  an  internal  ﬁeld  of  only  2.5 kOe.   Interestingly,  this                             0.6
+is  the  same  ﬁeld  required  to  polarize  the  magnetization  in  the                              0.4
+plane.  Since  within  each  plane  the  moments  are  ferromagnet-                                   0.2                   0.58 nm
+ically  aligned  and  lie  in  the  plane,  it  is  expected  that  polariza-                         0.0
+tion  out  of  the  plane  is  realized  through  a  coherent  rotation  of                                                                                  5 µm
+moments  within  each  layer  [34].   When  the  ﬁeld  is  applied  in                               -0.2             distance (arb. units)
+the   plane,   different  ﬁeld   induced   behaviors  are   expected  de-
+pending   on   whether   the   ﬁeld   is   parallel   or   perpendicular   to                     FIG.  5.  (a)  AFM  micrograph  showing  several  step  edges  on  a  cleaved
+the   moment  direction.    In   the   latter   case,   a   coherent  rotation                    surface  of  a  CrCl3  crystal.  (b)  Height  proﬁle  across  the  step  edge  in-
+occurs,   while   in   the   former  case   a   spin   ﬂop   can   be   expected                  dicated  by  the  red  line  in  (a),  with  the  CrCl3  layer  spacing  of  0.58 nm
+to  occur  ﬁrst.   The  sample  used  for  the  in  plane  measurement                            determined  from  the  bulk  crystal  structure  [37]  indicated  on  the  plot.
+comprised  several  thin  crystals  that  were  not  co-aligned  with                             (c)  Optical  micrograph  of  an  ultrathin  specimen  cleaved  from  a  bulk
+respect  to  the ab-plane, so  the  direction of the  applied ﬁeld  rel-                          CrCl3   crystal.      Regions   of   varying   optical   contrast   are   labeled   by
+ative  to  the  moment  direction  in  the  zero  ﬁeld  magnetic  struc-                          the  corresponding   thickness   in  number   of   CrCl3   layers.    A  separate
+ture  is  not  well  deﬁned.    As  a  result  the  signature  of  the  spin                      monolayer  specimen  is  shown  in  the  inset.
+ﬂop   on   the   magnetization  data   is   somewhat  diluted,   but   it   is
+still   observable  in   Figure   2d.    The   spin   ﬂop   is   seen   to   occur
+at  a  ﬁeld  between  100  and  200 Oe  at  T  = 2 K,  consistent  with                           ﬁeld.    These   distinct   magnetic   orderings  would   produce   dis-
+the  value  of  163 Oe  estimated  from  magneto-optical  measure-                                tinct    magnetic    proximity    effects    on    neighboring   materials.
+ments  at  7 K  from  which  an  in-plane  anisotropy  ﬁeld  of  about                            Importantly,   tuning   among   these   and   any   intermediate   mag-
+10 Oe   is   determined   [34].     This   is   small   relative   to   the   ﬁeld                netic  states  should  be  possible,  which  would  enable  exquisite
+required  to  rotate  the  moments  out  of  the  plane,  suggesting  an                          control  over  interactions  and  associated   functionalities  when
+XY-Heisenberg  description  for  the  moments  in  CrCl3.                                         coupled  to  appropriate  electronic  or  optical  materials  within  a
+   Note  that  the   energies  of  the  FM   and  AFM  conﬁgurations                              heterostructured  device.
+in  Table  I  are  the  same  within  the  precision of  the  calculations;                           Finally,  we  show  here  that  monolayer  CrCl3   can  indeed  be
+the    magnetically    ordered    structures    are    about    0.3 eV/atom                       realized   by   exfoliation   of   bulk   crystals.     Figure   5a   shows   an
+lower   in   energy   than   the   NM   states   in   both   the   monoclinic                     AFM   image   of   a   ﬂake   of   CrCl3   on   a   SiO2   substrate.      Sev-
+and  rhombohedral  crystal  structures  in   the   vdW-DF-optb86b                                 eral  step  edges  are  observed  across  the  ﬂake.  Figure  5b  shows
+calculations.  This  is  similar  to  the  0.4 eV/atom  stability  found                          the  height  proﬁle  across  an  edge  measured  along  the  path  in-
+in  the  calculations of  Ref.  27.  This  appears consistent  with  the                          dicated   by   the   red   line   in   Figure   5a.     The   single   layer   spac-
+observation  that  the  moments  can  be  fully  polarized  with  rel-                            ing   in   CrCl3    determined   from   the   bulk   crystal   structure   is
+atively   small   applied   ﬁelds.    Note   that   spin-orbit  coupling,   a                     c sinβ = 0.58 nm,  indicated  on  the  ﬁgure.  The  measured  step
+key   source   of   magnetocrystalline  anisotropy,   is   not  included                          height  of ≈  0.6 nm   indicates  that  this   step   is   one  monolayer
+in   the   calculations.      However,   this   effect   is   expected   to   be                  high.   By  correlating  changes  in  optical  contrast  with  the  step
+weak  in  trivalent  chromium  with  electronic  conﬁguration 3d3                                 height  measured  using  AFM,   optical  contrast  can  be   used   to
+and   nearly   octahedral   coordination   due   to   quenching   of   the                        qualitatively  assign   layer   number.    An   optical  micrograph  of
+orbital  moment.    Thus  single   ion   anisotropy   should  be   weak                           an  ultrathin  specimen  cleaved  from  a  bulk  crystal  is  shown  in
+for   Cr,   as   was   demonstrated   recently   for   CrI3   by   Lado   and                     Figure  5c  on  a  90 nm  SiO2   substrate.    Measured  optical  con-
+Fern ´andez-Rossier  [28].   In  that  study,  spin-orbit  coupling  on                           trast   is   used   to   identify   the   thicknesses   of   different   regions,
+the  heavy  iodine  ions  was  found  to  contribute  the  majority  of                           which   is   shown   on   the   image   in   units   of   CrCl3   layers.     The
+the  anisotropy  through  Cr-I-Cr  superexchange.   In  CrCl3   this                              inset  shows  a  separate  specimen  determined  to  be  one  mono-
+effect  is  expected  to  be  much  weaker,  since  the  spin-orbit  cou-                         layer  thick.  It  is  expected  that  the  single-layer  CrCl3  may  dis-
+pling strength varies as  the fourth power of  the atomic  number.                                play  ferromagnetism  at  low  temperature,  as  observed  in  CrI3
+Thus,  spin-orbit  coupling  is  expected  to  be  negligible  for  both                          [30]  and  as  predicted  by  ﬁrst  principles  calculations  for  all  of
+elements  in  CrCl3,   and  this  is  likely  the  reason  for  the  much                         the  chromium  trihalides  [19,  20].
+smaller  anisotropy  ﬁeld  observed  in  CrCl3  than  CrI3.
+   The   low   magnetic   anisotropy   and   ferromagnetic   in-plane
+order  make  CrCl3  potentially  very  attractive  for  van  der  Waals                                            IV.        SUMMARY  AND  CONCLUSIONS
+heterostructure  studies.    Figure  4b  shows  the  magnetic  struc-
+ture   of    two    adjacent   layers    of    CrCl3    in    zero    ﬁeld,    a    rela-             We    have    presented   a    thorough   investigation   of    the    bulk
+tively  small  out-of-plane  ﬁeld,  and  a  relatively  small  in-plane                           properties   of   the   layered   antiferromagnet   CrCl3.      The   mag-

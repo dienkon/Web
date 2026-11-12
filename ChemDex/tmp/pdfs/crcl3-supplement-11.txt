@@ -1,0 +1,5 @@
+Fig. S7. Evolution of integrated PL counts of vibronic signal with magnetic fields for the same location as in
+Fig. 3. (a-c) Polar plots of vibronic signal as a function of detection analyzer angle with magnetic fields at 0,
+0.05, and 0.2 T, respectively, shown on the same radial scale, normalized to the maximum. Solid lines show
+fitted functions. Green arrows mark the preferred polarization angle.
+S11

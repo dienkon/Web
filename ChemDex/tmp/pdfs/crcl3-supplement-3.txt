@@ -1,0 +1,25 @@
+Supplementary Note 2. Transition-dipole analysis of the excited state
+The excited-state transition dipole analysis was performed using the VASP WAVECAR obtained
+from the constrained excited-state calculation at the relaxed excited-state geometry. The relevant hole
+and electron states were identified from orbital-resolved electronic projections. To locate the dominant
+contributions to the localized excitation, we evaluated the simultaneous Cr-d localization of the
+occupied and unoccupied states for all k-points and selected those exhibiting the largest combined
+localization on the excited Cr ion.
+The transition dipole matrix elements were subsequently evaluated using the Python package
+VaspBandUnfolding and its vaspwfc.py module,[1, 2] which reconstruct pseudo-wavefunctions directly
+from the VASP WAVECAR file. The calculations were performed for the spin-orbit-coupled
+noncollinear electronic structure using the corresponding spinor wavefunctions. The dipole matrix
+elements were obtained through the momentum-matrix formalism implemented in vaspwfc.py, which
+evaluates the pseudo-wavefunction matrix elements between the selected initial and final states and
+converts them to dipole-like transition amplitudes through the standard momentum-position relation.
+For each selected k-point, the transition dipole vector d=(d ,d ,d ) was evaluated between the
+x y z
+occupied and unoccupied excited-state orbitals. The polarization anisotropy was quantified through the
+corresponding dipole intensities |d |2. In the employed lattice convention, the Cartesian x-direction
+α
+coincides with the crystallographic a-axis.
+To visualize the spatial anisotropy of the excitation, charge-density redistribution plots were
+constructed from partial charge densities corresponding to the excited-state LUMO and ground-state
+HOMO evaluated at the relaxed excited-state geometry. The resulting real-space charge redistribution
+was analyzed in the crystallographic ab-plane.
+S3

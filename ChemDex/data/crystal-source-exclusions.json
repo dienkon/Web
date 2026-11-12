@@ -1,0 +1,6 @@
+[
+  {"provider":"COD","id":"1010575","reason":"Cấu trúc CrCl3 kiểu P3212 của Wooster (1930) là mô hình lịch sử đã bị thay thế; đủ tỉ lượng nguyên tử không chứng minh đúng pha thực.","references":["https://doi.org/10.1103/PhysRevMaterials.1.014001","https://doi.org/10.3390/cryst7050121"]},
+  {"provider":"COD","id":"8104274","reason":"Công thức NaOH nhưng CIF không có tọa độ hydrogen; dùng bản 8104275 có đủ H thay thế.","references":["https://www.crystallography.net/cod/8104274.html"]},
+  {"provider":"COD","id":"2310927","reason":"Công thức NH3 nhưng CIF chỉ có vị trí N; không tạo mô hình ammonia đầy đủ bằng cách tự thêm H.","references":["https://www.crystallography.net/cod/2310927.html"]},
+  {"provider":"COD","id":"1533172","reason":"Ba(OH)2 chỉ có _atom_site_attached_hydrogens mà không có tọa độ H; số H đính kèm không phải vị trí nguyên tử đã đo.","references":["https://www.crystallography.net/cod/1533172.html"]}
+]

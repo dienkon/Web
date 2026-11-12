@@ -1,0 +1,60 @@
+                                                                                                                                                                                         4
+
+termined  by  the  ratio  of  the  peak  intensities,  is  shown  in  Fig-                      in   unit   cell   volume  arises   primarily  from   variation  in   the   in-
+ure  1d.  More  than  85%  of  the  crystal  transforms  between  240                           plane  lattice  constants,  where  magnetic  exchange  is  expected
+and  230 K,  and  the  remaining  small  fraction  of  the  high  tem-                          to   be   the   strongest;   however,   it   is   important  to   note   that   the
+perature   phase   essentially   vanishes   between   140   and   130 K.                        method   used   here   includes   spin   only   in   the   local   part   of   the
+The  two  crystal  structures  are  shown  on  this  ﬁgure.                                     exchange-correlation  functional,  and  not  in  the  non-local  part
+   During   subsequent   cooling   and   heating   cycles   the   phase                         [44],  which  may  be  more  important  in  the  interplanar  interac-
+transformation  is  much  sharper  (Fig.   1e),  as  was  found  to  the                        tions.  Crystallographic  studies  through  the  magnetic  ordering
+case  in  CrI3  crystals  [18].  This  suggests  that  the  retained  high                      temperature  would  be  helpful  in  probing  the  spin-lattice  cou-
+temperature  phase  present  in  the  ﬁrst  cool  down  is  likely  as-                         pling   identiﬁed   in   these   calculations.     Although   our   diffrac-
+sociated  with  defects  or  strain  frozen  into  the  crystals  during                        tion  measurements  do  not  extend  to  low  enough  temperature
+the  growth  at  elevated  temperature  and  subsequent  cooling  to                            to  examine  this  in  CrCl3,  a  structural  response  at  the  magnetic
+room  temperature.  There  is  still  signiﬁcant  thermal  hysteresis                           ordering  temperature  was  noted  in  isostructural  CrI3  [18].
+after   the   ﬁrst   thermal   cycling,   consistent   with   the   ﬁrst   order                    Additional  evidence  of   spin-lattice   coupling  is   seen   in   the
+nature  of  the  phase  transition.                                                             magnetization   data   near   the   structural   phase   transition   plot-
+   Results  of  our  DFT  calculations  for  CrCl3  in  both  the  mon-                         ted   in   Fig.      2a.      Temperature   dependent   magnetic   suscepti-
+oclinic  and  rhombohedral  structures  are  summarized  in  Table                              bility   data,   plotted   as   inverse   susceptibility  H/M ,   reveal   a
+I.    We  investigated  non-magnetic  (NM),  ferromagnetic  (FM),                               small  discontinuity at  256 K.  The  data  was  collected  on  warm-
+and  antiferromagnetic  (AFM)  conﬁgurations  for  both  crystal                                ing,  and  the  temperature  of  the  discontinuity  agrees  well  with
+structures.    The   AFM   conﬁguration  refers   to   the   experimen-                         the  transition  temperature  determined  by  x-ray  diffraction  on
+tal  magnetic  structure,  with  ferromagnetic  planes  stacked  an-                            warming  (Fig.   1e).   Similar  evidence  of  coupling  between  the
+tiferromagnetically.    Results   are   presented   for   both   PBE   and                      magnetism   and   crystal   lattice   was   previously   noted   for   CrI3
+vdW-DF-optB86b   functionals.      For   one   of   these   cases,    the                       [18].  Above and  below  this  temperature Curie-Weiss  behavior
+FM  rhombohedral  structure,  results  have  been  previously  re-                              is  observed,  down  to  about  100 K  and  up  to  380 K,  the  high-
+ported  by  Zhang  et  al.   using  PBE  and  the  van  der  Waals  den-                        est   temperature   investigated   here.     The   results   are   in   agree-
+sity   functional  optB88   [19].The   results   shown   in   Table   I   for                   ment   with   other   analyses   of   high   temperature   data   [33,   47],
+this  conﬁguration  are  within  1%  of  the  values  reported  there.                          although   the   anomaly   at   the   structural   phase   transition   was
+Our   calculations   indicate   the   monoclinic   structure   to   be   fa-                    not   noted   in   previous  measurements  due   to   relatively   sparse
+vored  by  0.05 eV/atom  in  the  non-magnetic  calculations,  and                              data.  Both  the  high  and  low  temperature  ﬁts  in  Fig.  2a  give  an
+essentially    degenerate   monoclinic   and    rhombohedral   struc-                           effective  moment  that  is  close  to  the  expected  value  for  spin-
+tures   for   the   magnetically   ordered   cases,   with   a   very   small                   only  Cr3+  (3.87 µB ).
+0.001 eV/atom    preference    for    the    experimentally    observed                             The  primary  difference  between  the  paramagnetic  behavior
+rhombohedral   structure.     The   presence   of   nearly   degenerate                         above  and  below  the  structural  transition  is  in  the  Weiss  tem-
+crystallographic  ground  states  is  consistent  with  the  observed                           perature θ,   which   is   smaller   in   the   high   temperature   mono-
+temperature  induced  structural  phase  transition.                                            clinic  phase  than  in  the  low  temperature  rhombohedral  phase.
+   The  cleavage  energy  calculated  in  the  rhombohedral  struc-                             The  Weiss  temperatures  are  positive,  indicating  that  the  intra-
+ture  with  vdW-DF-optB86B is  0.3 J/m2,  in  agreement with  the                               planar  ferromagnetic  interactions  dominate  the   magnetic  be-
+calculated   value   for   CrCl3   given  in   Ref.    19.    This   is   similar               havior   in   the   paramagnetic   state.      The   strength   of   the   mag-
+to   values   determined   using   similar   approaches   for   the   other                     netic interactions, primarily superexchange, are  expected to  be
+chromium  trihalides  [18,  19],  as  well  as  other  related,  easily-                        sensitive  to  the  details  of  the  chemical  coordination,  allowing
+cleaved   materials   noted   in   the   Introduction.     The   low   cleav-                   coupling  of  the  magnetic  behavior  to  the  crystal  structure  de-
+age  energy  enables  monolayer  and  few-layer  specimens  to  be                              tails.   In  particular,  the  antiferromagnetic  interplanar  superex-
+cleaved  from  the  CrCl3  crystals,  as  demonstrated  below.                                  change   interactions   will   depend   upon   how   the   CrCl3   layers
+   The  optimized  lattice  parameters  for  the  FM  and  AFM  unit                            stack.  Since  the  crystallographic  phase  transition  amounts  es-
+cells   are   similar   to   one   another,   and   those   determined   from                   sentially  to  a  change  in  the  layer  stacking,  this  is  identiﬁed  as
+vdW-DF-optb86b calculations  agree  well  with  the  experimen-                                 a  likely  source  of  the  coupling between  the  magnetism  and  the
+tal   structure   (Table   I).       As   expected   the   PBE   results   show                 lattice  that  produces  the  magnetic  anomaly  near  250 K.
+an   elongation  along   the   stacking   directions,   the   c   axes.    It   is                  While   both   CrCl3    and   CrI3    [18]   show   evidence   of   spin-
+particularly   interesting   to   note   the   signiﬁcant   difference   be-                    lattice  coupling,  key  differences  can  be  noted  in  their  behav-
+tween   the   optimized   lattice   parameters  for   the   NM   structure                      iors  and  magnetic  structures.   The  most  obvious  difference  is
+and  those  determined  for  the  magnetically  ordered  structures.                            the  orientation  of  the  ordered  moments  in  the  two  phases,  in-
+In   each   case   the   NM   unit   cell   is   signiﬁcantly   smaller.     This               plane  for  the  chloride  and  out  of  plane  for  the  iodide  (and  bro-
+is   true  for  both  the  monoclinic  and  rhombohedral  structures.                           mide).  In  addition,  the  response  of  the  magnetic  susceptibility
+For   the   vdW-DF-optb86b  results   in   the   AFM   and   FM   struc-                        to  the  structural  phase  transition,  as  quantiﬁed  by  ﬁts  using  a
+tures,   the   optimized   unit   cell   volumes   are   within   2%   of   the                 Curie-Weiss  model,  differ  in  the  two  materials.   In  CrCl3,  the
+experimental   values.      For   the   NM   case   they   are   smaller   by                   Weiss  temperature  changes  by  nearly  a  factor  of  three,  while
+more   than   10%   (Table   I).      The   reason   for   this   is   not   com-               in   CrI3   this   parameter   changes   little   and   a   response   is   seen
+pletely   clear,   but   it   does   suggest   a   strong   coupling   between                  mainly   in   the   effective   moment.     As   noted   above,   the   crys-
+the    spins    and    the    crystal    lattice    in    CrCl3.       The    difference        tallographic  layer  spacing  was  seen  to  decrease  upon  cooling

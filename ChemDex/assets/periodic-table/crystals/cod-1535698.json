@@ -1,0 +1,385 @@
+{
+  "id": "cod-1535698",
+  "codId": "1535698",
+  "referenceId": "cod:1535698",
+  "mineralName": "AlBr₃ khan",
+  "formula": "AlBr3",
+  "sourceFormula": "Al Br3",
+  "subjectIds": [
+    "formula-AlBr3"
+  ],
+  "spaceGroup": "P 1 21/c 1",
+  "spaceGroupNumber": 14,
+  "cell": {
+    "a": 7.503,
+    "b": 7.073,
+    "c": 10.273,
+    "alpha": 90.0,
+    "beta": 96.39,
+    "gamma": 90.0
+  },
+  "basis": [
+    [
+      7.503,
+      0.0,
+      -1.1433385203588629
+    ],
+    [
+      0.0,
+      7.073,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      10.20917753924691
+    ]
+  ],
+  "volume": 541.7879740514057,
+  "declaredVolume": 541.788,
+  "symmetryOperations": [
+    "x,y,z",
+    "-x,y+1/2,-z+1/2",
+    "-x,-y,-z",
+    "x,-y-1/2,z-1/2"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Al1",
+      "element": "Al",
+      "fractional": [
+        0.197,
+        -0.092,
+        0.551
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0
+    },
+    {
+      "label": "Br1",
+      "element": "Br",
+      "fractional": [
+        0.398,
+        0.0848,
+        0.6675
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0
+    },
+    {
+      "label": "Br3",
+      "element": "Br",
+      "fractional": [
+        -0.0806,
+        -0.0673,
+        0.6452
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0
+    },
+    {
+      "label": "Br2",
+      "element": "Br",
+      "fractional": [
+        0.2508,
+        -0.391,
+        0.511
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0
+    }
+  ],
+  "atoms": [
+    {
+      "label": "Al1",
+      "element": "Al",
+      "fractional": [
+        0.197,
+        0.908,
+        0.551
+      ],
+      "position": [
+        0.8481114752822666,
+        6.422284,
+        5.6252568241250485
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Al1",
+      "element": "Al",
+      "fractional": [
+        0.8029999999999999,
+        0.40800000000000003,
+        0.949
+      ],
+      "position": [
+        4.939880744179439,
+        2.8857840000000006,
+        9.688509484745317
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Al1",
+      "element": "Al",
+      "fractional": [
+        0.8029999999999999,
+        0.092,
+        0.44899999999999995
+      ],
+      "position": [
+        5.511550004358869,
+        0.6507160000000001,
+        4.583920715121862
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Al1",
+      "element": "Al",
+      "fractional": [
+        0.197,
+        0.592,
+        0.051000000000000156
+      ],
+      "position": [
+        1.4197807354616978,
+        4.187216,
+        0.520668054501594
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Br1",
+      "element": "Br",
+      "fractional": [
+        0.398,
+        0.0848,
+        0.6675
+      ],
+      "position": [
+        2.2230155376604595,
+        0.5997904000000001,
+        6.814626007447313
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Br1",
+      "element": "Br",
+      "fractional": [
+        0.602,
+        0.5848,
+        0.8325
+      ],
+      "position": [
+        3.5649766818012463,
+        4.1362904,
+        8.499140301423052
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Br1",
+      "element": "Br",
+      "fractional": [
+        0.602,
+        0.9152,
+        0.3325
+      ],
+      "position": [
+        4.136645941980678,
+        6.473209600000001,
+        3.394551531799598
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Br1",
+      "element": "Br",
+      "fractional": [
+        0.398,
+        0.4152,
+        0.16749999999999998
+      ],
+      "position": [
+        2.7946847978398908,
+        2.9367096000000004,
+        1.7100372378238573
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Br3",
+      "element": "Br",
+      "fractional": [
+        0.9194,
+        0.9327,
+        0.6452
+      ],
+      "position": [
+        6.1605761866644615,
+        6.5969871,
+        6.586961348322107
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Br3",
+      "element": "Br",
+      "fractional": [
+        0.0806,
+        0.4327,
+        0.8548
+      ],
+      "position": [
+        -0.372583967202756,
+        3.0604871,
+        8.72680496054826
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Br3",
+      "element": "Br",
+      "fractional": [
+        0.0806,
+        0.0673,
+        0.3548
+      ],
+      "position": [
+        0.19908529297667543,
+        0.4760129,
+        3.622216190924804
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Br3",
+      "element": "Br",
+      "fractional": [
+        0.9194,
+        0.5673,
+        0.1452
+      ],
+      "position": [
+        6.732245446843893,
+        4.012512900000001,
+        1.4823725786986515
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Br2",
+      "element": "Br",
+      "fractional": [
+        0.2508,
+        0.609,
+        0.511
+      ],
+      "position": [
+        1.2975064160966212,
+        4.307457,
+        5.216889722555171
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Br2",
+      "element": "Br",
+      "fractional": [
+        0.7492,
+        0.10899999999999999,
+        0.989
+      ],
+      "position": [
+        4.490485803365085,
+        0.7709569999999999,
+        10.096876586315194
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Br2",
+      "element": "Br",
+      "fractional": [
+        0.7492,
+        0.391,
+        0.489
+      ],
+      "position": [
+        5.062155063544516,
+        2.765543,
+        4.992287816691739
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "Br2",
+      "element": "Br",
+      "fractional": [
+        0.2508,
+        0.891,
+        0.01100000000000012
+      ],
+      "position": [
+        1.8691756762760525,
+        6.302043,
+        0.11230095293171725
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    }
+  ],
+  "siteCount": 16,
+  "speciesPositionCount": 16,
+  "cellComposition": {
+    "Al": 4.0,
+    "Br": 12.0
+  },
+  "mixedSiteCount": 0,
+  "formulaUnitsZ": 4.0,
+  "conditions": {
+    "temperatureK": null,
+    "pressureKPa": null,
+    "hydrogenTreatment": null
+  },
+  "reference": {
+    "authors": [
+      "Troyanov, S.I."
+    ],
+    "title": "Crystal structure of aluminium tribromide and triiodide",
+    "journal": "Zhurnal Neorganicheskoi Khimii",
+    "year": 1994.0,
+    "volume": "39",
+    "pages": "552–555",
+    "doi": null
+  },
+  "source": "https://www.crystallography.net/cod/1535698.html",
+  "transport": "https://cod.psdi.ac.uk/cod/1535698.cif",
+  "transportSha256": "9b5099937e4c515a4f4d911f73271d1d8c4c14f038d4d3cc22d684555386495f",
+  "evidence": "published-structure",
+  "note": "Giữ cách xếp các đơn vị aluminium bromide theo nguồn, không dựng một phân tử AlBr3 tam giác giả làm tinh thể.",
+  "limitations": "",
+  "coordinatePrecision": "Original CIF lexical precision and uncertainties are retained in the downloadable CIF."
+}

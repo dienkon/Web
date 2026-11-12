@@ -1,5 +1,6 @@
 import {parseCIF} from '../shared/chemistry/cif.mjs';
 // Software projection and 3D geometry parser for SDF and CIF structures.
+import { drawMolecularStudio } from './molecular-studio.js';
 export const CPK_COLORS = {
   H: '#f8fafc',
   C: '#64748b',
@@ -107,7 +108,7 @@ export function createCanvasViewer(host, model, onPick) {
     points = [],
     spinning = false,
     rafId = null,
-    options = { hydrogen: true, labels: false, style: 'ball' };
+    options = { hydrogen: true, labels: false, style: 'ball', environment: true };
 
   const center = ['x', 'y', 'z'].map(
     (k) => model.atoms.reduce((n, a) => n + a[k], 0) / model.atoms.length,
@@ -145,7 +146,7 @@ export function createCanvasViewer(host, model, onPick) {
     ctx.fillStyle = bgGrad;
     ctx.fillRect(0, 0, w, h);
 
-    points = model.atoms.map((a, index) => {
+    const project = a => {
       const x = a.x - center[0],
         y = a.y - center[1],
         z = a.z - center[2],
@@ -153,12 +154,12 @@ export function createCanvasViewer(host, model, onPick) {
         zz = -x * Math.sin(ay) + z * Math.cos(ay);
       return {
         x: w / 2 + xx * scale,
-        y: h / 2 + (y * Math.cos(ax) - zz * Math.sin(ax)) * scale,
+        y: h / 2 - (y * Math.cos(ax) - zz * Math.sin(ax)) * scale,
         z: y * Math.sin(ax) + zz * Math.cos(ax),
-        index,
-        a,
       };
-    });
+    };
+    if(options.environment)drawMolecularStudio(ctx,model,project);
+    points = model.atoms.map((a, index) => ({...project(a),index,a}));
 
     if (options.style !== 'sphere') {
       for (const b of model.bonds) {

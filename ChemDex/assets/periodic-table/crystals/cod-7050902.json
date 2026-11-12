@@ -1,0 +1,1678 @@
+{
+  "id": "cod-7050902",
+  "codId": "7050902",
+  "referenceId": "cod:7050902",
+  "mineralName": "Aspirin · 300 K · neutron",
+  "formula": "C9H8O4",
+  "sourceFormula": "C9 H8 O4",
+  "subjectIds": [
+    "cid-2244"
+  ],
+  "spaceGroup": "P 1 21/c 1",
+  "spaceGroupNumber": 14,
+  "cell": {
+    "a": 11.416,
+    "b": 6.598,
+    "c": 11.483,
+    "alpha": 90.0,
+    "beta": 95.6,
+    "gamma": 90.0
+  },
+  "basis": [
+    [
+      11.416,
+      0.0,
+      -1.1205444379343117
+    ],
+    [
+      0.0,
+      6.598,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      11.428196233991368
+    ]
+  ],
+  "volume": 860.8033735914055,
+  "declaredVolume": 860.8,
+  "symmetryOperations": [
+    "x,y,z",
+    "-x,y+1/2,-z+1/2",
+    "-x,-y,-z",
+    "x,-y-1/2,z-1/2"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "C1",
+      "element": "C",
+      "fractional": [
+        0.153,
+        0.5638,
+        0.0678
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0359
+    },
+    {
+      "label": "C2",
+      "element": "C",
+      "fractional": [
+        0.2464,
+        0.4885,
+        0.0087
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0388
+    },
+    {
+      "label": "C3",
+      "element": "C",
+      "fractional": [
+        0.2982,
+        0.307,
+        0.0415
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.048
+    },
+    {
+      "label": "C4",
+      "element": "C",
+      "fractional": [
+        0.2602,
+        0.1952,
+        0.1344
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.05
+    },
+    {
+      "label": "C5",
+      "element": "C",
+      "fractional": [
+        0.1693,
+        0.2697,
+        0.1918
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.046
+    },
+    {
+      "label": "C6",
+      "element": "C",
+      "fractional": [
+        0.1168,
+        0.4489,
+        0.1599
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0412
+    },
+    {
+      "label": "C7",
+      "element": "C",
+      "fractional": [
+        0.0904,
+        0.7582,
+        0.0382
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0374
+    },
+    {
+      "label": "C8",
+      "element": "C",
+      "fractional": [
+        0.3664,
+        0.736,
+        -0.0628
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.0448
+    },
+    {
+      "label": "C9",
+      "element": "C",
+      "fractional": [
+        0.3966,
+        0.835,
+        -0.172
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.063
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.12,
+        0.8626,
+        -0.0507
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.05
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.0096,
+        0.8126,
+        0.0955
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.051
+    },
+    {
+      "label": "O3",
+      "element": "O",
+      "fractional": [
+        0.2857,
+        0.5877,
+        -0.0879
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.042
+    },
+    {
+      "label": "O4",
+      "element": "O",
+      "fractional": [
+        0.4018,
+        0.7794,
+        0.0354
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.061
+    },
+    {
+      "label": "H1",
+      "element": "H",
+      "fractional": [
+        0.3689,
+        0.247,
+        -0.013
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.081
+    },
+    {
+      "label": "H2",
+      "element": "H",
+      "fractional": [
+        0.3028,
+        0.053,
+        0.163
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.074
+    },
+    {
+      "label": "H3",
+      "element": "H",
+      "fractional": [
+        0.1396,
+        0.177,
+        0.27
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.071
+    },
+    {
+      "label": "H4",
+      "element": "H",
+      "fractional": [
+        0.0469,
+        0.508,
+        0.2061
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.068
+    },
+    {
+      "label": "H5",
+      "element": "H",
+      "fractional": [
+        0.459,
+        0.955,
+        -0.149
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.113
+    },
+    {
+      "label": "H6",
+      "element": "H",
+      "fractional": [
+        0.324,
+        0.883,
+        -0.228
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.17
+    },
+    {
+      "label": "H7",
+      "element": "H",
+      "fractional": [
+        0.432,
+        0.728,
+        -0.23
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.169
+    },
+    {
+      "label": "H8",
+      "element": "H",
+      "fractional": [
+        0.0647,
+        0.993,
+        -0.0657
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0,
+      "uIso": 0.075
+    }
+  ],
+  "atoms": [
+    {
+      "label": "C1",
+      "element": "C",
+      "fractional": [
+        0.153,
+        0.5638,
+        0.0678
+      ],
+      "position": [
+        1.6706750871080536,
+        3.7199523999999995,
+        0.7748317046646147
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C1",
+      "element": "C",
+      "fractional": [
+        0.847,
+        0.06380000000000008,
+        0.43220000000000003
+      ],
+      "position": [
+        9.18505269392479,
+        0.4209524000000005,
+        4.93926641233107
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C1",
+      "element": "C",
+      "fractional": [
+        0.847,
+        0.43620000000000003,
+        0.9322
+      ],
+      "position": [
+        8.624780474957635,
+        2.8780476000000004,
+        10.653364529326755
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C1",
+      "element": "C",
+      "fractional": [
+        0.153,
+        0.9362,
+        0.5678
+      ],
+      "position": [
+        1.110402868140898,
+        6.1770476,
+        6.488929821660299
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C2",
+      "element": "C",
+      "fractional": [
+        0.2464,
+        0.4885,
+        0.0087
+      ],
+      "position": [
+        2.8031536633899714,
+        3.2231229999999997,
+        0.0994253072357249
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C2",
+      "element": "C",
+      "fractional": [
+        0.7536,
+        0.9884999999999999,
+        0.4913
+      ],
+      "position": [
+        8.052574117642875,
+        6.522123,
+        5.614672809759959
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C2",
+      "element": "C",
+      "fractional": [
+        0.7536,
+        0.5115000000000001,
+        0.9913
+      ],
+      "position": [
+        7.492301898675718,
+        3.3748770000000006,
+        11.328770926755643
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C2",
+      "element": "C",
+      "fractional": [
+        0.2464,
+        0.01150000000000001,
+        0.5087
+      ],
+      "position": [
+        2.2428814444228156,
+        0.07587700000000007,
+        5.813523424231409
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C3",
+      "element": "C",
+      "fractional": [
+        0.2982,
+        0.307,
+        0.0415
+      ],
+      "position": [
+        3.3577486058257264,
+        2.025586,
+        0.4742701437106418
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C3",
+      "element": "C",
+      "fractional": [
+        0.7018,
+        0.8069999999999999,
+        0.4585
+      ],
+      "position": [
+        7.497979175207117,
+        5.324585999999999,
+        5.239827973285043
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C3",
+      "element": "C",
+      "fractional": [
+        0.7018,
+        0.6930000000000001,
+        0.9585
+      ],
+      "position": [
+        6.937706956239961,
+        4.572414,
+        10.953926090280726
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C3",
+      "element": "C",
+      "fractional": [
+        0.2982,
+        0.193,
+        0.5415
+      ],
+      "position": [
+        2.7974763868585706,
+        1.273414,
+        6.1883682607063255
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C4",
+      "element": "C",
+      "fractional": [
+        0.2602,
+        0.1952,
+        0.1344
+      ],
+      "position": [
+        2.8198420275416285,
+        1.2879296,
+        1.5359495738484399
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C4",
+      "element": "C",
+      "fractional": [
+        0.7398,
+        0.6952,
+        0.36560000000000004
+      ],
+      "position": [
+        8.035885753491216,
+        4.5869296,
+        4.178148543147245
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C4",
+      "element": "C",
+      "fractional": [
+        0.7398,
+        0.8048,
+        0.8656
+      ],
+      "position": [
+        7.47561353452406,
+        5.3100704,
+        9.892246660142929
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C4",
+      "element": "C",
+      "fractional": [
+        0.2602,
+        0.30479999999999996,
+        0.6344
+      ],
+      "position": [
+        2.2595698085744726,
+        2.0110703999999995,
+        7.250047690844124
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C5",
+      "element": "C",
+      "fractional": [
+        0.1693,
+        0.2697,
+        0.1918
+      ],
+      "position": [
+        1.717808376804199,
+        1.7794805999999999,
+        2.1919280376795442
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C5",
+      "element": "C",
+      "fractional": [
+        0.8307,
+        0.7697,
+        0.30820000000000003
+      ],
+      "position": [
+        9.137919404228645,
+        5.0784806,
+        3.52217007931614
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C5",
+      "element": "C",
+      "fractional": [
+        0.8307,
+        0.7303,
+        0.8082
+      ],
+      "position": [
+        8.57764718526149,
+        4.8185194,
+        9.236268196311824
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C5",
+      "element": "C",
+      "fractional": [
+        0.1693,
+        0.2303,
+        0.6918
+      ],
+      "position": [
+        1.1575361578370433,
+        1.5195194,
+        7.906026154675228
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C6",
+      "element": "C",
+      "fractional": [
+        0.1168,
+        0.4489,
+        0.1599
+      ],
+      "position": [
+        1.1542137443743037,
+        2.9618422,
+        1.8273685778152196
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C6",
+      "element": "C",
+      "fractional": [
+        0.8832,
+        0.9489000000000001,
+        0.3401
+      ],
+      "position": [
+        9.70151403665854,
+        6.260842200000001,
+        3.8867295391804646
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C6",
+      "element": "C",
+      "fractional": [
+        0.8832,
+        0.5510999999999999,
+        0.8401000000000001
+      ],
+      "position": [
+        9.141241817691386,
+        3.6361577999999994,
+        9.600827656176149
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C6",
+      "element": "C",
+      "fractional": [
+        0.1168,
+        0.05109999999999998,
+        0.6598999999999999
+      ],
+      "position": [
+        0.5939415254071478,
+        0.33715779999999984,
+        7.541466694810903
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C7",
+      "element": "C",
+      "fractional": [
+        0.0904,
+        0.7582,
+        0.0382
+      ],
+      "position": [
+        0.9892016024709093,
+        5.0026036,
+        0.43655709613847027
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C7",
+      "element": "C",
+      "fractional": [
+        0.9096,
+        0.2582,
+        0.4618
+      ],
+      "position": [
+        9.866526178561935,
+        1.7036035999999999,
+        5.277541020857214
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C7",
+      "element": "C",
+      "fractional": [
+        0.9096,
+        0.24180000000000001,
+        0.9618
+      ],
+      "position": [
+        9.306253959594779,
+        1.5953964,
+        10.991639137852898
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C7",
+      "element": "C",
+      "fractional": [
+        0.0904,
+        0.7418,
+        0.5382
+      ],
+      "position": [
+        0.4289293835037534,
+        4.8943964,
+        6.150655213134154
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C8",
+      "element": "C",
+      "fractional": [
+        0.3664,
+        0.736,
+        0.9372
+      ],
+      "position": [
+        3.1326481527679633,
+        4.856128,
+        10.710505510496711
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C8",
+      "element": "C",
+      "fractional": [
+        0.6335999999999999,
+        0.236,
+        0.5628
+      ],
+      "position": [
+        6.602535190330569,
+        1.5571279999999998,
+        6.431788840490341
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C8",
+      "element": "C",
+      "fractional": [
+        0.6335999999999999,
+        0.264,
+        0.0628
+      ],
+      "position": [
+        7.1628074092977245,
+        1.741872,
+        0.7176907234946579
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C8",
+      "element": "C",
+      "fractional": [
+        0.3664,
+        0.764,
+        0.43720000000000003
+      ],
+      "position": [
+        3.692920371735119,
+        5.040872,
+        4.996407393501027
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C9",
+      "element": "C",
+      "fractional": [
+        0.3966,
+        0.835,
+        0.8280000000000001
+      ],
+      "position": [
+        3.59977480539039,
+        5.509329999999999,
+        9.462546481744853
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C9",
+      "element": "C",
+      "fractional": [
+        0.6033999999999999,
+        0.33499999999999996,
+        0.6719999999999999
+      ],
+      "position": [
+        6.135408537708142,
+        2.21033,
+        7.679747869242199
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C9",
+      "element": "C",
+      "fractional": [
+        0.6033999999999999,
+        0.16500000000000004,
+        0.172
+      ],
+      "position": [
+        6.695680756675298,
+        1.0886700000000002,
+        1.9656497522465153
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "C9",
+      "element": "C",
+      "fractional": [
+        0.3966,
+        0.665,
+        0.328
+      ],
+      "position": [
+        4.160047024357546,
+        4.38767,
+        3.748448364749169
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.12,
+        0.8626,
+        0.9493
+      ],
+      "position": [
+        0.3061871650689578,
+        5.6914348,
+        10.848786684928006
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.88,
+        0.36260000000000003,
+        0.5507
+      ],
+      "position": [
+        9.428996178029575,
+        2.3924348,
+        6.293507666059046
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.88,
+        0.13739999999999997,
+        0.0507
+      ],
+      "position": [
+        9.98926839699673,
+        0.9065651999999997,
+        0.5794095490633624
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.12,
+        0.6374,
+        0.4493
+      ],
+      "position": [
+        0.8664593840361138,
+        4.2055652,
+        5.134688567932321
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.0096,
+        0.8126,
+        0.0955
+      ],
+      "position": [
+        0.002581606177273238,
+        5.361534799999999,
+        1.0913927403461756
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.9904,
+        0.3126,
+        0.40449999999999997
+      ],
+      "position": [
+        10.85314617485557,
+        2.0625348,
+        4.622705376649508
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.9904,
+        0.1874,
+        0.9045
+      ],
+      "position": [
+        10.292873955888416,
+        1.2364652,
+        10.336803493645192
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.0096,
+        0.6874,
+        0.5955
+      ],
+      "position": [
+        -0.5576906127898826,
+        4.5354652,
+        6.80549085734186
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O3",
+      "element": "O",
+      "fractional": [
+        0.2857,
+        0.5877,
+        0.9121
+      ],
+      "position": [
+        2.239502618160115,
+        3.8776446,
+        10.423657785023527
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O3",
+      "element": "O",
+      "fractional": [
+        0.7142999999999999,
+        0.08769999999999989,
+        0.5879
+      ],
+      "position": [
+        7.495680724938417,
+        0.5786445999999993,
+        6.718636565963525
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O3",
+      "element": "O",
+      "fractional": [
+        0.7142999999999999,
+        0.4123,
+        0.0879
+      ],
+      "position": [
+        8.055952943905574,
+        2.7203554,
+        1.0045384489678413
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O3",
+      "element": "O",
+      "fractional": [
+        0.2857,
+        0.9123,
+        0.4121
+      ],
+      "position": [
+        2.7997748371272704,
+        6.0193554,
+        4.709559668027843
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O4",
+      "element": "O",
+      "fractional": [
+        0.4018,
+        0.7794,
+        0.0354
+      ],
+      "position": [
+        4.547281526897126,
+        5.1424812,
+        0.40455814668329443
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O4",
+      "element": "O",
+      "fractional": [
+        0.5982000000000001,
+        0.27939999999999987,
+        0.4646
+      ],
+      "position": [
+        6.3084462541357205,
+        1.8434811999999992,
+        5.30953997031239
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O4",
+      "element": "O",
+      "fractional": [
+        0.5982000000000001,
+        0.22060000000000002,
+        0.9646
+      ],
+      "position": [
+        5.748174035168564,
+        1.4555188000000001,
+        11.023638087308074
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "O4",
+      "element": "O",
+      "fractional": [
+        0.4018,
+        0.7206,
+        0.5354
+      ],
+      "position": [
+        3.9870093079299695,
+        4.7545188,
+        6.118656263678979
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H1",
+      "element": "H",
+      "fractional": [
+        0.3689,
+        0.247,
+        0.987
+      ],
+      "position": [
+        3.105385039758835,
+        1.6297059999999999,
+        11.27962968294948
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H1",
+      "element": "H",
+      "fractional": [
+        0.6311,
+        0.747,
+        0.513
+      ],
+      "position": [
+        6.629798303339698,
+        4.928706,
+        5.8626646680375725
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H1",
+      "element": "H",
+      "fractional": [
+        0.6311,
+        0.753,
+        0.013
+      ],
+      "position": [
+        7.190070522306854,
+        4.968294,
+        0.1485665510418878
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H1",
+      "element": "H",
+      "fractional": [
+        0.3689,
+        0.253,
+        0.487
+      ],
+      "position": [
+        3.665657258725991,
+        1.669294,
+        5.565531565953796
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2",
+      "element": "H",
+      "fractional": [
+        0.3028,
+        0.053,
+        0.163
+      ],
+      "position": [
+        3.2741160566167076,
+        0.349694,
+        1.8627959861405932
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2",
+      "element": "H",
+      "fractional": [
+        0.6972,
+        0.553,
+        0.33699999999999997
+      ],
+      "position": [
+        7.581611724416138,
+        3.6486940000000003,
+        3.8513021308550908
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2",
+      "element": "H",
+      "fractional": [
+        0.6972,
+        0.947,
+        0.837
+      ],
+      "position": [
+        7.021339505448982,
+        6.2483059999999995,
+        9.565400247850775
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H2",
+      "element": "H",
+      "fractional": [
+        0.3028,
+        0.447,
+        0.663
+      ],
+      "position": [
+        2.7138438376495513,
+        2.949306,
+        7.5768941031362775
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H3",
+      "element": "H",
+      "fractional": [
+        0.1396,
+        0.177,
+        0.27
+      ],
+      "position": [
+        1.2911266017577359,
+        1.167846,
+        3.0856129831776697
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H3",
+      "element": "H",
+      "fractional": [
+        0.8604,
+        0.677,
+        0.22999999999999998
+      ],
+      "position": [
+        9.56460117927511,
+        4.466846,
+        2.6284851338180144
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H3",
+      "element": "H",
+      "fractional": [
+        0.8604,
+        0.823,
+        0.73
+      ],
+      "position": [
+        9.004328960307953,
+        5.430154,
+        8.342583250813698
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H3",
+      "element": "H",
+      "fractional": [
+        0.1396,
+        0.323,
+        0.77
+      ],
+      "position": [
+        0.73085438279058,
+        2.131154,
+        8.799711100173354
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H4",
+      "element": "H",
+      "fractional": [
+        0.0469,
+        0.508,
+        0.2061
+      ],
+      "position": [
+        0.3044661913417383,
+        3.351784,
+        2.355351243825621
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H4",
+      "element": "H",
+      "fractional": [
+        0.9531000000000001,
+        0.008000000000000007,
+        0.2939
+      ],
+      "position": [
+        10.551261589691107,
+        0.052784000000000046,
+        3.358746873170063
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H4",
+      "element": "H",
+      "fractional": [
+        0.9531000000000001,
+        0.492,
+        0.7939
+      ],
+      "position": [
+        9.99098937072395,
+        3.246216,
+        9.072844990165748
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H4",
+      "element": "H",
+      "fractional": [
+        0.0469,
+        0.992,
+        0.7061
+      ],
+      "position": [
+        -0.2558060276254175,
+        6.545216,
+        8.069449360821304
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H5",
+      "element": "H",
+      "fractional": [
+        0.459,
+        0.955,
+        0.851
+      ],
+      "position": [
+        4.286360683317901,
+        6.301089999999999,
+        9.725394995126655
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H5",
+      "element": "H",
+      "fractional": [
+        0.5409999999999999,
+        0.45500000000000007,
+        0.649
+      ],
+      "position": [
+        5.448822659780631,
+        3.0020900000000004,
+        7.416899355860398
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H5",
+      "element": "H",
+      "fractional": [
+        0.5409999999999999,
+        0.04500000000000004,
+        0.149
+      ],
+      "position": [
+        6.009094878747787,
+        0.2969100000000003,
+        1.7028012388647138
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H5",
+      "element": "H",
+      "fractional": [
+        0.459,
+        0.545,
+        0.351
+      ],
+      "position": [
+        4.846632902285057,
+        3.5959100000000004,
+        4.01129687813097
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H6",
+      "element": "H",
+      "fractional": [
+        0.324,
+        0.883,
+        0.772
+      ],
+      "position": [
+        2.8337236939147115,
+        5.826034,
+        8.822567492641337
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H6",
+      "element": "H",
+      "fractional": [
+        0.6759999999999999,
+        0.383,
+        0.728
+      ],
+      "position": [
+        6.9014596491838205,
+        2.527034,
+        8.319726858345716
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H6",
+      "element": "H",
+      "fractional": [
+        0.6759999999999999,
+        0.11699999999999999,
+        0.228
+      ],
+      "position": [
+        7.461731868150976,
+        0.7719659999999999,
+        2.605628741350032
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H6",
+      "element": "H",
+      "fractional": [
+        0.324,
+        0.617,
+        0.272
+      ],
+      "position": [
+        3.3939959128818673,
+        4.070966,
+        3.1084693756456523
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H7",
+      "element": "H",
+      "fractional": [
+        0.432,
+        0.728,
+        0.77
+      ],
+      "position": [
+        4.06889278279058,
+        4.803344,
+        8.799711100173354
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H7",
+      "element": "H",
+      "fractional": [
+        0.5680000000000001,
+        0.22799999999999998,
+        0.73
+      ],
+      "position": [
+        5.666290560307954,
+        1.504344,
+        8.342583250813698
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H7",
+      "element": "H",
+      "fractional": [
+        0.5680000000000001,
+        0.272,
+        0.23
+      ],
+      "position": [
+        6.22656277927511,
+        1.794656,
+        2.628485133818015
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H7",
+      "element": "H",
+      "fractional": [
+        0.432,
+        0.772,
+        0.27
+      ],
+      "position": [
+        4.629165001757736,
+        5.093656,
+        3.0856129831776697
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H8",
+      "element": "H",
+      "fractional": [
+        0.0647,
+        0.993,
+        0.9343
+      ],
+      "position": [
+        -0.30830946836202755,
+        6.551814,
+        10.677363741418135
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H8",
+      "element": "H",
+      "fractional": [
+        0.9353,
+        0.4929999999999999,
+        0.5657
+      ],
+      "position": [
+        10.04349281146056,
+        3.252813999999999,
+        6.464930609568917
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H8",
+      "element": "H",
+      "fractional": [
+        0.9353,
+        0.007000000000000006,
+        0.0657
+      ],
+      "position": [
+        10.603765030427716,
+        0.04618600000000004,
+        0.7508324925732328
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    },
+    {
+      "label": "H8",
+      "element": "H",
+      "fractional": [
+        0.0647,
+        0.507,
+        0.4343
+      ],
+      "position": [
+        0.25196275060512835,
+        3.345186,
+        4.963265624422451
+      ],
+      "occupancy": 1.0,
+      "disorderGroup": 0
+    }
+  ],
+  "siteCount": 84,
+  "speciesPositionCount": 84,
+  "cellComposition": {
+    "C": 36.0,
+    "O": 16.0,
+    "H": 32.0
+  },
+  "mixedSiteCount": 0,
+  "formulaUnitsZ": 4.0,
+  "conditions": {
+    "temperatureK": "300(1)",
+    "pressureKPa": null,
+    "hydrogenTreatment": null
+  },
+  "reference": {
+    "authors": [
+      "Chick Wilson"
+    ],
+    "title": "Interesting proton behaviour in molecular\nstructures.  Variable temperature neutron diffraction and ab initio\nstudy of acetylsalicylic acid: characterising librational motions and\ncomparing protons in different hydrogen bonding potentials",
+    "journal": "New Journal of Chemistry",
+    "year": 2002.0,
+    "volume": "26",
+    "pages": "1733–1739",
+    "doi": "10.1039/b203775k"
+  },
+  "source": "https://www.crystallography.net/cod/7050902.html",
+  "transport": "https://cod.psdi.ac.uk/cod/7050902.cif",
+  "transportSha256": "ca3e57286ba93d79602e660d4806330e133cfb678f4cfbd9c38aae3fd162fcee",
+  "evidence": "published-structure",
+  "note": "Mẫu acetylsalicylic acid ở 300 K trong chuỗi nhiễu xạ neutron theo nhiệt độ; không dùng đồng phân methyl terephthalate cùng công thức.",
+  "limitations": "",
+  "coordinatePrecision": "Original CIF lexical precision and uncertainties are retained in the downloadable CIF."
+}

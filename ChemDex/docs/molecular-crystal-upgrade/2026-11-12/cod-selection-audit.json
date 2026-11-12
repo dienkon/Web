@@ -1,0 +1,351 @@
+[
+  {
+    "codId": "2105348",
+    "sha256": "b12f992e372b696216bedae0f860f0f2b69f2890a8922e73053c79329848b3f6",
+    "cellComposition": {
+      "Ag": 8.0,
+      "O": 24.0,
+      "N": 8.0
+    },
+    "formulaUnitsZ": 8.0,
+    "conditions": {
+      "temperatureK": null,
+      "pressureKPa": null,
+      "hydrogenTreatment": null
+    },
+    "decision": "Tinh chỉnh riêng silver nitrate ở điều kiện thường, không dùng pha nhiệt độ cao hoặc pha không bền cùng danh mục."
+  },
+  {
+    "codId": "2310631",
+    "sha256": "6ee5a390904549ef6a5b27fe2be04f6eae008c42e865ef3f999faecfa0c1e1b0",
+    "cellComposition": {
+      "K": 4.0,
+      "O": 16.0,
+      "Mn": 4.0
+    },
+    "formulaUnitsZ": 4.0,
+    "conditions": {
+      "temperatureK": null,
+      "pressureKPa": null,
+      "hydrogenTreatment": null
+    },
+    "decision": "Cấu trúc thực nghiệm của nghiên cứu mật độ electron ở 120 K; không dùng cấu trúc KClO4 hoặc mẫu tính toán trong cùng công trình."
+  },
+  {
+    "codId": "8104275",
+    "sha256": "c602ad1d41f6eb320708cc46c8f98817825d280d98c3678f85a4c17cce70e76d",
+    "cellComposition": {
+      "O": 2.0,
+      "Na": 2.0,
+      "H": 2.0
+    },
+    "formulaUnitsZ": 2.0,
+    "conditions": {
+      "temperatureK": null,
+      "pressureKPa": null,
+      "hydrogenTreatment": null
+    },
+    "decision": "Bản ghi đơn tà có đủ vị trí Na, O và H; loại bản trực thoi 8104274 thiếu tọa độ H. Không thay cho một mạng tinh thể của dung dịch NaOH."
+  },
+  {
+    "codId": "1548811",
+    "sha256": "a2d8c277020b79b9b734c642e2d80f8064fe0c1993baafceed83ef193a53e453",
+    "cellComposition": {
+      "Ni": 1.0,
+      "O": 2.0,
+      "H": 2.0
+    },
+    "formulaUnitsZ": 1.0,
+    "conditions": {
+      "temperatureK": "293.",
+      "pressureKPa": null,
+      "hydrogenTreatment": null
+    },
+    "decision": "Dữ liệu cấu trúc 293 K dẫn lại nghiên cứu Atomic structure and lattice dynamics of Ni and Mg hydroxides (2010), có đầy đủ H; phân biệt với phép tính DFT trong bài dẫn nguồn năm 2018."
+  },
+  {
+    "codId": "2020897",
+    "sha256": "eebc1e50a8da5670c69cdcdc2e405ffccadd5b559b046232fadbb267f7e9e54c",
+    "cellComposition": {
+      "Pb": 4.0,
+      "N": 8.0,
+      "O": 24.0
+    },
+    "formulaUnitsZ": 4.0,
+    "conditions": {
+      "temperatureK": null,
+      "pressureKPa": null,
+      "hydrogenTreatment": null
+    },
+    "decision": "Tinh chỉnh lead nitrate; không dùng một nitrate khác có cùng kiểu mạng."
+  },
+  {
+    "codId": "1542184",
+    "sha256": "7663154c09253dbdc24a30ead8f822ffba1e34c532b78be3c58130f3eaed45ce",
+    "cellComposition": {
+      "N": 8.0,
+      "O": 24.0,
+      "Cu": 4.0
+    },
+    "formulaUnitsZ": 4.0,
+    "conditions": {
+      "temperatureK": null,
+      "pressureKPa": null,
+      "hydrogenTreatment": null
+    },
+    "decision": "Bản alpha copper(II) nitrate khan; không thay cho nitrate ngậm nước hay dung dịch."
+  },
+  {
+    "codId": "1535669",
+    "sha256": "5e09d39453c4cfe28272041c28fcdee5989140e394f587f605f78df26f6b1dcd",
+    "cellComposition": {
+      "Cl": 12.0,
+      "Al": 4.0
+    },
+    "formulaUnitsZ": 4.0,
+    "conditions": {
+      "temperatureK": null,
+      "pressureKPa": null,
+      "hydrogenTreatment": null
+    },
+    "decision": "Tinh chỉnh riêng AlCl3 trong công trình chloroaluminate; không lấy cấu trúc Ti(AlCl4)2 cùng bài."
+  },
+  {
+    "codId": "1535698",
+    "sha256": "9b5099937e4c515a4f4d911f73271d1d8c4c14f038d4d3cc22d684555386495f",
+    "cellComposition": {
+      "Al": 4.0,
+      "Br": 12.0
+    },
+    "formulaUnitsZ": 4.0,
+    "conditions": {
+      "temperatureK": null,
+      "pressureKPa": null,
+      "hydrogenTreatment": null
+    },
+    "decision": "Giữ cách xếp các đơn vị aluminium bromide theo nguồn, không dựng một phân tử AlBr3 tam giác giả làm tinh thể."
+  },
+  {
+    "codId": "8104000",
+    "sha256": "4896c307a006b6c883d340648664dd85889911ce74d974f7bc8353e2fbc0cf22",
+    "cellComposition": {
+      "I": 12.0,
+      "Al": 4.0
+    },
+    "formulaUnitsZ": 4.0,
+    "conditions": {
+      "temperatureK": null,
+      "pressureKPa": null,
+      "hydrogenTreatment": null
+    },
+    "decision": "Bản ghi AlI3 riêng trong công trình về GaX3/AlI3; không dùng tọa độ gallium halide."
+  },
+  {
+    "codId": "2310480",
+    "sha256": "dd6e4446aec7a463cf7a250f50a88e98318c3d7e89d68b0b8c842d6c995b9e69",
+    "cellComposition": {
+      "Na": 8.0,
+      "S": 8.0,
+      "O": 12.0
+    },
+    "formulaUnitsZ": 4.0,
+    "conditions": {
+      "temperatureK": null,
+      "pressureKPa": null,
+      "hydrogenTreatment": null
+    },
+    "decision": "Pha anhydrous sodium thiosulfate; không thay cho pentahydrate hoặc dung dịch."
+  },
+  {
+    "codId": "1008189",
+    "sha256": "3b271e89a44f6e73b3a3e4c0d50746117d6035860ae013234bc8512c428aff26",
+    "cellComposition": {
+      "O": 8.0,
+      "H": 8.0
+    },
+    "formulaUnitsZ": 4.0,
+    "conditions": {
+      "temperatureK": null,
+      "pressureKPa": null,
+      "hydrogenTreatment": null
+    },
+    "decision": "Cấu trúc phân tử và tinh thể hydrogen peroxide từ nhiễu xạ neutron; không rút gọn công thức HO rồi gán cho ion hydroxide."
+  },
+  {
+    "codId": "7238223",
+    "sha256": "1e0e06a6f0e4e73cfd95c612bb667ca6cba756c22619299f9790f7f082d0c3fa",
+    "cellComposition": {
+      "C": 24.0,
+      "H": 24.0
+    },
+    "formulaUnitsZ": 4.0,
+    "conditions": {
+      "temperatureK": "150(2)",
+      "pressureKPa": null,
+      "hydrogenTreatment": "geom"
+    },
+    "decision": "Mẫu benzen ở 150 K, không dùng mẫu benzen đông bằng áp suất ở 296 K. Tọa độ H được dựng theo hình học trong phép tinh chỉnh của nguồn."
+  },
+  {
+    "codId": "5910115",
+    "sha256": "52aa043390ce20714b9f720c5ec2ee40f6b63ae6a15d2bcdfcd7740912ad34a7",
+    "cellComposition": {
+      "C": 8.0,
+      "H": 24.0,
+      "O": 4.0
+    },
+    "formulaUnitsZ": 4.0,
+    "conditions": {
+      "temperatureK": "87",
+      "pressureKPa": null,
+      "hydrogenTreatment": null
+    },
+    "decision": "Cấu trúc ethanol ở 87 K; không ghép các tinh thể dimethyl ether cùng công thức C2H6O."
+  },
+  {
+    "codId": "4503066",
+    "sha256": "32cf5c752dea004f25e971f7e466942972e942f9e84764f2323f734460d470a8",
+    "cellComposition": {
+      "O": 4.0,
+      "H": 16.0,
+      "C": 4.0
+    },
+    "formulaUnitsZ": 4.0,
+    "conditions": {
+      "temperatureK": "122(2)",
+      "pressureKPa": null,
+      "hydrogenTreatment": "geom"
+    },
+    "decision": "Bản methanol tinh khiết 122 K trong công trình có cả co-crystal acetylene; không dùng bản co-crystal. H theo xử lý hình học của nguồn."
+  },
+  {
+    "codId": "7110463",
+    "sha256": "b100e2b96d1e91649adeb3fd629c1a01019b841592fdd4ab0ec2be79b05990bb",
+    "cellComposition": {
+      "C": 12.0,
+      "O": 4.0,
+      "H": 24.0
+    },
+    "formulaUnitsZ": 4.0,
+    "conditions": {
+      "temperatureK": "160(2)",
+      "pressureKPa": null,
+      "hydrogenTreatment": "difmap"
+    },
+    "decision": "Mẫu acetone ở 160 K; không dùng propanal cùng công thức hay mẫu acetone đo áp suất cao."
+  },
+  {
+    "codId": "2008187",
+    "sha256": "8f5b56484451a9be8db2508010829b5aa6e1db196ca1e3b1941e39a858b519a8",
+    "cellComposition": {
+      "O": 8.0,
+      "H": 16.0,
+      "C": 8.0
+    },
+    "formulaUnitsZ": 4.0,
+    "conditions": {
+      "temperatureK": "40(2)",
+      "pressureKPa": null,
+      "hydrogenTreatment": "refall"
+    },
+    "decision": "Cấu trúc acid acetic ở 40 K có tinh chỉnh H; không gán pha rắn lạnh này cho acid acetic lỏng ở điều kiện phòng."
+  },
+  {
+    "codId": "7050902",
+    "sha256": "ca3e57286ba93d79602e660d4806330e133cfb678f4cfbd9c38aae3fd162fcee",
+    "cellComposition": {
+      "C": 36.0,
+      "O": 16.0,
+      "H": 32.0
+    },
+    "formulaUnitsZ": 4.0,
+    "conditions": {
+      "temperatureK": "300(1)",
+      "pressureKPa": null,
+      "hydrogenTreatment": null
+    },
+    "decision": "Mẫu acetylsalicylic acid ở 300 K trong chuỗi nhiễu xạ neutron theo nhiệt độ; không dùng đồng phân methyl terephthalate cùng công thức."
+  },
+  {
+    "codId": "4504310",
+    "sha256": "e5186d88f7ab3f1cb1c1845f6d5ab3821df7fdc2e93759f32ada45592053085c",
+    "cellComposition": {
+      "N": 80.0,
+      "C": 160.0,
+      "H": 200.00000000000105,
+      "O": 40.0
+    },
+    "formulaUnitsZ": 20.0,
+    "conditions": {
+      "temperatureK": "100(1)",
+      "pressureKPa": null,
+      "hydrogenTreatment": "geom"
+    },
+    "decision": "Giữ các vị trí bất trật tự và occupancy của mẫu 100 K. Các vị trí bán phần biểu diễn cấu trúc trung bình, không phải tất cả nguyên tử cùng có mặt. H theo hình học nguồn."
+  },
+  {
+    "codId": "5000067",
+    "sha256": "dd7317c317a006ce72ef91dfd4730c6c79afb0a3bd18aa4dcebc3cda2fa0bb33",
+    "cellComposition": {
+      "C": 24.0,
+      "H": 48.0,
+      "O": 24.0
+    },
+    "formulaUnitsZ": 4.0,
+    "conditions": {
+      "temperatureK": null,
+      "pressureKPa": null,
+      "hydrogenTreatment": null
+    },
+    "decision": "Cấu trúc alpha-D-glucose từ nhiễu xạ neutron; không dùng chung tinh thể với fructose hoặc inositol cùng công thức."
+  },
+  {
+    "codId": "5000065",
+    "sha256": "837d0b70cb0e71347bfc0dda098ed2c3792ac984347ad95a47a8c208b39d8721",
+    "cellComposition": {
+      "C": 24.0,
+      "O": 24.0,
+      "H": 48.0
+    },
+    "formulaUnitsZ": 4.0,
+    "conditions": {
+      "temperatureK": null,
+      "pressureKPa": null,
+      "hydrogenTreatment": null
+    },
+    "decision": "Bản beta-D-fructose của Kanters và cộng sự; không thay bằng glucose, inositol hoặc beta-D,L-fructose racemic."
+  },
+  {
+    "codId": "1549467",
+    "sha256": "a8353d2b38bac8c3157e805180d493b1d0b22f6f2fc49b2938180eaa43caae3c",
+    "cellComposition": {
+      "Na": 4.0,
+      "O": 7.999999999999998,
+      "C": 8.0,
+      "H": 12.0
+    },
+    "formulaUnitsZ": 4.0,
+    "conditions": {
+      "temperatureK": "100(2)",
+      "pressureKPa": null,
+      "hydrogenTreatment": "difmap"
+    },
+    "decision": "Mẫu sodium acetate Pcca ở 100 K; giữ đúng các nhóm vị trí bất trật tự và độ chiếm chỗ. Không dùng trihydrate."
+  },
+  {
+    "codId": "2300557",
+    "sha256": "885d88b5054e1fdc84284e02af5463ea325a3afb890c0605ffc6efb612cc98e3",
+    "cellComposition": {
+      "O": 22.0,
+      "C": 24.0,
+      "H": 44.0
+    },
+    "formulaUnitsZ": 2.0,
+    "conditions": {
+      "temperatureK": "298",
+      "pressureKPa": null,
+      "hydrogenTreatment": "mixed"
+    },
+    "decision": "Dữ liệu sucrose 298 K trong nghiên cứu kiểm tra ràng buộc khi tinh chỉnh Rietveld; H và liên kết chịu các ràng buộc của phép tinh chỉnh. Không dùng lactose hay trehalose cùng công thức."
+  }
+]

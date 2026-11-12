@@ -1,0 +1,61 @@
+                                                                                                                                                                                        6
+
+into  the  magnetically  ordered  state  CrI3   [18].    A  similar  type                       to  nearly  linear  at  low  ﬁelds,  characteristic  of  the  behavior  ex-
+of  coupling  between  the  crystal  structure  and  magnetic  order                            pected  for  polarizing  an  antiferromagnet  with  low  anisotropy.
+may  be  expected in  CrCl3,  though the  present  diffraction mea-                             Thus,   the   data   suggests   the   onset   of   ferromagnetic   correla-
+surements  do not  extend to  low  enough temperature to  test  this                            tions  at  17 K  and  antiferromagnetic  order  at  13 K,  in   general
+hypothesis.      A   detailed   crystallographic   study   of   chromium                        agreement  with  Kuhlow’s  observations  [34].
+trihalides  through  the  magnetic  ordering  temperatures  as  well                               Results  of  heat  capacity  measurements  on  our  CrCl3   crys-
+as  a  comparative  theoretical  study  incorporating non-collinear                             tals   are   summarized  in   Figure   3.    The   data   clearly  show   two
+magnetic   structures   and   spin-orbit   coupling   would   be   desir-                       thermal   anomalies,   a   broad   feature   centered   at   17.2 K   and   a
+able   to   help   quantify  and   better   understand  the   coupling  be-                     sharp   lambda-like   peak   centered   at   14.1 K.   Data   from   two
+tween  the  magnetism  and  the  lattice  in  these  compounds.                                 samples   are   shown   in   Figure   3a   and   they   are   nearly   identi-
+                                                                                                cal.     These   well-resolved   anomalies   are   not   reported   in   pre-
+                                                                                                vious  heat  capacity  studies,  which  only  observe  a  broad  peak
+             B.        Magnetic  behavior  and  phase  transitions                              near  17 K  [25,  48].   The  presence  of  two  well-separated  ther-
+                                                                                                mal  signatures  in  the  heat  capacity  data  at  low  magnetic  ﬁelds
+   Magnetization  data  from  our  crystals  near  the  magnetic  or-                           shown  in  Figure  3a  strongly  supports  the  interpretation  of  the
+dering   transitions   are   summarized   in   Figure   2b-c.     The   tem-                    magnetic  data  in  terms  of  the  evolution  of  magnetic  order  pro-
+perature  dependent  data  were  collected  upon  cooling,  and  the                            posed  by  Kuhlow  [34]  and  described  above.
+isothermal  magnetization curves  were  collected  upon decreas-                                   The   magnetic   heat   capacity  cmag    was   estimated   by   sub-
+ing  the applied ﬁeld.  The  results  are  in  general agreement with                           tracting   a   smooth   curve   ﬁtted   to   the   zero   ﬁeld   data   at   tem-
+previous   studies    employing   a   variety   of    techniques,    which                      peratures  between  2  and  50 K  excluding  the  7.5−33 K  range.
+ﬁnd   below   about   14 K   moments   in   each   layer   ferromagneti-                        Figure  3c  shows  results  for  data  collected  in  applied  magnetic
+cally  aligned  and  lying  in  the  ab-plane  with  antiferromagnetic                          ﬁelds  of  0  and  5 kOe.   Integrating cmag/T   to  extract  the  mag-
+stacking  between  planes  along  the  c-axis  and  weak  magnetic                              netic   entropy   released   up   to   30 K   gives   about   2 J K−1  mol-
+anisotropy   [26,   34–36].     The   temperature  dependence   of   the                        Cr−1   at   both   ﬁelds.    This   is   a   small   fraction   of   the   expected
+magnetic  moment  per  Cr  atom  measured  near  the  Curie  tem-                               value of Rln(2S+1) = 11.5 J K−1  mol-Cr−1,  and suggests  that
+perature  is  shown  in  Figure  2b.    At  4 K  and  2 T  a  moment  of                        most  of  the  magnetic  entropy  is  released  as  magnetic  correla-
+3.0 µB   per  Cr  is  measured,  as  expected  for  S =  3                                      tions  develop  well  above  the  onset  of  long  range  order.  This  is
+                                                                     2   trivalent  Cr.         consistent  with  previous  observations  for  isostructural  CrBr3
+Data  are  shown  for  multiple  applied  magnetic  ﬁelds  (no  cor-                            and  CrI3  [18,  49].
+rection   for   demagnetization)  with   the   ﬁeld   both   in   the   plane
+of  the  CrCl3   layers  and  out  of  the  plane.   The  curves  are  very                        Similarly  small  lambda  anomalies  have  been  reported at  the
+similar   to   those   reported   in   Ref.     35.     Kuhlow   reported   sim-                long  range  ordering  temperatures  in  honeycomb layered  com-
+ilar   behavior  in  Faraday-rotation  measurements  [34].    In  that                          pounds, for example MnPS3  [50,  51] and  BaCo2(AsO4)2  [52],
+study,   the   magneto-optical   measurements   indicated   that   the                          in  which  magnetic  ﬂuctuations  are  expected  to  be  responsible
+magnetic   order   developed   in   two   steps   upon   cooling,   corre-                      for  the  “missing”  entropy.   Development  of  these  ﬂuctuations
+sponding   to   the   upturn   in   the   measured   magnetization   (Fig.                      produces  a  very  broad  contribution  to  the  temperature  depen-
+2b)  below  about  20 K  and  the  sharp  cusp  apparent  in  low  ﬁeld                         dence  of  the  heat  capacity  extending  to  well  above  the  order-
+measurements   near   14 K.   This   was   interpreted   as   2D   ferro-                       ing  temperature.  Thus,  while  signiﬁcant  magnetic  ﬂuctuations
+magnetic  order  within  the  layers  developing  ﬁrst,   with  inter-                          are  expected  to  be  present  in  CrCl3,  they  are  likely  not  the  ori-
+layer   long-range   antiferromagnetic   order   setting   in   at   lower                      gin   of   the   ferromagnetic-like  response   seen   just   above  14 K,
+temperature.                                                                                    since   a   relatively  sharp   thermal  anomaly  is   seen   at   the   onset
+   This   two-step   development  of   magnetic   order   can   also   be                       of  that  behavior.
+inferred  from  the  isothermal  magnetization  curves  of  Bizette                                To   further   probe   the   nature   of   the   magnetic   phase   transi-
+et  al.  [35],  as  pointed  out  by  Kuhlow,  who  saw  similar  behav-                        tions,   heat   capacity   data   were   collected   in   applied   magnetic
+ior  in  isothermal  Faraday  rotation  curves  [34].   This  behavior                          ﬁelds  (normal  to  the  CrCl3   layers)  and  the  data  are  presented
+is   demonstrated   for   the   crystals   used   in   the   present   study   in               in  Figure  3b.   For  small  applied  magnetic  ﬁelds,  up  to  2 kOe,
+Figure  2c.    Magnetization  is   shown  as   a   function  of   ﬁeld   for                    the   feature   near   17 K   is   nearly   unchanged   while   the   feature
+temperatures  between  10  and  20 K,  with  the  ﬁeld  applied  out                            at   14 K   is   suppressed   in   magnitude  and   temperature.    At   ap-
+of   the   plane   deﬁned   by   the   CrCl3   layers   and   with   the   ﬁeld                 plied  ﬁelds  of  5 kOe  and  higher  the  low  temperature  feature  is
+applied   out   of   this   plane.     Data   collected   with   the   ﬁeld   nor-              completely  suppressed  and  the  17 K  feature  begins  to  broaden
+mal   to   the   thin   platelet   crystals   was   corrected   for   demagne-                  and  move  to  higher  temperature.    The  latter   behavior  is  typi-
+tization   effects   by   assuming   a   demagnetization   factor   of   4π                     cal  of  heat  capacity  anomalies  associated  with  ferromagnetic
+(cgs  units).   The  curves  in  Figure  2c  can  be  divided  into  three                      order,  which  is  reinforced  by  an  applied  magnetic  ﬁeld.    The
+families   based   on   their   curvature,   and   are   delineated   by   dif-                 heat  capacity  anomaly  at  14 K  is  suppressed  with  ﬁeld  much
+ferent  colors  and  symbols  in   the   ﬁgure.    The   distinctions  are                      more  rapidly  than  is  seen  in  typical  antiferromagnets.   In  this
+most  apparent  in  the  out  of  plane  data.   Between  20  and  18 K                         case,  such  behavior  can  be  attributed  to  the  competing  ferro-
+the  curves  are  linear.    At  17 K  a  negative  curvature  develops,                        magnetic  order  at  low  applied  ﬁelds  in  this  weakly  anisotropic
+indicating  a  ferromagnetic-like  response.  This  behavior  is  en-                           magnetic  system.
+hanced   upon   cooling   to   14 K.   At   13 K   the   response   changes                        Two   heat   capacity   anomalies   have   been   observed   in   data

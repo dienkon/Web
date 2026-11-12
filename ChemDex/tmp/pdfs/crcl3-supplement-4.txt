@@ -1,0 +1,46 @@
+Supplementary Note 3. Polarization during remagnetization
+The micromagnetic energy of CrCl in an external in-plane magnetic field comprises two terms: the
+3
+energy of interactions between the magnetization vectors of neighboring monolayers and the energy of
+interactions between the magnetization vectors of the monolayers and the magnetic field.19 For a
+magnetic field 𝜇 𝑯 applied along zero-angle,
+(cid:2868)
+𝑈(cid:3435)𝛼 𝛼 𝐻(cid:3439)=𝜇 𝑀 𝐻 ∑(cid:3015)-(cid:2869) 𝑐𝑜𝑠(𝛼 -𝛼 )-𝜇 𝑀 𝐻∑(cid:3015)𝑐𝑜𝑠(𝛼 ) (1)
+(cid:2869), (cid:2870),... (cid:2868) (cid:3046) (cid:3032)(cid:3051) (cid:3036),(cid:3036)+(cid:2869) (cid:3036)+(cid:2869) (cid:3036) (cid:2868) (cid:3046) (cid:3036) (cid:3036)
+where 𝛼 is the angle between the ith monolayer’s magnetization 𝑴 and the applied magnetic field
+(cid:3036) 𝒔
+and 𝐻 is the exchange interaction field (0.1 T for bulk CrCl ).
+(cid:3032)(cid:3051) 3
+This equation can be solved easily for a bilayer, as demonstrated in Ref.[3]. When an external magnetic
+field is applied to a bilayer of CrCl the magnetization of the monolayers becomes orthogonal to the
+3,
+external field and the layers remain in antiferromagnetic order. This means that spin flop in the bilayer
+takes place at 0 T.[3] The magnetization cants towards the external magnetic field as the field is increased
+until a so-called spin flip occurs, when the magnetizations of both monolayers align with the external
+magnetic field of 𝐻 ,[3] as visualized schematically in Fig. S9a. In this case, the PL intensity of a
+(cid:3032)(cid:3051)
+bilayer with 𝛼 (𝐻 =0) = 0, measured with the analyzer set to 𝛼 = 𝛼 ,𝛼 +90°, follows the trend
+(cid:2869) (cid:3028) (cid:2869) (cid:2869)
+shown in Fig. S9b. The polarization direction switches from 90° to 0° at 𝐻 = 0.7 𝐻 . At this field,
+(cid:3032)(cid:3051)
+the polarization degree is also the lowest. This behaviour can be expected by noticing that the
+polarization of light has a periodicity of 180°.
+There are no unique solutions for more than two layers. For three layers, if one assumes that 𝛼 = 𝛼
+(cid:2869) (cid:2871)
+at any field and that 𝛼 (𝐻=0) =0, the PL intensity in bases set to 𝛼 = 𝛼 , 𝛼 +90° follows
+(cid:2869),(cid:2871) (cid:3028) (cid:2869) (cid:2869)
+the trend shown in Fig. S9c. The polarization is constant up to 𝐻 = 0.5 𝐻 , when a spin flop takes
+(cid:3032)(cid:3051)
+place. It then starts rotating and the DoP is reduced as a result of a strong increase in the minimum PL
+intensity polarization component and a weaker maximum reduction. The most significant rotation, of
+approximately 45°, is observed around 𝐻 = 0.8 𝐻 . Spin flip and saturation of polarization occur at
+(cid:3032)(cid:3051)
+𝐻 = 1.5 𝐻 .
+(cid:3032)(cid:3051)
+These two examples demonstrate that the magnetization process is complex and non-trivial to model,
+especially for thicker layers, where defects can locally pin the magnetization. However, according to
+Wang et al. [3], in the limit of bulk CrCl spin flop should occur as soon as the field is applied (𝐻 =0),
+3
+while spin flip should take place at 𝐻 =2𝐻 , in good agreement with our measurements.
+(cid:3032)(cid:3051)
+S4

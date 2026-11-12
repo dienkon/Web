@@ -81,25 +81,66 @@ export function parseCIF(raw) {
     expressions=['x,y,z'];
   }
   if(expressions.length>384)throw Error('Quá nhiều phép đối xứng CIF.');
-  const ops=expressions.map(symmetryOperator),atoms=[];
+  const ops=expressions.map(symmetryOperator),atoms=[],expansionWarnings=[],sites=[];
   for(const row of xyzLoop.rows){
     const get=c=>row[xyzLoop.columns.indexOf(c)];
     const label=get('_atom_site_label')??get('_atom_site_type_symbol')??'';
     const element=(get('_atom_site_type_symbol')??label).match(/^[A-Z][a-z]?/)?.[0];
     if(!element)throw Error(`Không xác định được nguyên tố: ${label}`);
-    const fractional=['x','y','z'].map(k=>cifNumber(get('_atom_site_fract_'+k)));
+    const fractionalText=['x','y','z'].map(k=>get('_atom_site_fract_'+k));
+    const fractional=fractionalText.map(cifNumber);
     const occupancy=get('_atom_site_occupancy')===undefined?1:cifNumber(get('_atom_site_occupancy'));
     if(occupancy<0||occupancy>1.001)throw Error('Độ chiếm chỗ CIF không hợp lệ.');
-    const seen=[];
+    let seen=[];
     for(const op of ops){
       const frac=op(fractional).map(v=>{const f=((v%1)+1)%1;return Math.min(f,1-f)<2e-6?0:f;});
       if(seen.some(old=>old.every((v,k)=>Math.min(Math.abs(v-frac[k]),1-Math.abs(v-frac[k]))<2e-5)))continue;
-      seen.push(frac);const position=basis.map(r=>r.reduce((sum,v,k)=>sum+v*frac[k],0));
+      seen.push(frac);
+    }
+    const present=value=>value!==undefined && value!=='.' && value!=='?';
+    const modern=get('_atom_site_site_symmetry_multiplicity')??get('_atom_site.site_symmetry_multiplicity');
+    const order=get('_atom_site_site_symmetry_order')??get('_atom_site.site_symmetry_order');
+    const legacy=get('_atom_site_symmetry_multiplicity');
+    sites.push({label,element,occupancy,seen,fractionalText,
+      declared:present(modern)?cifNumber(modern):present(order)?expressions.length/cifNumber(order):null,
+      legacy:present(legacy)?cifNumber(legacy):null});
+  }
+  function reconciled(site,multiplicity){
+    if(!Number.isInteger(multiplicity)||multiplicity<1||multiplicity>expressions.length)return null;
+    if(site.seen.length===multiplicity)return site.seen;
+    if(site.seen.length<multiplicity)return null;
+    // Reconcile only duplicate images within the printed coordinate precision.
+    // The representative remains an original image, never a snapped coordinate.
+    const rounding=site.fractionalText.map(text=>{
+      const value=String(text).replace(/\(\d+\)/,'').split(/[eE]/);
+      const digits=(value[0].split('.')[1]??'').length;
+      return digits ? .5*Math.pow(10,(Number(value[1])||0)-digits) : 0;
+    });
+    const tolerance=Math.max(2e-5,Math.min(.001,6*Math.max(...rounding))),merged=[];
+    for(const frac of site.seen)if(!merged.some(old=>old.every((v,k)=>Math.min(Math.abs(v-frac[k]),1-Math.abs(v-frac[k]))<tolerance+1e-10)))merged.push(frac);
+    return merged.length===multiplicity?merged:null;
+  }
+  // IUCr deprecated this legacy tag because some software writes the site
+  // symmetry ORDER instead of multiplicity. Confirm the convention across the
+  // entire block; do not interpret each atom opportunistically.
+  const legacySites=sites.filter(s=>s.declared===null&&s.legacy!==null);
+  const legacyMultiplicity=legacySites.every(s=>reconciled(s,s.legacy));
+  const legacyOrder=legacySites.every(s=>reconciled(s,expressions.length/s.legacy));
+  if(legacySites.length&&!legacyMultiplicity&&!legacyOrder)throw Error('Bội số/thứ tự đối xứng cũ không nhất quán với toàn khối CIF.');
+  if(legacySites.length&&!legacyMultiplicity&&legacyOrder)expansionWarnings.push('Trường _atom_site_symmetry_multiplicity cũ chứa thứ tự đối xứng vị trí; diễn giải theo quy ước được xác nhận trên toàn khối.');
+  for(const site of sites){
+    const {label,element,occupancy}=site;
+    const multiplicity=site.declared??(site.legacy===null?null:legacyMultiplicity?site.legacy:expressions.length/site.legacy);
+    const expanded=multiplicity===null?site.seen:reconciled(site,multiplicity);
+    if(!expanded)throw Error(`Bội số vị trí ${label} không khớp tọa độ/đối xứng; không tự bổ sung hay sửa nguyên tử.`);
+    if(expanded.length!==site.seen.length)expansionWarnings.push(`Vị trí ${label}: gộp ảnh trùng do làm tròn theo bội số ${multiplicity} của CIF; không dịch chuyển tọa độ.`);
+    for(const frac of expanded){
+      const position=basis.map(r=>r.reduce((sum,v,k)=>sum+v*frac[k],0));
       atoms.push({elem:element,label,fractional:frac,occupancy,x:position[0],y:position[1],z:position[2]});
       if(atoms.length>20000)throw Error('CIF có quá nhiều vị trí nguyên tử để xem.');
     }
   }
   if(!atoms.length)throw Error('CIF không có nguyên tử.');
   // Distance alone does not establish a chemical bond or a bond order.
-  return {atoms,bonds:[],cell,basis,spaceGroup:symbol,symmetryOperations:expressions,periodic:true};
+  return {atoms,bonds:[],cell,basis,spaceGroup:symbol,symmetryOperations:expressions,periodic:true,expansionWarnings};
 }

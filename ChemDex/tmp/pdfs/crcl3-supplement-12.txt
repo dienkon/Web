@@ -1,0 +1,7 @@
+Fig. S8. Evolution of polarization-dependent PL emission with magnetic field at one location in Group S,
+with polarization angle 17º in zero magnetic field. (a-c) Polar plots of the ZPL signal plotted as a function of
+detection analyzer angle in external magnetic fields of 0, 0.05 and 0.2 T. The plots have the same radial scales
+and are normalized to the maximum counts. (d-f) Equivalent plots for the vibronic signal. The solid lines in
+(a-c) and (d-f) are fitted curves. Green arrows mark the preferred polarization direction. The DoP is given
+above the arrow.
+S12

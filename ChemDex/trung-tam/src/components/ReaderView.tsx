@@ -79,6 +79,19 @@ export function ReaderView({ doc, onBack, isBookmarked, onToggleBookmark, onTagC
 
   const recommendations = useMemo(() => doc ? getRecommendationsForDoc(doc.id) : [], [doc?.id]);
 
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    const target = e.currentTarget;
+    if (target.src.includes('substances/default.svg')) {
+      target.src = '/assets/library/covalent-bonds.svg';
+      return;
+    }
+    if (target.src.includes('covalent-bonds.svg')) {
+      target.onerror = null;
+      return;
+    }
+    target.src = '/assets/library/substances/default.svg';
+  };
+
   useEffect(() => {
     const checkMode = () => {
       setIsLight(document.body.classList.contains('light-mode'));
@@ -462,8 +475,9 @@ export function ReaderView({ doc, onBack, isBookmarked, onToggleBookmark, onTagC
               </div>
               <div className="w-full sm:w-64 aspect-[16/9] rounded-2xl overflow-hidden border border-sky-200/80 shadow-sm shrink-0 bg-white">
                 <img
-                  src={doc.image || '/assets/library/covalent-bonds.svg'}
-                  alt={doc.title}
+                  src={doc.image || '/assets/library/substances/default.svg'}
+                  alt=""
+                  onError={handleImageError}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -472,8 +486,9 @@ export function ReaderView({ doc, onBack, isBookmarked, onToggleBookmark, onTagC
         ) : (
           <div className="w-full h-[260px] sm:h-[340px] rounded-3xl overflow-hidden mb-8 bg-sky-50 border border-sky-200 shadow-md no-print">
             <img 
-              src={doc.image} 
-              alt={doc.title} 
+              src={doc.image || '/assets/library/substances/default.svg'}
+              alt=""
+              onError={handleImageError}
               className="w-full h-full object-cover"
             />
           </div>

@@ -1,0 +1,68 @@
+                                                                                                                                                                                                                            5
+
+
+
+TABLE  I.  Structural  parameters  from  DFT  calculations  using  PBE/GGA  and  vdW-DF-optB86b  for  bulk  CrCl3   in  the  monoclinic  and  rhom-
+bohedral  crystal  structures,  with  corresponding   experimental  values  from  Ref.   37.    Energies  given  in  eV/atom  can  be  converted   to  eV/Cr  by
+multiplying  by  four.
+                                                                                               Monoclinic, C2/m
+                                                                       non-magnetic                      ferromagnetic                   antiferromagnetic                  exp.   [37]
+                                                                    PBE              vdW-DF            PBE              vdW-DF            PBE              vdW-DF         T  = 298 K
+                                           a  (  ˚A)                5.992                 5.825       6.060                 5.944        6.039                 5.945           5.959
+                                           b  (  ˚A)               10.372               9.404        10.490             10.288          10.457             10.290             10.321
+                                           c  (  ˚A)                6.517                 6.086       6.656                 6.043        6.571                 6.036           6.114
+                                         β  (deg.)                  107.3                 107.5       107.1                 108.6        107.3                 108.7           108.5
+                                     vdW  gap  (  ˚A)               3.775                 3.100       3.869                 3.245        3.772                 3.205           3.299
+                                 Energy  (eV/atom)                     –                       -3.503     –                       -3.785    –                       -3.785        –
+                                                                                                Rhombohedral, R3
+                                                                       non-magnetic                      ferromagnetic                   antiferromagnetic                  exp.   [37]
+                                                                    PBE              vdW-DF            PBE              vdW-DF            PBE              vdW-DF         T  = 225 K
+                                           a  (  ˚A)                5.652                 5.563       6.054                 5.942        6.053                 5.930           5.942
+                                           c  (  ˚A)               19.641             17.288         19.239             17.088          19.027             17.184             17.333
+                                     vdW  gap  (  ˚A)               3.816                 3.035       3.746                 3.037        3.676                 3.070           3.093
+                                 Energy  (eV/atom)                     –                       -3.454     –                       -3.786    –                       -3.786        –
+
+
+
+                              CrCl3                                                                                                                            10 K                                         10 K
+
+
+                                                                                                                                                               14 K                                         14 K
+
+
+
+                                                                                                                                                               17 K                                         17 K
+
+
+                                                                                                                                                               20 K                                         20 K
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+FIG.   2.     Measured   magnetic   behavior   of   CrCl3   crystals.     (a)   Temperature   dependence   of   the   inverse   susceptibility   (H/M)   measured   with   a
+10 kOe  ﬁeld  applied   in  the  plane  showing   the  small  anomaly  at  the  structural  phase  transition  (inset)  and   Curie-Weiss  ﬁts  to  data  above  and
+below   the   transition.     (b)   Moment   per   Cr   atom   vs   temperature   near   the   magnetic   ordering   measured   upon   cooling   in   the   indicated   applied
+magnetic   ﬁelds   both   in   and   out   of   the   plane.     (c)   Isothermal   magnetization   curves   near   the   magnetic   ordering   temperatures.     Curves   were
+measured  at  temperature  intervals  of  1 K  and  data  sets  at  10,  14,  17,  and  20 K  are  labeled.   (d)  Moment  per  Cr  atom  measured  at  2 K.  Due  to
+the  thin  plate-like  shape  of  the  crystals,  a  demagnetization  factor  of  4π  (cgs  units)  was  used  to  determine  the  internal  ﬁeld  for  the  ﬁeld  out  of
+the  plane  measurements.   The  inset  shows  both  uncorrected  (open  circles)  and  corrected  data  (solid  circles).
