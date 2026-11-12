@@ -1,0 +1,12 @@
+{
+  "verifiedAt": "2026-11-12T00:43:21.128Z",
+  "branch": "main",
+  "implementationCommit": "1085ea003933064afa5f9a928cac1f64958657a0",
+  "remoteMainAtVerification": "1085ea003933064afa5f9a928cac1f64958657a0",
+  "push": "origin main; normal fast-forward; succeeded",
+  "filesInImplementationCommit": 688,
+  "scopeVerified": true,
+  "unrelatedWorktreeChanges": "Preserved; not staged in this implementation commit.",
+  "previewPartialStaging": "Only image/gif MIME added; concurrent library asset-serving changes remain in worktree.",
+  "auditPublication": "This verification is published in a subsequent documentation commit; use git log for that commit identity."
+}

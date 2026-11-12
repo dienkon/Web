@@ -2,6 +2,8 @@
 
 Ngày rà soát: 2026-11-12. Mốc Git trước đợt này: `3ebff2cd`. Phạm vi là cập nhật nối tiếp bộ kiểm duyệt 118 tài liệu gốc, ảnh tự nhiên và thư viện đã thực hiện trong các commit `de8bf50b`, `4eece242`, `3ebff2cd`.
 
+Đã commit và push phần triển khai lên `main`: `1085ea003933064afa5f9a928cac1f64958657a0` (688 file). [Xác nhận Git](git-verification.json) ghi kết quả đối chiếu remote và phạm vi file; báo cáo xác nhận được đưa lên bằng commit tài liệu nối tiếp.
+
 Đã cập nhật cả 118 trang nguyên tố. Cấu hình electron và mạng tinh thể chiếm hai hàng riêng có đủ chiều rộng trên desktop lẫn điện thoại. Ảnh ứng dụng có nguồn, tác giả, giấy phép ngay dưới ảnh. Bộ mô hình dùng metric ô mạng, nhóm không gian và tọa độ cụ thể; từng trang có phần đối chiếu Wikipedia và ghi rõ pha được chọn.
 
 ## Số lượng đã đối soát
