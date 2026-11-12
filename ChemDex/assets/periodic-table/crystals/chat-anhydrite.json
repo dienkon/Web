@@ -1,0 +1,485 @@
+{
+  "amcsdId": "0019829",
+  "mineralName": "Anhydrite · CaSO₄",
+  "formula": "Ca S O4",
+  "spaceGroup": "B b m m",
+  "cell": {
+    "a": 6.23,
+    "b": 6.98,
+    "c": 6.97,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 303.09323800000004,
+  "declaredVolume": 303.093,
+  "basis": [
+    [
+      6.23,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      6.98,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      6.97
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+x,y,1/2+z",
+    "-x,1/2+y,z",
+    "1/2-x,1/2+y,1/2+z",
+    "x,1/2-y,-z",
+    "1/2+x,1/2-y,1/2-z",
+    "x,y,-z",
+    "1/2+x,y,1/2-z",
+    "-x,-y,z",
+    "1/2-x,-y,1/2+z",
+    "x,1/2-y,z",
+    "1/2+x,1/2-y,1/2+z",
+    "-x,1/2+y,-z",
+    "1/2-x,1/2+y,1/2-z",
+    "-x,-y,-z",
+    "1/2-x,-y,1/2-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Ca",
+      "element": "Ca",
+      "fractional": [
+        0.346,
+        0.75,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "S",
+      "element": "S",
+      "fractional": [
+        0.154,
+        0.25,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.296,
+        0.08,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.02,
+        0.25,
+        0.173
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Ca",
+      "label": "Ca",
+      "fractional": [
+        0.346,
+        0.75,
+        0.0
+      ],
+      "position": [
+        2.15558,
+        5.235,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ca",
+      "label": "Ca",
+      "fractional": [
+        0.846,
+        0.75,
+        0.5
+      ],
+      "position": [
+        5.27058,
+        5.235,
+        3.485
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ca",
+      "label": "Ca",
+      "fractional": [
+        0.654,
+        0.25,
+        0.0
+      ],
+      "position": [
+        4.07442,
+        1.745,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ca",
+      "label": "Ca",
+      "fractional": [
+        0.154,
+        0.25,
+        0.5
+      ],
+      "position": [
+        0.95942,
+        1.745,
+        3.485
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.154,
+        0.25,
+        0.0
+      ],
+      "position": [
+        0.95942,
+        1.745,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.654,
+        0.25,
+        0.5
+      ],
+      "position": [
+        4.07442,
+        1.745,
+        3.485
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.846,
+        0.75,
+        0.0
+      ],
+      "position": [
+        5.27058,
+        5.235,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.346,
+        0.75,
+        0.5
+      ],
+      "position": [
+        2.15558,
+        5.235,
+        3.485
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.296,
+        0.08,
+        0.0
+      ],
+      "position": [
+        1.84408,
+        0.5584,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.796,
+        0.08,
+        0.5
+      ],
+      "position": [
+        4.95908,
+        0.5584,
+        3.485
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.704,
+        0.58,
+        0.0
+      ],
+      "position": [
+        4.38592,
+        4.0484,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.204,
+        0.58,
+        0.5
+      ],
+      "position": [
+        1.27092,
+        4.0484,
+        3.485
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.296,
+        0.42,
+        0.0
+      ],
+      "position": [
+        1.84408,
+        2.9316,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.796,
+        0.42,
+        0.5
+      ],
+      "position": [
+        4.95908,
+        2.9316,
+        3.485
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.704,
+        0.92,
+        0.0
+      ],
+      "position": [
+        4.38592,
+        6.4216,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.204,
+        0.92,
+        0.5
+      ],
+      "position": [
+        1.27092,
+        6.4216,
+        3.485
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.02,
+        0.25,
+        0.173
+      ],
+      "position": [
+        0.1246,
+        1.745,
+        1.20581
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.52,
+        0.25,
+        0.673
+      ],
+      "position": [
+        3.2396,
+        1.745,
+        4.69081
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.98,
+        0.75,
+        0.173
+      ],
+      "position": [
+        6.1054,
+        5.235,
+        1.20581
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.48,
+        0.75,
+        0.673
+      ],
+      "position": [
+        2.9904,
+        5.235,
+        4.69081
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.02,
+        0.25,
+        0.827
+      ],
+      "position": [
+        0.1246,
+        1.745,
+        5.76419
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.52,
+        0.25,
+        0.327
+      ],
+      "position": [
+        3.2396,
+        1.745,
+        2.27919
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.98,
+        0.75,
+        0.827
+      ],
+      "position": [
+        6.1054,
+        5.235,
+        5.76419
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.48,
+        0.75,
+        0.327
+      ],
+      "position": [
+        2.9904,
+        5.235,
+        2.27919
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 24,
+  "speciesPositionCount": 24,
+  "cellComposition": {
+    "Ca": 4,
+    "S": 4,
+    "O": 16
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Hohne E"
+    ],
+    "title": "A more accurate determination of the\n crystal structure of anhydrite, CaSO4",
+    "journal": "Soviet Physics Crystallography",
+    "year": 1962,
+    "volume": "7",
+    "pages": "559–569"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 16,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 7.852369178370959e-07
+  },
+  "id": "chat-anhydrite",
+  "note": "Pha khan; không thay cho gypsum."
+}

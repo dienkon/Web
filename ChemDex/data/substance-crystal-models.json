@@ -1,0 +1,1407 @@
+{
+  "schema": "chemdex.substance-crystals/1",
+  "date": "2026-11-12",
+  "structures": [
+    {
+      "id": "chat-cuprite",
+      "amcsdId": "0007351",
+      "mineralName": "Cuprite · Cu₂O",
+      "formula": "Cu2 O",
+      "spaceGroup": "P n 3",
+      "cell": {
+        "a": 4.2696,
+        "b": 4.2696,
+        "c": 4.2696,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 77.83260556953599,
+      "siteCount": 6,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Hafner S S",
+          "Nagel S"
+        ],
+        "title": "The electric field gradient at the position of copper in\n Cu2O and electronic charge density analysis by means of K-factors",
+        "journal": "Physics and Chemistry of Minerals",
+        "year": 1983,
+        "volume": "9",
+        "pages": "19–22"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Phân tích mật độ điện tích Cu2O; pha cuprite, không phải CuO.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-cuprite.json",
+      "cif": "/assets/periodic-table/crystals/chat-cuprite.cif",
+      "model": "/assets/periodic-table/crystals/chat-cuprite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-cuprite.png"
+    },
+    {
+      "id": "chat-tenorite",
+      "amcsdId": "0018033",
+      "mineralName": "Tenorite · CuO",
+      "formula": "Cu O",
+      "spaceGroup": "C 1 2/c 1",
+      "cell": {
+        "a": 4.653,
+        "b": 3.41,
+        "c": 5.108,
+        "alpha": 90.0,
+        "beta": 99.48,
+        "gamma": 90.0
+      },
+      "volume": 79.94040692902165,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Posnjak E",
+          "Ksanda C",
+          "Tunell G"
+        ],
+        "title": "Geometrical and optical properties, and crystal structure of tenorite\n _cod_database_code 1011148",
+        "journal": "Zeitschrift fur Kristallographie",
+        "year": 1935,
+        "volume": "90",
+        "pages": "120–142"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản cấu trúc tenorite; thông số đơn tà, không dùng mạng NaCl.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-tenorite.json",
+      "cif": "/assets/periodic-table/crystals/chat-tenorite.cif",
+      "model": "/assets/periodic-table/crystals/chat-tenorite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-tenorite.png"
+    },
+    {
+      "id": "chat-corundum",
+      "amcsdId": "0009325",
+      "mineralName": "Corundum · α-Al₂O₃",
+      "formula": "Al2 O3",
+      "spaceGroup": "R -3 c",
+      "cell": {
+        "a": 4.7602,
+        "b": 4.7602,
+        "c": 12.9933,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 254.97670093423974,
+      "siteCount": 30,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Schwarzenbach D",
+          "Lewis J",
+          "Flack H D"
+        ],
+        "title": "Electric field gradients and charge density in corundum alpha-Al2O3",
+        "journal": "Acta Crystallographica, Section A",
+        "year": 1982,
+        "volume": "38",
+        "pages": "733–739"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Pha alpha; không đại diện gamma alumina.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-corundum.json",
+      "cif": "/assets/periodic-table/crystals/chat-corundum.cif",
+      "model": "/assets/periodic-table/crystals/chat-corundum.glb",
+      "preview": "/assets/periodic-table/crystals/chat-corundum.png"
+    },
+    {
+      "id": "chat-periclase",
+      "amcsdId": "0000501",
+      "mineralName": "Periclase · MgO",
+      "formula": "Mg O",
+      "spaceGroup": "F m 3 m",
+      "cell": {
+        "a": 4.211,
+        "b": 4.211,
+        "c": 4.211,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 74.67164593100001,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Hazen R M"
+        ],
+        "title": "Effects of temperature and pressure on the cell dimension and X-ray temperature\n factors of periclase\n T = 24 C, P = 1 atm, standard mount",
+        "journal": "American Mineralogist",
+        "year": 1976,
+        "volume": "61",
+        "pages": "266–271"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "24 °C, 1 atm; standard mount.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-periclase.json",
+      "cif": "/assets/periodic-table/crystals/chat-periclase.cif",
+      "model": "/assets/periodic-table/crystals/chat-periclase.glb",
+      "preview": "/assets/periodic-table/crystals/chat-periclase.png"
+    },
+    {
+      "id": "chat-zincite",
+      "amcsdId": "0005203",
+      "mineralName": "Zincite · ZnO",
+      "formula": "Zn O",
+      "spaceGroup": "P 63 m c",
+      "cell": {
+        "a": 3.2494,
+        "b": 3.2494,
+        "c": 5.2038,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 47.58363119020375,
+      "siteCount": 4,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Kihara K",
+          "Donnay G"
+        ],
+        "title": "Anharmonic thermal vibrations in ZnO\n Model: 2-c, at T = 293 K",
+        "journal": "The Canadian Mineralogist",
+        "year": 1985,
+        "volume": "23",
+        "pages": "647–654"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Mẫu 293 K, model 2-c; pha wurtzite.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-zincite.json",
+      "cif": "/assets/periodic-table/crystals/chat-zincite.cif",
+      "model": "/assets/periodic-table/crystals/chat-zincite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-zincite.png"
+    },
+    {
+      "id": "chat-portlandite",
+      "amcsdId": "0000117",
+      "mineralName": "Portlandite · Ca(OH)₂",
+      "formula": "Ca O2 H2",
+      "spaceGroup": "P -3 m 1",
+      "cell": {
+        "a": 3.5925,
+        "b": 3.5925,
+        "c": 4.905,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 54.82305048121341,
+      "siteCount": 5,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Henderson D M",
+          "Gutowsky H S"
+        ],
+        "title": "A nuclear magnetic resonance determination of the hydrogen positions in Ca(OH)2\n T = 25 C",
+        "journal": "American Mineralogist",
+        "year": 1962,
+        "volume": "47",
+        "pages": "1231–1251"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Mẫu 25 °C, có vị trí hydrogen; đây là chất rắn, không phải nước vôi trong.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-portlandite.json",
+      "cif": "/assets/periodic-table/crystals/chat-portlandite.cif",
+      "model": "/assets/periodic-table/crystals/chat-portlandite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-portlandite.png"
+    },
+    {
+      "id": "chat-nitratine",
+      "amcsdId": "0009441",
+      "mineralName": "Nitratine · NaNO₃",
+      "formula": "Na N O3",
+      "spaceGroup": "R -3 c",
+      "cell": {
+        "a": 5.07,
+        "b": 5.07,
+        "c": 16.82,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 374.4316414772436,
+      "siteCount": 30,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Paul G L",
+          "Pryor A W"
+        ],
+        "title": "The study of sodium nitrate by neutron diffraction\n Sample: T = 20 C",
+        "journal": "Acta Crystallographica, Section B",
+        "year": 1972,
+        "volume": "28",
+        "pages": "2700–2702"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Nhiễu xạ neutron, mẫu 20 °C.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-nitratine.json",
+      "cif": "/assets/periodic-table/crystals/chat-nitratine.cif",
+      "model": "/assets/periodic-table/crystals/chat-nitratine.glb",
+      "preview": "/assets/periodic-table/crystals/chat-nitratine.png"
+    },
+    {
+      "id": "chat-niter",
+      "amcsdId": "0013162",
+      "mineralName": "KNO₃ · mẫu 25 °C",
+      "formula": "K N O3",
+      "spaceGroup": "P m c n",
+      "cell": {
+        "a": 5.4142,
+        "b": 9.1659,
+        "c": 6.4309,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 319.139944879602,
+      "siteCount": 20,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Nimmo J K",
+          "Lucas B W"
+        ],
+        "title": "A neutron diffraction determination of the crystal structure of\n alpha-phase potassium nitrate at 25 C and 100 C\n Sample: T = 25 C",
+        "journal": "Journal of Physics C: Solid State Physics",
+        "year": 1973,
+        "volume": "6",
+        "pages": "201–211"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Giữ nhãn pha của bài gốc; không dùng pha gamma thay cho mẫu này.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-niter.json",
+      "cif": "/assets/periodic-table/crystals/chat-niter.cif",
+      "model": "/assets/periodic-table/crystals/chat-niter.glb",
+      "preview": "/assets/periodic-table/crystals/chat-niter.png"
+    },
+    {
+      "id": "chat-sassolite",
+      "amcsdId": "0009809",
+      "mineralName": "Sassolite · H₃BO₃",
+      "formula": "B O3 H3",
+      "spaceGroup": "P -1",
+      "cell": {
+        "a": 7.0187,
+        "b": 7.035,
+        "c": 6.3472,
+        "alpha": 92.49,
+        "beta": 101.46,
+        "gamma": 119.76
+      },
+      "volume": 262.9012884175063,
+      "siteCount": 28,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Gajhede M",
+          "Larsen S",
+          "Rettrup S"
+        ],
+        "title": "Electron density of orthoboric acid determined by X-ray diffraction at\n 105 K and ab initio calculations\n Note: multipole refinement",
+        "journal": "Acta Crystallographica, Section B",
+        "year": 1986,
+        "volume": "42",
+        "pages": "545–552"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Mẫu 105 K, multipole refinement; không tự gán điều kiện phòng.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-sassolite.json",
+      "cif": "/assets/periodic-table/crystals/chat-sassolite.cif",
+      "model": "/assets/periodic-table/crystals/chat-sassolite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-sassolite.png"
+    },
+    {
+      "id": "chat-chalcanthite",
+      "amcsdId": "0010779",
+      "mineralName": "Chalcanthite · CuSO₄·5H₂O",
+      "formula": "Cu S O9 H10",
+      "spaceGroup": "P -1",
+      "cell": {
+        "a": 6.141,
+        "b": 10.736,
+        "c": 5.986,
+        "alpha": 82.27,
+        "beta": 107.43,
+        "gamma": 102.67
+      },
+      "volume": 366.3607338144434,
+      "siteCount": 42,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Bacon G E",
+          "Titterton D H"
+        ],
+        "title": "Neutron-diffraction studies of CuSO4*5(H2O) and CuSO4*5(D2O)",
+        "journal": "Zeitschrift fur Kristallographie",
+        "year": 1975,
+        "volume": "141",
+        "pages": "330–341"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Mẫu hydrogen trong nghiên cứu neutron; không dùng mẫu thay thế deuterium.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-chalcanthite.json",
+      "cif": "/assets/periodic-table/crystals/chat-chalcanthite.cif",
+      "model": "/assets/periodic-table/crystals/chat-chalcanthite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-chalcanthite.png"
+    },
+    {
+      "id": "chat-siderite",
+      "amcsdId": "0000101",
+      "mineralName": "Siderite · FeCO₃",
+      "formula": "Fe C O3",
+      "spaceGroup": "R -3 c",
+      "cell": {
+        "a": 4.6887,
+        "b": 4.6887,
+        "c": 15.373,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 292.6807442150602,
+      "siteCount": 30,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Graf D L"
+        ],
+        "title": "Crystallographic tables for the rhombohedral carbonates",
+        "journal": "American Mineralogist",
+        "year": 1961,
+        "volume": "46",
+        "pages": "1283–1316"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản tổng hợp carbonate rhombohedral; chưa gán nhiệt độ đo.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-siderite.json",
+      "cif": "/assets/periodic-table/crystals/chat-siderite.cif",
+      "model": "/assets/periodic-table/crystals/chat-siderite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-siderite.png"
+    },
+    {
+      "id": "chat-cerussite",
+      "amcsdId": "0011016",
+      "mineralName": "Cerussite · PbCO₃",
+      "formula": "Pb C O3",
+      "spaceGroup": "P m c n",
+      "cell": {
+        "a": 5.179,
+        "b": 8.492,
+        "c": 6.141,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 270.0815975880001,
+      "siteCount": 20,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Zemann J",
+          "Chevrier G",
+          "Giester G",
+          "Jarosch D",
+          "Heger G",
+          "Wildner M"
+        ],
+        "title": "Neutron single-crystal refinement of cerussite, PbCO3, and comparison with other\n aragonite-type carbonates",
+        "journal": "Zeitschrift fur Kristallographie",
+        "year": 1992,
+        "volume": "199",
+        "pages": "67–74"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Tinh chỉnh đơn tinh thể neutron; cấu trúc kiểu aragonite.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-cerussite.json",
+      "cif": "/assets/periodic-table/crystals/chat-cerussite.cif",
+      "model": "/assets/periodic-table/crystals/chat-cerussite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-cerussite.png"
+    },
+    {
+      "id": "chat-anglesite",
+      "amcsdId": "0005558",
+      "mineralName": "Anglesite · PbSO₄",
+      "formula": "Pb S O4",
+      "spaceGroup": "P b n m",
+      "cell": {
+        "a": 6.9549,
+        "b": 8.472,
+        "c": 5.3973,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 318.01923995544,
+      "siteCount": 24,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Downs R T",
+          "Smyth J R",
+          "Swope R J",
+          "Jacobsen S D"
+        ],
+        "title": "Rigid-body character of the SO4 groups in celestine, anglesite and\n barite",
+        "journal": "The Canadian Mineralogist",
+        "year": 1998,
+        "volume": "36",
+        "pages": "1053–1060"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Tinh chỉnh nhóm sulfate; không lấy bản ghi bị thiếu O.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-anglesite.json",
+      "cif": "/assets/periodic-table/crystals/chat-anglesite.cif",
+      "model": "/assets/periodic-table/crystals/chat-anglesite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-anglesite.png"
+    },
+    {
+      "id": "chat-witherite",
+      "amcsdId": "0000235",
+      "mineralName": "Witherite · BaCO₃",
+      "formula": "Ba C O3",
+      "spaceGroup": "P m c n",
+      "cell": {
+        "a": 5.3126,
+        "b": 8.8958,
+        "c": 6.4284,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 303.805072401072,
+      "siteCount": 20,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "de Villiers J P R"
+        ],
+        "title": "Crystal structures of aragonite, strontianite, and witherite",
+        "journal": "American Mineralogist",
+        "year": 1971,
+        "volume": "56",
+        "pages": "758–767"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Mẫu trong nghiên cứu carbonate orthorhombic.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-witherite.json",
+      "cif": "/assets/periodic-table/crystals/chat-witherite.cif",
+      "model": "/assets/periodic-table/crystals/chat-witherite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-witherite.png"
+    },
+    {
+      "id": "chat-strontianite",
+      "amcsdId": "0000234",
+      "mineralName": "Strontianite · SrCO₃",
+      "formula": "Sr C O3",
+      "spaceGroup": "P m c n",
+      "cell": {
+        "a": 5.09,
+        "b": 8.358,
+        "c": 5.997,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 255.12569334,
+      "siteCount": 20,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "de Villiers J P R"
+        ],
+        "title": "Crystal structures of aragonite, strontianite, and witherite",
+        "journal": "American Mineralogist",
+        "year": 1971,
+        "volume": "56",
+        "pages": "758–767"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Chọn mẫu đúng tỉ lượng; không dùng mẫu pha Ca.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-strontianite.json",
+      "cif": "/assets/periodic-table/crystals/chat-strontianite.cif",
+      "model": "/assets/periodic-table/crystals/chat-strontianite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-strontianite.png"
+    },
+    {
+      "id": "chat-massicot",
+      "amcsdId": "0010011",
+      "mineralName": "Massicot · β-PbO",
+      "formula": "Pb O",
+      "spaceGroup": "P b c m",
+      "cell": {
+        "a": 5.8931,
+        "b": 5.4904,
+        "c": 4.7528,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 153.779107473472,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Hill R J"
+        ],
+        "title": "Refinement of the structure of orthorhombic PbO (massicot) by\n Rietveld analysis of neutron powder diffraction data",
+        "journal": "Acta Crystallographica, Section C",
+        "year": 1985,
+        "volume": "41",
+        "pages": "1281–1284"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Pha trực thoi; khác litharge tứ phương.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-massicot.json",
+      "cif": "/assets/periodic-table/crystals/chat-massicot.cif",
+      "model": "/assets/periodic-table/crystals/chat-massicot.glb",
+      "preview": "/assets/periodic-table/crystals/chat-massicot.png"
+    },
+    {
+      "id": "chat-bunsenite",
+      "amcsdId": "0011371",
+      "mineralName": "Bunsenite · NiO",
+      "formula": "Ni O",
+      "spaceGroup": "F m 3 m",
+      "cell": {
+        "a": 4.1684,
+        "b": 4.1684,
+        "c": 4.1684,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 72.42827830150401,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n rocksalt structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "85–237"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Cấu trúc trung bình kiểu rocksalt từ tài liệu tổng hợp; không mô tả méo từ giảo.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-bunsenite.json",
+      "cif": "/assets/periodic-table/crystals/chat-bunsenite.cif",
+      "model": "/assets/periodic-table/crystals/chat-bunsenite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-bunsenite.png"
+    },
+    {
+      "id": "chat-otavite",
+      "amcsdId": "0000103",
+      "mineralName": "Otavite · CdCO₃",
+      "formula": "Cd C O3",
+      "spaceGroup": "R -3 c",
+      "cell": {
+        "a": 4.9204,
+        "b": 4.9204,
+        "c": 16.298,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 341.7163546918548,
+      "siteCount": 30,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Graf D L"
+        ],
+        "title": "Crystallographic tables for the rhombohedral carbonates",
+        "journal": "American Mineralogist",
+        "year": 1961,
+        "volume": "46",
+        "pages": "1283–1316"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản tổng hợp carbonate; không dùng dung dịch rắn Mg-Cd.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-otavite.json",
+      "cif": "/assets/periodic-table/crystals/chat-otavite.cif",
+      "model": "/assets/periodic-table/crystals/chat-otavite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-otavite.png"
+    },
+    {
+      "id": "chat-greenockite",
+      "amcsdId": "0015177",
+      "mineralName": "Greenockite · CdS",
+      "formula": "Cd S",
+      "spaceGroup": "P 63 m c",
+      "cell": {
+        "a": 4.137,
+        "b": 4.137,
+        "c": 6.7144,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 99.51965999331424,
+      "siteCount": 4,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Xu Y N",
+          "Ching W Y"
+        ],
+        "title": "Electronic, optical, and structural properties of some wurtzite crystals",
+        "journal": "Physical Review",
+        "year": 1993,
+        "volume": "B48",
+        "pages": "4335–4351"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Pha wurtzite; CdS còn có pha zincblende.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-greenockite.json",
+      "cif": "/assets/periodic-table/crystals/chat-greenockite.cif",
+      "model": "/assets/periodic-table/crystals/chat-greenockite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-greenockite.png"
+    },
+    {
+      "id": "chat-arcanite",
+      "amcsdId": "0009456",
+      "mineralName": "Arcanite · K₂SO₄",
+      "formula": "K2 S O4",
+      "spaceGroup": "P n a m",
+      "cell": {
+        "a": 7.476,
+        "b": 10.071,
+        "c": 5.763,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 433.900857348,
+      "siteCount": 28,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "McGinnety J A"
+        ],
+        "title": "Redetermination of the structures of potassium sulphate and potassium chromate:\n the effect of electrostatic crystal forces upon observed bond length",
+        "journal": "Acta Crystallographica, Section B",
+        "year": 1972,
+        "volume": "28",
+        "pages": "2845–2852"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản xác định lại cấu trúc potassium sulfate.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-arcanite.json",
+      "cif": "/assets/periodic-table/crystals/chat-arcanite.cif",
+      "model": "/assets/periodic-table/crystals/chat-arcanite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-arcanite.png"
+    },
+    {
+      "id": "chat-thenardite",
+      "amcsdId": "0005113",
+      "mineralName": "Thenardite · Na₂SO₄",
+      "formula": "Na2 S O4",
+      "spaceGroup": "F d d d",
+      "cell": {
+        "a": 9.829,
+        "b": 12.302,
+        "c": 5.868,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 709.5371887440001,
+      "siteCount": 56,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Hawthorne F C",
+          "Ferguson R B"
+        ],
+        "title": "Anhydrous sulphates. I: Refinement of the crystal structure of celestite\n with an appendix on the structure of thenardite",
+        "journal": "The Canadian Mineralogist",
+        "year": 1975,
+        "volume": "13",
+        "pages": "181–187"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Pha khan; không thay cho mirabilite ngậm nước.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-thenardite.json",
+      "cif": "/assets/periodic-table/crystals/chat-thenardite.cif",
+      "model": "/assets/periodic-table/crystals/chat-thenardite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-thenardite.png"
+    },
+    {
+      "id": "chat-anhydrite",
+      "amcsdId": "0019829",
+      "mineralName": "Anhydrite · CaSO₄",
+      "formula": "Ca S O4",
+      "spaceGroup": "B b m m",
+      "cell": {
+        "a": 6.23,
+        "b": 6.98,
+        "c": 6.97,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 303.09323800000004,
+      "siteCount": 24,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Hohne E"
+        ],
+        "title": "A more accurate determination of the\n crystal structure of anhydrite, CaSO4",
+        "journal": "Soviet Physics Crystallography",
+        "year": 1962,
+        "volume": "7",
+        "pages": "559–569"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Pha khan; không thay cho gypsum.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-anhydrite.json",
+      "cif": "/assets/periodic-table/crystals/chat-anhydrite.cif",
+      "model": "/assets/periodic-table/crystals/chat-anhydrite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-anhydrite.png"
+    },
+    {
+      "id": "chat-sellaite",
+      "amcsdId": "0009163",
+      "mineralName": "Sellaite · MgF₂",
+      "formula": "Mg F2",
+      "spaceGroup": "P 42/m n m",
+      "cell": {
+        "a": 4.625,
+        "b": 4.625,
+        "c": 3.052,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 65.2841875,
+      "siteCount": 6,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Baur W H"
+        ],
+        "title": "Uber die verfeinerung der kristallstrukturbestimmung einiger vertreter\n des rutiltyps: TiO2, SnO2, GeO2 und MgF2",
+        "journal": "Acta Crystallographica",
+        "year": 1956,
+        "volume": "9",
+        "pages": "515–520"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Cấu trúc kiểu rutile từ bản tinh chỉnh tọa độ.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-sellaite.json",
+      "cif": "/assets/periodic-table/crystals/chat-sellaite.cif",
+      "model": "/assets/periodic-table/crystals/chat-sellaite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-sellaite.png"
+    },
+    {
+      "id": "chat-villiaumite",
+      "amcsdId": "0009251",
+      "mineralName": "Villiaumite · NaF",
+      "formula": "Na F",
+      "spaceGroup": "F m 3 m",
+      "cell": {
+        "a": 4.634,
+        "b": 4.634,
+        "c": 4.634,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 99.51031210400004,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Deshpande V T"
+        ],
+        "title": "Thermal expansion of sodium fluoride and sodium bromide\n Note: T = 29.6 C, rocksalt structure",
+        "journal": "Acta Crystallographica",
+        "year": 1961,
+        "volume": "14",
+        "pages": "794–794"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Mẫu 29,6 °C; cấu trúc rocksalt.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-villiaumite.json",
+      "cif": "/assets/periodic-table/crystals/chat-villiaumite.cif",
+      "model": "/assets/periodic-table/crystals/chat-villiaumite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-villiaumite.png"
+    },
+    {
+      "id": "chat-lime",
+      "amcsdId": "0008276",
+      "mineralName": "Lime · CaO",
+      "formula": "Ca O",
+      "spaceGroup": "F m 3 m",
+      "cell": {
+        "a": 4.815,
+        "b": 4.815,
+        "c": 4.815,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 111.63204337500004,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Fiquet G",
+          "Richet P",
+          "Montagnac G"
+        ],
+        "title": "High-temperature thermal expansion of lime, periclase,\n corundum and spinel\n Sample: PtRh10% heating wire, T = 298 K",
+        "journal": "Physics and Chemistry of Minerals",
+        "year": 1999,
+        "volume": "27",
+        "pages": "103–111"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Mẫu 298 K; dây nung PtRh10% được nêu trong nguồn.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-lime.json",
+      "cif": "/assets/periodic-table/crystals/chat-lime.cif",
+      "model": "/assets/periodic-table/crystals/chat-lime.glb",
+      "preview": "/assets/periodic-table/crystals/chat-lime.png"
+    },
+    {
+      "id": "chat-sodium-bromide",
+      "amcsdId": "0009258",
+      "mineralName": "NaBr · rocksalt",
+      "formula": "Na Br",
+      "spaceGroup": "F m 3 m",
+      "cell": {
+        "a": 5.9738,
+        "b": 5.9738,
+        "c": 5.9738,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 213.18273793527197,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Deshpande V T"
+        ],
+        "title": "Thermal expansion of sodium fluoride and sodium bromide\n Note: T = 31.5 C, rocksalt structure",
+        "journal": "Acta Crystallographica",
+        "year": 1961,
+        "volume": "14",
+        "pages": "794–794"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Mẫu 31,5 °C; cấu trúc rocksalt.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-sodium-bromide.json",
+      "cif": "/assets/periodic-table/crystals/chat-sodium-bromide.cif",
+      "model": "/assets/periodic-table/crystals/chat-sodium-bromide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-sodium-bromide.png"
+    },
+    {
+      "id": "chat-potassium-bromide",
+      "amcsdId": "0011995",
+      "mineralName": "KBr · rocksalt",
+      "formula": "K Br",
+      "spaceGroup": "F m 3 m",
+      "cell": {
+        "a": 6.5847,
+        "b": 6.5847,
+        "c": 6.5847,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 285.501227400423,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Ahtee M"
+        ],
+        "title": "Lattice constants of some binary alkali halide solid solutions.",
+        "journal": "Annales Academiae Scientiarum Fennicae Series A6: Physica",
+        "year": 1969,
+        "volume": "313",
+        "pages": "1–11"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Lattice constants of binary alkali halides; không tự gán nhiệt độ.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-potassium-bromide.json",
+      "cif": "/assets/periodic-table/crystals/chat-potassium-bromide.cif",
+      "model": "/assets/periodic-table/crystals/chat-potassium-bromide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-potassium-bromide.png"
+    },
+    {
+      "id": "chat-lithium-chloride",
+      "amcsdId": "0011343",
+      "mineralName": "LiCl · rocksalt",
+      "formula": "Li Cl",
+      "spaceGroup": "F m 3 m",
+      "cell": {
+        "a": 5.12954,
+        "b": 5.12954,
+        "c": 5.12954,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 134.9693829344267,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n rocksalt structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "85–237"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Bản tài liệu tổng hợp; không coi là đo độc lập của ChemDex.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-lithium-chloride.json",
+      "cif": "/assets/periodic-table/crystals/chat-lithium-chloride.cif",
+      "model": "/assets/periodic-table/crystals/chat-lithium-chloride.glb",
+      "preview": "/assets/periodic-table/crystals/chat-lithium-chloride.png"
+    },
+    {
+      "id": "chat-hydrophilite",
+      "amcsdId": "0011763",
+      "mineralName": "Hydrophilite · CaCl₂",
+      "formula": "Ca Cl2",
+      "spaceGroup": "P n n m",
+      "cell": {
+        "a": 6.24,
+        "b": 6.43,
+        "c": 4.2,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 168.51744,
+      "siteCount": 6,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Note: distorted rutile structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "239–444"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Pha CaCl2 khan, rutile biến dạng.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-hydrophilite.json",
+      "cif": "/assets/periodic-table/crystals/chat-hydrophilite.cif",
+      "model": "/assets/periodic-table/crystals/chat-hydrophilite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-hydrophilite.png"
+    },
+    {
+      "id": "chat-tolbachite",
+      "amcsdId": "0001544",
+      "mineralName": "Tolbachite · CuCl₂",
+      "formula": "Cu Cl2",
+      "spaceGroup": "C 1 2/m 1",
+      "cell": {
+        "a": 6.9038,
+        "b": 3.2995,
+        "c": 6.824,
+        "alpha": 90.0,
+        "beta": 122.197,
+        "gamma": 90.0
+      },
+      "volume": 131.54040816696192,
+      "siteCount": 6,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Hawthorne F C",
+          "Burns P C"
+        ],
+        "title": "Tolbachite, CuCl2, the first example of Cu2+ octahedrally coordinated by Cl",
+        "journal": "American Mineralogist",
+        "year": 1993,
+        "volume": "78",
+        "pages": "187–189"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Pha CuCl2 khan; không dùng cho CuCl2·2H2O.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-tolbachite.json",
+      "cif": "/assets/periodic-table/crystals/chat-tolbachite.cif",
+      "model": "/assets/periodic-table/crystals/chat-tolbachite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-tolbachite.png"
+    },
+    {
+      "id": "chat-molysite",
+      "amcsdId": "0012857",
+      "mineralName": "Molysite · FeCl₃",
+      "formula": "Fe Cl3",
+      "spaceGroup": "R -3",
+      "cell": {
+        "a": 6.065,
+        "b": 6.065,
+        "c": 17.42,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 554.9327970344647,
+      "siteCount": 24,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Hashimoto S",
+          "Forster K",
+          "Moss S C"
+        ],
+        "title": "Structure refinement of an FeCl3 crystal using a thin plate sample",
+        "journal": "Journal of Applied Crystallography",
+        "year": 1988,
+        "volume": "22",
+        "pages": "173–180"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Tinh chỉnh mẫu bản mỏng FeCl3 khan.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-molysite.json",
+      "cif": "/assets/periodic-table/crystals/chat-molysite.cif",
+      "model": "/assets/periodic-table/crystals/chat-molysite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-molysite.png"
+    },
+    {
+      "id": "chat-salammoniac",
+      "amcsdId": "0015628",
+      "mineralName": "Salammoniac · NH₄Cl",
+      "formula": "N H4 Cl",
+      "spaceGroup": "P m -3 m",
+      "cell": {
+        "a": 3.86,
+        "b": 3.86,
+        "c": 3.86,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 57.51245599999999,
+      "siteCount": 10,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Vainshtein B K"
+        ],
+        "title": "Refinement of the structure of the group NH4\n in the structure of ammonium chloride",
+        "journal": "Trudy Instituta Kristallografii Akademiya Nauk SSSR",
+        "year": 1956,
+        "volume": "12",
+        "pages": "18–24"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Tinh chỉnh định hướng NH4; giữ occupancy từ bản gốc.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-salammoniac.json",
+      "cif": "/assets/periodic-table/crystals/chat-salammoniac.cif",
+      "model": "/assets/periodic-table/crystals/chat-salammoniac.glb",
+      "preview": "/assets/periodic-table/crystals/chat-salammoniac.png"
+    },
+    {
+      "id": "chat-lopezite",
+      "amcsdId": "0014228",
+      "mineralName": "Lopezite · K₂Cr₂O₇",
+      "formula": "K2 Cr2 O7",
+      "spaceGroup": "P -1",
+      "cell": {
+        "a": 7.42,
+        "b": 13.399,
+        "c": 7.3845,
+        "alpha": 98.03,
+        "beta": 90.88,
+        "gamma": 96.18
+      },
+      "volume": 722.4034327359745,
+      "siteCount": 44,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Brunton G"
+        ],
+        "title": "Refinement of the structure of K2Cr2O7",
+        "journal": "Materials Research Bulletin",
+        "year": 1973,
+        "volume": "8",
+        "pages": "271–274"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản tinh chỉnh cấu trúc; không trộn với beta-K2Cr2O7.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-lopezite.json",
+      "cif": "/assets/periodic-table/crystals/chat-lopezite.cif",
+      "model": "/assets/periodic-table/crystals/chat-lopezite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-lopezite.png"
+    },
+    {
+      "id": "chat-lead-iodide",
+      "amcsdId": "0011793",
+      "mineralName": "PbI₂ · kiểu CdI₂",
+      "formula": "Pb I2",
+      "spaceGroup": "P -3 m 1",
+      "cell": {
+        "a": 4.555,
+        "b": 4.555,
+        "c": 6.977,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 125.36494581373026,
+      "siteCount": 3,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Note: cadmium iodide structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "239–444"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Bản tổng hợp cấu trúc lớp; PbI2 có các polytype khác.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-lead-iodide.json",
+      "cif": "/assets/periodic-table/crystals/chat-lead-iodide.cif",
+      "model": "/assets/periodic-table/crystals/chat-lead-iodide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-lead-iodide.png"
+    },
+    {
+      "id": "chat-chalcocyanite",
+      "amcsdId": "0014619",
+      "mineralName": "Chalcocyanite · CuSO₄",
+      "formula": "Cu S O4",
+      "spaceGroup": "P n m a",
+      "cell": {
+        "a": 8.409,
+        "b": 6.709,
+        "c": 4.833,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 272.65843617300004,
+      "siteCount": 24,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Giester G",
+          "Wildner M"
+        ],
+        "title": "Crystal structure refinements of synthetic\n chalcocyanite (CuSO4) and zincosite (ZnSO4)",
+        "journal": "Mineralogy and Petrology",
+        "year": 1988,
+        "volume": "39",
+        "pages": "201–209"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Tinh chỉnh CuSO4 khan; không thay cho tinh thể pentahydrate màu xanh.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-chalcocyanite.json",
+      "cif": "/assets/periodic-table/crystals/chat-chalcocyanite.cif",
+      "model": "/assets/periodic-table/crystals/chat-chalcocyanite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-chalcocyanite.png"
+    },
+    {
+      "id": "chat-silver-chloride",
+      "amcsdId": "0015197",
+      "mineralName": "AgCl · Phase I",
+      "formula": "Ag Cl",
+      "spaceGroup": "F m 3 m",
+      "cell": {
+        "a": 5.5463,
+        "b": 5.5463,
+        "c": 5.5463,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 170.61219513784698,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Keen D A",
+          "Hull S"
+        ],
+        "title": "Pressure-induced phase transitions in AgCl, AgBr, and AgI\n Sample: P = 0.0 GPa, Phase I",
+        "journal": "Physical Review",
+        "year": 1999,
+        "volume": "B59",
+        "pages": "750–761"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Mẫu 0,0 GPa; pha I.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-silver-chloride.json",
+      "cif": "/assets/periodic-table/crystals/chat-silver-chloride.cif",
+      "model": "/assets/periodic-table/crystals/chat-silver-chloride.glb",
+      "preview": "/assets/periodic-table/crystals/chat-silver-chloride.png"
+    },
+    {
+      "id": "chat-silver-bromide",
+      "amcsdId": "0015213",
+      "mineralName": "AgBr · Phase I",
+      "formula": "Ag Br",
+      "spaceGroup": "F m 3 m",
+      "cell": {
+        "a": 5.7721,
+        "b": 5.7721,
+        "c": 5.7721,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 192.30985461636098,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Keen D A",
+          "Hull S"
+        ],
+        "title": "Pressure-induced phase transitions in AgCl, AgBr, and AgI\n Sample: P = 0.0 GPa, Phase I",
+        "journal": "Physical Review",
+        "year": 1999,
+        "volume": "B59",
+        "pages": "750–761"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Mẫu 0,0 GPa; pha I.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-silver-bromide.json",
+      "cif": "/assets/periodic-table/crystals/chat-silver-bromide.cif",
+      "model": "/assets/periodic-table/crystals/chat-silver-bromide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-silver-bromide.png"
+    },
+    {
+      "id": "chat-silver-iodide",
+      "amcsdId": "0015225",
+      "mineralName": "AgI · Phase II",
+      "formula": "Ag I",
+      "spaceGroup": "P 63 m c",
+      "cell": {
+        "a": 4.599,
+        "b": 4.599,
+        "c": 7.524,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 137.8180934663532,
+      "siteCount": 4,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Keen D A",
+          "Hull S"
+        ],
+        "title": "Pressure-induced phase transitions in AgCl, AgBr, and AgI\n Sample: P =  0.0 GPa, Phase II",
+        "journal": "Physical Review",
+        "year": 1999,
+        "volume": "B59",
+        "pages": "750–761"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Mẫu 0,0 GPa; giữ nhãn pha II của bản ghi gốc.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-silver-iodide.json",
+      "cif": "/assets/periodic-table/crystals/chat-silver-iodide.cif",
+      "model": "/assets/periodic-table/crystals/chat-silver-iodide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-silver-iodide.png"
+    }
+  ],
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "transportSha256": "94e5486b763a77ebd3300e950786bc787bfce8f2722c9ba2c7c99048bee7a67e"
+}

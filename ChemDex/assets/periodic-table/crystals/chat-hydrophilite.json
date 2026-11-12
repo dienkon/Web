@@ -1,0 +1,186 @@
+{
+  "amcsdId": "0011763",
+  "mineralName": "Hydrophilite · CaCl₂",
+  "formula": "Ca Cl2",
+  "spaceGroup": "P n n m",
+  "cell": {
+    "a": 6.24,
+    "b": 6.43,
+    "c": 4.2,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 168.51744,
+  "declaredVolume": 168.517,
+  "basis": [
+    [
+      6.24,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      6.43,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      4.2
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+x,1/2-y,1/2+z",
+    "1/2-x,1/2+y,1/2-z",
+    "1/2-x,1/2+y,1/2+z",
+    "1/2+x,1/2-y,1/2-z",
+    "x,y,-z",
+    "-x,-y,z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Ca",
+      "element": "Ca",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Cl",
+      "element": "Cl",
+      "fractional": [
+        0.275,
+        0.325,
+        0.0
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Ca",
+      "label": "Ca",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ca",
+      "label": "Ca",
+      "fractional": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "position": [
+        3.12,
+        3.215,
+        2.1
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.275,
+        0.325,
+        0.0
+      ],
+      "position": [
+        1.716,
+        2.08975,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.775,
+        0.175,
+        0.5
+      ],
+      "position": [
+        4.836,
+        1.12525,
+        2.1
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.225,
+        0.825,
+        0.5
+      ],
+      "position": [
+        1.404,
+        5.30475,
+        2.1
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.725,
+        0.675,
+        0.0
+      ],
+      "position": [
+        4.524,
+        4.34025,
+        0.0
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 6,
+  "speciesPositionCount": 6,
+  "cellComposition": {
+    "Ca": 2,
+    "Cl": 4
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Wyckoff R W G"
+    ],
+    "title": "Second edition. Interscience Publishers, New York, New York\n Note: distorted rutile structure",
+    "journal": "Crystal Structures",
+    "year": 1963,
+    "volume": "1",
+    "pages": "239–444"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "literature-compilation",
+  "validation": {
+    "operatorCount": 8,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 2.6110057214111104e-06
+  },
+  "id": "chat-hydrophilite",
+  "note": "Pha CaCl2 khan, rutile biến dạng."
+}

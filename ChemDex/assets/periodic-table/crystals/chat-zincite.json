@@ -1,0 +1,161 @@
+{
+  "amcsdId": "0005203",
+  "mineralName": "Zincite · ZnO",
+  "formula": "Zn O",
+  "spaceGroup": "P 63 m c",
+  "cell": {
+    "a": 3.2494,
+    "b": 3.2494,
+    "c": 5.2038,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 120.0
+  },
+  "volume": 47.58363119020375,
+  "declaredVolume": 47.584,
+  "basis": [
+    [
+      3.2494,
+      -1.6246999999999994,
+      0.0
+    ],
+    [
+      0.0,
+      2.814062947057155,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      5.2038
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "-x,-x+y,1/2+z",
+    "x-y,x,1/2+z",
+    "-y,-x,z",
+    "-y,x-y,z",
+    "x-y,-y,1/2+z",
+    "-x,-y,1/2+z",
+    "x,x-y,z",
+    "-x+y,-x,z",
+    "y,x,1/2+z",
+    "y,-x+y,1/2+z",
+    "-x+y,y,z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Zn",
+      "element": "Zn",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.3821
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Zn",
+      "label": "Zn",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.0
+      ],
+      "position": [
+        -4e-07,
+        1.8760422,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Zn",
+      "label": "Zn",
+      "fractional": [
+        0.66666675,
+        0.3333335,
+        0.5
+      ],
+      "position": [
+        1.6247,
+        0.9380215,
+        2.6019
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.3821
+      ],
+      "position": [
+        -4e-07,
+        1.8760422,
+        1.988372
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.66666675,
+        0.3333335,
+        0.8821
+      ],
+      "position": [
+        1.6247,
+        0.9380215,
+        4.590272
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 4,
+  "speciesPositionCount": 4,
+  "cellComposition": {
+    "Zn": 2,
+    "O": 2
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Kihara K",
+      "Donnay G"
+    ],
+    "title": "Anharmonic thermal vibrations in ZnO\n Model: 2-c, at T = 293 K",
+    "journal": "The Canadian Mineralogist",
+    "year": 1985,
+    "volume": "23",
+    "pages": "647–654"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 12,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 7.750770318104059e-06
+  },
+  "id": "chat-zincite",
+  "note": "Mẫu 293 K, model 2-c; pha wurtzite."
+}

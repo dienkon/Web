@@ -1,0 +1,92 @@
+{
+  "https://www.youtube.com/watch?v=7IT2I3LtlNE": {
+    "durationSeconds": 282,
+    "cues": [
+      {
+        "id": "ai-0",
+        "seconds": 15,
+        "at": 15,
+        "type": "single",
+        "question": "Tại sao natri được bảo quản dưới lớp dầu?",
+        "options": [
+          "Để làm cho nó mềm hơn.",
+          "Để ngăn chặn nó phản ứng với không khí và độ ẩm.",
+          "Để giữ cho nó sạch sẽ.",
+          "Để làm cho nó dễ cắt hơn."
+        ],
+        "answer": 1,
+        "explain": "Natri là một kim loại rất phản ứng, được bảo quản dưới dầu để ngăn nó tiếp xúc với không khí và độ ẩm, tránh quá trình oxy hóa và phản ứng.",
+        "evidence": "Người trong phòng thí nghiệm đang xử lý một khối natri lớn. Họ giải thích rằng natri là một kim loại rất phản ứng, được bảo quản dưới dầu để ngăn không khí hoặc độ ẩm tiếp xúc với nó, ngăn chặn quá trình oxy hóa và phản ứng."
+      },
+      {
+        "id": "ai-1",
+        "seconds": 30,
+        "at": 30,
+        "type": "single",
+        "question": "Ký hiệu nguyên tử của Natri là gì?",
+        "options": [
+          "So",
+          "Na",
+          "Sd",
+          "N"
+        ],
+        "answer": 1,
+        "explain": "Theo thông tin hiển thị trên màn hình, ký hiệu nguyên tử của Natri là Na.",
+        "evidence": "Màn hình hiển thị thông tin: \"Tên: Sodium, Số nguyên tử: 11, Ký hiệu: Na\"."
+      },
+      {
+        "id": "ai-2",
+        "seconds": 50,
+        "at": 50,
+        "type": "single",
+        "question": "Điều gì xảy ra với bề mặt sáng bóng của natri khi tiếp xúc với không khí?",
+        "options": [
+          "Nó trở nên sáng hơn.",
+          "Nó tan chảy.",
+          "Nó hình thành một lớp vỏ màu trắng.",
+          "Nó phát nổ."
+        ],
+        "answer": 2,
+        "explain": "Natri phản ứng rất nhanh với không khí và nước, tạo thành một lớp oxit hoặc hydroxit màu trắng trên bề mặt.",
+        "evidence": "Người trong phòng thí nghiệm cắt một miếng natri, để lộ bề mặt sáng bóng. Họ giải thích rằng natri phản ứng rất nhanh với không khí và nước, tạo thành một lớp oxit hoặc hydroxit màu trắng trên bề mặt."
+      },
+      {
+        "id": "ai-3",
+        "seconds": 150,
+        "at": 150,
+        "type": "single",
+        "question": "Khi natri phản ứng với nước, ngọn lửa có màu gì?",
+        "options": [
+          "Xanh lam",
+          "Xanh lục",
+          "Cam",
+          "Tím"
+        ],
+        "answer": 2,
+        "explain": "Phản ứng của natri với nước tạo ra nhiệt và khí hydro. Nhiệt này làm cho các nguyên tử natri bị kích thích và phát ra ánh sáng màu cam đặc trưng.",
+        "evidence": "Một người đàn ông thả một miếng natri vào bát nước. Natri phản ứng dữ dội, sủi bọt và tạo ra khí hydro. Nhiệt từ phản ứng đốt cháy hydro, tạo ra ngọn lửa màu cam."
+      },
+      {
+        "id": "ai-4",
+        "seconds": 248,
+        "at": 248,
+        "type": "single",
+        "question": "Natri clorua (muối ăn) có đặc điểm gì khi bị vỡ?",
+        "options": [
+          "Nó vỡ thành các mảnh tròn.",
+          "Nó vỡ thành các mảnh không đều.",
+          "Nó tạo thành các vết nứt vuông góc.",
+          "Nó tan chảy."
+        ],
+        "answer": 2,
+        "explain": "Natri clorua có cấu trúc tinh thể lập phương, do đó khi bị vỡ, nó có xu hướng tạo thành các vết nứt vuông góc.",
+        "evidence": "Giáo sư Poliakoff giải thích rằng natri clorua trong suốt với ánh sáng hồng ngoại. Ông chỉ vào một cửa sổ natri clorua bị vỡ và giải thích rằng nó tạo thành các vết nứt vuông góc do cấu trúc tinh thể lập phương của nó."
+      }
+    ],
+    "generatedBy": "AI",
+    "version": 1,
+    "url": "https://www.youtube.com/watch?v=7IT2I3LtlNE",
+    "title": "Sodium — Periodic Table of Videos",
+    "generatedAt": "2026-11-12T04:26:15.834Z"
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "date": "2026-11-12",
+  "branch": "main",
+  "node": {
+    "platform": 27,
+    "crystals": 5,
+    "learning": 7,
+    "total": 39
+  },
+  "browser": {
+    "regressionPassed": 18,
+    "finalFocusedPassed": 4,
+    "distinctCasesCovered": 19
+  },
+  "renderedNewCrystals": 38,
+  "liveAPI": {
+    "chat": {
+      "status": 200,
+      "elapsedMs": 4568,
+      "text": "Phương trình phản ứng Na với nước là:\n$$2\\ce{Na(s)} + 2\\ce{H2O(l)} \\to 2\\ce{NaOH(aq)} + \\ce{H2(g)}$$",
+      "questionCount": null,
+      "durationSeconds": null,
+      "error": null
+    },
+    "video": {
+      "status": 200,
+      "elapsedMs": 10,
+      "text": null,
+      "questionCount": 5,
+      "durationSeconds": 282,
+      "error": null
+    }
+  },
+  "limits": [
+    "123 of 482 non-mixture profiles have sourced crystal phases; remaining representations retain molecule/atom/component labels.",
+    "One video has prepared AI checkpoints; four other selected links analyze on demand and may fail or time out.",
+    "No assertion of 100% physical or scientific completeness."
+  ],
+  "coverage": {
+    "profiles": 482,
+    "withRepresentation": 482,
+    "withCrystal": 123,
+    "discoveryProfiles": 92
+  },
+  "sourceHashes": {
+    "data/substance-crystal-models.json": "cd920f92abdc6cebde7c3187eedcfd34d964e81cb27de9a7ba1b7ce2e7723eb0",
+    "shared/study-references.generated.json": "52a6a358d2aa58b6540c8319d867a3d25809064af391859652b97463e9830ccc",
+    "shared/substance-visuals.generated.json": "2b509425ff14c0f2f387c9f3d5cf6a828970ee040effe6738d36d5fbbae8b305",
+    "shared/video-catalog.json": "a494e09ef48539b3034ccc49ae2fb7c97738d4a79763467320bb3d6f6510e60d",
+    "shared/video-questions.generated.json": "6725178aa680298d60872850db6ef5fea98b7a77143d934c1823dc0809eb9f5b"
+  },
+  "publicSecretCheck": {
+    "filesChecked": 1095,
+    "keyExposed": false
+  }
+}

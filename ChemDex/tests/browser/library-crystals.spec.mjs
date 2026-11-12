@@ -2,6 +2,7 @@ import {test,expect} from '@playwright/test';
 import fs from 'node:fs';
 const refs=JSON.parse(fs.readFileSync('trung-tam/src/data/reference-index.generated.json','utf8'));
 const authored=JSON.parse(fs.readFileSync('trung-tam/src/data/index.json','utf8'));
+const biographies=JSON.parse(fs.readFileSync('trung-tam/src/data/biography-index.generated.json','utf8'));
 
 test('substance URLs load directly, reload and resolve old opaque links and saved IDs',async({page})=>{
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
@@ -27,7 +28,7 @@ test('substance URLs load directly, reload and resolve old opaque links and save
   expect(errors).toEqual([]);
 });
 
-test('all 487 named document chunks load with a matching identity',async({page})=>{
+test('all named document chunks, including discovery profiles, load with a matching identity',async({page})=>{
   test.setTimeout(180000);
   await page.goto('/trung-tam/tai-lieu-so/');
   await expect(page.getByRole('heading',{name:'Thư viện nguyên tố và hợp chất',exact:true})).toBeVisible();
@@ -46,7 +47,7 @@ test('all 487 named document chunks load with a matching identity',async({page})
     }));
     return found;
   },chunks);
-  expect(result).toHaveLength(487);
+  expect(result).toHaveLength(refs.length+authored.length+biographies.length);
   const byId=new Map(result.map(d=>[d.id,d]));
   for(const doc of [...refs,...authored]){
     expect(byId.get(doc.id)?.slug).toBe(doc.slug);
@@ -72,7 +73,7 @@ test('published mineral crystal controls preserve sources, metric and atom site 
   await expect(mineral).toContainText('R -3 c');
   await mineral.getByRole('button',{name:'Xem mạng tinh thể 3D'}).click();
   await expect(mineral.locator('[role=status]')).toHaveAttribute('data-state','ready');
-  await mineral.locator('summary').click();await expect(mineral.locator('tbody tr')).toHaveCount(2);
+  await mineral.locator('.crystal-evidence > summary').click();await expect(mineral.locator('tbody tr')).toHaveCount(2);
   await page.evaluate(()=>window.interlinkElement('H'));
   await expect(page.locator('[data-crystal-id="hematite"]')).toHaveCount(0);
   expect(errors).toEqual([]);
@@ -85,7 +86,7 @@ test('bauxite has separate phases and mobile crystal panels stay inside viewport
   const mineral=page.locator('[data-crystal-id="gibbsite"]');
   await mineral.getByRole('button',{name:'Xem mạng tinh thể 3D'}).click();
   await expect(mineral.locator('[role=status]')).toHaveAttribute('data-state','ready');
-  await mineral.locator('summary').click();
+  await mineral.locator('.crystal-evidence > summary').click();
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
   await page.goto('/trung-tam/tai-lieu-so/nuoc-h2o/');
   await expect(page.getByRole('heading',{level:1,name:/Nước/})).toBeVisible();

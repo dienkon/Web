@@ -1,0 +1,52 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0009809
+_database_code_amcsd 0009809
+_chemical_name_mineral 'Sassolite · H₃BO₃'
+_chemical_formula_sum 'B O3 H3'
+_symmetry_space_group_name_H-M 'P -1'
+_cell_length_a 7.0187
+_cell_length_b 7.035
+_cell_length_c 6.3472
+_cell_angle_alpha 92.49
+_cell_angle_beta 101.46
+_cell_angle_gamma 119.76
+_cell_volume 262.901288
+loop_
+_publ_author_name
+'Gajhede M'
+'Larsen S'
+'Rettrup S'
+_journal_name_full 'Acta Crystallographica, Section B'
+_journal_year 1986
+_journal_volume 42
+_publ_section_title
+;Electron density of orthoboric acid determined by X-ray diffraction at
+ 105 K and ab initio calculations
+ Note: multipole refinement
+;
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+-x,-y,-z
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+B1 B 0.64844 0.42648 0.26038 1
+B2 B 0.30894 0.75823 0.2394 1
+O1 O 0.42559 0.30116 0.26361 1
+O2 O 0.77245 0.32657 0.25137 1
+O3 O 0.74654 0.65032 0.26327 1
+O4 O 0.53531 0.8853 0.24873 1
+O5 O 0.21313 0.53531 0.24336 1
+O6 O 0.17974 0.85407 0.22874 1
+H1 H 0.3606 0.3931 0.2662 1
+H2 H 0.6848 0.1714 0.2582 1
+H3 H 0.9012 0.7201 0.2542 1
+H4 H 0.6106 0.8022 0.2631 1
+H5 H 0.058 0.463 0.2513 1
+H6 H 0.2619 1.013 0.2362 1

@@ -1,12 +1,13 @@
 import configData from '../data/config.json';
 import indexData from '../data/index.json';
 import referenceIndex from '../data/reference-index.generated.json';
+import biographyIndex from '../data/biography-index.generated.json';
 import { CategoryConfig, DocMeta, DocFull } from '../types';
 
 export type { CategoryConfig, DocMeta, DocFull };
 
 export const categories: CategoryConfig[] = configData.categories;
-export const libraryDocs: DocMeta[] = [...indexData.filter(doc=>doc.id.startsWith('chat-')),...referenceIndex,...indexData.filter(doc=>!doc.id.startsWith('chat-'))];
+export const libraryDocs: DocMeta[] = [...indexData.filter(doc=>doc.id.startsWith('chat-')),...referenceIndex,...biographyIndex,...indexData.filter(doc=>!doc.id.startsWith('chat-'))];
 
 export function getCategoryConfig(categoryId: string): CategoryConfig | undefined {
   return categories.find(c => c.id === categoryId);

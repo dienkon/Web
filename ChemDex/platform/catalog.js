@@ -29,7 +29,7 @@ export const tools = [
     id: "structures",
     title: "Cấu trúc phân tử 3D",
     description:
-      "Xoay phân tử, ion, muối phối trí và mạng tinh thể 3D; kiểm tra độ dài, góc liên kết thực tế và tra cứu PubChem.",
+      "Xoay phân tử, ion và mạng tinh thể 3D; đo khoảng cách, góc trên mô hình và xem nguồn tọa độ.",
     href: "/tien-ich/cau-truc-3d/",
     category: "Khám phá & Thực hành",
     mark: "⌬",

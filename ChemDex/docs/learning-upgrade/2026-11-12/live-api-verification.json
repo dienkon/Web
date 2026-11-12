@@ -1,0 +1,18 @@
+{
+  "chat": {
+    "status": 200,
+    "elapsedMs": 4568,
+    "text": "Phương trình phản ứng Na với nước là:\n$$2\\ce{Na(s)} + 2\\ce{H2O(l)} \\to 2\\ce{NaOH(aq)} + \\ce{H2(g)}$$",
+    "questionCount": null,
+    "durationSeconds": null,
+    "error": null
+  },
+  "video": {
+    "status": 200,
+    "elapsedMs": 10,
+    "text": null,
+    "questionCount": 5,
+    "durationSeconds": 282,
+    "error": null
+  }
+}

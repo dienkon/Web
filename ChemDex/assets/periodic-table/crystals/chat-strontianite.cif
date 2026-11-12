@@ -1,0 +1,42 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0000234
+_database_code_amcsd 0000234
+_chemical_name_mineral 'Strontianite · SrCO₃'
+_chemical_formula_sum 'Sr C O3'
+_symmetry_space_group_name_H-M 'P m c n'
+_cell_length_a 5.09
+_cell_length_b 8.358
+_cell_length_c 5.997
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 90
+_cell_volume 255.125693
+loop_
+_publ_author_name
+'de Villiers J P R'
+_journal_name_full 'American Mineralogist'
+_journal_year 1971
+_journal_volume 56
+_publ_section_title 'Crystal structures of aragonite, strontianite, and witherite'
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+1/2-x,y,z
+1/2+x,-y,-z
+1/2+x,1/2+y,1/2-z
+1/2-x,1/2-y,1/2+z
+x,1/2-y,1/2+z
+-x,1/2+y,1/2-z
+-x,-y,-z
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+Sr Sr 0.25 0.416 0.7569 1
+C C 0.25 0.7601 -0.0864 1
+O1 O 0.25 0.9119 -0.0946 1
+O2 O 0.4694 0.6821 -0.0839 1

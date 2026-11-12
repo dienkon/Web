@@ -1,0 +1,50 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0011016
+_database_code_amcsd 0011016
+_chemical_name_mineral 'Cerussite · PbCO₃'
+_chemical_formula_sum 'Pb C O3'
+_symmetry_space_group_name_H-M 'P m c n'
+_cell_length_a 5.179
+_cell_length_b 8.492
+_cell_length_c 6.141
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 90
+_cell_volume 270.081598
+loop_
+_publ_author_name
+'Zemann J'
+'Chevrier G'
+'Giester G'
+'Jarosch D'
+'Heger G'
+'Wildner M'
+_journal_name_full 'Zeitschrift fur Kristallographie'
+_journal_year 1992
+_journal_volume 199
+_publ_section_title
+;Neutron single-crystal refinement of cerussite, PbCO3, and comparison with other
+ aragonite-type carbonates
+;
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+1/2-x,y,z
+1/2+x,-y,-z
+1/2+x,1/2+y,1/2-z
+1/2-x,1/2-y,1/2+z
+x,1/2-y,1/2+z
+-x,1/2+y,1/2-z
+-x,-y,-z
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+Pb Pb 0.25 0.41702 0.2456 1
+C C 0.25 0.76221 0.08718 1
+O1 O 0.25 0.91299 0.09649 1
+O2 O 0.46445 0.68597 0.08893 1

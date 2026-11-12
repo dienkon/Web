@@ -1,0 +1,972 @@
+{
+  "amcsdId": "0005113",
+  "mineralName": "Thenardite · Na₂SO₄",
+  "formula": "Na2 S O4",
+  "spaceGroup": "F d d d",
+  "cell": {
+    "a": 9.829,
+    "b": 12.302,
+    "c": 5.868,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 709.5371887440001,
+  "declaredVolume": 709.537,
+  "basis": [
+    [
+      9.829,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      12.302,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      5.868
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "x,1/2+y,1/2+z",
+    "1/2+x,y,1/2+z",
+    "1/2+x,1/2+y,z",
+    "3/4+x,-y,3/4+z",
+    "3/4+x,1/2-y,1/4+z",
+    "1/4+x,-y,1/4+z",
+    "1/4+x,1/2-y,3/4+z",
+    "3/4-x,y,3/4-z",
+    "3/4-x,1/2+y,1/4-z",
+    "1/4-x,y,1/4-z",
+    "1/4-x,1/2+y,3/4-z",
+    "-x,3/4+y,3/4+z",
+    "-x,1/4+y,1/4+z",
+    "1/2-x,3/4+y,1/4+z",
+    "1/2-x,1/4+y,3/4+z",
+    "x,3/4-y,3/4-z",
+    "x,1/4-y,1/4-z",
+    "1/2+x,3/4-y,1/4-z",
+    "1/2+x,1/4-y,3/4-z",
+    "3/4+x,3/4+y,-z",
+    "3/4+x,1/4+y,1/2-z",
+    "1/4+x,3/4+y,1/2-z",
+    "1/4+x,1/4+y,-z",
+    "3/4-x,3/4-y,z",
+    "3/4-x,1/4-y,1/2+z",
+    "1/4-x,3/4-y,1/2+z",
+    "1/4-x,1/4-y,z",
+    "-x,-y,-z",
+    "-x,1/2-y,1/2-z",
+    "1/2-x,-y,1/2-z",
+    "1/2-x,1/2-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Na",
+      "element": "Na",
+      "fractional": [
+        0.4416,
+        0.125,
+        0.125
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "S",
+      "element": "S",
+      "fractional": [
+        0.125,
+        0.125,
+        0.125
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.2138,
+        0.0572,
+        0.9793
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Na",
+      "label": "Na",
+      "fractional": [
+        0.4416,
+        0.125,
+        0.125
+      ],
+      "position": [
+        4.3404864,
+        1.53775,
+        0.7335
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na",
+      "fractional": [
+        0.4416,
+        0.625,
+        0.625
+      ],
+      "position": [
+        4.3404864,
+        7.68875,
+        3.6675
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na",
+      "fractional": [
+        0.9416,
+        0.125,
+        0.625
+      ],
+      "position": [
+        9.2549864,
+        1.53775,
+        3.6675
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na",
+      "fractional": [
+        0.9416,
+        0.625,
+        0.125
+      ],
+      "position": [
+        9.2549864,
+        7.68875,
+        0.7335
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na",
+      "fractional": [
+        0.1916,
+        0.875,
+        0.875
+      ],
+      "position": [
+        1.8832364,
+        10.76425,
+        5.1345
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na",
+      "fractional": [
+        0.1916,
+        0.375,
+        0.375
+      ],
+      "position": [
+        1.8832364,
+        4.61325,
+        2.2005
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na",
+      "fractional": [
+        0.6916,
+        0.875,
+        0.375
+      ],
+      "position": [
+        6.7977364,
+        10.76425,
+        2.2005
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na",
+      "fractional": [
+        0.6916,
+        0.375,
+        0.875
+      ],
+      "position": [
+        6.7977364,
+        4.61325,
+        5.1345
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na",
+      "fractional": [
+        0.3084,
+        0.125,
+        0.625
+      ],
+      "position": [
+        3.0312636,
+        1.53775,
+        3.6675
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na",
+      "fractional": [
+        0.3084,
+        0.625,
+        0.125
+      ],
+      "position": [
+        3.0312636,
+        7.68875,
+        0.7335
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na",
+      "fractional": [
+        0.8084,
+        0.125,
+        0.125
+      ],
+      "position": [
+        7.9457636,
+        1.53775,
+        0.7335
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na",
+      "fractional": [
+        0.8084,
+        0.625,
+        0.625
+      ],
+      "position": [
+        7.9457636,
+        7.68875,
+        3.6675
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na",
+      "fractional": [
+        0.5584,
+        0.875,
+        0.875
+      ],
+      "position": [
+        5.4885136,
+        10.76425,
+        5.1345
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na",
+      "fractional": [
+        0.5584,
+        0.375,
+        0.375
+      ],
+      "position": [
+        5.4885136,
+        4.61325,
+        2.2005
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na",
+      "fractional": [
+        0.0584,
+        0.875,
+        0.375
+      ],
+      "position": [
+        0.5740136,
+        10.76425,
+        2.2005
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na",
+      "fractional": [
+        0.0584,
+        0.375,
+        0.875
+      ],
+      "position": [
+        0.5740136,
+        4.61325,
+        5.1345
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.125,
+        0.125,
+        0.125
+      ],
+      "position": [
+        1.228625,
+        1.53775,
+        0.7335
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.125,
+        0.625,
+        0.625
+      ],
+      "position": [
+        1.228625,
+        7.68875,
+        3.6675
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.625,
+        0.125,
+        0.625
+      ],
+      "position": [
+        6.143125,
+        1.53775,
+        3.6675
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.625,
+        0.625,
+        0.125
+      ],
+      "position": [
+        6.143125,
+        7.68875,
+        0.7335
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.875,
+        0.875,
+        0.875
+      ],
+      "position": [
+        8.600375,
+        10.76425,
+        5.1345
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.875,
+        0.375,
+        0.375
+      ],
+      "position": [
+        8.600375,
+        4.61325,
+        2.2005
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.375,
+        0.875,
+        0.375
+      ],
+      "position": [
+        3.685875,
+        10.76425,
+        2.2005
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.375,
+        0.375,
+        0.875
+      ],
+      "position": [
+        3.685875,
+        4.61325,
+        5.1345
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.2138,
+        0.0572,
+        0.9793
+      ],
+      "position": [
+        2.1014402,
+        0.7036744,
+        5.7465324
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.2138,
+        0.5572,
+        0.4793
+      ],
+      "position": [
+        2.1014402,
+        6.8546744,
+        2.8125324
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.7138,
+        0.0572,
+        0.4793
+      ],
+      "position": [
+        7.0159402,
+        0.7036744,
+        2.8125324
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.7138,
+        0.5572,
+        0.9793
+      ],
+      "position": [
+        7.0159402,
+        6.8546744,
+        5.7465324
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.9638,
+        0.9428,
+        0.7293
+      ],
+      "position": [
+        9.4731902,
+        11.5983256,
+        4.2795324
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.9638,
+        0.4428,
+        0.2293
+      ],
+      "position": [
+        9.4731902,
+        5.4473256,
+        1.3455324
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.4638,
+        0.9428,
+        0.2293
+      ],
+      "position": [
+        4.5586902,
+        11.5983256,
+        1.3455324
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.4638,
+        0.4428,
+        0.7293
+      ],
+      "position": [
+        4.5586902,
+        5.4473256,
+        4.2795324
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.5362,
+        0.0572,
+        0.7707
+      ],
+      "position": [
+        5.2703098,
+        0.7036744,
+        4.5224676
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.5362,
+        0.5572,
+        0.2707
+      ],
+      "position": [
+        5.2703098,
+        6.8546744,
+        1.5884676
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.0362,
+        0.0572,
+        0.2707
+      ],
+      "position": [
+        0.3558098,
+        0.7036744,
+        1.5884676
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.0362,
+        0.5572,
+        0.7707
+      ],
+      "position": [
+        0.3558098,
+        6.8546744,
+        4.5224676
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.7862,
+        0.8072,
+        0.7293
+      ],
+      "position": [
+        7.7275598,
+        9.9301744,
+        4.2795324
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.7862,
+        0.3072,
+        0.2293
+      ],
+      "position": [
+        7.7275598,
+        3.7791744,
+        1.3455324
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.2862,
+        0.8072,
+        0.2293
+      ],
+      "position": [
+        2.8130598,
+        9.9301744,
+        1.3455324
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.2862,
+        0.3072,
+        0.7293
+      ],
+      "position": [
+        2.8130598,
+        3.7791744,
+        4.2795324
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.2138,
+        0.6928,
+        0.7707
+      ],
+      "position": [
+        2.1014402,
+        8.5228256,
+        4.5224676
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.2138,
+        0.1928,
+        0.2707
+      ],
+      "position": [
+        2.1014402,
+        2.3718256,
+        1.5884676
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.7138,
+        0.6928,
+        0.2707
+      ],
+      "position": [
+        7.0159402,
+        8.5228256,
+        1.5884676
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.7138,
+        0.1928,
+        0.7707
+      ],
+      "position": [
+        7.0159402,
+        2.3718256,
+        4.5224676
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.9638,
+        0.8072,
+        0.0207
+      ],
+      "position": [
+        9.4731902,
+        9.9301744,
+        0.1214676
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.9638,
+        0.3072,
+        0.5207
+      ],
+      "position": [
+        9.4731902,
+        3.7791744,
+        3.0554676
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.4638,
+        0.8072,
+        0.5207
+      ],
+      "position": [
+        4.5586902,
+        9.9301744,
+        3.0554676
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.4638,
+        0.3072,
+        0.0207
+      ],
+      "position": [
+        4.5586902,
+        3.7791744,
+        0.1214676
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.5362,
+        0.6928,
+        0.9793
+      ],
+      "position": [
+        5.2703098,
+        8.5228256,
+        5.7465324
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.5362,
+        0.1928,
+        0.4793
+      ],
+      "position": [
+        5.2703098,
+        2.3718256,
+        2.8125324
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.0362,
+        0.6928,
+        0.4793
+      ],
+      "position": [
+        0.3558098,
+        8.5228256,
+        2.8125324
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.0362,
+        0.1928,
+        0.9793
+      ],
+      "position": [
+        0.3558098,
+        2.3718256,
+        5.7465324
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.7862,
+        0.9428,
+        0.0207
+      ],
+      "position": [
+        7.7275598,
+        11.5983256,
+        0.1214676
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.7862,
+        0.4428,
+        0.5207
+      ],
+      "position": [
+        7.7275598,
+        5.4473256,
+        3.0554676
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.2862,
+        0.9428,
+        0.5207
+      ],
+      "position": [
+        2.8130598,
+        11.5983256,
+        3.0554676
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.2862,
+        0.4428,
+        0.0207
+      ],
+      "position": [
+        2.8130598,
+        5.4473256,
+        0.1214676
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 56,
+  "speciesPositionCount": 56,
+  "cellComposition": {
+    "Na": 16,
+    "S": 8,
+    "O": 32
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Hawthorne F C",
+      "Ferguson R B"
+    ],
+    "title": "Anhydrous sulphates. I: Refinement of the crystal structure of celestite\n with an appendix on the structure of thenardite",
+    "journal": "The Canadian Mineralogist",
+    "year": 1975,
+    "volume": "13",
+    "pages": "181–187"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 32,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 2.6601001760624006e-07
+  },
+  "id": "chat-thenardite",
+  "note": "Pha khan; không thay cho mirabilite ngậm nước."
+}

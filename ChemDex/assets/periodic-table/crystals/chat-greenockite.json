@@ -1,0 +1,161 @@
+{
+  "amcsdId": "0015177",
+  "mineralName": "Greenockite · CdS",
+  "formula": "Cd S",
+  "spaceGroup": "P 63 m c",
+  "cell": {
+    "a": 4.137,
+    "b": 4.137,
+    "c": 6.7144,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 120.0
+  },
+  "volume": 99.51965999331424,
+  "declaredVolume": 99.52,
+  "basis": [
+    [
+      4.137,
+      -2.068499999999999,
+      0.0
+    ],
+    [
+      0.0,
+      3.5827470954562224,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      6.7144
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "-x,-x+y,1/2+z",
+    "x-y,x,1/2+z",
+    "-y,-x,z",
+    "-y,x-y,z",
+    "x-y,-y,1/2+z",
+    "-x,-y,1/2+z",
+    "x,x-y,z",
+    "-x+y,-x,z",
+    "y,x,1/2+z",
+    "y,-x+y,1/2+z",
+    "-x+y,y,z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Cd",
+      "element": "Cd",
+      "fractional": [
+        0.66666675,
+        0.33333325,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "S",
+      "element": "S",
+      "fractional": [
+        0.66666675,
+        0.33333325,
+        0.375
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Cd",
+      "label": "Cd",
+      "fractional": [
+        0.66666675,
+        0.33333325,
+        0.0
+      ],
+      "position": [
+        2.0685005,
+        1.1942487,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cd",
+      "label": "Cd",
+      "fractional": [
+        0.33333325,
+        0.6666665,
+        0.5
+      ],
+      "position": [
+        0.0,
+        2.3884975,
+        3.3572
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.66666675,
+        0.33333325,
+        0.375
+      ],
+      "position": [
+        2.0685005,
+        1.1942487,
+        2.5179
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.33333325,
+        0.6666665,
+        0.875
+      ],
+      "position": [
+        0.0,
+        2.3884975,
+        5.8751
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 4,
+  "speciesPositionCount": 4,
+  "cellComposition": {
+    "Cd": 2,
+    "S": 2
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Xu Y N",
+      "Ching W Y"
+    ],
+    "title": "Electronic, optical, and structural properties of some wurtzite crystals",
+    "journal": "Physical Review",
+    "year": 1993,
+    "volume": "B48",
+    "pages": "4335–4351"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 12,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 3.416477566178206e-06
+  },
+  "id": "chat-greenockite",
+  "note": "Pha wurtzite; CdS còn có pha zincblende."
+}

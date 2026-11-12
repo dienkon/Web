@@ -764,3 +764,25 @@
 .el-lanthanide:not(.hidden-series), .el-actinide:not(.hidden-series) { animation: slideDownRow 0.3s ease-out forwards; }
 
 .el-lanthanide.no-data, .el-actinide.no-data { display: none !important; }
+/* Trợ lý: bảng màu xanh ngọc, bề mặt sáng và công thức cuộn độc lập. */
+.chat-panel.glass { background:#f5fafb; color:#18394a; border:1px solid #b7d7df; box-shadow:0 20px 70px #092e4240; }
+.chat-panel .chat-drag-handle { background:#e1f1f3; border-color:#c7dfe4; }
+.chat-panel .chat-title { color:#155363; }
+.chat-panel .chat-subtitle { color:#526f7c; }
+.chat-panel .chat-chip { color:#285c70; background:#fff; border-color:#c4dce4; }
+.chat-panel .chat-chip:hover { background:#dceff5; }
+.chat-panel .chat-bubble-bot { background:#fff; color:#233e50; border-color:#d4e3e8; }
+.chat-panel .chat-bubble-user { background:#167c90; color:#fff; border-color:#167c90; box-shadow:none; }
+.chat-panel .chat-bubble { max-width:95%; min-width:0; overflow-wrap:anywhere; white-space:normal; }
+.chat-panel .chat-bubble strong { color:inherit; }
+.chat-panel #chat-input { background:#fff; color:#18394a; border-color:#b7d1db; }
+.chat-panel #chat-input:focus { outline:2px solid #48aabe; outline-offset:2px; }
+.chat-panel #chat-send-btn { background:#167c90; }
+.chat-panel #chat-send-btn:disabled { opacity:.5; cursor:wait; }
+.chat-panel .chat-reaction-card { background:#edf6fa; color:#234b61; border-color:#bad4e0; }
+.chat-panel .chat-reaction-title,.chat-panel .chat-reaction-desc,.chat-panel .chat-equation { color:#234b61; }
+.chat-panel .katex-display { overflow-x:auto; overflow-y:hidden; max-width:100%; margin:.6em 0; padding:.2em 0; }
+.chat-panel .katex { font-size:1.05em; }
+.chat-panel .chat-math-fallback { overflow-wrap:anywhere; }
+.chat-panel .chat-scroll { overscroll-behavior:contain; }
+@media(max-width:480px) { .chat-panel { right:8px; bottom:80px; width:calc(100vw - 16px); height:min(620px,calc(100dvh - 96px)); } }

@@ -1,0 +1,418 @@
+{
+  "amcsdId": "0013162",
+  "mineralName": "KNO₃ · mẫu 25 °C",
+  "formula": "K N O3",
+  "spaceGroup": "P m c n",
+  "cell": {
+    "a": 5.4142,
+    "b": 9.1659,
+    "c": 6.4309,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 319.139944879602,
+  "declaredVolume": 319.14,
+  "basis": [
+    [
+      5.4142,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      9.1659,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      6.4309
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2-x,y,z",
+    "1/2+x,-y,-z",
+    "1/2+x,1/2+y,1/2-z",
+    "1/2-x,1/2-y,1/2+z",
+    "x,1/2-y,1/2+z",
+    "-x,1/2+y,1/2-z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "K",
+      "element": "K",
+      "fractional": [
+        0.25,
+        0.4166,
+        0.7568
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "N",
+      "element": "N",
+      "fractional": [
+        0.25,
+        0.7548,
+        -0.0848
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.25,
+        0.8902,
+        -0.0893
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.4492,
+        0.6866,
+        -0.0849
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "K",
+      "label": "K",
+      "fractional": [
+        0.25,
+        0.4166,
+        0.7568
+      ],
+      "position": [
+        1.35355,
+        3.8185139,
+        4.8669051
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "K",
+      "label": "K",
+      "fractional": [
+        0.75,
+        0.5834,
+        0.2432
+      ],
+      "position": [
+        4.06065,
+        5.3473861,
+        1.5639949
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "K",
+      "label": "K",
+      "fractional": [
+        0.75,
+        0.9166,
+        0.7432
+      ],
+      "position": [
+        4.06065,
+        8.4014639,
+        4.7794449
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "K",
+      "label": "K",
+      "fractional": [
+        0.25,
+        0.0834,
+        0.2568
+      ],
+      "position": [
+        1.35355,
+        0.7644361,
+        1.6514551
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N",
+      "fractional": [
+        0.25,
+        0.7548,
+        0.9152
+      ],
+      "position": [
+        1.35355,
+        6.9184213,
+        5.8855597
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N",
+      "fractional": [
+        0.75,
+        0.2452,
+        0.0848
+      ],
+      "position": [
+        4.06065,
+        2.2474787,
+        0.5453403
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N",
+      "fractional": [
+        0.75,
+        0.2548,
+        0.5848
+      ],
+      "position": [
+        4.06065,
+        2.3354713,
+        3.7607903
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N",
+      "fractional": [
+        0.25,
+        0.7452,
+        0.4152
+      ],
+      "position": [
+        1.35355,
+        6.8304287,
+        2.6701097
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.25,
+        0.8902,
+        0.9107
+      ],
+      "position": [
+        1.35355,
+        8.1594842,
+        5.8566206
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.75,
+        0.1098,
+        0.0893
+      ],
+      "position": [
+        4.06065,
+        1.0064158,
+        0.5742794
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.75,
+        0.3902,
+        0.5893
+      ],
+      "position": [
+        4.06065,
+        3.5765342,
+        3.7897294
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.25,
+        0.6098,
+        0.4107
+      ],
+      "position": [
+        1.35355,
+        5.5893658,
+        2.6411706
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.4492,
+        0.6866,
+        0.9151
+      ],
+      "position": [
+        2.4320586,
+        6.2933069,
+        5.8849166
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.0508,
+        0.6866,
+        0.9151
+      ],
+      "position": [
+        0.2750414,
+        6.2933069,
+        5.8849166
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.9492,
+        0.3134,
+        0.0849
+      ],
+      "position": [
+        5.1391586,
+        2.8725931,
+        0.5459834
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.9492,
+        0.1866,
+        0.5849
+      ],
+      "position": [
+        5.1391586,
+        1.7103569,
+        3.7614334
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.0508,
+        0.8134,
+        0.4151
+      ],
+      "position": [
+        0.2750414,
+        7.4555431,
+        2.6694666
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.4492,
+        0.8134,
+        0.4151
+      ],
+      "position": [
+        2.4320586,
+        7.4555431,
+        2.6694666
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.5508,
+        0.1866,
+        0.5849
+      ],
+      "position": [
+        2.9821414,
+        1.7103569,
+        3.7614334
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.5508,
+        0.3134,
+        0.0849
+      ],
+      "position": [
+        2.9821414,
+        2.8725931,
+        0.5459834
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 20,
+  "speciesPositionCount": 20,
+  "cellComposition": {
+    "K": 4,
+    "N": 4,
+    "O": 12
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Nimmo J K",
+      "Lucas B W"
+    ],
+    "title": "A neutron diffraction determination of the crystal structure of\n alpha-phase potassium nitrate at 25 C and 100 C\n Sample: T = 25 C",
+    "journal": "Journal of Physics C: Solid State Physics",
+    "year": 1973,
+    "volume": "6",
+    "pages": "201–211"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 8,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.727154461806584e-07
+  },
+  "id": "chat-niter",
+  "note": "Giữ nhãn pha của bài gốc; không dùng pha gamma thay cho mẫu này."
+}

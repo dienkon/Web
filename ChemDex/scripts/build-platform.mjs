@@ -63,6 +63,12 @@ for (const folder of ["assets", "css", "js", "data", "shared"]) {
       filter: (p) => !/\.(?:ts|tsx|map)$/.test(p),
     });
 }
+fs.mkdirSync(path.join(output, 'vendor/katex'), { recursive: true });
+fs.copyFileSync('node_modules/katex/dist/katex.min.css', path.join(output, 'vendor/katex/katex.min.css'));
+fs.cpSync('node_modules/katex/dist/fonts', path.join(output, 'vendor/katex/fonts'), { recursive: true });
+fs.copyFileSync('node_modules/katex/dist/katex.mjs', path.join(output, 'vendor/katex/katex.mjs'));
+fs.mkdirSync(path.join(output, 'vendor/katex/contrib'), { recursive: true });
+fs.copyFileSync('node_modules/katex/dist/contrib/mhchem.mjs', path.join(output, 'vendor/katex/contrib/mhchem.mjs'));
 function copyStatic(directory, relative = "") {
   for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
     const rel = path.posix.join(relative, entry.name),
@@ -137,6 +143,7 @@ fs.copyFileSync("platform/sidebar.css", path.join(output, "platform/sidebar.css"
 fs.copyFileSync(path.join(output, "nguyen-to.html"), path.join(output, "index.html"));
 fs.mkdirSync(path.join(output, "licenses"), { recursive: true });
 fs.copyFileSync("node_modules/three/LICENSE", path.join(output, "licenses/three.txt"));
+fs.copyFileSync('node_modules/katex/LICENSE', path.join(output, 'licenses/katex.txt'));
 fs.copyFileSync(
   "node_modules/3dmol/LICENSE",
   path.join(output, "licenses/3dmol.txt"),

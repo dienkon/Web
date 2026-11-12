@@ -1,4 +1,7 @@
 import * as THREE from "three";
+import studyReferences from '../shared/study-references.generated.json' with { type: 'json' };
+import videoCatalog from '../shared/video-catalog.json' with { type: 'json' };
+import { resolveLabExperiment } from '../shared/chemistry/study-links.mjs';
 import {mountPublishedCrystal} from './three/published-crystal.js';
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import {
@@ -221,7 +224,7 @@ function buildReactionLatex(r = {}) {
 
   const raw = rawInput
     .replace(/\\rightleftharpoons|\\leftrightarrow|\\rightarrow/g, "→")
-    .replace(/^[\[\(]\s*|\s*[\]\)]$/g, "");
+    .replace(/^\\\[|\\\]$/g, "");
 
   const splitArrow = raw.split(/(?:→|->|⇌|↔|=)/, 2);
   const leftRaw = (splitArrow[0] || "").trim();
@@ -249,7 +252,8 @@ function buildReactionLatex(r = {}) {
       </span>`
     : `<span class="mx-4 align-middle flex items-center justify-center w-8 flex-shrink-0">${arrowSymbol === "⇌" ? arrowSvgReversible : arrowSvgRight}</span>`;
 
-  return `<span class="equation-side">${left}</span> ${arrowHtml} <span class="equation-side">${right}</span>`;
+  const lab = resolveLabExperiment(raw, r.kind);
+  return `<span class="equation-side">${left}</span> ${arrowHtml} <span class="equation-side">${right}</span>${lab ? ` <a class="equation-lab-link" href="${lab.href}" title="Mở bộ dụng cụ và hóa chất của phản ứng này">⚗ Quan sát trong Lab 3D</a>` : ''}`;
 }
 
 function parseElectronShellsFromConfig(config = "", atomicNumber = 0) {
@@ -491,6 +495,19 @@ function formatIsotopeText(text = "") {
 }
 
 function formatChemicalFormulaHtml(text = "", related = "") {
+  const raw = normalizeReactionText(text);
+  const tokens = /(?:\([A-Z][A-Za-z0-9]*\)\d*|[A-Z][a-z]?\d*)+(?:[·.]\d*(?:[A-Z][a-z]?\d*)+)?/g;
+  let cursor = 0, linked = '', found = false;
+  for (const match of raw.matchAll(tokens)) {
+    const slug = studyReferences.formulas[match[0]];
+    if (!slug) continue;
+    found = true;
+    linked += escapeHtml(raw.slice(cursor, match.index));
+    const label = escapeHtml(match[0]).replace(/([A-Za-z)\]])(\d+)/g, '$1<sub>$2</sub>');
+    linked += `<a href="/trung-tam/tai-lieu-so/${encodeURIComponent(slug)}/" class="chemical-reference" title="Tài liệu ${escapeHtml(match[0])}">${label}</a>`;
+    cursor = match.index + match[0].length;
+  }
+  if (found) return linked + escapeHtml(raw.slice(cursor));
   let s = normalizeReactionText(text).replace(/^[\[\(]\s*|\s*[\]\)]$/g, "");
   s = escapeHtml(s);
   s = s
@@ -1701,6 +1718,9 @@ function getDetailMediaBlocks(el) {
     ...(Array.isArray(el?.media) ? el.media : []),
     ...(Array.isArray(el?.blocks) ? el.blocks : []),
   ];
+  for (const video of videoCatalog.filter(v => v.symbols.includes(el?.symbol))) {
+    if (!raw.some(b => (b.src || b.url) === video.source)) raw.push({ type: 'video', section: 'properties', src: video.source, title: video.title, desc: video.publisher });
+  }
   return raw
     .map((block, idx) => {
       if (!block) return null;
@@ -1872,13 +1892,21 @@ function renderSectionVideoHints(block) {
 function ensureYoutubeApi() {
   if (window.YT && window.YT.Player) return Promise.resolve(window.YT);
   if (window.__ytPromise) return window.__ytPromise;
-  window.__ytPromise = new Promise((resolve) => {
+  window.__ytPromise = new Promise((resolve, reject) => {
+    const timeout = setTimeout(() => { window.__ytPromise = null; reject(Error('YouTube không phản hồi.')); }, 20000);
     const prev = window.onYouTubeIframeAPIReady;
     window.onYouTubeIframeAPIReady = () => {
       if (typeof prev === "function") prev();
+      clearTimeout(timeout);
       resolve(window.YT);
     };
-    if (window.YT && window.YT.Player) resolve(window.YT);
+    if (window.YT && window.YT.Player) { clearTimeout(timeout); resolve(window.YT); }
+    if (!document.querySelector('script[src="https://www.youtube.com/iframe_api"]')) {
+      const script = document.createElement('script');
+      script.src = 'https://www.youtube.com/iframe_api';
+      script.onerror = () => { clearTimeout(timeout); script.remove(); window.__ytPromise = null; reject(Error('Không tải được YouTube API.')); };
+      document.head.append(script);
+    }
   });
   return window.__ytPromise;
 }
@@ -1894,6 +1922,8 @@ function getYoutubeId(url = "") {
 }
 
 function createVideoQuizBlock(container, block, el) {
+  let destroyed = false;
+  const analysisAbort = new AbortController();
   const src = String(block.src || block.url || block.link || "").trim();
   const cues = (
     Array.isArray(block.cues)
@@ -2026,6 +2056,7 @@ function createVideoQuizBlock(container, block, el) {
       </div>
     </div>
 
+    <div class="video-source-row"><a href="${escapeHtml(src)}" target="_blank" rel="noopener noreferrer">Xem video gốc ↗</a>${videoCatalog.some(v => v.source === src) ? '<label><input type="checkbox" data-ai-quiz checked> Câu hỏi theo cảnh</label><span data-ai-quiz-status role="status"></span><button type="button" data-ai-quiz-retry hidden>Thử phân tích lại</button>' : ''}</div>
     ${block.desc ? `<div class="detail-media-note">${escapeHtml(block.desc)}</div>` : ""}
     ${renderSectionVideoHints(block)}
   </div>
@@ -2510,10 +2541,12 @@ function createVideoQuizBlock(container, block, el) {
   };
 
   const checkCues = () => {
+    if (container.querySelector('[data-ai-quiz]')?.checked === false || !modal.classList.contains('hidden')) return;
     let current = 0;
     current = getCurrentTime();
     for (const cue of cues) {
       if (cue.done || played.has(cue.id) || current < cue.seconds) continue;
+      if (current - cue.seconds > 3) { played.add(cue.id); continue; } // seeking skips old checkpoints
       played.add(cue.id);
       showModal(cue);
       break;
@@ -2635,6 +2668,7 @@ function createVideoQuizBlock(container, block, el) {
   const loadYoutube = () => {
     showLoading("Đang tải video YouTube...");
     ensureYoutubeApi().then(() => {
+      if (destroyed) return;
       try {
         player = new YT.Player(host, {
           videoId: youtubeId,
@@ -2674,7 +2708,7 @@ function createVideoQuizBlock(container, block, el) {
         hideLoading();
         overlayHint.textContent = "Không thể tải YouTube. Hãy thử lại.";
       }
-    });
+    }).catch(() => { if (!destroyed) { hideLoading(); overlayHint.textContent = 'Không tải được YouTube. Mở video gốc bên dưới.'; } });
   };
 
   const init = () => {
@@ -2698,7 +2732,31 @@ function createVideoQuizBlock(container, block, el) {
     }
   };
 
-  init();
+  let initialized = false;
+  const lazyObserver = new IntersectionObserver(entries => {
+    if (entries.some(e => e.isIntersecting) && !initialized) { initialized = true; lazyObserver.disconnect(); init(); analyzeVideo(); }
+  }, { rootMargin: '150px' });
+  lazyObserver.observe(container);
+  async function analyzeVideo() {
+    const output = container.querySelector('[data-ai-quiz-status]');
+    if (!output || destroyed) return;
+    const retry = container.querySelector('[data-ai-quiz-retry]');
+    retry.hidden = true;
+    output.textContent = 'Đang phân tích các cảnh…';
+    try {
+      const res = await fetch('/api/gemini/video-quiz', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ url: src }), signal: AbortSignal.any([analysisAbort.signal, AbortSignal.timeout(95000)]) });
+      const data = await res.json();
+      if (!res.ok) throw Error(data.error || 'Chưa phân tích được video.');
+      if (destroyed) return;
+      for (const cue of data.cues ?? []) {
+        if (cues.some(c => c.id === cue.id)) continue;
+        cues.push({ ...cue, question: escapeHtml(cue.question), options: cue.options.map(escapeHtml), shown: false, done: false });
+      }
+      cues.sort((a,b) => a.seconds-b.seconds);
+      output.textContent = `${data.cues.length} câu hỏi AI theo cảnh · có thể tắt`;
+    } catch (error) { if (!destroyed) { output.textContent = error.message; retry.hidden = false; } }
+  }
+  container.querySelector('[data-ai-quiz-retry]')?.addEventListener('click', analyzeVideo);
   showControls();
   scheduleControlsHide();
 
@@ -2716,6 +2774,9 @@ function createVideoQuizBlock(container, block, el) {
 
   return {
     destroy() {
+      destroyed = true;
+      analysisAbort.abort();
+      lazyObserver.disconnect();
       if (checker) clearInterval(checker);
       if (uiTimer) clearInterval(uiTimer);
       if (controlsHideTimer) clearTimeout(controlsHideTimer);

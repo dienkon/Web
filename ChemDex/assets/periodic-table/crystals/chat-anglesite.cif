@@ -1,0 +1,49 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0005558
+_database_code_amcsd 0005558
+_chemical_name_mineral 'Anglesite · PbSO₄'
+_chemical_formula_sum 'Pb S O4'
+_symmetry_space_group_name_H-M 'P b n m'
+_cell_length_a 6.9549
+_cell_length_b 8.472
+_cell_length_c 5.3973
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 90
+_cell_volume 318.01924
+loop_
+_publ_author_name
+'Downs R T'
+'Smyth J R'
+'Swope R J'
+'Jacobsen S D'
+_journal_name_full 'The Canadian Mineralogist'
+_journal_year 1998
+_journal_volume 36
+_publ_section_title
+;Rigid-body character of the SO4 groups in celestine, anglesite and
+ barite
+;
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+x,y,1/2-z
+-x,-y,1/2+z
+1/2+x,1/2-y,1/2+z
+1/2-x,1/2+y,1/2-z
+1/2-x,1/2+y,z
+1/2+x,1/2-y,-z
+-x,-y,-z
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+Pb Pb 0.16716 0.18798 0.25 1
+S S 0.1849 0.4358 0.75 1
+O1 O 0.0946 0.5915 0.75 1
+O2 O 0.0424 0.3072 0.75 1
+O3 O 0.309 0.4189 0.9726 1

@@ -1,9 +1,10 @@
 import { escapeHtml } from "./core.js";
-import {
-  GEMINI_API_KEY,
-  GEMINI_MODEL,
-  GEMINI_ENDPOINT,
-} from "../data/index.js";
+import katex from 'katex';
+import 'katex/contrib/mhchem';
+import { normalizeMathMarkdown } from '../shared/chemistry/math-markdown.mjs';
+
+let chatBusy = false;
+const conversation = [];
 
 const chatbotResponsesUrl = new URL(
   "../data/chatbot-responses.json",
@@ -76,7 +77,15 @@ function formatInlineMarkdown(text = "") {
 }
 
 function formatChatAnswer(text = "") {
-  const lines = String(text).split(/\r?\n/);
+  const math = [];
+  const protectedText = normalizeMathMarkdown(text).replace(/\$\$([\s\S]*?)\$\$|\$([^$\n]+)\$/g, (_, block, inline) => {
+    let html;
+    try { html = katex.renderToString(block ?? inline, { displayMode: block != null, throwOnError: true, strict: false, trust: false }); }
+    catch { html = `<code class="chat-math-fallback">${escapeHtml(block ?? inline)}</code>`; }
+    math.push(html);
+    return `CHEMDEXMATHTOKEN${math.length - 1}END`;
+  });
+  const lines = protectedText.split(/\r?\n/);
   const html = [];
   let bullets = [];
 
@@ -104,7 +113,7 @@ function formatChatAnswer(text = "") {
     html.push(`<p>${formatInlineMarkdown(trimmed)}</p>`);
   }
   flushBullets();
-  return html.join("");
+  return html.join("").replace(/CHEMDEXMATHTOKEN(\d+)END/g, (_, i) => math[Number(i)]);
 }
 
 function splitEquation(equation = "") {
@@ -236,15 +245,6 @@ async function typeChatAnswer(answer = "") {
     typeof answer === "string"
       ? formatChatAnswer(source)
       : answer.html || formatChatAnswer(source);
-  let shown = "";
-  for (let i = 0; i < source.length; i += 1) {
-    shown += source[i];
-    bubble.textContent = shown;
-    if (output) output.scrollTop = output.scrollHeight;
-    await new Promise((resolve) =>
-      setTimeout(resolve, source[i] === "\n" ? 35 : 12),
-    );
-  }
   bubble.innerHTML = finalHtml;
   if (output) output.scrollTop = output.scrollHeight;
   if (window.MathJax && window.MathJax.typesetPromise) {
@@ -394,13 +394,14 @@ function matchUserMessage(userMsg = "") {
 
 async function getSuggestedAnswer(userMsg = "") {
   const el = window.__currentChatElement || null;
-  const match = matchUserMessage(userMsg);
-
-  if (!match) return null;
+  // Only the explicit local suggestions bypass the AI; broad keyword matches
+  // previously swallowed arbitrary chemistry questions containing "giải thích".
+  const responseIndex = buildChatSuggestions(el).findIndex(q => normalizeQuestion(q) === normalizeQuestion(userMsg));
+  if (responseIndex < 0) return null;
 
   const responses = await loadChatbotResponses();
   const group = el ? responses.element : responses.periodic;
-  const template = group?.[match.responseIndex]?.answer;
+  const template = group?.[responseIndex]?.answer;
 
   if (!template) return null;
   if (template === "__REACTIONS__") return buildReactionsAnswer(el);
@@ -509,7 +510,11 @@ async function sendChatMessage() {
   if (!input || !output) return;
 
   const userMsg = input.value.trim();
-  if (!userMsg) return;
+  if (!userMsg || chatBusy) return;
+  chatBusy = true;
+  const send = document.getElementById('chat-send-btn');
+  if (send) send.disabled = true;
+  try {
 
   appendChatMessage("user", userMsg);
   input.value = "";
@@ -523,60 +528,47 @@ async function sendChatMessage() {
     return;
   }
 
-  const apiKey = String(window.GEMINI_API_KEY || GEMINI_API_KEY || "").trim();
-  const model = String(
-    window.GEMINI_MODEL || GEMINI_MODEL || "gemini-2.5-flash",
-  ).trim();
-  const endpoint = String(
-    window.GEMINI_ENDPOINT ||
-      GEMINI_ENDPOINT ||
-      "https://generativelanguage.googleapis.com/v1beta/models/",
-  ).trim();
-
   const ctx = getChatbotContext(window.__currentChatElement);
   const systemPrompt = [
     "Bạn là botchat chuyên giải quyết vấn đề liên quan đến hóa học.",
     "Trả lời ngắn gọn, chính xác, dễ hiểu.",
     "Nếu dữ liệu trên trang có sẵn, ưu tiên dùng dữ liệu đó.",
+    "Dùng $...$ cho LaTeX nội dòng và $$...$$ cho khối. Công thức hóa học dùng \\ce{...} bên trong dấu toán. Không bịa nguồn hoặc kết quả thực nghiệm.",
     `Ngữ cảnh trang: ${ctx.title}`,
     ctx.element ? `Nguyên tố hiện tại: ${JSON.stringify(ctx.element)}` : "",
   ]
     .filter(Boolean)
     .join("\n");
 
-  const payload = {
-    contents: [
-      {
-        role: "user",
-        parts: [{ text: `${systemPrompt}\n\nCâu hỏi: ${userMsg}` }],
-      },
-    ],
-    generationConfig: {
-      temperature: 0.4,
-      topP: 0.95,
-      maxOutputTokens: 1024,
-    },
-  };
-
   let answer = "";
   try {
+    const history = conversation.slice(-8);
+    while (JSON.stringify(history).length > 12000) history.splice(0, 2);
     const res = await fetch("/api/gemini/chat/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt: userMsg, systemPrompt }),
+      body: JSON.stringify({ prompt: userMsg, systemPrompt, history }),
+      signal: AbortSignal.timeout(60000),
     });
     const data = await res.json();
     if (!res.ok) {
       throw new Error(data?.error || `HTTP ${res.status}`);
     }
     answer = data.text || "Mình chưa đọc được phản hồi từ Gemini API.";
+    conversation.push({ role: 'user', text: userMsg }, { role: 'model', text: answer });
+    if (conversation.length > 16) conversation.splice(0, conversation.length - 16);
   } catch (err) {
-    answer = `Bạn hiện không có quyền truy cập vào tính năng trên. Hãy báo cáo với quan trị viên để được hỗ trợ.`;
+    answer = err.name === 'TimeoutError' ? 'AI phản hồi quá lâu. Bạn có thể gửi lại câu hỏi.' : `Chưa kết nối được AI: ${err.message}. Các câu hỏi gợi ý vẫn dùng được với dữ liệu có sẵn.`;
   }
 
   const loading = document.getElementById("chat-loading");
   if (loading) loading.remove();
   await typeChatAnswer(answer);
+  } finally {
+    document.getElementById('chat-loading')?.remove();
+    chatBusy = false;
+    if (send) send.disabled = false;
+  }
 }
 
 function mountChatbotWidget() {
@@ -585,22 +577,24 @@ function mountChatbotWidget() {
   const panel = document.createElement("div");
   panel.id = "chat-panel";
   panel.className = "chat-panel glass border border-slate-700 shadow-2xl";
+  panel.setAttribute('role', 'dialog');
+  panel.setAttribute('aria-label', 'Trợ lý Hóa học');
   panel.innerHTML = `
           <div id="chat-handle" class="chat-drag-handle p-4 border-b border-slate-700/50 flex items-center justify-between gap-3">
             <div class="min-w-0">
-              <div class="text-white font-semibold">Botchat Hóa học</div>
-              <div class="text-xs text-slate-400">Kéo để di chuyển.</div>
+              <div class="chat-title font-semibold">Trợ lý Hóa học</div>
+              <div class="chat-subtitle text-xs">Cùng hiểu bản chất của từng phản ứng</div>
             </div>
-            <button type="button" id="chat-close-btn" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+            <button type="button" id="chat-close-btn" aria-label="Đóng trợ lý" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
           </div>
-          <div class="p-4 space-y-3 overflow-y-auto flex-1">
+          <div class="chat-scroll p-4 space-y-3 overflow-y-auto flex-1 min-h-0">
             
             <div id="chat-suggestions" class="flex flex-wrap gap-2"></div>
-            <div id="chat-messages" class="space-y-3"></div>
+            <div id="chat-messages" class="space-y-3" role="log" aria-live="polite"></div>
           </div>
           <div class="p-3 border-t border-slate-700/50 bg-slate-800/40">
             <div class="flex gap-2">
-              <input id="chat-input" class="flex-1 bg-slate-800 border border-slate-700 rounded-2xl px-4 py-3 text-slate-100 outline-none" placeholder="Cân bằng phương trình...." />
+              <input id="chat-input" aria-label="Câu hỏi hóa học" maxlength="6000" class="flex-1 min-w-0 bg-slate-800 border border-slate-700 rounded-2xl px-4 py-3 text-slate-100 outline-none" placeholder="Hỏi về chất hoặc phản ứng…" />
               <button id="chat-send-btn" class="px-4 py-3 rounded-2xl bg-blue-500 hover:bg-blue-400 text-white font-semibold">Gửi</button>
             </div>
           </div>
@@ -622,8 +616,9 @@ function mountChatbotWidget() {
     .querySelector("#chat-send-btn")
     ?.addEventListener("click", sendChatMessage);
   panel.querySelector("#chat-input")?.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") sendChatMessage();
+    if (e.key === "Enter" && !e.isComposing) sendChatMessage();
   });
+  panel.addEventListener('keydown', e => { if (e.key === 'Escape') closeChatbot(); });
 
   // Drag support
   const handle = panel.querySelector("#chat-handle");
@@ -641,6 +636,7 @@ function mountChatbotWidget() {
   };
 
   const onDown = (e) => {
+    if (e.target.closest('button')) return;
     dragging = true;
     const rect = panel.getBoundingClientRect();
     offsetX = (e.clientX || e.touches?.[0]?.clientX || 0) - rect.left;

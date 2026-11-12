@@ -1,4 +1,6 @@
 import {applicationImageMarkup} from './application-media.js';
+import studyReferences from '../shared/study-references.generated.json' with { type: 'json' };
+import { linkScientificNames } from './scientist-references.js';
 import {
   allElements,
   elementsMap,
@@ -416,11 +418,13 @@ function showElementDetails(el) {
   if (discovererList.length) {
     discovererMarkup = discovererList
       .map((person) =>
-        person?.url
-          ? `<a href="${escapeHtml(person.url)}" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline">${escapeHtml(person.name || person.label || "Người phát hiện")}</a>`
+        studyReferences.discoverers[person?.name || person?.label] || person?.url
+          ? `<a href="${studyReferences.discoverers[person.name || person.label] ? `/trung-tam/tai-lieu-so/${encodeURIComponent(studyReferences.discoverers[person.name || person.label])}/` : escapeHtml(person.url)}" class="text-blue-400 hover:underline">${escapeHtml(person.name || person.label || "Người phát hiện")}</a>`
           : escapeHtml(person?.name || person?.label || "Người phát hiện"),
       )
       .join(", ");
+  } else if (studyReferences.discoverers[discoverer]) {
+    discovererMarkup = `<a href="/trung-tam/tai-lieu-so/${encodeURIComponent(studyReferences.discoverers[discoverer])}/" class="text-blue-400 hover:underline">${escapeHtml(discoverer)}</a>`;
   } else if (discovererUrl && discoverer) {
     discovererMarkup = `<a href="${escapeHtml(discovererUrl)}" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline">${escapeHtml(discoverer)} <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-1"></i></a>`;
   } else if (discoverer) {
@@ -446,7 +450,7 @@ function showElementDetails(el) {
         const applicationPhoto = applicationImageMarkup(app);
         const previewHtml = mediaData.count > 0 ? mediaData.html : "";
         return `
-              <div class="glass overflow-hidden rounded-2xl border border-slate-700 group">
+              <div class="application-card glass overflow-hidden rounded-2xl border border-slate-700 group">
                 ${applicationPhoto || (previewHtml ? `<div class="application-legacy-media">${previewHtml}</div>` : "")}
                 <div class="p-5">
                   <h4 class="font-bold text-white mb-2 text-lg">${escapeHtml(app.title || "")}</h4>
@@ -526,7 +530,7 @@ function showElementDetails(el) {
               <p class="text-lg text-slate-300 mb-2">Phát hiện bởi: <strong>${discovererMarkup}</strong></p>
               <p class="text-lg text-slate-300 mb-2">Năm công bố: <span class="text-white bg-slate-800 px-2 py-1 rounded">${escapeHtml(el.history?.year || "Cổ đại / Chưa rõ")}</span></p>
               <p class="text-lg text-slate-300 mb-2">Nơi khám phá: <strong>${escapeHtml(el.history?.discoveryLocation || "Chưa rõ")}</strong></p>
-              <p class="text-lg text-slate-300 mb-2">Mô tả: <span class="text-white bg-slate-800 px-2 py-1 rounded">${escapeHtml(el.history?.description || "")}</span></p>
+              <p class="text-lg text-slate-300 mb-2">Mô tả: <span class="text-white bg-slate-800 px-2 py-1 rounded">${linkScientificNames(el.history?.description || "")}</span></p>
             </div>
             ${sectionMedia("history")}
           </section>

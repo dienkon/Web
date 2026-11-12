@@ -1,0 +1,161 @@
+{
+  "amcsdId": "0015225",
+  "mineralName": "AgI · Phase II",
+  "formula": "Ag I",
+  "spaceGroup": "P 63 m c",
+  "cell": {
+    "a": 4.599,
+    "b": 4.599,
+    "c": 7.524,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 120.0
+  },
+  "volume": 137.8180934663532,
+  "declaredVolume": 137.818,
+  "basis": [
+    [
+      4.599,
+      -2.299499999999999,
+      0.0
+    ],
+    [
+      0.0,
+      3.9828508320046336,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      7.524
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "-x,-x+y,1/2+z",
+    "x-y,x,1/2+z",
+    "-y,-x,z",
+    "-y,x-y,z",
+    "x-y,-y,1/2+z",
+    "-x,-y,1/2+z",
+    "x,x-y,z",
+    "-x+y,-x,z",
+    "y,x,1/2+z",
+    "y,-x+y,1/2+z",
+    "-x+y,y,z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Ag",
+      "element": "Ag",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "I",
+      "element": "I",
+      "fractional": [
+        0.0,
+        0.0,
+        0.335
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Ag",
+      "label": "Ag",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ag",
+      "label": "Ag",
+      "fractional": [
+        0.0,
+        0.0,
+        0.5
+      ],
+      "position": [
+        0.0,
+        0.0,
+        3.762
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "I",
+      "label": "I",
+      "fractional": [
+        0.0,
+        0.0,
+        0.335
+      ],
+      "position": [
+        0.0,
+        0.0,
+        2.52054
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "I",
+      "label": "I",
+      "fractional": [
+        0.0,
+        0.0,
+        0.835
+      ],
+      "position": [
+        0.0,
+        0.0,
+        6.28254
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 4,
+  "speciesPositionCount": 4,
+  "cellComposition": {
+    "Ag": 2,
+    "I": 2
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Keen D A",
+      "Hull S"
+    ],
+    "title": "Pressure-induced phase transitions in AgCl, AgBr, and AgI\n Sample: P =  0.0 GPa, Phase II",
+    "journal": "Physical Review",
+    "year": 1999,
+    "volume": "B59",
+    "pages": "750–761"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 12,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 6.781863747142327e-07
+  },
+  "id": "chat-silver-iodide",
+  "note": "Mẫu 0,0 GPa; giữ nhãn pha II của bản ghi gốc."
+}

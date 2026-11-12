@@ -23,6 +23,7 @@ shell("structures");
 const params = new URLSearchParams(location.search),
   embedded = params.get("embed") === "1";
 if (embedded) {
+  if (params.get('modelOnly') === '1') document.body.classList.add('structure-embed-only');
   document.querySelector("#site-header").hidden = true;
   document.querySelector("footer").hidden = true;
   document.body.style.background = "var(--panel)";
@@ -63,8 +64,8 @@ document.querySelector("#app").innerHTML = `${
     : `<section class="hero structure-hero">
         <div>
           <div class="eyebrow">PHÒNG QUAN SÁT CẤU TRÚC & LIÊN KẾT 3D</div>
-          <h1>Thế giới phân tử & liên kết hóa học 3D thực tế.</h1>
-          <p>Khám phá trực quan toàn bộ ${records.length} chất hóa học với đầy đủ liên kết đơn, đôi, ba, cầu nối phối trí ion và mạng tinh thể thực nghiệm.</p>
+          <h1>Khám phá cấu trúc hóa học trong không gian 3D.</h1>
+          <p>Khám phá phân tử, thành phần ion và mạng tinh thể; nguồn tọa độ và mức mô phỏng được ghi theo từng chất.</p>
           <div class="showcase-strip" aria-label="Cấu trúc 3D tiêu biểu">
             <span class="showcase-label">Khám phá nhanh:</span>
             ${SHOWCASE_PRESETS.map(
@@ -112,7 +113,7 @@ document.querySelector("#app").innerHTML = `${
 </div>
 <div class="results-meta">
   <span id="count" role="status"></span>
-  <span>Chọn chất bất kỳ để xoay 3D, kiểm tra độ dài & góc liên kết thực tế</span>
+  <span>Xoay 3D, đo khoảng cách và góc trên cấu dạng đang xem</span>
 </div>
 <div class="catalog-layout">
   <section class="catalog-list">
@@ -164,7 +165,7 @@ function render() {
     );
   });
   $("count").textContent =
-    `${filtered.length} kết quả · ${records.filter((c) => c.structure?.dimension === "3d").length} cấu trúc thực nghiệm/tính toán chuẩn · Hỗ trợ dựng liên kết 3D cho mọi công thức`;
+    `${filtered.length} kết quả · ${records.filter((c) => c.structure?.dimension === "3d").length} bản ghi có tọa độ nguồn · Các mô hình dựng từ công thức có nhãn minh họa`;
   $("cards").innerHTML =
     filtered
       .map((c) => {

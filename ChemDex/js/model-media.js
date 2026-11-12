@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { specimenEnvironment } from './three/specimen-environment.js';
 import {mountPublishedCrystal} from './three/published-crystal.js';
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
@@ -33,7 +34,7 @@ function createModelViewerBlock(container, block, el) {
                  <span class="text-xs text-slate-400 mt-1">Giúp tối ưu hiệu suất trình duyệt</span>
               </button>
             </div>
-            <div class="mineral-toolbar"><button type="button" data-model-rotate>Tạm dừng xoay</button><button type="button" data-model-reset>Góc nhìn ban đầu</button><a href="${escapeHtml(modelPath)}" download>Tải mô hình GLB</a><span>Kéo để xoay · Cuộn để phóng to</span></div>
+            <div class="mineral-toolbar"><button type="button" data-model-rotate>Tạm dừng xoay</button><button type="button" data-model-reset>Góc nhìn ban đầu</button><button type="button" data-model-environment aria-pressed="true">Ẩn cảnh trưng bày</button><a href="${escapeHtml(modelPath)}" download>Tải mô hình GLB</a><span>Kéo để xoay · Cuộn để phóng to</span></div>
             <div class="detail-media-note hidden" id="model-status-${el.symbol}-${block._idx}"></div>
           </div>
         `;
@@ -48,7 +49,14 @@ function createModelViewerBlock(container, block, el) {
     `#model-status-${el.symbol}-${block._idx}`,
   );
 
-  let scene, camera, renderer, controls, grid;
+  let scene, camera, renderer, controls, grid, environment;
+  let showEnvironment = true;
+  container.querySelector('[data-model-environment]').addEventListener('click', event => {
+    showEnvironment = !showEnvironment;
+    if (environment) environment.visible = showEnvironment;
+    event.currentTarget.textContent = showEnvironment ? 'Ẩn cảnh trưng bày' : 'Hiện cảnh trưng bày';
+    event.currentTarget.setAttribute('aria-pressed', String(showEnvironment));
+  });
   let current = null;
   let currentURL = null;
   let raf = 0;
@@ -138,6 +146,8 @@ function createModelViewerBlock(container, block, el) {
     scene.add(object3d);
     current = object3d;
     fit(object3d);
+    if (environment) { scene.remove(environment); environment.traverse(disposeNode); }
+    environment = specimenEnvironment(object3d); environment.visible = showEnvironment; scene.add(environment);
     setStatus('Mô hình sẵn sàng. Kéo để xoay, cuộn để phóng to.');
     status.dataset.state = 'ready';
     shell.querySelector('.mineral-poster')?.remove();
@@ -208,8 +218,7 @@ function createModelViewerBlock(container, block, el) {
     isInitialized = true;
 
     scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x08111d);
-    scene.fog = new THREE.Fog(0x08111d, 8, 32);
+    scene.background = new THREE.Color('#dce8eb');
 
     camera = new THREE.PerspectiveCamera(50, 1, 0.1, 5000);
     camera.position.set(0, 1.5, 4);
@@ -245,6 +254,7 @@ function createModelViewerBlock(container, block, el) {
     grid = new THREE.GridHelper(20, 20, 0x324055, 0x243042);
     grid.position.y = -1;
     scene.add(grid);
+    grid.visible = false;
 
     resizeObserver = new ResizeObserver(resize);
     resizeObserver.observe(shell);
@@ -269,6 +279,7 @@ function createModelViewerBlock(container, block, el) {
       visibilityObserver?.disconnect();
       if (controls) controls.dispose();
       clearModel();
+      environment?.traverse(disposeNode);
       if (renderer) renderer.dispose();
       grid?.geometry?.dispose();
       grid?.material?.dispose();

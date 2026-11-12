@@ -4,6 +4,11 @@ import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { pathToFileURL } from "node:url";
 import { build } from "esbuild";
+import { loadEnvFile } from 'node:process';
+for (const filename of ['.env.local', '.env']) {
+  const target = path.resolve(import.meta.dirname, '..', filename);
+  if (fs.existsSync(target)) loadEnvFile(target);
+}
 const root = path.resolve(import.meta.dirname, ".."),
   output = path.join(root, "dist"),
   port = Number(process.env.PORT) || 4173;
@@ -21,6 +26,7 @@ if (
 const mime = {
   ".html": "text/html; charset=utf-8",
   ".js": "text/javascript; charset=utf-8",
+  ".mjs": "text/javascript; charset=utf-8",
   ".css": "text/css; charset=utf-8",
   ".json": "application/json; charset=utf-8",
   ".svg": "image/svg+xml",

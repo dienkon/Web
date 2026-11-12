@@ -1,0 +1,187 @@
+{
+  "amcsdId": "0001544",
+  "mineralName": "Tolbachite · CuCl₂",
+  "formula": "Cu Cl2",
+  "spaceGroup": "C 1 2/m 1",
+  "cell": {
+    "a": 6.9038,
+    "b": 3.2995,
+    "c": 6.824,
+    "alpha": 90.0,
+    "beta": 122.197,
+    "gamma": 90.0
+  },
+  "volume": 131.54040816696192,
+  "declaredVolume": 131.54,
+  "basis": [
+    [
+      6.9038,
+      0.0,
+      -3.6360453548845997
+    ],
+    [
+      0.0,
+      3.2995,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      5.774612556459708
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+x,1/2+y,z",
+    "x,-y,z",
+    "1/2+x,1/2-y,z",
+    "-x,y,-z",
+    "1/2-x,1/2+y,-z",
+    "-x,-y,-z",
+    "1/2-x,1/2-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Cu",
+      "element": "Cu",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Cl",
+      "element": "Cl",
+      "fractional": [
+        0.5048,
+        0.0,
+        0.2294
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Cu",
+      "label": "Cu",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cu",
+      "label": "Cu",
+      "fractional": [
+        0.5,
+        0.5,
+        0.0
+      ],
+      "position": [
+        3.4519,
+        1.64975,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.5048,
+        0.0,
+        0.2294
+      ],
+      "position": [
+        2.6509294,
+        0.0,
+        1.3246961
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.0048,
+        0.5,
+        0.2294
+      ],
+      "position": [
+        -0.8009706,
+        1.64975,
+        1.3246961
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.4952,
+        0.0,
+        0.7706
+      ],
+      "position": [
+        0.6168252,
+        0.0,
+        4.4499164
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.9952,
+        0.5,
+        0.7706
+      ],
+      "position": [
+        4.0687252,
+        1.64975,
+        4.4499164
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 6,
+  "speciesPositionCount": 6,
+  "cellComposition": {
+    "Cu": 2,
+    "Cl": 4
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Hawthorne F C",
+      "Burns P C"
+    ],
+    "title": "Tolbachite, CuCl2, the first example of Cu2+ octahedrally coordinated by Cl",
+    "journal": "American Mineralogist",
+    "year": 1993,
+    "volume": "78",
+    "pages": "187–189"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 8,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 3.10297776645475e-06
+  },
+  "id": "chat-tolbachite",
+  "note": "Pha CuCl2 khan; không dùng cho CuCl2·2H2O."
+}

@@ -1,0 +1,51 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0009163
+_database_code_amcsd 0009163
+_chemical_name_mineral 'Sellaite · MgF₂'
+_chemical_formula_sum 'Mg F2'
+_symmetry_space_group_name_H-M 'P 42/m n m'
+_cell_length_a 4.625
+_cell_length_b 4.625
+_cell_length_c 3.052
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 90
+_cell_volume 65.2841875
+loop_
+_publ_author_name
+'Baur W H'
+_journal_name_full 'Acta Crystallographica'
+_journal_year 1956
+_journal_volume 9
+_publ_section_title
+;Uber die verfeinerung der kristallstrukturbestimmung einiger vertreter
+ des rutiltyps: TiO2, SnO2, GeO2 und MgF2
+;
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+-y,-x,z
+y,x,-z
+1/2+y,1/2-x,1/2-z
+1/2-y,1/2+x,1/2+z
+1/2+x,1/2-y,1/2+z
+1/2-x,1/2+y,1/2-z
+x,y,-z
+-x,-y,z
+y,x,z
+-y,-x,-z
+1/2-y,1/2+x,1/2-z
+1/2+y,1/2-x,1/2+z
+1/2-x,1/2+y,1/2+z
+1/2+x,1/2-y,1/2-z
+-x,-y,-z
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+Mg Mg 0 0 0 1
+F F 0.303 0.303 0 1

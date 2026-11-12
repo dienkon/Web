@@ -1,0 +1,84 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0015628
+_database_code_amcsd 0015628
+_chemical_name_mineral 'Salammoniac · NH₄Cl'
+_chemical_formula_sum 'N H4 Cl'
+_symmetry_space_group_name_H-M 'P m -3 m'
+_cell_length_a 3.86
+_cell_length_b 3.86
+_cell_length_c 3.86
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 90
+_cell_volume 57.512456
+loop_
+_publ_author_name
+'Vainshtein B K'
+_journal_name_full 'Trudy Instituta Kristallografii Akademiya Nauk SSSR'
+_journal_year 1956
+_journal_volume 12
+_publ_section_title
+;Refinement of the structure of the group NH4
+ in the structure of ammonium chloride
+;
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+z,-x,y
+-y,z,-x
+x,-y,z
+-z,x,-y
+y,-z,x
+-x,y,-z
+x,-z,-y
+-z,y,x
+y,-x,-z
+-x,z,y
+z,-y,-x
+-y,x,z
+x,z,y
+-z,-y,-x
+y,x,z
+-x,-z,-y
+z,y,x
+-y,-x,-z
+z,x,-y
+-y,-z,x
+x,y,-z
+-z,-x,y
+y,z,-x
+-x,-y,z
+-z,x,y
+y,-z,-x
+-x,y,z
+z,-x,-y
+-y,z,x
+x,-y,-z
+-x,z,-y
+z,-y,x
+-y,x,-z
+x,-z,y
+-z,y,-x
+y,-x,z
+-x,-z,y
+z,y,-x
+-y,-x,z
+x,z,-y
+-z,-y,x
+y,x,-z
+-z,-x,-y
+y,z,x
+-x,-y,-z
+z,x,y
+-y,-z,-x
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+N N 0 0 0 1
+H H 0.146 0.146 0.146 0.5
+Cl Cl 0.5 0.5 0.5 1

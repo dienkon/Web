@@ -1,0 +1,187 @@
+{
+  "amcsdId": "0000117",
+  "mineralName": "Portlandite · Ca(OH)₂",
+  "formula": "Ca O2 H2",
+  "spaceGroup": "P -3 m 1",
+  "cell": {
+    "a": 3.5925,
+    "b": 3.5925,
+    "c": 4.905,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 120.0
+  },
+  "volume": 54.82305048121341,
+  "declaredVolume": 54.823,
+  "basis": [
+    [
+      3.5925,
+      -1.796249999999999,
+      0.0
+    ],
+    [
+      0.0,
+      3.111196263095596,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      4.905
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "-y,-x,z",
+    "y,-x+y,-z",
+    "-x,-x+y,-z",
+    "-x+y,-x,z",
+    "-x+y,y,z",
+    "-x,-y,-z",
+    "y,x,-z",
+    "-y,x-y,z",
+    "x,x-y,z",
+    "x-y,x,-z",
+    "x-y,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Ca",
+      "element": "Ca",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.233
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "H",
+      "element": "H",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.418
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Ca",
+      "label": "Ca",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.233
+      ],
+      "position": [
+        -4e-07,
+        2.0741311,
+        1.142865
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.66666675,
+        0.3333335,
+        0.767
+      ],
+      "position": [
+        1.79625,
+        1.0370659,
+        3.762135
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.418
+      ],
+      "position": [
+        -4e-07,
+        2.0741311,
+        2.05029
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H",
+      "fractional": [
+        0.66666675,
+        0.3333335,
+        0.582
+      ],
+      "position": [
+        1.79625,
+        1.0370659,
+        2.85471
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 5,
+  "speciesPositionCount": 5,
+  "cellComposition": {
+    "Ca": 1,
+    "O": 2,
+    "H": 2
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Henderson D M",
+      "Gutowsky H S"
+    ],
+    "title": "A nuclear magnetic resonance determination of the hydrogen positions in Ca(OH)2\n T = 25 C",
+    "journal": "American Mineralogist",
+    "year": 1962,
+    "volume": "47",
+    "pages": "1231–1251"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 12,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 9.208027091466226e-07
+  },
+  "id": "chat-portlandite",
+  "note": "Mẫu 25 °C, có vị trí hydrogen; đây là chất rắn, không phải nước vôi trong."
+}

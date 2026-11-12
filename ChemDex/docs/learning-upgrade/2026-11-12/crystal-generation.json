@@ -1,0 +1,271 @@
+{
+  "structures": [
+    {
+      "id": "chat-cuprite",
+      "amcsdId": "0007351",
+      "bytes": 27196,
+      "sites": 6,
+      "displaySpheres": 13
+    },
+    {
+      "id": "chat-tenorite",
+      "amcsdId": "0018033",
+      "bytes": 28364,
+      "sites": 8,
+      "displaySpheres": 12
+    },
+    {
+      "id": "chat-corundum",
+      "amcsdId": "0009325",
+      "bytes": 39484,
+      "sites": 30,
+      "displaySpheres": 46
+    },
+    {
+      "id": "chat-periclase",
+      "amcsdId": "0000501",
+      "bytes": 30264,
+      "sites": 8,
+      "displaySpheres": 27
+    },
+    {
+      "id": "chat-zincite",
+      "amcsdId": "0005203",
+      "bytes": 26176,
+      "sites": 4,
+      "displaySpheres": 5
+    },
+    {
+      "id": "chat-portlandite",
+      "amcsdId": "0000117",
+      "bytes": 28180,
+      "sites": 5,
+      "displaySpheres": 12
+    },
+    {
+      "id": "chat-nitratine",
+      "amcsdId": "0009441",
+      "bytes": 40028,
+      "sites": 30,
+      "displaySpheres": 50
+    },
+    {
+      "id": "chat-niter",
+      "amcsdId": "0013162",
+      "bytes": 30340,
+      "sites": 20,
+      "displaySpheres": 20
+    },
+    {
+      "id": "chat-sassolite",
+      "amcsdId": "0009809",
+      "bytes": 35160,
+      "sites": 28,
+      "displaySpheres": 28
+    },
+    {
+      "id": "chat-chalcanthite",
+      "amcsdId": "0010779",
+      "bytes": 42224,
+      "sites": 42,
+      "displaySpheres": 50
+    },
+    {
+      "id": "chat-siderite",
+      "amcsdId": "0000101",
+      "bytes": 40100,
+      "sites": 30,
+      "displaySpheres": 50
+    },
+    {
+      "id": "chat-cerussite",
+      "amcsdId": "0011016",
+      "bytes": 30288,
+      "sites": 20,
+      "displaySpheres": 20
+    },
+    {
+      "id": "chat-anglesite",
+      "amcsdId": "0005558",
+      "bytes": 31492,
+      "sites": 24,
+      "displaySpheres": 24
+    },
+    {
+      "id": "chat-witherite",
+      "amcsdId": "0000235",
+      "bytes": 30180,
+      "sites": 20,
+      "displaySpheres": 20
+    },
+    {
+      "id": "chat-strontianite",
+      "amcsdId": "0000234",
+      "bytes": 30148,
+      "sites": 20,
+      "displaySpheres": 20
+    },
+    {
+      "id": "chat-massicot",
+      "amcsdId": "0010011",
+      "bytes": 26492,
+      "sites": 8,
+      "displaySpheres": 8
+    },
+    {
+      "id": "chat-bunsenite",
+      "amcsdId": "0011371",
+      "bytes": 30292,
+      "sites": 8,
+      "displaySpheres": 27
+    },
+    {
+      "id": "chat-otavite",
+      "amcsdId": "0000103",
+      "bytes": 40292,
+      "sites": 30,
+      "displaySpheres": 50
+    },
+    {
+      "id": "chat-greenockite",
+      "amcsdId": "0015177",
+      "bytes": 26016,
+      "sites": 4,
+      "displaySpheres": 5
+    },
+    {
+      "id": "chat-arcanite",
+      "amcsdId": "0009456",
+      "bytes": 32708,
+      "sites": 28,
+      "displaySpheres": 28
+    },
+    {
+      "id": "chat-thenardite",
+      "amcsdId": "0005113",
+      "bytes": 41432,
+      "sites": 56,
+      "displaySpheres": 56
+    },
+    {
+      "id": "chat-anhydrite",
+      "amcsdId": "0019829",
+      "bytes": 32628,
+      "sites": 24,
+      "displaySpheres": 32
+    },
+    {
+      "id": "chat-sellaite",
+      "amcsdId": "0009163",
+      "bytes": 27556,
+      "sites": 6,
+      "displaySpheres": 15
+    },
+    {
+      "id": "chat-villiaumite",
+      "amcsdId": "0009251",
+      "bytes": 30180,
+      "sites": 8,
+      "displaySpheres": 27
+    },
+    {
+      "id": "chat-lime",
+      "amcsdId": "0008276",
+      "bytes": 30304,
+      "sites": 8,
+      "displaySpheres": 27
+    },
+    {
+      "id": "chat-sodium-bromide",
+      "amcsdId": "0009258",
+      "bytes": 30356,
+      "sites": 8,
+      "displaySpheres": 27
+    },
+    {
+      "id": "chat-potassium-bromide",
+      "amcsdId": "0011995",
+      "bytes": 30120,
+      "sites": 8,
+      "displaySpheres": 27
+    },
+    {
+      "id": "chat-lithium-chloride",
+      "amcsdId": "0011343",
+      "bytes": 30512,
+      "sites": 8,
+      "displaySpheres": 27
+    },
+    {
+      "id": "chat-hydrophilite",
+      "amcsdId": "0011763",
+      "bytes": 27504,
+      "sites": 6,
+      "displaySpheres": 15
+    },
+    {
+      "id": "chat-tolbachite",
+      "amcsdId": "0001544",
+      "bytes": 28948,
+      "sites": 6,
+      "displaySpheres": 16
+    },
+    {
+      "id": "chat-molysite",
+      "amcsdId": "0012857",
+      "bytes": 36552,
+      "sites": 24,
+      "displaySpheres": 36
+    },
+    {
+      "id": "chat-salammoniac",
+      "amcsdId": "0015628",
+      "bytes": 64948,
+      "sites": 10,
+      "displaySpheres": 25
+    },
+    {
+      "id": "chat-lopezite",
+      "amcsdId": "0014228",
+      "bytes": 40544,
+      "sites": 44,
+      "displaySpheres": 44
+    },
+    {
+      "id": "chat-lead-iodide",
+      "amcsdId": "0011793",
+      "bytes": 27204,
+      "sites": 3,
+      "displaySpheres": 10
+    },
+    {
+      "id": "chat-chalcocyanite",
+      "amcsdId": "0014619",
+      "bytes": 33792,
+      "sites": 24,
+      "displaySpheres": 35
+    },
+    {
+      "id": "chat-silver-chloride",
+      "amcsdId": "0015197",
+      "bytes": 30424,
+      "sites": 8,
+      "displaySpheres": 27
+    },
+    {
+      "id": "chat-silver-bromide",
+      "amcsdId": "0015213",
+      "bytes": 30432,
+      "sites": 8,
+      "displaySpheres": 27
+    },
+    {
+      "id": "chat-silver-iodide",
+      "amcsdId": "0015225",
+      "bytes": 29680,
+      "sites": 4,
+      "displaySpheres": 20
+    }
+  ],
+  "interpretation": "Published atomic positions or explicitly labelled reference prototype. Sphere size/color are display conventions; partial occupancies use sectors. No specimen surface or inferred bonds."
+}

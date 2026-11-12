@@ -1,0 +1,387 @@
+{
+  "date": "2026-11-12",
+  "renderer": "Chromium WebGL / Three.js",
+  "models": [
+    {
+      "id": "chat-cuprite",
+      "bounds": [
+        4.909599985694885,
+        4.909599985694885,
+        4.909599985694885
+      ],
+      "rendered": true,
+      "bytes": 55184
+    },
+    {
+      "id": "chat-tenorite",
+      "bounds": [
+        5.713652257798547,
+        3.483846619336684,
+        5.678240815974449
+      ],
+      "rendered": true,
+      "bytes": 51271
+    },
+    {
+      "id": "chat-corundum",
+      "bounds": [
+        7.780299985694885,
+        4.7624541127895705,
+        13.144058843072884
+      ],
+      "rendered": true,
+      "bytes": 52453
+    },
+    {
+      "id": "chat-periclase",
+      "bounds": [
+        4.8509999856948856,
+        4.8509999856948856,
+        4.8509999856948856
+      ],
+      "rendered": true,
+      "bytes": 80650
+    },
+    {
+      "id": "chat-zincite",
+      "bounds": [
+        4.916410889132455,
+        2.8665629470571563,
+        5.8437999856948855
+      ],
+      "rendered": true,
+      "bytes": 39598
+    },
+    {
+      "id": "chat-portlandite",
+      "bounds": [
+        6.028749985694884,
+        3.7511962487904813,
+        5.5449999856948855
+      ],
+      "rendered": true,
+      "bytes": 44495
+    },
+    {
+      "id": "chat-nitratine",
+      "bounds": [
+        8.244999985694884,
+        5.0307487828819895,
+        17.459999985694886
+      ],
+      "rendered": true,
+      "bytes": 44489
+    },
+    {
+      "id": "chat-niter",
+      "bounds": [
+        5.504117265694886,
+        9.212900000000001,
+        6.4779
+      ],
+      "rendered": true,
+      "bytes": 57181
+    },
+    {
+      "id": "chat-sassolite",
+      "bounds": [
+        11.800111224410847,
+        7.204026745015442,
+        6.180436537243567
+      ],
+      "rendered": true,
+      "bytes": 44151
+    },
+    {
+      "id": "chat-chalcanthite",
+      "bounds": [
+        10.928833461321315,
+        11.536720897369335,
+        6.335521335609254
+      ],
+      "rendered": true,
+      "bytes": 54141
+    },
+    {
+      "id": "chat-siderite",
+      "bounds": [
+        7.673049985694885,
+        4.700533296418983,
+        16.012999985694883
+      ],
+      "rendered": true,
+      "bytes": 47691
+    },
+    {
+      "id": "chat-cerussite",
+      "bounds": [
+        5.450773085694886,
+        8.539000000000001,
+        6.188000000000001
+      ],
+      "rendered": true,
+      "bytes": 57291
+    },
+    {
+      "id": "chat-anglesite",
+      "bounds": [
+        7.015012232847443,
+        8.519000000000002,
+        5.741527945694886
+      ],
+      "rendered": true,
+      "bytes": 55866
+    },
+    {
+      "id": "chat-witherite",
+      "bounds": [
+        5.522279385694885,
+        8.942800000000002,
+        6.4754000000000005
+      ],
+      "rendered": true,
+      "bytes": 57210
+    },
+    {
+      "id": "chat-strontianite",
+      "bounds": [
+        5.418491985694885,
+        8.405000000000001,
+        6.0440000000000005
+      ],
+      "rendered": true,
+      "bytes": 59503
+    },
+    {
+      "id": "chat-massicot",
+      "bounds": [
+        5.940099999999999,
+        6.003022705694885,
+        4.799799999999999
+      ],
+      "rendered": true,
+      "bytes": 44843
+    },
+    {
+      "id": "chat-bunsenite",
+      "bounds": [
+        4.808399985694885,
+        4.808399985694885,
+        4.808399985694885
+      ],
+      "rendered": true,
+      "bytes": 81218
+    },
+    {
+      "id": "chat-otavite",
+      "bounds": [
+        8.020599985694885,
+        4.9011913824758375,
+        16.937999985694884
+      ],
+      "rendered": true,
+      "bytes": 45417
+    },
+    {
+      "id": "chat-greenockite",
+      "bounds": [
+        6.247810889132454,
+        3.6352470954562235,
+        7.354399985694886
+      ],
+      "rendered": true,
+      "bytes": 35220
+    },
+    {
+      "id": "chat-arcanite",
+      "bounds": [
+        7.950929905694885,
+        10.118000000000002,
+        5.928128785694884
+      ],
+      "rendered": true,
+      "bytes": 53996
+    },
+    {
+      "id": "chat-thenardite",
+      "bounds": [
+        9.876000000000001,
+        12.349000000000002,
+        6.265064785694886
+      ],
+      "rendered": true,
+      "bytes": 66327
+    },
+    {
+      "id": "chat-anhydrite",
+      "bounds": [
+        6.620799985694886,
+        7.027000000000002,
+        7.609999985694885
+      ],
+      "rendered": true,
+      "bytes": 66458
+    },
+    {
+      "id": "chat-sellaite",
+      "bounds": [
+        5.264999985694885,
+        5.264999985694885,
+        3.6919999856948853
+      ],
+      "rendered": true,
+      "bytes": 58001
+    },
+    {
+      "id": "chat-villiaumite",
+      "bounds": [
+        5.273999985694886,
+        5.273999985694886,
+        5.273999985694886
+      ],
+      "rendered": true,
+      "bytes": 73592
+    },
+    {
+      "id": "chat-lime",
+      "bounds": [
+        5.454999985694886,
+        5.454999985694886,
+        5.454999985694886
+      ],
+      "rendered": true,
+      "bytes": 71649
+    },
+    {
+      "id": "chat-sodium-bromide",
+      "bounds": [
+        6.613799985694885,
+        6.613799985694885,
+        6.613799985694885
+      ],
+      "rendered": true,
+      "bytes": 59698
+    },
+    {
+      "id": "chat-potassium-bromide",
+      "bounds": [
+        7.224699985694885,
+        7.224699985694885,
+        7.224699985694885
+      ],
+      "rendered": true,
+      "bytes": 56039
+    },
+    {
+      "id": "chat-lithium-chloride",
+      "bounds": [
+        5.769539985694886,
+        5.769539985694886,
+        5.769539985694886
+      ],
+      "rendered": true,
+      "bytes": 68064
+    },
+    {
+      "id": "chat-hydrophilite",
+      "bounds": [
+        6.8799999856948855,
+        7.069999985694885,
+        4.839999985694885
+      ],
+      "rendered": true,
+      "bytes": 47058
+    },
+    {
+      "id": "chat-tolbachite",
+      "bounds": [
+        11.179845340579485,
+        3.9394999856948854,
+        6.414612542154593
+      ],
+      "rendered": true,
+      "bytes": 41524
+    },
+    {
+      "id": "chat-molysite",
+      "bounds": [
+        9.737499985694885,
+        5.892444059647507,
+        18.059999985694887
+      ],
+      "rendered": true,
+      "bytes": 38094
+    },
+    {
+      "id": "chat-salammoniac",
+      "bounds": [
+        4.499999985694885,
+        4.499999985694885,
+        4.499999985694885
+      ],
+      "rendered": true,
+      "bytes": 62466
+    },
+    {
+      "id": "chat-lopezite",
+      "bounds": [
+        9.000265494451057,
+        14.418234787519125,
+        7.59633403652996
+      ],
+      "rendered": true,
+      "bytes": 54953
+    },
+    {
+      "id": "chat-lead-iodide",
+      "bounds": [
+        7.472499985694884,
+        4.584745699933004,
+        7.616999985694886
+      ],
+      "rendered": true,
+      "bytes": 36329
+    },
+    {
+      "id": "chat-chalcocyanite",
+      "bounds": [
+        9.048999985694886,
+        7.348999985694885,
+        5.472999985694885
+      ],
+      "rendered": true,
+      "bytes": 60604
+    },
+    {
+      "id": "chat-silver-chloride",
+      "bounds": [
+        6.186299985694885,
+        6.186299985694885,
+        6.186299985694885
+      ],
+      "rendered": true,
+      "bytes": 62981
+    },
+    {
+      "id": "chat-silver-bromide",
+      "bounds": [
+        6.412099985694885,
+        6.412099985694885,
+        6.412099985694885
+      ],
+      "rendered": true,
+      "bytes": 59873
+    },
+    {
+      "id": "chat-silver-iodide",
+      "bounds": [
+        7.538499985694885,
+        4.6228508176995184,
+        8.163999985694886
+      ],
+      "rendered": true,
+      "bytes": 45363
+    }
+  ],
+  "errors": []
+}

@@ -5,6 +5,10 @@
 #electron-widget { height:clamp(320px,35vw,470px); }
 #crystal-widget .published-crystal-stage { height:clamp(360px,38vw,540px); }
 .application-figure { margin:0; min-width:0; }
+#sec-applications > .grid { display:block; columns:2; column-gap:24px; }
+#sec-applications .application-card { display:inline-block; width:100%; break-inside:avoid; margin:0 0 24px; }
+@media(max-width:767px) { #sec-applications > .grid { columns:1; } }
+#sec-applications .application-card { align-self: start; height: auto; }
 .application-figure > a { display:block; height:220px; background:#f5f7fa; }
 .application-figure img { width:100%; height:100%; object-fit:contain; }
 .application-figure figcaption { padding:10px 16px; border-bottom:1px solid #3b5064; color:#c2d4e0; font-size:12px; line-height:1.6; overflow-wrap:anywhere; }
@@ -77,3 +81,16 @@
 .element-sources h3 { color: #d5e4ef; font-size: 1rem; margin-bottom: .75rem; }
 .element-sources ul { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; margin-top: 1rem; }
 @media(max-width:640px) { #detail-hero h2 { font-size: clamp(2rem,9.5vw,3rem); } .element-fact-strip { grid-template-columns: repeat(2,minmax(0,1fr)); padding: 1rem; } .mineral-toolbar span { width: 100%; margin-left: 0; } }
+.chemical-reference { color:#38bdf8; text-decoration:underline; text-decoration-color:#38bdf866; text-underline-offset:4px; }
+.chemical-reference:hover { color:#bae6fd; }
+.equation-lab-link { display:inline-flex; flex:0 0 auto; align-items:center; margin-left:1.2rem; padding:.45rem .7rem; border:1px solid #348e9c; border-radius:.65rem; font:600 .8rem/1.4 Inter,sans-serif; color:#92e8dc; background:#164148; }
+.video-source-row { display:flex; flex-wrap:wrap; align-items:center; gap:12px; font-size:13px; color:#a8c1d1; }
+.video-source-row a { color:#7dd3fc; }
+.video-source-row label { display:flex; gap:6px; align-items:center; }
+.video-source-row [role=status] { flex-basis:100%; font-size:12px; }
+.video-source-row button { padding:5px 10px; border:1px solid #496b7e; border-radius:7px; }
+.crystal-legend button { padding:4px 10px; background:#1c3348; border:1px solid #496378; border-radius:7px; }
+.crystal-legend button[aria-pressed=false] { opacity:.45; text-decoration:line-through; }
+.crystal-display-notes { font-size:12px; color:#b7cbd9; margin:10px 0; }
+.crystal-display-notes summary { cursor:pointer; }
+.published-crystal-stage:fullscreen { width:100vw; height:100dvh; }

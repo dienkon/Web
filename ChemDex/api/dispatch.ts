@@ -10,8 +10,10 @@ import route8 from '../server/routes/gemini/chat';
 import route9 from '../server/routes/gemini/community';
 import route10 from '../server/routes/gemini/generate';
 import route11 from '../server/routes/gemini/verify';
+import videoQuiz from '../server/routes/gemini/video-quiz';
 const handlers:Record<string,any>={"/api/feedback":route0,"/api/generate-questions":route1,"/api/health":route2,"/api/chemistry/search":route3,"/api/chemistry/structure":route4,"/api/experiment/ai-query":route5,"/api/experiment/mix":route6,"/api/gemini/chain":route7,"/api/gemini/chat":route8,"/api/gemini/community":route9,"/api/gemini/generate":route10,"/api/gemini/verify":route11};
 const requestWindows=new Map<string,{count:number;until:number}>();
+handlers['/api/gemini/video-quiz'] = videoQuiz;
 export default async function handler(req:any,res:any){
  const pathname=new URL(req.url||'/', 'https://chemdex.invalid').pathname.replace(/\/+$/,'');
  const rewritten=typeof req.query?.__route==='string'?`/api/${req.query.__route.replace(/^\/+|\/+$/g,'')}`:'';

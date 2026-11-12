@@ -1,0 +1,194 @@
+{
+  "amcsdId": "0009163",
+  "mineralName": "Sellaite · MgF₂",
+  "formula": "Mg F2",
+  "spaceGroup": "P 42/m n m",
+  "cell": {
+    "a": 4.625,
+    "b": 4.625,
+    "c": 3.052,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 65.2841875,
+  "declaredVolume": 65.284,
+  "basis": [
+    [
+      4.625,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      4.625,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      3.052
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "-y,-x,z",
+    "y,x,-z",
+    "1/2+y,1/2-x,1/2-z",
+    "1/2-y,1/2+x,1/2+z",
+    "1/2+x,1/2-y,1/2+z",
+    "1/2-x,1/2+y,1/2-z",
+    "x,y,-z",
+    "-x,-y,z",
+    "y,x,z",
+    "-y,-x,-z",
+    "1/2-y,1/2+x,1/2-z",
+    "1/2+y,1/2-x,1/2+z",
+    "1/2-x,1/2+y,1/2+z",
+    "1/2+x,1/2-y,1/2-z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Mg",
+      "element": "Mg",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "F",
+      "element": "F",
+      "fractional": [
+        0.303,
+        0.303,
+        0.0
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Mg",
+      "label": "Mg",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mg",
+      "label": "Mg",
+      "fractional": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "position": [
+        2.3125,
+        2.3125,
+        1.526
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "F",
+      "label": "F",
+      "fractional": [
+        0.303,
+        0.303,
+        0.0
+      ],
+      "position": [
+        1.401375,
+        1.401375,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "F",
+      "label": "F",
+      "fractional": [
+        0.697,
+        0.697,
+        0.0
+      ],
+      "position": [
+        3.223625,
+        3.223625,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "F",
+      "label": "F",
+      "fractional": [
+        0.803,
+        0.197,
+        0.5
+      ],
+      "position": [
+        3.713875,
+        0.911125,
+        1.526
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "F",
+      "label": "F",
+      "fractional": [
+        0.197,
+        0.803,
+        0.5
+      ],
+      "position": [
+        0.911125,
+        3.713875,
+        1.526
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 6,
+  "speciesPositionCount": 6,
+  "cellComposition": {
+    "Mg": 2,
+    "F": 4
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Baur W H"
+    ],
+    "title": "Uber die verfeinerung der kristallstrukturbestimmung einiger vertreter\n des rutiltyps: TiO2, SnO2, GeO2 und MgF2",
+    "journal": "Acta Crystallographica",
+    "year": 1956,
+    "volume": "9",
+    "pages": "515–520"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 16,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 2.8720584137708112e-06
+  },
+  "id": "chat-sellaite",
+  "note": "Cấu trúc kiểu rutile từ bản tinh chỉnh tọa độ."
+}

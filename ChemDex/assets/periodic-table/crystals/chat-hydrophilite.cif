@@ -1,0 +1,43 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0011763
+_database_code_amcsd 0011763
+_chemical_name_mineral 'Hydrophilite · CaCl₂'
+_chemical_formula_sum 'Ca Cl2'
+_symmetry_space_group_name_H-M 'P n n m'
+_cell_length_a 6.24
+_cell_length_b 6.43
+_cell_length_c 4.2
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 90
+_cell_volume 168.51744
+loop_
+_publ_author_name
+'Wyckoff R W G'
+_journal_name_full 'Crystal Structures'
+_journal_year 1963
+_journal_volume 1
+_publ_section_title
+;Second edition. Interscience Publishers, New York, New York
+ Note: distorted rutile structure
+;
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+1/2+x,1/2-y,1/2+z
+1/2-x,1/2+y,1/2-z
+1/2-x,1/2+y,1/2+z
+1/2+x,1/2-y,1/2-z
+x,y,-z
+-x,-y,z
+-x,-y,-z
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+Ca Ca 0 0 0 1
+Cl Cl 0.275 0.325 0 1

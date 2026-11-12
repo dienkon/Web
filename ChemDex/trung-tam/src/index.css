@@ -254,14 +254,23 @@ article.bg-white li {
 
 /* Dark Mode (Default when body does not have .light-mode) */
 .reader-container {
+  padding-top: 3rem;
   background-color: #0f172a;
   color: #e2e8f0;
 }
 .reader-toolbar {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 80;
   background-color: rgba(15, 23, 42, 0.95);
   border-bottom: 1px solid rgba(51, 65, 85, 0.8);
   color: #cbd5e1;
 }
+.chemdex-shell .reader-toolbar { left:var(--cd-sidebar-width,256px); }
+@media(max-width:767px) { .chemdex-shell .reader-toolbar { left:0; top:48px; } }
+.reader-article-card .katex-display { max-width: 100%; overflow-x: auto; overflow-y: hidden; padding: .4rem 0; }
+.reader-article-card .katex { font-size: 1.05em; }
+@media print { .reader-container { padding-top: 0; } }
 .reader-title {
   color: #f8fafc !important;
 }
@@ -846,3 +855,13 @@ article.bg-white li {
   }
 }
 
+.reader-visuals { margin:0 0 24px; padding:18px; border:1px solid #b7d5df; border-radius:18px; background:#edf7f9; color:#234c5e; }
+.reader-visual-heading { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; }
+.reader-visual-heading h2 { font-weight:750; font-size:1rem; }
+.reader-visual-heading button { border-radius:10px; background:#167c90; color:white; padding:8px 14px; font-size:13px; font-weight:650; }
+.reader-visuals iframe { display:block; width:100%; height:620px; margin-top:12px; border:1px solid #c4dce3; border-radius:12px; background:#e9f3f6; }
+.reader-visuals .published-crystal { margin-top:14px; }
+.reader-visual-note { margin:12px 0; font-size:13px; }
+.reader-visuals > a { font-size:13px; color:#136a8c; }
+.reader-visuals select { padding:6px; margin:10px; max-width:100%; border:1px solid #8bacbe; border-radius:6px; }
+@media(max-width:600px) { .reader-visuals { padding:12px; } .reader-visuals iframe { height:700px; } }

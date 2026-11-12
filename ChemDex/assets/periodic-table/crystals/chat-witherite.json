@@ -1,0 +1,417 @@
+{
+  "amcsdId": "0000235",
+  "mineralName": "Witherite · BaCO₃",
+  "formula": "Ba C O3",
+  "spaceGroup": "P m c n",
+  "cell": {
+    "a": 5.3126,
+    "b": 8.8958,
+    "c": 6.4284,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 303.805072401072,
+  "declaredVolume": 303.805,
+  "basis": [
+    [
+      5.3126,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      8.8958,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      6.4284
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2-x,y,z",
+    "1/2+x,-y,-z",
+    "1/2+x,1/2+y,1/2-z",
+    "1/2-x,1/2-y,1/2+z",
+    "x,1/2-y,1/2+z",
+    "-x,1/2+y,1/2-z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Ba",
+      "element": "Ba",
+      "fractional": [
+        0.25,
+        0.4163,
+        1.7549
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "C",
+      "element": "C",
+      "fractional": [
+        0.25,
+        0.757,
+        -0.081
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.25,
+        0.9011,
+        -0.0878
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.4595,
+        0.6839,
+        -0.079
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Ba",
+      "label": "Ba",
+      "fractional": [
+        0.25,
+        0.4163,
+        0.7549
+      ],
+      "position": [
+        1.32815,
+        3.7033215,
+        4.8527992
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ba",
+      "label": "Ba",
+      "fractional": [
+        0.75,
+        0.5837,
+        0.2451
+      ],
+      "position": [
+        3.98445,
+        5.1924785,
+        1.5756008
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ba",
+      "label": "Ba",
+      "fractional": [
+        0.75,
+        0.9163,
+        0.7451
+      ],
+      "position": [
+        3.98445,
+        8.1512215,
+        4.7898008
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ba",
+      "label": "Ba",
+      "fractional": [
+        0.25,
+        0.0837,
+        0.2549
+      ],
+      "position": [
+        1.32815,
+        0.7445785,
+        1.6385992
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.25,
+        0.757,
+        0.919
+      ],
+      "position": [
+        1.32815,
+        6.7341206,
+        5.9076996
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.75,
+        0.243,
+        0.081
+      ],
+      "position": [
+        3.98445,
+        2.1616794,
+        0.5207004
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.75,
+        0.257,
+        0.581
+      ],
+      "position": [
+        3.98445,
+        2.2862206,
+        3.7349004
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.25,
+        0.743,
+        0.419
+      ],
+      "position": [
+        1.32815,
+        6.6095794,
+        2.6934996
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.25,
+        0.9011,
+        0.9122
+      ],
+      "position": [
+        1.32815,
+        8.0160054,
+        5.8639865
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.75,
+        0.0989,
+        0.0878
+      ],
+      "position": [
+        3.98445,
+        0.8797946,
+        0.5644135
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.75,
+        0.4011,
+        0.5878
+      ],
+      "position": [
+        3.98445,
+        3.5681054,
+        3.7786135
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.25,
+        0.5989,
+        0.4122
+      ],
+      "position": [
+        1.32815,
+        5.3276946,
+        2.6497865
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.4595,
+        0.6839,
+        0.921
+      ],
+      "position": [
+        2.4411397,
+        6.0838376,
+        5.9205564
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.0405,
+        0.6839,
+        0.921
+      ],
+      "position": [
+        0.2151603,
+        6.0838376,
+        5.9205564
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.9595,
+        0.3161,
+        0.079
+      ],
+      "position": [
+        5.0974397,
+        2.8119624,
+        0.5078436
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.9595,
+        0.1839,
+        0.579
+      ],
+      "position": [
+        5.0974397,
+        1.6359376,
+        3.7220436
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.0405,
+        0.8161,
+        0.421
+      ],
+      "position": [
+        0.2151603,
+        7.2598624,
+        2.7063564
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.4595,
+        0.8161,
+        0.421
+      ],
+      "position": [
+        2.4411397,
+        7.2598624,
+        2.7063564
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.5405,
+        0.1839,
+        0.579
+      ],
+      "position": [
+        2.8714603,
+        1.6359376,
+        3.7220436
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.5405,
+        0.3161,
+        0.079
+      ],
+      "position": [
+        2.8714603,
+        2.8119624,
+        0.5078436
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 20,
+  "speciesPositionCount": 20,
+  "cellComposition": {
+    "Ba": 4,
+    "C": 4,
+    "O": 12
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "de Villiers J P R"
+    ],
+    "title": "Crystal structures of aragonite, strontianite, and witherite",
+    "journal": "American Mineralogist",
+    "year": 1971,
+    "volume": "56",
+    "pages": "758–767"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 8,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 2.3831423024911052e-07
+  },
+  "id": "chat-witherite",
+  "note": "Mẫu trong nghiên cứu carbonate orthorhombic."
+}

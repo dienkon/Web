@@ -1,0 +1,41 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0001544
+_database_code_amcsd 0001544
+_chemical_name_mineral 'Tolbachite · CuCl₂'
+_chemical_formula_sum 'Cu Cl2'
+_symmetry_space_group_name_H-M 'C 1 2/m 1'
+_cell_length_a 6.9038
+_cell_length_b 3.2995
+_cell_length_c 6.824
+_cell_angle_alpha 90
+_cell_angle_beta 122.197
+_cell_angle_gamma 90
+_cell_volume 131.540408
+loop_
+_publ_author_name
+'Hawthorne F C'
+'Burns P C'
+_journal_name_full 'American Mineralogist'
+_journal_year 1993
+_journal_volume 78
+_publ_section_title 'Tolbachite, CuCl2, the first example of Cu2+ octahedrally coordinated by Cl'
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+1/2+x,1/2+y,z
+x,-y,z
+1/2+x,1/2-y,z
+-x,y,-z
+1/2-x,1/2+y,-z
+-x,-y,-z
+1/2-x,1/2-y,-z
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+Cu Cu 0 0 0 1
+Cl Cl 0.5048 0 0.2294 1

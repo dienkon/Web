@@ -1,0 +1,11 @@
+
+Running 4 tests using 1 worker
+
+(node:27808) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [chromium] › tests\browser\learning-upgrade.spec.mjs:5:1 › application cards stay compact with mixed image and text content (2.5s)
+  ok 2 [chromium] › tests\browser\learning-upgrade.spec.mjs:49:1 › small screens fit formulas, controls, header and the chat panel (4.0s)
+  ok 3 [chromium] › tests\browser\learning-upgrade.spec.mjs:60:1 › library LaTeX repairs older doubled commands and renders fractions (1.5s)
+  ok 4 [chromium] › tests\browser\learning-upgrade.spec.mjs:67:1 › molecular and gas-element articles open the exact model in an embedded viewer (6.9s)
+
+  4 passed (16.1s)

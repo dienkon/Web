@@ -1,0 +1,37 @@
+import fs from 'node:fs/promises';
+import { chromium } from '@playwright/test';
+const base = process.env.CHEMDEX_CAPTURE_URL || 'http://127.0.0.1:4173';
+const destination = 'docs/learning-upgrade/2026-11-12/screenshots';
+await fs.mkdir(destination, {recursive:true});
+const browser = await chromium.launch({headless:true,args:['--enable-unsafe-swiftshader']});
+try {
+  const page = await browser.newPage({viewport:{width:1440,height:1050}});
+  await page.goto(base+'/?element=Be',{waitUntil:'domcontentloaded'});
+  await page.locator('#sec-applications .application-card').first().waitFor();
+  await page.locator('#sec-applications').evaluate(node=>node.scrollIntoView({block:'start'}));
+  await page.waitForTimeout(1000);
+  await page.screenshot({path:destination+'/ung-dung-gon.png'});
+  await page.route('**/api/gemini/chat/',route=>route.fulfill({json:{text:'Natri phản ứng với nước tạo dung dịch bazơ và khí hydrogen:\n\\[\n\\ce{2Na + 2H2O -> 2NaOH + H2}\n\\]\n**Quan sát:** kim loại chuyển động, có bọt khí; phản ứng tỏa nhiệt. Màu ngọn lửa (nếu xuất hiện) liên quan đến phát xạ của natri.'}}));
+  await page.locator('#chat-fab').click();
+  await page.locator('#chat-input').fill('Natri phản ứng với nước như thế nào?');
+  await page.locator('#chat-send-btn').click();
+  await page.locator('.chat-bubble-bot .katex').waitFor();
+  await page.locator('#chat-panel').screenshot({path:destination+'/chatbot-latex.png'});
+  const visuals=JSON.parse(await fs.readFile('shared/substance-visuals.generated.json','utf8'));
+  const slug=Object.keys(visuals).find(slug=>visuals[slug].formula==='CuSO4·5H2O');
+  await page.goto(`${base}/trung-tam/tai-lieu-so/${slug}/`,{waitUntil:'domcontentloaded'});
+  await page.getByRole('button',{name:'Khám phá 3D',exact:true}).click();
+  const crystal=page.locator('[data-crystal-id="chat-chalcanthite"]');
+  await crystal.getByRole('button',{name:'Xem mạng tinh thể 3D',exact:true}).click();
+  await crystal.locator('[role=status][data-state=ready]').waitFor();
+  await crystal.scrollIntoViewIfNeeded();
+  await page.screenshot({path:destination+'/tinh-the-cuso4-5h2o.png'});
+  await page.locator('article').scrollIntoViewIfNeeded();
+  await page.screenshot({path:destination+'/tai-lieu-header.png'});
+  await page.setViewportSize({width:390,height:844});
+  await page.goto(base+'/?element=Be',{waitUntil:'domcontentloaded'});
+  await page.locator('#sec-applications').evaluate(node=>node.scrollIntoView({block:'start'}));
+  await page.waitForTimeout(1000);
+  await page.screenshot({path:destination+'/ung-dung-dien-thoai.png'});
+  console.log('Saved 5 screenshots. Chat screenshot uses a deterministic response fixture.');
+} finally { await browser.close(); }

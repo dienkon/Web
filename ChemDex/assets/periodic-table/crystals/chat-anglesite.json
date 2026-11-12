@@ -1,0 +1,490 @@
+{
+  "amcsdId": "0005558",
+  "mineralName": "Anglesite · PbSO₄",
+  "formula": "Pb S O4",
+  "spaceGroup": "P b n m",
+  "cell": {
+    "a": 6.9549,
+    "b": 8.472,
+    "c": 5.3973,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 318.01923995544,
+  "declaredVolume": 318.019,
+  "basis": [
+    [
+      6.9549,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      8.472,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      5.3973
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "x,y,1/2-z",
+    "-x,-y,1/2+z",
+    "1/2+x,1/2-y,1/2+z",
+    "1/2-x,1/2+y,1/2-z",
+    "1/2-x,1/2+y,z",
+    "1/2+x,1/2-y,-z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Pb",
+      "element": "Pb",
+      "fractional": [
+        0.16716,
+        0.18798,
+        0.25
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "S",
+      "element": "S",
+      "fractional": [
+        0.1849,
+        0.4358,
+        0.75
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.0946,
+        0.5915,
+        0.75
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.0424,
+        0.3072,
+        0.75
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O3",
+      "element": "O",
+      "fractional": [
+        0.309,
+        0.4189,
+        0.9726
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Pb",
+      "label": "Pb",
+      "fractional": [
+        0.16716,
+        0.18798,
+        0.25
+      ],
+      "position": [
+        1.1625811,
+        1.5925666,
+        1.349325
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Pb",
+      "label": "Pb",
+      "fractional": [
+        0.83284,
+        0.81202,
+        0.75
+      ],
+      "position": [
+        5.7923189,
+        6.8794334,
+        4.047975
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Pb",
+      "label": "Pb",
+      "fractional": [
+        0.66716,
+        0.31202,
+        0.75
+      ],
+      "position": [
+        4.6400311,
+        2.6434334,
+        4.047975
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Pb",
+      "label": "Pb",
+      "fractional": [
+        0.33284,
+        0.68798,
+        0.25
+      ],
+      "position": [
+        2.3148689,
+        5.8285666,
+        1.349325
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.1849,
+        0.4358,
+        0.75
+      ],
+      "position": [
+        1.285961,
+        3.6920976,
+        4.047975
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.8151,
+        0.5642,
+        0.25
+      ],
+      "position": [
+        5.668939,
+        4.7799024,
+        1.349325
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.6849,
+        0.0642,
+        0.25
+      ],
+      "position": [
+        4.763411,
+        0.5439024,
+        1.349325
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.3151,
+        0.9358,
+        0.75
+      ],
+      "position": [
+        2.191489,
+        7.9280976,
+        4.047975
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.0946,
+        0.5915,
+        0.75
+      ],
+      "position": [
+        0.6579335,
+        5.011188,
+        4.047975
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.9054,
+        0.4085,
+        0.25
+      ],
+      "position": [
+        6.2969665,
+        3.460812,
+        1.349325
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.5946,
+        0.9085,
+        0.25
+      ],
+      "position": [
+        4.1353835,
+        7.696812,
+        1.349325
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.4054,
+        0.0915,
+        0.75
+      ],
+      "position": [
+        2.8195165,
+        0.775188,
+        4.047975
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.0424,
+        0.3072,
+        0.75
+      ],
+      "position": [
+        0.2948878,
+        2.6025984,
+        4.047975
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.9576,
+        0.6928,
+        0.25
+      ],
+      "position": [
+        6.6600122,
+        5.8694016,
+        1.349325
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.5424,
+        0.1928,
+        0.25
+      ],
+      "position": [
+        3.7723378,
+        1.6334016,
+        1.349325
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.4576,
+        0.8072,
+        0.75
+      ],
+      "position": [
+        3.1825622,
+        6.8385984,
+        4.047975
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.309,
+        0.4189,
+        0.9726
+      ],
+      "position": [
+        2.1490641,
+        3.5489208,
+        5.249414
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.309,
+        0.4189,
+        0.5274
+      ],
+      "position": [
+        2.1490641,
+        3.5489208,
+        2.846536
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.691,
+        0.5811,
+        0.4726
+      ],
+      "position": [
+        4.8058359,
+        4.9230792,
+        2.550764
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.809,
+        0.0811,
+        0.4726
+      ],
+      "position": [
+        5.6265141,
+        0.6870792,
+        2.550764
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.191,
+        0.9189,
+        0.5274
+      ],
+      "position": [
+        1.3283859,
+        7.7849208,
+        2.846536
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.191,
+        0.9189,
+        0.9726
+      ],
+      "position": [
+        1.3283859,
+        7.7849208,
+        5.249414
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.809,
+        0.0811,
+        0.0274
+      ],
+      "position": [
+        5.6265141,
+        0.6870792,
+        0.147886
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.691,
+        0.5811,
+        0.0274
+      ],
+      "position": [
+        4.8058359,
+        4.9230792,
+        0.147886
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 24,
+  "speciesPositionCount": 24,
+  "cellComposition": {
+    "Pb": 4,
+    "S": 4,
+    "O": 16
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Downs R T",
+      "Smyth J R",
+      "Swope R J",
+      "Jacobsen S D"
+    ],
+    "title": "Rigid-body character of the SO4 groups in celestine, anglesite and\n barite",
+    "journal": "The Canadian Mineralogist",
+    "year": 1998,
+    "volume": "36",
+    "pages": "1053–1060"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 8,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 7.545312039679279e-07
+  },
+  "id": "chat-anglesite",
+  "note": "Tinh chỉnh nhóm sulfate; không lấy bản ghi bị thiếu O."
+}

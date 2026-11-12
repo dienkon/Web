@@ -1,0 +1,585 @@
+{
+  "amcsdId": "0000103",
+  "mineralName": "Otavite · CdCO₃",
+  "formula": "Cd C O3",
+  "spaceGroup": "R -3 c",
+  "cell": {
+    "a": 4.9204,
+    "b": 4.9204,
+    "c": 16.298,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 120.0
+  },
+  "volume": 341.7163546918548,
+  "declaredVolume": 341.716,
+  "basis": [
+    [
+      4.9204,
+      -2.460199999999999,
+      0.0
+    ],
+    [
+      0.0,
+      4.261191396780952,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      16.298
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "2/3+x,1/3+y,1/3+z",
+    "1/3+x,2/3+y,2/3+z",
+    "x,x-y,1/2+z",
+    "2/3+x,1/3+x-y,5/6+z",
+    "1/3+x,2/3+x-y,1/6+z",
+    "y,x,1/2-z",
+    "2/3+y,1/3+x,5/6-z",
+    "1/3+y,2/3+x,1/6-z",
+    "-x+y,y,1/2+z",
+    "2/3-x+y,1/3+y,5/6+z",
+    "1/3-x+y,2/3+y,1/6+z",
+    "-x,-x+y,1/2-z",
+    "2/3-x,1/3-x+y,5/6-z",
+    "1/3-x,2/3-x+y,1/6-z",
+    "-y,-x,1/2+z",
+    "2/3-y,1/3-x,5/6+z",
+    "1/3-y,2/3-x,1/6+z",
+    "x-y,-y,1/2-z",
+    "2/3+x-y,1/3-y,5/6-z",
+    "1/3+x-y,2/3-y,1/6-z",
+    "y,-x+y,-z",
+    "2/3+y,1/3-x+y,1/3-z",
+    "1/3+y,2/3-x+y,2/3-z",
+    "-x+y,-x,z",
+    "2/3-x+y,1/3-x,1/3+z",
+    "1/3-x+y,2/3-x,2/3+z",
+    "-x,-y,-z",
+    "2/3-x,1/3-y,1/3-z",
+    "1/3-x,2/3-y,2/3-z",
+    "-y,x-y,z",
+    "2/3-y,1/3+x-y,1/3+z",
+    "1/3-y,2/3+x-y,2/3+z",
+    "x-y,x,-z",
+    "2/3+x-y,1/3+x,1/3-z",
+    "1/3+x-y,2/3+x,2/3-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Cd",
+      "element": "Cd",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "C",
+      "element": "C",
+      "fractional": [
+        0.0,
+        0.0,
+        0.25
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.2614,
+        0.0,
+        0.25
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Cd",
+      "label": "Cd",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cd",
+      "label": "Cd",
+      "fractional": [
+        0.66666667,
+        0.33333333,
+        0.33333333
+      ],
+      "position": [
+        2.4602,
+        1.4203971,
+        5.4326666
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cd",
+      "label": "Cd",
+      "fractional": [
+        0.33333333,
+        0.66666667,
+        0.66666667
+      ],
+      "position": [
+        -0.0,
+        2.8407943,
+        10.8653334
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cd",
+      "label": "Cd",
+      "fractional": [
+        0.0,
+        0.0,
+        0.5
+      ],
+      "position": [
+        0.0,
+        0.0,
+        8.149
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cd",
+      "label": "Cd",
+      "fractional": [
+        0.66666667,
+        0.33333333,
+        0.83333333
+      ],
+      "position": [
+        2.4602,
+        1.4203971,
+        13.5816666
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cd",
+      "label": "Cd",
+      "fractional": [
+        0.33333333,
+        0.66666667,
+        0.16666667
+      ],
+      "position": [
+        -0.0,
+        2.8407943,
+        2.7163334
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.0,
+        0.0,
+        0.25
+      ],
+      "position": [
+        0.0,
+        0.0,
+        4.0745
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.66666667,
+        0.33333333,
+        0.58333333
+      ],
+      "position": [
+        2.4602,
+        1.4203971,
+        9.5071666
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.33333333,
+        0.66666667,
+        0.91666667
+      ],
+      "position": [
+        -0.0,
+        2.8407943,
+        14.9398334
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.0,
+        0.0,
+        0.75
+      ],
+      "position": [
+        0.0,
+        0.0,
+        12.2235
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.66666667,
+        0.33333333,
+        0.08333333
+      ],
+      "position": [
+        2.4602,
+        1.4203971,
+        1.3581666
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.33333333,
+        0.66666667,
+        0.41666667
+      ],
+      "position": [
+        -0.0,
+        2.8407943,
+        6.7908334
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.2614,
+        0.0,
+        0.25
+      ],
+      "position": [
+        1.2861926,
+        0.0,
+        4.0745
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.92806667,
+        0.33333333,
+        0.58333333
+      ],
+      "position": [
+        3.7463926,
+        1.4203971,
+        9.5071666
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.59473333,
+        0.66666667,
+        0.91666667
+      ],
+      "position": [
+        1.2861925,
+        2.8407943,
+        14.9398334
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.2614,
+        0.2614,
+        0.75
+      ],
+      "position": [
+        0.6430963,
+        1.1138754,
+        12.2235
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.92806667,
+        0.59473333,
+        0.08333333
+      ],
+      "position": [
+        3.1032963,
+        2.5342725,
+        1.3581666
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.59473333,
+        0.92806667,
+        0.41666667
+      ],
+      "position": [
+        0.6430963,
+        3.9546697,
+        6.7908334
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.0,
+        0.2614,
+        0.25
+      ],
+      "position": [
+        -0.6430963,
+        1.1138754,
+        4.0745
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.66666667,
+        0.59473333,
+        0.58333333
+      ],
+      "position": [
+        1.8171037,
+        2.5342725,
+        9.5071666
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.33333333,
+        0.92806667,
+        0.91666667
+      ],
+      "position": [
+        -0.6430963,
+        3.9546697,
+        14.9398334
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.7386,
+        0.0,
+        0.75
+      ],
+      "position": [
+        3.6342074,
+        0.0,
+        12.2235
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.40526667,
+        0.33333333,
+        0.08333333
+      ],
+      "position": [
+        1.1740075,
+        1.4203971,
+        1.3581666
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.07193333,
+        0.66666667,
+        0.41666667
+      ],
+      "position": [
+        -1.2861926,
+        2.8407943,
+        6.7908334
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.7386,
+        0.7386,
+        0.25
+      ],
+      "position": [
+        1.8171037,
+        3.147316,
+        4.0745
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.40526667,
+        0.07193333,
+        0.58333333
+      ],
+      "position": [
+        1.8171037,
+        0.3065217,
+        9.5071666
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.07193333,
+        0.40526667,
+        0.91666667
+      ],
+      "position": [
+        -0.6430963,
+        1.7269188,
+        14.9398334
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.0,
+        0.7386,
+        0.75
+      ],
+      "position": [
+        -1.8171037,
+        3.147316,
+        12.2235
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.66666667,
+        0.07193333,
+        0.08333333
+      ],
+      "position": [
+        3.1032963,
+        0.3065217,
+        1.3581666
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.33333333,
+        0.40526667,
+        0.41666667
+      ],
+      "position": [
+        0.6430963,
+        1.7269188,
+        6.7908334
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 30,
+  "speciesPositionCount": 30,
+  "cellComposition": {
+    "Cd": 6,
+    "C": 6,
+    "O": 18
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Graf D L"
+    ],
+    "title": "Crystallographic tables for the rhombohedral carbonates",
+    "journal": "American Mineralogist",
+    "year": 1961,
+    "volume": "46",
+    "pages": "1283–1316"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 36,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.0379715513331667e-06
+  },
+  "id": "chat-otavite",
+  "note": "Bản tổng hợp carbonate; không dùng dung dịch rắn Mg-Cd."
+}

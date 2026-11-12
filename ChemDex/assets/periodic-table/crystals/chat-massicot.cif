@@ -1,0 +1,43 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0010011
+_database_code_amcsd 0010011
+_chemical_name_mineral 'Massicot · β-PbO'
+_chemical_formula_sum 'Pb O'
+_symmetry_space_group_name_H-M 'P b c m'
+_cell_length_a 5.8931
+_cell_length_b 5.4904
+_cell_length_c 4.7528
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 90
+_cell_volume 153.779107
+loop_
+_publ_author_name
+'Hill R J'
+_journal_name_full 'Acta Crystallographica, Section C'
+_journal_year 1985
+_journal_volume 41
+_publ_section_title
+;Refinement of the structure of orthorhombic PbO (massicot) by
+ Rietveld analysis of neutron powder diffraction data
+;
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+x,1/2-y,1/2+z
+-x,1/2+y,1/2-z
+-x,1/2+y,z
+x,1/2-y,-z
+x,y,1/2-z
+-x,-y,1/2+z
+-x,-y,-z
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+Pb Pb 0.2297 -0.0116 0.25 1
+O O -0.1347 0.0917 0.25 1

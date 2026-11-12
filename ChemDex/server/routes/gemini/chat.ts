@@ -1,6 +1,8 @@
 import {
   callWithGeminiFallback,
   generateContentWithModelFallback,
+  getCandidateKeys,
+  publicGeminiFailure,
 } from "./client";
 
 export default async function handler(req: any, res: any) {
@@ -27,9 +29,9 @@ export default async function handler(req: any, res: any) {
       body = await req.json();
     }
 
-    const { prompt, systemPrompt } = body || {};
+    const { prompt, systemPrompt, history } = body || {};
 
-    if (!prompt) {
+    if (typeof prompt !== 'string' || !prompt.trim() || prompt.length > 6000 || (systemPrompt != null && (typeof systemPrompt !== 'string' || systemPrompt.length > 10000))) {
       const errObj = { error: "Prompt is required" };
       if (isNode) return res.status(400).json(errObj);
       return new Response(JSON.stringify(errObj), {
@@ -38,12 +40,21 @@ export default async function handler(req: any, res: any) {
       });
     }
 
+    if (!getCandidateKeys().length) {
+      const error = { error: 'Máy chủ chưa cấu hình GEMINI_API_KEY hoặc GOOGLE_API_KEY.' };
+      if (isNode) return res.status(503).json(error);
+      return new Response(JSON.stringify(error), { status: 503, headers: { 'Content-Type': 'application/json' } });
+    }
+    const previous = Array.isArray(history) ? history.slice(-8).filter((m: any) =>
+      m && ['user', 'model'].includes(m.role) && typeof m.text === 'string' && m.text.length <= 6000
+    ).map((m: any) => ({ role: m.role, parts: [{ text: m.text }] })) : [];
     const contents = [
+      ...previous,
       {
         role: "user",
         parts: [
           {
-            text: `${systemPrompt ? systemPrompt + "\n\n" : ""}Câu hỏi: ${prompt}`,
+            text: prompt.trim(),
           },
         ],
       },
@@ -52,10 +63,12 @@ export default async function handler(req: any, res: any) {
     const response = await callWithGeminiFallback(async (ai) => {
       return await generateContentWithModelFallback(
         ai,
-        "gemini-2.5-flash",
+        process.env.GEMINI_MODEL || "gemini-2.5-flash",
         () => ({
           contents,
           config: {
+            abortSignal: AbortSignal.timeout(50000),
+            systemInstruction: `Bạn là trợ lý Hóa học ChemDex. Trả lời chính xác bằng tiếng Việt. Dùng $...$ hoặc $$...$$ cho LaTeX; dùng \\ce{...} trong dấu toán cho phương trình. Nêu rõ dữ liệu chưa chắc chắn.\n${systemPrompt || ''}`,
             temperature: 0.4,
             topP: 0.95,
             maxOutputTokens: 1024,
@@ -75,17 +88,16 @@ export default async function handler(req: any, res: any) {
       headers: { "Content-Type": "application/json" },
     });
   } catch (err: any) {
-    console.error("Chat API error:", err);
-    const errObj = {
-      error: err?.message || "Failed to call Gemini API",
-    };
+    console.error("Chat API error status:", err?.status ?? err?.code ?? 'unavailable');
+    const failure = publicGeminiFailure(err);
+    const errObj = { error: failure.error };
 
     if (isNode) {
-      return res.status(500).json(errObj);
+      return res.status(failure.status).json(errObj);
     }
 
     return new Response(JSON.stringify(errObj), {
-      status: 500,
+      status: failure.status,
       headers: { "Content-Type": "application/json" },
     });
   }

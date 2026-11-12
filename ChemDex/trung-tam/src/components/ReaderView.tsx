@@ -8,9 +8,16 @@ import {
 import Markdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import 'katex/dist/katex.min.css';
+import 'katex/contrib/mhchem';
+import { normalizeMathMarkdown } from '../../../shared/chemistry/math-markdown.mjs';
 import { motion } from 'motion/react';
 import { useSpeech } from '../hooks/useSpeech';
 import { getRecommendationsForDoc } from '../utils/recommendations';
+const SubstanceVisuals = React.lazy(() => import('./SubstanceVisuals').then(m => ({ default: m.SubstanceVisuals })));
+import remarkStudyLinks from '../utils/remarkStudyLinks';
 
 interface ReaderViewProps {
   doc: DocFull | null;
@@ -66,13 +73,11 @@ export function ReaderView({ doc, onBack, isBookmarked, onToggleBookmark, onTagC
     vietnameseVoices, selectedVoiceURI, setSelectedVoiceURI
   } = useSpeech();
   
-  if (!doc) return null;
-
-  const catConfig = getCategoryConfig(doc.category);
+  const catConfig = getCategoryConfig(doc?.category ?? '');
   const headingId = (text: string) => text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g,'d').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
-  const sections = doc.content.split('\n').filter(line=>/^## /.test(line)).map(line=>line.slice(3).trim());
+  const sections = (doc?.content ?? '').split('\n').filter(line=>/^## /.test(line)).map(line=>line.slice(3).trim());
 
-  const recommendations = useMemo(() => getRecommendationsForDoc(doc.id), [doc.id]);
+  const recommendations = useMemo(() => doc ? getRecommendationsForDoc(doc.id) : [], [doc?.id]);
 
   useEffect(() => {
     const checkMode = () => {
@@ -111,6 +116,8 @@ export function ReaderView({ doc, onBack, isBookmarked, onToggleBookmark, onTagC
       return next;
     });
   };
+
+  if (!doc) return null;
 
   const handlePrint = () => {
     window.print();
@@ -155,7 +162,7 @@ export function ReaderView({ doc, onBack, isBookmarked, onToggleBookmark, onTagC
   return (
     <div className={`min-h-screen reader-container print-container ${isLight ? 'is-light' : 'is-dark'}`}>
       {/* Sticky Reader Toolbar - Compact & Slim h-12 to preserve reading space */}
-      <div className="sticky top-0 z-40 reader-toolbar backdrop-blur-md px-3 sm:px-6 h-12 flex items-center justify-between no-print shadow-xs transition-colors">
+      <div className="reader-toolbar backdrop-blur-md px-3 sm:px-6 h-12 flex items-center justify-between no-print shadow-xs transition-colors">
         <button 
           onClick={onBack}
           className="flex items-center gap-1.5 py-1 px-2 rounded-lg hover:bg-slate-800/40 dark:hover:bg-slate-800/50 transition-colors"
@@ -472,6 +479,8 @@ export function ReaderView({ doc, onBack, isBookmarked, onToggleBookmark, onTagC
           </div>
         )}
 
+        <React.Suspense fallback={null}><SubstanceVisuals key={doc.id} slug={doc.slug ?? doc.id} /></React.Suspense>
+
         {sections.length > 0 && (
           <nav aria-label="Mục lục bài viết" className="mb-6 rounded-2xl reader-toc-card p-4 sm:p-5 shadow-xs no-print">
             <h2 className="mb-2.5 text-xs sm:text-sm font-extrabold uppercase tracking-wider reader-toc-title">✦ Mục lục kỳ báo khoa học</h2>
@@ -501,10 +510,10 @@ export function ReaderView({ doc, onBack, isBookmarked, onToggleBookmark, onTagC
             components={{
               h2: ({children}) => <h2 id={headingId(String(children))} className="scroll-mt-16">{children}</h2>
             }} 
-            rehypePlugins={[rehypeRaw]} 
-            remarkPlugins={[remarkGfm]}
+            rehypePlugins={[rehypeRaw, [rehypeKatex, { strict: false, throwOnError: false }]]}
+            remarkPlugins={[remarkGfm, [remarkMath, { singleDollarTextMath: true }], remarkStudyLinks]}
           >
-            {doc.content}
+            {normalizeMathMarkdown(doc.content)}
           </Markdown>
         </article>
         

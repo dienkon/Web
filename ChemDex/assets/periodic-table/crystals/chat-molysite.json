@@ -1,0 +1,468 @@
+{
+  "amcsdId": "0012857",
+  "mineralName": "Molysite · FeCl₃",
+  "formula": "Fe Cl3",
+  "spaceGroup": "R -3",
+  "cell": {
+    "a": 6.065,
+    "b": 6.065,
+    "c": 17.42,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 120.0
+  },
+  "volume": 554.9327970344647,
+  "declaredVolume": 554.933,
+  "basis": [
+    [
+      6.065,
+      -3.032499999999999,
+      0.0
+    ],
+    [
+      0.0,
+      5.2524440739526215,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      17.42
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "2/3+x,1/3+y,1/3+z",
+    "1/3+x,2/3+y,2/3+z",
+    "y,-x+y,-z",
+    "2/3+y,1/3-x+y,1/3-z",
+    "1/3+y,2/3-x+y,2/3-z",
+    "-x+y,-x,z",
+    "2/3-x+y,1/3-x,1/3+z",
+    "1/3-x+y,2/3-x,2/3+z",
+    "-x,-y,-z",
+    "2/3-x,1/3-y,1/3-z",
+    "1/3-x,2/3-y,2/3-z",
+    "-y,x-y,z",
+    "2/3-y,1/3+x-y,1/3+z",
+    "1/3-y,2/3+x-y,2/3+z",
+    "x-y,x,-z",
+    "2/3+x-y,1/3+x,1/3-z",
+    "1/3+x-y,2/3+x,2/3-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Fe",
+      "element": "Fe",
+      "fractional": [
+        0.0,
+        0.0,
+        0.33333325
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Cl",
+      "element": "Cl",
+      "fractional": [
+        0.358,
+        0.0,
+        0.078
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Fe",
+      "label": "Fe",
+      "fractional": [
+        0.0,
+        0.0,
+        0.33333325
+      ],
+      "position": [
+        0.0,
+        0.0,
+        5.8066652
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe",
+      "fractional": [
+        0.66666667,
+        0.33333333,
+        0.66666658
+      ],
+      "position": [
+        3.0325,
+        1.7508147,
+        11.6133318
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe",
+      "fractional": [
+        0.33333333,
+        0.66666667,
+        0.0
+      ],
+      "position": [
+        -0.0,
+        3.5016294,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe",
+      "fractional": [
+        0.0,
+        0.0,
+        0.66666675
+      ],
+      "position": [
+        0.0,
+        0.0,
+        11.6133348
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe",
+      "fractional": [
+        0.66666667,
+        0.33333333,
+        0.0
+      ],
+      "position": [
+        3.0325,
+        1.7508147,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe",
+      "fractional": [
+        0.33333333,
+        0.66666667,
+        0.33333342
+      ],
+      "position": [
+        -0.0,
+        3.5016294,
+        5.8066682
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.358,
+        0.0,
+        0.078
+      ],
+      "position": [
+        2.17127,
+        0.0,
+        1.35876
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.02466667,
+        0.33333333,
+        0.41133333
+      ],
+      "position": [
+        -0.86123,
+        1.7508147,
+        7.1654266
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.69133333,
+        0.66666667,
+        0.74466667
+      ],
+      "position": [
+        2.17127,
+        3.5016294,
+        12.9720934
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.0,
+        0.642,
+        0.922
+      ],
+      "position": [
+        -1.946865,
+        3.3720691,
+        16.06124
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.66666667,
+        0.97533333,
+        0.25533333
+      ],
+      "position": [
+        1.085635,
+        5.1228838,
+        4.4479066
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.33333333,
+        0.30866667,
+        0.58866667
+      ],
+      "position": [
+        1.085635,
+        1.6212544,
+        10.2545734
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.642,
+        0.642,
+        0.078
+      ],
+      "position": [
+        1.946865,
+        3.3720691,
+        1.35876
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.30866667,
+        0.97533333,
+        0.41133333
+      ],
+      "position": [
+        -1.085635,
+        5.1228838,
+        7.1654266
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.97533333,
+        0.30866667,
+        0.74466667
+      ],
+      "position": [
+        4.979365,
+        1.6212544,
+        12.9720934
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.642,
+        0.0,
+        0.922
+      ],
+      "position": [
+        3.89373,
+        0.0,
+        16.06124
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.30866667,
+        0.33333333,
+        0.25533333
+      ],
+      "position": [
+        0.86123,
+        1.7508147,
+        4.4479066
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.97533333,
+        0.66666667,
+        0.58866667
+      ],
+      "position": [
+        3.89373,
+        3.5016294,
+        10.2545734
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.0,
+        0.358,
+        0.078
+      ],
+      "position": [
+        -1.085635,
+        1.880375,
+        1.35876
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.66666667,
+        0.69133333,
+        0.41133333
+      ],
+      "position": [
+        1.946865,
+        3.6311897,
+        7.1654266
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.33333333,
+        0.02466667,
+        0.74466667
+      ],
+      "position": [
+        1.946865,
+        0.1295603,
+        12.9720934
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.358,
+        0.358,
+        0.922
+      ],
+      "position": [
+        1.085635,
+        1.880375,
+        16.06124
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.02466667,
+        0.69133333,
+        0.25533333
+      ],
+      "position": [
+        -1.946865,
+        3.6311897,
+        4.4479066
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.69133333,
+        0.02466667,
+        0.58866667
+      ],
+      "position": [
+        4.118135,
+        0.1295603,
+        10.2545734
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 24,
+  "speciesPositionCount": 24,
+  "cellComposition": {
+    "Fe": 6,
+    "Cl": 18
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Hashimoto S",
+      "Forster K",
+      "Moss S C"
+    ],
+    "title": "Structure refinement of an FeCl3 crystal using a thin plate sample",
+    "journal": "Journal of Applied Crystallography",
+    "year": 1988,
+    "volume": "22",
+    "pages": "173–180"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 18,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 3.6574795435998275e-07
+  },
+  "id": "chat-molysite",
+  "note": "Tinh chỉnh mẫu bản mỏng FeCl3 khan."
+}

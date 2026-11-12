@@ -1,0 +1,15 @@
+✔ Lab links require atom conservation, exact substances and an implemented preset (25.3678ms)
+✔ all new crystalline phases retain full metric, expanded positions, occupancy and exported artifacts (1251.2486ms)
+✔ all automatic formula and discovery links target actual library documents (52.9011ms)
+✔ visuals use explicit source phases and distinguish anhydrous from hydrated copper sulfate (2.6226ms)
+✔ TeX normalization preserves fenced and inline code and multiline display math (1.3201ms)
+✔ video questions reject bad timestamps, answer indices and unsupported URLs (0.5598ms)
+✔ API rejects unselected video URLs, serves prepared checkpoints and explains missing server configuration (1361.9304ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2828.7487

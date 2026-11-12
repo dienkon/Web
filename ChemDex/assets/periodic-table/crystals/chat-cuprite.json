@@ -1,0 +1,203 @@
+{
+  "amcsdId": "0007351",
+  "mineralName": "Cuprite · Cu₂O",
+  "formula": "Cu2 O",
+  "spaceGroup": "P n 3",
+  "cell": {
+    "a": 4.2696,
+    "b": 4.2696,
+    "c": 4.2696,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 77.83260556953599,
+  "declaredVolume": 77.833,
+  "basis": [
+    [
+      4.2696,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      4.2696,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      4.2696
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+z,1/2+x,1/2-y",
+    "1/2+z,1/2-x,1/2+y",
+    "1/2-z,1/2+x,1/2+y",
+    "1/2-z,1/2-x,1/2-y",
+    "y,-z,-x",
+    "-y,-z,x",
+    "-y,z,-x",
+    "y,z,x",
+    "1/2+x,1/2-y,1/2+z",
+    "1/2-x,1/2+y,1/2+z",
+    "1/2+x,1/2+y,1/2-z",
+    "1/2-x,1/2-y,1/2-z",
+    "-z,-x,y",
+    "-z,x,-y",
+    "z,-x,-y",
+    "z,x,y",
+    "1/2-y,1/2+z,1/2+x",
+    "1/2+y,1/2+z,1/2-x",
+    "1/2+y,1/2-z,1/2+x",
+    "1/2-y,1/2-z,1/2-x",
+    "-x,y,-z",
+    "x,-y,-z",
+    "-x,-y,z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Cu",
+      "element": "Cu",
+      "fractional": [
+        0.25,
+        0.25,
+        0.25
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Cu",
+      "label": "Cu",
+      "fractional": [
+        0.25,
+        0.25,
+        0.25
+      ],
+      "position": [
+        1.0674,
+        1.0674,
+        1.0674
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cu",
+      "label": "Cu",
+      "fractional": [
+        0.75,
+        0.75,
+        0.25
+      ],
+      "position": [
+        3.2022,
+        3.2022,
+        1.0674
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cu",
+      "label": "Cu",
+      "fractional": [
+        0.75,
+        0.25,
+        0.75
+      ],
+      "position": [
+        3.2022,
+        1.0674,
+        3.2022
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cu",
+      "label": "Cu",
+      "fractional": [
+        0.25,
+        0.75,
+        0.75
+      ],
+      "position": [
+        1.0674,
+        3.2022,
+        3.2022
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "position": [
+        2.1348,
+        2.1348,
+        2.1348
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 6,
+  "speciesPositionCount": 6,
+  "cellComposition": {
+    "Cu": 4,
+    "O": 2
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Hafner S S",
+      "Nagel S"
+    ],
+    "title": "The electric field gradient at the position of copper in\n Cu2O and electronic charge density analysis by means of K-factors",
+    "journal": "Physics and Chemistry of Minerals",
+    "year": 1983,
+    "volume": "9",
+    "pages": "19–22"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 24,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 5.067676472175905e-06
+  },
+  "id": "chat-cuprite",
+  "note": "Phân tích mật độ điện tích Cu2O; pha cuprite, không phải CuO."
+}

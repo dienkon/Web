@@ -1,0 +1,488 @@
+{
+  "amcsdId": "0014619",
+  "mineralName": "Chalcocyanite · CuSO₄",
+  "formula": "Cu S O4",
+  "spaceGroup": "P n m a",
+  "cell": {
+    "a": 8.409,
+    "b": 6.709,
+    "c": 4.833,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 272.65843617300004,
+  "declaredVolume": 272.658,
+  "basis": [
+    [
+      8.409,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      6.709,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      4.833
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "x,1/2-y,z",
+    "-x,1/2+y,-z",
+    "1/2-x,1/2+y,1/2+z",
+    "1/2+x,1/2-y,1/2-z",
+    "1/2+x,y,1/2-z",
+    "1/2-x,-y,1/2+z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Cu",
+      "element": "Cu",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "S",
+      "element": "S",
+      "fractional": [
+        0.18363,
+        0.25,
+        0.44979
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.1293,
+        0.25,
+        0.7353
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.3646,
+        0.25,
+        0.4385
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O3",
+      "element": "O",
+      "fractional": [
+        0.1328,
+        0.0674,
+        0.3083
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Cu",
+      "label": "Cu",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cu",
+      "label": "Cu",
+      "fractional": [
+        0.0,
+        0.5,
+        0.0
+      ],
+      "position": [
+        0.0,
+        3.3545,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cu",
+      "label": "Cu",
+      "fractional": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "position": [
+        4.2045,
+        3.3545,
+        2.4165
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cu",
+      "label": "Cu",
+      "fractional": [
+        0.5,
+        0.0,
+        0.5
+      ],
+      "position": [
+        4.2045,
+        0.0,
+        2.4165
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.18363,
+        0.25,
+        0.44979
+      ],
+      "position": [
+        1.5441447,
+        1.67725,
+        2.1738351
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.81637,
+        0.75,
+        0.55021
+      ],
+      "position": [
+        6.8648553,
+        5.03175,
+        2.6591649
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.31637,
+        0.75,
+        0.94979
+      ],
+      "position": [
+        2.6603553,
+        5.03175,
+        4.5903351
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.68363,
+        0.25,
+        0.05021
+      ],
+      "position": [
+        5.7486447,
+        1.67725,
+        0.2426649
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.1293,
+        0.25,
+        0.7353
+      ],
+      "position": [
+        1.0872837,
+        1.67725,
+        3.5537049
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.8707,
+        0.75,
+        0.2647
+      ],
+      "position": [
+        7.3217163,
+        5.03175,
+        1.2792951
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.3707,
+        0.75,
+        0.2353
+      ],
+      "position": [
+        3.1172163,
+        5.03175,
+        1.1372049
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.6293,
+        0.25,
+        0.7647
+      ],
+      "position": [
+        5.2917837,
+        1.67725,
+        3.6957951
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.3646,
+        0.25,
+        0.4385
+      ],
+      "position": [
+        3.0659214,
+        1.67725,
+        2.1192705
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.6354,
+        0.75,
+        0.5615
+      ],
+      "position": [
+        5.3430786,
+        5.03175,
+        2.7137295
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.1354,
+        0.75,
+        0.9385
+      ],
+      "position": [
+        1.1385786,
+        5.03175,
+        4.5357705
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.8646,
+        0.25,
+        0.0615
+      ],
+      "position": [
+        7.2704214,
+        1.67725,
+        0.2972295
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.1328,
+        0.0674,
+        0.3083
+      ],
+      "position": [
+        1.1167152,
+        0.4521866,
+        1.4900139
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.1328,
+        0.4326,
+        0.3083
+      ],
+      "position": [
+        1.1167152,
+        2.9023134,
+        1.4900139
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.8672,
+        0.5674,
+        0.6917
+      ],
+      "position": [
+        7.2922848,
+        3.8066866,
+        3.3429861
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.3672,
+        0.5674,
+        0.8083
+      ],
+      "position": [
+        3.0877848,
+        3.8066866,
+        3.9065139
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.6328,
+        0.4326,
+        0.1917
+      ],
+      "position": [
+        5.3212152,
+        2.9023134,
+        0.9264861
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.6328,
+        0.0674,
+        0.1917
+      ],
+      "position": [
+        5.3212152,
+        0.4521866,
+        0.9264861
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.3672,
+        0.9326,
+        0.8083
+      ],
+      "position": [
+        3.0877848,
+        6.2568134,
+        3.9065139
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.8672,
+        0.9326,
+        0.6917
+      ],
+      "position": [
+        7.2922848,
+        6.2568134,
+        3.3429861
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 24,
+  "speciesPositionCount": 24,
+  "cellComposition": {
+    "Cu": 4,
+    "S": 4,
+    "O": 16
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Giester G",
+      "Wildner M"
+    ],
+    "title": "Crystal structure refinements of synthetic\n chalcocyanite (CuSO4) and zincosite (ZnSO4)",
+    "journal": "Mineralogy and Petrology",
+    "year": 1988,
+    "volume": "39",
+    "pages": "201–209"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 8,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.599704766694878e-06
+  },
+  "id": "chat-chalcocyanite",
+  "note": "Tinh chỉnh CuSO4 khan; không thay cho tinh thể pentahydrate màu xanh."
+}

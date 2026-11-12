@@ -1,0 +1,422 @@
+{
+  "amcsdId": "0011016",
+  "mineralName": "Cerussite · PbCO₃",
+  "formula": "Pb C O3",
+  "spaceGroup": "P m c n",
+  "cell": {
+    "a": 5.179,
+    "b": 8.492,
+    "c": 6.141,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 270.0815975880001,
+  "declaredVolume": 270.082,
+  "basis": [
+    [
+      5.179,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      8.492,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      6.141
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2-x,y,z",
+    "1/2+x,-y,-z",
+    "1/2+x,1/2+y,1/2-z",
+    "1/2-x,1/2-y,1/2+z",
+    "x,1/2-y,1/2+z",
+    "-x,1/2+y,1/2-z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Pb",
+      "element": "Pb",
+      "fractional": [
+        0.25,
+        0.41702,
+        0.2456
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "C",
+      "element": "C",
+      "fractional": [
+        0.25,
+        0.76221,
+        0.08718
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.25,
+        0.91299,
+        0.09649
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.46445,
+        0.68597,
+        0.08893
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Pb",
+      "label": "Pb",
+      "fractional": [
+        0.25,
+        0.41702,
+        0.2456
+      ],
+      "position": [
+        1.29475,
+        3.5413338,
+        1.5082296
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Pb",
+      "label": "Pb",
+      "fractional": [
+        0.75,
+        0.58298,
+        0.7544
+      ],
+      "position": [
+        3.88425,
+        4.9506662,
+        4.6327704
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Pb",
+      "label": "Pb",
+      "fractional": [
+        0.75,
+        0.91702,
+        0.2544
+      ],
+      "position": [
+        3.88425,
+        7.7873338,
+        1.5622704
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Pb",
+      "label": "Pb",
+      "fractional": [
+        0.25,
+        0.08298,
+        0.7456
+      ],
+      "position": [
+        1.29475,
+        0.7046662,
+        4.5787296
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.25,
+        0.76221,
+        0.08718
+      ],
+      "position": [
+        1.29475,
+        6.4726873,
+        0.5353724
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.75,
+        0.23779,
+        0.91282
+      ],
+      "position": [
+        3.88425,
+        2.0193127,
+        5.6056276
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.75,
+        0.26221,
+        0.41282
+      ],
+      "position": [
+        3.88425,
+        2.2266873,
+        2.5351276
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.25,
+        0.73779,
+        0.58718
+      ],
+      "position": [
+        1.29475,
+        6.2653127,
+        3.6058724
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.25,
+        0.91299,
+        0.09649
+      ],
+      "position": [
+        1.29475,
+        7.7531111,
+        0.5925451
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.75,
+        0.08701,
+        0.90351
+      ],
+      "position": [
+        3.88425,
+        0.7388889,
+        5.5484549
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.75,
+        0.41299,
+        0.40351
+      ],
+      "position": [
+        3.88425,
+        3.5071111,
+        2.4779549
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.25,
+        0.58701,
+        0.59649
+      ],
+      "position": [
+        1.29475,
+        4.9848889,
+        3.6630451
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.46445,
+        0.68597,
+        0.08893
+      ],
+      "position": [
+        2.4053865,
+        5.8252572,
+        0.5461191
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.03555,
+        0.68597,
+        0.08893
+      ],
+      "position": [
+        0.1841135,
+        5.8252572,
+        0.5461191
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.96445,
+        0.31403,
+        0.91107
+      ],
+      "position": [
+        4.9948866,
+        2.6667428,
+        5.5948809
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.96445,
+        0.18597,
+        0.41107
+      ],
+      "position": [
+        4.9948866,
+        1.5792572,
+        2.5243809
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.03555,
+        0.81403,
+        0.58893
+      ],
+      "position": [
+        0.1841135,
+        6.9127428,
+        3.6166191
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.46445,
+        0.81403,
+        0.58893
+      ],
+      "position": [
+        2.4053865,
+        6.9127428,
+        3.6166191
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.53555,
+        0.18597,
+        0.41107
+      ],
+      "position": [
+        2.7736135,
+        1.5792572,
+        2.5243809
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.53555,
+        0.31403,
+        0.91107
+      ],
+      "position": [
+        2.7736135,
+        2.6667428,
+        5.5948809
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 20,
+  "speciesPositionCount": 20,
+  "cellComposition": {
+    "Pb": 4,
+    "C": 4,
+    "O": 12
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Zemann J",
+      "Chevrier G",
+      "Giester G",
+      "Jarosch D",
+      "Heger G",
+      "Wildner M"
+    ],
+    "title": "Neutron single-crystal refinement of cerussite, PbCO3, and comparison with other\n aragonite-type carbonates",
+    "journal": "Zeitschrift fur Kristallographie",
+    "year": 1992,
+    "volume": "199",
+    "pages": "67–74"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 8,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.4899645274176945e-06
+  },
+  "id": "chat-cerussite",
+  "note": "Tinh chỉnh đơn tinh thể neutron; cấu trúc kiểu aragonite."
+}

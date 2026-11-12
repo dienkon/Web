@@ -9,6 +9,8 @@
       {
         "imports": {
           "three": "/vendor/three.module.js",
+          "katex": "/vendor/katex/katex.mjs",
+          "katex/contrib/mhchem": "/vendor/katex/contrib/mhchem.mjs",
           "three/examples/jsm/controls/OrbitControls.js": "/vendor/controls/OrbitControls.js",
           "three/examples/jsm/loaders/GLTFLoader.js": "/vendor/loaders/GLTFLoader.js",
           "three/examples/jsm/loaders/OBJLoader.js": "/vendor/loaders/OBJLoader.js",
@@ -65,7 +67,8 @@
     <link rel="stylesheet" href="/platform/sidebar.css" />
     <script type="module" src="/platform/sidebar.js"></script>
     <script src="https://www.youtube.com/iframe_api"></script>
-  </head>
+  <link rel="stylesheet" href="/vendor/katex/katex.min.css">
+</head>
   <body class="flex h-screen text-slate-200 overflow-hidden">
     <!-- MAIN CONTENT -->
     <main class="flex-1 flex flex-col h-full overflow-hidden relative w-full">

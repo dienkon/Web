@@ -21,6 +21,7 @@ import { CheatSheet } from './ui/CheatSheet';
 import { Toast } from './components/Toast';
 import { RadialMenu } from './ui/RadialMenu';
 import { handleLabKeyDown } from './input/KeyMap';
+import { EXPERIMENT_CURRICULUM } from './data/experiments';
 import { 
   Beaker, FlaskConical, AlertTriangle, Info, X, Plus, Move, 
   Search, ShieldAlert, Sparkles, Droplet, Flame, TestTube, Scale, BookOpen,
@@ -33,7 +34,7 @@ function LeftSidebar() {
   const language = useAppStore(state => state.language);
   const addVessel = useAppStore(state => state.addVessel);
   const isMixing = useAppStore(state => state.isMixing);
-  const [activeTab, setActiveTab] = useState<'chemicals' | 'instruments' | 'experiments' | 'safety'>('chemicals');
+  const [activeTab, setActiveTab] = useState<'chemicals' | 'instruments' | 'experiments' | 'safety'>(() => new URLSearchParams(window.location.search).has('experiment') ? 'experiments' : 'chemicals');
   const [search, setSearch] = useState('');
   const [equipSearch, setEquipSearch] = useState('');
   const [filterType, setFilterType] = useState<'all' | 'liquid' | 'solid' | 'indicator'>('all');
@@ -593,6 +594,18 @@ const TargetRecognitionHUD = React.memo(function TargetRecognitionHUD() {
 });
 
 export default function App() {
+  const openedExperiment = React.useRef<string | null>(null);
+  useEffect(() => {
+    const id = new URLSearchParams(window.location.search).get('experiment');
+    if (!id || openedExperiment.current === id) return;
+    openedExperiment.current = id;
+    const state = useAppStore.getState();
+    const experiment = EXPERIMENT_CURRICULUM.find(e => e.id === id);
+    if (!experiment) { state.showToast('Không tìm thấy bộ thí nghiệm được liên kết.', 'warning'); return; }
+    state.setupExperimentPreset(id);
+    useAppStore.setState({ leftSidebarOpen: true, rightSidebarOpen: true, isSimulationPaused: false });
+    state.showToast(`Đã chuẩn bị: ${experiment.title_vi}`, 'success');
+  }, []);
   const leftSidebarOpen = useAppStore(state => state.leftSidebarOpen);
   const rightSidebarOpen = useAppStore(state => state.rightSidebarOpen);
   const isPresentationMode = useAppStore(state => state.isPresentationMode);

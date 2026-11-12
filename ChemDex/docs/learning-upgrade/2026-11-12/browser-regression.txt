@@ -1,0 +1,25 @@
+
+Running 18 tests using 1 worker
+
+(node:10860) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 [chromium] › tests\browser\application-crystal-review.spec.mjs:5:1 › electron and crystal visualizations occupy separate full-width rows at every screen size (6.2s)
+  ok  2 [chromium] › tests\browser\application-crystal-review.spec.mjs:17:1 › complex alpha manganese renders 58 sites and atom selection exposes source coordinates (12.3s)
+  ok  3 [chromium] › tests\browser\application-crystal-review.spec.mjs:28:1 › Wiki reference cells distinguish DHCP, tetragonal metrics and the radium source inconsistency (23.0s)
+  ok  4 [chromium] › tests\browser\application-crystal-review.spec.mjs:39:1 › application images and their attribution remain visible on mobile (13.2s)
+  ok  5 [chromium] › tests\browser\application-crystal-review.spec.mjs:52:1 › all 101 local application illustrations decode in the production browser (3.4s)
+  ok  6 [chromium] › tests\browser\learning-upgrade.spec.mjs:5:1 › application cards stay compact with mixed image and text content (2.0s)
+  ok  7 [chromium] › tests\browser\learning-upgrade.spec.mjs:12:1 › chat calls server API with history, renders multiline LaTeX and blocks duplicate sends (3.0s)
+  ok  8 [chromium] › tests\browser\learning-upgrade.spec.mjs:24:1 › discovery links open a source profile inside the digital library (3.4s)
+  ok  9 [chromium] › tests\browser\learning-upgrade.spec.mjs:31:1 › reaction substances and supported protocols expose real links (2.2s)
+  ok 10 [chromium] › tests\browser\learning-upgrade.spec.mjs:37:1 › library header stays on screen and sourced compound crystals retain controls (7.1s)
+  ok 11 [chromium] › tests\browser\learning-upgrade.spec.mjs:49:1 › small screens fit formulas, controls, header and the chat panel (3.6s)
+  ok 12 [chromium] › tests\browser\learning-upgrade.spec.mjs:57:1 › library LaTeX repairs older doubled commands and renders fractions (1.4s)
+  ok 13 [chromium] › tests\browser\learning-upgrade.spec.mjs:64:1 › video URL analysis installs timed questions, pauses at the scene and respects the off switch (3.4s)
+  ok 14 [chromium] › tests\browser\learning-upgrade.spec.mjs:76:1 › a linked equation prepares the matching Lab 3D preset and opens its guide (24.9s)
+  ok 15 [chromium] › tests\browser\library-crystals.spec.mjs:7:1 › substance URLs load directly, reload and resolve old opaque links and saved IDs (3.4s)
+  ok 16 [chromium] › tests\browser\library-crystals.spec.mjs:31:1 › all named document chunks, including discovery profiles, load with a matching identity (15.7s)
+  ok 17 [chromium] › tests\browser\library-crystals.spec.mjs:59:1 › published mineral crystal controls preserve sources, metric and atom site table (5.6s)
+  ok 18 [chromium] › tests\browser\library-crystals.spec.mjs:82:1 › bauxite has separate phases and mobile crystal panels stay inside viewport (4.7s)
+
+  18 passed (2.4m)

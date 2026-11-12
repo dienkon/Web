@@ -1,3 +1,4 @@
+import { buildStudyReferences } from './build-study-references.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
@@ -1069,6 +1070,7 @@ for (const doc of [...authored, ...generated])
     routes[alias] = doc.slug ?? doc.id;
   }
 fs.writeFileSync('shared/library-routes.generated.json', JSON.stringify(routes, null, 2) + '\n');
+buildStudyReferences();
 console.log(
   `Reference library: ${generated.length} unique 1000+ word articles; ${Object.keys(links).length} subject links; custom thumbnails generated.`,
 );

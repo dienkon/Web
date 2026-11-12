@@ -1,0 +1,297 @@
+{
+  "amcsdId": "0015628",
+  "mineralName": "Salammoniac · NH₄Cl",
+  "formula": "N H4 Cl",
+  "spaceGroup": "P m -3 m",
+  "cell": {
+    "a": 3.86,
+    "b": 3.86,
+    "c": 3.86,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 57.51245599999999,
+  "declaredVolume": 57.512,
+  "basis": [
+    [
+      3.86,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      3.86,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      3.86
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "z,-x,y",
+    "-y,z,-x",
+    "x,-y,z",
+    "-z,x,-y",
+    "y,-z,x",
+    "-x,y,-z",
+    "x,-z,-y",
+    "-z,y,x",
+    "y,-x,-z",
+    "-x,z,y",
+    "z,-y,-x",
+    "-y,x,z",
+    "x,z,y",
+    "-z,-y,-x",
+    "y,x,z",
+    "-x,-z,-y",
+    "z,y,x",
+    "-y,-x,-z",
+    "z,x,-y",
+    "-y,-z,x",
+    "x,y,-z",
+    "-z,-x,y",
+    "y,z,-x",
+    "-x,-y,z",
+    "-z,x,y",
+    "y,-z,-x",
+    "-x,y,z",
+    "z,-x,-y",
+    "-y,z,x",
+    "x,-y,-z",
+    "-x,z,-y",
+    "z,-y,x",
+    "-y,x,-z",
+    "x,-z,y",
+    "-z,y,-x",
+    "y,-x,z",
+    "-x,-z,y",
+    "z,y,-x",
+    "-y,-x,z",
+    "x,z,-y",
+    "-z,-y,x",
+    "y,x,-z",
+    "-z,-x,-y",
+    "y,z,x",
+    "-x,-y,-z",
+    "z,x,y",
+    "-y,-z,-x"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "N",
+      "element": "N",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "label": "H",
+      "element": "H",
+      "fractional": [
+        0.146,
+        0.146,
+        0.146
+      ],
+      "occupancy": 0.5
+    },
+    {
+      "label": "Cl",
+      "element": "Cl",
+      "fractional": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "occupancy": 1.0
+    }
+  ],
+  "atoms": [
+    {
+      "element": "N",
+      "label": "N",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "H",
+      "label": "H",
+      "fractional": [
+        0.146,
+        0.146,
+        0.146
+      ],
+      "position": [
+        0.56356,
+        0.56356,
+        0.56356
+      ],
+      "occupancy": 0.5
+    },
+    {
+      "element": "H",
+      "label": "H",
+      "fractional": [
+        0.146,
+        0.854,
+        0.146
+      ],
+      "position": [
+        0.56356,
+        3.29644,
+        0.56356
+      ],
+      "occupancy": 0.5
+    },
+    {
+      "element": "H",
+      "label": "H",
+      "fractional": [
+        0.854,
+        0.146,
+        0.854
+      ],
+      "position": [
+        3.29644,
+        0.56356,
+        3.29644
+      ],
+      "occupancy": 0.5
+    },
+    {
+      "element": "H",
+      "label": "H",
+      "fractional": [
+        0.146,
+        0.854,
+        0.854
+      ],
+      "position": [
+        0.56356,
+        3.29644,
+        3.29644
+      ],
+      "occupancy": 0.5
+    },
+    {
+      "element": "H",
+      "label": "H",
+      "fractional": [
+        0.854,
+        0.146,
+        0.146
+      ],
+      "position": [
+        3.29644,
+        0.56356,
+        0.56356
+      ],
+      "occupancy": 0.5
+    },
+    {
+      "element": "H",
+      "label": "H",
+      "fractional": [
+        0.854,
+        0.854,
+        0.854
+      ],
+      "position": [
+        3.29644,
+        3.29644,
+        3.29644
+      ],
+      "occupancy": 0.5
+    },
+    {
+      "element": "H",
+      "label": "H",
+      "fractional": [
+        0.146,
+        0.146,
+        0.854
+      ],
+      "position": [
+        0.56356,
+        0.56356,
+        3.29644
+      ],
+      "occupancy": 0.5
+    },
+    {
+      "element": "H",
+      "label": "H",
+      "fractional": [
+        0.854,
+        0.854,
+        0.146
+      ],
+      "position": [
+        3.29644,
+        3.29644,
+        0.56356
+      ],
+      "occupancy": 0.5
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "position": [
+        1.93,
+        1.93,
+        1.93
+      ],
+      "occupancy": 1.0
+    }
+  ],
+  "siteCount": 10,
+  "speciesPositionCount": 10,
+  "cellComposition": {
+    "N": 1.0,
+    "H": 4.0,
+    "Cl": 1.0
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Vainshtein B K"
+    ],
+    "title": "Refinement of the structure of the group NH4\n in the structure of ammonium chloride",
+    "journal": "Trudy Instituta Kristallografii Akademiya Nauk SSSR",
+    "year": 1956,
+    "volume": "12",
+    "pages": "18–24"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 48,
+    "maxSiteOccupancy": 1.0,
+    "cellVolumeRelativeError": 7.928717215496492e-06
+  },
+  "id": "chat-salammoniac",
+  "note": "Tinh chỉnh định hướng NH4; giữ occupancy từ bản gốc."
+}

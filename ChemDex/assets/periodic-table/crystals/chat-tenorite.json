@@ -1,0 +1,218 @@
+{
+  "amcsdId": "0018033",
+  "mineralName": "Tenorite · CuO",
+  "formula": "Cu O",
+  "spaceGroup": "C 1 2/c 1",
+  "cell": {
+    "a": 4.653,
+    "b": 3.41,
+    "c": 5.108,
+    "alpha": 90.0,
+    "beta": 99.48,
+    "gamma": 90.0
+  },
+  "volume": 79.94040692902165,
+  "declaredVolume": 79.94,
+  "basis": [
+    [
+      4.653,
+      0.0,
+      -0.8413045442073243
+    ],
+    [
+      0.0,
+      3.41,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      5.038240830279563
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+x,1/2+y,z",
+    "x,-y,1/2+z",
+    "1/2+x,1/2-y,1/2+z",
+    "-x,y,1/2-z",
+    "1/2-x,1/2+y,1/2-z",
+    "-x,-y,-z",
+    "1/2-x,1/2-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Cu1",
+      "element": "Cu",
+      "fractional": [
+        0.25,
+        0.25,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.0,
+        0.916,
+        0.75
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Cu",
+      "label": "Cu1",
+      "fractional": [
+        0.25,
+        0.25,
+        0.0
+      ],
+      "position": [
+        1.16325,
+        0.8525,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cu",
+      "label": "Cu1",
+      "fractional": [
+        0.75,
+        0.75,
+        0.0
+      ],
+      "position": [
+        3.48975,
+        2.5575,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cu",
+      "label": "Cu1",
+      "fractional": [
+        0.25,
+        0.75,
+        0.5
+      ],
+      "position": [
+        0.7425977,
+        2.5575,
+        2.5191204
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cu",
+      "label": "Cu1",
+      "fractional": [
+        0.75,
+        0.25,
+        0.5
+      ],
+      "position": [
+        3.0690977,
+        0.8525,
+        2.5191204
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.0,
+        0.916,
+        0.75
+      ],
+      "position": [
+        -0.6309784,
+        3.12356,
+        3.7786806
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.5,
+        0.416,
+        0.75
+      ],
+      "position": [
+        1.6955216,
+        1.41856,
+        3.7786806
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.0,
+        0.084,
+        0.25
+      ],
+      "position": [
+        -0.2103261,
+        0.28644,
+        1.2595602
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.5,
+        0.584,
+        0.25
+      ],
+      "position": [
+        2.1161739,
+        1.99144,
+        1.2595602
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 8,
+  "speciesPositionCount": 8,
+  "cellComposition": {
+    "Cu": 4,
+    "O": 4
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Posnjak E",
+      "Ksanda C",
+      "Tunell G"
+    ],
+    "title": "Geometrical and optical properties, and crystal structure of tenorite\n _cod_database_code 1011148",
+    "journal": "Zeitschrift fur Kristallographie",
+    "year": 1935,
+    "volume": "90",
+    "pages": "120–142"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 8,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 5.0904046812262865e-06
+  },
+  "id": "chat-tenorite",
+  "note": "Bản cấu trúc tenorite; thông số đơn tà, không dùng mạng NaCl."
+}

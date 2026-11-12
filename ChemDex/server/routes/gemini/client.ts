@@ -11,6 +11,17 @@ export const GEMINI_MODELS = [
 
 const clientCache = new Map<string, GoogleGenAI>();
 
+export function publicGeminiFailure(error: any) {
+  const message = String(error?.message ?? '');
+  if ([401, 403].includes(error?.status) || /UNAUTHENTICATED|API key not valid|ACCESS_TOKEN_TYPE_UNSUPPORTED/.test(message))
+    return { status: 503, error: 'Khóa AI trên máy chủ không hợp lệ hoặc chưa được cấp quyền. Cần cập nhật cấu hình AI.' };
+  if (error?.status === 429 || /RESOURCE_EXHAUSTED|quota|rate limit/i.test(message))
+    return { status: 429, error: 'Dịch vụ AI đang hết hạn mức. Vui lòng thử lại sau.' };
+  if (error?.status === 504 || ['AbortError','TimeoutError'].includes(error?.name) || /timed out|timeout/i.test(message))
+    return { status: 504, error: 'Dịch vụ AI xử lý quá lâu. Vui lòng thử lại sau.' };
+  return { status: 502, error: 'Chưa kết nối được dịch vụ AI. Vui lòng thử lại sau.' };
+}
+
 export function getCandidateKeys(): string[] {
   const keys: string[] = [];
   const envKey = process.env.GEMINI_API_KEY?.trim();
@@ -110,7 +121,12 @@ export async function generateContentWithModelFallback(
       });
     } catch (err: any) {
       lastError = err;
-      console.warn(`[Gemini Model Warning] Model ${model} failed: ${err?.message || err}`);
+      const status = Number(err?.status ?? err?.code);
+      const message = String(err?.message ?? '');
+      console.warn(`[Gemini Model Warning] Model ${model} failed with status ${status || 'unavailable'}`);
+      // Invalid credentials, exhausted quota, invalid input and cancellation do
+      // not become valid by trying every model. Key fallback is handled outside.
+      if (![404, 503].includes(status) && !/model.*(?:not found|not supported|unavailable|overloaded)/i.test(message)) throw err;
     }
   }
   throw lastError;
