@@ -71,9 +71,9 @@
         "a": 3.613,
         "b": 3.613,
         "c": 3.613,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 90.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
       },
       "volume": 47.163267397,
       "siteCount": 4,
@@ -97,9 +97,67 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-cu.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-cu.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-cu.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-cu.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-cu.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Copper",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_copper",
+        "revisionId": 1379401703,
+        "revisionTimestamp": "2026-10-09T19:59:47Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "face-centered cubic",
+            "prefix": "",
+            "comment": "",
+            "pearson": "cF4",
+            "lattice": "a = 361.50 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-cu",
+        "modelKind": "fcc",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 3.615,
+            "modelAngstrom": 3.613,
+            "relativeDifferencePercent": 0.0553250345781528
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Copper",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_copper",
+      "revisionId": 1379401703,
+      "revisionTimestamp": "2026-10-09T19:59:47Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "face-centered cubic",
+          "prefix": "",
+          "comment": "",
+          "pearson": "cF4",
+          "lattice": "a = 361.50 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-cu",
+      "modelKind": "fcc",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 3.615,
+          "modelAngstrom": 3.613,
+          "relativeDifferencePercent": 0.0553250345781528
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lập phương tâm mặt (Face-centered cubic, FCC)",
   "occurrence": {
@@ -152,9 +210,9 @@
             "a": 5.289,
             "b": 5.289,
             "c": 10.423,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 291.568009383,
           "siteCount": 16,
@@ -553,37 +611,149 @@
     {
       "title": "Dây điện",
       "desc": "Copper được sử dụng rộng rãi trong dây dẫn điện nhờ độ dẫn điện cao.",
-      "sourceLine": 101
+      "sourceLine": 101,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "wire",
+        "source": "https://commons.wikimedia.org/wiki/File:Leitungsende_Abisoliert_en.svg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/wire.png",
+        "source": "https://commons.wikimedia.org/wiki/File:Leitungsende_Abisoliert_en.svg",
+        "author": "Marekich",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Dây điện — Electrical cable",
+        "caption": "Minh họa lĩnh vực dây điện · Electrical cable.",
+        "topic": "wire",
+        "role": "application-context"
+      }
     },
     {
       "title": "Thiết bị điện tử",
       "desc": "Được sử dụng trong mạch điện, động cơ, máy phát điện và các linh kiện điện.",
-      "sourceLine": 102
+      "sourceLine": 102,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "electronics",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/electronics.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg",
+        "author": "Raimond Spekking",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Thiết bị điện tử — Printed circuit board",
+        "caption": "Minh họa lĩnh vực thiết bị điện tử · Printed circuit board.",
+        "topic": "electronics",
+        "role": "application-context"
+      }
     },
     {
       "title": "Truyền nhiệt",
       "desc": "Copper được dùng trong bộ tản nhiệt, hệ thống trao đổi nhiệt và thiết bị làm lạnh.",
-      "sourceLine": 103
+      "sourceLine": 103,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "heat-exchanger",
+        "source": "https://commons.wikimedia.org/wiki/File:Tubular_heat_exchanger.png"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/heat-exchanger.png",
+        "source": "https://commons.wikimedia.org/wiki/File:Tubular_heat_exchanger.png",
+        "author": "KoenB",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Truyền nhiệt — Heat exchanger",
+        "caption": "Minh họa lĩnh vực truyền nhiệt · Heat exchanger.",
+        "topic": "heat-exchanger",
+        "role": "application-context"
+      }
     },
     {
       "title": "Xây dựng",
       "desc": "Được sử dụng trong đường ống, mái và các bộ phận của công trình.",
-      "sourceLine": 104
+      "sourceLine": 104,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "bridge",
+        "source": "https://commons.wikimedia.org/wiki/File:Construction_site_in_Cologne,_Germany_(2017).jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/bridge.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Construction_site_in_Cologne,_Germany_(2017).jpg",
+        "author": "Whiteghost.ink",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Xây dựng — Construction",
+        "caption": "Minh họa lĩnh vực xây dựng · Construction.",
+        "topic": "bridge",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hợp kim",
       "desc": "Copper là thành phần chính của Bronze và Brass.",
-      "sourceLine": 105
+      "sourceLine": 105,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "brass",
+        "source": "https://commons.wikimedia.org/wiki/File:Planispheric_Astrolabe_MET_DP105325.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/brass.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Planispheric_Astrolabe_MET_DP105325.jpg",
+        "author": "Muhammad Zaman al-Munajjim al-Asturlabi",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "alt": "Hợp kim — Brass",
+        "caption": "Minh họa lĩnh vực hợp kim · Brass.",
+        "topic": "brass",
+        "role": "application-context"
+      }
     },
     {
       "title": "Tiền xu",
       "desc": "Copper và các hợp kim của nó được sử dụng trong sản xuất tiền xu.",
-      "sourceLine": 106
+      "sourceLine": 106,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "coins",
+        "source": "https://commons.wikimedia.org/wiki/File:Kiloware.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/coins.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Kiloware.JPG",
+        "author": "Michael Sander",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Tiền xu — Coin",
+        "caption": "Minh họa lĩnh vực tiền xu · Coin.",
+        "topic": "coins",
+        "role": "application-context"
+      }
     },
     {
       "title": "Công nghiệp hóa chất",
       "desc": "Copper compounds như Copper sulfate được sử dụng trong nhiều ứng dụng hóa học và nông nghiệp.",
-      "sourceLine": 107
+      "sourceLine": 107,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "chemical-industry",
+        "source": "https://commons.wikimedia.org/wiki/File:BASF_Schwarzheide_GmbH_Werksansicht_01.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/chemical-industry.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:BASF_Schwarzheide_GmbH_Werksansicht_01.jpg",
+        "author": "Goku4711",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Công nghiệp hóa chất — Chemical plant",
+        "caption": "Minh họa lĩnh vực công nghiệp hóa chất · Chemical plant.",
+        "topic": "chemical-industry",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Copper là nguyên tố số 29, thuộc nhóm IB | chu kỳ 4 và là một kim loại chuyển tiếp.</li><li>Copper có cấu hình electron [Ar] 3d¹⁰ 4s¹, với các số Oxy hóa phổ biến là +1 và +2.</li><li>Copper có màu đỏ cam đặc trưng, rất dẻo và có độ dẫn điện, dẫn nhiệt cao. Vì vậy, đây là một trong những kim loại quan trọng nhất trong ngành điện và điện tử.</li><li>Trong tự nhiên, Copper tồn tại dưới dạng kim loại tự do và nhiều khoáng vật, đặc biệt là Chalcopyrite (CuFeS₂). Copper được sản xuất công nghiệp chủ yếu bằng quá trình luyện quặng sulfide và tinh chế điện phân.</li><li>Copper có vai trò quan trọng trong điện – điện tử, xây dựng, truyền nhiệt, sản xuất hợp kim và công nghiệp hóa chất.</li></ul>",
@@ -624,9 +794,9 @@
           "a": 5.289,
           "b": 5.289,
           "c": 10.423,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 291.568009383,
         "siteCount": 16,
@@ -692,6 +862,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Copper",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -700,6 +875,7 @@
     "sourceSha256": "d582574bafddad664ce8e02b095506e8ef7f3eccd869661fa9b72c8103238531",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/029_Cu.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/dong-cu/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/dong-cu/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/dong-cu/audit.md"
   }
 }

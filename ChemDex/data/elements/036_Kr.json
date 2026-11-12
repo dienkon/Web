@@ -21,7 +21,7 @@
     "period": 4,
     "state": "Khí",
     "oxidation": "0, +2",
-    "electronegativity": 3.0,
+    "electronegativity": 3,
     "electronegativityNote": "Thang Pauling; số liệu tổng hợp PubChem.",
     "density": "khoảng 3.75 g/L.",
     "meltingPoint": "khoảng −157.4 °C.",
@@ -61,7 +61,30 @@
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương tâm mặt (Face-centered cubic, FCC)",
     "latticeEvidence": "source-reviewed",
-    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
+    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác.",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Krypton",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_krypton",
+      "revisionId": 1333266987,
+      "revisionTimestamp": "2026-01-16T18:40:36Z",
+      "status": "phase-unmeasured-or-fluid",
+      "phases": [
+        {
+          "type": "face-centered cubic",
+          "prefix": "",
+          "comment": "",
+          "pearson": "cF4",
+          "lattice": "a = 583.57 pm (at triple point: 115.78 K)"
+        }
+      ],
+      "selectedModel": null,
+      "modelKind": null,
+      "metrics": [],
+      "notes": [
+        "Không lấy hình của một kiểu mạng chung để khẳng định mẫu tinh thể đã được đo. Pha khí/lỏng và cấu trúc dự đoán được ghi riêng."
+      ],
+      "additionalSources": []
+    }
   },
   "structureType": "Lập phương tâm mặt (Face-centered cubic, FCC)",
   "occurrence": {
@@ -280,32 +303,106 @@
     {
       "title": "Đèn chiếu sáng",
       "desc": "Krypton được sử dụng trong một số loại đèn và nguồn sáng đặc biệt.",
-      "sourceLine": 67
+      "sourceLine": 67,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Laser",
       "desc": "Krypton được sử dụng trong một số hệ thống laser, đặc biệt là Krypton ion laser.",
-      "sourceLine": 68
+      "sourceLine": 68,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "laser",
+        "source": "https://commons.wikimedia.org/wiki/File:Guiding_the_Milky_Way_(potw2222a).jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/laser.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Guiding_the_Milky_Way_(potw2222a).jpg",
+        "author": "ESO/A. Ghizzi Panizza ( www.albertoghizzipanizza.com )",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "alt": "Laser — Laser",
+        "caption": "Minh họa lĩnh vực laser · Laser.",
+        "topic": "laser",
+        "role": "application-context"
+      }
     },
     {
       "title": "Đèn flash",
       "desc": "Krypton có thể được sử dụng trong một số loại đèn flash và đèn phóng điện.",
-      "sourceLine": 69
+      "sourceLine": 69,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "xenon-lamp",
+        "source": "https://commons.wikimedia.org/wiki/File:Xenon_short_arc_1.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/xenon-lamp.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Xenon_short_arc_1.jpg",
+        "author": "I attest that I am the copyright holder for this image and I release it for use under the Creative Commons 2.5 license, provided that proper attribution of my copyright is made. - Atlant 19:15, 26 August 2005 (UTC)",
+        "license": "CC BY 2.5",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+        "alt": "Đèn flash — Xenon arc lamp",
+        "caption": "Minh họa lĩnh vực đèn flash · Xenon arc lamp.",
+        "topic": "xenon-lamp",
+        "role": "application-context"
+      }
     },
     {
       "title": "Cách nhiệt",
       "desc": "Krypton được sử dụng làm khí trơ trong một số loại cửa sổ kính cách nhiệt.",
-      "sourceLine": 70
+      "sourceLine": 70,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "glass",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/glass.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg",
+        "author": "Ansgar Koreng",
+        "license": "CC BY 3.0 de",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/de/deed.en",
+        "alt": "Cách nhiệt — Glass",
+        "caption": "Minh họa lĩnh vực cách nhiệt · Glass.",
+        "topic": "glass",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nghiên cứu khoa học",
       "desc": "Krypton được sử dụng trong nghiên cứu vật lý, hóa học và quang phổ.",
-      "sourceLine": 71
+      "sourceLine": 71,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/research.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "author": "LSDSL",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nghiên cứu khoa học — Particle accelerator",
+        "caption": "Minh họa lĩnh vực nghiên cứu khoa học · Particle accelerator.",
+        "topic": "research",
+        "role": "application-context"
+      }
     },
     {
       "title": "Định tuổi vật liệu",
       "desc": "Một số đồng vị Krypton được sử dụng trong nghiên cứu địa chất và môi trường.",
-      "sourceLine": 72
+      "sourceLine": 72,
+      "imageReview": {
+        "status": "source-link",
+        "topic": "geology",
+        "source": "https://commons.wikimedia.org/wiki/Special:MediaSearch?type=image&search=Radiometric%20dating"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Krypton là nguyên tố số 36, thuộc nhóm VIIIA | chu kỳ 4 và là một khí hiếm.</li><li>Krypton có cấu hình electron [Ar] 3d¹⁰ 4s² 4p⁶, với lớp electron ngoài cùng đã bão hòa nên có độ hoạt động hóa học rất thấp.</li><li>Ở điều kiện thường, Krypton tồn tại dưới dạng khí đơn nguyên tử, không màu và không mùi. Trong tự nhiên, Krypton chỉ chiếm một lượng rất nhỏ trong khí quyển.</li><li>Krypton chủ yếu được thu hồi bằng cách chưng cất phân đoạn không khí lỏng. Mặc dù rất trơ, Krypton vẫn có thể tạo một số hợp chất, tiêu biểu là Krypton difluoride (KrF₂).</li><li>Krypton có ứng dụng trong chiếu sáng, laser, kính cách nhiệt và nghiên cứu khoa học.</li></ul>",
@@ -346,6 +443,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Krypton",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -354,6 +456,7 @@
     "sourceSha256": "b7b09bca43fcf25515ff83a465a4c9c8ac109ef8459e2d06ad1183b185398c92",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/036_Kr.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/kripton-kr/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/kripton-kr/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/kripton-kr/audit.md"
   }
 }

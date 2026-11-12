@@ -75,9 +75,9 @@
         "a": 3.1648,
         "b": 3.1648,
         "c": 3.1648,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 90.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
       },
       "volume": 31.698507169792002,
       "siteCount": 2,
@@ -100,9 +100,67 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-w.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-w.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-w.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-w.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-w.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Tungsten",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_tungsten",
+        "revisionId": 1380050214,
+        "revisionTimestamp": "2026-10-13T13:40:22Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "body-centered cubic",
+            "prefix": "",
+            "comment": "",
+            "pearson": "cI2",
+            "lattice": "a = 316.52 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-w",
+        "modelKind": "bcc",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 3.1652,
+            "modelAngstrom": 3.1648,
+            "relativeDifferencePercent": 0.01263743207380121
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Tungsten",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_tungsten",
+      "revisionId": 1380050214,
+      "revisionTimestamp": "2026-10-13T13:40:22Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "body-centered cubic",
+          "prefix": "",
+          "comment": "",
+          "pearson": "cI2",
+          "lattice": "a = 316.52 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-w",
+      "modelKind": "bcc",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 3.1652,
+          "modelAngstrom": 3.1648,
+          "relativeDifferencePercent": 0.01263743207380121
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lập phương tâm khối (Body-centered cubic, BCC)",
   "occurrence": {
@@ -152,9 +210,9 @@
             "a": 5.2429,
             "b": 5.2429,
             "c": 11.3737,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 312.64027026321696,
           "siteCount": 24,
@@ -471,32 +529,106 @@
     {
       "title": "Dây tóc bóng đèn",
       "desc": "Tungsten có nhiệt độ nóng chảy cực cao nên từng được sử dụng rộng rãi làm dây tóc bóng đèn sợi đốt.",
-      "sourceLine": 82
+      "sourceLine": 82,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "incandescent",
+        "source": "https://commons.wikimedia.org/wiki/File:Gluehlampe_01_KMJ.png"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/incandescent.png",
+        "source": "https://commons.wikimedia.org/wiki/File:Gluehlampe_01_KMJ.png",
+        "author": "KMJ , alpha masking by Edokter",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+        "alt": "Dây tóc bóng đèn — Incandescent light bulb",
+        "caption": "Minh họa lĩnh vực dây tóc bóng đèn · Incandescent light bulb.",
+        "topic": "incandescent",
+        "role": "application-context"
+      }
     },
     {
       "title": "Công cụ cắt",
       "desc": "Tungsten carbide (WC) được sử dụng trong mũi khoan, dao cắt và các dụng cụ gia công có độ cứng cao.",
-      "sourceLine": 83
+      "sourceLine": 83,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "cutting-tool",
+        "source": "https://commons.wikimedia.org/wiki/File:Inserti_widia.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/cutting-tool.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Inserti_widia.jpg",
+        "author": "Basilicofresco",
+        "license": "CC BY 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+        "alt": "Công cụ cắt — Cemented carbide",
+        "caption": "Minh họa lĩnh vực công cụ cắt · Cemented carbide.",
+        "topic": "cutting-tool",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hợp kim",
       "desc": "Tungsten được thêm vào thép và các hợp kim đặc biệt để tăng độ cứng, độ bền và khả năng chịu nhiệt.",
-      "sourceLine": 84
+      "sourceLine": 84,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "refractory",
+        "source": "https://commons.wikimedia.org/wiki/File:Torpedo_car_refractory_bricks.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/refractory.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Torpedo_car_refractory_bricks.JPG",
+        "author": "Morgan Riley",
+        "license": "CC BY 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+        "alt": "Hợp kim — Refractory",
+        "caption": "Minh họa lĩnh vực hợp kim · Refractory.",
+        "topic": "refractory",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hàng không vũ trụ",
       "desc": "Tungsten được sử dụng trong một số bộ phận chịu nhiệt cao.",
-      "sourceLine": 85
+      "sourceLine": 85,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "refractory",
+        "source": "https://commons.wikimedia.org/wiki/File:Torpedo_car_refractory_bricks.JPG"
+      }
     },
     {
       "title": "Điện tử",
       "desc": "Tungsten được sử dụng trong một số linh kiện và vật liệu điện tử chịu nhiệt.",
-      "sourceLine": 86
+      "sourceLine": 86,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "refractory",
+        "source": "https://commons.wikimedia.org/wiki/File:Torpedo_car_refractory_bricks.JPG"
+      }
     },
     {
       "title": "Đối trọng",
       "desc": "Do có khối lượng riêng rất lớn, Tungsten được sử dụng trong một số vật liệu cần khối lượng cao nhưng kích thước nhỏ.",
-      "sourceLine": 87
+      "sourceLine": 87,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "counterweight",
+        "source": "https://commons.wikimedia.org/wiki/File:Simple_Crane_diagram..png"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/counterweight.png",
+        "source": "https://commons.wikimedia.org/wiki/File:Simple_Crane_diagram..png",
+        "author": "en:User:Theresa knott",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+        "alt": "Đối trọng — Counterweight",
+        "caption": "Minh họa lĩnh vực đối trọng · Counterweight.",
+        "topic": "counterweight",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Tungsten là nguyên tố số 74, thuộc nhóm VIB | chu kỳ 6 và là một kim loại chuyển tiếp.</li><li>Tungsten có cấu hình electron [Xe] 4f¹⁴ 5d⁴ 6s², với số Oxy hóa phổ biến nhất là +6.</li><li>Đây là kim loại có nhiệt độ nóng chảy cao nhất trong số các kim loại, đồng thời có khối lượng riêng lớn, độ cứng và khả năng chịu nhiệt rất cao.</li><li>Trong tự nhiên, Tungsten chủ yếu được khai thác từ Wolframite và Scheelite. Tungsten và đặc biệt là Tungsten carbide (WC) có vai trò quan trọng trong công cụ cắt, hợp kim chịu nhiệt, điện tử, hàng không vũ trụ và các vật liệu kỹ thuật đặc biệt.</li></ul>",
@@ -537,9 +669,9 @@
           "a": 5.2429,
           "b": 5.2429,
           "c": 11.3737,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 312.64027026321696,
         "siteCount": 24,
@@ -606,6 +738,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Tungsten",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -614,6 +751,7 @@
     "sourceSha256": "e2127d815a8dddae4b3c4887199b7328865a84ba0548f9182eb9f04b3469b703",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/074_W.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/tungsten-w/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/tungsten-w/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/tungsten-w/audit.md"
   }
 }

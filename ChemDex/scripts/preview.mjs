@@ -27,6 +27,7 @@ const mime = {
   ".png": "image/png",
   ".jpg": "image/jpeg",
   ".webp": "image/webp",
+  ".gif": "image/gif",
   ".glb": "model/gltf-binary",
   ".woff2": "font/woff2",
   ".woff": "font/woff",

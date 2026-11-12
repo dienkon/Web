@@ -4,11 +4,19 @@ import http from 'node:http';
 import { chromium } from '@playwright/test';
 
 const root = path.resolve(import.meta.dirname, '..');
+async function writeArtifact(file,bytes){
+  const temp=file+'.tmp';
+  for(let attempt=0;attempt<6;attempt++)try{await fs.writeFile(temp,bytes);await fs.rename(temp,file);return;}catch(error){if(attempt===5)throw error;await new Promise(resolve=>setTimeout(resolve,200*(attempt+1)));}
+}
 const crystals = process.argv.includes('--crystals');
-const sourceCatalog = JSON.parse(await fs.readFile(path.join(root, crystals ? 'data/crystal-catalog.json' : 'data/mineral-models.json'), 'utf8'));
-const catalog = {models: crystals ? sourceCatalog.structures : sourceCatalog.models};
-const pageHTML = `<!doctype html><html><head><meta charset="utf-8"><script type="importmap">{"imports":{"three":"/node_modules/three/build/three.module.js"}}</script><style>body{margin:0;background:#0c1520}canvas{display:block}</style></head><body><script type="module">
+const wiki = process.argv.includes('--wiki');
+const review = process.argv.includes('--review');
+const sourceCatalog = JSON.parse(await fs.readFile(path.join(root, wiki ? 'data/wiki-crystal-models.json' : crystals ? 'data/crystal-catalog.json' : 'data/mineral-models.json'), 'utf8'));
+if(review&&crystals&&!wiki)sourceCatalog.structures.push(...JSON.parse(await fs.readFile(path.join(root,'data/wiki-crystal-models.json'),'utf8')).structures);
+const catalog = {models: crystals || wiki ? sourceCatalog.structures : sourceCatalog.models};
+const pageHTML = `<!doctype html><html><head><meta charset="utf-8"><script type="importmap">{"imports":{"three":"/node_modules/three/build/three.module.js","three/":"/node_modules/three/"}}</script><style>body{margin:0;background:#0c1520}canvas{display:block}</style></head><body><script type="module">
 import * as THREE from 'three';
+import {frameCrystal} from '/js/three/published-crystal.js';
 import {GLTFLoader} from '/node_modules/three/examples/jsm/loaders/GLTFLoader.js';
 import {RoomEnvironment} from '/node_modules/three/examples/jsm/environments/RoomEnvironment.js';
 const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});renderer.setSize(640,480);renderer.setPixelRatio(1);renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.85;document.body.append(renderer.domElement);
@@ -24,6 +32,7 @@ window.renderMineral=async url=>{
  const box=new THREE.Box3().setFromObject(current),center=box.getCenter(new THREE.Vector3()),size=box.getSize(new THREE.Vector3());
  const distance=Math.max(size.x,size.y,size.z)/2/Math.tan(THREE.MathUtils.degToRad(camera.fov/2))*1.65;
  camera.position.copy(center).add(new THREE.Vector3(1.5,.85,2).normalize().multiplyScalar(distance));camera.lookAt(center);camera.updateProjectionMatrix();
+ if(${crystals||wiki})frameCrystal(camera,{target:new THREE.Vector3(),update(){}},current,640/480);
  renderer.render(scene,camera);await new Promise(r=>requestAnimationFrame(r));renderer.render(scene,camera);
  return {meshes:current.children.length,bounds:size.toArray(),canvas:renderer.domElement.toDataURL('image/png')};
 };window.ready=true;
@@ -31,7 +40,7 @@ window.renderMineral=async url=>{
 const server=http.createServer(async(req,res)=>{
   const url=new URL(req.url,'http://localhost');
   if(url.pathname==='/'){res.setHeader('Content-Type','text/html');res.end(pageHTML);return;}
-  if(!url.pathname.startsWith('/node_modules/three/')&&!url.pathname.startsWith('/assets/periodic-table/minerals/')&&!url.pathname.startsWith('/assets/periodic-table/crystals/')){res.writeHead(404).end();return;}
+  if(!url.pathname.startsWith('/node_modules/three/')&&!url.pathname.startsWith('/js/three/')&&!url.pathname.startsWith('/assets/periodic-table/minerals/')&&!url.pathname.startsWith('/assets/periodic-table/crystals/')){res.writeHead(404).end();return;}
   const file=path.resolve(root,'.'+decodeURIComponent(url.pathname));
   if(!file.startsWith(root+path.sep)){res.writeHead(403).end();return;}
   try{const body=await fs.readFile(file);res.setHeader('Content-Type',file.endsWith('.js')?'text/javascript':'model/gltf-binary');res.end(body);}catch{res.writeHead(404).end();}
@@ -47,10 +56,10 @@ try{
   for(const model of catalog.models){
     const result=await page.evaluate(url=>window.renderMineral(url),model.model);
     const png=Buffer.from(result.canvas.split(',')[1],'base64');
-    await fs.writeFile(path.join(root,model.preview.slice(1)),png);
+    await writeArtifact(path.join(root,model.preview.slice(1)),png);
     results.push({id:model.id,bounds:result.bounds,rendered:true,bytes:png.length});
   }
   if(errors.length)throw new Error(errors.join('\n'));
-  await fs.writeFile(path.join(root,crystals ? 'docs/library-crystal-upgrade/2026-11-11/crystal-render-verification.json' : 'docs/periodic-table-audit/2026-11-11/model-render-verification.json'),JSON.stringify({date:'2026-11-11',renderer:'Chromium WebGL / Three.js',models:results,errors},null,2)+'\n');
+  await fs.writeFile(path.join(root,wiki||review ? 'docs/application-crystal-review/2026-11-12/crystal-render-verification.json' : crystals ? 'docs/library-crystal-upgrade/2026-11-11/crystal-render-verification.json' : 'docs/periodic-table-audit/2026-11-11/model-render-verification.json'),JSON.stringify({date:wiki||review?'2026-11-12':'2026-11-11',renderer:'Chromium WebGL / Three.js',models:results,errors},null,2)+'\n');
   console.log(JSON.stringify({rendered:results.length,errors}));
 }finally{await browser?.close();await new Promise(resolve=>server.close(resolve));}

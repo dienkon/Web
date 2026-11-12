@@ -73,9 +73,9 @@
         "a": 3.7957,
         "b": 3.7957,
         "c": 3.7957,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 90.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
       },
       "volume": 54.685934706493,
       "siteCount": 4,
@@ -98,9 +98,67 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-rh.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-rh.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-rh.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-rh.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-rh.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Rhodium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_rhodium",
+        "revisionId": 1283404007,
+        "revisionTimestamp": "2025-04-01T08:47:47Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "face-centered cubic",
+            "prefix": "",
+            "comment": "",
+            "pearson": "cF4",
+            "lattice": "a = 380.34 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-rh",
+        "modelKind": "fcc",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 3.8034,
+            "modelAngstrom": 3.7957,
+            "relativeDifferencePercent": 0.20245043908081764
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Rhodium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_rhodium",
+      "revisionId": 1283404007,
+      "revisionTimestamp": "2025-04-01T08:47:47Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "face-centered cubic",
+          "prefix": "",
+          "comment": "",
+          "pearson": "cF4",
+          "lattice": "a = 380.34 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-rh",
+      "modelKind": "fcc",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 3.8034,
+          "modelAngstrom": 3.7957,
+          "relativeDifferencePercent": 0.20245043908081764
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lập phương tâm mặt (Face-centered cubic, FCC)",
   "occurrence": {
@@ -149,9 +207,9 @@
             "a": 3.9158,
             "b": 3.9158,
             "c": 3.9158,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 60.042878732312,
           "siteCount": 4,
@@ -393,32 +451,128 @@
     {
       "title": "Bộ chuyển đổi xúc tác",
       "desc": "Rhodium là một trong những kim loại xúc tác quan trọng trong bộ chuyển đổi xúc tác của ô tô, giúp xử lý các khí thải như NOₓ.",
-      "sourceLine": 81
+      "sourceLine": 81,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "catalytic-converter",
+        "source": "https://commons.wikimedia.org/wiki/File:DodgeCatCon.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/catalytic-converter.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:DodgeCatCon.jpg",
+        "author": "Ahanix1989 at English Wikipedia",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Bộ chuyển đổi xúc tác — Catalytic converter",
+        "caption": "Minh họa lĩnh vực bộ chuyển đổi xúc tác · Catalytic converter.",
+        "topic": "catalytic-converter",
+        "role": "application-context"
+      }
     },
     {
       "title": "Mạ kim loại",
       "desc": "Rhodium được dùng để mạ trang sức và các bề mặt kim loại nhằm tạo lớp phủ sáng bóng và chống ăn mòn.",
-      "sourceLine": 82
+      "sourceLine": 82,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "jewelry",
+        "source": "https://commons.wikimedia.org/wiki/File:Pectoral_and_Necklace_of_Sithathoryunet_with_the_Name_of_Senwosret_II_MET_DT531.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/jewelry.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Pectoral_and_Necklace_of_Sithathoryunet_with_the_Name_of_Senwosret_II_MET_DT531.jpg",
+        "author": "This file was donated to Wikimedia Commons as part of a project by the Metropolitan Museum of Art . See the Image and Data Resources Open Access Policy",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "alt": "Mạ kim loại — Jewellery",
+        "caption": "Minh họa lĩnh vực mạ kim loại · Jewellery.",
+        "topic": "jewelry",
+        "role": "application-context"
+      }
     },
     {
       "title": "Xúc tác hóa học",
       "desc": "Rhodium compounds được sử dụng trong nhiều phản ứng tổng hợp hữu cơ.",
-      "sourceLine": 83
+      "sourceLine": 83,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "catalyst",
+        "source": "https://commons.wikimedia.org/wiki/File:Catalysts.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/catalyst.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Catalysts.JPG",
+        "author": "Shubhrapdil",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Xúc tác hóa học — Catalysis",
+        "caption": "Minh họa lĩnh vực xúc tác hóa học · Catalysis.",
+        "topic": "catalyst",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hợp kim",
       "desc": "Rhodium được thêm vào Platinum và Palladium để tăng độ cứng và khả năng chịu nhiệt.",
-      "sourceLine": 84
+      "sourceLine": 84,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "refractory",
+        "source": "https://commons.wikimedia.org/wiki/File:Torpedo_car_refractory_bricks.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/refractory.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Torpedo_car_refractory_bricks.JPG",
+        "author": "Morgan Riley",
+        "license": "CC BY 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+        "alt": "Hợp kim — Refractory",
+        "caption": "Minh họa lĩnh vực hợp kim · Refractory.",
+        "topic": "refractory",
+        "role": "application-context"
+      }
     },
     {
       "title": "Thiết bị quang học",
       "desc": "Rhodium có độ phản xạ ánh sáng cao nên được sử dụng trong một số ứng dụng quang học.",
-      "sourceLine": 85
+      "sourceLine": 85,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "optics",
+        "source": "https://commons.wikimedia.org/wiki/File:Double-lens_burning_apparatus,_Ehrenfried_Walther_von_Tschirnhaus,_Kieslingswalde_(today_Slawonice,_Poland),_c._1690_-_Mathematisch-Physikalischer_Salon,_Dresden_-_DSC08133.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/optics.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Double-lens_burning_apparatus,_Ehrenfried_Walther_von_Tschirnhaus,_Kieslingswalde_(today_Slawonice,_Poland),_c._1690_-_Mathematisch-Physikalischer_Salon,_Dresden_-_DSC08133.JPG",
+        "author": "Daderot",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Thiết bị quang học — Optical lens",
+        "caption": "Minh họa lĩnh vực thiết bị quang học · Optical lens.",
+        "topic": "optics",
+        "role": "application-context"
+      }
     },
     {
       "title": "Điện tử",
       "desc": "Rhodium được sử dụng trong một số tiếp điểm và linh kiện điện tử nhờ khả năng chống ăn mòn.",
-      "sourceLine": 86
+      "sourceLine": 86,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "electronics",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/electronics.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg",
+        "author": "Raimond Spekking",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Điện tử — Printed circuit board",
+        "caption": "Minh họa lĩnh vực điện tử · Printed circuit board.",
+        "topic": "electronics",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Rhodium là nguyên tố số 45, thuộc nhóm VIIIB | chu kỳ 5 và là một kim loại chuyển tiếp thuộc nhóm Platinum.</li><li>Rhodium có cấu hình electron [Kr] 4d⁸ 5s¹, trong đó số Oxy hóa +3 là trạng thái phổ biến nhất.</li><li>Rhodium là kim loại trắng bạc, cứng, rất bền và có khả năng chống ăn mòn cao. Nó cũng là một trong những nguyên tố kim loại quý hiếm nhất trong tự nhiên.</li><li>Ứng dụng quan trọng nhất của Rhodium là làm chất xúc tác trong bộ chuyển đổi xúc tác ô tô, đặc biệt trong việc xử lý các Oxide Nitrogen (NOₓ). Ngoài ra, Rhodium còn được sử dụng trong mạ kim loại, xúc tác hóa học, hợp kim và điện tử.</li></ul>",
@@ -459,9 +613,9 @@
           "a": 3.9158,
           "b": 3.9158,
           "c": 3.9158,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 60.042878732312,
         "siteCount": 4,
@@ -527,6 +681,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Rhodium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -535,6 +694,7 @@
     "sourceSha256": "bd3c23372558870d03f40c86e0c5c26dd6cf046b196fa3c19c24419952987e08",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/045_Rh.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/rhodium-rh/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/rhodium-rh/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/rhodium-rh/audit.md"
   }
 }

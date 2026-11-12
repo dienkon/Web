@@ -71,9 +71,9 @@
         "a": 3.0241,
         "b": 3.0241,
         "c": 3.0241,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 90.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
       },
       "volume": 27.655941287520996,
       "siteCount": 2,
@@ -96,9 +96,67 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-v.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-v.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-v.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-v.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-v.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Vanadium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_vanadium",
+        "revisionId": 1282813079,
+        "revisionTimestamp": "2025-03-28T19:28:44Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "body-centered cubic",
+            "prefix": "",
+            "comment": "",
+            "pearson": "cI2",
+            "lattice": "a = 302.72 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-v",
+        "modelKind": "bcc",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 3.0272000000000006,
+            "modelAngstrom": 3.0241,
+            "relativeDifferencePercent": 0.10240486257930656
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Vanadium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_vanadium",
+      "revisionId": 1282813079,
+      "revisionTimestamp": "2025-03-28T19:28:44Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "body-centered cubic",
+          "prefix": "",
+          "comment": "",
+          "pearson": "cI2",
+          "lattice": "a = 302.72 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-v",
+      "modelKind": "bcc",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 3.0272000000000006,
+          "modelAngstrom": 3.0241,
+          "relativeDifferencePercent": 0.10240486257930656
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lập phương tâm khối (Body-centered cubic, BCC)",
   "occurrence": {
@@ -151,9 +209,9 @@
             "a": 10.3174,
             "b": 10.3174,
             "c": 7.3378,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 120.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 120
           },
           "volume": 676.452083170141,
           "siteCount": 42,
@@ -427,32 +485,117 @@
     {
       "title": "Sản xuất thép",
       "desc": "Vanadium được sử dụng làm nguyên tố hợp kim để tăng độ bền, độ cứng và khả năng chịu nhiệt của thép.",
-      "sourceLine": 88
+      "sourceLine": 88,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "steel",
+        "source": "https://commons.wikimedia.org/wiki/File:SteelMill_interior.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/steel.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:SteelMill_interior.jpg",
+        "author": "Payton Chung from DC, USA",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "alt": "Sản xuất thép — Steelmaking",
+        "caption": "Minh họa lĩnh vực sản xuất thép · Steelmaking.",
+        "topic": "steel",
+        "role": "application-context"
+      }
     },
     {
       "title": "Công cụ",
       "desc": "Vanadium alloys được sử dụng trong một số loại dụng cụ và vật liệu chịu mài mòn.",
-      "sourceLine": 89
+      "sourceLine": 89,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Hàng không",
       "desc": "Một số Vanadium alloys được sử dụng trong các vật liệu yêu cầu độ bền cao và trọng lượng tương đối thấp.",
-      "sourceLine": 90
+      "sourceLine": 90,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "aircraft",
+        "source": "https://commons.wikimedia.org/wiki/File:Cessna_172S_Skyhawk_%E2%80%98G-JMKE%E2%80%99_(45077563364).jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/aircraft.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Cessna_172S_Skyhawk_%E2%80%98G-JMKE%E2%80%99_(45077563364).jpg",
+        "author": "Alan Wilson from Stilton, Peterborough, Cambs, UK",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Hàng không — Aircraft",
+        "caption": "Minh họa lĩnh vực hàng không · Aircraft.",
+        "topic": "aircraft",
+        "role": "application-context"
+      }
     },
     {
       "title": "Chất xúc tác",
       "desc": "Vanadium(V) oxide được sử dụng làm chất xúc tác trong quá trình sản xuất Sulfuric acid.",
-      "sourceLine": 91
+      "sourceLine": 91,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "catalyst",
+        "source": "https://commons.wikimedia.org/wiki/File:Catalysts.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/catalyst.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Catalysts.JPG",
+        "author": "Shubhrapdil",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Chất xúc tác — Catalysis",
+        "caption": "Minh họa lĩnh vực chất xúc tác · Catalysis.",
+        "topic": "catalyst",
+        "role": "application-context"
+      }
     },
     {
       "title": "Pin",
       "desc": "Vanadium redox flow batteries sử dụng các ion Vanadium trong hệ thống lưu trữ năng lượng.",
-      "sourceLine": 92
+      "sourceLine": 92,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "battery",
+        "source": "https://commons.wikimedia.org/wiki/File:Batteries.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/battery.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Batteries.jpg",
+        "author": "en:User:Brianiac",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Pin — Battery (electricity)",
+        "caption": "Minh họa lĩnh vực pin · Battery (electricity).",
+        "topic": "battery",
+        "role": "application-context"
+      }
     },
     {
       "title": "Gốm và thủy tinh",
       "desc": "Một số Vanadium compounds được sử dụng làm chất tạo màu.",
-      "sourceLine": 93
+      "sourceLine": 93,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "glass",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/glass.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg",
+        "author": "Ansgar Koreng",
+        "license": "CC BY 3.0 de",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/de/deed.en",
+        "alt": "Gốm và thủy tinh — Glass",
+        "caption": "Minh họa lĩnh vực gốm và thủy tinh · Glass.",
+        "topic": "glass",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Vanadium là nguyên tố số 23, thuộc nhóm VB | chu kỳ 4 và là một kim loại chuyển tiếp.</li><li>Vanadium có cấu hình electron [Ar] 3d³ 4s² và có nhiều số Oxy hóa, phổ biến nhất là +2, +3, +4 và +5. Các trạng thái Oxy hóa khác nhau tạo ra những hợp chất có màu sắc đặc trưng.</li><li>Vanadium thường được thu hồi từ quặng và các sản phẩm phụ của ngành luyện kim. Kim loại này đặc biệt quan trọng trong việc sản xuất thép hợp kim có độ bền cao.</li><li>Ngoài luyện kim, Vanadium còn có ứng dụng trong chất xúc tác, pin Vanadium redox flow, hàng không và sản xuất vật liệu đặc biệt.</li></ul>",
@@ -493,9 +636,9 @@
           "a": 10.3174,
           "b": 10.3174,
           "c": 7.3378,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 120.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 120
         },
         "volume": 676.452083170141,
         "siteCount": 42,
@@ -565,6 +708,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Vanadium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -573,6 +721,7 @@
     "sourceSha256": "697384f6e5d369dcc0bcc25112562c59b62bc0f4ce7fdb6ec0e75c4ee5f191f5",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/023_V.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/vanadi-v/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/vanadi-v/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/vanadi-v/audit.md"
   }
 }

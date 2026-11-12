@@ -71,9 +71,9 @@
         "a": 5.328,
         "b": 5.328,
         "c": 5.328,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 90.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
       },
       "volume": 151.24904755200004,
       "siteCount": 2,
@@ -95,9 +95,67 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-k.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-k.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-k.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-k.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-k.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Potassium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_potassium",
+        "revisionId": 1381467515,
+        "revisionTimestamp": "2026-10-22T18:31:31Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "body-centered cubic",
+            "prefix": "",
+            "comment": "",
+            "pearson": "cI2",
+            "lattice": "a = 532.69 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-k",
+        "modelKind": "bcc",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 5.326900000000001,
+            "modelAngstrom": 5.328,
+            "relativeDifferencePercent": 0.02064990895265938
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Potassium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_potassium",
+      "revisionId": 1381467515,
+      "revisionTimestamp": "2026-10-22T18:31:31Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "body-centered cubic",
+          "prefix": "",
+          "comment": "",
+          "pearson": "cI2",
+          "lattice": "a = 532.69 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-k",
+      "modelKind": "bcc",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 5.326900000000001,
+          "modelAngstrom": 5.328,
+          "relativeDifferencePercent": 0.02064990895265938
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lập phương tâm khối (Body-centered cubic, BCC)",
   "occurrence": {
@@ -148,9 +206,9 @@
             "a": 6.2879,
             "b": 6.2879,
             "c": 6.2879,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 248.60901837743893,
           "siteCount": 8,
@@ -442,32 +500,117 @@
     {
       "title": "Phân bón",
       "desc": "Potassium compounds là nguồn Potassium quan trọng trong sản xuất phân bón.",
-      "sourceLine": 87
+      "sourceLine": 87,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "fertilizer",
+        "source": "https://commons.wikimedia.org/wiki/File:Manure_spreading_Hlokozi_2007_11_29.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/fertilizer.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Manure_spreading_Hlokozi_2007_11_29.jpg",
+        "author": "Alandmanson",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Phân bón — Fertilizer",
+        "caption": "Minh họa lĩnh vực phân bón · Fertilizer.",
+        "topic": "fertilizer",
+        "role": "application-context"
+      }
     },
     {
       "title": "Sản xuất hóa chất",
       "desc": "KOH, K₂CO₃ và nhiều Potassium compounds được sử dụng trong công nghiệp hóa chất.",
-      "sourceLine": 88
+      "sourceLine": 88,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "chemical-industry",
+        "source": "https://commons.wikimedia.org/wiki/File:BASF_Schwarzheide_GmbH_Werksansicht_01.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/chemical-industry.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:BASF_Schwarzheide_GmbH_Werksansicht_01.jpg",
+        "author": "Goku4711",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Sản xuất hóa chất — Chemical plant",
+        "caption": "Minh họa lĩnh vực sản xuất hóa chất · Chemical plant.",
+        "topic": "chemical-industry",
+        "role": "application-context"
+      }
     },
     {
       "title": "Xà phòng",
       "desc": "Potassium hydroxide được sử dụng để sản xuất một số loại xà phòng mềm và lỏng.",
-      "sourceLine": 89
+      "sourceLine": 89,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "soap",
+        "source": "https://commons.wikimedia.org/wiki/File:Handmade_soap_cropped_and_simplified.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/soap.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Handmade_soap_cropped_and_simplified.jpg",
+        "author": "Malene Thyssen , simplified by HLHJ",
+        "license": "CC BY 2.5",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+        "alt": "Xà phòng — Soap",
+        "caption": "Minh họa lĩnh vực xà phòng · Soap.",
+        "topic": "soap",
+        "role": "application-context"
+      }
     },
     {
       "title": "Thủy tinh",
       "desc": "Một số Potassium compounds được sử dụng trong sản xuất thủy tinh đặc biệt.",
-      "sourceLine": 90
+      "sourceLine": 90,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "glass",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/glass.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg",
+        "author": "Ansgar Koreng",
+        "license": "CC BY 3.0 de",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/de/deed.en",
+        "alt": "Thủy tinh — Glass",
+        "caption": "Minh họa lĩnh vực thủy tinh · Glass.",
+        "topic": "glass",
+        "role": "application-context"
+      }
     },
     {
       "title": "Thuốc súng và pháo hoa",
       "desc": "Potassium nitrate và một số Potassium compounds có ứng dụng trong các sản phẩm tạo hiệu ứng hóa học.",
-      "sourceLine": 91
+      "sourceLine": 91,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "firework",
+        "source": "https://commons.wikimedia.org/wiki/File:New_Year%27s_Eve_on_Sydney_Harbour.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/firework.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:New_Year%27s_Eve_on_Sydney_Harbour.jpg",
+        "author": "Rob Chandler",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Thuốc súng và pháo hoa — Fireworks",
+        "caption": "Minh họa lĩnh vực thuốc súng và pháo hoa · Fireworks.",
+        "topic": "firework",
+        "role": "application-context"
+      }
     },
     {
       "title": "Sinh học",
       "desc": "Potassium ion (K⁺) đóng vai trò quan trọng trong hoạt động của tế bào, thần kinh và cơ bắp.",
-      "sourceLine": 92
+      "sourceLine": 92,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Potassium là nguyên tố số 19, thuộc nhóm IA | chu kỳ 4 và là một kim loại kiềm.</li><li>Potassium có cấu hình electron 1s² 2s² 2p⁶ 3s² 3p⁶ 4s¹, với một electron hóa trị. Vì electron này dễ bị mất nên Potassium có tính khử rất mạnh và gần như luôn có số Oxy hóa +1 trong hợp chất.</li><li>Potassium không tồn tại tự do trong tự nhiên mà chủ yếu tồn tại dưới dạng muối và khoáng vật. Ion K⁺ cũng là một chất điện giải thiết yếu đối với sinh vật.</li><li>Potassium và các hợp chất của nó có vai trò quan trọng trong sản xuất phân bón, hóa chất, xà phòng, thủy tinh và nhiều quá trình sinh học.</li></ul>",
@@ -508,9 +651,9 @@
           "a": 6.2879,
           "b": 6.2879,
           "c": 6.2879,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 248.60901837743893,
         "siteCount": 8,
@@ -580,6 +723,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Potassium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -588,6 +736,7 @@
     "sourceSha256": "9431076e2921a7fa3aa33ee7a8e866b80cc0b48e7424a0a8c339f978b6dc2089",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/019_K.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/kali-k/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/kali-k/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/kali-k/audit.md"
   }
 }

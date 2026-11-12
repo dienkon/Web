@@ -73,9 +73,9 @@
         "a": 6.076,
         "b": 6.076,
         "c": 6.076,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 90.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
       },
       "volume": 224.31240697599998,
       "siteCount": 4,
@@ -99,9 +99,67 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-sr.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-sr.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-sr.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-sr.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-sr.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Strontium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_strontium",
+        "revisionId": 1208382200,
+        "revisionTimestamp": "2024-02-17T08:13:58Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "face-centered cubic",
+            "prefix": "",
+            "comment": "",
+            "pearson": "cF4",
+            "lattice": "a = 608.6 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-sr",
+        "modelKind": "fcc",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 6.086,
+            "modelAngstrom": 6.076,
+            "relativeDifferencePercent": 0.1643115346697449
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Strontium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_strontium",
+      "revisionId": 1208382200,
+      "revisionTimestamp": "2024-02-17T08:13:58Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "face-centered cubic",
+          "prefix": "",
+          "comment": "",
+          "pearson": "cF4",
+          "lattice": "a = 608.6 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-sr",
+      "modelKind": "fcc",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 6.086,
+          "modelAngstrom": 6.076,
+          "relativeDifferencePercent": 0.1643115346697449
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lập phương tâm mặt (Face-centered cubic, FCC)",
   "occurrence": {
@@ -151,9 +209,9 @@
             "a": 8.36,
             "b": 5.352,
             "c": 6.858,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 306.84557376,
           "siteCount": 24,
@@ -484,32 +542,106 @@
     {
       "title": "Pháo hoa",
       "desc": "Strontium compounds tạo màu đỏ đặc trưng trong pháo hoa và pháo sáng.",
-      "sourceLine": 89
+      "sourceLine": 89,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "firework",
+        "source": "https://commons.wikimedia.org/wiki/File:New_Year%27s_Eve_on_Sydney_Harbour.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/firework.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:New_Year%27s_Eve_on_Sydney_Harbour.jpg",
+        "author": "Rob Chandler",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Pháo hoa — Fireworks",
+        "caption": "Minh họa lĩnh vực pháo hoa · Fireworks.",
+        "topic": "firework",
+        "role": "application-context"
+      }
     },
     {
       "title": "Tín hiệu cảnh báo",
       "desc": "Một số Strontium compounds được sử dụng trong pháo sáng và thiết bị tín hiệu.",
-      "sourceLine": 90
+      "sourceLine": 90,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "firework",
+        "source": "https://commons.wikimedia.org/wiki/File:New_Year%27s_Eve_on_Sydney_Harbour.jpg"
+      }
     },
     {
       "title": "Nam châm Ferrite",
       "desc": "Strontium ferrite được sử dụng để sản xuất nam châm Ferrite.",
-      "sourceLine": 91
+      "sourceLine": 91,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "magnet",
+        "source": "https://commons.wikimedia.org/wiki/File:Magnetite_sample_with_neodymium_magnet.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/magnet.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Magnetite_sample_with_neodymium_magnet.jpg",
+        "author": "GOKLuLe 盧樂",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nam châm Ferrite — Magnet",
+        "caption": "Minh họa lĩnh vực nam châm ferrite · Magnet.",
+        "topic": "magnet",
+        "role": "application-context"
+      }
     },
     {
       "title": "Gốm",
       "desc": "Một số Strontium compounds được sử dụng trong vật liệu gốm và điện tử.",
-      "sourceLine": 92
+      "sourceLine": 92,
+      "imageReview": {
+        "status": "source-link",
+        "topic": "ceramic",
+        "source": "https://commons.wikimedia.org/wiki/Special:MediaSearch?type=image&search=Technical%20ceramics"
+      }
     },
     {
       "title": "Kính",
       "desc": "Strontium được sử dụng trong một số loại kính chuyên dụng.",
-      "sourceLine": 93
+      "sourceLine": 93,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "glass",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/glass.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg",
+        "author": "Ansgar Koreng",
+        "license": "CC BY 3.0 de",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/de/deed.en",
+        "alt": "Kính — Glass",
+        "caption": "Minh họa lĩnh vực kính · Glass.",
+        "topic": "glass",
+        "role": "application-context"
+      }
     },
     {
       "title": "Y học",
       "desc": "Một số Strontium compounds/radioisotopes có ứng dụng trong nghiên cứu và y học dưới sự kiểm soát chuyên môn.",
-      "sourceLine": 94
+      "sourceLine": 94,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/research.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "author": "LSDSL",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Y học — Particle accelerator",
+        "caption": "Minh họa lĩnh vực y học · Particle accelerator.",
+        "topic": "research",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Strontium là nguyên tố số 38, thuộc nhóm IIA | chu kỳ 5 và là một kim loại kiềm thổ.</li><li>Strontium có cấu hình electron [Kr] 5s², dễ mất hai electron để tạo Sr²⁺, do đó số Oxy hóa đặc trưng là +2.</li><li>Strontium là kim loại mềm, màu trắng bạc và có tính hoạt động hóa học khá cao. Khi bị kích thích trong ngọn lửa, Strontium tạo màu đỏ thẫm đặc trưng.</li><li>Trong tự nhiên, Strontium chủ yếu tồn tại trong Celestine (SrSO₄) và Strontianite (SrCO₃). Strontium có ứng dụng quan trọng trong pháo hoa, pháo sáng, nam châm Ferrite, gốm, kính và một số lĩnh vực y học.</li></ul>",
@@ -550,9 +682,9 @@
           "a": 8.36,
           "b": 5.352,
           "c": 6.858,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 306.84557376,
         "siteCount": 24,
@@ -618,6 +750,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Strontium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -626,6 +763,7 @@
     "sourceSha256": "6e65476e90127a57a729ddb24e9a00b6c8fb051bd0082e05f884316f8f4d9fd2",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/038_Sr.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/strontium-sr/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/strontium-sr/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/strontium-sr/audit.md"
   }
 }

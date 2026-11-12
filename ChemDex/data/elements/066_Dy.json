@@ -75,9 +75,9 @@
         "a": 3.5903,
         "b": 3.5903,
         "c": 5.6475,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 120.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 120
       },
       "volume": 63.04466617418795,
       "siteCount": 2,
@@ -99,9 +99,81 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-dy.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-dy.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-dy.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-dy.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-dy.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Dysprosium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_dysprosium",
+        "revisionId": 1284274532,
+        "revisionTimestamp": "2025-04-06T16:13:11Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "hexagonal close packed",
+            "prefix": "",
+            "comment": "",
+            "pearson": "hP2",
+            "lattice": "a = 359.16 pm; c = 565.01 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-dy",
+        "modelKind": "hcp",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 3.5916,
+            "modelAngstrom": 3.5903,
+            "relativeDifferencePercent": 0.036195567435128605
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "c",
+            "wikiAngstrom": 5.6501,
+            "modelAngstrom": 5.6475,
+            "relativeDifferencePercent": 0.04601688465691152
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Dysprosium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_dysprosium",
+      "revisionId": 1284274532,
+      "revisionTimestamp": "2025-04-06T16:13:11Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "hexagonal close packed",
+          "prefix": "",
+          "comment": "",
+          "pearson": "hP2",
+          "lattice": "a = 359.16 pm; c = 565.01 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-dy",
+      "modelKind": "hcp",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 3.5916,
+          "modelAngstrom": 3.5903,
+          "relativeDifferencePercent": 0.036195567435128605
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "c",
+          "wikiAngstrom": 5.6501,
+          "modelAngstrom": 5.6475,
+          "relativeDifferencePercent": 0.04601688465691152
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lục phương xếp chặt (HCP)",
   "occurrence": {
@@ -151,9 +223,9 @@
             "a": 6.8947,
             "b": 6.8947,
             "c": 6.0276,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 286.53334665128403,
           "siteCount": 24,
@@ -459,27 +531,107 @@
     {
       "title": "Nam châm Nd-Fe-B",
       "desc": "Dysprosium được thêm vào nam châm Neodymium–Iron–Boron (Nd-Fe-B) để tăng khả năng duy trì từ tính ở nhiệt độ cao, đặc biệt trong động cơ điện và các thiết bị công suất cao.",
-      "sourceLine": 88
+      "sourceLine": 88,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "magnet",
+        "source": "https://commons.wikimedia.org/wiki/File:Magnetite_sample_with_neodymium_magnet.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/magnet.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Magnetite_sample_with_neodymium_magnet.jpg",
+        "author": "GOKLuLe 盧樂",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nam châm Nd-Fe-B — Magnet",
+        "caption": "Minh họa lĩnh vực nam châm nd-fe-b · Magnet.",
+        "topic": "magnet",
+        "role": "application-context"
+      }
     },
     {
       "title": "Lò phản ứng hạt nhân",
       "desc": "Dysprosium có khả năng hấp thụ neutron mạnh nên được sử dụng trong một số vật liệu hấp thụ neutron.",
-      "sourceLine": 89
+      "sourceLine": 89,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "reactor",
+        "source": "https://commons.wikimedia.org/wiki/File:Advanced_Test_Reactor_001.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/reactor.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Advanced_Test_Reactor_001.jpg",
+        "author": "Idaho National Laboratory",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "alt": "Lò phản ứng hạt nhân — Nuclear reactor",
+        "caption": "Minh họa lĩnh vực lò phản ứng hạt nhân · Nuclear reactor.",
+        "topic": "reactor",
+        "role": "application-context"
+      }
     },
     {
       "title": "Laser",
       "desc": "Một số hợp chất Dysprosium được sử dụng trong vật liệu laser và quang học.",
-      "sourceLine": 90
+      "sourceLine": 90,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "laser",
+        "source": "https://commons.wikimedia.org/wiki/File:Guiding_the_Milky_Way_(potw2222a).jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/laser.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Guiding_the_Milky_Way_(potw2222a).jpg",
+        "author": "ESO/A. Ghizzi Panizza ( www.albertoghizzipanizza.com )",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "alt": "Laser — Laser",
+        "caption": "Minh họa lĩnh vực laser · Laser.",
+        "topic": "laser",
+        "role": "application-context"
+      }
     },
     {
       "title": "Vật liệu từ",
       "desc": "Dysprosium được sử dụng trong nghiên cứu và chế tạo các vật liệu có tính chất từ đặc biệt.",
-      "sourceLine": 91
+      "sourceLine": 91,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "magnetic-material",
+        "source": "https://commons.wikimedia.org/wiki/File:Magnetostriction_by_Zureks.gif"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/magnetic-material.gif",
+        "source": "https://commons.wikimedia.org/wiki/File:Magnetostriction_by_Zureks.gif",
+        "author": "Zureks",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Vật liệu từ — Magnetostriction",
+        "caption": "Sơ đồ nguyên lý từ giảo.",
+        "topic": "magnetic-material",
+        "role": "application-context"
+      }
     },
     {
       "title": "Điện tử",
       "desc": "Một số hợp chất Dysprosium được dùng trong các vật liệu điện tử và quang điện tử.",
-      "sourceLine": 92
+      "sourceLine": 92,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "electronics",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/electronics.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg",
+        "author": "Raimond Spekking",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Điện tử — Printed circuit board",
+        "caption": "Minh họa lĩnh vực điện tử · Printed circuit board.",
+        "topic": "electronics",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Dysprosium là nguyên tố số 66, thuộc nhóm IIIB | chu kỳ 6 và là nguyên tố thứ mười trong họ Lanthanide.</li><li>Dysprosium được Paul-Émile Lecoq de Boisbaudran phát hiện vào năm 1886 tại Pháp. Tên nguyên tố bắt nguồn từ tiếng Hy Lạp dysprositos, nghĩa là “khó có được”, do quá trình tách Dysprosium khỏi các Lanthanide khác rất khó khăn.</li><li>Dysprosium là kim loại đất hiếm màu trắng bạc, có tính thuận từ mạnh và trạng thái Oxy hóa phổ biến nhất là +3.</li><li>Đặc điểm nổi bật của Dysprosium là tính chất từ mạnh và khả năng hấp thụ neutron cao. Nó đặc biệt quan trọng trong việc cải thiện hiệu suất của nam châm Nd-Fe-B, đồng thời được sử dụng trong công nghệ hạt nhân, vật liệu từ và quang học.</li><li>Mạng tinh thể: Lục phương xếp chặt (HCP) ở điều kiện thường.</li></ul>",
@@ -520,9 +672,9 @@
           "a": 6.8947,
           "b": 6.8947,
           "c": 6.0276,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 286.53334665128403,
         "siteCount": 24,
@@ -589,6 +741,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Dysprosium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -597,6 +754,7 @@
     "sourceSha256": "40c1d3e928160ef900099897e737cc718c94d414597c1c92208ac02e7c592f56",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/066_Dy.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/dysprosium-dy/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/dysprosium-dy/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/dysprosium-dy/audit.md"
   }
 }

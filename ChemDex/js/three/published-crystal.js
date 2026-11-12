@@ -7,6 +7,16 @@ const esc=value=>String(value??'').replaceAll('&','&amp;').replaceAll('<','&lt;'
 export function fractionalPosition(data, frac) {
   return data.basis.map(row=>row.reduce((sum,v,i)=>sum+v*frac[i],0));
 }
+export function nearestPeriodicDistance(data){
+  const translations=[];
+  for(let x=-1;x<=1;x++)for(let y=-1;y<=1;y++)for(let z=-1;z<=1;z++)translations.push(fractionalPosition(data,[x,y,z]));
+  let squared=Infinity;
+  for(const a of data.atoms)for(const b of data.atoms)for(const shift of translations){
+    const dx=a.position[0]-b.position[0]+shift[0],dy=a.position[1]-b.position[1]+shift[1],dz=a.position[2]-b.position[2]+shift[2],d=dx*dx+dy*dy+dz*dz;
+    if(d>1e-8&&d<squared)squared=d;
+  }
+  return Math.sqrt(squared);
+}
 
 // Published metric and explicit symmetry-expanded sites; no inferred lattice type.
 // Spheres are a visual key, not ionic radii or thermal ellipsoids. Occupancy is
@@ -45,7 +55,8 @@ export function buildPublishedCrystal(data, repeat=1, options={}) {
         }
         const mesh=vacancy ? new THREE.LineSegments(geometries.get(key),material(atom.element)) : new THREE.Mesh(geometries.get(key),material(atom.element));
         mesh.position.set(...position);mesh.name=`${atom.label} · ${atom.element} · ${atom.occupancy}`;
-        mesh.userData={kind:'atom',element:atom.element,occupancy:atom.occupancy,fractional:site.fractional};
+        mesh.userData={kind:'atom',label:atom.label,element:atom.element,occupancy:atom.occupancy,
+          fractional:site.fractional.map((v,i)=>v+[x,y,z][i]),unitCellFractional:site.fractional,position};
         mesh.scale.setScalar(options.radiusScale??1);group.add(mesh);spheres++;start+=portion;
       }
     }
@@ -66,7 +77,7 @@ export function buildPublishedCrystal(data, repeat=1, options={}) {
   for(let axis=0;axis<3;axis++){const end=[0,0,0];end[axis]=repeat;line([0,0,0],end,['#e66c75','#7acb8e','#69a8ef'][axis],.035);}
   frame.visible=options.showCell!==false;group.add(frame);
   group.position.set(...fractionalPosition(data,[-repeat/2,-repeat/2,-repeat/2]));
-  group.userData={amcsdId:data.amcsdId,source:data.source,formula:data.formula,cell:data.cell,spaceGroup:data.spaceGroup,reference:data.reference,repeat,
+  group.userData={amcsdId:data.amcsdId,referenceId:data.referenceId??`amcsd:${data.amcsdId}`,evidence:data.evidence,source:data.source,formula:data.formula,cell:data.cell,spaceGroup:data.spaceGroup,reference:data.reference,repeat,
     originalSiteCount:data.siteCount,displaySpheres:spheres,interpretation:'Published periodic atomic structure. Boundary sites repeated for viewing; sphere size/color illustrative. No specimen surface, thermal ellipsoids or invented bonds.'};
   return group;
 }
@@ -77,27 +88,48 @@ export function disposeCrystal(group) {
   geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());
 }
 
+export function frameCrystal(camera,controls,object,aspect) {
+  const box=new THREE.Box3().setFromObject(object),center=box.getCenter(new THREE.Vector3());
+  const direction=new THREE.Vector3(1.4,.9,1.8).normalize();
+  camera.up.set(0,0,1);camera.aspect=aspect;camera.position.copy(center).add(direction);camera.lookAt(center);
+  const inverse=camera.quaternion.clone().invert(),tanV=Math.tan(THREE.MathUtils.degToRad(camera.fov/2)),tanH=tanV*aspect;
+  let distance=.1;
+  for(const x of [box.min.x,box.max.x])for(const y of [box.min.y,box.max.y])for(const z of [box.min.z,box.max.z]){
+    const point=new THREE.Vector3(x,y,z).sub(center).applyQuaternion(inverse);
+    distance=Math.max(distance,Math.abs(point.x)/tanH+point.z,Math.abs(point.y)/tanV+point.z);
+  }
+  distance*=1.14;camera.position.copy(center).add(direction.multiplyScalar(distance));
+  camera.near=Math.max(distance/200,.001);camera.far=distance*100;camera.updateProjectionMatrix();
+  controls.target.copy(center);controls.update();return distance;
+}
+
 export function mountPublishedCrystal(container, meta) {
+  const prototype=meta.evidence==='reference-prototype';
+  const identity=meta.amcsdId?`AMCSD ${meta.amcsdId}`:'Thông số tài liệu tham chiếu';
+  const evidence=prototype?'Prototype có chú thích nguồn':meta.evidence==='literature-compilation'?'Dữ liệu tài liệu tổng hợp':'Cấu trúc đã công bố';
+  const wiki=meta.wikiComparison;
+  const wikiMetrics=wiki?.metrics?.length?`<div class="crystal-site-table"><table><thead><tr><th>Trục CIF / Wiki</th><th>CIF (Å)</th><th>Wiki (Å)</th></tr></thead><tbody>${wiki.metrics.map(m=>`<tr><td>${esc(m.axis)} / ${esc(m.wikiAxis)}</td><td>${Number(m.modelAngstrom).toLocaleString('vi-VN',{maximumFractionDigits:6})}</td><td>${Number(m.wikiAngstrom).toLocaleString('vi-VN',{maximumFractionDigits:6})}</td></tr>`).join('')}</tbody></table></div>`:'';
+  const wikiLinks=(wiki?.additionalSources??[]).map(s=>` · <a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.title)} ↗</a>`).join('');
   const metric=Object.entries(meta.cell).map(([key,v])=>`${key} = ${Number(v).toLocaleString('vi-VN',{maximumFractionDigits:6})}${['a','b','c'].includes(key)?' Å':'°'}`).join(' · ');
   container.innerHTML=`<div class="published-crystal" data-crystal-id="${esc(meta.id)}">
-    <div class="crystal-heading"><strong>${esc(meta.mineralName)} · ${esc(meta.spaceGroup)}</strong><span>AMCSD ${esc(meta.amcsdId)} · ${meta.evidence==='literature-compilation'?'Dữ liệu tài liệu tổng hợp':'Cấu trúc đã công bố'}</span></div>
+    <div class="crystal-heading"><strong>${esc(meta.mineralName)} · ${esc(meta.spaceGroup)}</strong><span>${esc(identity)} · ${esc(evidence)}</span></div>
     <div class="published-crystal-stage"><img src="${esc(meta.preview)}" alt="Ô mạng ${esc(meta.mineralName)} theo tọa độ công bố" loading="lazy"><button type="button" data-crystal-start>Xem mạng tinh thể 3D</button></div>
-    <div class="crystal-controls"><button type="button" data-crystal-rotate aria-pressed="false" disabled>Tự động xoay</button><button type="button" data-crystal-repeat disabled>Hiện 2 × 2 × 2 ô</button><button type="button" data-crystal-cell aria-pressed="true" disabled>Ẩn khung ô mạng</button><button type="button" data-crystal-reset disabled>Đặt lại góc nhìn</button></div>
+    <div class="crystal-controls"><button type="button" data-crystal-rotate aria-pressed="false" disabled>Tự động xoay</button><button type="button" data-crystal-repeat disabled>Hiện 2 × 2 × 2 ô</button><button type="button" data-crystal-cell aria-pressed="true" disabled>Ẩn khung ô mạng</button><button type="button" data-crystal-pack aria-pressed="false" disabled title="Cầu tiếp xúc dùng nửa khoảng cách láng giềng gần nhất; áp dụng cho ô đơn chất có vị trí đầy.">Cầu tiếp xúc</button><button type="button" data-crystal-reset disabled>Đặt lại góc nhìn</button></div>
     <p class="crystal-metric">${esc(metric)} · V = ${meta.volume.toFixed(3)} Å³ · ${meta.siteCount} vị trí/ô</p>
     <div class="crystal-legend" aria-label="Màu nguyên tử và trục mạng"><span style="color:#e66c75">a</span><span style="color:#7acb8e">b</span><span style="color:#69a8ef">c</span></div>
+    <output class="crystal-selection" data-crystal-selection>Chọn một nguyên tử trên mô hình để xem tọa độ và độ chiếm chỗ.</output>
     <p class="crystal-status" role="status">Kéo để xoay · Cuộn để thu/phóng. Bán kính và màu cầu là quy ước hiển thị; phần cầu thể hiện độ chiếm chỗ, lưới tối là vị trí trống. Các nguyên tử trên biên được lặp để khép ô. Không vẽ liên kết suy đoán.</p>
     ${meta.note?`<p class="crystal-note">${esc(meta.note)}</p>`:''}${meta.limitations?`<p class="crystal-note">${esc(meta.limitations)}</p>`:''}
-    <details class="crystal-evidence"><summary>Nguồn, điều kiện mẫu và tọa độ</summary><p>${esc(meta.reference.authors.join(', '))} (${meta.reference.year}). ${esc(meta.reference.title)}. ${esc(meta.reference.journal)}, ${esc(meta.reference.volume)}, ${esc(meta.reference.pages)}.</p><p>Giữ các điều kiện ghi trong bản gốc; nguồn không ghi nhiệt độ/áp suất thì không tự gán 25 °C / 1 atm. Dữ liệu truyền tải làm tròn tọa độ phân số tới 0,00000025; không có độ bất định hay ellipsoid nhiệt.</p><div class="crystal-downloads"><a href="${esc(meta.cif)}" download>Tải CIF</a><a href="${esc(meta.data)}" download>Tải tọa độ JSON</a><a href="${esc(meta.model)}" download>Tải mạng tinh thể GLB</a><a href="${esc(meta.source)}" target="_blank" rel="noopener noreferrer">AMCSD ↗</a></div><div data-crystal-sites></div></details>
+    ${wiki?`<details class="crystal-wiki-reference"><summary>Đối chiếu cấu trúc trên Wikipedia</summary><p>${wiki.phases.map(p=>esc(`${p.prefix} ${p.type} ${p.pearson}`)).join(' · ')}</p>${wikiMetrics}<ul>${wiki.notes.map(n=>`<li>${esc(n)}</li>`).join('')}</ul><p><a href="${esc(wiki.article)}" target="_blank" rel="noopener noreferrer">Bài Wiki ↗</a> · <a href="${esc(wiki.template)}?oldid=${wiki.revisionId}" target="_blank" rel="noopener noreferrer">Phiên bản infobox đã đối chiếu ↗</a>${wikiLinks}</p></details>`:''}
+    <details class="crystal-evidence"><summary>Nguồn, điều kiện mẫu và tọa độ</summary><p>${esc(meta.reference.authors.join(', '))} (${meta.reference.year}). ${esc(meta.reference.title)}. ${esc([meta.reference.journal,meta.reference.volume,meta.reference.pages].filter(Boolean).join(', '))}.</p><p>${prototype?'Vị trí Wyckoff lý tưởng của prototype; thông số mạng lấy từ tài liệu tham chiếu được nêu bên dưới. Không có bộ tinh chỉnh nguyên tử thực nghiệm riêng trong mô hình này.':'Giữ các điều kiện ghi trong bản gốc; nguồn không ghi nhiệt độ/áp suất thì không tự gán 25 °C / 1 atm. Dữ liệu truyền tải làm tròn tọa độ phân số tới 0,00000025; không có độ bất định hay ellipsoid nhiệt.'}</p><div class="crystal-downloads"><a href="${esc(meta.cif)}" download>Tải CIF</a><a href="${esc(meta.data)}" download>Tải tọa độ JSON</a><a href="${esc(meta.model)}" download>Tải mạng tinh thể GLB</a><a href="${esc(meta.source)}" target="_blank" rel="noopener noreferrer">${prototype?'Nguồn tham chiếu':'AMCSD'} ↗</a></div><div data-crystal-sites></div></details>
   </div>`;
   const stage=container.querySelector('.published-crystal-stage'),status=container.querySelector('[role=status]');
-  let renderer,scene,camera,controls,current,data,resizeObserver,visibilityObserver,raf=0,destroyed=false,visible=true,repeat=1,showCell=true;
+  let renderer,scene,camera,controls,current,data,resizeObserver,visibilityObserver,raf=0,destroyed=false,visible=true,repeat=1,showCell=true,packed=false,packingScale=1;
   const rotating=container.querySelector('[data-crystal-rotate]');
   const fit=()=>{
-    const box=new THREE.Box3().setFromObject(current),size=box.getSize(new THREE.Vector3()),center=box.getCenter(new THREE.Vector3());
-    const distance=Math.max(size.x,size.y,size.z)/2/Math.tan(THREE.MathUtils.degToRad(camera.fov/2))*1.6;
-    camera.position.copy(center).add(new THREE.Vector3(1.4,.9,1.8).normalize().multiplyScalar(distance));camera.near=distance/200;camera.far=distance*100;camera.updateProjectionMatrix();controls.target.copy(center);controls.update();
+    const rect=stage.getBoundingClientRect();frameCrystal(camera,controls,current,rect.width/Math.max(rect.height,1));
   };
-  const rebuild=()=>{if(current){scene.remove(current);disposeCrystal(current);}current=buildPublishedCrystal(data,repeat,{showCell});scene.add(current);fit();};
+  const rebuild=()=>{if(current){scene.remove(current);disposeCrystal(current);}current=buildPublishedCrystal(data,repeat,{showCell,radiusScale:packed?packingScale:1});scene.add(current);fit();};
   container.querySelector('[data-crystal-start]').addEventListener('click',async event=>{
     event.currentTarget.disabled=true;status.textContent='Đang tải tọa độ tinh thể…';
     try {
@@ -107,10 +139,19 @@ export function mountPublishedCrystal(container, meta) {
       const light=new THREE.DirectionalLight('#ffffff',2.2);light.position.set(3,6,8);scene.add(light);
       camera=new THREE.PerspectiveCamera(36,1,.01,1000);controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.autoRotate=false;
       stage.replaceChildren(renderer.domElement);
+      const raycaster=new THREE.Raycaster(),pointer=new THREE.Vector2();let pointerStart=null;
+      renderer.domElement.addEventListener('pointerdown',event=>pointerStart=[event.clientX,event.clientY]);
+      renderer.domElement.addEventListener('pointerup',event=>{
+        if(!pointerStart||Math.hypot(event.clientX-pointerStart[0],event.clientY-pointerStart[1])>5)return;
+        const rect=renderer.domElement.getBoundingClientRect();pointer.set((event.clientX-rect.left)/rect.width*2-1,-(event.clientY-rect.top)/rect.height*2+1);
+        raycaster.setFromCamera(pointer,camera);const hit=raycaster.intersectObject(current,true).find(h=>h.object.userData.kind==='atom'&&h.object.userData.element!=='Vacancy');
+        if(hit){const atom=hit.object.userData,fmt=n=>Number(n).toLocaleString('vi-VN',{maximumFractionDigits:6});container.querySelector('[data-crystal-selection]').textContent=`${atom.label} · ${atom.element} · chiếm chỗ ${fmt(atom.occupancy*100)}% · phân số (${atom.fractional.map(fmt).join('; ')}) · Cartesian (${atom.position.map(fmt).join('; ')}) Å`;}
+      });
       resizeObserver=new ResizeObserver(()=>{const r=stage.getBoundingClientRect();renderer.setSize(Math.max(r.width,1),Math.max(r.height,1),false);camera.aspect=r.width/Math.max(r.height,1);camera.updateProjectionMatrix();});resizeObserver.observe(stage);
       visibilityObserver=new IntersectionObserver(entries=>visible=entries[0].isIntersecting);visibilityObserver.observe(stage);
       rebuild();
       container.querySelectorAll('.crystal-controls button').forEach(b=>b.disabled=false);
+      container.querySelector('[data-crystal-pack]').disabled=Object.keys(data.cellComposition).length!==1||data.atoms.some(a=>a.occupancy<.999);
       status.textContent='Tọa độ sẵn sàng. Kéo để xoay · Cuộn để thu/phóng. Cầu và màu là quy ước; phần cầu là độ chiếm chỗ, lưới tối là vị trí trống; các nguyên tử biên được lặp để khép ô.';status.dataset.state='ready';
       const legend=container.querySelector('.crystal-legend');
       for(const element of Object.keys(data.cellComposition)){const span=document.createElement('span');span.style.color=atomColor(element);span.textContent=`● ${element}`;legend.append(span);}
@@ -120,6 +161,11 @@ export function mountPublishedCrystal(container, meta) {
   });
   rotating.addEventListener('click',()=>{controls.autoRotate=!controls.autoRotate;rotating.textContent=controls.autoRotate?'Tạm dừng xoay':'Tự động xoay';rotating.setAttribute('aria-pressed',String(controls.autoRotate));});
   container.querySelector('[data-crystal-repeat]').addEventListener('click',event=>{repeat=repeat===1?2:1;rebuild();event.currentTarget.textContent=repeat===1?'Hiện 2 × 2 × 2 ô':'Hiện 1 ô mạng';});
+  container.querySelector('[data-crystal-pack]').addEventListener('click',event=>{
+    packed=!packed;if(packed)packingScale=nearestPeriodicDistance(data)/(.32*2);
+    rebuild();event.currentTarget.textContent=packed?'Cầu nhỏ':'Cầu tiếp xúc';event.currentTarget.setAttribute('aria-pressed',String(packed));
+    container.querySelector('[data-crystal-selection]').textContent=packed?'Cầu tiếp xúc có bán kính bằng nửa khoảng cách láng giềng gần nhất trong mạng tuần hoàn; đây là mô hình đóng gói, không phải mật độ electron.':'Chọn một nguyên tử để xem tọa độ và độ chiếm chỗ.';
+  });
   container.querySelector('[data-crystal-cell]').addEventListener('click',event=>{showCell=!showCell;current.children.find(c=>c.name==='Ô mạng và các trục a, b, c').visible=showCell;event.currentTarget.textContent=showCell?'Ẩn khung ô mạng':'Hiện khung ô mạng';event.currentTarget.setAttribute('aria-pressed',String(showCell));});
   container.querySelector('[data-crystal-reset]').addEventListener('click',fit);
   return {destroy(){destroyed=true;cancelAnimationFrame(raf);resizeObserver?.disconnect();visibilityObserver?.disconnect();controls?.dispose();disposeCrystal(current);renderer?.dispose();container.replaceChildren();}};

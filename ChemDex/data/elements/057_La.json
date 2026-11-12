@@ -75,9 +75,9 @@
         "a": 3.77,
         "b": 3.77,
         "c": 12.159,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 120.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 120
       },
       "volume": 149.66187799874442,
       "siteCount": 4,
@@ -99,9 +99,81 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-la.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-la.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-la.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-la.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-la.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Lanthanum",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_lanthanum",
+        "revisionId": 1284273563,
+        "revisionTimestamp": "2025-04-06T16:05:50Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "double hexagonal close packed",
+            "prefix": "α form:",
+            "comment": "",
+            "pearson": "hP4",
+            "lattice": "a = 0.37742 nm; c = 1.2171 nm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-la",
+        "modelKind": "dhcp",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 3.7741999999999996,
+            "modelAngstrom": 3.77,
+            "relativeDifferencePercent": 0.11128186105663553
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "c",
+            "wikiAngstrom": 12.171000000000001,
+            "modelAngstrom": 12.159,
+            "relativeDifferencePercent": 0.09859502095144568
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Lanthanum",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_lanthanum",
+      "revisionId": 1284273563,
+      "revisionTimestamp": "2025-04-06T16:05:50Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "double hexagonal close packed",
+          "prefix": "α form:",
+          "comment": "",
+          "pearson": "hP4",
+          "lattice": "a = 0.37742 nm; c = 1.2171 nm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-la",
+      "modelKind": "dhcp",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 3.7741999999999996,
+          "modelAngstrom": 3.77,
+          "relativeDifferencePercent": 0.11128186105663553
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "c",
+          "wikiAngstrom": 12.171000000000001,
+          "modelAngstrom": 12.159,
+          "relativeDifferencePercent": 0.09859502095144568
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lục phương kép xếp chặt (DHCP) ở nhiệt độ thường.",
   "occurrence": {
@@ -149,9 +221,9 @@
             "a": 6.788,
             "b": 7.0163,
             "c": 6.465,
-            "alpha": 90.0,
+            "alpha": 90,
             "beta": 103.43,
-            "gamma": 90.0
+            "gamma": 90
           },
           "volume": 299.48637533121257,
           "siteCount": 24,
@@ -395,32 +467,106 @@
     {
       "title": "Kính quang học",
       "desc": "Lanthanum oxide được sử dụng để chế tạo các loại kính có chiết suất cao và tính chất quang học đặc biệt.",
-      "sourceLine": 85
+      "sourceLine": 85,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "glass",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/glass.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg",
+        "author": "Ansgar Koreng",
+        "license": "CC BY 3.0 de",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/de/deed.en",
+        "alt": "Kính quang học — Glass",
+        "caption": "Minh họa lĩnh vực kính quang học · Glass.",
+        "topic": "glass",
+        "role": "application-context"
+      }
     },
     {
       "title": "Ống kính máy ảnh",
       "desc": "Một số hợp chất Lanthanum được sử dụng trong kính quang học chất lượng cao.",
-      "sourceLine": 86
+      "sourceLine": 86,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "glass",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg"
+      }
     },
     {
       "title": "Điện cực",
       "desc": "Lanthanum được sử dụng trong một số loại điện cực và vật liệu điện hóa.",
-      "sourceLine": 87
+      "sourceLine": 87,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Pin",
       "desc": "Các hợp chất Lanthanum, đặc biệt trong vật liệu LaNi₅, được sử dụng trong pin Nickel–metal hydride (NiMH).",
-      "sourceLine": 88
+      "sourceLine": 88,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "battery",
+        "source": "https://commons.wikimedia.org/wiki/File:Batteries.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/battery.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Batteries.jpg",
+        "author": "en:User:Brianiac",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Pin — Battery (electricity)",
+        "caption": "Minh họa lĩnh vực pin · Battery (electricity).",
+        "topic": "battery",
+        "role": "application-context"
+      }
     },
     {
       "title": "Xúc tác",
       "desc": "Một số hợp chất Lanthanum được sử dụng làm chất xúc tác hoặc chất hỗ trợ xúc tác trong công nghiệp.",
-      "sourceLine": 89
+      "sourceLine": 89,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "catalyst",
+        "source": "https://commons.wikimedia.org/wiki/File:Catalysts.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/catalyst.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Catalysts.JPG",
+        "author": "Shubhrapdil",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Xúc tác — Catalysis",
+        "caption": "Minh họa lĩnh vực xúc tác · Catalysis.",
+        "topic": "catalyst",
+        "role": "application-context"
+      }
     },
     {
       "title": "Vật liệu phát sáng",
       "desc": "Một số hợp chất Lanthanum pha tạp đất hiếm được sử dụng trong vật liệu quang học và phát quang.",
-      "sourceLine": 90
+      "sourceLine": 90,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "fluorescent",
+        "source": "https://commons.wikimedia.org/wiki/File:Fluorescent_lamps_artistic.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/fluorescent.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Fluorescent_lamps_artistic.jpg",
+        "author": "Flickr user Oimax This image was originally posted to Flickr by OiMax at https://www.flickr.com/photos/72396314@N00/404614118 . It was reviewed on 20 May 2007 by FlickreviewR and was confirmed to be licensed under the terms of the cc-by-2.0. 20 May 2007",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "alt": "Vật liệu phát sáng — Fluorescent lamp",
+        "caption": "Minh họa lĩnh vực vật liệu phát sáng · Fluorescent lamp.",
+        "topic": "fluorescent",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Lanthanum là nguyên tố số 57, thuộc nhóm IIIB | chu kỳ 6 và là nguyên tố đầu tiên thường được xếp trong họ Lanthanide.</li><li>Lanthanum được Carl Gustaf Mosander phát hiện vào năm 1839 tại Thụy Điển. Tên nguyên tố bắt nguồn từ tiếng Hy Lạp lanthanein, nghĩa là “ẩn giấu”, do Lanthanum ban đầu bị “ẩn” trong khoáng vật chứa Cerium.</li><li>Lanthanum là một kim loại màu trắng bạc, khá mềm và có tính hoạt động hóa học cao. Trạng thái Oxy hóa +3 là trạng thái đặc trưng nhất. Trong tự nhiên, Lanthanum chủ yếu tồn tại trong các khoáng vật đất hiếm như Monazite và Bastnäsite.</li><li>Lanthanum có nhiều ứng dụng trong kính quang học, ống kính, pin NiMH, xúc tác và vật liệu điện hóa.</li><li>Mạng tinh thể: DHCP ở nhiệt độ thường; cấu trúc phụ thuộc nhiệt độ.</li></ul>",
@@ -461,9 +607,9 @@
           "a": 6.788,
           "b": 7.0163,
           "c": 6.465,
-          "alpha": 90.0,
+          "alpha": 90,
           "beta": 103.43,
-          "gamma": 90.0
+          "gamma": 90
         },
         "volume": 299.48637533121257,
         "siteCount": 24,
@@ -534,6 +680,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Lanthanum",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -542,6 +693,7 @@
     "sourceSha256": "a1a2f6dd18b4d18c3283979a2322e2c23758851ea58bb60b66b1388c8ac94884",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/057_La.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/lanthanum-la/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/lanthanum-la/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/lanthanum-la/audit.md"
   }
 }

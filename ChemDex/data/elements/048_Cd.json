@@ -73,9 +73,9 @@
         "a": 2.9731,
         "b": 2.9731,
         "c": 5.6069,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 120.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 120
       },
       "volume": 42.92126131548668,
       "siteCount": 2,
@@ -98,9 +98,81 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-cd.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-cd.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-cd.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-cd.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-cd.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Cadmium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_cadmium",
+        "revisionId": 1284271388,
+        "revisionTimestamp": "2025-04-06T15:48:30Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "hexagonal close packed",
+            "prefix": "",
+            "comment": "",
+            "pearson": "hP2",
+            "lattice": "a = 297.89 pm; c = 561.66 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-cd",
+        "modelKind": "hcp",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 2.9789,
+            "modelAngstrom": 2.9731,
+            "relativeDifferencePercent": 0.19470274262310938
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "c",
+            "wikiAngstrom": 5.6166,
+            "modelAngstrom": 5.6069,
+            "relativeDifferencePercent": 0.17270234661538295
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Cadmium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_cadmium",
+      "revisionId": 1284271388,
+      "revisionTimestamp": "2025-04-06T15:48:30Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "hexagonal close packed",
+          "prefix": "",
+          "comment": "",
+          "pearson": "hP2",
+          "lattice": "a = 297.89 pm; c = 561.66 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-cd",
+      "modelKind": "hcp",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 2.9789,
+          "modelAngstrom": 2.9731,
+          "relativeDifferencePercent": 0.19470274262310938
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "c",
+          "wikiAngstrom": 5.6166,
+          "modelAngstrom": 5.6069,
+          "relativeDifferencePercent": 0.17270234661538295
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lục phương (Hexagonal)",
   "occurrence": {
@@ -149,9 +221,9 @@
             "a": 5.4093,
             "b": 5.4093,
             "c": 5.4093,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 158.278965942357,
           "siteCount": 8,
@@ -540,27 +612,96 @@
     {
       "title": "Pin Nickel-Cadmium",
       "desc": "Cadmium từng được sử dụng rộng rãi trong pin Ni-Cd có khả năng sạc lại.",
-      "sourceLine": 84
+      "sourceLine": 84,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "battery",
+        "source": "https://commons.wikimedia.org/wiki/File:Batteries.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/battery.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Batteries.jpg",
+        "author": "en:User:Brianiac",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Pin Nickel-Cadmium — Battery (electricity)",
+        "caption": "Minh họa lĩnh vực pin nickel-cadmium · Battery (electricity).",
+        "topic": "battery",
+        "role": "application-context"
+      }
     },
     {
       "title": "Mạ kim loại",
       "desc": "Cadmium được dùng để tạo lớp phủ bảo vệ một số kim loại khỏi ăn mòn.",
-      "sourceLine": 85
+      "sourceLine": 85,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Chất màu",
       "desc": "Cadmium sulfide và Cadmium selenide từng được sử dụng để tạo các sắc tố vàng, cam và đỏ.",
-      "sourceLine": 86
+      "sourceLine": 86,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "pigment",
+        "source": "https://commons.wikimedia.org/wiki/File:Indian_pigments.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/pigment.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Indian_pigments.jpg",
+        "author": "Dan Brady",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "alt": "Chất màu — Pigment",
+        "caption": "Minh họa lĩnh vực chất màu · Pigment.",
+        "topic": "pigment",
+        "role": "application-context"
+      }
     },
     {
       "title": "Vật liệu bán dẫn",
       "desc": "Một số hợp chất Cadmium như CdTe được sử dụng trong công nghệ bán dẫn và pin mặt trời.",
-      "sourceLine": 87
+      "sourceLine": 87,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "semiconductor",
+        "source": "https://commons.wikimedia.org/wiki/File:ICC_2008_Poland_Silicon_Wafer_1_edit.png"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/semiconductor.png",
+        "source": "https://commons.wikimedia.org/wiki/File:ICC_2008_Poland_Silicon_Wafer_1_edit.png",
+        "author": "FxJ",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Vật liệu bán dẫn — Silicon wafer",
+        "caption": "Minh họa lĩnh vực vật liệu bán dẫn · Silicon wafer.",
+        "topic": "semiconductor",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hợp kim",
       "desc": "Cadmium được sử dụng trong một số hợp kim và vật liệu hàn chuyên dụng.",
-      "sourceLine": 88
+      "sourceLine": 88,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "welding",
+        "source": "https://commons.wikimedia.org/wiki/File:US_Navy_090715-N-5821P-002_Aviation_Support_Equipment_Technician_Airman_Anthony_Hammond_performs_tungsten_inert_gas_welding_during_a_training_evolution.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/welding.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:US_Navy_090715-N-5821P-002_Aviation_Support_Equipment_Technician_Airman_Anthony_Hammond_performs_tungsten_inert_gas_welding_during_a_training_evolution.jpg",
+        "author": "U.S. Navy photo by Mass Communication Specialist 2nd Class Jason T. Poplin",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Hợp kim — Gas tungsten arc welding",
+        "caption": "Minh họa lĩnh vực hợp kim · Gas tungsten arc welding.",
+        "topic": "welding",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Cadmium là nguyên tố số 48, thuộc nhóm IIB | chu kỳ 5.</li><li>Cadmium có cấu hình electron [Kr] 4d¹⁰ 5s² và số Oxy hóa đặc trưng là +2.</li><li>Cadmium là kim loại mềm, màu trắng bạc, có nhiệt độ nóng chảy tương đối thấp. Trong tự nhiên, Cadmium chủ yếu được tìm thấy dưới dạng tạp chất trong quặng Zinc và thường được thu hồi trong quá trình luyện Zinc.</li><li>Một hợp chất đặc trưng của Cadmium là Cadmium sulfide (CdS), có màu vàng và có nhiều ứng dụng trong vật liệu.</li><li>Cadmium có ứng dụng trong pin, mạ kim loại, sắc tố và vật liệu bán dẫn, nhưng do độc tính cao, việc sử dụng Cadmium và các hợp chất của nó hiện được kiểm soát chặt chẽ.</li></ul>",
@@ -601,9 +742,9 @@
           "a": 5.4093,
           "b": 5.4093,
           "c": 5.4093,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 158.278965942357,
         "siteCount": 8,
@@ -668,6 +809,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Cadmium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -676,6 +822,7 @@
     "sourceSha256": "568654b5d0fd394df80a1293220f5d4ed1aae650811d55e32b043bf62aa63e5f",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/048_Cd.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/cadmium-cd/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/cadmium-cd/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/cadmium-cd/audit.md"
   }
 }

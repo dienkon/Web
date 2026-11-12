@@ -1,0 +1,3696 @@
+{
+  "schema": "chemdex.wikipedia-crystal-reference/1",
+  "policy": "Reference comparison requested by user. Published CIF remains authoritative for measured coordinates; Wikipedia prototypes and conditions are not silently substituted.",
+  "elements": [
+    {
+      "symbol": "H",
+      "number": 1,
+      "name": "Hydrogen",
+      "article": "https://en.wikipedia.org/wiki/Hydrogen",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_hydrogen",
+      "revisionId": 1378089654,
+      "revisionTimestamp": "2026-10-02T22:36:05Z",
+      "retrievedAt": "2026-11-11T23:29:02.174Z",
+      "status": "available",
+      "fields": {
+        "crystal structure": {
+          "text": "hexagonal",
+          "raw": "hexagonal"
+        },
+        "crystal structure pearson symbol": {
+          "text": "hP4",
+          "raw": "hP4"
+        },
+        "lattice constants": {
+          "text": "a = 378.97 pm; c = 618.31 pm (at triple point)",
+          "raw": "''a''&nbsp;=&nbsp;378.97&nbsp;pm<br />''c''&nbsp;=&nbsp;618.31&nbsp;pm (at&nbsp;triple&nbsp;point)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "He",
+      "number": 2,
+      "name": "Helium",
+      "article": "https://en.wikipedia.org/wiki/Helium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_helium",
+      "revisionId": 1368326105,
+      "revisionTimestamp": "2026-08-08T11:33:59Z",
+      "retrievedAt": "2026-11-11T23:29:02.175Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "hexagonal close-packed",
+          "raw": "hexagonal close-packed"
+        }
+      }
+    },
+    {
+      "symbol": "Li",
+      "number": 3,
+      "name": "Lithium",
+      "article": "https://en.wikipedia.org/wiki/Lithium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_lithium",
+      "revisionId": 1370853109,
+      "revisionTimestamp": "2026-08-23T12:06:35Z",
+      "retrievedAt": "2026-11-11T23:29:02.176Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "body-centered cubic",
+          "raw": "body-centered cubic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "cI2",
+          "raw": "cI2"
+        },
+        "lattice constant": {
+          "text": "a = 350.93 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;350.93&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Be",
+      "number": 4,
+      "name": "Beryllium",
+      "article": "https://en.wikipedia.org/wiki/Beryllium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_beryllium",
+      "revisionId": 1310004891,
+      "revisionTimestamp": "2025-09-07T04:38:15Z",
+      "retrievedAt": "2026-11-11T23:29:02.176Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "hexagonal close packed",
+          "raw": "hexagonal close packed"
+        },
+        "crystal structure pearson symbol": {
+          "text": "hP2",
+          "raw": "hP2"
+        },
+        "lattice constants": {
+          "text": "a = 228.60 pm; c = 358.42 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;228.60&nbsp;pm<br />''c''&nbsp;=&nbsp;358.42&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "B",
+      "number": 5,
+      "name": "Boron",
+      "article": "https://en.wikipedia.org/wiki/Boron",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_boron",
+      "revisionId": 1282608273,
+      "revisionTimestamp": "2025-03-27T13:43:13Z",
+      "retrievedAt": "2026-11-11T23:29:02.176Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "rhombohedral",
+          "raw": "rhombohedral"
+        }
+      }
+    },
+    {
+      "symbol": "C",
+      "number": 6,
+      "name": "Carbon",
+      "article": "https://en.wikipedia.org/wiki/Carbon",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_carbon",
+      "revisionId": 1372090743,
+      "revisionTimestamp": "2026-08-30T06:53:39Z",
+      "retrievedAt": "2026-11-11T23:29:02.177Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "simple hexagonal",
+          "raw": "simple hexagonal"
+        },
+        "crystal structure pearson symbol": {
+          "text": "hP4",
+          "raw": "hP4"
+        },
+        "crystal structure prefix": {
+          "text": "graphite:",
+          "raw": "graphite:"
+        },
+        "lattice constants": {
+          "text": "a = 246.14 pm; c = 670.94 pm; (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;246.14&nbsp;pm<br />''c''&nbsp;=&nbsp;670.94&nbsp;pm<br />(at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book | last=Arblaster | first= John W. | title=Selected Values of the Crystallographic Properties of Elements | publisher=ASM International | publication-place=Materials Park, Ohio | date=2018 | isbn=978-1-62708-155-9}}</ref>"
+        },
+        "crystal structure 2": {
+          "text": "diamond cubic",
+          "raw": "diamond cubic"
+        },
+        "crystal structure 2 pearson symbol": {
+          "text": "cF8",
+          "raw": "cF8"
+        },
+        "crystal structure 2 prefix": {
+          "text": "diamond:",
+          "raw": "diamond:"
+        },
+        "crystal structure 2 comment": {
+          "text": "",
+          "raw": ""
+        },
+        "lattice constant 2": {
+          "text": "a = 356.707 pm; (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;356.707&nbsp;pm<br />(at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\" />"
+        }
+      }
+    },
+    {
+      "symbol": "N",
+      "number": 7,
+      "name": "Nitrogen",
+      "article": "https://en.wikipedia.org/wiki/Nitrogen",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_nitrogen",
+      "revisionId": 1368326161,
+      "revisionTimestamp": "2026-08-08T11:34:30Z",
+      "retrievedAt": "2026-11-11T23:29:02.177Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "hexagonal",
+          "raw": "hexagonal"
+        },
+        "crystal structure pearson symbol": {
+          "text": "hP4",
+          "raw": "hP4"
+        },
+        "lattice constants": {
+          "text": "a = 411.6 pm; c = 673.4 pm (at t.p.)",
+          "raw": "''a''&nbsp;=&nbsp;411.6&nbsp;pm<br />''c''&nbsp;=&nbsp;673.4&nbsp;pm (at&nbsp;[[Triple point|t.p.]])<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "O",
+      "number": 8,
+      "name": "Oxygen",
+      "article": "https://en.wikipedia.org/wiki/Oxygen",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_oxygen",
+      "revisionId": 1368326169,
+      "revisionTimestamp": "2026-08-08T11:34:35Z",
+      "retrievedAt": "2026-11-11T23:29:02.177Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "cubic",
+          "raw": "cubic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "cP16",
+          "raw": "cP16"
+        },
+        "lattice constant": {
+          "text": "a = 678.28 pm (at t.p.)",
+          "raw": "''a''&nbsp;=&nbsp;678.28&nbsp;pm (at&nbsp;[[Triple point|t.p.]])<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "F",
+      "number": 9,
+      "name": "Fluorine",
+      "article": "https://en.wikipedia.org/wiki/Fluorine",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_fluorine",
+      "revisionId": 1351975625,
+      "revisionTimestamp": "2026-05-01T07:21:29Z",
+      "retrievedAt": "2026-11-11T23:29:02.177Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure prefix": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "cubic",
+          "raw": "cubic"
+        },
+        "crystal structure ref": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure comment": {
+          "text": "",
+          "raw": ""
+        }
+      }
+    },
+    {
+      "symbol": "Ne",
+      "number": 10,
+      "name": "Neon",
+      "article": "https://en.wikipedia.org/wiki/Neon",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_neon",
+      "revisionId": 1332690210,
+      "revisionTimestamp": "2026-01-13T06:50:54Z",
+      "retrievedAt": "2026-11-11T23:29:02.177Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "face-centered cubic",
+          "raw": "face-centered cubic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "cF4",
+          "raw": "cF4"
+        },
+        "lattice constant": {
+          "text": "a = 453.77 pm (at triple point)",
+          "raw": "''a''&nbsp;=&nbsp;453.77&nbsp;pm (at triple point)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Na",
+      "number": 11,
+      "name": "Sodium",
+      "article": "https://en.wikipedia.org/wiki/Sodium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_sodium",
+      "revisionId": 1379392053,
+      "revisionTimestamp": "2026-10-09T18:43:07Z",
+      "retrievedAt": "2026-11-11T23:29:02.177Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "body-centered cubic",
+          "raw": "body-centered cubic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "cI2",
+          "raw": "cI2"
+        },
+        "lattice constant": {
+          "text": "a = 428.74 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;428.74&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Mg",
+      "number": 12,
+      "name": "Magnesium",
+      "article": "https://en.wikipedia.org/wiki/Magnesium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_magnesium",
+      "revisionId": 1368326150,
+      "revisionTimestamp": "2026-08-08T11:34:22Z",
+      "retrievedAt": "2026-11-11T23:29:02.178Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "hexagonal close packed",
+          "raw": "hexagonal close packed"
+        },
+        "crystal structure pearson symbol": {
+          "text": "hP2",
+          "raw": "hP2"
+        },
+        "lattice constants": {
+          "text": "a = 320.91 pm; c = 521.03 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;320.91&nbsp;pm<br />''c''&nbsp;=&nbsp;521.03&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Al",
+      "number": 13,
+      "name": "Aluminium",
+      "article": "https://en.wikipedia.org/wiki/Aluminium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_aluminium",
+      "revisionId": 1368326041,
+      "revisionTimestamp": "2026-08-08T11:33:24Z",
+      "retrievedAt": "2026-11-11T23:29:02.178Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "face-centered cubic",
+          "raw": "face-centered cubic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "cF4",
+          "raw": "cF4"
+        },
+        "lattice constant": {
+          "text": "a = 404.93 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;404.93&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Si",
+      "number": 14,
+      "name": "Silicon",
+      "article": "https://en.wikipedia.org/wiki/Silicon",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_silicon",
+      "revisionId": 1374108828,
+      "revisionTimestamp": "2026-09-09T22:20:49Z",
+      "retrievedAt": "2026-11-11T23:29:02.178Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "diamond cubic",
+          "raw": "diamond cubic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "cF8",
+          "raw": "cF8"
+        },
+        "lattice constant": {
+          "text": "a = 543.0986 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;543.0986&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "P",
+      "number": 15,
+      "name": "Phosphorus",
+      "article": "https://en.wikipedia.org/wiki/Phosphorus",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_phosphorus",
+      "revisionId": 1333265864,
+      "revisionTimestamp": "2026-01-16T18:32:02Z",
+      "retrievedAt": "2026-11-11T23:29:02.178Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "body-centred cubic",
+          "raw": "body-centred cubic"
+        },
+        "crystal structure prefix": {
+          "text": "α-white:",
+          "raw": "α-white:"
+        },
+        "crystal structure pearson symbol": {
+          "text": "cI232",
+          "raw": "cI232"
+        },
+        "lattice constant": {
+          "text": "a = 1.869 nm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;1.869&nbsp;nm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        },
+        "crystal structure 2 prefix": {
+          "text": "black:",
+          "raw": "black:"
+        },
+        "crystal structure 2": {
+          "text": "orthorhombic",
+          "raw": "orthorhombic"
+        },
+        "crystal structure 2 pearson symbol": {
+          "text": "oS8",
+          "raw": "oS8"
+        },
+        "lattice constants 2": {
+          "text": "a = 0.33137 nm; b = 1.0477 nm; c = 0.43755 nm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;0.33137&nbsp;nm<br />''b''&nbsp;=&nbsp;1.0477&nbsp;nm<br />''c''&nbsp;=&nbsp;0.43755&nbsp;nm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\" />"
+        }
+      }
+    },
+    {
+      "symbol": "S",
+      "number": 16,
+      "name": "Sulfur",
+      "article": "https://en.wikipedia.org/wiki/Sulfur",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_sulfur",
+      "revisionId": 1368326208,
+      "revisionTimestamp": "2026-08-08T11:34:55Z",
+      "retrievedAt": "2026-11-11T23:29:02.178Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "orthorhombic",
+          "raw": "orthorhombic"
+        },
+        "crystal structure prefix": {
+          "text": "alpha (α-S8):",
+          "raw": "alpha (α-S<sub>8</sub>):"
+        },
+        "crystal structure pearson symbol": {
+          "text": "oF128",
+          "raw": "oF128"
+        },
+        "lattice constants": {
+          "text": "a = 1.0460 nm; b = 1.2861 nm; c = 2.4481 nm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;1.0460&nbsp;nm<br />''b''&nbsp;=&nbsp;1.2861&nbsp;nm<br />''c''&nbsp;=&nbsp;2.4481&nbsp;nm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        },
+        "crystal structure 2": {
+          "text": "monoclinic",
+          "raw": "monoclinic"
+        },
+        "crystal structure 2 prefix": {
+          "text": "beta (β-S8):",
+          "raw": "beta (β-S<sub>8</sub>):"
+        },
+        "crystal structure 2 pearson symbol": {
+          "text": "mP48",
+          "raw": "mP48"
+        },
+        "lattice constants 2": {
+          "text": "a = 1.0923 nm; b = 1.0851 nm; c = 1.0787 nm; β = 95.905° (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;1.0923&nbsp;nm<br />''b''&nbsp;=&nbsp;1.0851&nbsp;nm<br />''c''&nbsp;=&nbsp;1.0787&nbsp;nm<br />β&nbsp;=&nbsp;95.905° (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\" />"
+        }
+      }
+    },
+    {
+      "symbol": "Cl",
+      "number": 17,
+      "name": "Chlorine",
+      "article": "https://en.wikipedia.org/wiki/Chlorine",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_chlorine",
+      "revisionId": 1332162598,
+      "revisionTimestamp": "2026-01-10T06:08:45Z",
+      "retrievedAt": "2026-11-11T23:29:02.179Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "orthorhombic",
+          "raw": "orthorhombic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "oS8",
+          "raw": "oS8"
+        },
+        "lattice constants": {
+          "text": "a = 630.80 pm; b = 455.83 pm; c = 815.49 pm (at triple point)",
+          "raw": "''a''&nbsp;=&nbsp;630.80&nbsp;pm<br />''b''&nbsp;=&nbsp;455.83&nbsp;pm<br />''c''&nbsp;=&nbsp;815.49&nbsp;pm (at&nbsp;triple&nbsp;point)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Ar",
+      "number": 18,
+      "name": "Argon",
+      "article": "https://en.wikipedia.org/wiki/Argon",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_argon",
+      "revisionId": 1333109570,
+      "revisionTimestamp": "2026-01-15T19:48:57Z",
+      "retrievedAt": "2026-11-11T23:29:02.179Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "face-centered cubic",
+          "raw": "face-centered cubic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "cF4",
+          "raw": "cF4"
+        },
+        "lattice constant": {
+          "text": "a = 546.91 pm (at triple point)",
+          "raw": "''a''&nbsp;=&nbsp;546.91&nbsp;pm (at&nbsp;triple&nbsp;point)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "K",
+      "number": 19,
+      "name": "Potassium",
+      "article": "https://en.wikipedia.org/wiki/Potassium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_potassium",
+      "revisionId": 1381467515,
+      "revisionTimestamp": "2026-10-22T18:31:31Z",
+      "retrievedAt": "2026-11-11T23:29:02.179Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "body-centered cubic",
+          "raw": "body-centered cubic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "cI2",
+          "raw": "cI2"
+        },
+        "lattice constant": {
+          "text": "a = 532.69 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;532.69&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book | last=Arblaster | first= John W. | title=Selected Values of the Crystallographic Properties of Elements | publisher=ASM International | publication-place=Materials Park, Ohio | date=2018 | isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Ca",
+      "number": 20,
+      "name": "Calcium",
+      "article": "https://en.wikipedia.org/wiki/Calcium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_calcium",
+      "revisionId": 1374128838,
+      "revisionTimestamp": "2026-09-10T01:07:40Z",
+      "retrievedAt": "2026-11-11T23:29:02.179Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "face-centered cubic",
+          "raw": "face-centered cubic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "cF4",
+          "raw": "cF4"
+        },
+        "lattice constant": {
+          "text": "a = 558.8 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;558.8&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book | last=Arblaster | first= John W. | title=Selected Values of the Crystallographic Properties of Elements | publisher=ASM International | publication-place=Materials Park, Ohio | date=2018 | isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Sc",
+      "number": 21,
+      "name": "Scandium",
+      "article": "https://en.wikipedia.org/wiki/Scandium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_scandium",
+      "revisionId": 1276424871,
+      "revisionTimestamp": "2025-02-18T19:58:24Z",
+      "retrievedAt": "2026-11-11T23:29:05.210Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "hexagonal close packed",
+          "raw": "hexagonal close packed"
+        },
+        "crystal structure pearson symbol": {
+          "text": "hP2",
+          "raw": "hP2"
+        },
+        "lattice constants": {
+          "text": "a = 330.89 pm c = 526.80 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;330.89&nbsp;pm ''c''&nbsp;=&nbsp;526.80&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Ti",
+      "number": 22,
+      "name": "Titanium",
+      "article": "https://en.wikipedia.org/wiki/Titanium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_titanium",
+      "revisionId": 1333869186,
+      "revisionTimestamp": "2026-01-20T05:11:12Z",
+      "retrievedAt": "2026-11-11T23:29:05.210Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "hexagonal close packed",
+          "raw": "hexagonal close packed"
+        },
+        "crystal structure pearson symbol": {
+          "text": "hP2",
+          "raw": "hP2"
+        },
+        "lattice constants": {
+          "text": "a = 295.05 pm; c = 468.33 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;295.05&nbsp;pm<br />''c''&nbsp;=&nbsp;468.33&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "V",
+      "number": 23,
+      "name": "Vanadium",
+      "article": "https://en.wikipedia.org/wiki/Vanadium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_vanadium",
+      "revisionId": 1282813079,
+      "revisionTimestamp": "2025-03-28T19:28:44Z",
+      "retrievedAt": "2026-11-11T23:29:05.211Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "body-centered cubic",
+          "raw": "body-centered cubic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "cI2",
+          "raw": "cI2"
+        },
+        "lattice constant": {
+          "text": "a = 302.72 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;302.72&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Cr",
+      "number": 24,
+      "name": "Chromium",
+      "article": "https://en.wikipedia.org/wiki/Chromium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_chromium",
+      "revisionId": 1296596619,
+      "revisionTimestamp": "2025-06-21T00:29:55Z",
+      "retrievedAt": "2026-11-11T23:29:05.211Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "body-centered cubic",
+          "raw": "body-centered cubic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "cI2",
+          "raw": "cI2"
+        },
+        "lattice constant": {
+          "text": "a = 288.49 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;288.49 &nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Mn",
+      "number": 25,
+      "name": "Manganese",
+      "article": "https://en.wikipedia.org/wiki/Manganese",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_manganese",
+      "revisionId": 1282813702,
+      "revisionTimestamp": "2025-03-28T19:33:36Z",
+      "retrievedAt": "2026-11-11T23:29:05.211Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "body-centered cubic",
+          "raw": "body-centered cubic"
+        },
+        "crystal structure prefix": {
+          "text": "α-Mn:",
+          "raw": "α-Mn:"
+        },
+        "crystal structure pearson symbol": {
+          "text": "cI58",
+          "raw": "cI58"
+        },
+        "lattice constant": {
+          "text": "a = 891.16 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;891.16&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Fe",
+      "number": 26,
+      "name": "Iron",
+      "article": "https://en.wikipedia.org/wiki/Iron",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_iron",
+      "revisionId": 1379400644,
+      "revisionTimestamp": "2026-10-09T19:51:38Z",
+      "retrievedAt": "2026-11-11T23:29:05.211Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "body-centered cubic",
+          "raw": "body-centered cubic"
+        },
+        "crystal structure prefix": {
+          "text": "α-Fe:",
+          "raw": "α-Fe:"
+        },
+        "crystal structure pearson symbol": {
+          "text": "cI2",
+          "raw": "cI2"
+        },
+        "lattice constant": {
+          "text": "a = 286.65 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;286.65&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        },
+        "crystal structure 2": {
+          "text": "face-centered cubic",
+          "raw": "face-centered cubic"
+        },
+        "crystal structure 2 prefix": {
+          "text": "γ-Fe (912–1394 °C):",
+          "raw": "γ-Fe (912–1394&nbsp;°C):"
+        },
+        "crystal structure 2 pearson symbol": {
+          "text": "cF4",
+          "raw": "cF4"
+        },
+        "lattice constant 2": {
+          "text": "a = 364.68 pm (at 916 °C)",
+          "raw": "''a''&nbsp;=&nbsp;364.68&nbsp;pm (at&nbsp;916&nbsp;°C)<ref>{{cite book |last=Cardarelli |first=François |title=Materials Handbook: A Concise Desktop Reference |publisher=Springer |publication-place=London |date=2008 | isbn=1-84628-668-9 | page=65}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Co",
+      "number": 27,
+      "name": "Cobalt",
+      "article": "https://en.wikipedia.org/wiki/Cobalt",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_cobalt",
+      "revisionId": 1282814367,
+      "revisionTimestamp": "2025-03-28T19:38:09Z",
+      "retrievedAt": "2026-11-11T23:29:05.212Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "hexagonal close packed",
+          "raw": "hexagonal close packed"
+        },
+        "crystal structure pearson symbol": {
+          "text": "hP2",
+          "raw": "hP2"
+        },
+        "lattice constants": {
+          "text": "a = 250.71 pm; c = 407.00 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;250.71&nbsp;pm<br />''c''&nbsp;=&nbsp;407.00&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Ni",
+      "number": 28,
+      "name": "Nickel",
+      "article": "https://en.wikipedia.org/wiki/Nickel",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_nickel",
+      "revisionId": 1282815304,
+      "revisionTimestamp": "2025-03-28T19:45:16Z",
+      "retrievedAt": "2026-11-11T23:29:05.212Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "face-centered cubic",
+          "raw": "face-centered cubic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "cF4",
+          "raw": "cF4"
+        },
+        "lattice constant": {
+          "text": "a = 352.41 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;352.41&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Cu",
+      "number": 29,
+      "name": "Copper",
+      "article": "https://en.wikipedia.org/wiki/Copper",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_copper",
+      "revisionId": 1379401703,
+      "revisionTimestamp": "2026-10-09T19:59:47Z",
+      "retrievedAt": "2026-11-11T23:29:05.212Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "face-centered cubic",
+          "raw": "face-centered cubic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "cF4",
+          "raw": "cF4"
+        },
+        "lattice constant": {
+          "text": "a = 361.50 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;361.50&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        },
+        "crystal structure comment": {
+          "text": "",
+          "raw": ""
+        }
+      }
+    },
+    {
+      "symbol": "Zn",
+      "number": 30,
+      "name": "Zinc",
+      "article": "https://en.wikipedia.org/wiki/Zinc",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_zinc",
+      "revisionId": 1331293972,
+      "revisionTimestamp": "2026-01-05T16:53:57Z",
+      "retrievedAt": "2026-11-11T23:29:05.212Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "hexagonal close packed",
+          "raw": "hexagonal close packed"
+        },
+        "crystal structure pearson symbol": {
+          "text": "hP2",
+          "raw": "hP2"
+        },
+        "lattice constants": {
+          "text": "a = 266.46 pm; c = 494.55 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;266.46&nbsp;pm<br />''c''&nbsp;=&nbsp;494.55&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Ga",
+      "number": 31,
+      "name": "Gallium",
+      "article": "https://en.wikipedia.org/wiki/Gallium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_gallium",
+      "revisionId": 1343305793,
+      "revisionTimestamp": "2026-03-13T13:33:58Z",
+      "retrievedAt": "2026-11-11T23:29:05.213Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "base-centered orthorhombic",
+          "raw": "base-centered orthorhombic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "oS8",
+          "raw": "oS8"
+        },
+        "lattice constants": {
+          "text": "a = 452.05 pm; b = 766.25 pm; c = 452.66 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;452.05&nbsp;pm<br />''b''&nbsp;=&nbsp;766.25&nbsp;pm<br />''c''&nbsp;=&nbsp;452.66&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Ge",
+      "number": 32,
+      "name": "Germanium",
+      "article": "https://en.wikipedia.org/wiki/Germanium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_germanium",
+      "revisionId": 1277858619,
+      "revisionTimestamp": "2025-02-27T03:13:16Z",
+      "retrievedAt": "2026-11-11T23:29:05.213Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "diamond cubic",
+          "raw": "diamond cubic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "cF8",
+          "raw": "cF8"
+        },
+        "lattice constant": {
+          "text": "a = 565.774 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;565.774&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "As",
+      "number": 33,
+      "name": "Arsenic",
+      "article": "https://en.wikipedia.org/wiki/Arsenic",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_arsenic",
+      "revisionId": 1283402620,
+      "revisionTimestamp": "2025-04-01T08:30:17Z",
+      "retrievedAt": "2026-11-11T23:29:05.213Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure prefix": {
+          "text": "grey:",
+          "raw": "grey:"
+        },
+        "crystal structure": {
+          "text": "rhombohedral",
+          "raw": "rhombohedral"
+        },
+        "crystal structure pearson symbol": {
+          "text": "hR2",
+          "raw": "hR2"
+        },
+        "crystal structure ref": {
+          "text": "",
+          "raw": ""
+        },
+        "lattice constants": {
+          "text": "ar = 413.15 pm; α = 54.133° pm ah = 375.99 pm; ch = 1054.58 pm (at 20 °C)",
+          "raw": "''a''<sub>r</sub>&nbsp;=&nbsp;413.15&nbsp;pm<br />α&nbsp;=&nbsp;54.133°&nbsp;pm ''a''<sub>h</sub>&nbsp;=&nbsp;375.99&nbsp;pm<br />''c''<sub>h</sub>&nbsp;=&nbsp;1054.58&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Se",
+      "number": 34,
+      "name": "Selenium",
+      "article": "https://en.wikipedia.org/wiki/Selenium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_selenium",
+      "revisionId": 1280757025,
+      "revisionTimestamp": "2025-03-16T08:25:07Z",
+      "retrievedAt": "2026-11-11T23:29:05.213Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "hexagonal",
+          "raw": "hexagonal"
+        },
+        "crystal structure prefix": {
+          "text": "grey:",
+          "raw": "grey:"
+        },
+        "crystal structure pearson symbol": {
+          "text": "hP3",
+          "raw": "hP3"
+        },
+        "lattice constants": {
+          "text": "a = 436.46 pm; c = 495.77 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;436.46&nbsp;pm<br />''c''&nbsp;=&nbsp;495.77&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Br",
+      "number": 35,
+      "name": "Bromine",
+      "article": "https://en.wikipedia.org/wiki/Bromine",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_bromine",
+      "revisionId": 1332162790,
+      "revisionTimestamp": "2026-01-10T06:10:51Z",
+      "retrievedAt": "2026-11-11T23:29:05.213Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "orthorhombic",
+          "raw": "orthorhombic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "oS8",
+          "raw": "oS8"
+        },
+        "lattice constants": {
+          "text": "a = 674.30 pm; b = 466.85 pm; c = 870.02 pm (at triple point: 269.60 K)",
+          "raw": "''a''&nbsp;=&nbsp;674.30&nbsp;pm<br />''b''&nbsp;=&nbsp;466.85&nbsp;pm<br />''c''&nbsp;=&nbsp;870.02&nbsp;pm (at&nbsp;triple&nbsp;point: 269.60&nbsp;K)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Kr",
+      "number": 36,
+      "name": "Krypton",
+      "article": "https://en.wikipedia.org/wiki/Krypton",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_krypton",
+      "revisionId": 1333266987,
+      "revisionTimestamp": "2026-01-16T18:40:36Z",
+      "retrievedAt": "2026-11-11T23:29:05.214Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "face-centered cubic",
+          "raw": "face-centered cubic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "cF4",
+          "raw": "cF4"
+        },
+        "lattice constant": {
+          "text": "a = 583.57 pm (at triple point: 115.78 K)",
+          "raw": "''a''&nbsp;=&nbsp;583.57&nbsp;pm (at&nbsp;triple&nbsp;point: 115.78&nbsp;K)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Rb",
+      "number": 37,
+      "name": "Rubidium",
+      "article": "https://en.wikipedia.org/wiki/Rubidium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_rubidium",
+      "revisionId": 1306954053,
+      "revisionTimestamp": "2025-08-20T17:18:40Z",
+      "retrievedAt": "2026-11-11T23:29:05.214Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "body-centered cubic",
+          "raw": "body-centered cubic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "cI2",
+          "raw": "cI2"
+        },
+        "lattice constant": {
+          "text": "a = 569.9 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;569.9&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Sr",
+      "number": 38,
+      "name": "Strontium",
+      "article": "https://en.wikipedia.org/wiki/Strontium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_strontium",
+      "revisionId": 1208382200,
+      "revisionTimestamp": "2024-02-17T08:13:58Z",
+      "retrievedAt": "2026-11-11T23:29:05.214Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "face-centered cubic",
+          "raw": "face-centered cubic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "cF4",
+          "raw": "cF4"
+        },
+        "lattice constant": {
+          "text": "a = 608.6 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;608.6&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Y",
+      "number": 39,
+      "name": "Yttrium",
+      "article": "https://en.wikipedia.org/wiki/Yttrium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_yttrium",
+      "revisionId": 1211936777,
+      "revisionTimestamp": "2024-03-05T09:34:39Z",
+      "retrievedAt": "2026-11-11T23:29:05.214Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "hexagonal close packed",
+          "raw": "hexagonal close packed"
+        },
+        "crystal structure pearson symbol": {
+          "text": "hP2",
+          "raw": "hP2"
+        },
+        "lattice constants": {
+          "text": "a = 364.83 pm; c = 573.17 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;364.83&nbsp;pm<br />''c''&nbsp;=&nbsp;573.17&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Zr",
+      "number": 40,
+      "name": "Zirconium",
+      "article": "https://en.wikipedia.org/wiki/Zirconium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_zirconium",
+      "revisionId": 1331625541,
+      "revisionTimestamp": "2026-01-07T08:26:22Z",
+      "retrievedAt": "2026-11-11T23:29:05.214Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "hexagonal close-packed",
+          "raw": "hexagonal close-packed"
+        },
+        "crystal structure pearson symbol": {
+          "text": "hP2",
+          "raw": "hP2"
+        },
+        "lattice constants": {
+          "text": "a = 323.22 pm; c = 514.79 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;323.22&nbsp;pm<br />''c''&nbsp;=&nbsp;514.79&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Nb",
+      "number": 41,
+      "name": "Niobium",
+      "article": "https://en.wikipedia.org/wiki/Niobium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_niobium",
+      "revisionId": 1212304975,
+      "revisionTimestamp": "2024-03-07T04:31:05Z",
+      "retrievedAt": "2026-11-11T23:29:08.515Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "cubic body-centered",
+          "raw": "cubic body-centered"
+        },
+        "crystal structure pearson symbol": {
+          "text": "cI2",
+          "raw": "cI2"
+        },
+        "lattice constant": {
+          "text": "a = 330.05 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;330.05&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Mo",
+      "number": 42,
+      "name": "Molybdenum",
+      "article": "https://en.wikipedia.org/wiki/Molybdenum",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_molybdenum",
+      "revisionId": 1369042252,
+      "revisionTimestamp": "2026-08-12T14:42:33Z",
+      "retrievedAt": "2026-11-11T23:29:08.515Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "body-centered cubic",
+          "raw": "body-centered cubic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "cI2",
+          "raw": "cI2"
+        },
+        "lattice constant": {
+          "text": "a = 314.71 pm (at 20 °C)",
+          "raw": "''a'' = 314.71&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Tc",
+      "number": 43,
+      "name": "Technetium",
+      "article": "https://en.wikipedia.org/wiki/Technetium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_technetium",
+      "revisionId": 1309724402,
+      "revisionTimestamp": "2025-09-05T17:35:36Z",
+      "retrievedAt": "2026-11-11T23:29:08.516Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "hexagonal close packed",
+          "raw": "hexagonal close packed"
+        },
+        "crystal structure pearson symbol": {
+          "text": "hP2",
+          "raw": "hP2"
+        },
+        "lattice constants": {
+          "text": "a = 274.12 pm; c = 439.90 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;274.12&nbsp;pm<br />''c''&nbsp;=&nbsp;439.90&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Ru",
+      "number": 44,
+      "name": "Ruthenium",
+      "article": "https://en.wikipedia.org/wiki/Ruthenium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_ruthenium",
+      "revisionId": 1371018746,
+      "revisionTimestamp": "2026-08-24T04:08:54Z",
+      "retrievedAt": "2026-11-11T23:29:08.516Z",
+      "status": "available",
+      "fields": {
+        "crystal structure": {
+          "text": "hexagonal close packed",
+          "raw": "hexagonal close packed"
+        },
+        "crystal structure pearson symbol": {
+          "text": "hP2",
+          "raw": "hP2"
+        },
+        "lattice constants": {
+          "text": "a = 270.58 pm; c = 428.16 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;270.58&nbsp;pm<br />''c''&nbsp;=&nbsp;428.16&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Rh",
+      "number": 45,
+      "name": "Rhodium",
+      "article": "https://en.wikipedia.org/wiki/Rhodium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_rhodium",
+      "revisionId": 1283404007,
+      "revisionTimestamp": "2025-04-01T08:47:47Z",
+      "retrievedAt": "2026-11-11T23:29:08.516Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "face-centered cubic",
+          "raw": "face-centered cubic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "cF4",
+          "raw": "cF4"
+        },
+        "lattice constant": {
+          "text": "a = 380.34 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;380.34&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Pd",
+      "number": 46,
+      "name": "Palladium",
+      "article": "https://en.wikipedia.org/wiki/Palladium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_palladium",
+      "revisionId": 1213323228,
+      "revisionTimestamp": "2024-03-12T10:03:38Z",
+      "retrievedAt": "2026-11-11T23:29:08.517Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "face-centered cubic",
+          "raw": "face-centered cubic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "cF4",
+          "raw": "cF4"
+        },
+        "lattice constant": {
+          "text": "a = 389.02 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;389.02&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Ag",
+      "number": 47,
+      "name": "Silver",
+      "article": "https://en.wikipedia.org/wiki/Silver",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_silver",
+      "revisionId": 1379452657,
+      "revisionTimestamp": "2026-10-10T02:23:09Z",
+      "retrievedAt": "2026-11-11T23:29:08.517Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "face-centered cubic",
+          "raw": "face-centered cubic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "cF4",
+          "raw": "cF4"
+        },
+        "lattice constant": {
+          "text": "a = 408.60 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;408.60&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Cd",
+      "number": 48,
+      "name": "Cadmium",
+      "article": "https://en.wikipedia.org/wiki/Cadmium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_cadmium",
+      "revisionId": 1284271388,
+      "revisionTimestamp": "2025-04-06T15:48:30Z",
+      "retrievedAt": "2026-11-11T23:29:08.518Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "hexagonal close packed",
+          "raw": "hexagonal close packed"
+        },
+        "crystal structure pearson symbol": {
+          "text": "hP2",
+          "raw": "hP2"
+        },
+        "lattice constants": {
+          "text": "a = 297.89 pm; c = 561.66 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;297.89&nbsp;pm<br />''c''&nbsp;=&nbsp;561.66&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "In",
+      "number": 49,
+      "name": "Indium",
+      "article": "https://en.wikipedia.org/wiki/Indium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_indium",
+      "revisionId": 1282439110,
+      "revisionTimestamp": "2025-03-26T12:18:40Z",
+      "retrievedAt": "2026-11-11T23:29:08.518Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "body-centered-tetragonal",
+          "raw": "body-centered-tetragonal"
+        },
+        "crystal structure pearson symbol": {
+          "text": "tI2",
+          "raw": "tI2"
+        },
+        "lattice constants": {
+          "text": "a = 325.16 pm; c = 494.71 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;325.16&nbsp;pm<br />''c''&nbsp;=&nbsp;494.71&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Sn",
+      "number": 50,
+      "name": "Tin",
+      "article": "https://en.wikipedia.org/wiki/Tin",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_tin",
+      "revisionId": 1379417624,
+      "revisionTimestamp": "2026-10-09T21:55:25Z",
+      "retrievedAt": "2026-11-11T23:29:08.519Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "body-centered tetragonal",
+          "raw": "body-centered tetragonal"
+        },
+        "crystal structure prefix": {
+          "text": "white (β):",
+          "raw": "white (β):"
+        },
+        "crystal structure pearson symbol": {
+          "text": "tI4",
+          "raw": "tI4"
+        },
+        "lattice constants": {
+          "text": "white (β):; a = 583.13 pm; c = 318.11 pm; (at 20 °C)",
+          "raw": "white (β):<br />''a''&nbsp;=&nbsp;583.13&nbsp;pm<br />''c''&nbsp;=&nbsp;318.11&nbsp;pm<br />(at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book | last=Arblaster | first= John W. | title=Selected Values of the Crystallographic Properties of Elements | publisher=ASM International | publication-place=Materials Park, Ohio | date=2018 | isbn=978-1-62708-155-9}}</ref>"
+        },
+        "crystal structure 2": {
+          "text": "diamond cubic",
+          "raw": "diamond cubic"
+        },
+        "crystal structure 2 prefix": {
+          "text": "gray (α):",
+          "raw": "gray (α):"
+        },
+        "crystal structure 2 pearson symbol": {
+          "text": "cF8",
+          "raw": "cF8"
+        },
+        "crystal structure 2 comment": {
+          "text": "",
+          "raw": ""
+        },
+        "lattice constant 2": {
+          "text": "gray (α):; a = 648.96 pm (at 20 °C)",
+          "raw": "gray (α):<br />''a''&nbsp;=&nbsp;648.96&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\" />"
+        }
+      }
+    },
+    {
+      "symbol": "Sb",
+      "number": 51,
+      "name": "Antimony",
+      "article": "https://en.wikipedia.org/wiki/Antimony",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_antimony",
+      "revisionId": 1379455882,
+      "revisionTimestamp": "2026-10-10T02:53:15Z",
+      "retrievedAt": "2026-11-11T23:29:08.519Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "rhombohedral",
+          "raw": "rhombohedral"
+        },
+        "crystal structure pearson symbol": {
+          "text": "hR2",
+          "raw": "hR2"
+        },
+        "lattice constants": {
+          "text": "a = 0.45066 nm; α = 57.112°; ah = 0.43084 nm; ch = 1.12736 nm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;0.45066&nbsp;nm<br />α&nbsp;=&nbsp;57.112°<br />''a''<sub>h</sub>&nbsp;=&nbsp;0.43084&nbsp;nm<br />''c''<sub>h</sub>&nbsp;=&nbsp;1.12736&nbsp;nm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Te",
+      "number": 52,
+      "name": "Tellurium",
+      "article": "https://en.wikipedia.org/wiki/Tellurium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_tellurium",
+      "revisionId": 1214496282,
+      "revisionTimestamp": "2024-03-19T09:14:33Z",
+      "retrievedAt": "2026-11-11T23:29:08.519Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "hexagonal",
+          "raw": "hexagonal <!-- Trigonal crystal system; hexagonal lattice system. Write \"hexagonal\" to show lattice constants a, c -->"
+        },
+        "crystal structure ref": {
+          "text": "",
+          "raw": "<ref>{{cite journal |last1=Adenis |first1=C. |last2=Langer |first2=V. |last3=Lindqvist |first3=O. |title=Reinvestigation of the structure of tellurium |journal=Acta Crystallographica Section C Crystal Structure Communications |date=15 June 1989 |volume=45 |issue=6 |pages=941–942 |doi=10.1107/S0108270188014453}}</ref>"
+        },
+        "crystal structure pearson symbol": {
+          "text": "hP3",
+          "raw": "hP3"
+        },
+        "lattice constants": {
+          "text": "a = 445.59 pm; c = 592.75 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;445.59&nbsp;pm<br />''c''&nbsp;=&nbsp;592.75&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "I",
+      "number": 53,
+      "name": "Iodine",
+      "article": "https://en.wikipedia.org/wiki/Iodine",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_iodine",
+      "revisionId": 1355531295,
+      "revisionTimestamp": "2026-05-22T11:24:32Z",
+      "retrievedAt": "2026-11-11T23:29:08.519Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "base-centered orthorhombic",
+          "raw": "base-centered orthorhombic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "oS8",
+          "raw": "oS8"
+        },
+        "lattice constants": {
+          "text": "a = 725.79 pm; b = 478.28 pm; c = 982.38 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;725.79&nbsp;pm<br />''b''&nbsp;=&nbsp;478.28&nbsp;pm<br />''c''&nbsp;=&nbsp;982.38&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Xe",
+      "number": 54,
+      "name": "Xenon",
+      "article": "https://en.wikipedia.org/wiki/Xenon",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_xenon",
+      "revisionId": 1334555508,
+      "revisionTimestamp": "2026-01-24T06:40:13Z",
+      "retrievedAt": "2026-11-11T23:29:08.520Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "face-centered cubic",
+          "raw": "face-centered cubic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "cF4",
+          "raw": "cF4"
+        },
+        "lattice constant": {
+          "text": "a = 634.84 pm (at triple point, 161.405 K)",
+          "raw": "''a''&nbsp;=&nbsp;634.84&nbsp;pm (at triple point, 161.405&nbsp;K)<ref name=\"Arblaster 2018\">{{cite book | vauthors = Arblaster JW | title = Selected Values of the Crystallographic Properties of Elements | date = 2018 | publisher = ASM International | publication-place = Materials Park, Ohio | isbn = 978-1-62708-155-9 }}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Cs",
+      "number": 55,
+      "name": "Caesium",
+      "article": "https://en.wikipedia.org/wiki/Caesium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_caesium",
+      "revisionId": 1306953909,
+      "revisionTimestamp": "2025-08-20T17:17:32Z",
+      "retrievedAt": "2026-11-11T23:29:08.520Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "bodycentredcubic",
+          "raw": "bodycentredcubic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "cI2",
+          "raw": "cI2"
+        },
+        "lattice constant": {
+          "text": "a = 616.2 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;616.2&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Ba",
+      "number": 56,
+      "name": "Barium",
+      "article": "https://en.wikipedia.org/wiki/Barium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_barium",
+      "revisionId": 1284272728,
+      "revisionTimestamp": "2025-04-06T15:59:10Z",
+      "retrievedAt": "2026-11-11T23:29:08.520Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "body-centered cubic",
+          "raw": "body-centered cubic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "cI2",
+          "raw": "cI2"
+        },
+        "lattice constant": {
+          "text": "a = 502.5 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;502.5&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "La",
+      "number": 57,
+      "name": "Lanthanum",
+      "article": "https://en.wikipedia.org/wiki/Lanthanum",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_lanthanum",
+      "revisionId": 1284273563,
+      "revisionTimestamp": "2025-04-06T16:05:50Z",
+      "retrievedAt": "2026-11-11T23:29:08.520Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure prefix": {
+          "text": "α form:",
+          "raw": "α form:"
+        },
+        "crystal structure": {
+          "text": "double hexagonal close packed",
+          "raw": "double hexagonal close packed"
+        },
+        "crystal structure pearson symbol": {
+          "text": "hP4",
+          "raw": "hP4"
+        },
+        "lattice constants": {
+          "text": "a = 0.37742 nm; c = 1.2171 nm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;0.37742&nbsp;nm<br />''c''&nbsp;=&nbsp;1.2171&nbsp;nm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Ce",
+      "number": 58,
+      "name": "Cerium",
+      "article": "https://en.wikipedia.org/wiki/Cerium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_cerium",
+      "revisionId": 1306954168,
+      "revisionTimestamp": "2025-08-20T17:19:39Z",
+      "retrievedAt": "2026-11-11T23:29:08.521Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure prefix": {
+          "text": "β-Ce:",
+          "raw": "β-Ce:"
+        },
+        "crystal structure": {
+          "text": "double hexagonal close packed",
+          "raw": "double hexagonal close packed"
+        },
+        "crystal structure pearson symbol": {
+          "text": "hP4",
+          "raw": "hP4"
+        },
+        "lattice constants": {
+          "text": "a = 0.36811 nm; c = 1.1857 nm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;0.36811&nbsp;nm<br />''c''&nbsp;=&nbsp;1.1857&nbsp;nm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        },
+        "crystal structure 2 prefix": {
+          "text": "γ-Ce:",
+          "raw": "γ-Ce:"
+        },
+        "crystal structure 2": {
+          "text": "face-centered cubic",
+          "raw": "face-centered cubic"
+        },
+        "crystal structure 2 pearson symbol": {
+          "text": "cF4",
+          "raw": "cF4"
+        },
+        "lattice constant 2": {
+          "text": "a = 0.51612 nm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;0.51612&nbsp;nm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\" />"
+        }
+      }
+    },
+    {
+      "symbol": "Pr",
+      "number": 59,
+      "name": "Praseodymium",
+      "article": "https://en.wikipedia.org/wiki/Praseodymium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_praseodymium",
+      "revisionId": 1284274249,
+      "revisionTimestamp": "2025-04-06T16:10:46Z",
+      "retrievedAt": "2026-11-11T23:29:08.521Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "double hexagonal close packed",
+          "raw": "double hexagonal close packed"
+        },
+        "crystal structure pearson symbol": {
+          "text": "hP4",
+          "raw": "hP4"
+        },
+        "lattice constants": {
+          "text": "a = 0.36723 nm; c = 1.18328 nm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;0.36723&nbsp;nm<br />''c''&nbsp;=&nbsp;1.18328&nbsp;nm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Nd",
+      "number": 60,
+      "name": "Neodymium",
+      "article": "https://en.wikipedia.org/wiki/Neodymium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_neodymium",
+      "revisionId": 1374133806,
+      "revisionTimestamp": "2026-09-10T01:50:03Z",
+      "retrievedAt": "2026-11-11T23:29:08.521Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "double hexagonal close packed",
+          "raw": "double hexagonal close packed"
+        },
+        "crystal structure pearson symbol": {
+          "text": "hP4",
+          "raw": "hP4"
+        },
+        "lattice constants": {
+          "text": "a = 0.36583 nm; c = 1.17968 nm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;0.36583&nbsp;nm<br />''c''&nbsp;=&nbsp;1.17968&nbsp;nm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Pm",
+      "number": 61,
+      "name": "Promethium",
+      "article": "https://en.wikipedia.org/wiki/Promethium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_promethium",
+      "revisionId": 1378481365,
+      "revisionTimestamp": "2026-10-04T18:37:44Z",
+      "retrievedAt": "2026-11-11T23:29:11.724Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "double hexagonal close packed",
+          "raw": "double hexagonal close packed"
+        },
+        "crystal structure pearson symbol": {
+          "text": "hP4",
+          "raw": "hP4"
+        },
+        "lattice constants": {
+          "text": "a = 0.36393 nm; c = 1.1739 nm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;0.36393&nbsp;nm<br />''c''&nbsp;=&nbsp;1.1739&nbsp;nm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Sm",
+      "number": 62,
+      "name": "Samarium",
+      "article": "https://en.wikipedia.org/wiki/Samarium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_samarium",
+      "revisionId": 1276522369,
+      "revisionTimestamp": "2025-02-19T09:53:11Z",
+      "retrievedAt": "2026-11-11T23:29:11.724Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "rhombohedral",
+          "raw": "rhombohedral"
+        },
+        "crystal structure pearson symbol": {
+          "text": "hR3",
+          "raw": "hR3"
+        },
+        "lattice constants": {
+          "text": "ar = 0.89834 nm; α = 23.307°; ah = 0.36291 nm; ch = 2.6207 nm (at 20 °C)",
+          "raw": "''a''<sub>r</sub>&nbsp;=&nbsp;0.89834&nbsp;nm<br />α&nbsp;=&nbsp;23.307°<br />''a''<sub>h</sub>&nbsp;=&nbsp;0.36291&nbsp;nm<br />''c''<sub>h</sub>&nbsp;=&nbsp;2.6207&nbsp;nm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Eu",
+      "number": 63,
+      "name": "Europium",
+      "article": "https://en.wikipedia.org/wiki/Europium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_europium",
+      "revisionId": 1276430124,
+      "revisionTimestamp": "2025-02-18T20:30:49Z",
+      "retrievedAt": "2026-11-11T23:29:11.724Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "body-centered cubic",
+          "raw": "body-centered cubic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "cI2",
+          "raw": "cI2"
+        },
+        "lattice constant": {
+          "text": "a = 458.22 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;458.22&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Gd",
+      "number": 64,
+      "name": "Gadolinium",
+      "article": "https://en.wikipedia.org/wiki/Gadolinium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_gadolinium",
+      "revisionId": 1295861647,
+      "revisionTimestamp": "2025-06-16T08:18:03Z",
+      "retrievedAt": "2026-11-11T23:29:11.725Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "hexagonal close packed",
+          "raw": "hexagonal close packed"
+        },
+        "crystal structure pearson symbol": {
+          "text": "hP2",
+          "raw": "hP2"
+        },
+        "lattice constants": {
+          "text": "a = 363.37 pm; c = 578.21 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;363.37&nbsp;pm<br />''c''&nbsp;=&nbsp;578.21&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Tb",
+      "number": 65,
+      "name": "Terbium",
+      "article": "https://en.wikipedia.org/wiki/Terbium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_terbium",
+      "revisionId": 1217680459,
+      "revisionTimestamp": "2024-04-07T07:08:04Z",
+      "retrievedAt": "2026-11-11T23:29:11.725Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "hexagonal close packed",
+          "raw": "hexagonal close packed"
+        },
+        "crystal structure pearson symbol": {
+          "text": "hP2",
+          "raw": "hP2"
+        },
+        "lattice constants": {
+          "text": "a = 360.56 pm; c = 569.66 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;360.56&nbsp;pm<br />''c''&nbsp;=&nbsp;569.66&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Dy",
+      "number": 66,
+      "name": "Dysprosium",
+      "article": "https://en.wikipedia.org/wiki/Dysprosium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_dysprosium",
+      "revisionId": 1284274532,
+      "revisionTimestamp": "2025-04-06T16:13:11Z",
+      "retrievedAt": "2026-11-11T23:29:11.725Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "hexagonal close packed",
+          "raw": "hexagonal close packed"
+        },
+        "crystal structure pearson symbol": {
+          "text": "hP2",
+          "raw": "hP2"
+        },
+        "lattice constants": {
+          "text": "a = 359.16 pm; c = 565.01 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;359.16&nbsp;pm<br />''c''&nbsp;=&nbsp;565.01&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Ho",
+      "number": 67,
+      "name": "Holmium",
+      "article": "https://en.wikipedia.org/wiki/Holmium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_holmium",
+      "revisionId": 1284275097,
+      "revisionTimestamp": "2025-04-06T16:17:29Z",
+      "retrievedAt": "2026-11-11T23:29:11.726Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "hexagonal close packed",
+          "raw": "hexagonal close packed"
+        },
+        "crystal structure pearson symbol": {
+          "text": "hP2",
+          "raw": "hP2"
+        },
+        "lattice constants": {
+          "text": "a = 357.80 pm; c = 561.77 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;357.80&nbsp;pm<br />''c''&nbsp;=&nbsp;561.77&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Er",
+      "number": 68,
+      "name": "Erbium",
+      "article": "https://en.wikipedia.org/wiki/Erbium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_erbium",
+      "revisionId": 1276439177,
+      "revisionTimestamp": "2025-02-18T21:33:27Z",
+      "retrievedAt": "2026-11-11T23:29:11.726Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "hexagonal close packed",
+          "raw": "hexagonal close packed"
+        },
+        "crystal structure pearson symbol": {
+          "text": "hP2",
+          "raw": "hP2"
+        },
+        "lattice constants": {
+          "text": "a = 355.93 pm; c = 558.49 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;355.93&nbsp;pm<br />''c''&nbsp;=&nbsp;558.49&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Tm",
+      "number": 69,
+      "name": "Thulium",
+      "article": "https://en.wikipedia.org/wiki/Thulium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_thulium",
+      "revisionId": 1296588122,
+      "revisionTimestamp": "2025-06-20T23:05:25Z",
+      "retrievedAt": "2026-11-11T23:29:11.726Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "hexagonal close packed",
+          "raw": "hexagonal close packed"
+        },
+        "crystal structure pearson symbol": {
+          "text": "hP2",
+          "raw": "hP2"
+        },
+        "lattice constants": {
+          "text": "a = 353.77 pm; c = 555.39 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;353.77&nbsp;pm<br />''c''&nbsp;=&nbsp;555.39&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Yb",
+      "number": 70,
+      "name": "Ytterbium",
+      "article": "https://en.wikipedia.org/wiki/Ytterbium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_ytterbium",
+      "revisionId": 1325519204,
+      "revisionTimestamp": "2025-12-03T14:46:14Z",
+      "retrievedAt": "2026-11-11T23:29:11.726Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "face-centered cubic",
+          "raw": "face-centered cubic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "cF4",
+          "raw": "cF4"
+        },
+        "lattice constants": {
+          "text": "a = 548.46 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;548.46&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Lu",
+      "number": 71,
+      "name": "Lutetium",
+      "article": "https://en.wikipedia.org/wiki/Lutetium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_lutetium",
+      "revisionId": 1275523569,
+      "revisionTimestamp": "2025-02-13T15:12:10Z",
+      "retrievedAt": "2026-11-11T23:29:11.727Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "hexagonal close packed",
+          "raw": "hexagonal close packed"
+        },
+        "crystal structure pearson symbol": {
+          "text": "hP2",
+          "raw": "hP2"
+        },
+        "lattice constants": {
+          "text": "a = 350.53 pm; c = 554.93 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;350.53&nbsp;pm<br />''c''&nbsp;=&nbsp;554.93&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Hf",
+      "number": 72,
+      "name": "Hafnium",
+      "article": "https://en.wikipedia.org/wiki/Hafnium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_hafnium",
+      "revisionId": 1218330595,
+      "revisionTimestamp": "2024-04-11T02:22:10Z",
+      "retrievedAt": "2026-11-11T23:29:11.727Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "hexagonal close packed",
+          "raw": "hexagonal close packed"
+        },
+        "crystal structure pearson symbol": {
+          "text": "hP2",
+          "raw": "hP2"
+        },
+        "lattice constants": {
+          "text": "a = 319.42 pm; c = 505.12 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;319.42&nbsp;pm<br />''c''&nbsp;=&nbsp;505.12&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Ta",
+      "number": 73,
+      "name": "Tantalum",
+      "article": "https://en.wikipedia.org/wiki/Tantalum",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_tantalum",
+      "revisionId": 1282440421,
+      "revisionTimestamp": "2025-03-26T12:29:36Z",
+      "retrievedAt": "2026-11-11T23:29:11.728Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "body-centered cubic",
+          "raw": "body-centered cubic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "cI2",
+          "raw": "cI2"
+        },
+        "lattice constant": {
+          "text": "a = 330.29 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;330.29&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        },
+        "crystal structure ref": {
+          "text": "",
+          "raw": "<ref name=\"Arblaster 2018\" />"
+        },
+        "crystal structure 2": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure 2 ref": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure 2 comment": {
+          "text": "",
+          "raw": ""
+        }
+      }
+    },
+    {
+      "symbol": "W",
+      "number": 74,
+      "name": "Tungsten",
+      "article": "https://en.wikipedia.org/wiki/Tungsten",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_tungsten",
+      "revisionId": 1380050214,
+      "revisionTimestamp": "2026-10-13T13:40:22Z",
+      "retrievedAt": "2026-11-11T23:29:11.728Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "body-centered cubic",
+          "raw": "body-centered cubic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "cI2",
+          "raw": "cI2"
+        },
+        "lattice constant": {
+          "text": "a = 316.52 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;316.52&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Re",
+      "number": 75,
+      "name": "Rhenium",
+      "article": "https://en.wikipedia.org/wiki/Rhenium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_rhenium",
+      "revisionId": 1381104831,
+      "revisionTimestamp": "2026-10-20T01:38:13Z",
+      "retrievedAt": "2026-11-11T23:29:11.728Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "hexagonal close packed",
+          "raw": "hexagonal close packed"
+        },
+        "crystal structure pearson symbol": {
+          "text": "hP2",
+          "raw": "hP2"
+        },
+        "lattice constants": {
+          "text": "a = 276.10 pm; c = 445.84 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;276.10&nbsp;pm<br />''c''&nbsp;=&nbsp;445.84&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Os",
+      "number": 76,
+      "name": "Osmium",
+      "article": "https://en.wikipedia.org/wiki/Osmium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_osmium",
+      "revisionId": 1381265786,
+      "revisionTimestamp": "2026-10-21T04:06:35Z",
+      "retrievedAt": "2026-11-11T23:29:11.729Z",
+      "status": "available",
+      "fields": {
+        "crystal structure": {
+          "text": "hexagonal close packed",
+          "raw": "hexagonal close packed"
+        },
+        "crystal structure pearson symbol": {
+          "text": "hP2",
+          "raw": "hP2"
+        },
+        "lattice constants": {
+          "text": "a = 273.42 pm; c = 431.99 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;273.42&nbsp;pm<br />''c''&nbsp;=&nbsp;431.99&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Ir",
+      "number": 77,
+      "name": "Iridium",
+      "article": "https://en.wikipedia.org/wiki/Iridium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_iridium",
+      "revisionId": 1380857790,
+      "revisionTimestamp": "2026-10-18T11:10:41Z",
+      "retrievedAt": "2026-11-11T23:29:11.729Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "face-centered cubic",
+          "raw": "face-centered cubic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "cF4",
+          "raw": "cF4"
+        },
+        "lattice constant": {
+          "text": "a = 383.92 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;383.92&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Pt",
+      "number": 78,
+      "name": "Platinum",
+      "article": "https://en.wikipedia.org/wiki/Platinum",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_platinum",
+      "revisionId": 1380857723,
+      "revisionTimestamp": "2026-10-18T11:10:00Z",
+      "retrievedAt": "2026-11-11T23:29:11.729Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "face-centered cubic",
+          "raw": "face-centered cubic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "cF4",
+          "raw": "cF4"
+        },
+        "lattice constant": {
+          "text": "a = 392.36 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;392.36&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Au",
+      "number": 79,
+      "name": "Gold",
+      "article": "https://en.wikipedia.org/wiki/Gold",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_gold",
+      "revisionId": 1384103886,
+      "revisionTimestamp": "2026-11-06T16:28:51Z",
+      "retrievedAt": "2026-11-11T23:29:11.730Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "face centered cubic",
+          "raw": "face centered cubic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "cF4",
+          "raw": "cF4"
+        },
+        "crystal structure comment": {
+          "text": "",
+          "raw": ""
+        },
+        "lattice constant": {
+          "text": "a = 407.86 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;407.86&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Hg",
+      "number": 80,
+      "name": "Mercury",
+      "article": "https://en.wikipedia.org/wiki/Mercury",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_mercury",
+      "revisionId": 1380728841,
+      "revisionTimestamp": "2026-10-17T13:58:35Z",
+      "retrievedAt": "2026-11-11T23:29:11.730Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "rhombohedral",
+          "raw": "rhombohedral"
+        },
+        "crystal structure pearson symbol": {
+          "text": "hR1",
+          "raw": "hR1"
+        },
+        "lattice constants": {
+          "text": "ar = 301.06 pm; α = 70.529°; ah = 347.64 pm; ch = 673.20 pm (at triple point)",
+          "raw": "''a''<sub>r</sub>&nbsp;=&nbsp;301.06&nbsp;pm<br />α&nbsp;=&nbsp;70.529°<br />''a''<sub>h</sub>&nbsp;=&nbsp;347.64&nbsp;pm<br />''c''<sub>h</sub>&nbsp;=&nbsp;673.20&nbsp;pm  (at&nbsp;triple&nbsp;point)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Tl",
+      "number": 81,
+      "name": "Thallium",
+      "article": "https://en.wikipedia.org/wiki/Thallium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_thallium",
+      "revisionId": 1380704859,
+      "revisionTimestamp": "2026-10-17T10:10:08Z",
+      "retrievedAt": "2026-11-11T23:29:14.969Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "hexagonal close packed",
+          "raw": "hexagonal close packed"
+        },
+        "crystal structure pearson symbol": {
+          "text": "hP2",
+          "raw": "hP2"
+        },
+        "lattice constants": {
+          "text": "a = 345.66 pm; c = 552.52 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;345.66&nbsp;pm<br />''c''&nbsp;=&nbsp;552.52&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Pb",
+      "number": 82,
+      "name": "Lead",
+      "article": "https://en.wikipedia.org/wiki/Lead",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_lead",
+      "revisionId": 1380113218,
+      "revisionTimestamp": "2026-10-13T21:33:32Z",
+      "retrievedAt": "2026-11-11T23:29:14.969Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "face-centered cubic",
+          "raw": "face-centered cubic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "cF4",
+          "raw": "cF4"
+        },
+        "lattice constant": {
+          "text": "a = 494.99 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;494.99&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Bi",
+      "number": 83,
+      "name": "Bismuth",
+      "article": "https://en.wikipedia.org/wiki/Bismuth",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_bismuth",
+      "revisionId": 1380705340,
+      "revisionTimestamp": "2026-10-17T10:14:25Z",
+      "retrievedAt": "2026-11-11T23:29:14.969Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "rhombohedral",
+          "raw": "rhombohedral"
+        },
+        "crystal structure pearson symbol": {
+          "text": "hR2",
+          "raw": "hR2"
+        },
+        "lattice constants": {
+          "text": "a = 0.47458 nm; α = 57.236°; ah = 0.45462 nm; ch = 1.18617 nm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;0.47458&nbsp;nm<br />α&nbsp;=&nbsp;57.236°<br />''a''<sub>h</sub>&nbsp;=&nbsp;0.45462&nbsp;nm<br />''c''<sub>h</sub>&nbsp;=&nbsp;1.18617&nbsp;nm  (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        },
+        "crystal structure ref": {
+          "text": "",
+          "raw": ""
+        }
+      }
+    },
+    {
+      "symbol": "Po",
+      "number": 84,
+      "name": "Polonium",
+      "article": "https://en.wikipedia.org/wiki/Polonium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_polonium",
+      "revisionId": 1349924500,
+      "revisionTimestamp": "2026-04-19T14:02:24Z",
+      "retrievedAt": "2026-11-11T23:29:14.970Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "cubic",
+          "raw": "cubic"
+        },
+        "crystal structure comment": {
+          "text": "α-Po",
+          "raw": "&alpha;-Po"
+        },
+        "crystal structure 2": {
+          "text": "rhombohedral",
+          "raw": "rhombohedral"
+        },
+        "crystal structure 2 comment": {
+          "text": "β-Po",
+          "raw": "&beta;-Po"
+        }
+      }
+    },
+    {
+      "symbol": "At",
+      "number": 85,
+      "name": "Astatine",
+      "article": "https://en.wikipedia.org/wiki/Astatine",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_astatine",
+      "revisionId": 1369621921,
+      "revisionTimestamp": "2026-08-16T02:51:06Z",
+      "retrievedAt": "2026-11-11T23:29:14.970Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "solid",
+          "raw": "solid"
+        },
+        "phase comment": {
+          "text": "(predicted)",
+          "raw": "''(predicted)''"
+        },
+        "crystal structure": {
+          "text": "face-centered cubic",
+          "raw": "face-centered cubic"
+        },
+        "crystal structure comment": {
+          "text": "(predicted)",
+          "raw": "''(predicted)''<ref name=\"Hermann\">{{cite journal\n|doi=10.1103/PhysRevLett.111.116404|title=Condensed Astatine: Monatomic and Metallic|year=2013|last1=Hermann|first1=A.|last2=Hoffmann|first2=R.|last3=Ashcroft|first3=N. W.|journal=Physical Review Letters|volume=111|issue=11|pages=116404-1–116404-5|bibcode=2013PhRvL.111k6404H|pmid=24074111}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Rn",
+      "number": 86,
+      "name": "Radon",
+      "article": "https://en.wikipedia.org/wiki/Radon",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_radon",
+      "revisionId": 1355798972,
+      "revisionTimestamp": "2026-05-24T00:18:27Z",
+      "retrievedAt": "2026-11-11T23:29:14.970Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "face-centered cubic",
+          "raw": "face-centered cubic"
+        },
+        "crystal structure comment": {
+          "text": "(predicted)",
+          "raw": "(predicted)"
+        }
+      }
+    },
+    {
+      "symbol": "Fr",
+      "number": 87,
+      "name": "Francium",
+      "article": "https://en.wikipedia.org/wiki/Francium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_francium",
+      "revisionId": 1301276666,
+      "revisionTimestamp": "2025-07-19T01:04:15Z",
+      "retrievedAt": "2026-11-11T23:29:14.971Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "solid",
+          "raw": "solid"
+        },
+        "crystal structure": {
+          "text": "body-centered cubic",
+          "raw": "body-centered cubic"
+        },
+        "crystal structure comment": {
+          "text": "(extrapolated)",
+          "raw": "''(extrapolated)''<ref name=\"Arblaster 2018\" />"
+        },
+        "lattice constant": {
+          "text": "a = 670.4 pm (estimated)",
+          "raw": "''a''&nbsp;=&nbsp;670.4&nbsp;pm ''(estimated)''<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Ra",
+      "number": 88,
+      "name": "Radium",
+      "article": "https://en.wikipedia.org/wiki/Radium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_radium",
+      "revisionId": 1284278559,
+      "revisionTimestamp": "2025-04-06T16:44:16Z",
+      "retrievedAt": "2026-11-11T23:29:14.971Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "body-centered cubic",
+          "raw": "body-centered cubic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "cF4",
+          "raw": "cF4"
+        },
+        "lattice constant": {
+          "text": "a = 514.8 pm (near r.t.)",
+          "raw": "''a''&nbsp;=&nbsp;514.8&nbsp;pm (near [[room temperature|r.t.]])<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Ac",
+      "number": 89,
+      "name": "Actinium",
+      "article": "https://en.wikipedia.org/wiki/Actinium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_actinium",
+      "revisionId": 1378903560,
+      "revisionTimestamp": "2026-10-06T20:54:32Z",
+      "retrievedAt": "2026-11-11T23:29:14.971Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "face-centered cubic",
+          "raw": "face-centered cubic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "cF4",
+          "raw": "cF4"
+        },
+        "lattice constant": {
+          "text": "a = 531.5 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;531.5&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Th",
+      "number": 90,
+      "name": "Thorium",
+      "article": "https://en.wikipedia.org/wiki/Thorium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_thorium",
+      "revisionId": 1378887322,
+      "revisionTimestamp": "2026-10-06T18:56:50Z",
+      "retrievedAt": "2026-11-11T23:29:14.971Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "facecentredcubic",
+          "raw": "facecentredcubic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "cF4",
+          "raw": "cF4"
+        },
+        "lattice constant": {
+          "text": "a = 508.45 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;508.45&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Pa",
+      "number": 91,
+      "name": "Protactinium",
+      "article": "https://en.wikipedia.org/wiki/Protactinium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_protactinium",
+      "revisionId": 1378903902,
+      "revisionTimestamp": "2026-10-06T20:56:40Z",
+      "retrievedAt": "2026-11-11T23:29:14.972Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "body-centered tetragonal",
+          "raw": "body-centered tetragonal"
+        },
+        "crystal structure ref": {
+          "text": "",
+          "raw": "<ref name=str>{{cite journal|last1=Donohue|first1=J.|title=On the crystal structure of protactinium metal|journal=[[Acta Crystallographica]]|volume=12|pages=697|year=1959|doi=10.1107/S0365110X59002031|issue=9}}</ref>"
+        },
+        "crystal structure pearson symbol": {
+          "text": "tI2",
+          "raw": "tI2"
+        },
+        "lattice constant": {
+          "text": "a = 392.1 pm; c = 323.5 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;392.1&nbsp;pm<br />''c''&nbsp;=&nbsp;323.5&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "U",
+      "number": 92,
+      "name": "Uranium",
+      "article": "https://en.wikipedia.org/wiki/Uranium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_uranium",
+      "revisionId": 1378870815,
+      "revisionTimestamp": "2026-10-06T16:59:08Z",
+      "retrievedAt": "2026-11-11T23:29:14.972Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "orthorhombic",
+          "raw": "orthorhombic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "oS4",
+          "raw": "oS4"
+        },
+        "lattice constants": {
+          "text": "a = 285.35 pm; b = 586.97 pm; c = 495.52 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;285.35&nbsp;pm<br />''b''&nbsp;=&nbsp;586.97&nbsp;pm<br />''c''&nbsp;=&nbsp;495.52&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Np",
+      "number": 93,
+      "name": "Neptunium",
+      "article": "https://en.wikipedia.org/wiki/Neptunium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_neptunium",
+      "revisionId": 1384432240,
+      "revisionTimestamp": "2026-11-08T05:25:00Z",
+      "retrievedAt": "2026-11-11T23:29:14.972Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "orthorhombic",
+          "raw": "orthorhombic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "oP8",
+          "raw": "oP8"
+        },
+        "lattice constants": {
+          "text": "a = 472.3 pm; b = 488.7 pm; c = 666.3 pm (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;472.3&nbsp;pm<br />''b''&nbsp;=&nbsp;488.7&nbsp;pm<br />''c''&nbsp;=&nbsp;666.3&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Pu",
+      "number": 94,
+      "name": "Plutonium",
+      "article": "https://en.wikipedia.org/wiki/Plutonium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_plutonium",
+      "revisionId": 1378915272,
+      "revisionTimestamp": "2026-10-06T22:10:18Z",
+      "retrievedAt": "2026-11-11T23:29:14.972Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "monoclinic",
+          "raw": "monoclinic"
+        },
+        "crystal structure pearson symbol": {
+          "text": "mP16",
+          "raw": "mP16"
+        },
+        "lattice constants": {
+          "text": "a = 0.6183 nm; b = 0.4822 nm; c = 1.0964 nm; β = 101.79° (at 20 °C)",
+          "raw": "''a''&nbsp;=&nbsp;0.6183&nbsp;nm<br />''b''&nbsp;=&nbsp;0.4822&nbsp;nm<br />''c''&nbsp;=&nbsp;1.0964&nbsp;nm<br />β&nbsp;=&nbsp;101.79° (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Am",
+      "number": 95,
+      "name": "Americium",
+      "article": "https://en.wikipedia.org/wiki/Americium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_americium",
+      "revisionId": 1379077993,
+      "revisionTimestamp": "2026-10-07T20:28:14Z",
+      "retrievedAt": "2026-11-11T23:29:14.972Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "double hexagonal close packed",
+          "raw": "double hexagonal close packed"
+        }
+      }
+    },
+    {
+      "symbol": "Cm",
+      "number": 96,
+      "name": "Curium",
+      "article": "https://en.wikipedia.org/wiki/Curium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_curium",
+      "revisionId": 1379078395,
+      "revisionTimestamp": "2026-10-07T20:31:42Z",
+      "retrievedAt": "2026-11-11T23:29:14.972Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "double hexagonal close packed",
+          "raw": "double hexagonal close packed"
+        }
+      }
+    },
+    {
+      "symbol": "Bk",
+      "number": 97,
+      "name": "Berkelium",
+      "article": "https://en.wikipedia.org/wiki/Berkelium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_berkelium",
+      "revisionId": 1379078633,
+      "revisionTimestamp": "2026-10-07T20:33:47Z",
+      "retrievedAt": "2026-11-11T23:29:14.972Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "phase comment": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "double hexagonal close packed",
+          "raw": "double hexagonal close packed"
+        }
+      }
+    },
+    {
+      "symbol": "Cf",
+      "number": 98,
+      "name": "Californium",
+      "article": "https://en.wikipedia.org/wiki/Californium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_californium",
+      "revisionId": 1382491509,
+      "revisionTimestamp": "2026-10-28T23:40:14Z",
+      "retrievedAt": "2026-11-11T23:29:14.972Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "double hexagonal close packed",
+          "raw": "double hexagonal close packed"
+        },
+        "crystal structure ref": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure comment": {
+          "text": "",
+          "raw": ""
+        }
+      }
+    },
+    {
+      "symbol": "Es",
+      "number": 99,
+      "name": "Einsteinium",
+      "article": "https://en.wikipedia.org/wiki/Einsteinium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_einsteinium",
+      "revisionId": 1383687274,
+      "revisionTimestamp": "2026-11-04T04:37:53Z",
+      "retrievedAt": "2026-11-11T23:29:14.972Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure": {
+          "text": "face-centered cubic",
+          "raw": "face-centered cubic"
+        }
+      }
+    },
+    {
+      "symbol": "Fm",
+      "number": 100,
+      "name": "Fermium",
+      "article": "https://en.wikipedia.org/wiki/Fermium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_fermium",
+      "revisionId": 1377742233,
+      "revisionTimestamp": "2026-09-30T22:46:44Z",
+      "retrievedAt": "2026-11-11T23:29:14.973Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "solid",
+          "raw": "solid"
+        },
+        "phase comment": {
+          "text": "(predicted)",
+          "raw": "''(predicted)''"
+        },
+        "crystal structure": {
+          "text": "face-centered cubic",
+          "raw": "face-centered cubic"
+        },
+        "crystal structure comment": {
+          "text": "(predicted)",
+          "raw": "''(predicted)''<ref name=density/>"
+        }
+      }
+    },
+    {
+      "symbol": "Md",
+      "number": 101,
+      "name": "Mendelevium",
+      "article": "https://en.wikipedia.org/wiki/Mendelevium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_mendelevium",
+      "revisionId": 1377742776,
+      "revisionTimestamp": "2026-09-30T22:51:59Z",
+      "retrievedAt": "2026-11-11T23:29:18.242Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "solid",
+          "raw": "solid"
+        },
+        "phase comment": {
+          "text": "(predicted)",
+          "raw": "''(predicted)''"
+        },
+        "crystal structure": {
+          "text": "face-centered cubic",
+          "raw": "face-centered cubic"
+        },
+        "crystal structure comment": {
+          "text": "(predicted)",
+          "raw": "''(predicted)''<ref name=density/>"
+        }
+      }
+    },
+    {
+      "symbol": "No",
+      "number": 102,
+      "name": "Nobelium",
+      "article": "https://en.wikipedia.org/wiki/Nobelium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_nobelium",
+      "revisionId": 1377743118,
+      "revisionTimestamp": "2026-09-30T22:55:41Z",
+      "retrievedAt": "2026-11-11T23:29:18.242Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "solid",
+          "raw": "solid"
+        },
+        "phase comment": {
+          "text": "(predicted)",
+          "raw": "''(predicted)''<ref name=\"CRC2003\" />"
+        },
+        "crystal structure": {
+          "text": "face-centered cubic",
+          "raw": "face-centered cubic"
+        },
+        "crystal structure comment": {
+          "text": "(predicted)",
+          "raw": "''(predicted)''<ref name=\"density\" />"
+        }
+      }
+    },
+    {
+      "symbol": "Lr",
+      "number": 103,
+      "name": "Lawrencium",
+      "article": "https://en.wikipedia.org/wiki/Lawrencium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_lawrencium",
+      "revisionId": 1377743343,
+      "revisionTimestamp": "2026-09-30T22:58:17Z",
+      "retrievedAt": "2026-11-11T23:29:18.242Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "solid",
+          "raw": "solid"
+        },
+        "phase comment": {
+          "text": "(predicted)",
+          "raw": "''(predicted)''"
+        },
+        "crystal structure": {
+          "text": "hexagonal close-packed",
+          "raw": "hexagonal close-packed"
+        },
+        "crystal structure comment": {
+          "text": "(predicted)",
+          "raw": "''(predicted)''<ref name=hcp>{{cite journal|doi=10.1103/PhysRevB.84.113104|title=First-principles calculation of the structural stability of 6d transition metals|year=2011|last1=Östlin|first1=A.|last2=Vitos|first2=L.|journal=Physical Review B|volume=84|issue=11|article-number=113104|bibcode=2011PhRvB..84k3104O }}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Rf",
+      "number": 104,
+      "name": "Rutherfordium",
+      "article": "https://en.wikipedia.org/wiki/Rutherfordium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_rutherfordium",
+      "revisionId": 1381806093,
+      "revisionTimestamp": "2026-10-24T22:33:41Z",
+      "retrievedAt": "2026-11-11T23:29:18.243Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "solid",
+          "raw": "solid"
+        },
+        "phase comment": {
+          "text": "(predicted)",
+          "raw": "''(predicted)''<ref name=\"rsc-Rf\"/><ref name=Haire/>"
+        },
+        "crystal structure": {
+          "text": "hexagonal close-packed",
+          "raw": "hexagonal close-packed"
+        },
+        "crystal structure comment": {
+          "text": "(predicted)",
+          "raw": "''(predicted)''<ref name=hcp>{{cite journal|doi=10.1103/PhysRevB.84.113104|title=First-principles calculation of the structural stability of 6d transition metals|year=2011|last1=Östlin|first1=A.|last2=Vitos|first2=L.|journal=Physical Review B|volume=84|issue=11|article-number=113104|bibcode=2011PhRvB..84k3104O }}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Db",
+      "number": 105,
+      "name": "Dubnium",
+      "article": "https://en.wikipedia.org/wiki/Dubnium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_dubnium",
+      "revisionId": 1381806262,
+      "revisionTimestamp": "2026-10-24T22:34:51Z",
+      "retrievedAt": "2026-11-11T23:29:18.243Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "solid",
+          "raw": "solid"
+        },
+        "phase comment": {
+          "text": "(predicted)",
+          "raw": "''(predicted)''<ref name=bcc/>"
+        },
+        "crystal structure": {
+          "text": "body-centered cubic",
+          "raw": "body-centered cubic"
+        },
+        "crystal structure ref": {
+          "text": "&#x20;(predicted)",
+          "raw": "&#x20;''(predicted)''<ref name=bcc>{{cite journal|doi=10.1103/PhysRevB.84.113104|title=First-principles calculation of the structural stability of 6d transition metals|year=2011|last1=Östlin|first1=A.|last2=Vitos|first2=L.|journal=Physical Review B|volume=84|issue=11|bibcode=2011PhRvB..84k3104O }}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Sg",
+      "number": 106,
+      "name": "Seaborgium",
+      "article": "https://en.wikipedia.org/wiki/Seaborgium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_seaborgium",
+      "revisionId": 1381805588,
+      "revisionTimestamp": "2026-10-24T22:29:40Z",
+      "retrievedAt": "2026-11-11T23:29:18.244Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "solid",
+          "raw": "solid"
+        },
+        "phase comment": {
+          "text": "(predicted)",
+          "raw": "''(predicted)''<ref name=bcc />"
+        },
+        "crystal structure": {
+          "text": "body-centered cubic",
+          "raw": "body-centered cubic"
+        },
+        "crystal structure comment": {
+          "text": "(predicted)",
+          "raw": "''(predicted)''<ref name=bcc>{{cite journal|doi=10.1103/PhysRevB.84.113104|title=First-principles calculation of the structural stability of 6d transition metals|year=2011|last1=Östlin|first1=A.|last2=Vitos|first2=L.|journal=Physical Review B|volume=84|issue=11|article-number=113104|bibcode=2011PhRvB..84k3104O }}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Bh",
+      "number": 107,
+      "name": "Bohrium",
+      "article": "https://en.wikipedia.org/wiki/Bohrium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_bohrium",
+      "revisionId": 1309000687,
+      "revisionTimestamp": "2025-09-01T16:13:12Z",
+      "retrievedAt": "2026-11-11T23:29:18.244Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "solid",
+          "raw": "solid"
+        },
+        "phase comment": {
+          "text": "(predicted)",
+          "raw": "''(predicted)''<ref name=hcp/>"
+        },
+        "crystal structure": {
+          "text": "hexagonal close-packed",
+          "raw": "hexagonal close-packed"
+        },
+        "crystal structure comment": {
+          "text": "(predicted)",
+          "raw": "''(predicted)''<ref name=hcp>{{cite journal|doi=10.1103/PhysRevB.84.113104|title=First-principles calculation of the structural stability of 6d transition metals|year=2011|last1=Östlin|first1=A.|last2=Vitos|first2=L.|journal=Physical Review B|volume=84|issue=11|bibcode=2011PhRvB..84k3104O }}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Hs",
+      "number": 108,
+      "name": "Hassium",
+      "article": "https://en.wikipedia.org/wiki/Hassium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_hassium",
+      "revisionId": 1309704115,
+      "revisionTimestamp": "2025-09-05T15:00:59Z",
+      "retrievedAt": "2026-11-11T23:29:18.245Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "solid",
+          "raw": "solid"
+        },
+        "phase comment": {
+          "text": "(predicted)",
+          "raw": "''(predicted)''<ref name=Oestlin/>"
+        },
+        "crystal structure": {
+          "text": "hexagonal close-packed",
+          "raw": "hexagonal close-packed"
+        },
+        "crystal structure comment": {
+          "text": "(predicted)",
+          "raw": "''(predicted)''<ref name=Oestlin>{{cite thesis |last=Östlin |first=A. |date=2013 |title=Electronic Structure Studies and Method Development for Complex Materials |type=Licentiate |chapter=Transition metals |pages=15–16 |url=https://www.diva-portal.org/smash/get/diva2:606386/FULLTEXT01.pdf <!-- whole doc --> |access-date=24 October 2019}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Mt",
+      "number": 109,
+      "name": "Meitnerium",
+      "article": "https://en.wikipedia.org/wiki/Meitnerium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_meitnerium",
+      "revisionId": 1309005063,
+      "revisionTimestamp": "2025-09-01T16:45:03Z",
+      "retrievedAt": "2026-11-11T23:29:18.245Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "solid",
+          "raw": "solid"
+        },
+        "phase comment": {
+          "text": "(predicted)",
+          "raw": "''(predicted)''<ref name=bcc/>"
+        },
+        "crystal structure": {
+          "text": "face-centered cubic",
+          "raw": "face-centered cubic"
+        },
+        "crystal structure comment": {
+          "text": "(predicted)",
+          "raw": "''(predicted)''<ref name=bcc>{{cite journal|doi=10.1103/PhysRevB.84.113104|title=First-principles calculation of the structural stability of 6d transition metals|year=2011|last1=Östlin|first1=A.|last2=Vitos|first2=L.|journal=Physical Review B|volume=84|issue=11|article-number=113104|bibcode=2011PhRvB..84k3104O }}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Ds",
+      "number": 110,
+      "name": "Darmstadtium",
+      "article": "https://en.wikipedia.org/wiki/Darmstadtium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_darmstadtium",
+      "revisionId": 1309002138,
+      "revisionTimestamp": "2025-09-01T16:23:17Z",
+      "retrievedAt": "2026-11-11T23:29:18.245Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "solid",
+          "raw": "solid"
+        },
+        "phase comment": {
+          "text": "(predicted)",
+          "raw": "''(predicted)''<ref name=bcc/>"
+        },
+        "crystal structure": {
+          "text": "body-centered cubic",
+          "raw": "body-centered cubic"
+        },
+        "crystal structure comment": {
+          "text": "(predicted)",
+          "raw": "''(predicted)''<ref name=bcc>{{cite journal|doi=10.1103/PhysRevB.84.113104|title=First-principles calculation of the structural stability of 6d transition metals|year=2011|last1=Östlin|first1=A.|last2=Vitos|first2=L.|journal=Physical Review B|volume=84|issue=11|article-number=113104|bibcode=2011PhRvB..84k3104O}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Rg",
+      "number": 111,
+      "name": "Roentgenium",
+      "article": "https://en.wikipedia.org/wiki/Roentgenium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_roentgenium",
+      "revisionId": 1364254198,
+      "revisionTimestamp": "2026-07-15T13:20:33Z",
+      "retrievedAt": "2026-11-11T23:29:18.246Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "solid",
+          "raw": "solid"
+        },
+        "phase comment": {
+          "text": "(predicted)",
+          "raw": "''(predicted)''<ref name=bcc/>"
+        },
+        "crystal structure": {
+          "text": "body-centered cubic",
+          "raw": "body-centered cubic"
+        },
+        "crystal structure comment": {
+          "text": "(predicted)",
+          "raw": "''(predicted)''<ref name=bcc>{{cite journal|doi=10.1103/PhysRevB.84.113104|title=First-principles calculation of the structural stability of 6d transition metals|year=2011|last1=Östlin|first1=A.|last2=Vitos|first2=L.|journal=Physical Review B|volume=84|issue=11|article-number=113104|bibcode=2011PhRvB..84k3104O }}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Cn",
+      "number": 112,
+      "name": "Copernicium",
+      "article": "https://en.wikipedia.org/wiki/Copernicium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_copernicium",
+      "revisionId": 1231721608,
+      "revisionTimestamp": "2024-06-29T21:55:41Z",
+      "retrievedAt": "2026-11-11T23:29:18.246Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "liquid",
+          "raw": "liquid"
+        },
+        "phase comment": {
+          "text": "(predicted)",
+          "raw": "''(predicted)''<ref>Soverna S 2004, [https://repository.gsi.de/record/53528/files/GSI-Report-2004-1.pdf 'Indication for a gaseous element 112,'] in U Grundinger (ed.), ''GSI Scientific Report 2003,'' GSI Report 2004-1, p.&nbsp;187, ISSN 0174-0814</ref><ref name=CRNL>{{cite journal |last=Mewes |first=J.-M. |last2=Smits |first2=O. R. |last3=Kresse |first3=G. |last4=Schwerdtfeger |first4=P. |title=Copernicium is a Relativistic Noble Liquid |journal=Angewandte Chemie International Edition  |date=2019 |doi=10.1002/anie.201906966 |url=https://www.researchgate.net/publication/336389017}}</ref>"
+        },
+        "crystal structure": {
+          "text": "hexagonal close-packed",
+          "raw": "hexagonal close-packed"
+        },
+        "crystal structure comment": {
+          "text": "(predicted)",
+          "raw": "''(predicted)''<ref name=CRNL/>"
+        }
+      }
+    },
+    {
+      "symbol": "Nh",
+      "number": 113,
+      "name": "Nihonium",
+      "article": "https://en.wikipedia.org/wiki/Nihonium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_nihonium",
+      "revisionId": 1284354333,
+      "revisionTimestamp": "2025-04-07T02:00:06Z",
+      "retrievedAt": "2026-11-11T23:29:18.246Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "solid",
+          "raw": "solid"
+        },
+        "phase comment": {
+          "text": "(predicted)",
+          "raw": "''(predicted)''<ref name=Haire>{{cite book| title=The Chemistry of the Actinide and Transactinide Elements| editor1-last=Morss| editor2-first=Norman M.| editor2-last=Edelstein| editor3-last=Fuger| editor3-first=Jean| last1=Hoffman| first1=Darleane C.| last2=Lee| first2=Diana M.| last3=Pershina| first3=Valeria| chapter=Transactinides and the future elements| publisher=[[Springer Science+Business Media]]| year=2006| isbn=978-1-4020-3555-5| location=Dordrecht, The Netherlands| edition=3rd| ref=CITEREFHaire2006}}</ref><ref name=EB/><ref name=\"B&K\">{{cite journal \n|last1=Bonchev |first1=Danail |last2=Kamenska |first2=Verginia |year=1981 |title=Predicting the Properties of the 113–120 Transactinide Elements |journal=Journal of Physical Chemistry |volume=85 |issue=9 |pages=1177–1186 |doi=10.1021/j150609a021 |url=https://www.researchgate.net/publication/239657207 }}</ref>"
+        },
+        "crystal structure": {
+          "text": "hexagonal close-packed",
+          "raw": "hexagonal close-packed"
+        },
+        "crystal structure comment": {
+          "text": "(predicted)",
+          "raw": "''(predicted)''<ref name=NhFl>{{cite journal |first1=O. L. Jr. |last1=Keller |first2=J. L. |last2=Burnett |first3=T. A. |last3=Carlson |first4=C. W. Jr. |last4=Nestor |date=1969 |title=Predicted Properties of the Super Heavy Elements. I. Elements 113 and 114, Eka-Thallium and Eka-Lead |journal=The Journal of Physical Chemistry |volume=74 |issue=5 |pages=1127−1134 |doi=10.1021/j100700a029}}</ref><ref name=hcp>\n{{cite journal |last1=Atarah |first1=Samuel A. |last2=Egblewogbe |first2=Martin N. H. |last3=Hagoss |first3=Gebreyesus G. |date=2020 |title=First principle study of the structural and electronic properties of Nihonium |journal=MRS Advances |volume=5 |issue=23–24 |pages=1175–1183 |doi=10.1557/adv.2020.159}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Fl",
+      "number": 114,
+      "name": "Flerovium",
+      "article": "https://en.wikipedia.org/wiki/Flerovium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_flerovium",
+      "revisionId": 1304498351,
+      "revisionTimestamp": "2025-08-06T10:59:29Z",
+      "retrievedAt": "2026-11-11T23:29:18.246Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "liquid",
+          "raw": "liquid"
+        },
+        "phase comment": {
+          "text": "(predicted)",
+          "raw": "''(predicted)''<ref name=Florez/>"
+        },
+        "crystal structure": {
+          "text": "",
+          "raw": ""
+        },
+        "crystal structure comment": {
+          "text": "",
+          "raw": ""
+        }
+      }
+    },
+    {
+      "symbol": "Mc",
+      "number": 115,
+      "name": "Moscovium",
+      "article": "https://en.wikipedia.org/wiki/Moscovium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_moscovium",
+      "revisionId": 1307765239,
+      "revisionTimestamp": "2025-08-25T15:26:27Z",
+      "retrievedAt": "2026-11-11T23:29:18.247Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "solid",
+          "raw": "solid"
+        },
+        "phase comment": {
+          "text": "(predicted)",
+          "raw": "''(predicted)''<ref name=Haire>{{cite book| title=The Chemistry of the Actinide and Transactinide Elements| editor1-last=Morss| editor2-first=Norman M.| editor2-last=Edelstein| editor3-last=Fuger| editor3-first=Jean| last1=Hoffman| first1=Darleane C.| last2=Lee| first2=Diana M.| last3=Pershina| first3=Valeria| chapter=Transactinides and the future elements| publisher=[[Springer Science+Business Media]]| year=2006| isbn=978-1-4020-3555-5| location=Dordrecht, The Netherlands| edition=3rd| ref=CITEREFHaire2006}}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Lv",
+      "number": 116,
+      "name": "Livermorium",
+      "article": "https://en.wikipedia.org/wiki/Livermorium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_livermorium",
+      "revisionId": 1378886299,
+      "revisionTimestamp": "2026-10-06T18:47:52Z",
+      "retrievedAt": "2026-11-11T23:29:18.247Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "solid",
+          "raw": "solid"
+        },
+        "phase comment": {
+          "text": "(predicted)",
+          "raw": "''(predicted)''<ref name=Haire>{{cite book| title=The Chemistry of the Actinide and Transactinide Elements| editor1-last=Morss| editor2-first=Norman M.| editor2-last=Edelstein| editor3-last=Fuger| editor3-first=Jean| last1=Hoffman| first1=Darleane C.| last2=Lee| first2=Diana M.| last3=Pershina| first3=Valeria| chapter=Transactinides and the future elements| publisher=[[Springer Science+Business Media]]| year=2006| isbn=978-1-4020-3555-5| location=Dordrecht, The Netherlands| edition=3rd| ref=CITEREFHaire2006}}</ref><ref name=\"B&K\">{{cite journal \n|last1=Bonchev |first1=Danail |last2=Kamenska |first2=Verginia |year=1981 |title=Predicting the Properties of the 113–120 Transactinide Elements |journal=Journal of Physical Chemistry |volume=85 |issue=9 |pages=1177–1186 |publisher=American Chemical Society |doi=10.1021/j150609a021 |url=https://www.researchgate.net/publication/239657207 }}</ref>"
+        }
+      }
+    },
+    {
+      "symbol": "Ts",
+      "number": 117,
+      "name": "Tennessine",
+      "article": "https://en.wikipedia.org/wiki/Tennessine",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_tennessine",
+      "revisionId": 1307765621,
+      "revisionTimestamp": "2025-08-25T15:29:21Z",
+      "retrievedAt": "2026-11-11T23:29:18.247Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "solid",
+          "raw": "solid"
+        },
+        "phase comment": {
+          "text": "(predicted)",
+          "raw": "''(predicted)''<ref name=Haire>{{cite book| title=The Chemistry of the Actinide and Transactinide Elements| editor1-last=Morss| editor2-first=Norman M.| editor2-last=Edelstein| editor3-last=Fuger| editor3-first=Jean| last1=Hoffman| first1=Darleane C.| last2=Lee| first2=Diana M.| last3=Pershina| first3=Valeria| chapter=Transactinides and the future elements| publisher=[[Springer Science+Business Media]]| year=2006| isbn=978-1-4020-3555-5| location=Dordrecht, The Netherlands| edition=3rd| ref=CITEREFHaire2006}}</ref><ref name=\"B&K\"/>"
+        }
+      }
+    },
+    {
+      "symbol": "Og",
+      "number": 118,
+      "name": "Oganesson",
+      "article": "https://en.wikipedia.org/wiki/Oganesson",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_oganesson",
+      "revisionId": 1230712507,
+      "revisionTimestamp": "2024-06-24T08:05:49Z",
+      "retrievedAt": "2026-11-11T23:29:18.247Z",
+      "status": "available",
+      "fields": {
+        "phase": {
+          "text": "solid",
+          "raw": "solid"
+        },
+        "phase comment": {
+          "text": "(predicted)",
+          "raw": "''(predicted)''<ref name=oganesson-melting/>"
+        },
+        "crystal structure": {
+          "text": "face-centered cubic",
+          "raw": "face-centered cubic"
+        },
+        "crystal structure comment": {
+          "text": "(extrapolated)",
+          "raw": "''(extrapolated)''<ref name=60s>{{cite journal|doi=10.1016/0022-1902(65)80255-X|date=1965|publisher=Elsevier Science Ltd.|title=Some physical and chemical properties of element 118 (Eka-Em) and element 86 (Em)|first=A. V.|last=Grosse|journal=Journal of Inorganic and Nuclear Chemistry|volume=27|issue=3|pages=509–19}}</ref>"
+        }
+      }
+    }
+  ]
+}

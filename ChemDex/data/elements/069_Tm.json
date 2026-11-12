@@ -75,9 +75,9 @@
         "a": 3.5375,
         "b": 3.5375,
         "c": 5.5546,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 120.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 120
       },
       "volume": 60.197203816856735,
       "siteCount": 2,
@@ -101,9 +101,81 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-tm.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-tm.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-tm.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-tm.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-tm.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Thulium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_thulium",
+        "revisionId": 1296588122,
+        "revisionTimestamp": "2025-06-20T23:05:25Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "hexagonal close packed",
+            "prefix": "",
+            "comment": "",
+            "pearson": "hP2",
+            "lattice": "a = 353.77 pm; c = 555.39 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-tm",
+        "modelKind": "hcp",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 3.5377,
+            "modelAngstrom": 3.5375,
+            "relativeDifferencePercent": 0.005653390621024337
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "c",
+            "wikiAngstrom": 5.5539,
+            "modelAngstrom": 5.5546,
+            "relativeDifferencePercent": 0.012603755919266551
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Thulium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_thulium",
+      "revisionId": 1296588122,
+      "revisionTimestamp": "2025-06-20T23:05:25Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "hexagonal close packed",
+          "prefix": "",
+          "comment": "",
+          "pearson": "hP2",
+          "lattice": "a = 353.77 pm; c = 555.39 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-tm",
+      "modelKind": "hcp",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 3.5377,
+          "modelAngstrom": 3.5375,
+          "relativeDifferencePercent": 0.005653390621024337
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "c",
+          "wikiAngstrom": 5.5539,
+          "modelAngstrom": 5.5546,
+          "relativeDifferencePercent": 0.012603755919266551
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lục phương xếp chặt (HCP)",
   "occurrence": {
@@ -153,9 +225,9 @@
             "a": 6.8947,
             "b": 6.8947,
             "c": 6.0276,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 286.53334665128403,
           "siteCount": 24,
@@ -401,27 +473,85 @@
     {
       "title": "Nguồn tia X",
       "desc": "¹⁷⁰Tm có thể được sử dụng làm nguồn bức xạ trong một số thiết bị chuyên dụng.",
-      "sourceLine": 80
+      "sourceLine": 80,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Laser",
       "desc": "Thulium được sử dụng trong laser pha tạp Thulium, đặc biệt là các laser phát bức xạ hồng ngoại.",
-      "sourceLine": 81
+      "sourceLine": 81,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "laser",
+        "source": "https://commons.wikimedia.org/wiki/File:Guiding_the_Milky_Way_(potw2222a).jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/laser.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Guiding_the_Milky_Way_(potw2222a).jpg",
+        "author": "ESO/A. Ghizzi Panizza ( www.albertoghizzipanizza.com )",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "alt": "Laser — Laser",
+        "caption": "Minh họa lĩnh vực laser · Laser.",
+        "topic": "laser",
+        "role": "application-context"
+      }
     },
     {
       "title": "Y tế",
       "desc": "Laser Thulium được nghiên cứu và sử dụng trong một số ứng dụng y tế, bao gồm một số thủ thuật trong tiết niệu.",
-      "sourceLine": 82
+      "sourceLine": 82,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "laser",
+        "source": "https://commons.wikimedia.org/wiki/File:Guiding_the_Milky_Way_(potw2222a).jpg"
+      }
     },
     {
       "title": "Nghiên cứu quang học",
       "desc": "Tm³⁺ được sử dụng trong các vật liệu phát quang và vật liệu quang tử.",
-      "sourceLine": 83
+      "sourceLine": 83,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "optics",
+        "source": "https://commons.wikimedia.org/wiki/File:Double-lens_burning_apparatus,_Ehrenfried_Walther_von_Tschirnhaus,_Kieslingswalde_(today_Slawonice,_Poland),_c._1690_-_Mathematisch-Physikalischer_Salon,_Dresden_-_DSC08133.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/optics.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Double-lens_burning_apparatus,_Ehrenfried_Walther_von_Tschirnhaus,_Kieslingswalde_(today_Slawonice,_Poland),_c._1690_-_Mathematisch-Physikalischer_Salon,_Dresden_-_DSC08133.JPG",
+        "author": "Daderot",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Nghiên cứu quang học — Optical lens",
+        "caption": "Minh họa lĩnh vực nghiên cứu quang học · Optical lens.",
+        "topic": "optics",
+        "role": "application-context"
+      }
     },
     {
       "title": "Thiết bị điện tử",
       "desc": "Một số hợp chất Thulium được sử dụng trong nghiên cứu vật liệu từ và quang điện tử.",
-      "sourceLine": 84
+      "sourceLine": 84,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "electronics",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/electronics.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg",
+        "author": "Raimond Spekking",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Thiết bị điện tử — Printed circuit board",
+        "caption": "Minh họa lĩnh vực thiết bị điện tử · Printed circuit board.",
+        "topic": "electronics",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Thulium là nguyên tố số 69, thuộc nhóm IIIB | chu kỳ 6 và là nguyên tố thứ mười ba trong họ Lanthanide.</li><li>Thulium được Per Teodor Cleve phát hiện vào năm 1879 tại Thụy Điển. Tên nguyên tố bắt nguồn từ Thule, tên cổ dùng để chỉ một vùng đất xa xôi ở phía Bắc châu Âu.</li><li>Thulium là kim loại đất hiếm màu trắng bạc, khá mềm và tương đối hiếm trong tự nhiên. Trạng thái Oxy hóa phổ biến nhất là +3, trong khi +2 cũng có thể tồn tại.</li><li>Thulium có ứng dụng trong laser hồng ngoại, nguồn bức xạ, vật liệu quang học và một số ứng dụng y tế. Mặc dù là một trong những Lanthanide hiếm nhất, các tính chất quang học và hạt nhân đặc biệt khiến Thulium vẫn có giá trị trong những lĩnh vực chuyên dụng.</li><li>Mạng tinh thể: Lục phương xếp chặt (HCP) ở điều kiện thường.</li></ul>",
@@ -462,9 +592,9 @@
           "a": 6.8947,
           "b": 6.8947,
           "c": 6.0276,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 286.53334665128403,
         "siteCount": 24,
@@ -531,6 +661,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Thulium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -539,6 +674,7 @@
     "sourceSha256": "889a3b372fd8ba20b6ea86db9ab963170b310ad5ac5ca1123b7a64098092798e",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/069_Tm.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/thulium-tm/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/thulium-tm/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/thulium-tm/audit.md"
   }
 }

@@ -61,7 +61,30 @@
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Trực thoi (Orthorhombic)",
     "latticeEvidence": "source-reviewed",
-    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
+    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác.",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Bromine",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_bromine",
+      "revisionId": 1332162790,
+      "revisionTimestamp": "2026-01-10T06:10:51Z",
+      "status": "phase-unmeasured-or-fluid",
+      "phases": [
+        {
+          "type": "orthorhombic",
+          "prefix": "",
+          "comment": "",
+          "pearson": "oS8",
+          "lattice": "a = 674.30 pm; b = 466.85 pm; c = 870.02 pm (at triple point: 269.60 K)"
+        }
+      ],
+      "selectedModel": null,
+      "modelKind": null,
+      "metrics": [],
+      "notes": [
+        "Không lấy hình của một kiểu mạng chung để khẳng định mẫu tinh thể đã được đo. Pha khí/lỏng và cấu trúc dự đoán được ghi riêng."
+      ],
+      "additionalSources": []
+    }
   },
   "structureType": "Trực thoi (Orthorhombic)",
   "occurrence": {
@@ -363,32 +386,117 @@
     {
       "title": "Chất chống cháy",
       "desc": "Một số Brominated compounds được sử dụng làm chất chống cháy trong một số vật liệu.",
-      "sourceLine": 90
+      "sourceLine": 90,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "fire-retardant",
+        "source": "https://commons.wikimedia.org/wiki/File:Flame_Retardant_Research_-_LDH_materials_(16241017250).jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/fire-retardant.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Flame_Retardant_Research_-_LDH_materials_(16241017250).jpg",
+        "author": "National Institute of Standards and Technology",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Chất chống cháy — Flame retardant",
+        "caption": "Minh họa lĩnh vực chất chống cháy · Flame retardant.",
+        "topic": "fire-retardant",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nhiếp ảnh",
       "desc": "Silver bromide (AgBr) từng có vai trò quan trọng trong phim ảnh và giấy ảnh truyền thống.",
-      "sourceLine": 91
+      "sourceLine": 91,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "photography",
+        "source": "https://commons.wikimedia.org/wiki/File:Undeveloped_35_mm_film.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/photography.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Undeveloped_35_mm_film.jpg",
+        "author": "Unknown author Unknown author",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "alt": "Nhiếp ảnh — Photographic film",
+        "caption": "Minh họa lĩnh vực nhiếp ảnh · Photographic film.",
+        "topic": "photography",
+        "role": "application-context"
+      }
     },
     {
       "title": "Dược phẩm",
       "desc": "Một số Bromine compounds được sử dụng trong quá trình tổng hợp dược phẩm.",
-      "sourceLine": 92
+      "sourceLine": 92,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "pharmaceuticals",
+        "source": "https://commons.wikimedia.org/wiki/File:Inspecting_a_Drug_Manufacturer_(FDA034)_(6982162417).jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/pharmaceuticals.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Inspecting_a_Drug_Manufacturer_(FDA034)_(6982162417).jpg",
+        "author": "The U.S. Food and Drug Administration",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Dược phẩm — Pharmaceutical industry",
+        "caption": "Minh họa lĩnh vực dược phẩm · Pharmaceutical industry.",
+        "topic": "pharmaceuticals",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hóa chất",
       "desc": "Bromine được sử dụng làm nguyên liệu để sản xuất nhiều Bromine compounds.",
-      "sourceLine": 93
+      "sourceLine": 93,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Xử lý nước",
       "desc": "Một số Bromine-based compounds được sử dụng làm chất khử trùng trong các hệ thống xử lý nước.",
-      "sourceLine": 94
+      "sourceLine": 94,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "water-treatment",
+        "source": "https://commons.wikimedia.org/wiki/File:Dalecarlia_Water_Treatment_Plant.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/water-treatment.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Dalecarlia_Water_Treatment_Plant.jpg",
+        "author": "AgnosticPreachersKid",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Xử lý nước — Water treatment",
+        "caption": "Minh họa lĩnh vực xử lý nước · Water treatment.",
+        "topic": "water-treatment",
+        "role": "application-context"
+      }
     },
     {
       "title": "Khoan dầu khí",
       "desc": "Một số Bromide compounds được sử dụng trong các dung dịch có tỷ trọng cao phục vụ ngành dầu khí.",
-      "sourceLine": 95
+      "sourceLine": 95,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "drilling",
+        "source": "https://commons.wikimedia.org/wiki/File:Large_hole_drilling_rig.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/drilling.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Large_hole_drilling_rig.jpg",
+        "author": "Olga Ernst",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Khoan dầu khí — Drilling rig",
+        "caption": "Minh họa lĩnh vực khoan dầu khí · Drilling rig.",
+        "topic": "drilling",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Bromine là nguyên tố số 35, thuộc nhóm VIIA | chu kỳ 4 và là một Halogen.</li><li>Bromine có cấu hình electron [Ar] 3d¹⁰ 4s² 4p⁵, với số Oxy hóa phổ biến nhất là −1.</li><li>Bromine là một trong số rất ít nguyên tố tồn tại ở dạng chất lỏng ở điều kiện thường. Đơn chất Bromine tồn tại chủ yếu dưới dạng phân tử Br₂, có màu nâu đỏ và dễ bay hơi.</li><li>Trong tự nhiên, Bromine chủ yếu tồn tại dưới dạng Bromide trong nước biển và các mỏ muối. Bromine có thể được điều chế bằng cách Oxy hóa Bromide bằng Chlorine.</li><li>Bromine và các hợp chất của nó có ứng dụng trong công nghiệp hóa chất, dược phẩm, xử lý nước, vật liệu chống cháy và nhiếp ảnh.</li></ul>",
@@ -429,6 +537,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Bromine",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -437,6 +550,7 @@
     "sourceSha256": "8cf962deef556002ed1c11e09811b0d46117f1b816215b8f12d3c49a7e3aedff",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/035_Br.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/brom-br/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/brom-br/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/brom-br/audit.md"
   }
 }

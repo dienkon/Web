@@ -75,9 +75,9 @@
         "a": 3.456,
         "b": 3.456,
         "c": 5.525,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 120.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 120
       },
       "volume": 57.14922978439461,
       "siteCount": 2,
@@ -99,9 +99,81 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-tl.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-tl.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-tl.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-tl.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-tl.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Thallium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_thallium",
+        "revisionId": 1380704859,
+        "revisionTimestamp": "2026-10-17T10:10:08Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "hexagonal close packed",
+            "prefix": "",
+            "comment": "",
+            "pearson": "hP2",
+            "lattice": "a = 345.66 pm; c = 552.52 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-tl",
+        "modelKind": "hcp",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 3.4566000000000003,
+            "modelAngstrom": 3.456,
+            "relativeDifferencePercent": 0.01735809755251918
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "c",
+            "wikiAngstrom": 5.5252,
+            "modelAngstrom": 5.525,
+            "relativeDifferencePercent": 0.0036197784695492273
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Thallium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_thallium",
+      "revisionId": 1380704859,
+      "revisionTimestamp": "2026-10-17T10:10:08Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "hexagonal close packed",
+          "prefix": "",
+          "comment": "",
+          "pearson": "hP2",
+          "lattice": "a = 345.66 pm; c = 552.52 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-tl",
+      "modelKind": "hcp",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 3.4566000000000003,
+          "modelAngstrom": 3.456,
+          "relativeDifferencePercent": 0.01735809755251918
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "c",
+          "wikiAngstrom": 5.5252,
+          "modelAngstrom": 5.525,
+          "relativeDifferencePercent": 0.0036197784695492273
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lục phương (Hexagonal)",
   "occurrence": {
@@ -152,9 +224,9 @@
             "a": 5.9315,
             "b": 5.9315,
             "c": 5.9315,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 208.68613908087497,
           "siteCount": 8,
@@ -442,27 +514,107 @@
     {
       "title": "Điện tử",
       "desc": "Một số hợp chất Thallium được sử dụng trong vật liệu bán dẫn và quang điện.",
-      "sourceLine": 87
+      "sourceLine": 87,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "semiconductor",
+        "source": "https://commons.wikimedia.org/wiki/File:ICC_2008_Poland_Silicon_Wafer_1_edit.png"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/semiconductor.png",
+        "source": "https://commons.wikimedia.org/wiki/File:ICC_2008_Poland_Silicon_Wafer_1_edit.png",
+        "author": "FxJ",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Điện tử — Silicon wafer",
+        "caption": "Minh họa lĩnh vực điện tử · Silicon wafer.",
+        "topic": "semiconductor",
+        "role": "application-context"
+      }
     },
     {
       "title": "Quang học",
       "desc": "Thallium được sử dụng trong một số loại kính có chiết suất cao.",
-      "sourceLine": 88
+      "sourceLine": 88,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "optics",
+        "source": "https://commons.wikimedia.org/wiki/File:Double-lens_burning_apparatus,_Ehrenfried_Walther_von_Tschirnhaus,_Kieslingswalde_(today_Slawonice,_Poland),_c._1690_-_Mathematisch-Physikalischer_Salon,_Dresden_-_DSC08133.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/optics.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Double-lens_burning_apparatus,_Ehrenfried_Walther_von_Tschirnhaus,_Kieslingswalde_(today_Slawonice,_Poland),_c._1690_-_Mathematisch-Physikalischer_Salon,_Dresden_-_DSC08133.JPG",
+        "author": "Daderot",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Quang học — Optical lens",
+        "caption": "Minh họa lĩnh vực quang học · Optical lens.",
+        "topic": "optics",
+        "role": "application-context"
+      }
     },
     {
       "title": "Thiết bị phát hiện bức xạ",
       "desc": "Một số tinh thể chứa Thallium, như Sodium iodide activated with Thallium [NaI(Tl)], được sử dụng trong detector bức xạ.",
-      "sourceLine": 89
+      "sourceLine": 89,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "radiation-detector",
+        "source": "https://commons.wikimedia.org/wiki/File:PhotoMultiplierTubeAndScintillator.svg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/radiation-detector.png",
+        "source": "https://commons.wikimedia.org/wiki/File:PhotoMultiplierTubeAndScintillator.svg",
+        "author": "Qwerty123uiop This presentation was created with Microsoft PowerPoint .",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Thiết bị phát hiện bức xạ — Scintillation counter",
+        "caption": "Minh họa lĩnh vực thiết bị phát hiện bức xạ · Scintillation counter.",
+        "topic": "radiation-detector",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nghiên cứu",
       "desc": "Một số đồng vị phóng xạ của Thallium được sử dụng trong nghiên cứu và y học hạt nhân.",
-      "sourceLine": 90
+      "sourceLine": 90,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "nuclear-medicine",
+        "source": "https://commons.wikimedia.org/wiki/File:Lung_scintigraphy_keosys.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/nuclear-medicine.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Lung_scintigraphy_keosys.JPG",
+        "author": "Mco44 ( talk )",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Nghiên cứu — Gamma camera",
+        "caption": "Minh họa lĩnh vực nghiên cứu · Gamma camera.",
+        "topic": "nuclear-medicine",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nhiệt kế",
       "desc": "Một số hợp kim Thallium từng được nghiên cứu và sử dụng trong các ứng dụng nhiệt độ thấp.",
-      "sourceLine": 91
+      "sourceLine": 91,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "thermometer",
+        "source": "https://commons.wikimedia.org/wiki/File:Mercury_Thermometer.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/thermometer.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Mercury_Thermometer.jpg",
+        "author": "Anonimski",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nhiệt kế — Mercury-in-glass thermometer",
+        "caption": "Minh họa lĩnh vực nhiệt kế · Mercury-in-glass thermometer.",
+        "topic": "thermometer",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Thallium là nguyên tố số 81, thuộc nhóm IIIA | chu kỳ 6 và là một kim loại hậu chuyển tiếp.</li><li>Thallium có cấu hình electron [Xe] 4f¹⁴ 5d¹⁰ 6s² 6p¹, với hai số Oxy hóa chính là +1 và +3. Trong đó, trạng thái +1 ổn định hơn.</li><li>Thallium là kim loại mềm, nặng và có nhiệt độ nóng chảy tương đối thấp. Đặc điểm nổi bật trong lịch sử phát hiện là vạch phổ xanh lục đặc trưng.</li><li>Thallium có một số ứng dụng trong điện tử, quang học và detector bức xạ, nhưng việc sử dụng bị hạn chế đáng kể do Thallium và nhiều hợp chất của nó có độc tính rất cao.</li></ul>",
@@ -503,9 +655,9 @@
           "a": 5.9315,
           "b": 5.9315,
           "c": 5.9315,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 208.68613908087497,
         "siteCount": 8,
@@ -576,6 +728,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Thallium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -584,6 +741,7 @@
     "sourceSha256": "0a09529238ee20b67a10ed972e764fe76648463c2cdb4ec35877ffcfa545a53b",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/081_Tl.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/thallium-tl/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/thallium-tl/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/thallium-tl/audit.md"
   }
 }

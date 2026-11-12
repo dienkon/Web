@@ -75,9 +75,9 @@
         "a": 3.1967,
         "b": 3.1967,
         "c": 5.0578,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 120.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 120
       },
       "volume": 44.76061509072102,
       "siteCount": 2,
@@ -99,9 +99,81 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-hf.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-hf.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-hf.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-hf.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-hf.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Hafnium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_hafnium",
+        "revisionId": 1218330595,
+        "revisionTimestamp": "2024-04-11T02:22:10Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "hexagonal close packed",
+            "prefix": "",
+            "comment": "",
+            "pearson": "hP2",
+            "lattice": "a = 319.42 pm; c = 505.12 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-hf",
+        "modelKind": "hcp",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 3.1942000000000004,
+            "modelAngstrom": 3.1967,
+            "relativeDifferencePercent": 0.07826685868134438
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "c",
+            "wikiAngstrom": 5.051200000000001,
+            "modelAngstrom": 5.0578,
+            "relativeDifferencePercent": 0.13066202090591775
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Hafnium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_hafnium",
+      "revisionId": 1218330595,
+      "revisionTimestamp": "2024-04-11T02:22:10Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "hexagonal close packed",
+          "prefix": "",
+          "comment": "",
+          "pearson": "hP2",
+          "lattice": "a = 319.42 pm; c = 505.12 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-hf",
+      "modelKind": "hcp",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 3.1942000000000004,
+          "modelAngstrom": 3.1967,
+          "relativeDifferencePercent": 0.07826685868134438
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "c",
+          "wikiAngstrom": 5.051200000000001,
+          "modelAngstrom": 5.0578,
+          "relativeDifferencePercent": 0.13066202090591775
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lục phương (Hexagonal)",
   "occurrence": {
@@ -150,9 +222,9 @@
             "a": 6.6042,
             "b": 6.6042,
             "c": 5.9796,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 260.80299050414396,
           "siteCount": 24,
@@ -468,27 +540,96 @@
     {
       "title": "Thanh điều khiển lò phản ứng hạt nhân",
       "desc": "Hafnium hấp thụ neutron rất mạnh nên được sử dụng trong một số hệ thống điều khiển lò phản ứng hạt nhân.",
-      "sourceLine": 81
+      "sourceLine": 81,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "control-rod",
+        "source": "https://commons.wikimedia.org/wiki/File:PWR_control_rod_assemby.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/control-rod.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:PWR_control_rod_assemby.jpg",
+        "author": "Nic Ransby",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Thanh điều khiển lò phản ứng hạt nhân — Control rod",
+        "caption": "Minh họa lĩnh vực thanh điều khiển lò phản ứng hạt nhân · Control rod.",
+        "topic": "control-rod",
+        "role": "application-context"
+      }
     },
     {
       "title": "Công nghệ bán dẫn",
       "desc": "Hafnium dioxide (HfO₂) được sử dụng làm vật liệu điện môi có hằng số điện môi cao trong linh kiện bán dẫn.",
-      "sourceLine": 82
+      "sourceLine": 82,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "semiconductor",
+        "source": "https://commons.wikimedia.org/wiki/File:ICC_2008_Poland_Silicon_Wafer_1_edit.png"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/semiconductor.png",
+        "source": "https://commons.wikimedia.org/wiki/File:ICC_2008_Poland_Silicon_Wafer_1_edit.png",
+        "author": "FxJ",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Công nghệ bán dẫn — Silicon wafer",
+        "caption": "Minh họa lĩnh vực công nghệ bán dẫn · Silicon wafer.",
+        "topic": "semiconductor",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hợp kim chịu nhiệt",
       "desc": "Hafnium được thêm vào một số hợp kim để tăng khả năng chịu nhiệt và độ bền.",
-      "sourceLine": 83
+      "sourceLine": 83,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "refractory",
+        "source": "https://commons.wikimedia.org/wiki/File:Torpedo_car_refractory_bricks.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/refractory.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Torpedo_car_refractory_bricks.JPG",
+        "author": "Morgan Riley",
+        "license": "CC BY 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+        "alt": "Hợp kim chịu nhiệt — Refractory",
+        "caption": "Minh họa lĩnh vực hợp kim chịu nhiệt · Refractory.",
+        "topic": "refractory",
+        "role": "application-context"
+      }
     },
     {
       "title": "Động cơ hàng không",
       "desc": "Một số hợp kim chứa Hafnium được sử dụng trong các bộ phận chịu nhiệt cao.",
-      "sourceLine": 84
+      "sourceLine": 84,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "jet-engine",
+        "source": "https://commons.wikimedia.org/wiki/File:F100_F-15_engine.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/jet-engine.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:F100_F-15_engine.JPG",
+        "author": "Shelley Gill",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Động cơ hàng không — Jet engine",
+        "caption": "Minh họa lĩnh vực động cơ hàng không · Jet engine.",
+        "topic": "jet-engine",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hafnium carbide",
       "desc": "HfC có nhiệt độ nóng chảy cực cao, phù hợp cho các ứng dụng vật liệu chịu nhiệt đặc biệt.",
-      "sourceLine": 85
+      "sourceLine": 85,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "refractory",
+        "source": "https://commons.wikimedia.org/wiki/File:Torpedo_car_refractory_bricks.JPG"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Hafnium là nguyên tố số 72, thuộc nhóm IVB | chu kỳ 6 và là một kim loại chuyển tiếp.</li><li>Hafnium có cấu hình electron [Xe] 4f¹⁴ 5d² 6s², với số Oxy hóa phổ biến nhất là +4.</li><li>Hafnium có màu xám bạc, cứng, bền, chịu nhiệt và chống ăn mòn tốt. Trong tự nhiên, Hafnium gần như luôn đi kèm với Zirconium, đặc biệt trong khoáng vật Zircon (ZrSiO₄).</li><li>Đặc điểm nổi bật của Hafnium là khả năng hấp thụ neutron rất mạnh, khiến nó có giá trị trong công nghệ hạt nhân. Ngoài ra, Hafnium dioxide và Hafnium carbide có vai trò quan trọng trong công nghệ bán dẫn và vật liệu chịu nhiệt cao.</li></ul>",
@@ -529,9 +670,9 @@
           "a": 6.6042,
           "b": 6.6042,
           "c": 5.9796,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 260.80299050414396,
         "siteCount": 24,
@@ -597,6 +738,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Hafnium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -605,6 +751,7 @@
     "sourceSha256": "85608c297b9296c65131d2ff30f251b2307679d34857a55af01e080ce960ee46",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/072_Hf.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/hafnium-hf/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/hafnium-hf/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/hafnium-hf/audit.md"
   }
 }

@@ -59,7 +59,30 @@
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Trực thoi (Orthorhombic)",
     "latticeEvidence": "source-reviewed",
-    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
+    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác.",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Chlorine",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_chlorine",
+      "revisionId": 1332162598,
+      "revisionTimestamp": "2026-01-10T06:08:45Z",
+      "status": "phase-unmeasured-or-fluid",
+      "phases": [
+        {
+          "type": "orthorhombic",
+          "prefix": "",
+          "comment": "",
+          "pearson": "oS8",
+          "lattice": "a = 630.80 pm; b = 455.83 pm; c = 815.49 pm (at triple point)"
+        }
+      ],
+      "selectedModel": null,
+      "modelKind": null,
+      "metrics": [],
+      "notes": [
+        "Không lấy hình của một kiểu mạng chung để khẳng định mẫu tinh thể đã được đo. Pha khí/lỏng và cấu trúc dự đoán được ghi riêng."
+      ],
+      "additionalSources": []
+    }
   },
   "structureType": "Trực thoi (Orthorhombic)",
   "occurrence": {
@@ -111,9 +134,9 @@
             "a": 5.6401,
             "b": 5.6401,
             "c": 5.6401,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 179.41568704920104,
           "siteCount": 8,
@@ -539,37 +562,116 @@
     {
       "title": "Khử trùng nước",
       "desc": "Chlorine được sử dụng để tiêu diệt nhiều vi sinh vật trong nước uống và nước hồ bơi.",
-      "sourceLine": 100
+      "sourceLine": 100,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "water-treatment",
+        "source": "https://commons.wikimedia.org/wiki/File:Dalecarlia_Water_Treatment_Plant.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/water-treatment.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Dalecarlia_Water_Treatment_Plant.jpg",
+        "author": "AgnosticPreachersKid",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Khử trùng nước — Water treatment",
+        "caption": "Minh họa lĩnh vực khử trùng nước · Water treatment.",
+        "topic": "water-treatment",
+        "role": "application-context"
+      }
     },
     {
       "title": "Sản xuất PVC",
       "desc": "Chlorine là nguyên liệu quan trọng để sản xuất Vinyl chloride và Polyvinyl chloride (PVC).",
-      "sourceLine": 101
+      "sourceLine": 101,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Sản xuất Hydrochloric acid",
       "desc": "Được sử dụng trong một số quy trình sản xuất HCl.",
-      "sourceLine": 102
+      "sourceLine": 102,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Chất tẩy trắng",
       "desc": "Một số Chlorine compounds được sử dụng để tẩy trắng giấy, vải và các vật liệu khác.",
-      "sourceLine": 103
+      "sourceLine": 103,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "bleaching",
+        "source": "https://commons.wikimedia.org/wiki/File:Clorox_Bleach_products.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/bleaching.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Clorox_Bleach_products.jpg",
+        "author": "Adina Firestone",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Chất tẩy trắng — Bleach",
+        "caption": "Minh họa lĩnh vực chất tẩy trắng · Bleach.",
+        "topic": "bleaching",
+        "role": "application-context"
+      }
     },
     {
       "title": "Công nghiệp hóa chất",
       "desc": "Chlorine là nguyên liệu để sản xuất nhiều hợp chất Chlorine.",
-      "sourceLine": 104
+      "sourceLine": 104,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "chemical-industry",
+        "source": "https://commons.wikimedia.org/wiki/File:BASF_Schwarzheide_GmbH_Werksansicht_01.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/chemical-industry.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:BASF_Schwarzheide_GmbH_Werksansicht_01.jpg",
+        "author": "Goku4711",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Công nghiệp hóa chất — Chemical plant",
+        "caption": "Minh họa lĩnh vực công nghiệp hóa chất · Chemical plant.",
+        "topic": "chemical-industry",
+        "role": "application-context"
+      }
     },
     {
       "title": "Dược phẩm",
       "desc": "Một số Chlorine compounds được sử dụng trong quá trình sản xuất dược phẩm.",
-      "sourceLine": 105
+      "sourceLine": 105,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "pharmaceuticals",
+        "source": "https://commons.wikimedia.org/wiki/File:Inspecting_a_Drug_Manufacturer_(FDA034)_(6982162417).jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/pharmaceuticals.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Inspecting_a_Drug_Manufacturer_(FDA034)_(6982162417).jpg",
+        "author": "The U.S. Food and Drug Administration",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Dược phẩm — Pharmaceutical industry",
+        "caption": "Minh họa lĩnh vực dược phẩm · Pharmaceutical industry.",
+        "topic": "pharmaceuticals",
+        "role": "application-context"
+      }
     },
     {
       "title": "Xử lý nước thải",
       "desc": "Chlorine được sử dụng trong một số quy trình khử trùng.",
-      "sourceLine": 106
+      "sourceLine": 106,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "water-treatment",
+        "source": "https://commons.wikimedia.org/wiki/File:Dalecarlia_Water_Treatment_Plant.jpg"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Chlorine là nguyên tố số 17, thuộc nhóm VIIA | chu kỳ 3 và là một Halogen.</li><li>Chlorine có cấu hình electron 1s² 2s² 2p⁶ 3s² 3p⁵, với 7 electron hóa trị. Chlorine có tính Oxy hóa mạnh và thường nhận thêm một electron để tạo Cl⁻.</li><li>Ở điều kiện thường, Chlorine tồn tại dưới dạng phân tử Cl₂, là khí màu vàng lục có tính độc và hoạt động hóa học mạnh. Trong tự nhiên, Chlorine chủ yếu tồn tại dưới dạng Chloride, đặc biệt là Sodium chloride trong nước biển và các mỏ muối.</li><li>Chlorine có vai trò quan trọng trong khử trùng nước, sản xuất PVC, Hydrochloric acid, chất tẩy trắng và nhiều hóa chất công nghiệp.</li></ul>",
@@ -610,9 +712,9 @@
           "a": 5.6401,
           "b": 5.6401,
           "c": 5.6401,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 179.41568704920104,
         "siteCount": 8,
@@ -682,6 +784,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Chlorine",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -690,6 +797,7 @@
     "sourceSha256": "51dcc8431583b73ad412b4c338d7d998a1244954f95c70ec8854d315b1bd5631",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/017_Cl.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/clo-cl/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/clo-cl/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/clo-cl/audit.md"
   }
 }

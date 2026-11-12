@@ -67,7 +67,30 @@
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Chưa xác định do chỉ tạo được lượng nguyên tử cực nhỏ.",
     "latticeEvidence": "predicted",
-    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
+    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác.",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Lawrencium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_lawrencium",
+      "revisionId": 1377743343,
+      "revisionTimestamp": "2026-09-30T22:58:17Z",
+      "status": "phase-unmeasured-or-fluid",
+      "phases": [
+        {
+          "type": "hexagonal close-packed",
+          "prefix": "",
+          "comment": "(predicted)",
+          "pearson": "",
+          "lattice": ""
+        }
+      ],
+      "selectedModel": null,
+      "modelKind": null,
+      "metrics": [],
+      "notes": [
+        "Không lấy hình của một kiểu mạng chung để khẳng định mẫu tinh thể đã được đo. Pha khí/lỏng và cấu trúc dự đoán được ghi riêng."
+      ],
+      "additionalSources": []
+    }
   },
   "structureType": "Chưa xác định do chỉ tạo được lượng nguyên tử cực nhỏ.",
   "occurrence": {
@@ -382,22 +405,53 @@
     {
       "title": "Nghiên cứu hạt nhân",
       "desc": "Lawrencium được sử dụng gần như hoàn toàn trong nghiên cứu vật lý hạt nhân và hóa học Actinide.",
-      "sourceLine": 89
+      "sourceLine": 89,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/research.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "author": "LSDSL",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nghiên cứu hạt nhân — Particle accelerator",
+        "caption": "Minh họa lĩnh vực nghiên cứu hạt nhân · Particle accelerator.",
+        "topic": "research",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nghiên cứu cấu hình electron",
       "desc": "Lawrencium rất quan trọng vì nó giúp xác định cấu hình electron ở cuối dãy Actinide.",
-      "sourceLine": 90
+      "sourceLine": 90,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      }
     },
     {
       "title": "Nghiên cứu nguyên tố siêu nặng",
       "desc": "Lawrencium được sử dụng để nghiên cứu sự ổn định của hạt nhân nặng và các quy luật của bảng tuần hoàn ở vùng nguyên tố siêu nặng.",
-      "sourceLine": 91
+      "sourceLine": 91,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      }
     },
     {
       "title": "Ứng dụng",
       "desc": "Do chỉ tạo ra được lượng cực nhỏ và có tính phóng xạ mạnh, Lawrencium không có ứng dụng công nghiệp hoặc đời sống thông thường.",
-      "sourceLine": 92
+      "sourceLine": 92,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Lawrencium là nguyên tố số 103, thuộc nhóm IIIB | chu kỳ 7 và là nguyên tố cuối cùng của họ Actinide.</li><li>Lawrencium được phát hiện vào năm 1961 bởi Albert Ghiorso và cộng sự tại Berkeley, Hoa Kỳ. Nguyên tố được đặt tên để vinh danh Ernest O. Lawrence, người phát minh cyclotron.</li><li>Lawrencium là một nguyên tố phóng xạ nhân tạo, không có đồng vị bền. Trạng thái Oxy hóa chủ yếu là +3.</li><li>Điểm đặc biệt nhất của Lawrencium là cấu hình electron:</li><li>[Rn] 5f¹⁴ 7s² 7p¹</li><li>Khác với dự đoán đơn giản rằng electron cuối cùng sẽ đi vào orbital 6d. Điều này khiến Lawrencium trở thành một nguyên tố rất quan trọng trong nghiên cứu cấu trúc nguyên tử và giới hạn của dãy Actinide.</li><li>Mạng tinh thể: Chưa xác định thực nghiệm do chỉ tạo được lượng nguyên tử cực nhỏ.</li></ul>",
@@ -438,6 +492,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Lawrencium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -446,6 +505,7 @@
     "sourceSha256": "d20d931a498b24b7c085b255de0290d2cd668ffa6a09b98efe65ac090b0dce82",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/103_Lr.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/lawrencium-lr/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/lawrencium-lr/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/lawrencium-lr/audit.md"
   }
 }

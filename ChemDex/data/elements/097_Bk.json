@@ -67,7 +67,130 @@
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lục phương kép xếp chặt (DHCP) ở áp suất thường; cấu trúc thay đổi theo nhiệt độ và áp suất.",
     "latticeEvidence": "source-reviewed",
-    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Berkelium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_berkelium",
+      "revisionId": 1379078633,
+      "revisionTimestamp": "2026-10-07T20:33:47Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "double hexagonal close packed",
+          "prefix": "",
+          "comment": "",
+          "pearson": "",
+          "lattice": ""
+        }
+      ],
+      "selectedModel": "nguyen-to-bk",
+      "modelKind": "dhcp",
+      "metrics": [],
+      "notes": [
+        "Tọa độ Wyckoff lý tưởng được dựng từ prototype; thông số mạng lấy từ tài liệu tham chiếu được nêu. Wiki dùng để đối chiếu kiểu mạng. Đây là mức chứng cứ khác với bộ tinh chỉnh nguyên tử thực nghiệm."
+      ],
+      "additionalSources": [
+        {
+          "title": "WebElements — thông số ô mạng",
+          "url": "https://webelements.co.uk/berkelium/crystal_structure.html",
+          "reference": "J. R. Peterson, J. A. Fahey and R. D. Baybarz, J. Inorg. Nucl. Chem. 1971, 33, 3345–3351; DOI 10.1016/0022-1902(71)80656-5."
+        }
+      ]
+    },
+    "publishedCrystal": {
+      "id": "nguyen-to-bk",
+      "symbol": "Bk",
+      "referenceId": "webelements-bk-2026-11-12",
+      "amcsdId": null,
+      "mineralName": "Berkelium",
+      "formula": "Bk",
+      "spaceGroup": "P 63/m m c",
+      "cell": {
+        "a": 3.416,
+        "b": 3.416,
+        "c": 11.069,
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 120
+      },
+      "volume": 111.85998150247416,
+      "siteCount": 4,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "WebElements / Mark J. Winter"
+        ],
+        "title": "Berkelium — crystal structures; tài liệu được trang liệt kê: J. R. Peterson, J. A. Fahey and R. D. Baybarz, J. Inorg. Nucl. Chem. 1971, 33, 3345–3351; DOI 10.1016/0022-1902(71)80656-5.",
+        "journal": "University of Sheffield / WebElements",
+        "year": 2026,
+        "volume": "",
+        "pages": ""
+      },
+      "source": "https://webelements.co.uk/berkelium/crystal_structure.html",
+      "evidence": "reference-prototype",
+      "note": "Wiki cho kiểu mạng; hằng số ô lấy từ bảng chuyên ngành WebElements. Điều kiện nhiệt độ không được ghi trong bảng đã dùng; không tự gán 20 °C. DHCP có 4 lớp ABAC, 4 nguyên tử/ô; không coi nhãn hcp viết gọn là ô HCP hai nguyên tử.",
+      "limitations": "Vị trí Wyckoff lý tưởng của prototype; thông số ô mạng do WebElements tổng hợp. Không phải bộ tinh chỉnh nguyên tử thực nghiệm riêng của ChemDex.",
+      "pearsonSymbol": "hP4",
+      "primaryReference": "J. R. Peterson, J. A. Fahey and R. D. Baybarz, J. Inorg. Nucl. Chem. 1971, 33, 3345–3351; DOI 10.1016/0022-1902(71)80656-5.",
+      "data": "/assets/periodic-table/crystals/nguyen-to-bk.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-bk.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-bk.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-bk.png",
+      "wiki": {
+        "symbol": "Bk",
+        "number": 97,
+        "name": "Berkelium",
+        "article": "https://en.wikipedia.org/wiki/Berkelium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_berkelium",
+        "revisionId": 1379078633,
+        "revisionTimestamp": "2026-10-07T20:33:47Z",
+        "retrievedAt": "2026-11-11T23:29:14.972Z",
+        "status": "available",
+        "fields": {
+          "phase": {
+            "text": "",
+            "raw": ""
+          },
+          "phase comment": {
+            "text": "",
+            "raw": ""
+          },
+          "crystal structure": {
+            "text": "double hexagonal close packed",
+            "raw": "double hexagonal close packed"
+          }
+        }
+      },
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Berkelium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_berkelium",
+        "revisionId": 1379078633,
+        "revisionTimestamp": "2026-10-07T20:33:47Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "double hexagonal close packed",
+            "prefix": "",
+            "comment": "",
+            "pearson": "",
+            "lattice": ""
+          }
+        ],
+        "selectedModel": "nguyen-to-bk",
+        "modelKind": "dhcp",
+        "metrics": [],
+        "notes": [
+          "Tọa độ Wyckoff lý tưởng được dựng từ prototype; thông số mạng lấy từ tài liệu tham chiếu được nêu. Wiki dùng để đối chiếu kiểu mạng. Đây là mức chứng cứ khác với bộ tinh chỉnh nguyên tử thực nghiệm."
+        ],
+        "additionalSources": [
+          {
+            "title": "WebElements — thông số ô mạng",
+            "url": "https://webelements.co.uk/berkelium/crystal_structure.html",
+            "reference": "J. R. Peterson, J. A. Fahey and R. D. Baybarz, J. Inorg. Nucl. Chem. 1971, 33, 3345–3351; DOI 10.1016/0022-1902(71)80656-5."
+          }
+        ]
+      }
+    }
   },
   "structureType": "Lục phương kép xếp chặt (DHCP) ở áp suất thường; cấu trúc thay đổi theo nhiệt độ và áp suất.",
   "occurrence": {
@@ -357,37 +480,83 @@
     {
       "title": "Nghiên cứu hạt nhân",
       "desc": "Berkelium chủ yếu được sử dụng trong nghiên cứu vật lý hạt nhân và hóa học Actinide.",
-      "sourceLine": 92
+      "sourceLine": 92,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/research.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "author": "LSDSL",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nghiên cứu hạt nhân — Particle accelerator",
+        "caption": "Minh họa lĩnh vực nghiên cứu hạt nhân · Particle accelerator.",
+        "topic": "research",
+        "role": "application-context"
+      }
     },
     {
       "title": "Tổng hợp nguyên tố siêu nặng",
       "desc": "Đây là ứng dụng khoa học đặc biệt quan trọng. ²⁴⁹Bk từng được sử dụng làm bia trong các thí nghiệm tổng hợp Tennessine (Ts, nguyên tố 117).",
-      "sourceLine": 93
+      "sourceLine": 93,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      }
     },
     {
       "title": "Phản ứng tổng quát",
       "desc": "",
-      "sourceLine": 94
+      "sourceLine": 94,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Ứng dụng",
       "desc": "²⁴⁹Bk + ⁴⁸Ca → ²⁹⁴Ts + 3¹n",
-      "sourceLine": 95
+      "sourceLine": 95,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Ứng dụng",
       "desc": "Sự kiện này đóng vai trò quan trọng trong việc mở rộng bảng tuần hoàn đến các nguyên tố siêu nặng.",
-      "sourceLine": 96
+      "sourceLine": 96,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Nghiên cứu hóa học Actinide",
       "desc": "Berkelium giúp các nhà khoa học nghiên cứu sự thay đổi tính chất hóa học dọc theo dãy Actinide.",
-      "sourceLine": 97
+      "sourceLine": 97,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      }
     },
     {
       "title": "Ứng dụng",
       "desc": "Do độ hiếm và tính phóng xạ cao, Berkelium không có ứng dụng thương mại hoặc đời sống thông thường.",
-      "sourceLine": 98
+      "sourceLine": 98,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Berkelium là nguyên tố số 97, thuộc nhóm IIIB | chu kỳ 7 và là nguyên tố thứ chín trong họ Actinide.</li><li>Berkelium được Stanley G. Thompson, Albert Ghiorso và Glenn T. Seaborg phát hiện vào năm 1949 tại Berkeley, Hoa Kỳ. Tên nguyên tố được đặt theo thành phố Berkeley, nơi nó được phát hiện.</li><li>Berkelium là kim loại phóng xạ nhân tạo, không có đồng vị bền. Trạng thái Oxy hóa phổ biến nhất là +3, ngoài ra +4 cũng có thể tồn tại.</li><li>Đồng vị ²⁴⁹Bk đặc biệt quan trọng trong nghiên cứu nguyên tố siêu nặng. Nó đã được sử dụng làm bia để tạo Tennessine (Ts, Z = 117), giúp các nhà khoa học tiếp tục mở rộng bảng tuần hoàn.</li><li>Mạng tinh thể: Lục phương (Hexagonal) ở điều kiện thường.</li></ul>",
@@ -432,6 +601,11 @@
     {
       "title": "actinideStructures",
       "url": "https://arxiv.org/abs/2604.12249"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Berkelium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -440,6 +614,7 @@
     "sourceSha256": "15617a719fc145270faf4b8d1ad8ce6d45836000bcfb86b951d4aae5e596a73f",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/097_Bk.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/berkelium-bk/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/berkelium-bk/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/berkelium-bk/audit.md"
   }
 }

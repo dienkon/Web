@@ -55,7 +55,30 @@
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Khí đơn nguyên tử ở điều kiện thường; He rắn ở áp suất cao có các pha HCP hoặc FCC tùy điều kiện.",
     "latticeEvidence": "phase-dependent",
-    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
+    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác.",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Helium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_helium",
+      "revisionId": 1368326105,
+      "revisionTimestamp": "2026-08-08T11:33:59Z",
+      "status": "phase-unmeasured-or-fluid",
+      "phases": [
+        {
+          "type": "hexagonal close-packed",
+          "prefix": "",
+          "comment": "",
+          "pearson": "",
+          "lattice": ""
+        }
+      ],
+      "selectedModel": null,
+      "modelKind": null,
+      "metrics": [],
+      "notes": [
+        "Không lấy hình của một kiểu mạng chung để khẳng định mẫu tinh thể đã được đo. Pha khí/lỏng và cấu trúc dự đoán được ghi riêng."
+      ],
+      "additionalSources": []
+    }
   },
   "structureType": "Khí đơn nguyên tử ở điều kiện thường; He rắn ở áp suất cao có các pha HCP hoặc FCC tùy điều kiện.",
   "occurrence": {
@@ -314,37 +337,149 @@
     {
       "title": "Làm mát siêu dẫn",
       "desc": "Helium lỏng là chất làm lạnh cốt lõi để duy trì nhiệt độ siêu thấp cho các cuộn nam châm siêu dẫn trong máy chụp cộng hưởng từ (MRI) y tế và máy gia tốc hạt năng lượng cao.",
-      "sourceLine": 84
+      "sourceLine": 84,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "mri",
+        "source": "https://commons.wikimedia.org/wiki/File:MRI-Philips.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/mri.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:MRI-Philips.JPG",
+        "author": "Jan Ainali",
+        "license": "CC BY 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+        "alt": "Làm mát siêu dẫn — Magnetic resonance imaging",
+        "caption": "Minh họa lĩnh vực làm mát siêu dẫn · Magnetic resonance imaging.",
+        "topic": "mri",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hàng không và khí cầu",
       "desc": "He dùng để bơm khí cầu vì nhẹ và không cháy; khí nén và môi trường thiếu oxygen vẫn có rủi ro.",
-      "sourceLine": 85
+      "sourceLine": 85,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "balloon",
+        "source": "https://commons.wikimedia.org/wiki/File:The_Goodyear_Blimp_(2722137105).jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/balloon.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:The_Goodyear_Blimp_(2722137105).jpg",
+        "author": "Cory W. Watts from Madison, Wisconsin, United States of America",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Hàng không và khí cầu — Blimp",
+        "caption": "Minh họa lĩnh vực hàng không và khí cầu · Blimp.",
+        "topic": "balloon",
+        "role": "application-context"
+      }
     },
     {
       "title": "Khí bảo vệ trong hàn kim loại",
       "desc": "Dùng làm môi trường khí trơ bảo vệ trong hàn hồ quang (MIG, TIG) cho các kim loại và hợp kim dễ bị oxy hóa như nhôm, magnesi, titan, thép không gỉ.",
-      "sourceLine": 86
+      "sourceLine": 86,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "welding",
+        "source": "https://commons.wikimedia.org/wiki/File:US_Navy_090715-N-5821P-002_Aviation_Support_Equipment_Technician_Airman_Anthony_Hammond_performs_tungsten_inert_gas_welding_during_a_training_evolution.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/welding.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:US_Navy_090715-N-5821P-002_Aviation_Support_Equipment_Technician_Airman_Anthony_Hammond_performs_tungsten_inert_gas_welding_during_a_training_evolution.jpg",
+        "author": "U.S. Navy photo by Mass Communication Specialist 2nd Class Jason T. Poplin",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Khí bảo vệ trong hàn kim loại — Gas tungsten arc welding",
+        "caption": "Minh họa lĩnh vực khí bảo vệ trong hàn kim loại · Gas tungsten arc welding.",
+        "topic": "welding",
+        "role": "application-context"
+      }
     },
     {
       "title": "Công nghệ bán dẫn và cáp quang",
       "desc": "Môi trường bảo vệ trơ và truyền nhiệt hiệu quả trong sản xuất vi mạch silicon, màn hình phẳng và quá trình kéo sợi thủy tinh quang học.",
-      "sourceLine": 87
+      "sourceLine": 87,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "optical-fiber",
+        "source": "https://commons.wikimedia.org/wiki/File:Fibreoptic.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/optical-fiber.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Fibreoptic.jpg",
+        "author": "BigRiz",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+        "alt": "Công nghệ bán dẫn và cáp quang — Optical fiber",
+        "caption": "Minh họa lĩnh vực công nghệ bán dẫn và cáp quang · Optical fiber.",
+        "topic": "optical-fiber",
+        "role": "application-context"
+      }
     },
     {
       "title": "Lặn biển sâu chuyên nghiệp",
       "desc": "Pha chế hỗn hợp khí thở Trimix (Helium – Nitrogen – Oxygen) hoặc Heliox (Helium – Oxygen) cho thợ lặn ở độ sâu lớn để loại bỏ chứng say nitơ và giảm sức cản hô hấp.",
-      "sourceLine": 88
+      "sourceLine": 88,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "diving",
+        "source": "https://commons.wikimedia.org/wiki/File:Trevor_Jackson_returns_from_SS_Kyogle.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/diving.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Trevor_Jackson_returns_from_SS_Kyogle.jpg",
+        "author": "Dr Lyn Turner",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Lặn biển sâu chuyên nghiệp — Deep diving",
+        "caption": "Minh họa lĩnh vực lặn biển sâu chuyên nghiệp · Deep diving.",
+        "topic": "diving",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hàng không vũ trụ",
       "desc": "Dùng để điều áp cho các thùng chứa nhiên liệu lỏng (LH2/LOX) của động cơ tên lửa và làm sạch hệ thống đường ống nhiên liệu trước khi phóng.",
-      "sourceLine": 89
+      "sourceLine": 89,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "rocket",
+        "source": "https://commons.wikimedia.org/wiki/File:RS-68_rocket_engine_test.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/rocket.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:RS-68_rocket_engine_test.jpg",
+        "author": "NASA",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Hàng không vũ trụ — Rocket engine",
+        "caption": "Minh họa lĩnh vực hàng không vũ trụ · Rocket engine.",
+        "topic": "rocket",
+        "role": "application-context"
+      }
     },
     {
       "title": "Kiểm tra rò rỉ chân không",
       "desc": "Nhờ kích thước nguyên tử siêu nhỏ và tính trơ, Helium được dùng làm khí dò tìm rò rỉ trong các hệ thống chân không cao, ống dẫn nhiên liệu và thiết bị đóng gói kín.",
-      "sourceLine": 90
+      "sourceLine": 90,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "vacuum",
+        "source": "https://commons.wikimedia.org/wiki/File:Helium_leak_detectors_-_geograph.org.uk_-_6070876.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/vacuum.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Helium_leak_detectors_-_geograph.org.uk_-_6070876.jpg",
+        "author": "Bill Nicholls",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Kiểm tra rò rỉ chân không — Leak detection",
+        "caption": "Minh họa lĩnh vực kiểm tra rò rỉ chân không · Leak detection.",
+        "topic": "vacuum",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Helium là nguyên tố thứ 2 trong bảng tuần hoàn (số hiệu nguyên tử 2), thuộc nhóm VIIIA | chu kỳ 1.</li><li>Ở điều kiện thường, Helium tồn tại dưới dạng khí đơn nguyên tử He không màu, không mùi, không độc, là chất khí nhẹ thứ hai trong tự nhiên và sở hữu điểm sôi thấp nhất trong mọi chất đã biết. Helium là nguyên tố dồi dào thứ hai trong toàn vũ trụ nhưng lại là nguồn tài nguyên khan hiếm và không thể tái tạo trên Trái Đất.</li><li>Helium sở hữu tính trơ hóa học tuyệt đối ở điều kiện chuẩn nhờ cấu hình electron bão hòa 1s² có năng lượng ion hóa cực cao, không tham gia các phản ứng hóa học thông thường.</li><li>Helium giữ vai trò chiến lược không thể thay thế trong chẩn đoán hình ảnh y tế (làm mát máy MRI), nghiên cứu vật lý nhiệt độ siêu hàn, công nghiệp bán dẫn, hàng không vũ trụ và các kỹ thuật lặn sâu.</li></ul>",
@@ -385,6 +520,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Helium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -393,6 +533,7 @@
     "sourceSha256": "1c80ec6cd4e7232655783c5e08f7fcee5e8cff78523c68c369690eac2a9ad5d2",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/002_He.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/heli-he/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/heli-he/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/heli-he/audit.md"
   }
 }

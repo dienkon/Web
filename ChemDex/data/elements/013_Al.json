@@ -69,9 +69,9 @@
         "a": 4.04958,
         "b": 4.04958,
         "c": 4.04958,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 90.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
       },
       "volume": 66.4094599931859,
       "siteCount": 4,
@@ -93,9 +93,67 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-al.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-al.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-al.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-al.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-al.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Aluminium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_aluminium",
+        "revisionId": 1368326041,
+        "revisionTimestamp": "2026-08-08T11:33:24Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "face-centered cubic",
+            "prefix": "",
+            "comment": "",
+            "pearson": "cF4",
+            "lattice": "a = 404.93 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-al",
+        "modelKind": "fcc",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 4.049300000000001,
+            "modelAngstrom": 4.04958,
+            "relativeDifferencePercent": 0.006914775393257347
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Aluminium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_aluminium",
+      "revisionId": 1368326041,
+      "revisionTimestamp": "2026-08-08T11:33:24Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "face-centered cubic",
+          "prefix": "",
+          "comment": "",
+          "pearson": "cF4",
+          "lattice": "a = 404.93 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-al",
+      "modelKind": "fcc",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 4.049300000000001,
+          "modelAngstrom": 4.04958,
+          "relativeDifferencePercent": 0.006914775393257347
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lập phương tâm mặt (FCC)",
   "occurrence": {
@@ -148,9 +206,9 @@
             "a": 8.684,
             "b": 5.078,
             "c": 9.736,
-            "alpha": 90.0,
+            "alpha": 90,
             "beta": 94.54,
-            "gamma": 90.0
+            "gamma": 90
           },
           "volume": 427.9847114981603,
           "siteCount": 56,
@@ -185,9 +243,9 @@
             "a": 3.693,
             "b": 12.221,
             "c": 2.865,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 129.30361834500002,
           "siteCount": 20,
@@ -221,9 +279,9 @@
             "a": 4.4007,
             "b": 9.4253,
             "c": 2.8452,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 118.01297146849201,
           "siteCount": 16,
@@ -587,42 +645,170 @@
     {
       "title": "Hàng không và giao thông",
       "desc": "Aluminium và các hợp kim của nó được sử dụng rộng rãi nhờ khối lượng thấp và độ bền tốt.",
-      "sourceLine": 97
+      "sourceLine": 97,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "aircraft",
+        "source": "https://commons.wikimedia.org/wiki/File:Cessna_172S_Skyhawk_%E2%80%98G-JMKE%E2%80%99_(45077563364).jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/aircraft.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Cessna_172S_Skyhawk_%E2%80%98G-JMKE%E2%80%99_(45077563364).jpg",
+        "author": "Alan Wilson from Stilton, Peterborough, Cambs, UK",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Hàng không và giao thông — Aircraft",
+        "caption": "Minh họa lĩnh vực hàng không và giao thông · Aircraft.",
+        "topic": "aircraft",
+        "role": "application-context"
+      }
     },
     {
       "title": "Xây dựng",
       "desc": "Dùng trong cửa, khung, mái và nhiều cấu kiện xây dựng.",
-      "sourceLine": 98
+      "sourceLine": 98,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "bridge",
+        "source": "https://commons.wikimedia.org/wiki/File:Construction_site_in_Cologne,_Germany_(2017).jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/bridge.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Construction_site_in_Cologne,_Germany_(2017).jpg",
+        "author": "Whiteghost.ink",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Xây dựng — Construction",
+        "caption": "Minh họa lĩnh vực xây dựng · Construction.",
+        "topic": "bridge",
+        "role": "application-context"
+      }
     },
     {
       "title": "Bao bì",
       "desc": "Aluminium được sử dụng trong lon, giấy Aluminium và nhiều loại bao bì.",
-      "sourceLine": 99
+      "sourceLine": 99,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "aluminium-foil",
+        "source": "https://commons.wikimedia.org/wiki/File:Aluminio.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/aluminium-foil.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Aluminio.jpg",
+        "author": "MdeVicente",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "alt": "Bao bì — Aluminium foil",
+        "caption": "Minh họa lĩnh vực bao bì · Aluminium foil.",
+        "topic": "aluminium-foil",
+        "role": "application-context"
+      }
     },
     {
       "title": "Dây dẫn điện",
       "desc": "Aluminium được sử dụng làm dây dẫn điện nhờ khối lượng thấp và khả năng dẫn điện tốt.",
-      "sourceLine": 100
+      "sourceLine": 100,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "wire",
+        "source": "https://commons.wikimedia.org/wiki/File:Leitungsende_Abisoliert_en.svg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/wire.png",
+        "source": "https://commons.wikimedia.org/wiki/File:Leitungsende_Abisoliert_en.svg",
+        "author": "Marekich",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Dây dẫn điện — Electrical cable",
+        "caption": "Minh họa lĩnh vực dây dẫn điện · Electrical cable.",
+        "topic": "wire",
+        "role": "application-context"
+      }
     },
     {
       "title": "Đồ gia dụng",
       "desc": "Sử dụng trong dụng cụ nấu ăn và nhiều sản phẩm gia dụng.",
-      "sourceLine": 101
+      "sourceLine": 101,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "cookware",
+        "source": "https://commons.wikimedia.org/wiki/File:Pans_(113563802).jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/cookware.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Pans_(113563802).jpg",
+        "author": "Tracy Hunter from Kabul,, Afghanistan",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "alt": "Đồ gia dụng — Cookware and bakeware",
+        "caption": "Minh họa lĩnh vực đồ gia dụng · Cookware and bakeware.",
+        "topic": "cookware",
+        "role": "application-context"
+      }
     },
     {
       "title": "Luyện kim",
       "desc": "Aluminium được dùng làm chất khử trong một số phản ứng nhiệt luyện.",
-      "sourceLine": 102
+      "sourceLine": 102,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "alloy",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/alloy.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg",
+        "author": "Bill Abbott",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Luyện kim — Alloy",
+        "caption": "Minh họa lĩnh vực luyện kim · Alloy.",
+        "topic": "alloy",
+        "role": "application-context"
+      }
     },
     {
       "title": "Công nghiệp hóa chất",
       "desc": "Aluminium compounds được sử dụng trong sản xuất nhiều vật liệu và hóa chất.",
-      "sourceLine": 103
+      "sourceLine": 103,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "chemical-industry",
+        "source": "https://commons.wikimedia.org/wiki/File:BASF_Schwarzheide_GmbH_Werksansicht_01.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/chemical-industry.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:BASF_Schwarzheide_GmbH_Werksansicht_01.jpg",
+        "author": "Goku4711",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Công nghiệp hóa chất — Chemical plant",
+        "caption": "Minh họa lĩnh vực công nghiệp hóa chất · Chemical plant.",
+        "topic": "chemical-industry",
+        "role": "application-context"
+      }
     },
     {
       "title": "Xử lý nước",
       "desc": "Một số Aluminium compounds như Aluminium sulfate được sử dụng làm chất keo tụ.",
-      "sourceLine": 104
+      "sourceLine": 104,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "water-treatment",
+        "source": "https://commons.wikimedia.org/wiki/File:Dalecarlia_Water_Treatment_Plant.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/water-treatment.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Dalecarlia_Water_Treatment_Plant.jpg",
+        "author": "AgnosticPreachersKid",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Xử lý nước — Water treatment",
+        "caption": "Minh họa lĩnh vực xử lý nước · Water treatment.",
+        "topic": "water-treatment",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Aluminium là nguyên tố số 13, thuộc nhóm IIIA | chu kỳ 3 và là kim loại phổ biến trong lớp vỏ Trái Đất.</li><li>Aluminium có cấu hình electron 1s² 2s² 2p⁶ 3s² 3p¹ và số Oxy hóa phổ biến là +3. Kim loại Aluminium có khối lượng riêng thấp, dễ gia công, dẫn điện tốt và có khả năng chống ăn mòn nhờ lớp Aluminium oxide bảo vệ trên bề mặt.</li><li>Trong tự nhiên, Aluminium chủ yếu tồn tại trong Bauxite và các khoáng vật Aluminosilicate. Aluminium kim loại được sản xuất công nghiệp chủ yếu bằng quy trình Hall–Héroult.</li><li>Nhờ tính nhẹ, độ bền, khả năng chống ăn mòn và khả năng tái chế, Aluminium có vai trò quan trọng trong giao thông, hàng không, xây dựng, điện, bao bì và công nghiệp.</li></ul>",
@@ -663,9 +849,9 @@
           "a": 8.684,
           "b": 5.078,
           "c": 9.736,
-          "alpha": 90.0,
+          "alpha": 90,
           "beta": 94.54,
-          "gamma": 90.0
+          "gamma": 90
         },
         "volume": 427.9847114981603,
         "siteCount": 56,
@@ -707,9 +893,9 @@
           "a": 3.693,
           "b": 12.221,
           "c": 2.865,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 129.30361834500002,
         "siteCount": 20,
@@ -750,9 +936,9 @@
           "a": 4.4007,
           "b": 9.4253,
           "c": 2.8452,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 118.01297146849201,
         "siteCount": 16,
@@ -817,6 +1003,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Aluminium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -825,6 +1016,7 @@
     "sourceSha256": "28e63f0de400702c528d57db34121ded5343f1c2a8bbc8a275cb8337ea74c8aa",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/013_Al.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/nhom-al/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/nhom-al/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/nhom-al/audit.md"
   }
 }

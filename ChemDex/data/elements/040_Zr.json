@@ -73,9 +73,9 @@
         "a": 3.232,
         "b": 3.232,
         "c": 5.147,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 120.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 120
       },
       "volume": 46.56155803258272,
       "siteCount": 2,
@@ -97,9 +97,81 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-zr.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-zr.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-zr.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-zr.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-zr.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Zirconium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_zirconium",
+        "revisionId": 1331625541,
+        "revisionTimestamp": "2026-01-07T08:26:22Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "hexagonal close-packed",
+            "prefix": "",
+            "comment": "",
+            "pearson": "hP2",
+            "lattice": "a = 323.22 pm; c = 514.79 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-zr",
+        "modelKind": "hcp",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 3.2322,
+            "modelAngstrom": 3.232,
+            "relativeDifferencePercent": 0.006187735907430789
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "c",
+            "wikiAngstrom": 5.1479,
+            "modelAngstrom": 5.147,
+            "relativeDifferencePercent": 0.01748285708734977
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Zirconium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_zirconium",
+      "revisionId": 1331625541,
+      "revisionTimestamp": "2026-01-07T08:26:22Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "hexagonal close-packed",
+          "prefix": "",
+          "comment": "",
+          "pearson": "hP2",
+          "lattice": "a = 323.22 pm; c = 514.79 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-zr",
+      "modelKind": "hcp",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 3.2322,
+          "modelAngstrom": 3.232,
+          "relativeDifferencePercent": 0.006187735907430789
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "c",
+          "wikiAngstrom": 5.1479,
+          "modelAngstrom": 5.147,
+          "relativeDifferencePercent": 0.01748285708734977
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lục phương (Hexagonal)",
   "occurrence": {
@@ -148,9 +220,9 @@
             "a": 6.6042,
             "b": 6.6042,
             "c": 5.9796,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 260.80299050414396,
           "siteCount": 24,
@@ -495,32 +567,95 @@
     {
       "title": "Công nghiệp hạt nhân",
       "desc": "Zirconium được sử dụng làm vật liệu bọc nhiên liệu hạt nhân vì có khả năng chống ăn mòn và hấp thụ neutron thấp.",
-      "sourceLine": 92
+      "sourceLine": 92,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "reactor",
+        "source": "https://commons.wikimedia.org/wiki/File:Advanced_Test_Reactor_001.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/reactor.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Advanced_Test_Reactor_001.jpg",
+        "author": "Idaho National Laboratory",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "alt": "Công nghiệp hạt nhân — Nuclear reactor",
+        "caption": "Minh họa lĩnh vực công nghiệp hạt nhân · Nuclear reactor.",
+        "topic": "reactor",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hợp kim",
       "desc": "Zirconium được sử dụng để tạo các hợp kim có độ bền và khả năng chịu nhiệt cao.",
-      "sourceLine": 93
+      "sourceLine": 93,
+      "imageReview": {
+        "status": "source-link",
+        "topic": "ceramic",
+        "source": "https://commons.wikimedia.org/wiki/Special:MediaSearch?type=image&search=Technical%20ceramics"
+      }
     },
     {
       "title": "Gốm kỹ thuật",
       "desc": "Zirconium dioxide (ZrO₂) được sử dụng trong vật liệu gốm chịu nhiệt và vật liệu kỹ thuật.",
-      "sourceLine": 94
+      "sourceLine": 94,
+      "imageReview": {
+        "status": "source-link",
+        "topic": "ceramic",
+        "source": "https://commons.wikimedia.org/wiki/Special:MediaSearch?type=image&search=Technical%20ceramics"
+      }
     },
     {
       "title": "Dao cắt",
       "desc": "Một số Zirconium compounds được sử dụng trong vật liệu gốm có độ cứng cao.",
-      "sourceLine": 95
+      "sourceLine": 95,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "cutting-tool",
+        "source": "https://commons.wikimedia.org/wiki/File:Inserti_widia.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/cutting-tool.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Inserti_widia.jpg",
+        "author": "Basilicofresco",
+        "license": "CC BY 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+        "alt": "Dao cắt — Cemented carbide",
+        "caption": "Minh họa lĩnh vực dao cắt · Cemented carbide.",
+        "topic": "cutting-tool",
+        "role": "application-context"
+      }
     },
     {
       "title": "Chống ăn mòn",
       "desc": "Zirconium được sử dụng trong thiết bị xử lý hóa chất nhờ khả năng chống ăn mòn tốt.",
-      "sourceLine": 96
+      "sourceLine": 96,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "sacrificial-anode",
+        "source": "https://commons.wikimedia.org/wiki/File:Sacrificial_anode.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/sacrificial-anode.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Sacrificial_anode.jpg",
+        "author": "Zwergelstern",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+        "alt": "Chống ăn mòn — Galvanic anode",
+        "caption": "Minh họa lĩnh vực chống ăn mòn · Galvanic anode.",
+        "topic": "sacrificial-anode",
+        "role": "application-context"
+      }
     },
     {
       "title": "Zircon",
       "desc": "Zirconium silicate được sử dụng trong gốm sứ, vật liệu chịu lửa và một số ứng dụng quang học.",
-      "sourceLine": 97
+      "sourceLine": 97,
+      "imageReview": {
+        "status": "source-link",
+        "topic": "ceramic",
+        "source": "https://commons.wikimedia.org/wiki/Special:MediaSearch?type=image&search=Technical%20ceramics"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Zirconium là nguyên tố số 40, thuộc nhóm IVB | chu kỳ 5 và là một kim loại chuyển tiếp.</li><li>Zirconium có cấu hình electron [Kr] 4d² 5s², với số Oxy hóa phổ biến nhất là +4.</li><li>Zirconium có độ bền cơ học cao, chịu nhiệt tốt và đặc biệt chống ăn mòn nhờ hình thành lớp oxide bảo vệ trên bề mặt.</li><li>Trong tự nhiên, Zirconium chủ yếu tồn tại trong Zircon (ZrSiO₄) và Baddeleyite (ZrO₂). Kim loại Zirconium được sản xuất công nghiệp chủ yếu bằng quy trình Kroll, trong đó ZrCl₄ được khử bằng Magnesium.</li><li>Zirconium có vai trò quan trọng trong công nghiệp hạt nhân, hợp kim, hóa chất, gốm kỹ thuật và vật liệu chịu nhiệt.</li></ul>",
@@ -561,9 +696,9 @@
           "a": 6.6042,
           "b": 6.6042,
           "c": 5.9796,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 260.80299050414396,
         "siteCount": 24,
@@ -629,6 +764,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Zirconium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -637,6 +777,7 @@
     "sourceSha256": "b230d28f6d52e0b4c5ffb44b67c309cbf390e09e6311a90c1664abf55fb26147",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/040_Zr.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/zirconium-zr/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/zirconium-zr/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/zirconium-zr/audit.md"
   }
 }

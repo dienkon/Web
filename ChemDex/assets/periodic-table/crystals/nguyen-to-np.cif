@@ -1,0 +1,43 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0011263
+_database_code_amcsd 0011263
+_chemical_name_mineral Neptunium-alpha
+_chemical_formula_sum Np
+_symmetry_space_group_name_H-M 'P m c n'
+_cell_length_a 4.723
+_cell_length_b 4.887
+_cell_length_c 6.663
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 90
+_cell_volume 153.790709
+loop_
+_publ_author_name
+'Wyckoff R W G'
+_journal_name_full 'Crystal Structures'
+_journal_year 1963
+_journal_volume 1
+_publ_section_title
+;Second edition. Interscience Publishers, New York, New York
+ Sample is stable at room conditions
+;
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+1/2-x,y,z
+1/2+x,-y,-z
+1/2+x,1/2+y,1/2-z
+1/2-x,1/2-y,1/2+z
+x,1/2-y,1/2+z
+-x,1/2+y,1/2-z
+-x,-y,-z
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+Np1 Np 0.25 0.208 0.036 1
+Np2 Np 0.25 0.842 0.319 1

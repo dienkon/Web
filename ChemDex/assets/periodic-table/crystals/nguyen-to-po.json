@@ -1,0 +1,144 @@
+{
+  "id": "nguyen-to-po",
+  "symbol": "Po",
+  "referenceId": "webelements-po-2026-11-12",
+  "amcsdId": null,
+  "mineralName": "Polonium",
+  "formula": "Po",
+  "spaceGroup": "P m -3 m",
+  "cell": {
+    "a": 3.359,
+    "b": 3.359,
+    "c": 3.359,
+    "alpha": 90,
+    "beta": 90,
+    "gamma": 90
+  },
+  "basis": [
+    [
+      3.359,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      3.359,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      3.359
+    ]
+  ],
+  "volume": 37.899197279,
+  "declaredVolume": 37.899197279,
+  "symmetryOperations": [
+    "x,y,z",
+    "-y,x,z",
+    "-x,-y,z",
+    "y,-x,z",
+    "x,-y,-z",
+    "-y,-x,-z",
+    "-x,y,-z",
+    "y,x,-z",
+    "z,x,y",
+    "z,-y,x",
+    "z,-x,-y",
+    "z,y,-x",
+    "-z,x,-y",
+    "-z,-y,-x",
+    "-z,-x,y",
+    "-z,y,x",
+    "-x,z,y",
+    "y,z,x",
+    "x,z,-y",
+    "-y,z,-x",
+    "-x,-z,-y",
+    "y,-z,-x",
+    "x,-z,y",
+    "-y,-z,x",
+    "-x,-y,-z",
+    "y,-x,-z",
+    "x,y,-z",
+    "-y,x,-z",
+    "-x,y,z",
+    "y,x,z",
+    "x,-y,z",
+    "-y,-x,z",
+    "-z,-x,-y",
+    "-z,y,-x",
+    "-z,x,y",
+    "-z,-y,x",
+    "z,-x,y",
+    "z,y,x",
+    "z,x,-y",
+    "z,-y,-x",
+    "x,-z,-y",
+    "-y,-z,-x",
+    "-x,-z,y",
+    "y,-z,x",
+    "x,z,y",
+    "-y,z,x",
+    "-x,z,-y",
+    "y,z,-x"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Po1",
+      "element": "Po",
+      "fractional": [
+        0,
+        0,
+        0
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "label": "Po1",
+      "element": "Po",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 1,
+  "speciesPositionCount": 1,
+  "cellComposition": {
+    "Po": 1
+  },
+  "mixedSiteCount": 0,
+  "source": "https://www.webelements.com/polonium/crystal_structure.html",
+  "transport": "https://www.webelements.com/polonium/crystal_structure.html",
+  "reference": {
+    "authors": [
+      "WebElements / Mark J. Winter"
+    ],
+    "title": "Polonium — crystal structures; tài liệu được trang liệt kê: R. J. DeSando and R. C. Lange, J. Inorg. Nucl. Chem. 1966, 28, 1837.",
+    "journal": "University of Sheffield / WebElements",
+    "year": 2026,
+    "volume": "",
+    "pages": ""
+  },
+  "evidence": "reference-prototype",
+  "pearsonSymbol": "cP1",
+  "note": "Wiki cho kiểu mạng; hằng số ô lấy từ bảng chuyên ngành WebElements. Điều kiện nhiệt độ không được ghi trong bảng đã dùng; không tự gán 20 °C. Pha α-Po có mạng lập phương đơn giản cP1, một nguyên tử/ô; không dùng pha β dạng thoi thay thế.",
+  "limitations": "Vị trí Wyckoff lý tưởng của prototype; thông số ô mạng do WebElements tổng hợp. Không phải bộ tinh chỉnh nguyên tử thực nghiệm riêng của ChemDex.",
+  "coordinatePrecision": "Ideal prototype coordinates; the number of shown digits is not experimental uncertainty.",
+  "validation": {
+    "operatorCount": 48,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 0
+  },
+  "primaryReference": "R. J. DeSando and R. C. Lange, J. Inorg. Nucl. Chem. 1966, 28, 1837."
+}

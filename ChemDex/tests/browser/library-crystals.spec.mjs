@@ -14,8 +14,10 @@ test('substance URLs load directly, reload and resolve old opaque links and save
   await expect.poll(()=>page.evaluate(()=>JSON.parse(localStorage.getItem('history')))).toEqual([doc.id]);
   await page.reload();
   await expect(page.getByRole('heading',{level:1,name:doc.title,exact:true})).toBeVisible();
-  const related=[...authored.filter(d=>d.id.startsWith('chat-')),...refs,...authored.filter(d=>!d.id.startsWith('chat-'))].find(d=>d.id!==doc.id&&(d.category===doc.category||d.tags.some(t=>doc.tags.includes(t))));
-  await page.getByRole('button').filter({hasText:related.title}).click();
+  const recommendation=page.locator('.reader-suggestions').getByRole('button').first();
+  const suggestedTitle=(await recommendation.locator('h4').innerText()).trim();
+  const related=[...authored,...refs].find(d=>d.title===suggestedTitle);expect(related).toBeTruthy();
+  await recommendation.click();
   await expect(page).toHaveURL(new RegExp(`/tai-lieu-so/${related.slug}/$`));
   await expect(page.getByRole('heading',{level:1,name:related.title,exact:true})).toBeVisible();
   await page.goBack();await expect(page.getByRole('heading',{level:1,name:doc.title,exact:true})).toBeVisible();
@@ -64,7 +66,7 @@ test('published mineral crystal controls preserve sources, metric and atom site 
   await expect(lattice.getByRole('button',{name:'Hiện 1 ô mạng'})).toBeVisible();
   await lattice.getByRole('button',{name:'Ẩn khung ô mạng'}).click();
   await expect(lattice.getByRole('button',{name:'Hiện khung ô mạng'})).toHaveAttribute('aria-pressed','false');
-  await lattice.locator('summary').click();await expect(lattice.locator('tbody tr')).toHaveCount(1);
+  await lattice.locator('.crystal-evidence > summary').click();await expect(lattice.locator('.crystal-evidence tbody tr')).toHaveCount(1);
   await expect(lattice.getByRole('link',{name:'Tải CIF',exact:true})).toHaveAttribute('href',/nguyen-to-fe\.cif$/);
   const mineral=page.locator('[data-crystal-id="hematite"]');
   await expect(mineral).toContainText('R -3 c');

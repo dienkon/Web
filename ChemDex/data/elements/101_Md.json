@@ -67,7 +67,30 @@
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Chưa xác định do chỉ tạo được lượng nguyên tử cực nhỏ.",
     "latticeEvidence": "predicted",
-    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
+    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác.",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Mendelevium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_mendelevium",
+      "revisionId": 1377742776,
+      "revisionTimestamp": "2026-09-30T22:51:59Z",
+      "status": "phase-unmeasured-or-fluid",
+      "phases": [
+        {
+          "type": "face-centered cubic",
+          "prefix": "",
+          "comment": "(predicted)",
+          "pearson": "",
+          "lattice": ""
+        }
+      ],
+      "selectedModel": null,
+      "modelKind": null,
+      "metrics": [],
+      "notes": [
+        "Không lấy hình của một kiểu mạng chung để khẳng định mẫu tinh thể đã được đo. Pha khí/lỏng và cấu trúc dự đoán được ghi riêng."
+      ],
+      "additionalSources": []
+    }
   },
   "structureType": "Chưa xác định do chỉ tạo được lượng nguyên tử cực nhỏ.",
   "occurrence": {
@@ -308,22 +331,53 @@
     {
       "title": "Nghiên cứu hạt nhân",
       "desc": "Mendelevium được sử dụng gần như hoàn toàn trong nghiên cứu vật lý hạt nhân và hóa học Actinide.",
-      "sourceLine": 88
+      "sourceLine": 88,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/research.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "author": "LSDSL",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nghiên cứu hạt nhân — Particle accelerator",
+        "caption": "Minh họa lĩnh vực nghiên cứu hạt nhân · Particle accelerator.",
+        "topic": "research",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nghiên cứu cấu trúc electron",
       "desc": "Mendelevium giúp các nhà khoa học nghiên cứu sự thay đổi tính chất hóa học của các nguyên tố Actinide nặng.",
-      "sourceLine": 89
+      "sourceLine": 89,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      }
     },
     {
       "title": "Nghiên cứu nguyên tố siêu nặng",
       "desc": "Các đồng vị Mendelevium có thể đóng vai trò trong việc nghiên cứu các phản ứng hạt nhân tạo ra những hạt nhân nặng hơn.",
-      "sourceLine": 90
+      "sourceLine": 90,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      }
     },
     {
       "title": "Ứng dụng",
       "desc": "Do chỉ tạo được từng lượng nguyên tử rất nhỏ và có tính phóng xạ cao, Mendelevium không có ứng dụng công nghiệp hoặc đời sống thông thường.",
-      "sourceLine": 91
+      "sourceLine": 91,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Mendelevium là nguyên tố số 101, thuộc nhóm IIIB | chu kỳ 7 và là nguyên tố thứ mười ba trong họ Actinide.</li><li>Mendelevium được Albert Ghiorso, Bernard G. Harvey, Gregory R. Choppin, Stanley G. Thompson và Glenn T. Seaborg phát hiện vào năm 1955 tại Berkeley, Hoa Kỳ.</li><li>Đây là nguyên tố đầu tiên được tạo ra với số nguyên tử lớn hơn 100 bằng cách bắn phá một nguyên tố Actinide khác. Tên Mendelevium được đặt để vinh danh Dmitri Mendeleev, người đặt nền móng cho bảng tuần hoàn hiện đại.</li><li>Mendelevium là nguyên tố phóng xạ nhân tạo, không có đồng vị bền. Hai trạng thái Oxy hóa quan trọng nhất là +2 và +3. Đặc biệt, Md²⁺ có độ ổn định tương đối cao so với nhiều Actinide khác.</li><li>Do chỉ tạo ra được lượng cực nhỏ, Mendelevium chủ yếu có giá trị trong nghiên cứu khoa học, đặc biệt là nghiên cứu cấu trúc nguyên tử, hóa học Actinide và vật lý hạt nhân.</li><li>Mạng tinh thể: Chưa xác định thực nghiệm do không thể tạo ra lượng đủ lớn để nghiên cứu cấu trúc vật liệu.</li></ul>",
@@ -364,6 +418,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Mendelevium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -372,6 +431,7 @@
     "sourceSha256": "2dd1c11665c0bf41446506c1b3531855e2ac3894218ff714e3cf6fe3d0c107bb",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/101_Md.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/mendelevium-md/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/mendelevium-md/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/mendelevium-md/audit.md"
   }
 }

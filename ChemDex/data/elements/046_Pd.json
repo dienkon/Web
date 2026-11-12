@@ -71,9 +71,9 @@
         "a": 3.8898,
         "b": 3.8898,
         "c": 3.8898,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 90.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
       },
       "volume": 58.85479020679201,
       "siteCount": 4,
@@ -95,9 +95,67 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-pd.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-pd.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-pd.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-pd.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-pd.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Palladium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_palladium",
+        "revisionId": 1213323228,
+        "revisionTimestamp": "2024-03-12T10:03:38Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "face-centered cubic",
+            "prefix": "",
+            "comment": "",
+            "pearson": "cF4",
+            "lattice": "a = 389.02 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-pd",
+        "modelKind": "fcc",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 3.8902,
+            "modelAngstrom": 3.8898,
+            "relativeDifferencePercent": 0.010282247699345945
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Palladium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_palladium",
+      "revisionId": 1213323228,
+      "revisionTimestamp": "2024-03-12T10:03:38Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "face-centered cubic",
+          "prefix": "",
+          "comment": "",
+          "pearson": "cF4",
+          "lattice": "a = 389.02 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-pd",
+      "modelKind": "fcc",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 3.8902,
+          "modelAngstrom": 3.8898,
+          "relativeDifferencePercent": 0.010282247699345945
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lập phương tâm mặt (Face-centered cubic, FCC)",
   "occurrence": {
@@ -147,9 +205,9 @@
             "a": 3.9158,
             "b": 3.9158,
             "c": 3.9158,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 60.042878732312,
           "siteCount": 4,
@@ -480,32 +538,117 @@
     {
       "title": "Bộ chuyển đổi xúc tác",
       "desc": "Palladium là chất xúc tác quan trọng trong hệ thống xử lý khí thải của ô tô.",
-      "sourceLine": 81
+      "sourceLine": 81,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "catalytic-converter",
+        "source": "https://commons.wikimedia.org/wiki/File:DodgeCatCon.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/catalytic-converter.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:DodgeCatCon.jpg",
+        "author": "Ahanix1989 at English Wikipedia",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Bộ chuyển đổi xúc tác — Catalytic converter",
+        "caption": "Minh họa lĩnh vực bộ chuyển đổi xúc tác · Catalytic converter.",
+        "topic": "catalytic-converter",
+        "role": "application-context"
+      }
     },
     {
       "title": "Xúc tác hóa học",
       "desc": "Được sử dụng rộng rãi trong tổng hợp hữu cơ và công nghiệp hóa chất.",
-      "sourceLine": 82
+      "sourceLine": 82,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "catalyst",
+        "source": "https://commons.wikimedia.org/wiki/File:Catalysts.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/catalyst.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Catalysts.JPG",
+        "author": "Shubhrapdil",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Xúc tác hóa học — Catalysis",
+        "caption": "Minh họa lĩnh vực xúc tác hóa học · Catalysis.",
+        "topic": "catalyst",
+        "role": "application-context"
+      }
     },
     {
       "title": "Điện tử",
       "desc": "Palladium được sử dụng trong một số linh kiện điện tử và vật liệu dẫn điện.",
-      "sourceLine": 83
+      "sourceLine": 83,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "electronics",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/electronics.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg",
+        "author": "Raimond Spekking",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Điện tử — Printed circuit board",
+        "caption": "Minh họa lĩnh vực điện tử · Printed circuit board.",
+        "topic": "electronics",
+        "role": "application-context"
+      }
     },
     {
       "title": "Trang sức",
       "desc": "Palladium được sử dụng để chế tạo trang sức và hợp kim kim loại quý.",
-      "sourceLine": 84
+      "sourceLine": 84,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "jewelry",
+        "source": "https://commons.wikimedia.org/wiki/File:Pectoral_and_Necklace_of_Sithathoryunet_with_the_Name_of_Senwosret_II_MET_DT531.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/jewelry.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Pectoral_and_Necklace_of_Sithathoryunet_with_the_Name_of_Senwosret_II_MET_DT531.jpg",
+        "author": "This file was donated to Wikimedia Commons as part of a project by the Metropolitan Museum of Art . See the Image and Data Resources Open Access Policy",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "alt": "Trang sức — Jewellery",
+        "caption": "Minh họa lĩnh vực trang sức · Jewellery.",
+        "topic": "jewelry",
+        "role": "application-context"
+      }
     },
     {
       "title": "Lọc Hydrogen",
       "desc": "Palladium có khả năng hấp thụ và khuếch tán Hydrogen, nên được sử dụng trong một số công nghệ tinh chế Hydrogen.",
-      "sourceLine": 85
+      "sourceLine": 85,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Nha khoa",
       "desc": "Một số hợp kim chứa Palladium được sử dụng trong vật liệu nha khoa.",
-      "sourceLine": 86
+      "sourceLine": 86,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "alloy",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/alloy.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg",
+        "author": "Bill Abbott",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Nha khoa — Alloy",
+        "caption": "Minh họa lĩnh vực nha khoa · Alloy.",
+        "topic": "alloy",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Palladium là nguyên tố số 46, thuộc nhóm VIIIB | chu kỳ 5 và là một kim loại chuyển tiếp thuộc nhóm Platinum.</li><li>Palladium có cấu hình electron đặc biệt [Kr] 4d¹⁰, với số Oxy hóa phổ biến nhất là +2.</li><li>Palladium là kim loại trắng bạc, mềm, dễ gia công và chống ăn mòn tốt. Đặc điểm nổi bật của Palladium là khả năng hấp thụ Hydrogen và hoạt tính xúc tác cao.</li><li>Palladium có vai trò quan trọng trong bộ chuyển đổi xúc tác ô tô, công nghiệp hóa chất, điện tử, công nghệ Hydrogen, trang sức và nha khoa.</li></ul>",
@@ -546,9 +689,9 @@
           "a": 3.9158,
           "b": 3.9158,
           "c": 3.9158,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 60.042878732312,
         "siteCount": 4,
@@ -614,6 +757,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Palladium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -622,6 +770,7 @@
     "sourceSha256": "556e9eec6069dd4cce29139571ed3648af231ccd98b28c90d97f192fb028cf88",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/046_Pd.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/palladium-pd/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/palladium-pd/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/palladium-pd/audit.md"
   }
 }

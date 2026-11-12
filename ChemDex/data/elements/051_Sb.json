@@ -73,9 +73,9 @@
         "a": 4.3084,
         "b": 4.3084,
         "c": 11.274,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 120.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 120
       },
       "volume": 181.23442598128116,
       "siteCount": 6,
@@ -98,9 +98,85 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-sb.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-sb.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-sb.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-sb.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-sb.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Antimony",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_antimony",
+        "revisionId": 1379455882,
+        "revisionTimestamp": "2026-10-10T02:53:15Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "rhombohedral",
+            "prefix": "",
+            "comment": "",
+            "pearson": "hR2",
+            "lattice": "a = 0.45066 nm; α = 57.112°; ah = 0.43084 nm; ch = 1.12736 nm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-sb",
+        "modelKind": "rhombohedral",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "ah",
+            "wikiAngstrom": 4.3084,
+            "modelAngstrom": 4.3084,
+            "relativeDifferencePercent": 0
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "ch",
+            "wikiAngstrom": 11.273599999999998,
+            "modelAngstrom": 11.274,
+            "relativeDifferencePercent": 0.0035481124042084536
+          }
+        ],
+        "notes": [
+          "CIF dùng ô lục giác quy ước của mạng thoi: số nguyên tử trong ô này bằng ba lần ô thoi nguyên thủy; không phải sai cấu trúc."
+        ],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Antimony",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_antimony",
+      "revisionId": 1379455882,
+      "revisionTimestamp": "2026-10-10T02:53:15Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "rhombohedral",
+          "prefix": "",
+          "comment": "",
+          "pearson": "hR2",
+          "lattice": "a = 0.45066 nm; α = 57.112°; ah = 0.43084 nm; ch = 1.12736 nm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-sb",
+      "modelKind": "rhombohedral",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "ah",
+          "wikiAngstrom": 4.3084,
+          "modelAngstrom": 4.3084,
+          "relativeDifferencePercent": 0
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "ch",
+          "wikiAngstrom": 11.273599999999998,
+          "modelAngstrom": 11.274,
+          "relativeDifferencePercent": 0.0035481124042084536
+        }
+      ],
+      "notes": [
+        "CIF dùng ô lục giác quy ước của mạng thoi: số nguyên tử trong ô này bằng ba lần ô thoi nguyên thủy; không phải sai cấu trúc."
+      ],
+      "additionalSources": []
+    }
   },
   "structureType": "Antimony xám có mạng mặt thoi (rhombohedral), có thể dùng hệ trục lục phương.",
   "occurrence": {
@@ -149,9 +225,9 @@
             "a": 11.314,
             "b": 3.837,
             "c": 11.234,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 487.68836341200006,
           "siteCount": 20,
@@ -492,32 +568,117 @@
     {
       "title": "Hợp kim",
       "desc": "Antimony được thêm vào Lead và một số kim loại khác để tăng độ cứng và độ bền.",
-      "sourceLine": 92
+      "sourceLine": 92,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "alloy",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/alloy.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg",
+        "author": "Bill Abbott",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Hợp kim — Alloy",
+        "caption": "Minh họa lĩnh vực hợp kim · Alloy.",
+        "topic": "alloy",
+        "role": "application-context"
+      }
     },
     {
       "title": "Ắc quy",
       "desc": "Antimony được sử dụng trong một số hợp kim Lead dùng cho ắc quy chì–acid.",
-      "sourceLine": 93
+      "sourceLine": 93,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "lead-battery",
+        "source": "https://commons.wikimedia.org/wiki/File:Photo-CarBattery.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/lead-battery.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Photo-CarBattery.jpg",
+        "author": "No machine-readable author provided. Shaddack assumed (based on copyright claims).",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Ắc quy — Lead–acid battery",
+        "caption": "Minh họa lĩnh vực ắc quy · Lead–acid battery.",
+        "topic": "lead-battery",
+        "role": "application-context"
+      }
     },
     {
       "title": "Chất chống cháy",
       "desc": "Một số hợp chất Antimony, đặc biệt là Antimony trioxide (Sb₂O₃), được sử dụng làm chất hỗ trợ chống cháy.",
-      "sourceLine": 94
+      "sourceLine": 94,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "fire-retardant",
+        "source": "https://commons.wikimedia.org/wiki/File:Flame_Retardant_Research_-_LDH_materials_(16241017250).jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/fire-retardant.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Flame_Retardant_Research_-_LDH_materials_(16241017250).jpg",
+        "author": "National Institute of Standards and Technology",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Chất chống cháy — Flame retardant",
+        "caption": "Minh họa lĩnh vực chất chống cháy · Flame retardant.",
+        "topic": "fire-retardant",
+        "role": "application-context"
+      }
     },
     {
       "title": "Bán dẫn",
       "desc": "Một số hợp chất như Indium antimonide (InSb) và Gallium antimonide (GaSb) được sử dụng trong công nghệ bán dẫn.",
-      "sourceLine": 95
+      "sourceLine": 95,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "semiconductor",
+        "source": "https://commons.wikimedia.org/wiki/File:ICC_2008_Poland_Silicon_Wafer_1_edit.png"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/semiconductor.png",
+        "source": "https://commons.wikimedia.org/wiki/File:ICC_2008_Poland_Silicon_Wafer_1_edit.png",
+        "author": "FxJ",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Bán dẫn — Silicon wafer",
+        "caption": "Minh họa lĩnh vực bán dẫn · Silicon wafer.",
+        "topic": "semiconductor",
+        "role": "application-context"
+      }
     },
     {
       "title": "Sản xuất kính",
       "desc": "Một số hợp chất Antimony được sử dụng trong quá trình sản xuất và xử lý kính.",
-      "sourceLine": 96
+      "sourceLine": 96,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "glass",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/glass.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg",
+        "author": "Ansgar Koreng",
+        "license": "CC BY 3.0 de",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/de/deed.en",
+        "alt": "Sản xuất kính — Glass",
+        "caption": "Minh họa lĩnh vực sản xuất kính · Glass.",
+        "topic": "glass",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hóa chất",
       "desc": "Các hợp chất Antimony được sử dụng trong nhiều quá trình công nghiệp và tổng hợp hóa học.",
-      "sourceLine": 97
+      "sourceLine": 97,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Antimony là nguyên tố số 51, thuộc nhóm VA | chu kỳ 5 và được xếp vào nhóm á kim.</li><li>Antimony có cấu hình electron [Kr] 4d¹⁰ 5s² 5p³, với các số Oxy hóa phổ biến là −3, +3 và +5.</li><li>Antimony có màu trắng bạc, ánh kim nhưng giòn và dẫn điện kém, thể hiện tính chất trung gian giữa kim loại và phi kim. Trong tự nhiên, nguồn Antimony quan trọng nhất là Stibnite (Sb₂S₃).</li><li>Antimony được sử dụng chủ yếu trong hợp kim, ắc quy, chất chống cháy, bán dẫn và công nghiệp kính. Trong đó, Antimony trioxide (Sb₂O₃) là một hợp chất công nghiệp quan trọng.</li></ul>",
@@ -558,9 +719,9 @@
           "a": 11.314,
           "b": 3.837,
           "c": 11.234,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 487.68836341200006,
         "siteCount": 20,
@@ -633,6 +794,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Antimony",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -641,6 +807,7 @@
     "sourceSha256": "8e54863a2579d8d3cb1c7af00f89d77766a95603fc9a5422cbd438bc73dafa06",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/051_Sb.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/antimony-sb/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/antimony-sb/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/antimony-sb/audit.md"
   }
 }

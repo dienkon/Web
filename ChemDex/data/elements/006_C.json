@@ -67,9 +67,9 @@
         "a": 2.464,
         "b": 2.464,
         "c": 6.711,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 120.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 120
       },
       "volume": 35.285743880564326,
       "siteCount": 4,
@@ -92,9 +92,95 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-c.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-c.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-c.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-c.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-c.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Carbon",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_carbon",
+        "revisionId": 1372090743,
+        "revisionTimestamp": "2026-08-30T06:53:39Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "simple hexagonal",
+            "prefix": "graphite:",
+            "comment": "",
+            "pearson": "hP4",
+            "lattice": "a = 246.14 pm; c = 670.94 pm; (at 20 °C)"
+          },
+          {
+            "type": "diamond cubic",
+            "prefix": "diamond:",
+            "comment": "",
+            "pearson": "cF8",
+            "lattice": "a = 356.707 pm; (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-c",
+        "modelKind": "hexagonal",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 2.4614,
+            "modelAngstrom": 2.464,
+            "relativeDifferencePercent": 0.10563094174047931
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "c",
+            "wikiAngstrom": 6.7094000000000005,
+            "modelAngstrom": 6.711,
+            "relativeDifferencePercent": 0.023847139833663572
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Carbon",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_carbon",
+      "revisionId": 1372090743,
+      "revisionTimestamp": "2026-08-30T06:53:39Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "simple hexagonal",
+          "prefix": "graphite:",
+          "comment": "",
+          "pearson": "hP4",
+          "lattice": "a = 246.14 pm; c = 670.94 pm; (at 20 °C)"
+        },
+        {
+          "type": "diamond cubic",
+          "prefix": "diamond:",
+          "comment": "",
+          "pearson": "cF8",
+          "lattice": "a = 356.707 pm; (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-c",
+      "modelKind": "hexagonal",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 2.4614,
+          "modelAngstrom": 2.464,
+          "relativeDifferencePercent": 0.10563094174047931
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "c",
+          "wikiAngstrom": 6.7094000000000005,
+          "modelAngstrom": 6.711,
+          "relativeDifferencePercent": 0.023847139833663572
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Graphite có các lớp lục giác; kim cương có mạng lập phương kim cương với phối trí tứ diện, không phải kim loại FCC.",
   "occurrence": {
@@ -149,9 +235,9 @@
             "a": 2.464,
             "b": 2.464,
             "c": 6.711,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 120.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 120
           },
           "volume": 35.285743880564326,
           "siteCount": 4,
@@ -466,42 +552,159 @@
     {
       "title": "Nhiên liệu",
       "desc": "Than và các nhiên liệu chứa Carbon được sử dụng để sản xuất nhiệt và năng lượng.",
-      "sourceLine": 92
+      "sourceLine": 92,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Luyện kim",
       "desc": "Carbon và than cốc được sử dụng trong sản xuất Iron và Steel.",
-      "sourceLine": 93
+      "sourceLine": 93,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "alloy",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/alloy.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg",
+        "author": "Bill Abbott",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Luyện kim — Alloy",
+        "caption": "Minh họa lĩnh vực luyện kim · Alloy.",
+        "topic": "alloy",
+        "role": "application-context"
+      }
     },
     {
       "title": "Điện cực",
       "desc": "Graphite được sử dụng làm điện cực nhờ khả năng dẫn điện và chịu nhiệt tốt.",
-      "sourceLine": 94
+      "sourceLine": 94,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "refractory",
+        "source": "https://commons.wikimedia.org/wiki/File:Torpedo_car_refractory_bricks.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/refractory.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Torpedo_car_refractory_bricks.JPG",
+        "author": "Morgan Riley",
+        "license": "CC BY 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+        "alt": "Điện cực — Refractory",
+        "caption": "Minh họa lĩnh vực điện cực · Refractory.",
+        "topic": "refractory",
+        "role": "application-context"
+      }
     },
     {
       "title": "Bút chì",
       "desc": "Graphite được sử dụng trong lõi bút chì.",
-      "sourceLine": 95
+      "sourceLine": 95,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "pencil",
+        "source": "https://commons.wikimedia.org/wiki/File:Pencils_hb.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/pencil.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Pencils_hb.jpg",
+        "author": "Original uploader was Dmgerman at en.wikipedia",
+        "license": "CC BY 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+        "alt": "Bút chì — Pencil",
+        "caption": "Minh họa lĩnh vực bút chì · Pencil.",
+        "topic": "pencil",
+        "role": "application-context"
+      }
     },
     {
       "title": "Vật liệu cứng",
       "desc": "Kim cương được sử dụng để cắt, mài và gia công các vật liệu cứng.",
-      "sourceLine": 96
+      "sourceLine": 96,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "diamond-tools",
+        "source": "https://commons.wikimedia.org/wiki/File:Diamond_blade_very_macro.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/diamond-tools.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Diamond_blade_very_macro.jpg",
+        "author": "Hustvedt",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Vật liệu cứng — Diamond tool",
+        "caption": "Minh họa lĩnh vực vật liệu cứng · Diamond tool.",
+        "topic": "diamond-tools",
+        "role": "application-context"
+      }
     },
     {
       "title": "Lọc và hấp phụ",
       "desc": "Activated carbon được sử dụng để hấp phụ các chất trong xử lý nước và không khí.",
-      "sourceLine": 97
+      "sourceLine": 97,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "water-treatment",
+        "source": "https://commons.wikimedia.org/wiki/File:Dalecarlia_Water_Treatment_Plant.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/water-treatment.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Dalecarlia_Water_Treatment_Plant.jpg",
+        "author": "AgnosticPreachersKid",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Lọc và hấp phụ — Water treatment",
+        "caption": "Minh họa lĩnh vực lọc và hấp phụ · Water treatment.",
+        "topic": "water-treatment",
+        "role": "application-context"
+      }
     },
     {
       "title": "Sản xuất vật liệu",
       "desc": "Carbon black được sử dụng trong sản xuất cao su, mực in và nhiều vật liệu khác.",
-      "sourceLine": 98
+      "sourceLine": 98,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "rubber",
+        "source": "https://commons.wikimedia.org/wiki/File:VulcanizationMold1941.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/rubber.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:VulcanizationMold1941.jpg",
+        "author": "Alfred T. Palmer",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Sản xuất vật liệu — Vulcanization",
+        "caption": "Minh họa lĩnh vực sản xuất vật liệu · Vulcanization.",
+        "topic": "rubber",
+        "role": "application-context"
+      }
     },
     {
       "title": "Công nghệ cao",
       "desc": "Graphene, Carbon nanotube và fullerene được nghiên cứu và ứng dụng trong điện tử, vật liệu và công nghệ nano.",
-      "sourceLine": 99
+      "sourceLine": 99,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "electronics",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/electronics.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg",
+        "author": "Raimond Spekking",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Công nghệ cao — Printed circuit board",
+        "caption": "Minh họa lĩnh vực công nghệ cao · Printed circuit board.",
+        "topic": "electronics",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Carbon là nguyên tố số 6, thuộc nhóm IVA | chu kỳ 2 và là một trong những nguyên tố quan trọng nhất đối với sự sống.</li><li>Carbon có khả năng tạo liên kết cộng hóa trị rất đa dạng và có thể liên kết với chính nó tạo thành các chuỗi, vòng và cấu trúc phức tạp. Đây là cơ sở của hóa học hữu cơ.</li><li>Carbon có nhiều dạng thù hình với tính chất rất khác nhau, tiêu biểu như kim cương, graphite, graphene và fullerene.</li><li>Carbon xuất hiện trong khí quyển, khoáng vật, nhiên liệu hóa thạch và mọi sinh vật sống. Các hợp chất của Carbon có vai trò quan trọng trong sinh học, công nghiệp, năng lượng, luyện kim và công nghệ vật liệu.</li></ul>",
@@ -542,9 +745,9 @@
           "a": 2.464,
           "b": 2.464,
           "c": 6.711,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 120.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 120
         },
         "volume": 35.285743880564326,
         "siteCount": 4,
@@ -610,6 +813,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Carbon",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -618,6 +826,7 @@
     "sourceSha256": "18dce191181c1ca8e36a050e84aad62e51e2a9dca1cacd3385fdacade7583a7c",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/006_C.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/cacbon-c/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/cacbon-c/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/cacbon-c/audit.md"
   }
 }

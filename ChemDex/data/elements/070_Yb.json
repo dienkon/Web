@@ -75,9 +75,9 @@
         "a": 5.4862,
         "b": 5.4862,
         "c": 5.4862,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 90.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
       },
       "volume": 165.12578963192803,
       "siteCount": 4,
@@ -101,9 +101,67 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-yb.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-yb.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-yb.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-yb.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-yb.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Ytterbium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_ytterbium",
+        "revisionId": 1325519204,
+        "revisionTimestamp": "2025-12-03T14:46:14Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "face-centered cubic",
+            "prefix": "",
+            "comment": "",
+            "pearson": "cF4",
+            "lattice": "a = 548.46 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-yb",
+        "modelKind": "fcc",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 5.4846,
+            "modelAngstrom": 5.4862,
+            "relativeDifferencePercent": 0.02917259234948444
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Ytterbium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_ytterbium",
+      "revisionId": 1325519204,
+      "revisionTimestamp": "2025-12-03T14:46:14Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "face-centered cubic",
+          "prefix": "",
+          "comment": "",
+          "pearson": "cF4",
+          "lattice": "a = 548.46 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-yb",
+      "modelKind": "fcc",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 5.4846,
+          "modelAngstrom": 5.4862,
+          "relativeDifferencePercent": 0.02917259234948444
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lập phương tâm diện (FCC)",
   "occurrence": {
@@ -153,9 +211,9 @@
             "a": 6.8947,
             "b": 6.8947,
             "c": 6.0276,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 286.53334665128403,
           "siteCount": 24,
@@ -446,27 +504,107 @@
     {
       "title": "Laser sợi quang",
       "desc": "Ytterbium được sử dụng làm chất pha tạp trong Ytterbium-doped fiber laser, một loại laser hiệu suất cao được sử dụng trong công nghiệp và viễn thông.",
-      "sourceLine": 86
+      "sourceLine": 86,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "optical-fiber",
+        "source": "https://commons.wikimedia.org/wiki/File:Fibreoptic.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/optical-fiber.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Fibreoptic.jpg",
+        "author": "BigRiz",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+        "alt": "Laser sợi quang — Optical fiber",
+        "caption": "Minh họa lĩnh vực laser sợi quang · Optical fiber.",
+        "topic": "optical-fiber",
+        "role": "application-context"
+      }
     },
     {
       "title": "Laser công suất cao",
       "desc": "Laser pha tạp Ytterbium có thể đạt công suất lớn và hiệu suất cao, được sử dụng trong cắt, hàn và gia công vật liệu.",
-      "sourceLine": 87
+      "sourceLine": 87,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "laser",
+        "source": "https://commons.wikimedia.org/wiki/File:Guiding_the_Milky_Way_(potw2222a).jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/laser.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Guiding_the_Milky_Way_(potw2222a).jpg",
+        "author": "ESO/A. Ghizzi Panizza ( www.albertoghizzipanizza.com )",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "alt": "Laser công suất cao — Laser",
+        "caption": "Minh họa lĩnh vực laser công suất cao · Laser.",
+        "topic": "laser",
+        "role": "application-context"
+      }
     },
     {
       "title": "Đồng hồ nguyên tử",
       "desc": "Một số ion Ytterbium, đặc biệt Yb⁺, được sử dụng trong nghiên cứu và chế tạo đồng hồ nguyên tử có độ chính xác rất cao.",
-      "sourceLine": 88
+      "sourceLine": 88,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "atomic-clock",
+        "source": "https://commons.wikimedia.org/wiki/File:Caesium_clock_block.svg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/atomic-clock.png",
+        "source": "https://commons.wikimedia.org/wiki/File:Caesium_clock_block.svg",
+        "author": "Constant314",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "alt": "Đồng hồ nguyên tử — Atomic clock",
+        "caption": "Minh họa lĩnh vực đồng hồ nguyên tử · Atomic clock.",
+        "topic": "atomic-clock",
+        "role": "application-context"
+      }
     },
     {
       "title": "Vật liệu quang học",
       "desc": "Các hợp chất Ytterbium được sử dụng trong vật liệu phát quang và quang tử.",
-      "sourceLine": 89
+      "sourceLine": 89,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "optics",
+        "source": "https://commons.wikimedia.org/wiki/File:Double-lens_burning_apparatus,_Ehrenfried_Walther_von_Tschirnhaus,_Kieslingswalde_(today_Slawonice,_Poland),_c._1690_-_Mathematisch-Physikalischer_Salon,_Dresden_-_DSC08133.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/optics.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Double-lens_burning_apparatus,_Ehrenfried_Walther_von_Tschirnhaus,_Kieslingswalde_(today_Slawonice,_Poland),_c._1690_-_Mathematisch-Physikalischer_Salon,_Dresden_-_DSC08133.JPG",
+        "author": "Daderot",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Vật liệu quang học — Optical lens",
+        "caption": "Minh họa lĩnh vực vật liệu quang học · Optical lens.",
+        "topic": "optics",
+        "role": "application-context"
+      }
     },
     {
       "title": "Y học",
       "desc": "Một số đồng vị phóng xạ của Ytterbium được nghiên cứu cho các ứng dụng y học và nguồn bức xạ chuyên dụng.",
-      "sourceLine": 90
+      "sourceLine": 90,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/research.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "author": "LSDSL",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Y học — Particle accelerator",
+        "caption": "Minh họa lĩnh vực y học · Particle accelerator.",
+        "topic": "research",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Ytterbium là nguyên tố số 70, thuộc nhóm IIIB | chu kỳ 6 và là nguyên tố thứ mười bốn trong họ Lanthanide.</li><li>Ytterbium được Jean Charles Galissard de Marignac phát hiện vào năm 1878 tại Geneva, Thụy Sĩ. Tên nguyên tố bắt nguồn từ Ytterby, Thụy Điển.</li><li>Ytterbium là kim loại đất hiếm màu trắng bạc, khá mềm và có nhiệt độ nóng chảy tương đối thấp. Điểm đặc biệt của nó là có thể tồn tại ở cả Yb²⁺ và Yb³⁺. Yb²⁺ tương đối ổn định nhờ cấu hình electron 4f¹⁴ đã lấp đầy.</li><li>Ytterbium có vai trò quan trọng trong laser sợi quang, laser công suất cao, đồng hồ nguyên tử và vật liệu quang học.</li><li>Mạng tinh thể: Lập phương tâm diện (FCC) ở điều kiện thường.</li></ul>",
@@ -507,9 +645,9 @@
           "a": 6.8947,
           "b": 6.8947,
           "c": 6.0276,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 286.53334665128403,
         "siteCount": 24,
@@ -576,6 +714,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Ytterbium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -584,6 +727,7 @@
     "sourceSha256": "be2e59e055f3dfffc0a09acfeea72f5de3ab1b8da3e9250746056d779f2aa58f",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/070_Yb.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/ytterbium-yb/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/ytterbium-yb/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/ytterbium-yb/audit.md"
   }
 }

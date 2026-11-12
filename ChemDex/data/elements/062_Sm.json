@@ -102,9 +102,67 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-sm.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-sm.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-sm.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-sm.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-sm.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Samarium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_samarium",
+        "revisionId": 1276522369,
+        "revisionTimestamp": "2025-02-19T09:53:11Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "rhombohedral",
+            "prefix": "",
+            "comment": "",
+            "pearson": "hR3",
+            "lattice": "ar = 0.89834 nm; α = 23.307°; ah = 0.36291 nm; ch = 2.6207 nm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-sm",
+        "modelKind": "rhombohedral",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "ar",
+            "wikiAngstrom": 8.9834,
+            "modelAngstrom": 8.996,
+            "relativeDifferencePercent": 0.14025869937886362
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Samarium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_samarium",
+      "revisionId": 1276522369,
+      "revisionTimestamp": "2025-02-19T09:53:11Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "rhombohedral",
+          "prefix": "",
+          "comment": "",
+          "pearson": "hR3",
+          "lattice": "ar = 0.89834 nm; α = 23.307°; ah = 0.36291 nm; ch = 2.6207 nm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-sm",
+      "modelKind": "rhombohedral",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "ar",
+          "wikiAngstrom": 8.9834,
+          "modelAngstrom": 8.996,
+          "relativeDifferencePercent": 0.14025869937886362
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Rhombohedral",
   "occurrence": {
@@ -154,9 +212,9 @@
             "a": 6.788,
             "b": 7.0163,
             "c": 6.465,
-            "alpha": 90.0,
+            "alpha": 90,
             "beta": 103.43,
-            "gamma": 90.0
+            "gamma": 90
           },
           "volume": 299.48637533121257,
           "siteCount": 24,
@@ -462,27 +520,107 @@
     {
       "title": "Nam châm",
       "desc": "Samarium được sử dụng để chế tạo Samarium–Cobalt (SmCo), một loại nam châm vĩnh cửu mạnh có khả năng hoạt động tốt ở nhiệt độ cao.",
-      "sourceLine": 89
+      "sourceLine": 89,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "magnet",
+        "source": "https://commons.wikimedia.org/wiki/File:Magnetite_sample_with_neodymium_magnet.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/magnet.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Magnetite_sample_with_neodymium_magnet.jpg",
+        "author": "GOKLuLe 盧樂",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nam châm — Magnet",
+        "caption": "Minh họa lĩnh vực nam châm · Magnet.",
+        "topic": "magnet",
+        "role": "application-context"
+      }
     },
     {
       "title": "Lò phản ứng hạt nhân",
       "desc": "Do ¹⁴⁹Sm có tiết diện bắt neutron rất lớn, Samarium có vai trò trong việc hấp thụ neutron và kiểm soát phản ứng hạt nhân.",
-      "sourceLine": 90
+      "sourceLine": 90,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "reactor",
+        "source": "https://commons.wikimedia.org/wiki/File:Advanced_Test_Reactor_001.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/reactor.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Advanced_Test_Reactor_001.jpg",
+        "author": "Idaho National Laboratory",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "alt": "Lò phản ứng hạt nhân — Nuclear reactor",
+        "caption": "Minh họa lĩnh vực lò phản ứng hạt nhân · Nuclear reactor.",
+        "topic": "reactor",
+        "role": "application-context"
+      }
     },
     {
       "title": "Laser",
       "desc": "Một số tinh thể pha tạp Samarium được sử dụng trong các hệ thống laser và vật liệu quang học.",
-      "sourceLine": 91
+      "sourceLine": 91,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "laser",
+        "source": "https://commons.wikimedia.org/wiki/File:Guiding_the_Milky_Way_(potw2222a).jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/laser.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Guiding_the_Milky_Way_(potw2222a).jpg",
+        "author": "ESO/A. Ghizzi Panizza ( www.albertoghizzipanizza.com )",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "alt": "Laser — Laser",
+        "caption": "Minh họa lĩnh vực laser · Laser.",
+        "topic": "laser",
+        "role": "application-context"
+      }
     },
     {
       "title": "Kính quang học",
       "desc": "Samarium compounds có thể được sử dụng trong kính hấp thụ tia hồng ngoại và một số ứng dụng quang học.",
-      "sourceLine": 92
+      "sourceLine": 92,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "glass",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/glass.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg",
+        "author": "Ansgar Koreng",
+        "license": "CC BY 3.0 de",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/de/deed.en",
+        "alt": "Kính quang học — Glass",
+        "caption": "Minh họa lĩnh vực kính quang học · Glass.",
+        "topic": "glass",
+        "role": "application-context"
+      }
     },
     {
       "title": "Điện tử",
       "desc": "Một số hợp chất Samarium được dùng trong vật liệu điện tử và từ tính.",
-      "sourceLine": 93
+      "sourceLine": 93,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "electronics",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/electronics.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg",
+        "author": "Raimond Spekking",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Điện tử — Printed circuit board",
+        "caption": "Minh họa lĩnh vực điện tử · Printed circuit board.",
+        "topic": "electronics",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Samarium là nguyên tố số 62, thuộc nhóm IIIB | chu kỳ 6 và là nguyên tố thứ sáu trong họ Lanthanide.</li><li>Samarium được Paul-Émile Lecoq de Boisbaudran phát hiện vào năm 1879 khi nghiên cứu khoáng vật Samarskite. Tên nguyên tố bắt nguồn từ tên khoáng vật này, vốn được đặt theo Vasili Samarsky-Bykhovets.</li><li>Samarium là kim loại đất hiếm màu trắng bạc, có tính thuận từ mạnh. Trạng thái Oxy hóa phổ biến nhất là +3, ngoài ra +2 cũng có thể tồn tại trong một số hợp chất.</li><li>Samarium có ứng dụng quan trọng trong nam châm SmCo, công nghệ hạt nhân, laser, kính quang học và vật liệu điện tử. Đặc biệt, đồng vị ¹⁴⁹Sm có khả năng hấp thụ neutron rất mạnh.</li><li>Mạng tinh thể: Rhombohedral ở điều kiện thường.</li></ul>",
@@ -523,9 +661,9 @@
           "a": 6.788,
           "b": 7.0163,
           "c": 6.465,
-          "alpha": 90.0,
+          "alpha": 90,
           "beta": 103.43,
-          "gamma": 90.0
+          "gamma": 90
         },
         "volume": 299.48637533121257,
         "siteCount": 24,
@@ -592,6 +730,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Samarium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -600,6 +743,7 @@
     "sourceSha256": "8f232b332f9db87c04418298f9a00cc790e8582b6382cdd232fdcd6435697797",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/062_Sm.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/samarium-sm/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/samarium-sm/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/samarium-sm/audit.md"
   }
 }

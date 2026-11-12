@@ -1,0 +1,217 @@
+{
+  "amcsdId": "0011263",
+  "mineralName": "Neptunium-alpha",
+  "formula": "Np",
+  "spaceGroup": "P m c n",
+  "cell": {
+    "a": 4.723,
+    "b": 4.887,
+    "c": 6.663,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 153.79070856299998,
+  "declaredVolume": 153.791,
+  "basis": [
+    [
+      4.723,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      4.887,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      6.663
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2-x,y,z",
+    "1/2+x,-y,-z",
+    "1/2+x,1/2+y,1/2-z",
+    "1/2-x,1/2-y,1/2+z",
+    "x,1/2-y,1/2+z",
+    "-x,1/2+y,1/2-z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Np1",
+      "element": "Np",
+      "fractional": [
+        0.25,
+        0.208,
+        0.036
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Np2",
+      "element": "Np",
+      "fractional": [
+        0.25,
+        0.842,
+        0.319
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Np",
+      "label": "Np1",
+      "fractional": [
+        0.25,
+        0.208,
+        0.036
+      ],
+      "position": [
+        1.18075,
+        1.016496,
+        0.239868
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Np",
+      "label": "Np1",
+      "fractional": [
+        0.75,
+        0.792,
+        0.964
+      ],
+      "position": [
+        3.54225,
+        3.870504,
+        6.423132
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Np",
+      "label": "Np1",
+      "fractional": [
+        0.75,
+        0.708,
+        0.464
+      ],
+      "position": [
+        3.54225,
+        3.459996,
+        3.091632
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Np",
+      "label": "Np1",
+      "fractional": [
+        0.25,
+        0.292,
+        0.536
+      ],
+      "position": [
+        1.18075,
+        1.427004,
+        3.571368
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Np",
+      "label": "Np2",
+      "fractional": [
+        0.25,
+        0.842,
+        0.319
+      ],
+      "position": [
+        1.18075,
+        4.114854,
+        2.125497
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Np",
+      "label": "Np2",
+      "fractional": [
+        0.75,
+        0.158,
+        0.681
+      ],
+      "position": [
+        3.54225,
+        0.772146,
+        4.537503
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Np",
+      "label": "Np2",
+      "fractional": [
+        0.75,
+        0.342,
+        0.181
+      ],
+      "position": [
+        3.54225,
+        1.671354,
+        1.206003
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Np",
+      "label": "Np2",
+      "fractional": [
+        0.25,
+        0.658,
+        0.819
+      ],
+      "position": [
+        1.18075,
+        3.215646,
+        5.456997
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 8,
+  "speciesPositionCount": 8,
+  "cellComposition": {
+    "Np": 8
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Wyckoff R W G"
+    ],
+    "title": "Second edition. Interscience Publishers, New York, New York\n Sample is stable at room conditions",
+    "journal": "Crystal Structures",
+    "year": 1963,
+    "volume": "1",
+    "pages": "7–83"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "literature-compilation",
+  "validation": {
+    "operatorCount": 8,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.8950234558296621e-06
+  },
+  "id": "nguyen-to-np",
+  "symbol": "Np",
+  "referenceId": "amcsd:0011263",
+  "note": "Pha đơn chất theo bản ghi công bố; không phải mô hình quặng. Giữ đúng pha nhiệt độ phòng, không thay bằng dạng lập phương ở nhiệt độ cao."
+}

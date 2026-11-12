@@ -75,9 +75,9 @@
         "a": 2.7352,
         "b": 2.7352,
         "c": 4.319,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 120.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 120
       },
       "volume": 27.982854307068365,
       "siteCount": 2,
@@ -99,9 +99,81 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-os.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-os.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-os.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-os.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-os.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Osmium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_osmium",
+        "revisionId": 1381265786,
+        "revisionTimestamp": "2026-10-21T04:06:35Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "hexagonal close packed",
+            "prefix": "",
+            "comment": "",
+            "pearson": "hP2",
+            "lattice": "a = 273.42 pm; c = 431.99 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-os",
+        "modelKind": "hcp",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 2.7342000000000004,
+            "modelAngstrom": 2.7352,
+            "relativeDifferencePercent": 0.03657376929264303
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "c",
+            "wikiAngstrom": 4.3199000000000005,
+            "modelAngstrom": 4.319,
+            "relativeDifferencePercent": 0.020833815597596398
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Osmium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_osmium",
+      "revisionId": 1381265786,
+      "revisionTimestamp": "2026-10-21T04:06:35Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "hexagonal close packed",
+          "prefix": "",
+          "comment": "",
+          "pearson": "hP2",
+          "lattice": "a = 273.42 pm; c = 431.99 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-os",
+      "modelKind": "hcp",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 2.7342000000000004,
+          "modelAngstrom": 2.7352,
+          "relativeDifferencePercent": 0.03657376929264303
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "c",
+          "wikiAngstrom": 4.3199000000000005,
+          "modelAngstrom": 4.319,
+          "relativeDifferencePercent": 0.020833815597596398
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lục phương (Hexagonal)",
   "occurrence": {
@@ -151,9 +223,9 @@
             "a": 3.9158,
             "b": 3.9158,
             "c": 3.9158,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 60.042878732312,
           "siteCount": 4,
@@ -469,27 +541,96 @@
     {
       "title": "Hợp kim",
       "desc": "Osmium được sử dụng trong một số hợp kim đặc biệt để tăng độ cứng và khả năng chống mài mòn.",
-      "sourceLine": 78
+      "sourceLine": 78,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "alloy",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/alloy.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg",
+        "author": "Bill Abbott",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Hợp kim — Alloy",
+        "caption": "Minh họa lĩnh vực hợp kim · Alloy.",
+        "topic": "alloy",
+        "role": "application-context"
+      }
     },
     {
       "title": "Bút máy",
       "desc": "Osmium từng được sử dụng trong hợp kim làm đầu ngòi bút và các chi tiết chịu mài mòn.",
-      "sourceLine": 79
+      "sourceLine": 79,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "pen",
+        "source": "https://commons.wikimedia.org/wiki/File:Fountain_pen_writing_(literacy).jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/pen.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Fountain_pen_writing_(literacy).jpg",
+        "author": "Petar Milošević",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Bút máy — Fountain pen",
+        "caption": "Minh họa lĩnh vực bút máy · Fountain pen.",
+        "topic": "pen",
+        "role": "application-context"
+      }
     },
     {
       "title": "Thiết bị chính xác",
       "desc": "Các hợp kim chứa Osmium được sử dụng trong một số dụng cụ và linh kiện cần độ bền cao.",
-      "sourceLine": 80
+      "sourceLine": 80,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "alloy",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg"
+      }
     },
     {
       "title": "Xúc tác",
       "desc": "Osmium và các phức chất của nó được sử dụng trong một số phản ứng hóa học đặc biệt.",
-      "sourceLine": 81
+      "sourceLine": 81,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "catalyst",
+        "source": "https://commons.wikimedia.org/wiki/File:Catalysts.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/catalyst.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Catalysts.JPG",
+        "author": "Shubhrapdil",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Xúc tác — Catalysis",
+        "caption": "Minh họa lĩnh vực xúc tác · Catalysis.",
+        "topic": "catalyst",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nghiên cứu",
       "desc": "Các hợp chất Osmium được sử dụng trong nghiên cứu hóa học và vật liệu.",
-      "sourceLine": 82
+      "sourceLine": 82,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/research.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "author": "LSDSL",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nghiên cứu — Particle accelerator",
+        "caption": "Minh họa lĩnh vực nghiên cứu · Particle accelerator.",
+        "topic": "research",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Osmium là nguyên tố số 76, thuộc nhóm VIIIB | chu kỳ 6 và là một kim loại chuyển tiếp thuộc nhóm Platinum.</li><li>Osmium có cấu hình electron [Xe] 4f¹⁴ 5d⁶ 6s², với các số Oxy hóa quan trọng là +4 và +8.</li><li>Osmium là kim loại rất cứng, giòn và có khối lượng riêng cực lớn, khoảng 22.59 g/cm³. Đây là một trong những nguyên tố tự nhiên có khối lượng riêng lớn nhất.</li><li>Đặc điểm hóa học nổi bật của Osmium là khả năng tạo Osmium tetroxide (OsO₄), một hợp chất rất độc và có tính Oxy hóa mạnh.</li><li>Osmium chủ yếu được sử dụng trong hợp kim chịu mài mòn, dụng cụ chính xác, xúc tác và nghiên cứu hóa học, do độ cứng và khả năng chống mài mòn cao.</li></ul>",
@@ -530,9 +671,9 @@
           "a": 3.9158,
           "b": 3.9158,
           "c": 3.9158,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 60.042878732312,
         "siteCount": 4,
@@ -598,6 +739,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Osmium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -606,6 +752,7 @@
     "sourceSha256": "a9cfbad9da825e27d4afaea207df646225cd9c8b0cb7b9050e932526fd6d4cc7",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/076_Os.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/osmium-os/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/osmium-os/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/osmium-os/audit.md"
   }
 }

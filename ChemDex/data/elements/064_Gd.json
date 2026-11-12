@@ -75,9 +75,9 @@
         "a": 3.636,
         "b": 3.636,
         "c": 5.7826,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 120.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 120
       },
       "volume": 66.20663767672987,
       "siteCount": 2,
@@ -99,9 +99,81 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-gd.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-gd.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-gd.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-gd.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-gd.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Gadolinium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_gadolinium",
+        "revisionId": 1295861647,
+        "revisionTimestamp": "2025-06-16T08:18:03Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "hexagonal close packed",
+            "prefix": "",
+            "comment": "",
+            "pearson": "hP2",
+            "lattice": "a = 363.37 pm; c = 578.21 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-gd",
+        "modelKind": "hcp",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 3.6337,
+            "modelAngstrom": 3.636,
+            "relativeDifferencePercent": 0.06329636458705916
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "c",
+            "wikiAngstrom": 5.782100000000001,
+            "modelAngstrom": 5.7826,
+            "relativeDifferencePercent": 0.008647377250475135
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Gadolinium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_gadolinium",
+      "revisionId": 1295861647,
+      "revisionTimestamp": "2025-06-16T08:18:03Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "hexagonal close packed",
+          "prefix": "",
+          "comment": "",
+          "pearson": "hP2",
+          "lattice": "a = 363.37 pm; c = 578.21 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-gd",
+      "modelKind": "hcp",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 3.6337,
+          "modelAngstrom": 3.636,
+          "relativeDifferencePercent": 0.06329636458705916
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "c",
+          "wikiAngstrom": 5.782100000000001,
+          "modelAngstrom": 5.7826,
+          "relativeDifferencePercent": 0.008647377250475135
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lục phương xếp chặt (HCP)",
   "occurrence": {
@@ -151,9 +223,9 @@
             "a": 6.788,
             "b": 7.0163,
             "c": 6.465,
-            "alpha": 90.0,
+            "alpha": 90,
             "beta": 103.43,
-            "gamma": 90.0
+            "gamma": 90
           },
           "volume": 299.48637533121257,
           "siteCount": 24,
@@ -460,27 +532,107 @@
     {
       "title": "MRI",
       "desc": "Các hợp chất phức của Gd³⁺ được sử dụng làm chất tương phản trong chụp cộng hưởng từ (MRI), giúp làm nổi bật một số mô và cấu trúc trong hình ảnh.",
-      "sourceLine": 91
+      "sourceLine": 91,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "mri",
+        "source": "https://commons.wikimedia.org/wiki/File:MRI-Philips.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/mri.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:MRI-Philips.JPG",
+        "author": "Jan Ainali",
+        "license": "CC BY 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+        "alt": "MRI — Magnetic resonance imaging",
+        "caption": "Minh họa lĩnh vực mri · Magnetic resonance imaging.",
+        "topic": "mri",
+        "role": "application-context"
+      }
     },
     {
       "title": "Lò phản ứng hạt nhân",
       "desc": "Do khả năng hấp thụ neutron rất mạnh, Gadolinium được sử dụng trong thanh điều khiển và vật liệu hấp thụ neutron.",
-      "sourceLine": 92
+      "sourceLine": 92,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "reactor",
+        "source": "https://commons.wikimedia.org/wiki/File:Advanced_Test_Reactor_001.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/reactor.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Advanced_Test_Reactor_001.jpg",
+        "author": "Idaho National Laboratory",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "alt": "Lò phản ứng hạt nhân — Nuclear reactor",
+        "caption": "Minh họa lĩnh vực lò phản ứng hạt nhân · Nuclear reactor.",
+        "topic": "reactor",
+        "role": "application-context"
+      }
     },
     {
       "title": "Vật liệu từ",
       "desc": "Gadolinium có tính chất từ đặc biệt và được sử dụng trong nghiên cứu và chế tạo một số vật liệu từ.",
-      "sourceLine": 93
+      "sourceLine": 93,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "magnetic-material",
+        "source": "https://commons.wikimedia.org/wiki/File:Magnetostriction_by_Zureks.gif"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/magnetic-material.gif",
+        "source": "https://commons.wikimedia.org/wiki/File:Magnetostriction_by_Zureks.gif",
+        "author": "Zureks",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Vật liệu từ — Magnetostriction",
+        "caption": "Sơ đồ nguyên lý từ giảo.",
+        "topic": "magnetic-material",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hợp kim",
       "desc": "Gadolinium có thể được thêm vào một số hợp kim để cải thiện tính chất vật liệu.",
-      "sourceLine": 94
+      "sourceLine": 94,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "alloy",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/alloy.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg",
+        "author": "Bill Abbott",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Hợp kim — Alloy",
+        "caption": "Minh họa lĩnh vực hợp kim · Alloy.",
+        "topic": "alloy",
+        "role": "application-context"
+      }
     },
     {
       "title": "Điện tử",
       "desc": "Một số hợp chất Gadolinium được sử dụng trong vật liệu quang học, điện tử và từ tính.",
-      "sourceLine": 95
+      "sourceLine": 95,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "electronics",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/electronics.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg",
+        "author": "Raimond Spekking",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Điện tử — Printed circuit board",
+        "caption": "Minh họa lĩnh vực điện tử · Printed circuit board.",
+        "topic": "electronics",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Gadolinium là nguyên tố số 64, thuộc nhóm IIIB | chu kỳ 6 và là nguyên tố thứ tám trong họ Lanthanide.</li><li>Gadolinium được Jean Charles Galissard de Marignac phát hiện vào năm 1880 tại Geneva. Tên nguyên tố được đặt theo tên Johan Gadolin, nhà hóa học người Phần Lan có đóng góp quan trọng trong nghiên cứu đất hiếm.</li><li>Gadolinium là kim loại màu trắng bạc, có tính thuận từ mạnh và có điểm Curie gần nhiệt độ phòng. Trạng thái Oxy hóa phổ biến nhất là +3, với cấu hình 4f⁷ bán đầy đặc biệt ổn định.</li><li>Đặc điểm nổi bật nhất của Gadolinium là khả năng hấp thụ neutron cực mạnh, đặc biệt ở đồng vị ¹⁵⁷Gd. Vì vậy, nó có vai trò quan trọng trong công nghệ hạt nhân. Ngoài ra, các phức Gd³⁺ còn được sử dụng làm chất tương phản trong MRI.</li><li>Mạng tinh thể: Lục phương xếp chặt (HCP) ở điều kiện thường.</li></ul>",
@@ -521,9 +673,9 @@
           "a": 6.788,
           "b": 7.0163,
           "c": 6.465,
-          "alpha": 90.0,
+          "alpha": 90,
           "beta": 103.43,
-          "gamma": 90.0
+          "gamma": 90
         },
         "volume": 299.48637533121257,
         "siteCount": 24,
@@ -590,6 +742,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Gadolinium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -598,6 +755,7 @@
     "sourceSha256": "278306ac18d53e6ff73aab281a8ba917b8f284ba13eef5c58caca78c8a09756b",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/064_Gd.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/gadolinium-gd/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/gadolinium-gd/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/gadolinium-gd/audit.md"
   }
 }

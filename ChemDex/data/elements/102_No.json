@@ -67,7 +67,30 @@
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Chưa xác định do chỉ tạo được lượng nguyên tử cực nhỏ.",
     "latticeEvidence": "predicted",
-    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
+    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác.",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Nobelium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_nobelium",
+      "revisionId": 1377743118,
+      "revisionTimestamp": "2026-09-30T22:55:41Z",
+      "status": "phase-unmeasured-or-fluid",
+      "phases": [
+        {
+          "type": "face-centered cubic",
+          "prefix": "",
+          "comment": "(predicted)",
+          "pearson": "",
+          "lattice": ""
+        }
+      ],
+      "selectedModel": null,
+      "modelKind": null,
+      "metrics": [],
+      "notes": [
+        "Không lấy hình của một kiểu mạng chung để khẳng định mẫu tinh thể đã được đo. Pha khí/lỏng và cấu trúc dự đoán được ghi riêng."
+      ],
+      "additionalSources": []
+    }
   },
   "structureType": "Chưa xác định do chỉ tạo được lượng nguyên tử cực nhỏ.",
   "occurrence": {
@@ -353,22 +376,53 @@
     {
       "title": "Nghiên cứu hạt nhân",
       "desc": "Nobelium gần như chỉ được sử dụng trong nghiên cứu vật lý hạt nhân và hóa học Actinide.",
-      "sourceLine": 86
+      "sourceLine": 86,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/research.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "author": "LSDSL",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nghiên cứu hạt nhân — Particle accelerator",
+        "caption": "Minh họa lĩnh vực nghiên cứu hạt nhân · Particle accelerator.",
+        "topic": "research",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nghiên cứu cấu trúc electron",
       "desc": "Nobelium đặc biệt quan trọng để nghiên cứu ảnh hưởng của cấu hình 5f¹⁴ lên tính chất hóa học của các Actinide nặng.",
-      "sourceLine": 87
+      "sourceLine": 87,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      }
     },
     {
       "title": "Nghiên cứu nguyên tố siêu nặng",
       "desc": "Nobelium cung cấp dữ liệu để hiểu về độ ổn định của các hạt nhân nặng và giới hạn của bảng tuần hoàn.",
-      "sourceLine": 88
+      "sourceLine": 88,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      }
     },
     {
       "title": "Ứng dụng",
       "desc": "Do chỉ tạo được từng lượng nguyên tử rất nhỏ và có tính phóng xạ cao, Nobelium không có ứng dụng công nghiệp hay đời sống thông thường.",
-      "sourceLine": 89
+      "sourceLine": 89,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Nobelium là nguyên tố số 102, thuộc nhóm IIB | chu kỳ 7 và là nguyên tố thứ mười bốn trong họ Actinide.</li><li>Nobelium được tạo ra nhân tạo tại Dubna, Liên Xô và được đặt tên để vinh danh Alfred Nobel.</li><li>Đây là một nguyên tố phóng xạ cực mạnh, không có đồng vị bền. Hai trạng thái Oxy hóa quan trọng là +2 và +3, trong đó No²⁺ đặc biệt ổn định do có cấu hình 5f¹⁴ hoàn toàn đầy.</li><li>Nobelium chủ yếu có giá trị trong nghiên cứu khoa học, giúp các nhà khoa học tìm hiểu cấu trúc electron, hóa học Actinide và tính chất của các hạt nhân rất nặng.</li><li>Mạng tinh thể: Chưa xác định thực nghiệm.</li></ul>",
@@ -409,6 +463,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Nobelium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -417,6 +476,7 @@
     "sourceSha256": "43745564f0160a55f30537cd7e9a6125eb58f9b6630a0492b697041017fb35fc",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/102_No.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/nobelium-no/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/nobelium-no/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/nobelium-no/audit.md"
   }
 }

@@ -67,7 +67,30 @@
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
     "latticeEvidence": "predicted",
-    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
+    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác.",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Copernicium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_copernicium",
+      "revisionId": 1231721608,
+      "revisionTimestamp": "2024-06-29T21:55:41Z",
+      "status": "phase-unmeasured-or-fluid",
+      "phases": [
+        {
+          "type": "hexagonal close-packed",
+          "prefix": "",
+          "comment": "(predicted)",
+          "pearson": "",
+          "lattice": ""
+        }
+      ],
+      "selectedModel": null,
+      "modelKind": null,
+      "metrics": [],
+      "notes": [
+        "Không lấy hình của một kiểu mạng chung để khẳng định mẫu tinh thể đã được đo. Pha khí/lỏng và cấu trúc dự đoán được ghi riêng."
+      ],
+      "additionalSources": []
+    }
   },
   "structureType": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
   "occurrence": {
@@ -321,27 +344,63 @@
     {
       "title": "Ứng dụng",
       "desc": "Copernicium không có ứng dụng công nghiệp hoặc dân dụng.",
-      "sourceLine": 81
+      "sourceLine": 81,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Nó chủ yếu được sử dụng trong",
       "desc": "",
-      "sourceLine": 82
+      "sourceLine": 82,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Nghiên cứu hạt nhân",
       "desc": "Nghiên cứu các hạt nhân siêu nặng và độ ổn định của chúng.",
-      "sourceLine": 83
+      "sourceLine": 83,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/research.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "author": "LSDSL",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nghiên cứu hạt nhân — Particle accelerator",
+        "caption": "Minh họa lĩnh vực nghiên cứu hạt nhân · Particle accelerator.",
+        "topic": "research",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hóa học nguyên tố siêu nặng",
       "desc": "Nghiên cứu vị trí của Copernicium trong nhóm IIB và so sánh với Zinc, Cadmium và Mercury.",
-      "sourceLine": 84
+      "sourceLine": 84,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      }
     },
     {
       "title": "Nghiên cứu hiệu ứng tương đối tính",
       "desc": "Copernicium là một ví dụ đặc biệt về việc hiệu ứng tương đối tính có thể làm thay đổi mạnh tính chất của nguyên tử siêu nặng.",
-      "sourceLine": 85
+      "sourceLine": 85,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Copernicium là nguyên tố số 112, thuộc nhóm IIB | chu kỳ 7 và là một nguyên tố siêu nặng.</li><li>Copernicium được tổng hợp lần đầu vào năm 1996 tại Darmstadt, Đức, bằng phản ứng giữa Lead-208 và Zinc-70. Tên nguyên tố được đặt để vinh danh Nicolaus Copernicus.</li><li>Cấu hình electron được dự đoán là [Rn] 5f¹⁴ 6d¹⁰ 7s², với số Oxy hóa chủ yếu là +2. Do hiệu ứng tương đối tính cực mạnh, Copernicium có thể có những tính chất khác biệt đáng kể so với các nguyên tố cùng nhóm.</li><li>Copernicium không có đồng vị bền, rất phóng xạ và chỉ được tạo ra với số lượng cực nhỏ. Vì vậy, nó không có ứng dụng thực tế, chủ yếu phục vụ nghiên cứu khoa học.</li><li>Mạng tinh thể: Lập phương tâm khối (BCC) — dự đoán, vì chưa thể thu được lượng Copernicium đủ lớn để xác định trực tiếp cấu trúc tinh thể.</li></ul>",
@@ -382,6 +441,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Copernicium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -390,6 +454,7 @@
     "sourceSha256": "87ebd26901395f173cc116e42ff96fd56b4c1ae245846608c38b70073b009907",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/112_Cn.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/copernicium-cn/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/copernicium-cn/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/copernicium-cn/audit.md"
   }
 }

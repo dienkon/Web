@@ -71,9 +71,9 @@
         "a": 2.95,
         "b": 2.95,
         "c": 4.686,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 120.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 120
       },
       "volume": 35.31644235417009,
       "siteCount": 2,
@@ -102,9 +102,81 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-ti.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-ti.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-ti.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-ti.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-ti.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Titanium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_titanium",
+        "revisionId": 1333869186,
+        "revisionTimestamp": "2026-01-20T05:11:12Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "hexagonal close packed",
+            "prefix": "",
+            "comment": "",
+            "pearson": "hP2",
+            "lattice": "a = 295.05 pm; c = 468.33 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-ti",
+        "modelKind": "hcp",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 2.9505000000000003,
+            "modelAngstrom": 2.95,
+            "relativeDifferencePercent": 0.016946280291481677
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "c",
+            "wikiAngstrom": 4.6833,
+            "modelAngstrom": 4.686,
+            "relativeDifferencePercent": 0.05765165588367016
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Titanium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_titanium",
+      "revisionId": 1333869186,
+      "revisionTimestamp": "2026-01-20T05:11:12Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "hexagonal close packed",
+          "prefix": "",
+          "comment": "",
+          "pearson": "hP2",
+          "lattice": "a = 295.05 pm; c = 468.33 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-ti",
+      "modelKind": "hcp",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 2.9505000000000003,
+          "modelAngstrom": 2.95,
+          "relativeDifferencePercent": 0.016946280291481677
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "c",
+          "wikiAngstrom": 4.6833,
+          "modelAngstrom": 4.686,
+          "relativeDifferencePercent": 0.05765165588367016
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lục phương (Hexagonal)",
   "occurrence": {
@@ -155,9 +227,9 @@
             "a": 4.594,
             "b": 4.594,
             "c": 2.9586,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 62.44076778960001,
           "siteCount": 6,
@@ -517,32 +589,128 @@
     {
       "title": "Hàng không và vũ trụ",
       "desc": "Titanium alloys có độ bền cao, nhẹ và chịu nhiệt tốt nên được sử dụng trong máy bay và tàu vũ trụ.",
-      "sourceLine": 95
+      "sourceLine": 95,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "refractory",
+        "source": "https://commons.wikimedia.org/wiki/File:Torpedo_car_refractory_bricks.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/refractory.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Torpedo_car_refractory_bricks.JPG",
+        "author": "Morgan Riley",
+        "license": "CC BY 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+        "alt": "Hàng không và vũ trụ — Refractory",
+        "caption": "Minh họa lĩnh vực hàng không và vũ trụ · Refractory.",
+        "topic": "refractory",
+        "role": "application-context"
+      }
     },
     {
       "title": "Y tế",
       "desc": "Titanium và Titanium alloys được sử dụng trong một số dụng cụ và implant y tế nhờ khả năng chống ăn mòn và tương thích sinh học tốt.",
-      "sourceLine": 96
+      "sourceLine": 96,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "sacrificial-anode",
+        "source": "https://commons.wikimedia.org/wiki/File:Sacrificial_anode.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/sacrificial-anode.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Sacrificial_anode.jpg",
+        "author": "Zwergelstern",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+        "alt": "Y tế — Galvanic anode",
+        "caption": "Minh họa lĩnh vực y tế · Galvanic anode.",
+        "topic": "sacrificial-anode",
+        "role": "application-context"
+      }
     },
     {
       "title": "Công nghiệp hóa chất",
       "desc": "Titanium được sử dụng trong các thiết bị cần khả năng chống ăn mòn cao.",
-      "sourceLine": 97
+      "sourceLine": 97,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "chemical-industry",
+        "source": "https://commons.wikimedia.org/wiki/File:BASF_Schwarzheide_GmbH_Werksansicht_01.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/chemical-industry.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:BASF_Schwarzheide_GmbH_Werksansicht_01.jpg",
+        "author": "Goku4711",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Công nghiệp hóa chất — Chemical plant",
+        "caption": "Minh họa lĩnh vực công nghiệp hóa chất · Chemical plant.",
+        "topic": "chemical-industry",
+        "role": "application-context"
+      }
     },
     {
       "title": "Sơn và chất màu",
       "desc": "Titanium dioxide (TiO₂) là một chất màu trắng quan trọng, được sử dụng rộng rãi trong sơn, nhựa và giấy.",
-      "sourceLine": 98
+      "sourceLine": 98,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "pigment",
+        "source": "https://commons.wikimedia.org/wiki/File:Indian_pigments.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/pigment.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Indian_pigments.jpg",
+        "author": "Dan Brady",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "alt": "Sơn và chất màu — Pigment",
+        "caption": "Minh họa lĩnh vực sơn và chất màu · Pigment.",
+        "topic": "pigment",
+        "role": "application-context"
+      }
     },
     {
       "title": "Đồ dùng và thể thao",
       "desc": "Titanium alloys được sử dụng trong một số sản phẩm yêu cầu nhẹ và bền.",
-      "sourceLine": 99
+      "sourceLine": 99,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "sports",
+        "source": "https://commons.wikimedia.org/wiki/File:Bicycle_frame_mtb_hardtail.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/sports.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Bicycle_frame_mtb_hardtail.jpg",
+        "author": "Keithonearth",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Đồ dùng và thể thao — Bicycle frame",
+        "caption": "Minh họa lĩnh vực đồ dùng và thể thao · Bicycle frame.",
+        "topic": "sports",
+        "role": "application-context"
+      }
     },
     {
       "title": "Luyện kim",
       "desc": "Titanium được sử dụng làm nguyên tố hợp kim để cải thiện tính chất của một số vật liệu.",
-      "sourceLine": 100
+      "sourceLine": 100,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "alloy",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/alloy.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg",
+        "author": "Bill Abbott",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Luyện kim — Alloy",
+        "caption": "Minh họa lĩnh vực luyện kim · Alloy.",
+        "topic": "alloy",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Titanium là nguyên tố số 22, thuộc nhóm IVB | chu kỳ 4 và là một kim loại chuyển tiếp.</li><li>Titanium có cấu hình electron [Ar] 3d² 4s², với các số Oxy hóa phổ biến là +2, +3 và +4, trong đó +4 là trạng thái phổ biến nhất.</li><li>Titanium có độ bền cao, khối lượng riêng tương đối thấp và khả năng chống ăn mòn tốt nhờ hình thành lớp Titanium dioxide bảo vệ trên bề mặt.</li><li>Titanium được khai thác chủ yếu từ các khoáng vật như Rutile và Ilmenite. Kim loại Titanium được sản xuất công nghiệp chủ yếu bằng quy trình Kroll.</li><li>Titanium và các hợp chất của nó có vai trò quan trọng trong hàng không–vũ trụ, y tế, công nghiệp hóa chất, sản xuất chất màu và chế tạo hợp kim.</li></ul>",
@@ -583,9 +751,9 @@
           "a": 4.594,
           "b": 4.594,
           "c": 2.9586,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 62.44076778960001,
         "siteCount": 6,
@@ -652,6 +820,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Titanium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -660,6 +833,7 @@
     "sourceSha256": "8744e2cd4c10f071a7a09ece6fd336798e2ff66d6bb09e34ddefefc9a0959083",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/022_Ti.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/titan-ti/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/titan-ti/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/titan-ti/audit.md"
   }
 }

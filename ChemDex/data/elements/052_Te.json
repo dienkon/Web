@@ -73,9 +73,9 @@
         "a": 4.44693,
         "b": 4.44693,
         "c": 5.91492,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 120.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 120
       },
       "volume": 101.29781861238916,
       "siteCount": 3,
@@ -97,9 +97,81 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-te.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-te.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-te.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-te.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-te.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Tellurium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_tellurium",
+        "revisionId": 1214496282,
+        "revisionTimestamp": "2024-03-19T09:14:33Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "hexagonal",
+            "prefix": "",
+            "comment": "",
+            "pearson": "hP3",
+            "lattice": "a = 445.59 pm; c = 592.75 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-te",
+        "modelKind": "hexagonal",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 4.4559,
+            "modelAngstrom": 4.44693,
+            "relativeDifferencePercent": 0.20130613344104897
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "c",
+            "wikiAngstrom": 5.9275,
+            "modelAngstrom": 5.91492,
+            "relativeDifferencePercent": 0.21223112610712463
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Tellurium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_tellurium",
+      "revisionId": 1214496282,
+      "revisionTimestamp": "2024-03-19T09:14:33Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "hexagonal",
+          "prefix": "",
+          "comment": "",
+          "pearson": "hP3",
+          "lattice": "a = 445.59 pm; c = 592.75 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-te",
+      "modelKind": "hexagonal",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 4.4559,
+          "modelAngstrom": 4.44693,
+          "relativeDifferencePercent": 0.20130613344104897
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "c",
+          "wikiAngstrom": 5.9275,
+          "modelAngstrom": 5.91492,
+          "relativeDifferencePercent": 0.21223112610712463
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lục phương (Hexagonal)",
   "occurrence": {
@@ -152,9 +224,9 @@
             "a": 7.1947,
             "b": 4.4146,
             "c": 5.0703,
-            "alpha": 90.0,
+            "alpha": 90,
             "beta": 90.038,
-            "gamma": 90.0
+            "gamma": 90
           },
           "volume": 161.04142678173022,
           "siteCount": 6,
@@ -504,32 +576,117 @@
     {
       "title": "Pin mặt trời",
       "desc": "Cadmium telluride (CdTe) được sử dụng trong pin mặt trời màng mỏng.",
-      "sourceLine": 84
+      "sourceLine": 84,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "solar-cell",
+        "source": "https://commons.wikimedia.org/wiki/File:Solar_cell.png"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/solar-cell.png",
+        "source": "https://commons.wikimedia.org/wiki/File:Solar_cell.png",
+        "author": "Unknown author Unknown author",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Pin mặt trời — Solar cell",
+        "caption": "Minh họa lĩnh vực pin mặt trời · Solar cell.",
+        "topic": "solar-cell",
+        "role": "application-context"
+      }
     },
     {
       "title": "Bán dẫn",
       "desc": "Tellurium và các hợp chất của nó được sử dụng trong một số vật liệu bán dẫn.",
-      "sourceLine": 85
+      "sourceLine": 85,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "semiconductor",
+        "source": "https://commons.wikimedia.org/wiki/File:ICC_2008_Poland_Silicon_Wafer_1_edit.png"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/semiconductor.png",
+        "source": "https://commons.wikimedia.org/wiki/File:ICC_2008_Poland_Silicon_Wafer_1_edit.png",
+        "author": "FxJ",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Bán dẫn — Silicon wafer",
+        "caption": "Minh họa lĩnh vực bán dẫn · Silicon wafer.",
+        "topic": "semiconductor",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nhiệt điện",
       "desc": "Một số Telluride như Bismuth telluride (Bi₂Te₃) có tính chất nhiệt điện tốt, được sử dụng trong các thiết bị chuyển đổi nhiệt–điện.",
-      "sourceLine": 86
+      "sourceLine": 86,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Hợp kim",
       "desc": "Tellurium được thêm vào một số hợp kim Copper và Lead để cải thiện khả năng gia công.",
-      "sourceLine": 87
+      "sourceLine": 87,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "alloy",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/alloy.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg",
+        "author": "Bill Abbott",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Hợp kim — Alloy",
+        "caption": "Minh họa lĩnh vực hợp kim · Alloy.",
+        "topic": "alloy",
+        "role": "application-context"
+      }
     },
     {
       "title": "Cao su",
       "desc": "Một số hợp chất Tellurium được sử dụng trong quá trình xử lý và lưu hóa cao su.",
-      "sourceLine": 88
+      "sourceLine": 88,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "rubber",
+        "source": "https://commons.wikimedia.org/wiki/File:VulcanizationMold1941.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/rubber.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:VulcanizationMold1941.jpg",
+        "author": "Alfred T. Palmer",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Cao su — Vulcanization",
+        "caption": "Minh họa lĩnh vực cao su · Vulcanization.",
+        "topic": "rubber",
+        "role": "application-context"
+      }
     },
     {
       "title": "Kính",
       "desc": "Tellurium compounds được sử dụng trong một số loại kính đặc biệt.",
-      "sourceLine": 89
+      "sourceLine": 89,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "glass",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/glass.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg",
+        "author": "Ansgar Koreng",
+        "license": "CC BY 3.0 de",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/de/deed.en",
+        "alt": "Kính — Glass",
+        "caption": "Minh họa lĩnh vực kính · Glass.",
+        "topic": "glass",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Tellurium là nguyên tố số 52, thuộc nhóm VIA | chu kỳ 5 và là một á kim.</li><li>Tellurium có cấu hình electron [Kr] 4d¹⁰ 5s² 5p⁴, với các số Oxy hóa phổ biến là −2, +4 và +6.</li><li>Tellurium có màu trắng bạc, ánh kim, khá giòn và có tính chất bán dẫn. Đặc biệt, độ dẫn điện của Tellurium có thể thay đổi dưới tác động của ánh sáng.</li><li>Trong tự nhiên, Tellurium thường được thu hồi như sản phẩm phụ của quá trình tinh luyện Copper. Tellurium và các hợp chất của nó có vai trò trong pin mặt trời, vật liệu bán dẫn, thiết bị nhiệt điện, hợp kim và kính đặc biệt.</li></ul>",
@@ -570,9 +727,9 @@
           "a": 7.1947,
           "b": 4.4146,
           "c": 5.0703,
-          "alpha": 90.0,
+          "alpha": 90,
           "beta": 90.038,
-          "gamma": 90.0
+          "gamma": 90
         },
         "volume": 161.04142678173022,
         "siteCount": 6,
@@ -638,6 +795,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Tellurium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -646,6 +808,7 @@
     "sourceSha256": "2c8c4fa5feac876b45deb7db869fe59ec64187b3d5a97de43bf621346d69f8b9",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/052_Te.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/tellurium-te/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/tellurium-te/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/tellurium-te/audit.md"
   }
 }

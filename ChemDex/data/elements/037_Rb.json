@@ -73,9 +73,9 @@
         "a": 5.7,
         "b": 5.7,
         "c": 5.7,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 90.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
       },
       "volume": 185.193,
       "siteCount": 2,
@@ -98,9 +98,71 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-rb.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-rb.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-rb.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-rb.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-rb.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Rubidium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_rubidium",
+        "revisionId": 1306954053,
+        "revisionTimestamp": "2025-08-20T17:18:40Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "body-centered cubic",
+            "prefix": "",
+            "comment": "",
+            "pearson": "cI2",
+            "lattice": "a = 569.9 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-rb",
+        "modelKind": "bcc",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 5.699,
+            "modelAngstrom": 5.7,
+            "relativeDifferencePercent": 0.017546938059314513
+          }
+        ],
+        "notes": [
+          "Bản ghi giữ chú thích nguồn: hằng số mạng 297 K là ước lượng."
+        ],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Rubidium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_rubidium",
+      "revisionId": 1306954053,
+      "revisionTimestamp": "2025-08-20T17:18:40Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "body-centered cubic",
+          "prefix": "",
+          "comment": "",
+          "pearson": "cI2",
+          "lattice": "a = 569.9 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-rb",
+      "modelKind": "bcc",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 5.699,
+          "modelAngstrom": 5.7,
+          "relativeDifferencePercent": 0.017546938059314513
+        }
+      ],
+      "notes": [
+        "Bản ghi giữ chú thích nguồn: hằng số mạng 297 K là ước lượng."
+      ],
+      "additionalSources": []
+    }
   },
   "structureType": "Lập phương tâm khối (Body-centered cubic, BCC)",
   "occurrence": {
@@ -150,9 +212,9 @@
             "a": 5.2,
             "b": 5.2,
             "c": 29.76,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 120.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 120
           },
           "volume": 696.8996490895374,
           "siteCount": 60,
@@ -394,27 +456,85 @@
     {
       "title": "Đồng hồ nguyên tử",
       "desc": "Rubidium được sử dụng trong một số loại Rubidium atomic clocks nhờ đặc tính chuyển mức năng lượng ổn định của nguyên tử.",
-      "sourceLine": 82
+      "sourceLine": 82,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "atomic-clock",
+        "source": "https://commons.wikimedia.org/wiki/File:Caesium_clock_block.svg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/atomic-clock.png",
+        "source": "https://commons.wikimedia.org/wiki/File:Caesium_clock_block.svg",
+        "author": "Constant314",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "alt": "Đồng hồ nguyên tử — Atomic clock",
+        "caption": "Minh họa lĩnh vực đồng hồ nguyên tử · Atomic clock.",
+        "topic": "atomic-clock",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nghiên cứu vật lý",
       "desc": "Rubidium được sử dụng trong nghiên cứu nguyên tử lạnh và Bose–Einstein condensate.",
-      "sourceLine": 83
+      "sourceLine": 83,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/research.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "author": "LSDSL",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nghiên cứu vật lý — Particle accelerator",
+        "caption": "Minh họa lĩnh vực nghiên cứu vật lý · Particle accelerator.",
+        "topic": "research",
+        "role": "application-context"
+      }
     },
     {
       "title": "Điện tử",
       "desc": "Một số Rubidium compounds được sử dụng trong sản xuất vật liệu và thiết bị điện tử đặc biệt.",
-      "sourceLine": 84
+      "sourceLine": 84,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "electronics",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/electronics.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg",
+        "author": "Raimond Spekking",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Điện tử — Printed circuit board",
+        "caption": "Minh họa lĩnh vực điện tử · Printed circuit board.",
+        "topic": "electronics",
+        "role": "application-context"
+      }
     },
     {
       "title": "Y học và nghiên cứu",
       "desc": "Một số đồng vị Rubidium được sử dụng trong nghiên cứu sinh học và y học.",
-      "sourceLine": 85
+      "sourceLine": 85,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      }
     },
     {
       "title": "Nghiên cứu địa chất",
       "desc": "⁸⁷Rb được sử dụng trong phương pháp định tuổi Rubidium–Strontium.",
-      "sourceLine": 86
+      "sourceLine": 86,
+      "imageReview": {
+        "status": "source-link",
+        "topic": "geology",
+        "source": "https://commons.wikimedia.org/wiki/Special:MediaSearch?type=image&search=Radiometric%20dating"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Rubidium là nguyên tố số 37, thuộc nhóm IA | chu kỳ 5 và là một kim loại kiềm.</li><li>Rubidium có cấu hình electron [Kr] 5s¹, vì vậy rất dễ mất electron để tạo ion Rb⁺. Đây là nguyên nhân khiến Rubidium có tính khử và độ hoạt động hóa học rất cao.</li><li>Rubidium là kim loại mềm, màu trắng bạc, có nhiệt độ nóng chảy thấp và có thể tạo ngọn lửa đỏ tím đặc trưng.</li><li>Trong tự nhiên, Rubidium thường tồn tại trong các khoáng vật cùng với các kim loại kiềm khác. Rubidium có ứng dụng đáng chú ý trong đồng hồ nguyên tử, nghiên cứu vật lý, định tuổi địa chất và một số lĩnh vực điện tử, y học.</li></ul>",
@@ -455,9 +575,9 @@
           "a": 5.2,
           "b": 5.2,
           "c": 29.76,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 120.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 120
         },
         "volume": 696.8996490895374,
         "siteCount": 60,
@@ -522,6 +642,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Rubidium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -530,6 +655,7 @@
     "sourceSha256": "d39098a8285ecf6dc6a95f5bddbbb054d442fb905690fdb138c35e14408ef5bd",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/037_Rb.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/rubidium-rb/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/rubidium-rb/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/rubidium-rb/audit.md"
   }
 }

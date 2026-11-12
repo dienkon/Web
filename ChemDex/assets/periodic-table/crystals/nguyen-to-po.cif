@@ -1,0 +1,77 @@
+# Reference prototype from published lattice parameters; not a refined experimental atomic model.
+data_webelements-po-2026-11-12
+_database_code_ChemDex webelements-po-2026-11-12
+_chemical_formula_sum Po
+_symmetry_space_group_name_H-M 'P m -3 m'
+_cell_length_a 3.359
+_cell_length_b 3.359
+_cell_length_c 3.359
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 90
+_publ_section_title 'Polonium — crystal structures; tài liệu được trang liệt kê: R. J. DeSando and R. C. Lange, J. Inorg. Nucl. Chem. 1966, 28, 1837.'
+_chemdex_model_limitations 'Vị trí Wyckoff lý tưởng của prototype; thông số ô mạng do WebElements tổng hợp. Không phải bộ tinh chỉnh nguyên tử thực nghiệm riêng của ChemDex.'
+_chemdex_parameter_source_url 'https://www.webelements.com/polonium/crystal_structure.html'
+_journal_name_full 'University of Sheffield / WebElements'
+_journal_year 2026
+loop_
+_publ_author_name
+'WebElements / Mark J. Winter'
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+-y,x,z
+-x,-y,z
+y,-x,z
+x,-y,-z
+-y,-x,-z
+-x,y,-z
+y,x,-z
+z,x,y
+z,-y,x
+z,-x,-y
+z,y,-x
+-z,x,-y
+-z,-y,-x
+-z,-x,y
+-z,y,x
+-x,z,y
+y,z,x
+x,z,-y
+-y,z,-x
+-x,-z,-y
+y,-z,-x
+x,-z,y
+-y,-z,x
+-x,-y,-z
+y,-x,-z
+x,y,-z
+-y,x,-z
+-x,y,z
+y,x,z
+x,-y,z
+-y,-x,z
+-z,-x,-y
+-z,y,-x
+-z,x,y
+-z,-y,x
+z,-x,y
+z,y,x
+z,x,-y
+z,-y,-x
+x,-z,-y
+-y,-z,-x
+-x,-z,y
+y,-z,x
+x,z,y
+-y,z,x
+-x,z,-y
+y,z,-x
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+Po1 Po 0 0 0 1

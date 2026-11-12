@@ -75,9 +75,9 @@
         "a": 3.8312,
         "b": 3.8312,
         "c": 3.8312,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 90.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
       },
       "volume": 56.234711587328,
       "siteCount": 4,
@@ -100,9 +100,67 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-ir.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-ir.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-ir.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-ir.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-ir.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Iridium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_iridium",
+        "revisionId": 1380857790,
+        "revisionTimestamp": "2026-10-18T11:10:41Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "face-centered cubic",
+            "prefix": "",
+            "comment": "",
+            "pearson": "cF4",
+            "lattice": "a = 383.92 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-ir",
+        "modelKind": "fcc",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 3.8392000000000004,
+            "modelAngstrom": 3.8312,
+            "relativeDifferencePercent": 0.2083767451552524
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Iridium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_iridium",
+      "revisionId": 1380857790,
+      "revisionTimestamp": "2026-10-18T11:10:41Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "face-centered cubic",
+          "prefix": "",
+          "comment": "",
+          "pearson": "cF4",
+          "lattice": "a = 383.92 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-ir",
+      "modelKind": "fcc",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 3.8392000000000004,
+          "modelAngstrom": 3.8312,
+          "relativeDifferencePercent": 0.2083767451552524
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lập phương tâm mặt (Face-centered cubic, FCC)",
   "occurrence": {
@@ -152,9 +210,9 @@
             "a": 3.9158,
             "b": 3.9158,
             "c": 3.9158,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 60.042878732312,
           "siteCount": 4,
@@ -395,32 +453,117 @@
     {
       "title": "Bugi",
       "desc": "Iridium được sử dụng trong điện cực của một số loại bugi do có độ cứng, nhiệt độ nóng chảy cao và khả năng chống ăn mòn tốt.",
-      "sourceLine": 80
+      "sourceLine": 80,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "spark-plug",
+        "source": "https://commons.wikimedia.org/wiki/File:Buj%C3%ADa_Bosch_Yttrium_Super_Plus.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/spark-plug.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Buj%C3%ADa_Bosch_Yttrium_Super_Plus.JPG",
+        "author": "Schumi4ever",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Bugi — Spark plug",
+        "caption": "Minh họa lĩnh vực bugi · Spark plug.",
+        "topic": "spark-plug",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hợp kim",
       "desc": "Được sử dụng để tạo các hợp kim có độ bền và khả năng chịu nhiệt cao.",
-      "sourceLine": 81
+      "sourceLine": 81,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "refractory",
+        "source": "https://commons.wikimedia.org/wiki/File:Torpedo_car_refractory_bricks.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/refractory.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Torpedo_car_refractory_bricks.JPG",
+        "author": "Morgan Riley",
+        "license": "CC BY 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+        "alt": "Hợp kim — Refractory",
+        "caption": "Minh họa lĩnh vực hợp kim · Refractory.",
+        "topic": "refractory",
+        "role": "application-context"
+      }
     },
     {
       "title": "Thiết bị khoa học",
       "desc": "Iridium được sử dụng trong một số dụng cụ và thiết bị cần khả năng chống ăn mòn.",
-      "sourceLine": 82
+      "sourceLine": 82,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "sacrificial-anode",
+        "source": "https://commons.wikimedia.org/wiki/File:Sacrificial_anode.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/sacrificial-anode.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Sacrificial_anode.jpg",
+        "author": "Zwergelstern",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+        "alt": "Thiết bị khoa học — Galvanic anode",
+        "caption": "Minh họa lĩnh vực thiết bị khoa học · Galvanic anode.",
+        "topic": "sacrificial-anode",
+        "role": "application-context"
+      }
     },
     {
       "title": "Điện hóa",
       "desc": "Một số hợp chất Iridium, đặc biệt Iridium oxide, được sử dụng trong điện cực.",
-      "sourceLine": 83
+      "sourceLine": 83,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Y học",
       "desc": "Đồng vị phóng xạ ¹⁹²Ir được sử dụng trong một số phương pháp xạ trị.",
-      "sourceLine": 84
+      "sourceLine": 84,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "radiotherapy",
+        "source": "https://commons.wikimedia.org/wiki/File:Radiation_therapy.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/radiotherapy.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Radiation_therapy.jpg",
+        "author": "Dina Wakulchik from Indianapolis, Indiana, USA",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "alt": "Y học — Radiation therapy",
+        "caption": "Minh họa lĩnh vực y học · Radiation therapy.",
+        "topic": "radiotherapy",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nghiên cứu",
       "desc": "Iridium và các hợp chất của nó được sử dụng làm chất xúc tác và trong nghiên cứu hóa học.",
-      "sourceLine": 85
+      "sourceLine": 85,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "catalyst",
+        "source": "https://commons.wikimedia.org/wiki/File:Catalysts.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/catalyst.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Catalysts.JPG",
+        "author": "Shubhrapdil",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Nghiên cứu — Catalysis",
+        "caption": "Minh họa lĩnh vực nghiên cứu · Catalysis.",
+        "topic": "catalyst",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Iridium là nguyên tố số 77, thuộc nhóm VIIIB | chu kỳ 6 và là một kim loại chuyển tiếp thuộc nhóm Platinum.</li><li>Iridium có cấu hình electron [Xe] 4f¹⁴ 5d⁷ 6s², với các số Oxy hóa phổ biến là +3 và +4.</li><li>Đây là kim loại rất cứng, giòn, nặng và có khả năng chống ăn mòn cực cao. Iridium cũng có nhiệt độ nóng chảy rất cao.</li><li>Iridium tồn tại tự nhiên chủ yếu cùng các kim loại nhóm Platinum và được thu hồi như sản phẩm phụ trong quá trình tinh luyện các quặng kim loại khác.</li><li>Iridium có ứng dụng trong bugi, hợp kim chịu nhiệt, điện cực, thiết bị khoa học và y học hạt nhân, đặc biệt là đồng vị ¹⁹²Ir trong xạ trị.</li></ul>",
@@ -461,9 +604,9 @@
           "a": 3.9158,
           "b": 3.9158,
           "c": 3.9158,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 60.042878732312,
         "siteCount": 4,
@@ -529,6 +672,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Iridium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -537,6 +685,7 @@
     "sourceSha256": "30b2e01ccfbc354a287d6acfe375d78484452514ea6a3df210402997e36a8aa3",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/077_Ir.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/iridium-ir/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/iridium-ir/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/iridium-ir/audit.md"
   }
 }

@@ -69,9 +69,9 @@
         "a": 10.4646,
         "b": 12.866,
         "c": 24.486,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 90.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
       },
       "volume": 3296.7348925896003,
       "siteCount": 128,
@@ -94,9 +94,109 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-s.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-s.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-s.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-s.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-s.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Sulfur",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_sulfur",
+        "revisionId": 1368326208,
+        "revisionTimestamp": "2026-08-08T11:34:55Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "orthorhombic",
+            "prefix": "alpha (α-S8):",
+            "comment": "",
+            "pearson": "oF128",
+            "lattice": "a = 1.0460 nm; b = 1.2861 nm; c = 2.4481 nm (at 20 °C)"
+          },
+          {
+            "type": "monoclinic",
+            "prefix": "beta (β-S8):",
+            "comment": "",
+            "pearson": "mP48",
+            "lattice": "a = 1.0923 nm; b = 1.0851 nm; c = 1.0787 nm; β = 95.905° (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-s",
+        "modelKind": "orthorhombic",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 10.46,
+            "modelAngstrom": 10.4646,
+            "relativeDifferencePercent": 0.043977055449330185
+          },
+          {
+            "axis": "b",
+            "wikiAxis": "b",
+            "wikiAngstrom": 12.861,
+            "modelAngstrom": 12.866,
+            "relativeDifferencePercent": 0.038877225721164796
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "c",
+            "wikiAngstrom": 24.481,
+            "modelAngstrom": 24.486,
+            "relativeDifferencePercent": 0.020424002287484193
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Sulfur",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_sulfur",
+      "revisionId": 1368326208,
+      "revisionTimestamp": "2026-08-08T11:34:55Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "orthorhombic",
+          "prefix": "alpha (α-S8):",
+          "comment": "",
+          "pearson": "oF128",
+          "lattice": "a = 1.0460 nm; b = 1.2861 nm; c = 2.4481 nm (at 20 °C)"
+        },
+        {
+          "type": "monoclinic",
+          "prefix": "beta (β-S8):",
+          "comment": "",
+          "pearson": "mP48",
+          "lattice": "a = 1.0923 nm; b = 1.0851 nm; c = 1.0787 nm; β = 95.905° (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-s",
+      "modelKind": "orthorhombic",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 10.46,
+          "modelAngstrom": 10.4646,
+          "relativeDifferencePercent": 0.043977055449330185
+        },
+        {
+          "axis": "b",
+          "wikiAxis": "b",
+          "wikiAngstrom": 12.861,
+          "modelAngstrom": 12.866,
+          "relativeDifferencePercent": 0.038877225721164796
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "c",
+          "wikiAngstrom": 24.481,
+          "modelAngstrom": 24.486,
+          "relativeDifferencePercent": 0.020424002287484193
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Trực thoi (Orthorhombic)",
   "occurrence": {
@@ -150,9 +250,9 @@
             "a": 10.4646,
             "b": 12.866,
             "c": 24.486,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 3296.7348925896003,
           "siteCount": 128,
@@ -576,42 +676,148 @@
     {
       "title": "Sản xuất Sulfuric acid",
       "desc": "Đây là ứng dụng quan trọng nhất của Sulfur.",
-      "sourceLine": 102
+      "sourceLine": 102,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Phân bón",
       "desc": "Sulfuric acid và Sulfur compounds được sử dụng trong sản xuất phân bón.",
-      "sourceLine": 103
+      "sourceLine": 103,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "fertilizer",
+        "source": "https://commons.wikimedia.org/wiki/File:Manure_spreading_Hlokozi_2007_11_29.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/fertilizer.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Manure_spreading_Hlokozi_2007_11_29.jpg",
+        "author": "Alandmanson",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Phân bón — Fertilizer",
+        "caption": "Minh họa lĩnh vực phân bón · Fertilizer.",
+        "topic": "fertilizer",
+        "role": "application-context"
+      }
     },
     {
       "title": "Lưu hóa cao su",
       "desc": "Sulfur được sử dụng để tạo liên kết chéo trong cao su, giúp cải thiện độ bền và tính đàn hồi.",
-      "sourceLine": 104
+      "sourceLine": 104,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "rubber",
+        "source": "https://commons.wikimedia.org/wiki/File:VulcanizationMold1941.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/rubber.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:VulcanizationMold1941.jpg",
+        "author": "Alfred T. Palmer",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Lưu hóa cao su — Vulcanization",
+        "caption": "Minh họa lĩnh vực lưu hóa cao su · Vulcanization.",
+        "topic": "rubber",
+        "role": "application-context"
+      }
     },
     {
       "title": "Sản xuất hóa chất",
       "desc": "Dùng để sản xuất nhiều Sulfur compounds.",
-      "sourceLine": 105
+      "sourceLine": 105,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "chemical-industry",
+        "source": "https://commons.wikimedia.org/wiki/File:BASF_Schwarzheide_GmbH_Werksansicht_01.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/chemical-industry.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:BASF_Schwarzheide_GmbH_Werksansicht_01.jpg",
+        "author": "Goku4711",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Sản xuất hóa chất — Chemical plant",
+        "caption": "Minh họa lĩnh vực sản xuất hóa chất · Chemical plant.",
+        "topic": "chemical-industry",
+        "role": "application-context"
+      }
     },
     {
       "title": "Thuốc bảo vệ thực vật",
       "desc": "Một số chế phẩm Sulfur được sử dụng trong nông nghiệp.",
-      "sourceLine": 106
+      "sourceLine": 106,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "fertilizer",
+        "source": "https://commons.wikimedia.org/wiki/File:Manure_spreading_Hlokozi_2007_11_29.jpg"
+      }
     },
     {
       "title": "Sản xuất thuốc",
       "desc": "Sulfur compounds được sử dụng trong một số quy trình sản xuất dược phẩm.",
-      "sourceLine": 107
+      "sourceLine": 107,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "pharmaceuticals",
+        "source": "https://commons.wikimedia.org/wiki/File:Inspecting_a_Drug_Manufacturer_(FDA034)_(6982162417).jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/pharmaceuticals.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Inspecting_a_Drug_Manufacturer_(FDA034)_(6982162417).jpg",
+        "author": "The U.S. Food and Drug Administration",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Sản xuất thuốc — Pharmaceutical industry",
+        "caption": "Minh họa lĩnh vực sản xuất thuốc · Pharmaceutical industry.",
+        "topic": "pharmaceuticals",
+        "role": "application-context"
+      }
     },
     {
       "title": "Diêm và pháo",
       "desc": "Một số hợp chất chứa Sulfur được sử dụng trong các sản phẩm tạo lửa và pháo hoa.",
-      "sourceLine": 108
+      "sourceLine": 108,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "match",
+        "source": "https://commons.wikimedia.org/wiki/File:Friction_d%27une_allumette.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/match.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Friction_d%27une_allumette.jpg",
+        "author": "Yann SEGALEN",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Diêm và pháo — Match",
+        "caption": "Minh họa lĩnh vực diêm và pháo · Match.",
+        "topic": "match",
+        "role": "application-context"
+      }
     },
     {
       "title": "Lọc dầu",
       "desc": "Sulfur được thu hồi trong quá trình xử lý dầu mỏ và khí tự nhiên nhằm loại bỏ Hydrogen sulfide.",
-      "sourceLine": 109
+      "sourceLine": 109,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "refinery",
+        "source": "https://commons.wikimedia.org/wiki/File:Anacortes_Refinery_31911.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/refinery.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Anacortes_Refinery_31911.JPG",
+        "author": "Walter Siegmund (talk)",
+        "license": "CC BY 2.5",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+        "alt": "Lọc dầu — Oil refinery",
+        "caption": "Minh họa lĩnh vực lọc dầu · Oil refinery.",
+        "topic": "refinery",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Sulfur là nguyên tố số 16, thuộc nhóm VIA | chu kỳ 3 và là một phi kim.</li><li>Sulfur có cấu hình electron 1s² 2s² 2p⁶ 3s² 3p⁴, với 6 electron hóa trị. Sulfur có nhiều dạng thù hình và có thể thể hiện cả tính Oxy hóa lẫn tính khử tùy vào phản ứng.</li><li>Trong tự nhiên, Sulfur tồn tại cả ở dạng đơn chất S₈ và dưới dạng nhiều hợp chất Sulfide, Sulfate. Sulfur cũng có mặt đáng kể trong dầu mỏ và khí tự nhiên dưới dạng Hydrogen sulfide.</li><li>Sulfur có vai trò rất quan trọng trong công nghiệp, đặc biệt là sản xuất Sulfuric acid, phân bón, lưu hóa cao su, hóa chất và xử lý dầu mỏ.</li></ul>",
@@ -652,9 +858,9 @@
           "a": 10.4646,
           "b": 12.866,
           "c": 24.486,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 3296.7348925896003,
         "siteCount": 128,
@@ -720,6 +926,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Sulfur",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -728,6 +939,7 @@
     "sourceSha256": "86705c1c5a2e9e94636aad1dd434e4a5d565d30710f5c75b54a99be3c3fdeb2d",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/016_S.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/luu-huynh-s/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/luu-huynh-s/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/luu-huynh-s/audit.md"
   }
 }

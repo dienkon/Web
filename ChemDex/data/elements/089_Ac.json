@@ -77,9 +77,9 @@
         "a": 5.311,
         "b": 5.311,
         "c": 5.311,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 90.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
       },
       "volume": 149.805895231,
       "siteCount": 4,
@@ -101,9 +101,67 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-ac.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-ac.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-ac.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-ac.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-ac.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Actinium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_actinium",
+        "revisionId": 1378903560,
+        "revisionTimestamp": "2026-10-06T20:54:32Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "face-centered cubic",
+            "prefix": "",
+            "comment": "",
+            "pearson": "cF4",
+            "lattice": "a = 531.5 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-ac",
+        "modelKind": "fcc",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 5.315,
+            "modelAngstrom": 5.311,
+            "relativeDifferencePercent": 0.07525870178740258
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Actinium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_actinium",
+      "revisionId": 1378903560,
+      "revisionTimestamp": "2026-10-06T20:54:32Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "face-centered cubic",
+          "prefix": "",
+          "comment": "",
+          "pearson": "cF4",
+          "lattice": "a = 531.5 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-ac",
+      "modelKind": "fcc",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 5.315,
+          "modelAngstrom": 5.311,
+          "relativeDifferencePercent": 0.07525870178740258
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lập phương tâm diện (FCC)",
   "occurrence": {
@@ -152,9 +210,9 @@
             "a": 5.4682,
             "b": 5.4682,
             "c": 5.4682,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 163.50580330256804,
           "siteCount": 12,
@@ -399,27 +457,74 @@
     {
       "title": "Y học hạt nhân",
       "desc": "²²⁵Ac là ứng viên quan trọng cho liệu pháp alpha nhắm trúng đích (Targeted Alpha Therapy – TAT).",
-      "sourceLine": 84
+      "sourceLine": 84,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "nuclear-medicine",
+        "source": "https://commons.wikimedia.org/wiki/File:Lung_scintigraphy_keosys.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/nuclear-medicine.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Lung_scintigraphy_keosys.JPG",
+        "author": "Mco44 ( talk )",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Y học hạt nhân — Gamma camera",
+        "caption": "Minh họa lĩnh vực y học hạt nhân · Gamma camera.",
+        "topic": "nuclear-medicine",
+        "role": "application-context"
+      }
     },
     {
       "title": "Ứng dụng",
       "desc": "²²⁵Ac phát ra các hạt alpha có năng lượng cao và quãng đường tác động rất ngắn trong mô. Khi được gắn với một phân tử có khả năng nhận diện mục tiêu, nó có thể đưa bức xạ đến các tế bào cần điều trị.",
-      "sourceLine": 85
+      "sourceLine": 85,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Nghiên cứu ung thư",
       "desc": "²²⁵Ac được nghiên cứu rộng rãi cho các phương pháp điều trị ung thư bằng dược chất phóng xạ.",
-      "sourceLine": 86
+      "sourceLine": 86,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/research.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "author": "LSDSL",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nghiên cứu ung thư — Particle accelerator",
+        "caption": "Minh họa lĩnh vực nghiên cứu ung thư · Particle accelerator.",
+        "topic": "research",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nguồn neutron",
       "desc": "Một số nguồn neutron trong nghiên cứu sử dụng Actinium hoặc các sản phẩm phân rã của nó, nhưng đây là ứng dụng chuyên dụng.",
-      "sourceLine": 87
+      "sourceLine": 87,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      }
     },
     {
       "title": "Nghiên cứu hạt nhân",
       "desc": "Actinium được sử dụng để nghiên cứu chuỗi phân rã phóng xạ và cấu trúc hạt nhân.",
-      "sourceLine": 88
+      "sourceLine": 88,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Actinium là nguyên tố số 89, thuộc nhóm IIIB | chu kỳ 7 và là nguyên tố đầu tiên của họ Actinide.</li><li>Actinium được André-Louis Debierne phát hiện vào năm 1899 trong các sản phẩm từ Pitchblende. Tên Actinium bắt nguồn từ tiếng Hy Lạp aktinos, nghĩa là “tia sáng”, ám chỉ tính phóng xạ của nguyên tố.</li><li>Actinium là một kim loại phóng xạ cực hiếm, không có đồng vị bền. Đồng vị tự nhiên quan trọng nhất là ²²⁷Ac, trong khi ²²⁵Ac có ý nghĩa đặc biệt trong y học hạt nhân.</li><li>Đáng chú ý nhất là ²²⁵Ac, một nguồn phát hạt alpha được nghiên cứu và phát triển cho liệu pháp alpha nhắm trúng đích, trong đó bức xạ được đưa đến các tế bào mục tiêu thông qua các phân tử mang thuốc phóng xạ.</li><li>Mạng tinh thể: Lập phương tâm diện (FCC) ở điều kiện thường.</li></ul>",
@@ -460,9 +565,9 @@
           "a": 5.4682,
           "b": 5.4682,
           "c": 5.4682,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 163.50580330256804,
         "siteCount": 12,
@@ -527,6 +632,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Actinium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -535,6 +645,7 @@
     "sourceSha256": "be68bdcba47be9006596a4c1b7260f7720270afcc88166f8bddf0460a345a9f7",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/089_Ac.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/actinium-ac/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/actinium-ac/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/actinium-ac/audit.md"
   }
 }

@@ -1,0 +1,1030 @@
+{
+  "amcsdId": "0009311",
+  "mineralName": "Manganese-alpha",
+  "formula": "Mn29",
+  "spaceGroup": "I -4 3 m",
+  "cell": {
+    "a": 8.9125,
+    "b": 8.9125,
+    "c": 8.9125,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 707.9435488281249,
+  "declaredVolume": 707.944,
+  "basis": [
+    [
+      8.9125,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      8.9125,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      8.9125
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+x,1/2+y,1/2+z",
+    "-z,x,-y",
+    "1/2-z,1/2+x,1/2-y",
+    "-y,z,-x",
+    "1/2-y,1/2+z,1/2-x",
+    "-x,y,-z",
+    "1/2-x,1/2+y,1/2-z",
+    "x,-z,-y",
+    "1/2+x,1/2-z,1/2-y",
+    "z,-y,-x",
+    "1/2+z,1/2-y,1/2-x",
+    "y,-x,-z",
+    "1/2+y,1/2-x,1/2-z",
+    "x,z,y",
+    "1/2+x,1/2+z,1/2+y",
+    "z,y,x",
+    "1/2+z,1/2+y,1/2+x",
+    "y,x,z",
+    "1/2+y,1/2+x,1/2+z",
+    "-z,-x,y",
+    "1/2-z,1/2-x,1/2+y",
+    "-y,-z,x",
+    "1/2-y,1/2-z,1/2+x",
+    "-x,-y,z",
+    "1/2-x,1/2-y,1/2+z",
+    "z,-x,-y",
+    "1/2+z,1/2-x,1/2-y",
+    "y,-z,-x",
+    "1/2+y,1/2-z,1/2-x",
+    "x,-y,-z",
+    "1/2+x,1/2-y,1/2-z",
+    "-x,z,-y",
+    "1/2-x,1/2+z,1/2-y",
+    "-z,y,-x",
+    "1/2-z,1/2+y,1/2-x",
+    "-y,x,-z",
+    "1/2-y,1/2+x,1/2-z",
+    "-x,-z,y",
+    "1/2-x,1/2-z,1/2+y",
+    "-z,-y,x",
+    "1/2-z,1/2-y,1/2+x",
+    "-y,-x,z",
+    "1/2-y,1/2-x,1/2+z",
+    "z,x,y",
+    "1/2+z,1/2+x,1/2+y",
+    "y,z,x",
+    "1/2+y,1/2+z,1/2+x"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Mn1",
+      "element": "Mn",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Mn2",
+      "element": "Mn",
+      "fractional": [
+        0.316,
+        0.316,
+        0.316
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Mn3",
+      "element": "Mn",
+      "fractional": [
+        0.356,
+        0.356,
+        0.034
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Mn4",
+      "element": "Mn",
+      "fractional": [
+        0.089,
+        0.089,
+        0.282
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Mn",
+      "label": "Mn1",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn1",
+      "fractional": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "position": [
+        4.45625,
+        4.45625,
+        4.45625
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn2",
+      "fractional": [
+        0.316,
+        0.316,
+        0.316
+      ],
+      "position": [
+        2.81635,
+        2.81635,
+        2.81635
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn2",
+      "fractional": [
+        0.816,
+        0.816,
+        0.816
+      ],
+      "position": [
+        7.2726,
+        7.2726,
+        7.2726
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn2",
+      "fractional": [
+        0.684,
+        0.316,
+        0.684
+      ],
+      "position": [
+        6.09615,
+        2.81635,
+        6.09615
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn2",
+      "fractional": [
+        0.184,
+        0.816,
+        0.184
+      ],
+      "position": [
+        1.6399,
+        7.2726,
+        1.6399
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn2",
+      "fractional": [
+        0.316,
+        0.684,
+        0.684
+      ],
+      "position": [
+        2.81635,
+        6.09615,
+        6.09615
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn2",
+      "fractional": [
+        0.816,
+        0.184,
+        0.184
+      ],
+      "position": [
+        7.2726,
+        1.6399,
+        1.6399
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn2",
+      "fractional": [
+        0.684,
+        0.684,
+        0.316
+      ],
+      "position": [
+        6.09615,
+        6.09615,
+        2.81635
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn2",
+      "fractional": [
+        0.184,
+        0.184,
+        0.816
+      ],
+      "position": [
+        1.6399,
+        1.6399,
+        7.2726
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn3",
+      "fractional": [
+        0.356,
+        0.356,
+        0.034
+      ],
+      "position": [
+        3.17285,
+        3.17285,
+        0.303025
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn3",
+      "fractional": [
+        0.856,
+        0.856,
+        0.534
+      ],
+      "position": [
+        7.6291,
+        7.6291,
+        4.759275
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn3",
+      "fractional": [
+        0.966,
+        0.356,
+        0.644
+      ],
+      "position": [
+        8.609475,
+        3.17285,
+        5.73965
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn3",
+      "fractional": [
+        0.466,
+        0.856,
+        0.144
+      ],
+      "position": [
+        4.153225,
+        7.6291,
+        1.2834
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn3",
+      "fractional": [
+        0.644,
+        0.034,
+        0.644
+      ],
+      "position": [
+        5.73965,
+        0.303025,
+        5.73965
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn3",
+      "fractional": [
+        0.144,
+        0.534,
+        0.144
+      ],
+      "position": [
+        1.2834,
+        4.759275,
+        1.2834
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn3",
+      "fractional": [
+        0.644,
+        0.356,
+        0.966
+      ],
+      "position": [
+        5.73965,
+        3.17285,
+        8.609475
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn3",
+      "fractional": [
+        0.144,
+        0.856,
+        0.466
+      ],
+      "position": [
+        1.2834,
+        7.6291,
+        4.153225
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn3",
+      "fractional": [
+        0.356,
+        0.966,
+        0.644
+      ],
+      "position": [
+        3.17285,
+        8.609475,
+        5.73965
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn3",
+      "fractional": [
+        0.856,
+        0.466,
+        0.144
+      ],
+      "position": [
+        7.6291,
+        4.153225,
+        1.2834
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn3",
+      "fractional": [
+        0.034,
+        0.644,
+        0.644
+      ],
+      "position": [
+        0.303025,
+        5.73965,
+        5.73965
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn3",
+      "fractional": [
+        0.534,
+        0.144,
+        0.144
+      ],
+      "position": [
+        4.759275,
+        1.2834,
+        1.2834
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn3",
+      "fractional": [
+        0.356,
+        0.644,
+        0.966
+      ],
+      "position": [
+        3.17285,
+        5.73965,
+        8.609475
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn3",
+      "fractional": [
+        0.856,
+        0.144,
+        0.466
+      ],
+      "position": [
+        7.6291,
+        1.2834,
+        4.153225
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn3",
+      "fractional": [
+        0.356,
+        0.034,
+        0.356
+      ],
+      "position": [
+        3.17285,
+        0.303025,
+        3.17285
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn3",
+      "fractional": [
+        0.856,
+        0.534,
+        0.856
+      ],
+      "position": [
+        7.6291,
+        4.759275,
+        7.6291
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn3",
+      "fractional": [
+        0.034,
+        0.356,
+        0.356
+      ],
+      "position": [
+        0.303025,
+        3.17285,
+        3.17285
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn3",
+      "fractional": [
+        0.534,
+        0.856,
+        0.856
+      ],
+      "position": [
+        4.759275,
+        7.6291,
+        7.6291
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn3",
+      "fractional": [
+        0.966,
+        0.644,
+        0.356
+      ],
+      "position": [
+        8.609475,
+        5.73965,
+        3.17285
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn3",
+      "fractional": [
+        0.466,
+        0.144,
+        0.856
+      ],
+      "position": [
+        4.153225,
+        1.2834,
+        7.6291
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn3",
+      "fractional": [
+        0.644,
+        0.966,
+        0.356
+      ],
+      "position": [
+        5.73965,
+        8.609475,
+        3.17285
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn3",
+      "fractional": [
+        0.144,
+        0.466,
+        0.856
+      ],
+      "position": [
+        1.2834,
+        4.153225,
+        7.6291
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn3",
+      "fractional": [
+        0.644,
+        0.644,
+        0.034
+      ],
+      "position": [
+        5.73965,
+        5.73965,
+        0.303025
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn3",
+      "fractional": [
+        0.144,
+        0.144,
+        0.534
+      ],
+      "position": [
+        1.2834,
+        1.2834,
+        4.759275
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn4",
+      "fractional": [
+        0.089,
+        0.089,
+        0.282
+      ],
+      "position": [
+        0.7932125,
+        0.7932125,
+        2.513325
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn4",
+      "fractional": [
+        0.589,
+        0.589,
+        0.782
+      ],
+      "position": [
+        5.2494625,
+        5.2494625,
+        6.969575
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn4",
+      "fractional": [
+        0.718,
+        0.089,
+        0.911
+      ],
+      "position": [
+        6.399175,
+        0.7932125,
+        8.1192875
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn4",
+      "fractional": [
+        0.218,
+        0.589,
+        0.411
+      ],
+      "position": [
+        1.942925,
+        5.2494625,
+        3.6630375
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn4",
+      "fractional": [
+        0.911,
+        0.282,
+        0.911
+      ],
+      "position": [
+        8.1192875,
+        2.513325,
+        8.1192875
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn4",
+      "fractional": [
+        0.411,
+        0.782,
+        0.411
+      ],
+      "position": [
+        3.6630375,
+        6.969575,
+        3.6630375
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn4",
+      "fractional": [
+        0.911,
+        0.089,
+        0.718
+      ],
+      "position": [
+        8.1192875,
+        0.7932125,
+        6.399175
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn4",
+      "fractional": [
+        0.411,
+        0.589,
+        0.218
+      ],
+      "position": [
+        3.6630375,
+        5.2494625,
+        1.942925
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn4",
+      "fractional": [
+        0.089,
+        0.718,
+        0.911
+      ],
+      "position": [
+        0.7932125,
+        6.399175,
+        8.1192875
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn4",
+      "fractional": [
+        0.589,
+        0.218,
+        0.411
+      ],
+      "position": [
+        5.2494625,
+        1.942925,
+        3.6630375
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn4",
+      "fractional": [
+        0.282,
+        0.911,
+        0.911
+      ],
+      "position": [
+        2.513325,
+        8.1192875,
+        8.1192875
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn4",
+      "fractional": [
+        0.782,
+        0.411,
+        0.411
+      ],
+      "position": [
+        6.969575,
+        3.6630375,
+        3.6630375
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn4",
+      "fractional": [
+        0.089,
+        0.911,
+        0.718
+      ],
+      "position": [
+        0.7932125,
+        8.1192875,
+        6.399175
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn4",
+      "fractional": [
+        0.589,
+        0.411,
+        0.218
+      ],
+      "position": [
+        5.2494625,
+        3.6630375,
+        1.942925
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn4",
+      "fractional": [
+        0.089,
+        0.282,
+        0.089
+      ],
+      "position": [
+        0.7932125,
+        2.513325,
+        0.7932125
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn4",
+      "fractional": [
+        0.589,
+        0.782,
+        0.589
+      ],
+      "position": [
+        5.2494625,
+        6.969575,
+        5.2494625
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn4",
+      "fractional": [
+        0.282,
+        0.089,
+        0.089
+      ],
+      "position": [
+        2.513325,
+        0.7932125,
+        0.7932125
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn4",
+      "fractional": [
+        0.782,
+        0.589,
+        0.589
+      ],
+      "position": [
+        6.969575,
+        5.2494625,
+        5.2494625
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn4",
+      "fractional": [
+        0.718,
+        0.911,
+        0.089
+      ],
+      "position": [
+        6.399175,
+        8.1192875,
+        0.7932125
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn4",
+      "fractional": [
+        0.218,
+        0.411,
+        0.589
+      ],
+      "position": [
+        1.942925,
+        3.6630375,
+        5.2494625
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn4",
+      "fractional": [
+        0.911,
+        0.718,
+        0.089
+      ],
+      "position": [
+        8.1192875,
+        6.399175,
+        0.7932125
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn4",
+      "fractional": [
+        0.411,
+        0.218,
+        0.589
+      ],
+      "position": [
+        3.6630375,
+        1.942925,
+        5.2494625
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn4",
+      "fractional": [
+        0.911,
+        0.911,
+        0.282
+      ],
+      "position": [
+        8.1192875,
+        8.1192875,
+        2.513325
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mn",
+      "label": "Mn4",
+      "fractional": [
+        0.411,
+        0.411,
+        0.782
+      ],
+      "position": [
+        3.6630375,
+        3.6630375,
+        6.969575
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 58,
+  "speciesPositionCount": 58,
+  "cellComposition": {
+    "Mn": 58
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Gazzara C P",
+      "Middleton R M",
+      "Weiss R J",
+      "Hall E O"
+    ],
+    "title": "A refinement of the parameters of alpha manganese\n Localilty: synthetic\n Sample: at T = 298K",
+    "journal": "Acta Crystallographica",
+    "year": 1967,
+    "volume": "22",
+    "pages": "859–862"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 48,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 6.372992250628228e-07
+  },
+  "id": "nguyen-to-mn",
+  "symbol": "Mn",
+  "referenceId": "amcsd:0009311",
+  "note": "Pha α-Mn, I-43m: 58 nguyên tử trong ô lập phương quy ước, 29 trong ô nguyên thủy. BCC ở đây là mạng Bravais, không phải ô BCC đơn giản chỉ có 2 nguyên tử."
+}

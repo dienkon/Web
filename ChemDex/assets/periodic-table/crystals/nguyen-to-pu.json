@@ -1,0 +1,393 @@
+{
+  "amcsdId": "0011265",
+  "mineralName": "Plutonium-alpha",
+  "formula": "Pu",
+  "spaceGroup": "P 1 21/m 1",
+  "cell": {
+    "a": 6.1835,
+    "b": 4.8244,
+    "c": 10.973,
+    "alpha": 90.0,
+    "beta": 101.8,
+    "gamma": 90.0
+  },
+  "volume": 320.4253838318179,
+  "declaredVolume": 320.425,
+  "basis": [
+    [
+      6.1835,
+      0.0,
+      -2.243935176859966
+    ],
+    [
+      0.0,
+      4.8244,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      10.74111185688197
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "x,1/2-y,z",
+    "-x,1/2+y,-z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Pu1",
+      "element": "Pu",
+      "fractional": [
+        0.332,
+        0.25,
+        0.155
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Pu2",
+      "element": "Pu",
+      "fractional": [
+        0.774,
+        0.25,
+        0.175
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Pu3",
+      "element": "Pu",
+      "fractional": [
+        0.144,
+        0.25,
+        0.341
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Pu4",
+      "element": "Pu",
+      "fractional": [
+        0.658,
+        0.25,
+        0.457
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Pu5",
+      "element": "Pu",
+      "fractional": [
+        0.016,
+        0.25,
+        0.621
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Pu6",
+      "element": "Pu",
+      "fractional": [
+        0.465,
+        0.25,
+        0.644
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Pu7",
+      "element": "Pu",
+      "fractional": [
+        0.337,
+        0.25,
+        0.926
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Pu8",
+      "element": "Pu",
+      "fractional": [
+        0.892,
+        0.25,
+        0.897
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Pu",
+      "label": "Pu1",
+      "fractional": [
+        0.332,
+        0.25,
+        0.155
+      ],
+      "position": [
+        1.705112,
+        1.2061,
+        1.6648723
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Pu",
+      "label": "Pu1",
+      "fractional": [
+        0.668,
+        0.75,
+        0.845
+      ],
+      "position": [
+        2.2344528,
+        3.6183,
+        9.0762395
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Pu",
+      "label": "Pu2",
+      "fractional": [
+        0.774,
+        0.25,
+        0.175
+      ],
+      "position": [
+        4.3933403,
+        1.2061,
+        1.8796946
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Pu",
+      "label": "Pu2",
+      "fractional": [
+        0.226,
+        0.75,
+        0.825
+      ],
+      "position": [
+        -0.4537755,
+        3.6183,
+        8.8614173
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Pu",
+      "label": "Pu3",
+      "fractional": [
+        0.144,
+        0.25,
+        0.341
+      ],
+      "position": [
+        0.1252421,
+        1.2061,
+        3.6627191
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Pu",
+      "label": "Pu3",
+      "fractional": [
+        0.856,
+        0.75,
+        0.659
+      ],
+      "position": [
+        3.8143227,
+        3.6183,
+        7.0783927
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Pu",
+      "label": "Pu4",
+      "fractional": [
+        0.658,
+        0.25,
+        0.457
+      ],
+      "position": [
+        3.0432646,
+        1.2061,
+        4.9086881
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Pu",
+      "label": "Pu4",
+      "fractional": [
+        0.342,
+        0.75,
+        0.543
+      ],
+      "position": [
+        0.8963002,
+        3.6183,
+        5.8324237
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Pu",
+      "label": "Pu5",
+      "fractional": [
+        0.016,
+        0.25,
+        0.621
+      ],
+      "position": [
+        -1.2945477,
+        1.2061,
+        6.6702305
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Pu",
+      "label": "Pu5",
+      "fractional": [
+        0.984,
+        0.75,
+        0.379
+      ],
+      "position": [
+        5.2341126,
+        3.6183,
+        4.0708814
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Pu",
+      "label": "Pu6",
+      "fractional": [
+        0.465,
+        0.25,
+        0.644
+      ],
+      "position": [
+        1.4302332,
+        1.2061,
+        6.917276
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Pu",
+      "label": "Pu6",
+      "fractional": [
+        0.535,
+        0.75,
+        0.356
+      ],
+      "position": [
+        2.5093316,
+        3.6183,
+        3.8238358
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Pu",
+      "label": "Pu7",
+      "fractional": [
+        0.337,
+        0.25,
+        0.926
+      ],
+      "position": [
+        0.0059555,
+        1.2061,
+        9.9462696
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Pu",
+      "label": "Pu7",
+      "fractional": [
+        0.663,
+        0.75,
+        0.074
+      ],
+      "position": [
+        3.9336093,
+        3.6183,
+        0.7948423
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Pu",
+      "label": "Pu8",
+      "fractional": [
+        0.892,
+        0.25,
+        0.897
+      ],
+      "position": [
+        3.5028721,
+        1.2061,
+        9.6347773
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Pu",
+      "label": "Pu8",
+      "fractional": [
+        0.108,
+        0.75,
+        0.103
+      ],
+      "position": [
+        0.4366927,
+        3.6183,
+        1.1063345
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 16,
+  "speciesPositionCount": 16,
+  "cellComposition": {
+    "Pu": 16
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Wyckoff R W G"
+    ],
+    "title": "Second edition. Interscience Publishers, New York, New York\n Sample is stable room conditions to 110 C",
+    "journal": "Crystal Structures",
+    "year": 1963,
+    "volume": "1",
+    "pages": "7–83"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "literature-compilation",
+  "validation": {
+    "operatorCount": 4,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.1978820569549538e-06
+  },
+  "id": "nguyen-to-pu",
+  "symbol": "Pu",
+  "referenceId": "amcsd:0011265",
+  "note": "Pha đơn chất theo bản ghi công bố; không phải mô hình quặng. Giữ đúng pha nhiệt độ phòng, không thay bằng dạng lập phương ở nhiệt độ cao."
+}

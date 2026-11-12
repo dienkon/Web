@@ -75,9 +75,9 @@
         "a": 4.94006,
         "b": 4.94006,
         "c": 4.94006,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 90.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
       },
       "volume": 120.5581767013522,
       "siteCount": 4,
@@ -99,9 +99,67 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-pb.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-pb.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-pb.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-pb.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-pb.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Lead",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_lead",
+        "revisionId": 1380113218,
+        "revisionTimestamp": "2026-10-13T21:33:32Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "face-centered cubic",
+            "prefix": "",
+            "comment": "",
+            "pearson": "cF4",
+            "lattice": "a = 494.99 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-pb",
+        "modelKind": "fcc",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 4.9499,
+            "modelAngstrom": 4.94006,
+            "relativeDifferencePercent": 0.19879189478576365
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Lead",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_lead",
+      "revisionId": 1380113218,
+      "revisionTimestamp": "2026-10-13T21:33:32Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "face-centered cubic",
+          "prefix": "",
+          "comment": "",
+          "pearson": "cF4",
+          "lattice": "a = 494.99 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-pb",
+      "modelKind": "fcc",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 4.9499,
+          "modelAngstrom": 4.94006,
+          "relativeDifferencePercent": 0.19879189478576365
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lập phương tâm mặt (Face-centered cubic, FCC)",
   "occurrence": {
@@ -151,9 +209,9 @@
             "a": 5.9315,
             "b": 5.9315,
             "c": 5.9315,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 208.68613908087497,
           "siteCount": 8,
@@ -515,32 +573,117 @@
     {
       "title": "Ắc quy",
       "desc": "Lead là vật liệu quan trọng trong ắc quy Lead–acid, đặc biệt trong ô tô và hệ thống lưu trữ điện.",
-      "sourceLine": 95
+      "sourceLine": 95,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "lead-battery",
+        "source": "https://commons.wikimedia.org/wiki/File:Photo-CarBattery.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/lead-battery.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Photo-CarBattery.jpg",
+        "author": "No machine-readable author provided. Shaddack assumed (based on copyright claims).",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Ắc quy — Lead–acid battery",
+        "caption": "Minh họa lĩnh vực ắc quy · Lead–acid battery.",
+        "topic": "lead-battery",
+        "role": "application-context"
+      }
     },
     {
       "title": "Chống bức xạ",
       "desc": "Do có khối lượng riêng lớn và khả năng hấp thụ bức xạ tốt, Lead được sử dụng trong vật liệu che chắn bức xạ.",
-      "sourceLine": 96
+      "sourceLine": 96,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "radiation-shield",
+        "source": "https://commons.wikimedia.org/wiki/File:Lead_shielding.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/radiation-shield.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Lead_shielding.jpg",
+        "author": "Changlc",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Chống bức xạ — Radiation shielding",
+        "caption": "Minh họa lĩnh vực chống bức xạ · Radiation shielding.",
+        "topic": "radiation-shield",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hợp kim",
       "desc": "Lead được sử dụng trong một số hợp kim có nhiệt độ nóng chảy thấp.",
-      "sourceLine": 97
+      "sourceLine": 97,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "alloy",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/alloy.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg",
+        "author": "Bill Abbott",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Hợp kim — Alloy",
+        "caption": "Minh họa lĩnh vực hợp kim · Alloy.",
+        "topic": "alloy",
+        "role": "application-context"
+      }
     },
     {
       "title": "Cáp và thiết bị",
       "desc": "Trước đây Lead từng được sử dụng làm lớp bảo vệ cáp điện và trong nhiều thiết bị công nghiệp.",
-      "sourceLine": 98
+      "sourceLine": 98,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "wire",
+        "source": "https://commons.wikimedia.org/wiki/File:Leitungsende_Abisoliert_en.svg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/wire.png",
+        "source": "https://commons.wikimedia.org/wiki/File:Leitungsende_Abisoliert_en.svg",
+        "author": "Marekich",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Cáp và thiết bị — Electrical cable",
+        "caption": "Minh họa lĩnh vực cáp và thiết bị · Electrical cable.",
+        "topic": "wire",
+        "role": "application-context"
+      }
     },
     {
       "title": "Xây dựng",
       "desc": "Một số vật liệu chứa Lead từng được sử dụng trong xây dựng và chống thấm, nhưng nhiều ứng dụng đã bị hạn chế vì độc tính.",
-      "sourceLine": 99
+      "sourceLine": 99,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "bridge",
+        "source": "https://commons.wikimedia.org/wiki/File:Construction_site_in_Cologne,_Germany_(2017).jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/bridge.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Construction_site_in_Cologne,_Germany_(2017).jpg",
+        "author": "Whiteghost.ink",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Xây dựng — Construction",
+        "caption": "Minh họa lĩnh vực xây dựng · Construction.",
+        "topic": "bridge",
+        "role": "application-context"
+      }
     },
     {
       "title": "Đạn dược",
       "desc": "Lead từng được sử dụng rộng rãi trong một số loại đạn và vật liệu liên quan, nhưng việc sử dụng Lead ngày càng được hạn chế vì tác động độc hại đến sức khỏe và môi trường.",
-      "sourceLine": 100
+      "sourceLine": 100,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Lead là nguyên tố số 82, thuộc nhóm IVA | chu kỳ 6 và là một kim loại hậu chuyển tiếp.</li><li>Lead có cấu hình electron [Xe] 4f¹⁴ 5d¹⁰ 6s² 6p², với hai số Oxy hóa chính là +2 và +4, trong đó +2 ổn định hơn.</li><li>Lead là kim loại mềm, nặng, dễ gia công và có nhiệt độ nóng chảy tương đối thấp. Đặc biệt, Lead có khả năng hấp thụ bức xạ tốt.</li><li>Lead có vai trò quan trọng trong ắc quy Lead–acid, vật liệu che chắn bức xạ và một số hợp kim. Tuy nhiên, do Lead và nhiều hợp chất của nó có độc tính cao, việc sử dụng Lead trong nhiều sản phẩm đã được hạn chế hoặc thay thế bằng vật liệu an toàn hơn.</li></ul>",
@@ -581,9 +724,9 @@
           "a": 5.9315,
           "b": 5.9315,
           "c": 5.9315,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 208.68613908087497,
         "siteCount": 8,
@@ -654,6 +797,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Lead",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -662,6 +810,7 @@
     "sourceSha256": "dfc0604f59f4cd875d8856691995b1a4d9ad7792c674d220d2e5b2c577f60650",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/082_Pb.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/chi-pb/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/chi-pb/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/chi-pb/audit.md"
   }
 }

@@ -67,7 +67,114 @@
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lục phương kép xếp chặt (DHCP) ở áp suất thường; cấu trúc thay đổi theo nhiệt độ và áp suất.",
     "latticeEvidence": "source-reviewed",
-    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
+    "publishedCrystalStatus": "available",
+    "publishedCrystal": {
+      "id": "nguyen-to-am",
+      "symbol": "Am",
+      "referenceId": "amcsd:0011202",
+      "amcsdId": "0011202",
+      "mineralName": "Americium",
+      "formula": "Am",
+      "spaceGroup": "P 63/m m c",
+      "cell": {
+        "a": 3.474,
+        "b": 3.474,
+        "c": 11.25,
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 120
+      },
+      "volume": 117.58252506799015,
+      "siteCount": 4,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Double hexagonal closest packed, dhcp, structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "7–83"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Pha đơn chất theo bản ghi công bố; không phải mô hình quặng. Giữ đúng pha nhiệt độ phòng, không thay bằng dạng lập phương ở nhiệt độ cao.",
+      "limitations": "",
+      "pearsonSymbol": null,
+      "primaryReference": null,
+      "data": "/assets/periodic-table/crystals/nguyen-to-am.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-am.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-am.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-am.png",
+      "wiki": {
+        "symbol": "Am",
+        "number": 95,
+        "name": "Americium",
+        "article": "https://en.wikipedia.org/wiki/Americium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_americium",
+        "revisionId": 1379077993,
+        "revisionTimestamp": "2026-10-07T20:28:14Z",
+        "retrievedAt": "2026-11-11T23:29:14.972Z",
+        "status": "available",
+        "fields": {
+          "phase": {
+            "text": "",
+            "raw": ""
+          },
+          "phase comment": {
+            "text": "",
+            "raw": ""
+          },
+          "crystal structure": {
+            "text": "double hexagonal close packed",
+            "raw": "double hexagonal close packed"
+          }
+        }
+      },
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Americium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_americium",
+        "revisionId": 1379077993,
+        "revisionTimestamp": "2026-10-07T20:28:14Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "double hexagonal close packed",
+            "prefix": "",
+            "comment": "",
+            "pearson": "",
+            "lattice": ""
+          }
+        ],
+        "selectedModel": "nguyen-to-am",
+        "modelKind": "dhcp",
+        "metrics": [],
+        "notes": [],
+        "additionalSources": []
+      }
+    },
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Americium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_americium",
+      "revisionId": 1379077993,
+      "revisionTimestamp": "2026-10-07T20:28:14Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "double hexagonal close packed",
+          "prefix": "",
+          "comment": "",
+          "pearson": "",
+          "lattice": ""
+        }
+      ],
+      "selectedModel": "nguyen-to-am",
+      "modelKind": "dhcp",
+      "metrics": [],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lục phương kép xếp chặt (DHCP) ở áp suất thường; cấu trúc thay đổi theo nhiệt độ và áp suất.",
   "occurrence": {
@@ -339,22 +446,64 @@
     {
       "title": "Thiết bị báo khói",
       "desc": "²⁴¹Am được sử dụng trong nhiều ionization smoke detectors. Bức xạ alpha từ ²⁴¹Am giúp ion hóa không khí trong buồng cảm biến; khi khói đi vào, dòng ion bị thay đổi và thiết bị phát hiện khói.",
-      "sourceLine": 89
+      "sourceLine": 89,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "smoke-detector",
+        "source": "https://commons.wikimedia.org/wiki/File:Smoke_detector.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/smoke-detector.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Smoke_detector.JPG",
+        "author": "Tumi-1983",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Thiết bị báo khói — Smoke detector",
+        "caption": "Minh họa lĩnh vực thiết bị báo khói · Smoke detector.",
+        "topic": "smoke-detector",
+        "role": "application-context"
+      }
     },
     {
       "title": "Đo độ dày",
       "desc": "Một số nguồn Americium được sử dụng trong các thiết bị đo công nghiệp chuyên dụng.",
-      "sourceLine": 90
+      "sourceLine": 90,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Phân tích vật liệu",
       "desc": "Nguồn bức xạ chứa Americium có thể được sử dụng trong một số thiết bị phân tích và đo lường.",
-      "sourceLine": 91
+      "sourceLine": 91,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Nghiên cứu hạt nhân",
       "desc": "Americium được sử dụng để nghiên cứu vật lý hạt nhân, hóa học Actinide và phóng xạ.",
-      "sourceLine": 92
+      "sourceLine": 92,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/research.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "author": "LSDSL",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nghiên cứu hạt nhân — Particle accelerator",
+        "caption": "Minh họa lĩnh vực nghiên cứu hạt nhân · Particle accelerator.",
+        "topic": "research",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Americium là nguyên tố số 95, thuộc nhóm IIIB | chu kỳ 7 và là nguyên tố thứ bảy trong họ Actinide.</li><li>Americium được Glenn T. Seaborg, Ralph A. James, Leon O. Morgan và Albert Ghiorso phát hiện vào năm 1944 tại Chicago, Hoa Kỳ. Tên nguyên tố được đặt theo châu Mỹ (Americas).</li><li>Americium là kim loại phóng xạ màu trắng bạc, có nhiều trạng thái Oxy hóa, trong đó +3 phổ biến nhất. Nguyên tố này không có đồng vị bền; ²⁴¹Am là đồng vị quan trọng nhất với chu kỳ bán rã khoảng 432,2 năm.</li><li>Ứng dụng nổi tiếng nhất của Americium là ²⁴¹Am trong thiết bị báo khói ion hóa. Ngoài ra, nó còn được sử dụng trong một số thiết bị đo lường công nghiệp, phân tích vật liệu và nghiên cứu hạt nhân.</li><li>Mạng tinh thể: Lục phương (Hexagonal) ở điều kiện thường.</li></ul>",
@@ -399,6 +548,11 @@
     {
       "title": "actinideStructures",
       "url": "https://arxiv.org/abs/2604.12249"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Americium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -407,6 +561,7 @@
     "sourceSha256": "92cb37a41942c28d05e633d8d1d571a5f99cf8c012b62ccae3234e40cd076166",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/095_Am.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/americium-am/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/americium-am/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/americium-am/audit.md"
   }
 }

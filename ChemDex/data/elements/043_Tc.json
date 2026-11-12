@@ -63,7 +63,156 @@
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lục phương (Hexagonal)",
     "latticeEvidence": "source-reviewed",
-    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
+    "publishedCrystalStatus": "available",
+    "publishedCrystal": {
+      "id": "nguyen-to-tc",
+      "symbol": "Tc",
+      "referenceId": "wiki-tc-1309724402",
+      "amcsdId": null,
+      "mineralName": "Technetium",
+      "formula": "Tc",
+      "spaceGroup": "P 63/m m c",
+      "cell": {
+        "a": 2.7412,
+        "b": 2.7412,
+        "c": 4.399,
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 120
+      },
+      "volume": 28.62635415841767,
+      "siteCount": 2,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "John W. Arblaster"
+        ],
+        "title": "Selected Values of the Crystallographic Properties of Elements; thông số được Wikipedia trích dẫn, tại 20 °C (Ra: gần nhiệt độ phòng). Vị trí Wyckoff lý tưởng của prototype hP2.",
+        "journal": "ASM International, ISBN 978-1-62708-155-9",
+        "year": 2018,
+        "volume": "",
+        "pages": ""
+      },
+      "source": "https://en.wikipedia.org/wiki/Technetium",
+      "evidence": "reference-prototype",
+      "note": "HCP hai lớp AB, hai nguyên tử/ô. Thông số Wiki tại 20 °C; không dùng cùng một hình học cho DHCP.",
+      "limitations": "Tọa độ Wyckoff lý tưởng được dựng từ prototype và thông số mạng được trích dẫn; không phải bộ tinh chỉnh vị trí nguyên tử thực nghiệm độc lập.",
+      "pearsonSymbol": "hP2",
+      "primaryReference": null,
+      "data": "/assets/periodic-table/crystals/nguyen-to-tc.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-tc.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-tc.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-tc.png",
+      "wiki": {
+        "symbol": "Tc",
+        "number": 43,
+        "name": "Technetium",
+        "article": "https://en.wikipedia.org/wiki/Technetium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_technetium",
+        "revisionId": 1309724402,
+        "revisionTimestamp": "2025-09-05T17:35:36Z",
+        "retrievedAt": "2026-11-11T23:29:08.516Z",
+        "status": "available",
+        "fields": {
+          "phase": {
+            "text": "",
+            "raw": ""
+          },
+          "phase comment": {
+            "text": "",
+            "raw": ""
+          },
+          "crystal structure": {
+            "text": "hexagonal close packed",
+            "raw": "hexagonal close packed"
+          },
+          "crystal structure pearson symbol": {
+            "text": "hP2",
+            "raw": "hP2"
+          },
+          "lattice constants": {
+            "text": "a = 274.12 pm; c = 439.90 pm (at 20 °C)",
+            "raw": "''a''&nbsp;=&nbsp;274.12&nbsp;pm<br />''c''&nbsp;=&nbsp;439.90&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+          }
+        }
+      },
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Technetium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_technetium",
+        "revisionId": 1309724402,
+        "revisionTimestamp": "2025-09-05T17:35:36Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "hexagonal close packed",
+            "prefix": "",
+            "comment": "",
+            "pearson": "hP2",
+            "lattice": "a = 274.12 pm; c = 439.90 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-tc",
+        "modelKind": "hcp",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 2.7412,
+            "modelAngstrom": 2.7412,
+            "relativeDifferencePercent": 0
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "c",
+            "wikiAngstrom": 4.399,
+            "modelAngstrom": 4.399,
+            "relativeDifferencePercent": 0
+          }
+        ],
+        "notes": [
+          "Tọa độ Wyckoff lý tưởng được dựng từ prototype; thông số mạng lấy từ tài liệu tham chiếu được nêu. Wiki dùng để đối chiếu kiểu mạng. Đây là mức chứng cứ khác với bộ tinh chỉnh nguyên tử thực nghiệm."
+        ],
+        "additionalSources": []
+      }
+    },
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Technetium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_technetium",
+      "revisionId": 1309724402,
+      "revisionTimestamp": "2025-09-05T17:35:36Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "hexagonal close packed",
+          "prefix": "",
+          "comment": "",
+          "pearson": "hP2",
+          "lattice": "a = 274.12 pm; c = 439.90 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-tc",
+      "modelKind": "hcp",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 2.7412,
+          "modelAngstrom": 2.7412,
+          "relativeDifferencePercent": 0
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "c",
+          "wikiAngstrom": 4.399,
+          "modelAngstrom": 4.399,
+          "relativeDifferencePercent": 0
+        }
+      ],
+      "notes": [
+        "Tọa độ Wyckoff lý tưởng được dựng từ prototype; thông số mạng lấy từ tài liệu tham chiếu được nêu. Wiki dùng để đối chiếu kiểu mạng. Đây là mức chứng cứ khác với bộ tinh chỉnh nguyên tử thực nghiệm."
+      ],
+      "additionalSources": []
+    }
   },
   "structureType": "Lục phương (Hexagonal)",
   "occurrence": {
@@ -344,22 +493,75 @@
     {
       "title": "Y học hạt nhân",
       "desc": "⁹⁹ᵐTc là ứng dụng quan trọng nhất của Technetium. Nó được sử dụng làm chất đánh dấu phóng xạ trong nhiều kỹ thuật chẩn đoán hình ảnh.",
-      "sourceLine": 88
+      "sourceLine": 88,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "nuclear-medicine",
+        "source": "https://commons.wikimedia.org/wiki/File:Lung_scintigraphy_keosys.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/nuclear-medicine.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Lung_scintigraphy_keosys.JPG",
+        "author": "Mco44 ( talk )",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Y học hạt nhân — Gamma camera",
+        "caption": "Minh họa lĩnh vực y học hạt nhân · Gamma camera.",
+        "topic": "nuclear-medicine",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nghiên cứu y sinh",
       "desc": "Các hợp chất chứa ⁹⁹ᵐTc được gắn với những chất có khả năng tập trung tại các cơ quan khác nhau để tạo hình ảnh.",
-      "sourceLine": 89
+      "sourceLine": 89,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/research.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "author": "LSDSL",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nghiên cứu y sinh — Particle accelerator",
+        "caption": "Minh họa lĩnh vực nghiên cứu y sinh · Particle accelerator.",
+        "topic": "research",
+        "role": "application-context"
+      }
     },
     {
       "title": "Chống ăn mòn",
       "desc": "Một số hợp chất Technetium từng được nghiên cứu về khả năng ức chế ăn mòn thép.",
-      "sourceLine": 90
+      "sourceLine": 90,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "sacrificial-anode",
+        "source": "https://commons.wikimedia.org/wiki/File:Sacrificial_anode.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/sacrificial-anode.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Sacrificial_anode.jpg",
+        "author": "Zwergelstern",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+        "alt": "Chống ăn mòn — Galvanic anode",
+        "caption": "Minh họa lĩnh vực chống ăn mòn · Galvanic anode.",
+        "topic": "sacrificial-anode",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nghiên cứu khoa học",
       "desc": "Technetium được sử dụng để nghiên cứu hóa học hạt nhân và tính chất của các nguyên tố chuyển tiếp.",
-      "sourceLine": 91
+      "sourceLine": 91,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Technetium là nguyên tố số 43, thuộc nhóm VIIB | chu kỳ 5 và là một kim loại chuyển tiếp phóng xạ.</li><li>Technetium đặc biệt vì không có đồng vị bền. Nó là nguyên tố đầu tiên được phát hiện sau khi được tạo ra nhân tạo, mặc dù về sau người ta xác định được một lượng cực nhỏ Technetium hình thành tự nhiên.</li><li>Technetium có nhiều số Oxy hóa, trong đó +7 là một trạng thái quan trọng. Trong dung dịch, Technetium thường tồn tại dưới dạng Pertechnetate (TcO₄⁻).</li><li>Đồng vị ⁹⁹ᵐTc có chu kỳ bán rã ngắn và phát ra tia gamma, khiến nó trở thành một trong những đồng vị quan trọng nhất trong y học hạt nhân và chẩn đoán hình ảnh.</li></ul>",
@@ -400,6 +602,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Technetium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -408,6 +615,7 @@
     "sourceSha256": "9630cf5d119f6db028f6bbb5f0088cc7c0f233a326ab25b376a1f21b7511ec0a",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/043_Tc.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/technetium-tc/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/technetium-tc/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/technetium-tc/audit.md"
   }
 }

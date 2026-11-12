@@ -67,7 +67,154 @@
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương tâm khối (Body-centered cubic, BCC)",
     "latticeEvidence": "source-reviewed",
-    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
+    "publishedCrystalStatus": "available",
+    "publishedCrystal": {
+      "id": "nguyen-to-ra",
+      "symbol": "Ra",
+      "referenceId": "wiki-ra-1284278559",
+      "amcsdId": null,
+      "mineralName": "Radium",
+      "formula": "Ra",
+      "spaceGroup": "I m -3 m",
+      "cell": {
+        "a": 5.148,
+        "b": 5.148,
+        "c": 5.148,
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
+      },
+      "volume": 136.43180179199996,
+      "siteCount": 2,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "John W. Arblaster"
+        ],
+        "title": "Selected Values of the Crystallographic Properties of Elements; thông số được Wikipedia trích dẫn, tại 20 °C (Ra: gần nhiệt độ phòng). Vị trí Wyckoff lý tưởng của prototype cI2.",
+        "journal": "ASM International, ISBN 978-1-62708-155-9",
+        "year": 2018,
+        "volume": "",
+        "pages": ""
+      },
+      "source": "https://en.wikipedia.org/wiki/Radium",
+      "evidence": "reference-prototype",
+      "note": "Wiki ghi BCC nhưng dòng Pearson cF4 không phù hợp. Dùng mạng BCC (Im-3m, cI2) theo phần mô tả và nguồn chuyên ngành; không dựng FCC theo dòng Pearson mâu thuẫn.",
+      "limitations": "Tọa độ Wyckoff lý tưởng được dựng từ prototype và thông số mạng được trích dẫn; không phải bộ tinh chỉnh vị trí nguyên tử thực nghiệm độc lập.",
+      "pearsonSymbol": "cI2",
+      "primaryReference": null,
+      "data": "/assets/periodic-table/crystals/nguyen-to-ra.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-ra.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-ra.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-ra.png",
+      "wiki": {
+        "symbol": "Ra",
+        "number": 88,
+        "name": "Radium",
+        "article": "https://en.wikipedia.org/wiki/Radium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_radium",
+        "revisionId": 1284278559,
+        "revisionTimestamp": "2025-04-06T16:44:16Z",
+        "retrievedAt": "2026-11-11T23:29:14.971Z",
+        "status": "available",
+        "fields": {
+          "phase": {
+            "text": "",
+            "raw": ""
+          },
+          "crystal structure": {
+            "text": "body-centered cubic",
+            "raw": "body-centered cubic"
+          },
+          "crystal structure pearson symbol": {
+            "text": "cF4",
+            "raw": "cF4"
+          },
+          "lattice constant": {
+            "text": "a = 514.8 pm (near r.t.)",
+            "raw": "''a''&nbsp;=&nbsp;514.8&nbsp;pm (near [[room temperature|r.t.]])<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+          }
+        }
+      },
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Radium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_radium",
+        "revisionId": 1284278559,
+        "revisionTimestamp": "2025-04-06T16:44:16Z",
+        "status": "source-inconsistency",
+        "phases": [
+          {
+            "type": "body-centered cubic",
+            "prefix": "",
+            "comment": "",
+            "pearson": "cF4",
+            "lattice": "a = 514.8 pm (near r.t.)"
+          }
+        ],
+        "selectedModel": "nguyen-to-ra",
+        "modelKind": "bcc",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 5.148,
+            "modelAngstrom": 5.148,
+            "relativeDifferencePercent": 0
+          }
+        ],
+        "notes": [
+          "Tọa độ Wyckoff lý tưởng được dựng từ prototype; thông số mạng lấy từ tài liệu tham chiếu được nêu. Wiki dùng để đối chiếu kiểu mạng. Đây là mức chứng cứ khác với bộ tinh chỉnh nguyên tử thực nghiệm.",
+          "Wiki ghi BCC nhưng Pearson cF4 không nhất quán. Giữ BCC Im-3m/cI2 theo mô tả và WebElements (University of Sheffield); a là hằng số ô mạng, không phải khoảng cách láng giềng gần nhất.",
+          "Pearson của Wiki: cF4; ô đang vẽ: 2 vị trí. Sự khác biệt được ghi rõ thay vì tự đổi số nguyên tử."
+        ],
+        "additionalSources": [
+          {
+            "title": "WebElements / University of Sheffield — Radium crystal structure",
+            "url": "https://www.webelements.com/radium/crystal_structure.html",
+            "reference": "F. Weigel and A. Trinkl, Radiochim. Acta 1968, 19, 78, as listed by WebElements."
+          }
+        ]
+      }
+    },
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Radium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_radium",
+      "revisionId": 1284278559,
+      "revisionTimestamp": "2025-04-06T16:44:16Z",
+      "status": "source-inconsistency",
+      "phases": [
+        {
+          "type": "body-centered cubic",
+          "prefix": "",
+          "comment": "",
+          "pearson": "cF4",
+          "lattice": "a = 514.8 pm (near r.t.)"
+        }
+      ],
+      "selectedModel": "nguyen-to-ra",
+      "modelKind": "bcc",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 5.148,
+          "modelAngstrom": 5.148,
+          "relativeDifferencePercent": 0
+        }
+      ],
+      "notes": [
+        "Tọa độ Wyckoff lý tưởng được dựng từ prototype; thông số mạng lấy từ tài liệu tham chiếu được nêu. Wiki dùng để đối chiếu kiểu mạng. Đây là mức chứng cứ khác với bộ tinh chỉnh nguyên tử thực nghiệm.",
+        "Wiki ghi BCC nhưng Pearson cF4 không nhất quán. Giữ BCC Im-3m/cI2 theo mô tả và WebElements (University of Sheffield); a là hằng số ô mạng, không phải khoảng cách láng giềng gần nhất.",
+        "Pearson của Wiki: cF4; ô đang vẽ: 2 vị trí. Sự khác biệt được ghi rõ thay vì tự đổi số nguyên tử."
+      ],
+      "additionalSources": [
+        {
+          "title": "WebElements / University of Sheffield — Radium crystal structure",
+          "url": "https://www.webelements.com/radium/crystal_structure.html",
+          "reference": "F. Weigel and A. Trinkl, Radiochim. Acta 1968, 19, 78, as listed by WebElements."
+        }
+      ]
+    }
   },
   "structureType": "Lập phương tâm khối (Body-centered cubic, BCC)",
   "occurrence": {
@@ -116,9 +263,9 @@
             "a": 5.4682,
             "b": 5.4682,
             "c": 5.4682,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 163.50580330256804,
           "siteCount": 12,
@@ -391,22 +538,75 @@
     {
       "title": "Y học lịch sử",
       "desc": "Radium từng được sử dụng trong xạ trị để điều trị một số bệnh, đặc biệt là ung thư. Ngày nay nhiều ứng dụng đã được thay thế bằng các nguồn phóng xạ và công nghệ an toàn hơn.",
-      "sourceLine": 85
+      "sourceLine": 85,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "radiotherapy",
+        "source": "https://commons.wikimedia.org/wiki/File:Radiation_therapy.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/radiotherapy.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Radiation_therapy.jpg",
+        "author": "Dina Wakulchik from Indianapolis, Indiana, USA",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "alt": "Y học lịch sử — Radiation therapy",
+        "caption": "Minh họa lĩnh vực y học lịch sử · Radiation therapy.",
+        "topic": "radiotherapy",
+        "role": "application-context"
+      }
     },
     {
       "title": "Sơn phát quang",
       "desc": "Trong thế kỷ XX, Radium từng được sử dụng trong sơn phát quang cho đồng hồ và thiết bị đo. Ứng dụng này hiện đã bị loại bỏ do nguy cơ phóng xạ.",
-      "sourceLine": 86
+      "sourceLine": 86,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "fluorescent",
+        "source": "https://commons.wikimedia.org/wiki/File:Fluorescent_lamps_artistic.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/fluorescent.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Fluorescent_lamps_artistic.jpg",
+        "author": "Flickr user Oimax This image was originally posted to Flickr by OiMax at https://www.flickr.com/photos/72396314@N00/404614118 . It was reviewed on 20 May 2007 by FlickreviewR and was confirmed to be licensed under the terms of the cc-by-2.0. 20 May 2007",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "alt": "Sơn phát quang — Fluorescent lamp",
+        "caption": "Minh họa lĩnh vực sơn phát quang · Fluorescent lamp.",
+        "topic": "fluorescent",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nghiên cứu",
       "desc": "Radium được sử dụng trong nghiên cứu phóng xạ và chuỗi phân rã tự nhiên.",
-      "sourceLine": 87
+      "sourceLine": 87,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/research.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "author": "LSDSL",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nghiên cứu — Particle accelerator",
+        "caption": "Minh họa lĩnh vực nghiên cứu · Particle accelerator.",
+        "topic": "research",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nguồn Radon",
       "desc": "²²⁶Ra có thể được sử dụng làm nguồn tạo Radon trong một số nghiên cứu chuyên môn.",
-      "sourceLine": 88
+      "sourceLine": 88,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Radium là nguyên tố số 88, thuộc nhóm IIA | chu kỳ 7 và là một kim loại kiềm thổ phóng xạ.</li><li>Radium có cấu hình electron [Rn] 7s², với số Oxy hóa đặc trưng là +2. Đồng vị tự nhiên quan trọng nhất là ²²⁶Ra, có chu kỳ bán rã khoảng 1600 năm.</li><li>Radium được Marie Curie và Pierre Curie phát hiện năm 1898. Đây là một trong những nguyên tố đóng vai trò quan trọng trong lịch sử nghiên cứu phóng xạ.</li><li>Mạng tinh thể: Lập phương tâm khối (BCC).</li><li>Do tính phóng xạ mạnh, Radium hiện nay chủ yếu được sử dụng trong nghiên cứu khoa học, trong khi các ứng dụng y học và vật liệu phát quang trước đây phần lớn đã được thay thế bằng công nghệ an toàn hơn.</li></ul>",
@@ -447,9 +647,9 @@
           "a": 5.4682,
           "b": 5.4682,
           "c": 5.4682,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 163.50580330256804,
         "siteCount": 12,
@@ -514,6 +714,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Radium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -522,6 +727,7 @@
     "sourceSha256": "ca990abafc5596a4f0f2ee85b2e8f0edfb0900e316fe88e3f93f140ea8a42e3e",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/088_Ra.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/radium-ra/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/radium-ra/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/radium-ra/audit.md"
   }
 }

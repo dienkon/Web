@@ -65,7 +65,30 @@
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương tâm mặt (Face-centered cubic, FCC) (được dự đoán)",
     "latticeEvidence": "source-reviewed",
-    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
+    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác.",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Astatine",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_astatine",
+      "revisionId": 1369621921,
+      "revisionTimestamp": "2026-08-16T02:51:06Z",
+      "status": "phase-unmeasured-or-fluid",
+      "phases": [
+        {
+          "type": "face-centered cubic",
+          "prefix": "",
+          "comment": "(predicted)",
+          "pearson": "",
+          "lattice": ""
+        }
+      ],
+      "selectedModel": null,
+      "modelKind": null,
+      "metrics": [],
+      "notes": [
+        "Không lấy hình của một kiểu mạng chung để khẳng định mẫu tinh thể đã được đo. Pha khí/lỏng và cấu trúc dự đoán được ghi riêng."
+      ],
+      "additionalSources": []
+    }
   },
   "structureType": "Lập phương tâm mặt (Face-centered cubic, FCC) (được dự đoán)",
   "occurrence": {
@@ -115,9 +138,9 @@
             "a": 5.4682,
             "b": 5.4682,
             "c": 5.4682,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 163.50580330256804,
           "siteCount": 12,
@@ -372,22 +395,64 @@
     {
       "title": "Y học hạt nhân",
       "desc": "²¹¹At được nghiên cứu để sử dụng trong alpha-targeted therapy (liệu pháp nhắm trúng đích bằng hạt Alpha).",
-      "sourceLine": 77
+      "sourceLine": 77,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "nuclear-medicine",
+        "source": "https://commons.wikimedia.org/wiki/File:Lung_scintigraphy_keosys.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/nuclear-medicine.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Lung_scintigraphy_keosys.JPG",
+        "author": "Mco44 ( talk )",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Y học hạt nhân — Gamma camera",
+        "caption": "Minh họa lĩnh vực y học hạt nhân · Gamma camera.",
+        "topic": "nuclear-medicine",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nghiên cứu",
       "desc": "Astatine được sử dụng trong nghiên cứu hóa học phóng xạ và vật lý hạt nhân.",
-      "sourceLine": 78
+      "sourceLine": 78,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/research.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "author": "LSDSL",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nghiên cứu — Particle accelerator",
+        "caption": "Minh họa lĩnh vực nghiên cứu · Particle accelerator.",
+        "topic": "research",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nghiên cứu Halogen",
       "desc": "Do vị trí nằm dưới Iodine trong nhóm VIIA, Astatine giúp các nhà khoa học nghiên cứu xu hướng tính chất của Halogen nặng.",
-      "sourceLine": 79
+      "sourceLine": 79,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      }
     },
     {
       "title": "Ứng dụng",
       "desc": "Astatine không có ứng dụng công nghiệp thông thường do cực kỳ hiếm và phóng xạ mạnh.",
-      "sourceLine": 80
+      "sourceLine": 80,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Astatine là nguyên tố số 85, thuộc nhóm VIIA | chu kỳ 6 và là một Halogen phóng xạ.</li><li>Astatine không có đồng vị bền và chỉ tồn tại trong tự nhiên với lượng cực kỳ nhỏ. Phần lớn Astatine dùng cho nghiên cứu được tổng hợp nhân tạo.</li><li>Đặc điểm nổi bật của Astatine là tính chất nằm giữa Halogen và kim loại, đồng thời có tính phóng xạ rất mạnh. Trong số các đồng vị, ²¹¹At đặc biệt được quan tâm vì có tiềm năng trong liệu pháp điều trị ung thư bằng hạt Alpha.</li><li>Mạng tinh thể: Astatine chưa có đủ dữ liệu thực nghiệm đáng tin cậy về cấu trúc tinh thể của mẫu nguyên chất do lượng tồn tại cực kỳ nhỏ. Vì vậy, lập phương tâm mặt (FCC) chỉ nên ghi là cấu trúc được dự đoán, không phải cấu trúc đã được xác nhận thực nghiệm.</li></ul>",
@@ -428,9 +493,9 @@
           "a": 5.4682,
           "b": 5.4682,
           "c": 5.4682,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 163.50580330256804,
         "siteCount": 12,
@@ -495,6 +560,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Astatine",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -503,6 +573,7 @@
     "sourceSha256": "d952a0043f44ce66d3b29120fd76309f59bb88ef108ca57eb9b120a20a4a20cc",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/085_At.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/astatine-at/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/astatine-at/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/astatine-at/audit.md"
   }
 }

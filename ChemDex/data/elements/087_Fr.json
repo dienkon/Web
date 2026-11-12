@@ -67,7 +67,30 @@
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương tâm khối (Body-centered cubic, BCC) (được dự đoán)",
     "latticeEvidence": "source-reviewed",
-    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
+    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác.",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Francium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_francium",
+      "revisionId": 1301276666,
+      "revisionTimestamp": "2025-07-19T01:04:15Z",
+      "status": "phase-unmeasured-or-fluid",
+      "phases": [
+        {
+          "type": "body-centered cubic",
+          "prefix": "",
+          "comment": "(extrapolated)",
+          "pearson": "",
+          "lattice": "a = 670.4 pm (estimated)"
+        }
+      ],
+      "selectedModel": null,
+      "modelKind": null,
+      "metrics": [],
+      "notes": [
+        "Không lấy hình của một kiểu mạng chung để khẳng định mẫu tinh thể đã được đo. Pha khí/lỏng và cấu trúc dự đoán được ghi riêng."
+      ],
+      "additionalSources": []
+    }
   },
   "structureType": "Lập phương tâm khối (Body-centered cubic, BCC) (được dự đoán)",
   "occurrence": {
@@ -115,9 +138,9 @@
             "a": 5.4682,
             "b": 5.4682,
             "c": 5.4682,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 163.50580330256804,
           "siteCount": 12,
@@ -327,32 +350,73 @@
     {
       "title": "Francium hầu như không có ứng dụng thực tế hoặc công nghiệp do",
       "desc": "",
-      "sourceLine": 76
+      "sourceLine": 76,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Ứng dụng",
       "desc": "Cực kỳ hiếm.",
-      "sourceLine": 77
+      "sourceLine": 77,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Ứng dụng",
       "desc": "Tất cả đồng vị đều phóng xạ.",
-      "sourceLine": 78
+      "sourceLine": 78,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Ứng dụng",
       "desc": "Chu kỳ bán rã rất ngắn.",
-      "sourceLine": 79
+      "sourceLine": 79,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Ứng dụng",
       "desc": "Rất khó thu thập với lượng đáng kể.",
-      "sourceLine": 80
+      "sourceLine": 80,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Nghiên cứu khoa học",
       "desc": "Francium được sử dụng trong nghiên cứu cấu trúc nguyên tử, vật lý hạt nhân và các tính chất của nguyên tố siêu nặng.",
-      "sourceLine": 81
+      "sourceLine": 81,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/research.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "author": "LSDSL",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nghiên cứu khoa học — Particle accelerator",
+        "caption": "Minh họa lĩnh vực nghiên cứu khoa học · Particle accelerator.",
+        "topic": "research",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Francium là nguyên tố số 87, thuộc nhóm IA | chu kỳ 7 và là kim loại kiềm.</li><li>Francium có cấu hình electron [Rn] 7s¹, vì vậy có xu hướng mất electron 7s để tạo ion Fr⁺. Nó được dự đoán là một trong những nguyên tố có tính kim loại và hoạt động hóa học mạnh nhất.</li><li>Francium không có đồng vị bền; đồng vị tự nhiên quan trọng nhất là ²²³Fr, có chu kỳ bán rã chỉ khoảng 22 phút.</li><li>Mạng tinh thể: Lập phương tâm khối (BCC) — giá trị được dự đoán, vì chưa thể thu được lượng Francium kim loại đủ lớn để xác định trực tiếp cấu trúc tinh thể.</li><li>Do cực kỳ hiếm và phóng xạ mạnh, Francium không có ứng dụng thương mại đáng kể, chủ yếu chỉ có giá trị trong nghiên cứu khoa học.</li></ul>",
@@ -393,9 +457,9 @@
           "a": 5.4682,
           "b": 5.4682,
           "c": 5.4682,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 163.50580330256804,
         "siteCount": 12,
@@ -460,6 +524,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Francium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -468,6 +537,7 @@
     "sourceSha256": "3dc32671a19abbee38bcbb68f27cb257eaa8601eb26bd3e01a2e7616cafb7382",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/087_Fr.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/francium-fr/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/francium-fr/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/francium-fr/audit.md"
   }
 }

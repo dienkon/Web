@@ -67,7 +67,30 @@
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
     "latticeEvidence": "predicted",
-    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
+    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác.",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Seaborgium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_seaborgium",
+      "revisionId": 1381805588,
+      "revisionTimestamp": "2026-10-24T22:29:40Z",
+      "status": "phase-unmeasured-or-fluid",
+      "phases": [
+        {
+          "type": "body-centered cubic",
+          "prefix": "",
+          "comment": "(predicted)",
+          "pearson": "",
+          "lattice": ""
+        }
+      ],
+      "selectedModel": null,
+      "modelKind": null,
+      "metrics": [],
+      "notes": [
+        "Không lấy hình của một kiểu mạng chung để khẳng định mẫu tinh thể đã được đo. Pha khí/lỏng và cấu trúc dự đoán được ghi riêng."
+      ],
+      "additionalSources": []
+    }
   },
   "structureType": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
   "occurrence": {
@@ -292,27 +315,63 @@
     {
       "title": "Ứng dụng",
       "desc": "Seaborgium không có ứng dụng công nghiệp hoặc dân dụng.",
-      "sourceLine": 81
+      "sourceLine": 81,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Nó chủ yếu được sử dụng trong",
       "desc": "",
-      "sourceLine": 82
+      "sourceLine": 82,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Nghiên cứu hạt nhân",
       "desc": "Nghiên cứu tính chất của các nguyên tố siêu nặng.",
-      "sourceLine": 83
+      "sourceLine": 83,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/research.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "author": "LSDSL",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nghiên cứu hạt nhân — Particle accelerator",
+        "caption": "Minh họa lĩnh vực nghiên cứu hạt nhân · Particle accelerator.",
+        "topic": "research",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hóa học nguyên tố siêu nặng",
       "desc": "So sánh Seaborgium với Chromium và Molybdenum, qua đó kiểm tra các xu hướng tuần hoàn ở nguyên tố có số hiệu nguyên tử rất lớn.",
-      "sourceLine": 84
+      "sourceLine": 84,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Nghiên cứu cấu trúc hạt nhân",
       "desc": "Giúp nghiên cứu độ ổn định và chuỗi phân rã của các hạt nhân siêu nặng.",
-      "sourceLine": 85
+      "sourceLine": 85,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Seaborgium là nguyên tố số 106, thuộc nhóm VIB | chu kỳ 7 và là một kim loại chuyển tiếp siêu nặng.</li><li>Seaborgium được tổng hợp lần đầu vào năm 1974 tại Lawrence Berkeley Laboratory. Nguyên tố được đặt tên để vinh danh Glenn T. Seaborg.</li><li>Cấu hình electron được dự đoán là [Rn] 5f¹⁴ 6d⁴ 7s², với số Oxy hóa quan trọng nhất là +6. Về mặt hóa học, Seaborgium được dự đoán và một phần quan sát thấy có tính chất tương tự Chromium và Molybdenum.</li><li>Seaborgium không có đồng vị bền, cực kỳ phóng xạ và chỉ được tạo ra với số lượng rất nhỏ. Vì vậy, nguyên tố này chưa có ứng dụng thực tế, chủ yếu phục vụ nghiên cứu khoa học.</li><li>Mạng tinh thể: Lập phương tâm khối (BCC) — dự đoán, vì chưa thể thu được lượng Seaborgium đủ lớn để xác định trực tiếp cấu trúc tinh thể.</li></ul>",
@@ -353,6 +412,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Seaborgium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -361,6 +425,7 @@
     "sourceSha256": "a103b128852476870efa6f471c4bfae621d29d1e46128f3a3cf4ff9d543f1839",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/106_Sg.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/seaborgium-sg/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/seaborgium-sg/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/seaborgium-sg/audit.md"
   }
 }

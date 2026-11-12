@@ -71,9 +71,9 @@
         "a": 3.524,
         "b": 3.524,
         "c": 3.524,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 90.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
       },
       "volume": 43.763061824,
       "siteCount": 4,
@@ -97,9 +97,67 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-ni.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-ni.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-ni.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-ni.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-ni.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Nickel",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_nickel",
+        "revisionId": 1282815304,
+        "revisionTimestamp": "2025-03-28T19:45:16Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "face-centered cubic",
+            "prefix": "",
+            "comment": "",
+            "pearson": "cF4",
+            "lattice": "a = 352.41 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-ni",
+        "modelKind": "fcc",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 3.5241000000000002,
+            "modelAngstrom": 3.524,
+            "relativeDifferencePercent": 0.0028376039272498235
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Nickel",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_nickel",
+      "revisionId": 1282815304,
+      "revisionTimestamp": "2025-03-28T19:45:16Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "face-centered cubic",
+          "prefix": "",
+          "comment": "",
+          "pearson": "cF4",
+          "lattice": "a = 352.41 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-ni",
+      "modelKind": "fcc",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 3.5241000000000002,
+          "modelAngstrom": 3.524,
+          "relativeDifferencePercent": 0.0028376039272498235
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lập phương tâm mặt (Face-centered cubic, FCC)",
   "occurrence": {
@@ -150,9 +208,9 @@
             "a": 10.038,
             "b": 10.038,
             "c": 10.038,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 1011.4433748720002,
           "siteCount": 68,
@@ -590,37 +648,138 @@
     {
       "title": "Thép không gỉ",
       "desc": "Nickel được sử dụng trong nhiều loại Stainless steel để tăng khả năng chống ăn mòn và cải thiện tính chất cơ học.",
-      "sourceLine": 99
+      "sourceLine": 99,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "stainless-steel",
+        "source": "https://commons.wikimedia.org/wiki/File:Sink_and_taps_in_the_men%27s_locker_room_3_BW.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/stainless-steel.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Sink_and_taps_in_the_men%27s_locker_room_3_BW.jpg",
+        "author": "W.carter",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Thép không gỉ — Stainless steel",
+        "caption": "Minh họa lĩnh vực thép không gỉ · Stainless steel.",
+        "topic": "stainless-steel",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hợp kim",
       "desc": "Được sử dụng trong các hợp kim chịu nhiệt, chịu ăn mòn và có độ bền cao.",
-      "sourceLine": 100
+      "sourceLine": 100,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "refractory",
+        "source": "https://commons.wikimedia.org/wiki/File:Torpedo_car_refractory_bricks.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/refractory.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Torpedo_car_refractory_bricks.JPG",
+        "author": "Morgan Riley",
+        "license": "CC BY 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+        "alt": "Hợp kim — Refractory",
+        "caption": "Minh họa lĩnh vực hợp kim · Refractory.",
+        "topic": "refractory",
+        "role": "application-context"
+      }
     },
     {
       "title": "Pin",
       "desc": "Nickel được sử dụng trong các loại pin như Nickel–metal hydride (NiMH) và Nickel–cadmium (NiCd).",
-      "sourceLine": 101
+      "sourceLine": 101,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "battery",
+        "source": "https://commons.wikimedia.org/wiki/File:Batteries.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/battery.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Batteries.jpg",
+        "author": "en:User:Brianiac",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Pin — Battery (electricity)",
+        "caption": "Minh họa lĩnh vực pin · Battery (electricity).",
+        "topic": "battery",
+        "role": "application-context"
+      }
     },
     {
       "title": "Mạ Nickel",
       "desc": "Được sử dụng để tạo lớp phủ bảo vệ và tăng độ bền cho bề mặt kim loại.",
-      "sourceLine": 102
+      "sourceLine": 102,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Tiền xu",
       "desc": "Nickel và các hợp kim của nó được sử dụng trong một số loại tiền xu.",
-      "sourceLine": 103
+      "sourceLine": 103,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "coins",
+        "source": "https://commons.wikimedia.org/wiki/File:Kiloware.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/coins.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Kiloware.JPG",
+        "author": "Michael Sander",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Tiền xu — Coin",
+        "caption": "Minh họa lĩnh vực tiền xu · Coin.",
+        "topic": "coins",
+        "role": "application-context"
+      }
     },
     {
       "title": "Chất xúc tác",
       "desc": "Nickel là chất xúc tác quan trọng trong Hydrogenation và nhiều phản ứng công nghiệp.",
-      "sourceLine": 104
+      "sourceLine": 104,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "catalyst",
+        "source": "https://commons.wikimedia.org/wiki/File:Catalysts.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/catalyst.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Catalysts.JPG",
+        "author": "Shubhrapdil",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Chất xúc tác — Catalysis",
+        "caption": "Minh họa lĩnh vực chất xúc tác · Catalysis.",
+        "topic": "catalyst",
+        "role": "application-context"
+      }
     },
     {
       "title": "Công nghiệp hóa chất",
       "desc": "Nickel compounds được sử dụng trong sản xuất và xử lý nhiều hóa chất.",
-      "sourceLine": 105
+      "sourceLine": 105,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "chemical-industry",
+        "source": "https://commons.wikimedia.org/wiki/File:BASF_Schwarzheide_GmbH_Werksansicht_01.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/chemical-industry.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:BASF_Schwarzheide_GmbH_Werksansicht_01.jpg",
+        "author": "Goku4711",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Công nghiệp hóa chất — Chemical plant",
+        "caption": "Minh họa lĩnh vực công nghiệp hóa chất · Chemical plant.",
+        "topic": "chemical-industry",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Nickel là nguyên tố số 28, thuộc nhóm VIIIB | chu kỳ 4 và là một kim loại chuyển tiếp.</li><li>Nickel có cấu hình electron [Ar] 3d⁸ 4s², trong đó +2 là số Oxy hóa phổ biến nhất.</li><li>Nickel có màu trắng bạc hơi ánh vàng, cứng, bền và có khả năng chống ăn mòn tốt. Ở điều kiện thường, Nickel có cấu trúc tinh thể lập phương tâm mặt (FCC).</li><li>Nickel có vai trò quan trọng trong sản xuất Stainless steel, hợp kim, pin, mạ kim loại và chất xúc tác. Trong tự nhiên, Nickel chủ yếu được khai thác từ quặng sulfide và laterite.</li></ul>",
@@ -661,9 +820,9 @@
           "a": 10.038,
           "b": 10.038,
           "c": 10.038,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 1011.4433748720002,
         "siteCount": 68,
@@ -729,6 +888,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Nickel",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -737,6 +901,7 @@
     "sourceSha256": "24fb8c69cc5788a8d7fcd4d27389141d0728d329078ca5067379f1e3994c0181",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/028_Ni.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/niken-ni/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/niken-ni/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/niken-ni/audit.md"
   }
 }

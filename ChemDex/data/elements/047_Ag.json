@@ -73,9 +73,9 @@
         "a": 4.086,
         "b": 4.086,
         "c": 4.086,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 90.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
       },
       "volume": 68.21738805600002,
       "siteCount": 4,
@@ -99,9 +99,67 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-ag.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-ag.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-ag.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-ag.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-ag.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Silver",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_silver",
+        "revisionId": 1379452657,
+        "revisionTimestamp": "2026-10-10T02:23:09Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "face-centered cubic",
+            "prefix": "",
+            "comment": "",
+            "pearson": "cF4",
+            "lattice": "a = 408.60 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-ag",
+        "modelKind": "fcc",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 4.086,
+            "modelAngstrom": 4.086,
+            "relativeDifferencePercent": 0
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Silver",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_silver",
+      "revisionId": 1379452657,
+      "revisionTimestamp": "2026-10-10T02:23:09Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "face-centered cubic",
+          "prefix": "",
+          "comment": "",
+          "pearson": "cF4",
+          "lattice": "a = 408.60 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-ag",
+      "modelKind": "fcc",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 4.086,
+          "modelAngstrom": 4.086,
+          "relativeDifferencePercent": 0
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lập phương tâm mặt (Face-centered cubic, FCC)",
   "occurrence": {
@@ -154,9 +212,9 @@
             "a": 4.23,
             "b": 6.91,
             "c": 7.87,
-            "alpha": 90.0,
+            "alpha": 90,
             "beta": 99.58,
-            "gamma": 90.0
+            "gamma": 90
           },
           "volume": 226.8265723633782,
           "siteCount": 12,
@@ -466,42 +524,159 @@
     {
       "title": "Điện tử",
       "desc": "Silver được sử dụng trong các tiếp điểm, mạch điện và vật liệu dẫn điện nhờ độ dẫn điện rất cao.",
-      "sourceLine": 88
+      "sourceLine": 88,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "electronics",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/electronics.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg",
+        "author": "Raimond Spekking",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Điện tử — Printed circuit board",
+        "caption": "Minh họa lĩnh vực điện tử · Printed circuit board.",
+        "topic": "electronics",
+        "role": "application-context"
+      }
     },
     {
       "title": "Trang sức",
       "desc": "Silver được sử dụng rộng rãi để chế tạo trang sức, đồ trang trí và vật dụng.",
-      "sourceLine": 89
+      "sourceLine": 89,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "jewelry",
+        "source": "https://commons.wikimedia.org/wiki/File:Pectoral_and_Necklace_of_Sithathoryunet_with_the_Name_of_Senwosret_II_MET_DT531.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/jewelry.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Pectoral_and_Necklace_of_Sithathoryunet_with_the_Name_of_Senwosret_II_MET_DT531.jpg",
+        "author": "This file was donated to Wikimedia Commons as part of a project by the Metropolitan Museum of Art . See the Image and Data Resources Open Access Policy",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "alt": "Trang sức — Jewellery",
+        "caption": "Minh họa lĩnh vực trang sức · Jewellery.",
+        "topic": "jewelry",
+        "role": "application-context"
+      }
     },
     {
       "title": "Tiền xu",
       "desc": "Silver từng được sử dụng phổ biến để đúc tiền.",
-      "sourceLine": 90
+      "sourceLine": 90,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "coins",
+        "source": "https://commons.wikimedia.org/wiki/File:Kiloware.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/coins.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Kiloware.JPG",
+        "author": "Michael Sander",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Tiền xu — Coin",
+        "caption": "Minh họa lĩnh vực tiền xu · Coin.",
+        "topic": "coins",
+        "role": "application-context"
+      }
     },
     {
       "title": "Gương",
       "desc": "Silver có khả năng phản xạ ánh sáng cao nên được sử dụng trong một số loại gương.",
-      "sourceLine": 91
+      "sourceLine": 91,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "mirror",
+        "source": "https://commons.wikimedia.org/wiki/File:Mirror.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/mirror.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Mirror.jpg",
+        "author": "Cgs",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+        "alt": "Gương — Mirror",
+        "caption": "Minh họa lĩnh vực gương · Mirror.",
+        "topic": "mirror",
+        "role": "application-context"
+      }
     },
     {
       "title": "Y tế",
       "desc": "Một số hợp chất Silver được sử dụng nhờ tính kháng khuẩn.",
-      "sourceLine": 92
+      "sourceLine": 92,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Nhiếp ảnh",
       "desc": "Silver halide như AgBr từng đóng vai trò quan trọng trong phim ảnh truyền thống.",
-      "sourceLine": 93
+      "sourceLine": 93,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "photography",
+        "source": "https://commons.wikimedia.org/wiki/File:Undeveloped_35_mm_film.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/photography.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Undeveloped_35_mm_film.jpg",
+        "author": "Unknown author Unknown author",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "alt": "Nhiếp ảnh — Photographic film",
+        "caption": "Minh họa lĩnh vực nhiếp ảnh · Photographic film.",
+        "topic": "photography",
+        "role": "application-context"
+      }
     },
     {
       "title": "Pin",
       "desc": "Silver compounds được sử dụng trong một số loại pin có hiệu suất cao.",
-      "sourceLine": 94
+      "sourceLine": 94,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "battery",
+        "source": "https://commons.wikimedia.org/wiki/File:Batteries.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/battery.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Batteries.jpg",
+        "author": "en:User:Brianiac",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Pin — Battery (electricity)",
+        "caption": "Minh họa lĩnh vực pin · Battery (electricity).",
+        "topic": "battery",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hàn",
       "desc": "Một số hợp kim hàn chứa Silver được sử dụng trong điện tử và kỹ thuật.",
-      "sourceLine": 95
+      "sourceLine": 95,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "welding",
+        "source": "https://commons.wikimedia.org/wiki/File:US_Navy_090715-N-5821P-002_Aviation_Support_Equipment_Technician_Airman_Anthony_Hammond_performs_tungsten_inert_gas_welding_during_a_training_evolution.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/welding.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:US_Navy_090715-N-5821P-002_Aviation_Support_Equipment_Technician_Airman_Anthony_Hammond_performs_tungsten_inert_gas_welding_during_a_training_evolution.jpg",
+        "author": "U.S. Navy photo by Mass Communication Specialist 2nd Class Jason T. Poplin",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Hàn — Gas tungsten arc welding",
+        "caption": "Minh họa lĩnh vực hàn · Gas tungsten arc welding.",
+        "topic": "welding",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Silver là nguyên tố số 47, thuộc nhóm IB | chu kỳ 5 và là một kim loại chuyển tiếp.</li><li>Silver có cấu hình electron [Kr] 4d¹⁰ 5s¹, với số Oxy hóa phổ biến nhất là +1.</li><li>Silver nổi bật nhờ độ dẫn điện và dẫn nhiệt rất cao, đồng thời có tính dẻo, dễ gia công và khả năng phản xạ ánh sáng tốt.</li><li>Trong tự nhiên, Silver có thể tồn tại ở dạng kim loại tự sinh hoặc trong các quặng Sulfide, Halide. Hai đồng vị tự nhiên chính là ¹⁰⁷Ag và ¹⁰⁹Ag.</li><li>Silver có nhiều ứng dụng trong điện tử, trang sức, y tế, gương, nhiếp ảnh, pin và công nghiệp hàn.</li></ul>",
@@ -542,9 +717,9 @@
           "a": 4.23,
           "b": 6.91,
           "c": 7.87,
-          "alpha": 90.0,
+          "alpha": 90,
           "beta": 99.58,
-          "gamma": 90.0
+          "gamma": 90
         },
         "volume": 226.8265723633782,
         "siteCount": 12,
@@ -609,6 +784,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Silver",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -617,6 +797,7 @@
     "sourceSha256": "6f203f7d3334e86d223c6541ed06cc5df01d77a38d9014ceb322a992d0d26db9",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/047_Ag.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/bac-ag/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/bac-ag/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/bac-ag/audit.md"
   }
 }

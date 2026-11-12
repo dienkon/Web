@@ -67,7 +67,30 @@
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
     "latticeEvidence": "predicted",
-    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
+    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác.",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Roentgenium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_roentgenium",
+      "revisionId": 1364254198,
+      "revisionTimestamp": "2026-07-15T13:20:33Z",
+      "status": "phase-unmeasured-or-fluid",
+      "phases": [
+        {
+          "type": "body-centered cubic",
+          "prefix": "",
+          "comment": "(predicted)",
+          "pearson": "",
+          "lattice": ""
+        }
+      ],
+      "selectedModel": null,
+      "modelKind": null,
+      "metrics": [],
+      "notes": [
+        "Không lấy hình của một kiểu mạng chung để khẳng định mẫu tinh thể đã được đo. Pha khí/lỏng và cấu trúc dự đoán được ghi riêng."
+      ],
+      "additionalSources": []
+    }
   },
   "structureType": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
   "occurrence": {
@@ -336,27 +359,63 @@
     {
       "title": "Ứng dụng",
       "desc": "Roentgenium không có ứng dụng công nghiệp hoặc dân dụng.",
-      "sourceLine": 79
+      "sourceLine": 79,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Nó chủ yếu được sử dụng trong",
       "desc": "",
-      "sourceLine": 80
+      "sourceLine": 80,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Nghiên cứu hạt nhân",
       "desc": "Nghiên cứu các hạt nhân siêu nặng và chuỗi phân rã của chúng.",
-      "sourceLine": 81
+      "sourceLine": 81,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/research.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "author": "LSDSL",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nghiên cứu hạt nhân — Particle accelerator",
+        "caption": "Minh họa lĩnh vực nghiên cứu hạt nhân · Particle accelerator.",
+        "topic": "research",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hóa học nguyên tố siêu nặng",
       "desc": "So sánh Roentgenium với Copper, Silver và Gold, đặc biệt là Gold.",
-      "sourceLine": 82
+      "sourceLine": 82,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Nghiên cứu hiệu ứng tương đối tính",
       "desc": "Tìm hiểu sự thay đổi cấu trúc electron và tính chất hóa học ở các nguyên tố có số hiệu nguyên tử cực lớn.",
-      "sourceLine": 83
+      "sourceLine": 83,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Roentgenium là nguyên tố số 111, thuộc nhóm IB | chu kỳ 7 và là một kim loại chuyển tiếp siêu nặng.</li><li>Roentgenium được tổng hợp lần đầu vào năm 1994 tại Darmstadt, Đức. Tên nguyên tố được đặt để vinh danh Wilhelm Conrad Röntgen, người phát hiện tia X.</li><li>Cấu hình electron được dự đoán là [Rn] 5f¹⁴ 6d⁹ 7s². Roentgenium nằm cùng nhóm với Copper, Silver và Gold, và được dự đoán có nhiều điểm tương đồng với Gold, mặc dù hiệu ứng tương đối tính rất mạnh có thể làm thay đổi tính chất của nó.</li><li>Roentgenium không có đồng vị bền, cực kỳ phóng xạ và chỉ được tạo ra với số lượng rất nhỏ. Vì vậy, nó không có ứng dụng thực tế, chủ yếu phục vụ nghiên cứu khoa học.</li><li>Mạng tinh thể: Lập phương tâm khối (BCC) — dự đoán, vì chưa thể thu được lượng Roentgenium đủ lớn để xác định trực tiếp cấu trúc tinh thể.</li></ul>",
@@ -397,6 +456,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Roentgenium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -405,6 +469,7 @@
     "sourceSha256": "d4f2f2f42a6260fa318112c8106cfd71366cc26085ebe1e98bf0f168ff54d569",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/111_Rg.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/roentgenium-rg/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/roentgenium-rg/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/roentgenium-rg/audit.md"
   }
 }

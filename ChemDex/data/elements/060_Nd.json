@@ -75,9 +75,9 @@
         "a": 3.6579,
         "b": 3.6579,
         "c": 11.7992,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 120.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 120
       },
       "volume": 136.72465977513818,
       "siteCount": 4,
@@ -99,9 +99,81 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-nd.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-nd.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-nd.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-nd.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-nd.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Neodymium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_neodymium",
+        "revisionId": 1374133806,
+        "revisionTimestamp": "2026-09-10T01:50:03Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "double hexagonal close packed",
+            "prefix": "",
+            "comment": "",
+            "pearson": "hP4",
+            "lattice": "a = 0.36583 nm; c = 1.17968 nm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-nd",
+        "modelKind": "dhcp",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 3.6582999999999997,
+            "modelAngstrom": 3.6579,
+            "relativeDifferencePercent": 0.010934040401265941
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "c",
+            "wikiAngstrom": 11.796800000000001,
+            "modelAngstrom": 11.7992,
+            "relativeDifferencePercent": 0.02034450020344276
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Neodymium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_neodymium",
+      "revisionId": 1374133806,
+      "revisionTimestamp": "2026-09-10T01:50:03Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "double hexagonal close packed",
+          "prefix": "",
+          "comment": "",
+          "pearson": "hP4",
+          "lattice": "a = 0.36583 nm; c = 1.17968 nm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-nd",
+      "modelKind": "dhcp",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 3.6582999999999997,
+          "modelAngstrom": 3.6579,
+          "relativeDifferencePercent": 0.010934040401265941
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "c",
+          "wikiAngstrom": 11.796800000000001,
+          "modelAngstrom": 11.7992,
+          "relativeDifferencePercent": 0.02034450020344276
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lục phương kép xếp chặt (DHCP) ở áp suất thường; cấu trúc thay đổi theo nhiệt độ và áp suất.",
   "occurrence": {
@@ -150,9 +222,9 @@
             "a": 6.788,
             "b": 7.0163,
             "c": 6.465,
-            "alpha": 90.0,
+            "alpha": 90,
             "beta": 103.43,
-            "gamma": 90.0
+            "gamma": 90
           },
           "volume": 299.48637533121257,
           "siteCount": 24,
@@ -457,27 +529,85 @@
     {
       "title": "Nam châm Nd-Fe-B",
       "desc": "Đây là ứng dụng nổi bật nhất của Neodymium. Nam châm Neodymium–Iron–Boron (Nd-Fe-B) có từ tính rất mạnh và được sử dụng trong động cơ điện, máy phát điện, loa, tai nghe và nhiều thiết bị điện tử.",
-      "sourceLine": 88
+      "sourceLine": 88,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "magnet",
+        "source": "https://commons.wikimedia.org/wiki/File:Magnetite_sample_with_neodymium_magnet.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/magnet.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Magnetite_sample_with_neodymium_magnet.jpg",
+        "author": "GOKLuLe 盧樂",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nam châm Nd-Fe-B — Magnet",
+        "caption": "Minh họa lĩnh vực nam châm nd-fe-b · Magnet.",
+        "topic": "magnet",
+        "role": "application-context"
+      }
     },
     {
       "title": "Laser",
       "desc": "Neodymium-doped Yttrium Aluminum Garnet (Nd:YAG) là vật liệu laser quan trọng, được sử dụng trong công nghiệp, nghiên cứu và một số thiết bị y tế.",
-      "sourceLine": 89
+      "sourceLine": 89,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "laser",
+        "source": "https://commons.wikimedia.org/wiki/File:Guiding_the_Milky_Way_(potw2222a).jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/laser.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Guiding_the_Milky_Way_(potw2222a).jpg",
+        "author": "ESO/A. Ghizzi Panizza ( www.albertoghizzipanizza.com )",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "alt": "Laser — Laser",
+        "caption": "Minh họa lĩnh vực laser · Laser.",
+        "topic": "laser",
+        "role": "application-context"
+      }
     },
     {
       "title": "Kính quang học",
       "desc": "Hợp chất Neodymium được sử dụng để tạo kính có màu đặc trưng và điều chỉnh khả năng hấp thụ ánh sáng.",
-      "sourceLine": 90
+      "sourceLine": 90,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "glass",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/glass.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg",
+        "author": "Ansgar Koreng",
+        "license": "CC BY 3.0 de",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/de/deed.en",
+        "alt": "Kính quang học — Glass",
+        "caption": "Minh họa lĩnh vực kính quang học · Glass.",
+        "topic": "glass",
+        "role": "application-context"
+      }
     },
     {
       "title": "Kính lọc",
       "desc": "Một số loại kính chứa Neodymium được dùng để lọc các vùng bước sóng nhất định trong quang học.",
-      "sourceLine": 91
+      "sourceLine": 91,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "glass",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg"
+      }
     },
     {
       "title": "Gốm và thủy tinh",
       "desc": "Neodymium compounds được sử dụng làm chất tạo màu cho glass và ceramic.",
-      "sourceLine": 92
+      "sourceLine": 92,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "glass",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Neodymium là nguyên tố số 60, thuộc nhóm IIIB | chu kỳ 6 và là nguyên tố thứ tư trong họ Lanthanide.</li><li>Neodymium được Carl Auer von Welsbach phát hiện vào năm 1885 khi ông tách Didymium thành Neodymium và Praseodymium. Tên nguyên tố có nghĩa là “sinh đôi mới”.</li><li>Neodymium là kim loại đất hiếm màu trắng bạc, mềm và khá hoạt động hóa học. Trạng thái Oxy hóa phổ biến nhất là +3.</li><li>Ứng dụng quan trọng nhất của Neodymium là chế tạo nam châm Nd-Fe-B, một trong những loại nam châm vĩnh cửu mạnh nhất hiện nay. Ngoài ra, Neodymium còn đóng vai trò quan trọng trong laser Nd:YAG, kính quang học, thiết bị điện tử và vật liệu ceramic.</li><li>Mạng tinh thể: Lục phương kép xếp chặt (DHCP) ở áp suất thường; cấu trúc thay đổi theo nhiệt độ và áp suất.</li></ul>",
@@ -518,9 +648,9 @@
           "a": 6.788,
           "b": 7.0163,
           "c": 6.465,
-          "alpha": 90.0,
+          "alpha": 90,
           "beta": 103.43,
-          "gamma": 90.0
+          "gamma": 90
         },
         "volume": 299.48637533121257,
         "siteCount": 24,
@@ -591,6 +721,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Neodymium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -599,6 +734,7 @@
     "sourceSha256": "4f4db172b42887f3dbe449733215f9ec6f7a08946687fc2199ea99c13a053893",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/060_Nd.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/neodymium-nd/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/neodymium-nd/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/neodymium-nd/audit.md"
   }
 }

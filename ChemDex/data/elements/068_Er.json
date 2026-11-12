@@ -75,9 +75,9 @@
         "a": 3.5588,
         "b": 3.5588,
         "c": 5.5874,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 120.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 120
       },
       "volume": 61.284064212511815,
       "siteCount": 2,
@@ -99,9 +99,81 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-er.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-er.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-er.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-er.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-er.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Erbium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_erbium",
+        "revisionId": 1276439177,
+        "revisionTimestamp": "2025-02-18T21:33:27Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "hexagonal close packed",
+            "prefix": "",
+            "comment": "",
+            "pearson": "hP2",
+            "lattice": "a = 355.93 pm; c = 558.49 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-er",
+        "modelKind": "hcp",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 3.5593000000000004,
+            "modelAngstrom": 3.5588,
+            "relativeDifferencePercent": 0.014047706009613322
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "c",
+            "wikiAngstrom": 5.5849,
+            "modelAngstrom": 5.5874,
+            "relativeDifferencePercent": 0.044763558881976445
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Erbium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_erbium",
+      "revisionId": 1276439177,
+      "revisionTimestamp": "2025-02-18T21:33:27Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "hexagonal close packed",
+          "prefix": "",
+          "comment": "",
+          "pearson": "hP2",
+          "lattice": "a = 355.93 pm; c = 558.49 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-er",
+      "modelKind": "hcp",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 3.5593000000000004,
+          "modelAngstrom": 3.5588,
+          "relativeDifferencePercent": 0.014047706009613322
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "c",
+          "wikiAngstrom": 5.5849,
+          "modelAngstrom": 5.5874,
+          "relativeDifferencePercent": 0.044763558881976445
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lục phương xếp chặt (HCP)",
   "occurrence": {
@@ -151,9 +223,9 @@
             "a": 6.8947,
             "b": 6.8947,
             "c": 6.0276,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 286.53334665128403,
           "siteCount": 24,
@@ -429,27 +501,96 @@
     {
       "title": "Cáp quang",
       "desc": "Đây là ứng dụng nổi tiếng nhất của Erbium. Ion Er³⁺ được sử dụng trong Erbium-doped fiber amplifier (EDFA) để khuếch đại tín hiệu trong hệ thống truyền thông sợi quang, đặc biệt ở vùng bước sóng khoảng 1550 nm.",
-      "sourceLine": 84
+      "sourceLine": 84,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "optical-fiber",
+        "source": "https://commons.wikimedia.org/wiki/File:Fibreoptic.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/optical-fiber.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Fibreoptic.jpg",
+        "author": "BigRiz",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+        "alt": "Cáp quang — Optical fiber",
+        "caption": "Minh họa lĩnh vực cáp quang · Optical fiber.",
+        "topic": "optical-fiber",
+        "role": "application-context"
+      }
     },
     {
       "title": "Laser",
       "desc": "Erbium được sử dụng trong các loại laser Er:YAG và nhiều vật liệu laser khác.",
-      "sourceLine": 85
+      "sourceLine": 85,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "laser",
+        "source": "https://commons.wikimedia.org/wiki/File:Guiding_the_Milky_Way_(potw2222a).jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/laser.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Guiding_the_Milky_Way_(potw2222a).jpg",
+        "author": "ESO/A. Ghizzi Panizza ( www.albertoghizzipanizza.com )",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "alt": "Laser — Laser",
+        "caption": "Minh họa lĩnh vực laser · Laser.",
+        "topic": "laser",
+        "role": "application-context"
+      }
     },
     {
       "title": "Y tế",
       "desc": "Laser Er:YAG có ứng dụng trong một số thủ thuật nha khoa và da liễu.",
-      "sourceLine": 86
+      "sourceLine": 86,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "laser",
+        "source": "https://commons.wikimedia.org/wiki/File:Guiding_the_Milky_Way_(potw2222a).jpg"
+      }
     },
     {
       "title": "Kính",
       "desc": "Erbium được thêm vào thủy tinh để tạo màu hồng và sử dụng trong một số loại kính quang học.",
-      "sourceLine": 87
+      "sourceLine": 87,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "glass",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/glass.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg",
+        "author": "Ansgar Koreng",
+        "license": "CC BY 3.0 de",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/de/deed.en",
+        "alt": "Kính — Glass",
+        "caption": "Minh họa lĩnh vực kính · Glass.",
+        "topic": "glass",
+        "role": "application-context"
+      }
     },
     {
       "title": "Công nghệ quang học",
       "desc": "Các vật liệu pha tạp Er³⁺ được sử dụng trong thiết bị phát quang và quang tử.",
-      "sourceLine": 88
+      "sourceLine": 88,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "optics",
+        "source": "https://commons.wikimedia.org/wiki/File:Double-lens_burning_apparatus,_Ehrenfried_Walther_von_Tschirnhaus,_Kieslingswalde_(today_Slawonice,_Poland),_c._1690_-_Mathematisch-Physikalischer_Salon,_Dresden_-_DSC08133.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/optics.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Double-lens_burning_apparatus,_Ehrenfried_Walther_von_Tschirnhaus,_Kieslingswalde_(today_Slawonice,_Poland),_c._1690_-_Mathematisch-Physikalischer_Salon,_Dresden_-_DSC08133.JPG",
+        "author": "Daderot",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Công nghệ quang học — Optical lens",
+        "caption": "Minh họa lĩnh vực công nghệ quang học · Optical lens.",
+        "topic": "optics",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Erbium là nguyên tố số 68, thuộc nhóm IIIB | chu kỳ 6 và là nguyên tố thứ mười hai trong họ Lanthanide.</li><li>Erbium được Carl Gustaf Mosander phát hiện vào năm 1843 tại Thụy Điển. Tên nguyên tố bắt nguồn từ Ytterby, cùng nguồn gốc tên với Yttrium, Terbium và Ytterbium.</li><li>Erbium là kim loại đất hiếm màu trắng bạc, khá mềm và có trạng thái Oxy hóa chủ yếu là +3. Một đặc điểm đáng chú ý là Erbium oxide (Er₂O₃) có màu hồng.</li><li>Ứng dụng quan trọng nhất của Erbium là trong truyền thông sợi quang. Ion Er³⁺ trong EDFA có khả năng khuếch đại tín hiệu quang ở vùng khoảng 1550 nm, giúp truyền dữ liệu qua khoảng cách rất xa mà không cần chuyển tín hiệu quang thành tín hiệu điện tại mỗi đoạn.</li><li>Ngoài ra, Erbium còn được sử dụng trong laser, nha khoa, da liễu, kính quang học và công nghệ quang tử.</li><li>Mạng tinh thể: Lục phương xếp chặt (HCP) ở điều kiện thường.</li></ul>",
@@ -490,9 +631,9 @@
           "a": 6.8947,
           "b": 6.8947,
           "c": 6.0276,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 286.53334665128403,
         "siteCount": 24,
@@ -559,6 +700,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Erbium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -567,6 +713,7 @@
     "sourceSha256": "3c9b0d61b73f1155102600c202d908e080ac00db96072c6e87f16466f966c8bd",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/068_Er.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/erbium-er/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/erbium-er/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/erbium-er/audit.md"
   }
 }

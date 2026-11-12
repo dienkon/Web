@@ -69,9 +69,9 @@
         "a": 4.2906,
         "b": 4.2906,
         "c": 4.2906,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 90.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
       },
       "volume": 78.98672101341602,
       "siteCount": 2,
@@ -93,9 +93,67 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-na.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-na.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-na.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-na.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-na.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Sodium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_sodium",
+        "revisionId": 1379392053,
+        "revisionTimestamp": "2026-10-09T18:43:07Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "body-centered cubic",
+            "prefix": "",
+            "comment": "",
+            "pearson": "cI2",
+            "lattice": "a = 428.74 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-na",
+        "modelKind": "bcc",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 4.2874,
+            "modelAngstrom": 4.2906,
+            "relativeDifferencePercent": 0.07463730932501134
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Sodium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_sodium",
+      "revisionId": 1379392053,
+      "revisionTimestamp": "2026-10-09T18:43:07Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "body-centered cubic",
+          "prefix": "",
+          "comment": "",
+          "pearson": "cI2",
+          "lattice": "a = 428.74 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-na",
+      "modelKind": "bcc",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 4.2874,
+          "modelAngstrom": 4.2906,
+          "relativeDifferencePercent": 0.07463730932501134
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lập phương tâm khối (BCC)",
   "occurrence": {
@@ -148,9 +206,9 @@
             "a": 5.6401,
             "b": 5.6401,
             "c": 5.6401,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 179.41568704920104,
           "siteCount": 8,
@@ -505,32 +563,117 @@
     {
       "title": "Sản xuất Sodium compounds",
       "desc": "Sodium được sử dụng làm nguyên liệu để sản xuất nhiều hợp chất Sodium.",
-      "sourceLine": 90
+      "sourceLine": 90,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Hợp kim",
       "desc": "Sodium được sử dụng trong một số hợp kim và vật liệu đặc biệt.",
-      "sourceLine": 91
+      "sourceLine": 91,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "alloy",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/alloy.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg",
+        "author": "Bill Abbott",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Hợp kim — Alloy",
+        "caption": "Minh họa lĩnh vực hợp kim · Alloy.",
+        "topic": "alloy",
+        "role": "application-context"
+      }
     },
     {
       "title": "Chất truyền nhiệt",
       "desc": "Sodium lỏng có khả năng truyền nhiệt tốt và được sử dụng trong một số hệ thống kỹ thuật.",
-      "sourceLine": 92
+      "sourceLine": 92,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "heat-exchanger",
+        "source": "https://commons.wikimedia.org/wiki/File:Tubular_heat_exchanger.png"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/heat-exchanger.png",
+        "source": "https://commons.wikimedia.org/wiki/File:Tubular_heat_exchanger.png",
+        "author": "KoenB",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Chất truyền nhiệt — Heat exchanger",
+        "caption": "Minh họa lĩnh vực chất truyền nhiệt · Heat exchanger.",
+        "topic": "heat-exchanger",
+        "role": "application-context"
+      }
     },
     {
       "title": "Đèn Sodium",
       "desc": "Sodium được sử dụng trong đèn hơi Sodium, đặc biệt là các loại đèn chiếu sáng đường phố.",
-      "sourceLine": 93
+      "sourceLine": 93,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "sodium-lamp",
+        "source": "https://commons.wikimedia.org/wiki/File:Street_lights_along_a_road_in_Tuntorp.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/sodium-lamp.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Street_lights_along_a_road_in_Tuntorp.jpg",
+        "author": "W.carter",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Đèn Sodium — Sodium-vapor lamp",
+        "caption": "Minh họa lĩnh vực đèn sodium · Sodium-vapor lamp.",
+        "topic": "sodium-lamp",
+        "role": "application-context"
+      }
     },
     {
       "title": "Công nghiệp hóa chất",
       "desc": "Sodium là nguyên liệu quan trọng trong nhiều quá trình hóa học.",
-      "sourceLine": 94
+      "sourceLine": 94,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "chemical-industry",
+        "source": "https://commons.wikimedia.org/wiki/File:BASF_Schwarzheide_GmbH_Werksansicht_01.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/chemical-industry.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:BASF_Schwarzheide_GmbH_Werksansicht_01.jpg",
+        "author": "Goku4711",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Công nghiệp hóa chất — Chemical plant",
+        "caption": "Minh họa lĩnh vực công nghiệp hóa chất · Chemical plant.",
+        "topic": "chemical-industry",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nghiên cứu",
       "desc": "Sodium được sử dụng trong một số thí nghiệm và nghiên cứu hóa học.",
-      "sourceLine": 95
+      "sourceLine": 95,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/research.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "author": "LSDSL",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nghiên cứu — Particle accelerator",
+        "caption": "Minh họa lĩnh vực nghiên cứu · Particle accelerator.",
+        "topic": "research",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Sodium là nguyên tố số 11, thuộc nhóm IA | chu kỳ 3 và là một kim loại kiềm.</li><li>Sodium có cấu hình electron 1s² 2s² 2p⁶ 3s¹, vì vậy dễ mất electron lớp ngoài cùng để tạo ion Na⁺. Sodium có tính khử mạnh và phản ứng rất mạnh với nước.</li><li>Trong tự nhiên, Sodium không tồn tại ở dạng đơn chất mà chủ yếu tồn tại dưới dạng hợp chất, đặc biệt là Sodium chloride (NaCl) trong nước biển và các mỏ muối.</li><li>Sodium kim loại được sản xuất chủ yếu bằng điện phân Sodium chloride nóng chảy. Sodium và các hợp chất của nó có nhiều ứng dụng trong công nghiệp hóa chất, chiếu sáng và các hệ thống kỹ thuật đặc biệt.</li></ul>",
@@ -571,9 +714,9 @@
           "a": 5.6401,
           "b": 5.6401,
           "c": 5.6401,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 179.41568704920104,
         "siteCount": 8,
@@ -643,6 +786,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Sodium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -651,6 +799,7 @@
     "sourceSha256": "7c6f9bd2128cc7d672f95ca3fa1228d04ba0c27b7dbcbd1f77876717d0ae07ad",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/011_Na.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/natri-na/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/natri-na/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/natri-na/audit.md"
   }
 }

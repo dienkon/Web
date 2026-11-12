@@ -73,9 +73,9 @@
         "a": 7.27007,
         "b": 9.79344,
         "c": 4.79004,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 90.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
       },
       "volume": 341.04603085220566,
       "siteCount": 8,
@@ -97,9 +97,99 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-i.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-i.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-i.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-i.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-i.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Iodine",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_iodine",
+        "revisionId": 1355531295,
+        "revisionTimestamp": "2026-05-22T11:24:32Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "base-centered orthorhombic",
+            "prefix": "",
+            "comment": "",
+            "pearson": "oS8",
+            "lattice": "a = 725.79 pm; b = 478.28 pm; c = 982.38 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-i",
+        "modelKind": "orthorhombic",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 7.257899999999999,
+            "modelAngstrom": 7.27007,
+            "relativeDifferencePercent": 0.1676793562876347
+          },
+          {
+            "axis": "b",
+            "wikiAxis": "c",
+            "wikiAngstrom": 9.8238,
+            "modelAngstrom": 9.79344,
+            "relativeDifferencePercent": 0.30904537958834605
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "b",
+            "wikiAngstrom": 4.7828,
+            "modelAngstrom": 4.79004,
+            "relativeDifferencePercent": 0.1513757631512996
+          }
+        ],
+        "notes": [
+          "CIF và Wiki dùng quy ước thứ tự trục khác nhau: a CIF ↔ a Wiki, b CIF ↔ c Wiki, c CIF ↔ b Wiki. Giữ bộ tọa độ và metric nhất quán của bản ghi gốc; đổi tên trục không làm thay đổi vật liệu."
+        ],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Iodine",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_iodine",
+      "revisionId": 1355531295,
+      "revisionTimestamp": "2026-05-22T11:24:32Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "base-centered orthorhombic",
+          "prefix": "",
+          "comment": "",
+          "pearson": "oS8",
+          "lattice": "a = 725.79 pm; b = 478.28 pm; c = 982.38 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-i",
+      "modelKind": "orthorhombic",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 7.257899999999999,
+          "modelAngstrom": 7.27007,
+          "relativeDifferencePercent": 0.1676793562876347
+        },
+        {
+          "axis": "b",
+          "wikiAxis": "c",
+          "wikiAngstrom": 9.8238,
+          "modelAngstrom": 9.79344,
+          "relativeDifferencePercent": 0.30904537958834605
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "b",
+          "wikiAngstrom": 4.7828,
+          "modelAngstrom": 4.79004,
+          "relativeDifferencePercent": 0.1513757631512996
+        }
+      ],
+      "notes": [
+        "CIF và Wiki dùng quy ước thứ tự trục khác nhau: a CIF ↔ a Wiki, b CIF ↔ c Wiki, c CIF ↔ b Wiki. Giữ bộ tọa độ và metric nhất quán của bản ghi gốc; đổi tên trục không làm thay đổi vật liệu."
+      ],
+      "additionalSources": []
+    }
   },
   "structureType": "Trực thoi (Orthorhombic)",
   "occurrence": {
@@ -398,32 +488,106 @@
     {
       "title": "Y tế",
       "desc": "Iodine và một số hợp chất của nó được sử dụng trong thuốc sát khuẩn và các ứng dụng y tế.",
-      "sourceLine": 91
+      "sourceLine": 91,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Dinh dưỡng",
       "desc": "Iodine là nguyên tố vi lượng cần thiết cho cơ thể để tổng hợp hormone tuyến giáp. Muối Iodized được sử dụng để bổ sung Iodine trong chế độ ăn.",
-      "sourceLine": 92
+      "sourceLine": 92,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "iodized-salt",
+        "source": "https://commons.wikimedia.org/wiki/File:Iodized_salt_packet.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/iodized-salt.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Iodized_salt_packet.jpg",
+        "author": "Ethantrott",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Dinh dưỡng — Iodised salt",
+        "caption": "Minh họa lĩnh vực dinh dưỡng · Iodised salt.",
+        "topic": "iodized-salt",
+        "role": "application-context"
+      }
     },
     {
       "title": "Y học hạt nhân",
       "desc": "Đồng vị phóng xạ ¹³¹I được sử dụng trong một số phương pháp chẩn đoán và điều trị bệnh tuyến giáp.",
-      "sourceLine": 93
+      "sourceLine": 93,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "nuclear-medicine",
+        "source": "https://commons.wikimedia.org/wiki/File:Lung_scintigraphy_keosys.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/nuclear-medicine.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Lung_scintigraphy_keosys.JPG",
+        "author": "Mco44 ( talk )",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Y học hạt nhân — Gamma camera",
+        "caption": "Minh họa lĩnh vực y học hạt nhân · Gamma camera.",
+        "topic": "nuclear-medicine",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nhiếp ảnh",
       "desc": "Silver iodide (AgI) từng được sử dụng trong phim ảnh và vật liệu nhạy sáng.",
-      "sourceLine": 94
+      "sourceLine": 94,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "photography",
+        "source": "https://commons.wikimedia.org/wiki/File:Undeveloped_35_mm_film.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/photography.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Undeveloped_35_mm_film.jpg",
+        "author": "Unknown author Unknown author",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "alt": "Nhiếp ảnh — Photographic film",
+        "caption": "Minh họa lĩnh vực nhiếp ảnh · Photographic film.",
+        "topic": "photography",
+        "role": "application-context"
+      }
     },
     {
       "title": "Công nghiệp",
       "desc": "Iodine compounds được sử dụng trong sản xuất hóa chất và một số quy trình công nghiệp.",
-      "sourceLine": 95
+      "sourceLine": 95,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "chemical-industry",
+        "source": "https://commons.wikimedia.org/wiki/File:BASF_Schwarzheide_GmbH_Werksansicht_01.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/chemical-industry.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:BASF_Schwarzheide_GmbH_Werksansicht_01.jpg",
+        "author": "Goku4711",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Công nghiệp — Chemical plant",
+        "caption": "Minh họa lĩnh vực công nghiệp · Chemical plant.",
+        "topic": "chemical-industry",
+        "role": "application-context"
+      }
     },
     {
       "title": "Phản ứng hóa học",
       "desc": "Iodine được sử dụng làm thuốc thử trong nhiều phản ứng phân tích và hóa học.",
-      "sourceLine": 96
+      "sourceLine": 96,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Iodine là nguyên tố số 53, thuộc nhóm VIIA | chu kỳ 5 và là một Halogen.</li><li>Iodine có cấu hình electron [Kr] 4d¹⁰ 5s² 5p⁵, với số Oxy hóa phổ biến nhất là −1.</li><li>Ở điều kiện thường, Iodine là chất rắn màu xám tím hoặc đen ánh kim và có đặc điểm nổi bật là thăng hoa tạo hơi màu tím.</li><li>Iodine có phản ứng đặc trưng với Starch, tạo phức có màu xanh tím. Ion Iodide cũng có thể được nhận biết thông qua kết tủa vàng Silver iodide (AgI).</li><li>Iodine có vai trò quan trọng trong y tế, dinh dưỡng, y học hạt nhân, công nghiệp hóa chất và hóa học phân tích.</li></ul>",
@@ -469,6 +633,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Iodine",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -477,6 +646,7 @@
     "sourceSha256": "e1aa0ddb1ef8f915bcad389e549128aeb5297fd15637b203923f62628ce26428",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/053_I.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/iot-i/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/iot-i/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/iot-i/audit.md"
   }
 }

@@ -57,7 +57,30 @@
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "O₂ là khí ở điều kiện thường. O₂ rắn có pha α đơn tà, pha β mặt thoi và pha γ lập phương, tùy nhiệt độ.",
     "latticeEvidence": "phase-dependent",
-    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
+    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác.",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Oxygen",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_oxygen",
+      "revisionId": 1368326169,
+      "revisionTimestamp": "2026-08-08T11:34:35Z",
+      "status": "phase-unmeasured-or-fluid",
+      "phases": [
+        {
+          "type": "cubic",
+          "prefix": "",
+          "comment": "",
+          "pearson": "cP16",
+          "lattice": "a = 678.28 pm (at t.p.)"
+        }
+      ],
+      "selectedModel": null,
+      "modelKind": null,
+      "metrics": [],
+      "notes": [
+        "Không lấy hình của một kiểu mạng chung để khẳng định mẫu tinh thể đã được đo. Pha khí/lỏng và cấu trúc dự đoán được ghi riêng."
+      ],
+      "additionalSources": []
+    }
   },
   "structureType": "O₂ là khí ở điều kiện thường. O₂ rắn có pha α đơn tà, pha β mặt thoi và pha γ lập phương, tùy nhiệt độ.",
   "occurrence": {
@@ -392,42 +415,159 @@
     {
       "title": "Y tế",
       "desc": "Cung cấp Oxygen cho bệnh nhân cần hỗ trợ hô hấp.",
-      "sourceLine": 93
+      "sourceLine": 93,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "oxygen-mask",
+        "source": "https://commons.wikimedia.org/wiki/File:Simple_face_mask.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/oxygen-mask.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Simple_face_mask.jpg",
+        "author": "James Heilman, MD",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Y tế — Oxygen mask",
+        "caption": "Minh họa lĩnh vực y tế · Oxygen mask.",
+        "topic": "oxygen-mask",
+        "role": "application-context"
+      }
     },
     {
       "title": "Luyện kim",
       "desc": "Tăng hiệu quả luyện và tinh chế kim loại, đặc biệt trong sản xuất thép.",
-      "sourceLine": 94
+      "sourceLine": 94,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "alloy",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/alloy.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg",
+        "author": "Bill Abbott",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Luyện kim — Alloy",
+        "caption": "Minh họa lĩnh vực luyện kim · Alloy.",
+        "topic": "alloy",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hàn và cắt kim loại",
       "desc": "Kết hợp với các nhiên liệu khí để tạo ngọn lửa nhiệt độ cao.",
-      "sourceLine": 95
+      "sourceLine": 95,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "welding",
+        "source": "https://commons.wikimedia.org/wiki/File:US_Navy_090715-N-5821P-002_Aviation_Support_Equipment_Technician_Airman_Anthony_Hammond_performs_tungsten_inert_gas_welding_during_a_training_evolution.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/welding.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:US_Navy_090715-N-5821P-002_Aviation_Support_Equipment_Technician_Airman_Anthony_Hammond_performs_tungsten_inert_gas_welding_during_a_training_evolution.jpg",
+        "author": "U.S. Navy photo by Mass Communication Specialist 2nd Class Jason T. Poplin",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Hàn và cắt kim loại — Gas tungsten arc welding",
+        "caption": "Minh họa lĩnh vực hàn và cắt kim loại · Gas tungsten arc welding.",
+        "topic": "welding",
+        "role": "application-context"
+      }
     },
     {
       "title": "Công nghiệp hóa chất",
       "desc": "Sử dụng trong nhiều quá trình Oxy hóa và sản xuất hóa chất.",
-      "sourceLine": 96
+      "sourceLine": 96,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "chemical-industry",
+        "source": "https://commons.wikimedia.org/wiki/File:BASF_Schwarzheide_GmbH_Werksansicht_01.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/chemical-industry.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:BASF_Schwarzheide_GmbH_Werksansicht_01.jpg",
+        "author": "Goku4711",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Công nghiệp hóa chất — Chemical plant",
+        "caption": "Minh họa lĩnh vực công nghiệp hóa chất · Chemical plant.",
+        "topic": "chemical-industry",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hàng không vũ trụ",
       "desc": "Oxygen lỏng (LOX) được sử dụng làm chất Oxy hóa trong động cơ tên lửa.",
-      "sourceLine": 97
+      "sourceLine": 97,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "rocket",
+        "source": "https://commons.wikimedia.org/wiki/File:RS-68_rocket_engine_test.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/rocket.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:RS-68_rocket_engine_test.jpg",
+        "author": "NASA",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Hàng không vũ trụ — Rocket engine",
+        "caption": "Minh họa lĩnh vực hàng không vũ trụ · Rocket engine.",
+        "topic": "rocket",
+        "role": "application-context"
+      }
     },
     {
       "title": "Xử lý nước",
       "desc": "Tăng Oxygen hòa tan và hỗ trợ các quá trình xử lý sinh học.",
-      "sourceLine": 98
+      "sourceLine": 98,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "water-treatment",
+        "source": "https://commons.wikimedia.org/wiki/File:Dalecarlia_Water_Treatment_Plant.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/water-treatment.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Dalecarlia_Water_Treatment_Plant.jpg",
+        "author": "AgnosticPreachersKid",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Xử lý nước — Water treatment",
+        "caption": "Minh họa lĩnh vực xử lý nước · Water treatment.",
+        "topic": "water-treatment",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nuôi trồng thủy sản",
       "desc": "Bổ sung Oxygen cho môi trường nước.",
-      "sourceLine": 99
+      "sourceLine": 99,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Công nghiệp thủy tinh và xi măng",
       "desc": "Hỗ trợ quá trình đốt và tăng hiệu suất sản xuất.",
-      "sourceLine": 100
+      "sourceLine": 100,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "glass",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/glass.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg",
+        "author": "Ansgar Koreng",
+        "license": "CC BY 3.0 de",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/de/deed.en",
+        "alt": "Công nghiệp thủy tinh và xi măng — Glass",
+        "caption": "Minh họa lĩnh vực công nghiệp thủy tinh và xi măng · Glass.",
+        "topic": "glass",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Oxygen là nguyên tố số 8 trong bảng tuần hoàn, thuộc nhóm VIA | chu kỳ 2.</li><li>Ở điều kiện thường, Oxygen tồn tại chủ yếu dưới dạng phân tử O₂. Đây là thành phần chiếm khoảng 20.95% thể tích khí quyển và có mặt trong nước, khoáng vật cũng như rất nhiều hợp chất hữu cơ.</li><li>Oxygen có độ âm điện cao và tính Oxy hóa mạnh, đóng vai trò quan trọng trong sự cháy, hô hấp, Oxy hóa và nhiều quá trình hóa học tự nhiên.</li><li>Oxygen được ứng dụng rộng rãi trong y tế, luyện kim, công nghiệp hóa chất, hàn cắt, xử lý nước và công nghệ hàng không vũ trụ.</li></ul>",
@@ -468,6 +608,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Oxygen",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -476,6 +621,7 @@
     "sourceSha256": "db62e515f077859199a833993a94cff7d1fccd08b08480d6a274ab0048942901",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/008_O.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/oxi-o/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/oxi-o/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/oxi-o/audit.md"
   }
 }

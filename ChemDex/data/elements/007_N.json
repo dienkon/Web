@@ -57,7 +57,30 @@
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "N₂ là khí ở điều kiện thường; pha α-N₂ rắn có cấu trúc lập phương và pha β-N₂ có cấu trúc lục phương.",
     "latticeEvidence": "phase-dependent",
-    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
+    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác.",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Nitrogen",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_nitrogen",
+      "revisionId": 1368326161,
+      "revisionTimestamp": "2026-08-08T11:34:30Z",
+      "status": "phase-unmeasured-or-fluid",
+      "phases": [
+        {
+          "type": "hexagonal",
+          "prefix": "",
+          "comment": "",
+          "pearson": "hP4",
+          "lattice": "a = 411.6 pm; c = 673.4 pm (at t.p.)"
+        }
+      ],
+      "selectedModel": null,
+      "modelKind": null,
+      "metrics": [],
+      "notes": [
+        "Không lấy hình của một kiểu mạng chung để khẳng định mẫu tinh thể đã được đo. Pha khí/lỏng và cấu trúc dự đoán được ghi riêng."
+      ],
+      "additionalSources": []
+    }
   },
   "structureType": "N₂ là khí ở điều kiện thường; pha α-N₂ rắn có cấu trúc lập phương và pha β-N₂ có cấu trúc lục phương.",
   "occurrence": {
@@ -329,42 +352,159 @@
     {
       "title": "Sản xuất Ammonia",
       "desc": "Nitrogen là nguyên liệu chính trong quy trình Haber-Bosch.",
-      "sourceLine": 88
+      "sourceLine": 88,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "ammonia",
+        "source": "https://commons.wikimedia.org/wiki/File:Haber-Bosch-En.svg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/ammonia.png",
+        "source": "https://commons.wikimedia.org/wiki/File:Haber-Bosch-En.svg",
+        "author": "Francis E Williams This file is lacking author information.",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Sản xuất Ammonia — Haber process",
+        "caption": "Minh họa lĩnh vực sản xuất ammonia · Haber process.",
+        "topic": "ammonia",
+        "role": "application-context"
+      }
     },
     {
       "title": "Sản xuất phân bón",
       "desc": "Các hợp chất Nitrogen được sử dụng rộng rãi trong sản xuất phân bón.",
-      "sourceLine": 89
+      "sourceLine": 89,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "fertilizer",
+        "source": "https://commons.wikimedia.org/wiki/File:Manure_spreading_Hlokozi_2007_11_29.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/fertilizer.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Manure_spreading_Hlokozi_2007_11_29.jpg",
+        "author": "Alandmanson",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Sản xuất phân bón — Fertilizer",
+        "caption": "Minh họa lĩnh vực sản xuất phân bón · Fertilizer.",
+        "topic": "fertilizer",
+        "role": "application-context"
+      }
     },
     {
       "title": "Bảo quản thực phẩm",
       "desc": "Nitrogen được sử dụng để tạo môi trường khí trơ, giúp hạn chế quá trình Oxy hóa.",
-      "sourceLine": 90
+      "sourceLine": 90,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "food-packaging",
+        "source": "https://commons.wikimedia.org/wiki/File:Test_Modified_Atmosphere.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/food-packaging.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Test_Modified_Atmosphere.jpg",
+        "author": "Photo by Peggy Greb.",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Bảo quản thực phẩm — Modified atmosphere",
+        "caption": "Minh họa lĩnh vực bảo quản thực phẩm · Modified atmosphere.",
+        "topic": "food-packaging",
+        "role": "application-context"
+      }
     },
     {
       "title": "Công nghiệp điện tử",
       "desc": "Nitrogen được sử dụng làm khí bảo vệ trong một số quá trình sản xuất linh kiện.",
-      "sourceLine": 91
+      "sourceLine": 91,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "electronics",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/electronics.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg",
+        "author": "Raimond Spekking",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Công nghiệp điện tử — Printed circuit board",
+        "caption": "Minh họa lĩnh vực công nghiệp điện tử · Printed circuit board.",
+        "topic": "electronics",
+        "role": "application-context"
+      }
     },
     {
       "title": "Luyện kim",
       "desc": "Nitrogen được sử dụng trong một số quá trình xử lý và sản xuất kim loại.",
-      "sourceLine": 92
+      "sourceLine": 92,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "alloy",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/alloy.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg",
+        "author": "Bill Abbott",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Luyện kim — Alloy",
+        "caption": "Minh họa lĩnh vực luyện kim · Alloy.",
+        "topic": "alloy",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nitrogen lỏng",
       "desc": "Được sử dụng để làm lạnh, bảo quản mẫu sinh học và trong nhiều ứng dụng nhiệt độ thấp.",
-      "sourceLine": 93
+      "sourceLine": 93,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Công nghiệp hóa chất",
       "desc": "Nitrogen được sử dụng làm khí trơ trong các quy trình cần hạn chế phản ứng với Oxygen.",
-      "sourceLine": 94
+      "sourceLine": 94,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "chemical-industry",
+        "source": "https://commons.wikimedia.org/wiki/File:BASF_Schwarzheide_GmbH_Werksansicht_01.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/chemical-industry.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:BASF_Schwarzheide_GmbH_Werksansicht_01.jpg",
+        "author": "Goku4711",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Công nghiệp hóa chất — Chemical plant",
+        "caption": "Minh họa lĩnh vực công nghiệp hóa chất · Chemical plant.",
+        "topic": "chemical-industry",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nghiên cứu khoa học",
       "desc": "¹⁵N được sử dụng để nghiên cứu các quá trình sinh học, hóa học và chu trình Nitrogen.",
-      "sourceLine": 95
+      "sourceLine": 95,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/research.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "author": "LSDSL",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nghiên cứu khoa học — Particle accelerator",
+        "caption": "Minh họa lĩnh vực nghiên cứu khoa học · Particle accelerator.",
+        "topic": "research",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Nitrogen là nguyên tố số 7, thuộc nhóm VA | chu kỳ 2.</li><li>Ở điều kiện thường, Nitrogen tồn tại chủ yếu dưới dạng phân tử N₂, chiếm khoảng 78.08% thể tích khí quyển Trái Đất. Liên kết ba N≡N rất bền khiến Nitrogen phân tử tương đối trơ ở điều kiện thường.</li><li>Nitrogen có nhiều số Oxy hóa và tạo ra một hệ thống hợp chất rất phong phú, trong đó có Ammonia, Nitric acid và các Nitrogen oxide.</li><li>Nitrogen là nguyên tố thiết yếu của sự sống, có mặt trong protein, DNA và nhiều phân tử sinh học quan trọng. Trong công nghiệp, Nitrogen đặc biệt quan trọng đối với sản xuất Ammonia, phân bón, hóa chất, bảo quản thực phẩm và tạo môi trường khí trơ.</li></ul>",
@@ -405,6 +545,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Nitrogen",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -413,6 +558,7 @@
     "sourceSha256": "b39df663f09728c7917722b26dd343543153622b6b9071632ac304157c6bed8a",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/007_N.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/nito-n/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/nito-n/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/nito-n/audit.md"
   }
 }

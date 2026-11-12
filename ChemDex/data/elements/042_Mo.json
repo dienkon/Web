@@ -73,9 +73,9 @@
         "a": 3.141,
         "b": 3.141,
         "c": 3.141,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 90.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
       },
       "volume": 30.988732221,
       "siteCount": 2,
@@ -98,9 +98,67 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-mo.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-mo.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-mo.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-mo.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-mo.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Molybdenum",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_molybdenum",
+        "revisionId": 1369042252,
+        "revisionTimestamp": "2026-08-12T14:42:33Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "body-centered cubic",
+            "prefix": "",
+            "comment": "",
+            "pearson": "cI2",
+            "lattice": "a = 314.71 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-mo",
+        "modelKind": "bcc",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 3.1471,
+            "modelAngstrom": 3.141,
+            "relativeDifferencePercent": 0.19382923961742538
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Molybdenum",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_molybdenum",
+      "revisionId": 1369042252,
+      "revisionTimestamp": "2026-08-12T14:42:33Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "body-centered cubic",
+          "prefix": "",
+          "comment": "",
+          "pearson": "cI2",
+          "lattice": "a = 314.71 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-mo",
+      "modelKind": "bcc",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 3.1471,
+          "modelAngstrom": 3.141,
+          "relativeDifferencePercent": 0.19382923961742538
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lập phương tâm khối (Body-centered cubic, BCC)",
   "occurrence": {
@@ -150,9 +208,9 @@
             "a": 3.161,
             "b": 3.161,
             "c": 12.295,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 120.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 120
           },
           "volume": 106.39179996177569,
           "siteCount": 6,
@@ -529,37 +587,138 @@
     {
       "title": "Thép hợp kim",
       "desc": "Molybdenum được thêm vào thép để tăng độ cứng, độ bền và khả năng chịu nhiệt.",
-      "sourceLine": 86
+      "sourceLine": 86,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "steel",
+        "source": "https://commons.wikimedia.org/wiki/File:SteelMill_interior.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/steel.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:SteelMill_interior.jpg",
+        "author": "Payton Chung from DC, USA",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "alt": "Thép hợp kim — Steelmaking",
+        "caption": "Minh họa lĩnh vực thép hợp kim · Steelmaking.",
+        "topic": "steel",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hợp kim chịu nhiệt",
       "desc": "Dùng trong các bộ phận phải làm việc ở nhiệt độ cao.",
-      "sourceLine": 87
+      "sourceLine": 87,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "refractory",
+        "source": "https://commons.wikimedia.org/wiki/File:Torpedo_car_refractory_bricks.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/refractory.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Torpedo_car_refractory_bricks.JPG",
+        "author": "Morgan Riley",
+        "license": "CC BY 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+        "alt": "Hợp kim chịu nhiệt — Refractory",
+        "caption": "Minh họa lĩnh vực hợp kim chịu nhiệt · Refractory.",
+        "topic": "refractory",
+        "role": "application-context"
+      }
     },
     {
       "title": "Công nghiệp dầu khí",
       "desc": "Một số Molybdenum compounds được sử dụng làm chất xúc tác trong quá trình lọc dầu.",
-      "sourceLine": 88
+      "sourceLine": 88,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "catalyst",
+        "source": "https://commons.wikimedia.org/wiki/File:Catalysts.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/catalyst.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Catalysts.JPG",
+        "author": "Shubhrapdil",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Công nghiệp dầu khí — Catalysis",
+        "caption": "Minh họa lĩnh vực công nghiệp dầu khí · Catalysis.",
+        "topic": "catalyst",
+        "role": "application-context"
+      }
     },
     {
       "title": "Chất bôi trơn",
       "desc": "Molybdenum disulfide (MoS₂) là chất bôi trơn rắn, hoạt động tốt ở nhiệt độ và áp suất cao.",
-      "sourceLine": 89
+      "sourceLine": 89,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "lubricant",
+        "source": "https://commons.wikimedia.org/wiki/File:Wheel_Bearing_Grease.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/lubricant.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Wheel_Bearing_Grease.jpg",
+        "author": "Surv1v4l1st",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Chất bôi trơn — Grease (lubricant)",
+        "caption": "Minh họa lĩnh vực chất bôi trơn · Grease (lubricant).",
+        "topic": "lubricant",
+        "role": "application-context"
+      }
     },
     {
       "title": "Điện tử",
       "desc": "Molybdenum được sử dụng trong một số linh kiện và vật liệu điện tử.",
-      "sourceLine": 90
+      "sourceLine": 90,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "electronics",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/electronics.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg",
+        "author": "Raimond Spekking",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Điện tử — Printed circuit board",
+        "caption": "Minh họa lĩnh vực điện tử · Printed circuit board.",
+        "topic": "electronics",
+        "role": "application-context"
+      }
     },
     {
       "title": "Kính và vật liệu",
       "desc": "Molybdenum được sử dụng trong điện cực, vật liệu chịu nhiệt và một số thiết bị công nghiệp.",
-      "sourceLine": 91
+      "sourceLine": 91,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "glass",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/glass.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg",
+        "author": "Ansgar Koreng",
+        "license": "CC BY 3.0 de",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/de/deed.en",
+        "alt": "Kính và vật liệu — Glass",
+        "caption": "Minh họa lĩnh vực kính và vật liệu · Glass.",
+        "topic": "glass",
+        "role": "application-context"
+      }
     },
     {
       "title": "Sinh học",
       "desc": "Molybdenum là nguyên tố vi lượng cần thiết cho nhiều sinh vật và là thành phần của một số enzyme.",
-      "sourceLine": 92
+      "sourceLine": 92,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Molybdenum là nguyên tố số 42, thuộc nhóm VIB | chu kỳ 5 và là một kim loại chuyển tiếp.</li><li>Molybdenum có cấu hình electron [Kr] 4d⁵ 5s¹, với nhiều số Oxy hóa, trong đó +6 là trạng thái phổ biến.</li><li>Molybdenum có nhiệt độ nóng chảy rất cao, độ bền tốt và khả năng duy trì tính chất cơ học ở nhiệt độ cao. Trong tự nhiên, nguồn Molybdenum quan trọng nhất là Molybdenite (MoS₂).</li><li>Molybdenum có vai trò quan trọng trong thép hợp kim, vật liệu chịu nhiệt, chất xúc tác, chất bôi trơn và công nghiệp điện tử. Đặc biệt, MoS₂ là một chất bôi trơn rắn có giá trị trong các môi trường khắc nghiệt.</li></ul>",
@@ -600,9 +759,9 @@
           "a": 3.161,
           "b": 3.161,
           "c": 12.295,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 120.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 120
         },
         "volume": 106.39179996177569,
         "siteCount": 6,
@@ -677,6 +836,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Molybdenum",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -685,6 +849,7 @@
     "sourceSha256": "32e98c3c00353fc1d76d5d3c377f3f8641cf76b1f7f040e5b6e6037802b2a938",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/042_Mo.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/molybdenum-mo/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/molybdenum-mo/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/molybdenum-mo/audit.md"
   }
 }

@@ -1,0 +1,47 @@
+
+> test:platform
+> node --test tests/platform.test.mjs tests/workspace.test.mjs tests/structure-generation.test.mjs tests/library.test.mjs
+
+✔ substance-named directories and canonical URLs preserve all former document links (16.7338ms)
+✔ library metadata, files and explicit chemical identities stay in sync (325.6817ms)
+✔ every primary subject article is substantive, structured, sourced and includes an explained answer (424.5295ms)
+✔ every generated dossier has specific formula evidence, working model links and a solved exercise (152.3176ms)
+✔ all dossier calculations and chosen reaction contexts agree with the underlying chemistry records (257.0681ms)
+✔ library search handles Vietnamese accents, molecular subscripts and combined terms (84.7592ms)
+✔ shared periodic grid contains 118 unique correctly placed elements (6.003ms)
+✔ curated molecular files contain real coordinates and match element counts (13.6636ms)
+✔ every lab chemical has an explicit scientific structure status (1.7387ms)
+✔ study bank has 60 valid questions with explanations (1.1763ms)
+✔ production package excludes development sources and missing assets are not rewritten to HTML (2.7789ms)
+✔ serverless routes validate inputs and retain JSON errors (4873.2257ms)
+(node:27448) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///D:/VsCode/Web/MyWeb/ChemDex/platform/viewer-canvas.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to \\?\D:\VsCode\Web\MyWeb\ChemDex\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ every lab identity remains addressable, including indicators and mixtures (2.4748ms)
+✔ generated representations retain every atom of every catalog formula (181.6433ms)
+✔ newly sourced indicator coordinates match their registered formula (6.3277ms)
+✔ hydrates, nested groups, Unicode subscripts and all 118 elements are supported (10.6911ms)
+✔ every multi-atom catalog substance generates realistic 3D bonds while preserving isomer provenance (99.1551ms)
+✔ large valid models export every atom using V3000; invalid input fails safely (4.9743ms)
+✔ recognized VSEPR and organic families generate bonded spatial models with accurate bond orders (5.0229ms)
+(node:25612) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///D:/VsCode/Web/MyWeb/ChemDex/data/loader.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to \\?\D:\VsCode\Web\MyWeb\ChemDex\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ CIAAW 2024 values match all 84 shared elements and retain uncertainty (3.2182ms)
+✔ home summary stays synchronized without bundling the full study and structure catalogs (4.3109ms)
+✔ sourced insights and pressure-dependent phase notes do not become ordinary melting points (1.0314ms)
+✔ element search distinguishes exact symbols/numbers, accents and combined filters (34.5438ms)
+✔ sorting puts missing electronegativity last and CSV retains scientific notes (0.9655ms)
+✔ global search ranks exact identities and finds tools and structure formulas (42.0078ms)
+✔ the complete tool directory has unique IDs and packaged destinations (3.2538ms)
+✔ legacy element loader shares standard weights and phase corrections with the home page (36.4844ms)
+ℹ tests 27
+ℹ suites 0
+ℹ pass 27
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5110.5051

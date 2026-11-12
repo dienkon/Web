@@ -67,9 +67,9 @@
         "a": 2.2858,
         "b": 2.2858,
         "c": 3.5843,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 120.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 120
       },
       "volume": 16.218528215582335,
       "siteCount": 2,
@@ -91,9 +91,81 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-be.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-be.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-be.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-be.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-be.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Beryllium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_beryllium",
+        "revisionId": 1310004891,
+        "revisionTimestamp": "2025-09-07T04:38:15Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "hexagonal close packed",
+            "prefix": "",
+            "comment": "",
+            "pearson": "hP2",
+            "lattice": "a = 228.60 pm; c = 358.42 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-be",
+        "modelKind": "hcp",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 2.286,
+            "modelAngstrom": 2.2858,
+            "relativeDifferencePercent": 0.008748906386700698
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "c",
+            "wikiAngstrom": 3.5842,
+            "modelAngstrom": 3.5843,
+            "relativeDifferencePercent": 0.0027900228781810987
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Beryllium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_beryllium",
+      "revisionId": 1310004891,
+      "revisionTimestamp": "2025-09-07T04:38:15Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "hexagonal close packed",
+          "prefix": "",
+          "comment": "",
+          "pearson": "hP2",
+          "lattice": "a = 228.60 pm; c = 358.42 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-be",
+      "modelKind": "hcp",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 2.286,
+          "modelAngstrom": 2.2858,
+          "relativeDifferencePercent": 0.008748906386700698
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "c",
+          "wikiAngstrom": 3.5842,
+          "modelAngstrom": 3.5843,
+          "relativeDifferencePercent": 0.0027900228781810987
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lục phương xếp chặt (HCP)",
   "occurrence": {
@@ -146,9 +218,9 @@
             "a": 9.208,
             "b": 9.208,
             "c": 9.188,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 120.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 120
           },
           "volume": 674.6557706861795,
           "siteCount": 58,
@@ -445,32 +517,95 @@
     {
       "title": "Hợp kim",
       "desc": "Tạo hợp kim Beryllium-Copper có độ cứng, độ bền và độ dẫn điện tốt.",
-      "sourceLine": 84
+      "sourceLine": 84,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "alloy",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/alloy.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg",
+        "author": "Bill Abbott",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Hợp kim — Alloy",
+        "caption": "Minh họa lĩnh vực hợp kim · Alloy.",
+        "topic": "alloy",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hàng không vũ trụ",
       "desc": "Sử dụng trong các bộ phận cần vật liệu nhẹ, cứng và ổn định kích thước.",
-      "sourceLine": 85
+      "sourceLine": 85,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Công nghệ tia X",
       "desc": "Dùng làm cửa sổ cho một số thiết bị tia X do hấp thụ tia X tương đối thấp.",
-      "sourceLine": 86
+      "sourceLine": 86,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Công nghệ hạt nhân",
       "desc": "Beryllium được sử dụng trong một số hệ thống liên quan đến neutron.",
-      "sourceLine": 87
+      "sourceLine": 87,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "reactor",
+        "source": "https://commons.wikimedia.org/wiki/File:Advanced_Test_Reactor_001.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/reactor.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Advanced_Test_Reactor_001.jpg",
+        "author": "Idaho National Laboratory",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "alt": "Công nghệ hạt nhân — Nuclear reactor",
+        "caption": "Minh họa lĩnh vực công nghệ hạt nhân · Nuclear reactor.",
+        "topic": "reactor",
+        "role": "application-context"
+      }
     },
     {
       "title": "Điện tử",
       "desc": "Hợp kim Beryllium-Copper được dùng trong đầu nối, tiếp điểm và linh kiện điện tử.",
-      "sourceLine": 88
+      "sourceLine": 88,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "electronics",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/electronics.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg",
+        "author": "Raimond Spekking",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Điện tử — Printed circuit board",
+        "caption": "Minh họa lĩnh vực điện tử · Printed circuit board.",
+        "topic": "electronics",
+        "role": "application-context"
+      }
     },
     {
       "title": "Dụng cụ",
       "desc": "Một số hợp kim Beryllium-Copper được dùng chế tạo dụng cụ có yêu cầu hạn chế phát tia lửa.",
-      "sourceLine": 89
+      "sourceLine": 89,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "alloy",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Beryllium là nguyên tố số 4, thuộc nhóm IIA | chu kỳ 2 và là kim loại kiềm thổ nhẹ.</li><li>Beryllium có khối lượng riêng thấp, độ cứng cao, nhiệt độ nóng chảy cao và khả năng dẫn nhiệt tốt. Trong tự nhiên, Beryllium chủ yếu tồn tại trong các khoáng vật như Beryll và Bertrandite.</li><li>Beryllium chủ yếu có số Oxy hóa +2. Beryllium oxide và Beryllium hydroxide có tính lưỡng tính, là đặc điểm hóa học nổi bật của nguyên tố này.</li><li>Beryllium và các hợp kim của nó được sử dụng trong hàng không vũ trụ, điện tử, công nghệ tia X và kỹ thuật hạt nhân.</li></ul>",
@@ -511,9 +646,9 @@
           "a": 9.208,
           "b": 9.208,
           "c": 9.188,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 120.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 120
         },
         "volume": 674.6557706861795,
         "siteCount": 58,
@@ -580,6 +715,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Beryllium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -588,6 +728,7 @@
     "sourceSha256": "96cc7d9da2bfb5d4f10e4968b8172ae0a926218767e1c1146e3fd8886e203909",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/004_Be.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/beri-be/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/beri-be/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/beri-be/audit.md"
   }
 }

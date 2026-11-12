@@ -75,9 +75,9 @@
         "a": 4.606,
         "b": 4.606,
         "c": 4.606,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 90.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
       },
       "volume": 97.71737701599999,
       "siteCount": 2,
@@ -101,9 +101,67 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-eu.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-eu.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-eu.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-eu.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-eu.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Europium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_europium",
+        "revisionId": 1276430124,
+        "revisionTimestamp": "2025-02-18T20:30:49Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "body-centered cubic",
+            "prefix": "",
+            "comment": "",
+            "pearson": "cI2",
+            "lattice": "a = 458.22 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-eu",
+        "modelKind": "bcc",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 4.5822,
+            "modelAngstrom": 4.606,
+            "relativeDifferencePercent": 0.5194011610143512
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Europium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_europium",
+      "revisionId": 1276430124,
+      "revisionTimestamp": "2025-02-18T20:30:49Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "body-centered cubic",
+          "prefix": "",
+          "comment": "",
+          "pearson": "cI2",
+          "lattice": "a = 458.22 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-eu",
+      "modelKind": "bcc",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 4.5822,
+          "modelAngstrom": 4.606,
+          "relativeDifferencePercent": 0.5194011610143512
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lập phương tâm khối (BCC)",
   "occurrence": {
@@ -153,9 +211,9 @@
             "a": 6.788,
             "b": 7.0163,
             "c": 6.465,
-            "alpha": 90.0,
+            "alpha": 90,
             "beta": 103.43,
-            "gamma": 90.0
+            "gamma": 90
           },
           "volume": 299.48637533121257,
           "siteCount": 24,
@@ -388,27 +446,107 @@
     {
       "title": "Màn hình và TV",
       "desc": "Europium compounds là chất phát quang quan trọng, đặc biệt tạo màu đỏ trong màn hình và các hệ thống hiển thị.",
-      "sourceLine": 87
+      "sourceLine": 87,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "display",
+        "source": "https://commons.wikimedia.org/wiki/File:Wiktionnaire_sur_IPhone_(1).JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/display.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Wiktionnaire_sur_IPhone_(1).JPG",
+        "author": "Béotien lambda",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Màn hình và TV — Liquid-crystal display",
+        "caption": "Minh họa lĩnh vực màn hình và tv · Liquid-crystal display.",
+        "topic": "display",
+        "role": "application-context"
+      }
     },
     {
       "title": "Đèn huỳnh quang",
       "desc": "Europium được sử dụng trong phosphor để tạo ánh sáng màu đỏ và góp phần tạo ánh sáng trắng.",
-      "sourceLine": 88
+      "sourceLine": 88,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "fluorescent",
+        "source": "https://commons.wikimedia.org/wiki/File:Fluorescent_lamps_artistic.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/fluorescent.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Fluorescent_lamps_artistic.jpg",
+        "author": "Flickr user Oimax This image was originally posted to Flickr by OiMax at https://www.flickr.com/photos/72396314@N00/404614118 . It was reviewed on 20 May 2007 by FlickreviewR and was confirmed to be licensed under the terms of the cc-by-2.0. 20 May 2007",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "alt": "Đèn huỳnh quang — Fluorescent lamp",
+        "caption": "Minh họa lĩnh vực đèn huỳnh quang · Fluorescent lamp.",
+        "topic": "fluorescent",
+        "role": "application-context"
+      }
     },
     {
       "title": "LED",
       "desc": "Các vật liệu phosphor chứa Europium được sử dụng trong một số loại LED trắng.",
-      "sourceLine": 89
+      "sourceLine": 89,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "led",
+        "source": "https://commons.wikimedia.org/wiki/File:RBG-LED.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/led.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:RBG-LED.jpg",
+        "author": "PiccoloNamek",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+        "alt": "LED — Light-emitting diode",
+        "caption": "Minh họa lĩnh vực led · Light-emitting diode.",
+        "topic": "led",
+        "role": "application-context"
+      }
     },
     {
       "title": "Tiền giấy",
       "desc": "Một số hợp chất Europium được sử dụng làm mực phát quang chống giả, giúp kiểm tra tiền giấy dưới tia UV.",
-      "sourceLine": 90
+      "sourceLine": 90,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "banknote",
+        "source": "https://commons.wikimedia.org/wiki/File:Hologram.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/banknote.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Hologram.jpg",
+        "author": "Heike Löchel",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+        "alt": "Tiền giấy — Security printing",
+        "caption": "Minh họa lĩnh vực tiền giấy · Security printing.",
+        "topic": "banknote",
+        "role": "application-context"
+      }
     },
     {
       "title": "Laser",
       "desc": "Một số vật liệu pha tạp Europium được nghiên cứu và sử dụng trong các ứng dụng quang học.",
-      "sourceLine": 91
+      "sourceLine": 91,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "laser",
+        "source": "https://commons.wikimedia.org/wiki/File:Guiding_the_Milky_Way_(potw2222a).jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/laser.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Guiding_the_Milky_Way_(potw2222a).jpg",
+        "author": "ESO/A. Ghizzi Panizza ( www.albertoghizzipanizza.com )",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "alt": "Laser — Laser",
+        "caption": "Minh họa lĩnh vực laser · Laser.",
+        "topic": "laser",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Europium là nguyên tố số 63, thuộc nhóm IIIB | chu kỳ 6 và là nguyên tố thứ bảy trong họ Lanthanide.</li><li>Europium được Eugène-Anatole Demarçay phát hiện và công bố vào năm 1901 tại Pháp. Tên nguyên tố được đặt theo Europe (châu Âu).</li><li>Europium là kim loại đất hiếm màu trắng bạc và có tính hoạt động hóa học khá mạnh. Điểm đặc biệt của Europium là có thể tồn tại ở cả Eu²⁺ và Eu³⁺, trong đó Eu²⁺ tương đối ổn định nhờ cấu hình electron 4f⁷ bán đầy.</li><li>Europium đặc biệt quan trọng trong công nghệ phát quang. Các hợp chất Europium được sử dụng để tạo màu đỏ, xanh lam và xanh lục, đóng vai trò trong màn hình, đèn huỳnh quang, LED và mực chống tiền giả.</li><li>Mạng tinh thể: Lập phương tâm khối (BCC) ở điều kiện thường.</li></ul>",
@@ -449,9 +587,9 @@
           "a": 6.788,
           "b": 7.0163,
           "c": 6.465,
-          "alpha": 90.0,
+          "alpha": 90,
           "beta": 103.43,
-          "gamma": 90.0
+          "gamma": 90
         },
         "volume": 299.48637533121257,
         "siteCount": 24,
@@ -518,6 +656,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Europium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -526,6 +669,7 @@
     "sourceSha256": "732c1202ab32c682d6644053a58d0753d33d37d968ee78b5c65821173a66adac",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/063_Eu.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/europium-eu/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/europium-eu/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/europium-eu/audit.md"
   }
 }

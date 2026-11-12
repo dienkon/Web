@@ -75,9 +75,9 @@
         "a": 3.6725,
         "b": 3.6725,
         "c": 11.8354,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 120.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 120
       },
       "volume": 138.24110002174598,
       "siteCount": 4,
@@ -99,9 +99,81 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-pr.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-pr.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-pr.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-pr.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-pr.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Praseodymium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_praseodymium",
+        "revisionId": 1284274249,
+        "revisionTimestamp": "2025-04-06T16:10:46Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "double hexagonal close packed",
+            "prefix": "",
+            "comment": "",
+            "pearson": "hP4",
+            "lattice": "a = 0.36723 nm; c = 1.18328 nm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-pr",
+        "modelKind": "dhcp",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 3.6723,
+            "modelAngstrom": 3.6725,
+            "relativeDifferencePercent": 0.005446178144486506
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "c",
+            "wikiAngstrom": 11.8328,
+            "modelAngstrom": 11.8354,
+            "relativeDifferencePercent": 0.021972821310250062
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Praseodymium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_praseodymium",
+      "revisionId": 1284274249,
+      "revisionTimestamp": "2025-04-06T16:10:46Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "double hexagonal close packed",
+          "prefix": "",
+          "comment": "",
+          "pearson": "hP4",
+          "lattice": "a = 0.36723 nm; c = 1.18328 nm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-pr",
+      "modelKind": "dhcp",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 3.6723,
+          "modelAngstrom": 3.6725,
+          "relativeDifferencePercent": 0.005446178144486506
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "c",
+          "wikiAngstrom": 11.8328,
+          "modelAngstrom": 11.8354,
+          "relativeDifferencePercent": 0.021972821310250062
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lục phương kép xếp chặt (DHCP) ở áp suất thường; cấu trúc thay đổi theo nhiệt độ và áp suất.",
   "occurrence": {
@@ -150,9 +222,9 @@
             "a": 6.788,
             "b": 7.0163,
             "c": 6.465,
-            "alpha": 90.0,
+            "alpha": 90,
             "beta": 103.43,
-            "gamma": 90.0
+            "gamma": 90
           },
           "volume": 299.48637533121257,
           "siteCount": 24,
@@ -367,27 +439,85 @@
     {
       "title": "Nam châm",
       "desc": "Praseodymium được sử dụng cùng Neodymium trong nam châm vĩnh cửu mạnh như Nd-Fe-B, dùng trong động cơ điện, máy phát điện và các thiết bị điện tử.",
-      "sourceLine": 82
+      "sourceLine": 82,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "magnet",
+        "source": "https://commons.wikimedia.org/wiki/File:Magnetite_sample_with_neodymium_magnet.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/magnet.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Magnetite_sample_with_neodymium_magnet.jpg",
+        "author": "GOKLuLe 盧樂",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nam châm — Magnet",
+        "caption": "Minh họa lĩnh vực nam châm · Magnet.",
+        "topic": "magnet",
+        "role": "application-context"
+      }
     },
     {
       "title": "Kính",
       "desc": "Các hợp chất Praseodymium được sử dụng để tạo kính màu, đặc biệt là màu vàng-xanh.",
-      "sourceLine": 83
+      "sourceLine": 83,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "glass",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/glass.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg",
+        "author": "Ansgar Koreng",
+        "license": "CC BY 3.0 de",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/de/deed.en",
+        "alt": "Kính — Glass",
+        "caption": "Minh họa lĩnh vực kính · Glass.",
+        "topic": "glass",
+        "role": "application-context"
+      }
     },
     {
       "title": "Kính bảo vệ",
       "desc": "Praseodymium được sử dụng trong một số loại kính dùng cho thợ hàn và các ứng dụng yêu cầu lọc ánh sáng mạnh.",
-      "sourceLine": 84
+      "sourceLine": 84,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "glass",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg"
+      }
     },
     {
       "title": "Hợp kim",
       "desc": "Praseodymium được thêm vào một số hợp kim để cải thiện tính chất vật liệu.",
-      "sourceLine": 85
+      "sourceLine": 85,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "alloy",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/alloy.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg",
+        "author": "Bill Abbott",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Hợp kim — Alloy",
+        "caption": "Minh họa lĩnh vực hợp kim · Alloy.",
+        "topic": "alloy",
+        "role": "application-context"
+      }
     },
     {
       "title": "Gốm",
       "desc": "Một số oxide Praseodymium được sử dụng làm chất tạo màu cho ceramic và glass.",
-      "sourceLine": 86
+      "sourceLine": 86,
+      "imageReview": {
+        "status": "source-link",
+        "topic": "ceramic",
+        "source": "https://commons.wikimedia.org/wiki/Special:MediaSearch?type=image&search=Technical%20ceramics"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Praseodymium là nguyên tố số 59, thuộc nhóm IIIB | chu kỳ 6 và là nguyên tố thứ ba trong họ Lanthanide.</li><li>Praseodymium được Carl Auer von Welsbach phát hiện vào năm 1885 khi ông tách Didymium thành Praseodymium và Neodymium. Tên nguyên tố bắt nguồn từ tiếng Hy Lạp, mang nghĩa “sinh đôi màu xanh lục”.</li><li>Praseodymium là kim loại đất hiếm màu trắng bạc hơi vàng, khá mềm và có tính hoạt động hóa học cao. Số Oxy hóa phổ biến nhất là +3, ngoài ra +4 cũng có thể tồn tại trong một số hợp chất.</li><li>Praseodymium có vai trò quan trọng trong nam châm Nd-Fe-B, kính màu, kính bảo vệ, hợp kim và vật liệu ceramic.</li><li>Mạng tinh thể: Lục phương kép xếp chặt (DHCP) ở áp suất thường; cấu trúc thay đổi theo nhiệt độ và áp suất.</li></ul>",
@@ -428,9 +558,9 @@
           "a": 6.788,
           "b": 7.0163,
           "c": 6.465,
-          "alpha": 90.0,
+          "alpha": 90,
           "beta": 103.43,
-          "gamma": 90.0
+          "gamma": 90
         },
         "volume": 299.48637533121257,
         "siteCount": 24,
@@ -501,6 +631,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Praseodymium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -509,6 +644,7 @@
     "sourceSha256": "fe2e989ae4aad6916eae8c4e529e0015ee7c08061119ce555e08c37c97597b34",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/059_Pr.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/praseodymium-pr/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/praseodymium-pr/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/praseodymium-pr/audit.md"
   }
 }

@@ -21,7 +21,7 @@
     "period": 6,
     "state": "Lỏng",
     "oxidation": "+1, +2",
-    "electronegativity": 2.0,
+    "electronegativity": 2,
     "electronegativityNote": "Thang Pauling; số liệu tổng hợp PubChem.",
     "density": "khoảng 13.53 g/cm³.",
     "meltingPoint": "khoảng −38.83 °C.",
@@ -65,7 +65,30 @@
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Mercury lỏng ở điều kiện thường; α-Hg rắn có mạng mặt thoi (rhombohedral).",
     "latticeEvidence": "phase-dependent",
-    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
+    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác.",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Mercury",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_mercury",
+      "revisionId": 1380728841,
+      "revisionTimestamp": "2026-10-17T13:58:35Z",
+      "status": "phase-unmeasured-or-fluid",
+      "phases": [
+        {
+          "type": "rhombohedral",
+          "prefix": "",
+          "comment": "",
+          "pearson": "hR1",
+          "lattice": "ar = 301.06 pm; α = 70.529°; ah = 347.64 pm; ch = 673.20 pm (at triple point)"
+        }
+      ],
+      "selectedModel": null,
+      "modelKind": null,
+      "metrics": [],
+      "notes": [
+        "Không lấy hình của một kiểu mạng chung để khẳng định mẫu tinh thể đã được đo. Pha khí/lỏng và cấu trúc dự đoán được ghi riêng."
+      ],
+      "additionalSources": []
+    }
   },
   "structureType": "Mercury lỏng ở điều kiện thường; α-Hg rắn có mạng mặt thoi (rhombohedral).",
   "occurrence": {
@@ -114,9 +137,9 @@
             "a": 4.145,
             "b": 4.145,
             "c": 9.496,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 120.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 120
           },
           "volume": 141.29292225757538,
           "siteCount": 6,
@@ -487,32 +510,106 @@
     {
       "title": "Thiết bị đo",
       "desc": "Mercury từng được sử dụng rộng rãi trong nhiệt kế, áp kế và các thiết bị đo áp suất.",
-      "sourceLine": 94
+      "sourceLine": 94,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "thermometer",
+        "source": "https://commons.wikimedia.org/wiki/File:Mercury_Thermometer.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/thermometer.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Mercury_Thermometer.jpg",
+        "author": "Anonimski",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Thiết bị đo — Mercury-in-glass thermometer",
+        "caption": "Minh họa lĩnh vực thiết bị đo · Mercury-in-glass thermometer.",
+        "topic": "thermometer",
+        "role": "application-context"
+      }
     },
     {
       "title": "Đèn Mercury",
       "desc": "Mercury được sử dụng trong một số loại đèn phóng điện và đèn huỳnh quang.",
-      "sourceLine": 95
+      "sourceLine": 95,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "mercury-lamp",
+        "source": "https://commons.wikimedia.org/wiki/File:MercuryVaporLamp.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/mercury-lamp.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:MercuryVaporLamp.jpg",
+        "author": "Torindkflt",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Đèn Mercury — Mercury-vapor lamp",
+        "caption": "Minh họa lĩnh vực đèn mercury · Mercury-vapor lamp.",
+        "topic": "mercury-lamp",
+        "role": "application-context"
+      }
     },
     {
       "title": "Công nghiệp hóa chất",
       "desc": "Một số hợp chất Mercury được sử dụng làm chất xúc tác hoặc nguyên liệu trong các quá trình hóa học.",
-      "sourceLine": 96
+      "sourceLine": 96,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "chemical-industry",
+        "source": "https://commons.wikimedia.org/wiki/File:BASF_Schwarzheide_GmbH_Werksansicht_01.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/chemical-industry.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:BASF_Schwarzheide_GmbH_Werksansicht_01.jpg",
+        "author": "Goku4711",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Công nghiệp hóa chất — Chemical plant",
+        "caption": "Minh họa lĩnh vực công nghiệp hóa chất · Chemical plant.",
+        "topic": "chemical-industry",
+        "role": "application-context"
+      }
     },
     {
       "title": "Điện hóa",
       "desc": "Mercury từng được sử dụng trong một số loại điện cực và pin.",
-      "sourceLine": 97
+      "sourceLine": 97,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "battery",
+        "source": "https://commons.wikimedia.org/wiki/File:Batteries.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/battery.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Batteries.jpg",
+        "author": "en:User:Brianiac",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Điện hóa — Battery (electricity)",
+        "caption": "Minh họa lĩnh vực điện hóa · Battery (electricity).",
+        "topic": "battery",
+        "role": "application-context"
+      }
     },
     {
       "title": "Khai thác Gold",
       "desc": "Mercury từng được sử dụng để tạo hỗn hống với Gold trong quá trình khai thác và tinh chế Gold, nhưng phương pháp này gây ô nhiễm nghiêm trọng và nguy hiểm.",
-      "sourceLine": 98
+      "sourceLine": 98,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Lưu ý",
       "desc": "Do Mercury và nhiều hợp chất của nó có độc tính cao, việc sử dụng Mercury ngày nay đã bị hạn chế hoặc thay thế trong nhiều lĩnh vực.",
-      "sourceLine": 99
+      "sourceLine": 99,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Mercury là nguyên tố số 80, thuộc nhóm IIB | chu kỳ 6 và là một kim loại chuyển tiếp.</li><li>Mercury có cấu hình electron [Xe] 4f¹⁴ 5d¹⁰ 6s², với số Oxy hóa phổ biến là +1 và +2.</li><li>Đặc điểm nổi bật nhất của Mercury là trạng thái lỏng ở điều kiện thường, với nhiệt độ nóng chảy chỉ khoảng −38.83 °C.</li><li>Mercury chủ yếu được khai thác từ Cinnabar (HgS) và có lịch sử sử dụng lâu đời trong nhiệt kế, áp kế, đèn phóng điện và công nghiệp hóa chất.</li><li>Tuy nhiên, do độc tính cao của Mercury và nhiều hợp chất của nó, việc sử dụng nguyên tố này hiện nay được kiểm soát nghiêm ngặt và nhiều ứng dụng truyền thống đã được thay thế bằng vật liệu an toàn hơn.</li></ul>",
@@ -553,9 +650,9 @@
           "a": 4.145,
           "b": 4.145,
           "c": 9.496,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 120.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 120
         },
         "volume": 141.29292225757538,
         "siteCount": 6,
@@ -621,6 +718,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Mercury",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -629,6 +731,7 @@
     "sourceSha256": "a5f95945f2d357b2fb695d71fd8e41f8cbb4bda818b34c11009b063324e857fa",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/080_Hg.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/thuy-ngan-hg/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/thuy-ngan-hg/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/thuy-ngan-hg/audit.md"
   }
 }

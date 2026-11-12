@@ -67,7 +67,31 @@
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương tâm diện (FCC)",
     "latticeEvidence": "source-reviewed",
-    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
+    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác.",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Einsteinium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_einsteinium",
+      "revisionId": 1383687274,
+      "revisionTimestamp": "2026-11-04T04:37:53Z",
+      "status": "no-reviewed-model",
+      "phases": [
+        {
+          "type": "face-centered cubic",
+          "prefix": "",
+          "comment": "",
+          "pearson": "",
+          "lattice": ""
+        }
+      ],
+      "selectedModel": null,
+      "modelKind": null,
+      "metrics": [],
+      "notes": [
+        "Không lấy hình của một kiểu mạng chung để khẳng định mẫu tinh thể đã được đo. Pha khí/lỏng và cấu trúc dự đoán được ghi riêng.",
+        "Bài Wiki mô tả FCC là dạng khả dĩ (believed), còn bảng WebElements đã kiểm tra chưa cho số liệu ô mạng; không gắn nhãn mô hình thực nghiệm."
+      ],
+      "additionalSources": []
+    }
   },
   "structureType": "Lập phương tâm diện (FCC)",
   "occurrence": {
@@ -294,22 +318,53 @@
     {
       "title": "Nghiên cứu khoa học",
       "desc": "Einsteinium hầu như chỉ được sử dụng trong nghiên cứu vật lý hạt nhân và hóa học Actinide.",
-      "sourceLine": 82
+      "sourceLine": 82,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/research.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "author": "LSDSL",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nghiên cứu khoa học — Particle accelerator",
+        "caption": "Minh họa lĩnh vực nghiên cứu khoa học · Particle accelerator.",
+        "topic": "research",
+        "role": "application-context"
+      }
     },
     {
       "title": "Tổng hợp nguyên tố nặng hơn",
       "desc": "Một số đồng vị Einsteinium có thể được sử dụng làm vật liệu nghiên cứu trong các phản ứng tạo ra những hạt nhân nặng hơn.",
-      "sourceLine": 83
+      "sourceLine": 83,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      }
     },
     {
       "title": "Nghiên cứu tính chất Actinide",
       "desc": "Einsteinium giúp các nhà khoa học nghiên cứu sự thay đổi của cấu trúc electron và tính chất hóa học khi tiến dọc theo dãy Actinide.",
-      "sourceLine": 84
+      "sourceLine": 84,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      }
     },
     {
       "title": "Ứng dụng",
       "desc": "Do chỉ sản xuất được lượng cực nhỏ và có tính phóng xạ cao, Einsteinium không có ứng dụng thương mại hoặc đời sống thông thường.",
-      "sourceLine": 85
+      "sourceLine": 85,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Einsteinium là nguyên tố số 99, thuộc nhóm IIIB | chu kỳ 7 và là nguyên tố thứ mười một trong họ Actinide.</li><li>Einsteinium được phát hiện vào năm 1952 bởi Albert Ghiorso và cộng sự trong các sản phẩm của vụ thử nhiệt hạch Ivy Mike. Tên nguyên tố được đặt để vinh danh Albert Einstein.</li><li>Đây là một kim loại phóng xạ nhân tạo, không có đồng vị bền. Trạng thái Oxy hóa phổ biến nhất là +3.</li><li>Einsteinium chủ yếu có giá trị trong nghiên cứu khoa học, đặc biệt là nghiên cứu cấu trúc hạt nhân, hóa học Actinide và các nguyên tố siêu nặng. Vì rất khó sản xuất và chỉ tồn tại với lượng cực nhỏ, nó gần như không có ứng dụng thực tế thông thường.</li><li>Mạng tinh thể: Lập phương tâm diện (FCC) ở điều kiện thường.</li></ul>",
@@ -350,6 +405,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Einsteinium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -358,6 +418,7 @@
     "sourceSha256": "aa06ab4d41bb5323ebb41dea46f55106f7aa845244764dfa8ac223862c33d8c3",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/099_Es.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/einsteinium-es/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/einsteinium-es/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/einsteinium-es/audit.md"
   }
 }

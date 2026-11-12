@@ -57,7 +57,30 @@
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "F₂ là khí ở điều kiện thường; α-F₂ rắn có cấu trúc đơn tà, β-F₂ có cấu trúc lập phương tùy nhiệt độ.",
     "latticeEvidence": "phase-dependent",
-    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
+    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác.",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Fluorine",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_fluorine",
+      "revisionId": 1351975625,
+      "revisionTimestamp": "2026-05-01T07:21:29Z",
+      "status": "phase-unmeasured-or-fluid",
+      "phases": [
+        {
+          "type": "cubic",
+          "prefix": "",
+          "comment": "",
+          "pearson": "",
+          "lattice": ""
+        }
+      ],
+      "selectedModel": null,
+      "modelKind": null,
+      "metrics": [],
+      "notes": [
+        "Không lấy hình của một kiểu mạng chung để khẳng định mẫu tinh thể đã được đo. Pha khí/lỏng và cấu trúc dự đoán được ghi riêng."
+      ],
+      "additionalSources": []
+    }
   },
   "structureType": "F₂ là khí ở điều kiện thường; α-F₂ rắn có cấu trúc đơn tà, β-F₂ có cấu trúc lập phương tùy nhiệt độ.",
   "occurrence": {
@@ -109,9 +132,9 @@
             "a": 5.4631,
             "b": 5.4631,
             "c": 5.4631,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 163.048741321591,
           "siteCount": 12,
@@ -450,37 +473,127 @@
     {
       "title": "Sản xuất Fluoride",
       "desc": "Fluorine được sử dụng để sản xuất nhiều hợp chất Fluoride.",
-      "sourceLine": 94
+      "sourceLine": 94,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Công nghiệp hạt nhân",
       "desc": "Một số hợp chất Fluorine, đặc biệt Uranium hexafluoride (UF₆), được sử dụng trong quá trình xử lý và làm giàu Uranium.",
-      "sourceLine": 95
+      "sourceLine": 95,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "reactor",
+        "source": "https://commons.wikimedia.org/wiki/File:Advanced_Test_Reactor_001.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/reactor.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Advanced_Test_Reactor_001.jpg",
+        "author": "Idaho National Laboratory",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "alt": "Công nghiệp hạt nhân — Nuclear reactor",
+        "caption": "Minh họa lĩnh vực công nghiệp hạt nhân · Nuclear reactor.",
+        "topic": "reactor",
+        "role": "application-context"
+      }
     },
     {
       "title": "Vật liệu chống dính",
       "desc": "Fluorine được sử dụng để sản xuất các polymer chứa Fluorine như PTFE.",
-      "sourceLine": 96
+      "sourceLine": 96,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "ptfe",
+        "source": "https://commons.wikimedia.org/wiki/File:Polytetrafluorethylen.svg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/ptfe.png",
+        "source": "https://commons.wikimedia.org/wiki/File:Polytetrafluorethylen.svg",
+        "author": "Roland.chem",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Vật liệu chống dính — Polytetrafluoroethylene",
+        "caption": "Minh họa lĩnh vực vật liệu chống dính · Polytetrafluoroethylene.",
+        "topic": "ptfe",
+        "role": "application-context"
+      }
     },
     {
       "title": "Công nghiệp hóa chất",
       "desc": "Sản xuất nhiều hợp chất Fluorine dùng trong hóa chất và vật liệu kỹ thuật.",
-      "sourceLine": 97
+      "sourceLine": 97,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "chemical-industry",
+        "source": "https://commons.wikimedia.org/wiki/File:BASF_Schwarzheide_GmbH_Werksansicht_01.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/chemical-industry.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:BASF_Schwarzheide_GmbH_Werksansicht_01.jpg",
+        "author": "Goku4711",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Công nghiệp hóa chất — Chemical plant",
+        "caption": "Minh họa lĩnh vực công nghiệp hóa chất · Chemical plant.",
+        "topic": "chemical-industry",
+        "role": "application-context"
+      }
     },
     {
       "title": "Y học",
       "desc": "¹⁸F được sử dụng trong Positron Emission Tomography (PET) để tạo các chất đánh dấu phóng xạ.",
-      "sourceLine": 98
+      "sourceLine": 98,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "pet",
+        "source": "https://commons.wikimedia.org/wiki/File:Positron_emission_tomography.png"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/pet.png",
+        "source": "https://commons.wikimedia.org/wiki/File:Positron_emission_tomography.png",
+        "author": "Spacecoastcreative",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "alt": "Y học — Positron emission tomography",
+        "caption": "Minh họa lĩnh vực y học · Positron emission tomography.",
+        "topic": "pet",
+        "role": "application-context"
+      }
     },
     {
       "title": "Kem đánh răng",
       "desc": "Fluoride compounds như Sodium fluoride được sử dụng để giúp bảo vệ men răng.",
-      "sourceLine": 99
+      "sourceLine": 99,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "toothpaste",
+        "source": "https://commons.wikimedia.org/wiki/File:Toothpasteonbrush.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/toothpaste.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Toothpasteonbrush.jpg",
+        "author": "Thegreenj",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+        "alt": "Kem đánh răng — Toothpaste",
+        "caption": "Minh họa lĩnh vực kem đánh răng · Toothpaste.",
+        "topic": "toothpaste",
+        "role": "application-context"
+      }
     },
     {
       "title": "Làm lạnh",
       "desc": "Một số hợp chất Fluorine được sử dụng làm môi chất lạnh.",
-      "sourceLine": 100
+      "sourceLine": 100,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Fluorine là nguyên tố số 9, thuộc nhóm VIIA | chu kỳ 2 và là halogen.</li><li>Fluorine có độ âm điện cao nhất trong bảng tuần hoàn (3.98) và là chất Oxy hóa mạnh nhất trong các nguyên tố. Ở điều kiện thường, Fluorine tồn tại dưới dạng phân tử F₂, có màu vàng nhạt.</li><li>Do tính phản ứng cực mạnh, Fluorine không tồn tại tự do trong tự nhiên mà chủ yếu tồn tại dưới dạng Fluoride trong khoáng vật.</li><li>Fluorine và các hợp chất của nó có nhiều ứng dụng trong công nghiệp hóa chất, vật liệu chống dính, công nghệ hạt nhân, y học và chăm sóc răng miệng.</li></ul>",
@@ -521,9 +634,9 @@
           "a": 5.4631,
           "b": 5.4631,
           "c": 5.4631,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 163.048741321591,
         "siteCount": 12,
@@ -589,6 +702,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Fluorine",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -597,6 +715,7 @@
     "sourceSha256": "f7b630d9aac6869d3801283acc12a85b3abb84c639f00855cf6c688ccc12b76f",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/009_F.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/flo-f/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/flo-f/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/flo-f/audit.md"
   }
 }

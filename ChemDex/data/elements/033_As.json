@@ -71,9 +71,9 @@
         "a": 3.7598,
         "b": 3.7598,
         "c": 10.5475,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 120.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 120
       },
       "volume": 129.12479731860074,
       "siteCount": 6,
@@ -96,9 +96,85 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-as.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-as.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-as.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-as.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-as.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Arsenic",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_arsenic",
+        "revisionId": 1283402620,
+        "revisionTimestamp": "2025-04-01T08:30:17Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "rhombohedral",
+            "prefix": "grey:",
+            "comment": "",
+            "pearson": "hR2",
+            "lattice": "ar = 413.15 pm; α = 54.133° pm ah = 375.99 pm; ch = 1054.58 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-as",
+        "modelKind": "rhombohedral",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "ah",
+            "wikiAngstrom": 3.7599,
+            "modelAngstrom": 3.7598,
+            "relativeDifferencePercent": 0.0026596452033354886
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "ch",
+            "wikiAngstrom": 10.5458,
+            "modelAngstrom": 10.5475,
+            "relativeDifferencePercent": 0.01612016158090985
+          }
+        ],
+        "notes": [
+          "CIF dùng ô lục giác quy ước của mạng thoi: số nguyên tử trong ô này bằng ba lần ô thoi nguyên thủy; không phải sai cấu trúc."
+        ],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Arsenic",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_arsenic",
+      "revisionId": 1283402620,
+      "revisionTimestamp": "2025-04-01T08:30:17Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "rhombohedral",
+          "prefix": "grey:",
+          "comment": "",
+          "pearson": "hR2",
+          "lattice": "ar = 413.15 pm; α = 54.133° pm ah = 375.99 pm; ch = 1054.58 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-as",
+      "modelKind": "rhombohedral",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "ah",
+          "wikiAngstrom": 3.7599,
+          "modelAngstrom": 3.7598,
+          "relativeDifferencePercent": 0.0026596452033354886
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "ch",
+          "wikiAngstrom": 10.5458,
+          "modelAngstrom": 10.5475,
+          "relativeDifferencePercent": 0.01612016158090985
+        }
+      ],
+      "notes": [
+        "CIF dùng ô lục giác quy ước của mạng thoi: số nguyên tử trong ô này bằng ba lần ô thoi nguyên thủy; không phải sai cấu trúc."
+      ],
+      "additionalSources": []
+    }
   },
   "structureType": "Arsenic xám có mạng mặt thoi (rhombohedral), có thể mô tả bằng hệ trục lục phương.",
   "occurrence": {
@@ -150,9 +226,9 @@
             "a": 5.744,
             "b": 5.675,
             "c": 5.785,
-            "alpha": 90.0,
+            "alpha": 90,
             "beta": 112.28,
-            "gamma": 90.0
+            "gamma": 90
           },
           "volume": 174.49620653383698,
           "siteCount": 12,
@@ -460,27 +536,96 @@
     {
       "title": "Bán dẫn",
       "desc": "Arsenic được sử dụng để tạo các vật liệu bán dẫn như Gallium arsenide (GaAs).",
-      "sourceLine": 86
+      "sourceLine": 86,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "semiconductor",
+        "source": "https://commons.wikimedia.org/wiki/File:ICC_2008_Poland_Silicon_Wafer_1_edit.png"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/semiconductor.png",
+        "source": "https://commons.wikimedia.org/wiki/File:ICC_2008_Poland_Silicon_Wafer_1_edit.png",
+        "author": "FxJ",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Bán dẫn — Silicon wafer",
+        "caption": "Minh họa lĩnh vực bán dẫn · Silicon wafer.",
+        "topic": "semiconductor",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hợp kim",
       "desc": "Một lượng nhỏ Arsenic có thể được sử dụng trong một số hợp kim để cải thiện tính chất vật liệu.",
-      "sourceLine": 87
+      "sourceLine": 87,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "alloy",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/alloy.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg",
+        "author": "Bill Abbott",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Hợp kim — Alloy",
+        "caption": "Minh họa lĩnh vực hợp kim · Alloy.",
+        "topic": "alloy",
+        "role": "application-context"
+      }
     },
     {
       "title": "Điện tử",
       "desc": "Gallium arsenide có ứng dụng trong các thiết bị điện tử và quang điện tử tốc độ cao.",
-      "sourceLine": 88
+      "sourceLine": 88,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "electronics",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/electronics.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg",
+        "author": "Raimond Spekking",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Điện tử — Printed circuit board",
+        "caption": "Minh họa lĩnh vực điện tử · Printed circuit board.",
+        "topic": "electronics",
+        "role": "application-context"
+      }
     },
     {
       "title": "Kính",
       "desc": "Một số Arsenic compounds từng được sử dụng trong sản xuất và xử lý thủy tinh.",
-      "sourceLine": 89
+      "sourceLine": 89,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "glass",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/glass.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg",
+        "author": "Ansgar Koreng",
+        "license": "CC BY 3.0 de",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/de/deed.en",
+        "alt": "Kính — Glass",
+        "caption": "Minh họa lĩnh vực kính · Glass.",
+        "topic": "glass",
+        "role": "application-context"
+      }
     },
     {
       "title": "Bảo quản gỗ",
       "desc": "Một số hợp chất chứa Arsenic từng được sử dụng trong chất bảo quản gỗ, nhưng việc sử dụng bị hạn chế nghiêm ngặt do độc tính.",
-      "sourceLine": 90
+      "sourceLine": 90,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Arsenic là nguyên tố số 33, thuộc nhóm VA | chu kỳ 4 và là một á kim.</li><li>Arsenic có cấu hình electron [Ar] 3d¹⁰ 4s² 4p³, với các số Oxy hóa phổ biến là −3, +3 và +5.</li><li>Arsenic tồn tại trong tự nhiên chủ yếu dưới dạng các khoáng vật như Arsenopyrite (FeAsS), Realgar (As₄S₄) và Orpiment (As₂S₃).</li><li>Arsenic có vai trò trong công nghệ bán dẫn và sản xuất vật liệu, đặc biệt thông qua các hợp chất như Gallium arsenide (GaAs). Tuy nhiên, nhiều Arsenic compounds có độc tính cao, vì vậy việc sử dụng và xử lý chúng cần được kiểm soát nghiêm ngặt.</li></ul>",
@@ -521,9 +666,9 @@
           "a": 5.744,
           "b": 5.675,
           "c": 5.785,
-          "alpha": 90.0,
+          "alpha": 90,
           "beta": 112.28,
-          "gamma": 90.0
+          "gamma": 90
         },
         "volume": 174.49620653383698,
         "siteCount": 12,
@@ -589,6 +734,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Arsenic",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -597,6 +747,7 @@
     "sourceSha256": "93cabcb5ac39d1ebebbc24bd5f0170d08a2f726cefe4dc93d6a5673e092a565b",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/033_As.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/asen-as/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/asen-as/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/asen-as/audit.md"
   }
 }

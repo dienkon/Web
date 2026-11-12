@@ -1,0 +1,82 @@
+{
+  "structures": [
+    {
+      "id": "nguyen-to-mn",
+      "amcsdId": "0009311",
+      "bytes": 43200,
+      "sites": 58,
+      "displaySpheres": 65
+    },
+    {
+      "id": "nguyen-to-np",
+      "amcsdId": "0011263",
+      "bytes": 25992,
+      "sites": 8,
+      "displaySpheres": 8
+    },
+    {
+      "id": "nguyen-to-pu",
+      "amcsdId": "0011265",
+      "bytes": 29476,
+      "sites": 16,
+      "displaySpheres": 16
+    },
+    {
+      "id": "nguyen-to-am",
+      "amcsdId": "0011202",
+      "bytes": 27968,
+      "sites": 4,
+      "displaySpheres": 14
+    },
+    {
+      "id": "nguyen-to-tc",
+      "amcsdId": null,
+      "bytes": 25044,
+      "sites": 2,
+      "displaySpheres": 2
+    },
+    {
+      "id": "nguyen-to-pm",
+      "amcsdId": null,
+      "bytes": 28152,
+      "sites": 4,
+      "displaySpheres": 14
+    },
+    {
+      "id": "nguyen-to-ra",
+      "amcsdId": null,
+      "bytes": 25772,
+      "sites": 2,
+      "displaySpheres": 9
+    },
+    {
+      "id": "nguyen-to-pa",
+      "amcsdId": null,
+      "bytes": 25664,
+      "sites": 2,
+      "displaySpheres": 9
+    },
+    {
+      "id": "nguyen-to-po",
+      "amcsdId": null,
+      "bytes": 25500,
+      "sites": 1,
+      "displaySpheres": 8
+    },
+    {
+      "id": "nguyen-to-cm",
+      "amcsdId": null,
+      "bytes": 28116,
+      "sites": 4,
+      "displaySpheres": 14
+    },
+    {
+      "id": "nguyen-to-bk",
+      "amcsdId": null,
+      "bytes": 28168,
+      "sites": 4,
+      "displaySpheres": 14
+    }
+  ],
+  "interpretation": "Published atomic positions or explicitly labelled reference prototype. Sphere size/color are display conventions; partial occupancies use sectors. No specimen surface or inferred bonds."
+}

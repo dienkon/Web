@@ -65,7 +65,152 @@
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lục phương kép xếp chặt (DHCP) ở áp suất thường; cấu trúc thay đổi theo nhiệt độ và áp suất.",
     "latticeEvidence": "source-reviewed",
-    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
+    "publishedCrystalStatus": "available",
+    "publishedCrystal": {
+      "id": "nguyen-to-pm",
+      "symbol": "Pm",
+      "referenceId": "wiki-pm-1378481365",
+      "amcsdId": null,
+      "mineralName": "Promethium",
+      "formula": "Pm",
+      "spaceGroup": "P 63/m m c",
+      "cell": {
+        "a": 3.6393,
+        "b": 3.6393,
+        "c": 11.739,
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 120
+      },
+      "volume": 134.64723799846786,
+      "siteCount": 4,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "John W. Arblaster"
+        ],
+        "title": "Selected Values of the Crystallographic Properties of Elements; thông số được Wikipedia trích dẫn, tại 20 °C (Ra: gần nhiệt độ phòng). Vị trí Wyckoff lý tưởng của prototype hP4.",
+        "journal": "ASM International, ISBN 978-1-62708-155-9",
+        "year": 2018,
+        "volume": "",
+        "pages": ""
+      },
+      "source": "https://en.wikipedia.org/wiki/Promethium",
+      "evidence": "reference-prototype",
+      "note": "DHCP bốn lớp ABAC, bốn nguyên tử/ô; không thay bằng HCP hai nguyên tử.",
+      "limitations": "Tọa độ Wyckoff lý tưởng được dựng từ prototype và thông số mạng được trích dẫn; không phải bộ tinh chỉnh vị trí nguyên tử thực nghiệm độc lập.",
+      "pearsonSymbol": "hP4",
+      "primaryReference": null,
+      "data": "/assets/periodic-table/crystals/nguyen-to-pm.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-pm.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-pm.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-pm.png",
+      "wiki": {
+        "symbol": "Pm",
+        "number": 61,
+        "name": "Promethium",
+        "article": "https://en.wikipedia.org/wiki/Promethium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_promethium",
+        "revisionId": 1378481365,
+        "revisionTimestamp": "2026-10-04T18:37:44Z",
+        "retrievedAt": "2026-11-11T23:29:11.724Z",
+        "status": "available",
+        "fields": {
+          "phase": {
+            "text": "",
+            "raw": ""
+          },
+          "crystal structure": {
+            "text": "double hexagonal close packed",
+            "raw": "double hexagonal close packed"
+          },
+          "crystal structure pearson symbol": {
+            "text": "hP4",
+            "raw": "hP4"
+          },
+          "lattice constants": {
+            "text": "a = 0.36393 nm; c = 1.1739 nm (at 20 °C)",
+            "raw": "''a''&nbsp;=&nbsp;0.36393&nbsp;nm<br />''c''&nbsp;=&nbsp;1.1739&nbsp;nm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+          }
+        }
+      },
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Promethium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_promethium",
+        "revisionId": 1378481365,
+        "revisionTimestamp": "2026-10-04T18:37:44Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "double hexagonal close packed",
+            "prefix": "",
+            "comment": "",
+            "pearson": "hP4",
+            "lattice": "a = 0.36393 nm; c = 1.1739 nm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-pm",
+        "modelKind": "dhcp",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 3.6392999999999995,
+            "modelAngstrom": 3.6393,
+            "relativeDifferencePercent": 1.2202599671641874e-14
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "c",
+            "wikiAngstrom": 11.738999999999999,
+            "modelAngstrom": 11.739,
+            "relativeDifferencePercent": 1.5132096766336575e-14
+          }
+        ],
+        "notes": [
+          "Tọa độ Wyckoff lý tưởng được dựng từ prototype; thông số mạng lấy từ tài liệu tham chiếu được nêu. Wiki dùng để đối chiếu kiểu mạng. Đây là mức chứng cứ khác với bộ tinh chỉnh nguyên tử thực nghiệm."
+        ],
+        "additionalSources": []
+      }
+    },
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Promethium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_promethium",
+      "revisionId": 1378481365,
+      "revisionTimestamp": "2026-10-04T18:37:44Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "double hexagonal close packed",
+          "prefix": "",
+          "comment": "",
+          "pearson": "hP4",
+          "lattice": "a = 0.36393 nm; c = 1.1739 nm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-pm",
+      "modelKind": "dhcp",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 3.6392999999999995,
+          "modelAngstrom": 3.6393,
+          "relativeDifferencePercent": 1.2202599671641874e-14
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "c",
+          "wikiAngstrom": 11.738999999999999,
+          "modelAngstrom": 11.739,
+          "relativeDifferencePercent": 1.5132096766336575e-14
+        }
+      ],
+      "notes": [
+        "Tọa độ Wyckoff lý tưởng được dựng từ prototype; thông số mạng lấy từ tài liệu tham chiếu được nêu. Wiki dùng để đối chiếu kiểu mạng. Đây là mức chứng cứ khác với bộ tinh chỉnh nguyên tử thực nghiệm."
+      ],
+      "additionalSources": []
+    }
   },
   "structureType": "Lục phương kép xếp chặt (DHCP) ở áp suất thường; cấu trúc thay đổi theo nhiệt độ và áp suất.",
   "occurrence": {
@@ -363,27 +508,74 @@
     {
       "title": "Nguồn phóng xạ",
       "desc": "Promethium-147 phát ra bức xạ Beta và từng được sử dụng làm nguồn năng lượng cho các thiết bị đặc biệt.",
-      "sourceLine": 91
+      "sourceLine": 91,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Pin hạt nhân",
       "desc": "Pm-147 có thể được sử dụng trong một số loại nuclear battery và nguồn năng lượng phóng xạ công suất nhỏ.",
-      "sourceLine": 92
+      "sourceLine": 92,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "battery",
+        "source": "https://commons.wikimedia.org/wiki/File:Batteries.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/battery.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Batteries.jpg",
+        "author": "en:User:Brianiac",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Pin hạt nhân — Battery (electricity)",
+        "caption": "Minh họa lĩnh vực pin hạt nhân · Battery (electricity).",
+        "topic": "battery",
+        "role": "application-context"
+      }
     },
     {
       "title": "Thiết bị đo độ dày",
       "desc": "Nguồn Pm-147 từng được sử dụng trong các thiết bị đo độ dày vật liệu công nghiệp.",
-      "sourceLine": 93
+      "sourceLine": 93,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Nghiên cứu",
       "desc": "Promethium được sử dụng để nghiên cứu tính chất của Lanthanide và các quá trình phóng xạ.",
-      "sourceLine": 94
+      "sourceLine": 94,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/research.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "author": "LSDSL",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nghiên cứu — Particle accelerator",
+        "caption": "Minh họa lĩnh vực nghiên cứu · Particle accelerator.",
+        "topic": "research",
+        "role": "application-context"
+      }
     },
     {
       "title": "Ứng dụng",
       "desc": "Do tính phóng xạ và độ hiếm, ứng dụng của Promethium rất hạn chế.",
-      "sourceLine": 95
+      "sourceLine": 95,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Promethium là nguyên tố số 61, thuộc nhóm IIIB | chu kỳ 6 và là nguyên tố thứ năm trong họ Lanthanide.</li><li>Promethium được Jacob A. Marinsky, Lawrence E. Glendenin và Charles D. Coryell phát hiện vào năm 1945 tại Oak Ridge, Hoa Kỳ. Tên nguyên tố được đặt theo Prometheus trong thần thoại Hy Lạp.</li><li>Đây là Lanthanide duy nhất không có đồng vị bền. Promethium có số Oxy hóa đặc trưng là +3 và có tính chất hóa học tương tự các Lanthanide lân cận.</li><li>Đồng vị quan trọng nhất là Promethium-147, có chu kỳ bán rã khoảng 2,62 năm và phát ra bức xạ Beta. Nó từng được sử dụng trong nguồn phóng xạ, pin hạt nhân và thiết bị đo độ dày.</li><li>Mạng tinh thể: Lục phương xếp chặt (HCP) ở điều kiện thường.</li></ul>",
@@ -428,6 +620,11 @@
     {
       "title": "promethiumStructure",
       "url": "https://doi.org/10.1016/0022-5088(71)90101-9"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Promethium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -436,6 +633,7 @@
     "sourceSha256": "518ff2f9298379b06be66a16a2a991a3800d327f2b0c63403e854d29d22a76b5",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/061_Pm.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/promethium-pm/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/promethium-pm/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/promethium-pm/audit.md"
   }
 }

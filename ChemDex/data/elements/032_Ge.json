@@ -71,9 +71,9 @@
         "a": 5.65782,
         "b": 5.65782,
         "c": 5.65782,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 90.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
       },
       "volume": 181.11206386139176,
       "siteCount": 8,
@@ -97,9 +97,67 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-ge.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-ge.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-ge.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-ge.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-ge.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Germanium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_germanium",
+        "revisionId": 1277858619,
+        "revisionTimestamp": "2025-02-27T03:13:16Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "diamond cubic",
+            "prefix": "",
+            "comment": "",
+            "pearson": "cF8",
+            "lattice": "a = 565.774 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-ge",
+        "modelKind": "diamond",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 5.65774,
+            "modelAngstrom": 5.65782,
+            "relativeDifferencePercent": 0.001413992159407041
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Germanium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_germanium",
+      "revisionId": 1277858619,
+      "revisionTimestamp": "2025-02-27T03:13:16Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "diamond cubic",
+          "prefix": "",
+          "comment": "",
+          "pearson": "cF8",
+          "lattice": "a = 565.774 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-ge",
+      "modelKind": "diamond",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 5.65774,
+          "modelAngstrom": 5.65782,
+          "relativeDifferencePercent": 0.001413992159407041
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lập phương kim cương (Diamond cubic)",
   "occurrence": {
@@ -151,9 +209,9 @@
             "a": 10.5862,
             "b": 10.5862,
             "c": 10.5862,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 1186.370349363928,
           "siteCount": 66,
@@ -497,32 +555,117 @@
     {
       "title": "Chất bán dẫn",
       "desc": "Germanium được sử dụng trong một số linh kiện bán dẫn và nghiên cứu vật liệu điện tử.",
-      "sourceLine": 89
+      "sourceLine": 89,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "semiconductor",
+        "source": "https://commons.wikimedia.org/wiki/File:ICC_2008_Poland_Silicon_Wafer_1_edit.png"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/semiconductor.png",
+        "source": "https://commons.wikimedia.org/wiki/File:ICC_2008_Poland_Silicon_Wafer_1_edit.png",
+        "author": "FxJ",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Chất bán dẫn — Silicon wafer",
+        "caption": "Minh họa lĩnh vực chất bán dẫn · Silicon wafer.",
+        "topic": "semiconductor",
+        "role": "application-context"
+      }
     },
     {
       "title": "Sợi quang",
       "desc": "Germanium dioxide được sử dụng để điều chỉnh chiết suất của thủy tinh trong sợi quang.",
-      "sourceLine": 90
+      "sourceLine": 90,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "optical-fiber",
+        "source": "https://commons.wikimedia.org/wiki/File:Fibreoptic.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/optical-fiber.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Fibreoptic.jpg",
+        "author": "BigRiz",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+        "alt": "Sợi quang — Optical fiber",
+        "caption": "Minh họa lĩnh vực sợi quang · Optical fiber.",
+        "topic": "optical-fiber",
+        "role": "application-context"
+      }
     },
     {
       "title": "Quang học hồng ngoại",
       "desc": "Germanium có khả năng truyền bức xạ hồng ngoại nên được sử dụng trong một số thấu kính và thiết bị quang học.",
-      "sourceLine": 91
+      "sourceLine": 91,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "optics",
+        "source": "https://commons.wikimedia.org/wiki/File:Double-lens_burning_apparatus,_Ehrenfried_Walther_von_Tschirnhaus,_Kieslingswalde_(today_Slawonice,_Poland),_c._1690_-_Mathematisch-Physikalischer_Salon,_Dresden_-_DSC08133.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/optics.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Double-lens_burning_apparatus,_Ehrenfried_Walther_von_Tschirnhaus,_Kieslingswalde_(today_Slawonice,_Poland),_c._1690_-_Mathematisch-Physikalischer_Salon,_Dresden_-_DSC08133.JPG",
+        "author": "Daderot",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Quang học hồng ngoại — Optical lens",
+        "caption": "Minh họa lĩnh vực quang học hồng ngoại · Optical lens.",
+        "topic": "optics",
+        "role": "application-context"
+      }
     },
     {
       "title": "Transistor",
       "desc": "Germanium từng đóng vai trò quan trọng trong sự phát triển ban đầu của transistor.",
-      "sourceLine": 92
+      "sourceLine": 92,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "semiconductor",
+        "source": "https://commons.wikimedia.org/wiki/File:ICC_2008_Poland_Silicon_Wafer_1_edit.png"
+      }
     },
     {
       "title": "Solar cells",
       "desc": "Một số hợp chất Germanium được sử dụng trong các tế bào quang điện hiệu suất cao.",
-      "sourceLine": 93
+      "sourceLine": 93,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "solar-cell",
+        "source": "https://commons.wikimedia.org/wiki/File:Solar_cell.png"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/solar-cell.png",
+        "source": "https://commons.wikimedia.org/wiki/File:Solar_cell.png",
+        "author": "Unknown author Unknown author",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Solar cells — Solar cell",
+        "caption": "Minh họa lĩnh vực solar cells · Solar cell.",
+        "topic": "solar-cell",
+        "role": "application-context"
+      }
     },
     {
       "title": "Vật liệu điện tử",
       "desc": "Germanium được sử dụng trong nghiên cứu các vật liệu bán dẫn và hợp chất bán dẫn.",
-      "sourceLine": 94
+      "sourceLine": 94,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "electronics",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/electronics.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg",
+        "author": "Raimond Spekking",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Vật liệu điện tử — Printed circuit board",
+        "caption": "Minh họa lĩnh vực vật liệu điện tử · Printed circuit board.",
+        "topic": "electronics",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Germanium là nguyên tố số 32, thuộc nhóm IVA | chu kỳ 4 và là một á kim.</li><li>Germanium có cấu hình electron [Ar] 3d¹⁰ 4s² 4p², với các số Oxy hóa phổ biến là +2 và +4.</li><li>Germanium có tính chất trung gian giữa kim loại và phi kim, đặc biệt nổi bật với tính bán dẫn. Trong tự nhiên, Germanium thường được tìm thấy với hàm lượng nhỏ trong các quặng Zinc và một số loại than.</li><li>Germanium có vai trò quan trọng trong công nghệ bán dẫn, sợi quang, quang học hồng ngoại và các thiết bị điện tử.</li></ul>",
@@ -563,9 +706,9 @@
           "a": 10.5862,
           "b": 10.5862,
           "c": 10.5862,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 1186.370349363928,
         "siteCount": 66,
@@ -635,6 +778,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Germanium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -643,6 +791,7 @@
     "sourceSha256": "d5621bd1b4722ebc3f0e0096af0d283bc12cc1e71e26929e15a67764b98de651",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/032_Ge.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/gecmani-ge/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/gecmani-ge/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/gecmani-ge/audit.md"
   }
 }

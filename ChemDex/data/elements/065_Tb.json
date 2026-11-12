@@ -75,9 +75,9 @@
         "a": 3.601,
         "b": 3.601,
         "c": 5.6936,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 120.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 120
       },
       "volume": 63.93870372419551,
       "siteCount": 2,
@@ -101,9 +101,81 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-tb.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-tb.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-tb.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-tb.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-tb.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Terbium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_terbium",
+        "revisionId": 1217680459,
+        "revisionTimestamp": "2024-04-07T07:08:04Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "hexagonal close packed",
+            "prefix": "",
+            "comment": "",
+            "pearson": "hP2",
+            "lattice": "a = 360.56 pm; c = 569.66 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-tb",
+        "modelKind": "hcp",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 3.6056,
+            "modelAngstrom": 3.601,
+            "relativeDifferencePercent": 0.12757932105613318
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "c",
+            "wikiAngstrom": 5.6966,
+            "modelAngstrom": 5.6936,
+            "relativeDifferencePercent": 0.05266299196011856
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Terbium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_terbium",
+      "revisionId": 1217680459,
+      "revisionTimestamp": "2024-04-07T07:08:04Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "hexagonal close packed",
+          "prefix": "",
+          "comment": "",
+          "pearson": "hP2",
+          "lattice": "a = 360.56 pm; c = 569.66 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-tb",
+      "modelKind": "hcp",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 3.6056,
+          "modelAngstrom": 3.601,
+          "relativeDifferencePercent": 0.12757932105613318
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "c",
+          "wikiAngstrom": 5.6966,
+          "modelAngstrom": 5.6936,
+          "relativeDifferencePercent": 0.05266299196011856
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lục phương xếp chặt (HCP)",
   "occurrence": {
@@ -153,9 +225,9 @@
             "a": 6.8947,
             "b": 6.8947,
             "c": 6.0276,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 286.53334665128403,
           "siteCount": 24,
@@ -371,27 +443,96 @@
     {
       "title": "Phosphor xanh lục",
       "desc": "Terbium là một chất phát quang quan trọng. Các hợp chất Tb³⁺ có thể phát ánh sáng xanh lục, được sử dụng trong phosphor.",
-      "sourceLine": 83
+      "sourceLine": 83,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "fluorescent",
+        "source": "https://commons.wikimedia.org/wiki/File:Fluorescent_lamps_artistic.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/fluorescent.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Fluorescent_lamps_artistic.jpg",
+        "author": "Flickr user Oimax This image was originally posted to Flickr by OiMax at https://www.flickr.com/photos/72396314@N00/404614118 . It was reviewed on 20 May 2007 by FlickreviewR and was confirmed to be licensed under the terms of the cc-by-2.0. 20 May 2007",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "alt": "Phosphor xanh lục — Fluorescent lamp",
+        "caption": "Minh họa lĩnh vực phosphor xanh lục · Fluorescent lamp.",
+        "topic": "fluorescent",
+        "role": "application-context"
+      }
     },
     {
       "title": "Màn hình",
       "desc": "Terbium được sử dụng trong một số vật liệu phosphor của màn hình và hệ thống hiển thị.",
-      "sourceLine": 84
+      "sourceLine": 84,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "display",
+        "source": "https://commons.wikimedia.org/wiki/File:Wiktionnaire_sur_IPhone_(1).JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/display.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Wiktionnaire_sur_IPhone_(1).JPG",
+        "author": "Béotien lambda",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Màn hình — Liquid-crystal display",
+        "caption": "Minh họa lĩnh vực màn hình · Liquid-crystal display.",
+        "topic": "display",
+        "role": "application-context"
+      }
     },
     {
       "title": "Đèn huỳnh quang",
       "desc": "Một số hợp chất Terbium được dùng để tạo thành phần ánh sáng xanh lục trong đèn huỳnh quang.",
-      "sourceLine": 85
+      "sourceLine": 85,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "fluorescent",
+        "source": "https://commons.wikimedia.org/wiki/File:Fluorescent_lamps_artistic.jpg"
+      }
     },
     {
       "title": "Thiết bị điện tử",
       "desc": "Terbium được sử dụng trong một số vật liệu từ và quang điện tử.",
-      "sourceLine": 86
+      "sourceLine": 86,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "electronics",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/electronics.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg",
+        "author": "Raimond Spekking",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Thiết bị điện tử — Printed circuit board",
+        "caption": "Minh họa lĩnh vực thiết bị điện tử · Printed circuit board.",
+        "topic": "electronics",
+        "role": "application-context"
+      }
     },
     {
       "title": "Vật liệu từ",
       "desc": "Một số hợp chất Terbium có tính chất từ và từ giảo đặc biệt, được ứng dụng trong các thiết bị điện cơ và cảm biến.",
-      "sourceLine": 87
+      "sourceLine": 87,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "magnetic-material",
+        "source": "https://commons.wikimedia.org/wiki/File:Magnetostriction_by_Zureks.gif"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/magnetic-material.gif",
+        "source": "https://commons.wikimedia.org/wiki/File:Magnetostriction_by_Zureks.gif",
+        "author": "Zureks",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Vật liệu từ — Magnetostriction",
+        "caption": "Sơ đồ nguyên lý từ giảo.",
+        "topic": "magnetic-material",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Terbium là nguyên tố số 65, thuộc nhóm IIIB | chu kỳ 6 và là nguyên tố thứ chín trong họ Lanthanide.</li><li>Terbium được Carl Gustaf Mosander phát hiện vào năm 1843 tại Thụy Điển. Tên nguyên tố bắt nguồn từ Ytterby, nơi có nhiều khoáng vật đất hiếm.</li><li>Terbium là kim loại màu trắng bạc, khá mềm và có tính chất từ đặc biệt. Trạng thái Oxy hóa phổ biến nhất là +3, trong khi +4 cũng có thể tồn tại, đặc biệt trong các oxide hỗn hợp như Tb₄O₇.</li><li>Điểm nổi bật của Terbium là khả năng tạo phát quang xanh lục rất đặc trưng. Vì vậy, Terbium có vai trò trong phosphor, màn hình, đèn huỳnh quang, thiết bị điện tử và vật liệu từ giảo.</li><li>Mạng tinh thể: Lục phương xếp chặt (HCP) ở điều kiện thường.</li></ul>",
@@ -432,9 +573,9 @@
           "a": 6.8947,
           "b": 6.8947,
           "c": 6.0276,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 286.53334665128403,
         "siteCount": 24,
@@ -501,6 +642,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Terbium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -509,6 +655,7 @@
     "sourceSha256": "a40acf20a351aa29b63f5f4611b04215e40e017923d1f9f231e14ad67c0ad2b9",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/065_Tb.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/terbium-tb/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/terbium-tb/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/terbium-tb/audit.md"
   }
 }

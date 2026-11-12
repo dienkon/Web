@@ -67,9 +67,9 @@
         "a": 4.908,
         "b": 4.908,
         "c": 12.567,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 120.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 120
       },
       "volume": 262.16297388490034,
       "siteCount": 36,
@@ -92,9 +92,57 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-b.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-b.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-b.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-b.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-b.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Boron",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_boron",
+        "revisionId": 1282608273,
+        "revisionTimestamp": "2025-03-27T13:43:13Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "rhombohedral",
+            "prefix": "",
+            "comment": "",
+            "pearson": "",
+            "lattice": ""
+          }
+        ],
+        "selectedModel": "nguyen-to-b",
+        "modelKind": "rhombohedral",
+        "metrics": [],
+        "notes": [
+          "CIF dùng ô lục giác quy ước của mạng thoi: số nguyên tử trong ô này bằng ba lần ô thoi nguyên thủy; không phải sai cấu trúc.",
+          "Mô hình là pha alpha boron. Nhãn rhombohedral chung không đồng nghĩa mọi dạng boron có cùng cơ sở nguyên tử."
+        ],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Boron",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_boron",
+      "revisionId": 1282608273,
+      "revisionTimestamp": "2025-03-27T13:43:13Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "rhombohedral",
+          "prefix": "",
+          "comment": "",
+          "pearson": "",
+          "lattice": ""
+        }
+      ],
+      "selectedModel": "nguyen-to-b",
+      "modelKind": "rhombohedral",
+      "metrics": [],
+      "notes": [
+        "CIF dùng ô lục giác quy ước của mạng thoi: số nguyên tử trong ô này bằng ba lần ô thoi nguyên thủy; không phải sai cấu trúc.",
+        "Mô hình là pha alpha boron. Nhãn rhombohedral chung không đồng nghĩa mọi dạng boron có cùng cơ sở nguyên tử."
+      ],
+      "additionalSources": []
+    }
   },
   "structureType": "Mạng thoi (Rhombohedral)",
   "occurrence": {
@@ -146,9 +194,9 @@
             "a": 11.885,
             "b": 10.654,
             "c": 12.206,
-            "alpha": 90.0,
+            "alpha": 90,
             "beta": 106.623,
-            "gamma": 90.0
+            "gamma": 90
           },
           "volume": 1480.9655376624685,
           "siteCount": 172,
@@ -445,42 +493,148 @@
     {
       "title": "Thủy tinh chịu nhiệt",
       "desc": "Boron được sử dụng để sản xuất Borosilicate glass có khả năng chịu nhiệt và chống sốc nhiệt tốt.",
-      "sourceLine": 89
+      "sourceLine": 89,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "glass",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/glass.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg",
+        "author": "Ansgar Koreng",
+        "license": "CC BY 3.0 de",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/de/deed.en",
+        "alt": "Thủy tinh chịu nhiệt — Glass",
+        "caption": "Minh họa lĩnh vực thủy tinh chịu nhiệt · Glass.",
+        "topic": "glass",
+        "role": "application-context"
+      }
     },
     {
       "title": "Gốm kỹ thuật",
       "desc": "Boron nitride và Boron carbide được sử dụng trong các vật liệu gốm có độ cứng và khả năng chịu nhiệt cao.",
-      "sourceLine": 90
+      "sourceLine": 90,
+      "imageReview": {
+        "status": "source-link",
+        "topic": "ceramic",
+        "source": "https://commons.wikimedia.org/wiki/Special:MediaSearch?type=image&search=Technical%20ceramics"
+      }
     },
     {
       "title": "Chất bán dẫn",
       "desc": "Boron được sử dụng làm chất pha tạp (dopant) cho Silicon trong công nghiệp bán dẫn.",
-      "sourceLine": 91
+      "sourceLine": 91,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "semiconductor",
+        "source": "https://commons.wikimedia.org/wiki/File:ICC_2008_Poland_Silicon_Wafer_1_edit.png"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/semiconductor.png",
+        "source": "https://commons.wikimedia.org/wiki/File:ICC_2008_Poland_Silicon_Wafer_1_edit.png",
+        "author": "FxJ",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Chất bán dẫn — Silicon wafer",
+        "caption": "Minh họa lĩnh vực chất bán dẫn · Silicon wafer.",
+        "topic": "semiconductor",
+        "role": "application-context"
+      }
     },
     {
       "title": "Vật liệu chống mài mòn",
       "desc": "Boron carbide được sử dụng trong các vật liệu có độ cứng cao.",
-      "sourceLine": 92
+      "sourceLine": 92,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Chất tẩy rửa",
       "desc": "Một số Borate được sử dụng trong chất tẩy rửa và sản phẩm làm sạch.",
-      "sourceLine": 93
+      "sourceLine": 93,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "detergent",
+        "source": "https://commons.wikimedia.org/wiki/File:Pralni_pra%C5%A1ek.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/detergent.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Pralni_pra%C5%A1ek.JPG",
+        "author": "Uncy at Slovenian Wikipedia",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Chất tẩy rửa — Laundry detergent",
+        "caption": "Minh họa lĩnh vực chất tẩy rửa · Laundry detergent.",
+        "topic": "detergent",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nông nghiệp",
       "desc": "Boron là vi lượng thiết yếu đối với thực vật và được sử dụng trong một số loại phân bón.",
-      "sourceLine": 94
+      "sourceLine": 94,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "fertilizer",
+        "source": "https://commons.wikimedia.org/wiki/File:Manure_spreading_Hlokozi_2007_11_29.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/fertilizer.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Manure_spreading_Hlokozi_2007_11_29.jpg",
+        "author": "Alandmanson",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Nông nghiệp — Fertilizer",
+        "caption": "Minh họa lĩnh vực nông nghiệp · Fertilizer.",
+        "topic": "fertilizer",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hấp thụ neutron",
       "desc": "¹⁰B có khả năng hấp thụ neutron cao nên được sử dụng trong một số ứng dụng liên quan đến kiểm soát neutron.",
-      "sourceLine": 95
+      "sourceLine": 95,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "control-rod",
+        "source": "https://commons.wikimedia.org/wiki/File:PWR_control_rod_assemby.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/control-rod.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:PWR_control_rod_assemby.jpg",
+        "author": "Nic Ransby",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Hấp thụ neutron — Control rod",
+        "caption": "Minh họa lĩnh vực hấp thụ neutron · Control rod.",
+        "topic": "control-rod",
+        "role": "application-context"
+      }
     },
     {
       "title": "Luyện kim",
       "desc": "Một lượng nhỏ Boron được thêm vào một số hợp kim để cải thiện tính chất cơ học.",
-      "sourceLine": 96
+      "sourceLine": 96,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "alloy",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/alloy.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg",
+        "author": "Bill Abbott",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Luyện kim — Alloy",
+        "caption": "Minh họa lĩnh vực luyện kim · Alloy.",
+        "topic": "alloy",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Boron là nguyên tố số 5, thuộc nhóm IIIA | chu kỳ 2 và là một á kim.</li><li>Boron có cấu hình electron 1s² 2s² 2p¹ và có khả năng tạo nhiều liên kết cộng hóa trị. Trong tự nhiên, Boron chủ yếu tồn tại trong các khoáng vật Borate thay vì ở dạng đơn chất.</li><li>Boron có nhiều dạng cấu trúc tinh thể và các dạng thù hình khác nhau. Nguyên tố này có nhiệt độ nóng chảy cao, độ cứng lớn và nhiều hợp chất có tính chất vật liệu đặc biệt.</li><li>Boron và các hợp chất của nó được sử dụng trong thủy tinh chịu nhiệt, gốm kỹ thuật, chất bán dẫn, vật liệu chống mài mòn, nông nghiệp và công nghệ hạt nhân.</li></ul>",
@@ -521,9 +675,9 @@
           "a": 11.885,
           "b": 10.654,
           "c": 12.206,
-          "alpha": 90.0,
+          "alpha": 90,
           "beta": 106.623,
-          "gamma": 90.0
+          "gamma": 90
         },
         "volume": 1480.9655376624685,
         "siteCount": 172,
@@ -589,6 +743,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Boron",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -597,6 +756,7 @@
     "sourceSha256": "e1405cfba8ade6ccbfee1fa6bc7640bb930b9af66bd812612124247f6cd5a615",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/005_B.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/bo-b/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/bo-b/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/bo-b/audit.md"
   }
 }

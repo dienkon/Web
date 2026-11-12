@@ -1,0 +1,15 @@
+# Halite — halite
+
+- Loại chứng cứ: published-structure.
+- Định danh: AMCSD 0003397.
+- Nhóm không gian: F m 3 m; 8 vị trí/ô; 0 vị trí hỗn hợp.
+- Thông số: {"a":5.6401,"b":5.6401,"c":5.6401,"alpha":90,"beta":90,"gamma":90}; V = 179.41568704920104 Å³.
+- [Nguồn](https://rruff.geo.arizona.edu/AMS/amcsd.php).
+- Tài liệu: Walker D, Clark S M, Verma P K, Cranswick L M D, Jones R L, Buhre S (2004), Halite-sylvite thermoelasticity
+ Sample: msl416031, T = 25 C, P = 0.0 kbar, cell volume = 179.42 ang**3; American Mineralogist 89 204–210.
+- Lưu ý: Giữ bộ tọa độ và metric đã công bố.
+- Giới hạn: Bán kính/màu cầu là quy ước; cấu trúc tuần hoàn không phải quét bề mặt mẫu.
+- 2 vị trí bất đối xứng; 192 phép đối xứng.
+- Khung nhìn dùng đủ metric, trục z hướng lên; fit theo cả chiều ngang và dọc màn hình. Nguyên tử trên biên lặp để khép ô, không làm tăng thống kê ô nửa mở.
+- Chế độ cầu tiếp xúc chỉ dành cho ô đơn chất có vị trí đầy; bán kính lấy nửa khoảng cách láng giềng gần nhất trong mạng tuần hoàn, không phải phép đo mật độ electron.
+- JSON/CIF/GLB/PNG và SHA-256 xem asset-manifest.json.

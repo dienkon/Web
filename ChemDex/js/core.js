@@ -1315,7 +1315,8 @@ function createCrystalWidget(container, el) {
   const latticeKey = inferLatticeKey(el);
   const title = inferLatticeTitle(el, latticeKey);
   if (!latticeKey || el.review) {
-    container.innerHTML = `<div class="crystal-explanation"><span class="visual-badge">Pha và cấu trúc</span><p>${escapeHtml(title)}</p><small>${el.structure?.latticeEvidence === 'predicted' ? 'Cấu trúc dự đoán; chưa có mẫu tinh thể thực nghiệm.' : 'Chưa có mô hình mạng phù hợp với pha được mô tả. Xem mô hình khoáng vật riêng bên dưới nếu có.'}</small></div>`;
+    const wiki=el.structure?.wikiCrystalReview;
+    container.innerHTML = `<div class="crystal-explanation"><span class="visual-badge">Pha và cấu trúc</span><p>${escapeHtml(title)}</p><small>${el.structure?.latticeEvidence === 'predicted' ? 'Cấu trúc dự đoán; chưa có mẫu tinh thể thực nghiệm.' : 'Chưa có mô hình tọa độ phù hợp với pha được mô tả.'}</small>${wiki?`<p class="element-fact-note">Wiki: ${escapeHtml(wiki.phases.map(p=>`${p.prefix} ${p.type} ${p.comment}`).join('; ')||'không có kiểu mạng trong trường đã đối chiếu')}. Thông tin tinh thể có thể thuộc pha rắn ở điều kiện khác; trạng thái đang mô tả: ${escapeHtml(el.general?.state||'chưa xác định')}.</p><a href="${escapeHtml(wiki.article)}" target="_blank" rel="noopener noreferrer">Đối chiếu Wiki ↗</a>`:''}</div>`;
     return { destroy() { container.innerHTML = ''; } };
   }
 

@@ -67,7 +67,30 @@
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
     "latticeEvidence": "predicted",
-    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
+    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác.",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Hassium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_hassium",
+      "revisionId": 1309704115,
+      "revisionTimestamp": "2025-09-05T15:00:59Z",
+      "status": "phase-unmeasured-or-fluid",
+      "phases": [
+        {
+          "type": "hexagonal close-packed",
+          "prefix": "",
+          "comment": "(predicted)",
+          "pearson": "",
+          "lattice": ""
+        }
+      ],
+      "selectedModel": null,
+      "modelKind": null,
+      "metrics": [],
+      "notes": [
+        "Không lấy hình của một kiểu mạng chung để khẳng định mẫu tinh thể đã được đo. Pha khí/lỏng và cấu trúc dự đoán được ghi riêng."
+      ],
+      "additionalSources": []
+    }
   },
   "structureType": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
   "occurrence": {
@@ -351,27 +374,63 @@
     {
       "title": "Ứng dụng",
       "desc": "Hassium không có ứng dụng công nghiệp hoặc dân dụng.",
-      "sourceLine": 80
+      "sourceLine": 80,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Nó chủ yếu được sử dụng trong",
       "desc": "",
-      "sourceLine": 81
+      "sourceLine": 81,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Nghiên cứu hạt nhân",
       "desc": "Nghiên cứu tính ổn định của các nguyên tố siêu nặng.",
-      "sourceLine": 82
+      "sourceLine": 82,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/research.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "author": "LSDSL",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nghiên cứu hạt nhân — Particle accelerator",
+        "caption": "Minh họa lĩnh vực nghiên cứu hạt nhân · Particle accelerator.",
+        "topic": "research",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hóa học nguyên tố siêu nặng",
       "desc": "So sánh Hassium với Osmium, đặc biệt về trạng thái Oxy hóa +8.",
-      "sourceLine": 83
+      "sourceLine": 83,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Nghiên cứu hiệu ứng tương đối tính",
       "desc": "Hassium giúp kiểm tra cách các hiệu ứng tương đối tính ảnh hưởng đến tính chất của nguyên tử rất nặng.",
-      "sourceLine": 84
+      "sourceLine": 84,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Hassium là nguyên tố số 108, thuộc nhóm VIIIB | chu kỳ 7 và là một kim loại chuyển tiếp siêu nặng.</li><li>Hassium được tổng hợp lần đầu vào năm 1984 tại GSI ở Darmstadt. Tên nguyên tố xuất phát từ Hassia, tên Latin của bang Hesse, Đức.</li><li>Cấu hình electron được dự đoán là [Rn] 5f¹⁴ 6d⁶ 7s². Đặc điểm hóa học nổi bật nhất là trạng thái Oxy hóa +8, tương tự Osmium. Đặc biệt, các nhà khoa học đã nghiên cứu được Hassium tetroxide (HsO₄) ở quy mô nguyên tử.</li><li>Hassium không có đồng vị bền, rất phóng xạ và chỉ được tạo ra với số lượng cực nhỏ. Vì vậy, nó không có ứng dụng thực tế, chủ yếu phục vụ nghiên cứu khoa học.</li><li>Mạng tinh thể: Lập phương tâm khối (BCC) — dự đoán, vì chưa thể thu được lượng Hassium đủ lớn để xác định trực tiếp cấu trúc tinh thể.</li></ul>",
@@ -412,6 +471,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Hassium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -420,6 +484,7 @@
     "sourceSha256": "021af08f6b7fed65b8a9930fe3e68a1c8e99fdfeaf09db431f73352986aec34e",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/108_Hs.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/hassium-hs/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/hassium-hs/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/hassium-hs/audit.md"
   }
 }

@@ -1,0 +1,125 @@
+# Reference prototype from published lattice parameters; not a refined experimental atomic model.
+data_wiki-ra-1284278559
+_database_code_ChemDex wiki-ra-1284278559
+_chemical_formula_sum Ra
+_symmetry_space_group_name_H-M 'I m -3 m'
+_cell_length_a 5.148
+_cell_length_b 5.148
+_cell_length_c 5.148
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 90
+_publ_section_title 'Selected Values of the Crystallographic Properties of Elements; thông số được Wikipedia trích dẫn, tại 20 °C (Ra: gần nhiệt độ phòng). Vị trí Wyckoff lý tưởng của prototype cI2.'
+_chemdex_model_limitations 'Tọa độ Wyckoff lý tưởng được dựng từ prototype và thông số mạng được trích dẫn; không phải bộ tinh chỉnh vị trí nguyên tử thực nghiệm độc lập.'
+_chemdex_parameter_source_url https://en.wikipedia.org/wiki/Radium
+_journal_name_full 'ASM International, ISBN 978-1-62708-155-9'
+_journal_year 2018
+loop_
+_publ_author_name
+'John W. Arblaster'
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+-y,x,z
+-x,-y,z
+y,-x,z
+x,-y,-z
+-y,-x,-z
+-x,y,-z
+y,x,-z
+z,x,y
+z,-y,x
+z,-x,-y
+z,y,-x
+-z,x,-y
+-z,-y,-x
+-z,-x,y
+-z,y,x
+-x,z,y
+y,z,x
+x,z,-y
+-y,z,-x
+-x,-z,-y
+y,-z,-x
+x,-z,y
+-y,-z,x
+-x,-y,-z
+y,-x,-z
+x,y,-z
+-y,x,-z
+-x,y,z
+y,x,z
+x,-y,z
+-y,-x,z
+-z,-x,-y
+-z,y,-x
+-z,x,y
+-z,-y,x
+z,-x,y
+z,y,x
+z,x,-y
+z,-y,-x
+x,-z,-y
+-y,-z,-x
+-x,-z,y
+y,-z,x
+x,z,y
+-y,z,x
+-x,z,-y
+y,z,-x
+x+1/2,y+1/2,z+1/2
+-y+1/2,x+1/2,z+1/2
+-x+1/2,-y+1/2,z+1/2
+y+1/2,-x+1/2,z+1/2
+x+1/2,-y+1/2,-z+1/2
+-y+1/2,-x+1/2,-z+1/2
+-x+1/2,y+1/2,-z+1/2
+y+1/2,x+1/2,-z+1/2
+z+1/2,x+1/2,y+1/2
+z+1/2,-y+1/2,x+1/2
+z+1/2,-x+1/2,-y+1/2
+z+1/2,y+1/2,-x+1/2
+-z+1/2,x+1/2,-y+1/2
+-z+1/2,-y+1/2,-x+1/2
+-z+1/2,-x+1/2,y+1/2
+-z+1/2,y+1/2,x+1/2
+-x+1/2,z+1/2,y+1/2
+y+1/2,z+1/2,x+1/2
+x+1/2,z+1/2,-y+1/2
+-y+1/2,z+1/2,-x+1/2
+-x+1/2,-z+1/2,-y+1/2
+y+1/2,-z+1/2,-x+1/2
+x+1/2,-z+1/2,y+1/2
+-y+1/2,-z+1/2,x+1/2
+-x+1/2,-y+1/2,-z+1/2
+y+1/2,-x+1/2,-z+1/2
+x+1/2,y+1/2,-z+1/2
+-y+1/2,x+1/2,-z+1/2
+-x+1/2,y+1/2,z+1/2
+y+1/2,x+1/2,z+1/2
+x+1/2,-y+1/2,z+1/2
+-y+1/2,-x+1/2,z+1/2
+-z+1/2,-x+1/2,-y+1/2
+-z+1/2,y+1/2,-x+1/2
+-z+1/2,x+1/2,y+1/2
+-z+1/2,-y+1/2,x+1/2
+z+1/2,-x+1/2,y+1/2
+z+1/2,y+1/2,x+1/2
+z+1/2,x+1/2,-y+1/2
+z+1/2,-y+1/2,-x+1/2
+x+1/2,-z+1/2,-y+1/2
+-y+1/2,-z+1/2,-x+1/2
+-x+1/2,-z+1/2,y+1/2
+y+1/2,-z+1/2,x+1/2
+x+1/2,z+1/2,y+1/2
+-y+1/2,z+1/2,x+1/2
+-x+1/2,z+1/2,-y+1/2
+y+1/2,z+1/2,-x+1/2
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+Ra1 Ra 0 0 0 1

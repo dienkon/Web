@@ -77,9 +77,9 @@
         "a": 2.854,
         "b": 5.869,
         "c": 4.955,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 90.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
       },
       "volume": 82.99687433000001,
       "siteCount": 4,
@@ -101,9 +101,95 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-u.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-u.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-u.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-u.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-u.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Uranium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_uranium",
+        "revisionId": 1378870815,
+        "revisionTimestamp": "2026-10-06T16:59:08Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "orthorhombic",
+            "prefix": "",
+            "comment": "",
+            "pearson": "oS4",
+            "lattice": "a = 285.35 pm; b = 586.97 pm; c = 495.52 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-u",
+        "modelKind": "orthorhombic",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 2.8535000000000004,
+            "modelAngstrom": 2.854,
+            "relativeDifferencePercent": 0.01752234098474585
+          },
+          {
+            "axis": "b",
+            "wikiAxis": "b",
+            "wikiAngstrom": 5.869700000000001,
+            "modelAngstrom": 5.869,
+            "relativeDifferencePercent": 0.011925652077636557
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "c",
+            "wikiAngstrom": 4.9552,
+            "modelAngstrom": 4.955,
+            "relativeDifferencePercent": 0.004036164029696761
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Uranium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_uranium",
+      "revisionId": 1378870815,
+      "revisionTimestamp": "2026-10-06T16:59:08Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "orthorhombic",
+          "prefix": "",
+          "comment": "",
+          "pearson": "oS4",
+          "lattice": "a = 285.35 pm; b = 586.97 pm; c = 495.52 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-u",
+      "modelKind": "orthorhombic",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 2.8535000000000004,
+          "modelAngstrom": 2.854,
+          "relativeDifferencePercent": 0.01752234098474585
+        },
+        {
+          "axis": "b",
+          "wikiAxis": "b",
+          "wikiAngstrom": 5.869700000000001,
+          "modelAngstrom": 5.869,
+          "relativeDifferencePercent": 0.011925652077636557
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "c",
+          "wikiAngstrom": 4.9552,
+          "modelAngstrom": 4.955,
+          "relativeDifferencePercent": 0.004036164029696761
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Trực thoi (Orthorhombic) ở điều kiện thường.",
   "occurrence": {
@@ -155,9 +241,9 @@
             "a": 5.4682,
             "b": 5.4682,
             "c": 5.4682,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 163.50580330256804,
           "siteCount": 12,
@@ -460,27 +546,96 @@
     {
       "title": "Năng lượng hạt nhân",
       "desc": "Uranium là một trong những nhiên liệu quan trọng nhất của lò phản ứng hạt nhân. ²³⁵U có thể duy trì phản ứng phân hạch dây chuyền có kiểm soát trong điều kiện thích hợp.",
-      "sourceLine": 97
+      "sourceLine": 97,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "reactor",
+        "source": "https://commons.wikimedia.org/wiki/File:Advanced_Test_Reactor_001.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/reactor.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Advanced_Test_Reactor_001.jpg",
+        "author": "Idaho National Laboratory",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "alt": "Năng lượng hạt nhân — Nuclear reactor",
+        "caption": "Minh họa lĩnh vực năng lượng hạt nhân · Nuclear reactor.",
+        "topic": "reactor",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nhiên liệu hạt nhân",
       "desc": "Uranium được chế biến thành các dạng nhiên liệu phù hợp cho lò phản ứng, thường dưới dạng UO₂.",
-      "sourceLine": 98
+      "sourceLine": 98,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "nuclear-fuel",
+        "source": "https://commons.wikimedia.org/wiki/File:RIAN_archive_132602_Fuel_assembly_final_inspection.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/nuclear-fuel.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:RIAN_archive_132602_Fuel_assembly_final_inspection.jpg",
+        "author": "Ruslan Krivobok / Руслан Кривобок",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nhiên liệu hạt nhân — Nuclear fuel",
+        "caption": "Minh họa lĩnh vực nhiên liệu hạt nhân · Nuclear fuel.",
+        "topic": "nuclear-fuel",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nghiên cứu địa chất",
       "desc": "Các hệ đồng vị Uranium–Thorium và Uranium–Lead được sử dụng để định tuổi đá và khoáng vật.",
-      "sourceLine": 99
+      "sourceLine": 99,
+      "imageReview": {
+        "status": "source-link",
+        "topic": "geology",
+        "source": "https://commons.wikimedia.org/wiki/Special:MediaSearch?type=image&search=Radiometric%20dating"
+      }
     },
     {
       "title": "Thiết bị đối trọng",
       "desc": "Uranium nghèo từng được sử dụng trong một số ứng dụng cần vật liệu có khối lượng riêng rất cao, chẳng hạn đối trọng kỹ thuật.",
-      "sourceLine": 100
+      "sourceLine": 100,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "counterweight",
+        "source": "https://commons.wikimedia.org/wiki/File:Simple_Crane_diagram..png"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/counterweight.png",
+        "source": "https://commons.wikimedia.org/wiki/File:Simple_Crane_diagram..png",
+        "author": "en:User:Theresa knott",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+        "alt": "Thiết bị đối trọng — Counterweight",
+        "caption": "Minh họa lĩnh vực thiết bị đối trọng · Counterweight.",
+        "topic": "counterweight",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nghiên cứu khoa học",
       "desc": "Uranium đóng vai trò quan trọng trong nghiên cứu vật lý hạt nhân, hóa học Actinide và phóng xạ.",
-      "sourceLine": 101
+      "sourceLine": 101,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/research.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "author": "LSDSL",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nghiên cứu khoa học — Particle accelerator",
+        "caption": "Minh họa lĩnh vực nghiên cứu khoa học · Particle accelerator.",
+        "topic": "research",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Uranium là nguyên tố số 92, thuộc nhóm IIIB | chu kỳ 7 và là nguyên tố thứ tư trong họ Actinide.</li><li>Uranium được Martin Heinrich Klaproth phát hiện vào năm 1789 tại Berlin. Ông đặt tên nguyên tố theo Uranus, hành tinh vừa được phát hiện vào thời điểm đó. Đến năm 1841, Eugène-Melchior Peligot mới điều chế được Uranium kim loại.</li><li>Uranium là kim loại phóng xạ nặng, có nhiều trạng thái Oxy hóa, trong đó +4 và +6 đặc biệt quan trọng. Trong tự nhiên, Uranium chủ yếu tồn tại dưới dạng ²³⁸U, cùng một lượng nhỏ ²³⁵U và ²³⁴U.</li><li>Điểm quan trọng nhất của Uranium là khả năng tham gia phản ứng phân hạch hạt nhân. ²³⁵U có thể phân hạch khi hấp thụ neutron và vì vậy được sử dụng làm nhiên liệu trong năng lượng hạt nhân.</li><li>Ngoài năng lượng hạt nhân, Uranium còn có vai trò trong định tuổi địa chất, nghiên cứu hạt nhân và hóa học Actinide.</li><li>Mạng tinh thể: Trực thoi (Orthorhombic) ở điều kiện thường.</li></ul>",
@@ -521,9 +676,9 @@
           "a": 5.4682,
           "b": 5.4682,
           "c": 5.4682,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 163.50580330256804,
         "siteCount": 12,
@@ -592,6 +747,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Uranium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -600,6 +760,7 @@
     "sourceSha256": "5dc5ed4c431b9a195d43d26148171a3094462b868d23090d5ecf345ec06f0ca8",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/092_U.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/uranium-u/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/uranium-u/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/uranium-u/audit.md"
   }
 }

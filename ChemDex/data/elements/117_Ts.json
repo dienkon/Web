@@ -67,7 +67,22 @@
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
     "latticeEvidence": "predicted",
-    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
+    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác.",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Tennessine",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_tennessine",
+      "revisionId": 1307765621,
+      "revisionTimestamp": "2025-08-25T15:29:21Z",
+      "status": "phase-unmeasured-or-fluid",
+      "phases": [],
+      "selectedModel": null,
+      "modelKind": null,
+      "metrics": [],
+      "notes": [
+        "Không lấy hình của một kiểu mạng chung để khẳng định mẫu tinh thể đã được đo. Pha khí/lỏng và cấu trúc dự đoán được ghi riêng."
+      ],
+      "additionalSources": []
+    }
   },
   "structureType": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
   "occurrence": {
@@ -262,27 +277,63 @@
     {
       "title": "Ứng dụng",
       "desc": "Tennessine không có ứng dụng công nghiệp hoặc dân dụng.",
-      "sourceLine": 82
+      "sourceLine": 82,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Nó chủ yếu được sử dụng trong",
       "desc": "",
-      "sourceLine": 83
+      "sourceLine": 83,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Nghiên cứu hạt nhân",
       "desc": "Nghiên cứu các hạt nhân siêu nặng.",
-      "sourceLine": 84
+      "sourceLine": 84,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/research.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "author": "LSDSL",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nghiên cứu hạt nhân — Particle accelerator",
+        "caption": "Minh họa lĩnh vực nghiên cứu hạt nhân · Particle accelerator.",
+        "topic": "research",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nghiên cứu “đảo ổn định”",
       "desc": "Nghiên cứu độ ổn định của các hạt nhân ở vùng nguyên tố siêu nặng.",
-      "sourceLine": 85
+      "sourceLine": 85,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      }
     },
     {
       "title": "Hóa học nguyên tố siêu nặng",
       "desc": "Nghiên cứu sự thay đổi tính chất của nhóm halogen khi số hiệu nguyên tử tăng lên rất lớn.",
-      "sourceLine": 86
+      "sourceLine": 86,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Tennessine là nguyên tố số 117, thuộc nhóm VIIA | chu kỳ 7 và là halogen siêu nặng.</li><li>Tennessine được tổng hợp lần đầu vào năm 2010 tại Dubna, Nga, bằng phản ứng giữa Berkelium-249 và Calcium-48. Tên nguyên tố được đặt theo Tennessee, Hoa Kỳ, nhằm ghi nhận những đóng góp của các cơ sở nghiên cứu tại đây.</li><li>Cấu hình electron được dự đoán là [Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁵. Mặc dù nằm trong nhóm halogen, Tennessine được dự đoán có tính chất kim loại hơn đáng kể so với các halogen nhẹ như Chlorine hay Bromine do hiệu ứng tương đối tính mạnh.</li><li>Tennessine không có đồng vị bền, có tính phóng xạ rất mạnh và chỉ được tạo ra với số lượng cực nhỏ. Vì vậy, nó không có ứng dụng thực tế, chủ yếu phục vụ nghiên cứu vật lý hạt nhân và hóa học nguyên tố siêu nặng.</li><li>Mạng tinh thể: Lập phương tâm khối (BCC) — dự đoán, vì chưa thể thu được lượng Tennessine đủ lớn để xác định trực tiếp cấu trúc tinh thể.</li></ul>",
@@ -323,6 +374,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Tennessine",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -331,6 +387,7 @@
     "sourceSha256": "694b10f3290bac9c78cd009eda1458f5ed26171d21cbfc17e446687df59f0591",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/117_Ts.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/tennessine-ts/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/tennessine-ts/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/tennessine-ts/audit.md"
   }
 }

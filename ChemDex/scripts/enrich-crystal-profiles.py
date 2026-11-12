@@ -124,5 +124,8 @@ def main():
         for entry in changes:entry['beforeSha256']=previous.get(entry['symbol'],entry)['beforeSha256']
     write(manifest_path,changes)
     print(json.dumps({'profiles':len(changes),'elementCrystals':sum(bool(e['elementCrystal']) for e in changes),'mineralBindings':sum(bool(e['mineralPhases']) for e in changes),'mineralPhotos':sum(bool(e['photo'] and e['photo']['status']=='downloaded') for e in changes)}))
+    if (ROOT/'data/wiki-crystal-models.json').exists() and (ROOT/'data/application-image-provenance.json').exists():
+        import subprocess
+        subprocess.run(['node',str(ROOT/'scripts/enrich-application-crystals.mjs')],cwd=ROOT,check=True)
 
 if __name__=='__main__':main()

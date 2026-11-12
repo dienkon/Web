@@ -67,7 +67,22 @@
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
     "latticeEvidence": "predicted",
-    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
+    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác.",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Moscovium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_moscovium",
+      "revisionId": 1307765239,
+      "revisionTimestamp": "2025-08-25T15:26:27Z",
+      "status": "phase-unmeasured-or-fluid",
+      "phases": [],
+      "selectedModel": null,
+      "modelKind": null,
+      "metrics": [],
+      "notes": [
+        "Không lấy hình của một kiểu mạng chung để khẳng định mẫu tinh thể đã được đo. Pha khí/lỏng và cấu trúc dự đoán được ghi riêng."
+      ],
+      "additionalSources": []
+    }
   },
   "structureType": "Lập phương tâm khối (Body-centered cubic, BCC) (dự đoán)",
   "occurrence": {
@@ -292,27 +307,63 @@
     {
       "title": "Ứng dụng",
       "desc": "Moscovium không có ứng dụng công nghiệp hoặc dân dụng.",
-      "sourceLine": 79
+      "sourceLine": 79,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Nó chủ yếu được sử dụng trong",
       "desc": "",
-      "sourceLine": 80
+      "sourceLine": 80,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Nghiên cứu hạt nhân",
       "desc": "Nghiên cứu các hạt nhân siêu nặng và chuỗi phân rã của chúng.",
-      "sourceLine": 81
+      "sourceLine": 81,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/research.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "author": "LSDSL",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nghiên cứu hạt nhân — Particle accelerator",
+        "caption": "Minh họa lĩnh vực nghiên cứu hạt nhân · Particle accelerator.",
+        "topic": "research",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nghiên cứu “đảo ổn định”",
       "desc": "Moscovium nằm trong khu vực nguyên tố siêu nặng được quan tâm khi nghiên cứu các hạt nhân có độ ổn định tương đối cao.",
-      "sourceLine": 82
+      "sourceLine": 82,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      }
     },
     {
       "title": "Hóa học nguyên tố siêu nặng",
       "desc": "Nghiên cứu sự tương đồng giữa Moscovium và Bismuth.",
-      "sourceLine": 83
+      "sourceLine": 83,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Moscovium là nguyên tố số 115, thuộc nhóm VA | chu kỳ 7 và là một nguyên tố siêu nặng.</li><li>Moscovium được tổng hợp lần đầu vào năm 2003 tại Dubna bằng phản ứng giữa Americium-243 và Calcium-48. Tên nguyên tố được đặt theo Moscow Oblast của Nga.</li><li>Cấu hình electron được dự đoán là [Rn] 5f¹⁴ 6d¹⁰ 7s² 7p³. Moscovium nằm cùng nhóm với Nitrogen, Phosphorus, Arsenic, Antimony và Bismuth, nhưng hiệu ứng tương đối tính mạnh khiến tính chất của nó có thể khác đáng kể. Trạng thái Oxy hóa +1 và +3 được dự đoán có vai trò quan trọng.</li><li>Moscovium không có đồng vị bền, có tính phóng xạ rất mạnh và chỉ được tạo ra với số lượng cực nhỏ. Vì vậy, nó không có ứng dụng thực tế, chủ yếu phục vụ nghiên cứu vật lý hạt nhân và hóa học nguyên tố siêu nặng.</li><li>Mạng tinh thể: Lập phương tâm khối (BCC) — dự đoán, vì chưa thể thu được lượng Moscovium đủ lớn để xác định trực tiếp cấu trúc tinh thể.</li></ul>",
@@ -353,6 +404,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Moscovium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -361,6 +417,7 @@
     "sourceSha256": "c71ab035fd58208dc040b1080c61d5b33d4bca903d75ff70d53eb2030aa2ea7c",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/115_Mc.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/moscovium-mc/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/moscovium-mc/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/moscovium-mc/audit.md"
   }
 }

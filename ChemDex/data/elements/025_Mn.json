@@ -61,7 +61,149 @@
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "α-Mn ở nhiệt độ thường có ô lập phương phức tạp, 58 nguyên tử/ô (I-43m); không phải BCC đơn nguyên tử.",
     "latticeEvidence": "source-reviewed",
-    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
+    "publishedCrystalStatus": "available",
+    "publishedCrystal": {
+      "id": "nguyen-to-mn",
+      "symbol": "Mn",
+      "referenceId": "amcsd:0009311",
+      "amcsdId": "0009311",
+      "mineralName": "Manganese-alpha",
+      "formula": "Mn29",
+      "spaceGroup": "I -4 3 m",
+      "cell": {
+        "a": 8.9125,
+        "b": 8.9125,
+        "c": 8.9125,
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
+      },
+      "volume": 707.9435488281249,
+      "siteCount": 58,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Gazzara C P",
+          "Middleton R M",
+          "Weiss R J",
+          "Hall E O"
+        ],
+        "title": "A refinement of the parameters of alpha manganese\n Localilty: synthetic\n Sample: at T = 298K",
+        "journal": "Acta Crystallographica",
+        "year": 1967,
+        "volume": "22",
+        "pages": "859–862"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Pha α-Mn, I-43m: 58 nguyên tử trong ô lập phương quy ước, 29 trong ô nguyên thủy. BCC ở đây là mạng Bravais, không phải ô BCC đơn giản chỉ có 2 nguyên tử.",
+      "limitations": "",
+      "pearsonSymbol": null,
+      "primaryReference": null,
+      "data": "/assets/periodic-table/crystals/nguyen-to-mn.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-mn.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-mn.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-mn.png",
+      "wiki": {
+        "symbol": "Mn",
+        "number": 25,
+        "name": "Manganese",
+        "article": "https://en.wikipedia.org/wiki/Manganese",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_manganese",
+        "revisionId": 1282813702,
+        "revisionTimestamp": "2025-03-28T19:33:36Z",
+        "retrievedAt": "2026-11-11T23:29:05.211Z",
+        "status": "available",
+        "fields": {
+          "phase": {
+            "text": "",
+            "raw": ""
+          },
+          "phase comment": {
+            "text": "",
+            "raw": ""
+          },
+          "crystal structure": {
+            "text": "body-centered cubic",
+            "raw": "body-centered cubic"
+          },
+          "crystal structure prefix": {
+            "text": "α-Mn:",
+            "raw": "α-Mn:"
+          },
+          "crystal structure pearson symbol": {
+            "text": "cI58",
+            "raw": "cI58"
+          },
+          "lattice constant": {
+            "text": "a = 891.16 pm (at 20 °C)",
+            "raw": "''a''&nbsp;=&nbsp;891.16&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+          }
+        }
+      },
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Manganese",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_manganese",
+        "revisionId": 1282813702,
+        "revisionTimestamp": "2025-03-28T19:33:36Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "body-centered cubic",
+            "prefix": "α-Mn:",
+            "comment": "",
+            "pearson": "cI58",
+            "lattice": "a = 891.16 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-mn",
+        "modelKind": "bcc",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 8.9116,
+            "modelAngstrom": 8.9125,
+            "relativeDifferencePercent": 0.010099196552803974
+          }
+        ],
+        "notes": [
+          "α-Mn là cI58, 58 nguyên tử/ô quy ước; không dựng ô BCC đơn giản chỉ có 2 nguyên tử."
+        ],
+        "additionalSources": []
+      }
+    },
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Manganese",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_manganese",
+      "revisionId": 1282813702,
+      "revisionTimestamp": "2025-03-28T19:33:36Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "body-centered cubic",
+          "prefix": "α-Mn:",
+          "comment": "",
+          "pearson": "cI58",
+          "lattice": "a = 891.16 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-mn",
+      "modelKind": "bcc",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 8.9116,
+          "modelAngstrom": 8.9125,
+          "relativeDifferencePercent": 0.010099196552803974
+        }
+      ],
+      "notes": [
+        "α-Mn là cI58, 58 nguyên tử/ô quy ước; không dựng ô BCC đơn giản chỉ có 2 nguyên tử."
+      ],
+      "additionalSources": []
+    }
   },
   "structureType": "α-Mn ở nhiệt độ thường có ô lập phương phức tạp, 58 nguyên tử/ô (I-43m); không phải BCC đơn nguyên tử.",
   "occurrence": {
@@ -113,9 +255,9 @@
             "a": 4.396,
             "b": 4.396,
             "c": 2.871,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 55.481546736,
           "siteCount": 6,
@@ -404,37 +546,127 @@
     {
       "title": "Sản xuất thép",
       "desc": "Manganese là nguyên tố hợp kim quan trọng, giúp tăng độ cứng, độ bền và khả năng chịu mài mòn của thép.",
-      "sourceLine": 90
+      "sourceLine": 90,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "steel",
+        "source": "https://commons.wikimedia.org/wiki/File:SteelMill_interior.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/steel.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:SteelMill_interior.jpg",
+        "author": "Payton Chung from DC, USA",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "alt": "Sản xuất thép — Steelmaking",
+        "caption": "Minh họa lĩnh vực sản xuất thép · Steelmaking.",
+        "topic": "steel",
+        "role": "application-context"
+      }
     },
     {
       "title": "Ferromanganese",
       "desc": "Được sử dụng rộng rãi trong luyện thép.",
-      "sourceLine": 91
+      "sourceLine": 91,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "steel",
+        "source": "https://commons.wikimedia.org/wiki/File:SteelMill_interior.jpg"
+      }
     },
     {
       "title": "Pin",
       "desc": "Manganese dioxide (MnO₂) được sử dụng trong một số loại pin, đặc biệt là pin Zinc–carbon và Alkaline.",
-      "sourceLine": 92
+      "sourceLine": 92,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "battery",
+        "source": "https://commons.wikimedia.org/wiki/File:Batteries.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/battery.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Batteries.jpg",
+        "author": "en:User:Brianiac",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Pin — Battery (electricity)",
+        "caption": "Minh họa lĩnh vực pin · Battery (electricity).",
+        "topic": "battery",
+        "role": "application-context"
+      }
     },
     {
       "title": "Sản xuất hợp kim",
       "desc": "Manganese được sử dụng trong nhiều hợp kim của sắt và các kim loại khác.",
-      "sourceLine": 93
+      "sourceLine": 93,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "alloy",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/alloy.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg",
+        "author": "Bill Abbott",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Sản xuất hợp kim — Alloy",
+        "caption": "Minh họa lĩnh vực sản xuất hợp kim · Alloy.",
+        "topic": "alloy",
+        "role": "application-context"
+      }
     },
     {
       "title": "Xử lý thủy tinh",
       "desc": "Một số Manganese compounds được sử dụng để tạo màu hoặc khử màu thủy tinh.",
-      "sourceLine": 94
+      "sourceLine": 94,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "glass",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/glass.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg",
+        "author": "Ansgar Koreng",
+        "license": "CC BY 3.0 de",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/de/deed.en",
+        "alt": "Xử lý thủy tinh — Glass",
+        "caption": "Minh họa lĩnh vực xử lý thủy tinh · Glass.",
+        "topic": "glass",
+        "role": "application-context"
+      }
     },
     {
       "title": "Phân bón",
       "desc": "Một số Manganese compounds được sử dụng làm nguồn Manganese cho cây trồng.",
-      "sourceLine": 95
+      "sourceLine": 95,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "fertilizer",
+        "source": "https://commons.wikimedia.org/wiki/File:Manure_spreading_Hlokozi_2007_11_29.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/fertilizer.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Manure_spreading_Hlokozi_2007_11_29.jpg",
+        "author": "Alandmanson",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Phân bón — Fertilizer",
+        "caption": "Minh họa lĩnh vực phân bón · Fertilizer.",
+        "topic": "fertilizer",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hóa chất",
       "desc": "Potassium permanganate (KMnO₄) là một chất Oxy hóa quan trọng trong phòng thí nghiệm và công nghiệp.",
-      "sourceLine": 96
+      "sourceLine": 96,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Manganese là nguyên tố số 25, thuộc nhóm VIIB | chu kỳ 4 và là một kim loại chuyển tiếp.</li><li>Manganese có cấu hình electron [Ar] 3d⁵ 4s² và có nhiều số Oxy hóa, từ +2 đến +7. Trong đó, +2 là trạng thái phổ biến nhất, còn +7 xuất hiện trong Permanganate.</li><li>Manganese có vai trò đặc biệt quan trọng trong luyện thép, đặc biệt là sản xuất Ferromanganese. Ngoài ra, các hợp chất như Manganese dioxide và Potassium permanganate có nhiều ứng dụng trong pin và công nghiệp hóa chất.</li><li>Trong tự nhiên, Manganese chủ yếu tồn tại trong các khoáng vật như Pyrolusite (MnO₂) và thường được khai thác cùng hoặc gần các quặng sắt.</li></ul>",
@@ -475,9 +707,9 @@
           "a": 4.396,
           "b": 4.396,
           "c": 2.871,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 55.481546736,
         "siteCount": 6,
@@ -542,6 +774,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Manganese",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -550,6 +787,7 @@
     "sourceSha256": "6b6c76002c8bc00f1a6923235bb5600a78bef8e61dddee7ec61b07c89049bd7a",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/025_Mn.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/mangan-mn/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/mangan-mn/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/mangan-mn/audit.md"
   }
 }

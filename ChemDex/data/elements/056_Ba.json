@@ -75,9 +75,9 @@
         "a": 5.013,
         "b": 5.013,
         "c": 5.013,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 90.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
       },
       "volume": 125.97753719699999,
       "siteCount": 2,
@@ -101,9 +101,67 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-ba.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-ba.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-ba.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-ba.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-ba.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Barium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_barium",
+        "revisionId": 1284272728,
+        "revisionTimestamp": "2025-04-06T15:59:10Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "body-centered cubic",
+            "prefix": "",
+            "comment": "",
+            "pearson": "cI2",
+            "lattice": "a = 502.5 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-ba",
+        "modelKind": "bcc",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 5.025,
+            "modelAngstrom": 5.013,
+            "relativeDifferencePercent": 0.23880597014926275
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Barium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_barium",
+      "revisionId": 1284272728,
+      "revisionTimestamp": "2025-04-06T15:59:10Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "body-centered cubic",
+          "prefix": "",
+          "comment": "",
+          "pearson": "cI2",
+          "lattice": "a = 502.5 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-ba",
+      "modelKind": "bcc",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 5.025,
+          "modelAngstrom": 5.013,
+          "relativeDifferencePercent": 0.23880597014926275
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lập phương tâm khối (Body-centered cubic, BCC)",
   "occurrence": {
@@ -153,9 +211,9 @@
             "a": 8.8842,
             "b": 5.4559,
             "c": 7.1569,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 346.904295493782,
           "siteCount": 24,
@@ -526,32 +584,117 @@
     {
       "title": "Y tế",
       "desc": "Barium sulfate (BaSO₄) được sử dụng làm chất cản quang trong một số phương pháp chẩn đoán hình ảnh đường tiêu hóa.",
-      "sourceLine": 86
+      "sourceLine": 86,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "nuclear-medicine",
+        "source": "https://commons.wikimedia.org/wiki/File:Lung_scintigraphy_keosys.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/nuclear-medicine.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Lung_scintigraphy_keosys.JPG",
+        "author": "Mco44 ( talk )",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Y tế — Gamma camera",
+        "caption": "Minh họa lĩnh vực y tế · Gamma camera.",
+        "topic": "nuclear-medicine",
+        "role": "application-context"
+      }
     },
     {
       "title": "Khoan dầu khí",
       "desc": "Barite (BaSO₄) được sử dụng trong dung dịch khoan nhờ khối lượng riêng cao.",
-      "sourceLine": 87
+      "sourceLine": 87,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "drilling",
+        "source": "https://commons.wikimedia.org/wiki/File:Large_hole_drilling_rig.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/drilling.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Large_hole_drilling_rig.jpg",
+        "author": "Olga Ernst",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Khoan dầu khí — Drilling rig",
+        "caption": "Minh họa lĩnh vực khoan dầu khí · Drilling rig.",
+        "topic": "drilling",
+        "role": "application-context"
+      }
     },
     {
       "title": "Pháo hoa",
       "desc": "Một số hợp chất Barium tạo màu xanh lục trong pháo hoa.",
-      "sourceLine": 88
+      "sourceLine": 88,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "firework",
+        "source": "https://commons.wikimedia.org/wiki/File:New_Year%27s_Eve_on_Sydney_Harbour.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/firework.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:New_Year%27s_Eve_on_Sydney_Harbour.jpg",
+        "author": "Rob Chandler",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Pháo hoa — Fireworks",
+        "caption": "Minh họa lĩnh vực pháo hoa · Fireworks.",
+        "topic": "firework",
+        "role": "application-context"
+      }
     },
     {
       "title": "Sản xuất thủy tinh",
       "desc": "Barium compounds được sử dụng trong một số loại kính và thủy tinh đặc biệt.",
-      "sourceLine": 89
+      "sourceLine": 89,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "glass",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/glass.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg",
+        "author": "Ansgar Koreng",
+        "license": "CC BY 3.0 de",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/de/deed.en",
+        "alt": "Sản xuất thủy tinh — Glass",
+        "caption": "Minh họa lĩnh vực sản xuất thủy tinh · Glass.",
+        "topic": "glass",
+        "role": "application-context"
+      }
     },
     {
       "title": "Gốm",
       "desc": "Một số hợp chất Barium được sử dụng trong sản xuất gốm và vật liệu điện tử.",
-      "sourceLine": 90
+      "sourceLine": 90,
+      "imageReview": {
+        "status": "source-link",
+        "topic": "ceramic",
+        "source": "https://commons.wikimedia.org/wiki/Special:MediaSearch?type=image&search=Technical%20ceramics"
+      }
     },
     {
       "title": "Điện tử",
       "desc": "Barium titanate (BaTiO₃) được sử dụng trong tụ điện và các vật liệu điện môi.",
-      "sourceLine": 91
+      "sourceLine": 91,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "capacitor",
+        "source": "https://commons.wikimedia.org/wiki/File:Tantal-P1100196c.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/capacitor.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Tantal-P1100196c.jpg",
+        "author": "Elcap, Jens Both",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+        "alt": "Điện tử — Tantalum capacitor",
+        "caption": "Minh họa lĩnh vực điện tử · Tantalum capacitor.",
+        "topic": "capacitor",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Barium là nguyên tố số 56, thuộc nhóm IIA | chu kỳ 6 và là một kim loại kiềm thổ.</li><li>Barium có cấu hình electron [Xe] 6s², với số Oxy hóa đặc trưng là +2.</li><li>Barium là kim loại trắng bạc, tương đối mềm và hoạt động hóa học mạnh. Trong tự nhiên, Barium chủ yếu tồn tại trong các khoáng vật Barite (BaSO₄) và Witherite (BaCO₃).</li><li>Ion Ba²⁺ có thể được nhận biết thông qua kết tủa trắng BaSO₄, trong khi các hợp chất Barium có thể tạo màu xanh lục đặc trưng trong phép thử ngọn lửa.</li><li>Barium có nhiều ứng dụng trong y tế, khoan dầu khí, sản xuất thủy tinh, gốm, pháo hoa và vật liệu điện tử.</li></ul>",
@@ -592,9 +735,9 @@
           "a": 8.8842,
           "b": 5.4559,
           "c": 7.1569,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 346.904295493782,
         "siteCount": 24,
@@ -659,6 +802,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Barium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -667,6 +815,7 @@
     "sourceSha256": "a9d1de52bdb5bb8029d4652360b6794619d696b777f23a768e686c57cea425f3",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/056_Ba.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/bari-ba/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/bari-ba/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/bari-ba/audit.md"
   }
 }

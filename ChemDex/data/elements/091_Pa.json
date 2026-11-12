@@ -67,7 +67,156 @@
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Tứ phương tâm khối (BCT)",
     "latticeEvidence": "source-reviewed",
-    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
+    "publishedCrystalStatus": "available",
+    "publishedCrystal": {
+      "id": "nguyen-to-pa",
+      "symbol": "Pa",
+      "referenceId": "wiki-pa-1378903902",
+      "amcsdId": null,
+      "mineralName": "Protactinium",
+      "formula": "Pa",
+      "spaceGroup": "I 4/m m m",
+      "cell": {
+        "a": 3.921,
+        "b": 3.921,
+        "c": 3.235,
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
+      },
+      "volume": 49.735669634999994,
+      "siteCount": 2,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "John W. Arblaster"
+        ],
+        "title": "Selected Values of the Crystallographic Properties of Elements; thông số được Wikipedia trích dẫn, tại 20 °C (Ra: gần nhiệt độ phòng). Vị trí Wyckoff lý tưởng của prototype tI2.",
+        "journal": "ASM International, ISBN 978-1-62708-155-9",
+        "year": 2018,
+        "volume": "",
+        "pages": ""
+      },
+      "source": "https://en.wikipedia.org/wiki/Protactinium",
+      "evidence": "reference-prototype",
+      "note": "Mạng tứ phương tâm khối: a = b khác c, không dùng khối lập phương BCC thay thế.",
+      "limitations": "Tọa độ Wyckoff lý tưởng được dựng từ prototype và thông số mạng được trích dẫn; không phải bộ tinh chỉnh vị trí nguyên tử thực nghiệm độc lập.",
+      "pearsonSymbol": "tI2",
+      "primaryReference": null,
+      "data": "/assets/periodic-table/crystals/nguyen-to-pa.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-pa.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-pa.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-pa.png",
+      "wiki": {
+        "symbol": "Pa",
+        "number": 91,
+        "name": "Protactinium",
+        "article": "https://en.wikipedia.org/wiki/Protactinium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_protactinium",
+        "revisionId": 1378903902,
+        "revisionTimestamp": "2026-10-06T20:56:40Z",
+        "retrievedAt": "2026-11-11T23:29:14.972Z",
+        "status": "available",
+        "fields": {
+          "phase": {
+            "text": "",
+            "raw": ""
+          },
+          "crystal structure": {
+            "text": "body-centered tetragonal",
+            "raw": "body-centered tetragonal"
+          },
+          "crystal structure ref": {
+            "text": "",
+            "raw": "<ref name=str>{{cite journal|last1=Donohue|first1=J.|title=On the crystal structure of protactinium metal|journal=[[Acta Crystallographica]]|volume=12|pages=697|year=1959|doi=10.1107/S0365110X59002031|issue=9}}</ref>"
+          },
+          "crystal structure pearson symbol": {
+            "text": "tI2",
+            "raw": "tI2"
+          },
+          "lattice constant": {
+            "text": "a = 392.1 pm; c = 323.5 pm (at 20 °C)",
+            "raw": "''a''&nbsp;=&nbsp;392.1&nbsp;pm<br />''c''&nbsp;=&nbsp;323.5&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+          }
+        }
+      },
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Protactinium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_protactinium",
+        "revisionId": 1378903902,
+        "revisionTimestamp": "2026-10-06T20:56:40Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "body-centered tetragonal",
+            "prefix": "",
+            "comment": "",
+            "pearson": "tI2",
+            "lattice": "a = 392.1 pm; c = 323.5 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-pa",
+        "modelKind": "tetragonal",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 3.9210000000000003,
+            "modelAngstrom": 3.921,
+            "relativeDifferencePercent": 1.1325917109157425e-14
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "c",
+            "wikiAngstrom": 3.235,
+            "modelAngstrom": 3.235,
+            "relativeDifferencePercent": 0
+          }
+        ],
+        "notes": [
+          "Tọa độ Wyckoff lý tưởng được dựng từ prototype; thông số mạng lấy từ tài liệu tham chiếu được nêu. Wiki dùng để đối chiếu kiểu mạng. Đây là mức chứng cứ khác với bộ tinh chỉnh nguyên tử thực nghiệm."
+        ],
+        "additionalSources": []
+      }
+    },
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Protactinium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_protactinium",
+      "revisionId": 1378903902,
+      "revisionTimestamp": "2026-10-06T20:56:40Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "body-centered tetragonal",
+          "prefix": "",
+          "comment": "",
+          "pearson": "tI2",
+          "lattice": "a = 392.1 pm; c = 323.5 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-pa",
+      "modelKind": "tetragonal",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 3.9210000000000003,
+          "modelAngstrom": 3.921,
+          "relativeDifferencePercent": 1.1325917109157425e-14
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "c",
+          "wikiAngstrom": 3.235,
+          "modelAngstrom": 3.235,
+          "relativeDifferencePercent": 0
+        }
+      ],
+      "notes": [
+        "Tọa độ Wyckoff lý tưởng được dựng từ prototype; thông số mạng lấy từ tài liệu tham chiếu được nêu. Wiki dùng để đối chiếu kiểu mạng. Đây là mức chứng cứ khác với bộ tinh chỉnh nguyên tử thực nghiệm."
+      ],
+      "additionalSources": []
+    }
   },
   "structureType": "Tứ phương tâm khối (BCT)",
   "occurrence": {
@@ -117,9 +266,9 @@
             "a": 5.4682,
             "b": 5.4682,
             "c": 5.4682,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 163.50580330256804,
           "siteCount": 12,
@@ -408,27 +557,63 @@
     {
       "title": "Nghiên cứu hạt nhân",
       "desc": "Protactinium chủ yếu được sử dụng trong nghiên cứu khoa học, đặc biệt là nghiên cứu chuỗi phân rã phóng xạ và cấu trúc hạt nhân.",
-      "sourceLine": 83
+      "sourceLine": 83,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/research.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "author": "LSDSL",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nghiên cứu hạt nhân — Particle accelerator",
+        "caption": "Minh họa lĩnh vực nghiên cứu hạt nhân · Particle accelerator.",
+        "topic": "research",
+        "role": "application-context"
+      }
     },
     {
       "title": "Địa chất và địa niên đại",
       "desc": "Hệ đồng vị ²³¹Pa–²³⁰Th được sử dụng trong một số phương pháp nghiên cứu tuổi và lịch sử trầm tích biển, nhờ chu kỳ bán rã tương đối dài của ²³¹Pa.",
-      "sourceLine": 84
+      "sourceLine": 84,
+      "imageReview": {
+        "status": "source-link",
+        "topic": "geology",
+        "source": "https://commons.wikimedia.org/wiki/Special:MediaSearch?type=image&search=Radiometric%20dating"
+      }
     },
     {
       "title": "Nghiên cứu Uranium",
       "desc": "Protactinium là một sản phẩm trung gian quan trọng trong chuỗi phân rã Uranium, giúp các nhà khoa học nghiên cứu sự biến đổi phóng xạ tự nhiên.",
-      "sourceLine": 85
+      "sourceLine": 85,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      }
     },
     {
       "title": "Nghiên cứu hóa học Actinide",
       "desc": "Các hợp chất của Protactinium được nghiên cứu để hiểu rõ hơn về tính chất hóa học của các nguyên tố Actinide.",
-      "sourceLine": 86
+      "sourceLine": 86,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      }
     },
     {
       "title": "Ứng dụng",
       "desc": "Do độ hiếm, tính phóng xạ và độc tính, Protactinium hầu như không có ứng dụng công nghiệp hoặc thương mại thông thường.",
-      "sourceLine": 87
+      "sourceLine": 87,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Protactinium là nguyên tố số 91, thuộc nhóm IIIB | chu kỳ 7 và là nguyên tố thứ ba trong họ Actinide.</li><li>Protactinium được Kasimir Fajans và Oswald Helmuth Göhring phát hiện vào năm 1913. Sau đó, Lise Meitner và Otto Hahn đã xác định đồng vị sống lâu hơn ²³¹Pa vào năm 1917.</li><li>Tên Protactinium có nghĩa là “tiền thân của Actinium”, vì ²³¹Pa phân rã alpha tạo thành ²²⁷Ac.</li><li>Protactinium là một kim loại phóng xạ cực hiếm, có các trạng thái Oxy hóa chủ yếu là +5 và +4. Đồng vị tự nhiên quan trọng nhất là ²³¹Pa, có chu kỳ bán rã khoảng 32.760 năm.</li><li>Protactinium gần như không có ứng dụng đời sống thông thường. Giá trị chủ yếu của nó nằm trong nghiên cứu hạt nhân, hóa học Actinide và địa niên đại, đặc biệt thông qua hệ ²³¹Pa–²³⁰Th.</li><li>Mạng tinh thể: Tứ phương tâm khối (BCT) ở điều kiện thường.</li></ul>",
@@ -469,9 +654,9 @@
           "a": 5.4682,
           "b": 5.4682,
           "c": 5.4682,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 163.50580330256804,
         "siteCount": 12,
@@ -536,6 +721,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Protactinium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -544,6 +734,7 @@
     "sourceSha256": "007db987f3ee0c168d4da775fdf12d2c1443ddd1008bea2840ced416f479b51a",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/091_Pa.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/protactinium-pa/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/protactinium-pa/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/protactinium-pa/audit.md"
   }
 }

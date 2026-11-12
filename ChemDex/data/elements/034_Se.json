@@ -71,9 +71,9 @@
         "a": 4.3662,
         "b": 4.3662,
         "c": 4.9536,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 120.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 120
       },
       "volume": 81.7822052281472,
       "siteCount": 3,
@@ -96,9 +96,81 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-se.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-se.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-se.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-se.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-se.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Selenium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_selenium",
+        "revisionId": 1280757025,
+        "revisionTimestamp": "2025-03-16T08:25:07Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "hexagonal",
+            "prefix": "grey:",
+            "comment": "",
+            "pearson": "hP3",
+            "lattice": "a = 436.46 pm; c = 495.77 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-se",
+        "modelKind": "hexagonal",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 4.3646,
+            "modelAngstrom": 4.3662,
+            "relativeDifferencePercent": 0.036658571232182184
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "c",
+            "wikiAngstrom": 4.9577,
+            "modelAngstrom": 4.9536,
+            "relativeDifferencePercent": 0.08269963894548307
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Selenium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_selenium",
+      "revisionId": 1280757025,
+      "revisionTimestamp": "2025-03-16T08:25:07Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "hexagonal",
+          "prefix": "grey:",
+          "comment": "",
+          "pearson": "hP3",
+          "lattice": "a = 436.46 pm; c = 495.77 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-se",
+      "modelKind": "hexagonal",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 4.3646,
+          "modelAngstrom": 4.3662,
+          "relativeDifferencePercent": 0.036658571232182184
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "c",
+          "wikiAngstrom": 4.9577,
+          "modelAngstrom": 4.9536,
+          "relativeDifferencePercent": 0.08269963894548307
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lục phương (Hexagonal)",
   "occurrence": {
@@ -150,9 +222,9 @@
             "a": 6.1213,
             "b": 6.1213,
             "c": 6.1213,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 229.36703119059698,
           "siteCount": 8,
@@ -490,37 +562,138 @@
     {
       "title": "Điện tử",
       "desc": "Selenium có tính quang dẫn nên từng được sử dụng trong một số thiết bị quang điện.",
-      "sourceLine": 95
+      "sourceLine": 95,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "electronics",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/electronics.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg",
+        "author": "Raimond Spekking",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Điện tử — Printed circuit board",
+        "caption": "Minh họa lĩnh vực điện tử · Printed circuit board.",
+        "topic": "electronics",
+        "role": "application-context"
+      }
     },
     {
       "title": "Kính",
       "desc": "Selenium compounds được sử dụng để khử màu hoặc tạo màu cho thủy tinh.",
-      "sourceLine": 96
+      "sourceLine": 96,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "glass",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/glass.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg",
+        "author": "Ansgar Koreng",
+        "license": "CC BY 3.0 de",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/de/deed.en",
+        "alt": "Kính — Glass",
+        "caption": "Minh họa lĩnh vực kính · Glass.",
+        "topic": "glass",
+        "role": "application-context"
+      }
     },
     {
       "title": "Pigment",
       "desc": "Một số Selenium compounds được sử dụng để tạo pigment màu đỏ.",
-      "sourceLine": 97
+      "sourceLine": 97,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "pigment",
+        "source": "https://commons.wikimedia.org/wiki/File:Indian_pigments.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/pigment.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Indian_pigments.jpg",
+        "author": "Dan Brady",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "alt": "Pigment — Pigment",
+        "caption": "Minh họa lĩnh vực pigment · Pigment.",
+        "topic": "pigment",
+        "role": "application-context"
+      }
     },
     {
       "title": "Solar cells",
       "desc": "Selenium được sử dụng trong một số vật liệu quang điện và công nghệ tế bào mặt trời.",
-      "sourceLine": 98
+      "sourceLine": 98,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Luyện kim",
       "desc": "Selenium được thêm vào một số hợp kim để cải thiện khả năng gia công.",
-      "sourceLine": 99
+      "sourceLine": 99,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "alloy",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/alloy.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg",
+        "author": "Bill Abbott",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Luyện kim — Alloy",
+        "caption": "Minh họa lĩnh vực luyện kim · Alloy.",
+        "topic": "alloy",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nông nghiệp",
       "desc": "Selenium là nguyên tố vi lượng cần thiết với một số sinh vật, nhưng lượng quá cao có thể gây độc.",
-      "sourceLine": 100
+      "sourceLine": 100,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "fertilizer",
+        "source": "https://commons.wikimedia.org/wiki/File:Manure_spreading_Hlokozi_2007_11_29.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/fertilizer.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Manure_spreading_Hlokozi_2007_11_29.jpg",
+        "author": "Alandmanson",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Nông nghiệp — Fertilizer",
+        "caption": "Minh họa lĩnh vực nông nghiệp · Fertilizer.",
+        "topic": "fertilizer",
+        "role": "application-context"
+      }
     },
     {
       "title": "Công nghiệp hóa chất",
       "desc": "Selenium compounds được sử dụng trong một số quá trình tổng hợp hóa học.",
-      "sourceLine": 101
+      "sourceLine": 101,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "chemical-industry",
+        "source": "https://commons.wikimedia.org/wiki/File:BASF_Schwarzheide_GmbH_Werksansicht_01.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/chemical-industry.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:BASF_Schwarzheide_GmbH_Werksansicht_01.jpg",
+        "author": "Goku4711",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Công nghiệp hóa chất — Chemical plant",
+        "caption": "Minh họa lĩnh vực công nghiệp hóa chất · Chemical plant.",
+        "topic": "chemical-industry",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Selenium là nguyên tố số 34, thuộc nhóm VIA | chu kỳ 4 và thuộc nhóm Chalcogen.</li><li>Selenium có cấu hình electron [Ar] 3d¹⁰ 4s² 4p⁴, với các số Oxy hóa phổ biến là −2, +4 và +6.</li><li>Selenium có nhiều dạng thù hình, trong đó Selenium xám có ánh kim và thể hiện tính quang dẫn rõ rệt. Trong tự nhiên, Selenium thường tồn tại với hàm lượng nhỏ trong các quặng Sulfide của Copper, Lead, Silver và Nickel.</li><li>Selenium có ứng dụng trong công nghiệp thủy tinh, điện tử, vật liệu quang điện, luyện kim và hóa chất. Đồng thời, Selenium là nguyên tố vi lượng quan trọng đối với sinh vật ở lượng thích hợp.</li></ul>",
@@ -561,9 +734,9 @@
           "a": 6.1213,
           "b": 6.1213,
           "c": 6.1213,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 229.36703119059698,
         "siteCount": 8,
@@ -634,6 +807,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Selenium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -642,6 +820,7 @@
     "sourceSha256": "a7ef1344d42324586baa3129517fcb0f6265ff394c170aa0163226c3d0d058c8",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/034_Se.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/selen-se/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/selen-se/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/selen-se/audit.md"
   }
 }

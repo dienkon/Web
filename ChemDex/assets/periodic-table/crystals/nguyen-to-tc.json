@@ -1,0 +1,134 @@
+{
+  "id": "nguyen-to-tc",
+  "symbol": "Tc",
+  "referenceId": "wiki-tc-1309724402",
+  "amcsdId": null,
+  "mineralName": "Technetium",
+  "formula": "Tc",
+  "spaceGroup": "P 63/m m c",
+  "cell": {
+    "a": 2.7412,
+    "b": 2.7412,
+    "c": 4.399,
+    "alpha": 90,
+    "beta": 90,
+    "gamma": 120
+  },
+  "basis": [
+    [
+      2.7412,
+      -1.3705999999999994,
+      0.0
+    ],
+    [
+      0.0,
+      2.3739488368539035,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      4.399
+    ]
+  ],
+  "volume": 28.62635415841767,
+  "declaredVolume": 28.62635415841767,
+  "symmetryOperations": [
+    "x,y,z",
+    "x-y,x,z+1/2",
+    "-y,x-y,z",
+    "-x,-y,z+1/2",
+    "-x+y,-x,z",
+    "y,-x+y,z+1/2",
+    "-y,-x,-z+1/2",
+    "-x,-x+y,-z",
+    "-x+y,y,-z+1/2",
+    "y,x,-z",
+    "x,x-y,-z+1/2",
+    "x-y,-y,-z",
+    "-x,-y,-z",
+    "-x+y,-x,-z+1/2",
+    "y,-x+y,-z",
+    "x,y,-z+1/2",
+    "x-y,x,-z",
+    "-y,x-y,-z+1/2",
+    "y,x,z+1/2",
+    "x,x-y,z",
+    "x-y,-y,z+1/2",
+    "-y,-x,z",
+    "-x,-x+y,z+1/2",
+    "-x+y,y,z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Tc1",
+      "element": "Tc",
+      "fractional": [
+        0.3333333333333333,
+        0.6666666666666666,
+        0.25
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "label": "Tc1",
+      "element": "Tc",
+      "fractional": [
+        0.33333333,
+        0.66666667,
+        0.25
+      ],
+      "position": [
+        -0.0,
+        1.5826326,
+        1.09975
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Tc1",
+      "element": "Tc",
+      "fractional": [
+        0.66666667,
+        0.33333333,
+        0.75
+      ],
+      "position": [
+        1.3706,
+        0.7913163,
+        3.29925
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 2,
+  "speciesPositionCount": 2,
+  "cellComposition": {
+    "Tc": 2
+  },
+  "mixedSiteCount": 0,
+  "source": "https://en.wikipedia.org/wiki/Technetium",
+  "transport": "https://en.wikipedia.org/wiki/Template:Infobox_technetium",
+  "reference": {
+    "authors": [
+      "John W. Arblaster"
+    ],
+    "title": "Selected Values of the Crystallographic Properties of Elements; thông số được Wikipedia trích dẫn, tại 20 °C (Ra: gần nhiệt độ phòng). Vị trí Wyckoff lý tưởng của prototype hP2.",
+    "journal": "ASM International, ISBN 978-1-62708-155-9",
+    "year": 2018,
+    "volume": "",
+    "pages": ""
+  },
+  "evidence": "reference-prototype",
+  "pearsonSymbol": "hP2",
+  "note": "HCP hai lớp AB, hai nguyên tử/ô. Thông số Wiki tại 20 °C; không dùng cùng một hình học cho DHCP.",
+  "limitations": "Tọa độ Wyckoff lý tưởng được dựng từ prototype và thông số mạng được trích dẫn; không phải bộ tinh chỉnh vị trí nguyên tử thực nghiệm độc lập.",
+  "coordinatePrecision": "Ideal prototype coordinates; the number of shown digits is not experimental uncertainty.",
+  "validation": {
+    "operatorCount": 24,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 0
+  }
+}

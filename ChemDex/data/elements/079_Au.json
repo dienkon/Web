@@ -75,9 +75,9 @@
         "a": 4.072,
         "b": 4.072,
         "c": 4.072,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 90.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
       },
       "volume": 67.518581248,
       "siteCount": 4,
@@ -101,9 +101,67 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-au.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-au.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-au.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-au.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-au.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Gold",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_gold",
+        "revisionId": 1384103886,
+        "revisionTimestamp": "2026-11-06T16:28:51Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "face centered cubic",
+            "prefix": "",
+            "comment": "",
+            "pearson": "cF4",
+            "lattice": "a = 407.86 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-au",
+        "modelKind": "fcc",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 4.0786,
+            "modelAngstrom": 4.072,
+            "relativeDifferencePercent": 0.16182023243269056
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Gold",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_gold",
+      "revisionId": 1384103886,
+      "revisionTimestamp": "2026-11-06T16:28:51Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "face centered cubic",
+          "prefix": "",
+          "comment": "",
+          "pearson": "cF4",
+          "lattice": "a = 407.86 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-au",
+      "modelKind": "fcc",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 4.0786,
+          "modelAngstrom": 4.072,
+          "relativeDifferencePercent": 0.16182023243269056
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lập phương tâm mặt (Face-centered cubic, FCC)",
   "occurrence": {
@@ -152,9 +210,9 @@
             "a": 4.072,
             "b": 4.072,
             "c": 4.072,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 67.518581248,
           "siteCount": 4,
@@ -393,32 +451,128 @@
     {
       "title": "Trang sức",
       "desc": "Gold được sử dụng rộng rãi trong trang sức nhờ màu sắc đặc trưng, độ bền và khả năng chống ăn mòn.",
-      "sourceLine": 83
+      "sourceLine": 83,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "jewelry",
+        "source": "https://commons.wikimedia.org/wiki/File:Pectoral_and_Necklace_of_Sithathoryunet_with_the_Name_of_Senwosret_II_MET_DT531.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/jewelry.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Pectoral_and_Necklace_of_Sithathoryunet_with_the_Name_of_Senwosret_II_MET_DT531.jpg",
+        "author": "This file was donated to Wikimedia Commons as part of a project by the Metropolitan Museum of Art . See the Image and Data Resources Open Access Policy",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "alt": "Trang sức — Jewellery",
+        "caption": "Minh họa lĩnh vực trang sức · Jewellery.",
+        "topic": "jewelry",
+        "role": "application-context"
+      }
     },
     {
       "title": "Tài chính",
       "desc": "Gold được sử dụng làm tài sản dự trữ và trong một số loại tiền xu, thỏi Gold.",
-      "sourceLine": 84
+      "sourceLine": 84,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "gold-bar",
+        "source": "https://commons.wikimedia.org/wiki/File:Gold_bullion_2.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/gold-bar.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Gold_bullion_2.jpg",
+        "author": "Szaaman",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Tài chính — Gold bar",
+        "caption": "Minh họa lĩnh vực tài chính · Gold bar.",
+        "topic": "gold-bar",
+        "role": "application-context"
+      }
     },
     {
       "title": "Điện tử",
       "desc": "Gold được sử dụng trong các đầu nối, tiếp điểm và dây dẫn điện tử nhờ khả năng dẫn điện và chống Oxy hóa.",
-      "sourceLine": 85
+      "sourceLine": 85,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "electronics",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/electronics.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg",
+        "author": "Raimond Spekking",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Điện tử — Printed circuit board",
+        "caption": "Minh họa lĩnh vực điện tử · Printed circuit board.",
+        "topic": "electronics",
+        "role": "application-context"
+      }
     },
     {
       "title": "Y học",
       "desc": "Một số hợp chất và đồng vị của Gold được sử dụng trong nghiên cứu và một số ứng dụng y học.",
-      "sourceLine": 86
+      "sourceLine": 86,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/research.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "author": "LSDSL",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Y học — Particle accelerator",
+        "caption": "Minh họa lĩnh vực y học · Particle accelerator.",
+        "topic": "research",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hàng không vũ trụ",
       "desc": "Gold có thể được sử dụng trong lớp phủ của một số thiết bị để phản xạ bức xạ và bảo vệ linh kiện.",
-      "sourceLine": 87
+      "sourceLine": 87,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "spacesuit",
+        "source": "https://commons.wikimedia.org/wiki/File:STS-118_EVA_EMU_Suit.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/spacesuit.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:STS-118_EVA_EMU_Suit.jpg",
+        "author": "NASA",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Hàng không vũ trụ — Extravehicular Mobility Unit",
+        "caption": "Minh họa lĩnh vực hàng không vũ trụ · Extravehicular Mobility Unit.",
+        "topic": "spacesuit",
+        "role": "application-context"
+      }
     },
     {
       "title": "Công nghiệp",
       "desc": "Gold được sử dụng làm chất xúc tác trong một số phản ứng hóa học và trong các vật liệu công nghệ cao.",
-      "sourceLine": 88
+      "sourceLine": 88,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "catalyst",
+        "source": "https://commons.wikimedia.org/wiki/File:Catalysts.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/catalyst.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Catalysts.JPG",
+        "author": "Shubhrapdil",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Công nghiệp — Catalysis",
+        "caption": "Minh họa lĩnh vực công nghiệp · Catalysis.",
+        "topic": "catalyst",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Gold là nguyên tố số 79, thuộc nhóm IB | chu kỳ 6 và là một kim loại chuyển tiếp.</li><li>Gold có cấu hình electron [Xe] 4f¹⁴ 5d¹⁰ 6s¹, với số Oxy hóa phổ biến nhất là +1 và +3.</li><li>Gold nổi bật với màu vàng ánh kim, độ dẻo cao, khả năng dẫn điện tốt và tính trơ hóa học. Nó hầu như không bị Oxy hóa trong không khí và không tan trong hầu hết acid thông thường.</li><li>Gold có giá trị lớn trong trang sức, tài chính, điện tử, công nghệ hàng không vũ trụ và một số ứng dụng y học.</li></ul>",
@@ -459,9 +613,9 @@
           "a": 4.072,
           "b": 4.072,
           "c": 4.072,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 67.518581248,
         "siteCount": 4,
@@ -532,6 +686,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Gold",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -540,6 +699,7 @@
     "sourceSha256": "485bdc85d2b438a1010114b5ef09dd2aa26d7a80cd360ab5f62fcde3f2d93b91",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/079_Au.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/vang-au/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/vang-au/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/vang-au/audit.md"
   }
 }

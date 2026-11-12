@@ -1,0 +1,175 @@
+{
+  "id": "nguyen-to-cm",
+  "symbol": "Cm",
+  "referenceId": "webelements-cm-2026-11-12",
+  "amcsdId": null,
+  "mineralName": "Curium",
+  "formula": "Cm",
+  "spaceGroup": "P 63/m m c",
+  "cell": {
+    "a": 3.496,
+    "b": 3.496,
+    "c": 11.331,
+    "alpha": 90,
+    "beta": 90,
+    "gamma": 120
+  },
+  "basis": [
+    [
+      3.496,
+      -1.7479999999999993,
+      0.0
+    ],
+    [
+      0.0,
+      3.027624811630398,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      11.331
+    ]
+  ],
+  "volume": 119.9338345250818,
+  "declaredVolume": 119.9338345250818,
+  "symmetryOperations": [
+    "x,y,z",
+    "x-y,x,z+1/2",
+    "-y,x-y,z",
+    "-x,-y,z+1/2",
+    "-x+y,-x,z",
+    "y,-x+y,z+1/2",
+    "-y,-x,-z+1/2",
+    "-x,-x+y,-z",
+    "-x+y,y,-z+1/2",
+    "y,x,-z",
+    "x,x-y,-z+1/2",
+    "x-y,-y,-z",
+    "-x,-y,-z",
+    "-x+y,-x,-z+1/2",
+    "y,-x+y,-z",
+    "x,y,-z+1/2",
+    "x-y,x,-z",
+    "-y,x-y,-z+1/2",
+    "y,x,z+1/2",
+    "x,x-y,z",
+    "x-y,-y,z+1/2",
+    "-y,-x,z",
+    "-x,-x+y,z+1/2",
+    "-x+y,y,z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Cm1",
+      "element": "Cm",
+      "fractional": [
+        0,
+        0,
+        0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Cm2",
+      "element": "Cm",
+      "fractional": [
+        0.3333333333333333,
+        0.6666666666666666,
+        0.75
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "label": "Cm1",
+      "element": "Cm",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Cm1",
+      "element": "Cm",
+      "fractional": [
+        0.0,
+        0.0,
+        0.5
+      ],
+      "position": [
+        0.0,
+        0.0,
+        5.6655
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Cm2",
+      "element": "Cm",
+      "fractional": [
+        0.33333333,
+        0.66666667,
+        0.75
+      ],
+      "position": [
+        -0.0,
+        2.0184166,
+        8.49825
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Cm2",
+      "element": "Cm",
+      "fractional": [
+        0.66666667,
+        0.33333333,
+        0.25
+      ],
+      "position": [
+        1.748,
+        1.0092083,
+        2.83275
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 4,
+  "speciesPositionCount": 4,
+  "cellComposition": {
+    "Cm": 4
+  },
+  "mixedSiteCount": 0,
+  "source": "https://www.webelements.com/curium/crystal_structure.html",
+  "transport": "https://www.webelements.com/curium/crystal_structure.html",
+  "reference": {
+    "authors": [
+      "WebElements / Mark J. Winter"
+    ],
+    "title": "Curium — crystal structures; tài liệu được trang liệt kê: B. B. Cunningham and J. C. Wallmann, J. Inorg. Nucl. Chem. 1964, 26, 271.",
+    "journal": "University of Sheffield / WebElements",
+    "year": 2026,
+    "volume": "",
+    "pages": ""
+  },
+  "evidence": "reference-prototype",
+  "pearsonSymbol": "hP4",
+  "note": "Wiki cho kiểu mạng; hằng số ô lấy từ bảng chuyên ngành WebElements. Điều kiện nhiệt độ không được ghi trong bảng đã dùng; không tự gán 20 °C. DHCP có 4 lớp ABAC, 4 nguyên tử/ô; không coi nhãn hcp viết gọn là ô HCP hai nguyên tử.",
+  "limitations": "Vị trí Wyckoff lý tưởng của prototype; thông số ô mạng do WebElements tổng hợp. Không phải bộ tinh chỉnh nguyên tử thực nghiệm riêng của ChemDex.",
+  "coordinatePrecision": "Ideal prototype coordinates; the number of shown digits is not experimental uncertainty.",
+  "validation": {
+    "operatorCount": 24,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 0
+  },
+  "primaryReference": "B. B. Cunningham and J. C. Wallmann, J. Inorg. Nucl. Chem. 1964, 26, 271."
+}

@@ -75,9 +75,9 @@
         "a": 5.1612,
         "b": 5.1612,
         "c": 5.1612,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 90.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
       },
       "volume": 137.48397045292802,
       "siteCount": 4,
@@ -96,14 +96,90 @@
       },
       "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
       "evidence": "published-structure",
-      "note": "",
+      "note": "Mô hình dùng pha γ-Ce: trong các pha Wiki liệt kê; không gộp các pha thành một ô mạng.",
       "limitations": "",
       "data": "/assets/periodic-table/crystals/nguyen-to-ce.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-ce.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-ce.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-ce.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-ce.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Cerium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_cerium",
+        "revisionId": 1306954168,
+        "revisionTimestamp": "2025-08-20T17:19:39Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "double hexagonal close packed",
+            "prefix": "β-Ce:",
+            "comment": "",
+            "pearson": "hP4",
+            "lattice": "a = 0.36811 nm; c = 1.1857 nm (at 20 °C)"
+          },
+          {
+            "type": "face-centered cubic",
+            "prefix": "γ-Ce:",
+            "comment": "",
+            "pearson": "cF4",
+            "lattice": "a = 0.51612 nm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-ce",
+        "modelKind": "fcc",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 5.1612,
+            "modelAngstrom": 5.1612,
+            "relativeDifferencePercent": 0
+          }
+        ],
+        "notes": [
+          "Mô hình dùng pha γ-Ce: trong các pha Wiki liệt kê; không gộp các pha thành một ô mạng."
+        ],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Cerium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_cerium",
+      "revisionId": 1306954168,
+      "revisionTimestamp": "2025-08-20T17:19:39Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "double hexagonal close packed",
+          "prefix": "β-Ce:",
+          "comment": "",
+          "pearson": "hP4",
+          "lattice": "a = 0.36811 nm; c = 1.1857 nm (at 20 °C)"
+        },
+        {
+          "type": "face-centered cubic",
+          "prefix": "γ-Ce:",
+          "comment": "",
+          "pearson": "cF4",
+          "lattice": "a = 0.51612 nm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-ce",
+      "modelKind": "fcc",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 5.1612,
+          "modelAngstrom": 5.1612,
+          "relativeDifferencePercent": 0
+        }
+      ],
+      "notes": [
+        "Mô hình dùng pha γ-Ce: trong các pha Wiki liệt kê; không gộp các pha thành một ô mạng."
+      ],
+      "additionalSources": []
+    }
   },
   "structureType": "Lập phương tâm diện (FCC)",
   "occurrence": {
@@ -153,9 +229,9 @@
             "a": 6.788,
             "b": 7.0163,
             "c": 6.465,
-            "alpha": 90.0,
+            "alpha": 90,
             "beta": 103.43,
-            "gamma": 90.0
+            "gamma": 90
           },
           "volume": 299.48637533121257,
           "siteCount": 24,
@@ -430,27 +506,96 @@
     {
       "title": "Đánh bóng kính",
       "desc": "Cerium oxide (CeO₂) là một trong những vật liệu quan trọng để đánh bóng kính và thủy tinh, đặc biệt nhờ khả năng loại bỏ các lớp bề mặt rất mỏng.",
-      "sourceLine": 88
+      "sourceLine": 88,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "glass",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/glass.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg",
+        "author": "Ansgar Koreng",
+        "license": "CC BY 3.0 de",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/de/deed.en",
+        "alt": "Đánh bóng kính — Glass",
+        "caption": "Minh họa lĩnh vực đánh bóng kính · Glass.",
+        "topic": "glass",
+        "role": "application-context"
+      }
     },
     {
       "title": "Bộ chuyển đổi xúc tác",
       "desc": "Các oxide Cerium được sử dụng trong catalytic converters của ô tô nhờ khả năng chuyển đổi thuận nghịch giữa Ce³⁺ và Ce⁴⁺, giúp lưu trữ và giải phóng Oxygen.",
-      "sourceLine": 89
+      "sourceLine": 89,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "catalytic-converter",
+        "source": "https://commons.wikimedia.org/wiki/File:DodgeCatCon.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/catalytic-converter.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:DodgeCatCon.jpg",
+        "author": "Ahanix1989 at English Wikipedia",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Bộ chuyển đổi xúc tác — Catalytic converter",
+        "caption": "Minh họa lĩnh vực bộ chuyển đổi xúc tác · Catalytic converter.",
+        "topic": "catalytic-converter",
+        "role": "application-context"
+      }
     },
     {
       "title": "Đá đánh lửa",
       "desc": "Hợp kim Mischmetal chứa Cerium được sử dụng trong đá đánh lửa.",
-      "sourceLine": 90
+      "sourceLine": 90,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "alloy",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/alloy.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg",
+        "author": "Bill Abbott",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Đá đánh lửa — Alloy",
+        "caption": "Minh họa lĩnh vực đá đánh lửa · Alloy.",
+        "topic": "alloy",
+        "role": "application-context"
+      }
     },
     {
       "title": "Kính",
       "desc": "Cerium compounds được sử dụng trong một số loại kính để hấp thụ tia UV và giảm ảnh hưởng của bức xạ tử ngoại.",
-      "sourceLine": 91
+      "sourceLine": 91,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "glass",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg"
+      }
     },
     {
       "title": "Xúc tác",
       "desc": "Cerium oxide được sử dụng trong nhiều hệ thống xúc tác công nghiệp.",
-      "sourceLine": 92
+      "sourceLine": 92,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "catalyst",
+        "source": "https://commons.wikimedia.org/wiki/File:Catalysts.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/catalyst.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Catalysts.JPG",
+        "author": "Shubhrapdil",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Xúc tác — Catalysis",
+        "caption": "Minh họa lĩnh vực xúc tác · Catalysis.",
+        "topic": "catalyst",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Cerium là nguyên tố số 58, thuộc nhóm IIIB | chu kỳ 6 và là nguyên tố thứ hai trong họ Lanthanide.</li><li>Cerium được phát hiện vào năm 1803 bởi Jöns Jacob Berzelius và Wilhelm Hisinger, đồng thời được Martin Heinrich Klaproth độc lập phát hiện dưới dạng oxide. Tên Cerium bắt nguồn từ Ceres, được phát hiện hai năm trước đó.</li><li>Cerium là kim loại màu trắng bạc, khá mềm và có tính hoạt động hóa học cao. Điểm đặc biệt của Cerium là có thể tồn tại ở cả hai trạng thái Oxy hóa +3 và +4, trong đó Ce⁴⁺ là một chất Oxy hóa mạnh.</li><li>Hợp chất quan trọng nhất của Cerium là Cerium(IV) oxide (CeO₂), được sử dụng rộng rãi trong đánh bóng kính, xúc tác, xử lý khí thải và vật liệu quang học.</li><li>Mạng tinh thể: Lập phương tâm diện (FCC) ở điều kiện thường.</li></ul>",
@@ -491,9 +636,9 @@
           "a": 6.788,
           "b": 7.0163,
           "c": 6.465,
-          "alpha": 90.0,
+          "alpha": 90,
           "beta": 103.43,
-          "gamma": 90.0
+          "gamma": 90
         },
         "volume": 299.48637533121257,
         "siteCount": 24,
@@ -560,6 +705,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Cerium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -568,6 +718,7 @@
     "sourceSha256": "bfa6f8450d4ee8a2304c54257c4f9c1262d62e50de18a122f1f59804ad27114b",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/058_Ce.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/cerium-ce/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/cerium-ce/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/cerium-ce/audit.md"
   }
 }

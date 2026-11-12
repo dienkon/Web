@@ -75,9 +75,9 @@
         "a": 4.546,
         "b": 4.546,
         "c": 11.862,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 120.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 120
       },
       "volume": 212.2987388020819,
       "siteCount": 6,
@@ -100,9 +100,85 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-bi.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-bi.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-bi.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-bi.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-bi.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Bismuth",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_bismuth",
+        "revisionId": 1380705340,
+        "revisionTimestamp": "2026-10-17T10:14:25Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "rhombohedral",
+            "prefix": "",
+            "comment": "",
+            "pearson": "hR2",
+            "lattice": "a = 0.47458 nm; α = 57.236°; ah = 0.45462 nm; ch = 1.18617 nm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-bi",
+        "modelKind": "rhombohedral",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "ah",
+            "wikiAngstrom": 4.546200000000001,
+            "modelAngstrom": 4.546,
+            "relativeDifferencePercent": 0.004399278518332278
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "ch",
+            "wikiAngstrom": 11.861699999999999,
+            "modelAngstrom": 11.862,
+            "relativeDifferencePercent": 0.002529148435730774
+          }
+        ],
+        "notes": [
+          "CIF dùng ô lục giác quy ước của mạng thoi: số nguyên tử trong ô này bằng ba lần ô thoi nguyên thủy; không phải sai cấu trúc."
+        ],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Bismuth",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_bismuth",
+      "revisionId": 1380705340,
+      "revisionTimestamp": "2026-10-17T10:14:25Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "rhombohedral",
+          "prefix": "",
+          "comment": "",
+          "pearson": "hR2",
+          "lattice": "a = 0.47458 nm; α = 57.236°; ah = 0.45462 nm; ch = 1.18617 nm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-bi",
+      "modelKind": "rhombohedral",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "ah",
+          "wikiAngstrom": 4.546200000000001,
+          "modelAngstrom": 4.546,
+          "relativeDifferencePercent": 0.004399278518332278
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "ch",
+          "wikiAngstrom": 11.861699999999999,
+          "modelAngstrom": 11.862,
+          "relativeDifferencePercent": 0.002529148435730774
+        }
+      ],
+      "notes": [
+        "CIF dùng ô lục giác quy ước của mạng thoi: số nguyên tử trong ô này bằng ba lần ô thoi nguyên thủy; không phải sai cấu trúc."
+      ],
+      "additionalSources": []
+    }
   },
   "structureType": "Mặt thoi (rhombohedral) đối với bismuth ở điều kiện thường.",
   "occurrence": {
@@ -150,9 +226,9 @@
             "a": 11.316,
             "b": 3.9709,
             "c": 11.178,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 502.28012578320005,
           "siteCount": 20,
@@ -434,32 +510,84 @@
     {
       "title": "Y học",
       "desc": "Một số hợp chất Bismuth được sử dụng trong thuốc điều trị các vấn đề về tiêu hóa. Ví dụ, Bismuth subsalicylate được sử dụng trong một số thuốc không kê đơn.",
-      "sourceLine": 84
+      "sourceLine": 84,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Mỹ phẩm",
       "desc": "Một số hợp chất Bismuth được sử dụng trong mỹ phẩm, đặc biệt là Bismuth oxychloride (BiOCl), tạo hiệu ứng ánh ngọc trai.",
-      "sourceLine": 85
+      "sourceLine": 85,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Hợp kim",
       "desc": "Bismuth được sử dụng trong các hợp kim có nhiệt độ nóng chảy thấp.",
-      "sourceLine": 86
+      "sourceLine": 86,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "alloy",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/alloy.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg",
+        "author": "Bill Abbott",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Hợp kim — Alloy",
+        "caption": "Minh họa lĩnh vực hợp kim · Alloy.",
+        "topic": "alloy",
+        "role": "application-context"
+      }
     },
     {
       "title": "Vật liệu dễ nóng chảy",
       "desc": "Một số hợp kim Bismuth được sử dụng trong cầu chì nhiệt, thiết bị an toàn và hệ thống kiểm soát nhiệt.",
-      "sourceLine": 87
+      "sourceLine": 87,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "alloy",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg"
+      }
     },
     {
       "title": "Điện tử",
       "desc": "Bismuth được nghiên cứu và sử dụng trong một số vật liệu bán dẫn và vật liệu nhiệt điện.",
-      "sourceLine": 88
+      "sourceLine": 88,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "semiconductor",
+        "source": "https://commons.wikimedia.org/wiki/File:ICC_2008_Poland_Silicon_Wafer_1_edit.png"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/semiconductor.png",
+        "source": "https://commons.wikimedia.org/wiki/File:ICC_2008_Poland_Silicon_Wafer_1_edit.png",
+        "author": "FxJ",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Điện tử — Silicon wafer",
+        "caption": "Minh họa lĩnh vực điện tử · Silicon wafer.",
+        "topic": "semiconductor",
+        "role": "application-context"
+      }
     },
     {
       "title": "Đúc kim loại",
       "desc": "Bismuth có khả năng nở khi đông đặc nên hữu ích trong một số hợp kim và quy trình đúc chính xác.",
-      "sourceLine": 89
+      "sourceLine": 89,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "alloy",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Bismuth là nguyên tố số 83, thuộc nhóm VA | chu kỳ 6 và là một kim loại hậu chuyển tiếp.</li><li>Bismuth có cấu hình electron [Xe] 4f¹⁴ 5d¹⁰ 6s² 6p³, với số Oxy hóa phổ biến nhất là +3.</li><li>Đây là kim loại nặng, giòn, có màu trắng bạc ánh hồng và nhiệt độ nóng chảy tương đối thấp. Một đặc điểm đặc biệt của Bismuth là nở ra khi đông đặc.</li><li>²⁰⁹Bi từng được coi là đồng vị bền nhưng hiện được xác định là phóng xạ cực yếu, với chu kỳ bán rã khoảng 2 × 10¹⁹ năm.</li><li>Bismuth có nhiều ứng dụng trong y học, mỹ phẩm, hợp kim dễ nóng chảy, đúc kim loại và vật liệu nhiệt điện, đồng thời có ưu điểm là độc tính thấp hơn đáng kể so với nhiều kim loại nặng khác.</li></ul>",
@@ -500,9 +628,9 @@
           "a": 11.316,
           "b": 3.9709,
           "c": 11.178,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 502.28012578320005,
         "siteCount": 20,
@@ -568,6 +696,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Bismuth",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -576,6 +709,7 @@
     "sourceSha256": "af384f4a922c89417a3c8187b3bbce63371b1caaae26daa37c23c8f0980c6482",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/083_Bi.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/bismuth-bi/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/bismuth-bi/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/bismuth-bi/audit.md"
   }
 }

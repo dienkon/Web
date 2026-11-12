@@ -77,9 +77,9 @@
         "a": 5.0843,
         "b": 5.0843,
         "c": 5.0843,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 90.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
       },
       "volume": 131.429696427107,
       "siteCount": 4,
@@ -101,9 +101,67 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-th.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-th.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-th.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-th.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-th.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Thorium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_thorium",
+        "revisionId": 1378887322,
+        "revisionTimestamp": "2026-10-06T18:56:50Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "facecentredcubic",
+            "prefix": "",
+            "comment": "",
+            "pearson": "cF4",
+            "lattice": "a = 508.45 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-th",
+        "modelKind": "fcc",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 5.0845,
+            "modelAngstrom": 5.0843,
+            "relativeDifferencePercent": 0.0039335234536418935
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Thorium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_thorium",
+      "revisionId": 1378887322,
+      "revisionTimestamp": "2026-10-06T18:56:50Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "facecentredcubic",
+          "prefix": "",
+          "comment": "",
+          "pearson": "cF4",
+          "lattice": "a = 508.45 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-th",
+      "modelKind": "fcc",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 5.0845,
+          "modelAngstrom": 5.0843,
+          "relativeDifferencePercent": 0.0039335234536418935
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lập phương tâm diện (FCC)",
   "occurrence": {
@@ -153,9 +211,9 @@
             "a": 7.1328,
             "b": 7.1328,
             "c": 6.3188,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 321.48055030579195,
           "siteCount": 24,
@@ -506,27 +564,96 @@
     {
       "title": "Năng lượng hạt nhân",
       "desc": "²³²Th có thể hấp thụ neutron và qua chuỗi biến đổi hạt nhân tạo thành ²³³U, một đồng vị có khả năng phân hạch. Vì vậy Thorium được nghiên cứu như một nguồn nhiên liệu hạt nhân tiềm năng.",
-      "sourceLine": 91
+      "sourceLine": 91,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "reactor",
+        "source": "https://commons.wikimedia.org/wiki/File:Advanced_Test_Reactor_001.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/reactor.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Advanced_Test_Reactor_001.jpg",
+        "author": "Idaho National Laboratory",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "alt": "Năng lượng hạt nhân — Nuclear reactor",
+        "caption": "Minh họa lĩnh vực năng lượng hạt nhân · Nuclear reactor.",
+        "topic": "reactor",
+        "role": "application-context"
+      }
     },
     {
       "title": "Vật liệu chịu nhiệt",
       "desc": "ThO₂ có nhiệt độ nóng chảy rất cao và từng được sử dụng trong một số vật liệu chịu nhiệt.",
-      "sourceLine": 92
+      "sourceLine": 92,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "refractory",
+        "source": "https://commons.wikimedia.org/wiki/File:Torpedo_car_refractory_bricks.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/refractory.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Torpedo_car_refractory_bricks.JPG",
+        "author": "Morgan Riley",
+        "license": "CC BY 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+        "alt": "Vật liệu chịu nhiệt — Refractory",
+        "caption": "Minh họa lĩnh vực vật liệu chịu nhiệt · Refractory.",
+        "topic": "refractory",
+        "role": "application-context"
+      }
     },
     {
       "title": "Điện cực hàn",
       "desc": "Thorium dioxide từng được sử dụng làm chất pha vào điện cực Tungsten để cải thiện đặc tính phát xạ electron. Việc sử dụng bị hạn chế do tính phóng xạ của Thorium.",
-      "sourceLine": 93
+      "sourceLine": 93,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "welding",
+        "source": "https://commons.wikimedia.org/wiki/File:US_Navy_090715-N-5821P-002_Aviation_Support_Equipment_Technician_Airman_Anthony_Hammond_performs_tungsten_inert_gas_welding_during_a_training_evolution.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/welding.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:US_Navy_090715-N-5821P-002_Aviation_Support_Equipment_Technician_Airman_Anthony_Hammond_performs_tungsten_inert_gas_welding_during_a_training_evolution.jpg",
+        "author": "U.S. Navy photo by Mass Communication Specialist 2nd Class Jason T. Poplin",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Điện cực hàn — Gas tungsten arc welding",
+        "caption": "Minh họa lĩnh vực điện cực hàn · Gas tungsten arc welding.",
+        "topic": "welding",
+        "role": "application-context"
+      }
     },
     {
       "title": "Quang học",
       "desc": "Một số hợp chất Thorium từng được sử dụng trong kính quang học có chiết suất cao, mặc dù ứng dụng này ngày nay bị hạn chế.",
-      "sourceLine": 94
+      "sourceLine": 94,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "optics",
+        "source": "https://commons.wikimedia.org/wiki/File:Double-lens_burning_apparatus,_Ehrenfried_Walther_von_Tschirnhaus,_Kieslingswalde_(today_Slawonice,_Poland),_c._1690_-_Mathematisch-Physikalischer_Salon,_Dresden_-_DSC08133.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/optics.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Double-lens_burning_apparatus,_Ehrenfried_Walther_von_Tschirnhaus,_Kieslingswalde_(today_Slawonice,_Poland),_c._1690_-_Mathematisch-Physikalischer_Salon,_Dresden_-_DSC08133.JPG",
+        "author": "Daderot",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Quang học — Optical lens",
+        "caption": "Minh họa lĩnh vực quang học · Optical lens.",
+        "topic": "optics",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nghiên cứu địa chất",
       "desc": "²³⁰Th và các đồng vị Thorium khác được sử dụng trong một số phương pháp định tuổi địa chất và khảo cổ.",
-      "sourceLine": 95
+      "sourceLine": 95,
+      "imageReview": {
+        "status": "source-link",
+        "topic": "geology",
+        "source": "https://commons.wikimedia.org/wiki/Special:MediaSearch?type=image&search=Radiometric%20dating"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Thorium là nguyên tố số 90, thuộc nhóm IIIB | chu kỳ 7 và là nguyên tố thứ hai trong họ Actinide.</li><li>Thorium được Jöns Jacob Berzelius xác định là nguyên tố mới vào năm 1828 sau khi nghiên cứu khoáng vật được Morten Thrane Esmark phát hiện ở Na Uy. Tên nguyên tố được đặt theo Thor, vị thần sấm sét trong thần thoại Bắc Âu.</li><li>Thorium là kim loại phóng xạ màu trắng bạc, có trạng thái Oxy hóa chủ yếu là +4. Đồng vị tự nhiên quan trọng nhất là ²³²Th, có chu kỳ bán rã khoảng 14,05 tỷ năm.</li><li>Điểm đặc biệt của Thorium là ²³²Th có thể chuyển đổi thành ²³³U, khiến Thorium trở thành một ứng viên quan trọng được nghiên cứu cho nhiên liệu hạt nhân thế hệ tương lai.</li><li>Ngoài lĩnh vực hạt nhân, Thorium và các hợp chất của nó còn từng được sử dụng trong vật liệu chịu nhiệt, điện cực Tungsten, kính quang học và nghiên cứu địa chất.</li><li>Mạng tinh thể: Lập phương tâm diện (FCC) ở điều kiện thường.</li></ul>",
@@ -567,9 +694,9 @@
           "a": 7.1328,
           "b": 7.1328,
           "c": 6.3188,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 321.48055030579195,
         "siteCount": 24,
@@ -635,6 +762,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Thorium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -643,6 +775,7 @@
     "sourceSha256": "f582d9813e2054b89a90bd4b2e975d5fcfdbf52ca2768099e752ab4333d8db66",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/090_Th.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/thorium-th/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/thorium-th/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/thorium-th/audit.md"
   }
 }

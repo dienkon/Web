@@ -69,9 +69,9 @@
         "a": 3.2093,
         "b": 3.2093,
         "c": 5.2103,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 120.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 120
       },
       "volume": 46.47442164543402,
       "siteCount": 2,
@@ -93,9 +93,81 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-mg.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-mg.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-mg.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-mg.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-mg.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Magnesium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_magnesium",
+        "revisionId": 1368326150,
+        "revisionTimestamp": "2026-08-08T11:34:22Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "hexagonal close packed",
+            "prefix": "",
+            "comment": "",
+            "pearson": "hP2",
+            "lattice": "a = 320.91 pm; c = 521.03 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-mg",
+        "modelKind": "hcp",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 3.2091000000000003,
+            "modelAngstrom": 3.2093,
+            "relativeDifferencePercent": 0.006232276962373683
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "c",
+            "wikiAngstrom": 5.2103,
+            "modelAngstrom": 5.2103,
+            "relativeDifferencePercent": 0
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Magnesium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_magnesium",
+      "revisionId": 1368326150,
+      "revisionTimestamp": "2026-08-08T11:34:22Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "hexagonal close packed",
+          "prefix": "",
+          "comment": "",
+          "pearson": "hP2",
+          "lattice": "a = 320.91 pm; c = 521.03 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-mg",
+      "modelKind": "hcp",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 3.2091000000000003,
+          "modelAngstrom": 3.2093,
+          "relativeDifferencePercent": 0.006232276962373683
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "c",
+          "wikiAngstrom": 5.2103,
+          "modelAngstrom": 5.2103,
+          "relativeDifferencePercent": 0
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lục phương xếp chặt (HCP)",
   "occurrence": {
@@ -149,9 +221,9 @@
             "a": 4.635,
             "b": 4.635,
             "c": 15.019,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 120.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 120
           },
           "volume": 279.42877443175337,
           "siteCount": 30,
@@ -536,37 +608,127 @@
     {
       "title": "Hợp kim",
       "desc": "Magnesium được sử dụng để sản xuất các hợp kim nhẹ cho phương tiện và thiết bị kỹ thuật.",
-      "sourceLine": 104
+      "sourceLine": 104,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "alloy",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/alloy.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg",
+        "author": "Bill Abbott",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Hợp kim — Alloy",
+        "caption": "Minh họa lĩnh vực hợp kim · Alloy.",
+        "topic": "alloy",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hàng không",
       "desc": "Hợp kim Magnesium được sử dụng trong một số bộ phận cần giảm khối lượng.",
-      "sourceLine": 105
+      "sourceLine": 105,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "aircraft",
+        "source": "https://commons.wikimedia.org/wiki/File:Cessna_172S_Skyhawk_%E2%80%98G-JMKE%E2%80%99_(45077563364).jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/aircraft.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Cessna_172S_Skyhawk_%E2%80%98G-JMKE%E2%80%99_(45077563364).jpg",
+        "author": "Alan Wilson from Stilton, Peterborough, Cambs, UK",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Hàng không — Aircraft",
+        "caption": "Minh họa lĩnh vực hàng không · Aircraft.",
+        "topic": "aircraft",
+        "role": "application-context"
+      }
     },
     {
       "title": "Pháo sáng và tín hiệu",
       "desc": "Magnesium tạo ánh sáng trắng mạnh khi cháy nên được sử dụng trong một số loại pháo sáng và thiết bị tín hiệu.",
-      "sourceLine": 106
+      "sourceLine": 106,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "firework",
+        "source": "https://commons.wikimedia.org/wiki/File:New_Year%27s_Eve_on_Sydney_Harbour.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/firework.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:New_Year%27s_Eve_on_Sydney_Harbour.jpg",
+        "author": "Rob Chandler",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Pháo sáng và tín hiệu — Fireworks",
+        "caption": "Minh họa lĩnh vực pháo sáng và tín hiệu · Fireworks.",
+        "topic": "firework",
+        "role": "application-context"
+      }
     },
     {
       "title": "Luyện kim",
       "desc": "Magnesium được sử dụng làm chất khử và trong quá trình sản xuất một số kim loại.",
-      "sourceLine": 107
+      "sourceLine": 107,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "alloy",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg"
+      }
     },
     {
       "title": "Công nghiệp hóa chất",
       "desc": "Dùng để sản xuất nhiều Magnesium compounds.",
-      "sourceLine": 108
+      "sourceLine": 108,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "chemical-industry",
+        "source": "https://commons.wikimedia.org/wiki/File:BASF_Schwarzheide_GmbH_Werksansicht_01.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/chemical-industry.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:BASF_Schwarzheide_GmbH_Werksansicht_01.jpg",
+        "author": "Goku4711",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Công nghiệp hóa chất — Chemical plant",
+        "caption": "Minh họa lĩnh vực công nghiệp hóa chất · Chemical plant.",
+        "topic": "chemical-industry",
+        "role": "application-context"
+      }
     },
     {
       "title": "Bảo vệ chống ăn mòn",
       "desc": "Magnesium có thể được sử dụng làm anode hy sinh trong một số hệ thống bảo vệ kim loại.",
-      "sourceLine": 109
+      "sourceLine": 109,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "sacrificial-anode",
+        "source": "https://commons.wikimedia.org/wiki/File:Sacrificial_anode.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/sacrificial-anode.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Sacrificial_anode.jpg",
+        "author": "Zwergelstern",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+        "alt": "Bảo vệ chống ăn mòn — Galvanic anode",
+        "caption": "Minh họa lĩnh vực bảo vệ chống ăn mòn · Galvanic anode.",
+        "topic": "sacrificial-anode",
+        "role": "application-context"
+      }
     },
     {
       "title": "Vật liệu",
       "desc": "Magnesium và hợp kim của nó được sử dụng trong các sản phẩm yêu cầu vật liệu nhẹ.",
-      "sourceLine": 110
+      "sourceLine": 110,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "alloy",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Magnesium là nguyên tố số 12, thuộc nhóm IIA | chu kỳ 3 và là một kim loại kiềm thổ.</li><li>Magnesium có cấu hình electron 1s² 2s² 2p⁶ 3s², dễ mất hai electron lớp ngoài cùng để tạo ion Mg²⁺. Magnesium có tính khử tương đối mạnh và có thể cháy trong Oxygen với ánh sáng trắng rất mạnh.</li><li>Trong tự nhiên, Magnesium không tồn tại ở dạng đơn chất mà chủ yếu có trong khoáng vật, nước biển và các hợp chất Silicate.</li><li>Magnesium kim loại chủ yếu được sản xuất bằng điện phân Magnesium chloride nóng chảy. Nhờ khối lượng riêng thấp và khả năng tạo hợp kim, Magnesium có vai trò quan trọng trong vật liệu nhẹ, luyện kim, công nghiệp hóa chất và kỹ thuật.</li></ul>",
@@ -607,9 +769,9 @@
           "a": 4.635,
           "b": 4.635,
           "c": 15.019,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 120.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 120
         },
         "volume": 279.42877443175337,
         "siteCount": 30,
@@ -675,6 +837,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Magnesium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -683,6 +850,7 @@
     "sourceSha256": "c3608273a126a6d77026cccad8f321d6245ec377a70cab18e39c348f73abf8ec",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/012_Mg.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/magie-mg/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/magie-mg/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/magie-mg/audit.md"
   }
 }

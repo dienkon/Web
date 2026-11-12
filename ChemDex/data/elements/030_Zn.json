@@ -71,9 +71,9 @@
         "a": 2.6594,
         "b": 2.6594,
         "c": 4.9368,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 120.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 120
       },
       "volume": 30.237333777167127,
       "siteCount": 2,
@@ -96,9 +96,81 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-zn.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-zn.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-zn.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-zn.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-zn.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Zinc",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_zinc",
+        "revisionId": 1331293972,
+        "revisionTimestamp": "2026-01-05T16:53:57Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "hexagonal close packed",
+            "prefix": "",
+            "comment": "",
+            "pearson": "hP2",
+            "lattice": "a = 266.46 pm; c = 494.55 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-zn",
+        "modelKind": "hcp",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 2.6645999999999996,
+            "modelAngstrom": 2.6594,
+            "relativeDifferencePercent": 0.1951512422126934
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "c",
+            "wikiAngstrom": 4.9455,
+            "modelAngstrom": 4.9368,
+            "relativeDifferencePercent": 0.17591750075826817
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Zinc",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_zinc",
+      "revisionId": 1331293972,
+      "revisionTimestamp": "2026-01-05T16:53:57Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "hexagonal close packed",
+          "prefix": "",
+          "comment": "",
+          "pearson": "hP2",
+          "lattice": "a = 266.46 pm; c = 494.55 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-zn",
+      "modelKind": "hcp",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 2.6645999999999996,
+          "modelAngstrom": 2.6594,
+          "relativeDifferencePercent": 0.1951512422126934
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "c",
+          "wikiAngstrom": 4.9455,
+          "modelAngstrom": 4.9368,
+          "relativeDifferencePercent": 0.17591750075826817
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lục phương (Hexagonal)",
   "occurrence": {
@@ -150,9 +222,9 @@
             "a": 5.4093,
             "b": 5.4093,
             "c": 5.4093,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 158.278965942357,
           "siteCount": 8,
@@ -580,37 +652,127 @@
     {
       "title": "Mạ Zinc",
       "desc": "Zinc được dùng để mạ lên Iron và Steel nhằm bảo vệ kim loại khỏi ăn mòn, gọi là Galvanization.",
-      "sourceLine": 99
+      "sourceLine": 99,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Sản xuất Brass",
       "desc": "Zinc được sử dụng cùng Copper để tạo Brass.",
-      "sourceLine": 100
+      "sourceLine": 100,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "brass",
+        "source": "https://commons.wikimedia.org/wiki/File:Planispheric_Astrolabe_MET_DP105325.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/brass.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Planispheric_Astrolabe_MET_DP105325.jpg",
+        "author": "Muhammad Zaman al-Munajjim al-Asturlabi",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "alt": "Sản xuất Brass — Brass",
+        "caption": "Minh họa lĩnh vực sản xuất brass · Brass.",
+        "topic": "brass",
+        "role": "application-context"
+      }
     },
     {
       "title": "Pin",
       "desc": "Zinc được sử dụng làm điện cực trong nhiều loại pin, như Zinc–carbon và Alkaline batteries.",
-      "sourceLine": 101
+      "sourceLine": 101,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "battery",
+        "source": "https://commons.wikimedia.org/wiki/File:Batteries.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/battery.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Batteries.jpg",
+        "author": "en:User:Brianiac",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Pin — Battery (electricity)",
+        "caption": "Minh họa lĩnh vực pin · Battery (electricity).",
+        "topic": "battery",
+        "role": "application-context"
+      }
     },
     {
       "title": "Đúc hợp kim",
       "desc": "Zinc alloys được sử dụng để chế tạo nhiều chi tiết có hình dạng phức tạp.",
-      "sourceLine": 102
+      "sourceLine": 102,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "alloy",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/alloy.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg",
+        "author": "Bill Abbott",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Đúc hợp kim — Alloy",
+        "caption": "Minh họa lĩnh vực đúc hợp kim · Alloy.",
+        "topic": "alloy",
+        "role": "application-context"
+      }
     },
     {
       "title": "Sản xuất Zinc oxide",
       "desc": "ZnO được sử dụng trong cao su, gốm, sơn và nhiều sản phẩm công nghiệp.",
-      "sourceLine": 103
+      "sourceLine": 103,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "rubber",
+        "source": "https://commons.wikimedia.org/wiki/File:VulcanizationMold1941.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/rubber.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:VulcanizationMold1941.jpg",
+        "author": "Alfred T. Palmer",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Sản xuất Zinc oxide — Vulcanization",
+        "caption": "Minh họa lĩnh vực sản xuất zinc oxide · Vulcanization.",
+        "topic": "rubber",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nông nghiệp",
       "desc": "Một số Zinc compounds được sử dụng làm nguồn Zinc trong phân bón.",
-      "sourceLine": 104
+      "sourceLine": 104,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "fertilizer",
+        "source": "https://commons.wikimedia.org/wiki/File:Manure_spreading_Hlokozi_2007_11_29.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/fertilizer.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Manure_spreading_Hlokozi_2007_11_29.jpg",
+        "author": "Alandmanson",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Nông nghiệp — Fertilizer",
+        "caption": "Minh họa lĩnh vực nông nghiệp · Fertilizer.",
+        "topic": "fertilizer",
+        "role": "application-context"
+      }
     },
     {
       "title": "Sinh học",
       "desc": "Zinc là nguyên tố vi lượng cần thiết cho nhiều enzyme và quá trình sinh học.",
-      "sourceLine": 105
+      "sourceLine": 105,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Zinc là nguyên tố số 30, thuộc nhóm IIB | chu kỳ 4.</li><li>Zinc có cấu hình electron [Ar] 3d¹⁰ 4s² và số Oxy hóa phổ biến nhất là +2.</li><li>Zinc là kim loại màu trắng xanh, có khả năng chống ăn mòn tốt và có tính khử tương đối mạnh. Trong tự nhiên, Zinc chủ yếu tồn tại trong quặng Sphalerite (ZnS).</li><li>Zinc được sử dụng rộng rãi trong mạ kim loại, sản xuất Brass, pin, hợp kim và sản xuất Zinc oxide. Ngoài vai trò công nghiệp, Zinc còn là một nguyên tố vi lượng thiết yếu đối với sinh vật.</li></ul>",
@@ -651,9 +813,9 @@
           "a": 5.4093,
           "b": 5.4093,
           "c": 5.4093,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 158.278965942357,
         "siteCount": 8,
@@ -718,6 +880,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Zinc",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -726,6 +893,7 @@
     "sourceSha256": "4ea06e525281476b7647eb414046a088da9a403caf7a530ab9d87e2c386a68f1",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/030_Zn.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/kem-zn/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/kem-zn/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/kem-zn/audit.md"
   }
 }

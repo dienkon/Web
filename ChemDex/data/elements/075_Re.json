@@ -75,9 +75,9 @@
         "a": 2.7608,
         "b": 2.7608,
         "c": 4.4582,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 120.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 120
       },
       "volume": 29.427954222783445,
       "siteCount": 2,
@@ -99,9 +99,81 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-re.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-re.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-re.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-re.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-re.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Rhenium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_rhenium",
+        "revisionId": 1381104831,
+        "revisionTimestamp": "2026-10-20T01:38:13Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "hexagonal close packed",
+            "prefix": "",
+            "comment": "",
+            "pearson": "hP2",
+            "lattice": "a = 276.10 pm; c = 445.84 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-re",
+        "modelKind": "hcp",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 2.761,
+            "modelAngstrom": 2.7608,
+            "relativeDifferencePercent": 0.007243752263671784
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "c",
+            "wikiAngstrom": 4.4584,
+            "modelAngstrom": 4.4582,
+            "relativeDifferencePercent": 0.004485914229329402
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Rhenium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_rhenium",
+      "revisionId": 1381104831,
+      "revisionTimestamp": "2026-10-20T01:38:13Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "hexagonal close packed",
+          "prefix": "",
+          "comment": "",
+          "pearson": "hP2",
+          "lattice": "a = 276.10 pm; c = 445.84 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-re",
+      "modelKind": "hcp",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 2.761,
+          "modelAngstrom": 2.7608,
+          "relativeDifferencePercent": 0.007243752263671784
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "c",
+          "wikiAngstrom": 4.4584,
+          "modelAngstrom": 4.4582,
+          "relativeDifferencePercent": 0.004485914229329402
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lục phương (Hexagonal)",
   "occurrence": {
@@ -151,9 +223,9 @@
             "a": 3.161,
             "b": 3.161,
             "c": 12.295,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 120.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 120
           },
           "volume": 106.39179996177569,
           "siteCount": 6,
@@ -396,32 +468,117 @@
     {
       "title": "Siêu hợp kim",
       "desc": "Rhenium là thành phần quan trọng trong một số superalloy dùng cho động cơ phản lực và turbine khí.",
-      "sourceLine": 79
+      "sourceLine": 79,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "alloy",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/alloy.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg",
+        "author": "Bill Abbott",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Siêu hợp kim — Alloy",
+        "caption": "Minh họa lĩnh vực siêu hợp kim · Alloy.",
+        "topic": "alloy",
+        "role": "application-context"
+      }
     },
     {
       "title": "Động cơ hàng không",
       "desc": "Hợp kim Nickel–Rhenium có khả năng chịu nhiệt và giữ độ bền tốt ở nhiệt độ cao.",
-      "sourceLine": 80
+      "sourceLine": 80,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "jet-engine",
+        "source": "https://commons.wikimedia.org/wiki/File:F100_F-15_engine.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/jet-engine.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:F100_F-15_engine.JPG",
+        "author": "Shelley Gill",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Động cơ hàng không — Jet engine",
+        "caption": "Minh họa lĩnh vực động cơ hàng không · Jet engine.",
+        "topic": "jet-engine",
+        "role": "application-context"
+      }
     },
     {
       "title": "Xúc tác",
       "desc": "Rhenium được sử dụng làm chất xúc tác trong một số quá trình lọc dầu, đặc biệt trong quá trình reforming xúc tác.",
-      "sourceLine": 81
+      "sourceLine": 81,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "catalyst",
+        "source": "https://commons.wikimedia.org/wiki/File:Catalysts.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/catalyst.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Catalysts.JPG",
+        "author": "Shubhrapdil",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Xúc tác — Catalysis",
+        "caption": "Minh họa lĩnh vực xúc tác · Catalysis.",
+        "topic": "catalyst",
+        "role": "application-context"
+      }
     },
     {
       "title": "Dây tóc và linh kiện nhiệt",
       "desc": "Rhenium được sử dụng trong một số dây tóc, cặp nhiệt điện và linh kiện chịu nhiệt cao.",
-      "sourceLine": 82
+      "sourceLine": 82,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "incandescent",
+        "source": "https://commons.wikimedia.org/wiki/File:Gluehlampe_01_KMJ.png"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/incandescent.png",
+        "source": "https://commons.wikimedia.org/wiki/File:Gluehlampe_01_KMJ.png",
+        "author": "KMJ , alpha masking by Edokter",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+        "alt": "Dây tóc và linh kiện nhiệt — Incandescent light bulb",
+        "caption": "Minh họa lĩnh vực dây tóc và linh kiện nhiệt · Incandescent light bulb.",
+        "topic": "incandescent",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nhiệt điện",
       "desc": "Hợp kim Tungsten–Rhenium được sử dụng trong các cặp nhiệt điện đo nhiệt độ rất cao.",
-      "sourceLine": 83
+      "sourceLine": 83,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "alloy",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg"
+      }
     },
     {
       "title": "Y học",
       "desc": "Một số đồng vị phóng xạ của Rhenium được nghiên cứu và sử dụng trong các ứng dụng y học hạt nhân.",
-      "sourceLine": 84
+      "sourceLine": 84,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "nuclear-medicine",
+        "source": "https://commons.wikimedia.org/wiki/File:Lung_scintigraphy_keosys.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/nuclear-medicine.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Lung_scintigraphy_keosys.JPG",
+        "author": "Mco44 ( talk )",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Y học — Gamma camera",
+        "caption": "Minh họa lĩnh vực y học · Gamma camera.",
+        "topic": "nuclear-medicine",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Rhenium là nguyên tố số 75, thuộc nhóm VIIB | chu kỳ 6 và là một kim loại chuyển tiếp.</li><li>Rhenium có cấu hình electron [Xe] 4f¹⁴ 5d⁵ 6s², với các số Oxy hóa phổ biến là +6 và +7.</li><li>Rhenium là kim loại rất nặng, cứng, chịu nhiệt và có nhiệt độ nóng chảy cực cao. Nó là một trong những kim loại có nhiệt độ nóng chảy cao nhất.</li><li>Trong tự nhiên, Rhenium rất hiếm và thường được thu hồi như sản phẩm phụ từ quặng Molybdenum, đặc biệt là Molybdenite (MoS₂).</li><li>Rhenium có giá trị cao trong superalloy, động cơ phản lực, turbine khí, xúc tác lọc dầu và các thiết bị đo nhiệt độ cao, nhờ khả năng duy trì độ bền trong môi trường nhiệt độ cực cao.</li></ul>",
@@ -462,9 +619,9 @@
           "a": 3.161,
           "b": 3.161,
           "c": 12.295,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 120.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 120
         },
         "volume": 106.39179996177569,
         "siteCount": 6,
@@ -531,6 +688,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Rhenium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -539,6 +701,7 @@
     "sourceSha256": "99dd02eae9276ad1d88a9669445bd51f95ade7ecc79d17a092f685188fdb7ded",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/075_Re.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/rhenium-re/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/rhenium-re/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/rhenium-re/audit.md"
   }
 }

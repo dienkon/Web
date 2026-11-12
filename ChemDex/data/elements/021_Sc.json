@@ -71,9 +71,9 @@
         "a": 3.309,
         "b": 3.309,
         "c": 5.2733,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 120.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 120
       },
       "volume": 50.00421861614811,
       "siteCount": 2,
@@ -97,9 +97,81 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-sc.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-sc.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-sc.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-sc.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-sc.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Scandium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_scandium",
+        "revisionId": 1276424871,
+        "revisionTimestamp": "2025-02-18T19:58:24Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "hexagonal close packed",
+            "prefix": "",
+            "comment": "",
+            "pearson": "hP2",
+            "lattice": "a = 330.89 pm c = 526.80 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-sc",
+        "modelKind": "hcp",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 3.3089,
+            "modelAngstrom": 3.309,
+            "relativeDifferencePercent": 0.003022152376929222
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "c",
+            "wikiAngstrom": 5.268,
+            "modelAngstrom": 5.2733,
+            "relativeDifferencePercent": 0.10060744115413976
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Scandium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_scandium",
+      "revisionId": 1276424871,
+      "revisionTimestamp": "2025-02-18T19:58:24Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "hexagonal close packed",
+          "prefix": "",
+          "comment": "",
+          "pearson": "hP2",
+          "lattice": "a = 330.89 pm c = 526.80 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-sc",
+      "modelKind": "hcp",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 3.3089,
+          "modelAngstrom": 3.309,
+          "relativeDifferencePercent": 0.003022152376929222
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "c",
+          "wikiAngstrom": 5.268,
+          "modelAngstrom": 5.2733,
+          "relativeDifferencePercent": 0.10060744115413976
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lục phương (Hexagonal)",
   "occurrence": {
@@ -150,9 +222,9 @@
             "a": 6.65,
             "b": 8.616,
             "c": 4.686,
-            "alpha": 90.0,
+            "alpha": 90,
             "beta": 102.2,
-            "gamma": 90.0
+            "gamma": 90
           },
           "volume": 262.4273028446219,
           "siteCount": 22,
@@ -429,27 +501,96 @@
     {
       "title": "Hợp kim Aluminium",
       "desc": "Scandium được thêm vào Aluminium để tăng độ bền, độ cứng và khả năng chịu nhiệt của hợp kim.",
-      "sourceLine": 87
+      "sourceLine": 87,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "alloy",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/alloy.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg",
+        "author": "Bill Abbott",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Hợp kim Aluminium — Alloy",
+        "caption": "Minh họa lĩnh vực hợp kim aluminium · Alloy.",
+        "topic": "alloy",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hàng không vũ trụ",
       "desc": "Aluminium–Scandium alloys được nghiên cứu và sử dụng trong một số bộ phận yêu cầu vật liệu nhẹ nhưng bền.",
-      "sourceLine": 88
+      "sourceLine": 88,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/research.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "author": "LSDSL",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Hàng không vũ trụ — Particle accelerator",
+        "caption": "Minh họa lĩnh vực hàng không vũ trụ · Particle accelerator.",
+        "topic": "research",
+        "role": "application-context"
+      }
     },
     {
       "title": "Đèn Scandium",
       "desc": "Scandium iodide được sử dụng trong một số loại đèn Metal halide để tạo ánh sáng gần với ánh sáng tự nhiên.",
-      "sourceLine": 89
+      "sourceLine": 89,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "metal-halide-lamp",
+        "source": "https://commons.wikimedia.org/wiki/File:Metaalhalidelamp.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/metal-halide-lamp.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Metaalhalidelamp.JPG",
+        "author": "Gerben49 at Dutch Wikipedia",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+        "alt": "Đèn Scandium — Metal-halide lamp",
+        "caption": "Minh họa lĩnh vực đèn scandium · Metal-halide lamp.",
+        "topic": "metal-halide-lamp",
+        "role": "application-context"
+      }
     },
     {
       "title": "Thiết bị thể thao",
       "desc": "Một số hợp kim Aluminium–Scandium được sử dụng trong các thiết bị cần độ bền cao và trọng lượng thấp.",
-      "sourceLine": 90
+      "sourceLine": 90,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "sports",
+        "source": "https://commons.wikimedia.org/wiki/File:Bicycle_frame_mtb_hardtail.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/sports.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Bicycle_frame_mtb_hardtail.jpg",
+        "author": "Keithonearth",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Thiết bị thể thao — Bicycle frame",
+        "caption": "Minh họa lĩnh vực thiết bị thể thao · Bicycle frame.",
+        "topic": "sports",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nghiên cứu hạt nhân",
       "desc": "Một số đồng vị phóng xạ của Scandium được sử dụng trong nghiên cứu và các ứng dụng y học hạt nhân.",
-      "sourceLine": 91
+      "sourceLine": 91,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Scandium là nguyên tố số 21, thuộc nhóm IIIB | chu kỳ 4 và là một kim loại chuyển tiếp.</li><li>Scandium có cấu hình electron [Ar] 3d¹ 4s² và thường có số Oxy hóa +3. Ở dạng ion Sc³⁺, electron 3d được loại bỏ, tạo cấu hình tương đối bền.</li><li>Scandium là một nguyên tố tương đối hiếm và thường phân bố với hàm lượng nhỏ trong nhiều khoáng vật thay vì tập trung thành các mỏ lớn. Đồng vị tự nhiên duy nhất của Scandium là ⁴⁵Sc.</li><li>Ứng dụng quan trọng của Scandium nằm ở hợp kim Aluminium–Scandium, đèn Metal halide và một số ứng dụng nghiên cứu, y học hạt nhân.</li></ul>",
@@ -490,9 +631,9 @@
           "a": 6.65,
           "b": 8.616,
           "c": 4.686,
-          "alpha": 90.0,
+          "alpha": 90,
           "beta": 102.2,
-          "gamma": 90.0
+          "gamma": 90
         },
         "volume": 262.4273028446219,
         "siteCount": 22,
@@ -561,6 +702,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Scandium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -569,6 +715,7 @@
     "sourceSha256": "434f21a90d8db6cdbc5ae33d51c828da9ed8f1d3dae28908d9d2ce6e2c2f9445",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/021_Sc.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/scandi-sc/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/scandi-sc/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/scandi-sc/audit.md"
   }
 }

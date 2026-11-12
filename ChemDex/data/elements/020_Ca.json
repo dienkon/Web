@@ -21,7 +21,7 @@
     "period": 4,
     "state": "Rắn",
     "oxidation": "+2",
-    "electronegativity": 1.0,
+    "electronegativity": 1,
     "electronegativityNote": "Thang Pauling; số liệu tổng hợp PubChem.",
     "density": "1.54 g/cm³ (theo bảng RSC)",
     "meltingPoint": "khoảng 842 °C.",
@@ -71,9 +71,9 @@
         "a": 5.601,
         "b": 5.601,
         "c": 5.601,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 90.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
       },
       "volume": 175.710096801,
       "siteCount": 4,
@@ -97,9 +97,67 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-ca.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-ca.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-ca.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-ca.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-ca.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Calcium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_calcium",
+        "revisionId": 1374128838,
+        "revisionTimestamp": "2026-09-10T01:07:40Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "face-centered cubic",
+            "prefix": "",
+            "comment": "",
+            "pearson": "cF4",
+            "lattice": "a = 558.8 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-ca",
+        "modelKind": "fcc",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 5.588,
+            "modelAngstrom": 5.601,
+            "relativeDifferencePercent": 0.23264137437365603
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Calcium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_calcium",
+      "revisionId": 1374128838,
+      "revisionTimestamp": "2026-09-10T01:07:40Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "face-centered cubic",
+          "prefix": "",
+          "comment": "",
+          "pearson": "cF4",
+          "lattice": "a = 558.8 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-ca",
+      "modelKind": "fcc",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 5.588,
+          "modelAngstrom": 5.601,
+          "relativeDifferencePercent": 0.23264137437365603
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lập phương tâm mặt (Face-centered cubic, FCC)",
   "occurrence": {
@@ -154,9 +212,9 @@
             "a": 4.988,
             "b": 4.988,
             "c": 17.061,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 120.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 120
           },
           "volume": 367.6105818568375,
           "siteCount": 30,
@@ -599,37 +657,127 @@
     {
       "title": "Xây dựng",
       "desc": "Calcium compounds như Calcium carbonate và Calcium oxide được sử dụng rộng rãi trong sản xuất xi măng, vôi và vật liệu xây dựng.",
-      "sourceLine": 99
+      "sourceLine": 99,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "bridge",
+        "source": "https://commons.wikimedia.org/wiki/File:Construction_site_in_Cologne,_Germany_(2017).jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/bridge.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Construction_site_in_Cologne,_Germany_(2017).jpg",
+        "author": "Whiteghost.ink",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Xây dựng — Construction",
+        "caption": "Minh họa lĩnh vực xây dựng · Construction.",
+        "topic": "bridge",
+        "role": "application-context"
+      }
     },
     {
       "title": "Luyện kim",
       "desc": "Calcium được sử dụng làm chất khử và chất loại bỏ một số tạp chất trong luyện kim.",
-      "sourceLine": 100
+      "sourceLine": 100,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "alloy",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/alloy.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg",
+        "author": "Bill Abbott",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Luyện kim — Alloy",
+        "caption": "Minh họa lĩnh vực luyện kim · Alloy.",
+        "topic": "alloy",
+        "role": "application-context"
+      }
     },
     {
       "title": "Sản xuất hợp kim",
       "desc": "Calcium được sử dụng trong một số hợp kim đặc biệt.",
-      "sourceLine": 101
+      "sourceLine": 101,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "alloy",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg"
+      }
     },
     {
       "title": "Xử lý nước",
       "desc": "Calcium hydroxide được sử dụng để điều chỉnh pH và xử lý nước.",
-      "sourceLine": 102
+      "sourceLine": 102,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "water-treatment",
+        "source": "https://commons.wikimedia.org/wiki/File:Dalecarlia_Water_Treatment_Plant.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/water-treatment.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Dalecarlia_Water_Treatment_Plant.jpg",
+        "author": "AgnosticPreachersKid",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Xử lý nước — Water treatment",
+        "caption": "Minh họa lĩnh vực xử lý nước · Water treatment.",
+        "topic": "water-treatment",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nông nghiệp",
       "desc": "Calcium compounds được sử dụng để cải thiện đất và điều chỉnh độ acid của đất.",
-      "sourceLine": 103
+      "sourceLine": 103,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "fertilizer",
+        "source": "https://commons.wikimedia.org/wiki/File:Manure_spreading_Hlokozi_2007_11_29.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/fertilizer.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Manure_spreading_Hlokozi_2007_11_29.jpg",
+        "author": "Alandmanson",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Nông nghiệp — Fertilizer",
+        "caption": "Minh họa lĩnh vực nông nghiệp · Fertilizer.",
+        "topic": "fertilizer",
+        "role": "application-context"
+      }
     },
     {
       "title": "Sinh học",
       "desc": "Ca²⁺ đóng vai trò quan trọng trong xương, răng, co cơ, truyền tín hiệu tế bào và đông máu.",
-      "sourceLine": 104
+      "sourceLine": 104,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Sản xuất hóa chất",
       "desc": "Calcium là nguyên liệu để sản xuất nhiều Calcium compounds.",
-      "sourceLine": 105
+      "sourceLine": 105,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "chemical-industry",
+        "source": "https://commons.wikimedia.org/wiki/File:BASF_Schwarzheide_GmbH_Werksansicht_01.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/chemical-industry.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:BASF_Schwarzheide_GmbH_Werksansicht_01.jpg",
+        "author": "Goku4711",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Sản xuất hóa chất — Chemical plant",
+        "caption": "Minh họa lĩnh vực sản xuất hóa chất · Chemical plant.",
+        "topic": "chemical-industry",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Calcium là nguyên tố số 20, thuộc nhóm IIA | chu kỳ 4 và là một kim loại kiềm thổ.</li><li>Calcium có cấu hình electron 1s² 2s² 2p⁶ 3s² 3p⁶ 4s², với 2 electron hóa trị. Calcium dễ nhường 2 electron để tạo ion Ca²⁺, vì vậy số Oxy hóa phổ biến của nó là +2.</li><li>Trong tự nhiên, Calcium không tồn tại ở dạng đơn chất mà chủ yếu tồn tại trong các khoáng vật như Calcium carbonate, Calcium sulfate và Calcium phosphate. Calcium cũng là một nguyên tố quan trọng trong cơ thể sinh vật.</li><li>Calcium và các hợp chất của nó có vai trò lớn trong xây dựng, luyện kim, sản xuất hóa chất, xử lý nước, nông nghiệp và các quá trình sinh học.</li></ul>",
@@ -670,9 +818,9 @@
           "a": 4.988,
           "b": 4.988,
           "c": 17.061,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 120.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 120
         },
         "volume": 367.6105818568375,
         "siteCount": 30,
@@ -738,6 +886,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Calcium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -746,6 +899,7 @@
     "sourceSha256": "3783a53d30efd7c64ec55ffefdbbe70553d776c5da24c7dac547fcd5e9f4a69c",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/020_Ca.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/canxi-ca/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/canxi-ca/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/canxi-ca/audit.md"
   }
 }

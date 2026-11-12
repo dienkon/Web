@@ -67,7 +67,30 @@
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lục phương kép xếp chặt (DHCP) ở áp suất thường; cấu trúc thay đổi theo nhiệt độ và áp suất.",
     "latticeEvidence": "source-reviewed",
-    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
+    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác.",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Californium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_californium",
+      "revisionId": 1382491509,
+      "revisionTimestamp": "2026-10-28T23:40:14Z",
+      "status": "no-reviewed-model",
+      "phases": [
+        {
+          "type": "double hexagonal close packed",
+          "prefix": "",
+          "comment": "",
+          "pearson": "",
+          "lattice": ""
+        }
+      ],
+      "selectedModel": null,
+      "modelKind": null,
+      "metrics": [],
+      "notes": [
+        "Không lấy hình của một kiểu mạng chung để khẳng định mẫu tinh thể đã được đo. Pha khí/lỏng và cấu trúc dự đoán được ghi riêng."
+      ],
+      "additionalSources": []
+    }
   },
   "structureType": "Lục phương kép xếp chặt (DHCP) ở áp suất thường; cấu trúc thay đổi theo nhiệt độ và áp suất.",
   "occurrence": {
@@ -444,32 +467,95 @@
     {
       "title": "Nguồn neutron",
       "desc": "²⁵²Cf là nguồn neutron mạnh và có thể được sử dụng trong các thiết bị chuyên dụng tạo neutron.",
-      "sourceLine": 92
+      "sourceLine": 92,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Phân tích vật liệu",
       "desc": "Nguồn neutron từ ²⁵²Cf được sử dụng trong một số kỹ thuật phân tích kích hoạt neutron để xác định thành phần nguyên tố của vật liệu.",
-      "sourceLine": 93
+      "sourceLine": 93,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Thăm dò giếng dầu",
       "desc": "Nguồn neutron Californium từng được sử dụng trong một số thiết bị đo địa vật lý giếng khoan, giúp nghiên cứu thành phần và đặc tính của các lớp đất đá.",
-      "sourceLine": 94
+      "sourceLine": 94,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "drilling",
+        "source": "https://commons.wikimedia.org/wiki/File:Large_hole_drilling_rig.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/drilling.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Large_hole_drilling_rig.jpg",
+        "author": "Olga Ernst",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Thăm dò giếng dầu — Drilling rig",
+        "caption": "Minh họa lĩnh vực thăm dò giếng dầu · Drilling rig.",
+        "topic": "drilling",
+        "role": "application-context"
+      }
     },
     {
       "title": "Điều trị ung thư",
       "desc": "Nguồn neutron từ ²⁵²Cf từng được nghiên cứu và sử dụng trong một số phương pháp xạ trị neutron.",
-      "sourceLine": 95
+      "sourceLine": 95,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "radiotherapy",
+        "source": "https://commons.wikimedia.org/wiki/File:Radiation_therapy.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/radiotherapy.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Radiation_therapy.jpg",
+        "author": "Dina Wakulchik from Indianapolis, Indiana, USA",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "alt": "Điều trị ung thư — Radiation therapy",
+        "caption": "Minh họa lĩnh vực điều trị ung thư · Radiation therapy.",
+        "topic": "radiotherapy",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nghiên cứu hạt nhân",
       "desc": "Californium được sử dụng để nghiên cứu vật lý hạt nhân và các nguyên tố siêu nặng.",
-      "sourceLine": 96
+      "sourceLine": 96,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/research.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "author": "LSDSL",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nghiên cứu hạt nhân — Particle accelerator",
+        "caption": "Minh họa lĩnh vực nghiên cứu hạt nhân · Particle accelerator.",
+        "topic": "research",
+        "role": "application-context"
+      }
     },
     {
       "title": "Ứng dụng",
       "desc": "Do tính phóng xạ cao và việc sản xuất khó khăn, Californium có giá trị rất lớn và chỉ được sử dụng trong những lĩnh vực chuyên biệt.",
-      "sourceLine": 97
+      "sourceLine": 97,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Californium là nguyên tố số 98, thuộc nhóm IIIB | chu kỳ 7 và là nguyên tố thứ mười trong họ Actinide.</li><li>Californium được Stanley G. Thompson, Kenneth Street Jr., Albert Ghiorso và Glenn T. Seaborg phát hiện vào năm 1950 tại Berkeley, California. Tên nguyên tố được đặt theo bang California.</li><li>Californium là một kim loại phóng xạ nhân tạo, không có đồng vị bền. Trạng thái Oxy hóa phổ biến nhất là +3.</li><li>Đồng vị nổi bật nhất là ²⁵²Cf, có khả năng phát ra một lượng lớn neutron tự phát. Đặc tính này khiến Californium có những ứng dụng đặc biệt trong nguồn neutron, phân tích vật liệu, địa vật lý và nghiên cứu hạt nhân.</li><li>Mạng tinh thể: Lục phương (Hexagonal) ở điều kiện thường.</li></ul>",
@@ -514,6 +600,11 @@
     {
       "title": "actinideStructures",
       "url": "https://arxiv.org/abs/2604.12249"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Californium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -522,6 +613,7 @@
     "sourceSha256": "3443832139ccada513f87f83d9a1882eb7190db867dbe5f0f57f00b4477a0054",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/098_Cf.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/californium-cf/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/californium-cf/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/californium-cf/audit.md"
   }
 }

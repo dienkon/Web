@@ -55,7 +55,30 @@
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Tinh thể phân tử; pha rắn thường có cấu trúc lục phương xếp chặt (hcp).",
     "latticeEvidence": "phase-dependent",
-    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
+    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác.",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Hydrogen",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_hydrogen",
+      "revisionId": 1378089654,
+      "revisionTimestamp": "2026-10-02T22:36:05Z",
+      "status": "phase-unmeasured-or-fluid",
+      "phases": [
+        {
+          "type": "hexagonal",
+          "prefix": "",
+          "comment": "",
+          "pearson": "hP4",
+          "lattice": "a = 378.97 pm; c = 618.31 pm (at triple point)"
+        }
+      ],
+      "selectedModel": null,
+      "modelKind": null,
+      "metrics": [],
+      "notes": [
+        "Không lấy hình của một kiểu mạng chung để khẳng định mẫu tinh thể đã được đo. Pha khí/lỏng và cấu trúc dự đoán được ghi riêng."
+      ],
+      "additionalSources": []
+    }
   },
   "structureType": "Tinh thể phân tử; pha rắn thường có cấu trúc lục phương xếp chặt (hcp).",
   "occurrence": {
@@ -478,42 +501,170 @@
     {
       "title": "Sản xuất hóa chất",
       "desc": "Nguyên liệu cốt lõi để tổng hợp Ammonia (sản xuất phân đạm), Methanol và hydrochloric acid.",
-      "sourceLine": 101
+      "sourceLine": 101,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "ammonia",
+        "source": "https://commons.wikimedia.org/wiki/File:Haber-Bosch-En.svg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/ammonia.png",
+        "source": "https://commons.wikimedia.org/wiki/File:Haber-Bosch-En.svg",
+        "author": "Francis E Williams This file is lacking author information.",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Sản xuất hóa chất — Haber process",
+        "caption": "Minh họa lĩnh vực sản xuất hóa chất · Haber process.",
+        "topic": "ammonia",
+        "role": "application-context"
+      }
     },
     {
       "title": "Lọc hóa dầu",
       "desc": "Dùng trong quá trình hydrocracking (bẻ gãy mạch hydrocarbon nặng) và hydrodesulfurization (loại bỏ lưu huỳnh khỏi nhiên liệu).",
-      "sourceLine": 102
+      "sourceLine": 102,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "refinery",
+        "source": "https://commons.wikimedia.org/wiki/File:Anacortes_Refinery_31911.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/refinery.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Anacortes_Refinery_31911.JPG",
+        "author": "Walter Siegmund (talk)",
+        "license": "CC BY 2.5",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+        "alt": "Lọc hóa dầu — Oil refinery",
+        "caption": "Minh họa lĩnh vực lọc hóa dầu · Oil refinery.",
+        "topic": "refinery",
+        "role": "application-context"
+      }
     },
     {
       "title": "Luyện kim",
       "desc": "Làm chất khử sạch để điều chế các kim loại có độ tinh khiết cao từ oxide (như Vonfram, Molypden, Đồng).",
-      "sourceLine": 103
+      "sourceLine": 103,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "alloy",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/alloy.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg",
+        "author": "Bill Abbott",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Luyện kim — Alloy",
+        "caption": "Minh họa lĩnh vực luyện kim · Alloy.",
+        "topic": "alloy",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hàn và cắt kim loại",
       "desc": "Ngọn lửa oxy-hydrogen tạo nhiệt độ cao xấp xỉ 2800 °C dùng để gia công kim loại và nấu chảy thủy tinh thạch anh.",
-      "sourceLine": 104
+      "sourceLine": 104,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "welding",
+        "source": "https://commons.wikimedia.org/wiki/File:US_Navy_090715-N-5821P-002_Aviation_Support_Equipment_Technician_Airman_Anthony_Hammond_performs_tungsten_inert_gas_welding_during_a_training_evolution.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/welding.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:US_Navy_090715-N-5821P-002_Aviation_Support_Equipment_Technician_Airman_Anthony_Hammond_performs_tungsten_inert_gas_welding_during_a_training_evolution.jpg",
+        "author": "U.S. Navy photo by Mass Communication Specialist 2nd Class Jason T. Poplin",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Hàn và cắt kim loại — Gas tungsten arc welding",
+        "caption": "Minh họa lĩnh vực hàn và cắt kim loại · Gas tungsten arc welding.",
+        "topic": "welding",
+        "role": "application-context"
+      }
     },
     {
       "title": "Năng lượng và giao thông",
       "desc": "Pin nhiên liệu H₂ tạo nước tại nơi sử dụng. Phát thải toàn vòng đời phụ thuộc cách sản xuất, nén và vận chuyển H₂.",
-      "sourceLine": 105
+      "sourceLine": 105,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "fuel-cell",
+        "source": "https://commons.wikimedia.org/wiki/File:Fuel_cell_NASA_p48600ac.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/fuel-cell.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Fuel_cell_NASA_p48600ac.jpg",
+        "author": "Tác giả không ghi trong metadata",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Năng lượng và giao thông — Fuel cell",
+        "caption": "Minh họa lĩnh vực năng lượng và giao thông · Fuel cell.",
+        "topic": "fuel-cell",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hàng không vũ trụ",
       "desc": "Hydrogen lỏng (LH2) kết hợp với Oxygen lỏng (LOX) là hệ nhiên liệu đẩy tên lửa mạnh mẽ.",
-      "sourceLine": 106
+      "sourceLine": 106,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "rocket",
+        "source": "https://commons.wikimedia.org/wiki/File:RS-68_rocket_engine_test.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/rocket.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:RS-68_rocket_engine_test.jpg",
+        "author": "NASA",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Hàng không vũ trụ — Rocket engine",
+        "caption": "Minh họa lĩnh vực hàng không vũ trụ · Rocket engine.",
+        "topic": "rocket",
+        "role": "application-context"
+      }
     },
     {
       "title": "Công nghiệp thực phẩm",
       "desc": "Hydro hóa dầu thực vật dạng lỏng thành chất béo rắn hoặc bán rắn (như bơ thực vật margarine).",
-      "sourceLine": 107
+      "sourceLine": 107,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "margarine",
+        "source": "https://commons.wikimedia.org/wiki/File:Margarine.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/margarine.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Margarine.jpg",
+        "author": "Tác giả không ghi trong metadata",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Công nghiệp thực phẩm — Margarine",
+        "caption": "Minh họa lĩnh vực công nghiệp thực phẩm · Margarine.",
+        "topic": "margarine",
+        "role": "application-context"
+      }
     },
     {
       "title": "Điện tử và bán dẫn",
       "desc": "Làm môi trường khí bảo vệ trong quá trình sản xuất chip bán dẫn và màn hình silicon.",
-      "sourceLine": 108
+      "sourceLine": 108,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "semiconductor",
+        "source": "https://commons.wikimedia.org/wiki/File:ICC_2008_Poland_Silicon_Wafer_1_edit.png"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/semiconductor.png",
+        "source": "https://commons.wikimedia.org/wiki/File:ICC_2008_Poland_Silicon_Wafer_1_edit.png",
+        "author": "FxJ",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Điện tử và bán dẫn — Silicon wafer",
+        "caption": "Minh họa lĩnh vực điện tử và bán dẫn · Silicon wafer.",
+        "topic": "semiconductor",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Hydrogen là nguyên tố đầu tiên trong bảng tuần hoàn (số hiệu nguyên tử 1), thuộc nhóm IA | chu kỳ 1.</li><li>Ở điều kiện thường, Hydrogen tồn tại dưới dạng phân tử khí H₂ không màu, không mùi và là chất khí nhẹ nhất trong tự nhiên. Dù ở dạng đơn chất tự do trên Trái Đất rất hiếm, Hydrogen lại dồi dào trong nước, các hợp chất hữu cơ, dầu mỏ và chiếm phần lớn khối lượng vật chất nhìn thấy được trong toàn vũ trụ.</li><li>Hydrogen sở hữu tính khử mạnh trong hầu hết phản ứng, có khả năng kết hợp mạnh mẽ với phi kim và khử oxide kim loại để giải phóng kim loại tinh khiết.</li><li>Hydrogen giữ vai trò trụ cột trong công nghiệp phân bón, lọc hóa dầu, luyện kim và đang là tâm điểm phát triển của nguồn năng lượng sạch bền vững tương lai.</li></ul>",
@@ -558,6 +709,11 @@
     {
       "title": "hydrogenCAS",
       "url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C1333740"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Hydrogen",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -566,6 +722,7 @@
     "sourceSha256": "e5169eaef4c71f814ffc338a8b0f32271442bc73ea61a3df1158bffd72d025d8",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/001_H.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/hidro-h/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/hidro-h/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/hidro-h/audit.md"
   }
 }

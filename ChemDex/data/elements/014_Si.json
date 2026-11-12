@@ -69,9 +69,9 @@
         "a": 5.430941,
         "b": 5.430941,
         "c": 5.430941,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 90.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
       },
       "volume": 160.1862572980187,
       "siteCount": 8,
@@ -95,9 +95,67 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-si.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-si.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-si.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-si.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-si.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Silicon",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_silicon",
+        "revisionId": 1374108828,
+        "revisionTimestamp": "2026-09-09T22:20:49Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "diamond cubic",
+            "prefix": "",
+            "comment": "",
+            "pearson": "cF8",
+            "lattice": "a = 543.0986 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-si",
+        "modelKind": "diamond",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 5.430986000000001,
+            "modelAngstrom": 5.430941,
+            "relativeDifferencePercent": 0.0008285788252991433
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Silicon",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_silicon",
+      "revisionId": 1374108828,
+      "revisionTimestamp": "2026-09-09T22:20:49Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "diamond cubic",
+          "prefix": "",
+          "comment": "",
+          "pearson": "cF8",
+          "lattice": "a = 543.0986 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-si",
+      "modelKind": "diamond",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 5.430986000000001,
+          "modelAngstrom": 5.430941,
+          "relativeDifferencePercent": 0.0008285788252991433
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lập phương kim cương (diamond cubic), liên kết cộng hóa trị theo tứ diện.",
   "occurrence": {
@@ -150,9 +208,9 @@
             "a": 4.916,
             "b": 4.916,
             "c": 5.4054,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 120.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 120
           },
           "volume": 113.13115406160388,
           "siteCount": 9,
@@ -455,37 +513,138 @@
     {
       "title": "Chất bán dẫn",
       "desc": "Silicon là vật liệu quan trọng nhất trong sản xuất chip và linh kiện bán dẫn.",
-      "sourceLine": 93
+      "sourceLine": 93,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "semiconductor",
+        "source": "https://commons.wikimedia.org/wiki/File:ICC_2008_Poland_Silicon_Wafer_1_edit.png"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/semiconductor.png",
+        "source": "https://commons.wikimedia.org/wiki/File:ICC_2008_Poland_Silicon_Wafer_1_edit.png",
+        "author": "FxJ",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Chất bán dẫn — Silicon wafer",
+        "caption": "Minh họa lĩnh vực chất bán dẫn · Silicon wafer.",
+        "topic": "semiconductor",
+        "role": "application-context"
+      }
     },
     {
       "title": "Pin mặt trời",
       "desc": "Silicon tinh thể được sử dụng rộng rãi trong các tế bào quang điện.",
-      "sourceLine": 94
+      "sourceLine": 94,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "solar-cell",
+        "source": "https://commons.wikimedia.org/wiki/File:Solar_cell.png"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/solar-cell.png",
+        "source": "https://commons.wikimedia.org/wiki/File:Solar_cell.png",
+        "author": "Unknown author Unknown author",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Pin mặt trời — Solar cell",
+        "caption": "Minh họa lĩnh vực pin mặt trời · Solar cell.",
+        "topic": "solar-cell",
+        "role": "application-context"
+      }
     },
     {
       "title": "Điện tử",
       "desc": "Được sử dụng để sản xuất transistor, diode và các vi mạch.",
-      "sourceLine": 95
+      "sourceLine": 95,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "semiconductor",
+        "source": "https://commons.wikimedia.org/wiki/File:ICC_2008_Poland_Silicon_Wafer_1_edit.png"
+      }
     },
     {
       "title": "Hợp kim",
       "desc": "Silicon được thêm vào một số hợp kim Aluminium, Iron và các kim loại khác để cải thiện tính chất vật liệu.",
-      "sourceLine": 96
+      "sourceLine": 96,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "alloy",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/alloy.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg",
+        "author": "Bill Abbott",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Hợp kim — Alloy",
+        "caption": "Minh họa lĩnh vực hợp kim · Alloy.",
+        "topic": "alloy",
+        "role": "application-context"
+      }
     },
     {
       "title": "Silicone",
       "desc": "Silicon compounds là nguyên liệu để sản xuất Silicone dùng trong nhiều ngành công nghiệp.",
-      "sourceLine": 97
+      "sourceLine": 97,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "silicone",
+        "source": "https://commons.wikimedia.org/wiki/File:Caulking.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/silicone.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Caulking.jpg",
+        "author": "Achim Hering",
+        "license": "CC BY 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+        "alt": "Silicone — Silicone",
+        "caption": "Minh họa lĩnh vực silicone · Silicone.",
+        "topic": "silicone",
+        "role": "application-context"
+      }
     },
     {
       "title": "Vật liệu xây dựng",
       "desc": "Silicon dioxide và Silicate là thành phần quan trọng của thủy tinh, xi măng, gốm và bê tông.",
-      "sourceLine": 98
+      "sourceLine": 98,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "concrete",
+        "source": "https://commons.wikimedia.org/wiki/File:Bloczek_betonowy.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/concrete.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Bloczek_betonowy.jpg",
+        "author": "Ablazejo",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Vật liệu xây dựng — Concrete",
+        "caption": "Minh họa lĩnh vực vật liệu xây dựng · Concrete.",
+        "topic": "concrete",
+        "role": "application-context"
+      }
     },
     {
       "title": "Silicon carbide",
       "desc": "SiC được sử dụng làm vật liệu mài mòn và vật liệu kỹ thuật chịu nhiệt cao.",
-      "sourceLine": 99
+      "sourceLine": 99,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "refractory",
+        "source": "https://commons.wikimedia.org/wiki/File:Torpedo_car_refractory_bricks.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/refractory.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Torpedo_car_refractory_bricks.JPG",
+        "author": "Morgan Riley",
+        "license": "CC BY 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+        "alt": "Silicon carbide — Refractory",
+        "caption": "Minh họa lĩnh vực silicon carbide · Refractory.",
+        "topic": "refractory",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Silicon là nguyên tố số 14, thuộc nhóm IVA | chu kỳ 3 và là một á kim.</li><li>Silicon có cấu hình electron 1s² 2s² 2p⁶ 3s² 3p² và có 4 electron hóa trị. Silicon có khả năng tạo liên kết cộng hóa trị mạnh và có cấu trúc tinh thể tương tự Diamond.</li><li>Trong tự nhiên, Silicon là một trong những nguyên tố phổ biến nhất trong lớp vỏ Trái Đất, chủ yếu tồn tại dưới dạng Silicon dioxide và Silicate.</li><li>Silicon có tính bán dẫn, là cơ sở của ngành công nghiệp điện tử hiện đại. Silicon và các hợp chất của nó được sử dụng rộng rãi trong vi điện tử, pin mặt trời, vật liệu xây dựng, thủy tinh, gốm, hợp kim và vật liệu kỹ thuật.</li></ul>",
@@ -526,9 +685,9 @@
           "a": 4.916,
           "b": 4.916,
           "c": 5.4054,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 120.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 120
         },
         "volume": 113.13115406160388,
         "siteCount": 9,
@@ -595,6 +754,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Silicon",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -603,6 +767,7 @@
     "sourceSha256": "eb789324d11613c0589b59d2c75954b6d6be7a13a37ff7b206e9ec41e37217bb",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/014_Si.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/silic-si/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/silic-si/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/silic-si/audit.md"
   }
 }

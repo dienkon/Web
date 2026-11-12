@@ -67,9 +67,9 @@
         "a": 3.5093,
         "b": 3.5093,
         "c": 3.5093,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 90.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
       },
       "volume": 43.217683949357,
       "siteCount": 2,
@@ -91,9 +91,67 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-li.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-li.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-li.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-li.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-li.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Lithium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_lithium",
+        "revisionId": 1370853109,
+        "revisionTimestamp": "2026-08-23T12:06:35Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "body-centered cubic",
+            "prefix": "",
+            "comment": "",
+            "pearson": "cI2",
+            "lattice": "a = 350.93 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-li",
+        "modelKind": "bcc",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 3.5093,
+            "modelAngstrom": 3.5093,
+            "relativeDifferencePercent": 0
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Lithium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_lithium",
+      "revisionId": 1370853109,
+      "revisionTimestamp": "2026-08-23T12:06:35Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "body-centered cubic",
+          "prefix": "",
+          "comment": "",
+          "pearson": "cI2",
+          "lattice": "a = 350.93 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-li",
+      "modelKind": "bcc",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 3.5093,
+          "modelAngstrom": 3.5093,
+          "relativeDifferencePercent": 0
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Tinh thể kim loại lập phương tâm khối (bcc).",
   "occurrence": {
@@ -139,9 +197,9 @@
             "a": 9.463,
             "b": 8.392,
             "c": 5.218,
-            "alpha": 90.0,
+            "alpha": 90,
             "beta": 110.15,
-            "gamma": 90.0
+            "gamma": 90
           },
           "volume": 389.0171008599483,
           "siteCount": 40,
@@ -492,37 +550,138 @@
     {
       "title": "Pin và ắc quy",
       "desc": "Nguyên liệu cốt lõi để sản xuất pin Lithium-ion và pin Lithium kim loại cho điện thoại thông minh, máy tính xách tay, xe điện (EV) và các trạm lưu trữ năng lượng tái tạo.",
-      "sourceLine": 93
+      "sourceLine": 93,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "lead-battery",
+        "source": "https://commons.wikimedia.org/wiki/File:Photo-CarBattery.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/lead-battery.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Photo-CarBattery.jpg",
+        "author": "No machine-readable author provided. Shaddack assumed (based on copyright claims).",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Pin và ắc quy — Lead–acid battery",
+        "caption": "Minh họa lĩnh vực pin và ắc quy · Lead–acid battery.",
+        "topic": "lead-battery",
+        "role": "application-context"
+      }
     },
     {
       "title": "Y tế và tâm thần học",
       "desc": "Hợp chất Lithium carbonate (Li₂CO₃) và Lithium citrate là thuốc ổn định khí sắc nền tảng trong điều trị rối loạn lưỡng cực và trầm cảm kháng trị.",
-      "sourceLine": 94
+      "sourceLine": 94,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "lithium-medicine",
+        "source": "https://commons.wikimedia.org/wiki/File:Lithium-carbonate-xtal-1979-Mercury-3D-sf.png"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/lithium-medicine.png",
+        "source": "https://commons.wikimedia.org/wiki/File:Lithium-carbonate-xtal-1979-Mercury-3D-sf.png",
+        "author": "Ben Mills",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Y tế và tâm thần học — Lithium carbonate",
+        "caption": "Minh họa lĩnh vực y tế và tâm thần học · Lithium carbonate.",
+        "topic": "lithium-medicine",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hợp kim siêu nhẹ",
       "desc": "Tạo hợp kim với Nhôm (Al) và Magnesi (Mg) có độ bền cao và trọng lượng siêu nhẹ, ứng dụng làm khung máy bay, tên lửa và linh kiện hàng không vũ trụ.",
-      "sourceLine": 95
+      "sourceLine": 95,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "aircraft",
+        "source": "https://commons.wikimedia.org/wiki/File:Cessna_172S_Skyhawk_%E2%80%98G-JMKE%E2%80%99_(45077563364).jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/aircraft.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Cessna_172S_Skyhawk_%E2%80%98G-JMKE%E2%80%99_(45077563364).jpg",
+        "author": "Alan Wilson from Stilton, Peterborough, Cambs, UK",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Hợp kim siêu nhẹ — Aircraft",
+        "caption": "Minh họa lĩnh vực hợp kim siêu nhẹ · Aircraft.",
+        "topic": "aircraft",
+        "role": "application-context"
+      }
     },
     {
       "title": "Chất bôi trơn công nghiệp",
       "desc": "Xà phòng lithium (lithium stearate) là thành phần làm đặc trong mỡ bôi trơn đa dụng, chịu nhiệt cao và kháng nước cho động cơ và thiết bị cơ khí nặng.",
-      "sourceLine": 96
+      "sourceLine": 96,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "lubricant",
+        "source": "https://commons.wikimedia.org/wiki/File:Wheel_Bearing_Grease.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/lubricant.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Wheel_Bearing_Grease.jpg",
+        "author": "Surv1v4l1st",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Chất bôi trơn công nghiệp — Grease (lubricant)",
+        "caption": "Minh họa lĩnh vực chất bôi trơn công nghiệp · Grease (lubricant).",
+        "topic": "lubricant",
+        "role": "application-context"
+      }
     },
     {
       "title": "Sản xuất gốm sứ và thủy tinh",
       "desc": "Lithium oxide (Li₂O) làm giảm hệ số giãn nở nhiệt, tăng khả năng chống sốc nhiệt cho mặt bếp từ, kính thiên văn và gốm sứ cao cấp.",
-      "sourceLine": 97
+      "sourceLine": 97,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "glass",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/glass.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg",
+        "author": "Ansgar Koreng",
+        "license": "CC BY 3.0 de",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/de/deed.en",
+        "alt": "Sản xuất gốm sứ và thủy tinh — Glass",
+        "caption": "Minh họa lĩnh vực sản xuất gốm sứ và thủy tinh · Glass.",
+        "topic": "glass",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hệ thống hỗ trợ sự sống",
       "desc": "Lithium hydroxide (LiOH) có khả năng hấp thụ khí CO₂ hiệu quả với khối lượng nhẹ, được sử dụng trong hệ thống lọc khí thở trên tàu ngầm và trạm vũ trụ quốc tế (ISS).",
-      "sourceLine": 98
+      "sourceLine": 98,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Công nghệ hạt nhân",
       "desc": "Đồng vị ⁶Li dùng làm bia bắn neutron để sản xuất Tritium phục vụ nghiên cứu phản ứng nhiệt hạch; ⁷LiOH dùng để điều chỉnh độ pH trong hệ thống làm mát của lò phản ứng hạt nhân.",
-      "sourceLine": 99
+      "sourceLine": 99,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "reactor",
+        "source": "https://commons.wikimedia.org/wiki/File:Advanced_Test_Reactor_001.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/reactor.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Advanced_Test_Reactor_001.jpg",
+        "author": "Idaho National Laboratory",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "alt": "Công nghệ hạt nhân — Nuclear reactor",
+        "caption": "Minh họa lĩnh vực công nghệ hạt nhân · Nuclear reactor.",
+        "topic": "reactor",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Lithium là nguyên tố thứ 3 trong bảng tuần hoàn (số hiệu nguyên tử 3), thuộc nhóm IA | chu kỳ 2.</li><li>Ở điều kiện thường, Lithium là kim loại kiềm có ánh bạc, mềm và là kim loại nhẹ nhất trong tự nhiên (nổi trên cả nước và dầu khoáng). Do có hoạt tính hóa học mạnh, Lithium không tồn tại ở trạng thái tự do trên Trái Đất mà nằm rải rác trong các quặng pegmatite và tập trung tại các mỏ nước muối mặn dưới lòng đất.</li><li>Lithium sở hữu tính khử cực mạnh với thế điện cực chuẩn âm nhất trong các nguyên tố hóa học, đồng thời có những tính chất đặc trưng khác biệt so với các kim loại kiềm còn lại như khả năng phản ứng với nitrogen ở nhiệt độ thường và chỉ tạo oxide thông thường (Li₂O) khi đốt trong oxygen.</li><li>Lithium được coi là “vàng trắng” của kỷ nguyên chuyển dịch năng lượng xanh, giữ vai trò chiến lược sống còn trong công nghiệp sản xuất pin xe điện, thiết bị điện tử, y dược học thần kinh và công nghệ hàng không vũ trụ.</li></ul>",
@@ -563,9 +722,9 @@
           "a": 9.463,
           "b": 8.392,
           "c": 5.218,
-          "alpha": 90.0,
+          "alpha": 90,
           "beta": 110.15,
-          "gamma": 90.0
+          "gamma": 90
         },
         "volume": 389.0171008599483,
         "siteCount": 40,
@@ -633,6 +792,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Lithium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -641,6 +805,7 @@
     "sourceSha256": "72f24b4a2a91c4a6312e06e97945bda6139276eaa1684fbbb972acea258aec35",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/003_Li.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/liti-li/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/liti-li/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/liti-li/audit.md"
   }
 }

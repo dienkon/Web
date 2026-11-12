@@ -1,3 +1,4 @@
+import {applicationImageMarkup} from './application-media.js';
 import {
   allElements,
   elementsMap,
@@ -435,16 +436,18 @@ function showElementDetails(el) {
   });
   const appCards =
     (el.applications && el.applications.length ? el.applications : [])
+      .filter(app => String(app.desc || '').trim())
       .map((app) => {
         const mediaData = mediaToCards(app.image || app.images || app.media, {
           defaultTitle: app.title || "Ứng dụng",
           emptyText: "",
           kindHint: "image",
         });
+        const applicationPhoto = applicationImageMarkup(app);
         const previewHtml = mediaData.count > 0 ? mediaData.html : "";
         return `
               <div class="glass overflow-hidden rounded-2xl border border-slate-700 group">
-                ${previewHtml ? `<div class="h-40 bg-slate-800 overflow-hidden">${previewHtml}</div>` : ""}
+                ${applicationPhoto || (previewHtml ? `<div class="application-legacy-media">${previewHtml}</div>` : "")}
                 <div class="p-5">
                   <h4 class="font-bold text-white mb-2 text-lg">${escapeHtml(app.title || "")}</h4>
                   <p class="text-slate-400 text-sm leading-relaxed">${escapeHtml(app.desc || "")}</p>
@@ -543,16 +546,17 @@ function showElementDetails(el) {
                 <div class="structure-visual-grid mb-4 animate-stagger">
                   <div class="visual-card p-4 hover-glow">
                     <div class="flex items-center justify-between mb-3 gap-3">
-                      <p class="text-slate-200 font-medium">Hoạt họa cấu hình e</p>
+                      <p class="text-slate-200 font-medium">Cấu hình electron và phân bố theo lớp</p>
                       <span class="visual-badge"><i class="fa-solid fa-bolt text-blue-300"></i> ${getElectronConfigText(el)}</span>
                     </div>
                     <div id="electron-widget" class="electron-canvas-wrap"></div>
+                    <p class="element-fact-note mt-3">Sơ đồ lớp electron minh họa số electron từng lớp; không biểu diễn quỹ đạo lượng tử hoặc kích thước nguyên tử theo tỉ lệ.</p>
                   </div>
 
                   <div class="visual-card p-4 hover-glow">
                     <div class="flex items-center justify-between mb-3 gap-3">
                       <p class="text-slate-200 font-medium">Mô hình mạng tinh thể</p>
-                      <span class="visual-badge"><i class="fa-solid fa-cube text-cyan-300"></i> ${inferLatticeTitle(el, inferLatticeKey(el))}</span>
+                      <span class="visual-badge"><i class="fa-solid fa-cube text-cyan-300"></i> ${escapeHtml(el.structure?.publishedCrystal ? `${el.structure.publishedCrystal.mineralName} · ${el.structure.publishedCrystal.spaceGroup}` : inferLatticeTitle(el, inferLatticeKey(el)))}</span>
                     </div>
                     <div id="crystal-widget" class="crystal-scene-wrap"></div>
                   </div>

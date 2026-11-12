@@ -73,9 +73,9 @@
         "a": 3.6474,
         "b": 3.6474,
         "c": 5.7306,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 120.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 120
       },
       "volume": 66.02334364359373,
       "siteCount": 2,
@@ -99,9 +99,81 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-y.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-y.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-y.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-y.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-y.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Yttrium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_yttrium",
+        "revisionId": 1211936777,
+        "revisionTimestamp": "2024-03-05T09:34:39Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "hexagonal close packed",
+            "prefix": "",
+            "comment": "",
+            "pearson": "hP2",
+            "lattice": "a = 364.83 pm; c = 573.17 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-y",
+        "modelKind": "hcp",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 3.6483,
+            "modelAngstrom": 3.6474,
+            "relativeDifferencePercent": 0.02466902392894441
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "c",
+            "wikiAngstrom": 5.7317,
+            "modelAngstrom": 5.7306,
+            "relativeDifferencePercent": 0.01919151386150882
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Yttrium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_yttrium",
+      "revisionId": 1211936777,
+      "revisionTimestamp": "2024-03-05T09:34:39Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "hexagonal close packed",
+          "prefix": "",
+          "comment": "",
+          "pearson": "hP2",
+          "lattice": "a = 364.83 pm; c = 573.17 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-y",
+      "modelKind": "hcp",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 3.6483,
+          "modelAngstrom": 3.6474,
+          "relativeDifferencePercent": 0.02466902392894441
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "c",
+          "wikiAngstrom": 5.7317,
+          "modelAngstrom": 5.7306,
+          "relativeDifferencePercent": 0.01919151386150882
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lục phương (Hexagonal)",
   "occurrence": {
@@ -151,9 +223,9 @@
             "a": 6.8947,
             "b": 6.8947,
             "c": 6.0276,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 286.53334665128403,
           "siteCount": 24,
@@ -425,32 +497,106 @@
     {
       "title": "Laser",
       "desc": "Yttrium được sử dụng trong các vật liệu laser như YAG (Y₃Al₅O₁₂), đặc biệt khi pha thêm các nguyên tố thích hợp.",
-      "sourceLine": 84
+      "sourceLine": 84,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "laser",
+        "source": "https://commons.wikimedia.org/wiki/File:Guiding_the_Milky_Way_(potw2222a).jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/laser.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Guiding_the_Milky_Way_(potw2222a).jpg",
+        "author": "ESO/A. Ghizzi Panizza ( www.albertoghizzipanizza.com )",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "alt": "Laser — Laser",
+        "caption": "Minh họa lĩnh vực laser · Laser.",
+        "topic": "laser",
+        "role": "application-context"
+      }
     },
     {
       "title": "LED và màn hình",
       "desc": "Yttrium compounds được sử dụng làm vật liệu phát quang trong một số loại LED và màn hình.",
-      "sourceLine": 85
+      "sourceLine": 85,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "led",
+        "source": "https://commons.wikimedia.org/wiki/File:RBG-LED.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/led.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:RBG-LED.jpg",
+        "author": "PiccoloNamek",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+        "alt": "LED và màn hình — Light-emitting diode",
+        "caption": "Minh họa lĩnh vực led và màn hình · Light-emitting diode.",
+        "topic": "led",
+        "role": "application-context"
+      }
     },
     {
       "title": "Gốm kỹ thuật",
       "desc": "Yttrium oxide được sử dụng để ổn định Zirconium oxide, tạo vật liệu gốm có độ bền cao.",
-      "sourceLine": 86
+      "sourceLine": 86,
+      "imageReview": {
+        "status": "source-link",
+        "topic": "ceramic",
+        "source": "https://commons.wikimedia.org/wiki/Special:MediaSearch?type=image&search=Technical%20ceramics"
+      }
     },
     {
       "title": "Siêu dẫn",
       "desc": "Một số vật liệu chứa Yttrium có tính siêu dẫn ở nhiệt độ tương đối cao, điển hình là YBCO.",
-      "sourceLine": 87
+      "sourceLine": 87,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Kính",
       "desc": "Yttrium compounds được sử dụng trong một số loại kính quang học và vật liệu chịu nhiệt.",
-      "sourceLine": 88
+      "sourceLine": 88,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "glass",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/glass.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg",
+        "author": "Ansgar Koreng",
+        "license": "CC BY 3.0 de",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/de/deed.en",
+        "alt": "Kính — Glass",
+        "caption": "Minh họa lĩnh vực kính · Glass.",
+        "topic": "glass",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hợp kim",
       "desc": "Yttrium được thêm vào một số hợp kim để cải thiện tính chất cơ học và khả năng chịu nhiệt.",
-      "sourceLine": 89
+      "sourceLine": 89,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "refractory",
+        "source": "https://commons.wikimedia.org/wiki/File:Torpedo_car_refractory_bricks.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/refractory.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Torpedo_car_refractory_bricks.JPG",
+        "author": "Morgan Riley",
+        "license": "CC BY 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+        "alt": "Hợp kim — Refractory",
+        "caption": "Minh họa lĩnh vực hợp kim · Refractory.",
+        "topic": "refractory",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Yttrium là nguyên tố số 39, thuộc nhóm IIIB | chu kỳ 5 và là một kim loại chuyển tiếp.</li><li>Yttrium có cấu hình electron [Kr] 4d¹ 5s², với số Oxy hóa đặc trưng là +3.</li><li>Yttrium có nhiều tính chất tương tự các nguyên tố đất hiếm và thường tồn tại trong tự nhiên cùng các khoáng vật đất hiếm. Đồng vị tự nhiên ổn định duy nhất của Yttrium là ⁸⁹Y.</li><li>Yttrium có vai trò quan trọng trong laser, vật liệu phát quang, gốm kỹ thuật, vật liệu siêu dẫn, kính quang học và hợp kim chịu nhiệt.</li></ul>",
@@ -491,9 +637,9 @@
           "a": 6.8947,
           "b": 6.8947,
           "c": 6.0276,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 286.53334665128403,
         "siteCount": 24,
@@ -560,6 +706,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Yttrium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -568,6 +719,7 @@
     "sourceSha256": "55820265b701efee3dfd231107f4da6e5ce76e719b2fa76e1def7e3e6b9d21eb",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/039_Y.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/yttrium-y/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/yttrium-y/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/yttrium-y/audit.md"
   }
 }

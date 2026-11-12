@@ -1,0 +1,828 @@
+[
+  {
+    "symbol": "H",
+    "file": "data/elements/001_H.json",
+    "beforeSha256": "bd7da8bef507f39c394c899ed8a1549c01cd56cbf62a843dd594bc2e87cdca52",
+    "afterSha256": "58dacc6a7b44291411bdd5f2ee1e158052c2f59675bef25a37ef7ffae89786d5",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/hidro-h/audit.md"
+  },
+  {
+    "symbol": "He",
+    "file": "data/elements/002_He.json",
+    "beforeSha256": "0f74c1591cc856d29575ef9443cb585d7cfb41cd78f86282e2fb6c8b4e6709e8",
+    "afterSha256": "518dd2aeb893115bd556fa8b1f2a29cb6bcb6e18501f4eec5a81e78adbe04e4d",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/heli-he/audit.md"
+  },
+  {
+    "symbol": "Li",
+    "file": "data/elements/003_Li.json",
+    "beforeSha256": "54bb8e3388a44e4e6781e5cb46aea3508ca8af9dc307abc4a850613424f2dcb1",
+    "afterSha256": "0296712aa45dab63698ed4a9162d41b6f84bf3b3966da598e68419eb7d0b2680",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/liti-li/audit.md"
+  },
+  {
+    "symbol": "Be",
+    "file": "data/elements/004_Be.json",
+    "beforeSha256": "2a2d06e641d0a2d4e0a76c2b0fab14c19156ea2617daabf1825f4cb8939b2e9d",
+    "afterSha256": "ad13118b1fc7344c5dfeec4aa097aac228dc232fae51224d83fe12f63d21bee8",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/beri-be/audit.md"
+  },
+  {
+    "symbol": "B",
+    "file": "data/elements/005_B.json",
+    "beforeSha256": "ef609c1b34b8db94ff06f6f38c56f2b1638bb792daf5b680ed842e3dfc9df81f",
+    "afterSha256": "41ef55846fa7ecc92764b8ca7752b0b25b52a301a98981c37e90c0e5ec5f7934",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/bo-b/audit.md"
+  },
+  {
+    "symbol": "C",
+    "file": "data/elements/006_C.json",
+    "beforeSha256": "96e2615504948008e928dc2902385dcdee7aea5e651577ca776487040246e753",
+    "afterSha256": "87bc5ad20c746ed53efd08f3890c08bae104ecc24aa11d56fc95de4705dd28fc",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/cacbon-c/audit.md"
+  },
+  {
+    "symbol": "N",
+    "file": "data/elements/007_N.json",
+    "beforeSha256": "eecd0144bd3932e3ccdbd8925a748288a1d834ed9a2f9143c106e262654cd7ba",
+    "afterSha256": "11a9edfd43ad092e62b294bb63081f4cd9925fdf3ab7590953b75bc8eac32f9b",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/nito-n/audit.md"
+  },
+  {
+    "symbol": "O",
+    "file": "data/elements/008_O.json",
+    "beforeSha256": "127557d1a5c1d3939965048e7de80c31b5cf009ca316d03e1d4a687edf567871",
+    "afterSha256": "8e292c374fbab7e4ae7c24157fcbf8fb82f78c087d85eb3365e9fd1d3986fa5d",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/oxi-o/audit.md"
+  },
+  {
+    "symbol": "F",
+    "file": "data/elements/009_F.json",
+    "beforeSha256": "6dca85c1ca3236338e708a1f8dcca0ba21d2e2a4911c6a418a74e86192212b83",
+    "afterSha256": "945a5dfe2261b91cc783bf0f380210d0f822798f9d1aa82b8c20521d71da034c",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/flo-f/audit.md"
+  },
+  {
+    "symbol": "Ne",
+    "file": "data/elements/010_Ne.json",
+    "beforeSha256": "359bb461959fa39cbc72be7f25cf36a1271163a71bbe9a4c025ecd38e5688d35",
+    "afterSha256": "c9afca088d55bbeca200f8d3828e80b57741f8d4e90678484afb5dbe678f6836",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/neon-ne/audit.md"
+  },
+  {
+    "symbol": "Na",
+    "file": "data/elements/011_Na.json",
+    "beforeSha256": "fa7163b767323ced5f4b0856737e9b523b6803303f87ee145e01b053e80151ac",
+    "afterSha256": "aaa5a19a0c13eb729c629ac6f3785bff87d1ed922bcf7548d3c780a1fdcbe03d",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/natri-na/audit.md"
+  },
+  {
+    "symbol": "Mg",
+    "file": "data/elements/012_Mg.json",
+    "beforeSha256": "c1f14860edc7c351519b7f8a194a923a8b9edc211d50b2f3c5b77f62c1e3a5ef",
+    "afterSha256": "fa1fdede58f927d0fb342a81951dafc93e66b34300822bc59007b537cb278703",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/magie-mg/audit.md"
+  },
+  {
+    "symbol": "Al",
+    "file": "data/elements/013_Al.json",
+    "beforeSha256": "92b3afae30c20d537c1cbb637f5af3a487077068cb3c113498105c442b992367",
+    "afterSha256": "85556c3338c8f1f21cfad51c47900e8608b6fc831bf40afcd8c317f45c8b8193",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/nhom-al/audit.md"
+  },
+  {
+    "symbol": "Si",
+    "file": "data/elements/014_Si.json",
+    "beforeSha256": "650b88f9453dd67feec1a209a60d9901a7f3cd0187eb38b8d79f6d70576b13c3",
+    "afterSha256": "850e21bc5dcf68e5aaf482ca444b21e932f1d361b47cb98dd20a4b1c50aef436",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/silic-si/audit.md"
+  },
+  {
+    "symbol": "P",
+    "file": "data/elements/015_P.json",
+    "beforeSha256": "4f7579cd86119845243e73d24d698be224da0d88536bf54f1ce08eece5080fee",
+    "afterSha256": "cb45e91c1a982fc048cb6845082ffbfe71fe288f9a93f660611f647865808c14",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/photpho-p/audit.md"
+  },
+  {
+    "symbol": "S",
+    "file": "data/elements/016_S.json",
+    "beforeSha256": "7b0808e00329b479785dbdeaff6709791b1908f9810141236eca9bb0cbecca56",
+    "afterSha256": "5b7c2a18c961edd40ce87bc0b8eacb8a87d2c4ef64c64f139f196b7aba1714bb",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/luu-huynh-s/audit.md"
+  },
+  {
+    "symbol": "Cl",
+    "file": "data/elements/017_Cl.json",
+    "beforeSha256": "8300592824450871977f6566fd3a06284d013980ff361e1cb4f06da3dcb55337",
+    "afterSha256": "41a56861daaba5876a2dbe1f05868fa5c5657518ba25a14614d749c94315dff4",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/clo-cl/audit.md"
+  },
+  {
+    "symbol": "Ar",
+    "file": "data/elements/018_Ar.json",
+    "beforeSha256": "4d4c7da56e381d8b383c8626f953a512582dbb6e43c2588744074c8b8ac3579a",
+    "afterSha256": "4c3ec9be992f6dd6a83077fc5e933df61ea78c980bf186e06ccc0aeddc17c38e",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/argon-ar/audit.md"
+  },
+  {
+    "symbol": "K",
+    "file": "data/elements/019_K.json",
+    "beforeSha256": "0135353bd02ce6e452700dc62a2c8aba6e09d87e06578b59db6800da74dd0baf",
+    "afterSha256": "fe5acc7ba9b8fb0c4e3326426fa93924c5c69ed4f15fb253327ad2c2b6a08a14",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/kali-k/audit.md"
+  },
+  {
+    "symbol": "Ca",
+    "file": "data/elements/020_Ca.json",
+    "beforeSha256": "6f717ffbf35b3784aeaa711240d812e01335c9628ccae43bf10f5654ff4162d9",
+    "afterSha256": "72848cc65054f77a3b1ec23214cb51f628d080cd5bbaab21fa8cb48e393b5213",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/canxi-ca/audit.md"
+  },
+  {
+    "symbol": "Sc",
+    "file": "data/elements/021_Sc.json",
+    "beforeSha256": "8a1b3514223b3255fcca8d237c2feb6bb8de11ab4e86f2eaae78fc7dece161e3",
+    "afterSha256": "3165a591167201cd8c09a3c9f3944fc45bc8c41cfed05d8dc9931c1516eefa7a",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/scandi-sc/audit.md"
+  },
+  {
+    "symbol": "Ti",
+    "file": "data/elements/022_Ti.json",
+    "beforeSha256": "8d595a4eb80315b7548a118a27fd02f45ef779df6fe2ca49041c73ecfb0711cb",
+    "afterSha256": "5cd6b3a847391be75f88db7b618a16599ef86fb8106da37d1c83b0b79006ca2a",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/titan-ti/audit.md"
+  },
+  {
+    "symbol": "V",
+    "file": "data/elements/023_V.json",
+    "beforeSha256": "b35c3cb15e103ad820ed5c5e0341ac67f8797e0b46b00f9ffa3c8b1b9226648e",
+    "afterSha256": "10ac03c5e89da1e18a255c712c91f902b3143ac878abb38c5b470560c5484d7e",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/vanadi-v/audit.md"
+  },
+  {
+    "symbol": "Cr",
+    "file": "data/elements/024_Cr.json",
+    "beforeSha256": "ec67287376b3318b158c21fad36841690a6c8d41c6df10ca7e2d5a44ca33cbd4",
+    "afterSha256": "d5e2c626618a9d139a64a5700b997592f6e47314c4a2bf13476beccc51bc889f",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/crom-cr/audit.md"
+  },
+  {
+    "symbol": "Mn",
+    "file": "data/elements/025_Mn.json",
+    "beforeSha256": "7594bbe1ef6e6714977990fae1c3d09193ef79ae7b63eb55ad146608ed972295",
+    "afterSha256": "d7374a6399c8f46d115722fed519343329a53905e17aded58c06bd95e0070151",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/mangan-mn/audit.md"
+  },
+  {
+    "symbol": "Fe",
+    "file": "data/elements/026_Fe.json",
+    "beforeSha256": "4de2aa9c930e181c649a8a080def0d5cec745f297ede796ad69e8785be37ccf4",
+    "afterSha256": "90fd266542ca416a4a8c0a88849c89540770590a4d1d20bb66e1013613427d72",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/sat-fe/audit.md"
+  },
+  {
+    "symbol": "Co",
+    "file": "data/elements/027_Co.json",
+    "beforeSha256": "da9639b752c406f1e050dfd9919aaee2d94dcf3fed13c21157616da1d4726c9d",
+    "afterSha256": "e87502d58facd931acf923f5416e4b58f9d5ffcf72d780064db5df446180bd4c",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/coban-co/audit.md"
+  },
+  {
+    "symbol": "Ni",
+    "file": "data/elements/028_Ni.json",
+    "beforeSha256": "24bc10e005ede322f101dd80034d0015cf4da84c53cd81754b19494d2e56745d",
+    "afterSha256": "f148bbae25c5c90d1216840253da8304ad834abbf1bc355cf8e75c4c230ec6fc",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/niken-ni/audit.md"
+  },
+  {
+    "symbol": "Cu",
+    "file": "data/elements/029_Cu.json",
+    "beforeSha256": "54c4d11cf22bee94ea63586f6a204ff91cf37a87e780b9fc8945873f1b9f9dc3",
+    "afterSha256": "179978e8e1c97f116ac88e0ce3e69c65ec976d5c42cafeded904ac4abc974662",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/dong-cu/audit.md"
+  },
+  {
+    "symbol": "Zn",
+    "file": "data/elements/030_Zn.json",
+    "beforeSha256": "fa7ec75ff7c44554b1f678a12c396aa81c5697e9e43f8f7edf842cc679c9582a",
+    "afterSha256": "8b4dd77464cc0506fde967c32551c3b7447df236b3fa29c605b8ff10a3074fab",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/kem-zn/audit.md"
+  },
+  {
+    "symbol": "Ga",
+    "file": "data/elements/031_Ga.json",
+    "beforeSha256": "2adfd601ebdba5f13eee946ce13cb8aafa9b22768e52e85874e1b8bed3d20a1c",
+    "afterSha256": "2ff637cac7e4490c3f7aafbb9c675cc75cedb006529033feec0712b980e90d4a",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/gali-ga/audit.md"
+  },
+  {
+    "symbol": "Ge",
+    "file": "data/elements/032_Ge.json",
+    "beforeSha256": "a805dff576a97103dc496ed087e34bab3978da310fa7167a788a90516b87dd91",
+    "afterSha256": "23d240a21ccb689eca9c2223d4294906b5cdfcf1fb7b4c35d684b0020fb913e3",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/gecmani-ge/audit.md"
+  },
+  {
+    "symbol": "As",
+    "file": "data/elements/033_As.json",
+    "beforeSha256": "29aa9e89ba4f33862e9e5583c24533c58489cd1ddff4c427550fda95cfb5b39e",
+    "afterSha256": "d9e23de17129d35944b4039cf6e610f92e70a657d6bfbeb1eba4cdd295dd8ea8",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/asen-as/audit.md"
+  },
+  {
+    "symbol": "Se",
+    "file": "data/elements/034_Se.json",
+    "beforeSha256": "afd0c22e30d52a779a6699a91f0f65067104b8e1f00a72fbb9ca1fffa0049380",
+    "afterSha256": "9f7f48325788da5f668ddbbf18094eb338a98a2d1ae4f4393b9fcf4e4f81c1dc",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/selen-se/audit.md"
+  },
+  {
+    "symbol": "Br",
+    "file": "data/elements/035_Br.json",
+    "beforeSha256": "6afccc302be25002890e6da06205de0046825f4f7ea63207a95bd12c9bc43859",
+    "afterSha256": "49c5beac1ec980b678919286a2bd0b3db28dab0bfe357af87501d36af6771c4a",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/brom-br/audit.md"
+  },
+  {
+    "symbol": "Kr",
+    "file": "data/elements/036_Kr.json",
+    "beforeSha256": "5f67f3b97886ac9c77aa3c097cbb298ac23eff6e627b4cc8a07b7d6cb5e700ba",
+    "afterSha256": "473a55455b2494542cb97c8f3e59094dfe4f3696188d1487849cdea23ddfca6c",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/kripton-kr/audit.md"
+  },
+  {
+    "symbol": "Rb",
+    "file": "data/elements/037_Rb.json",
+    "beforeSha256": "9a6bd50818710907a69fd0bb3698780b9dcd70531205a9a84a224b6a9043e160",
+    "afterSha256": "9e9c8ea729c98e48ec3fb10a9ed806088a54d3c79a6acda86e6da4a9e56448af",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/rubidium-rb/audit.md"
+  },
+  {
+    "symbol": "Sr",
+    "file": "data/elements/038_Sr.json",
+    "beforeSha256": "922b534fd029c24443158526cbee12874752b7af1fc59fbbbce925e4158b0f91",
+    "afterSha256": "3b557cead289f14f0af44f75a98ffd02343643997ea8f3c58638f0b632ac95f4",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/strontium-sr/audit.md"
+  },
+  {
+    "symbol": "Y",
+    "file": "data/elements/039_Y.json",
+    "beforeSha256": "d5f2a2013968cbeaa6200277fbf6b2ed58dc1859a0076b1f2f025d29a34a8f2e",
+    "afterSha256": "a4853ca0a1a88b220762f73e35a70737fd63944817d4ca1562c6b76eb63b56df",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/yttrium-y/audit.md"
+  },
+  {
+    "symbol": "Zr",
+    "file": "data/elements/040_Zr.json",
+    "beforeSha256": "be1d01be5e4f53119370d2abd5bf848be019b87d116e2ef4daf9cd79ba066df2",
+    "afterSha256": "0561384ea5cb368d31d9399704ee59cf8bd5eca5d3f45098e3bd143903680a6e",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/zirconium-zr/audit.md"
+  },
+  {
+    "symbol": "Nb",
+    "file": "data/elements/041_Nb.json",
+    "beforeSha256": "ca9783eaf68777457691f5f292eec29180d5d1afe4503713f389f0067cbb4345",
+    "afterSha256": "a467e9003efd94241858a01c1644963bb8351a36b53525c223241e9b7983d566",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/niobium-nb/audit.md"
+  },
+  {
+    "symbol": "Mo",
+    "file": "data/elements/042_Mo.json",
+    "beforeSha256": "8b6f80fc73d42731849e4640e57741d1337dec85eceeb2cf7d0d193948755741",
+    "afterSha256": "50928e589a6e7b3b592328eb57d3a6aacd240f2ff0414ef2a8ba403d51c57df1",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/molybdenum-mo/audit.md"
+  },
+  {
+    "symbol": "Tc",
+    "file": "data/elements/043_Tc.json",
+    "beforeSha256": "611e0aa12ed767d6fb8b56b0c526ecd7b190d7c80bd4942e4c4c5c2c1fc13859",
+    "afterSha256": "bbac3e0fdcc0498bc85d775ac749214dcba8fe15501d1179e994e3b5a5ca6aae",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/technetium-tc/audit.md"
+  },
+  {
+    "symbol": "Ru",
+    "file": "data/elements/044_Ru.json",
+    "beforeSha256": "cafc1864fd1463926649a6233f0a5bd10dee7764b12845bee5554fe8130e9d31",
+    "afterSha256": "35ee2703bb715e31757cb933e858c36e1b94ebad9c3714c17362aa33ba9279f0",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/ruthenium-ru/audit.md"
+  },
+  {
+    "symbol": "Rh",
+    "file": "data/elements/045_Rh.json",
+    "beforeSha256": "a06b54d6517290a9a886c1272d6dc5598cdc0bd38fed017a1a2f80eea7c07e03",
+    "afterSha256": "1308b7cac004967c915fb8cd690bcca08bac34b3711496f33a9024fb95c950c7",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/rhodium-rh/audit.md"
+  },
+  {
+    "symbol": "Pd",
+    "file": "data/elements/046_Pd.json",
+    "beforeSha256": "1eb1db495bd654104ce64630614e8ee97cb78804609ae383c671841abf53f865",
+    "afterSha256": "9ba18c7c0b2b5837f8c435800384a152af3805bbc4c7580c16d644a7176576fa",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/palladium-pd/audit.md"
+  },
+  {
+    "symbol": "Ag",
+    "file": "data/elements/047_Ag.json",
+    "beforeSha256": "be791305704cc8bc681c297c3e217606986df4e378a21e61ee3f21a1735726bc",
+    "afterSha256": "040a1eeccc671d88be865708121630c148fae9301e190331c060ff191ed550dd",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/bac-ag/audit.md"
+  },
+  {
+    "symbol": "Cd",
+    "file": "data/elements/048_Cd.json",
+    "beforeSha256": "e964b22b7fb68f91617f0064a1fbbe58014c2f5706c2c3337828fdf6b2a6f35a",
+    "afterSha256": "b663ae5f4424ca4a6964c69674f1efb3668dbf4c1fc7fc3445bd136a0be36835",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/cadmium-cd/audit.md"
+  },
+  {
+    "symbol": "In",
+    "file": "data/elements/049_In.json",
+    "beforeSha256": "23aacaad3494ec4d03b5fbaf57bb283eb4438f8f25abff37229fabb1197422f5",
+    "afterSha256": "74a58e6749fcd4f2689808a028fe8def967672279337a59ff2347b2141de9b2a",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/indium-in/audit.md"
+  },
+  {
+    "symbol": "Sn",
+    "file": "data/elements/050_Sn.json",
+    "beforeSha256": "0aa61d9a5cceda0873284c6c987601143a0dfda9bcad4c5b8464ca9cc3722ecc",
+    "afterSha256": "8bc9a6f83afc1911008fe9dee3c4e6b732671034664a24725fe5aa17508db7b8",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/tin-sn/audit.md"
+  },
+  {
+    "symbol": "Sb",
+    "file": "data/elements/051_Sb.json",
+    "beforeSha256": "768acd50d5b1cd1c2fbbf9e6b2d7bf3259e35a948bd9fa8b4602bce7cd3ca9a8",
+    "afterSha256": "b13558cb8154b259dcebd744f59708d6ae80f7aeac2b7307054d19224cfa2c2f",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/antimony-sb/audit.md"
+  },
+  {
+    "symbol": "Te",
+    "file": "data/elements/052_Te.json",
+    "beforeSha256": "eb64ce665605d3284cfa5c77d3940fc9b69cc6799289c928d2ccf49fcf343f31",
+    "afterSha256": "d9ff9fa67842763f40aea8b2774dc5e7f52c994a399ae35764f432935684b165",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/tellurium-te/audit.md"
+  },
+  {
+    "symbol": "I",
+    "file": "data/elements/053_I.json",
+    "beforeSha256": "4fcf4388c947bd5e284f421a1d50e298725652900eea691ab9918778baf048a9",
+    "afterSha256": "0755de53776ecb7d07e71a4bfce4602140fdf0b0d78e095b9478059b67404909",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/iot-i/audit.md"
+  },
+  {
+    "symbol": "Xe",
+    "file": "data/elements/054_Xe.json",
+    "beforeSha256": "a1b372772f7211a284cd45bedd680948b1895118aef2a38f5c4d5f926ec43364",
+    "afterSha256": "a608731be1398e2e2e304a7aa6acc78f9490be042b9bb61f3a4116e5945fee69",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/xenon-xe/audit.md"
+  },
+  {
+    "symbol": "Cs",
+    "file": "data/elements/055_Cs.json",
+    "beforeSha256": "8035290e10b50ba532cd913d9e4cbdb4ee848abb7cf90a3554c48a9c960e2e2c",
+    "afterSha256": "24fed1476ff6bc2119729d3c48811db4ae495c521cd86aa232c51f8994de8e4c",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/cesium-cs/audit.md"
+  },
+  {
+    "symbol": "Ba",
+    "file": "data/elements/056_Ba.json",
+    "beforeSha256": "9be12d642ade67952e64465ff6b313151f1f70c0968c6b12a9712435237422dd",
+    "afterSha256": "b244aeb879c7b371acb49132daa8fe01faf7ef74cead3c13ee0739c5c560a188",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/bari-ba/audit.md"
+  },
+  {
+    "symbol": "La",
+    "file": "data/elements/057_La.json",
+    "beforeSha256": "e4d4201e0a750f8995c07bc96799b249532567c7c5b36d44dbbbf98fc510bce5",
+    "afterSha256": "6ff1dfe30c2a242507ecf85d65214213e6168a21e0613b240b32236181add34f",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/lanthanum-la/audit.md"
+  },
+  {
+    "symbol": "Ce",
+    "file": "data/elements/058_Ce.json",
+    "beforeSha256": "313005fbf7685bf3b88cfe6bf7511d9661a16a3d98d006af28225e2ebf5480e3",
+    "afterSha256": "1b4876bc43ec47b68a51a292772ae9d7aa7dfc999d1d2e570b0c0c9b5698e92c",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/cerium-ce/audit.md"
+  },
+  {
+    "symbol": "Pr",
+    "file": "data/elements/059_Pr.json",
+    "beforeSha256": "360ae4bc83e5c4bb9f0bd98048a98913b8e2277dfe0ad1d2acb436b8462d3d42",
+    "afterSha256": "9200dbec92303cf437cbb637bfce187e1cc58fd2a2b09bfffb3473321d41248e",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/praseodymium-pr/audit.md"
+  },
+  {
+    "symbol": "Nd",
+    "file": "data/elements/060_Nd.json",
+    "beforeSha256": "6641fdda110c819e0cb496800bbddfe0b0df39ba1b6ad048fd081f247c8ad732",
+    "afterSha256": "1ded7437a894fb420b3d7f4eed86a9997afde3f9cb3047d0c23fe14bdc211a53",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/neodymium-nd/audit.md"
+  },
+  {
+    "symbol": "Pm",
+    "file": "data/elements/061_Pm.json",
+    "beforeSha256": "b6d6d4e1b97698b9f9c0091ee25f70632fc05172ccb6eef058c182b7660d6f28",
+    "afterSha256": "0e7fc32c9cd736efc0cd7c868d861172fc08974dbcda5b6fd3022d4087abcb34",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/promethium-pm/audit.md"
+  },
+  {
+    "symbol": "Sm",
+    "file": "data/elements/062_Sm.json",
+    "beforeSha256": "a60cd3262875978a3579fa02567b6cc62ad979c9515a3d7eaa61c5c99a979e6a",
+    "afterSha256": "ff58718dc34406fc7b52b359e27eb6c6231ad880e918054ceedfb64132332872",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/samarium-sm/audit.md"
+  },
+  {
+    "symbol": "Eu",
+    "file": "data/elements/063_Eu.json",
+    "beforeSha256": "32c2b061ad2332de7504d4f7730e56e6ec93a8a8d70faf68b8571107909f4d1f",
+    "afterSha256": "4334c945b446dc7c176efe3f03760e9650f09a6ef7a746deda7ecc3b4def0d88",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/europium-eu/audit.md"
+  },
+  {
+    "symbol": "Gd",
+    "file": "data/elements/064_Gd.json",
+    "beforeSha256": "78bf8c33a5078b92d2d4eb8f5dbda7e947b701e143ce09f6491f76720cb075a2",
+    "afterSha256": "3a3e50da40ff26e1f603e3001c8ad9e9d58c970a2e7175ec49e7e1c4ee1176a7",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/gadolinium-gd/audit.md"
+  },
+  {
+    "symbol": "Tb",
+    "file": "data/elements/065_Tb.json",
+    "beforeSha256": "01a44332d650171832d3d8bec4435f682c72679300a81008112589bc0d493420",
+    "afterSha256": "802dd4b632861110869679e3bc2ca72dfafd964ba7c2a5dfbc62f4264288ed47",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/terbium-tb/audit.md"
+  },
+  {
+    "symbol": "Dy",
+    "file": "data/elements/066_Dy.json",
+    "beforeSha256": "e669cb3eb6f843fa701e9625b3c71bb90c75d3a1c222318fadb04b55adec195f",
+    "afterSha256": "92772d362f32d1630383407459fb3dbeca383dfddee14032e48f1123a73bfbdf",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/dysprosium-dy/audit.md"
+  },
+  {
+    "symbol": "Ho",
+    "file": "data/elements/067_Ho.json",
+    "beforeSha256": "fabbc47659d3c481419883b63fb0488fffc300aa0015234b2f02a40c1ea26e2a",
+    "afterSha256": "54a6f38ebd8729a491b0c902ff6a6cc061e8c50bc13ab2b5e537db7dd64f4539",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/holmium-ho/audit.md"
+  },
+  {
+    "symbol": "Er",
+    "file": "data/elements/068_Er.json",
+    "beforeSha256": "cb9bca35dbe5bd288b6e106c5eda4b3dad8bb5ce4be589d13b4aa557a22198c3",
+    "afterSha256": "7960a72902bca026cda1e4944116034d95cfa31e8686539aa7e59fec97355845",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/erbium-er/audit.md"
+  },
+  {
+    "symbol": "Tm",
+    "file": "data/elements/069_Tm.json",
+    "beforeSha256": "93aa074f3a1be5337dd38867bf1c880478e2aadc5b36d22a85869435d55a371f",
+    "afterSha256": "3c525c73d5e3a2f9175a512c38feee2eb4fabb77366be275827a3a03f30c92f7",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/thulium-tm/audit.md"
+  },
+  {
+    "symbol": "Yb",
+    "file": "data/elements/070_Yb.json",
+    "beforeSha256": "397bdde1d053eaaf1f4e92cf41a4877260f7e8edac0c8786155a1e8e33fce619",
+    "afterSha256": "6354817635a1164ee810efd42c48434351e4f0642ad0f34266012075d38b9851",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/ytterbium-yb/audit.md"
+  },
+  {
+    "symbol": "Lu",
+    "file": "data/elements/071_Lu.json",
+    "beforeSha256": "4db293258cd70df7bacdb5750af74ef290d74b512ee03f953b0c000096084ee5",
+    "afterSha256": "8674e111fba127834efb684b49e63503cd66dc578d6471a3bd0900300406804e",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/lutetium-lu/audit.md"
+  },
+  {
+    "symbol": "Hf",
+    "file": "data/elements/072_Hf.json",
+    "beforeSha256": "b1a05620170d378a6abd895c88c8d8f4172ad8d043f50c542402adc9e95bd7a2",
+    "afterSha256": "2fd6c33f23e234f235c7841fe08c001a479ec9721bb10ebc414daba99dbaa1ea",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/hafnium-hf/audit.md"
+  },
+  {
+    "symbol": "Ta",
+    "file": "data/elements/073_Ta.json",
+    "beforeSha256": "2d1af46b2c177b9ebf934d48fba9ad2e284c71feadce91a20cd8ee09c7201f4e",
+    "afterSha256": "39328f5844899e43ae1b809d3277de95d05103f1f7989dd1e059b1771165a566",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/tantalum-ta/audit.md"
+  },
+  {
+    "symbol": "W",
+    "file": "data/elements/074_W.json",
+    "beforeSha256": "60088062f00458c9d1b7dea229def768ace211994a05c1ebdd6d590162e1009d",
+    "afterSha256": "bd48fa8a5187c017ff9feb4c8147c6fa72427f46e5a83bceea5fa5360c0a409b",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/tungsten-w/audit.md"
+  },
+  {
+    "symbol": "Re",
+    "file": "data/elements/075_Re.json",
+    "beforeSha256": "a92914fbe33d828ce7e1a42c5ab024c5d2287a6cd6f58c604d751c7144c76b6b",
+    "afterSha256": "3983586cc1f4d94adf2e9efa0be75fb699d17b3174bf88b990ef24550f392afa",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/rhenium-re/audit.md"
+  },
+  {
+    "symbol": "Os",
+    "file": "data/elements/076_Os.json",
+    "beforeSha256": "6f93abd56a1ee06444ecfba76203973363a255793c7f9e4a013fec3cb595f391",
+    "afterSha256": "c4f86e736054bcc8d2015e20152e6fa4321c7b5da440c8cb3d5ff86fd026ed75",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/osmium-os/audit.md"
+  },
+  {
+    "symbol": "Ir",
+    "file": "data/elements/077_Ir.json",
+    "beforeSha256": "adc620d3e10d38f3125ca6e99536dfa7c155fab585debf717ea41eb28c91c70f",
+    "afterSha256": "7bac188d26c76841e79b7d4d82c1c2f61952f9d8624eedda88c4c5b321fc5bfb",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/iridium-ir/audit.md"
+  },
+  {
+    "symbol": "Pt",
+    "file": "data/elements/078_Pt.json",
+    "beforeSha256": "7d32072e50eca86c226c79c84920ca69cc29bdb2cd3356a751674d6b4f2b3a44",
+    "afterSha256": "31e811f6efc47ec3493db834ccb9a665185da43998262e6135c8ab5d1139ccad",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/bach-kim-pt/audit.md"
+  },
+  {
+    "symbol": "Au",
+    "file": "data/elements/079_Au.json",
+    "beforeSha256": "9ced2d7d598cdea7a8bf5baef5473ebb1220c01c1fe9ab38dc484d4b1d8f4ffa",
+    "afterSha256": "0e741d353f09e48f0816e9edc1fea0d04e271f8f625fa4fb0f6932f43cf04181",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/vang-au/audit.md"
+  },
+  {
+    "symbol": "Hg",
+    "file": "data/elements/080_Hg.json",
+    "beforeSha256": "1a0821e779c3541e43a621998134cd63e7f95a71d0e9f5bd1bfdbfd1ed08c662",
+    "afterSha256": "25f443265e0ee8c0953616e19848d22660dfb1c67a4866d6156d926249ea1259",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/thuy-ngan-hg/audit.md"
+  },
+  {
+    "symbol": "Tl",
+    "file": "data/elements/081_Tl.json",
+    "beforeSha256": "32cafeaeb8946d5321ecddc965dd92986472ad0424bf01c14ef4824e4233fa90",
+    "afterSha256": "6877cfb6e6d0e726c13d172260d4d8005c981a6a2bf41a92ab85eeb64de636c8",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/thallium-tl/audit.md"
+  },
+  {
+    "symbol": "Pb",
+    "file": "data/elements/082_Pb.json",
+    "beforeSha256": "fa95161146dcfd50b13064bbb2df5dd12e907319aaf0b111e92abc716e2fd540",
+    "afterSha256": "b9dfe6927a551c9dee2d7733c9ea6de4a6de1aa0f30fa5f3771d4a1d37ccd254",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/chi-pb/audit.md"
+  },
+  {
+    "symbol": "Bi",
+    "file": "data/elements/083_Bi.json",
+    "beforeSha256": "871109ce5ef5e708a859032e185dadd15c3ec9644aad24c85189295b24e1c2bc",
+    "afterSha256": "2600c3d7730b9bab053445a67ac5264db25ff7d1d7020e1d503fb7f7069dcdec",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/bismuth-bi/audit.md"
+  },
+  {
+    "symbol": "Po",
+    "file": "data/elements/084_Po.json",
+    "beforeSha256": "b0d56d5c4bd454641b286136abd059f51a7fcf102c6746604df2a78b26c0cd3c",
+    "afterSha256": "7df14b0947d4a46086bcb536590056b1e3f34cc47ba121bfcf5f44e82043f037",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/polonium-po/audit.md"
+  },
+  {
+    "symbol": "At",
+    "file": "data/elements/085_At.json",
+    "beforeSha256": "147545216235cee494333cfa2a3948c6fdb108a4d2220f6e2665deedc972293b",
+    "afterSha256": "c4d923ef745404818ba8a1622e871611fdac293a9ff48e65c8ad005016a1d1b5",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/astatine-at/audit.md"
+  },
+  {
+    "symbol": "Rn",
+    "file": "data/elements/086_Rn.json",
+    "beforeSha256": "c8534f2bbb34679fa210d9f237cf246d3569a5c814fe03da37cab541ba534c46",
+    "afterSha256": "708b8b50e1aa0be3d75f05bfec8e36de7f7d84127ef345f24e0f0cfb6bfc0acb",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/radon-rn/audit.md"
+  },
+  {
+    "symbol": "Fr",
+    "file": "data/elements/087_Fr.json",
+    "beforeSha256": "60ac20230ec63901d7ecb120117958e2b2b30f7149a9e53ecb75fd24aa9e5f09",
+    "afterSha256": "9e8199e65999d6c3f22610f12324383fbcb306e07716882429e94aa0e019f633",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/francium-fr/audit.md"
+  },
+  {
+    "symbol": "Ra",
+    "file": "data/elements/088_Ra.json",
+    "beforeSha256": "53e214c4013a15f3c79ba9afeaf891db516e66905e283b7d5d017a85fa8e85c7",
+    "afterSha256": "42713367ec73ef45ee2aa01c492a2018a3a946ac0cdd67da123f74bdf477e3fe",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/radium-ra/audit.md"
+  },
+  {
+    "symbol": "Ac",
+    "file": "data/elements/089_Ac.json",
+    "beforeSha256": "5a5a80b791e33f028e05395877535a02058f8ffa3abf6fe7e0bc9b2f32b68e2a",
+    "afterSha256": "60f9989cd6f732c2c5066019b1ba69db23194097d3c94020c2a1ac5935924450",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/actinium-ac/audit.md"
+  },
+  {
+    "symbol": "Th",
+    "file": "data/elements/090_Th.json",
+    "beforeSha256": "21123a4efc3497d738b30c43c3eb504304989f5532e3d996e0f8cbf812315b1a",
+    "afterSha256": "b0fccf567f957aae6d7b1dd0806d6dbf2df53be04c30d5055ea99bf6d8c4d18a",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/thorium-th/audit.md"
+  },
+  {
+    "symbol": "Pa",
+    "file": "data/elements/091_Pa.json",
+    "beforeSha256": "d1b05a7b0be862aeb8d81077bc44b5d8378365b3f65e77bcf89de71fd81e83df",
+    "afterSha256": "830cdf22287365ecac1bedbc4e8bd3ace88d88e533615a1253105f590aee99d6",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/protactinium-pa/audit.md"
+  },
+  {
+    "symbol": "U",
+    "file": "data/elements/092_U.json",
+    "beforeSha256": "959be31aaeb9ed1059259aa9c8379cfbda9b54a62950c303d3fb49ab937a2242",
+    "afterSha256": "c4f361570cf5725d759b32ace78d44b8a8157d1e174ffe80b319a3e0095ae8e0",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/uranium-u/audit.md"
+  },
+  {
+    "symbol": "Np",
+    "file": "data/elements/093_Np.json",
+    "beforeSha256": "d128347c34fcdb354f8fa560d1fb38cdcf469cb779aec9a477e3bb20fcce91fe",
+    "afterSha256": "9be56202b88c421c8bef1420a63478592f0f9f3e324317ee30babe47a2d42841",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/neptunium-np/audit.md"
+  },
+  {
+    "symbol": "Pu",
+    "file": "data/elements/094_Pu.json",
+    "beforeSha256": "2ee9118f8b6781a0390da8a72b2968b171f69a09cfd660976578d4c8757e1846",
+    "afterSha256": "25000cd5bb2bcab1d401c98c0f94e0033711cd2aaa5f433b7caf8fe767465ecf",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/plutonium-pu/audit.md"
+  },
+  {
+    "symbol": "Am",
+    "file": "data/elements/095_Am.json",
+    "beforeSha256": "f3ee5071a1e35489cd59083b734c69398053ae309969b8198179de01930c9a26",
+    "afterSha256": "bab4181a3b5dae93422a72b145d387c0c4c560e386115d1a18ecf0778630a2c7",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/americium-am/audit.md"
+  },
+  {
+    "symbol": "Cm",
+    "file": "data/elements/096_Cm.json",
+    "beforeSha256": "f4e1d779c3d0add4a564e28fb881d68c1f031af4a9a4780ac7ac83f2fa83653d",
+    "afterSha256": "6a615cc5e8bf449f72087303371464ae491bc0169d376ced51cb85d354ad97b3",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/curium-cm/audit.md"
+  },
+  {
+    "symbol": "Bk",
+    "file": "data/elements/097_Bk.json",
+    "beforeSha256": "ab58a2da7e0668c820a098140fd20b5f95f51fa0a5adf27ee70d3f867f01b00b",
+    "afterSha256": "93f5f537ac239cdeebe77895febe3588ae6a9f80da8eeee3ce9494f8e1b8ae20",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/berkelium-bk/audit.md"
+  },
+  {
+    "symbol": "Cf",
+    "file": "data/elements/098_Cf.json",
+    "beforeSha256": "8fdd87fa965d72ae731d6f3716a9a00189b50b1336a4afc3559d3054bec10ab3",
+    "afterSha256": "e8ed44a2fa0b1b02af9fe4181dc6e1d0a12798a5ac30aa1797775175263a27fc",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/californium-cf/audit.md"
+  },
+  {
+    "symbol": "Es",
+    "file": "data/elements/099_Es.json",
+    "beforeSha256": "65e2b8a97f4d931045c8521febccae4df2b0450fbd5aedfdb8ca59a52faf5f91",
+    "afterSha256": "54bc3ca0e2c3a2f8fc1122268d38066d6f1606784cb15d6a822dccc41c922fce",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/einsteinium-es/audit.md"
+  },
+  {
+    "symbol": "Fm",
+    "file": "data/elements/100_Fm.json",
+    "beforeSha256": "b6839024b781a1cb6337ebbb6aa41a9b6eeec9811ebbf3d526af22c30886f79b",
+    "afterSha256": "9c5ca53d4c2e3eb5dd76212884a6c4bac716feecb470074795cb5f04f86d9a6d",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/fermium-fm/audit.md"
+  },
+  {
+    "symbol": "Md",
+    "file": "data/elements/101_Md.json",
+    "beforeSha256": "432384244459163ed81d641bdaaa6ddc649959996fd0515e41101c21b61fec5a",
+    "afterSha256": "9f70375380f7f653e67bdcc47dd1877ef25c8371e9754bc3cb9cc4ae90379fc6",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/mendelevium-md/audit.md"
+  },
+  {
+    "symbol": "No",
+    "file": "data/elements/102_No.json",
+    "beforeSha256": "fba897801343e3d221f18f889d2638d31d7984a97f4c6b65463da7858489f89b",
+    "afterSha256": "2f3d283cb04c5600e84c9fccb1f9f4daffb0e147a5cf4fba74fa3799a2474179",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/nobelium-no/audit.md"
+  },
+  {
+    "symbol": "Lr",
+    "file": "data/elements/103_Lr.json",
+    "beforeSha256": "12e88ef5fa0f9fd48b6da539973151b7f8f4627aa9a362eaa10c058ddf5101fb",
+    "afterSha256": "1cc8a466ff153f188a85b0e0cc6c6a7d26f718339c22943c9a841526c348aa4b",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/lawrencium-lr/audit.md"
+  },
+  {
+    "symbol": "Rf",
+    "file": "data/elements/104_Rf.json",
+    "beforeSha256": "3c19f5ed282d48b0a7bdb3dcb4f447c39f99e0fc02f0a5bc4419b6de9c55a795",
+    "afterSha256": "ff934747d9370598788bcbb4abdf81785cd6a9dfbe08ec5adc0610050631ecf2",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/rutherfordium-rf/audit.md"
+  },
+  {
+    "symbol": "Db",
+    "file": "data/elements/105_Db.json",
+    "beforeSha256": "78b56bd9a1a5fee5b243b0c689f071316d28d385202b4f90395ad1c236e0c263",
+    "afterSha256": "17dd279efb7311e4c38eb05080302bc6f05850f45b26d0754368453ece133843",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/dubnium-db/audit.md"
+  },
+  {
+    "symbol": "Sg",
+    "file": "data/elements/106_Sg.json",
+    "beforeSha256": "739c384e988c36146581973bdfb32cd70b9c364c06bca41d87c35f39a9b40388",
+    "afterSha256": "1ed378945e4a77c891f775c0836c2b0bda12a274b5b29e182c7f4f347a1b5b62",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/seaborgium-sg/audit.md"
+  },
+  {
+    "symbol": "Bh",
+    "file": "data/elements/107_Bh.json",
+    "beforeSha256": "28b98556faf9b6fe13ff471e8be57bbb94229060d13e3f86fe22b04751d3ec84",
+    "afterSha256": "b2095fbbf55e81bda5ad84754680bedef10230fa531d79a184eaa00544d73ec9",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/bohrium-bh/audit.md"
+  },
+  {
+    "symbol": "Hs",
+    "file": "data/elements/108_Hs.json",
+    "beforeSha256": "db9a8067ac0806e56303458472f9e0071943a144e566a2c2578a5322f1fd930f",
+    "afterSha256": "0d2a36f096ca6f1f18de9f9659a791158591d5e8c69d9e13ee05d6f6aef6d763",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/hassium-hs/audit.md"
+  },
+  {
+    "symbol": "Mt",
+    "file": "data/elements/109_Mt.json",
+    "beforeSha256": "b6a1db0725ad69e12a516ce2fc60c8033995eaacf26b61688275ec2a2ccb983e",
+    "afterSha256": "ca70123f587a11d9e1fd8f7c735e7395d437490aadb944a4c2db6abe540be590",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/meitnerium-mt/audit.md"
+  },
+  {
+    "symbol": "Ds",
+    "file": "data/elements/110_Ds.json",
+    "beforeSha256": "73cd07ad10fa10231174a5e7bddc120ad734c05c85aeb7ffc18a2fefe0e4514f",
+    "afterSha256": "d2edeb985ccf35aebff7c1fae0fc56598ce87563fd0a9532f2fc52956c2ef614",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/darmstadtium-ds/audit.md"
+  },
+  {
+    "symbol": "Rg",
+    "file": "data/elements/111_Rg.json",
+    "beforeSha256": "4f13f211ad6375c873151f4c2dc072e848ee42c8dd660510dcf542b483a18186",
+    "afterSha256": "8d7ba9aeedd8aea436d8f95da73b8166abb3fab5b4752d378553fe0cb64e404f",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/roentgenium-rg/audit.md"
+  },
+  {
+    "symbol": "Cn",
+    "file": "data/elements/112_Cn.json",
+    "beforeSha256": "c69fd07bc6e98e7131b2270e125d121b24d8b4792ab6f0c549e5eb8e431d1f0f",
+    "afterSha256": "548cec3b0c513c6357486c550d238c26e03db9918295ea52cdcb04b47be9ac1b",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/copernicium-cn/audit.md"
+  },
+  {
+    "symbol": "Nh",
+    "file": "data/elements/113_Nh.json",
+    "beforeSha256": "ac3e1d3ee96970343947c83170a91a31fe07dc205a248586fd7a430cc004b66d",
+    "afterSha256": "0a179ec66170f1696f6c0916f591f58aaa3d64f37ee4dac2decdcca7bfdaaa5a",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/nihonium-nh/audit.md"
+  },
+  {
+    "symbol": "Fl",
+    "file": "data/elements/114_Fl.json",
+    "beforeSha256": "f941f95314906e79622702b3da55ed8639760c8751ce91dc2b30c5f6650dd259",
+    "afterSha256": "0a3d3be30e3d195d97e97f9946b9a363dbef4ae8c93744d3fb9cbd86275edd80",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/flerovium-fl/audit.md"
+  },
+  {
+    "symbol": "Mc",
+    "file": "data/elements/115_Mc.json",
+    "beforeSha256": "243a199df68adc3cc6c94441de65f1c2648f907cd9fa110af5b7bbb83cc07370",
+    "afterSha256": "09bb009c4309374857ff9f91cb6f2d969993fd3b49c7e0855a202a616bc0e37b",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/moscovium-mc/audit.md"
+  },
+  {
+    "symbol": "Lv",
+    "file": "data/elements/116_Lv.json",
+    "beforeSha256": "3500fda6717ec8c3fc07b499f8215ad68b5a4b33f80371f64a439968241a409f",
+    "afterSha256": "64c97687709610d8dc76984f63b96f2a10e0f211bb56204c482025985681ffc9",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/livermorium-lv/audit.md"
+  },
+  {
+    "symbol": "Ts",
+    "file": "data/elements/117_Ts.json",
+    "beforeSha256": "d8fb2d9bff97984c322bd5b94c3ff79870bdf5b5f255809efaabe925eb59a7bd",
+    "afterSha256": "43ec0ec658e26312f6f2ab32013eee1837af3d57feb62fedca37612f0a817063",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/tennessine-ts/audit.md"
+  },
+  {
+    "symbol": "Og",
+    "file": "data/elements/118_Og.json",
+    "beforeSha256": "0409350d087e1305b4032e724178bbe65638e621a6f8b5466bf7b7c3c14bc7d9",
+    "afterSha256": "be6db88bbf0e3dc1bbc4df411e86b3ab724478a3d44765b94a57d3f184ffee7d",
+    "audit": "docs/application-crystal-review/2026-11-12/nguyen-to/oganesson-og/audit.md"
+  }
+]

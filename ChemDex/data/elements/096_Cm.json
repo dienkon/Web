@@ -67,7 +67,126 @@
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lục phương kép xếp chặt (DHCP) ở áp suất thường; cấu trúc thay đổi theo nhiệt độ và áp suất.",
     "latticeEvidence": "source-reviewed",
-    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Curium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_curium",
+      "revisionId": 1379078395,
+      "revisionTimestamp": "2026-10-07T20:31:42Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "double hexagonal close packed",
+          "prefix": "",
+          "comment": "",
+          "pearson": "",
+          "lattice": ""
+        }
+      ],
+      "selectedModel": "nguyen-to-cm",
+      "modelKind": "dhcp",
+      "metrics": [],
+      "notes": [
+        "Tọa độ Wyckoff lý tưởng được dựng từ prototype; thông số mạng lấy từ tài liệu tham chiếu được nêu. Wiki dùng để đối chiếu kiểu mạng. Đây là mức chứng cứ khác với bộ tinh chỉnh nguyên tử thực nghiệm."
+      ],
+      "additionalSources": [
+        {
+          "title": "WebElements — thông số ô mạng",
+          "url": "https://www.webelements.com/curium/crystal_structure.html",
+          "reference": "B. B. Cunningham and J. C. Wallmann, J. Inorg. Nucl. Chem. 1964, 26, 271."
+        }
+      ]
+    },
+    "publishedCrystal": {
+      "id": "nguyen-to-cm",
+      "symbol": "Cm",
+      "referenceId": "webelements-cm-2026-11-12",
+      "amcsdId": null,
+      "mineralName": "Curium",
+      "formula": "Cm",
+      "spaceGroup": "P 63/m m c",
+      "cell": {
+        "a": 3.496,
+        "b": 3.496,
+        "c": 11.331,
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 120
+      },
+      "volume": 119.9338345250818,
+      "siteCount": 4,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "WebElements / Mark J. Winter"
+        ],
+        "title": "Curium — crystal structures; tài liệu được trang liệt kê: B. B. Cunningham and J. C. Wallmann, J. Inorg. Nucl. Chem. 1964, 26, 271.",
+        "journal": "University of Sheffield / WebElements",
+        "year": 2026,
+        "volume": "",
+        "pages": ""
+      },
+      "source": "https://www.webelements.com/curium/crystal_structure.html",
+      "evidence": "reference-prototype",
+      "note": "Wiki cho kiểu mạng; hằng số ô lấy từ bảng chuyên ngành WebElements. Điều kiện nhiệt độ không được ghi trong bảng đã dùng; không tự gán 20 °C. DHCP có 4 lớp ABAC, 4 nguyên tử/ô; không coi nhãn hcp viết gọn là ô HCP hai nguyên tử.",
+      "limitations": "Vị trí Wyckoff lý tưởng của prototype; thông số ô mạng do WebElements tổng hợp. Không phải bộ tinh chỉnh nguyên tử thực nghiệm riêng của ChemDex.",
+      "pearsonSymbol": "hP4",
+      "primaryReference": "B. B. Cunningham and J. C. Wallmann, J. Inorg. Nucl. Chem. 1964, 26, 271.",
+      "data": "/assets/periodic-table/crystals/nguyen-to-cm.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-cm.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-cm.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-cm.png",
+      "wiki": {
+        "symbol": "Cm",
+        "number": 96,
+        "name": "Curium",
+        "article": "https://en.wikipedia.org/wiki/Curium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_curium",
+        "revisionId": 1379078395,
+        "revisionTimestamp": "2026-10-07T20:31:42Z",
+        "retrievedAt": "2026-11-11T23:29:14.972Z",
+        "status": "available",
+        "fields": {
+          "phase": {
+            "text": "",
+            "raw": ""
+          },
+          "crystal structure": {
+            "text": "double hexagonal close packed",
+            "raw": "double hexagonal close packed"
+          }
+        }
+      },
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Curium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_curium",
+        "revisionId": 1379078395,
+        "revisionTimestamp": "2026-10-07T20:31:42Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "double hexagonal close packed",
+            "prefix": "",
+            "comment": "",
+            "pearson": "",
+            "lattice": ""
+          }
+        ],
+        "selectedModel": "nguyen-to-cm",
+        "modelKind": "dhcp",
+        "metrics": [],
+        "notes": [
+          "Tọa độ Wyckoff lý tưởng được dựng từ prototype; thông số mạng lấy từ tài liệu tham chiếu được nêu. Wiki dùng để đối chiếu kiểu mạng. Đây là mức chứng cứ khác với bộ tinh chỉnh nguyên tử thực nghiệm."
+        ],
+        "additionalSources": [
+          {
+            "title": "WebElements — thông số ô mạng",
+            "url": "https://www.webelements.com/curium/crystal_structure.html",
+            "reference": "B. B. Cunningham and J. C. Wallmann, J. Inorg. Nucl. Chem. 1964, 26, 271."
+          }
+        ]
+      }
+    }
   },
   "structureType": "Lục phương kép xếp chặt (DHCP) ở áp suất thường; cấu trúc thay đổi theo nhiệt độ và áp suất.",
   "occurrence": {
@@ -431,27 +550,63 @@
     {
       "title": "Nguồn năng lượng phóng xạ",
       "desc": "Một số đồng vị Curium có khả năng giải phóng lượng nhiệt đáng kể khi phân rã. Vì vậy chúng được nghiên cứu cho nguồn năng lượng đồng vị phóng xạ (radioisotope power sources).",
-      "sourceLine": 90
+      "sourceLine": 90,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/research.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "author": "LSDSL",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nguồn năng lượng phóng xạ — Particle accelerator",
+        "caption": "Minh họa lĩnh vực nguồn năng lượng phóng xạ · Particle accelerator.",
+        "topic": "research",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nghiên cứu không gian",
       "desc": "Curium từng được xem xét và nghiên cứu như một nguồn nhiệt tiềm năng cho các hệ thống không gian, mặc dù ²³⁸Pu thường phù hợp hơn cho RTG thực tế.",
-      "sourceLine": 91
+      "sourceLine": 91,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      }
     },
     {
       "title": "Nghiên cứu hạt nhân",
       "desc": "Curium được sử dụng để nghiên cứu phản ứng hạt nhân, phóng xạ và hóa học Actinide.",
-      "sourceLine": 92
+      "sourceLine": 92,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      }
     },
     {
       "title": "Tạo các nguyên tố nặng hơn",
       "desc": "Một số đồng vị Curium được dùng làm bia trong các phản ứng hạt nhân để tạo ra các nguyên tố siêu nặng hơn.",
-      "sourceLine": 93
+      "sourceLine": 93,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      }
     },
     {
       "title": "Ứng dụng",
       "desc": "Ví dụ, Curium-248 đã được sử dụng trong các thí nghiệm tạo nguyên tố rất nặng.",
-      "sourceLine": 94
+      "sourceLine": 94,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Curium là nguyên tố số 96, thuộc nhóm IIIB | chu kỳ 7 và là nguyên tố thứ tám trong họ Actinide.</li><li>Curium được Glenn T. Seaborg, Ralph A. James và Albert Ghiorso phát hiện vào năm 1944 tại Berkeley, Hoa Kỳ. Nguyên tố được đặt tên để vinh danh Marie Curie và Pierre Curie.</li><li>Curium là một kim loại phóng xạ nhân tạo, không có đồng vị bền. Trạng thái Oxy hóa phổ biến nhất là +3. Một đặc điểm đáng chú ý là nhiều đồng vị Curium phát ra hạt alpha và giải phóng nhiệt trong quá trình phân rã.</li><li>Các đồng vị như ²⁴²Cm và ²⁴⁴Cm có thể tạo ra nhiệt đáng kể, khiến Curium có giá trị trong nghiên cứu nguồn năng lượng phóng xạ. Ngoài ra, Curium còn đóng vai trò quan trọng trong nghiên cứu Actinide và tổng hợp các nguyên tố nặng hơn.</li><li>Mạng tinh thể: Lục phương (Hexagonal) ở điều kiện thường.</li></ul>",
@@ -496,6 +651,11 @@
     {
       "title": "actinideStructures",
       "url": "https://arxiv.org/abs/2604.12249"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Curium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -504,6 +664,7 @@
     "sourceSha256": "0fbac61c0332ca3b2a824d094da9792a0e1bbb41ecfe1298793295c426864a56",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/096_Cm.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/curium-cm/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/curium-cm/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/curium-cm/audit.md"
   }
 }

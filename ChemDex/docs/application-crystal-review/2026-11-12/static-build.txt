@@ -1,0 +1,44 @@
+
+> build:static
+> node scripts/build-platform.mjs --static-only
+
+{
+  "output": "D:\\VsCode\\Web\\MyWeb\\ChemDex\\shared\\reaction-catalog.generated.json",
+  "count": 1299,
+  "counts": {
+    "molecularReactions": 1299,
+    "netTransformations": 378,
+    "families": {
+      "ammonium_base": 33,
+      "amphoteric": 5,
+      "carbonate_acid": 91,
+      "combustion": 29,
+      "displacement": 132,
+      "esterification": 16,
+      "metal_acid": 27,
+      "neutralization": 115,
+      "organic_conversion": 8,
+      "oxide_acid": 106,
+      "precipitation": 601,
+      "redox": 10,
+      "saponification": 48,
+      "sulfide_acid": 12,
+      "sulfite_acid": 15,
+      "synthesis": 22,
+      "thermal": 29
+    },
+    "runtimePrograms": 0
+  }
+}
+{"threeStepChains":5740,"species":325}
+3D catalog: 58 sourced + 440 additional records; 0 material labels without a molecular formula.
+Reference library: 468 unique 1100+ word articles; 498 subject links; custom substance SVGs synced.
+{"subjects":498,"linked":498,"missing":0,"documents":487,"errors":[]}
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+
+Rebuilding...
+
+Done in 1151ms.
+Production output ready: dist (source files preserved)

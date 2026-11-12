@@ -75,9 +75,9 @@
         "a": 3.5031,
         "b": 3.5031,
         "c": 5.5509,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 120.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 120
       },
       "volume": 58.99281295024035,
       "siteCount": 2,
@@ -101,9 +101,81 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-lu.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-lu.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-lu.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-lu.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-lu.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Lutetium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_lutetium",
+        "revisionId": 1275523569,
+        "revisionTimestamp": "2025-02-13T15:12:10Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "hexagonal close packed",
+            "prefix": "",
+            "comment": "",
+            "pearson": "hP2",
+            "lattice": "a = 350.53 pm; c = 554.93 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-lu",
+        "modelKind": "hcp",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 3.5052999999999996,
+            "modelAngstrom": 3.5031,
+            "relativeDifferencePercent": 0.06276210310101156
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "c",
+            "wikiAngstrom": 5.5493,
+            "modelAngstrom": 5.5509,
+            "relativeDifferencePercent": 0.02883246535600368
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Lutetium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_lutetium",
+      "revisionId": 1275523569,
+      "revisionTimestamp": "2025-02-13T15:12:10Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "hexagonal close packed",
+          "prefix": "",
+          "comment": "",
+          "pearson": "hP2",
+          "lattice": "a = 350.53 pm; c = 554.93 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-lu",
+      "modelKind": "hcp",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 3.5052999999999996,
+          "modelAngstrom": 3.5031,
+          "relativeDifferencePercent": 0.06276210310101156
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "c",
+          "wikiAngstrom": 5.5493,
+          "modelAngstrom": 5.5509,
+          "relativeDifferencePercent": 0.02883246535600368
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lục phương xếp chặt (HCP)",
   "occurrence": {
@@ -153,9 +225,9 @@
             "a": 6.8947,
             "b": 6.8947,
             "c": 6.0276,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 286.53334665128403,
           "siteCount": 24,
@@ -371,27 +443,107 @@
     {
       "title": "Y học hạt nhân",
       "desc": "Đồng vị ¹⁷⁷Lu là một trong những đồng vị phóng xạ nhân tạo quan trọng của Lutetium. Nó được sử dụng trong liệu pháp phóng xạ nhắm trúng đích (targeted radionuclide therapy).",
-      "sourceLine": 82
+      "sourceLine": 82,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "nuclear-medicine",
+        "source": "https://commons.wikimedia.org/wiki/File:Lung_scintigraphy_keosys.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/nuclear-medicine.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Lung_scintigraphy_keosys.JPG",
+        "author": "Mco44 ( talk )",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Y học hạt nhân — Gamma camera",
+        "caption": "Minh họa lĩnh vực y học hạt nhân · Gamma camera.",
+        "topic": "nuclear-medicine",
+        "role": "application-context"
+      }
     },
     {
       "title": "Điều trị ung thư",
       "desc": "Các hợp chất chứa ¹⁷⁷Lu có thể liên kết với các phân tử nhắm vào tế bào ung thư, đưa bức xạ đến khu vực cần điều trị.",
-      "sourceLine": 83
+      "sourceLine": 83,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "radiotherapy",
+        "source": "https://commons.wikimedia.org/wiki/File:Radiation_therapy.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/radiotherapy.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Radiation_therapy.jpg",
+        "author": "Dina Wakulchik from Indianapolis, Indiana, USA",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "alt": "Điều trị ung thư — Radiation therapy",
+        "caption": "Minh họa lĩnh vực điều trị ung thư · Radiation therapy.",
+        "topic": "radiotherapy",
+        "role": "application-context"
+      }
     },
     {
       "title": "PET",
       "desc": "Lu₂SiO₅ (LSO) và Lu₂Si₂O₇ (LSO/LYSO-related scintillators) là những vật liệu scintillator quan trọng trong các hệ thống PET (Positron Emission Tomography).",
-      "sourceLine": 84
+      "sourceLine": 84,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "pet",
+        "source": "https://commons.wikimedia.org/wiki/File:Positron_emission_tomography.png"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/pet.png",
+        "source": "https://commons.wikimedia.org/wiki/File:Positron_emission_tomography.png",
+        "author": "Spacecoastcreative",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "alt": "PET — Positron emission tomography",
+        "caption": "Minh họa lĩnh vực pet · Positron emission tomography.",
+        "topic": "pet",
+        "role": "application-context"
+      }
     },
     {
       "title": "Laser",
       "desc": "Một số hợp chất Lutetium được nghiên cứu và sử dụng trong vật liệu laser.",
-      "sourceLine": 85
+      "sourceLine": 85,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "laser",
+        "source": "https://commons.wikimedia.org/wiki/File:Guiding_the_Milky_Way_(potw2222a).jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/laser.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Guiding_the_Milky_Way_(potw2222a).jpg",
+        "author": "ESO/A. Ghizzi Panizza ( www.albertoghizzipanizza.com )",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "alt": "Laser — Laser",
+        "caption": "Minh họa lĩnh vực laser · Laser.",
+        "topic": "laser",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nghiên cứu khoa học",
       "desc": "Lutetium được sử dụng trong các nghiên cứu về vật liệu, quang học và hạt nhân.",
-      "sourceLine": 86
+      "sourceLine": 86,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/research.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "author": "LSDSL",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nghiên cứu khoa học — Particle accelerator",
+        "caption": "Minh họa lĩnh vực nghiên cứu khoa học · Particle accelerator.",
+        "topic": "research",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Lutetium là nguyên tố số 71, thuộc nhóm IIIB | chu kỳ 6 và là nguyên tố cuối cùng của họ Lanthanide.</li><li>Lutetium được Georges Urbain phát hiện vào năm 1907 tại Paris, Pháp. Tên nguyên tố bắt nguồn từ Lutetia, tên Latin cổ của Paris.</li><li>Lutetium là kim loại màu trắng bạc, tương đối cứng và đặc. Trạng thái Oxy hóa chủ yếu là +3, với ion Lu³⁺ có cấu hình 4f¹⁴ hoàn toàn lấp đầy. Đây cũng là một trong những nguyên tố Lanthanide có kích thước ion nhỏ nhất.</li><li>Một ứng dụng đặc biệt quan trọng của Lutetium là ¹⁷⁷Lu trong y học hạt nhân, đặc biệt trong các liệu pháp phóng xạ nhắm trúng đích. Ngoài ra, các vật liệu chứa Lutetium như LSO/LYSO có vai trò trong các máy PET.</li><li>Mạng tinh thể: Lục phương xếp chặt (HCP) ở điều kiện thường.</li></ul>",
@@ -432,9 +584,9 @@
           "a": 6.8947,
           "b": 6.8947,
           "c": 6.0276,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 286.53334665128403,
         "siteCount": 24,
@@ -501,6 +653,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Lutetium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -509,6 +666,7 @@
     "sourceSha256": "8cabe5e012ad3da2f4ac9d4e93a695534ec887f1847435b3075b5ea61a07bc99",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/071_Lu.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/lutetium-lu/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/lutetium-lu/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/lutetium-lu/audit.md"
   }
 }

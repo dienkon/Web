@@ -65,7 +65,30 @@
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương tâm mặt (Face-centered cubic, FCC) (ở trạng thái rắn)",
     "latticeEvidence": "source-reviewed",
-    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
+    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác.",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Radon",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_radon",
+      "revisionId": 1355798972,
+      "revisionTimestamp": "2026-05-24T00:18:27Z",
+      "status": "phase-unmeasured-or-fluid",
+      "phases": [
+        {
+          "type": "face-centered cubic",
+          "prefix": "",
+          "comment": "(predicted)",
+          "pearson": "",
+          "lattice": ""
+        }
+      ],
+      "selectedModel": null,
+      "modelKind": null,
+      "metrics": [],
+      "notes": [
+        "Không lấy hình của một kiểu mạng chung để khẳng định mẫu tinh thể đã được đo. Pha khí/lỏng và cấu trúc dự đoán được ghi riêng."
+      ],
+      "additionalSources": []
+    }
   },
   "structureType": "Lập phương tâm mặt (Face-centered cubic, FCC) (ở trạng thái rắn)",
   "occurrence": {
@@ -302,22 +325,53 @@
     {
       "title": "Nghiên cứu phóng xạ",
       "desc": "Radon được sử dụng để nghiên cứu các quá trình phân rã và chuỗi phóng xạ tự nhiên.",
-      "sourceLine": 77
+      "sourceLine": 77,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/research.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "author": "LSDSL",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nghiên cứu phóng xạ — Particle accelerator",
+        "caption": "Minh họa lĩnh vực nghiên cứu phóng xạ · Particle accelerator.",
+        "topic": "research",
+        "role": "application-context"
+      }
     },
     {
       "title": "Địa chất",
       "desc": "Nồng độ Radon trong đất và đá có thể được sử dụng để nghiên cứu một số đặc điểm địa chất.",
-      "sourceLine": 78
+      "sourceLine": 78,
+      "imageReview": {
+        "status": "source-link",
+        "topic": "geology",
+        "source": "https://commons.wikimedia.org/wiki/Special:MediaSearch?type=image&search=Radiometric%20dating"
+      }
     },
     {
       "title": "Nghiên cứu khí quyển",
       "desc": "Radon được sử dụng như một chất chỉ thị trong một số nghiên cứu về sự chuyển động và trao đổi của không khí gần mặt đất.",
-      "sourceLine": 79
+      "sourceLine": 79,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      }
     },
     {
       "title": "Y học",
       "desc": "Radon từng được sử dụng trong một số phương pháp điều trị phóng xạ lịch sử, nhưng những phương pháp này hiện không còn được sử dụng rộng rãi.",
-      "sourceLine": 80
+      "sourceLine": 80,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Radon là nguyên tố số 86, thuộc nhóm VIIIA | chu kỳ 6 và là một khí hiếm phóng xạ.</li><li>Radon không có đồng vị bền. Đồng vị quan trọng nhất trong tự nhiên là ²²²Rn, có chu kỳ bán rã khoảng 3.82 ngày và được tạo ra từ sự phân rã của ²²⁶Ra.</li><li>Radon là khí không màu, không mùi, không vị và rất ít phản ứng hóa học. Do là chất phóng xạ và có thể tích tụ trong không gian kín, Radon là một chất cần được kiểm soát trong môi trường sống.</li><li>Mạng tinh thể: Lập phương tâm mặt (FCC) là cấu trúc của Radon khi ở trạng thái rắn.</li></ul>",
@@ -358,6 +412,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Radon",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -366,6 +425,7 @@
     "sourceSha256": "21365e8fa28b24abfccdaa69d2e96e08a904e9563618f8f73ef8da661865a1b2",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/086_Rn.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/radon-rn/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/radon-rn/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/radon-rn/audit.md"
   }
 }

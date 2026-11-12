@@ -75,9 +75,9 @@
         "a": 3.9158,
         "b": 3.9158,
         "c": 3.9158,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 90.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
       },
       "volume": 60.042878732312,
       "siteCount": 4,
@@ -100,9 +100,67 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-pt.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-pt.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-pt.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-pt.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-pt.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Platinum",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_platinum",
+        "revisionId": 1380857723,
+        "revisionTimestamp": "2026-10-18T11:10:00Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "face-centered cubic",
+            "prefix": "",
+            "comment": "",
+            "pearson": "cF4",
+            "lattice": "a = 392.36 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-pt",
+        "modelKind": "fcc",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 3.9236000000000004,
+            "modelAngstrom": 3.9158,
+            "relativeDifferencePercent": 0.1987970231420245
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Platinum",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_platinum",
+      "revisionId": 1380857723,
+      "revisionTimestamp": "2026-10-18T11:10:00Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "face-centered cubic",
+          "prefix": "",
+          "comment": "",
+          "pearson": "cF4",
+          "lattice": "a = 392.36 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-pt",
+      "modelKind": "fcc",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 3.9236000000000004,
+          "modelAngstrom": 3.9158,
+          "relativeDifferencePercent": 0.1987970231420245
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lập phương tâm mặt (Face-centered cubic, FCC)",
   "occurrence": {
@@ -150,9 +208,9 @@
             "a": 3.9158,
             "b": 3.9158,
             "c": 3.9158,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 60.042878732312,
           "siteCount": 4,
@@ -453,32 +511,117 @@
     {
       "title": "Bộ xúc tác khí thải",
       "desc": "Platinum là chất xúc tác quan trọng trong catalytic converter, giúp chuyển hóa các khí độc trong khí thải động cơ.",
-      "sourceLine": 81
+      "sourceLine": 81,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "catalytic-converter",
+        "source": "https://commons.wikimedia.org/wiki/File:DodgeCatCon.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/catalytic-converter.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:DodgeCatCon.jpg",
+        "author": "Ahanix1989 at English Wikipedia",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Bộ xúc tác khí thải — Catalytic converter",
+        "caption": "Minh họa lĩnh vực bộ xúc tác khí thải · Catalytic converter.",
+        "topic": "catalytic-converter",
+        "role": "application-context"
+      }
     },
     {
       "title": "Trang sức",
       "desc": "Platinum được sử dụng rộng rãi trong trang sức nhờ vẻ ngoài sáng bóng, độ bền và khả năng chống ăn mòn.",
-      "sourceLine": 82
+      "sourceLine": 82,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "jewelry",
+        "source": "https://commons.wikimedia.org/wiki/File:Pectoral_and_Necklace_of_Sithathoryunet_with_the_Name_of_Senwosret_II_MET_DT531.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/jewelry.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Pectoral_and_Necklace_of_Sithathoryunet_with_the_Name_of_Senwosret_II_MET_DT531.jpg",
+        "author": "This file was donated to Wikimedia Commons as part of a project by the Metropolitan Museum of Art . See the Image and Data Resources Open Access Policy",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "alt": "Trang sức — Jewellery",
+        "caption": "Minh họa lĩnh vực trang sức · Jewellery.",
+        "topic": "jewelry",
+        "role": "application-context"
+      }
     },
     {
       "title": "Công nghiệp hóa chất",
       "desc": "Platinum được dùng làm chất xúc tác trong nhiều quá trình hóa học.",
-      "sourceLine": 83
+      "sourceLine": 83,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "chemical-industry",
+        "source": "https://commons.wikimedia.org/wiki/File:BASF_Schwarzheide_GmbH_Werksansicht_01.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/chemical-industry.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:BASF_Schwarzheide_GmbH_Werksansicht_01.jpg",
+        "author": "Goku4711",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Công nghiệp hóa chất — Chemical plant",
+        "caption": "Minh họa lĩnh vực công nghiệp hóa chất · Chemical plant.",
+        "topic": "chemical-industry",
+        "role": "application-context"
+      }
     },
     {
       "title": "Y học",
       "desc": "Một số hợp chất Platinum, tiêu biểu là Cisplatin, được sử dụng trong điều trị một số loại ung thư.",
-      "sourceLine": 84
+      "sourceLine": 84,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Điện tử",
       "desc": "Platinum được sử dụng trong một số điện cực, cảm biến và linh kiện đặc biệt.",
-      "sourceLine": 85
+      "sourceLine": 85,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "electronics",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/electronics.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg",
+        "author": "Raimond Spekking",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Điện tử — Printed circuit board",
+        "caption": "Minh họa lĩnh vực điện tử · Printed circuit board.",
+        "topic": "electronics",
+        "role": "application-context"
+      }
     },
     {
       "title": "Phòng thí nghiệm",
       "desc": "Platinum được dùng làm chén, điện cực và các dụng cụ chịu nhiệt, chịu hóa chất.",
-      "sourceLine": 86
+      "sourceLine": 86,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "refractory",
+        "source": "https://commons.wikimedia.org/wiki/File:Torpedo_car_refractory_bricks.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/refractory.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Torpedo_car_refractory_bricks.JPG",
+        "author": "Morgan Riley",
+        "license": "CC BY 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+        "alt": "Phòng thí nghiệm — Refractory",
+        "caption": "Minh họa lĩnh vực phòng thí nghiệm · Refractory.",
+        "topic": "refractory",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Platinum là nguyên tố số 78, thuộc nhóm VIIIB | chu kỳ 6 và là một kim loại chuyển tiếp thuộc nhóm Platinum.</li><li>Platinum có cấu hình electron [Xe] 4f¹⁴ 5d⁹ 6s¹, với số Oxy hóa phổ biến là +2 và +4.</li><li>Đây là kim loại trắng bạc, nặng, dẻo, bền và có khả năng chống ăn mòn rất cao. Platinum cũng là một chất xúc tác rất hiệu quả.</li><li>Platinum có vai trò quan trọng trong catalytic converter, công nghiệp hóa chất, trang sức, điện tử và y học. Đặc biệt, các hợp chất Platinum như Cisplatin có ý nghĩa lớn trong y học hiện đại.</li></ul>",
@@ -519,9 +662,9 @@
           "a": 3.9158,
           "b": 3.9158,
           "c": 3.9158,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 60.042878732312,
         "siteCount": 4,
@@ -587,6 +730,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Platinum",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -595,6 +743,7 @@
     "sourceSha256": "b320a172895f3507a93792413704c405abf96d9978a100ba68462813b58c76d7",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/078_Pt.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/bach-kim-pt/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/bach-kim-pt/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/bach-kim-pt/audit.md"
   }
 }

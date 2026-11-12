@@ -73,9 +73,9 @@
         "a": 3.253,
         "b": 3.253,
         "c": 4.9455,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 90.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
       },
       "volume": 52.33332550950001,
       "siteCount": 2,
@@ -98,9 +98,81 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-in.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-in.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-in.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-in.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-in.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Indium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_indium",
+        "revisionId": 1282439110,
+        "revisionTimestamp": "2025-03-26T12:18:40Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "body-centered-tetragonal",
+            "prefix": "",
+            "comment": "",
+            "pearson": "tI2",
+            "lattice": "a = 325.16 pm; c = 494.71 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-in",
+        "modelKind": "tetragonal",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 3.2516000000000003,
+            "modelAngstrom": 3.253,
+            "relativeDifferencePercent": 0.043055726411608
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "c",
+            "wikiAngstrom": 4.9471,
+            "modelAngstrom": 4.9455,
+            "relativeDifferencePercent": 0.03234218026722371
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Indium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_indium",
+      "revisionId": 1282439110,
+      "revisionTimestamp": "2025-03-26T12:18:40Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "body-centered-tetragonal",
+          "prefix": "",
+          "comment": "",
+          "pearson": "tI2",
+          "lattice": "a = 325.16 pm; c = 494.71 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-in",
+      "modelKind": "tetragonal",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 3.2516000000000003,
+          "modelAngstrom": 3.253,
+          "relativeDifferencePercent": 0.043055726411608
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "c",
+          "wikiAngstrom": 4.9471,
+          "modelAngstrom": 4.9455,
+          "relativeDifferencePercent": 0.03234218026722371
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Tứ phương (Tetragonal)",
   "occurrence": {
@@ -151,9 +223,9 @@
             "a": 5.4093,
             "b": 5.4093,
             "c": 5.4093,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 158.278965942357,
           "siteCount": 8,
@@ -437,32 +509,117 @@
     {
       "title": "Màn hình cảm ứng",
       "desc": "Indium tin oxide (ITO) được sử dụng rộng rãi làm lớp phủ dẫn điện trong màn hình cảm ứng và màn hình phẳng.",
-      "sourceLine": 83
+      "sourceLine": 83,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "display",
+        "source": "https://commons.wikimedia.org/wiki/File:Wiktionnaire_sur_IPhone_(1).JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/display.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Wiktionnaire_sur_IPhone_(1).JPG",
+        "author": "Béotien lambda",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Màn hình cảm ứng — Liquid-crystal display",
+        "caption": "Minh họa lĩnh vực màn hình cảm ứng · Liquid-crystal display.",
+        "topic": "display",
+        "role": "application-context"
+      }
     },
     {
       "title": "Màn hình LCD",
       "desc": "ITO cũng được sử dụng trong các điện cực trong suốt của màn hình LCD.",
-      "sourceLine": 84
+      "sourceLine": 84,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "display",
+        "source": "https://commons.wikimedia.org/wiki/File:Wiktionnaire_sur_IPhone_(1).JPG"
+      }
     },
     {
       "title": "Pin mặt trời",
       "desc": "Các hợp chất như Indium gallium selenide (CIGS) được sử dụng trong một số loại pin mặt trời màng mỏng.",
-      "sourceLine": 85
+      "sourceLine": 85,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "solar-cell",
+        "source": "https://commons.wikimedia.org/wiki/File:Solar_cell.png"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/solar-cell.png",
+        "source": "https://commons.wikimedia.org/wiki/File:Solar_cell.png",
+        "author": "Unknown author Unknown author",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Pin mặt trời — Solar cell",
+        "caption": "Minh họa lĩnh vực pin mặt trời · Solar cell.",
+        "topic": "solar-cell",
+        "role": "application-context"
+      }
     },
     {
       "title": "Bán dẫn",
       "desc": "Indium phosphide (InP) được sử dụng trong linh kiện bán dẫn và công nghệ quang điện tử.",
-      "sourceLine": 86
+      "sourceLine": 86,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "semiconductor",
+        "source": "https://commons.wikimedia.org/wiki/File:ICC_2008_Poland_Silicon_Wafer_1_edit.png"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/semiconductor.png",
+        "source": "https://commons.wikimedia.org/wiki/File:ICC_2008_Poland_Silicon_Wafer_1_edit.png",
+        "author": "FxJ",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Bán dẫn — Silicon wafer",
+        "caption": "Minh họa lĩnh vực bán dẫn · Silicon wafer.",
+        "topic": "semiconductor",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hợp kim",
       "desc": "Indium có nhiệt độ nóng chảy thấp nên được sử dụng trong một số hợp kim và vật liệu hàn.",
-      "sourceLine": 87
+      "sourceLine": 87,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "welding",
+        "source": "https://commons.wikimedia.org/wiki/File:US_Navy_090715-N-5821P-002_Aviation_Support_Equipment_Technician_Airman_Anthony_Hammond_performs_tungsten_inert_gas_welding_during_a_training_evolution.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/welding.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:US_Navy_090715-N-5821P-002_Aviation_Support_Equipment_Technician_Airman_Anthony_Hammond_performs_tungsten_inert_gas_welding_during_a_training_evolution.jpg",
+        "author": "U.S. Navy photo by Mass Communication Specialist 2nd Class Jason T. Poplin",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Hợp kim — Gas tungsten arc welding",
+        "caption": "Minh họa lĩnh vực hợp kim · Gas tungsten arc welding.",
+        "topic": "welding",
+        "role": "application-context"
+      }
     },
     {
       "title": "Kính phủ dẫn điện",
       "desc": "Indium tin oxide tạo lớp phủ vừa trong suốt vừa dẫn điện.",
-      "sourceLine": 88
+      "sourceLine": 88,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "glass",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/glass.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg",
+        "author": "Ansgar Koreng",
+        "license": "CC BY 3.0 de",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/de/deed.en",
+        "alt": "Kính phủ dẫn điện — Glass",
+        "caption": "Minh họa lĩnh vực kính phủ dẫn điện · Glass.",
+        "topic": "glass",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Indium là nguyên tố số 49, thuộc nhóm IIIA | chu kỳ 5.</li><li>Indium có cấu hình electron [Kr] 4d¹⁰ 5s² 5p¹, với số Oxy hóa phổ biến là +3.</li><li>Indium là kim loại rất mềm, màu trắng bạc và có nhiệt độ nóng chảy thấp. Trong tự nhiên, Indium thường tồn tại với hàm lượng rất nhỏ trong các quặng Zinc và chủ yếu được thu hồi như sản phẩm phụ của ngành luyện Zinc.</li><li>Indium đặc biệt quan trọng trong công nghệ hiện đại nhờ khả năng tạo Indium tin oxide (ITO) — vật liệu trong suốt nhưng dẫn điện tốt, được sử dụng trong màn hình cảm ứng, LCD và các thiết bị hiển thị.</li><li>Ngoài ra, Indium còn có vai trò trong bán dẫn, quang điện tử, pin mặt trời và vật liệu hàn.</li></ul>",
@@ -503,9 +660,9 @@
           "a": 5.4093,
           "b": 5.4093,
           "c": 5.4093,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 158.278965942357,
         "siteCount": 8,
@@ -570,6 +727,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Indium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -578,6 +740,7 @@
     "sourceSha256": "debe61ae1bbf97d6fc2f339765d62ac19ff88a483cb9e436e0ba2613dea716fd",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/049_In.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/indium-in/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/indium-in/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/indium-in/audit.md"
   }
 }

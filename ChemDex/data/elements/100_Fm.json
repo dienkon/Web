@@ -67,7 +67,30 @@
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương tâm diện (FCC)",
     "latticeEvidence": "predicted",
-    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
+    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác.",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Fermium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_fermium",
+      "revisionId": 1377742233,
+      "revisionTimestamp": "2026-09-30T22:46:44Z",
+      "status": "phase-unmeasured-or-fluid",
+      "phases": [
+        {
+          "type": "face-centered cubic",
+          "prefix": "",
+          "comment": "(predicted)",
+          "pearson": "",
+          "lattice": ""
+        }
+      ],
+      "selectedModel": null,
+      "modelKind": null,
+      "metrics": [],
+      "notes": [
+        "Không lấy hình của một kiểu mạng chung để khẳng định mẫu tinh thể đã được đo. Pha khí/lỏng và cấu trúc dự đoán được ghi riêng."
+      ],
+      "additionalSources": []
+    }
   },
   "structureType": "Lập phương tâm diện (FCC)",
   "occurrence": {
@@ -265,22 +288,53 @@
     {
       "title": "Nghiên cứu hạt nhân",
       "desc": "Fermium được sử dụng gần như hoàn toàn trong nghiên cứu vật lý hạt nhân và hóa học Actinide.",
-      "sourceLine": 85
+      "sourceLine": 85,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/research.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "author": "LSDSL",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nghiên cứu hạt nhân — Particle accelerator",
+        "caption": "Minh họa lĩnh vực nghiên cứu hạt nhân · Particle accelerator.",
+        "topic": "research",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nghiên cứu nguyên tố siêu nặng",
       "desc": "Fermium có vai trò trong việc nghiên cứu các phản ứng tạo ra các hạt nhân nặng hơn, góp phần tìm hiểu giới hạn của bảng tuần hoàn.",
-      "sourceLine": 86
+      "sourceLine": 86,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      }
     },
     {
       "title": "Nghiên cứu cấu trúc electron",
       "desc": "Các hợp chất Fermium giúp nghiên cứu sự thay đổi tính chất hóa học trong dãy Actinide.",
-      "sourceLine": 87
+      "sourceLine": 87,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      }
     },
     {
       "title": "Ứng dụng",
       "desc": "Do chỉ có thể tạo ra lượng cực kỳ nhỏ và các đồng vị có chu kỳ bán rã ngắn, Fermium không có ứng dụng công nghiệp hoặc đời sống thông thường.",
-      "sourceLine": 88
+      "sourceLine": 88,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Fermium là nguyên tố số 100, thuộc nhóm IIIB | chu kỳ 7 và là nguyên tố thứ mười hai trong họ Actinide.</li><li>Fermium được phát hiện vào năm 1952 bởi Albert Ghiorso và cộng sự trong các sản phẩm của vụ thử nhiệt hạch Ivy Mike. Tên nguyên tố được đặt để vinh danh nhà vật lý Enrico Fermi.</li><li>Fermium là kim loại phóng xạ nhân tạo, không có đồng vị bền. Hai trạng thái Oxy hóa quan trọng là +2 và +3, trong đó +3 phổ biến hơn.</li><li>Đồng vị ²⁵⁷Fm có chu kỳ bán rã khoảng 100,5 ngày, là đồng vị Fermium có thời gian tồn tại tương đối dài. Vì Fermium chỉ được tạo ra với lượng cực nhỏ, giá trị của nó chủ yếu nằm trong nghiên cứu hạt nhân và hóa học Actinide, chứ không có ứng dụng đời sống thông thường.</li><li>Mạng tinh thể: Lập phương tâm diện (FCC) ở điều kiện thường.</li></ul>",
@@ -321,6 +375,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Fermium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -329,6 +388,7 @@
     "sourceSha256": "0e30100dbaa298c3db65971a012c59452f9789cca84f2779270ea4c18ca05782",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/100_Fm.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/fermium-fm/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/fermium-fm/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/fermium-fm/audit.md"
   }
 }

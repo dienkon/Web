@@ -71,9 +71,9 @@
         "a": 2.5074,
         "b": 2.5074,
         "c": 4.0699,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 120.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 120
       },
       "volume": 22.15958451326187,
       "siteCount": 2,
@@ -96,9 +96,81 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-co.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-co.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-co.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-co.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-co.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Cobalt",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_cobalt",
+        "revisionId": 1282814367,
+        "revisionTimestamp": "2025-03-28T19:38:09Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "hexagonal close packed",
+            "prefix": "",
+            "comment": "",
+            "pearson": "hP2",
+            "lattice": "a = 250.71 pm; c = 407.00 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-co",
+        "modelKind": "hcp",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 2.5071000000000003,
+            "modelAngstrom": 2.5074,
+            "relativeDifferencePercent": 0.011966016513092611
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "c",
+            "wikiAngstrom": 4.07,
+            "modelAngstrom": 4.0699,
+            "relativeDifferencePercent": 0.002457002457018553
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Cobalt",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_cobalt",
+      "revisionId": 1282814367,
+      "revisionTimestamp": "2025-03-28T19:38:09Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "hexagonal close packed",
+          "prefix": "",
+          "comment": "",
+          "pearson": "hP2",
+          "lattice": "a = 250.71 pm; c = 407.00 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-co",
+      "modelKind": "hcp",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 2.5071000000000003,
+          "modelAngstrom": 2.5074,
+          "relativeDifferencePercent": 0.011966016513092611
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "c",
+          "wikiAngstrom": 4.07,
+          "modelAngstrom": 4.0699,
+          "relativeDifferencePercent": 0.002457002457018553
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lục phương (Hexagonal)",
   "occurrence": {
@@ -150,9 +222,9 @@
             "a": 5.592,
             "b": 5.587,
             "c": 5.567,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 173.92701976799998,
           "siteCount": 12,
@@ -464,32 +536,128 @@
     {
       "title": "Pin Lithium-ion",
       "desc": "Cobalt compounds được sử dụng trong một số loại cathode của pin Lithium-ion.",
-      "sourceLine": 88
+      "sourceLine": 88,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "lithium-battery",
+        "source": "https://commons.wikimedia.org/wiki/File:Li_ion_laptop_battery.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/lithium-battery.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Li_ion_laptop_battery.jpg",
+        "author": "Kristoferb",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Pin Lithium-ion — Lithium-ion battery",
+        "caption": "Minh họa lĩnh vực pin lithium-ion · Lithium-ion battery.",
+        "topic": "lithium-battery",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hợp kim",
       "desc": "Cobalt được sử dụng để tạo các hợp kim có khả năng chịu nhiệt, chịu mài mòn và chịu ăn mòn cao.",
-      "sourceLine": 89
+      "sourceLine": 89,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "refractory",
+        "source": "https://commons.wikimedia.org/wiki/File:Torpedo_car_refractory_bricks.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/refractory.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Torpedo_car_refractory_bricks.JPG",
+        "author": "Morgan Riley",
+        "license": "CC BY 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+        "alt": "Hợp kim — Refractory",
+        "caption": "Minh họa lĩnh vực hợp kim · Refractory.",
+        "topic": "refractory",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nam châm",
       "desc": "Một số Cobalt alloys được sử dụng để chế tạo nam châm vĩnh cửu có tính từ mạnh.",
-      "sourceLine": 90
+      "sourceLine": 90,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "magnet",
+        "source": "https://commons.wikimedia.org/wiki/File:Magnetite_sample_with_neodymium_magnet.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/magnet.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Magnetite_sample_with_neodymium_magnet.jpg",
+        "author": "GOKLuLe 盧樂",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nam châm — Magnet",
+        "caption": "Minh họa lĩnh vực nam châm · Magnet.",
+        "topic": "magnet",
+        "role": "application-context"
+      }
     },
     {
       "title": "Pigment",
       "desc": "Cobalt compounds được sử dụng để tạo các pigment màu xanh lam trong thủy tinh, gốm và sơn.",
-      "sourceLine": 91
+      "sourceLine": 91,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "pigment",
+        "source": "https://commons.wikimedia.org/wiki/File:Indian_pigments.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/pigment.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Indian_pigments.jpg",
+        "author": "Dan Brady",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "alt": "Pigment — Pigment",
+        "caption": "Minh họa lĩnh vực pigment · Pigment.",
+        "topic": "pigment",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hàng không",
       "desc": "Một số Cobalt-based superalloys được sử dụng trong các bộ phận chịu nhiệt cao.",
-      "sourceLine": 92
+      "sourceLine": 92,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "aircraft",
+        "source": "https://commons.wikimedia.org/wiki/File:Cessna_172S_Skyhawk_%E2%80%98G-JMKE%E2%80%99_(45077563364).jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/aircraft.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Cessna_172S_Skyhawk_%E2%80%98G-JMKE%E2%80%99_(45077563364).jpg",
+        "author": "Alan Wilson from Stilton, Peterborough, Cambs, UK",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Hàng không — Aircraft",
+        "caption": "Minh họa lĩnh vực hàng không · Aircraft.",
+        "topic": "aircraft",
+        "role": "application-context"
+      }
     },
     {
       "title": "Y học",
       "desc": "⁶⁰Co là nguồn bức xạ được sử dụng trong một số thiết bị xạ trị và khử trùng.",
-      "sourceLine": 93
+      "sourceLine": 93,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "radiotherapy",
+        "source": "https://commons.wikimedia.org/wiki/File:Radiation_therapy.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/radiotherapy.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Radiation_therapy.jpg",
+        "author": "Dina Wakulchik from Indianapolis, Indiana, USA",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "alt": "Y học — Radiation therapy",
+        "caption": "Minh họa lĩnh vực y học · Radiation therapy.",
+        "topic": "radiotherapy",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Cobalt là nguyên tố số 27, thuộc nhóm VIIIB | chu kỳ 4 và là một kim loại chuyển tiếp.</li><li>Cobalt có cấu hình electron [Ar] 3d⁷ 4s², trong đó +2 và +3 là những số Oxy hóa quan trọng.</li><li>Cobalt có màu trắng bạc hơi xanh, cứng, bền và có tính sắt từ. Trong tự nhiên, Cobalt thường không tồn tại thành các mỏ kim loại riêng biệt mà thường được thu hồi cùng với Copper và Nickel.</li><li>Cobalt có vai trò quan trọng trong sản xuất pin Lithium-ion, hợp kim chịu nhiệt, nam châm, pigment và các ứng dụng liên quan đến đồng vị phóng xạ ⁶⁰Co.</li></ul>",
@@ -530,9 +698,9 @@
           "a": 5.592,
           "b": 5.587,
           "c": 5.567,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 173.92701976799998,
         "siteCount": 12,
@@ -597,6 +765,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Cobalt",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -605,6 +778,7 @@
     "sourceSha256": "467ce9dd0ae7acf913daf8936fb5199f83bd49fff43f9511b74508aa64e9db7c",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/027_Co.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/coban-co/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/coban-co/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/coban-co/audit.md"
   }
 }

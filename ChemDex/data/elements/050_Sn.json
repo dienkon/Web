@@ -73,9 +73,9 @@
         "a": 5.8197,
         "b": 5.8197,
         "c": 3.17488,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 90.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
       },
       "volume": 107.52971891677919,
       "siteCount": 4,
@@ -97,9 +97,95 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-sn.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-sn.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-sn.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-sn.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-sn.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Tin",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_tin",
+        "revisionId": 1379417624,
+        "revisionTimestamp": "2026-10-09T21:55:25Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "body-centered tetragonal",
+            "prefix": "white (β):",
+            "comment": "",
+            "pearson": "tI4",
+            "lattice": "white (β):; a = 583.13 pm; c = 318.11 pm; (at 20 °C)"
+          },
+          {
+            "type": "diamond cubic",
+            "prefix": "gray (α):",
+            "comment": "",
+            "pearson": "cF8",
+            "lattice": "gray (α):; a = 648.96 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-sn",
+        "modelKind": "tetragonal",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 5.8313,
+            "modelAngstrom": 5.8197,
+            "relativeDifferencePercent": 0.19892648294547718
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "c",
+            "wikiAngstrom": 3.1811000000000003,
+            "modelAngstrom": 3.17488,
+            "relativeDifferencePercent": 0.1955298481657394
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Tin",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_tin",
+      "revisionId": 1379417624,
+      "revisionTimestamp": "2026-10-09T21:55:25Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "body-centered tetragonal",
+          "prefix": "white (β):",
+          "comment": "",
+          "pearson": "tI4",
+          "lattice": "white (β):; a = 583.13 pm; c = 318.11 pm; (at 20 °C)"
+        },
+        {
+          "type": "diamond cubic",
+          "prefix": "gray (α):",
+          "comment": "",
+          "pearson": "cF8",
+          "lattice": "gray (α):; a = 648.96 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-sn",
+      "modelKind": "tetragonal",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 5.8313,
+          "modelAngstrom": 5.8197,
+          "relativeDifferencePercent": 0.19892648294547718
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "c",
+          "wikiAngstrom": 3.1811000000000003,
+          "modelAngstrom": 3.17488,
+          "relativeDifferencePercent": 0.1955298481657394
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Tứ phương (Tetragonal)",
   "occurrence": {
@@ -149,9 +235,9 @@
             "a": 4.737,
             "b": 4.737,
             "c": 3.185,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 71.468753265,
           "siteCount": 6,
@@ -593,32 +679,117 @@
     {
       "title": "Hàn",
       "desc": "Tin là thành phần quan trọng trong nhiều loại vật liệu hàn, đặc biệt trong ngành điện tử.",
-      "sourceLine": 90
+      "sourceLine": 90,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "welding",
+        "source": "https://commons.wikimedia.org/wiki/File:US_Navy_090715-N-5821P-002_Aviation_Support_Equipment_Technician_Airman_Anthony_Hammond_performs_tungsten_inert_gas_welding_during_a_training_evolution.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/welding.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:US_Navy_090715-N-5821P-002_Aviation_Support_Equipment_Technician_Airman_Anthony_Hammond_performs_tungsten_inert_gas_welding_during_a_training_evolution.jpg",
+        "author": "U.S. Navy photo by Mass Communication Specialist 2nd Class Jason T. Poplin",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Hàn — Gas tungsten arc welding",
+        "caption": "Minh họa lĩnh vực hàn · Gas tungsten arc welding.",
+        "topic": "welding",
+        "role": "application-context"
+      }
     },
     {
       "title": "Mạ kim loại",
       "desc": "Tin được dùng để phủ lên thép nhằm chống ăn mòn, đặc biệt trong sản xuất hộp đựng thực phẩm.",
-      "sourceLine": 91
+      "sourceLine": 91,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "sacrificial-anode",
+        "source": "https://commons.wikimedia.org/wiki/File:Sacrificial_anode.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/sacrificial-anode.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Sacrificial_anode.jpg",
+        "author": "Zwergelstern",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+        "alt": "Mạ kim loại — Galvanic anode",
+        "caption": "Minh họa lĩnh vực mạ kim loại · Galvanic anode.",
+        "topic": "sacrificial-anode",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hợp kim",
       "desc": "Tin được sử dụng trong Bronze, Solder và nhiều hợp kim khác.",
-      "sourceLine": 92
+      "sourceLine": 92,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "brass",
+        "source": "https://commons.wikimedia.org/wiki/File:Planispheric_Astrolabe_MET_DP105325.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/brass.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Planispheric_Astrolabe_MET_DP105325.jpg",
+        "author": "Muhammad Zaman al-Munajjim al-Asturlabi",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "alt": "Hợp kim — Brass",
+        "caption": "Minh họa lĩnh vực hợp kim · Brass.",
+        "topic": "brass",
+        "role": "application-context"
+      }
     },
     {
       "title": "Bao bì thực phẩm",
       "desc": "Thép mạ Tin được sử dụng để sản xuất một số loại hộp đựng thực phẩm.",
-      "sourceLine": 93
+      "sourceLine": 93,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "aluminium-foil",
+        "source": "https://commons.wikimedia.org/wiki/File:Aluminio.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/aluminium-foil.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Aluminio.jpg",
+        "author": "MdeVicente",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "alt": "Bao bì thực phẩm — Aluminium foil",
+        "caption": "Minh họa lĩnh vực bao bì thực phẩm · Aluminium foil.",
+        "topic": "aluminium-foil",
+        "role": "application-context"
+      }
     },
     {
       "title": "Kính",
       "desc": "Tin oxide được sử dụng trong một số loại kính và lớp phủ dẫn điện.",
-      "sourceLine": 94
+      "sourceLine": 94,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "glass",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/glass.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg",
+        "author": "Ansgar Koreng",
+        "license": "CC BY 3.0 de",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/de/deed.en",
+        "alt": "Kính — Glass",
+        "caption": "Minh họa lĩnh vực kính · Glass.",
+        "topic": "glass",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hóa chất",
       "desc": "Các hợp chất Organotin được sử dụng trong một số ứng dụng công nghiệp.",
-      "sourceLine": 95
+      "sourceLine": 95,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Tin là nguyên tố số 50, thuộc nhóm IVA | chu kỳ 5.</li><li>Tin có cấu hình electron [Kr] 4d¹⁰ 5s² 5p², với hai số Oxy hóa phổ biến là +2 và +4.</li><li>Tin là kim loại mềm, dễ uốn, màu trắng bạc và có nhiệt độ nóng chảy tương đối thấp. Trong tự nhiên, Tin chủ yếu tồn tại dưới dạng Cassiterite (SnO₂).</li><li>Tin có vai trò quan trọng trong hàn, mạ kim loại, sản xuất hợp kim, bao bì thực phẩm và công nghiệp điện tử. Một đặc điểm quan trọng của Tin là khả năng tạo nhiều hợp kim, trong đó Bronze và các vật liệu hàn là những ứng dụng tiêu biểu.</li></ul>",
@@ -659,9 +830,9 @@
           "a": 4.737,
           "b": 4.737,
           "c": 3.185,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 71.468753265,
         "siteCount": 6,
@@ -726,6 +897,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Tin",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -734,6 +910,7 @@
     "sourceSha256": "ff92c9588a2df2535448b14a25ef537ce789f370734829f9f9bf97429c1e7c58",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/050_Sn.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/tin-sn/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/tin-sn/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/tin-sn/audit.md"
   }
 }

@@ -67,7 +67,162 @@
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Trực thoi (Orthorhombic)",
     "latticeEvidence": "source-reviewed",
-    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
+    "publishedCrystalStatus": "available",
+    "publishedCrystal": {
+      "id": "nguyen-to-np",
+      "symbol": "Np",
+      "referenceId": "amcsd:0011263",
+      "amcsdId": "0011263",
+      "mineralName": "Neptunium-alpha",
+      "formula": "Np",
+      "spaceGroup": "P m c n",
+      "cell": {
+        "a": 4.723,
+        "b": 4.887,
+        "c": 6.663,
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
+      },
+      "volume": 153.79070856299998,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Sample is stable at room conditions",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "7–83"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Pha đơn chất theo bản ghi công bố; không phải mô hình quặng. Giữ đúng pha nhiệt độ phòng, không thay bằng dạng lập phương ở nhiệt độ cao.",
+      "limitations": "",
+      "pearsonSymbol": null,
+      "primaryReference": null,
+      "data": "/assets/periodic-table/crystals/nguyen-to-np.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-np.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-np.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-np.png",
+      "wiki": {
+        "symbol": "Np",
+        "number": 93,
+        "name": "Neptunium",
+        "article": "https://en.wikipedia.org/wiki/Neptunium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_neptunium",
+        "revisionId": 1384432240,
+        "revisionTimestamp": "2026-11-08T05:25:00Z",
+        "retrievedAt": "2026-11-11T23:29:14.972Z",
+        "status": "available",
+        "fields": {
+          "phase": {
+            "text": "",
+            "raw": ""
+          },
+          "crystal structure": {
+            "text": "orthorhombic",
+            "raw": "orthorhombic"
+          },
+          "crystal structure pearson symbol": {
+            "text": "oP8",
+            "raw": "oP8"
+          },
+          "lattice constants": {
+            "text": "a = 472.3 pm; b = 488.7 pm; c = 666.3 pm (at 20 °C)",
+            "raw": "''a''&nbsp;=&nbsp;472.3&nbsp;pm<br />''b''&nbsp;=&nbsp;488.7&nbsp;pm<br />''c''&nbsp;=&nbsp;666.3&nbsp;pm (at&nbsp;20&nbsp;°C)<ref name=\"Arblaster 2018\">{{cite book |last=Arblaster |first= John W. |title=Selected Values of the Crystallographic Properties of Elements |publisher=ASM International |publication-place=Materials Park, Ohio |date=2018 |isbn=978-1-62708-155-9}}</ref>"
+          }
+        }
+      },
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Neptunium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_neptunium",
+        "revisionId": 1384432240,
+        "revisionTimestamp": "2026-11-08T05:25:00Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "orthorhombic",
+            "prefix": "",
+            "comment": "",
+            "pearson": "oP8",
+            "lattice": "a = 472.3 pm; b = 488.7 pm; c = 666.3 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-np",
+        "modelKind": "orthorhombic",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 4.723,
+            "modelAngstrom": 4.723,
+            "relativeDifferencePercent": 0
+          },
+          {
+            "axis": "b",
+            "wikiAxis": "b",
+            "wikiAngstrom": 4.887,
+            "modelAngstrom": 4.887,
+            "relativeDifferencePercent": 0
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "c",
+            "wikiAngstrom": 6.662999999999999,
+            "modelAngstrom": 6.663,
+            "relativeDifferencePercent": 1.3330007799791765e-14
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
+    },
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Neptunium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_neptunium",
+      "revisionId": 1384432240,
+      "revisionTimestamp": "2026-11-08T05:25:00Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "orthorhombic",
+          "prefix": "",
+          "comment": "",
+          "pearson": "oP8",
+          "lattice": "a = 472.3 pm; b = 488.7 pm; c = 666.3 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-np",
+      "modelKind": "orthorhombic",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 4.723,
+          "modelAngstrom": 4.723,
+          "relativeDifferencePercent": 0
+        },
+        {
+          "axis": "b",
+          "wikiAxis": "b",
+          "wikiAngstrom": 4.887,
+          "modelAngstrom": 4.887,
+          "relativeDifferencePercent": 0
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "c",
+          "wikiAngstrom": 6.662999999999999,
+          "modelAngstrom": 6.663,
+          "relativeDifferencePercent": 1.3330007799791765e-14
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Trực thoi (Orthorhombic)",
   "occurrence": {
@@ -355,22 +510,53 @@
     {
       "title": "Nghiên cứu hạt nhân",
       "desc": "Neptunium chủ yếu được sử dụng trong nghiên cứu vật lý hạt nhân và hóa học Actinide.",
-      "sourceLine": 91
+      "sourceLine": 91,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/research.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "author": "LSDSL",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nghiên cứu hạt nhân — Particle accelerator",
+        "caption": "Minh họa lĩnh vực nghiên cứu hạt nhân · Particle accelerator.",
+        "topic": "research",
+        "role": "application-context"
+      }
     },
     {
       "title": "Sản xuất Plutonium-238",
       "desc": "²³⁷Np có thể được sử dụng làm nguyên liệu để sản xuất ²³⁸Pu, một đồng vị có ứng dụng trong nguồn năng lượng cho các hệ thống không gian.",
-      "sourceLine": 92
+      "sourceLine": 92,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Nghiên cứu chất thải hạt nhân",
       "desc": "²³⁷Np là một trong những đồng vị được quan tâm trong nghiên cứu lưu trữ và xử lý chất thải phóng xạ lâu dài, do chu kỳ bán rã rất dài.",
-      "sourceLine": 93
+      "sourceLine": 93,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      }
     },
     {
       "title": "Nghiên cứu địa hóa",
       "desc": "Các đồng vị Neptunium được sử dụng để nghiên cứu sự vận chuyển của Actinide trong môi trường.",
-      "sourceLine": 94
+      "sourceLine": 94,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Neptunium là nguyên tố số 93, thuộc nhóm IIIB | chu kỳ 7 và là nguyên tố thứ năm trong họ Actinide.</li><li>Neptunium được Edwin McMillan và Philip H. Abelson phát hiện vào năm 1940 tại Berkeley, Hoa Kỳ. Đây là nguyên tố siêu Uranium đầu tiên được phát hiện.</li><li>Tên Neptunium được đặt theo Neptune, tương tự như Uranium được đặt theo Uranus.</li><li>Neptunium là kim loại phóng xạ màu bạc, có nhiều trạng thái Oxy hóa từ +3 đến +7. Đồng vị quan trọng nhất là ²³⁷Np, có chu kỳ bán rã khoảng 2,14 triệu năm.</li><li>Neptunium chủ yếu có giá trị trong nghiên cứu hạt nhân. Đặc biệt, ²³⁷Np có thể đóng vai trò là nguyên liệu để sản xuất ²³⁸Pu, đồng vị được sử dụng trong các nguồn năng lượng phóng xạ cho một số hệ thống không gian.</li><li>Mạng tinh thể: Trực thoi (Orthorhombic) ở điều kiện thường.</li></ul>",
@@ -411,6 +597,11 @@
     {
       "title": "NIST — cấu hình electron và đồng vị tham chiếu",
       "url": "https://www.nist.gov/system/files/documents/2024/06/25/NIST_periodictable_June24_iupac.pdf"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Neptunium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -419,6 +610,7 @@
     "sourceSha256": "06f23c30dcfe0d6f1edf5a4b3b194c7463d0e0943be0439d69266be587290b2c",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/093_Np.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/neptunium-np/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/neptunium-np/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/neptunium-np/audit.md"
   }
 }

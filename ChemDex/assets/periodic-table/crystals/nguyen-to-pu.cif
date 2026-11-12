@@ -1,0 +1,45 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0011265
+_database_code_amcsd 0011265
+_chemical_name_mineral Plutonium-alpha
+_chemical_formula_sum Pu
+_symmetry_space_group_name_H-M 'P 1 21/m 1'
+_cell_length_a 6.1835
+_cell_length_b 4.8244
+_cell_length_c 10.973
+_cell_angle_alpha 90
+_cell_angle_beta 101.8
+_cell_angle_gamma 90
+_cell_volume 320.425384
+loop_
+_publ_author_name
+'Wyckoff R W G'
+_journal_name_full 'Crystal Structures'
+_journal_year 1963
+_journal_volume 1
+_publ_section_title
+;Second edition. Interscience Publishers, New York, New York
+ Sample is stable room conditions to 110 C
+;
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+x,1/2-y,z
+-x,1/2+y,-z
+-x,-y,-z
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+Pu1 Pu 0.332 0.25 0.155 1
+Pu2 Pu 0.774 0.25 0.175 1
+Pu3 Pu 0.144 0.25 0.341 1
+Pu4 Pu 0.658 0.25 0.457 1
+Pu5 Pu 0.016 0.25 0.621 1
+Pu6 Pu 0.465 0.25 0.644 1
+Pu7 Pu 0.337 0.25 0.926 1
+Pu8 Pu 0.892 0.25 0.897 1

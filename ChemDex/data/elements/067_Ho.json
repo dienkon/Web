@@ -75,9 +75,9 @@
         "a": 3.5773,
         "b": 3.5773,
         "c": 5.6158,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 120.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 120
       },
       "volume": 62.237621811845294,
       "siteCount": 2,
@@ -101,9 +101,81 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-ho.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-ho.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-ho.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-ho.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-ho.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Holmium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_holmium",
+        "revisionId": 1284275097,
+        "revisionTimestamp": "2025-04-06T16:17:29Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "hexagonal close packed",
+            "prefix": "",
+            "comment": "",
+            "pearson": "hP2",
+            "lattice": "a = 357.80 pm; c = 561.77 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-ho",
+        "modelKind": "hcp",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 3.5780000000000003,
+            "modelAngstrom": 3.5773,
+            "relativeDifferencePercent": 0.01956400223589002
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "c",
+            "wikiAngstrom": 5.6177,
+            "modelAngstrom": 5.6158,
+            "relativeDifferencePercent": 0.03382167079053728
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Holmium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_holmium",
+      "revisionId": 1284275097,
+      "revisionTimestamp": "2025-04-06T16:17:29Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "hexagonal close packed",
+          "prefix": "",
+          "comment": "",
+          "pearson": "hP2",
+          "lattice": "a = 357.80 pm; c = 561.77 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-ho",
+      "modelKind": "hcp",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 3.5780000000000003,
+          "modelAngstrom": 3.5773,
+          "relativeDifferencePercent": 0.01956400223589002
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "c",
+          "wikiAngstrom": 5.6177,
+          "modelAngstrom": 5.6158,
+          "relativeDifferencePercent": 0.03382167079053728
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lục phương xếp chặt (HCP)",
   "occurrence": {
@@ -153,9 +225,9 @@
             "a": 6.8947,
             "b": 6.8947,
             "c": 6.0276,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 286.53334665128403,
           "siteCount": 24,
@@ -356,27 +428,96 @@
     {
       "title": "Laser Ho",
       "desc": "YAG: Holmium được sử dụng trong Holmium-doped Yttrium Aluminum Garnet (Ho:YAG), một loại laser phát ra bức xạ hồng ngoại. Nó có ứng dụng trong y tế và một số lĩnh vực kỹ thuật.",
-      "sourceLine": 81
+      "sourceLine": 81,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "laser",
+        "source": "https://commons.wikimedia.org/wiki/File:Guiding_the_Milky_Way_(potw2222a).jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/laser.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Guiding_the_Milky_Way_(potw2222a).jpg",
+        "author": "ESO/A. Ghizzi Panizza ( www.albertoghizzipanizza.com )",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "alt": "Laser Ho — Laser",
+        "caption": "Minh họa lĩnh vực laser ho · Laser.",
+        "topic": "laser",
+        "role": "application-context"
+      }
     },
     {
       "title": "Y tế",
       "desc": "Laser Holmium được sử dụng trong một số thủ thuật y khoa, đặc biệt trong các ứng dụng liên quan đến tiết niệu.",
-      "sourceLine": 82
+      "sourceLine": 82,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "laser",
+        "source": "https://commons.wikimedia.org/wiki/File:Guiding_the_Milky_Way_(potw2222a).jpg"
+      }
     },
     {
       "title": "Nam châm",
       "desc": "Do có mômen từ rất lớn, Holmium được nghiên cứu và sử dụng trong một số vật liệu từ đặc biệt.",
-      "sourceLine": 83
+      "sourceLine": 83,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "magnet",
+        "source": "https://commons.wikimedia.org/wiki/File:Magnetite_sample_with_neodymium_magnet.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/magnet.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Magnetite_sample_with_neodymium_magnet.jpg",
+        "author": "GOKLuLe 盧樂",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nam châm — Magnet",
+        "caption": "Minh họa lĩnh vực nam châm · Magnet.",
+        "topic": "magnet",
+        "role": "application-context"
+      }
     },
     {
       "title": "Quang học",
       "desc": "Các ion Ho³⁺ được sử dụng trong một số vật liệu quang học và laser.",
-      "sourceLine": 84
+      "sourceLine": 84,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "optics",
+        "source": "https://commons.wikimedia.org/wiki/File:Double-lens_burning_apparatus,_Ehrenfried_Walther_von_Tschirnhaus,_Kieslingswalde_(today_Slawonice,_Poland),_c._1690_-_Mathematisch-Physikalischer_Salon,_Dresden_-_DSC08133.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/optics.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Double-lens_burning_apparatus,_Ehrenfried_Walther_von_Tschirnhaus,_Kieslingswalde_(today_Slawonice,_Poland),_c._1690_-_Mathematisch-Physikalischer_Salon,_Dresden_-_DSC08133.JPG",
+        "author": "Daderot",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Quang học — Optical lens",
+        "caption": "Minh họa lĩnh vực quang học · Optical lens.",
+        "topic": "optics",
+        "role": "application-context"
+      }
     },
     {
       "title": "Hiệu chuẩn quang phổ",
       "desc": "Holmium oxide được sử dụng làm chuẩn bước sóng trong một số thiết bị quang phổ UV-Vis.",
-      "sourceLine": 85
+      "sourceLine": 85,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "spectrometer",
+        "source": "https://commons.wikimedia.org/wiki/File:Spektrofotometri.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/spectrometer.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Spektrofotometri.jpg",
+        "author": "Skorpion87",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Hiệu chuẩn quang phổ — Spectrophotometry",
+        "caption": "Minh họa lĩnh vực hiệu chuẩn quang phổ · Spectrophotometry.",
+        "topic": "spectrometer",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Holmium là nguyên tố số 67, thuộc nhóm IIIB | chu kỳ 6 và là nguyên tố thứ mười một trong họ Lanthanide.</li><li>Holmium được Per Teodor Cleve phát hiện vào năm 1879 tại Thụy Điển. Tên nguyên tố bắt nguồn từ Holmia, tên Latin của Stockholm.</li><li>Holmium là kim loại đất hiếm màu trắng bạc, khá mềm và nổi bật với tính thuận từ rất mạnh. Trạng thái Oxy hóa phổ biến nhất là +3.</li><li>Holmium có vai trò quan trọng trong công nghệ laser, đặc biệt là laser Ho:YAG, đồng thời được sử dụng trong y tế, quang học, vật liệu từ và hiệu chuẩn thiết bị quang phổ.</li><li>Mạng tinh thể: Lục phương xếp chặt (HCP) ở điều kiện thường.</li></ul>",
@@ -417,9 +558,9 @@
           "a": 6.8947,
           "b": 6.8947,
           "c": 6.0276,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 286.53334665128403,
         "siteCount": 24,
@@ -486,6 +627,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Holmium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -494,6 +640,7 @@
     "sourceSha256": "7946aed9082cad0c4c9950c1dcdbd0b6ad770a3bf10370fbca0d6596c9358699",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/067_Ho.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/holmium-ho/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/holmium-ho/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/holmium-ho/audit.md"
   }
 }

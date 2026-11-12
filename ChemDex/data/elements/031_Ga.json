@@ -71,9 +71,9 @@
         "a": 4.523,
         "b": 7.661,
         "c": 4.524,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 90.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
       },
       "volume": 156.75978037199997,
       "siteCount": 8,
@@ -96,9 +96,95 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-ga.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-ga.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-ga.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-ga.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-ga.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Gallium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_gallium",
+        "revisionId": 1343305793,
+        "revisionTimestamp": "2026-03-13T13:33:58Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "base-centered orthorhombic",
+            "prefix": "",
+            "comment": "",
+            "pearson": "oS8",
+            "lattice": "a = 452.05 pm; b = 766.25 pm; c = 452.66 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-ga",
+        "modelKind": "orthorhombic",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 4.5205,
+            "modelAngstrom": 4.523,
+            "relativeDifferencePercent": 0.055303616856531415
+          },
+          {
+            "axis": "b",
+            "wikiAxis": "b",
+            "wikiAngstrom": 7.6625000000000005,
+            "modelAngstrom": 7.661,
+            "relativeDifferencePercent": 0.019575856443731745
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "c",
+            "wikiAngstrom": 4.5266,
+            "modelAngstrom": 4.524,
+            "relativeDifferencePercent": 0.05743825387708562
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Gallium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_gallium",
+      "revisionId": 1343305793,
+      "revisionTimestamp": "2026-03-13T13:33:58Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "base-centered orthorhombic",
+          "prefix": "",
+          "comment": "",
+          "pearson": "oS8",
+          "lattice": "a = 452.05 pm; b = 766.25 pm; c = 452.66 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-ga",
+      "modelKind": "orthorhombic",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 4.5205,
+          "modelAngstrom": 4.523,
+          "relativeDifferencePercent": 0.055303616856531415
+        },
+        {
+          "axis": "b",
+          "wikiAxis": "b",
+          "wikiAngstrom": 7.6625000000000005,
+          "modelAngstrom": 7.661,
+          "relativeDifferencePercent": 0.019575856443731745
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "c",
+          "wikiAngstrom": 4.5266,
+          "modelAngstrom": 4.524,
+          "relativeDifferencePercent": 0.05743825387708562
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Trực thoi (Orthorhombic)",
   "occurrence": {
@@ -148,9 +234,9 @@
             "a": 8.684,
             "b": 5.078,
             "c": 9.736,
-            "alpha": 90.0,
+            "alpha": 90,
             "beta": 94.54,
-            "gamma": 90.0
+            "gamma": 90
           },
           "volume": 427.9847114981603,
           "siteCount": 56,
@@ -185,9 +271,9 @@
             "a": 3.693,
             "b": 12.221,
             "c": 2.865,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 129.30361834500002,
           "siteCount": 20,
@@ -221,9 +307,9 @@
             "a": 4.4007,
             "b": 9.4253,
             "c": 2.8452,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 118.01297146849201,
           "siteCount": 16,
@@ -510,37 +596,138 @@
     {
       "title": "Chất bán dẫn",
       "desc": "Gallium là thành phần quan trọng của Gallium arsenide (GaAs) và Gallium nitride (GaN).",
-      "sourceLine": 85
+      "sourceLine": 85,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "semiconductor",
+        "source": "https://commons.wikimedia.org/wiki/File:ICC_2008_Poland_Silicon_Wafer_1_edit.png"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/semiconductor.png",
+        "source": "https://commons.wikimedia.org/wiki/File:ICC_2008_Poland_Silicon_Wafer_1_edit.png",
+        "author": "FxJ",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Chất bán dẫn — Silicon wafer",
+        "caption": "Minh họa lĩnh vực chất bán dẫn · Silicon wafer.",
+        "topic": "semiconductor",
+        "role": "application-context"
+      }
     },
     {
       "title": "LED",
       "desc": "GaN được sử dụng rộng rãi trong LED xanh lam, LED trắng và các thiết bị quang điện.",
-      "sourceLine": 86
+      "sourceLine": 86,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "led",
+        "source": "https://commons.wikimedia.org/wiki/File:RBG-LED.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/led.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:RBG-LED.jpg",
+        "author": "PiccoloNamek",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+        "alt": "LED — Light-emitting diode",
+        "caption": "Minh họa lĩnh vực led · Light-emitting diode.",
+        "topic": "led",
+        "role": "application-context"
+      }
     },
     {
       "title": "Điện tử công suất",
       "desc": "GaN được sử dụng trong transistor và các linh kiện điện tử công suất cao.",
-      "sourceLine": 87
+      "sourceLine": 87,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "electronics",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/electronics.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg",
+        "author": "Raimond Spekking",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Điện tử công suất — Printed circuit board",
+        "caption": "Minh họa lĩnh vực điện tử công suất · Printed circuit board.",
+        "topic": "electronics",
+        "role": "application-context"
+      }
     },
     {
       "title": "Laser diode",
       "desc": "GaAs được sử dụng trong nhiều loại laser diode và thiết bị quang điện.",
-      "sourceLine": 88
+      "sourceLine": 88,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "laser",
+        "source": "https://commons.wikimedia.org/wiki/File:Guiding_the_Milky_Way_(potw2222a).jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/laser.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Guiding_the_Milky_Way_(potw2222a).jpg",
+        "author": "ESO/A. Ghizzi Panizza ( www.albertoghizzipanizza.com )",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "alt": "Laser diode — Laser",
+        "caption": "Minh họa lĩnh vực laser diode · Laser.",
+        "topic": "laser",
+        "role": "application-context"
+      }
     },
     {
       "title": "Thiết bị tần số cao",
       "desc": "GaAs có tính chất điện tử phù hợp với các thiết bị vi sóng và thông tin liên lạc.",
-      "sourceLine": 89
+      "sourceLine": 89,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "electronics",
+        "source": "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg"
+      }
     },
     {
       "title": "Nhiệt kế",
       "desc": "Gallium có nhiệt độ nóng chảy thấp và khoảng tồn tại ở trạng thái lỏng rộng nên được sử dụng trong một số loại nhiệt kế chuyên dụng.",
-      "sourceLine": 90
+      "sourceLine": 90,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "thermometer",
+        "source": "https://commons.wikimedia.org/wiki/File:Mercury_Thermometer.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/thermometer.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Mercury_Thermometer.jpg",
+        "author": "Anonimski",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nhiệt kế — Mercury-in-glass thermometer",
+        "caption": "Minh họa lĩnh vực nhiệt kế · Mercury-in-glass thermometer.",
+        "topic": "thermometer",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nghiên cứu vật liệu",
       "desc": "Gallium được sử dụng trong nghiên cứu và chế tạo các vật liệu bán dẫn tiên tiến.",
-      "sourceLine": 91
+      "sourceLine": 91,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/research.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "author": "LSDSL",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nghiên cứu vật liệu — Particle accelerator",
+        "caption": "Minh họa lĩnh vực nghiên cứu vật liệu · Particle accelerator.",
+        "topic": "research",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Gallium là nguyên tố số 31, thuộc nhóm IIIA | chu kỳ 4.</li><li>Gallium có cấu hình electron [Ar] 3d¹⁰ 4s² 4p¹, với số Oxy hóa phổ biến nhất là +3.</li><li>Gallium có nhiệt độ nóng chảy rất thấp, chỉ khoảng 29.76 °C, nên có thể tồn tại ở dạng lỏng khi nhiệt độ môi trường đủ cao.</li><li>Gallium thường được thu hồi như sản phẩm phụ của quá trình sản xuất Aluminium và Zinc. Nguyên tố này đặc biệt quan trọng trong công nghệ bán dẫn thông qua các vật liệu như Gallium arsenide (GaAs) và Gallium nitride (GaN).</li><li>Gallium có vai trò lớn trong LED, laser diode, điện tử công suất, vi điện tử và công nghệ thông tin liên lạc.</li></ul>",
@@ -581,9 +768,9 @@
           "a": 8.684,
           "b": 5.078,
           "c": 9.736,
-          "alpha": 90.0,
+          "alpha": 90,
           "beta": 94.54,
-          "gamma": 90.0
+          "gamma": 90
         },
         "volume": 427.9847114981603,
         "siteCount": 56,
@@ -625,9 +812,9 @@
           "a": 3.693,
           "b": 12.221,
           "c": 2.865,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 129.30361834500002,
         "siteCount": 20,
@@ -668,9 +855,9 @@
           "a": 4.4007,
           "b": 9.4253,
           "c": 2.8452,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 118.01297146849201,
         "siteCount": 16,
@@ -735,6 +922,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Gallium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -743,6 +935,7 @@
     "sourceSha256": "50460c966f4790f2c4140cf2dadc3869adb4f62c4ba6dc432800dbacd510f431",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/031_Ga.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/gali-ga/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/gali-ga/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/gali-ga/audit.md"
   }
 }

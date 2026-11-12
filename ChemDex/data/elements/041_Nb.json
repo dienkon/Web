@@ -73,9 +73,9 @@
         "a": 3.3004,
         "b": 3.3004,
         "c": 3.3004,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 90.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
       },
       "volume": 35.950069584063996,
       "siteCount": 2,
@@ -97,9 +97,67 @@
       "data": "/assets/periodic-table/crystals/nguyen-to-nb.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-nb.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-nb.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-nb.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-nb.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Niobium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_niobium",
+        "revisionId": 1212304975,
+        "revisionTimestamp": "2024-03-07T04:31:05Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "cubic body-centered",
+            "prefix": "",
+            "comment": "",
+            "pearson": "cI2",
+            "lattice": "a = 330.05 pm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-nb",
+        "modelKind": "bcc",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 3.3005,
+            "modelAngstrom": 3.3004,
+            "relativeDifferencePercent": 0.0030298439630422973
+          }
+        ],
+        "notes": [],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Niobium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_niobium",
+      "revisionId": 1212304975,
+      "revisionTimestamp": "2024-03-07T04:31:05Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "cubic body-centered",
+          "prefix": "",
+          "comment": "",
+          "pearson": "cI2",
+          "lattice": "a = 330.05 pm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-nb",
+      "modelKind": "bcc",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 3.3005,
+          "modelAngstrom": 3.3004,
+          "relativeDifferencePercent": 0.0030298439630422973
+        }
+      ],
+      "notes": [],
+      "additionalSources": []
+    }
   },
   "structureType": "Lập phương tâm khối (Body-centered cubic, BCC)",
   "occurrence": {
@@ -147,9 +205,9 @@
             "a": 14.221,
             "b": 5.727,
             "c": 5.102,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 415.52558903400006,
           "siteCount": 36,
@@ -392,37 +450,138 @@
     {
       "title": "Hợp kim thép",
       "desc": "Niobium được thêm vào thép để tăng độ bền và khả năng chịu nhiệt.",
-      "sourceLine": 85
+      "sourceLine": 85,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "steel",
+        "source": "https://commons.wikimedia.org/wiki/File:SteelMill_interior.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/steel.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:SteelMill_interior.jpg",
+        "author": "Payton Chung from DC, USA",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "alt": "Hợp kim thép — Steelmaking",
+        "caption": "Minh họa lĩnh vực hợp kim thép · Steelmaking.",
+        "topic": "steel",
+        "role": "application-context"
+      }
     },
     {
       "title": "Đường ống",
       "desc": "Thép chứa Niobium được sử dụng trong một số đường ống dầu khí nhờ độ bền cao.",
-      "sourceLine": 86
+      "sourceLine": 86,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Động cơ",
       "desc": "Một số hợp kim Niobium được sử dụng trong các bộ phận chịu nhiệt cao.",
-      "sourceLine": 87
+      "sourceLine": 87,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "refractory",
+        "source": "https://commons.wikimedia.org/wiki/File:Torpedo_car_refractory_bricks.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/refractory.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Torpedo_car_refractory_bricks.JPG",
+        "author": "Morgan Riley",
+        "license": "CC BY 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+        "alt": "Động cơ — Refractory",
+        "caption": "Minh họa lĩnh vực động cơ · Refractory.",
+        "topic": "refractory",
+        "role": "application-context"
+      }
     },
     {
       "title": "Siêu dẫn",
       "desc": "Các hợp chất như Niobium–Titanium (NbTi) được sử dụng để chế tạo nam châm siêu dẫn.",
-      "sourceLine": 88
+      "sourceLine": 88,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "magnet",
+        "source": "https://commons.wikimedia.org/wiki/File:Magnetite_sample_with_neodymium_magnet.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/magnet.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Magnetite_sample_with_neodymium_magnet.jpg",
+        "author": "GOKLuLe 盧樂",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Siêu dẫn — Magnet",
+        "caption": "Minh họa lĩnh vực siêu dẫn · Magnet.",
+        "topic": "magnet",
+        "role": "application-context"
+      }
     },
     {
       "title": "Máy MRI",
       "desc": "Nam châm siêu dẫn NbTi được sử dụng trong nhiều hệ thống MRI.",
-      "sourceLine": 89
+      "sourceLine": 89,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "mri",
+        "source": "https://commons.wikimedia.org/wiki/File:MRI-Philips.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/mri.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:MRI-Philips.JPG",
+        "author": "Jan Ainali",
+        "license": "CC BY 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+        "alt": "Máy MRI — Magnetic resonance imaging",
+        "caption": "Minh họa lĩnh vực máy mri · Magnetic resonance imaging.",
+        "topic": "mri",
+        "role": "application-context"
+      }
     },
     {
       "title": "Công nghệ hạt nhân",
       "desc": "Niobium được sử dụng trong một số vật liệu chịu nhiệt và chịu bức xạ.",
-      "sourceLine": 90
+      "sourceLine": 90,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "reactor",
+        "source": "https://commons.wikimedia.org/wiki/File:Advanced_Test_Reactor_001.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/reactor.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Advanced_Test_Reactor_001.jpg",
+        "author": "Idaho National Laboratory",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "alt": "Công nghệ hạt nhân — Nuclear reactor",
+        "caption": "Minh họa lĩnh vực công nghệ hạt nhân · Nuclear reactor.",
+        "topic": "reactor",
+        "role": "application-context"
+      }
     },
     {
       "title": "Điện tử",
       "desc": "Một số Niobium compounds được sử dụng trong tụ điện và vật liệu điện tử.",
-      "sourceLine": 91
+      "sourceLine": 91,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "capacitor",
+        "source": "https://commons.wikimedia.org/wiki/File:Tantal-P1100196c.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/capacitor.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Tantal-P1100196c.jpg",
+        "author": "Elcap, Jens Both",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+        "alt": "Điện tử — Tantalum capacitor",
+        "caption": "Minh họa lĩnh vực điện tử · Tantalum capacitor.",
+        "topic": "capacitor",
+        "role": "application-context"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Niobium là nguyên tố số 41, thuộc nhóm VB | chu kỳ 5 và là một kim loại chuyển tiếp.</li><li>Niobium có cấu hình electron [Kr] 4d⁴ 5s¹, với số Oxy hóa phổ biến nhất là +5.</li><li>Niobium có nhiệt độ nóng chảy cao, khả năng chống ăn mòn tốt và tính siêu dẫn ở nhiệt độ thấp. Trong tự nhiên, Niobium chủ yếu được tìm thấy trong các khoáng vật như Pyrochlore và Columbite–tantalite.</li><li>Niobium đặc biệt quan trọng trong sản xuất thép và siêu hợp kim, đồng thời các hợp kim như NbTi có vai trò lớn trong công nghệ nam châm siêu dẫn và máy MRI.</li></ul>",
@@ -463,9 +622,9 @@
           "a": 14.221,
           "b": 5.727,
           "c": 5.102,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 415.52558903400006,
         "siteCount": 36,
@@ -532,6 +691,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Niobium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -540,6 +704,7 @@
     "sourceSha256": "9e334699b7b24fe68ab53bc0073e9a5db9a0d998050da38d37ffb841de89528e",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/041_Nb.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/niobium-nb/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/niobium-nb/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/niobium-nb/audit.md"
   }
 }

@@ -1,0 +1,24 @@
+(node:19688) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///D:/VsCode/Web/MyWeb/ChemDex/js/application-media.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to \\?\D:\VsCode\Web\MyWeb\ChemDex\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ Wiki infobox parameters preserve empty fields, nested references and inline properties (2.8323ms)
+✔ additional cells retain complex bases and label ideal prototypes honestly (22.3845ms)
+✔ application matching respects Vietnamese word boundaries and concrete application context (2.0661ms)
+✔ all 118 profiles use attributed application images without duplicate topic cards (41.782ms)
+✔ image figures expose credits and safely escape captions without nested cropped cards (0.6855ms)
+✔ camera framing contains actual skew cell bounds on narrow and wide displays (30.779ms)
+✔ touching-sphere mode uses the metric and periodic nearest neighbours of SC, BCC and FCC (1.2ms)
+✔ published phases have correct cell populations, including DHCP and noncubic cells (3.7494ms)
+✔ all exported CIFs reproduce independent Gemmi-expanded positions and full cell metric (113.9403ms)
+✔ published symmetry operators preserve each experimental cell metric (55.4987ms)
+✔ crystal transport keeps occupancy, limitations, references and binary asset provenance (82.5682ms)
+✔ CIF parser respects arbitrary column order, uncertainties and fractional symmetry offsets (1.3594ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 368.8417

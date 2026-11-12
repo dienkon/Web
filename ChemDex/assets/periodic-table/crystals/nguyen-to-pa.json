@@ -1,0 +1,142 @@
+{
+  "id": "nguyen-to-pa",
+  "symbol": "Pa",
+  "referenceId": "wiki-pa-1378903902",
+  "amcsdId": null,
+  "mineralName": "Protactinium",
+  "formula": "Pa",
+  "spaceGroup": "I 4/m m m",
+  "cell": {
+    "a": 3.921,
+    "b": 3.921,
+    "c": 3.235,
+    "alpha": 90,
+    "beta": 90,
+    "gamma": 90
+  },
+  "basis": [
+    [
+      3.921,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      3.921,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      3.235
+    ]
+  ],
+  "volume": 49.735669634999994,
+  "declaredVolume": 49.735669634999994,
+  "symmetryOperations": [
+    "x,y,z",
+    "-y,x,z",
+    "-x,-y,z",
+    "y,-x,z",
+    "x,-y,-z",
+    "-y,-x,-z",
+    "-x,y,-z",
+    "y,x,-z",
+    "-x,-y,-z",
+    "y,-x,-z",
+    "x,y,-z",
+    "-y,x,-z",
+    "-x,y,z",
+    "y,x,z",
+    "x,-y,z",
+    "-y,-x,z",
+    "x+1/2,y+1/2,z+1/2",
+    "-y+1/2,x+1/2,z+1/2",
+    "-x+1/2,-y+1/2,z+1/2",
+    "y+1/2,-x+1/2,z+1/2",
+    "x+1/2,-y+1/2,-z+1/2",
+    "-y+1/2,-x+1/2,-z+1/2",
+    "-x+1/2,y+1/2,-z+1/2",
+    "y+1/2,x+1/2,-z+1/2",
+    "-x+1/2,-y+1/2,-z+1/2",
+    "y+1/2,-x+1/2,-z+1/2",
+    "x+1/2,y+1/2,-z+1/2",
+    "-y+1/2,x+1/2,-z+1/2",
+    "-x+1/2,y+1/2,z+1/2",
+    "y+1/2,x+1/2,z+1/2",
+    "x+1/2,-y+1/2,z+1/2",
+    "-y+1/2,-x+1/2,z+1/2"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Pa1",
+      "element": "Pa",
+      "fractional": [
+        0,
+        0,
+        0
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "label": "Pa1",
+      "element": "Pa",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Pa1",
+      "element": "Pa",
+      "fractional": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "position": [
+        1.9605,
+        1.9605,
+        1.6175
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 2,
+  "speciesPositionCount": 2,
+  "cellComposition": {
+    "Pa": 2
+  },
+  "mixedSiteCount": 0,
+  "source": "https://en.wikipedia.org/wiki/Protactinium",
+  "transport": "https://en.wikipedia.org/wiki/Template:Infobox_protactinium",
+  "reference": {
+    "authors": [
+      "John W. Arblaster"
+    ],
+    "title": "Selected Values of the Crystallographic Properties of Elements; thông số được Wikipedia trích dẫn, tại 20 °C (Ra: gần nhiệt độ phòng). Vị trí Wyckoff lý tưởng của prototype tI2.",
+    "journal": "ASM International, ISBN 978-1-62708-155-9",
+    "year": 2018,
+    "volume": "",
+    "pages": ""
+  },
+  "evidence": "reference-prototype",
+  "pearsonSymbol": "tI2",
+  "note": "Mạng tứ phương tâm khối: a = b khác c, không dùng khối lập phương BCC thay thế.",
+  "limitations": "Tọa độ Wyckoff lý tưởng được dựng từ prototype và thông số mạng được trích dẫn; không phải bộ tinh chỉnh vị trí nguyên tử thực nghiệm độc lập.",
+  "coordinatePrecision": "Ideal prototype coordinates; the number of shown digits is not experimental uncertainty.",
+  "validation": {
+    "operatorCount": 32,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 0
+  }
+}

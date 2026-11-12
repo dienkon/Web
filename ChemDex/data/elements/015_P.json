@@ -69,9 +69,9 @@
         "a": 3.31,
         "b": 4.38,
         "c": 10.5,
-        "alpha": 90.0,
-        "beta": 90.0,
-        "gamma": 90.0
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
       },
       "volume": 152.2269,
       "siteCount": 8,
@@ -88,14 +88,120 @@
       },
       "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
       "evidence": "literature-compilation",
-      "note": "Đây là phosphorus đen; không đại diện phosphorus trắng hoặc đỏ.",
+      "note": "Đây là phosphorus đen; không đại diện phosphorus trắng hoặc đỏ. Mô hình dùng pha black: trong các pha Wiki liệt kê; không gộp các pha thành một ô mạng.",
       "limitations": "",
       "data": "/assets/periodic-table/crystals/nguyen-to-p.json",
       "cif": "/assets/periodic-table/crystals/nguyen-to-p.cif",
       "model": "/assets/periodic-table/crystals/nguyen-to-p.glb",
-      "preview": "/assets/periodic-table/crystals/nguyen-to-p.png"
+      "preview": "/assets/periodic-table/crystals/nguyen-to-p.png",
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Phosphorus",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_phosphorus",
+        "revisionId": 1333265864,
+        "revisionTimestamp": "2026-01-16T18:32:02Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "body-centred cubic",
+            "prefix": "α-white:",
+            "comment": "",
+            "pearson": "cI232",
+            "lattice": "a = 1.869 nm (at 20 °C)"
+          },
+          {
+            "type": "orthorhombic",
+            "prefix": "black:",
+            "comment": "",
+            "pearson": "oS8",
+            "lattice": "a = 0.33137 nm; b = 1.0477 nm; c = 0.43755 nm (at 20 °C)"
+          }
+        ],
+        "selectedModel": "nguyen-to-p",
+        "modelKind": "orthorhombic",
+        "metrics": [
+          {
+            "axis": "a",
+            "wikiAxis": "a",
+            "wikiAngstrom": 3.3137,
+            "modelAngstrom": 3.31,
+            "relativeDifferencePercent": 0.11165766363882712
+          },
+          {
+            "axis": "b",
+            "wikiAxis": "c",
+            "wikiAngstrom": 4.3755,
+            "modelAngstrom": 4.38,
+            "relativeDifferencePercent": 0.10284538909839265
+          },
+          {
+            "axis": "c",
+            "wikiAxis": "b",
+            "wikiAngstrom": 10.477,
+            "modelAngstrom": 10.5,
+            "relativeDifferencePercent": 0.21952849098023944
+          }
+        ],
+        "notes": [
+          "Mô hình dùng pha black: trong các pha Wiki liệt kê; không gộp các pha thành một ô mạng.",
+          "CIF và Wiki dùng quy ước thứ tự trục khác nhau: a CIF ↔ a Wiki, b CIF ↔ c Wiki, c CIF ↔ b Wiki. Giữ bộ tọa độ và metric nhất quán của bản ghi gốc; đổi tên trục không làm thay đổi vật liệu."
+        ],
+        "additionalSources": []
+      }
     },
-    "publishedCrystalStatus": "available"
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Phosphorus",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_phosphorus",
+      "revisionId": 1333265864,
+      "revisionTimestamp": "2026-01-16T18:32:02Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "body-centred cubic",
+          "prefix": "α-white:",
+          "comment": "",
+          "pearson": "cI232",
+          "lattice": "a = 1.869 nm (at 20 °C)"
+        },
+        {
+          "type": "orthorhombic",
+          "prefix": "black:",
+          "comment": "",
+          "pearson": "oS8",
+          "lattice": "a = 0.33137 nm; b = 1.0477 nm; c = 0.43755 nm (at 20 °C)"
+        }
+      ],
+      "selectedModel": "nguyen-to-p",
+      "modelKind": "orthorhombic",
+      "metrics": [
+        {
+          "axis": "a",
+          "wikiAxis": "a",
+          "wikiAngstrom": 3.3137,
+          "modelAngstrom": 3.31,
+          "relativeDifferencePercent": 0.11165766363882712
+        },
+        {
+          "axis": "b",
+          "wikiAxis": "c",
+          "wikiAngstrom": 4.3755,
+          "modelAngstrom": 4.38,
+          "relativeDifferencePercent": 0.10284538909839265
+        },
+        {
+          "axis": "c",
+          "wikiAxis": "b",
+          "wikiAngstrom": 10.477,
+          "modelAngstrom": 10.5,
+          "relativeDifferencePercent": 0.21952849098023944
+        }
+      ],
+      "notes": [
+        "Mô hình dùng pha black: trong các pha Wiki liệt kê; không gộp các pha thành một ô mạng.",
+        "CIF và Wiki dùng quy ước thứ tự trục khác nhau: a CIF ↔ a Wiki, b CIF ↔ c Wiki, c CIF ↔ b Wiki. Giữ bộ tọa độ và metric nhất quán của bản ghi gốc; đổi tên trục không làm thay đổi vật liệu."
+      ],
+      "additionalSources": []
+    }
   },
   "structureType": "Phụ thuộc dạng thù hình; phosphorus trắng gồm phân tử P₄, phosphorus đen có mạng lớp trực thoi, phosphorus đỏ có cấu trúc biến đổi.",
   "occurrence": {
@@ -147,9 +253,9 @@
             "a": 9.3973,
             "b": 9.3973,
             "c": 6.8782,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 120.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 120
           },
           "volume": 526.031334117712,
           "siteCount": 42,
@@ -467,37 +573,127 @@
     {
       "title": "Phân bón",
       "desc": "Phosphate compounds là nguồn Phosphorus quan trọng trong sản xuất phân bón.",
-      "sourceLine": 91
+      "sourceLine": 91,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "fertilizer",
+        "source": "https://commons.wikimedia.org/wiki/File:Manure_spreading_Hlokozi_2007_11_29.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/fertilizer.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Manure_spreading_Hlokozi_2007_11_29.jpg",
+        "author": "Alandmanson",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Phân bón — Fertilizer",
+        "caption": "Minh họa lĩnh vực phân bón · Fertilizer.",
+        "topic": "fertilizer",
+        "role": "application-context"
+      }
     },
     {
       "title": "Sản xuất Phosphoric acid",
       "desc": "Phosphorus compounds được sử dụng để sản xuất Phosphoric acid và nhiều hóa chất Phosphate.",
-      "sourceLine": 92
+      "sourceLine": 92,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "fluorescent",
+        "source": "https://commons.wikimedia.org/wiki/File:Fluorescent_lamps_artistic.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/fluorescent.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Fluorescent_lamps_artistic.jpg",
+        "author": "Flickr user Oimax This image was originally posted to Flickr by OiMax at https://www.flickr.com/photos/72396314@N00/404614118 . It was reviewed on 20 May 2007 by FlickreviewR and was confirmed to be licensed under the terms of the cc-by-2.0. 20 May 2007",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "alt": "Sản xuất Phosphoric acid — Fluorescent lamp",
+        "caption": "Minh họa lĩnh vực sản xuất phosphoric acid · Fluorescent lamp.",
+        "topic": "fluorescent",
+        "role": "application-context"
+      }
     },
     {
       "title": "Diêm",
       "desc": "Red phosphorus được sử dụng trong bề mặt quẹt của một số loại diêm an toàn.",
-      "sourceLine": 93
+      "sourceLine": 93,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "match",
+        "source": "https://commons.wikimedia.org/wiki/File:Friction_d%27une_allumette.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/match.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Friction_d%27une_allumette.jpg",
+        "author": "Yann SEGALEN",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "alt": "Diêm — Match",
+        "caption": "Minh họa lĩnh vực diêm · Match.",
+        "topic": "match",
+        "role": "application-context"
+      }
     },
     {
       "title": "Chất tẩy rửa",
       "desc": "Một số Phosphate được sử dụng trong các sản phẩm tẩy rửa, mặc dù việc sử dụng bị hạn chế ở nhiều nơi do vấn đề môi trường.",
-      "sourceLine": 94
+      "sourceLine": 94,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "detergent",
+        "source": "https://commons.wikimedia.org/wiki/File:Pralni_pra%C5%A1ek.JPG"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/detergent.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Pralni_pra%C5%A1ek.JPG",
+        "author": "Uncy at Slovenian Wikipedia",
+        "license": "Public domain",
+        "licenseUrl": "",
+        "alt": "Chất tẩy rửa — Laundry detergent",
+        "caption": "Minh họa lĩnh vực chất tẩy rửa · Laundry detergent.",
+        "topic": "detergent",
+        "role": "application-context"
+      }
     },
     {
       "title": "Công nghiệp thực phẩm",
       "desc": "Một số Phosphate được sử dụng làm chất điều chỉnh độ acid và phụ gia thực phẩm.",
-      "sourceLine": 95
+      "sourceLine": 95,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Luyện kim",
       "desc": "Phosphorus compounds được sử dụng trong một số quá trình luyện kim.",
-      "sourceLine": 96
+      "sourceLine": 96,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "alloy",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/alloy.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg",
+        "author": "Bill Abbott",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "alt": "Luyện kim — Alloy",
+        "caption": "Minh họa lĩnh vực luyện kim · Alloy.",
+        "topic": "alloy",
+        "role": "application-context"
+      }
     },
     {
       "title": "Sinh học và y học",
       "desc": "Phosphorus là thành phần quan trọng của DNA, RNA, ATP, phospholipid và xương.",
-      "sourceLine": 97
+      "sourceLine": 97,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "fluorescent",
+        "source": "https://commons.wikimedia.org/wiki/File:Fluorescent_lamps_artistic.jpg"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Phosphorus là nguyên tố số 15, thuộc nhóm VA | chu kỳ 3 và là một phi kim.</li><li>Phosphorus có cấu hình electron 1s² 2s² 2p⁶ 3s² 3p³ và có 5 electron hóa trị. Nguyên tố này có nhiều dạng thù hình, trong đó quan trọng nhất là Phosphorus trắng, Phosphorus đỏ và Phosphorus đen.</li><li>Trong tự nhiên, Phosphorus chủ yếu tồn tại dưới dạng Phosphate trong khoáng vật và sinh vật. Phosphorus là nguyên tố thiết yếu của sự sống, tham gia vào cấu tạo của DNA, RNA, ATP, phospholipid và xương.</li><li>Phosphorus và các hợp chất của nó có vai trò quan trọng trong sản xuất phân bón, Phosphoric acid, diêm, hóa chất, công nghiệp thực phẩm và nhiều quá trình sinh học.</li></ul>",
@@ -538,9 +734,9 @@
           "a": 9.3973,
           "b": 9.3973,
           "c": 6.8782,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 120.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 120
         },
         "volume": 526.031334117712,
         "siteCount": 42,
@@ -607,6 +803,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Phosphorus",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -615,6 +816,7 @@
     "sourceSha256": "1fe948f3bdd0873aed7c90e1c9eb6f04116982969cbf571c677f80ffc9179fc0",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/015_P.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/photpho-p/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/photpho-p/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/photpho-p/audit.md"
   }
 }

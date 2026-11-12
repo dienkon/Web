@@ -21,7 +21,7 @@
     "period": 6,
     "state": "Rắn",
     "oxidation": "−2, +2, +4, +6",
-    "electronegativity": 2.0,
+    "electronegativity": 2,
     "electronegativityNote": "Thang Pauling; số liệu tổng hợp PubChem.",
     "density": "khoảng 9.2 g/cm³.",
     "meltingPoint": "khoảng 254 °C.",
@@ -65,7 +65,152 @@
     "valenceNote": "Số electron ở lớp ngoài cùng; không đồng nhất với hóa trị, đặc biệt với kim loại chuyển tiếp.",
     "lattice": "Lập phương đơn giản (Simple cubic, SC)",
     "latticeEvidence": "source-reviewed",
-    "publishedCrystalStatus": "Chưa có bản ghi tọa độ phù hợp đã duyệt; không thay bằng pha áp suất/nhiệt độ khác."
+    "publishedCrystalStatus": "available",
+    "wikiCrystalReview": {
+      "article": "https://en.wikipedia.org/wiki/Polonium",
+      "template": "https://en.wikipedia.org/wiki/Template:Infobox_polonium",
+      "revisionId": 1349924500,
+      "revisionTimestamp": "2026-04-19T14:02:24Z",
+      "status": "compatible-phase",
+      "phases": [
+        {
+          "type": "cubic",
+          "prefix": "",
+          "comment": "α-Po",
+          "pearson": "",
+          "lattice": ""
+        },
+        {
+          "type": "rhombohedral",
+          "prefix": "",
+          "comment": "β-Po",
+          "pearson": "",
+          "lattice": ""
+        }
+      ],
+      "selectedModel": "nguyen-to-po",
+      "modelKind": "cubic",
+      "metrics": [],
+      "notes": [
+        "Tọa độ Wyckoff lý tưởng được dựng từ prototype; thông số mạng lấy từ tài liệu tham chiếu được nêu. Wiki dùng để đối chiếu kiểu mạng. Đây là mức chứng cứ khác với bộ tinh chỉnh nguyên tử thực nghiệm."
+      ],
+      "additionalSources": [
+        {
+          "title": "WebElements — thông số ô mạng",
+          "url": "https://www.webelements.com/polonium/crystal_structure.html",
+          "reference": "R. J. DeSando and R. C. Lange, J. Inorg. Nucl. Chem. 1966, 28, 1837."
+        }
+      ]
+    },
+    "publishedCrystal": {
+      "id": "nguyen-to-po",
+      "symbol": "Po",
+      "referenceId": "webelements-po-2026-11-12",
+      "amcsdId": null,
+      "mineralName": "Polonium",
+      "formula": "Po",
+      "spaceGroup": "P m -3 m",
+      "cell": {
+        "a": 3.359,
+        "b": 3.359,
+        "c": 3.359,
+        "alpha": 90,
+        "beta": 90,
+        "gamma": 90
+      },
+      "volume": 37.899197279,
+      "siteCount": 1,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "WebElements / Mark J. Winter"
+        ],
+        "title": "Polonium — crystal structures; tài liệu được trang liệt kê: R. J. DeSando and R. C. Lange, J. Inorg. Nucl. Chem. 1966, 28, 1837.",
+        "journal": "University of Sheffield / WebElements",
+        "year": 2026,
+        "volume": "",
+        "pages": ""
+      },
+      "source": "https://www.webelements.com/polonium/crystal_structure.html",
+      "evidence": "reference-prototype",
+      "note": "Wiki cho kiểu mạng; hằng số ô lấy từ bảng chuyên ngành WebElements. Điều kiện nhiệt độ không được ghi trong bảng đã dùng; không tự gán 20 °C. Pha α-Po có mạng lập phương đơn giản cP1, một nguyên tử/ô; không dùng pha β dạng thoi thay thế.",
+      "limitations": "Vị trí Wyckoff lý tưởng của prototype; thông số ô mạng do WebElements tổng hợp. Không phải bộ tinh chỉnh nguyên tử thực nghiệm riêng của ChemDex.",
+      "pearsonSymbol": "cP1",
+      "primaryReference": "R. J. DeSando and R. C. Lange, J. Inorg. Nucl. Chem. 1966, 28, 1837.",
+      "data": "/assets/periodic-table/crystals/nguyen-to-po.json",
+      "cif": "/assets/periodic-table/crystals/nguyen-to-po.cif",
+      "model": "/assets/periodic-table/crystals/nguyen-to-po.glb",
+      "preview": "/assets/periodic-table/crystals/nguyen-to-po.png",
+      "wiki": {
+        "symbol": "Po",
+        "number": 84,
+        "name": "Polonium",
+        "article": "https://en.wikipedia.org/wiki/Polonium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_polonium",
+        "revisionId": 1349924500,
+        "revisionTimestamp": "2026-04-19T14:02:24Z",
+        "retrievedAt": "2026-11-11T23:29:14.970Z",
+        "status": "available",
+        "fields": {
+          "phase": {
+            "text": "",
+            "raw": ""
+          },
+          "crystal structure": {
+            "text": "cubic",
+            "raw": "cubic"
+          },
+          "crystal structure comment": {
+            "text": "α-Po",
+            "raw": "&alpha;-Po"
+          },
+          "crystal structure 2": {
+            "text": "rhombohedral",
+            "raw": "rhombohedral"
+          },
+          "crystal structure 2 comment": {
+            "text": "β-Po",
+            "raw": "&beta;-Po"
+          }
+        }
+      },
+      "wikiComparison": {
+        "article": "https://en.wikipedia.org/wiki/Polonium",
+        "template": "https://en.wikipedia.org/wiki/Template:Infobox_polonium",
+        "revisionId": 1349924500,
+        "revisionTimestamp": "2026-04-19T14:02:24Z",
+        "status": "compatible-phase",
+        "phases": [
+          {
+            "type": "cubic",
+            "prefix": "",
+            "comment": "α-Po",
+            "pearson": "",
+            "lattice": ""
+          },
+          {
+            "type": "rhombohedral",
+            "prefix": "",
+            "comment": "β-Po",
+            "pearson": "",
+            "lattice": ""
+          }
+        ],
+        "selectedModel": "nguyen-to-po",
+        "modelKind": "cubic",
+        "metrics": [],
+        "notes": [
+          "Tọa độ Wyckoff lý tưởng được dựng từ prototype; thông số mạng lấy từ tài liệu tham chiếu được nêu. Wiki dùng để đối chiếu kiểu mạng. Đây là mức chứng cứ khác với bộ tinh chỉnh nguyên tử thực nghiệm."
+        ],
+        "additionalSources": [
+          {
+            "title": "WebElements — thông số ô mạng",
+            "url": "https://www.webelements.com/polonium/crystal_structure.html",
+            "reference": "R. J. DeSando and R. C. Lange, J. Inorg. Nucl. Chem. 1966, 28, 1837."
+          }
+        ]
+      }
+    }
   },
   "structureType": "Lập phương đơn giản (Simple cubic, SC)",
   "occurrence": {
@@ -114,9 +259,9 @@
             "a": 5.4682,
             "b": 5.4682,
             "c": 5.4682,
-            "alpha": 90.0,
-            "beta": 90.0,
-            "gamma": 90.0
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90
           },
           "volume": 163.50580330256804,
           "siteCount": 12,
@@ -610,22 +755,53 @@
     {
       "title": "Nguồn Alpha",
       "desc": "²¹⁰Po từng được sử dụng làm nguồn bức xạ Alpha trong một số thiết bị chuyên dụng.",
-      "sourceLine": 80
+      "sourceLine": 80,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Loại bỏ tĩnh điện",
       "desc": "Polonium-210 từng được sử dụng trong một số thiết bị khử tĩnh điện.",
-      "sourceLine": 81
+      "sourceLine": 81,
+      "imageReview": {
+        "status": "no-specific-verified-illustration",
+        "topic": null,
+        "source": null
+      }
     },
     {
       "title": "Nguồn nhiệt",
       "desc": "²¹⁰Po có thể tạo nhiệt đáng kể từ quá trình phân rã phóng xạ và từng được nghiên cứu làm nguồn nhiệt cho các thiết bị đặc biệt.",
-      "sourceLine": 82
+      "sourceLine": 82,
+      "imageReview": {
+        "status": "illustrated",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      },
+      "applicationImage": {
+        "src": "/assets/periodic-table/applications/research.jpg",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "author": "LSDSL",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "alt": "Nguồn nhiệt — Particle accelerator",
+        "caption": "Minh họa lĩnh vực nguồn nhiệt · Particle accelerator.",
+        "topic": "research",
+        "role": "application-context"
+      }
     },
     {
       "title": "Nghiên cứu hạt nhân",
       "desc": "Polonium được sử dụng trong nghiên cứu phóng xạ và vật lý hạt nhân.",
-      "sourceLine": 83
+      "sourceLine": 83,
+      "imageReview": {
+        "status": "shared-topic",
+        "topic": "research",
+        "source": "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg"
+      }
     }
   ],
   "notes": "<ul class=\"element-prose-list\"><li>Polonium là nguyên tố số 84, thuộc nhóm VIA | chu kỳ 6 và là một kim loại hậu chuyển tiếp có tính phóng xạ.</li><li>Polonium không có đồng vị bền. Đồng vị đáng chú ý nhất là ²¹⁰Po, có chu kỳ bán rã khoảng 138 ngày và phân rã bằng cách phát ra hạt Alpha.</li><li>Polonium được Marie Curie và Pierre Curie phát hiện năm 1898 và được đặt tên theo Ba Lan.</li><li>Do có độc tính và tính phóng xạ rất cao, Polonium hầu như không có ứng dụng dân dụng thông thường. Nó chủ yếu được sử dụng trong nguồn bức xạ Alpha, thiết bị khử tĩnh điện, nguồn nhiệt đặc biệt và nghiên cứu hạt nhân.</li></ul>",
@@ -666,9 +842,9 @@
           "a": 5.4682,
           "b": 5.4682,
           "c": 5.4682,
-          "alpha": 90.0,
-          "beta": 90.0,
-          "gamma": 90.0
+          "alpha": 90,
+          "beta": 90,
+          "gamma": 90
         },
         "volume": 163.50580330256804,
         "siteCount": 12,
@@ -733,6 +909,11 @@
       "title": "AMCSD — cấu trúc tinh thể đã công bố (qua Larixite)",
       "url": "https://xraypy.github.io/larixite/",
       "role": "crystallography"
+    },
+    {
+      "title": "Wikipedia — đối chiếu pha và mạng tinh thể",
+      "url": "https://en.wikipedia.org/wiki/Polonium",
+      "role": "wiki-crystal-review"
     }
   ],
   "review": {
@@ -741,6 +922,7 @@
     "sourceSha256": "b4575634bc3302025c94b252ac88ea14ae74b9e1bc38e200f346b18ea19cf732",
     "auditFile": "docs/periodic-table-audit/2026-11-11/files/084_Po.md",
     "scope": "Đã nhập lại toàn bộ tài liệu; kiểm tra bảo toàn và dữ liệu tham chiếu. Các sơ đồ hình thức được phân biệt; nguồn nhóm không chứng minh từng phản ứng thực nghiệm.",
-    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/polonium-po/audit.md"
+    "crystalPhotoAudit": "docs/library-crystal-upgrade/2026-11-11/nguyen-to/polonium-po/audit.md",
+    "applicationCrystalAudit": "docs/application-crystal-review/2026-11-12/nguyen-to/polonium-po/audit.md"
   }
 }

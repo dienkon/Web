@@ -1,0 +1,206 @@
+{
+  "id": "nguyen-to-ra",
+  "symbol": "Ra",
+  "referenceId": "wiki-ra-1284278559",
+  "amcsdId": null,
+  "mineralName": "Radium",
+  "formula": "Ra",
+  "spaceGroup": "I m -3 m",
+  "cell": {
+    "a": 5.148,
+    "b": 5.148,
+    "c": 5.148,
+    "alpha": 90,
+    "beta": 90,
+    "gamma": 90
+  },
+  "basis": [
+    [
+      5.148,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      5.148,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      5.148
+    ]
+  ],
+  "volume": 136.43180179199996,
+  "declaredVolume": 136.43180179199996,
+  "symmetryOperations": [
+    "x,y,z",
+    "-y,x,z",
+    "-x,-y,z",
+    "y,-x,z",
+    "x,-y,-z",
+    "-y,-x,-z",
+    "-x,y,-z",
+    "y,x,-z",
+    "z,x,y",
+    "z,-y,x",
+    "z,-x,-y",
+    "z,y,-x",
+    "-z,x,-y",
+    "-z,-y,-x",
+    "-z,-x,y",
+    "-z,y,x",
+    "-x,z,y",
+    "y,z,x",
+    "x,z,-y",
+    "-y,z,-x",
+    "-x,-z,-y",
+    "y,-z,-x",
+    "x,-z,y",
+    "-y,-z,x",
+    "-x,-y,-z",
+    "y,-x,-z",
+    "x,y,-z",
+    "-y,x,-z",
+    "-x,y,z",
+    "y,x,z",
+    "x,-y,z",
+    "-y,-x,z",
+    "-z,-x,-y",
+    "-z,y,-x",
+    "-z,x,y",
+    "-z,-y,x",
+    "z,-x,y",
+    "z,y,x",
+    "z,x,-y",
+    "z,-y,-x",
+    "x,-z,-y",
+    "-y,-z,-x",
+    "-x,-z,y",
+    "y,-z,x",
+    "x,z,y",
+    "-y,z,x",
+    "-x,z,-y",
+    "y,z,-x",
+    "x+1/2,y+1/2,z+1/2",
+    "-y+1/2,x+1/2,z+1/2",
+    "-x+1/2,-y+1/2,z+1/2",
+    "y+1/2,-x+1/2,z+1/2",
+    "x+1/2,-y+1/2,-z+1/2",
+    "-y+1/2,-x+1/2,-z+1/2",
+    "-x+1/2,y+1/2,-z+1/2",
+    "y+1/2,x+1/2,-z+1/2",
+    "z+1/2,x+1/2,y+1/2",
+    "z+1/2,-y+1/2,x+1/2",
+    "z+1/2,-x+1/2,-y+1/2",
+    "z+1/2,y+1/2,-x+1/2",
+    "-z+1/2,x+1/2,-y+1/2",
+    "-z+1/2,-y+1/2,-x+1/2",
+    "-z+1/2,-x+1/2,y+1/2",
+    "-z+1/2,y+1/2,x+1/2",
+    "-x+1/2,z+1/2,y+1/2",
+    "y+1/2,z+1/2,x+1/2",
+    "x+1/2,z+1/2,-y+1/2",
+    "-y+1/2,z+1/2,-x+1/2",
+    "-x+1/2,-z+1/2,-y+1/2",
+    "y+1/2,-z+1/2,-x+1/2",
+    "x+1/2,-z+1/2,y+1/2",
+    "-y+1/2,-z+1/2,x+1/2",
+    "-x+1/2,-y+1/2,-z+1/2",
+    "y+1/2,-x+1/2,-z+1/2",
+    "x+1/2,y+1/2,-z+1/2",
+    "-y+1/2,x+1/2,-z+1/2",
+    "-x+1/2,y+1/2,z+1/2",
+    "y+1/2,x+1/2,z+1/2",
+    "x+1/2,-y+1/2,z+1/2",
+    "-y+1/2,-x+1/2,z+1/2",
+    "-z+1/2,-x+1/2,-y+1/2",
+    "-z+1/2,y+1/2,-x+1/2",
+    "-z+1/2,x+1/2,y+1/2",
+    "-z+1/2,-y+1/2,x+1/2",
+    "z+1/2,-x+1/2,y+1/2",
+    "z+1/2,y+1/2,x+1/2",
+    "z+1/2,x+1/2,-y+1/2",
+    "z+1/2,-y+1/2,-x+1/2",
+    "x+1/2,-z+1/2,-y+1/2",
+    "-y+1/2,-z+1/2,-x+1/2",
+    "-x+1/2,-z+1/2,y+1/2",
+    "y+1/2,-z+1/2,x+1/2",
+    "x+1/2,z+1/2,y+1/2",
+    "-y+1/2,z+1/2,x+1/2",
+    "-x+1/2,z+1/2,-y+1/2",
+    "y+1/2,z+1/2,-x+1/2"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Ra1",
+      "element": "Ra",
+      "fractional": [
+        0,
+        0,
+        0
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "label": "Ra1",
+      "element": "Ra",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Ra1",
+      "element": "Ra",
+      "fractional": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "position": [
+        2.574,
+        2.574,
+        2.574
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 2,
+  "speciesPositionCount": 2,
+  "cellComposition": {
+    "Ra": 2
+  },
+  "mixedSiteCount": 0,
+  "source": "https://en.wikipedia.org/wiki/Radium",
+  "transport": "https://en.wikipedia.org/wiki/Template:Infobox_radium",
+  "reference": {
+    "authors": [
+      "John W. Arblaster"
+    ],
+    "title": "Selected Values of the Crystallographic Properties of Elements; thông số được Wikipedia trích dẫn, tại 20 °C (Ra: gần nhiệt độ phòng). Vị trí Wyckoff lý tưởng của prototype cI2.",
+    "journal": "ASM International, ISBN 978-1-62708-155-9",
+    "year": 2018,
+    "volume": "",
+    "pages": ""
+  },
+  "evidence": "reference-prototype",
+  "pearsonSymbol": "cI2",
+  "note": "Wiki ghi BCC nhưng dòng Pearson cF4 không phù hợp. Dùng mạng BCC (Im-3m, cI2) theo phần mô tả và nguồn chuyên ngành; không dựng FCC theo dòng Pearson mâu thuẫn.",
+  "limitations": "Tọa độ Wyckoff lý tưởng được dựng từ prototype và thông số mạng được trích dẫn; không phải bộ tinh chỉnh vị trí nguyên tử thực nghiệm độc lập.",
+  "coordinatePrecision": "Ideal prototype coordinates; the number of shown digits is not experimental uncertainty.",
+  "validation": {
+    "operatorCount": 96,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 0
+  }
+}
