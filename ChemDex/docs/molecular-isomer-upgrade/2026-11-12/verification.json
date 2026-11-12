@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-12",
+  "formulaGroups": 11,
+  "sourcedConformers": 28,
+  "conciseLibraryLessons": 11,
+  "coordinateType": "computed",
+  "nodeTests": {"command":"npm run test:platform","passed":30},
+  "browserTests": {
+    "project":"chromium",
+    "uniquePassed":9,
+    "initialRun":{"passed":8,"timedOut":1},
+    "focusedRerun":{"passed":1,"case":"standalone viewer exposes distinct crystals for glucose and fructose","durationSeconds":4.6},
+    "note":"Initial timeout overlapped a broad TypeScript check. Excluded build artifacts from TypeScript; focused rerun passed without changing assertions or timeout."
+  },
+  "checks":{"libraryBuild":true,"staticBuild":true,"libraryTypecheck":true,"sourceHashCompositionTopologyAndStereo":true},
+  "finalIsomerBrowserRun":{"passed":4,"failed":0},
+  "scientificLimits":["Selected examples are not an exhaustive isomer list.","PubChem conformers are computed coordinates, not crystal measurements.","No crystal phase was added or assigned by sum formula alone."],
+  "deployment":{"pushed":false,"deployed":false}
+}

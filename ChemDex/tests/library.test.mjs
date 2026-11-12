@@ -36,7 +36,12 @@ test('every primary subject article is substantive, structured, sourced and incl
     const folder=meta.documentKind==='reference'?'reference':'docs';
     const article=JSON.parse(fs.readFileSync(documentFile(meta),'utf8'));
     const wordCount=article.content.trim().split(/\s+/).length;
-    assert.ok(wordCount>=1000,`${meta.id} has only ${wordCount} words (expected >= 1000)`);
+    if(meta.lessonKind==='isomer-comparison'){
+      assert.ok(wordCount>=300&&wordCount<=900,`${meta.id}: keep the isomer lesson concise`);
+      assert.match(article.content,/cùng công thức phân tử/);
+      assert.match(article.content,/## So sánh các ví dụ/);
+      assert.ok(article.chemicalEvidence.exampleCids.length>=2);
+    }else assert.ok(wordCount>=1000,`${meta.id} has only ${wordCount} words (expected >= 1000)`);
     authors.add(article.author);
   }
   assert.ok(authors.size>=6,'articles must use multiple distinct journalistic voices/authors');
@@ -56,13 +61,18 @@ test('every generated dossier has specific formula evidence, working model links
   for(const meta of docs.filter(d=>d.documentKind==='reference')){
     const full=JSON.parse(fs.readFileSync(documentFile(meta),'utf8'));
     assert.equal(full.id,meta.id);
-    assert.ok(full.content.includes('## Câu chuyện:'));
-    assert.ok(full.content.includes('## Lần theo thành phần nguyên tử'));
+    if(meta.lessonKind==='isomer-comparison'){
+      assert.ok(full.content.includes('## Tự quan sát trong mô hình 3D'));
+      assert.ok(!full.content.includes('## Câu chuyện:'));
+    }else{
+      assert.ok(full.content.includes('## Câu chuyện:'));
+      assert.ok(full.content.includes('## Lần theo thành phần nguyên tử'));
+    }
     assert.ok(full.content.includes('<details>'));
     assert.ok(!/\b(?:undefined|NaN)\b|\[object Object\]/.test(full.content),meta.id);
     assert.ok(full.substanceIds.length);
     for(const id of full.substanceIds)assert.ok(ids.has(id),meta.id);
-    for(const match of full.content.matchAll(/\/tien-ich\/cau-truc-3d\/\?compound=([^\s)]+)/g))assert.ok(ids.has(decodeURIComponent(match[1])),meta.id);
+    for(const match of full.content.matchAll(/\/tien-ich\/cau-truc-3d\/\?compound=([^\s)&]+)/g))assert.ok(ids.has(decodeURIComponent(match[1])),meta.id);
   }
 });
 test('all dossier calculations and chosen reaction contexts agree with the underlying chemistry records',()=>{

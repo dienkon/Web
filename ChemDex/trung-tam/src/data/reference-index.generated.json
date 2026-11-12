@@ -4847,14 +4847,14 @@
     "legacyIds": [
       "ho-so-a2462b74e69a"
     ],
-    "title": "C3H4 (C₃H₄) — Di sản thực nghiệm: Lịch sử ra đời, hình học liên kết và biến đổi hóa học",
-    "author": "Chuyên Mục Di Sản Thực Nghiệm Thế Giới · ChemDex",
+    "title": "C₃H₄: các đồng phân và cách đọc mô hình 3D",
+    "author": "ChemDex · Học cấu trúc",
     "category": "hopchat",
-    "summary": "Khám phá câu chuyện riêng của C3H4 (C₃H₄) qua lăng kính báo chí khoa học: nguồn gốc tên gọi, lịch sử điều chế và mô hình không gian 3 chiều.",
+    "summary": "Phân biệt một số đồng phân C₃H₄ qua tên, cấu tạo, mô hình 3D và câu hỏi có lời giải.",
     "image": "/assets/library/substances/c3h4-c3h4.svg",
     "chemicalFormula": "C₃H₄",
     "tags": [
-      "Câu chuyện hợp chất",
+      "Đồng phân & Cấu tạo",
       "C3H4",
       "Cháy hoàn toàn"
     ],
@@ -4865,7 +4865,8 @@
       "formula-C3H4"
     ],
     "documentKind": "reference",
-    "readingMinutes": 23
+    "lessonKind": "isomer-comparison",
+    "readingMinutes": 3
   },
   {
     "id": "c3h7cooc2h5-c3h7cooc2h5",
@@ -5098,14 +5099,14 @@
     "legacyIds": [
       "ho-so-6119a76a7ab6"
     ],
-    "title": "C4H6 (C₄H₆) — Ký sự từ vỉa khoáng vật tự nhiên đến kiến trúc phân tử chuẩn xác",
-    "author": "Chuyên San Khảo Cổ & Địa Hóa Học · ChemDex",
+    "title": "C₄H₆: các đồng phân và cách đọc mô hình 3D",
+    "author": "ChemDex · Học cấu trúc",
     "category": "hopchat",
-    "summary": "Ký sự điều tra nguồn gốc địa hóa và lịch sử phát hiện C4H6 (C₄H₆): từ khoáng vật tự nhiên, cấu trúc tinh thể 3D đến quy trình tổng hợp công nghiệp.",
+    "summary": "Phân biệt một số đồng phân C₄H₆ qua tên, cấu tạo, mô hình 3D và câu hỏi có lời giải.",
     "image": "/assets/library/substances/c4h6-c4h6.svg",
     "chemicalFormula": "C₄H₆",
     "tags": [
-      "Câu chuyện hợp chất",
+      "Đồng phân & Cấu tạo",
       "C4H6",
       "Cháy hoàn toàn"
     ],
@@ -5116,7 +5117,8 @@
       "formula-C4H6"
     ],
     "documentKind": "reference",
-    "readingMinutes": 23
+    "lessonKind": "isomer-comparison",
+    "readingMinutes": 3
   },
   {
     "id": "c4h8-c4h8",
@@ -5125,14 +5127,14 @@
     "legacyIds": [
       "ho-so-8f082a73804a"
     ],
-    "title": "C4H8 (C₄H₈) — Từ khám phá học thuật đến quy trình điều chế và cấu trúc 3D thực tế",
-    "author": "Tạp Chí Công Nghệ Hóa Chất & Vật Liệu · ChemDex",
+    "title": "C₄H₈: các đồng phân và cách đọc mô hình 3D",
+    "author": "ChemDex · Học cấu trúc",
     "category": "hopchat",
-    "summary": "Chuyên đề báo chí về C4H8 (C₄H₈): tái hiện lịch sử phát hiện, cơ chế tạo thành liên kết hóa học và vai trò trong công nghiệp – phòng lab.",
+    "summary": "Phân biệt một số đồng phân C₄H₈ qua tên, cấu tạo, mô hình 3D và câu hỏi có lời giải.",
     "image": "/assets/library/substances/c4h8-c4h8.svg",
     "chemicalFormula": "C₄H₈",
     "tags": [
-      "Câu chuyện hợp chất",
+      "Đồng phân & Cấu tạo",
       "C4H8",
       "Cháy hoàn toàn"
     ],
@@ -5143,7 +5145,8 @@
       "formula-C4H8"
     ],
     "documentKind": "reference",
-    "readingMinutes": 23
+    "lessonKind": "isomer-comparison",
+    "readingMinutes": 4
   },
   {
     "id": "c5h10-c5h10",
@@ -5152,14 +5155,14 @@
     "legacyIds": [
       "ho-so-bf7ebafde8a7"
     ],
-    "title": "C5H10 (C₅H₁₀) — Phóng sự từ chiếc bình chưng cổ điển đến mô hình liên kết không gian 3D",
-    "author": "Phóng Viên Phòng Thí Nghiệm & Lịch Sử Khoa Học · ChemDex",
+    "title": "C₅H₁₀: các đồng phân và cách đọc mô hình 3D",
+    "author": "ChemDex · Học cấu trúc",
     "category": "hopchat",
-    "summary": "Bài báo chuyên đề khắc họa chân dung hóa học của C5H10 (C₅H₁₀): câu chuyện lịch sử trên thế giới, cơ chế liên kết hóa trị và phản ứng đặc trưng.",
+    "summary": "Phân biệt một số đồng phân C₅H₁₀ qua tên, cấu tạo, mô hình 3D và câu hỏi có lời giải.",
     "image": "/assets/library/substances/c5h10-c5h10.svg",
     "chemicalFormula": "C₅H₁₀",
     "tags": [
-      "Câu chuyện hợp chất",
+      "Đồng phân & Cấu tạo",
       "C5H10",
       "Cháy hoàn toàn"
     ],
@@ -5170,7 +5173,8 @@
       "formula-C5H10"
     ],
     "documentKind": "reference",
-    "readingMinutes": 22
+    "lessonKind": "isomer-comparison",
+    "readingMinutes": 3
   },
   {
     "id": "c5h12-c5h12",
@@ -5179,14 +5183,14 @@
     "legacyIds": [
       "ho-so-63a4b9835dbd"
     ],
-    "title": "C5H12 (C₅H₁₂) — Ký sự từ vỉa khoáng vật tự nhiên đến kiến trúc phân tử chuẩn xác",
-    "author": "Chuyên San Khảo Cổ & Địa Hóa Học · ChemDex",
+    "title": "C₅H₁₂: các đồng phân và cách đọc mô hình 3D",
+    "author": "ChemDex · Học cấu trúc",
     "category": "hopchat",
-    "summary": "Ký sự điều tra nguồn gốc địa hóa và lịch sử phát hiện C5H12 (C₅H₁₂): từ khoáng vật tự nhiên, cấu trúc tinh thể 3D đến quy trình tổng hợp công nghiệp.",
+    "summary": "Phân biệt một số đồng phân C₅H₁₂ qua tên, cấu tạo, mô hình 3D và câu hỏi có lời giải.",
     "image": "/assets/library/substances/c5h12-c5h12.svg",
     "chemicalFormula": "C₅H₁₂",
     "tags": [
-      "Câu chuyện hợp chất",
+      "Đồng phân & Cấu tạo",
       "C5H12",
       "Cháy hoàn toàn"
     ],
@@ -5197,7 +5201,8 @@
       "formula-C5H12"
     ],
     "documentKind": "reference",
-    "readingMinutes": 22
+    "lessonKind": "isomer-comparison",
+    "readingMinutes": 3
   },
   {
     "id": "c5h8-c5h8",
@@ -5206,14 +5211,14 @@
     "legacyIds": [
       "ho-so-f83a09e22f6b"
     ],
-    "title": "C5H8 (C₅H₈) — Chân dung một hợp chất: Nguồn gốc lịch sử, mạng liên kết và tính chất",
-    "author": "Hội Đồng Chuyên Khảo Cấu Trúc Phân Tử · ChemDex",
+    "title": "C₅H₈: các đồng phân và cách đọc mô hình 3D",
+    "author": "ChemDex · Học cấu trúc",
     "category": "hopchat",
-    "summary": "Hồ sơ báo chí toàn diện về C5H8 (C₅H₈): kết hợp tư liệu bách khoa quốc tế, giải phẫu liên kết 3D và phân tích phản ứng thực nghiệm.",
+    "summary": "Phân biệt một số đồng phân C₅H₈ qua tên, cấu tạo, mô hình 3D và câu hỏi có lời giải.",
     "image": "/assets/library/substances/c5h8-c5h8.svg",
     "chemicalFormula": "C₅H₈",
     "tags": [
-      "Câu chuyện hợp chất",
+      "Đồng phân & Cấu tạo",
       "C5H8",
       "Cháy hoàn toàn"
     ],
@@ -5224,7 +5229,8 @@
       "formula-C5H8"
     ],
     "documentKind": "reference",
-    "readingMinutes": 23
+    "lessonKind": "isomer-comparison",
+    "readingMinutes": 3
   },
   {
     "id": "c6h14-c6h14",
@@ -5233,14 +5239,14 @@
     "legacyIds": [
       "ho-so-13a446228314"
     ],
-    "title": "C6H14 (C₆H₁₄) — Từ khám phá học thuật đến quy trình điều chế và cấu trúc 3D thực tế",
-    "author": "Tạp Chí Công Nghệ Hóa Chất & Vật Liệu · ChemDex",
+    "title": "C₆H₁₄: các đồng phân và cách đọc mô hình 3D",
+    "author": "ChemDex · Học cấu trúc",
     "category": "hopchat",
-    "summary": "Chuyên đề báo chí về C6H14 (C₆H₁₄): tái hiện lịch sử phát hiện, cơ chế tạo thành liên kết hóa học và vai trò trong công nghiệp – phòng lab.",
+    "summary": "Phân biệt một số đồng phân C₆H₁₄ qua tên, cấu tạo, mô hình 3D và câu hỏi có lời giải.",
     "image": "/assets/library/substances/c6h14-c6h14.svg",
     "chemicalFormula": "C₆H₁₄",
     "tags": [
-      "Câu chuyện hợp chất",
+      "Đồng phân & Cấu tạo",
       "C6H14",
       "Cháy hoàn toàn"
     ],
@@ -5251,7 +5257,8 @@
       "formula-C6H14"
     ],
     "documentKind": "reference",
-    "readingMinutes": 22
+    "lessonKind": "isomer-comparison",
+    "readingMinutes": 3
   },
   {
     "id": "c7h14-c7h14",
@@ -5260,14 +5267,14 @@
     "legacyIds": [
       "ho-so-a54ce27b1c78"
     ],
-    "title": "C7H14 (C₇H₁₄) — Phóng sự từ chiếc bình chưng cổ điển đến mô hình liên kết không gian 3D",
-    "author": "Phóng Viên Phòng Thí Nghiệm & Lịch Sử Khoa Học · ChemDex",
+    "title": "C₇H₁₄: các đồng phân và cách đọc mô hình 3D",
+    "author": "ChemDex · Học cấu trúc",
     "category": "hopchat",
-    "summary": "Bài báo chuyên đề khắc họa chân dung hóa học của C7H14 (C₇H₁₄): câu chuyện lịch sử trên thế giới, cơ chế liên kết hóa trị và phản ứng đặc trưng.",
+    "summary": "Phân biệt một số đồng phân C₇H₁₄ qua tên, cấu tạo, mô hình 3D và câu hỏi có lời giải.",
     "image": "/assets/library/substances/c7h14-c7h14.svg",
     "chemicalFormula": "C₇H₁₄",
     "tags": [
-      "Câu chuyện hợp chất",
+      "Đồng phân & Cấu tạo",
       "C7H14",
       "Cháy hoàn toàn"
     ],
@@ -5278,7 +5285,8 @@
       "formula-C7H14"
     ],
     "documentKind": "reference",
-    "readingMinutes": 22
+    "lessonKind": "isomer-comparison",
+    "readingMinutes": 3
   },
   {
     "id": "c7h16-c7h16",
@@ -5287,14 +5295,14 @@
     "legacyIds": [
       "ho-so-c2788b74810c"
     ],
-    "title": "C7H16 (C₇H₁₆) — Chân dung một hợp chất: Nguồn gốc lịch sử, mạng liên kết và tính chất",
-    "author": "Hội Đồng Chuyên Khảo Cấu Trúc Phân Tử · ChemDex",
+    "title": "C₇H₁₆: các đồng phân và cách đọc mô hình 3D",
+    "author": "ChemDex · Học cấu trúc",
     "category": "hopchat",
-    "summary": "Hồ sơ báo chí toàn diện về C7H16 (C₇H₁₆): kết hợp tư liệu bách khoa quốc tế, giải phẫu liên kết 3D và phân tích phản ứng thực nghiệm.",
+    "summary": "Phân biệt một số đồng phân C₇H₁₆ qua tên, cấu tạo, mô hình 3D và câu hỏi có lời giải.",
     "image": "/assets/library/substances/c7h16-c7h16.svg",
     "chemicalFormula": "C₇H₁₆",
     "tags": [
-      "Câu chuyện hợp chất",
+      "Đồng phân & Cấu tạo",
       "C7H16",
       "Cháy hoàn toàn"
     ],
@@ -5305,7 +5313,8 @@
       "formula-C7H16"
     ],
     "documentKind": "reference",
-    "readingMinutes": 22
+    "lessonKind": "isomer-comparison",
+    "readingMinutes": 3
   },
   {
     "id": "c8h16-c8h16",
@@ -5314,14 +5323,14 @@
     "legacyIds": [
       "ho-so-896c6aa57d50"
     ],
-    "title": "C8H16 (C₈H₁₆) — Biên niên sử khám phá, cội nguồn lịch sử và giải mã liên kết 3D",
-    "author": "Ban Biên Tập Biên Niên Sử Hóa Học · ChemDex",
+    "title": "C₈H₁₆: các đồng phân và cách đọc mô hình 3D",
+    "author": "ChemDex · Học cấu trúc",
     "category": "hopchat",
-    "summary": "Phóng sự khoa học chuyên sâu về C8H16 (C₈H₁₆): lần theo cội nguồn lịch sử, giải mã kiến trúc không gian 3 chiều và các con đường điều chế thực nghiệm.",
+    "summary": "Phân biệt một số đồng phân C₈H₁₆ qua tên, cấu tạo, mô hình 3D và câu hỏi có lời giải.",
     "image": "/assets/library/substances/c8h16-c8h16.svg",
     "chemicalFormula": "C₈H₁₆",
     "tags": [
-      "Câu chuyện hợp chất",
+      "Đồng phân & Cấu tạo",
       "C8H16",
       "Cháy hoàn toàn"
     ],
@@ -5332,7 +5341,8 @@
       "formula-C8H16"
     ],
     "documentKind": "reference",
-    "readingMinutes": 22
+    "lessonKind": "isomer-comparison",
+    "readingMinutes": 3
   },
   {
     "id": "c8h18-c8h18",
@@ -5341,14 +5351,14 @@
     "legacyIds": [
       "ho-so-4b898c5ff777"
     ],
-    "title": "C8H18 (C₈H₁₈) — Từ khám phá học thuật đến quy trình điều chế và cấu trúc 3D thực tế",
-    "author": "Tạp Chí Công Nghệ Hóa Chất & Vật Liệu · ChemDex",
+    "title": "C₈H₁₈: các đồng phân và cách đọc mô hình 3D",
+    "author": "ChemDex · Học cấu trúc",
     "category": "hopchat",
-    "summary": "Chuyên đề báo chí về C8H18 (C₈H₁₈): tái hiện lịch sử phát hiện, cơ chế tạo thành liên kết hóa học và vai trò trong công nghiệp – phòng lab.",
+    "summary": "Phân biệt một số đồng phân C₈H₁₈ qua tên, cấu tạo, mô hình 3D và câu hỏi có lời giải.",
     "image": "/assets/library/substances/c8h18-c8h18.svg",
     "chemicalFormula": "C₈H₁₈",
     "tags": [
-      "Câu chuyện hợp chất",
+      "Đồng phân & Cấu tạo",
       "C8H18",
       "Cháy hoàn toàn"
     ],
@@ -5359,7 +5369,8 @@
       "formula-C8H18"
     ],
     "documentKind": "reference",
-    "readingMinutes": 22
+    "lessonKind": "isomer-comparison",
+    "readingMinutes": 3
   },
   {
     "id": "canxi-ca",

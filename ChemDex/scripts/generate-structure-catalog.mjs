@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import { build } from 'esbuild';
 import { structureFormula, compositionKey, generateStructure } from '../shared/chemistry/structure-generator.mjs';
+import { isomerGroupFor } from '../shared/chemistry/molecular-isomers.mjs';
 const json = p=>JSON.parse(fs.readFileSync(p,'utf8').replace(/^\uFEFF/,''));
 const bundle=await build({entryPoints:['lab-3d/src/data/chemicals.ts'],bundle:true,write:false,platform:'node',format:'esm'});
 const {CHEMICAL_DATABASE}=await import(`data:text/javascript;base64,${Buffer.from(bundle.outputFiles[0].text).toString('base64')}`);
@@ -27,6 +28,8 @@ function add(row) {
     if(identity?.material) {record.material=true;record.materialLabel=row.formula;record.molarMass=null;}
     if(identity?.source) record.identitySource=identity.source;
     if(localIdentity) {record.cid=identity.cid;record.kind='molecule';record.structure={url:`/shared/structures/${identity.cid}.sdf`,dimension:'3d',format:'sdf',source:identity.source,provenance:'PubChem computed 3D conformer'};}
+    const isomers=isomerGroupFor(record);
+    if(isomers) { record.isomerGroup=isomers.formula; record.kind='molecule'; }
     const generated=generateStructure(record);
     record.atomCount??=generated.atoms.length;
     records.push(record);

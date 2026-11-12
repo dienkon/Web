@@ -24,6 +24,8 @@ import {
   getGuaranteedPioneers,
 } from '../shared/chemistry/equation-chronicles.mjs';
 import { buildStudyReferences } from './build-study-references.mjs';
+import {isomerGroupFor} from '../shared/chemistry/molecular-isomers.mjs';
+import {isomerLesson,isomerCoverSVG} from './isomer-lesson.mjs';
 
 process.chdir(path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..'));
 
@@ -481,6 +483,7 @@ for (const [key, group] of groups) {
   }
 
   const s = group.find((s) => s.structure) ?? group[0];
+  const isomerGroup=isomerGroupFor(s);
   const formula = s.formula;
   const counts = parseFormula(formula);
   const atomCount = Object.values(counts).reduce((a, b) => a + b, 0);
@@ -554,6 +557,7 @@ for (const [key, group] of groups) {
 
   // 100% Guaranteed Physical Substance Thumbnail SVG
   const coverImage = `/assets/library/substances/${id}.svg`;
+  if(isomerGroup)for(const dir of substanceAssetDirs)fs.writeFileSync(path.join(dir,`${id}.svg`),isomerCoverSVG(isomerGroup));
 
   // Matched Pioneer Scientists (Guaranteed at least 1 authentic pioneer for every substance!)
   const guaranteedPioneers = getGuaranteedPioneers({
@@ -569,7 +573,7 @@ for (const [key, group] of groups) {
   const structureImage = pickStructureIllustration(s, element, ions, formula);
 
   const histYear = detail?.history?.year ? clean(detail.history.year) : null;
-  const title = safeMetaText(style.titlePattern(name, displayFormula, element));
+  const title = isomerGroup?`${displayFormula}: các đồng phân và cách đọc mô hình 3D`:safeMetaText(style.titlePattern(name, displayFormula, element));
   const sections = [];
 
   // ============================================================================
@@ -888,11 +892,12 @@ for (const [key, group] of groups) {
       `\n\nBài báo chuyên khảo này thuộc hệ thống **Tạp chí Hóa Học Số ChemDex**, tích hợp hồ sơ tiểu sử các nhà hóa học tiên phong, chuẩn mực kiến thức GDPT 2018 môn Hóa học THCS-THPT và cơ sở dữ liệu cấu trúc không gian 3 chiều tương tác, mang lại góc nhìn toàn diện về **${name} (${pFormula})**.`,
   );
 
+  if(isomerGroup)sections.splice(0,sections.length,...isomerLesson(isomerGroup,modelURL,counts,mass));
   let fullContent = sections.join('\n\n');
   let wordCount = fullContent.trim().split(/\s+/).length;
 
   // Guarantee >= 1,150 words for every single article!
-  if (wordCount < 1150) {
+  if (!isomerGroup && wordCount < 1150) {
     const extraHistoricalDeepDive =
       `## Góc nhìn chuyên sâu: Tiến trình lịch sử phân tích cấu tạo và chuẩn hóa danh pháp của ${name}\n\n` +
       `Nhìn lại lịch sử phát triển của ngành hóa học từ thế kỷ XVIII đến thế kỷ XXI, quá trình nhận diện một chất hóa học như **${name} (${pFormula})** luôn trải qua bốn giai đoạn khoa học rõ rệt. Ở giai đoạn thứ nhất — thời kỳ hóa học phôi thai và phân tích định tính — các nhà thực nghiệm dựa vào trạng thái vật lý, màu sắc ngọn lửa, mùi vị hoặc khả năng tạo kết tủa để phân biệt chất này với chất khác trong quặng mỏ và dung dịch tự nhiên. Bước sang giai đoạn thứ hai — cuộc cách mạng hóa học định lượng khởi xướng bởi **Antoine Lavoisier**, **Joseph Proust** (Định luật thành phần không đổi, 1799) và **John Dalton** (Thuyết nguyên tử, 1808) — giới khoa học bắt đầu sử dụng cân phân tích chính xác tới phần nghìn gam để đốt cháy, kết tủa và xác định tỷ lệ số nguyên tử tối giản, từ đó thiết lập nên công thức **${pFormula}** với sự đóng góp của ${massTerms.map((t) => `${t.count} nguyên tử ${t.symbol}`).join(', ')}.\n\n` +
@@ -902,7 +907,7 @@ for (const [key, group] of groups) {
     wordCount = fullContent.trim().split(/\s+/).length;
   }
 
-  if (wordCount < 1150) {
+  if (!isomerGroup && wordCount < 1150) {
     const extraLabProtocol =
       `## Kỹ thuật phân tích hiện đại, chuẩn an toàn và bảo quản ${name} trong thực nghiệm\n\n` +
       `Trong phòng thí nghiệm tiêu chuẩn quốc tế (ISO/GLP), việc làm việc với **${name} (${pFormula})** đòi hỏi sự kết hợp đồng bộ giữa kỹ thuật phân tích công cụ và quy trình an toàn hóa chất nghiêm ngặt. Để kiểm chứng độ tinh khiết và nhận diện cấu trúc của **${pFormula}**, các phòng thí nghiệm hiện đại sử dụng tổ hợp nhiều phương pháp vật lý – hóa học: phương pháp **quang phổ hấp thụ hoặc phát xạ nguyên tử (AAS / ICP-OES)** để định lượng chính xác tỷ lệ nguyên tố ${massTerms.map((t) => t.symbol).join(', ')}; phương pháp **nhiễu xạ tia X bột (XRD)** hoặc **quang phổ dao động (IR / Raman)** để đối chiếu khoảng cách liên kết và tần số dao động đặc trưng của các liên kết trong không gian 3 chiều.\n\n` +
@@ -916,7 +921,7 @@ for (const [key, group] of groups) {
     .replace(/\bundefined\b/gi, 'chưa xác định')
     .replace(/\bNaN\b/g, 'không xác định');
 
-  const summary = safeMetaText(style.summaryPattern(name, displayFormula, histYear));
+  const summary = isomerGroup?`Phân biệt một số đồng phân ${displayFormula} qua tên, cấu tạo, mô hình 3D và câu hỏi có lời giải.`:safeMetaText(style.summaryPattern(name, displayFormula, histYear));
 
   const meta = {
     id,
@@ -924,7 +929,7 @@ for (const [key, group] of groups) {
     documentPath: `reference/${id}/index.json`,
     legacyIds: ['ho-so-' + hashHex.slice(0, 12)],
     title,
-    author: style.author,
+    author: isomerGroup?'ChemDex · Học cấu trúc':style.author,
     category: element ? 'nguyento' : 'hopchat',
     summary,
     image: coverImage,
@@ -934,6 +939,8 @@ for (const [key, group] of groups) {
         ? 'Biên niên sử nguyên tố'
         : isMaterial
           ? 'Vật liệu & Hỗn hợp'
+          : isomerGroup
+            ? 'Đồng phân & Cấu tạo'
           : s.kind === 'ion'
             ? 'Ion đa nguyên tử'
             : 'Câu chuyện hợp chất',
@@ -955,7 +962,8 @@ for (const [key, group] of groups) {
     ],
     substanceIds: group.map((r) => r.id),
     documentKind: 'reference',
-    readingMinutes: Math.max(5, Math.round(wordCount / 180)),
+    ...(isomerGroup?{lessonKind:'isomer-comparison'}:{}),
+    readingMinutes: Math.max(isomerGroup?2:5, Math.round(wordCount / 180)),
   };
 
   fs.mkdirSync(path.join(output, id), { recursive: true });
@@ -970,7 +978,8 @@ for (const [key, group] of groups) {
           counts,
           mass,
           material: isMaterial,
-          reactionIds: selected.map((r) => r.id),
+          reactionIds: isomerGroup?[]:selected.map((r) => r.id),
+          ...(isomerGroup?{exampleCids:isomerGroup.examples.map(e=>e.cid)}:{}),
         },
         content: fullContent,
       },
@@ -1010,5 +1019,5 @@ for (const doc of [...authored, ...generated])
 fs.writeFileSync('shared/library-routes.generated.json', JSON.stringify(routes, null, 2) + '\n');
 buildStudyReferences();
 console.log(
-  `Reference library: ${generated.length} unique 1100+ word articles; ${Object.keys(links).length} subject links; custom substance SVGs synced.`,
+  `Reference library: ${generated.length} articles (${generated.filter(d=>d.lessonKind==='isomer-comparison').length} concise isomer lessons); ${Object.keys(links).length} subject links; custom substance SVGs synced.`,
 );

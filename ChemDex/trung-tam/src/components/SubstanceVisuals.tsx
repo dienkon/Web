@@ -32,7 +32,7 @@ export function SubstanceVisuals({ slug }: { slug: string }) {
         {record.crystals.length > 1 && <label>Pha đang xem <select aria-label="Pha tinh thể" value={crystalIndex} onChange={e => setCrystalIndex(Number(e.target.value))}>{record.crystals.map((c: any, i: number) => <option key={c.id} value={i}>{c.mineralName} · {c.spaceGroup}</option>)}</select></label>}
         <div ref={crystalRef} />
       </> : <>
-        <p className="reader-visual-note">{record.kind === 'molecule' ? 'Phân tử/cấu dạng riêng' : record.kind === 'atom' ? 'Mô hình nguyên tử' : 'Mô hình thành phần'}{record.crystals.length ? ' · Xem cách xếp tuần hoàn ở mục Tinh thể.' : ' · Chưa gắn dữ liệu ô mạng tinh thể đã kiểm chứng cho hồ sơ này.'}</p>
+        <p className="reader-visual-note">{record.isomerGroup ? 'Cùng công thức, khác cấu trúc. Chọn tên đồng phân trong mô hình để so sánh.' : <>{record.kind === 'molecule' ? 'Phân tử/cấu dạng riêng' : record.kind === 'atom' ? 'Mô hình nguyên tử' : 'Mô hình thành phần'}{record.crystals.length ? ' · Xem cách xếp tuần hoàn ở mục Tinh thể.' : ' · Chưa gắn dữ liệu ô mạng tinh thể đã kiểm chứng cho hồ sơ này.'}</>}</p>
         <iframe title={`Cấu trúc 3D ${record.formula}`} src={`/tien-ich/cau-truc-3d/?embed=1&modelOnly=1&compound=${encodeURIComponent(record.modelId)}`} loading="lazy" allow="fullscreen" />
         {record.source && <a href={record.source} target="_blank" rel="noopener noreferrer">Nguồn tọa độ ↗</a>}
         {record.provenance && <details className="reader-visual-provenance"><summary>Dữ liệu mô hình</summary>{record.provenance}</details>}

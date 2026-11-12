@@ -2,6 +2,7 @@ import { escape, download, storage } from "./common.js";
 import { generateStructure, toSDF } from "../shared/chemistry/structure-generator.mjs";
 import { CPK_COLORS, readSDF, readCIF } from "./viewer-canvas.js";
 import { mountMolecularStudio } from './molecular-studio.js';
+import { isomerGroupFor, resolveMolecularExample } from '../shared/chemistry/molecular-isomers.mjs';
 
 let library;
 async function loadLibrary() {
@@ -16,6 +17,7 @@ export class ChemStructureViewer extends HTMLElement {
     this.spinning = false;
     this.innerHTML = `<div class="viewer-toolbar"><label><span class="sr-only">Kiểu mô hình</span><select data-style><option value="ball">Cầu–que (Ball & Stick)</option><option value="stick">Que liên kết (Stick)</option><option value="sphere">Cầu đặc (Van der Waals)</option></select></label><label class="muted"><input type="checkbox" data-hydrogen checked> Hydrogen</label><label class="muted"><input type="checkbox" data-light> Đồ họa nhẹ</label><label class="muted"><input type="checkbox" data-labels> Nhãn</label><button class="button" data-spin type="button">↻ Tự xoay</button><button class="button" data-reset type="button">Đặt lại</button><button class="button" data-fullscreen type="button">Toàn màn hình</button><button class="button" data-png type="button">PNG ↓</button><button class="button" data-file type="button">SDF / CIF ↓</button></div><div class="canvas-shell" role="img" aria-label="Mô hình cấu trúc có thể xoay và phóng to"></div><div class="viewer-bond-panel"></div><div class="viewer-status" role="status">Chọn một chất để xem cấu trúc.</div><div class="atom-readout">Chọn 2 nguyên tử để đo khoảng cách, 3 nguyên tử để đo góc (trên cấu dạng đang xem).</div><div class="viewer-source"></div>`;
     this.environmentEnabled = true;
+    this.querySelector('.viewer-toolbar').insertAdjacentHTML('beforebegin','<div class="viewer-isomers" hidden></div>');
     this.querySelector('.viewer-toolbar').insertAdjacentHTML('beforeend','<button class="button" type="button" data-environment aria-pressed="true">Ẩn cảnh trưng bày</button>');
     this.querySelector('[data-environment]').onclick = () => {
       this.environmentEnabled = !this.environmentEnabled;
@@ -71,7 +73,7 @@ export class ChemStructureViewer extends HTMLElement {
     this.querySelector("[data-file]").onclick = () => {
       if (this.raw)
         download(
-          `${this.record.id}.${this.rawFormat ?? "sdf"}`,
+          `${this.record.isomerExampleId ?? this.record.id}.${this.rawFormat ?? "sdf"}`,
           this.raw,
           "chemical/x-mdl-sdfile",
         );
@@ -177,8 +179,23 @@ export class ChemStructureViewer extends HTMLElement {
       </div>
     `;
   }
-  async open(record) {
+  renderIsomers(record) {
+    const host=this.querySelector('.viewer-isomers'),group=isomerGroupFor(record);
+    host.hidden=!group;
+    if(!group){host.replaceChildren();return;}
+    const example=group.examples.find(e=>e.id===record.isomerExampleId);
+    const formula=group.formula.replace(/\d/g,n=>'₀₁₂₃₄₅₆₇₈₉'[Number(n)]);
+    host.innerHTML=`<label><span>Chọn đồng phân của ${escape(formula)}</span><select aria-label="Đồng phân đang xem">${group.examples.map(e=>`<option value="${escape(e.id)}" ${e.id===example.id?'selected':''}>${escape(e.name)}</option>`).join('')}</select></label><p class="isomer-current"><strong>${escape(example.name)}</strong> · <span>${escape(example.condensed)}</span></p><p>${escape(example.feature)}</p><details><summary>Đồng phân là gì?</summary><p>Các chất có cùng công thức phân tử nhưng khác cách nối hoặc sắp xếp nguyên tử. Mỗi tên trong danh sách là một chất cụ thể; danh sách chỉ gồm một số ví dụ.</p></details>`;
+    host.querySelector('select').onchange=event=>{
+      const id=event.target.value;
+      this.dispatchEvent(new CustomEvent('isomerchange',{detail:{id}}));
+      this.open(record,{isomerId:id});
+    };
+  }
+  async open(record, {isomerId}={}) {
     if (!this.ready) this.connectedCallback();
+    record=resolveMolecularExample(record,isomerId);
+    this.renderIsomers(record);
     this.controller?.abort();
     const controller = new AbortController();
     this.controller = controller;
@@ -194,6 +211,9 @@ export class ChemStructureViewer extends HTMLElement {
       record.kind === "crystal" ? "ball" : "ball";
     this.selected = [];
     this.raw = null;
+    this.parsedModel = null;
+    this.renderBondPanel(null);
+    this.querySelector('.atom-readout').textContent='Chọn 2 nguyên tử để đo khoảng cách, 3 nguyên tử để đo góc (trên cấu dạng đang xem).';
     this.status("Đang tải cấu trúc…");
     this.querySelector(".viewer-source").innerHTML = "";
     try {
@@ -231,6 +251,9 @@ export class ChemStructureViewer extends HTMLElement {
           } catch {}
         } catch (error) {
           if (controller.signal.aborted) return;
+          // A formula-generated fallback can be a different isomer. Keep the
+          // chosen identity honest if its published file cannot be loaded.
+          if(record.isomerExampleId)throw new Error(`Chưa tải được mô hình ${record.name_vi}. Hãy thử lại hoặc chọn đồng phân khác.`);
           generated = generateStructure(record);
           generated.note =
             "Không tải được cấu trúc 3D có nguồn. " + generated.note;
@@ -336,7 +359,7 @@ export class ChemStructureViewer extends HTMLElement {
           ? `${generated.atoms.length} nguyên tử · ${bondTotal} liên kết · ${generated.mode === "ions" ? "Mô hình phối trí & nhóm ion 3D" : generated.mode === "atom" ? "Nguyên tử 3D" : generated.mode === "idealized" ? "Hình học liên kết 3D" : "Mô hình khung hóa trị 3D"} · Kéo để xoay`
           : record.kind === "crystal"
             ? `${this.parsedModel?.atoms?.length ?? ""} vị trí nguyên tử trong ô mạng · Kéo để xoay`
-            : `${this.parsedModel?.atoms?.length ?? ""} nguyên tử · ${bondTotal} liên kết · Kéo để xoay · Cuộn/chụm để thu phóng · Chọn nguyên tử để đo`,
+            : `${record.isomerExampleId ? record.name_vi+' · ' : ''}${this.parsedModel?.atoms?.length ?? ""} nguyên tử · ${bondTotal} liên kết · Kéo để xoay · Cuộn/chụm để thu phóng · Chọn nguyên tử để đo`,
       );
       this.querySelector(".viewer-source").innerHTML = generated
         ? `<span class="badge">MÔ HÌNH MINH HỌA</span><p>${escape(generated.note)}</p>`

@@ -589,6 +589,22 @@ input[type="checkbox"] {
   color: var(--muted);
   padding-top: 14px;
 }
+.viewer-isomers {
+  padding: 12px 14px;
+  margin: 8px 0 12px;
+  border: 1px solid var(--line);
+  border-left: 3px solid #2abca9;
+  border-radius: 10px;
+  background: var(--soft);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.viewer-isomers[hidden] { display: none; }
+.viewer-isomers label { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-weight: 700; }
+.viewer-isomers select { max-width: 100%; min-width: 0; padding: 7px 10px; font-size: 12px; }
+.viewer-isomers p { margin: 6px 0 0; overflow-wrap: anywhere; }
+.viewer-isomers .isomer-current { font-size: 14px; }
+.viewer-isomers summary { margin-top: 8px; color: var(--muted); cursor: pointer; }
 .viewer-panel h2 {
   font:
     800 23px "Manrope",

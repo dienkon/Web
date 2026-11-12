@@ -1,0 +1,826 @@
+{
+  "C3H4": {
+    "formula": "C3H4",
+    "exhaustive": false,
+    "examples": [
+      {
+        "id": "pubchem-6335",
+        "cid": 6335,
+        "name": "Propyne",
+        "condensed": "CH₃–C≡CH",
+        "feature": "Mạch hở, có một liên kết ba.",
+        "iupacName": "prop-1-yne",
+        "connectivitySMILES": "CC#C",
+        "formula": "C3H4",
+        "topology": {
+          "doubleBonds": 0,
+          "tripleBonds": 1,
+          "rings": 0,
+          "maxCarbonDegree": 2
+        },
+        "structure": {
+          "url": "/shared/structures/isomers/6335.sdf",
+          "dimension": "3d",
+          "format": "sdf",
+          "coordinateType": "computed",
+          "provenance": "Cấu dạng 3D tính toán từ PubChem",
+          "source": "https://pubchem.ncbi.nlm.nih.gov/compound/6335",
+          "downloadSource": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/6335/record/SDF?record_type=3d",
+          "retrievedAt": "2026-11-12",
+          "sha256": "1871339c21d291e7ca3d74f37f3500f87bd0bd22ff733b3f6e453636db87c748"
+        }
+      },
+      {
+        "id": "pubchem-123173",
+        "cid": 123173,
+        "name": "Cyclopropene",
+        "condensed": "Vòng 3 C, một liên kết đôi",
+        "feature": "Mạch vòng, có một liên kết đôi.",
+        "iupacName": "cyclopropene",
+        "connectivitySMILES": "C1C=C1",
+        "formula": "C3H4",
+        "topology": {
+          "doubleBonds": 1,
+          "tripleBonds": 0,
+          "rings": 1,
+          "maxCarbonDegree": 2
+        },
+        "structure": {
+          "url": "/shared/structures/isomers/123173.sdf",
+          "dimension": "3d",
+          "format": "sdf",
+          "coordinateType": "computed",
+          "provenance": "Cấu dạng 3D tính toán từ PubChem",
+          "source": "https://pubchem.ncbi.nlm.nih.gov/compound/123173",
+          "downloadSource": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/123173/record/SDF?record_type=3d",
+          "retrievedAt": "2026-11-12",
+          "sha256": "23eb1d61aae241f20d2dca0ad628f290c6cdf38ddf8c5fd86bbc02be2df49c5f"
+        }
+      }
+    ]
+  },
+  "C4H6": {
+    "formula": "C4H6",
+    "exhaustive": false,
+    "examples": [
+      {
+        "id": "pubchem-7846",
+        "cid": 7846,
+        "name": "But-1-yne",
+        "condensed": "CH≡C–CH₂–CH₃",
+        "feature": "Liên kết ba ở đầu mạch.",
+        "iupacName": "but-1-yne",
+        "connectivitySMILES": "CCC#C",
+        "formula": "C4H6",
+        "topology": {
+          "doubleBonds": 0,
+          "tripleBonds": 1,
+          "rings": 0,
+          "maxCarbonDegree": 2
+        },
+        "structure": {
+          "url": "/shared/structures/isomers/7846.sdf",
+          "dimension": "3d",
+          "format": "sdf",
+          "coordinateType": "computed",
+          "provenance": "Cấu dạng 3D tính toán từ PubChem",
+          "source": "https://pubchem.ncbi.nlm.nih.gov/compound/7846",
+          "downloadSource": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/7846/record/SDF?record_type=3d",
+          "retrievedAt": "2026-11-12",
+          "sha256": "4c98ef76eb942ecdfbc14dd6930d80bc277f33a255d41bb7492611c6609cf8ca"
+        }
+      },
+      {
+        "id": "pubchem-7845",
+        "cid": 7845,
+        "name": "Buta-1,3-diene",
+        "condensed": "CH₂=CH–CH=CH₂",
+        "feature": "Hai liên kết đôi cách nhau một liên kết đơn.",
+        "iupacName": "buta-1,3-diene",
+        "connectivitySMILES": "C=CC=C",
+        "formula": "C4H6",
+        "topology": {
+          "doubleBonds": 2,
+          "tripleBonds": 0,
+          "rings": 0,
+          "maxCarbonDegree": 2
+        },
+        "structure": {
+          "url": "/shared/structures/isomers/7845.sdf",
+          "dimension": "3d",
+          "format": "sdf",
+          "coordinateType": "computed",
+          "provenance": "Cấu dạng 3D tính toán từ PubChem",
+          "source": "https://pubchem.ncbi.nlm.nih.gov/compound/7845",
+          "downloadSource": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/7845/record/SDF?record_type=3d",
+          "retrievedAt": "2026-11-12",
+          "sha256": "e3a7b29dad50507de25806a4cda5068a6d3de47027e507364609583d06c5456f"
+        }
+      },
+      {
+        "id": "pubchem-69972",
+        "cid": 69972,
+        "name": "Cyclobutene",
+        "condensed": "Vòng 4 C, một liên kết đôi",
+        "feature": "Vừa có vòng, vừa có liên kết đôi.",
+        "iupacName": "cyclobutene",
+        "connectivitySMILES": "C1CC=C1",
+        "formula": "C4H6",
+        "topology": {
+          "doubleBonds": 1,
+          "tripleBonds": 0,
+          "rings": 1,
+          "maxCarbonDegree": 2
+        },
+        "structure": {
+          "url": "/shared/structures/isomers/69972.sdf",
+          "dimension": "3d",
+          "format": "sdf",
+          "coordinateType": "computed",
+          "provenance": "Cấu dạng 3D tính toán từ PubChem",
+          "source": "https://pubchem.ncbi.nlm.nih.gov/compound/69972",
+          "downloadSource": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/69972/record/SDF?record_type=3d",
+          "retrievedAt": "2026-11-12",
+          "sha256": "f90a466ec7464219602fe33372a21c919b6c395b292fcecfd67a9a31e7b3267b"
+        }
+      }
+    ]
+  },
+  "C4H8": {
+    "formula": "C4H8",
+    "exhaustive": false,
+    "examples": [
+      {
+        "id": "pubchem-7844",
+        "cid": 7844,
+        "name": "But-1-ene",
+        "condensed": "CH₂=CH–CH₂–CH₃",
+        "feature": "Liên kết đôi ở đầu mạch.",
+        "iupacName": "but-1-ene",
+        "connectivitySMILES": "CCC=C",
+        "formula": "C4H8",
+        "topology": {
+          "doubleBonds": 1,
+          "tripleBonds": 0,
+          "rings": 0,
+          "maxCarbonDegree": 2
+        },
+        "structure": {
+          "url": "/shared/structures/isomers/7844.sdf",
+          "dimension": "3d",
+          "format": "sdf",
+          "coordinateType": "computed",
+          "provenance": "Cấu dạng 3D tính toán từ PubChem",
+          "source": "https://pubchem.ncbi.nlm.nih.gov/compound/7844",
+          "downloadSource": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/7844/record/SDF?record_type=3d",
+          "retrievedAt": "2026-11-12",
+          "sha256": "e46da40eb059006144bb8d1e063f61de83deea464750d5230e6a6fb55606b2a6"
+        }
+      },
+      {
+        "id": "pubchem-5287573",
+        "cid": 5287573,
+        "name": "cis-But-2-ene",
+        "condensed": "cis-CH₃–CH=CH–CH₃",
+        "feature": "Hai nhóm CH₃ nằm cùng phía của liên kết đôi.",
+        "iupacName": "(Z)-but-2-ene",
+        "connectivitySMILES": "CC=CC",
+        "formula": "C4H8",
+        "topology": {
+          "doubleBonds": 1,
+          "tripleBonds": 0,
+          "rings": 0,
+          "maxCarbonDegree": 2,
+          "stereochemistry": "cis"
+        },
+        "structure": {
+          "url": "/shared/structures/isomers/5287573.sdf",
+          "dimension": "3d",
+          "format": "sdf",
+          "coordinateType": "computed",
+          "provenance": "Cấu dạng 3D tính toán từ PubChem",
+          "source": "https://pubchem.ncbi.nlm.nih.gov/compound/5287573",
+          "downloadSource": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/5287573/record/SDF?record_type=3d",
+          "retrievedAt": "2026-11-12",
+          "sha256": "c6430f00e1283744210e18c12a3aa5643984abef42d6be5ac81d4ce1e4ebad02"
+        }
+      },
+      {
+        "id": "pubchem-62695",
+        "cid": 62695,
+        "name": "trans-But-2-ene",
+        "condensed": "trans-CH₃–CH=CH–CH₃",
+        "feature": "Hai nhóm CH₃ nằm khác phía của liên kết đôi.",
+        "iupacName": "(E)-but-2-ene",
+        "connectivitySMILES": "CC=CC",
+        "formula": "C4H8",
+        "topology": {
+          "doubleBonds": 1,
+          "tripleBonds": 0,
+          "rings": 0,
+          "maxCarbonDegree": 2,
+          "stereochemistry": "trans"
+        },
+        "structure": {
+          "url": "/shared/structures/isomers/62695.sdf",
+          "dimension": "3d",
+          "format": "sdf",
+          "coordinateType": "computed",
+          "provenance": "Cấu dạng 3D tính toán từ PubChem",
+          "source": "https://pubchem.ncbi.nlm.nih.gov/compound/62695",
+          "downloadSource": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/62695/record/SDF?record_type=3d",
+          "retrievedAt": "2026-11-12",
+          "sha256": "7e3dd58a9950ccb35fbeddbc823580b065b72a1589e30a22c72678480938f913"
+        }
+      },
+      {
+        "id": "pubchem-8255",
+        "cid": 8255,
+        "name": "2-Methylpropene",
+        "condensed": "CH₂=C(CH₃)₂",
+        "feature": "Mạch cacbon có nhánh.",
+        "iupacName": "2-methylprop-1-ene",
+        "connectivitySMILES": "CC(=C)C",
+        "formula": "C4H8",
+        "topology": {
+          "doubleBonds": 1,
+          "tripleBonds": 0,
+          "rings": 0,
+          "maxCarbonDegree": 3
+        },
+        "structure": {
+          "url": "/shared/structures/isomers/8255.sdf",
+          "dimension": "3d",
+          "format": "sdf",
+          "coordinateType": "computed",
+          "provenance": "Cấu dạng 3D tính toán từ PubChem",
+          "source": "https://pubchem.ncbi.nlm.nih.gov/compound/8255",
+          "downloadSource": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/8255/record/SDF?record_type=3d",
+          "retrievedAt": "2026-11-12",
+          "sha256": "4f8f306ab2670ef35039b7161201554b7cd2258d3273d3b5d3d5d48e3fbbe97e"
+        }
+      },
+      {
+        "id": "pubchem-9250",
+        "cid": 9250,
+        "name": "Cyclobutane",
+        "condensed": "Vòng (CH₂)₄",
+        "feature": "Mạch vòng; các liên kết C–C đều là liên kết đơn.",
+        "iupacName": "cyclobutane",
+        "connectivitySMILES": "C1CCC1",
+        "formula": "C4H8",
+        "topology": {
+          "doubleBonds": 0,
+          "tripleBonds": 0,
+          "rings": 1,
+          "maxCarbonDegree": 2
+        },
+        "structure": {
+          "url": "/shared/structures/isomers/9250.sdf",
+          "dimension": "3d",
+          "format": "sdf",
+          "coordinateType": "computed",
+          "provenance": "Cấu dạng 3D tính toán từ PubChem",
+          "source": "https://pubchem.ncbi.nlm.nih.gov/compound/9250",
+          "downloadSource": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/9250/record/SDF?record_type=3d",
+          "retrievedAt": "2026-11-12",
+          "sha256": "05e59463e3be434686a38060f9565660098aa42bdd53bf81e0b059d539135803"
+        }
+      }
+    ]
+  },
+  "C5H8": {
+    "formula": "C5H8",
+    "exhaustive": false,
+    "examples": [
+      {
+        "id": "pubchem-12309",
+        "cid": 12309,
+        "name": "Pent-1-yne",
+        "condensed": "CH≡C–CH₂–CH₂–CH₃",
+        "feature": "Liên kết ba bắt đầu ở C số 1.",
+        "iupacName": "pent-1-yne",
+        "connectivitySMILES": "CCCC#C",
+        "formula": "C5H8",
+        "topology": {
+          "doubleBonds": 0,
+          "tripleBonds": 1,
+          "rings": 0,
+          "maxCarbonDegree": 2
+        },
+        "structure": {
+          "url": "/shared/structures/isomers/12309.sdf",
+          "dimension": "3d",
+          "format": "sdf",
+          "coordinateType": "computed",
+          "provenance": "Cấu dạng 3D tính toán từ PubChem",
+          "source": "https://pubchem.ncbi.nlm.nih.gov/compound/12309",
+          "downloadSource": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/12309/record/SDF?record_type=3d",
+          "retrievedAt": "2026-11-12",
+          "sha256": "8da101270960ed3e3b8acc605cfc37d29d6beda20c3d4e480ab9640cd2233ca2"
+        }
+      },
+      {
+        "id": "pubchem-12310",
+        "cid": 12310,
+        "name": "Pent-2-yne",
+        "condensed": "CH₃–C≡C–CH₂–CH₃",
+        "feature": "Liên kết ba bắt đầu ở C số 2.",
+        "iupacName": "pent-2-yne",
+        "connectivitySMILES": "CCC#CC",
+        "formula": "C5H8",
+        "topology": {
+          "doubleBonds": 0,
+          "tripleBonds": 1,
+          "rings": 0,
+          "maxCarbonDegree": 2
+        },
+        "structure": {
+          "url": "/shared/structures/isomers/12310.sdf",
+          "dimension": "3d",
+          "format": "sdf",
+          "coordinateType": "computed",
+          "provenance": "Cấu dạng 3D tính toán từ PubChem",
+          "source": "https://pubchem.ncbi.nlm.nih.gov/compound/12310",
+          "downloadSource": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/12310/record/SDF?record_type=3d",
+          "retrievedAt": "2026-11-12",
+          "sha256": "60a213896edefbddd13abeec07bfe8ed337192dfb314b47492df2f1f73623512"
+        }
+      },
+      {
+        "id": "pubchem-62204",
+        "cid": 62204,
+        "name": "(3E)-Penta-1,3-diene",
+        "condensed": "CH₂=CH–CH=CH–CH₃",
+        "feature": "Có hai liên kết đôi; cấu hình E tại liên kết C3=C4.",
+        "iupacName": "(3E)-penta-1,3-diene",
+        "connectivitySMILES": "CC=CC=C",
+        "formula": "C5H8",
+        "topology": {
+          "doubleBonds": 2,
+          "tripleBonds": 0,
+          "rings": 0,
+          "maxCarbonDegree": 2
+        },
+        "structure": {
+          "url": "/shared/structures/isomers/62204.sdf",
+          "dimension": "3d",
+          "format": "sdf",
+          "coordinateType": "computed",
+          "provenance": "Cấu dạng 3D tính toán từ PubChem",
+          "source": "https://pubchem.ncbi.nlm.nih.gov/compound/62204",
+          "downloadSource": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/62204/record/SDF?record_type=3d",
+          "retrievedAt": "2026-11-12",
+          "sha256": "0f4a8e81c1710b00f50cba9a5100e6ca3a85374f2b82d828448f3b142e396d86"
+        }
+      }
+    ]
+  },
+  "C5H10": {
+    "formula": "C5H10",
+    "exhaustive": false,
+    "examples": [
+      {
+        "id": "pubchem-8004",
+        "cid": 8004,
+        "name": "Pent-1-ene",
+        "condensed": "CH₂=CH–CH₂–CH₂–CH₃",
+        "feature": "Mạch hở, có một liên kết đôi.",
+        "iupacName": "pent-1-ene",
+        "connectivitySMILES": "CCCC=C",
+        "formula": "C5H10",
+        "topology": {
+          "doubleBonds": 1,
+          "tripleBonds": 0,
+          "rings": 0,
+          "maxCarbonDegree": 2
+        },
+        "structure": {
+          "url": "/shared/structures/isomers/8004.sdf",
+          "dimension": "3d",
+          "format": "sdf",
+          "coordinateType": "computed",
+          "provenance": "Cấu dạng 3D tính toán từ PubChem",
+          "source": "https://pubchem.ncbi.nlm.nih.gov/compound/8004",
+          "downloadSource": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/8004/record/SDF?record_type=3d",
+          "retrievedAt": "2026-11-12",
+          "sha256": "69d40de4235ac8761bf73c82c2687a901be86e311645fc8fb73b2ae3ca2561ef"
+        }
+      },
+      {
+        "id": "pubchem-9253",
+        "cid": 9253,
+        "name": "Cyclopentane",
+        "condensed": "Vòng (CH₂)₅",
+        "feature": "Mạch vòng; không có liên kết đôi.",
+        "iupacName": "cyclopentane",
+        "connectivitySMILES": "C1CCCC1",
+        "formula": "C5H10",
+        "topology": {
+          "doubleBonds": 0,
+          "tripleBonds": 0,
+          "rings": 1,
+          "maxCarbonDegree": 2
+        },
+        "structure": {
+          "url": "/shared/structures/isomers/9253.sdf",
+          "dimension": "3d",
+          "format": "sdf",
+          "coordinateType": "computed",
+          "provenance": "Cấu dạng 3D tính toán từ PubChem",
+          "source": "https://pubchem.ncbi.nlm.nih.gov/compound/9253",
+          "downloadSource": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/9253/record/SDF?record_type=3d",
+          "retrievedAt": "2026-11-12",
+          "sha256": "6e6e07dac7deab3abf8e06163e516e4a38fd83a38514930461964e0ee3eb055e"
+        }
+      }
+    ]
+  },
+  "C5H12": {
+    "formula": "C5H12",
+    "exhaustive": false,
+    "examples": [
+      {
+        "id": "pubchem-8003",
+        "cid": 8003,
+        "name": "Pentane",
+        "condensed": "CH₃–CH₂–CH₂–CH₂–CH₃",
+        "feature": "Mạch cacbon không phân nhánh.",
+        "iupacName": "pentane",
+        "connectivitySMILES": "CCCCC",
+        "formula": "C5H12",
+        "topology": {
+          "doubleBonds": 0,
+          "tripleBonds": 0,
+          "rings": 0,
+          "maxCarbonDegree": 2
+        },
+        "structure": {
+          "url": "/shared/structures/isomers/8003.sdf",
+          "dimension": "3d",
+          "format": "sdf",
+          "coordinateType": "computed",
+          "provenance": "Cấu dạng 3D tính toán từ PubChem",
+          "source": "https://pubchem.ncbi.nlm.nih.gov/compound/8003",
+          "downloadSource": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/8003/record/SDF?record_type=3d",
+          "retrievedAt": "2026-11-12",
+          "sha256": "79fce5d59b49f2338435bbb55cc82431205a6fcdefcbdc9e509dac318860ee51"
+        }
+      },
+      {
+        "id": "pubchem-6556",
+        "cid": 6556,
+        "name": "2-Methylbutane",
+        "condensed": "CH₃–CH(CH₃)–CH₂–CH₃",
+        "feature": "Có một nhánh methyl tại C số 2.",
+        "iupacName": "2-methylbutane",
+        "connectivitySMILES": "CCC(C)C",
+        "formula": "C5H12",
+        "topology": {
+          "doubleBonds": 0,
+          "tripleBonds": 0,
+          "rings": 0,
+          "maxCarbonDegree": 3
+        },
+        "structure": {
+          "url": "/shared/structures/isomers/6556.sdf",
+          "dimension": "3d",
+          "format": "sdf",
+          "coordinateType": "computed",
+          "provenance": "Cấu dạng 3D tính toán từ PubChem",
+          "source": "https://pubchem.ncbi.nlm.nih.gov/compound/6556",
+          "downloadSource": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/6556/record/SDF?record_type=3d",
+          "retrievedAt": "2026-11-12",
+          "sha256": "ae4e82da5348ef1dcd7828b19fba764603c313dda103a1e0b0eabd910b7f55d6"
+        }
+      },
+      {
+        "id": "pubchem-10041",
+        "cid": 10041,
+        "name": "2,2-Dimethylpropane",
+        "condensed": "C(CH₃)₄",
+        "feature": "Cacbon ở giữa nối với bốn nhóm CH₃.",
+        "iupacName": "2,2-dimethylpropane",
+        "connectivitySMILES": "CC(C)(C)C",
+        "formula": "C5H12",
+        "topology": {
+          "doubleBonds": 0,
+          "tripleBonds": 0,
+          "rings": 0,
+          "maxCarbonDegree": 4
+        },
+        "structure": {
+          "url": "/shared/structures/isomers/10041.sdf",
+          "dimension": "3d",
+          "format": "sdf",
+          "coordinateType": "computed",
+          "provenance": "Cấu dạng 3D tính toán từ PubChem",
+          "source": "https://pubchem.ncbi.nlm.nih.gov/compound/10041",
+          "downloadSource": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/10041/record/SDF?record_type=3d",
+          "retrievedAt": "2026-11-12",
+          "sha256": "14c9459540c4fb1dd86b1c003dff875aefd12142bc1dcc6873a90a592db0ca69"
+        }
+      }
+    ]
+  },
+  "C6H14": {
+    "formula": "C6H14",
+    "exhaustive": false,
+    "examples": [
+      {
+        "id": "pubchem-8058",
+        "cid": 8058,
+        "name": "Hexane",
+        "condensed": "CH₃–(CH₂)₄–CH₃",
+        "feature": "Mạch cacbon không phân nhánh.",
+        "iupacName": "hexane",
+        "connectivitySMILES": "CCCCCC",
+        "formula": "C6H14",
+        "topology": {
+          "doubleBonds": 0,
+          "tripleBonds": 0,
+          "rings": 0,
+          "maxCarbonDegree": 2
+        },
+        "structure": {
+          "url": "/shared/structures/isomers/8058.sdf",
+          "dimension": "3d",
+          "format": "sdf",
+          "coordinateType": "computed",
+          "provenance": "Cấu dạng 3D tính toán từ PubChem",
+          "source": "https://pubchem.ncbi.nlm.nih.gov/compound/8058",
+          "downloadSource": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/8058/record/SDF?record_type=3d",
+          "retrievedAt": "2026-11-12",
+          "sha256": "8db1300c434fa4636ac1ffae5f3c349f6cfd912a2b58174bf948eddaded90808"
+        }
+      },
+      {
+        "id": "pubchem-7892",
+        "cid": 7892,
+        "name": "2-Methylpentane",
+        "condensed": "CH₃–CH(CH₃)–CH₂–CH₂–CH₃",
+        "feature": "Mạch cacbon có một nhánh methyl.",
+        "iupacName": "2-methylpentane",
+        "connectivitySMILES": "CCCC(C)C",
+        "formula": "C6H14",
+        "topology": {
+          "doubleBonds": 0,
+          "tripleBonds": 0,
+          "rings": 0,
+          "maxCarbonDegree": 3
+        },
+        "structure": {
+          "url": "/shared/structures/isomers/7892.sdf",
+          "dimension": "3d",
+          "format": "sdf",
+          "coordinateType": "computed",
+          "provenance": "Cấu dạng 3D tính toán từ PubChem",
+          "source": "https://pubchem.ncbi.nlm.nih.gov/compound/7892",
+          "downloadSource": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/7892/record/SDF?record_type=3d",
+          "retrievedAt": "2026-11-12",
+          "sha256": "becdbfa645b97248e0b8f7ef14aa727337e1743a22c5bc55821a8aaabb0bc173"
+        }
+      }
+    ]
+  },
+  "C7H14": {
+    "formula": "C7H14",
+    "exhaustive": false,
+    "examples": [
+      {
+        "id": "pubchem-11610",
+        "cid": 11610,
+        "name": "Hept-1-ene",
+        "condensed": "CH₂=CH–(CH₂)₄–CH₃",
+        "feature": "Mạch hở, có một liên kết đôi.",
+        "iupacName": "hept-1-ene",
+        "connectivitySMILES": "CCCCCC=C",
+        "formula": "C7H14",
+        "topology": {
+          "doubleBonds": 1,
+          "tripleBonds": 0,
+          "rings": 0,
+          "maxCarbonDegree": 2
+        },
+        "structure": {
+          "url": "/shared/structures/isomers/11610.sdf",
+          "dimension": "3d",
+          "format": "sdf",
+          "coordinateType": "computed",
+          "provenance": "Cấu dạng 3D tính toán từ PubChem",
+          "source": "https://pubchem.ncbi.nlm.nih.gov/compound/11610",
+          "downloadSource": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/11610/record/SDF?record_type=3d",
+          "retrievedAt": "2026-11-12",
+          "sha256": "d5a9d525f1ef74ffa49acf94438c03324495af2bea3441a8b1489ba5ef6ef58f"
+        }
+      },
+      {
+        "id": "pubchem-9265",
+        "cid": 9265,
+        "name": "Cycloheptane",
+        "condensed": "Vòng (CH₂)₇",
+        "feature": "Mạch vòng; không có liên kết đôi.",
+        "iupacName": "cycloheptane",
+        "connectivitySMILES": "C1CCCCCC1",
+        "formula": "C7H14",
+        "topology": {
+          "doubleBonds": 0,
+          "tripleBonds": 0,
+          "rings": 1,
+          "maxCarbonDegree": 2
+        },
+        "structure": {
+          "url": "/shared/structures/isomers/9265.sdf",
+          "dimension": "3d",
+          "format": "sdf",
+          "coordinateType": "computed",
+          "provenance": "Cấu dạng 3D tính toán từ PubChem",
+          "source": "https://pubchem.ncbi.nlm.nih.gov/compound/9265",
+          "downloadSource": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/9265/record/SDF?record_type=3d",
+          "retrievedAt": "2026-11-12",
+          "sha256": "d716d64a1f9f1e3909baa0d1833893b94b6d6b28fdd2dab4f018f49ccf6c8d5d"
+        }
+      }
+    ]
+  },
+  "C7H16": {
+    "formula": "C7H16",
+    "exhaustive": false,
+    "examples": [
+      {
+        "id": "pubchem-8900",
+        "cid": 8900,
+        "name": "Heptane",
+        "condensed": "CH₃–(CH₂)₅–CH₃",
+        "feature": "Mạch cacbon không phân nhánh.",
+        "iupacName": "heptane",
+        "connectivitySMILES": "CCCCCCC",
+        "formula": "C7H16",
+        "topology": {
+          "doubleBonds": 0,
+          "tripleBonds": 0,
+          "rings": 0,
+          "maxCarbonDegree": 2
+        },
+        "structure": {
+          "url": "/shared/structures/isomers/8900.sdf",
+          "dimension": "3d",
+          "format": "sdf",
+          "coordinateType": "computed",
+          "provenance": "Cấu dạng 3D tính toán từ PubChem",
+          "source": "https://pubchem.ncbi.nlm.nih.gov/compound/8900",
+          "downloadSource": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/8900/record/SDF?record_type=3d",
+          "retrievedAt": "2026-11-12",
+          "sha256": "b211444a29d7936bbf66c69eb2511bfb2be0ad48c2677b3a0c6c2530cea24b3d"
+        }
+      },
+      {
+        "id": "pubchem-11582",
+        "cid": 11582,
+        "name": "2-Methylhexane",
+        "condensed": "CH₃–CH(CH₃)–(CH₂)₃–CH₃",
+        "feature": "Mạch cacbon có một nhánh methyl.",
+        "iupacName": "2-methylhexane",
+        "connectivitySMILES": "CCCCC(C)C",
+        "formula": "C7H16",
+        "topology": {
+          "doubleBonds": 0,
+          "tripleBonds": 0,
+          "rings": 0,
+          "maxCarbonDegree": 3
+        },
+        "structure": {
+          "url": "/shared/structures/isomers/11582.sdf",
+          "dimension": "3d",
+          "format": "sdf",
+          "coordinateType": "computed",
+          "provenance": "Cấu dạng 3D tính toán từ PubChem",
+          "source": "https://pubchem.ncbi.nlm.nih.gov/compound/11582",
+          "downloadSource": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/11582/record/SDF?record_type=3d",
+          "retrievedAt": "2026-11-12",
+          "sha256": "48eba65d56e8e232c78f951f4b313597f03cd30eec7826a83054ba40ebbda32a"
+        }
+      }
+    ]
+  },
+  "C8H16": {
+    "formula": "C8H16",
+    "exhaustive": false,
+    "examples": [
+      {
+        "id": "pubchem-8125",
+        "cid": 8125,
+        "name": "Oct-1-ene",
+        "condensed": "CH₂=CH–(CH₂)₅–CH₃",
+        "feature": "Mạch hở, có một liên kết đôi.",
+        "iupacName": "oct-1-ene",
+        "connectivitySMILES": "CCCCCCC=C",
+        "formula": "C8H16",
+        "topology": {
+          "doubleBonds": 1,
+          "tripleBonds": 0,
+          "rings": 0,
+          "maxCarbonDegree": 2
+        },
+        "structure": {
+          "url": "/shared/structures/isomers/8125.sdf",
+          "dimension": "3d",
+          "format": "sdf",
+          "coordinateType": "computed",
+          "provenance": "Cấu dạng 3D tính toán từ PubChem",
+          "source": "https://pubchem.ncbi.nlm.nih.gov/compound/8125",
+          "downloadSource": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/8125/record/SDF?record_type=3d",
+          "retrievedAt": "2026-11-12",
+          "sha256": "bdfe5a7bc76e274f0243a75b2bcdddb51931e8518070f444bb26dea54db03c26"
+        }
+      },
+      {
+        "id": "pubchem-9266",
+        "cid": 9266,
+        "name": "Cyclooctane",
+        "condensed": "Vòng (CH₂)₈",
+        "feature": "Mạch vòng; không có liên kết đôi.",
+        "iupacName": "cyclooctane",
+        "connectivitySMILES": "C1CCCCCCC1",
+        "formula": "C8H16",
+        "topology": {
+          "doubleBonds": 0,
+          "tripleBonds": 0,
+          "rings": 1,
+          "maxCarbonDegree": 2
+        },
+        "structure": {
+          "url": "/shared/structures/isomers/9266.sdf",
+          "dimension": "3d",
+          "format": "sdf",
+          "coordinateType": "computed",
+          "provenance": "Cấu dạng 3D tính toán từ PubChem",
+          "source": "https://pubchem.ncbi.nlm.nih.gov/compound/9266",
+          "downloadSource": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/9266/record/SDF?record_type=3d",
+          "retrievedAt": "2026-11-12",
+          "sha256": "2c7c8dbb284201164fb28518ed1226f053abe0f49d7f4fe04710b2cebd0c0c6f"
+        }
+      }
+    ]
+  },
+  "C8H18": {
+    "formula": "C8H18",
+    "exhaustive": false,
+    "examples": [
+      {
+        "id": "pubchem-356",
+        "cid": 356,
+        "name": "Octane",
+        "condensed": "CH₃–(CH₂)₆–CH₃",
+        "feature": "Mạch cacbon không phân nhánh.",
+        "iupacName": "octane",
+        "connectivitySMILES": "CCCCCCCC",
+        "formula": "C8H18",
+        "topology": {
+          "doubleBonds": 0,
+          "tripleBonds": 0,
+          "rings": 0,
+          "maxCarbonDegree": 2
+        },
+        "structure": {
+          "url": "/shared/structures/isomers/356.sdf",
+          "dimension": "3d",
+          "format": "sdf",
+          "coordinateType": "computed",
+          "provenance": "Cấu dạng 3D tính toán từ PubChem",
+          "source": "https://pubchem.ncbi.nlm.nih.gov/compound/356",
+          "downloadSource": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/356/record/SDF?record_type=3d",
+          "retrievedAt": "2026-11-12",
+          "sha256": "ab0a4de62d361f4baed1134490f7f009de13c05bb52e1d2ed1fbd9cf7b35a9b5"
+        }
+      },
+      {
+        "id": "pubchem-10907",
+        "cid": 10907,
+        "name": "2,2,4-Trimethylpentane",
+        "condensed": "CH₃–C(CH₃)₂–CH₂–CH(CH₃)–CH₃",
+        "feature": "Mạch có ba nhánh methyl; còn gọi là isooctane.",
+        "iupacName": "2,2,4-trimethylpentane",
+        "connectivitySMILES": "CC(C)CC(C)(C)C",
+        "formula": "C8H18",
+        "topology": {
+          "doubleBonds": 0,
+          "tripleBonds": 0,
+          "rings": 0,
+          "maxCarbonDegree": 4
+        },
+        "structure": {
+          "url": "/shared/structures/isomers/10907.sdf",
+          "dimension": "3d",
+          "format": "sdf",
+          "coordinateType": "computed",
+          "provenance": "Cấu dạng 3D tính toán từ PubChem",
+          "source": "https://pubchem.ncbi.nlm.nih.gov/compound/10907",
+          "downloadSource": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/10907/record/SDF?record_type=3d",
+          "retrievedAt": "2026-11-12",
+          "sha256": "89a248e21fee4455aec23c1fd77c401db42bf21ce5cbe2eee35d1b1e81107fac"
+        }
+      }
+    ]
+  }
+}

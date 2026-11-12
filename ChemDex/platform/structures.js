@@ -214,6 +214,8 @@ async function open(record) {
     card.classList.toggle("active", card.dataset.id === record.id);
   });
   const url = new URL(location.href);
+  const isomerId=url.searchParams.get('compound')===record.id?url.searchParams.get('isomer'):null;
+  url.searchParams.delete('isomer');
   url.searchParams.delete("cid");
   url.searchParams.set("compound", record.id);
   if (record.id.startsWith("remote-") && record.cid) {
@@ -317,7 +319,13 @@ async function open(record) {
       );
   }
   const viewer = $("selected").querySelector("chem-structure-viewer");
-  if (viewer) await viewer.open(record);
+  if (viewer) {
+    viewer.addEventListener('isomerchange',event=>{
+      const link=new URL(location.href);link.searchParams.set('isomer',event.detail.id);history.replaceState(null,'',link);
+    });
+    await viewer.open(record,{isomerId});
+    if(selected?.id===record.id && viewer.isConnected && viewer.record?.isomerExampleId){const link=new URL(location.href);link.searchParams.set('isomer',viewer.record.isomerExampleId);history.replaceState(null,'',link);}
+  }
   if (innerWidth < 800 && !embedded)
     $("selected").scrollIntoView({
       behavior: matchMedia("(prefers-reduced-motion: reduce)").matches

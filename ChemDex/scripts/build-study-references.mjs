@@ -44,7 +44,7 @@ export function buildStudyReferences() {
       // matching would attach a glucose crystal to fructose or inositol.
       ...codCrystals.filter(c => c.subjectIds?.includes(model?.id)),
     ];
-    visualIndex[doc.slug ?? doc.id] = { formula, modelId: model?.id ?? null, kind: model?.kind ?? null, source: model?.structure?.source ?? null, provenance: model?.structure?.provenance ?? null, crystals };
+    visualIndex[doc.slug ?? doc.id] = { formula, modelId: model?.id ?? null, kind: model?.kind ?? null, source: model?.structure?.source ?? null, provenance: model?.structure?.provenance ?? null, ...(model?.isomerGroup?{isomerGroup:model.isomerGroup}:{}), crystals };
   }
   fs.writeFileSync('shared/substance-visuals.generated.json', JSON.stringify(visualIndex, null, 2) + '\n');
   const crystalLinks = {};

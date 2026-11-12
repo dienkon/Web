@@ -6093,9 +6093,10 @@
   "c3h4-c3h4": {
     "formula": "C3H4",
     "modelId": "formula-C3H4",
-    "kind": "composition",
+    "kind": "molecule",
     "source": null,
     "provenance": null,
+    "isomerGroup": "C3H4",
     "crystals": []
   },
   "c3h7cooc2h5-c3h7cooc2h5": {
@@ -6165,81 +6166,91 @@
   "c4h6-c4h6": {
     "formula": "C4H6",
     "modelId": "formula-C4H6",
-    "kind": "composition",
+    "kind": "molecule",
     "source": null,
     "provenance": null,
+    "isomerGroup": "C4H6",
     "crystals": []
   },
   "c4h8-c4h8": {
     "formula": "C4H8",
     "modelId": "formula-C4H8",
-    "kind": "composition",
+    "kind": "molecule",
     "source": null,
     "provenance": null,
+    "isomerGroup": "C4H8",
     "crystals": []
   },
   "c5h10-c5h10": {
     "formula": "C5H10",
     "modelId": "formula-C5H10",
-    "kind": "composition",
+    "kind": "molecule",
     "source": null,
     "provenance": null,
+    "isomerGroup": "C5H10",
     "crystals": []
   },
   "c5h12-c5h12": {
     "formula": "C5H12",
     "modelId": "formula-C5H12",
-    "kind": "composition",
+    "kind": "molecule",
     "source": null,
     "provenance": null,
+    "isomerGroup": "C5H12",
     "crystals": []
   },
   "c5h8-c5h8": {
     "formula": "C5H8",
     "modelId": "formula-C5H8",
-    "kind": "composition",
+    "kind": "molecule",
     "source": null,
     "provenance": null,
+    "isomerGroup": "C5H8",
     "crystals": []
   },
   "c6h14-c6h14": {
     "formula": "C6H14",
     "modelId": "formula-C6H14",
-    "kind": "composition",
+    "kind": "molecule",
     "source": null,
     "provenance": null,
+    "isomerGroup": "C6H14",
     "crystals": []
   },
   "c7h14-c7h14": {
     "formula": "C7H14",
     "modelId": "formula-C7H14",
-    "kind": "composition",
+    "kind": "molecule",
     "source": null,
     "provenance": null,
+    "isomerGroup": "C7H14",
     "crystals": []
   },
   "c7h16-c7h16": {
     "formula": "C7H16",
     "modelId": "formula-C7H16",
-    "kind": "composition",
+    "kind": "molecule",
     "source": null,
     "provenance": null,
+    "isomerGroup": "C7H16",
     "crystals": []
   },
   "c8h16-c8h16": {
     "formula": "C8H16",
     "modelId": "formula-C8H16",
-    "kind": "composition",
+    "kind": "molecule",
     "source": null,
     "provenance": null,
+    "isomerGroup": "C8H16",
     "crystals": []
   },
   "c8h18-c8h18": {
     "formula": "C8H18",
     "modelId": "formula-C8H18",
-    "kind": "composition",
+    "kind": "molecule",
     "source": null,
     "provenance": null,
+    "isomerGroup": "C8H18",
     "crystals": []
   },
   "canxi-ca": {

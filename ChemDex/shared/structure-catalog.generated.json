@@ -3785,11 +3785,12 @@
     "defaultPhase": "g",
     "id": "formula-C3H4",
     "name_vi": "C3H4",
-    "kind": "composition",
+    "kind": "molecule",
     "family": "organic",
     "aliases": [
       "C3H4"
     ],
+    "isomerGroup": "C3H4",
     "atomCount": 7
   },
   {
@@ -3929,11 +3930,12 @@
     "defaultPhase": "g",
     "id": "formula-C4H6",
     "name_vi": "C4H6",
-    "kind": "composition",
+    "kind": "molecule",
     "family": "organic",
     "aliases": [
       "C4H6"
     ],
+    "isomerGroup": "C4H6",
     "atomCount": 10
   },
   {
@@ -3941,11 +3943,12 @@
     "defaultPhase": "g",
     "id": "formula-C4H8",
     "name_vi": "C4H8",
-    "kind": "composition",
+    "kind": "molecule",
     "family": "organic",
     "aliases": [
       "C4H8"
     ],
+    "isomerGroup": "C4H8",
     "atomCount": 12
   },
   {
@@ -3953,11 +3956,12 @@
     "defaultPhase": "l",
     "id": "formula-C5H10",
     "name_vi": "C5H10",
-    "kind": "composition",
+    "kind": "molecule",
     "family": "organic",
     "aliases": [
       "C5H10"
     ],
+    "isomerGroup": "C5H10",
     "atomCount": 15
   },
   {
@@ -3965,11 +3969,12 @@
     "defaultPhase": "l",
     "id": "formula-C5H12",
     "name_vi": "C5H12",
-    "kind": "composition",
+    "kind": "molecule",
     "family": "organic",
     "aliases": [
       "C5H12"
     ],
+    "isomerGroup": "C5H12",
     "atomCount": 17
   },
   {
@@ -3977,11 +3982,12 @@
     "defaultPhase": "l",
     "id": "formula-C5H8",
     "name_vi": "C5H8",
-    "kind": "composition",
+    "kind": "molecule",
     "family": "organic",
     "aliases": [
       "C5H8"
     ],
+    "isomerGroup": "C5H8",
     "atomCount": 13
   },
   {
@@ -3989,11 +3995,12 @@
     "defaultPhase": "l",
     "id": "formula-C6H14",
     "name_vi": "C6H14",
-    "kind": "composition",
+    "kind": "molecule",
     "family": "organic",
     "aliases": [
       "C6H14"
     ],
+    "isomerGroup": "C6H14",
     "atomCount": 20
   },
   {
@@ -4001,11 +4008,12 @@
     "defaultPhase": "l",
     "id": "formula-C7H14",
     "name_vi": "C7H14",
-    "kind": "composition",
+    "kind": "molecule",
     "family": "organic",
     "aliases": [
       "C7H14"
     ],
+    "isomerGroup": "C7H14",
     "atomCount": 21
   },
   {
@@ -4013,11 +4021,12 @@
     "defaultPhase": "l",
     "id": "formula-C7H16",
     "name_vi": "C7H16",
-    "kind": "composition",
+    "kind": "molecule",
     "family": "organic",
     "aliases": [
       "C7H16"
     ],
+    "isomerGroup": "C7H16",
     "atomCount": 23
   },
   {
@@ -4025,11 +4034,12 @@
     "defaultPhase": "l",
     "id": "formula-C8H16",
     "name_vi": "C8H16",
-    "kind": "composition",
+    "kind": "molecule",
     "family": "organic",
     "aliases": [
       "C8H16"
     ],
+    "isomerGroup": "C8H16",
     "atomCount": 24
   },
   {
@@ -4037,11 +4047,12 @@
     "defaultPhase": "l",
     "id": "formula-C8H18",
     "name_vi": "C8H18",
-    "kind": "composition",
+    "kind": "molecule",
     "family": "organic",
     "aliases": [
       "C8H18"
     ],
+    "isomerGroup": "C8H18",
     "atomCount": 26
   },
   {

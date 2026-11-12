@@ -1,3 +1,5 @@
 # Vite bundles retain Markdown hard breaks inside JavaScript template literals.
 # Keep those intentional spaces; other whitespace checks still apply.
 trung-tam/assets/**/*.js whitespace=-blank-at-eol
+# Preserve the exact PubChem download bytes used by the source SHA-256 audit.
+shared/structures/isomers/*.sdf -text

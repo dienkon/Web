@@ -2375,15 +2375,15 @@
     },
     {
       "id": "c3h4-c3h4",
-      "title": "C3H4 (C₃H₄) — Di sản thực nghiệm: Lịch sử ra đời, hình học liên kết và biến đổi hóa học",
+      "title": "C₃H₄: các đồng phân và cách đọc mô hình 3D",
       "subjectIds": [
         "formula-C3H4"
       ],
-      "sections": 7,
-      "characters": 20251,
+      "sections": 5,
+      "characters": 3137,
       "externalSources": [
-        "https://vi.wikipedia.org/wiki/C3H4",
-        "https://en.wikipedia.org/wiki/C3H4"
+        "https://pubchem.ncbi.nlm.nih.gov/compound/6335",
+        "https://pubchem.ncbi.nlm.nih.gov/compound/123173"
       ]
     },
     {
@@ -2470,123 +2470,138 @@
     },
     {
       "id": "c4h6-c4h6",
-      "title": "C4H6 (C₄H₆) — Ký sự từ vỉa khoáng vật tự nhiên đến kiến trúc phân tử chuẩn xác",
+      "title": "C₄H₆: các đồng phân và cách đọc mô hình 3D",
       "subjectIds": [
         "formula-C4H6"
       ],
-      "sections": 7,
-      "characters": 20866,
+      "sections": 5,
+      "characters": 3431,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/C4H6"
+        "https://pubchem.ncbi.nlm.nih.gov/compound/7846",
+        "https://pubchem.ncbi.nlm.nih.gov/compound/7845",
+        "https://pubchem.ncbi.nlm.nih.gov/compound/69972"
       ]
     },
     {
       "id": "c4h8-c4h8",
-      "title": "C4H8 (C₄H₈) — Từ khám phá học thuật đến quy trình điều chế và cấu trúc 3D thực tế",
+      "title": "C₄H₈: các đồng phân và cách đọc mô hình 3D",
       "subjectIds": [
         "formula-C4H8"
       ],
-      "sections": 7,
-      "characters": 20233,
+      "sections": 5,
+      "characters": 4012,
       "externalSources": [
-        "https://vi.wikipedia.org/wiki/C4H8",
-        "https://en.wikipedia.org/wiki/C4H8"
+        "https://pubchem.ncbi.nlm.nih.gov/compound/7844",
+        "https://pubchem.ncbi.nlm.nih.gov/compound/5287573",
+        "https://pubchem.ncbi.nlm.nih.gov/compound/62695",
+        "https://pubchem.ncbi.nlm.nih.gov/compound/8255",
+        "https://pubchem.ncbi.nlm.nih.gov/compound/9250"
       ]
     },
     {
       "id": "c5h10-c5h10",
-      "title": "C5H10 (C₅H₁₀) — Phóng sự từ chiếc bình chưng cổ điển đến mô hình liên kết không gian 3D",
+      "title": "C₅H₁₀: các đồng phân và cách đọc mô hình 3D",
       "subjectIds": [
         "formula-C5H10"
       ],
-      "sections": 7,
-      "characters": 19960,
+      "sections": 5,
+      "characters": 3146,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/C5H10"
+        "https://pubchem.ncbi.nlm.nih.gov/compound/8004",
+        "https://pubchem.ncbi.nlm.nih.gov/compound/9253"
       ]
     },
     {
       "id": "c5h12-c5h12",
-      "title": "C5H12 (C₅H₁₂) — Ký sự từ vỉa khoáng vật tự nhiên đến kiến trúc phân tử chuẩn xác",
+      "title": "C₅H₁₂: các đồng phân và cách đọc mô hình 3D",
       "subjectIds": [
         "formula-C5H12"
       ],
-      "sections": 7,
-      "characters": 20005,
+      "sections": 5,
+      "characters": 3440,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/C5H12"
+        "https://pubchem.ncbi.nlm.nih.gov/compound/8003",
+        "https://pubchem.ncbi.nlm.nih.gov/compound/6556",
+        "https://pubchem.ncbi.nlm.nih.gov/compound/10041"
       ]
     },
     {
       "id": "c5h8-c5h8",
-      "title": "C5H8 (C₅H₈) — Chân dung một hợp chất: Nguồn gốc lịch sử, mạng liên kết và tính chất",
+      "title": "C₅H₈: các đồng phân và cách đọc mô hình 3D",
       "subjectIds": [
         "formula-C5H8"
       ],
-      "sections": 7,
-      "characters": 20357,
+      "sections": 5,
+      "characters": 3453,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/C5H8"
+        "https://pubchem.ncbi.nlm.nih.gov/compound/12309",
+        "https://pubchem.ncbi.nlm.nih.gov/compound/12310",
+        "https://pubchem.ncbi.nlm.nih.gov/compound/62204"
       ]
     },
     {
       "id": "c6h14-c6h14",
-      "title": "C6H14 (C₆H₁₄) — Từ khám phá học thuật đến quy trình điều chế và cấu trúc 3D thực tế",
+      "title": "C₆H₁₄: các đồng phân và cách đọc mô hình 3D",
       "subjectIds": [
         "formula-C6H14"
       ],
-      "sections": 7,
-      "characters": 19961,
+      "sections": 5,
+      "characters": 3150,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/C6H14"
+        "https://pubchem.ncbi.nlm.nih.gov/compound/8058",
+        "https://pubchem.ncbi.nlm.nih.gov/compound/7892"
       ]
     },
     {
       "id": "c7h14-c7h14",
-      "title": "C7H14 (C₇H₁₄) — Phóng sự từ chiếc bình chưng cổ điển đến mô hình liên kết không gian 3D",
+      "title": "C₇H₁₄: các đồng phân và cách đọc mô hình 3D",
       "subjectIds": [
         "formula-C7H14"
       ],
-      "sections": 7,
-      "characters": 19933,
+      "sections": 5,
+      "characters": 3149,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/C7H14"
+        "https://pubchem.ncbi.nlm.nih.gov/compound/11610",
+        "https://pubchem.ncbi.nlm.nih.gov/compound/9265"
       ]
     },
     {
       "id": "c7h16-c7h16",
-      "title": "C7H16 (C₇H₁₆) — Chân dung một hợp chất: Nguồn gốc lịch sử, mạng liên kết và tính chất",
+      "title": "C₇H₁₆: các đồng phân và cách đọc mô hình 3D",
       "subjectIds": [
         "formula-C7H16"
       ],
-      "sections": 7,
-      "characters": 19998,
+      "sections": 5,
+      "characters": 3154,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/C7H16"
+        "https://pubchem.ncbi.nlm.nih.gov/compound/8900",
+        "https://pubchem.ncbi.nlm.nih.gov/compound/11582"
       ]
     },
     {
       "id": "c8h16-c8h16",
-      "title": "C8H16 (C₈H₁₆) — Biên niên sử khám phá, cội nguồn lịch sử và giải mã liên kết 3D",
+      "title": "C₈H₁₆: các đồng phân và cách đọc mô hình 3D",
       "subjectIds": [
         "formula-C8H16"
       ],
-      "sections": 7,
-      "characters": 20024,
+      "sections": 5,
+      "characters": 3140,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/C8H16"
+        "https://pubchem.ncbi.nlm.nih.gov/compound/8125",
+        "https://pubchem.ncbi.nlm.nih.gov/compound/9266"
       ]
     },
     {
       "id": "c8h18-c8h18",
-      "title": "C8H18 (C₈H₁₈) — Từ khám phá học thuật đến quy trình điều chế và cấu trúc 3D thực tế",
+      "title": "C₈H₁₈: các đồng phân và cách đọc mô hình 3D",
       "subjectIds": [
         "formula-C8H18"
       ],
-      "sections": 7,
-      "characters": 20226,
+      "sections": 5,
+      "characters": 3190,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/C8H18"
+        "https://pubchem.ncbi.nlm.nih.gov/compound/356",
+        "https://pubchem.ncbi.nlm.nih.gov/compound/10907"
       ]
     },
     {

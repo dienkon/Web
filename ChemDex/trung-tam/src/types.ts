@@ -24,6 +24,7 @@ export interface DocMeta {
   aliases?: string[];
   substanceIds?: string[];
   documentKind?: string;
+  lessonKind?: string;
   readingMinutes?: number;
 }
 
