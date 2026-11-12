@@ -2,7 +2,7 @@
   "amcsdId": "0009441",
   "mineralName": "Nitratine · NaNO₃",
   "formula": "Na N O3",
-  "spaceGroup": "R -3 c",
+  "spaceGroup": "R -3 c:H",
   "cell": {
     "a": 5.07,
     "b": 5.07,
@@ -581,6 +581,8 @@
     "maxSiteOccupancy": 1,
     "cellVolumeRelativeError": 9.575119105852821e-07
   },
+  "spaceGroupOriginal": "R -3 c",
+  "spaceGroupNumber": 167,
   "id": "chat-nitratine",
   "note": "Nhiễu xạ neutron, mẫu 20 °C."
 }

@@ -1,0 +1,229 @@
+{
+  "amcsdId": "0017436",
+  "mineralName": "NaNO₂",
+  "formula": "Na N O2",
+  "spaceGroup": "I m 2 m",
+  "cell": {
+    "a": 3.55,
+    "b": 5.56,
+    "c": 5.37,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 105.99305999999999,
+  "declaredVolume": 105.993,
+  "basis": [
+    [
+      3.55,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      5.56,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      5.37
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+x,1/2+y,1/2+z",
+    "-x,y,z",
+    "1/2-x,1/2+y,1/2+z",
+    "x,y,-z",
+    "1/2+x,1/2+y,1/2-z",
+    "-x,y,-z",
+    "1/2-x,1/2+y,1/2-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Na1",
+      "element": "Na",
+      "fractional": [
+        0.0,
+        0.583,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "N1",
+      "element": "N",
+      "fractional": [
+        0.0,
+        0.083,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.0,
+        0.0,
+        0.194
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Na",
+      "label": "Na1",
+      "fractional": [
+        0.0,
+        0.583,
+        0.0
+      ],
+      "position": [
+        0.0,
+        3.24148,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na1",
+      "fractional": [
+        0.5,
+        0.083,
+        0.5
+      ],
+      "position": [
+        1.775,
+        0.46148,
+        2.685
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N1",
+      "fractional": [
+        0.0,
+        0.083,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.46148,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N1",
+      "fractional": [
+        0.5,
+        0.583,
+        0.5
+      ],
+      "position": [
+        1.775,
+        3.24148,
+        2.685
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.0,
+        0.0,
+        0.194
+      ],
+      "position": [
+        0.0,
+        0.0,
+        1.04178
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.5,
+        0.5,
+        0.694
+      ],
+      "position": [
+        1.775,
+        2.78,
+        3.72678
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.0,
+        0.0,
+        0.806
+      ],
+      "position": [
+        0.0,
+        0.0,
+        4.32822
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.5,
+        0.5,
+        0.306
+      ],
+      "position": [
+        1.775,
+        2.78,
+        1.64322
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 8,
+  "speciesPositionCount": 8,
+  "cellComposition": {
+    "Na": 2,
+    "N": 2,
+    "O": 4
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Ziegler G"
+    ],
+    "title": "The Crystal Structure of Sodium Nitrite, Na N O2\n _cod_database_code 1010525",
+    "journal": "Physical Review",
+    "year": 1931,
+    "volume": "38",
+    "pages": "1040–1047"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 8,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 5.66074797638856e-07
+  },
+  "spaceGroupOriginal": "I m 2 m",
+  "spaceGroupNumber": 44,
+  "id": "chat-sodium-nitrite",
+  "note": "Bản cấu trúc sodium nitrite; không dùng nitrate NaNO3."
+}

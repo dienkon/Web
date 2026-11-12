@@ -2,7 +2,7 @@
   "amcsdId": "0012857",
   "mineralName": "Molysite · FeCl₃",
   "formula": "Fe Cl3",
-  "spaceGroup": "R -3",
+  "spaceGroup": "R -3:H",
   "cell": {
     "a": 6.065,
     "b": 6.065,
@@ -463,6 +463,8 @@
     "maxSiteOccupancy": 1,
     "cellVolumeRelativeError": 3.6574795435998275e-07
   },
+  "spaceGroupOriginal": "R -3",
+  "spaceGroupNumber": 148,
   "id": "chat-molysite",
   "note": "Tinh chỉnh mẫu bản mỏng FeCl3 khan."
 }

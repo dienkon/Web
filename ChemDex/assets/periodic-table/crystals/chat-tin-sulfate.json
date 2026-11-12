@@ -1,0 +1,489 @@
+{
+  "amcsdId": "0010603",
+  "mineralName": "SnSO₄ khan",
+  "formula": "Sn S O4",
+  "spaceGroup": "P n m a",
+  "cell": {
+    "a": 8.799,
+    "b": 5.319,
+    "c": 7.115,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 332.99538331499997,
+  "declaredVolume": 332.995,
+  "basis": [
+    [
+      8.799,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      5.319,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      7.115
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "x,1/2-y,z",
+    "-x,1/2+y,-z",
+    "1/2-x,1/2+y,1/2+z",
+    "1/2+x,1/2-y,1/2-z",
+    "1/2+x,y,1/2-z",
+    "1/2-x,-y,1/2+z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Sn",
+      "element": "Sn",
+      "fractional": [
+        0.208,
+        0.25,
+        0.222
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "S",
+      "element": "S",
+      "fractional": [
+        0.069,
+        0.25,
+        0.694
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        -0.083,
+        0.25,
+        0.597
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.194,
+        0.25,
+        0.55
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O3",
+      "element": "O",
+      "fractional": [
+        0.088,
+        0.02,
+        0.819
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Sn",
+      "label": "Sn",
+      "fractional": [
+        0.208,
+        0.25,
+        0.222
+      ],
+      "position": [
+        1.830192,
+        1.32975,
+        1.57953
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Sn",
+      "label": "Sn",
+      "fractional": [
+        0.792,
+        0.75,
+        0.778
+      ],
+      "position": [
+        6.968808,
+        3.98925,
+        5.53547
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Sn",
+      "label": "Sn",
+      "fractional": [
+        0.292,
+        0.75,
+        0.722
+      ],
+      "position": [
+        2.569308,
+        3.98925,
+        5.13703
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Sn",
+      "label": "Sn",
+      "fractional": [
+        0.708,
+        0.25,
+        0.278
+      ],
+      "position": [
+        6.229692,
+        1.32975,
+        1.97797
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.069,
+        0.25,
+        0.694
+      ],
+      "position": [
+        0.607131,
+        1.32975,
+        4.93781
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.931,
+        0.75,
+        0.306
+      ],
+      "position": [
+        8.191869,
+        3.98925,
+        2.17719
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.431,
+        0.75,
+        0.194
+      ],
+      "position": [
+        3.792369,
+        3.98925,
+        1.38031
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.569,
+        0.25,
+        0.806
+      ],
+      "position": [
+        5.006631,
+        1.32975,
+        5.73469
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.917,
+        0.25,
+        0.597
+      ],
+      "position": [
+        8.068683,
+        1.32975,
+        4.247655
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.083,
+        0.75,
+        0.403
+      ],
+      "position": [
+        0.730317,
+        3.98925,
+        2.867345
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.583,
+        0.75,
+        0.097
+      ],
+      "position": [
+        5.129817,
+        3.98925,
+        0.690155
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.417,
+        0.25,
+        0.903
+      ],
+      "position": [
+        3.669183,
+        1.32975,
+        6.424845
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.194,
+        0.25,
+        0.55
+      ],
+      "position": [
+        1.707006,
+        1.32975,
+        3.91325
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.806,
+        0.75,
+        0.45
+      ],
+      "position": [
+        7.091994,
+        3.98925,
+        3.20175
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.306,
+        0.75,
+        0.05
+      ],
+      "position": [
+        2.692494,
+        3.98925,
+        0.35575
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.694,
+        0.25,
+        0.95
+      ],
+      "position": [
+        6.106506,
+        1.32975,
+        6.75925
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.088,
+        0.02,
+        0.819
+      ],
+      "position": [
+        0.774312,
+        0.10638,
+        5.827185
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.088,
+        0.48,
+        0.819
+      ],
+      "position": [
+        0.774312,
+        2.55312,
+        5.827185
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.912,
+        0.52,
+        0.181
+      ],
+      "position": [
+        8.024688,
+        2.76588,
+        1.287815
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.412,
+        0.52,
+        0.319
+      ],
+      "position": [
+        3.625188,
+        2.76588,
+        2.269685
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.588,
+        0.48,
+        0.681
+      ],
+      "position": [
+        5.173812,
+        2.55312,
+        4.845315
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.588,
+        0.02,
+        0.681
+      ],
+      "position": [
+        5.173812,
+        0.10638,
+        4.845315
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.412,
+        0.98,
+        0.319
+      ],
+      "position": [
+        3.625188,
+        5.21262,
+        2.269685
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.912,
+        0.98,
+        0.181
+      ],
+      "position": [
+        8.024688,
+        5.21262,
+        1.287815
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 24,
+  "speciesPositionCount": 24,
+  "cellComposition": {
+    "Sn": 4,
+    "S": 4,
+    "O": 16
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Rentzeperis P J"
+    ],
+    "title": "The crystal structure of the anhydrous stannous sulphate",
+    "journal": "Zeitschrift fur Kristallographie",
+    "year": 1962,
+    "volume": "117",
+    "pages": "431–436"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 8,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.1511120549152566e-06
+  },
+  "spaceGroupOriginal": "P n m a",
+  "spaceGroupNumber": 62,
+  "id": "chat-tin-sulfate",
+  "note": "Bản cấu trúc stannous sulfate khan."
+}

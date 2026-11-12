@@ -1,0 +1,44 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0017436
+_database_code_amcsd 0017436
+_chemical_name_mineral 'NaNO₂'
+_chemical_formula_sum 'Na N O2'
+_symmetry_space_group_name_H-M 'I m 2 m'
+_cell_length_a 3.55
+_cell_length_b 5.56
+_cell_length_c 5.37
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 90
+_cell_volume 105.99306
+loop_
+_publ_author_name
+'Ziegler G'
+_journal_name_full 'Physical Review'
+_journal_year 1931
+_journal_volume 38
+_publ_section_title
+;The Crystal Structure of Sodium Nitrite, Na N O2
+ _cod_database_code 1010525
+;
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+1/2+x,1/2+y,1/2+z
+-x,y,z
+1/2-x,1/2+y,1/2+z
+x,y,-z
+1/2+x,1/2+y,1/2-z
+-x,y,-z
+1/2-x,1/2+y,1/2-z
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+Na1 Na 0 0.583 0 1
+N1 N 0 0.083 0 1
+O1 O 0 0 0.194 1

@@ -88,5 +88,31 @@
     "url": "https://www.youtube.com/watch?v=7IT2I3LtlNE",
     "title": "Sodium — Periodic Table of Videos",
     "generatedAt": "2026-11-12T04:26:15.834Z"
+  },
+  "https://www.youtube.com/watch?v=imXT9QwRzks": {
+    "durationSeconds": 24,
+    "cues": [
+      {
+        "id": "ai-0",
+        "seconds": 8,
+        "at": 8,
+        "type": "single",
+        "question": "Lượng Berkelium (Bk) ban đầu được tạo ra là bao nhiêu?",
+        "options": [
+          "Ba phần tỷ gam",
+          "Ba phần triệu gam",
+          "Ba gam",
+          "Ba mươi gam"
+        ],
+        "answer": 0,
+        "explain": "Video cho biết các nhà khoa học đã tạo ra ba phần tỷ gam Berkelium.",
+        "evidence": "Người nói đề cập rằng họ đã tạo ra 'three billionths of a gram' của Berkelium."
+      }
+    ],
+    "generatedBy": "AI",
+    "version": 1,
+    "url": "https://www.youtube.com/watch?v=imXT9QwRzks",
+    "title": "Berkelium (version 1) - Periodic Table of Videos",
+    "generatedAt": "2026-11-12T05:15:50.961Z"
   }
 }

@@ -1,0 +1,261 @@
+{
+  "amcsdId": "0011803",
+  "mineralName": "CdBr₂ khan",
+  "formula": "Cd Br2",
+  "spaceGroup": "R -3 m:H",
+  "cell": {
+    "a": 3.95,
+    "b": 3.95,
+    "c": 18.67,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 120.0
+  },
+  "volume": 252.27205263874706,
+  "declaredVolume": 252.272,
+  "basis": [
+    [
+      3.95,
+      -1.9749999999999992,
+      0.0
+    ],
+    [
+      0.0,
+      3.420800344948533,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      18.67
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "2/3+x,1/3+y,1/3+z",
+    "1/3+x,2/3+y,2/3+z",
+    "x,x-y,z",
+    "2/3+x,1/3+x-y,1/3+z",
+    "1/3+x,2/3+x-y,2/3+z",
+    "y,x,-z",
+    "2/3+y,1/3+x,1/3-z",
+    "1/3+y,2/3+x,2/3-z",
+    "-x+y,y,z",
+    "2/3-x+y,1/3+y,1/3+z",
+    "1/3-x+y,2/3+y,2/3+z",
+    "-x,-x+y,-z",
+    "2/3-x,1/3-x+y,1/3-z",
+    "1/3-x,2/3-x+y,2/3-z",
+    "-y,-x,z",
+    "2/3-y,1/3-x,1/3+z",
+    "1/3-y,2/3-x,2/3+z",
+    "x-y,-y,-z",
+    "2/3+x-y,1/3-y,1/3-z",
+    "1/3+x-y,2/3-y,2/3-z",
+    "y,-x+y,-z",
+    "2/3+y,1/3-x+y,1/3-z",
+    "1/3+y,2/3-x+y,2/3-z",
+    "-x+y,-x,z",
+    "2/3-x+y,1/3-x,1/3+z",
+    "1/3-x+y,2/3-x,2/3+z",
+    "-x,-y,-z",
+    "2/3-x,1/3-y,1/3-z",
+    "1/3-x,2/3-y,2/3-z",
+    "-y,x-y,z",
+    "2/3-y,1/3+x-y,1/3+z",
+    "1/3-y,2/3+x-y,2/3+z",
+    "x-y,x,-z",
+    "2/3+x-y,1/3+x,1/3-z",
+    "1/3+x-y,2/3+x,2/3-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Cd",
+      "element": "Cd",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Br",
+      "element": "Br",
+      "fractional": [
+        0.0,
+        0.0,
+        0.25
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Cd",
+      "label": "Cd",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cd",
+      "label": "Cd",
+      "fractional": [
+        0.66666667,
+        0.33333333,
+        0.33333333
+      ],
+      "position": [
+        1.975,
+        1.1402668,
+        6.2233333
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cd",
+      "label": "Cd",
+      "fractional": [
+        0.33333333,
+        0.66666667,
+        0.66666667
+      ],
+      "position": [
+        -0.0,
+        2.2805336,
+        12.4466667
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br",
+      "fractional": [
+        0.0,
+        0.0,
+        0.25
+      ],
+      "position": [
+        0.0,
+        0.0,
+        4.6675
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br",
+      "fractional": [
+        0.66666667,
+        0.33333333,
+        0.58333333
+      ],
+      "position": [
+        1.975,
+        1.1402668,
+        10.8908333
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br",
+      "fractional": [
+        0.33333333,
+        0.66666667,
+        0.91666667
+      ],
+      "position": [
+        -0.0,
+        2.2805336,
+        17.1141667
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br",
+      "fractional": [
+        0.0,
+        0.0,
+        0.75
+      ],
+      "position": [
+        0.0,
+        0.0,
+        14.0025
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br",
+      "fractional": [
+        0.66666667,
+        0.33333333,
+        0.08333333
+      ],
+      "position": [
+        1.975,
+        1.1402668,
+        1.5558333
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br",
+      "fractional": [
+        0.33333333,
+        0.66666667,
+        0.41666667
+      ],
+      "position": [
+        -0.0,
+        2.2805336,
+        7.7791667
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 9,
+  "speciesPositionCount": 9,
+  "cellComposition": {
+    "Cd": 3,
+    "Br": 6
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Wyckoff R W G"
+    ],
+    "title": "Second edition. Interscience Publishers, New York, New York\n Note: cadmium chloride structure",
+    "journal": "Crystal Structures",
+    "year": 1963,
+    "volume": "1",
+    "pages": "239–444"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "literature-compilation",
+  "validation": {
+    "operatorCount": 36,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 2.0865865447121727e-07
+  },
+  "spaceGroupOriginal": "R -3 m",
+  "spaceGroupNumber": 166,
+  "id": "chat-cadmium-bromide",
+  "note": "Bản tổng hợp kiểu cadmium chloride; không suy cấu trúc từ một muối khác."
+}

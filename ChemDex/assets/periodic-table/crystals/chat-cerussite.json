@@ -417,6 +417,8 @@
     "maxSiteOccupancy": 1,
     "cellVolumeRelativeError": 1.4899645274176945e-06
   },
+  "spaceGroupOriginal": "P m c n",
+  "spaceGroupNumber": 62,
   "id": "chat-cerussite",
   "note": "Tinh chỉnh đơn tinh thể neutron; cấu trúc kiểu aragonite."
 }

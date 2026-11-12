@@ -1,0 +1,1690 @@
+{
+  "amcsdId": "0010786",
+  "mineralName": "Fe₂(SO₄)₃ · rhombohedral",
+  "formula": "Fe2 S3 O12",
+  "spaceGroup": "R -3:H",
+  "cell": {
+    "a": 8.2362,
+    "b": 8.2362,
+    "c": 22.1786,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 120.0
+  },
+  "volume": 1302.9223326459114,
+  "declaredVolume": 1302.922,
+  "basis": [
+    [
+      8.2362,
+      -4.118099999999998,
+      0.0
+    ],
+    [
+      0.0,
+      7.132758430649394,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      22.1786
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "2/3+x,1/3+y,1/3+z",
+    "1/3+x,2/3+y,2/3+z",
+    "y,-x+y,-z",
+    "2/3+y,1/3-x+y,1/3-z",
+    "1/3+y,2/3-x+y,2/3-z",
+    "-x+y,-x,z",
+    "2/3-x+y,1/3-x,1/3+z",
+    "1/3-x+y,2/3-x,2/3+z",
+    "-x,-y,-z",
+    "2/3-x,1/3-y,1/3-z",
+    "1/3-x,2/3-y,2/3-z",
+    "-y,x-y,z",
+    "2/3-y,1/3+x-y,1/3+z",
+    "1/3-y,2/3+x-y,2/3+z",
+    "x-y,x,-z",
+    "2/3+x-y,1/3+x,1/3-z",
+    "1/3+x-y,2/3+x,2/3-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Fe1",
+      "element": "Fe",
+      "fractional": [
+        0.0,
+        0.0,
+        0.14411
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Fe2",
+      "element": "Fe",
+      "fractional": [
+        0.0,
+        0.0,
+        0.3507
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "S",
+      "element": "S",
+      "fractional": [
+        0.29044,
+        0.28818,
+        0.25072
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.1943,
+        0.2048,
+        0.19382
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.224,
+        0.1456,
+        0.29843
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O3",
+      "element": "O",
+      "fractional": [
+        0.4922,
+        0.3634,
+        0.24358
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O4",
+      "element": "O",
+      "fractional": [
+        0.2527,
+        0.4393,
+        0.2659
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Fe",
+      "label": "Fe1",
+      "fractional": [
+        0.0,
+        0.0,
+        0.14411
+      ],
+      "position": [
+        0.0,
+        0.0,
+        3.196158
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe1",
+      "fractional": [
+        0.66666667,
+        0.33333333,
+        0.47744333
+      ],
+      "position": [
+        4.1181,
+        2.3775861,
+        10.5890246
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe1",
+      "fractional": [
+        0.33333333,
+        0.66666667,
+        0.81077667
+      ],
+      "position": [
+        -0.0,
+        4.7551723,
+        17.9818915
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe1",
+      "fractional": [
+        0.0,
+        0.0,
+        0.85589
+      ],
+      "position": [
+        0.0,
+        0.0,
+        18.982442
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe1",
+      "fractional": [
+        0.66666667,
+        0.33333333,
+        0.18922333
+      ],
+      "position": [
+        4.1181,
+        2.3775861,
+        4.1967085
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe1",
+      "fractional": [
+        0.33333333,
+        0.66666667,
+        0.52255667
+      ],
+      "position": [
+        -0.0,
+        4.7551723,
+        11.5895754
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe2",
+      "fractional": [
+        0.0,
+        0.0,
+        0.3507
+      ],
+      "position": [
+        0.0,
+        0.0,
+        7.778035
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe2",
+      "fractional": [
+        0.66666667,
+        0.33333333,
+        0.68403333
+      ],
+      "position": [
+        4.1181,
+        2.3775861,
+        15.1709016
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe2",
+      "fractional": [
+        0.33333333,
+        0.66666667,
+        0.01736667
+      ],
+      "position": [
+        -0.0,
+        4.7551723,
+        0.3851684
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe2",
+      "fractional": [
+        0.0,
+        0.0,
+        0.6493
+      ],
+      "position": [
+        0.0,
+        0.0,
+        14.400565
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe2",
+      "fractional": [
+        0.66666667,
+        0.33333333,
+        0.98263333
+      ],
+      "position": [
+        4.1181,
+        2.3775861,
+        21.7934316
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe2",
+      "fractional": [
+        0.33333333,
+        0.66666667,
+        0.31596667
+      ],
+      "position": [
+        -0.0,
+        4.7551723,
+        7.0076984
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.29044,
+        0.28818,
+        0.25072
+      ],
+      "position": [
+        1.2053679,
+        2.0555183,
+        5.5606186
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.95710667,
+        0.62151333,
+        0.58405333
+      ],
+      "position": [
+        5.3234679,
+        4.4331044,
+        12.9534852
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.62377333,
+        0.95484667,
+        0.91738667
+      ],
+      "position": [
+        1.2053678,
+        6.8106906,
+        20.346352
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.28818,
+        0.99774,
+        0.74928
+      ],
+      "position": [
+        -1.735285,
+        7.1166384,
+        16.6179814
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.95484667,
+        0.33107333,
+        0.08261333
+      ],
+      "position": [
+        6.5009151,
+        2.3614661,
+        1.832248
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.62151333,
+        0.66440667,
+        0.41594667
+      ],
+      "position": [
+        2.382815,
+        4.7390523,
+        9.2251148
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.99774,
+        0.70956,
+        0.25072
+      ],
+      "position": [
+        5.2955472,
+        5.0611201,
+        5.5606186
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.66440667,
+        0.04289333,
+        0.58405333
+      ],
+      "position": [
+        5.2955472,
+        0.3059478,
+        12.9534852
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.33107333,
+        0.37622667,
+        0.91738667
+      ],
+      "position": [
+        1.1774471,
+        2.683534,
+        20.346352
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.70956,
+        0.71182,
+        0.74928
+      ],
+      "position": [
+        2.9127321,
+        5.0772401,
+        16.6179814
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.37622667,
+        0.04515333,
+        0.08261333
+      ],
+      "position": [
+        2.9127322,
+        0.3220678,
+        1.832248
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.04289333,
+        0.37848667,
+        0.41594667
+      ],
+      "position": [
+        -1.2053679,
+        2.699654,
+        9.2251148
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.71182,
+        0.00226,
+        0.25072
+      ],
+      "position": [
+        5.853385,
+        0.01612,
+        5.5606186
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.37848667,
+        0.33559333,
+        0.58405333
+      ],
+      "position": [
+        1.735285,
+        2.3937062,
+        12.9534852
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.04515333,
+        0.66892667,
+        0.91738667
+      ],
+      "position": [
+        -2.3828151,
+        4.7712923,
+        20.346352
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.00226,
+        0.29044,
+        0.74928
+      ],
+      "position": [
+        -1.1774472,
+        2.0716384,
+        16.6179814
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.66892667,
+        0.62377333,
+        0.08261333
+      ],
+      "position": [
+        2.9406529,
+        4.4492245,
+        1.832248
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.33559333,
+        0.95710667,
+        0.41594667
+      ],
+      "position": [
+        -1.1774472,
+        6.8268107,
+        9.2251148
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.1943,
+        0.2048,
+        0.19382
+      ],
+      "position": [
+        0.7569068,
+        1.4607889,
+        4.2986563
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.86096667,
+        0.53813333,
+        0.52715333
+      ],
+      "position": [
+        4.8750068,
+        3.838375,
+        11.6915228
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.52763333,
+        0.87146667,
+        0.86048667
+      ],
+      "position": [
+        0.7569067,
+        6.2159612,
+        19.0843897
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.2048,
+        0.0105,
+        0.80618
+      ],
+      "position": [
+        1.6435337,
+        0.074894,
+        17.8799437
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.87146667,
+        0.34383333,
+        0.13951333
+      ],
+      "position": [
+        5.7616338,
+        2.4524801,
+        3.0942103
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.53813333,
+        0.67716667,
+        0.47284667
+      ],
+      "position": [
+        1.6435337,
+        4.8300663,
+        10.4870772
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.0105,
+        0.8057,
+        0.19382
+      ],
+      "position": [
+        -3.2314731,
+        5.7468635,
+        4.2986563
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.67716667,
+        0.13903333,
+        0.52715333
+      ],
+      "position": [
+        5.004727,
+        0.9916912,
+        11.6915228
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.34383333,
+        0.47236667,
+        0.86048667
+      ],
+      "position": [
+        0.8866269,
+        3.3692773,
+        19.0843897
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.8057,
+        0.7952,
+        0.80618
+      ],
+      "position": [
+        3.3611932,
+        5.6719695,
+        17.8799437
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.47236667,
+        0.12853333,
+        0.13951333
+      ],
+      "position": [
+        3.3611933,
+        0.9167972,
+        3.0942103
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.13903333,
+        0.46186667,
+        0.47284667
+      ],
+      "position": [
+        -0.7569068,
+        3.2943834,
+        10.4870772
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.7952,
+        0.9895,
+        0.19382
+      ],
+      "position": [
+        2.4745663,
+        7.0578645,
+        4.2986563
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.46186667,
+        0.32283333,
+        0.52715333
+      ],
+      "position": [
+        2.4745663,
+        2.3026922,
+        11.6915228
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.12853333,
+        0.65616667,
+        0.86048667
+      ],
+      "position": [
+        -1.6435338,
+        4.6802783,
+        19.0843897
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.9895,
+        0.1943,
+        0.80618
+      ],
+      "position": [
+        7.3495731,
+        1.385895,
+        17.8799437
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.65616667,
+        0.52763333,
+        0.13951333
+      ],
+      "position": [
+        3.2314731,
+        3.7634811,
+        3.0942103
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.32283333,
+        0.86096667,
+        0.47284667
+      ],
+      "position": [
+        -0.886627,
+        6.1410673,
+        10.4870772
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.224,
+        0.1456,
+        0.29843
+      ],
+      "position": [
+        1.2453134,
+        1.0385296,
+        6.6187596
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.89066667,
+        0.47893333,
+        0.63176333
+      ],
+      "position": [
+        5.3634135,
+        3.4161157,
+        14.0116262
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.55733333,
+        0.81226667,
+        0.96509667
+      ],
+      "position": [
+        1.2453134,
+        5.7937019,
+        21.404493
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.1456,
+        0.9216,
+        0.70157
+      ],
+      "position": [
+        -2.5960502,
+        6.5735502,
+        15.5598404
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.81226667,
+        0.25493333,
+        0.03490333
+      ],
+      "position": [
+        5.6401498,
+        1.8183779,
+        0.774107
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.47893333,
+        0.58826667,
+        0.36823667
+      ],
+      "position": [
+        1.5220497,
+        4.195964,
+        8.1669738
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.9216,
+        0.776,
+        0.29843
+      ],
+      "position": [
+        4.3948363,
+        5.5350205,
+        6.6187596
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.58826667,
+        0.10933333,
+        0.63176333
+      ],
+      "position": [
+        4.3948364,
+        0.7798482,
+        14.0116262
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.25493333,
+        0.44266667,
+        0.96509667
+      ],
+      "position": [
+        0.2767363,
+        3.1574344,
+        21.404493
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.776,
+        0.8544,
+        0.70157
+      ],
+      "position": [
+        2.8727866,
+        6.0942288,
+        15.5598404
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.44266667,
+        0.18773333,
+        0.03490333
+      ],
+      "position": [
+        2.8727866,
+        1.3390565,
+        0.774107
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.10933333,
+        0.52106667,
+        0.36823667
+      ],
+      "position": [
+        -1.2453135,
+        3.7166427,
+        8.1669738
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.8544,
+        0.0784,
+        0.29843
+      ],
+      "position": [
+        6.7141502,
+        0.5592083,
+        6.6187596
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.52106667,
+        0.41173333,
+        0.63176333
+      ],
+      "position": [
+        2.5960503,
+        2.9367944,
+        14.0116262
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.18773333,
+        0.74506667,
+        0.96509667
+      ],
+      "position": [
+        -1.5220498,
+        5.3143806,
+        21.404493
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.0784,
+        0.224,
+        0.70157
+      ],
+      "position": [
+        -0.2767363,
+        1.5977379,
+        15.5598404
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.74506667,
+        0.55733333,
+        0.03490333
+      ],
+      "position": [
+        3.8413637,
+        3.975324,
+        0.774107
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.41173333,
+        0.89066667,
+        0.36823667
+      ],
+      "position": [
+        -0.2767364,
+        6.3529102,
+        8.1669738
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.4922,
+        0.3634,
+        0.24358
+      ],
+      "position": [
+        2.5573401,
+        2.5920444,
+        5.4022634
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.15886667,
+        0.69673333,
+        0.57691333
+      ],
+      "position": [
+        -1.5607599,
+        4.9696305,
+        12.79513
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.82553333,
+        0.03006667,
+        0.91024667
+      ],
+      "position": [
+        6.6754401,
+        0.2144583,
+        20.1879968
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.3634,
+        0.8712,
+        0.75642
+      ],
+      "position": [
+        -0.5946536,
+        6.2140591,
+        16.7763366
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.03006667,
+        0.20453333,
+        0.08975333
+      ],
+      "position": [
+        -0.5946536,
+        1.4588868,
+        1.9906032
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.69673333,
+        0.53786667,
+        0.42308667
+      ],
+      "position": [
+        3.5234463,
+        3.836473,
+        9.38347
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.8712,
+        0.5078,
+        0.24358
+      ],
+      "position": [
+        5.0842063,
+        3.6220147,
+        5.4022634
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.53786667,
+        0.84113333,
+        0.57691333
+      ],
+      "position": [
+        0.9661063,
+        5.9996009,
+        12.79513
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.20453333,
+        0.17446667,
+        0.91024667
+      ],
+      "position": [
+        0.9661062,
+        1.2444286,
+        20.1879968
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.5078,
+        0.6366,
+        0.75642
+      ],
+      "position": [
+        1.5607599,
+        4.540714,
+        16.7763366
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.17446667,
+        0.96993333,
+        0.08975333
+      ],
+      "position": [
+        -2.5573401,
+        6.9183001,
+        1.9906032
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.84113333,
+        0.30326667,
+        0.42308667
+      ],
+      "position": [
+        5.6788599,
+        2.1631279,
+        9.38347
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.6366,
+        0.1288,
+        0.24358
+      ],
+      "position": [
+        4.7127536,
+        0.9186993,
+        5.4022634
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.30326667,
+        0.46213333,
+        0.57691333
+      ],
+      "position": [
+        0.5946537,
+        3.2962854,
+        12.79513
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.96993333,
+        0.79546667,
+        0.91024667
+      ],
+      "position": [
+        4.7127536,
+        5.6738716,
+        20.1879968
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.1288,
+        0.4922,
+        0.75642
+      ],
+      "position": [
+        -0.9661063,
+        3.5107437,
+        16.7763366
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.79546667,
+        0.82553333,
+        0.08975333
+      ],
+      "position": [
+        3.1519938,
+        5.8883298,
+        1.9906032
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.46213333,
+        0.15886667,
+        0.42308667
+      ],
+      "position": [
+        3.1519937,
+        1.1331576,
+        9.38347
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O4",
+      "fractional": [
+        0.2527,
+        0.4393,
+        0.2659
+      ],
+      "position": [
+        0.2722064,
+        3.1334208,
+        5.8972897
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O4",
+      "fractional": [
+        0.91936667,
+        0.77263333,
+        0.59923333
+      ],
+      "position": [
+        4.3903065,
+        5.5110069,
+        13.2901563
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O4",
+      "fractional": [
+        0.58603333,
+        0.10596667,
+        0.93256667
+      ],
+      "position": [
+        4.3903064,
+        0.7558347,
+        20.6830231
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O4",
+      "fractional": [
+        0.4393,
+        0.1866,
+        0.7341
+      ],
+      "position": [
+        2.8497252,
+        1.3309727,
+        16.2813103
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O4",
+      "fractional": [
+        0.10596667,
+        0.51993333,
+        0.06743333
+      ],
+      "position": [
+        -1.2683748,
+        3.7085588,
+        1.4955769
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O4",
+      "fractional": [
+        0.77263333,
+        0.85326667,
+        0.40076667
+      ],
+      "position": [
+        2.8497252,
+        6.086145,
+        8.8884437
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O4",
+      "fractional": [
+        0.1866,
+        0.7473,
+        0.2659
+      ],
+      "position": [
+        -1.5405812,
+        5.3303104,
+        5.8972897
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O4",
+      "fractional": [
+        0.85326667,
+        0.08063333,
+        0.59923333
+      ],
+      "position": [
+        6.6956188,
+        0.5751381,
+        13.2901563
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O4",
+      "fractional": [
+        0.51993333,
+        0.41396667,
+        0.93256667
+      ],
+      "position": [
+        2.5775187,
+        2.9527243,
+        20.6830231
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O4",
+      "fractional": [
+        0.7473,
+        0.5607,
+        0.7341
+      ],
+      "position": [
+        3.8458936,
+        3.9993377,
+        16.2813103
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O4",
+      "fractional": [
+        0.41396667,
+        0.89403333,
+        0.06743333
+      ],
+      "position": [
+        -0.2722064,
+        6.3769238,
+        1.4955769
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O4",
+      "fractional": [
+        0.08063333,
+        0.22736667,
+        0.40076667
+      ],
+      "position": [
+        -0.2722065,
+        1.6217515,
+        8.8884437
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O4",
+      "fractional": [
+        0.5607,
+        0.8134,
+        0.2659
+      ],
+      "position": [
+        1.2683748,
+        5.8017857,
+        5.8972897
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O4",
+      "fractional": [
+        0.22736667,
+        0.14673333,
+        0.59923333
+      ],
+      "position": [
+        1.2683748,
+        1.0466134,
+        13.2901563
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O4",
+      "fractional": [
+        0.89403333,
+        0.48006667,
+        0.93256667
+      ],
+      "position": [
+        5.3864748,
+        3.4241996,
+        20.6830231
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O4",
+      "fractional": [
+        0.8134,
+        0.2527,
+        0.7341
+      ],
+      "position": [
+        5.6586812,
+        1.8024481,
+        16.2813103
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O4",
+      "fractional": [
+        0.48006667,
+        0.58603333,
+        0.06743333
+      ],
+      "position": [
+        1.5405813,
+        4.1800342,
+        1.4955769
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O4",
+      "fractional": [
+        0.14673333,
+        0.91936667,
+        0.40076667
+      ],
+      "position": [
+        -2.5775188,
+        6.5576204,
+        8.8884437
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 102,
+  "speciesPositionCount": 102,
+  "cellComposition": {
+    "Fe": 12,
+    "S": 18,
+    "O": 72
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Rentzeperis P J",
+      "Christidis P C"
+    ],
+    "title": "The crystal structure of rhombohedral Fe2(SO4)3\n Sample: synthetic",
+    "journal": "Zeitschrift fur Kristallographie",
+    "year": 1976,
+    "volume": "144",
+    "pages": "341–352"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 18,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 2.553075521466595e-07
+  },
+  "spaceGroupOriginal": "R -3",
+  "spaceGroupNumber": 148,
+  "id": "chat-ferric-sulfate-rhombohedral",
+  "note": "Mẫu tổng hợp khan, pha rhombohedral; không dùng chung ô với pha đơn tà."
+}

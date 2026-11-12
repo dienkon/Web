@@ -1,0 +1,680 @@
+{
+  "covellite": [
+    534,
+    "CuS",
+    "Covellite · CuS",
+    "Tinh chỉnh cấu trúc covellite; không thay bằng sulfide kiểu NaCl."
+  ],
+  "rhodochrosite": [
+    9891,
+    "MnCO3",
+    "Rhodochrosite · MnCO₃",
+    "Dữ liệu nhiễu xạ synchrotron; pha carbonate rhombohedral."
+  ],
+  "smithsonite": [
+    102,
+    "ZnCO3",
+    "Smithsonite · ZnCO₃",
+    "Bản tổng hợp cấu trúc carbonate rhombohedral."
+  ],
+  "brucite": [
+    7912,
+    "MgO2H2",
+    "Brucite · Mg(OH)₂",
+    "Nhiễu xạ neutron; P = 0,0001 GPa; giữ mức bất trật tự hydrogen của nguồn."
+  ],
+  "troilite": [
+    4160,
+    "FeS",
+    "Troilite · FeS",
+    "Mẫu tổng hợp trong nghiên cứu song tinh; đây là troilite, không phải mọi pha FeS."
+  ],
+  "kalicinite": [
+    18502,
+    "KHCO3",
+    "Kalicinite · KHCO₃",
+    "Mẫu hydrogen đo ở 298 K; không dùng mẫu thay thế deuterium."
+  ],
+  "millerite": [
+    5097,
+    "NiS",
+    "Millerite · β-NiS",
+    "Tinh chỉnh millerite; không đồng nhất với pha NiS lục phương."
+  ],
+  "melanterite": [
+    10353,
+    "FeSO11H14",
+    "Melanterite · FeSO₄·7H₂O · 120 K",
+    "Mẫu CCD nhiệt độ thấp 120 K; không dùng cho sulfate khan."
+  ],
+  "tuite": [
+    7447,
+    "Ca3P2O8",
+    "Tuite · Ca₃(PO₄)₂",
+    "Đa hình đặc sít áp suất cao; không gán như pha beta-tricalcium phosphate ở điều kiện phòng."
+  ],
+  "alabandite": [
+    7512,
+    "MnS",
+    "Alabandite · α-MnS",
+    "Mẫu 298 K, P = 0 GPa trong nghiên cứu nén tĩnh."
+  ],
+  "manganosite": [
+    8240,
+    "MnO",
+    "Manganosite · MnO",
+    "Mẫu bắt đầu thí nghiệm ở nhiệt độ phòng, P = 0,00 GPa."
+  ],
+  "monteponite": [
+    8253,
+    "CdO",
+    "Monteponite · CdO",
+    "Mẫu bắt đầu thí nghiệm ở nhiệt độ phòng, P = 0,00 GPa."
+  ],
+  "solid-sulfur-dioxide": [
+    9146,
+    "SO2",
+    "SO₂ rắn · −130 °C",
+    "Cấu trúc pha rắn đo ở −130 °C; không phải trạng thái khí ở điều kiện phòng."
+  ],
+  "polymeric-sulfur-trioxide": [
+    9159,
+    "SO3",
+    "SO₃ rắn · dạng polymer",
+    "Dạng sợi polymer của sulfur trioxide; không mô tả một phân tử SO3 tự do."
+  ],
+  "zincosite": [
+    14620,
+    "ZnSO4",
+    "Zincosite · ZnSO₄",
+    "Tinh chỉnh ZnSO4 khan; không thay cho sulfate ngậm nước."
+  ],
+  "magnesium-sulfate": [
+    9211,
+    "MgSO4",
+    "MgSO₄ khan",
+    "Bản cấu trúc sulfate magnesium khan; không dùng bản ghi MgSO3·H2O cùng kết quả tìm kiếm."
+  ],
+  "nahcolite": [
+    17923,
+    "NaHCO3",
+    "Nahcolite · NaHCO₃",
+    "Bản cấu trúc đầy đủ H, C, O, Na; loại bản ghi 9267 thiếu tọa độ hydrogen."
+  ],
+  "crocoite": [
+    9297,
+    "PbCrO4",
+    "Crocoite · PbCrO₄",
+    "Bản tinh chỉnh ba chiều; không dùng mẫu nhiệt độ cao 1073 K."
+  ],
+  "retgersite": [
+    9870,
+    "NiSO10H12",
+    "Retgersite · NiSO₄·6H₂O · 25 K",
+    "Tinh chỉnh neutron 25 K; không thay bằng sulfate khan hoặc mẫu thiếu H."
+  ],
+  "acetamide": [
+    19020,
+    "C2H5NO",
+    "Acetamide · 23 K",
+    "Nhiễu xạ neutron 23 K của đúng acetamide; không áp theo công thức cho một đồng phân khác."
+  ],
+  "tarapacaite": [
+    9457,
+    "K2CrO4",
+    "Tarapacaite · K₂CrO₄",
+    "Bản xác định lại cấu trúc potassium chromate; không nhầm với dichromate."
+  ],
+  "silver-carbonate": [
+    9670,
+    "Ag2CO3",
+    "Ag₂CO₃",
+    "Bản cấu trúc silver carbonate có tọa độ; không dựng bằng mẫu muối ion bất kỳ."
+  ],
+  "dry-ice": [
+    9722,
+    "CO2",
+    "CO₂ rắn · 150 K",
+    "Tinh chỉnh đơn tinh thể ở 150 K; đây là pha rắn, không phải CO2 khí ở điều kiện phòng."
+  ],
+  "natrite": [
+    14917,
+    "Na2CO3",
+    "Natrite · γ-Na₂CO₃",
+    "Giữ cấu trúc tuần hoàn của bản ghi gamma; không khôi phục điều biến ngoài dữ liệu nguồn."
+  ],
+  "barium-nitrate": [
+    10639,
+    "BaN2O6",
+    "Ba(NO₃)₂",
+    "Tinh chỉnh cấu trúc bằng neutron; giữ các điều kiện có trong bản ghi."
+  ],
+  "strontium-nitrate": [
+    9979,
+    "SrN2O6",
+    "Sr(NO₃)₂",
+    "Bản tinh chỉnh strontium nitrate; không thay bằng nitrate kim loại khác."
+  ],
+  "spertiniite": [
+    10212,
+    "CuO2H2",
+    "Spertiniite · Cu(OH)₂",
+    "Bản cấu trúc copper(II) hydroxide; không thay bằng oxit CuO."
+  ],
+  "ferrous-sulfate-beta": [
+    10479,
+    "FeSO4",
+    "β-FeSO₄ · pha nhiệt độ cao",
+    "Pha beta nhiệt độ cao được nêu trong tiêu đề nguồn; không tự gán là pha ổn định ở 25 °C."
+  ],
+  "nickel-bromide": [
+    10514,
+    "NiBr2",
+    "NiBr₂ khan",
+    "Bản xác định cấu trúc nickel bromide; giữ cách xếp lớp của nguồn."
+  ],
+  "nickel-iodide": [
+    10515,
+    "NiI2",
+    "NiI₂ khan",
+    "Bản xác định cấu trúc nickel iodide; không suy loại mạng từ công thức."
+  ],
+  "potassium-sulfide": [
+    10530,
+    "K2S",
+    "K₂S",
+    "Bản nghiên cứu alkali monosulfides; không nhầm hydrosulfide KHS."
+  ],
+  "cobalt-chloride": [
+    10531,
+    "CoCl2",
+    "CoCl₂ khan",
+    "Bản nghiên cứu cấu trúc và màu CoCl2; không dùng cho CoCl2·6H2O."
+  ],
+  "ammonium-nitrate-v": [
+    10592,
+    "N2H4O3",
+    "NH₄NO₃ · pha V · −150 °C",
+    "Pha V nhiệt độ thấp −150 °C; không trình bày như cấu trúc ở điều kiện phòng."
+  ],
+  "eskolaite": [
+    10596,
+    "Cr2O3",
+    "Eskolaite · Cr₂O₃",
+    "Bản tinh chỉnh cấu trúc oxide; không dùng mẫu dung dịch rắn Al-Cr."
+  ],
+  "tin-sulfate": [
+    10603,
+    "SnSO4",
+    "SnSO₄ khan",
+    "Bản cấu trúc stannous sulfate khan."
+  ],
+  "strontium-iodide": [
+    10679,
+    "SrI2",
+    "SrI₂ khan",
+    "Giữ cấu trúc phối trí bảy của bản ghi; không thay bằng mẫu fluorite."
+  ],
+  "ferric-sulfate-monoclinic": [
+    10775,
+    "Fe2S3O12",
+    "Fe₂(SO₄)₃ · đơn tà",
+    "Pha monoclinic khan; khác pha rhombohedral và các hydrate."
+  ],
+  "ferric-sulfate-rhombohedral": [
+    10786,
+    "Fe2S3O12",
+    "Fe₂(SO₄)₃ · rhombohedral",
+    "Mẫu tổng hợp khan, pha rhombohedral; không dùng chung ô với pha đơn tà."
+  ],
+  "silver-phosphate": [
+    17250,
+    "Ag3PO4",
+    "Ag₃PO₄",
+    "Bản cấu trúc silver phosphate; giữ nhóm không gian và tọa độ nguồn."
+  ],
+  "zabuyelite": [
+    10813,
+    "Li2CO3",
+    "Zabuyelite · Li₂CO₃",
+    "Tinh chỉnh lithium carbonate; không dùng mẫu dung dịch rắn Li-K."
+  ],
+  "urea": [
+    10832,
+    "CH4N2O",
+    "Urea · 293 K",
+    "Dữ liệu neutron ở 293 K, có tọa độ hydrogen; không dùng mẫu 60/100/123 K thay thế."
+  ],
+  "aluminium-sulfate": [
+    11035,
+    "Al2S3O12",
+    "Al₂(SO₄)₃ khan",
+    "Tinh chỉnh đơn tinh thể sulfate(III) khan; không thay cho hydrate."
+  ],
+  "chromium-sulfate": [
+    11036,
+    "Cr2S3O12",
+    "Cr₂(SO₄)₃ khan",
+    "Tinh chỉnh đơn tinh thể sulfate(III) khan; không tự gán điều kiện phòng."
+  ],
+  "solid-argon": [
+    15155,
+    "Ar",
+    "Argon rắn · 4,2 K",
+    "Nhiễu xạ neutron ở 4,2 K; argon không ở pha rắn tại điều kiện phòng."
+  ],
+  "solid-krypton": [
+    11148,
+    "Kr",
+    "Krypton rắn · FCC · 58 K",
+    "Bản tổng hợp FCC ở 58 K; phân biệt với cấu trúc HCP metastable khác."
+  ],
+  "solid-neon": [
+    15156,
+    "Ne",
+    "Neon-20 rắn · 4,2 K",
+    "Bản ghi đồng vị 20Ne tại 4,2 K; không khẳng định cùng thông số với 22Ne."
+  ],
+  "solid-xenon": [
+    12968,
+    "Xe",
+    "Xenon rắn · 60 K",
+    "Mẫu 60 K trong nghiên cứu mật độ và giãn nở xenon rắn."
+  ],
+  "solid-helium": [
+    15152,
+    "He",
+    "Helium rắn · 1,1 K · 0,007 GPa",
+    "Mẫu neutron ở nhiệt độ thấp và có áp suất; không phải helium rắn ở áp suất khí quyển."
+  ],
+  "solid-nitrogen-alpha": [
+    11249,
+    "N",
+    "α-Nitrogen rắn · 4,2 K",
+    "Cấu trúc trung bình Pa-3 với tám vị trí N trong ô mạng; không dùng mô hình P213 cũ hoặc tâm phân tử thay nguyên tử."
+  ],
+  "solid-chlorine": [
+    14661,
+    "Cl",
+    "Chlorine rắn · 160 K",
+    "Tinh chỉnh chlorine rắn ở 160 K; không đại diện chlorine khí ở điều kiện phòng."
+  ],
+  "solid-bromine": [
+    14657,
+    "Br",
+    "Bromine rắn · 250 K",
+    "Tinh chỉnh bromine rắn ở 250 K; không đại diện bromine lỏng ở điều kiện phòng."
+  ],
+  "barium-oxide": [
+    18197,
+    "BaO",
+    "BaO · pha rocksalt",
+    "Bản nghiên cứu cấu trúc oxide kim loại kiềm thổ; không dùng bản ghi 11278 là BaS."
+  ],
+  "cobalt-oxide": [
+    11296,
+    "CoO",
+    "CoO · rocksalt trung bình",
+    "Cấu trúc trung bình từ tài liệu tổng hợp; không mô tả méo từ giảo hoặc phân bố spin."
+  ],
+  "cesium-chloride": [
+    11467,
+    "CsCl",
+    "CsCl · kiểu CsCl",
+    "Chọn đúng bản ghi kiểu CsCl; không dùng bản ghi rocksalt 0011298 khác pha."
+  ],
+  "wustite-reference": [
+    11314,
+    "FeO",
+    "FeO · bản tham chiếu lý tưởng",
+    "Bản tổng hợp kiểu rocksalt; wüstite thật thường không đúng tỉ lượng, mô hình này không chứa khuyết tật của một mẫu riêng."
+  ],
+  "potassium-fluoride": [
+    17895,
+    "KF",
+    "KF",
+    "Bản xác định lại hằng số mạng; không gán sai cấu trúc CsCl cùng tiêu đề bài báo."
+  ],
+  "potassium-iodide": [
+    11996,
+    "KI",
+    "KI",
+    "Mẫu alkali halide; chỉ dùng bản đúng KI, không dùng dung dịch rắn khác thành phần."
+  ],
+  "lithium-bromide": [
+    18198,
+    "LiBr",
+    "LiBr",
+    "Bản cấu trúc lithium halides; không dùng thông số LiCl."
+  ],
+  "lithium-fluoride": [
+    17905,
+    "LiF",
+    "LiF",
+    "Bản đo halide; tọa độ và metric lấy đúng bản LiF."
+  ],
+  "lithium-iodide": [
+    17253,
+    "LiI",
+    "LiI",
+    "Bản cấu trúc lithium iodide."
+  ],
+  "sodium-iodide": [
+    11359,
+    "NaI",
+    "NaI · bản tham chiếu",
+    "Bản tổng hợp NaI; không dùng bản ghi tiêu đề sodium periodate nhưng công thức thiếu oxy."
+  ],
+  "strontium-oxide": [
+    18170,
+    "SrO",
+    "SrO",
+    "Bản cấu trúc alkaline-earth oxides; dùng đúng SrO."
+  ],
+  "cobalt-sulfide": [
+    11562,
+    "CoS",
+    "CoS · prototype NiAs",
+    "Bản tổng hợp prototype nickel arsenide; không mô tả các sulfide cobalt khác tỉ lượng."
+  ],
+  "lithium-hydroxide": [
+    11636,
+    "LiOH",
+    "LiOH khan",
+    "Bản tài liệu tổng hợp; không tự dựng vị trí H còn thiếu."
+  ],
+  "barium-chloride": [
+    11681,
+    "BaCl2",
+    "BaCl₂ · pha kiểu fluorite",
+    "Pha fluorite của bản ghi; không xác nhận đây là pha ổn định ở 25 °C khi nguồn chưa nêu nhiệt độ."
+  ],
+  "frankdicksonite": [
+    11682,
+    "BaF2",
+    "BaF₂ · fluorite",
+    "Bản tổng hợp cấu trúc fluorite; không suy cấu trúc từ công thức đơn thuần."
+  ],
+  "lead-fluoride-beta": [
+    11705,
+    "PbF2",
+    "β-PbF₂ · fluorite",
+    "Pha beta fluorite; khác pha alpha trực thoi của PbF2."
+  ],
+  "strontium-chloride": [
+    11720,
+    "SrCl2",
+    "SrCl₂ khan",
+    "Bản cấu trúc fluorite; không thay cho SrCl2·6H2O."
+  ],
+  "strontium-fluoride": [
+    18325,
+    "SrF2",
+    "Strontiofluorite · SrF₂",
+    "Bản công bố khoáng strontiofluorite; không gán hình thái mẫu thật vào ô mạng."
+  ],
+  "potassium-oxide": [
+    11734,
+    "K2O",
+    "K₂O · antifluorite",
+    "Bản tổng hợp antifluorite; không dùng cấu trúc peroxide hoặc superoxide."
+  ],
+  "lithium-oxide": [
+    17000,
+    "Li2O",
+    "Li₂O · antifluorite",
+    "Dữ liệu nhiễu xạ bột lithium oxide; không thay cho lithium peroxide."
+  ],
+  "sodium-oxide": [
+    11742,
+    "Na2O",
+    "Na₂O · antifluorite",
+    "Bản tổng hợp Na2O; không dùng cho Na2O2."
+  ],
+  "sodium-sulfide": [
+    11743,
+    "Na2S",
+    "Na₂S · antifluorite",
+    "Pha khan; không dùng cho các hydrate hoặc NaHS."
+  ],
+  "calcium-iodide": [
+    11776,
+    "CaI2",
+    "CaI₂ khan",
+    "Bản tổng hợp kiểu cadmium iodide; không thay bằng mạng CaF2."
+  ],
+  "cobalt-bromide": [
+    11778,
+    "CoBr2",
+    "CoBr₂ khan",
+    "Bản cấu trúc lớp từ tài liệu tổng hợp; không mô tả trật tự từ."
+  ],
+  "cobalt-iodide": [
+    11779,
+    "CoI2",
+    "CoI₂ khan",
+    "Bản cấu trúc lớp từ tài liệu tổng hợp."
+  ],
+  "ferrous-bromide": [
+    11781,
+    "FeBr2",
+    "FeBr₂ khan",
+    "Bản cấu trúc lớp từ tài liệu tổng hợp; không mô tả trật tự từ."
+  ],
+  "ferrous-iodide": [
+    11782,
+    "FeI2",
+    "FeI₂ khan",
+    "Bản cấu trúc lớp từ tài liệu tổng hợp."
+  ],
+  "magnesium-bromide": [
+    11786,
+    "MgBr2",
+    "MgBr₂ khan",
+    "Bản cấu trúc lớp; không dùng cho hydrate magnesium bromide."
+  ],
+  "magnesium-iodide": [
+    11787,
+    "MgI2",
+    "MgI₂ khan",
+    "Bản cấu trúc lớp; không thay bằng mạng oxide MgO."
+  ],
+  "manganese-bromide": [
+    11788,
+    "MnBr2",
+    "MnBr₂ khan",
+    "Giữ cấu trúc lớp của bản ghi, không suy trạng thái spin."
+  ],
+  "manganese-iodide": [
+    11789,
+    "MnI2",
+    "MnI₂ khan",
+    "Giữ cấu trúc lớp của bản ghi."
+  ],
+  "zinc-iodide": [
+    11801,
+    "ZnI2",
+    "ZnI₂ · pha của bản ghi",
+    "Giữ đúng polytype được ghi trong tài liệu; không gộp các cấu trúc lớp khác nhau."
+  ],
+  "cadmium-bromide": [
+    11803,
+    "CdBr2",
+    "CdBr₂ khan",
+    "Bản tổng hợp kiểu cadmium chloride; không suy cấu trúc từ một muối khác."
+  ],
+  "cadmium-chloride": [
+    18174,
+    "CdCl2",
+    "CdCl₂ khan",
+    "Bản xác định cấu trúc cadmium chloride."
+  ],
+  "ferrous-chloride": [
+    11807,
+    "FeCl2",
+    "FeCl₂ khan",
+    "Bản cấu trúc lớp; không dùng mẫu neutron 4,2 K thay thế và không mô tả trật tự từ."
+  ],
+  "magnesium-chloride": [
+    11808,
+    "MgCl2",
+    "MgCl₂ khan",
+    "Bản cấu trúc lớp; không dùng cho MgCl2·6H2O."
+  ],
+  "manganese-chloride": [
+    11809,
+    "MnCl2",
+    "MnCl₂ khan",
+    "Bản cấu trúc lớp; không dùng cho hydrate."
+  ],
+  "nickel-chloride": [
+    11811,
+    "NiCl2",
+    "NiCl₂ khan",
+    "Bản cấu trúc lớp; không dùng cho hydrate."
+  ],
+  "zinc-bromide": [
+    11814,
+    "ZnBr2",
+    "ZnBr₂ · bản tham chiếu",
+    "Giữ cấu trúc trong bản ghi; không coi mô hình là ảnh quét một mẫu thực."
+  ],
+  "zinc-chloride": [
+    11815,
+    "ZnCl2",
+    "ZnCl₂ · pha của bản ghi",
+    "Polytype trong tài liệu tổng hợp; ZnCl2 có nhiều đa hình nên không áp cho mọi mẫu."
+  ],
+  "cadmium-iodide": [
+    11817,
+    "CdI2",
+    "CdI₂ khan",
+    "Giữ đúng cách xếp lớp và đối xứng của bản ghi."
+  ],
+  "cotunnite": [
+    11874,
+    "PbCl2",
+    "Cotunnite · PbCl₂",
+    "Bản cấu trúc cotunnite; không dùng cho các pha áp suất cao khác."
+  ],
+  "lead-bromide": [
+    17501,
+    "PbBr2",
+    "PbBr₂",
+    "Bản xác định cấu trúc lead bromide."
+  ],
+  "strontium-bromide": [
+    16958,
+    "SrBr2",
+    "SrBr₂ khan",
+    "Bản xác định cấu trúc SrBr2; không thay bằng hydrate."
+  ],
+  "solid-fluorine-alpha": [
+    12990,
+    "F",
+    "α-Fluorine rắn · 23 K",
+    "Pha alpha ở 23 K; khác pha beta ổn định trong khoảng nhiệt độ cao hơn."
+  ],
+  "ammonium-sulfate": [
+    12986,
+    "N2H8SO4",
+    "(NH₄)₂SO₄ · 298 K",
+    "Mẫu neutron paraelectric 298 K; không dùng mẫu ferroelectric 180 K thay thế."
+  ],
+  "potassium-carbonate": [
+    13249,
+    "K2CO3",
+    "K₂CO₃ khan",
+    "Mẫu neutron đúng đầu mút potassium carbonate; không dùng mẫu dung dịch rắn Li-K."
+  ],
+  "disodium-hydrogen-phosphate": [
+    15788,
+    "Na2HPO4",
+    "Na₂HPO₄ khan",
+    "Bản cấu trúc disodium hydrogen phosphate khan; không dùng hydrate."
+  ],
+  "sodium-chromate": [
+    16962,
+    "Na2CrO4",
+    "Na₂CrO₄ khan",
+    "Bản xác định cấu trúc sodium chromate khan."
+  ],
+  "solid-nitrous-oxide": [
+    16995,
+    "N2O",
+    "N₂O rắn",
+    "Bản cấu trúc nitrous oxide rắn; không đồng nhất với CO2 trong cùng bài báo."
+  ],
+  "chromium-bromide": [
+    17081,
+    "CrBr3",
+    "CrBr₃ khan",
+    "Bản cấu trúc chromium tribromide; không suy trật tự từ từ hình học."
+  ],
+  "solid-carbon-monoxide": [
+    17231,
+    "CO",
+    "CO rắn",
+    "Bản cấu trúc carbon monoxide rắn; các vị trí trung bình/độ chiếm chỗ được giữ đúng nguồn."
+  ],
+  "solid-hydrogen-chloride": [
+    18512,
+    "HCl",
+    "HCl rắn · 77,4 K",
+    "Mẫu hydrogen chloride ở 77,4 K; không dùng mẫu deuterium chloride hoặc dung dịch acid."
+  ],
+  "lithium-sulfate": [
+    17384,
+    "Li2SO4",
+    "Li₂SO₄ khan",
+    "Bản cấu trúc lithium sulfate khan; không thay cho monohydrate."
+  ],
+  "silver-oxide": [
+    17487,
+    "Ag2O",
+    "Ag₂O",
+    "Bản cấu trúc silver oxide Ag2O; không nhầm với AgO."
+  ],
+  "sodium-sulfite": [
+    17434,
+    "Na2SO3",
+    "Na₂SO₃ khan",
+    "Bản cấu trúc sodium sulfite khan; không thay bằng sulfate."
+  ],
+  "sodium-nitrite": [
+    17436,
+    "NaNO2",
+    "NaNO₂",
+    "Bản cấu trúc sodium nitrite; không dùng nitrate NaNO3."
+  ],
+  "potassium-thiocyanate": [
+    17507,
+    "KSCN",
+    "KSCN",
+    "Bản cấu trúc potassium thiocyanate; không thay bằng cyanate."
+  ],
+  "lithium-nitrate": [
+    18092,
+    "LiNO3",
+    "LiNO₃",
+    "Bản ghi đúng lithium nitrate trong nghiên cứu hợp chất ABO3."
+  ],
+  "zinc-hydroxide-epsilon": [
+    18272,
+    "ZnO2H2",
+    "ε-Zn(OH)₂",
+    "Bản đơn tinh thể epsilon zinc hydroxide; không suy từ beta-Be(OH)2 cùng tiêu đề."
+  ],
+  "solid-oxygen-beta": [
+    20614,
+    "O",
+    "β-Oxygen rắn · điều kiện nguồn",
+    "Pha beta oxygen dưới áp suất theo bản ghi; không dùng bản ghi đồng vị 18O2 ở 9,6 GPa thay thế."
+  ],
+  "ice-ii": [
+    18367,
+    "H2O",
+    "Băng II · −75 °C · 0,3 GPa",
+    "Pha áp suất cao có proton có trật tự; 12 O và 24 H trong ô mạng. Không mô tả nước lỏng hay băng Ih ở áp suất thường."
+  ]
+}

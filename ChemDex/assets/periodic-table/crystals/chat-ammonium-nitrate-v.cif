@@ -1,0 +1,59 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0010592
+_database_code_amcsd 0010592
+_chemical_name_mineral 'NH₄NO₃ · pha V · −150 °C'
+_chemical_formula_sum 'N2 O3 H4'
+_symmetry_space_group_name_H-M 'P 42'
+_cell_length_a 7.98
+_cell_length_b 7.98
+_cell_length_c 9.78
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 90
+_cell_volume 622.794312
+loop_
+_publ_author_name
+'Amoros J L'
+'Arrese F'
+'Canut M'
+_journal_name_full 'Zeitschrift fur Kristallographie'
+_journal_year 1962
+_journal_volume 117
+_publ_section_title
+;The crystal structure of the low-temperature phase of NH4NO3(V) at -150 deg C
+ Note: sample at T = -150 C, this is a low temperature form
+;
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+-y,x,1/2+z
+-x,-y,z
+y,-x,1/2+z
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+N N 0.25 0.25 0.518 1
+O1 O 0.12 0.27 0.456 1
+O2 O 0.38 0.23 0.456 1
+O3 O 0.25 0.25 0.642 1
+N* N 0.25 0.25 0.018 1
+O*1 O 0.12 0.23 0.956 1
+O*2 O 0.38 0.27 0.956 1
+O*3 O 0.25 0.25 0.142 1
+N N 0 0 0.25 1
+H1 H 0.076 0.076 0.19 1
+H2 H 0.076 -0.076 0.31 1
+N* N 0.5 0 0.25 1
+H*1 H 0.576 0.076 0.19 1
+H*2 H 0.424 0.076 0.31 1
+N* N 0.5 0.5 0.25 1
+H*1 H 0.424 0.424 0.31 1
+H*2 H 0.424 0.576 0.19 1
+N** N 0 0.5 0.25 1
+H**1 H -0.076 0.424 0.31 1
+H**2 H -0.076 0.576 0.19 1

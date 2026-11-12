@@ -2,7 +2,7 @@
   "amcsdId": "0009251",
   "mineralName": "Villiaumite · NaF",
   "formula": "Na F",
-  "spaceGroup": "F m 3 m",
+  "spaceGroup": "F m -3 m",
   "cell": {
     "a": 4.634,
     "b": 4.634,
@@ -395,6 +395,8 @@
     "maxSiteOccupancy": 1,
     "cellVolumeRelativeError": 3.13639856444942e-06
   },
+  "spaceGroupOriginal": "F m 3 m",
+  "spaceGroupNumber": 225,
   "id": "chat-villiaumite",
   "note": "Mẫu 29,6 °C; cấu trúc rocksalt."
 }

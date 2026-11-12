@@ -1,0 +1,147 @@
+{
+  "amcsdId": "0011782",
+  "mineralName": "FeI₂ khan",
+  "formula": "Fe I2",
+  "spaceGroup": "P -3 m 1",
+  "cell": {
+    "a": 4.04,
+    "b": 4.04,
+    "c": 6.75,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 120.0
+  },
+  "volume": 95.41071155525465,
+  "declaredVolume": 95.411,
+  "basis": [
+    [
+      4.04,
+      -2.019999999999999,
+      0.0
+    ],
+    [
+      0.0,
+      3.4987426312891325,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      6.75
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "-y,-x,z",
+    "y,-x+y,-z",
+    "-x,-x+y,-z",
+    "-x+y,-x,z",
+    "-x+y,y,z",
+    "-x,-y,-z",
+    "y,x,-z",
+    "-y,x-y,z",
+    "x,x-y,z",
+    "x-y,x,-z",
+    "x-y,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Fe",
+      "element": "Fe",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "I",
+      "element": "I",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.25
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Fe",
+      "label": "Fe",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "I",
+      "label": "I",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.25
+      ],
+      "position": [
+        -5e-07,
+        2.3324954,
+        1.6875
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "I",
+      "label": "I",
+      "fractional": [
+        0.66666675,
+        0.3333335,
+        0.75
+      ],
+      "position": [
+        2.02,
+        1.1662481,
+        5.0625
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 3,
+  "speciesPositionCount": 3,
+  "cellComposition": {
+    "Fe": 1,
+    "I": 2
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Wyckoff R W G"
+    ],
+    "title": "Second edition. Interscience Publishers, New York, New York\n Note: cadmium iodide structure",
+    "journal": "Crystal Structures",
+    "year": 1963,
+    "volume": "1",
+    "pages": "239–444"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "literature-compilation",
+  "validation": {
+    "operatorCount": 12,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 3.023190380296159e-06
+  },
+  "spaceGroupOriginal": "P -3 m 1",
+  "spaceGroupNumber": 164,
+  "id": "chat-ferrous-iodide",
+  "note": "Bản cấu trúc lớp từ tài liệu tổng hợp."
+}

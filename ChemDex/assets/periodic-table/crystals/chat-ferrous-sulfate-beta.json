@@ -1,0 +1,489 @@
+{
+  "amcsdId": "0010479",
+  "mineralName": "β-FeSO₄ · pha nhiệt độ cao",
+  "formula": "Fe S O4",
+  "spaceGroup": "P n m a",
+  "cell": {
+    "a": 8.7042,
+    "b": 6.8013,
+    "c": 4.7868,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 283.37796385192803,
+  "declaredVolume": 283.378,
+  "basis": [
+    [
+      8.7042,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      6.8013,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      4.7868
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "x,1/2-y,z",
+    "-x,1/2+y,-z",
+    "1/2-x,1/2+y,1/2+z",
+    "1/2+x,1/2-y,1/2-z",
+    "1/2+x,y,1/2-z",
+    "1/2-x,-y,1/2+z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Fe",
+      "element": "Fe",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "S",
+      "element": "S",
+      "fractional": [
+        0.32185,
+        0.25,
+        0.02339
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.37412,
+        0.07077,
+        0.16234
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.15045,
+        0.25,
+        0.03136
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O3",
+      "element": "O",
+      "fractional": [
+        0.37783,
+        0.25,
+        0.73194
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Fe",
+      "label": "Fe",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe",
+      "fractional": [
+        0.0,
+        0.5,
+        0.0
+      ],
+      "position": [
+        0.0,
+        3.40065,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe",
+      "fractional": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "position": [
+        4.3521,
+        3.40065,
+        2.3934
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe",
+      "fractional": [
+        0.5,
+        0.0,
+        0.5
+      ],
+      "position": [
+        4.3521,
+        0.0,
+        2.3934
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.32185,
+        0.25,
+        0.02339
+      ],
+      "position": [
+        2.8014468,
+        1.700325,
+        0.1119633
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.67815,
+        0.75,
+        0.97661
+      ],
+      "position": [
+        5.9027532,
+        5.100975,
+        4.6748367
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.17815,
+        0.75,
+        0.52339
+      ],
+      "position": [
+        1.5506532,
+        5.100975,
+        2.5053633
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.82185,
+        0.25,
+        0.47661
+      ],
+      "position": [
+        7.1535468,
+        1.700325,
+        2.2814367
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.37412,
+        0.07077,
+        0.16234
+      ],
+      "position": [
+        3.2564153,
+        0.481328,
+        0.7770891
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.37412,
+        0.42923,
+        0.16234
+      ],
+      "position": [
+        3.2564153,
+        2.919322,
+        0.7770891
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.62588,
+        0.57077,
+        0.83766
+      ],
+      "position": [
+        5.4477847,
+        3.881978,
+        4.0097109
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.12588,
+        0.57077,
+        0.66234
+      ],
+      "position": [
+        1.0956847,
+        3.881978,
+        3.1704891
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.87412,
+        0.42923,
+        0.33766
+      ],
+      "position": [
+        7.6085153,
+        2.919322,
+        1.6163109
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.87412,
+        0.07077,
+        0.33766
+      ],
+      "position": [
+        7.6085153,
+        0.481328,
+        1.6163109
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.12588,
+        0.92923,
+        0.66234
+      ],
+      "position": [
+        1.0956847,
+        6.319972,
+        3.1704891
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.62588,
+        0.92923,
+        0.83766
+      ],
+      "position": [
+        5.4477847,
+        6.319972,
+        4.0097109
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.15045,
+        0.25,
+        0.03136
+      ],
+      "position": [
+        1.3095469,
+        1.700325,
+        0.150114
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.84955,
+        0.75,
+        0.96864
+      ],
+      "position": [
+        7.3946531,
+        5.100975,
+        4.636686
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.34955,
+        0.75,
+        0.53136
+      ],
+      "position": [
+        3.0425531,
+        5.100975,
+        2.543514
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.65045,
+        0.25,
+        0.46864
+      ],
+      "position": [
+        5.6616469,
+        1.700325,
+        2.243286
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.37783,
+        0.25,
+        0.73194
+      ],
+      "position": [
+        3.2887079,
+        1.700325,
+        3.5036504
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.62217,
+        0.75,
+        0.26806
+      ],
+      "position": [
+        5.4154921,
+        5.100975,
+        1.2831496
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.12217,
+        0.75,
+        0.23194
+      ],
+      "position": [
+        1.0633921,
+        5.100975,
+        1.1102504
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.87783,
+        0.25,
+        0.76806
+      ],
+      "position": [
+        7.6408079,
+        1.700325,
+        3.6765496
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 24,
+  "speciesPositionCount": 24,
+  "cellComposition": {
+    "Fe": 4,
+    "S": 4,
+    "O": 16
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Weil M"
+    ],
+    "title": "The high-temperature beta modification of iron(II) sulfate",
+    "journal": "Acta Crystallographica, Section E",
+    "year": 2007,
+    "volume": "63",
+    "pages": "i192–i192"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 8,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.2756133703841955e-07
+  },
+  "spaceGroupOriginal": "P n m a",
+  "spaceGroupNumber": 62,
+  "id": "chat-ferrous-sulfate-beta",
+  "note": "Pha beta nhiệt độ cao được nêu trong tiêu đề nguồn; không tự gán là pha ổn định ở 25 °C."
+}

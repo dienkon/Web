@@ -2,7 +2,7 @@
   "amcsdId": "0011995",
   "mineralName": "KBr · rocksalt",
   "formula": "K Br",
-  "spaceGroup": "F m 3 m",
+  "spaceGroup": "F m -3 m",
   "cell": {
     "a": 6.5847,
     "b": 6.5847,
@@ -395,6 +395,8 @@
     "maxSiteOccupancy": 1,
     "cellVolumeRelativeError": 7.964954304079229e-07
   },
+  "spaceGroupOriginal": "F m 3 m",
+  "spaceGroupNumber": 225,
   "id": "chat-potassium-bromide",
   "note": "Lattice constants of binary alkali halides; không tự gán nhiệt độ."
 }

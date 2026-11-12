@@ -1,0 +1,219 @@
+{
+  "amcsdId": "0018512",
+  "mineralName": "HCl rắn · 77,4 K",
+  "formula": "H Cl",
+  "spaceGroup": "B b 21 m",
+  "cell": {
+    "a": 5.053,
+    "b": 5.373,
+    "c": 5.825,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 158.147404425,
+  "declaredVolume": 158.147,
+  "basis": [
+    [
+      5.053,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      5.373,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      5.825
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+x,y,1/2+z",
+    "-x,1/2+y,z",
+    "1/2-x,1/2+y,1/2+z",
+    "x,y,-z",
+    "1/2+x,y,1/2-z",
+    "-x,1/2+y,-z",
+    "1/2-x,1/2+y,1/2-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "H",
+      "element": "H",
+      "fractional": [
+        0.081,
+        0.17,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Cl",
+      "element": "Cl",
+      "fractional": [
+        0.25,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "H",
+      "label": "H",
+      "fractional": [
+        0.081,
+        0.17,
+        0.0
+      ],
+      "position": [
+        0.409293,
+        0.91341,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H",
+      "fractional": [
+        0.581,
+        0.17,
+        0.5
+      ],
+      "position": [
+        2.935793,
+        0.91341,
+        2.9125
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H",
+      "fractional": [
+        0.919,
+        0.67,
+        0.0
+      ],
+      "position": [
+        4.643707,
+        3.59991,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H",
+      "fractional": [
+        0.419,
+        0.67,
+        0.5
+      ],
+      "position": [
+        2.117207,
+        3.59991,
+        2.9125
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.25,
+        0.0,
+        0.0
+      ],
+      "position": [
+        1.26325,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.75,
+        0.0,
+        0.5
+      ],
+      "position": [
+        3.78975,
+        0.0,
+        2.9125
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.75,
+        0.5,
+        0.0
+      ],
+      "position": [
+        3.78975,
+        2.6865,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.25,
+        0.5,
+        0.5
+      ],
+      "position": [
+        1.26325,
+        2.6865,
+        2.9125
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 8,
+  "speciesPositionCount": 8,
+  "cellComposition": {
+    "H": 4,
+    "Cl": 4
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Sandor E",
+      "Farrow R F C"
+    ],
+    "title": "Crystal structure of solid hydrogen chloride and deuterium chloride\n Note T = 77.4 K",
+    "journal": "Nature",
+    "year": 1967,
+    "volume": "213",
+    "pages": "171–172"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 8,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 2.5572661244090123e-06
+  },
+  "spaceGroupOriginal": "B b 21 m",
+  "spaceGroupNumber": 36,
+  "id": "chat-solid-hydrogen-chloride",
+  "note": "Mẫu hydrogen chloride ở 77,4 K; không dùng mẫu deuterium chloride hoặc dung dịch acid."
+}

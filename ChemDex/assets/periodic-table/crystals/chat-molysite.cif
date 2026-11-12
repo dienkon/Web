@@ -4,7 +4,7 @@ data_amcsd_0012857
 _database_code_amcsd 0012857
 _chemical_name_mineral 'Molysite · FeCl₃'
 _chemical_formula_sum 'Fe Cl3'
-_symmetry_space_group_name_H-M 'R -3'
+_symmetry_space_group_name_H-M 'R -3:H'
 _cell_length_a 6.065
 _cell_length_b 6.065
 _cell_length_c 17.42

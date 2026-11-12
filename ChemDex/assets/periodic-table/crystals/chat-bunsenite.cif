@@ -4,7 +4,7 @@ data_amcsd_0011371
 _database_code_amcsd 0011371
 _chemical_name_mineral 'Bunsenite · NiO'
 _chemical_formula_sum 'Ni O'
-_symmetry_space_group_name_H-M 'F m 3 m'
+_symmetry_space_group_name_H-M 'F m -3 m'
 _cell_length_a 4.1684
 _cell_length_b 4.1684
 _cell_length_c 4.1684

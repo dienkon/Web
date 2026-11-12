@@ -1,0 +1,402 @@
+{
+  "amcsdId": "0018197",
+  "mineralName": "BaO · pha rocksalt",
+  "formula": "Ba O",
+  "spaceGroup": "F m -3 m",
+  "cell": {
+    "a": 5.496,
+    "b": 5.496,
+    "c": 5.496,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 166.01226393600004,
+  "declaredVolume": 166.012,
+  "basis": [
+    [
+      5.496,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      5.496,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      5.496
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "x,1/2+y,1/2+z",
+    "1/2+x,y,1/2+z",
+    "1/2+x,1/2+y,z",
+    "z,-x,y",
+    "z,1/2-x,1/2+y",
+    "1/2+z,-x,1/2+y",
+    "1/2+z,1/2-x,y",
+    "-y,z,-x",
+    "-y,1/2+z,1/2-x",
+    "1/2-y,z,1/2-x",
+    "1/2-y,1/2+z,-x",
+    "x,-y,z",
+    "x,1/2-y,1/2+z",
+    "1/2+x,-y,1/2+z",
+    "1/2+x,1/2-y,z",
+    "-z,x,-y",
+    "-z,1/2+x,1/2-y",
+    "1/2-z,x,1/2-y",
+    "1/2-z,1/2+x,-y",
+    "y,-z,x",
+    "y,1/2-z,1/2+x",
+    "1/2+y,-z,1/2+x",
+    "1/2+y,1/2-z,x",
+    "-x,y,-z",
+    "-x,1/2+y,1/2-z",
+    "1/2-x,y,1/2-z",
+    "1/2-x,1/2+y,-z",
+    "x,-z,-y",
+    "x,1/2-z,1/2-y",
+    "1/2+x,-z,1/2-y",
+    "1/2+x,1/2-z,-y",
+    "-z,y,x",
+    "-z,1/2+y,1/2+x",
+    "1/2-z,y,1/2+x",
+    "1/2-z,1/2+y,x",
+    "y,-x,-z",
+    "y,1/2-x,1/2-z",
+    "1/2+y,-x,1/2-z",
+    "1/2+y,1/2-x,-z",
+    "-x,z,y",
+    "-x,1/2+z,1/2+y",
+    "1/2-x,z,1/2+y",
+    "1/2-x,1/2+z,y",
+    "z,-y,-x",
+    "z,1/2-y,1/2-x",
+    "1/2+z,-y,1/2-x",
+    "1/2+z,1/2-y,-x",
+    "-y,x,z",
+    "-y,1/2+x,1/2+z",
+    "1/2-y,x,1/2+z",
+    "1/2-y,1/2+x,z",
+    "x,z,y",
+    "x,1/2+z,1/2+y",
+    "1/2+x,z,1/2+y",
+    "1/2+x,1/2+z,y",
+    "-z,-y,-x",
+    "-z,1/2-y,1/2-x",
+    "1/2-z,-y,1/2-x",
+    "1/2-z,1/2-y,-x",
+    "y,x,z",
+    "y,1/2+x,1/2+z",
+    "1/2+y,x,1/2+z",
+    "1/2+y,1/2+x,z",
+    "-x,-z,-y",
+    "-x,1/2-z,1/2-y",
+    "1/2-x,-z,1/2-y",
+    "1/2-x,1/2-z,-y",
+    "z,y,x",
+    "z,1/2+y,1/2+x",
+    "1/2+z,y,1/2+x",
+    "1/2+z,1/2+y,x",
+    "-y,-x,-z",
+    "-y,1/2-x,1/2-z",
+    "1/2-y,-x,1/2-z",
+    "1/2-y,1/2-x,-z",
+    "z,x,-y",
+    "z,1/2+x,1/2-y",
+    "1/2+z,x,1/2-y",
+    "1/2+z,1/2+x,-y",
+    "-y,-z,x",
+    "-y,1/2-z,1/2+x",
+    "1/2-y,-z,1/2+x",
+    "1/2-y,1/2-z,x",
+    "x,y,-z",
+    "x,1/2+y,1/2-z",
+    "1/2+x,y,1/2-z",
+    "1/2+x,1/2+y,-z",
+    "-z,-x,y",
+    "-z,1/2-x,1/2+y",
+    "1/2-z,-x,1/2+y",
+    "1/2-z,1/2-x,y",
+    "y,z,-x",
+    "y,1/2+z,1/2-x",
+    "1/2+y,z,1/2-x",
+    "1/2+y,1/2+z,-x",
+    "-x,-y,z",
+    "-x,1/2-y,1/2+z",
+    "1/2-x,-y,1/2+z",
+    "1/2-x,1/2-y,z",
+    "-z,x,y",
+    "-z,1/2+x,1/2+y",
+    "1/2-z,x,1/2+y",
+    "1/2-z,1/2+x,y",
+    "y,-z,-x",
+    "y,1/2-z,1/2-x",
+    "1/2+y,-z,1/2-x",
+    "1/2+y,1/2-z,-x",
+    "-x,y,z",
+    "-x,1/2+y,1/2+z",
+    "1/2-x,y,1/2+z",
+    "1/2-x,1/2+y,z",
+    "z,-x,-y",
+    "z,1/2-x,1/2-y",
+    "1/2+z,-x,1/2-y",
+    "1/2+z,1/2-x,-y",
+    "-y,z,x",
+    "-y,1/2+z,1/2+x",
+    "1/2-y,z,1/2+x",
+    "1/2-y,1/2+z,x",
+    "x,-y,-z",
+    "x,1/2-y,1/2-z",
+    "1/2+x,-y,1/2-z",
+    "1/2+x,1/2-y,-z",
+    "-x,z,-y",
+    "-x,1/2+z,1/2-y",
+    "1/2-x,z,1/2-y",
+    "1/2-x,1/2+z,-y",
+    "z,-y,x",
+    "z,1/2-y,1/2+x",
+    "1/2+z,-y,1/2+x",
+    "1/2+z,1/2-y,x",
+    "-y,x,-z",
+    "-y,1/2+x,1/2-z",
+    "1/2-y,x,1/2-z",
+    "1/2-y,1/2+x,-z",
+    "x,-z,y",
+    "x,1/2-z,1/2+y",
+    "1/2+x,-z,1/2+y",
+    "1/2+x,1/2-z,y",
+    "-z,y,-x",
+    "-z,1/2+y,1/2-x",
+    "1/2-z,y,1/2-x",
+    "1/2-z,1/2+y,-x",
+    "y,-x,z",
+    "y,1/2-x,1/2+z",
+    "1/2+y,-x,1/2+z",
+    "1/2+y,1/2-x,z",
+    "-x,-z,y",
+    "-x,1/2-z,1/2+y",
+    "1/2-x,-z,1/2+y",
+    "1/2-x,1/2-z,y",
+    "z,y,-x",
+    "z,1/2+y,1/2-x",
+    "1/2+z,y,1/2-x",
+    "1/2+z,1/2+y,-x",
+    "-y,-x,z",
+    "-y,1/2-x,1/2+z",
+    "1/2-y,-x,1/2+z",
+    "1/2-y,1/2-x,z",
+    "x,z,-y",
+    "x,1/2+z,1/2-y",
+    "1/2+x,z,1/2-y",
+    "1/2+x,1/2+z,-y",
+    "-z,-y,x",
+    "-z,1/2-y,1/2+x",
+    "1/2-z,-y,1/2+x",
+    "1/2-z,1/2-y,x",
+    "y,x,-z",
+    "y,1/2+x,1/2-z",
+    "1/2+y,x,1/2-z",
+    "1/2+y,1/2+x,-z",
+    "-z,-x,-y",
+    "-z,1/2-x,1/2-y",
+    "1/2-z,-x,1/2-y",
+    "1/2-z,1/2-x,-y",
+    "y,z,x",
+    "y,1/2+z,1/2+x",
+    "1/2+y,z,1/2+x",
+    "1/2+y,1/2+z,x",
+    "-x,-y,-z",
+    "-x,1/2-y,1/2-z",
+    "1/2-x,-y,1/2-z",
+    "1/2-x,1/2-y,-z",
+    "z,x,y",
+    "z,1/2+x,1/2+y",
+    "1/2+z,x,1/2+y",
+    "1/2+z,1/2+x,y",
+    "-y,-z,-x",
+    "-y,1/2-z,1/2-x",
+    "1/2-y,-z,1/2-x",
+    "1/2-y,1/2-z,-x"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Ba1",
+      "element": "Ba",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Ba",
+      "label": "Ba1",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ba",
+      "label": "Ba1",
+      "fractional": [
+        0.0,
+        0.5,
+        0.5
+      ],
+      "position": [
+        0.0,
+        2.748,
+        2.748
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ba",
+      "label": "Ba1",
+      "fractional": [
+        0.5,
+        0.0,
+        0.5
+      ],
+      "position": [
+        2.748,
+        0.0,
+        2.748
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ba",
+      "label": "Ba1",
+      "fractional": [
+        0.5,
+        0.5,
+        0.0
+      ],
+      "position": [
+        2.748,
+        2.748,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "position": [
+        2.748,
+        2.748,
+        2.748
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "position": [
+        2.748,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.0,
+        0.5,
+        0.0
+      ],
+      "position": [
+        0.0,
+        2.748,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.0,
+        0.0,
+        0.5
+      ],
+      "position": [
+        0.0,
+        0.0,
+        2.748
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 8,
+  "speciesPositionCount": 8,
+  "cellComposition": {
+    "Ba": 4,
+    "O": 4
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Gerlach W"
+    ],
+    "title": "Die Gitterstruktur der Erdalkalioxyde.\n _cod_database_code 1011362",
+    "journal": "Zeitschrift fur Physik",
+    "year": 1922,
+    "volume": "9",
+    "pages": "184–192"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 192,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.5898584464847869e-06
+  },
+  "spaceGroupOriginal": "F m 3 m",
+  "spaceGroupNumber": 225,
+  "id": "chat-barium-oxide",
+  "note": "Bản nghiên cứu cấu trúc oxide kim loại kiềm thổ; không dùng bản ghi 11278 là BaS."
+}

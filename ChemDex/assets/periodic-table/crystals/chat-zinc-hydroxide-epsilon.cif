@@ -1,0 +1,47 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0018272
+_database_code_amcsd 0018272
+_chemical_name_mineral 'ε-Zn(OH)₂'
+_chemical_formula_sum 'Zn O2 H2'
+_symmetry_space_group_name_H-M 'P 21 21 21'
+_cell_length_a 4.905
+_cell_length_b 5.143
+_cell_length_c 8.473
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 90
+_cell_volume 213.743414
+loop_
+_publ_author_name
+'Lutz H D'
+'Jacobs H'
+'Kockelmann W'
+'Stahl R'
+'Jung C'
+_journal_name_full 'Zeitschrift fur Anorganische und Allgemeine Chemie'
+_journal_year 1998
+_journal_volume 624
+_publ_section_title
+;Kristallstrukturen und Wasserstoffbruckenbindungen bei beta-Be(OH)2
+ und epsilon-Zn(OH)2
+ Note: X-ray single-crystal
+;
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+-x,1/2+y,1/2-z
+1/2+x,1/2-y,-z
+1/2-x,-y,1/2+z
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+Zn Zn 0.07096 0.64832 0.6242 1
+O1 O 0.1155 0.1256 0.0795 1
+O2 O 0.167 0.3172 0.7198 1
+H1 H 0.501 0.36 0.857 1
+H2 H 0.28 0.79 0.17 1

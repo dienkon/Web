@@ -1,0 +1,207 @@
+{
+  "amcsdId": "0011636",
+  "mineralName": "LiOH khan",
+  "formula": "O H Li",
+  "spaceGroup": "P 4/n m m:1",
+  "cell": {
+    "a": 3.546,
+    "b": 3.546,
+    "c": 4.334,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 54.49621874399999,
+  "declaredVolume": 54.496,
+  "basis": [
+    [
+      3.546,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      3.546,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      4.334
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2-y,1/2-x,z",
+    "y,x,-z",
+    "y,-x,-z",
+    "1/2-y,1/2+x,z",
+    "x,-y,z",
+    "1/2-x,1/2+y,-z",
+    "1/2+x,1/2+y,-z",
+    "-x,-y,z",
+    "1/2+y,1/2+x,z",
+    "-y,-x,-z",
+    "-y,x,-z",
+    "1/2+y,1/2-x,z",
+    "-x,y,z",
+    "1/2+x,1/2-y,-z",
+    "1/2-x,1/2-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.0,
+        0.5,
+        0.1941
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "H",
+      "element": "H",
+      "fractional": [
+        0.0,
+        0.5,
+        0.4072
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Li",
+      "element": "Li",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.0,
+        0.5,
+        0.1941
+      ],
+      "position": [
+        0.0,
+        1.773,
+        0.8412294
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.5,
+        0.0,
+        0.8059
+      ],
+      "position": [
+        1.773,
+        0.0,
+        3.4927706
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H",
+      "fractional": [
+        0.0,
+        0.5,
+        0.4072
+      ],
+      "position": [
+        0.0,
+        1.773,
+        1.7648048
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H",
+      "fractional": [
+        0.5,
+        0.0,
+        0.5928
+      ],
+      "position": [
+        1.773,
+        0.0,
+        2.5691952
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Li",
+      "label": "Li",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Li",
+      "label": "Li",
+      "fractional": [
+        0.5,
+        0.5,
+        0.0
+      ],
+      "position": [
+        1.773,
+        1.773,
+        0.0
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 6,
+  "speciesPositionCount": 6,
+  "cellComposition": {
+    "O": 2,
+    "H": 2,
+    "Li": 2
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Wyckoff R W G"
+    ],
+    "title": "Second edition. Interscience Publishers, New York, New York",
+    "journal": "Crystal Structures",
+    "year": 1963,
+    "volume": "1",
+    "pages": "85–237"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "literature-compilation",
+  "validation": {
+    "operatorCount": 16,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 4.013929865754383e-06
+  },
+  "spaceGroupOriginal": "P 4/n m m",
+  "spaceGroupNumber": 129,
+  "id": "chat-lithium-hydroxide",
+  "note": "Bản tài liệu tổng hợp; không tự dựng vị trí H còn thiếu."
+}

@@ -1,0 +1,295 @@
+{
+  "amcsdId": "0009722",
+  "mineralName": "CO₂ rắn · 150 K",
+  "formula": "C O2",
+  "spaceGroup": "P a -3",
+  "cell": {
+    "a": 5.624,
+    "b": 5.624,
+    "c": 5.624,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 177.88361062399997,
+  "declaredVolume": 177.884,
+  "basis": [
+    [
+      5.624,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      5.624,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      5.624
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+z,x,1/2-y",
+    "z,1/2-x,1/2+y",
+    "1/2-z,1/2+x,y",
+    "-z,-x,-y",
+    "1/2+y,1/2-z,-x",
+    "1/2-y,-z,1/2+x",
+    "-y,1/2+z,1/2-x",
+    "y,z,x",
+    "x,1/2-y,1/2+z",
+    "1/2-x,1/2+y,z",
+    "1/2+x,y,1/2-z",
+    "-x,-y,-z",
+    "1/2-z,-x,1/2+y",
+    "-z,1/2+x,1/2-y",
+    "1/2+z,1/2-x,-y",
+    "z,x,y",
+    "1/2-y,1/2+z,x",
+    "1/2+y,z,1/2-x",
+    "y,1/2-z,1/2+x",
+    "-y,-z,-x",
+    "-x,1/2+y,1/2-z",
+    "1/2+x,1/2-y,-z",
+    "1/2-x,-y,1/2+z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "C",
+      "element": "C",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.1185,
+        0.1185,
+        0.1185
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.5,
+        0.0,
+        0.5
+      ],
+      "position": [
+        2.812,
+        0.0,
+        2.812
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.0,
+        0.5,
+        0.5
+      ],
+      "position": [
+        0.0,
+        2.812,
+        2.812
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.5,
+        0.5,
+        0.0
+      ],
+      "position": [
+        2.812,
+        2.812,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.1185,
+        0.1185,
+        0.1185
+      ],
+      "position": [
+        0.666444,
+        0.666444,
+        0.666444
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.6185,
+        0.1185,
+        0.3815
+      ],
+      "position": [
+        3.478444,
+        0.666444,
+        2.145556
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.1185,
+        0.3815,
+        0.6185
+      ],
+      "position": [
+        0.666444,
+        2.145556,
+        3.478444
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.3815,
+        0.6185,
+        0.1185
+      ],
+      "position": [
+        2.145556,
+        3.478444,
+        0.666444
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.8815,
+        0.8815,
+        0.8815
+      ],
+      "position": [
+        4.957556,
+        4.957556,
+        4.957556
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.6185,
+        0.3815,
+        0.8815
+      ],
+      "position": [
+        3.478444,
+        2.145556,
+        4.957556
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.3815,
+        0.8815,
+        0.6185
+      ],
+      "position": [
+        2.145556,
+        4.957556,
+        3.478444
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.8815,
+        0.6185,
+        0.3815
+      ],
+      "position": [
+        4.957556,
+        3.478444,
+        2.145556
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 12,
+  "speciesPositionCount": 12,
+  "cellComposition": {
+    "C": 4,
+    "O": 8
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Simon A",
+      "Peters K"
+    ],
+    "title": "Single-crystal refinement of the structure of carbon dioxide\n Sample: T = 150 K",
+    "journal": "Acta Crystallographica, Section B",
+    "year": 1980,
+    "volume": "36",
+    "pages": "2750–2751"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 24,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 2.188936904582841e-06
+  },
+  "spaceGroupOriginal": "P a 3",
+  "spaceGroupNumber": 205,
+  "id": "chat-dry-ice",
+  "note": "Tinh chỉnh đơn tinh thể ở 150 K; đây là pha rắn, không phải CO2 khí ở điều kiện phòng."
+}

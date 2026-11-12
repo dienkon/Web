@@ -1,0 +1,227 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0012968
+_database_code_amcsd 0012968
+_chemical_name_mineral 'Xenon rắn · 60 K'
+_chemical_formula_sum Xe
+_symmetry_space_group_name_H-M 'F m -3 m'
+_cell_length_a 6.1796
+_cell_length_b 6.1796
+_cell_length_c 6.1796
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 90
+_cell_volume 235.983204
+loop_
+_publ_author_name
+'Sears D R'
+'Klug H P'
+_journal_name_full 'Journal of Chemical Physics'
+_journal_year 1962
+_journal_volume 37
+_publ_section_title
+;Density and expansivity of solid xenon
+ Sample: at T = 60 K
+;
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+x,1/2+y,1/2+z
+1/2+x,y,1/2+z
+1/2+x,1/2+y,z
+z,-x,y
+z,1/2-x,1/2+y
+1/2+z,-x,1/2+y
+1/2+z,1/2-x,y
+-y,z,-x
+-y,1/2+z,1/2-x
+1/2-y,z,1/2-x
+1/2-y,1/2+z,-x
+x,-y,z
+x,1/2-y,1/2+z
+1/2+x,-y,1/2+z
+1/2+x,1/2-y,z
+-z,x,-y
+-z,1/2+x,1/2-y
+1/2-z,x,1/2-y
+1/2-z,1/2+x,-y
+y,-z,x
+y,1/2-z,1/2+x
+1/2+y,-z,1/2+x
+1/2+y,1/2-z,x
+-x,y,-z
+-x,1/2+y,1/2-z
+1/2-x,y,1/2-z
+1/2-x,1/2+y,-z
+x,-z,-y
+x,1/2-z,1/2-y
+1/2+x,-z,1/2-y
+1/2+x,1/2-z,-y
+-z,y,x
+-z,1/2+y,1/2+x
+1/2-z,y,1/2+x
+1/2-z,1/2+y,x
+y,-x,-z
+y,1/2-x,1/2-z
+1/2+y,-x,1/2-z
+1/2+y,1/2-x,-z
+-x,z,y
+-x,1/2+z,1/2+y
+1/2-x,z,1/2+y
+1/2-x,1/2+z,y
+z,-y,-x
+z,1/2-y,1/2-x
+1/2+z,-y,1/2-x
+1/2+z,1/2-y,-x
+-y,x,z
+-y,1/2+x,1/2+z
+1/2-y,x,1/2+z
+1/2-y,1/2+x,z
+x,z,y
+x,1/2+z,1/2+y
+1/2+x,z,1/2+y
+1/2+x,1/2+z,y
+-z,-y,-x
+-z,1/2-y,1/2-x
+1/2-z,-y,1/2-x
+1/2-z,1/2-y,-x
+y,x,z
+y,1/2+x,1/2+z
+1/2+y,x,1/2+z
+1/2+y,1/2+x,z
+-x,-z,-y
+-x,1/2-z,1/2-y
+1/2-x,-z,1/2-y
+1/2-x,1/2-z,-y
+z,y,x
+z,1/2+y,1/2+x
+1/2+z,y,1/2+x
+1/2+z,1/2+y,x
+-y,-x,-z
+-y,1/2-x,1/2-z
+1/2-y,-x,1/2-z
+1/2-y,1/2-x,-z
+z,x,-y
+z,1/2+x,1/2-y
+1/2+z,x,1/2-y
+1/2+z,1/2+x,-y
+-y,-z,x
+-y,1/2-z,1/2+x
+1/2-y,-z,1/2+x
+1/2-y,1/2-z,x
+x,y,-z
+x,1/2+y,1/2-z
+1/2+x,y,1/2-z
+1/2+x,1/2+y,-z
+-z,-x,y
+-z,1/2-x,1/2+y
+1/2-z,-x,1/2+y
+1/2-z,1/2-x,y
+y,z,-x
+y,1/2+z,1/2-x
+1/2+y,z,1/2-x
+1/2+y,1/2+z,-x
+-x,-y,z
+-x,1/2-y,1/2+z
+1/2-x,-y,1/2+z
+1/2-x,1/2-y,z
+-z,x,y
+-z,1/2+x,1/2+y
+1/2-z,x,1/2+y
+1/2-z,1/2+x,y
+y,-z,-x
+y,1/2-z,1/2-x
+1/2+y,-z,1/2-x
+1/2+y,1/2-z,-x
+-x,y,z
+-x,1/2+y,1/2+z
+1/2-x,y,1/2+z
+1/2-x,1/2+y,z
+z,-x,-y
+z,1/2-x,1/2-y
+1/2+z,-x,1/2-y
+1/2+z,1/2-x,-y
+-y,z,x
+-y,1/2+z,1/2+x
+1/2-y,z,1/2+x
+1/2-y,1/2+z,x
+x,-y,-z
+x,1/2-y,1/2-z
+1/2+x,-y,1/2-z
+1/2+x,1/2-y,-z
+-x,z,-y
+-x,1/2+z,1/2-y
+1/2-x,z,1/2-y
+1/2-x,1/2+z,-y
+z,-y,x
+z,1/2-y,1/2+x
+1/2+z,-y,1/2+x
+1/2+z,1/2-y,x
+-y,x,-z
+-y,1/2+x,1/2-z
+1/2-y,x,1/2-z
+1/2-y,1/2+x,-z
+x,-z,y
+x,1/2-z,1/2+y
+1/2+x,-z,1/2+y
+1/2+x,1/2-z,y
+-z,y,-x
+-z,1/2+y,1/2-x
+1/2-z,y,1/2-x
+1/2-z,1/2+y,-x
+y,-x,z
+y,1/2-x,1/2+z
+1/2+y,-x,1/2+z
+1/2+y,1/2-x,z
+-x,-z,y
+-x,1/2-z,1/2+y
+1/2-x,-z,1/2+y
+1/2-x,1/2-z,y
+z,y,-x
+z,1/2+y,1/2-x
+1/2+z,y,1/2-x
+1/2+z,1/2+y,-x
+-y,-x,z
+-y,1/2-x,1/2+z
+1/2-y,-x,1/2+z
+1/2-y,1/2-x,z
+x,z,-y
+x,1/2+z,1/2-y
+1/2+x,z,1/2-y
+1/2+x,1/2+z,-y
+-z,-y,x
+-z,1/2-y,1/2+x
+1/2-z,-y,1/2+x
+1/2-z,1/2-y,x
+y,x,-z
+y,1/2+x,1/2-z
+1/2+y,x,1/2-z
+1/2+y,1/2+x,-z
+-z,-x,-y
+-z,1/2-x,1/2-y
+1/2-z,-x,1/2-y
+1/2-z,1/2-x,-y
+y,z,x
+y,1/2+z,1/2+x
+1/2+y,z,1/2+x
+1/2+y,1/2+z,x
+-x,-y,-z
+-x,1/2-y,1/2-z
+1/2-x,-y,1/2-z
+1/2-x,1/2-y,-z
+z,x,y
+z,1/2+x,1/2+y
+1/2+z,x,1/2+y
+1/2+z,1/2+x,y
+-y,-z,-x
+-y,1/2-z,1/2-x
+1/2-y,-z,1/2-x
+1/2-y,1/2-z,-x
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+Xe Xe 0 0 0 1

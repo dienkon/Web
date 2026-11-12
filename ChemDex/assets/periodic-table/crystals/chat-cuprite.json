@@ -2,7 +2,7 @@
   "amcsdId": "0007351",
   "mineralName": "Cuprite · Cu₂O",
   "formula": "Cu2 O",
-  "spaceGroup": "P n 3",
+  "spaceGroup": "P n -3:1",
   "cell": {
     "a": 4.2696,
     "b": 4.2696,
@@ -198,6 +198,8 @@
     "maxSiteOccupancy": 1,
     "cellVolumeRelativeError": 5.067676472175905e-06
   },
+  "spaceGroupOriginal": "P n 3",
+  "spaceGroupNumber": 201,
   "id": "chat-cuprite",
   "note": "Phân tích mật độ điện tích Cu2O; pha cuprite, không phải CuO."
 }

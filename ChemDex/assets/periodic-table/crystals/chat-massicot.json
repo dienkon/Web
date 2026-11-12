@@ -211,6 +211,8 @@
     "maxSiteOccupancy": 1,
     "cellVolumeRelativeError": 6.988821419190046e-07
   },
+  "spaceGroupOriginal": "P b c m",
+  "spaceGroupNumber": 57,
   "id": "chat-massicot",
   "note": "Pha trực thoi; khác litharge tứ phương."
 }

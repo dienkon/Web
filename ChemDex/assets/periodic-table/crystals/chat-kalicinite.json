@@ -1,0 +1,498 @@
+{
+  "amcsdId": "0018502",
+  "mineralName": "Kalicinite · KHCO₃",
+  "formula": "K H C O3",
+  "spaceGroup": "P 1 21/a 1",
+  "cell": {
+    "a": 15.1725,
+    "b": 5.6283,
+    "c": 3.711,
+    "alpha": 90.0,
+    "beta": 104.631,
+    "gamma": 90.0
+  },
+  "volume": 306.62595991451883,
+  "declaredVolume": 306.626,
+  "basis": [
+    [
+      15.1725,
+      0.0,
+      -0.9373722606970691
+    ],
+    [
+      0.0,
+      5.6283,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      3.5906620900435153
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+x,1/2-y,z",
+    "1/2-x,1/2+y,-z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "K",
+      "element": "K",
+      "fractional": [
+        0.16533,
+        0.02177,
+        0.29533
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "H",
+      "element": "H",
+      "fractional": [
+        0.011,
+        0.682,
+        -0.465
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "C",
+      "element": "C",
+      "fractional": [
+        0.11967,
+        0.515,
+        -0.14363
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O(1)",
+      "element": "O",
+      "fractional": [
+        0.19329,
+        0.52915,
+        0.09482
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O(2)",
+      "element": "O",
+      "fractional": [
+        0.08221,
+        0.31998,
+        -0.27353
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O(3)",
+      "element": "O",
+      "fractional": [
+        0.07761,
+        0.71772,
+        -0.27448
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "K",
+      "label": "K",
+      "fractional": [
+        0.16533,
+        0.02177,
+        0.29533
+      ],
+      "position": [
+        2.2316353,
+        0.1225281,
+        1.0604302
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "K",
+      "label": "K",
+      "fractional": [
+        0.66533,
+        0.47823,
+        0.29533
+      ],
+      "position": [
+        9.8178853,
+        2.6916219,
+        1.0604302
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "K",
+      "label": "K",
+      "fractional": [
+        0.33467,
+        0.52177,
+        0.70467
+      ],
+      "position": [
+        4.4172425,
+        2.9366781,
+        2.5302319
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "K",
+      "label": "K",
+      "fractional": [
+        0.83467,
+        0.97823,
+        0.70467
+      ],
+      "position": [
+        12.0034925,
+        5.5057719,
+        2.5302319
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H",
+      "fractional": [
+        0.011,
+        0.682,
+        0.535
+      ],
+      "position": [
+        -0.3345967,
+        3.8385006,
+        1.9210042
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H",
+      "fractional": [
+        0.511,
+        0.818,
+        0.535
+      ],
+      "position": [
+        7.2516533,
+        4.6039494,
+        1.9210042
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H",
+      "fractional": [
+        0.489,
+        0.182,
+        0.465
+      ],
+      "position": [
+        6.9834744,
+        1.0243506,
+        1.6696579
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H",
+      "fractional": [
+        0.989,
+        0.318,
+        0.465
+      ],
+      "position": [
+        14.5697244,
+        1.7897994,
+        1.6696579
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.11967,
+        0.515,
+        0.85637
+      ],
+      "position": [
+        1.0129556,
+        2.8985745,
+        3.0749353
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.61967,
+        0.985,
+        0.85637
+      ],
+      "position": [
+        8.5992056,
+        5.5438755,
+        3.0749353
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.38033,
+        0.015,
+        0.14363
+      ],
+      "position": [
+        5.6359221,
+        0.0844245,
+        0.5157268
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.88033,
+        0.485,
+        0.14363
+      ],
+      "position": [
+        13.2221721,
+        2.7297255,
+        0.5157268
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O(1)",
+      "fractional": [
+        0.19329,
+        0.52915,
+        0.09482
+      ],
+      "position": [
+        2.8438109,
+        2.9782149,
+        0.3404666
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O(1)",
+      "fractional": [
+        0.69329,
+        0.97085,
+        0.09482
+      ],
+      "position": [
+        10.4300609,
+        5.4642351,
+        0.3404666
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O(1)",
+      "fractional": [
+        0.30671,
+        0.02915,
+        0.90518
+      ],
+      "position": [
+        3.8050669,
+        0.1640649,
+        3.2501955
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O(1)",
+      "fractional": [
+        0.80671,
+        0.47085,
+        0.90518
+      ],
+      "position": [
+        11.3913169,
+        2.6500851,
+        3.2501955
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O(2)",
+      "fractional": [
+        0.08221,
+        0.31998,
+        0.72647
+      ],
+      "position": [
+        0.5663584,
+        1.8009434,
+        2.6085083
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O(2)",
+      "fractional": [
+        0.58221,
+        0.18002,
+        0.72647
+      ],
+      "position": [
+        8.1526084,
+        1.0132066,
+        2.6085083
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O(2)",
+      "fractional": [
+        0.41779,
+        0.81998,
+        0.27353
+      ],
+      "position": [
+        6.0825193,
+        4.6150934,
+        0.9821538
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O(2)",
+      "fractional": [
+        0.91779,
+        0.68002,
+        0.27353
+      ],
+      "position": [
+        13.6687693,
+        3.8273566,
+        0.9821538
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O(3)",
+      "fractional": [
+        0.07761,
+        0.71772,
+        0.72552
+      ],
+      "position": [
+        0.4974554,
+        4.0395435,
+        2.6050972
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O(3)",
+      "fractional": [
+        0.57761,
+        0.78228,
+        0.72552
+      ],
+      "position": [
+        8.0837054,
+        4.4029065,
+        2.6050972
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O(3)",
+      "fractional": [
+        0.42239,
+        0.21772,
+        0.27448
+      ],
+      "position": [
+        6.1514223,
+        1.2253935,
+        0.9855649
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O(3)",
+      "fractional": [
+        0.92239,
+        0.28228,
+        0.27448
+      ],
+      "position": [
+        13.7376723,
+        1.5887565,
+        0.9855649
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 24,
+  "speciesPositionCount": 24,
+  "cellComposition": {
+    "K": 4,
+    "H": 4,
+    "C": 4,
+    "O": 12
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Olovsson I",
+      "Tellgren R",
+      "Thomas J O"
+    ],
+    "title": "Hydrogen-bond studies. LXXXIV. An X-ray diffraction study\n of the structures of KHCO3 and KDCO3 at 298, 219 and 95 K\n Note: T = 298 K",
+    "journal": "Acta Crystallographica, Section B",
+    "year": 1974,
+    "volume": "30",
+    "pages": "1155–1166"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 4,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.307308786156086e-07
+  },
+  "spaceGroupOriginal": "P 1 21/a 1",
+  "spaceGroupNumber": 14,
+  "id": "chat-kalicinite",
+  "note": "Mẫu hydrogen đo ở 298 K; không dùng mẫu thay thế deuterium."
+}

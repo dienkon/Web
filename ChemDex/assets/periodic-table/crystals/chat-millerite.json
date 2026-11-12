@@ -1,0 +1,379 @@
+{
+  "amcsdId": "0005097",
+  "mineralName": "Millerite · β-NiS",
+  "formula": "Ni S",
+  "spaceGroup": "R 3 m:H",
+  "cell": {
+    "a": 9.6071,
+    "b": 9.6071,
+    "c": 3.1434,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 120.0
+  },
+  "volume": 251.2551099647147,
+  "declaredVolume": 251.255,
+  "basis": [
+    [
+      9.6071,
+      -4.803549999999999,
+      0.0
+    ],
+    [
+      0.0,
+      8.319992656697481,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      3.1434
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "2/3+x,1/3+y,1/3+z",
+    "1/3+x,2/3+y,2/3+z",
+    "x,x-y,z",
+    "2/3+x,1/3+x-y,1/3+z",
+    "1/3+x,2/3+x-y,2/3+z",
+    "-y,-x,z",
+    "2/3-y,1/3-x,1/3+z",
+    "1/3-y,2/3-x,2/3+z",
+    "-x+y,y,z",
+    "2/3-x+y,1/3+y,1/3+z",
+    "1/3-x+y,2/3+y,2/3+z",
+    "-y,x-y,z",
+    "2/3-y,1/3+x-y,1/3+z",
+    "1/3-y,2/3+x-y,2/3+z",
+    "-x+y,-x,z",
+    "2/3-x+y,1/3-x,1/3+z",
+    "1/3-x+y,2/3-x,2/3+z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Ni",
+      "element": "Ni",
+      "fractional": [
+        0.91225,
+        -0.91225,
+        0.47546
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "S",
+      "element": "S",
+      "fractional": [
+        0.11224,
+        -0.11224,
+        0.0
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Ni",
+      "label": "Ni",
+      "fractional": [
+        0.91225,
+        0.08775,
+        0.47546
+      ],
+      "position": [
+        8.3425655,
+        0.7300794,
+        1.494561
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ni",
+      "label": "Ni",
+      "fractional": [
+        0.57891667,
+        0.42108333,
+        0.80879333
+      ],
+      "position": [
+        3.5390155,
+        3.5034102,
+        2.542361
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ni",
+      "label": "Ni",
+      "fractional": [
+        0.24558333,
+        0.75441667,
+        0.14212667
+      ],
+      "position": [
+        -1.2645346,
+        6.2767412,
+        0.446761
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ni",
+      "label": "Ni",
+      "fractional": [
+        0.91225,
+        0.8245,
+        0.47546
+      ],
+      "position": [
+        4.80355,
+        6.8598339,
+        1.494561
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ni",
+      "label": "Ni",
+      "fractional": [
+        0.57891667,
+        0.15783333,
+        0.80879333
+      ],
+      "position": [
+        4.80355,
+        1.3131721,
+        2.542361
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ni",
+      "label": "Ni",
+      "fractional": [
+        0.24558333,
+        0.49116667,
+        0.14212667
+      ],
+      "position": [
+        -0.0,
+        4.0865031,
+        0.446761
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ni",
+      "label": "Ni",
+      "fractional": [
+        0.1755,
+        0.08775,
+        0.47546
+      ],
+      "position": [
+        1.2645345,
+        0.7300794,
+        1.494561
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ni",
+      "label": "Ni",
+      "fractional": [
+        0.84216667,
+        0.42108333,
+        0.80879333
+      ],
+      "position": [
+        6.0680846,
+        3.5034102,
+        2.542361
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ni",
+      "label": "Ni",
+      "fractional": [
+        0.50883333,
+        0.75441667,
+        0.14212667
+      ],
+      "position": [
+        1.2645345,
+        6.2767412,
+        0.446761
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.11224,
+        0.88776,
+        0.0
+      ],
+      "position": [
+        -3.1860986,
+        7.3861567,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.77890667,
+        0.22109333,
+        0.33333333
+      ],
+      "position": [
+        6.4210014,
+        1.8394949,
+        1.0478
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.44557333,
+        0.55442667,
+        0.66666667
+      ],
+      "position": [
+        1.6174513,
+        4.6128258,
+        2.0956
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.11224,
+        0.22448,
+        0.0
+      ],
+      "position": [
+        0.0,
+        1.867672,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.77890667,
+        0.55781333,
+        0.33333333
+      ],
+      "position": [
+        4.80355,
+        4.6410028,
+        1.0478
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.44557333,
+        0.89114667,
+        0.66666667
+      ],
+      "position": [
+        -0.0,
+        7.4143338,
+        2.0956
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.77552,
+        0.88776,
+        0.0
+      ],
+      "position": [
+        3.1860986,
+        7.3861567,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.44218667,
+        0.22109333,
+        0.33333333
+      ],
+      "position": [
+        3.1860987,
+        1.8394949,
+        1.0478
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.10885333,
+        0.55442667,
+        0.66666667
+      ],
+      "position": [
+        -1.6174514,
+        4.6128258,
+        2.0956
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 18,
+  "speciesPositionCount": 18,
+  "cellComposition": {
+    "Ni": 9,
+    "S": 9
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Grice J D",
+      "Ferguson R B"
+    ],
+    "title": "Crystal structure refinement of millerite (B-NiS)",
+    "journal": "The Canadian Mineralogist",
+    "year": 1974,
+    "volume": "12",
+    "pages": "248–252"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 18,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 4.376616050733231e-07
+  },
+  "spaceGroupOriginal": "R 3 m",
+  "spaceGroupNumber": 160,
+  "id": "chat-millerite",
+  "note": "Tinh chỉnh millerite; không đồng nhất với pha NiS lục phương."
+}

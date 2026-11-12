@@ -1,0 +1,148 @@
+{
+  "amcsdId": "0010531",
+  "mineralName": "CoCl₂ khan",
+  "formula": "Co Cl2",
+  "spaceGroup": "R -3 m:R",
+  "cell": {
+    "a": 6.16,
+    "b": 6.16,
+    "c": 6.16,
+    "alpha": 33.43,
+    "beta": 33.43,
+    "gamma": 33.43
+  },
+  "volume": 63.17829407758747,
+  "declaredVolume": 63.178,
+  "basis": [
+    [
+      6.16,
+      5.140886629622986,
+      5.140886629622986
+    ],
+    [
+      0.0,
+      3.393653585940028,
+      1.5438070407501494
+    ],
+    [
+      0.0,
+      0.0,
+      3.0221754552464155
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "-x,-z,-y",
+    "-z,-x,-y",
+    "y,x,z",
+    "y,z,x",
+    "-z,-y,-x",
+    "-x,-y,-z",
+    "x,z,y",
+    "z,x,y",
+    "-y,-x,-z",
+    "-y,-z,-x",
+    "z,y,x"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Co",
+      "element": "Co",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Cl",
+      "element": "Cl",
+      "fractional": [
+        0.25,
+        0.25,
+        0.25
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Co",
+      "label": "Co",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.25,
+        0.25,
+        0.25
+      ],
+      "position": [
+        4.1104433,
+        1.2343652,
+        0.7555439
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.75,
+        0.75,
+        0.75
+      ],
+      "position": [
+        12.3313299,
+        3.7030955,
+        2.2666316
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 3,
+  "speciesPositionCount": 3,
+  "cellComposition": {
+    "Co": 1,
+    "Cl": 2
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Grime H",
+      "Santos J A"
+    ],
+    "title": "The structure and colour of anhydrous cobalt chloride, CoCl2,\n at room and very low temperatures",
+    "journal": "Zeitschrift fur Kristallographie",
+    "year": 1934,
+    "volume": "88",
+    "pages": "136–141"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 12,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 4.654725040772542e-06
+  },
+  "spaceGroupOriginal": "R -3 m",
+  "spaceGroupNumber": 166,
+  "id": "chat-cobalt-chloride",
+  "note": "Bản nghiên cứu cấu trúc và màu CoCl2; không dùng cho CoCl2·6H2O."
+}

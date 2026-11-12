@@ -156,6 +156,8 @@
     "maxSiteOccupancy": 1,
     "cellVolumeRelativeError": 6.781863747142327e-07
   },
+  "spaceGroupOriginal": "P 63 m c",
+  "spaceGroupNumber": 186,
   "id": "chat-silver-iodide",
   "note": "Mẫu 0,0 GPa; giữ nhãn pha II của bản ghi gốc."
 }

@@ -1,0 +1,577 @@
+{
+  "amcsdId": "0010596",
+  "mineralName": "Eskolaite · Cr₂O₃",
+  "formula": "Cr2 O3",
+  "spaceGroup": "R -3 c:H",
+  "cell": {
+    "a": 4.9607,
+    "b": 4.9607,
+    "c": 13.599,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 120.0
+  },
+  "volume": 289.81678400291577,
+  "declaredVolume": 289.817,
+  "basis": [
+    [
+      4.9607,
+      -2.480349999999999,
+      0.0
+    ],
+    [
+      0.0,
+      4.296092220553465,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      13.599
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "2/3+x,1/3+y,1/3+z",
+    "1/3+x,2/3+y,2/3+z",
+    "x,x-y,1/2+z",
+    "2/3+x,1/3+x-y,5/6+z",
+    "1/3+x,2/3+x-y,1/6+z",
+    "y,x,1/2-z",
+    "2/3+y,1/3+x,5/6-z",
+    "1/3+y,2/3+x,1/6-z",
+    "-x+y,y,1/2+z",
+    "2/3-x+y,1/3+y,5/6+z",
+    "1/3-x+y,2/3+y,1/6+z",
+    "-x,-x+y,1/2-z",
+    "2/3-x,1/3-x+y,5/6-z",
+    "1/3-x,2/3-x+y,1/6-z",
+    "-y,-x,1/2+z",
+    "2/3-y,1/3-x,5/6+z",
+    "1/3-y,2/3-x,1/6+z",
+    "x-y,-y,1/2-z",
+    "2/3+x-y,1/3-y,5/6-z",
+    "1/3+x-y,2/3-y,1/6-z",
+    "y,-x+y,-z",
+    "2/3+y,1/3-x+y,1/3-z",
+    "1/3+y,2/3-x+y,2/3-z",
+    "-x+y,-x,z",
+    "2/3-x+y,1/3-x,1/3+z",
+    "1/3-x+y,2/3-x,2/3+z",
+    "-x,-y,-z",
+    "2/3-x,1/3-y,1/3-z",
+    "1/3-x,2/3-y,2/3-z",
+    "-y,x-y,z",
+    "2/3-y,1/3+x-y,1/3+z",
+    "1/3-y,2/3+x-y,2/3+z",
+    "x-y,x,-z",
+    "2/3+x-y,1/3+x,1/3-z",
+    "1/3+x-y,2/3+x,2/3-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Cr",
+      "element": "Cr",
+      "fractional": [
+        0.0,
+        0.0,
+        0.3475
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.306,
+        0.0,
+        0.25
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Cr",
+      "label": "Cr",
+      "fractional": [
+        0.0,
+        0.0,
+        0.3475
+      ],
+      "position": [
+        0.0,
+        0.0,
+        4.7256525
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cr",
+      "label": "Cr",
+      "fractional": [
+        0.66666667,
+        0.33333333,
+        0.68083333
+      ],
+      "position": [
+        2.48035,
+        1.4320307,
+        9.2586525
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cr",
+      "label": "Cr",
+      "fractional": [
+        0.33333333,
+        0.66666667,
+        0.01416667
+      ],
+      "position": [
+        -0.0,
+        2.8640615,
+        0.1926525
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cr",
+      "label": "Cr",
+      "fractional": [
+        0.0,
+        0.0,
+        0.8475
+      ],
+      "position": [
+        0.0,
+        0.0,
+        11.5251525
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cr",
+      "label": "Cr",
+      "fractional": [
+        0.66666667,
+        0.33333333,
+        0.18083333
+      ],
+      "position": [
+        2.48035,
+        1.4320307,
+        2.4591525
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cr",
+      "label": "Cr",
+      "fractional": [
+        0.33333333,
+        0.66666667,
+        0.51416667
+      ],
+      "position": [
+        -0.0,
+        2.8640615,
+        6.9921525
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cr",
+      "label": "Cr",
+      "fractional": [
+        0.0,
+        0.0,
+        0.1525
+      ],
+      "position": [
+        0.0,
+        0.0,
+        2.0738475
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cr",
+      "label": "Cr",
+      "fractional": [
+        0.66666667,
+        0.33333333,
+        0.48583333
+      ],
+      "position": [
+        2.48035,
+        1.4320307,
+        6.6068475
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cr",
+      "label": "Cr",
+      "fractional": [
+        0.33333333,
+        0.66666667,
+        0.81916667
+      ],
+      "position": [
+        -0.0,
+        2.8640615,
+        11.1398475
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cr",
+      "label": "Cr",
+      "fractional": [
+        0.0,
+        0.0,
+        0.6525
+      ],
+      "position": [
+        0.0,
+        0.0,
+        8.8733475
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cr",
+      "label": "Cr",
+      "fractional": [
+        0.66666667,
+        0.33333333,
+        0.98583333
+      ],
+      "position": [
+        2.48035,
+        1.4320307,
+        13.4063475
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cr",
+      "label": "Cr",
+      "fractional": [
+        0.33333333,
+        0.66666667,
+        0.31916667
+      ],
+      "position": [
+        -0.0,
+        2.8640615,
+        4.3403475
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.306,
+        0.0,
+        0.25
+      ],
+      "position": [
+        1.5179742,
+        0.0,
+        3.39975
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.97266667,
+        0.33333333,
+        0.58333333
+      ],
+      "position": [
+        3.9983242,
+        1.4320307,
+        7.93275
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.63933333,
+        0.66666667,
+        0.91666667
+      ],
+      "position": [
+        1.5179742,
+        2.8640615,
+        12.46575
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.306,
+        0.306,
+        0.75
+      ],
+      "position": [
+        0.7589871,
+        1.3146042,
+        10.19925
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.97266667,
+        0.63933333,
+        0.08333333
+      ],
+      "position": [
+        3.2393371,
+        2.7466349,
+        1.13325
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.63933333,
+        0.97266667,
+        0.41666667
+      ],
+      "position": [
+        0.7589871,
+        4.1786657,
+        5.66625
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.0,
+        0.306,
+        0.25
+      ],
+      "position": [
+        -0.7589871,
+        1.3146042,
+        3.39975
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.66666667,
+        0.63933333,
+        0.58333333
+      ],
+      "position": [
+        1.7213629,
+        2.7466349,
+        7.93275
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.33333333,
+        0.97266667,
+        0.91666667
+      ],
+      "position": [
+        -0.7589871,
+        4.1786657,
+        12.46575
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.694,
+        0.0,
+        0.75
+      ],
+      "position": [
+        3.4427258,
+        0.0,
+        10.19925
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.36066667,
+        0.33333333,
+        0.08333333
+      ],
+      "position": [
+        0.9623758,
+        1.4320307,
+        1.13325
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.02733333,
+        0.66666667,
+        0.41666667
+      ],
+      "position": [
+        -1.5179742,
+        2.8640615,
+        5.66625
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.694,
+        0.694,
+        0.25
+      ],
+      "position": [
+        1.7213629,
+        2.981488,
+        3.39975
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.36066667,
+        0.02733333,
+        0.58333333
+      ],
+      "position": [
+        1.7213629,
+        0.1174265,
+        7.93275
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.02733333,
+        0.36066667,
+        0.91666667
+      ],
+      "position": [
+        -0.7589871,
+        1.5494573,
+        12.46575
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.0,
+        0.694,
+        0.75
+      ],
+      "position": [
+        -1.7213629,
+        2.981488,
+        10.19925
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.66666667,
+        0.02733333,
+        0.08333333
+      ],
+      "position": [
+        3.2393371,
+        0.1174265,
+        1.13325
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.33333333,
+        0.36066667,
+        0.41666667
+      ],
+      "position": [
+        0.7589871,
+        1.5494573,
+        5.66625
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 30,
+  "speciesPositionCount": 30,
+  "cellComposition": {
+    "Cr": 12,
+    "O": 18
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Newnham R E",
+      "de Haan Y M"
+    ],
+    "title": "Refinement of the alpha Al2O3, Ti2O3, V2O3 and Cr2O3 structures",
+    "journal": "Zeitschrift fur Kristallographie",
+    "year": 1962,
+    "volume": "117",
+    "pages": "235–237"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 36,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 7.452883896391007e-07
+  },
+  "spaceGroupOriginal": "R -3 c",
+  "spaceGroupNumber": 167,
+  "id": "chat-eskolaite",
+  "note": "Bản tinh chỉnh cấu trúc oxide; không dùng mẫu dung dịch rắn Al-Cr."
+}

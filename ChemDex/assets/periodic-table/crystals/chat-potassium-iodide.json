@@ -1,0 +1,402 @@
+{
+  "amcsdId": "0011996",
+  "mineralName": "KI",
+  "formula": "K I",
+  "spaceGroup": "F m -3 m",
+  "cell": {
+    "a": 7.0491,
+    "b": 7.0491,
+    "c": 7.0491,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 350.268445380771,
+  "declaredVolume": 350.268,
+  "basis": [
+    [
+      7.0491,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      7.0491,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      7.0491
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "x,1/2+y,1/2+z",
+    "1/2+x,y,1/2+z",
+    "1/2+x,1/2+y,z",
+    "z,-x,y",
+    "z,1/2-x,1/2+y",
+    "1/2+z,-x,1/2+y",
+    "1/2+z,1/2-x,y",
+    "-y,z,-x",
+    "-y,1/2+z,1/2-x",
+    "1/2-y,z,1/2-x",
+    "1/2-y,1/2+z,-x",
+    "x,-y,z",
+    "x,1/2-y,1/2+z",
+    "1/2+x,-y,1/2+z",
+    "1/2+x,1/2-y,z",
+    "-z,x,-y",
+    "-z,1/2+x,1/2-y",
+    "1/2-z,x,1/2-y",
+    "1/2-z,1/2+x,-y",
+    "y,-z,x",
+    "y,1/2-z,1/2+x",
+    "1/2+y,-z,1/2+x",
+    "1/2+y,1/2-z,x",
+    "-x,y,-z",
+    "-x,1/2+y,1/2-z",
+    "1/2-x,y,1/2-z",
+    "1/2-x,1/2+y,-z",
+    "x,-z,-y",
+    "x,1/2-z,1/2-y",
+    "1/2+x,-z,1/2-y",
+    "1/2+x,1/2-z,-y",
+    "-z,y,x",
+    "-z,1/2+y,1/2+x",
+    "1/2-z,y,1/2+x",
+    "1/2-z,1/2+y,x",
+    "y,-x,-z",
+    "y,1/2-x,1/2-z",
+    "1/2+y,-x,1/2-z",
+    "1/2+y,1/2-x,-z",
+    "-x,z,y",
+    "-x,1/2+z,1/2+y",
+    "1/2-x,z,1/2+y",
+    "1/2-x,1/2+z,y",
+    "z,-y,-x",
+    "z,1/2-y,1/2-x",
+    "1/2+z,-y,1/2-x",
+    "1/2+z,1/2-y,-x",
+    "-y,x,z",
+    "-y,1/2+x,1/2+z",
+    "1/2-y,x,1/2+z",
+    "1/2-y,1/2+x,z",
+    "x,z,y",
+    "x,1/2+z,1/2+y",
+    "1/2+x,z,1/2+y",
+    "1/2+x,1/2+z,y",
+    "-z,-y,-x",
+    "-z,1/2-y,1/2-x",
+    "1/2-z,-y,1/2-x",
+    "1/2-z,1/2-y,-x",
+    "y,x,z",
+    "y,1/2+x,1/2+z",
+    "1/2+y,x,1/2+z",
+    "1/2+y,1/2+x,z",
+    "-x,-z,-y",
+    "-x,1/2-z,1/2-y",
+    "1/2-x,-z,1/2-y",
+    "1/2-x,1/2-z,-y",
+    "z,y,x",
+    "z,1/2+y,1/2+x",
+    "1/2+z,y,1/2+x",
+    "1/2+z,1/2+y,x",
+    "-y,-x,-z",
+    "-y,1/2-x,1/2-z",
+    "1/2-y,-x,1/2-z",
+    "1/2-y,1/2-x,-z",
+    "z,x,-y",
+    "z,1/2+x,1/2-y",
+    "1/2+z,x,1/2-y",
+    "1/2+z,1/2+x,-y",
+    "-y,-z,x",
+    "-y,1/2-z,1/2+x",
+    "1/2-y,-z,1/2+x",
+    "1/2-y,1/2-z,x",
+    "x,y,-z",
+    "x,1/2+y,1/2-z",
+    "1/2+x,y,1/2-z",
+    "1/2+x,1/2+y,-z",
+    "-z,-x,y",
+    "-z,1/2-x,1/2+y",
+    "1/2-z,-x,1/2+y",
+    "1/2-z,1/2-x,y",
+    "y,z,-x",
+    "y,1/2+z,1/2-x",
+    "1/2+y,z,1/2-x",
+    "1/2+y,1/2+z,-x",
+    "-x,-y,z",
+    "-x,1/2-y,1/2+z",
+    "1/2-x,-y,1/2+z",
+    "1/2-x,1/2-y,z",
+    "-z,x,y",
+    "-z,1/2+x,1/2+y",
+    "1/2-z,x,1/2+y",
+    "1/2-z,1/2+x,y",
+    "y,-z,-x",
+    "y,1/2-z,1/2-x",
+    "1/2+y,-z,1/2-x",
+    "1/2+y,1/2-z,-x",
+    "-x,y,z",
+    "-x,1/2+y,1/2+z",
+    "1/2-x,y,1/2+z",
+    "1/2-x,1/2+y,z",
+    "z,-x,-y",
+    "z,1/2-x,1/2-y",
+    "1/2+z,-x,1/2-y",
+    "1/2+z,1/2-x,-y",
+    "-y,z,x",
+    "-y,1/2+z,1/2+x",
+    "1/2-y,z,1/2+x",
+    "1/2-y,1/2+z,x",
+    "x,-y,-z",
+    "x,1/2-y,1/2-z",
+    "1/2+x,-y,1/2-z",
+    "1/2+x,1/2-y,-z",
+    "-x,z,-y",
+    "-x,1/2+z,1/2-y",
+    "1/2-x,z,1/2-y",
+    "1/2-x,1/2+z,-y",
+    "z,-y,x",
+    "z,1/2-y,1/2+x",
+    "1/2+z,-y,1/2+x",
+    "1/2+z,1/2-y,x",
+    "-y,x,-z",
+    "-y,1/2+x,1/2-z",
+    "1/2-y,x,1/2-z",
+    "1/2-y,1/2+x,-z",
+    "x,-z,y",
+    "x,1/2-z,1/2+y",
+    "1/2+x,-z,1/2+y",
+    "1/2+x,1/2-z,y",
+    "-z,y,-x",
+    "-z,1/2+y,1/2-x",
+    "1/2-z,y,1/2-x",
+    "1/2-z,1/2+y,-x",
+    "y,-x,z",
+    "y,1/2-x,1/2+z",
+    "1/2+y,-x,1/2+z",
+    "1/2+y,1/2-x,z",
+    "-x,-z,y",
+    "-x,1/2-z,1/2+y",
+    "1/2-x,-z,1/2+y",
+    "1/2-x,1/2-z,y",
+    "z,y,-x",
+    "z,1/2+y,1/2-x",
+    "1/2+z,y,1/2-x",
+    "1/2+z,1/2+y,-x",
+    "-y,-x,z",
+    "-y,1/2-x,1/2+z",
+    "1/2-y,-x,1/2+z",
+    "1/2-y,1/2-x,z",
+    "x,z,-y",
+    "x,1/2+z,1/2-y",
+    "1/2+x,z,1/2-y",
+    "1/2+x,1/2+z,-y",
+    "-z,-y,x",
+    "-z,1/2-y,1/2+x",
+    "1/2-z,-y,1/2+x",
+    "1/2-z,1/2-y,x",
+    "y,x,-z",
+    "y,1/2+x,1/2-z",
+    "1/2+y,x,1/2-z",
+    "1/2+y,1/2+x,-z",
+    "-z,-x,-y",
+    "-z,1/2-x,1/2-y",
+    "1/2-z,-x,1/2-y",
+    "1/2-z,1/2-x,-y",
+    "y,z,x",
+    "y,1/2+z,1/2+x",
+    "1/2+y,z,1/2+x",
+    "1/2+y,1/2+z,x",
+    "-x,-y,-z",
+    "-x,1/2-y,1/2-z",
+    "1/2-x,-y,1/2-z",
+    "1/2-x,1/2-y,-z",
+    "z,x,y",
+    "z,1/2+x,1/2+y",
+    "1/2+z,x,1/2+y",
+    "1/2+z,1/2+x,y",
+    "-y,-z,-x",
+    "-y,1/2-z,1/2-x",
+    "1/2-y,-z,1/2-x",
+    "1/2-y,1/2-z,-x"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "K",
+      "element": "K",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "I",
+      "element": "I",
+      "fractional": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "K",
+      "label": "K",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "K",
+      "label": "K",
+      "fractional": [
+        0.0,
+        0.5,
+        0.5
+      ],
+      "position": [
+        0.0,
+        3.52455,
+        3.52455
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "K",
+      "label": "K",
+      "fractional": [
+        0.5,
+        0.0,
+        0.5
+      ],
+      "position": [
+        3.52455,
+        0.0,
+        3.52455
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "K",
+      "label": "K",
+      "fractional": [
+        0.5,
+        0.5,
+        0.0
+      ],
+      "position": [
+        3.52455,
+        3.52455,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "I",
+      "label": "I",
+      "fractional": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "position": [
+        3.52455,
+        3.52455,
+        3.52455
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "I",
+      "label": "I",
+      "fractional": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "position": [
+        3.52455,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "I",
+      "label": "I",
+      "fractional": [
+        0.0,
+        0.5,
+        0.0
+      ],
+      "position": [
+        0.0,
+        3.52455,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "I",
+      "label": "I",
+      "fractional": [
+        0.0,
+        0.0,
+        0.5
+      ],
+      "position": [
+        0.0,
+        0.0,
+        3.52455
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 8,
+  "speciesPositionCount": 8,
+  "cellComposition": {
+    "K": 4,
+    "I": 4
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Ahtee M"
+    ],
+    "title": "Lattice constants of some binary alkali halide solid solutions.",
+    "journal": "Annales Academiae Scientiarum Fennicae Series A6: Physica",
+    "year": 1969,
+    "volume": "313",
+    "pages": "1–11"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 192,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.2715412333832962e-06
+  },
+  "spaceGroupOriginal": "F m 3 m",
+  "spaceGroupNumber": 225,
+  "id": "chat-potassium-iodide",
+  "note": "Mẫu alkali halide; chỉ dùng bản đúng KI, không dùng dung dịch rắn khác thành phần."
+}

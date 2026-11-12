@@ -2,7 +2,7 @@
   "amcsdId": "0005113",
   "mineralName": "Thenardite · Na₂SO₄",
   "formula": "Na2 S O4",
-  "spaceGroup": "F d d d",
+  "spaceGroup": "F d d d:2",
   "cell": {
     "a": 9.829,
     "b": 12.302,
@@ -967,6 +967,8 @@
     "maxSiteOccupancy": 1,
     "cellVolumeRelativeError": 2.6601001760624006e-07
   },
+  "spaceGroupOriginal": "F d d d",
+  "spaceGroupNumber": 70,
   "id": "chat-thenardite",
   "note": "Pha khan; không thay cho mirabilite ngậm nước."
 }

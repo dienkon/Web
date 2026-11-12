@@ -1,0 +1,360 @@
+{
+  "amcsdId": "0017507",
+  "mineralName": "KSCN",
+  "formula": "K N C S",
+  "spaceGroup": "P c m b",
+  "cell": {
+    "a": 6.66,
+    "b": 7.58,
+    "c": 6.635,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 334.95337800000004,
+  "declaredVolume": 334.953,
+  "basis": [
+    [
+      6.66,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      7.58,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      6.635
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "x,1/2+y,1/2-z",
+    "-x,1/2-y,1/2+z",
+    "-x,y,1/2+z",
+    "x,-y,1/2-z",
+    "x,1/2-y,z",
+    "-x,1/2+y,-z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "K1",
+      "element": "K",
+      "fractional": [
+        0.212,
+        0.0,
+        0.75
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "N1",
+      "element": "N",
+      "fractional": [
+        0.08,
+        0.25,
+        0.4
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "C1",
+      "element": "C",
+      "fractional": [
+        0.205,
+        0.25,
+        0.28
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "S1",
+      "element": "S",
+      "fractional": [
+        0.385,
+        0.25,
+        0.095
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "K",
+      "label": "K1",
+      "fractional": [
+        0.212,
+        0.0,
+        0.75
+      ],
+      "position": [
+        1.41192,
+        0.0,
+        4.97625
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "K",
+      "label": "K1",
+      "fractional": [
+        0.212,
+        0.5,
+        0.75
+      ],
+      "position": [
+        1.41192,
+        3.79,
+        4.97625
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "K",
+      "label": "K1",
+      "fractional": [
+        0.788,
+        0.5,
+        0.25
+      ],
+      "position": [
+        5.24808,
+        3.79,
+        1.65875
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "K",
+      "label": "K1",
+      "fractional": [
+        0.788,
+        0.0,
+        0.25
+      ],
+      "position": [
+        5.24808,
+        0.0,
+        1.65875
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N1",
+      "fractional": [
+        0.08,
+        0.25,
+        0.4
+      ],
+      "position": [
+        0.5328,
+        1.895,
+        2.654
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N1",
+      "fractional": [
+        0.08,
+        0.75,
+        0.1
+      ],
+      "position": [
+        0.5328,
+        5.685,
+        0.6635
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N1",
+      "fractional": [
+        0.92,
+        0.25,
+        0.9
+      ],
+      "position": [
+        6.1272,
+        1.895,
+        5.9715
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N1",
+      "fractional": [
+        0.92,
+        0.75,
+        0.6
+      ],
+      "position": [
+        6.1272,
+        5.685,
+        3.981
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C1",
+      "fractional": [
+        0.205,
+        0.25,
+        0.28
+      ],
+      "position": [
+        1.3653,
+        1.895,
+        1.8578
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C1",
+      "fractional": [
+        0.205,
+        0.75,
+        0.22
+      ],
+      "position": [
+        1.3653,
+        5.685,
+        1.4597
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C1",
+      "fractional": [
+        0.795,
+        0.25,
+        0.78
+      ],
+      "position": [
+        5.2947,
+        1.895,
+        5.1753
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C1",
+      "fractional": [
+        0.795,
+        0.75,
+        0.72
+      ],
+      "position": [
+        5.2947,
+        5.685,
+        4.7772
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S1",
+      "fractional": [
+        0.385,
+        0.25,
+        0.095
+      ],
+      "position": [
+        2.5641,
+        1.895,
+        0.630325
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S1",
+      "fractional": [
+        0.385,
+        0.75,
+        0.405
+      ],
+      "position": [
+        2.5641,
+        5.685,
+        2.687175
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S1",
+      "fractional": [
+        0.615,
+        0.25,
+        0.595
+      ],
+      "position": [
+        4.0959,
+        1.895,
+        3.947825
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S1",
+      "fractional": [
+        0.615,
+        0.75,
+        0.905
+      ],
+      "position": [
+        4.0959,
+        5.685,
+        6.004675
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 16,
+  "speciesPositionCount": 16,
+  "cellComposition": {
+    "K": 4,
+    "N": 4,
+    "C": 4,
+    "S": 4
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Klug H"
+    ],
+    "title": "The crystal structure of potassium thiocyanate\n _cod_database_code 1010625",
+    "journal": "Zeitschrift fur Kristallographie",
+    "year": 1933,
+    "volume": "85",
+    "pages": "214–222"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 8,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.1285152647985034e-06
+  },
+  "spaceGroupOriginal": "P c m b",
+  "spaceGroupNumber": 57,
+  "id": "chat-potassium-thiocyanate",
+  "note": "Bản cấu trúc potassium thiocyanate; không thay bằng cyanate."
+}

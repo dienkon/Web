@@ -1,0 +1,45 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0009146
+_database_code_amcsd 0009146
+_chemical_name_mineral 'SO₂ rắn · −130 °C'
+_chemical_formula_sum 'S O2'
+_symmetry_space_group_name_H-M 'A b a 2'
+_cell_length_a 6.07
+_cell_length_b 5.94
+_cell_length_c 6.14
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 90
+_cell_volume 221.382612
+loop_
+_publ_author_name
+'Post B'
+'Schwartz R S'
+'Fankuchen I'
+_journal_name_full 'Acta Crystallographica'
+_journal_year 1952
+_journal_volume 5
+_publ_section_title
+;The crystal structure of sulfur dioxide
+ Sample: T = -130 C
+;
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+x,1/2+y,1/2+z
+1/2+x,1/2-y,z
+1/2+x,-y,1/2+z
+1/2-x,1/2+y,z
+1/2-x,+y,1/2+z
+-x,-y,z
+-x,1/2-y,1/2+z
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+S S 0 0 0 1
+O O 0.14 0.15 0.118 1

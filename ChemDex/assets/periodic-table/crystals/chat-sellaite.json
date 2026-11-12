@@ -189,6 +189,8 @@
     "maxSiteOccupancy": 1,
     "cellVolumeRelativeError": 2.8720584137708112e-06
   },
+  "spaceGroupOriginal": "P 42/m n m",
+  "spaceGroupNumber": 136,
   "id": "chat-sellaite",
   "note": "Cấu trúc kiểu rutile từ bản tinh chỉnh tọa độ."
 }

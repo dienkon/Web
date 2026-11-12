@@ -213,6 +213,8 @@
     "maxSiteOccupancy": 1,
     "cellVolumeRelativeError": 5.0904046812262865e-06
   },
+  "spaceGroupOriginal": "C 1 2/c 1",
+  "spaceGroupNumber": 15,
   "id": "chat-tenorite",
   "note": "Bản cấu trúc tenorite; thông số đơn tà, không dùng mạng NaCl."
 }

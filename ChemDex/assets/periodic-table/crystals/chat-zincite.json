@@ -156,6 +156,8 @@
     "maxSiteOccupancy": 1,
     "cellVolumeRelativeError": 7.750770318104059e-06
   },
+  "spaceGroupOriginal": "P 63 m c",
+  "spaceGroupNumber": 186,
   "id": "chat-zincite",
   "note": "Mẫu 293 K, model 2-c; pha wurtzite."
 }

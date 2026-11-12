@@ -1,0 +1,432 @@
+{
+  "amcsdId": "0010212",
+  "mineralName": "Spertiniite · Cu(OH)₂",
+  "formula": "Cu O2 H2",
+  "spaceGroup": "C m c 21",
+  "cell": {
+    "a": 2.9471,
+    "b": 10.593,
+    "c": 5.2564,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 164.09760830892,
+  "declaredVolume": 164.098,
+  "basis": [
+    [
+      2.9471,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      10.593,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      5.2564
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+x,1/2+y,z",
+    "x,-y,1/2+z",
+    "1/2+x,1/2-y,1/2+z",
+    "-x,y,z",
+    "1/2-x,1/2+y,z",
+    "-x,-y,1/2+z",
+    "1/2-x,1/2-y,1/2+z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Cu",
+      "element": "Cu",
+      "fractional": [
+        0.5,
+        0.682,
+        0.25
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.0,
+        0.5583,
+        0.2534
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.0,
+        0.7994,
+        0.1967
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "H1",
+      "element": "H",
+      "fractional": [
+        0.0,
+        0.5058,
+        0.4118
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "H2",
+      "element": "H",
+      "fractional": [
+        0.0,
+        0.9001,
+        0.1914
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Cu",
+      "label": "Cu",
+      "fractional": [
+        0.5,
+        0.682,
+        0.25
+      ],
+      "position": [
+        1.47355,
+        7.224426,
+        1.3141
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cu",
+      "label": "Cu",
+      "fractional": [
+        0.0,
+        0.182,
+        0.25
+      ],
+      "position": [
+        0.0,
+        1.927926,
+        1.3141
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cu",
+      "label": "Cu",
+      "fractional": [
+        0.5,
+        0.318,
+        0.75
+      ],
+      "position": [
+        1.47355,
+        3.368574,
+        3.9423
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cu",
+      "label": "Cu",
+      "fractional": [
+        0.0,
+        0.818,
+        0.75
+      ],
+      "position": [
+        0.0,
+        8.665074,
+        3.9423
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.0,
+        0.5583,
+        0.2534
+      ],
+      "position": [
+        0.0,
+        5.9140719,
+        1.3319718
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.5,
+        0.0583,
+        0.2534
+      ],
+      "position": [
+        1.47355,
+        0.6175719,
+        1.3319718
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.0,
+        0.4417,
+        0.7534
+      ],
+      "position": [
+        0.0,
+        4.6789281,
+        3.9601718
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.5,
+        0.9417,
+        0.7534
+      ],
+      "position": [
+        1.47355,
+        9.9754281,
+        3.9601718
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.0,
+        0.7994,
+        0.1967
+      ],
+      "position": [
+        0.0,
+        8.4680442,
+        1.0339339
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.5,
+        0.2994,
+        0.1967
+      ],
+      "position": [
+        1.47355,
+        3.1715442,
+        1.0339339
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.0,
+        0.2006,
+        0.6967
+      ],
+      "position": [
+        0.0,
+        2.1249558,
+        3.6621339
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.5,
+        0.7006,
+        0.6967
+      ],
+      "position": [
+        1.47355,
+        7.4214558,
+        3.6621339
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H1",
+      "fractional": [
+        0.0,
+        0.5058,
+        0.4118
+      ],
+      "position": [
+        0.0,
+        5.3579394,
+        2.1645855
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H1",
+      "fractional": [
+        0.5,
+        0.0058,
+        0.4118
+      ],
+      "position": [
+        1.47355,
+        0.0614394,
+        2.1645855
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H1",
+      "fractional": [
+        0.0,
+        0.4942,
+        0.9118
+      ],
+      "position": [
+        0.0,
+        5.2350606,
+        4.7927855
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H1",
+      "fractional": [
+        0.5,
+        0.9942,
+        0.9118
+      ],
+      "position": [
+        1.47355,
+        10.5315606,
+        4.7927855
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H2",
+      "fractional": [
+        0.0,
+        0.9001,
+        0.1914
+      ],
+      "position": [
+        0.0,
+        9.5347593,
+        1.006075
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H2",
+      "fractional": [
+        0.5,
+        0.4001,
+        0.1914
+      ],
+      "position": [
+        1.47355,
+        4.2382593,
+        1.006075
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H2",
+      "fractional": [
+        0.0,
+        0.0999,
+        0.6914
+      ],
+      "position": [
+        0.0,
+        1.0582407,
+        3.634275
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H2",
+      "fractional": [
+        0.5,
+        0.5999,
+        0.6914
+      ],
+      "position": [
+        1.47355,
+        6.3547407,
+        3.634275
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 20,
+  "speciesPositionCount": 20,
+  "cellComposition": {
+    "Cu": 4,
+    "O": 8,
+    "H": 8
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Oswald H R",
+      "Reller A",
+      "Schmalle H W",
+      "Dubler E"
+    ],
+    "title": "Structure of copper(II) hydroxide, Cu(OH)2",
+    "journal": "Acta Crystallographica, Section C",
+    "year": 1990,
+    "volume": "46",
+    "pages": "2279–2284"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 8,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 2.3869396028862034e-06
+  },
+  "spaceGroupOriginal": "C m c 21",
+  "spaceGroupNumber": 36,
+  "id": "chat-spertiniite",
+  "note": "Bản cấu trúc copper(II) hydroxide; không thay bằng oxit CuO."
+}

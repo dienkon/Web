@@ -1,0 +1,295 @@
+{
+  "amcsdId": "0016995",
+  "mineralName": "N₂O rắn",
+  "formula": "O N2",
+  "spaceGroup": "P a -3",
+  "cell": {
+    "a": 5.72,
+    "b": 5.72,
+    "c": 5.72,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 187.14924799999997,
+  "declaredVolume": 187.149,
+  "basis": [
+    [
+      5.72,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      5.72,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      5.72
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+z,x,1/2-y",
+    "z,1/2-x,1/2+y",
+    "1/2-z,1/2+x,y",
+    "-z,-x,-y",
+    "1/2+y,1/2-z,-x",
+    "1/2-y,-z,1/2+x",
+    "-y,1/2+z,1/2-x",
+    "y,z,x",
+    "x,1/2-y,1/2+z",
+    "1/2-x,1/2+y,z",
+    "1/2+x,y,1/2-z",
+    "-x,-y,-z",
+    "1/2-z,-x,1/2+y",
+    "-z,1/2+x,1/2-y",
+    "1/2+z,1/2-x,-y",
+    "z,x,y",
+    "1/2-y,1/2+z,x",
+    "1/2+y,z,1/2-x",
+    "y,1/2-z,1/2+x",
+    "-y,-z,-x",
+    "-x,1/2+y,1/2-z",
+    "1/2+x,1/2-y,-z",
+    "1/2-x,-y,1/2+z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "N",
+      "element": "N",
+      "fractional": [
+        0.117,
+        0.117,
+        0.117
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.5,
+        0.0,
+        0.5
+      ],
+      "position": [
+        2.86,
+        0.0,
+        2.86
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.0,
+        0.5,
+        0.5
+      ],
+      "position": [
+        0.0,
+        2.86,
+        2.86
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.5,
+        0.5,
+        0.0
+      ],
+      "position": [
+        2.86,
+        2.86,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N",
+      "fractional": [
+        0.117,
+        0.117,
+        0.117
+      ],
+      "position": [
+        0.66924,
+        0.66924,
+        0.66924
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N",
+      "fractional": [
+        0.617,
+        0.117,
+        0.383
+      ],
+      "position": [
+        3.52924,
+        0.66924,
+        2.19076
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N",
+      "fractional": [
+        0.117,
+        0.383,
+        0.617
+      ],
+      "position": [
+        0.66924,
+        2.19076,
+        3.52924
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N",
+      "fractional": [
+        0.383,
+        0.617,
+        0.117
+      ],
+      "position": [
+        2.19076,
+        3.52924,
+        0.66924
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N",
+      "fractional": [
+        0.883,
+        0.883,
+        0.883
+      ],
+      "position": [
+        5.05076,
+        5.05076,
+        5.05076
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N",
+      "fractional": [
+        0.617,
+        0.383,
+        0.883
+      ],
+      "position": [
+        3.52924,
+        2.19076,
+        5.05076
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N",
+      "fractional": [
+        0.383,
+        0.883,
+        0.617
+      ],
+      "position": [
+        2.19076,
+        5.05076,
+        3.52924
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N",
+      "fractional": [
+        0.883,
+        0.617,
+        0.383
+      ],
+      "position": [
+        5.05076,
+        3.52924,
+        2.19076
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 12,
+  "speciesPositionCount": 12,
+  "cellComposition": {
+    "O": 4,
+    "N": 8
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Smedt J",
+      "Keesom W"
+    ],
+    "title": "The structure of solid nitrous oxide and carbon dioxide\n _cod_database_code 1010059",
+    "journal": "Proceedings of the Koninklijke Nederlandse Academie van Wetenschappen",
+    "year": 1924,
+    "volume": "27",
+    "pages": "839–846"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 24,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.3251455863221857e-06
+  },
+  "spaceGroupOriginal": "P a 3",
+  "spaceGroupNumber": 205,
+  "id": "chat-solid-nitrous-oxide",
+  "note": "Bản cấu trúc nitrous oxide rắn; không đồng nhất với CO2 trong cùng bài báo."
+}

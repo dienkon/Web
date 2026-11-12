@@ -182,6 +182,8 @@
     "maxSiteOccupancy": 1,
     "cellVolumeRelativeError": 9.208027091466226e-07
   },
+  "spaceGroupOriginal": "P -3 m 1",
+  "spaceGroupNumber": 164,
   "id": "chat-portlandite",
   "note": "Mẫu 25 °C, có vị trí hydrogen; đây là chất rắn, không phải nước vôi trong."
 }

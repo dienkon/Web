@@ -156,6 +156,8 @@
     "maxSiteOccupancy": 1,
     "cellVolumeRelativeError": 3.416477566178206e-06
   },
+  "spaceGroupOriginal": "P 63 m c",
+  "spaceGroupNumber": 186,
   "id": "chat-greenockite",
   "note": "Pha wurtzite; CdS còn có pha zincblende."
 }

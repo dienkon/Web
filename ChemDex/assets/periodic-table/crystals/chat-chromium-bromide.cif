@@ -1,0 +1,48 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0017081
+_database_code_amcsd 0017081
+_chemical_name_mineral 'CrBr₃ khan'
+_chemical_formula_sum 'Cr Br3'
+_symmetry_space_group_name_H-M 'P 3'
+_cell_length_a 6.26
+_cell_length_b 6.26
+_cell_length_c 18.2
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 120
+_cell_volume 617.661719
+loop_
+_publ_author_name
+'Braekken H'
+_journal_name_full 'Kongelige Norske Videnskapers Selskab, Forhandlinger'
+_journal_year 1932
+_journal_volume 5
+_publ_section_title
+;Die Kristallstruktur von Chromtribromid
+ _cod_database_code 1010151
+;
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+-y,x-y,z
+-x+y,-x,z
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+Cr1 Cr 0 0 0 1
+Cr2 Cr 0 0 0.66666675 1
+Cr3 Cr 0.33333325 0.66666675 0.33333325 1
+Cr4 Cr 0.33333325 0.66666675 0 1
+Cr5 Cr 0.66666675 0.33333325 0.66666675 1
+Cr6 Cr 0.66666675 0.33333325 0.33333325 1
+Br1 Br 0.33333325 0.33333325 -0.078 1
+Br2 Br 0.66666675 0.66666675 0.078 1
+Br3 Br 0.33333325 0.33333325 0.255 1
+Br4 Br 0.66666675 0.66666675 0.411 1
+Br5 Br 0.33333325 0.33333325 0.589 1
+Br6 Br 0.66666675 0.66666675 0.745 1

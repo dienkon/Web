@@ -1,0 +1,484 @@
+{
+  "amcsdId": "0004160",
+  "mineralName": "Troilite · FeS",
+  "formula": "Fe S",
+  "spaceGroup": "P -6 2 c",
+  "cell": {
+    "a": 5.966,
+    "b": 5.966,
+    "c": 11.765,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 120.0
+  },
+  "volume": 362.65115189758757,
+  "declaredVolume": 362.651,
+  "basis": [
+    [
+      5.966,
+      -2.9829999999999988,
+      0.0
+    ],
+    [
+      0.0,
+      5.166707558977961,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      11.765
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "-x,-x+y,1/2+z",
+    "-x+y,-x,1/2-z",
+    "y,x,-z",
+    "-y,x-y,z",
+    "x-y,-y,1/2+z",
+    "x,y,1/2-z",
+    "-x,-x+y,-z",
+    "-x+y,-x,z",
+    "y,x,1/2+z",
+    "-y,x-y,1/2-z",
+    "x-y,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Fe1",
+      "element": "Fe",
+      "fractional": [
+        0.3786,
+        0.0546,
+        0.12302
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "S1",
+      "element": "S",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "S2",
+      "element": "S",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.0198
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "S3",
+      "element": "S",
+      "fractional": [
+        0.6656,
+        -0.0029,
+        0.25
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Fe",
+      "label": "Fe1",
+      "fractional": [
+        0.3786,
+        0.0546,
+        0.12302
+      ],
+      "position": [
+        2.0958558,
+        0.2821022,
+        1.4473303
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe1",
+      "fractional": [
+        0.6214,
+        0.676,
+        0.62302
+      ],
+      "position": [
+        1.6907644,
+        3.4926943,
+        7.3298303
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe1",
+      "fractional": [
+        0.676,
+        0.6214,
+        0.37698
+      ],
+      "position": [
+        2.1793798,
+        3.2105921,
+        4.4351697
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe1",
+      "fractional": [
+        0.0546,
+        0.3786,
+        0.87698
+      ],
+      "position": [
+        -0.8036202,
+        1.9561155,
+        10.3176697
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe1",
+      "fractional": [
+        0.9454,
+        0.324,
+        0.12302
+      ],
+      "position": [
+        4.6737644,
+        1.6740132,
+        1.4473303
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe1",
+      "fractional": [
+        0.324,
+        0.9454,
+        0.62302
+      ],
+      "position": [
+        -0.8871442,
+        4.8846053,
+        7.3298303
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe1",
+      "fractional": [
+        0.3786,
+        0.0546,
+        0.37698
+      ],
+      "position": [
+        2.0958558,
+        0.2821022,
+        4.4351697
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe1",
+      "fractional": [
+        0.6214,
+        0.676,
+        0.87698
+      ],
+      "position": [
+        1.6907644,
+        3.4926943,
+        10.3176697
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe1",
+      "fractional": [
+        0.676,
+        0.6214,
+        0.12302
+      ],
+      "position": [
+        2.1793798,
+        3.2105921,
+        1.4473303
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe1",
+      "fractional": [
+        0.0546,
+        0.3786,
+        0.62302
+      ],
+      "position": [
+        -0.8036202,
+        1.9561155,
+        7.3298303
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe1",
+      "fractional": [
+        0.9454,
+        0.324,
+        0.37698
+      ],
+      "position": [
+        4.6737644,
+        1.6740132,
+        4.4351697
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Fe",
+      "label": "Fe1",
+      "fractional": [
+        0.324,
+        0.9454,
+        0.87698
+      ],
+      "position": [
+        -0.8871442,
+        4.8846053,
+        10.3176697
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S1",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S1",
+      "fractional": [
+        0.0,
+        0.0,
+        0.5
+      ],
+      "position": [
+        0.0,
+        0.0,
+        5.8825
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S2",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.0198
+      ],
+      "position": [
+        -7e-07,
+        3.4444721,
+        0.232947
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S2",
+      "fractional": [
+        0.66666675,
+        0.3333335,
+        0.5198
+      ],
+      "position": [
+        2.983,
+        1.7222367,
+        6.115447
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S2",
+      "fractional": [
+        0.3333335,
+        0.66666675,
+        0.4802
+      ],
+      "position": [
+        7e-07,
+        3.4444721,
+        5.649553
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S2",
+      "fractional": [
+        0.66666675,
+        0.33333325,
+        0.9802
+      ],
+      "position": [
+        2.9830007,
+        1.7222354,
+        11.532053
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S3",
+      "fractional": [
+        0.6656,
+        0.9971,
+        0.25
+      ],
+      "position": [
+        0.9966203,
+        5.1517241,
+        2.94125
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S3",
+      "fractional": [
+        0.3344,
+        0.3315,
+        0.75
+      ],
+      "position": [
+        1.0061659,
+        1.7127636,
+        8.82375
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S3",
+      "fractional": [
+        0.3315,
+        0.3344,
+        0.25
+      ],
+      "position": [
+        0.9802138,
+        1.727747,
+        2.94125
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S3",
+      "fractional": [
+        0.9971,
+        0.6656,
+        0.75
+      ],
+      "position": [
+        3.9632138,
+        3.4389606,
+        8.82375
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S3",
+      "fractional": [
+        0.0029,
+        0.6685,
+        0.25
+      ],
+      "position": [
+        -1.9768341,
+        3.453944,
+        2.94125
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S3",
+      "fractional": [
+        0.6685,
+        0.0029,
+        0.75
+      ],
+      "position": [
+        3.9796203,
+        0.0149835,
+        8.82375
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 24,
+  "speciesPositionCount": 24,
+  "cellComposition": {
+    "Fe": 12,
+    "S": 12
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Cisarova I",
+      "Skala R",
+      "Drabek M"
+    ],
+    "title": "Inversion twinning in troilite\n Sample: Synthetic",
+    "journal": "American Mineralogist",
+    "year": 2006,
+    "volume": "91",
+    "pages": "917–921"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 12,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 4.1885317821865145e-07
+  },
+  "spaceGroupOriginal": "P -6 2 c",
+  "spaceGroupNumber": 190,
+  "id": "chat-troilite",
+  "note": "Mẫu tổng hợp trong nghiên cứu song tinh; đây là troilite, không phải mọi pha FeS."
+}

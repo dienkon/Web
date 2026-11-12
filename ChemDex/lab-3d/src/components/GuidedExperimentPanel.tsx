@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { experimentEngine, ExperimentDifficultyMode, ExamReportCard } from '../engine/experimentEngine';
 import { labSound } from '../utils/audio';
+import { ObservationPanel } from './ObservationPanel';
 const ReactionLibraryPanel = React.lazy(() => import('./ReactionLibraryPanel'));
 
 export function GuidedExperimentPanel() {
@@ -38,10 +39,12 @@ export function GuidedExperimentPanel() {
   const [showReportCardModal, setShowReportCardModal] = useState<boolean>(false);
   const [showAlgorithmDetails, setShowAlgorithmDetails] = useState<boolean>(false);
   const [activeCaseId, setActiveCaseId] = useState<string | null>(null);
+  const [observationId, setObservationId] = useState<string | null>(null);
 
   const t = (en: string, vi: string) => language === 'en' ? en : vi;
 
   const currentExperiment = EXPERIMENT_CURRICULUM.find(e => e.id === activeExperimentId);
+  const isObserving = !!currentExperiment && observationId === currentExperiment.id;
 
   // Timer for Exam mode
   useEffect(() => {
@@ -205,7 +208,7 @@ export function GuidedExperimentPanel() {
               </span>
             )}
             <span className="text-[10px] font-bold text-slate-500 uppercase bg-slate-100 px-2 py-0.5 rounded">
-              {t('Step', 'Bước')} {activeStepIndex + 1} / {totalSteps}
+              {isObserving ? t('Observation', 'Quan sát') : <>{t('Step', 'Bước')} {activeStepIndex + 1} / {totalSteps}</>}
             </span>
           </div>
         </div>
@@ -225,14 +228,16 @@ export function GuidedExperimentPanel() {
         </div>
 
         {/* Auto-setup Workbench Button */}
-        <button
+        {!isObserving && <button
           onClick={() => setupExperimentPreset(currentExperiment.id)}
           className="w-full py-2 px-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors shadow-xs"
         >
           <Sparkles size={14} className="text-amber-300" />
           <span>{t('Auto-Setup Lab Workbench', 'Tự động bày bàn thí nghiệm')}</span>
-        </button>
+        </button>}
       </div>
+
+      <ObservationPanel key={currentExperiment.id} experimentId={currentExperiment.id} onModeChange={active => setObservationId(active ? currentExperiment.id : null)} />
 
       {/* Tool Hygiene & Contamination Alert */}
       {dirtyTools.length > 0 && (
@@ -371,7 +376,7 @@ export function GuidedExperimentPanel() {
       )}
 
       {/* Current Step Protocol */}
-      {currentStep && (
+      {currentStep && !isObserving && (
         <div className="bg-white border border-blue-200 rounded-xl p-4 shadow-sm space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">

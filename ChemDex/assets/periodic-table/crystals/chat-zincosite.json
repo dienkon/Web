@@ -1,0 +1,490 @@
+{
+  "amcsdId": "0014620",
+  "mineralName": "Zincosite · ZnSO₄",
+  "formula": "Zn S O4",
+  "spaceGroup": "P n m a",
+  "cell": {
+    "a": 8.604,
+    "b": 6.746,
+    "c": 4.774,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 277.09529601599996,
+  "declaredVolume": 277.095,
+  "basis": [
+    [
+      8.604,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      6.746,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      4.774
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "x,1/2-y,z",
+    "-x,1/2+y,-z",
+    "1/2-x,1/2+y,1/2+z",
+    "1/2+x,1/2-y,1/2-z",
+    "1/2+x,y,1/2-z",
+    "1/2-x,-y,1/2+z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Zn",
+      "element": "Zn",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "S",
+      "element": "S",
+      "fractional": [
+        0.18029,
+        0.25,
+        0.46659
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.1279,
+        0.25,
+        0.7622
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.3545,
+        0.25,
+        0.4522
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O3",
+      "element": "O",
+      "fractional": [
+        0.1267,
+        0.0689,
+        0.3295
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Zn",
+      "label": "Zn",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Zn",
+      "label": "Zn",
+      "fractional": [
+        0.0,
+        0.5,
+        0.0
+      ],
+      "position": [
+        0.0,
+        3.373,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Zn",
+      "label": "Zn",
+      "fractional": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "position": [
+        4.302,
+        3.373,
+        2.387
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Zn",
+      "label": "Zn",
+      "fractional": [
+        0.5,
+        0.0,
+        0.5
+      ],
+      "position": [
+        4.302,
+        0.0,
+        2.387
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.18029,
+        0.25,
+        0.46659
+      ],
+      "position": [
+        1.5512152,
+        1.6865,
+        2.2275007
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.81971,
+        0.75,
+        0.53341
+      ],
+      "position": [
+        7.0527848,
+        5.0595,
+        2.5464993
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.31971,
+        0.75,
+        0.96659
+      ],
+      "position": [
+        2.7507848,
+        5.0595,
+        4.6145007
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.68029,
+        0.25,
+        0.03341
+      ],
+      "position": [
+        5.8532152,
+        1.6865,
+        0.1594993
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.1279,
+        0.25,
+        0.7622
+      ],
+      "position": [
+        1.1004516,
+        1.6865,
+        3.6387428
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.8721,
+        0.75,
+        0.2378
+      ],
+      "position": [
+        7.5035484,
+        5.0595,
+        1.1352572
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.3721,
+        0.75,
+        0.2622
+      ],
+      "position": [
+        3.2015484,
+        5.0595,
+        1.2517428
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.6279,
+        0.25,
+        0.7378
+      ],
+      "position": [
+        5.4024516,
+        1.6865,
+        3.5222572
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.3545,
+        0.25,
+        0.4522
+      ],
+      "position": [
+        3.050118,
+        1.6865,
+        2.1588028
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.6455,
+        0.75,
+        0.5478
+      ],
+      "position": [
+        5.553882,
+        5.0595,
+        2.6151972
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.1455,
+        0.75,
+        0.9522
+      ],
+      "position": [
+        1.251882,
+        5.0595,
+        4.5458028
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.8545,
+        0.25,
+        0.0478
+      ],
+      "position": [
+        7.352118,
+        1.6865,
+        0.2281972
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.1267,
+        0.0689,
+        0.3295
+      ],
+      "position": [
+        1.0901268,
+        0.4647994,
+        1.573033
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.1267,
+        0.4311,
+        0.3295
+      ],
+      "position": [
+        1.0901268,
+        2.9082006,
+        1.573033
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.8733,
+        0.5689,
+        0.6705
+      ],
+      "position": [
+        7.5138732,
+        3.8377994,
+        3.200967
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.3733,
+        0.5689,
+        0.8295
+      ],
+      "position": [
+        3.2118732,
+        3.8377994,
+        3.960033
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.6267,
+        0.4311,
+        0.1705
+      ],
+      "position": [
+        5.3921268,
+        2.9082006,
+        0.813967
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.6267,
+        0.0689,
+        0.1705
+      ],
+      "position": [
+        5.3921268,
+        0.4647994,
+        0.813967
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.3733,
+        0.9311,
+        0.8295
+      ],
+      "position": [
+        3.2118732,
+        6.2812006,
+        3.960033
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.8733,
+        0.9311,
+        0.6705
+      ],
+      "position": [
+        7.5138732,
+        6.2812006,
+        3.200967
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 24,
+  "speciesPositionCount": 24,
+  "cellComposition": {
+    "Zn": 4,
+    "S": 4,
+    "O": 16
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Giester G",
+      "Wildner M"
+    ],
+    "title": "Crystal structure refinements of synthetic\n chalcocyanite (CuSO4) and zincosite (ZnSO4)",
+    "journal": "Mineralogy and Petrology",
+    "year": 1988,
+    "volume": "39",
+    "pages": "201–209"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 8,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.068282299238397e-06
+  },
+  "spaceGroupOriginal": "P n m a",
+  "spaceGroupNumber": 62,
+  "id": "chat-zincosite",
+  "note": "Tinh chỉnh ZnSO4 khan; không thay cho sulfate ngậm nước."
+}

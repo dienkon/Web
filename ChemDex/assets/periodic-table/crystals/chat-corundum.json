@@ -2,7 +2,7 @@
   "amcsdId": "0009325",
   "mineralName": "Corundum · α-Al₂O₃",
   "formula": "Al2 O3",
-  "spaceGroup": "R -3 c",
+  "spaceGroup": "R -3 c:H",
   "cell": {
     "a": 4.7602,
     "b": 4.7602,
@@ -571,6 +571,8 @@
     "maxSiteOccupancy": 1,
     "cellVolumeRelativeError": 1.1729140708297124e-06
   },
+  "spaceGroupOriginal": "R -3 c",
+  "spaceGroupNumber": 167,
   "id": "chat-corundum",
   "note": "Pha alpha; không đại diện gamma alumina."
 }

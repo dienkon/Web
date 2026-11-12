@@ -1,0 +1,230 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0017000
+_database_code_amcsd 0017000
+_chemical_name_mineral 'Li₂O · antifluorite'
+_chemical_formula_sum 'O Li2'
+_symmetry_space_group_name_H-M 'F m -3 m'
+_cell_length_a 4.61
+_cell_length_b 4.61
+_cell_length_c 4.61
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 90
+_cell_volume 97.972181
+loop_
+_publ_author_name
+'Bijvoet J'
+'Karssen A'
+'Claassen A'
+_journal_name_full 'Proceedings of the Koninklijke Nederlandse Academie van Wetenschappen'
+_journal_year 1926
+_journal_volume 29
+_publ_section_title
+;The scattering power of lithium and oxygen, determined from the
+ diffraction-intensities of powdered lithiumoxide.
+ _cod_database_code 1010064
+;
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+x,1/2+y,1/2+z
+1/2+x,y,1/2+z
+1/2+x,1/2+y,z
+z,-x,y
+z,1/2-x,1/2+y
+1/2+z,-x,1/2+y
+1/2+z,1/2-x,y
+-y,z,-x
+-y,1/2+z,1/2-x
+1/2-y,z,1/2-x
+1/2-y,1/2+z,-x
+x,-y,z
+x,1/2-y,1/2+z
+1/2+x,-y,1/2+z
+1/2+x,1/2-y,z
+-z,x,-y
+-z,1/2+x,1/2-y
+1/2-z,x,1/2-y
+1/2-z,1/2+x,-y
+y,-z,x
+y,1/2-z,1/2+x
+1/2+y,-z,1/2+x
+1/2+y,1/2-z,x
+-x,y,-z
+-x,1/2+y,1/2-z
+1/2-x,y,1/2-z
+1/2-x,1/2+y,-z
+x,-z,-y
+x,1/2-z,1/2-y
+1/2+x,-z,1/2-y
+1/2+x,1/2-z,-y
+-z,y,x
+-z,1/2+y,1/2+x
+1/2-z,y,1/2+x
+1/2-z,1/2+y,x
+y,-x,-z
+y,1/2-x,1/2-z
+1/2+y,-x,1/2-z
+1/2+y,1/2-x,-z
+-x,z,y
+-x,1/2+z,1/2+y
+1/2-x,z,1/2+y
+1/2-x,1/2+z,y
+z,-y,-x
+z,1/2-y,1/2-x
+1/2+z,-y,1/2-x
+1/2+z,1/2-y,-x
+-y,x,z
+-y,1/2+x,1/2+z
+1/2-y,x,1/2+z
+1/2-y,1/2+x,z
+x,z,y
+x,1/2+z,1/2+y
+1/2+x,z,1/2+y
+1/2+x,1/2+z,y
+-z,-y,-x
+-z,1/2-y,1/2-x
+1/2-z,-y,1/2-x
+1/2-z,1/2-y,-x
+y,x,z
+y,1/2+x,1/2+z
+1/2+y,x,1/2+z
+1/2+y,1/2+x,z
+-x,-z,-y
+-x,1/2-z,1/2-y
+1/2-x,-z,1/2-y
+1/2-x,1/2-z,-y
+z,y,x
+z,1/2+y,1/2+x
+1/2+z,y,1/2+x
+1/2+z,1/2+y,x
+-y,-x,-z
+-y,1/2-x,1/2-z
+1/2-y,-x,1/2-z
+1/2-y,1/2-x,-z
+z,x,-y
+z,1/2+x,1/2-y
+1/2+z,x,1/2-y
+1/2+z,1/2+x,-y
+-y,-z,x
+-y,1/2-z,1/2+x
+1/2-y,-z,1/2+x
+1/2-y,1/2-z,x
+x,y,-z
+x,1/2+y,1/2-z
+1/2+x,y,1/2-z
+1/2+x,1/2+y,-z
+-z,-x,y
+-z,1/2-x,1/2+y
+1/2-z,-x,1/2+y
+1/2-z,1/2-x,y
+y,z,-x
+y,1/2+z,1/2-x
+1/2+y,z,1/2-x
+1/2+y,1/2+z,-x
+-x,-y,z
+-x,1/2-y,1/2+z
+1/2-x,-y,1/2+z
+1/2-x,1/2-y,z
+-z,x,y
+-z,1/2+x,1/2+y
+1/2-z,x,1/2+y
+1/2-z,1/2+x,y
+y,-z,-x
+y,1/2-z,1/2-x
+1/2+y,-z,1/2-x
+1/2+y,1/2-z,-x
+-x,y,z
+-x,1/2+y,1/2+z
+1/2-x,y,1/2+z
+1/2-x,1/2+y,z
+z,-x,-y
+z,1/2-x,1/2-y
+1/2+z,-x,1/2-y
+1/2+z,1/2-x,-y
+-y,z,x
+-y,1/2+z,1/2+x
+1/2-y,z,1/2+x
+1/2-y,1/2+z,x
+x,-y,-z
+x,1/2-y,1/2-z
+1/2+x,-y,1/2-z
+1/2+x,1/2-y,-z
+-x,z,-y
+-x,1/2+z,1/2-y
+1/2-x,z,1/2-y
+1/2-x,1/2+z,-y
+z,-y,x
+z,1/2-y,1/2+x
+1/2+z,-y,1/2+x
+1/2+z,1/2-y,x
+-y,x,-z
+-y,1/2+x,1/2-z
+1/2-y,x,1/2-z
+1/2-y,1/2+x,-z
+x,-z,y
+x,1/2-z,1/2+y
+1/2+x,-z,1/2+y
+1/2+x,1/2-z,y
+-z,y,-x
+-z,1/2+y,1/2-x
+1/2-z,y,1/2-x
+1/2-z,1/2+y,-x
+y,-x,z
+y,1/2-x,1/2+z
+1/2+y,-x,1/2+z
+1/2+y,1/2-x,z
+-x,-z,y
+-x,1/2-z,1/2+y
+1/2-x,-z,1/2+y
+1/2-x,1/2-z,y
+z,y,-x
+z,1/2+y,1/2-x
+1/2+z,y,1/2-x
+1/2+z,1/2+y,-x
+-y,-x,z
+-y,1/2-x,1/2+z
+1/2-y,-x,1/2+z
+1/2-y,1/2-x,z
+x,z,-y
+x,1/2+z,1/2-y
+1/2+x,z,1/2-y
+1/2+x,1/2+z,-y
+-z,-y,x
+-z,1/2-y,1/2+x
+1/2-z,-y,1/2+x
+1/2-z,1/2-y,x
+y,x,-z
+y,1/2+x,1/2-z
+1/2+y,x,1/2-z
+1/2+y,1/2+x,-z
+-z,-x,-y
+-z,1/2-x,1/2-y
+1/2-z,-x,1/2-y
+1/2-z,1/2-x,-y
+y,z,x
+y,1/2+z,1/2+x
+1/2+y,z,1/2+x
+1/2+y,1/2+z,x
+-x,-y,-z
+-x,1/2-y,1/2-z
+1/2-x,-y,1/2-z
+1/2-x,1/2-y,-z
+z,x,y
+z,1/2+x,1/2+y
+1/2+z,x,1/2+y
+1/2+z,1/2+x,y
+-y,-z,-x
+-y,1/2-z,1/2-x
+1/2-y,-z,1/2-x
+1/2-y,1/2-z,-x
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+O1 O 0 0 0 1
+Li1 Li 0.25 0.25 0.25 1

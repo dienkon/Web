@@ -1,0 +1,676 @@
+{
+  "amcsdId": "0018367",
+  "mineralName": "Băng II · −75 °C · 0,3 GPa",
+  "formula": "O H2",
+  "spaceGroup": "R -3:R",
+  "cell": {
+    "a": 7.78,
+    "b": 7.78,
+    "c": 7.78,
+    "alpha": 113.1,
+    "beta": 113.1,
+    "gamma": 113.1
+  },
+  "volume": 304.25042447574043,
+  "declaredVolume": 304.251,
+  "basis": [
+    [
+      7.78,
+      -3.052382767175708,
+      -3.052382767175708
+    ],
+    [
+      0.0,
+      7.156211249163119,
+      -4.620402799015326
+    ],
+    [
+      0.0,
+      0.0,
+      5.46472665533237
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "-z,-x,-y",
+    "y,z,x",
+    "-x,-y,-z",
+    "z,x,y",
+    "-y,-z,-x"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.273,
+        0.024,
+        -0.146
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.478,
+        0.75,
+        0.332
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "H1",
+      "element": "H",
+      "fractional": [
+        0.165,
+        0.069,
+        -0.19
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "H2",
+      "element": "H",
+      "fractional": [
+        0.413,
+        0.205,
+        -0.003
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "H3",
+      "element": "H",
+      "fractional": [
+        0.719,
+        0.401,
+        0.395
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "H4",
+      "element": "H",
+      "fractional": [
+        0.741,
+        0.203,
+        0.36
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.273,
+        0.024,
+        0.854
+      ],
+      "position": [
+        -0.5560521,
+        -3.7740749,
+        4.6668766
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.146,
+        0.727,
+        0.976
+      ],
+      "position": [
+        -4.0623279,
+        0.6930524,
+        5.3335732
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.024,
+        0.854,
+        0.273
+      ],
+      "position": [
+        -3.2533154,
+        4.8500344,
+        1.4918704
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.727,
+        0.976,
+        0.146
+      ],
+      "position": [
+        2.2312865,
+        6.3098834,
+        0.7978501
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.854,
+        0.273,
+        0.024
+      ],
+      "position": [
+        5.7375623,
+        1.842756,
+        0.1311534
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.976,
+        0.146,
+        0.727
+      ],
+      "position": [
+        4.9285498,
+        -2.314226,
+        3.9728563
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.478,
+        0.75,
+        0.332
+      ],
+      "position": [
+        0.4161618,
+        3.8331847,
+        1.8142892
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.668,
+        0.522,
+        0.25
+      ],
+      "position": [
+        2.8406005,
+        2.5804416,
+        1.3661817
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.75,
+        0.332,
+        0.478
+      ],
+      "position": [
+        3.36257,
+        0.1673096,
+        2.6121393
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.522,
+        0.25,
+        0.668
+      ],
+      "position": [
+        1.2590726,
+        -1.2973763,
+        3.6504374
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.332,
+        0.478,
+        0.75
+      ],
+      "position": [
+        -1.165366,
+        -0.0446331,
+        4.098545
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.25,
+        0.668,
+        0.522
+      ],
+      "position": [
+        -1.6873355,
+        2.3684989,
+        2.8525873
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H1",
+      "fractional": [
+        0.165,
+        0.069,
+        0.81
+      ],
+      "position": [
+        -1.3993445,
+        -3.2487477,
+        4.4264286
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H1",
+      "fractional": [
+        0.19,
+        0.835,
+        0.931
+      ],
+      "position": [
+        -3.912308,
+        1.6738414,
+        5.0876605
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H1",
+      "fractional": [
+        0.069,
+        0.81,
+        0.165
+      ],
+      "position": [
+        -2.4392532,
+        5.0341646,
+        0.9016799
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H1",
+      "fractional": [
+        0.835,
+        0.931,
+        0.19
+      ],
+      "position": [
+        3.0745789,
+        5.7845561,
+        1.0382981
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H1",
+      "fractional": [
+        0.81,
+        0.165,
+        0.069
+      ],
+      "position": [
+        5.5875424,
+        0.8619671,
+        0.3770661
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H1",
+      "fractional": [
+        0.931,
+        0.19,
+        0.835
+      ],
+      "position": [
+        4.1144877,
+        -2.4983562,
+        4.5630468
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H2",
+      "fractional": [
+        0.413,
+        0.205,
+        0.997
+      ],
+      "position": [
+        -0.4558241,
+        -3.1395183,
+        5.4483325
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H2",
+      "fractional": [
+        0.003,
+        0.587,
+        0.795
+      ],
+      "position": [
+        -4.195053,
+        0.5274758,
+        4.3444577
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H2",
+      "fractional": [
+        0.205,
+        0.997,
+        0.413
+      ],
+      "position": [
+        -2.7089597,
+        5.2265163,
+        2.2569321
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H2",
+      "fractional": [
+        0.587,
+        0.795,
+        0.003
+      ],
+      "position": [
+        2.1310586,
+        5.6753267,
+        0.0163942
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H2",
+      "fractional": [
+        0.997,
+        0.413,
+        0.205
+      ],
+      "position": [
+        5.8702874,
+        2.0083327,
+        1.120269
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H2",
+      "fractional": [
+        0.795,
+        0.003,
+        0.587
+      ],
+      "position": [
+        4.3841942,
+        -2.6907078,
+        3.2077945
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H3",
+      "fractional": [
+        0.719,
+        0.401,
+        0.395
+      ],
+      "position": [
+        3.1641233,
+        1.0445816,
+        2.158567
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H3",
+      "fractional": [
+        0.605,
+        0.281,
+        0.599
+      ],
+      "position": [
+        2.0208032,
+        -0.7567259,
+        3.2733713
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H3",
+      "fractional": [
+        0.401,
+        0.395,
+        0.719
+      ],
+      "position": [
+        -0.2805744,
+        -0.4953662,
+        3.9291385
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H3",
+      "fractional": [
+        0.281,
+        0.599,
+        0.605
+      ],
+      "position": [
+        -1.4888889,
+        1.4912268,
+        3.3061596
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H3",
+      "fractional": [
+        0.395,
+        0.719,
+        0.401
+      ],
+      "position": [
+        -0.3455687,
+        3.2925344,
+        2.1913554
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H3",
+      "fractional": [
+        0.599,
+        0.605,
+        0.281
+      ],
+      "position": [
+        1.9558089,
+        3.0311746,
+        1.5355882
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H4",
+      "fractional": [
+        0.741,
+        0.203,
+        0.36
+      ],
+      "position": [
+        4.0464885,
+        -0.2106341,
+        1.9673016
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H4",
+      "fractional": [
+        0.64,
+        0.259,
+        0.797
+      ],
+      "position": [
+        1.7558838,
+        -1.8290023,
+        4.3553871
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H4",
+      "fractional": [
+        0.203,
+        0.36,
+        0.741
+      ],
+      "position": [
+        -1.7813334,
+        -0.8474824,
+        4.0493625
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H4",
+      "fractional": [
+        0.259,
+        0.797,
+        0.64
+      ],
+      "position": [
+        -2.371254,
+        2.7464426,
+        3.4974251
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H4",
+      "fractional": [
+        0.36,
+        0.741,
+        0.203
+      ],
+      "position": [
+        -0.0806493,
+        4.3648108,
+        1.1093395
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H4",
+      "fractional": [
+        0.797,
+        0.64,
+        0.259
+      ],
+      "position": [
+        3.4565679,
+        3.3832909,
+        1.4153642
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 36,
+  "speciesPositionCount": 36,
+  "cellComposition": {
+    "O": 12,
+    "H": 24
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Kamb B"
+    ],
+    "title": "Ice II: A proton-ordered form of ice\n Note: T = -75 C, P = 0.3 GPa",
+    "journal": "Acta Crystallographica",
+    "year": 1964,
+    "volume": "17",
+    "pages": "1437–1449"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 6,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.8916136617960097e-06
+  },
+  "spaceGroupOriginal": "R -3",
+  "spaceGroupNumber": 148,
+  "id": "chat-ice-ii",
+  "note": "Pha áp suất cao có proton có trật tự; 12 O và 24 H trong ô mạng. Không mô tả nước lỏng hay băng Ih ở áp suất thường."
+}

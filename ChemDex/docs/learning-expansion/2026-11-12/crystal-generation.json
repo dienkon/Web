@@ -1,0 +1,1062 @@
+{
+  "structures": [
+    {
+      "id": "chat-cuprite",
+      "amcsdId": "0007351",
+      "bytes": 27200,
+      "sites": 6,
+      "displaySpheres": 13
+    },
+    {
+      "id": "chat-tenorite",
+      "amcsdId": "0018033",
+      "bytes": 28364,
+      "sites": 8,
+      "displaySpheres": 12
+    },
+    {
+      "id": "chat-corundum",
+      "amcsdId": "0009325",
+      "bytes": 39488,
+      "sites": 30,
+      "displaySpheres": 46
+    },
+    {
+      "id": "chat-periclase",
+      "amcsdId": "0000501",
+      "bytes": 30264,
+      "sites": 8,
+      "displaySpheres": 27
+    },
+    {
+      "id": "chat-zincite",
+      "amcsdId": "0005203",
+      "bytes": 26176,
+      "sites": 4,
+      "displaySpheres": 5
+    },
+    {
+      "id": "chat-portlandite",
+      "amcsdId": "0000117",
+      "bytes": 28180,
+      "sites": 5,
+      "displaySpheres": 12
+    },
+    {
+      "id": "chat-nitratine",
+      "amcsdId": "0009441",
+      "bytes": 40028,
+      "sites": 30,
+      "displaySpheres": 50
+    },
+    {
+      "id": "chat-niter",
+      "amcsdId": "0013162",
+      "bytes": 30340,
+      "sites": 20,
+      "displaySpheres": 20
+    },
+    {
+      "id": "chat-sassolite",
+      "amcsdId": "0009809",
+      "bytes": 35160,
+      "sites": 28,
+      "displaySpheres": 28
+    },
+    {
+      "id": "chat-chalcanthite",
+      "amcsdId": "0010779",
+      "bytes": 42224,
+      "sites": 42,
+      "displaySpheres": 50
+    },
+    {
+      "id": "chat-siderite",
+      "amcsdId": "0000101",
+      "bytes": 40100,
+      "sites": 30,
+      "displaySpheres": 50
+    },
+    {
+      "id": "chat-cerussite",
+      "amcsdId": "0011016",
+      "bytes": 30288,
+      "sites": 20,
+      "displaySpheres": 20
+    },
+    {
+      "id": "chat-anglesite",
+      "amcsdId": "0005558",
+      "bytes": 31492,
+      "sites": 24,
+      "displaySpheres": 24
+    },
+    {
+      "id": "chat-witherite",
+      "amcsdId": "0000235",
+      "bytes": 30180,
+      "sites": 20,
+      "displaySpheres": 20
+    },
+    {
+      "id": "chat-strontianite",
+      "amcsdId": "0000234",
+      "bytes": 30148,
+      "sites": 20,
+      "displaySpheres": 20
+    },
+    {
+      "id": "chat-massicot",
+      "amcsdId": "0010011",
+      "bytes": 26492,
+      "sites": 8,
+      "displaySpheres": 8
+    },
+    {
+      "id": "chat-bunsenite",
+      "amcsdId": "0011371",
+      "bytes": 30292,
+      "sites": 8,
+      "displaySpheres": 27
+    },
+    {
+      "id": "chat-otavite",
+      "amcsdId": "0000103",
+      "bytes": 40296,
+      "sites": 30,
+      "displaySpheres": 50
+    },
+    {
+      "id": "chat-greenockite",
+      "amcsdId": "0015177",
+      "bytes": 26016,
+      "sites": 4,
+      "displaySpheres": 5
+    },
+    {
+      "id": "chat-arcanite",
+      "amcsdId": "0009456",
+      "bytes": 32708,
+      "sites": 28,
+      "displaySpheres": 28
+    },
+    {
+      "id": "chat-thenardite",
+      "amcsdId": "0005113",
+      "bytes": 41436,
+      "sites": 56,
+      "displaySpheres": 56
+    },
+    {
+      "id": "chat-anhydrite",
+      "amcsdId": "0019829",
+      "bytes": 32628,
+      "sites": 24,
+      "displaySpheres": 32
+    },
+    {
+      "id": "chat-sellaite",
+      "amcsdId": "0009163",
+      "bytes": 27556,
+      "sites": 6,
+      "displaySpheres": 15
+    },
+    {
+      "id": "chat-villiaumite",
+      "amcsdId": "0009251",
+      "bytes": 30180,
+      "sites": 8,
+      "displaySpheres": 27
+    },
+    {
+      "id": "chat-lime",
+      "amcsdId": "0008276",
+      "bytes": 30304,
+      "sites": 8,
+      "displaySpheres": 27
+    },
+    {
+      "id": "chat-sodium-bromide",
+      "amcsdId": "0009258",
+      "bytes": 30360,
+      "sites": 8,
+      "displaySpheres": 27
+    },
+    {
+      "id": "chat-potassium-bromide",
+      "amcsdId": "0011995",
+      "bytes": 30120,
+      "sites": 8,
+      "displaySpheres": 27
+    },
+    {
+      "id": "chat-lithium-chloride",
+      "amcsdId": "0011343",
+      "bytes": 30512,
+      "sites": 8,
+      "displaySpheres": 27
+    },
+    {
+      "id": "chat-hydrophilite",
+      "amcsdId": "0011763",
+      "bytes": 27504,
+      "sites": 6,
+      "displaySpheres": 15
+    },
+    {
+      "id": "chat-tolbachite",
+      "amcsdId": "0001544",
+      "bytes": 28948,
+      "sites": 6,
+      "displaySpheres": 16
+    },
+    {
+      "id": "chat-molysite",
+      "amcsdId": "0012857",
+      "bytes": 36552,
+      "sites": 24,
+      "displaySpheres": 36
+    },
+    {
+      "id": "chat-salammoniac",
+      "amcsdId": "0015628",
+      "bytes": 64948,
+      "sites": 10,
+      "displaySpheres": 25
+    },
+    {
+      "id": "chat-lopezite",
+      "amcsdId": "0014228",
+      "bytes": 40544,
+      "sites": 44,
+      "displaySpheres": 44
+    },
+    {
+      "id": "chat-lead-iodide",
+      "amcsdId": "0011793",
+      "bytes": 27204,
+      "sites": 3,
+      "displaySpheres": 10
+    },
+    {
+      "id": "chat-chalcocyanite",
+      "amcsdId": "0014619",
+      "bytes": 33792,
+      "sites": 24,
+      "displaySpheres": 35
+    },
+    {
+      "id": "chat-silver-chloride",
+      "amcsdId": "0015197",
+      "bytes": 30424,
+      "sites": 8,
+      "displaySpheres": 27
+    },
+    {
+      "id": "chat-silver-bromide",
+      "amcsdId": "0015213",
+      "bytes": 30432,
+      "sites": 8,
+      "displaySpheres": 27
+    },
+    {
+      "id": "chat-silver-iodide",
+      "amcsdId": "0015225",
+      "bytes": 29680,
+      "sites": 4,
+      "displaySpheres": 20
+    },
+    {
+      "id": "chat-covellite",
+      "amcsdId": "0000534",
+      "bytes": 31644,
+      "sites": 12,
+      "displaySpheres": 24
+    },
+    {
+      "id": "chat-rhodochrosite",
+      "amcsdId": "0009891",
+      "bytes": 40328,
+      "sites": 30,
+      "displaySpheres": 50
+    },
+    {
+      "id": "chat-smithsonite",
+      "amcsdId": "0000102",
+      "bytes": 40136,
+      "sites": 30,
+      "displaySpheres": 50
+    },
+    {
+      "id": "chat-brucite",
+      "amcsdId": "0007912",
+      "bytes": 28296,
+      "sites": 5,
+      "displaySpheres": 12
+    },
+    {
+      "id": "chat-troilite",
+      "amcsdId": "0004160",
+      "bytes": 34868,
+      "sites": 24,
+      "displaySpheres": 34
+    },
+    {
+      "id": "chat-kalicinite",
+      "amcsdId": "0018502",
+      "bytes": 33312,
+      "sites": 24,
+      "displaySpheres": 24
+    },
+    {
+      "id": "chat-millerite",
+      "amcsdId": "0005097",
+      "bytes": 31616,
+      "sites": 18,
+      "displaySpheres": 21
+    },
+    {
+      "id": "chat-melanterite",
+      "amcsdId": "0010353",
+      "bytes": 63792,
+      "sites": 108,
+      "displaySpheres": 118
+    },
+    {
+      "id": "chat-tuite",
+      "amcsdId": "0007447",
+      "bytes": 45180,
+      "sites": 39,
+      "displaySpheres": 64
+    },
+    {
+      "id": "chat-alabandite",
+      "amcsdId": "0007512",
+      "bytes": 30108,
+      "sites": 8,
+      "displaySpheres": 27
+    },
+    {
+      "id": "chat-manganosite",
+      "amcsdId": "0008240",
+      "bytes": 30484,
+      "sites": 8,
+      "displaySpheres": 27
+    },
+    {
+      "id": "chat-monteponite",
+      "amcsdId": "0008253",
+      "bytes": 30492,
+      "sites": 8,
+      "displaySpheres": 27
+    },
+    {
+      "id": "chat-solid-sulfur-dioxide",
+      "amcsdId": "0009146",
+      "bytes": 29288,
+      "sites": 12,
+      "displaySpheres": 22
+    },
+    {
+      "id": "chat-polymeric-sulfur-trioxide",
+      "amcsdId": "0009159",
+      "bytes": 29732,
+      "sites": 16,
+      "displaySpheres": 16
+    },
+    {
+      "id": "chat-zincosite",
+      "amcsdId": "0014620",
+      "bytes": 33780,
+      "sites": 24,
+      "displaySpheres": 35
+    },
+    {
+      "id": "chat-magnesium-sulfate",
+      "amcsdId": "0009211",
+      "bytes": 34644,
+      "sites": 24,
+      "displaySpheres": 41
+    },
+    {
+      "id": "chat-nahcolite",
+      "amcsdId": "0017923",
+      "bytes": 33448,
+      "sites": 24,
+      "displaySpheres": 26
+    },
+    {
+      "id": "chat-crocoite",
+      "amcsdId": "0009297",
+      "bytes": 32592,
+      "sites": 24,
+      "displaySpheres": 24
+    },
+    {
+      "id": "chat-retgersite",
+      "amcsdId": "0009870",
+      "bytes": 56216,
+      "sites": 96,
+      "displaySpheres": 98
+    },
+    {
+      "id": "chat-acetamide",
+      "amcsdId": "0019020",
+      "bytes": 82004,
+      "sites": 162,
+      "displaySpheres": 162
+    },
+    {
+      "id": "chat-tarapacaite",
+      "amcsdId": "0009457",
+      "bytes": 32488,
+      "sites": 28,
+      "displaySpheres": 28
+    },
+    {
+      "id": "chat-silver-carbonate",
+      "amcsdId": "0009670",
+      "bytes": 28892,
+      "sites": 12,
+      "displaySpheres": 12
+    },
+    {
+      "id": "chat-dry-ice",
+      "amcsdId": "0009722",
+      "bytes": 29584,
+      "sites": 12,
+      "displaySpheres": 22
+    },
+    {
+      "id": "chat-natrite",
+      "amcsdId": "0014917",
+      "bytes": 37168,
+      "sites": 24,
+      "displaySpheres": 41
+    },
+    {
+      "id": "chat-barium-nitrate",
+      "amcsdId": "0010639",
+      "bytes": 37460,
+      "sites": 36,
+      "displaySpheres": 46
+    },
+    {
+      "id": "chat-strontium-nitrate",
+      "amcsdId": "0009979",
+      "bytes": 37596,
+      "sites": 36,
+      "displaySpheres": 46
+    },
+    {
+      "id": "chat-spertiniite",
+      "amcsdId": "0010212",
+      "bytes": 32820,
+      "sites": 20,
+      "displaySpheres": 30
+    },
+    {
+      "id": "chat-ferrous-sulfate-beta",
+      "amcsdId": "0010479",
+      "bytes": 34072,
+      "sites": 24,
+      "displaySpheres": 35
+    },
+    {
+      "id": "chat-nickel-bromide",
+      "amcsdId": "0010514",
+      "bytes": 30824,
+      "sites": 9,
+      "displaySpheres": 22
+    },
+    {
+      "id": "chat-nickel-iodide",
+      "amcsdId": "0010515",
+      "bytes": 30824,
+      "sites": 9,
+      "displaySpheres": 22
+    },
+    {
+      "id": "chat-potassium-sulfide",
+      "amcsdId": "0010530",
+      "bytes": 29324,
+      "sites": 12,
+      "displaySpheres": 22
+    },
+    {
+      "id": "chat-cobalt-chloride",
+      "amcsdId": "0010531",
+      "bytes": 28052,
+      "sites": 3,
+      "displaySpheres": 10
+    },
+    {
+      "id": "chat-ammonium-nitrate-v",
+      "amcsdId": "0010592",
+      "bytes": 47588,
+      "sites": 72,
+      "displaySpheres": 82
+    },
+    {
+      "id": "chat-eskolaite",
+      "amcsdId": "0010596",
+      "bytes": 39048,
+      "sites": 30,
+      "displaySpheres": 46
+    },
+    {
+      "id": "chat-tin-sulfate",
+      "amcsdId": "0010603",
+      "bytes": 31116,
+      "sites": 24,
+      "displaySpheres": 24
+    },
+    {
+      "id": "chat-strontium-iodide",
+      "amcsdId": "0010679",
+      "bytes": 31072,
+      "sites": 24,
+      "displaySpheres": 24
+    },
+    {
+      "id": "chat-ferric-sulfate-monoclinic",
+      "amcsdId": "0010775",
+      "bytes": 47840,
+      "sites": 68,
+      "displaySpheres": 68
+    },
+    {
+      "id": "chat-ferric-sulfate-rhombohedral",
+      "amcsdId": "0010786",
+      "bytes": 64200,
+      "sites": 102,
+      "displaySpheres": 114
+    },
+    {
+      "id": "chat-silver-phosphate",
+      "amcsdId": "0017250",
+      "bytes": 31328,
+      "sites": 16,
+      "displaySpheres": 29
+    },
+    {
+      "id": "chat-zabuyelite",
+      "amcsdId": "0010813",
+      "bytes": 34016,
+      "sites": 24,
+      "displaySpheres": 28
+    },
+    {
+      "id": "chat-urea",
+      "amcsdId": "0010832",
+      "bytes": 30600,
+      "sites": 16,
+      "displaySpheres": 20
+    },
+    {
+      "id": "chat-aluminium-sulfate",
+      "amcsdId": "0011035",
+      "bytes": 63864,
+      "sites": 102,
+      "displaySpheres": 114
+    },
+    {
+      "id": "chat-chromium-sulfate",
+      "amcsdId": "0011036",
+      "bytes": 63580,
+      "sites": 102,
+      "displaySpheres": 114
+    },
+    {
+      "id": "chat-solid-argon",
+      "amcsdId": "0015155",
+      "bytes": 26820,
+      "sites": 4,
+      "displaySpheres": 14
+    },
+    {
+      "id": "chat-solid-krypton",
+      "amcsdId": "0011148",
+      "bytes": 26932,
+      "sites": 4,
+      "displaySpheres": 14
+    },
+    {
+      "id": "chat-solid-neon",
+      "amcsdId": "0015156",
+      "bytes": 26900,
+      "sites": 4,
+      "displaySpheres": 14
+    },
+    {
+      "id": "chat-solid-xenon",
+      "amcsdId": "0012968",
+      "bytes": 26936,
+      "sites": 4,
+      "displaySpheres": 14
+    },
+    {
+      "id": "chat-solid-helium",
+      "amcsdId": "0015152",
+      "bytes": 24716,
+      "sites": 2,
+      "displaySpheres": 2
+    },
+    {
+      "id": "chat-solid-nitrogen-alpha",
+      "amcsdId": "0011249",
+      "bytes": 25964,
+      "sites": 8,
+      "displaySpheres": 8
+    },
+    {
+      "id": "chat-solid-chlorine",
+      "amcsdId": "0014661",
+      "bytes": 27180,
+      "sites": 8,
+      "displaySpheres": 12
+    },
+    {
+      "id": "chat-solid-bromine",
+      "amcsdId": "0014657",
+      "bytes": 27264,
+      "sites": 8,
+      "displaySpheres": 12
+    },
+    {
+      "id": "chat-barium-oxide",
+      "amcsdId": "0018197",
+      "bytes": 30208,
+      "sites": 8,
+      "displaySpheres": 27
+    },
+    {
+      "id": "chat-cobalt-oxide",
+      "amcsdId": "0011296",
+      "bytes": 30376,
+      "sites": 8,
+      "displaySpheres": 27
+    },
+    {
+      "id": "chat-cesium-chloride",
+      "amcsdId": "0011467",
+      "bytes": 25960,
+      "sites": 2,
+      "displaySpheres": 9
+    },
+    {
+      "id": "chat-wustite-reference",
+      "amcsdId": "0011314",
+      "bytes": 30316,
+      "sites": 8,
+      "displaySpheres": 27
+    },
+    {
+      "id": "chat-potassium-fluoride",
+      "amcsdId": "0017895",
+      "bytes": 30392,
+      "sites": 8,
+      "displaySpheres": 27
+    },
+    {
+      "id": "chat-potassium-iodide",
+      "amcsdId": "0011996",
+      "bytes": 30312,
+      "sites": 8,
+      "displaySpheres": 27
+    },
+    {
+      "id": "chat-lithium-bromide",
+      "amcsdId": "0018198",
+      "bytes": 30304,
+      "sites": 8,
+      "displaySpheres": 27
+    },
+    {
+      "id": "chat-lithium-fluoride",
+      "amcsdId": "0017905",
+      "bytes": 30240,
+      "sites": 8,
+      "displaySpheres": 27
+    },
+    {
+      "id": "chat-lithium-iodide",
+      "amcsdId": "0017253",
+      "bytes": 29592,
+      "sites": 8,
+      "displaySpheres": 27
+    },
+    {
+      "id": "chat-sodium-iodide",
+      "amcsdId": "0011359",
+      "bytes": 30048,
+      "sites": 8,
+      "displaySpheres": 27
+    },
+    {
+      "id": "chat-strontium-oxide",
+      "amcsdId": "0018170",
+      "bytes": 30180,
+      "sites": 8,
+      "displaySpheres": 27
+    },
+    {
+      "id": "chat-cobalt-sulfide",
+      "amcsdId": "0011562",
+      "bytes": 28008,
+      "sites": 4,
+      "displaySpheres": 14
+    },
+    {
+      "id": "chat-lithium-hydroxide",
+      "amcsdId": "0011636",
+      "bytes": 28392,
+      "sites": 6,
+      "displaySpheres": 18
+    },
+    {
+      "id": "chat-barium-chloride",
+      "amcsdId": "0011681",
+      "bytes": 29116,
+      "sites": 12,
+      "displaySpheres": 22
+    },
+    {
+      "id": "chat-frankdicksonite",
+      "amcsdId": "0011682",
+      "bytes": 29436,
+      "sites": 12,
+      "displaySpheres": 22
+    },
+    {
+      "id": "chat-lead-fluoride-beta",
+      "amcsdId": "0011705",
+      "bytes": 29704,
+      "sites": 12,
+      "displaySpheres": 22
+    },
+    {
+      "id": "chat-strontium-chloride",
+      "amcsdId": "0011720",
+      "bytes": 29456,
+      "sites": 12,
+      "displaySpheres": 22
+    },
+    {
+      "id": "chat-strontium-fluoride",
+      "amcsdId": "0018325",
+      "bytes": 29404,
+      "sites": 12,
+      "displaySpheres": 22
+    },
+    {
+      "id": "chat-potassium-oxide",
+      "amcsdId": "0011734",
+      "bytes": 29112,
+      "sites": 12,
+      "displaySpheres": 22
+    },
+    {
+      "id": "chat-lithium-oxide",
+      "amcsdId": "0017000",
+      "bytes": 29608,
+      "sites": 12,
+      "displaySpheres": 22
+    },
+    {
+      "id": "chat-sodium-oxide",
+      "amcsdId": "0011742",
+      "bytes": 29144,
+      "sites": 12,
+      "displaySpheres": 22
+    },
+    {
+      "id": "chat-sodium-sulfide",
+      "amcsdId": "0011743",
+      "bytes": 29192,
+      "sites": 12,
+      "displaySpheres": 22
+    },
+    {
+      "id": "chat-calcium-iodide",
+      "amcsdId": "0011776",
+      "bytes": 26988,
+      "sites": 3,
+      "displaySpheres": 10
+    },
+    {
+      "id": "chat-cobalt-bromide",
+      "amcsdId": "0011778",
+      "bytes": 27112,
+      "sites": 3,
+      "displaySpheres": 10
+    },
+    {
+      "id": "chat-cobalt-iodide",
+      "amcsdId": "0011779",
+      "bytes": 27140,
+      "sites": 3,
+      "displaySpheres": 10
+    },
+    {
+      "id": "chat-ferrous-bromide",
+      "amcsdId": "0011781",
+      "bytes": 26996,
+      "sites": 3,
+      "displaySpheres": 10
+    },
+    {
+      "id": "chat-ferrous-iodide",
+      "amcsdId": "0011782",
+      "bytes": 27100,
+      "sites": 3,
+      "displaySpheres": 10
+    },
+    {
+      "id": "chat-magnesium-bromide",
+      "amcsdId": "0011786",
+      "bytes": 26992,
+      "sites": 3,
+      "displaySpheres": 10
+    },
+    {
+      "id": "chat-magnesium-iodide",
+      "amcsdId": "0011787",
+      "bytes": 27076,
+      "sites": 3,
+      "displaySpheres": 10
+    },
+    {
+      "id": "chat-manganese-bromide",
+      "amcsdId": "0011788",
+      "bytes": 27128,
+      "sites": 3,
+      "displaySpheres": 10
+    },
+    {
+      "id": "chat-manganese-iodide",
+      "amcsdId": "0011789",
+      "bytes": 26956,
+      "sites": 3,
+      "displaySpheres": 10
+    },
+    {
+      "id": "chat-zinc-iodide",
+      "amcsdId": "0011801",
+      "bytes": 26964,
+      "sites": 3,
+      "displaySpheres": 10
+    },
+    {
+      "id": "chat-cadmium-bromide",
+      "amcsdId": "0011803",
+      "bytes": 30644,
+      "sites": 9,
+      "displaySpheres": 22
+    },
+    {
+      "id": "chat-cadmium-chloride",
+      "amcsdId": "0018174",
+      "bytes": 28036,
+      "sites": 3,
+      "displaySpheres": 10
+    },
+    {
+      "id": "chat-ferrous-chloride",
+      "amcsdId": "0011807",
+      "bytes": 30816,
+      "sites": 9,
+      "displaySpheres": 22
+    },
+    {
+      "id": "chat-magnesium-chloride",
+      "amcsdId": "0011808",
+      "bytes": 30968,
+      "sites": 9,
+      "displaySpheres": 22
+    },
+    {
+      "id": "chat-manganese-chloride",
+      "amcsdId": "0011809",
+      "bytes": 30708,
+      "sites": 9,
+      "displaySpheres": 22
+    },
+    {
+      "id": "chat-nickel-chloride",
+      "amcsdId": "0011811",
+      "bytes": 30756,
+      "sites": 9,
+      "displaySpheres": 22
+    },
+    {
+      "id": "chat-zinc-bromide",
+      "amcsdId": "0011814",
+      "bytes": 30772,
+      "sites": 9,
+      "displaySpheres": 22
+    },
+    {
+      "id": "chat-zinc-chloride",
+      "amcsdId": "0011815",
+      "bytes": 30916,
+      "sites": 9,
+      "displaySpheres": 22
+    },
+    {
+      "id": "chat-cadmium-iodide",
+      "amcsdId": "0011817",
+      "bytes": 28020,
+      "sites": 6,
+      "displaySpheres": 13
+    },
+    {
+      "id": "chat-cotunnite",
+      "amcsdId": "0011874",
+      "bytes": 27548,
+      "sites": 12,
+      "displaySpheres": 12
+    },
+    {
+      "id": "chat-lead-bromide",
+      "amcsdId": "0017501",
+      "bytes": 33480,
+      "sites": 24,
+      "displaySpheres": 36
+    },
+    {
+      "id": "chat-strontium-bromide",
+      "amcsdId": "0016958",
+      "bytes": 27532,
+      "sites": 12,
+      "displaySpheres": 12
+    },
+    {
+      "id": "chat-solid-fluorine-alpha",
+      "amcsdId": "0012990",
+      "bytes": 27944,
+      "sites": 8,
+      "displaySpheres": 12
+    },
+    {
+      "id": "chat-ammonium-sulfate",
+      "amcsdId": "0012986",
+      "bytes": 42192,
+      "sites": 60,
+      "displaySpheres": 60
+    },
+    {
+      "id": "chat-potassium-carbonate",
+      "amcsdId": "0013249",
+      "bytes": 32968,
+      "sites": 24,
+      "displaySpheres": 24
+    },
+    {
+      "id": "chat-disodium-hydrogen-phosphate",
+      "amcsdId": "0015788",
+      "bytes": 69004,
+      "sites": 18,
+      "displaySpheres": 32
+    },
+    {
+      "id": "chat-sodium-chromate",
+      "amcsdId": "0016962",
+      "bytes": 33008,
+      "sites": 28,
+      "displaySpheres": 34
+    },
+    {
+      "id": "chat-solid-nitrous-oxide",
+      "amcsdId": "0016995",
+      "bytes": 29592,
+      "sites": 12,
+      "displaySpheres": 22
+    },
+    {
+      "id": "chat-chromium-bromide",
+      "amcsdId": "0017081",
+      "bytes": 38620,
+      "sites": 24,
+      "displaySpheres": 47
+    },
+    {
+      "id": "chat-solid-carbon-monoxide",
+      "amcsdId": "0017231",
+      "bytes": 26088,
+      "sites": 8,
+      "displaySpheres": 8
+    },
+    {
+      "id": "chat-solid-hydrogen-chloride",
+      "amcsdId": "0018512",
+      "bytes": 27852,
+      "sites": 8,
+      "displaySpheres": 15
+    },
+    {
+      "id": "chat-lithium-sulfate",
+      "amcsdId": "0017384",
+      "bytes": 33848,
+      "sites": 28,
+      "displaySpheres": 28
+    },
+    {
+      "id": "chat-silver-oxide",
+      "amcsdId": "0017487",
+      "bytes": 26820,
+      "sites": 6,
+      "displaySpheres": 13
+    },
+    {
+      "id": "chat-sodium-sulfite",
+      "amcsdId": "0017434",
+      "bytes": 31192,
+      "sites": 12,
+      "displaySpheres": 22
+    },
+    {
+      "id": "chat-sodium-nitrite",
+      "amcsdId": "0017436",
+      "bytes": 29220,
+      "sites": 8,
+      "displaySpheres": 20
+    },
+    {
+      "id": "chat-potassium-thiocyanate",
+      "amcsdId": "0017507",
+      "bytes": 29432,
+      "sites": 16,
+      "displaySpheres": 18
+    },
+    {
+      "id": "chat-lithium-nitrate",
+      "amcsdId": "0018092",
+      "bytes": 31548,
+      "sites": 10,
+      "displaySpheres": 20
+    },
+    {
+      "id": "chat-zinc-hydroxide-epsilon",
+      "amcsdId": "0018272",
+      "bytes": 30512,
+      "sites": 20,
+      "displaySpheres": 20
+    },
+    {
+      "id": "chat-solid-oxygen-beta",
+      "amcsdId": "0020614",
+      "bytes": 27796,
+      "sites": 6,
+      "displaySpheres": 12
+    },
+    {
+      "id": "chat-ice-ii",
+      "amcsdId": "0018367",
+      "bytes": 37304,
+      "sites": 36,
+      "displaySpheres": 36
+    }
+  ],
+  "interpretation": "Published atomic positions or explicitly labelled reference prototype. Sphere size/color are display conventions; partial occupancies use sectors. No specimen surface or inferred bonds."
+}

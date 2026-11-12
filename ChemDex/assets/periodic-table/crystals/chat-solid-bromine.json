@@ -1,0 +1,217 @@
+{
+  "amcsdId": "0014657",
+  "mineralName": "Bromine rắn · 250 K",
+  "formula": "Br",
+  "spaceGroup": "C m c a",
+  "cell": {
+    "a": 6.7265,
+    "b": 4.6451,
+    "c": 8.7023,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 271.905670914845,
+  "declaredVolume": 271.906,
+  "basis": [
+    [
+      6.7265,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      4.6451,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      8.7023
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+x,1/2+y,z",
+    "x,1/2-y,1/2+z",
+    "1/2+x,-y,1/2+z",
+    "-x,1/2+y,1/2-z",
+    "1/2-x,+y,1/2-z",
+    "-x,y,z",
+    "1/2-x,1/2+y,z",
+    "x,-y,-z",
+    "1/2+x,1/2-y,-z",
+    "x,1/2+y,1/2-z",
+    "1/2+x,+y,1/2-z",
+    "-x,1/2-y,1/2+z",
+    "1/2-x,-y,1/2+z",
+    "-x,-y,-z",
+    "1/2-x,1/2-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Br",
+      "element": "Br",
+      "fractional": [
+        0.0,
+        0.1349,
+        0.1099
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Br",
+      "label": "Br",
+      "fractional": [
+        0.0,
+        0.1349,
+        0.1099
+      ],
+      "position": [
+        0.0,
+        0.626624,
+        0.9563828
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br",
+      "fractional": [
+        0.5,
+        0.6349,
+        0.1099
+      ],
+      "position": [
+        3.36325,
+        2.949174,
+        0.9563828
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br",
+      "fractional": [
+        0.0,
+        0.3651,
+        0.6099
+      ],
+      "position": [
+        0.0,
+        1.695926,
+        5.3075328
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br",
+      "fractional": [
+        0.5,
+        0.8651,
+        0.6099
+      ],
+      "position": [
+        3.36325,
+        4.018476,
+        5.3075328
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br",
+      "fractional": [
+        0.0,
+        0.6349,
+        0.3901
+      ],
+      "position": [
+        0.0,
+        2.949174,
+        3.3947672
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br",
+      "fractional": [
+        0.5,
+        0.1349,
+        0.3901
+      ],
+      "position": [
+        3.36325,
+        0.626624,
+        3.3947672
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br",
+      "fractional": [
+        0.0,
+        0.8651,
+        0.8901
+      ],
+      "position": [
+        0.0,
+        4.018476,
+        7.7459172
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br",
+      "fractional": [
+        0.5,
+        0.3651,
+        0.8901
+      ],
+      "position": [
+        3.36325,
+        1.695926,
+        7.7459172
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 8,
+  "speciesPositionCount": 8,
+  "cellComposition": {
+    "Br": 8
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Powell B M",
+      "Heal K M",
+      "Torrie B H"
+    ],
+    "title": "The temperature dependence of the crystal structures of the solid halogens, bromine and chlorine\n Sample: at T = 250 K",
+    "journal": "Molecular Physics",
+    "year": 1984,
+    "volume": "53",
+    "pages": "929–939"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 16,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.2102916201803454e-06
+  },
+  "spaceGroupOriginal": "C m c a",
+  "spaceGroupNumber": 64,
+  "id": "chat-solid-bromine",
+  "note": "Tinh chỉnh bromine rắn ở 250 K; không đại diện bromine lỏng ở điều kiện phòng."
+}

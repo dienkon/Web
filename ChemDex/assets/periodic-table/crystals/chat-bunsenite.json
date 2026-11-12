@@ -2,7 +2,7 @@
   "amcsdId": "0011371",
   "mineralName": "Bunsenite · NiO",
   "formula": "Ni O",
-  "spaceGroup": "F m 3 m",
+  "spaceGroup": "F m -3 m",
   "cell": {
     "a": 4.1684,
     "b": 4.1684,
@@ -395,6 +395,8 @@
     "maxSiteOccupancy": 1,
     "cellVolumeRelativeError": 3.842442627896766e-06
   },
+  "spaceGroupOriginal": "F m 3 m",
+  "spaceGroupNumber": 225,
   "id": "chat-bunsenite",
   "note": "Cấu trúc trung bình kiểu rocksalt từ tài liệu tổng hợp; không mô tả méo từ giảo."
 }

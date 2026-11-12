@@ -1,0 +1,223 @@
+{
+  "amcsdId": "0011249",
+  "mineralName": "α-Nitrogen rắn · 4,2 K",
+  "formula": "N",
+  "spaceGroup": "P a -3",
+  "cell": {
+    "a": 5.644,
+    "b": 5.644,
+    "c": 5.644,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 179.78812998400002,
+  "declaredVolume": 179.788,
+  "basis": [
+    [
+      5.644,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      5.644,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      5.644
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+z,x,1/2-y",
+    "z,1/2-x,1/2+y",
+    "1/2-z,1/2+x,y",
+    "-z,-x,-y",
+    "1/2+y,1/2-z,-x",
+    "1/2-y,-z,1/2+x",
+    "-y,1/2+z,1/2-x",
+    "y,z,x",
+    "x,1/2-y,1/2+z",
+    "1/2-x,1/2+y,z",
+    "1/2+x,y,1/2-z",
+    "-x,-y,-z",
+    "1/2-z,-x,1/2+y",
+    "-z,1/2+x,1/2-y",
+    "1/2+z,1/2-x,-y",
+    "z,x,y",
+    "1/2-y,1/2+z,x",
+    "1/2+y,z,1/2-x",
+    "y,1/2-z,1/2+x",
+    "-y,-z,-x",
+    "-x,1/2+y,1/2-z",
+    "1/2+x,1/2-y,-z",
+    "1/2-x,-y,1/2+z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "N2",
+      "element": "N",
+      "fractional": [
+        0.054,
+        0.054,
+        0.054
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "N",
+      "label": "N2",
+      "fractional": [
+        0.054,
+        0.054,
+        0.054
+      ],
+      "position": [
+        0.304776,
+        0.304776,
+        0.304776
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N2",
+      "fractional": [
+        0.554,
+        0.054,
+        0.446
+      ],
+      "position": [
+        3.126776,
+        0.304776,
+        2.517224
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N2",
+      "fractional": [
+        0.054,
+        0.446,
+        0.554
+      ],
+      "position": [
+        0.304776,
+        2.517224,
+        3.126776
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N2",
+      "fractional": [
+        0.446,
+        0.554,
+        0.054
+      ],
+      "position": [
+        2.517224,
+        3.126776,
+        0.304776
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N2",
+      "fractional": [
+        0.946,
+        0.946,
+        0.946
+      ],
+      "position": [
+        5.339224,
+        5.339224,
+        5.339224
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N2",
+      "fractional": [
+        0.554,
+        0.446,
+        0.946
+      ],
+      "position": [
+        3.126776,
+        2.517224,
+        5.339224
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N2",
+      "fractional": [
+        0.446,
+        0.946,
+        0.554
+      ],
+      "position": [
+        2.517224,
+        5.339224,
+        3.126776
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N2",
+      "fractional": [
+        0.946,
+        0.554,
+        0.446
+      ],
+      "position": [
+        5.339224,
+        3.126776,
+        2.517224
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 8,
+  "speciesPositionCount": 8,
+  "cellComposition": {
+    "N": 8
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Wyckoff R W G"
+    ],
+    "title": "Second edition. Interscience Publishers, New York, New York\n Sample at T = 4.2 K",
+    "journal": "Crystal Structures",
+    "year": 1963,
+    "volume": "1",
+    "pages": "7–83"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "literature-compilation",
+  "validation": {
+    "operatorCount": 24,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 7.229843261792976e-07
+  },
+  "spaceGroupOriginal": "P a 3",
+  "spaceGroupNumber": 205,
+  "id": "chat-solid-nitrogen-alpha",
+  "note": "Cấu trúc trung bình Pa-3 với tám vị trí N trong ô mạng; không dùng mô hình P213 cũ hoặc tâm phân tử thay nguyên tử."
+}

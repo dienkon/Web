@@ -1,0 +1,288 @@
+{
+  "amcsdId": "0016958",
+  "mineralName": "SrBr₂ khan",
+  "formula": "Br2 Sr",
+  "spaceGroup": "P b n m",
+  "cell": {
+    "a": 9.2,
+    "b": 11.42,
+    "c": 4.3,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 451.7751999999999,
+  "declaredVolume": 451.775,
+  "basis": [
+    [
+      9.2,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      11.42,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      4.3
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "x,y,1/2-z",
+    "-x,-y,1/2+z",
+    "1/2+x,1/2-y,1/2+z",
+    "1/2-x,1/2+y,1/2-z",
+    "1/2-x,1/2+y,z",
+    "1/2+x,1/2-y,-z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Br1",
+      "element": "Br",
+      "fractional": [
+        0.1194,
+        0.1028,
+        0.25
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Br2",
+      "element": "Br",
+      "fractional": [
+        -0.1583,
+        0.6139,
+        0.25
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Sr1",
+      "element": "Sr",
+      "fractional": [
+        0.1083,
+        -0.1889,
+        0.25
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Br",
+      "label": "Br1",
+      "fractional": [
+        0.1194,
+        0.1028,
+        0.25
+      ],
+      "position": [
+        1.09848,
+        1.173976,
+        1.075
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br1",
+      "fractional": [
+        0.8806,
+        0.8972,
+        0.75
+      ],
+      "position": [
+        8.10152,
+        10.246024,
+        3.225
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br1",
+      "fractional": [
+        0.6194,
+        0.3972,
+        0.75
+      ],
+      "position": [
+        5.69848,
+        4.536024,
+        3.225
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br1",
+      "fractional": [
+        0.3806,
+        0.6028,
+        0.25
+      ],
+      "position": [
+        3.50152,
+        6.883976,
+        1.075
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br2",
+      "fractional": [
+        0.8417,
+        0.6139,
+        0.25
+      ],
+      "position": [
+        7.74364,
+        7.010738,
+        1.075
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br2",
+      "fractional": [
+        0.1583,
+        0.3861,
+        0.75
+      ],
+      "position": [
+        1.45636,
+        4.409262,
+        3.225
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br2",
+      "fractional": [
+        0.3417,
+        0.8861,
+        0.75
+      ],
+      "position": [
+        3.14364,
+        10.119262,
+        3.225
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br2",
+      "fractional": [
+        0.6583,
+        0.1139,
+        0.25
+      ],
+      "position": [
+        6.05636,
+        1.300738,
+        1.075
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Sr",
+      "label": "Sr1",
+      "fractional": [
+        0.1083,
+        0.8111,
+        0.25
+      ],
+      "position": [
+        0.99636,
+        9.262762,
+        1.075
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Sr",
+      "label": "Sr1",
+      "fractional": [
+        0.8917,
+        0.1889,
+        0.75
+      ],
+      "position": [
+        8.20364,
+        2.157238,
+        3.225
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Sr",
+      "label": "Sr1",
+      "fractional": [
+        0.6083,
+        0.6889,
+        0.75
+      ],
+      "position": [
+        5.59636,
+        7.867238,
+        3.225
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Sr",
+      "label": "Sr1",
+      "fractional": [
+        0.3917,
+        0.3111,
+        0.25
+      ],
+      "position": [
+        3.60364,
+        3.552762,
+        1.075
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 12,
+  "speciesPositionCount": 12,
+  "cellComposition": {
+    "Br": 8,
+    "Sr": 4
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Kamermans M"
+    ],
+    "title": "The crystal structure of Sr Br2\n _cod_database_code 1010019",
+    "journal": "Zeitschrift fur Kristallographie",
+    "year": 1939,
+    "volume": "101",
+    "pages": "406–411"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 8,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 4.4269804971542465e-07
+  },
+  "spaceGroupOriginal": "P b n m",
+  "spaceGroupNumber": 62,
+  "id": "chat-strontium-bromide",
+  "note": "Bản xác định cấu trúc SrBr2; không thay bằng hydrate."
+}

@@ -1,0 +1,417 @@
+{
+  "amcsdId": "0015788",
+  "mineralName": "Na₂HPO₄ khan",
+  "formula": "Na2 H P O4",
+  "spaceGroup": "P 1 21/m 1",
+  "cell": {
+    "a": 5.451,
+    "b": 6.847,
+    "c": 5.473,
+    "alpha": 90.0,
+    "beta": 116.34,
+    "gamma": 90.0
+  },
+  "volume": 183.06094435279502,
+  "declaredVolume": 183.061,
+  "basis": [
+    [
+      5.451,
+      0.0,
+      -2.428353398571131
+    ],
+    [
+      0.0,
+      6.847,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      4.904776118402148
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "x,1/2-y,z",
+    "-x,1/2+y,-z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Na1",
+      "element": "Na",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "label": "Na2",
+      "element": "Na",
+      "fractional": [
+        0.3876,
+        0.25,
+        0.7757
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "label": "H",
+      "element": "H",
+      "fractional": [
+        0.6496,
+        0.4612,
+        0.1081
+      ],
+      "occupancy": 0.5
+    },
+    {
+      "label": "P",
+      "element": "P",
+      "fractional": [
+        0.6623,
+        0.25,
+        0.3822
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.3525,
+        0.25,
+        0.2144
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.7701,
+        0.25,
+        0.6875
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "label": "O3",
+      "element": "O",
+      "fractional": [
+        0.7842,
+        0.4337,
+        0.3001
+      ],
+      "occupancy": 1.0
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Na",
+      "label": "Na1",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "Na",
+      "label": "Na1",
+      "fractional": [
+        0.0,
+        0.5,
+        0.0
+      ],
+      "position": [
+        0.0,
+        3.4235,
+        0.0
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "Na",
+      "label": "Na2",
+      "fractional": [
+        0.3876,
+        0.25,
+        0.7757
+      ],
+      "position": [
+        0.2291339,
+        1.71175,
+        3.8046348
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "Na",
+      "label": "Na2",
+      "fractional": [
+        0.6124,
+        0.75,
+        0.2243
+      ],
+      "position": [
+        2.7935127,
+        5.13525,
+        1.1001413
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "H",
+      "label": "H",
+      "fractional": [
+        0.6496,
+        0.4612,
+        0.1081
+      ],
+      "position": [
+        3.2784646,
+        3.1578364,
+        0.5302063
+      ],
+      "occupancy": 0.5
+    },
+    {
+      "element": "H",
+      "label": "H",
+      "fractional": [
+        0.6496,
+        0.0388,
+        0.1081
+      ],
+      "position": [
+        3.2784646,
+        0.2656636,
+        0.5302063
+      ],
+      "occupancy": 0.5
+    },
+    {
+      "element": "H",
+      "label": "H",
+      "fractional": [
+        0.3504,
+        0.9612,
+        0.8919
+      ],
+      "position": [
+        -0.255818,
+        6.5813364,
+        4.3745698
+      ],
+      "occupancy": 0.5
+    },
+    {
+      "element": "H",
+      "label": "H",
+      "fractional": [
+        0.3504,
+        0.5388,
+        0.8919
+      ],
+      "position": [
+        -0.255818,
+        3.6891636,
+        4.3745698
+      ],
+      "occupancy": 0.5
+    },
+    {
+      "element": "P",
+      "label": "P",
+      "fractional": [
+        0.6623,
+        0.25,
+        0.3822
+      ],
+      "position": [
+        2.6820806,
+        1.71175,
+        1.8746054
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "P",
+      "label": "P",
+      "fractional": [
+        0.3377,
+        0.75,
+        0.6178
+      ],
+      "position": [
+        0.340566,
+        5.13525,
+        3.0301707
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.3525,
+        0.25,
+        0.2144
+      ],
+      "position": [
+        1.4008385,
+        1.71175,
+        1.051584
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.6475,
+        0.75,
+        0.7856
+      ],
+      "position": [
+        1.6218081,
+        5.13525,
+        3.8531921
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.7701,
+        0.25,
+        0.6875
+      ],
+      "position": [
+        2.5283221,
+        1.71175,
+        3.3720336
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.2299,
+        0.75,
+        0.3125
+      ],
+      "position": [
+        0.4943245,
+        5.13525,
+        1.5327425
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.7842,
+        0.4337,
+        0.3001
+      ],
+      "position": [
+        3.5459253,
+        2.9695439,
+        1.4719233
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.7842,
+        0.0663,
+        0.3001
+      ],
+      "position": [
+        3.5459253,
+        0.4539561,
+        1.4719233
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.2158,
+        0.9337,
+        0.6999
+      ],
+      "position": [
+        -0.5232787,
+        6.3930439,
+        3.4328528
+      ],
+      "occupancy": 1.0
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.2158,
+        0.5663,
+        0.6999
+      ],
+      "position": [
+        -0.5232787,
+        3.8774561,
+        3.4328528
+      ],
+      "occupancy": 1.0
+    }
+  ],
+  "siteCount": 18,
+  "speciesPositionCount": 18,
+  "cellComposition": {
+    "Na": 4.0,
+    "H": 2.0,
+    "P": 2.0,
+    "O": 8.0
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Jansen M",
+      "Wiench D M"
+    ],
+    "title": "Kristallstruktur von wasserfreiem Na2HPO4",
+    "journal": "Zeitschrift fur Anorganische und Allgemeine Chemie",
+    "year": 1983,
+    "volume": "501",
+    "pages": "95–101"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 4,
+    "maxSiteOccupancy": 1.0,
+    "cellVolumeRelativeError": 3.0398185251748604e-07
+  },
+  "spaceGroupOriginal": "P 1 21/m 1",
+  "spaceGroupNumber": 11,
+  "id": "chat-disodium-hydrogen-phosphate",
+  "note": "Bản cấu trúc disodium hydrogen phosphate khan; không dùng hydrate."
+}

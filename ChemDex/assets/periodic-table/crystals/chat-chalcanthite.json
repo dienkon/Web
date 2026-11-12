@@ -918,6 +918,8 @@
     "maxSiteOccupancy": 1,
     "cellVolumeRelativeError": 7.265668288904003e-07
   },
+  "spaceGroupOriginal": "P -1",
+  "spaceGroupNumber": 2,
   "id": "chat-chalcanthite",
   "note": "Mẫu hydrogen trong nghiên cứu neutron; không dùng mẫu thay thế deuterium."
 }

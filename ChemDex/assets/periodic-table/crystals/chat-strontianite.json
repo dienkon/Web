@@ -412,6 +412,8 @@
     "maxSiteOccupancy": 1,
     "cellVolumeRelativeError": 1.2019957535131828e-06
   },
+  "spaceGroupOriginal": "P m c n",
+  "spaceGroupNumber": 62,
   "id": "chat-strontianite",
   "note": "Chọn mẫu đúng tỉ lượng; không dùng mẫu pha Ca."
 }

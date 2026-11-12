@@ -1,0 +1,31 @@
+{
+  "rejected": [
+    {
+      "slug": "theophrastite",
+      "amcsdId": 9939,
+      "reason": "Ni(OH)2 nhưng không có tọa độ hydrogen; các bản ghi thay thế đã kiểm tra cũng thiếu H."
+    },
+    {
+      "slug": "strontium-hydroxide",
+      "amcsdId": 10677,
+      "reason": "Sr(OH)2 nhưng bản ghi không có tọa độ hydrogen."
+    },
+    {
+      "slug": "ice-ih",
+      "amcsdId": 18366,
+      "reason": "Tọa độ vị trí đặc biệt H2 bị làm tròn không nhất quán với đối xứng; khai triển tạo H14O4 thay vì H8O4. Không tự sửa tọa độ."
+    },
+    {
+      "slug": "chromium-chloride",
+      "amcsdId": 17459,
+      "reason": "Khai triển nguyên trạng tạo Cr9Cl18, không phải CrCl3. Không tự sửa tọa độ hay nhóm không gian."
+    }
+  ],
+  "identityWarnings": [
+    "Không suy đồng nhất phân tử từ công thức thực nghiệm: C5H8 của adamantane không phải isoprene.",
+    "Không dùng bản ghi mercury cyanide chỉ ghi Hg làm tinh thể thủy ngân.",
+    "Không dùng sodium periodate thiếu O làm sodium iodide.",
+    "Không dùng ammonium azide/ammonia chỉ ghi N làm nitrogen rắn.",
+    "Không gán pha rắn lạnh/áp suất cao thành pha ổn định ở nhiệt độ phòng."
+  ]
+}

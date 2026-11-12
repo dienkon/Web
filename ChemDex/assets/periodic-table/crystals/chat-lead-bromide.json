@@ -1,0 +1,469 @@
+{
+  "amcsdId": "0017501",
+  "mineralName": "PbBr₂",
+  "formula": "Pb Br2",
+  "spaceGroup": "P m n b",
+  "cell": {
+    "a": 4.71,
+    "b": 8.02,
+    "c": 9.48,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 358.099416,
+  "declaredVolume": 358.099,
+  "basis": [
+    [
+      4.71,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      8.02,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      9.48
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2-x,y,z",
+    "1/2+x,-y,-z",
+    "1/2+x,1/2-y,1/2+z",
+    "1/2-x,1/2+y,1/2-z",
+    "x,1/2+y,1/2-z",
+    "-x,1/2-y,1/2+z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Pb1",
+      "element": "Pb",
+      "fractional": [
+        0.0,
+        0.015,
+        0.087
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Br1",
+      "element": "Br",
+      "fractional": [
+        0.0,
+        0.61,
+        0.075
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Br2",
+      "element": "Br",
+      "fractional": [
+        0.0,
+        0.23,
+        -0.17
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Pb",
+      "label": "Pb1",
+      "fractional": [
+        0.0,
+        0.015,
+        0.087
+      ],
+      "position": [
+        0.0,
+        0.1203,
+        0.82476
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Pb",
+      "label": "Pb1",
+      "fractional": [
+        0.5,
+        0.015,
+        0.087
+      ],
+      "position": [
+        2.355,
+        0.1203,
+        0.82476
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Pb",
+      "label": "Pb1",
+      "fractional": [
+        0.5,
+        0.985,
+        0.913
+      ],
+      "position": [
+        2.355,
+        7.8997,
+        8.65524
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Pb",
+      "label": "Pb1",
+      "fractional": [
+        0.5,
+        0.485,
+        0.587
+      ],
+      "position": [
+        2.355,
+        3.8897,
+        5.56476
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Pb",
+      "label": "Pb1",
+      "fractional": [
+        0.5,
+        0.515,
+        0.413
+      ],
+      "position": [
+        2.355,
+        4.1303,
+        3.91524
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Pb",
+      "label": "Pb1",
+      "fractional": [
+        0.0,
+        0.515,
+        0.413
+      ],
+      "position": [
+        0.0,
+        4.1303,
+        3.91524
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Pb",
+      "label": "Pb1",
+      "fractional": [
+        0.0,
+        0.485,
+        0.587
+      ],
+      "position": [
+        0.0,
+        3.8897,
+        5.56476
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Pb",
+      "label": "Pb1",
+      "fractional": [
+        0.0,
+        0.985,
+        0.913
+      ],
+      "position": [
+        0.0,
+        7.8997,
+        8.65524
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br1",
+      "fractional": [
+        0.0,
+        0.61,
+        0.075
+      ],
+      "position": [
+        0.0,
+        4.8922,
+        0.711
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br1",
+      "fractional": [
+        0.5,
+        0.61,
+        0.075
+      ],
+      "position": [
+        2.355,
+        4.8922,
+        0.711
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br1",
+      "fractional": [
+        0.5,
+        0.39,
+        0.925
+      ],
+      "position": [
+        2.355,
+        3.1278,
+        8.769
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br1",
+      "fractional": [
+        0.5,
+        0.89,
+        0.575
+      ],
+      "position": [
+        2.355,
+        7.1378,
+        5.451
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br1",
+      "fractional": [
+        0.5,
+        0.11,
+        0.425
+      ],
+      "position": [
+        2.355,
+        0.8822,
+        4.029
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br1",
+      "fractional": [
+        0.0,
+        0.11,
+        0.425
+      ],
+      "position": [
+        0.0,
+        0.8822,
+        4.029
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br1",
+      "fractional": [
+        0.0,
+        0.89,
+        0.575
+      ],
+      "position": [
+        0.0,
+        7.1378,
+        5.451
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br1",
+      "fractional": [
+        0.0,
+        0.39,
+        0.925
+      ],
+      "position": [
+        0.0,
+        3.1278,
+        8.769
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br2",
+      "fractional": [
+        0.0,
+        0.23,
+        0.83
+      ],
+      "position": [
+        0.0,
+        1.8446,
+        7.8684
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br2",
+      "fractional": [
+        0.5,
+        0.23,
+        0.83
+      ],
+      "position": [
+        2.355,
+        1.8446,
+        7.8684
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br2",
+      "fractional": [
+        0.5,
+        0.77,
+        0.17
+      ],
+      "position": [
+        2.355,
+        6.1754,
+        1.6116
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br2",
+      "fractional": [
+        0.5,
+        0.27,
+        0.33
+      ],
+      "position": [
+        2.355,
+        2.1654,
+        3.1284
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br2",
+      "fractional": [
+        0.5,
+        0.73,
+        0.67
+      ],
+      "position": [
+        2.355,
+        5.8546,
+        6.3516
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br2",
+      "fractional": [
+        0.0,
+        0.73,
+        0.67
+      ],
+      "position": [
+        0.0,
+        5.8546,
+        6.3516
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br2",
+      "fractional": [
+        0.0,
+        0.27,
+        0.33
+      ],
+      "position": [
+        0.0,
+        2.1654,
+        3.1284
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br2",
+      "fractional": [
+        0.0,
+        0.77,
+        0.17
+      ],
+      "position": [
+        0.0,
+        6.1754,
+        1.6116
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 24,
+  "speciesPositionCount": 24,
+  "cellComposition": {
+    "Pb": 8,
+    "Br": 16
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Bijvoet J",
+      "Nieuwenkamp W"
+    ],
+    "title": "Die Kristallstruktur von Bleibromid Pb Br2\n _cod_database_code 1010619",
+    "journal": "Zeitschrift fur Kristallographie",
+    "year": 1932,
+    "volume": "84",
+    "pages": "49–61"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 8,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.1616885742972724e-06
+  },
+  "spaceGroupOriginal": "P m n b",
+  "spaceGroupNumber": 62,
+  "id": "chat-lead-bromide",
+  "note": "Bản xác định cấu trúc lead bromide."
+}

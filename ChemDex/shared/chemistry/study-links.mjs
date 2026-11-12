@@ -60,7 +60,7 @@ export function resolveLabExperiment(equation, kind = 'chemical') {
       scale ??= ratio;
       return formula === other && Math.abs(ratio - scale) < 1e-7;
     }));
-    if (matches) return { id, href: `/lab-3d/?experiment=${encodeURIComponent(id)}`, equation: reference };
+    if (matches) return { id, href: `/lab-3d/?experiment=${encodeURIComponent(id)}&observe=1`, equation: reference };
   }
   return null;
 }

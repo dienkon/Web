@@ -1,0 +1,504 @@
+{
+  "amcsdId": "0014917",
+  "mineralName": "Natrite · γ-Na₂CO₃",
+  "formula": "Na2 C O3",
+  "spaceGroup": "C 1 2/m 1",
+  "cell": {
+    "a": 8.905,
+    "b": 5.237,
+    "c": 6.045,
+    "alpha": 90.0,
+    "beta": 101.32,
+    "gamma": 90.0
+  },
+  "volume": 276.4272569503214,
+  "declaredVolume": 276.427,
+  "basis": [
+    [
+      8.905,
+      0.0,
+      -1.1865635677377018
+    ],
+    [
+      0.0,
+      5.237,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      5.9274017832198265
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+x,1/2+y,z",
+    "x,-y,z",
+    "1/2+x,1/2-y,z",
+    "-x,y,-z",
+    "1/2-x,1/2+y,-z",
+    "-x,-y,-z",
+    "1/2-x,1/2-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Na1",
+      "element": "Na",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Na2",
+      "element": "Na",
+      "fractional": [
+        0.0,
+        0.0,
+        0.5
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Na3",
+      "element": "Na",
+      "fractional": [
+        0.17047,
+        0.5,
+        0.7478
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "C",
+      "element": "C",
+      "fractional": [
+        0.1645,
+        0.5,
+        0.2497
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.1023,
+        0.2944,
+        0.2859
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.2894,
+        0.5,
+        0.1781
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Na",
+      "label": "Na1",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na1",
+      "fractional": [
+        0.5,
+        0.5,
+        0.0
+      ],
+      "position": [
+        4.4525,
+        2.6185,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na2",
+      "fractional": [
+        0.0,
+        0.0,
+        0.5
+      ],
+      "position": [
+        -0.5932818,
+        0.0,
+        2.9637009
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na2",
+      "fractional": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "position": [
+        3.8592182,
+        2.6185,
+        2.9637009
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na3",
+      "fractional": [
+        0.17047,
+        0.5,
+        0.7478
+      ],
+      "position": [
+        0.6307231,
+        2.6185,
+        4.4325111
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na3",
+      "fractional": [
+        0.67047,
+        0.0,
+        0.7478
+      ],
+      "position": [
+        5.0832231,
+        0.0,
+        4.4325111
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na3",
+      "fractional": [
+        0.82953,
+        0.5,
+        0.2522
+      ],
+      "position": [
+        7.0877133,
+        2.6185,
+        1.4948907
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na3",
+      "fractional": [
+        0.32953,
+        0.0,
+        0.2522
+      ],
+      "position": [
+        2.6352133,
+        0.0,
+        1.4948907
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.1645,
+        0.5,
+        0.2497
+      ],
+      "position": [
+        1.1685876,
+        2.6185,
+        1.4800722
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.6645,
+        0.0,
+        0.2497
+      ],
+      "position": [
+        5.6210876,
+        0.0,
+        1.4800722
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.8355,
+        0.5,
+        0.7503
+      ],
+      "position": [
+        6.5498489,
+        2.6185,
+        4.4473296
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.3355,
+        0.0,
+        0.7503
+      ],
+      "position": [
+        2.0973489,
+        0.0,
+        4.4473296
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.1023,
+        0.2944,
+        0.2859
+      ],
+      "position": [
+        0.571743,
+        1.5417728,
+        1.6946442
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.6023,
+        0.7944,
+        0.2859
+      ],
+      "position": [
+        5.024243,
+        4.1602728,
+        1.6946442
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.1023,
+        0.7056,
+        0.2859
+      ],
+      "position": [
+        0.571743,
+        3.6952272,
+        1.6946442
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.6023,
+        0.2056,
+        0.2859
+      ],
+      "position": [
+        5.024243,
+        1.0767272,
+        1.6946442
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.8977,
+        0.2944,
+        0.7141
+      ],
+      "position": [
+        7.1466935,
+        1.5417728,
+        4.2327576
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.3977,
+        0.7944,
+        0.7141
+      ],
+      "position": [
+        2.6941935,
+        4.1602728,
+        4.2327576
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.8977,
+        0.7056,
+        0.7141
+      ],
+      "position": [
+        7.1466935,
+        3.6952272,
+        4.2327576
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.3977,
+        0.2056,
+        0.7141
+      ],
+      "position": [
+        2.6941935,
+        1.0767272,
+        4.2327576
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.2894,
+        0.5,
+        0.1781
+      ],
+      "position": [
+        2.36578,
+        2.6185,
+        1.0556703
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.7894,
+        0.0,
+        0.1781
+      ],
+      "position": [
+        6.81828,
+        0.0,
+        1.0556703
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.7106,
+        0.5,
+        0.8219
+      ],
+      "position": [
+        5.3526564,
+        2.6185,
+        4.8717315
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.2106,
+        0.0,
+        0.8219
+      ],
+      "position": [
+        0.9001564,
+        0.0,
+        4.8717315
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 24,
+  "speciesPositionCount": 24,
+  "cellComposition": {
+    "Na": 8,
+    "C": 4,
+    "O": 12
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Ferraris G",
+      "Ivaldi G",
+      "Zubkova N V",
+      "Pushcharovsky D Y",
+      "Pekov I V",
+      "Chukanov N V"
+    ],
+    "title": "Crystal structure of natrite, gamma-Na2CO3",
+    "journal": "Neues Jahrbuch fur Mineralogie, Monatshefte",
+    "year": 2002,
+    "volume": "2002",
+    "pages": "85–96"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 8,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 9.29540466526652e-07
+  },
+  "spaceGroupOriginal": "C 1 2/m 1",
+  "spaceGroupNumber": 12,
+  "id": "chat-natrite",
+  "note": "Giữ cấu trúc tuần hoàn của bản ghi gamma; không khôi phục điều biến ngoài dữ liệu nguồn."
+}

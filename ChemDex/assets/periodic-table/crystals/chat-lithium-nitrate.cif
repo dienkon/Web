@@ -1,0 +1,43 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0018092
+_database_code_amcsd 0018092
+_chemical_name_mineral 'LiNO₃'
+_chemical_formula_sum 'Li N O3'
+_symmetry_space_group_name_H-M 'R 3 c:R'
+_cell_length_a 5.74
+_cell_length_b 5.74
+_cell_length_c 5.74
+_cell_angle_alpha 48.05
+_cell_angle_beta 48.05
+_cell_angle_gamma 48.05
+_cell_volume 95.8448952
+loop_
+_publ_author_name
+'Zachariasen W'
+_journal_name_full 'Skrifter utgitt av det Norske Videnskaps-Akademi i Oslo'
+_journal_year 1928
+_journal_volume 1928
+_publ_section_title
+;Untersuchungen ueber die Kristallstruktur von Sesquioxyden und
+ Verbindungen A B O3
+ _cod_database_code 1011340
+;
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+1/2+x,1/2+z,1/2+y
+z,x,y
+1/2+y,1/2+x,1/2+z
+y,z,x
+1/2+z,1/2+y,1/2+x
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+Li Li 0.25 0.25 0.25 1
+N N 0 0 0 1
+O O 0.264 0.764 0 1

@@ -1,0 +1,49 @@
+{
+  "verifiedAt": "2026-11-12T05:31:26.706Z",
+  "chat": {
+    "status": 200,
+    "elapsedMs": 1841,
+    "text": "$$ \\ce{2Na(s) + 2H2O(l) -> 2NaOH(aq) + H2(g)} $$"
+  },
+  "liveVideo": {
+    "status": 200,
+    "elapsedMs": 31052,
+    "url": "https://www.youtube.com/watch?v=imXT9QwRzks",
+    "durationSeconds": 24,
+    "questionTimes": [
+      8
+    ],
+    "origin": "Live multimodal API response, not a test fixture; stored as prepared JSON."
+  },
+  "coverage": {
+    "addedCrystalPhases": 113,
+    "substanceCrystalPhases": 151,
+    "allPhaseModels": 284,
+    "profilesWithCrystal": 254,
+    "nonMixtureProfiles": 482,
+    "videoLinks": 120,
+    "elementVideoCoverage": 118
+  },
+  "checks": {
+    "nodeTests": 41,
+    "labObservationTests": 14,
+    "browserRegression": 19,
+    "browserNewCases": 2,
+    "finalObservationAndGuideRecheck": 2,
+    "renderedSubstancePhases": 151,
+    "apiTypecheck": "passed",
+    "libraryTypecheck": "passed",
+    "labTypecheck": "passed",
+    "libraryBuild": "passed",
+    "labBuild": "passed",
+    "staticBuild": "passed",
+    "publicFilesScanned": 4761,
+    "stagedFilesScanned": 557,
+    "configuredCredentialsFound": 0
+  },
+  "limitations": [
+    "Câu hỏi video do AI sinh, có chứng cứ cảnh để đối chiếu nhưng chưa được giáo viên kiểm duyệt độc lập.",
+    "254/482 hồ sơ có pha tinh thể có nguồn; không tạo ô mạng giả cho hồ sơ còn thiếu.",
+    "Cảnh trưng bày, kích thước cầu và một số prototype/mô hình thành phần có nhãn là quy ước, không chứng nhận giống mẫu thật 100%."
+  ]
+}

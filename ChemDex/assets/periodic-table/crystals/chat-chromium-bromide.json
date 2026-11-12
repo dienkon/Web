@@ -1,0 +1,553 @@
+{
+  "amcsdId": "0017081",
+  "mineralName": "CrBr₃ khan",
+  "formula": "Cr Br3",
+  "spaceGroup": "P 3",
+  "cell": {
+    "a": 6.26,
+    "b": 6.26,
+    "c": 18.2,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 120.0
+  },
+  "volume": 617.6617194628438,
+  "declaredVolume": 617.662,
+  "basis": [
+    [
+      6.26,
+      -3.1299999999999986,
+      0.0
+    ],
+    [
+      0.0,
+      5.421319027690586,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      18.2
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "-y,x-y,z",
+    "-x+y,-x,z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Cr1",
+      "element": "Cr",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Cr2",
+      "element": "Cr",
+      "fractional": [
+        0.0,
+        0.0,
+        0.66666675
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Cr3",
+      "element": "Cr",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.33333325
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Cr4",
+      "element": "Cr",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Cr5",
+      "element": "Cr",
+      "fractional": [
+        0.66666675,
+        0.33333325,
+        0.66666675
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Cr6",
+      "element": "Cr",
+      "fractional": [
+        0.66666675,
+        0.33333325,
+        0.33333325
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Br1",
+      "element": "Br",
+      "fractional": [
+        0.33333325,
+        0.33333325,
+        -0.078
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Br2",
+      "element": "Br",
+      "fractional": [
+        0.66666675,
+        0.66666675,
+        0.078
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Br3",
+      "element": "Br",
+      "fractional": [
+        0.33333325,
+        0.33333325,
+        0.255
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Br4",
+      "element": "Br",
+      "fractional": [
+        0.66666675,
+        0.66666675,
+        0.411
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Br5",
+      "element": "Br",
+      "fractional": [
+        0.33333325,
+        0.33333325,
+        0.589
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Br6",
+      "element": "Br",
+      "fractional": [
+        0.66666675,
+        0.66666675,
+        0.745
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Cr",
+      "label": "Cr1",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cr",
+      "label": "Cr2",
+      "fractional": [
+        0.0,
+        0.0,
+        0.66666675
+      ],
+      "position": [
+        0.0,
+        0.0,
+        12.1333348
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cr",
+      "label": "Cr3",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.33333325
+      ],
+      "position": [
+        -8e-07,
+        3.6142131,
+        6.0666652
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cr",
+      "label": "Cr4",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.0
+      ],
+      "position": [
+        -8e-07,
+        3.6142131,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cr",
+      "label": "Cr5",
+      "fractional": [
+        0.66666675,
+        0.33333325,
+        0.66666675
+      ],
+      "position": [
+        3.1300008,
+        1.8071059,
+        12.1333348
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cr",
+      "label": "Cr6",
+      "fractional": [
+        0.66666675,
+        0.33333325,
+        0.33333325
+      ],
+      "position": [
+        3.1300008,
+        1.8071059,
+        6.0666652
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br1",
+      "fractional": [
+        0.33333325,
+        0.33333325,
+        0.922
+      ],
+      "position": [
+        1.0433331,
+        1.8071059,
+        16.7804
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br1",
+      "fractional": [
+        0.66666675,
+        0.0,
+        0.922
+      ],
+      "position": [
+        4.1733339,
+        0.0,
+        16.7804
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br1",
+      "fractional": [
+        0.0,
+        0.66666675,
+        0.922
+      ],
+      "position": [
+        -2.0866669,
+        3.6142131,
+        16.7804
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br2",
+      "fractional": [
+        0.66666675,
+        0.66666675,
+        0.078
+      ],
+      "position": [
+        2.0866669,
+        3.6142131,
+        1.4196
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br2",
+      "fractional": [
+        0.33333325,
+        0.0,
+        0.078
+      ],
+      "position": [
+        2.0866661,
+        0.0,
+        1.4196
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br2",
+      "fractional": [
+        0.0,
+        0.33333325,
+        0.078
+      ],
+      "position": [
+        -1.0433331,
+        1.8071059,
+        1.4196
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br3",
+      "fractional": [
+        0.33333325,
+        0.33333325,
+        0.255
+      ],
+      "position": [
+        1.0433331,
+        1.8071059,
+        4.641
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br3",
+      "fractional": [
+        0.66666675,
+        0.0,
+        0.255
+      ],
+      "position": [
+        4.1733339,
+        0.0,
+        4.641
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br3",
+      "fractional": [
+        0.0,
+        0.66666675,
+        0.255
+      ],
+      "position": [
+        -2.0866669,
+        3.6142131,
+        4.641
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br4",
+      "fractional": [
+        0.66666675,
+        0.66666675,
+        0.411
+      ],
+      "position": [
+        2.0866669,
+        3.6142131,
+        7.4802
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br4",
+      "fractional": [
+        0.33333325,
+        0.0,
+        0.411
+      ],
+      "position": [
+        2.0866661,
+        0.0,
+        7.4802
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br4",
+      "fractional": [
+        0.0,
+        0.33333325,
+        0.411
+      ],
+      "position": [
+        -1.0433331,
+        1.8071059,
+        7.4802
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br5",
+      "fractional": [
+        0.33333325,
+        0.33333325,
+        0.589
+      ],
+      "position": [
+        1.0433331,
+        1.8071059,
+        10.7198
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br5",
+      "fractional": [
+        0.66666675,
+        0.0,
+        0.589
+      ],
+      "position": [
+        4.1733339,
+        0.0,
+        10.7198
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br5",
+      "fractional": [
+        0.0,
+        0.66666675,
+        0.589
+      ],
+      "position": [
+        -2.0866669,
+        3.6142131,
+        10.7198
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br6",
+      "fractional": [
+        0.66666675,
+        0.66666675,
+        0.745
+      ],
+      "position": [
+        2.0866669,
+        3.6142131,
+        13.559
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br6",
+      "fractional": [
+        0.33333325,
+        0.0,
+        0.745
+      ],
+      "position": [
+        2.0866661,
+        0.0,
+        13.559
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br6",
+      "fractional": [
+        0.0,
+        0.33333325,
+        0.745
+      ],
+      "position": [
+        -1.0433331,
+        1.8071059,
+        13.559
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 24,
+  "speciesPositionCount": 24,
+  "cellComposition": {
+    "Cr": 6,
+    "Br": 18
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Braekken H"
+    ],
+    "title": "Die Kristallstruktur von Chromtribromid\n _cod_database_code 1010151",
+    "journal": "Kongelige Norske Videnskapers Selskab, Forhandlinger",
+    "year": 1932,
+    "volume": "5",
+    "pages": "42–42"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 3,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 4.541922339468081e-07
+  },
+  "spaceGroupOriginal": "P 3",
+  "spaceGroupNumber": 143,
+  "id": "chat-chromium-bromide",
+  "note": "Bản cấu trúc chromium tribromide; không suy trật tự từ từ hình học."
+}

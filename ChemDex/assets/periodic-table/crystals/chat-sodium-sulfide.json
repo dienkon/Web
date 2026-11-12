@@ -1,0 +1,462 @@
+{
+  "amcsdId": "0011743",
+  "mineralName": "Na₂S · antifluorite",
+  "formula": "Na2 S",
+  "spaceGroup": "F m -3 m",
+  "cell": {
+    "a": 6.526,
+    "b": 6.526,
+    "c": 6.526,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 277.933699576,
+  "declaredVolume": 277.934,
+  "basis": [
+    [
+      6.526,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      6.526,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      6.526
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "x,1/2+y,1/2+z",
+    "1/2+x,y,1/2+z",
+    "1/2+x,1/2+y,z",
+    "z,-x,y",
+    "z,1/2-x,1/2+y",
+    "1/2+z,-x,1/2+y",
+    "1/2+z,1/2-x,y",
+    "-y,z,-x",
+    "-y,1/2+z,1/2-x",
+    "1/2-y,z,1/2-x",
+    "1/2-y,1/2+z,-x",
+    "x,-y,z",
+    "x,1/2-y,1/2+z",
+    "1/2+x,-y,1/2+z",
+    "1/2+x,1/2-y,z",
+    "-z,x,-y",
+    "-z,1/2+x,1/2-y",
+    "1/2-z,x,1/2-y",
+    "1/2-z,1/2+x,-y",
+    "y,-z,x",
+    "y,1/2-z,1/2+x",
+    "1/2+y,-z,1/2+x",
+    "1/2+y,1/2-z,x",
+    "-x,y,-z",
+    "-x,1/2+y,1/2-z",
+    "1/2-x,y,1/2-z",
+    "1/2-x,1/2+y,-z",
+    "x,-z,-y",
+    "x,1/2-z,1/2-y",
+    "1/2+x,-z,1/2-y",
+    "1/2+x,1/2-z,-y",
+    "-z,y,x",
+    "-z,1/2+y,1/2+x",
+    "1/2-z,y,1/2+x",
+    "1/2-z,1/2+y,x",
+    "y,-x,-z",
+    "y,1/2-x,1/2-z",
+    "1/2+y,-x,1/2-z",
+    "1/2+y,1/2-x,-z",
+    "-x,z,y",
+    "-x,1/2+z,1/2+y",
+    "1/2-x,z,1/2+y",
+    "1/2-x,1/2+z,y",
+    "z,-y,-x",
+    "z,1/2-y,1/2-x",
+    "1/2+z,-y,1/2-x",
+    "1/2+z,1/2-y,-x",
+    "-y,x,z",
+    "-y,1/2+x,1/2+z",
+    "1/2-y,x,1/2+z",
+    "1/2-y,1/2+x,z",
+    "x,z,y",
+    "x,1/2+z,1/2+y",
+    "1/2+x,z,1/2+y",
+    "1/2+x,1/2+z,y",
+    "-z,-y,-x",
+    "-z,1/2-y,1/2-x",
+    "1/2-z,-y,1/2-x",
+    "1/2-z,1/2-y,-x",
+    "y,x,z",
+    "y,1/2+x,1/2+z",
+    "1/2+y,x,1/2+z",
+    "1/2+y,1/2+x,z",
+    "-x,-z,-y",
+    "-x,1/2-z,1/2-y",
+    "1/2-x,-z,1/2-y",
+    "1/2-x,1/2-z,-y",
+    "z,y,x",
+    "z,1/2+y,1/2+x",
+    "1/2+z,y,1/2+x",
+    "1/2+z,1/2+y,x",
+    "-y,-x,-z",
+    "-y,1/2-x,1/2-z",
+    "1/2-y,-x,1/2-z",
+    "1/2-y,1/2-x,-z",
+    "z,x,-y",
+    "z,1/2+x,1/2-y",
+    "1/2+z,x,1/2-y",
+    "1/2+z,1/2+x,-y",
+    "-y,-z,x",
+    "-y,1/2-z,1/2+x",
+    "1/2-y,-z,1/2+x",
+    "1/2-y,1/2-z,x",
+    "x,y,-z",
+    "x,1/2+y,1/2-z",
+    "1/2+x,y,1/2-z",
+    "1/2+x,1/2+y,-z",
+    "-z,-x,y",
+    "-z,1/2-x,1/2+y",
+    "1/2-z,-x,1/2+y",
+    "1/2-z,1/2-x,y",
+    "y,z,-x",
+    "y,1/2+z,1/2-x",
+    "1/2+y,z,1/2-x",
+    "1/2+y,1/2+z,-x",
+    "-x,-y,z",
+    "-x,1/2-y,1/2+z",
+    "1/2-x,-y,1/2+z",
+    "1/2-x,1/2-y,z",
+    "-z,x,y",
+    "-z,1/2+x,1/2+y",
+    "1/2-z,x,1/2+y",
+    "1/2-z,1/2+x,y",
+    "y,-z,-x",
+    "y,1/2-z,1/2-x",
+    "1/2+y,-z,1/2-x",
+    "1/2+y,1/2-z,-x",
+    "-x,y,z",
+    "-x,1/2+y,1/2+z",
+    "1/2-x,y,1/2+z",
+    "1/2-x,1/2+y,z",
+    "z,-x,-y",
+    "z,1/2-x,1/2-y",
+    "1/2+z,-x,1/2-y",
+    "1/2+z,1/2-x,-y",
+    "-y,z,x",
+    "-y,1/2+z,1/2+x",
+    "1/2-y,z,1/2+x",
+    "1/2-y,1/2+z,x",
+    "x,-y,-z",
+    "x,1/2-y,1/2-z",
+    "1/2+x,-y,1/2-z",
+    "1/2+x,1/2-y,-z",
+    "-x,z,-y",
+    "-x,1/2+z,1/2-y",
+    "1/2-x,z,1/2-y",
+    "1/2-x,1/2+z,-y",
+    "z,-y,x",
+    "z,1/2-y,1/2+x",
+    "1/2+z,-y,1/2+x",
+    "1/2+z,1/2-y,x",
+    "-y,x,-z",
+    "-y,1/2+x,1/2-z",
+    "1/2-y,x,1/2-z",
+    "1/2-y,1/2+x,-z",
+    "x,-z,y",
+    "x,1/2-z,1/2+y",
+    "1/2+x,-z,1/2+y",
+    "1/2+x,1/2-z,y",
+    "-z,y,-x",
+    "-z,1/2+y,1/2-x",
+    "1/2-z,y,1/2-x",
+    "1/2-z,1/2+y,-x",
+    "y,-x,z",
+    "y,1/2-x,1/2+z",
+    "1/2+y,-x,1/2+z",
+    "1/2+y,1/2-x,z",
+    "-x,-z,y",
+    "-x,1/2-z,1/2+y",
+    "1/2-x,-z,1/2+y",
+    "1/2-x,1/2-z,y",
+    "z,y,-x",
+    "z,1/2+y,1/2-x",
+    "1/2+z,y,1/2-x",
+    "1/2+z,1/2+y,-x",
+    "-y,-x,z",
+    "-y,1/2-x,1/2+z",
+    "1/2-y,-x,1/2+z",
+    "1/2-y,1/2-x,z",
+    "x,z,-y",
+    "x,1/2+z,1/2-y",
+    "1/2+x,z,1/2-y",
+    "1/2+x,1/2+z,-y",
+    "-z,-y,x",
+    "-z,1/2-y,1/2+x",
+    "1/2-z,-y,1/2+x",
+    "1/2-z,1/2-y,x",
+    "y,x,-z",
+    "y,1/2+x,1/2-z",
+    "1/2+y,x,1/2-z",
+    "1/2+y,1/2+x,-z",
+    "-z,-x,-y",
+    "-z,1/2-x,1/2-y",
+    "1/2-z,-x,1/2-y",
+    "1/2-z,1/2-x,-y",
+    "y,z,x",
+    "y,1/2+z,1/2+x",
+    "1/2+y,z,1/2+x",
+    "1/2+y,1/2+z,x",
+    "-x,-y,-z",
+    "-x,1/2-y,1/2-z",
+    "1/2-x,-y,1/2-z",
+    "1/2-x,1/2-y,-z",
+    "z,x,y",
+    "z,1/2+x,1/2+y",
+    "1/2+z,x,1/2+y",
+    "1/2+z,1/2+x,y",
+    "-y,-z,-x",
+    "-y,1/2-z,1/2-x",
+    "1/2-y,-z,1/2-x",
+    "1/2-y,1/2-z,-x"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Na",
+      "element": "Na",
+      "fractional": [
+        0.25,
+        0.25,
+        0.25
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "S",
+      "element": "S",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Na",
+      "label": "Na",
+      "fractional": [
+        0.25,
+        0.25,
+        0.25
+      ],
+      "position": [
+        1.6315,
+        1.6315,
+        1.6315
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na",
+      "fractional": [
+        0.25,
+        0.75,
+        0.75
+      ],
+      "position": [
+        1.6315,
+        4.8945,
+        4.8945
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na",
+      "fractional": [
+        0.75,
+        0.25,
+        0.75
+      ],
+      "position": [
+        4.8945,
+        1.6315,
+        4.8945
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na",
+      "fractional": [
+        0.75,
+        0.75,
+        0.25
+      ],
+      "position": [
+        4.8945,
+        4.8945,
+        1.6315
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na",
+      "fractional": [
+        0.25,
+        0.75,
+        0.25
+      ],
+      "position": [
+        1.6315,
+        4.8945,
+        1.6315
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na",
+      "fractional": [
+        0.25,
+        0.25,
+        0.75
+      ],
+      "position": [
+        1.6315,
+        1.6315,
+        4.8945
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na",
+      "fractional": [
+        0.75,
+        0.75,
+        0.75
+      ],
+      "position": [
+        4.8945,
+        4.8945,
+        4.8945
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na",
+      "fractional": [
+        0.75,
+        0.25,
+        0.25
+      ],
+      "position": [
+        4.8945,
+        1.6315,
+        1.6315
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.0,
+        0.5,
+        0.5
+      ],
+      "position": [
+        0.0,
+        3.263,
+        3.263
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.5,
+        0.0,
+        0.5
+      ],
+      "position": [
+        3.263,
+        0.0,
+        3.263
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.5,
+        0.5,
+        0.0
+      ],
+      "position": [
+        3.263,
+        3.263,
+        0.0
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 12,
+  "speciesPositionCount": 12,
+  "cellComposition": {
+    "Na": 8,
+    "S": 4
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Wyckoff R W G"
+    ],
+    "title": "Second edition. Interscience Publishers, New York, New York\n Anti-fluorite structure",
+    "journal": "Crystal Structures",
+    "year": 1963,
+    "volume": "1",
+    "pages": "239–444"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "literature-compilation",
+  "validation": {
+    "operatorCount": 192,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.0809196599885183e-06
+  },
+  "spaceGroupOriginal": "F m 3 m",
+  "spaceGroupNumber": 225,
+  "id": "chat-sodium-sulfide",
+  "note": "Pha khan; không dùng cho các hydrate hoặc NaHS."
+}

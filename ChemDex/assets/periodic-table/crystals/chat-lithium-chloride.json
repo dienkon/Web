@@ -2,7 +2,7 @@
   "amcsdId": "0011343",
   "mineralName": "LiCl · rocksalt",
   "formula": "Li Cl",
-  "spaceGroup": "F m 3 m",
+  "spaceGroup": "F m -3 m",
   "cell": {
     "a": 5.12954,
     "b": 5.12954,
@@ -395,6 +395,8 @@
     "maxSiteOccupancy": 1,
     "cellVolumeRelativeError": 2.837194765100018e-06
   },
+  "spaceGroupOriginal": "F m 3 m",
+  "spaceGroupNumber": 225,
   "id": "chat-lithium-chloride",
   "note": "Bản tài liệu tổng hợp; không coi là đo độc lập của ChemDex."
 }

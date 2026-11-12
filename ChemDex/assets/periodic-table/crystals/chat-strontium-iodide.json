@@ -1,0 +1,472 @@
+{
+  "amcsdId": "0010679",
+  "mineralName": "SrI₂ khan",
+  "formula": "Sr I2",
+  "spaceGroup": "P b c a",
+  "cell": {
+    "a": 15.22,
+    "b": 8.22,
+    "c": 7.9,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 988.3563600000002,
+  "declaredVolume": 988.356,
+  "basis": [
+    [
+      15.22,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      8.22,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      7.9
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "x,1/2-y,1/2+z",
+    "-x,1/2+y,1/2-z",
+    "1/2-x,1/2+y,z",
+    "1/2+x,1/2-y,-z",
+    "1/2+x,y,1/2-z",
+    "1/2-x,-y,1/2+z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Sr",
+      "element": "Sr",
+      "fractional": [
+        0.1105,
+        0.4505,
+        0.2764
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "I1",
+      "element": "I",
+      "fractional": [
+        0.202,
+        0.1077,
+        0.163
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "I2",
+      "element": "I",
+      "fractional": [
+        -0.0341,
+        0.2682,
+        0.0054
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Sr",
+      "label": "Sr",
+      "fractional": [
+        0.1105,
+        0.4505,
+        0.2764
+      ],
+      "position": [
+        1.68181,
+        3.70311,
+        2.18356
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Sr",
+      "label": "Sr",
+      "fractional": [
+        0.1105,
+        0.0495,
+        0.7764
+      ],
+      "position": [
+        1.68181,
+        0.40689,
+        6.13356
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Sr",
+      "label": "Sr",
+      "fractional": [
+        0.8895,
+        0.9505,
+        0.2236
+      ],
+      "position": [
+        13.53819,
+        7.81311,
+        1.76644
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Sr",
+      "label": "Sr",
+      "fractional": [
+        0.3895,
+        0.9505,
+        0.2764
+      ],
+      "position": [
+        5.92819,
+        7.81311,
+        2.18356
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Sr",
+      "label": "Sr",
+      "fractional": [
+        0.6105,
+        0.0495,
+        0.7236
+      ],
+      "position": [
+        9.29181,
+        0.40689,
+        5.71644
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Sr",
+      "label": "Sr",
+      "fractional": [
+        0.6105,
+        0.4505,
+        0.2236
+      ],
+      "position": [
+        9.29181,
+        3.70311,
+        1.76644
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Sr",
+      "label": "Sr",
+      "fractional": [
+        0.3895,
+        0.5495,
+        0.7764
+      ],
+      "position": [
+        5.92819,
+        4.51689,
+        6.13356
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Sr",
+      "label": "Sr",
+      "fractional": [
+        0.8895,
+        0.5495,
+        0.7236
+      ],
+      "position": [
+        13.53819,
+        4.51689,
+        5.71644
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "I",
+      "label": "I1",
+      "fractional": [
+        0.202,
+        0.1077,
+        0.163
+      ],
+      "position": [
+        3.07444,
+        0.885294,
+        1.2877
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "I",
+      "label": "I1",
+      "fractional": [
+        0.202,
+        0.3923,
+        0.663
+      ],
+      "position": [
+        3.07444,
+        3.224706,
+        5.2377
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "I",
+      "label": "I1",
+      "fractional": [
+        0.798,
+        0.6077,
+        0.337
+      ],
+      "position": [
+        12.14556,
+        4.995294,
+        2.6623
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "I",
+      "label": "I1",
+      "fractional": [
+        0.298,
+        0.6077,
+        0.163
+      ],
+      "position": [
+        4.53556,
+        4.995294,
+        1.2877
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "I",
+      "label": "I1",
+      "fractional": [
+        0.702,
+        0.3923,
+        0.837
+      ],
+      "position": [
+        10.68444,
+        3.224706,
+        6.6123
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "I",
+      "label": "I1",
+      "fractional": [
+        0.702,
+        0.1077,
+        0.337
+      ],
+      "position": [
+        10.68444,
+        0.885294,
+        2.6623
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "I",
+      "label": "I1",
+      "fractional": [
+        0.298,
+        0.8923,
+        0.663
+      ],
+      "position": [
+        4.53556,
+        7.334706,
+        5.2377
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "I",
+      "label": "I1",
+      "fractional": [
+        0.798,
+        0.8923,
+        0.837
+      ],
+      "position": [
+        12.14556,
+        7.334706,
+        6.6123
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "I",
+      "label": "I2",
+      "fractional": [
+        0.9659,
+        0.2682,
+        0.0054
+      ],
+      "position": [
+        14.700998,
+        2.204604,
+        0.04266
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "I",
+      "label": "I2",
+      "fractional": [
+        0.9659,
+        0.2318,
+        0.5054
+      ],
+      "position": [
+        14.700998,
+        1.905396,
+        3.99266
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "I",
+      "label": "I2",
+      "fractional": [
+        0.0341,
+        0.7682,
+        0.4946
+      ],
+      "position": [
+        0.519002,
+        6.314604,
+        3.90734
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "I",
+      "label": "I2",
+      "fractional": [
+        0.5341,
+        0.7682,
+        0.0054
+      ],
+      "position": [
+        8.129002,
+        6.314604,
+        0.04266
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "I",
+      "label": "I2",
+      "fractional": [
+        0.4659,
+        0.2318,
+        0.9946
+      ],
+      "position": [
+        7.090998,
+        1.905396,
+        7.85734
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "I",
+      "label": "I2",
+      "fractional": [
+        0.4659,
+        0.2682,
+        0.4946
+      ],
+      "position": [
+        7.090998,
+        2.204604,
+        3.90734
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "I",
+      "label": "I2",
+      "fractional": [
+        0.5341,
+        0.7318,
+        0.5054
+      ],
+      "position": [
+        8.129002,
+        6.015396,
+        3.99266
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "I",
+      "label": "I2",
+      "fractional": [
+        0.0341,
+        0.7318,
+        0.9946
+      ],
+      "position": [
+        0.519002,
+        6.015396,
+        7.85734
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 24,
+  "speciesPositionCount": 24,
+  "cellComposition": {
+    "Sr": 8,
+    "I": 16
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Barnighausen H",
+      "Beck H",
+      "Grueninger H W",
+      "Rietschel E T",
+      "Schultz N"
+    ],
+    "title": "Neue AB2-strukturtypen mit siebenfach koordiniertem kation",
+    "journal": "Zeitschrift fur Kristallographie",
+    "year": 1969,
+    "volume": "128",
+    "pages": "430–430"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 8,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 3.64241092380845e-07
+  },
+  "spaceGroupOriginal": "P b c a",
+  "spaceGroupNumber": 61,
+  "id": "chat-strontium-iodide",
+  "note": "Giữ cấu trúc phối trí bảy của bản ghi; không thay bằng mẫu fluorite."
+}

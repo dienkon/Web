@@ -1,0 +1,374 @@
+{
+  "amcsdId": "0010832",
+  "mineralName": "Urea · 293 K",
+  "formula": "C O N2 H4",
+  "spaceGroup": "P -4 21 m",
+  "cell": {
+    "a": 5.645,
+    "b": 5.645,
+    "c": 4.704,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 149.89778159999997,
+  "declaredVolume": 149.898,
+  "basis": [
+    [
+      5.645,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      5.645,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      4.704
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2-y,1/2-x,z",
+    "y,-x,-z",
+    "1/2-x,1/2+y,-z",
+    "-x,-y,z",
+    "1/2+y,1/2+x,z",
+    "-y,x,-z",
+    "1/2+x,1/2-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "C",
+      "element": "C",
+      "fractional": [
+        0.0,
+        0.5,
+        0.3328
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.0,
+        0.5,
+        0.5976
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "N",
+      "element": "N",
+      "fractional": [
+        0.1418,
+        0.6418,
+        0.183
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "H1",
+      "element": "H",
+      "fractional": [
+        0.2527,
+        0.7527,
+        0.2839
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "H2",
+      "element": "H",
+      "fractional": [
+        0.1389,
+        0.6389,
+        -0.0306
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.0,
+        0.5,
+        0.3328
+      ],
+      "position": [
+        0.0,
+        2.8225,
+        1.5654912
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.5,
+        0.0,
+        0.6672
+      ],
+      "position": [
+        2.8225,
+        0.0,
+        3.1385088
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.0,
+        0.5,
+        0.5976
+      ],
+      "position": [
+        0.0,
+        2.8225,
+        2.8111104
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.5,
+        0.0,
+        0.4024
+      ],
+      "position": [
+        2.8225,
+        0.0,
+        1.8928896
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N",
+      "fractional": [
+        0.1418,
+        0.6418,
+        0.183
+      ],
+      "position": [
+        0.800461,
+        3.622961,
+        0.860832
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N",
+      "fractional": [
+        0.8582,
+        0.3582,
+        0.183
+      ],
+      "position": [
+        4.844539,
+        2.022039,
+        0.860832
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N",
+      "fractional": [
+        0.6418,
+        0.8582,
+        0.817
+      ],
+      "position": [
+        3.622961,
+        4.844539,
+        3.843168
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N",
+      "fractional": [
+        0.3582,
+        0.1418,
+        0.817
+      ],
+      "position": [
+        2.022039,
+        0.800461,
+        3.843168
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H1",
+      "fractional": [
+        0.2527,
+        0.7527,
+        0.2839
+      ],
+      "position": [
+        1.4264915,
+        4.2489915,
+        1.3354656
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H1",
+      "fractional": [
+        0.7473,
+        0.2473,
+        0.2839
+      ],
+      "position": [
+        4.2185085,
+        1.3960085,
+        1.3354656
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H1",
+      "fractional": [
+        0.7527,
+        0.7473,
+        0.7161
+      ],
+      "position": [
+        4.2489915,
+        4.2185085,
+        3.3685344
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H1",
+      "fractional": [
+        0.2473,
+        0.2527,
+        0.7161
+      ],
+      "position": [
+        1.3960085,
+        1.4264915,
+        3.3685344
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H2",
+      "fractional": [
+        0.1389,
+        0.6389,
+        0.9694
+      ],
+      "position": [
+        0.7840905,
+        3.6065905,
+        4.5600576
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H2",
+      "fractional": [
+        0.8611,
+        0.3611,
+        0.9694
+      ],
+      "position": [
+        4.8609095,
+        2.0384095,
+        4.5600576
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H2",
+      "fractional": [
+        0.6389,
+        0.8611,
+        0.0306
+      ],
+      "position": [
+        3.6065905,
+        4.8609095,
+        0.1439424
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H2",
+      "fractional": [
+        0.3611,
+        0.1389,
+        0.0306
+      ],
+      "position": [
+        2.0384095,
+        0.7840905,
+        0.1439424
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 16,
+  "speciesPositionCount": 16,
+  "cellComposition": {
+    "C": 2,
+    "O": 2,
+    "N": 4,
+    "H": 8
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Guth H",
+      "Heger G",
+      "Klein S",
+      "Treutmann W",
+      "Scheringer C"
+    ],
+    "title": "Strukturverfeinerung von harnstoff mit neutronenbeugungsdaten bei\n 60, 123, 293 K und X-N- und X-X (1s2)-synthesen bei etwa 100 K\n Sample: T = 293 K",
+    "journal": "Zeitschrift fur Kristallographie",
+    "year": 1980,
+    "volume": "153",
+    "pages": "237–254"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 8,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.4569928766891877e-06
+  },
+  "spaceGroupOriginal": "P -4 21 m",
+  "spaceGroupNumber": 113,
+  "id": "chat-urea",
+  "note": "Dữ liệu neutron ở 293 K, có tọa độ hydrogen; không dùng mẫu 60/100/123 K thay thế."
+}

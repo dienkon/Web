@@ -1,0 +1,462 @@
+{
+  "amcsdId": "0010530",
+  "mineralName": "K₂S",
+  "formula": "S K2",
+  "spaceGroup": "F m -3 m",
+  "cell": {
+    "a": 7.35,
+    "b": 7.35,
+    "c": 7.35,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 397.06537499999996,
+  "declaredVolume": 397.065,
+  "basis": [
+    [
+      7.35,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      7.35,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      7.35
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "x,1/2+y,1/2+z",
+    "1/2+x,y,1/2+z",
+    "1/2+x,1/2+y,z",
+    "z,-x,y",
+    "z,1/2-x,1/2+y",
+    "1/2+z,-x,1/2+y",
+    "1/2+z,1/2-x,y",
+    "-y,z,-x",
+    "-y,1/2+z,1/2-x",
+    "1/2-y,z,1/2-x",
+    "1/2-y,1/2+z,-x",
+    "x,-y,z",
+    "x,1/2-y,1/2+z",
+    "1/2+x,-y,1/2+z",
+    "1/2+x,1/2-y,z",
+    "-z,x,-y",
+    "-z,1/2+x,1/2-y",
+    "1/2-z,x,1/2-y",
+    "1/2-z,1/2+x,-y",
+    "y,-z,x",
+    "y,1/2-z,1/2+x",
+    "1/2+y,-z,1/2+x",
+    "1/2+y,1/2-z,x",
+    "-x,y,-z",
+    "-x,1/2+y,1/2-z",
+    "1/2-x,y,1/2-z",
+    "1/2-x,1/2+y,-z",
+    "x,-z,-y",
+    "x,1/2-z,1/2-y",
+    "1/2+x,-z,1/2-y",
+    "1/2+x,1/2-z,-y",
+    "-z,y,x",
+    "-z,1/2+y,1/2+x",
+    "1/2-z,y,1/2+x",
+    "1/2-z,1/2+y,x",
+    "y,-x,-z",
+    "y,1/2-x,1/2-z",
+    "1/2+y,-x,1/2-z",
+    "1/2+y,1/2-x,-z",
+    "-x,z,y",
+    "-x,1/2+z,1/2+y",
+    "1/2-x,z,1/2+y",
+    "1/2-x,1/2+z,y",
+    "z,-y,-x",
+    "z,1/2-y,1/2-x",
+    "1/2+z,-y,1/2-x",
+    "1/2+z,1/2-y,-x",
+    "-y,x,z",
+    "-y,1/2+x,1/2+z",
+    "1/2-y,x,1/2+z",
+    "1/2-y,1/2+x,z",
+    "x,z,y",
+    "x,1/2+z,1/2+y",
+    "1/2+x,z,1/2+y",
+    "1/2+x,1/2+z,y",
+    "-z,-y,-x",
+    "-z,1/2-y,1/2-x",
+    "1/2-z,-y,1/2-x",
+    "1/2-z,1/2-y,-x",
+    "y,x,z",
+    "y,1/2+x,1/2+z",
+    "1/2+y,x,1/2+z",
+    "1/2+y,1/2+x,z",
+    "-x,-z,-y",
+    "-x,1/2-z,1/2-y",
+    "1/2-x,-z,1/2-y",
+    "1/2-x,1/2-z,-y",
+    "z,y,x",
+    "z,1/2+y,1/2+x",
+    "1/2+z,y,1/2+x",
+    "1/2+z,1/2+y,x",
+    "-y,-x,-z",
+    "-y,1/2-x,1/2-z",
+    "1/2-y,-x,1/2-z",
+    "1/2-y,1/2-x,-z",
+    "z,x,-y",
+    "z,1/2+x,1/2-y",
+    "1/2+z,x,1/2-y",
+    "1/2+z,1/2+x,-y",
+    "-y,-z,x",
+    "-y,1/2-z,1/2+x",
+    "1/2-y,-z,1/2+x",
+    "1/2-y,1/2-z,x",
+    "x,y,-z",
+    "x,1/2+y,1/2-z",
+    "1/2+x,y,1/2-z",
+    "1/2+x,1/2+y,-z",
+    "-z,-x,y",
+    "-z,1/2-x,1/2+y",
+    "1/2-z,-x,1/2+y",
+    "1/2-z,1/2-x,y",
+    "y,z,-x",
+    "y,1/2+z,1/2-x",
+    "1/2+y,z,1/2-x",
+    "1/2+y,1/2+z,-x",
+    "-x,-y,z",
+    "-x,1/2-y,1/2+z",
+    "1/2-x,-y,1/2+z",
+    "1/2-x,1/2-y,z",
+    "-z,x,y",
+    "-z,1/2+x,1/2+y",
+    "1/2-z,x,1/2+y",
+    "1/2-z,1/2+x,y",
+    "y,-z,-x",
+    "y,1/2-z,1/2-x",
+    "1/2+y,-z,1/2-x",
+    "1/2+y,1/2-z,-x",
+    "-x,y,z",
+    "-x,1/2+y,1/2+z",
+    "1/2-x,y,1/2+z",
+    "1/2-x,1/2+y,z",
+    "z,-x,-y",
+    "z,1/2-x,1/2-y",
+    "1/2+z,-x,1/2-y",
+    "1/2+z,1/2-x,-y",
+    "-y,z,x",
+    "-y,1/2+z,1/2+x",
+    "1/2-y,z,1/2+x",
+    "1/2-y,1/2+z,x",
+    "x,-y,-z",
+    "x,1/2-y,1/2-z",
+    "1/2+x,-y,1/2-z",
+    "1/2+x,1/2-y,-z",
+    "-x,z,-y",
+    "-x,1/2+z,1/2-y",
+    "1/2-x,z,1/2-y",
+    "1/2-x,1/2+z,-y",
+    "z,-y,x",
+    "z,1/2-y,1/2+x",
+    "1/2+z,-y,1/2+x",
+    "1/2+z,1/2-y,x",
+    "-y,x,-z",
+    "-y,1/2+x,1/2-z",
+    "1/2-y,x,1/2-z",
+    "1/2-y,1/2+x,-z",
+    "x,-z,y",
+    "x,1/2-z,1/2+y",
+    "1/2+x,-z,1/2+y",
+    "1/2+x,1/2-z,y",
+    "-z,y,-x",
+    "-z,1/2+y,1/2-x",
+    "1/2-z,y,1/2-x",
+    "1/2-z,1/2+y,-x",
+    "y,-x,z",
+    "y,1/2-x,1/2+z",
+    "1/2+y,-x,1/2+z",
+    "1/2+y,1/2-x,z",
+    "-x,-z,y",
+    "-x,1/2-z,1/2+y",
+    "1/2-x,-z,1/2+y",
+    "1/2-x,1/2-z,y",
+    "z,y,-x",
+    "z,1/2+y,1/2-x",
+    "1/2+z,y,1/2-x",
+    "1/2+z,1/2+y,-x",
+    "-y,-x,z",
+    "-y,1/2-x,1/2+z",
+    "1/2-y,-x,1/2+z",
+    "1/2-y,1/2-x,z",
+    "x,z,-y",
+    "x,1/2+z,1/2-y",
+    "1/2+x,z,1/2-y",
+    "1/2+x,1/2+z,-y",
+    "-z,-y,x",
+    "-z,1/2-y,1/2+x",
+    "1/2-z,-y,1/2+x",
+    "1/2-z,1/2-y,x",
+    "y,x,-z",
+    "y,1/2+x,1/2-z",
+    "1/2+y,x,1/2-z",
+    "1/2+y,1/2+x,-z",
+    "-z,-x,-y",
+    "-z,1/2-x,1/2-y",
+    "1/2-z,-x,1/2-y",
+    "1/2-z,1/2-x,-y",
+    "y,z,x",
+    "y,1/2+z,1/2+x",
+    "1/2+y,z,1/2+x",
+    "1/2+y,1/2+z,x",
+    "-x,-y,-z",
+    "-x,1/2-y,1/2-z",
+    "1/2-x,-y,1/2-z",
+    "1/2-x,1/2-y,-z",
+    "z,x,y",
+    "z,1/2+x,1/2+y",
+    "1/2+z,x,1/2+y",
+    "1/2+z,1/2+x,y",
+    "-y,-z,-x",
+    "-y,1/2-z,1/2-x",
+    "1/2-y,-z,1/2-x",
+    "1/2-y,1/2-z,-x"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "S",
+      "element": "S",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "K",
+      "element": "K",
+      "fractional": [
+        0.25,
+        0.25,
+        0.25
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.0,
+        0.5,
+        0.5
+      ],
+      "position": [
+        0.0,
+        3.675,
+        3.675
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.5,
+        0.0,
+        0.5
+      ],
+      "position": [
+        3.675,
+        0.0,
+        3.675
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.5,
+        0.5,
+        0.0
+      ],
+      "position": [
+        3.675,
+        3.675,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "K",
+      "label": "K",
+      "fractional": [
+        0.25,
+        0.25,
+        0.25
+      ],
+      "position": [
+        1.8375,
+        1.8375,
+        1.8375
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "K",
+      "label": "K",
+      "fractional": [
+        0.25,
+        0.75,
+        0.75
+      ],
+      "position": [
+        1.8375,
+        5.5125,
+        5.5125
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "K",
+      "label": "K",
+      "fractional": [
+        0.75,
+        0.25,
+        0.75
+      ],
+      "position": [
+        5.5125,
+        1.8375,
+        5.5125
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "K",
+      "label": "K",
+      "fractional": [
+        0.75,
+        0.75,
+        0.25
+      ],
+      "position": [
+        5.5125,
+        5.5125,
+        1.8375
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "K",
+      "label": "K",
+      "fractional": [
+        0.25,
+        0.75,
+        0.25
+      ],
+      "position": [
+        1.8375,
+        5.5125,
+        1.8375
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "K",
+      "label": "K",
+      "fractional": [
+        0.25,
+        0.25,
+        0.75
+      ],
+      "position": [
+        1.8375,
+        1.8375,
+        5.5125
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "K",
+      "label": "K",
+      "fractional": [
+        0.75,
+        0.75,
+        0.75
+      ],
+      "position": [
+        5.5125,
+        5.5125,
+        5.5125
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "K",
+      "label": "K",
+      "fractional": [
+        0.75,
+        0.25,
+        0.25
+      ],
+      "position": [
+        5.5125,
+        1.8375,
+        1.8375
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 12,
+  "speciesPositionCount": 12,
+  "cellComposition": {
+    "S": 4,
+    "K": 8
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "West C D"
+    ],
+    "title": "The crystal structures of some alkali hydrosulfides and monosulfides",
+    "journal": "Zeitschrift fur Kristallographie",
+    "year": 1934,
+    "volume": "88",
+    "pages": "97–115"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 192,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 9.444288612743198e-07
+  },
+  "spaceGroupOriginal": "F m 3 m",
+  "spaceGroupNumber": 225,
+  "id": "chat-potassium-sulfide",
+  "note": "Bản nghiên cứu alkali monosulfides; không nhầm hydrosulfide KHS."
+}

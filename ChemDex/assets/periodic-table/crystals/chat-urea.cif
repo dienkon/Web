@@ -1,0 +1,51 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0010832
+_database_code_amcsd 0010832
+_chemical_name_mineral 'Urea · 293 K'
+_chemical_formula_sum 'C O N2 H4'
+_symmetry_space_group_name_H-M 'P -4 21 m'
+_cell_length_a 5.645
+_cell_length_b 5.645
+_cell_length_c 4.704
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 90
+_cell_volume 149.897782
+loop_
+_publ_author_name
+'Guth H'
+'Heger G'
+'Klein S'
+'Treutmann W'
+'Scheringer C'
+_journal_name_full 'Zeitschrift fur Kristallographie'
+_journal_year 1980
+_journal_volume 153
+_publ_section_title
+;Strukturverfeinerung von harnstoff mit neutronenbeugungsdaten bei
+ 60, 123, 293 K und X-N- und X-X (1s2)-synthesen bei etwa 100 K
+ Sample: T = 293 K
+;
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+1/2-y,1/2-x,z
+y,-x,-z
+1/2-x,1/2+y,-z
+-x,-y,z
+1/2+y,1/2+x,z
+-y,x,-z
+1/2+x,1/2-y,-z
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+C C 0 0.5 0.3328 1
+O O 0 0.5 0.5976 1
+N N 0.1418 0.6418 0.183 1
+H1 H 0.2527 0.7527 0.2839 1
+H2 H 0.1389 0.6389 -0.0306 1

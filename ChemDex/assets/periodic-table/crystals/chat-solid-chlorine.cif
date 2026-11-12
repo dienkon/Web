@@ -1,0 +1,53 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0014661
+_database_code_amcsd 0014661
+_chemical_name_mineral 'Chlorine rắn · 160 K'
+_chemical_formula_sum Cl
+_symmetry_space_group_name_H-M 'C m c a'
+_cell_length_a 6.2929
+_cell_length_b 4.5361
+_cell_length_c 8.1617
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 90
+_cell_volume 232.977552
+loop_
+_publ_author_name
+'Powell B M'
+'Heal K M'
+'Torrie B H'
+_journal_name_full 'Molecular Physics'
+_journal_year 1984
+_journal_volume 53
+_publ_section_title
+;The temperature dependence of the crystal structures of the solid halogens,
+ bromine and chlorine
+ Sample: at T = 160 K
+;
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+1/2+x,1/2+y,z
+x,1/2-y,1/2+z
+1/2+x,-y,1/2+z
+-x,1/2+y,1/2-z
+1/2-x,+y,1/2-z
+-x,y,z
+1/2-x,1/2+y,z
+x,-y,-z
+1/2+x,1/2-y,-z
+x,1/2+y,1/2-z
+1/2+x,+y,1/2-z
+-x,1/2-y,1/2+z
+1/2-x,-y,1/2+z
+-x,-y,-z
+1/2-x,1/2-y,-z
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+Cl Cl 0 0.1219 0.1006 1

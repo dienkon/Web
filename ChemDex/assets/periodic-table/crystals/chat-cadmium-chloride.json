@@ -1,0 +1,148 @@
+{
+  "amcsdId": "0018174",
+  "mineralName": "CdCl₂ khan",
+  "formula": "Cd Cl2",
+  "spaceGroup": "R -3 m:R",
+  "cell": {
+    "a": 6.23,
+    "b": 6.23,
+    "c": 6.23,
+    "alpha": 36.03,
+    "beta": 36.03,
+    "gamma": 36.03
+  },
+  "volume": 74.83331214036822,
+  "declaredVolume": 74.833,
+  "basis": [
+    [
+      6.23,
+      5.038257816679805,
+      5.038257816679805
+    ],
+    [
+      0.0,
+      3.6645406496128334,
+      1.6384875881276948
+    ],
+    [
+      0.0,
+      0.0,
+      3.2778371826886605
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "-x,-z,-y",
+    "-z,-x,-y",
+    "y,x,z",
+    "y,z,x",
+    "-z,-y,-x",
+    "-x,-y,-z",
+    "x,z,y",
+    "z,x,y",
+    "-y,-x,-z",
+    "-y,-z,-x",
+    "z,y,x"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Cd",
+      "element": "Cd",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Cl",
+      "element": "Cl",
+      "fractional": [
+        0.25,
+        0.25,
+        0.25
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Cd",
+      "label": "Cd",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.25,
+        0.25,
+        0.25
+      ],
+      "position": [
+        4.0766289,
+        1.3257571,
+        0.8194593
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.75,
+        0.75,
+        0.75
+      ],
+      "position": [
+        12.2298867,
+        3.9772712,
+        2.4583779
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 3,
+  "speciesPositionCount": 3,
+  "cellComposition": {
+    "Cd": 1,
+    "Cl": 2
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Pauling L",
+      "Hoard J"
+    ],
+    "title": "The crystal structure of cadmium chloride\n _cod_database_code 1011332",
+    "journal": "Zeitschrift fur Kristallographie",
+    "year": 1930,
+    "volume": "74",
+    "pages": "546–551"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 12,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 4.171141959311077e-06
+  },
+  "spaceGroupOriginal": "R -3 m",
+  "spaceGroupNumber": 166,
+  "id": "chat-cadmium-chloride",
+  "note": "Bản xác định cấu trúc cadmium chloride."
+}

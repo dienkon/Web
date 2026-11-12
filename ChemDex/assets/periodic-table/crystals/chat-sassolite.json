@@ -628,6 +628,8 @@
     "maxSiteOccupancy": 1,
     "cellVolumeRelativeError": 1.0970562678458214e-06
   },
+  "spaceGroupOriginal": "P -1",
+  "spaceGroupNumber": 2,
   "id": "chat-sassolite",
   "note": "Mẫu 105 K, multipole refinement; không tự gán điều kiện phòng."
 }

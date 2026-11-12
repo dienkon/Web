@@ -62,6 +62,7 @@ import { transferWaterCondensate } from '../engine/condensationTransfer';
 import { applyProgramWithThermalSinks } from '../engine/thermalLedger';
 import { applyAluminumMaterialProgress, planAluminumMaterialReaction, type AluminumMaterialStage } from '../engine/aluminumMaterialProgress';
 import { materializePresetInventory } from '../engine/presetInventory';
+import { transferDrySample } from '../handling/drySolidTransfer';
 import { advanceFunnelFlow, selectFunnelReceiver, recoverFilterCake, solidContent } from '../engine/funnelFlow';
 import { createFunnelParcel } from '../engine/funnelTransport';
 import { renderedVesselBody } from '../simulation/render/vesselBodyFrames';
@@ -396,6 +397,7 @@ export interface AppState {
   setSpatulaScoop: (chemical: string | null, mass_g?: number, color?: string) => void;
   settleVesselMixture: (id: string) => Promise<void>;
   transferLiquidContinuous: (fromId: string, toId: string | null, delta_ml: number, dropPos?: [number, number, number]) => LiquidTransferReceipt;
+  transferDrySolid: (fromId: string, toId: string, mass_g: number) => number;
   inFlightPours: PourParcel[];
   pourEpoch: number;
   releasePourLiquid: (parcel: Omit<PourParcel, 'sample' | 'releasedVolume_ml' | 'elapsed_s' | 'arrivedFraction'>, volume_ml: number) => number;
@@ -1528,10 +1530,15 @@ export const useAppStore = create<AppState>((set, get) => {
           hasGas: false
         };
       }
-      for (const id of Object.keys(vessels)) vessels[id] = materializePresetInventory(vessels[id]);
+      const pendingReactions: Record<string, PendingReactionState> = {};
+      for (const id of Object.keys(vessels)) {
+        vessels[id] = materializePresetInventory(vessels[id]);
+        const pending = findPendingReaction(vessels[id].substances, vessels[id].temperature_c, false, get().language);
+        if (pending) pendingReactions[id] = { ...pending, vesselId: id };
+      }
       shardManager.restoreSnapshot();
       set({
-        activeKinetics: {}, pendingReactions: {}, dissolvingSubstances: {}, lastMixResult: null,
+        activeKinetics: {}, pendingReactions, dissolvingSubstances: {}, lastMixResult: null,
         inFlightPours: [], pourEpoch: get().pourEpoch + 1, isPouring: false,
         pipetteSample: null,
         vessels,
@@ -3616,6 +3623,25 @@ export const useAppStore = create<AppState>((set, get) => {
       for (const arrival of arrivals) if (arrival.spilled_ml > 0) ppeService.handleChemicalSplash(arrival.sample.substances, arrival.sample.color);
       debounceSaveLocalState(get().vessels, get().burners);
       return arrivals;
+    },
+
+    transferDrySolid: (fromId, toId, mass_g) => {
+      const state = get(), source = state.vessels[fromId], receiver = state.vessels[toId];
+      if (!source || !receiver) return 0;
+      const transfer = transferDrySample(source, receiver, mass_g);
+      if (!transfer) return 0;
+      const heated = Object.values(state.burners).some(b => b.isOn
+        && Math.hypot(b.position[0] - receiver.position[0], b.position[2] - receiver.position[2]) < 1.5);
+      const result = reactAliquotMixture(transfer.receiver, state.language, heated);
+      set(s => {
+        const activeKinetics = { ...s.activeKinetics }, pendingReactions = { ...s.pendingReactions };
+        delete activeKinetics[toId]; delete pendingReactions[toId];
+        if (result.kinetics) activeKinetics[toId] = result.kinetics;
+        return { vessels: { ...s.vessels, [fromId]: transfer.source, [toId]: result.vessel },
+          activeKinetics, pendingReactions, selectedVesselId: toId, lastMixResult: result.mixResult };
+      });
+      debounceSaveLocalState(get().vessels, get().burners);
+      return transfer.mass_g;
     },
 
     transferLiquidContinuous: (fromId, toId, delta_ml, dropPos) => {

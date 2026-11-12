@@ -7,7 +7,9 @@
       "amcsdId": "0007351",
       "mineralName": "Cuprite · Cu₂O",
       "formula": "Cu2 O",
-      "spaceGroup": "P n 3",
+      "spaceGroup": "P n -3:1",
+      "spaceGroupOriginal": "P n 3",
+      "spaceGroupNumber": 201,
       "cell": {
         "a": 4.2696,
         "b": 4.2696,
@@ -45,6 +47,8 @@
       "mineralName": "Tenorite · CuO",
       "formula": "Cu O",
       "spaceGroup": "C 1 2/c 1",
+      "spaceGroupOriginal": "C 1 2/c 1",
+      "spaceGroupNumber": 15,
       "cell": {
         "a": 4.653,
         "b": 3.41,
@@ -82,7 +86,9 @@
       "amcsdId": "0009325",
       "mineralName": "Corundum · α-Al₂O₃",
       "formula": "Al2 O3",
-      "spaceGroup": "R -3 c",
+      "spaceGroup": "R -3 c:H",
+      "spaceGroupOriginal": "R -3 c",
+      "spaceGroupNumber": 167,
       "cell": {
         "a": 4.7602,
         "b": 4.7602,
@@ -120,7 +126,9 @@
       "amcsdId": "0000501",
       "mineralName": "Periclase · MgO",
       "formula": "Mg O",
-      "spaceGroup": "F m 3 m",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
       "cell": {
         "a": 4.211,
         "b": 4.211,
@@ -157,6 +165,8 @@
       "mineralName": "Zincite · ZnO",
       "formula": "Zn O",
       "spaceGroup": "P 63 m c",
+      "spaceGroupOriginal": "P 63 m c",
+      "spaceGroupNumber": 186,
       "cell": {
         "a": 3.2494,
         "b": 3.2494,
@@ -194,6 +204,8 @@
       "mineralName": "Portlandite · Ca(OH)₂",
       "formula": "Ca O2 H2",
       "spaceGroup": "P -3 m 1",
+      "spaceGroupOriginal": "P -3 m 1",
+      "spaceGroupNumber": 164,
       "cell": {
         "a": 3.5925,
         "b": 3.5925,
@@ -230,7 +242,9 @@
       "amcsdId": "0009441",
       "mineralName": "Nitratine · NaNO₃",
       "formula": "Na N O3",
-      "spaceGroup": "R -3 c",
+      "spaceGroup": "R -3 c:H",
+      "spaceGroupOriginal": "R -3 c",
+      "spaceGroupNumber": 167,
       "cell": {
         "a": 5.07,
         "b": 5.07,
@@ -268,6 +282,8 @@
       "mineralName": "KNO₃ · mẫu 25 °C",
       "formula": "K N O3",
       "spaceGroup": "P m c n",
+      "spaceGroupOriginal": "P m c n",
+      "spaceGroupNumber": 62,
       "cell": {
         "a": 5.4142,
         "b": 9.1659,
@@ -305,6 +321,8 @@
       "mineralName": "Sassolite · H₃BO₃",
       "formula": "B O3 H3",
       "spaceGroup": "P -1",
+      "spaceGroupOriginal": "P -1",
+      "spaceGroupNumber": 2,
       "cell": {
         "a": 7.0187,
         "b": 7.035,
@@ -343,6 +361,8 @@
       "mineralName": "Chalcanthite · CuSO₄·5H₂O",
       "formula": "Cu S O9 H10",
       "spaceGroup": "P -1",
+      "spaceGroupOriginal": "P -1",
+      "spaceGroupNumber": 2,
       "cell": {
         "a": 6.141,
         "b": 10.736,
@@ -379,7 +399,9 @@
       "amcsdId": "0000101",
       "mineralName": "Siderite · FeCO₃",
       "formula": "Fe C O3",
-      "spaceGroup": "R -3 c",
+      "spaceGroup": "R -3 c:H",
+      "spaceGroupOriginal": "R -3 c",
+      "spaceGroupNumber": 167,
       "cell": {
         "a": 4.6887,
         "b": 4.6887,
@@ -416,6 +438,8 @@
       "mineralName": "Cerussite · PbCO₃",
       "formula": "Pb C O3",
       "spaceGroup": "P m c n",
+      "spaceGroupOriginal": "P m c n",
+      "spaceGroupNumber": 62,
       "cell": {
         "a": 5.179,
         "b": 8.492,
@@ -457,6 +481,8 @@
       "mineralName": "Anglesite · PbSO₄",
       "formula": "Pb S O4",
       "spaceGroup": "P b n m",
+      "spaceGroupOriginal": "P b n m",
+      "spaceGroupNumber": 62,
       "cell": {
         "a": 6.9549,
         "b": 8.472,
@@ -496,6 +522,8 @@
       "mineralName": "Witherite · BaCO₃",
       "formula": "Ba C O3",
       "spaceGroup": "P m c n",
+      "spaceGroupOriginal": "P m c n",
+      "spaceGroupNumber": 62,
       "cell": {
         "a": 5.3126,
         "b": 8.8958,
@@ -532,6 +560,8 @@
       "mineralName": "Strontianite · SrCO₃",
       "formula": "Sr C O3",
       "spaceGroup": "P m c n",
+      "spaceGroupOriginal": "P m c n",
+      "spaceGroupNumber": 62,
       "cell": {
         "a": 5.09,
         "b": 8.358,
@@ -568,6 +598,8 @@
       "mineralName": "Massicot · β-PbO",
       "formula": "Pb O",
       "spaceGroup": "P b c m",
+      "spaceGroupOriginal": "P b c m",
+      "spaceGroupNumber": 57,
       "cell": {
         "a": 5.8931,
         "b": 5.4904,
@@ -603,7 +635,9 @@
       "amcsdId": "0011371",
       "mineralName": "Bunsenite · NiO",
       "formula": "Ni O",
-      "spaceGroup": "F m 3 m",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
       "cell": {
         "a": 4.1684,
         "b": 4.1684,
@@ -639,7 +673,9 @@
       "amcsdId": "0000103",
       "mineralName": "Otavite · CdCO₃",
       "formula": "Cd C O3",
-      "spaceGroup": "R -3 c",
+      "spaceGroup": "R -3 c:H",
+      "spaceGroupOriginal": "R -3 c",
+      "spaceGroupNumber": 167,
       "cell": {
         "a": 4.9204,
         "b": 4.9204,
@@ -676,6 +712,8 @@
       "mineralName": "Greenockite · CdS",
       "formula": "Cd S",
       "spaceGroup": "P 63 m c",
+      "spaceGroupOriginal": "P 63 m c",
+      "spaceGroupNumber": 186,
       "cell": {
         "a": 4.137,
         "b": 4.137,
@@ -713,6 +751,8 @@
       "mineralName": "Arcanite · K₂SO₄",
       "formula": "K2 S O4",
       "spaceGroup": "P n a m",
+      "spaceGroupOriginal": "P n a m",
+      "spaceGroupNumber": 62,
       "cell": {
         "a": 7.476,
         "b": 10.071,
@@ -748,7 +788,9 @@
       "amcsdId": "0005113",
       "mineralName": "Thenardite · Na₂SO₄",
       "formula": "Na2 S O4",
-      "spaceGroup": "F d d d",
+      "spaceGroup": "F d d d:2",
+      "spaceGroupOriginal": "F d d d",
+      "spaceGroupNumber": 70,
       "cell": {
         "a": 9.829,
         "b": 12.302,
@@ -786,6 +828,8 @@
       "mineralName": "Anhydrite · CaSO₄",
       "formula": "Ca S O4",
       "spaceGroup": "B b m m",
+      "spaceGroupOriginal": "B b m m",
+      "spaceGroupNumber": 63,
       "cell": {
         "a": 6.23,
         "b": 6.98,
@@ -822,6 +866,8 @@
       "mineralName": "Sellaite · MgF₂",
       "formula": "Mg F2",
       "spaceGroup": "P 42/m n m",
+      "spaceGroupOriginal": "P 42/m n m",
+      "spaceGroupNumber": 136,
       "cell": {
         "a": 4.625,
         "b": 4.625,
@@ -857,7 +903,9 @@
       "amcsdId": "0009251",
       "mineralName": "Villiaumite · NaF",
       "formula": "Na F",
-      "spaceGroup": "F m 3 m",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
       "cell": {
         "a": 4.634,
         "b": 4.634,
@@ -893,7 +941,9 @@
       "amcsdId": "0008276",
       "mineralName": "Lime · CaO",
       "formula": "Ca O",
-      "spaceGroup": "F m 3 m",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
       "cell": {
         "a": 4.815,
         "b": 4.815,
@@ -931,7 +981,9 @@
       "amcsdId": "0009258",
       "mineralName": "NaBr · rocksalt",
       "formula": "Na Br",
-      "spaceGroup": "F m 3 m",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
       "cell": {
         "a": 5.9738,
         "b": 5.9738,
@@ -967,7 +1019,9 @@
       "amcsdId": "0011995",
       "mineralName": "KBr · rocksalt",
       "formula": "K Br",
-      "spaceGroup": "F m 3 m",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
       "cell": {
         "a": 6.5847,
         "b": 6.5847,
@@ -1003,7 +1057,9 @@
       "amcsdId": "0011343",
       "mineralName": "LiCl · rocksalt",
       "formula": "Li Cl",
-      "spaceGroup": "F m 3 m",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
       "cell": {
         "a": 5.12954,
         "b": 5.12954,
@@ -1040,6 +1096,8 @@
       "mineralName": "Hydrophilite · CaCl₂",
       "formula": "Ca Cl2",
       "spaceGroup": "P n n m",
+      "spaceGroupOriginal": "P n n m",
+      "spaceGroupNumber": 58,
       "cell": {
         "a": 6.24,
         "b": 6.43,
@@ -1076,6 +1134,8 @@
       "mineralName": "Tolbachite · CuCl₂",
       "formula": "Cu Cl2",
       "spaceGroup": "C 1 2/m 1",
+      "spaceGroupOriginal": "C 1 2/m 1",
+      "spaceGroupNumber": 12,
       "cell": {
         "a": 6.9038,
         "b": 3.2995,
@@ -1112,7 +1172,9 @@
       "amcsdId": "0012857",
       "mineralName": "Molysite · FeCl₃",
       "formula": "Fe Cl3",
-      "spaceGroup": "R -3",
+      "spaceGroup": "R -3:H",
+      "spaceGroupOriginal": "R -3",
+      "spaceGroupNumber": 148,
       "cell": {
         "a": 6.065,
         "b": 6.065,
@@ -1151,6 +1213,8 @@
       "mineralName": "Salammoniac · NH₄Cl",
       "formula": "N H4 Cl",
       "spaceGroup": "P m -3 m",
+      "spaceGroupOriginal": "P m -3 m",
+      "spaceGroupNumber": 221,
       "cell": {
         "a": 3.86,
         "b": 3.86,
@@ -1187,6 +1251,8 @@
       "mineralName": "Lopezite · K₂Cr₂O₇",
       "formula": "K2 Cr2 O7",
       "spaceGroup": "P -1",
+      "spaceGroupOriginal": "P -1",
+      "spaceGroupNumber": 2,
       "cell": {
         "a": 7.42,
         "b": 13.399,
@@ -1223,6 +1289,8 @@
       "mineralName": "PbI₂ · kiểu CdI₂",
       "formula": "Pb I2",
       "spaceGroup": "P -3 m 1",
+      "spaceGroupOriginal": "P -3 m 1",
+      "spaceGroupNumber": 164,
       "cell": {
         "a": 4.555,
         "b": 4.555,
@@ -1259,6 +1327,8 @@
       "mineralName": "Chalcocyanite · CuSO₄",
       "formula": "Cu S O4",
       "spaceGroup": "P n m a",
+      "spaceGroupOriginal": "P n m a",
+      "spaceGroupNumber": 62,
       "cell": {
         "a": 8.409,
         "b": 6.709,
@@ -1295,7 +1365,9 @@
       "amcsdId": "0015197",
       "mineralName": "AgCl · Phase I",
       "formula": "Ag Cl",
-      "spaceGroup": "F m 3 m",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
       "cell": {
         "a": 5.5463,
         "b": 5.5463,
@@ -1332,7 +1404,9 @@
       "amcsdId": "0015213",
       "mineralName": "AgBr · Phase I",
       "formula": "Ag Br",
-      "spaceGroup": "F m 3 m",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
       "cell": {
         "a": 5.7721,
         "b": 5.7721,
@@ -1370,6 +1444,8 @@
       "mineralName": "AgI · Phase II",
       "formula": "Ag I",
       "spaceGroup": "P 63 m c",
+      "spaceGroupOriginal": "P 63 m c",
+      "spaceGroupNumber": 186,
       "cell": {
         "a": 4.599,
         "b": 4.599,
@@ -1400,8 +1476,4793 @@
       "cif": "/assets/periodic-table/crystals/chat-silver-iodide.cif",
       "model": "/assets/periodic-table/crystals/chat-silver-iodide.glb",
       "preview": "/assets/periodic-table/crystals/chat-silver-iodide.png"
+    },
+    {
+      "id": "chat-covellite",
+      "amcsdId": "0000534",
+      "mineralName": "Covellite · CuS",
+      "formula": "Cu S",
+      "spaceGroup": "P 63/m m c",
+      "spaceGroupOriginal": "P 63/m m c",
+      "spaceGroupNumber": 194,
+      "cell": {
+        "a": 3.7938,
+        "b": 3.7938,
+        "c": 16.341,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 203.68456791244034,
+      "siteCount": 12,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Evans H T",
+          "Konnert J A"
+        ],
+        "title": "Crystal structure refinement of covellite",
+        "journal": "American Mineralogist",
+        "year": 1976,
+        "volume": "61",
+        "pages": "996–1000"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Tinh chỉnh cấu trúc covellite; không thay bằng sulfide kiểu NaCl.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-covellite.json",
+      "cif": "/assets/periodic-table/crystals/chat-covellite.cif",
+      "model": "/assets/periodic-table/crystals/chat-covellite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-covellite.png"
+    },
+    {
+      "id": "chat-rhodochrosite",
+      "amcsdId": "0009891",
+      "mineralName": "Rhodochrosite · MnCO₃",
+      "formula": "Mn C O3",
+      "spaceGroup": "R -3 c:H",
+      "spaceGroupOriginal": "R -3 c",
+      "spaceGroupNumber": 167,
+      "cell": {
+        "a": 4.772,
+        "b": 4.772,
+        "c": 15.637,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 308.37910087736265,
+      "siteCount": 30,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Ishizawa N",
+          "Maslen E N",
+          "Streltsov V A",
+          "Streltsova N R"
+        ],
+        "title": "Electron density and optical anisotropy in rhombohedral carbonates.\n III. Synchrotron X-ray studies of CaCO3, MgCO3 and MnCO3\n Sample: Synchrotron data",
+        "journal": "Acta Crystallographica, Section B",
+        "year": 1995,
+        "volume": "51",
+        "pages": "929–939"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Dữ liệu nhiễu xạ synchrotron; pha carbonate rhombohedral.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-rhodochrosite.json",
+      "cif": "/assets/periodic-table/crystals/chat-rhodochrosite.cif",
+      "model": "/assets/periodic-table/crystals/chat-rhodochrosite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-rhodochrosite.png"
+    },
+    {
+      "id": "chat-smithsonite",
+      "amcsdId": "0000102",
+      "mineralName": "Smithsonite · ZnCO₃",
+      "formula": "Zn C O3",
+      "spaceGroup": "R -3 c:H",
+      "spaceGroupOriginal": "R -3 c",
+      "spaceGroupNumber": 167,
+      "cell": {
+        "a": 4.6528,
+        "b": 4.6528,
+        "c": 15.025,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 281.6915905768532,
+      "siteCount": 30,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Graf D L"
+        ],
+        "title": "Crystallographic tables for the rhombohedral carbonates",
+        "journal": "American Mineralogist",
+        "year": 1961,
+        "volume": "46",
+        "pages": "1283–1316"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản tổng hợp cấu trúc carbonate rhombohedral.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-smithsonite.json",
+      "cif": "/assets/periodic-table/crystals/chat-smithsonite.cif",
+      "model": "/assets/periodic-table/crystals/chat-smithsonite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-smithsonite.png"
+    },
+    {
+      "id": "chat-brucite",
+      "amcsdId": "0007912",
+      "mineralName": "Brucite · Mg(OH)₂",
+      "formula": "Mg O2 H2",
+      "spaceGroup": "P -3 m 1",
+      "spaceGroupOriginal": "P -3 m 1",
+      "spaceGroupNumber": 164,
+      "cell": {
+        "a": 3.14979,
+        "b": 3.14979,
+        "c": 4.7702,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 40.98551716464343,
+      "siteCount": 5,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Ferraris G",
+          "Catti M",
+          "Pavese A",
+          "Hull S"
+        ],
+        "title": "Static compression and H disorder in brucite, Mg(OH)2, to 11 GPa:\n a powder neutron diffraction study\n Sample: at P = 0.0001 GPa",
+        "journal": "Physics and Chemistry of Minerals",
+        "year": 1995,
+        "volume": "22",
+        "pages": "200–206"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Nhiễu xạ neutron; P = 0,0001 GPa; giữ mức bất trật tự hydrogen của nguồn.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-brucite.json",
+      "cif": "/assets/periodic-table/crystals/chat-brucite.cif",
+      "model": "/assets/periodic-table/crystals/chat-brucite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-brucite.png"
+    },
+    {
+      "id": "chat-troilite",
+      "amcsdId": "0004160",
+      "mineralName": "Troilite · FeS",
+      "formula": "Fe S",
+      "spaceGroup": "P -6 2 c",
+      "spaceGroupOriginal": "P -6 2 c",
+      "spaceGroupNumber": 190,
+      "cell": {
+        "a": 5.966,
+        "b": 5.966,
+        "c": 11.765,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 362.65115189758757,
+      "siteCount": 24,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Cisarova I",
+          "Skala R",
+          "Drabek M"
+        ],
+        "title": "Inversion twinning in troilite\n Sample: Synthetic",
+        "journal": "American Mineralogist",
+        "year": 2006,
+        "volume": "91",
+        "pages": "917–921"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Mẫu tổng hợp trong nghiên cứu song tinh; đây là troilite, không phải mọi pha FeS.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-troilite.json",
+      "cif": "/assets/periodic-table/crystals/chat-troilite.cif",
+      "model": "/assets/periodic-table/crystals/chat-troilite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-troilite.png"
+    },
+    {
+      "id": "chat-kalicinite",
+      "amcsdId": "0018502",
+      "mineralName": "Kalicinite · KHCO₃",
+      "formula": "K H C O3",
+      "spaceGroup": "P 1 21/a 1",
+      "spaceGroupOriginal": "P 1 21/a 1",
+      "spaceGroupNumber": 14,
+      "cell": {
+        "a": 15.1725,
+        "b": 5.6283,
+        "c": 3.711,
+        "alpha": 90.0,
+        "beta": 104.631,
+        "gamma": 90.0
+      },
+      "volume": 306.62595991451883,
+      "siteCount": 24,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Olovsson I",
+          "Tellgren R",
+          "Thomas J O"
+        ],
+        "title": "Hydrogen-bond studies. LXXXIV. An X-ray diffraction study\n of the structures of KHCO3 and KDCO3 at 298, 219 and 95 K\n Note: T = 298 K",
+        "journal": "Acta Crystallographica, Section B",
+        "year": 1974,
+        "volume": "30",
+        "pages": "1155–1166"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Mẫu hydrogen đo ở 298 K; không dùng mẫu thay thế deuterium.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-kalicinite.json",
+      "cif": "/assets/periodic-table/crystals/chat-kalicinite.cif",
+      "model": "/assets/periodic-table/crystals/chat-kalicinite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-kalicinite.png"
+    },
+    {
+      "id": "chat-millerite",
+      "amcsdId": "0005097",
+      "mineralName": "Millerite · β-NiS",
+      "formula": "Ni S",
+      "spaceGroup": "R 3 m:H",
+      "spaceGroupOriginal": "R 3 m",
+      "spaceGroupNumber": 160,
+      "cell": {
+        "a": 9.6071,
+        "b": 9.6071,
+        "c": 3.1434,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 251.2551099647147,
+      "siteCount": 18,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Grice J D",
+          "Ferguson R B"
+        ],
+        "title": "Crystal structure refinement of millerite (B-NiS)",
+        "journal": "The Canadian Mineralogist",
+        "year": 1974,
+        "volume": "12",
+        "pages": "248–252"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Tinh chỉnh millerite; không đồng nhất với pha NiS lục phương.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-millerite.json",
+      "cif": "/assets/periodic-table/crystals/chat-millerite.cif",
+      "model": "/assets/periodic-table/crystals/chat-millerite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-millerite.png"
+    },
+    {
+      "id": "chat-melanterite",
+      "amcsdId": "0010353",
+      "mineralName": "Melanterite · FeSO₄·7H₂O · 120 K",
+      "formula": "Fe S O11 H14",
+      "spaceGroup": "P 1 21/c 1",
+      "spaceGroupOriginal": "P 1 21/c 1",
+      "spaceGroupNumber": 14,
+      "cell": {
+        "a": 13.9969,
+        "b": 6.4803,
+        "c": 11.0211,
+        "alpha": 90.0,
+        "beta": 105.5959,
+        "gamma": 90.0
+      },
+      "volume": 962.8534384568301,
+      "siteCount": 108,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Fronczek F R",
+          "Collins S N",
+          "Chan J Y"
+        ],
+        "title": "Refinement of ferrous sulfate heptahydrate (melanterite) with\n low-temperature CCD data\n Note: T = 120 K",
+        "journal": "Acta Crystallographica, Section E",
+        "year": 2001,
+        "volume": "57",
+        "pages": "i26–i27"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Mẫu CCD nhiệt độ thấp 120 K; không dùng cho sulfate khan.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-melanterite.json",
+      "cif": "/assets/periodic-table/crystals/chat-melanterite.cif",
+      "model": "/assets/periodic-table/crystals/chat-melanterite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-melanterite.png"
+    },
+    {
+      "id": "chat-tuite",
+      "amcsdId": "0007447",
+      "mineralName": "Tuite · Ca₃(PO₄)₂",
+      "formula": "Ca3 P2 O8",
+      "spaceGroup": "R -3 m:H",
+      "spaceGroupOriginal": "R -3 m",
+      "spaceGroupNumber": 166,
+      "cell": {
+        "a": 5.2487,
+        "b": 5.2487,
+        "c": 18.6735,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 445.51246399804995,
+      "siteCount": 39,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Sugiyama K",
+          "Tokonami M"
+        ],
+        "title": "Structure and crystal chemistry of a dense polymorph of\n tricalcium phosphate Ca3(PO4)2: a host to accommodate\n large lithophile elements in the Earth's mantle",
+        "journal": "Physics and Chemistry of Minerals",
+        "year": 1987,
+        "volume": "15",
+        "pages": "125–130"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Đa hình đặc sít áp suất cao; không gán như pha beta-tricalcium phosphate ở điều kiện phòng.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-tuite.json",
+      "cif": "/assets/periodic-table/crystals/chat-tuite.cif",
+      "model": "/assets/periodic-table/crystals/chat-tuite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-tuite.png"
+    },
+    {
+      "id": "chat-alabandite",
+      "amcsdId": "0007512",
+      "mineralName": "Alabandite · α-MnS",
+      "formula": "Mn S",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
+      "cell": {
+        "a": 5.2245,
+        "b": 5.2245,
+        "c": 5.2245,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 142.604818606125,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "McCammon C A"
+        ],
+        "title": "Static compression of alpha-MnS at 298 K to 21 GPa\n Sample: P = O GPa",
+        "journal": "Physics and Chemistry of Minerals",
+        "year": 1991,
+        "volume": "17",
+        "pages": "636–641"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Mẫu 298 K, P = 0 GPa trong nghiên cứu nén tĩnh.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-alabandite.json",
+      "cif": "/assets/periodic-table/crystals/chat-alabandite.cif",
+      "model": "/assets/periodic-table/crystals/chat-alabandite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-alabandite.png"
+    },
+    {
+      "id": "chat-manganosite",
+      "amcsdId": "0008240",
+      "mineralName": "Manganosite · MnO",
+      "formula": "Mn O",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
+      "cell": {
+        "a": 4.4459,
+        "b": 4.4459,
+        "c": 4.4459,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 87.877778594579,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Zhang J"
+        ],
+        "title": "Room temperature compressibilities of MnO and CdO: further\n examination of the role of cation type in bulk modulus systematics\n Sample from Run #1: P = 0.00 GPa at beginning of experiment",
+        "journal": "Physics and Chemistry of Minerals",
+        "year": 1999,
+        "volume": "26",
+        "pages": "644–648"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Mẫu bắt đầu thí nghiệm ở nhiệt độ phòng, P = 0,00 GPa.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-manganosite.json",
+      "cif": "/assets/periodic-table/crystals/chat-manganosite.cif",
+      "model": "/assets/periodic-table/crystals/chat-manganosite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-manganosite.png"
+    },
+    {
+      "id": "chat-monteponite",
+      "amcsdId": "0008253",
+      "mineralName": "Monteponite · CdO",
+      "formula": "Cd O",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
+      "cell": {
+        "a": 4.6963,
+        "b": 4.6963,
+        "c": 4.6963,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 103.57799397834698,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Zhang J"
+        ],
+        "title": "Room temperature compressibilities of MnO and CdO: further\n examination of the role of cation type in bulk modulus systematics\n Sample from Run #1: P = 0.00 GPa at beginning of experiment",
+        "journal": "Physics and Chemistry of Minerals",
+        "year": 1999,
+        "volume": "26",
+        "pages": "644–648"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Mẫu bắt đầu thí nghiệm ở nhiệt độ phòng, P = 0,00 GPa.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-monteponite.json",
+      "cif": "/assets/periodic-table/crystals/chat-monteponite.cif",
+      "model": "/assets/periodic-table/crystals/chat-monteponite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-monteponite.png"
+    },
+    {
+      "id": "chat-solid-sulfur-dioxide",
+      "amcsdId": "0009146",
+      "mineralName": "SO₂ rắn · −130 °C",
+      "formula": "S O2",
+      "spaceGroup": "A b a 2",
+      "spaceGroupOriginal": "A b a 2",
+      "spaceGroupNumber": 41,
+      "cell": {
+        "a": 6.07,
+        "b": 5.94,
+        "c": 6.14,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 221.38261200000002,
+      "siteCount": 12,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Post B",
+          "Schwartz R S",
+          "Fankuchen I"
+        ],
+        "title": "The crystal structure of sulfur dioxide\n Sample: T = -130 C",
+        "journal": "Acta Crystallographica",
+        "year": 1952,
+        "volume": "5",
+        "pages": "372–374"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Cấu trúc pha rắn đo ở −130 °C; không phải trạng thái khí ở điều kiện phòng.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-solid-sulfur-dioxide.json",
+      "cif": "/assets/periodic-table/crystals/chat-solid-sulfur-dioxide.cif",
+      "model": "/assets/periodic-table/crystals/chat-solid-sulfur-dioxide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-solid-sulfur-dioxide.png"
+    },
+    {
+      "id": "chat-polymeric-sulfur-trioxide",
+      "amcsdId": "0009159",
+      "mineralName": "SO₃ rắn · dạng polymer",
+      "formula": "S O3",
+      "spaceGroup": "P 1 21/c 1",
+      "spaceGroupOriginal": "P 1 21/c 1",
+      "spaceGroupNumber": 14,
+      "cell": {
+        "a": 6.2,
+        "b": 4.06,
+        "c": 9.31,
+        "alpha": 90.0,
+        "beta": 109.83,
+        "gamma": 90.0
+      },
+      "volume": 220.45505474674076,
+      "siteCount": 16,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "MacGillavry C H",
+          "Westrik R"
+        ],
+        "title": "The crystal structure of the asbestos-like form of sulphur trioxide",
+        "journal": "Acta Crystallographica",
+        "year": 1954,
+        "volume": "7",
+        "pages": "764–767"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Dạng sợi polymer của sulfur trioxide; không mô tả một phân tử SO3 tự do.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-polymeric-sulfur-trioxide.json",
+      "cif": "/assets/periodic-table/crystals/chat-polymeric-sulfur-trioxide.cif",
+      "model": "/assets/periodic-table/crystals/chat-polymeric-sulfur-trioxide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-polymeric-sulfur-trioxide.png"
+    },
+    {
+      "id": "chat-zincosite",
+      "amcsdId": "0014620",
+      "mineralName": "Zincosite · ZnSO₄",
+      "formula": "Zn S O4",
+      "spaceGroup": "P n m a",
+      "spaceGroupOriginal": "P n m a",
+      "spaceGroupNumber": 62,
+      "cell": {
+        "a": 8.604,
+        "b": 6.746,
+        "c": 4.774,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 277.09529601599996,
+      "siteCount": 24,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Giester G",
+          "Wildner M"
+        ],
+        "title": "Crystal structure refinements of synthetic\n chalcocyanite (CuSO4) and zincosite (ZnSO4)",
+        "journal": "Mineralogy and Petrology",
+        "year": 1988,
+        "volume": "39",
+        "pages": "201–209"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Tinh chỉnh ZnSO4 khan; không thay cho sulfate ngậm nước.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-zincosite.json",
+      "cif": "/assets/periodic-table/crystals/chat-zincosite.cif",
+      "model": "/assets/periodic-table/crystals/chat-zincosite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-zincosite.png"
+    },
+    {
+      "id": "chat-magnesium-sulfate",
+      "amcsdId": "0009211",
+      "mineralName": "MgSO₄ khan",
+      "formula": "Mg S O4",
+      "spaceGroup": "C m c m",
+      "spaceGroupOriginal": "C m c m",
+      "spaceGroupNumber": 63,
+      "cell": {
+        "a": 5.182,
+        "b": 7.893,
+        "c": 6.506,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 266.10532815600004,
+      "siteCount": 24,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Rentzeperis P",
+          "Soldatos C"
+        ],
+        "title": "The crystal structure of the anhydrous magnesium sulfate\n _cod_database_code 1000027",
+        "journal": "Acta Crystallographica",
+        "year": 1958,
+        "volume": "11",
+        "pages": "686–688"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản cấu trúc sulfate magnesium khan; không dùng bản ghi MgSO3·H2O cùng kết quả tìm kiếm.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-magnesium-sulfate.json",
+      "cif": "/assets/periodic-table/crystals/chat-magnesium-sulfate.cif",
+      "model": "/assets/periodic-table/crystals/chat-magnesium-sulfate.glb",
+      "preview": "/assets/periodic-table/crystals/chat-magnesium-sulfate.png"
+    },
+    {
+      "id": "chat-nahcolite",
+      "amcsdId": "0017923",
+      "mineralName": "Nahcolite · NaHCO₃",
+      "formula": "Na C O3 H",
+      "spaceGroup": "P 1 21/n 1",
+      "spaceGroupOriginal": "P 1 21/n 1",
+      "spaceGroupNumber": 14,
+      "cell": {
+        "a": 7.51,
+        "b": 9.7,
+        "c": 3.53,
+        "alpha": 90.0,
+        "beta": 93.32,
+        "gamma": 90.0
+      },
+      "volume": 256.71832557445356,
+      "siteCount": 24,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Zachariasen W"
+        ],
+        "title": "The Crystal Lattice of Sodium Bicarbonate, Na H C O3\n _cod_database_code 1011016",
+        "journal": "Journal of Chemical Physics",
+        "year": 1933,
+        "volume": "1",
+        "pages": "634–639"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản cấu trúc đầy đủ H, C, O, Na; loại bản ghi 9267 thiếu tọa độ hydrogen.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-nahcolite.json",
+      "cif": "/assets/periodic-table/crystals/chat-nahcolite.cif",
+      "model": "/assets/periodic-table/crystals/chat-nahcolite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-nahcolite.png"
+    },
+    {
+      "id": "chat-crocoite",
+      "amcsdId": "0009297",
+      "mineralName": "Crocoite · PbCrO₄",
+      "formula": "Pb Cr O4",
+      "spaceGroup": "P 1 21/n 1",
+      "spaceGroupOriginal": "P 1 21/n 1",
+      "spaceGroupNumber": 14,
+      "cell": {
+        "a": 7.12,
+        "b": 7.43,
+        "c": 6.79,
+        "alpha": 90.0,
+        "beta": 102.42,
+        "gamma": 90.0
+      },
+      "volume": 350.7955569106223,
+      "siteCount": 24,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "De Pieri R",
+          "Quareni S"
+        ],
+        "title": "A three-dimensional refinement of the structure of crocoite, PbCrO4",
+        "journal": "Acta Crystallographica",
+        "year": 1965,
+        "volume": "19",
+        "pages": "287–289"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản tinh chỉnh ba chiều; không dùng mẫu nhiệt độ cao 1073 K.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-crocoite.json",
+      "cif": "/assets/periodic-table/crystals/chat-crocoite.cif",
+      "model": "/assets/periodic-table/crystals/chat-crocoite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-crocoite.png"
+    },
+    {
+      "id": "chat-retgersite",
+      "amcsdId": "0009870",
+      "mineralName": "Retgersite · NiSO₄·6H₂O · 25 K",
+      "formula": "Ni S O10 H12",
+      "spaceGroup": "P 43 21 2",
+      "spaceGroupOriginal": "P 43 21 2",
+      "spaceGroupNumber": 96,
+      "cell": {
+        "a": 6.7778,
+        "b": 6.7778,
+        "c": 18.176,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 834.9794999398399,
+      "siteCount": 96,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Olovsson I",
+          "McIntyre G J",
+          "Ptasiewicz-Bak H"
+        ],
+        "title": "Bonding deformation and superposition in the\n electron density of tetragonal NiSO4*6H2O at 25K\n Sample: T = 25 K, neutron refinement\n Note: anisoU's from ICSD",
+        "journal": "Acta Crystallographica, Section B",
+        "year": 1993,
+        "volume": "49",
+        "pages": "192–201"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Tinh chỉnh neutron 25 K; không thay bằng sulfate khan hoặc mẫu thiếu H.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-retgersite.json",
+      "cif": "/assets/periodic-table/crystals/chat-retgersite.cif",
+      "model": "/assets/periodic-table/crystals/chat-retgersite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-retgersite.png"
+    },
+    {
+      "id": "chat-acetamide",
+      "amcsdId": "0019020",
+      "mineralName": "Acetamide · 23 K",
+      "formula": "C2 H5 O N",
+      "spaceGroup": "R 3 c:H",
+      "spaceGroupOriginal": "R 3 c",
+      "spaceGroupNumber": 161,
+      "cell": {
+        "a": 11.513,
+        "b": 11.513,
+        "c": 12.883,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 1478.85177798899,
+      "siteCount": 162,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "McMullan R K",
+          "Jeffrey G A",
+          "Ruble J R",
+          "DeFrees D J",
+          "Binkley J S",
+          "Pople J A"
+        ],
+        "title": "Neutron diffraction at 23 K and ab initio molecular-orbital studies of\n molecular structure of acetamide\n Note: T = 23 K",
+        "journal": "Acta Crystallographica, Section B",
+        "year": 1980,
+        "volume": "36",
+        "pages": "2292–2299"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Nhiễu xạ neutron 23 K của đúng acetamide; không áp theo công thức cho một đồng phân khác.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-acetamide.json",
+      "cif": "/assets/periodic-table/crystals/chat-acetamide.cif",
+      "model": "/assets/periodic-table/crystals/chat-acetamide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-acetamide.png"
+    },
+    {
+      "id": "chat-tarapacaite",
+      "amcsdId": "0009457",
+      "mineralName": "Tarapacaite · K₂CrO₄",
+      "formula": "K2 Cr O4",
+      "spaceGroup": "P n a m",
+      "spaceGroupOriginal": "P n a m",
+      "spaceGroupNumber": 62,
+      "cell": {
+        "a": 7.663,
+        "b": 10.388,
+        "c": 5.922,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 471.410410968,
+      "siteCount": 28,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "McGinnety J A"
+        ],
+        "title": "Redetermination of the structures of potassium sulphate and potassium chromate:\n the effect of electrostatic crystal forces upon observed bond length",
+        "journal": "Acta Crystallographica, Section B",
+        "year": 1972,
+        "volume": "28",
+        "pages": "2845–2852"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản xác định lại cấu trúc potassium chromate; không nhầm với dichromate.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-tarapacaite.json",
+      "cif": "/assets/periodic-table/crystals/chat-tarapacaite.cif",
+      "model": "/assets/periodic-table/crystals/chat-tarapacaite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-tarapacaite.png"
+    },
+    {
+      "id": "chat-silver-carbonate",
+      "amcsdId": "0009670",
+      "mineralName": "Ag₂CO₃",
+      "formula": "Ag2 O3 C",
+      "spaceGroup": "P 1 21/m 1",
+      "spaceGroupOriginal": "P 1 21/m 1",
+      "spaceGroupNumber": 11,
+      "cell": {
+        "a": 4.852,
+        "b": 9.553,
+        "c": 3.255,
+        "alpha": 90.0,
+        "beta": 91.96,
+        "gamma": 90.0
+      },
+      "volume": 150.78474420954913,
+      "siteCount": 12,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Durif A",
+          "Guitel J",
+          "Masse R"
+        ],
+        "title": "Structure du carbonate d'argent\n _cod_database_code 1007035",
+        "journal": "Acta Crystallographica, Section B",
+        "year": 1979,
+        "volume": "35",
+        "pages": "1428–1429"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản cấu trúc silver carbonate có tọa độ; không dựng bằng mẫu muối ion bất kỳ.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-silver-carbonate.json",
+      "cif": "/assets/periodic-table/crystals/chat-silver-carbonate.cif",
+      "model": "/assets/periodic-table/crystals/chat-silver-carbonate.glb",
+      "preview": "/assets/periodic-table/crystals/chat-silver-carbonate.png"
+    },
+    {
+      "id": "chat-dry-ice",
+      "amcsdId": "0009722",
+      "mineralName": "CO₂ rắn · 150 K",
+      "formula": "C O2",
+      "spaceGroup": "P a -3",
+      "spaceGroupOriginal": "P a 3",
+      "spaceGroupNumber": 205,
+      "cell": {
+        "a": 5.624,
+        "b": 5.624,
+        "c": 5.624,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 177.88361062399997,
+      "siteCount": 12,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Simon A",
+          "Peters K"
+        ],
+        "title": "Single-crystal refinement of the structure of carbon dioxide\n Sample: T = 150 K",
+        "journal": "Acta Crystallographica, Section B",
+        "year": 1980,
+        "volume": "36",
+        "pages": "2750–2751"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Tinh chỉnh đơn tinh thể ở 150 K; đây là pha rắn, không phải CO2 khí ở điều kiện phòng.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-dry-ice.json",
+      "cif": "/assets/periodic-table/crystals/chat-dry-ice.cif",
+      "model": "/assets/periodic-table/crystals/chat-dry-ice.glb",
+      "preview": "/assets/periodic-table/crystals/chat-dry-ice.png"
+    },
+    {
+      "id": "chat-natrite",
+      "amcsdId": "0014917",
+      "mineralName": "Natrite · γ-Na₂CO₃",
+      "formula": "Na2 C O3",
+      "spaceGroup": "C 1 2/m 1",
+      "spaceGroupOriginal": "C 1 2/m 1",
+      "spaceGroupNumber": 12,
+      "cell": {
+        "a": 8.905,
+        "b": 5.237,
+        "c": 6.045,
+        "alpha": 90.0,
+        "beta": 101.32,
+        "gamma": 90.0
+      },
+      "volume": 276.4272569503214,
+      "siteCount": 24,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Ferraris G",
+          "Ivaldi G",
+          "Zubkova N V",
+          "Pushcharovsky D Y",
+          "Pekov I V",
+          "Chukanov N V"
+        ],
+        "title": "Crystal structure of natrite, gamma-Na2CO3",
+        "journal": "Neues Jahrbuch fur Mineralogie, Monatshefte",
+        "year": 2002,
+        "volume": "2002",
+        "pages": "85–96"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Giữ cấu trúc tuần hoàn của bản ghi gamma; không khôi phục điều biến ngoài dữ liệu nguồn.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-natrite.json",
+      "cif": "/assets/periodic-table/crystals/chat-natrite.cif",
+      "model": "/assets/periodic-table/crystals/chat-natrite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-natrite.png"
+    },
+    {
+      "id": "chat-barium-nitrate",
+      "amcsdId": "0010639",
+      "mineralName": "Ba(NO₃)₂",
+      "formula": "Ba N2 O6",
+      "spaceGroup": "P 21 3",
+      "spaceGroupOriginal": "P 21 3",
+      "spaceGroupNumber": 198,
+      "cell": {
+        "a": 8.126,
+        "b": 8.126,
+        "c": 8.126,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 536.575024376,
+      "siteCount": 36,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Birnstock R"
+        ],
+        "title": "Erneute strukturbestimmung von bariumnitrat mit neutronenbeugung",
+        "journal": "Zeitschrift fur Kristallographie",
+        "year": 1967,
+        "volume": "124",
+        "pages": "310–334"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Tinh chỉnh cấu trúc bằng neutron; giữ các điều kiện có trong bản ghi.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-barium-nitrate.json",
+      "cif": "/assets/periodic-table/crystals/chat-barium-nitrate.cif",
+      "model": "/assets/periodic-table/crystals/chat-barium-nitrate.glb",
+      "preview": "/assets/periodic-table/crystals/chat-barium-nitrate.png"
+    },
+    {
+      "id": "chat-strontium-nitrate",
+      "amcsdId": "0009979",
+      "mineralName": "Sr(NO₃)₂",
+      "formula": "Sr N2 O6",
+      "spaceGroup": "P a -3",
+      "spaceGroupOriginal": "P a 3",
+      "spaceGroupNumber": 205,
+      "cell": {
+        "a": 7.7813,
+        "b": 7.7813,
+        "c": 7.7813,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 471.14705220679696,
+      "siteCount": 36,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Heger G",
+          "Nowotny H"
+        ],
+        "title": "Structure refinement of strontium nitrate, Sr(NO3)2, and barium nitrate, Ba(NO3)2",
+        "journal": "Acta Crystallographica, Section C",
+        "year": 1983,
+        "volume": "39",
+        "pages": "952–956"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản tinh chỉnh strontium nitrate; không thay bằng nitrate kim loại khác.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-strontium-nitrate.json",
+      "cif": "/assets/periodic-table/crystals/chat-strontium-nitrate.cif",
+      "model": "/assets/periodic-table/crystals/chat-strontium-nitrate.glb",
+      "preview": "/assets/periodic-table/crystals/chat-strontium-nitrate.png"
+    },
+    {
+      "id": "chat-spertiniite",
+      "amcsdId": "0010212",
+      "mineralName": "Spertiniite · Cu(OH)₂",
+      "formula": "Cu O2 H2",
+      "spaceGroup": "C m c 21",
+      "spaceGroupOriginal": "C m c 21",
+      "spaceGroupNumber": 36,
+      "cell": {
+        "a": 2.9471,
+        "b": 10.593,
+        "c": 5.2564,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 164.09760830892,
+      "siteCount": 20,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Oswald H R",
+          "Reller A",
+          "Schmalle H W",
+          "Dubler E"
+        ],
+        "title": "Structure of copper(II) hydroxide, Cu(OH)2",
+        "journal": "Acta Crystallographica, Section C",
+        "year": 1990,
+        "volume": "46",
+        "pages": "2279–2284"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản cấu trúc copper(II) hydroxide; không thay bằng oxit CuO.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-spertiniite.json",
+      "cif": "/assets/periodic-table/crystals/chat-spertiniite.cif",
+      "model": "/assets/periodic-table/crystals/chat-spertiniite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-spertiniite.png"
+    },
+    {
+      "id": "chat-ferrous-sulfate-beta",
+      "amcsdId": "0010479",
+      "mineralName": "β-FeSO₄ · pha nhiệt độ cao",
+      "formula": "Fe S O4",
+      "spaceGroup": "P n m a",
+      "spaceGroupOriginal": "P n m a",
+      "spaceGroupNumber": 62,
+      "cell": {
+        "a": 8.7042,
+        "b": 6.8013,
+        "c": 4.7868,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 283.37796385192803,
+      "siteCount": 24,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Weil M"
+        ],
+        "title": "The high-temperature beta modification of iron(II) sulfate",
+        "journal": "Acta Crystallographica, Section E",
+        "year": 2007,
+        "volume": "63",
+        "pages": "i192–i192"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Pha beta nhiệt độ cao được nêu trong tiêu đề nguồn; không tự gán là pha ổn định ở 25 °C.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-ferrous-sulfate-beta.json",
+      "cif": "/assets/periodic-table/crystals/chat-ferrous-sulfate-beta.cif",
+      "model": "/assets/periodic-table/crystals/chat-ferrous-sulfate-beta.glb",
+      "preview": "/assets/periodic-table/crystals/chat-ferrous-sulfate-beta.png"
+    },
+    {
+      "id": "chat-nickel-bromide",
+      "amcsdId": "0010514",
+      "mineralName": "NiBr₂ khan",
+      "formula": "Ni Br2",
+      "spaceGroup": "R -3 m:H",
+      "spaceGroupOriginal": "R -3 m",
+      "spaceGroupNumber": 166,
+      "cell": {
+        "a": 3.723,
+        "b": 3.723,
+        "c": 18.34,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 220.1486544873406,
+      "siteCount": 9,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Ketelaar J A A"
+        ],
+        "title": "Die kristallstruktur des nickelbromids und -jodids",
+        "journal": "Zeitschrift fur Kristallographie",
+        "year": 1934,
+        "volume": "88",
+        "pages": "26–34"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản xác định cấu trúc nickel bromide; giữ cách xếp lớp của nguồn.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-nickel-bromide.json",
+      "cif": "/assets/periodic-table/crystals/chat-nickel-bromide.cif",
+      "model": "/assets/periodic-table/crystals/chat-nickel-bromide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-nickel-bromide.png"
+    },
+    {
+      "id": "chat-nickel-iodide",
+      "amcsdId": "0010515",
+      "mineralName": "NiI₂ khan",
+      "formula": "Ni I2",
+      "spaceGroup": "R -3 m:H",
+      "spaceGroupOriginal": "R -3 m",
+      "spaceGroupNumber": 166,
+      "cell": {
+        "a": 3.903,
+        "b": 3.903,
+        "c": 19.67,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 259.4968522752914,
+      "siteCount": 9,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Ketelaar J A A"
+        ],
+        "title": "Die kristallstruktur des nickelbromids und -jodids",
+        "journal": "Zeitschrift fur Kristallographie",
+        "year": 1934,
+        "volume": "88",
+        "pages": "26–34"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản xác định cấu trúc nickel iodide; không suy loại mạng từ công thức.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-nickel-iodide.json",
+      "cif": "/assets/periodic-table/crystals/chat-nickel-iodide.cif",
+      "model": "/assets/periodic-table/crystals/chat-nickel-iodide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-nickel-iodide.png"
+    },
+    {
+      "id": "chat-potassium-sulfide",
+      "amcsdId": "0010530",
+      "mineralName": "K₂S",
+      "formula": "S K2",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
+      "cell": {
+        "a": 7.35,
+        "b": 7.35,
+        "c": 7.35,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 397.06537499999996,
+      "siteCount": 12,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "West C D"
+        ],
+        "title": "The crystal structures of some alkali hydrosulfides and monosulfides",
+        "journal": "Zeitschrift fur Kristallographie",
+        "year": 1934,
+        "volume": "88",
+        "pages": "97–115"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản nghiên cứu alkali monosulfides; không nhầm hydrosulfide KHS.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-potassium-sulfide.json",
+      "cif": "/assets/periodic-table/crystals/chat-potassium-sulfide.cif",
+      "model": "/assets/periodic-table/crystals/chat-potassium-sulfide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-potassium-sulfide.png"
+    },
+    {
+      "id": "chat-cobalt-chloride",
+      "amcsdId": "0010531",
+      "mineralName": "CoCl₂ khan",
+      "formula": "Co Cl2",
+      "spaceGroup": "R -3 m:R",
+      "spaceGroupOriginal": "R -3 m",
+      "spaceGroupNumber": 166,
+      "cell": {
+        "a": 6.16,
+        "b": 6.16,
+        "c": 6.16,
+        "alpha": 33.43,
+        "beta": 33.43,
+        "gamma": 33.43
+      },
+      "volume": 63.17829407758747,
+      "siteCount": 3,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Grime H",
+          "Santos J A"
+        ],
+        "title": "The structure and colour of anhydrous cobalt chloride, CoCl2,\n at room and very low temperatures",
+        "journal": "Zeitschrift fur Kristallographie",
+        "year": 1934,
+        "volume": "88",
+        "pages": "136–141"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản nghiên cứu cấu trúc và màu CoCl2; không dùng cho CoCl2·6H2O.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-cobalt-chloride.json",
+      "cif": "/assets/periodic-table/crystals/chat-cobalt-chloride.cif",
+      "model": "/assets/periodic-table/crystals/chat-cobalt-chloride.glb",
+      "preview": "/assets/periodic-table/crystals/chat-cobalt-chloride.png"
+    },
+    {
+      "id": "chat-ammonium-nitrate-v",
+      "amcsdId": "0010592",
+      "mineralName": "NH₄NO₃ · pha V · −150 °C",
+      "formula": "N2 O3 H4",
+      "spaceGroup": "P 42",
+      "spaceGroupOriginal": "P 42",
+      "spaceGroupNumber": 77,
+      "cell": {
+        "a": 7.98,
+        "b": 7.98,
+        "c": 9.78,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 622.794312,
+      "siteCount": 72,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Amoros J L",
+          "Arrese F",
+          "Canut M"
+        ],
+        "title": "The crystal structure of the low-temperature phase of NH4NO3(V) at -150 deg C\n Note: sample at T = -150 C, this is a low temperature form",
+        "journal": "Zeitschrift fur Kristallographie",
+        "year": 1962,
+        "volume": "117",
+        "pages": "92–107"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Pha V nhiệt độ thấp −150 °C; không trình bày như cấu trúc ở điều kiện phòng.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-ammonium-nitrate-v.json",
+      "cif": "/assets/periodic-table/crystals/chat-ammonium-nitrate-v.cif",
+      "model": "/assets/periodic-table/crystals/chat-ammonium-nitrate-v.glb",
+      "preview": "/assets/periodic-table/crystals/chat-ammonium-nitrate-v.png"
+    },
+    {
+      "id": "chat-eskolaite",
+      "amcsdId": "0010596",
+      "mineralName": "Eskolaite · Cr₂O₃",
+      "formula": "Cr2 O3",
+      "spaceGroup": "R -3 c:H",
+      "spaceGroupOriginal": "R -3 c",
+      "spaceGroupNumber": 167,
+      "cell": {
+        "a": 4.9607,
+        "b": 4.9607,
+        "c": 13.599,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 289.81678400291577,
+      "siteCount": 30,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Newnham R E",
+          "de Haan Y M"
+        ],
+        "title": "Refinement of the alpha Al2O3, Ti2O3, V2O3 and Cr2O3 structures",
+        "journal": "Zeitschrift fur Kristallographie",
+        "year": 1962,
+        "volume": "117",
+        "pages": "235–237"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản tinh chỉnh cấu trúc oxide; không dùng mẫu dung dịch rắn Al-Cr.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-eskolaite.json",
+      "cif": "/assets/periodic-table/crystals/chat-eskolaite.cif",
+      "model": "/assets/periodic-table/crystals/chat-eskolaite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-eskolaite.png"
+    },
+    {
+      "id": "chat-tin-sulfate",
+      "amcsdId": "0010603",
+      "mineralName": "SnSO₄ khan",
+      "formula": "Sn S O4",
+      "spaceGroup": "P n m a",
+      "spaceGroupOriginal": "P n m a",
+      "spaceGroupNumber": 62,
+      "cell": {
+        "a": 8.799,
+        "b": 5.319,
+        "c": 7.115,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 332.99538331499997,
+      "siteCount": 24,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Rentzeperis P J"
+        ],
+        "title": "The crystal structure of the anhydrous stannous sulphate",
+        "journal": "Zeitschrift fur Kristallographie",
+        "year": 1962,
+        "volume": "117",
+        "pages": "431–436"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản cấu trúc stannous sulfate khan.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-tin-sulfate.json",
+      "cif": "/assets/periodic-table/crystals/chat-tin-sulfate.cif",
+      "model": "/assets/periodic-table/crystals/chat-tin-sulfate.glb",
+      "preview": "/assets/periodic-table/crystals/chat-tin-sulfate.png"
+    },
+    {
+      "id": "chat-strontium-iodide",
+      "amcsdId": "0010679",
+      "mineralName": "SrI₂ khan",
+      "formula": "Sr I2",
+      "spaceGroup": "P b c a",
+      "spaceGroupOriginal": "P b c a",
+      "spaceGroupNumber": 61,
+      "cell": {
+        "a": 15.22,
+        "b": 8.22,
+        "c": 7.9,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 988.3563600000002,
+      "siteCount": 24,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Barnighausen H",
+          "Beck H",
+          "Grueninger H W",
+          "Rietschel E T",
+          "Schultz N"
+        ],
+        "title": "Neue AB2-strukturtypen mit siebenfach koordiniertem kation",
+        "journal": "Zeitschrift fur Kristallographie",
+        "year": 1969,
+        "volume": "128",
+        "pages": "430–430"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Giữ cấu trúc phối trí bảy của bản ghi; không thay bằng mẫu fluorite.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-strontium-iodide.json",
+      "cif": "/assets/periodic-table/crystals/chat-strontium-iodide.cif",
+      "model": "/assets/periodic-table/crystals/chat-strontium-iodide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-strontium-iodide.png"
+    },
+    {
+      "id": "chat-ferric-sulfate-monoclinic",
+      "amcsdId": "0010775",
+      "mineralName": "Fe₂(SO₄)₃ · đơn tà",
+      "formula": "Fe2 S3 O12",
+      "spaceGroup": "P 1 21/n 1",
+      "spaceGroupOriginal": "P 1 21/n 1",
+      "spaceGroupNumber": 14,
+      "cell": {
+        "a": 8.2955,
+        "b": 8.5332,
+        "c": 11.6304,
+        "alpha": 90.0,
+        "beta": 90.25,
+        "gamma": 90.0
+      },
+      "volume": 823.2751555815186,
+      "siteCount": 68,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Rentzeperis P J",
+          "Christidis P C"
+        ],
+        "title": "The crystal structure of the monoclinic Fe2(SO4)3",
+        "journal": "Zeitschrift fur Kristallographie",
+        "year": 1975,
+        "volume": "141",
+        "pages": "233–245"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Pha monoclinic khan; khác pha rhombohedral và các hydrate.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-ferric-sulfate-monoclinic.json",
+      "cif": "/assets/periodic-table/crystals/chat-ferric-sulfate-monoclinic.cif",
+      "model": "/assets/periodic-table/crystals/chat-ferric-sulfate-monoclinic.glb",
+      "preview": "/assets/periodic-table/crystals/chat-ferric-sulfate-monoclinic.png"
+    },
+    {
+      "id": "chat-ferric-sulfate-rhombohedral",
+      "amcsdId": "0010786",
+      "mineralName": "Fe₂(SO₄)₃ · rhombohedral",
+      "formula": "Fe2 S3 O12",
+      "spaceGroup": "R -3:H",
+      "spaceGroupOriginal": "R -3",
+      "spaceGroupNumber": 148,
+      "cell": {
+        "a": 8.2362,
+        "b": 8.2362,
+        "c": 22.1786,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 1302.9223326459114,
+      "siteCount": 102,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Rentzeperis P J",
+          "Christidis P C"
+        ],
+        "title": "The crystal structure of rhombohedral Fe2(SO4)3\n Sample: synthetic",
+        "journal": "Zeitschrift fur Kristallographie",
+        "year": 1976,
+        "volume": "144",
+        "pages": "341–352"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Mẫu tổng hợp khan, pha rhombohedral; không dùng chung ô với pha đơn tà.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-ferric-sulfate-rhombohedral.json",
+      "cif": "/assets/periodic-table/crystals/chat-ferric-sulfate-rhombohedral.cif",
+      "model": "/assets/periodic-table/crystals/chat-ferric-sulfate-rhombohedral.glb",
+      "preview": "/assets/periodic-table/crystals/chat-ferric-sulfate-rhombohedral.png"
+    },
+    {
+      "id": "chat-silver-phosphate",
+      "amcsdId": "0017250",
+      "mineralName": "Ag₃PO₄",
+      "formula": "P Ag3 O4",
+      "spaceGroup": "P -4 3 n",
+      "spaceGroupOriginal": "P -4 3 n",
+      "spaceGroupNumber": 218,
+      "cell": {
+        "a": 5.995,
+        "b": 5.995,
+        "c": 5.995,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 215.460449875,
+      "siteCount": 16,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Helmholz L"
+        ],
+        "title": "The Crystal Structure of Silver Phosphate\n _cod_database_code 1010324",
+        "journal": "Journal of Chemical Physics",
+        "year": 1936,
+        "volume": "4",
+        "pages": "316–322"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản cấu trúc silver phosphate; giữ nhóm không gian và tọa độ nguồn.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-silver-phosphate.json",
+      "cif": "/assets/periodic-table/crystals/chat-silver-phosphate.cif",
+      "model": "/assets/periodic-table/crystals/chat-silver-phosphate.glb",
+      "preview": "/assets/periodic-table/crystals/chat-silver-phosphate.png"
+    },
+    {
+      "id": "chat-zabuyelite",
+      "amcsdId": "0010813",
+      "mineralName": "Zabuyelite · Li₂CO₃",
+      "formula": "Li2 C O3",
+      "spaceGroup": "C 1 2/c 1",
+      "spaceGroupOriginal": "C 1 2/c 1",
+      "spaceGroupNumber": 15,
+      "cell": {
+        "a": 8.3593,
+        "b": 4.9725,
+        "c": 6.1975,
+        "alpha": 90.0,
+        "beta": 114.83,
+        "gamma": 90.0
+      },
+      "volume": 233.79515059112745,
+      "siteCount": 24,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Effenberger H",
+          "Zemann J"
+        ],
+        "title": "Verfeinerung der kristallstruktur des lithiumkarbonates, Li2CO3",
+        "journal": "Zeitschrift fur Kristallographie",
+        "year": 1979,
+        "volume": "150",
+        "pages": "133–138"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Tinh chỉnh lithium carbonate; không dùng mẫu dung dịch rắn Li-K.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-zabuyelite.json",
+      "cif": "/assets/periodic-table/crystals/chat-zabuyelite.cif",
+      "model": "/assets/periodic-table/crystals/chat-zabuyelite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-zabuyelite.png"
+    },
+    {
+      "id": "chat-urea",
+      "amcsdId": "0010832",
+      "mineralName": "Urea · 293 K",
+      "formula": "C O N2 H4",
+      "spaceGroup": "P -4 21 m",
+      "spaceGroupOriginal": "P -4 21 m",
+      "spaceGroupNumber": 113,
+      "cell": {
+        "a": 5.645,
+        "b": 5.645,
+        "c": 4.704,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 149.89778159999997,
+      "siteCount": 16,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Guth H",
+          "Heger G",
+          "Klein S",
+          "Treutmann W",
+          "Scheringer C"
+        ],
+        "title": "Strukturverfeinerung von harnstoff mit neutronenbeugungsdaten bei\n 60, 123, 293 K und X-N- und X-X (1s2)-synthesen bei etwa 100 K\n Sample: T = 293 K",
+        "journal": "Zeitschrift fur Kristallographie",
+        "year": 1980,
+        "volume": "153",
+        "pages": "237–254"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Dữ liệu neutron ở 293 K, có tọa độ hydrogen; không dùng mẫu 60/100/123 K thay thế.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-urea.json",
+      "cif": "/assets/periodic-table/crystals/chat-urea.cif",
+      "model": "/assets/periodic-table/crystals/chat-urea.glb",
+      "preview": "/assets/periodic-table/crystals/chat-urea.png"
+    },
+    {
+      "id": "chat-aluminium-sulfate",
+      "amcsdId": "0011035",
+      "mineralName": "Al₂(SO₄)₃ khan",
+      "formula": "Al2 S3 O12",
+      "spaceGroup": "R -3:H",
+      "spaceGroupOriginal": "R -3",
+      "spaceGroupNumber": 148,
+      "cell": {
+        "a": 8.0246,
+        "b": 8.0246,
+        "c": 21.357,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 1191.0161932828557,
+      "siteCount": 102,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Dahmen T",
+          "Gruehn R"
+        ],
+        "title": "Beitrage zum thermischen verhalten von sulfaten. IX.\n Einkristallstrukturverfeinerung der metall(III)-sulfate Cr2(SO4)3 und Al2(SO4)3",
+        "journal": "Zeitschrift fur Kristallographie",
+        "year": 1993,
+        "volume": "204",
+        "pages": "57–65"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Tinh chỉnh đơn tinh thể sulfate(III) khan; không thay cho hydrate.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-aluminium-sulfate.json",
+      "cif": "/assets/periodic-table/crystals/chat-aluminium-sulfate.cif",
+      "model": "/assets/periodic-table/crystals/chat-aluminium-sulfate.glb",
+      "preview": "/assets/periodic-table/crystals/chat-aluminium-sulfate.png"
+    },
+    {
+      "id": "chat-chromium-sulfate",
+      "amcsdId": "0011036",
+      "mineralName": "Cr₂(SO₄)₃ khan",
+      "formula": "Cr2 S3 O12",
+      "spaceGroup": "R -3:H",
+      "spaceGroupOriginal": "R -3",
+      "spaceGroupNumber": 148,
+      "cell": {
+        "a": 8.1245,
+        "b": 8.1245,
+        "c": 21.944,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 1254.410591614588,
+      "siteCount": 102,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Dahmen T",
+          "Gruehn R"
+        ],
+        "title": "Beitraege zum thermischen verhalten von sulfaten. IX.\n Einkristallstrukturverfeinerung der metall(III)-sulfate Cr2(SO4)3 und Al2(SO4)3",
+        "journal": "Zeitschrift fur Kristallographie",
+        "year": 1993,
+        "volume": "204",
+        "pages": "57–65"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Tinh chỉnh đơn tinh thể sulfate(III) khan; không tự gán điều kiện phòng.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-chromium-sulfate.json",
+      "cif": "/assets/periodic-table/crystals/chat-chromium-sulfate.cif",
+      "model": "/assets/periodic-table/crystals/chat-chromium-sulfate.glb",
+      "preview": "/assets/periodic-table/crystals/chat-chromium-sulfate.png"
+    },
+    {
+      "id": "chat-solid-argon",
+      "amcsdId": "0015155",
+      "mineralName": "Argon rắn · 4,2 K",
+      "formula": "Ar",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
+      "cell": {
+        "a": 5.25,
+        "b": 5.25,
+        "c": 5.25,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 144.703125,
+      "siteCount": 4,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Henshaw D G"
+        ],
+        "title": "Atomic distribution in liquid and solid neon and solid argon by neutron diffraction\n Sample: at T = 4.2 K",
+        "journal": "Physical Review",
+        "year": 1958,
+        "volume": "111",
+        "pages": "1470–1475"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Nhiễu xạ neutron ở 4,2 K; argon không ở pha rắn tại điều kiện phòng.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-solid-argon.json",
+      "cif": "/assets/periodic-table/crystals/chat-solid-argon.cif",
+      "model": "/assets/periodic-table/crystals/chat-solid-argon.glb",
+      "preview": "/assets/periodic-table/crystals/chat-solid-argon.png"
+    },
+    {
+      "id": "chat-solid-krypton",
+      "amcsdId": "0011148",
+      "mineralName": "Krypton rắn · FCC · 58 K",
+      "formula": "Kr",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
+      "cell": {
+        "a": 5.721,
+        "b": 5.721,
+        "c": 5.721,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 187.247420361,
+      "siteCount": 4,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Sample at T = 58 K\n Cubic closest packed, ccp, structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "7–83"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Bản tổng hợp FCC ở 58 K; phân biệt với cấu trúc HCP metastable khác.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-solid-krypton.json",
+      "cif": "/assets/periodic-table/crystals/chat-solid-krypton.cif",
+      "model": "/assets/periodic-table/crystals/chat-solid-krypton.glb",
+      "preview": "/assets/periodic-table/crystals/chat-solid-krypton.png"
+    },
+    {
+      "id": "chat-solid-neon",
+      "amcsdId": "0015156",
+      "mineralName": "Neon-20 rắn · 4,2 K",
+      "formula": "Ne",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
+      "cell": {
+        "a": 4.462,
+        "b": 4.462,
+        "c": 4.462,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 88.83593912799998,
+      "siteCount": 4,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Bolz L H",
+          "Mauer F A"
+        ],
+        "title": "Measurement of the lattice constants of neon isotopes in the temperature range 4-24 K\n Sample: at T = 4.2 K\n Note: this is isotope 20 Ne",
+        "journal": "Physical Review",
+        "year": 1962,
+        "volume": "111",
+        "pages": "242–249"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản ghi đồng vị 20Ne tại 4,2 K; không khẳng định cùng thông số với 22Ne.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-solid-neon.json",
+      "cif": "/assets/periodic-table/crystals/chat-solid-neon.cif",
+      "model": "/assets/periodic-table/crystals/chat-solid-neon.glb",
+      "preview": "/assets/periodic-table/crystals/chat-solid-neon.png"
+    },
+    {
+      "id": "chat-solid-xenon",
+      "amcsdId": "0012968",
+      "mineralName": "Xenon rắn · 60 K",
+      "formula": "Xe",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
+      "cell": {
+        "a": 6.1796,
+        "b": 6.1796,
+        "c": 6.1796,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 235.98320408633597,
+      "siteCount": 4,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Sears D R",
+          "Klug H P"
+        ],
+        "title": "Density and expansivity of solid xenon\n Sample: at T = 60 K",
+        "journal": "Journal of Chemical Physics",
+        "year": 1962,
+        "volume": "37",
+        "pages": "3002–3006"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Mẫu 60 K trong nghiên cứu mật độ và giãn nở xenon rắn.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-solid-xenon.json",
+      "cif": "/assets/periodic-table/crystals/chat-solid-xenon.cif",
+      "model": "/assets/periodic-table/crystals/chat-solid-xenon.glb",
+      "preview": "/assets/periodic-table/crystals/chat-solid-xenon.png"
+    },
+    {
+      "id": "chat-solid-helium",
+      "amcsdId": "0015152",
+      "mineralName": "Helium rắn · 1,1 K · 0,007 GPa",
+      "formula": "He",
+      "spaceGroup": "P 63/m m c",
+      "spaceGroupOriginal": "P 63/m m c",
+      "spaceGroupNumber": 194,
+      "cell": {
+        "a": 3.53,
+        "b": 3.53,
+        "c": 5.76,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 62.15878629514088,
+      "siteCount": 2,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Henshaw D G"
+        ],
+        "title": "Structure of solid helium by neutron diffraction\n Sample: at T = 1.1 K and P = .007 GPa",
+        "journal": "Physical Review",
+        "year": 1958,
+        "volume": "109",
+        "pages": "328–330"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Mẫu neutron ở nhiệt độ thấp và có áp suất; không phải helium rắn ở áp suất khí quyển.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-solid-helium.json",
+      "cif": "/assets/periodic-table/crystals/chat-solid-helium.cif",
+      "model": "/assets/periodic-table/crystals/chat-solid-helium.glb",
+      "preview": "/assets/periodic-table/crystals/chat-solid-helium.png"
+    },
+    {
+      "id": "chat-solid-nitrogen-alpha",
+      "amcsdId": "0011249",
+      "mineralName": "α-Nitrogen rắn · 4,2 K",
+      "formula": "N",
+      "spaceGroup": "P a -3",
+      "spaceGroupOriginal": "P a 3",
+      "spaceGroupNumber": 205,
+      "cell": {
+        "a": 5.644,
+        "b": 5.644,
+        "c": 5.644,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 179.78812998400002,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Sample at T = 4.2 K",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "7–83"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Cấu trúc trung bình Pa-3 với tám vị trí N trong ô mạng; không dùng mô hình P213 cũ hoặc tâm phân tử thay nguyên tử.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-solid-nitrogen-alpha.json",
+      "cif": "/assets/periodic-table/crystals/chat-solid-nitrogen-alpha.cif",
+      "model": "/assets/periodic-table/crystals/chat-solid-nitrogen-alpha.glb",
+      "preview": "/assets/periodic-table/crystals/chat-solid-nitrogen-alpha.png"
+    },
+    {
+      "id": "chat-solid-chlorine",
+      "amcsdId": "0014661",
+      "mineralName": "Chlorine rắn · 160 K",
+      "formula": "Cl",
+      "spaceGroup": "C m c a",
+      "spaceGroupOriginal": "C m c a",
+      "spaceGroupNumber": 64,
+      "cell": {
+        "a": 6.2929,
+        "b": 4.5361,
+        "c": 8.1617,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 232.97755219067304,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Powell B M",
+          "Heal K M",
+          "Torrie B H"
+        ],
+        "title": "The temperature dependence of the crystal structures of the solid halogens,\n bromine and chlorine\n Sample: at T = 160 K",
+        "journal": "Molecular Physics",
+        "year": 1984,
+        "volume": "53",
+        "pages": "929–939"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Tinh chỉnh chlorine rắn ở 160 K; không đại diện chlorine khí ở điều kiện phòng.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-solid-chlorine.json",
+      "cif": "/assets/periodic-table/crystals/chat-solid-chlorine.cif",
+      "model": "/assets/periodic-table/crystals/chat-solid-chlorine.glb",
+      "preview": "/assets/periodic-table/crystals/chat-solid-chlorine.png"
+    },
+    {
+      "id": "chat-solid-bromine",
+      "amcsdId": "0014657",
+      "mineralName": "Bromine rắn · 250 K",
+      "formula": "Br",
+      "spaceGroup": "C m c a",
+      "spaceGroupOriginal": "C m c a",
+      "spaceGroupNumber": 64,
+      "cell": {
+        "a": 6.7265,
+        "b": 4.6451,
+        "c": 8.7023,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 271.905670914845,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Powell B M",
+          "Heal K M",
+          "Torrie B H"
+        ],
+        "title": "The temperature dependence of the crystal structures of the solid halogens, bromine and chlorine\n Sample: at T = 250 K",
+        "journal": "Molecular Physics",
+        "year": 1984,
+        "volume": "53",
+        "pages": "929–939"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Tinh chỉnh bromine rắn ở 250 K; không đại diện bromine lỏng ở điều kiện phòng.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-solid-bromine.json",
+      "cif": "/assets/periodic-table/crystals/chat-solid-bromine.cif",
+      "model": "/assets/periodic-table/crystals/chat-solid-bromine.glb",
+      "preview": "/assets/periodic-table/crystals/chat-solid-bromine.png"
+    },
+    {
+      "id": "chat-barium-oxide",
+      "amcsdId": "0018197",
+      "mineralName": "BaO · pha rocksalt",
+      "formula": "Ba O",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
+      "cell": {
+        "a": 5.496,
+        "b": 5.496,
+        "c": 5.496,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 166.01226393600004,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Gerlach W"
+        ],
+        "title": "Die Gitterstruktur der Erdalkalioxyde.\n _cod_database_code 1011362",
+        "journal": "Zeitschrift fur Physik",
+        "year": 1922,
+        "volume": "9",
+        "pages": "184–192"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản nghiên cứu cấu trúc oxide kim loại kiềm thổ; không dùng bản ghi 11278 là BaS.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-barium-oxide.json",
+      "cif": "/assets/periodic-table/crystals/chat-barium-oxide.cif",
+      "model": "/assets/periodic-table/crystals/chat-barium-oxide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-barium-oxide.png"
+    },
+    {
+      "id": "chat-cobalt-oxide",
+      "amcsdId": "0011296",
+      "mineralName": "CoO · rocksalt trung bình",
+      "formula": "Co O",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
+      "cell": {
+        "a": 4.2667,
+        "b": 4.2667,
+        "c": 4.2667,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 77.67411675496301,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n rocksalt structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "85–237"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Cấu trúc trung bình từ tài liệu tổng hợp; không mô tả méo từ giảo hoặc phân bố spin.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-cobalt-oxide.json",
+      "cif": "/assets/periodic-table/crystals/chat-cobalt-oxide.cif",
+      "model": "/assets/periodic-table/crystals/chat-cobalt-oxide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-cobalt-oxide.png"
+    },
+    {
+      "id": "chat-cesium-chloride",
+      "amcsdId": "0011467",
+      "mineralName": "CsCl · kiểu CsCl",
+      "formula": "Cs Cl",
+      "spaceGroup": "P m -3 m",
+      "spaceGroupOriginal": "P m 3 m",
+      "spaceGroupNumber": 221,
+      "cell": {
+        "a": 4.123,
+        "b": 4.123,
+        "c": 4.123,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 70.08740886700002,
+      "siteCount": 2,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Note: CsCl structure, cesium chloride structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "85–237"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Chọn đúng bản ghi kiểu CsCl; không dùng bản ghi rocksalt 0011298 khác pha.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-cesium-chloride.json",
+      "cif": "/assets/periodic-table/crystals/chat-cesium-chloride.cif",
+      "model": "/assets/periodic-table/crystals/chat-cesium-chloride.glb",
+      "preview": "/assets/periodic-table/crystals/chat-cesium-chloride.png"
+    },
+    {
+      "id": "chat-wustite-reference",
+      "amcsdId": "0011314",
+      "mineralName": "FeO · bản tham chiếu lý tưởng",
+      "formula": "Fe O",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
+      "cell": {
+        "a": 4.3108,
+        "b": 4.3108,
+        "c": 4.3108,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 80.10758191571203,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n rocksalt structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "85–237"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Bản tổng hợp kiểu rocksalt; wüstite thật thường không đúng tỉ lượng, mô hình này không chứa khuyết tật của một mẫu riêng.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-wustite-reference.json",
+      "cif": "/assets/periodic-table/crystals/chat-wustite-reference.cif",
+      "model": "/assets/periodic-table/crystals/chat-wustite-reference.glb",
+      "preview": "/assets/periodic-table/crystals/chat-wustite-reference.png"
+    },
+    {
+      "id": "chat-potassium-fluoride",
+      "amcsdId": "0017895",
+      "mineralName": "KF",
+      "formula": "K F",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
+      "cell": {
+        "a": 5.3437,
+        "b": 5.3437,
+        "c": 5.3437,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 152.59004652445302,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Oftedal I",
+          "Pabst A",
+          "Broch E"
+        ],
+        "title": "Neubestimmung der Gitterkonstanten von KF, CsCl und BaF2\n _cod_database_code 1010978",
+        "journal": "Zeitschrift fur Physikalische Chemie",
+        "year": 1929,
+        "volume": "3",
+        "pages": "209–214"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản xác định lại hằng số mạng; không gán sai cấu trúc CsCl cùng tiêu đề bài báo.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-potassium-fluoride.json",
+      "cif": "/assets/periodic-table/crystals/chat-potassium-fluoride.cif",
+      "model": "/assets/periodic-table/crystals/chat-potassium-fluoride.glb",
+      "preview": "/assets/periodic-table/crystals/chat-potassium-fluoride.png"
+    },
+    {
+      "id": "chat-potassium-iodide",
+      "amcsdId": "0011996",
+      "mineralName": "KI",
+      "formula": "K I",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
+      "cell": {
+        "a": 7.0491,
+        "b": 7.0491,
+        "c": 7.0491,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 350.268445380771,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Ahtee M"
+        ],
+        "title": "Lattice constants of some binary alkali halide solid solutions.",
+        "journal": "Annales Academiae Scientiarum Fennicae Series A6: Physica",
+        "year": 1969,
+        "volume": "313",
+        "pages": "1–11"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Mẫu alkali halide; chỉ dùng bản đúng KI, không dùng dung dịch rắn khác thành phần.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-potassium-iodide.json",
+      "cif": "/assets/periodic-table/crystals/chat-potassium-iodide.cif",
+      "model": "/assets/periodic-table/crystals/chat-potassium-iodide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-potassium-iodide.png"
+    },
+    {
+      "id": "chat-lithium-bromide",
+      "amcsdId": "0018198",
+      "mineralName": "LiBr",
+      "formula": "Li Br",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
+      "cell": {
+        "a": 5.489,
+        "b": 5.489,
+        "c": 5.489,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 165.37874516899998,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Ott H"
+        ],
+        "title": "Die Raumgitter der Lithiumhalogenide.\n _cod_database_code 1011363",
+        "journal": "Physikalische Zeitschrift",
+        "year": 1923,
+        "volume": "24",
+        "pages": "209–213"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản cấu trúc lithium halides; không dùng thông số LiCl.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-lithium-bromide.json",
+      "cif": "/assets/periodic-table/crystals/chat-lithium-bromide.cif",
+      "model": "/assets/periodic-table/crystals/chat-lithium-bromide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-lithium-bromide.png"
+    },
+    {
+      "id": "chat-lithium-fluoride",
+      "amcsdId": "0017905",
+      "mineralName": "LiF",
+      "formula": "Li F",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
+      "cell": {
+        "a": 4.028,
+        "b": 4.028,
+        "c": 4.028,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 65.35342995199997,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Ott H"
+        ],
+        "title": "Die Strukturen von Mn O, Mn S, Ag F, Ni S, Sn I4, Sr Cl2, Ba F2,\n Praezisionsmessungen einiger Alkalihalogenide.\n _cod_database_code 1010990",
+        "journal": "Zeitschrift fur Kristallographie",
+        "year": 1926,
+        "volume": "63",
+        "pages": "222–230"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản đo halide; tọa độ và metric lấy đúng bản LiF.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-lithium-fluoride.json",
+      "cif": "/assets/periodic-table/crystals/chat-lithium-fluoride.cif",
+      "model": "/assets/periodic-table/crystals/chat-lithium-fluoride.glb",
+      "preview": "/assets/periodic-table/crystals/chat-lithium-fluoride.png"
+    },
+    {
+      "id": "chat-lithium-iodide",
+      "amcsdId": "0017253",
+      "mineralName": "LiI",
+      "formula": "Li I",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
+      "cell": {
+        "a": 6.0,
+        "b": 6.0,
+        "c": 6.0,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 216.0,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Ott H"
+        ],
+        "title": "Die Raumgitter der Lithiumhalogenide\n _cod_database_code 1010327",
+        "journal": "Physikalische Zeitschrift",
+        "year": 1923,
+        "volume": "24",
+        "pages": "209–213"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản cấu trúc lithium iodide.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-lithium-iodide.json",
+      "cif": "/assets/periodic-table/crystals/chat-lithium-iodide.cif",
+      "model": "/assets/periodic-table/crystals/chat-lithium-iodide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-lithium-iodide.png"
+    },
+    {
+      "id": "chat-sodium-iodide",
+      "amcsdId": "0011359",
+      "mineralName": "NaI · bản tham chiếu",
+      "formula": "Na I",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
+      "cell": {
+        "a": 6.4728,
+        "b": 6.4728,
+        "c": 6.4728,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 271.19180675635204,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n rocksalt structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "85–237"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Bản tổng hợp NaI; không dùng bản ghi tiêu đề sodium periodate nhưng công thức thiếu oxy.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-sodium-iodide.json",
+      "cif": "/assets/periodic-table/crystals/chat-sodium-iodide.cif",
+      "model": "/assets/periodic-table/crystals/chat-sodium-iodide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-sodium-iodide.png"
+    },
+    {
+      "id": "chat-strontium-oxide",
+      "amcsdId": "0018170",
+      "mineralName": "SrO",
+      "formula": "Sr O",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
+      "cell": {
+        "a": 5.104,
+        "b": 5.104,
+        "c": 5.104,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 132.963364864,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Gerlach W"
+        ],
+        "title": "Die Gitterstruktur der Erdalkalioxyde.\n _cod_database_code 1011328",
+        "journal": "Zeitschrift fur Physik",
+        "year": 1922,
+        "volume": "9",
+        "pages": "184–192"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản cấu trúc alkaline-earth oxides; dùng đúng SrO.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-strontium-oxide.json",
+      "cif": "/assets/periodic-table/crystals/chat-strontium-oxide.cif",
+      "model": "/assets/periodic-table/crystals/chat-strontium-oxide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-strontium-oxide.png"
+    },
+    {
+      "id": "chat-cobalt-sulfide",
+      "amcsdId": "0011562",
+      "mineralName": "CoS · prototype NiAs",
+      "formula": "Co S",
+      "spaceGroup": "P 63 m c",
+      "spaceGroupOriginal": "P 63 m c",
+      "spaceGroupNumber": 186,
+      "cell": {
+        "a": 3.367,
+        "b": 3.367,
+        "c": 5.16,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 50.660161051026606,
+      "siteCount": 4,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Note: ideal nickel arsenide structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "85–237"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Bản tổng hợp prototype nickel arsenide; không mô tả các sulfide cobalt khác tỉ lượng.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-cobalt-sulfide.json",
+      "cif": "/assets/periodic-table/crystals/chat-cobalt-sulfide.cif",
+      "model": "/assets/periodic-table/crystals/chat-cobalt-sulfide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-cobalt-sulfide.png"
+    },
+    {
+      "id": "chat-lithium-hydroxide",
+      "amcsdId": "0011636",
+      "mineralName": "LiOH khan",
+      "formula": "O H Li",
+      "spaceGroup": "P 4/n m m:1",
+      "spaceGroupOriginal": "P 4/n m m",
+      "spaceGroupNumber": 129,
+      "cell": {
+        "a": 3.546,
+        "b": 3.546,
+        "c": 4.334,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 54.49621874399999,
+      "siteCount": 6,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "85–237"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Bản tài liệu tổng hợp; không tự dựng vị trí H còn thiếu.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-lithium-hydroxide.json",
+      "cif": "/assets/periodic-table/crystals/chat-lithium-hydroxide.cif",
+      "model": "/assets/periodic-table/crystals/chat-lithium-hydroxide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-lithium-hydroxide.png"
+    },
+    {
+      "id": "chat-barium-chloride",
+      "amcsdId": "0011681",
+      "mineralName": "BaCl₂ · pha kiểu fluorite",
+      "formula": "Ba Cl2",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
+      "cell": {
+        "a": 7.34,
+        "b": 7.34,
+        "c": 7.34,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 395.44690399999996,
+      "siteCount": 12,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Fluorite structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "239–444"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Pha fluorite của bản ghi; không xác nhận đây là pha ổn định ở 25 °C khi nguồn chưa nêu nhiệt độ.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-barium-chloride.json",
+      "cif": "/assets/periodic-table/crystals/chat-barium-chloride.cif",
+      "model": "/assets/periodic-table/crystals/chat-barium-chloride.glb",
+      "preview": "/assets/periodic-table/crystals/chat-barium-chloride.png"
+    },
+    {
+      "id": "chat-frankdicksonite",
+      "amcsdId": "0011682",
+      "mineralName": "BaF₂ · fluorite",
+      "formula": "Ba F2",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
+      "cell": {
+        "a": 6.2001,
+        "b": 6.2001,
+        "c": 6.2001,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 238.339532186001,
+      "siteCount": 12,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Fluorite structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "239–444"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Bản tổng hợp cấu trúc fluorite; không suy cấu trúc từ công thức đơn thuần.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-frankdicksonite.json",
+      "cif": "/assets/periodic-table/crystals/chat-frankdicksonite.cif",
+      "model": "/assets/periodic-table/crystals/chat-frankdicksonite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-frankdicksonite.png"
+    },
+    {
+      "id": "chat-lead-fluoride-beta",
+      "amcsdId": "0011705",
+      "mineralName": "β-PbF₂ · fluorite",
+      "formula": "Pb F2",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
+      "cell": {
+        "a": 5.92732,
+        "b": 5.92732,
+        "c": 5.92732,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 208.24525895964715,
+      "siteCount": 12,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Fluorite structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "239–444"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Pha beta fluorite; khác pha alpha trực thoi của PbF2.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-lead-fluoride-beta.json",
+      "cif": "/assets/periodic-table/crystals/chat-lead-fluoride-beta.cif",
+      "model": "/assets/periodic-table/crystals/chat-lead-fluoride-beta.glb",
+      "preview": "/assets/periodic-table/crystals/chat-lead-fluoride-beta.png"
+    },
+    {
+      "id": "chat-strontium-chloride",
+      "amcsdId": "0011720",
+      "mineralName": "SrCl₂ khan",
+      "formula": "Sr Cl2",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
+      "cell": {
+        "a": 6.9767,
+        "b": 6.9767,
+        "c": 6.9767,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 339.586288040663,
+      "siteCount": 12,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Fluorite structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "239–444"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Bản cấu trúc fluorite; không thay cho SrCl2·6H2O.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-strontium-chloride.json",
+      "cif": "/assets/periodic-table/crystals/chat-strontium-chloride.cif",
+      "model": "/assets/periodic-table/crystals/chat-strontium-chloride.glb",
+      "preview": "/assets/periodic-table/crystals/chat-strontium-chloride.png"
+    },
+    {
+      "id": "chat-strontium-fluoride",
+      "amcsdId": "0018325",
+      "mineralName": "Strontiofluorite · SrF₂",
+      "formula": "Sr F2",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
+      "cell": {
+        "a": 5.713,
+        "b": 5.713,
+        "c": 5.713,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 186.46300209700001,
+      "siteCount": 12,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Yakovenchuk V N",
+          "Pakhomovsky Y A",
+          "Ivanyuk G Y",
+          "Selivanova E A",
+          "Korchak J A",
+          "Nikolaev A P"
+        ],
+        "title": "Strontiofluorite, SrF2, a new mineral species from\n the Khibiny Massif, Kola Peninsula, Russia",
+        "journal": "The Canadian Mineralogist",
+        "year": 2010,
+        "volume": "48",
+        "pages": "1487–1492"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản công bố khoáng strontiofluorite; không gán hình thái mẫu thật vào ô mạng.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-strontium-fluoride.json",
+      "cif": "/assets/periodic-table/crystals/chat-strontium-fluoride.cif",
+      "model": "/assets/periodic-table/crystals/chat-strontium-fluoride.glb",
+      "preview": "/assets/periodic-table/crystals/chat-strontium-fluoride.png"
+    },
+    {
+      "id": "chat-potassium-oxide",
+      "amcsdId": "0011734",
+      "mineralName": "K₂O · antifluorite",
+      "formula": "K2 O",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
+      "cell": {
+        "a": 6.436,
+        "b": 6.436,
+        "c": 6.436,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 266.59260985599997,
+      "siteCount": 12,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Anti-fluorite structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "239–444"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Bản tổng hợp antifluorite; không dùng cấu trúc peroxide hoặc superoxide.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-potassium-oxide.json",
+      "cif": "/assets/periodic-table/crystals/chat-potassium-oxide.cif",
+      "model": "/assets/periodic-table/crystals/chat-potassium-oxide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-potassium-oxide.png"
+    },
+    {
+      "id": "chat-lithium-oxide",
+      "amcsdId": "0017000",
+      "mineralName": "Li₂O · antifluorite",
+      "formula": "O Li2",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
+      "cell": {
+        "a": 4.61,
+        "b": 4.61,
+        "c": 4.61,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 97.97218100000002,
+      "siteCount": 12,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Bijvoet J",
+          "Karssen A",
+          "Claassen A"
+        ],
+        "title": "The scattering power of lithium and oxygen, determined from the\n diffraction-intensities of powdered lithiumoxide.\n _cod_database_code 1010064",
+        "journal": "Proceedings of the Koninklijke Nederlandse Academie van Wetenschappen",
+        "year": 1926,
+        "volume": "29",
+        "pages": "1286–1292"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Dữ liệu nhiễu xạ bột lithium oxide; không thay cho lithium peroxide.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-lithium-oxide.json",
+      "cif": "/assets/periodic-table/crystals/chat-lithium-oxide.cif",
+      "model": "/assets/periodic-table/crystals/chat-lithium-oxide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-lithium-oxide.png"
+    },
+    {
+      "id": "chat-sodium-oxide",
+      "amcsdId": "0011742",
+      "mineralName": "Na₂O · antifluorite",
+      "formula": "Na2 O",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
+      "cell": {
+        "a": 5.55,
+        "b": 5.55,
+        "c": 5.55,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 170.95387499999998,
+      "siteCount": 12,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Anti-fluorite structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "239–444"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Bản tổng hợp Na2O; không dùng cho Na2O2.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-sodium-oxide.json",
+      "cif": "/assets/periodic-table/crystals/chat-sodium-oxide.cif",
+      "model": "/assets/periodic-table/crystals/chat-sodium-oxide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-sodium-oxide.png"
+    },
+    {
+      "id": "chat-sodium-sulfide",
+      "amcsdId": "0011743",
+      "mineralName": "Na₂S · antifluorite",
+      "formula": "Na2 S",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
+      "cell": {
+        "a": 6.526,
+        "b": 6.526,
+        "c": 6.526,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 277.933699576,
+      "siteCount": 12,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Anti-fluorite structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "239–444"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Pha khan; không dùng cho các hydrate hoặc NaHS.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-sodium-sulfide.json",
+      "cif": "/assets/periodic-table/crystals/chat-sodium-sulfide.cif",
+      "model": "/assets/periodic-table/crystals/chat-sodium-sulfide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-sodium-sulfide.png"
+    },
+    {
+      "id": "chat-calcium-iodide",
+      "amcsdId": "0011776",
+      "mineralName": "CaI₂ khan",
+      "formula": "Ca I2",
+      "spaceGroup": "P -3 m 1",
+      "spaceGroupOriginal": "P -3 m 1",
+      "spaceGroupNumber": 164,
+      "cell": {
+        "a": 4.48,
+        "b": 4.48,
+        "c": 6.96,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 120.9750747982418,
+      "siteCount": 3,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Note: cadmium iodide structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "239–444"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Bản tổng hợp kiểu cadmium iodide; không thay bằng mạng CaF2.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-calcium-iodide.json",
+      "cif": "/assets/periodic-table/crystals/chat-calcium-iodide.cif",
+      "model": "/assets/periodic-table/crystals/chat-calcium-iodide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-calcium-iodide.png"
+    },
+    {
+      "id": "chat-cobalt-bromide",
+      "amcsdId": "0011778",
+      "mineralName": "CoBr₂ khan",
+      "formula": "Co Br2",
+      "spaceGroup": "P -3 m 1",
+      "spaceGroupOriginal": "P -3 m 1",
+      "spaceGroupNumber": 164,
+      "cell": {
+        "a": 3.68,
+        "b": 3.68,
+        "c": 6.12,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 71.77574206064756,
+      "siteCount": 3,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Note: cadmium iodide structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "239–444"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Bản cấu trúc lớp từ tài liệu tổng hợp; không mô tả trật tự từ.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-cobalt-bromide.json",
+      "cif": "/assets/periodic-table/crystals/chat-cobalt-bromide.cif",
+      "model": "/assets/periodic-table/crystals/chat-cobalt-bromide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-cobalt-bromide.png"
+    },
+    {
+      "id": "chat-cobalt-iodide",
+      "amcsdId": "0011779",
+      "mineralName": "CoI₂ khan",
+      "formula": "Co I2",
+      "spaceGroup": "P -3 m 1",
+      "spaceGroupOriginal": "P -3 m 1",
+      "spaceGroupNumber": 164,
+      "cell": {
+        "a": 3.96,
+        "b": 3.96,
+        "c": 6.65,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 90.31141541370727,
+      "siteCount": 3,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Note: cadmium iodide structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "239–444"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Bản cấu trúc lớp từ tài liệu tổng hợp.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-cobalt-iodide.json",
+      "cif": "/assets/periodic-table/crystals/chat-cobalt-iodide.cif",
+      "model": "/assets/periodic-table/crystals/chat-cobalt-iodide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-cobalt-iodide.png"
+    },
+    {
+      "id": "chat-ferrous-bromide",
+      "amcsdId": "0011781",
+      "mineralName": "FeBr₂ khan",
+      "formula": "Fe Br2",
+      "spaceGroup": "P -3 m 1",
+      "spaceGroupOriginal": "P -3 m 1",
+      "spaceGroupNumber": 164,
+      "cell": {
+        "a": 3.74,
+        "b": 3.74,
+        "c": 6.17,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 74.74101650730711,
+      "siteCount": 3,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Note: cadmium iodide structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "239–444"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Bản cấu trúc lớp từ tài liệu tổng hợp; không mô tả trật tự từ.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-ferrous-bromide.json",
+      "cif": "/assets/periodic-table/crystals/chat-ferrous-bromide.cif",
+      "model": "/assets/periodic-table/crystals/chat-ferrous-bromide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-ferrous-bromide.png"
+    },
+    {
+      "id": "chat-ferrous-iodide",
+      "amcsdId": "0011782",
+      "mineralName": "FeI₂ khan",
+      "formula": "Fe I2",
+      "spaceGroup": "P -3 m 1",
+      "spaceGroupOriginal": "P -3 m 1",
+      "spaceGroupNumber": 164,
+      "cell": {
+        "a": 4.04,
+        "b": 4.04,
+        "c": 6.75,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 95.41071155525465,
+      "siteCount": 3,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Note: cadmium iodide structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "239–444"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Bản cấu trúc lớp từ tài liệu tổng hợp.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-ferrous-iodide.json",
+      "cif": "/assets/periodic-table/crystals/chat-ferrous-iodide.cif",
+      "model": "/assets/periodic-table/crystals/chat-ferrous-iodide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-ferrous-iodide.png"
+    },
+    {
+      "id": "chat-magnesium-bromide",
+      "amcsdId": "0011786",
+      "mineralName": "MgBr₂ khan",
+      "formula": "Mg Br2",
+      "spaceGroup": "P -3 m 1",
+      "spaceGroupOriginal": "P -3 m 1",
+      "spaceGroupNumber": 164,
+      "cell": {
+        "a": 3.81,
+        "b": 3.81,
+        "c": 6.26,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 78.69640913785932,
+      "siteCount": 3,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Note: cadmium iodide structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "239–444"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Bản cấu trúc lớp; không dùng cho hydrate magnesium bromide.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-magnesium-bromide.json",
+      "cif": "/assets/periodic-table/crystals/chat-magnesium-bromide.cif",
+      "model": "/assets/periodic-table/crystals/chat-magnesium-bromide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-magnesium-bromide.png"
+    },
+    {
+      "id": "chat-magnesium-iodide",
+      "amcsdId": "0011787",
+      "mineralName": "MgI₂ khan",
+      "formula": "Mg I2",
+      "spaceGroup": "P -3 m 1",
+      "spaceGroupOriginal": "P -3 m 1",
+      "spaceGroupNumber": 164,
+      "cell": {
+        "a": 4.14,
+        "b": 4.14,
+        "c": 6.88,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 102.1221035936419,
+      "siteCount": 3,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Note: cadmium iodide structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "239–444"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Bản cấu trúc lớp; không thay bằng mạng oxide MgO.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-magnesium-iodide.json",
+      "cif": "/assets/periodic-table/crystals/chat-magnesium-iodide.cif",
+      "model": "/assets/periodic-table/crystals/chat-magnesium-iodide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-magnesium-iodide.png"
+    },
+    {
+      "id": "chat-manganese-bromide",
+      "amcsdId": "0011788",
+      "mineralName": "MnBr₂ khan",
+      "formula": "Mn Br2",
+      "spaceGroup": "P -3 m 1",
+      "spaceGroupOriginal": "P -3 m 1",
+      "spaceGroupNumber": 164,
+      "cell": {
+        "a": 3.82,
+        "b": 3.82,
+        "c": 6.19,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 78.22543854251924,
+      "siteCount": 3,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Note: cadmium iodide structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "239–444"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Giữ cấu trúc lớp của bản ghi, không suy trạng thái spin.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-manganese-bromide.json",
+      "cif": "/assets/periodic-table/crystals/chat-manganese-bromide.cif",
+      "model": "/assets/periodic-table/crystals/chat-manganese-bromide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-manganese-bromide.png"
+    },
+    {
+      "id": "chat-manganese-iodide",
+      "amcsdId": "0011789",
+      "mineralName": "MnI₂ khan",
+      "formula": "Mn I2",
+      "spaceGroup": "P -3 m 1",
+      "spaceGroupOriginal": "P -3 m 1",
+      "spaceGroupNumber": 164,
+      "cell": {
+        "a": 4.16,
+        "b": 4.16,
+        "c": 6.82,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 102.21194853313214,
+      "siteCount": 3,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Note: cadmium iodide structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "239–444"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Giữ cấu trúc lớp của bản ghi.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-manganese-iodide.json",
+      "cif": "/assets/periodic-table/crystals/chat-manganese-iodide.cif",
+      "model": "/assets/periodic-table/crystals/chat-manganese-iodide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-manganese-iodide.png"
+    },
+    {
+      "id": "chat-zinc-iodide",
+      "amcsdId": "0011801",
+      "mineralName": "ZnI₂ · pha của bản ghi",
+      "formula": "Zn I2",
+      "spaceGroup": "P -3 m 1",
+      "spaceGroupOriginal": "P -3 m 1",
+      "spaceGroupNumber": 164,
+      "cell": {
+        "a": 4.25,
+        "b": 4.25,
+        "c": 6.54,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 102.30249841730102,
+      "siteCount": 3,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Note: cadmium iodide structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "239–444"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Giữ đúng polytype được ghi trong tài liệu; không gộp các cấu trúc lớp khác nhau.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-zinc-iodide.json",
+      "cif": "/assets/periodic-table/crystals/chat-zinc-iodide.cif",
+      "model": "/assets/periodic-table/crystals/chat-zinc-iodide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-zinc-iodide.png"
+    },
+    {
+      "id": "chat-cadmium-bromide",
+      "amcsdId": "0011803",
+      "mineralName": "CdBr₂ khan",
+      "formula": "Cd Br2",
+      "spaceGroup": "R -3 m:H",
+      "spaceGroupOriginal": "R -3 m",
+      "spaceGroupNumber": 166,
+      "cell": {
+        "a": 3.95,
+        "b": 3.95,
+        "c": 18.67,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 252.27205263874706,
+      "siteCount": 9,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Note: cadmium chloride structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "239–444"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Bản tổng hợp kiểu cadmium chloride; không suy cấu trúc từ một muối khác.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-cadmium-bromide.json",
+      "cif": "/assets/periodic-table/crystals/chat-cadmium-bromide.cif",
+      "model": "/assets/periodic-table/crystals/chat-cadmium-bromide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-cadmium-bromide.png"
+    },
+    {
+      "id": "chat-cadmium-chloride",
+      "amcsdId": "0018174",
+      "mineralName": "CdCl₂ khan",
+      "formula": "Cd Cl2",
+      "spaceGroup": "R -3 m:R",
+      "spaceGroupOriginal": "R -3 m",
+      "spaceGroupNumber": 166,
+      "cell": {
+        "a": 6.23,
+        "b": 6.23,
+        "c": 6.23,
+        "alpha": 36.03,
+        "beta": 36.03,
+        "gamma": 36.03
+      },
+      "volume": 74.83331214036822,
+      "siteCount": 3,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Pauling L",
+          "Hoard J"
+        ],
+        "title": "The crystal structure of cadmium chloride\n _cod_database_code 1011332",
+        "journal": "Zeitschrift fur Kristallographie",
+        "year": 1930,
+        "volume": "74",
+        "pages": "546–551"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản xác định cấu trúc cadmium chloride.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-cadmium-chloride.json",
+      "cif": "/assets/periodic-table/crystals/chat-cadmium-chloride.cif",
+      "model": "/assets/periodic-table/crystals/chat-cadmium-chloride.glb",
+      "preview": "/assets/periodic-table/crystals/chat-cadmium-chloride.png"
+    },
+    {
+      "id": "chat-ferrous-chloride",
+      "amcsdId": "0011807",
+      "mineralName": "FeCl₂ khan",
+      "formula": "Fe Cl2",
+      "spaceGroup": "R -3 m:H",
+      "spaceGroupOriginal": "R -3 m",
+      "spaceGroupNumber": 166,
+      "cell": {
+        "a": 3.579,
+        "b": 3.579,
+        "c": 17.536,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 194.52909452288193,
+      "siteCount": 9,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Note: cadmium chloride structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "239–444"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Bản cấu trúc lớp; không dùng mẫu neutron 4,2 K thay thế và không mô tả trật tự từ.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-ferrous-chloride.json",
+      "cif": "/assets/periodic-table/crystals/chat-ferrous-chloride.cif",
+      "model": "/assets/periodic-table/crystals/chat-ferrous-chloride.glb",
+      "preview": "/assets/periodic-table/crystals/chat-ferrous-chloride.png"
+    },
+    {
+      "id": "chat-magnesium-chloride",
+      "amcsdId": "0011808",
+      "mineralName": "MgCl₂ khan",
+      "formula": "Mg Cl2",
+      "spaceGroup": "R -3 m:H",
+      "spaceGroupOriginal": "R -3 m",
+      "spaceGroupNumber": 166,
+      "cell": {
+        "a": 3.596,
+        "b": 3.596,
+        "c": 17.589,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 196.97501704056273,
+      "siteCount": 9,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Note: cadmium chloride structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "239–444"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Bản cấu trúc lớp; không dùng cho MgCl2·6H2O.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-magnesium-chloride.json",
+      "cif": "/assets/periodic-table/crystals/chat-magnesium-chloride.cif",
+      "model": "/assets/periodic-table/crystals/chat-magnesium-chloride.glb",
+      "preview": "/assets/periodic-table/crystals/chat-magnesium-chloride.png"
+    },
+    {
+      "id": "chat-manganese-chloride",
+      "amcsdId": "0011809",
+      "mineralName": "MnCl₂ khan",
+      "formula": "Mn Cl2",
+      "spaceGroup": "R -3 m:H",
+      "spaceGroupOriginal": "R -3 m",
+      "spaceGroupNumber": 166,
+      "cell": {
+        "a": 3.686,
+        "b": 3.686,
+        "c": 17.47,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 205.55791240312203,
+      "siteCount": 9,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Note: cadmium chloride structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "239–444"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Bản cấu trúc lớp; không dùng cho hydrate.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-manganese-chloride.json",
+      "cif": "/assets/periodic-table/crystals/chat-manganese-chloride.cif",
+      "model": "/assets/periodic-table/crystals/chat-manganese-chloride.glb",
+      "preview": "/assets/periodic-table/crystals/chat-manganese-chloride.png"
+    },
+    {
+      "id": "chat-nickel-chloride",
+      "amcsdId": "0011811",
+      "mineralName": "NiCl₂ khan",
+      "formula": "Ni Cl2",
+      "spaceGroup": "R -3 m:H",
+      "spaceGroupOriginal": "R -3 m",
+      "spaceGroupNumber": 166,
+      "cell": {
+        "a": 3.543,
+        "b": 3.543,
+        "c": 17.335,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 188.45027795728802,
+      "siteCount": 9,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Note: cadmium chloride structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "239–444"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Bản cấu trúc lớp; không dùng cho hydrate.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-nickel-chloride.json",
+      "cif": "/assets/periodic-table/crystals/chat-nickel-chloride.cif",
+      "model": "/assets/periodic-table/crystals/chat-nickel-chloride.glb",
+      "preview": "/assets/periodic-table/crystals/chat-nickel-chloride.png"
+    },
+    {
+      "id": "chat-zinc-bromide",
+      "amcsdId": "0011814",
+      "mineralName": "ZnBr₂ · bản tham chiếu",
+      "formula": "Zn Br2",
+      "spaceGroup": "R -3 m:H",
+      "spaceGroupOriginal": "R -3 m",
+      "spaceGroupNumber": 166,
+      "cell": {
+        "a": 3.92,
+        "b": 3.92,
+        "c": 18.73,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 249.25308548307822,
+      "siteCount": 9,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Note: cadmium chloride structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "239–444"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Giữ cấu trúc trong bản ghi; không coi mô hình là ảnh quét một mẫu thực.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-zinc-bromide.json",
+      "cif": "/assets/periodic-table/crystals/chat-zinc-bromide.cif",
+      "model": "/assets/periodic-table/crystals/chat-zinc-bromide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-zinc-bromide.png"
+    },
+    {
+      "id": "chat-zinc-chloride",
+      "amcsdId": "0011815",
+      "mineralName": "ZnCl₂ · pha của bản ghi",
+      "formula": "Zn Cl2",
+      "spaceGroup": "R -3 m:H",
+      "spaceGroupOriginal": "R -3 m",
+      "spaceGroupNumber": 166,
+      "cell": {
+        "a": 3.774,
+        "b": 3.774,
+        "c": 17.765,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 219.1288881662365,
+      "siteCount": 9,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Note: cadmium chloride structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "239–444"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Polytype trong tài liệu tổng hợp; ZnCl2 có nhiều đa hình nên không áp cho mọi mẫu.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-zinc-chloride.json",
+      "cif": "/assets/periodic-table/crystals/chat-zinc-chloride.cif",
+      "model": "/assets/periodic-table/crystals/chat-zinc-chloride.glb",
+      "preview": "/assets/periodic-table/crystals/chat-zinc-chloride.png"
+    },
+    {
+      "id": "chat-cadmium-iodide",
+      "amcsdId": "0011817",
+      "mineralName": "CdI₂ khan",
+      "formula": "Cd I2",
+      "spaceGroup": "P 63 m c",
+      "spaceGroupOriginal": "P 63 m c",
+      "spaceGroupNumber": 186,
+      "cell": {
+        "a": 4.24,
+        "b": 4.24,
+        "c": 13.67,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 212.829026948357,
+      "siteCount": 6,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "239–444"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Giữ đúng cách xếp lớp và đối xứng của bản ghi.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-cadmium-iodide.json",
+      "cif": "/assets/periodic-table/crystals/chat-cadmium-iodide.cif",
+      "model": "/assets/periodic-table/crystals/chat-cadmium-iodide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-cadmium-iodide.png"
+    },
+    {
+      "id": "chat-cotunnite",
+      "amcsdId": "0011874",
+      "mineralName": "Cotunnite · PbCl₂",
+      "formula": "Pb Cl2",
+      "spaceGroup": "P b n m",
+      "spaceGroupOriginal": "P b n m",
+      "spaceGroupNumber": 62,
+      "cell": {
+        "a": 9.03,
+        "b": 7.608,
+        "c": 4.525,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 310.868586,
+      "siteCount": 12,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "298–306"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Bản cấu trúc cotunnite; không dùng cho các pha áp suất cao khác.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-cotunnite.json",
+      "cif": "/assets/periodic-table/crystals/chat-cotunnite.cif",
+      "model": "/assets/periodic-table/crystals/chat-cotunnite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-cotunnite.png"
+    },
+    {
+      "id": "chat-lead-bromide",
+      "amcsdId": "0017501",
+      "mineralName": "PbBr₂",
+      "formula": "Pb Br2",
+      "spaceGroup": "P m n b",
+      "spaceGroupOriginal": "P m n b",
+      "spaceGroupNumber": 62,
+      "cell": {
+        "a": 4.71,
+        "b": 8.02,
+        "c": 9.48,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 358.099416,
+      "siteCount": 24,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Bijvoet J",
+          "Nieuwenkamp W"
+        ],
+        "title": "Die Kristallstruktur von Bleibromid Pb Br2\n _cod_database_code 1010619",
+        "journal": "Zeitschrift fur Kristallographie",
+        "year": 1932,
+        "volume": "84",
+        "pages": "49–61"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản xác định cấu trúc lead bromide.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-lead-bromide.json",
+      "cif": "/assets/periodic-table/crystals/chat-lead-bromide.cif",
+      "model": "/assets/periodic-table/crystals/chat-lead-bromide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-lead-bromide.png"
+    },
+    {
+      "id": "chat-strontium-bromide",
+      "amcsdId": "0016958",
+      "mineralName": "SrBr₂ khan",
+      "formula": "Br2 Sr",
+      "spaceGroup": "P b n m",
+      "spaceGroupOriginal": "P b n m",
+      "spaceGroupNumber": 62,
+      "cell": {
+        "a": 9.2,
+        "b": 11.42,
+        "c": 4.3,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 451.7751999999999,
+      "siteCount": 12,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Kamermans M"
+        ],
+        "title": "The crystal structure of Sr Br2\n _cod_database_code 1010019",
+        "journal": "Zeitschrift fur Kristallographie",
+        "year": 1939,
+        "volume": "101",
+        "pages": "406–411"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản xác định cấu trúc SrBr2; không thay bằng hydrate.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-strontium-bromide.json",
+      "cif": "/assets/periodic-table/crystals/chat-strontium-bromide.cif",
+      "model": "/assets/periodic-table/crystals/chat-strontium-bromide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-strontium-bromide.png"
+    },
+    {
+      "id": "chat-solid-fluorine-alpha",
+      "amcsdId": "0012990",
+      "mineralName": "α-Fluorine rắn · 23 K",
+      "formula": "F",
+      "spaceGroup": "C 1 2/m 1",
+      "spaceGroupOriginal": "C 1 2/m 1",
+      "spaceGroupNumber": 12,
+      "cell": {
+        "a": 5.5,
+        "b": 3.28,
+        "c": 10.01,
+        "alpha": 90.0,
+        "beta": 134.66,
+        "gamma": 90.0
+      },
+      "volume": 128.44509822258635,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Meyer L",
+          "Barrett C S",
+          "Greer S C"
+        ],
+        "title": "Crystal structure of alpha-fluorine\n Sample: at T = 23 K\n Note: alpha phase, stable between T = 0 K & 45.6 K",
+        "journal": "Journal of Chemical Physics",
+        "year": 1968,
+        "volume": "49",
+        "pages": "1902–1907"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Pha alpha ở 23 K; khác pha beta ổn định trong khoảng nhiệt độ cao hơn.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-solid-fluorine-alpha.json",
+      "cif": "/assets/periodic-table/crystals/chat-solid-fluorine-alpha.cif",
+      "model": "/assets/periodic-table/crystals/chat-solid-fluorine-alpha.glb",
+      "preview": "/assets/periodic-table/crystals/chat-solid-fluorine-alpha.png"
+    },
+    {
+      "id": "chat-ammonium-sulfate",
+      "amcsdId": "0012986",
+      "mineralName": "(NH₄)₂SO₄ · 298 K",
+      "formula": "N2 H8 S O4",
+      "spaceGroup": "P n a m",
+      "spaceGroupOriginal": "P n a m",
+      "spaceGroupNumber": 62,
+      "cell": {
+        "a": 7.782,
+        "b": 10.636,
+        "c": 5.993,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 496.036726536,
+      "siteCount": 60,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Schlemper E O",
+          "Hamilton W C"
+        ],
+        "title": "Neutron-diffraction study of the structures of ferroelectric and paraelectric\n ammonium sulfate\n Note: paraelectric, T = 298 K",
+        "journal": "Journal of Chemical Physics",
+        "year": 1966,
+        "volume": "44",
+        "pages": "4498–4509"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Mẫu neutron paraelectric 298 K; không dùng mẫu ferroelectric 180 K thay thế.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-ammonium-sulfate.json",
+      "cif": "/assets/periodic-table/crystals/chat-ammonium-sulfate.cif",
+      "model": "/assets/periodic-table/crystals/chat-ammonium-sulfate.glb",
+      "preview": "/assets/periodic-table/crystals/chat-ammonium-sulfate.png"
+    },
+    {
+      "id": "chat-potassium-carbonate",
+      "amcsdId": "0013249",
+      "mineralName": "K₂CO₃ khan",
+      "formula": "K2 C O3",
+      "spaceGroup": "P 1 21/c 1",
+      "spaceGroupOriginal": "P 1 21/c 1",
+      "spaceGroupNumber": 14,
+      "cell": {
+        "a": 5.63961,
+        "b": 9.83912,
+        "c": 6.87407,
+        "alpha": 90.0,
+        "beta": 98.703,
+        "gamma": 90.0
+      },
+      "volume": 377.04204926387524,
+      "siteCount": 24,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Kohara S",
+          "Idemoto Y",
+          "Richardson J W",
+          "Koura N",
+          "Loong C K"
+        ],
+        "title": "Crystal structure of (LixK1-x)2CO3 (x = 0,0.43,0.5,0.62,1)\n by neutron powder diffraction analysis\n Sample: neutron powder diffraction refinement",
+        "journal": "Journal of Physics and Chemistry of Solids",
+        "year": 1998,
+        "volume": "59",
+        "pages": "363–376"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Mẫu neutron đúng đầu mút potassium carbonate; không dùng mẫu dung dịch rắn Li-K.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-potassium-carbonate.json",
+      "cif": "/assets/periodic-table/crystals/chat-potassium-carbonate.cif",
+      "model": "/assets/periodic-table/crystals/chat-potassium-carbonate.glb",
+      "preview": "/assets/periodic-table/crystals/chat-potassium-carbonate.png"
+    },
+    {
+      "id": "chat-disodium-hydrogen-phosphate",
+      "amcsdId": "0015788",
+      "mineralName": "Na₂HPO₄ khan",
+      "formula": "Na2 H P O4",
+      "spaceGroup": "P 1 21/m 1",
+      "spaceGroupOriginal": "P 1 21/m 1",
+      "spaceGroupNumber": 11,
+      "cell": {
+        "a": 5.451,
+        "b": 6.847,
+        "c": 5.473,
+        "alpha": 90.0,
+        "beta": 116.34,
+        "gamma": 90.0
+      },
+      "volume": 183.06094435279502,
+      "siteCount": 18,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Jansen M",
+          "Wiench D M"
+        ],
+        "title": "Kristallstruktur von wasserfreiem Na2HPO4",
+        "journal": "Zeitschrift fur Anorganische und Allgemeine Chemie",
+        "year": 1983,
+        "volume": "501",
+        "pages": "95–101"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản cấu trúc disodium hydrogen phosphate khan; không dùng hydrate.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-disodium-hydrogen-phosphate.json",
+      "cif": "/assets/periodic-table/crystals/chat-disodium-hydrogen-phosphate.cif",
+      "model": "/assets/periodic-table/crystals/chat-disodium-hydrogen-phosphate.glb",
+      "preview": "/assets/periodic-table/crystals/chat-disodium-hydrogen-phosphate.png"
+    },
+    {
+      "id": "chat-sodium-chromate",
+      "amcsdId": "0016962",
+      "mineralName": "Na₂CrO₄ khan",
+      "formula": "Na2 Cr O4",
+      "spaceGroup": "P b n n",
+      "spaceGroupOriginal": "P b n n",
+      "spaceGroupNumber": 52,
+      "cell": {
+        "a": 5.91,
+        "b": 9.23,
+        "c": 7.2,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 392.75496000000004,
+      "siteCount": 28,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Miller J"
+        ],
+        "title": "The crystal structure of anhydrous sodium chromate, Na2 Cr O4\n _cod_database_code 1010023",
+        "journal": "Zeitschrift fur Kristallographie",
+        "year": 1936,
+        "volume": "94",
+        "pages": "131–136"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản xác định cấu trúc sodium chromate khan.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-sodium-chromate.json",
+      "cif": "/assets/periodic-table/crystals/chat-sodium-chromate.cif",
+      "model": "/assets/periodic-table/crystals/chat-sodium-chromate.glb",
+      "preview": "/assets/periodic-table/crystals/chat-sodium-chromate.png"
+    },
+    {
+      "id": "chat-solid-nitrous-oxide",
+      "amcsdId": "0016995",
+      "mineralName": "N₂O rắn",
+      "formula": "O N2",
+      "spaceGroup": "P a -3",
+      "spaceGroupOriginal": "P a 3",
+      "spaceGroupNumber": 205,
+      "cell": {
+        "a": 5.72,
+        "b": 5.72,
+        "c": 5.72,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 187.14924799999997,
+      "siteCount": 12,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Smedt J",
+          "Keesom W"
+        ],
+        "title": "The structure of solid nitrous oxide and carbon dioxide\n _cod_database_code 1010059",
+        "journal": "Proceedings of the Koninklijke Nederlandse Academie van Wetenschappen",
+        "year": 1924,
+        "volume": "27",
+        "pages": "839–846"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản cấu trúc nitrous oxide rắn; không đồng nhất với CO2 trong cùng bài báo.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-solid-nitrous-oxide.json",
+      "cif": "/assets/periodic-table/crystals/chat-solid-nitrous-oxide.cif",
+      "model": "/assets/periodic-table/crystals/chat-solid-nitrous-oxide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-solid-nitrous-oxide.png"
+    },
+    {
+      "id": "chat-chromium-bromide",
+      "amcsdId": "0017081",
+      "mineralName": "CrBr₃ khan",
+      "formula": "Cr Br3",
+      "spaceGroup": "P 3",
+      "spaceGroupOriginal": "P 3",
+      "spaceGroupNumber": 143,
+      "cell": {
+        "a": 6.26,
+        "b": 6.26,
+        "c": 18.2,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 617.6617194628438,
+      "siteCount": 24,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Braekken H"
+        ],
+        "title": "Die Kristallstruktur von Chromtribromid\n _cod_database_code 1010151",
+        "journal": "Kongelige Norske Videnskapers Selskab, Forhandlinger",
+        "year": 1932,
+        "volume": "5",
+        "pages": "42–42"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản cấu trúc chromium tribromide; không suy trật tự từ từ hình học.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-chromium-bromide.json",
+      "cif": "/assets/periodic-table/crystals/chat-chromium-bromide.cif",
+      "model": "/assets/periodic-table/crystals/chat-chromium-bromide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-chromium-bromide.png"
+    },
+    {
+      "id": "chat-solid-carbon-monoxide",
+      "amcsdId": "0017231",
+      "mineralName": "CO rắn",
+      "formula": "C O",
+      "spaceGroup": "P 21 3",
+      "spaceGroupOriginal": "P 21 3",
+      "spaceGroupNumber": 198,
+      "cell": {
+        "a": 5.63,
+        "b": 5.63,
+        "c": 5.63,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 178.453547,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Vegard L"
+        ],
+        "title": "Struktur und Leuchtfaehigkeit von festem Kohlenoxyd.\n _cod_database_code 1010305",
+        "journal": "Zeitschrift fur Physik",
+        "year": 1930,
+        "volume": "61",
+        "pages": "185–190"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản cấu trúc carbon monoxide rắn; các vị trí trung bình/độ chiếm chỗ được giữ đúng nguồn.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-solid-carbon-monoxide.json",
+      "cif": "/assets/periodic-table/crystals/chat-solid-carbon-monoxide.cif",
+      "model": "/assets/periodic-table/crystals/chat-solid-carbon-monoxide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-solid-carbon-monoxide.png"
+    },
+    {
+      "id": "chat-solid-hydrogen-chloride",
+      "amcsdId": "0018512",
+      "mineralName": "HCl rắn · 77,4 K",
+      "formula": "H Cl",
+      "spaceGroup": "B b 21 m",
+      "spaceGroupOriginal": "B b 21 m",
+      "spaceGroupNumber": 36,
+      "cell": {
+        "a": 5.053,
+        "b": 5.373,
+        "c": 5.825,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 158.147404425,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Sandor E",
+          "Farrow R F C"
+        ],
+        "title": "Crystal structure of solid hydrogen chloride and deuterium chloride\n Note T = 77.4 K",
+        "journal": "Nature",
+        "year": 1967,
+        "volume": "213",
+        "pages": "171–172"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Mẫu hydrogen chloride ở 77,4 K; không dùng mẫu deuterium chloride hoặc dung dịch acid.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-solid-hydrogen-chloride.json",
+      "cif": "/assets/periodic-table/crystals/chat-solid-hydrogen-chloride.cif",
+      "model": "/assets/periodic-table/crystals/chat-solid-hydrogen-chloride.glb",
+      "preview": "/assets/periodic-table/crystals/chat-solid-hydrogen-chloride.png"
+    },
+    {
+      "id": "chat-lithium-sulfate",
+      "amcsdId": "0017384",
+      "mineralName": "Li₂SO₄ khan",
+      "formula": "O4 S Li2",
+      "spaceGroup": "P 1 21/a 1",
+      "spaceGroupOriginal": "P 1 21/a 1",
+      "spaceGroupNumber": 14,
+      "cell": {
+        "a": 8.25,
+        "b": 4.95,
+        "c": 8.44,
+        "alpha": 90.0,
+        "beta": 107.9,
+        "gamma": 90.0
+      },
+      "volume": 327.9846157935201,
+      "siteCount": 28,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Albright J"
+        ],
+        "title": "The Crystal Structure of Lithium Sulphate\n _cod_database_code 1010467",
+        "journal": "Zeitschrift fur Kristallographie",
+        "year": 1932,
+        "volume": "84",
+        "pages": "150–158"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản cấu trúc lithium sulfate khan; không thay cho monohydrate.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-lithium-sulfate.json",
+      "cif": "/assets/periodic-table/crystals/chat-lithium-sulfate.cif",
+      "model": "/assets/periodic-table/crystals/chat-lithium-sulfate.glb",
+      "preview": "/assets/periodic-table/crystals/chat-lithium-sulfate.png"
+    },
+    {
+      "id": "chat-silver-oxide",
+      "amcsdId": "0017487",
+      "mineralName": "Ag₂O",
+      "formula": "O Ag2",
+      "spaceGroup": "P n -3:1",
+      "spaceGroupOriginal": "P n 3",
+      "spaceGroupNumber": 201,
+      "cell": {
+        "a": 4.76,
+        "b": 4.76,
+        "c": 4.76,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 107.85017599999999,
+      "siteCount": 6,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R"
+        ],
+        "title": "The Crystal Structure of Silver Oxide (Ag2 O)\n _cod_database_code 1010604",
+        "journal": "American Journal of Science",
+        "year": 1922,
+        "volume": "3",
+        "pages": "184–188"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản cấu trúc silver oxide Ag2O; không nhầm với AgO.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-silver-oxide.json",
+      "cif": "/assets/periodic-table/crystals/chat-silver-oxide.cif",
+      "model": "/assets/periodic-table/crystals/chat-silver-oxide.glb",
+      "preview": "/assets/periodic-table/crystals/chat-silver-oxide.png"
+    },
+    {
+      "id": "chat-sodium-sulfite",
+      "amcsdId": "0017434",
+      "mineralName": "Na₂SO₃ khan",
+      "formula": "Na2 S O3",
+      "spaceGroup": "P -3",
+      "spaceGroupOriginal": "P -3",
+      "spaceGroupNumber": 147,
+      "cell": {
+        "a": 5.441,
+        "b": 5.441,
+        "c": 6.133,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 157.23928060849903,
+      "siteCount": 12,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Zachariasen W",
+          "Buckley H"
+        ],
+        "title": "The Crystal Lattice of Anhydrous Sodium Sulphite, Na2 S O3\n _cod_database_code 1010523",
+        "journal": "Physical Review",
+        "year": 1931,
+        "volume": "37",
+        "pages": "1295–1305"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản cấu trúc sodium sulfite khan; không thay bằng sulfate.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-sodium-sulfite.json",
+      "cif": "/assets/periodic-table/crystals/chat-sodium-sulfite.cif",
+      "model": "/assets/periodic-table/crystals/chat-sodium-sulfite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-sodium-sulfite.png"
+    },
+    {
+      "id": "chat-sodium-nitrite",
+      "amcsdId": "0017436",
+      "mineralName": "NaNO₂",
+      "formula": "Na N O2",
+      "spaceGroup": "I m 2 m",
+      "spaceGroupOriginal": "I m 2 m",
+      "spaceGroupNumber": 44,
+      "cell": {
+        "a": 3.55,
+        "b": 5.56,
+        "c": 5.37,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 105.99305999999999,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Ziegler G"
+        ],
+        "title": "The Crystal Structure of Sodium Nitrite, Na N O2\n _cod_database_code 1010525",
+        "journal": "Physical Review",
+        "year": 1931,
+        "volume": "38",
+        "pages": "1040–1047"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản cấu trúc sodium nitrite; không dùng nitrate NaNO3.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-sodium-nitrite.json",
+      "cif": "/assets/periodic-table/crystals/chat-sodium-nitrite.cif",
+      "model": "/assets/periodic-table/crystals/chat-sodium-nitrite.glb",
+      "preview": "/assets/periodic-table/crystals/chat-sodium-nitrite.png"
+    },
+    {
+      "id": "chat-potassium-thiocyanate",
+      "amcsdId": "0017507",
+      "mineralName": "KSCN",
+      "formula": "K N C S",
+      "spaceGroup": "P c m b",
+      "spaceGroupOriginal": "P c m b",
+      "spaceGroupNumber": 57,
+      "cell": {
+        "a": 6.66,
+        "b": 7.58,
+        "c": 6.635,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 334.95337800000004,
+      "siteCount": 16,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Klug H"
+        ],
+        "title": "The crystal structure of potassium thiocyanate\n _cod_database_code 1010625",
+        "journal": "Zeitschrift fur Kristallographie",
+        "year": 1933,
+        "volume": "85",
+        "pages": "214–222"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản cấu trúc potassium thiocyanate; không thay bằng cyanate.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-potassium-thiocyanate.json",
+      "cif": "/assets/periodic-table/crystals/chat-potassium-thiocyanate.cif",
+      "model": "/assets/periodic-table/crystals/chat-potassium-thiocyanate.glb",
+      "preview": "/assets/periodic-table/crystals/chat-potassium-thiocyanate.png"
+    },
+    {
+      "id": "chat-lithium-nitrate",
+      "amcsdId": "0018092",
+      "mineralName": "LiNO₃",
+      "formula": "Li N O3",
+      "spaceGroup": "R 3 c:R",
+      "spaceGroupOriginal": "R 3 c",
+      "spaceGroupNumber": 161,
+      "cell": {
+        "a": 5.74,
+        "b": 5.74,
+        "c": 5.74,
+        "alpha": 48.05,
+        "beta": 48.05,
+        "gamma": 48.05
+      },
+      "volume": 95.84489523995452,
+      "siteCount": 10,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Zachariasen W"
+        ],
+        "title": "Untersuchungen ueber die Kristallstruktur von Sesquioxyden und\n Verbindungen A B O3\n _cod_database_code 1011340",
+        "journal": "Skrifter utgitt av det Norske Videnskaps-Akademi i Oslo",
+        "year": 1928,
+        "volume": "1928",
+        "pages": "1–165"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản ghi đúng lithium nitrate trong nghiên cứu hợp chất ABO3.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-lithium-nitrate.json",
+      "cif": "/assets/periodic-table/crystals/chat-lithium-nitrate.cif",
+      "model": "/assets/periodic-table/crystals/chat-lithium-nitrate.glb",
+      "preview": "/assets/periodic-table/crystals/chat-lithium-nitrate.png"
+    },
+    {
+      "id": "chat-zinc-hydroxide-epsilon",
+      "amcsdId": "0018272",
+      "mineralName": "ε-Zn(OH)₂",
+      "formula": "Zn O2 H2",
+      "spaceGroup": "P 21 21 21",
+      "spaceGroupOriginal": "P 21 21 21",
+      "spaceGroupNumber": 19,
+      "cell": {
+        "a": 4.905,
+        "b": 5.143,
+        "c": 8.473,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 213.743414295,
+      "siteCount": 20,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Lutz H D",
+          "Jacobs H",
+          "Kockelmann W",
+          "Stahl R",
+          "Jung C"
+        ],
+        "title": "Kristallstrukturen und Wasserstoffbruckenbindungen bei beta-Be(OH)2\n und epsilon-Zn(OH)2\n Note: X-ray single-crystal",
+        "journal": "Zeitschrift fur Anorganische und Allgemeine Chemie",
+        "year": 1998,
+        "volume": "624",
+        "pages": "1130–1136"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản đơn tinh thể epsilon zinc hydroxide; không suy từ beta-Be(OH)2 cùng tiêu đề.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-zinc-hydroxide-epsilon.json",
+      "cif": "/assets/periodic-table/crystals/chat-zinc-hydroxide-epsilon.cif",
+      "model": "/assets/periodic-table/crystals/chat-zinc-hydroxide-epsilon.glb",
+      "preview": "/assets/periodic-table/crystals/chat-zinc-hydroxide-epsilon.png"
+    },
+    {
+      "id": "chat-solid-oxygen-beta",
+      "amcsdId": "0020614",
+      "mineralName": "β-Oxygen rắn · điều kiện nguồn",
+      "formula": "O",
+      "spaceGroup": "R -3 m:H",
+      "spaceGroupOriginal": "R -3 m",
+      "spaceGroupNumber": 166,
+      "cell": {
+        "a": 2.826,
+        "b": 2.826,
+        "c": 10.16,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 70.26978983996116,
+      "siteCount": 6,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Noda Y",
+          "Akahama Y",
+          "Kawamura H",
+          "Shimomura O",
+          "Uemura E",
+          "Bihan T L",
+          "Shobu T"
+        ],
+        "title": "Structural studies of beta-O2 under pressure",
+        "journal": "Journal of Physics: Condensed Matter",
+        "year": 2002,
+        "volume": "14",
+        "pages": "10423–10428"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Pha beta oxygen dưới áp suất theo bản ghi; không dùng bản ghi đồng vị 18O2 ở 9,6 GPa thay thế.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-solid-oxygen-beta.json",
+      "cif": "/assets/periodic-table/crystals/chat-solid-oxygen-beta.cif",
+      "model": "/assets/periodic-table/crystals/chat-solid-oxygen-beta.glb",
+      "preview": "/assets/periodic-table/crystals/chat-solid-oxygen-beta.png"
+    },
+    {
+      "id": "chat-ice-ii",
+      "amcsdId": "0018367",
+      "mineralName": "Băng II · −75 °C · 0,3 GPa",
+      "formula": "O H2",
+      "spaceGroup": "R -3:R",
+      "spaceGroupOriginal": "R -3",
+      "spaceGroupNumber": 148,
+      "cell": {
+        "a": 7.78,
+        "b": 7.78,
+        "c": 7.78,
+        "alpha": 113.1,
+        "beta": 113.1,
+        "gamma": 113.1
+      },
+      "volume": 304.25042447574043,
+      "siteCount": 36,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Kamb B"
+        ],
+        "title": "Ice II: A proton-ordered form of ice\n Note: T = -75 C, P = 0.3 GPa",
+        "journal": "Acta Crystallographica",
+        "year": 1964,
+        "volume": "17",
+        "pages": "1437–1449"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Pha áp suất cao có proton có trật tự; 12 O và 24 H trong ô mạng. Không mô tả nước lỏng hay băng Ih ở áp suất thường.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-ice-ii.json",
+      "cif": "/assets/periodic-table/crystals/chat-ice-ii.cif",
+      "model": "/assets/periodic-table/crystals/chat-ice-ii.glb",
+      "preview": "/assets/periodic-table/crystals/chat-ice-ii.png"
     }
   ],
+  "elements": {
+    "Ar": {
+      "id": "chat-solid-argon",
+      "amcsdId": "0015155",
+      "mineralName": "Argon rắn · 4,2 K",
+      "formula": "Ar",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
+      "cell": {
+        "a": 5.25,
+        "b": 5.25,
+        "c": 5.25,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 144.703125,
+      "siteCount": 4,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Henshaw D G"
+        ],
+        "title": "Atomic distribution in liquid and solid neon and solid argon by neutron diffraction\n Sample: at T = 4.2 K",
+        "journal": "Physical Review",
+        "year": 1958,
+        "volume": "111",
+        "pages": "1470–1475"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Nhiễu xạ neutron ở 4,2 K; argon không ở pha rắn tại điều kiện phòng.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-solid-argon.json",
+      "cif": "/assets/periodic-table/crystals/chat-solid-argon.cif",
+      "model": "/assets/periodic-table/crystals/chat-solid-argon.glb",
+      "preview": "/assets/periodic-table/crystals/chat-solid-argon.png"
+    },
+    "Kr": {
+      "id": "chat-solid-krypton",
+      "amcsdId": "0011148",
+      "mineralName": "Krypton rắn · FCC · 58 K",
+      "formula": "Kr",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
+      "cell": {
+        "a": 5.721,
+        "b": 5.721,
+        "c": 5.721,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 187.247420361,
+      "siteCount": 4,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Sample at T = 58 K\n Cubic closest packed, ccp, structure",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "7–83"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Bản tổng hợp FCC ở 58 K; phân biệt với cấu trúc HCP metastable khác.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-solid-krypton.json",
+      "cif": "/assets/periodic-table/crystals/chat-solid-krypton.cif",
+      "model": "/assets/periodic-table/crystals/chat-solid-krypton.glb",
+      "preview": "/assets/periodic-table/crystals/chat-solid-krypton.png"
+    },
+    "Ne": {
+      "id": "chat-solid-neon",
+      "amcsdId": "0015156",
+      "mineralName": "Neon-20 rắn · 4,2 K",
+      "formula": "Ne",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
+      "cell": {
+        "a": 4.462,
+        "b": 4.462,
+        "c": 4.462,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 88.83593912799998,
+      "siteCount": 4,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Bolz L H",
+          "Mauer F A"
+        ],
+        "title": "Measurement of the lattice constants of neon isotopes in the temperature range 4-24 K\n Sample: at T = 4.2 K\n Note: this is isotope 20 Ne",
+        "journal": "Physical Review",
+        "year": 1962,
+        "volume": "111",
+        "pages": "242–249"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Bản ghi đồng vị 20Ne tại 4,2 K; không khẳng định cùng thông số với 22Ne.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-solid-neon.json",
+      "cif": "/assets/periodic-table/crystals/chat-solid-neon.cif",
+      "model": "/assets/periodic-table/crystals/chat-solid-neon.glb",
+      "preview": "/assets/periodic-table/crystals/chat-solid-neon.png"
+    },
+    "Xe": {
+      "id": "chat-solid-xenon",
+      "amcsdId": "0012968",
+      "mineralName": "Xenon rắn · 60 K",
+      "formula": "Xe",
+      "spaceGroup": "F m -3 m",
+      "spaceGroupOriginal": "F m 3 m",
+      "spaceGroupNumber": 225,
+      "cell": {
+        "a": 6.1796,
+        "b": 6.1796,
+        "c": 6.1796,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 235.98320408633597,
+      "siteCount": 4,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Sears D R",
+          "Klug H P"
+        ],
+        "title": "Density and expansivity of solid xenon\n Sample: at T = 60 K",
+        "journal": "Journal of Chemical Physics",
+        "year": 1962,
+        "volume": "37",
+        "pages": "3002–3006"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Mẫu 60 K trong nghiên cứu mật độ và giãn nở xenon rắn.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-solid-xenon.json",
+      "cif": "/assets/periodic-table/crystals/chat-solid-xenon.cif",
+      "model": "/assets/periodic-table/crystals/chat-solid-xenon.glb",
+      "preview": "/assets/periodic-table/crystals/chat-solid-xenon.png"
+    },
+    "He": {
+      "id": "chat-solid-helium",
+      "amcsdId": "0015152",
+      "mineralName": "Helium rắn · 1,1 K · 0,007 GPa",
+      "formula": "He",
+      "spaceGroup": "P 63/m m c",
+      "spaceGroupOriginal": "P 63/m m c",
+      "spaceGroupNumber": 194,
+      "cell": {
+        "a": 3.53,
+        "b": 3.53,
+        "c": 5.76,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 62.15878629514088,
+      "siteCount": 2,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Henshaw D G"
+        ],
+        "title": "Structure of solid helium by neutron diffraction\n Sample: at T = 1.1 K and P = .007 GPa",
+        "journal": "Physical Review",
+        "year": 1958,
+        "volume": "109",
+        "pages": "328–330"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Mẫu neutron ở nhiệt độ thấp và có áp suất; không phải helium rắn ở áp suất khí quyển.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-solid-helium.json",
+      "cif": "/assets/periodic-table/crystals/chat-solid-helium.cif",
+      "model": "/assets/periodic-table/crystals/chat-solid-helium.glb",
+      "preview": "/assets/periodic-table/crystals/chat-solid-helium.png"
+    },
+    "N": {
+      "id": "chat-solid-nitrogen-alpha",
+      "amcsdId": "0011249",
+      "mineralName": "α-Nitrogen rắn · 4,2 K",
+      "formula": "N",
+      "spaceGroup": "P a -3",
+      "spaceGroupOriginal": "P a 3",
+      "spaceGroupNumber": 205,
+      "cell": {
+        "a": 5.644,
+        "b": 5.644,
+        "c": 5.644,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 179.78812998400002,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Wyckoff R W G"
+        ],
+        "title": "Second edition. Interscience Publishers, New York, New York\n Sample at T = 4.2 K",
+        "journal": "Crystal Structures",
+        "year": 1963,
+        "volume": "1",
+        "pages": "7–83"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "literature-compilation",
+      "note": "Cấu trúc trung bình Pa-3 với tám vị trí N trong ô mạng; không dùng mô hình P213 cũ hoặc tâm phân tử thay nguyên tử.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-solid-nitrogen-alpha.json",
+      "cif": "/assets/periodic-table/crystals/chat-solid-nitrogen-alpha.cif",
+      "model": "/assets/periodic-table/crystals/chat-solid-nitrogen-alpha.glb",
+      "preview": "/assets/periodic-table/crystals/chat-solid-nitrogen-alpha.png"
+    },
+    "Cl": {
+      "id": "chat-solid-chlorine",
+      "amcsdId": "0014661",
+      "mineralName": "Chlorine rắn · 160 K",
+      "formula": "Cl",
+      "spaceGroup": "C m c a",
+      "spaceGroupOriginal": "C m c a",
+      "spaceGroupNumber": 64,
+      "cell": {
+        "a": 6.2929,
+        "b": 4.5361,
+        "c": 8.1617,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 232.97755219067304,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Powell B M",
+          "Heal K M",
+          "Torrie B H"
+        ],
+        "title": "The temperature dependence of the crystal structures of the solid halogens,\n bromine and chlorine\n Sample: at T = 160 K",
+        "journal": "Molecular Physics",
+        "year": 1984,
+        "volume": "53",
+        "pages": "929–939"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Tinh chỉnh chlorine rắn ở 160 K; không đại diện chlorine khí ở điều kiện phòng.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-solid-chlorine.json",
+      "cif": "/assets/periodic-table/crystals/chat-solid-chlorine.cif",
+      "model": "/assets/periodic-table/crystals/chat-solid-chlorine.glb",
+      "preview": "/assets/periodic-table/crystals/chat-solid-chlorine.png"
+    },
+    "Br": {
+      "id": "chat-solid-bromine",
+      "amcsdId": "0014657",
+      "mineralName": "Bromine rắn · 250 K",
+      "formula": "Br",
+      "spaceGroup": "C m c a",
+      "spaceGroupOriginal": "C m c a",
+      "spaceGroupNumber": 64,
+      "cell": {
+        "a": 6.7265,
+        "b": 4.6451,
+        "c": 8.7023,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 90.0
+      },
+      "volume": 271.905670914845,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Powell B M",
+          "Heal K M",
+          "Torrie B H"
+        ],
+        "title": "The temperature dependence of the crystal structures of the solid halogens, bromine and chlorine\n Sample: at T = 250 K",
+        "journal": "Molecular Physics",
+        "year": 1984,
+        "volume": "53",
+        "pages": "929–939"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Tinh chỉnh bromine rắn ở 250 K; không đại diện bromine lỏng ở điều kiện phòng.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-solid-bromine.json",
+      "cif": "/assets/periodic-table/crystals/chat-solid-bromine.cif",
+      "model": "/assets/periodic-table/crystals/chat-solid-bromine.glb",
+      "preview": "/assets/periodic-table/crystals/chat-solid-bromine.png"
+    },
+    "F": {
+      "id": "chat-solid-fluorine-alpha",
+      "amcsdId": "0012990",
+      "mineralName": "α-Fluorine rắn · 23 K",
+      "formula": "F",
+      "spaceGroup": "C 1 2/m 1",
+      "spaceGroupOriginal": "C 1 2/m 1",
+      "spaceGroupNumber": 12,
+      "cell": {
+        "a": 5.5,
+        "b": 3.28,
+        "c": 10.01,
+        "alpha": 90.0,
+        "beta": 134.66,
+        "gamma": 90.0
+      },
+      "volume": 128.44509822258635,
+      "siteCount": 8,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Meyer L",
+          "Barrett C S",
+          "Greer S C"
+        ],
+        "title": "Crystal structure of alpha-fluorine\n Sample: at T = 23 K\n Note: alpha phase, stable between T = 0 K & 45.6 K",
+        "journal": "Journal of Chemical Physics",
+        "year": 1968,
+        "volume": "49",
+        "pages": "1902–1907"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Pha alpha ở 23 K; khác pha beta ổn định trong khoảng nhiệt độ cao hơn.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-solid-fluorine-alpha.json",
+      "cif": "/assets/periodic-table/crystals/chat-solid-fluorine-alpha.cif",
+      "model": "/assets/periodic-table/crystals/chat-solid-fluorine-alpha.glb",
+      "preview": "/assets/periodic-table/crystals/chat-solid-fluorine-alpha.png"
+    },
+    "O": {
+      "id": "chat-solid-oxygen-beta",
+      "amcsdId": "0020614",
+      "mineralName": "β-Oxygen rắn · điều kiện nguồn",
+      "formula": "O",
+      "spaceGroup": "R -3 m:H",
+      "spaceGroupOriginal": "R -3 m",
+      "spaceGroupNumber": 166,
+      "cell": {
+        "a": 2.826,
+        "b": 2.826,
+        "c": 10.16,
+        "alpha": 90.0,
+        "beta": 90.0,
+        "gamma": 120.0
+      },
+      "volume": 70.26978983996116,
+      "siteCount": 6,
+      "mixedSiteCount": 0,
+      "reference": {
+        "authors": [
+          "Noda Y",
+          "Akahama Y",
+          "Kawamura H",
+          "Shimomura O",
+          "Uemura E",
+          "Bihan T L",
+          "Shobu T"
+        ],
+        "title": "Structural studies of beta-O2 under pressure",
+        "journal": "Journal of Physics: Condensed Matter",
+        "year": 2002,
+        "volume": "14",
+        "pages": "10423–10428"
+      },
+      "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+      "evidence": "published-structure",
+      "note": "Pha beta oxygen dưới áp suất theo bản ghi; không dùng bản ghi đồng vị 18O2 ở 9,6 GPa thay thế.",
+      "limitations": "",
+      "data": "/assets/periodic-table/crystals/chat-solid-oxygen-beta.json",
+      "cif": "/assets/periodic-table/crystals/chat-solid-oxygen-beta.cif",
+      "model": "/assets/periodic-table/crystals/chat-solid-oxygen-beta.glb",
+      "preview": "/assets/periodic-table/crystals/chat-solid-oxygen-beta.png"
+    }
+  },
   "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
   "transportSha256": "94e5486b763a77ebd3300e950786bc787bfce8f2722c9ba2c7c99048bee7a67e"
 }

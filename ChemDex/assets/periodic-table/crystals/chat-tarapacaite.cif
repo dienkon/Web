@@ -1,0 +1,47 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0009457
+_database_code_amcsd 0009457
+_chemical_name_mineral 'Tarapacaite · K₂CrO₄'
+_chemical_formula_sum 'K2 Cr O4'
+_symmetry_space_group_name_H-M 'P n a m'
+_cell_length_a 7.663
+_cell_length_b 10.388
+_cell_length_c 5.922
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 90
+_cell_volume 471.410411
+loop_
+_publ_author_name
+'McGinnety J A'
+_journal_name_full 'Acta Crystallographica, Section B'
+_journal_year 1972
+_journal_volume 28
+_publ_section_title
+;Redetermination of the structures of potassium sulphate and potassium chromate:
+ the effect of electrostatic crystal forces upon observed bond length
+;
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+x,y,1/2-z
+-x,-y,1/2+z
+1/2-x,1/2+y,1/2+z
+1/2+x,1/2-y,1/2-z
+1/2+x,1/2-y,z
+1/2-x,1/2+y,-z
+-x,-y,-z
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+K1 K 0.66544 0.41449 0.25 1
+K2 K -0.01105 0.6998 0.25 1
+Cr Cr 0.229 0.42059 0.25 1
+O1 O 0.0155 0.42 0.25 1
+O2 O 0.3024 0.57 0.25 1
+O3 O 0.3022 0.3471 0.0233 1

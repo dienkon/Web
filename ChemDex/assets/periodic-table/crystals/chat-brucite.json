@@ -1,0 +1,191 @@
+{
+  "amcsdId": "0007912",
+  "mineralName": "Brucite · Mg(OH)₂",
+  "formula": "Mg O2 H2",
+  "spaceGroup": "P -3 m 1",
+  "cell": {
+    "a": 3.14979,
+    "b": 3.14979,
+    "c": 4.7702,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 120.0
+  },
+  "volume": 40.98551716464343,
+  "declaredVolume": 40.986,
+  "basis": [
+    [
+      3.14979,
+      -1.5748949999999993,
+      0.0
+    ],
+    [
+      0.0,
+      2.727798156586187,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      4.7702
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "-y,-x,z",
+    "y,-x+y,-z",
+    "-x,-x+y,-z",
+    "-x+y,-x,z",
+    "-x+y,y,z",
+    "-x,-y,-z",
+    "y,x,-z",
+    "-y,x-y,z",
+    "x,x-y,z",
+    "x-y,x,-z",
+    "x-y,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Mg",
+      "element": "Mg",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.2203
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "H",
+      "element": "H",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.413
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Mg",
+      "label": "Mg",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.2203
+      ],
+      "position": [
+        -4e-07,
+        1.8185323,
+        1.0508751
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.66666675,
+        0.3333335,
+        0.7797
+      ],
+      "position": [
+        1.574895,
+        0.9092665,
+        3.7193249
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.413
+      ],
+      "position": [
+        -4e-07,
+        1.8185323,
+        1.9700926
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H",
+      "fractional": [
+        0.66666675,
+        0.3333335,
+        0.587
+      ],
+      "position": [
+        1.574895,
+        0.9092665,
+        2.8001074
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 5,
+  "speciesPositionCount": 5,
+  "cellComposition": {
+    "Mg": 1,
+    "O": 2,
+    "H": 2
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Ferraris G",
+      "Catti M",
+      "Pavese A",
+      "Hull S"
+    ],
+    "title": "Static compression and H disorder in brucite, Mg(OH)2, to 11 GPa:\n a powder neutron diffraction study\n Sample: at P = 0.0001 GPa",
+    "journal": "Physics and Chemistry of Minerals",
+    "year": 1995,
+    "volume": "22",
+    "pages": "200–206"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 12,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.1780633500966534e-05
+  },
+  "spaceGroupOriginal": "P -3 m 1",
+  "spaceGroupNumber": 164,
+  "id": "chat-brucite",
+  "note": "Nhiễu xạ neutron; P = 0,0001 GPa; giữ mức bất trật tự hydrogen của nguồn."
+}

@@ -1,0 +1,496 @@
+{
+  "amcsdId": "0017923",
+  "mineralName": "Nahcolite · NaHCO₃",
+  "formula": "Na C O3 H",
+  "spaceGroup": "P 1 21/n 1",
+  "cell": {
+    "a": 7.51,
+    "b": 9.7,
+    "c": 3.53,
+    "alpha": 90.0,
+    "beta": 93.32,
+    "gamma": 90.0
+  },
+  "volume": 256.71832557445356,
+  "declaredVolume": 256.718,
+  "basis": [
+    [
+      7.51,
+      0.0,
+      -0.20443116199685066
+    ],
+    [
+      0.0,
+      9.7,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      3.5240754674105115
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+x,1/2-y,1/2+z",
+    "1/2-x,1/2+y,1/2-z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Na1",
+      "element": "Na",
+      "fractional": [
+        0.278,
+        0.0,
+        0.708
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "C1",
+      "element": "C",
+      "fractional": [
+        0.069,
+        0.236,
+        0.314
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.069,
+        0.367,
+        0.314
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.2,
+        0.169,
+        0.183
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O3",
+      "element": "O",
+      "fractional": [
+        0.939,
+        0.169,
+        0.444
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "H1",
+      "element": "H",
+      "fractional": [
+        0.319,
+        0.25,
+        0.064
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Na",
+      "label": "Na1",
+      "fractional": [
+        0.278,
+        0.0,
+        0.708
+      ],
+      "position": [
+        1.9430427,
+        0.0,
+        2.4950454
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na1",
+      "fractional": [
+        0.778,
+        0.5,
+        0.208
+      ],
+      "position": [
+        5.8002583,
+        4.85,
+        0.7330077
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na1",
+      "fractional": [
+        0.222,
+        0.5,
+        0.792
+      ],
+      "position": [
+        1.5053105,
+        4.85,
+        2.7910678
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na1",
+      "fractional": [
+        0.722,
+        0.0,
+        0.292
+      ],
+      "position": [
+        5.3625261,
+        0.0,
+        1.02903
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C1",
+      "fractional": [
+        0.069,
+        0.236,
+        0.314
+      ],
+      "position": [
+        0.4539986,
+        2.2892,
+        1.1065597
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C1",
+      "fractional": [
+        0.569,
+        0.264,
+        0.814
+      ],
+      "position": [
+        4.106783,
+        2.5608,
+        2.8685974
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C1",
+      "fractional": [
+        0.431,
+        0.736,
+        0.186
+      ],
+      "position": [
+        3.1987858,
+        7.1392,
+        0.655478
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C1",
+      "fractional": [
+        0.931,
+        0.764,
+        0.686
+      ],
+      "position": [
+        6.8515702,
+        7.4108,
+        2.4175158
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.069,
+        0.367,
+        0.314
+      ],
+      "position": [
+        0.4539986,
+        3.5599,
+        1.1065597
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.569,
+        0.133,
+        0.814
+      ],
+      "position": [
+        4.106783,
+        1.2901,
+        2.8685974
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.431,
+        0.867,
+        0.186
+      ],
+      "position": [
+        3.1987858,
+        8.4099,
+        0.655478
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.931,
+        0.633,
+        0.686
+      ],
+      "position": [
+        6.8515702,
+        6.1401,
+        2.4175158
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.2,
+        0.169,
+        0.183
+      ],
+      "position": [
+        1.4645891,
+        1.6393,
+        0.6449058
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.7,
+        0.331,
+        0.683
+      ],
+      "position": [
+        5.1173735,
+        3.2107,
+        2.4069435
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.3,
+        0.669,
+        0.317
+      ],
+      "position": [
+        2.1881953,
+        6.4893,
+        1.1171319
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.8,
+        0.831,
+        0.817
+      ],
+      "position": [
+        5.8409797,
+        8.0607,
+        2.8791697
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.939,
+        0.169,
+        0.444
+      ],
+      "position": [
+        6.9611226,
+        1.6393,
+        1.5646895
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.439,
+        0.331,
+        0.944
+      ],
+      "position": [
+        3.103907,
+        3.2107,
+        3.3267272
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.561,
+        0.669,
+        0.056
+      ],
+      "position": [
+        4.2016619,
+        6.4893,
+        0.1973482
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.061,
+        0.831,
+        0.556
+      ],
+      "position": [
+        0.3444463,
+        8.0607,
+        1.959386
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H1",
+      "fractional": [
+        0.319,
+        0.25,
+        0.064
+      ],
+      "position": [
+        2.3826064,
+        2.425,
+        0.2255408
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H1",
+      "fractional": [
+        0.819,
+        0.25,
+        0.564
+      ],
+      "position": [
+        6.0353908,
+        2.425,
+        1.9875786
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H1",
+      "fractional": [
+        0.181,
+        0.75,
+        0.436
+      ],
+      "position": [
+        1.270178,
+        7.275,
+        1.5364969
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H1",
+      "fractional": [
+        0.681,
+        0.75,
+        0.936
+      ],
+      "position": [
+        4.9229624,
+        7.275,
+        3.2985346
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 24,
+  "speciesPositionCount": 24,
+  "cellComposition": {
+    "Na": 4,
+    "C": 4,
+    "O": 12,
+    "H": 4
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Zachariasen W"
+    ],
+    "title": "The Crystal Lattice of Sodium Bicarbonate, Na H C O3\n _cod_database_code 1011016",
+    "journal": "Journal of Chemical Physics",
+    "year": 1933,
+    "volume": "1",
+    "pages": "634–639"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 4,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.2682166448863169e-06
+  },
+  "spaceGroupOriginal": "P 1 21/n 1",
+  "spaceGroupNumber": 14,
+  "id": "chat-nahcolite",
+  "note": "Bản cấu trúc đầy đủ H, C, O, Na; loại bản ghi 9267 thiếu tọa độ hydrogen."
+}

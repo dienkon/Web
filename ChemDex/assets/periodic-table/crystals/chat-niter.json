@@ -413,6 +413,8 @@
     "maxSiteOccupancy": 1,
     "cellVolumeRelativeError": 1.727154461806584e-07
   },
+  "spaceGroupOriginal": "P m c n",
+  "spaceGroupNumber": 62,
   "id": "chat-niter",
   "note": "Giữ nhãn pha của bài gốc; không dùng pha gamma thay cho mẫu này."
 }

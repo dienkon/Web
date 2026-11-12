@@ -2,7 +2,7 @@
   "amcsdId": "0015213",
   "mineralName": "AgBr · Phase I",
   "formula": "Ag Br",
-  "spaceGroup": "F m 3 m",
+  "spaceGroup": "F m -3 m",
   "cell": {
     "a": 5.7721,
     "b": 5.7721,
@@ -396,6 +396,8 @@
     "maxSiteOccupancy": 1,
     "cellVolumeRelativeError": 7.55986422602406e-07
   },
+  "spaceGroupOriginal": "F m 3 m",
+  "spaceGroupNumber": 225,
   "id": "chat-silver-bromide",
   "note": "Mẫu 0,0 GPa; pha I."
 }

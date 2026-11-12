@@ -1,0 +1,43 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0009670
+_database_code_amcsd 0009670
+_chemical_name_mineral 'Ag₂CO₃'
+_chemical_formula_sum 'Ag2 O3 C'
+_symmetry_space_group_name_H-M 'P 1 21/m 1'
+_cell_length_a 4.852
+_cell_length_b 9.553
+_cell_length_c 3.255
+_cell_angle_alpha 90
+_cell_angle_beta 91.96
+_cell_angle_gamma 90
+_cell_volume 150.784744
+loop_
+_publ_author_name
+'Durif A'
+'Guitel J'
+'Masse R'
+_journal_name_full 'Acta Crystallographica, Section B'
+_journal_year 1979
+_journal_volume 35
+_publ_section_title
+;Structure du carbonate d'argent
+ _cod_database_code 1007035
+;
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+x,1/2-y,z
+-x,1/2+y,-z
+-x,-y,-z
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+Ag1 Ag 0.2109 0.0781 0.2191 1
+O1 O -0.018 0.25 0.889 1
+O2 O 0.39 0.6342 0.334 1
+C1 C 0.27 0.75 0.261 1

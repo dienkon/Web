@@ -1,0 +1,42 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0015788
+_database_code_amcsd 0015788
+_chemical_name_mineral 'Na₂HPO₄ khan'
+_chemical_formula_sum 'Na2 H P O4'
+_symmetry_space_group_name_H-M 'P 1 21/m 1'
+_cell_length_a 5.451
+_cell_length_b 6.847
+_cell_length_c 5.473
+_cell_angle_alpha 90
+_cell_angle_beta 116.34
+_cell_angle_gamma 90
+_cell_volume 183.060944
+loop_
+_publ_author_name
+'Jansen M'
+'Wiench D M'
+_journal_name_full 'Zeitschrift fur Anorganische und Allgemeine Chemie'
+_journal_year 1983
+_journal_volume 501
+_publ_section_title 'Kristallstruktur von wasserfreiem Na2HPO4'
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+x,1/2-y,z
+-x,1/2+y,-z
+-x,-y,-z
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+Na1 Na 0 0 0 1
+Na2 Na 0.3876 0.25 0.7757 1
+H H 0.6496 0.4612 0.1081 0.5
+P P 0.6623 0.25 0.3822 1
+O1 O 0.3525 0.25 0.2144 1
+O2 O 0.7701 0.25 0.6875 1
+O3 O 0.7842 0.4337 0.3001 1

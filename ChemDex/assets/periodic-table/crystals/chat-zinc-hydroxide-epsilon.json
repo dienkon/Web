@@ -1,0 +1,429 @@
+{
+  "amcsdId": "0018272",
+  "mineralName": "ε-Zn(OH)₂",
+  "formula": "Zn O2 H2",
+  "spaceGroup": "P 21 21 21",
+  "cell": {
+    "a": 4.905,
+    "b": 5.143,
+    "c": 8.473,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 213.743414295,
+  "declaredVolume": 213.743,
+  "basis": [
+    [
+      4.905,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      5.143,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      8.473
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "-x,1/2+y,1/2-z",
+    "1/2+x,1/2-y,-z",
+    "1/2-x,-y,1/2+z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Zn",
+      "element": "Zn",
+      "fractional": [
+        0.07096,
+        0.64832,
+        0.6242
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.1155,
+        0.1256,
+        0.0795
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.167,
+        0.3172,
+        0.7198
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "H1",
+      "element": "H",
+      "fractional": [
+        0.501,
+        0.36,
+        0.857
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "H2",
+      "element": "H",
+      "fractional": [
+        0.28,
+        0.79,
+        0.17
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Zn",
+      "label": "Zn",
+      "fractional": [
+        0.07096,
+        0.64832,
+        0.6242
+      ],
+      "position": [
+        0.3480588,
+        3.3343098,
+        5.2888466
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Zn",
+      "label": "Zn",
+      "fractional": [
+        0.92904,
+        0.14832,
+        0.8758
+      ],
+      "position": [
+        4.5569412,
+        0.7628098,
+        7.4206534
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Zn",
+      "label": "Zn",
+      "fractional": [
+        0.57096,
+        0.85168,
+        0.3758
+      ],
+      "position": [
+        2.8005588,
+        4.3801902,
+        3.1841534
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Zn",
+      "label": "Zn",
+      "fractional": [
+        0.42904,
+        0.35168,
+        0.1242
+      ],
+      "position": [
+        2.1044412,
+        1.8086902,
+        1.0523466
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.1155,
+        0.1256,
+        0.0795
+      ],
+      "position": [
+        0.5665275,
+        0.6459608,
+        0.6736035
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.8845,
+        0.6256,
+        0.4205
+      ],
+      "position": [
+        4.3384725,
+        3.2174608,
+        3.5628965
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.6155,
+        0.3744,
+        0.9205
+      ],
+      "position": [
+        3.0190275,
+        1.9255392,
+        7.7993965
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.3845,
+        0.8744,
+        0.5795
+      ],
+      "position": [
+        1.8859725,
+        4.4970392,
+        4.9101035
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.167,
+        0.3172,
+        0.7198
+      ],
+      "position": [
+        0.819135,
+        1.6313596,
+        6.0988654
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.833,
+        0.8172,
+        0.7802
+      ],
+      "position": [
+        4.085865,
+        4.2028596,
+        6.6106346
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.667,
+        0.1828,
+        0.2802
+      ],
+      "position": [
+        3.271635,
+        0.9401404,
+        2.3741346
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.333,
+        0.6828,
+        0.2198
+      ],
+      "position": [
+        1.633365,
+        3.5116404,
+        1.8623654
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H1",
+      "fractional": [
+        0.501,
+        0.36,
+        0.857
+      ],
+      "position": [
+        2.457405,
+        1.85148,
+        7.261361
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H1",
+      "fractional": [
+        0.499,
+        0.86,
+        0.643
+      ],
+      "position": [
+        2.447595,
+        4.42298,
+        5.448139
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H1",
+      "fractional": [
+        0.001,
+        0.14,
+        0.143
+      ],
+      "position": [
+        0.004905,
+        0.72002,
+        1.211639
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H1",
+      "fractional": [
+        0.999,
+        0.64,
+        0.357
+      ],
+      "position": [
+        4.900095,
+        3.29152,
+        3.024861
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H2",
+      "fractional": [
+        0.28,
+        0.79,
+        0.17
+      ],
+      "position": [
+        1.3734,
+        4.06297,
+        1.44041
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H2",
+      "fractional": [
+        0.72,
+        0.29,
+        0.33
+      ],
+      "position": [
+        3.5316,
+        1.49147,
+        2.79609
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H2",
+      "fractional": [
+        0.78,
+        0.71,
+        0.83
+      ],
+      "position": [
+        3.8259,
+        3.65153,
+        7.03259
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H2",
+      "fractional": [
+        0.22,
+        0.21,
+        0.67
+      ],
+      "position": [
+        1.0791,
+        1.08003,
+        5.67691
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 20,
+  "speciesPositionCount": 20,
+  "cellComposition": {
+    "Zn": 4,
+    "O": 8,
+    "H": 8
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Lutz H D",
+      "Jacobs H",
+      "Kockelmann W",
+      "Stahl R",
+      "Jung C"
+    ],
+    "title": "Kristallstrukturen und Wasserstoffbruckenbindungen bei beta-Be(OH)2\n und epsilon-Zn(OH)2\n Note: X-ray single-crystal",
+    "journal": "Zeitschrift fur Anorganische und Allgemeine Chemie",
+    "year": 1998,
+    "volume": "624",
+    "pages": "1130–1136"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 4,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.9382819413617366e-06
+  },
+  "spaceGroupOriginal": "P 21 21 21",
+  "spaceGroupNumber": 19,
+  "id": "chat-zinc-hydroxide-epsilon",
+  "note": "Bản đơn tinh thể epsilon zinc hydroxide; không suy từ beta-Be(OH)2 cùng tiêu đề."
+}

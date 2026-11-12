@@ -1,0 +1,488 @@
+{
+  "amcsdId": "0009211",
+  "mineralName": "MgSO₄ khan",
+  "formula": "Mg S O4",
+  "spaceGroup": "C m c m",
+  "cell": {
+    "a": 5.182,
+    "b": 7.893,
+    "c": 6.506,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 266.10532815600004,
+  "declaredVolume": 266.105,
+  "basis": [
+    [
+      5.182,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      7.893,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      6.506
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+x,1/2+y,z",
+    "x,-y,1/2+z",
+    "1/2+x,1/2-y,1/2+z",
+    "-x,y,1/2-z",
+    "1/2-x,1/2+y,1/2-z",
+    "-x,y,z",
+    "1/2-x,1/2+y,z",
+    "x,-y,-z",
+    "1/2+x,1/2-y,-z",
+    "x,y,1/2-z",
+    "1/2+x,1/2+y,1/2-z",
+    "-x,-y,1/2+z",
+    "1/2-x,1/2-y,1/2+z",
+    "-x,-y,-z",
+    "1/2-x,1/2-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Mg",
+      "element": "Mg",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "S",
+      "element": "S",
+      "fractional": [
+        0.0,
+        0.37,
+        0.25
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.0,
+        0.25,
+        0.06
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.25,
+        0.47,
+        0.25
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Mg",
+      "label": "Mg",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mg",
+      "label": "Mg",
+      "fractional": [
+        0.5,
+        0.5,
+        0.0
+      ],
+      "position": [
+        2.591,
+        3.9465,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mg",
+      "label": "Mg",
+      "fractional": [
+        0.0,
+        0.0,
+        0.5
+      ],
+      "position": [
+        0.0,
+        0.0,
+        3.253
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Mg",
+      "label": "Mg",
+      "fractional": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "position": [
+        2.591,
+        3.9465,
+        3.253
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.0,
+        0.37,
+        0.25
+      ],
+      "position": [
+        0.0,
+        2.92041,
+        1.6265
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.5,
+        0.87,
+        0.25
+      ],
+      "position": [
+        2.591,
+        6.86691,
+        1.6265
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.0,
+        0.63,
+        0.75
+      ],
+      "position": [
+        0.0,
+        4.97259,
+        4.8795
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.5,
+        0.13,
+        0.75
+      ],
+      "position": [
+        2.591,
+        1.02609,
+        4.8795
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.0,
+        0.25,
+        0.06
+      ],
+      "position": [
+        0.0,
+        1.97325,
+        0.39036
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.5,
+        0.75,
+        0.06
+      ],
+      "position": [
+        2.591,
+        5.91975,
+        0.39036
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.0,
+        0.75,
+        0.56
+      ],
+      "position": [
+        0.0,
+        5.91975,
+        3.64336
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.5,
+        0.25,
+        0.56
+      ],
+      "position": [
+        2.591,
+        1.97325,
+        3.64336
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.0,
+        0.25,
+        0.44
+      ],
+      "position": [
+        0.0,
+        1.97325,
+        2.86264
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.5,
+        0.75,
+        0.44
+      ],
+      "position": [
+        2.591,
+        5.91975,
+        2.86264
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.0,
+        0.75,
+        0.94
+      ],
+      "position": [
+        0.0,
+        5.91975,
+        6.11564
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.5,
+        0.25,
+        0.94
+      ],
+      "position": [
+        2.591,
+        1.97325,
+        6.11564
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.25,
+        0.47,
+        0.25
+      ],
+      "position": [
+        1.2955,
+        3.70971,
+        1.6265
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.75,
+        0.97,
+        0.25
+      ],
+      "position": [
+        3.8865,
+        7.65621,
+        1.6265
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.25,
+        0.53,
+        0.75
+      ],
+      "position": [
+        1.2955,
+        4.18329,
+        4.8795
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.75,
+        0.03,
+        0.75
+      ],
+      "position": [
+        3.8865,
+        0.23679,
+        4.8795
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.75,
+        0.47,
+        0.25
+      ],
+      "position": [
+        3.8865,
+        3.70971,
+        1.6265
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.25,
+        0.97,
+        0.25
+      ],
+      "position": [
+        1.2955,
+        7.65621,
+        1.6265
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.75,
+        0.53,
+        0.75
+      ],
+      "position": [
+        3.8865,
+        4.18329,
+        4.8795
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.25,
+        0.03,
+        0.75
+      ],
+      "position": [
+        1.2955,
+        0.23679,
+        4.8795
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 24,
+  "speciesPositionCount": 24,
+  "cellComposition": {
+    "Mg": 4,
+    "S": 4,
+    "O": 16
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Rentzeperis P",
+      "Soldatos C"
+    ],
+    "title": "The crystal structure of the anhydrous magnesium sulfate\n _cod_database_code 1000027",
+    "journal": "Acta Crystallographica",
+    "year": 1958,
+    "volume": "11",
+    "pages": "686–688"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 16,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.2331808697601547e-06
+  },
+  "spaceGroupOriginal": "C m c m",
+  "spaceGroupNumber": 63,
+  "id": "chat-magnesium-sulfate",
+  "note": "Bản cấu trúc sulfate magnesium khan; không dùng bản ghi MgSO3·H2O cùng kết quả tìm kiếm."
+}

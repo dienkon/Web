@@ -1,0 +1,52 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0010775
+_database_code_amcsd 0010775
+_chemical_name_mineral 'Fe₂(SO₄)₃ · đơn tà'
+_chemical_formula_sum 'Fe2 S3 O12'
+_symmetry_space_group_name_H-M 'P 1 21/n 1'
+_cell_length_a 8.2955
+_cell_length_b 8.5332
+_cell_length_c 11.6304
+_cell_angle_alpha 90
+_cell_angle_beta 90.25
+_cell_angle_gamma 90
+_cell_volume 823.275156
+loop_
+_publ_author_name
+'Rentzeperis P J'
+'Christidis P C'
+_journal_name_full 'Zeitschrift fur Kristallographie'
+_journal_year 1975
+_journal_volume 141
+_publ_section_title 'The crystal structure of the monoclinic Fe2(SO4)3'
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+1/2+x,1/2-y,1/2+z
+1/2-x,1/2+y,1/2-z
+-x,-y,-z
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+Fe1 Fe 0.74909 0.46575 0.61655 1
+Fe2 Fe 0.75297 0.03475 0.38433 1
+S1 S 0.03835 0.25224 0.49506 1
+S2 S 0.60408 0.38148 0.34898 1
+S3 S 0.60802 0.11527 0.64571 1
+O1 O 0.0903 0.1266 0.5739 1
+O2 O 0.9396 0.1894 0.3998 1
+O3 O 0.1817 0.3292 0.4479 1
+O4 O 0.9457 0.3648 0.5623 1
+O5 O 0.7121 0.4793 0.2805 1
+O6 O 0.436 0.418 0.32 1
+O7 O 0.6353 0.4113 0.4712 1
+O8 O 0.6281 0.214 0.3236 1
+O9 O 0.6335 0.0024 0.7384 1
+O10 O 0.7109 0.0722 0.5487 1
+O11 O 0.4367 0.1129 0.6113 1
+O12 O 0.6536 0.2726 0.686 1

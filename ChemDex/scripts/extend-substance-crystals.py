@@ -9,6 +9,7 @@ import json
 from pathlib import Path
 import re
 import sqlite3
+import gemmi
 
 ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location('crystal_export', ROOT/'scripts/compile-crystal-data.py')
@@ -57,6 +58,13 @@ SELECTED = {
  'silver-iodide': (15225,'AgI','AgI · Phase II','Mẫu 0,0 GPa; giữ nhãn pha II của bản ghi gốc.'),
 }
 
+EXPANSION_FILE = ROOT/'data/substance-crystal-expansion.selections.json'
+if EXPANSION_FILE.exists():
+    expansion = json.loads(EXPANSION_FILE.read_text(encoding='utf-8'))
+    if set(expansion) & set(SELECTED):
+        raise ValueError('Expansion must not overwrite previously reviewed selections')
+    SELECTED.update(expansion)
+
 def counts(formula):
     matches = list(re.finditer(r'([A-Z][a-z]?)(\d*)', formula))
     if ''.join(m.group() for m in matches) != formula: raise ValueError(formula)
@@ -67,24 +75,33 @@ def main():
     dbhash=hashlib.sha256(exporter.DB.read_bytes()).hexdigest()
     expected=json.loads((ROOT/'data/crystal-catalog.json').read_text(encoding='utf-8'))['transportSha256']
     if dbhash!=expected: raise ValueError('AMCSD snapshot hash changed; review selections before export')
-    catalog={'schema':'chemdex.substance-crystals/1','date':'2026-11-12','structures':[], 'transport':exporter.TRANSPORT,'transportSha256':dbhash}
+    catalog={'schema':'chemdex.substance-crystals/1','date':'2026-11-12','structures':[], 'elements':{}, 'transport':exporter.TRANSPORT,'transportSha256':dbhash}
+    cold_elements={'Ar':'solid-argon','Kr':'solid-krypton','Ne':'solid-neon','Xe':'solid-xenon','He':'solid-helium','N':'solid-nitrogen-alpha','Cl':'solid-chlorine','Br':'solid-bromine','F':'solid-fluorine-alpha','O':'solid-oxygen-beta'}
     audit=[]
     for slug,(ident,formula,name,note) in SELECTED.items():
         data=exporter.extract(conn,ident)
+        # Resolve the actual, unmodified operations instead of trusting legacy
+        # text labels (e.g. "P a 3" in the source means centrosymmetric Pa-3).
+        group=gemmi.find_spacegroup_by_ops(gemmi.GroupOps([gemmi.Op(op) for op in data['symmetryOperations']]))
+        if group is None: raise ValueError(f'{slug}: symmetry operations have no verified space group setting')
+        data.update({'spaceGroupOriginal':data['spaceGroup'], 'spaceGroup':group.xhm(), 'spaceGroupNumber':group.number})
         expected=counts(formula); actual=data['cellComposition']
         if set(actual)!=set(expected): raise ValueError(f'{slug}: missing/extra atoms: {actual} vs {expected}')
         ratios=[actual[e]/n for e,n in expected.items()]
         if max(ratios)-min(ratios)>0.015: raise ValueError(f'{slug}: occupancy/composition mismatch {actual}')
         data.update({'id':'chat-'+slug,'mineralName':name,'note':note})
         prefix='/assets/periodic-table/crystals/'+data['id']
-        meta={k:data[k] for k in ('id','amcsdId','mineralName','formula','spaceGroup','cell','volume','siteCount','mixedSiteCount','reference','source','evidence','note','limitations')}
+        meta={k:data[k] for k in ('id','amcsdId','mineralName','formula','spaceGroup','spaceGroupOriginal','spaceGroupNumber','cell','volume','siteCount','mixedSiteCount','reference','source','evidence','note','limitations')}
         meta.update({'data':prefix+'.json','cif':prefix+'.cif','model':prefix+'.glb','preview':prefix+'.png'})
         exporter.dump(ROOT/meta['data'].lstrip('/'),data)
         (ROOT/meta['cif'].lstrip('/')).write_bytes(exporter.cif_text(data).encode())
         catalog['structures'].append(meta)
-        audit.append({'id':data['id'],'amcsdId':data['amcsdId'],'expectedFormula':formula,'cellComposition':actual,'decision':note,'reference':data['reference']})
+        for symbol, selection in cold_elements.items():
+            if selection == slug:
+                catalog['elements'][symbol] = meta
+        audit.append({'id':data['id'],'amcsdId':data['amcsdId'],'expectedFormula':formula,'cellComposition':actual,'spaceGroupOriginal':data['spaceGroupOriginal'],'spaceGroup':data['spaceGroup'],'spaceGroupNumber':data['spaceGroupNumber'],'decision':note,'reference':data['reference']})
     exporter.dump(ROOT/'data/substance-crystal-models.json',catalog)
-    target=ROOT/'docs/learning-upgrade/2026-11-12';target.mkdir(parents=True,exist_ok=True)
+    target=ROOT/'docs/learning-expansion/2026-11-12';target.mkdir(parents=True,exist_ok=True)
     exporter.dump(target/'substance-crystal-selection.json',audit)
     print(json.dumps({'structures':len(catalog['structures'])}))
 

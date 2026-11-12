@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import studyReferences from '../shared/study-references.generated.json' with { type: 'json' };
 import videoCatalog from '../shared/video-catalog.json' with { type: 'json' };
+import substanceCrystals from '../data/substance-crystal-models.json' with { type: 'json' };
 import { resolveLabExperiment } from '../shared/chemistry/study-links.mjs';
 import {mountPublishedCrystal} from './three/published-crystal.js';
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
@@ -1329,6 +1330,8 @@ function createElectronWidget(container, el) {
 
 function createCrystalWidget(container, el) {
   if (el.structure?.publishedCrystal) return mountPublishedCrystal(container, el.structure.publishedCrystal);
+  const coldPhase = substanceCrystals.elements?.[el.symbol];
+  if (coldPhase) return mountPublishedCrystal(container, coldPhase);
   const latticeKey = inferLatticeKey(el);
   const title = inferLatticeTitle(el, latticeKey);
   if (!latticeKey || el.review) {
@@ -1719,7 +1722,7 @@ function getDetailMediaBlocks(el) {
     ...(Array.isArray(el?.blocks) ? el.blocks : []),
   ];
   for (const video of videoCatalog.filter(v => v.symbols.includes(el?.symbol))) {
-    if (!raw.some(b => (b.src || b.url) === video.source)) raw.push({ type: 'video', section: 'properties', src: video.source, title: video.title, desc: video.publisher });
+    if (!raw.some(b => (b.src || b.url) === video.source)) raw.push({ type: 'video', section: 'properties', src: video.source, title: video.title, desc: video.publisher + (video.archival ? ' · Video lưu trữ: một số tên cũ có thể khác tên hiện hành trong hồ sơ.' : '') });
   }
   return raw
     .map((block, idx) => {

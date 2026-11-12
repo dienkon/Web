@@ -2,7 +2,7 @@
   "amcsdId": "0000103",
   "mineralName": "Otavite · CdCO₃",
   "formula": "Cd C O3",
-  "spaceGroup": "R -3 c",
+  "spaceGroup": "R -3 c:H",
   "cell": {
     "a": 4.9204,
     "b": 4.9204,
@@ -580,6 +580,8 @@
     "maxSiteOccupancy": 1,
     "cellVolumeRelativeError": 1.0379715513331667e-06
   },
+  "spaceGroupOriginal": "R -3 c",
+  "spaceGroupNumber": 167,
   "id": "chat-otavite",
   "note": "Bản tổng hợp carbonate; không dùng dung dịch rắn Mg-Cd."
 }

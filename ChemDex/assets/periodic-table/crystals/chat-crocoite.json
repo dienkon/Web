@@ -1,0 +1,496 @@
+{
+  "amcsdId": "0009297",
+  "mineralName": "Crocoite · PbCrO₄",
+  "formula": "Pb Cr O4",
+  "spaceGroup": "P 1 21/n 1",
+  "cell": {
+    "a": 7.12,
+    "b": 7.43,
+    "c": 6.79,
+    "alpha": 90.0,
+    "beta": 102.42,
+    "gamma": 90.0
+  },
+  "volume": 350.7955569106223,
+  "declaredVolume": 350.796,
+  "basis": [
+    [
+      7.12,
+      0.0,
+      -1.4603676493462
+    ],
+    [
+      0.0,
+      7.43,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      6.631095409413369
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+x,1/2-y,1/2+z",
+    "1/2-x,1/2+y,1/2-z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Pb",
+      "element": "Pb",
+      "fractional": [
+        0.2218,
+        0.145,
+        0.3974
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Cr",
+      "element": "Cr",
+      "fractional": [
+        0.201,
+        0.1651,
+        0.88
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.0354,
+        0.0989,
+        0.6944
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.1247,
+        0.3461,
+        0.9869
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O3",
+      "element": "O",
+      "fractional": [
+        0.2534,
+        0.4982,
+        0.454
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O4",
+      "element": "O",
+      "fractional": [
+        0.3887,
+        0.2173,
+        0.781
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Pb",
+      "label": "Pb",
+      "fractional": [
+        0.2218,
+        0.145,
+        0.3974
+      ],
+      "position": [
+        0.9988659,
+        1.07735,
+        2.6351973
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Pb",
+      "label": "Pb",
+      "fractional": [
+        0.7218,
+        0.355,
+        0.8974
+      ],
+      "position": [
+        3.8286821,
+        2.63765,
+        5.950745
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Pb",
+      "label": "Pb",
+      "fractional": [
+        0.2782,
+        0.645,
+        0.1026
+      ],
+      "position": [
+        1.8309503,
+        4.79235,
+        0.6803504
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Pb",
+      "label": "Pb",
+      "fractional": [
+        0.7782,
+        0.855,
+        0.6026
+      ],
+      "position": [
+        4.6607665,
+        6.35265,
+        3.9958981
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cr",
+      "label": "Cr",
+      "fractional": [
+        0.201,
+        0.1651,
+        0.88
+      ],
+      "position": [
+        0.1459965,
+        1.226693,
+        5.835364
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cr",
+      "label": "Cr",
+      "fractional": [
+        0.701,
+        0.3349,
+        0.38
+      ],
+      "position": [
+        4.4361803,
+        2.488307,
+        2.5198163
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cr",
+      "label": "Cr",
+      "fractional": [
+        0.299,
+        0.6651,
+        0.62
+      ],
+      "position": [
+        1.2234521,
+        4.941693,
+        4.1112792
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cr",
+      "label": "Cr",
+      "fractional": [
+        0.799,
+        0.8349,
+        0.12
+      ],
+      "position": [
+        5.5136359,
+        6.203307,
+        0.7957314
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.0354,
+        0.0989,
+        0.6944
+      ],
+      "position": [
+        -0.7620313,
+        0.734827,
+        4.6046327
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.5354,
+        0.4011,
+        0.1944
+      ],
+      "position": [
+        3.5281525,
+        2.980173,
+        1.2890849
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.4646,
+        0.5989,
+        0.8056
+      ],
+      "position": [
+        2.1314798,
+        4.449827,
+        5.3420105
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.9646,
+        0.9011,
+        0.3056
+      ],
+      "position": [
+        6.4216636,
+        6.695173,
+        2.0264628
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.1247,
+        0.3461,
+        0.9869
+      ],
+      "position": [
+        -0.5533728,
+        2.571523,
+        6.5442281
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.6247,
+        0.1539,
+        0.4869
+      ],
+      "position": [
+        3.736811,
+        1.143477,
+        3.2286804
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.3753,
+        0.8461,
+        0.5131
+      ],
+      "position": [
+        1.9228214,
+        6.286523,
+        3.4024151
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.8753,
+        0.6539,
+        0.0131
+      ],
+      "position": [
+        6.2130052,
+        4.858477,
+        0.0868673
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.2534,
+        0.4982,
+        0.454
+      ],
+      "position": [
+        1.1412011,
+        3.701626,
+        3.0105173
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.7534,
+        0.0018,
+        0.954
+      ],
+      "position": [
+        3.9710173,
+        0.013374,
+        6.326065
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.2466,
+        0.9982,
+        0.046
+      ],
+      "position": [
+        1.6886151,
+        7.416626,
+        0.3050304
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.7466,
+        0.5018,
+        0.546
+      ],
+      "position": [
+        4.5184313,
+        3.728374,
+        3.6205781
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O4",
+      "fractional": [
+        0.3887,
+        0.2173,
+        0.781
+      ],
+      "position": [
+        1.6269969,
+        1.614539,
+        5.1788855
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O4",
+      "fractional": [
+        0.8887,
+        0.2827,
+        0.281
+      ],
+      "position": [
+        5.9171807,
+        2.100461,
+        1.8633378
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O4",
+      "fractional": [
+        0.1113,
+        0.7173,
+        0.719
+      ],
+      "position": [
+        -0.2575483,
+        5.329539,
+        4.7677576
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O4",
+      "fractional": [
+        0.6113,
+        0.7827,
+        0.219
+      ],
+      "position": [
+        4.0326355,
+        5.815461,
+        1.4522099
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 24,
+  "speciesPositionCount": 24,
+  "cellComposition": {
+    "Pb": 4,
+    "Cr": 4,
+    "O": 16
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "De Pieri R",
+      "Quareni S"
+    ],
+    "title": "A three-dimensional refinement of the structure of crocoite, PbCrO4",
+    "journal": "Acta Crystallographica",
+    "year": 1965,
+    "volume": "19",
+    "pages": "287–289"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 4,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.2630986025404424e-06
+  },
+  "spaceGroupOriginal": "P 1 21/n 1",
+  "spaceGroupNumber": 14,
+  "id": "chat-crocoite",
+  "note": "Bản tinh chỉnh ba chiều; không dùng mẫu nhiệt độ cao 1073 K."
+}

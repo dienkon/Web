@@ -1,0 +1,261 @@
+{
+  "amcsdId": "0010514",
+  "mineralName": "NiBr₂ khan",
+  "formula": "Ni Br2",
+  "spaceGroup": "R -3 m:H",
+  "cell": {
+    "a": 3.723,
+    "b": 3.723,
+    "c": 18.34,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 120.0
+  },
+  "volume": 220.1486544873406,
+  "declaredVolume": 220.149,
+  "basis": [
+    [
+      3.723,
+      -1.861499999999999,
+      0.0
+    ],
+    [
+      0.0,
+      3.2242125782894653,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      18.34
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "2/3+x,1/3+y,1/3+z",
+    "1/3+x,2/3+y,2/3+z",
+    "x,x-y,z",
+    "2/3+x,1/3+x-y,1/3+z",
+    "1/3+x,2/3+x-y,2/3+z",
+    "y,x,-z",
+    "2/3+y,1/3+x,1/3-z",
+    "1/3+y,2/3+x,2/3-z",
+    "-x+y,y,z",
+    "2/3-x+y,1/3+y,1/3+z",
+    "1/3-x+y,2/3+y,2/3+z",
+    "-x,-x+y,-z",
+    "2/3-x,1/3-x+y,1/3-z",
+    "1/3-x,2/3-x+y,2/3-z",
+    "-y,-x,z",
+    "2/3-y,1/3-x,1/3+z",
+    "1/3-y,2/3-x,2/3+z",
+    "x-y,-y,-z",
+    "2/3+x-y,1/3-y,1/3-z",
+    "1/3+x-y,2/3-y,2/3-z",
+    "y,-x+y,-z",
+    "2/3+y,1/3-x+y,1/3-z",
+    "1/3+y,2/3-x+y,2/3-z",
+    "-x+y,-x,z",
+    "2/3-x+y,1/3-x,1/3+z",
+    "1/3-x+y,2/3-x,2/3+z",
+    "-x,-y,-z",
+    "2/3-x,1/3-y,1/3-z",
+    "1/3-x,2/3-y,2/3-z",
+    "-y,x-y,z",
+    "2/3-y,1/3+x-y,1/3+z",
+    "1/3-y,2/3+x-y,2/3+z",
+    "x-y,x,-z",
+    "2/3+x-y,1/3+x,1/3-z",
+    "1/3+x-y,2/3+x,2/3-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Ni",
+      "element": "Ni",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Br",
+      "element": "Br",
+      "fractional": [
+        0.0,
+        0.0,
+        0.255
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Ni",
+      "label": "Ni",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ni",
+      "label": "Ni",
+      "fractional": [
+        0.66666667,
+        0.33333333,
+        0.33333333
+      ],
+      "position": [
+        1.8615,
+        1.0747375,
+        6.1133333
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ni",
+      "label": "Ni",
+      "fractional": [
+        0.33333333,
+        0.66666667,
+        0.66666667
+      ],
+      "position": [
+        -0.0,
+        2.1494751,
+        12.2266667
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br",
+      "fractional": [
+        0.0,
+        0.0,
+        0.255
+      ],
+      "position": [
+        0.0,
+        0.0,
+        4.6767
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br",
+      "fractional": [
+        0.66666667,
+        0.33333333,
+        0.58833333
+      ],
+      "position": [
+        1.8615,
+        1.0747375,
+        10.7900333
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br",
+      "fractional": [
+        0.33333333,
+        0.66666667,
+        0.92166667
+      ],
+      "position": [
+        -0.0,
+        2.1494751,
+        16.9033667
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br",
+      "fractional": [
+        0.0,
+        0.0,
+        0.745
+      ],
+      "position": [
+        0.0,
+        0.0,
+        13.6633
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br",
+      "fractional": [
+        0.66666667,
+        0.33333333,
+        0.07833333
+      ],
+      "position": [
+        1.8615,
+        1.0747375,
+        1.4366333
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Br",
+      "label": "Br",
+      "fractional": [
+        0.33333333,
+        0.66666667,
+        0.41166667
+      ],
+      "position": [
+        -0.0,
+        2.1494751,
+        7.5499667
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 9,
+  "speciesPositionCount": 9,
+  "cellComposition": {
+    "Ni": 3,
+    "Br": 6
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Ketelaar J A A"
+    ],
+    "title": "Die kristallstruktur des nickelbromids und -jodids",
+    "journal": "Zeitschrift fur Kristallographie",
+    "year": 1934,
+    "volume": "88",
+    "pages": "26–34"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 36,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.5694516062895137e-06
+  },
+  "spaceGroupOriginal": "R -3 m",
+  "spaceGroupNumber": 166,
+  "id": "chat-nickel-bromide",
+  "note": "Bản xác định cấu trúc nickel bromide; giữ cách xếp lớp của nguồn."
+}

@@ -31,7 +31,7 @@ test('discovery links open a source profile inside the digital library',async({p
 test('reaction substances and supported protocols expose real links',async({page})=>{
  await page.goto('/?element=Na');
  await expect(page.locator('.chemical-reference').first()).toBeAttached();
- await expect(page.locator('a[href="/lab-3d/?experiment=alkali_metal_water_na"]').first()).toBeAttached();
+ await expect(page.locator('a[href="/lab-3d/?experiment=alkali_metal_water_na&observe=1"]').first()).toBeAttached();
 });
 
 test('library header stays on screen and sourced compound crystals retain controls',async({page})=>{
@@ -65,7 +65,8 @@ test('library LaTeX repairs older doubled commands and renders fractions',async(
 });
 
 test('molecular and gas-element articles open the exact model in an embedded viewer',async({page})=>{
- for (const slug of ['nuoc-h2o','heli-he']) {
+ for (const formula of ['C2H5OH','H2']) {
+  const slug=Object.keys(visualIndex).find(s=>visualIndex[s].formula===formula);
   await page.goto(`/trung-tam/tai-lieu-so/${slug}/`);
   await page.getByRole('button',{name:'Khám phá 3D',exact:true}).click();
   const frame=page.frameLocator('.reader-visuals iframe');
@@ -93,4 +94,33 @@ test('a linked equation prepares the matching Lab 3D preset and opens its guide'
  await expect(page.getByText('Tổng hợp "Mưa Vàng" (Kết tủa Chì Iotua PbI2)',{exact:true}).first()).toBeVisible({timeout:60000});
  await expect(page.getByRole('button',{name:/Tất cả thí nghiệm/})).toBeVisible();
  await expect(page.locator('canvas')).toBeAttached();
+});
+
+test('cold noble gas crystals and molecular nitrogen expose the measured solid phase',async({page})=>{
+ for (const [symbol,id,condition] of [['He','chat-solid-helium','1,1 K'],['N','chat-solid-nitrogen-alpha','4,2 K']]) {
+  await page.goto(`/?element=${symbol}`);
+  const crystal=page.locator(`[data-crystal-id="${id}"]`);
+  await expect(crystal).toContainText(condition);
+  await crystal.getByRole('button',{name:'Xem mạng tinh thể 3D',exact:true}).click();
+  await expect(crystal.locator('[role=status]')).toHaveAttribute('data-state','ready');
+ }
+});
+
+test('linked observation starts its real reaction, pauses and finishes with product visible',async({page})=>{
+ test.setTimeout(90000);
+ await page.goto('/lab-3d/?experiment=agcl_curdy_precipitation&observe=1');
+ const observation=page.getByRole('region',{name:'Quan sát tự động'});
+ await expect(observation).toBeVisible({timeout:60000});
+ await observation.getByRole('button',{name:'Tạm dừng',exact:true}).click();
+ await expect(observation.getByRole('status')).toContainText('tạm dừng');
+ await observation.getByRole('button',{name:'Tiếp tục',exact:true}).click();
+ await expect(observation.getByRole('status')).toContainText('Đã chạy phản ứng',{timeout:35000});
+ await expect(page.locator('canvas')).toBeAttached();
+ await page.getByRole('button',{name:'Thông tin bình',exact:true}).click();
+ await expect(page.getByText('AgCl',{exact:true}).first()).toBeVisible();
+ await observation.getByRole('button',{name:'Chạy lại',exact:true}).click();
+ await observation.getByRole('button',{name:'Dừng',exact:true}).click();
+ await expect(observation.getByRole('status')).toContainText('Đã dừng');
+ await observation.getByRole('button',{name:'Tự thực hành',exact:true}).click();
+ await expect(page.getByRole('heading',{name:'Đong dung dịch Bạc Nitrat vào ống đong',exact:true})).toBeVisible();
 });

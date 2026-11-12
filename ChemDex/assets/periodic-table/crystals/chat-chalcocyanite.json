@@ -483,6 +483,8 @@
     "maxSiteOccupancy": 1,
     "cellVolumeRelativeError": 1.599704766694878e-06
   },
+  "spaceGroupOriginal": "P n m a",
+  "spaceGroupNumber": 62,
   "id": "chat-chalcocyanite",
   "note": "Tinh chỉnh CuSO4 khan; không thay cho tinh thể pentahydrate màu xanh."
 }

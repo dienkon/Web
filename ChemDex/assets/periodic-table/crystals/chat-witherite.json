@@ -412,6 +412,8 @@
     "maxSiteOccupancy": 1,
     "cellVolumeRelativeError": 2.3831423024911052e-07
   },
+  "spaceGroupOriginal": "P m c n",
+  "spaceGroupNumber": 62,
   "id": "chat-witherite",
   "note": "Mẫu trong nghiên cứu carbonate orthorhombic."
 }

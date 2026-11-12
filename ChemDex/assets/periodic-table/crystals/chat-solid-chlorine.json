@@ -1,0 +1,217 @@
+{
+  "amcsdId": "0014661",
+  "mineralName": "Chlorine rắn · 160 K",
+  "formula": "Cl",
+  "spaceGroup": "C m c a",
+  "cell": {
+    "a": 6.2929,
+    "b": 4.5361,
+    "c": 8.1617,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 232.97755219067304,
+  "declaredVolume": 232.978,
+  "basis": [
+    [
+      6.2929,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      4.5361,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      8.1617
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+x,1/2+y,z",
+    "x,1/2-y,1/2+z",
+    "1/2+x,-y,1/2+z",
+    "-x,1/2+y,1/2-z",
+    "1/2-x,+y,1/2-z",
+    "-x,y,z",
+    "1/2-x,1/2+y,z",
+    "x,-y,-z",
+    "1/2+x,1/2-y,-z",
+    "x,1/2+y,1/2-z",
+    "1/2+x,+y,1/2-z",
+    "-x,1/2-y,1/2+z",
+    "1/2-x,-y,1/2+z",
+    "-x,-y,-z",
+    "1/2-x,1/2-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Cl",
+      "element": "Cl",
+      "fractional": [
+        0.0,
+        0.1219,
+        0.1006
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.0,
+        0.1219,
+        0.1006
+      ],
+      "position": [
+        0.0,
+        0.5529506,
+        0.821067
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.5,
+        0.6219,
+        0.1006
+      ],
+      "position": [
+        3.14645,
+        2.8210006,
+        0.821067
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.0,
+        0.3781,
+        0.6006
+      ],
+      "position": [
+        0.0,
+        1.7150994,
+        4.901917
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.5,
+        0.8781,
+        0.6006
+      ],
+      "position": [
+        3.14645,
+        3.9831494,
+        4.901917
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.0,
+        0.6219,
+        0.3994
+      ],
+      "position": [
+        0.0,
+        2.8210006,
+        3.259783
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.5,
+        0.1219,
+        0.3994
+      ],
+      "position": [
+        3.14645,
+        0.5529506,
+        3.259783
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.0,
+        0.8781,
+        0.8994
+      ],
+      "position": [
+        0.0,
+        3.9831494,
+        7.340633
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.5,
+        0.3781,
+        0.8994
+      ],
+      "position": [
+        3.14645,
+        1.7150994,
+        7.340633
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 8,
+  "speciesPositionCount": 8,
+  "cellComposition": {
+    "Cl": 8
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Powell B M",
+      "Heal K M",
+      "Torrie B H"
+    ],
+    "title": "The temperature dependence of the crystal structures of the solid halogens,\n bromine and chlorine\n Sample: at T = 160 K",
+    "journal": "Molecular Physics",
+    "year": 1984,
+    "volume": "53",
+    "pages": "929–939"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 16,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.9221136232240404e-06
+  },
+  "spaceGroupOriginal": "C m c a",
+  "spaceGroupNumber": 64,
+  "id": "chat-solid-chlorine",
+  "note": "Tinh chỉnh chlorine rắn ở 160 K; không đại diện chlorine khí ở điều kiện phòng."
+}

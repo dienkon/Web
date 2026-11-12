@@ -140,6 +140,8 @@
     "maxSiteOccupancy": 1,
     "cellVolumeRelativeError": 4.322282387980247e-07
   },
+  "spaceGroupOriginal": "P -3 m 1",
+  "spaceGroupNumber": 164,
   "id": "chat-lead-iodide",
   "note": "Bản tổng hợp cấu trúc lớp; PbI2 có các polytype khác."
 }

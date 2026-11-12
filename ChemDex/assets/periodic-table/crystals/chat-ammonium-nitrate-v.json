@@ -1,0 +1,1357 @@
+{
+  "amcsdId": "0010592",
+  "mineralName": "NH₄NO₃ · pha V · −150 °C",
+  "formula": "N2 O3 H4",
+  "spaceGroup": "P 42",
+  "cell": {
+    "a": 7.98,
+    "b": 7.98,
+    "c": 9.78,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 622.794312,
+  "declaredVolume": 622.794,
+  "basis": [
+    [
+      7.98,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      7.98,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      9.78
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "-y,x,1/2+z",
+    "-x,-y,z",
+    "y,-x,1/2+z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "N",
+      "element": "N",
+      "fractional": [
+        0.25,
+        0.25,
+        0.518
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.12,
+        0.27,
+        0.456
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.38,
+        0.23,
+        0.456
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O3",
+      "element": "O",
+      "fractional": [
+        0.25,
+        0.25,
+        0.642
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "N*",
+      "element": "N",
+      "fractional": [
+        0.25,
+        0.25,
+        0.018
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O*1",
+      "element": "O",
+      "fractional": [
+        0.12,
+        0.23,
+        0.956
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O*2",
+      "element": "O",
+      "fractional": [
+        0.38,
+        0.27,
+        0.956
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O*3",
+      "element": "O",
+      "fractional": [
+        0.25,
+        0.25,
+        0.142
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "N",
+      "element": "N",
+      "fractional": [
+        0.0,
+        0.0,
+        0.25
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "H1",
+      "element": "H",
+      "fractional": [
+        0.076,
+        0.076,
+        0.19
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "H2",
+      "element": "H",
+      "fractional": [
+        0.076,
+        -0.076,
+        0.31
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "N*",
+      "element": "N",
+      "fractional": [
+        0.5,
+        0.0,
+        0.25
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "H*1",
+      "element": "H",
+      "fractional": [
+        0.576,
+        0.076,
+        0.19
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "H*2",
+      "element": "H",
+      "fractional": [
+        0.424,
+        0.076,
+        0.31
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "N*",
+      "element": "N",
+      "fractional": [
+        0.5,
+        0.5,
+        0.25
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "H*1",
+      "element": "H",
+      "fractional": [
+        0.424,
+        0.424,
+        0.31
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "H*2",
+      "element": "H",
+      "fractional": [
+        0.424,
+        0.576,
+        0.19
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "N**",
+      "element": "N",
+      "fractional": [
+        0.0,
+        0.5,
+        0.25
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "H**1",
+      "element": "H",
+      "fractional": [
+        -0.076,
+        0.424,
+        0.31
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "H**2",
+      "element": "H",
+      "fractional": [
+        -0.076,
+        0.576,
+        0.19
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "N",
+      "label": "N",
+      "fractional": [
+        0.25,
+        0.25,
+        0.518
+      ],
+      "position": [
+        1.995,
+        1.995,
+        5.06604
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N",
+      "fractional": [
+        0.75,
+        0.25,
+        0.018
+      ],
+      "position": [
+        5.985,
+        1.995,
+        0.17604
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N",
+      "fractional": [
+        0.75,
+        0.75,
+        0.518
+      ],
+      "position": [
+        5.985,
+        5.985,
+        5.06604
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N",
+      "fractional": [
+        0.25,
+        0.75,
+        0.018
+      ],
+      "position": [
+        1.995,
+        5.985,
+        0.17604
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.12,
+        0.27,
+        0.456
+      ],
+      "position": [
+        0.9576,
+        2.1546,
+        4.45968
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.73,
+        0.12,
+        0.956
+      ],
+      "position": [
+        5.8254,
+        0.9576,
+        9.34968
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.88,
+        0.73,
+        0.456
+      ],
+      "position": [
+        7.0224,
+        5.8254,
+        4.45968
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.27,
+        0.88,
+        0.956
+      ],
+      "position": [
+        2.1546,
+        7.0224,
+        9.34968
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.38,
+        0.23,
+        0.456
+      ],
+      "position": [
+        3.0324,
+        1.8354,
+        4.45968
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.77,
+        0.38,
+        0.956
+      ],
+      "position": [
+        6.1446,
+        3.0324,
+        9.34968
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.62,
+        0.77,
+        0.456
+      ],
+      "position": [
+        4.9476,
+        6.1446,
+        4.45968
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.23,
+        0.62,
+        0.956
+      ],
+      "position": [
+        1.8354,
+        4.9476,
+        9.34968
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.25,
+        0.25,
+        0.642
+      ],
+      "position": [
+        1.995,
+        1.995,
+        6.27876
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.75,
+        0.25,
+        0.142
+      ],
+      "position": [
+        5.985,
+        1.995,
+        1.38876
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.75,
+        0.75,
+        0.642
+      ],
+      "position": [
+        5.985,
+        5.985,
+        6.27876
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.25,
+        0.75,
+        0.142
+      ],
+      "position": [
+        1.995,
+        5.985,
+        1.38876
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N*",
+      "fractional": [
+        0.25,
+        0.25,
+        0.018
+      ],
+      "position": [
+        1.995,
+        1.995,
+        0.17604
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N*",
+      "fractional": [
+        0.75,
+        0.25,
+        0.518
+      ],
+      "position": [
+        5.985,
+        1.995,
+        5.06604
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N*",
+      "fractional": [
+        0.75,
+        0.75,
+        0.018
+      ],
+      "position": [
+        5.985,
+        5.985,
+        0.17604
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N*",
+      "fractional": [
+        0.25,
+        0.75,
+        0.518
+      ],
+      "position": [
+        1.995,
+        5.985,
+        5.06604
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O*1",
+      "fractional": [
+        0.12,
+        0.23,
+        0.956
+      ],
+      "position": [
+        0.9576,
+        1.8354,
+        9.34968
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O*1",
+      "fractional": [
+        0.77,
+        0.12,
+        0.456
+      ],
+      "position": [
+        6.1446,
+        0.9576,
+        4.45968
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O*1",
+      "fractional": [
+        0.88,
+        0.77,
+        0.956
+      ],
+      "position": [
+        7.0224,
+        6.1446,
+        9.34968
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O*1",
+      "fractional": [
+        0.23,
+        0.88,
+        0.456
+      ],
+      "position": [
+        1.8354,
+        7.0224,
+        4.45968
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O*2",
+      "fractional": [
+        0.38,
+        0.27,
+        0.956
+      ],
+      "position": [
+        3.0324,
+        2.1546,
+        9.34968
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O*2",
+      "fractional": [
+        0.73,
+        0.38,
+        0.456
+      ],
+      "position": [
+        5.8254,
+        3.0324,
+        4.45968
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O*2",
+      "fractional": [
+        0.62,
+        0.73,
+        0.956
+      ],
+      "position": [
+        4.9476,
+        5.8254,
+        9.34968
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O*2",
+      "fractional": [
+        0.27,
+        0.62,
+        0.456
+      ],
+      "position": [
+        2.1546,
+        4.9476,
+        4.45968
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O*3",
+      "fractional": [
+        0.25,
+        0.25,
+        0.142
+      ],
+      "position": [
+        1.995,
+        1.995,
+        1.38876
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O*3",
+      "fractional": [
+        0.75,
+        0.25,
+        0.642
+      ],
+      "position": [
+        5.985,
+        1.995,
+        6.27876
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O*3",
+      "fractional": [
+        0.75,
+        0.75,
+        0.142
+      ],
+      "position": [
+        5.985,
+        5.985,
+        1.38876
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O*3",
+      "fractional": [
+        0.25,
+        0.75,
+        0.642
+      ],
+      "position": [
+        1.995,
+        5.985,
+        6.27876
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N",
+      "fractional": [
+        0.0,
+        0.0,
+        0.25
+      ],
+      "position": [
+        0.0,
+        0.0,
+        2.445
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N",
+      "fractional": [
+        0.0,
+        0.0,
+        0.75
+      ],
+      "position": [
+        0.0,
+        0.0,
+        7.335
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H1",
+      "fractional": [
+        0.076,
+        0.076,
+        0.19
+      ],
+      "position": [
+        0.60648,
+        0.60648,
+        1.8582
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H1",
+      "fractional": [
+        0.924,
+        0.076,
+        0.69
+      ],
+      "position": [
+        7.37352,
+        0.60648,
+        6.7482
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H1",
+      "fractional": [
+        0.924,
+        0.924,
+        0.19
+      ],
+      "position": [
+        7.37352,
+        7.37352,
+        1.8582
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H1",
+      "fractional": [
+        0.076,
+        0.924,
+        0.69
+      ],
+      "position": [
+        0.60648,
+        7.37352,
+        6.7482
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H2",
+      "fractional": [
+        0.076,
+        0.924,
+        0.31
+      ],
+      "position": [
+        0.60648,
+        7.37352,
+        3.0318
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H2",
+      "fractional": [
+        0.076,
+        0.076,
+        0.81
+      ],
+      "position": [
+        0.60648,
+        0.60648,
+        7.9218
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H2",
+      "fractional": [
+        0.924,
+        0.076,
+        0.31
+      ],
+      "position": [
+        7.37352,
+        0.60648,
+        3.0318
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H2",
+      "fractional": [
+        0.924,
+        0.924,
+        0.81
+      ],
+      "position": [
+        7.37352,
+        7.37352,
+        7.9218
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N*",
+      "fractional": [
+        0.5,
+        0.0,
+        0.25
+      ],
+      "position": [
+        3.99,
+        0.0,
+        2.445
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N*",
+      "fractional": [
+        0.0,
+        0.5,
+        0.75
+      ],
+      "position": [
+        0.0,
+        3.99,
+        7.335
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H*1",
+      "fractional": [
+        0.576,
+        0.076,
+        0.19
+      ],
+      "position": [
+        4.59648,
+        0.60648,
+        1.8582
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H*1",
+      "fractional": [
+        0.924,
+        0.576,
+        0.69
+      ],
+      "position": [
+        7.37352,
+        4.59648,
+        6.7482
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H*1",
+      "fractional": [
+        0.424,
+        0.924,
+        0.19
+      ],
+      "position": [
+        3.38352,
+        7.37352,
+        1.8582
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H*1",
+      "fractional": [
+        0.076,
+        0.424,
+        0.69
+      ],
+      "position": [
+        0.60648,
+        3.38352,
+        6.7482
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H*2",
+      "fractional": [
+        0.424,
+        0.076,
+        0.31
+      ],
+      "position": [
+        3.38352,
+        0.60648,
+        3.0318
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H*2",
+      "fractional": [
+        0.924,
+        0.424,
+        0.81
+      ],
+      "position": [
+        7.37352,
+        3.38352,
+        7.9218
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H*2",
+      "fractional": [
+        0.576,
+        0.924,
+        0.31
+      ],
+      "position": [
+        4.59648,
+        7.37352,
+        3.0318
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H*2",
+      "fractional": [
+        0.076,
+        0.576,
+        0.81
+      ],
+      "position": [
+        0.60648,
+        4.59648,
+        7.9218
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N*",
+      "fractional": [
+        0.5,
+        0.5,
+        0.25
+      ],
+      "position": [
+        3.99,
+        3.99,
+        2.445
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N*",
+      "fractional": [
+        0.5,
+        0.5,
+        0.75
+      ],
+      "position": [
+        3.99,
+        3.99,
+        7.335
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H*1",
+      "fractional": [
+        0.424,
+        0.424,
+        0.31
+      ],
+      "position": [
+        3.38352,
+        3.38352,
+        3.0318
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H*1",
+      "fractional": [
+        0.576,
+        0.424,
+        0.81
+      ],
+      "position": [
+        4.59648,
+        3.38352,
+        7.9218
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H*1",
+      "fractional": [
+        0.576,
+        0.576,
+        0.31
+      ],
+      "position": [
+        4.59648,
+        4.59648,
+        3.0318
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H*1",
+      "fractional": [
+        0.424,
+        0.576,
+        0.81
+      ],
+      "position": [
+        3.38352,
+        4.59648,
+        7.9218
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H*2",
+      "fractional": [
+        0.424,
+        0.576,
+        0.19
+      ],
+      "position": [
+        3.38352,
+        4.59648,
+        1.8582
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H*2",
+      "fractional": [
+        0.424,
+        0.424,
+        0.69
+      ],
+      "position": [
+        3.38352,
+        3.38352,
+        6.7482
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H*2",
+      "fractional": [
+        0.576,
+        0.424,
+        0.19
+      ],
+      "position": [
+        4.59648,
+        3.38352,
+        1.8582
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H*2",
+      "fractional": [
+        0.576,
+        0.576,
+        0.69
+      ],
+      "position": [
+        4.59648,
+        4.59648,
+        6.7482
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N**",
+      "fractional": [
+        0.0,
+        0.5,
+        0.25
+      ],
+      "position": [
+        0.0,
+        3.99,
+        2.445
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "N",
+      "label": "N**",
+      "fractional": [
+        0.5,
+        0.0,
+        0.75
+      ],
+      "position": [
+        3.99,
+        0.0,
+        7.335
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H**1",
+      "fractional": [
+        0.924,
+        0.424,
+        0.31
+      ],
+      "position": [
+        7.37352,
+        3.38352,
+        3.0318
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H**1",
+      "fractional": [
+        0.576,
+        0.924,
+        0.81
+      ],
+      "position": [
+        4.59648,
+        7.37352,
+        7.9218
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H**1",
+      "fractional": [
+        0.076,
+        0.576,
+        0.31
+      ],
+      "position": [
+        0.60648,
+        4.59648,
+        3.0318
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H**1",
+      "fractional": [
+        0.424,
+        0.076,
+        0.81
+      ],
+      "position": [
+        3.38352,
+        0.60648,
+        7.9218
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H**2",
+      "fractional": [
+        0.924,
+        0.576,
+        0.19
+      ],
+      "position": [
+        7.37352,
+        4.59648,
+        1.8582
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H**2",
+      "fractional": [
+        0.424,
+        0.924,
+        0.69
+      ],
+      "position": [
+        3.38352,
+        7.37352,
+        6.7482
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H**2",
+      "fractional": [
+        0.076,
+        0.424,
+        0.19
+      ],
+      "position": [
+        0.60648,
+        3.38352,
+        1.8582
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "H",
+      "label": "H**2",
+      "fractional": [
+        0.576,
+        0.076,
+        0.69
+      ],
+      "position": [
+        4.59648,
+        0.60648,
+        6.7482
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 72,
+  "speciesPositionCount": 72,
+  "cellComposition": {
+    "N": 16,
+    "O": 24,
+    "H": 32
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Amoros J L",
+      "Arrese F",
+      "Canut M"
+    ],
+    "title": "The crystal structure of the low-temperature phase of NH4NO3(V) at -150 deg C\n Note: sample at T = -150 C, this is a low temperature form",
+    "journal": "Zeitschrift fur Kristallographie",
+    "year": 1962,
+    "volume": "117",
+    "pages": "92–107"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 4,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 5.009679664641568e-07
+  },
+  "spaceGroupOriginal": "P 42",
+  "spaceGroupNumber": 77,
+  "id": "chat-ammonium-nitrate-v",
+  "note": "Pha V nhiệt độ thấp −150 °C; không trình bày như cấu trúc ở điều kiện phòng."
+}

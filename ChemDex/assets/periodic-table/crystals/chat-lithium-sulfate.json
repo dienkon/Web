@@ -1,0 +1,565 @@
+{
+  "amcsdId": "0017384",
+  "mineralName": "Li₂SO₄ khan",
+  "formula": "O4 S Li2",
+  "spaceGroup": "P 1 21/a 1",
+  "cell": {
+    "a": 8.25,
+    "b": 4.95,
+    "c": 8.44,
+    "alpha": 90.0,
+    "beta": 107.9,
+    "gamma": 90.0
+  },
+  "volume": 327.9846157935201,
+  "declaredVolume": 327.985,
+  "basis": [
+    [
+      8.25,
+      0.0,
+      -2.5940898542303716
+    ],
+    [
+      0.0,
+      4.95,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      8.031456768742459
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+x,1/2-y,z",
+    "1/2-x,1/2+y,-z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.492,
+        -0.042,
+        0.25
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.186,
+        -0.042,
+        0.099
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O3",
+      "element": "O",
+      "fractional": [
+        0.281,
+        -0.042,
+        0.401
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O4",
+      "element": "O",
+      "fractional": [
+        0.319,
+        0.367,
+        0.25
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "S1",
+      "element": "S",
+      "fractional": [
+        0.319,
+        0.061,
+        0.25
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Li1",
+      "element": "Li",
+      "fractional": [
+        0.206,
+        0.582,
+        0.375
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Li2",
+      "element": "Li",
+      "fractional": [
+        0.456,
+        0.582,
+        0.125
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.492,
+        0.958,
+        0.25
+      ],
+      "position": [
+        3.4104775,
+        4.7421,
+        2.0078642
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.992,
+        0.542,
+        0.25
+      ],
+      "position": [
+        7.5354775,
+        2.6829,
+        2.0078642
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.008,
+        0.458,
+        0.75
+      ],
+      "position": [
+        -1.8795674,
+        2.2671,
+        6.0235926
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.508,
+        0.042,
+        0.75
+      ],
+      "position": [
+        2.2454326,
+        0.2079,
+        6.0235926
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.186,
+        0.958,
+        0.099
+      ],
+      "position": [
+        1.2776851,
+        4.7421,
+        0.7951142
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.686,
+        0.542,
+        0.099
+      ],
+      "position": [
+        5.4026851,
+        2.6829,
+        0.7951142
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.314,
+        0.458,
+        0.901
+      ],
+      "position": [
+        0.253225,
+        2.2671,
+        7.2363425
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.814,
+        0.042,
+        0.901
+      ],
+      "position": [
+        4.378225,
+        0.2079,
+        7.2363425
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.281,
+        0.958,
+        0.401
+      ],
+      "position": [
+        1.27802,
+        4.7421,
+        3.2206142
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.781,
+        0.542,
+        0.401
+      ],
+      "position": [
+        5.40302,
+        2.6829,
+        3.2206142
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.219,
+        0.458,
+        0.599
+      ],
+      "position": [
+        0.2528902,
+        2.2671,
+        4.8108426
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.719,
+        0.042,
+        0.599
+      ],
+      "position": [
+        4.3778902,
+        0.2079,
+        4.8108426
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O4",
+      "fractional": [
+        0.319,
+        0.367,
+        0.25
+      ],
+      "position": [
+        1.9832275,
+        1.81665,
+        2.0078642
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O4",
+      "fractional": [
+        0.819,
+        0.133,
+        0.25
+      ],
+      "position": [
+        6.1082275,
+        0.65835,
+        2.0078642
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O4",
+      "fractional": [
+        0.181,
+        0.867,
+        0.75
+      ],
+      "position": [
+        -0.4523174,
+        4.29165,
+        6.0235926
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O4",
+      "fractional": [
+        0.681,
+        0.633,
+        0.75
+      ],
+      "position": [
+        3.6726826,
+        3.13335,
+        6.0235926
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S1",
+      "fractional": [
+        0.319,
+        0.061,
+        0.25
+      ],
+      "position": [
+        1.9832275,
+        0.30195,
+        2.0078642
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S1",
+      "fractional": [
+        0.819,
+        0.439,
+        0.25
+      ],
+      "position": [
+        6.1082275,
+        2.17305,
+        2.0078642
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S1",
+      "fractional": [
+        0.181,
+        0.561,
+        0.75
+      ],
+      "position": [
+        -0.4523174,
+        2.77695,
+        6.0235926
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S1",
+      "fractional": [
+        0.681,
+        0.939,
+        0.75
+      ],
+      "position": [
+        3.6726826,
+        4.64805,
+        6.0235926
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Li",
+      "label": "Li1",
+      "fractional": [
+        0.206,
+        0.582,
+        0.375
+      ],
+      "position": [
+        0.7267163,
+        2.8809,
+        3.0117963
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Li",
+      "label": "Li1",
+      "fractional": [
+        0.706,
+        0.918,
+        0.375
+      ],
+      "position": [
+        4.8517163,
+        4.5441,
+        3.0117963
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Li",
+      "label": "Li1",
+      "fractional": [
+        0.294,
+        0.082,
+        0.625
+      ],
+      "position": [
+        0.8041938,
+        0.4059,
+        5.0196605
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Li",
+      "label": "Li1",
+      "fractional": [
+        0.794,
+        0.418,
+        0.625
+      ],
+      "position": [
+        4.9291938,
+        2.0691,
+        5.0196605
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Li",
+      "label": "Li2",
+      "fractional": [
+        0.456,
+        0.582,
+        0.125
+      ],
+      "position": [
+        3.4377388,
+        2.8809,
+        1.0039321
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Li",
+      "label": "Li2",
+      "fractional": [
+        0.956,
+        0.918,
+        0.125
+      ],
+      "position": [
+        7.5627388,
+        4.5441,
+        1.0039321
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Li",
+      "label": "Li2",
+      "fractional": [
+        0.044,
+        0.082,
+        0.875
+      ],
+      "position": [
+        -1.9068286,
+        0.4059,
+        7.0275247
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Li",
+      "label": "Li2",
+      "fractional": [
+        0.544,
+        0.418,
+        0.875
+      ],
+      "position": [
+        2.2181714,
+        2.0691,
+        7.0275247
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 28,
+  "speciesPositionCount": 28,
+  "cellComposition": {
+    "O": 16,
+    "S": 4,
+    "Li": 8
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Albright J"
+    ],
+    "title": "The Crystal Structure of Lithium Sulphate\n _cod_database_code 1010467",
+    "journal": "Zeitschrift fur Kristallographie",
+    "year": 1932,
+    "volume": "84",
+    "pages": "150–158"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 4,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.1714161622422193e-06
+  },
+  "spaceGroupOriginal": "P 1 21/a 1",
+  "spaceGroupNumber": 14,
+  "id": "chat-lithium-sulfate",
+  "note": "Bản cấu trúc lithium sulfate khan; không thay cho monohydrate."
+}

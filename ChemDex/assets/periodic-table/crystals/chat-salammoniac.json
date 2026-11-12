@@ -292,6 +292,8 @@
     "maxSiteOccupancy": 1.0,
     "cellVolumeRelativeError": 7.928717215496492e-06
   },
+  "spaceGroupOriginal": "P m -3 m",
+  "spaceGroupNumber": 221,
   "id": "chat-salammoniac",
   "note": "Tinh chỉnh định hướng NH4; giữ occupancy từ bản gốc."
 }

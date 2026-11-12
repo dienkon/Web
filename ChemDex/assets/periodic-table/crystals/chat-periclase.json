@@ -2,7 +2,7 @@
   "amcsdId": "0000501",
   "mineralName": "Periclase · MgO",
   "formula": "Mg O",
-  "spaceGroup": "F m 3 m",
+  "spaceGroup": "F m -3 m",
   "cell": {
     "a": 4.211,
     "b": 4.211,
@@ -395,6 +395,8 @@
     "maxSiteOccupancy": 1,
     "cellVolumeRelativeError": 4.741679329119592e-06
   },
+  "spaceGroupOriginal": "F m 3 m",
+  "spaceGroupNumber": 225,
   "id": "chat-periclase",
   "note": "24 °C, 1 atm; standard mount."
 }

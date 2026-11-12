@@ -12,7 +12,12 @@ export function buildStudyReferences() {
   const result = { formulas: {}, discoverers: {}, scientistNames: {} };
   const crystalCatalog = read('data/crystal-catalog.json');
   const wikiCrystals = read('data/wiki-crystal-models.json');
-  const substanceCrystals = fs.existsSync('data/substance-crystal-models.json') ? read('data/substance-crystal-models.json').structures : [];
+  const substanceCatalog = fs.existsSync('data/substance-crystal-models.json') ? read('data/substance-crystal-models.json') : { structures: [], elements: {} };
+  const substanceCrystals = substanceCatalog.structures;
+  const elementalPhases = { ...crystalCatalog.elements, ...wikiCrystals.elements };
+  for (const [symbol, phase] of Object.entries(substanceCatalog.elements ?? {})) elementalPhases[symbol] ??= phase;
+  const diatomicElements = new Set(['N2', 'O2', 'F2', 'Cl2', 'Br2', 'I2']);
+  const allCrystals = [...crystalCatalog.structures, ...wikiCrystals.structures, ...substanceCrystals];
   const visualIndex = {};
   const formulaKey = value => {
     try { return JSON.stringify(Object.entries(parseFormula(String(value).replace(/\s+/g, ''))).sort(([a],[b])=>a.localeCompare(b))); }
@@ -29,7 +34,10 @@ export function buildStudyReferences() {
     const models = candidates.filter(s => !s.material && s.kind !== 'unavailable');
     const model = models.find(s => s.structure?.coordinateType === 'experimental') ?? models.find(s => s.structure?.dimension === '3d') ?? models[0];
     const key = formulaKey(formula);
-    const crystals = symbol ? [wikiCrystals.elements[symbol] ?? crystalCatalog.elements[symbol]].filter(Boolean) : [...crystalCatalog.structures, ...substanceCrystals].filter(c => key && formulaKey(c.formula) === key);
+    // Element catalog identities are explicit: alpha-Mn's Mn29 cell is Mn,
+    // whereas reducing arbitrary molecular formulas would confuse isomers.
+    const elementalSymbol = symbol ?? (elementalPhases[formula] ? formula : diatomicElements.has(formula) ? formula.slice(0, -1) : null);
+    const crystals = elementalSymbol ? [elementalPhases[elementalSymbol]].filter(Boolean) : allCrystals.filter(c => key && formulaKey(c.formula) === key);
     visualIndex[doc.slug ?? doc.id] = { formula, modelId: model?.id ?? null, kind: model?.kind ?? null, source: model?.structure?.source ?? null, provenance: model?.structure?.provenance ?? null, crystals };
   }
   fs.writeFileSync('shared/substance-visuals.generated.json', JSON.stringify(visualIndex, null, 2) + '\n');

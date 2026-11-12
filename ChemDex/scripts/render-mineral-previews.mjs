@@ -61,6 +61,6 @@ try{
     results.push({id:model.id,bounds:result.bounds,rendered:true,bytes:png.length});
   }
   if(errors.length)throw new Error(errors.join('\n'));
-  await fs.writeFile(path.join(root,substances ? 'docs/learning-upgrade/2026-11-12/crystal-render-verification.json' : wiki||review ? 'docs/application-crystal-review/2026-11-12/crystal-render-verification.json' : crystals ? 'docs/library-crystal-upgrade/2026-11-11/crystal-render-verification.json' : 'docs/periodic-table-audit/2026-11-11/model-render-verification.json'),JSON.stringify({date:substances||wiki||review?'2026-11-12':'2026-11-11',renderer:'Chromium WebGL / Three.js',models:results,errors},null,2)+'\n');
+  await fs.writeFile(path.join(root,substances ? 'docs/learning-expansion/2026-11-12/crystal-render-verification.json' : wiki||review ? 'docs/application-crystal-review/2026-11-12/crystal-render-verification.json' : crystals ? 'docs/library-crystal-upgrade/2026-11-11/crystal-render-verification.json' : 'docs/periodic-table-audit/2026-11-11/model-render-verification.json'),JSON.stringify({date:substances||wiki||review?'2026-11-12':'2026-11-11',renderer:'Chromium WebGL / Three.js',models:results,errors},null,2)+'\n');
   console.log(JSON.stringify({rendered:results.length,errors}));
 }finally{await browser?.close();await new Promise(resolve=>server.close(resolve));}

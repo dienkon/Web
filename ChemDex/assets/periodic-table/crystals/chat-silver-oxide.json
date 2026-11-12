@@ -1,0 +1,204 @@
+{
+  "amcsdId": "0017487",
+  "mineralName": "Ag₂O",
+  "formula": "O Ag2",
+  "spaceGroup": "P n -3:1",
+  "cell": {
+    "a": 4.76,
+    "b": 4.76,
+    "c": 4.76,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 107.85017599999999,
+  "declaredVolume": 107.85,
+  "basis": [
+    [
+      4.76,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      4.76,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      4.76
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+z,1/2+x,1/2-y",
+    "1/2+z,1/2-x,1/2+y",
+    "1/2-z,1/2+x,1/2+y",
+    "1/2-z,1/2-x,1/2-y",
+    "y,-z,-x",
+    "-y,-z,x",
+    "-y,z,-x",
+    "y,z,x",
+    "1/2+x,1/2-y,1/2+z",
+    "1/2-x,1/2+y,1/2+z",
+    "1/2+x,1/2+y,1/2-z",
+    "1/2-x,1/2-y,1/2-z",
+    "-z,-x,y",
+    "-z,x,-y",
+    "z,-x,-y",
+    "z,x,y",
+    "1/2-y,1/2+z,1/2+x",
+    "1/2+y,1/2+z,1/2-x",
+    "1/2+y,1/2-z,1/2+x",
+    "1/2-y,1/2-z,1/2-x",
+    "-x,y,-z",
+    "x,-y,-z",
+    "-x,-y,z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Ag1",
+      "element": "Ag",
+      "fractional": [
+        0.25,
+        0.25,
+        0.25
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "position": [
+        2.38,
+        2.38,
+        2.38
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ag",
+      "label": "Ag1",
+      "fractional": [
+        0.25,
+        0.25,
+        0.25
+      ],
+      "position": [
+        1.19,
+        1.19,
+        1.19
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ag",
+      "label": "Ag1",
+      "fractional": [
+        0.75,
+        0.75,
+        0.25
+      ],
+      "position": [
+        3.57,
+        3.57,
+        1.19
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ag",
+      "label": "Ag1",
+      "fractional": [
+        0.75,
+        0.25,
+        0.75
+      ],
+      "position": [
+        3.57,
+        1.19,
+        3.57
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ag",
+      "label": "Ag1",
+      "fractional": [
+        0.25,
+        0.75,
+        0.75
+      ],
+      "position": [
+        1.19,
+        3.57,
+        3.57
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 6,
+  "speciesPositionCount": 6,
+  "cellComposition": {
+    "O": 2,
+    "Ag": 4
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Wyckoff R"
+    ],
+    "title": "The Crystal Structure of Silver Oxide (Ag2 O)\n _cod_database_code 1010604",
+    "journal": "American Journal of Science",
+    "year": 1922,
+    "volume": "3",
+    "pages": "184–188"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 24,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.6318934889469186e-06
+  },
+  "spaceGroupOriginal": "P n 3",
+  "spaceGroupNumber": 201,
+  "id": "chat-silver-oxide",
+  "note": "Bản cấu trúc silver oxide Ag2O; không nhầm với AgO."
+}

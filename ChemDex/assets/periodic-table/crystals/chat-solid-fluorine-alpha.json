@@ -1,0 +1,219 @@
+{
+  "amcsdId": "0012990",
+  "mineralName": "α-Fluorine rắn · 23 K",
+  "formula": "F",
+  "spaceGroup": "C 1 2/m 1",
+  "cell": {
+    "a": 5.5,
+    "b": 3.28,
+    "c": 10.01,
+    "alpha": 90.0,
+    "beta": 134.66,
+    "gamma": 90.0
+  },
+  "volume": 128.44509822258635,
+  "declaredVolume": 128.445,
+  "basis": [
+    [
+      5.5,
+      0.0,
+      -7.036011980919678
+    ],
+    [
+      0.0,
+      3.28,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      7.120016531185496
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+x,1/2+y,z",
+    "x,-y,z",
+    "1/2+x,1/2-y,z",
+    "-x,y,-z",
+    "1/2-x,1/2+y,-z",
+    "-x,-y,-z",
+    "1/2-x,1/2-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "F1",
+      "element": "F",
+      "fractional": [
+        0.15,
+        0.0,
+        0.0996
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "F2",
+      "element": "F",
+      "fractional": [
+        0.105,
+        0.0,
+        0.6
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "F",
+      "label": "F1",
+      "fractional": [
+        0.15,
+        0.0,
+        0.0996
+      ],
+      "position": [
+        0.1242132,
+        0.0,
+        0.7091536
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "F",
+      "label": "F1",
+      "fractional": [
+        0.65,
+        0.5,
+        0.0996
+      ],
+      "position": [
+        2.8742132,
+        1.64,
+        0.7091536
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "F",
+      "label": "F1",
+      "fractional": [
+        0.85,
+        0.0,
+        0.9004
+      ],
+      "position": [
+        -1.6602252,
+        0.0,
+        6.4108629
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "F",
+      "label": "F1",
+      "fractional": [
+        0.35,
+        0.5,
+        0.9004
+      ],
+      "position": [
+        -4.4102252,
+        1.64,
+        6.4108629
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "F",
+      "label": "F2",
+      "fractional": [
+        0.105,
+        0.0,
+        0.6
+      ],
+      "position": [
+        -3.6441072,
+        0.0,
+        4.2720099
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "F",
+      "label": "F2",
+      "fractional": [
+        0.605,
+        0.5,
+        0.6
+      ],
+      "position": [
+        -0.8941072,
+        1.64,
+        4.2720099
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "F",
+      "label": "F2",
+      "fractional": [
+        0.895,
+        0.0,
+        0.4
+      ],
+      "position": [
+        2.1080952,
+        0.0,
+        2.8480066
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "F",
+      "label": "F2",
+      "fractional": [
+        0.395,
+        0.5,
+        0.4
+      ],
+      "position": [
+        -0.6419048,
+        1.64,
+        2.8480066
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 8,
+  "speciesPositionCount": 8,
+  "cellComposition": {
+    "F": 8
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Meyer L",
+      "Barrett C S",
+      "Greer S C"
+    ],
+    "title": "Crystal structure of alpha-fluorine\n Sample: at T = 23 K\n Note: alpha phase, stable between T = 0 K & 45.6 K",
+    "journal": "Journal of Chemical Physics",
+    "year": 1968,
+    "volume": "49",
+    "pages": "1902–1907"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 8,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 7.647048250084624e-07
+  },
+  "spaceGroupOriginal": "C 1 2/m 1",
+  "spaceGroupNumber": 12,
+  "id": "chat-solid-fluorine-alpha",
+  "note": "Pha alpha ở 23 K; khác pha beta ổn định trong khoảng nhiệt độ cao hơn."
+}

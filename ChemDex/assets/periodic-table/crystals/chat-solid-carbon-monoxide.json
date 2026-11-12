@@ -1,0 +1,222 @@
+{
+  "amcsdId": "0017231",
+  "mineralName": "CO rắn",
+  "formula": "C O",
+  "spaceGroup": "P 21 3",
+  "cell": {
+    "a": 5.63,
+    "b": 5.63,
+    "c": 5.63,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 178.453547,
+  "declaredVolume": 178.454,
+  "basis": [
+    [
+      5.63,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      5.63,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      5.63
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2-z,-x,1/2+y",
+    "-z,1/2+x,1/2-y",
+    "1/2+z,1/2-x,-y",
+    "z,x,y",
+    "1/2+y,1/2-z,-x",
+    "1/2-y,-z,1/2+x",
+    "-y,1/2+z,1/2-x",
+    "y,z,x",
+    "-x,1/2+y,1/2-z",
+    "1/2+x,1/2-y,-z",
+    "1/2-x,-y,1/2+z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "C",
+      "element": "C",
+      "fractional": [
+        -0.042,
+        -0.042,
+        -0.042
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O",
+      "element": "O",
+      "fractional": [
+        0.067,
+        0.067,
+        0.067
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.958,
+        0.958,
+        0.958
+      ],
+      "position": [
+        5.39354,
+        5.39354,
+        5.39354
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.542,
+        0.042,
+        0.458
+      ],
+      "position": [
+        3.05146,
+        0.23646,
+        2.57854
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.042,
+        0.458,
+        0.542
+      ],
+      "position": [
+        0.23646,
+        2.57854,
+        3.05146
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.458,
+        0.542,
+        0.042
+      ],
+      "position": [
+        2.57854,
+        3.05146,
+        0.23646
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.067,
+        0.067,
+        0.067
+      ],
+      "position": [
+        0.37721,
+        0.37721,
+        0.37721
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.433,
+        0.933,
+        0.567
+      ],
+      "position": [
+        2.43779,
+        5.25279,
+        3.19221
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.933,
+        0.567,
+        0.433
+      ],
+      "position": [
+        5.25279,
+        3.19221,
+        2.43779
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O",
+      "fractional": [
+        0.567,
+        0.433,
+        0.933
+      ],
+      "position": [
+        3.19221,
+        2.43779,
+        5.25279
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 8,
+  "speciesPositionCount": 8,
+  "cellComposition": {
+    "C": 4,
+    "O": 4
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Vegard L"
+    ],
+    "title": "Struktur und Leuchtfaehigkeit von festem Kohlenoxyd.\n _cod_database_code 1010305",
+    "journal": "Zeitschrift fur Physik",
+    "year": 1930,
+    "volume": "61",
+    "pages": "185–190"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 12,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 2.5384757413736084e-06
+  },
+  "spaceGroupOriginal": "P 21 3",
+  "spaceGroupNumber": 198,
+  "id": "chat-solid-carbon-monoxide",
+  "note": "Bản cấu trúc carbon monoxide rắn; các vị trí trung bình/độ chiếm chỗ được giữ đúng nguồn."
+}

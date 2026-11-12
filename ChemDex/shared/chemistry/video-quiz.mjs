@@ -8,8 +8,9 @@ export function youtubeURL(value) {
 }
 
 // AI output is data: validate all fields, times, answers and scene evidence.
-export function validateVideoQuiz(value) {
+export function validateVideoQuiz(value, sourceDurationSeconds) {
   if (!value || !Number.isFinite(value.durationSeconds) || value.durationSeconds < 10 || value.durationSeconds > 1800 || !Array.isArray(value.cues)) throw Error('Dữ liệu thời lượng video không hợp lệ.');
+  if (Number.isFinite(sourceDurationSeconds) && Math.abs(value.durationSeconds-sourceDurationSeconds)>Math.max(3,sourceDurationSeconds*.02)) throw Error('Thời lượng phân tích khác nguồn video; chưa sử dụng các mốc hỏi này.');
   const cues = value.cues.filter(c => c && Number.isFinite(c.seconds) && c.seconds >= 5 && c.seconds < value.durationSeconds - 2
     && typeof c.question === 'string' && c.question.length >= 10 && c.question.length <= 600
     && Array.isArray(c.options) && c.options.length === 4 && c.options.every(o => typeof o === 'string' && o.length > 0 && o.length <= 300)

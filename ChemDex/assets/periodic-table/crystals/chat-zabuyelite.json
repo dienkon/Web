@@ -1,0 +1,480 @@
+{
+  "amcsdId": "0010813",
+  "mineralName": "Zabuyelite · Li₂CO₃",
+  "formula": "Li2 C O3",
+  "spaceGroup": "C 1 2/c 1",
+  "cell": {
+    "a": 8.3593,
+    "b": 4.9725,
+    "c": 6.1975,
+    "alpha": 90.0,
+    "beta": 114.83,
+    "gamma": 90.0
+  },
+  "volume": 233.79515059112745,
+  "declaredVolume": 233.795,
+  "basis": [
+    [
+      8.3593,
+      0.0,
+      -2.602499665499277
+    ],
+    [
+      0.0,
+      4.9725,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      5.6245890286381055
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+x,1/2+y,z",
+    "x,-y,1/2+z",
+    "1/2+x,1/2-y,1/2+z",
+    "-x,y,1/2-z",
+    "1/2-x,1/2+y,1/2-z",
+    "-x,-y,-z",
+    "1/2-x,1/2-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Li",
+      "element": "Li",
+      "fractional": [
+        0.1965,
+        0.4484,
+        0.8344
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "C",
+      "element": "C",
+      "fractional": [
+        0.0,
+        0.0657,
+        0.25
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.0,
+        0.3213,
+        0.25
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.1459,
+        -0.0635,
+        0.3127
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Li",
+      "label": "Li",
+      "fractional": [
+        0.1965,
+        0.4484,
+        0.8344
+      ],
+      "position": [
+        -0.5289233,
+        2.229669,
+        4.6931571
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Li",
+      "label": "Li",
+      "fractional": [
+        0.6965,
+        0.9484,
+        0.8344
+      ],
+      "position": [
+        3.6507267,
+        4.715919,
+        4.6931571
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Li",
+      "label": "Li",
+      "fractional": [
+        0.1965,
+        0.5516,
+        0.3344
+      ],
+      "position": [
+        0.7723266,
+        2.742831,
+        1.8808626
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Li",
+      "label": "Li",
+      "fractional": [
+        0.6965,
+        0.0516,
+        0.3344
+      ],
+      "position": [
+        4.9519766,
+        0.256581,
+        1.8808626
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Li",
+      "label": "Li",
+      "fractional": [
+        0.8035,
+        0.4484,
+        0.6656
+      ],
+      "position": [
+        4.9844738,
+        2.229669,
+        3.7437265
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Li",
+      "label": "Li",
+      "fractional": [
+        0.3035,
+        0.9484,
+        0.6656
+      ],
+      "position": [
+        0.8048238,
+        4.715919,
+        3.7437265
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Li",
+      "label": "Li",
+      "fractional": [
+        0.8035,
+        0.5516,
+        0.1656
+      ],
+      "position": [
+        6.2857236,
+        2.742831,
+        0.9314319
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Li",
+      "label": "Li",
+      "fractional": [
+        0.3035,
+        0.0516,
+        0.1656
+      ],
+      "position": [
+        2.1060736,
+        0.256581,
+        0.9314319
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.0,
+        0.0657,
+        0.25
+      ],
+      "position": [
+        -0.6506249,
+        0.3266932,
+        1.4061473
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.5,
+        0.5657,
+        0.25
+      ],
+      "position": [
+        3.5290251,
+        2.8129433,
+        1.4061473
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.0,
+        0.9343,
+        0.75
+      ],
+      "position": [
+        -1.9518747,
+        4.6458068,
+        4.2184418
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "C",
+      "label": "C",
+      "fractional": [
+        0.5,
+        0.4343,
+        0.75
+      ],
+      "position": [
+        2.2277753,
+        2.1595568,
+        4.2184418
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.0,
+        0.3213,
+        0.25
+      ],
+      "position": [
+        -0.6506249,
+        1.5976643,
+        1.4061473
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.5,
+        0.8213,
+        0.25
+      ],
+      "position": [
+        3.5290251,
+        4.0839143,
+        1.4061473
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.0,
+        0.6787,
+        0.75
+      ],
+      "position": [
+        -1.9518747,
+        3.3748357,
+        4.2184418
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.5,
+        0.1787,
+        0.75
+      ],
+      "position": [
+        2.2277753,
+        0.8885858,
+        4.2184418
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.1459,
+        0.9365,
+        0.3127
+      ],
+      "position": [
+        0.4058202,
+        4.6567463,
+        1.758809
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.6459,
+        0.4365,
+        0.3127
+      ],
+      "position": [
+        4.5854702,
+        2.1704963,
+        1.758809
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.1459,
+        0.0635,
+        0.8127
+      ],
+      "position": [
+        -0.8954296,
+        0.3157537,
+        4.5711035
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.6459,
+        0.5635,
+        0.8127
+      ],
+      "position": [
+        3.2842204,
+        2.8020037,
+        4.5711035
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.8541,
+        0.9365,
+        0.1873
+      ],
+      "position": [
+        6.6522299,
+        4.6567463,
+        1.0534855
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.3541,
+        0.4365,
+        0.1873
+      ],
+      "position": [
+        2.4725799,
+        2.1704963,
+        1.0534855
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.8541,
+        0.0635,
+        0.6873
+      ],
+      "position": [
+        5.3509801,
+        0.3157537,
+        3.86578
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.3541,
+        0.5635,
+        0.6873
+      ],
+      "position": [
+        1.1713301,
+        2.8020037,
+        3.86578
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 24,
+  "speciesPositionCount": 24,
+  "cellComposition": {
+    "Li": 8,
+    "C": 4,
+    "O": 12
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Effenberger H",
+      "Zemann J"
+    ],
+    "title": "Verfeinerung der kristallstruktur des lithiumkarbonates, Li2CO3",
+    "journal": "Zeitschrift fur Kristallographie",
+    "year": 1979,
+    "volume": "150",
+    "pages": "133–138"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 8,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 6.441157016477682e-07
+  },
+  "spaceGroupOriginal": "C 1 2/c 1",
+  "spaceGroupNumber": 15,
+  "id": "chat-zabuyelite",
+  "note": "Tinh chỉnh lithium carbonate; không dùng mẫu dung dịch rắn Li-K."
+}

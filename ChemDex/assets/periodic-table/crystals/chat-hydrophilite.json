@@ -181,6 +181,8 @@
     "maxSiteOccupancy": 1,
     "cellVolumeRelativeError": 2.6110057214111104e-06
   },
+  "spaceGroupOriginal": "P n n m",
+  "spaceGroupNumber": 58,
   "id": "chat-hydrophilite",
   "note": "Pha CaCl2 khan, rutile biến dạng."
 }

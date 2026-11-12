@@ -1,0 +1,43 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0010603
+_database_code_amcsd 0010603
+_chemical_name_mineral 'SnSO₄ khan'
+_chemical_formula_sum 'Sn S O4'
+_symmetry_space_group_name_H-M 'P n m a'
+_cell_length_a 8.799
+_cell_length_b 5.319
+_cell_length_c 7.115
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 90
+_cell_volume 332.995383
+loop_
+_publ_author_name
+'Rentzeperis P J'
+_journal_name_full 'Zeitschrift fur Kristallographie'
+_journal_year 1962
+_journal_volume 117
+_publ_section_title 'The crystal structure of the anhydrous stannous sulphate'
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+x,1/2-y,z
+-x,1/2+y,-z
+1/2-x,1/2+y,1/2+z
+1/2+x,1/2-y,1/2-z
+1/2+x,y,1/2-z
+1/2-x,-y,1/2+z
+-x,-y,-z
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+Sn Sn 0.208 0.25 0.222 1
+S S 0.069 0.25 0.694 1
+O1 O -0.083 0.25 0.597 1
+O2 O 0.194 0.25 0.55 1
+O3 O 0.088 0.02 0.819 1

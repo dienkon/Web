@@ -7,6 +7,7 @@ import { LAB_REACTIONS, parseStudyEquation, resolveLabExperiment } from '../shar
 import { normalizeMathMarkdown } from '../shared/chemistry/math-markdown.mjs';
 import { youtubeURL, validateVideoQuiz } from '../shared/chemistry/video-quiz.mjs';
 import { parseCIF } from '../shared/chemistry/cif.mjs';
+import { parseFormula } from '../shared/chemistry/formula.mjs';
 const read = file => JSON.parse(fs.readFileSync(file,'utf8'));
 
 test('Lab links require atom conservation, exact substances and an implemented preset', () => {
@@ -25,7 +26,8 @@ test('Lab links require atom conservation, exact substances and an implemented p
 
 test('all new crystalline phases retain full metric, expanded positions, occupancy and exported artifacts', () => {
   const catalog = read('data/substance-crystal-models.json');
-  assert.equal(catalog.structures.length,38);
+  const expansion = read('data/substance-crystal-expansion.selections.json');
+  assert.equal(catalog.structures.length,38 + Object.keys(expansion).length);
   for (const meta of catalog.structures) {
     const data = read('.'+meta.data);
     const parsed = parseCIF(fs.readFileSync('.'+meta.cif,'utf8'));
@@ -34,6 +36,42 @@ test('all new crystalline phases retain full metric, expanded positions, occupan
     assert.ok(meta.reference.authors.length && meta.reference.title && meta.note,meta.id);
     for (const field of ['model','preview']) assert.ok(fs.statSync('.'+meta[field]).size>100,`${meta.id}.${field}`);
     assert.ok(data.atoms.every(a=>a.occupancy>0 && a.occupancy<=1.001),meta.id);
+    const selection = expansion[meta.id.replace(/^chat-/, '')];
+    if (selection) {
+      const expected = parseFormula(selection[1]);
+      assert.deepEqual(Object.keys(data.cellComposition).sort(), Object.keys(expected).sort(), meta.id);
+      const scale = Object.entries(expected).map(([e,n])=>data.cellComposition[e]/n);
+      assert.ok(Math.max(...scale)-Math.min(...scale)<0.015, meta.id);
+    }
+  }
+});
+
+test('cold elemental phases keep explicit identities, source conditions and correct nitrogen sites', () => {
+  const catalog = read('data/substance-crystal-models.json');
+  assert.equal(Object.keys(catalog.elements).length,10);
+  for (const [symbol,meta] of Object.entries(catalog.elements)) {
+    const data=read('.'+meta.data);
+    assert.deepEqual(Object.keys(data.cellComposition),[symbol]);
+    assert.match(meta.reference.title + ' ' + meta.note,/\bK\b|nhiệt độ|áp suất/i);
+  }
+  const n=read('.'+catalog.elements.N.data);
+  assert.match(n.spaceGroup,/P a -3/); assert.equal(n.cellComposition.N,8);
+  assert.ok(!catalog.structures.some(c=>['0009939','0010677','0018366','0017459'].includes(c.amcsdId)));
+});
+
+test('selected link-only videos cover all 118 current elements and retain publisher provenance', () => {
+  const catalog=read('shared/video-catalog.json'), elements=read('shared/elements.json');
+  for (const e of elements) assert.ok(catalog.some(v=>v.symbols.includes(e.symbol)),e.symbol);
+  const audit=read('docs/learning-expansion/2026-11-12/video-source-audit.json');
+  for (const video of catalog) {
+    assert.equal(video.source,youtubeURL(video.source));
+    if (video.archival) {
+      assert.match(video.lessonSource,/^https:\/\/ed\.ted\.com\/best_of_web\//);
+      const verified=audit.records.find(r=>r.id===video.id);
+      assert.equal(verified?.status,'verified-publisher',video.id);
+      assert.equal(verified.author,'Periodic Videos');
+    }
+    assert.ok(!video.file && !video.localPath && !video.blob);
   }
 });
 
@@ -58,6 +96,9 @@ test('visuals use explicit source phases and distinguish anhydrous from hydrated
   assert.ok(anhydrous.crystals.every(c=>c.id!=='chat-chalcanthite'));
   assert.ok(hydrate.crystals.some(c=>c.id==='chat-chalcanthite'));
   assert.ok(hydrate.crystals.every(c=>c.id!=='chat-chalcocyanite'));
+  assert.ok(visuals['mangan-mn'].crystals.some(c=>c.siteCount===58),'Mn29 is a cell composition, not a different substance');
+  assert.ok(visuals['heli-he'].crystals.some(c=>c.id==='chat-solid-helium'));
+  assert.ok(visuals['nitơ-n2']?.crystals.length || Object.values(visuals).some(v=>v.formula==='N2' && v.crystals.some(c=>c.id==='chat-solid-nitrogen-alpha')));
 });
 
 test('TeX normalization preserves fenced and inline code and multiline display math', () => {
@@ -77,6 +118,8 @@ test('video questions reject bad timestamps, answer indices and unsupported URLs
   assert.deepEqual(validateVideoQuiz({durationSeconds:120,cues:[cue]}).cues[0].options,cue.options);
   for(const patch of [{seconds:-1},{seconds:121},{answer:4},{answer:'0'},{evidence:''},{options:['H2']},{options:['H2','H2','O2','N2']}]) assert.throws(()=>validateVideoQuiz({durationSeconds:120,cues:[{...cue,...patch}]}));
   assert.throws(()=>validateVideoQuiz({durationSeconds:Infinity,cues:[cue]}));
+  assert.throws(()=>validateVideoQuiz({durationSeconds:120,cues:[cue]},24),/khác nguồn/);
+  assert.equal(validateVideoQuiz({durationSeconds:120,cues:[cue]},119).cues.length,1);
 });
 
 test('API rejects unselected video URLs, serves prepared checkpoints and explains missing server configuration',async()=>{

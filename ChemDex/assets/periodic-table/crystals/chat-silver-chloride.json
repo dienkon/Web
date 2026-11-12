@@ -2,7 +2,7 @@
   "amcsdId": "0015197",
   "mineralName": "AgCl · Phase I",
   "formula": "Ag Cl",
-  "spaceGroup": "F m 3 m",
+  "spaceGroup": "F m -3 m",
   "cell": {
     "a": 5.5463,
     "b": 5.5463,
@@ -396,6 +396,8 @@
     "maxSiteOccupancy": 1,
     "cellVolumeRelativeError": 1.1437508721414598e-06
   },
+  "spaceGroupOriginal": "F m 3 m",
+  "spaceGroupNumber": 225,
   "id": "chat-silver-chloride",
   "note": "Mẫu 0,0 GPa; pha I."
 }

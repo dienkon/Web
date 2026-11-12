@@ -1,0 +1,355 @@
+{
+  "amcsdId": "0009159",
+  "mineralName": "SO₃ rắn · dạng polymer",
+  "formula": "S O3",
+  "spaceGroup": "P 1 21/c 1",
+  "cell": {
+    "a": 6.2,
+    "b": 4.06,
+    "c": 9.31,
+    "alpha": 90.0,
+    "beta": 109.83,
+    "gamma": 90.0
+  },
+  "volume": 220.45505474674076,
+  "declaredVolume": 220.455,
+  "basis": [
+    [
+      6.2,
+      0.0,
+      -3.1582361207918153
+    ],
+    [
+      0.0,
+      4.06,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      8.757947510993993
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "x,1/2-y,1/2+z",
+    "-x,1/2+y,1/2-z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "S",
+      "element": "S",
+      "fractional": [
+        0.171,
+        0.025,
+        0.294
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.001,
+        0.275,
+        0.169
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.27,
+        0.2,
+        0.431
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O3",
+      "element": "O",
+      "fractional": [
+        0.281,
+        -0.15,
+        0.207
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.171,
+        0.025,
+        0.294
+      ],
+      "position": [
+        0.1316786,
+        0.1015,
+        2.5748366
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.171,
+        0.475,
+        0.794
+      ],
+      "position": [
+        -1.4474395,
+        1.9285,
+        6.9538103
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.829,
+        0.525,
+        0.206
+      ],
+      "position": [
+        4.4892034,
+        2.1315,
+        1.8041372
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "S",
+      "label": "S",
+      "fractional": [
+        0.829,
+        0.975,
+        0.706
+      ],
+      "position": [
+        2.9100853,
+        3.9585,
+        6.1831109
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.001,
+        0.275,
+        0.169
+      ],
+      "position": [
+        -0.5275419,
+        1.1165,
+        1.4800931
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.001,
+        0.225,
+        0.669
+      ],
+      "position": [
+        -2.10666,
+        0.9135,
+        5.8590669
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.999,
+        0.775,
+        0.331
+      ],
+      "position": [
+        5.1484238,
+        3.1465,
+        2.8988806
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.999,
+        0.725,
+        0.831
+      ],
+      "position": [
+        3.5693058,
+        2.9435,
+        7.2778544
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.27,
+        0.2,
+        0.431
+      ],
+      "position": [
+        0.3128002,
+        0.812,
+        3.7746754
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.27,
+        0.3,
+        0.931
+      ],
+      "position": [
+        -1.2663178,
+        1.218,
+        8.1536491
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.73,
+        0.7,
+        0.069
+      ],
+      "position": [
+        4.3080817,
+        2.842,
+        0.6042984
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.73,
+        0.8,
+        0.569
+      ],
+      "position": [
+        2.7289636,
+        3.248,
+        4.9832721
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.281,
+        0.85,
+        0.207
+      ],
+      "position": [
+        1.0884451,
+        3.451,
+        1.8128951
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.281,
+        0.65,
+        0.707
+      ],
+      "position": [
+        -0.4906729,
+        2.639,
+        6.1918689
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.719,
+        0.35,
+        0.293
+      ],
+      "position": [
+        3.5324368,
+        1.421,
+        2.5660786
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.719,
+        0.15,
+        0.793
+      ],
+      "position": [
+        1.9533188,
+        0.609,
+        6.9450524
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 16,
+  "speciesPositionCount": 16,
+  "cellComposition": {
+    "S": 4,
+    "O": 12
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "MacGillavry C H",
+      "Westrik R"
+    ],
+    "title": "The crystal structure of the asbestos-like form of sulphur trioxide",
+    "journal": "Acta Crystallographica",
+    "year": 1954,
+    "volume": "7",
+    "pages": "764–767"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 4,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 2.483351575097352e-07
+  },
+  "spaceGroupOriginal": "P 1 21/c 1",
+  "spaceGroupNumber": 14,
+  "id": "chat-polymeric-sulfur-trioxide",
+  "note": "Dạng sợi polymer của sulfur trioxide; không mô tả một phân tử SO3 tự do."
+}

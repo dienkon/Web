@@ -2,7 +2,7 @@
   "amcsdId": "0009258",
   "mineralName": "NaBr · rocksalt",
   "formula": "Na Br",
-  "spaceGroup": "F m 3 m",
+  "spaceGroup": "F m -3 m",
   "cell": {
     "a": 5.9738,
     "b": 5.9738,
@@ -395,6 +395,8 @@
     "maxSiteOccupancy": 1,
     "cellVolumeRelativeError": 1.2292961923547734e-06
   },
+  "spaceGroupOriginal": "F m 3 m",
+  "spaceGroupNumber": 225,
   "id": "chat-sodium-bromide",
   "note": "Mẫu 31,5 °C; cấu trúc rocksalt."
 }

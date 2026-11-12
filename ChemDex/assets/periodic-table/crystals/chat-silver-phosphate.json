@@ -1,0 +1,365 @@
+{
+  "amcsdId": "0017250",
+  "mineralName": "Ag₃PO₄",
+  "formula": "P Ag3 O4",
+  "spaceGroup": "P -4 3 n",
+  "cell": {
+    "a": 5.995,
+    "b": 5.995,
+    "c": 5.995,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 215.460449875,
+  "declaredVolume": 215.46,
+  "basis": [
+    [
+      5.995,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      5.995,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      5.995
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "-z,x,-y",
+    "-y,z,-x",
+    "-x,y,-z",
+    "1/2+x,1/2-z,1/2-y",
+    "1/2+z,1/2-y,1/2-x",
+    "1/2+y,1/2-x,1/2-z",
+    "1/2+x,1/2+z,1/2+y",
+    "1/2+z,1/2+y,1/2+x",
+    "1/2+y,1/2+x,1/2+z",
+    "-z,-x,y",
+    "-y,-z,x",
+    "-x,-y,z",
+    "z,-x,-y",
+    "y,-z,-x",
+    "x,-y,-z",
+    "1/2-x,1/2+z,1/2-y",
+    "1/2-z,1/2+y,1/2-x",
+    "1/2-y,1/2+x,1/2-z",
+    "1/2-x,1/2-z,1/2+y",
+    "1/2-z,1/2-y,1/2+x",
+    "1/2-y,1/2-x,1/2+z",
+    "z,x,y",
+    "y,z,x"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "P1",
+      "element": "P",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Ag1",
+      "element": "Ag",
+      "fractional": [
+        0.5,
+        0.25,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.345,
+        0.345,
+        0.345
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "P",
+      "label": "P1",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "P",
+      "label": "P1",
+      "fractional": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "position": [
+        2.9975,
+        2.9975,
+        2.9975
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ag",
+      "label": "Ag1",
+      "fractional": [
+        0.5,
+        0.25,
+        0.0
+      ],
+      "position": [
+        2.9975,
+        1.49875,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ag",
+      "label": "Ag1",
+      "fractional": [
+        0.0,
+        0.5,
+        0.75
+      ],
+      "position": [
+        0.0,
+        2.9975,
+        4.49625
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ag",
+      "label": "Ag1",
+      "fractional": [
+        0.75,
+        0.0,
+        0.5
+      ],
+      "position": [
+        4.49625,
+        0.0,
+        2.9975
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ag",
+      "label": "Ag1",
+      "fractional": [
+        0.0,
+        0.5,
+        0.25
+      ],
+      "position": [
+        0.0,
+        2.9975,
+        1.49875
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ag",
+      "label": "Ag1",
+      "fractional": [
+        0.5,
+        0.75,
+        0.0
+      ],
+      "position": [
+        2.9975,
+        4.49625,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Ag",
+      "label": "Ag1",
+      "fractional": [
+        0.25,
+        0.0,
+        0.5
+      ],
+      "position": [
+        1.49875,
+        0.0,
+        2.9975
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.345,
+        0.345,
+        0.345
+      ],
+      "position": [
+        2.068275,
+        2.068275,
+        2.068275
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.655,
+        0.345,
+        0.655
+      ],
+      "position": [
+        3.926725,
+        2.068275,
+        3.926725
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.845,
+        0.155,
+        0.155
+      ],
+      "position": [
+        5.065775,
+        0.929225,
+        0.929225
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.845,
+        0.845,
+        0.845
+      ],
+      "position": [
+        5.065775,
+        5.065775,
+        5.065775
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.655,
+        0.655,
+        0.345
+      ],
+      "position": [
+        3.926725,
+        3.926725,
+        2.068275
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.345,
+        0.655,
+        0.655
+      ],
+      "position": [
+        2.068275,
+        3.926725,
+        3.926725
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.155,
+        0.845,
+        0.155
+      ],
+      "position": [
+        0.929225,
+        5.065775,
+        0.929225
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.155,
+        0.155,
+        0.845
+      ],
+      "position": [
+        0.929225,
+        0.929225,
+        5.065775
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 16,
+  "speciesPositionCount": 16,
+  "cellComposition": {
+    "P": 2,
+    "Ag": 6,
+    "O": 8
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Helmholz L"
+    ],
+    "title": "The Crystal Structure of Silver Phosphate\n _cod_database_code 1010324",
+    "journal": "Journal of Chemical Physics",
+    "year": 1936,
+    "volume": "4",
+    "pages": "316–322"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 24,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 2.087970206354942e-06
+  },
+  "spaceGroupOriginal": "P -4 3 n",
+  "spaceGroupNumber": 218,
+  "id": "chat-silver-phosphate",
+  "note": "Bản cấu trúc silver phosphate; giữ nhóm không gian và tọa độ nguồn."
+}

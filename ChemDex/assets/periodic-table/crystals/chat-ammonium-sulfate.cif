@@ -1,0 +1,55 @@
+# Exported from the Larixite AMCSD snapshot; original reference retained.
+# Coordinates quantized to 1/4000000 by the transport; no fabricated uncertainties.
+data_amcsd_0012986
+_database_code_amcsd 0012986
+_chemical_name_mineral '(NH₄)₂SO₄ · 298 K'
+_chemical_formula_sum 'N2 H8 S O4'
+_symmetry_space_group_name_H-M 'P n a m'
+_cell_length_a 7.782
+_cell_length_b 10.636
+_cell_length_c 5.993
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 90
+_cell_volume 496.036727
+loop_
+_publ_author_name
+'Schlemper E O'
+'Hamilton W C'
+_journal_name_full 'Journal of Chemical Physics'
+_journal_year 1966
+_journal_volume 44
+_publ_section_title
+;Neutron-diffraction study of the structures of ferroelectric and paraelectric
+ ammonium sulfate
+ Note: paraelectric, T = 298 K
+;
+loop_
+_space_group_symop_operation_xyz
+x,y,z
+x,y,1/2-z
+-x,-y,1/2+z
+1/2-x,1/2+y,1/2+z
+1/2+x,1/2-y,1/2-z
+1/2+x,1/2-y,z
+1/2-x,1/2+y,-z
+-x,-y,-z
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+N1 N 0.6895 0.4025 0.25 1
+N2 N 0.9677 0.705 0.25 1
+H1 H 0.81 0.372 0.25 1
+H2 H 0.6 0.343 0.25 1
+H3 H 0.676 0.457 0.122 1
+H4 H 0.069 0.649 0.25 1
+H5 H 0.991 0.792 0.25 1
+H6 H 0.893 0.682 0.124 1
+S S 0.244 0.4192 0.25 1
+O1 O 0.0612 0.3887 0.25 1
+O2 O 0.2701 0.5559 0.25 1
+O3 O 0.3239 0.3665 0.0488 1

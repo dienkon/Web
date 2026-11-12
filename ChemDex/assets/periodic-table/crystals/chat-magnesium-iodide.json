@@ -1,0 +1,147 @@
+{
+  "amcsdId": "0011787",
+  "mineralName": "MgI₂ khan",
+  "formula": "Mg I2",
+  "spaceGroup": "P -3 m 1",
+  "cell": {
+    "a": 4.14,
+    "b": 4.14,
+    "c": 6.88,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 120.0
+  },
+  "volume": 102.1221035936419,
+  "declaredVolume": 102.122,
+  "basis": [
+    [
+      4.14,
+      -2.069999999999999,
+      0.0
+    ],
+    [
+      0.0,
+      3.585345171667576,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      6.88
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "-y,-x,z",
+    "y,-x+y,-z",
+    "-x,-x+y,-z",
+    "-x+y,-x,z",
+    "-x+y,y,z",
+    "-x,-y,-z",
+    "y,x,-z",
+    "-y,x-y,z",
+    "x,x-y,z",
+    "x-y,x,-z",
+    "x-y,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Mg",
+      "element": "Mg",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "I",
+      "element": "I",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.25
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Mg",
+      "label": "Mg",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "I",
+      "label": "I",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.25
+      ],
+      "position": [
+        -5e-07,
+        2.3902304,
+        1.72
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "I",
+      "label": "I",
+      "fractional": [
+        0.66666675,
+        0.3333335,
+        0.75
+      ],
+      "position": [
+        2.07,
+        1.1951157,
+        5.16
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 3,
+  "speciesPositionCount": 3,
+  "cellComposition": {
+    "Mg": 1,
+    "I": 2
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Wyckoff R W G"
+    ],
+    "title": "Second edition. Interscience Publishers, New York, New York\n Note: cadmium iodide structure",
+    "journal": "Crystal Structures",
+    "year": 1963,
+    "volume": "1",
+    "pages": "239–444"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "literature-compilation",
+  "validation": {
+    "operatorCount": 12,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.0144095964575971e-06
+  },
+  "spaceGroupOriginal": "P -3 m 1",
+  "spaceGroupNumber": 164,
+  "id": "chat-magnesium-iodide",
+  "note": "Bản cấu trúc lớp; không thay bằng mạng oxide MgO."
+}

@@ -2,7 +2,7 @@
   "amcsdId": "0008276",
   "mineralName": "Lime · CaO",
   "formula": "Ca O",
-  "spaceGroup": "F m 3 m",
+  "spaceGroup": "F m -3 m",
   "cell": {
     "a": 4.815,
     "b": 4.815,
@@ -397,6 +397,8 @@
     "maxSiteOccupancy": 1,
     "cellVolumeRelativeError": 3.885533106913549e-07
   },
+  "spaceGroupOriginal": "F m 3 m",
+  "spaceGroupNumber": 225,
   "id": "chat-lime",
   "note": "Mẫu 298 K; dây nung PtRh10% được nêu trong nguồn."
 }

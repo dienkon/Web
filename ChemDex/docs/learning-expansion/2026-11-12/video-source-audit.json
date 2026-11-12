@@ -1,0 +1,2075 @@
+{
+  "date": "2026-11-12",
+  "pages": [
+    {
+      "url": "https://ed.ted.com/ted_ed_collections/periodic-videos",
+      "sha256": "2bfd324dfb143403d953911393e6ba9f36321c28e3a793ee2a8710773d0f03a2",
+      "lessonCount": 12
+    },
+    {
+      "url": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=2",
+      "sha256": "06dc83a6594fe2bfdca9b931796b397105a9717b36f5375087f151399327222a",
+      "lessonCount": 12
+    },
+    {
+      "url": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=3",
+      "sha256": "faa9c4d83e1598457d70ce7149b97ac23ba6e95d6b05184ca14e6fc877c63cd6",
+      "lessonCount": 12
+    },
+    {
+      "url": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=4",
+      "sha256": "003e79346e218e5bf4592df0dce9e59a70a6eb505f7fc568e3dda3dad255775c",
+      "lessonCount": 12
+    },
+    {
+      "url": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=5",
+      "sha256": "c3a43c61c2fa988bb9eeeabf349ab388e01719520318d0e07969c8d30135755f",
+      "lessonCount": 12
+    },
+    {
+      "url": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=6",
+      "sha256": "f49cac257fa0284c8350d69f216085c9165ce53bddae16ad745d8f18d6bc822d",
+      "lessonCount": 12
+    },
+    {
+      "url": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=7",
+      "sha256": "467360f57f4dabf8bb7d21c525154875015fc463a86faa27da99dc6f8535ebf4",
+      "lessonCount": 12
+    },
+    {
+      "url": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=8",
+      "sha256": "32af42c75089409446997754ebb0fbed44ecb772e1d4e5828ca46480b54b893c",
+      "lessonCount": 12
+    },
+    {
+      "url": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=9",
+      "sha256": "8456ab5c9cd5a7d7593b28e1e9359159d6c1cfaa1c3d0177e284aa504cc35bb7",
+      "lessonCount": 12
+    },
+    {
+      "url": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=10",
+      "sha256": "a124507bdd50b18f2711ce315e24ae66b807ba980cebc486b87c65657e58be05",
+      "lessonCount": 10
+    }
+  ],
+  "records": [
+    {
+      "id": "6rdmpx39PRk",
+      "title": "Hydrogen - Periodic Table of Videos",
+      "symbol": "H",
+      "lesson": "https://ed.ted.com/best_of_web/UB4r12rE",
+      "durationSeconds": 436,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos",
+      "status": "verified-publisher",
+      "youtubeTitle": "Hydrogen - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "a8FJEiI5e6Q",
+      "title": "Helium - Periodic Table of Videos",
+      "symbol": "He",
+      "lesson": "https://ed.ted.com/best_of_web/T5NzG3St",
+      "durationSeconds": 285,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos",
+      "status": "verified-publisher",
+      "youtubeTitle": "Helium (version 1) - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "wY0afMI4Jgc",
+      "title": "Lithium - Periodic Table of Videos",
+      "symbol": "Li",
+      "lesson": "https://ed.ted.com/best_of_web/6jAtF4Yb",
+      "durationSeconds": 160,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos",
+      "status": "verified-publisher",
+      "youtubeTitle": "Lithium (version 2) - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "qy8JyQShZRA",
+      "title": "Beryllium - Periodic Table of Videos",
+      "symbol": "Be",
+      "lesson": "https://ed.ted.com/best_of_web/IL8cSMAA",
+      "durationSeconds": 219,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos",
+      "status": "verified-publisher",
+      "youtubeTitle": "Beryllium  - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "JzqdHkpXuy4",
+      "title": "Boron - Periodic Table of Videos",
+      "symbol": "B",
+      "lesson": "https://ed.ted.com/best_of_web/E5xZnkE1",
+      "durationSeconds": 240,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos",
+      "status": "verified-publisher",
+      "youtubeTitle": "Boron - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "QuW4_bRHbUk",
+      "title": "Carbon - Periodic Table of Videos",
+      "symbol": "C",
+      "lesson": "https://ed.ted.com/best_of_web/7ovw67KW",
+      "durationSeconds": 603,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos",
+      "status": "verified-publisher",
+      "youtubeTitle": "Carbon - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "zmvJ54kRpjg",
+      "title": "Nitrogen - Periodic Table of Videos",
+      "symbol": "N",
+      "lesson": "https://ed.ted.com/best_of_web/6Rtol3fK",
+      "durationSeconds": 243,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos",
+      "status": "verified-publisher",
+      "youtubeTitle": "Nitrogen - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "WuG5WTId-IY",
+      "title": "Oxygen - Periodic Table of Videos",
+      "symbol": "O",
+      "lesson": "https://ed.ted.com/best_of_web/qW22t0iG",
+      "durationSeconds": 377,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos",
+      "status": "verified-publisher",
+      "youtubeTitle": "Oxygen - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "vtWp45Eewtw",
+      "title": "Fluorine - Periodic Table of Videos",
+      "symbol": "F",
+      "lesson": "https://ed.ted.com/best_of_web/SSWIW5cQ",
+      "durationSeconds": 402,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos",
+      "status": "verified-publisher",
+      "youtubeTitle": "Fluorine - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "wzv0pb7mzaw",
+      "title": "Neon - Periodic Table of Videos",
+      "symbol": "Ne",
+      "lesson": "https://ed.ted.com/best_of_web/sBHxsZoA",
+      "durationSeconds": 117,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos",
+      "status": "verified-publisher",
+      "youtubeTitle": "Neon (version 1) - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "7IT2I3LtlNE",
+      "title": "Sodium - Periodic Table of Videos",
+      "symbol": "Na",
+      "lesson": "https://ed.ted.com/best_of_web/gZfLab9f",
+      "durationSeconds": 282,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=2",
+      "status": "verified-publisher",
+      "youtubeTitle": "Sodium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "FKkWdizutxI",
+      "title": "Magnesium - Periodic Table of Videos",
+      "symbol": "Mg",
+      "lesson": "https://ed.ted.com/best_of_web/DJwOZkFB",
+      "durationSeconds": 397,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos",
+      "status": "verified-publisher",
+      "youtubeTitle": "Magnesium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "4AhZ8503WPs",
+      "title": "Aluminium - Periodic Table of Videos",
+      "symbol": "Al",
+      "lesson": "https://ed.ted.com/best_of_web/qosc9gaL",
+      "durationSeconds": 712,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=2",
+      "status": "verified-publisher",
+      "youtubeTitle": "Aluminium (or Aluminum) - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "a2aWO5cL410",
+      "title": "Silicon - Periodic Table of Videos",
+      "symbol": "Si",
+      "lesson": "https://ed.ted.com/best_of_web/UUpdlxxI",
+      "durationSeconds": 218,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=2",
+      "status": "verified-publisher",
+      "youtubeTitle": "Silicon - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "LSYLUat03A4",
+      "title": "Phosphorus - Periodic Table of Videos",
+      "symbol": "P",
+      "lesson": "https://ed.ted.com/best_of_web/59KqXFfF",
+      "durationSeconds": 229,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=2",
+      "status": "verified-publisher",
+      "youtubeTitle": "Phosphorus - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "mGMR72X8V-U",
+      "title": "Sulfur - Periodic Table of Videos",
+      "symbol": "S",
+      "lesson": "https://ed.ted.com/best_of_web/04CRDl3X",
+      "durationSeconds": 390,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=2",
+      "status": "verified-publisher",
+      "youtubeTitle": "Sulfur  - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "BXCfBl4rmh0",
+      "title": "Chlorine - Periodic Table of Videos",
+      "symbol": "Cl",
+      "lesson": "https://ed.ted.com/best_of_web/RfHNEsVI",
+      "durationSeconds": 521,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=2",
+      "status": "verified-publisher",
+      "youtubeTitle": "Chlorine - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "nrHVOFG2V-c",
+      "title": "Argon - Periodic Table of Videos",
+      "symbol": "Ar",
+      "lesson": "https://ed.ted.com/best_of_web/zNT5RDP2",
+      "durationSeconds": 86,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=2",
+      "status": "verified-publisher",
+      "youtubeTitle": "Argon (version 1)  - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "pPdevJTGAYY",
+      "title": "Potassium - Periodic Table of Videos",
+      "symbol": "K",
+      "lesson": "https://ed.ted.com/best_of_web/39XwKjSz",
+      "durationSeconds": 273,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=2",
+      "status": "verified-publisher",
+      "youtubeTitle": "Potassium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "V9fuY8_ffFg",
+      "title": "Calcium - Periodic Table of Videos",
+      "symbol": "Ca",
+      "lesson": "https://ed.ted.com/best_of_web/emJRuSTg",
+      "durationSeconds": 536,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=2",
+      "status": "verified-publisher",
+      "youtubeTitle": "Calcium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "KkKv5ilmRjY",
+      "title": "Scandium - Periodic Table of Videos",
+      "symbol": "Sc",
+      "lesson": "https://ed.ted.com/best_of_web/hAZjXCFe",
+      "durationSeconds": 460,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=2",
+      "status": "verified-publisher",
+      "youtubeTitle": "Scandium (version 2) - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "MpFTQYynrc4",
+      "title": "Titanium - Periodic Table of Videos",
+      "symbol": "Ti",
+      "lesson": "https://ed.ted.com/best_of_web/Y97j1KnC",
+      "durationSeconds": 511,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=2",
+      "status": "verified-publisher",
+      "youtubeTitle": "Titanium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "XRjb_IKDiz8",
+      "title": "Vanadium - Periodic Table of Videos",
+      "symbol": "V",
+      "lesson": "https://ed.ted.com/best_of_web/YYZcu3MG",
+      "durationSeconds": 71,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=2",
+      "status": "verified-publisher",
+      "youtubeTitle": "Vanadium (version 1) - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "lzRb4zmGvNU",
+      "title": "Chromium - Periodic Table of Videos",
+      "symbol": "Cr",
+      "lesson": "https://ed.ted.com/best_of_web/5W10X5ho",
+      "durationSeconds": 114,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=8",
+      "status": "verified-publisher",
+      "youtubeTitle": "Chromium (version 1) - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "5xqsPZ7WsHw",
+      "title": "Manganese - Periodic Table of Videos",
+      "symbol": "Mn",
+      "lesson": "https://ed.ted.com/best_of_web/7PpHH70V",
+      "durationSeconds": 137,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=3",
+      "status": "verified-publisher",
+      "youtubeTitle": "Manganese (version 1) - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "euQUgp5AY-Y",
+      "title": "Iron - Periodic Table of Videos",
+      "symbol": "Fe",
+      "lesson": "https://ed.ted.com/best_of_web/kcz3HyJi",
+      "durationSeconds": 361,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=3",
+      "status": "verified-publisher",
+      "youtubeTitle": "Iron (version 2) - Periodic Table of Videos (with thermite)",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "V6ljxByu9ng",
+      "title": "Cobalt - Periodic Table of Videos",
+      "symbol": "Co",
+      "lesson": "https://ed.ted.com/best_of_web/SbPI9IFQ",
+      "durationSeconds": 102,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=3",
+      "status": "verified-publisher",
+      "youtubeTitle": "Cobalt (version 1) - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "t4kRHoj0W1Y",
+      "title": "Nickel - Periodic Table of Videos",
+      "symbol": "Ni",
+      "lesson": "https://ed.ted.com/best_of_web/UvDwVpjw",
+      "durationSeconds": 99,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=3",
+      "status": "verified-publisher",
+      "youtubeTitle": "Nickel (version 1) - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "kop1sWzTK-I",
+      "title": "Copper - Periodic Table of Videos",
+      "symbol": "Cu",
+      "lesson": "https://ed.ted.com/best_of_web/2DUz9zMA",
+      "durationSeconds": 493,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=3",
+      "status": "verified-publisher",
+      "youtubeTitle": "Copper - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "99wPiMb-k0o",
+      "title": "Zinc - Periodic Table of Videos",
+      "symbol": "Zn",
+      "lesson": "https://ed.ted.com/best_of_web/yfOL8Efi",
+      "durationSeconds": 196,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=3",
+      "status": "verified-publisher",
+      "youtubeTitle": "Zinc - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "N6ccRvKKwZQ",
+      "title": "Gallium (beating heart) - Periodic Table of Videos",
+      "symbol": "Ga",
+      "lesson": "https://ed.ted.com/best_of_web/82rXpdTN",
+      "durationSeconds": 432,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=3",
+      "status": "verified-publisher",
+      "youtubeTitle": "Gallium (beating heart) - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "osrKWVknkgs",
+      "title": "Germanium - Periodic Table of Videos",
+      "symbol": "Ge",
+      "lesson": "https://ed.ted.com/best_of_web/buvBkSds",
+      "durationSeconds": 105,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos",
+      "status": "verified-publisher",
+      "youtubeTitle": "Germanium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "a2AbKwAvyos",
+      "title": "Arsenic - Periodic Table of Videos",
+      "symbol": "As",
+      "lesson": "https://ed.ted.com/best_of_web/jk3b2dBr",
+      "durationSeconds": 148,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=3",
+      "status": "verified-publisher",
+      "youtubeTitle": "Arsenic (version 1) - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "IHrUtKjcAFE",
+      "title": "Selenium - Periodic Table of Videos",
+      "symbol": "Se",
+      "lesson": "https://ed.ted.com/best_of_web/aNolFNGg",
+      "durationSeconds": 132,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=3",
+      "status": "verified-publisher",
+      "youtubeTitle": "Selenium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "Slt3_5upuSs",
+      "title": "Bromine - Periodic Table of Videos",
+      "symbol": "Br",
+      "lesson": "https://ed.ted.com/best_of_web/SSyNagDA",
+      "durationSeconds": 296,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=3",
+      "status": "verified-publisher",
+      "youtubeTitle": "Bromine - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "il4OOY7Zseg",
+      "title": "Krypton - Periodic Table of Videos",
+      "symbol": "Kr",
+      "lesson": "https://ed.ted.com/best_of_web/RUtmluaa",
+      "durationSeconds": 70,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=3",
+      "status": "verified-publisher",
+      "youtubeTitle": "Krypton - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "0XLGopBovoI",
+      "title": "Rubidium – Periodic Table of Videos",
+      "symbol": "Rb",
+      "lesson": "https://ed.ted.com/best_of_web/muuXDHq3",
+      "durationSeconds": 266,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=3",
+      "status": "verified-publisher",
+      "youtubeTitle": "Rubidium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "d5ztPGrsgNQ",
+      "title": "Strontium - Periodic Table of Videos",
+      "symbol": "Sr",
+      "lesson": "https://ed.ted.com/best_of_web/yhHdJF2o",
+      "durationSeconds": 413,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=4",
+      "status": "verified-publisher",
+      "youtubeTitle": "Strontium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "tTXjnQlAHAQ",
+      "title": "Yttrium - Periodic Table Videos",
+      "symbol": "Y",
+      "lesson": "https://ed.ted.com/best_of_web/N5R6aHST",
+      "durationSeconds": 248,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=4",
+      "status": "verified-publisher",
+      "youtubeTitle": "Yttrium (version 2) - Periodic Table Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "gNJE2MPktvg",
+      "title": "Zirconium - Periodic Table of Videos",
+      "symbol": "Zr",
+      "lesson": "https://ed.ted.com/best_of_web/XtrElMHA",
+      "durationSeconds": 353,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=4",
+      "status": "verified-publisher",
+      "youtubeTitle": "Zirconium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "2ciPAsVTq6c",
+      "title": "Niobium - Periodic Table of Videos",
+      "symbol": "Nb",
+      "lesson": "https://ed.ted.com/best_of_web/b0j6eU8i",
+      "durationSeconds": 567,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=4",
+      "status": "verified-publisher",
+      "youtubeTitle": "Niobium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "ZRQ3vBGskds",
+      "title": "Molybdenum - Periodic Table of Videos",
+      "symbol": "Mo",
+      "lesson": "https://ed.ted.com/best_of_web/3YKQ9JZR",
+      "durationSeconds": 57,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=4",
+      "status": "verified-publisher",
+      "youtubeTitle": "Molybdenum - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "0QBlrGva5YQ",
+      "title": "Technetium - Periodic Table of Videos",
+      "symbol": "Tc",
+      "lesson": "https://ed.ted.com/best_of_web/whj6Pl1y",
+      "durationSeconds": 72,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=4",
+      "status": "verified-publisher",
+      "youtubeTitle": "Technetium (version 1) - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "wl5ZYb0hDTc",
+      "title": "Ruthenium - Periodic Table of Videos",
+      "symbol": "Ru",
+      "lesson": "https://ed.ted.com/best_of_web/tQjzNGRd",
+      "durationSeconds": 360,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=4",
+      "status": "verified-publisher",
+      "youtubeTitle": "Ruthenium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "PPSO5798k2I",
+      "title": "Rhodium - Periodic Table of Videos",
+      "symbol": "Rh",
+      "lesson": "https://ed.ted.com/best_of_web/HbrkiClT",
+      "durationSeconds": 300,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=4",
+      "status": "verified-publisher",
+      "youtubeTitle": "Rhodium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "4ALTGeqmNFM",
+      "title": "Palladium (new) - Periodic Table of Videos",
+      "symbol": "Pd",
+      "lesson": "https://ed.ted.com/best_of_web/jyNlrXtT",
+      "durationSeconds": 469,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=4",
+      "status": "verified-publisher",
+      "youtubeTitle": "Palladium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "pPd5qAb4J50",
+      "title": "Silver - Periodic Table of Videos",
+      "symbol": "Ag",
+      "lesson": "https://ed.ted.com/best_of_web/F1TPK8xO",
+      "durationSeconds": 564,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=4",
+      "status": "verified-publisher",
+      "youtubeTitle": "Silver - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "boRius1DYdQ",
+      "title": "Cadmium - Periodic Table of Videos",
+      "symbol": "Cd",
+      "lesson": "https://ed.ted.com/best_of_web/qvFwiO7B",
+      "durationSeconds": 110,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=4",
+      "status": "verified-publisher",
+      "youtubeTitle": "Cadmium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "4opHafNmgCw",
+      "title": "Indium - Periodic Table of Videos",
+      "symbol": "In",
+      "lesson": "https://ed.ted.com/best_of_web/s3P965GG",
+      "durationSeconds": 118,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=8",
+      "status": "verified-publisher",
+      "youtubeTitle": "Indium (Version 1) - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "qEwCPJOP0Mg",
+      "title": "Tin - Periodic Table of Videos",
+      "symbol": "Sn",
+      "lesson": "https://ed.ted.com/best_of_web/cJmt2OZ5",
+      "durationSeconds": 108,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=4",
+      "status": "verified-publisher",
+      "youtubeTitle": "Tin (version 1)  - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "kcc6qNT3BoU",
+      "title": "Antimony - Periodic Table of Videos",
+      "symbol": "Sb",
+      "lesson": "https://ed.ted.com/best_of_web/08fWhrwY",
+      "durationSeconds": 109,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=5",
+      "status": "verified-publisher",
+      "youtubeTitle": "Antimony - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "5ChFbVu4Mpk",
+      "title": "Tellurium - Periodic Table of Videos",
+      "symbol": "Te",
+      "lesson": "https://ed.ted.com/best_of_web/46rWVY3f",
+      "durationSeconds": 135,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=5",
+      "status": "verified-publisher",
+      "youtubeTitle": "Tellurium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "JUBsJLRSM64",
+      "title": "Iodine - Periodic Table of Videos",
+      "symbol": "I",
+      "lesson": "https://ed.ted.com/best_of_web/EB1TS2J5",
+      "durationSeconds": 357,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=5",
+      "status": "verified-publisher",
+      "youtubeTitle": "Iodine - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "Ejoct_6pQ74",
+      "title": "Xenon - Periodic Table of Videos",
+      "symbol": "Xe",
+      "lesson": "https://ed.ted.com/best_of_web/xeqgP4kZ",
+      "durationSeconds": 336,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=5",
+      "status": "verified-publisher",
+      "youtubeTitle": "Xenon - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "5aD6HwUE2c0",
+      "title": "Caesium or Cesium - Periodic Table of Videos",
+      "symbol": "Cs",
+      "lesson": "https://ed.ted.com/best_of_web/AiysVcUy",
+      "durationSeconds": 437,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=5",
+      "status": "verified-publisher",
+      "youtubeTitle": "Caesium or Cesium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "9srJdQU3NOo",
+      "title": "Barium - Periodic Table of Videos",
+      "symbol": "Ba",
+      "lesson": "https://ed.ted.com/best_of_web/x4MzQr7w",
+      "durationSeconds": 470,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=8",
+      "status": "verified-publisher",
+      "youtubeTitle": "Barium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "Q21clW0s0B8",
+      "title": "Lanthanum - Periodic Table of Videos",
+      "symbol": "La",
+      "lesson": "https://ed.ted.com/best_of_web/Nry7V06w",
+      "durationSeconds": 111,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=8",
+      "status": "verified-publisher",
+      "youtubeTitle": "Lanthanum - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "frD3126ry8o",
+      "title": "Cerium - Periodic Table of Videos",
+      "symbol": "Ce",
+      "lesson": "https://ed.ted.com/best_of_web/4v0kQkbi",
+      "durationSeconds": 168,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=8",
+      "status": "verified-publisher",
+      "youtubeTitle": "Cerium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "IL06CzXF3ns",
+      "title": "Praseodymium - Periodic Table of Videos",
+      "symbol": "Pr",
+      "lesson": "https://ed.ted.com/best_of_web/gSLNfoq7",
+      "durationSeconds": 56,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=5",
+      "status": "verified-publisher",
+      "youtubeTitle": "Praseodymium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "PBbl-3_R3mk",
+      "title": "Neodymium - Periodic Table of Videos",
+      "symbol": "Nd",
+      "lesson": "https://ed.ted.com/best_of_web/dQ2Aab0k",
+      "durationSeconds": 190,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=5",
+      "status": "verified-publisher",
+      "youtubeTitle": "Neodymium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "px52fxITTrw",
+      "title": "Promethium - Periodic Table of Videos",
+      "symbol": "Pm",
+      "lesson": "https://ed.ted.com/best_of_web/6Nkzdv95",
+      "durationSeconds": 103,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=8",
+      "status": "verified-publisher",
+      "youtubeTitle": "Promethium (version 1) - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "LpTkBg8HpvY",
+      "title": "Samarium - Periodic Table of Videos",
+      "symbol": "Sm",
+      "lesson": "https://ed.ted.com/best_of_web/30ewaUIX",
+      "durationSeconds": 80,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=8",
+      "status": "verified-publisher",
+      "youtubeTitle": "Samarium (version 1) - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "88YOmg_FUVo",
+      "title": "Europium - Periodic Table of Videos",
+      "symbol": "Eu",
+      "lesson": "https://ed.ted.com/best_of_web/uOTjwbkr",
+      "durationSeconds": 80,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=9",
+      "status": "verified-publisher",
+      "youtubeTitle": "Europium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "uUo7pY38fGY",
+      "title": "Gadolinium - Periodic Table of Videos",
+      "symbol": "Gd",
+      "lesson": "https://ed.ted.com/best_of_web/AwgoXtaF",
+      "durationSeconds": 152,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=5",
+      "status": "verified-publisher",
+      "youtubeTitle": "Gadolinium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "On5LjH9TQxY",
+      "title": "Terbium - Periodic Table of Videos",
+      "symbol": "Tb",
+      "lesson": "https://ed.ted.com/best_of_web/7JuL5puZ",
+      "durationSeconds": 238,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=5",
+      "status": "verified-publisher",
+      "youtubeTitle": "Terbium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "hFfR_qOSa-8",
+      "title": "Dysprosium - Periodic Table of Videos",
+      "symbol": "Dy",
+      "lesson": "https://ed.ted.com/best_of_web/HSbRmDQd",
+      "durationSeconds": 102,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=9",
+      "status": "verified-publisher",
+      "youtubeTitle": "Dysprosium (version 1) - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "3ERc-vPLMUs",
+      "title": "Holmium - Periodic Table of Videos",
+      "symbol": "Ho",
+      "lesson": "https://ed.ted.com/best_of_web/EfU8TSNX",
+      "durationSeconds": 39,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=9",
+      "status": "verified-publisher",
+      "youtubeTitle": "Holmium (version 1) - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "E-DY_RT4fJ4",
+      "title": "Erbium - Periodic Table of Videos",
+      "symbol": "Er",
+      "lesson": "https://ed.ted.com/best_of_web/nHrnRJXq",
+      "durationSeconds": 336,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=5",
+      "status": "verified-publisher",
+      "youtubeTitle": "Erbium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "CQFDIZfMPVQ",
+      "title": "Thulium - Periodic Table of Videos",
+      "symbol": "Tm",
+      "lesson": "https://ed.ted.com/best_of_web/tsOVSp2l",
+      "durationSeconds": 79,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=5",
+      "status": "verified-publisher",
+      "youtubeTitle": "Thulium (version 1) - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "Rp7-yNvOV4I",
+      "title": "Ytterbium - Periodic Table of Videos",
+      "symbol": "Yb",
+      "lesson": "https://ed.ted.com/best_of_web/BsMD3dxj",
+      "durationSeconds": 217,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=9",
+      "status": "verified-publisher",
+      "youtubeTitle": "Ytterbium (version 2) - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "a5T1xXoR8XI",
+      "title": "Lutetium - Periodic Table of Videos",
+      "symbol": "Lu",
+      "lesson": "https://ed.ted.com/best_of_web/sFbOileZ",
+      "durationSeconds": 94,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=9",
+      "status": "verified-publisher",
+      "youtubeTitle": "Lutetium (version 1) - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "egw79BA_0PA",
+      "title": "Hafnium - Periodic Table of Videos",
+      "symbol": "Hf",
+      "lesson": "https://ed.ted.com/best_of_web/gHvtoJGy",
+      "durationSeconds": 50,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=9",
+      "status": "verified-publisher",
+      "youtubeTitle": "Hafnium (version 1) - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "51xFP1Yn3g0",
+      "title": "Tantalum - Periodic Table of Videos",
+      "symbol": "Ta",
+      "lesson": "https://ed.ted.com/best_of_web/Wrgvk1h7",
+      "durationSeconds": 57,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=5",
+      "status": "verified-publisher",
+      "youtubeTitle": "Tantalum - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "_PccntqMOoI",
+      "title": "Tungsten - Periodic Table of Videos",
+      "symbol": "W",
+      "lesson": "https://ed.ted.com/best_of_web/P1GOxwSl",
+      "durationSeconds": 138,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=6",
+      "status": "verified-publisher",
+      "youtubeTitle": "Tungsten (version 1) - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "VRccwkEmOYg",
+      "title": "Rhenium - Periodic Table of Videos",
+      "symbol": "Re",
+      "lesson": "https://ed.ted.com/best_of_web/1K5uWhmo",
+      "durationSeconds": 478,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=6",
+      "status": "verified-publisher",
+      "youtubeTitle": "Rhenium (version 2) - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "AdX-T2Vv68Y",
+      "title": "Osmium - Periodic Table of Videos",
+      "symbol": "Os",
+      "lesson": "https://ed.ted.com/best_of_web/ZfEli6P9",
+      "durationSeconds": 167,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=9",
+      "status": "verified-publisher",
+      "youtubeTitle": "Osmium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "cuovE4OQi2g",
+      "title": "Iridium - Periodic Table of Videos",
+      "symbol": "Ir",
+      "lesson": "https://ed.ted.com/best_of_web/XbcPXJ1v",
+      "durationSeconds": 429,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=10",
+      "status": "verified-publisher",
+      "youtubeTitle": "Iridium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "bBBy4-0uUC4",
+      "title": "Platinum - Periodic Table of Videos",
+      "symbol": "Pt",
+      "lesson": "https://ed.ted.com/best_of_web/iHQ6AmFW",
+      "durationSeconds": 497,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=6",
+      "status": "verified-publisher",
+      "youtubeTitle": "Platinum (version 2) -  Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "7dF0QTzcuac",
+      "title": "Gold - Periodic Table of Videos",
+      "symbol": "Au",
+      "lesson": "https://ed.ted.com/best_of_web/31qLBa18",
+      "durationSeconds": 544,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=6",
+      "status": "verified-publisher",
+      "youtubeTitle": "Gold & Casio Watch - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "oL0M_6bfzkU",
+      "title": "Mercury - Periodic Table of Videos",
+      "symbol": "Hg",
+      "lesson": "https://ed.ted.com/best_of_web/nu4rMk18",
+      "durationSeconds": 313,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=6",
+      "status": "verified-publisher",
+      "youtubeTitle": "Mercury - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "bK6nnyibhdk",
+      "title": "Thallium - Periodic Table of Videos",
+      "symbol": "Tl",
+      "lesson": "https://ed.ted.com/best_of_web/uq0PRhQ9",
+      "durationSeconds": 72,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=9",
+      "status": "verified-publisher",
+      "youtubeTitle": "Thallium (Version 1) - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "2ERfPN5JLX8",
+      "title": "Lead - Periodic Table of Videos",
+      "symbol": "Pb",
+      "lesson": "https://ed.ted.com/best_of_web/dr4pMpg6",
+      "durationSeconds": 488,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=6",
+      "status": "verified-publisher",
+      "youtubeTitle": "Lead - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "vyIo-c7VmIM",
+      "title": "Bismuth - Periodic Table of Videos",
+      "symbol": "Bi",
+      "lesson": "https://ed.ted.com/best_of_web/0jkTrsSo",
+      "durationSeconds": 236,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=6",
+      "status": "verified-publisher",
+      "youtubeTitle": "Bismuth - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "bbr5yWwsI1o",
+      "title": "Polonium - Periodic Table of Videos",
+      "symbol": "Po",
+      "lesson": "https://ed.ted.com/best_of_web/ScXE3bXC",
+      "durationSeconds": 122,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=6",
+      "status": "verified-publisher",
+      "youtubeTitle": "Polonium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "sSL7EwdlLlE",
+      "title": "Astatine - Periodic Table of Videos",
+      "symbol": "At",
+      "lesson": "https://ed.ted.com/best_of_web/vey8gtPL",
+      "durationSeconds": 35,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=9",
+      "status": "verified-publisher",
+      "youtubeTitle": "Astatine (version 1) - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "mTuC_LrEfbU",
+      "title": "Radon - Periodic Table of Videos",
+      "symbol": "Rn",
+      "lesson": "https://ed.ted.com/best_of_web/qPuTL0pg",
+      "durationSeconds": 593,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=9",
+      "status": "verified-publisher",
+      "youtubeTitle": "Radon - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "PyFLvSg6ZDw",
+      "title": "Francium - Periodic Table of Videos",
+      "symbol": "Fr",
+      "lesson": "https://ed.ted.com/best_of_web/qszatg96",
+      "durationSeconds": 188,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=9",
+      "status": "verified-publisher",
+      "youtubeTitle": "Francium (version 2) - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "5_I6vj-lXNM",
+      "title": "Radium - Periodic Table of Videos",
+      "symbol": "Ra",
+      "lesson": "https://ed.ted.com/best_of_web/UW8LSads",
+      "durationSeconds": 142,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=6",
+      "status": "verified-publisher",
+      "youtubeTitle": "Radium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "0BlpjWBYW0k",
+      "title": "Actinium - Periodic Table of Videos",
+      "symbol": "Ac",
+      "lesson": "https://ed.ted.com/best_of_web/wSQn4s9J",
+      "durationSeconds": 104,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=9",
+      "status": "verified-publisher",
+      "youtubeTitle": "Actinium (version 1) - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "KQ64Jm3dmSs",
+      "title": "Thorium - Periodic Table of Videos",
+      "symbol": "Th",
+      "lesson": "https://ed.ted.com/best_of_web/oOZZ0433",
+      "durationSeconds": 33,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=10",
+      "status": "verified-publisher",
+      "youtubeTitle": "Thorium (version 1) - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "bsIMMa7iEKU",
+      "title": "Protactinium (new) - Periodic Table of Videos",
+      "symbol": "Pa",
+      "lesson": "https://ed.ted.com/best_of_web/YIW2icoy",
+      "durationSeconds": 426,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=10",
+      "status": "verified-publisher",
+      "youtubeTitle": "Protactinium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "B8vVZTvJNGk",
+      "title": "Uranium - Periodic Table of Videos",
+      "symbol": "U",
+      "lesson": "https://ed.ted.com/best_of_web/vPtqQfkh",
+      "durationSeconds": 363,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=6",
+      "status": "verified-publisher",
+      "youtubeTitle": "Uranium  - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "1D75B0_URbE",
+      "title": "Neptunium - Periodic Table of Videos",
+      "symbol": "Np",
+      "lesson": "https://ed.ted.com/best_of_web/Tk73ZzuQ",
+      "durationSeconds": 346,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=6",
+      "status": "verified-publisher",
+      "youtubeTitle": "Neptunium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "XLufmakbiU0",
+      "title": "Plutonium - Periodic Table of Videos",
+      "symbol": "Pu",
+      "lesson": "https://ed.ted.com/best_of_web/FwLWDxP6",
+      "durationSeconds": 239,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=6",
+      "status": "verified-publisher",
+      "youtubeTitle": "Plutonium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "CC-L-CITg3k",
+      "title": "Americium - Periodic Table of Videos",
+      "symbol": "Am",
+      "lesson": "https://ed.ted.com/best_of_web/uwUkFnJk",
+      "durationSeconds": 461,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=10",
+      "status": "verified-publisher",
+      "youtubeTitle": "Americium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "sZobqPFNcwg",
+      "title": "Curium - Periodic Table of Videos",
+      "symbol": "Cm",
+      "lesson": "https://ed.ted.com/best_of_web/qfKWnggJ",
+      "durationSeconds": 67,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=7",
+      "status": "verified-publisher",
+      "youtubeTitle": "Curium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "imXT9QwRzks",
+      "title": "Berkelium - Periodic Table of Videos",
+      "symbol": "Bk",
+      "lesson": "https://ed.ted.com/best_of_web/wFoP6xTF",
+      "durationSeconds": 24,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=10",
+      "status": "verified-publisher",
+      "youtubeTitle": "Berkelium (version 1) - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "eG6HyPrTccI",
+      "title": "Californium - Periodic Table of Videos",
+      "symbol": "Cf",
+      "lesson": "https://ed.ted.com/best_of_web/tTv85jH3",
+      "durationSeconds": 46,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=7",
+      "status": "verified-publisher",
+      "youtubeTitle": "Californium (version 1) - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "-G_4nJLNXA0",
+      "title": "Einsteinium - Periodic Table of Videos",
+      "symbol": "Es",
+      "lesson": "https://ed.ted.com/best_of_web/6c337xQB",
+      "durationSeconds": 112,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=7",
+      "status": "verified-publisher",
+      "youtubeTitle": "Einsteinium (version 1) - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "SQhI52sqanA",
+      "title": "Fermium - Periodic Table of Videos",
+      "symbol": "Fm",
+      "lesson": "https://ed.ted.com/best_of_web/HyP5afDe",
+      "durationSeconds": 108,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=7",
+      "status": "verified-publisher",
+      "youtubeTitle": "Fermium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "0JlshAo8DuE",
+      "title": "Mendelevium - Periodic Table of Videos",
+      "symbol": "Md",
+      "lesson": "https://ed.ted.com/best_of_web/7dHEY4Wp",
+      "durationSeconds": 114,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=7",
+      "status": "verified-publisher",
+      "youtubeTitle": "Mendelevium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "t_ZpauMxapY",
+      "title": "Nobelium - Periodic Table of Videos",
+      "symbol": "No",
+      "lesson": "https://ed.ted.com/best_of_web/a1bxDwKe",
+      "durationSeconds": 289,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=7",
+      "status": "verified-publisher",
+      "youtubeTitle": "Nobelium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "_zBsnnJOkyA",
+      "title": "Lawrencium - Periodic Table of Videos",
+      "symbol": "Lr",
+      "lesson": "https://ed.ted.com/best_of_web/O7MUVAir",
+      "durationSeconds": null,
+      "collectionPage": "https://ed.ted.com/periodic-videos",
+      "status": "verified-publisher",
+      "youtubeTitle": "Lawrencium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "dOj9ZjKnJcY",
+      "title": "Rutherfordium - Periodic Table of Videos",
+      "symbol": "Rf",
+      "lesson": "https://ed.ted.com/best_of_web/EDHbZ008",
+      "durationSeconds": 318,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=7",
+      "status": "verified-publisher",
+      "youtubeTitle": "Rutherfordium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "eeczRrDoL_M",
+      "title": "Dubnium - Periodic Table of Videos",
+      "symbol": "Db",
+      "lesson": "https://ed.ted.com/best_of_web/UZRbzgJr",
+      "durationSeconds": 45,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=10",
+      "status": "verified-publisher",
+      "youtubeTitle": "Dubnium (version 1) - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "UWq0djr790E",
+      "title": "Seaborgium - Periodic Table of Videos",
+      "symbol": "Sg",
+      "lesson": "https://ed.ted.com/best_of_web/MvGukOqo",
+      "durationSeconds": 543,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=7",
+      "status": "verified-publisher",
+      "youtubeTitle": "Seaborgium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "okJnQIjELY4",
+      "title": "Bohrium - Periodic Table of Videos",
+      "symbol": "Bh",
+      "lesson": "https://ed.ted.com/best_of_web/CNu2qhkv",
+      "durationSeconds": 256,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=7",
+      "status": "verified-publisher",
+      "youtubeTitle": "Bohrium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "u4GEVxbLego",
+      "title": "Hassium - Periodic Table of Videos",
+      "symbol": "Hs",
+      "lesson": "https://ed.ted.com/best_of_web/DZECrnP6",
+      "durationSeconds": 192,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=10",
+      "status": "verified-publisher",
+      "youtubeTitle": "Hassium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "N8VR7Qscq4k",
+      "title": "Meitnerium - Periodic Table of Videos",
+      "symbol": "Mt",
+      "lesson": "https://ed.ted.com/best_of_web/ig0uBdYP",
+      "durationSeconds": 197,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=7",
+      "status": "verified-publisher",
+      "youtubeTitle": "Meitnerium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "lhvMqva3-7M",
+      "title": "Darmstadtium - Periodic Table of Videos",
+      "symbol": "Ds",
+      "lesson": "https://ed.ted.com/best_of_web/gnMAIcFU",
+      "durationSeconds": 176,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=7",
+      "status": "verified-publisher",
+      "youtubeTitle": "Darmstadtium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "MTq1hzhCF0g",
+      "title": "Roentgenium - Periodic Table of Videos",
+      "symbol": "Rg",
+      "lesson": "https://ed.ted.com/best_of_web/WCMYiYBI",
+      "durationSeconds": 259,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=7",
+      "status": "verified-publisher",
+      "youtubeTitle": "Roentgenium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "QHcbQfcwegY",
+      "title": "Copernicium - Periodic Table of Videos",
+      "symbol": "Cn",
+      "lesson": "https://ed.ted.com/best_of_web/lvHX8vxG",
+      "durationSeconds": 265,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=8",
+      "status": "verified-publisher",
+      "youtubeTitle": "Copernicium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "Ac7iFepG2CY",
+      "title": "Ununtrium - Periodic Table of Videos",
+      "symbol": "Nh",
+      "lesson": "https://ed.ted.com/best_of_web/AjLwyiqP",
+      "durationSeconds": 118,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=8",
+      "status": "verified-publisher",
+      "youtubeTitle": "Ununtrium (version 1) - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "5L-NNFPiRog",
+      "title": "Flerovium (NEW ELEMENT!) - Periodic Table of Videos",
+      "symbol": "Fl",
+      "lesson": "https://ed.ted.com/best_of_web/YoZy4i28",
+      "durationSeconds": 446,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=10",
+      "status": "verified-publisher",
+      "youtubeTitle": "Flerovium (NEW ELEMENT!) - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "BJYDrugEtxY",
+      "title": "Ununpentium - Periodic Table of Videos",
+      "symbol": "Mc",
+      "lesson": "https://ed.ted.com/best_of_web/lWOrcDzU",
+      "durationSeconds": 395,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=8",
+      "status": "verified-publisher",
+      "youtubeTitle": "New Element Confirmed - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "WdbF4L_ruyM",
+      "title": "Livermorium - Periodic Table of Videos",
+      "symbol": "Lv",
+      "lesson": "https://ed.ted.com/best_of_web/CtLm7SEH",
+      "durationSeconds": 391,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=8",
+      "status": "verified-publisher",
+      "youtubeTitle": "Livermorium - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "BKEEi8JThps",
+      "title": "Ununseptium - Periodic Table of Videos",
+      "symbol": "Ts",
+      "lesson": "https://ed.ted.com/best_of_web/IGVe8Grx",
+      "durationSeconds": 564,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=10",
+      "status": "verified-publisher",
+      "youtubeTitle": "Feynmanium (?) - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "Stxor9L00BU",
+      "title": "Ununoctium - Periodic Table of Videos",
+      "symbol": "Og",
+      "lesson": "https://ed.ted.com/best_of_web/IuTD3zpK",
+      "durationSeconds": 170,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=10",
+      "status": "verified-publisher",
+      "youtubeTitle": "Ununoctium (version 1)  - Periodic Table of Videos",
+      "author": "Periodic Videos"
+    },
+    {
+      "id": "c1rYuslEQLs",
+      "title": "Unbinilium - Periodic Table of Videos",
+      "lesson": "https://ed.ted.com/best_of_web/lMScE6RX",
+      "durationSeconds": 505,
+      "collectionPage": "https://ed.ted.com/ted_ed_collections/periodic-videos?page=8",
+      "status": "unmapped-title"
+    }
+  ],
+  "coverage": [
+    {
+      "symbol": "H",
+      "videos": [
+        "6rdmpx39PRk"
+      ]
+    },
+    {
+      "symbol": "He",
+      "videos": [
+        "a8FJEiI5e6Q"
+      ]
+    },
+    {
+      "symbol": "Li",
+      "videos": [
+        "wY0afMI4Jgc"
+      ]
+    },
+    {
+      "symbol": "Be",
+      "videos": [
+        "qy8JyQShZRA"
+      ]
+    },
+    {
+      "symbol": "B",
+      "videos": [
+        "JzqdHkpXuy4"
+      ]
+    },
+    {
+      "symbol": "C",
+      "videos": [
+        "QuW4_bRHbUk"
+      ]
+    },
+    {
+      "symbol": "N",
+      "videos": [
+        "zmvJ54kRpjg"
+      ]
+    },
+    {
+      "symbol": "O",
+      "videos": [
+        "WuG5WTId-IY"
+      ]
+    },
+    {
+      "symbol": "F",
+      "videos": [
+        "vtWp45Eewtw"
+      ]
+    },
+    {
+      "symbol": "Ne",
+      "videos": [
+        "wzv0pb7mzaw"
+      ]
+    },
+    {
+      "symbol": "Na",
+      "videos": [
+        "7IT2I3LtlNE"
+      ]
+    },
+    {
+      "symbol": "Mg",
+      "videos": [
+        "FKkWdizutxI"
+      ]
+    },
+    {
+      "symbol": "Al",
+      "videos": [
+        "4AhZ8503WPs"
+      ]
+    },
+    {
+      "symbol": "Si",
+      "videos": [
+        "a2aWO5cL410"
+      ]
+    },
+    {
+      "symbol": "P",
+      "videos": [
+        "LSYLUat03A4"
+      ]
+    },
+    {
+      "symbol": "S",
+      "videos": [
+        "mGMR72X8V-U"
+      ]
+    },
+    {
+      "symbol": "Cl",
+      "videos": [
+        "BXCfBl4rmh0"
+      ]
+    },
+    {
+      "symbol": "Ar",
+      "videos": [
+        "nrHVOFG2V-c"
+      ]
+    },
+    {
+      "symbol": "K",
+      "videos": [
+        "pPdevJTGAYY"
+      ]
+    },
+    {
+      "symbol": "Ca",
+      "videos": [
+        "V9fuY8_ffFg"
+      ]
+    },
+    {
+      "symbol": "Sc",
+      "videos": [
+        "KkKv5ilmRjY"
+      ]
+    },
+    {
+      "symbol": "Ti",
+      "videos": [
+        "MpFTQYynrc4"
+      ]
+    },
+    {
+      "symbol": "V",
+      "videos": [
+        "XRjb_IKDiz8"
+      ]
+    },
+    {
+      "symbol": "Cr",
+      "videos": [
+        "lzRb4zmGvNU"
+      ]
+    },
+    {
+      "symbol": "Mn",
+      "videos": [
+        "5xqsPZ7WsHw"
+      ]
+    },
+    {
+      "symbol": "Fe",
+      "videos": [
+        "jZZcgnKl_Gg",
+        "euQUgp5AY-Y"
+      ]
+    },
+    {
+      "symbol": "Co",
+      "videos": [
+        "V6ljxByu9ng"
+      ]
+    },
+    {
+      "symbol": "Ni",
+      "videos": [
+        "t4kRHoj0W1Y"
+      ]
+    },
+    {
+      "symbol": "Cu",
+      "videos": [
+        "7nwFegN6Fyk",
+        "kop1sWzTK-I"
+      ]
+    },
+    {
+      "symbol": "Zn",
+      "videos": [
+        "99wPiMb-k0o"
+      ]
+    },
+    {
+      "symbol": "Ga",
+      "videos": [
+        "N6ccRvKKwZQ"
+      ]
+    },
+    {
+      "symbol": "Ge",
+      "videos": [
+        "osrKWVknkgs"
+      ]
+    },
+    {
+      "symbol": "As",
+      "videos": [
+        "a2AbKwAvyos"
+      ]
+    },
+    {
+      "symbol": "Se",
+      "videos": [
+        "IHrUtKjcAFE"
+      ]
+    },
+    {
+      "symbol": "Br",
+      "videos": [
+        "Slt3_5upuSs"
+      ]
+    },
+    {
+      "symbol": "Kr",
+      "videos": [
+        "il4OOY7Zseg"
+      ]
+    },
+    {
+      "symbol": "Rb",
+      "videos": [
+        "0XLGopBovoI"
+      ]
+    },
+    {
+      "symbol": "Sr",
+      "videos": [
+        "d5ztPGrsgNQ"
+      ]
+    },
+    {
+      "symbol": "Y",
+      "videos": [
+        "tTXjnQlAHAQ"
+      ]
+    },
+    {
+      "symbol": "Zr",
+      "videos": [
+        "gNJE2MPktvg"
+      ]
+    },
+    {
+      "symbol": "Nb",
+      "videos": [
+        "2ciPAsVTq6c"
+      ]
+    },
+    {
+      "symbol": "Mo",
+      "videos": [
+        "ZRQ3vBGskds"
+      ]
+    },
+    {
+      "symbol": "Tc",
+      "videos": [
+        "0QBlrGva5YQ"
+      ]
+    },
+    {
+      "symbol": "Ru",
+      "videos": [
+        "wl5ZYb0hDTc"
+      ]
+    },
+    {
+      "symbol": "Rh",
+      "videos": [
+        "PPSO5798k2I"
+      ]
+    },
+    {
+      "symbol": "Pd",
+      "videos": [
+        "4ALTGeqmNFM"
+      ]
+    },
+    {
+      "symbol": "Ag",
+      "videos": [
+        "pPd5qAb4J50"
+      ]
+    },
+    {
+      "symbol": "Cd",
+      "videos": [
+        "boRius1DYdQ"
+      ]
+    },
+    {
+      "symbol": "In",
+      "videos": [
+        "4opHafNmgCw"
+      ]
+    },
+    {
+      "symbol": "Sn",
+      "videos": [
+        "qEwCPJOP0Mg"
+      ]
+    },
+    {
+      "symbol": "Sb",
+      "videos": [
+        "kcc6qNT3BoU"
+      ]
+    },
+    {
+      "symbol": "Te",
+      "videos": [
+        "5ChFbVu4Mpk"
+      ]
+    },
+    {
+      "symbol": "I",
+      "videos": [
+        "JUBsJLRSM64"
+      ]
+    },
+    {
+      "symbol": "Xe",
+      "videos": [
+        "Ejoct_6pQ74"
+      ]
+    },
+    {
+      "symbol": "Cs",
+      "videos": [
+        "5aD6HwUE2c0"
+      ]
+    },
+    {
+      "symbol": "Ba",
+      "videos": [
+        "9srJdQU3NOo"
+      ]
+    },
+    {
+      "symbol": "La",
+      "videos": [
+        "Q21clW0s0B8"
+      ]
+    },
+    {
+      "symbol": "Ce",
+      "videos": [
+        "frD3126ry8o"
+      ]
+    },
+    {
+      "symbol": "Pr",
+      "videos": [
+        "IL06CzXF3ns"
+      ]
+    },
+    {
+      "symbol": "Nd",
+      "videos": [
+        "PBbl-3_R3mk"
+      ]
+    },
+    {
+      "symbol": "Pm",
+      "videos": [
+        "px52fxITTrw"
+      ]
+    },
+    {
+      "symbol": "Sm",
+      "videos": [
+        "LpTkBg8HpvY"
+      ]
+    },
+    {
+      "symbol": "Eu",
+      "videos": [
+        "88YOmg_FUVo"
+      ]
+    },
+    {
+      "symbol": "Gd",
+      "videos": [
+        "uUo7pY38fGY"
+      ]
+    },
+    {
+      "symbol": "Tb",
+      "videos": [
+        "On5LjH9TQxY"
+      ]
+    },
+    {
+      "symbol": "Dy",
+      "videos": [
+        "hFfR_qOSa-8"
+      ]
+    },
+    {
+      "symbol": "Ho",
+      "videos": [
+        "3ERc-vPLMUs"
+      ]
+    },
+    {
+      "symbol": "Er",
+      "videos": [
+        "E-DY_RT4fJ4"
+      ]
+    },
+    {
+      "symbol": "Tm",
+      "videos": [
+        "CQFDIZfMPVQ"
+      ]
+    },
+    {
+      "symbol": "Yb",
+      "videos": [
+        "Rp7-yNvOV4I"
+      ]
+    },
+    {
+      "symbol": "Lu",
+      "videos": [
+        "a5T1xXoR8XI"
+      ]
+    },
+    {
+      "symbol": "Hf",
+      "videos": [
+        "egw79BA_0PA"
+      ]
+    },
+    {
+      "symbol": "Ta",
+      "videos": [
+        "51xFP1Yn3g0"
+      ]
+    },
+    {
+      "symbol": "W",
+      "videos": [
+        "_PccntqMOoI"
+      ]
+    },
+    {
+      "symbol": "Re",
+      "videos": [
+        "VRccwkEmOYg"
+      ]
+    },
+    {
+      "symbol": "Os",
+      "videos": [
+        "AdX-T2Vv68Y"
+      ]
+    },
+    {
+      "symbol": "Ir",
+      "videos": [
+        "cuovE4OQi2g"
+      ]
+    },
+    {
+      "symbol": "Pt",
+      "videos": [
+        "bBBy4-0uUC4"
+      ]
+    },
+    {
+      "symbol": "Au",
+      "videos": [
+        "7dF0QTzcuac"
+      ]
+    },
+    {
+      "symbol": "Hg",
+      "videos": [
+        "oL0M_6bfzkU"
+      ]
+    },
+    {
+      "symbol": "Tl",
+      "videos": [
+        "bK6nnyibhdk"
+      ]
+    },
+    {
+      "symbol": "Pb",
+      "videos": [
+        "2ERfPN5JLX8"
+      ]
+    },
+    {
+      "symbol": "Bi",
+      "videos": [
+        "vyIo-c7VmIM"
+      ]
+    },
+    {
+      "symbol": "Po",
+      "videos": [
+        "bbr5yWwsI1o"
+      ]
+    },
+    {
+      "symbol": "At",
+      "videos": [
+        "sSL7EwdlLlE"
+      ]
+    },
+    {
+      "symbol": "Rn",
+      "videos": [
+        "mTuC_LrEfbU"
+      ]
+    },
+    {
+      "symbol": "Fr",
+      "videos": [
+        "PyFLvSg6ZDw"
+      ]
+    },
+    {
+      "symbol": "Ra",
+      "videos": [
+        "5_I6vj-lXNM"
+      ]
+    },
+    {
+      "symbol": "Ac",
+      "videos": [
+        "0BlpjWBYW0k"
+      ]
+    },
+    {
+      "symbol": "Th",
+      "videos": [
+        "KQ64Jm3dmSs"
+      ]
+    },
+    {
+      "symbol": "Pa",
+      "videos": [
+        "bsIMMa7iEKU"
+      ]
+    },
+    {
+      "symbol": "U",
+      "videos": [
+        "B8vVZTvJNGk"
+      ]
+    },
+    {
+      "symbol": "Np",
+      "videos": [
+        "1D75B0_URbE"
+      ]
+    },
+    {
+      "symbol": "Pu",
+      "videos": [
+        "XLufmakbiU0"
+      ]
+    },
+    {
+      "symbol": "Am",
+      "videos": [
+        "CC-L-CITg3k"
+      ]
+    },
+    {
+      "symbol": "Cm",
+      "videos": [
+        "sZobqPFNcwg"
+      ]
+    },
+    {
+      "symbol": "Bk",
+      "videos": [
+        "imXT9QwRzks"
+      ]
+    },
+    {
+      "symbol": "Cf",
+      "videos": [
+        "eG6HyPrTccI"
+      ]
+    },
+    {
+      "symbol": "Es",
+      "videos": [
+        "-G_4nJLNXA0"
+      ]
+    },
+    {
+      "symbol": "Fm",
+      "videos": [
+        "SQhI52sqanA"
+      ]
+    },
+    {
+      "symbol": "Md",
+      "videos": [
+        "0JlshAo8DuE"
+      ]
+    },
+    {
+      "symbol": "No",
+      "videos": [
+        "t_ZpauMxapY"
+      ]
+    },
+    {
+      "symbol": "Lr",
+      "videos": [
+        "_zBsnnJOkyA"
+      ]
+    },
+    {
+      "symbol": "Rf",
+      "videos": [
+        "dOj9ZjKnJcY"
+      ]
+    },
+    {
+      "symbol": "Db",
+      "videos": [
+        "eeczRrDoL_M"
+      ]
+    },
+    {
+      "symbol": "Sg",
+      "videos": [
+        "UWq0djr790E"
+      ]
+    },
+    {
+      "symbol": "Bh",
+      "videos": [
+        "okJnQIjELY4"
+      ]
+    },
+    {
+      "symbol": "Hs",
+      "videos": [
+        "u4GEVxbLego"
+      ]
+    },
+    {
+      "symbol": "Mt",
+      "videos": [
+        "N8VR7Qscq4k"
+      ]
+    },
+    {
+      "symbol": "Ds",
+      "videos": [
+        "lhvMqva3-7M"
+      ]
+    },
+    {
+      "symbol": "Rg",
+      "videos": [
+        "MTq1hzhCF0g"
+      ]
+    },
+    {
+      "symbol": "Cn",
+      "videos": [
+        "QHcbQfcwegY"
+      ]
+    },
+    {
+      "symbol": "Nh",
+      "videos": [
+        "Ac7iFepG2CY"
+      ]
+    },
+    {
+      "symbol": "Fl",
+      "videos": [
+        "5L-NNFPiRog"
+      ]
+    },
+    {
+      "symbol": "Mc",
+      "videos": [
+        "BJYDrugEtxY"
+      ]
+    },
+    {
+      "symbol": "Lv",
+      "videos": [
+        "WdbF4L_ruyM"
+      ]
+    },
+    {
+      "symbol": "Ts",
+      "videos": [
+        "BKEEi8JThps"
+      ]
+    },
+    {
+      "symbol": "Og",
+      "videos": [
+        "Stxor9L00BU"
+      ]
+    }
+  ]
+}

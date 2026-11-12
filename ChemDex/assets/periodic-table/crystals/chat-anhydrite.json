@@ -480,6 +480,8 @@
     "maxSiteOccupancy": 1,
     "cellVolumeRelativeError": 7.852369178370959e-07
   },
+  "spaceGroupOriginal": "B b m m",
+  "spaceGroupNumber": 63,
   "id": "chat-anhydrite",
   "note": "Pha khan; không thay cho gypsum."
 }

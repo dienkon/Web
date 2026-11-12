@@ -1,7 +1,1672 @@
 [
-  {"symbols":["H"],"id":"6rdmpx39PRk","title":"Hydrogen — Periodic Table of Videos","publisher":"Periodic Videos · University of Nottingham","source":"https://www.youtube.com/watch?v=6rdmpx39PRk"},
-  {"symbols":["O"],"id":"WuG5WTId-IY","title":"Oxygen — Periodic Table of Videos","publisher":"Periodic Videos · University of Nottingham","source":"https://www.youtube.com/watch?v=WuG5WTId-IY"},
-  {"symbols":["Na"],"id":"7IT2I3LtlNE","title":"Sodium — Periodic Table of Videos","publisher":"Periodic Videos · University of Nottingham","source":"https://www.youtube.com/watch?v=7IT2I3LtlNE"},
-  {"symbols":["Fe"],"id":"jZZcgnKl_Gg","title":"Iron — Periodic Table of Videos (2026)","publisher":"Periodic Videos · University of Nottingham","source":"https://www.youtube.com/watch?v=jZZcgnKl_Gg"},
-  {"symbols":["Cu"],"id":"7nwFegN6Fyk","title":"A Copper Discovery — Cuprocene","publisher":"Periodic Videos · University of Nottingham","source":"https://www.youtube.com/watch?v=7nwFegN6Fyk"}
+  {
+    "symbols": [
+      "H"
+    ],
+    "id": "6rdmpx39PRk",
+    "title": "Hydrogen — Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=6rdmpx39PRk",
+    "lessonSource": "https://ed.ted.com/best_of_web/UB4r12rE",
+    "durationSeconds": 436,
+    "sourceTitle": "Hydrogen - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "O"
+    ],
+    "id": "WuG5WTId-IY",
+    "title": "Oxygen — Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=WuG5WTId-IY",
+    "lessonSource": "https://ed.ted.com/best_of_web/qW22t0iG",
+    "durationSeconds": 377,
+    "sourceTitle": "Oxygen - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Na"
+    ],
+    "id": "7IT2I3LtlNE",
+    "title": "Sodium — Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=7IT2I3LtlNE",
+    "lessonSource": "https://ed.ted.com/best_of_web/gZfLab9f",
+    "durationSeconds": 282,
+    "sourceTitle": "Sodium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Fe"
+    ],
+    "id": "jZZcgnKl_Gg",
+    "title": "Iron — Periodic Table of Videos (2026)",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=jZZcgnKl_Gg"
+  },
+  {
+    "symbols": [
+      "Cu"
+    ],
+    "id": "7nwFegN6Fyk",
+    "title": "A Copper Discovery — Cuprocene",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=7nwFegN6Fyk"
+  },
+  {
+    "symbols": [
+      "He"
+    ],
+    "id": "a8FJEiI5e6Q",
+    "title": "Helium (version 1) - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=a8FJEiI5e6Q",
+    "lessonSource": "https://ed.ted.com/best_of_web/T5NzG3St",
+    "durationSeconds": 285,
+    "sourceTitle": "Helium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Li"
+    ],
+    "id": "wY0afMI4Jgc",
+    "title": "Lithium (version 2) - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=wY0afMI4Jgc",
+    "lessonSource": "https://ed.ted.com/best_of_web/6jAtF4Yb",
+    "durationSeconds": 160,
+    "sourceTitle": "Lithium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Be"
+    ],
+    "id": "qy8JyQShZRA",
+    "title": "Beryllium  - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=qy8JyQShZRA",
+    "lessonSource": "https://ed.ted.com/best_of_web/IL8cSMAA",
+    "durationSeconds": 219,
+    "sourceTitle": "Beryllium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "B"
+    ],
+    "id": "JzqdHkpXuy4",
+    "title": "Boron - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=JzqdHkpXuy4",
+    "lessonSource": "https://ed.ted.com/best_of_web/E5xZnkE1",
+    "durationSeconds": 240,
+    "sourceTitle": "Boron - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "C"
+    ],
+    "id": "QuW4_bRHbUk",
+    "title": "Carbon - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=QuW4_bRHbUk",
+    "lessonSource": "https://ed.ted.com/best_of_web/7ovw67KW",
+    "durationSeconds": 603,
+    "sourceTitle": "Carbon - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "N"
+    ],
+    "id": "zmvJ54kRpjg",
+    "title": "Nitrogen - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=zmvJ54kRpjg",
+    "lessonSource": "https://ed.ted.com/best_of_web/6Rtol3fK",
+    "durationSeconds": 243,
+    "sourceTitle": "Nitrogen - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "F"
+    ],
+    "id": "vtWp45Eewtw",
+    "title": "Fluorine - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=vtWp45Eewtw",
+    "lessonSource": "https://ed.ted.com/best_of_web/SSWIW5cQ",
+    "durationSeconds": 402,
+    "sourceTitle": "Fluorine - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Ne"
+    ],
+    "id": "wzv0pb7mzaw",
+    "title": "Neon (version 1) - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=wzv0pb7mzaw",
+    "lessonSource": "https://ed.ted.com/best_of_web/sBHxsZoA",
+    "durationSeconds": 117,
+    "sourceTitle": "Neon - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Mg"
+    ],
+    "id": "FKkWdizutxI",
+    "title": "Magnesium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=FKkWdizutxI",
+    "lessonSource": "https://ed.ted.com/best_of_web/DJwOZkFB",
+    "durationSeconds": 397,
+    "sourceTitle": "Magnesium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Al"
+    ],
+    "id": "4AhZ8503WPs",
+    "title": "Aluminium (or Aluminum) - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=4AhZ8503WPs",
+    "lessonSource": "https://ed.ted.com/best_of_web/qosc9gaL",
+    "durationSeconds": 712,
+    "sourceTitle": "Aluminium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Si"
+    ],
+    "id": "a2aWO5cL410",
+    "title": "Silicon - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=a2aWO5cL410",
+    "lessonSource": "https://ed.ted.com/best_of_web/UUpdlxxI",
+    "durationSeconds": 218,
+    "sourceTitle": "Silicon - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "P"
+    ],
+    "id": "LSYLUat03A4",
+    "title": "Phosphorus - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=LSYLUat03A4",
+    "lessonSource": "https://ed.ted.com/best_of_web/59KqXFfF",
+    "durationSeconds": 229,
+    "sourceTitle": "Phosphorus - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "S"
+    ],
+    "id": "mGMR72X8V-U",
+    "title": "Sulfur  - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=mGMR72X8V-U",
+    "lessonSource": "https://ed.ted.com/best_of_web/04CRDl3X",
+    "durationSeconds": 390,
+    "sourceTitle": "Sulfur - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Cl"
+    ],
+    "id": "BXCfBl4rmh0",
+    "title": "Chlorine - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=BXCfBl4rmh0",
+    "lessonSource": "https://ed.ted.com/best_of_web/RfHNEsVI",
+    "durationSeconds": 521,
+    "sourceTitle": "Chlorine - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Ar"
+    ],
+    "id": "nrHVOFG2V-c",
+    "title": "Argon (version 1)  - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=nrHVOFG2V-c",
+    "lessonSource": "https://ed.ted.com/best_of_web/zNT5RDP2",
+    "durationSeconds": 86,
+    "sourceTitle": "Argon - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "K"
+    ],
+    "id": "pPdevJTGAYY",
+    "title": "Potassium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=pPdevJTGAYY",
+    "lessonSource": "https://ed.ted.com/best_of_web/39XwKjSz",
+    "durationSeconds": 273,
+    "sourceTitle": "Potassium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Ca"
+    ],
+    "id": "V9fuY8_ffFg",
+    "title": "Calcium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=V9fuY8_ffFg",
+    "lessonSource": "https://ed.ted.com/best_of_web/emJRuSTg",
+    "durationSeconds": 536,
+    "sourceTitle": "Calcium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Sc"
+    ],
+    "id": "KkKv5ilmRjY",
+    "title": "Scandium (version 2) - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=KkKv5ilmRjY",
+    "lessonSource": "https://ed.ted.com/best_of_web/hAZjXCFe",
+    "durationSeconds": 460,
+    "sourceTitle": "Scandium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Ti"
+    ],
+    "id": "MpFTQYynrc4",
+    "title": "Titanium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=MpFTQYynrc4",
+    "lessonSource": "https://ed.ted.com/best_of_web/Y97j1KnC",
+    "durationSeconds": 511,
+    "sourceTitle": "Titanium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "V"
+    ],
+    "id": "XRjb_IKDiz8",
+    "title": "Vanadium (version 1) - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=XRjb_IKDiz8",
+    "lessonSource": "https://ed.ted.com/best_of_web/YYZcu3MG",
+    "durationSeconds": 71,
+    "sourceTitle": "Vanadium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Cr"
+    ],
+    "id": "lzRb4zmGvNU",
+    "title": "Chromium (version 1) - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=lzRb4zmGvNU",
+    "lessonSource": "https://ed.ted.com/best_of_web/5W10X5ho",
+    "durationSeconds": 114,
+    "sourceTitle": "Chromium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Mn"
+    ],
+    "id": "5xqsPZ7WsHw",
+    "title": "Manganese (version 1) - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=5xqsPZ7WsHw",
+    "lessonSource": "https://ed.ted.com/best_of_web/7PpHH70V",
+    "durationSeconds": 137,
+    "sourceTitle": "Manganese - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Fe"
+    ],
+    "id": "euQUgp5AY-Y",
+    "title": "Iron (version 2) - Periodic Table of Videos (with thermite)",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=euQUgp5AY-Y",
+    "lessonSource": "https://ed.ted.com/best_of_web/kcz3HyJi",
+    "durationSeconds": 361,
+    "sourceTitle": "Iron - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Co"
+    ],
+    "id": "V6ljxByu9ng",
+    "title": "Cobalt (version 1) - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=V6ljxByu9ng",
+    "lessonSource": "https://ed.ted.com/best_of_web/SbPI9IFQ",
+    "durationSeconds": 102,
+    "sourceTitle": "Cobalt - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Ni"
+    ],
+    "id": "t4kRHoj0W1Y",
+    "title": "Nickel (version 1) - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=t4kRHoj0W1Y",
+    "lessonSource": "https://ed.ted.com/best_of_web/UvDwVpjw",
+    "durationSeconds": 99,
+    "sourceTitle": "Nickel - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Cu"
+    ],
+    "id": "kop1sWzTK-I",
+    "title": "Copper - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=kop1sWzTK-I",
+    "lessonSource": "https://ed.ted.com/best_of_web/2DUz9zMA",
+    "durationSeconds": 493,
+    "sourceTitle": "Copper - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Zn"
+    ],
+    "id": "99wPiMb-k0o",
+    "title": "Zinc - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=99wPiMb-k0o",
+    "lessonSource": "https://ed.ted.com/best_of_web/yfOL8Efi",
+    "durationSeconds": 196,
+    "sourceTitle": "Zinc - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Ga"
+    ],
+    "id": "N6ccRvKKwZQ",
+    "title": "Gallium (beating heart) - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=N6ccRvKKwZQ",
+    "lessonSource": "https://ed.ted.com/best_of_web/82rXpdTN",
+    "durationSeconds": 432,
+    "sourceTitle": "Gallium (beating heart) - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Ge"
+    ],
+    "id": "osrKWVknkgs",
+    "title": "Germanium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=osrKWVknkgs",
+    "lessonSource": "https://ed.ted.com/best_of_web/buvBkSds",
+    "durationSeconds": 105,
+    "sourceTitle": "Germanium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "As"
+    ],
+    "id": "a2AbKwAvyos",
+    "title": "Arsenic (version 1) - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=a2AbKwAvyos",
+    "lessonSource": "https://ed.ted.com/best_of_web/jk3b2dBr",
+    "durationSeconds": 148,
+    "sourceTitle": "Arsenic - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Se"
+    ],
+    "id": "IHrUtKjcAFE",
+    "title": "Selenium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=IHrUtKjcAFE",
+    "lessonSource": "https://ed.ted.com/best_of_web/aNolFNGg",
+    "durationSeconds": 132,
+    "sourceTitle": "Selenium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Br"
+    ],
+    "id": "Slt3_5upuSs",
+    "title": "Bromine - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=Slt3_5upuSs",
+    "lessonSource": "https://ed.ted.com/best_of_web/SSyNagDA",
+    "durationSeconds": 296,
+    "sourceTitle": "Bromine - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Kr"
+    ],
+    "id": "il4OOY7Zseg",
+    "title": "Krypton - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=il4OOY7Zseg",
+    "lessonSource": "https://ed.ted.com/best_of_web/RUtmluaa",
+    "durationSeconds": 70,
+    "sourceTitle": "Krypton - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Rb"
+    ],
+    "id": "0XLGopBovoI",
+    "title": "Rubidium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=0XLGopBovoI",
+    "lessonSource": "https://ed.ted.com/best_of_web/muuXDHq3",
+    "durationSeconds": 266,
+    "sourceTitle": "Rubidium – Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Sr"
+    ],
+    "id": "d5ztPGrsgNQ",
+    "title": "Strontium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=d5ztPGrsgNQ",
+    "lessonSource": "https://ed.ted.com/best_of_web/yhHdJF2o",
+    "durationSeconds": 413,
+    "sourceTitle": "Strontium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Zr"
+    ],
+    "id": "gNJE2MPktvg",
+    "title": "Zirconium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=gNJE2MPktvg",
+    "lessonSource": "https://ed.ted.com/best_of_web/XtrElMHA",
+    "durationSeconds": 353,
+    "sourceTitle": "Zirconium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Nb"
+    ],
+    "id": "2ciPAsVTq6c",
+    "title": "Niobium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=2ciPAsVTq6c",
+    "lessonSource": "https://ed.ted.com/best_of_web/b0j6eU8i",
+    "durationSeconds": 567,
+    "sourceTitle": "Niobium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Mo"
+    ],
+    "id": "ZRQ3vBGskds",
+    "title": "Molybdenum - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=ZRQ3vBGskds",
+    "lessonSource": "https://ed.ted.com/best_of_web/3YKQ9JZR",
+    "durationSeconds": 57,
+    "sourceTitle": "Molybdenum - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Tc"
+    ],
+    "id": "0QBlrGva5YQ",
+    "title": "Technetium (version 1) - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=0QBlrGva5YQ",
+    "lessonSource": "https://ed.ted.com/best_of_web/whj6Pl1y",
+    "durationSeconds": 72,
+    "sourceTitle": "Technetium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Ru"
+    ],
+    "id": "wl5ZYb0hDTc",
+    "title": "Ruthenium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=wl5ZYb0hDTc",
+    "lessonSource": "https://ed.ted.com/best_of_web/tQjzNGRd",
+    "durationSeconds": 360,
+    "sourceTitle": "Ruthenium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Rh"
+    ],
+    "id": "PPSO5798k2I",
+    "title": "Rhodium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=PPSO5798k2I",
+    "lessonSource": "https://ed.ted.com/best_of_web/HbrkiClT",
+    "durationSeconds": 300,
+    "sourceTitle": "Rhodium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Pd"
+    ],
+    "id": "4ALTGeqmNFM",
+    "title": "Palladium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=4ALTGeqmNFM",
+    "lessonSource": "https://ed.ted.com/best_of_web/jyNlrXtT",
+    "durationSeconds": 469,
+    "sourceTitle": "Palladium (new) - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Ag"
+    ],
+    "id": "pPd5qAb4J50",
+    "title": "Silver - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=pPd5qAb4J50",
+    "lessonSource": "https://ed.ted.com/best_of_web/F1TPK8xO",
+    "durationSeconds": 564,
+    "sourceTitle": "Silver - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Cd"
+    ],
+    "id": "boRius1DYdQ",
+    "title": "Cadmium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=boRius1DYdQ",
+    "lessonSource": "https://ed.ted.com/best_of_web/qvFwiO7B",
+    "durationSeconds": 110,
+    "sourceTitle": "Cadmium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "In"
+    ],
+    "id": "4opHafNmgCw",
+    "title": "Indium (Version 1) - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=4opHafNmgCw",
+    "lessonSource": "https://ed.ted.com/best_of_web/s3P965GG",
+    "durationSeconds": 118,
+    "sourceTitle": "Indium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Sn"
+    ],
+    "id": "qEwCPJOP0Mg",
+    "title": "Tin (version 1)  - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=qEwCPJOP0Mg",
+    "lessonSource": "https://ed.ted.com/best_of_web/cJmt2OZ5",
+    "durationSeconds": 108,
+    "sourceTitle": "Tin - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Sb"
+    ],
+    "id": "kcc6qNT3BoU",
+    "title": "Antimony - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=kcc6qNT3BoU",
+    "lessonSource": "https://ed.ted.com/best_of_web/08fWhrwY",
+    "durationSeconds": 109,
+    "sourceTitle": "Antimony - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Te"
+    ],
+    "id": "5ChFbVu4Mpk",
+    "title": "Tellurium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=5ChFbVu4Mpk",
+    "lessonSource": "https://ed.ted.com/best_of_web/46rWVY3f",
+    "durationSeconds": 135,
+    "sourceTitle": "Tellurium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "I"
+    ],
+    "id": "JUBsJLRSM64",
+    "title": "Iodine - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=JUBsJLRSM64",
+    "lessonSource": "https://ed.ted.com/best_of_web/EB1TS2J5",
+    "durationSeconds": 357,
+    "sourceTitle": "Iodine - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Xe"
+    ],
+    "id": "Ejoct_6pQ74",
+    "title": "Xenon - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=Ejoct_6pQ74",
+    "lessonSource": "https://ed.ted.com/best_of_web/xeqgP4kZ",
+    "durationSeconds": 336,
+    "sourceTitle": "Xenon - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Ba"
+    ],
+    "id": "9srJdQU3NOo",
+    "title": "Barium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=9srJdQU3NOo",
+    "lessonSource": "https://ed.ted.com/best_of_web/x4MzQr7w",
+    "durationSeconds": 470,
+    "sourceTitle": "Barium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "La"
+    ],
+    "id": "Q21clW0s0B8",
+    "title": "Lanthanum - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=Q21clW0s0B8",
+    "lessonSource": "https://ed.ted.com/best_of_web/Nry7V06w",
+    "durationSeconds": 111,
+    "sourceTitle": "Lanthanum - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Ce"
+    ],
+    "id": "frD3126ry8o",
+    "title": "Cerium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=frD3126ry8o",
+    "lessonSource": "https://ed.ted.com/best_of_web/4v0kQkbi",
+    "durationSeconds": 168,
+    "sourceTitle": "Cerium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Pr"
+    ],
+    "id": "IL06CzXF3ns",
+    "title": "Praseodymium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=IL06CzXF3ns",
+    "lessonSource": "https://ed.ted.com/best_of_web/gSLNfoq7",
+    "durationSeconds": 56,
+    "sourceTitle": "Praseodymium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Nd"
+    ],
+    "id": "PBbl-3_R3mk",
+    "title": "Neodymium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=PBbl-3_R3mk",
+    "lessonSource": "https://ed.ted.com/best_of_web/dQ2Aab0k",
+    "durationSeconds": 190,
+    "sourceTitle": "Neodymium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Pm"
+    ],
+    "id": "px52fxITTrw",
+    "title": "Promethium (version 1) - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=px52fxITTrw",
+    "lessonSource": "https://ed.ted.com/best_of_web/6Nkzdv95",
+    "durationSeconds": 103,
+    "sourceTitle": "Promethium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Sm"
+    ],
+    "id": "LpTkBg8HpvY",
+    "title": "Samarium (version 1) - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=LpTkBg8HpvY",
+    "lessonSource": "https://ed.ted.com/best_of_web/30ewaUIX",
+    "durationSeconds": 80,
+    "sourceTitle": "Samarium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Eu"
+    ],
+    "id": "88YOmg_FUVo",
+    "title": "Europium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=88YOmg_FUVo",
+    "lessonSource": "https://ed.ted.com/best_of_web/uOTjwbkr",
+    "durationSeconds": 80,
+    "sourceTitle": "Europium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Gd"
+    ],
+    "id": "uUo7pY38fGY",
+    "title": "Gadolinium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=uUo7pY38fGY",
+    "lessonSource": "https://ed.ted.com/best_of_web/AwgoXtaF",
+    "durationSeconds": 152,
+    "sourceTitle": "Gadolinium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Tb"
+    ],
+    "id": "On5LjH9TQxY",
+    "title": "Terbium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=On5LjH9TQxY",
+    "lessonSource": "https://ed.ted.com/best_of_web/7JuL5puZ",
+    "durationSeconds": 238,
+    "sourceTitle": "Terbium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Dy"
+    ],
+    "id": "hFfR_qOSa-8",
+    "title": "Dysprosium (version 1) - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=hFfR_qOSa-8",
+    "lessonSource": "https://ed.ted.com/best_of_web/HSbRmDQd",
+    "durationSeconds": 102,
+    "sourceTitle": "Dysprosium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Ho"
+    ],
+    "id": "3ERc-vPLMUs",
+    "title": "Holmium (version 1) - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=3ERc-vPLMUs",
+    "lessonSource": "https://ed.ted.com/best_of_web/EfU8TSNX",
+    "durationSeconds": 39,
+    "sourceTitle": "Holmium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Er"
+    ],
+    "id": "E-DY_RT4fJ4",
+    "title": "Erbium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=E-DY_RT4fJ4",
+    "lessonSource": "https://ed.ted.com/best_of_web/nHrnRJXq",
+    "durationSeconds": 336,
+    "sourceTitle": "Erbium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Tm"
+    ],
+    "id": "CQFDIZfMPVQ",
+    "title": "Thulium (version 1) - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=CQFDIZfMPVQ",
+    "lessonSource": "https://ed.ted.com/best_of_web/tsOVSp2l",
+    "durationSeconds": 79,
+    "sourceTitle": "Thulium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Yb"
+    ],
+    "id": "Rp7-yNvOV4I",
+    "title": "Ytterbium (version 2) - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=Rp7-yNvOV4I",
+    "lessonSource": "https://ed.ted.com/best_of_web/BsMD3dxj",
+    "durationSeconds": 217,
+    "sourceTitle": "Ytterbium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Lu"
+    ],
+    "id": "a5T1xXoR8XI",
+    "title": "Lutetium (version 1) - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=a5T1xXoR8XI",
+    "lessonSource": "https://ed.ted.com/best_of_web/sFbOileZ",
+    "durationSeconds": 94,
+    "sourceTitle": "Lutetium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Hf"
+    ],
+    "id": "egw79BA_0PA",
+    "title": "Hafnium (version 1) - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=egw79BA_0PA",
+    "lessonSource": "https://ed.ted.com/best_of_web/gHvtoJGy",
+    "durationSeconds": 50,
+    "sourceTitle": "Hafnium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Ta"
+    ],
+    "id": "51xFP1Yn3g0",
+    "title": "Tantalum - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=51xFP1Yn3g0",
+    "lessonSource": "https://ed.ted.com/best_of_web/Wrgvk1h7",
+    "durationSeconds": 57,
+    "sourceTitle": "Tantalum - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "W"
+    ],
+    "id": "_PccntqMOoI",
+    "title": "Tungsten (version 1) - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=_PccntqMOoI",
+    "lessonSource": "https://ed.ted.com/best_of_web/P1GOxwSl",
+    "durationSeconds": 138,
+    "sourceTitle": "Tungsten - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Re"
+    ],
+    "id": "VRccwkEmOYg",
+    "title": "Rhenium (version 2) - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=VRccwkEmOYg",
+    "lessonSource": "https://ed.ted.com/best_of_web/1K5uWhmo",
+    "durationSeconds": 478,
+    "sourceTitle": "Rhenium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Os"
+    ],
+    "id": "AdX-T2Vv68Y",
+    "title": "Osmium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=AdX-T2Vv68Y",
+    "lessonSource": "https://ed.ted.com/best_of_web/ZfEli6P9",
+    "durationSeconds": 167,
+    "sourceTitle": "Osmium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Ir"
+    ],
+    "id": "cuovE4OQi2g",
+    "title": "Iridium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=cuovE4OQi2g",
+    "lessonSource": "https://ed.ted.com/best_of_web/XbcPXJ1v",
+    "durationSeconds": 429,
+    "sourceTitle": "Iridium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Pt"
+    ],
+    "id": "bBBy4-0uUC4",
+    "title": "Platinum (version 2) -  Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=bBBy4-0uUC4",
+    "lessonSource": "https://ed.ted.com/best_of_web/iHQ6AmFW",
+    "durationSeconds": 497,
+    "sourceTitle": "Platinum - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Au"
+    ],
+    "id": "7dF0QTzcuac",
+    "title": "Gold & Casio Watch - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=7dF0QTzcuac",
+    "lessonSource": "https://ed.ted.com/best_of_web/31qLBa18",
+    "durationSeconds": 544,
+    "sourceTitle": "Gold - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Hg"
+    ],
+    "id": "oL0M_6bfzkU",
+    "title": "Mercury - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=oL0M_6bfzkU",
+    "lessonSource": "https://ed.ted.com/best_of_web/nu4rMk18",
+    "durationSeconds": 313,
+    "sourceTitle": "Mercury - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Tl"
+    ],
+    "id": "bK6nnyibhdk",
+    "title": "Thallium (Version 1) - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=bK6nnyibhdk",
+    "lessonSource": "https://ed.ted.com/best_of_web/uq0PRhQ9",
+    "durationSeconds": 72,
+    "sourceTitle": "Thallium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Pb"
+    ],
+    "id": "2ERfPN5JLX8",
+    "title": "Lead - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=2ERfPN5JLX8",
+    "lessonSource": "https://ed.ted.com/best_of_web/dr4pMpg6",
+    "durationSeconds": 488,
+    "sourceTitle": "Lead - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Bi"
+    ],
+    "id": "vyIo-c7VmIM",
+    "title": "Bismuth - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=vyIo-c7VmIM",
+    "lessonSource": "https://ed.ted.com/best_of_web/0jkTrsSo",
+    "durationSeconds": 236,
+    "sourceTitle": "Bismuth - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Po"
+    ],
+    "id": "bbr5yWwsI1o",
+    "title": "Polonium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=bbr5yWwsI1o",
+    "lessonSource": "https://ed.ted.com/best_of_web/ScXE3bXC",
+    "durationSeconds": 122,
+    "sourceTitle": "Polonium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "At"
+    ],
+    "id": "sSL7EwdlLlE",
+    "title": "Astatine (version 1) - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=sSL7EwdlLlE",
+    "lessonSource": "https://ed.ted.com/best_of_web/vey8gtPL",
+    "durationSeconds": 35,
+    "sourceTitle": "Astatine - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Rn"
+    ],
+    "id": "mTuC_LrEfbU",
+    "title": "Radon - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=mTuC_LrEfbU",
+    "lessonSource": "https://ed.ted.com/best_of_web/qPuTL0pg",
+    "durationSeconds": 593,
+    "sourceTitle": "Radon - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Fr"
+    ],
+    "id": "PyFLvSg6ZDw",
+    "title": "Francium (version 2) - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=PyFLvSg6ZDw",
+    "lessonSource": "https://ed.ted.com/best_of_web/qszatg96",
+    "durationSeconds": 188,
+    "sourceTitle": "Francium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Ra"
+    ],
+    "id": "5_I6vj-lXNM",
+    "title": "Radium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=5_I6vj-lXNM",
+    "lessonSource": "https://ed.ted.com/best_of_web/UW8LSads",
+    "durationSeconds": 142,
+    "sourceTitle": "Radium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Ac"
+    ],
+    "id": "0BlpjWBYW0k",
+    "title": "Actinium (version 1) - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=0BlpjWBYW0k",
+    "lessonSource": "https://ed.ted.com/best_of_web/wSQn4s9J",
+    "durationSeconds": 104,
+    "sourceTitle": "Actinium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Th"
+    ],
+    "id": "KQ64Jm3dmSs",
+    "title": "Thorium (version 1) - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=KQ64Jm3dmSs",
+    "lessonSource": "https://ed.ted.com/best_of_web/oOZZ0433",
+    "durationSeconds": 33,
+    "sourceTitle": "Thorium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Pa"
+    ],
+    "id": "bsIMMa7iEKU",
+    "title": "Protactinium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=bsIMMa7iEKU",
+    "lessonSource": "https://ed.ted.com/best_of_web/YIW2icoy",
+    "durationSeconds": 426,
+    "sourceTitle": "Protactinium (new) - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "U"
+    ],
+    "id": "B8vVZTvJNGk",
+    "title": "Uranium  - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=B8vVZTvJNGk",
+    "lessonSource": "https://ed.ted.com/best_of_web/vPtqQfkh",
+    "durationSeconds": 363,
+    "sourceTitle": "Uranium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Np"
+    ],
+    "id": "1D75B0_URbE",
+    "title": "Neptunium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=1D75B0_URbE",
+    "lessonSource": "https://ed.ted.com/best_of_web/Tk73ZzuQ",
+    "durationSeconds": 346,
+    "sourceTitle": "Neptunium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Pu"
+    ],
+    "id": "XLufmakbiU0",
+    "title": "Plutonium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=XLufmakbiU0",
+    "lessonSource": "https://ed.ted.com/best_of_web/FwLWDxP6",
+    "durationSeconds": 239,
+    "sourceTitle": "Plutonium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Am"
+    ],
+    "id": "CC-L-CITg3k",
+    "title": "Americium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=CC-L-CITg3k",
+    "lessonSource": "https://ed.ted.com/best_of_web/uwUkFnJk",
+    "durationSeconds": 461,
+    "sourceTitle": "Americium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Cm"
+    ],
+    "id": "sZobqPFNcwg",
+    "title": "Curium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=sZobqPFNcwg",
+    "lessonSource": "https://ed.ted.com/best_of_web/qfKWnggJ",
+    "durationSeconds": 67,
+    "sourceTitle": "Curium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Bk"
+    ],
+    "id": "imXT9QwRzks",
+    "title": "Berkelium (version 1) - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=imXT9QwRzks",
+    "lessonSource": "https://ed.ted.com/best_of_web/wFoP6xTF",
+    "durationSeconds": 24,
+    "sourceTitle": "Berkelium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Cf"
+    ],
+    "id": "eG6HyPrTccI",
+    "title": "Californium (version 1) - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=eG6HyPrTccI",
+    "lessonSource": "https://ed.ted.com/best_of_web/tTv85jH3",
+    "durationSeconds": 46,
+    "sourceTitle": "Californium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Es"
+    ],
+    "id": "-G_4nJLNXA0",
+    "title": "Einsteinium (version 1) - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=-G_4nJLNXA0",
+    "lessonSource": "https://ed.ted.com/best_of_web/6c337xQB",
+    "durationSeconds": 112,
+    "sourceTitle": "Einsteinium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Fm"
+    ],
+    "id": "SQhI52sqanA",
+    "title": "Fermium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=SQhI52sqanA",
+    "lessonSource": "https://ed.ted.com/best_of_web/HyP5afDe",
+    "durationSeconds": 108,
+    "sourceTitle": "Fermium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Md"
+    ],
+    "id": "0JlshAo8DuE",
+    "title": "Mendelevium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=0JlshAo8DuE",
+    "lessonSource": "https://ed.ted.com/best_of_web/7dHEY4Wp",
+    "durationSeconds": 114,
+    "sourceTitle": "Mendelevium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "No"
+    ],
+    "id": "t_ZpauMxapY",
+    "title": "Nobelium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=t_ZpauMxapY",
+    "lessonSource": "https://ed.ted.com/best_of_web/a1bxDwKe",
+    "durationSeconds": 289,
+    "sourceTitle": "Nobelium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Rf"
+    ],
+    "id": "dOj9ZjKnJcY",
+    "title": "Rutherfordium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=dOj9ZjKnJcY",
+    "lessonSource": "https://ed.ted.com/best_of_web/EDHbZ008",
+    "durationSeconds": 318,
+    "sourceTitle": "Rutherfordium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Db"
+    ],
+    "id": "eeczRrDoL_M",
+    "title": "Dubnium (version 1) - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=eeczRrDoL_M",
+    "lessonSource": "https://ed.ted.com/best_of_web/UZRbzgJr",
+    "durationSeconds": 45,
+    "sourceTitle": "Dubnium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Sg"
+    ],
+    "id": "UWq0djr790E",
+    "title": "Seaborgium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=UWq0djr790E",
+    "lessonSource": "https://ed.ted.com/best_of_web/MvGukOqo",
+    "durationSeconds": 543,
+    "sourceTitle": "Seaborgium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Bh"
+    ],
+    "id": "okJnQIjELY4",
+    "title": "Bohrium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=okJnQIjELY4",
+    "lessonSource": "https://ed.ted.com/best_of_web/CNu2qhkv",
+    "durationSeconds": 256,
+    "sourceTitle": "Bohrium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Hs"
+    ],
+    "id": "u4GEVxbLego",
+    "title": "Hassium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=u4GEVxbLego",
+    "lessonSource": "https://ed.ted.com/best_of_web/DZECrnP6",
+    "durationSeconds": 192,
+    "sourceTitle": "Hassium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Mt"
+    ],
+    "id": "N8VR7Qscq4k",
+    "title": "Meitnerium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=N8VR7Qscq4k",
+    "lessonSource": "https://ed.ted.com/best_of_web/ig0uBdYP",
+    "durationSeconds": 197,
+    "sourceTitle": "Meitnerium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Ds"
+    ],
+    "id": "lhvMqva3-7M",
+    "title": "Darmstadtium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=lhvMqva3-7M",
+    "lessonSource": "https://ed.ted.com/best_of_web/gnMAIcFU",
+    "durationSeconds": 176,
+    "sourceTitle": "Darmstadtium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Rg"
+    ],
+    "id": "MTq1hzhCF0g",
+    "title": "Roentgenium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=MTq1hzhCF0g",
+    "lessonSource": "https://ed.ted.com/best_of_web/WCMYiYBI",
+    "durationSeconds": 259,
+    "sourceTitle": "Roentgenium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Cn"
+    ],
+    "id": "QHcbQfcwegY",
+    "title": "Copernicium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=QHcbQfcwegY",
+    "lessonSource": "https://ed.ted.com/best_of_web/lvHX8vxG",
+    "durationSeconds": 265,
+    "sourceTitle": "Copernicium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Nh"
+    ],
+    "id": "Ac7iFepG2CY",
+    "title": "Ununtrium (version 1) - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=Ac7iFepG2CY",
+    "lessonSource": "https://ed.ted.com/best_of_web/AjLwyiqP",
+    "durationSeconds": 118,
+    "sourceTitle": "Ununtrium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Fl"
+    ],
+    "id": "5L-NNFPiRog",
+    "title": "Flerovium (NEW ELEMENT!) - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=5L-NNFPiRog",
+    "lessonSource": "https://ed.ted.com/best_of_web/YoZy4i28",
+    "durationSeconds": 446,
+    "sourceTitle": "Flerovium (NEW ELEMENT!) - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Mc"
+    ],
+    "id": "BJYDrugEtxY",
+    "title": "New Element Confirmed - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=BJYDrugEtxY",
+    "lessonSource": "https://ed.ted.com/best_of_web/lWOrcDzU",
+    "durationSeconds": 395,
+    "sourceTitle": "Ununpentium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Lv"
+    ],
+    "id": "WdbF4L_ruyM",
+    "title": "Livermorium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=WdbF4L_ruyM",
+    "lessonSource": "https://ed.ted.com/best_of_web/CtLm7SEH",
+    "durationSeconds": 391,
+    "sourceTitle": "Livermorium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Ts"
+    ],
+    "id": "BKEEi8JThps",
+    "title": "Feynmanium (?) - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=BKEEi8JThps",
+    "lessonSource": "https://ed.ted.com/best_of_web/IGVe8Grx",
+    "durationSeconds": 564,
+    "sourceTitle": "Ununseptium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Og"
+    ],
+    "id": "Stxor9L00BU",
+    "title": "Ununoctium (version 1)  - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=Stxor9L00BU",
+    "lessonSource": "https://ed.ted.com/best_of_web/IuTD3zpK",
+    "durationSeconds": 170,
+    "sourceTitle": "Ununoctium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Y"
+    ],
+    "id": "tTXjnQlAHAQ",
+    "title": "Yttrium (version 2) - Periodic Table Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=tTXjnQlAHAQ",
+    "lessonSource": "https://ed.ted.com/best_of_web/N5R6aHST",
+    "durationSeconds": 248,
+    "sourceTitle": "Yttrium - Periodic Table Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Cs"
+    ],
+    "id": "5aD6HwUE2c0",
+    "title": "Caesium or Cesium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=5aD6HwUE2c0",
+    "lessonSource": "https://ed.ted.com/best_of_web/AiysVcUy",
+    "durationSeconds": 437,
+    "sourceTitle": "Caesium or Cesium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  },
+  {
+    "symbols": [
+      "Lr"
+    ],
+    "id": "_zBsnnJOkyA",
+    "title": "Lawrencium - Periodic Table of Videos",
+    "publisher": "Periodic Videos · University of Nottingham",
+    "source": "https://www.youtube.com/watch?v=_zBsnnJOkyA",
+    "lessonSource": "https://ed.ted.com/best_of_web/O7MUVAir",
+    "durationSeconds": null,
+    "sourceTitle": "Lawrencium - Periodic Table of Videos",
+    "publisherVerification": "YouTube oEmbed · Periodic Videos",
+    "archival": true
+  }
 ]

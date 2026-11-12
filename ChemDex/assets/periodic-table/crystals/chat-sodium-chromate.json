@@ -1,0 +1,549 @@
+{
+  "amcsdId": "0016962",
+  "mineralName": "Na₂CrO₄ khan",
+  "formula": "Na2 Cr O4",
+  "spaceGroup": "P b n n",
+  "cell": {
+    "a": 5.91,
+    "b": 9.23,
+    "c": 7.2,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 392.75496000000004,
+  "declaredVolume": 392.755,
+  "basis": [
+    [
+      5.91,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      9.23,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      7.2
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "1/2+x,1/2+y,1/2-z",
+    "1/2-x,1/2-y,1/2+z",
+    "1/2+x,-y,1/2+z",
+    "1/2-x,y,1/2-z",
+    "-x,1/2+y,z",
+    "x,1/2-y,-z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Na1",
+      "element": "Na",
+      "fractional": [
+        0.25,
+        0.45,
+        0.25
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Na2",
+      "element": "Na",
+      "fractional": [
+        -0.25,
+        0.25,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Cr1",
+      "element": "Cr",
+      "fractional": [
+        0.25,
+        0.0972,
+        0.25
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.0278,
+        0.2,
+        0.25
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.25,
+        0.0,
+        0.0694
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Na",
+      "label": "Na1",
+      "fractional": [
+        0.25,
+        0.45,
+        0.25
+      ],
+      "position": [
+        1.4775,
+        4.1535,
+        1.8
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na1",
+      "fractional": [
+        0.75,
+        0.95,
+        0.25
+      ],
+      "position": [
+        4.4325,
+        8.7685,
+        1.8
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na1",
+      "fractional": [
+        0.25,
+        0.05,
+        0.75
+      ],
+      "position": [
+        1.4775,
+        0.4615,
+        5.4
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na1",
+      "fractional": [
+        0.75,
+        0.55,
+        0.75
+      ],
+      "position": [
+        4.4325,
+        5.0765,
+        5.4
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na2",
+      "fractional": [
+        0.75,
+        0.25,
+        0.0
+      ],
+      "position": [
+        4.4325,
+        2.3075,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na2",
+      "fractional": [
+        0.25,
+        0.75,
+        0.5
+      ],
+      "position": [
+        1.4775,
+        6.9225,
+        3.6
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na2",
+      "fractional": [
+        0.75,
+        0.25,
+        0.5
+      ],
+      "position": [
+        4.4325,
+        2.3075,
+        3.6
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Na",
+      "label": "Na2",
+      "fractional": [
+        0.25,
+        0.75,
+        0.0
+      ],
+      "position": [
+        1.4775,
+        6.9225,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cr",
+      "label": "Cr1",
+      "fractional": [
+        0.25,
+        0.0972,
+        0.25
+      ],
+      "position": [
+        1.4775,
+        0.897156,
+        1.8
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cr",
+      "label": "Cr1",
+      "fractional": [
+        0.75,
+        0.5972,
+        0.25
+      ],
+      "position": [
+        4.4325,
+        5.512156,
+        1.8
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cr",
+      "label": "Cr1",
+      "fractional": [
+        0.25,
+        0.4028,
+        0.75
+      ],
+      "position": [
+        1.4775,
+        3.717844,
+        5.4
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cr",
+      "label": "Cr1",
+      "fractional": [
+        0.75,
+        0.9028,
+        0.75
+      ],
+      "position": [
+        4.4325,
+        8.332844,
+        5.4
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.0278,
+        0.2,
+        0.25
+      ],
+      "position": [
+        0.164298,
+        1.846,
+        1.8
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.5278,
+        0.7,
+        0.25
+      ],
+      "position": [
+        3.119298,
+        6.461,
+        1.8
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.4722,
+        0.3,
+        0.75
+      ],
+      "position": [
+        2.790702,
+        2.769,
+        5.4
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.5278,
+        0.8,
+        0.75
+      ],
+      "position": [
+        3.119298,
+        7.384,
+        5.4
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.4722,
+        0.2,
+        0.25
+      ],
+      "position": [
+        2.790702,
+        1.846,
+        1.8
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.9722,
+        0.7,
+        0.25
+      ],
+      "position": [
+        5.745702,
+        6.461,
+        1.8
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.0278,
+        0.3,
+        0.75
+      ],
+      "position": [
+        0.164298,
+        2.769,
+        5.4
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.9722,
+        0.8,
+        0.75
+      ],
+      "position": [
+        5.745702,
+        7.384,
+        5.4
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.25,
+        0.0,
+        0.0694
+      ],
+      "position": [
+        1.4775,
+        0.0,
+        0.49968
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.75,
+        0.5,
+        0.4306
+      ],
+      "position": [
+        4.4325,
+        4.615,
+        3.10032
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.25,
+        0.5,
+        0.5694
+      ],
+      "position": [
+        1.4775,
+        4.615,
+        4.09968
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.75,
+        0.0,
+        0.5694
+      ],
+      "position": [
+        4.4325,
+        0.0,
+        4.09968
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.25,
+        0.0,
+        0.4306
+      ],
+      "position": [
+        1.4775,
+        0.0,
+        3.10032
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.75,
+        0.5,
+        0.0694
+      ],
+      "position": [
+        4.4325,
+        4.615,
+        0.49968
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.25,
+        0.5,
+        0.9306
+      ],
+      "position": [
+        1.4775,
+        4.615,
+        6.70032
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.75,
+        0.0,
+        0.9306
+      ],
+      "position": [
+        4.4325,
+        0.0,
+        6.70032
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 28,
+  "speciesPositionCount": 28,
+  "cellComposition": {
+    "Na": 8,
+    "Cr": 4,
+    "O": 16
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Miller J"
+    ],
+    "title": "The crystal structure of anhydrous sodium chromate, Na2 Cr O4\n _cod_database_code 1010023",
+    "journal": "Zeitschrift fur Kristallographie",
+    "year": 1936,
+    "volume": "94",
+    "pages": "131–136"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 8,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 1.0184467169008667e-07
+  },
+  "spaceGroupOriginal": "P b n n",
+  "spaceGroupNumber": 52,
+  "id": "chat-sodium-chromate",
+  "note": "Bản xác định cấu trúc sodium chromate khan."
+}

@@ -485,6 +485,8 @@
     "maxSiteOccupancy": 1,
     "cellVolumeRelativeError": 7.545312039679279e-07
   },
+  "spaceGroupOriginal": "P b n m",
+  "spaceGroupNumber": 62,
   "id": "chat-anglesite",
   "note": "Tinh chỉnh nhóm sulfate; không lấy bản ghi bị thiếu O."
 }

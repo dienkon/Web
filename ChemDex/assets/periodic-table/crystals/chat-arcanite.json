@@ -552,6 +552,8 @@
     "maxSiteOccupancy": 1,
     "cellVolumeRelativeError": 3.287663474420613e-07
   },
+  "spaceGroupOriginal": "P n a m",
+  "spaceGroupNumber": 62,
   "id": "chat-arcanite",
   "note": "Bản xác định lại cấu trúc potassium sulfate."
 }

@@ -1,0 +1,559 @@
+{
+  "amcsdId": "0009457",
+  "mineralName": "Tarapacaite · K₂CrO₄",
+  "formula": "K2 Cr O4",
+  "spaceGroup": "P n a m",
+  "cell": {
+    "a": 7.663,
+    "b": 10.388,
+    "c": 5.922,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 471.410410968,
+  "declaredVolume": 471.41,
+  "basis": [
+    [
+      7.663,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      10.388,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      5.922
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "x,y,1/2-z",
+    "-x,-y,1/2+z",
+    "1/2-x,1/2+y,1/2+z",
+    "1/2+x,1/2-y,1/2-z",
+    "1/2+x,1/2-y,z",
+    "1/2-x,1/2+y,-z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "K1",
+      "element": "K",
+      "fractional": [
+        0.66544,
+        0.41449,
+        0.25
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "K2",
+      "element": "K",
+      "fractional": [
+        -0.01105,
+        0.6998,
+        0.25
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Cr",
+      "element": "Cr",
+      "fractional": [
+        0.229,
+        0.42059,
+        0.25
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O1",
+      "element": "O",
+      "fractional": [
+        0.0155,
+        0.42,
+        0.25
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O2",
+      "element": "O",
+      "fractional": [
+        0.3024,
+        0.57,
+        0.25
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "O3",
+      "element": "O",
+      "fractional": [
+        0.3022,
+        0.3471,
+        0.0233
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "K",
+      "label": "K1",
+      "fractional": [
+        0.66544,
+        0.41449,
+        0.25
+      ],
+      "position": [
+        5.0992667,
+        4.3057221,
+        1.4805
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "K",
+      "label": "K1",
+      "fractional": [
+        0.33456,
+        0.58551,
+        0.75
+      ],
+      "position": [
+        2.5637333,
+        6.0822779,
+        4.4415
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "K",
+      "label": "K1",
+      "fractional": [
+        0.83456,
+        0.91449,
+        0.75
+      ],
+      "position": [
+        6.3952333,
+        9.4997221,
+        4.4415
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "K",
+      "label": "K1",
+      "fractional": [
+        0.16544,
+        0.08551,
+        0.25
+      ],
+      "position": [
+        1.2677667,
+        0.8882779,
+        1.4805
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "K",
+      "label": "K2",
+      "fractional": [
+        0.98895,
+        0.6998,
+        0.25
+      ],
+      "position": [
+        7.5783239,
+        7.2695224,
+        1.4805
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "K",
+      "label": "K2",
+      "fractional": [
+        0.01105,
+        0.3002,
+        0.75
+      ],
+      "position": [
+        0.0846762,
+        3.1184776,
+        4.4415
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "K",
+      "label": "K2",
+      "fractional": [
+        0.51105,
+        0.1998,
+        0.75
+      ],
+      "position": [
+        3.9161762,
+        2.0755224,
+        4.4415
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "K",
+      "label": "K2",
+      "fractional": [
+        0.48895,
+        0.8002,
+        0.25
+      ],
+      "position": [
+        3.7468239,
+        8.3124776,
+        1.4805
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cr",
+      "label": "Cr",
+      "fractional": [
+        0.229,
+        0.42059,
+        0.25
+      ],
+      "position": [
+        1.754827,
+        4.3690889,
+        1.4805
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cr",
+      "label": "Cr",
+      "fractional": [
+        0.771,
+        0.57941,
+        0.75
+      ],
+      "position": [
+        5.908173,
+        6.0189111,
+        4.4415
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cr",
+      "label": "Cr",
+      "fractional": [
+        0.271,
+        0.92059,
+        0.75
+      ],
+      "position": [
+        2.076673,
+        9.5630889,
+        4.4415
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cr",
+      "label": "Cr",
+      "fractional": [
+        0.729,
+        0.07941,
+        0.25
+      ],
+      "position": [
+        5.586327,
+        0.8249111,
+        1.4805
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.0155,
+        0.42,
+        0.25
+      ],
+      "position": [
+        0.1187765,
+        4.36296,
+        1.4805
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.9845,
+        0.58,
+        0.75
+      ],
+      "position": [
+        7.5442235,
+        6.02504,
+        4.4415
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.4845,
+        0.92,
+        0.75
+      ],
+      "position": [
+        3.7127235,
+        9.55696,
+        4.4415
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O1",
+      "fractional": [
+        0.5155,
+        0.08,
+        0.25
+      ],
+      "position": [
+        3.9502765,
+        0.83104,
+        1.4805
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.3024,
+        0.57,
+        0.25
+      ],
+      "position": [
+        2.3172912,
+        5.92116,
+        1.4805
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.6976,
+        0.43,
+        0.75
+      ],
+      "position": [
+        5.3457088,
+        4.46684,
+        4.4415
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.1976,
+        0.07,
+        0.75
+      ],
+      "position": [
+        1.5142088,
+        0.72716,
+        4.4415
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O2",
+      "fractional": [
+        0.8024,
+        0.93,
+        0.25
+      ],
+      "position": [
+        6.1487912,
+        9.66084,
+        1.4805
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.3022,
+        0.3471,
+        0.0233
+      ],
+      "position": [
+        2.3157586,
+        3.6056748,
+        0.1379826
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.3022,
+        0.3471,
+        0.4767
+      ],
+      "position": [
+        2.3157586,
+        3.6056748,
+        2.8230174
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.6978,
+        0.6529,
+        0.5233
+      ],
+      "position": [
+        5.3472414,
+        6.7823252,
+        3.0989826
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.1978,
+        0.8471,
+        0.5233
+      ],
+      "position": [
+        1.5157414,
+        8.7996748,
+        3.0989826
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.8022,
+        0.1529,
+        0.4767
+      ],
+      "position": [
+        6.1472586,
+        1.5883252,
+        2.8230174
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.8022,
+        0.1529,
+        0.0233
+      ],
+      "position": [
+        6.1472586,
+        1.5883252,
+        0.1379826
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.1978,
+        0.8471,
+        0.9767
+      ],
+      "position": [
+        1.5157414,
+        8.7996748,
+        5.7840174
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "O",
+      "label": "O3",
+      "fractional": [
+        0.6978,
+        0.6529,
+        0.9767
+      ],
+      "position": [
+        5.3472414,
+        6.7823252,
+        5.7840174
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 28,
+  "speciesPositionCount": 28,
+  "cellComposition": {
+    "K": 8,
+    "Cr": 4,
+    "O": 16
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "McGinnety J A"
+    ],
+    "title": "Redetermination of the structures of potassium sulphate and potassium chromate:\n the effect of electrostatic crystal forces upon observed bond length",
+    "journal": "Acta Crystallographica, Section B",
+    "year": 1972,
+    "volume": "28",
+    "pages": "2845–2852"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 8,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 8.717838860176461e-07
+  },
+  "spaceGroupOriginal": "P n a m",
+  "spaceGroupNumber": 62,
+  "id": "chat-tarapacaite",
+  "note": "Bản xác định lại cấu trúc potassium chromate; không nhầm với dichromate."
+}

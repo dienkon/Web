@@ -1,0 +1,133 @@
+{
+  "amcsdId": "0015152",
+  "mineralName": "Helium rắn · 1,1 K · 0,007 GPa",
+  "formula": "He",
+  "spaceGroup": "P 63/m m c",
+  "cell": {
+    "a": 3.53,
+    "b": 3.53,
+    "c": 5.76,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 120.0
+  },
+  "volume": 62.15878629514088,
+  "declaredVolume": 62.159,
+  "basis": [
+    [
+      3.53,
+      -1.764999999999999,
+      0.0
+    ],
+    [
+      0.0,
+      3.0570696753590685,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      5.76
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "-x,-x+y,1/2+z",
+    "x,x-y,1/2-z",
+    "-x+y,-x,1/2-z",
+    "x-y,x,1/2+z",
+    "-y,-x,z",
+    "y,x,-z",
+    "y,-x+y,-z",
+    "-y,x-y,z",
+    "x-y,-y,1/2+z",
+    "-x+y,y,1/2-z",
+    "x,y,1/2-z",
+    "-x,-y,1/2+z",
+    "x,x-y,z",
+    "-x,-x+y,-z",
+    "x-y,x,-z",
+    "-x+y,-x,z",
+    "y,x,1/2+z",
+    "-y,-x,1/2-z",
+    "-y,x-y,1/2-z",
+    "y,-x+y,1/2+z",
+    "-x+y,y,z",
+    "x-y,-y,-z",
+    "-x,-y,-z"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "He",
+      "element": "He",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.25
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "He",
+      "label": "He",
+      "fractional": [
+        0.33333325,
+        0.66666675,
+        0.25
+      ],
+      "position": [
+        -4e-07,
+        2.0380467,
+        1.44
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "He",
+      "label": "He",
+      "fractional": [
+        0.66666675,
+        0.3333335,
+        0.75
+      ],
+      "position": [
+        1.765,
+        1.0190237,
+        4.32
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 2,
+  "speciesPositionCount": 2,
+  "cellComposition": {
+    "He": 2
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Henshaw D G"
+    ],
+    "title": "Structure of solid helium by neutron diffraction\n Sample: at T = 1.1 K and P = .007 GPa",
+    "journal": "Physical Review",
+    "year": 1958,
+    "volume": "109",
+    "pages": "328–330"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "published-structure",
+  "validation": {
+    "operatorCount": 24,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 3.438047488671327e-06
+  },
+  "spaceGroupOriginal": "P 63/m m c",
+  "spaceGroupNumber": 194,
+  "id": "chat-solid-helium",
+  "note": "Mẫu neutron ở nhiệt độ thấp và có áp suất; không phải helium rắn ở áp suất khí quyển."
+}

@@ -1,0 +1,168 @@
+{
+  "amcsdId": "0011467",
+  "mineralName": "CsCl · kiểu CsCl",
+  "formula": "Cs Cl",
+  "spaceGroup": "P m -3 m",
+  "cell": {
+    "a": 4.123,
+    "b": 4.123,
+    "c": 4.123,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0
+  },
+  "volume": 70.08740886700002,
+  "declaredVolume": 70.087,
+  "basis": [
+    [
+      4.123,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      4.123,
+      -0.0
+    ],
+    [
+      0.0,
+      0.0,
+      4.123
+    ]
+  ],
+  "symmetryOperations": [
+    "x,y,z",
+    "z,-x,y",
+    "-y,z,-x",
+    "x,-y,z",
+    "-z,x,-y",
+    "y,-z,x",
+    "-x,y,-z",
+    "x,-z,-y",
+    "-z,y,x",
+    "y,-x,-z",
+    "-x,z,y",
+    "z,-y,-x",
+    "-y,x,z",
+    "x,z,y",
+    "-z,-y,-x",
+    "y,x,z",
+    "-x,-z,-y",
+    "z,y,x",
+    "-y,-x,-z",
+    "z,x,-y",
+    "-y,-z,x",
+    "x,y,-z",
+    "-z,-x,y",
+    "y,z,-x",
+    "-x,-y,z",
+    "-z,x,y",
+    "y,-z,-x",
+    "-x,y,z",
+    "z,-x,-y",
+    "-y,z,x",
+    "x,-y,-z",
+    "-x,z,-y",
+    "z,-y,x",
+    "-y,x,-z",
+    "x,-z,y",
+    "-z,y,-x",
+    "y,-x,z",
+    "-x,-z,y",
+    "z,y,-x",
+    "-y,-x,z",
+    "x,z,-y",
+    "-z,-y,x",
+    "y,x,-z",
+    "-z,-x,-y",
+    "y,z,x",
+    "-x,-y,-z",
+    "z,x,y",
+    "-y,-z,-x"
+  ],
+  "asymmetricSites": [
+    {
+      "label": "Cs",
+      "element": "Cs",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "label": "Cl",
+      "element": "Cl",
+      "fractional": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "occupancy": 1
+    }
+  ],
+  "atoms": [
+    {
+      "element": "Cs",
+      "label": "Cs",
+      "fractional": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "element": "Cl",
+      "label": "Cl",
+      "fractional": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "position": [
+        2.0615,
+        2.0615,
+        2.0615
+      ],
+      "occupancy": 1
+    }
+  ],
+  "siteCount": 2,
+  "speciesPositionCount": 2,
+  "cellComposition": {
+    "Cs": 1,
+    "Cl": 1
+  },
+  "mixedSiteCount": 0,
+  "reference": {
+    "authors": [
+      "Wyckoff R W G"
+    ],
+    "title": "Second edition. Interscience Publishers, New York, New York\n Note: CsCl structure, cesium chloride structure",
+    "journal": "Crystal Structures",
+    "year": 1963,
+    "volume": "1",
+    "pages": "85–237"
+  },
+  "source": "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+  "transport": "https://docs.xrayabsorption.org/databases/amcsd_cif2.db",
+  "limitations": "",
+  "coordinatePrecision": "Larixite fractional coordinate quantization: 0.00000025; standard uncertainties unavailable in this transport.",
+  "evidence": "literature-compilation",
+  "validation": {
+    "operatorCount": 48,
+    "maxSiteOccupancy": 1,
+    "cellVolumeRelativeError": 5.833672647172754e-06
+  },
+  "spaceGroupOriginal": "P m 3 m",
+  "spaceGroupNumber": 221,
+  "id": "chat-cesium-chloride",
+  "note": "Chọn đúng bản ghi kiểu CsCl; không dùng bản ghi rocksalt 0011298 khác pha."
+}

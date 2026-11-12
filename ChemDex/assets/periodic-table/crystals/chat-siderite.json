@@ -2,7 +2,7 @@
   "amcsdId": "0000101",
   "mineralName": "Siderite · FeCO₃",
   "formula": "Fe C O3",
-  "spaceGroup": "R -3 c",
+  "spaceGroup": "R -3 c:H",
   "cell": {
     "a": 4.6887,
     "b": 4.6887,
@@ -580,6 +580,8 @@
     "maxSiteOccupancy": 1,
     "cellVolumeRelativeError": 8.739383947779776e-07
   },
+  "spaceGroupOriginal": "R -3 c",
+  "spaceGroupNumber": 167,
   "id": "chat-siderite",
   "note": "Bản tổng hợp carbonate rhombohedral; chưa gán nhiệt độ đo."
 }
