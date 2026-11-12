@@ -3,857 +3,857 @@
     {
       "id": "beryl",
       "amcsdId": "0001040",
-      "bytes": 40156,
+      "bytes": 44432,
       "sites": 58,
       "displaySpheres": 74
     },
     {
       "id": "borax",
       "amcsdId": "0009647",
-      "bytes": 64280,
+      "bytes": 85476,
       "sites": 172,
       "displaySpheres": 187
     },
     {
       "id": "graphite",
       "amcsdId": "0014675",
-      "bytes": 26052,
+      "bytes": 16464,
       "sites": 4,
       "displaySpheres": 10
     },
     {
       "id": "fluorite",
       "amcsdId": "0008645",
-      "bytes": 27640,
+      "bytes": 20512,
       "sites": 12,
       "displaySpheres": 22
     },
     {
       "id": "halite",
       "amcsdId": "0003397",
-      "bytes": 28448,
+      "bytes": 22300,
       "sites": 8,
       "displaySpheres": 27
     },
     {
       "id": "magnesite",
       "amcsdId": "0000990",
-      "bytes": 34584,
+      "bytes": 32952,
       "sites": 30,
       "displaySpheres": 50
     },
     {
       "id": "gibbsite",
       "amcsdId": "0010761",
-      "bytes": 36572,
+      "bytes": 37392,
       "sites": 56,
       "displaySpheres": 56
     },
     {
       "id": "boehmite",
       "amcsdId": "0019146",
-      "bytes": 66408,
+      "bytes": 33460,
       "sites": 20,
       "displaySpheres": 42
     },
     {
       "id": "diaspore",
       "amcsdId": "0007340",
-      "bytes": 27332,
+      "bytes": 21508,
       "sites": 16,
       "displaySpheres": 16
     },
     {
       "id": "quartz",
       "amcsdId": "0000789",
-      "bytes": 27136,
+      "bytes": 18412,
       "sites": 9,
       "displaySpheres": 13
     },
     {
       "id": "apatite",
       "amcsdId": "0001256",
-      "bytes": 34644,
+      "bytes": 36708,
       "sites": 42,
       "displaySpheres": 48
     },
     {
       "id": "sulfur",
       "amcsdId": "0010058",
-      "bytes": 50052,
+      "bytes": 61504,
       "sites": 128,
       "displaySpheres": 128
     },
     {
       "id": "sylvite",
       "amcsdId": "0003201",
-      "bytes": 28140,
+      "bytes": 22248,
       "sites": 8,
       "displaySpheres": 27
     },
     {
       "id": "calcite",
       "amcsdId": "0000984",
-      "bytes": 34560,
+      "bytes": 32936,
       "sites": 30,
       "displaySpheres": 50
     },
     {
       "id": "thortveitite",
       "amcsdId": "0001160",
-      "bytes": 91360,
+      "bytes": 66592,
       "sites": 22,
       "displaySpheres": 48
     },
     {
       "id": "rutile",
       "amcsdId": "0001736",
-      "bytes": 72036,
+      "bytes": 48448,
       "sites": 6,
       "displaySpheres": 33
     },
     {
       "id": "vanadinite",
       "amcsdId": "0005225",
-      "bytes": 35336,
+      "bytes": 37672,
       "sites": 42,
       "displaySpheres": 52
     },
     {
       "id": "chromite",
       "amcsdId": "0004961",
-      "bytes": 194100,
+      "bytes": 160876,
       "sites": 56,
       "displaySpheres": 219
     },
     {
       "id": "pyrolusite",
       "amcsdId": "0011760",
-      "bytes": 26380,
+      "bytes": 18012,
       "sites": 6,
       "displaySpheres": 15
     },
     {
       "id": "hematite",
       "amcsdId": "0000143",
-      "bytes": 33776,
+      "bytes": 32192,
       "sites": 30,
       "displaySpheres": 46
     },
     {
       "id": "cobaltite",
       "amcsdId": "0000883",
-      "bytes": 26884,
+      "bytes": 21868,
       "sites": 12,
       "displaySpheres": 14
     },
     {
       "id": "pentlandite",
       "amcsdId": "0000437",
-      "bytes": 136536,
+      "bytes": 104468,
       "sites": 68,
       "displaySpheres": 242
     },
     {
       "id": "chalcopyrite",
       "amcsdId": "0009476",
-      "bytes": 29460,
+      "bytes": 24048,
       "sites": 16,
       "displaySpheres": 31
     },
     {
       "id": "sphalerite",
       "amcsdId": "0000110",
-      "bytes": 26664,
+      "bytes": 18860,
       "sites": 8,
       "displaySpheres": 18
     },
     {
       "id": "germanite",
       "amcsdId": "0000959",
-      "bytes": 72616,
+      "bytes": 67396,
       "sites": 66,
       "displaySpheres": 111
     },
     {
       "id": "arsenopyrite",
       "amcsdId": "0000112",
-      "bytes": 27664,
+      "bytes": 21884,
       "sites": 12,
       "displaySpheres": 14
     },
     {
       "id": "clausthalite",
       "amcsdId": "0010048",
-      "bytes": 28460,
+      "bytes": 22332,
       "sites": 8,
       "displaySpheres": 27
     },
     {
       "id": "lepidolite",
       "amcsdId": "0000640",
-      "bytes": 263364,
+      "bytes": 141348,
       "sites": 60,
       "displaySpheres": 150
     },
     {
       "id": "celestine",
       "amcsdId": "0005112",
-      "bytes": 28772,
+      "bytes": 25324,
       "sites": 24,
       "displaySpheres": 24
     },
     {
       "id": "xenotime",
       "amcsdId": "0001706",
-      "bytes": 30044,
+      "bytes": 27152,
       "sites": 24,
       "displaySpheres": 32
     },
     {
       "id": "zircon",
       "amcsdId": "0000697",
-      "bytes": 30204,
+      "bytes": 27184,
       "sites": 24,
       "displaySpheres": 32
     },
     {
       "id": "columbite",
       "amcsdId": "0001436",
-      "bytes": 122552,
+      "bytes": 90092,
       "sites": 36,
       "displaySpheres": 66
     },
     {
       "id": "molybdenite",
       "amcsdId": "0009788",
-      "bytes": 25772,
+      "bytes": 16648,
       "sites": 6,
       "displaySpheres": 6
     },
     {
       "id": "laurite",
       "amcsdId": "0010195",
-      "bytes": 27832,
+      "bytes": 21780,
       "sites": 12,
       "displaySpheres": 22
     },
     {
       "id": "native-platinum",
       "amcsdId": "0014947",
-      "bytes": 25636,
+      "bytes": 18104,
       "sites": 4,
       "displaySpheres": 14
     },
     {
       "id": "acanthite",
       "amcsdId": "0010584",
-      "bytes": 27004,
+      "bytes": 19196,
       "sites": 12,
       "displaySpheres": 12
     },
     {
       "id": "cassiterite",
       "amcsdId": "0009162",
-      "bytes": 26424,
+      "bytes": 18068,
       "sites": 6,
       "displaySpheres": 15
     },
     {
       "id": "stibnite",
       "amcsdId": "0008636",
-      "bytes": 27908,
+      "bytes": 21896,
       "sites": 20,
       "displaySpheres": 20
     },
     {
       "id": "calaverite",
       "amcsdId": "0009826",
-      "bytes": 57856,
+      "bytes": 39884,
       "sites": 6,
       "displaySpheres": 26
     },
     {
       "id": "pollucite",
       "amcsdId": "0000159",
-      "bytes": 124872,
+      "bytes": 139832,
       "sites": 160,
       "displaySpheres": 224
     },
     {
       "id": "barite",
       "amcsdId": "0005144",
-      "bytes": 28640,
+      "bytes": 25788,
       "sites": 24,
       "displaySpheres": 24
     },
     {
       "id": "monazite",
       "amcsdId": "0001700",
-      "bytes": 29988,
+      "bytes": 26024,
       "sites": 24,
       "displaySpheres": 24
     },
     {
       "id": "tantalite",
       "amcsdId": "0018628",
-      "bytes": 112844,
+      "bytes": 69268,
       "sites": 36,
       "displaySpheres": 58
     },
     {
       "id": "scheelite",
       "amcsdId": "0013201",
-      "bytes": 29512,
+      "bytes": 25812,
       "sites": 24,
       "displaySpheres": 28
     },
     {
       "id": "native-gold",
       "amcsdId": "0013108",
-      "bytes": 25852,
+      "bytes": 18064,
       "sites": 4,
       "displaySpheres": 14
     },
     {
       "id": "cinnabar",
       "amcsdId": "0012137",
-      "bytes": 26700,
+      "bytes": 17540,
       "sites": 6,
       "displaySpheres": 11
     },
     {
       "id": "galena",
       "amcsdId": "0010046",
-      "bytes": 28424,
+      "bytes": 22268,
       "sites": 8,
       "displaySpheres": 27
     },
     {
       "id": "bismuthinite",
       "amcsdId": "0003562",
-      "bytes": 27872,
+      "bytes": 22824,
       "sites": 20,
       "displaySpheres": 20
     },
     {
       "id": "uraninite",
       "amcsdId": "0011728",
-      "bytes": 27664,
+      "bytes": 20624,
       "sites": 12,
       "displaySpheres": 22
     },
     {
       "id": "thorite",
       "amcsdId": "0009633",
-      "bytes": 30192,
+      "bytes": 27184,
       "sites": 24,
       "displaySpheres": 32
     },
     {
       "id": "spodumene",
       "amcsdId": "0000355",
-      "bytes": 34524,
+      "bytes": 34924,
       "sites": 40,
       "displaySpheres": 44
     },
     {
       "id": "nguyen-to-li",
       "amcsdId": "0011220",
-      "bytes": 25040,
+      "bytes": 15852,
       "sites": 2,
       "displaySpheres": 9
     },
     {
       "id": "nguyen-to-be",
       "amcsdId": "0012878",
-      "bytes": 24648,
+      "bytes": 15236,
       "sites": 2,
       "displaySpheres": 2
     },
     {
       "id": "nguyen-to-b",
       "amcsdId": "0009230",
-      "bytes": 32128,
+      "bytes": 32084,
       "sites": 36,
       "displaySpheres": 36
     },
     {
       "id": "nguyen-to-c",
       "amcsdId": "0014675",
-      "bytes": 26052,
+      "bytes": 16464,
       "sites": 4,
       "displaySpheres": 10
     },
     {
       "id": "nguyen-to-na",
       "amcsdId": "0011223",
-      "bytes": 25028,
+      "bytes": 15840,
       "sites": 2,
       "displaySpheres": 9
     },
     {
       "id": "nguyen-to-mg",
       "amcsdId": "0012871",
-      "bytes": 24624,
+      "bytes": 15224,
       "sites": 2,
       "displaySpheres": 2
     },
     {
       "id": "nguyen-to-al",
       "amcsdId": "0011136",
-      "bytes": 25916,
+      "bytes": 18120,
       "sites": 4,
       "displaySpheres": 14
     },
     {
       "id": "nguyen-to-si",
       "amcsdId": "0012843",
-      "bytes": 26864,
+      "bytes": 18760,
       "sites": 8,
       "displaySpheres": 18
     },
     {
       "id": "nguyen-to-p",
       "amcsdId": "0011250",
-      "bytes": 25704,
+      "bytes": 17388,
       "sites": 8,
       "displaySpheres": 12
     },
     {
       "id": "nguyen-to-s",
       "amcsdId": "0010058",
-      "bytes": 50052,
+      "bytes": 61504,
       "sites": 128,
       "displaySpheres": 128
     },
     {
       "id": "nguyen-to-k",
       "amcsdId": "0013214",
-      "bytes": 24932,
+      "bytes": 15744,
       "sites": 2,
       "displaySpheres": 9
     },
     {
       "id": "nguyen-to-ca",
       "amcsdId": "0013147",
-      "bytes": 25836,
+      "bytes": 18032,
       "sites": 4,
       "displaySpheres": 14
     },
     {
       "id": "nguyen-to-sc",
       "amcsdId": "0009167",
-      "bytes": 24676,
+      "bytes": 15268,
       "sites": 2,
       "displaySpheres": 2
     },
     {
       "id": "nguyen-to-ti",
       "amcsdId": "0020263",
-      "bytes": 24596,
+      "bytes": 15192,
       "sites": 2,
       "displaySpheres": 2
     },
     {
       "id": "nguyen-to-v",
       "amcsdId": "0014111",
-      "bytes": 24744,
+      "bytes": 15804,
       "sites": 2,
       "displaySpheres": 9
     },
     {
       "id": "nguyen-to-cr",
       "amcsdId": "0011209",
-      "bytes": 25028,
+      "bytes": 15828,
       "sites": 2,
       "displaySpheres": 9
     },
     {
       "id": "nguyen-to-fe",
       "amcsdId": "0008169",
-      "bytes": 25024,
+      "bytes": 15832,
       "sites": 2,
       "displaySpheres": 9
     },
     {
       "id": "nguyen-to-co",
       "amcsdId": "0009140",
-      "bytes": 24624,
+      "bytes": 15232,
       "sites": 2,
       "displaySpheres": 2
     },
     {
       "id": "nguyen-to-ni",
       "amcsdId": "0013097",
-      "bytes": 25852,
+      "bytes": 18068,
       "sites": 4,
       "displaySpheres": 14
     },
     {
       "id": "nguyen-to-cu",
       "amcsdId": "0013087",
-      "bytes": 25884,
+      "bytes": 18088,
       "sites": 4,
       "displaySpheres": 14
     },
     {
       "id": "nguyen-to-zn",
       "amcsdId": "0012940",
-      "bytes": 24500,
+      "bytes": 14668,
       "sites": 2,
       "displaySpheres": 2
     },
     {
       "id": "nguyen-to-ga",
       "amcsdId": "0010597",
-      "bytes": 25776,
+      "bytes": 17092,
       "sites": 8,
       "displaySpheres": 12
     },
     {
       "id": "nguyen-to-ge",
       "amcsdId": "0012844",
-      "bytes": 26748,
+      "bytes": 18628,
       "sites": 8,
       "displaySpheres": 18
     },
     {
       "id": "nguyen-to-as",
       "amcsdId": "0012835",
-      "bytes": 26600,
+      "bytes": 17668,
       "sites": 6,
       "displaySpheres": 12
     },
     {
       "id": "nguyen-to-se",
       "amcsdId": "0012674",
-      "bytes": 25332,
+      "bytes": 15504,
       "sites": 3,
       "displaySpheres": 6
     },
     {
       "id": "nguyen-to-rb",
       "amcsdId": "0012170",
-      "bytes": 24912,
+      "bytes": 15756,
       "sites": 2,
       "displaySpheres": 9
     },
     {
       "id": "nguyen-to-sr",
       "amcsdId": "0013142",
-      "bytes": 25828,
+      "bytes": 18028,
       "sites": 4,
       "displaySpheres": 14
     },
     {
       "id": "nguyen-to-y",
       "amcsdId": "0009166",
-      "bytes": 24636,
+      "bytes": 15224,
       "sites": 2,
       "displaySpheres": 2
     },
     {
       "id": "nguyen-to-zr",
       "amcsdId": "0011201",
-      "bytes": 24588,
+      "bytes": 15176,
       "sites": 2,
       "displaySpheres": 2
     },
     {
       "id": "nguyen-to-nb",
       "amcsdId": "0011224",
-      "bytes": 24996,
+      "bytes": 15820,
       "sites": 2,
       "displaySpheres": 9
     },
     {
       "id": "nguyen-to-mo",
       "amcsdId": "0012937",
-      "bytes": 25008,
+      "bytes": 15828,
       "sites": 2,
       "displaySpheres": 9
     },
     {
       "id": "nguyen-to-ru",
       "amcsdId": "0011191",
-      "bytes": 24584,
+      "bytes": 15208,
       "sites": 2,
       "displaySpheres": 2
     },
     {
       "id": "nguyen-to-rh",
       "amcsdId": "0014948",
-      "bytes": 25924,
+      "bytes": 18132,
       "sites": 4,
       "displaySpheres": 14
     },
     {
       "id": "nguyen-to-pd",
       "amcsdId": "0011155",
-      "bytes": 25864,
+      "bytes": 18068,
       "sites": 4,
       "displaySpheres": 14
     },
     {
       "id": "nguyen-to-ag",
       "amcsdId": "0013118",
-      "bytes": 25840,
+      "bytes": 18064,
       "sites": 4,
       "displaySpheres": 14
     },
     {
       "id": "nguyen-to-cd",
       "amcsdId": "0012941",
-      "bytes": 24668,
+      "bytes": 14700,
       "sites": 2,
       "displaySpheres": 2
     },
     {
       "id": "nguyen-to-in",
       "amcsdId": "0014125",
-      "bytes": 25020,
+      "bytes": 16244,
       "sites": 2,
       "displaySpheres": 9
     },
     {
       "id": "nguyen-to-sn",
       "amcsdId": "0011248",
-      "bytes": 25720,
+      "bytes": 17536,
       "sites": 4,
       "displaySpheres": 13
     },
     {
       "id": "nguyen-to-sb",
       "amcsdId": "0012838",
-      "bytes": 26572,
+      "bytes": 17664,
       "sites": 6,
       "displaySpheres": 12
     },
     {
       "id": "nguyen-to-te",
       "amcsdId": "0011258",
-      "bytes": 25172,
+      "bytes": 15284,
       "sites": 3,
       "displaySpheres": 5
     },
     {
       "id": "nguyen-to-i",
       "amcsdId": "0011273",
-      "bytes": 25728,
+      "bytes": 17176,
       "sites": 8,
       "displaySpheres": 12
     },
     {
       "id": "nguyen-to-cs",
       "amcsdId": "0011211",
-      "bytes": 24984,
+      "bytes": 15812,
       "sites": 2,
       "displaySpheres": 9
     },
     {
       "id": "nguyen-to-ba",
       "amcsdId": "0013145",
-      "bytes": 24964,
+      "bytes": 15784,
       "sites": 2,
       "displaySpheres": 9
     },
     {
       "id": "nguyen-to-la",
       "amcsdId": "0011203",
-      "bytes": 26544,
+      "bytes": 18880,
       "sites": 4,
       "displaySpheres": 14
     },
     {
       "id": "nguyen-to-ce",
       "amcsdId": "0009169",
-      "bytes": 25928,
+      "bytes": 18124,
       "sites": 4,
       "displaySpheres": 14
     },
     {
       "id": "nguyen-to-pr",
       "amcsdId": "0011205",
-      "bytes": 26720,
+      "bytes": 18884,
       "sites": 4,
       "displaySpheres": 14
     },
     {
       "id": "nguyen-to-nd",
       "amcsdId": "0011204",
-      "bytes": 26740,
+      "bytes": 18916,
       "sites": 4,
       "displaySpheres": 14
     },
     {
       "id": "nguyen-to-sm",
       "amcsdId": "0009181",
-      "bytes": 26672,
+      "bytes": 17820,
       "sites": 3,
       "displaySpheres": 10
     },
     {
       "id": "nguyen-to-eu",
       "amcsdId": "0009172",
-      "bytes": 25024,
+      "bytes": 15852,
       "sites": 2,
       "displaySpheres": 9
     },
     {
       "id": "nguyen-to-gd",
       "amcsdId": "0011176",
-      "bytes": 24624,
+      "bytes": 15228,
       "sites": 2,
       "displaySpheres": 2
     },
     {
       "id": "nguyen-to-tb",
       "amcsdId": "0009174",
-      "bytes": 24628,
+      "bytes": 15232,
       "sites": 2,
       "displaySpheres": 2
     },
     {
       "id": "nguyen-to-dy",
       "amcsdId": "0011172",
-      "bytes": 24628,
+      "bytes": 15236,
       "sites": 2,
       "displaySpheres": 2
     },
     {
       "id": "nguyen-to-ho",
       "amcsdId": "0009176",
-      "bytes": 24672,
+      "bytes": 15264,
       "sites": 2,
       "displaySpheres": 2
     },
     {
       "id": "nguyen-to-er",
       "amcsdId": "0011174",
-      "bytes": 24620,
+      "bytes": 15224,
       "sites": 2,
       "displaySpheres": 2
     },
     {
       "id": "nguyen-to-tm",
       "amcsdId": "0009178",
-      "bytes": 24520,
+      "bytes": 15264,
       "sites": 2,
       "displaySpheres": 2
     },
     {
       "id": "nguyen-to-yb",
       "amcsdId": "0009179",
-      "bytes": 25932,
+      "bytes": 18128,
       "sites": 4,
       "displaySpheres": 14
     },
     {
       "id": "nguyen-to-lu",
       "amcsdId": "0009180",
-      "bytes": 24676,
+      "bytes": 15264,
       "sites": 2,
       "displaySpheres": 2
     },
     {
       "id": "nguyen-to-hf",
       "amcsdId": "0011178",
-      "bytes": 24600,
+      "bytes": 15204,
       "sites": 2,
       "displaySpheres": 2
     },
     {
       "id": "nguyen-to-ta",
       "amcsdId": "0011230",
-      "bytes": 24996,
+      "bytes": 15820,
       "sites": 2,
       "displaySpheres": 9
     },
     {
       "id": "nguyen-to-w",
       "amcsdId": "0008068",
-      "bytes": 25008,
+      "bytes": 15820,
       "sites": 2,
       "displaySpheres": 9
     },
     {
       "id": "nguyen-to-re",
       "amcsdId": "0011190",
-      "bytes": 24452,
+      "bytes": 15180,
       "sites": 2,
       "displaySpheres": 2
     },
     {
       "id": "nguyen-to-os",
       "amcsdId": "0011188",
-      "bytes": 24568,
+      "bytes": 15208,
       "sites": 2,
       "displaySpheres": 2
     },
     {
       "id": "nguyen-to-ir",
       "amcsdId": "0014950",
-      "bytes": 25896,
+      "bytes": 18104,
       "sites": 4,
       "displaySpheres": 14
     },
     {
       "id": "nguyen-to-pt",
       "amcsdId": "0014947",
-      "bytes": 25636,
+      "bytes": 18104,
       "sites": 4,
       "displaySpheres": 14
     },
     {
       "id": "nguyen-to-au",
       "amcsdId": "0013108",
-      "bytes": 25852,
+      "bytes": 18064,
       "sites": 4,
       "displaySpheres": 14
     },
     {
       "id": "nguyen-to-tl",
       "amcsdId": "0011197",
-      "bytes": 24604,
+      "bytes": 15244,
       "sites": 2,
       "displaySpheres": 2
     },
     {
       "id": "nguyen-to-pb",
       "amcsdId": "0012874",
-      "bytes": 25972,
+      "bytes": 18160,
       "sites": 4,
       "displaySpheres": 14
     },
     {
       "id": "nguyen-to-bi",
       "amcsdId": "0012841",
-      "bytes": 26620,
+      "bytes": 17692,
       "sites": 6,
       "displaySpheres": 12
     },
     {
       "id": "nguyen-to-ac",
       "amcsdId": "0011134",
-      "bytes": 25828,
+      "bytes": 18028,
       "sites": 4,
       "displaySpheres": 14
     },
     {
       "id": "nguyen-to-th",
       "amcsdId": "0011162",
-      "bytes": 25892,
+      "bytes": 18092,
       "sites": 4,
       "displaySpheres": 14
     },
     {
       "id": "nguyen-to-u",
       "amcsdId": "0011262",
-      "bytes": 24456,
+      "bytes": 15616,
       "sites": 4,
       "displaySpheres": 6
     }
   ],
-  "interpretation": "Published atomic positions and unit-cell metric. Sphere size/color are display conventions; partial occupancies use sectors. No specimen surface or inferred bonds."
+  "interpretation": "Published atomic positions or explicitly labelled reference prototype. Sphere size/color are display conventions; partial occupancies use sectors. Rods show distance-based display neighbours, not assigned chemical bond orders."
 }

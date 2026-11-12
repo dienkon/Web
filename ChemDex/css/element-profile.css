@@ -54,19 +54,23 @@
 .mineral-poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
 .model-shell { height: clamp(320px,36vw,430px); }
 .crystal-scene-wrap:has(.published-crystal) { height:auto; overflow:visible; min-height:0; }
-.published-crystal { border:1px solid #3d5265; border-radius:16px; padding:16px; background:#101d2a; color:#e3edf4; min-width:0; overflow:hidden; }
+.published-crystal { border:1px solid #bdd4df; border-radius:16px; padding:16px; background:#f8fcfd; color:#173d50; min-width:0; overflow:hidden; }
 .crystal-heading { display:flex; flex-direction:column; gap:4px; margin-bottom:12px; }
 .crystal-heading span,.crystal-metric,.crystal-status,.crystal-note,.crystal-evidence { font-size:13px; line-height:1.65; overflow-wrap:anywhere; }
-.crystal-heading span,.crystal-status { color:#afc4d4; }
-.published-crystal-stage { height:340px; position:relative; border-radius:10px; overflow:hidden; background:#0c1520; }
+.crystal-heading span,.crystal-status { color:#496675; }
+.published-crystal-stage { height:340px; position:relative; border-radius:10px; overflow:hidden; background:#f5fafc; touch-action:none; overscroll-behavior:contain; }
+.published-crystal-stage canvas { touch-action:none; cursor:grab; }
+.published-crystal-stage canvas:active { cursor:grabbing; }
 .published-crystal-stage img,.published-crystal-stage canvas { width:100%; height:100%; object-fit:contain; display:block; }
 .published-crystal-stage button { position:absolute; inset:auto 12px 16px; background:#14578a; color:white; border:1px solid #579bc5; border-radius:10px; padding:10px; cursor:pointer; font-weight:600; }
 .crystal-controls,.crystal-downloads,.crystal-legend { display:flex; flex-wrap:wrap; gap:8px; margin:12px 0; }
-.crystal-controls button,.crystal-downloads a { border:1px solid #54718a; border-radius:8px; background:#20364a; color:#d5ecff; padding:7px 10px; font-size:12px; cursor:pointer; }
+.crystal-controls button,.crystal-downloads a { border:1px solid #b2cdd7; border-radius:8px; background:#e9f3f7; color:#204c61; padding:7px 10px; font-size:12px; cursor:pointer; }
+.crystal-controls button:hover,.crystal-downloads a:hover { background:#d6ecef; }
 .crystal-controls button:disabled { opacity:.5; cursor:default; }
-.crystal-legend span { padding:3px 8px; border-radius:6px; background:#08131e; font-weight:600; font-size:13px; }
-.crystal-note { border-left:3px solid #d7b970; padding:4px 10px; margin:10px 0; color:#e0d0a7; }
-.crystal-evidence { border-top:1px solid #405569; padding-top:10px; margin-top:12px; }
+.crystal-legend span { padding:3px 8px; border-radius:6px; background:#e4eff5; font-weight:600; font-size:13px; }
+.crystal-note { border-left:3px solid #d7b970; padding:4px 10px; margin:10px 0; color:#6f5927; }
+.crystal-evidence { border-top:1px solid #c6dbe4; padding-top:10px; margin-top:12px; }
+.published-crystal a { color:#096b9e; }
 .crystal-evidence summary { cursor:pointer; font-weight:600; }
 .crystal-evidence p { margin:10px 0; white-space:pre-line; }
 .crystal-site-table { overflow-x:auto; max-height:260px; }
@@ -89,8 +93,8 @@
 .video-source-row label { display:flex; gap:6px; align-items:center; }
 .video-source-row [role=status] { flex-basis:100%; font-size:12px; }
 .video-source-row button { padding:5px 10px; border:1px solid #496b7e; border-radius:7px; }
-.crystal-legend button { padding:4px 10px; background:#1c3348; border:1px solid #496378; border-radius:7px; }
+.crystal-legend button { padding:4px 10px; background:#e8f2f6; border:1px solid #b3ccd7; border-radius:7px; }
 .crystal-legend button[aria-pressed=false] { opacity:.45; text-decoration:line-through; }
-.crystal-display-notes { font-size:12px; color:#b7cbd9; margin:10px 0; }
+.crystal-display-notes { font-size:12px; color:#496675; margin:10px 0; }
 .crystal-display-notes summary { cursor:pointer; }
 .published-crystal-stage:fullscreen { width:100vw; height:100dvh; }

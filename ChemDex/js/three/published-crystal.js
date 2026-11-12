@@ -1,6 +1,7 @@
 import * as THREE from 'three';
-import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
+import {TrackballControls} from 'three/examples/jsm/controls/TrackballControls.js';
 import {specimenEnvironment} from './specimen-environment.js';
+import {crystalDisplayConnections} from '../../shared/chemistry/crystal-neighbors.mjs';
 
 const COLORS={H:'#f4f7fa',Li:'#cc83ef',Be:'#a2d666',B:'#e9a590',C:'#667888',N:'#5383ec',O:'#e95354',F:'#90d873',Na:'#ac80ee',Mg:'#76cc92',Al:'#b8bcc7',Si:'#deb899',P:'#eda254',S:'#e4cc4e',Cl:'#75c75f',K:'#ad7cce',Ca:'#80b8ce',Fe:'#cf875c',Ni:'#81b887',Cu:'#c5875e',Zn:'#8bafc8',As:'#c095c1',Se:'#e7a157',Ag:'#d4d9e1',Cd:'#e6cb90',Sn:'#a6b5bf',Sb:'#b2a1c5',Te:'#c6a1a1',Cs:'#9a83da',Ba:'#87b590',W:'#91b0c1',Pt:'#c2c8db',Au:'#dfbb4f',Hg:'#a1afc5',Pb:'#929aae',U:'#8caf7b'};
 export const atomColor = element => COLORS[element] ?? new THREE.Color().setHSL(([...element].reduce((n,c)=>n+c.charCodeAt(0)*31,0)%360)/360,.40,.62).getStyle();
@@ -25,6 +26,7 @@ export function nearestPeriodicDistance(data){
 export function buildPublishedCrystal(data, repeat=1, options={}) {
   if (![1,2].includes(repeat)) throw Error('Crystal repeat must be 1 or 2');
   const group=new THREE.Group();group.name=data.mineralName;
+  const [segments,rings]=options.instanced&&data.atoms.length*repeat**3>1500?[10,8]:[16,10];
   const geometries=new Map(),materials=new Map();
   const material=(element)=>{
     if(!materials.has(element))materials.set(element,element==='Vacancy' ? new THREE.LineBasicMaterial({color:'#536778'}) : new THREE.MeshStandardMaterial({color:atomColor(element),roughness:.40,metalness:.1,side:THREE.DoubleSide}));
@@ -36,7 +38,8 @@ export function buildPublishedCrystal(data, repeat=1, options={}) {
     if (!site) {site={fractional:atom.fractional,species:[]};unique.push(site);}
     site.species.push(atom);
   }
-  let spheres=0;
+  let spheres=0,occupiedSpheres=0;
+  const batches=new Map();
   for(const site of unique) {
     const offsets=site.fractional.map(v=>Array.from({length:repeat+(Math.abs(v)<2e-6?1:0)},(_,i)=>i));
     for(const x of offsets[0])for(const y of offsets[1])for(const z of offsets[2]) {
@@ -48,20 +51,59 @@ export function buildPublishedCrystal(data, repeat=1, options={}) {
       for(const atom of species) {
         const portion=Math.min(atom.occupancy,1-start);if(portion<=0)continue;
         const vacancy=atom.element==='Vacancy';
+        if(!vacancy)occupiedSpheres++;
         const key=`${vacancy?'wire':'sphere'}:${start.toFixed(7)}:${portion.toFixed(7)}`;
         if(!geometries.has(key)) {
-          const sphere=new THREE.SphereGeometry(.32,20,14,start*Math.PI*2,portion*Math.PI*2);
+          const sphere=new THREE.SphereGeometry(.32,segments,rings,start*Math.PI*2,portion*Math.PI*2);
           geometries.set(key,vacancy ? new THREE.WireframeGeometry(sphere) : sphere);
           if(vacancy)sphere.dispose();
         }
+        const info={kind:'atom',label:atom.label,element:atom.element,occupancy:atom.occupancy,
+          fractional:site.fractional.map((v,i)=>v+[x,y,z][i]),unitCellFractional:site.fractional,position};
+        if(options.instanced){
+          const batchKey=`${key}:${atom.element}`;
+          if(!batches.has(batchKey))batches.set(batchKey,{key,element:atom.element,atoms:[]});
+          batches.get(batchKey).atoms.push(info);spheres++;start+=portion;continue;
+        }
         const mesh=vacancy ? new THREE.LineSegments(geometries.get(key),material(atom.element)) : new THREE.Mesh(geometries.get(key),material(atom.element));
         mesh.position.set(...position);mesh.name=`${atom.label} · ${atom.element} · ${atom.occupancy}`;
-        mesh.userData={kind:'atom',label:atom.label,element:atom.element,occupancy:atom.occupancy,
-          fractional:site.fractional.map((v,i)=>v+[x,y,z][i]),unitCellFractional:site.fractional,position};
+        mesh.userData=info;
+        if(vacancy)mesh.visible=options.showVacancies===true;
         mesh.scale.setScalar(options.radiusScale??1);group.add(mesh);spheres++;start+=portion;
       }
     }
   }
+  const matrix=new THREE.Matrix4(),scale=new THREE.Vector3().setScalar(options.radiusScale??1),rotation=new THREE.Quaternion();
+  for(const batch of batches.values()){
+    let geometry=geometries.get(batch.key),mat;
+    if(batch.element==='Vacancy'){
+      // Instanced wireframe mesh keeps vacancies visible without hundreds of
+      // separate line objects. Reuse its sphere sector, not the wire vertices.
+      const [,start,portion]=batch.key.split(':');
+      geometry=new THREE.SphereGeometry(.32,segments,rings,Number(start)*Math.PI*2,Number(portion)*Math.PI*2);
+      mat=new THREE.MeshBasicMaterial({color:'#9cabb4',wireframe:true});
+    }else mat=material(batch.element);
+    const mesh=new THREE.InstancedMesh(geometry,mat,batch.atoms.length);
+    mesh.name=`${batch.element} · ${batch.atoms.length} vị trí`;
+    mesh.userData={kind:'atom',element:batch.element};mesh.atomInstances=batch.atoms;
+    if(batch.element==='Vacancy')mesh.visible=options.showVacancies===true;
+    batch.atoms.forEach((atom,i)=>{matrix.compose(new THREE.Vector3(...atom.position),rotation,scale);mesh.setMatrixAt(i,matrix);});
+    mesh.instanceMatrix.needsUpdate=true;mesh.computeBoundingSphere();group.add(mesh);
+  }
+  // Source coordinates and source bond orders are unchanged. These rods are
+  // an explicitly labelled display layer and can be hidden independently.
+  const connections=crystalDisplayConnections(data,repeat),links=new THREE.Group();links.name='Đường nối lân cận';links.userData.kind='connections';
+  const linkGeometry=new THREE.CylinderGeometry(1,1,1,6),linkMaterial=new THREE.MeshStandardMaterial({color:'#627d89',roughness:.7});
+  const connectionBatches=new Map();
+  for(const edge of connections){const key=[...edge.elements].sort().join('-');if(!connectionBatches.has(key))connectionBatches.set(key,[]);connectionBatches.get(key).push(edge);}
+  for(const edges of connectionBatches.values()){
+    const mesh=new THREE.InstancedMesh(linkGeometry,linkMaterial,edges.length);mesh.userData={kind:'connection-batch',elements:edges[0].elements};mesh.connectionInstances=edges;
+    const yAxis=new THREE.Vector3(0,1,0);
+    edges.forEach((edge,i)=>{const a=new THREE.Vector3(...edge.from),b=new THREE.Vector3(...edge.to),delta=b.clone().sub(a);matrix.compose(a.add(b).multiplyScalar(.5),new THREE.Quaternion().setFromUnitVectors(yAxis,delta.clone().normalize()),new THREE.Vector3(.055,delta.length(),.055));mesh.setMatrixAt(i,matrix);});
+    mesh.instanceMatrix.needsUpdate=true;mesh.computeBoundingSphere();links.add(mesh);
+  }
+  if(!connections.length){linkGeometry.dispose();linkMaterial.dispose();}
+  links.visible=options.showConnections!==false;group.add(links);
   const frame=new THREE.Group();frame.name='Ô mạng và các trục a, b, c';
   const cylinder=new THREE.CylinderGeometry(1,1,1,8);
   const line=(from,to,color,radius=.018)=>{
@@ -79,13 +121,14 @@ export function buildPublishedCrystal(data, repeat=1, options={}) {
   frame.visible=options.showCell!==false;group.add(frame);
   group.position.set(...fractionalPosition(data,[-repeat/2,-repeat/2,-repeat/2]));
   group.userData={amcsdId:data.amcsdId,codId:data.codId,referenceId:data.referenceId??`amcsd:${data.amcsdId}`,evidence:data.evidence,source:data.source,formula:data.formula,cell:data.cell,spaceGroup:data.spaceGroup,reference:data.reference,repeat,
-    originalSiteCount:data.siteCount,displaySpheres:spheres,interpretation:'Published periodic atomic structure. Boundary sites repeated for viewing; sphere size/color illustrative. No specimen surface, thermal ellipsoids or invented bonds.'};
+    originalSiteCount:data.siteCount,displaySpheres:spheres,displayAtoms:occupiedSpheres,vacancySpheres:spheres-occupiedSpheres,displayConnections:connections.length,interpretation:'Published periodic atomic structure. Boundary sites repeated for viewing; sphere size/color illustrative. Rods are distance-based display neighbours, not assigned chemical bond orders.'};
+  if(options.instanced)for(const [key,geometry]of geometries)if(key.startsWith('wire:'))geometry.dispose();
   return group;
 }
 
 export function disposeCrystal(group) {
   const geometries=new Set(),materials=new Set();
-  group?.traverse(node=>{if(node.geometry)geometries.add(node.geometry);if(node.material)for(const m of Array.isArray(node.material)?node.material:[node.material])materials.add(m);});
+  group?.traverse(node=>{if(node.isInstancedMesh)node.dispose();if(node.geometry)geometries.add(node.geometry);if(node.material)for(const m of Array.isArray(node.material)?node.material:[node.material])materials.add(m);});
   geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());
 }
 
@@ -130,38 +173,57 @@ export function mountPublishedCrystal(container, meta) {
   const displayNotes = document.createElement('details'); displayNotes.className = 'crystal-display-notes';
   displayNotes.innerHTML = '<summary>Quy ước hiển thị</summary><p>Cầu và màu là ký hiệu. Phần cầu thể hiện độ chiếm chỗ; lưới tối là vị trí trống. Nguyên tử biên được lặp để khép ô. Cảnh trưng bày là minh họa; không thuộc dữ liệu cấu trúc. Không suy diễn liên kết hay mật độ electron.</p>';
   status.after(displayNotes);
-  let environment, showEnvironment = true, showAtoms = true;
+  let environment, showEnvironment = false, showAtoms = true, showConnections=true, showVacancies=false, autoRotate=false, renderNeeded=true;
   const hiddenElements = new Set();
-  let renderer,scene,camera,controls,current,data,resizeObserver,visibilityObserver,raf=0,destroyed=false,visible=true,repeat=1,showCell=true,packed=false,packingScale=1;
+  let renderer,scene,camera,controls,current,data,resizeObserver,visibilityObserver,raf=0,destroyed=false,visible=true,repeat=1,showCell=false,packed=false,packingScale=1;
+  const invalidate=()=>{renderNeeded=true;};
+  container.querySelector('[data-crystal-cell]').textContent='Hiện khung ô mạng';container.querySelector('[data-crystal-cell]').setAttribute('aria-pressed','false');
+  container.querySelector('[data-crystal-environment]').textContent='Hiện cảnh trưng bày';container.querySelector('[data-crystal-environment]').setAttribute('aria-pressed','false');
+  container.querySelector('.crystal-controls').insertAdjacentHTML('afterbegin','<button type="button" data-crystal-connections aria-pressed="true" disabled>Ẩn đường nối</button>');
+  container.querySelector('.crystal-controls').insertAdjacentHTML('beforeend','<button type="button" data-crystal-vacancies aria-pressed="false" disabled hidden>Hiện vị trí trống</button>');
+  displayNotes.innerHTML='<summary>Quy ước hiển thị</summary><p>Đường nối giúp đọc các cặp lân cận trong mạng tuần hoàn; dùng ngưỡng bán kính cộng hóa trị cho phi kim và lớp lân cận gần cho ion/kim loại. Đây không phải phép xác định bậc liên kết. Đường qua mặt ô được cắt tại biên. Cầu, màu và cảnh trưng bày là quy ước; tọa độ và độ chiếm chỗ giữ theo nguồn.</p>';
   const rotating=container.querySelector('[data-crystal-rotate]');
   const fit=()=>{
     const rect=stage.getBoundingClientRect();frameCrystal(camera,controls,current,rect.width/Math.max(rect.height,1));
+    controls?.handleResize();invalidate();
   };
-  const applyAtomVisibility = () => current?.traverse(node => { if (node.userData.kind === 'atom') node.visible = showAtoms && !hiddenElements.has(node.userData.element); });
+  const applyAtomVisibility = () => {current?.traverse(node => {
+    if (node.userData.kind === 'atom') node.visible = showAtoms && (node.userData.element!=='Vacancy'||showVacancies) && !hiddenElements.has(node.userData.element);
+    if(node.userData.kind==='connection-batch')node.visible=showAtoms&&node.userData.elements.every(e=>!hiddenElements.has(e));
+  });invalidate();};
   const rebuild=()=>{
     if(current){scene.remove(current);disposeCrystal(current);}
-    current=buildPublishedCrystal(data,repeat,{showCell,radiusScale:packed?packingScale:1});scene.add(current);fit();applyAtomVisibility();
+    current=buildPublishedCrystal(data,repeat,{instanced:true,showCell,showConnections,showVacancies,radiusScale:packed?packingScale:1});scene.add(current);fit();applyAtomVisibility();
     if(environment){scene.remove(environment);disposeCrystal(environment);}
-    environment=specimenEnvironment(current,'z');environment.visible=showEnvironment;scene.add(environment);
+    environment=showEnvironment?specimenEnvironment(current,'z'):null;if(environment)scene.add(environment);invalidate();
+    stage.dataset.displayAtoms=String(current.userData.displayAtoms);stage.dataset.displayConnections=String(current.userData.displayConnections);
+    container.querySelector('[data-crystal-vacancies]').hidden=!current.userData.vacancySpheres;
   };
   container.querySelector('[data-crystal-start]').addEventListener('click',async event=>{
     event.currentTarget.disabled=true;status.textContent='Đang tải tọa độ tinh thể…';
     try {
       const response=await fetch(meta.data);if(!response.ok)throw Error(`HTTP ${response.status}`);data=await response.json();if(destroyed)return;
-      renderer=new THREE.WebGLRenderer({antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));renderer.outputColorSpace=THREE.SRGBColorSpace;
-      scene=new THREE.Scene();scene.background=new THREE.Color('#dce8eb');scene.add(new THREE.HemisphereLight('#f2f6ff','#536f79',2));
+      renderer=new THREE.WebGLRenderer({antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.5));renderer.outputColorSpace=THREE.SRGBColorSpace;
+      scene=new THREE.Scene();scene.background=new THREE.Color('#f5fafc');scene.add(new THREE.HemisphereLight('#ffffff','#8ba5b0',2.5));
       const light=new THREE.DirectionalLight('#ffffff',2.2);light.position.set(3,6,8);scene.add(light);
-      camera=new THREE.PerspectiveCamera(36,1,.01,1000);controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.autoRotate=false;
+      camera=new THREE.PerspectiveCamera(36,1,.01,1000);controls=new TrackballControls(camera,renderer.domElement);controls.staticMoving=true;controls.rotateSpeed=2.4;controls.zoomSpeed=1.1;controls.panSpeed=.35;
+      controls.addEventListener('change',invalidate);
+      controls.addEventListener('start',()=>{autoRotate=false;renderer.setPixelRatio(1);invalidate();rotating.textContent='Tự động xoay';rotating.setAttribute('aria-pressed','false');});
+      controls.addEventListener('end',()=>{renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.5));invalidate();});
       stage.replaceChildren(renderer.domElement);
-      const raycaster=new THREE.Raycaster(),pointer=new THREE.Vector2();let pointerStart=null;
-      renderer.domElement.addEventListener('pointerdown',event=>pointerStart=[event.clientX,event.clientY]);
+      const raycaster=new THREE.Raycaster(),pointer=new THREE.Vector2();let pointerStart=null,dragged=false;
+      renderer.domElement.addEventListener('pointerdown',()=>controls.handleResize(),{capture:true});
+      renderer.domElement.addEventListener('pointermove',event=>{if(pointerStart&&Math.hypot(event.clientX-pointerStart[0],event.clientY-pointerStart[1])>5)dragged=true;});
+      renderer.domElement.addEventListener('pointerdown',event=>{pointerStart=[event.clientX,event.clientY];dragged=false;});
       renderer.domElement.addEventListener('pointerup',event=>{
-        if(!pointerStart||Math.hypot(event.clientX-pointerStart[0],event.clientY-pointerStart[1])>5)return;
+        if(!pointerStart||dragged||Math.hypot(event.clientX-pointerStart[0],event.clientY-pointerStart[1])>5){pointerStart=null;return;}pointerStart=null;
         const rect=renderer.domElement.getBoundingClientRect();pointer.set((event.clientX-rect.left)/rect.width*2-1,-(event.clientY-rect.top)/rect.height*2+1);
-        raycaster.setFromCamera(pointer,camera);const hit=raycaster.intersectObject(current,true).find(h=>h.object.visible&&h.object.userData.kind==='atom'&&h.object.userData.element!=='Vacancy');
-        if(hit){const atom=hit.object.userData,fmt=n=>Number(n).toLocaleString('vi-VN',{maximumFractionDigits:6});container.querySelector('[data-crystal-selection]').textContent=`${atom.label} · ${atom.element} · chiếm chỗ ${fmt(atom.occupancy*100)}% · phân số (${atom.fractional.map(fmt).join('; ')}) · Cartesian (${atom.position.map(fmt).join('; ')}) Å`;}
+        raycaster.setFromCamera(pointer,camera);
+        const targets=current.children.filter(n=>n.visible&&n.userData.kind==='atom'&&n.userData.element!=='Vacancy');
+        const hit=raycaster.intersectObjects(targets,false)[0];
+        if(hit){const atom=hit.object.atomInstances?.[hit.instanceId]??hit.object.userData,fmt=n=>Number(n).toLocaleString('vi-VN',{maximumFractionDigits:6});container.querySelector('[data-crystal-selection]').textContent=`${atom.label} · ${atom.element} · chiếm chỗ ${fmt(atom.occupancy*100)}% · phân số (${atom.fractional.map(fmt).join('; ')}) · Cartesian (${atom.position.map(fmt).join('; ')}) Å`;}
       });
-      resizeObserver=new ResizeObserver(()=>{const r=stage.getBoundingClientRect();renderer.setSize(Math.max(r.width,1),Math.max(r.height,1),false);camera.aspect=r.width/Math.max(r.height,1);camera.updateProjectionMatrix();});resizeObserver.observe(stage);
+      resizeObserver=new ResizeObserver(()=>{const r=stage.getBoundingClientRect();renderer.setSize(Math.max(r.width,1),Math.max(r.height,1),false);camera.aspect=r.width/Math.max(r.height,1);camera.updateProjectionMatrix();controls.handleResize();invalidate();});resizeObserver.observe(stage);
       visibilityObserver=new IntersectionObserver(entries=>visible=entries[0].isIntersecting);visibilityObserver.observe(stage);
       rebuild();
       container.querySelectorAll('.crystal-controls button').forEach(b=>b.disabled=false);
@@ -169,24 +231,32 @@ export function mountPublishedCrystal(container, meta) {
       status.textContent='Tọa độ sẵn sàng · Kéo để xoay · Cuộn để thu/phóng.';status.dataset.state='ready';
       const legend=container.querySelector('.crystal-legend');
       for(const element of Object.keys(data.cellComposition)){
-        const button=document.createElement('button');button.type='button';button.style.color=atomColor(element);button.textContent=`● ${element}`;button.title=`Ẩn/hiện nguyên tử ${element}`;button.setAttribute('aria-pressed','true');
+        const button=document.createElement('button');button.type='button';button.style.color='#224c5d';button.style.boxShadow=`inset 3px 0 ${atomColor(element)}`;button.textContent=`● ${element}`;button.title=`Ẩn/hiện nguyên tử ${element}`;button.setAttribute('aria-pressed','true');
         button.addEventListener('click',()=>{hiddenElements.has(element)?hiddenElements.delete(element):hiddenElements.add(element);button.setAttribute('aria-pressed',String(!hiddenElements.has(element)));applyAtomVisibility();});legend.append(button);
       }
       container.querySelector('[data-crystal-sites]').innerHTML=`<p>${data.asymmetricSites.length} vị trí bất đối xứng · ${data.symmetryOperations.length} phép đối xứng · ${data.mixedSiteCount} vị trí có nhiều loại nguyên tử. Trọng số thành phần trong ô: ${esc(Object.entries(data.cellComposition).map(([e,n])=>`${e}: ${n}`).join('; '))}.</p><div class="crystal-site-table"><table><thead><tr><th>Vị trí</th><th>Nguyên tố</th><th>x</th><th>y</th><th>z</th><th>Chiếm chỗ</th></tr></thead><tbody>${data.asymmetricSites.map(s=>`<tr><td>${esc(s.label)}</td><td>${esc(s.element)}</td>${s.fractional.map(v=>`<td>${v}</td>`).join('')}<td>${s.occupancy}</td></tr>`).join('')}</tbody></table></div>`;
-      const loop=()=>{if(destroyed)return;if(visible){controls.update();renderer.render(scene,camera);}raf=requestAnimationFrame(loop);};loop();
+      let lastTime=performance.now();const spinAxis=new THREE.Vector3(0,0,1);
+      const loop=now=>{if(destroyed)return;const dt=Math.min((now-lastTime)/1000,.05);lastTime=now;
+        if(visible&&document.visibilityState!=='hidden'){
+          if(autoRotate){camera.position.sub(controls.target).applyAxisAngle(spinAxis,dt*.4).add(controls.target);camera.up.applyAxisAngle(spinAxis,dt*.4);invalidate();}
+          controls.update();if(renderNeeded){renderer.render(scene,camera);stage.dataset.drawCalls=String(renderer.info.render.calls);renderNeeded=false;}
+        }raf=requestAnimationFrame(loop);
+      };raf=requestAnimationFrame(loop);
     }catch(error){if(!destroyed){status.textContent=`Không tải được mạng tinh thể: ${error.message}. Có thể tải CIF ở phần nguồn.`;container.querySelector('[data-crystal-start]')?.removeAttribute('disabled');renderer?.dispose();}}
   });
-  rotating.addEventListener('click',()=>{controls.autoRotate=!controls.autoRotate;rotating.textContent=controls.autoRotate?'Tạm dừng xoay':'Tự động xoay';rotating.setAttribute('aria-pressed',String(controls.autoRotate));});
+  rotating.addEventListener('click',()=>{autoRotate=!autoRotate;rotating.textContent=autoRotate?'Tạm dừng xoay':'Tự động xoay';rotating.setAttribute('aria-pressed',String(autoRotate));invalidate();});
+  container.querySelector('[data-crystal-connections]').addEventListener('click',event=>{showConnections=!showConnections;current.children.find(c=>c.userData.kind==='connections').visible=showConnections;event.currentTarget.textContent=showConnections?'Ẩn đường nối':'Hiện đường nối';event.currentTarget.setAttribute('aria-pressed',String(showConnections));invalidate();});
+  container.querySelector('[data-crystal-vacancies]').addEventListener('click',event=>{showVacancies=!showVacancies;applyAtomVisibility();event.currentTarget.textContent=showVacancies?'Ẩn vị trí trống':'Hiện vị trí trống';event.currentTarget.setAttribute('aria-pressed',String(showVacancies));});
   container.querySelector('[data-crystal-repeat]').addEventListener('click',event=>{repeat=repeat===1?2:1;rebuild();event.currentTarget.textContent=repeat===1?'Hiện 2 × 2 × 2 ô':'Hiện 1 ô mạng';});
   container.querySelector('[data-crystal-pack]').addEventListener('click',event=>{
     packed=!packed;if(packed)packingScale=nearestPeriodicDistance(data)/(.32*2);
     rebuild();event.currentTarget.textContent=packed?'Cầu nhỏ':'Cầu tiếp xúc';event.currentTarget.setAttribute('aria-pressed',String(packed));
     container.querySelector('[data-crystal-selection]').textContent=packed?'Cầu tiếp xúc có bán kính bằng nửa khoảng cách láng giềng gần nhất trong mạng tuần hoàn; đây là mô hình đóng gói, không phải mật độ electron.':'Chọn một nguyên tử để xem tọa độ và độ chiếm chỗ.';
   });
-  container.querySelector('[data-crystal-cell]').addEventListener('click',event=>{showCell=!showCell;current.children.find(c=>c.name==='Ô mạng và các trục a, b, c').visible=showCell;event.currentTarget.textContent=showCell?'Ẩn khung ô mạng':'Hiện khung ô mạng';event.currentTarget.setAttribute('aria-pressed',String(showCell));});
+  container.querySelector('[data-crystal-cell]').addEventListener('click',event=>{showCell=!showCell;current.children.find(c=>c.name==='Ô mạng và các trục a, b, c').visible=showCell;event.currentTarget.textContent=showCell?'Ẩn khung ô mạng':'Hiện khung ô mạng';event.currentTarget.setAttribute('aria-pressed',String(showCell));invalidate();});
   container.querySelector('[data-crystal-reset]').addEventListener('click',fit);
   container.querySelector('[data-crystal-atoms]').addEventListener('click',event=>{showAtoms=!showAtoms;applyAtomVisibility();event.currentTarget.textContent=showAtoms?'Ẩn nguyên tử':'Hiện nguyên tử';event.currentTarget.setAttribute('aria-pressed',String(showAtoms));});
-  container.querySelector('[data-crystal-environment]').addEventListener('click',event=>{showEnvironment=!showEnvironment;if(environment)environment.visible=showEnvironment;scene.background.set(showEnvironment?'#dce8eb':'#0c1520');event.currentTarget.textContent=showEnvironment?'Ẩn cảnh trưng bày':'Hiện cảnh trưng bày';event.currentTarget.setAttribute('aria-pressed',String(showEnvironment));});
+  container.querySelector('[data-crystal-environment]').addEventListener('click',event=>{showEnvironment=!showEnvironment;if(showEnvironment&&!environment){environment=specimenEnvironment(current,'z');scene.add(environment);}if(environment)environment.visible=showEnvironment;event.currentTarget.textContent=showEnvironment?'Ẩn cảnh trưng bày':'Hiện cảnh trưng bày';event.currentTarget.setAttribute('aria-pressed',String(showEnvironment));invalidate();});
   container.querySelector('[data-crystal-fullscreen]').addEventListener('click',()=>{stage.requestFullscreen?.().catch(()=>{});});
   return {destroy(){destroyed=true;cancelAnimationFrame(raf);resizeObserver?.disconnect();visibilityObserver?.disconnect();controls?.dispose();disposeCrystal(current);disposeCrystal(environment);renderer?.dispose();container.replaceChildren();}};
 }

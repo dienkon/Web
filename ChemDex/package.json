@@ -29,7 +29,7 @@
     "catalog:build": "node scripts/build-reaction-data.mjs",
     "catalog:audit": "node scripts/audit-reaction-catalog.mjs",
     "test:reactions": "node --test tests/reaction-catalog.test.mjs tests/reaction-chain-api.test.mjs",
-    "test:crystals": "node --test tests/crystal-structures.test.mjs",
+    "test:crystals": "node --test tests/crystal-structures.test.mjs tests/crystal-display.test.mjs",
     "crystals:render": "node scripts/generate-crystal-assets.mjs && node scripts/render-mineral-previews.mjs --crystals"
   },
   "dependencies": {

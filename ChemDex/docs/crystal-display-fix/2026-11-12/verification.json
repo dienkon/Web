@@ -1,0 +1,13 @@
+{
+  "date":"2026-11-12",
+  "structuresAudited":306,
+  "glbPreviewsRendered":306,
+  "scientificSourceChanges":{"cif":0,"coordinateJson":0},
+  "nodeTests":{"passed":28,"failed":0},
+  "browserTests":{"project":"chromium","passed":8,"failed":0,"durationSeconds":47.9},
+  "builds":{"library":true,"static":true,"libraryTypecheck":true},
+  "defaults":{"brightBackground":true,"connections":true,"unitCellFrame":false,"vacancyWires":false,"studio":false},
+  "interaction":{"controls":"TrackballControls","poleLock":false,"touchRotationTested":true,"instancePickingTested":true,"idleRendering":false},
+  "denseModel":{"id":"cod-4504310","repeat":2,"atomicPositions":6144,"oldUnbatchedDrawables":10782,"newVisibleDrawables":23,"note":"Retains all atomic positions and partial occupancy. Vacancies are not atoms; their optional wire overlays are hidden by default. This is not a cross-device FPS claim."},
+  "deployment":{"pushed":false,"deployed":false}
+}

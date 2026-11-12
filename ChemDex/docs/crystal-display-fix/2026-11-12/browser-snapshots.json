@@ -1,0 +1,23 @@
+{
+  "models": [
+    {
+      "id": "crystal-nacl",
+      "displayAtoms": 27,
+      "connections": 54,
+      "drawCalls": 3
+    },
+    {
+      "id": "atom-Si",
+      "displayAtoms": 95,
+      "connections": 128,
+      "drawCalls": 2
+    },
+    {
+      "id": "cid-2519",
+      "displayAtoms": 768,
+      "connections": 1482,
+      "drawCalls": 23
+    }
+  ],
+  "errors": []
+}

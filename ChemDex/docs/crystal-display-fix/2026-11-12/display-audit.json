@@ -1,0 +1,2154 @@
+{
+  "structures": [
+    {
+      "id": "beryl",
+      "sourceSites": 58,
+      "displayAtoms": 74,
+      "connections": 120,
+      "visibleDrawables": 7
+    },
+    {
+      "id": "borax",
+      "sourceSites": 172,
+      "displayAtoms": 187,
+      "connections": 208,
+      "visibleDrawables": 7
+    },
+    {
+      "id": "graphite",
+      "sourceSites": 4,
+      "displayAtoms": 10,
+      "connections": 6,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "fluorite",
+      "sourceSites": 12,
+      "displayAtoms": 22,
+      "connections": 32,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "halite",
+      "sourceSites": 8,
+      "displayAtoms": 27,
+      "connections": 54,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "magnesite",
+      "sourceSites": 30,
+      "displayAtoms": 50,
+      "connections": 66,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "gibbsite",
+      "sourceSites": 56,
+      "displayAtoms": 56,
+      "connections": 102,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "boehmite",
+      "sourceSites": 20,
+      "displayAtoms": 30,
+      "connections": 46,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "diaspore",
+      "sourceSites": 16,
+      "displayAtoms": 16,
+      "connections": 44,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "quartz",
+      "sourceSites": 9,
+      "displayAtoms": 13,
+      "connections": 12,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "apatite",
+      "sourceSites": 42,
+      "displayAtoms": 48,
+      "connections": 136,
+      "visibleDrawables": 7
+    },
+    {
+      "id": "sulfur",
+      "sourceSites": 128,
+      "displayAtoms": 128,
+      "connections": 168,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "sylvite",
+      "sourceSites": 8,
+      "displayAtoms": 27,
+      "connections": 54,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "calcite",
+      "sourceSites": 30,
+      "displayAtoms": 50,
+      "connections": 66,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "thortveitite",
+      "sourceSites": 22,
+      "displayAtoms": 48,
+      "connections": 50,
+      "visibleDrawables": 7
+    },
+    {
+      "id": "rutile",
+      "sourceSites": 6,
+      "displayAtoms": 33,
+      "connections": 14,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "vanadinite",
+      "sourceSites": 42,
+      "displayAtoms": 52,
+      "connections": 132,
+      "visibleDrawables": 7
+    },
+    {
+      "id": "chromite",
+      "sourceSites": 56,
+      "displayAtoms": 219,
+      "connections": 146,
+      "visibleDrawables": 12
+    },
+    {
+      "id": "pyrolusite",
+      "sourceSites": 6,
+      "displayAtoms": 15,
+      "connections": 14,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "hematite",
+      "sourceSites": 30,
+      "displayAtoms": 46,
+      "connections": 94,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "cobaltite",
+      "sourceSites": 12,
+      "displayAtoms": 14,
+      "connections": 42,
+      "visibleDrawables": 6
+    },
+    {
+      "id": "pentlandite",
+      "sourceSites": 68,
+      "displayAtoms": 197,
+      "connections": 182,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "chalcopyrite",
+      "sourceSites": 16,
+      "displayAtoms": 31,
+      "connections": 32,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "sphalerite",
+      "sourceSites": 8,
+      "displayAtoms": 18,
+      "connections": 16,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "germanite",
+      "sourceSites": 66,
+      "displayAtoms": 111,
+      "connections": 136,
+      "visibleDrawables": 6
+    },
+    {
+      "id": "arsenopyrite",
+      "sourceSites": 12,
+      "displayAtoms": 14,
+      "connections": 38,
+      "visibleDrawables": 6
+    },
+    {
+      "id": "clausthalite",
+      "sourceSites": 8,
+      "displayAtoms": 27,
+      "connections": 54,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "lepidolite",
+      "sourceSites": 60,
+      "displayAtoms": 87,
+      "connections": 188,
+      "visibleDrawables": 17
+    },
+    {
+      "id": "celestine",
+      "sourceSites": 24,
+      "displayAtoms": 24,
+      "connections": 82,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "xenotime",
+      "sourceSites": 24,
+      "displayAtoms": 32,
+      "connections": 78,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "zircon",
+      "sourceSites": 24,
+      "displayAtoms": 32,
+      "connections": 78,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "columbite",
+      "sourceSites": 36,
+      "displayAtoms": 66,
+      "connections": 96,
+      "visibleDrawables": 8
+    },
+    {
+      "id": "molybdenite",
+      "sourceSites": 6,
+      "displayAtoms": 6,
+      "connections": 20,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "laurite",
+      "sourceSites": 12,
+      "displayAtoms": 22,
+      "connections": 31,
+      "visibleDrawables": 4
+    },
+    {
+      "id": "native-platinum",
+      "sourceSites": 4,
+      "displayAtoms": 14,
+      "connections": 36,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "acanthite",
+      "sourceSites": 12,
+      "displayAtoms": 12,
+      "connections": 40,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "cassiterite",
+      "sourceSites": 6,
+      "displayAtoms": 15,
+      "connections": 14,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "stibnite",
+      "sourceSites": 20,
+      "displayAtoms": 20,
+      "connections": 50,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "calaverite",
+      "sourceSites": 6,
+      "displayAtoms": 26,
+      "connections": 18,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "pollucite",
+      "sourceSites": 160,
+      "displayAtoms": 224,
+      "connections": 576,
+      "visibleDrawables": 8
+    },
+    {
+      "id": "barite",
+      "sourceSites": 24,
+      "displayAtoms": 24,
+      "connections": 94,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "monazite",
+      "sourceSites": 24,
+      "displayAtoms": 24,
+      "connections": 74,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "tantalite",
+      "sourceSites": 36,
+      "displayAtoms": 52,
+      "connections": 96,
+      "visibleDrawables": 7
+    },
+    {
+      "id": "scheelite",
+      "sourceSites": 24,
+      "displayAtoms": 28,
+      "connections": 64,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "native-gold",
+      "sourceSites": 4,
+      "displayAtoms": 14,
+      "connections": 36,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "cinnabar",
+      "sourceSites": 6,
+      "displayAtoms": 11,
+      "connections": 6,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "galena",
+      "sourceSites": 8,
+      "displayAtoms": 27,
+      "connections": 54,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "bismuthinite",
+      "sourceSites": 20,
+      "displayAtoms": 20,
+      "connections": 74,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "uraninite",
+      "sourceSites": 12,
+      "displayAtoms": 22,
+      "connections": 32,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "thorite",
+      "sourceSites": 24,
+      "displayAtoms": 32,
+      "connections": 78,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "spodumene",
+      "sourceSites": 40,
+      "displayAtoms": 44,
+      "connections": 100,
+      "visibleDrawables": 7
+    },
+    {
+      "id": "nguyen-to-li",
+      "sourceSites": 2,
+      "displayAtoms": 9,
+      "connections": 8,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-be",
+      "sourceSites": 2,
+      "displayAtoms": 2,
+      "connections": 26,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-b",
+      "sourceSites": 36,
+      "displayAtoms": 36,
+      "connections": 149,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-c",
+      "sourceSites": 4,
+      "displayAtoms": 10,
+      "connections": 6,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-na",
+      "sourceSites": 2,
+      "displayAtoms": 9,
+      "connections": 8,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-mg",
+      "sourceSites": 2,
+      "displayAtoms": 2,
+      "connections": 26,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-al",
+      "sourceSites": 4,
+      "displayAtoms": 14,
+      "connections": 36,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-si",
+      "sourceSites": 8,
+      "displayAtoms": 18,
+      "connections": 16,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-p",
+      "sourceSites": 8,
+      "displayAtoms": 12,
+      "connections": 18,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-s",
+      "sourceSites": 128,
+      "displayAtoms": 128,
+      "connections": 168,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-k",
+      "sourceSites": 2,
+      "displayAtoms": 9,
+      "connections": 8,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-ca",
+      "sourceSites": 4,
+      "displayAtoms": 14,
+      "connections": 36,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-sc",
+      "sourceSites": 2,
+      "displayAtoms": 2,
+      "connections": 26,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-ti",
+      "sourceSites": 2,
+      "displayAtoms": 2,
+      "connections": 26,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-v",
+      "sourceSites": 2,
+      "displayAtoms": 9,
+      "connections": 8,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-cr",
+      "sourceSites": 2,
+      "displayAtoms": 9,
+      "connections": 8,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-fe",
+      "sourceSites": 2,
+      "displayAtoms": 9,
+      "connections": 8,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-co",
+      "sourceSites": 2,
+      "displayAtoms": 2,
+      "connections": 26,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-ni",
+      "sourceSites": 4,
+      "displayAtoms": 14,
+      "connections": 36,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-cu",
+      "sourceSites": 4,
+      "displayAtoms": 14,
+      "connections": 36,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-zn",
+      "sourceSites": 2,
+      "displayAtoms": 2,
+      "connections": 14,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-ga",
+      "sourceSites": 8,
+      "displayAtoms": 12,
+      "connections": 10,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-ge",
+      "sourceSites": 8,
+      "displayAtoms": 18,
+      "connections": 16,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-as",
+      "sourceSites": 6,
+      "displayAtoms": 12,
+      "connections": 11,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-se",
+      "sourceSites": 3,
+      "displayAtoms": 6,
+      "connections": 5,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-rb",
+      "sourceSites": 2,
+      "displayAtoms": 9,
+      "connections": 8,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-sr",
+      "sourceSites": 4,
+      "displayAtoms": 14,
+      "connections": 36,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-y",
+      "sourceSites": 2,
+      "displayAtoms": 2,
+      "connections": 26,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-zr",
+      "sourceSites": 2,
+      "displayAtoms": 2,
+      "connections": 26,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-nb",
+      "sourceSites": 2,
+      "displayAtoms": 9,
+      "connections": 8,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-mo",
+      "sourceSites": 2,
+      "displayAtoms": 9,
+      "connections": 8,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-ru",
+      "sourceSites": 2,
+      "displayAtoms": 2,
+      "connections": 26,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-rh",
+      "sourceSites": 4,
+      "displayAtoms": 14,
+      "connections": 36,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-pd",
+      "sourceSites": 4,
+      "displayAtoms": 14,
+      "connections": 36,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-ag",
+      "sourceSites": 4,
+      "displayAtoms": 14,
+      "connections": 36,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-cd",
+      "sourceSites": 2,
+      "displayAtoms": 2,
+      "connections": 14,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-in",
+      "sourceSites": 2,
+      "displayAtoms": 9,
+      "connections": 20,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-sn",
+      "sourceSites": 4,
+      "displayAtoms": 13,
+      "connections": 26,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-sb",
+      "sourceSites": 6,
+      "displayAtoms": 12,
+      "connections": 11,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-te",
+      "sourceSites": 3,
+      "displayAtoms": 5,
+      "connections": 6,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-i",
+      "sourceSites": 8,
+      "displayAtoms": 12,
+      "connections": 10,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-cs",
+      "sourceSites": 2,
+      "displayAtoms": 9,
+      "connections": 8,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-ba",
+      "sourceSites": 2,
+      "displayAtoms": 9,
+      "connections": 8,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-la",
+      "sourceSites": 4,
+      "displayAtoms": 14,
+      "connections": 41,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-ce",
+      "sourceSites": 4,
+      "displayAtoms": 14,
+      "connections": 36,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-pr",
+      "sourceSites": 4,
+      "displayAtoms": 14,
+      "connections": 41,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-nd",
+      "sourceSites": 4,
+      "displayAtoms": 14,
+      "connections": 41,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-sm",
+      "sourceSites": 3,
+      "displayAtoms": 10,
+      "connections": 36,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-eu",
+      "sourceSites": 2,
+      "displayAtoms": 9,
+      "connections": 8,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-gd",
+      "sourceSites": 2,
+      "displayAtoms": 2,
+      "connections": 26,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-tb",
+      "sourceSites": 2,
+      "displayAtoms": 2,
+      "connections": 26,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-dy",
+      "sourceSites": 2,
+      "displayAtoms": 2,
+      "connections": 26,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-ho",
+      "sourceSites": 2,
+      "displayAtoms": 2,
+      "connections": 26,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-er",
+      "sourceSites": 2,
+      "displayAtoms": 2,
+      "connections": 26,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-tm",
+      "sourceSites": 2,
+      "displayAtoms": 2,
+      "connections": 26,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-yb",
+      "sourceSites": 4,
+      "displayAtoms": 14,
+      "connections": 36,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-lu",
+      "sourceSites": 2,
+      "displayAtoms": 2,
+      "connections": 26,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-hf",
+      "sourceSites": 2,
+      "displayAtoms": 2,
+      "connections": 26,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-ta",
+      "sourceSites": 2,
+      "displayAtoms": 9,
+      "connections": 8,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-w",
+      "sourceSites": 2,
+      "displayAtoms": 9,
+      "connections": 8,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-re",
+      "sourceSites": 2,
+      "displayAtoms": 2,
+      "connections": 26,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-os",
+      "sourceSites": 2,
+      "displayAtoms": 2,
+      "connections": 26,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-ir",
+      "sourceSites": 4,
+      "displayAtoms": 14,
+      "connections": 36,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-pt",
+      "sourceSites": 4,
+      "displayAtoms": 14,
+      "connections": 36,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-au",
+      "sourceSites": 4,
+      "displayAtoms": 14,
+      "connections": 36,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-tl",
+      "sourceSites": 2,
+      "displayAtoms": 2,
+      "connections": 26,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-pb",
+      "sourceSites": 4,
+      "displayAtoms": 14,
+      "connections": 36,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-bi",
+      "sourceSites": 6,
+      "displayAtoms": 12,
+      "connections": 11,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-ac",
+      "sourceSites": 4,
+      "displayAtoms": 14,
+      "connections": 36,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-th",
+      "sourceSites": 4,
+      "displayAtoms": 14,
+      "connections": 36,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-u",
+      "sourceSites": 4,
+      "displayAtoms": 6,
+      "connections": 17,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-mn",
+      "sourceSites": 58,
+      "displayAtoms": 65,
+      "connections": 230,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-np",
+      "sourceSites": 8,
+      "displayAtoms": 8,
+      "connections": 26,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-pu",
+      "sourceSites": 16,
+      "displayAtoms": 16,
+      "connections": 52,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-am",
+      "sourceSites": 4,
+      "displayAtoms": 14,
+      "connections": 41,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-tc",
+      "sourceSites": 2,
+      "displayAtoms": 2,
+      "connections": 25,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-pm",
+      "sourceSites": 4,
+      "displayAtoms": 14,
+      "connections": 41,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-ra",
+      "sourceSites": 2,
+      "displayAtoms": 9,
+      "connections": 8,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-pa",
+      "sourceSites": 2,
+      "displayAtoms": 9,
+      "connections": 14,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-po",
+      "sourceSites": 1,
+      "displayAtoms": 8,
+      "connections": 12,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-cm",
+      "sourceSites": 4,
+      "displayAtoms": 14,
+      "connections": 41,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "nguyen-to-bk",
+      "sourceSites": 4,
+      "displayAtoms": 14,
+      "connections": 41,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "chat-cuprite",
+      "sourceSites": 6,
+      "displayAtoms": 13,
+      "connections": 8,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-tenorite",
+      "sourceSites": 8,
+      "displayAtoms": 12,
+      "connections": 20,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-corundum",
+      "sourceSites": 30,
+      "displayAtoms": 46,
+      "connections": 94,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-periclase",
+      "sourceSites": 8,
+      "displayAtoms": 27,
+      "connections": 54,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-zincite",
+      "sourceSites": 4,
+      "displayAtoms": 5,
+      "connections": 12,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-portlandite",
+      "sourceSites": 5,
+      "displayAtoms": 12,
+      "connections": 8,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "chat-nitratine",
+      "sourceSites": 30,
+      "displayAtoms": 50,
+      "connections": 66,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "chat-niter",
+      "sourceSites": 20,
+      "displayAtoms": 20,
+      "connections": 90,
+      "visibleDrawables": 6
+    },
+    {
+      "id": "chat-sassolite",
+      "sourceSites": 28,
+      "displayAtoms": 28,
+      "connections": 26,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "chat-chalcanthite",
+      "sourceSites": 42,
+      "displayAtoms": 50,
+      "connections": 42,
+      "visibleDrawables": 7
+    },
+    {
+      "id": "chat-siderite",
+      "sourceSites": 30,
+      "displayAtoms": 50,
+      "connections": 66,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "chat-cerussite",
+      "sourceSites": 20,
+      "displayAtoms": 20,
+      "connections": 90,
+      "visibleDrawables": 6
+    },
+    {
+      "id": "chat-anglesite",
+      "sourceSites": 24,
+      "displayAtoms": 24,
+      "connections": 82,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "chat-witherite",
+      "sourceSites": 20,
+      "displayAtoms": 20,
+      "connections": 90,
+      "visibleDrawables": 6
+    },
+    {
+      "id": "chat-strontianite",
+      "sourceSites": 20,
+      "displayAtoms": 20,
+      "connections": 90,
+      "visibleDrawables": 6
+    },
+    {
+      "id": "chat-massicot",
+      "sourceSites": 8,
+      "displayAtoms": 8,
+      "connections": 26,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-bunsenite",
+      "sourceSites": 8,
+      "displayAtoms": 27,
+      "connections": 54,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-otavite",
+      "sourceSites": 30,
+      "displayAtoms": 50,
+      "connections": 66,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "chat-greenockite",
+      "sourceSites": 4,
+      "displayAtoms": 5,
+      "connections": 12,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-arcanite",
+      "sourceSites": 28,
+      "displayAtoms": 28,
+      "connections": 138,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "chat-thenardite",
+      "sourceSites": 56,
+      "displayAtoms": 56,
+      "connections": 176,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "chat-anhydrite",
+      "sourceSites": 24,
+      "displayAtoms": 32,
+      "connections": 74,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "chat-sellaite",
+      "sourceSites": 6,
+      "displayAtoms": 15,
+      "connections": 14,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-villiaumite",
+      "sourceSites": 8,
+      "displayAtoms": 27,
+      "connections": 54,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-lime",
+      "sourceSites": 8,
+      "displayAtoms": 27,
+      "connections": 54,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-sodium-bromide",
+      "sourceSites": 8,
+      "displayAtoms": 27,
+      "connections": 54,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-potassium-bromide",
+      "sourceSites": 8,
+      "displayAtoms": 27,
+      "connections": 54,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-lithium-chloride",
+      "sourceSites": 8,
+      "displayAtoms": 27,
+      "connections": 54,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-hydrophilite",
+      "sourceSites": 6,
+      "displayAtoms": 15,
+      "connections": 14,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-tolbachite",
+      "sourceSites": 6,
+      "displayAtoms": 16,
+      "connections": 8,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-molysite",
+      "sourceSites": 24,
+      "displayAtoms": 36,
+      "connections": 36,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-salammoniac",
+      "sourceSites": 10,
+      "displayAtoms": 17,
+      "connections": 8,
+      "visibleDrawables": 4
+    },
+    {
+      "id": "chat-lopezite",
+      "sourceSites": 44,
+      "displayAtoms": 44,
+      "connections": 134,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "chat-lead-iodide",
+      "sourceSites": 3,
+      "displayAtoms": 10,
+      "connections": 6,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-chalcocyanite",
+      "sourceSites": 24,
+      "displayAtoms": 35,
+      "connections": 34,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "chat-silver-chloride",
+      "sourceSites": 8,
+      "displayAtoms": 27,
+      "connections": 54,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-silver-bromide",
+      "sourceSites": 8,
+      "displayAtoms": 27,
+      "connections": 54,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-silver-iodide",
+      "sourceSites": 4,
+      "displayAtoms": 20,
+      "connections": 8,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-covellite",
+      "sourceSites": 12,
+      "displayAtoms": 24,
+      "connections": 38,
+      "visibleDrawables": 4
+    },
+    {
+      "id": "chat-rhodochrosite",
+      "sourceSites": 30,
+      "displayAtoms": 50,
+      "connections": 66,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "chat-smithsonite",
+      "sourceSites": 30,
+      "displayAtoms": 50,
+      "connections": 66,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "chat-brucite",
+      "sourceSites": 5,
+      "displayAtoms": 12,
+      "connections": 8,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "chat-troilite",
+      "sourceSites": 24,
+      "displayAtoms": 34,
+      "connections": 110,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-kalicinite",
+      "sourceSites": 24,
+      "displayAtoms": 24,
+      "connections": 84,
+      "visibleDrawables": 8
+    },
+    {
+      "id": "chat-millerite",
+      "sourceSites": 18,
+      "displayAtoms": 21,
+      "connections": 67,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-melanterite",
+      "sourceSites": 108,
+      "displayAtoms": 118,
+      "connections": 110,
+      "visibleDrawables": 7
+    },
+    {
+      "id": "chat-tuite",
+      "sourceSites": 39,
+      "displayAtoms": 64,
+      "connections": 140,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "chat-alabandite",
+      "sourceSites": 8,
+      "displayAtoms": 27,
+      "connections": 54,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-manganosite",
+      "sourceSites": 8,
+      "displayAtoms": 27,
+      "connections": 54,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-monteponite",
+      "sourceSites": 8,
+      "displayAtoms": 27,
+      "connections": 54,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-solid-sulfur-dioxide",
+      "sourceSites": 12,
+      "displayAtoms": 22,
+      "connections": 8,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-polymeric-sulfur-trioxide",
+      "sourceSites": 16,
+      "displayAtoms": 16,
+      "connections": 24,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-zincosite",
+      "sourceSites": 24,
+      "displayAtoms": 35,
+      "connections": 42,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "chat-magnesium-sulfate",
+      "sourceSites": 24,
+      "displayAtoms": 41,
+      "connections": 48,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "chat-nahcolite",
+      "sourceSites": 24,
+      "displayAtoms": 26,
+      "connections": 58,
+      "visibleDrawables": 7
+    },
+    {
+      "id": "chat-crocoite",
+      "sourceSites": 24,
+      "displayAtoms": 24,
+      "connections": 70,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "chat-retgersite",
+      "sourceSites": 96,
+      "displayAtoms": 98,
+      "connections": 108,
+      "visibleDrawables": 7
+    },
+    {
+      "id": "chat-acetamide",
+      "sourceSites": 162,
+      "displayAtoms": 162,
+      "connections": 178,
+      "visibleDrawables": 9
+    },
+    {
+      "id": "chat-tarapacaite",
+      "sourceSites": 28,
+      "displayAtoms": 28,
+      "connections": 138,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "chat-silver-carbonate",
+      "sourceSites": 12,
+      "displayAtoms": 12,
+      "connections": 28,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "chat-dry-ice",
+      "sourceSites": 12,
+      "displayAtoms": 22,
+      "connections": 8,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-natrite",
+      "sourceSites": 24,
+      "displayAtoms": 41,
+      "connections": 124,
+      "visibleDrawables": 6
+    },
+    {
+      "id": "chat-barium-nitrate",
+      "sourceSites": 36,
+      "displayAtoms": 46,
+      "connections": 96,
+      "visibleDrawables": 6
+    },
+    {
+      "id": "chat-strontium-nitrate",
+      "sourceSites": 36,
+      "displayAtoms": 46,
+      "connections": 96,
+      "visibleDrawables": 6
+    },
+    {
+      "id": "chat-spertiniite",
+      "sourceSites": 20,
+      "displayAtoms": 30,
+      "connections": 28,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "chat-ferrous-sulfate-beta",
+      "sourceSites": 24,
+      "displayAtoms": 35,
+      "connections": 42,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "chat-nickel-bromide",
+      "sourceSites": 9,
+      "displayAtoms": 22,
+      "connections": 22,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-nickel-iodide",
+      "sourceSites": 9,
+      "displayAtoms": 22,
+      "connections": 22,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-potassium-sulfide",
+      "sourceSites": 12,
+      "displayAtoms": 22,
+      "connections": 32,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-cobalt-chloride",
+      "sourceSites": 3,
+      "displayAtoms": 10,
+      "connections": 6,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-ammonium-nitrate-v",
+      "sourceSites": 72,
+      "displayAtoms": 82,
+      "connections": 64,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "chat-eskolaite",
+      "sourceSites": 30,
+      "displayAtoms": 46,
+      "connections": 94,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-tin-sulfate",
+      "sourceSites": 24,
+      "displayAtoms": 24,
+      "connections": 36,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "chat-strontium-iodide",
+      "sourceSites": 24,
+      "displayAtoms": 24,
+      "connections": 88,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-ferric-sulfate-monoclinic",
+      "sourceSites": 68,
+      "displayAtoms": 68,
+      "connections": 124,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "chat-ferric-sulfate-rhombohedral",
+      "sourceSites": 102,
+      "displayAtoms": 114,
+      "connections": 170,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "chat-silver-phosphate",
+      "sourceSites": 16,
+      "displayAtoms": 29,
+      "connections": 32,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "chat-zabuyelite",
+      "sourceSites": 24,
+      "displayAtoms": 28,
+      "connections": 62,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "chat-urea",
+      "sourceSites": 16,
+      "displayAtoms": 20,
+      "connections": 20,
+      "visibleDrawables": 7
+    },
+    {
+      "id": "chat-aluminium-sulfate",
+      "sourceSites": 102,
+      "displayAtoms": 114,
+      "connections": 170,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "chat-chromium-sulfate",
+      "sourceSites": 102,
+      "displayAtoms": 114,
+      "connections": 170,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "chat-solid-argon",
+      "sourceSites": 4,
+      "displayAtoms": 14,
+      "connections": 36,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "chat-solid-krypton",
+      "sourceSites": 4,
+      "displayAtoms": 14,
+      "connections": 36,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "chat-solid-neon",
+      "sourceSites": 4,
+      "displayAtoms": 14,
+      "connections": 36,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "chat-solid-xenon",
+      "sourceSites": 4,
+      "displayAtoms": 14,
+      "connections": 36,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "chat-solid-helium",
+      "sourceSites": 2,
+      "displayAtoms": 2,
+      "connections": 26,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "chat-solid-nitrogen-alpha",
+      "sourceSites": 8,
+      "displayAtoms": 8,
+      "connections": 8,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "chat-solid-chlorine",
+      "sourceSites": 8,
+      "displayAtoms": 12,
+      "connections": 10,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "chat-solid-bromine",
+      "sourceSites": 8,
+      "displayAtoms": 12,
+      "connections": 10,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "chat-barium-oxide",
+      "sourceSites": 8,
+      "displayAtoms": 27,
+      "connections": 54,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-cobalt-oxide",
+      "sourceSites": 8,
+      "displayAtoms": 27,
+      "connections": 54,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-cesium-chloride",
+      "sourceSites": 2,
+      "displayAtoms": 9,
+      "connections": 8,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-wustite-reference",
+      "sourceSites": 8,
+      "displayAtoms": 27,
+      "connections": 54,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-potassium-fluoride",
+      "sourceSites": 8,
+      "displayAtoms": 27,
+      "connections": 54,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-potassium-iodide",
+      "sourceSites": 8,
+      "displayAtoms": 27,
+      "connections": 54,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-lithium-bromide",
+      "sourceSites": 8,
+      "displayAtoms": 27,
+      "connections": 54,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-lithium-fluoride",
+      "sourceSites": 8,
+      "displayAtoms": 27,
+      "connections": 54,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-lithium-iodide",
+      "sourceSites": 8,
+      "displayAtoms": 27,
+      "connections": 54,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-sodium-iodide",
+      "sourceSites": 8,
+      "displayAtoms": 27,
+      "connections": 54,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-strontium-oxide",
+      "sourceSites": 8,
+      "displayAtoms": 27,
+      "connections": 54,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-cobalt-sulfide",
+      "sourceSites": 4,
+      "displayAtoms": 14,
+      "connections": 12,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-lithium-hydroxide",
+      "sourceSites": 6,
+      "displayAtoms": 18,
+      "connections": 16,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "chat-barium-chloride",
+      "sourceSites": 12,
+      "displayAtoms": 22,
+      "connections": 32,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-frankdicksonite",
+      "sourceSites": 12,
+      "displayAtoms": 22,
+      "connections": 32,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-lead-fluoride-beta",
+      "sourceSites": 12,
+      "displayAtoms": 22,
+      "connections": 32,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-strontium-chloride",
+      "sourceSites": 12,
+      "displayAtoms": 22,
+      "connections": 32,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-strontium-fluoride",
+      "sourceSites": 12,
+      "displayAtoms": 22,
+      "connections": 32,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-potassium-oxide",
+      "sourceSites": 12,
+      "displayAtoms": 22,
+      "connections": 32,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-lithium-oxide",
+      "sourceSites": 12,
+      "displayAtoms": 22,
+      "connections": 32,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-sodium-oxide",
+      "sourceSites": 12,
+      "displayAtoms": 22,
+      "connections": 32,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-sodium-sulfide",
+      "sourceSites": 12,
+      "displayAtoms": 22,
+      "connections": 32,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-calcium-iodide",
+      "sourceSites": 3,
+      "displayAtoms": 10,
+      "connections": 6,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-cobalt-bromide",
+      "sourceSites": 3,
+      "displayAtoms": 10,
+      "connections": 6,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-cobalt-iodide",
+      "sourceSites": 3,
+      "displayAtoms": 10,
+      "connections": 6,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-ferrous-bromide",
+      "sourceSites": 3,
+      "displayAtoms": 10,
+      "connections": 6,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-ferrous-iodide",
+      "sourceSites": 3,
+      "displayAtoms": 10,
+      "connections": 6,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-magnesium-bromide",
+      "sourceSites": 3,
+      "displayAtoms": 10,
+      "connections": 6,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-magnesium-iodide",
+      "sourceSites": 3,
+      "displayAtoms": 10,
+      "connections": 6,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-manganese-bromide",
+      "sourceSites": 3,
+      "displayAtoms": 10,
+      "connections": 6,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-manganese-iodide",
+      "sourceSites": 3,
+      "displayAtoms": 10,
+      "connections": 6,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-zinc-iodide",
+      "sourceSites": 3,
+      "displayAtoms": 10,
+      "connections": 6,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-cadmium-bromide",
+      "sourceSites": 9,
+      "displayAtoms": 22,
+      "connections": 22,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-cadmium-chloride",
+      "sourceSites": 3,
+      "displayAtoms": 10,
+      "connections": 6,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-ferrous-chloride",
+      "sourceSites": 9,
+      "displayAtoms": 22,
+      "connections": 22,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-magnesium-chloride",
+      "sourceSites": 9,
+      "displayAtoms": 22,
+      "connections": 22,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-manganese-chloride",
+      "sourceSites": 9,
+      "displayAtoms": 22,
+      "connections": 22,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-nickel-chloride",
+      "sourceSites": 9,
+      "displayAtoms": 22,
+      "connections": 22,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-zinc-bromide",
+      "sourceSites": 9,
+      "displayAtoms": 22,
+      "connections": 22,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-zinc-chloride",
+      "sourceSites": 9,
+      "displayAtoms": 22,
+      "connections": 22,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-cadmium-iodide",
+      "sourceSites": 6,
+      "displayAtoms": 13,
+      "connections": 16,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-cotunnite",
+      "sourceSites": 12,
+      "displayAtoms": 12,
+      "connections": 48,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-lead-bromide",
+      "sourceSites": 24,
+      "displayAtoms": 36,
+      "connections": 56,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-strontium-bromide",
+      "sourceSites": 12,
+      "displayAtoms": 12,
+      "connections": 44,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-solid-fluorine-alpha",
+      "sourceSites": 8,
+      "displayAtoms": 12,
+      "connections": 11,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "chat-ammonium-sulfate",
+      "sourceSites": 60,
+      "displayAtoms": 60,
+      "connections": 52,
+      "visibleDrawables": 6
+    },
+    {
+      "id": "chat-potassium-carbonate",
+      "sourceSites": 24,
+      "displayAtoms": 24,
+      "connections": 134,
+      "visibleDrawables": 6
+    },
+    {
+      "id": "chat-disodium-hydrogen-phosphate",
+      "sourceSites": 18,
+      "displayAtoms": 28,
+      "connections": 36,
+      "visibleDrawables": 7
+    },
+    {
+      "id": "chat-sodium-chromate",
+      "sourceSites": 28,
+      "displayAtoms": 34,
+      "connections": 68,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "chat-solid-nitrous-oxide",
+      "sourceSites": 12,
+      "displayAtoms": 22,
+      "connections": 8,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-chromium-bromide",
+      "sourceSites": 24,
+      "displayAtoms": 47,
+      "connections": 44,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-solid-carbon-monoxide",
+      "sourceSites": 8,
+      "displayAtoms": 8,
+      "connections": 8,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-solid-hydrogen-chloride",
+      "sourceSites": 8,
+      "displayAtoms": 15,
+      "connections": 6,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-lithium-sulfate",
+      "sourceSites": 28,
+      "displayAtoms": 28,
+      "connections": 70,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "chat-silver-oxide",
+      "sourceSites": 6,
+      "displayAtoms": 13,
+      "connections": 8,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "chat-sodium-sulfite",
+      "sourceSites": 12,
+      "displayAtoms": 22,
+      "connections": 34,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "chat-sodium-nitrite",
+      "sourceSites": 8,
+      "displayAtoms": 20,
+      "connections": 35,
+      "visibleDrawables": 6
+    },
+    {
+      "id": "chat-potassium-thiocyanate",
+      "sourceSites": 16,
+      "displayAtoms": 18,
+      "connections": 72,
+      "visibleDrawables": 9
+    },
+    {
+      "id": "chat-lithium-nitrate",
+      "sourceSites": 10,
+      "displayAtoms": 20,
+      "connections": 27,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "chat-zinc-hydroxide-epsilon",
+      "sourceSites": 20,
+      "displayAtoms": 20,
+      "connections": 32,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "chat-solid-oxygen-beta",
+      "sourceSites": 6,
+      "displayAtoms": 12,
+      "connections": 10,
+      "visibleDrawables": 2
+    },
+    {
+      "id": "chat-ice-ii",
+      "sourceSites": 36,
+      "displayAtoms": 36,
+      "connections": 24,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "cod-2105348",
+      "sourceSites": 40,
+      "displayAtoms": 40,
+      "connections": 114,
+      "visibleDrawables": 6
+    },
+    {
+      "id": "cod-2310631",
+      "sourceSites": 24,
+      "displayAtoms": 24,
+      "connections": 82,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "cod-8104275",
+      "sourceSites": 6,
+      "displayAtoms": 6,
+      "connections": 22,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "cod-1548811",
+      "sourceSites": 5,
+      "displayAtoms": 12,
+      "connections": 8,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "cod-2020897",
+      "sourceSites": 36,
+      "displayAtoms": 46,
+      "connections": 96,
+      "visibleDrawables": 6
+    },
+    {
+      "id": "cod-1542184",
+      "sourceSites": 36,
+      "displayAtoms": 40,
+      "connections": 48,
+      "visibleDrawables": 5
+    },
+    {
+      "id": "cod-1535669",
+      "sourceSites": 16,
+      "displayAtoms": 26,
+      "connections": 24,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "cod-1535698",
+      "sourceSites": 16,
+      "displayAtoms": 16,
+      "connections": 26,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "cod-8104000",
+      "sourceSites": 16,
+      "displayAtoms": 16,
+      "connections": 28,
+      "visibleDrawables": 3
+    },
+    {
+      "id": "cod-2310480",
+      "sourceSites": 28,
+      "displayAtoms": 28,
+      "connections": 84,
+      "visibleDrawables": 7
+    },
+    {
+      "id": "cod-1008189",
+      "sourceSites": 16,
+      "displayAtoms": 16,
+      "connections": 21,
+      "visibleDrawables": 4
+    },
+    {
+      "id": "cod-7238223",
+      "sourceSites": 48,
+      "displayAtoms": 48,
+      "connections": 60,
+      "visibleDrawables": 4
+    },
+    {
+      "id": "cod-5910115",
+      "sourceSites": 36,
+      "displayAtoms": 38,
+      "connections": 39,
+      "visibleDrawables": 7
+    },
+    {
+      "id": "cod-4503066",
+      "sourceSites": 24,
+      "displayAtoms": 24,
+      "connections": 22,
+      "visibleDrawables": 6
+    },
+    {
+      "id": "cod-7110463",
+      "sourceSites": 40,
+      "displayAtoms": 52,
+      "connections": 48,
+      "visibleDrawables": 6
+    },
+    {
+      "id": "cod-2008187",
+      "sourceSites": 32,
+      "displayAtoms": 34,
+      "connections": 28,
+      "visibleDrawables": 7
+    },
+    {
+      "id": "cod-7050902",
+      "sourceSites": 84,
+      "displayAtoms": 84,
+      "connections": 100,
+      "visibleDrawables": 7
+    },
+    {
+      "id": "cod-4504310",
+      "sourceSites": 768,
+      "displayAtoms": 768,
+      "connections": 1482,
+      "visibleDrawables": 23
+    },
+    {
+      "id": "cod-5000067",
+      "sourceSites": 96,
+      "displayAtoms": 96,
+      "connections": 130,
+      "visibleDrawables": 7
+    },
+    {
+      "id": "cod-5000065",
+      "sourceSites": 96,
+      "displayAtoms": 96,
+      "connections": 114,
+      "visibleDrawables": 7
+    },
+    {
+      "id": "cod-1549467",
+      "sourceSites": 52,
+      "displayAtoms": 58,
+      "connections": 114,
+      "visibleDrawables": 10
+    },
+    {
+      "id": "cod-2300557",
+      "sourceSites": 90,
+      "displayAtoms": 90,
+      "connections": 105,
+      "visibleDrawables": 7
+    }
+  ],
+  "dense": {
+    "id": "cod-4504310",
+    "repeat": 2,
+    "displayAtoms": 6144,
+    "unbatchedDrawablesBefore": 10782,
+    "visibleDrawablesAfter": 23,
+    "connections": 11160
+  }
+}
