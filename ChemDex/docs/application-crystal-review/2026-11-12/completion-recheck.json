@@ -1,0 +1,41 @@
+{
+  "verifiedAt": "2026-11-12T03:34:43.523Z",
+  "implementationCommit": "1085ea003933064afa5f9a928cac1f64958657a0",
+  "checkedHead": "6adb94ca2f90149e1140b9002d096a530d308f0c",
+  "remoteMainAtCheck": "6adb94ca2f90149e1140b9002d096a530d308f0c",
+  "hashVerification": {
+    "structureFiles": 532,
+    "profiles": 118,
+    "applicationPhotos": 101,
+    "errors": []
+  },
+  "freshBrowserCheck": {
+    "command": "npx playwright test tests/browser/application-crystal-review.spec.mjs --project=chromium --reporter=list",
+    "passed": 5,
+    "failed": 0,
+    "exitCode": 0
+  },
+  "requirements": [
+    {
+      "requirement": "Ảnh ứng dụng có nguồn, phù hợp vai trò minh họa",
+      "status": "verified",
+      "evidence": "101 ảnh khớp SHA/provenance; 458 mục minh họa trên 118 trang; browser giải mã cả 101 và kiểm tra credits mobile."
+    },
+    {
+      "requirement": "Chi tiết mạng tinh thể theo nguồn và đối chiếu Wiki",
+      "status": "verified-with-disclosed-data-limits",
+      "evidence": "118 revision Wiki; 133 bộ JSON/CIF/GLB/PNG khớp hash của bản render đã kiểm tra; viewer Mn58/Pm4/Pa2/Ra2 chạy được. 7 prototype ghi nhãn; nguồn Ra mâu thuẫn được hiển thị.",
+      "limits": "Cf/Es chưa có bộ tọa độ và metric phù hợp đã duyệt; các pha khí/lỏng hoặc chưa đo không bị thay bằng ô mạng khẳng định thực nghiệm."
+    },
+    {
+      "requirement": "Electron và mạng tinh thể mỗi phần một hàng",
+      "status": "verified",
+      "evidence": "CSS một cột được kiểm tra trên mã hiện tại; browser xác nhận hai thẻ cùng chiều rộng, không tràn ngang tại 1440/1024/390 px."
+    },
+    {
+      "requirement": "Audit chi tiết và xuất bản main",
+      "status": "verified",
+      "evidence": "118 audit nguyên tố, 133 audit cấu trúc, provenance/manifest/changelog/operations đã commit; HEAD khớp remote main tại thời điểm kiểm tra. Bản tái kiểm tra này được đưa lên bằng commit tài liệu tiếp theo."
+    }
+  ]
+}
