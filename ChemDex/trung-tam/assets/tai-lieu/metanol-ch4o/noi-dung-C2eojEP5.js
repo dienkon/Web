@@ -238,7 +238,7 @@ Về mặt an toàn thực nghiệm và xử lý hóa chất, việc nghiên c�
 - [Bách khoa toàn thư Wikipedia Tiếng Việt — Methanol](https://vi.wikipedia.org/wiki/Methanol)
 - [Wikipedia Quốc tế — Methanol](https://en.wikipedia.org/wiki/Methanol)
 - [Tệp tọa độ không gian 3D chuẩn (SDF)](/shared/structures/887.sdf)
-- [Nguồn cấu trúc gốc đã kiểm chứng](https://cactus.nci.nih.gov/chemical/structure/methanol/file?format=sdf&get3d=true)
+- [Nguồn cấu trúc gốc đã kiểm chứng](https://cccbdb.nist.gov/expgeom2x.asp?casno=67561&charge=0)
 - [Hồ sơ hợp chất quốc tế PubChem CID 887](https://pubchem.ncbi.nlm.nih.gov/compound/887)
 
 Bài báo chuyên khảo này thuộc hệ thống **Tạp chí Hóa Học Số ChemDex**, tích hợp hồ sơ tiểu sử các nhà hóa học tiên phong, chuẩn mực kiến thức GDPT 2018 môn Hóa học THCS-THPT và cơ sở dữ liệu cấu trúc không gian 3 chiều tương tác, mang lại góc nhìn toàn diện về **Metanol (CH₄O)**.`,y={id:n,slug:h,documentPath:t,legacyIds:c,title:i,author:g,category:a,summary:u,image:o,chemicalFormula:r,tags:l,aliases:m,substanceIds:e,documentKind:p,readingMinutes:31,chemicalEvidence:s,content:v};export{m as aliases,g as author,a as category,s as chemicalEvidence,r as chemicalFormula,v as content,y as default,p as documentKind,t as documentPath,n as id,o as image,c as legacyIds,k as readingMinutes,h as slug,e as substanceIds,u as summary,l as tags,i as title};

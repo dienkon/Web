@@ -1,0 +1,16 @@
+{
+  "referenceImport": { "mode": "offline-pinned-source-replay", "selected": 13, "newExperimentalReferences": 9, "excluded": 7, "status": "passed" },
+  "platformTests": { "passed": 37, "failed": 0, "newReferenceTests": 5 },
+  "browserTests": {
+    "project": "chromium",
+    "passed": 11,
+    "failed": 0,
+    "files": ["reference-geometries.spec.mjs", "crystal-display.spec.mjs", "molecular-crystals.spec.mjs"],
+    "durationSeconds": 52.5,
+    "checks": ["methanol hydroxyl mapping and 0.956 angstrom measurement", "correct geometry citation and collapsed gas-phase note", "downloadable SDF", "planar benzene and separate crystal source", "library iframe on mobile", "bright crystal without grid", "instance picking and connection toggles", "repeated pole-crossing rotation", "dense repeated crystal and real touch input", "molecular scenery preserves coordinates", "reader exit on mobile", "superseded CrCl3 remains excluded"]
+  },
+  "builds": { "library": "passed", "static": "passed", "libraryTypecheck": "passed" },
+  "screenshotsVisuallyInspected": ["methanol-reference-desktop.png", "benzene-reference-desktop.png", "methanol-reference-mobile.png"],
+  "deployment": "not-requested",
+  "scope": "13 molecular gas-phase references; no crystal phase or original crystal CIF was changed"
+}

@@ -1,0 +1,872 @@
+{
+  "baseline": "9e1c258852e15c2a1155f7c1da401450aa6a566f",
+  "selectedCount": 13,
+  "newExperimentalCount": 9,
+  "excludedCount": 7,
+  "selected": [
+    {
+      "cid": 962,
+      "formula": "H2O",
+      "name": "Nước",
+      "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7732185&charge=0",
+      "sourceSha256": "1cd2ffca0f6788f7c98c7bae335b951327e64c33d1f51f8c9dfbdad296f47d06",
+      "snapshot": "docs\\references\\nist-geometries\\962.html",
+      "phase": "gas",
+      "pointGroup": "C2v",
+      "atoms": 3,
+      "mapping": [
+        "O1",
+        "H2",
+        "H3"
+      ],
+      "topologySha256": "879060a6dc0068e35f3686072b2ddd7b8acf9550803375eb4cb5ce78395bd8d2",
+      "previousCoordinateType": "experimental",
+      "parameters": [
+        {
+          "parameter": "rOH",
+          "indices": [
+            1,
+            2
+          ],
+          "sourceValue": "0.958",
+          "reference": "1979Hoy/Bun:1",
+          "comment": "re",
+          "cartesianValue": 0.9577755948028744
+        },
+        {
+          "parameter": "aHOH",
+          "indices": [
+            2,
+            1,
+            3
+          ],
+          "sourceValue": "104.4776",
+          "reference": "1979Hoy/Bun:1",
+          "comment": "equilibrium",
+          "cartesianValue": 104.47983881836642
+        }
+      ]
+    },
+    {
+      "cid": 222,
+      "formula": "H3N",
+      "name": "Amoniac",
+      "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7664417&charge=0",
+      "sourceSha256": "2c5d204ad8300c6084382dfa0e7a0f89c125d123a4eaaddd81a5e111e0973ef7",
+      "snapshot": "docs\\references\\nist-geometries\\222.html",
+      "phase": "gas",
+      "pointGroup": "C3v",
+      "atoms": 4,
+      "mapping": [
+        "N1",
+        "H2",
+        "H3",
+        "H4"
+      ],
+      "topologySha256": "c89be276546d5f78cb14ebe5aa23b09ee66cc30f14d1f92ad7078fa69bf403ed",
+      "previousCoordinateType": "experimental",
+      "parameters": [
+        {
+          "parameter": "rNH",
+          "indices": [
+            1,
+            2
+          ],
+          "sourceValue": "1.012",
+          "reference": "1966Herzberg",
+          "comment": "",
+          "cartesianValue": 1.0123733747980534
+        },
+        {
+          "parameter": "aHNH",
+          "indices": [
+            2,
+            1,
+            3
+          ],
+          "sourceValue": "106.67",
+          "reference": "1966Herzberg",
+          "comment": "",
+          "cartesianValue": 106.67315208538832
+        },
+        {
+          "parameter": "aXNH",
+          "indices": [
+            255,
+            1,
+            2
+          ],
+          "sourceValue": "112.15",
+          "reference": "1966Herzberg",
+          "comment": "from symmetry. X is on symmetry axis.",
+          "cartesianValue": null
+        }
+      ]
+    },
+    {
+      "cid": 297,
+      "formula": "CH4",
+      "name": "Metan",
+      "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=74828&charge=0",
+      "sourceSha256": "a66d20f9a7cbfc74479a4dadf8c519318909d63497f3917a203a8decabb897b0",
+      "snapshot": "docs\\references\\nist-geometries\\297.html",
+      "phase": "gas",
+      "pointGroup": "Td",
+      "atoms": 5,
+      "mapping": [
+        "C1",
+        "H2",
+        "H3",
+        "H4",
+        "H5"
+      ],
+      "topologySha256": "3830d990a9f4f4e9a7d26a6d323c96165ad0c50b17ad97ca51bb8fb01129d33f",
+      "previousCoordinateType": "experimental",
+      "parameters": [
+        {
+          "parameter": "rCH",
+          "indices": [
+            1,
+            2
+          ],
+          "sourceValue": "1.087",
+          "reference": "1979Hir:213",
+          "comment": "re",
+          "cartesianValue": 1.0870350868302274
+        },
+        {
+          "parameter": "aHCH",
+          "indices": [
+            2,
+            1,
+            3
+          ],
+          "sourceValue": "109.471",
+          "reference": "1974sve/kov",
+          "comment": "",
+          "cartesianValue": 109.47122063449069
+        }
+      ]
+    },
+    {
+      "cid": 280,
+      "formula": "CO2",
+      "name": "Cacbon đioxit",
+      "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=124389&charge=0",
+      "sourceSha256": "075dc5e7b966da93b3603542614694c2504c377f82976ae3416f4b4a9181e5e9",
+      "snapshot": "docs\\references\\nist-geometries\\280.html",
+      "phase": "gas",
+      "pointGroup": "D∞h",
+      "atoms": 3,
+      "mapping": [
+        "C1",
+        "O2",
+        "O3"
+      ],
+      "topologySha256": "5519d1f62d512975b7e0bb51aa4f51eecdf331f7f669acaa4d2d9cb1f6851f0d",
+      "previousCoordinateType": "experimental",
+      "parameters": [
+        {
+          "parameter": "rCO",
+          "indices": [
+            1,
+            2
+          ],
+          "sourceValue": "1.162",
+          "reference": "1966Herzberg",
+          "comment": "",
+          "cartesianValue": 1.1621
+        },
+        {
+          "parameter": "aOCO",
+          "indices": [
+            2,
+            1,
+            3
+          ],
+          "sourceValue": "180",
+          "reference": "1966Herzberg",
+          "comment": "",
+          "cartesianValue": 180
+        }
+      ]
+    },
+    {
+      "cid": 887,
+      "formula": "CH4O",
+      "name": "Metanol",
+      "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=67561&charge=0",
+      "sourceSha256": "f9eaa5cdfa5494b35d4cd5a4d7e1cec60abf194920211f726af91aed2c6494b2",
+      "snapshot": "docs\\references\\nist-geometries\\887.html",
+      "phase": "gas",
+      "pointGroup": "Cs",
+      "atoms": 6,
+      "mapping": [
+        "C1",
+        "O2",
+        "H3",
+        "H4",
+        "H5",
+        "H6"
+      ],
+      "topologySha256": "38097ba005ad3d1d552d73f4dcc982061a143f981e57f33973b4e178c926ed6a",
+      "previousCoordinateType": "computed",
+      "parameters": [
+        {
+          "parameter": "rOH",
+          "indices": [
+            2,
+            6
+          ],
+          "sourceValue": "0.956",
+          "reference": "1955Ven/Gor:1200",
+          "comment": "",
+          "cartesianValue": 0.9560788304318845
+        },
+        {
+          "parameter": "rCO",
+          "indices": [
+            1,
+            2
+          ],
+          "sourceValue": "1.427",
+          "reference": "1955Ven/Gor:1200",
+          "comment": "",
+          "cartesianValue": 1.427
+        },
+        {
+          "parameter": "rCH",
+          "indices": [
+            1,
+            3
+          ],
+          "sourceValue": "1.096",
+          "reference": "1955Ven/Gor:1200",
+          "comment": "",
+          "cartesianValue": 1.0959025504122162
+        },
+        {
+          "parameter": "aHCH",
+          "indices": [
+            3,
+            1,
+            4
+          ],
+          "sourceValue": "109.03",
+          "reference": "1955Ven/Gor:1200",
+          "comment": "",
+          "cartesianValue": 109.03270559530534
+        },
+        {
+          "parameter": "aHOC",
+          "indices": [
+            1,
+            2,
+            6
+          ],
+          "sourceValue": "108.87",
+          "reference": "1955Ven/Gor:1200",
+          "comment": "",
+          "cartesianValue": 108.86892767355947
+        },
+        {
+          "parameter": "dHCOH",
+          "indices": [
+            3,
+            1,
+            2,
+            6
+          ],
+          "sourceValue": "180",
+          "reference": "1955Ven/Gor:1200",
+          "comment": "symmetry",
+          "cartesianValue": 180
+        }
+      ]
+    },
+    {
+      "cid": 281,
+      "formula": "CO",
+      "name": "Cacbon monoxit",
+      "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=630080&charge=0",
+      "sourceSha256": "1b920c95cb31000a9295d214ce45c43042158d4ec3e5e935e8a421d83bdd44b2",
+      "snapshot": "docs\\references\\nist-geometries\\281.html",
+      "phase": "gas",
+      "pointGroup": "C∞v",
+      "atoms": 2,
+      "mapping": [
+        "C1",
+        "O2"
+      ],
+      "topologySha256": "c0e05e86e9d6c1b2ebf59fdb81728b9f34ff89bffcd43f9162203604eb415106",
+      "previousCoordinateType": "computed",
+      "parameters": [
+        {
+          "parameter": "rCO",
+          "indices": [
+            1,
+            2
+          ],
+          "sourceValue": "1.128",
+          "reference": "NISTdiatomic",
+          "comment": "re",
+          "cartesianValue": 1.1282
+        }
+      ]
+    },
+    {
+      "cid": 947,
+      "formula": "N2",
+      "name": "Nitơ",
+      "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7727379&charge=0",
+      "sourceSha256": "75346df5075c805dcabdb4147c4a0ee3fff160b7cee637a649b68f24ace445e0",
+      "snapshot": "docs\\references\\nist-geometries\\947.html",
+      "phase": "gas",
+      "pointGroup": "D∞h",
+      "atoms": 2,
+      "mapping": [
+        "N1",
+        "N2"
+      ],
+      "topologySha256": "84c26cdbad3110d5410d2e5ddaef3bfe4578691c32e97d4310396b9fcca2942e",
+      "previousCoordinateType": "computed",
+      "parameters": [
+        {
+          "parameter": "rNN",
+          "indices": [
+            1,
+            2
+          ],
+          "sourceValue": "1.098",
+          "reference": "1979HUB/HER",
+          "comment": "re",
+          "cartesianValue": 1.0976
+        }
+      ]
+    },
+    {
+      "cid": 977,
+      "formula": "O2",
+      "name": "Oxi",
+      "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7782447&charge=0",
+      "sourceSha256": "57445767f9ab685eeb37fa79feb1e809b820eda7b1742469dde869df5b256e25",
+      "snapshot": "docs\\references\\nist-geometries\\977.html",
+      "phase": "gas",
+      "pointGroup": "D∞h",
+      "atoms": 2,
+      "mapping": [
+        "O1",
+        "O2"
+      ],
+      "topologySha256": "fa6e4a09e47f247f57ad2d39966ee6f5a36d0cefb7bfcdb0672619280b29ea6d",
+      "previousCoordinateType": "computed",
+      "parameters": [
+        {
+          "parameter": "rOO",
+          "indices": [
+            1,
+            2
+          ],
+          "sourceValue": "1.208",
+          "reference": "1979HUB/HER",
+          "comment": "re",
+          "cartesianValue": 1.2075
+        }
+      ]
+    },
+    {
+      "cid": 783,
+      "formula": "H2",
+      "name": "Hiđro",
+      "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=1333740&charge=0",
+      "sourceSha256": "f71288b41223a4c8049715c6eed8f855eeff2610fd01c5aa4472233d8ca0fc50",
+      "snapshot": "docs\\references\\nist-geometries\\783.html",
+      "phase": "gas",
+      "pointGroup": "D∞h",
+      "atoms": 2,
+      "mapping": [
+        "H1",
+        "H2"
+      ],
+      "topologySha256": "b176e2aceb13bb5ee85afc5bd7b6b0bf6ff00b957a5758dd1d016412c60aa413",
+      "previousCoordinateType": "computed",
+      "parameters": [
+        {
+          "parameter": "rHH",
+          "indices": [
+            1,
+            2
+          ],
+          "sourceValue": "0.741",
+          "reference": "1979HUB/HER",
+          "comment": "re",
+          "cartesianValue": 0.7414
+        }
+      ]
+    },
+    {
+      "cid": 241,
+      "formula": "C6H6",
+      "name": "Benzen",
+      "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=71432&charge=0",
+      "sourceSha256": "5f24da74f48a2430454c5c20fd304c3ef3a8581232e2f75f8cbf19693be1c282",
+      "snapshot": "docs\\references\\nist-geometries\\241.html",
+      "phase": "gas",
+      "pointGroup": "D6h",
+      "atoms": 12,
+      "mapping": [
+        "C1",
+        "C2",
+        "C3",
+        "C4",
+        "C5",
+        "C6",
+        "H7",
+        "H8",
+        "H9",
+        "H10",
+        "H11",
+        "H12"
+      ],
+      "topologySha256": "49d3366f61bb8132342ea610f5db4e513b9902c6c0e3643b382259aeca634571",
+      "previousCoordinateType": "computed",
+      "parameters": [
+        {
+          "parameter": "rCC",
+          "indices": [
+            1,
+            2
+          ],
+          "sourceValue": "1.397",
+          "reference": "1966Herzberg",
+          "comment": "",
+          "cartesianValue": 1.3969675336241711
+        },
+        {
+          "parameter": "rCH",
+          "indices": [
+            1,
+            7
+          ],
+          "sourceValue": "1.084",
+          "reference": "1966Herzberg",
+          "comment": "",
+          "cartesianValue": 1.0839999999999999
+        },
+        {
+          "parameter": "aCCC",
+          "indices": [
+            1,
+            2,
+            3
+          ],
+          "sourceValue": "120",
+          "reference": "1966Herzberg",
+          "comment": "",
+          "cartesianValue": 120.00076879612567
+        },
+        {
+          "parameter": "aHCC",
+          "indices": [
+            1,
+            2,
+            8
+          ],
+          "sourceValue": "120",
+          "reference": "1966Herzberg",
+          "comment": "",
+          "cartesianValue": 119.9999833867389
+        }
+      ]
+    },
+    {
+      "cid": 6324,
+      "formula": "C2H6",
+      "name": "Etan",
+      "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=74840&charge=0",
+      "sourceSha256": "ea12f2ac6f0a7bd830e33a47e514494b770c07af0d0af0e0acaa8e4b9b7de141",
+      "snapshot": "docs\\references\\nist-geometries\\6324.html",
+      "phase": "gas",
+      "pointGroup": "D3h",
+      "atoms": 8,
+      "mapping": [
+        "C1",
+        "C2",
+        "H3",
+        "H4",
+        "H5",
+        "H6",
+        "H7",
+        "H8"
+      ],
+      "topologySha256": "b5d99a8af0d7e259deda1444bc3f704fb888c9d306b83300aeb4a403e9922535",
+      "previousCoordinateType": "computed",
+      "parameters": [
+        {
+          "parameter": "rCC",
+          "indices": [
+            1,
+            2
+          ],
+          "sourceValue": "1.536",
+          "reference": "1966Herzberg",
+          "comment": "",
+          "cartesianValue": 1.536
+        },
+        {
+          "parameter": "rCH",
+          "indices": [
+            1,
+            3
+          ],
+          "sourceValue": "1.091",
+          "reference": "1966Herzberg",
+          "comment": "",
+          "cartesianValue": 1.091019307803487
+        },
+        {
+          "parameter": "aHCH",
+          "indices": [
+            3,
+            1,
+            4
+          ],
+          "sourceValue": "108",
+          "reference": "1966Herzberg",
+          "comment": "",
+          "cartesianValue": 108.00072048083129
+        },
+        {
+          "parameter": "aHCC",
+          "indices": [
+            1,
+            2,
+            6
+          ],
+          "sourceValue": "110.91",
+          "reference": "1966Herzberg",
+          "comment": "by symmetry",
+          "cartesianValue": 110.90516928744833
+        }
+      ]
+    },
+    {
+      "cid": 6325,
+      "formula": "C2H4",
+      "name": "Eten",
+      "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=74851&charge=0",
+      "sourceSha256": "84a57fa16ef02cbcb6d16a6385e73254c5dc283c483b8e4525488c86094ea090",
+      "snapshot": "docs\\references\\nist-geometries\\6325.html",
+      "phase": "gas",
+      "pointGroup": "D2h",
+      "atoms": 6,
+      "mapping": [
+        "C1",
+        "C2",
+        "H3",
+        "H4",
+        "H5",
+        "H6"
+      ],
+      "topologySha256": "8b86ca1bddb1f6281ed2fff82d43ad6424ea23bd5cccb517951195b5850d3ead",
+      "previousCoordinateType": "computed",
+      "parameters": [
+        {
+          "parameter": "rCC",
+          "indices": [
+            1,
+            2
+          ],
+          "sourceValue": "1.339",
+          "reference": "1966Herzberg",
+          "comment": "",
+          "cartesianValue": 1.339
+        },
+        {
+          "parameter": "rCH",
+          "indices": [
+            1,
+            3
+          ],
+          "sourceValue": "1.086",
+          "reference": "1966Herzberg",
+          "comment": "",
+          "cartesianValue": 1.0859898572270368
+        },
+        {
+          "parameter": "aHCH",
+          "indices": [
+            3,
+            1,
+            4
+          ],
+          "sourceValue": "117.6",
+          "reference": "1966Herzberg",
+          "comment": "",
+          "cartesianValue": 117.59655549333102
+        },
+        {
+          "parameter": "aHCC",
+          "indices": [
+            1,
+            2,
+            5
+          ],
+          "sourceValue": "121.2",
+          "reference": "1966Herzberg",
+          "comment": "",
+          "cartesianValue": 121.2017222533345
+        }
+      ]
+    },
+    {
+      "cid": 6326,
+      "formula": "C2H2",
+      "name": "Axetilen",
+      "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=74862&charge=0",
+      "sourceSha256": "51d6a838595fbed7fb156a916adeeacd1bf9a6adc2d149f9234a4b76db344092",
+      "snapshot": "docs\\references\\nist-geometries\\6326.html",
+      "phase": "gas",
+      "pointGroup": "D∞h",
+      "atoms": 4,
+      "mapping": [
+        "C1",
+        "C2",
+        "H3",
+        "H4"
+      ],
+      "topologySha256": "750b4367f7bf04fdf0867fc55dc6e859b4558b9bee96b142d9b93efda2162b90",
+      "previousCoordinateType": "computed",
+      "parameters": [
+        {
+          "parameter": "rCH",
+          "indices": [
+            1,
+            3
+          ],
+          "sourceValue": "1.063",
+          "reference": "1998Kuc",
+          "comment": "rm structure",
+          "cartesianValue": 1.0631000000000002
+        },
+        {
+          "parameter": "rCC",
+          "indices": [
+            1,
+            2
+          ],
+          "sourceValue": "1.203",
+          "reference": "1998Kuc",
+          "comment": "rm structure",
+          "cartesianValue": 1.2026
+        },
+        {
+          "parameter": "aHCC",
+          "indices": [
+            2,
+            1,
+            3
+          ],
+          "sourceValue": "180",
+          "reference": "1966Herzberg",
+          "comment": "",
+          "cartesianValue": 180
+        }
+      ]
+    }
+  ],
+  "excluded": [
+    {
+      "cid": 176,
+      "formula": "C2H4O2",
+      "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=64197&charge=0",
+      "sourceSha256": "1d42899fe71231aa45b13b78458fca010a8e4f10c5c371c6b38cad86259cf3e9",
+      "snapshot": "docs/references/nist-geometries/176.html",
+      "reason": "incomplete-cartesian-table",
+      "mismatches": []
+    },
+    {
+      "cid": 180,
+      "formula": "C3H6O",
+      "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=67641&charge=0",
+      "sourceSha256": "9996713d81fa41c04c0d0b2bf5d9f455ce96c3f940d486af70978561093fe286",
+      "snapshot": "docs/references/nist-geometries/180.html",
+      "reason": "incomplete-cartesian-table",
+      "mismatches": []
+    },
+    {
+      "cid": 702,
+      "formula": "C2H6O",
+      "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=64175&charge=0",
+      "sourceSha256": "6b8e135ef086192fe206543c511ae6d6029c77963a237f477f7614e5d3eb28fc",
+      "snapshot": "docs/references/nist-geometries/702.html",
+      "reason": "internal-coordinate-conflict",
+      "mismatches": [
+        {
+          "parameter": "rCH",
+          "indices": [
+            1,
+            5
+          ],
+          "sourceValue": "1.088",
+          "cartesianValue": 1.0979866164940262,
+          "tolerance": 0.0007
+        },
+        {
+          "parameter": "rCH",
+          "indices": [
+            1,
+            6
+          ],
+          "sourceValue": "1.098",
+          "cartesianValue": 1.0880251927230362,
+          "tolerance": 0.0007
+        }
+      ]
+    },
+    {
+      "cid": 6334,
+      "formula": "C3H8",
+      "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=74986&charge=0",
+      "sourceSha256": "889b3fa41a02243c1f557bb5cc81362f756743f7d35f734f3efb42802027001a",
+      "snapshot": "docs/references/nist-geometries/6334.html",
+      "reason": "internal-coordinate-conflict",
+      "mismatches": [
+        {
+          "parameter": "rCH",
+          "indices": [
+            2,
+            6
+          ],
+          "sourceValue": "1.089",
+          "cartesianValue": 1.0939490344618437,
+          "tolerance": 0.0007
+        },
+        {
+          "parameter": "rCH",
+          "indices": [
+            2,
+            8
+          ],
+          "sourceValue": "1.094",
+          "cartesianValue": 1.0890116803781307,
+          "tolerance": 0.0007
+        },
+        {
+          "parameter": "aHCH",
+          "indices": [
+            8,
+            2,
+            9
+          ],
+          "sourceValue": "108.1",
+          "cartesianValue": 107.8159995178424,
+          "tolerance": 0.08
+        },
+        {
+          "parameter": "aHCC",
+          "indices": [
+            1,
+            2,
+            6
+          ],
+          "sourceValue": "111.8",
+          "cartesianValue": 110.60141993839642,
+          "tolerance": 0.08
+        },
+        {
+          "parameter": "aHCC",
+          "indices": [
+            1,
+            2,
+            8
+          ],
+          "sourceValue": "110.6",
+          "cartesianValue": 111.797771434553,
+          "tolerance": 0.08
+        }
+      ]
+    },
+    {
+      "cid": 6360,
+      "formula": "C4H10",
+      "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=75285&charge=0",
+      "sourceSha256": "32d0a1ccbccf386ec8843214b0ee81538d8055f6c1a5551709298c9ebe3570ab",
+      "snapshot": "docs/references/nist-geometries/6360.html",
+      "reason": "internal-coordinate-conflict",
+      "mismatches": [
+        {
+          "parameter": "rCH",
+          "indices": [
+            3,
+            6
+          ],
+          "sourceValue": "1.100",
+          "cartesianValue": 1.0949249152339169,
+          "tolerance": 0.0007
+        },
+        {
+          "parameter": "rCH",
+          "indices": [
+            3,
+            9
+          ],
+          "sourceValue": "1.092",
+          "cartesianValue": 1.0950550397126164,
+          "tolerance": 0.0007
+        },
+        {
+          "parameter": "aHCC",
+          "indices": [
+            2,
+            1,
+            3
+          ],
+          "sourceValue": "109.4",
+          "cartesianValue": 107.70187470755498,
+          "tolerance": 0.08
+        },
+        {
+          "parameter": "aHCH",
+          "indices": [
+            9,
+            3,
+            10
+          ],
+          "sourceValue": "108.5",
+          "cartesianValue": 109.46964452902787,
+          "tolerance": 0.08
+        },
+        {
+          "parameter": "aHCH",
+          "indices": [
+            6,
+            3,
+            9
+          ],
+          "sourceValue": "107.9",
+          "cartesianValue": 109.46972583325005,
+          "tolerance": 0.08
+        }
+      ]
+    },
+    {
+      "cid": 7843,
+      "formula": "C4H10",
+      "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=106978&charge=0",
+      "sourceSha256": "e0242ccd032a38b1ce32007d631c2866ad576c7c1720a1f6b22fd1532ac83fb7",
+      "snapshot": "docs/references/nist-geometries/7843.html",
+      "reason": "incomplete-cartesian-table",
+      "mismatches": []
+    },
+    {
+      "cid": 8252,
+      "formula": "C3H6",
+      "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=115071&charge=0",
+      "sourceSha256": "86ebf51b0f668be97e87ffe71029054a030e01d983ed33d0c50fabe274b7d2f9",
+      "snapshot": "docs/references/nist-geometries/8252.html",
+      "reason": "incomplete-cartesian-table",
+      "mismatches": []
+    }
+  ]
+}

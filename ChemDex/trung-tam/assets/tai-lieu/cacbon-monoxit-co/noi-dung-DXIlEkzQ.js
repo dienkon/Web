@@ -192,7 +192,7 @@ Về mặt an toàn thực nghiệm và xử lý hóa chất, việc nghiên c�
 - [Bách khoa toàn thư Wikipedia Tiếng Việt — Carbon monoxide](https://vi.wikipedia.org/wiki/Carbon_monoxide)
 - [Wikipedia Quốc tế — Carbon monoxide](https://en.wikipedia.org/wiki/Carbon_monoxide)
 - [Tệp tọa độ không gian 3D chuẩn (SDF)](/shared/structures/281.sdf)
-- [Nguồn cấu trúc gốc đã kiểm chứng](https://cactus.nci.nih.gov/chemical/structure/%5BC-%5D%23%5BO%2B%5D/file?format=sdf&get3d=true)
+- [Nguồn cấu trúc gốc đã kiểm chứng](https://cccbdb.nist.gov/expgeom2x.asp?casno=630080&charge=0)
 - [Hồ sơ hợp chất quốc tế PubChem CID 281](https://pubchem.ncbi.nlm.nih.gov/compound/281)
 
 Bài báo chuyên khảo này thuộc hệ thống **Tạp chí Hóa Học Số ChemDex**, tích hợp hồ sơ tiểu sử các nhà hóa học tiên phong, chuẩn mực kiến thức GDPT 2018 môn Hóa học THCS-THPT và cơ sở dữ liệu cấu trúc không gian 3 chiều tương tác, mang lại góc nhìn toàn diện về **Cacbon monoxit (CO)**.`,y={id:n,slug:h,documentPath:t,legacyIds:c,title:i,author:g,category:a,summary:o,image:u,chemicalFormula:"CO",tags:r,aliases:m,substanceIds:l,documentKind:s,readingMinutes:27,chemicalEvidence:e,content:k};export{m as aliases,g as author,a as category,e as chemicalEvidence,p as chemicalFormula,k as content,y as default,s as documentKind,t as documentPath,n as id,u as image,c as legacyIds,v as readingMinutes,h as slug,l as substanceIds,o as summary,r as tags,i as title};

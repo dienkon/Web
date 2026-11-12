@@ -435,7 +435,7 @@
     "modelId": "cid-962",
     "kind": "molecule",
     "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7732185&charge=0",
-    "provenance": "NIST CCCBDB SRD 101, experimental gas-phase Cartesian coordinates",
+    "provenance": "NIST CCCBDB SRD 101, experimental gas-phase reference geometry",
     "crystals": [
       {
         "id": "chat-ice-ii",
@@ -482,7 +482,7 @@
     "modelId": "cid-222",
     "kind": "molecule",
     "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7664417&charge=0",
-    "provenance": "NIST CCCBDB SRD 101, experimental gas-phase Cartesian coordinates",
+    "provenance": "NIST CCCBDB SRD 101, experimental gas-phase reference geometry",
     "crystals": []
   },
   "natri-clorua-nacl": {
@@ -599,7 +599,7 @@
     "modelId": "cid-280",
     "kind": "molecule",
     "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=124389&charge=0",
-    "provenance": "NIST CCCBDB SRD 101, experimental gas-phase Cartesian coordinates",
+    "provenance": "NIST CCCBDB SRD 101, experimental gas-phase reference geometry",
     "crystals": [
       {
         "id": "chat-dry-ice",
@@ -647,15 +647,15 @@
     "modelId": "cid-297",
     "kind": "molecule",
     "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=74828&charge=0",
-    "provenance": "NIST CCCBDB SRD 101, experimental gas-phase Cartesian coordinates",
+    "provenance": "NIST CCCBDB SRD 101, experimental gas-phase reference geometry",
     "crystals": []
   },
   "metanol-ch4o": {
     "formula": "CH4O",
     "modelId": "cid-887",
     "kind": "molecule",
-    "source": "https://cactus.nci.nih.gov/chemical/structure/methanol/file?format=sdf&get3d=true",
-    "provenance": "NCI/CADD CACTVS computed coordinates",
+    "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=67561&charge=0",
+    "provenance": "NIST CCCBDB SRD 101, experimental gas-phase reference geometry",
     "crystals": [
       {
         "id": "cod-4503066",
@@ -841,8 +841,8 @@
     "formula": "N2",
     "modelId": "cid-947",
     "kind": "molecule",
-    "source": "https://cactus.nci.nih.gov/chemical/structure/dinitrogen/file?format=sdf&get3d=true",
-    "provenance": "NCI/CADD CACTVS computed coordinates",
+    "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7727379&charge=0",
+    "provenance": "NIST CCCBDB SRD 101, experimental gas-phase reference geometry",
     "crystals": [
       {
         "id": "chat-solid-nitrogen-alpha",
@@ -888,8 +888,8 @@
     "formula": "O2",
     "modelId": "cid-977",
     "kind": "molecule",
-    "source": "https://cactus.nci.nih.gov/chemical/structure/dioxygen/file?format=sdf&get3d=true",
-    "provenance": "NCI/CADD CACTVS computed coordinates",
+    "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7782447&charge=0",
+    "provenance": "NIST CCCBDB SRD 101, experimental gas-phase reference geometry",
     "crystals": [
       {
         "id": "chat-solid-oxygen-beta",
@@ -941,16 +941,16 @@
     "formula": "H2",
     "modelId": "cid-783",
     "kind": "molecule",
-    "source": "https://cactus.nci.nih.gov/chemical/structure/dihydrogen/file?format=sdf&get3d=true",
-    "provenance": "NCI/CADD CACTVS computed coordinates",
+    "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=1333740&charge=0",
+    "provenance": "NIST CCCBDB SRD 101, experimental gas-phase reference geometry",
     "crystals": []
   },
   "cacbon-monoxit-co": {
     "formula": "CO",
     "modelId": "cid-281",
     "kind": "molecule",
-    "source": "https://cactus.nci.nih.gov/chemical/structure/%5BC-%5D%23%5BO%2B%5D/file?format=sdf&get3d=true",
-    "provenance": "NCI/CADD CACTVS computed coordinates",
+    "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=630080&charge=0",
+    "provenance": "NIST CCCBDB SRD 101, experimental gas-phase reference geometry",
     "crystals": [
       {
         "id": "chat-solid-carbon-monoxide",
@@ -996,24 +996,24 @@
     "formula": "C2H6",
     "modelId": "cid-6324",
     "kind": "molecule",
-    "source": "https://cactus.nci.nih.gov/chemical/structure/ethane/file?format=sdf&get3d=true",
-    "provenance": "NCI/CADD CACTVS computed coordinates",
+    "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=74840&charge=0",
+    "provenance": "NIST CCCBDB SRD 101, experimental gas-phase reference geometry",
     "crystals": []
   },
   "eten-c2h4": {
     "formula": "C2H4",
     "modelId": "cid-6325",
     "kind": "molecule",
-    "source": "https://cactus.nci.nih.gov/chemical/structure/ethylene/file?format=sdf&get3d=true",
-    "provenance": "NCI/CADD CACTVS computed coordinates",
+    "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=74851&charge=0",
+    "provenance": "NIST CCCBDB SRD 101, experimental gas-phase reference geometry",
     "crystals": []
   },
   "axetilen-c2h2": {
     "formula": "C2H2",
     "modelId": "cid-6326",
     "kind": "molecule",
-    "source": "https://cactus.nci.nih.gov/chemical/structure/acetylene/file?format=sdf&get3d=true",
-    "provenance": "NCI/CADD CACTVS computed coordinates",
+    "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=74862&charge=0",
+    "provenance": "NIST CCCBDB SRD 101, experimental gas-phase reference geometry",
     "crystals": []
   },
   "propan-c3h8": {
@@ -1052,8 +1052,8 @@
     "formula": "C6H6",
     "modelId": "cid-241",
     "kind": "molecule",
-    "source": "https://cactus.nci.nih.gov/chemical/structure/benzene/file?format=sdf&get3d=true",
-    "provenance": "NCI/CADD CACTVS computed coordinates",
+    "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=71432&charge=0",
+    "provenance": "NIST CCCBDB SRD 101, experimental gas-phase reference geometry",
     "crystals": [
       {
         "id": "cod-7238223",

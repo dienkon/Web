@@ -232,7 +232,7 @@ Về mặt an toàn thực nghiệm và xử lý hóa chất, việc nghiên c�
 - [Bách khoa toàn thư Wikipedia Tiếng Việt — Hydro](https://vi.wikipedia.org/wiki/Hydro)
 - [Wikipedia Quốc tế — Hydrogen](https://en.wikipedia.org/wiki/Hydrogen)
 - [Tệp tọa độ không gian 3D chuẩn (SDF)](/shared/structures/783.sdf)
-- [Nguồn cấu trúc gốc đã kiểm chứng](https://cactus.nci.nih.gov/chemical/structure/dihydrogen/file?format=sdf&get3d=true)
+- [Nguồn cấu trúc gốc đã kiểm chứng](https://cccbdb.nist.gov/expgeom2x.asp?casno=1333740&charge=0)
 - [Hồ sơ hợp chất quốc tế PubChem CID 783](https://pubchem.ncbi.nlm.nih.gov/compound/783)
 
 Bài báo chuyên khảo này thuộc hệ thống **Tạp chí Hóa Học Số ChemDex**, tích hợp hồ sơ tiểu sử các nhà hóa học tiên phong, chuẩn mực kiến thức GDPT 2018 môn Hóa học THCS-THPT và cơ sở dữ liệu cấu trúc không gian 3 chiều tương tác, mang lại góc nhìn toàn diện về **Hiđro (H₂)**.`,e={id:n,slug:h,documentPath:t,legacyIds:c,title:i,author:g,category:o,summary:a,image:u,chemicalFormula:"H₂",tags:r,aliases:m,substanceIds:l,documentKind:p,readingMinutes:30,chemicalEvidence:k,content:s};export{m as aliases,g as author,o as category,k as chemicalEvidence,v as chemicalFormula,s as content,e as default,p as documentKind,t as documentPath,n as id,u as image,c as legacyIds,y as readingMinutes,h as slug,l as substanceIds,a as summary,r as tags,i as title};

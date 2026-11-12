@@ -375,6 +375,16 @@ export class ChemStructureViewer extends HTMLElement {
       this.querySelector(".viewer-source").innerHTML = generated
         ? `<span class="badge">MÔ HÌNH MINH HỌA</span><p>${escape(generated.note)}</p>`
         : `${escape(source.provenance)} · <a href="${escape(source.source)}" target="_blank" rel="noopener noreferrer">Nguồn dữ liệu ↗</a><br>Tọa độ là một cấu dạng tĩnh; không mô tả chuyển động phân tử theo thời gian thực.`;
+      if (!generated && source.referenceGeometry?.phase === 'gas') {
+        const reference = source.referenceGeometry;
+        const citations = (reference.references ?? []).map(ref => {
+          const text = escape(ref.citation);
+          return /^10\.\d{4,9}\/\S+$/.test(ref.doi ?? '')
+            ? `<li><a href="${escape('https://doi.org/' + encodeURI(ref.doi))}" target="_blank" rel="noopener noreferrer">${text} ↗</a></li>`
+            : `<li>${text}</li>`;
+        }).join('');
+        this.querySelector('.viewer-source').insertAdjacentHTML('beforeend', `<details class="viewer-environment-note viewer-reference-geometry"><summary>Điều kiện tọa độ · pha khí</summary><p>${escape(source.geometryNote ?? '')}</p><p>Nhóm đối xứng: ${escape(reference.pointGroup ?? '')}${reference.parameterNotes?.length ? '<br>Ghi chú tham số từ nguồn: ' + reference.parameterNotes.map(escape).join('; ') : ''}</p>${citations ? `<ul>${citations}</ul>` : ''}</details>`);
+      }
       this.querySelector('.viewer-source').insertAdjacentHTML('beforeend','<details class="viewer-environment-note"><summary>Quy ước cảnh trưng bày</summary>Bệ và lọ mẫu là cảnh minh họa, tách khỏi tọa độ phân tử, phép đo và file tải xuống.</details>');
       if(this.parsedModel?.expansionWarnings?.length)this.querySelector('.viewer-source').insertAdjacentHTML('beforeend',`<details class="viewer-environment-note"><summary>Ghi chú đọc CIF</summary>${this.parsedModel.expansionWarnings.map(escape).join('<br>')}</details>`);
     } catch (error) {

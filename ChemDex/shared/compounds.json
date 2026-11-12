@@ -19,10 +19,32 @@
       "format": "sdf",
       "url": "/shared/structures/962.sdf",
       "dimension": "3d",
-      "provenance": "NIST CCCBDB SRD 101, experimental gas-phase Cartesian coordinates",
-      "retrievedAt": "2026-10-27",
+      "provenance": "NIST CCCBDB SRD 101, experimental gas-phase reference geometry",
+      "retrievedAt": "2026-11-12",
       "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7732185&charge=0",
-      "coordinateType": "experimental"
+      "coordinateType": "experimental",
+      "geometryNote": "Tọa độ tham chiếu pha khí do NIST tổng hợp; một hình học tĩnh, có làm tròn và ràng buộc đối xứng theo nguồn. Không dùng thay cấu trúc tinh thể hay khẳng định độ chính xác tuyệt đối.",
+      "referenceGeometry": {
+        "phase": "gas",
+        "pointGroup": "C2v",
+        "atoms": [
+          "O1",
+          "H2",
+          "H3"
+        ],
+        "topologySha256": "879060a6dc0068e35f3686072b2ddd7b8acf9550803375eb4cb5ce78395bd8d2",
+        "parameterNotes": [
+          "rOH: re",
+          "aHOH: equilibrium"
+        ],
+        "references": [
+          {
+            "id": "1979Hoy/Bun:1",
+            "citation": "AR Hoy, PR Bunker, \"A precise Solution of the Rotation Beninding Schrodinger Equation for a Triatomic Molecule with Application to the Water Molecule\" J. Molecular Spectroscopy 74, 1-8, 1979",
+            "doi": "10.1016/0022-2852(79)90019-5"
+          }
+        ]
+      }
     },
     "molarMass": 18.015,
     "atomCount": 3
@@ -74,9 +96,34 @@
       "format": "sdf",
       "url": "/shared/structures/887.sdf",
       "dimension": "3d",
-      "provenance": "NCI/CADD CACTVS computed coordinates",
-      "retrievedAt": "2026-10-26",
-      "source": "https://cactus.nci.nih.gov/chemical/structure/methanol/file?format=sdf&get3d=true"
+      "provenance": "NIST CCCBDB SRD 101, experimental gas-phase reference geometry",
+      "retrievedAt": "2026-11-12",
+      "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=67561&charge=0",
+      "coordinateType": "experimental",
+      "geometryNote": "Tọa độ tham chiếu pha khí do NIST tổng hợp; một hình học tĩnh, có làm tròn và ràng buộc đối xứng theo nguồn. Không dùng thay cấu trúc tinh thể hay khẳng định độ chính xác tuyệt đối.",
+      "referenceGeometry": {
+        "phase": "gas",
+        "pointGroup": "Cs",
+        "atoms": [
+          "C1",
+          "O2",
+          "H3",
+          "H4",
+          "H5",
+          "H6"
+        ],
+        "topologySha256": "38097ba005ad3d1d552d73f4dcc982061a143f981e57f33973b4e178c926ed6a",
+        "parameterNotes": [
+          "dHCOH: symmetry"
+        ],
+        "references": [
+          {
+            "id": "1955Ven/Gor:1200",
+            "citation": "P Venkateswarlu, W Gordy \"Methyl Alcohol II. Molecular Structure\" J. Chem. Phys. 23(7), 1200, 1955",
+            "doi": "10.1063/1.1742240"
+          }
+        ]
+      }
     },
     "molarMass": 32.042,
     "atomCount": 6
@@ -155,10 +202,31 @@
       "format": "sdf",
       "url": "/shared/structures/222.sdf",
       "dimension": "3d",
-      "provenance": "NIST CCCBDB SRD 101, experimental gas-phase Cartesian coordinates",
-      "retrievedAt": "2026-10-27",
+      "provenance": "NIST CCCBDB SRD 101, experimental gas-phase reference geometry",
+      "retrievedAt": "2026-11-12",
       "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7664417&charge=0",
-      "coordinateType": "experimental"
+      "coordinateType": "experimental",
+      "geometryNote": "Tọa độ tham chiếu pha khí do NIST tổng hợp; một hình học tĩnh, có làm tròn và ràng buộc đối xứng theo nguồn. Không dùng thay cấu trúc tinh thể hay khẳng định độ chính xác tuyệt đối.",
+      "referenceGeometry": {
+        "phase": "gas",
+        "pointGroup": "C3v",
+        "atoms": [
+          "N1",
+          "H2",
+          "H3",
+          "H4"
+        ],
+        "topologySha256": "c89be276546d5f78cb14ebe5aa23b09ee66cc30f14d1f92ad7078fa69bf403ed",
+        "parameterNotes": [
+          "aXNH: from symmetry. X is on symmetry axis."
+        ],
+        "references": [
+          {
+            "id": "1966Herzberg",
+            "citation": "Herzberg, G., Electronic spectra and electronic structure of polyatomic molecules,Van Nostrand,New York, 1966"
+          }
+        ]
+      }
     },
     "molarMass": 17.031,
     "atomCount": 4
@@ -183,9 +251,30 @@
       "format": "sdf",
       "url": "/shared/structures/947.sdf",
       "dimension": "3d",
-      "provenance": "NCI/CADD CACTVS computed coordinates",
-      "retrievedAt": "2026-10-26",
-      "source": "https://cactus.nci.nih.gov/chemical/structure/dinitrogen/file?format=sdf&get3d=true"
+      "provenance": "NIST CCCBDB SRD 101, experimental gas-phase reference geometry",
+      "retrievedAt": "2026-11-12",
+      "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7727379&charge=0",
+      "coordinateType": "experimental",
+      "geometryNote": "Tọa độ tham chiếu pha khí do NIST tổng hợp; một hình học tĩnh, có làm tròn và ràng buộc đối xứng theo nguồn. Không dùng thay cấu trúc tinh thể hay khẳng định độ chính xác tuyệt đối.",
+      "referenceGeometry": {
+        "phase": "gas",
+        "pointGroup": "D∞h",
+        "atoms": [
+          "N1",
+          "N2"
+        ],
+        "topologySha256": "84c26cdbad3110d5410d2e5ddaef3bfe4578691c32e97d4310396b9fcca2942e",
+        "parameterNotes": [
+          "rNN: re"
+        ],
+        "references": [
+          {
+            "id": "1979HUB/HER",
+            "citation": "Huber, K.P.; Herzberg, G., Molecular Spectra and Molecular Structure. IV. Constants of Diatomic Molecules, Van Nostrand Reinhold Co., 1979",
+            "doi": "10.1007/978-1-4757-0961-2"
+          }
+        ]
+      }
     },
     "molarMass": 28.014,
     "atomCount": 2
@@ -210,9 +299,30 @@
       "format": "sdf",
       "url": "/shared/structures/977.sdf",
       "dimension": "3d",
-      "provenance": "NCI/CADD CACTVS computed coordinates",
-      "retrievedAt": "2026-10-26",
-      "source": "https://cactus.nci.nih.gov/chemical/structure/dioxygen/file?format=sdf&get3d=true"
+      "provenance": "NIST CCCBDB SRD 101, experimental gas-phase reference geometry",
+      "retrievedAt": "2026-11-12",
+      "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7782447&charge=0",
+      "coordinateType": "experimental",
+      "geometryNote": "Tọa độ tham chiếu pha khí do NIST tổng hợp; một hình học tĩnh, có làm tròn và ràng buộc đối xứng theo nguồn. Không dùng thay cấu trúc tinh thể hay khẳng định độ chính xác tuyệt đối.",
+      "referenceGeometry": {
+        "phase": "gas",
+        "pointGroup": "D∞h",
+        "atoms": [
+          "O1",
+          "O2"
+        ],
+        "topologySha256": "fa6e4a09e47f247f57ad2d39966ee6f5a36d0cefb7bfcdb0672619280b29ea6d",
+        "parameterNotes": [
+          "rOO: re"
+        ],
+        "references": [
+          {
+            "id": "1979HUB/HER",
+            "citation": "Huber, K.P.; Herzberg, G., Molecular Spectra and Molecular Structure. IV. Constants of Diatomic Molecules, Van Nostrand Reinhold Co., 1979",
+            "doi": "10.1007/978-1-4757-0961-2"
+          }
+        ]
+      }
     },
     "molarMass": 31.998,
     "atomCount": 2
@@ -237,9 +347,30 @@
       "format": "sdf",
       "url": "/shared/structures/783.sdf",
       "dimension": "3d",
-      "provenance": "NCI/CADD CACTVS computed coordinates",
-      "retrievedAt": "2026-10-26",
-      "source": "https://cactus.nci.nih.gov/chemical/structure/dihydrogen/file?format=sdf&get3d=true"
+      "provenance": "NIST CCCBDB SRD 101, experimental gas-phase reference geometry",
+      "retrievedAt": "2026-11-12",
+      "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=1333740&charge=0",
+      "coordinateType": "experimental",
+      "geometryNote": "Tọa độ tham chiếu pha khí do NIST tổng hợp; một hình học tĩnh, có làm tròn và ràng buộc đối xứng theo nguồn. Không dùng thay cấu trúc tinh thể hay khẳng định độ chính xác tuyệt đối.",
+      "referenceGeometry": {
+        "phase": "gas",
+        "pointGroup": "D∞h",
+        "atoms": [
+          "H1",
+          "H2"
+        ],
+        "topologySha256": "b176e2aceb13bb5ee85afc5bd7b6b0bf6ff00b957a5758dd1d016412c60aa413",
+        "parameterNotes": [
+          "rHH: re"
+        ],
+        "references": [
+          {
+            "id": "1979HUB/HER",
+            "citation": "Huber, K.P.; Herzberg, G., Molecular Spectra and Molecular Structure. IV. Constants of Diatomic Molecules, Van Nostrand Reinhold Co., 1979",
+            "doi": "10.1007/978-1-4757-0961-2"
+          }
+        ]
+      }
     },
     "molarMass": 2.016,
     "atomCount": 2
@@ -264,10 +395,28 @@
       "format": "sdf",
       "url": "/shared/structures/280.sdf",
       "dimension": "3d",
-      "provenance": "NIST CCCBDB SRD 101, experimental gas-phase Cartesian coordinates",
-      "retrievedAt": "2026-10-27",
+      "provenance": "NIST CCCBDB SRD 101, experimental gas-phase reference geometry",
+      "retrievedAt": "2026-11-12",
       "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=124389&charge=0",
-      "coordinateType": "experimental"
+      "coordinateType": "experimental",
+      "geometryNote": "Tọa độ tham chiếu pha khí do NIST tổng hợp; một hình học tĩnh, có làm tròn và ràng buộc đối xứng theo nguồn. Không dùng thay cấu trúc tinh thể hay khẳng định độ chính xác tuyệt đối.",
+      "referenceGeometry": {
+        "phase": "gas",
+        "pointGroup": "D∞h",
+        "atoms": [
+          "C1",
+          "O2",
+          "O3"
+        ],
+        "topologySha256": "5519d1f62d512975b7e0bb51aa4f51eecdf331f7f669acaa4d2d9cb1f6851f0d",
+        "parameterNotes": [],
+        "references": [
+          {
+            "id": "1966Herzberg",
+            "citation": "Herzberg, G., Electronic spectra and electronic structure of polyatomic molecules,Van Nostrand,New York, 1966"
+          }
+        ]
+      }
     },
     "molarMass": 44.009,
     "atomCount": 3
@@ -292,9 +441,30 @@
       "format": "sdf",
       "url": "/shared/structures/281.sdf",
       "dimension": "3d",
-      "provenance": "NCI/CADD CACTVS computed coordinates",
-      "retrievedAt": "2026-10-26",
-      "source": "https://cactus.nci.nih.gov/chemical/structure/%5BC-%5D%23%5BO%2B%5D/file?format=sdf&get3d=true"
+      "provenance": "NIST CCCBDB SRD 101, experimental gas-phase reference geometry",
+      "retrievedAt": "2026-11-12",
+      "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=630080&charge=0",
+      "coordinateType": "experimental",
+      "geometryNote": "Tọa độ tham chiếu pha khí do NIST tổng hợp; một hình học tĩnh, có làm tròn và ràng buộc đối xứng theo nguồn. Không dùng thay cấu trúc tinh thể hay khẳng định độ chính xác tuyệt đối.",
+      "referenceGeometry": {
+        "phase": "gas",
+        "pointGroup": "C∞v",
+        "atoms": [
+          "C1",
+          "O2"
+        ],
+        "topologySha256": "c0e05e86e9d6c1b2ebf59fdb81728b9f34ff89bffcd43f9162203604eb415106",
+        "parameterNotes": [
+          "rCO: re"
+        ],
+        "references": [
+          {
+            "id": "NISTdiatomic",
+            "citation": "NIST Diatomic Spectral Database (www.physics.nist.gov/PhysRefData/MolSpec/Diatomic/index.html)",
+            "doi": "10.18434/T4T59X"
+          }
+        ]
+      }
     },
     "molarMass": 28.01,
     "atomCount": 2
@@ -319,10 +489,37 @@
       "format": "sdf",
       "url": "/shared/structures/297.sdf",
       "dimension": "3d",
-      "provenance": "NIST CCCBDB SRD 101, experimental gas-phase Cartesian coordinates",
-      "retrievedAt": "2026-10-27",
+      "provenance": "NIST CCCBDB SRD 101, experimental gas-phase reference geometry",
+      "retrievedAt": "2026-11-12",
       "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=74828&charge=0",
-      "coordinateType": "experimental"
+      "coordinateType": "experimental",
+      "geometryNote": "Tọa độ tham chiếu pha khí do NIST tổng hợp; một hình học tĩnh, có làm tròn và ràng buộc đối xứng theo nguồn. Không dùng thay cấu trúc tinh thể hay khẳng định độ chính xác tuyệt đối.",
+      "referenceGeometry": {
+        "phase": "gas",
+        "pointGroup": "Td",
+        "atoms": [
+          "C1",
+          "H2",
+          "H3",
+          "H4",
+          "H5"
+        ],
+        "topologySha256": "3830d990a9f4f4e9a7d26a6d323c96165ad0c50b17ad97ca51bb8fb01129d33f",
+        "parameterNotes": [
+          "rCH: re"
+        ],
+        "references": [
+          {
+            "id": "1974sve/kov",
+            "citation": "L.M. Sverdlov, M. A. Kovner, E. P. Krainov, \"Vibrational Spectra of Polyatomic Molecules\" Wiley, New York 1974"
+          },
+          {
+            "id": "1979Hir:213",
+            "citation": "E Hirota \"Anharmonic Potential Function and Equilibrium Structure of Methane\" J. Mol. Spect. 77, 213-221 (1979)",
+            "doi": "10.1016/0022-2852(79)90103-6"
+          }
+        ]
+      }
     },
     "molarMass": 16.043,
     "atomCount": 5
@@ -347,9 +544,35 @@
       "format": "sdf",
       "url": "/shared/structures/6324.sdf",
       "dimension": "3d",
-      "provenance": "NCI/CADD CACTVS computed coordinates",
-      "retrievedAt": "2026-10-26",
-      "source": "https://cactus.nci.nih.gov/chemical/structure/ethane/file?format=sdf&get3d=true"
+      "provenance": "NIST CCCBDB SRD 101, experimental gas-phase reference geometry",
+      "retrievedAt": "2026-11-12",
+      "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=74840&charge=0",
+      "coordinateType": "experimental",
+      "geometryNote": "Tọa độ tham chiếu pha khí do NIST tổng hợp; một hình học tĩnh, có làm tròn và ràng buộc đối xứng theo nguồn. Không dùng thay cấu trúc tinh thể hay khẳng định độ chính xác tuyệt đối.",
+      "referenceGeometry": {
+        "phase": "gas",
+        "pointGroup": "D3h",
+        "atoms": [
+          "C1",
+          "C2",
+          "H3",
+          "H4",
+          "H5",
+          "H6",
+          "H7",
+          "H8"
+        ],
+        "topologySha256": "b5d99a8af0d7e259deda1444bc3f704fb888c9d306b83300aeb4a403e9922535",
+        "parameterNotes": [
+          "aHCC: by symmetry"
+        ],
+        "references": [
+          {
+            "id": "1966Herzberg",
+            "citation": "Herzberg, G., Electronic spectra and electronic structure of polyatomic molecules,Van Nostrand,New York, 1966"
+          }
+        ]
+      }
     },
     "molarMass": 30.07,
     "atomCount": 8
@@ -374,9 +597,31 @@
       "format": "sdf",
       "url": "/shared/structures/6325.sdf",
       "dimension": "3d",
-      "provenance": "NCI/CADD CACTVS computed coordinates",
-      "retrievedAt": "2026-10-26",
-      "source": "https://cactus.nci.nih.gov/chemical/structure/ethylene/file?format=sdf&get3d=true"
+      "provenance": "NIST CCCBDB SRD 101, experimental gas-phase reference geometry",
+      "retrievedAt": "2026-11-12",
+      "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=74851&charge=0",
+      "coordinateType": "experimental",
+      "geometryNote": "Tọa độ tham chiếu pha khí do NIST tổng hợp; một hình học tĩnh, có làm tròn và ràng buộc đối xứng theo nguồn. Không dùng thay cấu trúc tinh thể hay khẳng định độ chính xác tuyệt đối.",
+      "referenceGeometry": {
+        "phase": "gas",
+        "pointGroup": "D2h",
+        "atoms": [
+          "C1",
+          "C2",
+          "H3",
+          "H4",
+          "H5",
+          "H6"
+        ],
+        "topologySha256": "8b86ca1bddb1f6281ed2fff82d43ad6424ea23bd5cccb517951195b5850d3ead",
+        "parameterNotes": [],
+        "references": [
+          {
+            "id": "1966Herzberg",
+            "citation": "Herzberg, G., Electronic spectra and electronic structure of polyatomic molecules,Van Nostrand,New York, 1966"
+          }
+        ]
+      }
     },
     "molarMass": 28.054,
     "atomCount": 6
@@ -401,9 +646,37 @@
       "format": "sdf",
       "url": "/shared/structures/6326.sdf",
       "dimension": "3d",
-      "provenance": "NCI/CADD CACTVS computed coordinates",
-      "retrievedAt": "2026-10-26",
-      "source": "https://cactus.nci.nih.gov/chemical/structure/acetylene/file?format=sdf&get3d=true"
+      "provenance": "NIST CCCBDB SRD 101, experimental gas-phase reference geometry",
+      "retrievedAt": "2026-11-12",
+      "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=74862&charge=0",
+      "coordinateType": "experimental",
+      "geometryNote": "Tọa độ tham chiếu pha khí do NIST tổng hợp; một hình học tĩnh, có làm tròn và ràng buộc đối xứng theo nguồn. Không dùng thay cấu trúc tinh thể hay khẳng định độ chính xác tuyệt đối.",
+      "referenceGeometry": {
+        "phase": "gas",
+        "pointGroup": "D∞h",
+        "atoms": [
+          "C1",
+          "C2",
+          "H3",
+          "H4"
+        ],
+        "topologySha256": "750b4367f7bf04fdf0867fc55dc6e859b4558b9bee96b142d9b93efda2162b90",
+        "parameterNotes": [
+          "rCH: rm structure",
+          "rCC: rm structure"
+        ],
+        "references": [
+          {
+            "id": "1966Herzberg",
+            "citation": "Herzberg, G., Electronic spectra and electronic structure of polyatomic molecules,Van Nostrand,New York, 1966"
+          },
+          {
+            "id": "1998Kuc",
+            "citation": "K Kuchitsu(ed) \"Structure of Free Polyatomic Molecules - Basic Data\" Springer, Berlin, 1998",
+            "doi": "10.1007/978-3-642-45748-7"
+          }
+        ]
+      }
     },
     "molarMass": 26.038,
     "atomCount": 4
@@ -536,9 +809,37 @@
       "format": "sdf",
       "url": "/shared/structures/241.sdf",
       "dimension": "3d",
-      "provenance": "NCI/CADD CACTVS computed coordinates",
-      "retrievedAt": "2026-10-26",
-      "source": "https://cactus.nci.nih.gov/chemical/structure/benzene/file?format=sdf&get3d=true"
+      "provenance": "NIST CCCBDB SRD 101, experimental gas-phase reference geometry",
+      "retrievedAt": "2026-11-12",
+      "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=71432&charge=0",
+      "coordinateType": "experimental",
+      "geometryNote": "Tọa độ tham chiếu pha khí do NIST tổng hợp; một hình học tĩnh, có làm tròn và ràng buộc đối xứng theo nguồn. Không dùng thay cấu trúc tinh thể hay khẳng định độ chính xác tuyệt đối.",
+      "referenceGeometry": {
+        "phase": "gas",
+        "pointGroup": "D6h",
+        "atoms": [
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "H7",
+          "H8",
+          "H9",
+          "H10",
+          "H11",
+          "H12"
+        ],
+        "topologySha256": "49d3366f61bb8132342ea610f5db4e513b9902c6c0e3643b382259aeca634571",
+        "parameterNotes": [],
+        "references": [
+          {
+            "id": "1966Herzberg",
+            "citation": "Herzberg, G., Electronic spectra and electronic structure of polyatomic molecules,Van Nostrand,New York, 1966"
+          }
+        ]
+      }
     },
     "molarMass": 78.114,
     "atomCount": 12

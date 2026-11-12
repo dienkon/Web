@@ -1,50 +1,105 @@
 [
   {
     "cid": 962,
+    "cas": "7732185",
+    "formula": "H2O",
     "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7732185&charge=0",
-    "provenance": "NIST CCCBDB SRD 101, experimental gas-phase Cartesian coordinates",
-    "retrievedAt": "2026-10-27",
+    "provenance": "NIST CCCBDB SRD 101, experimental gas-phase reference geometry",
+    "retrievedAt": "2026-11-12",
+    "sourceSha256": "1cd2ffca0f6788f7c98c7bae335b951327e64c33d1f51f8c9dfbdad296f47d06",
+    "snapshot": "docs\\references\\nist-geometries\\962.html",
+    "heading": "Listing of experimental geometry data for H2O (Water)",
+    "pointGroup": "C2v",
+    "phase": "gas",
+    "coordinateUnit": "angstrom",
+    "topologySha256": "879060a6dc0068e35f3686072b2ddd7b8acf9550803375eb4cb5ce78395bd8d2",
+    "geometryNote": "Tọa độ tham chiếu pha khí do NIST tổng hợp; một hình học tĩnh, có làm tròn và ràng buộc đối xứng theo nguồn. Không dùng thay cấu trúc tinh thể hay khẳng định độ chính xác tuyệt đối.",
     "atoms": [
       {
         "element": "O",
         "label": "O1",
-        "x": 0.0,
-        "y": 0.0,
+        "x": 0,
+        "y": 0,
         "z": 0.1173
       },
       {
         "element": "H",
         "label": "H2",
-        "x": 0.0,
+        "x": 0,
         "y": 0.7572,
         "z": -0.4692
       },
       {
         "element": "H",
         "label": "H3",
-        "x": 0.0,
+        "x": 0,
         "y": -0.7572,
         "z": -0.4692
+      }
+    ],
+    "internalCoordinates": [
+      [
+        "rOH",
+        "0.958",
+        "1",
+        "2",
+        "",
+        "",
+        "1979Hoy/Bun:1",
+        "re"
+      ],
+      [
+        "aHOH",
+        "104.4776",
+        "2",
+        "1",
+        "3",
+        "",
+        "1979Hoy/Bun:1",
+        "equilibrium"
+      ]
+    ],
+    "bondTypes": [
+      [
+        "H-O",
+        "2"
+      ]
+    ],
+    "references": [
+      {
+        "id": "1979Hoy/Bun:1",
+        "citation": "AR Hoy, PR Bunker, \"A precise Solution of the Rotation Beninding Schrodinger Equation for a Triatomic Molecule with Application to the Water Molecule\" J. Molecular Spectroscopy 74, 1-8, 1979",
+        "doi": "10.1016/0022-2852(79)90019-5"
       }
     ]
   },
   {
     "cid": 222,
+    "cas": "7664417",
+    "formula": "H3N",
     "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7664417&charge=0",
-    "provenance": "NIST CCCBDB SRD 101, experimental gas-phase Cartesian coordinates",
-    "retrievedAt": "2026-10-27",
+    "provenance": "NIST CCCBDB SRD 101, experimental gas-phase reference geometry",
+    "retrievedAt": "2026-11-12",
+    "sourceSha256": "2c5d204ad8300c6084382dfa0e7a0f89c125d123a4eaaddd81a5e111e0973ef7",
+    "snapshot": "docs\\references\\nist-geometries\\222.html",
+    "heading": "Listing of experimental geometry data for NH3 (Ammonia)",
+    "pointGroup": "C3v",
+    "phase": "gas",
+    "coordinateUnit": "angstrom",
+    "topologySha256": "c89be276546d5f78cb14ebe5aa23b09ee66cc30f14d1f92ad7078fa69bf403ed",
+    "geometryNote": "Tọa độ tham chiếu pha khí do NIST tổng hợp; một hình học tĩnh, có làm tròn và ràng buộc đối xứng theo nguồn. Không dùng thay cấu trúc tinh thể hay khẳng định độ chính xác tuyệt đối.",
     "atoms": [
       {
         "element": "N",
         "label": "N1",
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0
+        "x": 0,
+        "y": 0,
+        "z": 0
       },
       {
         "element": "H",
         "label": "H2",
-        "x": 0.0,
+        "x": 0,
         "y": -0.9377,
         "z": -0.3816
       },
@@ -62,20 +117,74 @@
         "y": 0.4689,
         "z": -0.3816
       }
+    ],
+    "internalCoordinates": [
+      [
+        "rNH",
+        "1.012",
+        "1",
+        "2",
+        "",
+        "",
+        "1966Herzberg",
+        ""
+      ],
+      [
+        "aHNH",
+        "106.67",
+        "2",
+        "1",
+        "3",
+        "",
+        "1966Herzberg",
+        ""
+      ],
+      [
+        "aXNH",
+        "112.15",
+        "255",
+        "1",
+        "2",
+        "",
+        "1966Herzberg",
+        "from symmetry. X is on symmetry axis."
+      ]
+    ],
+    "bondTypes": [
+      [
+        "H-N",
+        "3"
+      ]
+    ],
+    "references": [
+      {
+        "id": "1966Herzberg",
+        "citation": "Herzberg, G., Electronic spectra and electronic structure of polyatomic molecules,Van Nostrand,New York, 1966"
+      }
     ]
   },
   {
     "cid": 297,
+    "cas": "74828",
+    "formula": "CH4",
     "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=74828&charge=0",
-    "provenance": "NIST CCCBDB SRD 101, experimental gas-phase Cartesian coordinates",
-    "retrievedAt": "2026-10-27",
+    "provenance": "NIST CCCBDB SRD 101, experimental gas-phase reference geometry",
+    "retrievedAt": "2026-11-12",
+    "sourceSha256": "a66d20f9a7cbfc74479a4dadf8c519318909d63497f3917a203a8decabb897b0",
+    "snapshot": "docs\\references\\nist-geometries\\297.html",
+    "heading": "Listing of experimental geometry data for CH4 (Methane)",
+    "pointGroup": "Td",
+    "phase": "gas",
+    "coordinateUnit": "angstrom",
+    "topologySha256": "3830d990a9f4f4e9a7d26a6d323c96165ad0c50b17ad97ca51bb8fb01129d33f",
+    "geometryNote": "Tọa độ tham chiếu pha khí do NIST tổng hợp; một hình học tĩnh, có làm tròn và ràng buộc đối xứng theo nguồn. Không dùng thay cấu trúc tinh thể hay khẳng định độ chính xác tuyệt đối.",
     "atoms": [
       {
         "element": "C",
         "label": "C1",
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0
+        "x": 0,
+        "y": 0,
+        "z": 0
       },
       {
         "element": "H",
@@ -105,34 +214,997 @@
         "y": -0.6276,
         "z": 0.6276
       }
+    ],
+    "internalCoordinates": [
+      [
+        "rCH",
+        "1.087",
+        "1",
+        "2",
+        "",
+        "",
+        "1979Hir:213",
+        "re"
+      ],
+      [
+        "aHCH",
+        "109.471",
+        "2",
+        "1",
+        "3",
+        "",
+        "1974sve/kov",
+        ""
+      ]
+    ],
+    "bondTypes": [
+      [
+        "H-C",
+        "4"
+      ]
+    ],
+    "references": [
+      {
+        "id": "1974sve/kov",
+        "citation": "L.M. Sverdlov, M. A. Kovner, E. P. Krainov, \"Vibrational Spectra of Polyatomic Molecules\" Wiley, New York 1974"
+      },
+      {
+        "id": "1979Hir:213",
+        "citation": "E Hirota \"Anharmonic Potential Function and Equilibrium Structure of Methane\" J. Mol. Spect. 77, 213-221 (1979)",
+        "doi": "10.1016/0022-2852(79)90103-6"
+      }
     ]
   },
   {
     "cid": 280,
+    "cas": "124389",
+    "formula": "CO2",
     "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=124389&charge=0",
-    "provenance": "NIST CCCBDB SRD 101, experimental gas-phase Cartesian coordinates",
-    "retrievedAt": "2026-10-27",
+    "provenance": "NIST CCCBDB SRD 101, experimental gas-phase reference geometry",
+    "retrievedAt": "2026-11-12",
+    "sourceSha256": "075dc5e7b966da93b3603542614694c2504c377f82976ae3416f4b4a9181e5e9",
+    "snapshot": "docs\\references\\nist-geometries\\280.html",
+    "heading": "Listing of experimental geometry data for CO2 (Carbon dioxide)",
+    "pointGroup": "D∞h",
+    "phase": "gas",
+    "coordinateUnit": "angstrom",
+    "topologySha256": "5519d1f62d512975b7e0bb51aa4f51eecdf331f7f669acaa4d2d9cb1f6851f0d",
+    "geometryNote": "Tọa độ tham chiếu pha khí do NIST tổng hợp; một hình học tĩnh, có làm tròn và ràng buộc đối xứng theo nguồn. Không dùng thay cấu trúc tinh thể hay khẳng định độ chính xác tuyệt đối.",
     "atoms": [
       {
         "element": "C",
         "label": "C1",
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0
+        "x": 0,
+        "y": 0,
+        "z": 0
       },
       {
         "element": "O",
         "label": "O2",
-        "x": 0.0,
-        "y": 0.0,
+        "x": 0,
+        "y": 0,
         "z": 1.1621
       },
       {
         "element": "O",
         "label": "O3",
-        "x": 0.0,
-        "y": 0.0,
+        "x": 0,
+        "y": 0,
         "z": -1.1621
+      }
+    ],
+    "internalCoordinates": [
+      [
+        "rCO",
+        "1.162",
+        "1",
+        "2",
+        "",
+        "",
+        "1966Herzberg",
+        ""
+      ],
+      [
+        "aOCO",
+        "180",
+        "2",
+        "1",
+        "3",
+        "",
+        "1966Herzberg",
+        ""
+      ]
+    ],
+    "bondTypes": [
+      [
+        "C=O",
+        "2"
+      ]
+    ],
+    "references": [
+      {
+        "id": "1966Herzberg",
+        "citation": "Herzberg, G., Electronic spectra and electronic structure of polyatomic molecules,Van Nostrand,New York, 1966"
+      }
+    ]
+  },
+  {
+    "cid": 887,
+    "cas": "67561",
+    "formula": "CH4O",
+    "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=67561&charge=0",
+    "provenance": "NIST CCCBDB SRD 101, experimental gas-phase reference geometry",
+    "retrievedAt": "2026-11-12",
+    "sourceSha256": "f9eaa5cdfa5494b35d4cd5a4d7e1cec60abf194920211f726af91aed2c6494b2",
+    "snapshot": "docs\\references\\nist-geometries\\887.html",
+    "heading": "Listing of experimental geometry data for CH3OH (Methyl alcohol)",
+    "pointGroup": "Cs",
+    "phase": "gas",
+    "coordinateUnit": "angstrom",
+    "topologySha256": "38097ba005ad3d1d552d73f4dcc982061a143f981e57f33973b4e178c926ed6a",
+    "geometryNote": "Tọa độ tham chiếu pha khí do NIST tổng hợp; một hình học tĩnh, có làm tròn và ràng buộc đối xứng theo nguồn. Không dùng thay cấu trúc tinh thể hay khẳng định độ chính xác tuyệt đối.",
+    "atoms": [
+      {
+        "element": "C",
+        "label": "C1",
+        "x": -0.0503,
+        "y": 0.6685,
+        "z": 0
+      },
+      {
+        "element": "O",
+        "label": "O2",
+        "x": -0.0503,
+        "y": -0.7585,
+        "z": 0
+      },
+      {
+        "element": "H",
+        "label": "H3",
+        "x": -1.0807,
+        "y": 1.0417,
+        "z": 0
+      },
+      {
+        "element": "H",
+        "label": "H4",
+        "x": 0.465,
+        "y": 1.0417,
+        "z": 0.8924
+      },
+      {
+        "element": "H",
+        "label": "H5",
+        "x": 0.465,
+        "y": 1.0417,
+        "z": -0.8924
+      },
+      {
+        "element": "H",
+        "label": "H6",
+        "x": 0.8544,
+        "y": -1.0677,
+        "z": 0
+      }
+    ],
+    "internalCoordinates": [
+      [
+        "rOH",
+        "0.956",
+        "2",
+        "6",
+        "",
+        "",
+        "1955Ven/Gor:1200",
+        ""
+      ],
+      [
+        "rCO",
+        "1.427",
+        "1",
+        "2",
+        "",
+        "",
+        "1955Ven/Gor:1200",
+        ""
+      ],
+      [
+        "rCH",
+        "1.096",
+        "1",
+        "3",
+        "",
+        "",
+        "1955Ven/Gor:1200",
+        ""
+      ],
+      [
+        "aHCH",
+        "109.03",
+        "3",
+        "1",
+        "4",
+        "",
+        "1955Ven/Gor:1200",
+        ""
+      ],
+      [
+        "aHOC",
+        "108.87",
+        "1",
+        "2",
+        "6",
+        "",
+        "1955Ven/Gor:1200",
+        ""
+      ],
+      [
+        "dHCOH",
+        "180",
+        "3",
+        "1",
+        "2",
+        "6",
+        "1955Ven/Gor:1200",
+        "symmetry"
+      ]
+    ],
+    "bondTypes": [
+      [
+        "H-O",
+        "1"
+      ],
+      [
+        "C-O",
+        "1"
+      ],
+      [
+        "H-C",
+        "3"
+      ]
+    ],
+    "references": [
+      {
+        "id": "1955Ven/Gor:1200",
+        "citation": "P Venkateswarlu, W Gordy \"Methyl Alcohol II. Molecular Structure\" J. Chem. Phys. 23(7), 1200, 1955",
+        "doi": "10.1063/1.1742240"
+      }
+    ]
+  },
+  {
+    "cid": 281,
+    "cas": "630080",
+    "formula": "CO",
+    "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=630080&charge=0",
+    "provenance": "NIST CCCBDB SRD 101, experimental gas-phase reference geometry",
+    "retrievedAt": "2026-11-12",
+    "sourceSha256": "1b920c95cb31000a9295d214ce45c43042158d4ec3e5e935e8a421d83bdd44b2",
+    "snapshot": "docs\\references\\nist-geometries\\281.html",
+    "heading": "Listing of experimental geometry data for CO (Carbon monoxide)",
+    "pointGroup": "C∞v",
+    "phase": "gas",
+    "coordinateUnit": "angstrom",
+    "topologySha256": "c0e05e86e9d6c1b2ebf59fdb81728b9f34ff89bffcd43f9162203604eb415106",
+    "geometryNote": "Tọa độ tham chiếu pha khí do NIST tổng hợp; một hình học tĩnh, có làm tròn và ràng buộc đối xứng theo nguồn. Không dùng thay cấu trúc tinh thể hay khẳng định độ chính xác tuyệt đối.",
+    "atoms": [
+      {
+        "element": "C",
+        "label": "C1",
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      {
+        "element": "O",
+        "label": "O2",
+        "x": 0,
+        "y": 0,
+        "z": 1.1282
+      }
+    ],
+    "internalCoordinates": [
+      [
+        "rCO",
+        "1.128",
+        "1",
+        "2",
+        "",
+        "",
+        "NISTdiatomic",
+        "re"
+      ]
+    ],
+    "bondTypes": [
+      [
+        "C#O",
+        "1"
+      ]
+    ],
+    "references": [
+      {
+        "id": "NISTdiatomic",
+        "citation": "NIST Diatomic Spectral Database (www.physics.nist.gov/PhysRefData/MolSpec/Diatomic/index.html)",
+        "doi": "10.18434/T4T59X"
+      }
+    ]
+  },
+  {
+    "cid": 947,
+    "cas": "7727379",
+    "formula": "N2",
+    "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7727379&charge=0",
+    "provenance": "NIST CCCBDB SRD 101, experimental gas-phase reference geometry",
+    "retrievedAt": "2026-11-12",
+    "sourceSha256": "75346df5075c805dcabdb4147c4a0ee3fff160b7cee637a649b68f24ace445e0",
+    "snapshot": "docs\\references\\nist-geometries\\947.html",
+    "heading": "Listing of experimental geometry data for N2 (Nitrogen diatomic)",
+    "pointGroup": "D∞h",
+    "phase": "gas",
+    "coordinateUnit": "angstrom",
+    "topologySha256": "84c26cdbad3110d5410d2e5ddaef3bfe4578691c32e97d4310396b9fcca2942e",
+    "geometryNote": "Tọa độ tham chiếu pha khí do NIST tổng hợp; một hình học tĩnh, có làm tròn và ràng buộc đối xứng theo nguồn. Không dùng thay cấu trúc tinh thể hay khẳng định độ chính xác tuyệt đối.",
+    "atoms": [
+      {
+        "element": "N",
+        "label": "N1",
+        "x": 0,
+        "y": 0,
+        "z": 0.5488
+      },
+      {
+        "element": "N",
+        "label": "N2",
+        "x": 0,
+        "y": 0,
+        "z": -0.5488
+      }
+    ],
+    "internalCoordinates": [
+      [
+        "rNN",
+        "1.098",
+        "1",
+        "2",
+        "",
+        "",
+        "1979HUB/HER",
+        "re"
+      ]
+    ],
+    "bondTypes": [
+      [
+        "N#N",
+        "1"
+      ]
+    ],
+    "references": [
+      {
+        "id": "1979HUB/HER",
+        "citation": "Huber, K.P.; Herzberg, G., Molecular Spectra and Molecular Structure. IV. Constants of Diatomic Molecules, Van Nostrand Reinhold Co., 1979",
+        "doi": "10.1007/978-1-4757-0961-2"
+      }
+    ]
+  },
+  {
+    "cid": 977,
+    "cas": "7782447",
+    "formula": "O2",
+    "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7782447&charge=0",
+    "provenance": "NIST CCCBDB SRD 101, experimental gas-phase reference geometry",
+    "retrievedAt": "2026-11-12",
+    "sourceSha256": "57445767f9ab685eeb37fa79feb1e809b820eda7b1742469dde869df5b256e25",
+    "snapshot": "docs\\references\\nist-geometries\\977.html",
+    "heading": "Listing of experimental geometry data for O2 (Oxygen diatomic)",
+    "pointGroup": "D∞h",
+    "phase": "gas",
+    "coordinateUnit": "angstrom",
+    "topologySha256": "fa6e4a09e47f247f57ad2d39966ee6f5a36d0cefb7bfcdb0672619280b29ea6d",
+    "geometryNote": "Tọa độ tham chiếu pha khí do NIST tổng hợp; một hình học tĩnh, có làm tròn và ràng buộc đối xứng theo nguồn. Không dùng thay cấu trúc tinh thể hay khẳng định độ chính xác tuyệt đối.",
+    "atoms": [
+      {
+        "element": "O",
+        "label": "O1",
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      {
+        "element": "O",
+        "label": "O2",
+        "x": 0,
+        "y": 0,
+        "z": 1.2075
+      }
+    ],
+    "internalCoordinates": [
+      [
+        "rOO",
+        "1.208",
+        "1",
+        "2",
+        "",
+        "",
+        "1979HUB/HER",
+        "re"
+      ]
+    ],
+    "bondTypes": [
+      [
+        "O=O",
+        "1"
+      ]
+    ],
+    "references": [
+      {
+        "id": "1979HUB/HER",
+        "citation": "Huber, K.P.; Herzberg, G., Molecular Spectra and Molecular Structure. IV. Constants of Diatomic Molecules, Van Nostrand Reinhold Co., 1979",
+        "doi": "10.1007/978-1-4757-0961-2"
+      }
+    ]
+  },
+  {
+    "cid": 783,
+    "cas": "1333740",
+    "formula": "H2",
+    "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=1333740&charge=0",
+    "provenance": "NIST CCCBDB SRD 101, experimental gas-phase reference geometry",
+    "retrievedAt": "2026-11-12",
+    "sourceSha256": "f71288b41223a4c8049715c6eed8f855eeff2610fd01c5aa4472233d8ca0fc50",
+    "snapshot": "docs\\references\\nist-geometries\\783.html",
+    "heading": "Listing of experimental geometry data for H2 (Hydrogen diatomic)",
+    "pointGroup": "D∞h",
+    "phase": "gas",
+    "coordinateUnit": "angstrom",
+    "topologySha256": "b176e2aceb13bb5ee85afc5bd7b6b0bf6ff00b957a5758dd1d016412c60aa413",
+    "geometryNote": "Tọa độ tham chiếu pha khí do NIST tổng hợp; một hình học tĩnh, có làm tròn và ràng buộc đối xứng theo nguồn. Không dùng thay cấu trúc tinh thể hay khẳng định độ chính xác tuyệt đối.",
+    "atoms": [
+      {
+        "element": "H",
+        "label": "H1",
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      {
+        "element": "H",
+        "label": "H2",
+        "x": 0,
+        "y": 0,
+        "z": 0.7414
+      }
+    ],
+    "internalCoordinates": [
+      [
+        "rHH",
+        "0.741",
+        "1",
+        "2",
+        "",
+        "",
+        "1979HUB/HER",
+        "re"
+      ]
+    ],
+    "bondTypes": [
+      [
+        "H-H",
+        "1"
+      ]
+    ],
+    "references": [
+      {
+        "id": "1979HUB/HER",
+        "citation": "Huber, K.P.; Herzberg, G., Molecular Spectra and Molecular Structure. IV. Constants of Diatomic Molecules, Van Nostrand Reinhold Co., 1979",
+        "doi": "10.1007/978-1-4757-0961-2"
+      }
+    ]
+  },
+  {
+    "cid": 241,
+    "cas": "71432",
+    "formula": "C6H6",
+    "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=71432&charge=0",
+    "provenance": "NIST CCCBDB SRD 101, experimental gas-phase reference geometry",
+    "retrievedAt": "2026-11-12",
+    "sourceSha256": "5f24da74f48a2430454c5c20fd304c3ef3a8581232e2f75f8cbf19693be1c282",
+    "snapshot": "docs\\references\\nist-geometries\\241.html",
+    "heading": "Listing of experimental geometry data for C6H6 (Benzene)",
+    "pointGroup": "D6h",
+    "phase": "gas",
+    "coordinateUnit": "angstrom",
+    "topologySha256": "49d3366f61bb8132342ea610f5db4e513b9902c6c0e3643b382259aeca634571",
+    "geometryNote": "Tọa độ tham chiếu pha khí do NIST tổng hợp; một hình học tĩnh, có làm tròn và ràng buộc đối xứng theo nguồn. Không dùng thay cấu trúc tinh thể hay khẳng định độ chính xác tuyệt đối.",
+    "atoms": [
+      {
+        "element": "C",
+        "label": "C1",
+        "x": 0,
+        "y": 1.397,
+        "z": 0
+      },
+      {
+        "element": "C",
+        "label": "C2",
+        "x": 1.2098,
+        "y": 0.6985,
+        "z": 0
+      },
+      {
+        "element": "C",
+        "label": "C3",
+        "x": 1.2098,
+        "y": -0.6985,
+        "z": 0
+      },
+      {
+        "element": "C",
+        "label": "C4",
+        "x": 0,
+        "y": -1.397,
+        "z": 0
+      },
+      {
+        "element": "C",
+        "label": "C5",
+        "x": -1.2098,
+        "y": -0.6985,
+        "z": 0
+      },
+      {
+        "element": "C",
+        "label": "C6",
+        "x": -1.2098,
+        "y": 0.6985,
+        "z": 0
+      },
+      {
+        "element": "H",
+        "label": "H7",
+        "x": 0,
+        "y": 2.481,
+        "z": 0
+      },
+      {
+        "element": "H",
+        "label": "H8",
+        "x": 2.1486,
+        "y": 1.2405,
+        "z": 0
+      },
+      {
+        "element": "H",
+        "label": "H9",
+        "x": 2.1486,
+        "y": -1.2405,
+        "z": 0
+      },
+      {
+        "element": "H",
+        "label": "H10",
+        "x": 0,
+        "y": -2.481,
+        "z": 0
+      },
+      {
+        "element": "H",
+        "label": "H11",
+        "x": -2.1486,
+        "y": -1.2405,
+        "z": 0
+      },
+      {
+        "element": "H",
+        "label": "H12",
+        "x": -2.1486,
+        "y": 1.2405,
+        "z": 0
+      }
+    ],
+    "internalCoordinates": [
+      [
+        "rCC",
+        "1.397",
+        "1",
+        "2",
+        "",
+        "",
+        "1966Herzberg",
+        ""
+      ],
+      [
+        "rCH",
+        "1.084",
+        "1",
+        "7",
+        "",
+        "",
+        "1966Herzberg",
+        ""
+      ],
+      [
+        "aCCC",
+        "120",
+        "1",
+        "2",
+        "3",
+        "",
+        "1966Herzberg",
+        ""
+      ],
+      [
+        "aHCC",
+        "120",
+        "1",
+        "2",
+        "8",
+        "",
+        "1966Herzberg",
+        ""
+      ]
+    ],
+    "bondTypes": [
+      [
+        "C:C",
+        "6"
+      ],
+      [
+        "H-C",
+        "6"
+      ]
+    ],
+    "references": [
+      {
+        "id": "1966Herzberg",
+        "citation": "Herzberg, G., Electronic spectra and electronic structure of polyatomic molecules,Van Nostrand,New York, 1966"
+      }
+    ]
+  },
+  {
+    "cid": 6324,
+    "cas": "74840",
+    "formula": "C2H6",
+    "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=74840&charge=0",
+    "provenance": "NIST CCCBDB SRD 101, experimental gas-phase reference geometry",
+    "retrievedAt": "2026-11-12",
+    "sourceSha256": "ea12f2ac6f0a7bd830e33a47e514494b770c07af0d0af0e0acaa8e4b9b7de141",
+    "snapshot": "docs\\references\\nist-geometries\\6324.html",
+    "heading": "Listing of experimental geometry data for C2H6 (Ethane)",
+    "pointGroup": "D3h",
+    "phase": "gas",
+    "coordinateUnit": "angstrom",
+    "topologySha256": "b5d99a8af0d7e259deda1444bc3f704fb888c9d306b83300aeb4a403e9922535",
+    "geometryNote": "Tọa độ tham chiếu pha khí do NIST tổng hợp; một hình học tĩnh, có làm tròn và ràng buộc đối xứng theo nguồn. Không dùng thay cấu trúc tinh thể hay khẳng định độ chính xác tuyệt đối.",
+    "atoms": [
+      {
+        "element": "C",
+        "label": "C1",
+        "x": 0,
+        "y": 0,
+        "z": 0.768
+      },
+      {
+        "element": "C",
+        "label": "C2",
+        "x": 0,
+        "y": 0,
+        "z": -0.768
+      },
+      {
+        "element": "H",
+        "label": "H3",
+        "x": -1.0192,
+        "y": 0,
+        "z": 1.1573
+      },
+      {
+        "element": "H",
+        "label": "H4",
+        "x": 0.5096,
+        "y": 0.8826,
+        "z": 1.1573
+      },
+      {
+        "element": "H",
+        "label": "H5",
+        "x": 0.5096,
+        "y": -0.8826,
+        "z": 1.1573
+      },
+      {
+        "element": "H",
+        "label": "H6",
+        "x": 1.0192,
+        "y": 0,
+        "z": -1.1573
+      },
+      {
+        "element": "H",
+        "label": "H7",
+        "x": -0.5096,
+        "y": -0.8826,
+        "z": -1.1573
+      },
+      {
+        "element": "H",
+        "label": "H8",
+        "x": -0.5096,
+        "y": 0.8826,
+        "z": -1.1573
+      }
+    ],
+    "internalCoordinates": [
+      [
+        "rCC",
+        "1.536",
+        "1",
+        "2",
+        "",
+        "",
+        "1966Herzberg",
+        ""
+      ],
+      [
+        "rCH",
+        "1.091",
+        "1",
+        "3",
+        "",
+        "",
+        "1966Herzberg",
+        ""
+      ],
+      [
+        "aHCH",
+        "108",
+        "3",
+        "1",
+        "4",
+        "",
+        "1966Herzberg",
+        ""
+      ],
+      [
+        "aHCC",
+        "110.91",
+        "1",
+        "2",
+        "6",
+        "",
+        "1966Herzberg",
+        "by symmetry"
+      ]
+    ],
+    "bondTypes": [
+      [
+        "C-C",
+        "1"
+      ],
+      [
+        "H-C",
+        "6"
+      ]
+    ],
+    "references": [
+      {
+        "id": "1966Herzberg",
+        "citation": "Herzberg, G., Electronic spectra and electronic structure of polyatomic molecules,Van Nostrand,New York, 1966"
+      }
+    ]
+  },
+  {
+    "cid": 6325,
+    "cas": "74851",
+    "formula": "C2H4",
+    "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=74851&charge=0",
+    "provenance": "NIST CCCBDB SRD 101, experimental gas-phase reference geometry",
+    "retrievedAt": "2026-11-12",
+    "sourceSha256": "84a57fa16ef02cbcb6d16a6385e73254c5dc283c483b8e4525488c86094ea090",
+    "snapshot": "docs\\references\\nist-geometries\\6325.html",
+    "heading": "Listing of experimental geometry data for C2H4 (Ethylene)",
+    "pointGroup": "D2h",
+    "phase": "gas",
+    "coordinateUnit": "angstrom",
+    "topologySha256": "8b86ca1bddb1f6281ed2fff82d43ad6424ea23bd5cccb517951195b5850d3ead",
+    "geometryNote": "Tọa độ tham chiếu pha khí do NIST tổng hợp; một hình học tĩnh, có làm tròn và ràng buộc đối xứng theo nguồn. Không dùng thay cấu trúc tinh thể hay khẳng định độ chính xác tuyệt đối.",
+    "atoms": [
+      {
+        "element": "C",
+        "label": "C1",
+        "x": 0,
+        "y": 0,
+        "z": 0.6695
+      },
+      {
+        "element": "C",
+        "label": "C2",
+        "x": 0,
+        "y": 0,
+        "z": -0.6695
+      },
+      {
+        "element": "H",
+        "label": "H3",
+        "x": 0,
+        "y": 0.9289,
+        "z": 1.2321
+      },
+      {
+        "element": "H",
+        "label": "H4",
+        "x": 0,
+        "y": -0.9289,
+        "z": 1.2321
+      },
+      {
+        "element": "H",
+        "label": "H5",
+        "x": 0,
+        "y": 0.9289,
+        "z": -1.2321
+      },
+      {
+        "element": "H",
+        "label": "H6",
+        "x": 0,
+        "y": -0.9289,
+        "z": -1.2321
+      }
+    ],
+    "internalCoordinates": [
+      [
+        "rCC",
+        "1.339",
+        "1",
+        "2",
+        "",
+        "",
+        "1966Herzberg",
+        ""
+      ],
+      [
+        "rCH",
+        "1.086",
+        "1",
+        "3",
+        "",
+        "",
+        "1966Herzberg",
+        ""
+      ],
+      [
+        "aHCH",
+        "117.6",
+        "3",
+        "1",
+        "4",
+        "",
+        "1966Herzberg",
+        ""
+      ],
+      [
+        "aHCC",
+        "121.2",
+        "1",
+        "2",
+        "5",
+        "",
+        "1966Herzberg",
+        ""
+      ]
+    ],
+    "bondTypes": [
+      [
+        "C=C",
+        "1"
+      ],
+      [
+        "H-C",
+        "4"
+      ]
+    ],
+    "references": [
+      {
+        "id": "1966Herzberg",
+        "citation": "Herzberg, G., Electronic spectra and electronic structure of polyatomic molecules,Van Nostrand,New York, 1966"
+      }
+    ]
+  },
+  {
+    "cid": 6326,
+    "cas": "74862",
+    "formula": "C2H2",
+    "source": "https://cccbdb.nist.gov/expgeom2x.asp?casno=74862&charge=0",
+    "provenance": "NIST CCCBDB SRD 101, experimental gas-phase reference geometry",
+    "retrievedAt": "2026-11-12",
+    "sourceSha256": "51d6a838595fbed7fb156a916adeeacd1bf9a6adc2d149f9234a4b76db344092",
+    "snapshot": "docs\\references\\nist-geometries\\6326.html",
+    "heading": "Listing of experimental geometry data for C2H2 (Acetylene)",
+    "pointGroup": "D∞h",
+    "phase": "gas",
+    "coordinateUnit": "angstrom",
+    "topologySha256": "750b4367f7bf04fdf0867fc55dc6e859b4558b9bee96b142d9b93efda2162b90",
+    "geometryNote": "Tọa độ tham chiếu pha khí do NIST tổng hợp; một hình học tĩnh, có làm tròn và ràng buộc đối xứng theo nguồn. Không dùng thay cấu trúc tinh thể hay khẳng định độ chính xác tuyệt đối.",
+    "atoms": [
+      {
+        "element": "C",
+        "label": "C1",
+        "x": 0,
+        "y": 0,
+        "z": 0.6013
+      },
+      {
+        "element": "C",
+        "label": "C2",
+        "x": 0,
+        "y": 0,
+        "z": -0.6013
+      },
+      {
+        "element": "H",
+        "label": "H3",
+        "x": 0,
+        "y": 0,
+        "z": 1.6644
+      },
+      {
+        "element": "H",
+        "label": "H4",
+        "x": 0,
+        "y": 0,
+        "z": -1.6644
+      }
+    ],
+    "internalCoordinates": [
+      [
+        "rCH",
+        "1.063",
+        "1",
+        "3",
+        "",
+        "",
+        "1998Kuc",
+        "rm structure"
+      ],
+      [
+        "rCC",
+        "1.203",
+        "1",
+        "2",
+        "",
+        "",
+        "1998Kuc",
+        "rm structure"
+      ],
+      [
+        "aHCC",
+        "180",
+        "2",
+        "1",
+        "3",
+        "",
+        "1966Herzberg",
+        ""
+      ]
+    ],
+    "bondTypes": [
+      [
+        "H-C",
+        "2"
+      ],
+      [
+        "C#C",
+        "1"
+      ]
+    ],
+    "references": [
+      {
+        "id": "1966Herzberg",
+        "citation": "Herzberg, G., Electronic spectra and electronic structure of polyatomic molecules,Van Nostrand,New York, 1966"
+      },
+      {
+        "id": "1998Kuc",
+        "citation": "K Kuchitsu(ed) \"Structure of Free Polyatomic Molecules - Basic Data\" Springer, Berlin, 1998",
+        "doi": "10.1007/978-3-642-45748-7"
       }
     ]
   }

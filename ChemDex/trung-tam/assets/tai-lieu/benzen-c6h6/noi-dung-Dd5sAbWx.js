@@ -171,7 +171,7 @@ Về mặt an toàn thực nghiệm và xử lý hóa chất, việc nghiên c�
 - [Bách khoa toàn thư Wikipedia Tiếng Việt — Benzen](https://vi.wikipedia.org/wiki/Benzen)
 - [Wikipedia Quốc tế — Benzene](https://en.wikipedia.org/wiki/Benzene)
 - [Tệp tọa độ không gian 3D chuẩn (SDF)](/shared/structures/241.sdf)
-- [Nguồn cấu trúc gốc đã kiểm chứng](https://cactus.nci.nih.gov/chemical/structure/benzene/file?format=sdf&get3d=true)
+- [Nguồn cấu trúc gốc đã kiểm chứng](https://cccbdb.nist.gov/expgeom2x.asp?casno=71432&charge=0)
 - [Hồ sơ hợp chất quốc tế PubChem CID 241](https://pubchem.ncbi.nlm.nih.gov/compound/241)
 
 Bài báo chuyên khảo này thuộc hệ thống **Tạp chí Hóa Học Số ChemDex**, tích hợp hồ sơ tiểu sử các nhà hóa học tiên phong, chuẩn mực kiến thức GDPT 2018 môn Hóa học THCS-THPT và cơ sở dữ liệu cấu trúc không gian 3 chiều tương tác, mang lại góc nhìn toàn diện về **Benzen (C₆H₆)**.`,y={id:n,slug:h,documentPath:t,legacyIds:c,title:i,author:g,category:u,summary:a,image:o,chemicalFormula:r,tags:e,aliases:m,substanceIds:l,documentKind:p,readingMinutes:24,chemicalEvidence:v,content:k};export{m as aliases,g as author,u as category,v as chemicalEvidence,r as chemicalFormula,k as content,y as default,p as documentKind,t as documentPath,n as id,o as image,c as legacyIds,s as readingMinutes,h as slug,l as substanceIds,a as summary,e as tags,i as title};

@@ -169,7 +169,7 @@ Về mặt an toàn thực nghiệm và xử lý hóa chất, việc nghiên c�
 - [Phòng quan sát Cấu trúc & Liên kết 3D tương tác — Nitơ (N₂)](/tien-ich/cau-truc-3d/?compound=cid-947)
 - [Bách khoa toàn thư Wikipedia Tiếng Việt — Nitơ](https://vi.wikipedia.org/wiki/Nit%C6%A1)
 - [Tệp tọa độ không gian 3D chuẩn (SDF)](/shared/structures/947.sdf)
-- [Nguồn cấu trúc gốc đã kiểm chứng](https://cactus.nci.nih.gov/chemical/structure/dinitrogen/file?format=sdf&get3d=true)
+- [Nguồn cấu trúc gốc đã kiểm chứng](https://cccbdb.nist.gov/expgeom2x.asp?casno=7727379&charge=0)
 - [Hồ sơ hợp chất quốc tế PubChem CID 947](https://pubchem.ncbi.nlm.nih.gov/compound/947)
 
 Bài báo chuyên khảo này thuộc hệ thống **Tạp chí Hóa Học Số ChemDex**, tích hợp hồ sơ tiểu sử các nhà hóa học tiên phong, chuẩn mực kiến thức GDPT 2018 môn Hóa học THCS-THPT và cơ sở dữ liệu cấu trúc không gian 3 chiều tương tác, mang lại góc nhìn toàn diện về **Nitơ (N₂)**.`,e={id:n,slug:h,documentPath:t,legacyIds:c,title:i,author:g,category:u,summary:a,image:o,chemicalFormula:"N₂",tags:r,aliases:m,substanceIds:l,documentKind:s,readingMinutes:23,chemicalEvidence:p,content:k};export{m as aliases,g as author,u as category,p as chemicalEvidence,y as chemicalFormula,k as content,e as default,s as documentKind,t as documentPath,n as id,o as image,c as legacyIds,v as readingMinutes,h as slug,l as substanceIds,a as summary,r as tags,i as title};

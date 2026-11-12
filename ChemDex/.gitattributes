@@ -3,3 +3,4 @@
 trung-tam/assets/**/*.js whitespace=-blank-at-eol
 # Preserve the exact PubChem download bytes used by the source SHA-256 audit.
 shared/structures/isomers/*.sdf -text
+docs/references/nist-geometries/*.html -text whitespace=-blank-at-eol
