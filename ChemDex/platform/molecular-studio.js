@@ -4,7 +4,7 @@ export function molecularStudio(model) {
   if(!atoms.length || atoms.some(a=>!['x','y','z'].every(k=>Number.isFinite(a[k]))))return [];
   const min=['x','y','z'].map(k=>Math.min(...atoms.map(a=>a[k])));
   const max=['x','y','z'].map(k=>Math.max(...atoms.map(a=>a[k])));
-  const span=Math.max(3,...max.map((v,i)=>v-min[i]));
+  const span=Math.max(1.5,...max.map((v,i)=>v-min[i]));
   const x=(min[0]+max[0])/2,z=(min[2]+max[2])/2,y=min[1]-span*.32;
   const vector=(x,y,z)=>({x,y,z});
   const cylinder=(cx,cy,cz,radius,height,color)=>({kind:'cylinder',spec:{start:vector(cx,cy,cz),end:vector(cx,cy+height,cz),radius,color,fromCap:1,toCap:1}});
@@ -20,7 +20,19 @@ export function molecularStudio(model) {
 }
 
 export function mountMolecularStudio(viewer,model) {
-  const shapes=molecularStudio(model).map(({kind,spec})=>kind==='box'?viewer.addBox(spec):viewer.addCylinder(spec));
+  const view=viewer.getView(),q=view.slice(4),inverse=[-q[0],-q[1],-q[2],q[3]],origin=view.slice(0,3);
+  const rotate=(v,[x,y,z,w])=>{
+    const tx=2*(y*v.z-z*v.y),ty=2*(z*v.x-x*v.z),tz=2*(x*v.y-y*v.x);
+    return {x:v.x+w*tx+y*tz-z*ty,y:v.y+w*ty+z*tx-x*tz,z:v.z+w*tz+x*ty-y*tx};
+  };
+  // Orient the display furniture independently of the source's arbitrary
+  // Cartesian axes. This never transforms or adds atoms to the actual model.
+  const displayModel={atoms:model.atoms.map(a=>rotate({x:a.x+origin[0],y:a.y+origin[1],z:a.z+origin[2]},q))};
+  const angle=18*Math.PI/180;
+  const tilt=p=>({x:p.x,y:p.y*Math.cos(angle)-p.z*Math.sin(angle),z:p.y*Math.sin(angle)+p.z*Math.cos(angle)});
+  const direction=v=>rotate(tilt(v),inverse);
+  const point=p=>{const v=direction(p);return {x:v.x-origin[0],y:v.y-origin[1],z:v.z-origin[2]};};
+  const shapes=molecularStudio(displayModel).map(({kind,spec})=>kind==='box'?viewer.addBox({...spec,center:point(spec.center),dimensions:{w:direction({x:spec.dimensions.w,y:0,z:0}),h:direction({x:0,y:spec.dimensions.h,z:0}),d:direction({x:0,y:0,z:spec.dimensions.d})}}):viewer.addCylinder({...spec,start:point(spec.start),end:point(spec.end)}));
   // The molecular fit uses a narrow depth slab. The studio lies outside that
   // slab, so expand clipping without changing the molecule's zoom or position.
   const spans=['x','y','z'].map(k=>Math.max(...model.atoms.map(a=>a[k]))-Math.min(...model.atoms.map(a=>a[k])));

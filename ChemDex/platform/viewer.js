@@ -312,7 +312,7 @@ export class ChemStructureViewer extends HTMLElement {
           this.viewer.rotate(90, "y");
         else if (extents[1] < 1e-5 && Math.max(...extents) > 0)
           this.viewer.rotate(90, "x");
-        if (this.environmentEnabled) this.viewer.rotate(12, 'x');
+        if (this.environmentEnabled) { this.viewer.rotate(12, 'x'); this.viewer.zoom(.78); }
         this.initialView = this.viewer.getView();
         this.syncEnvironment();
         this.viewer.render();

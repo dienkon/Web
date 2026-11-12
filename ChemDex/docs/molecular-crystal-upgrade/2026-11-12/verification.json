@@ -1,0 +1,41 @@
+{
+  "verifiedAt": "2026-11-12T10:00:40.191Z",
+  "coverage": {
+    "codPhases": 22,
+    "totalPhaseModels": 306,
+    "profilesWithCrystal": 276,
+    "nonMixtureProfiles": 482
+  },
+  "checks": {
+    "platformNodeTests": 27,
+    "crystalLearningAndCodNodeTests": 18,
+    "browserUniqueCasesPassed": 17,
+    "browserMethod": "Regression suite plus focused rerun after adapting the molecular-mode test to newly available crystals; five new cases included.",
+    "finalMolecularStudioRerun": "passed",
+    "sourceCifReplayWithoutResearchCache": 22,
+    "renderedCodGlbs": 22,
+    "renderErrors": [],
+    "libraryBuild": "passed",
+    "staticBuild": "passed",
+    "libraryTypecheck": "passed",
+    "screenshotsReviewed": 4
+  },
+  "secretCheck": {
+    "publicTextFilesScanned": 3676,
+    "stagedFilesScanned": 8,
+    "configuredCredentialsFound": 0
+  },
+  "scientificExclusions": [
+    "COD 1010575 is a superseded CrCl3 model and is not offered as an actual crystal.",
+    "COD 8104274, 2310927 and 1533172 omit explicit hydrogen coordinates."
+  ],
+  "limits": [
+    "Not all 482 profiles have a sourced crystal phase; molecular/atomic/component views remain explicitly labelled.",
+    "CIF coordinates describe an average structure at stated conditions; partial occupancy, constrained hydrogen and display furniture are not a literal instantaneous specimen."
+  ],
+  "publication": {
+    "branch": "main",
+    "pushed": false,
+    "deployed": false
+  }
+}

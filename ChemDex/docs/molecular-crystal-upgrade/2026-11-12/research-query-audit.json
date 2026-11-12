@@ -1,0 +1,224 @@
+[
+  {
+    "name": "silver-nitrate",
+    "formula": "Ag N O3",
+    "url": "https://www.crystallography.net/cod/result?formula=Ag+N+O3&format=json",
+    "count": 4,
+    "sha256": "c239601a1bf3ce2d41907f3716beeebcfc2ff8335f0a746e3a7dd0ef6582a1e7"
+  },
+  {
+    "name": "potassium-permanganate",
+    "formula": "K Mn O4",
+    "url": "https://www.crystallography.net/cod/result?formula=K+Mn+O4&format=json",
+    "count": 3,
+    "sha256": "389848a811da42dcb07fc37399f8afebc527e9e6a0fe283d67a123ed61ffcd80"
+  },
+  {
+    "name": "sodium-hydroxide",
+    "formula": "H Na O",
+    "url": "https://www.crystallography.net/cod/result?formula=H+Na+O&format=json",
+    "count": 4,
+    "sha256": "2f5a1c420fb83088f107328ac522bd3444515c4782c52efa13180707f90da6ee"
+  },
+  {
+    "name": "potassium-hydroxide",
+    "formula": "H K O",
+    "url": "https://www.crystallography.net/cod/result?formula=H+K+O&format=json",
+    "count": 1,
+    "sha256": "877869670008c178da7e9bfd3ffbebe82c36e8a8efb66b92968fc8394b2d83ff"
+  },
+  {
+    "name": "barium-hydroxide",
+    "formula": "Ba H2 O2",
+    "url": "https://www.crystallography.net/cod/result?formula=Ba+H2+O2&format=json",
+    "count": 1,
+    "sha256": "12b994ad5b60f644f9c97d0339fbd15a0f83eefab54a378709390737c6191917"
+  },
+  {
+    "name": "iron-hydroxide",
+    "formula": "Fe H2 O2",
+    "url": "https://www.crystallography.net/cod/result?formula=Fe+H2+O2&format=json",
+    "count": 2,
+    "sha256": "c82602c7b6da9688779d0d1da2dc519611ab6297a14ec5e2908c69cde8da3cee"
+  },
+  {
+    "name": "cobalt-hydroxide",
+    "formula": "Co H2 O2",
+    "url": "https://www.crystallography.net/cod/result?formula=Co+H2+O2&format=json",
+    "count": 3,
+    "sha256": "20ec0554e11c5274c0f477fd83c38989b185231248334cdd484cdec84dc880c1"
+  },
+  {
+    "name": "nickel-hydroxide",
+    "formula": "H2 Ni O2",
+    "url": "https://www.crystallography.net/cod/result?formula=H2+Ni+O2&format=json",
+    "count": 6,
+    "sha256": "619df09b74df77b82bb21b02032db5eebceacde3201c30c29df693b0b469ac5d"
+  },
+  {
+    "name": "manganese-hydroxide",
+    "formula": "H2 Mn O2",
+    "url": "https://www.crystallography.net/cod/result?formula=H2+Mn+O2&format=json",
+    "count": 2,
+    "sha256": "94b5abce3fcc77af5b15771f4a30d45a9e37d3d872f2de69d6a7121b465fce4f"
+  },
+  {
+    "name": "chromium-chloride",
+    "formula": "Cl3 Cr",
+    "url": "https://www.crystallography.net/cod/result?formula=Cl3+Cr&format=json",
+    "count": 1,
+    "sha256": "29dc45b179eaea1cda39ae9ec278141ffec86376ed2716910a2000b0ae1a73e0"
+  },
+  {
+    "name": "lead-nitrate",
+    "formula": "N2 O6 Pb",
+    "url": "https://www.crystallography.net/cod/result?formula=N2+O6+Pb&format=json",
+    "count": 2,
+    "sha256": "f1309be895b4e363309af770ef4a65e580593360b96347eed165b9cd28066a92"
+  },
+  {
+    "name": "copper-nitrate",
+    "formula": "Cu N2 O6",
+    "url": "https://www.crystallography.net/cod/result?formula=Cu+N2+O6&format=json",
+    "count": 1,
+    "sha256": "5cffa1c264dc1fe47e73a757cc3948e29499db10912d121d7957e9fd1125801d"
+  },
+  {
+    "name": "aluminium-chloride",
+    "formula": "Al Cl3",
+    "url": "https://www.crystallography.net/cod/result?formula=Al+Cl3&format=json",
+    "count": 2,
+    "sha256": "0330968f0fae813508f5c703ace4eec529b8ac815dcfc102cadc231994d86bef"
+  },
+  {
+    "name": "aluminium-bromide",
+    "formula": "Al Br3",
+    "url": "https://www.crystallography.net/cod/result?formula=Al+Br3&format=json",
+    "count": 1,
+    "sha256": "6eb098c5f7ee4368ba4e7d3acc7837299ed734356545009abc268a490176113d"
+  },
+  {
+    "name": "aluminium-iodide",
+    "formula": "Al I3",
+    "url": "https://www.crystallography.net/cod/result?formula=Al+I3&format=json",
+    "count": 1,
+    "sha256": "283707eab06156602d7815e889096681478c9af878b21c7dcd1604e20f808e07"
+  },
+  {
+    "name": "sodium-thiosulfate",
+    "formula": "Na2 O3 S2",
+    "url": "https://www.crystallography.net/cod/result?formula=Na2+O3+S2&format=json",
+    "count": 4,
+    "sha256": "5e88eeb05f01888be1bbb31e2eae9117e7c99a0f18a005d61089fd2db0f98cf0"
+  },
+  {
+    "name": "methane",
+    "formula": "C H4",
+    "url": "https://www.crystallography.net/cod/result?formula=C+H4&format=json",
+    "count": 1,
+    "sha256": "60aff39398d1697dd43c91813b0b3f3c31a59c30f9d0fecc8d611403172db30e"
+  },
+  {
+    "name": "ammonia",
+    "formula": "H3 N",
+    "url": "https://www.crystallography.net/cod/result?formula=H3+N&format=json",
+    "count": 2,
+    "sha256": "2b1186f1219abc0bda4fb8e8f646efc90cf7ccd22e2dab1243c841391579115f"
+  },
+  {
+    "name": "hydrogen-peroxide",
+    "formula": "H2 O2",
+    "url": "https://www.crystallography.net/cod/result?formula=H2+O2&format=json",
+    "count": 1,
+    "sha256": "6dafe4a098a996de8fd8afc6dc020910910e01b1913bd9a597ac22a7f019aca7"
+  },
+  {
+    "name": "benzene",
+    "formula": "C6 H6",
+    "url": "https://www.crystallography.net/cod/result?formula=C6+H6&format=json",
+    "count": 7,
+    "sha256": "d4ca38356e6f0931abcd57875a8f62b1d4d640e937b15b3b89bb8772d496f131"
+  },
+  {
+    "name": "hexoses",
+    "formula": "C6 H12 O6",
+    "url": "https://www.crystallography.net/cod/result?formula=C6+H12+O6&format=json",
+    "count": 83,
+    "sha256": "123a59891f7fbe1a1489e18e74825b6409ca0d7e73c2abac2d10eca846f7f4dd"
+  },
+  {
+    "name": "sucrose",
+    "formula": "C12 H22 O11",
+    "url": "https://www.crystallography.net/cod/result?formula=C12+H22+O11&format=json",
+    "count": 14,
+    "sha256": "25a47b8c5a4da82560d406ac5985432091cd239d148a50eadfdc918117a7ccaf"
+  },
+  {
+    "name": "ethanol",
+    "formula": "C2 H6 O",
+    "url": "https://www.crystallography.net/cod/result?formula=C2+H6+O&format=json",
+    "count": 7,
+    "sha256": "f1fa57e014b0d73b9e00d5b7a5a01a9cdf71a6d9547b1c2db973506cfe7566bb"
+  },
+  {
+    "name": "methanol",
+    "formula": "C H4 O",
+    "url": "https://www.crystallography.net/cod/result?formula=C+H4+O&format=json",
+    "count": 3,
+    "sha256": "457981323aa3524b2a462afbddae908d46ff54fe141d2ab1ee53b74e9e4a1204"
+  },
+  {
+    "name": "acetone",
+    "formula": "C3 H6 O",
+    "url": "https://www.crystallography.net/cod/result?formula=C3+H6+O&format=json",
+    "count": 7,
+    "sha256": "562fe03d9e84da62642ce89656fe994f177f53965326f2f2e97d03ff95314ece"
+  },
+  {
+    "name": "acetic-acid",
+    "formula": "C2 H4 O2",
+    "url": "https://www.crystallography.net/cod/result?formula=C2+H4+O2&format=json",
+    "count": 2,
+    "sha256": "af0b436d33fbd40653098d0ee9aace9d1502c0357da9a41d2719d01169f8e9ff"
+  },
+  {
+    "name": "formic-acid",
+    "formula": "C H2 O2",
+    "url": "https://www.crystallography.net/cod/result?formula=C+H2+O2&format=json",
+    "count": 0,
+    "sha256": "ce8124bc1b0fbc0cb5cd47338ca0c7d5f5446d79936e443a201d96b192a7bd65"
+  },
+  {
+    "name": "aspirin",
+    "formula": "C9 H8 O4",
+    "url": "https://www.crystallography.net/cod/result?formula=C9+H8+O4&format=json",
+    "count": 23,
+    "sha256": "fc0ff6fd9eddf935f4697fed93d3875b4ba298f0292a5a852c9445b372ddb440"
+  },
+  {
+    "name": "caffeine",
+    "formula": "C8 H10 N4 O2",
+    "url": "https://www.crystallography.net/cod/result?formula=C8+H10+N4+O2&format=json",
+    "count": 7,
+    "sha256": "46a54d70fd472f3e5a10abe7da35595bc3cf24d3698cc2195a60f6dc90201c51"
+  },
+  {
+    "name": "naphthalene",
+    "formula": "C10 H8",
+    "url": "https://www.crystallography.net/cod/result?formula=C10+H8&format=json",
+    "error": "fetch failed"
+  },
+  {
+    "name": "phenol",
+    "formula": "C6 H6 O",
+    "url": "https://www.crystallography.net/cod/result?formula=C6+H6+O&format=json",
+    "error": "fetch failed"
+  },
+  {
+    "name": "sodium-acetate",
+    "formula": "C2 H3 Na O2",
+    "url": "https://www.crystallography.net/cod/result?formula=C2+H3+Na+O2&format=json",
+    "count": 3,
+    "sha256": "8bd7c78aa83e767e4bda13f2080a7725618e8f2e57908d4a072324ee44e21e20"
+  }
+]
