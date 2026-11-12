@@ -1,0 +1,255 @@
+const n="sat-iii-oxit-gi-sat-fe2o3",h="sat-iii-oxit-gi-sat-fe2o3",t="reference/sat-iii-oxit-gi-sat-fe2o3/index.json",i=["ho-so-b73c1d0771e5"],c="Sắt(III) oxit (Gỉ sắt) (Fe₂O₃) — Di sản thực nghiệm: Lịch sử ra đời, hình học liên kết và biến đổi hóa học",g="Chuyên Mục Di Sản Thực Nghiệm Thế Giới · ChemDex",a="hopchat",o="Khám phá câu chuyện riêng của Sắt(III) oxit (Gỉ sắt) (Fe₂O₃) qua lăng kính báo chí khoa học: nguồn gốc tên gọi, lịch sử điều chế và mô hình không gian 3 chiều.",u="/assets/library/substances/sat-iii-oxit-gi-sat-fe2o3.svg",r="Fe₂O₃",m=["Câu chuyện hợp chất","Fe2O3","Nhiệt phân","Nhiệt phân"],l=["Sắt(III) oxit (Gỉ sắt)","Iron(III) Oxide (Rust)","Fe2O3","Sắt(III) Oxit (Bột Đỏ Nâu)","Iron(III) Oxide (Red Rust Powder)"],p=["chem-fe2o3"],s="reference",k=33,e={formula:"Fe2O3",representativeId:"chem-fe2o3",counts:{Fe:2,O:3},mass:159.687,material:!1,reactionIds:["rx_a2064e9b2ebe3219","rx_addfd0c674fa6db9","rx_23fbf92d7199589b","rx_a5b6b9ea4932d2df"]},y=`## Câu chuyện: Nguồn gốc tên gọi, bối cảnh ra đời và dấu ấn lịch sử của Sắt(III) oxit (Gỉ sắt) (Fe₂O₃)
+
+Đằng sau mỗi cái tên trong danh mục hóa chất là dấu chân của những thế hệ nhà khoa học đã dành trọn cuộc đời bên ngọn đèn cồn, bình cầu chưng cất và cân phân tích. **Sắt(III) oxit (Gỉ sắt) (Fe₂O₃)** không chỉ là một công thức để ghi nhớ, mà là một chứng nhân sống động cho sự tiến hóa của tư duy hóa học từ định tính sang định lượng.
+
+Theo hồ sơ bách khoa trực tuyến từ [Wikipedia Tiếng Việt — Sắt(III) oxide](https://vi.wikipedia.org/wiki/S%E1%BA%AFt(III)_oxide), bản chất và lịch sử của chất này được ghi nhận cụ thể như sau: Sắt(III) oxide (công thức Fe2O3) là một oxide của sắt. Nó có khối lượng mol 159,6922 g/mol, hệ số giãn nở nhiệt 12,5×10−6/℃, nhiệt độ nóng chảy 1565 ℃. Về mặt hóa học, sắt oxide cũng thuộc nhóm oxide lưỡng tính như nhôm oxide. Fe2O3 không phải là một oxide dễ chảy, nó là một oxide khó chảy. Fe2O3 là dạng phổ biến nhất của sắt oxide tự nhiên. Ngoài ra có thể lấy chất này từ đất sét màu đỏ.
+
+Họ hợp chất florua (**F⁻**) gắn liền với khoáng vật *fluorit* (CaF₂) được nhà khoáng vật học người Đức **Georgius Agricola** mô tả từ năm 1529 nhờ khả năng làm chảy loãng xỉ quặng trong luyện kim (từ chữ Latinh *fluere* — chảy). Năm 1771, **Carl Wilhelm Scheele** điều chế được axit flohiđric có khả năng ăn mòn cả thủy tinh, và sau hơn một thế kỷ nỗ lực đầy hiểm nguy của nhiều thế hệ nhà hóa học, **Henri Moissan** vào ngày 26/6/1886 đã điện phân thành công hỗn hợp KF trong HF lỏng để cô lập nguyên tố Fluorine, nhận giải Nobel Hóa học năm 1906.
+
+Để hiểu trọn vẹn cội nguồn của hợp chất, cần lần theo lịch sử khám phá từng nguyên tố tạo nên nó:
+
+- **Nhánh nguyên tố Sắt (Fe)**: Dấu ấn lịch sử phát hiện (mốc thời gian: **Khoảng thiên niên kỷ 2 TCN đối với Iron luyện từ quặng; không có một năm phát hiện chính xác.**). Iron là một trong những kim loại được con người biết đến và sử dụng từ rất sớm. Iron từ thiên thạch có thể đã được sử dụng trước khi con người phát triển kỹ thuật luyện Iron từ quặng. Đến thời kỳ Iron Age, kỹ thuật luyện Iron từ quặng phát triển mạnh và Iron trở thành vật liệu quan trọng. Nguồn khoáng vật tự nhiên tiêu biểu của nguyên tố này gồm: *Hematite (Fe₂O₃), Magnetite (Fe₃O₄), Siderite (FeCO₃), Limonite và nhiều khoáng vật khác*.
+- **Nhánh nguyên tố Oxi (O)**: Dấu ấn lịch sử phát hiện do **Joseph Priestley và Carl Wilhelm Scheele** tìm ra (mốc thời gian: **1774**). Năm 1774, Joseph Priestley điều chế được Oxygen bằng cách nung Mercury(II) oxide và công bố kết quả. Carl Wilhelm Scheele cũng điều chế được Oxygen độc lập trước đó, khoảng năm 1772, nhưng công trình của ông được công bố sau. Antoine Lavoisier sau đó xác định vai trò của Oxygen trong sự cháy và hô hấp, đồng thời đặt tên Oxygen.
+
+### Dấu ấn nhà khoa học tiên phong: Chân dung và di sản của Ferdinand Frédéric Henri Moissan (Ăng-ri Moa-săng)
+
+Trong lịch sử khám phá và làm sáng tỏ bản chất của **Sắt(III) oxit (Gỉ sắt) (Fe₂O₃)**, dấu ấn thực nghiệm sâu sắc nhất gắn liền với tên tuổi của **Ferdinand Frédéric Henri Moissan** (1852 – 1907) — hiệp sĩ chinh phục nguyên tố mãnh liệt nhất vũ trụ - flo, và cha đẻ lò hồ quang điện.
+
+*“Flo là một con thú dữ của thế giới hóa học; nó tấn công và xé toạc mọi thứ tiếp xúc với nó, kể cả thủy tinh, nước và chính người điều chế ra nó.”* — Lời đúc kết nổi tiếng này không chỉ là kim chỉ nam nghiên cứu của Ferdinand Frédéric Henri Moissan mà còn phản ánh tinh thần thực nghiệm bất khuất của thời đại khai sáng khoa học.
+
+**Nghị lực sống & Thăng trầm khoa học**: Moissan sinh ra tại Paris trong một gia đình nhân viên đường sắt nghèo. Ông từng phải bỏ dở trung học để làm học việc tại một hiệu thuốc cổ ở Paris trước khi thi đỗ vào Trường Dược Paris. Lịch sử của nguyên tố Flo (Fluorine, Z=9) trước thời Moissan là một bản danh sách bi thương đầy máu và nước mắt: suốt hơn 70 năm, hàng loạt nhà hóa học kiệt xuất nhất châu Âu đã tìm cách cô lập Flo nhưng đều thất bại thảm hại do Flo là phi kim có độ âm điện lớn nhất vũ trụ, phản ứng mãnh liệt với tất cả mọi vật liệu làm bình chứa (thủy tinh, thạch anh, nước, kim loại). Nhà hóa học Pháp Jérôme Nicklès và George Gore đã tử vong vì hít phải khí flo và axit flohiđric bốc khói; anh em nhà Knox bị tàn phế; ngay cả Davy và Louyet cũng bị ngộ độc nặng phổi bị tổn thương nghiêm trọng. Moissan biết rõ mối hiểm nguy chết người này nhưng vẫn dũng cảm dấn thân. Bản thân ông đã bị ngộ độc khí HF tới 4 lần, nhiều lần ngất xỉu trong phòng thí nghiệm và phải tạm dừng nghiên cứu nhiều tháng để hồi phục tính mạng.
+
+**Giai thoại phòng thí nghiệm & Phong cách làm việc**: Moissan là một người rất khéo tay và có tài viết kịch hài hước để giải tỏa căng thẳng sau những giờ phút nghẹt thở bên cạnh các hóa chất kịch độc. Khi nhận thấy không một kim loại hay thủy tinh nào chịu nổi sự ăn mòn của Flo, Moissan đã nảy ra ý tưởng táo bạo: làm nguội hệ thống xuống nhiệt độ cực thấp $-50^\\circ C$ để làm giảm tốc độ ăn mòn, và chế tạo toàn bộ bình điện phân bằng kim loại quý tộc Bạch kim (Platinum) có nút đậy bằng khoáng vật fluorit ($CaF_2$) tinh khiết mài nhẵn. Ngày 26 tháng 6 năm 1886, khi nhìn thấy dòng khí màu vàng lục nhạt đầu tiên thoát ra làm bốc cháy que than củi trong băng giá, Moissan đã reo lên trong nước mắt vì biết mình đã thuần hóa được "con quái vật" bất khả xâm phạm của hóa học.
+
+**Đột phá thực nghiệm lịch sử**: 1. Cô lập thành công Nguyên tố Flo (Fluorine, 1886): Điện phân dung dịch kali hiđro florua ($KHF_2$) khan hòa tan trong axit flohiđric lỏng ($HF$) ở nhiệt độ $-50^\\circ C$ trong một ống chữ U làm bằng bạch kim với hai điện cực bằng hợp kim platin - iridi. Ông thu được khí Flo ($F_2$) tinh khiết màu vàng lục nhạt có hoạt tính hóa học mãnh liệt phi thường: tác dụng mãnh liệt với silic và thủy tinh bốc cháy thành ngọn lửa, phản ứng nổ dữ dội với hiđro ngay cả trong bóng tối ở $-250^\\circ C$, và phân hủy nước lập tức giải phóng khí oxi và ozon.
+2. Phát minh Lò hồ quang điện Moissan (Electric Arc Furnace, 1892): Sử dụng hai thanh than chì khổng lồ phóng hồ quang điện tạo ra nhiệt độ lên tới hơn $3.500^\\circ C$. Chiếc lò này cho phép nấu chảy và tổng hợp hàng loạt hợp chất siêu cứng chịu nhiệt độ cao chưa từng có: cacbua silic (SiC - khoáng vật moissanite lấp lánh như kim cương được đặt theo tên ông), canxi cacbua ($CaC_2$), và hòa tan carbon trong sắt nóng chảy rồi làm lạnh đột ngột dưới áp suất cao để nỗ lực chế tạo kim cương nhân tạo đầu tiên trong lịch sử.
+
+Nhờ những thành tựu vĩ đại này, Henri Moissan được trao giải Nobel Hóa học năm 1906.
+
+**Thiết bị phòng thí nghiệm đặc chế tiêu biểu**:
+
+- **Thiết bị điện phân Flo ống chữ U bạch kim Moissan (Moissan Platinum U-Tube Apparatus)**: Ống chữ U bằng platin nguyên chất có hai nhánh thoát khí, nắp vặn bằng tinh thể fluorit CaF2, điện cực platin-iridi, đặt chìm trong bình chứa methyl clorua lỏng làm lạnh liên tục bằng máy nén tới -50°C.
+- **Lò hồ quang điện khối vôi sống Moissan (Electric Arc Lime Furnace)**: Khối đá vôi sống (CaO) khoét rỗng chịu được nhiệt độ trên 3.000°C không dẫn điện, có hai điện cực than chì đường kính lớn kết nối máy phát điện 50 mã lực.
+
+**Dấu mốc phản ứng gắn liền với công trình của Ferdinand Frédéric Henri Moissan**:
+
+- Phương trình phản ứng bước ngoặt: \`2KHF2(l) --(dien phan, -50°C)--> H2(g) + F2(g) + 2KF(s)\`
+  *Hiện tượng quan sát thực tế*: Tại cực âm thoát ra khí hiđro; tại cực dương thoát ra dòng khí màu vàng lục nhạt có mùi hắc kinh hoàng làm bốc cháy tức thì mẩu than củi, lưu huỳnh và làm thủng thủy tinh.
+  *Ghi chú lịch sử*: Khoảnh khắc ngày 26 tháng 6 năm 1886 chấm dứt hơn 70 năm bi kịch săn tìm nguyên tố Flo.
+
+- Phương trình phản ứng bước ngoặt: \`SiO2(s) + 3C(s) --(lo ho quang 2000°C)--> SiC(s) + 2CO(g)\`
+  *Hiện tượng quan sát thực tế*: Hồ quang điện chói lòa làm nóng chảy cát thạch anh và than cốc, tạo thành những tinh thể cacbua silic (moissanite) óng ánh nhiều màu có độ cứng xấp xỉ kim cương.
+  *Ghi chú lịch sử*: Sáng chế vật liệu mài mòn và bán dẫn công nghiệp quan trọng hàng đầu thế giới.
+
+**Bài học phương pháp luận cho học sinh GDPT**: Lịch sử cô lập Flo của Moissan là bài học sâu sắc về tinh thần dũng cảm, tính kiên nhẫn vượt qua nghịch cảnh và quy tắc kiểm soát nhiệt động học (hạ nhiệt độ để giảm tốc độ phản ứng ăn mòn). Trong GDPT 2018 (Hóa học 10 - Chương 7: Nhóm Halogen), nguyên tố Flo với độ âm điện cực đại 3.98 và tính oxi hóa mãnh liệt nhất là một trong những điểm nhấn lý thuyết trọng tâm.
+
+![Khởi nguyên lịch sử và hành trình khám phá Sắt(III) oxit (Gỉ sắt) (Fe₂O₃)](/assets/library/apparatus-voltaic-pile.svg)
+*Hình 1. Bối cảnh lịch sử phát hiện, nguồn gốc tự nhiên và tiến trình định danh khoa học của Sắt(III) oxit (Gỉ sắt) (Fe₂O₃).*
+
+## Lần theo thành phần nguyên tử: Kiến trúc phân tử, hình học không gian và cá tính của Sắt(III) oxit (Gỉ sắt)
+
+Theo một đơn vị công thức **Fe₂O₃**, thành phần gồm **5 nguyên tử** thuộc **2 nguyên tố hóa học**. Số đếm này giúp viết đúng tỉ lệ; chưa mô tả một phân tử riêng lẻ hay vị trí trong ô mạng:
+
+- **Nguyên tố Sắt (Fe)**: Có **2 nguyên tử** theo một đơn vị công thức Fe₂O₃. Đây là số đếm thành phần; vị trí thực tế được xác định từ dữ liệu cấu trúc của pha đang xét.
+- **Nguyên tố Oxi (O)**: Có **3 nguyên tử** theo một đơn vị công thức Fe₂O₃. Đây là số đếm thành phần; vị trí thực tế được xác định từ dữ liệu cấu trúc của pha đang xét.
+
+Trong sơ đồ thành phần của **Sắt(III) oxit (Gỉ sắt) (Fe₂O₃)**, các nhóm **2× Fe và 3× O** giúp kiểm tra số nguyên tử và cân bằng điện tích. Vị trí giữa các nhóm trong sơ đồ được bố trí để dễ quan sát. Muốn khảo sát phối trí, hãy mở mô hình tinh thể có nguồn của đúng pha; công thức hóa học riêng lẻ chưa xác định được cách xếp nguyên tử. Trong một ion đa nguyên tử, khung liên kết là phần cấu tạo bên trong nhóm. Độ tan và thành phần trong dung dịch cần xét riêng theo chất, dung môi và điều kiện.
+
+![Minh họa cấu trúc của Sắt(III) oxit (Gỉ sắt) (Fe₂O₃)](/assets/library/ionic-crystal.svg)
+*Hình 2. Minh họa các cách đọc cấu trúc. Dữ liệu của mô hình tương tác, điều kiện pha và nguồn tọa độ được ghi riêng bên dưới mô hình.*
+
+| Chỉ tiêu nhận diện & Cấu trúc 3D | Tư liệu xác thực từ hệ thống ChemDex |
+|---|---|
+| Tên chất & Danh pháp quốc tế | **Sắt(III) oxit (Gỉ sắt)** (Iron(III) Oxide (Rust)) |
+| Công thức hóa học thực nghiệm | **Fe₂O₃**  |
+| Hình thái không gian 3 chiều | Sơ đồ thành phần; cấu trúc pha rắn xem ở mục Tinh thể |
+| Quy mô cấu trúc vi mô | **5 nguyên tử** (2× Fe, 3× O) |
+| Trạng thái & Sắc thái nhận diện | Rắn / Dung dịch thực nghiệm |
+| Phòng quan sát 3D tương tác | [Mở mô hình xoay 360° và kiểm tra góc liên kết](/tien-ich/cau-truc-3d/?compound=chem-fe2o3) |
+
+Người đọc có thể trực tiếp xoay mô hình 360°, bật/tắt nhãn nguyên tử và kiểm tra độ dài từng liên kết (tính bằng đơn vị Ångström) của chất này tại [Phòng quan sát Cấu trúc & Liên kết 3D — Sắt(III) oxit (Gỉ sắt)](/tien-ich/cau-truc-3d/?compound=chem-fe2o3).
+
+## Từ công thức đến sơ đồ thành phần: điện tích, dung dịch và tinh thể
+
+Với **Fe₂O₃**, bộ nhóm dùng để xét thành phần là **2 nhóm Fe (điện tích +3); 3 nhóm O (điện tích -2)**. Nhân số nhóm với điện tích rồi cộng lại cho phép kiểm tra tính trung hòa của đơn vị công thức. Điện tích ở đây thuộc về toàn bộ nhóm, không phải mỗi nguyên tử bên trong nó.
+
+- **Khi đọc chế độ Thành phần:** Đếm số nhóm, số nguyên tử và điện tích. Các nhóm được tách để dễ nhìn; khoảng cách giữa chúng là cách bố trí hình minh họa. Những liên kết bên trong nhóm giúp nhận diện khung cấu tạo.
+- **Khi đọc chế độ Tinh thể:** Xem đúng pha, nhiệt độ và nguồn tọa độ. Các vị trí lặp lại tuần hoàn mới cho biết mạng lưới và môi trường lân cận trong chất rắn. Sơ đồ thành phần không thay thế dữ liệu này.
+- **Khi xét dung dịch:** Cần biết độ tan, nồng độ, dung môi và các cân bằng hoặc phản ứng có thể xảy ra. Công thức và số nhóm ion chưa đủ để kết luận một chất tan hoàn toàn, giữ nguyên dạng tồn tại hay tạo dung dịch có pH cụ thể.
+
+Nếu công thức ghi nước kết tinh, hệ số nước cho biết thành phần của hydrate đang xét. Cách phân bố nước quanh cation và trong mạng cần đối chiếu cấu trúc công bố; cùng một số phân tử nước chưa đủ để tự gán dạng phối trí. Mô hình 3D và thí nghiệm ảo phục vụ các câu hỏi khác nhau: một bên giúp đọc cấu trúc, bên kia quan sát các quá trình được mô phỏng trong điều kiện đã nêu.
+
+## Trọng tâm kiến thức Hóa học GDPT (THCS & THPT): Cấu trúc, Nhiệt động lực & Cơ chế
+
+Trong Chương trình Giáo dục phổ thông 2018 (môn Khoa học tự nhiên THCS & môn Hóa học THPT Lớp Hóa học 11), **Sắt(III) oxit (Gỉ sắt) (Fe₂O₃)** là đối tượng trọng tâm thuộc mạch nội dung **“Thuyết Bronsted - Lowry, Thang pH, Phương trình ion rút gọn và Sự thủy phân của muối”** (Các bài học cốt lõi liên quan: *Hóa học 11 - Chương 1: Cân bằng trong dung dịch nước (Bài 2: Cân bằng trong dung dịch nước), Hóa học 11 - Chương 1: Cân bằng trong dung dịch nước (Bài 3: Ôn tập chương 1), KHTN 8 - Bài: Acid - Base - pH - Oxide - Muối*).
+
+### 1. Nguyên lý lý thuyết & Quy luật khoa học chi phối
+
+Sự điện li là quá trình phân li các chất trong nước thành các ion. Theo thuyết Bronsted - Lowry, Axit là chất nhường proton (H⁺), Bazơ là chất nhận proton (H⁺). Môi trường dung dịch được định lượng bằng thang pH (-log[H⁺]) thông qua tích số ion của nước Kw = 10⁻¹⁴ ở 25°C. Phản ứng trao đổi ion trong dung dịch thực chất diễn ra giữa các ion tự do để tạo chất kết tủa, chất khí hoặc chất điện li yếu. Sự thủy phân của muối giải thích vì sao dung dịch muối không phải lúc nào cũng trung tính.
+
+- **Thuyết Axit - Bazơ Bronsted - Lowry**: Axit là chất cho proton (H+); Bazơ là chất nhận proton (H+).
+- **Tích số ion của nước**: Kw = [H+] · [OH-] = 1.0 × 10^-14 (ở 25°C); pH + pOH = 14.
+- **Điều kiện phản ứng trao đổi ion**: Phản ứng xảy ra khi tạo thành chất kết tủa, chất khí hoặc chất điện li yếu.
+- **Quy luật thủy phân muối**: Gốc axit yếu thủy phân tạo OH- (pH > 7); gốc bazơ yếu thủy phân tạo H+ (pH < 7).
+
+### 2. Phân tích sư phạm chuyên sâu đối với Sắt(III) oxit (Gỉ sắt) (Fe₂O₃)
+
+### 1. Thuyết Điện li và Phân loại chất điện li
+- **Chất điện li**: Là chất khi tan trong nước phân li thành các ion tự do, làm cho dung dịch có khả năng dẫn điện.
+  - **Chất điện li mạnh**: Khi tan trong nước, các phân tử hòa tan đều phân li hoàn toàn thành ion (độ điện li $\\\\alpha = 1$). Ký hiệu mũi tên một chiều $\\\\rightarrow$.
+    - Axit mạnh: $HCl, HNO_3, H_2SO_4, HClO_4, HBr, HI$.
+    - Bazơ mạnh (kiềm tan): $NaOH, KOH, Ba(OH)_2, Ca(OH)_2$.
+    - Hầu hết các muối tan: $NaCl, KNO_3, CuSO_4, Na_2CO_3...$
+  - **Chất điện li yếu**: Khi tan trong nước, chỉ một phần nhỏ số phân tử hòa tan phân li thành ion, phần lớn vẫn tồn tại ở dạng phân tử trung hòa ($0 < \\\\alpha < 1$). Quá trình điện li là thuận nghịch $\\\\rightleftharpoons$.
+    - Axit yếu: $CH_3COOH, HF, H_2S, H_2CO_3, HNO_2, H_3PO_4...$
+    - Bazơ yếu: $NH_3, Fe(OH)_2, Cu(OH)_2...$
+  - **Chất không điện li**: $C_2H_5OH$ (rượu), $C_6H_{12}O_6$ (glucozơ), $C_{12}H_{22}O_{11}$ (đường...
+
+### 3. Phương trình phản ứng với trạng thái pha (s, l, g, aq) & Hiện tượng quan sát
+
+- **Phương trình phản ứng chuẩn mực**: \`BaCl2(aq) + Na2SO4(aq) -> BaSO4(s) + 2NaCl(aq)\`
+  *Điều kiện thực hiện*: Nhiệt độ phòng (Phương trình ion rút gọn: Ba²⁺(aq) + SO₄²⁻(aq) -> BaSO₄(s)).
+  *Hiện tượng quan sát thực tế*: Trộn hai dung dịch trong suốt không màu lập tức xuất hiện kết tủa trắng tinh mịn màng của bari sunfat lắng xuống đáy ống nghiệm, không tan trong axit mạnh.
+
+- **Phương trình phản ứng chuẩn mực**: \`Na2CO3(aq) + 2HCl(aq) -> 2NaCl(aq) + CO2(g) + H2O(l)\`
+  *Điều kiện thực hiện*: Nhiệt độ phòng (Phương trình ion rút gọn: CO₃²⁻(aq) + 2H⁺(aq) -> CO₂(g) + H₂O(l)).
+  *Hiện tượng quan sát thực tế*: Dung dịch sủi bọt khí cuồn cuộn không màu, không mùi bay lên làm đục nước vôi trong do axit mạnh đẩy axit cacbonic yếu và kém bền.
+
+### 4. Lưu ý sư phạm & Bẫy tư duy thường gặp trong các kỳ thi tuyển sinh
+
+- ⚠️ *Lưu ý tránh bẫy đề thi*: Cho rằng dung dịch muối luôn có pH = 7 trung tính (Sai: Muối Na2CO3 có pH ~ 11 kiềm mạnh, muối FeCl3 có pH ~ 3 axit mạnh do sự thủy phân).
+- ⚠️ *Lưu ý tránh bẫy đề thi*: Viết sai phương trình ion rút gọn: Giữ nguyên ion của các chất điện li yếu hoặc phân tách chất kết tủa thành ion (Chất kết tủa, khí và nước PHẢI GIỮ NGUYÊN dạng phân tử).
+- ⚠️ *Lưu ý tránh bẫy đề thi*: Đồng nhất độ mạnh của axit với nồng độ mol của nó (Axit HCl 0.001 M là axit mạnh nồng độ loãng; axit CH3COOH 10 M là axit yếu nồng độ đặc).
+
+## Giải mã sự hình thành: Các phản ứng điều chế và chuyển hóa xoay quanh Sắt(III) oxit (Gỉ sắt)
+
+Trong cơ sở dữ liệu phản ứng thực nghiệm của ChemDex (với **7 phương trình** có sự góp mặt của **Fe₂O₃**, trong đó có **2 con đường tổng hợp/tạo thành** và **5 con đường chuyển hóa**), hành trình ra đời và biến đổi của chất này được tái hiện sống động qua các biên niên sử phản ứng chuyên sâu sau:
+
+### Biên niên sử phản ứng tạo thành #1: Nhiệt phân
+
+Phương trình hóa học biểu diễn biến đổi vật chất (có ghi rõ trạng thái pha):
+
+\`\`\`text
+2Fe(OH)3(s) → Fe2O3(s) + 3H2O(g)
+\`\`\`
+
+#### 1. Bối cảnh lịch sử & Dấu ấn khám phá
+Từ những thí nghiệm đun nóng đơn chất trong buồng khí kín của Lavoisier thế kỷ XVIII đến các công trình điện phân của Davy đầu thế kỷ XIX, phản ứng hóa hợp luôn là minh chứng hùng hồn nhất cho thấy các nguyên tố đơn chất với tính chất hoàn toàn trái ngược có thể hòa quyện vào nhau để tạo nên một hợp chất hoàn toàn mới. Đây là con đường tạo thành then chốt giúp khai sinh ra **Sắt(III) oxit (Gỉ sắt) (Fe₂O₃)** từ các tiền chất cơ bản.
+
+#### 2. Vũ điệu va chạm phân tử & Cơ chế vi mô
+Các phân tử đơn chất ban đầu hấp thụ năng lượng kích hoạt để bẻ gãy liên kết nội tại. Đám mây electron hóa trị được tái phân bố: các nguyên tử kim loại nhường electron cho phi kim tạo mạng tinh thể ion, hoặc các phi kim góp chung electron để tạo ra các liên kết cộng hóa trị có cực. Quá trình tạo liên kết mới giải phóng năng lượng lớn khiến đa số phản ứng hóa hợp tỏa nhiệt mạnh (ΔrH°₂₉₈ < 0). Trong phản ứng này, phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng. Quá trình này diễn ra tuân theo định luật bảo toàn khối lượng và biến thiên enthalpy đặc trưng.
+
+#### 3. Kịch tính phòng thí nghiệm & Hiện tượng quan sát thực tế
+- **Điều kiện kích hoạt**: Đun nóng làm mất nước; công thức hydroxide dùng quy ước không ghi nước hydrat..
+- **Hiện tượng mắt thấy tai nghe**: Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần..
+- **Bản chất ion rút gọn**: \`2Fe(OH)3(s) → Fe2O3(s) + 3H2O(g)\` — lột tả trọn vẹn sự va chạm thực sự giữa các hạt mang điện tự do trong dung dịch mà bỏ qua các ion khán giả trung gian.
+
+#### 4. Giá trị ứng dụng & Dấu ấn văn minh
+Phản ứng hóa hợp là nền tảng của toàn bộ ngành công nghiệp tổng hợp vật liệu: từ việc tôi vôi xây dựng nhà cửa, sản xuất axit vô cơ cho đến chế tạo các hợp chất bán dẫn công nghệ cao.
+
+### Biên niên sử phản ứng tạo thành #2: Nhiệt phân
+
+Phương trình hóa học biểu diễn biến đổi vật chất (có ghi rõ trạng thái pha):
+
+\`\`\`text
+4Fe(NO3)3(s) → 2Fe2O3(s) + 12NO2(g) + 3O2(g)
+\`\`\`
+
+#### 1. Bối cảnh lịch sử & Dấu ấn khám phá
+Từ những thí nghiệm đun nóng đơn chất trong buồng khí kín của Lavoisier thế kỷ XVIII đến các công trình điện phân của Davy đầu thế kỷ XIX, phản ứng hóa hợp luôn là minh chứng hùng hồn nhất cho thấy các nguyên tố đơn chất với tính chất hoàn toàn trái ngược có thể hòa quyện vào nhau để tạo nên một hợp chất hoàn toàn mới. Đây là con đường tạo thành then chốt giúp khai sinh ra **Sắt(III) oxit (Gỉ sắt) (Fe₂O₃)** từ các tiền chất cơ bản.
+
+#### 2. Vũ điệu va chạm phân tử & Cơ chế vi mô
+Các phân tử đơn chất ban đầu hấp thụ năng lượng kích hoạt để bẻ gãy liên kết nội tại. Đám mây electron hóa trị được tái phân bố: các nguyên tử kim loại nhường electron cho phi kim tạo mạng tinh thể ion, hoặc các phi kim góp chung electron để tạo ra các liên kết cộng hóa trị có cực. Quá trình tạo liên kết mới giải phóng năng lượng lớn khiến đa số phản ứng hóa hợp tỏa nhiệt mạnh (ΔrH°₂₉₈ < 0). Trong phản ứng này, phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng. Quá trình này diễn ra tuân theo định luật bảo toàn khối lượng và biến thiên enthalpy đặc trưng.
+
+#### 3. Kịch tính phòng thí nghiệm & Hiện tượng quan sát thực tế
+- **Điều kiện kích hoạt**: Nhiệt phân nitrate; phương trình dùng muối không ghi nước kết tinh; không áp dụng nhánh nitrite của Na/K..
+- **Hiện tượng mắt thấy tai nghe**: Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần..
+- **Bản chất ion rút gọn**: \`4Fe(NO3)3(s) → 2Fe2O3(s) + 12NO2(g) + 3O2(g)\` — lột tả trọn vẹn sự va chạm thực sự giữa các hạt mang điện tự do trong dung dịch mà bỏ qua các ion khán giả trung gian.
+
+#### 4. Giá trị ứng dụng & Dấu ấn văn minh
+Phản ứng hóa hợp là nền tảng của toàn bộ ngành công nghiệp tổng hợp vật liệu: từ việc tôi vôi xây dựng nhà cửa, sản xuất axit vô cơ cho đến chế tạo các hợp chất bán dẫn công nghệ cao.
+
+### Biên niên sử phản ứng chuyển hóa #3: Oxit và axit
+
+Phương trình hóa học biểu diễn biến đổi vật chất (có ghi rõ trạng thái pha):
+
+\`\`\`text
+Fe2O3(s) + 3H2SO4(aq) → Fe2(SO4)3(aq) + 3H2O(l)
+\`\`\`
+
+#### 1. Bối cảnh lịch sử & Dấu ấn khám phá
+Từ những thí nghiệm đun nóng đơn chất trong buồng khí kín của Lavoisier thế kỷ XVIII đến các công trình điện phân của Davy đầu thế kỷ XIX, phản ứng hóa hợp luôn là minh chứng hùng hồn nhất cho thấy các nguyên tố đơn chất với tính chất hoàn toàn trái ngược có thể hòa quyện vào nhau để tạo nên một hợp chất hoàn toàn mới. Đây là con đường chuyển hóa tiêu biểu phản ánh bản tính hóa học năng động của **Sắt(III) oxit (Gỉ sắt) (Fe₂O₃)** khi tiếp xúc với môi trường xung quanh.
+
+#### 2. Vũ điệu va chạm phân tử & Cơ chế vi mô
+Các phân tử đơn chất ban đầu hấp thụ năng lượng kích hoạt để bẻ gãy liên kết nội tại. Đám mây electron hóa trị được tái phân bố: các nguyên tử kim loại nhường electron cho phi kim tạo mạng tinh thể ion, hoặc các phi kim góp chung electron để tạo ra các liên kết cộng hóa trị có cực. Quá trình tạo liên kết mới giải phóng năng lượng lớn khiến đa số phản ứng hóa hợp tỏa nhiệt mạnh (ΔrH°₂₉₈ < 0). Trong phản ứng này, axit tiêu thụ nhóm bazơ/oxit tạo muối và nước; hệ số theo đương lượng, không gán nhiệt chung cho mọi axit. Quá trình này diễn ra tuân theo định luật bảo toàn khối lượng và biến thiên enthalpy đặc trưng.
+
+#### 3. Kịch tính phòng thí nghiệm & Hiện tượng quan sát thực tế
+- **Điều kiện kích hoạt**: Axit H2SO4 loãng; lượng axit đủ để trung hòa hoàn toàn. Có thể cần làm ấm; tốc độ tùy mẫu rắn..
+- **Hiện tượng mắt thấy tai nghe**: Rắn có thể tan dần hoặc pH thay đổi; màu tùy ion và nồng độ. Không có chỉ thị thì không tự xuất hiện màu hồng..
+- **Bản chất ion rút gọn**: \`Fe2O3(s) + 6H^+(aq) → 2Fe^3+(aq) + 3H2O(l)\` — lột tả trọn vẹn sự va chạm thực sự giữa các hạt mang điện tự do trong dung dịch mà bỏ qua các ion khán giả trung gian.
+
+#### 4. Giá trị ứng dụng & Dấu ấn văn minh
+Phản ứng hóa hợp là nền tảng của toàn bộ ngành công nghiệp tổng hợp vật liệu: từ việc tôi vôi xây dựng nhà cửa, sản xuất axit vô cơ cho đến chế tạo các hợp chất bán dẫn công nghệ cao.
+
+### Biên niên sử phản ứng chuyển hóa #4: Oxi hóa – khử
+
+Phương trình hóa học biểu diễn biến đổi vật chất (có ghi rõ trạng thái pha):
+
+\`\`\`text
+Fe2O3(s) + 3CO(g) → 2Fe(s) + 3CO2(g)
+\`\`\`
+
+#### 1. Bối cảnh lịch sử & Dấu ấn khám phá
+Khái niệm oxi hóa khử khởi nguồn từ thuyết cháy của Lavoisier (sự kết hợp với oxy), nhưng đã được nâng lên tầm lý thuyết lượng tử hiện đại nhờ Davy và Faraday khi chứng minh bản chất cốt lõi của phản ứng là sự dịch chuyển và trao đổi của các hạt electron tích điện âm. Đây là con đường chuyển hóa tiêu biểu phản ánh bản tính hóa học năng động của **Sắt(III) oxit (Gỉ sắt) (Fe₂O₃)** khi tiếp xúc với môi trường xung quanh.
+
+#### 2. Vũ điệu va chạm phân tử & Cơ chế vi mô
+Trong thời gian chỉ vài phần nghìn tỷ giây của va chạm, chất khử nhường electron từ các orbital có mức năng lượng cao sang orbital trống hoặc bán bão hòa của chất oxi hóa. Số oxi hóa của các nguyên tố thay đổi đột ngột; sự tái tổ hợp đám mây electron làm thay đổi hoàn toàn mức hấp thụ ánh sáng của phân tử, sinh ra hiện tượng biến đổi màu sắc kỳ thú. Trong phản ứng này, phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng. Quá trình này diễn ra tuân theo định luật bảo toàn khối lượng và biến thiên enthalpy đặc trưng.
+
+#### 3. Kịch tính phòng thí nghiệm & Hiện tượng quan sát thực tế
+- **Điều kiện kích hoạt**: Nhiệt độ cao và thế khử thích hợp; mô tả tổng quát quá trình qua các oxide trung gian..
+- **Hiện tượng mắt thấy tai nghe**: Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần..
+- **Bản chất ion rút gọn**: \`Fe2O3(s) + 3CO(g) → 2Fe(s) + 3CO2(g)\` — lột tả trọn vẹn sự va chạm thực sự giữa các hạt mang điện tự do trong dung dịch mà bỏ qua các ion khán giả trung gian.
+
+#### 4. Giá trị ứng dụng & Dấu ấn văn minh
+Phản ứng oxi hóa khử là nguồn cội của sự sống (chu trình hô hấp tế bào và quang hợp), là động lực của cuộc cách mạng năng lượng (pin điện hóa, ắc quy xe điện) và luyện kim chiết xuất sắt thép xây dựng thế giới.
+
+## Góc nhìn thực tiễn: Ứng dụng đời sống, công nghiệp và kinh nghiệm an toàn với Sắt(III) oxit (Gỉ sắt)
+
+Trong dòng chảy của nền văn minh kỹ thuật và ứng dụng thực tiễn, **Sắt(III) oxit (Gỉ sắt) (Fe₂O₃)** giữ vai trò không thể thay thế trên nhiều phương diện: từ việc làm tiền chất trung gian trong các dây chuyền tổng hợp vật liệu mới, xúc tác cho các quá trình biến đổi sinh hóa cho đến việc hiện diện trong các sản phẩm tiêu dùng, y dược và phân tích môi trường hàng ngày.
+
+Về mặt an toàn thực nghiệm và xử lý hóa chất, việc nghiên cứu hay thao tác với **Sắt(III) oxit (Gỉ sắt)** luôn đòi hỏi hiểu biết thấu đáo về tính chất lý hóa, nồng độ an toàn và trang bị bảo hộ đạt chuẩn quốc tế (kính bảo hộ, găng tay chuyên dụng và tủ hút khí độc đối với các phản ứng sinh nhiệt hoặc tỏa khí). Khi xảy ra sự cố tràn đổ hay rò rỉ, nguyên tắc trung hòa an toàn và thu gom đúng quy chuẩn hóa học luôn là bài học vỡ lòng cho bất kỳ nhà nghiên cứu nào bước chân vào phòng lab.
+
+## Câu hỏi suy ngẫm & Tự kiểm tra kiến thức
+
+1. Dựa vào câu chuyện lịch sử và hành trình khám phá **Sắt(III) oxit (Gỉ sắt) (Fe₂O₃)**, nguyên nhân vì sao tên gọi và phương pháp điều chế ban đầu của chất này lại phản ánh hoàn cảnh văn hóa và kỹ thuật của thời đại phát hiện ra nó?
+
+2. Trong phương trình hóa học \`2Fe(OH)3(s) → Fe2O3(s) + 3H2O(g)\`, hiện tượng thực nghiệm quan sát được hé lộ điều gì về tính cách hóa học của **Fe₂O₃** khi tương tác với các chất xung quanh?
+
+<details><summary>Xem phân tích và lời giải chi tiết</summary>
+
+- **Giải đáp câu 1:** Tên gọi và phương pháp tiếp cận đầu tiên của Fe₂O₃ bắt nguồn trực tiếp từ nguồn khoáng sản tự nhiên hoặc hiện tượng quan sát bằng mắt thường của các nhà thực nghiệm thời kỳ đó. Chỉ khi kỹ thuật phân tích và mô hình liên kết không gian phát triển, nhân loại mới hiểu trọn vẹn bản chất cấu tạo của chất.
+
+- **Giải đáp câu 2:** Phương trình phản ứng phản ánh sự tái sắp xếp liên kết: hiện tượng Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần. là bằng chứng vĩ mô cho thấy các nguyên tử đã đổi chỗ cho nhau để tạo thành cấu trúc mới bền vững hơn.
+
+**3. Câu hỏi trắc nghiệm rèn luyện năng lực tư duy GDPT 2018**:
+
+*Dung dịch muối nào sau đây làm quỳ tím CHUYỂN SANG MÀU XANH (pH > 7)?*
+
+   A. Na2CO3
+   B. NH4Cl
+   C. NaCl
+   D. Al2(SO4)3
+
+- **Đáp án & Lời giải câu 3**: Chọn **A**. Muối Na2CO3 tạo bởi cation của bazơ mạnh (Na⁺) và anion của axit yếu (CO3²⁻). Anion CO3²⁻ bị thủy phân trong nước nhận H⁺ và giải phóng ion OH⁻: CO3²⁻ + H2O <=> HCO3⁻ + OH⁻, làm cho dung dịch có môi trường kiềm (pH > 7) làm quỳ tím hóa xanh.
+
+</details>
+
+## Nguồn tư liệu khoa học & Khám phá tiếp theo
+
+- [Phòng quan sát Cấu trúc & Liên kết 3D tương tác — Sắt(III) oxit (Gỉ sắt) (Fe₂O₃)](/tien-ich/cau-truc-3d/?compound=chem-fe2o3)
+- [OpenStax Chemistry 2e — Thành phần ion và công thức của chất rắn ion](https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding)
+- [Bách khoa toàn thư Wikipedia Tiếng Việt — Sắt(III) oxide](https://vi.wikipedia.org/wiki/S%E1%BA%AFt(III)_oxide)
+- [Wikipedia Quốc tế — Iron(III) oxide](https://en.wikipedia.org/wiki/Iron(III)_oxide)
+- [Danh mục hệ thống phản ứng & hợp chất ChemDex](/shared/reaction-catalog.generated.json)
+
+Bài báo chuyên khảo này thuộc hệ thống **Tạp chí Hóa Học Số ChemDex**, tích hợp hồ sơ tiểu sử các nhà hóa học tiên phong, chuẩn mực kiến thức GDPT 2018 môn Hóa học THCS-THPT và cơ sở dữ liệu cấu trúc không gian 3 chiều tương tác, mang lại góc nhìn toàn diện về **Sắt(III) oxit (Gỉ sắt) (Fe₂O₃)**.`,v={id:n,slug:h,documentPath:t,legacyIds:i,title:c,author:g,category:a,summary:o,image:u,chemicalFormula:r,tags:m,aliases:l,substanceIds:p,documentKind:s,readingMinutes:33,chemicalEvidence:e,content:y};export{l as aliases,g as author,a as category,e as chemicalEvidence,r as chemicalFormula,y as content,v as default,s as documentKind,t as documentPath,n as id,u as image,i as legacyIds,k as readingMinutes,h as slug,p as substanceIds,o as summary,m as tags,c as title};

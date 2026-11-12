@@ -175,7 +175,7 @@ export function mountPublishedCrystal(container, meta) {
   status.after(displayNotes);
   let environment, showEnvironment = false, showAtoms = true, showConnections=true, showVacancies=false, autoRotate=false, renderNeeded=true;
   const hiddenElements = new Set();
-  let renderer,scene,camera,controls,current,data,resizeObserver,visibilityObserver,raf=0,destroyed=false,visible=true,repeat=1,showCell=false,packed=false,packingScale=1;
+  let renderer,scene,camera,controls,current,data,resizeObserver,visibilityObserver,raf=0,destroyed=false,visible=true,repeat=1,showCell=false,packed=false,packingScale=1,pendingFit=true;
   const invalidate=()=>{renderNeeded=true;};
   container.querySelector('[data-crystal-cell]').textContent='Hiện khung ô mạng';container.querySelector('[data-crystal-cell]').setAttribute('aria-pressed','false');
   container.querySelector('[data-crystal-environment]').textContent='Hiện cảnh trưng bày';container.querySelector('[data-crystal-environment]').setAttribute('aria-pressed','false');
@@ -184,7 +184,8 @@ export function mountPublishedCrystal(container, meta) {
   displayNotes.innerHTML='<summary>Quy ước hiển thị</summary><p>Đường nối giúp đọc các cặp lân cận trong mạng tuần hoàn; dùng ngưỡng bán kính cộng hóa trị cho phi kim và lớp lân cận gần cho ion/kim loại. Đây không phải phép xác định bậc liên kết. Đường qua mặt ô được cắt tại biên. Cầu, màu và cảnh trưng bày là quy ước; tọa độ và độ chiếm chỗ giữ theo nguồn.</p>';
   const rotating=container.querySelector('[data-crystal-rotate]');
   const fit=()=>{
-    const rect=stage.getBoundingClientRect();frameCrystal(camera,controls,current,rect.width/Math.max(rect.height,1));
+    const rect=stage.getBoundingClientRect();if(rect.width<1||rect.height<1){pendingFit=true;return;}
+    frameCrystal(camera,controls,current,rect.width/rect.height);pendingFit=false;
     controls?.handleResize();invalidate();
   };
   const applyAtomVisibility = () => {current?.traverse(node => {
@@ -223,7 +224,7 @@ export function mountPublishedCrystal(container, meta) {
         const hit=raycaster.intersectObjects(targets,false)[0];
         if(hit){const atom=hit.object.atomInstances?.[hit.instanceId]??hit.object.userData,fmt=n=>Number(n).toLocaleString('vi-VN',{maximumFractionDigits:6});container.querySelector('[data-crystal-selection]').textContent=`${atom.label} · ${atom.element} · chiếm chỗ ${fmt(atom.occupancy*100)}% · phân số (${atom.fractional.map(fmt).join('; ')}) · Cartesian (${atom.position.map(fmt).join('; ')}) Å`;}
       });
-      resizeObserver=new ResizeObserver(()=>{const r=stage.getBoundingClientRect();renderer.setSize(Math.max(r.width,1),Math.max(r.height,1),false);camera.aspect=r.width/Math.max(r.height,1);camera.updateProjectionMatrix();controls.handleResize();invalidate();});resizeObserver.observe(stage);
+      resizeObserver=new ResizeObserver(()=>{const r=stage.getBoundingClientRect();if(r.width<1||r.height<1)return;renderer.setSize(r.width,r.height,false);camera.aspect=r.width/r.height;camera.updateProjectionMatrix();controls.handleResize();if(pendingFit&&current)fit();invalidate();});resizeObserver.observe(stage);
       visibilityObserver=new IntersectionObserver(entries=>visible=entries[0].isIntersecting);visibilityObserver.observe(stage);
       rebuild();
       container.querySelectorAll('.crystal-controls button').forEach(b=>b.disabled=false);

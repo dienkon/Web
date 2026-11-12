@@ -1,0 +1,2155 @@
+{
+  "baseCommit": "34071230426ed488b54fe9ea1fbb8fd5a6d327ff",
+  "validatedComponentDefinitions": 250,
+  "examples": [
+    {
+      "formula": "NaCl",
+      "before": {
+        "atoms": 2,
+        "bonds": 1
+      },
+      "after": {
+        "atoms": 2,
+        "bonds": 0,
+        "groups": [
+          {
+            "formula": "Na",
+            "charge": 1
+          },
+          {
+            "formula": "Cl",
+            "charge": -1
+          }
+        ]
+      }
+    },
+    {
+      "formula": "CuSO4",
+      "before": {
+        "atoms": 6,
+        "bonds": 5
+      },
+      "after": {
+        "atoms": 6,
+        "bonds": 4,
+        "groups": [
+          {
+            "formula": "Cu",
+            "charge": 2
+          },
+          {
+            "formula": "SO4",
+            "charge": -2
+          }
+        ]
+      }
+    },
+    {
+      "formula": "CuSO4·5H2O",
+      "before": {
+        "atoms": 21,
+        "bonds": 20
+      },
+      "after": {
+        "atoms": 21,
+        "bonds": 14,
+        "groups": [
+          {
+            "formula": "Cu",
+            "charge": 2
+          },
+          {
+            "formula": "SO4",
+            "charge": -2
+          },
+          {
+            "formula": "H2O",
+            "charge": 0
+          },
+          {
+            "formula": "H2O",
+            "charge": 0
+          },
+          {
+            "formula": "H2O",
+            "charge": 0
+          },
+          {
+            "formula": "H2O",
+            "charge": 0
+          },
+          {
+            "formula": "H2O",
+            "charge": 0
+          }
+        ]
+      }
+    },
+    {
+      "formula": "Al2(SO4)3",
+      "before": {
+        "atoms": 17,
+        "bonds": 18
+      },
+      "after": {
+        "atoms": 17,
+        "bonds": 12,
+        "groups": [
+          {
+            "formula": "Al",
+            "charge": 3
+          },
+          {
+            "formula": "Al",
+            "charge": 3
+          },
+          {
+            "formula": "SO4",
+            "charge": -2
+          },
+          {
+            "formula": "SO4",
+            "charge": -2
+          },
+          {
+            "formula": "SO4",
+            "charge": -2
+          }
+        ]
+      }
+    },
+    {
+      "formula": "Fe2O3",
+      "before": {
+        "atoms": 5,
+        "bonds": 4
+      },
+      "after": {
+        "atoms": 5,
+        "bonds": 0,
+        "groups": [
+          {
+            "formula": "Fe",
+            "charge": 3
+          },
+          {
+            "formula": "Fe",
+            "charge": 3
+          },
+          {
+            "formula": "O",
+            "charge": -2
+          },
+          {
+            "formula": "O",
+            "charge": -2
+          },
+          {
+            "formula": "O",
+            "charge": -2
+          }
+        ]
+      }
+    },
+    {
+      "formula": "CaO",
+      "before": {
+        "atoms": 2,
+        "bonds": 1
+      },
+      "after": {
+        "atoms": 2,
+        "bonds": 0,
+        "groups": [
+          {
+            "formula": "Ca",
+            "charge": 2
+          },
+          {
+            "formula": "O",
+            "charge": -2
+          }
+        ]
+      }
+    },
+    {
+      "formula": "Na2CO3·10H2O",
+      "before": {
+        "atoms": 36,
+        "bonds": 35
+      },
+      "after": {
+        "atoms": 36,
+        "bonds": 23,
+        "groups": [
+          {
+            "formula": "Na",
+            "charge": 1
+          },
+          {
+            "formula": "Na",
+            "charge": 1
+          },
+          {
+            "formula": "CO3",
+            "charge": -2
+          },
+          {
+            "formula": "H2O",
+            "charge": 0
+          },
+          {
+            "formula": "H2O",
+            "charge": 0
+          },
+          {
+            "formula": "H2O",
+            "charge": 0
+          },
+          {
+            "formula": "H2O",
+            "charge": 0
+          },
+          {
+            "formula": "H2O",
+            "charge": 0
+          },
+          {
+            "formula": "H2O",
+            "charge": 0
+          },
+          {
+            "formula": "H2O",
+            "charge": 0
+          },
+          {
+            "formula": "H2O",
+            "charge": 0
+          },
+          {
+            "formula": "H2O",
+            "charge": 0
+          },
+          {
+            "formula": "H2O",
+            "charge": 0
+          }
+        ]
+      }
+    },
+    {
+      "formula": "CoCl2·6H2O",
+      "before": {
+        "atoms": 21,
+        "bonds": 20
+      },
+      "after": {
+        "atoms": 21,
+        "bonds": 12,
+        "groups": [
+          {
+            "formula": "Co",
+            "charge": 2
+          },
+          {
+            "formula": "Cl",
+            "charge": -1
+          },
+          {
+            "formula": "Cl",
+            "charge": -1
+          },
+          {
+            "formula": "H2O",
+            "charge": 0
+          },
+          {
+            "formula": "H2O",
+            "charge": 0
+          },
+          {
+            "formula": "H2O",
+            "charge": 0
+          },
+          {
+            "formula": "H2O",
+            "charge": 0
+          },
+          {
+            "formula": "H2O",
+            "charge": 0
+          },
+          {
+            "formula": "H2O",
+            "charge": 0
+          }
+        ]
+      }
+    },
+    {
+      "formula": "Fe3O4",
+      "before": {
+        "atoms": 7,
+        "bonds": 6
+      },
+      "after": {
+        "atoms": 7,
+        "bonds": 0,
+        "groups": [
+          {
+            "formula": "Fe",
+            "charge": 2
+          },
+          {
+            "formula": "Fe",
+            "charge": 3
+          },
+          {
+            "formula": "Fe",
+            "charge": 3
+          },
+          {
+            "formula": "O",
+            "charge": -2
+          },
+          {
+            "formula": "O",
+            "charge": -2
+          },
+          {
+            "formula": "O",
+            "charge": -2
+          },
+          {
+            "formula": "O",
+            "charge": -2
+          }
+        ]
+      }
+    },
+    {
+      "formula": "Na2O2",
+      "before": {
+        "atoms": 4,
+        "bonds": 3
+      },
+      "after": {
+        "atoms": 4,
+        "bonds": 1,
+        "groups": [
+          {
+            "formula": "Na",
+            "charge": 1
+          },
+          {
+            "formula": "Na",
+            "charge": 1
+          },
+          {
+            "formula": "O2",
+            "charge": -2
+          }
+        ]
+      }
+    },
+    {
+      "formula": "K4[Fe(CN)6]",
+      "before": {
+        "atoms": 17,
+        "bonds": 16
+      },
+      "after": {
+        "atoms": 17,
+        "bonds": 12,
+        "groups": [
+          {
+            "formula": "K",
+            "charge": 1
+          },
+          {
+            "formula": "K",
+            "charge": 1
+          },
+          {
+            "formula": "K",
+            "charge": 1
+          },
+          {
+            "formula": "K",
+            "charge": 1
+          },
+          {
+            "formula": "Fe(CN)6",
+            "charge": -4
+          }
+        ]
+      }
+    },
+    {
+      "formula": "SiO2",
+      "before": {
+        "atoms": 3,
+        "bonds": 2
+      },
+      "after": {
+        "atoms": 3,
+        "bonds": 0,
+        "groups": []
+      }
+    }
+  ],
+  "definitions": [
+    {
+      "formula": "(NH4)2SO4",
+      "atoms": 15,
+      "groups": 3,
+      "bonds": 12,
+      "netCharge": 0
+    },
+    {
+      "formula": "Ag2CO3",
+      "atoms": 6,
+      "groups": 3,
+      "bonds": 3,
+      "netCharge": 0
+    },
+    {
+      "formula": "Ag2CrO4",
+      "atoms": 7,
+      "groups": 3,
+      "bonds": 4,
+      "netCharge": 0
+    },
+    {
+      "formula": "Ag3PO4",
+      "atoms": 8,
+      "groups": 4,
+      "bonds": 4,
+      "netCharge": 0
+    },
+    {
+      "formula": "AgBr",
+      "atoms": 2,
+      "groups": 2,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "AgCl",
+      "atoms": 2,
+      "groups": 2,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "AgI",
+      "atoms": 2,
+      "groups": 2,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "AgNO3",
+      "atoms": 5,
+      "groups": 2,
+      "bonds": 3,
+      "netCharge": 0
+    },
+    {
+      "formula": "Al(NO3)3",
+      "atoms": 13,
+      "groups": 4,
+      "bonds": 9,
+      "netCharge": 0
+    },
+    {
+      "formula": "Al(OH)3",
+      "atoms": 7,
+      "groups": 4,
+      "bonds": 3,
+      "netCharge": 0
+    },
+    {
+      "formula": "Al2(SO4)3",
+      "atoms": 17,
+      "groups": 5,
+      "bonds": 12,
+      "netCharge": 0
+    },
+    {
+      "formula": "AlBr3",
+      "atoms": 4,
+      "groups": 4,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "AlCl3",
+      "atoms": 4,
+      "groups": 4,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "AlI3",
+      "atoms": 4,
+      "groups": 4,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "Ba(CH3COO)2",
+      "atoms": 15,
+      "groups": 3,
+      "bonds": 12,
+      "netCharge": 0
+    },
+    {
+      "formula": "Ba(HCOO)2",
+      "atoms": 9,
+      "groups": 3,
+      "bonds": 6,
+      "netCharge": 0
+    },
+    {
+      "formula": "Ba(NO3)2",
+      "atoms": 9,
+      "groups": 3,
+      "bonds": 6,
+      "netCharge": 0
+    },
+    {
+      "formula": "Ba(OH)2",
+      "atoms": 5,
+      "groups": 3,
+      "bonds": 2,
+      "netCharge": 0
+    },
+    {
+      "formula": "Ba3(PO4)2",
+      "atoms": 13,
+      "groups": 5,
+      "bonds": 8,
+      "netCharge": 0
+    },
+    {
+      "formula": "BaBr2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "BaC2O4",
+      "atoms": 7,
+      "groups": 2,
+      "bonds": 5,
+      "netCharge": 0
+    },
+    {
+      "formula": "BaCl2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "BaCO3",
+      "atoms": 5,
+      "groups": 2,
+      "bonds": 3,
+      "netCharge": 0
+    },
+    {
+      "formula": "BaCrO4",
+      "atoms": 6,
+      "groups": 2,
+      "bonds": 4,
+      "netCharge": 0
+    },
+    {
+      "formula": "BaF2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "BaI2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "BaSO3",
+      "atoms": 5,
+      "groups": 2,
+      "bonds": 3,
+      "netCharge": 0
+    },
+    {
+      "formula": "BaSO4",
+      "atoms": 6,
+      "groups": 2,
+      "bonds": 4,
+      "netCharge": 0
+    },
+    {
+      "formula": "C2H5COOK",
+      "atoms": 11,
+      "groups": 2,
+      "bonds": 9,
+      "netCharge": 0
+    },
+    {
+      "formula": "C2H5COOLi",
+      "atoms": 11,
+      "groups": 2,
+      "bonds": 9,
+      "netCharge": 0
+    },
+    {
+      "formula": "C2H5COONa",
+      "atoms": 11,
+      "groups": 2,
+      "bonds": 9,
+      "netCharge": 0
+    },
+    {
+      "formula": "C3H7COOK",
+      "atoms": 14,
+      "groups": 2,
+      "bonds": 12,
+      "netCharge": 0
+    },
+    {
+      "formula": "C3H7COOLi",
+      "atoms": 14,
+      "groups": 2,
+      "bonds": 12,
+      "netCharge": 0
+    },
+    {
+      "formula": "C3H7COONa",
+      "atoms": 14,
+      "groups": 2,
+      "bonds": 12,
+      "netCharge": 0
+    },
+    {
+      "formula": "Ca(CH3COO)2",
+      "atoms": 15,
+      "groups": 3,
+      "bonds": 12,
+      "netCharge": 0
+    },
+    {
+      "formula": "Ca(HCOO)2",
+      "atoms": 9,
+      "groups": 3,
+      "bonds": 6,
+      "netCharge": 0
+    },
+    {
+      "formula": "Ca(NO3)2",
+      "atoms": 9,
+      "groups": 3,
+      "bonds": 6,
+      "netCharge": 0
+    },
+    {
+      "formula": "Ca(OH)2",
+      "atoms": 5,
+      "groups": 3,
+      "bonds": 2,
+      "netCharge": 0
+    },
+    {
+      "formula": "Ca3(PO4)2",
+      "atoms": 13,
+      "groups": 5,
+      "bonds": 8,
+      "netCharge": 0
+    },
+    {
+      "formula": "CaBr2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "CaC2O4",
+      "atoms": 7,
+      "groups": 2,
+      "bonds": 5,
+      "netCharge": 0
+    },
+    {
+      "formula": "CaCl2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "CaCO3",
+      "atoms": 5,
+      "groups": 2,
+      "bonds": 3,
+      "netCharge": 0
+    },
+    {
+      "formula": "CaF2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "CaI2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "CaSO3",
+      "atoms": 5,
+      "groups": 2,
+      "bonds": 3,
+      "netCharge": 0
+    },
+    {
+      "formula": "Cd(CH3COO)2",
+      "atoms": 15,
+      "groups": 3,
+      "bonds": 12,
+      "netCharge": 0
+    },
+    {
+      "formula": "Cd(HCOO)2",
+      "atoms": 9,
+      "groups": 3,
+      "bonds": 6,
+      "netCharge": 0
+    },
+    {
+      "formula": "Cd(NO3)2",
+      "atoms": 9,
+      "groups": 3,
+      "bonds": 6,
+      "netCharge": 0
+    },
+    {
+      "formula": "Cd(OH)2",
+      "atoms": 5,
+      "groups": 3,
+      "bonds": 2,
+      "netCharge": 0
+    },
+    {
+      "formula": "CdBr2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "CdC2O4",
+      "atoms": 7,
+      "groups": 2,
+      "bonds": 5,
+      "netCharge": 0
+    },
+    {
+      "formula": "CdCl2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "CdCO3",
+      "atoms": 5,
+      "groups": 2,
+      "bonds": 3,
+      "netCharge": 0
+    },
+    {
+      "formula": "CdI2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "CdS",
+      "atoms": 2,
+      "groups": 2,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "CdSO4",
+      "atoms": 6,
+      "groups": 2,
+      "bonds": 4,
+      "netCharge": 0
+    },
+    {
+      "formula": "CH3COOAg",
+      "atoms": 8,
+      "groups": 2,
+      "bonds": 6,
+      "netCharge": 0
+    },
+    {
+      "formula": "CH3COOK",
+      "atoms": 8,
+      "groups": 2,
+      "bonds": 6,
+      "netCharge": 0
+    },
+    {
+      "formula": "CH3COOLi",
+      "atoms": 8,
+      "groups": 2,
+      "bonds": 6,
+      "netCharge": 0
+    },
+    {
+      "formula": "CH3COONa",
+      "atoms": 8,
+      "groups": 2,
+      "bonds": 6,
+      "netCharge": 0
+    },
+    {
+      "formula": "Co(CH3COO)2",
+      "atoms": 15,
+      "groups": 3,
+      "bonds": 12,
+      "netCharge": 0
+    },
+    {
+      "formula": "Co(HCOO)2",
+      "atoms": 9,
+      "groups": 3,
+      "bonds": 6,
+      "netCharge": 0
+    },
+    {
+      "formula": "Co(NO3)2",
+      "atoms": 9,
+      "groups": 3,
+      "bonds": 6,
+      "netCharge": 0
+    },
+    {
+      "formula": "Co(OH)2",
+      "atoms": 5,
+      "groups": 3,
+      "bonds": 2,
+      "netCharge": 0
+    },
+    {
+      "formula": "CoBr2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "CoC2O4",
+      "atoms": 7,
+      "groups": 2,
+      "bonds": 5,
+      "netCharge": 0
+    },
+    {
+      "formula": "CoCl2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "CoI2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "CoS",
+      "atoms": 2,
+      "groups": 2,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "CoSO4",
+      "atoms": 6,
+      "groups": 2,
+      "bonds": 4,
+      "netCharge": 0
+    },
+    {
+      "formula": "Cr(NO3)3",
+      "atoms": 13,
+      "groups": 4,
+      "bonds": 9,
+      "netCharge": 0
+    },
+    {
+      "formula": "Cr(OH)3",
+      "atoms": 7,
+      "groups": 4,
+      "bonds": 3,
+      "netCharge": 0
+    },
+    {
+      "formula": "Cr2(SO4)3",
+      "atoms": 17,
+      "groups": 5,
+      "bonds": 12,
+      "netCharge": 0
+    },
+    {
+      "formula": "CrBr3",
+      "atoms": 4,
+      "groups": 4,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "CrCl3",
+      "atoms": 4,
+      "groups": 4,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "CrI3",
+      "atoms": 4,
+      "groups": 4,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "Cu(CH3COO)2",
+      "atoms": 15,
+      "groups": 3,
+      "bonds": 12,
+      "netCharge": 0
+    },
+    {
+      "formula": "Cu(NO3)2",
+      "atoms": 9,
+      "groups": 3,
+      "bonds": 6,
+      "netCharge": 0
+    },
+    {
+      "formula": "Cu(OH)2",
+      "atoms": 5,
+      "groups": 3,
+      "bonds": 2,
+      "netCharge": 0
+    },
+    {
+      "formula": "CuBr2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "CuC2O4",
+      "atoms": 7,
+      "groups": 2,
+      "bonds": 5,
+      "netCharge": 0
+    },
+    {
+      "formula": "CuCl2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "CuS",
+      "atoms": 2,
+      "groups": 2,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "CuSO4",
+      "atoms": 6,
+      "groups": 2,
+      "bonds": 4,
+      "netCharge": 0
+    },
+    {
+      "formula": "Fe(CH3COO)2",
+      "atoms": 15,
+      "groups": 3,
+      "bonds": 12,
+      "netCharge": 0
+    },
+    {
+      "formula": "Fe(HCOO)2",
+      "atoms": 9,
+      "groups": 3,
+      "bonds": 6,
+      "netCharge": 0
+    },
+    {
+      "formula": "Fe(NO3)2",
+      "atoms": 9,
+      "groups": 3,
+      "bonds": 6,
+      "netCharge": 0
+    },
+    {
+      "formula": "Fe(NO3)3",
+      "atoms": 13,
+      "groups": 4,
+      "bonds": 9,
+      "netCharge": 0
+    },
+    {
+      "formula": "Fe(OH)2",
+      "atoms": 5,
+      "groups": 3,
+      "bonds": 2,
+      "netCharge": 0
+    },
+    {
+      "formula": "Fe(OH)3",
+      "atoms": 7,
+      "groups": 4,
+      "bonds": 3,
+      "netCharge": 0
+    },
+    {
+      "formula": "Fe2(SO4)3",
+      "atoms": 17,
+      "groups": 5,
+      "bonds": 12,
+      "netCharge": 0
+    },
+    {
+      "formula": "FeBr2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "FeBr3",
+      "atoms": 4,
+      "groups": 4,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "FeC2O4",
+      "atoms": 7,
+      "groups": 2,
+      "bonds": 5,
+      "netCharge": 0
+    },
+    {
+      "formula": "FeCl2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "FeCl3",
+      "atoms": 4,
+      "groups": 4,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "FeCO3",
+      "atoms": 5,
+      "groups": 2,
+      "bonds": 3,
+      "netCharge": 0
+    },
+    {
+      "formula": "FeI2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "FeS",
+      "atoms": 2,
+      "groups": 2,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "FeSO4",
+      "atoms": 6,
+      "groups": 2,
+      "bonds": 4,
+      "netCharge": 0
+    },
+    {
+      "formula": "HCOOK",
+      "atoms": 5,
+      "groups": 2,
+      "bonds": 3,
+      "netCharge": 0
+    },
+    {
+      "formula": "HCOOLi",
+      "atoms": 5,
+      "groups": 2,
+      "bonds": 3,
+      "netCharge": 0
+    },
+    {
+      "formula": "HCOONa",
+      "atoms": 5,
+      "groups": 2,
+      "bonds": 3,
+      "netCharge": 0
+    },
+    {
+      "formula": "K2C2O4",
+      "atoms": 8,
+      "groups": 3,
+      "bonds": 5,
+      "netCharge": 0
+    },
+    {
+      "formula": "K2CO3",
+      "atoms": 6,
+      "groups": 3,
+      "bonds": 3,
+      "netCharge": 0
+    },
+    {
+      "formula": "K2CrO4",
+      "atoms": 7,
+      "groups": 3,
+      "bonds": 4,
+      "netCharge": 0
+    },
+    {
+      "formula": "K2S",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "K2SO3",
+      "atoms": 6,
+      "groups": 3,
+      "bonds": 3,
+      "netCharge": 0
+    },
+    {
+      "formula": "K2SO4",
+      "atoms": 7,
+      "groups": 3,
+      "bonds": 4,
+      "netCharge": 0
+    },
+    {
+      "formula": "K3PO4",
+      "atoms": 8,
+      "groups": 4,
+      "bonds": 4,
+      "netCharge": 0
+    },
+    {
+      "formula": "KBr",
+      "atoms": 2,
+      "groups": 2,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "KCl",
+      "atoms": 2,
+      "groups": 2,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "KF",
+      "atoms": 2,
+      "groups": 2,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "KHCO3",
+      "atoms": 6,
+      "groups": 2,
+      "bonds": 4,
+      "netCharge": 0
+    },
+    {
+      "formula": "KI",
+      "atoms": 2,
+      "groups": 2,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "KNO3",
+      "atoms": 5,
+      "groups": 2,
+      "bonds": 3,
+      "netCharge": 0
+    },
+    {
+      "formula": "KOH",
+      "atoms": 3,
+      "groups": 2,
+      "bonds": 1,
+      "netCharge": 0
+    },
+    {
+      "formula": "Li2CO3",
+      "atoms": 6,
+      "groups": 3,
+      "bonds": 3,
+      "netCharge": 0
+    },
+    {
+      "formula": "Li2SO4",
+      "atoms": 7,
+      "groups": 3,
+      "bonds": 4,
+      "netCharge": 0
+    },
+    {
+      "formula": "LiBr",
+      "atoms": 2,
+      "groups": 2,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "LiCl",
+      "atoms": 2,
+      "groups": 2,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "LiF",
+      "atoms": 2,
+      "groups": 2,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "LiI",
+      "atoms": 2,
+      "groups": 2,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "LiNO3",
+      "atoms": 5,
+      "groups": 2,
+      "bonds": 3,
+      "netCharge": 0
+    },
+    {
+      "formula": "LiOH",
+      "atoms": 3,
+      "groups": 2,
+      "bonds": 1,
+      "netCharge": 0
+    },
+    {
+      "formula": "Mg(CH3COO)2",
+      "atoms": 15,
+      "groups": 3,
+      "bonds": 12,
+      "netCharge": 0
+    },
+    {
+      "formula": "Mg(HCOO)2",
+      "atoms": 9,
+      "groups": 3,
+      "bonds": 6,
+      "netCharge": 0
+    },
+    {
+      "formula": "Mg(NO3)2",
+      "atoms": 9,
+      "groups": 3,
+      "bonds": 6,
+      "netCharge": 0
+    },
+    {
+      "formula": "Mg(OH)2",
+      "atoms": 5,
+      "groups": 3,
+      "bonds": 2,
+      "netCharge": 0
+    },
+    {
+      "formula": "MgBr2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "MgC2O4",
+      "atoms": 7,
+      "groups": 2,
+      "bonds": 5,
+      "netCharge": 0
+    },
+    {
+      "formula": "MgCl2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "MgCO3",
+      "atoms": 5,
+      "groups": 2,
+      "bonds": 3,
+      "netCharge": 0
+    },
+    {
+      "formula": "MgF2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "MgI2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "MgSO3",
+      "atoms": 5,
+      "groups": 2,
+      "bonds": 3,
+      "netCharge": 0
+    },
+    {
+      "formula": "MgSO4",
+      "atoms": 6,
+      "groups": 2,
+      "bonds": 4,
+      "netCharge": 0
+    },
+    {
+      "formula": "Mn(CH3COO)2",
+      "atoms": 15,
+      "groups": 3,
+      "bonds": 12,
+      "netCharge": 0
+    },
+    {
+      "formula": "Mn(HCOO)2",
+      "atoms": 9,
+      "groups": 3,
+      "bonds": 6,
+      "netCharge": 0
+    },
+    {
+      "formula": "Mn(NO3)2",
+      "atoms": 9,
+      "groups": 3,
+      "bonds": 6,
+      "netCharge": 0
+    },
+    {
+      "formula": "Mn(OH)2",
+      "atoms": 5,
+      "groups": 3,
+      "bonds": 2,
+      "netCharge": 0
+    },
+    {
+      "formula": "MnBr2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "MnC2O4",
+      "atoms": 7,
+      "groups": 2,
+      "bonds": 5,
+      "netCharge": 0
+    },
+    {
+      "formula": "MnCl2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "MnCO3",
+      "atoms": 5,
+      "groups": 2,
+      "bonds": 3,
+      "netCharge": 0
+    },
+    {
+      "formula": "MnI2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "MnS",
+      "atoms": 2,
+      "groups": 2,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "MnSO4",
+      "atoms": 6,
+      "groups": 2,
+      "bonds": 4,
+      "netCharge": 0
+    },
+    {
+      "formula": "Na2C2O4",
+      "atoms": 8,
+      "groups": 3,
+      "bonds": 5,
+      "netCharge": 0
+    },
+    {
+      "formula": "Na2CO3",
+      "atoms": 6,
+      "groups": 3,
+      "bonds": 3,
+      "netCharge": 0
+    },
+    {
+      "formula": "Na2CrO4",
+      "atoms": 7,
+      "groups": 3,
+      "bonds": 4,
+      "netCharge": 0
+    },
+    {
+      "formula": "Na2S",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "Na2SO3",
+      "atoms": 6,
+      "groups": 3,
+      "bonds": 3,
+      "netCharge": 0
+    },
+    {
+      "formula": "Na2SO4",
+      "atoms": 7,
+      "groups": 3,
+      "bonds": 4,
+      "netCharge": 0
+    },
+    {
+      "formula": "Na3PO4",
+      "atoms": 8,
+      "groups": 4,
+      "bonds": 4,
+      "netCharge": 0
+    },
+    {
+      "formula": "NaBr",
+      "atoms": 2,
+      "groups": 2,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "NaCl",
+      "atoms": 2,
+      "groups": 2,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "NaF",
+      "atoms": 2,
+      "groups": 2,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "NaHCO3",
+      "atoms": 6,
+      "groups": 2,
+      "bonds": 4,
+      "netCharge": 0
+    },
+    {
+      "formula": "NaI",
+      "atoms": 2,
+      "groups": 2,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "NaNO3",
+      "atoms": 5,
+      "groups": 2,
+      "bonds": 3,
+      "netCharge": 0
+    },
+    {
+      "formula": "NaOH",
+      "atoms": 3,
+      "groups": 2,
+      "bonds": 1,
+      "netCharge": 0
+    },
+    {
+      "formula": "NH4Br",
+      "atoms": 6,
+      "groups": 2,
+      "bonds": 4,
+      "netCharge": 0
+    },
+    {
+      "formula": "NH4CH3COO",
+      "atoms": 12,
+      "groups": 2,
+      "bonds": 10,
+      "netCharge": 0
+    },
+    {
+      "formula": "NH4Cl",
+      "atoms": 6,
+      "groups": 2,
+      "bonds": 4,
+      "netCharge": 0
+    },
+    {
+      "formula": "NH4I",
+      "atoms": 6,
+      "groups": 2,
+      "bonds": 4,
+      "netCharge": 0
+    },
+    {
+      "formula": "NH4NO3",
+      "atoms": 9,
+      "groups": 2,
+      "bonds": 7,
+      "netCharge": 0
+    },
+    {
+      "formula": "Ni(CH3COO)2",
+      "atoms": 15,
+      "groups": 3,
+      "bonds": 12,
+      "netCharge": 0
+    },
+    {
+      "formula": "Ni(HCOO)2",
+      "atoms": 9,
+      "groups": 3,
+      "bonds": 6,
+      "netCharge": 0
+    },
+    {
+      "formula": "Ni(NO3)2",
+      "atoms": 9,
+      "groups": 3,
+      "bonds": 6,
+      "netCharge": 0
+    },
+    {
+      "formula": "Ni(OH)2",
+      "atoms": 5,
+      "groups": 3,
+      "bonds": 2,
+      "netCharge": 0
+    },
+    {
+      "formula": "NiBr2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "NiC2O4",
+      "atoms": 7,
+      "groups": 2,
+      "bonds": 5,
+      "netCharge": 0
+    },
+    {
+      "formula": "NiCl2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "NiI2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "NiS",
+      "atoms": 2,
+      "groups": 2,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "NiSO4",
+      "atoms": 6,
+      "groups": 2,
+      "bonds": 4,
+      "netCharge": 0
+    },
+    {
+      "formula": "Pb(CH3COO)2",
+      "atoms": 15,
+      "groups": 3,
+      "bonds": 12,
+      "netCharge": 0
+    },
+    {
+      "formula": "Pb(HCOO)2",
+      "atoms": 9,
+      "groups": 3,
+      "bonds": 6,
+      "netCharge": 0
+    },
+    {
+      "formula": "Pb(NO3)2",
+      "atoms": 9,
+      "groups": 3,
+      "bonds": 6,
+      "netCharge": 0
+    },
+    {
+      "formula": "Pb(OH)2",
+      "atoms": 5,
+      "groups": 3,
+      "bonds": 2,
+      "netCharge": 0
+    },
+    {
+      "formula": "Pb3(PO4)2",
+      "atoms": 13,
+      "groups": 5,
+      "bonds": 8,
+      "netCharge": 0
+    },
+    {
+      "formula": "PbBr2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "PbC2O4",
+      "atoms": 7,
+      "groups": 2,
+      "bonds": 5,
+      "netCharge": 0
+    },
+    {
+      "formula": "PbCl2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "PbCO3",
+      "atoms": 5,
+      "groups": 2,
+      "bonds": 3,
+      "netCharge": 0
+    },
+    {
+      "formula": "PbCrO4",
+      "atoms": 6,
+      "groups": 2,
+      "bonds": 4,
+      "netCharge": 0
+    },
+    {
+      "formula": "PbF2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "PbI2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "PbSO4",
+      "atoms": 6,
+      "groups": 2,
+      "bonds": 4,
+      "netCharge": 0
+    },
+    {
+      "formula": "SnBr2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "SnCl2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "SnSO4",
+      "atoms": 6,
+      "groups": 2,
+      "bonds": 4,
+      "netCharge": 0
+    },
+    {
+      "formula": "Sr(CH3COO)2",
+      "atoms": 15,
+      "groups": 3,
+      "bonds": 12,
+      "netCharge": 0
+    },
+    {
+      "formula": "Sr(HCOO)2",
+      "atoms": 9,
+      "groups": 3,
+      "bonds": 6,
+      "netCharge": 0
+    },
+    {
+      "formula": "Sr(NO3)2",
+      "atoms": 9,
+      "groups": 3,
+      "bonds": 6,
+      "netCharge": 0
+    },
+    {
+      "formula": "Sr(OH)2",
+      "atoms": 5,
+      "groups": 3,
+      "bonds": 2,
+      "netCharge": 0
+    },
+    {
+      "formula": "Sr3(PO4)2",
+      "atoms": 13,
+      "groups": 5,
+      "bonds": 8,
+      "netCharge": 0
+    },
+    {
+      "formula": "SrBr2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "SrC2O4",
+      "atoms": 7,
+      "groups": 2,
+      "bonds": 5,
+      "netCharge": 0
+    },
+    {
+      "formula": "SrCl2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "SrCO3",
+      "atoms": 5,
+      "groups": 2,
+      "bonds": 3,
+      "netCharge": 0
+    },
+    {
+      "formula": "SrF2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "SrI2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "SrSO3",
+      "atoms": 5,
+      "groups": 2,
+      "bonds": 3,
+      "netCharge": 0
+    },
+    {
+      "formula": "SrSO4",
+      "atoms": 6,
+      "groups": 2,
+      "bonds": 4,
+      "netCharge": 0
+    },
+    {
+      "formula": "Zn(CH3COO)2",
+      "atoms": 15,
+      "groups": 3,
+      "bonds": 12,
+      "netCharge": 0
+    },
+    {
+      "formula": "Zn(HCOO)2",
+      "atoms": 9,
+      "groups": 3,
+      "bonds": 6,
+      "netCharge": 0
+    },
+    {
+      "formula": "Zn(NO3)2",
+      "atoms": 9,
+      "groups": 3,
+      "bonds": 6,
+      "netCharge": 0
+    },
+    {
+      "formula": "Zn(OH)2",
+      "atoms": 5,
+      "groups": 3,
+      "bonds": 2,
+      "netCharge": 0
+    },
+    {
+      "formula": "ZnBr2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "ZnC2O4",
+      "atoms": 7,
+      "groups": 2,
+      "bonds": 5,
+      "netCharge": 0
+    },
+    {
+      "formula": "ZnCl2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "ZnCO3",
+      "atoms": 5,
+      "groups": 2,
+      "bonds": 3,
+      "netCharge": 0
+    },
+    {
+      "formula": "ZnI2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "ZnS",
+      "atoms": 2,
+      "groups": 2,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "ZnSO4",
+      "atoms": 6,
+      "groups": 2,
+      "bonds": 4,
+      "netCharge": 0
+    },
+    {
+      "formula": "Li2O",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "Na2O",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "K2O",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "MgO",
+      "atoms": 2,
+      "groups": 2,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "CaO",
+      "atoms": 2,
+      "groups": 2,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "SrO",
+      "atoms": 2,
+      "groups": 2,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "BaO",
+      "atoms": 2,
+      "groups": 2,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "ZnO",
+      "atoms": 2,
+      "groups": 2,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "CdO",
+      "atoms": 2,
+      "groups": 2,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "Ag2O",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "Cu2O",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "CuO",
+      "atoms": 2,
+      "groups": 2,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "FeO",
+      "atoms": 2,
+      "groups": 2,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "Fe2O3",
+      "atoms": 5,
+      "groups": 5,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "Al2O3",
+      "atoms": 5,
+      "groups": 5,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "Cr2O3",
+      "atoms": 5,
+      "groups": 5,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "NiO",
+      "atoms": 2,
+      "groups": 2,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "CoO",
+      "atoms": 2,
+      "groups": 2,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "MnO",
+      "atoms": 2,
+      "groups": 2,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "MnO2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "TiO2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "SnO",
+      "atoms": 2,
+      "groups": 2,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "SnO2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "PbO",
+      "atoms": 2,
+      "groups": 2,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "PbO2",
+      "atoms": 3,
+      "groups": 3,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "Fe3O4",
+      "atoms": 7,
+      "groups": 7,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "Pb3O4",
+      "atoms": 7,
+      "groups": 7,
+      "bonds": 0,
+      "netCharge": 0
+    },
+    {
+      "formula": "Na2O2",
+      "atoms": 4,
+      "groups": 3,
+      "bonds": 1,
+      "netCharge": 0
+    },
+    {
+      "formula": "K2O2",
+      "atoms": 4,
+      "groups": 3,
+      "bonds": 1,
+      "netCharge": 0
+    },
+    {
+      "formula": "BaO2",
+      "atoms": 3,
+      "groups": 2,
+      "bonds": 1,
+      "netCharge": 0
+    },
+    {
+      "formula": "CaO2",
+      "atoms": 3,
+      "groups": 2,
+      "bonds": 1,
+      "netCharge": 0
+    },
+    {
+      "formula": "C14H14N3NaO3S",
+      "atoms": 36,
+      "groups": 2,
+      "bonds": 0,
+      "netCharge": 0
+    }
+  ],
+  "componentArticles": 247,
+  "captionArticles": 457
+}

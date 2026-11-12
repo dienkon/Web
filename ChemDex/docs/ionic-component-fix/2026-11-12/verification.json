@@ -1,0 +1,13 @@
+{
+  "date":"2026-11-12",
+  "componentDefinitions":250,
+  "componentArticles":247,
+  "correctedFigureCaptions":457,
+  "nodeTests":{"command":"npm run test:platform","passed":32,"failed":0},
+  "browserTests":{"uniquePassed":20,"initialRun":{"passed":17,"failed":2},"focusedRerun":{"passed":3,"failed":0},"note":"The focused run covers both updated legacy cases plus the workspace generation/export case. Initial failures expected the previous default component mode or clicked outside the visible canvas after crystal autoload. Assertions were retained with the appropriate navigation/scroll setup."},
+  "builds":{"library":true,"static":true,"libraryTypecheck":true},
+  "finalMolecularBrowserRun":{"passed":12,"failed":0,"includesPaletteAndComponentEnvironment":true},
+  "sourceCoordinateFilesChanged":false,
+  "scientificLimits":["Component positions are schematic layouts.","Group charge metadata does not assign atom-level formal charges.","Existing source crystals retain their own phases and conditions."],
+  "deployment":{"pushed":false,"deployed":false}
+}

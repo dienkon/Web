@@ -1,0 +1,183 @@
+const n="cr2o3-cr2o3",h="cr2o3-cr2o3",t="reference/cr2o3-cr2o3/index.json",c=["ho-so-5840bb57a932"],i="Cr2O3 (Cr₂O₃) — Chân dung một hợp chất: Nguồn gốc lịch sử, mạng liên kết và tính chất",g="Hội Đồng Chuyên Khảo Cấu Trúc Phân Tử · ChemDex",u="hopchat",a="Hồ sơ báo chí toàn diện về Cr2O3 (Cr₂O₃): kết hợp tư liệu bách khoa quốc tế, giải phẫu liên kết 3D và phân tích phản ứng thực nghiệm.",r="/assets/library/substances/cr2o3-cr2o3.svg",o="Cr₂O₃",m=["Câu chuyện hợp chất","Cr2O3","Nhiệt phân"],l=["Cr2O3"],s=["formula-Cr2O3"],p="reference",y=23,e={formula:"Cr2O3",representativeId:"formula-Cr2O3",counts:{Cr:2,O:3},mass:151.989,material:!1,reactionIds:["rx_94345dcfcee7a72e"]},v=`## Câu chuyện: Cội nguồn lịch sử và hành trình bước vào từ điển hóa học của Cr2O3 (Cr₂O₃)
+
+Khi các nhà hóa học đặt câu hỏi *"Chất này từ đâu mà có và vì sao các nguyên tử của nó lại gắn kết bền chặt đến vậy?"*, câu trả lời dành cho **Cr2O3 (Cr₂O₃)** luôn mở ra một bức tranh giao thoa thú vị giữa lịch sử văn minh nhân loại và các định luật bất di bất dịch của cơ học lượng tử.
+
+Tư liệu bách khoa quốc tế tại [Wikipedia — Chromium(III) oxide](https://en.wikipedia.org/wiki/Chromium(III)_oxide) bổ sung thêm góc nhìn lịch sử và danh pháp quốc tế: *“Chromium(III) oxide (or chromia) is an inorganic compound with the formula Cr2O3. It is one of the principal oxides of chromium and is used as a pigment. In nature, it occurs as a rare mineral called eskolaite.”* — phản ánh vai trò quan trọng của **Cr2O3 (Cr₂O₃)** trong hệ thống phân loại hóa chất chuẩn IUPAC và thực tiễn phòng thí nghiệm toàn cầu.
+
+Để hiểu trọn vẹn cội nguồn của hợp chất, cần lần theo lịch sử khám phá từng nguyên tố tạo nên nó:
+
+- **Nhánh nguyên tố Crom (Cr)**: Dấu ấn lịch sử phát hiện do **Louis Nicolas Vauquelin** tìm ra (mốc thời gian: **1797**). Năm 1797, Louis Nicolas Vauquelin nghiên cứu khoáng vật crocoite và phát hiện một oxide mới. Năm 1798, ông điều chế được Chromium kim loại từ oxide này. Chromium được đặt tên từ tiếng Hy Lạp chrōma, có nghĩa là “màu sắc”, do các hợp chất Chromium thường có màu sắc đa dạng. Nguồn khoáng vật tự nhiên tiêu biểu của nguyên tố này gồm: *Quặng Chromite (FeCr₂O₄), Crocoite (PbCrO₄) và một số khoáng vật khác*.
+- **Nhánh nguyên tố Oxi (O)**: Dấu ấn lịch sử phát hiện do **Joseph Priestley và Carl Wilhelm Scheele** tìm ra (mốc thời gian: **1774**). Năm 1774, Joseph Priestley điều chế được Oxygen bằng cách nung Mercury(II) oxide và công bố kết quả. Carl Wilhelm Scheele cũng điều chế được Oxygen độc lập trước đó, khoảng năm 1772, nhưng công trình của ông được công bố sau. Antoine Lavoisier sau đó xác định vai trò của Oxygen trong sự cháy và hô hấp, đồng thời đặt tên Oxygen.
+
+### Dấu ấn nhà khoa học tiên phong: Chân dung và di sản của Jöns Jacob Berzelius (Giơn Gia-cốp Béc-dê-li-út)
+
+Trong lịch sử khám phá và làm sáng tỏ bản chất của **Cr2O3 (Cr₂O₃)**, dấu ấn thực nghiệm sâu sắc nhất gắn liền với tên tuổi của **Jöns Jacob Berzelius** (1779 – 1848) — giáo hoàng của hóa học thế kỷ xix, người sáng lập hệ thống ký hiệu hóa học hiện đại.
+
+*“Các ký hiệu hóa học phải là các chữ cái để tiện in ấn và đọc hiểu, lấy từ tên tiếng Latinh của nguyên tố.”* — Lời đúc kết nổi tiếng này không chỉ là kim chỉ nam nghiên cứu của Jöns Jacob Berzelius mà còn phản ánh tinh thần thực nghiệm bất khuất của thời đại khai sáng khoa học.
+
+**Nghị lực sống & Thăng trầm khoa học**: Berzelius mồ côi cha từ năm 4 tuổi, mẹ tái giá rồi cũng qua đời vài năm sau đó. Ông phải sống nhờ vả nhà người cha dượng trong sự ghẻ lạnh và thiếu thốn. Khi theo học y khoa tại Đại học Uppsala, ông từng bị đánh trượt môn thực hành hóa học vì giáo sư cho rằng ông "vụng về, cẩu thả và không có tương lai với ống nghiệm". Không nản lòng, ông mượn căn phòng nhỏ phía sau lò bánh mì ở Stockholm làm phòng thí nghiệm, tự chế tạo dụng cụ từ chai lọ vỡ và dùng tiền túi từ việc hành nghề bác sĩ nghèo để mua muối, axit. Ông phải làm việc trong điều kiện thông gió tồi tàn đến mức từng bị ngộ độc nặng khí selenua hiđro (H2Se), mất khứu giác suốt một tháng trời và viêm phế quản mãn tính.
+
+**Giai thoại phòng thí nghiệm & Phong cách làm việc**: Berzelius là một người có kỷ luật sắt đá và sự tỉ mỉ vượt bậc. Trong suốt hơn một thập kỷ, ông đã tự tay tiến hành hơn 2.000 phép phân tích định lượng nguyên tố để xác định khối lượng nguyên tử tương đối của gần 50 nguyên tố đã biết thời đó, tất cả chỉ với chiếc cân phân tích cơ học và ống thổi thợ kim hoàn. Bảng khối lượng nguyên tử do ông công bố năm 1818 và 1826 chính xác đến mức sai lệch rất ít so với số liệu đo bằng máy đo phổ khối hiện đại ngày nay. Tầm ảnh hưởng của ông tại châu Âu lớn đến mức được các nhà khoa học mệnh danh là "Giáo hoàng của ngành Hóa học", bất kỳ tranh luận học thuật nào chỉ cần Berzelius lên tiếng trong cuốn niên giám "Jahres-Bericht" là coi như được định đoạt.
+
+**Đột phá thực nghiệm lịch sử**: 1. Phát minh Hệ thống Ký hiệu Hóa học Hiện đại (1813–1814): Xóa bỏ hoàn toàn các biểu tượng giả kim cổ xưa rườm rà (mặt trời cho vàng, mặt trăng cho bạc, tam giác cho lửa). Ông đề xuất dùng chữ cái đầu tiên trong tên Latinh của nguyên tố làm ký hiệu (H cho Hydrogenium, C cho Carboneum, O cho Oxygenium, Fe cho Ferrum, Na cho Natrium) và nếu trùng thì thêm chữ cái thứ hai viết thường (Ca, Cl, Cu). Ông dùng các chữ số để chỉ số lượng nguyên tử trong phân tử (H2O, H2SO4) — nền tảng của toàn bộ ngôn ngữ hóa học toàn cầu ngày nay.
+2. Khám phá 4 nguyên tố hóa học mới: Cerium (Ce, 1803), Selenium (Se, 1817), Silicon (Si, 1824 - lần đầu tiên điều chế ở dạng vô định hình tinh khiết), và Thorium (Th, 1828).
+3. Định hình và đặt tên các khái niệm cốt lõi của hóa học hiện đại: Khái niệm "Xúc tác" (Catalysis, 1835), "Đồng phân" (Isomerism, 1831), "Thù hình" (Allotropy, 1841), và "Polyme" (Polymer, 1832).
+4. Thuyết nhị nguyên điện hóa học (Electrochemical Dualism): Nhận thấy mọi hợp chất muối đều gồm phần mang điện tích dương (cation) và phần mang điện tích âm (anion), đặt nền móng cho lý thuyết liên kết ion sau này.
+
+**Thiết bị phòng thí nghiệm đặc chế tiêu biểu**:
+
+- **Ống thổi phân tích Berzelius (Berzelius Blowpipe)**: Ống kim loại thon nhỏ dùng để thổi luồng khí nén từ miệng qua ngọn lửa đèn cồn vào mẩu khoáng sản đặt trên than củi, tạo nhiệt độ tập trung cao kiểm tra màu ngọn lửa và khả năng khử kim loại.
+- **Giấy lọc không tàn tro cải tiến (Ashless Filter Paper)**: Giấy lọc được xử lý qua axit flohiđric và axit clohiđric để loại bỏ hoàn toàn silica và muối vô cơ, khi đốt cháy cùng kết tủa không để lại khối lượng tro thừa gây sai số cân.
+- **Chén nung bạch kim có nắp kín (Covered Platinum Crucibles)**: Chén nung bằng kim loại platin nguyên chất dùng để nung kết tủa bari sunfat và silic đioxit ở nhiệt độ trên 1.000°C.
+
+**Dấu mốc phản ứng gắn liền với công trình của Jöns Jacob Berzelius**:
+
+- Phương trình phản ứng bước ngoặt: \`SiF4(g) + 4K(s) -> Si(s) + 4KF(s)\`
+  *Hiện tượng quan sát thực tế*: Kim loại kali nóng chảy phản ứng mãnh liệt với khí silic tetraflorua, chất rắn màu nâu xẫm của bột silic vô định hình được tạo thành sau khi rửa sạch muối kali florua.
+  *Ghi chú lịch sử*: Thí nghiệm năm 1824 giúp Berzelius lần đầu tiên cô lập được Silic vô định hình nguyên chất.
+
+- Phương trình phản ứng bước ngoặt: \`2H2O2(aq) --(MnO2)--> 2H2O(l) + O2(g)\`
+  *Hiện tượng quan sát thực tế*: Bột MnO2 màu đen vừa rơi vào dung dịch không màu thì bọt khí oxi lập tức sủi lên cuồn cuộn tỏa nhiệt; sau phản ứng lượng bột MnO2 vẫn còn nguyên khối lượng và bản chất hóa học.
+  *Ghi chú lịch sử*: Thí nghiệm kinh điển minh chứng cho định nghĩa về "lực xúc tác" của Berzelius năm 1835.
+
+**Bài học phương pháp luận cho học sinh GDPT**: Không có Berzelius, chúng ta không thể có ngôn ngữ hóa học như ngày hôm nay. Trong GDPT 2018 (KHTN 7 & Hóa học 10), việc học sinh viết đúng ký hiệu hóa học, công thức phân tử và hiểu vai trò của chất xúc tác trong việc tăng tốc độ phản ứng mà không bị tiêu hao chính là thừa hưởng trực tiếp từ di sản của Berzelius.
+
+![Khởi nguyên lịch sử và hành trình khám phá Cr2O3 (Cr₂O₃)](/assets/library/apparatus-voltaic-pile.svg)
+*Hình 1. Bối cảnh lịch sử phát hiện, nguồn gốc tự nhiên và tiến trình định danh khoa học của Cr2O3 (Cr₂O₃).*
+
+## Lần theo thành phần nguyên tử: Cấu trúc không gian, hình học phân tử và cá tính của Cr2O3
+
+Theo một đơn vị công thức **Cr₂O₃**, thành phần gồm **5 nguyên tử** thuộc **2 nguyên tố hóa học**. Số đếm này giúp viết đúng tỉ lệ; chưa mô tả một phân tử riêng lẻ hay vị trí trong ô mạng:
+
+- **Nguyên tố Crom (Cr)**: Có **2 nguyên tử** theo một đơn vị công thức Cr₂O₃. Đây là số đếm thành phần; vị trí thực tế được xác định từ dữ liệu cấu trúc của pha đang xét.
+- **Nguyên tố Oxi (O)**: Có **3 nguyên tử** theo một đơn vị công thức Cr₂O₃. Đây là số đếm thành phần; vị trí thực tế được xác định từ dữ liệu cấu trúc của pha đang xét.
+
+Trong sơ đồ thành phần của **Cr2O3 (Cr₂O₃)**, các nhóm **2× Cr và 3× O** giúp kiểm tra số nguyên tử và cân bằng điện tích. Vị trí giữa các nhóm trong sơ đồ được bố trí để dễ quan sát. Muốn khảo sát phối trí, hãy mở mô hình tinh thể có nguồn của đúng pha; công thức hóa học riêng lẻ chưa xác định được cách xếp nguyên tử. Trong một ion đa nguyên tử, khung liên kết là phần cấu tạo bên trong nhóm. Độ tan và thành phần trong dung dịch cần xét riêng theo chất, dung môi và điều kiện.
+
+![Minh họa cấu trúc của Cr2O3 (Cr₂O₃)](/assets/library/ionic-crystal.svg)
+*Hình 2. Minh họa các cách đọc cấu trúc. Dữ liệu của mô hình tương tác, điều kiện pha và nguồn tọa độ được ghi riêng bên dưới mô hình.*
+
+| Chỉ tiêu nhận diện & Cấu trúc 3D | Tư liệu xác thực từ hệ thống ChemDex |
+|---|---|
+| Tên chất & Danh pháp quốc tế | **Cr2O3** (Cr2O3) |
+| Công thức hóa học thực nghiệm | **Cr₂O₃**  |
+| Hình thái không gian 3 chiều | Sơ đồ thành phần; cấu trúc pha rắn xem ở mục Tinh thể |
+| Quy mô cấu trúc vi mô | **5 nguyên tử** (2× Cr, 3× O) |
+| Trạng thái & Sắc thái nhận diện | Rắn / Dung dịch thực nghiệm |
+| Phòng quan sát 3D tương tác | [Mở mô hình xoay 360° và kiểm tra góc liên kết](/tien-ich/cau-truc-3d/?compound=formula-Cr2O3) |
+
+Người đọc có thể trực tiếp xoay mô hình 360°, bật/tắt nhãn nguyên tử và kiểm tra độ dài từng liên kết (tính bằng đơn vị Ångström) của chất này tại [Phòng quan sát Cấu trúc & Liên kết 3D — Cr2O3](/tien-ich/cau-truc-3d/?compound=formula-Cr2O3).
+
+## Từ công thức đến sơ đồ thành phần: điện tích, dung dịch và tinh thể
+
+Với **Cr₂O₃**, bộ nhóm dùng để xét thành phần là **2 nhóm Cr (điện tích +3); 3 nhóm O (điện tích -2)**. Nhân số nhóm với điện tích rồi cộng lại cho phép kiểm tra tính trung hòa của đơn vị công thức. Điện tích ở đây thuộc về toàn bộ nhóm, không phải mỗi nguyên tử bên trong nó.
+
+- **Khi đọc chế độ Thành phần:** Đếm số nhóm, số nguyên tử và điện tích. Các nhóm được tách để dễ nhìn; khoảng cách giữa chúng là cách bố trí hình minh họa. Những liên kết bên trong nhóm giúp nhận diện khung cấu tạo.
+- **Khi đọc chế độ Tinh thể:** Xem đúng pha, nhiệt độ và nguồn tọa độ. Các vị trí lặp lại tuần hoàn mới cho biết mạng lưới và môi trường lân cận trong chất rắn. Sơ đồ thành phần không thay thế dữ liệu này.
+- **Khi xét dung dịch:** Cần biết độ tan, nồng độ, dung môi và các cân bằng hoặc phản ứng có thể xảy ra. Công thức và số nhóm ion chưa đủ để kết luận một chất tan hoàn toàn, giữ nguyên dạng tồn tại hay tạo dung dịch có pH cụ thể.
+
+Nếu công thức ghi nước kết tinh, hệ số nước cho biết thành phần của hydrate đang xét. Cách phân bố nước quanh cation và trong mạng cần đối chiếu cấu trúc công bố; cùng một số phân tử nước chưa đủ để tự gán dạng phối trí. Mô hình 3D và thí nghiệm ảo phục vụ các câu hỏi khác nhau: một bên giúp đọc cấu trúc, bên kia quan sát các quá trình được mô phỏng trong điều kiện đã nêu.
+
+## Trọng tâm kiến thức Hóa học GDPT (THCS & THPT): Cấu trúc, Nhiệt động lực & Cơ chế
+
+Trong Chương trình Giáo dục phổ thông 2018 (môn Khoa học tự nhiên THCS & môn Hóa học THPT Lớp Hóa học 10), **Cr2O3 (Cr₂O₃)** là đối tượng trọng tâm thuộc mạch nội dung **“Thành phần nguyên tử, Orbital nguyên tử (AO) và Cấu hình electron”** (Các bài học cốt lõi liên quan: *Hóa học 10 - Chương 1: Cấu tạo nguyên tử (Bài 1: Thành phần nguyên tử), Hóa học 10 - Chương 1: Cấu tạo nguyên tử (Bài 2: Nguyên tố hóa học và đồng vị), Hóa học 10 - Chương 1: Cấu tạo nguyên tử (Bài 3: Cấu trúc lớp vỏ electron và Orbital nguyên tử), KHTN 7 - Chủ đề 1: Nguyên tử - Nguyên tố hóa học*).
+
+### 1. Nguyên lý lý thuyết & Quy luật khoa học chi phối
+
+Nguyên tử có kích thước khoảng 10⁻¹⁰ m (1 Å) với cấu tạo rỗng, gồm hạt nhân mang điện tích dương ở tâm và vỏ electron mang điện tích âm. Vỏ electron được mô tả bằng cơ học lượng tử thông qua các orbital nguyên tử (AO: s, p, d, f) xác định bởi đám mây xác suất tìm thấy electron. Sự phân bố electron vào các AO tuân theo ba nguyên lý bất di bất dịch: Nguyên lý vững bền Aufbau, Nguyên lý loại trừ Pauli và Quy tắc Hund.
+
+- **Nguyên lý vững bền Aufbau**: Electron điền lần lượt vào các orbital có mức năng lượng từ thấp đến cao (1s 2s 2p 3s 3p 4s 3d 4p 5s 4d 5p...).
+- **Nguyên lý loại trừ Pauli**: Mỗi AO chứa tối đa 2 electron có spin đối song (ngược chiều nhau ↑↓).
+- **Quy tắc Hund**: Electron phân bố sao cho số electron độc thân trong cùng phân lớp đạt cực đại và có chiều spin song song.
+- **Quy tắc bão hòa/bán bão hòa d**: Phân lớp d chuyển 1 electron từ s để đạt bán bão hòa d5 (Cr) hoặc bão hòa d10 (Cu).
+
+### 2. Phân tích sư phạm chuyên sâu đối với Cr2O3 (Cr₂O₃)
+
+### 1. Thành phần và Kích thước nguyên tử
+Nguyên tử là hạt vô cùng nhỏ trung hòa về điện, cấu tạo nên mọi chất. Nguyên tử gồm hai phần:
+- **Hạt nhân nguyên tử**: Nằm ở tâm, có kích thước cực nhỏ (đường kính khoảng $10^{-15}$ đến $10^{-14} \\text{ m}$, nhỏ hơn đường kính nguyên tử khoảng $10.000$ lần). Hạt nhân gồm hai loại hạt nucleon:
+  - **Proton (p)**: Mang điện tích nguyên tố dương $+1$ ($+1.602 \\times 10^{-19} \\text{ C}$), khối lượng $m_p \\approx 1.6726 \\times 10^{-27} \\text{ kg} \\approx 1.0073 \\text{ amu}$.
+  - **Neutron (n)**: Không mang điện, khối lượng $m_n \\approx 1.6749 \\times 10^{-27} \\text{ kg} \\approx 1.0087 \\text{ amu}$.
+- **Vỏ electron**: Gồm các **electron (e)** mang điện tích nguyên tố âm $-1$ ($-1.602 \\times 10^{-19} \\text{ C}$), khối lượng rất nhỏ $m_e \\approx 9.109 \\times 10^{-31} \\text{ kg} \\approx 0.00055 \\text{ amu}$ (chỉ bằng khoảng $1/1836$ khối lượng của proton). Vì khối lượng electron không đáng kể, khối lượng...
+
+### 3. Phương trình phản ứng với trạng thái pha (s, l, g, aq) & Hiện tượng quan sát
+
+- **Phương trình phản ứng chuẩn mực**: \`24Cr: 1s2 2s2 2p6 3s2 3p6 3d5 4s1\`
+  *Điều kiện thực hiện*: Trạng thái cơ bản.
+  *Hiện tượng quan sát thực tế*: Kim loại crom màu xám bạc ánh kim, có độ cứng cao nhất trong tất cả các kim loại (cắt được thủy tinh, độ cứng 8.5 trên thang Mohs) do có tới 6 electron hóa trị tham gia liên kết kim loại.
+
+- **Phương trình phản ứng chuẩn mực**: \`29Cu: 1s2 2s2 2p6 3s2 3p6 3d10 4s1\`
+  *Điều kiện thực hiện*: Trạng thái cơ bản.
+  *Hiện tượng quan sát thực tế*: Kim loại đồng có màu đỏ cam đặc trưng, dẫn điện và dẫn nhiệt tuyệt hảo (chỉ đứng sau bạc) nhờ phân lớp 3d đã bão hòa hoàn toàn và 1 electron 4s linh động.
+
+### 4. Lưu ý sư phạm & Bẫy tư duy thường gặp trong các kỳ thi tuyển sinh
+
+- ⚠️ *Lưu ý tránh bẫy đề thi*: Nhầm lẫn giữa thứ tự mức năng lượng (1s 2s 2p 3s 3p 4s 3d) và thứ tự viết cấu hình electron theo lớp (1s 2s 2p 3s 3p 3d 4s).
+- ⚠️ *Lưu ý tránh bẫy đề thi*: Viết sai cấu hình ion kim loại chuyển tiếp: Ví dụ Fe²⁺ bị nhầm thành [Ar]3d⁴4s² thay vì [Ar]3d⁶ (khi tạo ion, electron phân lớp ngoài cùng 4s bị nhường trước tiên!).
+- ⚠️ *Lưu ý tránh bẫy đề thi*: Nghĩ rằng orbital là một đường quỹ đạo elip cố định thay vì một đám mây xác suất lượng tử 3 chiều.
+
+## Dòng chảy phản ứng: Cách Cr2O3 ra đời và tương tác với thế giới hóa chất
+
+Trong cơ sở dữ liệu phản ứng thực nghiệm của ChemDex (với **1 phương trình** có sự góp mặt của **Cr₂O₃**, trong đó có **1 con đường tổng hợp/tạo thành** và **0 con đường chuyển hóa**), hành trình ra đời và biến đổi của chất này được tái hiện sống động qua các biên niên sử phản ứng chuyên sâu sau:
+
+### Biên niên sử phản ứng tạo thành #1: Nhiệt phân
+
+Phương trình hóa học biểu diễn biến đổi vật chất (có ghi rõ trạng thái pha):
+
+\`\`\`text
+2Cr(OH)3(s) → Cr2O3(s) + 3H2O(g)
+\`\`\`
+
+#### 1. Bối cảnh lịch sử & Dấu ấn khám phá
+Từ những thí nghiệm đun nóng đơn chất trong buồng khí kín của Lavoisier thế kỷ XVIII đến các công trình điện phân của Davy đầu thế kỷ XIX, phản ứng hóa hợp luôn là minh chứng hùng hồn nhất cho thấy các nguyên tố đơn chất với tính chất hoàn toàn trái ngược có thể hòa quyện vào nhau để tạo nên một hợp chất hoàn toàn mới. Đây là con đường tạo thành then chốt giúp khai sinh ra **Cr2O3 (Cr₂O₃)** từ các tiền chất cơ bản.
+
+#### 2. Vũ điệu va chạm phân tử & Cơ chế vi mô
+Các phân tử đơn chất ban đầu hấp thụ năng lượng kích hoạt để bẻ gãy liên kết nội tại. Đám mây electron hóa trị được tái phân bố: các nguyên tử kim loại nhường electron cho phi kim tạo mạng tinh thể ion, hoặc các phi kim góp chung electron để tạo ra các liên kết cộng hóa trị có cực. Quá trình tạo liên kết mới giải phóng năng lượng lớn khiến đa số phản ứng hóa hợp tỏa nhiệt mạnh (ΔrH°₂₉₈ < 0). Trong phản ứng này, phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng. Quá trình này diễn ra tuân theo định luật bảo toàn khối lượng và biến thiên enthalpy đặc trưng.
+
+#### 3. Kịch tính phòng thí nghiệm & Hiện tượng quan sát thực tế
+- **Điều kiện kích hoạt**: Đun nóng làm mất nước; công thức hydroxide dùng quy ước không ghi nước hydrat..
+- **Hiện tượng mắt thấy tai nghe**: Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần..
+- **Bản chất ion rút gọn**: \`2Cr(OH)3(s) → Cr2O3(s) + 3H2O(g)\` — lột tả trọn vẹn sự va chạm thực sự giữa các hạt mang điện tự do trong dung dịch mà bỏ qua các ion khán giả trung gian.
+
+#### 4. Giá trị ứng dụng & Dấu ấn văn minh
+Phản ứng hóa hợp là nền tảng của toàn bộ ngành công nghiệp tổng hợp vật liệu: từ việc tôi vôi xây dựng nhà cửa, sản xuất axit vô cơ cho đến chế tạo các hợp chất bán dẫn công nghệ cao.
+
+## Từ phòng thí nghiệm đến đời sống: Nhận diện, ứng dụng và bài học thực tiễn của Cr2O3
+
+Trong dòng chảy của nền văn minh kỹ thuật và ứng dụng thực tiễn, **Cr2O3 (Cr₂O₃)** giữ vai trò không thể thay thế trên nhiều phương diện: từ việc làm tiền chất trung gian trong các dây chuyền tổng hợp vật liệu mới, xúc tác cho các quá trình biến đổi sinh hóa cho đến việc hiện diện trong các sản phẩm tiêu dùng, y dược và phân tích môi trường hàng ngày.
+
+Về mặt an toàn thực nghiệm và xử lý hóa chất, việc nghiên cứu hay thao tác với **Cr2O3** luôn đòi hỏi hiểu biết thấu đáo về tính chất lý hóa, nồng độ an toàn và trang bị bảo hộ đạt chuẩn quốc tế (kính bảo hộ, găng tay chuyên dụng và tủ hút khí độc đối với các phản ứng sinh nhiệt hoặc tỏa khí). Khi xảy ra sự cố tràn đổ hay rò rỉ, nguyên tắc trung hòa an toàn và thu gom đúng quy chuẩn hóa học luôn là bài học vỡ lòng cho bất kỳ nhà nghiên cứu nào bước chân vào phòng lab.
+
+## Câu hỏi suy ngẫm & Tự kiểm tra kiến thức
+
+1. Dựa vào câu chuyện lịch sử và hành trình khám phá **Cr2O3 (Cr₂O₃)**, nguyên nhân vì sao tên gọi và phương pháp điều chế ban đầu của chất này lại phản ánh hoàn cảnh văn hóa và kỹ thuật của thời đại phát hiện ra nó?
+
+2. Trong phương trình hóa học \`2Cr(OH)3(s) → Cr2O3(s) + 3H2O(g)\`, hiện tượng thực nghiệm quan sát được hé lộ điều gì về tính cách hóa học của **Cr₂O₃** khi tương tác với các chất xung quanh?
+
+<details><summary>Xem phân tích và lời giải chi tiết</summary>
+
+- **Giải đáp câu 1:** Tên gọi và phương pháp tiếp cận đầu tiên của Cr₂O₃ bắt nguồn trực tiếp từ nguồn khoáng sản tự nhiên hoặc hiện tượng quan sát bằng mắt thường của các nhà thực nghiệm thời kỳ đó. Chỉ khi kỹ thuật phân tích và mô hình liên kết không gian phát triển, nhân loại mới hiểu trọn vẹn bản chất cấu tạo của chất.
+
+- **Giải đáp câu 2:** Phương trình phản ứng phản ánh sự tái sắp xếp liên kết: hiện tượng Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần. là bằng chứng vĩ mô cho thấy các nguyên tử đã đổi chỗ cho nhau để tạo thành cấu trúc mới bền vững hơn.
+
+**3. Câu hỏi trắc nghiệm rèn luyện năng lực tư duy GDPT 2018**:
+
+*Nguyên tử sắt (Fe, Z = 26) có số electron độc thân ở trạng thái cơ bản là bao nhiêu?*
+
+   A. 2
+   B. 4
+   C. 6
+   D. 0
+
+- **Đáp án & Lời giải câu 3**: Chọn **B**. Cấu hình electron của Fe (Z=26) là [Ar] 3d⁶ 4s². Phân lớp 3d có 5 AO chứa 6 electron: theo quy tắc Hund, có 1 cặp electron ghép đôi và 4 electron độc thân phân bố vào 4 AO còn lại. Do đó có 4 electron độc thân.
+
+</details>
+
+## Nguồn tư liệu khoa học & Khám phá tiếp theo
+
+- [Phòng quan sát Cấu trúc & Liên kết 3D tương tác — Cr2O3 (Cr₂O₃)](/tien-ich/cau-truc-3d/?compound=formula-Cr2O3)
+- [OpenStax Chemistry 2e — Thành phần ion và công thức của chất rắn ion](https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding)
+- [Wikipedia Quốc tế — Chromium(III) oxide](https://en.wikipedia.org/wiki/Chromium(III)_oxide)
+- [Danh mục hệ thống phản ứng & hợp chất ChemDex](/shared/reaction-catalog.generated.json)
+
+Bài báo chuyên khảo này thuộc hệ thống **Tạp chí Hóa Học Số ChemDex**, tích hợp hồ sơ tiểu sử các nhà hóa học tiên phong, chuẩn mực kiến thức GDPT 2018 môn Hóa học THCS-THPT và cơ sở dữ liệu cấu trúc không gian 3 chiều tương tác, mang lại góc nhìn toàn diện về **Cr2O3 (Cr₂O₃)**.`,k={id:n,slug:h,documentPath:t,legacyIds:c,title:i,author:g,category:u,summary:a,image:r,chemicalFormula:o,tags:m,aliases:l,substanceIds:s,documentKind:p,readingMinutes:23,chemicalEvidence:e,content:v};export{l as aliases,g as author,u as category,e as chemicalEvidence,o as chemicalFormula,v as content,k as default,p as documentKind,t as documentPath,n as id,r as image,c as legacyIds,y as readingMinutes,h as slug,s as substanceIds,a as summary,m as tags,i as title};

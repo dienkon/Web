@@ -1,0 +1,3016 @@
+{
+  "schema": "chemdex.ionic-components/1",
+  "interpretation": "Formula-ratio component diagrams. Not a prediction of dissolution, crystal coordination or electron density.",
+  "entries": {
+    "(NH4)2SO4": [
+      {
+        "formula": "NH4",
+        "charge": 1,
+        "count": 2
+      },
+      {
+        "formula": "SO4",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "Ag2CO3": [
+      {
+        "formula": "Ag",
+        "charge": 1,
+        "count": 2
+      },
+      {
+        "formula": "CO3",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "Ag2CrO4": [
+      {
+        "formula": "Ag",
+        "charge": 1,
+        "count": 2
+      },
+      {
+        "formula": "CrO4",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "Ag3PO4": [
+      {
+        "formula": "Ag",
+        "charge": 1,
+        "count": 3
+      },
+      {
+        "formula": "PO4",
+        "charge": -3,
+        "count": 1
+      }
+    ],
+    "AgBr": [
+      {
+        "formula": "Ag",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "Br",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "AgCl": [
+      {
+        "formula": "Ag",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "Cl",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "AgI": [
+      {
+        "formula": "Ag",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "I",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "AgNO3": [
+      {
+        "formula": "Ag",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "NO3",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "Al(NO3)3": [
+      {
+        "formula": "Al",
+        "charge": 3,
+        "count": 1
+      },
+      {
+        "formula": "NO3",
+        "charge": -1,
+        "count": 3
+      }
+    ],
+    "Al(OH)3": [
+      {
+        "formula": "Al",
+        "charge": 3,
+        "count": 1
+      },
+      {
+        "formula": "OH",
+        "charge": -1,
+        "count": 3
+      }
+    ],
+    "Al2(SO4)3": [
+      {
+        "formula": "Al",
+        "charge": 3,
+        "count": 2
+      },
+      {
+        "formula": "SO4",
+        "charge": -2,
+        "count": 3
+      }
+    ],
+    "AlBr3": [
+      {
+        "formula": "Al",
+        "charge": 3,
+        "count": 1
+      },
+      {
+        "formula": "Br",
+        "charge": -1,
+        "count": 3
+      }
+    ],
+    "AlCl3": [
+      {
+        "formula": "Al",
+        "charge": 3,
+        "count": 1
+      },
+      {
+        "formula": "Cl",
+        "charge": -1,
+        "count": 3
+      }
+    ],
+    "AlI3": [
+      {
+        "formula": "Al",
+        "charge": 3,
+        "count": 1
+      },
+      {
+        "formula": "I",
+        "charge": -1,
+        "count": 3
+      }
+    ],
+    "Ba(CH3COO)2": [
+      {
+        "formula": "Ba",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "CH3COO",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Ba(HCOO)2": [
+      {
+        "formula": "Ba",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "HCOO",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Ba(NO3)2": [
+      {
+        "formula": "Ba",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "NO3",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Ba(OH)2": [
+      {
+        "formula": "Ba",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "OH",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Ba3(PO4)2": [
+      {
+        "formula": "Ba",
+        "charge": 2,
+        "count": 3
+      },
+      {
+        "formula": "PO4",
+        "charge": -3,
+        "count": 2
+      }
+    ],
+    "BaBr2": [
+      {
+        "formula": "Ba",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "Br",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "BaC2O4": [
+      {
+        "formula": "Ba",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "C2O4",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "BaCl2": [
+      {
+        "formula": "Ba",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "Cl",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "BaCO3": [
+      {
+        "formula": "Ba",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "CO3",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "BaCrO4": [
+      {
+        "formula": "Ba",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "CrO4",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "BaF2": [
+      {
+        "formula": "Ba",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "F",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "BaI2": [
+      {
+        "formula": "Ba",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "I",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "BaSO3": [
+      {
+        "formula": "Ba",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "SO3",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "BaSO4": [
+      {
+        "formula": "Ba",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "SO4",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "C2H5COOK": [
+      {
+        "formula": "K",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "C2H5COO",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "C2H5COOLi": [
+      {
+        "formula": "Li",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "C2H5COO",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "C2H5COONa": [
+      {
+        "formula": "Na",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "C2H5COO",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "C3H7COOK": [
+      {
+        "formula": "K",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "C3H7COO",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "C3H7COOLi": [
+      {
+        "formula": "Li",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "C3H7COO",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "C3H7COONa": [
+      {
+        "formula": "Na",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "C3H7COO",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "Ca(CH3COO)2": [
+      {
+        "formula": "Ca",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "CH3COO",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Ca(HCOO)2": [
+      {
+        "formula": "Ca",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "HCOO",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Ca(NO3)2": [
+      {
+        "formula": "Ca",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "NO3",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Ca(OH)2": [
+      {
+        "formula": "Ca",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "OH",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Ca3(PO4)2": [
+      {
+        "formula": "Ca",
+        "charge": 2,
+        "count": 3
+      },
+      {
+        "formula": "PO4",
+        "charge": -3,
+        "count": 2
+      }
+    ],
+    "CaBr2": [
+      {
+        "formula": "Ca",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "Br",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "CaC2O4": [
+      {
+        "formula": "Ca",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "C2O4",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "CaCl2": [
+      {
+        "formula": "Ca",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "Cl",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "CaCO3": [
+      {
+        "formula": "Ca",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "CO3",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "CaF2": [
+      {
+        "formula": "Ca",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "F",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "CaI2": [
+      {
+        "formula": "Ca",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "I",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "CaSO3": [
+      {
+        "formula": "Ca",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "SO3",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "Cd(CH3COO)2": [
+      {
+        "formula": "Cd",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "CH3COO",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Cd(HCOO)2": [
+      {
+        "formula": "Cd",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "HCOO",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Cd(NO3)2": [
+      {
+        "formula": "Cd",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "NO3",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Cd(OH)2": [
+      {
+        "formula": "Cd",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "OH",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "CdBr2": [
+      {
+        "formula": "Cd",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "Br",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "CdC2O4": [
+      {
+        "formula": "Cd",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "C2O4",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "CdCl2": [
+      {
+        "formula": "Cd",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "Cl",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "CdCO3": [
+      {
+        "formula": "Cd",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "CO3",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "CdI2": [
+      {
+        "formula": "Cd",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "I",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "CdS": [
+      {
+        "formula": "Cd",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "S",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "CdSO4": [
+      {
+        "formula": "Cd",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "SO4",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "CH3COOAg": [
+      {
+        "formula": "Ag",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "CH3COO",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "CH3COOK": [
+      {
+        "formula": "K",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "CH3COO",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "CH3COOLi": [
+      {
+        "formula": "Li",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "CH3COO",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "CH3COONa": [
+      {
+        "formula": "Na",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "CH3COO",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "Co(CH3COO)2": [
+      {
+        "formula": "Co",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "CH3COO",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Co(HCOO)2": [
+      {
+        "formula": "Co",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "HCOO",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Co(NO3)2": [
+      {
+        "formula": "Co",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "NO3",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Co(OH)2": [
+      {
+        "formula": "Co",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "OH",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "CoBr2": [
+      {
+        "formula": "Co",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "Br",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "CoC2O4": [
+      {
+        "formula": "Co",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "C2O4",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "CoCl2": [
+      {
+        "formula": "Co",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "Cl",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "CoI2": [
+      {
+        "formula": "Co",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "I",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "CoS": [
+      {
+        "formula": "Co",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "S",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "CoSO4": [
+      {
+        "formula": "Co",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "SO4",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "Cr(NO3)3": [
+      {
+        "formula": "Cr",
+        "charge": 3,
+        "count": 1
+      },
+      {
+        "formula": "NO3",
+        "charge": -1,
+        "count": 3
+      }
+    ],
+    "Cr(OH)3": [
+      {
+        "formula": "Cr",
+        "charge": 3,
+        "count": 1
+      },
+      {
+        "formula": "OH",
+        "charge": -1,
+        "count": 3
+      }
+    ],
+    "Cr2(SO4)3": [
+      {
+        "formula": "Cr",
+        "charge": 3,
+        "count": 2
+      },
+      {
+        "formula": "SO4",
+        "charge": -2,
+        "count": 3
+      }
+    ],
+    "CrBr3": [
+      {
+        "formula": "Cr",
+        "charge": 3,
+        "count": 1
+      },
+      {
+        "formula": "Br",
+        "charge": -1,
+        "count": 3
+      }
+    ],
+    "CrCl3": [
+      {
+        "formula": "Cr",
+        "charge": 3,
+        "count": 1
+      },
+      {
+        "formula": "Cl",
+        "charge": -1,
+        "count": 3
+      }
+    ],
+    "CrI3": [
+      {
+        "formula": "Cr",
+        "charge": 3,
+        "count": 1
+      },
+      {
+        "formula": "I",
+        "charge": -1,
+        "count": 3
+      }
+    ],
+    "Cu(CH3COO)2": [
+      {
+        "formula": "Cu",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "CH3COO",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Cu(NO3)2": [
+      {
+        "formula": "Cu",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "NO3",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Cu(OH)2": [
+      {
+        "formula": "Cu",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "OH",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "CuBr2": [
+      {
+        "formula": "Cu",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "Br",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "CuC2O4": [
+      {
+        "formula": "Cu",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "C2O4",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "CuCl2": [
+      {
+        "formula": "Cu",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "Cl",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "CuS": [
+      {
+        "formula": "Cu",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "S",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "CuSO4": [
+      {
+        "formula": "Cu",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "SO4",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "Fe(CH3COO)2": [
+      {
+        "formula": "Fe",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "CH3COO",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Fe(HCOO)2": [
+      {
+        "formula": "Fe",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "HCOO",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Fe(NO3)2": [
+      {
+        "formula": "Fe",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "NO3",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Fe(NO3)3": [
+      {
+        "formula": "Fe",
+        "charge": 3,
+        "count": 1
+      },
+      {
+        "formula": "NO3",
+        "charge": -1,
+        "count": 3
+      }
+    ],
+    "Fe(OH)2": [
+      {
+        "formula": "Fe",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "OH",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Fe(OH)3": [
+      {
+        "formula": "Fe",
+        "charge": 3,
+        "count": 1
+      },
+      {
+        "formula": "OH",
+        "charge": -1,
+        "count": 3
+      }
+    ],
+    "Fe2(SO4)3": [
+      {
+        "formula": "Fe",
+        "charge": 3,
+        "count": 2
+      },
+      {
+        "formula": "SO4",
+        "charge": -2,
+        "count": 3
+      }
+    ],
+    "FeBr2": [
+      {
+        "formula": "Fe",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "Br",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "FeBr3": [
+      {
+        "formula": "Fe",
+        "charge": 3,
+        "count": 1
+      },
+      {
+        "formula": "Br",
+        "charge": -1,
+        "count": 3
+      }
+    ],
+    "FeC2O4": [
+      {
+        "formula": "Fe",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "C2O4",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "FeCl2": [
+      {
+        "formula": "Fe",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "Cl",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "FeCl3": [
+      {
+        "formula": "Fe",
+        "charge": 3,
+        "count": 1
+      },
+      {
+        "formula": "Cl",
+        "charge": -1,
+        "count": 3
+      }
+    ],
+    "FeCO3": [
+      {
+        "formula": "Fe",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "CO3",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "FeI2": [
+      {
+        "formula": "Fe",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "I",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "FeS": [
+      {
+        "formula": "Fe",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "S",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "FeSO4": [
+      {
+        "formula": "Fe",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "SO4",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "HCOOK": [
+      {
+        "formula": "K",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "HCOO",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "HCOOLi": [
+      {
+        "formula": "Li",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "HCOO",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "HCOONa": [
+      {
+        "formula": "Na",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "HCOO",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "K2C2O4": [
+      {
+        "formula": "K",
+        "charge": 1,
+        "count": 2
+      },
+      {
+        "formula": "C2O4",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "K2CO3": [
+      {
+        "formula": "K",
+        "charge": 1,
+        "count": 2
+      },
+      {
+        "formula": "CO3",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "K2CrO4": [
+      {
+        "formula": "K",
+        "charge": 1,
+        "count": 2
+      },
+      {
+        "formula": "CrO4",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "K2S": [
+      {
+        "formula": "K",
+        "charge": 1,
+        "count": 2
+      },
+      {
+        "formula": "S",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "K2SO3": [
+      {
+        "formula": "K",
+        "charge": 1,
+        "count": 2
+      },
+      {
+        "formula": "SO3",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "K2SO4": [
+      {
+        "formula": "K",
+        "charge": 1,
+        "count": 2
+      },
+      {
+        "formula": "SO4",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "K3PO4": [
+      {
+        "formula": "K",
+        "charge": 1,
+        "count": 3
+      },
+      {
+        "formula": "PO4",
+        "charge": -3,
+        "count": 1
+      }
+    ],
+    "KBr": [
+      {
+        "formula": "K",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "Br",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "KCl": [
+      {
+        "formula": "K",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "Cl",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "KF": [
+      {
+        "formula": "K",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "F",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "KHCO3": [
+      {
+        "formula": "K",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "HCO3",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "KI": [
+      {
+        "formula": "K",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "I",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "KNO3": [
+      {
+        "formula": "K",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "NO3",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "KOH": [
+      {
+        "formula": "K",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "OH",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "Li2CO3": [
+      {
+        "formula": "Li",
+        "charge": 1,
+        "count": 2
+      },
+      {
+        "formula": "CO3",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "Li2SO4": [
+      {
+        "formula": "Li",
+        "charge": 1,
+        "count": 2
+      },
+      {
+        "formula": "SO4",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "LiBr": [
+      {
+        "formula": "Li",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "Br",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "LiCl": [
+      {
+        "formula": "Li",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "Cl",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "LiF": [
+      {
+        "formula": "Li",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "F",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "LiI": [
+      {
+        "formula": "Li",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "I",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "LiNO3": [
+      {
+        "formula": "Li",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "NO3",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "LiOH": [
+      {
+        "formula": "Li",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "OH",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "Mg(CH3COO)2": [
+      {
+        "formula": "Mg",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "CH3COO",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Mg(HCOO)2": [
+      {
+        "formula": "Mg",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "HCOO",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Mg(NO3)2": [
+      {
+        "formula": "Mg",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "NO3",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Mg(OH)2": [
+      {
+        "formula": "Mg",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "OH",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "MgBr2": [
+      {
+        "formula": "Mg",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "Br",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "MgC2O4": [
+      {
+        "formula": "Mg",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "C2O4",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "MgCl2": [
+      {
+        "formula": "Mg",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "Cl",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "MgCO3": [
+      {
+        "formula": "Mg",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "CO3",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "MgF2": [
+      {
+        "formula": "Mg",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "F",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "MgI2": [
+      {
+        "formula": "Mg",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "I",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "MgSO3": [
+      {
+        "formula": "Mg",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "SO3",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "MgSO4": [
+      {
+        "formula": "Mg",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "SO4",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "Mn(CH3COO)2": [
+      {
+        "formula": "Mn",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "CH3COO",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Mn(HCOO)2": [
+      {
+        "formula": "Mn",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "HCOO",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Mn(NO3)2": [
+      {
+        "formula": "Mn",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "NO3",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Mn(OH)2": [
+      {
+        "formula": "Mn",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "OH",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "MnBr2": [
+      {
+        "formula": "Mn",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "Br",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "MnC2O4": [
+      {
+        "formula": "Mn",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "C2O4",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "MnCl2": [
+      {
+        "formula": "Mn",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "Cl",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "MnCO3": [
+      {
+        "formula": "Mn",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "CO3",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "MnI2": [
+      {
+        "formula": "Mn",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "I",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "MnS": [
+      {
+        "formula": "Mn",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "S",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "MnSO4": [
+      {
+        "formula": "Mn",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "SO4",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "Na2C2O4": [
+      {
+        "formula": "Na",
+        "charge": 1,
+        "count": 2
+      },
+      {
+        "formula": "C2O4",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "Na2CO3": [
+      {
+        "formula": "Na",
+        "charge": 1,
+        "count": 2
+      },
+      {
+        "formula": "CO3",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "Na2CrO4": [
+      {
+        "formula": "Na",
+        "charge": 1,
+        "count": 2
+      },
+      {
+        "formula": "CrO4",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "Na2S": [
+      {
+        "formula": "Na",
+        "charge": 1,
+        "count": 2
+      },
+      {
+        "formula": "S",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "Na2SO3": [
+      {
+        "formula": "Na",
+        "charge": 1,
+        "count": 2
+      },
+      {
+        "formula": "SO3",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "Na2SO4": [
+      {
+        "formula": "Na",
+        "charge": 1,
+        "count": 2
+      },
+      {
+        "formula": "SO4",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "Na3PO4": [
+      {
+        "formula": "Na",
+        "charge": 1,
+        "count": 3
+      },
+      {
+        "formula": "PO4",
+        "charge": -3,
+        "count": 1
+      }
+    ],
+    "NaBr": [
+      {
+        "formula": "Na",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "Br",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "NaCl": [
+      {
+        "formula": "Na",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "Cl",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "NaF": [
+      {
+        "formula": "Na",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "F",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "NaHCO3": [
+      {
+        "formula": "Na",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "HCO3",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "NaI": [
+      {
+        "formula": "Na",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "I",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "NaNO3": [
+      {
+        "formula": "Na",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "NO3",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "NaOH": [
+      {
+        "formula": "Na",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "OH",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "NH4Br": [
+      {
+        "formula": "NH4",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "Br",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "NH4CH3COO": [
+      {
+        "formula": "NH4",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "CH3COO",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "NH4Cl": [
+      {
+        "formula": "NH4",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "Cl",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "NH4I": [
+      {
+        "formula": "NH4",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "I",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "NH4NO3": [
+      {
+        "formula": "NH4",
+        "charge": 1,
+        "count": 1
+      },
+      {
+        "formula": "NO3",
+        "charge": -1,
+        "count": 1
+      }
+    ],
+    "Ni(CH3COO)2": [
+      {
+        "formula": "Ni",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "CH3COO",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Ni(HCOO)2": [
+      {
+        "formula": "Ni",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "HCOO",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Ni(NO3)2": [
+      {
+        "formula": "Ni",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "NO3",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Ni(OH)2": [
+      {
+        "formula": "Ni",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "OH",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "NiBr2": [
+      {
+        "formula": "Ni",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "Br",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "NiC2O4": [
+      {
+        "formula": "Ni",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "C2O4",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "NiCl2": [
+      {
+        "formula": "Ni",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "Cl",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "NiI2": [
+      {
+        "formula": "Ni",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "I",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "NiS": [
+      {
+        "formula": "Ni",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "S",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "NiSO4": [
+      {
+        "formula": "Ni",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "SO4",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "Pb(CH3COO)2": [
+      {
+        "formula": "Pb",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "CH3COO",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Pb(HCOO)2": [
+      {
+        "formula": "Pb",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "HCOO",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Pb(NO3)2": [
+      {
+        "formula": "Pb",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "NO3",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Pb(OH)2": [
+      {
+        "formula": "Pb",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "OH",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Pb3(PO4)2": [
+      {
+        "formula": "Pb",
+        "charge": 2,
+        "count": 3
+      },
+      {
+        "formula": "PO4",
+        "charge": -3,
+        "count": 2
+      }
+    ],
+    "PbBr2": [
+      {
+        "formula": "Pb",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "Br",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "PbC2O4": [
+      {
+        "formula": "Pb",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "C2O4",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "PbCl2": [
+      {
+        "formula": "Pb",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "Cl",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "PbCO3": [
+      {
+        "formula": "Pb",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "CO3",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "PbCrO4": [
+      {
+        "formula": "Pb",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "CrO4",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "PbF2": [
+      {
+        "formula": "Pb",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "F",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "PbI2": [
+      {
+        "formula": "Pb",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "I",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "PbSO4": [
+      {
+        "formula": "Pb",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "SO4",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "SnBr2": [
+      {
+        "formula": "Sn",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "Br",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "SnCl2": [
+      {
+        "formula": "Sn",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "Cl",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "SnSO4": [
+      {
+        "formula": "Sn",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "SO4",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "Sr(CH3COO)2": [
+      {
+        "formula": "Sr",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "CH3COO",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Sr(HCOO)2": [
+      {
+        "formula": "Sr",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "HCOO",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Sr(NO3)2": [
+      {
+        "formula": "Sr",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "NO3",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Sr(OH)2": [
+      {
+        "formula": "Sr",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "OH",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Sr3(PO4)2": [
+      {
+        "formula": "Sr",
+        "charge": 2,
+        "count": 3
+      },
+      {
+        "formula": "PO4",
+        "charge": -3,
+        "count": 2
+      }
+    ],
+    "SrBr2": [
+      {
+        "formula": "Sr",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "Br",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "SrC2O4": [
+      {
+        "formula": "Sr",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "C2O4",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "SrCl2": [
+      {
+        "formula": "Sr",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "Cl",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "SrCO3": [
+      {
+        "formula": "Sr",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "CO3",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "SrF2": [
+      {
+        "formula": "Sr",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "F",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "SrI2": [
+      {
+        "formula": "Sr",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "I",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "SrSO3": [
+      {
+        "formula": "Sr",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "SO3",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "SrSO4": [
+      {
+        "formula": "Sr",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "SO4",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "Zn(CH3COO)2": [
+      {
+        "formula": "Zn",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "CH3COO",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Zn(HCOO)2": [
+      {
+        "formula": "Zn",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "HCOO",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Zn(NO3)2": [
+      {
+        "formula": "Zn",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "NO3",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "Zn(OH)2": [
+      {
+        "formula": "Zn",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "OH",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "ZnBr2": [
+      {
+        "formula": "Zn",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "Br",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "ZnC2O4": [
+      {
+        "formula": "Zn",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "C2O4",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "ZnCl2": [
+      {
+        "formula": "Zn",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "Cl",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "ZnCO3": [
+      {
+        "formula": "Zn",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "CO3",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "ZnI2": [
+      {
+        "formula": "Zn",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "I",
+        "charge": -1,
+        "count": 2
+      }
+    ],
+    "ZnS": [
+      {
+        "formula": "Zn",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "S",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "ZnSO4": [
+      {
+        "formula": "Zn",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "SO4",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "Li2O": [
+      {
+        "formula": "Li",
+        "charge": 1,
+        "count": 2
+      },
+      {
+        "formula": "O",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "Na2O": [
+      {
+        "formula": "Na",
+        "charge": 1,
+        "count": 2
+      },
+      {
+        "formula": "O",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "K2O": [
+      {
+        "formula": "K",
+        "charge": 1,
+        "count": 2
+      },
+      {
+        "formula": "O",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "MgO": [
+      {
+        "formula": "Mg",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "O",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "CaO": [
+      {
+        "formula": "Ca",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "O",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "SrO": [
+      {
+        "formula": "Sr",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "O",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "BaO": [
+      {
+        "formula": "Ba",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "O",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "ZnO": [
+      {
+        "formula": "Zn",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "O",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "CdO": [
+      {
+        "formula": "Cd",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "O",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "Ag2O": [
+      {
+        "formula": "Ag",
+        "charge": 1,
+        "count": 2
+      },
+      {
+        "formula": "O",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "Cu2O": [
+      {
+        "formula": "Cu",
+        "charge": 1,
+        "count": 2
+      },
+      {
+        "formula": "O",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "CuO": [
+      {
+        "formula": "Cu",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "O",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "FeO": [
+      {
+        "formula": "Fe",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "O",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "Fe2O3": [
+      {
+        "formula": "Fe",
+        "charge": 3,
+        "count": 2
+      },
+      {
+        "formula": "O",
+        "charge": -2,
+        "count": 3
+      }
+    ],
+    "Al2O3": [
+      {
+        "formula": "Al",
+        "charge": 3,
+        "count": 2
+      },
+      {
+        "formula": "O",
+        "charge": -2,
+        "count": 3
+      }
+    ],
+    "Cr2O3": [
+      {
+        "formula": "Cr",
+        "charge": 3,
+        "count": 2
+      },
+      {
+        "formula": "O",
+        "charge": -2,
+        "count": 3
+      }
+    ],
+    "NiO": [
+      {
+        "formula": "Ni",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "O",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "CoO": [
+      {
+        "formula": "Co",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "O",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "MnO": [
+      {
+        "formula": "Mn",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "O",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "MnO2": [
+      {
+        "formula": "Mn",
+        "charge": 4,
+        "count": 1
+      },
+      {
+        "formula": "O",
+        "charge": -2,
+        "count": 2
+      }
+    ],
+    "TiO2": [
+      {
+        "formula": "Ti",
+        "charge": 4,
+        "count": 1
+      },
+      {
+        "formula": "O",
+        "charge": -2,
+        "count": 2
+      }
+    ],
+    "SnO": [
+      {
+        "formula": "Sn",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "O",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "SnO2": [
+      {
+        "formula": "Sn",
+        "charge": 4,
+        "count": 1
+      },
+      {
+        "formula": "O",
+        "charge": -2,
+        "count": 2
+      }
+    ],
+    "PbO": [
+      {
+        "formula": "Pb",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "O",
+        "charge": -2,
+        "count": 1
+      }
+    ],
+    "PbO2": [
+      {
+        "formula": "Pb",
+        "charge": 4,
+        "count": 1
+      },
+      {
+        "formula": "O",
+        "charge": -2,
+        "count": 2
+      }
+    ],
+    "Fe3O4": [
+      {
+        "formula": "Fe",
+        "charge": 2,
+        "count": 1
+      },
+      {
+        "formula": "Fe",
+        "charge": 3,
+        "count": 2
+      },
+      {
+        "formula": "O",
+        "charge": -2,
+        "count": 4
+      }
+    ],
+    "Pb3O4": [
+      {
+        "formula": "Pb",
+        "charge": 2,
+        "count": 2
+      },
+      {
+        "formula": "Pb",
+        "charge": 4,
+        "count": 1
+      },
+      {
+        "formula": "O",
+        "charge": -2,
+        "count": 4
+      }
+    ],
+    "Na2O2": [
+      {
+        "formula": "Na",
+        "count": 2,
+        "charge": 1
+      },
+      {
+        "formula": "O2",
+        "count": 1,
+        "charge": -2
+      }
+    ],
+    "K2O2": [
+      {
+        "formula": "K",
+        "count": 2,
+        "charge": 1
+      },
+      {
+        "formula": "O2",
+        "count": 1,
+        "charge": -2
+      }
+    ],
+    "BaO2": [
+      {
+        "formula": "Ba",
+        "count": 1,
+        "charge": 2
+      },
+      {
+        "formula": "O2",
+        "count": 1,
+        "charge": -2
+      }
+    ],
+    "CaO2": [
+      {
+        "formula": "Ca",
+        "count": 1,
+        "charge": 2
+      },
+      {
+        "formula": "O2",
+        "count": 1,
+        "charge": -2
+      }
+    ],
+    "C14H14N3NaO3S": [
+      {
+        "formula": "Na",
+        "count": 1,
+        "charge": 1
+      },
+      {
+        "formula": "C14H14N3O3S",
+        "count": 1,
+        "charge": -1
+      }
+    ]
+  }
+}

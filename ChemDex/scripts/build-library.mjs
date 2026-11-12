@@ -26,6 +26,7 @@ import {
 import { buildStudyReferences } from './build-study-references.mjs';
 import {isomerGroupFor} from '../shared/chemistry/molecular-isomers.mjs';
 import {isomerLesson,isomerCoverSVG} from './isomer-lesson.mjs';
+import ionicComponents from '../shared/ionic-components.generated.json' with {type:'json'};
 
 process.chdir(path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..'));
 
@@ -494,7 +495,9 @@ for (const [key, group] of groups) {
   const detail = element ? elementDetailCache.get(element.symbol) ?? null : null;
   const wiki = wikiData[key] ?? wikiByFormula.get(formula) ?? null;
   const isMaterial = s.material || Boolean(s.modelNote?.includes('đơn vị lặp'));
-  const ions = s.ions ?? group.find((r) => r.ions)?.ions;
+  const hydrateMatch=/^(.+?)[·.](\d*)H2O$/.exec(formula);
+  const hydrateIons=hydrateMatch&&ionicComponents.entries[hydrateMatch[1]];
+  const ions = hydrateIons?[...hydrateIons,{formula:'H2O',charge:0,count:Number(hydrateMatch[2]||1)}]:s.ions ?? group.find((r) => r.ions)?.ions ?? ionicComponents.entries[formula];
   const candidateFormulas = new Set(group.map((r) => r.formula));
   const reactions = isMaterial
     ? []
@@ -634,14 +637,14 @@ for (const [key, group] of groups) {
   const compositionDetail = massTerms
     .map((t) => {
       const elName = t.element?.name_vi ?? t.symbol;
-      return `- **Nguyên tố ${elName} (${t.symbol})**: Góp mặt **${t.count} nguyên tử** trong một đơn vị cấu trúc phân tử. Các nguyên tử ${elName} phối hợp nhịp nhàng cùng các nguyên tử đồng hành để tạo nên bộ khung không gian bền vững, định hình trực tiếp diện mạo và các đặc tính hóa học cốt lõi của **${name}**.`;
+      return ions?`- **Nguyên tố ${elName} (${t.symbol})**: Có **${t.count} nguyên tử** theo một đơn vị công thức ${pFormula}. Đây là số đếm thành phần; vị trí thực tế được xác định từ dữ liệu cấu trúc của pha đang xét.`:`- **Nguyên tố ${elName} (${t.symbol})**: Góp mặt **${t.count} nguyên tử** trong một đơn vị cấu trúc phân tử. Các nguyên tử ${elName} phối hợp nhịp nhàng cùng các nguyên tử đồng hành để tạo nên bộ khung không gian bền vững, định hình trực tiếp diện mạo và các đặc tính hóa học cốt lõi của **${name}**.`;
     })
     .join('\n');
 
   const bondNatureParagraph = element
     ? `Ở trạng thái đơn chất, **${name} (${formula})** mang trọn vẹn phong thái và tính chất đặc trưng của nhóm **${clean(element.category_vi ?? 'nguyên tố')}**. Trong mạng lưới cấu trúc tự nhiên (như ${clean(detail?.general?.crystalStructure || 'mạng tinh thể đặc khít hoặc phân tử khí linh động')}), các nguyên tử **${name}** gắn kết với nhau bằng những liên kết bền vững, tạo nên độ cứng, nhiệt độ chuyển pha và khả năng tương tác riêng biệt khi đặt trong môi trường thử nghiệm.`
     : ions
-      ? `Về hình thái liên kết không gian, **${name} (${pFormula})** là một công trình kiến trúc phối trí tinh vi. Giữa các cụm ion mang điện tích trái dấu gồm **${ions.map((i) => `${i.count}× ${i.formula}`).join(' và ')}** tồn tại lực tương tác tĩnh điện đối xứng trong không gian 3 chiều; trong khi đó, ngay bên trong từng nhóm ion đa nguyên tử, các nguyên tử lại liên kết cộng hóa trị chặt chẽ. Sự hòa quyện kép này tạo nên những khối tinh thể sắc cạnh lấp lánh dưới ánh sáng, đồng thời cho phép chất dễ dàng hòa nhập vào thế giới dung môi khi gặp nước.`
+      ? `Trong sơ đồ thành phần của **${name} (${pFormula})**, các nhóm **${ions.map((i) => `${i.count}× ${i.formula}`).join(' và ')}** giúp kiểm tra số nguyên tử và cân bằng điện tích. Vị trí giữa các nhóm trong sơ đồ được bố trí để dễ quan sát. Muốn khảo sát phối trí, hãy mở mô hình tinh thể có nguồn của đúng pha; công thức hóa học riêng lẻ chưa xác định được cách xếp nguyên tử. Trong một ion đa nguyên tử, khung liên kết là phần cấu tạo bên trong nhóm. Độ tan và thành phần trong dung dịch cần xét riêng theo chất, dung môi và điều kiện.`
       : s.family === 'organic'
         ? `Về kiến trúc hình học phân tử, **${name} (${pFormula})** sở hữu bộ khung nguyên tử Carbon uốn lượn uyển chuyển trong không gian 3 chiều. Tùy thuộc vào cách các nguyên tử liên kết với nhau (dạng chuỗi dài mềm mại, phân nhánh hay khép vòng đối xứng), mật độ phân tử được phân bố tạo nên những "cánh tay phản ứng" đặc trưng, quyết định hương vị, độ bay hơi và khả năng hòa tan độc đáo của phân tử hữu cơ này.`
         : `Về kiến trúc hình học phân tử, trong mỗi đơn vị của **${name} (${pFormula})**, các nguyên tử sắp xếp theo một trật tự không gian tinh tế để triệt tiêu các lực cản trở và đạt trạng thái cân bằng thế năng cực tiểu. Góc liên kết và khoảng cách giữa các tâm nguyên tử tạo nên một hình khối 3 chiều đặc thù, biến chất thành một nhân vật hóa học có cá tính rõ rệt trong thế giới tự nhiên.`;
@@ -651,7 +654,7 @@ for (const [key, group] of groups) {
     '|---|---|',
     `| Tên chất & Danh pháp quốc tế | **${name}** (${clean(s.name_en || element?.name_en || formula)}) |`,
     `| Công thức hóa học thực nghiệm | **${pFormula}** ${s.material ? `(đại diện cho hệ ${s.materialLabel})` : ''} |`,
-    `| Hình thái không gian 3 chiều | ${element ? 'Đơn chất tự nhiên (' + clean(element.category_vi) + ')' : s.kind === 'crystal' ? 'Mạng tinh thể khối 3D đối xứng' : ions ? 'Mạng phối trí tinh thể ion & gốc liên kết' : s.family === 'organic' ? 'Khung phân tử hữu cơ định hướng không gian' : 'Kiến trúc phân tử vô cơ liên kết cộng hóa trị'} |`,
+    `| Hình thái không gian 3 chiều | ${element ? 'Đơn chất tự nhiên (' + clean(element.category_vi) + ')' : s.kind === 'crystal' ? 'Mạng tinh thể có ghi nguồn và điều kiện pha' : ions ? 'Sơ đồ thành phần; cấu trúc pha rắn xem ở mục Tinh thể' : s.family === 'organic' ? 'Khung phân tử hữu cơ định hướng không gian' : 'Kiến trúc phân tử vô cơ liên kết cộng hóa trị'} |`,
     `| Quy mô cấu trúc vi mô | **${atomCount} nguyên tử** (${Object.entries(counts).map(([sym, c]) => `${c}× ${sym}`).join(', ')}) |`,
     `| Trạng thái & Sắc thái nhận diện | ${clean(s.phase || element?.phase_vi || 'Rắn / Dung dịch thực nghiệm')} |`,
     `| Phòng quan sát 3D tương tác | [Mở mô hình xoay 360° và kiểm tra góc liên kết](${modelURL}) |`,
@@ -660,10 +663,10 @@ for (const [key, group] of groups) {
   sections.push(
     [
       style.bondHeading(name, pFormula),
-      `Để hiểu vì sao **${name} (${pFormula})** lại mang những tính chất vật lý và hóa học đặc thù, chúng ta cần đi sâu vào "bản thiết kế hình học" của chất này. Một đơn vị công thức **${pFormula}** được liên kết chặt chẽ từ **${atomCount} nguyên tử** thuộc **${massTerms.length} nguyên tố hóa học**:`,
+      ions?`Theo một đơn vị công thức **${pFormula}**, thành phần gồm **${atomCount} nguyên tử** thuộc **${massTerms.length} nguyên tố hóa học**. Số đếm này giúp viết đúng tỉ lệ; chưa mô tả một phân tử riêng lẻ hay vị trí trong ô mạng:`:`Để hiểu vì sao **${name} (${pFormula})** lại mang những tính chất vật lý và hóa học đặc thù, chúng ta cần đi sâu vào "bản thiết kế hình học" của chất này. Một đơn vị công thức **${pFormula}** được liên kết chặt chẽ từ **${atomCount} nguyên tử** thuộc **${massTerms.length} nguyên tố hóa học**:`,
       compositionDetail,
       bondNatureParagraph,
-      `![Kiến trúc liên kết không gian 3 chiều của ${name} (${pFormula})](${structureImage})\n*Hình 2. Mô phỏng trực quan sự phân bố đám mây electron, góc liên kết và trật tự phối trí không gian 3D của ${name} (${pFormula}).*`,
+      `![Minh họa cấu trúc của ${name} (${pFormula})](${structureImage})\n*Hình 2. Minh họa các cách đọc cấu trúc. Dữ liệu của mô hình tương tác, điều kiện pha và nguồn tọa độ được ghi riêng bên dưới mô hình.*`,
       modelTable,
       `Người đọc có thể trực tiếp xoay mô hình 360°, bật/tắt nhãn nguyên tử và kiểm tra độ dài từng liên kết (tính bằng đơn vị Ångström) của chất này tại [Phòng quan sát Cấu trúc & Liên kết 3D — ${name}](${modelURL}).`,
     ].join('\n\n'),
@@ -674,11 +677,12 @@ for (const [key, group] of groups) {
   // ============================================================================
   if (ions) {
     sections.push(
-      `## Từ công thức đến các nhóm ion: Sự phân li, hydrat hóa và dẫn điện trong dung dịch\n\n` +
-        `Một trong những bước ngoặt vĩ đại nhất của hóa học lý thuyết thế kỷ XIX–XX — gắn liền với công trình của **Michael Faraday** (1834) về định luật điện phân, **Svante Arrhenius** (1884) về thuyết điện li và **William Lawrence Bragg** (1913) về nhiễu xạ tia X tinh thể — là sự phân biệt rạch ròi giữa công thức thực nghiệm trên giấy và trạng thái tồn tại thực tế của các hợp chất ion như **${name} (${pFormula})**.\n\n` +
-        `Trong trạng thái tinh thể rắn hoặc mô hình phối trí chuẩn, công thức **${formula}** biểu diễn tỷ lệ tối giản đảm bảo tính trung hòa điện hoàn hảo giữa các thành phần: **${ions.map((i) => `${i.count} nhóm ${i.formula}`).join(' kết hợp với ')}**. Khi đưa **${name}** tiếp xúc với dung môi phân cực mạnh như nước, các phân tử dung môi sẽ quay đầu mang điện tích trái dấu về phía các ion trên bề mặt mạng tinh thể. Năng lượng hydrat hóa giải phóng ra đủ sức thắng lực hút tĩnh điện mạng lưới, tách rời các cation và anion thành các hạt mang điện chuyển động tự do được bao bọc bởi lớp vỏ solvat hóa:\n\n` +
-        `- **Quá trình phân li các thành phần ion**: Mỗi đơn vị công thức ${pFormula} giải phóng ${ions.map((i) => `**${i.count} ion/nhóm ${i.formula}**`).join(' cùng ')}, cho phép dung dịch dẫn điện và tham gia tức thời vào các phản ứng trao đổi ion trong thời gian chỉ vài phần triệu giây.\n` +
-        `- **Ý nghĩa trong mô phỏng 3D và Phòng thí nghiệm ảo**: Thay vì coi ${pFormula} là một khối cứng nhắc bất biến, việc nhận diện rõ các tiểu phân **${ions.map((i) => i.formula).join(', ')}** giúp người học giải thích trọn vẹn màu sắc dung dịch, hiện tượng kết tủa khi gặp thuốc thử đặc hiệu, cũng như sự thay đổi độ dẫn điện và pH của môi trường.`,
+      `## Từ công thức đến sơ đồ thành phần: điện tích, dung dịch và tinh thể\n\n` +
+        `Với **${pFormula}**, bộ nhóm dùng để xét thành phần là **${ions.map(i=>`${i.count} nhóm ${i.formula} (điện tích ${i.charge>0?'+':''}${i.charge})`).join('; ')}**. Nhân số nhóm với điện tích rồi cộng lại cho phép kiểm tra tính trung hòa của đơn vị công thức. Điện tích ở đây thuộc về toàn bộ nhóm, không phải mỗi nguyên tử bên trong nó.\n\n` +
+        `- **Khi đọc chế độ Thành phần:** Đếm số nhóm, số nguyên tử và điện tích. Các nhóm được tách để dễ nhìn; khoảng cách giữa chúng là cách bố trí hình minh họa. Những liên kết bên trong nhóm giúp nhận diện khung cấu tạo.\n` +
+        `- **Khi đọc chế độ Tinh thể:** Xem đúng pha, nhiệt độ và nguồn tọa độ. Các vị trí lặp lại tuần hoàn mới cho biết mạng lưới và môi trường lân cận trong chất rắn. Sơ đồ thành phần không thay thế dữ liệu này.\n` +
+        `- **Khi xét dung dịch:** Cần biết độ tan, nồng độ, dung môi và các cân bằng hoặc phản ứng có thể xảy ra. Công thức và số nhóm ion chưa đủ để kết luận một chất tan hoàn toàn, giữ nguyên dạng tồn tại hay tạo dung dịch có pH cụ thể.\n\n` +
+        `Nếu công thức ghi nước kết tinh, hệ số nước cho biết thành phần của hydrate đang xét. Cách phân bố nước quanh cation và trong mạng cần đối chiếu cấu trúc công bố; cùng một số phân tử nước chưa đủ để tự gán dạng phối trí. Mô hình 3D và thí nghiệm ảo phục vụ các câu hỏi khác nhau: một bên giúp đọc cấu trúc, bên kia quan sát các quá trình được mô phỏng trong điều kiện đã nêu.`,
     );
   }
 
@@ -861,6 +865,7 @@ for (const [key, group] of groups) {
   const sourceLinks = [
     `[Phòng quan sát Cấu trúc & Liên kết 3D tương tác — ${name} (${pFormula})](${modelURL})`,
   ];
+  if(ions)sourceLinks.push('[OpenStax Chemistry 2e — Thành phần ion và công thức của chất rắn ion](https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding)');
   if (wiki?.vi?.url)
     sourceLinks.push(`[Bách khoa toàn thư Wikipedia Tiếng Việt — ${clean(wiki.vi.title)}](${wiki.vi.url})`);
   if (wiki?.en?.url)

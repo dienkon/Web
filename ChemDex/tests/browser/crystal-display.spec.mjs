@@ -4,7 +4,7 @@ async function openCrystal(page,id){
  await page.goto(`/tien-ich/cau-truc-3d/?compound=${id}`);
  await page.getByRole('group',{name:'Cách biểu diễn cấu trúc'}).getByRole('button',{name:'Tinh thể',exact:true}).click();
  const widget=page.locator('.published-crystal').first();
- await widget.getByRole('button',{name:'Xem mạng tinh thể 3D',exact:true}).click();
+ await widget.evaluate(w=>{const start=w.querySelector('[data-crystal-start]');if(start&&!start.disabled)start.click();});
  await expect(widget.locator('[role=status]')).toHaveAttribute('data-state','ready');
  await expect(widget.locator('.published-crystal-stage')).toHaveAttribute('data-draw-calls',/\d+/);
  return widget;
@@ -17,7 +17,7 @@ test('the crystal opens bright with connections, no grid or furniture, and worki
  await expect(widget.getByRole('button',{name:'Hiện khung ô mạng',exact:true})).toHaveAttribute('aria-pressed','false');
  await expect(widget.getByRole('button',{name:'Hiện cảnh trưng bày',exact:true})).toHaveAttribute('aria-pressed','false');
  expect(await widget.evaluate(e=>getComputedStyle(e).backgroundColor)).toBe('rgb(248, 252, 253)');
- const box=await stage.boundingBox();await page.mouse.click(box.x+box.width/2,box.y+box.height/2);
+ await stage.scrollIntoViewIfNeeded();const box=await stage.boundingBox();await page.mouse.click(box.x+box.width/2,box.y+box.height/2);
  await expect(widget.locator('[data-crystal-selection]')).toContainText('100%');
  const before=Number(await stage.getAttribute('data-draw-calls'));
  await widget.getByRole('button',{name:'Ẩn đường nối',exact:true}).click();

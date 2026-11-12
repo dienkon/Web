@@ -605,6 +605,8 @@ input[type="checkbox"] {
 .viewer-isomers p { margin: 6px 0 0; overflow-wrap: anywhere; }
 .viewer-isomers .isomer-current { font-size: 14px; }
 .viewer-isomers summary { margin-top: 8px; color: var(--muted); cursor: pointer; }
+.component-pill-list { display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
+.component-pill { padding:4px 8px; border:1px solid #527c89; border-radius:7px; color:#c5f2e9; background:#1c3945; font-size:12px; }
 .viewer-panel h2 {
   font:
     800 23px "Manrope",

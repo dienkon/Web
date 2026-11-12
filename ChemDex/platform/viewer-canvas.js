@@ -90,6 +90,18 @@ export function readSDF(raw) {
   }
   if (!atoms.length || atoms.some((a) => ![a.x, a.y, a.z].every(Number.isFinite)))
     throw new Error('Không đọc được tọa độ cấu trúc.');
+  const components=/>\s*<CHEMDEX_COMPONENTS>[^\S\r\n]*\r?\n([^\r\n]+)/.exec(raw);
+  if(components)try{
+    const groups=JSON.parse(components[1]),membership=new Map();
+    if(!Array.isArray(groups)||groups.length>atoms.length)throw Error('Invalid component count');
+    groups.forEach((group,id)=>{
+      if(group.id!==id||typeof group.formula!=='string'||group.formula.length>120||!Number.isInteger(group.charge)||!Array.isArray(group.atomIndices)||!group.atomIndices.length)throw Error('Invalid group');
+      for(const i of group.atomIndices){if(!Number.isInteger(i)||i<0||i>=atoms.length||membership.has(i))throw Error('Invalid membership');membership.set(i,id);}
+    });
+    if(membership.size!==atoms.length||bonds.some(b=>membership.get(b.a)!==membership.get(b.b)))throw Error('Invalid component topology');
+    atoms.forEach((atom,i)=>atom.componentGroup=membership.get(i));
+    return {atoms,bonds,groups,componentLayout:true};
+  }catch{/* Ignore invalid optional metadata; retain the actual SDF geometry. */}
   return { atoms, bonds };
 }
 

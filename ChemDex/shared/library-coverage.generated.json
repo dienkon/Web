@@ -247,7 +247,7 @@
         "formula-CH3OH"
       ],
       "sections": 7,
-      "characters": 27672,
+      "characters": 27663,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Methanol",
         "https://en.wikipedia.org/wiki/Methanol",
@@ -263,7 +263,7 @@
         "lab3d-334"
       ],
       "sections": 7,
-      "characters": 20437,
+      "characters": 20428,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Aceton",
         "https://en.wikipedia.org/wiki/Acetone",
@@ -279,7 +279,7 @@
         "chem-ch3cooh"
       ],
       "sections": 7,
-      "characters": 28461,
+      "characters": 28446,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Acid_acetic",
         "https://en.wikipedia.org/wiki/Acetic_acid",
@@ -294,7 +294,7 @@
         "cid-947"
       ],
       "sections": 7,
-      "characters": 20352,
+      "characters": 20348,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Nit%C6%A1",
         "https://cactus.nci.nih.gov/chemical/structure/dinitrogen/file?format=sdf&get3d=true",
@@ -308,7 +308,7 @@
         "cid-977"
       ],
       "sections": 7,
-      "characters": 26766,
+      "characters": 26763,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Oxy",
         "https://cactus.nci.nih.gov/chemical/structure/dioxygen/file?format=sdf&get3d=true",
@@ -322,7 +322,7 @@
         "cid-783"
       ],
       "sections": 7,
-      "characters": 26022,
+      "characters": 26017,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Hydro",
         "https://en.wikipedia.org/wiki/Hydrogen",
@@ -337,7 +337,7 @@
         "cid-281"
       ],
       "sections": 7,
-      "characters": 23560,
+      "characters": 23546,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Carbon_monoxide",
         "https://en.wikipedia.org/wiki/Carbon_monoxide",
@@ -352,7 +352,7 @@
         "cid-6324"
       ],
       "sections": 7,
-      "characters": 22403,
+      "characters": 22397,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Ethan",
         "https://en.wikipedia.org/wiki/Ethane",
@@ -367,7 +367,7 @@
         "cid-6325"
       ],
       "sections": 7,
-      "characters": 25614,
+      "characters": 25608,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Ethylen",
         "https://en.wikipedia.org/wiki/Ethylene",
@@ -382,7 +382,7 @@
         "cid-6326"
       ],
       "sections": 7,
-      "characters": 22804,
+      "characters": 22794,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Acetylen",
         "https://en.wikipedia.org/wiki/Acetylene",
@@ -397,7 +397,7 @@
         "cid-6334"
       ],
       "sections": 7,
-      "characters": 21143,
+      "characters": 21135,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Propan",
         "https://cactus.nci.nih.gov/chemical/structure/propane/file?format=sdf&get3d=true",
@@ -411,7 +411,7 @@
         "cid-8252"
       ],
       "sections": 7,
-      "characters": 20941,
+      "characters": 20933,
       "externalSources": [
         "https://en.wikipedia.org/wiki/C3H6",
         "https://cactus.nci.nih.gov/chemical/structure/propylene/file?format=sdf&get3d=true",
@@ -425,7 +425,7 @@
         "cid-7843"
       ],
       "sections": 7,
-      "characters": 20727,
+      "characters": 20719,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Butan",
         "https://en.wikipedia.org/wiki/Butane",
@@ -440,7 +440,7 @@
         "cid-6360"
       ],
       "sections": 7,
-      "characters": 20811,
+      "characters": 20800,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Butan",
         "https://en.wikipedia.org/wiki/Butane",
@@ -455,7 +455,7 @@
         "cid-241"
       ],
       "sections": 7,
-      "characters": 21262,
+      "characters": 21254,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Benzen",
         "https://en.wikipedia.org/wiki/Benzene",
@@ -470,7 +470,7 @@
         "cid-1140"
       ],
       "sections": 7,
-      "characters": 20790,
+      "characters": 20782,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Toluen",
         "https://en.wikipedia.org/wiki/C7H8",
@@ -486,7 +486,7 @@
         "chem-phenol"
       ],
       "sections": 7,
-      "characters": 19574,
+      "characters": 19565,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Phenol",
         "https://en.wikipedia.org/wiki/C6H6O",
@@ -501,7 +501,7 @@
         "cid-6115"
       ],
       "sections": 7,
-      "characters": 19605,
+      "characters": 19596,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Anilin",
         "https://en.wikipedia.org/wiki/Aniline",
@@ -516,7 +516,7 @@
         "cid-712"
       ],
       "sections": 7,
-      "characters": 19564,
+      "characters": 19552,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Formaldehyde",
         "https://en.wikipedia.org/wiki/Formaldehyde",
@@ -532,7 +532,7 @@
         "chem-ch3cho"
       ],
       "sections": 7,
-      "characters": 23803,
+      "characters": 23789,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Acetaldehyde",
         "https://en.wikipedia.org/wiki/Acetaldehyde",
@@ -548,7 +548,7 @@
         "chem-hcooh"
       ],
       "sections": 7,
-      "characters": 27334,
+      "characters": 27321,
       "externalSources": [
         "https://en.wikipedia.org/wiki/Formic_acid",
         "https://cactus.nci.nih.gov/chemical/structure/formic%20acid/file?format=sdf&get3d=true",
@@ -563,7 +563,7 @@
         "chem-ch3cooc2h5"
       ],
       "sections": 7,
-      "characters": 23003,
+      "characters": 22988,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Ethyl_acetat",
         "https://en.wikipedia.org/wiki/Ethyl_acetate",
@@ -578,7 +578,7 @@
         "cid-178"
       ],
       "sections": 7,
-      "characters": 20511,
+      "characters": 20499,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/C2H5NO",
         "https://en.wikipedia.org/wiki/Acetamide",
@@ -593,7 +593,7 @@
         "cid-1176"
       ],
       "sections": 7,
-      "characters": 20787,
+      "characters": 20780,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Ure",
         "https://en.wikipedia.org/wiki/CH4N2O",
@@ -609,7 +609,7 @@
         "chem-c6h12o6"
       ],
       "sections": 7,
-      "characters": 22059,
+      "characters": 22047,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Glucose",
         "https://en.wikipedia.org/wiki/C6H12O6",
@@ -624,7 +624,7 @@
         "cid-5984"
       ],
       "sections": 7,
-      "characters": 22068,
+      "characters": 22055,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Glucose",
         "https://en.wikipedia.org/wiki/C6H12O6",
@@ -639,7 +639,7 @@
         "cid-5988"
       ],
       "sections": 7,
-      "characters": 19567,
+      "characters": 19551,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Saccarose",
         "https://en.wikipedia.org/wiki/C12H22O11",
@@ -655,7 +655,7 @@
         "chem-c3h5oh3"
       ],
       "sections": 7,
-      "characters": 20059,
+      "characters": 20047,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Glycerin",
         "https://en.wikipedia.org/wiki/Glycerol",
@@ -671,7 +671,7 @@
         "chem-h2o2"
       ],
       "sections": 7,
-      "characters": 18716,
+      "characters": 18702,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Hydro_peroxide",
         "https://en.wikipedia.org/wiki/Hydrogen_peroxide",
@@ -686,7 +686,7 @@
         "cid-248"
       ],
       "sections": 7,
-      "characters": 17870,
+      "characters": 17866,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Ozon",
         "https://en.wikipedia.org/wiki/Ozone",
@@ -702,7 +702,7 @@
         "formula-SO2"
       ],
       "sections": 7,
-      "characters": 24192,
+      "characters": 24175,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/L%C6%B0u_hu%E1%BB%B3nh_dioxide",
         "https://en.wikipedia.org/wiki/Sulfur_dioxide",
@@ -718,7 +718,7 @@
         "formula-SO3"
       ],
       "sections": 7,
-      "characters": 22259,
+      "characters": 22241,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/L%C6%B0u_hu%E1%BB%B3nh_trioxide",
         "https://en.wikipedia.org/wiki/Sulfur_trioxide",
@@ -733,7 +733,7 @@
         "cid-948"
       ],
       "sections": 7,
-      "characters": 19742,
+      "characters": 19727,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Dinit%C6%A1_monoxide",
         "https://en.wikipedia.org/wiki/Nitrous_oxide",
@@ -749,9 +749,10 @@
         "chem-hcl"
       ],
       "sections": 8,
-      "characters": 29300,
+      "characters": 28927,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Hydro_chloride",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Hydrogen_chloride",
         "https://cactus.nci.nih.gov/chemical/structure/hydrogen%20chloride/file?format=sdf&get3d=true",
         "https://pubchem.ncbi.nlm.nih.gov/compound/313"
@@ -765,7 +766,7 @@
         "chem-hf"
       ],
       "sections": 7,
-      "characters": 19592,
+      "characters": 19580,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Hydro_fluoride",
         "https://en.wikipedia.org/wiki/Hydrogen_fluoride",
@@ -781,7 +782,7 @@
         "chem-h2s"
       ],
       "sections": 7,
-      "characters": 22811,
+      "characters": 22798,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/H2S",
         "https://en.wikipedia.org/wiki/Hydrogen_sulfide",
@@ -797,9 +798,10 @@
         "chem-hno3"
       ],
       "sections": 8,
-      "characters": 29730,
+      "characters": 29252,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Acid_nitric",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Nitric_acid",
         "https://cactus.nci.nih.gov/chemical/structure/nitric%20acid/file?format=sdf&get3d=true",
         "https://pubchem.ncbi.nlm.nih.gov/compound/944"
@@ -813,9 +815,10 @@
         "chem-h2so4"
       ],
       "sections": 8,
-      "characters": 29388,
+      "characters": 28889,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Acid_sulfuric",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Sulfuric_acid",
         "https://cactus.nci.nih.gov/chemical/structure/sulfuric%20acid/file?format=sdf&get3d=true",
         "https://pubchem.ncbi.nlm.nih.gov/compound/1118"
@@ -829,7 +832,7 @@
         "chem-h3po4"
       ],
       "sections": 7,
-      "characters": 19567,
+      "characters": 19549,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Acid_phosphoric",
         "https://en.wikipedia.org/wiki/Phosphoric_acid",
@@ -844,7 +847,7 @@
         "cid-8078"
       ],
       "sections": 7,
-      "characters": 21605,
+      "characters": 21592,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Cyclohexan",
         "https://en.wikipedia.org/wiki/Cyclohexane",
@@ -859,7 +862,7 @@
         "cid-931"
       ],
       "sections": 7,
-      "characters": 19016,
+      "characters": 19004,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Naphthalen",
         "https://en.wikipedia.org/wiki/Naphthalene",
@@ -874,7 +877,7 @@
         "cid-2244"
       ],
       "sections": 7,
-      "characters": 19109,
+      "characters": 19098,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Aspirin",
         "https://en.wikipedia.org/wiki/Aspirin",
@@ -889,7 +892,7 @@
         "cid-2519"
       ],
       "sections": 7,
-      "characters": 20813,
+      "characters": 20800,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Cafein",
         "https://en.wikipedia.org/wiki/Caffeine",
@@ -904,7 +907,7 @@
         "cid-769"
       ],
       "sections": 7,
-      "characters": 19156,
+      "characters": 19137,
       "externalSources": [
         "https://en.wikipedia.org/wiki/Bicarbonate",
         "https://cactus.nci.nih.gov/chemical/structure/bicarbonate/file?format=sdf&get3d=true",
@@ -918,7 +921,7 @@
         "cid-19660"
       ],
       "sections": 7,
-      "characters": 19040,
+      "characters": 19027,
       "externalSources": [
         "https://en.wikipedia.org/wiki/Carbonate",
         "https://cactus.nci.nih.gov/chemical/structure/carbonate/file?format=sdf&get3d=true",
@@ -932,7 +935,7 @@
         "cid-1117"
       ],
       "sections": 7,
-      "characters": 17896,
+      "characters": 17885,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Sulfat",
         "https://en.wikipedia.org/wiki/Sulfate",
@@ -947,7 +950,7 @@
         "cid-223"
       ],
       "sections": 7,
-      "characters": 17926,
+      "characters": 17916,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Amoni",
         "https://en.wikipedia.org/wiki/Ammonium",
@@ -962,7 +965,7 @@
         "cid-961"
       ],
       "sections": 7,
-      "characters": 19476,
+      "characters": 19464,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Ch%C6%B0%C6%A1ng_tr%C3%ACnh_Ra_%C4%91i_C%C3%B3_tr%E1%BA%ADt_t%E1%BB%B1",
         "https://en.wikipedia.org/wiki/Hydroxide",
@@ -977,7 +980,7 @@
         "cid-943"
       ],
       "sections": 7,
-      "characters": 19339,
+      "characters": 19328,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Nitrat",
         "https://en.wikipedia.org/wiki/Nitrate",
@@ -992,7 +995,7 @@
         "cid-946"
       ],
       "sections": 7,
-      "characters": 23695,
+      "characters": 23684,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Nit%C6%A1_dioxide",
         "https://en.wikipedia.org/wiki/Nitrite",
@@ -1007,7 +1010,7 @@
         "crystal-cscl"
       ],
       "sections": 7,
-      "characters": 19157,
+      "characters": 19148,
       "externalSources": [
         "https://en.wikipedia.org/wiki/Caesium_chloride",
         "https://www.uni-potsdam.de/en/crystallography/lehre/merge-cube-lehre-mit-erweiterter-realtitaet/strukturdatenbank/salze"
@@ -1019,10 +1022,11 @@
       "subjectIds": [
         "crystal-caf2"
       ],
-      "sections": 7,
-      "characters": 22420,
+      "sections": 8,
+      "characters": 23536,
       "externalSources": [
         "https://en.wikipedia.org/wiki/Calcium_fluoride",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://www.uni-potsdam.de/en/crystallography/lehre/merge-cube-lehre-mit-erweiterter-realtitaet/strukturdatenbank/salze"
       ]
     },
@@ -1033,9 +1037,10 @@
         "chem-naoh"
       ],
       "sections": 8,
-      "characters": 29664,
+      "characters": 29122,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Natri_hydroxide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Sodium_hydroxide"
       ]
     },
@@ -1046,9 +1051,10 @@
         "chem-koh"
       ],
       "sections": 8,
-      "characters": 28876,
+      "characters": 28388,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Kali_hydroxide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/KOH"
       ]
     },
@@ -1059,10 +1065,11 @@
         "chem-baoh2"
       ],
       "sections": 8,
-      "characters": 27367,
+      "characters": 26869,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Bari_hydroxide",
-        "https://en.wikipedia.org/wiki/Barium_hydroxide"
+        "https://en.wikipedia.org/wiki/Barium_hydroxide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -1072,10 +1079,11 @@
         "chem-agno3"
       ],
       "sections": 8,
-      "characters": 28018,
+      "characters": 27545,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/B%E1%BA%A1c(I",
-        "https://en.wikipedia.org/wiki/Silver_nitrate"
+        "https://en.wikipedia.org/wiki/Silver_nitrate",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -1085,10 +1093,11 @@
         "chem-bacl2"
       ],
       "sections": 8,
-      "characters": 28560,
+      "characters": 28186,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Bari_chloride",
-        "https://en.wikipedia.org/wiki/Barium_chloride"
+        "https://en.wikipedia.org/wiki/Barium_chloride",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -1098,9 +1107,10 @@
         "chem-na2so4"
       ],
       "sections": 8,
-      "characters": 27609,
+      "characters": 27113,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Natri_sulfat",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Sodium_sulfate"
       ]
     },
@@ -1111,9 +1121,10 @@
         "chem-cuso4"
       ],
       "sections": 8,
-      "characters": 27798,
+      "characters": 27284,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%93ng(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Copper(II"
       ]
     },
@@ -1124,10 +1135,11 @@
         "chem-fecl3"
       ],
       "sections": 8,
-      "characters": 28825,
+      "characters": 28428,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/S%E1%BA%AFt(III",
-        "https://en.wikipedia.org/wiki/Iron(III"
+        "https://en.wikipedia.org/wiki/Iron(III",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -1137,9 +1149,10 @@
         "chem-feso4"
       ],
       "sections": 8,
-      "characters": 28126,
+      "characters": 27620,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/S%E1%BA%AFt(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Iron(II"
       ]
     },
@@ -1150,9 +1163,10 @@
         "chem-nahco3"
       ],
       "sections": 8,
-      "characters": 30945,
+      "characters": 30208,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Natri_bicarbonat",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Sodium_bicarbonate"
       ]
     },
@@ -1163,9 +1177,10 @@
         "chem-na2co3"
       ],
       "sections": 8,
-      "characters": 29697,
+      "characters": 29141,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Natri_carbonat",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Sodium_carbonate"
       ]
     },
@@ -1176,9 +1191,10 @@
         "chem-cacl2"
       ],
       "sections": 8,
-      "characters": 28014,
+      "characters": 27633,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Calci_chloride",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Calcium_chloride"
       ]
     },
@@ -1189,7 +1205,7 @@
         "chem-kmno4"
       ],
       "sections": 7,
-      "characters": 19067,
+      "characters": 19055,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Kali_permanganat",
         "https://en.wikipedia.org/wiki/Potassium_permanganate"
@@ -1202,7 +1218,7 @@
         "chem-zn"
       ],
       "sections": 7,
-      "characters": 27841,
+      "characters": 27838,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/K%E1%BA%BDm",
         "https://en.wikipedia.org/wiki/Zinc",
@@ -1216,9 +1232,10 @@
         "chem-caco3"
       ],
       "sections": 8,
-      "characters": 29014,
+      "characters": 28446,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Calci_carbonat",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Calcium_carbonate"
       ]
     },
@@ -1229,7 +1246,7 @@
         "chem-phenolphthalein"
       ],
       "sections": 7,
-      "characters": 19724,
+      "characters": 19696,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Phenolphthalein",
         "https://en.wikipedia.org/wiki/C20H14O4",
@@ -1243,7 +1260,7 @@
         "chem-litmus"
       ],
       "sections": 7,
-      "characters": 18942,
+      "characters": 18924,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/N%C6%B0%E1%BB%9Bc",
         "https://en.wikipedia.org/wiki/Litmus"
@@ -1256,7 +1273,7 @@
         "chem-universal-indicator"
       ],
       "sections": 7,
-      "characters": 18969,
+      "characters": 18952,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/N%C6%B0%E1%BB%9Bc",
         "https://en.wikipedia.org/wiki/Universal_indicator"
@@ -1269,9 +1286,10 @@
         "chem-caoh2"
       ],
       "sections": 8,
-      "characters": 30188,
+      "characters": 29563,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Calci_hydroxide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Calcium_hydroxide"
       ]
     },
@@ -1282,7 +1300,7 @@
         "chem-fe"
       ],
       "sections": 7,
-      "characters": 26444,
+      "characters": 26441,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/S%E1%BA%AFt",
         "https://en.wikipedia.org/wiki/Iron",
@@ -1296,7 +1314,7 @@
         "chem-cu"
       ],
       "sections": 7,
-      "characters": 26411,
+      "characters": 26407,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%93ng",
         "https://en.wikipedia.org/wiki/Copper",
@@ -1310,7 +1328,7 @@
         "chem-al"
       ],
       "sections": 7,
-      "characters": 25807,
+      "characters": 25803,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Nh%C3%B4m",
         "https://en.wikipedia.org/wiki/Aluminium",
@@ -1324,7 +1342,7 @@
         "chem-mg"
       ],
       "sections": 7,
-      "characters": 28013,
+      "characters": 28008,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Magnesi",
         "https://en.wikipedia.org/wiki/Magnesium",
@@ -1338,7 +1356,7 @@
         "chem-na"
       ],
       "sections": 7,
-      "characters": 22096,
+      "characters": 22091,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Natri",
         "https://en.wikipedia.org/wiki/Sodium",
@@ -1352,9 +1370,10 @@
         "chem-nabr"
       ],
       "sections": 8,
-      "characters": 26082,
+      "characters": 25703,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Natri_bromide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Sodium_bromide"
       ]
     },
@@ -1365,10 +1384,11 @@
         "chem-ki"
       ],
       "sections": 8,
-      "characters": 26213,
+      "characters": 25858,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Kali_iodide",
-        "https://en.wikipedia.org/wiki/KI"
+        "https://en.wikipedia.org/wiki/KI",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -1378,9 +1398,10 @@
         "chem-pbno32"
       ],
       "sections": 8,
-      "characters": 28659,
+      "characters": 28152,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Ch%C3%AC(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Lead(II"
       ]
     },
@@ -1391,9 +1412,10 @@
         "chem-alcl3"
       ],
       "sections": 8,
-      "characters": 28217,
+      "characters": 27843,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Nh%C3%B4m_chloride",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Aluminium_chloride"
       ]
     },
@@ -1404,9 +1426,10 @@
         "chem-znso4"
       ],
       "sections": 8,
-      "characters": 27457,
+      "characters": 26979,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/K%E1%BA%BDm_sulfat",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Zinc_sulfate"
       ]
     },
@@ -1417,9 +1440,10 @@
         "chem-na2s"
       ],
       "sections": 8,
-      "characters": 26222,
+      "characters": 25840,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Natri_sulfide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Sodium_sulfide"
       ]
     },
@@ -1430,9 +1454,10 @@
         "chem-na2so3"
       ],
       "sections": 8,
-      "characters": 25076,
+      "characters": 24580,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Natri_sulfit",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Sodium_sulfite"
       ]
     },
@@ -1443,9 +1468,10 @@
         "chem-nh4cl"
       ],
       "sections": 8,
-      "characters": 26791,
+      "characters": 26302,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Amoni_chloride",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Ammonium_chloride"
       ]
     },
@@ -1456,7 +1482,7 @@
         "chem-kscn"
       ],
       "sections": 7,
-      "characters": 19901,
+      "characters": 19884,
       "externalSources": [
         "https://en.wikipedia.org/wiki/KSCN"
       ]
@@ -1468,7 +1494,7 @@
         "chem-br2"
       ],
       "sections": 7,
-      "characters": 18995,
+      "characters": 18979,
       "externalSources": [
         "https://en.wikipedia.org/wiki/BR_postcode_area"
       ]
@@ -1480,7 +1506,7 @@
         "chem-i2"
       ],
       "sections": 7,
-      "characters": 17238,
+      "characters": 17225,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Iod",
         "https://en.wikipedia.org/wiki/I2"
@@ -1493,7 +1519,7 @@
         "chem-starch"
       ],
       "sections": 7,
-      "characters": 19318,
+      "characters": 19302,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/H%E1%BB%93_tinh_b%E1%BB%99t",
         "https://en.wikipedia.org/wiki/C6H10O5",
@@ -1507,7 +1533,7 @@
         "chem-h2so3"
       ],
       "sections": 7,
-      "characters": 20173,
+      "characters": 20158,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Acid_sulfur%C6%A1",
         "https://en.wikipedia.org/wiki/Sulfurous_acid"
@@ -1520,10 +1546,11 @@
         "chem-mgoh2"
       ],
       "sections": 8,
-      "characters": 29138,
+      "characters": 28632,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Magnesi_hydroxide",
-        "https://en.wikipedia.org/wiki/Magnesium_hydroxide"
+        "https://en.wikipedia.org/wiki/Magnesium_hydroxide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -1533,9 +1560,10 @@
         "chem-aloh3"
       ],
       "sections": 8,
-      "characters": 28817,
+      "characters": 28319,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Nh%C3%B4m_hydroxide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Aluminium_hydroxide"
       ]
     },
@@ -1546,10 +1574,11 @@
         "chem-znoh2"
       ],
       "sections": 8,
-      "characters": 29184,
+      "characters": 28694,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/K%E1%BA%BDm_hydroxide",
-        "https://en.wikipedia.org/wiki/Zinc_hydroxide"
+        "https://en.wikipedia.org/wiki/Zinc_hydroxide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -1559,9 +1588,10 @@
         "chem-feoh2"
       ],
       "sections": 8,
-      "characters": 28969,
+      "characters": 28451,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/S%E1%BA%AFt(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Iron(II"
       ]
     },
@@ -1572,9 +1602,10 @@
         "chem-feoh3"
       ],
       "sections": 8,
-      "characters": 28699,
+      "characters": 28174,
       "externalSources": [
-        "https://vi.wikipedia.org/wiki/S%E1%BA%AFt(III"
+        "https://vi.wikipedia.org/wiki/S%E1%BA%AFt(III",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -1584,10 +1615,11 @@
         "chem-cuoh2"
       ],
       "sections": 8,
-      "characters": 29162,
+      "characters": 28636,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%93ng(II",
-        "https://en.wikipedia.org/wiki/Copper(II"
+        "https://en.wikipedia.org/wiki/Copper(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -1597,9 +1629,10 @@
         "chem-kcl"
       ],
       "sections": 8,
-      "characters": 28678,
+      "characters": 28252,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Kali_chloride",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Potassium_chloride"
       ]
     },
@@ -1610,9 +1643,10 @@
         "chem-kno3"
       ],
       "sections": 8,
-      "characters": 27404,
+      "characters": 26843,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Kali_nitrat",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Potassium_nitrate"
       ]
     },
@@ -1623,9 +1657,10 @@
         "chem-nano3"
       ],
       "sections": 8,
-      "characters": 27869,
+      "characters": 27254,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Natri_nitrat",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Sodium_nitrate"
       ]
     },
@@ -1636,9 +1671,10 @@
         "chem-fecl2"
       ],
       "sections": 8,
-      "characters": 28702,
+      "characters": 28251,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/S%E1%BA%AFt(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Iron(II"
       ]
     },
@@ -1649,9 +1685,10 @@
         "chem-fe2so43"
       ],
       "sections": 8,
-      "characters": 26016,
+      "characters": 25425,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Iron(III"
+        "https://en.wikipedia.org/wiki/Iron(III",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -1661,9 +1698,10 @@
         "chem-cucl2"
       ],
       "sections": 8,
-      "characters": 28620,
+      "characters": 28162,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%93ng(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Copper(II"
       ]
     },
@@ -1674,9 +1712,10 @@
         "chem-cuno32"
       ],
       "sections": 8,
-      "characters": 27993,
+      "characters": 27408,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Copper(II"
+        "https://en.wikipedia.org/wiki/Copper(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -1686,9 +1725,10 @@
         "chem-mgso4"
       ],
       "sections": 8,
-      "characters": 28378,
+      "characters": 27723,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Magnesium_sulfate"
+        "https://en.wikipedia.org/wiki/Magnesium_sulfate",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -1698,9 +1738,10 @@
         "chem-mgcl2"
       ],
       "sections": 8,
-      "characters": 28973,
+      "characters": 28532,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Magnesi_chloride",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Magnesium_chloride"
       ]
     },
@@ -1711,10 +1752,11 @@
         "chem-nh4no3"
       ],
       "sections": 8,
-      "characters": 25850,
+      "characters": 25357,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Amoni_nitrat",
-        "https://en.wikipedia.org/wiki/Ammonium_nitrate"
+        "https://en.wikipedia.org/wiki/Ammonium_nitrate",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -1724,10 +1766,11 @@
         "chem-nh42so4"
       ],
       "sections": 8,
-      "characters": 26859,
+      "characters": 26141,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Amoni_sulfat",
-        "https://en.wikipedia.org/wiki/Ammonium_sulfate"
+        "https://en.wikipedia.org/wiki/Ammonium_sulfate",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -1737,7 +1780,7 @@
         "chem-na2s2o3"
       ],
       "sections": 7,
-      "characters": 19481,
+      "characters": 19450,
       "externalSources": [
         "https://en.wikipedia.org/wiki/Sodium_thiosulfate"
       ]
@@ -1749,7 +1792,7 @@
         "chem-k2cr2o7"
       ],
       "sections": 7,
-      "characters": 19473,
+      "characters": 19445,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Kali_dichromat",
         "https://en.wikipedia.org/wiki/Potassium_dichromate"
@@ -1762,9 +1805,10 @@
         "chem-k2cro4"
       ],
       "sections": 8,
-      "characters": 24201,
+      "characters": 23648,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Potassium_chromate"
+        "https://en.wikipedia.org/wiki/Potassium_chromate",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -1774,10 +1818,11 @@
         "chem-fes"
       ],
       "sections": 8,
-      "characters": 26397,
+      "characters": 26008,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/S%E1%BA%AFt(II",
-        "https://en.wikipedia.org/wiki/Iron(II"
+        "https://en.wikipedia.org/wiki/Iron(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -1787,9 +1832,10 @@
         "chem-agcl"
       ],
       "sections": 8,
-      "characters": 23675,
+      "characters": 23311,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/B%E1%BA%A1c_chloride",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Silver_chloride"
       ]
     },
@@ -1800,9 +1846,10 @@
         "chem-agbr"
       ],
       "sections": 8,
-      "characters": 21863,
+      "characters": 21498,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/B%E1%BA%A1c_bromide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Silver_bromide"
       ]
     },
@@ -1813,9 +1860,10 @@
         "chem-agi"
       ],
       "sections": 8,
-      "characters": 22607,
+      "characters": 22254,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Silver_iodide"
+        "https://en.wikipedia.org/wiki/Silver_iodide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -1825,9 +1873,10 @@
         "chem-pbi2"
       ],
       "sections": 8,
-      "characters": 23420,
+      "characters": 22974,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Ch%C3%AC",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Lead(II"
       ]
     },
@@ -1838,9 +1887,10 @@
         "chem-baso4"
       ],
       "sections": 8,
-      "characters": 22860,
+      "characters": 22374,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Bari_sulfat",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Barium_sulfate"
       ]
     },
@@ -1851,10 +1901,11 @@
         "chem-k2co3"
       ],
       "sections": 8,
-      "characters": 28191,
+      "characters": 27556,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Kali_carbonat",
-        "https://en.wikipedia.org/wiki/Potassium_carbonate"
+        "https://en.wikipedia.org/wiki/Potassium_carbonate",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -1864,7 +1915,7 @@
         "chem-s"
       ],
       "sections": 7,
-      "characters": 21661,
+      "characters": 21653,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/L%C6%B0u_hu%E1%BB%B3nh",
         "https://en.wikipedia.org/wiki/Sulfur",
@@ -1878,7 +1929,7 @@
         "chem-c"
       ],
       "sections": 7,
-      "characters": 22577,
+      "characters": 22572,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Carbon",
         "https://en.wikipedia.org/wiki/Carbon",
@@ -1892,7 +1943,7 @@
         "chem-p"
       ],
       "sections": 7,
-      "characters": 19953,
+      "characters": 19947,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Phosphor",
         "https://en.wikipedia.org/wiki/Phosphorus",
@@ -1905,10 +1956,11 @@
       "subjectIds": [
         "chem-mno2"
       ],
-      "sections": 7,
-      "characters": 18073,
+      "sections": 8,
+      "characters": 19394,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Manganese_dioxide"
+        "https://en.wikipedia.org/wiki/Manganese_dioxide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -1917,11 +1969,12 @@
       "subjectIds": [
         "chem-cuo"
       ],
-      "sections": 7,
-      "characters": 26660,
+      "sections": 8,
+      "characters": 27788,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%93ng(II",
-        "https://en.wikipedia.org/wiki/Copper(II"
+        "https://en.wikipedia.org/wiki/Copper(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -1930,10 +1983,11 @@
       "subjectIds": [
         "chem-fe2o3"
       ],
-      "sections": 7,
-      "characters": 27405,
+      "sections": 8,
+      "characters": 28507,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/S%E1%BA%AFt(III",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Iron(III"
       ]
     },
@@ -1943,10 +1997,11 @@
       "subjectIds": [
         "chem-cao"
       ],
-      "sections": 7,
-      "characters": 25977,
+      "sections": 8,
+      "characters": 27277,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Calci_oxide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Calcium_oxide"
       ]
     },
@@ -1956,9 +2011,10 @@
       "subjectIds": [
         "chem-methyl-orange"
       ],
-      "sections": 7,
-      "characters": 22088,
+      "sections": 8,
+      "characters": 22965,
       "externalSources": [
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://pubchem.ncbi.nlm.nih.gov/compound/23673835"
       ]
     },
@@ -1969,7 +2025,7 @@
         "chem-thymolphthalein"
       ],
       "sections": 7,
-      "characters": 19676,
+      "characters": 19647,
       "externalSources": [
         "https://en.wikipedia.org/wiki/Thymolphthalein",
         "https://pubchem.ncbi.nlm.nih.gov/compound/31316"
@@ -1982,7 +2038,7 @@
         "chem-na2hpo4"
       ],
       "sections": 7,
-      "characters": 19358,
+      "characters": 19316,
       "externalSources": [
         "https://en.wikipedia.org/wiki/Disodium_phosphate"
       ]
@@ -1994,10 +2050,11 @@
         "chem-naf"
       ],
       "sections": 8,
-      "characters": 24768,
+      "characters": 24299,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Natri_fluoride",
-        "https://en.wikipedia.org/wiki/Sodium_fluoride"
+        "https://en.wikipedia.org/wiki/Sodium_fluoride",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -2007,10 +2064,11 @@
         "chem-ch3coona"
       ],
       "sections": 8,
-      "characters": 30643,
+      "characters": 29908,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Natri_acetat",
-        "https://en.wikipedia.org/wiki/Sodium_acetate"
+        "https://en.wikipedia.org/wiki/Sodium_acetate",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -2020,7 +2078,7 @@
         "formula-Ag"
       ],
       "sections": 7,
-      "characters": 24635,
+      "characters": 24632,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/B%E1%BA%A1c",
         "https://en.wikipedia.org/wiki/AG",
@@ -2034,9 +2092,10 @@
         "formula-Ag2CO3"
       ],
       "sections": 8,
-      "characters": 26756,
+      "characters": 26265,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/B%E1%BA%A1c_carbonat",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Silver_carbonate"
       ]
     },
@@ -2047,9 +2106,10 @@
         "formula-Ag2CrO4"
       ],
       "sections": 8,
-      "characters": 23792,
+      "characters": 23313,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/B%E1%BA%A1c_chromat",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Silver_chromate"
       ]
     },
@@ -2059,10 +2119,11 @@
       "subjectIds": [
         "formula-Ag2O"
       ],
-      "sections": 7,
-      "characters": 22881,
+      "sections": 8,
+      "characters": 24063,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Silver_oxide"
+        "https://en.wikipedia.org/wiki/Silver_oxide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -2072,10 +2133,11 @@
         "formula-Ag3PO4"
       ],
       "sections": 8,
-      "characters": 23319,
+      "characters": 22827,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/B%E1%BA%A1c(I",
-        "https://en.wikipedia.org/wiki/Silver_phosphate"
+        "https://en.wikipedia.org/wiki/Silver_phosphate",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -2085,10 +2147,11 @@
         "formula-Al(NO3)3"
       ],
       "sections": 8,
-      "characters": 27895,
+      "characters": 27408,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Nh%C3%B4m(III",
-        "https://en.wikipedia.org/wiki/Aluminium_nitrate"
+        "https://en.wikipedia.org/wiki/Aluminium_nitrate",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -2098,9 +2161,10 @@
         "formula-Al2(SO4)3"
       ],
       "sections": 8,
-      "characters": 28102,
+      "characters": 27608,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Nh%C3%B4m_sulfat",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Aluminium_sulfate"
       ]
     },
@@ -2110,10 +2174,11 @@
       "subjectIds": [
         "formula-Al2O3"
       ],
-      "sections": 7,
-      "characters": 24797,
+      "sections": 8,
+      "characters": 25975,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Nh%C3%B4m_oxide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Aluminium_oxide"
       ]
     },
@@ -2124,9 +2189,10 @@
         "formula-AlBr3"
       ],
       "sections": 8,
-      "characters": 26147,
+      "characters": 25772,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Aluminium_bromide"
+        "https://en.wikipedia.org/wiki/Aluminium_bromide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -2136,9 +2202,10 @@
         "formula-AlI3"
       ],
       "sections": 8,
-      "characters": 23284,
+      "characters": 22921,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Nh%C3%B4m_iodide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Aluminium_iodide"
       ]
     },
@@ -2149,10 +2216,11 @@
         "formula-Ba(CH3COO)2"
       ],
       "sections": 8,
-      "characters": 30655,
+      "characters": 30054,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Bari_acetat",
-        "https://en.wikipedia.org/wiki/Barium_acetate"
+        "https://en.wikipedia.org/wiki/Barium_acetate",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -2162,8 +2230,10 @@
         "formula-Ba(HCOO)2"
       ],
       "sections": 8,
-      "characters": 27656,
-      "externalSources": []
+      "characters": 27069,
+      "externalSources": [
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
+      ]
     },
     {
       "id": "bari-nitrat-ba-no3-2",
@@ -2172,9 +2242,10 @@
         "formula-Ba(NO3)2"
       ],
       "sections": 8,
-      "characters": 27265,
+      "characters": 26778,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Bari_nitrat",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Barium_nitrate"
       ]
     },
@@ -2185,9 +2256,10 @@
         "formula-Ba3(PO4)2"
       ],
       "sections": 8,
-      "characters": 22825,
+      "characters": 22319,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Barium_phosphate"
+        "https://en.wikipedia.org/wiki/Barium_phosphate",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -2197,10 +2269,11 @@
         "formula-BaBr2"
       ],
       "sections": 8,
-      "characters": 26248,
+      "characters": 25873,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Bari_bromide",
-        "https://en.wikipedia.org/wiki/Barium_bromide"
+        "https://en.wikipedia.org/wiki/Barium_bromide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -2210,9 +2283,10 @@
         "formula-BaC2O4"
       ],
       "sections": 8,
-      "characters": 24457,
+      "characters": 23970,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Barium_oxalate"
+        "https://en.wikipedia.org/wiki/Barium_oxalate",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -2222,10 +2296,11 @@
         "formula-BaCO3"
       ],
       "sections": 8,
-      "characters": 28994,
+      "characters": 28497,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Bari_carbonat",
-        "https://en.wikipedia.org/wiki/Barium_carbonate"
+        "https://en.wikipedia.org/wiki/Barium_carbonate",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -2235,10 +2310,11 @@
         "formula-BaCrO4"
       ],
       "sections": 8,
-      "characters": 24371,
+      "characters": 23886,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Bari_chromat",
-        "https://en.wikipedia.org/wiki/Barium_chromate"
+        "https://en.wikipedia.org/wiki/Barium_chromate",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -2248,10 +2324,11 @@
         "formula-BaF2"
       ],
       "sections": 8,
-      "characters": 24398,
+      "characters": 24029,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Bari_fluoride",
-        "https://en.wikipedia.org/wiki/Barium_fluoride"
+        "https://en.wikipedia.org/wiki/Barium_fluoride",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -2261,9 +2338,10 @@
         "formula-BaI2"
       ],
       "sections": 8,
-      "characters": 26714,
+      "characters": 26351,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Barium_iodide"
+        "https://en.wikipedia.org/wiki/Barium_iodide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -2272,10 +2350,11 @@
       "subjectIds": [
         "formula-BaO"
       ],
-      "sections": 7,
-      "characters": 26272,
+      "sections": 8,
+      "characters": 27452,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Bari_oxide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Barium_oxide"
       ]
     },
@@ -2286,9 +2365,10 @@
         "formula-BaSO3"
       ],
       "sections": 8,
-      "characters": 24784,
+      "characters": 24298,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Barium_sulfite"
+        "https://en.wikipedia.org/wiki/Barium_sulfite",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -2298,7 +2378,7 @@
         "formula-C2H5COOC2H5"
       ],
       "sections": 7,
-      "characters": 22329,
+      "characters": 22309,
       "externalSources": []
     },
     {
@@ -2308,7 +2388,7 @@
         "formula-C2H5COOC3H7"
       ],
       "sections": 7,
-      "characters": 22372,
+      "characters": 22352,
       "externalSources": []
     },
     {
@@ -2318,7 +2398,7 @@
         "formula-C2H5COOC4H9"
       ],
       "sections": 7,
-      "characters": 22430,
+      "characters": 22410,
       "externalSources": []
     },
     {
@@ -2328,7 +2408,7 @@
         "formula-C2H5COOCH3"
       ],
       "sections": 7,
-      "characters": 22325,
+      "characters": 22307,
       "externalSources": []
     },
     {
@@ -2338,7 +2418,7 @@
         "formula-C2H5COOH"
       ],
       "sections": 7,
-      "characters": 23521,
+      "characters": 23507,
       "externalSources": [
         "https://en.wikipedia.org/wiki/Propionic_acid"
       ]
@@ -2350,8 +2430,10 @@
         "formula-C2H5COOK"
       ],
       "sections": 8,
-      "characters": 25350,
-      "externalSources": []
+      "characters": 24776,
+      "externalSources": [
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
+      ]
     },
     {
       "id": "c2h5cooli-c2h5cooli",
@@ -2360,8 +2442,10 @@
         "formula-C2H5COOLi"
       ],
       "sections": 8,
-      "characters": 24397,
-      "externalSources": []
+      "characters": 23812,
+      "externalSources": [
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
+      ]
     },
     {
       "id": "c2h5coona-c2h5coona",
@@ -2370,8 +2454,10 @@
         "formula-C2H5COONa"
       ],
       "sections": 8,
-      "characters": 25450,
-      "externalSources": []
+      "characters": 24864,
+      "externalSources": [
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
+      ]
     },
     {
       "id": "c3h4-c3h4",
@@ -2393,7 +2479,7 @@
         "formula-C3H7COOC2H5"
       ],
       "sections": 7,
-      "characters": 22329,
+      "characters": 22309,
       "externalSources": []
     },
     {
@@ -2403,7 +2489,7 @@
         "formula-C3H7COOC3H7"
       ],
       "sections": 7,
-      "characters": 22377,
+      "characters": 22357,
       "externalSources": []
     },
     {
@@ -2413,7 +2499,7 @@
         "formula-C3H7COOC4H9"
       ],
       "sections": 7,
-      "characters": 22392,
+      "characters": 22372,
       "externalSources": []
     },
     {
@@ -2423,7 +2509,7 @@
         "formula-C3H7COOCH3"
       ],
       "sections": 7,
-      "characters": 22309,
+      "characters": 22291,
       "externalSources": []
     },
     {
@@ -2433,7 +2519,7 @@
         "formula-C3H7COOH"
       ],
       "sections": 7,
-      "characters": 23401,
+      "characters": 23387,
       "externalSources": [
         "https://en.wikipedia.org/wiki/Butyric_acid"
       ]
@@ -2445,8 +2531,10 @@
         "formula-C3H7COOK"
       ],
       "sections": 8,
-      "characters": 25292,
-      "externalSources": []
+      "characters": 24718,
+      "externalSources": [
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
+      ]
     },
     {
       "id": "c3h7cooli-c3h7cooli",
@@ -2455,8 +2543,10 @@
         "formula-C3H7COOLi"
       ],
       "sections": 8,
-      "characters": 24373,
-      "externalSources": []
+      "characters": 23788,
+      "externalSources": [
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
+      ]
     },
     {
       "id": "c3h7coona-c3h7coona",
@@ -2465,8 +2555,10 @@
         "formula-C3H7COONa"
       ],
       "sections": 8,
-      "characters": 25391,
-      "externalSources": []
+      "characters": 24805,
+      "externalSources": [
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
+      ]
     },
     {
       "id": "c4h6-c4h6",
@@ -2611,7 +2703,7 @@
         "formula-Ca"
       ],
       "sections": 7,
-      "characters": 22043,
+      "characters": 22038,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Calci",
         "https://en.wikipedia.org/wiki/Calcium",
@@ -2625,10 +2717,11 @@
         "formula-Ca(CH3COO)2"
       ],
       "sections": 8,
-      "characters": 31117,
+      "characters": 30507,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Calci_acetat",
-        "https://en.wikipedia.org/wiki/Calcium_acetate"
+        "https://en.wikipedia.org/wiki/Calcium_acetate",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -2638,9 +2731,10 @@
         "formula-Ca(HCOO)2"
       ],
       "sections": 8,
-      "characters": 28406,
+      "characters": 27810,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Calcium_formate"
+        "https://en.wikipedia.org/wiki/Calcium_formate",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -2650,9 +2744,10 @@
         "formula-Ca(NO3)2"
       ],
       "sections": 8,
-      "characters": 27589,
+      "characters": 27094,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Calci_nitrat",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Calcium_nitrate"
       ]
     },
@@ -2663,9 +2758,10 @@
         "formula-Ca3(PO4)2"
       ],
       "sections": 8,
-      "characters": 23037,
+      "characters": 22523,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Canxi_phosphat",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Calcium_phosphate"
       ]
     },
@@ -2676,10 +2772,11 @@
         "formula-CaBr2"
       ],
       "sections": 8,
-      "characters": 26754,
+      "characters": 26372,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Calci_bromide",
-        "https://en.wikipedia.org/wiki/Calcium_bromide"
+        "https://en.wikipedia.org/wiki/Calcium_bromide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -2689,10 +2786,11 @@
         "formula-CaC2O4"
       ],
       "sections": 8,
-      "characters": 25227,
+      "characters": 24732,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Calci_oxalat",
-        "https://en.wikipedia.org/wiki/Calcium_oxalate"
+        "https://en.wikipedia.org/wiki/Calcium_oxalate",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -2702,10 +2800,11 @@
         "formula-CaI2"
       ],
       "sections": 8,
-      "characters": 27423,
+      "characters": 27053,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Calci_iodide",
-        "https://en.wikipedia.org/wiki/Calcium_iodide"
+        "https://en.wikipedia.org/wiki/Calcium_iodide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -2715,9 +2814,10 @@
         "formula-CaSO3"
       ],
       "sections": 8,
-      "characters": 25115,
+      "characters": 24621,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Calci_sulfit",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Calcium_sulfite"
       ]
     },
@@ -2728,7 +2828,7 @@
         "formula-Cd"
       ],
       "sections": 7,
-      "characters": 25151,
+      "characters": 25144,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Cadmi",
         "https://en.wikipedia.org/wiki/Cadmium",
@@ -2742,9 +2842,10 @@
         "formula-Cd(CH3COO)2"
       ],
       "sections": 8,
-      "characters": 29858,
+      "characters": 29238,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Cadmium_acetate"
+        "https://en.wikipedia.org/wiki/Cadmium_acetate",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -2754,8 +2855,10 @@
         "formula-Cd(HCOO)2"
       ],
       "sections": 8,
-      "characters": 26957,
-      "externalSources": []
+      "characters": 26351,
+      "externalSources": [
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
+      ]
     },
     {
       "id": "cadimi-nitrat-cd-no3-2",
@@ -2764,9 +2867,10 @@
         "formula-Cd(NO3)2"
       ],
       "sections": 8,
-      "characters": 27587,
+      "characters": 27083,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Cadmi(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Cadmium_nitrate"
       ]
     },
@@ -2777,10 +2881,11 @@
         "formula-Cd(OH)2"
       ],
       "sections": 8,
-      "characters": 26584,
+      "characters": 26069,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Cadmi(II",
-        "https://en.wikipedia.org/wiki/Cadmium_hydroxide"
+        "https://en.wikipedia.org/wiki/Cadmium_hydroxide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -2790,9 +2895,10 @@
         "formula-CdBr2"
       ],
       "sections": 8,
-      "characters": 26119,
+      "characters": 25729,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Cadmium_bromide"
+        "https://en.wikipedia.org/wiki/Cadmium_bromide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -2802,9 +2908,10 @@
         "formula-CdC2O4"
       ],
       "sections": 8,
-      "characters": 24273,
+      "characters": 23769,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Cadmium_oxalate"
+        "https://en.wikipedia.org/wiki/Cadmium_oxalate",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -2814,9 +2921,10 @@
         "formula-CdCl2"
       ],
       "sections": 8,
-      "characters": 28396,
+      "characters": 28007,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Cadmi(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Cadmium_chloride"
       ]
     },
@@ -2827,8 +2935,10 @@
         "formula-CdCO3"
       ],
       "sections": 8,
-      "characters": 28041,
-      "externalSources": []
+      "characters": 27527,
+      "externalSources": [
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
+      ]
     },
     {
       "id": "cadimi-iodua-cdi2",
@@ -2837,9 +2947,10 @@
         "formula-CdI2"
       ],
       "sections": 8,
-      "characters": 25025,
+      "characters": 24647,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Cadmium_iodide"
+        "https://en.wikipedia.org/wiki/Cadmium_iodide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -2848,10 +2959,11 @@
       "subjectIds": [
         "formula-CdO"
       ],
-      "sections": 7,
-      "characters": 21303,
+      "sections": 8,
+      "characters": 22484,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/CDO"
+        "https://en.wikipedia.org/wiki/CDO",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -2861,9 +2973,10 @@
         "formula-CdS"
       ],
       "sections": 8,
-      "characters": 23841,
+      "characters": 23454,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Cadmi(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Cadmium_sulfide"
       ]
     },
@@ -2874,10 +2987,11 @@
         "formula-CdSO4"
       ],
       "sections": 8,
-      "characters": 27903,
+      "characters": 27400,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Cadmi(II",
-        "https://en.wikipedia.org/wiki/Cadmium_sulfate"
+        "https://en.wikipedia.org/wiki/Cadmium_sulfate",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -2887,7 +3001,7 @@
         "formula-CH3CH2CH2CH2OH"
       ],
       "sections": 7,
-      "characters": 27490,
+      "characters": 27464,
       "externalSources": [
         "https://en.wikipedia.org/wiki/1-Butanol"
       ]
@@ -2899,7 +3013,7 @@
         "formula-CH3CH2CH2OH"
       ],
       "sections": 7,
-      "characters": 27038,
+      "characters": 27018,
       "externalSources": [
         "https://en.wikipedia.org/wiki/1-Propanol"
       ]
@@ -2911,8 +3025,10 @@
         "formula-CH3COOAg"
       ],
       "sections": 8,
-      "characters": 28881,
-      "externalSources": []
+      "characters": 28292,
+      "externalSources": [
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
+      ]
     },
     {
       "id": "ch3cooc3h7-ch3cooc3h7",
@@ -2921,7 +3037,7 @@
         "formula-CH3COOC3H7"
       ],
       "sections": 7,
-      "characters": 22375,
+      "characters": 22357,
       "externalSources": []
     },
     {
@@ -2931,7 +3047,7 @@
         "formula-CH3COOC4H9"
       ],
       "sections": 7,
-      "characters": 22450,
+      "characters": 22432,
       "externalSources": []
     },
     {
@@ -2941,7 +3057,7 @@
         "formula-CH3COOCH3"
       ],
       "sections": 7,
-      "characters": 22345,
+      "characters": 22329,
       "externalSources": []
     },
     {
@@ -2951,9 +3067,10 @@
         "formula-CH3COOK"
       ],
       "sections": 8,
-      "characters": 29899,
+      "characters": 29304,
       "externalSources": [
-        "https://vi.wikipedia.org/wiki/Kali_acetat"
+        "https://vi.wikipedia.org/wiki/Kali_acetat",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -2963,8 +3080,10 @@
         "formula-CH3COOLi"
       ],
       "sections": 8,
-      "characters": 28600,
-      "externalSources": []
+      "characters": 28002,
+      "externalSources": [
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
+      ]
     },
     {
       "id": "cl2-cl2",
@@ -2973,7 +3092,7 @@
         "formula-Cl2"
       ],
       "sections": 7,
-      "characters": 23076,
+      "characters": 23072,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Chlor",
         "https://en.wikipedia.org/wiki/Chlorine"
@@ -2986,7 +3105,7 @@
         "formula-Co"
       ],
       "sections": 7,
-      "characters": 26057,
+      "characters": 26052,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Cobalt",
         "https://en.wikipedia.org/wiki/Cobalt",
@@ -3000,10 +3119,11 @@
         "formula-Co(CH3COO)2"
       ],
       "sections": 8,
-      "characters": 30489,
+      "characters": 29847,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Cobalt(II",
-        "https://en.wikipedia.org/wiki/Cobalt(II"
+        "https://en.wikipedia.org/wiki/Cobalt(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3013,9 +3133,10 @@
         "formula-Co(HCOO)2"
       ],
       "sections": 8,
-      "characters": 25962,
+      "characters": 25334,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Cobalt(II"
+        "https://en.wikipedia.org/wiki/Cobalt(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3025,9 +3146,10 @@
         "formula-Co(NO3)2"
       ],
       "sections": 8,
-      "characters": 27840,
+      "characters": 27317,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Cobalt(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Cobalt(II"
       ]
     },
@@ -3038,9 +3160,10 @@
         "formula-Co(OH)2"
       ],
       "sections": 8,
-      "characters": 26436,
+      "characters": 25902,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Cobalt(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Cobalt(II"
       ]
     },
@@ -3051,10 +3174,11 @@
         "formula-CoBr2"
       ],
       "sections": 8,
-      "characters": 26608,
+      "characters": 26202,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Cobalt(II",
-        "https://en.wikipedia.org/wiki/Cobalt(II"
+        "https://en.wikipedia.org/wiki/Cobalt(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3064,9 +3188,10 @@
         "formula-CoC2O4"
       ],
       "sections": 8,
-      "characters": 24476,
+      "characters": 23953,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Cobalt(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Cobalt(II"
       ]
     },
@@ -3077,9 +3202,10 @@
         "formula-CoCl2"
       ],
       "sections": 8,
-      "characters": 28717,
+      "characters": 28312,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Cobalt(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Cobalt(II"
       ]
     },
@@ -3090,9 +3216,10 @@
         "formula-CoI2"
       ],
       "sections": 8,
-      "characters": 23060,
+      "characters": 22666,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Cobalt(II"
+        "https://en.wikipedia.org/wiki/Cobalt(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3101,10 +3228,11 @@
       "subjectIds": [
         "formula-CoO"
       ],
-      "sections": 7,
-      "characters": 22744,
+      "sections": 8,
+      "characters": 24116,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Cobalt(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Cobalt(II"
       ]
     },
@@ -3115,9 +3243,10 @@
         "formula-CoS"
       ],
       "sections": 8,
-      "characters": 23172,
+      "characters": 22769,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Cos"
+        "https://en.wikipedia.org/wiki/Cos",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3127,10 +3256,11 @@
         "formula-CoSO4"
       ],
       "sections": 8,
-      "characters": 28123,
+      "characters": 27601,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Cobalt(II",
-        "https://en.wikipedia.org/wiki/Cobalt(II"
+        "https://en.wikipedia.org/wiki/Cobalt(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3140,9 +3270,10 @@
         "formula-Cr(NO3)3"
       ],
       "sections": 8,
-      "characters": 23774,
+      "characters": 23252,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Chromi(III",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Chromium(III"
       ]
     },
@@ -3153,10 +3284,11 @@
         "formula-Cr(OH)3"
       ],
       "sections": 8,
-      "characters": 28997,
+      "characters": 28464,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Chromi(III",
-        "https://en.wikipedia.org/wiki/Chromium(III"
+        "https://en.wikipedia.org/wiki/Chromium(III",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3166,10 +3298,11 @@
         "formula-Cr2(SO4)3"
       ],
       "sections": 8,
-      "characters": 24218,
+      "characters": 23689,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Chromi(III",
-        "https://en.wikipedia.org/wiki/Chromium(III"
+        "https://en.wikipedia.org/wiki/Chromium(III",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3178,10 +3311,11 @@
       "subjectIds": [
         "formula-Cr2O3"
       ],
-      "sections": 7,
-      "characters": 19165,
+      "sections": 8,
+      "characters": 20532,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Chromium(III"
+        "https://en.wikipedia.org/wiki/Chromium(III",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3191,10 +3325,11 @@
         "formula-CrBr3"
       ],
       "sections": 8,
-      "characters": 22842,
+      "characters": 22437,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Chromi(III",
-        "https://en.wikipedia.org/wiki/Chromium(III"
+        "https://en.wikipedia.org/wiki/Chromium(III",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3204,9 +3339,10 @@
         "formula-CrCl3"
       ],
       "sections": 8,
-      "characters": 24391,
+      "characters": 23987,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Chromi(III",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Chromium(III"
       ]
     },
@@ -3217,9 +3353,10 @@
         "formula-CrI3"
       ],
       "sections": 8,
-      "characters": 21294,
+      "characters": 20901,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Chromium(III"
+        "https://en.wikipedia.org/wiki/Chromium(III",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3229,9 +3366,10 @@
         "formula-Cu(CH3COO)2"
       ],
       "sections": 8,
-      "characters": 30192,
+      "characters": 29559,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%93ng(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Copper(II"
       ]
     },
@@ -3242,10 +3380,11 @@
         "formula-CuBr2"
       ],
       "sections": 8,
-      "characters": 24929,
+      "characters": 24530,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%93ng(II",
-        "https://en.wikipedia.org/wiki/Copper(II"
+        "https://en.wikipedia.org/wiki/Copper(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3255,10 +3394,11 @@
         "formula-CuC2O4"
       ],
       "sections": 8,
-      "characters": 24810,
+      "characters": 24295,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%93ng(II",
-        "https://en.wikipedia.org/wiki/Copper(II"
+        "https://en.wikipedia.org/wiki/Copper(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3268,9 +3408,10 @@
         "formula-CuS"
       ],
       "sections": 8,
-      "characters": 23536,
+      "characters": 23140,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%93ng(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Copper_monosulfide"
       ]
     },
@@ -3281,8 +3422,10 @@
         "formula-Fe(CH3COO)2"
       ],
       "sections": 8,
-      "characters": 30128,
-      "externalSources": []
+      "characters": 29504,
+      "externalSources": [
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
+      ]
     },
     {
       "id": "sat-ii-fomat-fe-hcoo-2",
@@ -3291,8 +3434,10 @@
         "formula-Fe(HCOO)2"
       ],
       "sections": 8,
-      "characters": 27820,
-      "externalSources": []
+      "characters": 27210,
+      "externalSources": [
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
+      ]
     },
     {
       "id": "sat-ii-nitrat-fe-no3-2",
@@ -3301,9 +3446,10 @@
         "formula-Fe(NO3)2"
       ],
       "sections": 8,
-      "characters": 25345,
+      "characters": 24838,
       "externalSources": [
-        "https://vi.wikipedia.org/wiki/S%E1%BA%AFt(II"
+        "https://vi.wikipedia.org/wiki/S%E1%BA%AFt(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3313,10 +3459,11 @@
         "formula-Fe(NO3)3"
       ],
       "sections": 8,
-      "characters": 28235,
+      "characters": 27721,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/S%E1%BA%AFt(III",
-        "https://en.wikipedia.org/wiki/Iron(III"
+        "https://en.wikipedia.org/wiki/Iron(III",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3326,10 +3473,11 @@
         "formula-FeBr2"
       ],
       "sections": 8,
-      "characters": 27014,
+      "characters": 26622,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/S%E1%BA%AFt(II",
-        "https://en.wikipedia.org/wiki/Iron(II"
+        "https://en.wikipedia.org/wiki/Iron(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3339,10 +3487,11 @@
         "formula-FeBr3"
       ],
       "sections": 8,
-      "characters": 24879,
+      "characters": 24481,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/S%E1%BA%AFt(III",
-        "https://en.wikipedia.org/wiki/Iron(III"
+        "https://en.wikipedia.org/wiki/Iron(III",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3352,9 +3501,10 @@
         "formula-FeC2O4"
       ],
       "sections": 8,
-      "characters": 24504,
+      "characters": 23997,
       "externalSources": [
-        "https://vi.wikipedia.org/wiki/S%E1%BA%AFt(II"
+        "https://vi.wikipedia.org/wiki/S%E1%BA%AFt(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3364,9 +3514,10 @@
         "formula-FeCO3"
       ],
       "sections": 8,
-      "characters": 26699,
+      "characters": 26182,
       "externalSources": [
-        "https://vi.wikipedia.org/wiki/S%E1%BA%AFt(II"
+        "https://vi.wikipedia.org/wiki/S%E1%BA%AFt(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3376,9 +3527,10 @@
         "formula-FeI2"
       ],
       "sections": 8,
-      "characters": 24976,
+      "characters": 24596,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Iron(II"
+        "https://en.wikipedia.org/wiki/Iron(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3387,11 +3539,12 @@
       "subjectIds": [
         "formula-FeO"
       ],
-      "sections": 7,
-      "characters": 23290,
+      "sections": 8,
+      "characters": 24466,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/S%E1%BA%AFt(II",
-        "https://en.wikipedia.org/wiki/Iron(II"
+        "https://en.wikipedia.org/wiki/Iron(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3401,10 +3554,11 @@
         "formula-HBr"
       ],
       "sections": 8,
-      "characters": 26804,
+      "characters": 26484,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Acid_hydrobromic",
-        "https://en.wikipedia.org/wiki/HBR"
+        "https://en.wikipedia.org/wiki/HBR",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3414,7 +3568,7 @@
         "formula-HCOOC2H5"
       ],
       "sections": 7,
-      "characters": 22168,
+      "characters": 22154,
       "externalSources": []
     },
     {
@@ -3424,7 +3578,7 @@
         "formula-HCOOC3H7"
       ],
       "sections": 7,
-      "characters": 22177,
+      "characters": 22163,
       "externalSources": []
     },
     {
@@ -3434,7 +3588,7 @@
         "formula-HCOOC4H9"
       ],
       "sections": 7,
-      "characters": 22175,
+      "characters": 22161,
       "externalSources": []
     },
     {
@@ -3444,7 +3598,7 @@
         "formula-HCOOCH3"
       ],
       "sections": 7,
-      "characters": 22804,
+      "characters": 22792,
       "externalSources": [
         "https://en.wikipedia.org/wiki/Methyl_formate"
       ]
@@ -3456,9 +3610,10 @@
         "formula-HCOOK"
       ],
       "sections": 8,
-      "characters": 29834,
+      "characters": 29253,
       "externalSources": [
-        "https://vi.wikipedia.org/wiki/Kali_format"
+        "https://vi.wikipedia.org/wiki/Kali_format",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3468,8 +3623,10 @@
         "formula-HCOOLi"
       ],
       "sections": 8,
-      "characters": 28385,
-      "externalSources": []
+      "characters": 27801,
+      "externalSources": [
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
+      ]
     },
     {
       "id": "natri-fomat-hcoona",
@@ -3478,9 +3635,10 @@
         "formula-HCOONa"
       ],
       "sections": 8,
-      "characters": 29816,
+      "characters": 29223,
       "externalSources": [
-        "https://vi.wikipedia.org/wiki/Natri_format"
+        "https://vi.wikipedia.org/wiki/Natri_format",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3490,9 +3648,10 @@
         "formula-HI"
       ],
       "sections": 8,
-      "characters": 27901,
+      "characters": 27593,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/HI"
+        "https://en.wikipedia.org/wiki/HI",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3502,7 +3661,7 @@
         "formula-K"
       ],
       "sections": 7,
-      "characters": 21875,
+      "characters": 21872,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Kali",
         "https://en.wikipedia.org/wiki/K",
@@ -3516,8 +3675,10 @@
         "formula-K2C2O4"
       ],
       "sections": 8,
-      "characters": 23802,
-      "externalSources": []
+      "characters": 23317,
+      "externalSources": [
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
+      ]
     },
     {
       "id": "k2o-k2o",
@@ -3525,9 +3686,11 @@
       "subjectIds": [
         "formula-K2O"
       ],
-      "sections": 7,
-      "characters": 23346,
-      "externalSources": []
+      "sections": 8,
+      "characters": 24519,
+      "externalSources": [
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
+      ]
     },
     {
       "id": "kali-sunfua-k2s",
@@ -3536,9 +3699,10 @@
         "formula-K2S"
       ],
       "sections": 8,
-      "characters": 25678,
+      "characters": 25308,
       "externalSources": [
-        "https://vi.wikipedia.org/wiki/Kali_sulfide"
+        "https://vi.wikipedia.org/wiki/Kali_sulfide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3548,9 +3712,10 @@
         "formula-K2SO3"
       ],
       "sections": 8,
-      "characters": 24778,
+      "characters": 24294,
       "externalSources": [
-        "https://vi.wikipedia.org/wiki/Kali_sulfit"
+        "https://vi.wikipedia.org/wiki/Kali_sulfit",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3560,9 +3725,10 @@
         "formula-K2SO4"
       ],
       "sections": 8,
-      "characters": 26821,
+      "characters": 26337,
       "externalSources": [
-        "https://vi.wikipedia.org/wiki/Kali_sulfat"
+        "https://vi.wikipedia.org/wiki/Kali_sulfat",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3572,9 +3738,10 @@
         "formula-K3PO4"
       ],
       "sections": 8,
-      "characters": 22728,
+      "characters": 22232,
       "externalSources": [
-        "https://vi.wikipedia.org/wiki/Kali_phosphat"
+        "https://vi.wikipedia.org/wiki/Kali_phosphat",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3584,9 +3751,10 @@
         "formula-KBr"
       ],
       "sections": 8,
-      "characters": 26405,
+      "characters": 26038,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Kali_bromide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Potassium_bromide"
       ]
     },
@@ -3597,9 +3765,10 @@
         "formula-KF"
       ],
       "sections": 8,
-      "characters": 23610,
+      "characters": 23249,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Kali_fluoride",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/KF"
       ]
     },
@@ -3610,9 +3779,10 @@
         "formula-KHCO3"
       ],
       "sections": 8,
-      "characters": 26218,
+      "characters": 25573,
       "externalSources": [
-        "https://vi.wikipedia.org/wiki/Kali_bicarbonat"
+        "https://vi.wikipedia.org/wiki/Kali_bicarbonat",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3622,7 +3792,7 @@
         "formula-KNO2"
       ],
       "sections": 7,
-      "characters": 19997,
+      "characters": 19991,
       "externalSources": []
     },
     {
@@ -3632,7 +3802,7 @@
         "formula-Li"
       ],
       "sections": 7,
-      "characters": 23034,
+      "characters": 23030,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Lithi",
         "https://en.wikipedia.org/wiki/Lithium",
@@ -3646,9 +3816,10 @@
         "formula-Li2CO3"
       ],
       "sections": 8,
-      "characters": 24924,
+      "characters": 24425,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Lithi_carbonat",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Lithium_carbonate"
       ]
     },
@@ -3658,10 +3829,11 @@
       "subjectIds": [
         "formula-Li2O"
       ],
-      "sections": 7,
-      "characters": 21461,
+      "sections": 8,
+      "characters": 22642,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Lithium_oxide"
+        "https://en.wikipedia.org/wiki/Lithium_oxide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3671,10 +3843,11 @@
         "formula-Li2SO4"
       ],
       "sections": 8,
-      "characters": 27225,
+      "characters": 26737,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Lithi_sulfat",
-        "https://en.wikipedia.org/wiki/Lithium_sulfate"
+        "https://en.wikipedia.org/wiki/Lithium_sulfate",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3684,10 +3857,11 @@
         "formula-LiBr"
       ],
       "sections": 8,
-      "characters": 26229,
+      "characters": 25857,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Lithi_bromide",
-        "https://en.wikipedia.org/wiki/Lithium_bromide"
+        "https://en.wikipedia.org/wiki/Lithium_bromide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3697,10 +3871,11 @@
         "formula-LiCl"
       ],
       "sections": 8,
-      "characters": 28367,
+      "characters": 27996,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Lithi_chloride",
-        "https://en.wikipedia.org/wiki/Lithium_chloride"
+        "https://en.wikipedia.org/wiki/Lithium_chloride",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3710,9 +3885,10 @@
         "formula-LiF"
       ],
       "sections": 8,
-      "characters": 23742,
+      "characters": 23376,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Lithi_fluoride",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Lithium_fluoride"
       ]
     },
@@ -3723,10 +3899,11 @@
         "formula-LiI"
       ],
       "sections": 8,
-      "characters": 27010,
+      "characters": 26650,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Lithi_iodide",
-        "https://en.wikipedia.org/wiki/Lithium_iodide"
+        "https://en.wikipedia.org/wiki/Lithium_iodide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3736,10 +3913,11 @@
         "formula-LiNO3"
       ],
       "sections": 8,
-      "characters": 27379,
+      "characters": 26898,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Lithi_nitrat",
-        "https://en.wikipedia.org/wiki/Lithium_nitrate"
+        "https://en.wikipedia.org/wiki/Lithium_nitrate",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3749,10 +3927,11 @@
         "formula-LiOH"
       ],
       "sections": 8,
-      "characters": 28622,
+      "characters": 28130,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Lithi_hydroxide",
-        "https://en.wikipedia.org/wiki/Lithium_hydroxide"
+        "https://en.wikipedia.org/wiki/Lithium_hydroxide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3762,9 +3941,10 @@
         "formula-Mg(CH3COO)2"
       ],
       "sections": 8,
-      "characters": 30796,
+      "characters": 30186,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Magnesi_acetat",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Magnesium_acetate"
       ]
     },
@@ -3775,9 +3955,10 @@
         "formula-Mg(HCOO)2"
       ],
       "sections": 8,
-      "characters": 28504,
+      "characters": 27908,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Magnesium_formate"
+        "https://en.wikipedia.org/wiki/Magnesium_formate",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3787,10 +3968,11 @@
         "formula-Mg(NO3)2"
       ],
       "sections": 8,
-      "characters": 27967,
+      "characters": 27472,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Magnesi_nitrat",
-        "https://en.wikipedia.org/wiki/Magnesium_nitrate"
+        "https://en.wikipedia.org/wiki/Magnesium_nitrate",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3800,9 +3982,10 @@
         "formula-MgBr2"
       ],
       "sections": 8,
-      "characters": 26328,
+      "characters": 25946,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Magnesi_bromide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Magnesium_bromide"
       ]
     },
@@ -3813,9 +3996,10 @@
         "formula-MgC2O4"
       ],
       "sections": 8,
-      "characters": 24565,
+      "characters": 24070,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Magnesi_oxalat",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Magnesium_oxalate"
       ]
     },
@@ -3826,10 +4010,11 @@
         "formula-MgCO3"
       ],
       "sections": 8,
-      "characters": 27594,
+      "characters": 27089,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Magnesi_carbonat",
-        "https://en.wikipedia.org/wiki/Magnesium_carbonate"
+        "https://en.wikipedia.org/wiki/Magnesium_carbonate",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3839,10 +4024,11 @@
         "formula-MgF2"
       ],
       "sections": 8,
-      "characters": 24279,
+      "characters": 23903,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Magnesi_fluoride",
-        "https://en.wikipedia.org/wiki/Magnesium_fluoride"
+        "https://en.wikipedia.org/wiki/Magnesium_fluoride",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3852,9 +4038,10 @@
         "formula-MgI2"
       ],
       "sections": 8,
-      "characters": 24910,
+      "characters": 24540,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Magnesium_iodide"
+        "https://en.wikipedia.org/wiki/Magnesium_iodide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3863,10 +4050,11 @@
       "subjectIds": [
         "formula-MgO"
       ],
-      "sections": 7,
-      "characters": 24487,
+      "sections": 8,
+      "characters": 25661,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Magnesi_oxide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Magnesium_oxide"
       ]
     },
@@ -3877,9 +4065,10 @@
         "formula-MgSO3"
       ],
       "sections": 8,
-      "characters": 25420,
+      "characters": 24926,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Magnesi_sulfit",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Magnesium_sulfite"
       ]
     },
@@ -3890,7 +4079,7 @@
         "formula-Mn"
       ],
       "sections": 7,
-      "characters": 25938,
+      "characters": 25932,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Mangan",
         "https://en.wikipedia.org/wiki/Manganese",
@@ -3904,9 +4093,10 @@
         "formula-Mn(CH3COO)2"
       ],
       "sections": 8,
-      "characters": 29986,
+      "characters": 29335,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Manganese(II"
+        "https://en.wikipedia.org/wiki/Manganese(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3916,8 +4106,10 @@
         "formula-Mn(HCOO)2"
       ],
       "sections": 8,
-      "characters": 27066,
-      "externalSources": []
+      "characters": 26429,
+      "externalSources": [
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
+      ]
     },
     {
       "id": "mangan-ii-nitrat-mn-no3-2",
@@ -3926,10 +4118,11 @@
         "formula-Mn(NO3)2"
       ],
       "sections": 8,
-      "characters": 28482,
+      "characters": 27951,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Mangan(II",
-        "https://en.wikipedia.org/wiki/Manganese(II"
+        "https://en.wikipedia.org/wiki/Manganese(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3939,10 +4132,11 @@
         "formula-Mn(OH)2"
       ],
       "sections": 8,
-      "characters": 26936,
+      "characters": 26394,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Mangan(II",
-        "https://en.wikipedia.org/wiki/Manganese(II"
+        "https://en.wikipedia.org/wiki/Manganese(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3952,10 +4146,11 @@
         "formula-MnBr2"
       ],
       "sections": 8,
-      "characters": 26911,
+      "characters": 26498,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Mangan(II",
-        "https://en.wikipedia.org/wiki/Manganese(II"
+        "https://en.wikipedia.org/wiki/Manganese(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3965,10 +4160,11 @@
         "formula-MnC2O4"
       ],
       "sections": 8,
-      "characters": 24769,
+      "characters": 24238,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Mangan(II",
-        "https://en.wikipedia.org/wiki/Manganese_oxalate"
+        "https://en.wikipedia.org/wiki/Manganese_oxalate",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -3978,9 +4174,10 @@
         "formula-MnCl2"
       ],
       "sections": 8,
-      "characters": 28376,
+      "characters": 27964,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Mangan(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Manganese(II"
       ]
     },
@@ -3991,10 +4188,11 @@
         "formula-MnCO3"
       ],
       "sections": 8,
-      "characters": 27511,
+      "characters": 26970,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Mangan(II",
-        "https://en.wikipedia.org/wiki/Manganese(II"
+        "https://en.wikipedia.org/wiki/Manganese(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -4004,9 +4202,10 @@
         "formula-MnI2"
       ],
       "sections": 8,
-      "characters": 25153,
+      "characters": 24752,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Manganese(II"
+        "https://en.wikipedia.org/wiki/Manganese(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -4015,10 +4214,11 @@
       "subjectIds": [
         "formula-MnO"
       ],
-      "sections": 7,
-      "characters": 21400,
+      "sections": 8,
+      "characters": 22771,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Manganese(II"
+        "https://en.wikipedia.org/wiki/Manganese(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -4028,9 +4228,10 @@
         "formula-MnS"
       ],
       "sections": 8,
-      "characters": 25596,
+      "characters": 25186,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Manganese(II"
+        "https://en.wikipedia.org/wiki/Manganese(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -4040,9 +4241,10 @@
         "formula-MnSO4"
       ],
       "sections": 8,
-      "characters": 27588,
+      "characters": 27058,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Mangan(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Manganese(II"
       ]
     },
@@ -4053,9 +4255,10 @@
         "formula-Na2C2O4"
       ],
       "sections": 8,
-      "characters": 24666,
+      "characters": 24169,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Natri_oxalat",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Sodium_oxalate"
       ]
     },
@@ -4066,9 +4269,10 @@
         "formula-Na2CrO4"
       ],
       "sections": 8,
-      "characters": 23915,
+      "characters": 23420,
       "externalSources": [
-        "https://vi.wikipedia.org/wiki/Natri_chromat"
+        "https://vi.wikipedia.org/wiki/Natri_chromat",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -4077,9 +4281,11 @@
       "subjectIds": [
         "formula-Na2O"
       ],
-      "sections": 7,
-      "characters": 23443,
-      "externalSources": []
+      "sections": 8,
+      "characters": 24614,
+      "externalSources": [
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
+      ]
     },
     {
       "id": "na2zn-oh-4-na2zn-oh-4",
@@ -4088,7 +4294,7 @@
         "formula-Na2Zn(OH)4"
       ],
       "sections": 7,
-      "characters": 23550,
+      "characters": 23532,
       "externalSources": []
     },
     {
@@ -4098,9 +4304,10 @@
         "formula-Na3PO4"
       ],
       "sections": 8,
-      "characters": 23313,
+      "characters": 22805,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Natri_phosphat",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Sodium_phosphate"
       ]
     },
@@ -4111,7 +4318,7 @@
         "formula-NaAl(OH)4"
       ],
       "sections": 7,
-      "characters": 23523,
+      "characters": 23507,
       "externalSources": []
     },
     {
@@ -4121,7 +4328,7 @@
         "formula-NaAlO2"
       ],
       "sections": 7,
-      "characters": 20193,
+      "characters": 20183,
       "externalSources": []
     },
     {
@@ -4131,9 +4338,10 @@
         "formula-NaI"
       ],
       "sections": 8,
-      "characters": 26486,
+      "characters": 26119,
       "externalSources": [
-        "https://vi.wikipedia.org/wiki/Natri_iodide"
+        "https://vi.wikipedia.org/wiki/Natri_iodide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -4143,7 +4351,7 @@
         "formula-NaNO2"
       ],
       "sections": 7,
-      "characters": 21204,
+      "characters": 21196,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Natri_nitrit"
       ]
@@ -4155,10 +4363,11 @@
         "formula-NH4Br"
       ],
       "sections": 8,
-      "characters": 25272,
+      "characters": 24782,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Amoni_bromide",
-        "https://en.wikipedia.org/wiki/Ammonium_bromide"
+        "https://en.wikipedia.org/wiki/Ammonium_bromide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -4168,9 +4377,10 @@
         "formula-NH4CH3COO"
       ],
       "sections": 8,
-      "characters": 27325,
+      "characters": 26716,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Ammonium_acetate"
+        "https://en.wikipedia.org/wiki/Ammonium_acetate",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -4180,9 +4390,10 @@
         "formula-NH4I"
       ],
       "sections": 8,
-      "characters": 25553,
+      "characters": 25075,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Ammonium_iodide"
+        "https://en.wikipedia.org/wiki/Ammonium_iodide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -4192,7 +4403,7 @@
         "formula-Ni"
       ],
       "sections": 7,
-      "characters": 25727,
+      "characters": 25722,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Nickel",
         "https://en.wikipedia.org/wiki/Nickel",
@@ -4206,9 +4417,10 @@
         "formula-Ni(CH3COO)2"
       ],
       "sections": 8,
-      "characters": 29950,
+      "characters": 29308,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Nickel(II"
+        "https://en.wikipedia.org/wiki/Nickel(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -4218,8 +4430,10 @@
         "formula-Ni(HCOO)2"
       ],
       "sections": 8,
-      "characters": 25020,
-      "externalSources": []
+      "characters": 24392,
+      "externalSources": [
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
+      ]
     },
     {
       "id": "niken-ii-nitrat-ni-no3-2",
@@ -4228,9 +4442,10 @@
         "formula-Ni(NO3)2"
       ],
       "sections": 8,
-      "characters": 27952,
+      "characters": 27429,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Nickel(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Nickel(II"
       ]
     },
@@ -4241,10 +4456,11 @@
         "formula-Ni(OH)2"
       ],
       "sections": 8,
-      "characters": 29021,
+      "characters": 28487,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Nickel(II",
-        "https://en.wikipedia.org/wiki/Nickel(II"
+        "https://en.wikipedia.org/wiki/Nickel(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -4254,9 +4470,10 @@
         "formula-NiBr2"
       ],
       "sections": 8,
-      "characters": 26224,
+      "characters": 25818,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Nickel(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Nickel(II"
       ]
     },
@@ -4267,9 +4484,10 @@
         "formula-NiC2O4"
       ],
       "sections": 8,
-      "characters": 23917,
+      "characters": 23394,
       "externalSources": [
-        "https://vi.wikipedia.org/wiki/Nickel(II"
+        "https://vi.wikipedia.org/wiki/Nickel(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -4279,9 +4497,10 @@
         "formula-NiCl2"
       ],
       "sections": 8,
-      "characters": 28479,
+      "characters": 28074,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Nickel(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Nickel(II"
       ]
     },
@@ -4292,9 +4511,10 @@
         "formula-NiI2"
       ],
       "sections": 8,
-      "characters": 23224,
+      "characters": 22830,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Nickel(II"
+        "https://en.wikipedia.org/wiki/Nickel(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -4303,10 +4523,11 @@
       "subjectIds": [
         "formula-NiO"
       ],
-      "sections": 7,
-      "characters": 21581,
+      "sections": 8,
+      "characters": 22764,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Nickel(II"
+        "https://en.wikipedia.org/wiki/Nickel(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -4316,9 +4537,10 @@
         "formula-NiS"
       ],
       "sections": 8,
-      "characters": 23839,
+      "characters": 23436,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Nickel(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Millerite"
       ]
     },
@@ -4329,9 +4551,10 @@
         "formula-NiSO4"
       ],
       "sections": 8,
-      "characters": 28034,
+      "characters": 27512,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Nickel(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Nickel(II"
       ]
     },
@@ -4342,7 +4565,7 @@
         "formula-NO"
       ],
       "sections": 7,
-      "characters": 21505,
+      "characters": 21503,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Nit%C6%A1_monoxide",
         "https://en.wikipedia.org/wiki/Nitric_oxide"
@@ -4355,7 +4578,7 @@
         "formula-Pb"
       ],
       "sections": 7,
-      "characters": 21598,
+      "characters": 21595,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Ch%C3%AC",
         "https://en.wikipedia.org/wiki/Lead",
@@ -4369,9 +4592,10 @@
         "formula-Pb(CH3COO)2"
       ],
       "sections": 8,
-      "characters": 30534,
+      "characters": 29910,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Ch%C3%AC(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Lead(II"
       ]
     },
@@ -4382,8 +4606,10 @@
         "formula-Pb(HCOO)2"
       ],
       "sections": 8,
-      "characters": 24994,
-      "externalSources": []
+      "characters": 24384,
+      "externalSources": [
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
+      ]
     },
     {
       "id": "chi-ii-hidroxit-pb-oh-2",
@@ -4392,10 +4618,11 @@
         "formula-Pb(OH)2"
       ],
       "sections": 8,
-      "characters": 27055,
+      "characters": 26537,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Ch%C3%AC(II",
-        "https://en.wikipedia.org/wiki/Lead(II"
+        "https://en.wikipedia.org/wiki/Lead(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -4405,9 +4632,10 @@
         "formula-Pb3(PO4)2"
       ],
       "sections": 8,
-      "characters": 23312,
+      "characters": 22786,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Lead(II"
+        "https://en.wikipedia.org/wiki/Lead(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -4417,10 +4645,11 @@
         "formula-PbBr2"
       ],
       "sections": 8,
-      "characters": 22215,
+      "characters": 21823,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Ch%C3%AC(II",
-        "https://en.wikipedia.org/wiki/Lead(II"
+        "https://en.wikipedia.org/wiki/Lead(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -4430,9 +4659,10 @@
         "formula-PbC2O4"
       ],
       "sections": 8,
-      "characters": 23953,
+      "characters": 23446,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Lead(II"
+        "https://en.wikipedia.org/wiki/Lead(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -4442,10 +4672,11 @@
         "formula-PbCl2"
       ],
       "sections": 8,
-      "characters": 24328,
+      "characters": 23937,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Ch%C3%AC(II",
-        "https://en.wikipedia.org/wiki/Lead(II"
+        "https://en.wikipedia.org/wiki/Lead(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -4455,10 +4686,11 @@
         "formula-PbCO3"
       ],
       "sections": 8,
-      "characters": 29226,
+      "characters": 28709,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Ch%C3%AC(II",
-        "https://en.wikipedia.org/wiki/Lead_carbonate"
+        "https://en.wikipedia.org/wiki/Lead_carbonate",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -4468,9 +4700,10 @@
         "formula-PbCrO4"
       ],
       "sections": 8,
-      "characters": 24407,
+      "characters": 23902,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Ch%C3%AC(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Lead(II"
       ]
     },
@@ -4481,10 +4714,11 @@
         "formula-PbF2"
       ],
       "sections": 8,
-      "characters": 24215,
+      "characters": 23829,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Ch%C3%AC(II",
-        "https://en.wikipedia.org/wiki/Lead(II"
+        "https://en.wikipedia.org/wiki/Lead(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -4493,11 +4727,12 @@
       "subjectIds": [
         "formula-PbO"
       ],
-      "sections": 7,
-      "characters": 24414,
+      "sections": 8,
+      "characters": 25599,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Ch%C3%AC(II",
-        "https://en.wikipedia.org/wiki/Lead(II"
+        "https://en.wikipedia.org/wiki/Lead(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -4507,9 +4742,10 @@
         "formula-PbSO4"
       ],
       "sections": 8,
-      "characters": 23140,
+      "characters": 22634,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Ch%C3%AC(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Lead(II"
       ]
     },
@@ -4520,7 +4756,7 @@
         "formula-Sn"
       ],
       "sections": 7,
-      "characters": 21671,
+      "characters": 21668,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Tin",
         "https://en.wikipedia.org/wiki/Tin",
@@ -4534,10 +4770,11 @@
         "formula-SnBr2"
       ],
       "sections": 8,
-      "characters": 20730,
+      "characters": 20326,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Thi%E1%BA%BFc(II",
-        "https://en.wikipedia.org/wiki/Tin(II"
+        "https://en.wikipedia.org/wiki/Tin(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -4547,9 +4784,10 @@
         "formula-SnCl2"
       ],
       "sections": 8,
-      "characters": 22191,
+      "characters": 21788,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Thi%E1%BA%BFc(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Tin(II"
       ]
     },
@@ -4560,9 +4798,10 @@
         "formula-SnSO4"
       ],
       "sections": 8,
-      "characters": 21463,
+      "characters": 20943,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Tin(II"
+        "https://en.wikipedia.org/wiki/Tin(II",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -4572,8 +4811,10 @@
         "formula-Sr(CH3COO)2"
       ],
       "sections": 8,
-      "characters": 29003,
-      "externalSources": []
+      "characters": 28373,
+      "externalSources": [
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
+      ]
     },
     {
       "id": "stronti-fomat-sr-hcoo-2",
@@ -4582,8 +4823,10 @@
         "formula-Sr(HCOO)2"
       ],
       "sections": 8,
-      "characters": 26910,
-      "externalSources": []
+      "characters": 26294,
+      "externalSources": [
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
+      ]
     },
     {
       "id": "stronti-nitrat-sr-no3-2",
@@ -4592,10 +4835,11 @@
         "formula-Sr(NO3)2"
       ],
       "sections": 8,
-      "characters": 27766,
+      "characters": 27253,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Stronti_nitrat",
-        "https://en.wikipedia.org/wiki/Strontium_nitrate"
+        "https://en.wikipedia.org/wiki/Strontium_nitrate",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -4605,10 +4849,11 @@
         "formula-Sr(OH)2"
       ],
       "sections": 8,
-      "characters": 26969,
+      "characters": 26445,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Stronti_hydroxide",
-        "https://en.wikipedia.org/wiki/Strontium_hydroxide"
+        "https://en.wikipedia.org/wiki/Strontium_hydroxide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -4618,8 +4863,10 @@
         "formula-Sr3(PO4)2"
       ],
       "sections": 8,
-      "characters": 22311,
-      "externalSources": []
+      "characters": 21779,
+      "externalSources": [
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
+      ]
     },
     {
       "id": "stronti-bromua-srbr2",
@@ -4628,9 +4875,10 @@
         "formula-SrBr2"
       ],
       "sections": 8,
-      "characters": 26093,
+      "characters": 25695,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Strontium_bromide"
+        "https://en.wikipedia.org/wiki/Strontium_bromide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -4640,8 +4888,10 @@
         "formula-SrC2O4"
       ],
       "sections": 8,
-      "characters": 23418,
-      "externalSources": []
+      "characters": 22905,
+      "externalSources": [
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
+      ]
     },
     {
       "id": "stronti-clorua-srcl2",
@@ -4650,10 +4900,11 @@
         "formula-SrCl2"
       ],
       "sections": 8,
-      "characters": 28670,
+      "characters": 28273,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Stronti_chloride",
-        "https://en.wikipedia.org/wiki/Strontium_chloride"
+        "https://en.wikipedia.org/wiki/Strontium_chloride",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -4663,10 +4914,11 @@
         "formula-SrCO3"
       ],
       "sections": 8,
-      "characters": 29051,
+      "characters": 28528,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Stronti_carbonat",
-        "https://en.wikipedia.org/wiki/Strontium_carbonate"
+        "https://en.wikipedia.org/wiki/Strontium_carbonate",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -4676,9 +4928,10 @@
         "formula-SrF2"
       ],
       "sections": 8,
-      "characters": 23667,
+      "characters": 23275,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Strontium_fluoride"
+        "https://en.wikipedia.org/wiki/Strontium_fluoride",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -4688,9 +4941,10 @@
         "formula-SrI2"
       ],
       "sections": 8,
-      "characters": 27183,
+      "characters": 26797,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Strontium_iodide"
+        "https://en.wikipedia.org/wiki/Strontium_iodide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -4699,10 +4953,11 @@
       "subjectIds": [
         "formula-SrO"
       ],
-      "sections": 7,
-      "characters": 23729,
+      "sections": 8,
+      "characters": 24908,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Stronti_oxide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Strontium_oxide"
       ]
     },
@@ -4713,8 +4968,10 @@
         "formula-SrSO3"
       ],
       "sections": 8,
-      "characters": 23982,
-      "externalSources": []
+      "characters": 23470,
+      "externalSources": [
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
+      ]
     },
     {
       "id": "stronti-sunfat-srso4",
@@ -4723,9 +4980,10 @@
         "formula-SrSO4"
       ],
       "sections": 8,
-      "characters": 22852,
+      "characters": 22340,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Strontium_sulfate"
+        "https://en.wikipedia.org/wiki/Strontium_sulfate",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -4735,9 +4993,10 @@
         "formula-Zn(CH3COO)2"
       ],
       "sections": 8,
-      "characters": 29954,
+      "characters": 29362,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/K%E1%BA%BDm_acetat",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Zinc_acetate"
       ]
     },
@@ -4748,8 +5007,10 @@
         "formula-Zn(HCOO)2"
       ],
       "sections": 8,
-      "characters": 26806,
-      "externalSources": []
+      "characters": 26228,
+      "externalSources": [
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
+      ]
     },
     {
       "id": "kem-nitrat-zn-no3-2",
@@ -4758,10 +5019,11 @@
         "formula-Zn(NO3)2"
       ],
       "sections": 8,
-      "characters": 27828,
+      "characters": 27349,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/K%E1%BA%BDm_nitrat",
-        "https://en.wikipedia.org/wiki/Zinc_nitrate"
+        "https://en.wikipedia.org/wiki/Zinc_nitrate",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -4771,10 +5033,11 @@
         "formula-ZnBr2"
       ],
       "sections": 8,
-      "characters": 26752,
+      "characters": 26384,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/K%E1%BA%BDm_bromide",
-        "https://en.wikipedia.org/wiki/Zinc_bromide"
+        "https://en.wikipedia.org/wiki/Zinc_bromide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -4784,8 +5047,10 @@
         "formula-ZnC2O4"
       ],
       "sections": 8,
-      "characters": 23368,
-      "externalSources": []
+      "characters": 22889,
+      "externalSources": [
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
+      ]
     },
     {
       "id": "kem-clorua-zncl2",
@@ -4794,9 +5059,10 @@
         "formula-ZnCl2"
       ],
       "sections": 8,
-      "characters": 28339,
+      "characters": 27972,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/K%E1%BA%BDm_chloride",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Zinc_chloride"
       ]
     },
@@ -4807,9 +5073,10 @@
         "formula-ZnCO3"
       ],
       "sections": 8,
-      "characters": 27298,
+      "characters": 26809,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/K%E1%BA%BDm_carbonat",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Zinc_carbonate"
       ]
     },
@@ -4820,8 +5087,10 @@
         "formula-ZnI2"
       ],
       "sections": 8,
-      "characters": 24252,
-      "externalSources": []
+      "characters": 23896,
+      "externalSources": [
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
+      ]
     },
     {
       "id": "zno-zno",
@@ -4829,10 +5098,11 @@
       "subjectIds": [
         "formula-ZnO"
       ],
-      "sections": 7,
-      "characters": 23451,
+      "sections": 8,
+      "characters": 24636,
       "externalSources": [
-        "https://vi.wikipedia.org/wiki/K%E1%BA%BDm_oxide"
+        "https://vi.wikipedia.org/wiki/K%E1%BA%BDm_oxide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -4842,9 +5112,10 @@
         "formula-ZnS"
       ],
       "sections": 8,
-      "characters": 23416,
+      "characters": 23051,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/K%E1%BA%BDm_sulfide",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Zinc_sulfide"
       ]
     },
@@ -4855,7 +5126,7 @@
         "lab3d-330"
       ],
       "sections": 7,
-      "characters": 19549,
+      "characters": 19527,
       "externalSources": [
         "https://en.wikipedia.org/wiki/Oxalic_acid"
       ]
@@ -4867,7 +5138,7 @@
         "lab3d-331"
       ],
       "sections": 7,
-      "characters": 18303,
+      "characters": 18283,
       "externalSources": [
         "https://en.wikipedia.org/wiki/Potassium_iodate"
       ]
@@ -4879,7 +5150,7 @@
         "lab3d-332"
       ],
       "sections": 7,
-      "characters": 20872,
+      "characters": 20846,
       "externalSources": [
         "https://en.wikipedia.org/wiki/Sodium_bisulfite"
       ]
@@ -4891,7 +5162,7 @@
         "lab3d-333"
       ],
       "sections": 7,
-      "characters": 19699,
+      "characters": 19670,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/H%E1%BB%93_tinh_b%E1%BB%99t",
         "https://en.wikipedia.org/wiki/C6H10O5",
@@ -4905,7 +5176,7 @@
         "lab3d-335"
       ],
       "sections": 7,
-      "characters": 20711,
+      "characters": 20677,
       "externalSources": [
         "https://en.wikipedia.org/wiki/C6H14",
         "https://pubchem.ncbi.nlm.nih.gov/compound/8058"
@@ -4917,10 +5188,11 @@
       "subjectIds": [
         "lab3d-336"
       ],
-      "sections": 7,
-      "characters": 20854,
+      "sections": 8,
+      "characters": 21674,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%93ng",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding",
         "https://en.wikipedia.org/wiki/Copper(II"
       ]
     },
@@ -4930,10 +5202,11 @@
       "subjectIds": [
         "lab3d-337"
       ],
-      "sections": 7,
-      "characters": 20760,
+      "sections": 8,
+      "characters": 21595,
       "externalSources": [
-        "https://vi.wikipedia.org/wiki/Cobalt"
+        "https://vi.wikipedia.org/wiki/Cobalt",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -4942,10 +5215,11 @@
       "subjectIds": [
         "lab3d-338"
       ],
-      "sections": 7,
-      "characters": 19191,
+      "sections": 8,
+      "characters": 20017,
       "externalSources": [
-        "https://vi.wikipedia.org/wiki/Nickel"
+        "https://vi.wikipedia.org/wiki/Nickel",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -4954,10 +5228,11 @@
       "subjectIds": [
         "lab3d-339"
       ],
-      "sections": 7,
-      "characters": 20777,
+      "sections": 8,
+      "characters": 21599,
       "externalSources": [
-        "https://vi.wikipedia.org/wiki/S%E1%BA%AFt"
+        "https://vi.wikipedia.org/wiki/S%E1%BA%AFt",
+        "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
       ]
     },
     {
@@ -4967,7 +5242,7 @@
         "lab3d-340"
       ],
       "sections": 7,
-      "characters": 20749,
+      "characters": 20704,
       "externalSources": [
         "https://en.wikipedia.org/wiki/Bromothymol_blue",
         "https://pubchem.ncbi.nlm.nih.gov/compound/6450"
@@ -4980,7 +5255,7 @@
         "atom-He"
       ],
       "sections": 7,
-      "characters": 21632,
+      "characters": 21628,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Heli",
         "https://en.wikipedia.org/wiki/Helium",
@@ -4994,7 +5269,7 @@
         "atom-Be"
       ],
       "sections": 7,
-      "characters": 18670,
+      "characters": 18666,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Beri",
         "https://en.wikipedia.org/wiki/Beryllium",
@@ -5008,7 +5283,7 @@
         "atom-B"
       ],
       "sections": 7,
-      "characters": 19594,
+      "characters": 19593,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Bo",
         "https://en.wikipedia.org/wiki/Boron",
@@ -5022,7 +5297,7 @@
         "atom-N"
       ],
       "sections": 7,
-      "characters": 20515,
+      "characters": 20512,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Nit%C6%A1",
         "https://en.wikipedia.org/wiki/Nitrogen",
@@ -5036,7 +5311,7 @@
         "atom-O"
       ],
       "sections": 7,
-      "characters": 20191,
+      "characters": 20189,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/O",
         "https://en.wikipedia.org/wiki/Oxygen",
@@ -5050,7 +5325,7 @@
         "atom-F"
       ],
       "sections": 7,
-      "characters": 20313,
+      "characters": 20311,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Fluor",
         "https://en.wikipedia.org/wiki/Fluorine",
@@ -5064,7 +5339,7 @@
         "atom-Ne"
       ],
       "sections": 7,
-      "characters": 19682,
+      "characters": 19678,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Neon",
         "https://en.wikipedia.org/wiki/Neon",
@@ -5078,7 +5353,7 @@
         "atom-Si"
       ],
       "sections": 7,
-      "characters": 19662,
+      "characters": 19657,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Silic",
         "https://en.wikipedia.org/wiki/Si",
@@ -5092,7 +5367,7 @@
         "atom-Cl"
       ],
       "sections": 7,
-      "characters": 19956,
+      "characters": 19953,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Chlor",
         "https://en.wikipedia.org/wiki/Chlorine",
@@ -5106,7 +5381,7 @@
         "atom-Ar"
       ],
       "sections": 7,
-      "characters": 19375,
+      "characters": 19370,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Argon",
         "https://en.wikipedia.org/wiki/Argon",
@@ -5120,7 +5395,7 @@
         "atom-Sc"
       ],
       "sections": 7,
-      "characters": 20419,
+      "characters": 20413,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Scandi",
         "https://en.wikipedia.org/wiki/Scandium",
@@ -5134,7 +5409,7 @@
         "atom-Ti"
       ],
       "sections": 7,
-      "characters": 18352,
+      "characters": 18347,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Titani",
         "https://ciaaw.org/abridged-atomic-weights.htm"
@@ -5147,7 +5422,7 @@
         "atom-V"
       ],
       "sections": 7,
-      "characters": 19434,
+      "characters": 19429,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Vanadi",
         "https://en.wikipedia.org/wiki/V",
@@ -5161,7 +5436,7 @@
         "atom-Cr"
       ],
       "sections": 7,
-      "characters": 19887,
+      "characters": 19883,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Chromi",
         "https://en.wikipedia.org/wiki/Chromium",
@@ -5175,7 +5450,7 @@
         "atom-Ga"
       ],
       "sections": 7,
-      "characters": 19589,
+      "characters": 19585,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Gali",
         "https://en.wikipedia.org/wiki/Gallium",
@@ -5189,7 +5464,7 @@
         "atom-Ge"
       ],
       "sections": 7,
-      "characters": 19292,
+      "characters": 19285,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Germani",
         "https://en.wikipedia.org/wiki/Germanium",
@@ -5203,7 +5478,7 @@
         "atom-As"
       ],
       "sections": 7,
-      "characters": 18153,
+      "characters": 18149,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Arsenic",
         "https://en.wikipedia.org/wiki/Arsenic",
@@ -5217,7 +5492,7 @@
         "atom-Se"
       ],
       "sections": 7,
-      "characters": 19640,
+      "characters": 19635,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Seleni",
         "https://en.wikipedia.org/wiki/Se",
@@ -5231,7 +5506,7 @@
         "atom-Br"
       ],
       "sections": 7,
-      "characters": 17922,
+      "characters": 17918,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Brom",
         "https://en.wikipedia.org/wiki/Bromine",
@@ -5245,7 +5520,7 @@
         "atom-Kr"
       ],
       "sections": 7,
-      "characters": 18953,
+      "characters": 18946,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Krypton",
         "https://en.wikipedia.org/wiki/Krypton",
@@ -5259,7 +5534,7 @@
         "atom-Rb"
       ],
       "sections": 7,
-      "characters": 19509,
+      "characters": 19501,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Rubidi",
         "https://en.wikipedia.org/wiki/Rubidium",
@@ -5273,7 +5548,7 @@
         "atom-Sr"
       ],
       "sections": 7,
-      "characters": 19116,
+      "characters": 19107,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Stronti",
         "https://en.wikipedia.org/wiki/Strontium",
@@ -5287,7 +5562,7 @@
         "atom-Y"
       ],
       "sections": 7,
-      "characters": 18203,
+      "characters": 18197,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Y",
         "https://en.wikipedia.org/wiki/Y",
@@ -5301,7 +5576,7 @@
         "atom-Zr"
       ],
       "sections": 7,
-      "characters": 17312,
+      "characters": 17303,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Zirconi",
         "https://ciaaw.org/abridged-atomic-weights.htm"
@@ -5314,7 +5589,7 @@
         "atom-Nb"
       ],
       "sections": 7,
-      "characters": 18571,
+      "characters": 18564,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Niobi",
         "https://en.wikipedia.org/wiki/Niobium",
@@ -5328,7 +5603,7 @@
         "atom-Mo"
       ],
       "sections": 7,
-      "characters": 19446,
+      "characters": 19436,
       "externalSources": [
         "https://en.wikipedia.org/wiki/Molybdenum",
         "https://ciaaw.org/abridged-atomic-weights.htm"
@@ -5341,7 +5616,7 @@
         "atom-Tc"
       ],
       "sections": 7,
-      "characters": 19031,
+      "characters": 19021,
       "externalSources": [
         "https://en.wikipedia.org/wiki/Technetium"
       ]
@@ -5353,7 +5628,7 @@
         "atom-Ru"
       ],
       "sections": 7,
-      "characters": 18672,
+      "characters": 18663,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Rutheni",
         "https://en.wikipedia.org/wiki/Ru",
@@ -5367,7 +5642,7 @@
         "atom-Rh"
       ],
       "sections": 7,
-      "characters": 18689,
+      "characters": 18682,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Rhodi",
         "https://en.wikipedia.org/wiki/Rhodium",
@@ -5381,7 +5656,7 @@
         "atom-Pd"
       ],
       "sections": 7,
-      "characters": 19122,
+      "characters": 19113,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Paladi",
         "https://en.wikipedia.org/wiki/Palladium",
@@ -5395,7 +5670,7 @@
         "atom-In"
       ],
       "sections": 7,
-      "characters": 19299,
+      "characters": 19293,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Indi",
         "https://en.wikipedia.org/wiki/Indium",
@@ -5409,7 +5684,7 @@
         "atom-Sb"
       ],
       "sections": 7,
-      "characters": 18754,
+      "characters": 18746,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Antimon",
         "https://en.wikipedia.org/wiki/Antimony",
@@ -5423,7 +5698,7 @@
         "atom-Te"
       ],
       "sections": 7,
-      "characters": 18418,
+      "characters": 18409,
       "externalSources": [
         "https://ciaaw.org/abridged-atomic-weights.htm"
       ]
@@ -5435,7 +5710,7 @@
         "atom-I"
       ],
       "sections": 7,
-      "characters": 19336,
+      "characters": 19334,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Iod",
         "https://en.wikipedia.org/wiki/Iodine",
@@ -5449,7 +5724,7 @@
         "atom-Xe"
       ],
       "sections": 7,
-      "characters": 19279,
+      "characters": 19274,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Xenon",
         "https://en.wikipedia.org/wiki/Xe",
@@ -5463,7 +5738,7 @@
         "atom-Cs"
       ],
       "sections": 7,
-      "characters": 19548,
+      "characters": 19542,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Caesi",
         "https://ciaaw.org/abridged-atomic-weights.htm"
@@ -5476,7 +5751,7 @@
         "atom-Ba"
       ],
       "sections": 7,
-      "characters": 19857,
+      "characters": 19853,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Bari",
         "https://en.wikipedia.org/wiki/Barium",
@@ -5490,7 +5765,7 @@
         "atom-La"
       ],
       "sections": 7,
-      "characters": 19960,
+      "characters": 19951,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/La",
         "https://en.wikipedia.org/wiki/Lanthanum",
@@ -5504,7 +5779,7 @@
         "atom-Ce"
       ],
       "sections": 7,
-      "characters": 19318,
+      "characters": 19312,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Ceri",
         "https://en.wikipedia.org/wiki/Cerium",
@@ -5518,7 +5793,7 @@
         "atom-Pr"
       ],
       "sections": 7,
-      "characters": 20170,
+      "characters": 20158,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Praseodymi",
         "https://en.wikipedia.org/wiki/Praseodymium",
@@ -5532,7 +5807,7 @@
         "atom-Nd"
       ],
       "sections": 7,
-      "characters": 19449,
+      "characters": 19440,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/ND",
         "https://en.wikipedia.org/wiki/Neodymium",
@@ -5546,7 +5821,7 @@
         "atom-Pm"
       ],
       "sections": 7,
-      "characters": 19892,
+      "characters": 19882,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Promethi",
         "https://en.wikipedia.org/wiki/Promethium"
@@ -5559,7 +5834,7 @@
         "atom-Sm"
       ],
       "sections": 7,
-      "characters": 19366,
+      "characters": 19358,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Samari",
         "https://en.wikipedia.org/wiki/Samarium",
@@ -5573,7 +5848,7 @@
         "atom-Eu"
       ],
       "sections": 7,
-      "characters": 19322,
+      "characters": 19314,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Europi",
         "https://en.wikipedia.org/wiki/Europium",
@@ -5587,7 +5862,7 @@
         "atom-Gd"
       ],
       "sections": 7,
-      "characters": 19531,
+      "characters": 19521,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Gadolini",
         "https://en.wikipedia.org/wiki/Gadolinium",
@@ -5601,7 +5876,7 @@
         "atom-Tb"
       ],
       "sections": 7,
-      "characters": 18512,
+      "characters": 18505,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Terbi",
         "https://ciaaw.org/abridged-atomic-weights.htm"
@@ -5614,7 +5889,7 @@
         "atom-Dy"
       ],
       "sections": 7,
-      "characters": 19525,
+      "characters": 19515,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Dysprosi",
         "https://en.wikipedia.org/wiki/Dysprosium",
@@ -5628,7 +5903,7 @@
         "atom-Ho"
       ],
       "sections": 7,
-      "characters": 20353,
+      "characters": 20346,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Holmi",
         "https://en.wikipedia.org/wiki/Holmium",
@@ -5642,7 +5917,7 @@
         "atom-Er"
       ],
       "sections": 7,
-      "characters": 19835,
+      "characters": 19829,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Erbi",
         "https://en.wikipedia.org/wiki/Erbium",
@@ -5656,7 +5931,7 @@
         "atom-Tm"
       ],
       "sections": 7,
-      "characters": 18343,
+      "characters": 18336,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Thulium",
         "https://ciaaw.org/abridged-atomic-weights.htm"
@@ -5669,7 +5944,7 @@
         "atom-Yb"
       ],
       "sections": 7,
-      "characters": 18852,
+      "characters": 18843,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Yb",
         "https://en.wikipedia.org/wiki/Yb",
@@ -5683,7 +5958,7 @@
         "atom-Lu"
       ],
       "sections": 7,
-      "characters": 18660,
+      "characters": 18652,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Luteti",
         "https://en.wikipedia.org/wiki/Lutetium",
@@ -5697,7 +5972,7 @@
         "atom-Hf"
       ],
       "sections": 7,
-      "characters": 19390,
+      "characters": 19383,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Hafni",
         "https://en.wikipedia.org/wiki/Hafnium",
@@ -5711,7 +5986,7 @@
         "atom-Ta"
       ],
       "sections": 7,
-      "characters": 19202,
+      "characters": 19194,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Tantal",
         "https://en.wikipedia.org/wiki/Tantalum",
@@ -5725,7 +6000,7 @@
         "atom-W"
       ],
       "sections": 7,
-      "characters": 19402,
+      "characters": 19395,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/W",
         "https://en.wikipedia.org/wiki/W",
@@ -5739,7 +6014,7 @@
         "atom-Re"
       ],
       "sections": 7,
-      "characters": 18048,
+      "characters": 18041,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Rheni",
         "https://en.wikipedia.org/wiki/Re",
@@ -5753,7 +6028,7 @@
         "atom-Os"
       ],
       "sections": 7,
-      "characters": 19160,
+      "characters": 19154,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Osmi",
         "https://en.wikipedia.org/wiki/Osmium",
@@ -5767,7 +6042,7 @@
         "atom-Ir"
       ],
       "sections": 7,
-      "characters": 18800,
+      "characters": 18793,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Iridi",
         "https://en.wikipedia.org/wiki/Iridium",
@@ -5781,7 +6056,7 @@
         "atom-Pt"
       ],
       "sections": 7,
-      "characters": 19812,
+      "characters": 19804,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/PT",
         "https://en.wikipedia.org/wiki/Platinum",
@@ -5795,7 +6070,7 @@
         "atom-Au"
       ],
       "sections": 7,
-      "characters": 18271,
+      "characters": 18267,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/V%C3%A0ng",
         "https://en.wikipedia.org/wiki/Gold",
@@ -5809,7 +6084,7 @@
         "atom-Hg"
       ],
       "sections": 7,
-      "characters": 18461,
+      "characters": 18452,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Th%E1%BB%A7y_ng%C3%A2n",
         "https://en.wikipedia.org/wiki/Mercury",
@@ -5823,7 +6098,7 @@
         "atom-Tl"
       ],
       "sections": 7,
-      "characters": 18477,
+      "characters": 18469,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Thali",
         "https://en.wikipedia.org/wiki/Thallium",
@@ -5837,7 +6112,7 @@
         "atom-Bi"
       ],
       "sections": 7,
-      "characters": 19287,
+      "characters": 19280,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Bismuth",
         "https://en.wikipedia.org/wiki/Bismuth",
@@ -5851,7 +6126,7 @@
         "atom-Po"
       ],
       "sections": 7,
-      "characters": 20028,
+      "characters": 20020,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Poloni",
         "https://en.wikipedia.org/wiki/Po"
@@ -5864,7 +6139,7 @@
         "atom-At"
       ],
       "sections": 7,
-      "characters": 20140,
+      "characters": 20132,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Astatin",
         "https://en.wikipedia.org/wiki/Astatine"
@@ -5877,7 +6152,7 @@
         "atom-Rn"
       ],
       "sections": 7,
-      "characters": 20026,
+      "characters": 20021,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Radon",
         "https://en.wikipedia.org/wiki/Radon"
@@ -5890,7 +6165,7 @@
         "atom-Fr"
       ],
       "sections": 7,
-      "characters": 19765,
+      "characters": 19757,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Franci",
         "https://en.wikipedia.org/wiki/Francium"
@@ -5903,7 +6178,7 @@
         "atom-Ra"
       ],
       "sections": 7,
-      "characters": 19726,
+      "characters": 19720,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Ra",
         "https://en.wikipedia.org/wiki/Ra"
@@ -5916,7 +6191,7 @@
         "atom-Ac"
       ],
       "sections": 7,
-      "characters": 18837,
+      "characters": 18829,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Actini",
         "https://en.wikipedia.org/wiki/Actinium"
@@ -5929,7 +6204,7 @@
         "atom-Th"
       ],
       "sections": 7,
-      "characters": 19156,
+      "characters": 19149,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Thori",
         "https://ciaaw.org/abridged-atomic-weights.htm"
@@ -5942,7 +6217,7 @@
         "atom-Pa"
       ],
       "sections": 7,
-      "characters": 18647,
+      "characters": 18635,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Pa",
         "https://en.wikipedia.org/wiki/Pa",
@@ -5956,7 +6231,7 @@
         "atom-U"
       ],
       "sections": 7,
-      "characters": 17580,
+      "characters": 17574,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/U",
         "https://en.wikipedia.org/wiki/U",
@@ -5970,7 +6245,7 @@
         "atom-Np"
       ],
       "sections": 7,
-      "characters": 19279,
+      "characters": 19270,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Neptuni",
         "https://en.wikipedia.org/wiki/Neptunium"
@@ -5983,7 +6258,7 @@
         "atom-Pu"
       ],
       "sections": 7,
-      "characters": 19300,
+      "characters": 19291,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Plutoni",
         "https://en.wikipedia.org/wiki/Plutonium"
@@ -5996,7 +6271,7 @@
         "atom-Am"
       ],
       "sections": 7,
-      "characters": 18760,
+      "characters": 18751,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Americi",
         "https://en.wikipedia.org/wiki/Americium"
@@ -6009,7 +6284,7 @@
         "atom-Cm"
       ],
       "sections": 7,
-      "characters": 18330,
+      "characters": 18324,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Curium",
         "https://en.wikipedia.org/wiki/Curium"
@@ -6022,7 +6297,7 @@
         "atom-Bk"
       ],
       "sections": 7,
-      "characters": 19038,
+      "characters": 19029,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Berkeli",
         "https://en.wikipedia.org/wiki/Berkelium"
@@ -6035,7 +6310,7 @@
         "atom-Cf"
       ],
       "sections": 7,
-      "characters": 18705,
+      "characters": 18694,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Californi",
         "https://en.wikipedia.org/wiki/Californium"
@@ -6048,7 +6323,7 @@
         "atom-Es"
       ],
       "sections": 7,
-      "characters": 18279,
+      "characters": 18268,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Einsteini",
         "https://en.wikipedia.org/wiki/Einsteinium"
@@ -6061,7 +6336,7 @@
         "atom-Fm"
       ],
       "sections": 7,
-      "characters": 18542,
+      "characters": 18535,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Fermi",
         "https://en.wikipedia.org/wiki/Fermium"
@@ -6074,7 +6349,7 @@
         "atom-Md"
       ],
       "sections": 7,
-      "characters": 17883,
+      "characters": 17872,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Mendelevi",
         "https://en.wikipedia.org/wiki/MD"
@@ -6087,7 +6362,7 @@
         "atom-No"
       ],
       "sections": 7,
-      "characters": 17795,
+      "characters": 17787,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/No",
         "https://en.wikipedia.org/wiki/No"
@@ -6100,7 +6375,7 @@
         "atom-Lr"
       ],
       "sections": 7,
-      "characters": 17947,
+      "characters": 17937,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Lawrenci",
         "https://en.wikipedia.org/wiki/LR"
@@ -6113,7 +6388,7 @@
         "atom-Rf"
       ],
       "sections": 7,
-      "characters": 18682,
+      "characters": 18669,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Rutherfordi",
         "https://en.wikipedia.org/wiki/Rutherfordium"
@@ -6126,7 +6401,7 @@
         "atom-Db"
       ],
       "sections": 7,
-      "characters": 17731,
+      "characters": 17724,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Dubni",
         "https://en.wikipedia.org/wiki/Dubnium"
@@ -6139,7 +6414,7 @@
         "atom-Sg"
       ],
       "sections": 7,
-      "characters": 18664,
+      "characters": 18654,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Seaborgi",
         "https://en.wikipedia.org/wiki/Seaborgium"
@@ -6152,7 +6427,7 @@
         "atom-Bh"
       ],
       "sections": 7,
-      "characters": 18525,
+      "characters": 18518,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Bohri",
         "https://en.wikipedia.org/wiki/Bohrium"
@@ -6165,7 +6440,7 @@
         "atom-Hs"
       ],
       "sections": 7,
-      "characters": 17740,
+      "characters": 17733,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Hassi",
         "https://en.wikipedia.org/wiki/Hassium"
@@ -6178,7 +6453,7 @@
         "atom-Mt"
       ],
       "sections": 7,
-      "characters": 17788,
+      "characters": 17778,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Meitneri",
         "https://en.wikipedia.org/wiki/MT"
@@ -6191,7 +6466,7 @@
         "atom-Ds"
       ],
       "sections": 7,
-      "characters": 17813,
+      "characters": 17801,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Darmstadti",
         "https://en.wikipedia.org/wiki/Darmstadtium"
@@ -6204,7 +6479,7 @@
         "atom-Rg"
       ],
       "sections": 7,
-      "characters": 17925,
+      "characters": 17914,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Roentgeni",
         "https://en.wikipedia.org/wiki/Roentgenium"
@@ -6217,7 +6492,7 @@
         "atom-Cn"
       ],
       "sections": 7,
-      "characters": 18260,
+      "characters": 18249,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Copernici",
         "https://en.wikipedia.org/wiki/Copernicium"
@@ -6230,7 +6505,7 @@
         "atom-Nh"
       ],
       "sections": 7,
-      "characters": 18506,
+      "characters": 18498,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Nihoni",
         "https://en.wikipedia.org/wiki/Nihonium"
@@ -6243,7 +6518,7 @@
         "atom-Fl"
       ],
       "sections": 7,
-      "characters": 18601,
+      "characters": 18592,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Flerovi",
         "https://en.wikipedia.org/wiki/Flerovium"
@@ -6256,7 +6531,7 @@
         "atom-Mc"
       ],
       "sections": 7,
-      "characters": 17708,
+      "characters": 17699,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/MC_(%C4%91%E1%BB%8Bnh_h%C6%B0%E1%BB%9Bng",
         "https://en.wikipedia.org/wiki/Moscovium"
@@ -6269,7 +6544,7 @@
         "atom-Lv"
       ],
       "sections": 7,
-      "characters": 18033,
+      "characters": 18022,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Livermori",
         "https://en.wikipedia.org/wiki/LV"
@@ -6282,7 +6557,7 @@
         "atom-Ts"
       ],
       "sections": 7,
-      "characters": 17821,
+      "characters": 17811,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Tennessine",
         "https://en.wikipedia.org/wiki/Tennessine"
@@ -6295,7 +6570,7 @@
         "atom-Og"
       ],
       "sections": 7,
-      "characters": 18450,
+      "characters": 18441,
       "externalSources": [
         "https://vi.wikipedia.org/wiki/Oganesson",
         "https://en.wikipedia.org/wiki/Og"

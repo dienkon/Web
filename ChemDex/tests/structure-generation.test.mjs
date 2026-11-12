@@ -42,16 +42,50 @@ test('hydrates, nested groups, Unicode subscripts and all 118 elements are suppo
   const all=[...json('shared/compounds.json'),...catalog];
   for(const e of json('shared/elements.json'))assert.ok(all.some(r=>r.formula===e.symbol),e.symbol);
 });
-test('every multi-atom catalog substance generates realistic 3D bonds while preserving isomer provenance',()=>{
+test('molecular illustrations remain connected while components keep separate ion groups and isomer provenance',()=>{
   for(const r of catalog.filter(r=>['HCOOCH3','CH3OCH3','C6H12'].includes(r.formula)))assert.equal(r.structure,undefined,r.formula);
   for(const r of catalog.filter(r=>r.atomCount>1)){
     const model=generateStructure(r);
-    assert.ok(model.bonds.length>=model.atoms.length-1,`${r.id} (${r.formula}) must be fully bonded`);
+    if(model.componentLayout){
+      assert.ok(model.groups.length);
+      for(const b of model.bonds)assert.equal(model.atoms[b.a].componentGroup,model.atoms[b.b].componentGroup,r.id);
+    }else if(model.mode==='idealized'){
+      const seen=new Set(),visit=i=>{if(seen.has(i))return;seen.add(i);for(const b of model.bonds){if(b.a===i)visit(b.b);else if(b.b===i)visit(b.a);}};visit(0);
+      assert.equal(seen.size,model.atoms.length,r.id);
+    }
   }
   const butane=generateStructure({formula:'C4H10'});
   assert.equal(butane.mode,'idealized');assert.equal(butane.bonds.length,13);
   const salt=catalog.find(r=>r.formula==='Al2(SO4)3');
-  const ionic=generateStructure(salt);assert.equal(ionic.mode,'ions');assert.equal(ionic.atoms.length,17);assert.ok(ionic.bonds.length>=16);
+  const ionic=generateStructure(salt);assert.equal(ionic.mode,'ions');assert.equal(ionic.atoms.length,17);assert.equal(ionic.bonds.length,12);assert.equal(ionic.groups.length,5);
+});
+
+test('salts, mixed-valence oxides and hydrates preserve composition and charge without invented inter-group bonds',()=>{
+  const definitions=json('shared/ionic-components.generated.json').entries;
+  for(const [formula,parts]of Object.entries(definitions)){
+    const model=generateStructure({formula}),actual={};
+    assert.ok(model.componentLayout,formula);
+    for(const a of model.atoms)actual[a.elem]=(actual[a.elem]??0)+1;
+    assert.deepEqual(actual,parseFormula(formula));
+    assert.equal(model.groups.reduce((n,g)=>n+g.charge,0),0,formula);
+    for(const b of model.bonds)assert.equal(model.atoms[b.a].componentGroup,model.atoms[b.b].componentGroup,formula);
+  }
+  const oxide=generateStructure({formula:'Fe3O4'});assert.deepEqual(oxide.groups.filter(g=>g.formula==='Fe').map(g=>g.charge),[2,3,3]);
+  const hydrate=generateStructure({formula:'CuSO4·5H2O'});assert.equal(hydrate.groups.length,7);assert.equal(hydrate.bonds.length,14);
+  assert.equal(hydrate.groups.filter(g=>g.formula==='H2O').length,5);
+  for(const group of hydrate.groups.filter(g=>g.formula==='H2O'))for(const i of group.atomIndices.filter(i=>hydrate.atoms[i].elem==='H'))assert.equal(hydrate.bonds.filter(b=>b.a===i||b.b===i).length,1);
+  const peroxide=generateStructure({formula:'Na2O2'});assert.equal(peroxide.bonds.length,1);assert.equal(peroxide.bonds[0].order,1);
+  const network=generateStructure({formula:'SiO2'});assert.equal(network.bonds.length,0);assert.equal(network.mode,'composition');
+});
+
+test('component SDF exports restore whole-group charges and invalid optional metadata cannot relabel atoms',()=>{
+  const model=generateStructure({formula:'Al2(SO4)3'}),raw=toSDF(model),restored=readSDF(raw);
+  assert.deepEqual(restored.groups,model.groups);
+  assert.ok(restored.componentLayout);assert.equal(restored.bonds.length,12);
+  const broken=raw.replace(JSON.stringify(model.groups),'[{"id":0,"formula":"Na","charge":1,"atomIndices":[999999]}]');
+  assert.equal(readSDF(broken).groups,undefined);
+  const badDefinition=generateStructure({formula:'NaCl',ions:[{formula:'Na',count:1,charge:2},{formula:'Cl',count:1,charge:-1}]});
+  assert.equal(badDefinition.mode,'composition');assert.equal(badDefinition.bonds.length,0);
 });
 test('large valid models export every atom using V3000; invalid input fails safely',()=>{
   const m=generateStructure({formula:'C1000H1000'}),sdf=toSDF(m);

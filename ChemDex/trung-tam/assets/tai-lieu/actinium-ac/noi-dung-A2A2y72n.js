@@ -1,0 +1,163 @@
+const n="actinium-ac",h="actinium-ac",t="reference/actinium-ac/index.json",i=["ho-so-368a666b8450"],c="Actinium (Ac) — Hồ sơ khởi nguyên từ bụi sao vũ trụ đến phòng thí nghiệm hiện đại",g="Ban Biên Tập Biên Niên Sử Hóa Học · ChemDex",u="nguyento",a="Phóng sự khoa học chuyên sâu về Actinium (Ac): lần theo cội nguồn lịch sử từ mốc 1899 (Debierne), 1902 (Giesel độc lập), giải mã kiến trúc không gian 3 chiều và các con đường điều chế thực nghiệm.",o="/assets/library/substances/actinium-ac.svg",k="Ac",r=["Biên niên sử nguyên tố","Ac"],m=["Actinium","Ac"],l=["atom-Ac"],e="reference",v=21,p={formula:"Ac",representativeId:"atom-Ac",counts:{Ac:1},mass:227,material:!1,reactionIds:[]},s=`## Câu chuyện: Biên niên sử khởi nguyên và hành trình nhân loại định danh Actinium (Ac)
+
+Nếu lật mở những trang biên niên sử của khoa học tự nhiên, ít ai ngờ rằng đằng sau ký hiệu hóa học ngắn gọn **Ac** của **Actinium** lại là cả một cuộc hành trình kéo dài hàng thế kỷ — nơi những nhà giả kim cổ đại, những người thợ mỏ cần mẫn và các nhà hóa học thực nghiệm hiện đại từng bước bóc tách từng lớp bí ẩn của vật chất.
+
+Theo hồ sơ bách khoa trực tuyến từ [Wikipedia Tiếng Việt — Actini](https://vi.wikipedia.org/wiki/Actini), bản chất và lịch sử của chất này được ghi nhận cụ thể như sau: Actini (ác-ti-ni) là một nguyên tố hóa học phóng xạ, có số nguyên tử là 89 và ký hiệu là Ac, được phát hiện năm 1899. Đây là nguyên tố phi nguyên thủy đầu tiên được cô lập. Poloni, radi và radon được quan sát trước actini, nhưng mãi đến năm 1902 chúng mới được cô lập. Actini được dùng để đặt tên cho nhóm actini, một nhóm gồm 15 nguyên tố tương tự giữa actini và lawrenci trong bảng tuần hoàn.
+
+Là một nguyên tố nặng với hành trình kiến tạo đầy kịch tính, **Actinium (Ac)** được tôi luyện từ những sự kiện vũ trụ khốc liệt nhất — những vụ va chạm dữ dội giữa các sao neutron hoặc siêu tân tinh giàu neutron, để lại những mạch quặng quý giá sâu trong lòng các tầng địa chất Trái Đất. Trong lịch sử văn minh nhân loại, khoảnh khắc định danh và cô lập được **Actinium** đánh dấu bước ngoặt lớn gắn liền với công trình của **André-Louis Debierne (1899); Friedrich Oskar Giesel phát hiện độc lập năm 1902.** vào thời điểm **1899 (Debierne), 1902 (Giesel độc lập)** tại **Braunschweig, Đức**. Tên gọi quốc tế và ký hiệu **Ac** bắt nguồn từ danh pháp Latinh **Actinium**. Debierne công bố actinium năm 1899 tại Paris; Giesel phát hiện độc lập năm 1902. Thành phần mẫu ban đầu và quyền ưu tiên từng được tranh luận. Tuy nhiên, trước đó vào năm 1899, nhà hóa học người Pháp André-Louis Debierne đã phát hiện một nguyên tố phóng xạ mới trong các sản phẩm của Pitchblende và đặt tên là Actinium. Phát hiện của Debierne được công nhận là phát hiện chính thức của nguyên tố. Tên Actinium bắt nguồn từ tiếng Hy Lạp aktis/aktinos, nghĩa là “tia sáng”, do tính phóng xạ mạnh của nguyên tố. Trong tự nhiên, Actinium gắn liền với các vỉa khoáng vật đặc trưng như **Các quặng Uranium như Uraninite/Pitchblende, với lượng cực nhỏ**.
+
+### Dấu ấn nhà khoa học tiên phong: Chân dung và di sản của Glenn Theodore Seaborg (Gơ-len Si-boóc)
+
+Trong lịch sử khám phá và làm sáng tỏ bản chất của **Actinium (Ac)**, dấu ấn thực nghiệm sâu sắc nhất gắn liền với tên tuổi của **Glenn Theodore Seaborg** (1912 – 1999) — nhà thám hiểm hạt nhân siêu urani và người duy nhất có nguyên tố mang tên mình khi còn sống.
+
+*“Việc sắp xếp lại Bảng tuần hoàn để tạo ra hàng họ Actini là sự thay đổi cấu trúc căn bản nhất kể từ thời Dmitri Mendeleev.”* — Lời đúc kết nổi tiếng này không chỉ là kim chỉ nam nghiên cứu của Glenn Theodore Seaborg mà còn phản ánh tinh thần thực nghiệm bất khuất của thời đại khai sáng khoa học.
+
+**Nghị lực sống & Thăng trầm khoa học**: Seaborg sinh ra tại thị trấn khai thác mỏ Ishpeming (Michigan) trong một gia đình công nhân gốc Thụy Điển nghèo. Cậu bé Glenn phải làm phụ xe tải, hái hoa quả thuê và làm công nhân xưởng cưa để tự kiếm tiền học đại học tại UCLA và UC Berkeley trong thời kỳ Đại suy thoái kinh tế 1930. Năm 1942, khi mới 30 tuổi, ông được điều động vào Dự án Manhattan tối mật tại Phòng thí nghiệm Luyện kim Chicago với trọng trách tối thượng: tìm cách tách chiết vài microgam Plutonium vừa tạo thành trong lò phản ứng hạt nhân để chế tạo quả bom nguyên tử đầu tiên kết thúc Thế chiến II. Áp lực an ninh quân sự và hiểm họa nhiễm độc bức xạ alpha chết người luôn rình rập hàng ngày.
+
+**Giai thoại phòng thí nghiệm & Phong cách làm việc**: Seaborg lập nên một kỷ lục Guinness vô tiền khoáng hậu: ông là người nắm giữ bằng sáng chế đối với hai nguyên tố hóa học là Americium (Am, Z=95) và Curium (Cm, Z=96) — người duy nhất từng "sở hữu bằng sáng chế" cho một nguyên tố tự nhiên trong vũ trụ! Năm 1944, ông đưa ra ý tưởng táo bạo: rút 14 nguyên tố sau Actini ra khỏi phần thân chính của Bảng tuần hoàn để xếp thành một hàng riêng biệt gọi là "Họ Actini" (Actinide series) tương tự như họ Lantan. Các đồng nghiệp cảnh báo ông rằng ý tưởng này sẽ phá hủy danh tiếng khoa học của ông, nhưng Seaborg kiên quyết bảo vệ chân lý và được chứng minh hoàn toàn đúng, mang về cho ông Giải Nobel Hóa học năm 1951 (khi mới 39 tuổi). Năm 1997, nguyên tố số 106 chính thức được IUPAC đặt tên là Seaborgium (Sg) — lần đầu tiên trong lịch sử một nguyên tố được đặt tên theo một nhà khoa học đang còn sống.
+
+**Đột phá thực nghiệm lịch sử**: 1. Khám phá và Đồng phát hiện 10 Nguyên tố Siêu Urani (Transuranic Elements): Plutonium (Pu, 1940), Americium (Am, 1944), Curium (Cm, 1944), Berkelium (Bk, 1949), Californium (Cf, 1950), Einsteinium (Es, 1952), Fermium (Fm, 1953), Mendelevium (Md, 1955), Nobelium (No, 1958) và Seaborgium (Sg, 1974).
+2. Khám phá Đồng vị Pu-239: Nhiên liệu hạt nhân phân hạch chủ đạo của lò phản ứng hạt nhân và vũ khí hạt nhân.
+3. Khám phá Hàng trăm Đồng vị Phóng xạ Y học: Điển hình là Iot-131 (điều trị ung thư tuyến giáp — chính đồng vị này đã cứu sống mẹ của Seaborg khi bà bị bệnh tuyến giáp nặng), Technetium-99m (chẩn đoán hình ảnh y học phổ biến nhất thế giới), Coban-60 và Sắt-59.
+4. Tái cấu trúc Bảng tuần hoàn hiện đại với hai hàng họ Lantan và họ Actini đặt tách biệt ở đáy bảng.
+
+**Thiết bị phòng thí nghiệm đặc chế tiêu biểu**:
+
+- **Máy gia tốc hạt Cyclotron 60-inch Lawrence Berkeley (60-Inch Berkeley Cyclotron)**: Máy gia tốc hạt nhân khổng lồ sử dụng từ trường và điện trường cao tần gia tốc hạt đơteri và hạt alpha bắn phá bia kim loại urani tạo ra các nguyên tố siêu urani.
+- **Hộp găng tay thao tác phóng xạ vi lượng (Ultra-Microchemical Glovebox)**: Hộp kín bọc chì hút áp suất âm có găng tay cao su dày và kính chì bảo vệ, kết hợp kính hiển vi vi thao tác để cân đong khối lượng chất phóng xạ chỉ vài phần triệu gam.
+
+**Dấu mốc phản ứng gắn liền với công trình của Glenn Theodore Seaborg**:
+
+- Phương trình phản ứng bước ngoặt: \`238_92U + 2_1H -> 238_93Np + 2 1_0n  sau do  238_93Np -> 238_94Pu + beta-\`
+  *Hiện tượng quan sát thực tế*: Bia urani sau khi chiếu xạ xuất hiện dấu vết phóng xạ alpha mới; bằng phương pháp kết tinh đồng kết tủa với lantan florua, Seaborg cô lập được vài picogam kim loại Plutoni đầu tiên trên thế giới.
+  *Ghi chú lịch sử*: Khoảnh khắc đêm ngày 23/2/1941 tại phòng 307 Hall Gilman khai sinh ra nguyên tố Plutoni.
+
+**Bài học phương pháp luận cho học sinh GDPT**: Seaborg hoàn thiện diện mạo Bảng tuần hoàn hiện đại 118 nguyên tố mà học sinh nhìn thấy trên tường lớp học ngày nay. Trong GDPT 2018 (Hóa học 10 - Cấu tạo nguyên tử & Bảng tuần hoàn), họ Actini và các nguyên tố nhân tạo siêu nặng là minh chứng sống động cho sự tiếp nối không ngừng nghỉ của khoa học.
+
+![Khởi nguyên lịch sử và hành trình khám phá Actinium (Ac)](/assets/library/element-actinide.svg)
+*Hình 1. Bối cảnh lịch sử phát hiện, nguồn gốc tự nhiên và tiến trình định danh khoa học của Actinium (Ac).*
+
+## Lần theo thành phần nguyên tử: Giải phẫu kiến trúc không gian và bản chất liên kết của Actinium
+
+Để hiểu vì sao **Actinium (Ac)** lại mang những tính chất vật lý và hóa học đặc thù, chúng ta cần đi sâu vào "bản thiết kế hình học" của chất này. Một đơn vị công thức **Ac** được liên kết chặt chẽ từ **1 nguyên tử** thuộc **1 nguyên tố hóa học**:
+
+- **Nguyên tố Actinium (Ac)**: Góp mặt **1 nguyên tử** trong một đơn vị cấu trúc phân tử. Các nguyên tử Actinium phối hợp nhịp nhàng cùng các nguyên tử đồng hành để tạo nên bộ khung không gian bền vững, định hình trực tiếp diện mạo và các đặc tính hóa học cốt lõi của **Actinium**.
+
+Ở trạng thái đơn chất, **Actinium (Ac)** mang trọn vẹn phong thái và tính chất đặc trưng của nhóm **nguyên tố**. Trong mạng lưới cấu trúc tự nhiên (như Lập phương tâm diện (FCC)), các nguyên tử **Actinium** gắn kết với nhau bằng những liên kết bền vững, tạo nên độ cứng, nhiệt độ chuyển pha và khả năng tương tác riêng biệt khi đặt trong môi trường thử nghiệm.
+
+![Minh họa cấu trúc của Actinium (Ac)](/assets/library/crystal-bcc.svg)
+*Hình 2. Minh họa các cách đọc cấu trúc. Dữ liệu của mô hình tương tác, điều kiện pha và nguồn tọa độ được ghi riêng bên dưới mô hình.*
+
+| Chỉ tiêu nhận diện & Cấu trúc 3D | Tư liệu xác thực từ hệ thống ChemDex |
+|---|---|
+| Tên chất & Danh pháp quốc tế | **Actinium** (Actinium) |
+| Công thức hóa học thực nghiệm | **Ac**  |
+| Hình thái không gian 3 chiều | Đơn chất tự nhiên () |
+| Quy mô cấu trúc vi mô | **1 nguyên tử** (1× Ac) |
+| Trạng thái & Sắc thái nhận diện | Rắn / Dung dịch thực nghiệm |
+| Phòng quan sát 3D tương tác | [Mở mô hình xoay 360° và kiểm tra góc liên kết](/tien-ich/cau-truc-3d/?compound=atom-Ac) |
+
+Người đọc có thể trực tiếp xoay mô hình 360°, bật/tắt nhãn nguyên tử và kiểm tra độ dài từng liên kết (tính bằng đơn vị Ångström) của chất này tại [Phòng quan sát Cấu trúc & Liên kết 3D — Actinium](/tien-ich/cau-truc-3d/?compound=atom-Ac).
+
+## Trọng tâm kiến thức Hóa học GDPT (THCS & THPT): Cấu trúc, Nhiệt động lực & Cơ chế
+
+Trong Chương trình Giáo dục phổ thông 2018 (môn Khoa học tự nhiên THCS & môn Hóa học THPT Lớp Hóa học 10), **Actinium (Ac)** là đối tượng trọng tâm thuộc mạch nội dung **“Bản chất liên kết ion, liên kết cộng hóa trị, liên kết hiđro và tương tác van der Waals”** (Các bài học cốt lõi liên quan: *Hóa học 10 - Chương 3: Liên kết hóa học (Bài 7: Quy tắc Octet), Hóa học 10 - Chương 3: Liên kết hóa học (Bài 8: Liên kết ion), Hóa học 10 - Chương 3: Liên kết hóa học (Bài 9: Liên kết cộng hóa trị & Lai hóa), Hóa học 10 - Chương 3: Liên kết hóa học (Bài 10: Tương tác van der Waals và liên kết hydrogen), KHTN 7 - Bài: Liên kết hóa học*).
+
+### 1. Nguyên lý lý thuyết & Quy luật khoa học chi phối
+
+Nguyên tử tạo liên kết để đạt cấu hình electron bão hòa bền vững của khí hiếm theo quy tắc bát tử (Octet rule: 8 electron lớp ngoài cùng, hoặc 2 electron kiểu Heli). Tùy thuộc vào hiệu độ âm điện Δχ, liên kết hóa học nội phân tử được chia thành liên kết ion và liên kết cộng hóa trị (không cực, phân cực, phối trí). Bên cạnh đó, các tương tác yếu liên phân tử (liên kết hiđro và lực van der Waals) đóng vai trò quyết định đến nhiệt độ sôi, trạng thái tồn tại và tính chất sinh học kỳ diệu của vật chất.
+
+- **Quy tắc Octet (Bát tử)**: Nguyên tử có xu hướng nhường, nhận hoặc góp chung electron để đạt lớp vỏ ngoài cùng 8 electron (hoặc 2 electron như He).
+- **Quy tắc hiệu độ âm điện Pauling**: Δχ < 0.4: CHT không phân cực; 0.4 ≤ Δχ < 1.7: CHT phân cực; Δχ ≥ 1.7: Liên kết ion.
+- **Điều kiện tạo liên kết hiđro**: Nguyên tử H liên kết trực tiếp với F, O, N tương tác với cặp electron chưa chia của nguyên tử F, O, N khác.
+
+### 2. Phân tích sư phạm chuyên sâu đối với Actinium (Ac)
+
+### 1. Quy tắc bát tử (Octet Rule)
+Khi tạo thành liên kết hóa học, các nguyên tử có xu hướng nhường, nhận hoặc góp chung electron để đạt được cấu hình electron bền vững gồm 8 electron ở lớp ngoài cùng (hoặc 2 electron như khí hiếm Helium).
+- Các kim loại điển hình (nhóm IA, IIA) có xu hướng **nhường 1, 2 electron** để tạo thành cation mang điện tích dương có lớp vỏ bão hòa của khí hiếm chu kỳ trước.
+- Các phi kim điển hình (nhóm VIA, VIIA) có xu hướng **nhận 1, 2 electron** để tạo thành anion mang điện tích âm có lớp vỏ bão hòa của khí hiếm cùng chu kỳ.
+- Ngoại lệ bát tử: Một số phân tử có số electron hóa trị không đủ 8 (thiếu electron như $BF_3$, $BeCl_2$) hoặc mở rộng bát tử lên 10, 12 electron nhờ sự tham gia của phân lớp d trống (như $PCl_5$, $SF_6$).
+
+### 2. Liên kết ion (Ionic Bond)
+- **Định nghĩa**: Là liên kết được hình thành bởi lực hút tĩnh điện giữa các ion mang điện tích trái dấu (cation kim loại và anion phi kim).
+- **Điều ...
+
+### 3. Phương trình phản ứng với trạng thái pha (s, l, g, aq) & Hiện tượng quan sát
+
+- **Phương trình phản ứng chuẩn mực**: \`2Na(s) + Cl2(g) -> 2NaCl(s)\`
+  *Điều kiện thực hiện*: Mồi cháy ở nhiệt độ cao (phản ứng tạo liên kết ion điển hình).
+  *Hiện tượng quan sát thực tế*: Mẩu natri kim loại bốc cháy rực sáng chói mắt với ngọn lửa màu vàng trong bình chứa khí clo màu vàng lục, khói trắng dày đặc gồm hàng triệu tinh thể natri clorua NaCl bám quanh thành bình.
+
+- **Phương trình phản ứng chuẩn mực**: \`H2O(s) --(0°C, hut nhiet)--> H2O(l)\`
+  *Điều kiện thực hiện*: Nhiệt độ nóng chảy ở áp suất 1 atm.
+  *Hiện tượng quan sát thực tế*: Cục nước đá trong suốt nổi trên mặt nước lỏng tan dần; thể tích chất lỏng co lại (nước đá nở ra khi đóng băng do mạng tinh thể tứ diện liên kết hiđro rỗng).
+
+### 4. Lưu ý sư phạm & Bẫy tư duy thường gặp trong các kỳ thi tuyển sinh
+
+- ⚠️ *Lưu ý tránh bẫy đề thi*: Cho rằng liên kết hiđro là liên kết hóa học nội phân tử giữa H và O (Sai: Liên kết hiđro là TƯƠNG TÁC YẾU GIỮA CÁC PHÂN TỬ, yếu hơn liên kết cộng hóa trị khoảng 10-20 lần).
+- ⚠️ *Lưu ý tránh bẫy đề thi*: Nghĩ rằng mọi chất có công thức phân tử đều tồn tại phân tử riêng biệt trong pha rắn (Sai: Tinh thể ion như NaCl không có phân tử NaCl độc lập mà là mạng lưới vô tận của các ion Na⁺ và Cl⁻).
+- ⚠️ *Lưu ý tránh bẫy đề thi*: Đánh đồng hình học phân tử với kiểu lai hóa mà bỏ quên cặp electron tự do (Ví dụ H2O lai hóa sp³ nhưng góc liên kết chỉ là 104.5° dạng gấp khúc do hai cặp electron tự do đẩy mạnh).
+
+## Từ tự nhiên đến phòng thí nghiệm: Con đường điều chế và chuyển hóa của Actinium (Ac)
+
+Trong tự nhiên, hầu hết các nguyên tố hóa học tồn tại ở dạng hợp chất bền vững về mặt nhiệt động học. Để đưa **Actinium (Ac)** về trạng thái đơn chất tinh khiết phục vụ nghiên cứu và sản xuất, ngành hóa học thực nghiệm đã phát triển hai nhánh quy trình bổ trợ lẫn nhau:
+
+- **Điều chế trong phòng thí nghiệm**: Actinium có thể được tạo ra trong các cơ sở nghiên cứu hạt nhân bằng phản ứng chiếu neutron nói trên. Ngoài ra, nó có thể được tách hóa học từ vật liệu chứa Actinium trong nghiên cứu chuyên dụng. Không có phương pháp điều chế hóa học thông thường để tổng hợp nguyên tố này.  
+- **Sản xuất quy mô công nghiệp**: Actinium (Ac) chủ yếu được điều chế nhân tạo trong các lò phản ứng hạt nhân. Một phương pháp là chiếu neutron vào Radium-226 để tạo Radium-227, sau đó Radium-227 phân rã beta thành Actinium-227. Phương trình chủ đạo: \`²²⁶Ra + ¹n → ²²⁷Ra + γ\`. Phương trình hạt nhân: Actinium cũng tồn tại với lượng vết trong quặng Uranium do quá trình phân rã phóng xạ tự nhiên.
+
+Bên cạnh câu chuyện điều chế, bản chất hóa học của **Actinium** còn được thể hiện sống động qua chuỗi các phản ứng đặc trưng với đơn chất và hợp chất khác:
+
+- **Phản ứng với Oxygen**: \`4Ac + 3O₂ → 2Ac₂O₃\` 
+- **Tác dụng với Hydrochloric acid**: \`2Ac + 6HCl → 2AcCl₃ + 3H₂\` 
+- **Tạo Actinium(III) hydroxide**: \`AcCl₃ + 3NaOH → Ac(OH)₃↓ + 3NaCl\` 
+- **Phân rã Alpha của Actinium-225**: \`²²⁵Ac → ²²¹Fr + α\` 
+- **Phân rã Alpha của Actinium-227**: \`²²⁷Ac → ²²³Fr + α\` 
+
+Trong thực hành hóa học, **Actinium (Ac)** được điều chế và tinh chế dựa trên nguyên lý dịch chuyển cân bằng hóa học (Nguyên lý Le Chatelier) và sự khác biệt về độ tan, nhiệt độ sôi hoặc năng lượng mạng lưới tinh thể. Khi thiết kế quy trình tổng hợp **Ac**, nhà hóa học luôn kiểm soát chặt chẽ độ tinh khiết của tiền chất, nhiệt độ phản ứng và môi trường dung môi để thu được sản phẩm có cấu trúc không gian đồng nhất như mô hình 3D đã khảo sát.
+
+## Dấu ấn trong nền văn minh: Ứng dụng công nghiệp, đời sống và an toàn thực nghiệm của Actinium
+
+Từ một đối tượng nghiên cứu ban đầu trong các phòng thí nghiệm cổ điển, **Actinium (Ac)** đã từng bước khẳng định vị thế to lớn trong đời sống và tiến trình văn minh nhân loại:
+
+- **Y học hạt nhân**: ²²⁵Ac là ứng viên quan trọng cho liệu pháp alpha nhắm trúng đích (Targeted Alpha Therapy – TAT).
+- **Ứng dụng**: ²²⁵Ac phát ra các hạt alpha có năng lượng cao và quãng đường tác động rất ngắn trong mô. Khi được gắn với một phân tử có khả năng nhận diện mục tiêu, nó có thể đưa bức xạ đến các tế bào cần điều trị.
+- **Nghiên cứu ung thư**: ²²⁵Ac được nghiên cứu rộng rãi cho các phương pháp điều trị ung thư bằng dược chất phóng xạ.
+- **Nguồn neutron**: Một số nguồn neutron trong nghiên cứu sử dụng Actinium hoặc các sản phẩm phân rã của nó, nhưng đây là ứng dụng chuyên dụng.
+- **Nghiên cứu hạt nhân**: Actinium được sử dụng để nghiên cứu chuỗi phân rã phóng xạ và cấu trúc hạt nhân.
+
+Về mặt an toàn thực nghiệm và xử lý hóa chất, việc nghiên cứu hay thao tác với **Actinium** luôn đòi hỏi hiểu biết thấu đáo về tính chất lý hóa, nồng độ an toàn và trang bị bảo hộ đạt chuẩn quốc tế (kính bảo hộ, găng tay chuyên dụng và tủ hút khí độc đối với các phản ứng sinh nhiệt hoặc tỏa khí). Khi xảy ra sự cố tràn đổ hay rò rỉ, nguyên tắc trung hòa an toàn và thu gom đúng quy chuẩn hóa học luôn là bài học vỡ lòng cho bất kỳ nhà nghiên cứu nào bước chân vào phòng lab.
+
+## Câu hỏi suy ngẫm & Tự kiểm tra kiến thức
+
+1. Dựa vào câu chuyện lịch sử và hành trình khám phá **Actinium (Ac)**, nguyên nhân vì sao tên gọi và phương pháp điều chế ban đầu của chất này lại phản ánh hoàn cảnh văn hóa và kỹ thuật của thời đại phát hiện ra nó?
+
+2. Vì sao việc khám phá hình dáng không gian 3 chiều của **Actinium (Ac)** lại là chìa khóa để giải mã các phản ứng đặc trưng của nó thay vì chỉ nhìn vào một công thức viết phẳng?
+
+<details><summary>Xem phân tích và lời giải chi tiết</summary>
+
+- **Giải đáp câu 1:** Tên gọi và phương pháp tiếp cận đầu tiên của Ac bắt nguồn trực tiếp từ nguồn khoáng sản tự nhiên hoặc hiện tượng quan sát bằng mắt thường của các nhà thực nghiệm thời kỳ đó. Chỉ khi kỹ thuật phân tích và mô hình liên kết không gian phát triển, nhân loại mới hiểu trọn vẹn bản chất cấu tạo của chất.
+
+- **Giải đáp câu 2:** Cấu trúc 3 chiều quyết định vị trí các nguyên tử lộ ra ngoài để tiếp xúc với thuốc thử; chính góc liên kết và sự che chắn không gian quyết định chất phản ứng dễ dàng hay trơ lỳ về mặt hóa học.
+
+**3. Câu hỏi trắc nghiệm rèn luyện năng lực tư duy GDPT 2018**:
+
+*Chất nào sau đây có nhiệt độ sôi cao nhất ở áp suất thường?*
+
+   A. H2O
+   B. H2S
+   C. H2Se
+   D. H2Te
+
+- **Đáp án & Lời giải câu 3**: Chọn **A**. Mặc dù phân tử khối của H2O (18) nhỏ hơn nhiều so với H2S (34), H2Se (81), H2Te (130), nhưng giữa các phân tử H2O tồn tại mạng lưới LIÊN KẾT HIĐRO liên phân tử cực kỳ bền vững, đòi hỏi năng lượng rất lớn để bẻ gãy khi sôi. Vì vậy H2O sôi ở 100°C cao vượt trội.
+
+</details>
+
+## Nguồn tư liệu khoa học & Khám phá tiếp theo
+
+- [Phòng quan sát Cấu trúc & Liên kết 3D tương tác — Actinium (Ac)](/tien-ich/cau-truc-3d/?compound=atom-Ac)
+- [Bách khoa toàn thư Wikipedia Tiếng Việt — Actini](https://vi.wikipedia.org/wiki/Actini)
+- [Wikipedia Quốc tế — Actinium](https://en.wikipedia.org/wiki/Actinium)
+- [Hồ sơ dữ liệu nguyên tố chuyên sâu ChemDex](/data/elements/089_Ac.json)
+
+Bài báo chuyên khảo này thuộc hệ thống **Tạp chí Hóa Học Số ChemDex**, tích hợp hồ sơ tiểu sử các nhà hóa học tiên phong, chuẩn mực kiến thức GDPT 2018 môn Hóa học THCS-THPT và cơ sở dữ liệu cấu trúc không gian 3 chiều tương tác, mang lại góc nhìn toàn diện về **Actinium (Ac)**.`,y={id:n,slug:h,documentPath:t,legacyIds:i,title:c,author:g,category:u,summary:a,image:o,chemicalFormula:"Ac",tags:r,aliases:m,substanceIds:l,documentKind:e,readingMinutes:21,chemicalEvidence:p,content:s};export{m as aliases,g as author,u as category,p as chemicalEvidence,k as chemicalFormula,s as content,y as default,e as documentKind,t as documentPath,n as id,o as image,i as legacyIds,v as readingMinutes,h as slug,l as substanceIds,a as summary,r as tags,c as title};

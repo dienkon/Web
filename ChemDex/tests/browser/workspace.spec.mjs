@@ -64,6 +64,7 @@ test('quick equation balances atoms and reaction chain carries the entered seque
 
 test('generated lab models retain atoms, export and restore arbitrary formulas',async({page})=>{
   await page.goto('/tien-ich/cau-truc-3d/?chemical=chem-cuso4');
+  await page.getByRole('group',{name:'Cách biểu diễn cấu trúc'}).getByRole('button',{name:'Thành phần',exact:true}).click();
   await expect(page.locator('.viewer-status')).toContainText('6 nguyên tử');
   await expect(page.locator('chem-structure-viewer canvas')).toHaveCount(1);
   await page.locator('#search').fill('XeF6');

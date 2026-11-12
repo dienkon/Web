@@ -17,9 +17,11 @@ export class ChemStructureViewer extends HTMLElement {
     this.spinning = false;
     this.innerHTML = `<div class="viewer-toolbar"><label><span class="sr-only">Kiểu mô hình</span><select data-style><option value="ball">Cầu–que (Ball & Stick)</option><option value="stick">Que liên kết (Stick)</option><option value="sphere">Cầu đặc (Van der Waals)</option></select></label><label class="muted"><input type="checkbox" data-hydrogen checked> Hydrogen</label><label class="muted"><input type="checkbox" data-light> Đồ họa nhẹ</label><label class="muted"><input type="checkbox" data-labels> Nhãn</label><button class="button" data-spin type="button">↻ Tự xoay</button><button class="button" data-reset type="button">Đặt lại</button><button class="button" data-fullscreen type="button">Toàn màn hình</button><button class="button" data-png type="button">PNG ↓</button><button class="button" data-file type="button">SDF / CIF ↓</button></div><div class="canvas-shell" role="img" aria-label="Mô hình cấu trúc có thể xoay và phóng to"></div><div class="viewer-bond-panel"></div><div class="viewer-status" role="status">Chọn một chất để xem cấu trúc.</div><div class="atom-readout">Chọn 2 nguyên tử để đo khoảng cách, 3 nguyên tử để đo góc (trên cấu dạng đang xem).</div><div class="viewer-source"></div>`;
     this.environmentEnabled = true;
+    this.environmentUserSet = false;
     this.querySelector('.viewer-toolbar').insertAdjacentHTML('beforebegin','<div class="viewer-isomers" hidden></div>');
     this.querySelector('.viewer-toolbar').insertAdjacentHTML('beforeend','<button class="button" type="button" data-environment aria-pressed="true">Ẩn cảnh trưng bày</button>');
     this.querySelector('[data-environment]').onclick = () => {
+      this.environmentUserSet=true;
       this.environmentEnabled = !this.environmentEnabled;
       const button=this.querySelector('[data-environment]');
       button.setAttribute('aria-pressed',String(this.environmentEnabled));
@@ -73,7 +75,7 @@ export class ChemStructureViewer extends HTMLElement {
     this.querySelector("[data-file]").onclick = () => {
       if (this.raw)
         download(
-          `${this.record.isomerExampleId ?? this.record.id}.${this.rawFormat ?? "sdf"}`,
+          `${this.record.isomerExampleId ?? this.record.id}${this.parsedModel?.componentLayout?'-thanh-phan':''}.${this.rawFormat ?? "sdf"}`,
           this.raw,
           "chemical/x-mdl-sdfile",
         );
@@ -159,17 +161,21 @@ export class ChemStructureViewer extends HTMLElement {
           `<span class="bond-pair-chip" data-order="${p.order}"><strong>${escape(p.key)}</strong> <span>×${p.count}</span> <small>${(p.sumDist / p.count).toFixed(2)} Å</small></span>`,
       )
       .join("");
+    const componentCounts=new Map();
+    for(const group of model.groups??[]){const key=`${group.formula}:${group.charge}`;const row=componentCounts.get(key)??{...group,count:0};row.count++;componentCounts.set(key,row);}
+    const componentPills=[...componentCounts.values()].map(group=>`<span class="component-pill" data-component-formula="${escape(group.formula)}">${group.count>1?group.count+' × ':''}${escape(this.componentLabel(group))}${group.connectivity==='composition'?' · thành phần':''}</span>`).join('');
 
     host.innerHTML = `
       <div class="bond-inspector-grid">
         <div class="bond-inspector-block">
           <div class="bond-inspector-title">THÀNH PHẦN NGUYÊN TỬ (MÀU CPK)</div>
           <div class="cpk-pill-list">${cpkPills}</div>
+          ${componentPills?`<div class="component-pill-list" aria-label="Các nhóm thành phần">${componentPills}</div>`:''}
         </div>
         <div class="bond-inspector-block">
-          <div class="bond-inspector-title">LIÊN KẾT HÓA HỌC TRONG MÔ HÌNH (${bonds.length} LIÊN KẾT)</div>
+          <div class="bond-inspector-title">${model.componentLayout?'LIÊN KẾT BÊN TRONG CÁC NHÓM':'LIÊN KẾT TRONG MÔ HÌNH'} (${bonds.length})</div>
           <div class="bond-order-summary">
-            ${bonds.length === 0 ? `<span class="bond-stat-tag">${model.periodic ? "Không suy ra liên kết hóa học chỉ từ khoảng cách mạng" : "Đơn nguyên tử (không có liên kết)"}</span>` : ""}
+            ${bonds.length === 0 ? `<span class="bond-stat-tag">${model.periodic ? "Không suy ra liên kết hóa học chỉ từ khoảng cách mạng" : model.componentLayout ? 'Các nhóm được tách để quan sát' : model.atoms.length===1 ? "Đơn nguyên tử" : 'Biểu diễn thành phần theo công thức'}</span>` : ""}
             ${singleCount > 0 ? `<span class="bond-stat-tag">Liên kết đơn (—): <strong>${singleCount}</strong></span>` : ""}
             ${doubleCount > 0 ? `<span class="bond-stat-tag double">Liên kết đôi (=): <strong>${doubleCount}</strong></span>` : ""}
             ${tripleCount > 0 ? `<span class="bond-stat-tag triple">Liên kết ba (≡): <strong>${tripleCount}</strong></span>` : ""}
@@ -279,6 +285,11 @@ export class ChemStructureViewer extends HTMLElement {
         this.parsedModel = generated ?? generateStructure(record);
       }
       this.renderBondPanel(this.parsedModel);
+      if(!this.environmentUserSet){
+        this.environmentEnabled=!this.parsedModel?.componentLayout;
+        const button=this.querySelector('[data-environment]');
+        button.setAttribute('aria-pressed',String(this.environmentEnabled));button.textContent=this.environmentEnabled?'Ẩn cảnh trưng bày':'Hiện cảnh trưng bày';
+      }
 
       const shell = this.querySelector(".canvas-shell");
       try {
@@ -297,7 +308,7 @@ export class ChemStructureViewer extends HTMLElement {
           ? 1
           : 2;
         this.viewer.resize();
-          this.viewer.addModel(raw, this.rawFormat, { keepH: true, ...(this.rawFormat === 'cif' ? {assignBonds: false} : {}) });
+          this.viewer.addModel(raw, this.rawFormat, { keepH: true, ...(this.rawFormat === 'cif'||generated?.componentLayout ? {assignBonds: false} : {}) });
 
         // Ensure all bonds from parsedModel (including crystal coordination & ionic bonds) exist in 3Dmol model
         const glAtoms = this.viewer.getModel()?.selectedAtoms({}) ?? [];
@@ -356,7 +367,7 @@ export class ChemStructureViewer extends HTMLElement {
       const bondTotal = this.parsedModel?.bonds?.length ?? 0;
       this.status(
         generated
-          ? `${generated.atoms.length} nguyên tử · ${bondTotal} liên kết · ${generated.mode === "ions" ? "Mô hình phối trí & nhóm ion 3D" : generated.mode === "atom" ? "Nguyên tử 3D" : generated.mode === "idealized" ? "Hình học liên kết 3D" : "Mô hình khung hóa trị 3D"} · Kéo để xoay`
+          ? `${generated.atoms.length} nguyên tử · ${bondTotal} liên kết${generated.componentLayout?' trong nhóm':''} · ${generated.mode === "ions" ? "Thành phần ion / phân tử" : generated.mode === "atom" ? "Nguyên tử 3D" : generated.mode === "idealized" ? "Hình học minh họa 3D" : "Thành phần minh họa 3D"} · Kéo để xoay`
           : record.kind === "crystal"
             ? `${this.parsedModel?.atoms?.length ?? ""} vị trí nguyên tử trong ô mạng · Kéo để xoay`
             : `${record.isomerExampleId ? record.name_vi+' · ' : ''}${this.parsedModel?.atoms?.length ?? ""} nguyên tử · ${bondTotal} liên kết · Kéo để xoay · Cuộn/chụm để thu phóng · Chọn nguyên tử để đo`,
@@ -404,21 +415,24 @@ export class ChemStructureViewer extends HTMLElement {
     this.viewer.setStyle(
       atoms,
       style === "sphere"
-        ? { sphere: { scale: 0.8 } }
+        ? { sphere: { scale: 0.8, colorfunc:a=>CPK_COLORS[a.elem]??'#a78bfa' } }
         : style === "stick"
           ? {
+              ...(this.parsedModel?.componentLayout?{sphere:{scale:.28,colorfunc:a=>CPK_COLORS[a.elem]??'#a78bfa'}}:{}),
               stick: {
                 radius: 0.16,
                 doubleBondScaling: 0.42,
                 tripleBondScaling: 0.3,
+                colorfunc:a=>CPK_COLORS[a.elem]??'#a78bfa',
               },
             }
           : {
-              sphere: { scale: 0.28 },
+              sphere: { scale: 0.28, colorfunc:a=>CPK_COLORS[a.elem]??'#a78bfa' },
               stick: {
                 radius: 0.11,
                 doubleBondScaling: 0.42,
                 tripleBondScaling: 0.3,
+                colorfunc:a=>CPK_COLORS[a.elem]??'#a78bfa',
               },
             },
     );
@@ -431,20 +445,29 @@ export class ChemStructureViewer extends HTMLElement {
       });
     this.viewer.render();
   }
+  componentLabel(group) {
+    const formula=String(group.formula).replace(/\d/g,n=>'₀₁₂₃₄₅₆₇₈₉'[Number(n)]),charge=group.charge??0;
+    return formula+(charge?(Math.abs(charge)===1?'':String(Math.abs(charge)).replace(/\d/g,n=>'⁰¹²³⁴⁵⁶⁷⁸⁹'[Number(n)]))+(charge>0?'⁺':'⁻'):'');
+  }
   pick(atom) {
     if (this.selected.length === 3) this.selected = [];
     this.selected.push(atom);
     const atoms = this.selected;
     let text = `${atom.elem} · #${atom.index + 1}${atom.properties?.charge !== undefined ? ` · điện tích ${atom.properties.charge}` : ""}`;
+    const groupIds=atoms.map(a=>this.parsedModel?.atoms[a.index]?.componentGroup),groups=this.parsedModel?.groups;
+    if(groups){
+      const group=groups[groupIds.at(-1)];if(group)text+=` · thuộc nhóm ${this.componentLabel(group)}`;
+      if(groupIds.some(id=>id!==groupIds[0])){this.querySelector('.atom-readout').textContent=text+' · Các nhóm được tách để quan sát; khoảng cách giữa chúng không phải số đo cấu trúc.';return;}
+    }
     if (atoms.length === 2)
-      text += ` · Khoảng cách: ${Math.hypot(atoms[0].x - atoms[1].x, atoms[0].y - atoms[1].y, atoms[0].z - atoms[1].z).toFixed(3)} Å`;
+      text += ` · Khoảng cách${groups?' minh họa':''}: ${Math.hypot(atoms[0].x - atoms[1].x, atoms[0].y - atoms[1].y, atoms[0].z - atoms[1].z).toFixed(3)} Å`;
     if (atoms.length === 3) {
       const [a, b, c] = atoms,
         u = [a.x - b.x, a.y - b.y, a.z - b.z],
         v = [c.x - b.x, c.y - b.y, c.z - b.z],
         den = Math.hypot(...u) * Math.hypot(...v);
       text += den
-        ? ` · Góc ${a.elem}–${b.elem}–${c.elem}: ${((Math.acos(Math.max(-1, Math.min(1, u.reduce((n, k, i) => n + k * v[i], 0) / den))) * 180) / Math.PI).toFixed(2)}°`
+        ? ` · Góc${groups?' minh họa':''} ${a.elem}–${b.elem}–${c.elem}: ${((Math.acos(Math.max(-1, Math.min(1, u.reduce((n, k, i) => n + k * v[i], 0) / den))) * 180) / Math.PI).toFixed(2)}°`
         : " · Chọn ba nguyên tử khác nhau để đo góc.";
     }
     this.querySelector(".atom-readout").textContent = text;

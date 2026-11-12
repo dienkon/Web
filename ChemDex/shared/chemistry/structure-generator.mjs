@@ -1,4 +1,5 @@
 import { parseFormula, normalizeFormula } from './formula.mjs';
+import ionicComponents from '../ionic-components.generated.json' with {type:'json'};
 
 export function structureFormula(value) {
   return normalizeFormula(
@@ -55,15 +56,6 @@ const COVALENT_RADII = {
   Cs: 1.9, Ba: 1.75, Pt: 1.36, Au: 1.36, Hg: 1.32, Pb: 1.46, Bi: 1.48,
 };
 
-const METALS = new Set([
-  'Li', 'Na', 'K', 'Rb', 'Cs', 'Fr',
-  'Be', 'Mg', 'Ca', 'Sr', 'Ba', 'Ra',
-  'Al', 'Ga', 'In', 'Sn', 'Tl', 'Pb', 'Bi',
-  'Sc', 'Ti', 'V', 'Cr', 'Mn', 'Fe', 'Co', 'Ni', 'Cu', 'Zn',
-  'Y', 'Zr', 'Nb', 'Mo', 'Tc', 'Ru', 'Rh', 'Pd', 'Ag', 'Cd',
-  'La', 'Ce', 'Hf', 'Ta', 'W', 'Re', 'Os', 'Ir', 'Pt', 'Au', 'Hg',
-]);
-
 function radiusOf(elem) {
   return COVALENT_RADII[elem] ?? 1.35;
 }
@@ -88,23 +80,6 @@ function cross(a, b) {
     a[2] * b[0] - a[0] * b[2],
     a[0] * b[1] - a[1] * b[0],
   ];
-}
-
-// Rotate local coordinates so local [-1, 0, 0] aligns with target direction `dir`
-function orientModel(part, dir) {
-  const u = normVec(dir);
-  const ref = Math.abs(u[1]) < 0.9 ? [0, 1, 0] : [0, 0, 1];
-  const v = normVec(cross(u, ref));
-  const w = cross(u, v);
-  return {
-    ...part,
-    atoms: part.atoms.map((a) => ({
-      ...a,
-      x: a.x * u[0] + a.y * v[0] + a.z * w[0],
-      y: a.x * u[1] + a.y * v[1] + a.z * w[1],
-      z: a.x * u[2] + a.y * v[2] + a.z * w[2],
-    })),
-  };
 }
 
 function buildAlkylCarboxylate(alkylCarbons, protonated = false, esterCarbons = 0) {
@@ -523,349 +498,55 @@ function inferSaltIons(formula) {
     KOH: [{ formula: 'K', count: 1, charge: 1 }, { formula: 'OH', count: 1, charge: -1 }],
     LiOH: [{ formula: 'Li', count: 1, charge: 1 }, { formula: 'OH', count: 1, charge: -1 }],
   };
-  return directMap[f] ?? null;
+  return directMap[f] ?? ionicComponents.entries[f] ?? null;
 }
 
-// Hydrate coordination complex builder (e.g. CuSO4·5H2O, CoCl2.6H2O, NiSO4.6H2O, FeSO4.7H2O)
-function buildHydrate(rawFormula) {
-  const cleaned = String(rawFormula).trim().replace(/•/g, '·');
-  const match = cleaned.match(/^(.+?)[·.](\d*)H2O$/i);
-  if (!match) return null;
-  const anhydrous = structureFormula(match[1]);
-  const waterCount = Number(match[2] || 1);
-  if (!waterCount || waterCount > 24) return null;
-
-  const baseCounts = parseFormula(anhydrous);
-  const metal = Object.keys(baseCounts).find((el) => METALS.has(el));
-  if (!metal) return null;
-
-  const atoms = [atom(metal, 0, 0, 0)]; // 0: central metal cation
-  const bonds = [];
-
-  // Determine anion part by subtracting 1 metal atom
-  const hasSO4 = baseCounts.S === 1 && baseCounts.O === 4;
-  const hasCl2 = baseCounts.Cl === 2 && Object.keys(baseCounts).length === 2;
-  const hasNO3_2 = baseCounts.N === 2 && baseCounts.O === 6;
-
-  // Coordinate up to 6 H2O molecules around the central metal
-  const innerWaters = Math.min(waterCount, hasSO4 ? (waterCount === 5 ? 4 : 6) : hasCl2 ? 4 : Math.min(6, waterCount));
-  const octaDirs = vectors.octa;
-
-  for (let i = 0; i < innerWaters; i++) {
-    const d = octaDirs[i];
-    const dist = bondDist(metal, 'O', 1);
-    const ox = d[0] * dist;
-    const oy = d[1] * dist;
-    const oz = d[2] * dist;
-    const oIdx = atoms.length;
-    atoms.push(atom('O', ox, oy, oz));
-    bonds.push({ a: 0, b: oIdx, order: 1 });
-
-    // Place 2 H atoms pointing outward from O
-    const perp = Math.abs(d[2]) < 0.9 ? [0, 0, 1] : [0, 1, 0];
-    const p1 = normVec(cross(d, perp));
-    for (const s of [1, -1]) {
-      const hx = ox + (d[0] * 0.62 + s * p1[0] * 0.78) * 0.96;
-      const hy = oy + (d[1] * 0.62 + s * p1[1] * 0.78) * 0.96;
-      const hz = oz + (d[2] * 0.62 + s * p1[2] * 0.78) * 0.96;
-      const hIdx = atoms.length;
-      atoms.push(atom('H', hx, hy, hz));
-      bonds.push({ a: oIdx, b: hIdx, order: 1 });
+// These layouts count components; they do not predict crystal coordination.
+function componentDefinitionMatches(parts, formula, allowCharge = false) {
+  try {
+    const counts = {}; let charge = 0;
+    for (const part of parts) {
+      if (!Number.isInteger(part.count) || part.count < 1 || !Number.isInteger(part.charge)) return false;
+      for (const [element, n] of Object.entries(parseFormula(structureFormula(part.formula)))) counts[element] = (counts[element] ?? 0) + n * part.count;
+      charge += part.count * part.charge;
     }
-  }
-
-  // Coordinate anion
-  if (hasSO4) {
-    const so4 = template('SO4');
-    // Place SO4 along +Z or +X coordinated via one of its oxygen atoms
-    const dir = innerWaters <= 4 ? [0, 0, 1] : [0.72, 0.72, 0];
-    const u = normVec(dir);
-    const donorLocal = so4.atoms[so4.donors[0]];
-    const mO = bondDist(metal, 'O', 1) + (innerWaters >= 6 ? 0.35 : 0.1);
-    const shift = [
-      u[0] * mO - donorLocal.x,
-      u[1] * mO - donorLocal.y,
-      u[2] * mO - donorLocal.z,
-    ];
-    const offset = atoms.length;
-    for (const a of so4.atoms) {
-      atoms.push(atom(a.elem, a.x + shift[0], a.y + shift[1], a.z + shift[2]));
-    }
-    for (const b of so4.bonds) {
-      bonds.push({ a: b.a + offset, b: b.b + offset, order: b.order });
-    }
-    // Bond metal (or H-bond from inner water) to SO4 donor oxygen
-    bonds.push({ a: 0, b: offset + so4.donors[0], order: 1 });
-
-    // Any outer-sphere lattice water (e.g. 5th H2O in CuSO4·5H2O or 7th H2O in FeSO4·7H2O)
-    for (let w = innerWaters; w < waterCount; w++) {
-      const so4DonorIdx = offset + so4.donors[(w - innerWaters + 1) % so4.donors.length];
-      const targetO = atoms[so4DonorIdx];
-      const outDir = normVec([targetO.x, targetO.y, targetO.z - 0.5]);
-      const ox = targetO.x + outDir[0] * 2.75;
-      const oy = targetO.y + outDir[1] * 2.75;
-      const oz = targetO.z + outDir[2] * 2.75;
-      const oIdx = atoms.length;
-      atoms.push(atom('O', ox, oy, oz));
-      // H1 bridges toward SO4 oxygen
-      const h1Idx = atoms.length;
-      atoms.push(atom('H', ox - outDir[0] * 0.96, oy - outDir[1] * 0.96, oz - outDir[2] * 0.96));
-      bonds.push({ a: oIdx, b: h1Idx, order: 1 });
-      bonds.push({ a: h1Idx, b: so4DonorIdx, order: 1 });
-      // H2 points outward
-      const h2Idx = atoms.length;
-      atoms.push(atom('H', ox + outDir[0] * 0.45 + 0.82, oy + outDir[1] * 0.45, oz + outDir[2] * 0.45 + 0.35));
-      bonds.push({ a: oIdx, b: h2Idx, order: 1 });
-    }
-    return { atoms, bonds };
-  }
-
-  if (hasCl2) {
-    // Trans-dichloro-tetraaquacobalt(II) [CoCl2(H2O)4]·2H2O
-    const dCl = bondDist(metal, 'Cl', 1);
-    const cl1Idx = atoms.length;
-    atoms.push(atom('Cl', 0, 0, dCl));
-    bonds.push({ a: 0, b: cl1Idx, order: 1 });
-    const cl2Idx = atoms.length;
-    atoms.push(atom('Cl', 0, 0, -dCl));
-    bonds.push({ a: 0, b: cl2Idx, order: 1 });
-
-    for (let w = innerWaters; w < waterCount; w++) {
-      const sign = w % 2 === 0 ? 1 : -1;
-      const clIdx = sign > 0 ? cl1Idx : cl2Idx;
-      const ox = sign * 1.65;
-      const oy = 1.65;
-      const oz = sign * (dCl + 1.45);
-      const oIdx = atoms.length;
-      atoms.push(atom('O', ox, oy, oz));
-      const h1Idx = atoms.length;
-      atoms.push(atom('H', ox * 0.55, oy * 0.55, oz - sign * 0.55));
-      bonds.push({ a: oIdx, b: h1Idx, order: 1 });
-      bonds.push({ a: h1Idx, b: clIdx, order: 1 });
-      const h2Idx = atoms.length;
-      atoms.push(atom('H', ox + sign * 0.68, oy + 0.68, oz));
-      bonds.push({ a: oIdx, b: h2Idx, order: 1 });
-    }
-    return { atoms, bonds };
-  }
-
-  return null;
+    const key = c => JSON.stringify(Object.entries(c).sort(([a], [b]) => a.localeCompare(b)));
+    return (allowCharge || charge === 0) && key(counts) === key(parseFormula(structureFormula(formula)));
+  } catch { return false; }
 }
 
-// Build a connected 3D coordination model from cation + anion list
-function buildIonicStructure(ions) {
-  const total = ions.reduce((n, ion) => n + ion.count, 0);
-  if (total > 1000) throw new Error('Quá nhiều nhóm ion để hiển thị.');
-
-  const cations = ions.filter((i) => (i.charge ?? 1) > 0);
-  const anions = ions.filter((i) => (i.charge ?? -1) < 0);
-
-  if (cations.length === 1 && anions.length === 1) {
-    const cat = cations[0];
-    const an = anions[0];
-    const mCount = cat.count;
-    const xCount = an.count;
-
-    const buildIonUnit = (ionFormula) => {
-      const t = template(ionFormula);
-      if (t) return t;
-      const counts = parseFormula(structureFormula(ionFormula));
-      const elems = Object.keys(counts);
-      if (elems.length === 1 && counts[elems[0]] === 1) {
-        return { atoms: [atom(elems[0], 0, 0, 0)], bonds: [], donors: [0] };
-      }
-      return null;
+function buildComponentLayout(parts) {
+  const total = parts.reduce((n, part) => n + part.count, 0);
+  if (total > 1000) throw new Error('Quá nhiều nhóm để hiển thị.');
+  const units = [];
+  for (const part of parts) {
+    let known = template(part.formula);
+    if (part.formula === 'O2' && part.charge === -2) known = {
+      atoms: [atom('O', -.745, 0, 0), atom('O', .745, 0, 0)], bonds: [{a: 0, b: 1, order: 1}],
     };
-
-    const catTemplate = buildIonUnit(cat.formula);
-    const anTemplate = buildIonUnit(an.formula);
-
-    if (catTemplate && anTemplate) {
-      // Case 1: 1 Metal/Cation + N Anions (MX, MX2, MX3, M(OH)2, M(NO3)2, M(CH3COO)2, etc.)
-      if (mCount === 1 && xCount >= 1 && xCount <= 6 && catTemplate.atoms.length === 1) {
-        const mElem = catTemplate.atoms[0].elem;
-        const atoms = [atom(mElem, 0, 0, 0, { charge: cat.charge })];
-        const bonds = [];
-
-        // If 1:1 with bidentate-capable oxyanion/oxalate and divalent cation, coordinate bidentately
-        if (xCount === 1 && (cat.charge ?? 1) >= 2 && anTemplate.donors.length >= 2 && anTemplate.atoms.length > 1) {
-          const offset = atoms.length;
-          const d0 = anTemplate.atoms[anTemplate.donors[0]];
-          const d1 = anTemplate.atoms[anTemplate.donors[1]];
-          const mid = [(d0.x + d1.x) / 2, (d0.y + d1.y) / 2, (d0.z + d1.z) / 2];
-          const u = normVec(mid);
-          const dist = bondDist(mElem, d0.elem, 1) * 0.92;
-          const shift = [u[0] * dist - d0.x * 0.65, u[1] * dist - d0.y * 0.65, u[2] * dist - d0.z * 0.65];
-          for (const a of anTemplate.atoms) {
-            atoms.push(atom(a.elem, a.x + shift[0], a.y + shift[1], a.z + shift[2], { charge: an.charge }));
-          }
-          for (const b of anTemplate.bonds) {
-            bonds.push({ a: b.a + offset, b: b.b + offset, order: b.order });
-          }
-          bonds.push({ a: 0, b: offset + anTemplate.donors[0], order: 1 });
-          bonds.push({ a: 0, b: offset + anTemplate.donors[1], order: 1 });
-          return { atoms, bonds };
-        }
-
-        const dirs =
-          xCount === 1
-            ? [[1, 0, 0]]
-            : xCount === 2
-              ? [
-                  [0.94, 0.34, 0],
-                  [-0.94, 0.34, 0],
-                ]
-              : xCount === 3
-                ? vectors.planar
-                : vectors.tetra.slice(0, xCount);
-
-        for (let i = 0; i < xCount; i++) {
-          const dir = dirs[i];
-          const oriented = orientModel(anTemplate, dir);
-          const donorIdx = oriented.donors[0] ?? 0;
-          const donorAtom = oriented.atoms[donorIdx];
-          const dLen = bondDist(mElem, donorAtom.elem, 1);
-          const targetPos = [dir[0] * dLen, dir[1] * dLen, dir[2] * dLen];
-          const shift = [
-            targetPos[0] - donorAtom.x,
-            targetPos[1] - donorAtom.y,
-            targetPos[2] - donorAtom.z,
-          ];
-          const offset = atoms.length;
-          for (const a of oriented.atoms) {
-            atoms.push(
-              atom(a.elem, a.x + shift[0], a.y + shift[1], a.z + shift[2], {
-                charge: an.charge,
-              }),
-            );
-          }
-          for (const b of oriented.bonds) {
-            bonds.push({ a: b.a + offset, b: b.b + offset, order: b.order });
-          }
-          bonds.push({ a: 0, b: offset + donorIdx, order: 1 });
-        }
-        return { atoms, bonds };
-      }
-
-      // Case 2: M_n X (1 Anion + 1..4 Cations, e.g., Na2SO4, K2CO3, Na3PO4, K2Cr2O7, NH4Cl, (NH4)2SO4, K4[Fe(CN)6])
-      if (xCount === 1 && mCount >= 1 && mCount <= 6) {
-        const atoms = anTemplate.atoms.map((a) => ({ ...a, charge: an.charge }));
-        const bonds = anTemplate.bonds.map((b) => ({ ...b }));
-        const fallbackDirs = [
-          [0.82, 0.57, 0],
-          [-0.82, 0.57, 0],
-          [0, -0.85, 0.52],
-          [0, -0.85, -0.52],
-          [0, 0, 1],
-          [0, 0, -1],
-        ];
-
-        for (let i = 0; i < mCount; i++) {
-          const dIdx = anTemplate.donors[i % anTemplate.donors.length] ?? 0;
-          const dAtom = atoms[dIdx];
-          const rawDir =
-            anTemplate.atoms.length === 1
-              ? fallbackDirs[i % fallbackDirs.length]
-              : [dAtom.x, dAtom.y, dAtom.z];
-          const dir = normVec(rawDir);
-          const orientedCat = orientModel(catTemplate, dir);
-          const catDonorIdx = orientedCat.donors[0] ?? 0;
-          const catDonorAtom = orientedCat.atoms[catDonorIdx];
-          const dLen = bondDist(dAtom.elem, catDonorAtom.elem, 1);
-          const targetPos = [
-            dAtom.x + dir[0] * dLen,
-            dAtom.y + dir[1] * dLen,
-            dAtom.z + dir[2] * dLen,
-          ];
-          const shift = [
-            targetPos[0] - catDonorAtom.x,
-            targetPos[1] - catDonorAtom.y,
-            targetPos[2] - catDonorAtom.z,
-          ];
-          const offset = atoms.length;
-          for (const a of orientedCat.atoms) {
-            atoms.push(
-              atom(a.elem, a.x + shift[0], a.y + shift[1], a.z + shift[2], {
-                charge: cat.charge,
-              }),
-            );
-          }
-          for (const b of orientedCat.bonds) {
-            bonds.push({ a: b.a + offset, b: b.b + offset, order: b.order });
-          }
-          bonds.push({ a: dIdx, b: offset + catDonorIdx, order: 1 });
-        }
-        return { atoms, bonds };
-      }
-
-      // Case 3: M_2 X_3 (e.g., Al2(SO4)3, Fe2(SO4)3, Cr2(SO4)3)
-      if (mCount === 2 && xCount === 3 && catTemplate.atoms.length === 1) {
-        const mElem = catTemplate.atoms[0].elem;
-        const atoms = [
-          atom(mElem, 0, 0, 1.75, { charge: cat.charge }), // 0: top M3+
-          atom(mElem, 0, 0, -1.75, { charge: cat.charge }), // 1: bottom M3+
-        ];
-        const bonds = [];
-        for (let i = 0; i < 3; i++) {
-          const angle = (i * 2 * Math.PI) / 3;
-          const cx = Math.cos(angle) * 2.55;
-          const cy = Math.sin(angle) * 2.55;
-          const offset = atoms.length;
-          for (const a of anTemplate.atoms) {
-            atoms.push(
-              atom(a.elem, a.x + cx, a.y + cy, a.z, { charge: an.charge }),
-            );
-          }
-          for (const b of anTemplate.bonds) {
-            bonds.push({ a: b.a + offset, b: b.b + offset, order: b.order });
-          }
-          const dTop = offset + (anTemplate.donors[0] ?? 1);
-          const dBot = offset + (anTemplate.donors[1] ?? 2);
-          bonds.push({ a: 0, b: dTop, order: 1 });
-          bonds.push({ a: 1, b: dBot, order: 1 });
-        }
-        return { atoms, bonds };
-      }
-
-      // Case 4: M_3 X_2 (e.g., Ca3(PO4)2, Ba3(PO4)2, Sr3(PO4)2, Pb3(PO4)2, Mg3(PO4)2)
-      if (mCount === 3 && xCount === 2 && catTemplate.atoms.length === 1) {
-        const mElem = catTemplate.atoms[0].elem;
-        const atoms = [];
-        const bonds = [];
-        const anOffsets = [];
-        for (const zSign of [1, -1]) {
-          const offset = atoms.length;
-          anOffsets.push(offset);
-          for (const a of anTemplate.atoms) {
-            atoms.push(
-              atom(a.elem, a.x, a.y, a.z * zSign + zSign * 2.15, {
-                charge: an.charge,
-              }),
-            );
-          }
-          for (const b of anTemplate.bonds) {
-            bonds.push({ a: b.a + offset, b: b.b + offset, order: b.order });
-          }
-        }
-        for (let i = 0; i < 3; i++) {
-          const angle = (i * 2 * Math.PI) / 3;
-          const mIdx = atoms.length;
-          atoms.push(
-            atom(mElem, Math.cos(angle) * 2.35, Math.sin(angle) * 2.35, 0, {
-              charge: cat.charge,
-            }),
-          );
-          const d0 = anOffsets[0] + (anTemplate.donors[i % anTemplate.donors.length] ?? 1);
-          const d1 = anOffsets[1] + (anTemplate.donors[i % anTemplate.donors.length] ?? 1);
-          bonds.push({ a: mIdx, b: d0, order: 1 });
-          bonds.push({ a: mIdx, b: d1, order: 1 });
-        }
-        return { atoms, bonds };
-      }
-    }
+    const model = known ?? composition(part.formula);
+    const bounds = ['x', 'y', 'z'].map(axis => [Math.min(...model.atoms.map(a => a[axis])), Math.max(...model.atoms.map(a => a[axis]))]);
+    for (let i = 0; i < part.count; i++) units.push({part, model, bounds, connectivity: model.atoms.length === 1 ? 'monatomic' : known ? 'idealized' : 'composition'});
   }
+  const columns = Math.ceil(Math.sqrt(total)), width = Math.max(0, ...units.map(u => u.bounds[0][1] - u.bounds[0][0])) + 3.6;
+  const height = Math.max(0, ...units.map(u => u.bounds[1][1] - u.bounds[1][0])) + 3.6;
+  const atoms = [], bonds = [], groups = [];
+  units.forEach(({part, model, bounds, connectivity}, id) => {
+    const offset = atoms.length, shift = [(id % columns) * width, -Math.floor(id / columns) * height, 0];
+    for (const a of model.atoms) atoms.push({...a, ...Object.fromEntries(['x', 'y', 'z'].map((axis, k) => [axis, a[axis] - (bounds[k][0] + bounds[k][1]) / 2 + shift[k]])), componentGroup: id});
+    for (const b of model.bonds) bonds.push({...b, a: b.a + offset, b: b.b + offset});
+    groups.push({id, formula: part.formula, charge: part.charge, connectivity, atomIndices: model.atoms.map((_, i) => offset + i)});
+  });
+  return {atoms, bonds, groups};
+}
 
-  return null;
+function buildHydrate(rawFormula, suppliedIons) {
+  const match = String(rawFormula).trim().replace(/•/g, '·').match(/^(.+?)[·.](\d*)H2O$/i);
+  if (!match) return null;
+  const base = structureFormula(match[1]), waterCount = Number(match[2] || 1);
+  if (!waterCount || waterCount > 512) return null;
+  const parts = suppliedIons?.length && componentDefinitionMatches(suppliedIons, base) ? suppliedIons : inferSaltIons(base) ?? [{formula: base, charge: 0, count: 1}];
+  return buildComponentLayout([...parts, {formula: 'H2O', charge: 0, count: waterCount}]);
 }
 
 // Build inorganic oxides, peroxides, oxyacids, and binary molecules
@@ -1615,53 +1296,29 @@ export function generateStructure(record) {
       : inferSaltIons(formula)
     : null;
 
-  const hydrateModel = buildHydrate(rawFormula);
+  const hydrateModel = buildHydrate(rawFormula, record.ions);
+  const networkSolid = ['SiO2','SiC','BN','B2O3','GeO2','P2O5'].includes(formula);
 
   if (Object.keys(counts).length === 1 && Object.values(counts)[0] === 1) {
     model = composition(formula);
     mode = 'atom';
     note = 'Nguyên tử riêng lẻ trong không gian 3D; đại diện cho đơn vị nguyên tố cơ bản.';
+  } else if(networkSolid) {
+    model=composition(formula);mode='composition';
+    note='Thành phần theo công thức của chất có mạng liên tục. Mở mục Tinh thể để xem cách sắp xếp nguyên tử trong pha rắn; các vị trí ở đây chỉ giúp đếm thành phần.';
   } else if (hydrateModel) {
     model = hydrateModel;
     mode = 'ions';
     note =
-      'Mô hình phức chất hydrat hóa 3D: hiển thị cầu nội phối trí phân tử H2O quanh cation kim loại cùng liên kết với gốc anion và phân tử nước kết tinh.';
+      'Thành phần chất ngậm nước theo đúng tỉ lệ công thức. Các nhóm và H2O được tách để quan sát; vị trí tương đối là minh họa. Mở Tinh thể để xem phối trí và cách xếp theo dữ liệu công bố.';
   } else if (effectiveIons?.length) {
-    const coordinated = buildIonicStructure(effectiveIons);
-    if (coordinated) {
-      model = coordinated;
-    } else {
-      const total = effectiveIons.reduce((n, ion) => n + ion.count, 0);
-      if (total > 1000) throw new Error('Quá nhiều nhóm ion để hiển thị.');
-      const atoms = [];
-      const bonds = [];
-      let group = 0;
-      for (const ion of effectiveIons)
-        for (let i = 0; i < ion.count; i++) {
-          const part = template(ion.formula) ?? buildValenceGraph(ion.formula) ?? composition(ion.formula);
-          const offset = atoms.length;
-          const side = Math.ceil(Math.sqrt(total));
-          const dx = (group % side) * 4.2;
-          const dy = Math.floor(group / side) * 4.2;
-          for (const a of part.atoms)
-            atoms.push({ ...a, x: a.x + dx, y: a.y + dy, charge: ion.charge });
-          for (const b of part.bonds)
-            bonds.push({ ...b, a: b.a + offset, b: b.b + offset });
-          group++;
-        }
-      model = { atoms, bonds };
+    if(componentDefinitionMatches(effectiveIons,formula,record.kind==='ion')){
+      model=buildComponentLayout(effectiveIons);mode='ions';
+      note='Thành phần ion theo tỉ lệ công thức. Liên kết bên trong nhóm được minh họa bằng khung cấu tạo; vị trí giữa các nhóm được bố trí để dễ xem. Mở Tinh thể để xem cách xếp trong pha rắn. Điện tích ghi cho toàn nhóm.';
+    }else{
+      model=composition(formula);mode='composition';
+      note='Thành phần nguyên tử theo công thức. Chưa xác nhận được bộ nhóm ion cân bằng cho hồ sơ này; xem dữ liệu tinh thể có nguồn để khảo sát cấu trúc.';
     }
-    const actual = {};
-    for (const a of model.atoms) actual[a.elem] = (actual[a.elem] ?? 0) + 1;
-    if (
-      JSON.stringify(Object.entries(actual).sort()) !==
-      JSON.stringify(Object.entries(counts).sort())
-    ) {
-      model = buildValenceGraph(formula) ?? composition(formula);
-    }
-    mode = 'ions';
-    note =
-      'Mô hình liên kết phối trí & nhóm ion 3D theo đúng tỉ lệ công thức hóa học, thể hiện liên kết nội phân tử trong gốc axit/bazơ và tương tác phối trí cation – anion.';
   } else if (template(formula)) {
     model = template(formula);
     mode = 'idealized';
@@ -1704,6 +1361,7 @@ export function generateStructure(record) {
   return {
     atoms: model.atoms,
     bonds: model.bonds,
+    ...(model.groups?{groups:model.groups,componentLayout:true}:{}),
     mode,
     note: record.modelNote ? record.modelNote + ' ' + note : note,
     format: 'sdf',
@@ -1738,6 +1396,7 @@ export function toSDF(model, title = 'ChemDex illustration') {
     '> <CHEMDEX_MODEL_NOTE>',
     model.note ?? 'Mô hình minh họa',
     '',
+    ...(model.groups?['> <CHEMDEX_COMPONENTS>',JSON.stringify(model.groups),'','> <CHEMDEX_CHARGE_SCOPE>','Whole-group charges in CHEMDEX_COMPONENTS; atom-level formal charges are not assigned.','']:[]),
     '$$$$',
   );
   return lines.join('\n');

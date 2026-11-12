@@ -1589,7 +1589,7 @@
       "crystal-caf2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 26
+    "readingMinutes": 27
   },
   {
     "id": "natri-hidroxit-xut-naoh",
@@ -1689,7 +1689,7 @@
       "chem-baoh2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 31
+    "readingMinutes": 30
   },
   {
     "id": "bac-nitrat-agno3",
@@ -1721,7 +1721,7 @@
       "chem-agno3"
     ],
     "documentKind": "reference",
-    "readingMinutes": 32
+    "readingMinutes": 31
   },
   {
     "id": "bari-clorua-bacl2",
@@ -1785,7 +1785,7 @@
       "chem-na2so4"
     ],
     "documentKind": "reference",
-    "readingMinutes": 32
+    "readingMinutes": 31
   },
   {
     "id": "dong-ii-sunfat-cuso4",
@@ -1820,7 +1820,7 @@
       "chem-cuso4"
     ],
     "documentKind": "reference",
-    "readingMinutes": 32
+    "readingMinutes": 31
   },
   {
     "id": "sat-iii-clorua-fecl3",
@@ -1852,7 +1852,7 @@
       "chem-fecl3"
     ],
     "documentKind": "reference",
-    "readingMinutes": 33
+    "readingMinutes": 32
   },
   {
     "id": "sat-ii-sunfat-feso4",
@@ -1916,7 +1916,7 @@
       "chem-nahco3"
     ],
     "documentKind": "reference",
-    "readingMinutes": 35
+    "readingMinutes": 34
   },
   {
     "id": "natri-cacbonat-soda-na2co3",
@@ -1948,7 +1948,7 @@
       "chem-na2co3"
     ],
     "documentKind": "reference",
-    "readingMinutes": 34
+    "readingMinutes": 33
   },
   {
     "id": "canxi-clorua-cacl2",
@@ -2415,7 +2415,7 @@
       "chem-nabr"
     ],
     "documentKind": "reference",
-    "readingMinutes": 30
+    "readingMinutes": 29
   },
   {
     "id": "kali-iotua-ki",
@@ -2479,7 +2479,7 @@
       "chem-pbno32"
     ],
     "documentKind": "reference",
-    "readingMinutes": 33
+    "readingMinutes": 32
   },
   {
     "id": "nhom-clorua-alcl3",
@@ -2509,7 +2509,7 @@
       "chem-alcl3"
     ],
     "documentKind": "reference",
-    "readingMinutes": 33
+    "readingMinutes": 32
   },
   {
     "id": "kem-sunfat-znso4",
@@ -2599,7 +2599,7 @@
       "chem-na2so3"
     ],
     "documentKind": "reference",
-    "readingMinutes": 29
+    "readingMinutes": 28
   },
   {
     "id": "amoni-clorua-nh4cl",
@@ -2874,7 +2874,7 @@
       "chem-znoh2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 33
+    "readingMinutes": 32
   },
   {
     "id": "sat-ii-hidroxit-fe-oh-2",
@@ -2904,7 +2904,7 @@
       "chem-feoh2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 33
+    "readingMinutes": 32
   },
   {
     "id": "sat-iii-hidroxit-fe-oh-3",
@@ -2966,7 +2966,7 @@
       "chem-cuoh2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 33
+    "readingMinutes": 32
   },
   {
     "id": "dung-dich-kali-clorua-kcl",
@@ -2996,7 +2996,7 @@
       "chem-kcl"
     ],
     "documentKind": "reference",
-    "readingMinutes": 33
+    "readingMinutes": 32
   },
   {
     "id": "kali-nitrat-diem-tieu-kno3",
@@ -3058,7 +3058,7 @@
       "chem-nano3"
     ],
     "documentKind": "reference",
-    "readingMinutes": 32
+    "readingMinutes": 31
   },
   {
     "id": "dung-dich-sat-ii-clorua-fecl2",
@@ -3088,7 +3088,7 @@
       "chem-fecl2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 33
+    "readingMinutes": 32
   },
   {
     "id": "dung-dich-sat-iii-sunfat-fe2-so4-3",
@@ -3150,7 +3150,7 @@
       "chem-cucl2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 33
+    "readingMinutes": 32
   },
   {
     "id": "dung-dich-dong-ii-nitrat-cu-no3-2",
@@ -3180,7 +3180,7 @@
       "chem-cuno32"
     ],
     "documentKind": "reference",
-    "readingMinutes": 32
+    "readingMinutes": 31
   },
   {
     "id": "dung-dich-magie-sunfat-muoi-epsom-mgso4",
@@ -3210,7 +3210,7 @@
       "chem-mgso4"
     ],
     "documentKind": "reference",
-    "readingMinutes": 32
+    "readingMinutes": 31
   },
   {
     "id": "dung-dich-magie-clorua-mgcl2",
@@ -3302,7 +3302,7 @@
       "chem-nh42so4"
     ],
     "documentKind": "reference",
-    "readingMinutes": 30
+    "readingMinutes": 29
   },
   {
     "id": "dung-dich-natri-thiosulfat-na2s2o3",
@@ -3518,7 +3518,7 @@
       "chem-agi"
     ],
     "documentKind": "reference",
-    "readingMinutes": 26
+    "readingMinutes": 25
   },
   {
     "id": "chi-ii-iodua-mua-vang-pbi2",
@@ -3550,7 +3550,7 @@
       "chem-pbi2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 27
+    "readingMinutes": 26
   },
   {
     "id": "bari-sunfat-baso4",
@@ -3582,7 +3582,7 @@
       "chem-baso4"
     ],
     "documentKind": "reference",
-    "readingMinutes": 26
+    "readingMinutes": 25
   },
   {
     "id": "dung-dich-kali-cacbonat-tro-bep-k2co3",
@@ -3612,7 +3612,7 @@
       "chem-k2co3"
     ],
     "documentKind": "reference",
-    "readingMinutes": 32
+    "readingMinutes": 31
   },
   {
     "id": "luu-huynh-s",
@@ -3733,7 +3733,7 @@
       "chem-mno2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 20
+    "readingMinutes": 22
   },
   {
     "id": "dong-ii-oxit-bot-cuo",
@@ -3765,7 +3765,7 @@
       "chem-cuo"
     ],
     "documentKind": "reference",
-    "readingMinutes": 31
+    "readingMinutes": 32
   },
   {
     "id": "sat-iii-oxit-gi-sat-fe2o3",
@@ -3797,7 +3797,7 @@
       "chem-fe2o3"
     ],
     "documentKind": "reference",
-    "readingMinutes": 32
+    "readingMinutes": 33
   },
   {
     "id": "canxi-oxit-voi-song-cao",
@@ -3828,7 +3828,7 @@
       "chem-cao"
     ],
     "documentKind": "reference",
-    "readingMinutes": 30
+    "readingMinutes": 31
   },
   {
     "id": "chi-thi-methyl-da-cam-c14h14n3nao3s",
@@ -3859,7 +3859,7 @@
       "chem-methyl-orange"
     ],
     "documentKind": "reference",
-    "readingMinutes": 25
+    "readingMinutes": 26
   },
   {
     "id": "chi-thi-thymolphthalein-c28h30o4",
@@ -3978,7 +3978,7 @@
       "chem-ch3coona"
     ],
     "documentKind": "reference",
-    "readingMinutes": 35
+    "readingMinutes": 34
   },
   {
     "id": "bac-ag-composition",
@@ -4064,7 +4064,7 @@
       "formula-Ag2CrO4"
     ],
     "documentKind": "reference",
-    "readingMinutes": 27
+    "readingMinutes": 26
   },
   {
     "id": "ag2o-ag2o",
@@ -4092,7 +4092,7 @@
       "formula-Ag2O"
     ],
     "documentKind": "reference",
-    "readingMinutes": 27
+    "readingMinutes": 28
   },
   {
     "id": "bac-photphat-ag3po4",
@@ -4181,7 +4181,7 @@
       "formula-Al2(SO4)3"
     ],
     "documentKind": "reference",
-    "readingMinutes": 32
+    "readingMinutes": 31
   },
   {
     "id": "al2o3-al2o3",
@@ -4209,7 +4209,7 @@
       "formula-Al2O3"
     ],
     "documentKind": "reference",
-    "readingMinutes": 29
+    "readingMinutes": 30
   },
   {
     "id": "nhom-bromua-albr3",
@@ -4238,7 +4238,7 @@
       "formula-AlBr3"
     ],
     "documentKind": "reference",
-    "readingMinutes": 30
+    "readingMinutes": 29
   },
   {
     "id": "nhom-iodua-ali3",
@@ -4296,7 +4296,7 @@
       "formula-Ba(CH3COO)2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 35
+    "readingMinutes": 34
   },
   {
     "id": "bari-fomat-ba-hcoo-2",
@@ -4325,7 +4325,7 @@
       "formula-Ba(HCOO)2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 32
+    "readingMinutes": 31
   },
   {
     "id": "bari-nitrat-ba-no3-2",
@@ -4354,7 +4354,7 @@
       "formula-Ba(NO3)2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 31
+    "readingMinutes": 30
   },
   {
     "id": "bari-photphat-ba3-po4-2",
@@ -4383,7 +4383,7 @@
       "formula-Ba3(PO4)2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 26
+    "readingMinutes": 25
   },
   {
     "id": "bari-bromua-babr2",
@@ -4412,7 +4412,7 @@
       "formula-BaBr2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 30
+    "readingMinutes": 29
   },
   {
     "id": "bari-oxalat-bac2o4",
@@ -4441,7 +4441,7 @@
       "formula-BaC2O4"
     ],
     "documentKind": "reference",
-    "readingMinutes": 28
+    "readingMinutes": 27
   },
   {
     "id": "bari-cacbonat-baco3",
@@ -4470,7 +4470,7 @@
       "formula-BaCO3"
     ],
     "documentKind": "reference",
-    "readingMinutes": 33
+    "readingMinutes": 32
   },
   {
     "id": "bari-cromat-bacro4",
@@ -4499,7 +4499,7 @@
       "formula-BaCrO4"
     ],
     "documentKind": "reference",
-    "readingMinutes": 28
+    "readingMinutes": 27
   },
   {
     "id": "bari-florua-baf2",
@@ -4528,7 +4528,7 @@
       "formula-BaF2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 28
+    "readingMinutes": 27
   },
   {
     "id": "bari-iodua-bai2",
@@ -4557,7 +4557,7 @@
       "formula-BaI2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 31
+    "readingMinutes": 30
   },
   {
     "id": "bao-bao",
@@ -4585,7 +4585,7 @@
       "formula-BaO"
     ],
     "documentKind": "reference",
-    "readingMinutes": 31
+    "readingMinutes": 32
   },
   {
     "id": "bari-sunfit-baso3",
@@ -4782,7 +4782,7 @@
       "formula-C2H5COOK"
     ],
     "documentKind": "reference",
-    "readingMinutes": 29
+    "readingMinutes": 28
   },
   {
     "id": "c2h5cooli-c2h5cooli",
@@ -4838,7 +4838,7 @@
       "formula-C2H5COONa"
     ],
     "documentKind": "reference",
-    "readingMinutes": 29
+    "readingMinutes": 28
   },
   {
     "id": "c3h4-c3h4",
@@ -5034,7 +5034,7 @@
       "formula-C3H7COOK"
     ],
     "documentKind": "reference",
-    "readingMinutes": 29
+    "readingMinutes": 28
   },
   {
     "id": "c3h7cooli-c3h7cooli",
@@ -5090,7 +5090,7 @@
       "formula-C3H7COONa"
     ],
     "documentKind": "reference",
-    "readingMinutes": 29
+    "readingMinutes": 28
   },
   {
     "id": "c4h6-c4h6",
@@ -5426,7 +5426,7 @@
       "formula-Ca(CH3COO)2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 35
+    "readingMinutes": 34
   },
   {
     "id": "canxi-fomat-ca-hcoo-2",
@@ -5513,7 +5513,7 @@
       "formula-Ca3(PO4)2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 26
+    "readingMinutes": 25
   },
   {
     "id": "canxi-bromua-cabr2",
@@ -5629,7 +5629,7 @@
       "formula-CaSO3"
     ],
     "documentKind": "reference",
-    "readingMinutes": 29
+    "readingMinutes": 28
   },
   {
     "id": "cadmium-cd",
@@ -5773,7 +5773,7 @@
       "formula-Cd(OH)2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 30
+    "readingMinutes": 29
   },
   {
     "id": "cadimi-bromua-cdbr2",
@@ -5802,7 +5802,7 @@
       "formula-CdBr2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 30
+    "readingMinutes": 29
   },
   {
     "id": "cadimi-oxalat-cdc2o4",
@@ -5918,7 +5918,7 @@
       "formula-CdI2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 29
+    "readingMinutes": 28
   },
   {
     "id": "cdo-cdo",
@@ -5946,7 +5946,7 @@
       "formula-CdO"
     ],
     "documentKind": "reference",
-    "readingMinutes": 25
+    "readingMinutes": 26
   },
   {
     "id": "cadimi-sunfua-cds",
@@ -6004,7 +6004,7 @@
       "formula-CdSO4"
     ],
     "documentKind": "reference",
-    "readingMinutes": 32
+    "readingMinutes": 31
   },
   {
     "id": "ch3ch2ch2ch2oh-ch3ch2ch2ch2oh",
@@ -6089,7 +6089,7 @@
       "formula-CH3COOAg"
     ],
     "documentKind": "reference",
-    "readingMinutes": 33
+    "readingMinutes": 32
   },
   {
     "id": "ch3cooc3h7-ch3cooc3h7",
@@ -6204,7 +6204,7 @@
       "formula-CH3COOK"
     ],
     "documentKind": "reference",
-    "readingMinutes": 34
+    "readingMinutes": 33
   },
   {
     "id": "liti-axetat-ch3cooli",
@@ -6318,7 +6318,7 @@
       "formula-Co(CH3COO)2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 34
+    "readingMinutes": 33
   },
   {
     "id": "coban-ii-fomat-co-hcoo-2",
@@ -6347,7 +6347,7 @@
       "formula-Co(HCOO)2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 29
+    "readingMinutes": 28
   },
   {
     "id": "coban-ii-nitrat-co-no3-2",
@@ -6405,7 +6405,7 @@
       "formula-Co(OH)2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 30
+    "readingMinutes": 29
   },
   {
     "id": "coban-ii-bromua-cobr2",
@@ -6494,7 +6494,7 @@
       "formula-CoCl2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 33
+    "readingMinutes": 32
   },
   {
     "id": "coban-ii-iodua-coi2",
@@ -6551,7 +6551,7 @@
       "formula-CoO"
     ],
     "documentKind": "reference",
-    "readingMinutes": 26
+    "readingMinutes": 28
   },
   {
     "id": "coban-ii-sunfua-cos",
@@ -6609,7 +6609,7 @@
       "formula-CoSO4"
     ],
     "documentKind": "reference",
-    "readingMinutes": 32
+    "readingMinutes": 31
   },
   {
     "id": "crom-iii-nitrat-cr-no3-3",
@@ -6638,7 +6638,7 @@
       "formula-Cr(NO3)3"
     ],
     "documentKind": "reference",
-    "readingMinutes": 27
+    "readingMinutes": 26
   },
   {
     "id": "crom-iii-hidroxit-cr-oh-3",
@@ -6667,7 +6667,7 @@
       "formula-Cr(OH)3"
     ],
     "documentKind": "reference",
-    "readingMinutes": 33
+    "readingMinutes": 32
   },
   {
     "id": "crom-iii-sunfat-cr2-so4-3",
@@ -6696,7 +6696,7 @@
       "formula-Cr2(SO4)3"
     ],
     "documentKind": "reference",
-    "readingMinutes": 27
+    "readingMinutes": 26
   },
   {
     "id": "cr2o3-cr2o3",
@@ -6723,7 +6723,7 @@
       "formula-Cr2O3"
     ],
     "documentKind": "reference",
-    "readingMinutes": 22
+    "readingMinutes": 23
   },
   {
     "id": "crom-iii-bromua-crbr3",
@@ -6752,7 +6752,7 @@
       "formula-CrBr3"
     ],
     "documentKind": "reference",
-    "readingMinutes": 26
+    "readingMinutes": 25
   },
   {
     "id": "crom-iii-clorua-crcl3",
@@ -6809,7 +6809,7 @@
       "formula-CrI3"
     ],
     "documentKind": "reference",
-    "readingMinutes": 24
+    "readingMinutes": 23
   },
   {
     "id": "dong-ii-axetat-cu-ch3coo-2",
@@ -6838,7 +6838,7 @@
       "formula-Cu(CH3COO)2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 34
+    "readingMinutes": 33
   },
   {
     "id": "dong-ii-bromua-cubr2",
@@ -6896,7 +6896,7 @@
       "formula-CuC2O4"
     ],
     "documentKind": "reference",
-    "readingMinutes": 28
+    "readingMinutes": 27
   },
   {
     "id": "dong-ii-sunfua-cus",
@@ -6925,7 +6925,7 @@
       "formula-CuS"
     ],
     "documentKind": "reference",
-    "readingMinutes": 27
+    "readingMinutes": 26
   },
   {
     "id": "sat-ii-axetat-fe-ch3coo-2",
@@ -6954,7 +6954,7 @@
       "formula-Fe(CH3COO)2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 34
+    "readingMinutes": 33
   },
   {
     "id": "sat-ii-fomat-fe-hcoo-2",
@@ -7012,7 +7012,7 @@
       "formula-Fe(NO3)2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 29
+    "readingMinutes": 28
   },
   {
     "id": "sat-iii-nitrat-fe-no3-3",
@@ -7041,7 +7041,7 @@
       "formula-Fe(NO3)3"
     ],
     "documentKind": "reference",
-    "readingMinutes": 32
+    "readingMinutes": 31
   },
   {
     "id": "sat-ii-bromua-febr2",
@@ -7070,7 +7070,7 @@
       "formula-FeBr2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 31
+    "readingMinutes": 30
   },
   {
     "id": "sat-iii-bromua-febr3",
@@ -7128,7 +7128,7 @@
       "formula-FeC2O4"
     ],
     "documentKind": "reference",
-    "readingMinutes": 28
+    "readingMinutes": 27
   },
   {
     "id": "sat-ii-cacbonat-feco3",
@@ -7214,7 +7214,7 @@
       "formula-FeO"
     ],
     "documentKind": "reference",
-    "readingMinutes": 27
+    "readingMinutes": 28
   },
   {
     "id": "hbr-hbr",
@@ -7242,7 +7242,7 @@
       "formula-HBr"
     ],
     "documentKind": "reference",
-    "readingMinutes": 31
+    "readingMinutes": 30
   },
   {
     "id": "hcooc2h5-hcooc2h5",
@@ -7441,7 +7441,7 @@
       "formula-HCOONa"
     ],
     "documentKind": "reference",
-    "readingMinutes": 34
+    "readingMinutes": 33
   },
   {
     "id": "hi-hi",
@@ -7469,7 +7469,7 @@
       "formula-HI"
     ],
     "documentKind": "reference",
-    "readingMinutes": 33
+    "readingMinutes": 32
   },
   {
     "id": "kali-k",
@@ -7555,7 +7555,7 @@
       "formula-K2O"
     ],
     "documentKind": "reference",
-    "readingMinutes": 27
+    "readingMinutes": 29
   },
   {
     "id": "kali-sunfua-k2s",
@@ -7584,7 +7584,7 @@
       "formula-K2S"
     ],
     "documentKind": "reference",
-    "readingMinutes": 30
+    "readingMinutes": 29
   },
   {
     "id": "kali-sunfit-k2so3",
@@ -7642,7 +7642,7 @@
       "formula-K2SO4"
     ],
     "documentKind": "reference",
-    "readingMinutes": 31
+    "readingMinutes": 30
   },
   {
     "id": "kali-photphat-k3po4",
@@ -7671,7 +7671,7 @@
       "formula-K3PO4"
     ],
     "documentKind": "reference",
-    "readingMinutes": 26
+    "readingMinutes": 25
   },
   {
     "id": "kali-bromua-kbr",
@@ -7869,7 +7869,7 @@
       "formula-Li2O"
     ],
     "documentKind": "reference",
-    "readingMinutes": 25
+    "readingMinutes": 26
   },
   {
     "id": "liti-sunfat-li2so4",
@@ -7898,7 +7898,7 @@
       "formula-Li2SO4"
     ],
     "documentKind": "reference",
-    "readingMinutes": 31
+    "readingMinutes": 30
   },
   {
     "id": "liti-bromua-libr",
@@ -7927,7 +7927,7 @@
       "formula-LiBr"
     ],
     "documentKind": "reference",
-    "readingMinutes": 30
+    "readingMinutes": 29
   },
   {
     "id": "liti-clorua-licl",
@@ -8101,7 +8101,7 @@
       "formula-Mg(CH3COO)2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 35
+    "readingMinutes": 34
   },
   {
     "id": "magie-fomat-mg-hcoo-2",
@@ -8159,7 +8159,7 @@
       "formula-Mg(NO3)2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 32
+    "readingMinutes": 31
   },
   {
     "id": "magie-bromua-mgbr2",
@@ -8217,7 +8217,7 @@
       "formula-MgC2O4"
     ],
     "documentKind": "reference",
-    "readingMinutes": 28
+    "readingMinutes": 27
   },
   {
     "id": "magie-cacbonat-mgco3",
@@ -8332,7 +8332,7 @@
       "formula-MgO"
     ],
     "documentKind": "reference",
-    "readingMinutes": 28
+    "readingMinutes": 30
   },
   {
     "id": "magie-sunfit-mgso3",
@@ -8361,7 +8361,7 @@
       "formula-MgSO3"
     ],
     "documentKind": "reference",
-    "readingMinutes": 29
+    "readingMinutes": 28
   },
   {
     "id": "mangan-mn",
@@ -8476,7 +8476,7 @@
       "formula-Mn(NO3)2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 32
+    "readingMinutes": 31
   },
   {
     "id": "mangan-ii-hidroxit-mn-oh-2",
@@ -8563,7 +8563,7 @@
       "formula-MnC2O4"
     ],
     "documentKind": "reference",
-    "readingMinutes": 28
+    "readingMinutes": 27
   },
   {
     "id": "mangan-ii-clorua-mncl2",
@@ -8621,7 +8621,7 @@
       "formula-MnCO3"
     ],
     "documentKind": "reference",
-    "readingMinutes": 31
+    "readingMinutes": 30
   },
   {
     "id": "mangan-ii-iodua-mni2",
@@ -8678,7 +8678,7 @@
       "formula-MnO"
     ],
     "documentKind": "reference",
-    "readingMinutes": 25
+    "readingMinutes": 26
   },
   {
     "id": "mangan-ii-sunfua-mns",
@@ -8765,7 +8765,7 @@
       "formula-Na2C2O4"
     ],
     "documentKind": "reference",
-    "readingMinutes": 28
+    "readingMinutes": 27
   },
   {
     "id": "natri-cromat-na2cro4",
@@ -8822,7 +8822,7 @@
       "formula-Na2O"
     ],
     "documentKind": "reference",
-    "readingMinutes": 27
+    "readingMinutes": 29
   },
   {
     "id": "na2zn-oh-4-na2zn-oh-4",
@@ -9048,7 +9048,7 @@
       "formula-NH4CH3COO"
     ],
     "documentKind": "reference",
-    "readingMinutes": 31
+    "readingMinutes": 30
   },
   {
     "id": "amoni-iodua-nh4i",
@@ -9163,7 +9163,7 @@
       "formula-Ni(HCOO)2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 28
+    "readingMinutes": 27
   },
   {
     "id": "niken-ii-nitrat-ni-no3-2",
@@ -9250,7 +9250,7 @@
       "formula-NiBr2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 30
+    "readingMinutes": 29
   },
   {
     "id": "niken-ii-oxalat-nic2o4",
@@ -9279,7 +9279,7 @@
       "formula-NiC2O4"
     ],
     "documentKind": "reference",
-    "readingMinutes": 27
+    "readingMinutes": 26
   },
   {
     "id": "niken-ii-clorua-nicl2",
@@ -9365,7 +9365,7 @@
       "formula-NiO"
     ],
     "documentKind": "reference",
-    "readingMinutes": 25
+    "readingMinutes": 26
   },
   {
     "id": "niken-ii-sunfua-nis",
@@ -9425,7 +9425,7 @@
       "formula-NiSO4"
     ],
     "documentKind": "reference",
-    "readingMinutes": 32
+    "readingMinutes": 31
   },
   {
     "id": "no-no",
@@ -9597,7 +9597,7 @@
       "formula-Pb3(PO4)2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 26
+    "readingMinutes": 25
   },
   {
     "id": "chi-ii-bromua-pbbr2",
@@ -9799,7 +9799,7 @@
       "formula-PbO"
     ],
     "documentKind": "reference",
-    "readingMinutes": 28
+    "readingMinutes": 29
   },
   {
     "id": "chi-ii-sunfat-pbso4",
@@ -9969,7 +9969,7 @@
       "formula-Sr(CH3COO)2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 33
+    "readingMinutes": 32
   },
   {
     "id": "stronti-fomat-sr-hcoo-2",
@@ -10056,7 +10056,7 @@
       "formula-Sr(OH)2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 30
+    "readingMinutes": 29
   },
   {
     "id": "stronti-photphat-sr3-po4-2",
@@ -10114,7 +10114,7 @@
       "formula-SrBr2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 30
+    "readingMinutes": 29
   },
   {
     "id": "stronti-oxalat-src2o4",
@@ -10201,7 +10201,7 @@
       "formula-SrCO3"
     ],
     "documentKind": "reference",
-    "readingMinutes": 33
+    "readingMinutes": 32
   },
   {
     "id": "stronti-florua-srf2",
@@ -10230,7 +10230,7 @@
       "formula-SrF2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 27
+    "readingMinutes": 26
   },
   {
     "id": "stronti-iodua-sri2",
@@ -10259,7 +10259,7 @@
       "formula-SrI2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 31
+    "readingMinutes": 30
   },
   {
     "id": "sro-sro",
@@ -10287,7 +10287,7 @@
       "formula-SrO"
     ],
     "documentKind": "reference",
-    "readingMinutes": 27
+    "readingMinutes": 29
   },
   {
     "id": "stronti-sunfit-srso3",
@@ -10345,7 +10345,7 @@
       "formula-SrSO4"
     ],
     "documentKind": "reference",
-    "readingMinutes": 26
+    "readingMinutes": 25
   },
   {
     "id": "kem-axetat-zn-ch3coo-2",
@@ -10374,7 +10374,7 @@
       "formula-Zn(CH3COO)2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 34
+    "readingMinutes": 33
   },
   {
     "id": "kem-fomat-zn-hcoo-2",
@@ -10432,7 +10432,7 @@
       "formula-Zn(NO3)2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 32
+    "readingMinutes": 31
   },
   {
     "id": "kem-bromua-znbr2",
@@ -10461,7 +10461,7 @@
       "formula-ZnBr2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 31
+    "readingMinutes": 30
   },
   {
     "id": "kem-oxalat-znc2o4",
@@ -10490,7 +10490,7 @@
       "formula-ZnC2O4"
     ],
     "documentKind": "reference",
-    "readingMinutes": 27
+    "readingMinutes": 26
   },
   {
     "id": "kem-clorua-zncl2",
@@ -10519,7 +10519,7 @@
       "formula-ZnCl2"
     ],
     "documentKind": "reference",
-    "readingMinutes": 33
+    "readingMinutes": 32
   },
   {
     "id": "kem-cacbonat-znco3",
@@ -10605,7 +10605,7 @@
       "formula-ZnO"
     ],
     "documentKind": "reference",
-    "readingMinutes": 27
+    "readingMinutes": 28
   },
   {
     "id": "kem-sunfua-zns",
@@ -10634,7 +10634,7 @@
       "formula-ZnS"
     ],
     "documentKind": "reference",
-    "readingMinutes": 27
+    "readingMinutes": 26
   },
   {
     "id": "axit-oxalic-0-1m-h2c2o4",

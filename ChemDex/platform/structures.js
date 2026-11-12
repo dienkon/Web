@@ -43,8 +43,8 @@ const KIND_LABELS = {
   molecule: "PHÂN TỬ",
   ion: "ION ĐA NGUYÊN TỬ",
   crystal: "MẠNG TINH THỂ",
-  components: "PHỨC & MUỐI ION",
-  composition: "LIÊN KẾT HÓA TRỊ",
+  components: "THÀNH PHẦN ION",
+  composition: "THÀNH PHẦN MINH HỌA",
   atom: "ĐƠN NGUYÊN TỬ",
   unavailable: "CHẤT TRONG LAB",
 };
@@ -53,7 +53,7 @@ const SHOWCASE_PRESETS = [
   { id: "cid-962", label: "H₂O · Nước" },
   { id: "cid-241", label: "C₆H₆ · Benzen" },
   { id: "chem-cuso4", label: "CuSO₄ · Đồng(II) sunfat" },
-  { formula: "CuSO4·5H2O", label: "CuSO₄·5H₂O · Phức ngậm nước" },
+  { formula: "CuSO4·5H2O", label: "CuSO₄·5H₂O · Chất ngậm nước" },
   { id: "chem-k2cr2o7", label: "K₂Cr₂O₇ · Kali đicromat" },
   { id: "crystal-nacl", label: "NaCl · Tinh thể Halite" },
   { id: "cid-2519", label: "C₈H₁₀N₄O₂ · Caffeine" },
@@ -95,8 +95,8 @@ document.querySelector("#app").innerHTML = `${
       <option value="molecule">Phân tử cộng hóa trị</option>
       <option value="ion">Ion đa nguyên tử</option>
       <option value="crystal">Mạng tinh thể</option>
-      <option value="components">Phức & Muối ion</option>
-      <option value="composition">Khung liên kết hóa trị</option>
+      <option value="components">Thành phần ion & Phức chất</option>
+      <option value="composition">Thành phần minh họa</option>
       <option value="atom">Đơn nguyên tử</option>
     </select>
   </label>
@@ -177,10 +177,10 @@ function render() {
         const subMeta = c.structure?.dimension === "3d"
           ? "Tọa độ 3D chuẩn (SDF/CIF)"
           : c.ions || c.kind === "components"
-            ? "Liên kết phối trí & ion 3D"
+            ? "Thành phần ion 3D"
             : c.kind === "atom"
               ? "Nguyên tử đơn lẻ 3D"
-              : "Mô hình liên kết hóa trị 3D";
+              : "Mô hình minh họa 3D";
         return `<button class="panel compound-card ${isActive ? "active" : ""}" data-id="${c.id}" data-kind="${escape(c.kind ?? "molecule")}">
           <span class="card-top">
             <span class="badge kind-badge-${escape(c.kind ?? "molecule")}">${kindLabel}</span>
@@ -263,8 +263,17 @@ async function open(record) {
     ${record.note && record.kind === "components" ? `<p class="muted">${escape(record.note)}</p>` : ""}
     <chem-structure-viewer></chem-structure-viewer>
     ${record.kind === "components" ? '<div id="components" class="viewer-toolbar"></div>' : ""}
-    <p class="muted" style="font-size:11px">${record.kind === "ion" ? "Ion đa nguyên tử được hiển thị kèm thứ bậc liên kết cộng hóa trị nội phân tử." : record.kind === "molecule" ? (record.structure?.coordinateType === "experimental" ? "Cấu trúc thực nghiệm pha khí từ NIST CCCBDB; thể hiện chính xác độ dài và góc liên kết." : "Cấu dạng 3D chuẩn hóa từ cơ sở dữ liệu hóa học; hiển thị trực quan các liên kết nguyên tử.") : "Mô hình không gian 3D hiển thị đầy đủ các nguyên tử và liên kết phối trí / hóa trị đặc trưng."}</p></div><div data-structure-crystal hidden></div>`;
+    <p class="muted" style="font-size:11px">${record.kind === "ion" ? "Ion đa nguyên tử được hiển thị kèm khung liên kết minh họa." : record.kind === "molecule" ? (record.structure?.coordinateType === "experimental" ? "Cấu trúc thực nghiệm pha khí từ NIST CCCBDB; độ chính xác theo dữ liệu nguồn." : "Cấu dạng 3D có nguồn; thông tin tọa độ nằm dưới mô hình.") : "Nguyên tử, nhóm và liên kết được ghi theo cách biểu diễn đang chọn."}</p></div><div data-structure-crystal hidden></div>`;
 
+  const viewer = $('selected').querySelector('chem-structure-viewer');
+  let molecularLoad;
+  const ensureMolecular=async()=>{
+    if(!viewer)return;
+    const componentRecord=record.kind==='crystal'&&record.structure?.format==='cif'?{...record,kind:'components',structure:undefined}:record;
+    molecularLoad??=viewer.open(componentRecord,{isomerId});await molecularLoad;
+    if(selected?.id===record.id && viewer.isConnected && viewer.record?.isomerExampleId){const link=new URL(location.href);link.searchParams.set('isomer',viewer.record.isomerExampleId);history.replaceState(null,'',link);}
+  };
+  viewer?.addEventListener('isomerchange',event=>{const link=new URL(location.href);link.searchParams.set('isomer',event.detail.id);history.replaceState(null,'',link);});
   for (const button of $('selected').querySelectorAll('[data-model-view]')) button.onclick = async () => {
     const crystal=button.dataset.modelView==='crystal';
     const moleculeHost=$('selected').querySelector('[data-structure-molecular]');
@@ -280,7 +289,7 @@ async function open(record) {
           if(selected?.id===record.id && crystalHost.isConnected && !crystalWidget)crystalWidget=mountStructureCrystalPanel(crystalHost,crystalLinks[record.id]);
         }catch{if(crystalHost.isConnected)crystalHost.textContent='Chưa tải được bộ xem tinh thể. Có thể thử lại hoặc mở hồ sơ chất.';}
       }
-    }
+    }else await ensureMolecular();
   };
 
   $("favorite").onclick = () => {
@@ -318,14 +327,11 @@ async function open(record) {
             open(compounds.find((c) => c.id === b.dataset.id))),
       );
   }
-  const viewer = $("selected").querySelector("chem-structure-viewer");
-  if (viewer) {
-    viewer.addEventListener('isomerchange',event=>{
-      const link=new URL(location.href);link.searchParams.set('isomer',event.detail.id);history.replaceState(null,'',link);
-    });
-    await viewer.open(record,{isomerId});
-    if(selected?.id===record.id && viewer.isConnected && viewer.record?.isomerExampleId){const link=new URL(location.href);link.searchParams.set('isomer',viewer.record.isomerExampleId);history.replaceState(null,'',link);}
-  }
+  const crystalButton=$('selected').querySelector('[data-model-view="crystal"]');
+  if(crystalButton&&['crystal','components','composition'].includes(record.kind)){
+    await crystalButton.onclick();
+    if(selected?.id===record.id)$('selected').querySelector('[data-crystal-start]')?.click();
+  }else await ensureMolecular();
   if (innerWidth < 800 && !embedded)
     $("selected").scrollIntoView({
       behavior: matchMedia("(prefers-reduced-motion: reduce)").matches

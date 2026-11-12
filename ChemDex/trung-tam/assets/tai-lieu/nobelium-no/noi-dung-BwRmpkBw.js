@@ -1,0 +1,162 @@
+const n="nobelium-no",h="nobelium-no",t="reference/nobelium-no/index.json",c=["ho-so-b0c3f80c574d"],i="Nobelium (No) — Từ lò luyện kim cổ truyền đến trụ cột công nghệ nguyên tố hiện đại",g="Tạp Chí Công Nghệ Hóa Chất & Vật Liệu · ChemDex",u="nguyento",o="Chuyên đề báo chí về Nobelium (No) từ cột mốc 1966 (sau nhiều tranh cãi về các tuyên bố phát hiện trước đó): tái hiện lịch sử phát hiện, cơ chế tạo thành liên kết hóa học và vai trò trong công nghiệp – phòng lab.",a="/assets/library/substances/nobelium-no.svg",b="No",m=["Biên niên sử nguyên tố","No"],l=["Nobelium","No"],r=["atom-No"],e="reference",v=20,p={formula:"No",representativeId:"atom-No",counts:{No:1},mass:259,material:!1,reactionIds:[]},s=`## Câu chuyện: Hành trình lịch sử đưa Nobelium (No) từ bí ẩn tự nhiên thành tri thức nhân loại
+
+Mỗi chất hóa học đều có một "tiểu sử" riêng biệt không trộn lẫn. Với **Nobelium (No)**, câu chuyện ấy bắt đầu từ khoảnh khắc con người nhận ra rằng thế giới vật chất xung quanh được lắp ghép từ những đơn vị nguyên tử tuân theo quy luật tỷ lượng tuyệt đối và hình học không gian tinh vi.
+
+Theo hồ sơ bách khoa trực tuyến từ [Wikipedia Tiếng Việt — No](https://vi.wikipedia.org/wiki/No), bản chất và lịch sử của chất này được ghi nhận cụ thể như sau: No có thể đề cập đến: No bụng No (hóa học) "No" (bài hát của Meghan Trainor) "No" (bài hát của Shakira) Nō, kịch Nhật Bản No (họ người Triều Tiên)
+
+Tư liệu bách khoa quốc tế tại [Wikipedia — No](https://en.wikipedia.org/wiki/No) bổ sung thêm góc nhìn lịch sử và danh pháp quốc tế: *“No or NO may refer to:”* — phản ánh vai trò quan trọng của **Nobelium (No)** trong hệ thống phân loại hóa chất chuẩn IUPAC và thực tiễn phòng thí nghiệm toàn cầu.
+
+Là một nguyên tố nặng với hành trình kiến tạo đầy kịch tính, **Nobelium (No)** được tôi luyện từ những sự kiện vũ trụ khốc liệt nhất — những vụ va chạm dữ dội giữa các sao neutron hoặc siêu tân tinh giàu neutron, để lại những mạch quặng quý giá sâu trong lòng các tầng địa chất Trái Đất. Trong lịch sử văn minh nhân loại, khoảnh khắc định danh và cô lập được **Nobelium** đánh dấu bước ngoặt lớn gắn liền với công trình của **Được ghi nhận chính thức cho nhóm nghiên cứu tại Joint Institute for Nuclear Research (JINR), Dubna, do Georgy Flyorov đứng đầu.** vào thời điểm **1966 (sau nhiều tranh cãi về các tuyên bố phát hiện trước đó)** tại **Dubna, Liên Xô**. Tên gọi quốc tế và ký hiệu **No** bắt nguồn từ danh pháp Latinh **Nobelium**. Nobelium được tạo ra bằng cách bắn phá Curium-246 bằng các ion Carbon-12: ²⁴⁶Cm + ¹²C → ²⁵⁶No + 2n Tên Nobelium được đặt để vinh danh Alfred Nobel, người sáng lập giải Nobel. Trong tự nhiên, Nobelium gắn liền với các vỉa khoáng vật đặc trưng như **Không tồn tại tự nhiên, được tạo ra nhân tạo**.
+
+### Dấu ấn nhà khoa học tiên phong: Chân dung và di sản của Glenn Theodore Seaborg (Gơ-len Si-boóc)
+
+Trong lịch sử khám phá và làm sáng tỏ bản chất của **Nobelium (No)**, dấu ấn thực nghiệm sâu sắc nhất gắn liền với tên tuổi của **Glenn Theodore Seaborg** (1912 – 1999) — nhà thám hiểm hạt nhân siêu urani và người duy nhất có nguyên tố mang tên mình khi còn sống.
+
+*“Việc sắp xếp lại Bảng tuần hoàn để tạo ra hàng họ Actini là sự thay đổi cấu trúc căn bản nhất kể từ thời Dmitri Mendeleev.”* — Lời đúc kết nổi tiếng này không chỉ là kim chỉ nam nghiên cứu của Glenn Theodore Seaborg mà còn phản ánh tinh thần thực nghiệm bất khuất của thời đại khai sáng khoa học.
+
+**Nghị lực sống & Thăng trầm khoa học**: Seaborg sinh ra tại thị trấn khai thác mỏ Ishpeming (Michigan) trong một gia đình công nhân gốc Thụy Điển nghèo. Cậu bé Glenn phải làm phụ xe tải, hái hoa quả thuê và làm công nhân xưởng cưa để tự kiếm tiền học đại học tại UCLA và UC Berkeley trong thời kỳ Đại suy thoái kinh tế 1930. Năm 1942, khi mới 30 tuổi, ông được điều động vào Dự án Manhattan tối mật tại Phòng thí nghiệm Luyện kim Chicago với trọng trách tối thượng: tìm cách tách chiết vài microgam Plutonium vừa tạo thành trong lò phản ứng hạt nhân để chế tạo quả bom nguyên tử đầu tiên kết thúc Thế chiến II. Áp lực an ninh quân sự và hiểm họa nhiễm độc bức xạ alpha chết người luôn rình rập hàng ngày.
+
+**Giai thoại phòng thí nghiệm & Phong cách làm việc**: Seaborg lập nên một kỷ lục Guinness vô tiền khoáng hậu: ông là người nắm giữ bằng sáng chế đối với hai nguyên tố hóa học là Americium (Am, Z=95) và Curium (Cm, Z=96) — người duy nhất từng "sở hữu bằng sáng chế" cho một nguyên tố tự nhiên trong vũ trụ! Năm 1944, ông đưa ra ý tưởng táo bạo: rút 14 nguyên tố sau Actini ra khỏi phần thân chính của Bảng tuần hoàn để xếp thành một hàng riêng biệt gọi là "Họ Actini" (Actinide series) tương tự như họ Lantan. Các đồng nghiệp cảnh báo ông rằng ý tưởng này sẽ phá hủy danh tiếng khoa học của ông, nhưng Seaborg kiên quyết bảo vệ chân lý và được chứng minh hoàn toàn đúng, mang về cho ông Giải Nobel Hóa học năm 1951 (khi mới 39 tuổi). Năm 1997, nguyên tố số 106 chính thức được IUPAC đặt tên là Seaborgium (Sg) — lần đầu tiên trong lịch sử một nguyên tố được đặt tên theo một nhà khoa học đang còn sống.
+
+**Đột phá thực nghiệm lịch sử**: 1. Khám phá và Đồng phát hiện 10 Nguyên tố Siêu Urani (Transuranic Elements): Plutonium (Pu, 1940), Americium (Am, 1944), Curium (Cm, 1944), Berkelium (Bk, 1949), Californium (Cf, 1950), Einsteinium (Es, 1952), Fermium (Fm, 1953), Mendelevium (Md, 1955), Nobelium (No, 1958) và Seaborgium (Sg, 1974).
+2. Khám phá Đồng vị Pu-239: Nhiên liệu hạt nhân phân hạch chủ đạo của lò phản ứng hạt nhân và vũ khí hạt nhân.
+3. Khám phá Hàng trăm Đồng vị Phóng xạ Y học: Điển hình là Iot-131 (điều trị ung thư tuyến giáp — chính đồng vị này đã cứu sống mẹ của Seaborg khi bà bị bệnh tuyến giáp nặng), Technetium-99m (chẩn đoán hình ảnh y học phổ biến nhất thế giới), Coban-60 và Sắt-59.
+4. Tái cấu trúc Bảng tuần hoàn hiện đại với hai hàng họ Lantan và họ Actini đặt tách biệt ở đáy bảng.
+
+**Thiết bị phòng thí nghiệm đặc chế tiêu biểu**:
+
+- **Máy gia tốc hạt Cyclotron 60-inch Lawrence Berkeley (60-Inch Berkeley Cyclotron)**: Máy gia tốc hạt nhân khổng lồ sử dụng từ trường và điện trường cao tần gia tốc hạt đơteri và hạt alpha bắn phá bia kim loại urani tạo ra các nguyên tố siêu urani.
+- **Hộp găng tay thao tác phóng xạ vi lượng (Ultra-Microchemical Glovebox)**: Hộp kín bọc chì hút áp suất âm có găng tay cao su dày và kính chì bảo vệ, kết hợp kính hiển vi vi thao tác để cân đong khối lượng chất phóng xạ chỉ vài phần triệu gam.
+
+**Dấu mốc phản ứng gắn liền với công trình của Glenn Theodore Seaborg**:
+
+- Phương trình phản ứng bước ngoặt: \`238_92U + 2_1H -> 238_93Np + 2 1_0n  sau do  238_93Np -> 238_94Pu + beta-\`
+  *Hiện tượng quan sát thực tế*: Bia urani sau khi chiếu xạ xuất hiện dấu vết phóng xạ alpha mới; bằng phương pháp kết tinh đồng kết tủa với lantan florua, Seaborg cô lập được vài picogam kim loại Plutoni đầu tiên trên thế giới.
+  *Ghi chú lịch sử*: Khoảnh khắc đêm ngày 23/2/1941 tại phòng 307 Hall Gilman khai sinh ra nguyên tố Plutoni.
+
+**Bài học phương pháp luận cho học sinh GDPT**: Seaborg hoàn thiện diện mạo Bảng tuần hoàn hiện đại 118 nguyên tố mà học sinh nhìn thấy trên tường lớp học ngày nay. Trong GDPT 2018 (Hóa học 10 - Cấu tạo nguyên tử & Bảng tuần hoàn), họ Actini và các nguyên tố nhân tạo siêu nặng là minh chứng sống động cho sự tiếp nối không ngừng nghỉ của khoa học.
+
+![Khởi nguyên lịch sử và hành trình khám phá Nobelium (No)](/assets/library/element-actinide.svg)
+*Hình 1. Bối cảnh lịch sử phát hiện, nguồn gốc tự nhiên và tiến trình định danh khoa học của Nobelium (No).*
+
+## Lần theo thành phần nguyên tử: Giải mã bộ khung liên kết và cá tính hình học của Nobelium
+
+Để hiểu vì sao **Nobelium (No)** lại mang những tính chất vật lý và hóa học đặc thù, chúng ta cần đi sâu vào "bản thiết kế hình học" của chất này. Một đơn vị công thức **No** được liên kết chặt chẽ từ **1 nguyên tử** thuộc **1 nguyên tố hóa học**:
+
+- **Nguyên tố Nobelium (No)**: Góp mặt **1 nguyên tử** trong một đơn vị cấu trúc phân tử. Các nguyên tử Nobelium phối hợp nhịp nhàng cùng các nguyên tử đồng hành để tạo nên bộ khung không gian bền vững, định hình trực tiếp diện mạo và các đặc tính hóa học cốt lõi của **Nobelium**.
+
+Ở trạng thái đơn chất, **Nobelium (No)** mang trọn vẹn phong thái và tính chất đặc trưng của nhóm **nguyên tố**. Trong mạng lưới cấu trúc tự nhiên (như Chưa xác định do chỉ tạo được lượng nguyên tử cực nhỏ.), các nguyên tử **Nobelium** gắn kết với nhau bằng những liên kết bền vững, tạo nên độ cứng, nhiệt độ chuyển pha và khả năng tương tác riêng biệt khi đặt trong môi trường thử nghiệm.
+
+![Minh họa cấu trúc của Nobelium (No)](/assets/library/crystal-bcc.svg)
+*Hình 2. Minh họa các cách đọc cấu trúc. Dữ liệu của mô hình tương tác, điều kiện pha và nguồn tọa độ được ghi riêng bên dưới mô hình.*
+
+| Chỉ tiêu nhận diện & Cấu trúc 3D | Tư liệu xác thực từ hệ thống ChemDex |
+|---|---|
+| Tên chất & Danh pháp quốc tế | **Nobelium** (Nobelium) |
+| Công thức hóa học thực nghiệm | **No**  |
+| Hình thái không gian 3 chiều | Đơn chất tự nhiên () |
+| Quy mô cấu trúc vi mô | **1 nguyên tử** (1× No) |
+| Trạng thái & Sắc thái nhận diện | Rắn / Dung dịch thực nghiệm |
+| Phòng quan sát 3D tương tác | [Mở mô hình xoay 360° và kiểm tra góc liên kết](/tien-ich/cau-truc-3d/?compound=atom-No) |
+
+Người đọc có thể trực tiếp xoay mô hình 360°, bật/tắt nhãn nguyên tử và kiểm tra độ dài từng liên kết (tính bằng đơn vị Ångström) của chất này tại [Phòng quan sát Cấu trúc & Liên kết 3D — Nobelium](/tien-ich/cau-truc-3d/?compound=atom-No).
+
+## Trọng tâm kiến thức Hóa học GDPT (THCS & THPT): Cấu trúc, Nhiệt động lực & Cơ chế
+
+Trong Chương trình Giáo dục phổ thông 2018 (môn Khoa học tự nhiên THCS & môn Hóa học THPT Lớp Hóa học 10), **Nobelium (No)** là đối tượng trọng tâm thuộc mạch nội dung **“Tốc độ phản ứng hóa học, Định luật tác dụng khối lượng và Năng lượng hoạt hóa”** (Các bài học cốt lõi liên quan: *Hóa học 10 - Chương 6: Tốc độ phản ứng hóa học (Bài 15: Phương trình tốc độ phản ứng và hằng số tốc độ), Hóa học 10 - Chương 6: Tốc độ phản ứng hóa học (Bài 16: Các yếu tố ảnh hưởng đến tốc độ phản ứng), KHTN 8 - Bài: Tốc độ phản ứng và chất xúc tác*).
+
+### 1. Nguyên lý lý thuyết & Quy luật khoa học chi phối
+
+Tốc độ phản ứng hóa học (v) là đại lượng đặc trưng cho sự biến thiên nồng độ của chất phản ứng hoặc sản phẩm trong một đơn vị thời gian. Phản ứng xảy ra khi các tiểu phân va chạm hiệu quả với năng lượng vượt qua rào cản Năng lượng hoạt hóa (Ea). Định luật tác dụng khối lượng xác định tốc độ theo nồng độ: v = k·[A]^a·[B]^b. Năm yếu tố chi phối tốc độ phản ứng gồm: Nồng độ, Áp suất, Diện tích bề mặt tiếp xúc, Nhiệt độ (quy tắc Van 't Hoff) và Chất xúc tác.
+
+- **Định luật tác dụng khối lượng Guldberg - Waage**: v = k · [A]^a · [B]^b (ở nhiệt độ không đổi, nồng độ chất rắn không ghi vào biểu thức).
+- **Bản chất chất xúc tác**: Chất xúc tác làm tăng tốc độ phản ứng bằng cách làm giảm năng lượng hoạt hóa Ea mà không làm thay đổi biến thiên enthalpy ΔH của phản ứng.
+- **Quy tắc nhiệt độ Van 't Hoff**: Tăng nhiệt độ thêm 10°C làm tốc độ tăng γ lần (v2 = v1 · γ^((T2-T1)/10)).
+
+### 2. Phân tích sư phạm chuyên sâu đối với Nobelium (No)
+
+### 1. Khái niệm Tốc độ phản ứng hóa học
+Tốc độ phản ứng hóa học là độ biến thiên nồng độ của một trong các chất phản ứng hoặc sản phẩm tạo thành trong một đơn vị thời gian (giây $s$, phút $min$, hoặc giờ $h$).
+- **Tốc độ trung bình ($\\\\bar{v}$)** của phản ứng trong khoảng thời gian từ $t_1$ đến $t_2$:
+  $$\\\\bar{v} = \\\\pm \\\\frac{\\\\Delta C}{\\\\Delta t} = - \\\\frac{1}{a} \\\\frac{\\\\Delta [A]}{\\\\Delta t} = + \\\\frac{1}{c} \\\\frac{\\\\Delta [C]}{\\\\Delta t}$$
+  *(Dấu trừ dành cho chất phản ứng vì nồng độ giảm theo thời gian; dấu cộng dành cho sản phẩm vì nồng độ tăng; chia cho hệ số tỷ lượng để tốc độ theo mọi chất là như nhau).*
+
+### 2. Định luật tác dụng khối lượng (Law of Mass Action)
+Năm 1864, hai nhà hóa học Na Uy Cato Guldberg và Peter Waage đã tìm ra định luật: Ở nhiệt độ không đổi, tốc độ của một phản ứng đơn giản tỷ lệ thuận với tích số nồng độ của các chất phản ứng nâng lên lũy thừa bằng hệ số tỷ lượng tương ứng trong phương trình hóa học....
+
+### 3. Phương trình phản ứng với trạng thái pha (s, l, g, aq) & Hiện tượng quan sát
+
+- **Phương trình phản ứng chuẩn mực**: \`Na2S2O3(aq) + H2SO4(aq) -> Na2SO4(aq) + SO2(g) + S(s) + H2O(l)\`
+  *Điều kiện thực hiện*: Nhiệt độ phòng (thí nghiệm đo tốc độ phản ứng chuẩn GDPT 2018).
+  *Hiện tượng quan sát thực tế*: Dung dịch trong suốt ban đầu dần dần mờ đục do lưu huỳnh nguyên chất sinh ra ở dạng hạt keo màu trắng sữa; khi tăng nồng độ Na2S2O3 hoặc tăng nhiệt độ, thời gian che khuất dấu chữ thập ở đáy cốc giảm đi rõ rệt.
+
+- **Phương trình phản ứng chuẩn mực**: \`2H2O2(aq) --(xuc tac MnO2)--> 2H2O(l) + O2(g)\`
+  *Điều kiện thực hiện*: Nhiệt độ phòng, xúc tác bột MnO2 màu đen.
+  *Hiện tượng quan sát thực tế*: Ở điều kiện thường, dung dịch nước oxy già H2O2 phân hủy cực kỳ chậm hầu như không thấy bọt khí; khi thả một lượng nhỏ bột MnO2 vào, dung dịch lập tức sôi trào sủi bọt khí oxi mãnh liệt làm tàn đóm đỏ bùng cháy sáng chói.
+
+### 4. Lưu ý sư phạm & Bẫy tư duy thường gặp trong các kỳ thi tuyển sinh
+
+- ⚠️ *Lưu ý tránh bẫy đề thi*: Cho rằng chất xúc tác làm tăng lượng sản phẩm tạo thành (Sai: Chất xúc tác chỉ làm phản ứng ĐẠT ĐÍCH NHANH HƠN, không làm tăng hiệu suất nhiệt động học cực đại).
+- ⚠️ *Lưu ý tránh bẫy đề thi*: Đưa nồng độ của chất rắn vào biểu thức định luật tác dụng khối lượng (Sai: Nồng độ chất rắn nguyên chất coi như hằng số nên được gộp vào hằng số k).
+- ⚠️ *Lưu ý tránh bẫy đề thi*: Nhầm lẫn giữa tốc độ phản ứng (động học) và độ tự phát của phản ứng (nhiệt động học).
+
+## Con đường khai sinh hợp chất: Phương pháp điều chế và phản ứng đặc trưng của Nobelium
+
+Trong tự nhiên, hầu hết các nguyên tố hóa học tồn tại ở dạng hợp chất bền vững về mặt nhiệt động học. Để đưa **Nobelium (No)** về trạng thái đơn chất tinh khiết phục vụ nghiên cứu và sản xuất, ngành hóa học thực nghiệm đã phát triển hai nhánh quy trình bổ trợ lẫn nhau:
+
+- **Điều chế trong phòng thí nghiệm**: Nobelium được tổng hợp bằng cách bắn phá Curium-244 bằng ion Carbon-12 trong máy gia tốc hạt. Phương trình phản ứng: \`²⁴⁴Cm + ¹²C → ²⁵²No + 4¹n\`. 
+- **Sản xuất quy mô công nghiệp**: Nobelium (No) không được sản xuất công nghiệp do tính phóng xạ cao và thời gian bán rã ngắn. Nguyên tố này chỉ được tổng hợp với lượng rất nhỏ trong các cơ sở nghiên cứu hạt nhân.  
+
+Bên cạnh câu chuyện điều chế, bản chất hóa học của **Nobelium** còn được thể hiện sống động qua chuỗi các phản ứng đặc trưng với đơn chất và hợp chất khác:
+
+- **Điều chế Nobelium-256**: \`²⁴⁶Cm + ¹²C → ²⁵⁶No + 2n\` 
+- **Tạo Nobelium(II)**: \`No → No²⁺ + 2e⁻\` 
+- **Tạo Nobelium(III)**: \`No → No³⁺ + 3e⁻\` 
+- **Phân rã Alpha của Nobelium-259**: \`²⁵⁹No → ²⁵⁵Fm + α\` 
+
+Trong thực hành hóa học, **Nobelium (No)** được điều chế và tinh chế dựa trên nguyên lý dịch chuyển cân bằng hóa học (Nguyên lý Le Chatelier) và sự khác biệt về độ tan, nhiệt độ sôi hoặc năng lượng mạng lưới tinh thể. Khi thiết kế quy trình tổng hợp **No**, nhà hóa học luôn kiểm soát chặt chẽ độ tinh khiết của tiền chất, nhiệt độ phản ứng và môi trường dung môi để thu được sản phẩm có cấu trúc không gian đồng nhất như mô hình 3D đã khảo sát.
+
+## Bức tranh ứng dụng thực tế, giá trị kinh tế và kinh nghiệm thực hành với Nobelium
+
+Từ một đối tượng nghiên cứu ban đầu trong các phòng thí nghiệm cổ điển, **Nobelium (No)** đã từng bước khẳng định vị thế to lớn trong đời sống và tiến trình văn minh nhân loại:
+
+- **Nghiên cứu hạt nhân**: Nobelium gần như chỉ được sử dụng trong nghiên cứu vật lý hạt nhân và hóa học Actinide.
+- **Nghiên cứu cấu trúc electron**: Nobelium đặc biệt quan trọng để nghiên cứu ảnh hưởng của cấu hình 5f¹⁴ lên tính chất hóa học của các Actinide nặng.
+- **Nghiên cứu nguyên tố siêu nặng**: Nobelium cung cấp dữ liệu để hiểu về độ ổn định của các hạt nhân nặng và giới hạn của bảng tuần hoàn.
+- **Ứng dụng**: Do chỉ tạo được từng lượng nguyên tử rất nhỏ và có tính phóng xạ cao, Nobelium không có ứng dụng công nghiệp hay đời sống thông thường.
+
+Về mặt an toàn thực nghiệm và xử lý hóa chất, việc nghiên cứu hay thao tác với **Nobelium** luôn đòi hỏi hiểu biết thấu đáo về tính chất lý hóa, nồng độ an toàn và trang bị bảo hộ đạt chuẩn quốc tế (kính bảo hộ, găng tay chuyên dụng và tủ hút khí độc đối với các phản ứng sinh nhiệt hoặc tỏa khí). Khi xảy ra sự cố tràn đổ hay rò rỉ, nguyên tắc trung hòa an toàn và thu gom đúng quy chuẩn hóa học luôn là bài học vỡ lòng cho bất kỳ nhà nghiên cứu nào bước chân vào phòng lab.
+
+## Câu hỏi suy ngẫm & Tự kiểm tra kiến thức
+
+1. Dựa vào câu chuyện lịch sử và hành trình khám phá **Nobelium (No)**, nguyên nhân vì sao tên gọi và phương pháp điều chế ban đầu của chất này lại phản ánh hoàn cảnh văn hóa và kỹ thuật của thời đại phát hiện ra nó?
+
+2. Vì sao việc khám phá hình dáng không gian 3 chiều của **Nobelium (No)** lại là chìa khóa để giải mã các phản ứng đặc trưng của nó thay vì chỉ nhìn vào một công thức viết phẳng?
+
+<details><summary>Xem phân tích và lời giải chi tiết</summary>
+
+- **Giải đáp câu 1:** Tên gọi và phương pháp tiếp cận đầu tiên của No bắt nguồn trực tiếp từ nguồn khoáng sản tự nhiên hoặc hiện tượng quan sát bằng mắt thường của các nhà thực nghiệm thời kỳ đó. Chỉ khi kỹ thuật phân tích và mô hình liên kết không gian phát triển, nhân loại mới hiểu trọn vẹn bản chất cấu tạo của chất.
+
+- **Giải đáp câu 2:** Cấu trúc 3 chiều quyết định vị trí các nguyên tử lộ ra ngoài để tiếp xúc với thuốc thử; chính góc liên kết và sự che chắn không gian quyết định chất phản ứng dễ dàng hay trơ lỳ về mặt hóa học.
+
+**3. Câu hỏi trắc nghiệm rèn luyện năng lực tư duy GDPT 2018**:
+
+*Khi nhiệt độ của một phản ứng tăng từ 20°C lên 50°C, biết hệ số nhiệt độ Van 't Hoff γ = 2, tốc độ của phản ứng đó tăng lên bao nhiêu lần?*
+
+   A. 8 lần
+   B. 6 lần
+   C. 16 lần
+   D. 3 lần
+
+- **Đáp án & Lời giải câu 3**: Chọn **A**. Độ chênh lệch nhiệt độ: ΔT = 50 - 20 = 30°C. Áp dụng quy tắc Van 't Hoff: v2/v1 = γ^(ΔT / 10) = 2^(30 / 10) = 2³ = 8 lần.
+
+</details>
+
+## Nguồn tư liệu khoa học & Khám phá tiếp theo
+
+- [Phòng quan sát Cấu trúc & Liên kết 3D tương tác — Nobelium (No)](/tien-ich/cau-truc-3d/?compound=atom-No)
+- [Bách khoa toàn thư Wikipedia Tiếng Việt — No](https://vi.wikipedia.org/wiki/No)
+- [Wikipedia Quốc tế — No](https://en.wikipedia.org/wiki/No)
+- [Hồ sơ dữ liệu nguyên tố chuyên sâu ChemDex](/data/elements/102_No.json)
+
+Bài báo chuyên khảo này thuộc hệ thống **Tạp chí Hóa Học Số ChemDex**, tích hợp hồ sơ tiểu sử các nhà hóa học tiên phong, chuẩn mực kiến thức GDPT 2018 môn Hóa học THCS-THPT và cơ sở dữ liệu cấu trúc không gian 3 chiều tương tác, mang lại góc nhìn toàn diện về **Nobelium (No)**.`,k={id:n,slug:h,documentPath:t,legacyIds:c,title:i,author:g,category:u,summary:o,image:a,chemicalFormula:"No",tags:m,aliases:l,substanceIds:r,documentKind:e,readingMinutes:20,chemicalEvidence:p,content:s};export{l as aliases,g as author,u as category,p as chemicalEvidence,b as chemicalFormula,s as content,k as default,e as documentKind,t as documentPath,n as id,a as image,c as legacyIds,v as readingMinutes,h as slug,r as substanceIds,o as summary,m as tags,i as title};
