@@ -152,6 +152,7 @@
     RulerStudio.init();
     ViewTools.init();
     LessonStudio.init();
+    WebWorkspace.init();
     NativeCalculators.init();
     TeachingAI.init();
     ColorIcons.init();
@@ -509,6 +510,7 @@
     toastTimer = setTimeout(() => el.classList.remove("visible"), ms);
   }
   function addPage(index = Store.state.pageIndex) {
+    const framing={...Store.state.viewport};
     if(Store.book().pages.length>=2000)return toast("Sổ tay đã đạt giới hạn 2.000 trang.");
     CanvasEngine.finishActive();
     Store.transaction(() => {
@@ -519,7 +521,7 @@
       Store.state.pageIndex = index + 1;
       Store.state.selection = [];
     });
-    PageFlow.invalidateLayout(); PageFlow.keepZoom();
+    PageFlow.invalidateLayout(); Store.state.viewport={...framing,y:20};Store.state.viewMode="manual";Renderer.request();
   }
   function popover(anchor, html) {
     const el = document.getElementById("popover");
@@ -547,7 +549,7 @@
       ["Tài liệu",[["new","Sổ tay mới","Ctrl+N"],["library","Thư viện sổ tay"],["open","Mở tài liệu .ink / .smath.json","Ctrl+O"],["save","Lưu tài liệu","Ctrl+S"],...(root.InkulatorDesktop?.documents?[["save-as","Lưu thành…","Ctrl+Shift+S"],["local-documents","Tài liệu trên máy"]]:[]),["snapshot","Xuất bản snapshot .ink"],["backup-all","Sao lưu tất cả sổ tay"]]],
       ["Xuất / In",[["export-png","Trang → PNG"],["export-svg","Trang → SVG"],["export-pdf","Sổ tay → PDF"],["print","In sổ tay"]]],
       ["Chèn",[["image","Ảnh từ máy"],["import-pdf","PDF từ máy"],["formula","Công thức đẹp"],["calculator","Máy tính & công cụ toán"],["random-name","Gọi tên ngẫu nhiên"],["lesson-studio","Giảng Toán 12"],["paste-image","Dán ảnh từ bộ nhớ đệm"]]],
-      ["Thao tác",[["copy","Sao chép đối tượng","Ctrl+C"],["paste","Dán ảnh / văn bản / đối tượng","Ctrl+V"],["select-all","Chọn tất cả đối tượng","Ctrl+A"],["fullscreen","Toàn màn hình"],["pen-options","Thao tác bằng bút…"],["pen-keyboard","Bàn phím trên màn hình"],["help","Hướng dẫn","?"]]]
+      ["Thao tác",[["copy","Sao chép đối tượng","Ctrl+C"],["paste","Dán ảnh / văn bản / đối tượng","Ctrl+V"],["select-all","Chọn tất cả đối tượng","Ctrl+A"],["fullscreen","Toàn màn hình"],["pen-options","Thao tác bằng bút…"],["pen-keyboard","Bàn phím trên màn hình"],["help","Hướng dẫn","?"],["software-policies","Chính sách tải và sử dụng"]]]
     ];
     const pop=popover(anchor,'<div class="compact-file-menu"><input id="file-menu-search" type="search" placeholder="Tìm thao tác…" aria-label="Tìm thao tác"><div class="file-menu-tabs"></div><div class="file-menu-actions"></div></div>');
     const tabs=pop.querySelector(".file-menu-tabs"),actions=pop.querySelector(".file-menu-actions"),search=pop.querySelector("input");let active=0;
@@ -1355,6 +1357,10 @@
         return DocumentFiles.saveAs().catch(e=>toast(e.message));
       case "local-documents":
         return DocumentFiles.panel().catch(e=>toast(e.message));
+      case "software-policies":
+        return WebWorkspace.policies();
+      case "web-workspace":
+        return WebWorkspace.panel();
       case "lesson-studio":
         return LessonStudio.open();
       case "random-name":

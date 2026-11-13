@@ -1,10 +1,12 @@
-# Inkulator · 2.4.2
+# Inkulator · 2.4.3
 
 Sổ tay Toán học ngoại tuyến cho Windows, lấy cảm hứng bố cục từ ảnh Scrble Ink được cung cấp. Phần Casio tích hợp source của Tikz-Physics, ghi nguồn riêng bên dưới; không phải sản phẩm chính thức của Scrble, GeoGebra hay Casio.
 
 ## Mở ứng dụng
 
-**Windows 10/11 x64:** chạy `dist/desktop/Inkulator-Setup-2.4.2-x64.exe`, chọn thư mục cài và mở **Inkulator** từ Desktop hoặc Start Menu. Ứng dụng có cửa sổ riêng, chạy ngoại tuyến, không cần cài Node.js hoặc trình duyệt. Tài liệu tự lưu thành tệp trong **Documents / Inkulator**; bộ đệm cũ được sao lưu nén khi chuyển đổi, ứng dụng mở bản mới nhất trên ổ đĩa. Bộ cài cá nhân chưa ký số.
+**Windows 10/11 x64:** chạy `dist/desktop/Inkulator-Setup-2.4.3-x64.exe`, chọn thư mục cài và mở **Inkulator** từ Desktop hoặc Start Menu. Ứng dụng có cửa sổ riêng, chạy ngoại tuyến, không cần cài Node.js hoặc trình duyệt. Tài liệu tự lưu thành tệp trong **Documents / Inkulator**; bộ đệm cũ được sao lưu nén khi chuyển đổi, ứng dụng mở bản mới nhất trên ổ đĩa. Bộ cài cá nhân chưa ký số.
+
+**Bản 2.4.3:** nút zoom bấm nhanh, giữ vị trí vùng chụp, nâng cấp lưu/sao lưu PDF gốc trên web. Xem [hướng dẫn 2.4.3](docs/RELEASE-2.4.3.md) và [chính sách tải, dữ liệu, AI và sử dụng](policies/USAGE.txt). Trang tải có chính sách: `dist/desktop/download.html`. Gói web: `dist/Inkulator-Web-2.4.3.zip`.
 
 **Bản 2.4.2 · Giảng Toán 12:** nút Giảng bài tạo 1–12 bài luyện với tham số ngẫu nhiên và lời giải ẩn, gồm cực trị, tích phân, Oxyz, Bayes, thống kê ghép nhóm và tối ưu. Thanh giảng bài mở/ẩn đáp án, che vùng được chọn và chuyển trang; có đánh dấu trang, đồng hồ đếm ngược và đèn soi theo con trỏ. Tất cả chạy ngoại tuyến. [Hướng dẫn 2.4.2](docs/RELEASE-2.4.2.md).
 

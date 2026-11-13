@@ -124,9 +124,9 @@
     const src=output.toDataURL("image/png");output.width=output.height=1;
     if(src.length>7e6) { cancel();throw Error("Vùng chụp quá lớn. Hãy khoanh nhỏ hơn."); }
     if(callback){
-      const v=shot.viewport,region={src,rect,bookId:shot.bookId,pageId:shot.pageId,world:{x:(rect.x-v.x)/v.zoom,y:(rect.y-v.y)/v.zoom,w:rect.w/v.zoom,h:rect.h/v.zoom}};
+      const v=shot.viewport,region={src,rect,bookId:shot.bookId,pageId:shot.pageId,viewport:{...v},sourceOffset:null,world:{x:(rect.x-v.x)/v.zoom,y:(rect.y-v.y)/v.zoom,w:rect.w/v.zoom,h:rect.h/v.zoom}};
       const sourcePage=shot.pages.find(p=>region.world.x+region.world.w/2>=p.x && region.world.x+region.world.w/2<=p.x+p.width && region.world.y+region.world.h/2>=p.y && region.world.y+region.world.h/2<=p.y+p.height);
-      if(sourcePage){region.pageId=sourcePage.id;region.world.x-=sourcePage.x;region.world.y-=sourcePage.y;}
+      if(sourcePage){region.sourceOffset={x:sourcePage.x,y:sourcePage.y};region.pageId=sourcePage.id;region.world.x-=sourcePage.x;region.world.y-=sourcePage.y;}
       if(callback===QuestionPages.create){
         const ctx=source.getContext("2d"),candidates=[];
         for(const offset of [42,78,114]){const x=Math.max(0,Math.min(shot.w-160,rect.x)),y=rect.y-offset;if(y<0)continue;const data=ctx.getImageData(Math.round(x*sx),Math.round(y*sy),Math.max(1,Math.round(150*sx)),Math.max(1,Math.round(30*sy))).data;let ink=0;for(let i=0;i<data.length;i+=16)if(data[i]+data[i+1]+data[i+2]<570)ink++;candidates.push({x,y,score:ink+offset*.001});}

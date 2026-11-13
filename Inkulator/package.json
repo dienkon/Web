@@ -1,6 +1,6 @@
 {
   "name": "scrble-math-studio",
-  "version": "2.4.2",
+  "version": "2.4.3",
   "private": true,
   "description": "Offline mathematical notebook for Windows and pen tablets",
   "main": "desktop/main.cjs",
@@ -34,7 +34,8 @@
     "test:workspace-v22": "node tests/smart-shapes-v22-tests.cjs && node tests/workspace-v22-tests.cjs && node tests/workspace-v22-desktop-tests.cjs",
     "test:workspace-v23": "node tests/workspace-v23-tests.cjs",
     "test:lesson-v242": "node tests/lesson-v242.cjs",
-    "test:workspace-v24": "node tests/learning-v24-tests.cjs && node tests/learning-v24-browser-tests.cjs && node tests/learning-v24-desktop-tests.cjs"
+    "test:workspace-v24": "node tests/learning-v24-tests.cjs && node tests/learning-v24-browser-tests.cjs && node tests/learning-v24-desktop-tests.cjs",
+    "web:build": "node scripts/package-web.cjs"
   },
   "build": {
     "appId": "vn.inkulator.studio",
@@ -56,7 +57,9 @@
       "docs/RELEASE-2.4.2.md",
       "!vendor/casio-fx580vnx/upstream/**",
       "!vendor/casio-fx580vnx/runtime/source/**",
-      "!vendor/ink-on/upstream/**"
+      "!vendor/ink-on/upstream/**",
+      "policies/**",
+      "docs/RELEASE-2.4.3.md"
     ],
     "asar": true,
     "asarUnpack": [
@@ -81,7 +84,8 @@
       "shortcutName": "Inkulator",
       "deleteAppDataOnUninstall": false,
       "runAfterFinish": true,
-      "include": "desktop/installer.nsh"
+      "include": "desktop/installer.nsh",
+      "license": "policies/USAGE.txt"
     },
     "extraResources": [
       {

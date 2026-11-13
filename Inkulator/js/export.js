@@ -23,6 +23,7 @@
     Store.save();
     if(root.InkulatorDesktop?.documents&&snapshot)return DocumentFiles.exportPackage().catch(e=>App.toast(e.message,7000));
     if(root.InkulatorDesktop?.documents&&!snapshot)return DocumentFiles.flush().then(()=>App.toast("Đã lưu tài liệu trên máy.")).catch(e=>App.toast(e.message,7000));
+    if(root.WebWorkspace&&!root.InkulatorDesktop?.documents)return WebWorkspace.save(snapshot);
     const stamp = snapshot
       ? "-" + new Date().toISOString().replace(/[:.]/g, "-")
       : "";
@@ -50,8 +51,8 @@
   }
   async function importFile(file) {
     try {
-      if (file.size > 100 * 1024 * 1024)
-        throw Error("Tệp dự án nhập tối đa 100 MB.");
+      if (file.size > 768e6)
+        throw Error("Tệp dự án nhập tối đa 768 MB.");
       const raw = await file.text();
       let data;
       try {

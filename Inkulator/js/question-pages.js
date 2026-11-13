@@ -20,6 +20,7 @@
     if(!source)throw Error("Trang nguồn không còn tồn tại.");
     if(source.questionSource)throw Error("Đóng trang câu hỏi trước khi chụp câu tiếp theo.");
     CanvasEngine.finishActive();
+    const originalViewport={...(region.viewport||Store.state.viewport)},sourceOffset=region.sourceOffset||(()=>{const items=PageFlow.layout().items,current=items[Store.state.pageIndex],item=items.find(i=>i.page.id===source.id);return {x:item.x-current.x,y:item.y-current.y};})();
     const image=new Image();image.src=region.src;await image.decode();
     if(Store.book().id!==region.bookId||Store.book().pages!==pages||!pages.includes(source)||pages.length>=2000)throw Error("Tài liệu nguồn vừa thay đổi.");
     const b=region.world,cut=Math.max(0,Math.min(source.height,b.y+b.h+20)),offset=Math.min(60,cut)-cut,top=[],bottom=[];
@@ -35,7 +36,7 @@
     const oldRegions=source.inlineQuestions||[],moved=oldRegions.filter(q=>q.y>=cut),kept=oldRegions.filter(q=>q.y<cut),question=kept.find(q=>Math.abs(q.x-b.x)+Math.abs(q.y-b.y)+Math.abs(q.w-b.w)+Math.abs(q.h-b.h)<4)||{id:Store.uid(),title:'Câu hỏi '+(oldRegions.length+1),...b,buttonX:b.x,buttonY:Math.max(8,b.y-42/Store.state.viewport.zoom)};
     if(!kept.includes(question))kept.push(question);
     Store.transaction(()=>{source.objects=top;source.inlineQuestions=kept;if(bottom.length){continuation.inlineQuestions=moved.map(q=>({...q,y:q.y+offset,buttonY:(q.buttonY??q.y)+offset}));pages.splice(pages.indexOf(source)+1,0,continuation);}Store.state.pageIndex=pages.indexOf(source);Store.state.selection=[];});
-    PageFlow.invalidateLayout();PageFlow.keepZoom();
+    PageFlow.invalidateLayout();Store.state.viewMode="manual";Store.state.viewport={zoom:originalViewport.zoom,x:originalViewport.x+sourceOffset.x*originalViewport.zoom,y:originalViewport.y+sourceOffset.y*originalViewport.zoom};Renderer.request();App.updateZoom();
     App.toast(bottom.length?'Đã giữ câu hỏi tại chỗ và chuyển phần bên dưới sang trang kế. Có thể Undo.':'Phía dưới câu hỏi đã có chỗ trống để giải.');
     identifyInline(region,source.id,question.id);
   }

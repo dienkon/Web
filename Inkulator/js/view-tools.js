@@ -3,7 +3,11 @@
   function init(){
     const nav=document.querySelector('.canvas-navigation');
     nav.querySelectorAll('[data-action="zoom-in"],[data-action="zoom-out"],[data-action="fit"],[data-action="fit-width"]').forEach(b=>b.remove());
-    const button=nav.querySelector('#zoom-button');button.dataset.action='zoom-options';button.title='Thu phóng';
+    const button=nav.querySelector('#zoom-button');button.dataset.action='zoom-options';button.title='Nhập mức thu phóng';
+    const small=document.createElement('button');small.dataset.action='zoom-out';small.textContent='−';small.title='Thu nhỏ';small.setAttribute('aria-label',small.title);
+    const large=document.createElement('button');large.dataset.action='zoom-in';large.textContent='+';large.title='Phóng to';large.setAttribute('aria-label',large.title);
+    const fit=document.createElement('button');fit.dataset.action='fit-width';fit.title='Vừa chiều rộng';fit.setAttribute('aria-label',fit.title);fit.innerHTML='<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="1" fill="none" stroke="currentColor"/><path d="M5 12h14m-14 0 3-3m-3 3 3 3m11-3-3-3m3 3-3 3" fill="none" stroke="currentColor"/></svg>';
+    button.before(small,large,fit);nav.classList.add('quick-zoom');
     let z;try{z=Number(localStorage.getItem('inkulator-zoom'));}catch{}if(z>=.1&&z<=4)Store.state.viewport.zoom=z;
     PageFlow.keepZoom();
   }
