@@ -1,0 +1,17 @@
+{
+  "date": "2026-11-13",
+  "renderer": "Chromium WebGL / Three.js",
+  "models": [
+    {
+      "id": "cod-4503066",
+      "bounds": [
+        4.600673687961228,
+        5.110149485694885,
+        9.309647685694886
+      ],
+      "rendered": true,
+      "bytes": 38571
+    }
+  ],
+  "errors": []
+}

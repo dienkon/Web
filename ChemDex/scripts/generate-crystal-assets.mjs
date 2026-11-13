@@ -20,11 +20,11 @@ for(const meta of catalog.structures){
  const group=buildPublishedCrystal(data,1,{showCell:false,showConnections:true});
  const bytes=Buffer.from(await new GLTFExporter().parseAsync(group,{binary:true,onlyVisible:true}));
  await fs.writeFile(path.join(root,meta.model.slice(1)),bytes);
- results.push({id:meta.id,amcsdId:meta.amcsdId,codId:meta.codId,bytes:bytes.length,sites:data.siteCount,displaySpheres:group.userData.displaySpheres,displayHydrogenBonds:group.userData.displayHydrogenBonds});
+ results.push({id:meta.id,amcsdId:meta.amcsdId,codId:meta.codId,bytes:bytes.length,sites:data.siteCount,displaySpheres:group.userData.displaySpheres,displayHydrogenBonds:group.userData.displayHydrogenBonds,hydrogenBondEvidence:group.userData.hydrogenBondEvidence});
  disposeCrystal(group);
 }
 const reportOverride=process.argv.find(arg=>arg.startsWith('--report-dir='))?.slice(13);
 const report=path.join(root,reportOverride??(onlyId?`.cache/crystal-assets/${onlyId}`:cod?'docs/molecular-crystal-upgrade/2026-11-12':substances?'docs/learning-expansion/2026-11-12':wiki?'docs/application-crystal-review/2026-11-12':'docs/library-crystal-upgrade/2026-11-11'));
 await fs.mkdir(report,{recursive:true});
-await fs.writeFile(path.join(report,'crystal-generation.json'),JSON.stringify({structures:results,interpretation:'Published atomic positions or explicitly labelled reference prototype. Sphere size/color are display conventions; partial occupancies use sectors. Rods show distance-based display neighbours, not assigned chemical bond orders. Dashed H···O contacts use geometric display criteria only for fully occupied, ordered pure-water crystals.'},null,2)+'\n');
+await fs.writeFile(path.join(report,'crystal-generation.json'),JSON.stringify({structures:results,interpretation:'Published atomic positions or explicitly labelled reference prototype. Sphere size/color are display conventions; partial occupancies use sectors. Rods show distance-based display neighbours, not assigned chemical bond orders. Dashed hydrogen bonds reproduce source CIF geom_hbond tables when present; the geometric fallback is limited to fully occupied, ordered pure-water crystals.'},null,2)+'\n');
 console.log(JSON.stringify({structures:results.length,bytes:results.reduce((sum,r)=>sum+r.bytes,0)}));

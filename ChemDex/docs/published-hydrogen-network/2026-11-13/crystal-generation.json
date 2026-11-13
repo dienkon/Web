@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "id": "cod-4503066",
+      "codId": "4503066",
+      "bytes": 30072,
+      "sites": 24,
+      "displaySpheres": 24,
+      "displayHydrogenBonds": 8,
+      "hydrogenBondEvidence": "source-cif"
+    }
+  ],
+  "interpretation": "Published atomic positions or explicitly labelled reference prototype. Sphere size/color are display conventions; partial occupancies use sectors. Rods show distance-based display neighbours, not assigned chemical bond orders. Dashed hydrogen bonds reproduce source CIF geom_hbond tables when present; the geometric fallback is limited to fully occupied, ordered pure-water crystals."
+}

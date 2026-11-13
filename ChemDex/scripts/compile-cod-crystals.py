@@ -12,6 +12,7 @@ from pathlib import Path
 import re
 import unicodedata
 import gemmi
+from crystal_hydrogen import published_hydrogen_bonds
 
 ROOT = Path(__file__).resolve().parents[1]
 CACHE = ROOT/'.cache/cod-research'
@@ -115,6 +116,8 @@ def extract(selection):
         'transport':transport['url'],'transportSha256':digest,'evidence':'published-structure',
         'note':selection['note'],'limitations':selection.get('limitations',''),
         'coordinatePrecision':'Original CIF lexical precision and uncertainties are retained in the downloadable CIF.'}
+    hydrogen_geometry=published_hydrogen_bonds(block,unit,operators,atoms)
+    if hydrogen_geometry:data['hydrogenBondGeometry']=hydrogen_geometry
     prefix='/assets/periodic-table/crystals/'+data['id']
     meta={k:data[k]for k in ('id','codId','referenceId','mineralName','formula','subjectIds','spaceGroup','spaceGroupNumber','cell','volume','siteCount','mixedSiteCount','conditions','reference','source','transport','transportSha256','evidence','note','limitations','coordinatePrecision')}
     meta.update({'data':prefix+'.json','cif':prefix+'.cif','model':prefix+'.glb','preview':prefix+'.png'})

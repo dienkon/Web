@@ -70,7 +70,9 @@ function displayPeriodicEdges(data,repeat,edges,directed=false){
       const a=first.fractional.map((v,k)=>v+[x,y,z][k]),b=second.fractional.map((v,k)=>v+edge.shift[k]+[x,y,z][k]);
       const clipped=clipSegment(a,b,repeat);if(!clipped)continue;
       const signature=clipped.map(p=>p.map(v=>v.toFixed(5)).join(',')).sort().join('|');if(seen.has(signature))continue;seen.add(signature);
-      connections.push({from:crystalCartesian(data,clipped[0]),to:crystalCartesian(data,clipped[1]),elements:[first.element,second.element],distance:edge.distance});
+      const elements=[first.element,second.element];
+      if(edge.donor!==undefined&&!elements.includes(data.atoms[edge.donor].element))elements.push(data.atoms[edge.donor].element);
+      connections.push({from:crystalCartesian(data,clipped[0]),to:crystalCartesian(data,clipped[1]),elements,distance:edge.distance});
     }
   }
   return connections;
@@ -122,5 +124,12 @@ export function periodicWaterHydrogenBonds(data){
 }
 
 export function crystalDisplayHydrogenBonds(data,repeat=1){
-  return displayPeriodicEdges(data,repeat,periodicWaterHydrogenBonds(data),true);
+  return displayPeriodicEdges(data,repeat,periodicCrystalHydrogenBonds(data),true);
+}
+
+export function periodicCrystalHydrogenBonds(data){
+  // These triplets have already been validated against original CIF labels,
+  // reported geometry, operation IDs and periodic images by the compiler.
+  if(data.hydrogenBondGeometry?.origin==='source-cif')return data.hydrogenBondGeometry.edges;
+  return periodicWaterHydrogenBonds(data);
 }

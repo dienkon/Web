@@ -105,20 +105,26 @@ export function buildPublishedCrystal(data, repeat=1, options={}) {
   if(!connections.length){linkGeometry.dispose();linkMaterial.dispose();}
   links.visible=options.showConnections!==false;group.add(links);
   // Hydrogen contacts stay separate from solid coordination/covalent rods.
-  // One instanced draw batch keeps the dashed network cheap while rotating.
+  // One instanced batch per participating element set keeps rotation cheap.
   const hydrogenBonds=crystalDisplayHydrogenBonds(data,repeat),hydrogenLinks=new THREE.Group();
-  hydrogenLinks.name='Liên kết hydrogen · nét đứt · tiêu chí hình học';hydrogenLinks.userData.kind='hydrogen-bonds';
+  const publishedHydrogen=data.hydrogenBondGeometry?.origin==='source-cif';
+  const hydrogenBondEvidence=hydrogenBonds.length?(publishedHydrogen?'source-cif':'water-geometric'):null;
+  hydrogenLinks.name=`Liên kết hydrogen · nét đứt · ${publishedHydrogen?'bảng CIF nguồn':'tiêu chí hình học'}`;hydrogenLinks.userData.kind='hydrogen-bonds';
+  const hydrogenBatches=new Map();
+  for(const edge of hydrogenBonds){const key=[...edge.elements].sort().join('-');if(!hydrogenBatches.has(key))hydrogenBatches.set(key,[]);hydrogenBatches.get(key).push(edge);}
   if(hydrogenBonds.length){
-    const dashes=[];
-    for(const edge of hydrogenBonds){
-      const a=new THREE.Vector3(...edge.from),delta=new THREE.Vector3(...edge.to).sub(a),length=delta.length(),count=Math.max(1,Math.ceil(length/.28));
-      for(let i=0;i<count;i++)dashes.push({position:a.clone().addScaledVector(delta,(i+.5)/count),direction:delta.clone().normalize(),length:length/count*.55});
+    const geometry=new THREE.CylinderGeometry(1,1,1,6),material=new THREE.MeshStandardMaterial({color:'#087e8b',roughness:.7}),yAxis=new THREE.Vector3(0,1,0);
+    for(const edges of hydrogenBatches.values()){
+      const dashes=[];
+      for(const edge of edges){
+        const a=new THREE.Vector3(...edge.from),delta=new THREE.Vector3(...edge.to).sub(a),length=delta.length(),count=Math.max(1,Math.ceil(length/.28));
+        for(let i=0;i<count;i++)dashes.push({position:a.clone().addScaledVector(delta,(i+.5)/count),direction:delta.clone().normalize(),length:length/count*.55});
+      }
+      const mesh=new THREE.InstancedMesh(geometry,material,dashes.length);
+      mesh.name='Liên kết hydrogen';mesh.userData={kind:'connection-batch',elements:edges[0].elements,interaction:`hydrogen-bond-${hydrogenBondEvidence}`};
+      dashes.forEach((dash,i)=>{matrix.compose(dash.position,new THREE.Quaternion().setFromUnitVectors(yAxis,dash.direction),new THREE.Vector3(.035,dash.length,.035));mesh.setMatrixAt(i,matrix);});
+      mesh.instanceMatrix.needsUpdate=true;mesh.computeBoundingSphere();hydrogenLinks.add(mesh);
     }
-    const mesh=new THREE.InstancedMesh(new THREE.CylinderGeometry(1,1,1,6),new THREE.MeshStandardMaterial({color:'#087e8b',roughness:.7}),dashes.length);
-    mesh.name='H···O';mesh.userData={kind:'connection-batch',elements:['H','O'],interaction:'hydrogen-bond-geometric'};
-    const yAxis=new THREE.Vector3(0,1,0);
-    dashes.forEach((dash,i)=>{matrix.compose(dash.position,new THREE.Quaternion().setFromUnitVectors(yAxis,dash.direction),new THREE.Vector3(.035,dash.length,.035));mesh.setMatrixAt(i,matrix);});
-    mesh.instanceMatrix.needsUpdate=true;mesh.computeBoundingSphere();hydrogenLinks.add(mesh);
   }
   hydrogenLinks.visible=options.showHydrogenBonds!==false;group.add(hydrogenLinks);
   const frame=new THREE.Group();frame.name='Ô mạng và các trục a, b, c';
@@ -138,7 +144,7 @@ export function buildPublishedCrystal(data, repeat=1, options={}) {
   frame.visible=options.showCell!==false;group.add(frame);
   group.position.set(...fractionalPosition(data,[-repeat/2,-repeat/2,-repeat/2]));
   group.userData={amcsdId:data.amcsdId,codId:data.codId,referenceId:data.referenceId??`amcsd:${data.amcsdId}`,evidence:data.evidence,source:data.source,formula:data.formula,cell:data.cell,spaceGroup:data.spaceGroup,reference:data.reference,repeat,
-    originalSiteCount:data.siteCount,displaySpheres:spheres,displayAtoms:occupiedSpheres,vacancySpheres:spheres-occupiedSpheres,displayConnections:connections.length,displayHydrogenBonds:hydrogenBonds.length,interpretation:'Published periodic atomic structure. Boundary sites repeated for viewing; sphere size/color illustrative. Rods are distance-based display neighbours, not assigned chemical bond orders. Dashed H···O contacts in fully occupied ordered pure-water crystals use geometric display criteria: O-H <= 1.2 A, O···O <= 3.0 A, O-H···O >= 150 degrees; not a universal hydrogen-bond classifier.'};
+    originalSiteCount:data.siteCount,displaySpheres:spheres,displayAtoms:occupiedSpheres,vacancySpheres:spheres-occupiedSpheres,displayConnections:connections.length,displayHydrogenBonds:hydrogenBonds.length,hydrogenBondEvidence,interpretation:'Published periodic atomic structure. Boundary sites repeated for viewing; sphere size/color illustrative. Rods are distance-based display neighbours, not assigned chemical bond orders. '+(publishedHydrogen?'Dashed hydrogen bonds reproduce the original CIF geom_hbond table and its space-group images.':'Dashed H···O contacts in fully occupied ordered pure-water crystals use geometric display criteria: O-H <= 1.2 A, O···O <= 3.0 A, O-H···O >= 150 degrees; not a universal hydrogen-bond classifier.')};
   if(options.instanced)for(const [key,geometry]of geometries)if(key.startsWith('wire:'))geometry.dispose();
   return group;
 }
@@ -217,6 +223,7 @@ export function mountPublishedCrystal(container, meta) {
     environment=showEnvironment?specimenEnvironment(current,'z'):null;if(environment)scene.add(environment);invalidate();
     stage.dataset.displayAtoms=String(current.userData.displayAtoms);stage.dataset.displayConnections=String(current.userData.displayConnections);
     stage.dataset.displayHydrogenBonds=String(current.userData.displayHydrogenBonds);
+    stage.dataset.hydrogenBondEvidence=current.userData.hydrogenBondEvidence??'none';
     container.querySelector('[data-crystal-hydrogen-bonds]').hidden=!current.userData.displayHydrogenBonds;
     container.querySelector('[data-crystal-vacancies]').hidden=!current.userData.vacancySpheres;
   };
@@ -247,7 +254,8 @@ export function mountPublishedCrystal(container, meta) {
       resizeObserver=new ResizeObserver(()=>{const r=stage.getBoundingClientRect();if(r.width<1||r.height<1)return;renderer.setSize(r.width,r.height,false);camera.aspect=r.width/r.height;camera.updateProjectionMatrix();controls.handleResize();if(pendingFit&&current)fit();invalidate();});resizeObserver.observe(stage);
       visibilityObserver=new IntersectionObserver(entries=>visible=entries[0].isIntersecting);visibilityObserver.observe(stage);
       rebuild();
-      if(current.userData.displayHydrogenBonds)displayNotes.insertAdjacentHTML('beforeend','<p>Nét đứt xanh: H···O giữa các phân tử nước trong pha băng đang chọn; thanh liền: O–H trong phân tử. Lớp nét đứt áp dụng cho dữ liệu H₂O có đủ H, vị trí đầy và mỗi O gắn hai H: O–H ≤ 1,2 Å, O···O ≤ 3,0 Å, góc O–H···O ≥ 150°. Đây là quy ước hình học để đọc mạng, không phải tiêu chuẩn chứng minh mọi liên kết hydrogen. <a href="https://docs.mdanalysis.org/stable/documentation_pages/analysis/hydrogenbonds.html" target="_blank" rel="noopener noreferrer">Tiêu chí tham khảo ↗</a></p>');
+      if(current.userData.hydrogenBondEvidence==='source-cif')displayNotes.insertAdjacentHTML('beforeend','<p>Nét đứt xanh: liên kết hydrogen trong bảng geom_hbond của CIF nguồn, khai triển cùng các phép đối xứng và tịnh tiến của ô mạng. Không tự thêm những liên kết hydrogen khác chưa được bảng nguồn ghi nhận. Cách xác định vị trí H và điều kiện mẫu nằm trong phần nguồn bên dưới.</p>');
+      else if(current.userData.displayHydrogenBonds)displayNotes.insertAdjacentHTML('beforeend','<p>Nét đứt xanh: H···O giữa các phân tử nước trong pha băng đang chọn; thanh liền: O–H trong phân tử. Lớp nét đứt áp dụng cho dữ liệu H₂O có đủ H, vị trí đầy và mỗi O gắn hai H: O–H ≤ 1,2 Å, O···O ≤ 3,0 Å, góc O–H···O ≥ 150°. Đây là quy ước hình học để đọc mạng, không phải tiêu chuẩn chứng minh mọi liên kết hydrogen. <a href="https://docs.mdanalysis.org/stable/documentation_pages/analysis/hydrogenbonds.html" target="_blank" rel="noopener noreferrer">Tiêu chí tham khảo ↗</a></p>');
       container.querySelectorAll('.crystal-controls button').forEach(b=>b.disabled=false);
       container.querySelector('[data-crystal-pack]').disabled=Object.keys(data.cellComposition).length!==1||data.atoms.some(a=>a.occupancy<.999);
       status.textContent='Tọa độ sẵn sàng · Kéo để xoay · Cuộn để thu/phóng.';status.dataset.state='ready';

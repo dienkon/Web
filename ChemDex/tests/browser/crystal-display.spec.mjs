@@ -32,6 +32,7 @@ test('ice II shows a separate, batched hydrogen network with independent control
  await expect(widget.locator('.crystal-heading')).toContainText('Băng II');
  await expect(widget.locator('.crystal-note')).toContainText('Không mô tả nước lỏng hay băng Ih');
  await expect(stage).toHaveAttribute('data-display-hydrogen-bonds','42');
+ await expect(stage).toHaveAttribute('data-hydrogen-bond-evidence','water-geometric');
  await expect(toggle).toHaveAttribute('aria-pressed','true');
  await stage.scrollIntoViewIfNeeded();await stage.screenshot({path:testInfo.outputPath('ice-ii-network.png')});
  const before=Number(await stage.getAttribute('data-draw-calls'));expect(before).toBeLessThan(8);
@@ -50,6 +51,34 @@ test('ice II shows a separate, batched hydrogen network with independent control
  await widget.locator('.crystal-legend button').filter({hasText:'● H'}).click();
  await expect.poll(async()=>Number(await stage.getAttribute('data-draw-calls'))).toBe(before-1);
  await expect(widget.locator('[data-crystal-cell]')).toHaveAttribute('aria-pressed','false');
+});
+
+test('methanol uses the reported CIF hydrogen network and keeps its controls separate from solid rods',async({page},testInfo)=>{
+ const widget=await openCrystal(page,'cid-887'),stage=widget.locator('.published-crystal-stage'),toggle=widget.locator('[data-crystal-hydrogen-bonds]');
+ await expect(widget.locator('.crystal-heading')).toContainText('Methanol rắn · 122 K');
+ await expect(stage).toHaveAttribute('data-hydrogen-bond-evidence','source-cif');
+ await expect(stage).toHaveAttribute('data-display-hydrogen-bonds','8');
+ await widget.locator('.crystal-display-notes summary').click();
+ await expect(widget.locator('.crystal-display-notes')).toContainText('bảng geom_hbond của CIF nguồn');
+ await expect(widget.locator('.crystal-display-notes')).not.toContainText('O···O ≤ 3,0 Å');
+ await stage.scrollIntoViewIfNeeded();await stage.screenshot({path:testInfo.outputPath('methanol-hydrogen-network.png')});
+ const before=Number(await stage.getAttribute('data-draw-calls'));expect(before).toBeLessThan(12);
+ await toggle.click();await expect.poll(async()=>Number(await stage.getAttribute('data-draw-calls'))).toBe(before-1);
+ await widget.getByRole('button',{name:'Hiện 2 × 2 × 2 ô',exact:true}).click();
+ await expect(stage).toHaveAttribute('data-display-hydrogen-bonds','48');
+ await expect(toggle).toHaveAttribute('aria-pressed','false');
+ await expect.poll(async()=>Number(await stage.getAttribute('data-draw-calls'))).toBe(before-1);
+ await toggle.click();await expect.poll(async()=>Number(await stage.getAttribute('data-draw-calls'))).toBe(before);
+ await widget.getByRole('button',{name:'Ẩn đường nối',exact:true}).click();
+ await expect.poll(async()=>Number(await stage.getAttribute('data-draw-calls'))).toBe(4);
+ await widget.locator('.crystal-legend button').filter({hasText:'● O'}).click();
+ await expect.poll(async()=>Number(await stage.getAttribute('data-draw-calls'))).toBe(2);
+ await widget.locator('.crystal-legend button').filter({hasText:'● O'}).click();
+ await expect.poll(async()=>Number(await stage.getAttribute('data-draw-calls'))).toBe(4);
+ await page.setViewportSize({width:390,height:844});
+ await expect(toggle).toBeVisible();
+ const bounds=await widget.boundingBox();expect(bounds.x).toBeGreaterThanOrEqual(0);expect(bounds.x+bounds.width).toBeLessThanOrEqual(390);
+ expect(await widget.evaluate(e=>e.scrollWidth-e.clientWidth)).toBeLessThan(2);
 });
 
 test('successive vertical and horizontal drags keep rotating instead of sticking at a pole',async({page})=>{

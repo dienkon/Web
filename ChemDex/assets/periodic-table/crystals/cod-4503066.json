@@ -536,5 +536,113 @@
   "evidence": "published-structure",
   "note": "Bản methanol tinh khiết 122 K trong công trình có cả co-crystal acetylene; không dùng bản co-crystal. H theo xử lý hình học của nguồn.",
   "limitations": "",
-  "coordinatePrecision": "Original CIF lexical precision and uncertainties are retained in the downloadable CIF."
+  "coordinatePrecision": "Original CIF lexical precision and uncertainties are retained in the downloadable CIF.",
+  "hydrogenBondGeometry": {
+    "origin": "source-cif",
+    "category": "geom_hbond",
+    "rows": [
+      {
+        "labels": [
+          "O1",
+          "H1",
+          "O1"
+        ],
+        "symmetry": [
+          ".",
+          ".",
+          "4_557"
+        ],
+        "reported": {
+          "distance_DH": "0.84",
+          "distance_HA": "1.86",
+          "distance_DA": "2.6929(11)",
+          "angle_DHA": "174.1"
+        },
+        "calculated": {
+          "distanceDH": 0.8399451064449867,
+          "distanceHA": 1.8560217624467241,
+          "distanceDA": 2.692885861200396,
+          "angleDHA": 174.0844775613945
+        }
+      }
+    ],
+    "edges": [
+      {
+        "a": 4,
+        "b": 2,
+        "shift": [
+          0,
+          0,
+          1
+        ],
+        "donor": 0,
+        "donorShift": [
+          0,
+          0,
+          0
+        ],
+        "distance": 1.8560217624467241,
+        "donorAcceptorDistance": 2.692885861200396,
+        "angle": 174.0844775613945,
+        "sourceRow": 0
+      },
+      {
+        "a": 5,
+        "b": 3,
+        "shift": [
+          -1,
+          0,
+          0
+        ],
+        "donor": 1,
+        "donorShift": [
+          0,
+          0,
+          0
+        ],
+        "distance": 1.8560217624467241,
+        "donorAcceptorDistance": 2.692885861200396,
+        "angle": 174.0844775613945,
+        "sourceRow": 0
+      },
+      {
+        "a": 7,
+        "b": 1,
+        "shift": [
+          0,
+          0,
+          0
+        ],
+        "donor": 3,
+        "donorShift": [
+          0,
+          0,
+          0
+        ],
+        "distance": 1.8560217624467241,
+        "donorAcceptorDistance": 2.692885861200396,
+        "angle": 174.0844775613945,
+        "sourceRow": 0
+      },
+      {
+        "a": 6,
+        "b": 0,
+        "shift": [
+          1,
+          0,
+          -1
+        ],
+        "donor": 2,
+        "donorShift": [
+          0,
+          0,
+          0
+        ],
+        "distance": 1.8560217624467241,
+        "donorAcceptorDistance": 2.692885861200396,
+        "angle": 174.0844775613945,
+        "sourceRow": 0
+      }
+    ]
+  }
 }

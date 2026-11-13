@@ -1,0 +1,29 @@
+{
+  "date": "2026-11-13",
+  "baseline": "61d7e804",
+  "auditedStructures": 306,
+  "sourceTables": [
+    {
+      "id": "cod-4503066",
+      "rows": 1,
+      "periodicTriplets": 4
+    }
+  ],
+  "geometricWaterFallback": [
+    {
+      "id": "chat-ice-ii",
+      "periodicTriplets": 24,
+      "origin": "water-geometric"
+    }
+  ],
+  "sourceCifsChanged": false,
+  "existingCrystalJsonFieldsUnchanged": true,
+  "methanolCifSha256": "32cf5c752dea004f25e971f7e466942972e942f9e84764f2323f734460d470a8",
+  "verification": {
+    "pythonParserTests": 8,
+    "nodeTests": 22,
+    "browserTests": 10,
+    "libraryBuild": true,
+    "staticBuild": true
+  }
+}
