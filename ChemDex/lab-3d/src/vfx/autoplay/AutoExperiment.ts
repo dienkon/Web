@@ -1,7 +1,18 @@
 import { ALL_HANDCRAFTED_PROGRAMS } from '../programs/library';
 import type { ReactionProgram } from '../../shared/programSchema';
 import type { VesselState, SubstanceContent } from '../../types/chemistry';
-import { createStudioSample } from '../../engine/studioProgram';
+import { createStudioSample, planStudioProgram } from '../../engine/studioProgram';
+import { advanceReaction } from '../../engine/advanceReaction';
+import type { ActiveKineticsState } from '../../store/useAppStore';
+import { stepAlcoholBurner, allocateBurnerHeat, burnerIsBurning } from '../../engine/burnerEnergy';
+import { pointInAlcoholFlame } from '../../science/flameGeometry';
+import { vesselInterior } from '../../science/vesselDimensions';
+import { stepVesselThermal } from '../../engine/thermalState';
+import type { BurnerState } from '../../types/chemistry';
+import { receivePourAliquot } from '../../handling/pourReceiver';
+import type { LiquidAliquot } from '../../handling/aliquot';
+import { planMetalAcid } from '../../engine/metalAcidPlan';
+import { planSodiumWater } from '../../engine/sodiumWaterPlan';
 import { applyProgramWithThermalSinks } from '../../engine/thermalLedger';
 import { measureGasFlux } from '../../engine/gasFlux';
 import { gasVisualState, gasVolumeRateMl_s, retainedGasVisuals } from '../gasVisualState';
@@ -92,6 +103,8 @@ export class AutoExperiment {
     return this.stirringIntensity * immersion;
   }
   log: string[] = [];
+  readonly transferWaste: LiquidAliquot[] = [];
+  sourceEnabled = true;
   private baseline: VesselState;
   private lesson?: LessonSession;
   private emission: boolean;
@@ -101,6 +114,20 @@ export class AutoExperiment {
   private contactProgress = 0;
   private replayProgress = 0;
   private conditioningStartTemp = 25;
+  private kinetics?: ActiveKineticsState;
+  private contactKinetics?: ActiveKineticsState;
+  private lamp: BurnerState = { id: 'auto_lamp', position: [0, -0.21, 0], isOn: false,
+    intensity: 5, fuelLevel_ml: 120, ethanolVolumeFraction: 0.96 };
+  private heat(dt: number) {
+    if (this.lesson) return;
+    const ignition = this.program.chemistry.conditions?.activation === 'ignition' || this.emission;
+    const mouth = vesselLocalToWorld(this.sample, [0, vesselInterior(this.sample.type).topY, 0]);
+    this.lamp = { ...this.lamp, position: ignition ? [mouth[0], mouth[1] - 1.1, mouth[2]] : [0, -0.21, 0],
+      isOn: this.sourceEnabled && (this.heatTarget > 25 || ignition) && ['condition', 'react'].includes(this.phase) };
+    const burn = stepAlcoholBurner(this.lamp, dt); this.lamp = burn.burner;
+    const energy = this.heatTarget > 25 ? allocateBurnerHeat(this.lamp, burn.capturableHeat_J, [this.sample]).energyByVessel_J.get(this.sample.id) ?? 0 : 0;
+    this.sample = { ...this.sample, ...stepVesselThermal(this.sample, dt, energy / dt) };
+  }
   private returnTilt = 0;
   private contactReference?: { formula: string; phase: string; initial: number; consumed: number };
   private contactCadence_s = 0;
@@ -159,7 +186,7 @@ export class AutoExperiment {
       color: this.program.chemistry.species.find(s => s.formula === row.formula && s.phase === row.phase)?.colorHex ?? '#f8fafc',
       remaining: row.mass_g, fraction: 0, ...(row.phase === 's' ? { solid: createAutoSolidDose(row.formula, row.mass_g) } : {}) }));
     this.sample = { ...shell(),
-      liquidColor: '#f1f5f9', isSealed: this.baseline.isSealed, studioProgramId: this.program.id };
+      liquidColor: '#f1f5f9', isSealed: this.baseline.isSealed && this.donors.every(d => d.row.phase === 'g'), studioProgramId: this.program.id };
     this.steps = ['Dọn bàn và dàn dụng cụ cần dùng', ...this.donors.map(d => `${d.row.phase === 'g' ? 'Dẫn' : d.row.phase === 's' ? 'Chuyển' : 'Rót'} ${d.row.formula} (${d.row.phase})`),
       'Thiết lập điều kiện', 'Quan sát phản ứng cận cảnh', 'Đối chiếu sản phẩm'];
     this.log.push('Đã dọn bàn tự động: chỉ giữ bình nhận và các chất cần cho lượt này.');
@@ -191,7 +218,11 @@ export class AutoExperiment {
   private enter(phase: AutoPhase) {
     if (phase === 'return') this.returnTilt = this.donorPose.tilt;
     this.phase = phase; this.phaseTime = 0;
-    if (phase === 'dose') this.donors[this.donorIndex].doseStartedAt = this.elapsed;
+    if (phase === 'dose') {
+      this.donors[this.donorIndex].doseStartedAt = this.elapsed;
+      // A gas donor uses a connected inlet after the open liquid transfers.
+      if (this.donors[this.donorIndex].row.phase === 'g') this.sample.isSealed = true;
+    }
     if (phase === 'condition') this.conditioningStartTemp = this.sample.temperature_c;
     if (this.automaticCamera) this.camera = phase === 'carry' || phase === 'dose' ? this.donors[this.donorIndex]?.row.phase === 'g' ? 'wide' : 'transfer'
       : phase === 'react' || (['return', 'condition'].includes(phase) && this.contactProgress > 0) ? 'close' : phase === 'observe' ? 'surface' : 'wide';
@@ -200,8 +231,9 @@ export class AutoExperiment {
   /** Fixed 60 Hz director: render FPS changes neither dose nor sequence. */
   private accumulator = 0;
   tick(delta: number) {
-    if (this.paused || this.phase === 'error' || !Number.isFinite(delta) || delta <= 0) return;
-    this.accumulator += Math.min(delta, 0.1) * this.speed;
+    if (this.paused || this.phase === 'error' || !Number.isFinite(delta) || delta <= 0
+      || !Number.isFinite(this.speed) || this.speed <= 0) return;
+    this.accumulator += Math.min(delta, 0.1) * Math.min(8, this.speed);
     while (this.accumulator >= 1 / 60 - 1e-12) {
       this.accumulator = Math.max(0, this.accumulator - 1 / 60);
       try { this.step(1 / 60); } catch (e) {
@@ -212,6 +244,7 @@ export class AutoExperiment {
   private step(dt: number) {
     this.elapsed += dt; this.phaseTime += dt;
     const previous = this.sample;
+    this.heat(dt);
     const previousProgress = this.progress;
     let gasArrival: { formula: string; moles: number } | undefined;
     if (this.sample.recentPourContact) this.sample = { ...this.sample, recentPourContact: {
@@ -224,6 +257,7 @@ export class AutoExperiment {
       const solidContact = donor.solid ? this.advanceSolidDose(donor) : undefined;
       const fraction = this.transferFraction;
       const portion = fraction - donor.fraction;
+      const receiverBeforeDose = this.sample;
       if (donor.row.phase === 'g' && portion > 0) gasArrival = { formula: identifySpecies(donor.row.formula).formula, moles: donor.row.moles * portion };
       const contents = this.sample.contents.map(c => ({ ...c }));
       let row = contents.find(c => c.formula === donor.row.formula && c.phase === donor.row.phase);
@@ -238,6 +272,16 @@ export class AutoExperiment {
         liquidColor: portion > 0 && ['aq', 'l'].includes(donor.row.phase) ? supernatantColor(contents, volume_ml)
           ?? blendLiquidOptics(liquidOptics(this.sample.liquidColor ?? '#f8fafc'), this.sample.volume_ml,
             liquidOptics(donor.color), donor.row.mass_g * portion / (this.baseline.density_g_ml ?? 1)).hex : this.sample.liquidColor };
+      if (portion > 0 && ['aq', 'l'].includes(donor.row.phase ?? '')) {
+        const mass_g = donor.row.mass_g * portion;
+        const arrival = receivePourAliquot(receiverBeforeDose, { volume_ml: mass_g / (this.baseline.density_g_ml ?? 1),
+          mass_g, temperature_c: 25, color: donor.color, substances: [donor.row.formula],
+          contents: [{ ...donor.row, mass_g, moles: donor.row.moles * portion }] });
+        this.sample = arrival.vessel;
+        if (arrival.spill.mass_g > 1e-10) this.transferWaste.push(arrival.spill);
+        if (arrival.failureReason || arrival.spill.mass_g > 1e-10)
+          throw new Error(arrival.failureReason ?? 'Bình nhận tràn hoặc không nhận được mẫu; đã giữ lượng tràn trong kiểm kê tự động.');
+      }
       if (portion > 0) {
         const lip = this.donorLip, inlet = donor.row.phase === 'g' ? gasInlet(this, this.gasOrdinal(this.donorIndex)) : undefined;
         this.sample.recentPourContact = { point: inlet ? [inlet[0], inlet[1] - 1.04, inlet[2]]
@@ -249,12 +293,16 @@ export class AutoExperiment {
       this.donorIndex++;
       this.enter(this.donorIndex < this.donors.length ? 'carry' : 'condition');
     } else if (this.phase === 'condition') {
-      this.flame = this.heatTarget > 25 || this.emission || this.program.chemistry.conditions?.activation === 'ignition';
-      this.sample = { ...this.sample, temperature_c: Math.max(this.sample.temperature_c, this.conditioningStartTemp
-        + (Math.max(this.conditioningStartTemp, this.heatTarget) - this.conditioningStartTemp) * smooth(this.phaseTime / 4)) };
-      if (this.phaseTime >= 4) {
-        this.sample = { ...this.sample, temperature_c: Math.max(this.sample.temperature_c, this.heatTarget),
-          ignitedProgramId: this.program.id, studioProgramId: this.program.id };
+      this.flame = this.lesson ? this.heatTarget > 25 || this.emission : burnerIsBurning(this.lamp);
+      if (this.phaseTime > 180) throw new Error('Nguồn nhiệt không đưa mẫu đến điều kiện cần thiết.');
+      if (this.phaseTime >= 4 && (this.lesson || this.heatTarget <= 25 || this.sample.temperature_c >= this.heatTarget)) {
+        if (!this.lesson && (this.program.chemistry.conditions?.activation === 'ignition' || this.emission)) {
+          const mouth = vesselLocalToWorld(this.sample, [0, vesselInterior(this.sample.type).topY, 0]);
+          if (!burnerIsBurning(this.lamp) || !pointInAlcoholFlame(mouth, this.lamp.position)) return;
+        }
+        this.sample = { ...this.sample,
+          ignitedProgramId: this.program.chemistry.conditions?.activation === 'ignition' ? this.program.id : undefined,
+          studioProgramId: this.program.id };
         this.baseline = structuredClone(this.sample);
         const definition = getLessonDefinition(this.program.id);
         if (definition && this.lesson) {
@@ -269,6 +317,12 @@ export class AutoExperiment {
           }
           applyLessonAction(this.lesson, definition, { type: 'mix' });
           applyLessonAction(this.lesson, definition, { type: 'stir', active: true });
+        }
+        if (!this.lesson && !this.emission && this.contactProgress < 0.9999) {
+          const plan = planStudioProgram(this.program, this.sample, 'vi');
+          if (!plan.kinetics) throw new Error(plan.unmet.join(' '));
+          this.kinetics = plan.kinetics;
+          this.kinetics.inductionElapsed_s = this.contactKinetics?.inductionElapsed_s;
         }
         this.enter(this.contactProgress >= 0.9999 ? 'observe' : 'react');
       }
@@ -305,14 +359,13 @@ export class AutoExperiment {
         this.progress = Math.min(1, this.phaseTime / 8); this.flame = this.progress < 1;
         if (this.progress === 1) this.enter('observe');
       } else {
-        const half = this.program.chemistry.kinetics.halfTime_s;
-        const model = this.program.chemistry.kinetics.model;
-        const next = ['instant', 'first_order'].includes(model) && half > 0
-          ? 1 - (1 - this.replayProgress) * Math.exp(-Math.LN2 * dt / half)
-          : Math.min(1, this.replayProgress + dt / Math.max(1, this.program.visual.duration_s));
-        this.replayProgress = next >= 0.9999 ? 1 : next;
+        if (!this.kinetics) throw new Error('Chưa lập kế hoạch phản ứng từ kiểm kê thực tế.');
+        const previousReplay = this.replayProgress;
+        this.replayProgress = advanceReaction(this.kinetics, this.sample, dt, this.stirringDrive > 0, this.flame);
+        this.kinetics.progress = this.replayProgress;
         this.progress = this.contactProgress + (1 - this.contactProgress) * this.replayProgress;
-        const patch = applyProgramWithThermalSinks(this.program, this.baseline, this.sample, this.replayProgress, dt);
+        const patch: Partial<VesselState> = this.replayProgress > previousReplay
+          ? applyProgramWithThermalSinks(this.program, this.baseline, this.sample, this.replayProgress, dt) : { hasGas: false };
         if (patch.gasReplayBlocked) throw new Error('Mẫu đã chạm giới hạn mô hình pha khí.');
         this.sample = { ...this.sample, ...patch };
         if (this.replayProgress === 1) { this.progress = 1; this.flame = false; this.enter('observe'); }
@@ -411,9 +464,16 @@ export class AutoExperiment {
       if (this.contactCadence_s < 0.05 - 1e-12) return;
       dt = this.contactCadence_s; this.contactCadence_s = 0;
     }
-    const halfTime = this.program.chemistry.kinetics.halfTime_s;
-    const fraction = -Math.expm1(-Math.LN2 * dt / Math.max(0.05, halfTime || 1));
     const before = this.sample;
+    const kinetics = planSodiumWater(before, 'vi')?.kinetics ?? planMetalAcid(before, 'vi')?.kinetics
+      ?? planStudioProgram(this.program, before, 'vi').kinetics;
+    if (!kinetics) return;
+    kinetics.inductionElapsed_s = this.contactKinetics?.inductionElapsed_s;
+    kinetics.surfaceReferenceMass_g = this.contactKinetics?.surfaceReferenceMass_g;
+    kinetics.surfaceReferenceMoles = this.contactKinetics?.surfaceReferenceMoles;
+    // Incremental dosing rebases the remaining sample, as manual transfers do.
+    const fraction = advanceReaction(kinetics, before, dt, this.stirringDrive > 0, this.flame);
+    this.contactKinetics = kinetics;
     const patch = applyProgramWithThermalSinks(this.program, before, before, fraction, dt);
     if (patch.gasReplayBlocked) return;
     this.sample = { ...this.sample, ...patch };

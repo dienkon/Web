@@ -21,7 +21,8 @@ describe('automatic transfer choreography', () => {
     advanceUntil(e, () => e.phaseTime > AUTO_TIMING.tilt + AUTO_TIMING.flight + 0.1);
     expect(e.sample.mass_g).toBeGreaterThan(0);
     expect(e.donors[0].remaining).toBeLessThan(e.donors[0].row.mass_g);
-    expect(e.sample.mass_g + e.donors.reduce((sum, d) => sum + d.remaining, 0)).toBeCloseTo(total, 9);
+    expect(e.sample.mass_g + (e.sample.evaporated_ml ?? 0)
+      + e.donors.reduce((sum, d) => sum + d.remaining, 0)).toBeCloseTo(total, 9);
     expect(e.donorPose.position).toEqual(start.position);
     advanceUntil(e, () => e.phase === 'return');
     expect(e.donors[0].fraction).toBe(1);

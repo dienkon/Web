@@ -35,6 +35,7 @@ import { pointInAlcoholFlame } from '../science/flameGeometry';
 import { vesselLocalToWorld } from '../science/vesselScale';
 import { vesselInterior } from '../science/vesselDimensions';
 import { assessProgramConditions } from '../science/conditions';
+import { advanceReaction } from '../engine/advanceReaction';
 import { createFlameEmission, advanceFlameEmission } from '../engine/flameEmission';
 import { createStudioSample, planStudioProgram } from '../engine/studioProgram';
 import { createStudioMorphologySample, PRECIPITATE_MORPHOLOGIES } from '../engine/studioMorphology';
@@ -1891,22 +1892,19 @@ export const useAppStore = create<AppState>((set, get) => {
         const previousProgress = kinetics.progress;
         const replayLimited = kinetics.program?.chemistry.kinetics?.model === 'heat_activated'
           || kinetics.program?.chemistry.species.some(s => s.role === 'reactant' && s.phase === 'g');
-        const assessment = kinetics.program ? assessProgramConditions(kinetics.program, v.contents, {
-          temperature_c: v.temperature_c, pH: v.ph, volume_ml: v.volume_ml,
-          isSealed: v.isSealed ?? false, isHeated: (heatByVessel_J.get(vId) ?? 0) > 0, requireInventory: true,
-          ignitedProgramId: kinetics.initialVesselBaseline?.ignitedProgramId,
-        }) : { ready: true, unmet: [] };
-        kinetics.unmetConditions = assessment.unmet;
-        const candidateProgress = !assessment.ready ? previousProgress : kinetics.rateModel === 'metal_hcl'
-          ? advanceMetalAcidProgress(kinetics, v, effectiveDt, state.stirringVesselId === vId)
-          : replayLimited
-            ? advanceHeatActivatedProgress(kinetics, v, effectiveDt)
-          : advanceCatalyticProgress(kinetics, v, effectiveDt);
-        const newProgress = candidateProgress >= 1 - 1e-12 ? 1 : candidateProgress;
+        const newProgress = advanceReaction(kinetics, v, effectiveDt, state.stirringVesselId === vId,
+          (heatByVessel_J.get(vId) ?? 0) > 0);
         if (kinetics.program || replayLimited) {
           kinetics.actualProgressRate_s = Math.max(0, newProgress - previousProgress) / effectiveDt;
         }
         kinetics.progress = newProgress;
+        if (newProgress === previousProgress) {
+          // An ineligible reaction must not replay its old baseline and restore
+          // a removed catalyst/reagent. Thermal and gas sinks still step below.
+          newVessels[vId] = { ...v, hasGas: false };
+          vesselsUpdated = true;
+          continue;
+        }
 
         const rxId = (kinetics.reactionId || '').toLowerCase();
 

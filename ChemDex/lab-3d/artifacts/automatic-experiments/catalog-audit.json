@@ -10,9 +10,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30,
-      "finalMass_g": 29.999999999999986,
+      "finalMass_g": 30.000000000000007,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "h2so4_naoh",
@@ -21,9 +23,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 29.999999999999996,
-      "finalMass_g": 30.000000000000018,
+      "finalMass_g": 29.99999999999997,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "hno3_koh",
@@ -34,7 +38,9 @@
       "initialMass_g": 30,
       "finalMass_g": 30.000000000000007,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "ch3cooh_naoh",
@@ -43,20 +49,24 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30,
-      "finalMass_g": 30.00000000000003,
+      "finalMass_g": 30.000000000000046,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "nh3_hcl",
       "ok": true,
       "phase": "complete",
       "error": null,
-      "seconds": 28.299999999999674,
+      "seconds": 34.299999999999336,
       "initialMass_g": 0.053489,
-      "finalMass_g": 0.05348899999999999,
+      "finalMass_g": 0.05348899999999995,
       "peakParticles": 0,
-      "peakCloudParticles": 119
+      "peakCloudParticles": 76,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "h2so4_nh3",
@@ -65,9 +75,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 29.999999999999996,
-      "finalMass_g": 29.99999999999999,
+      "finalMass_g": 29.99999999999996,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "h3po4_naoh",
@@ -76,9 +88,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30,
-      "finalMass_g": 30,
+      "finalMass_g": 29.999999999999993,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "hcl_caoh2",
@@ -87,9 +101,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30,
-      "finalMass_g": 29.999999999999993,
+      "finalMass_g": 30,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "h2so4_baoh2",
@@ -98,9 +114,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30,
-      "finalMass_g": 30.000000000000025,
+      "finalMass_g": 29.999999999999968,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "hno3_naoh",
@@ -109,42 +127,50 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30,
-      "finalMass_g": 29.999999999999993,
+      "finalMass_g": 30.000000000000025,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "phenolphthalein_naoh",
       "ok": true,
       "phase": "complete",
       "error": null,
-      "seconds": 36.29999999999922,
+      "seconds": 39.09999999999906,
       "initialMass_g": 30,
-      "finalMass_g": 29.999999999999993,
+      "finalMass_g": 30.00000000000003,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "methyl_orange_hcl",
       "ok": true,
       "phase": "complete",
       "error": null,
-      "seconds": 36.29999999999922,
+      "seconds": 39.09999999999906,
       "initialMass_g": 30,
-      "finalMass_g": 30.000000000000004,
+      "finalMass_g": 30.000000000000032,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "bromothymol_blue_base",
       "ok": true,
       "phase": "complete",
       "error": null,
-      "seconds": 36.29999999999922,
+      "seconds": 39.09999999999906,
       "initialMass_g": 30,
-      "finalMass_g": 30,
+      "finalMass_g": 30.000000000000004,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "bacl2_na2so4",
@@ -153,9 +179,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30.000000000000004,
-      "finalMass_g": 30.000000000000014,
+      "finalMass_g": 29.999999999999932,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "bacl2_h2so4",
@@ -164,9 +192,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30,
-      "finalMass_g": 30.000000000000004,
+      "finalMass_g": 29.99999999999994,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "agno3_nacl",
@@ -175,9 +205,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30.000000000000004,
-      "finalMass_g": 30.000000000000004,
+      "finalMass_g": 29.999999999999982,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "agno3_kbr",
@@ -186,9 +218,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30,
-      "finalMass_g": 30.000000000000004,
+      "finalMass_g": 30.000000000000014,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "agno3_ki",
@@ -197,9 +231,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30,
-      "finalMass_g": 30.00000000000001,
+      "finalMass_g": 29.999999999999932,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "pbno32_ki",
@@ -208,9 +244,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30,
-      "finalMass_g": 30.000000000000004,
+      "finalMass_g": 29.999999999999964,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "cacl2_na2co3",
@@ -219,9 +257,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30,
-      "finalMass_g": 30,
+      "finalMass_g": 30.000000000000053,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "caoh2_co2",
@@ -230,9 +270,11 @@
       "error": null,
       "seconds": 43.099999999998836,
       "initialMass_g": 30.044009,
-      "finalMass_g": 30.044008999999996,
+      "finalMass_g": 30.0440089999999,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "cuso4_naoh",
@@ -241,9 +283,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30,
-      "finalMass_g": 29.999999999999996,
+      "finalMass_g": 30.00000000000001,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "fecl3_naoh",
@@ -252,9 +296,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30,
-      "finalMass_g": 29.999999999999993,
+      "finalMass_g": 30.000000000000068,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "feso4_naoh",
@@ -263,9 +309,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 29.999999999999996,
-      "finalMass_g": 30,
+      "finalMass_g": 30.00000000000004,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "alcl3_naoh",
@@ -274,9 +322,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30.000000000000004,
-      "finalMass_g": 30,
+      "finalMass_g": 29.999999999999993,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "na2s_cuso4",
@@ -285,9 +335,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30,
-      "finalMass_g": 30,
+      "finalMass_g": 29.99999999999999,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "na2s_pbno32",
@@ -296,9 +348,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30,
-      "finalMass_g": 30,
+      "finalMass_g": 30.00000000000003,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "k2cro4_bacl2",
@@ -307,9 +361,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30,
-      "finalMass_g": 30.000000000000007,
+      "finalMass_g": 30,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "k2cro4_agno3",
@@ -318,9 +374,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30,
-      "finalMass_g": 29.999999999999993,
+      "finalMass_g": 30.000000000000018,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "caco3_hcl",
@@ -329,9 +387,11 @@
       "error": null,
       "seconds": 42.399999999998876,
       "initialMass_g": 30.100086,
-      "finalMass_g": 30.100086000000008,
+      "finalMass_g": 30.100086000000005,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "na2co3_hcl",
@@ -340,20 +400,24 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30,
-      "finalMass_g": 29.999999999999986,
+      "finalMass_g": 29.99999999999998,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "nahco3_hcl",
       "ok": true,
       "phase": "complete",
       "error": null,
-      "seconds": 35.399999999999274,
+      "seconds": 40.39999999999899,
       "initialMass_g": 30.084006,
-      "finalMass_g": 30.08400599999996,
+      "finalMass_g": 30.08400599999994,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "zn_hcl",
@@ -362,9 +426,11 @@
       "error": null,
       "seconds": 42.89999999999885,
       "initialMass_g": 30.06538,
-      "finalMass_g": 30.06537999999998,
+      "finalMass_g": 30.06538000000007,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "mg_hcl",
@@ -373,9 +439,11 @@
       "error": null,
       "seconds": 41.09999999999895,
       "initialMass_g": 30.024305,
-      "finalMass_g": 30.024304999999988,
+      "finalMass_g": 30.024305000000016,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "fe_hcl",
@@ -384,20 +452,24 @@
       "error": null,
       "seconds": 43.39999999999882,
       "initialMass_g": 30.055845,
-      "finalMass_g": 30.05584500000001,
+      "finalMass_g": 30.05584499999998,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "al_hcl",
       "ok": true,
       "phase": "complete",
       "error": null,
-      "seconds": 43.39999999999882,
+      "seconds": 54.79999999999817,
       "initialMass_g": 30.053964,
-      "finalMass_g": 30.05396399999999,
+      "finalMass_g": 30.053964000000022,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "na2so3_hcl",
@@ -406,9 +478,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30,
-      "finalMass_g": 30.00000000000001,
+      "finalMass_g": 30.00000000000005,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "fes_hcl",
@@ -419,7 +493,9 @@
       "initialMass_g": 30.087905,
       "finalMass_g": 30.087905000000006,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "nh4cl_naoh",
@@ -428,9 +504,11 @@
       "error": null,
       "seconds": 51.59999999999835,
       "initialMass_g": 30,
-      "finalMass_g": 29.999999999999964,
+      "finalMass_g": 29.999999999999993,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "h2o2_mno2",
@@ -439,9 +517,11 @@
       "error": null,
       "seconds": 48.69999999999852,
       "initialMass_g": 30.00086936,
-      "finalMass_g": 30.000869359999996,
+      "finalMass_g": 30.00086935999997,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "cu_hno3_conc",
@@ -450,9 +530,11 @@
       "error": null,
       "seconds": 43.89999999999879,
       "initialMass_g": 4.342048235294118,
-      "finalMass_g": 4.342048235294115,
+      "finalMass_g": 4.342048235294119,
       "peakParticles": 0,
-      "peakCloudParticles": 192
+      "peakCloudParticles": 192,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "cu_hno3_dil",
@@ -461,9 +543,11 @@
       "error": null,
       "seconds": 43.39999999999882,
       "initialMass_g": 30.190638,
-      "finalMass_g": 30.19063799999998,
+      "finalMass_g": 30.190637999999982,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "fe_cuso4",
@@ -472,9 +556,11 @@
       "error": null,
       "seconds": 43.89999999999879,
       "initialMass_g": 30.055845,
-      "finalMass_g": 30.055844999999987,
-      "peakParticles": 419,
-      "peakCloudParticles": 0
+      "finalMass_g": 30.05584499999991,
+      "peakParticles": 420,
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "zn_cuso4",
@@ -483,9 +569,11 @@
       "error": null,
       "seconds": 43.39999999999882,
       "initialMass_g": 30.06538,
-      "finalMass_g": 30.06537999999999,
-      "peakParticles": 420,
-      "peakCloudParticles": 0
+      "finalMass_g": 30.065379999999973,
+      "peakParticles": 419,
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "cu_agno3",
@@ -494,9 +582,11 @@
       "error": null,
       "seconds": 44.39999999999876,
       "initialMass_g": 30.063546,
-      "finalMass_g": 30.06354599999999,
+      "finalMass_g": 30.063546000000038,
       "peakParticles": 353,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "kmno4_oxalic",
@@ -505,9 +595,11 @@
       "error": null,
       "seconds": 51.49999999999836,
       "initialMass_g": 30,
-      "finalMass_g": 30.000000000000004,
+      "finalMass_g": 29.999999999999975,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "k2cr2o7_feso4",
@@ -516,9 +608,11 @@
       "error": null,
       "seconds": 49.49999999999847,
       "initialMass_g": 29.999999999999996,
-      "finalMass_g": 29.99999999999999,
+      "finalMass_g": 30.00000000000001,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "fecl3_ki",
@@ -527,9 +621,11 @@
       "error": null,
       "seconds": 41.09999999999895,
       "initialMass_g": 30.000000000000004,
-      "finalMass_g": 29.999999999999996,
+      "finalMass_g": 30.000000000000004,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "cl2_kbr",
@@ -538,9 +634,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30.000000000000004,
-      "finalMass_g": 29.999999999999996,
+      "finalMass_g": 30.000000000000057,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "iodine_clock",
@@ -551,7 +649,9 @@
       "initialMass_g": 30.000000000000004,
       "finalMass_g": 30.00000000000002,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "fecl3_kscn",
@@ -560,9 +660,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30,
-      "finalMass_g": 29.999999999999996,
+      "finalMass_g": 30.000000000000018,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "cuso4_nh3",
@@ -571,9 +673,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30,
-      "finalMass_g": 30.00000000000001,
+      "finalMass_g": 30.000000000000032,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "k2cr2o7_naoh",
@@ -584,7 +688,9 @@
       "initialMass_g": 29.999999999999996,
       "finalMass_g": 30.000000000000004,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "k2cro4_h2so4",
@@ -593,9 +699,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30,
-      "finalMass_g": 30.00000000000001,
+      "finalMass_g": 30.000000000000025,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "aloh3_naoh",
@@ -604,9 +712,11 @@
       "error": null,
       "seconds": 51.399999999998364,
       "initialMass_g": 30.0078003,
-      "finalMass_g": 30.007800300000014,
+      "finalMass_g": 30.007800300000085,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "mg_o2_burn",
@@ -617,29 +727,35 @@
       "initialMass_g": 0.080608,
       "finalMass_g": 0.08060800000000001,
       "peakParticles": 0,
-      "peakCloudParticles": 192
+      "peakCloudParticles": 192,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "na_h2o",
       "ok": true,
       "phase": "complete",
       "error": null,
-      "seconds": 33.89999999999936,
+      "seconds": 30.09999999999957,
       "initialMass_g": 30.04598,
-      "finalMass_g": 30.045980000000004,
+      "finalMass_g": 30.04598,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "k_h2o",
       "ok": true,
       "phase": "complete",
       "error": null,
-      "seconds": 27.899999999999697,
+      "seconds": 31.499999999999492,
       "initialMass_g": 0.114226,
-      "finalMass_g": 0.11422599999999988,
+      "finalMass_g": 0.11422600000000016,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "flame_cu",
@@ -650,7 +766,9 @@
       "initialMass_g": 0.00134446,
       "finalMass_g": 0.0013444599999999996,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "flame_na",
@@ -661,7 +779,9 @@
       "initialMass_g": 0.0005844,
       "finalMass_g": 0.0005844,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "flame_k",
@@ -672,7 +792,9 @@
       "initialMass_g": 0.0007454800000000001,
       "finalMass_g": 0.0007454800000000001,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "cuoh2_decomp",
@@ -681,20 +803,24 @@
       "error": null,
       "seconds": 27.799999999999702,
       "initialMass_g": 0.09756000000000001,
-      "finalMass_g": 0.09756000000000002,
-      "peakParticles": 3,
-      "peakCloudParticles": 0
+      "finalMass_g": 0.09756000000000001,
+      "peakParticles": 0,
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "nahco3_heat",
       "ok": true,
       "phase": "complete",
       "error": null,
-      "seconds": 27.799999999999702,
+      "seconds": 28.299999999999674,
       "initialMass_g": 0.168012,
       "finalMass_g": 0.16801200000000005,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "i2_sublimation",
@@ -705,7 +831,9 @@
       "initialMass_g": 0.253808,
       "finalMass_g": 0.2538080000000001,
       "peakParticles": 0,
-      "peakCloudParticles": 21
+      "peakCloudParticles": 27,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "water_into_h2so4",
@@ -714,9 +842,11 @@
       "error": null,
       "seconds": 28.999999999999634,
       "initialMass_g": 1.180884693877551,
-      "finalMass_g": 1.1808846938775515,
+      "finalMass_g": 1.180884693877551,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "naclo_hcl_chlorine",
@@ -725,9 +855,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30,
-      "finalMass_g": 30.000000000000004,
+      "finalMass_g": 30.000000000000064,
       "peakParticles": 0,
-      "peakCloudParticles": 24
+      "peakCloudParticles": 24,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "cocl2_hcl",
@@ -736,9 +868,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30,
-      "finalMass_g": 30,
+      "finalMass_g": 29.999999999999975,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "niso4_nh3",
@@ -749,7 +883,9 @@
       "initialMass_g": 30,
       "finalMass_g": 30.000000000000004,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "fecl3_3kscn",
@@ -758,9 +894,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30,
-      "finalMass_g": 29.999999999999982,
+      "finalMass_g": 29.999999999999964,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "fecl3_k4fecn6",
@@ -771,7 +909,9 @@
       "initialMass_g": 30.000000000000004,
       "finalMass_g": 29.999999999999993,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "feso4_k3fecn6",
@@ -780,9 +920,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 29.999999999999996,
-      "finalMass_g": 30.000000000000007,
+      "finalMass_g": 29.99999999999996,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "cuso4_k4fecn6",
@@ -791,9 +933,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30,
-      "finalMass_g": 29.99999999999999,
+      "finalMass_g": 29.99999999999997,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "agcl_nh3",
@@ -802,9 +946,11 @@
       "error": null,
       "seconds": 41.39999999999893,
       "initialMass_g": 30.143318,
-      "finalMass_g": 30.143318000000008,
+      "finalMass_g": 30.143317999999955,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "agi_na2s2o3",
@@ -813,9 +959,11 @@
       "error": null,
       "seconds": 41.899999999998904,
       "initialMass_g": 30.234772,
-      "finalMass_g": 30.234772000000007,
+      "finalMass_g": 30.23477200000002,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "niso4_naoh",
@@ -824,9 +972,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 29.999999999999996,
-      "finalMass_g": 30.000000000000018,
+      "finalMass_g": 30.00000000000003,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "cocl2_naoh",
@@ -835,9 +985,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30,
-      "finalMass_g": 30.000000000000007,
+      "finalMass_g": 30.000000000000032,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "znso4_naoh",
@@ -846,9 +998,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 29.999999999999996,
-      "finalMass_g": 30.000000000000007,
+      "finalMass_g": 29.99999999999998,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "mgcl2_naoh",
@@ -857,9 +1011,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30,
-      "finalMass_g": 29.999999999999996,
+      "finalMass_g": 29.999999999999854,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "mnso4_naoh",
@@ -868,9 +1024,11 @@
       "error": null,
       "seconds": 46.299999999998654,
       "initialMass_g": 30,
-      "finalMass_g": 30.000000000000004,
+      "finalMass_g": 30.000000000000018,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "bino33_ki",
@@ -879,9 +1037,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30,
-      "finalMass_g": 29.999999999999986,
+      "finalMass_g": 29.999999999999954,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "znso4_na2s",
@@ -890,9 +1050,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30,
-      "finalMass_g": 30.000000000000004,
+      "finalMass_g": 30.000000000000096,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "agno3_k2cro4",
@@ -901,9 +1063,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30,
-      "finalMass_g": 29.999999999999993,
+      "finalMass_g": 30.000000000000014,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "bacl2_k2cro4",
@@ -912,9 +1076,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30,
-      "finalMass_g": 30.000000000000007,
+      "finalMass_g": 29.999999999999975,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "pbno32_k2cro4",
@@ -923,9 +1089,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30,
-      "finalMass_g": 30,
+      "finalMass_g": 29.999999999999904,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "pbno32_na2so4",
@@ -934,9 +1102,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30,
-      "finalMass_g": 29.999999999999993,
+      "finalMass_g": 30.00000000000006,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "cuso4_ki",
@@ -945,9 +1115,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 29.999999999999996,
-      "finalMass_g": 29.999999999999982,
+      "finalMass_g": 30.000000000000046,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "zn_agno3",
@@ -956,9 +1128,11 @@
       "error": null,
       "seconds": 43.39999999999882,
       "initialMass_g": 30.06538,
-      "finalMass_g": 30.06537999999999,
+      "finalMass_g": 30.065380000000044,
       "peakParticles": 348,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "kmno4_na2c2o4_titration",
@@ -967,9 +1141,11 @@
       "error": null,
       "seconds": 49.999999999998444,
       "initialMass_g": 30,
-      "finalMass_g": 30.000000000000004,
+      "finalMass_g": 30.00000000000007,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "mg_cuso4",
@@ -978,9 +1154,11 @@
       "error": null,
       "seconds": 42.09999999999889,
       "initialMass_g": 30.024305,
-      "finalMass_g": 30.024304999999988,
+      "finalMass_g": 30.02430499999998,
       "peakParticles": 413,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "ki_cl2",
@@ -989,9 +1167,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30.000000000000004,
-      "finalMass_g": 29.99999999999999,
+      "finalMass_g": 29.999999999999943,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "kbr_cl2",
@@ -1000,9 +1180,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30.000000000000004,
-      "finalMass_g": 29.999999999999996,
+      "finalMass_g": 30.00000000000002,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "na2s2o3_i2",
@@ -1011,9 +1193,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30,
-      "finalMass_g": 30.000000000000004,
+      "finalMass_g": 30.000000000000025,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "h2o2_ki_h2so4",
@@ -1022,9 +1206,11 @@
       "error": null,
       "seconds": 49.49999999999847,
       "initialMass_g": 30,
-      "finalMass_g": 30.000000000000007,
+      "finalMass_g": 30.000000000000068,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "feso4_kmno4_h2so4",
@@ -1033,9 +1219,11 @@
       "error": null,
       "seconds": 42.99999999999884,
       "initialMass_g": 30.000000000000004,
-      "finalMass_g": 30.000000000000004,
+      "finalMass_g": 30.000000000000007,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "k2cr2o7_c2h5oh_h2so4",
@@ -1044,9 +1232,11 @@
       "error": null,
       "seconds": 56.299999999998086,
       "initialMass_g": 30,
-      "finalMass_g": 29.99999999999999,
+      "finalMass_g": 30.00000000000001,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "h2o2_kmno4",
@@ -1055,9 +1245,11 @@
       "error": null,
       "seconds": 42.599999999998865,
       "initialMass_g": 30,
-      "finalMass_g": 29.999999999999996,
+      "finalMass_g": 30,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "zn_h2so4_dilute",
@@ -1066,20 +1258,24 @@
       "error": null,
       "seconds": 42.399999999998876,
       "initialMass_g": 30.06538,
-      "finalMass_g": 30.06537999999998,
+      "finalMass_g": 30.06538000000003,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "caco3_hno3",
       "ok": true,
       "phase": "complete",
       "error": null,
-      "seconds": 35.399999999999274,
+      "seconds": 41.899999999998904,
       "initialMass_g": 30.100086,
-      "finalMass_g": 30.10008599999999,
+      "finalMass_g": 30.100085999999987,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "cu_conc_h2so4",
@@ -1088,9 +1284,11 @@
       "error": null,
       "seconds": 43.39999999999882,
       "initialMass_g": 2.636929387755102,
-      "finalMass_g": 2.636929387755103,
+      "finalMass_g": 2.636929387755102,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "nh42so4_naoh",
@@ -1099,31 +1297,37 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30,
-      "finalMass_g": 30.000000000000014,
+      "finalMass_g": 30.00000000000001,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "cac2_h2o",
       "ok": true,
       "phase": "complete",
       "error": null,
-      "seconds": 28.099999999999685,
-      "initialMass_g": 0.10013,
-      "finalMass_g": 0.10013,
-      "peakParticles": 0,
-      "peakCloudParticles": 0
+      "seconds": 35.09999999999929,
+      "initialMass_g": 30.0641,
+      "finalMass_g": 30.064099999999982,
+      "peakParticles": 550,
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "al_naoh_h2",
       "ok": true,
       "phase": "complete",
       "error": null,
-      "seconds": 42.89999999999885,
+      "seconds": 50.7999999999984,
       "initialMass_g": 30.053964,
-      "finalMass_g": 30.05396399999998,
+      "finalMass_g": 30.05396400000007,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "kcl_conc_h2so4",
@@ -1132,20 +1336,24 @@
       "error": null,
       "seconds": 42.399999999998876,
       "initialMass_g": 1.7462146938775511,
-      "finalMass_g": 1.7462146938775494,
+      "finalMass_g": 1.7462146938775507,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "nano2_nh4cl",
       "ok": true,
       "phase": "complete",
       "error": null,
-      "seconds": 42.599999999998865,
+      "seconds": 47.699999999998575,
       "initialMass_g": 30,
-      "finalMass_g": 29.999999999999996,
+      "finalMass_g": 30.000000000000007,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "cu_hno3_dilute",
@@ -1154,9 +1362,11 @@
       "error": null,
       "seconds": 43.39999999999882,
       "initialMass_g": 30.190638,
-      "finalMass_g": 30.190637999999993,
+      "finalMass_g": 30.190637999999982,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "kmno4_hcl",
@@ -1165,9 +1375,11 @@
       "error": null,
       "seconds": 43.39999999999882,
       "initialMass_g": 30.316064,
-      "finalMass_g": 30.316063999999994,
+      "finalMass_g": 30.316063999999983,
       "peakParticles": 0,
-      "peakCloudParticles": 106
+      "peakCloudParticles": 106,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "nh4no3_dissolution",
@@ -1176,9 +1388,11 @@
       "error": null,
       "seconds": 33.599999999999376,
       "initialMass_g": 30.080043,
-      "finalMass_g": 30.080043000000003,
+      "finalMass_g": 30.08004299999999,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "naoh_dissolution",
@@ -1187,9 +1401,11 @@
       "error": null,
       "seconds": 32.899999999999416,
       "initialMass_g": 30.039997,
-      "finalMass_g": 30.039997000000003,
+      "finalMass_g": 30.039997000000028,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "cacl2_dissolution",
@@ -1198,9 +1414,11 @@
       "error": null,
       "seconds": 32.59999999999943,
       "initialMass_g": 30.110978,
-      "finalMass_g": 30.110978000000003,
+      "finalMass_g": 30.110978000000046,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "h2so4_dilution",
@@ -1211,7 +1429,9 @@
       "initialMass_g": 1.180884693877551,
       "finalMass_g": 1.180884693877551,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "ethene_bromine",
@@ -1222,7 +1442,9 @@
       "initialMass_g": 50.187861999999996,
       "finalMass_g": 50.187862,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "ethene_hydrogen",
@@ -1233,7 +1455,9 @@
       "initialMass_g": 0.03007,
       "finalMass_g": 0.03007000000000027,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "ethene_water",
@@ -1244,7 +1468,9 @@
       "initialMass_g": 50.046068999999996,
       "finalMass_g": 50.046069,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "ethyne_bromine",
@@ -1255,7 +1481,9 @@
       "initialMass_g": 50.345654,
       "finalMass_g": 50.345653999999996,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "ethene_combustion",
@@ -1266,7 +1494,9 @@
       "initialMass_g": 0.124048,
       "finalMass_g": 0.1240479999999998,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "methane_combustion",
@@ -1277,7 +1507,9 @@
       "initialMass_g": 0.080039,
       "finalMass_g": 0.08003899999999989,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "ethyne_combustion",
@@ -1288,7 +1520,9 @@
       "initialMass_g": 0.21206600000000003,
       "finalMass_g": 0.21206599999999964,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "ethanol_combustion",
@@ -1299,18 +1533,22 @@
       "initialMass_g": 50.142063,
       "finalMass_g": 50.142063,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "ethanol_sodium",
       "ok": true,
       "phase": "complete",
       "error": null,
-      "seconds": 46.69999999999863,
+      "seconds": 45.79999999999868,
       "initialMass_g": 50.138117537999996,
       "finalMass_g": 50.138117537999996,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "ethanol_cuo",
@@ -1321,7 +1559,9 @@
       "initialMass_g": 50.125614000000006,
       "finalMass_g": 50.125614,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "ethanol_dehydration",
@@ -1332,7 +1572,9 @@
       "initialMass_g": 50.046069,
       "finalMass_g": 50.046068999999996,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "glycerol_cuoh2",
@@ -1343,7 +1585,9 @@
       "initialMass_g": 50.281748,
       "finalMass_g": 50.28174799999999,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "phenol_naoh",
@@ -1354,7 +1598,9 @@
       "initialMass_g": 50.134109769,
       "finalMass_g": 50.134109769,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "phenol_bromine",
@@ -1365,7 +1611,9 @@
       "initialMass_g": 50.573537,
       "finalMass_g": 50.573537,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "acetic_carbonate",
@@ -1376,7 +1624,9 @@
       "initialMass_g": 50.226091538,
       "finalMass_g": 50.226091538,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "acetic_bicarbonate",
@@ -1387,7 +1637,9 @@
       "initialMass_g": 50.144057769,
       "finalMass_g": 50.144057769,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "ethyl_acetate_synthesis",
@@ -1398,7 +1650,9 @@
       "initialMass_g": 50.106121,
       "finalMass_g": 50.106121,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "ethyl_acetate_saponification",
@@ -1409,7 +1663,9 @@
       "initialMass_g": 50.128102769,
       "finalMass_g": 50.128102769,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "methyl_acetate_saponification",
@@ -1420,7 +1676,9 @@
       "initialMass_g": 50.114075768999996,
       "finalMass_g": 50.114075769,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "glucose_cuoh2_cold",
@@ -1431,7 +1689,9 @@
       "initialMass_g": 50.457872,
       "finalMass_g": 50.457871999999995,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "glucose_cuoh2_hot",
@@ -1442,7 +1702,9 @@
       "initialMass_g": 50.415272769,
       "finalMass_g": 50.415272769,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "sucrose_hydrolysis",
@@ -1453,7 +1715,9 @@
       "initialMass_g": 50.360312,
       "finalMass_g": 50.360312,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "starch_hydrolysis",
@@ -1464,7 +1728,9 @@
       "initialMass_g": 50.180156,
       "finalMass_g": 50.180156,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "glucose_fermentation",
@@ -1475,7 +1741,9 @@
       "initialMass_g": 50.180156,
       "finalMass_g": 50.180156000000004,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "methylamine_hcl",
@@ -1486,7 +1754,9 @@
       "initialMass_g": 50.067516000000005,
       "finalMass_g": 50.067516,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "aniline_bromine",
@@ -1497,7 +1767,9 @@
       "initialMass_g": 50.572553,
       "finalMass_g": 50.572553,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "glycine_hcl",
@@ -1508,7 +1780,9 @@
       "initialMass_g": 50.111525,
       "finalMass_g": 50.111525,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "glycine_naoh",
@@ -1519,7 +1793,9 @@
       "initialMass_g": 50.115063768999995,
       "finalMass_g": 50.115063768999995,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "cuo_hcl",
@@ -1530,7 +1806,9 @@
       "initialMass_g": 50.152461,
       "finalMass_g": 50.152460999999995,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "fe2o3_hcl",
@@ -1541,7 +1819,9 @@
       "initialMass_g": 50.378434999999996,
       "finalMass_g": 50.378435,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "cao_water",
@@ -1552,7 +1832,9 @@
       "initialMass_g": 50.074092,
       "finalMass_g": 50.074092,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "caco3_heat",
@@ -1563,7 +1845,9 @@
       "initialMass_g": 0.100086,
       "finalMass_g": 0.10008600000000024,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "cuoh2_hcl",
@@ -1574,7 +1858,9 @@
       "initialMass_g": 50.170476,
       "finalMass_g": 50.170475999999994,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "aloh3_hcl",
@@ -1585,7 +1871,9 @@
       "initialMass_g": 50.187376538,
       "finalMass_g": 50.187376538,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "thiosulfate_acid_clock",
@@ -1594,9 +1882,11 @@
       "error": null,
       "seconds": 75.499999999997,
       "initialMass_g": 30,
-      "finalMass_g": 29.99999999999999,
+      "finalMass_g": 29.999999999999982,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "feoh3_hcl",
@@ -1605,9 +1895,11 @@
       "error": null,
       "seconds": 51.399999999998364,
       "initialMass_g": 30.106866,
-      "finalMass_g": 30.106866000000018,
+      "finalMass_g": 30.106865999999993,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "al2so43_naoh",
@@ -1616,9 +1908,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30,
-      "finalMass_g": 29.999999999999996,
+      "finalMass_g": 29.999999999999932,
       "peakParticles": 550,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "alcl3_naoh_excess",
@@ -1627,9 +1921,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30.000000000000004,
-      "finalMass_g": 29.999999999508635,
+      "finalMass_g": 30.000000000000014,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     },
     {
       "id": "al2so43_naoh_excess",
@@ -1638,9 +1934,11 @@
       "error": null,
       "seconds": 35.59999999999926,
       "initialMass_g": 30,
-      "finalMass_g": 29.999999999890154,
+      "finalMass_g": 29.999999999999996,
       "peakParticles": 0,
-      "peakCloudParticles": 0
+      "peakCloudParticles": 0,
+      "particleBudget": 550,
+      "workbenchUnchanged": true
     }
   ],
   "workbenchUnchanged": true,

@@ -95,7 +95,8 @@ describe('smoke starts in the vessel headspace', () => {
   });
   it('creates the NH3/HCl white product inside the capped automatic receiver before any outside plume', () => {
     const e = new AutoExperiment('nh3_hcl');
-    for (let i = 0; i < 4000 && !e.clouds.clouds.size; i++) e.tick(1 / 60);
+    // A finite source receipt can precede the first visible aerosol particle.
+    for (let i = 0; i < 4000 && ![...e.clouds.clouds.values()].some(c => c.system.particles.length); i++) e.tick(1 / 60);
     expect(e.error).toBeNull();
     for (let i = 0; i < 24; i++) e.tick(1 / 60);
     const packets = [...e.clouds.clouds.values()].flatMap(c => c.system.particles);

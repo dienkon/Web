@@ -1,6 +1,6 @@
 {
   "schema": "chemdex.science-audit/1",
-  "checkedAt": "2026-11-06T14:37:51.761Z",
+  "checkedAt": "2026-11-13T16:21:44.503Z",
   "scope": "All 149 program definitions, every deterministic rule, and all 34 lessons. Lesson programs are a subset of the programs, not additional unique experiments.",
   "claims": {
     "balanceChecked": true,

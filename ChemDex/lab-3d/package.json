@@ -22,7 +22,8 @@
     "physics:audit": "tsx scripts/auditPhysicalCoverage.ts",
     "physics:benchmark": "tsx scripts/benchmarkPhysicalRuntime.ts",
     "lint": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "equations:audit": "tsx scripts/exportEquationAudit.mjs"
   },
   "dependencies": {
     "@dimforge/rapier3d-compat": "0.21.0",

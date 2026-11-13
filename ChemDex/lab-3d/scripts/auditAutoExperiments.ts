@@ -2,6 +2,9 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 import { AUTO_EXPERIMENTS, AutoExperiment } from '../src/vfx/autoplay/AutoExperiment';
 import { useAppStore } from '../src/store/useAppStore';
 
+// Let the existing 100 ms startup/history publication settle before checking
+// strict store identity across awaited physics initialization.
+await new Promise(resolve => setTimeout(resolve, 200));
 const before = useAppStore.getState(), results = [];
 for (const entry of AUTO_EXPERIMENTS) {
   const e = new AutoExperiment(entry.id);
@@ -17,7 +20,8 @@ for (const entry of AUTO_EXPERIMENTS) {
   const ok = e.phase === 'complete' && !e.error && Math.abs(finalMass_g - initialMass_g) < 1e-5
     && peakParticles <= e.physics.maxPrecipitateParticles && useAppStore.getState() === before;
   results.push({ id: entry.id, ok, phase: e.phase, error: e.error, seconds: e.elapsed,
-    initialMass_g, finalMass_g, peakParticles, peakCloudParticles });
+    initialMass_g, finalMass_g, peakParticles, peakCloudParticles,
+    particleBudget: e.physics.maxPrecipitateParticles, workbenchUnchanged: useAppStore.getState() === before });
   e.stocks.dispose();
   if (results.length % 10 === 0) console.log(`Checked ${results.length}/${AUTO_EXPERIMENTS.length} native chemistry + physical effects pipelines`);
 }

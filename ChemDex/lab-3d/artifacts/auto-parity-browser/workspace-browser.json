@@ -1,0 +1,30 @@
+{
+  "automaticTab": true,
+  "resizableManualAndAutomaticSidebars": true,
+  "keyboardResize": true,
+  "emptyReceiverBeforePour": true,
+  "animatedDonorAndStream": {
+    "pose": [
+      -1,
+      2.8,
+      0
+    ],
+    "expected": [
+      -1,
+      2.8,
+      0
+    ],
+    "tilt": -1.608322745851679,
+    "visible": true,
+    "segments": 16
+  },
+  "pauseUsesDemandRendering": true,
+  "restartReusesCanvas": true,
+  "nextReactionClearsPreviousRun": true,
+  "smoke": true,
+  "playlist": true,
+  "fullscreen": true,
+  "manualBenchPreserved": true,
+  "mobile": true,
+  "errors": []
+}

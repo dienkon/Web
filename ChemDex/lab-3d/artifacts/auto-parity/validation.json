@@ -1,0 +1,86 @@
+{
+  "schema": "chemdex.auto-manual-audit/1",
+  "equations": {
+    "records": 1549,
+    "byOrigin": {
+      "catalog": 1300,
+      "deterministic": 48,
+      "dynamicRules": 18,
+      "lessons": 34,
+      "programs": 149
+    },
+    "byFamily": {
+      "ammonium_base": 33,
+      "amphoteric": 5,
+      "carbonate_acid": 91,
+      "catalytic_decomposition": 2,
+      "combustion": 30,
+      "dilution": 1,
+      "displacement": 132,
+      "emission": 3,
+      "equilibrium": 1,
+      "esterification": 16,
+      "gas_evolution": 35,
+      "indicator": 3,
+      "metal_acid": 27,
+      "neutralization": 115,
+      "organic_conversion": 8,
+      "oxide_acid": 106,
+      "precipitation": 601,
+      "redox": 10,
+      "saponification": 48,
+      "solid_formation": 42,
+      "specialized": 146,
+      "sulfide_acid": 12,
+      "sulfite_acid": 15,
+      "synthesis": 22,
+      "thermal": 45
+    },
+    "automaticPrograms": 149,
+    "uniqueCatalogMolecularEquations": 1300
+  },
+  "validation": {
+    "unitFiles": 235,
+    "unitTests": 3118,
+    "unitPassed": true,
+    "typecheck": true,
+    "productionBuild": true,
+    "browser": {
+      "automaticTab": true,
+      "resizableManualAndAutomaticSidebars": true,
+      "keyboardResize": true,
+      "emptyReceiverBeforePour": true,
+      "animatedDonorAndStream": {
+        "pose": [
+          -1,
+          2.8,
+          0
+        ],
+        "expected": [
+          -1,
+          2.8,
+          0
+        ],
+        "tilt": -1.608322745851679,
+        "visible": true,
+        "segments": 16
+      },
+      "pauseUsesDemandRendering": true,
+      "restartReusesCanvas": true,
+      "nextReactionClearsPreviousRun": true,
+      "smoke": true,
+      "playlist": true,
+      "fullscreen": true,
+      "manualBenchPreserved": true,
+      "mobile": true,
+      "errors": []
+    },
+    "physical": {
+      "total": 149,
+      "passed": 149,
+      "workbenchUnchanged": true,
+      "maxMassError_g": 1.4566126083082054e-13,
+      "allParticleBudgetsRespected": true
+    }
+  }
+}
