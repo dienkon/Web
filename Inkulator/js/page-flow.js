@@ -360,13 +360,14 @@
       Store.emit();
     } else fit(mode || "page");
   }
+  function keepZoom(){const z=Store.state.viewport.zoom||1;Store.state.viewMode="manual";Store.state.viewport={x:(Renderer.area.clientWidth-Store.current().width*z)/2,y:20,zoom:z};invalidateLayout();Renderer.request();root.App?.updateZoom();}
   function fit(mode = "page") {
     if (!root.Renderer?.area) return;
     const area = Renderer.area, p = Store.current(), w = area.clientWidth, h = area.clientHeight;
     if (!w || !h) return;
     const z = Math.max(.1, Math.min(4, (w - 48) / p.width,
       mode === "width" ? 4 : (h - 88) / p.height));
-    Store.state.viewMode = mode;
+    Store.state.viewMode = "manual";
     Store.state.viewport = { x: (w - p.width*z) / 2,
       y: mode === "width" ? PAD : Math.max(PAD, (h - 48 - p.height*z) / 2), zoom: z };
     update();
@@ -392,7 +393,7 @@
     });
     update();
   }
-  root.PageFlow = {
+  root.PageFlow = {keepZoom,
     invalidateLayout,
     fit,
     init,

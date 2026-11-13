@@ -19,7 +19,7 @@
     if(diag*zoom<18)return null;
     const a=points[0],b=points.at(-1),chord=distance(a,b),length=points.slice(1).reduce((s,p,i)=>s+distance(p,points[i]),0);
     if(chord>diag*.8&&length/chord<1.08&&points.every(p=>edgeDistance(p,a,b)<Math.max(2/zoom,diag*.035))){
-      return {kind:"line",position:{x:Math.min(a[0],b[0]),y:Math.min(a[1],b[1])},size:{w:Math.max(.1,Math.abs(b[0]-a[0])),h:Math.max(.1,Math.abs(b[1]-a[1]))},data:{flip:(b[0]-a[0])*(b[1]-a[1])<0}};
+      return {kind:"line",position:{x:Math.min(a[0],b[0]),y:Math.min(a[1],b[1])},size:{w:Math.max(.1,Math.abs(b[0]-a[0])),h:Math.max(.1,Math.abs(b[1]-a[1]))},data:{dirX:Math.sign(b[0]-a[0])||1,dirY:Math.sign(b[1]-a[1])||1,flip:(b[0]-a[0])*(b[1]-a[1])<0}};
     }
     if(points.length<6||chord>Math.max(9/zoom,diag*.16)||length<diag*1.9||length>diag*4.3)return null;
     const samples=resample([...points,a]),center=[(left+Math.max(...xs))/2,(top+Math.max(...ys))/2];

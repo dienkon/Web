@@ -250,7 +250,7 @@
     importing = true;
     let key,imported=false;
     try {
-      if(file.size>160e6)throw Error("PDF vượt 160 MB. Hãy chia nhỏ hoặc tối ưu tệp trước khi nhập.");
+      if(file.size>400e6)throw Error("PDF vượt 400 MB. Hãy chia nhỏ hoặc tối ưu tệp trước khi nhập.");
       const data = new Uint8Array(await file.arrayBuffer());
       if (!new TextDecoder().decode(data.slice(0, 1024)).includes("%PDF-"))
         throw Error("Tệp không có nội dung PDF hợp lệ.");
@@ -295,7 +295,7 @@
       const notebookId = Store.book().id,
         created = [],
         objects = [];
-      const base64Data = "data:application/pdf;base64," + base64(data);
+      const base64Data = await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=()=>reject(reader.error);reader.readAsDataURL(file);});
       const a = {
         type: "application/pdf",
         name: file.name.slice(0, 250),
@@ -348,7 +348,7 @@
           Store.book().pages.push(...created);
           Store.state.pageIndex = Store.book().pages.length - created.length;
           Store.state.selection = [];
-          PageFlow.fit("page");
+          PageFlow.keepZoom();
         } else {
           const o = objects[0],
             scale = Math.min(

@@ -22,10 +22,10 @@ module.exports=function installDocuments(win){
   if(movedFrom){const source=await fs.realpath(movedFrom),destination=await fs.realpath(folder),base=await fs.realpath(path.join(index.root,'Tai lieu'));if(source.startsWith(base+path.sep)&&destination.startsWith(base+path.sep)&&source!==destination&&(await pkg.readManifest(movedFrom)).id===n.id)await fs.rm(source,{recursive:true,force:true});}
   return {...result,folder:index.root};
  }
- async function readFile(file){let stat;try{stat=await fs.stat(file);}catch(e){if(e.code!=="ENOENT")throw e;if(file.endsWith("book.ink")||file.endsWith("book.recovery.ink"))return pkg.read(path.dirname(file));throw Error("Tài liệu đã được di chuyển hoặc xóa. Mở lại từ thư viện hoặc chọn tệp mới.");}if(stat.size>240e6)throw Error("Tệp quá lớn.");const bytes=await fs.readFile(file);
+ async function readFile(file){let stat;try{stat=await fs.stat(file);}catch(e){if(e.code!=="ENOENT")throw e;if(file.endsWith("book.ink")||file.endsWith("book.recovery.ink"))return pkg.read(path.dirname(file));throw Error("Tài liệu đã được di chuyển hoặc xóa. Mở lại từ thư viện hoặc chọn tệp mới.");}if(stat.size>768e6)throw Error("Tệp quá lớn.");const bytes=await fs.readFile(file);
   if(file.toLowerCase().endsWith(".json"))return pkg.parse(bytes.toString("utf8"));
   if(bytes[0]===0x50&&bytes[1]===0x4b){
-   const {unzipSync}=require("./archive.cjs");let total=0,count=0;const files=unzipSync(new Uint8Array(bytes),{filter:f=>{if(++count>15000||(total+=f.originalSize)>240e6||f.name.includes("\\")||f.name.startsWith("/")||f.name.split("/").includes(".."))throw Error("Gói nhập quá lớn hoặc đường dẫn không an toàn.");return !f.name.endsWith("/");}});
+   const {unzipSync}=require("./archive.cjs");let total=0,count=0;const files=unzipSync(new Uint8Array(bytes),{filter:f=>{if(++count>15000||(total+=f.originalSize)>768e6||f.name.includes("\\")||f.name.startsWith("/")||f.name.split("/").includes(".."))throw Error("Gói nhập quá lớn hoặc đường dẫn không an toàn.");return !f.name.endsWith("/");}});
    const temp=path.join(profile,"imports",crypto.randomUUID());await fs.mkdir(temp,{recursive:true});
    try{for(const [name,value]of Object.entries(files)){const target=pkg.inside(temp,name);await fs.mkdir(path.dirname(target),{recursive:true});await fs.writeFile(target,value);}return await pkg.read(temp);}finally{const base=path.resolve(profile,"imports")+path.sep;if(path.resolve(temp).startsWith(base))await fs.rm(temp,{recursive:true,force:true});}
   }

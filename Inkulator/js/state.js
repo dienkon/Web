@@ -66,7 +66,7 @@
     history: [],
     future: [],
     viewport: { x: 0, y: 0, zoom: 1 },
-    viewMode: "page",
+    viewMode: "manual",
     settings: { ...defaults },
     storageAvailable: true,
     panel: null,
@@ -326,8 +326,8 @@
   function switchPage(i) {
     state.pageIndex = Math.max(0, Math.min(i, book().pages.length - 1));
     state.selection = [];
-    state.viewport = { x: 0, y: 0, zoom: 1 };
-    root.PageFlow?.fit?.("page");
+    state.viewport = { x: state.viewport.x, y: 20, zoom: state.viewport.zoom || 1 };
+    root.PageFlow?.keepZoom?.();
     emit();
     scheduleSave();
   }
@@ -336,8 +336,8 @@
     state.pageIndex = 0;
     clearHistory();
     invalidateSnapshot();
-    state.viewport = { x: 0, y: 0, zoom: 1 };
-    root.PageFlow?.fit?.("page");
+    state.viewport = { x: state.viewport.x, y: 20, zoom: state.viewport.zoom || 1 };
+    root.PageFlow?.keepZoom?.();
     emit();
     scheduleSave();
   }
@@ -364,9 +364,9 @@
     state.pageIndex = 0;
     clearHistory();
     invalidateSnapshot();
-    state.viewport = { x: 0, y: 0, zoom: 1 };
+    state.viewport = { x: state.viewport.x, y: 20, zoom: state.viewport.zoom || 1 };
     state.dirty = true;
-    root.PageFlow?.fit?.("page");
+    root.PageFlow?.keepZoom?.();
     emit();
     save();
     return true;
@@ -965,9 +965,8 @@
       for (const nb of state.notebooks) {
         if (nb.assets) {
           for (const [id, a] of Object.entries(nb.assets)) {
-            if (a.data && a.data.length > 50000) {
-              AssetStorage.put(id, a.data);
-              a.inIDB = true;
+            if (a.data && a.data.length > 50000 && !a.inIDB) {
+              AssetStorage.put(id, a.data).then(ok=>{if(ok){a.inIDB=true;scheduleSave();}});
             }
           }
         }
@@ -977,7 +976,7 @@
         if (nb.assets) {
           stripped = {};
           for (const [id, a] of Object.entries(nb.assets)) {
-            if (a.inIDB || (a.data && a.data.length > 50000)) {
+            if (a.inIDB) {
               stripped[id] = {
                 type: a.type,
                 name: a.name,

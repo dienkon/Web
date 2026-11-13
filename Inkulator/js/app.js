@@ -150,6 +150,7 @@
     CaptureStudio.init();
     QuestionPages.init();
     RulerStudio.init();
+    ViewTools.init();
     NativeCalculators.init();
     TeachingAI.init();
     ColorIcons.init();
@@ -175,7 +176,7 @@
       if (
         !e.target.closest(".popover") &&
         !e.target.closest("#toolbar") &&
-        !e.target.closest('[data-action="calculator-models"],[data-action="calculator"],[data-action="capture-options"]') &&
+        !e.target.closest('[data-action="calculator-models"],[data-action="calculator"],[data-action="capture-options"],[data-action="zoom-options"]') &&
         !e.target.closest(
           "#pen-keyboard,#pen-dock,#selection-tools,#geometry-toolbar",
         ) &&
@@ -305,6 +306,7 @@
     if(root.InkulatorDesktop?.documents&&root.DocumentFiles?.status)document.getElementById("save-state").textContent=s.dirty&&DocumentFiles.status==="Đã lưu tệp trên máy"?"Đang chờ lưu…":DocumentFiles.status;
   }
   function updateZoom() {
+    try{localStorage.setItem("inkulator-zoom",String(Store.state.viewport.zoom));}catch{}
     document.getElementById("zoom-button").textContent =
       Math.round(Store.state.viewport.zoom * 100) + "%";
   }
@@ -516,7 +518,7 @@
       Store.state.pageIndex = index + 1;
       Store.state.selection = [];
     });
-    PageFlow.invalidateLayout(); PageFlow.fit("page");
+    PageFlow.invalidateLayout(); PageFlow.keepZoom();
   }
   function popover(anchor, html) {
     const el = document.getElementById("popover");
@@ -1456,6 +1458,8 @@
         return addPage();
       case "ruler":
         return RulerStudio.toggle();
+      case "zoom-options":
+        return ViewTools.zoomMenu(b);
       case "zoom-in":
         return CanvasEngine.zoomAt(Store.state.viewport.zoom * 1.15);
       case "zoom-out":

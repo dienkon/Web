@@ -1,10 +1,12 @@
-# Inkulator · 2.4.0
+# Inkulator · 2.4.1
 
 Sổ tay Toán học ngoại tuyến cho Windows, lấy cảm hứng bố cục từ ảnh Scrble Ink được cung cấp. Phần Casio tích hợp source của Tikz-Physics, ghi nguồn riêng bên dưới; không phải sản phẩm chính thức của Scrble, GeoGebra hay Casio.
 
 ## Mở ứng dụng
 
-**Windows 10/11 x64:** chạy `dist/desktop/Inkulator-Setup-2.4.0-x64.exe`, chọn thư mục cài và mở **Inkulator** từ Desktop hoặc Start Menu. Ứng dụng có cửa sổ riêng, chạy ngoại tuyến, không cần cài Node.js hoặc trình duyệt. Tài liệu tự lưu thành tệp trong **Documents / Inkulator**; bộ đệm cũ được sao lưu nén khi chuyển đổi, ứng dụng mở bản mới nhất trên ổ đĩa. Bộ cài cá nhân chưa ký số.
+**Windows 10/11 x64:** chạy `dist/desktop/Inkulator-Setup-2.4.1-x64.exe`, chọn thư mục cài và mở **Inkulator** từ Desktop hoặc Start Menu. Ứng dụng có cửa sổ riêng, chạy ngoại tuyến, không cần cài Node.js hoặc trình duyệt. Tài liệu tự lưu thành tệp trong **Documents / Inkulator**; bộ đệm cũ được sao lưu nén khi chuyển đổi, ứng dụng mở bản mới nhất trên ổ đĩa. Bộ cài cá nhân chưa ký số.
+
+**Bản 2.4.1:** giữ zoom khi chuyển trang/mở bảng/đổi kích thước cửa sổ; một nút thu phóng mở menu. Smart Pen giữ đúng hướng nét huyền/sắc. Calligraphy Pen có độ đậm chuyển mềm theo áp lực và góc ngòi. Thuộc tính khối có chọn mặt/thiết diện → nhìn vuông góc 2D và trở lại 3D. PDF nhận tối đa 400 MB (400.000.000 byte), mã hóa bằng FileReader và dùng lại PDF đã lưu khi autosave; vẫn dựng theo vùng nhìn. Đã kiểm tra ngắn zoom, hướng nét, bút, góc nhìn mặt và lưu/mở tài liệu. Chưa benchmark tệp thật 400 MB; độ mượt còn phụ thuộc RAM và độ phức tạp PDF.
 
 **Mới trong 2.4:** shape chỉ tạo khi kéo; dọn thư viện cập nhật cả tệp trên máy và giữ bản trong thùng rác. Mở sổ có cây thư mục, thẻ xem trước và thư mục con. Chụp câu hỏi giữ đề tại chỗ, chuyển phần dưới sang trang thường kế tiếp. Thêm điểm tự do, đa giác 36 cạnh, vectơ/phép biến hình, tách và ghép thiết diện 3D, mặt phẳng có tên Hy Lạp, trải phẳng, miền nghiệm, bảng biến thiên gần đúng, khối tròn xoay, compa/thước parabol và gọi tên theo tổ. Xem [hướng dẫn và giới hạn bản 2.4](docs/RELEASE-2.4.md).
 

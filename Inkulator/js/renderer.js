@@ -65,7 +65,7 @@
       }
     }
     lastPaperKey = "";
-    if (state().viewMode !== "manual") root.PageFlow?.fit?.(state().viewMode || "page");
+    // Resizing panels or the window preserves the current camera.
     request();
     requestOverlay();
   }
@@ -354,9 +354,9 @@
         break;
       default: {
         const sx = (d.dirX ?? 1) >= 0 ? 0 : w;
-        const sy = (d.dirY ?? 1) >= 0 ? 0 : h;
+        const sy = (d.dirY ?? (d.flip ? -1 : 1)) >= 0 ? 0 : h;
         const ex = (d.dirX ?? 1) >= 0 ? w : 0;
-        const ey = (d.dirY ?? 1) >= 0 ? h : 0;
+        const ey = (d.dirY ?? (d.flip ? -1 : 1)) >= 0 ? h : 0;
         ctx.moveTo(sx, sy);
         ctx.lineTo(ex, ey);
         if (d.kind === "dashed") ctx.setLineDash([10, 7]);

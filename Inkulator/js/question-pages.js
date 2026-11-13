@@ -35,7 +35,7 @@
     const oldRegions=source.inlineQuestions||[],moved=oldRegions.filter(q=>q.y>=cut),kept=oldRegions.filter(q=>q.y<cut),question=kept.find(q=>Math.abs(q.x-b.x)+Math.abs(q.y-b.y)+Math.abs(q.w-b.w)+Math.abs(q.h-b.h)<4)||{id:Store.uid(),title:'Câu hỏi '+(oldRegions.length+1),...b,buttonX:b.x,buttonY:Math.max(8,b.y-42/Store.state.viewport.zoom)};
     if(!kept.includes(question))kept.push(question);
     Store.transaction(()=>{source.objects=top;source.inlineQuestions=kept;if(bottom.length){continuation.inlineQuestions=moved.map(q=>({...q,y:q.y+offset,buttonY:(q.buttonY??q.y)+offset}));pages.splice(pages.indexOf(source)+1,0,continuation);}Store.state.pageIndex=pages.indexOf(source);Store.state.selection=[];});
-    PageFlow.invalidateLayout();PageFlow.fit("page");
+    PageFlow.invalidateLayout();PageFlow.keepZoom();
     App.toast(bottom.length?'Đã giữ câu hỏi tại chỗ và chuyển phần bên dưới sang trang kế. Có thể Undo.':'Phía dưới câu hỏi đã có chỗ trống để giải.');
     identifyInline(region,source.id,question.id);
   }
