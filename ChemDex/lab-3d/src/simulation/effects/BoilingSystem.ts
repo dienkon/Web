@@ -100,7 +100,8 @@ export class BoilingSystem {
     this.accumulator += dt;
     this.acceptedTime_s += dt;
     this.pending.push({ seconds: dt, params: { ...params,
-      surfacePlane: params.surfacePlane ? { offset: params.surfacePlane.offset, normal: [...params.surfacePlane.normal] } : undefined,
+      surfacePlane: params.surfacePlane ? { offset: params.surfacePlane.offset, normal: [...params.surfacePlane.normal],
+        vortex: params.surfacePlane.vortex ? { ...params.surfacePlane.vortex } : undefined } : undefined,
       worldPosition: params.worldPosition ? [...params.worldPosition] : undefined } });
     let steps = 0;
     while (this.accumulator + 1e-12 >= this.fixedDt && steps++ < 240) {
@@ -297,6 +298,7 @@ export class BoilingSystem {
         ambientTemp_c: params.ambientTemp_c ?? 25,
         fluidModel: params.convectionFluidModel,
         agitation: params.agitation,
+        vortex: params.surfacePlane?.vortex,
         heatPower_W,
         viscosity_mPa_s,
         radius,

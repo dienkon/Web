@@ -20,7 +20,9 @@ export interface StockContainerInput {
   sealed?: boolean;
   groups: StockGroupInput[]; saved?: StockGrainPose[]; restore: boolean;
   cavity?: { points: [number, number][] };
-  fluid?: { normal: Vec3; offset_m: number; density_kg_m3: number; viscosity_Pas: number };
+  fluid?: { normal: Vec3; offset_m: number; density_kg_m3: number; viscosity_Pas: number;
+    vortex?: { axis_m: Vec3; coreRadius_m: number; angularSpeed_rad_s: number; radius_m: number;
+      centerHeight_m: number; amplitude_m: number; floorY_m: number } };
 }
 export interface StockSpillPose extends StockGrainPose { vesselId: string; group?: StockGroupInput; restore?: boolean }
 export interface StockWorldInput { containers: StockContainerInput[]; contacts: StockContactReceipt[]; spills: StockSpillPose[] }

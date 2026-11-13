@@ -1,8 +1,9 @@
 import type { VesselProfile } from '../../pour/physics/profiles';
 import { solveLevel } from '../../pour/physics/retained';
+import { vortexHeight, type VortexSurface } from '../../science/liquidVortex';
 
 export type Point3 = readonly [number, number, number];
-export interface LiquidPlane { normal: Point3; offset: number }
+export interface LiquidPlane { normal: Point3; offset: number; vortex?: VortexSurface }
 
 /** The axisymmetric contour allows the existing 2D volume integral to solve
  * any horizontal world plane, even when its local normal has a z component. */
@@ -16,11 +17,13 @@ export function liquidParticlePlane(profile: VesselProfile, volume_ml: number, l
 }
 
 export function pointPlaneDepth(point: { x: number; y: number; z: number }, surfaceY: number, plane?: LiquidPlane) {
+  if (plane?.vortex) return vortexHeight(point.x, point.z, plane.vortex) - point.y;
   return plane ? plane.offset - (plane.normal[0] * point.x + plane.normal[1] * point.y + plane.normal[2] * point.z) : surfaceY - point.y;
 }
 
 export function projectToLiquidPlane<T extends { x: number; y: number; z: number }>(point: T, surfaceY: number,
   plane?: LiquidPlane, depth = 0): T {
+  if (plane?.vortex) { point.y = vortexHeight(point.x, point.z, plane.vortex) - depth; return point; }
   if (!plane) { point.y = surfaceY - depth; return point; }
   const delta = pointPlaneDepth(point, surfaceY, plane) - depth;
   point.x += delta * plane.normal[0]; point.y += delta * plane.normal[1]; point.z += delta * plane.normal[2];

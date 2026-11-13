@@ -7,7 +7,7 @@ import { FRAME_ORDER } from '../core/frameOrder';
 import { createPrecipitateGeometry } from './precipitateGeometry';
 import { useAppStore } from '../../store/useAppStore';
 import { useQualityStore } from '../../vfx/quality';
-import { precipitateOpacity, precipitateFinish, withParticleOpacity } from './particleAppearance';
+import { immersedPrecipitateOpacity, precipitateFinish, withParticleOpacity } from './particleAppearance';
 import { vesselInterior } from '../../science/vesselDimensions';
 import { readablePrecipitateRadius } from './precipitateReadability';
 
@@ -73,7 +73,7 @@ export function PrecipitateParticleLayer({ vesselId, system, formation, capacity
       // Representative display enlargement has its own containment bound;
       // it never feeds back into the carrier's physical radius or motion.
       scratch.scale.setScalar(readablePrecipitateRadius(p, system.profile, system.renderBounds, readable));
-      (geometry.getAttribute('aParticleOpacity') as THREE.InstancedBufferAttribute).setX(i, precipitateOpacity(p, system.profile));
+      (geometry.getAttribute('aParticleOpacity') as THREE.InstancedBufferAttribute).setX(i, immersedPrecipitateOpacity(p, system.profile, system.renderBounds, system.cloudiness));
       scratch.matrix.compose(scratch.position, scratch.quaternion, scratch.scale);
       mesh.current.setMatrixAt(i, scratch.matrix);
     }

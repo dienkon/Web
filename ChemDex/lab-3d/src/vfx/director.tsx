@@ -13,6 +13,7 @@ import { getReactionVfxRecipe, sampleRecipeProgress, ReactionVfxRecipe } from '.
 import { getGenericVfxRecipe } from './recipes/generic';
 import { GasClouds, Sparks, Foam, Splash, AcidSplatter } from './particles';
 import { PhysicalSimulationRenderer } from '../simulation/render/PhysicalSimulationRenderer';
+import { vesselAgitation } from '../science/stirring';
 import { labSound } from '../utils/audio';
 import { reactionSimulationEngine } from './reactions/ReactionSimulationEngine';
 import { programPlayer } from './programs/player/ProgramPlayer';
@@ -38,6 +39,9 @@ interface ShockwaveSlot {
 export const VfxDirector = React.memo(function VfxDirector() {
   const vessels = useAppStore((state) => state.vessels);
   const activeKinetics = useAppStore((state) => state.activeKinetics);
+  const stirringVesselId = useAppStore(state => state.stirringVesselId);
+  const activeTool = useAppStore(state => state.activeTool);
+  const selectedVesselId = useAppStore(state => state.selectedVesselId);
   const addSpill = useAppStore((state) => state.addSpill);
   const startedRuns = useRef(new Map<string, string>());
   const liveVesselIds = Object.keys(vessels).join('\u0000');
@@ -288,7 +292,9 @@ export const VfxDirector = React.memo(function VfxDirector() {
         const manager = SimulationEngine.findManager(vesselId), plume = manager?.evaporationSystem;
         const hasAirborneTail = !!plume && (plume.particles.length > 0 || plume.pendingSeconds > 1e-12)
           || (manager?.boilingSystem.bubbles.length ?? 0) > 0;
-        if (!rawRecipe && !isHotOrActive && !hasAirborneTail && measuredGas.visible.length === 0 && measuredGas.bubbleRate === 0) {
+        const hasStirringFlow = hasLiquid && (vesselAgitation(vessel, { stirringVesselId, activeTool, selectedVesselId }) > 0
+          || (manager?.vortex.angularSpeed_rad_s ?? 0) !== 0);
+        if (!rawRecipe && !isHotOrActive && !hasAirborneTail && !hasStirringFlow && measuredGas.visible.length === 0 && measuredGas.bubbleRate === 0) {
           return null;
         }
 

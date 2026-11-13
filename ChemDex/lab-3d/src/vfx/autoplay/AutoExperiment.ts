@@ -17,6 +17,10 @@ import { computeMolarMass, applyProgramToLedger } from '../../engine/ledger';
 import { assessProgramConditions } from '../../science/conditions';
 import { sameMolecularFormula } from '../../science/speciesIdentity';
 import { getRetainedVolumeSamples } from '../../pour/physics/retained';
+import { gasInlet, gasSourceHome, gasVolumeMl } from './gasDelivery';
+import { vesselLiquidSurfaceY } from '../../science/vesselGeometry';
+import { identifySpecies } from '../../science/speciesIdentity';
+import { AutoStockDynamics } from './AutoStockDynamics';
 
 export type AutoPhase = 'prepare' | 'carry' | 'dose' | 'return' | 'condition' | 'react' | 'observe' | 'complete' | 'error';
 export type AutoCamera = 'wide' | 'transfer' | 'close' | 'surface';
@@ -28,8 +32,9 @@ export const AUTO_EXPERIMENTS = ALL_HANDCRAFTED_PROGRAMS.map(program => ({
   category: getLessonDefinition(program.id) ? 'Bài học' : program.visual.after.gasesOffgassed.length ? 'Tạo khí / khói'
     : program.visual.after.precipitate ? 'Kết tủa' : 'Đổi màu / cân bằng',
 }));
-export interface AutoDonor { row: SubstanceContent; color: string; remaining: number; fraction: number }
+export interface AutoDonor { row: SubstanceContent; color: string; remaining: number; fraction: number; doseStartedAt?: number }
 export const AUTO_TIMING = { prepare: 1.6, carry: 2, tilt: 0.55, flow: 2.4, flight: 0.28, upright: 0.55, return: 1.5 } as const;
+const RECEIVER_BODY_MATRIX = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1.04, 0, 1];
 export const donorHome = (i: number): [number, number, number] => [-3.9 + i % 3 * 0.95, 0.63, 1.2 + Math.floor(i / 3) * 1.15];
 const shell = (): VesselState => ({ id: 'auto_receiver', type: 'beaker', name: 'Bình phản ứng', capacity_ml: 100,
   position: [0, 1.04, 0], rotationY: 0, isLocked: false, contents: [], substances: [], mass_g: 0,
@@ -51,6 +56,7 @@ export class AutoExperiment {
   readonly program: ReactionProgram;
   readonly physics = new VesselSimulationManager('auto_receiver', 'medium');
   readonly clouds = new GasCloudRepository();
+  readonly stocks = new AutoStockDynamics();
   readonly donors: AutoDonor[];
   readonly steps: string[];
   sample: VesselState;
@@ -65,6 +71,13 @@ export class AutoExperiment {
   automaticCamera = true;
   error: string | null = null;
   flame = false;
+  stirringIntensity = 0.65;
+  get stirringDrive() {
+    if (this.sample.volume_ml <= 0.2 || this.emission) return 0;
+    const immersion = this.phase === 'condition' ? smooth((this.phaseTime - 0.5) / 0.9)
+      : this.phase === 'react' ? 1 : this.phase === 'observe' ? 1 - smooth(this.phaseTime / 1.4) : 0;
+    return this.stirringIntensity * immersion;
+  }
   log: string[] = [];
   private baseline: VesselState;
   private lesson?: LessonSession;
@@ -78,6 +91,17 @@ export class AutoExperiment {
   private contactReference?: { formula: string; phase: string; initial: number; consumed: number };
   private contactCadence_s = 0;
   get lessonVisuals() { return this.lesson?.visuals; }
+  get hasGasSupply() { return this.donors.some(d => d.row.phase === 'g'); }
+  gasOrdinal(index: number) { return this.donors.slice(0, index).filter(d => d.row.phase === 'g').length; }
+  get gasValveOpen() {
+    return this.donors[this.donorIndex]?.row.phase === 'g' && this.phase === 'dose'
+      && this.phaseTime >= AUTO_TIMING.tilt && this.phaseTime < AUTO_TIMING.tilt + AUTO_TIMING.flow;
+  }
+  get gasDeliveryRate_ml_s() {
+    if (!this.gasValveOpen) return 0;
+    const x = Math.max(0, Math.min(1, (this.phaseTime - AUTO_TIMING.tilt) / AUTO_TIMING.flow));
+    return gasVolumeMl(this.donors[this.donorIndex].row.moles) * 6 * x * (1 - x) / AUTO_TIMING.flow;
+  }
 
   constructor(id: string, private readonly simulateEffects = true) {
     const entry = AUTO_EXPERIMENTS.find(e => e.id === id);
@@ -115,7 +139,8 @@ export class AutoExperiment {
     this.heatTarget = definition?.conditions.find(c => c.kind === 'temperature')?.minimum
       ?? this.program.chemistry.conditions?.minTemp_c ?? 25;
     // Even the solvent travels from a finite donor; a new bench starts empty.
-    const rows = [...this.baseline.contents].sort((a, b) => Number(b.formula === 'H2O' && b.phase === 'l') - Number(a.formula === 'H2O' && a.phase === 'l'));
+    const order = (c: SubstanceContent) => c.formula === 'H2O' && c.phase === 'l' ? 0 : c.phase === 'g' ? 2 : 1;
+    const rows = this.baseline.contents.filter(c => c.mass_g > 1e-12 && c.moles > 1e-12).sort((a, b) => order(a) - order(b));
     this.donors = rows.map(row => ({ row: { ...row },
       color: this.program.chemistry.species.find(s => s.formula === row.formula && s.phase === row.phase)?.colorHex ?? '#dbeafe',
       remaining: row.mass_g, fraction: 0 }));
@@ -132,10 +157,11 @@ export class AutoExperiment {
   get caption() {
     const d = this.donors[this.donorIndex];
     return this.error ?? (this.phase === 'prepare' ? 'Dọn bàn tự động, đặt bình nhận rỗng và sắp các chất cần dùng lên khay.'
-      : this.phase === 'carry' ? `Nhấc ${d?.row.formula} đến miệng bình nhận.`
-      : this.phase === 'dose' ? this.phaseTime < AUTO_TIMING.tilt ? `Nghiêng dụng cụ ${d?.row.formula}, căn miệng vào bình nhận.`
-        : `${d?.row.phase === 'g' ? 'Dẫn khí' : d?.row.phase === 's' ? 'Thêm chất rắn' : 'Rót'} ${d?.row.formula} tiếp xúc mẫu · ${((d?.row.mass_g ?? 0) * (d?.fraction ?? 0)).toPrecision(3)} / ${(d?.row.mass_g ?? 0).toPrecision(3)} g.${this.progress > 0.001 ? ' ' + this.program.explain.observation_vi : ''}`
-      : this.phase === 'return' ? 'Dựng thẳng, ngừng dòng và đặt dụng cụ về khay.'
+      : this.phase === 'carry' ? d?.row.phase === 'g' ? `Lắp ống dẫn ${d.row.formula}, nối đầu cấp khí vào bình phản ứng.` : `Nhấc ${d?.row.formula} đến miệng bình nhận.`
+      : this.phase === 'dose' ? this.phaseTime < AUTO_TIMING.tilt ? d?.row.phase === 'g' ? `Mở van cấp ${d.row.formula}, kiểm tra đường ống kín.` : `Nghiêng dụng cụ ${d?.row.formula}, căn miệng vào bình nhận.`
+        : d?.row.phase === 'g' ? `Dẫn ${d.row.formula} qua ống · ${gasVolumeMl(d.row.moles * d.fraction).toFixed(1)} / ${gasVolumeMl(d.row.moles).toFixed(1)} mL.${this.progress > 0.001 ? ' ' + this.program.explain.observation_vi : ''}`
+        : `${d?.row.phase === 's' ? 'Thêm chất rắn' : 'Rót'} ${d?.row.formula} tiếp xúc mẫu · ${((d?.row.mass_g ?? 0) * (d?.fraction ?? 0)).toPrecision(3)} / ${(d?.row.mass_g ?? 0).toPrecision(3)} g.${this.progress > 0.001 ? ' ' + this.program.explain.observation_vi : ''}`
+      : this.phase === 'return' ? d?.row.phase === 'g' ? 'Đóng van cấp khí, giữ ống dẫn và chờ dòng trong ống ngừng.' : 'Dựng thẳng, ngừng dòng và đặt dụng cụ về khay.'
       : this.phase === 'condition' ? this.conditionText
       : this.phase === 'react' ? this.program.explain.observation_vi
       : this.phase === 'observe' ? 'Theo dõi phần đuôi khói, bọt và hạt sau khi nguồn phản ứng giảm.'
@@ -150,8 +176,9 @@ export class AutoExperiment {
   }
   private enter(phase: AutoPhase) {
     this.phase = phase; this.phaseTime = 0;
+    if (phase === 'dose') this.donors[this.donorIndex].doseStartedAt = this.elapsed;
     if (phase === 'condition') this.conditioningStartTemp = this.sample.temperature_c;
-    if (this.automaticCamera) this.camera = phase === 'carry' || phase === 'dose' ? 'transfer'
+    if (this.automaticCamera) this.camera = phase === 'carry' || phase === 'dose' ? this.donors[this.donorIndex]?.row.phase === 'g' ? 'wide' : 'transfer'
       : phase === 'react' || (['return', 'condition'].includes(phase) && this.contactProgress > 0) ? 'close' : phase === 'observe' ? 'surface' : 'wide';
     this.log = [...this.log.slice(-11), this.caption];
   }
@@ -170,11 +197,16 @@ export class AutoExperiment {
   private step(dt: number) {
     this.elapsed += dt; this.phaseTime += dt;
     const previous = this.sample;
+    let gasArrival: { formula: string; moles: number } | undefined;
+    if (this.sample.recentPourContact) this.sample = { ...this.sample, recentPourContact: {
+      ...this.sample.recentPourContact, remaining_s: Math.max(0, (this.sample.recentPourContact.remaining_s ?? 0) - dt),
+    } };
     if (this.phase === 'prepare' && this.phaseTime >= AUTO_TIMING.prepare) this.enter(this.donors.length ? 'carry' : 'condition');
     else if (this.phase === 'carry' && this.phaseTime >= AUTO_TIMING.carry) this.enter('dose');
     else if (this.phase === 'dose') {
       const donor = this.donors[this.donorIndex], fraction = this.transferFraction;
       const portion = fraction - donor.fraction;
+      if (donor.row.phase === 'g' && portion > 0) gasArrival = { formula: identifySpecies(donor.row.formula).formula, moles: donor.row.moles * portion };
       const contents = this.sample.contents.map(c => ({ ...c }));
       let row = contents.find(c => c.formula === donor.row.formula && c.phase === donor.row.phase);
       if (!row) { row = { ...donor.row, moles: 0, mass_g: 0 }; contents.push(row); }
@@ -185,6 +217,11 @@ export class AutoExperiment {
       this.sample = { ...this.sample, contents, substances: contents.map(c => c.formula),
         mass_g: contents.reduce((sum, c) => sum + c.mass_g, 0), volume_ml, volume: volume_ml / this.sample.capacity_ml,
         liquidColor: donor.row.phase === 'aq' && portion > 0 ? donor.color : this.sample.liquidColor };
+      if (portion > 0) {
+        const lip = this.donorLip, inlet = donor.row.phase === 'g' ? gasInlet(this, this.gasOrdinal(this.donorIndex)) : undefined;
+        this.sample.recentPourContact = { point: inlet ? [inlet[0], inlet[1] - 1.04, inlet[2]]
+          : [lip[0] + 0.12, vesselLiquidSurfaceY(this.sample), lip[2]], remaining_s: 0.25, expiresAt_ms: 0, color: donor.color };
+      }
       this.advanceContact(dt);
       if (fraction >= 1) this.enter('return');
     } else if (this.phase === 'return' && this.phaseTime >= AUTO_TIMING.upright + AUTO_TIMING.return) {
@@ -263,6 +300,10 @@ export class AutoExperiment {
     } else if (this.phase === 'observe' && this.phaseTime >= 8) this.enter('complete');
     if (this.phase === 'return' || this.phase === 'condition') this.advanceContact(dt);
     this.sample.gasFlux = measureGasFlux(this.sample, previous, dt);
+    // A transferred reagent is not a newly generated reaction gas. Its finite
+    // inlet bubbles are rendered at the tube tip, never emitted again at the floor.
+    if (gasArrival) this.sample.gasFlux.generated_mol_s[gasArrival.formula] = Math.max(0,
+      (this.sample.gasFlux.generated_mol_s[gasArrival.formula] ?? 0) - gasArrival.moles / dt);
     if (!this.simulateEffects) return;
     const gas = gasVisualState(this.sample);
     const profile = getVesselProfile('beaker', 100);
@@ -270,9 +311,13 @@ export class AutoExperiment {
     this.clouds.advance(dt, visible.map(g => ({ vesselId: this.sample.id, revision: 1, receipt: this.sample.gasFlux!, seconds: dt,
       species: g.formula, input: { rate: g.rate, mol_s: g.mol_s, temperature_c: this.sample.temperature_c, ambient_c: 25,
         molarMass: g.molarMass, mouthY: profile.baseY + profile.H, mouthRadius: profile.mouthR,
-        floorY: 0.03, wind_m_s: 0.015, sourceToWorld: ([x, y, z]) => [x, y + 1.04, z] } })));
+        floorY: 0.03, wind_m_s: 0.015, sourceToWorld: ([x, y, z]) => this.hasGasSupply
+          ? [x, y + 2.46 - (profile.baseY + profile.H), z - 0.35] : [x, y + 1.04, z] } })));
     this.physics.step(this.sample, dt, { thermalStateAuthoritative: true,
+      agitation: this.stirringDrive,
+      bodyMatrixWorld: RECEIVER_BODY_MATRIX,
       reactionGasRate: gasVolumeRateMl_s(Object.values(this.sample.gasFlux.generated_mol_s).reduce((s, n) => s + n, 0), this.sample.temperature_c, 1) });
+    this.stocks.advance(this.sample, dt, this.physics.vortex.surface);
   }
   private advanceContact(dt: number) {
     const ref = this.contactReference;
@@ -303,6 +348,7 @@ export class AutoExperiment {
     return this.donorPoseAt(this.phaseTime);
   }
   donorPoseAt(time: number): { position: [number, number, number]; tilt: number } {
+    if (this.donors[this.donorIndex]?.row.phase === 'g') return { position: gasSourceHome(this.gasOrdinal(this.donorIndex), this.donors[this.donorIndex].row.moles), tilt: 0 };
     const home = donorHome(this.donorIndex), hover: [number, number, number] = [-1, 2.8, 0];
     const t = this.phase === 'carry' ? smooth(time / AUTO_TIMING.carry)
       : this.phase === 'return' ? 1 - smooth((time - AUTO_TIMING.upright) / AUTO_TIMING.return) : this.phase === 'dose' ? 1 : 0;
@@ -317,7 +363,7 @@ export class AutoExperiment {
     return smooth((this.phaseTime - AUTO_TIMING.tilt - AUTO_TIMING.flight) / AUTO_TIMING.flow);
   }
   get streamActive() {
-    return this.phase === 'dose' && this.phaseTime >= AUTO_TIMING.tilt
+    return this.donors[this.donorIndex]?.row.phase !== 'g' && this.phase === 'dose' && this.phaseTime >= AUTO_TIMING.tilt
       && this.phaseTime < AUTO_TIMING.tilt + AUTO_TIMING.flow + AUTO_TIMING.flight;
   }
   /** World-space pouring edge, shared by the vessel and all transfer effects. */

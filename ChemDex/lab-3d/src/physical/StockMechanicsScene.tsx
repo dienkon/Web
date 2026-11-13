@@ -18,6 +18,7 @@ import { capturePhysicalLab } from './usePhysicsStore';
 import { debounceSaveLocalState } from '../store/persistence';
 import { shardManager } from '../damage/Shards';
 import { isSuspensionRow } from '../science/precipitateInventory';
+import { SimulationEngine } from '../simulation/core/SimulationEngine';
 import { renderedVesselBody } from '../simulation/render/vesselBodyFrames';
 import { Euler, Quaternion, Vector3 } from 'three';
 import type { Quat, Vec3 } from './types';
@@ -171,7 +172,7 @@ export function StockMechanicsScene() {
         || revisions.current.has(v.id) && revisions.current.get(v.id) !== (v.effectSampleRevision ?? 0);
       revisions.current.set(v.id, v.effectSampleRevision ?? 0);
       request.current.set(v.id, { motion: v.stockMotion, revision: v.effectSampleRevision ?? 0 });
-      return stockContainer(v, restore);
+      return stockContainer(v, restore, SimulationEngine.findManager(v.id)?.vortex.surface);
     }).filter(v => v !== null);
     requestedSpills.current.clear();
     const spills = Object.values(app.spills).flatMap(s => {

@@ -73,6 +73,11 @@ function Playback({ experiment: e, restart, next, playlist, setPlaylist }: {
           </select>
         </div>
         <label className="flex items-center gap-1.5 px-1 text-[10px] text-slate-300"><input type="checkbox" checked={playlist} onChange={event => setPlaylist(event.target.checked)} />Liên tục</label>
+        <label className="flex items-center gap-1 text-[10px] text-slate-300">Khuấy
+          <select aria-label="Mức khuấy tự động" value={e.stirringIntensity} className="rounded border border-white/10 bg-slate-800 p-1" onChange={event => { e.stirringIntensity = Number(event.target.value); }}>
+            <option value={0}>Tắt</option><option value={0.3}>Nhẹ</option><option value={0.65}>Vừa</option><option value={0.95}>Mạnh</option>
+          </select>
+        </label>
         <div className="flex flex-wrap items-center gap-1">{(['wide', 'transfer', 'close', 'surface'] as const).map((view, i) => <button key={view}
           aria-label={['Góc toàn cảnh', 'Góc rót chất', 'Góc cận cảnh', 'Góc mặt dịch'][i]}
           className={`rounded-lg px-2 py-1.5 text-[10px] ${e.camera === view && e.automaticCamera ? 'bg-white/15 text-cyan-200' : 'text-slate-400 hover:bg-white/10'}`}
@@ -99,7 +104,7 @@ export default function AutoLabWorkspace({ onExit }: { onExit: () => void }) {
   const start = (id: string) => {
     try {
       const experiment = new AutoExperiment(id);
-      if (e) experiment.speed = e.speed;
+      if (e) { experiment.speed = e.speed; experiment.stirringIntensity = e.stirringIntensity; }
       setRun({ experiment, key: ++serial.current }); setError('');
       if (window.innerWidth < 768) useAppStore.setState({ leftSidebarOpen: false, rightSidebarOpen: false });
     } catch (error) { setError(error instanceof Error ? error.message : 'Không thể mở thí nghiệm.'); }

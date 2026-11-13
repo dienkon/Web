@@ -28,6 +28,7 @@ import { pourContactRemaining } from '../../science/pourContactActivity';
 import { liquidOpacity, suspensionColorWeight } from '../../science/liquidOptics';
 import { createLiquidVolumeGeometry, liquidMeshLayout, liquidMeshOrigin } from './liquidGeometry';
 import { LIQUID_SURFACE_GLSL } from './liquidSurfaceShader';
+import { VORTEX_GLSL } from '../../science/liquidVortex';
 import { FOAM_CELL_DIAMETER_M, shadeFoamCells } from './foamAppearance';
 import { metersPerModelUnit } from '../../science/sceneUnits';
 
@@ -119,6 +120,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
   const uniforms = useMemo(() => ({
     uTime: { value: 0 },
     uFillY: { value: baseY },
+    uVortex: { value: new THREE.Vector4(1, 0, baseY, 0) },
     uBaseY: { value: baseY },
     uSurfaceRadius: { value: 0.5 },
     uFoamCellScale: { value: metersPerModelUnit(getVesselProfile(vesselType, capacity_ml)) / FOAM_CELL_DIAMETER_M },
@@ -168,11 +170,12 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
       depthWrite: false,
     });
 
-    mat.customProgramCacheKey = () => `chemlab_realistic_liquid_v5_${appearance}`;
+    mat.customProgramCacheKey = () => `chemlab_realistic_liquid_v6_vortex_${appearance}`;
 
     mat.onBeforeCompile = (shader) => {
       shader.uniforms.uTime = uniforms.uTime;
       shader.uniforms.uFillY = uniforms.uFillY;
+      shader.uniforms.uVortex = uniforms.uVortex;
       shader.uniforms.uBaseY = uniforms.uBaseY;
       shader.uniforms.uWorldToVessel = uniforms.uWorldToVessel;
       shader.uniforms.uBodyPlane = uniforms.uBodyPlane;
@@ -225,6 +228,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
         varying vec3 vLiquidModelPosition;
         uniform vec4 uBodyPlane;
         uniform vec4 uBodyLowerPlane;
+        ${VORTEX_GLSL}
         ${NOISE_GLSL}
         ${shader.fragmentShader}
       `;
@@ -233,7 +237,10 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
       // but evaluate GPU clipping near the support point. Subtracting large
       // view/world heights loses a thin upright layer in Float32 arithmetic.
       shader.fragmentShader = shader.fragmentShader.replace('#include <clipping_planes_fragment>', `
-        if (dot(uBodyPlane.xyz, vLiquidModelPosition) > uBodyPlane.w) discard;
+        if (uVortex.y > 0.0000001) {
+          vec3 bodyPoint = (uWorldToVessel * vec4(vWorldPosition, 1.0)).xyz;
+          if (bodyPoint.y > vortexLevel(bodyPoint.xz)) discard;
+        } else if (dot(uBodyPlane.xyz, vLiquidModelPosition) > uBodyPlane.w) discard;
         if (dot(uBodyLowerPlane.xyz, vLiquidModelPosition) < uBodyLowerPlane.w) discard;
       `);
 
@@ -310,6 +317,8 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
 
     mat.onBeforeCompile = (shader) => {
       shader.uniforms.uTime = uniforms.uTime;
+      shader.uniforms.uVortex = uniforms.uVortex;
+      shader.uniforms.uFillY = uniforms.uFillY;
       shader.uniforms.uBoilingIntensity = uniforms.uBoilingIntensity;
       shader.uniforms.uDynamicRipple = uniforms.uDynamicRipple;
       shader.uniforms.uSurfaceRadius = uniforms.uSurfaceRadius;
@@ -324,6 +333,8 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
       shader.vertexShader = `
         varying vec3 vCapWorld;
         uniform float uTime;
+        uniform float uFillY;
+        ${VORTEX_GLSL}
         uniform float uBoilingIntensity;
         uniform float uDynamicRipple;
         uniform float uSurfaceRadius;
@@ -377,7 +388,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
       );
       if (appearance === 'foam') shadeFoamCells(shader, uniforms.uFoamCellScale, uniforms.uFoamCapRadius, true);
     };
-    mat.customProgramCacheKey = () => `chemlab_meniscus_height_normal_v2_${appearance}`;
+    mat.customProgramCacheKey = () => `chemlab_meniscus_height_normal_v3_vortex_${appearance}`;
 
     return mat;
   }, [uniforms, initialColor, appearance]);
@@ -442,6 +453,9 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     // Same inventory-derived surface as dosing, recoil and buoyancy.
     const fillY = liquidLevelForVolume(vesselType, volume, capacity);
     uniforms.uFillY.value = fillY;
+    const vortex = SimulationEngine.findManager(vesselId)?.vortex.surface;
+    uniforms.uVortex.value.set((vortex?.coreRadius ?? 1) ** 2, vortex?.amplitude ?? 0,
+      fillY + (vortex ? vortex.offset - vortex.meanLevel : 0), vortex?.angularSpeed_rad_s ?? 0);
 
     const surfaceR = getVesselInnerRadius(vesselType, fillY - baseY);
     uniforms.uSurfaceRadius.value = surfaceR;

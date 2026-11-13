@@ -97,6 +97,7 @@ export interface VesselState {
     angularVelocity_rad_s: import('../physical/types').Vec3; tick: number };
   liquidOptics?: import('../pour/physics/mixing').LiquidOptics;
   stirringIntensity?: number; // 0..1 operational control; not a measured shear rate
+  stirringDirection?: 1 | -1;
   bubbleInterfaceMobility?: import('../science/bubbleRise').BubbleInterfaceMobility;
   gasFlux?: import('../engine/gasFlux').GasFlux;
   hydrogenCombustion?: import('../engine/hydrogenExhaustCombustion').HydrogenExhaustCombustion;

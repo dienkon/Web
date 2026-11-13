@@ -8,7 +8,8 @@ import { vesselLiquidSurfaceY } from '../../science/vesselGeometry';
 import { GasCloudLayer } from '../particles/GasPlume';
 import { GAS_FUME_TABLE } from '../catalog/gasTable';
 import { createSedimentGeometry } from '../../simulation/effects/sedimentGeometry';
-import { readablePrecipitateRadius } from '../../simulation/render/precipitateReadability';
+import { AutoPrecipitateLayer } from './AutoPrecipitateLayer';
+import { AutoLiquid } from './AutoLiquid';
 import { metalSurfaceAppearance } from '../../science/metalSurfaceAppearance';
 import { getLessonDefinition } from '../../lesson/catalog';
 import { useQualityStore } from '../quality';
@@ -17,6 +18,8 @@ import { FrameTelemetry } from '../../render/FrameTelemetry';
 import { getSoftParticleTexture } from '../textures';
 import { getVesselProfile } from '../../pour/physics/profiles';
 import { solveLevel } from '../../pour/physics/retained';
+import { AutoGasApparatus, AutoGasReceiver } from './AutoGasApparatus';
+import { gasSourceHome, gasVolumeMl } from './gasDelivery';
 
 const gasSpecies = [...Object.entries(GAS_FUME_TABLE).filter(([s, v]) => s !== 'H2O' && v.visible).map(([s]) => s), 'MgO'];
 const cameraPoses: Record<string, [[number, number, number], [number, number, number]]> = {
@@ -46,24 +49,6 @@ function Glass({ children, small = false }: { children?: React.ReactNode; small?
   useEffect(() => () => { geometry.outer.dispose(); geometry.inner.dispose(); }, [geometry]);
   return <group><mesh geometry={geometry.inner} material={glass.back} renderOrder={8} dispose={null} />
     {children}<mesh geometry={geometry.outer} material={glass.front} renderOrder={9} dispose={null} /></group>;
-}
-function Fluid({ experiment }: { experiment: AutoExperiment }) {
-  const mesh = useRef<THREE.Mesh>(null), material = useRef<THREE.MeshPhysicalMaterial>(null);
-  const color = useMemo(() => new THREE.Color(), []), suspension = useMemo(() => new THREE.Color(), []);
-  useFrame(() => {
-    if (!mesh.current || !material.current) return;
-    const sample = experiment.sample, y = vesselLiquidSurfaceY(sample), height = Math.max(0, y + 1.02);
-    mesh.current.visible = sample.volume_ml > 0.01;
-    mesh.current.position.y = -1.02 + height / 2; mesh.current.scale.y = Math.max(0.001, height);
-    color.set(sample.liquidColor ?? '#dcecf4');
-    const haze = Math.max(experiment.physics.cloudiness, sample.turbidity ?? 0);
-    if (haze > 0) color.lerp(suspension.set(experiment.physics.suspensionColor), Math.min(0.8, haze));
-    material.current.color.copy(color); material.current.opacity = Math.min(0.94, 0.28 + haze * 0.65);
-    material.current.roughness = 0.08 + haze * 0.5;
-  });
-  return <mesh ref={mesh} renderOrder={3}><cylinderGeometry args={[0.85, 0.85, 1, 64]} />
-    <meshPhysicalMaterial ref={material} color="#dcecf4" transparent opacity={0.4} depthWrite={false} roughness={0.1} clearcoat={0.8} />
-  </mesh>;
 }
 function DonorFill({ experiment, index }: { experiment: AutoExperiment; index: number }) {
   const mesh = useRef<THREE.Mesh>(null);
@@ -117,25 +102,11 @@ function DonorLiquid({ experiment: e, index }: { experiment: AutoExperiment; ind
   </group>;
 }
 function Particles({ experiment }: { experiment: AutoExperiment }) {
-  const solids = useRef<THREE.InstancedMesh>(null), bubbles = useRef<THREE.InstancedMesh>(null), bed = useRef<THREE.Mesh>(null);
+  const bubbles = useRef<THREE.InstancedMesh>(null), bed = useRef<THREE.Mesh>(null);
   const scratch = useMemo(() => new THREE.Object3D(), []), color = useMemo(() => new THREE.Color(), []);
   const bedThickness = useRef(-1);
   useEffect(() => () => bed.current?.geometry.dispose(), []);
   useFrame(() => {
-    if (solids.current) {
-      let count = 0;
-      for (const s of experiment.physics.precipitationSystems.values()) for (const p of s.particles) {
-        if (count >= 600) break;
-        scratch.position.set(p.x, p.y, p.z);
-        scratch.rotation.set(p.brownianSeed, p.age * 0.4, p.brownianSeed * 0.6);
-        scratch.scale.setScalar(readablePrecipitateRadius(p, s.profile, s.renderBounds));
-        scratch.updateMatrix(); solids.current.setMatrixAt(count, scratch.matrix);
-        solids.current.setColorAt(count++, color.set(s.profile.color));
-      }
-      solids.current.count = count; solids.current.visible = count > 0;
-      if (count) solids.current.instanceMatrix.needsUpdate = true;
-      if (solids.current.instanceColor) solids.current.instanceColor.needsUpdate = true;
-    }
     if (bubbles.current) {
       let count = 0;
       for (const p of experiment.physics.boilingSystem.bubbles) {
@@ -151,16 +122,15 @@ function Particles({ experiment }: { experiment: AutoExperiment }) {
       const s = experiment.physics.sedimentBed;
       bed.current.visible = s.amount_g > 1e-9;
       if (Math.abs(s.thickness - bedThickness.current) > 1e-5) {
-        bed.current.geometry.dispose(); bed.current.geometry = createSedimentGeometry('beaker', -1.02 + s.thickness);
+        bed.current.geometry.dispose(); bed.current.geometry = createSedimentGeometry('beaker', getVesselProfile('beaker', 100).baseY + s.thickness);
         bedThickness.current = s.thickness;
       }
       (bed.current.material as THREE.MeshStandardMaterial).color.set(s.color);
     }
   });
   return <>
-    <instancedMesh ref={solids} args={[undefined, undefined, 600]} frustumCulled={false} renderOrder={5}>
-      <icosahedronGeometry args={[1, 0]} /><meshStandardMaterial transparent opacity={0.65} roughness={0.65} depthWrite={false} />
-    </instancedMesh>
+    {[...new Set(experiment.program.chemistry.species.filter(s => s.phase === 's').map(s => s.formula))].map(formula =>
+      <AutoPrecipitateLayer key={formula} experiment={experiment} formula={formula} />)}
     <instancedMesh ref={bubbles} args={[undefined, undefined, 100]} frustumCulled={false} renderOrder={6}>
       <sphereGeometry args={[1, 10, 8]} /><meshPhysicalMaterial color="#ccefff" transparent opacity={0.34} roughness={0.02} metalness={0.1} clearcoat={1} depthWrite={false} />
     </instancedMesh>
@@ -173,13 +143,12 @@ function Specimen({ experiment: e }: { experiment: AutoExperiment }) {
   useFrame(() => {
     if (stocks.current) {
       const coating = metalSurfaceAppearance(e.sample);
-      const rows = e.sample.contents.filter(c => c.phase === 's' && c.mass_g > 1e-10 && c.solidOrigin !== 'precipitate');
       let i = 0;
-      for (const row of rows) {
+      for (const row of e.stocks.pieces.values()) {
         if (i >= 12) break;
-        const size = Math.min(0.3, 0.15 * Math.cbrt(row.mass_g / 0.05));
-        transform.position.set((i % 3 - 1) * 0.26, -0.94 + size * 0.5, Math.floor(i / 3) * 0.2);
-        transform.scale.set(size, size * 0.5, size * 0.8); transform.rotation.set(i * 0.4, i * 1.2, 0.2); transform.updateMatrix();
+        const size = row.radius;
+        transform.position.set(row.x, row.y, row.z);
+        transform.scale.setScalar(size); transform.rotation.set(i * 0.4, row.angle, 0.2); transform.updateMatrix();
         stocks.current.setMatrixAt(i, transform.matrix);
         const base = e.program.chemistry.species.find(s => s.formula === row.formula)?.colorHex
           ?? (row.formula === 'Cu' ? '#b87346' : ['Fe', 'Zn', 'Mg', 'Al'].includes(row.formula) ? '#a4b0bd' : '#e5e7eb');
@@ -220,6 +189,7 @@ function Donor({ experiment: e, index }: { experiment: AutoExperiment; index: nu
     }
   });
   const donor = e.donors[index];
+  if (donor.row.phase === 'g') return <AutoGasApparatus experiment={e} index={index}><ChemicalLabel text={`${donor.row.formula} · ${gasVolumeMl(donor.row.moles).toFixed(1)} mL`} position={[0, 0, 0]} /></AutoGasApparatus>;
   return <group ref={group} scale={0.6} position={donorHome(index)} name={`auto_donor_${index}`}>
     <Glass small>{donor.row.phase === 's' ? <DonorFill experiment={e} index={index} /> : donor.row.phase !== 'g' ? <DonorLiquid experiment={e} index={index} /> : null}</Glass>
     <ChemicalLabel text={donor.row.formula} position={[0, -0.1, 0.65]} />
@@ -245,7 +215,7 @@ function Transfer({ experiment: e }: { experiment: AutoExperiment }) {
     const object = scratch.object;
     if (stream.current) {
       let count = 0;
-      if (active && phase !== 's') for (let i = 0; i < 16; i++) {
+      if (active && phase !== 's' && phase !== 'g') for (let i = 0; i < 16; i++) {
         const t = (i + 0.5) / 16, age = e.phaseTime - AUTO_TIMING.tilt - AUTO_TIMING.flight * t;
         if (age < 0 || age > AUTO_TIMING.flow) continue;
         samplePath(i / 16, scratch.a, lip, surface); samplePath((i + 1) / 16, scratch.b, lip, surface);
@@ -326,7 +296,7 @@ function ConditionTools({ experiment: e }: { experiment: AutoExperiment }) {
     if (rod.current) {
       const t = e.phase === 'condition' ? Math.min(1, e.phaseTime / 1.4) : e.phase === 'react' ? 1
         : e.phase === 'observe' ? Math.max(0, 1 - e.phaseTime / 1.4) : 0;
-      const f = t * t * (3 - 2 * t), angle = e.elapsed * 4;
+      const f = t * t * (3 - 2 * t), angle = e.physics.vortex.phase_rad;
       rod.current.position.set(2.1 * (1 - f) + Math.cos(angle) * 0.16 * f, 0.07 + f * 1.2 + Math.sin(t * Math.PI), -1.3 * (1 - f) + Math.sin(angle) * 0.16 * f);
       rod.current.rotation.set(0, 0, (1 - f) * Math.PI / 2 + f * 0.12);
     }
@@ -343,7 +313,8 @@ function BenchShadows({ experiment: e }: { experiment: AutoExperiment }) {
   useFrame(() => {
     if (!mesh.current) return;
     for (let i = 0; i <= e.donors.length; i++) {
-      const position = i === e.donors.length ? [0, 1.04, 0] : i === e.donorIndex ? e.donorPose.position : donorHome(i);
+      const position = i === e.donors.length ? [0, 1.04, 0] : i === e.donorIndex ? e.donorPose.position
+        : e.donors[i].row.phase === 'g' ? gasSourceHome(e.gasOrdinal(i), e.donors[i].row.moles) : donorHome(i);
       scratch.position.set(position[0], 0.006, position[2]); scratch.rotation.set(-Math.PI / 2, 0, 0);
       scratch.scale.setScalar(i === e.donors.length ? 2.8 : 1.7); scratch.updateMatrix(); mesh.current.setMatrixAt(i, scratch.matrix);
     }
@@ -355,6 +326,7 @@ function Choreography({ experiment: e }: { experiment: AutoExperiment }) {
   return <>
     {e.donors.map((d, i) => <Donor key={`${d.row.formula}:${i}`} experiment={e} index={i} />)}
     <Transfer experiment={e} /><ConditionTools experiment={e} /><BenchShadows experiment={e} />
+    {e.hasGasSupply && <AutoGasReceiver experiment={e} />}
   </>;
 }
 function Receiver({ experiment: e }: { experiment: AutoExperiment }) {
@@ -362,7 +334,7 @@ function Receiver({ experiment: e }: { experiment: AutoExperiment }) {
   useFrame(() => {
     if (root.current) root.current.position.y = 1.04 + (e.phase === 'prepare' ? Math.max(0, 1 - e.phaseTime / 1.2) ** 2 * 0.6 : 0);
   });
-  return <group ref={root} position={[0, 1.04, 0]}><Glass><Fluid experiment={e} /><Specimen experiment={e} /><Particles experiment={e} /></Glass></group>;
+  return <group ref={root} position={[0, 1.04, 0]}><Glass><AutoLiquid experiment={e} /><Specimen experiment={e} /><Particles experiment={e} /></Glass></group>;
 }
 function Director({ experiment: e }: { experiment: AutoExperiment }) {
   const controls = useRef<any>(null);

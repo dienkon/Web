@@ -3,6 +3,7 @@ import { Quaternion, Vector3 } from 'three';
 import { CONSTANTS } from '../core/units';
 import { LAB_GEOMETRY } from '../core/labGeometry';
 import { sceneToMeters } from '../science/sceneUnits';
+import { stockFluidAt } from './stockFluidMotion';
 import type { ColliderShape, Vec3, Quat } from './types';
 import type { StockBoundaryFrame, StockContainerInput, StockGrainPose, StockGroupInput, StockWorldInput, StockWorldSnapshot } from './stockTypes';
 
@@ -232,14 +233,20 @@ export class StockWorld {
         if (fluid) {
           const position = si(g.body.translation()), p = vec(position), radius = g.collider.shape instanceof RAPIER.Ball ? g.collider.shape.radius / S
             : Math.cbrt(g.pose.mass_g / 1000 / g.group.density_kg_m3 * 3 / (4 * Math.PI));
-          const depth = fluid.offset_m - (p.x * fluid.normal[0] + p.y * fluid.normal[1] + p.z * fluid.normal[2]);
+          const carrier = stockFluidAt(position, fluid), depth = carrier.depth_m;
           const h = Math.max(0, Math.min(2 * radius, depth + radius)), immersed = Math.PI * h * h * (radius - h / 3);
           const volume = g.pose.mass_g / 1000 / g.group.density_kg_m3, fraction = Math.min(1, immersed / Math.max(volume, 1e-20));
           g.body.addForce({ x: 0, y: fluid.density_kg_m3 * volume * fraction * CONSTANTS.g * S, z: 0 }, false);
-          const velocity = si(g.body.linvel()), speed = Math.hypot(...velocity);
+          const velocity = si(g.body.linvel()), slip = velocity.map((u, i) => u - carrier.velocity_m_s[i]), speed = Math.hypot(...slip);
           const k = (6 * Math.PI * fluid.viscosity_Pas * radius + 0.5 * fluid.density_kg_m3 * 0.8 * Math.PI * radius ** 2 * speed) * fraction;
           const attenuation = 1 - Math.exp(-k * DT / (g.pose.mass_g / 1000));
-          g.body.applyImpulse(vec(solver(velocity.map(x => -x * g.pose.mass_g / 1000 * attenuation))), false);
+          const driven = Math.abs(carrier.spin_rad_s) > 1e-8 && fraction > 0;
+          g.body.applyImpulse(vec(solver(slip.map(x => -x * g.pose.mass_g / 1000 * attenuation))), driven);
+          if (driven) {
+            const inertia = 0.4 * g.pose.mass_g / 1000 * radius * radius;
+            const relax = -Math.expm1(-8 * Math.PI * fluid.viscosity_Pas * radius ** 3 * fraction * DT / Math.max(1e-20, inertia));
+            g.body.applyTorqueImpulse({ x: 0, y: (carrier.spin_rad_s - g.body.angvel().y) * inertia * relax * S * S, z: 0 }, true);
+          }
         }
       }
       // Moving thin glass can otherwise sweep past a nearly stationary grain:

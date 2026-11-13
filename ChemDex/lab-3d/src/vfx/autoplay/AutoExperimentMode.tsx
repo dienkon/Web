@@ -59,6 +59,7 @@ export function AutoExperimentMode() {
 
 function Theater({ initial, ownsFullscreen, returnFocus, onClose }: { initial: AutoExperiment; ownsFullscreen: boolean; returnFocus: HTMLButtonElement | null; onClose: () => void }) {
   const [e, setExperiment] = useState(initial), [, refresh] = useState(0), [playlist, setPlaylist] = useState(false);
+  const sceneEpoch = useRef(0);
   const root = useRef<HTMLDivElement>(null), [fullscreen, setFullscreen] = useState(!!document.fullscreenElement);
   const fullscreenOwned = useRef(ownsFullscreen);
   const closeRef = useRef(onClose); closeRef.current = onClose;
@@ -86,7 +87,7 @@ function Theater({ initial, ownsFullscreen, returnFocus, onClose }: { initial: A
     };
   }, []);
   useEffect(() => { const timer = setInterval(() => refresh(n => n + 1), 120); return () => clearInterval(timer); }, []);
-  const change = (id: string) => { try { const next = new AutoExperiment(id); next.speed = e.speed; setExperiment(next); }
+  const change = (id: string) => { try { const next = new AutoExperiment(id); next.speed = e.speed; next.stirringIntensity = e.stirringIntensity; sceneEpoch.current++; setExperiment(next); }
     catch (error) { e.error = error instanceof Error ? error.message : 'Không thể mở bài.'; e.phase = 'error'; } };
   useEffect(() => {
     if (!playlist) return;
@@ -102,7 +103,7 @@ function Theater({ initial, ownsFullscreen, returnFocus, onClose }: { initial: A
     onKeyDown={event => { event.stopPropagation(); if (event.key === 'Escape') { event.preventDefault(); onClose(); }
       if (event.code === 'Space' && !(event.target instanceof HTMLInputElement || event.target instanceof HTMLSelectElement || event.target instanceof HTMLButtonElement)) { event.preventDefault(); e.paused = !e.paused; refresh(n => n + 1); } }}>
     <div className="absolute inset-0" data-testid="auto-experiment-scene"><ErrorBoundary fallbackTitle="Không thể vẽ sân khấu 3D" onReset={() => change(e.program.id)}>
-      <React.Suspense fallback={null}><AutoExperimentScene key={e.program.id + ':' + String(e === initial)} experiment={e} /></React.Suspense>
+      <React.Suspense fallback={null}><AutoExperimentScene experiment={e} runKey={sceneEpoch.current} /></React.Suspense>
     </ErrorBoundary></div>
     <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-slate-950/90 via-transparent to-slate-950/95" />
     <header className="absolute inset-x-0 top-0 flex items-start justify-between gap-3 p-4 md:p-6">

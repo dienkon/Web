@@ -215,7 +215,8 @@ export class PrecipitationSystem {
     // the last step. Avoid an extra RNG tick for an ulp above an integer ratio.
     const totalSteps=Math.max(1,Math.abs(ratio-nearest)<=32*Number.EPSILON*Math.max(1,ratio)?nearest:Math.ceil(ratio));
     this.pendingSteps.push({seconds:dt,totalSteps,done:0,params:{...params,
-      surfacePlane: params.surfacePlane ? { offset: params.surfacePlane.offset, normal: [...params.surfacePlane.normal] } : undefined,
+      surfacePlane: params.surfacePlane ? { offset: params.surfacePlane.offset, normal: [...params.surfacePlane.normal],
+        vortex: params.surfacePlane.vortex ? { ...params.surfacePlane.vortex } : undefined } : undefined,
       sharedSedimentPlane: params.sharedSedimentPlane ? { offset: params.sharedSedimentPlane.offset, normal: [...params.sharedSedimentPlane.normal] } : undefined,
       entryPoint:params.entryPoint?[...params.entryPoint]:undefined}});
     this.acceptedTime_s+=dt;
@@ -433,7 +434,7 @@ export class PrecipitationSystem {
     const motionParams = {
       temp_c, ambientTemp_c: params.ambientTemp_c ?? 25,
       fluidModel: params.convectionFluidModel, agitation, heatPower_W,
-      viscosity_mPa_s, radius, liquidBottomY, surfaceY, vesselProfile: params.vesselProfile
+      viscosity_mPa_s, radius, liquidBottomY, surfaceY, vesselProfile: params.vesselProfile, vortex: params.surfacePlane?.vortex
     };
     const physicalExtent = (p: PhysicalPrecipitateParticle) =>
       (p.physicalRadius_m ?? this.profile.baseParticleRadius_mm * 1e-3) / METERS_PER_SCENE_UNIT;

@@ -15,7 +15,8 @@ float liquidSurfaceHeight(vec2 point) {
   if (uBoilingIntensity > 0.05 || uDynamicRipple > 0.01) {
     height += snoise(vec3(point * 8.0, uTime * 6.0)) * (uBoilingIntensity + uDynamicRipple * 0.8) * 0.035;
   }
-  return clamp(height, -uSurfaceWaveLimit, uSurfaceWaveLimit);
+  return clamp(height, -uSurfaceWaveLimit, uSurfaceWaveLimit)
+    + (uVortex.y > 0.0000001 ? vortexLevel(point * uSurfaceRadius) - uFillY : 0.0);
 }
 vec3 liquidSurfaceNormal(vec2 point) {
   const float e = 0.003;

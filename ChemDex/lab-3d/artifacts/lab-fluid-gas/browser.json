@@ -1,0 +1,105 @@
+{
+  "weak": {
+    "program": "cuso4_naoh",
+    "phase": "condition",
+    "omega": 12.675874960932893,
+    "center": -0.3916181869396059,
+    "mean": -0.37925327747372817,
+    "amplitude": 0.015563496346052414,
+    "precipitates": [
+      {
+        "formula": "Cu(OH)2",
+        "morphology": "gel_like",
+        "color": "#6eadd2",
+        "particles": 522,
+        "represented_g": 0.09752221724507738,
+        "ledger_g": 0.09752221724507737,
+        "positiveAngularMomentum": 522,
+        "submerged": true
+      }
+    ]
+  },
+  "strong": {
+    "program": "cuso4_naoh",
+    "phase": "condition",
+    "omega": 42.98219562936883,
+    "center": -0.5214246777191648,
+    "mean": -0.37925327747372817,
+    "amplitude": 0.17894866714060048,
+    "precipitates": [
+      {
+        "formula": "Cu(OH)2",
+        "morphology": "gel_like",
+        "color": "#6eadd2",
+        "particles": 522,
+        "represented_g": 0.09752221724507738,
+        "ledger_g": 0.09752221724507737,
+        "positiveAngularMomentum": 522,
+        "submerged": true
+      }
+    ]
+  },
+  "coasting": {
+    "program": "cuso4_naoh",
+    "phase": "observe",
+    "omega": 18.5629620001429,
+    "center": -0.4057705956162005,
+    "mean": -0.37925327747372817,
+    "amplitude": 0.03337688683903217,
+    "precipitates": [
+      {
+        "formula": "Cu(OH)2",
+        "morphology": "gel_like",
+        "color": "#6eadd2",
+        "particles": 550,
+        "represented_g": 0.09752221724507748,
+        "ledger_g": 0.09752221724507737,
+        "positiveAngularMomentum": 550,
+        "submerged": true
+      }
+    ]
+  },
+  "rested": {
+    "program": "cuso4_naoh",
+    "phase": "complete",
+    "omega": 7.758282215457483,
+    "center": -0.3838852523460788,
+    "mean": -0.37925327747372817,
+    "amplitude": 0.005830186157025629,
+    "precipitates": [
+      {
+        "formula": "Cu(OH)2",
+        "morphology": "gel_like",
+        "color": "#6eadd2",
+        "particles": 550,
+        "represented_g": 0.09752221724507748,
+        "ledger_g": 0.09752221724507737,
+        "positiveAngularMomentum": 550,
+        "submerged": true
+      }
+    ]
+  },
+  "gas": {
+    "pose": {
+      "position": [
+        -3.6,
+        0.68,
+        -1.6
+      ],
+      "tilt": 0
+    },
+    "source": true,
+    "tube": true,
+    "valve": true,
+    "inlet": true,
+    "pouring": false,
+    "flow_ml_s": 14.7127499904062
+  },
+  "gasSubmerged": {
+    "submerged": true,
+    "water_ml": 29.99905966611621
+  },
+  "manualIntensityAndPause": true,
+  "noShaderErrors": true,
+  "errors": []
+}

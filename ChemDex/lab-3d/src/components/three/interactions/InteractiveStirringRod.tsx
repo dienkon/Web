@@ -1,18 +1,23 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useAppStore } from '../../../store/useAppStore';
 import { labSound } from '../../../utils/audio';
 import { useToolDock } from '../../../handling/toolDock';
 import { instrumentHome } from '../../../handling/instrumentCatalog';
+import { setRodInput } from '../../../science/stirring';
+import { SimulationEngine } from '../../../simulation/core/SimulationEngine';
+import { getWorldVesselProfile } from '../../../pour/physics/profiles';
+import { vesselWorldLiquidSurfaceY } from '../../../science/vesselGeometry';
 
 const rodGlassMaterial = new THREE.MeshPhysicalMaterial({
   roughness: 0.1,
-  transmission: 0.92,
+  transmission: 0,
   thickness: 0.25,
   ior: 1.5,
   transparent: true,
-  opacity: 0.8,
+  opacity: 0.5,
+  clearcoat: 1,
 });
 
 export const InteractiveStirringRod = React.memo(function InteractiveStirringRod({
@@ -25,32 +30,36 @@ export const InteractiveStirringRod = React.memo(function InteractiveStirringRod
   const animationTarget = useRef(new THREE.Vector3());
   const activeTool = useAppStore(state => state.activeTool);
   const setActiveTool = useAppStore(state => state.setActiveTool);
-  const selectedVesselId = useAppStore(state => state.selectedVesselId);
-  const targetVessel = useAppStore(state => state.selectedVesselId ? state.vessels[state.selectedVesselId] : undefined);
+  const selectedVesselId = useAppStore(state => state.stirringVesselId ?? state.selectedVesselId);
+  const pulse = useAppStore(state => !!state.stirringVesselId);
   const stirVessel = useAppStore(state => state.stirVessel);
 
   const groupRef = useRef<THREE.Group>(null);
-  const isActive = activeTool === 'stirring_rod' && !dock.moveMode;
+  const isActive = (activeTool === 'stirring_rod' || pulse) && !dock.moveMode;
 
-  const [stirAngle, setStirAngle] = useState(0);
   const lastPointerRef = useRef({ x: 0, y: 0, time: 0 });
   const stirSpeedRef = useRef(0);
+  const lastPulse = useRef(0);
 
   // Manual circular motion tracking
   useEffect(() => {
     if (!isActive) return;
 
     const handlePointerMove = (e: MouseEvent) => {
+      if (useAppStore.getState().isSimulationPaused) return;
       const now = performance.now();
+      const targetVessel = selectedVesselId ? useAppStore.getState().vessels[selectedVesselId] : undefined;
       const dt = (now - lastPointerRef.current.time) / 1000;
       if (dt > 0.016) {
         const dx = e.movementX;
         const dy = e.movementY;
-        const speed = Math.hypot(dx, dy) / 10;
+        const speed = Math.hypot(dx, dy) / Math.max(0.016, dt) / 700;
         stirSpeedRef.current = THREE.MathUtils.lerp(stirSpeedRef.current, Math.min(1.0, speed), 0.3);
         lastPointerRef.current = { x: e.clientX, y: e.clientY, time: now };
 
-        if (stirSpeedRef.current > 0.3 && targetVessel) {
+        if (targetVessel) setRodInput(targetVessel.id, stirSpeedRef.current);
+        if (stirSpeedRef.current > 0.3 && targetVessel && now - lastPulse.current > 600) {
+          lastPulse.current = now;
           stirVessel(targetVessel.id);
           if (targetVessel.substances.length > 0) {
             useAppStore.getState().touchToolChemical('stirring_rod', targetVessel.substances[0]);
@@ -60,22 +69,25 @@ export const InteractiveStirringRod = React.memo(function InteractiveStirringRod
     };
 
     window.addEventListener('pointermove', handlePointerMove);
-    return () => window.removeEventListener('pointermove', handlePointerMove);
-  }, [isActive, targetVessel, stirVessel]);
+    return () => { window.removeEventListener('pointermove', handlePointerMove); if (selectedVesselId) setRodInput(selectedVesselId); };
+  }, [isActive, selectedVesselId, stirVessel]);
 
   useFrame((state, delta) => {
     if (!groupRef.current) return;
 
-    if (isActive && targetVessel) {
+    const app = useAppStore.getState(), targetVessel = selectedVesselId ? app.vessels[selectedVesselId] : undefined;
+    if (app.isSimulationPaused) return;
+    if (isActive && targetVessel && targetVessel.volume_ml > 0) {
       // Circular vortex orbiting motion
-      const time = state.clock.elapsedTime;
-      const speed = Math.max(0.8, stirSpeedRef.current * 4);
-      const angle = time * speed * Math.PI;
-      const radius = 0.28;
+      const angle = SimulationEngine.findManager(targetVessel.id)?.vortex.phase_rad ?? 0;
+      const profile = getWorldVesselProfile(targetVessel.type, targetVessel.capacity_ml);
+      const surfaceY = vesselWorldLiquidSurfaceY(targetVessel);
+      const depth = Math.max(0, surfaceY - profile.baseY);
+      const radius = Math.min(profile.r(profile.baseY + depth * 0.3) * 0.4, 0.35);
 
       const targetPos = animationTarget.current.set(
         targetVessel.position[0] + Math.cos(angle) * radius,
-        targetVessel.position[1] + 0.8,
+        targetVessel.position[1] + profile.baseY + depth * 0.3 + 0.8,
         targetVessel.position[2] + Math.sin(angle) * radius
       );
 
@@ -96,12 +108,12 @@ export const InteractiveStirringRod = React.memo(function InteractiveStirringRod
     }
   });
 
-  if (!dock.visible) return null;
+  if (!dock.visible && !pulse) return null;
 
   return (
     <group
       ref={groupRef}
-      name="tool-stirring_rod" visible={dock.visible}
+      name="tool-stirring_rod" visible={dock.visible || pulse}
       position={position} rotation={isActive ? [0, 0, 0] : [-Math.PI / 2, 0, 0]}
       onPointerDown={dock.onPointerDown}
       onClick={(e) => {

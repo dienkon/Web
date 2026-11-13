@@ -45,56 +45,8 @@ export const shelfLiquidMaterial = new MeshStandardMaterial({
 
 const EMPTY_DISSOLVING: Record<string, number> = {};
 
-// Real laboratory glass stirring rod with smooth rotation animation
-export const StirringRod = React.memo(function StirringRod({ height = 2.5, isStirring, intensity = 0.65 }: { height?: number; isStirring: boolean; intensity?: number }) {
-  const rodRef = useRef<THREE.Group>(null);
-  const phase = useRef(0);
+// The shared InteractiveStirringRod owns both tool and inspector stirring.
 
-  useFrame((state, delta) => {
-    if (!rodRef.current) return;
-    if (isStirring) {
-      phase.current += simulationFrameDt(delta, useAppStore.getState()) * (2 + Math.max(0, Math.min(1, intensity)) * 9);
-      const t = phase.current;
-      rodRef.current.position.x = Math.cos(t) * 0.22;
-      rodRef.current.position.z = Math.sin(t) * 0.22;
-      rodRef.current.rotation.z = -0.22 + Math.cos(t) * 0.08;
-      rodRef.current.rotation.x = Math.sin(t) * 0.08;
-    } else {
-      rodRef.current.position.x = 0.22;
-      rodRef.current.position.z = 0.08;
-      rodRef.current.rotation.z = -0.25;
-      rodRef.current.rotation.x = 0.05;
-    }
-  });
-
-  return (
-    <group ref={rodRef} name="stirring-rod" position={[0, 0.45, 0]}>
-      <mesh>
-        <cylinderGeometry args={[0.032, 0.032, height, 16]} />
-        <meshPhysicalMaterial 
-          transmission={0.94}
-          opacity={0.8}
-          roughness={0.06}
-          ior={1.5}
-          transparent
-          depthWrite={false}
-          color="#bae6fd"
-        />
-      </mesh>
-      <mesh position={[0, -height / 2, 0]}>
-        <sphereGeometry args={[0.038, 12, 12]} />
-        <meshPhysicalMaterial 
-          transmission={0.94}
-          opacity={0.8}
-          roughness={0.06}
-          transparent
-          depthWrite={false}
-          color="#bae6fd"
-        />
-      </mesh>
-    </group>
-  );
-});
 
 const _particleMatrix = new THREE.Matrix4();
 const _particlePos = new THREE.Vector3();
@@ -613,9 +565,7 @@ export const Beaker = React.memo(function Beaker({ position, id }: { position: [
           <SolidContentsRenderer vesselId={id} radius={0.82} baseY={-0.95} />
 
           {/* Stirring Glass Rod Effect */}
-          {isStirring && (
-            <StirringRod height={2.4} isStirring={isStirring} intensity={vessel.stirringIntensity ?? 0.65} />
-          )}
+
 
           {/* Dynamic Falling Precipitate Particles (e.g. Golden Rain PbI2, BaSO4, AgCl, Cu(OH)2, Fe(OH)3, CaCO3, Cu) */}
           {/* Suspended particles are owned by the single physical renderer. */}
@@ -752,9 +702,7 @@ export const Flask = React.memo(function Flask({ position, id }: { position: [nu
           <SolidContentsRenderer vesselId={id} radius={0.92} baseY={-0.96} />
 
           {/* Stirring Glass Rod */}
-          {isStirring && (
-            <StirringRod height={2.8} isStirring={isStirring} intensity={vessel.stirringIntensity ?? 0.65} />
-          )}
+
 
           {/* Dynamic Falling Precipitate Particles (e.g. Golden Rain PbI2, BaSO4, AgCl, Cu(OH)2) */}
           {/* Suspended particles are owned by the single physical renderer. */}
@@ -901,9 +849,7 @@ export const TestTube = React.memo(function TestTube({ position, id }: { positio
           <SolidContentsRenderer vesselId={id} radius={0.16} baseY={-0.58} />
 
           {/* Stirring Glass Rod */}
-          {isStirring && (
-            <StirringRod height={1.8} isStirring={isStirring} intensity={vessel.stirringIntensity ?? 0.65} />
-          )}
+
 
           {/* Dynamic Falling Precipitate Particles */}
           {/* Suspended particles are owned by the single physical renderer. */}
@@ -1042,11 +988,7 @@ export const GraduatedCylinder = React.memo(function GraduatedCylinder({ positio
           <mesh geometry={latheGeom.outer} material={glassMats.front} renderOrder={6} castShadow receiveShadow />
 
           {/* Laboratory Stirring Rod when active */}
-          {isStirring && (
-            <group position={[0, -0.9, 0]}>
-              <StirringRod height={3.2} isStirring={isStirring} intensity={vessel.stirringIntensity ?? 0.65} />
-            </group>
-          )}
+
 
           {/* Solid Reactant / Precipitate Particles */}
           {/* Suspended particles are owned by the single physical renderer. */}
@@ -1296,11 +1238,7 @@ export const EvaporatingDish = React.memo(function EvaporatingDish({ position, i
           />
 
           {/* Stirring Rod if active */}
-          {isStirring && (
-            <group position={[0, -0.4, 0]}>
-              <StirringRod height={2.0} isStirring={isStirring} intensity={vessel.stirringIntensity ?? 0.65} />
-            </group>
-          )}
+
 
           {/* Precipitate & Solid Residue / Crystals */}
           {/* Suspended particles are owned by the single physical renderer. */}

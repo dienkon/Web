@@ -31,6 +31,7 @@ import { precipitatePackingFraction } from '../../science/precipitatePacking';
 import { DEFAULT_LAB_ENVIRONMENT, waterBoilingPointAtPressure } from '../../science/labEnvironment';
 import { waterSaturationPressurePa } from '../../science/waterSaturation';
 import { WATER_CP_J_G_K } from '../../engine/waterProperties';
+import { LiquidVortex } from '../../science/liquidVortex';
 
 export interface SimulationStepResult extends Partial<VesselState> {
   /** Water lost during THIS step; evaporated_ml is the cumulative vessel counter. */
@@ -62,6 +63,7 @@ export interface SimulationStepResult extends Partial<VesselState> {
 import { QualityTier } from '../../vfx/quality';
 
 export class VesselSimulationManager {
+  public readonly vortex = new LiquidVortex();
   public vesselId: string;
   public boilingSystem: BoilingSystem;
   public evaporationSystem: EvaporationSystem;
@@ -74,6 +76,7 @@ export class VesselSimulationManager {
   public hasPrecipitationSnapshot = false;
   public suspensionOutflowApplied_g = new Map<string, number>();
   private initialSystemAssigned = false;
+  private bodyFrame?: { elements: number[]; matrix: THREE.Matrix4; up: THREE.Vector3; toWorld: (point: [number, number, number]) => [number, number, number] };
   private surfaceFrameCache?: { profile: object; volume: number; up: number[]; plane?: LiquidPlane; stock?: object | null };
   private bedSurface = new SedimentSurface();
   private bedPlaneCache?: { profile: object; volume: number; normal: readonly number[]; plane: LiquidPlane };
@@ -121,6 +124,7 @@ export class VesselSimulationManager {
   }
 
   public reset(): void {
+    this.vortex.reset();
     this.bedSurface.reset(); this.bedPlaneCache = undefined;
     this.sedimentBed.surfacePlane = undefined; this.sedimentBed.packedVolume_ml = 0; this.sedimentBed.surfaceStatus = 'empty';
     this.boilingSystem.reset();
@@ -198,10 +202,17 @@ export class VesselSimulationManager {
     const fillY = vesselLiquidSurfaceY({ ...vessel,
       volume_ml: thermal?.volume_ml ?? vessel.volume_ml,
       contents: thermal?.contents ?? vessel.contents });
-    const bodyMatrix = options.bodyMatrixWorld ? new THREE.Matrix4().fromArray(options.bodyMatrixWorld) : undefined;
-    const localUp = bodyMatrix ? new THREE.Vector3(0, 1, 0).transformDirection(bodyMatrix.clone().invert())
+    const elements = options.bodyMatrixWorld;
+    if (elements && (!this.bodyFrame || elements.some((value, i) => value !== this.bodyFrame!.elements[i]))) {
+      const matrix = new THREE.Matrix4().fromArray(elements), point = new THREE.Vector3();
+      this.bodyFrame = { elements: [...elements], matrix,
+        up: new THREE.Vector3(0, 1, 0).transformDirection(matrix.clone().invert()),
+        toWorld: xyz => point.fromArray(xyz).applyMatrix4(matrix).toArray() as [number, number, number] };
+    }
+    const bodyMatrix = elements ? this.bodyFrame!.matrix : undefined;
+    const localUp = bodyMatrix ? this.bodyFrame!.up
       : new THREE.Vector3(Math.sin(vessel.rotationZ ?? 0), Math.cos(vessel.rotationZ ?? 0), 0);
-    const localToWorld = bodyMatrix ? (point: [number, number, number]) => new THREE.Vector3(...point).applyMatrix4(bodyMatrix).toArray() as [number, number, number]
+    const localToWorld = bodyMatrix ? this.bodyFrame!.toWorld
       : (point: [number, number, number]) => vesselLocalToWorld(vessel, point);
     const surfaceVolume = liquidSurfaceVolume({ ...vessel, volume_ml: thermal?.volume_ml ?? vessel.volume_ml,
       contents: thermal?.contents ?? vessel.contents });
@@ -216,7 +227,10 @@ export class VesselSimulationManager {
       this.surfaceFrameCache = { profile, volume: surfaceVolume, up: localUp.toArray(), stock,
         plane: solved ? { normal: localUp.toArray(), offset: solved.c } : liquidParticlePlane(profile, surfaceVolume, localUp.toArray()) };
     }
-    const surfacePlane = this.surfaceFrameCache!.plane;
+    if (fluid.carrierMode !== 'liquid') this.vortex.reset();
+    else this.vortex.advance(dt, agitation, profile, fillY, viscosity_mPa_s, density_g_ml, vessel.stirringDirection ?? 1, localUp.y > 0.999);
+    const surfacePlane: LiquidPlane | undefined = this.vortex.surface
+      ? { normal: [0, 1, 0], offset: fillY, vortex: this.vortex.surface } : this.surfaceFrameCache!.plane;
     const mouthY = profile.baseY + profile.H;
     const currentRadius = profile.r(fillY);
     const surfaceArea_cm2 = Math.PI * Math.pow(currentRadius * profile.sceneScale, 2);
@@ -306,6 +320,7 @@ export class VesselSimulationManager {
       entryPoint: vessel.recentPourContact && pourContactRemaining(vessel.recentPourContact) > 0
         && vessel.recentPourContact.point.every(Number.isFinite) ? vessel.recentPourContact.point : undefined,
       agitation,
+      // The same surface bounds and angular flow drive suspended solids.
       heatPower_W,
       });
       this.suspensionOutflowApplied_g.set(component.formula, outflow);

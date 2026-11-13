@@ -1,5 +1,7 @@
 import * as THREE from 'three';
 import type { PhysicalBubble, PhysicalPrecipitateParticle, PrecipitateProfile } from '../core/SimulationTypes';
+import { pointPlaneDepth } from '../effects/liquidParticleFrame';
+import type { ParticleBounds } from '../effects/particleBounds';
 
 const opacity = (value: number) => Number.isFinite(value) ? Math.max(0, Math.min(1, value)) : 0;
 
@@ -11,6 +13,13 @@ export function bubbleOpacity(bubble: Pick<PhysicalBubble, 'opacity'>) {
 
 export function precipitateOpacity(particle: Pick<PhysicalPrecipitateParticle, 'opacity'>, profile: PrecipitateProfile) {
   return opacity(particle.opacity) * (profile.morphology === 'gel_like' ? 0.68 : 1);
+}
+/** Representative flocs below a cloudy surface fade with optical depth rather
+ * than being composited on top of the water as a floating gravel layer. */
+export function immersedPrecipitateOpacity(particle: PhysicalPrecipitateParticle, profile: PrecipitateProfile, bounds?: ParticleBounds, haze = 0) {
+  const depth = bounds ? Math.max(0, pointPlaneDepth(particle, bounds.surfaceY, bounds.surfacePlane))
+    / Math.max(0.02, bounds.surfaceY - bounds.liquidBottomY) : 0;
+  return precipitateOpacity(particle, profile) * Math.exp(-depth * Math.max(0, haze) * 4);
 }
 
 /** One attribute is shared by all instanced optical packets. Keep Three's

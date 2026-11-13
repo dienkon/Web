@@ -1,0 +1,21 @@
+{
+  "date": "2026-11-13",
+  "fullVitest": { "files": 230, "passed": 3077 },
+  "targetedAfterGasReceiptCorrection": { "files": 4, "passed": 328 },
+  "automaticCatalog": { "scenarios": 149, "passed": 149, "massConserved": true },
+  "browser": {
+    "report": "browser.json",
+    "strongerStirringDeepensVortex": true,
+    "precipitateMassAndCurvedContainment": true,
+    "suspendedGelFollowsFlow": true,
+    "gasUsesStationaryMeteredTubing": true,
+    "wetInletSubmerged": true,
+    "manualPureWaterStirringAndPause": true,
+    "errors": []
+  },
+  "productionBrowser": "production-browser.json",
+  "legacyTheaterBrowser": "../automatic-experiments/browser.json",
+  "performance": "performance/headless-performance.json",
+  "modelNotes": "../../docs/science/stirring-and-gas-delivery.md",
+  "scope": "Reduced upright vortex and coarse stock dynamics; visual morphology is qualitative. Software checks do not establish 100% experimental accuracy or browser FPS."
+}

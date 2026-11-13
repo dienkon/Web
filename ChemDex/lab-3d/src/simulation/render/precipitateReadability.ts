@@ -12,8 +12,10 @@ export function readablePrecipitateRadius(p: Pick<PhysicalPrecipitateParticle, '
   const target = enlarge && ['gel_like', 'flocculent'].includes(profile.morphology)
     ? Math.max(p.radius, Math.min(0.025, bounds.radius * 0.025)) : p.radius;
   const vessel = bounds.vesselProfile, top = vessel ? vessel.baseY + vessel.H : bounds.surfaceY;
+  const vortex = bounds.surfacePlane?.vortex;
+  const slope = vortex ? 0.65 * vortex.amplitude / vortex.coreRadius : 0;
   let radius = Math.max(0, Math.min(target, p.y - bounds.liquidBottomY, top - p.y,
-    pointPlaneDepth(p, bounds.surfaceY, bounds.surfacePlane)));
+    pointPlaneDepth(p, bounds.surfaceY, bounds.surfacePlane) / Math.sqrt(1 + slope * slope)));
   const radial = Math.hypot(p.x, p.z);
   for (let attempt = 0; attempt < 12; attempt++) {
     const low = p.y - radius, high = p.y + radius;

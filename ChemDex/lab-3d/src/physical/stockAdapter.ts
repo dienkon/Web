@@ -33,7 +33,7 @@ export function stockGroup(formula: string, mass_g: number): StockGroupInput | n
   return { formula, mass_g, density_kg_m3: chemical.density * 1000, powder: getSolidMorphology(formula) === 'POWDER',
     vertices: points, unitVolume: 1, seed: [] };
 }
-export function stockContainer(v: VesselState, restore: boolean): StockContainerInput | null {
+export function stockContainer(v: VesselState, restore: boolean, vortex?: import('../science/liquidVortex').VortexSurface): StockContainerInput | null {
   if (v.isShattered || v.id.startsWith('lesson_vessel_') || !VESSEL_IDS.includes(v.type)) return null;
   const key = `${v.type}:${v.capacity_ml}:${!!v.isSealed}`;
   let definition = definitions.get(key); if (!definition) {
@@ -68,6 +68,13 @@ export function stockContainer(v: VesselState, restore: boolean): StockContainer
     const offset = surface && ('c' in surface ? surface.c : surface.offset);
     const level = scenePointToSI(vesselLocalToWorld(v, offset !== null && offset !== undefined ? n.clone().multiplyScalar(offset).toArray() : [0, vesselLiquidSurfaceY(v), 0]));
     fluid = { normal: [0, 1, 0], offset_m: level[1], density_kg_m3: density * 1000, viscosity_Pas: (v.viscosity_mPa_s ?? 1) / 1000 };
+    if (vortex) {
+      const origin = scenePointToSI(vesselLocalToWorld(v, [0, 0, 0]));
+      const scale = getVesselProfile(v.type, v.capacity_ml).sceneScale / 100;
+      fluid.vortex = { axis_m: origin, coreRadius_m: vortex.coreRadius * scale, angularSpeed_rad_s: vortex.angularSpeed_rad_s,
+        radius_m: vortex.radius * scale, centerHeight_m: origin[1] + vortex.offset * scale,
+        amplitude_m: vortex.amplitude * scale, floorY_m: origin[1] + getVesselProfile(v.type, v.capacity_ml).baseY * scale };
+    }
   }
   const transform = vesselBodyTransform(v);
   return { id: v.id, shapeKey: key, sealed: v.isSealed, colliders: definition.colliders, position_m: scenePointToSI(v.position), rotation, groups,
