@@ -16,6 +16,7 @@ import { solidAerosolVisuals } from '../solidAerosolVisuals';
 import { computeMolarMass, applyProgramToLedger } from '../../engine/ledger';
 import { assessProgramConditions } from '../../science/conditions';
 import { sameMolecularFormula } from '../../science/speciesIdentity';
+import { getRetainedVolumeSamples } from '../../pour/physics/retained';
 
 export type AutoPhase = 'prepare' | 'carry' | 'dose' | 'return' | 'condition' | 'react' | 'observe' | 'complete' | 'error';
 export type AutoCamera = 'wide' | 'transfer' | 'close' | 'surface';
@@ -28,10 +29,21 @@ export const AUTO_EXPERIMENTS = ALL_HANDCRAFTED_PROGRAMS.map(program => ({
     : program.visual.after.precipitate ? 'Kết tủa' : 'Đổi màu / cân bằng',
 }));
 export interface AutoDonor { row: SubstanceContent; color: string; remaining: number; fraction: number }
+export const AUTO_TIMING = { prepare: 1.6, carry: 2, tilt: 0.55, flow: 2.4, flight: 0.28, upright: 0.55, return: 1.5 } as const;
+export const donorHome = (i: number): [number, number, number] => [-3.9 + i % 3 * 0.95, 0.63, 1.2 + Math.floor(i / 3) * 1.15];
 const shell = (): VesselState => ({ id: 'auto_receiver', type: 'beaker', name: 'Bình phản ứng', capacity_ml: 100,
   position: [0, 1.04, 0], rotationY: 0, isLocked: false, contents: [], substances: [], mass_g: 0,
   volume_ml: 0, volume: 0, temperature_c: 25, ph: 7, hasGas: false, hasPrecipitate: false, isBoiling: false });
 const smooth = (t: number) => { const x = Math.max(0, Math.min(1, t)); return x * x * (3 - 2 * x); };
+function donorPouringTilt(remaining: number) {
+  const profile = getVesselProfile('flask'), samples = getRetainedVolumeSamples(profile);
+  const target = profile.capacity_ml * 0.4 * Math.max(0.002, remaining) * 0.85;
+  for (let i = 1; i < samples.length; i++) if (samples[i] <= target) {
+    const fraction = (samples[i - 1] - target) / Math.max(1e-12, samples[i - 1] - samples[i]);
+    return Math.max(0.55, Math.min(2.1, (i - 1 + fraction) / (samples.length - 1) * Math.PI + 0.12));
+  }
+  return 2.1;
+}
 
 /** An isolated virtual experiment. Neither specimens, clocks, lesson sessions
  * nor exhaust receipts are written to the user's workbench or persistence. */
@@ -102,17 +114,16 @@ export class AutoExperiment {
     }
     this.heatTarget = definition?.conditions.find(c => c.kind === 'temperature')?.minimum
       ?? this.program.chemistry.conditions?.minTemp_c ?? 25;
-    const solvent = this.baseline.contents.filter(c => c.formula === 'H2O' && c.phase === 'l');
-    this.donors = this.baseline.contents.filter(c => !solvent.includes(c)).map(row => ({ row: { ...row },
+    // Even the solvent travels from a finite donor; a new bench starts empty.
+    const rows = [...this.baseline.contents].sort((a, b) => Number(b.formula === 'H2O' && b.phase === 'l') - Number(a.formula === 'H2O' && a.phase === 'l'));
+    this.donors = rows.map(row => ({ row: { ...row },
       color: this.program.chemistry.species.find(s => s.formula === row.formula && s.phase === row.phase)?.colorHex ?? '#dbeafe',
       remaining: row.mass_g, fraction: 0 }));
-    this.sample = { ...shell(), contents: solvent.map(c => ({ ...c })),
-      mass_g: solvent.reduce((sum, c) => sum + c.mass_g, 0),
-      volume_ml: solvent.reduce((sum, c) => sum + c.mass_g, 0) / (this.baseline.density_g_ml ?? 1),
+    this.sample = { ...shell(),
       liquidColor: '#f1f5f9', isSealed: this.baseline.isSealed, studioProgramId: this.program.id };
-    this.steps = ['Dàn dụng cụ và dung môi', ...this.donors.map(d => `Thêm ${d.row.formula} (${d.row.phase})`),
+    this.steps = ['Dọn bàn và dàn dụng cụ cần dùng', ...this.donors.map(d => `${d.row.phase === 'g' ? 'Dẫn' : d.row.phase === 's' ? 'Chuyển' : 'Rót'} ${d.row.formula} (${d.row.phase})`),
       'Thiết lập điều kiện', 'Quan sát phản ứng cận cảnh', 'Đối chiếu sản phẩm'];
-    this.log.push('Sân khấu riêng đã sẵn sàng; bàn thí nghiệm của bạn được giữ nguyên.');
+    this.log.push('Đã dọn bàn tự động: chỉ giữ bình nhận và các chất cần cho lượt này.');
   }
   get stepIndex() {
     return this.phase === 'prepare' ? 0 : ['carry', 'dose', 'return'].includes(this.phase) ? this.donorIndex + 1
@@ -120,9 +131,10 @@ export class AutoExperiment {
   }
   get caption() {
     const d = this.donors[this.donorIndex];
-    return this.error ?? (this.phase === 'prepare' ? 'Đặt bình, kiểm tra dung môi và nhãn hóa chất.'
+    return this.error ?? (this.phase === 'prepare' ? 'Dọn bàn tự động, đặt bình nhận rỗng và sắp các chất cần dùng lên khay.'
       : this.phase === 'carry' ? `Nhấc ${d?.row.formula} đến miệng bình nhận.`
-      : this.phase === 'dose' ? `${d?.row.phase === 'g' ? 'Dẫn khí' : d?.row.phase === 's' ? 'Thêm chất rắn' : 'Rót'} ${d?.row.formula} tiếp xúc mẫu · ${(d?.row.mass_g ?? 0).toPrecision(3)} g trong kịch bản ảo.${this.progress > 0.001 ? ' ' + this.program.explain.observation_vi : ''}`
+      : this.phase === 'dose' ? this.phaseTime < AUTO_TIMING.tilt ? `Nghiêng dụng cụ ${d?.row.formula}, căn miệng vào bình nhận.`
+        : `${d?.row.phase === 'g' ? 'Dẫn khí' : d?.row.phase === 's' ? 'Thêm chất rắn' : 'Rót'} ${d?.row.formula} tiếp xúc mẫu · ${((d?.row.mass_g ?? 0) * (d?.fraction ?? 0)).toPrecision(3)} / ${(d?.row.mass_g ?? 0).toPrecision(3)} g.${this.progress > 0.001 ? ' ' + this.program.explain.observation_vi : ''}`
       : this.phase === 'return' ? 'Dựng thẳng, ngừng dòng và đặt dụng cụ về khay.'
       : this.phase === 'condition' ? this.conditionText
       : this.phase === 'react' ? this.program.explain.observation_vi
@@ -158,10 +170,10 @@ export class AutoExperiment {
   private step(dt: number) {
     this.elapsed += dt; this.phaseTime += dt;
     const previous = this.sample;
-    if (this.phase === 'prepare' && this.phaseTime >= 2) this.enter(this.donors.length ? 'carry' : 'condition');
-    else if (this.phase === 'carry' && this.phaseTime >= 1.8) this.enter('dose');
+    if (this.phase === 'prepare' && this.phaseTime >= AUTO_TIMING.prepare) this.enter(this.donors.length ? 'carry' : 'condition');
+    else if (this.phase === 'carry' && this.phaseTime >= AUTO_TIMING.carry) this.enter('dose');
     else if (this.phase === 'dose') {
-      const donor = this.donors[this.donorIndex], fraction = Math.min(1, this.phaseTime / 2.4);
+      const donor = this.donors[this.donorIndex], fraction = this.transferFraction;
       const portion = fraction - donor.fraction;
       const contents = this.sample.contents.map(c => ({ ...c }));
       let row = contents.find(c => c.formula === donor.row.formula && c.phase === donor.row.phase);
@@ -169,12 +181,13 @@ export class AutoExperiment {
       row.moles += donor.row.moles * portion; row.mass_g += donor.row.mass_g * portion;
       donor.fraction = fraction; donor.remaining = donor.row.mass_g * (1 - fraction);
       const fluid = contents.filter(c => c.phase === 'aq' || c.phase === 'l').reduce((sum, c) => sum + c.mass_g, 0);
+      const volume_ml = fluid / (this.baseline.density_g_ml ?? 1);
       this.sample = { ...this.sample, contents, substances: contents.map(c => c.formula),
-        mass_g: contents.reduce((sum, c) => sum + c.mass_g, 0), volume_ml: fluid / (this.baseline.density_g_ml ?? 1),
-        liquidColor: donor.row.phase === 'aq' ? donor.color : this.sample.liquidColor };
+        mass_g: contents.reduce((sum, c) => sum + c.mass_g, 0), volume_ml, volume: volume_ml / this.sample.capacity_ml,
+        liquidColor: donor.row.phase === 'aq' && portion > 0 ? donor.color : this.sample.liquidColor };
       this.advanceContact(dt);
       if (fraction >= 1) this.enter('return');
-    } else if (this.phase === 'return' && this.phaseTime >= 1.5) {
+    } else if (this.phase === 'return' && this.phaseTime >= AUTO_TIMING.upright + AUTO_TIMING.return) {
       this.donorIndex++;
       this.enter(this.donorIndex < this.donors.length ? 'carry' : 'condition');
     } else if (this.phase === 'condition') {
@@ -287,10 +300,31 @@ export class AutoExperiment {
     this.progress = this.contactProgress;
   }
   get donorPose(): { position: [number, number, number]; tilt: number } {
-    const i = this.donorIndex, home: [number, number, number] = [-3.1 + i % 3 * 0.8, 0.63, -1.8 - Math.floor(i / 3) * 1.1];
-    const hover: [number, number, number] = [-1, 2.75, 0];
-    const t = this.phase === 'carry' ? smooth(this.phaseTime / 1.8) : this.phase === 'return' ? 1 - smooth(this.phaseTime / 1.5) : this.phase === 'dose' ? 1 : 0;
-    return { position: home.map((n, k) => n + (hover[k] - n) * t) as [number, number, number],
-      tilt: this.phase === 'dose' ? -1.25 * Math.min(1, this.phaseTime / 0.35) : this.phase === 'return' ? -1.25 * (1 - smooth(this.phaseTime / 0.5)) : 0 };
+    return this.donorPoseAt(this.phaseTime);
+  }
+  donorPoseAt(time: number): { position: [number, number, number]; tilt: number } {
+    const home = donorHome(this.donorIndex), hover: [number, number, number] = [-1, 2.8, 0];
+    const t = this.phase === 'carry' ? smooth(time / AUTO_TIMING.carry)
+      : this.phase === 'return' ? 1 - smooth((time - AUTO_TIMING.upright) / AUTO_TIMING.return) : this.phase === 'dose' ? 1 : 0;
+    const position = home.map((n, k) => n + (hover[k] - n) * t) as [number, number, number];
+    position[1] += Math.sin(t * Math.PI) * 0.8;
+    const remaining = this.phase === 'dose' ? 1 - smooth((time - AUTO_TIMING.tilt - AUTO_TIMING.flight) / AUTO_TIMING.flow) : 0;
+    const pouringTilt = this.phase === 'dose' || this.phase === 'return' ? donorPouringTilt(remaining) : 0;
+    return { position, tilt: this.phase === 'dose' ? -pouringTilt * smooth(time / AUTO_TIMING.tilt)
+      : this.phase === 'return' ? -pouringTilt * (1 - smooth(time / AUTO_TIMING.upright)) : 0 };
+  }
+  get transferFraction() {
+    return smooth((this.phaseTime - AUTO_TIMING.tilt - AUTO_TIMING.flight) / AUTO_TIMING.flow);
+  }
+  get streamActive() {
+    return this.phase === 'dose' && this.phaseTime >= AUTO_TIMING.tilt
+      && this.phaseTime < AUTO_TIMING.tilt + AUTO_TIMING.flow + AUTO_TIMING.flight;
+  }
+  /** World-space pouring edge, shared by the vessel and all transfer effects. */
+  get donorLip(): [number, number, number] {
+    const { position, tilt } = this.donorPose;
+    const x = 0.35 * 0.6, y = 1.48 * 0.6;
+    return [position[0] + x * Math.cos(tilt) - y * Math.sin(tilt),
+      position[1] + x * Math.sin(tilt) + y * Math.cos(tilt), position[2]];
   }
 }

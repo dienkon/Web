@@ -1,1 +1,38 @@
 @import "tailwindcss";
+
+.resizable-sidebar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  min-height: 0;
+  width: var(--sidebar-width);
+  max-width: min(85vw, max(220px, calc(100vw - var(--opposite-width) - 300px)));
+  z-index: 20;
+}
+.sidebar-resize-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 10px;
+  z-index: 45;
+  cursor: col-resize;
+  touch-action: none;
+  display: grid;
+  place-items: center;
+  outline: none;
+}
+.resizable-sidebar-left > .sidebar-resize-handle { right: -5px; }
+.resizable-sidebar-right > .sidebar-resize-handle { left: -5px; }
+.sidebar-resize-handle span { height: 44px; width: 3px; border-radius: 4px; background: #94a3b8; opacity: .5; transition: background .15s, opacity .15s; }
+.sidebar-resize-handle:hover span, .sidebar-resize-handle:focus-visible span { background: #06b6d4; opacity: 1; }
+.sidebar-resize-handle:focus-visible { background: #06b6d422; }
+.sidebar-resizing, .sidebar-resizing * { cursor: col-resize !important; user-select: none !important; }
+@media (max-width: 767px) {
+  .resizable-sidebar { position: absolute; top: 0; bottom: 0; max-width: 85vw; z-index: 40; box-shadow: 0 10px 40px #0004; }
+  .resizable-sidebar-left { left: 0; }
+  .resizable-sidebar-right { right: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sidebar-resize-handle span { transition: none; }
+}

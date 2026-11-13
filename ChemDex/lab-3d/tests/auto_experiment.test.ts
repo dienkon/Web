@@ -47,7 +47,8 @@ describe('Isolated automatic experiments for the system catalog', () => {
   });
   it('starts a contact reaction during the final dose rather than waiting for a cutscene', () => {
     const e = new AutoExperiment('cu_hno3_conc');
-    for (let i = 0; i < 1000 && !(e.phase === 'dose' && e.progress > 0); i++) e.tick(1 / 60);
+    // Solvent now has its own complete lift/tilt/pour/return sequence too.
+    for (let i = 0; i < 60 * 60 && !(e.phase === 'dose' && e.progress > 0); i++) e.tick(1 / 60);
     expect(e.phase).toBe('dose'); expect(e.donors[e.donorIndex].remaining).toBeGreaterThan(0);
     expect(e.progress).toBeGreaterThan(0); expect(e.sample.escapedGas_g?.NO2).toBeGreaterThan(0);
   });

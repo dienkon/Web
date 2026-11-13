@@ -2,35 +2,24 @@ import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Play, Pause, X, Maximize, RotateCcw, SkipForward, Search, Film, Camera, Check, ChevronRight } from 'lucide-react';
 import { AutoExperiment, AUTO_EXPERIMENTS } from './AutoExperiment';
-import { AutoExperimentScene } from './AutoExperimentScene';
+const AutoExperimentScene = React.lazy(() => import('./AutoExperimentScene').then(m => ({ default: m.AutoExperimentScene })));
 import { useAppStore } from '../../store/useAppStore';
 import { getLessonDefinition } from '../../lesson/catalog';
 import { setTheaterActive } from '../../render/theaterActivity';
 import { ErrorBoundary } from '../../components/ErrorBoundary';
 
 const recommended = ['cu_hno3_conc', 'nh3_hcl', 'h2o2_mno2', 'cuso4_naoh', 'pbno32_ki', 'fe_cuso4', 'mg_o2_burn', 'thiosulfate_acid_clock'];
-export function AutoExperimentMode() {
+export function AutoExperimentCatalog({ onStart, activeId }: { onStart: (id: string, button?: HTMLButtonElement) => void; activeId?: string }) {
   const [query, setQuery] = useState(''), [category, setCategory] = useState('all');
-  const [experiment, setExperiment] = useState<AutoExperiment | null>(null), [error, setError] = useState('');
-  const opener = useRef<HTMLButtonElement | null>(null);
-  const ownsFullscreen = useRef(false);
-  const start = (id: string, button?: HTMLButtonElement) => {
-    try {
-      const next = new AutoExperiment(id); setError(''); setExperiment(next);
-      opener.current = button ?? null;
-      ownsFullscreen.current = !document.fullscreenElement;
-      if (!document.fullscreenElement) void document.documentElement.requestFullscreen?.().catch(() => {});
-    } catch (e) { setError(e instanceof Error ? e.message : 'Không thể mở thí nghiệm.'); }
-  };
-  const matches = AUTO_EXPERIMENTS.filter(e => (category === 'all' || e.category === category)
-    && `${e.title} ${e.program.chemistry.equation} ${e.program.explain.observation_vi}`.toLocaleLowerCase('vi').includes(query.toLocaleLowerCase('vi')));
+  const start = onStart;
+  const matches = React.useMemo(() => AUTO_EXPERIMENTS.filter(e => (category === 'all' || e.category === category)
+    && `${e.title} ${e.program.chemistry.equation} ${e.program.explain.observation_vi}`.toLocaleLowerCase('vi').includes(query.toLocaleLowerCase('vi'))), [query, category]);
   return <section aria-label="Thí nghiệm tự động" className="space-y-3">
     <div className="rounded-xl bg-gradient-to-br from-slate-900 to-cyan-950 p-4 text-white">
-      <div className="mb-2 flex items-center gap-2 text-cyan-200"><Film size={18} /><strong>Rạp thí nghiệm tự động</strong></div>
-      <p className="text-xs leading-relaxed text-slate-200">Tự dàn dụng cụ, nhấc và rót từng chất, thiết lập điều kiện rồi quay cận cảnh phản ứng. Toàn màn hình, có tạm dừng và đổi góc nhìn.</p>
-      <p className="mt-2 text-[10px] text-cyan-200">Sân khấu ảo riêng · Giữ nguyên bàn thí nghiệm đang làm · Thời gian minh họa</p>
+      <div className="mb-2 flex items-center gap-2 text-cyan-200"><Film size={18} /><strong>Tự động làm phản ứng</strong></div>
+      <p className="text-xs leading-relaxed text-slate-200">Chọn phản ứng, lab tự dọn bàn, dàn dụng cụ, nhấc bình, nghiêng rót từng chất và thiết lập điều kiện.</p>
+      <p className="mt-2 text-[10px] text-cyan-200">Bàn tự động mới cho mỗi lượt · Có tạm dừng, tốc độ và góc cận cảnh</p>
     </div>
-    {error && <p role="alert" className="rounded border border-red-200 bg-red-50 p-3 text-red-800">{error}</p>}
     <div className="flex flex-wrap gap-1.5">{recommended.map(id => {
       const entry = AUTO_EXPERIMENTS.find(e => e.id === id); if (!entry) return null;
       return <button key={id} onClick={event => start(id, event.currentTarget)} className="rounded-full border border-cyan-200 bg-cyan-50 px-2 py-1 text-[10px] text-cyan-900 hover:bg-cyan-100">{entry.title}</button>;
@@ -41,16 +30,31 @@ export function AutoExperimentMode() {
       {[...new Set(AUTO_EXPERIMENTS.map(e => e.category))].map(c => <option key={c}>{c}</option>)}
     </select>
     <p className="text-[10px] text-slate-500">{matches.length} thí nghiệm · chọn một bài để bắt đầu</p>
-    <div className="max-h-80 space-y-2 overflow-y-auto">{matches.map(e => <button key={e.id} onClick={event => start(e.id, event.currentTarget)}
-      className="flex w-full items-center gap-3 rounded-xl border border-slate-200 bg-white p-3 text-left hover:border-cyan-500 hover:bg-cyan-50">
+    <div className="space-y-2">{matches.map(e => <button key={e.id} onClick={event => start(e.id, event.currentTarget)} aria-pressed={activeId === e.id}
+      className={`flex w-full items-center gap-3 rounded-xl border p-3 text-left hover:border-cyan-500 hover:bg-cyan-50 ${activeId === e.id ? 'border-cyan-500 bg-cyan-50' : 'border-slate-200 bg-white'}`}>
       <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-cyan-100 text-cyan-800"><Play size={14} /></span>
       <span className="min-w-0 flex-1"><strong className="block break-words">{e.title}</strong><span className="mt-1 block text-[10px] text-slate-500">{e.category} · {e.program.chemistry.conditions?.catalyst ? `Xúc tác ${e.program.chemistry.conditions.catalyst}` : e.program.chemistry.conditions?.activation === 'ignition' ? 'Có mồi cháy ảo' : 'Tự thiết lập điều kiện'}</span></span>
       <ChevronRight size={14} className="shrink-0 text-slate-400" />
     </button>)}{!matches.length && <p className="p-3 text-slate-500">Không có thí nghiệm phù hợp.</p>}</div>
+  </section>;
+}
+
+export function AutoExperimentMode() {
+  const [experiment, setExperiment] = useState<AutoExperiment | null>(null), [error, setError] = useState('');
+  const opener = useRef<HTMLButtonElement | null>(null), ownsFullscreen = useRef(false);
+  return <>
+    {error && <p role="alert" className="p-3 text-red-800">{error}</p>}
+    <AutoExperimentCatalog onStart={(id, button) => {
+      try {
+        setExperiment(new AutoExperiment(id)); setError(''); opener.current = button ?? null;
+        ownsFullscreen.current = !document.fullscreenElement;
+        if (!document.fullscreenElement) void document.documentElement.requestFullscreen?.().catch(() => {});
+      } catch (e) { setError(e instanceof Error ? e.message : 'Không thể mở thí nghiệm.'); }
+    }} />
     {experiment && createPortal(<Theater key={experiment.program.id} initial={experiment} ownsFullscreen={ownsFullscreen.current} returnFocus={opener.current} onClose={() => {
       setExperiment(null);
     }} />, document.body)}
-  </section>;
+  </>;
 }
 
 function Theater({ initial, ownsFullscreen, returnFocus, onClose }: { initial: AutoExperiment; ownsFullscreen: boolean; returnFocus: HTMLButtonElement | null; onClose: () => void }) {
@@ -98,7 +102,7 @@ function Theater({ initial, ownsFullscreen, returnFocus, onClose }: { initial: A
     onKeyDown={event => { event.stopPropagation(); if (event.key === 'Escape') { event.preventDefault(); onClose(); }
       if (event.code === 'Space' && !(event.target instanceof HTMLInputElement || event.target instanceof HTMLSelectElement || event.target instanceof HTMLButtonElement)) { event.preventDefault(); e.paused = !e.paused; refresh(n => n + 1); } }}>
     <div className="absolute inset-0" data-testid="auto-experiment-scene"><ErrorBoundary fallbackTitle="Không thể vẽ sân khấu 3D" onReset={() => change(e.program.id)}>
-      <AutoExperimentScene key={e.program.id + ':' + String(e === initial)} experiment={e} />
+      <React.Suspense fallback={null}><AutoExperimentScene key={e.program.id + ':' + String(e === initial)} experiment={e} /></React.Suspense>
     </ErrorBoundary></div>
     <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-slate-950/90 via-transparent to-slate-950/95" />
     <header className="absolute inset-x-0 top-0 flex items-start justify-between gap-3 p-4 md:p-6">

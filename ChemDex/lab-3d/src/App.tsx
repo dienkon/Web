@@ -10,6 +10,8 @@ import { DosageModal } from './components/DosageModal';
 import { LitmusTestModal } from './components/LitmusTestModal';
 import { LabReportModal } from './components/LabReportModal';
 import { ErrorBoundary } from './components/ErrorBoundary';
+import { ResizableSidebar } from './components/ResizableSidebar';
+const AutoLabWorkspace = React.lazy(() => import('./vfx/autoplay/AutoLabWorkspace'));
 import { getChemicalHazardsAndPpe } from './engine/safetyEngine';
 const VfxGallery = React.lazy(() => import('./vfx/dev/VfxGallery').then(m => ({ default: m.VfxGallery })));
 const SimulationDebugPanel = React.lazy(() => import('./simulation/ui/SimulationDebugPanel').then(m => ({ default: m.SimulationDebugPanel })));
@@ -62,7 +64,7 @@ function LeftSidebar() {
   const safetyInfo = getChemicalHazardsAndPpe(allWorkbenchSubstances);
 
   return (
-    <aside className="w-72 max-w-[85vw] bg-white border-r border-slate-200 flex flex-col z-20 shrink-0 shadow-sm max-md:absolute max-md:top-0 max-md:bottom-0 max-md:left-0 max-md:z-40 max-md:shadow-2xl transition-all duration-200">
+    <ResizableSidebar side="left" className="bg-white border-r border-slate-200 shadow-sm">
       {/* Sidebar Tabs */}
       <div className="flex items-center border-b border-slate-200 bg-slate-50/50">
         <button 
@@ -402,7 +404,7 @@ function LeftSidebar() {
           </div>
         </div>
       )}
-    </aside>
+    </ResizableSidebar>
   );
 }
 
@@ -434,7 +436,7 @@ const RightSidebar = React.memo(function RightSidebar() {
   const t = (en: string, vi: string) => language === 'en' ? en : vi;
 
   return (
-    <aside className="w-80 max-w-[85vw] bg-white border-l border-slate-200 flex flex-col shrink-0 z-20 shadow-sm max-md:absolute max-md:top-0 max-md:bottom-0 max-md:right-0 max-md:shadow-2xl transition-all duration-200">
+    <ResizableSidebar side="right" className="bg-white border-l border-slate-200 shadow-sm">
       {/* Tab Header */}
       <div className="flex items-center border-b border-slate-200 bg-slate-50/50">
         <button
@@ -561,7 +563,7 @@ const RightSidebar = React.memo(function RightSidebar() {
           </>
         )}
       </div>
-    </aside>
+    </ResizableSidebar>
   );
 });
 
@@ -594,6 +596,13 @@ const TargetRecognitionHUD = React.memo(function TargetRecognitionHUD() {
 });
 
 export default function App() {
+  const [workspace, setWorkspace] = useState<'manual' | 'auto'>(() => new URLSearchParams(window.location.search).get('mode') === 'auto' ? 'auto' : 'manual');
+  const changeWorkspace = (mode: 'manual' | 'auto') => {
+    setWorkspace(mode);
+    const url = new URL(window.location.href);
+    if (mode === 'auto') url.searchParams.set('mode', 'auto'); else url.searchParams.delete('mode');
+    window.history.replaceState(null, '', url);
+  };
   const openedExperiment = React.useRef<string | null>(null);
   useEffect(() => {
     const id = new URLSearchParams(window.location.search).get('experiment');
@@ -614,12 +623,13 @@ export default function App() {
   const toggleRightSidebar = useAppStore(state => state.toggleRightSidebar);
 
   useEffect(() => {
+    if (workspace === 'auto') return;
     const onKeyDown = (e: KeyboardEvent) => {
       handleLabKeyDown(e);
     };
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, []);
+  }, [workspace]);
 
   const t = (en: string, vi: string) => language === 'en' ? en : vi;
 
@@ -630,9 +640,7 @@ export default function App() {
       <Toast />
 
       {/* Chemical Measurement, Litmus Paper & Student Lab Report Dialogs */}
-      <DosageModal />
-      <LitmusTestModal />
-      <LabReportModal />
+      {workspace === 'manual' && <><DosageModal /><LitmusTestModal /><LabReportModal /></>}
 
       {/* Primary Navigation Bar */}
       {!isPresentationMode && (
@@ -706,11 +714,20 @@ export default function App() {
         </nav>
       )}
 
+      {!isPresentationMode && <div role="tablist" aria-label={t('Lab mode', 'Chế độ thí nghiệm')} className="flex shrink-0 items-center gap-1 border-b border-slate-200 bg-white px-3 py-1.5">
+        <button role="tab" id="manual-lab-tab" aria-selected={workspace === 'manual'} aria-controls="manual-lab" onClick={() => changeWorkspace('manual')}
+          className={`flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-semibold ${workspace === 'manual' ? 'bg-blue-50 text-blue-700' : 'text-slate-500 hover:bg-slate-50'}`}><Move size={14} />{t('Hands-on', 'Thao tác')}</button>
+        <button role="tab" id="automatic-lab-tab" aria-selected={workspace === 'auto'} aria-controls="automatic-lab" onClick={() => changeWorkspace('auto')}
+          className={`flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-semibold ${workspace === 'auto' ? 'bg-cyan-50 text-cyan-800' : 'text-slate-500 hover:bg-slate-50'}`}><Wand2 size={14} />{t('Automatic', 'Tự động')}</button>
+        <span className="ml-auto hidden text-[10px] text-slate-400 sm:block">{t('Drag a panel edge to resize', 'Kéo mép sidebar để đổi chiều rộng')}</span>
+      </div>}
+
+      {workspace === 'auto' ? <React.Suspense fallback={<div className="grid flex-1 place-items-center bg-[#091321] text-sm text-cyan-100">Đang chuẩn bị bàn tự động…</div>}><AutoLabWorkspace onExit={() => changeWorkspace('manual')} /></React.Suspense> : <React.Suspense fallback={<div className="grid flex-1 place-items-center bg-slate-100 text-sm text-slate-500">Đang chuẩn bị bàn thao tác…</div>}>
       {/* Workbench Secondary Toolbar (Camera, Undo/Redo, Grid, Modes, Speeds) */}
       <WorkbenchToolbar />
 
       {/* Main Lab Area */}
-      <div className="flex flex-1 overflow-hidden relative">
+      <div id="manual-lab" role="tabpanel" aria-labelledby="manual-lab-tab" className="flex flex-1 min-h-0 overflow-hidden relative">
         <LeftSidebar />
 
         {/* 3D Interactive Workbench Viewport */}
@@ -766,6 +783,7 @@ export default function App() {
           </React.Suspense>
         )}
       </div>
+      </React.Suspense>}
     </div>
   );
 }
