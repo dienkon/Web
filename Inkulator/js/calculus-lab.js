@@ -9,13 +9,14 @@
     const values=Array.from({length:7},(_,i)=>fn(Number.isFinite(x)?x+direction*Math.max(1,span)*10**(-i-2):Math.sign(x)*10**(i+1))).filter(v=>Number.isFinite(v));
     if(values.length<4)return NaN;const tail=values.slice(-3),[a,b,c]=tail;
     if(Math.sign(a)===Math.sign(c)&&Math.abs(c)>1e5&&Math.abs(c)>Math.abs(b)*1.7&&Math.abs(b)>Math.abs(a)*1.7)return Math.sign(c)*Infinity;
-    if(Math.abs(c-b)<1e-5*Math.max(1,Math.abs(c)))return Math.abs(c)<1e-6?0:c;
+    if(Math.abs(c-b)<1e-5*Math.max(1,Math.abs(c))){const value=c+(c-b)/9;return Math.abs(value)<1e-6?0:value;}
     return NaN;
   }
   function variation(text,params={},a=-Infinity,b=Infinity,scan=[-100,100]){
     if(!(a<b))throw Error('Cận phải phải lớn hơn cận trái.');const f=functionOf(text,params),d1=derivativeOf(text,params),d2=derivativeOf(text,params,2),left=Number.isFinite(a)?a:scan[0],right=Number.isFinite(b)?b:scan[1];
     if(!(left<right)||!Number.isFinite(left+right))throw Error('Khoảng tìm mốc không hợp lệ.');
-    const breaks=domainBreaks(text,params,left,right),critical=MathEngine.roots(d1.fn,left,right,2400).filter(x=>Number.isFinite(f(x))&&!breaks.some(b=>Math.abs(b-x)<1e-4)),inflections=MathEngine.roots(d2.fn,left,right,1600).filter(x=>Number.isFinite(f(x)));
+    const roots=(fn,n)=>[.123,.456,.789].every(t=>fn(left+t*(right-left))===0)?[]:MathEngine.roots(fn,left,right,n);
+    const breaks=domainBreaks(text,params,left,right),critical=roots(d1.fn,2400).filter(x=>Number.isFinite(f(x))&&!breaks.some(b=>Math.abs(b-x)<1e-4)),inflections=roots(d2.fn,1600).filter(x=>Number.isFinite(f(x)));
     const nodes=[a,...unique([...breaks,...critical,...inflections]).filter(x=>x>a&&x<b).slice(0,30),b],rows=[['x'],["y′"],["y″"],['y']];
     for(let i=0;i<nodes.length;i++){
       const x=nodes[i],isBreak=breaks.some(v=>Math.abs(v-x)<1e-5),value=Number.isFinite(x)?f(x):limit(f,x,1,right-left),l=isBreak?limit(f,x,-1,right-left):null,r=isBreak?limit(f,x,1,right-left):null;

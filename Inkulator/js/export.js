@@ -264,6 +264,7 @@
       this.textBaseline = "alphabetic";
       this.textAlign = "start";
       this.dash = [];
+      this.clipDepth=0;this.clipSerial=0;
     }
     save() {
       this.stack.push({
@@ -278,11 +279,13 @@
         textBaseline: this.textBaseline,
         textAlign: this.textAlign,
         dash: [...this.dash],
+        clipDepth:this.clipDepth,
       });
     }
     restore() {
-      Object.assign(this, this.stack.pop());
+      const state=this.stack.pop();while(this.clipDepth>state.clipDepth){this.parts.push('</g>');this.clipDepth--;}Object.assign(this,state);
     }
+    clip(){const id='object-clip-'+(++this.clipSerial),m=this.matrix;this.parts.push('<defs><clipPath id="'+id+'" clipPathUnits="userSpaceOnUse"><path d="'+this.path+'" transform="matrix('+[m.a,m.b,m.c,m.d,m.e,m.f].join(' ')+')"/></clipPath></defs><g clip-path="url(#'+id+')">');this.clipDepth++;}
     getTransform() {
       return this.matrix;
     }

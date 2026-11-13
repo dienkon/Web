@@ -893,9 +893,13 @@
     if (o.data.constructions?.length) {
       const result = Constructions.build(o);
       for (const p of result.points.values()) pts.push(view.screen(p.coords));
-      for (const item of result.items)
+      for (const item of result.items){
         for (const p of item.endpoints || item.points || []) pts.push(view.screen(p));
+        if(item.type==='section'&&item.expandedPlane&&root.GeometryLab)for(const p of GeometryLab.planePolygon(item))pts.push(view.screen(p));
+        if(item.id===o.data.sectionSplit?.id&&o.data.sectionSplit.amount&&root.GeometryLab)for(const part of GeometryLab.splitModels(o,item))for(const p of part.vertices)pts.push(view.screen(p));
+      }
     }
+    if(o.data.unfold&&root.GeometryLab){const model=GeometryLab.unfoldedModel(view.model,o.data.unfold),pr=Geometry.project(model.vertices,o.data.rotation,o.size.w,o.size.h,model.vertices,o.data.projection);pts.push(...pr.points);}
     const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
     const x = Math.min(...xs), y = Math.min(...ys);
     return { x, y, w: Math.max(1, Math.max(...xs) - x), h: Math.max(1, Math.max(...ys) - y) };

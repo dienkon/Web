@@ -9,7 +9,7 @@
     button.setAttribute("aria-label", button.title);
     button.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5M16 3h5v5M21 16v5h-5M8 21H3v-5M7 7h10v10H7z"/></svg>';
     document.querySelector('#pen-dock [data-action="paste-image"]').before(button);
-    const modes=document.createElement("button");modes.dataset.action="capture-options";modes.className="capture-mode-trigger";modes.textContent="⌄";modes.title="Chế độ chụp ảnh / tạo trang câu hỏi";modes.setAttribute("aria-label",modes.title);document.querySelector('.workspace-tabs [data-action="capture"]').after(modes);
+    const modes=document.createElement("button");modes.dataset.action="capture-options";modes.className="capture-mode-trigger";modes.textContent="⌄";modes.title="Chế độ chụp ảnh / chừa chỗ giải câu hỏi";modes.setAttribute("aria-label",modes.title);document.querySelector('.workspace-tabs [data-action="capture"]').after(modes);
     const width = document.createElement("button");
     width.dataset.action = "fit-width"; width.textContent = "↔";
     width.title = "Vừa chiều rộng"; width.setAttribute("aria-label", width.title);
@@ -34,7 +34,7 @@
     }).catch(() => {});
   }
   function options(anchor){
-    App.popover(anchor,'<h3>Chế độ chụp</h3><button class="menu-item" data-action="capture-image">▣ Chụp ảnh để dán · mặc định</button><button class="menu-item" data-action="capture-question">↗ Chụp và tạo trang câu hỏi</button>');
+    App.popover(anchor,'<h3>Chế độ chụp</h3><button class="menu-item" data-action="capture-image">▣ Chụp ảnh để dán · mặc định</button><button class="menu-item" data-action="capture-question">↗ Chụp câu hỏi · chừa chỗ giải ngay tại đây</button>');
   }
   function updateTray() {
     const tray = document.getElementById("capture-tray");
@@ -83,7 +83,7 @@
       const overlay = document.createElement("div");
       overlay.id = "capture-overlay";
       overlay.setAttribute("aria-label", "Kéo hình chữ nhật để chụp trang viết");
-      overlay.innerHTML = '<div class="capture-guide">Kéo để chụp vùng · Esc để hủy '+(options.onCapture?'':'<select id="capture-mode" aria-label="Chế độ capture"><option value="image">Ảnh để dán</option><option value="question">Tạo trang câu hỏi</option></select>')+' <button id="capture-cancel" type="button">×</button></div><div class="capture-box" hidden></div>';
+      overlay.innerHTML = '<div class="capture-guide">Kéo để chụp vùng · Esc để hủy '+(options.onCapture?'':'<select id="capture-mode" aria-label="Chế độ capture"><option value="image">Ảnh để dán</option><option value="question">Chừa chỗ giải câu hỏi</option></select>')+' <button id="capture-cancel" type="button">×</button></div><div class="capture-box" hidden></div>';
       const r=shot.areaRect;
       shot.canvas.className='capture-frozen';Object.assign(shot.canvas.style,{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px'});
       const reveal=document.createElement('canvas');reveal.className='capture-reveal';reveal.width=shot.canvas.width;reveal.height=shot.canvas.height;reveal.getContext('2d').drawImage(shot.canvas,0,0);Object.assign(reveal.style,{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px'});reveal.hidden=true;
