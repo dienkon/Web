@@ -1,0 +1,17 @@
+{
+  "date": "2026-11-13",
+  "renderer": "Chromium WebGL / Three.js",
+  "models": [
+    {
+      "id": "chat-ice-ii",
+      "bounds": [
+        10.705340419817126,
+        10.723958276601024,
+        6.071938281095262
+      ],
+      "rendered": true,
+      "bytes": 39505
+    }
+  ],
+  "errors": []
+}

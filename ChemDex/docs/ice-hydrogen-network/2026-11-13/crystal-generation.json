@@ -1,0 +1,13 @@
+{
+  "structures": [
+    {
+      "id": "chat-ice-ii",
+      "amcsdId": "0018367",
+      "bytes": 37632,
+      "sites": 36,
+      "displaySpheres": 36,
+      "displayHydrogenBonds": 42
+    }
+  ],
+  "interpretation": "Published atomic positions or explicitly labelled reference prototype. Sphere size/color are display conventions; partial occupancies use sectors. Rods show distance-based display neighbours, not assigned chemical bond orders. Dashed H···O contacts use geometric display criteria only for fully occupied, ordered pure-water crystals."
+}

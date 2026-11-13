@@ -1,0 +1,62 @@
+{
+  "date": "2026-11-13",
+  "baseline": "e80c1fa4",
+  "auditedStructures": 306,
+  "affected": [
+    {
+      "id": "chat-ice-ii",
+      "periodicContacts": 24,
+      "oxygenAtoms": 12,
+      "hydrogenAtoms": 24,
+      "donatedPerO": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "acceptedPerO": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "donorAcceptorDistanceAngstrom": [
+        2.7655141614110454,
+        2.8301464805755634
+      ],
+      "angleDegrees": [
+        177.74504564579422,
+        179.23975157534252
+      ]
+    }
+  ],
+  "changedSourceFiles": [],
+  "sources": [
+    {
+      "file": "assets/periodic-table/crystals/chat-ice-ii.json",
+      "sha256": "dc7e6e1df705074009a09f2725794521105eaaed835ca3b719a68cec5e4fa59b",
+      "unchangedBytes": true
+    },
+    {
+      "file": "assets/periodic-table/crystals/chat-ice-ii.cif",
+      "sha256": "38ec8eb82577f4aa4473ad8183a3265253359619c749d9086826455e7eddaf79",
+      "unchangedBytes": true
+    }
+  ]
+}
