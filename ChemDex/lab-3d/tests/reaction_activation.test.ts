@@ -6,6 +6,8 @@ import { applyProgramToLedger } from '../src/engine/ledger';
 import { assessProgramConditions } from '../src/science/conditions';
 import { resolveReactionProgram } from '../src/vfx/programs/resolver';
 import type { VesselState, BurnerState } from '../src/types/chemistry';
+import { vesselLocalToWorld } from '../src/science/vesselScale';
+import { vesselInterior } from '../src/science/vesselDimensions';
 
 const shell: VesselState = { id: 'activation_sample', name: 'Activation', type: 'beaker', capacity_ml: 100,
   position: [0, 1, 0], rotationY: 0, isLocked: false, contents: [], substances: [],
@@ -20,8 +22,9 @@ function setupMg() {
   return useAppStore.getState().vessels[id];
 }
 function sourceNear(vessel: VesselState, patch: Partial<BurnerState> = {}): BurnerState {
+  const mouth = vesselLocalToWorld(vessel, [0, vesselInterior(vessel.type).topY, 0]);
   return { id: 'ignition_source', isOn: true, intensity: 3, fuelLevel_ml: 1,
-    position: [vessel.position[0], vessel.position[1] - 1, vessel.position[2]], ...patch };
+    position: [mouth[0], mouth[1] - 1.1, mouth[2]], ...patch };
 }
 
 describe('Contact, catalyst, warming and ignition are separate conditions', () => {
@@ -70,7 +73,8 @@ describe('Contact, catalyst, warming and ignition are separate conditions', () =
     const sample = setupMg(), source = sourceNear(sample);
     useAppStore.setState({ burners: { [source.id]: source } });
     expect(useAppStore.getState().runStudioProgram(sample.id)).toBe(false);
-    expect(useAppStore.getState().igniteStudioSample(sample.id)).toBe(true);
+    const ignited = useAppStore.getState().igniteStudioSample(sample.id);
+    expect(ignited, useAppStore.getState().globalWarning ?? '').toBe(true);
     const state = useAppStore.getState(), run = state.activeKinetics[sample.id];
     expect(run.initialVesselBaseline?.ignitedProgramId).toBe('mg_o2_burn');
     expect(state.vessels[sample.id].ignitedProgramId).toBeUndefined();

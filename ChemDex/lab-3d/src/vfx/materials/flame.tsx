@@ -6,6 +6,8 @@ import { NOISE_GLSL } from '../glsl/noise.glsl';
 import { useQualityStore } from '../quality';
 import { useAppStore } from '../../store/useAppStore';
 import { sampleFlameEmission } from '../../engine/flameEmission';
+import { ALCOHOL_FLAME } from '../../science/flameGeometry';
+import { simulationFrameDt } from '../../core/clock';
 
 interface ProceduralFlameProps {
   burnerId: string;
@@ -77,7 +79,6 @@ export const ProceduralFlame = React.memo(function ProceduralFlame({
   const lightRef = useRef<THREE.PointLight>(null);
   const effectiveTier = useQualityStore(s => s.effectiveTier);
 
-  const emission = useAppStore(state => state.burners[burnerId]?.flameEmission);
   const targetEmissionColorRef = useRef(new THREE.Color('#fb923c'));
   const defaultLightColor = useMemo(() => new THREE.Color('#fb923c'), []);
 
@@ -105,8 +106,8 @@ export const ProceduralFlame = React.memo(function ProceduralFlame({
   // Pre-allocated cross plane geometry
   const planeGeom = useMemo(() => {
     // 0.45 width x 0.85 height, origin anchored at base
-    const geom = new THREE.PlaneGeometry(0.48, 0.85, 12, 16);
-    geom.translate(0, 0.85 / 2, 0);
+    const geom = new THREE.PlaneGeometry(ALCOHOL_FLAME.radius * 2, ALCOHOL_FLAME.height, 12, 16);
+    geom.translate(0, ALCOHOL_FLAME.height / 2, 0);
     return geom;
   }, []);
 
@@ -114,8 +115,10 @@ export const ProceduralFlame = React.memo(function ProceduralFlame({
   // on uniforms/transforms and release the GPU resources once on unmount.
   useEffect(() => () => { flameMaterial.dispose(); planeGeom.dispose(); }, [flameMaterial, planeGeom]);
 
-  useFrame((state) => {
-    const t = state.clock.elapsedTime;
+  useFrame((state, delta) => {
+    const live = useAppStore.getState();
+    const emission = live.burners[burnerId]?.flameEmission;
+    const t = flameMaterial.uniforms.uTime.value + simulationFrameDt(delta, live);
     flameMaterial.uniforms.uTime.value = t;
     flameMaterial.uniforms.uIntensity.value = intensity;
 

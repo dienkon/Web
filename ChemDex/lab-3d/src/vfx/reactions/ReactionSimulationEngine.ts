@@ -143,6 +143,12 @@ export class ReactionSimulationEngine {
       }
 
       const controller = getReactionController(runtime.reactionId);
+      if (runtime.chemistryProgress !== undefined && runtime.chemistryRate_s !== undefined && !(runtime.chemistryRate_s > 0)) {
+        runtime.progress = runtime.chemistryProgress;
+        runtime.elapsed = runtime.progress * runtime.duration;
+        runtime.reactionRate = runtime.gasGenerationRate = runtime.precipitateRate = runtime.surfaceActivity = runtime.heatReleaseRate = 0;
+        continue;
+      }
       runtime.agitation = activeTool === 'stirring_rod' && useAppStore.getState().selectedVesselId === vesselId ? 0.85 : 0.0;
 
       const context = this.createContext(runtime, vessel, dt, timeScale);

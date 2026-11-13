@@ -1743,9 +1743,10 @@ export const VfxGallery: React.FC = () => {
                       {kinetics && (
                         <div className="space-y-1 bg-white p-2 rounded-lg border border-slate-200 shadow-2xs">
                           <div className="flex justify-between items-center text-[9px] font-mono text-slate-600">
-                            <span>Tua tiến:</span>
+                            <span>{kinetics.unmetConditions?.length ? 'Đang chờ điều kiện:' : 'Tua tiến:'}</span>
                             <span className="text-amber-600 font-bold">{Math.round(kinetics.progress * 100)}%</span>
                           </div>
+                          {!!kinetics.unmetConditions?.length && <p className="text-[10px] text-amber-700">{kinetics.unmetConditions.join(' ')}</p>}
                           <input
                             type="range"
                             min="0"

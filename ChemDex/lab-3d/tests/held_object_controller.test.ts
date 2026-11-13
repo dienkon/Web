@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { HeldObjectController } from '../src/handling/HeldObjectController';
+import { restingVesselHeight } from '../src/handling/vesselRest';
 
 describe('HeldObjectController Physics & Robustness (K1.1)', () => {
   it('converges smoothly to target position via critically-damped spring', () => {
@@ -33,8 +34,8 @@ describe('HeldObjectController Physics & Robustness (K1.1)', () => {
 
       for (let f = 0; f < 50; f++) {
         ctrl.update(dt);
-        // Table surface is at Y = -0.135; must NEVER tunnel below table
-        expect(ctrl.state.position[1]).toBeGreaterThanOrEqual(-0.135 - 1e-4);
+        // The model origin depends on its actual support geometry.
+        expect(ctrl.state.position[1]).toBeGreaterThanOrEqual(restingVesselHeight('beaker') - 1e-4);
       }
     }
   });
@@ -65,7 +66,7 @@ describe('HeldObjectController Physics & Robustness (K1.1)', () => {
     }
 
     // Object falls and lands on the table
-    expect(ctrl.state.position[1]).toBeCloseTo(-0.135, 2);
+    expect(ctrl.state.position[1]).toBeCloseTo(restingVesselHeight('test_tube'), 2);
     expect(ctrl.state.phase).toBe('idle');
   });
 });

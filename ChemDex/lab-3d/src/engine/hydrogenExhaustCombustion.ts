@@ -3,6 +3,9 @@ import { DEFAULT_LAB_ENVIRONMENT } from '../science/labEnvironment';
 import { sodiumMetalMass, SODIUM_DENSITY_G_ML } from '../science/sodiumWater';
 import { contourRadius, vesselInterior } from '../science/vesselDimensions';
 import { postRecoveryExhaustG } from './waterVaporRouting';
+import { burnerIsBurning } from './burnerEnergy';
+import { pointInAlcoholFlame } from '../science/flameGeometry';
+import { vesselLocalToWorld } from '../science/vesselScale';
 
 export const HYDROGEN_MOLAR_MASS = 2.016;
 export const OXYGEN_MOLAR_MASS = 31.998;
@@ -39,13 +42,8 @@ export function hydrogenExhaustAnchor(vessel: VesselState, localPoint: [number, 
 export function sodiumExternalIgnition(vessel: VesselState, burners: Record<string, BurnerState>,
   localPoint: [number, number] = [0, 0]): boolean {
   if (vessel.isSealed || vessel.isShattered) return false;
-  const [x, y, z] = hydrogenExhaustAnchor(vessel, localPoint);
-  return Object.values(burners).some(b => b.isOn && Number.isFinite(b.intensity) && b.intensity > 0 && (b.fuelLevel_ml ?? 120) > 0
-    && (b.ethanolVolumeFraction ?? 0.96) > 0
-    && Math.hypot(vessel.position[0] + x - b.position[0],
-      vessel.position[2] + z - b.position[2]) < 0.25
-    && b.position[1] + 1.1 >= vessel.position[1] + y - 0.03
-    && b.position[1] + 1.1 <= vessel.position[1] + y + 0.35);
+  const point = vesselLocalToWorld(vessel, hydrogenExhaustAnchor(vessel, localPoint));
+  return Object.values(burners).some(b => burnerIsBurning(b) && pointInAlcoholFlame(point, b.position));
 }
 
 /** Finite O2 entrainment at the *external* hydrogen diffusion-flame boundary.

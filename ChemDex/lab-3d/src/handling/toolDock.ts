@@ -1,17 +1,12 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { useThree, type ThreeEvent } from '@react-three/fiber';
-import { create } from 'zustand';
 import * as THREE from 'three';
 import { useAppStore } from '../store/useAppStore';
 import { restingToolHeight, toolVisible } from './handheldRest';
 import { beginPointerDrag } from './pointerDrag';
+import { useToolDockStore, type ToolPosition } from './toolDockState';
+export { useToolDockStore, type ToolPosition } from './toolDockState';
 
-export type ToolPosition = [number, number, number];
-interface DockState {
-  positions: Record<string, ToolPosition>;
-  dragging: string | null;
-}
-export const useToolDockStore = create<DockState>(() => ({ positions: {}, dragging: null }));
 
 export function constrainToolPosition(x: number, y: number, z: number): ToolPosition {
   return [Math.max(-10, Math.min(10, x)), y, Math.max(-4.5, Math.min(4.5, z))];
@@ -25,6 +20,7 @@ export function useToolDock(id: string, initial: ToolPosition, onMove?: (positio
   const savedPosition = useToolDockStore(state => state.positions[id]);
   const moveMode = useAppStore(state => state.moveMode);
   const active = useAppStore(state => state.activeTool === id);
+  const deployed = useToolDockStore(state => state.deployed[id] === true);
   const dragging = useToolDockStore(state => state.dragging === id);
   const rawPosition = savedPosition ?? initial;
   const position = useMemo<ToolPosition>(() => [rawPosition[0], restingToolHeight(id, rawPosition[1]), rawPosition[2]],
@@ -34,6 +30,9 @@ export function useToolDock(id: string, initial: ToolPosition, onMove?: (positio
   const cleanup = useRef<(() => void) | null>(null);
   useEffect(() => { if (!moveMode) cleanup.current?.(); }, [moveMode]);
   useEffect(() => () => cleanup.current?.(), [id]);
+  useEffect(() => {
+    if (active) useToolDockStore.setState(s => ({ deployed: { ...s.deployed, [id]: true } }));
+  }, [active, id]);
 
   const onPointerDown = (event: ThreeEvent<PointerEvent>) => {
     if (!moveMode || event.button !== 0) return;
@@ -76,5 +75,5 @@ export function useToolDock(id: string, initial: ToolPosition, onMove?: (positio
       },
     });
   };
-  return { position, moveMode, onPointerDown, visible: toolVisible(active, dragging, moveMode) };
+  return { position, moveMode, onPointerDown, visible: toolVisible(active, dragging, deployed) };
 }

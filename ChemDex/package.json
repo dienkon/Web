@@ -29,7 +29,7 @@
     "lint:api": "tsc -p tsconfig.server.json",
     "catalog:build": "node scripts/build-reaction-data.mjs",
     "catalog:audit": "node scripts/audit-reaction-catalog.mjs",
-    "test:reactions": "node --test tests/reaction-catalog.test.mjs tests/reaction-chain-api.test.mjs",
+    "test:reactions": "node --test tests/reaction-catalog.test.mjs tests/reaction-chain-api.test.mjs tests/reaction-guide.test.mjs",
     "test:crystals": "node --test tests/crystal-structures.test.mjs tests/crystal-display.test.mjs tests/cod-crystals.test.mjs tests/application-crystal-review.test.mjs",
     "crystals:audit-clusters": "node scripts/audit-crystal-clusters.mjs",
     "crystals:render": "node scripts/generate-crystal-assets.mjs && node scripts/render-mineral-previews.mjs --crystals"

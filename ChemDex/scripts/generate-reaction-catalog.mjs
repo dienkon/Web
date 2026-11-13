@@ -6,6 +6,7 @@ import { gcd, balanceEquation, equationKey, formatEquation, parseFormula } from 
 import { curatedReactions } from '../shared/chemistry/curated-reactions.mjs';
 import { netIonicEquation } from '../shared/chemistry/ionic.mjs';
 import { validateCatalog } from '../shared/chemistry/reaction-catalog.mjs';
+import { reactionGuide } from '../shared/chemistry/reaction-guide.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const sources = JSON.parse(fs.readFileSync(path.join(root, 'shared/chemistry/catalog-sources.json'), 'utf8'));
@@ -47,6 +48,7 @@ export function buildReactionCatalog(){
       evidence:{type:evidence,sourceIds:sourceIds??['openstax-reaction-types'],scope:evidenceScope},familySignature:net??key,transfers:transfers??[],
       effects:{gases:products.filter(r=>r.phase==='g').map(r=>r.formula),solids:products.filter(r=>r.phase==='s').map(r=>r.formula),deltaH_kJ_per_mol:null,color:null,calibrated:false},
       safety_vi:hazardous.length?`Có chất chứa ${hazardous.join(', ')}; dữ liệu học tập, cần quy trình và xử lý chất thải chuyên biệt khi thực nghiệm.`:'Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành.',caveats,runtime:'reference_only',...extra};
+    if (!observation) row.observation_vi = reactionGuide(row).observations_vi.join(' ');
     rows.push(row);seen.add(key);return row;
   }
   const precursorAnions=['NO3','Cl','Br','SO4','CH3COO'];
@@ -131,7 +133,7 @@ export function buildReactionCatalog(){
   for(const [acid,a,count] of acids.filter(([formula])=>['HCl','HBr','HI','HNO3','H2SO4'].includes(formula)))register(acid,'aq',{ions:[{formula:'H',charge:1,count},{formula:a,charge:-anions[a].charge,count:1}]});
   for(const row of rows){row.ionic=netIonicEquation(row,speciesRegistry);row.netTransformation=row.ionic.key;}
   rows.sort((a,b)=>a.family.localeCompare(b.family)||a.equation.localeCompare(b.equation));
-  return {schema:'chemdex.catalog/2',version:2,reviewedOn:'2026-10-28',count:rows.length,counts:{molecularReactions:rows.length,netTransformations:new Set(rows.map(r=>r.netTransformation)).size,families:Object.fromEntries([...new Set(rows.map(r=>r.family))].sort().map(f=>[f,rows.filter(r=>r.family===f).length])),runtimePrograms:0},evidencePolicy:'Các phương trình được kiểm tra cấu trúc và cân bằng; family-rule ghi nguồn quy tắc họ phản ứng, chưa xác nhận thực nghiệm riêng từng mẫu. Phương trình khác ion đối đếm riêng ở molecularReactions, gộp ở netTransformations. Không có bản sao chỉ đổi màu/thời lượng.',sources,species:[...speciesRegistry.values()].sort((a,b)=>a.formula.localeCompare(b.formula)),entries:rows};
+  return {schema:'chemdex.catalog/2',version:2,reviewedOn:'2026-11-13',observationGuideVersion:1,count:rows.length,counts:{molecularReactions:rows.length,netTransformations:new Set(rows.map(r=>r.netTransformation)).size,families:Object.fromEntries([...new Set(rows.map(r=>r.family))].sort().map(f=>[f,rows.filter(r=>r.family===f).length])),runtimePrograms:0},evidencePolicy:'Các phương trình được kiểm tra cấu trúc và cân bằng; family-rule ghi nguồn quy tắc họ phản ứng, chưa xác nhận thực nghiệm riêng từng mẫu. Phương trình khác ion đối đếm riêng ở molecularReactions, gộp ở netTransformations. Không có bản sao chỉ đổi màu/thời lượng.',sources,species:[...speciesRegistry.values()].sort((a,b)=>a.formula.localeCompare(b.formula)),entries:rows};
 }
 export function generateCatalogFile(destination){const result=buildReactionCatalog(),audit=validateCatalog(result);if(!audit.valid||result.count<=1000)throw new Error(`Catalog gate failed: ${JSON.stringify(audit.errors)}; count=${result.count}`);const output=destination?path.resolve(destination):path.join(root,'shared/reaction-catalog.generated.json');fs.mkdirSync(path.dirname(output),{recursive:true});fs.writeFileSync(output,JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify({output,count:result.count,counts:result.counts},null,2));return result;}
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url))generateCatalogFile(process.argv[2]);

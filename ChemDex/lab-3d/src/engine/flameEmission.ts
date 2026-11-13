@@ -25,7 +25,8 @@ export function createFlameEmission(element: string, startedAt_ms: number, durat
 export function sampleFlameEmission(emission: FlameEmissionState | undefined, now_ms: number) {
   if (!emission || !Number.isFinite(now_ms) || !Number.isFinite(emission.startedAt_ms)
     || !Number.isFinite(emission.duration_s) || emission.duration_s <= 0 || emission.duration_s > 30) return 0;
-  const age = (now_ms - emission.startedAt_ms) / 1000;
+  const age = emission.elapsed_s ?? (now_ms - emission.startedAt_ms) / 1000;
+  if (!Number.isFinite(age)) return 0;
   if (age < 0 || age >= emission.duration_s) return 0;
   const fadeIn = Math.min(0.12, emission.duration_s / 4);
   const fadeOut = Math.min(0.8, emission.duration_s / 4);
@@ -34,5 +35,15 @@ export function sampleFlameEmission(emission: FlameEmissionState | undefined, no
 
 export function flameEmissionExpired(emission: FlameEmissionState, now_ms: number) {
   return !Number.isFinite(now_ms) || !Number.isFinite(emission.startedAt_ms) || !Number.isFinite(emission.duration_s)
-    || emission.duration_s <= 0 || emission.duration_s > 30 || now_ms >= emission.startedAt_ms + emission.duration_s * 1000;
+    || emission.duration_s <= 0 || emission.duration_s > 30
+    || (emission.elapsed_s !== undefined ? !Number.isFinite(emission.elapsed_s) || emission.elapsed_s >= emission.duration_s
+      : now_ms >= emission.startedAt_ms + emission.duration_s * 1000);
+}
+
+export function advanceFlameEmission(emission: FlameEmissionState | undefined, dt: number, now_ms: number): FlameEmissionState | undefined {
+  if (!emission) return undefined;
+  if (!Number.isFinite(dt) || dt <= 0) return emission;
+  const elapsed_s = (emission.elapsed_s ?? Math.max(0, (now_ms - emission.startedAt_ms) / 1000)) + dt;
+  const next = { ...emission, elapsed_s };
+  return flameEmissionExpired(next, now_ms) ? undefined : next;
 }

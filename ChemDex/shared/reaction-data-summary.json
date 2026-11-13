@@ -1,7 +1,7 @@
 {
   "schema": "chemdex.reaction-summary/1",
   "catalogVersion": 2,
-  "catalogDigest": "e332012ce0ec53a1ffa4c3ff3f509702dfcd33f56de25b35bfb8cec87a5e2632",
+  "catalogDigest": "ef99e28e57cbaa769c5c4bb4c6b0dbc176e95c13c834899bcac24c188c18ea88",
   "reactionCount": 1300,
   "netIonicCount": 379,
   "chainCount": 5740,

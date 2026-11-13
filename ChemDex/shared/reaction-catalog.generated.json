@@ -1,7 +1,8 @@
 {
   "schema": "chemdex.catalog/2",
   "version": 2,
-  "reviewedOn": "2026-10-28",
+  "reviewedOn": "2026-11-13",
+  "observationGuideVersion": 1,
   "count": 1300,
   "counts": {
     "molecularReactions": 1300,
@@ -30,6 +31,11 @@
   },
   "evidencePolicy": "Các phương trình được kiểm tra cấu trúc và cân bằng; family-rule ghi nguồn quy tắc họ phản ứng, chưa xác nhận thực nghiệm riêng từng mẫu. Phương trình khác ion đối đếm riêng ở molecularReactions, gộp ở netTransformations. Không có bản sao chỉ đổi màu/thời lượng.",
   "sources": {
+    "openstax-rates": {
+      "title": "OpenStax Chemistry 2e, 12.2 — Factors Affecting Reaction Rates",
+      "url": "https://openstax.org/books/chemistry-2e/pages/12-2-factors-affecting-reaction-rates",
+      "scope": "Ảnh hưởng của bản chất, trạng thái chia nhỏ, nồng độ, nhiệt độ và xúc tác; không cung cấp hằng số tốc độ riêng cho toàn bộ catalog."
+    },
     "uw-peroxide-mno2": {
       "title": "University of Washington — Decomposition of H₂O₂ with MnO₂",
       "url": "https://chem.washington.edu/lecture-demos/decomposition-h2o2-mno2",
@@ -7759,7 +7765,7 @@
       "conditions": {
         "description_vi": "Dung dịch NaOH đủ dư; biểu diễn aluminate trong nước bằng [Al(OH)4]−."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -7855,7 +7861,7 @@
       "conditions": {
         "description_vi": "Điều kiện kiềm và loại nước/đun phù hợp để biểu diễn sodium aluminate khan; không dùng cho mọi dung dịch loãng."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. NaAlO2(s): chưa gán màu/hình thái riêng.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -7960,7 +7966,7 @@
       "conditions": {
         "description_vi": "Thêm acid có kiểm soát đến vùng kết tủa; acid dư làm tan tiếp."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Zn(OH)2(s): chưa gán màu/hình thái riêng. Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -8069,7 +8075,7 @@
       "conditions": {
         "description_vi": "Acid được thêm đến vùng tạo kết tủa; không dư acid đến mức hòa tan toàn bộ hydroxide."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Al(OH)3(s): trắng dạng keo. Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -8168,7 +8174,7 @@
       "conditions": {
         "description_vi": "Dung dịch NaOH đủ dư; phức hydroxozincate trong nước."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -18274,7 +18280,7 @@
       "conditions": {
         "description_vi": "Mồi cháy, O2 dư; cháy hoàn toàn. Hydrocarbon dùng chất đại diện mạch thẳng (riêng C6H6: benzen, C7H8: toluen); không suy phản ứng chọn lọc từ công thức phân tử."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Carbon thành CO2, hydrogen thành H2O; thiếu O2 có thể tạo CO hoặc muội nên phương trình này không mô tả đủ.",
       "evidence": {
         "type": "family-rule",
@@ -18375,7 +18381,7 @@
       "conditions": {
         "description_vi": "Mồi cháy, O2 dư; cháy hoàn toàn. Hydrocarbon dùng chất đại diện mạch thẳng (riêng C6H6: benzen, C7H8: toluen); không suy phản ứng chọn lọc từ công thức phân tử."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Carbon thành CO2, hydrogen thành H2O; thiếu O2 có thể tạo CO hoặc muội nên phương trình này không mô tả đủ.",
       "evidence": {
         "type": "family-rule",
@@ -18476,7 +18482,7 @@
       "conditions": {
         "description_vi": "Mồi cháy, O2 dư; cháy hoàn toàn. Hydrocarbon dùng chất đại diện mạch thẳng (riêng C6H6: benzen, C7H8: toluen); không suy phản ứng chọn lọc từ công thức phân tử."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Carbon thành CO2, hydrogen thành H2O; thiếu O2 có thể tạo CO hoặc muội nên phương trình này không mô tả đủ.",
       "evidence": {
         "type": "family-rule",
@@ -18577,7 +18583,7 @@
       "conditions": {
         "description_vi": "Mồi cháy, O2 dư; cháy hoàn toàn. Hydrocarbon dùng chất đại diện mạch thẳng (riêng C6H6: benzen, C7H8: toluen); không suy phản ứng chọn lọc từ công thức phân tử."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Carbon thành CO2, hydrogen thành H2O; thiếu O2 có thể tạo CO hoặc muội nên phương trình này không mô tả đủ.",
       "evidence": {
         "type": "family-rule",
@@ -18678,7 +18684,7 @@
       "conditions": {
         "description_vi": "Mồi cháy, O2 dư; cháy hoàn toàn. Hydrocarbon dùng chất đại diện mạch thẳng (riêng C6H6: benzen, C7H8: toluen); không suy phản ứng chọn lọc từ công thức phân tử."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Carbon thành CO2, hydrogen thành H2O; thiếu O2 có thể tạo CO hoặc muội nên phương trình này không mô tả đủ.",
       "evidence": {
         "type": "family-rule",
@@ -18779,7 +18785,7 @@
       "conditions": {
         "description_vi": "Mồi cháy, O2 dư; cháy hoàn toàn. Hydrocarbon dùng chất đại diện mạch thẳng (riêng C6H6: benzen, C7H8: toluen); không suy phản ứng chọn lọc từ công thức phân tử."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Carbon thành CO2, hydrogen thành H2O; thiếu O2 có thể tạo CO hoặc muội nên phương trình này không mô tả đủ.",
       "evidence": {
         "type": "family-rule",
@@ -18880,7 +18886,7 @@
       "conditions": {
         "description_vi": "Mồi cháy, O2 dư; cháy hoàn toàn. Hydrocarbon dùng chất đại diện mạch thẳng (riêng C6H6: benzen, C7H8: toluen); không suy phản ứng chọn lọc từ công thức phân tử."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Carbon thành CO2, hydrogen thành H2O; thiếu O2 có thể tạo CO hoặc muội nên phương trình này không mô tả đủ.",
       "evidence": {
         "type": "family-rule",
@@ -18981,7 +18987,7 @@
       "conditions": {
         "description_vi": "Mồi cháy, O2 dư; cháy hoàn toàn. Hydrocarbon dùng chất đại diện mạch thẳng (riêng C6H6: benzen, C7H8: toluen); không suy phản ứng chọn lọc từ công thức phân tử."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Carbon thành CO2, hydrogen thành H2O; thiếu O2 có thể tạo CO hoặc muội nên phương trình này không mô tả đủ.",
       "evidence": {
         "type": "family-rule",
@@ -19082,7 +19088,7 @@
       "conditions": {
         "description_vi": "Mồi cháy, O2 dư; cháy hoàn toàn. Hydrocarbon dùng chất đại diện mạch thẳng (riêng C6H6: benzen, C7H8: toluen); không suy phản ứng chọn lọc từ công thức phân tử."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Carbon thành CO2, hydrogen thành H2O; thiếu O2 có thể tạo CO hoặc muội nên phương trình này không mô tả đủ.",
       "evidence": {
         "type": "family-rule",
@@ -19183,7 +19189,7 @@
       "conditions": {
         "description_vi": "Mồi cháy, O2 dư; cháy hoàn toàn. Hydrocarbon dùng chất đại diện mạch thẳng (riêng C6H6: benzen, C7H8: toluen); không suy phản ứng chọn lọc từ công thức phân tử."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Carbon thành CO2, hydrogen thành H2O; thiếu O2 có thể tạo CO hoặc muội nên phương trình này không mô tả đủ.",
       "evidence": {
         "type": "family-rule",
@@ -19284,7 +19290,7 @@
       "conditions": {
         "description_vi": "Mồi cháy, O2 dư; cháy hoàn toàn. Hydrocarbon dùng chất đại diện mạch thẳng (riêng C6H6: benzen, C7H8: toluen); không suy phản ứng chọn lọc từ công thức phân tử."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Carbon thành CO2, hydrogen thành H2O; thiếu O2 có thể tạo CO hoặc muội nên phương trình này không mô tả đủ.",
       "evidence": {
         "type": "family-rule",
@@ -19385,7 +19391,7 @@
       "conditions": {
         "description_vi": "Mồi cháy, O2 dư; cháy hoàn toàn. Hydrocarbon dùng chất đại diện mạch thẳng (riêng C6H6: benzen, C7H8: toluen); không suy phản ứng chọn lọc từ công thức phân tử."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Carbon thành CO2, hydrogen thành H2O; thiếu O2 có thể tạo CO hoặc muội nên phương trình này không mô tả đủ.",
       "evidence": {
         "type": "family-rule",
@@ -19486,7 +19492,7 @@
       "conditions": {
         "description_vi": "Mồi cháy, O2 dư; cháy hoàn toàn. Hydrocarbon dùng chất đại diện mạch thẳng (riêng C6H6: benzen, C7H8: toluen); không suy phản ứng chọn lọc từ công thức phân tử."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Carbon thành CO2, hydrogen thành H2O; thiếu O2 có thể tạo CO hoặc muội nên phương trình này không mô tả đủ.",
       "evidence": {
         "type": "family-rule",
@@ -19587,7 +19593,7 @@
       "conditions": {
         "description_vi": "Mồi cháy, O2 dư; cháy hoàn toàn. Hydrocarbon dùng chất đại diện mạch thẳng (riêng C6H6: benzen, C7H8: toluen); không suy phản ứng chọn lọc từ công thức phân tử."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Carbon thành CO2, hydrogen thành H2O; thiếu O2 có thể tạo CO hoặc muội nên phương trình này không mô tả đủ.",
       "evidence": {
         "type": "family-rule",
@@ -19688,7 +19694,7 @@
       "conditions": {
         "description_vi": "Mồi cháy, O2 dư; cháy hoàn toàn. Hydrocarbon dùng chất đại diện mạch thẳng (riêng C6H6: benzen, C7H8: toluen); không suy phản ứng chọn lọc từ công thức phân tử."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Carbon thành CO2, hydrogen thành H2O; thiếu O2 có thể tạo CO hoặc muội nên phương trình này không mô tả đủ.",
       "evidence": {
         "type": "family-rule",
@@ -19789,7 +19795,7 @@
       "conditions": {
         "description_vi": "Mồi cháy, O2 dư; cháy hoàn toàn. Hydrocarbon dùng chất đại diện mạch thẳng (riêng C6H6: benzen, C7H8: toluen); không suy phản ứng chọn lọc từ công thức phân tử."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Carbon thành CO2, hydrogen thành H2O; thiếu O2 có thể tạo CO hoặc muội nên phương trình này không mô tả đủ.",
       "evidence": {
         "type": "family-rule",
@@ -19890,7 +19896,7 @@
       "conditions": {
         "description_vi": "Mồi cháy, O2 dư; cháy hoàn toàn. Hydrocarbon dùng chất đại diện mạch thẳng (riêng C6H6: benzen, C7H8: toluen); không suy phản ứng chọn lọc từ công thức phân tử."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Carbon thành CO2, hydrogen thành H2O; thiếu O2 có thể tạo CO hoặc muội nên phương trình này không mô tả đủ.",
       "evidence": {
         "type": "family-rule",
@@ -19991,7 +19997,7 @@
       "conditions": {
         "description_vi": "Mồi cháy, O2 dư; cháy hoàn toàn. Hydrocarbon dùng chất đại diện mạch thẳng (riêng C6H6: benzen, C7H8: toluen); không suy phản ứng chọn lọc từ công thức phân tử."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Carbon thành CO2, hydrogen thành H2O; thiếu O2 có thể tạo CO hoặc muội nên phương trình này không mô tả đủ.",
       "evidence": {
         "type": "family-rule",
@@ -20092,7 +20098,7 @@
       "conditions": {
         "description_vi": "Mồi cháy, O2 dư; cháy hoàn toàn. Hydrocarbon dùng chất đại diện mạch thẳng (riêng C6H6: benzen, C7H8: toluen); không suy phản ứng chọn lọc từ công thức phân tử."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Carbon thành CO2, hydrogen thành H2O; thiếu O2 có thể tạo CO hoặc muội nên phương trình này không mô tả đủ.",
       "evidence": {
         "type": "family-rule",
@@ -20193,7 +20199,7 @@
       "conditions": {
         "description_vi": "Mồi cháy, O2 dư; cháy hoàn toàn. Hydrocarbon dùng chất đại diện mạch thẳng (riêng C6H6: benzen, C7H8: toluen); không suy phản ứng chọn lọc từ công thức phân tử."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Carbon thành CO2, hydrogen thành H2O; thiếu O2 có thể tạo CO hoặc muội nên phương trình này không mô tả đủ.",
       "evidence": {
         "type": "family-rule",
@@ -20294,7 +20300,7 @@
       "conditions": {
         "description_vi": "Mồi cháy, O2 dư; cháy hoàn toàn. Hydrocarbon dùng chất đại diện mạch thẳng (riêng C6H6: benzen, C7H8: toluen); không suy phản ứng chọn lọc từ công thức phân tử."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Carbon thành CO2, hydrogen thành H2O; thiếu O2 có thể tạo CO hoặc muội nên phương trình này không mô tả đủ.",
       "evidence": {
         "type": "family-rule",
@@ -20395,7 +20401,7 @@
       "conditions": {
         "description_vi": "Mồi cháy, O2 dư; cháy hoàn toàn. Hydrocarbon dùng chất đại diện mạch thẳng (riêng C6H6: benzen, C7H8: toluen); không suy phản ứng chọn lọc từ công thức phân tử."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Carbon thành CO2, hydrogen thành H2O; thiếu O2 có thể tạo CO hoặc muội nên phương trình này không mô tả đủ.",
       "evidence": {
         "type": "family-rule",
@@ -20496,7 +20502,7 @@
       "conditions": {
         "description_vi": "Mồi cháy, O2 dư; cháy hoàn toàn. Hydrocarbon dùng chất đại diện mạch thẳng (riêng C6H6: benzen, C7H8: toluen); không suy phản ứng chọn lọc từ công thức phân tử."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Carbon thành CO2, hydrogen thành H2O; thiếu O2 có thể tạo CO hoặc muội nên phương trình này không mô tả đủ.",
       "evidence": {
         "type": "family-rule",
@@ -20597,7 +20603,7 @@
       "conditions": {
         "description_vi": "Mồi cháy, O2 dư; cháy hoàn toàn. Hydrocarbon dùng chất đại diện mạch thẳng (riêng C6H6: benzen, C7H8: toluen); không suy phản ứng chọn lọc từ công thức phân tử."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Carbon thành CO2, hydrogen thành H2O; thiếu O2 có thể tạo CO hoặc muội nên phương trình này không mô tả đủ.",
       "evidence": {
         "type": "family-rule",
@@ -20698,7 +20704,7 @@
       "conditions": {
         "description_vi": "Mồi cháy, O2 dư; cháy hoàn toàn. Hydrocarbon dùng chất đại diện mạch thẳng (riêng C6H6: benzen, C7H8: toluen); không suy phản ứng chọn lọc từ công thức phân tử."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Carbon thành CO2, hydrogen thành H2O; thiếu O2 có thể tạo CO hoặc muội nên phương trình này không mô tả đủ.",
       "evidence": {
         "type": "family-rule",
@@ -20799,7 +20805,7 @@
       "conditions": {
         "description_vi": "Mồi cháy, O2 dư; cháy hoàn toàn. Hydrocarbon dùng chất đại diện mạch thẳng (riêng C6H6: benzen, C7H8: toluen); không suy phản ứng chọn lọc từ công thức phân tử."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Carbon thành CO2, hydrogen thành H2O; thiếu O2 có thể tạo CO hoặc muội nên phương trình này không mô tả đủ.",
       "evidence": {
         "type": "family-rule",
@@ -20900,7 +20906,7 @@
       "conditions": {
         "description_vi": "Mồi cháy, O2 dư; cháy hoàn toàn. Hydrocarbon dùng chất đại diện mạch thẳng (riêng C6H6: benzen, C7H8: toluen); không suy phản ứng chọn lọc từ công thức phân tử."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Carbon thành CO2, hydrogen thành H2O; thiếu O2 có thể tạo CO hoặc muội nên phương trình này không mô tả đủ.",
       "evidence": {
         "type": "family-rule",
@@ -21001,7 +21007,7 @@
       "conditions": {
         "description_vi": "Mồi cháy, O2 dư; cháy hoàn toàn. Hydrocarbon dùng chất đại diện mạch thẳng (riêng C6H6: benzen, C7H8: toluen); không suy phản ứng chọn lọc từ công thức phân tử."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Carbon thành CO2, hydrogen thành H2O; thiếu O2 có thể tạo CO hoặc muội nên phương trình này không mô tả đủ.",
       "evidence": {
         "type": "family-rule",
@@ -21102,7 +21108,7 @@
       "conditions": {
         "description_vi": "Mồi cháy, O2 dư; cháy hoàn toàn. Hydrocarbon dùng chất đại diện mạch thẳng (riêng C6H6: benzen, C7H8: toluen); không suy phản ứng chọn lọc từ công thức phân tử."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Carbon thành CO2, hydrogen thành H2O; thiếu O2 có thể tạo CO hoặc muội nên phương trình này không mô tả đủ.",
       "evidence": {
         "type": "family-rule",
@@ -35195,7 +35201,7 @@
       "conditions": {
         "description_vi": "Alcohol và acid mạch thẳng đã chỉ rõ; xúc tác acid, làm ấm; cân bằng, tách nước hoặc dùng chất dư để tăng chuyển hóa."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Nhóm carboxyl và alcohol tạo este; phương trình cân bằng không khẳng định chuyển hóa 100%.",
       "evidence": {
         "type": "family-rule",
@@ -35293,7 +35299,7 @@
       "conditions": {
         "description_vi": "Alcohol và acid mạch thẳng đã chỉ rõ; xúc tác acid, làm ấm; cân bằng, tách nước hoặc dùng chất dư để tăng chuyển hóa."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Nhóm carboxyl và alcohol tạo este; phương trình cân bằng không khẳng định chuyển hóa 100%.",
       "evidence": {
         "type": "family-rule",
@@ -35391,7 +35397,7 @@
       "conditions": {
         "description_vi": "Alcohol và acid mạch thẳng đã chỉ rõ; xúc tác acid, làm ấm; cân bằng, tách nước hoặc dùng chất dư để tăng chuyển hóa."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Nhóm carboxyl và alcohol tạo este; phương trình cân bằng không khẳng định chuyển hóa 100%.",
       "evidence": {
         "type": "family-rule",
@@ -35489,7 +35495,7 @@
       "conditions": {
         "description_vi": "Alcohol và acid mạch thẳng đã chỉ rõ; xúc tác acid, làm ấm; cân bằng, tách nước hoặc dùng chất dư để tăng chuyển hóa."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Nhóm carboxyl và alcohol tạo este; phương trình cân bằng không khẳng định chuyển hóa 100%.",
       "evidence": {
         "type": "family-rule",
@@ -35587,7 +35593,7 @@
       "conditions": {
         "description_vi": "Alcohol và acid mạch thẳng đã chỉ rõ; xúc tác acid, làm ấm; cân bằng, tách nước hoặc dùng chất dư để tăng chuyển hóa."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Nhóm carboxyl và alcohol tạo este; phương trình cân bằng không khẳng định chuyển hóa 100%.",
       "evidence": {
         "type": "family-rule",
@@ -35685,7 +35691,7 @@
       "conditions": {
         "description_vi": "Alcohol và acid mạch thẳng đã chỉ rõ; xúc tác acid, làm ấm; cân bằng, tách nước hoặc dùng chất dư để tăng chuyển hóa."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Nhóm carboxyl và alcohol tạo este; phương trình cân bằng không khẳng định chuyển hóa 100%.",
       "evidence": {
         "type": "family-rule",
@@ -35783,7 +35789,7 @@
       "conditions": {
         "description_vi": "Alcohol và acid mạch thẳng đã chỉ rõ; xúc tác acid, làm ấm; cân bằng, tách nước hoặc dùng chất dư để tăng chuyển hóa."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Nhóm carboxyl và alcohol tạo este; phương trình cân bằng không khẳng định chuyển hóa 100%.",
       "evidence": {
         "type": "family-rule",
@@ -35881,7 +35887,7 @@
       "conditions": {
         "description_vi": "Alcohol và acid mạch thẳng đã chỉ rõ; xúc tác acid, làm ấm; cân bằng, tách nước hoặc dùng chất dư để tăng chuyển hóa."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Nhóm carboxyl và alcohol tạo este; phương trình cân bằng không khẳng định chuyển hóa 100%.",
       "evidence": {
         "type": "family-rule",
@@ -35979,7 +35985,7 @@
       "conditions": {
         "description_vi": "Alcohol và acid mạch thẳng đã chỉ rõ; xúc tác acid, làm ấm; cân bằng, tách nước hoặc dùng chất dư để tăng chuyển hóa."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Nhóm carboxyl và alcohol tạo este; phương trình cân bằng không khẳng định chuyển hóa 100%.",
       "evidence": {
         "type": "family-rule",
@@ -36077,7 +36083,7 @@
       "conditions": {
         "description_vi": "Alcohol và acid mạch thẳng đã chỉ rõ; xúc tác acid, làm ấm; cân bằng, tách nước hoặc dùng chất dư để tăng chuyển hóa."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Nhóm carboxyl và alcohol tạo este; phương trình cân bằng không khẳng định chuyển hóa 100%.",
       "evidence": {
         "type": "family-rule",
@@ -36175,7 +36181,7 @@
       "conditions": {
         "description_vi": "Alcohol và acid mạch thẳng đã chỉ rõ; xúc tác acid, làm ấm; cân bằng, tách nước hoặc dùng chất dư để tăng chuyển hóa."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Nhóm carboxyl và alcohol tạo este; phương trình cân bằng không khẳng định chuyển hóa 100%.",
       "evidence": {
         "type": "family-rule",
@@ -36273,7 +36279,7 @@
       "conditions": {
         "description_vi": "Alcohol và acid mạch thẳng đã chỉ rõ; xúc tác acid, làm ấm; cân bằng, tách nước hoặc dùng chất dư để tăng chuyển hóa."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Nhóm carboxyl và alcohol tạo este; phương trình cân bằng không khẳng định chuyển hóa 100%.",
       "evidence": {
         "type": "family-rule",
@@ -36371,7 +36377,7 @@
       "conditions": {
         "description_vi": "Alcohol và acid mạch thẳng đã chỉ rõ; xúc tác acid, làm ấm; cân bằng, tách nước hoặc dùng chất dư để tăng chuyển hóa."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Nhóm carboxyl và alcohol tạo este; phương trình cân bằng không khẳng định chuyển hóa 100%.",
       "evidence": {
         "type": "family-rule",
@@ -36469,7 +36475,7 @@
       "conditions": {
         "description_vi": "Alcohol và acid mạch thẳng đã chỉ rõ; xúc tác acid, làm ấm; cân bằng, tách nước hoặc dùng chất dư để tăng chuyển hóa."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Nhóm carboxyl và alcohol tạo este; phương trình cân bằng không khẳng định chuyển hóa 100%.",
       "evidence": {
         "type": "family-rule",
@@ -36567,7 +36573,7 @@
       "conditions": {
         "description_vi": "Alcohol và acid mạch thẳng đã chỉ rõ; xúc tác acid, làm ấm; cân bằng, tách nước hoặc dùng chất dư để tăng chuyển hóa."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Nhóm carboxyl và alcohol tạo este; phương trình cân bằng không khẳng định chuyển hóa 100%.",
       "evidence": {
         "type": "family-rule",
@@ -36665,7 +36671,7 @@
       "conditions": {
         "description_vi": "Alcohol và acid mạch thẳng đã chỉ rõ; xúc tác acid, làm ấm; cân bằng, tách nước hoặc dùng chất dư để tăng chuyển hóa."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Nhóm carboxyl và alcohol tạo este; phương trình cân bằng không khẳng định chuyển hóa 100%.",
       "evidence": {
         "type": "family-rule",
@@ -40061,7 +40067,7 @@
       "conditions": {
         "description_vi": "Dung dịch nước; axit đủ để proton hóa NH3."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "NH3 nhận proton tạo NH4+; không thêm nước khi nước không phải sản phẩm ròng.",
       "evidence": {
         "type": "family-rule",
@@ -47901,7 +47907,7 @@
       "conditions": {
         "description_vi": "Dung dịch nước; axit đủ để proton hóa NH3."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "NH3 nhận proton tạo NH4+; không thêm nước khi nước không phải sản phẩm ròng.",
       "evidence": {
         "type": "family-rule",
@@ -47993,7 +47999,7 @@
       "conditions": {
         "description_vi": "Dung dịch nước; axit đủ để proton hóa NH3."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "NH3 nhận proton tạo NH4+; không thêm nước khi nước không phải sản phẩm ròng.",
       "evidence": {
         "type": "family-rule",
@@ -48079,7 +48085,7 @@
       "conditions": {
         "description_vi": "Dung dịch nước; axit đủ để proton hóa NH3."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "NH3 nhận proton tạo NH4+; không thêm nước khi nước không phải sản phẩm ròng.",
       "evidence": {
         "type": "family-rule",
@@ -48165,7 +48171,7 @@
       "conditions": {
         "description_vi": "Dung dịch nước; axit đủ để proton hóa NH3."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "NH3 nhận proton tạo NH4+; không thêm nước khi nước không phải sản phẩm ròng.",
       "evidence": {
         "type": "family-rule",
@@ -48251,7 +48257,7 @@
       "conditions": {
         "description_vi": "Dung dịch nước; axit đủ để proton hóa NH3."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "NH3 nhận proton tạo NH4+; không thêm nước khi nước không phải sản phẩm ròng.",
       "evidence": {
         "type": "family-rule",
@@ -50584,7 +50590,7 @@
       "conditions": {
         "description_vi": "Oxy hóa aldehyde trong điều kiện thích hợp; phương trình tổng quát."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -50669,7 +50675,7 @@
       "conditions": {
         "description_vi": "Nhiệt phân ở nhiệt độ rất cao và làm lạnh nhanh; phương trình tổng quát, có phản ứng phụ."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "C2H2(g): chưa gán màu khí nếu chưa có dữ liệu riêng. H2(g): không màu. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -50757,7 +50763,7 @@
       "conditions": {
         "description_vi": "Hydrogen hóa chọn lọc với xúc tác phù hợp; tránh hydrogen hóa tiếp thành ethane."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "C2H4(g): chưa gán màu khí nếu chưa có dữ liệu riêng. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -50844,7 +50850,7 @@
       "conditions": {
         "description_vi": "Xúc tác Ni/Pt/Pd, nhiệt độ phù hợp."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "C2H6(g): chưa gán màu khí nếu chưa có dữ liệu riêng. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -50931,7 +50937,7 @@
       "conditions": {
         "description_vi": "Hydrat hóa ethene với xúc tác acid và điều kiện công nghiệp phù hợp; không chỉ trộn với nước lạnh."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "C2H5OH(g): chưa gán màu khí nếu chưa có dữ liệu riêng. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -51028,7 +51034,7 @@
       "conditions": {
         "description_vi": "Đun nóng alcohol với CuO."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CH3CHO(g): chưa gán màu khí nếu chưa có dữ liệu riêng. H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. Cu(s): đồng đỏ.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -51130,7 +51136,7 @@
       "conditions": {
         "description_vi": "Tách nước bằng xúc tác và nhiệt thích hợp; điều kiện khác có thể tạo ether."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "C2H4(g): chưa gán màu khí nếu chưa có dữ liệu riêng. H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -51218,7 +51224,7 @@
       "conditions": {
         "description_vi": "Lên men với enzyme/vi sinh vật phù hợp, ít O2; quá trình sinh học có thời gian thực dài."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -121594,7 +121600,7 @@
       "conditions": {
         "description_vi": "Chất oxy hóa Cl2 đủ; chỉ là dữ liệu học tập về redox."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -121685,7 +121691,7 @@
       "conditions": {
         "description_vi": "Sắt kim loại dư phù hợp; Fe(III) bị khử thành Fe(II)."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -121770,7 +121776,7 @@
       "conditions": {
         "description_vi": "NO tiếp xúc O2."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "NO2(g): nâu, phụ thuộc nồng độ và cân bằng NO2/N2O4. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -121867,7 +121873,7 @@
       "conditions": {
         "description_vi": "HNO3 loãng; sản phẩm NO có thể tiếp tục bị O2 trong không khí oxy hóa."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "NO(g): không màu; có thể bị O2 oxi hóa thành NO2 sau khi thoát. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -121977,7 +121983,7 @@
       "conditions": {
         "description_vi": "Oxy hóa hydroxide Fe(II) trong không khí ẩm; công thức hydroxide là quy ước pha ngậm nước."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Fe(OH)3(s): nâu đỏ. Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -122080,7 +122086,7 @@
       "conditions": {
         "description_vi": "H2SO4 đặc nóng; không xảy ra theo phương trình này với H2SO4 loãng."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "SO2(g): không màu. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -122195,7 +122201,7 @@
       "conditions": {
         "description_vi": "HNO3 đặc; không áp dụng phương trình sinh H2 của acid không oxy hóa."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "NO2(g): nâu, phụ thuộc nồng độ và cân bằng NO2/N2O4. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -122305,7 +122311,7 @@
       "conditions": {
         "description_vi": "Đun nóng; CO là khí độc, chỉ dùng làm mô tả học tập."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. Cu(s): đồng đỏ.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -122405,7 +122411,7 @@
       "conditions": {
         "description_vi": "Oxide được đun nóng trong dòng khí khử có kiểm soát."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. Cu(s): đồng đỏ.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -122505,7 +122511,7 @@
       "conditions": {
         "description_vi": "Nhiệt độ cao và thế khử thích hợp; mô tả tổng quát quá trình qua các oxide trung gian."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. Fe(s): chưa gán màu/hình thái riêng.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -122605,7 +122611,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -122707,7 +122713,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -122809,7 +122815,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -122911,7 +122917,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -123013,7 +123019,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -123115,7 +123121,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -123217,7 +123223,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -123319,7 +123325,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -123421,7 +123427,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -123523,7 +123529,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -123625,7 +123631,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -123727,7 +123733,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -123829,7 +123835,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -123931,7 +123937,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -124033,7 +124039,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -124135,7 +124141,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -124237,7 +124243,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -124339,7 +124345,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -124441,7 +124447,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -124543,7 +124549,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -124645,7 +124651,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -124747,7 +124753,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -124849,7 +124855,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -124951,7 +124957,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -125053,7 +125059,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -125155,7 +125161,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -125257,7 +125263,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -125359,7 +125365,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -125461,7 +125467,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -125563,7 +125569,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -125665,7 +125671,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -125767,7 +125773,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -125869,7 +125875,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -125971,7 +125977,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -126073,7 +126079,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -126175,7 +126181,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -126277,7 +126283,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -126379,7 +126385,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -126481,7 +126487,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -126583,7 +126589,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -126685,7 +126691,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -126787,7 +126793,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -126889,7 +126895,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -126991,7 +126997,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -127093,7 +127099,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -127195,7 +127201,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -127297,7 +127303,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -127399,7 +127405,7 @@
       "conditions": {
         "description_vi": "Dung dịch kiềm; làm ấm, khuấy và đủ thời gian tiếp xúc hai pha."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Thủy phân este trong kiềm tạo carboxylat và alcohol; không sinh CO2.",
       "evidence": {
         "type": "family-rule",
@@ -130235,7 +130241,7 @@
       "conditions": {
         "description_vi": "Đun nóng đồng trong không khí/O2, O2 đủ."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CuO(s): đen. Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -130327,7 +130333,7 @@
       "conditions": {
         "description_vi": "Kim loại kiềm tiếp xúc nước; chỉ dùng mô tả học tập, không mặc định có lửa/nổ."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "H2(g): không màu. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -130431,7 +130437,7 @@
       "conditions": {
         "description_vi": "Kim loại kiềm tiếp xúc nước; chỉ dùng mô tả học tập, không mặc định có lửa/nổ."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "H2(g): không màu. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -130530,7 +130536,7 @@
       "conditions": {
         "description_vi": "Mồi cháy, O2 đủ; sản phẩm trong không khí còn có thể chứa nitride."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "MgO(s): trắng. Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -130622,7 +130628,7 @@
       "conditions": {
         "description_vi": "Kim loại kiềm tiếp xúc nước; chỉ dùng mô tả học tập, không mặc định có lửa/nổ."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "H2(g): không màu. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -130723,7 +130729,7 @@
         "activation": "catalyst",
         "catalyst": "V2O5"
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "SO3(g): chưa gán màu khí nếu chưa có dữ liệu riêng. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -130810,7 +130816,7 @@
       "conditions": {
         "description_vi": "Đun nóng trong O2 đủ."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "ZnO(s): chưa gán màu/hình thái riêng. Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -130897,7 +130903,7 @@
       "conditions": {
         "description_vi": "Mồi cháy hoặc oxy hóa ở điều kiện phù hợp; màng oxide có thể gây thụ động hóa."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Al2O3(s): chưa gán màu/hình thái riêng. Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -130984,7 +130990,7 @@
       "conditions": {
         "description_vi": "Hydrat hóa oxide bazơ; bari cần kiểm soát độc tính."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -131075,7 +131081,7 @@
       "conditions": {
         "description_vi": "Mồi cháy, O2 dư; cháy hoàn toàn."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -131167,7 +131173,7 @@
       "conditions": {
         "description_vi": "Kim loại calcium và nước; sản phẩm có thể là huyền phù khi vượt độ tan."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "H2(g): không màu. Ca(OH)2(s): chưa gán màu/hình thái riêng.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -131262,7 +131268,7 @@
       "conditions": {
         "description_vi": "Hydrat hóa vôi sống; quá trình tỏa nhiệt, không suy ra nhiệt độ từ thời gian hiệu ứng."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Ca(OH)2(s): chưa gán màu/hình thái riêng. Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -131354,7 +131360,7 @@
       "conditions": {
         "description_vi": "NaOH dư theo tỷ lệ trung hòa; thiếu kiềm có thể ưu tiên bicarbonate."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -131450,7 +131456,7 @@
       "conditions": {
         "description_vi": "Nước vôi trong; CO2 không dư đến mức hòa tan hết kết tủa."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CaCO3(s): trắng. Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -131555,7 +131561,7 @@
       "conditions": {
         "description_vi": "CO2 đủ dư so với kiềm để ưu tiên bicarbonate."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -131641,7 +131647,7 @@
         "description_vi": "Khởi phát bằng ánh sáng phù hợp; hỗn hợp có nguy cơ bùng phản ứng, chỉ là dữ liệu học tập.",
         "activation": "light"
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "HCl(g): chưa gán màu khí nếu chưa có dữ liệu riêng. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -131728,7 +131734,7 @@
       "conditions": {
         "description_vi": "Hydrat hóa oxide bazơ."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -131821,7 +131827,7 @@
         "activation": "catalyst",
         "catalyst": "Fe"
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "NH3(g): không màu. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -131913,7 +131919,7 @@
       "conditions": {
         "description_vi": "Dung dịch nước, hấp thụ CO2 và kiểm soát cân bằng carbonate."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -132004,7 +132010,7 @@
       "conditions": {
         "description_vi": "Hydrat hóa oxide bazơ."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -132095,7 +132101,7 @@
       "conditions": {
         "description_vi": "Mồi cháy; tạo SO2 độc, chỉ dùng làm phương trình học tập."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "SO2(g): không màu. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -132182,7 +132188,7 @@
       "conditions": {
         "description_vi": "Hydrat hóa SO3; công nghiệp thường qua hấp thụ vào acid/oleum để kiểm soát sương acid."
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "Phương trình không có sản phẩm khí; không tự sinh bọt hoặc mây khí. Phương trình không có sản phẩm rắn; không tự tạo kết tủa.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -132279,7 +132285,7 @@
         "description_vi": "Đun nóng đủ mạnh; bạc là sản phẩm rắn cuối.",
         "activation": "heating"
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "NO2(g): nâu, phụ thuộc nồng độ và cân bằng NO2/N2O4. O2(g): không màu. Ag(s): bạc/xám tùy kích thước hạt.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -132376,7 +132382,7 @@
         "description_vi": "Đun nóng làm mất nước; công thức hydroxide dùng quy ước không ghi nước hydrat.",
         "activation": "heating"
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. Al2O3(s): chưa gán màu/hình thái riêng.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -132471,7 +132477,7 @@
         "description_vi": "Nhiệt phân nitrate; phương trình dùng muối không ghi nước kết tinh; không áp dụng nhánh nitrite của Na/K.",
         "activation": "heating"
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "NO2(g): nâu, phụ thuộc nồng độ và cân bằng NO2/N2O4. O2(g): không màu. BaO(s): chưa gán màu/hình thái riêng.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -132573,7 +132579,7 @@
         "description_vi": "Nhiệt phân nitrate; phương trình dùng muối không ghi nước kết tinh; không áp dụng nhánh nitrite của Na/K.",
         "activation": "heating"
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "NO2(g): nâu, phụ thuộc nồng độ và cân bằng NO2/N2O4. O2(g): không màu. CaO(s): chưa gán màu/hình thái riêng.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -132670,7 +132676,7 @@
         "description_vi": "Đun nóng làm mất nước; công thức hydroxide dùng quy ước không ghi nước hydrat.",
         "activation": "heating"
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. Cr2O3(s): chưa gán màu/hình thái riêng.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -132765,7 +132771,7 @@
         "description_vi": "Nhiệt phân nitrate; phương trình dùng muối không ghi nước kết tinh; không áp dụng nhánh nitrite của Na/K.",
         "activation": "heating"
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "NO2(g): nâu, phụ thuộc nồng độ và cân bằng NO2/N2O4. O2(g): không màu. CuO(s): đen.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -132862,7 +132868,7 @@
         "description_vi": "Đun nóng làm mất nước; công thức hydroxide dùng quy ước không ghi nước hydrat.",
         "activation": "heating"
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. Fe2O3(s): chưa gán màu/hình thái riêng.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -132952,7 +132958,7 @@
         "description_vi": "Đun nóng; quy tắc này không áp dụng cho LiNO3.",
         "activation": "heating"
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "O2(g): không màu. KNO2(s): chưa gán màu/hình thái riêng.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -133047,7 +133053,7 @@
         "description_vi": "Nhiệt phân nitrate; phương trình dùng muối không ghi nước kết tinh; không áp dụng nhánh nitrite của Na/K.",
         "activation": "heating"
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "NO2(g): nâu, phụ thuộc nồng độ và cân bằng NO2/N2O4. O2(g): không màu. MgO(s): trắng.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -133149,7 +133155,7 @@
         "description_vi": "Đun nóng sodium bicarbonate.",
         "activation": "heating"
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. Na2CO3(s): chưa gán màu/hình thái riêng.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -133246,7 +133252,7 @@
         "description_vi": "Đun nóng; quy tắc này không áp dụng cho LiNO3.",
         "activation": "heating"
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "O2(g): không màu. NaNO2(s): chưa gán màu/hình thái riêng.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -133341,7 +133347,7 @@
         "description_vi": "Nhiệt phân nitrate; phương trình dùng muối không ghi nước kết tinh; không áp dụng nhánh nitrite của Na/K.",
         "activation": "heating"
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "NO2(g): nâu, phụ thuộc nồng độ và cân bằng NO2/N2O4. O2(g): không màu. PbO(s): chưa gán màu/hình thái riêng.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -133443,7 +133449,7 @@
         "description_vi": "Nhiệt phân nitrate; phương trình dùng muối không ghi nước kết tinh; không áp dụng nhánh nitrite của Na/K.",
         "activation": "heating"
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "NO2(g): nâu, phụ thuộc nồng độ và cân bằng NO2/N2O4. O2(g): không màu. SrO(s): chưa gán màu/hình thái riêng.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -133545,7 +133551,7 @@
         "description_vi": "Nhiệt phân nitrate; phương trình dùng muối không ghi nước kết tinh; không áp dụng nhánh nitrite của Na/K.",
         "activation": "heating"
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "NO2(g): nâu, phụ thuộc nồng độ và cân bằng NO2/N2O4. O2(g): không màu. ZnO(s): chưa gán màu/hình thái riêng.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -133647,7 +133653,7 @@
         "description_vi": "Nhiệt phân nitrate; phương trình dùng muối không ghi nước kết tinh; không áp dụng nhánh nitrite của Na/K.",
         "activation": "heating"
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "NO2(g): nâu, phụ thuộc nồng độ và cân bằng NO2/N2O4. O2(g): không màu. Al2O3(s): chưa gán màu/hình thái riêng.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -133749,7 +133755,7 @@
         "description_vi": "Nhiệt phân nitrate; phương trình dùng muối không ghi nước kết tinh; không áp dụng nhánh nitrite của Na/K.",
         "activation": "heating"
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "NO2(g): nâu, phụ thuộc nồng độ và cân bằng NO2/N2O4. O2(g): không màu. Fe2O3(s): chưa gán màu/hình thái riêng.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -133851,7 +133857,7 @@
         "description_vi": "Nhiệt phân nitrate; phương trình dùng muối không ghi nước kết tinh; không áp dụng nhánh nitrite của Na/K.",
         "activation": "heating"
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "NO2(g): nâu, phụ thuộc nồng độ và cân bằng NO2/N2O4. O2(g): không màu. Li2O(s): chưa gán màu/hình thái riêng.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -133948,7 +133954,7 @@
         "description_vi": "Đun nóng đủ mạnh tùy carbonate, CO2 được loại khỏi vùng cân bằng; không phải nhiệt độ phòng.",
         "activation": "heating"
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. BaO(s): chưa gán màu/hình thái riêng.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -134038,7 +134044,7 @@
         "description_vi": "Đun nóng làm mất nước; công thức hydroxide dùng quy ước không ghi nước hydrat.",
         "activation": "heating"
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. CaO(s): chưa gán màu/hình thái riêng.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -134128,7 +134134,7 @@
         "description_vi": "Đun nóng đủ mạnh tùy carbonate, CO2 được loại khỏi vùng cân bằng; không phải nhiệt độ phòng.",
         "activation": "heating"
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. CaO(s): chưa gán màu/hình thái riêng.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -134218,7 +134224,7 @@
         "description_vi": "Đun nóng đủ mạnh tùy carbonate, CO2 được loại khỏi vùng cân bằng; không phải nhiệt độ phòng.",
         "activation": "heating"
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. CdO(s): chưa gán màu/hình thái riêng.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -134308,7 +134314,7 @@
         "description_vi": "Đun nóng làm mất nước; công thức hydroxide dùng quy ước không ghi nước hydrat.",
         "activation": "heating"
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. CuO(s): đen.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -134398,7 +134404,7 @@
         "description_vi": "Đun nóng làm mất nước; công thức hydroxide dùng quy ước không ghi nước hydrat.",
         "activation": "heating"
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. MgO(s): trắng.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -134488,7 +134494,7 @@
         "description_vi": "Đun nóng đủ mạnh tùy carbonate, CO2 được loại khỏi vùng cân bằng; không phải nhiệt độ phòng.",
         "activation": "heating"
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. MgO(s): trắng.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -134578,7 +134584,7 @@
         "description_vi": "Đun nóng làm mất nước; công thức hydroxide dùng quy ước không ghi nước hydrat.",
         "activation": "heating"
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. NiO(s): chưa gán màu/hình thái riêng.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -134668,7 +134674,7 @@
         "description_vi": "Đun nóng đủ mạnh tùy carbonate, CO2 được loại khỏi vùng cân bằng; không phải nhiệt độ phòng.",
         "activation": "heating"
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. PbO(s): chưa gán màu/hình thái riêng.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -134758,7 +134764,7 @@
         "description_vi": "Đun nóng đủ mạnh tùy carbonate, CO2 được loại khỏi vùng cân bằng; không phải nhiệt độ phòng.",
         "activation": "heating"
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. SrO(s): chưa gán màu/hình thái riêng.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -134848,7 +134854,7 @@
         "description_vi": "Đun nóng làm mất nước; công thức hydroxide dùng quy ước không ghi nước hydrat.",
         "activation": "heating"
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "H2O(g): hơi không màu; sương chỉ xuất hiện khi ngưng tụ thành giọt. ZnO(s): chưa gán màu/hình thái riêng.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",
@@ -134938,7 +134944,7 @@
         "description_vi": "Đun nóng đủ mạnh tùy carbonate, CO2 được loại khỏi vùng cân bằng; không phải nhiệt độ phòng.",
         "activation": "heating"
       },
-      "observation_vi": "Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.",
+      "observation_vi": "CO2(g): không màu. ZnO(s): chưa gán màu/hình thái riêng.",
       "explanation_vi": "Phương trình mô tả biến đổi hóa học trong điều kiện đã ghi; các chất bổ sung và bước tách phải được xét riêng.",
       "evidence": {
         "type": "established-transformation",

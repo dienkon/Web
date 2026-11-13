@@ -18,6 +18,7 @@ import {
   positionInstrument,
   resolveInstrumentTarget,
   returnInstrumentHome,
+  stowInstrument,
   rinseInstrument,
   setBuretteFlow,
   setBuretteValve,
@@ -143,6 +144,7 @@ function InstrumentPlacement({ id }: { id: InstrumentId }) {
     <div className="flex gap-2">
       <button className={BUTTON} onClick={() => positionInstrument(id, [x, getInstrument(id).home[1], z])}>Đặt vị trí</button>
       <button className={BUTTON} onClick={() => returnInstrumentHome(id)}>Về giá ban đầu</button>
+      {!['balance', 'burette'].includes(id) && <button className={BUTTON} onClick={() => stowInstrument(id)}>Cất dụng cụ</button>}
     </div>
   </fieldset>;
 }

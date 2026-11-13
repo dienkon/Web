@@ -484,6 +484,8 @@ export function applyProgramToLedger(
   vessel = ensureHeadspaceReference(vessel);
   const assessment = assessProgramConditions(program, vessel.contents ?? [], {
     ignitedProgramId: vessel.ignitedProgramId,
+    isSealed: vessel.isSealed ?? false,
+    requireInventory: true,
     temperature_c: options.conditionTemperature_c ?? vessel.temperature_c, pH: vessel.ph, volume_ml: vessel.volume_ml,
     isHeated: (options.conditionTemperature_c ?? vessel.temperature_c) > 100,
   });

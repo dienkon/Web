@@ -57,9 +57,11 @@ describe('Targeted finite flame color previews', () => {
       expect(state.burners.a.flameEmission?.element).toBe('Na');
       expect(state.burners.b.flameEmission).toBeUndefined();
       expect(eventTarget).toBe('a');
-      expect(sampleFlameEmission(state.burners.a.flameEmission, 1500)).toBe(1);
+      expect(sampleFlameEmission(state.burners.a.flameEmission, 1500)).toBe(0);
       expect(state.burners.a.fuelLevel_ml).toBe(10);
       expect(state.vessels).toEqual({});
+      for (let i = 0; i < 5; i++) useAppStore.getState().tickSimulation(0.1);
+      expect(sampleFlameEmission(useAppStore.getState().burners.a.flameEmission, 1500)).toBe(1);
     } finally { off(); }
   });
   it('does not start on an unknown, unlit, empty or nonflammable lamp', () => {
@@ -91,12 +93,26 @@ describe('Targeted finite flame color previews', () => {
     const clock = vi.spyOn(performance, 'now').mockReturnValue(1000);
     useAppStore.getState().startFlameTest('a', 'Na', 1);
     clock.mockReturnValue(2000);
-    useAppStore.getState().tickSimulation(0.1);
+    useAppStore.setState({ timeScale: 4 });
+    for (let i = 0; i < 3; i++) useAppStore.getState().tickSimulation(0.1);
     expect(useAppStore.getState().burners.a.flameEmission).toBeUndefined();
     useAppStore.getState().startFlameTest('b', 'Cu');
     useAppStore.setState(s => ({ burners: { ...s.burners, b: { ...s.burners.b, fuelLevel_ml: 0.00001 } } }));
     useAppStore.getState().tickSimulation(0.1);
     expect(useAppStore.getState().burners.b.isOn).toBe(false);
     expect(useAppStore.getState().burners.b.flameEmission).toBeUndefined();
+  });
+  it('freezes a live flame test while paused and ages it at the simulation speed', () => {
+    setup();
+    const clock = vi.spyOn(performance, 'now').mockReturnValue(1000);
+    useAppStore.getState().startFlameTest('a', 'Na', 2);
+    useAppStore.setState({ isSimulationPaused: true });
+    clock.mockReturnValue(1e9);
+    useAppStore.getState().tickSimulation(0.1);
+    expect(useAppStore.getState().burners.a.flameEmission?.elapsed_s).toBe(0);
+    useAppStore.setState({ isSimulationPaused: false, timeScale: 4 });
+    useAppStore.getState().tickSimulation(0.1);
+    expect(useAppStore.getState().burners.a.flameEmission?.elapsed_s).toBeCloseTo(0.4, 12);
+    expect(sampleFlameEmission(useAppStore.getState().burners.a.flameEmission, 1e9)).toBe(1);
   });
 });

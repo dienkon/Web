@@ -30,8 +30,12 @@ import { resolveReactionProgram } from '../vfx/programs/resolver';
 import { ReactionProgram } from '../shared/programSchema';
 import { decantLiquid, EMPTY_LIQUID_TRANSFER, type LiquidTransferReceipt } from '../engine/decantTransfer';
 import { releaseShatteredInventory } from '../engine/shatterInventory';
-import { stepAlcoholBurner, allocateBurnerHeat, burnerIntensity } from '../engine/burnerEnergy';
-import { createFlameEmission, flameEmissionExpired } from '../engine/flameEmission';
+import { stepAlcoholBurner, allocateBurnerHeat, burnerIntensity, burnerIsBurning, vesselHasBurnerHeat } from '../engine/burnerEnergy';
+import { pointInAlcoholFlame } from '../science/flameGeometry';
+import { vesselLocalToWorld } from '../science/vesselScale';
+import { vesselInterior } from '../science/vesselDimensions';
+import { assessProgramConditions } from '../science/conditions';
+import { createFlameEmission, advanceFlameEmission } from '../engine/flameEmission';
 import { createStudioSample, planStudioProgram } from '../engine/studioProgram';
 import { createStudioMorphologySample, PRECIPITATE_MORPHOLOGIES } from '../engine/studioMorphology';
 import { stageStockContact, resolveStockContact } from '../physical/stockContacts';
@@ -76,7 +80,7 @@ import { buretteAliquot } from '../handling/buretteAliquot';
 import { liquidContactFailure } from '../handling/liquidContact';
 import { sampleMeasurement } from '../science/sampleMeasurement';
 import { planMetalAcid, advanceMetalAcidProgress } from '../engine/metalAcidPlan';
-import { planVerifiedContact } from '../engine/verifiedContactPlan';
+import { planVerifiedContact, planConditionedContact } from '../engine/verifiedContactPlan';
 import { advancePourParcel, scalePourSample, pourContactLocal, type PourParcel, type PourArrival } from '../engine/pourTransport';
 import { createWallFilm, advanceWallFilm, detachWallFilm } from '../engine/wallFilm';
 import { createOverflowParcel, advanceOverflowParcel, reconcileOverflowSupport, overflowLocationFractions, overflowImpactSites, type OverflowRelease } from '../engine/overflowTransport';
@@ -103,6 +107,23 @@ import { pourContactRemaining } from '../science/pourContactActivity';
 import { reactionSimulationEngine } from '../vfx/reactions/ReactionSimulationEngine';
 import { kineticsEngine } from '../simulation/chemistry/KineticsEngine';
 import { programPlayer } from '../vfx/programs/player/ProgramPlayer';
+import { benchObstacles, findBenchPosition } from '../core/benchPlacement';
+import { useToolDockStore } from '../handling/toolDockState';
+import { instrumentHome } from '../handling/instrumentCatalog';
+
+function currentBenchObstacles(state: Pick<AppState, 'vessels' | 'burners' | 'burette'>) {
+  const dock = useToolDockStore.getState();
+  const balance = dock.positions.balance ?? LAB_PHYSICS.BALANCE_POSITION;
+  const burette = dock.positions.burette ?? state.burette.position ?? LAB_PHYSICS.BURETTE_STAND_POSITION;
+  const tools = Object.entries(dock.deployed).filter(([id, visible]) => visible && !['balance', 'burette'].includes(id))
+    .map(([id]) => { const p = dock.positions[id] ?? instrumentHome(id as Parameters<typeof instrumentHome>[0]);
+      return { x: p[0], z: p[2], radius: 1 }; });
+  return benchObstacles(state.vessels, state.burners, [
+    { x: balance[0], z: balance[2], radius: 1.4 }, { x: burette[0], z: burette[2], radius: 1.15 }, ...tools,
+  ]);
+}
+
+const BENCH_FULL = 'Bàn không còn chỗ trống phù hợp. Di chuyển hoặc cất bớt dụng cụ trước khi thêm.';
 
 /** Explicit specimen replacement; supplying a stale ID must never create another vessel. */
 function prepareStudioSpecimen(get: () => AppState, set: (patch: Partial<AppState>) => void,
@@ -121,9 +142,10 @@ function prepareStudioSpecimen(get: () => AppState, set: (patch: Partial<AppStat
     return null;
   }
   const id = targetId ?? `${prefix}_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
-  const index = state.vesselIds.length;
+  const placement = target?.position ?? findBenchPosition('beaker', defaultVessels.beaker_1.capacity_ml, currentBenchObstacles(state));
+  if (!placement) { set({ globalWarning: BENCH_FULL }); return null; }
   const shell: VesselState = { ...defaultVessels.beaker_1, id,
-    position: target?.position ?? [((index % 5) - 2) * 1.5, -0.135, 1.8 + Math.floor(index / 5) * 1.2],
+    position: placement,
     ...(target ? { type: target.type, capacity_ml: target.capacity_ml, rotationY: target.rotationY,
       rotationZ: target.rotationZ, name: target.name } : {}),
     effectHeatInput_W: 0, effectsEnvironment: undefined, wallCondensation: undefined,
@@ -195,7 +217,7 @@ const defaultVessels: Record<string, VesselState> = {
     name: 'Beaker 1 (100mL)', 
     type: 'beaker', 
     capacity_ml: 100,
-    position: [-2, -0.135, 0], 
+    position: [-2, restingVesselHeight('beaker', 100), 0],
     rotationY: 0,
     isLocked: false,
     substances: [], 
@@ -216,7 +238,7 @@ const defaultVessels: Record<string, VesselState> = {
     name: 'Flask 1 (250mL)', 
     type: 'flask', 
     capacity_ml: 250,
-    position: [2, -0.135, 0], 
+    position: [2, restingVesselHeight('flask', 250), 0],
     rotationY: 0,
     isLocked: false,
     substances: [], 
@@ -237,7 +259,7 @@ const defaultVessels: Record<string, VesselState> = {
     name: 'Test Tube 1 (50mL)',
     type: 'test_tube',
     capacity_ml: 50,
-    position: [0, -0.135, 0.3],
+    position: [4.2, restingVesselHeight('test_tube', 50), -2.5],
     rotationY: 0,
     isLocked: false,
     substances: [],
@@ -256,6 +278,8 @@ const defaultVessels: Record<string, VesselState> = {
 };
 
 export interface ActiveKineticsState {
+  inductionElapsed_s?: number;
+  unmetConditions?: string[];
   replayProgressBase?: number;
   surfaceReferenceMass_g?: number;
   surfaceReferenceMoles?: number;
@@ -552,6 +576,10 @@ const sanitizedVessels: Record<string, VesselState> = {};
 const rawVessels = persisted?.vessels || defaultVessels;
 for (const [k, v] of Object.entries(rawVessels)) {
   const density = v.density_g_ml || 1.0;
+  const validPosition = Array.isArray(v.position) && v.position.length === 3 && v.position.every(Number.isFinite);
+  const position: [number, number, number] = validPosition ? [...v.position] : [0, restingVesselHeight(v.type, v.capacity_ml), 0];
+  if (Math.abs(position[1] + 0.135) < 1e-9 && !v.heldByTongsId && !v.physicalMotion)
+    position[1] = restingVesselHeight(v.type, v.capacity_ml);
   sanitizedVessels[k] = {
     ...v,
     gasFlux: undefined, // Runtime receipt; never replay a saved last-frame pulse.
@@ -559,8 +587,7 @@ for (const [k, v] of Object.entries(rawVessels)) {
     mass_g: v.mass_g !== undefined ? v.mass_g : Math.round((v.volume_ml || 0) * density * 100) / 100,
     foam_ml: v.foam_ml || 0,
     boilingIntensity: v.boilingIntensity || 0,
-    position: Array.isArray(v.position) && v.position.length === 3 && v.position.every(Number.isFinite)
-      ? [...v.position] : [0, -0.135, 0]
+    position,
   };
 }
 
@@ -569,7 +596,7 @@ shardManager.restoreLabSnapshot(persisted?.materials?.glassDebris, sanitizedVess
 const defaultBurners: Record<string, BurnerState> = {
   'burner_1': {
     id: 'burner_1',
-    position: [0, -0.975, 1.2],
+    position: [-5, LAB_PHYSICS.BURNER_SURFACE_Y, 2.5],
     isOn: false,
     intensity: 3,
     flameState: 'UNLIT',
@@ -593,7 +620,7 @@ for (const [k, b] of Object.entries(rawBurners)) {
     maxFuel_ml: 150,
     heatRadius: 1.8,
     tempOutput_c: b.tempOutput_c || (b.isOn ? 320 + intensity * 45 : 25),
-    position: [b.position[0], -0.975, b.position[2]]
+    position: [b.position[0], Math.abs(b.position[1] + 0.975) < 1e-9 ? LAB_PHYSICS.BURNER_SURFACE_Y : b.position[1], b.position[2]]
   };
 }
 
@@ -1674,8 +1701,7 @@ export const useAppStore = create<AppState>((set, get) => {
         const allocation = allocateBurnerHeat(burner, step.capturableHeat_J, Object.values(newVessels));
         for (const [id, energy] of allocation.energyByVessel_J) heatByVessel_J.set(id, (heatByVessel_J.get(id) ?? 0) + energy);
         newBurners[bId] = { ...step.burner,
-          flameEmission: step.burner.isOn && burner.flameEmission
-            && !flameEmissionExpired(burner.flameEmission, performance.now()) ? burner.flameEmission : undefined,
+          flameEmission: step.burner.isOn ? advanceFlameEmission(burner.flameEmission, effectiveDt, performance.now()) : undefined,
           deliveredHeat_J: (burner.deliveredHeat_J ?? 0) + allocation.deliveredHeat_J,
           heatLost_J: (burner.heatLost_J ?? 0) + step.energy_J - allocation.deliveredHeat_J };
         burnersUpdated = true;
@@ -1813,45 +1839,16 @@ export const useAppStore = create<AppState>((set, get) => {
         }
 
         // Check if a pending reaction condition has now been reached by heating
-        if (newPending[vId]) {
+        if (newPending[vId] && !newKinetics[vId]) {
           const pending = newPending[vId];
           if (curTemp >= pending.minTemp_c) {
-            delete newPending[vId];
-            vesselsUpdated = true;
             const heated = newVessels[vId];
-            const reacted = executeMultiStepReactions(heated.contents, heated.substances, currentVol, curTemp, true, state.language, { preserveQuantities: true });
-            const primary = reacted.reactionsOccurred[0];
-            if (primary && reacted.combinedMixResult) {
-              const recipe = getReactionVfxRecipe(primary.reactionId);
-              newVessels[vId] = {
-                ...newVessels[vId],
-                contents: reacted.updatedContents,
-                volume_ml: reacted.finalVolume_ml,
-                volume: reacted.finalVolume_ml / newVessels[vId].capacity_ml,
-                substances: reacted.updatedSubstances,
-                ph: reacted.finalPh,
-                temperature_c: reacted.finalTemperature_c,
-                hasGas: reacted.hasGas,
-                hasPrecipitate: reacted.hasPrecipitate,
-                precipitateSubstance: reacted.precipitateSubstance,
-                precipitateAmount_g: reacted.precipitateAmount_g,
-                precipitateColor: reacted.precipitateColor,
-              };
+            const plan = planConditionedContact(heated, state.language, (heatByVessel_J.get(vId) ?? 0) > 0);
+            if (plan) {
+              delete newPending[vId];
+              newVessels[vId] = plan.vessel;
+              newKinetics[vId] = plan.kinetics;
               vesselsUpdated = true;
-              newKinetics[vId] = {
-                vesselId: vId, reactionId: primary.reactionId,
-                startTime: Date.now(), duration: recipe?.duration || 5,
-                progress: 0, reactionName: reacted.combinedMixResult.summary,
-                equation: primary.equation,
-                initialLiquidColor: v.liquidColor || '#f8fafc',
-                targetLiquidColor: reacted.finalLiquidColor,
-                hasGas: reacted.hasGas, gasColor: reacted.gasColor,
-                hasPrecipitate: reacted.hasPrecipitate,
-                precipitateColor: reacted.precipitateColor,
-                precipitateSubstance: reacted.precipitateSubstance,
-                targetPrecipitateMass_g: reacted.precipitateAmount_g,
-                dissolvingReactants: [], targetTemp: reacted.finalTemperature_c,
-              };
             }
           }
         }
@@ -1894,12 +1891,19 @@ export const useAppStore = create<AppState>((set, get) => {
         const previousProgress = kinetics.progress;
         const replayLimited = kinetics.program?.chemistry.kinetics?.model === 'heat_activated'
           || kinetics.program?.chemistry.species.some(s => s.role === 'reactant' && s.phase === 'g');
-        const newProgress = kinetics.rateModel === 'metal_hcl'
+        const assessment = kinetics.program ? assessProgramConditions(kinetics.program, v.contents, {
+          temperature_c: v.temperature_c, pH: v.ph, volume_ml: v.volume_ml,
+          isSealed: v.isSealed ?? false, isHeated: (heatByVessel_J.get(vId) ?? 0) > 0, requireInventory: true,
+          ignitedProgramId: kinetics.initialVesselBaseline?.ignitedProgramId,
+        }) : { ready: true, unmet: [] };
+        kinetics.unmetConditions = assessment.unmet;
+        const candidateProgress = !assessment.ready ? previousProgress : kinetics.rateModel === 'metal_hcl'
           ? advanceMetalAcidProgress(kinetics, v, effectiveDt, state.stirringVesselId === vId)
           : replayLimited
             ? advanceHeatActivatedProgress(kinetics, v, effectiveDt)
           : advanceCatalyticProgress(kinetics, v, effectiveDt);
-        if (replayLimited || kinetics.program?.chemistry.species.some(s => s.role === 'catalyst')) {
+        const newProgress = candidateProgress >= 1 - 1e-12 ? 1 : candidateProgress;
+        if (kinetics.program || replayLimited) {
           kinetics.actualProgressRate_s = Math.max(0, newProgress - previousProgress) / effectiveDt;
         }
         kinetics.progress = newProgress;
@@ -1910,7 +1914,7 @@ export const useAppStore = create<AppState>((set, get) => {
         let programLedgerStep: Partial<VesselState> | undefined;
 
         // Dissolve solid reactants progressively (5x boost if finely pulverized in mortar)
-        if (kinetics.dissolvingReactants.length > 0) {
+        if (newProgress > previousProgress && kinetics.dissolvingReactants.length > 0) {
           if (!newDissolving[vId]) newDissolving[vId] = {};
           const dissolveRateMult = (v.isPulverized || v.precipitateMorphology === 'POWDER') ? 5.0 : 1.0;
           for (const sub of kinetics.dissolvingReactants) {
@@ -2269,7 +2273,19 @@ export const useAppStore = create<AppState>((set, get) => {
     snapToGrid: false,
     toggleSnapToGrid: () => set(s => ({ snapToGrid: !s.snapToGrid })),
     activeTool: 'none',
-    setActiveTool: (tool) => set({ activeTool: tool }),
+    setActiveTool: (tool) => {
+      if (!['none', 'sponge', 'balance'].includes(tool)) {
+        const dock = useToolDockStore.getState();
+        if (!dock.deployed[tool]) {
+          const home = instrumentHome(tool as Parameters<typeof instrumentHome>[0]);
+          const placement = findBenchPosition('tool', 100, currentBenchObstacles(get()), home);
+          if (!placement) { set({ globalWarning: BENCH_FULL }); return; }
+          useToolDockStore.setState({ positions: { ...dock.positions, [tool]: [placement[0], home[1], placement[2]] },
+            deployed: { ...dock.deployed, [tool]: true } });
+        }
+      }
+      set({ activeTool: tool });
+    },
     spatulaState: {
       chemical: null,
       mass_g: 0,
@@ -2566,18 +2582,16 @@ export const useAppStore = create<AppState>((set, get) => {
         type === 'tongs' ? 20 :
         50;
       
-      const count = Object.keys(get().vessels).length;
-      const x = ((count % 5) - 2) * 1.5;
-      const z = (Math.floor(count / 5) - 0.5) * 1.2;
-
       set(s => {
+        const position = findBenchPosition(type, capacity_ml, currentBenchObstacles(s));
+        if (!position) return { globalWarning: BENCH_FULL };
         const isWashBottle = type === 'wash_bottle';
         const newVessel: VesselState = {
           id,
           name,
           type,
           capacity_ml,
-          position: [x, restingVesselHeight(type), z],
+          position,
           rotationY: 0,
           isLocked: false,
           substances: isWashBottle ? ['H2O'] : [],
@@ -2610,13 +2624,15 @@ export const useAppStore = create<AppState>((set, get) => {
     duplicateVessel: (id) => {
       const source = get().vessels[id];
       if (!source) return;
+      const position = findBenchPosition(source.type, source.capacity_ml, currentBenchObstacles(get()), source.position);
+      if (!position) { set({ globalWarning: BENCH_FULL }); return; }
       const newId = `${source.type}_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
       const newVessel: VesselState = {
         ...JSON.parse(JSON.stringify(source)),
         id: newId,
         name: `${source.name} (Copy)`,
         wallCoating_ml: 0, wallCoatingMass_g: 0,
-        position: [source.position[0] + 0.8, source.position[1], source.position[2] + 0.5],
+        position, rotationY: 0, rotationZ: 0, physicalMotion: undefined,
         isLocked: false
       };
       set(s => {
@@ -3058,9 +3074,12 @@ export const useAppStore = create<AppState>((set, get) => {
     burners: sanitizedBurners,
     burnerIds: Object.keys(sanitizedBurners),
     addBurner: () => {
-      const id = `burner_${Date.now()}`;
+      const id = `burner_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
       set(s => {
-        const updated = { ...s.burners, [id]: { id, position: [0, -0.975, 0] as [number, number, number], isOn: true, intensity: 3 } };
+        const position = findBenchPosition('burner', 0, currentBenchObstacles(s));
+        if (!position) return { globalWarning: BENCH_FULL };
+        const updated = { ...s.burners, [id]: { id, position, isOn: false, intensity: 3,
+          fuelLevel_ml: 120, ethanolVolumeFraction: 0.96, flameState: 'UNLIT' as const } };
         pushHistorySnapshot('HEAT', s.vessels, updated, 'Added Bunsen burner', 'Thêm đèn cồn');
         debounceSaveLocalState(s.vessels, updated);
         return { 
@@ -3190,11 +3209,12 @@ export const useAppStore = create<AppState>((set, get) => {
       if (!vessel || vessel.isShattered || state.activeKinetics[vesselId] || !vessel.studioProgramId) return false;
       const program = getProgramById(vessel.studioProgramId);
       if (program?.chemistry.conditions?.activation !== 'ignition') return false;
-      const source = Object.values(state.burners).some(burner => {
-        const height = vessel.position[1] - burner.position[1];
-        return stepAlcoholBurner(burner, 0).burner.isOn && height >= 0.6 && height <= 2.8
-          && Math.hypot(vessel.position[0] - burner.position[0], vessel.position[2] - burner.position[2]) < 0.85;
-      });
+      // Explicit virtual initiation uses a source at the specimen mouth.
+      // Heating through the base does not substitute for this event. Studio
+      // retains finite reagent gas in its closed specimen boundary.
+      const contact = vesselLocalToWorld(vessel, [0, vesselInterior(vessel.type).topY, 0]);
+      const source = Object.values(state.burners).some(burner =>
+        burnerIsBurning(burner) && pointInAlcoholFlame(contact, burner.position));
       if (!source) { set({ globalWarning: 'Đặt mẫu ở vùng nguồn nhiệt đang cháy trước khi mồi trong mô phỏng.' }); return false; }
       const primed = { ...vessel, ignitedProgramId: program.id };
       const plan = planStudioProgram(program, primed, state.language);
@@ -3213,9 +3233,24 @@ export const useAppStore = create<AppState>((set, get) => {
         set({ globalWarning: 'Không tua ngược lượng chất đã phản ứng hoặc khí đã thoát. Tạo mẫu mới để xem lại.' });
         return false;
       }
+      if (progress > kinetics.progress) {
+        const assessment = assessProgramConditions(kinetics.program, vessel.contents, {
+          temperature_c: vessel.temperature_c, volume_ml: vessel.volume_ml, pH: vessel.ph,
+          isSealed: vessel.isSealed ?? false, requireInventory: true,
+          ignitedProgramId: kinetics.initialVesselBaseline.ignitedProgramId,
+          isHeated: vesselHasBurnerHeat(vessel, state.burners),
+        });
+        if (!assessment.ready) { set({ globalWarning: assessment.unmet.join(' ') }); return false; }
+      }
       const ledger = applyProgramWithThermalSinks(kinetics.program, kinetics.initialVesselBaseline, vessel,
         reactionReplayProgress(kinetics, progress), (progress - kinetics.progress) * kinetics.duration);
       if (ledger.gasReplayBlocked) return false;
+      const minimum = kinetics.program.chemistry.conditions?.minTemp_c;
+      if (minimum !== undefined && kinetics.program.chemistry.deltaH_kJ_per_mol! > 0
+        && (ledger.temperature_c ?? vessel.temperature_c) < minimum) {
+        set({ globalWarning: 'Nhiệt hiện có không đủ cho mức chuyển hóa này. Cấp thêm nhiệt rồi tiếp tục.' });
+        return false;
+      }
       const projected = { ...vessel, ...ledger };
       const foam = stepFoamInventory(projected, vessel, (progress - kinetics.progress) * kinetics.duration);
       const sampled = { ...projected, ...foam };
@@ -3235,7 +3270,7 @@ export const useAppStore = create<AppState>((set, get) => {
       const burner = get().burners[burnerId];
       const emission = createFlameEmission(element, performance.now(), duration_s);
       if (!burner || !burner.isOn || !emission || !stepAlcoholBurner(burner, 0).burner.isOn) return false;
-      set(s => ({ burners: { ...s.burners, [burnerId]: { ...s.burners[burnerId], flameEmission: emission } } }));
+      set(s => ({ burners: { ...s.burners, [burnerId]: { ...s.burners[burnerId], flameEmission: { ...emission, elapsed_s: 0 } } } }));
       vfxBus.emit('flame:test', { burnerId, element, color: emission.color, cobaltFilter: false });
       return true;
     },
@@ -3287,7 +3322,7 @@ export const useAppStore = create<AppState>((set, get) => {
       const transfer = dispenseAliquot(receiver, sample, dropVol);
       if (transfer.dispensed_ml <= 0) return;
       const newVol = Math.max(0, burette.currentVolume_ml - transfer.dispensed_ml);
-      const isHeated = Object.values(state.burners).some(b => b.isOn && Math.hypot(b.position[0] - receiver.position[0], b.position[2] - receiver.position[2]) < 1.5);
+      const isHeated = vesselHasBurnerHeat(receiver, state.burners);
       const reacted = transfer.failureReason ? { vessel: transfer.vessel, kinetics: null, mixResult: null }
         : reactAliquotMixture(transfer.vessel, state.language, isHeated);
       set(current => {
@@ -3489,8 +3524,7 @@ export const useAppStore = create<AppState>((set, get) => {
           if (alreadyInside) dispensed.vessel = { ...dispensed.vessel, isSealed: target.isSealed };
           accepted_ml = dispensed.accepted_ml; contacted_ml = dispensed.contacted_ml; spill = dispensed.spill;
           if (dispensed.contacted_ml > 0) {
-            const heated = Object.values(state.burners).some(b => b.isOn
-              && Math.hypot(b.position[0] - target.position[0], b.position[2] - target.position[2]) < 1.5);
+            const heated = vesselHasBurnerHeat(target, state.burners);
             if (dispensed.failureReason) contactFailures.set(target.id, dispensed.failureReason);
             const received = refreshFlowInventory(dispensed.vessel);
             const reacted = contactFailures.has(target.id) ? { vessel: received, kinetics: null, mixResult: null }
@@ -3630,8 +3664,7 @@ export const useAppStore = create<AppState>((set, get) => {
       if (!source || !receiver) return 0;
       const transfer = transferDrySample(source, receiver, mass_g);
       if (!transfer) return 0;
-      const heated = Object.values(state.burners).some(b => b.isOn
-        && Math.hypot(b.position[0] - receiver.position[0], b.position[2] - receiver.position[2]) < 1.5);
+      const heated = vesselHasBurnerHeat(receiver, state.burners);
       const result = reactAliquotMixture(transfer.receiver, state.language, heated);
       set(s => {
         const activeKinetics = { ...s.activeKinetics }, pendingReactions = { ...s.pendingReactions };
@@ -3652,7 +3685,7 @@ export const useAppStore = create<AppState>((set, get) => {
       const transfer = decantLiquid(from, to ?? null, delta_ml, mobileSolidInventory(from, SimulationEngine.findManager(from.id)));
       if (!transfer) return EMPTY_LIQUID_TRANSFER;
       const burners = Object.values(state.burners);
-      const isHeated = !!to && burners.some(b => b.isOn && Math.hypot(b.position[0] - to.position[0], b.position[2] - to.position[2]) < 1.5);
+      const isHeated = !!to && vesselHasBurnerHeat(to, state.burners);
       const reacted = transfer.receiver ? transfer.failureReason ? { vessel: transfer.receiver, kinetics: null, mixResult: null }
         : reactAliquotMixture(transfer.receiver, state.language, isHeated) : null;
       const overflow = transfer.spill && to ? createOverflowParcel(reacted?.vessel ?? to, transfer.spill,
@@ -3698,8 +3731,7 @@ export const useAppStore = create<AppState>((set, get) => {
     settleVesselMixture: async (id) => {
       const snapshot = get().vessels[id];
       if (!snapshot || snapshot.isShattered || !snapshot.contents.length || get().activeKinetics[id]) return;
-      const isHeated = Object.values(get().burners).some(b => b.isOn
-        && Math.hypot(b.position[0] - snapshot.position[0], b.position[2] - snapshot.position[2]) < 1.5);
+      const isHeated = vesselHasBurnerHeat(snapshot, get().burners);
       try {
         const resolved = await resolveMixture(snapshot, get().language, isHeated);
         // Heating, reset or a transfer during resolution invalidates its baseline.
@@ -3926,7 +3958,7 @@ export const useAppStore = create<AppState>((set, get) => {
         ...(!isSolid ? { recentPourContact: { point: [0, 0, 0] as [number, number, number],
           expiresAt_ms: Date.now() + 1500, remaining_s: 1.5, color: prepared.incoming?.color } } : {}) };
       const burners = Object.values(get().burners);
-      const isHeated = burners.some(b => b.isOn && Math.hypot(b.position[0] - vessel.position[0], b.position[2] - vessel.position[2]) < 1.5);
+      const isHeated = vesselHasBurnerHeat(vessel, get().burners);
       vfxBus.emit('surface:ripple', { x: vessel.position[0], z: vessel.position[2], vesselId: targetId, intensity: 0.95 });
       const newTotalVolume_ml = vessel.volume_ml;
       const newTotalMass_g = vessel.mass_g;
@@ -4007,7 +4039,8 @@ export const useAppStore = create<AppState>((set, get) => {
         mass_g: newTotalMass_g, density_g_ml: newDensity, liquidColor: newLiquidColor,
         environment: useLabEnvironment.getState().conditions };
       const contactPlan = planSodiumWater(contactMixture, get().language)
-        ?? planMetalAcid(contactMixture, get().language);
+        ?? planMetalAcid(contactMixture, get().language)
+        ?? planConditionedContact(contactMixture, get().language, isHeated);
       const publishContact = (plan: { vessel: VesselState; kinetics: ActiveKineticsState; mixResult: MixResult }) => {
         set(s => {
           const updated = { ...s.vessels, [targetId]: plan.vessel };
@@ -4318,11 +4351,13 @@ export const useAppStore = create<AppState>((set, get) => {
     },
 
     resetWorkbench: () => {
+      useToolDockStore.setState({ positions: {}, deployed: {}, dragging: null });
       restorePhysicalLab();
       shardManager.restoreSnapshot();
       set({
         inFlightPours: [], pourEpoch: get().pourEpoch + 1, isPouring: false,
         pipetteSample: null,
+        activeTool: 'none',
         activeKinetics: {}, pendingReactions: {}, dissolvingSubstances: {},
         vessels: defaultVessels,
         vesselIds: Object.keys(defaultVessels),

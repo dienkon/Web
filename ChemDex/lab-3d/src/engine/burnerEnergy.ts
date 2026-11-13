@@ -14,6 +14,25 @@ export function burnerIntensity(value: number): number {
 const finiteNonnegative = (value: number | undefined, fallback = 0) => value === undefined ? fallback
   : Number.isFinite(value) ? Math.max(0, value) : 0;
 
+export function burnerIsBurning(burner: BurnerState): boolean {
+  return burner.isOn && Number.isFinite(burner.intensity) && burner.intensity > 0 && finiteNonnegative(burner.fuelLevel_ml, 120) > 0
+    && finiteNonnegative(burner.ethanolVolumeFraction, DEFAULT_ETHANOL_VOLUME_FRACTION) > 0;
+}
+
+export function burnerHeatingWeight(burner: BurnerState, vessel: Pick<VesselState, 'position'>): number {
+  if (![...burner.position, ...vessel.position].every(Number.isFinite)) return 0;
+  const horizontal = Math.hypot(burner.position[0] - vessel.position[0], burner.position[2] - vessel.position[2]);
+  const height = vessel.position[1] - burner.position[1];
+  const distance = Math.hypot(horizontal, burner.position[1] + 1.25 - vessel.position[1]);
+  const radius = Number.isFinite(burner.heatRadius) && burner.heatRadius! > 0 ? burner.heatRadius! : 1.8;
+  return horizontal < 0.85 && height >= 0.6 && height <= 2.8 ? 1
+    : distance < radius ? Math.max(0, 1 - (distance / radius) ** 1.8) * 0.35 : 0;
+}
+
+export function vesselHasBurnerHeat(vessel: Pick<VesselState, 'position'>, burners: Record<string, BurnerState>): boolean {
+  return Object.values(burners).some(b => burnerIsBurning(b) && burnerHeatingWeight(b, vessel) > 0);
+}
+
 /** Fuel remains full precision. A partial final burn emits only the energy of
  * the fuel actually consumed, even when the lamp goes out inside this step. */
 export function stepAlcoholBurner(burner: BurnerState, dt: number) {
@@ -21,7 +40,7 @@ export function stepAlcoholBurner(burner: BurnerState, dt: number) {
   const intensity = burnerIntensity(burner.intensity);
   const fraction = burner.ethanolVolumeFraction === undefined ? DEFAULT_ETHANOL_VOLUME_FRACTION
     : Number.isFinite(burner.ethanolVolumeFraction) ? Math.max(0, Math.min(1, burner.ethanolVolumeFraction)) : 0;
-  const active = burner.isOn && fuel > 0 && fraction > 0;
+  const active = burnerIsBurning(burner) && fuel > 0 && fraction > 0;
   const burned_ml = active && Number.isFinite(dt) && dt > 0
     ? Math.min(fuel, NOMINAL_FUEL_RATE_ML_S * intensity / 3 * dt) : 0;
   const remaining = fuel - burned_ml;
@@ -43,13 +62,7 @@ export function stepAlcoholBurner(burner: BurnerState, dt: number) {
  * distance law. Normalize all receivers against ONE finite source heat budget. */
 export function allocateBurnerHeat(burner: BurnerState, capturableHeat_J: number, vessels: VesselState[]) {
   const weights = vessels.filter(v => !v.isShattered && v.type !== 'hot_plate' && !v.id.startsWith('lesson_vessel_')).map(v => {
-    const horizontal = Math.hypot(burner.position[0] - v.position[0], burner.position[2] - v.position[2]);
-    const height = v.position[1] - burner.position[1];
-    const distance = Math.hypot(horizontal, burner.position[1] + 1.25 - v.position[1]);
-    const radius = Number.isFinite(burner.heatRadius) && burner.heatRadius! > 0 ? burner.heatRadius! : 1.8;
-    const weight = horizontal < 0.85 && height >= 0.6 && height <= 2.8 ? 1
-      : distance < radius ? Math.max(0, 1 - (distance / radius) ** 1.8) * 0.35 : 0;
-    return { id: v.id, weight };
+    return { id: v.id, weight: burnerHeatingWeight(burner, v) };
   });
   const normalization = Math.max(1, weights.reduce((sum, entry) => sum + entry.weight, 0));
   const energy = Number.isFinite(capturableHeat_J) ? Math.max(0, capturableHeat_J) : 0;

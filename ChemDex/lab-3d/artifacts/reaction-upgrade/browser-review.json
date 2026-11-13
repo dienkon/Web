@@ -1,0 +1,205 @@
+{
+  "errors": [],
+  "checks": {
+    "moveModeDoesNotSpawnTools": true,
+    "spawns": {
+      "count": 22,
+      "minimumClearance": 0.16066724266272114,
+      "required": 0.16,
+      "unlit": true
+    },
+    "renderedSupportsAndFootprints": 21,
+    "catalogGuideDesktopAndMobile": true
+  },
+  "modelBounds": [
+    {
+      "type": "beaker",
+      "origin": -0.17500000000000004,
+      "minY": -1.175,
+      "gap": 0,
+      "lowest": ":LatheGeometry:MeshStandardMaterial",
+      "actualRadius": 0.7732083925525265,
+      "plannedRadius": 0.7732083792827161
+    },
+    {
+      "type": "flask",
+      "origin": -0.17500000000000004,
+      "minY": -1.175,
+      "gap": 0,
+      "lowest": ":LatheGeometry:MeshStandardMaterial",
+      "actualRadius": 1.4394251528356286,
+      "plannedRadius": 1.4394250979100986
+    },
+    {
+      "type": "test_tube",
+      "origin": 0.018745470488272575,
+      "minY": -1.175000005062947,
+      "gap": -5.0629469505736324e-9,
+      "lowest": ":BoxGeometry:MeshStandardMaterial",
+      "actualRadius": 1.0877903157411415,
+      "plannedRadius": 1.1212364114648175
+    },
+    {
+      "type": "cylinder",
+      "origin": -0.07870568000438749,
+      "minY": -1.1750000041785904,
+      "gap": -4.178590362613477e-9,
+      "lowest": ":CylinderGeometry:MeshStandardMaterial",
+      "actualRadius": 1.051576714262209,
+      "plannedRadius": 1.051576714262209
+    },
+    {
+      "type": "watch_glass",
+      "origin": -0.9950000000000001,
+      "minY": -1.175000010446499,
+      "gap": -1.0446498999172604e-8,
+      "lowest": ":LatheGeometry:MeshStandardMaterial",
+      "actualRadius": 1.5700659700367914,
+      "plannedRadius": 1.5700659003934647
+    },
+    {
+      "type": "evaporating_dish",
+      "origin": -0.7550000000000001,
+      "minY": -1.1749999831465852,
+      "gap": 1.6853414885886764e-8,
+      "lowest": ":LatheGeometry:MeshPhysicalMaterial",
+      "actualRadius": 1.4908815106559383,
+      "plannedRadius": 1.4908814786265903
+    },
+    {
+      "type": "crucible",
+      "origin": -0.525,
+      "minY": -1.1749999742840296,
+      "gap": 2.5715970464190718e-8,
+      "lowest": ":LatheGeometry:MeshPhysicalMaterial",
+      "actualRadius": 0.8804104282095944,
+      "plannedRadius": 0.9168150791624294
+    },
+    {
+      "type": "petri_dish",
+      "origin": -0.9550000000000001,
+      "minY": -1.1749999988300683,
+      "gap": 1.1699317070679172e-9,
+      "lowest": ":LatheGeometry:MeshStandardMaterial",
+      "actualRadius": 1.4431871083336743,
+      "plannedRadius": 1.4721149709710177
+    },
+    {
+      "type": "volumetric_flask",
+      "origin": -0.21625406488325805,
+      "minY": -1.1749999994787017,
+      "gap": 5.212983378299896e-10,
+      "lowest": ":CylinderGeometry:MeshStandardMaterial",
+      "actualRadius": 0.9445610301416134,
+      "plannedRadius": 0.9445609926081318
+    },
+    {
+      "type": "separatory_funnel",
+      "origin": 0.10858388599264468,
+      "minY": -1.1749999984986832,
+      "gap": 1.501316848617762e-9,
+      "lowest": ":BoxGeometry:MeshStandardMaterial",
+      "actualRadius": 1.7880769456490508,
+      "plannedRadius": 1.802335214938602
+    },
+    {
+      "type": "filter_funnel",
+      "origin": -0.013251659039157815,
+      "minY": -1.1749999989496167,
+      "gap": 1.0503833358654902e-9,
+      "lowest": ":BoxGeometry:MeshStandardMaterial",
+      "actualRadius": 1.3561575497871619,
+      "plannedRadius": 1.374555892418543
+    },
+    {
+      "type": "mortar_pestle",
+      "origin": -0.525,
+      "minY": -1.1749999718328257,
+      "gap": 2.8167174370707926e-8,
+      "lowest": ":LatheGeometry:MeshPhysicalMaterial",
+      "actualRadius": 1.2523019592337588,
+      "plannedRadius": 1.2995586075556276
+    },
+    {
+      "type": "condenser",
+      "origin": 0.07499999999999996,
+      "minY": -1.1750000000000003,
+      "gap": -2.220446049250313e-16,
+      "lowest": ":LatheGeometry:MeshStandardMaterial",
+      "actualRadius": 2.766174247840512,
+      "plannedRadius": 2.902162158559076
+    },
+    {
+      "type": "wash_bottle",
+      "origin": -0.2250000000000001,
+      "minY": -1.1749999849337274,
+      "gap": 1.506627267389149e-8,
+      "lowest": ":LatheGeometry:MeshPhysicalMaterial",
+      "actualRadius": 0.935249423819061,
+      "plannedRadius": 1.4534281399066877
+    },
+    {
+      "type": "test_tube_rack",
+      "origin": -0.9650000000000001,
+      "minY": -1.1749999986588955,
+      "gap": 1.3411045607369942e-9,
+      "lowest": ":BoxGeometry:MeshStandardMaterial",
+      "actualRadius": 1.1884864499535754,
+      "plannedRadius": 1.6
+    },
+    {
+      "type": "tongs",
+      "origin": -0.2418647688341924,
+      "minY": -1.1749999999999998,
+      "gap": 2.220446049250313e-16,
+      "lowest": ":TorusGeometry:MeshStandardMaterial",
+      "actualRadius": 0.3289297941395393,
+      "plannedRadius": 0.9
+    },
+    {
+      "type": "hot_plate",
+      "origin": -1.175,
+      "minY": -1.1749999973177911,
+      "gap": 2.6822088994293836e-9,
+      "lowest": ":BoxGeometry:MeshStandardMaterial",
+      "actualRadius": 1.0606601717798214,
+      "plannedRadius": 1.15
+    },
+    {
+      "type": "retort_stand",
+      "origin": -1.04,
+      "minY": -1.1750000003725292,
+      "gap": -3.725291186640334e-10,
+      "lowest": ":BoxGeometry:MeshStandardMaterial",
+      "actualRadius": 0.7211102782366936,
+      "plannedRadius": 1.1
+    },
+    {
+      "type": "retort_clamp",
+      "origin": -1.08,
+      "minY": -1.174999999664724,
+      "gap": 3.352760291619461e-10,
+      "lowest": ":BoxGeometry:MeshStandardMaterial",
+      "actualRadius": 0.6103277794316522,
+      "plannedRadius": 0.65
+    },
+    {
+      "type": "stopper",
+      "origin": -1.065,
+      "minY": -1.1749999994039535,
+      "gap": 5.960465454535324e-10,
+      "lowest": ":CylinderGeometry:MeshStandardMaterial",
+      "actualRadius": 0.500399840110005,
+      "plannedRadius": 0.52
+    },
+    {
+      "type": "pneumatic_trough",
+      "origin": -0.875,
+      "minY": -1.175000011920929,
+      "gap": -1.1920928910669204e-8,
+      "lowest": ":BoxGeometry:MeshPhysicalMaterial",
+      "actualRadius": 1.0816653760266557,
+      "plannedRadius": 1.7
+    }
+  ]
+}

@@ -109,17 +109,17 @@ export const VfxDirector = React.memo(function VfxDirector() {
     const dt = simulationFrameDt(delta, live);
     if (!Number.isFinite(dt) || dt <= 0) return;
     reactionSimulationEngine.retainVessels(new Set(Object.entries(activeKinetics)
-      .filter(([, kinetics]) => reactionIsEmitting(kinetics)).map(([id]) => id)));
+      .filter(([, kinetics]) => kinetics.progress < 1).map(([id]) => id)));
     for (const id of startedRuns.current.keys()) {
-      if (!reactionIsEmitting(activeKinetics[id])) startedRuns.current.delete(id);
+      if (!activeKinetics[id] || activeKinetics[id].progress >= 1) startedRuns.current.delete(id);
     }
 
     // 1. Sync active kinetics with dedicated ReactionSimulationEngine controllers
     for (const [vesselId, kinetics] of Object.entries(activeKinetics)) {
-      if (reactionIsEmitting(kinetics) && kinetics.reactionId) {
+      if (kinetics.progress < 1 && kinetics.reactionId) {
         let runtime = reactionSimulationEngine.getRuntime(vesselId);
         const runKey = `${kinetics.reactionId}:${kinetics.startTime}`;
-        if (startedRuns.current.get(vesselId) !== runKey) {
+        if (reactionIsEmitting(kinetics) && startedRuns.current.get(vesselId) !== runKey) {
           startedRuns.current.set(vesselId, runKey);
           runtime = reactionSimulationEngine.startReaction(vesselId, kinetics.reactionId, {
             duration: kinetics.duration || 5.0,
@@ -130,6 +130,7 @@ export const VfxDirector = React.memo(function VfxDirector() {
         }
         if (runtime) {
           runtime.chemistryProgress = kinetics.progress;
+          runtime.chemistryRate_s = kinetics.actualProgressRate_s;
           runtime.progress = kinetics.progress;
           runtime.elapsed = kinetics.progress * runtime.duration;
           if (kinetics.rateModel === 'metal_hcl' && vessels[vesselId]) {

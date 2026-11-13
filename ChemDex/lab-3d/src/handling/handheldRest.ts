@@ -9,6 +9,6 @@ export function restingToolHeight(id: string, fallback: number): number {
   return MODEL_DEPTH[id] === undefined ? fallback : LAB_PHYSICS.TABLE_SURFACE_Y + MODEL_DEPTH[id] + 0.005;
 }
 
-export function toolVisible(active: boolean, dragging: boolean, moveMode: boolean): boolean {
-  return active || dragging || moveMode;
+export function toolVisible(active: boolean, dragging: boolean, deployed: boolean): boolean {
+  return active || dragging || deployed;
 }

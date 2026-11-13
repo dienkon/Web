@@ -7,14 +7,16 @@ import { planStudioProgram } from './studioProgram';
 /** A recognized pH model does not establish that precipitation or other
  * verified multireagent chemistry is absent. Native reactions keep priority;
  * this planner is used only when that solver found no irreversible step. */
-export function planVerifiedContact(vessel: VesselState, language: Language, isHeated: boolean) {
+export function planVerifiedContact(vessel: VesselState, language: Language, isHeated: boolean, conditionedOnly = false) {
   const program = findHandcraftedProgram(vessel.substances, vessel.contents, {
     temperature_c: vessel.temperature_c, isHeated, isSealed: vessel.isSealed,
     volume_ml: vessel.volume_ml, pH: vessel.ph, ignitedProgramId: vessel.ignitedProgramId,
   });
   if (!program || ['indicator', 'emission', 'dilution'].includes(program.chemistry.representation ?? '')
-    || program.chemistry.species.filter(item => item.role === 'reactant').length < 2
+    || program.chemistry.species.filter(item => item.role === 'reactant').length < (conditionedOnly ? 1 : 2)
     || !program.chemistry.species.some(item => item.role === 'product')) return null;
+  if (conditionedOnly && program.chemistry.kinetics.model !== 'heat_activated'
+    && !program.chemistry.species.some(item => item.role === 'catalyst')) return null;
   const baseline = { ...vessel, contents: vessel.contents.map(item => ({ ...item })) };
   const plan = planStudioProgram(program, baseline, language);
   if (!plan.kinetics) return null;
@@ -29,4 +31,10 @@ export function planVerifiedContact(vessel: VesselState, language: Language, isH
       has_precipitate: vessel.hasPrecipitate, liquid_level: vessel.volume,
       liquid_color: vessel.liquidColor, temperature_c: vessel.temperature_c } };
   return { vessel: { ...baseline, hasGas: false, isExplosion: false }, kinetics, mixResult };
+}
+
+/** Heat/catalyst-driven chemistry must enter a progressive ledger before the
+ * instantaneous native solver consumes all reagents at once. */
+export function planConditionedContact(vessel: VesselState, language: Language, isHeated: boolean) {
+  return planVerifiedContact(vessel, language, isHeated, true);
 }

@@ -6,6 +6,8 @@ import { useAppStore } from '../../store/useAppStore';
 import { ProceduralFlame } from '../../vfx/materials/flame';
 import { useQualityStore } from '../../vfx/quality';
 import { labSound } from '../../utils/audio';
+import { burnerIsBurning } from '../../engine/burnerEnergy';
+import { ALCOHOL_FLAME } from '../../science/flameGeometry';
 
 interface AlcoholBurnerProps {
   id: string;
@@ -49,7 +51,7 @@ export const AlcoholBurner = React.memo(function AlcoholBurner({
   const setDraggingVesselId = useAppStore(state => state.setDraggingVesselId);
   const toggleBurner = useAppStore(state => state.toggleBurner);
   const setBurnerIntensity = useAppStore(state => state.setBurnerIntensity);
-  const active = useAppStore(state => state.burners[id]?.isOn ?? isOn);
+  const active = useAppStore(state => state.burners[id] ? burnerIsBurning(state.burners[id]) : isOn);
 
   const [isHovered, setIsHovered] = useState(false);
 
@@ -284,7 +286,7 @@ export const AlcoholBurner = React.memo(function AlcoholBurner({
         {/* 4. MULTI-LAYER REALISTIC ALCOHOL FLAME                   */}
         {/* ======================================================== */}
         {isFlameActive && (
-          <ProceduralFlame burnerId={id} intensity={intensity} position={[0, 0.88, 0]} />
+          <ProceduralFlame burnerId={id} intensity={intensity} position={[0, ALCOHOL_FLAME.baseY, 0]} />
         )}
       </group>
     </group>

@@ -1,6 +1,7 @@
 import { atomBalance, equationKey, formatEquation, gcd, normalizeFormula, parseFormula } from './formula.mjs';
 import { ionicBalance, netIonicEquation } from './ionic.mjs';
 import { chemicalConstraintErrors } from './chemical-constraints.mjs';
+import { reactionGuideErrors } from './reaction-guide.mjs';
 
 export function validateCatalog(catalog) {
   const errors=[],ids=new Set(),equations=new Set(),registry=new Map((catalog.species??[]).map(s=>[s.formula,s]));
@@ -34,6 +35,8 @@ export function validateCatalog(catalog) {
     const key=equationKey(entry.reactants,entry.products);if(equations.has(key))fail('Duplicate molecular equation');equations.add(key);
     if(entry.equation!==formatEquation(entry.reactants,entry.products,entry.reversible))fail('Display equation disagrees with structured data');
     if(!entry.conditions?.description_vi?.trim()||!entry.explanation_vi?.trim())fail('Missing conditions or explanation');
+    for (const error of reactionGuideErrors(entry)) fail(error);
+    if (!catalog.sources?.['openstax-rates']?.url) fail('Missing kinetics explanation source');
     if(!entry.evidence?.sourceIds?.length||entry.evidence.sourceIds.some(id=>!catalog.sources?.[id]?.url?.startsWith('https://')))fail('Missing source references');
     if(entry.evidence?.scope!=='family'&&entry.evidence?.scope!=='specific')fail('Missing evidence scope');
     const ionic=netIonicEquation(entry,registry),balance=ionicBalance(ionic);

@@ -10,6 +10,8 @@ export interface ExperimentalEnvironment {
   light?: boolean;
   volume_ml?: number;
   ignitedProgramId?: string;
+  isSealed?: boolean;
+  requireInventory?: boolean;
 }
 
 export interface ConditionAssessment {
@@ -44,10 +46,12 @@ export function assessProgramConditions(
   env: ExperimentalEnvironment,
 ): ConditionAssessment {
   const unmet: string[] = [];
-  if (contents.length > 0) {
+  if (contents.length > 0 || env.requireInventory) {
     for (const reagent of program.chemistry.species.filter(item => item.role === 'reactant')) {
-      if (!contents.some(item => item.moles > 1e-12 && matchesReagent(item.formula, reagent.formula)
-        && (!item.phase || item.phase === reagent.phase))) unmet.push(`Thiếu lượng hoặc pha phù hợp của ${reagent.formula}.`);
+      if (!contents.some(item => Number.isFinite(item.moles) && item.moles > 1e-12
+        && (!item.location || item.location === 'bulk') && matchesReagent(item.formula, reagent.formula)
+        && (!(item.phase ?? identifySpecies(item.formula).phase) || (item.phase ?? identifySpecies(item.formula).phase) === reagent.phase)))
+        unmet.push(`Thiếu lượng hoặc pha phù hợp của ${reagent.formula}.`);
     }
   }
   const producesHydrogen = program.chemistry.species.some(item => item.role === 'product' && item.formula === 'H2');
@@ -57,6 +61,10 @@ export function assessProgramConditions(
   const conditions = program.chemistry.conditions;
   if (conditions?.activation === 'ignition' && env.ignitedProgramId !== program.id) unmet.push('Cần thao tác mồi cháy cho mẫu này; chỉ có chất phản ứng hoặc tăng nhiệt độ chung chưa xác nhận đã mồi.');
   const temperature = env.temperature_c ?? 25;
+  if (!Number.isFinite(temperature) || temperature <= -273.15) unmet.push('Nhiệt độ mẫu không hợp lệ.');
+  if (env.pressure_bar !== undefined && (!Number.isFinite(env.pressure_bar) || env.pressure_bar <= 0)) unmet.push('Áp suất mẫu không hợp lệ.');
+  if (conditions?.sealed !== undefined && env.isSealed !== conditions.sealed)
+    unmet.push(conditions.sealed ? 'Kịch bản cần bình kín.' : 'Kịch bản cần bình mở.');
   if (conditions?.minTemp_c !== undefined && temperature < conditions.minTemp_c) unmet.push(`Nhiệt độ mẫu chưa đạt ${conditions.minTemp_c} °C của kịch bản.`);
   const catalysts = program.chemistry.species.filter(item => item.role === 'catalyst');
   for (const catalyst of catalysts) {

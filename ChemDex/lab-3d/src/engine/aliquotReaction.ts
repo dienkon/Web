@@ -4,7 +4,7 @@ import { executeMultiStepReactions } from './chemistryEngine';
 import { getReactionVfxRecipe } from '../vfx/recipes/reactionVfx';
 import { planSodiumWater } from './sodiumWaterPlan';
 import { planMetalAcid } from './metalAcidPlan';
-import { planVerifiedContact } from './verifiedContactPlan';
+import { planVerifiedContact, planConditionedContact } from './verifiedContactPlan';
 import { withLegacyPrecipitateOrigins } from '../science/precipitateInventory';
 import { planAluminumMaterialReaction } from './aluminumMaterialProgress';
 import { solutionIndicatorColor } from '../science/indicatorAppearance';
@@ -16,6 +16,8 @@ export function reactAliquotMixture(vessel: VesselState, language: Language, isH
   if (sodium) return sodium;
   const metalAcid = planMetalAcid(vessel, language);
   if (metalAcid) return metalAcid;
+  const conditioned = planConditionedContact(vessel, language, isHeated);
+  if (conditioned) return conditioned;
   const chemistry = executeMultiStepReactions(withLegacyPrecipitateOrigins(vessel), vessel.substances,
     vessel.volume_ml, vessel.temperature_c, isHeated, language, { preserveQuantities: true });
   const reaction = chemistry.reactionsOccurred[0];

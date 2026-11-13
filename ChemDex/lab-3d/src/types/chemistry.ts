@@ -255,6 +255,7 @@ export type BurnerFlameState =
   | 'EXTINGUISHED';
 
 export interface FlameEmissionState {
+  elapsed_s?: number; // Accepted simulation time; legacy previews use startedAt_ms.
   element: string;
   color: string;
   startedAt_ms: number;

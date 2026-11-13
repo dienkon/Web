@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { retainedVolume, solveLevel } from '../src/pour/physics/retained';
 import { getVesselProfile } from '../src/pour/physics/profiles';
 import { clampTilt, clampLift, getHandleLimits, TILT_MIN, TILT_MAX } from '../src/handling/limits';
+import { restingVesselHeight } from '../src/handling/vesselRest';
 
 describe('Handling Limits & Full 0 to PI Inversion (K2.1)', () => {
   it('defines unified limits across all vessel types', () => {
@@ -19,7 +20,7 @@ describe('Handling Limits & Full 0 to PI Inversion (K2.1)', () => {
 
     // Lift clamping
     expect(clampLift('beaker', 10.0)).toBe(3.5);
-    expect(clampLift('beaker', -1.0)).toBe(-0.135);
+    expect(clampLift('beaker', -1.0)).toBe(restingVesselHeight('beaker'));
   });
 
   it('asserts monotone non-increasing retained volume across θ ∈ [0, π]', () => {

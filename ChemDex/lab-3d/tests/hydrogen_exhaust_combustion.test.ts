@@ -6,6 +6,7 @@ import { useAppStore } from '../src/store/useAppStore';
 import { planSodiumWater } from '../src/engine/sodiumWaterPlan';
 import { DEFAULT_LAB_ENVIRONMENT } from '../src/science/labEnvironment';
 import { useLabEnvironment } from '../src/store/useLabEnvironment';
+import { vesselLocalToWorld } from '../src/science/vesselScale';
 
 const original = useAppStore.getState();
 afterEach(() => { useAppStore.setState(original, true); useLabEnvironment.getState().setConditions(DEFAULT_LAB_ENVIRONMENT); });
@@ -18,8 +19,10 @@ const sample = (patch: Partial<VesselState> = {}): VesselState => ({
   temperature_c: 25, ph: 7, liquidColor: '#ffffff', hasPrecipitate: false,
   isBoiling: false, hasGas: false, ...patch,
 });
-const flameAtMouth = (v: VesselState): BurnerState => ({ id: 'source', isOn: true, intensity: 1,
-  fuelLevel_ml: 10, position: [v.position[0], v.position[1] + hydrogenExhaustAnchor(v)[1] - 1.1, v.position[2]] });
+const flameAtMouth = (v: VesselState): BurnerState => {
+  const p = vesselLocalToWorld(v, hydrogenExhaustAnchor(v));
+  return { id: 'source', isOn: true, intensity: 1, fuelLevel_ml: 10, position: [p[0], p[1] - 1.1, p[2]] };
+};
 
 describe('Finite external hydrogen flame boundary', () => {
   it('conserves atoms/mass including incoming oxygen and exports the combustion heat once', () => {
@@ -72,7 +75,7 @@ describe('Finite external hydrogen flame boundary', () => {
     expect(sodiumExternalIgnition(v, { b: { ...b, intensity: 0 } })).toBe(false);
     expect(sodiumExternalIgnition(v, { b: { ...b, fuelLevel_ml: 0 } })).toBe(false);
     expect(sodiumExternalIgnition(v, { b: { ...b, ethanolVolumeFraction: 0 } })).toBe(false);
-    expect(sodiumExternalIgnition(v, { b: { ...b, position: [0, b.position[1] - 0.3, 0] } })).toBe(false);
+    expect(sodiumExternalIgnition(v, { b: { ...b, position: [0, b.position[1] - 0.9, 0] } })).toBe(false);
     expect(sodiumExternalIgnition({ ...v, position: [5, 0, 0] }, { b })).toBe(false);
     expect(sodiumExternalIgnition({ ...v, isSealed: true }, { b })).toBe(false);
   });

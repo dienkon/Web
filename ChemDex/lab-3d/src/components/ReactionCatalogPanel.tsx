@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { createCatalogIndex, searchReactions, analyzeChain, findChain,
   type CatalogIndex, type ChainResult, type ReactionCatalog, type ReactionEntry } from '../../../shared/chemistry/reaction-catalog.mjs';
+import { reactionGuide } from '../../../shared/chemistry/reaction-guide.mjs';
 
 const PAGE_SIZE = 40;
 const ReactionChainExamples = React.lazy(() => import('./ReactionChainExamples'));
@@ -28,6 +29,7 @@ export default function ReactionCatalogPanel() {
   }, []);
   const matches = useMemo(() => index ? searchReactions(index, query, { family, limit: PAGE_SIZE, offset: page * PAGE_SIZE }) : { total: 0, entries: [] }, [index, query, family, page]);
   const families = useMemo(() => index ? [...new Map(index.catalog.entries.map(entry => [entry.family, entry.topic_vi])).entries()] : [], [index]);
+  const guide = useMemo(() => selected ? reactionGuide(selected) : null, [selected]);
 
   if (!index) return <section className="rounded-xl border bg-white p-3 text-xs" role={error ? 'alert' : 'status'}>{error || 'Đang tải kho phản ứng có nguồn…'}</section>;
   const button = 'rounded border border-teal-300 bg-white px-3 py-2 text-left font-semibold text-teal-900 disabled:opacity-40';
@@ -50,6 +52,18 @@ export default function ReactionCatalogPanel() {
       <p><strong>Điều kiện: </strong>{selected.conditions.description_vi}</p>
       <p><strong>Quan sát: </strong>{selected.observation_vi}</p>
       <p>{selected.explanation_vi}</p>
+      {guide && <div className="space-y-3" data-testid="catalog-observation-guide">
+        <p className="font-semibold">Diễn biến theo trình tự</p>
+        <ol className="list-decimal space-y-2 pl-5">{guide.stages.map(stage => <li key={stage.id}><strong>{stage.title_vi}: </strong>{stage.explanation_vi}</li>)}</ol>
+        <details><summary className="cursor-pointer font-semibold">Điều kiện của từng chất và kiểm kê</summary>
+          <ul className="list-disc space-y-1 pl-5">{guide.requirements.map(requirement => <li key={requirement}>{requirement}</li>)}</ul>
+          <p className="mt-2">{guide.stoichiometry_vi}</p>
+        </details>
+        <p><strong>Cơ chế: </strong>{guide.mechanism_vi}</p>
+        <p><strong>Tốc độ: </strong>{guide.rate.explanation_vi}</p>
+        <p className="text-slate-600">Chưa có thời gian thực nghiệm riêng cho mục này. Không dùng số giây của hiệu ứng để thay dữ liệu động học.</p>
+        <a className="text-teal-800 underline" href={index.catalog.sources['openstax-rates'].url} target="_blank" rel="noreferrer">{index.catalog.sources['openstax-rates'].title}</a>
+      </div>}
       {selected.caveats.length > 0 && <ul className="list-disc space-y-1 pl-4">{selected.caveats.map(note => <li key={note}>{note}</li>)}</ul>}
       <p className="rounded bg-amber-50 p-2">{selected.safety_vi}</p>
       <p className="text-slate-600">Nguồn đối chiếu theo họ phản ứng; chưa hiệu chuẩn riêng tốc độ, nhiệt hoặc cường độ màu cho từng mẫu.</p>

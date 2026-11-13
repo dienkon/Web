@@ -423,7 +423,7 @@ export function LabScene() {
     if (draggingVesselId.startsWith('burner')) {
       const state = useAppStore.getState();
       const burner = state.burners[draggingVesselId];
-      const newBurnerPos: [number, number, number] = [e.point.x, -0.975, e.point.z];
+      const newBurnerPos: [number, number, number] = [e.point.x, LAB_PHYSICS.BURNER_SURFACE_Y, e.point.z];
       updateBurnerPosition(draggingVesselId, newBurnerPos);
 
       // If a vessel is placed on this burner, move it together smoothly
@@ -443,7 +443,8 @@ export function LabScene() {
     // Physical snapping logic
     let targetX = Math.max(-14.5, Math.min(14.5, e.point.x));
     let targetZ = Math.max(-5.5, Math.min(5.5, e.point.z));
-    let targetY = restingVesselHeight(useAppStore.getState().vessels[draggingVesselId]?.type);
+    const dragged = useAppStore.getState().vessels[draggingVesselId];
+    let targetY = restingVesselHeight(dragged?.type, dragged?.capacity_ml);
 
     // Check snapping to analytical balance pan
     const [balanceX, , balanceZ] = LAB_PHYSICS.BALANCE_POSITION;

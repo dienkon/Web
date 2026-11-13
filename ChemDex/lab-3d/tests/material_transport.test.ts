@@ -232,9 +232,17 @@ describe('Store flow and cleanup preserve sample mass', () => {
         expect(recovered.contents.some(item => item.formula === 'Cu(OH)2')).toBe(true);
         expect(state.pendingReactions[target.id]).toBeDefined();
       } else {
-        expect(recovered.contents.some(item => item.formula === 'CuO' && item.phase === 's')).toBe(true);
-        expect(recovered.contents.some(item => item.formula === 'H2O' && item.phase === 'g')).toBe(true);
-        expect(state.activeKinetics[target.id]?.reactionId).toBe('cuoh2_thermal_decomposition');
+        expect(recovered.contents.some(item => item.formula === 'CuO')).toBe(false);
+        expect(state.activeKinetics[target.id]?.program?.id).toBe('cuoh2_decomp');
+        useAppStore.getState().tickSimulation(0.1);
+        const progressed = useAppStore.getState().vessels[target.id];
+        expect(progressed.contents.some(item => item.formula === 'CuO' && item.phase === 's' && item.moles > 0)).toBe(true);
+        const water = progressed.contents.filter(item => item.formula === 'H2O').reduce((sum, item) => sum + item.mass_g, 0)
+          + (progressed.escapedGas_g?.H2O ?? 0) + (progressed.wallCondensation?.inner_g ?? 0);
+        const oxide = progressed.contents.find(item => item.formula === 'CuO')!;
+        expect(water).toBeCloseTo(oxide.moles * computeMolarMass('H2O'), 10);
+        expect(progressed.mass_g + (progressed.wallCondensation?.inner_g ?? 0) + (progressed.escapedGas_g?.H2O ?? 0)
+          + state.vessels[source.id].mass_g).toBeCloseTo(11, 10);
       }
     } finally { useAppStore.setState(before, true); }
   });

@@ -8,7 +8,7 @@ import { VesselState, ChemicalDefinition } from '../types/chemistry';
 export const LAB_PHYSICS = {
   TABLE_SURFACE_Y: LAB_GEOMETRY.tableTop_scene,
   VESSEL_REST_Y: LAB_GEOMETRY.defaultVesselOrigin_scene,
-  BURNER_SURFACE_Y: -0.975,
+  BURNER_SURFACE_Y: LAB_GEOMETRY.tableTop_scene + 0.105,
   BALANCE_PAN_Y: 0.15,
   BALANCE_POSITION: [7.5, -1.175, -2.5] as [number, number, number],
   BALANCE_PAN_RADIUS: 0.85,

@@ -148,7 +148,7 @@ export function planStudioProgram(program: ReactionProgram, vessel: VesselState,
   if (!vessel.contents.some(item => item.moles > 1e-12)) return { unmet: ['Mẫu đã hết lượng chất để phản ứng.'], kinetics: null };
   const assessment = assessProgramConditions(program, vessel.contents, { temperature_c: vessel.temperature_c,
     ignitedProgramId: vessel.ignitedProgramId,
-    volume_ml: vessel.volume_ml, pH: vessel.ph, isHeated: vessel.temperature_c > 25 });
+    volume_ml: vessel.volume_ml, pH: vessel.ph, isHeated: vessel.temperature_c > 25, isSealed: vessel.isSealed ?? false, requireInventory: true });
   if (!assessment.ready) return { unmet: assessment.unmet, kinetics: null };
   const end = applyProgramToLedger(program, vessel, 1);
   const kinetics: ActiveKineticsState = {

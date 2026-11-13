@@ -11,6 +11,7 @@ import { useLessonLabStore } from '../lesson/labBridge';
 import { mobileSolidInventory } from '../science/suspensionTransport';
 import { SimulationEngine } from '../simulation/core/SimulationEngine';
 import { prepareAliquotContact } from '../engine/aliquotContactChemistry';
+import { vesselHasBurnerHeat } from '../engine/burnerEnergy';
 
 export interface InstrumentResult {
   ok: boolean;
@@ -75,8 +76,7 @@ export function dispensePipette(requested_ml = 2.5, targetId?: string): Instrume
   }
   const transfer = dispenseAliquot(receiver, sample, requested_ml);
   if (transfer.dispensed_ml <= 0) return result('pipette', false, 'Bình nhận đã đầy.');
-  const heated = Object.values(state.burners).some(burner => burner.isOn
-    && Math.hypot(burner.position[0] - receiver.position[0], burner.position[2] - receiver.position[2]) < 1.5);
+  const heated = vesselHasBurnerHeat(receiver, state.burners);
   const reacted = transfer.failureReason ? { vessel: transfer.vessel, kinetics: null, mixResult: null }
     : reactAliquotMixture(transfer.vessel, state.language, heated);
   state.commitPipetteTransfer({ vessel: reacted.vessel, sample: transfer.sample, withdrawal: false,
@@ -93,7 +93,7 @@ export function positionInstrument(id: InstrumentId, position: ToolPosition): In
   const constrained = constrainToolPosition(...position);
   const next = [constrained[0], instrumentHome(id)[1], constrained[2]] as ToolPosition;
   useAppStore.getState().setActiveTool('none');
-  useToolDockStore.setState(state => ({ positions: { ...state.positions, [id]: next } }));
+  useToolDockStore.setState(state => ({ positions: { ...state.positions, [id]: next }, deployed: { ...state.deployed, [id]: true } }));
   if (id === 'balance') LAB_PHYSICS.BALANCE_POSITION = next;
   if (id === 'burette') useAppStore.getState().updateBurette({ position: next, isDispensing: false });
   return result(id, true, `Đã đặt ${getInstrument(id).name} tại x=${next[0].toFixed(2)}, z=${next[2].toFixed(2)}.`);
@@ -101,6 +101,13 @@ export function positionInstrument(id: InstrumentId, position: ToolPosition): In
 
 export function returnInstrumentHome(id: InstrumentId): InstrumentResult {
   return positionInstrument(id, instrumentHome(id));
+}
+
+export function stowInstrument(id: InstrumentId): InstrumentResult {
+  if (id === 'balance' || id === 'burette') return result(id, false, 'Thiết bị này có vị trí cố định trên bàn.');
+  if (useAppStore.getState().activeTool === id) useAppStore.getState().setActiveTool('none');
+  useToolDockStore.setState(s => ({ deployed: { ...s.deployed, [id]: false }, dragging: s.dragging === id ? null : s.dragging }));
+  return result(id, true, `Đã cất ${getInstrument(id).name}.`);
 }
 
 export function activateInstrument(id: InstrumentId): InstrumentResult {

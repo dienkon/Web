@@ -31,16 +31,23 @@ export function advanceAqueousContactProgress(kinetics: Pick<ActiveKineticsState
  * illustrative rate: no measured temperature/surface law is available. */
 export function advanceCatalyticProgress(kinetics: ActiveKineticsState, current: VesselState, dt: number): number {
   const program = kinetics.program;
-  if (!program?.chemistry.species.some(s => s.role === 'catalyst')
-    || program.chemistry.kinetics.model !== 'first_order'
-    || program.chemistry.species.filter(s => s.role === 'reactant').length !== 1)
+  if (!program || !['first_order', 'induction_then_fast'].includes(program.chemistry.kinetics.model))
     return advanceAqueousContactProgress(kinetics, dt);
   const previous = Math.max(0, Math.min(1, kinetics.progress));
   const halfTime = program.chemistry.kinetics.halfTime_s;
   if (!Number.isFinite(dt) || dt <= 0 || !(halfTime > 0) || !Number.isFinite(halfTime)
     || !assessProgramConditions(program, current.contents, {
       temperature_c: current.temperature_c, volume_ml: current.volume_ml, pH: current.ph,
+      isSealed: current.isSealed ?? false, ignitedProgramId: kinetics.initialVesselBaseline?.ignitedProgramId,
     }).ready) return previous;
-  const remaining = (1 - previous) * Math.exp(-Math.LN2 * dt / halfTime);
+  let reactingDt = dt;
+  if (program.chemistry.kinetics.model === 'induction_then_fast') {
+    const delay = program.chemistry.kinetics.induction_s ?? 0;
+    if (!Number.isFinite(delay) || delay < 0) return previous;
+    const elapsed = kinetics.inductionElapsed_s ?? 0;
+    kinetics.inductionElapsed_s = elapsed + dt;
+    reactingDt = Math.max(0, elapsed + dt - delay) - Math.max(0, elapsed - delay);
+  }
+  const remaining = (1 - previous) * Math.exp(-Math.LN2 * reactingDt / halfTime);
   return remaining <= 1e-4 ? 1 : 1 - remaining;
 }

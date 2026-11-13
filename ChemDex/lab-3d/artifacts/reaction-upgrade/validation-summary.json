@@ -1,0 +1,79 @@
+{
+  "reviewedOn": "2026-11-13",
+  "catalog": {
+    "schema": "chemdex.reaction-summary/1",
+    "catalogVersion": 2,
+    "catalogDigest": "ef99e28e57cbaa769c5c4bb4c6b0dbc176e95c13c834899bcac24c188c18ea88",
+    "reactionCount": 1300,
+    "netIonicCount": 379,
+    "chainCount": 5740,
+    "speciesCount": 326,
+    "families": {
+      "ammonium_base": 33,
+      "amphoteric": 5,
+      "carbonate_acid": 91,
+      "catalytic_decomposition": 1,
+      "combustion": 29,
+      "displacement": 132,
+      "esterification": 16,
+      "metal_acid": 27,
+      "neutralization": 115,
+      "organic_conversion": 8,
+      "oxide_acid": 106,
+      "precipitation": 601,
+      "redox": 10,
+      "saponification": 48,
+      "sulfide_acid": 12,
+      "sulfite_acid": 15,
+      "synthesis": 22,
+      "thermal": 29
+    }
+  },
+  "validation": {
+    "lab": {
+      "files": 234,
+      "tests": 3115,
+      "passed": true
+    },
+    "finalLayoutChecks": {
+      "files": 4,
+      "tests": 20,
+      "passed": true
+    },
+    "catalogTests": {
+      "tests": 19,
+      "passed": true
+    },
+    "catalogAudit": true,
+    "typecheckLab": true,
+    "typecheckApi": true,
+    "productionBuild": true,
+    "browser": {
+      "moveModeDoesNotSpawnTools": true,
+      "spawns": {
+        "count": 22,
+        "minimumClearance": 0.16066724266272114,
+        "required": 0.16,
+        "unlit": true
+      },
+      "renderedSupportsAndFootprints": 21,
+      "catalogGuideDesktopAndMobile": true
+    },
+    "browserErrors": []
+  },
+  "performance": {
+    "checkedAt": "2026-11-13T15:45:36.622Z",
+    "scenario": "Three vessel logic/physics, high tier, 120 steps at dt=1/60",
+    "webglRenderingIncluded": false,
+    "browserFpsVerified": false,
+    "averageStep_ms": 2.3118274999999997,
+    "p95Step_ms": 3.94419999999991,
+    "maximumStep_ms": 14.930299999999988,
+    "heapDelta_MB": 16.07341766357422
+  },
+  "limitations": [
+    "Extended catalog is reference data; dedicated programs have separate runtime validation.",
+    "Qualitative kinetics guidance does not claim measured rate constants for 1300 equations.",
+    "Headless logic timing excludes WebGL rendering."
+  ]
+}
