@@ -78,8 +78,8 @@ function displayPeriodicEdges(data,repeat,edges,directed=false){
   return connections;
 }
 
-export function crystalDisplayConnections(data,repeat=1){
-  return displayPeriodicEdges(data,repeat,periodicCrystalNeighbors(data));
+export function crystalDisplayConnections(data,repeat=1,edges=periodicCrystalNeighbors(data)){
+  return displayPeriodicEdges(data,repeat,edges);
 }
 
 const waterHydrogenCache=new WeakMap();
@@ -123,8 +123,8 @@ export function periodicWaterHydrogenBonds(data){
   waterHydrogenCache.set(data,edges);return edges;
 }
 
-export function crystalDisplayHydrogenBonds(data,repeat=1){
-  return displayPeriodicEdges(data,repeat,periodicCrystalHydrogenBonds(data),true);
+export function crystalDisplayHydrogenBonds(data,repeat=1,edges=periodicCrystalHydrogenBonds(data)){
+  return displayPeriodicEdges(data,repeat,edges,true);
 }
 
 export function periodicCrystalHydrogenBonds(data){

@@ -19,7 +19,8 @@ if(allCrystals)for(const file of ['wiki-crystal-models','substance-crystal-model
 if(review&&crystals&&!wiki)sourceCatalog.structures.push(...JSON.parse(await fs.readFile(path.join(root,'data/wiki-crystal-models.json'),'utf8')).structures);
 const catalog = {models: crystals || wiki ? sourceCatalog.structures : sourceCatalog.models};
 const onlyId=process.argv.find(arg=>arg.startsWith('--id='))?.slice(5);
-if(onlyId){catalog.models=catalog.models.filter(model=>model.id===onlyId);if(!catalog.models.length)throw Error(`Unknown model ID: ${onlyId}`);}
+const ids=(onlyId??process.argv.find(arg=>arg.startsWith('--ids='))?.slice(6))?.split(',');
+if(ids){const unknown=ids.filter(id=>!catalog.models.some(model=>model.id===id));if(unknown.length)throw Error(`Unknown model IDs: ${unknown.join(', ')}`);catalog.models=catalog.models.filter(model=>ids.includes(model.id));}
 const pageHTML = `<!doctype html><html><head><meta charset="utf-8"><script type="importmap">{"imports":{"three":"/node_modules/three/build/three.module.js","three/":"/node_modules/three/"}}</script><style>body{margin:0;background:${crystals||wiki?'#f5fafc':'#0c1520'}}canvas{display:block}</style></head><body><script type="module">
 import * as THREE from 'three';
 import {frameCrystal} from '/js/three/published-crystal.js';
@@ -67,8 +68,8 @@ try{
   }
   if(errors.length)throw new Error(errors.join('\n'));
   const reportOverride=process.argv.find(arg=>arg.startsWith('--report-dir='))?.slice(13);
-  const report=reportOverride||onlyId?path.join(root,reportOverride??`.cache/crystal-assets/${onlyId}`,'crystal-render-verification.json'):path.join(root,allCrystals?'docs/crystal-display-fix/2026-11-12/crystal-render-verification.json':cod ? 'docs/molecular-crystal-upgrade/2026-11-12/crystal-render-verification.json' : substances ? 'docs/learning-expansion/2026-11-12/crystal-render-verification.json' : wiki||review ? 'docs/application-crystal-review/2026-11-12/crystal-render-verification.json' : crystals ? 'docs/library-crystal-upgrade/2026-11-11/crystal-render-verification.json' : 'docs/periodic-table-audit/2026-11-11/model-render-verification.json');
+  const report=reportOverride||ids?path.join(root,reportOverride??`.cache/crystal-assets/${onlyId??'selected'}`,'crystal-render-verification.json'):path.join(root,allCrystals?'docs/crystal-display-fix/2026-11-12/crystal-render-verification.json':cod ? 'docs/molecular-crystal-upgrade/2026-11-12/crystal-render-verification.json' : substances ? 'docs/learning-expansion/2026-11-12/crystal-render-verification.json' : wiki||review ? 'docs/application-crystal-review/2026-11-12/crystal-render-verification.json' : crystals ? 'docs/library-crystal-upgrade/2026-11-11/crystal-render-verification.json' : 'docs/periodic-table-audit/2026-11-11/model-render-verification.json');
   await fs.mkdir(path.dirname(report),{recursive:true});
-  await fs.writeFile(report,JSON.stringify({date:onlyId?new Date().toISOString().slice(0,10):allCrystals||cod||substances||wiki||review?'2026-11-12':'2026-11-11',renderer:'Chromium WebGL / Three.js',models:results,errors},null,2)+'\n');
+  await fs.writeFile(report,JSON.stringify({date:ids?new Date().toISOString().slice(0,10):allCrystals||cod||substances||wiki||review?'2026-11-12':'2026-11-11',renderer:'Chromium WebGL / Three.js',models:results,errors},null,2)+'\n');
   console.log(JSON.stringify({rendered:results.length,errors}));
 }finally{await browser?.close();await new Promise(resolve=>server.close(resolve));}

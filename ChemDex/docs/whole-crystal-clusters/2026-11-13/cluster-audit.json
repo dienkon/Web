@@ -1,0 +1,2233 @@
+{
+  "date": "2026-11-13",
+  "auditedStructures": 306,
+  "affected": [
+    {
+      "id": "borax",
+      "catalog": "crystal-catalog",
+      "views": [
+        {
+          "repeat": 1,
+          "sourceSites": 172,
+          "displayAtoms": 321,
+          "boundaryCopies": 134,
+          "solidRods": 340,
+          "hydrogenContacts": 0
+        },
+        {
+          "repeat": 2,
+          "sourceSites": 172,
+          "displayAtoms": 1961,
+          "boundaryCopies": 536,
+          "solidRods": 2096,
+          "hydrogenContacts": 0
+        }
+      ]
+    },
+    {
+      "id": "sulfur",
+      "catalog": "crystal-catalog",
+      "views": [
+        {
+          "repeat": 1,
+          "sourceSites": 128,
+          "displayAtoms": 288,
+          "boundaryCopies": 160,
+          "solidRods": 288,
+          "hydrogenContacts": 0
+        },
+        {
+          "repeat": 2,
+          "sourceSites": 128,
+          "displayAtoms": 1664,
+          "boundaryCopies": 640,
+          "solidRods": 1664,
+          "hydrogenContacts": 0
+        }
+      ]
+    },
+    {
+      "id": "nguyen-to-s",
+      "catalog": "crystal-catalog",
+      "views": [
+        {
+          "repeat": 1,
+          "sourceSites": 128,
+          "displayAtoms": 288,
+          "boundaryCopies": 160,
+          "solidRods": 288,
+          "hydrogenContacts": 0
+        },
+        {
+          "repeat": 2,
+          "sourceSites": 128,
+          "displayAtoms": 1664,
+          "boundaryCopies": 640,
+          "solidRods": 1664,
+          "hydrogenContacts": 0
+        }
+      ]
+    },
+    {
+      "id": "nguyen-to-i",
+      "catalog": "crystal-catalog",
+      "views": [
+        {
+          "repeat": 1,
+          "sourceSites": 8,
+          "displayAtoms": 20,
+          "boundaryCopies": 8,
+          "solidRods": 10,
+          "hydrogenContacts": 0
+        },
+        {
+          "repeat": 2,
+          "sourceSites": 8,
+          "displayAtoms": 114,
+          "boundaryCopies": 34,
+          "solidRods": 57,
+          "hydrogenContacts": 0
+        }
+      ]
+    },
+    {
+      "id": "chat-sassolite",
+      "catalog": "substance-crystal-models",
+      "views": [
+        {
+          "repeat": 1,
+          "sourceSites": 28,
+          "displayAtoms": 42,
+          "boundaryCopies": 14,
+          "solidRods": 36,
+          "hydrogenContacts": 0
+        },
+        {
+          "repeat": 2,
+          "sourceSites": 28,
+          "displayAtoms": 280,
+          "boundaryCopies": 56,
+          "solidRods": 240,
+          "hydrogenContacts": 0
+        }
+      ]
+    },
+    {
+      "id": "chat-chalcanthite",
+      "catalog": "substance-crystal-models",
+      "views": [
+        {
+          "repeat": 1,
+          "sourceSites": 42,
+          "displayAtoms": 60,
+          "boundaryCopies": 10,
+          "solidRods": 46,
+          "hydrogenContacts": 0
+        },
+        {
+          "repeat": 2,
+          "sourceSites": 42,
+          "displayAtoms": 399,
+          "boundaryCopies": 40,
+          "solidRods": 328,
+          "hydrogenContacts": 0
+        }
+      ]
+    },
+    {
+      "id": "chat-melanterite",
+      "catalog": "substance-crystal-models",
+      "views": [
+        {
+          "repeat": 1,
+          "sourceSites": 108,
+          "displayAtoms": 134,
+          "boundaryCopies": 16,
+          "solidRods": 116,
+          "hydrogenContacts": 0
+        },
+        {
+          "repeat": 2,
+          "sourceSites": 108,
+          "displayAtoms": 959,
+          "boundaryCopies": 64,
+          "solidRods": 848,
+          "hydrogenContacts": 0
+        }
+      ]
+    },
+    {
+      "id": "chat-solid-sulfur-dioxide",
+      "catalog": "substance-crystal-models",
+      "views": [
+        {
+          "repeat": 1,
+          "sourceSites": 12,
+          "displayAtoms": 42,
+          "boundaryCopies": 20,
+          "solidRods": 28,
+          "hydrogenContacts": 0
+        },
+        {
+          "repeat": 2,
+          "sourceSites": 12,
+          "displayAtoms": 189,
+          "boundaryCopies": 62,
+          "solidRods": 126,
+          "hydrogenContacts": 0
+        }
+      ]
+    },
+    {
+      "id": "chat-retgersite",
+      "catalog": "substance-crystal-models",
+      "views": [
+        {
+          "repeat": 1,
+          "sourceSites": 96,
+          "displayAtoms": 102,
+          "boundaryCopies": 4,
+          "solidRods": 112,
+          "hydrogenContacts": 0
+        },
+        {
+          "repeat": 2,
+          "sourceSites": 96,
+          "displayAtoms": 792,
+          "boundaryCopies": 16,
+          "solidRods": 800,
+          "hydrogenContacts": 0
+        }
+      ]
+    },
+    {
+      "id": "chat-acetamide",
+      "catalog": "substance-crystal-models",
+      "views": [
+        {
+          "repeat": 1,
+          "sourceSites": 162,
+          "displayAtoms": 315,
+          "boundaryCopies": 153,
+          "solidRods": 280,
+          "hydrogenContacts": 0
+        },
+        {
+          "repeat": 2,
+          "sourceSites": 162,
+          "displayAtoms": 1872,
+          "boundaryCopies": 576,
+          "solidRods": 1664,
+          "hydrogenContacts": 0
+        }
+      ]
+    },
+    {
+      "id": "chat-dry-ice",
+      "catalog": "substance-crystal-models",
+      "views": [
+        {
+          "repeat": 1,
+          "sourceSites": 12,
+          "displayAtoms": 42,
+          "boundaryCopies": 20,
+          "solidRods": 28,
+          "hydrogenContacts": 0
+        },
+        {
+          "repeat": 2,
+          "sourceSites": 12,
+          "displayAtoms": 189,
+          "boundaryCopies": 62,
+          "solidRods": 126,
+          "hydrogenContacts": 0
+        }
+      ]
+    },
+    {
+      "id": "chat-ammonium-nitrate-v",
+      "catalog": "substance-crystal-models",
+      "views": [
+        {
+          "repeat": 1,
+          "sourceSites": 72,
+          "displayAtoms": 138,
+          "boundaryCopies": 56,
+          "solidRods": 108,
+          "hydrogenContacts": 0
+        },
+        {
+          "repeat": 2,
+          "sourceSites": 72,
+          "displayAtoms": 820,
+          "boundaryCopies": 208,
+          "solidRods": 640,
+          "hydrogenContacts": 0
+        }
+      ]
+    },
+    {
+      "id": "chat-urea",
+      "catalog": "substance-crystal-models",
+      "views": [
+        {
+          "repeat": 1,
+          "sourceSites": 16,
+          "displayAtoms": 64,
+          "boundaryCopies": 44,
+          "solidRods": 56,
+          "hydrogenContacts": 0
+        },
+        {
+          "repeat": 2,
+          "sourceSites": 16,
+          "displayAtoms": 288,
+          "boundaryCopies": 144,
+          "solidRods": 252,
+          "hydrogenContacts": 0
+        }
+      ]
+    },
+    {
+      "id": "chat-solid-nitrogen-alpha",
+      "catalog": "substance-crystal-models",
+      "views": [
+        {
+          "repeat": 1,
+          "sourceSites": 8,
+          "displayAtoms": 16,
+          "boundaryCopies": 8,
+          "solidRods": 8,
+          "hydrogenContacts": 0
+        },
+        {
+          "repeat": 2,
+          "sourceSites": 8,
+          "displayAtoms": 102,
+          "boundaryCopies": 38,
+          "solidRods": 51,
+          "hydrogenContacts": 0
+        }
+      ]
+    },
+    {
+      "id": "chat-solid-chlorine",
+      "catalog": "substance-crystal-models",
+      "views": [
+        {
+          "repeat": 1,
+          "sourceSites": 8,
+          "displayAtoms": 20,
+          "boundaryCopies": 8,
+          "solidRods": 10,
+          "hydrogenContacts": 0
+        },
+        {
+          "repeat": 2,
+          "sourceSites": 8,
+          "displayAtoms": 114,
+          "boundaryCopies": 34,
+          "solidRods": 57,
+          "hydrogenContacts": 0
+        }
+      ]
+    },
+    {
+      "id": "chat-solid-bromine",
+      "catalog": "substance-crystal-models",
+      "views": [
+        {
+          "repeat": 1,
+          "sourceSites": 8,
+          "displayAtoms": 20,
+          "boundaryCopies": 8,
+          "solidRods": 10,
+          "hydrogenContacts": 0
+        },
+        {
+          "repeat": 2,
+          "sourceSites": 8,
+          "displayAtoms": 114,
+          "boundaryCopies": 34,
+          "solidRods": 57,
+          "hydrogenContacts": 0
+        }
+      ]
+    },
+    {
+      "id": "chat-solid-fluorine-alpha",
+      "catalog": "substance-crystal-models",
+      "views": [
+        {
+          "repeat": 1,
+          "sourceSites": 8,
+          "displayAtoms": 22,
+          "boundaryCopies": 10,
+          "solidRods": 11,
+          "hydrogenContacts": 0
+        },
+        {
+          "repeat": 2,
+          "sourceSites": 8,
+          "displayAtoms": 118,
+          "boundaryCopies": 38,
+          "solidRods": 59,
+          "hydrogenContacts": 0
+        }
+      ]
+    },
+    {
+      "id": "chat-ammonium-sulfate",
+      "catalog": "substance-crystal-models",
+      "views": [
+        {
+          "repeat": 1,
+          "sourceSites": 60,
+          "displayAtoms": 80,
+          "boundaryCopies": 20,
+          "solidRods": 64,
+          "hydrogenContacts": 0
+        },
+        {
+          "repeat": 2,
+          "sourceSites": 60,
+          "displayAtoms": 560,
+          "boundaryCopies": 80,
+          "solidRods": 448,
+          "hydrogenContacts": 0
+        }
+      ]
+    },
+    {
+      "id": "chat-solid-nitrous-oxide",
+      "catalog": "substance-crystal-models",
+      "views": [
+        {
+          "repeat": 1,
+          "sourceSites": 12,
+          "displayAtoms": 42,
+          "boundaryCopies": 20,
+          "solidRods": 28,
+          "hydrogenContacts": 0
+        },
+        {
+          "repeat": 2,
+          "sourceSites": 12,
+          "displayAtoms": 189,
+          "boundaryCopies": 62,
+          "solidRods": 126,
+          "hydrogenContacts": 0
+        }
+      ]
+    },
+    {
+      "id": "chat-solid-carbon-monoxide",
+      "catalog": "substance-crystal-models",
+      "views": [
+        {
+          "repeat": 1,
+          "sourceSites": 8,
+          "displayAtoms": 16,
+          "boundaryCopies": 8,
+          "solidRods": 8,
+          "hydrogenContacts": 0
+        },
+        {
+          "repeat": 2,
+          "sourceSites": 8,
+          "displayAtoms": 102,
+          "boundaryCopies": 38,
+          "solidRods": 51,
+          "hydrogenContacts": 0
+        }
+      ]
+    },
+    {
+      "id": "chat-solid-hydrogen-chloride",
+      "catalog": "substance-crystal-models",
+      "views": [
+        {
+          "repeat": 1,
+          "sourceSites": 8,
+          "displayAtoms": 18,
+          "boundaryCopies": 3,
+          "solidRods": 9,
+          "hydrogenContacts": 0
+        },
+        {
+          "repeat": 2,
+          "sourceSites": 8,
+          "displayAtoms": 100,
+          "boundaryCopies": 10,
+          "solidRods": 50,
+          "hydrogenContacts": 0
+        }
+      ]
+    },
+    {
+      "id": "chat-solid-oxygen-beta",
+      "catalog": "substance-crystal-models",
+      "views": [
+        {
+          "repeat": 1,
+          "sourceSites": 6,
+          "displayAtoms": 20,
+          "boundaryCopies": 8,
+          "solidRods": 10,
+          "hydrogenContacts": 0
+        },
+        {
+          "repeat": 2,
+          "sourceSites": 6,
+          "displayAtoms": 86,
+          "boundaryCopies": 18,
+          "solidRods": 43,
+          "hydrogenContacts": 0
+        }
+      ]
+    },
+    {
+      "id": "chat-ice-ii",
+      "catalog": "substance-crystal-models",
+      "views": [
+        {
+          "repeat": 1,
+          "sourceSites": 36,
+          "displayAtoms": 126,
+          "boundaryCopies": 90,
+          "solidRods": 84,
+          "hydrogenContacts": 48
+        },
+        {
+          "repeat": 2,
+          "sourceSites": 36,
+          "displayAtoms": 648,
+          "boundaryCopies": 360,
+          "solidRods": 432,
+          "hydrogenContacts": 324
+        }
+      ]
+    },
+    {
+      "id": "cod-1008189",
+      "catalog": "cod-crystal-models",
+      "views": [
+        {
+          "repeat": 1,
+          "sourceSites": 16,
+          "displayAtoms": 36,
+          "boundaryCopies": 20,
+          "solidRods": 27,
+          "hydrogenContacts": 0
+        },
+        {
+          "repeat": 2,
+          "sourceSites": 16,
+          "displayAtoms": 208,
+          "boundaryCopies": 80,
+          "solidRods": 156,
+          "hydrogenContacts": 0
+        }
+      ]
+    },
+    {
+      "id": "cod-7238223",
+      "catalog": "cod-crystal-models",
+      "views": [
+        {
+          "repeat": 1,
+          "sourceSites": 48,
+          "displayAtoms": 144,
+          "boundaryCopies": 96,
+          "solidRods": 144,
+          "hydrogenContacts": 0
+        },
+        {
+          "repeat": 2,
+          "sourceSites": 48,
+          "displayAtoms": 732,
+          "boundaryCopies": 348,
+          "solidRods": 732,
+          "hydrogenContacts": 0
+        }
+      ]
+    },
+    {
+      "id": "cod-5910115",
+      "catalog": "cod-crystal-models",
+      "views": [
+        {
+          "repeat": 1,
+          "sourceSites": 36,
+          "displayAtoms": 72,
+          "boundaryCopies": 34,
+          "solidRods": 64,
+          "hydrogenContacts": 0
+        },
+        {
+          "repeat": 2,
+          "sourceSites": 36,
+          "displayAtoms": 432,
+          "boundaryCopies": 136,
+          "solidRods": 384,
+          "hydrogenContacts": 0
+        }
+      ]
+    },
+    {
+      "id": "cod-4503066",
+      "catalog": "cod-crystal-models",
+      "views": [
+        {
+          "repeat": 1,
+          "sourceSites": 24,
+          "displayAtoms": 96,
+          "boundaryCopies": 72,
+          "solidRods": 80,
+          "hydrogenContacts": 11
+        },
+        {
+          "repeat": 2,
+          "sourceSites": 24,
+          "displayAtoms": 456,
+          "boundaryCopies": 264,
+          "solidRods": 380,
+          "hydrogenContacts": 62
+        }
+      ]
+    },
+    {
+      "id": "cod-7110463",
+      "catalog": "cod-crystal-models",
+      "views": [
+        {
+          "repeat": 1,
+          "sourceSites": 40,
+          "displayAtoms": 80,
+          "boundaryCopies": 28,
+          "solidRods": 72,
+          "hydrogenContacts": 0
+        },
+        {
+          "repeat": 2,
+          "sourceSites": 40,
+          "displayAtoms": 480,
+          "boundaryCopies": 112,
+          "solidRods": 432,
+          "hydrogenContacts": 0
+        }
+      ]
+    },
+    {
+      "id": "cod-2008187",
+      "catalog": "cod-crystal-models",
+      "views": [
+        {
+          "repeat": 1,
+          "sourceSites": 32,
+          "displayAtoms": 48,
+          "boundaryCopies": 14,
+          "solidRods": 42,
+          "hydrogenContacts": 0
+        },
+        {
+          "repeat": 2,
+          "sourceSites": 32,
+          "displayAtoms": 320,
+          "boundaryCopies": 56,
+          "solidRods": 280,
+          "hydrogenContacts": 0
+        }
+      ]
+    },
+    {
+      "id": "cod-7050902",
+      "catalog": "cod-crystal-models",
+      "views": [
+        {
+          "repeat": 1,
+          "sourceSites": 84,
+          "displayAtoms": 168,
+          "boundaryCopies": 84,
+          "solidRods": 168,
+          "hydrogenContacts": 0
+        },
+        {
+          "repeat": 2,
+          "sourceSites": 84,
+          "displayAtoms": 1008,
+          "boundaryCopies": 336,
+          "solidRods": 1008,
+          "hydrogenContacts": 0
+        }
+      ]
+    },
+    {
+      "id": "cod-5000067",
+      "catalog": "cod-crystal-models",
+      "views": [
+        {
+          "repeat": 1,
+          "sourceSites": 96,
+          "displayAtoms": 336,
+          "boundaryCopies": 240,
+          "solidRods": 336,
+          "hydrogenContacts": 0
+        },
+        {
+          "repeat": 2,
+          "sourceSites": 96,
+          "displayAtoms": 1512,
+          "boundaryCopies": 744,
+          "solidRods": 1512,
+          "hydrogenContacts": 0
+        }
+      ]
+    },
+    {
+      "id": "cod-5000065",
+      "catalog": "cod-crystal-models",
+      "views": [
+        {
+          "repeat": 1,
+          "sourceSites": 96,
+          "displayAtoms": 288,
+          "boundaryCopies": 192,
+          "solidRods": 288,
+          "hydrogenContacts": 0
+        },
+        {
+          "repeat": 2,
+          "sourceSites": 96,
+          "displayAtoms": 1464,
+          "boundaryCopies": 696,
+          "solidRods": 1464,
+          "hydrogenContacts": 0
+        }
+      ]
+    },
+    {
+      "id": "cod-2300557",
+      "catalog": "cod-crystal-models",
+      "views": [
+        {
+          "repeat": 1,
+          "sourceSites": 90,
+          "displayAtoms": 360,
+          "boundaryCopies": 270,
+          "solidRods": 368,
+          "hydrogenContacts": 0
+        },
+        {
+          "repeat": 2,
+          "sourceSites": 90,
+          "displayAtoms": 1800,
+          "boundaryCopies": 1080,
+          "solidRods": 1840,
+          "hydrogenContacts": 0
+        }
+      ]
+    }
+  ],
+  "unchanged": [
+    "beryl",
+    "graphite",
+    "fluorite",
+    "halite",
+    "magnesite",
+    "gibbsite",
+    "boehmite",
+    "diaspore",
+    "quartz",
+    "apatite",
+    "sylvite",
+    "calcite",
+    "thortveitite",
+    "rutile",
+    "vanadinite",
+    "chromite",
+    "pyrolusite",
+    "hematite",
+    "cobaltite",
+    "pentlandite",
+    "chalcopyrite",
+    "sphalerite",
+    "germanite",
+    "arsenopyrite",
+    "clausthalite",
+    "lepidolite",
+    "celestine",
+    "xenotime",
+    "zircon",
+    "columbite",
+    "molybdenite",
+    "laurite",
+    "native-platinum",
+    "acanthite",
+    "cassiterite",
+    "stibnite",
+    "calaverite",
+    "pollucite",
+    "barite",
+    "monazite",
+    "tantalite",
+    "scheelite",
+    "native-gold",
+    "cinnabar",
+    "galena",
+    "bismuthinite",
+    "uraninite",
+    "thorite",
+    "spodumene",
+    "nguyen-to-li",
+    "nguyen-to-be",
+    "nguyen-to-b",
+    "nguyen-to-c",
+    "nguyen-to-na",
+    "nguyen-to-mg",
+    "nguyen-to-al",
+    "nguyen-to-si",
+    "nguyen-to-p",
+    "nguyen-to-k",
+    "nguyen-to-ca",
+    "nguyen-to-sc",
+    "nguyen-to-ti",
+    "nguyen-to-v",
+    "nguyen-to-cr",
+    "nguyen-to-fe",
+    "nguyen-to-co",
+    "nguyen-to-ni",
+    "nguyen-to-cu",
+    "nguyen-to-zn",
+    "nguyen-to-ga",
+    "nguyen-to-ge",
+    "nguyen-to-as",
+    "nguyen-to-se",
+    "nguyen-to-rb",
+    "nguyen-to-sr",
+    "nguyen-to-y",
+    "nguyen-to-zr",
+    "nguyen-to-nb",
+    "nguyen-to-mo",
+    "nguyen-to-ru",
+    "nguyen-to-rh",
+    "nguyen-to-pd",
+    "nguyen-to-ag",
+    "nguyen-to-cd",
+    "nguyen-to-in",
+    "nguyen-to-sn",
+    "nguyen-to-sb",
+    "nguyen-to-te",
+    "nguyen-to-cs",
+    "nguyen-to-ba",
+    "nguyen-to-la",
+    "nguyen-to-ce",
+    "nguyen-to-pr",
+    "nguyen-to-nd",
+    "nguyen-to-sm",
+    "nguyen-to-eu",
+    "nguyen-to-gd",
+    "nguyen-to-tb",
+    "nguyen-to-dy",
+    "nguyen-to-ho",
+    "nguyen-to-er",
+    "nguyen-to-tm",
+    "nguyen-to-yb",
+    "nguyen-to-lu",
+    "nguyen-to-hf",
+    "nguyen-to-ta",
+    "nguyen-to-w",
+    "nguyen-to-re",
+    "nguyen-to-os",
+    "nguyen-to-ir",
+    "nguyen-to-pt",
+    "nguyen-to-au",
+    "nguyen-to-tl",
+    "nguyen-to-pb",
+    "nguyen-to-bi",
+    "nguyen-to-ac",
+    "nguyen-to-th",
+    "nguyen-to-u",
+    "nguyen-to-mn",
+    "nguyen-to-np",
+    "nguyen-to-pu",
+    "nguyen-to-am",
+    "nguyen-to-tc",
+    "nguyen-to-pm",
+    "nguyen-to-ra",
+    "nguyen-to-pa",
+    "nguyen-to-po",
+    "nguyen-to-cm",
+    "nguyen-to-bk",
+    "chat-cuprite",
+    "chat-tenorite",
+    "chat-corundum",
+    "chat-periclase",
+    "chat-zincite",
+    "chat-portlandite",
+    "chat-nitratine",
+    "chat-niter",
+    "chat-siderite",
+    "chat-cerussite",
+    "chat-anglesite",
+    "chat-witherite",
+    "chat-strontianite",
+    "chat-massicot",
+    "chat-bunsenite",
+    "chat-otavite",
+    "chat-greenockite",
+    "chat-arcanite",
+    "chat-thenardite",
+    "chat-anhydrite",
+    "chat-sellaite",
+    "chat-villiaumite",
+    "chat-lime",
+    "chat-sodium-bromide",
+    "chat-potassium-bromide",
+    "chat-lithium-chloride",
+    "chat-hydrophilite",
+    "chat-tolbachite",
+    "chat-molysite",
+    "chat-salammoniac",
+    "chat-lopezite",
+    "chat-lead-iodide",
+    "chat-chalcocyanite",
+    "chat-silver-chloride",
+    "chat-silver-bromide",
+    "chat-silver-iodide",
+    "chat-covellite",
+    "chat-rhodochrosite",
+    "chat-smithsonite",
+    "chat-brucite",
+    "chat-troilite",
+    "chat-kalicinite",
+    "chat-millerite",
+    "chat-tuite",
+    "chat-alabandite",
+    "chat-manganosite",
+    "chat-monteponite",
+    "chat-polymeric-sulfur-trioxide",
+    "chat-zincosite",
+    "chat-magnesium-sulfate",
+    "chat-nahcolite",
+    "chat-crocoite",
+    "chat-tarapacaite",
+    "chat-silver-carbonate",
+    "chat-natrite",
+    "chat-barium-nitrate",
+    "chat-strontium-nitrate",
+    "chat-spertiniite",
+    "chat-ferrous-sulfate-beta",
+    "chat-nickel-bromide",
+    "chat-nickel-iodide",
+    "chat-potassium-sulfide",
+    "chat-cobalt-chloride",
+    "chat-eskolaite",
+    "chat-tin-sulfate",
+    "chat-strontium-iodide",
+    "chat-ferric-sulfate-monoclinic",
+    "chat-ferric-sulfate-rhombohedral",
+    "chat-silver-phosphate",
+    "chat-zabuyelite",
+    "chat-aluminium-sulfate",
+    "chat-chromium-sulfate",
+    "chat-solid-argon",
+    "chat-solid-krypton",
+    "chat-solid-neon",
+    "chat-solid-xenon",
+    "chat-solid-helium",
+    "chat-barium-oxide",
+    "chat-cobalt-oxide",
+    "chat-cesium-chloride",
+    "chat-wustite-reference",
+    "chat-potassium-fluoride",
+    "chat-potassium-iodide",
+    "chat-lithium-bromide",
+    "chat-lithium-fluoride",
+    "chat-lithium-iodide",
+    "chat-sodium-iodide",
+    "chat-strontium-oxide",
+    "chat-cobalt-sulfide",
+    "chat-lithium-hydroxide",
+    "chat-barium-chloride",
+    "chat-frankdicksonite",
+    "chat-lead-fluoride-beta",
+    "chat-strontium-chloride",
+    "chat-strontium-fluoride",
+    "chat-potassium-oxide",
+    "chat-lithium-oxide",
+    "chat-sodium-oxide",
+    "chat-sodium-sulfide",
+    "chat-calcium-iodide",
+    "chat-cobalt-bromide",
+    "chat-cobalt-iodide",
+    "chat-ferrous-bromide",
+    "chat-ferrous-iodide",
+    "chat-magnesium-bromide",
+    "chat-magnesium-iodide",
+    "chat-manganese-bromide",
+    "chat-manganese-iodide",
+    "chat-zinc-iodide",
+    "chat-cadmium-bromide",
+    "chat-cadmium-chloride",
+    "chat-ferrous-chloride",
+    "chat-magnesium-chloride",
+    "chat-manganese-chloride",
+    "chat-nickel-chloride",
+    "chat-zinc-bromide",
+    "chat-zinc-chloride",
+    "chat-cadmium-iodide",
+    "chat-cotunnite",
+    "chat-lead-bromide",
+    "chat-strontium-bromide",
+    "chat-potassium-carbonate",
+    "chat-disodium-hydrogen-phosphate",
+    "chat-sodium-chromate",
+    "chat-chromium-bromide",
+    "chat-lithium-sulfate",
+    "chat-silver-oxide",
+    "chat-sodium-sulfite",
+    "chat-sodium-nitrite",
+    "chat-potassium-thiocyanate",
+    "chat-lithium-nitrate",
+    "chat-zinc-hydroxide-epsilon",
+    "cod-2105348",
+    "cod-2310631",
+    "cod-8104275",
+    "cod-1548811",
+    "cod-2020897",
+    "cod-1542184",
+    "cod-1535669",
+    "cod-1535698",
+    "cod-8104000",
+    "cod-2310480",
+    "cod-4504310",
+    "cod-1549467"
+  ],
+  "sources": [
+    {
+      "id": "beryl",
+      "sha256": "2efef58589f186d8009c4731a0937cc67d4e732671bb1ffcd9f64e7b5eeba51d"
+    },
+    {
+      "id": "borax",
+      "sha256": "bf755d6d69fcdcaf9bc8a9abf1293f56893735e8dde0d3e19b18112fb80d379a"
+    },
+    {
+      "id": "graphite",
+      "sha256": "c8e516e34029558ea9e5b7960053fb78471d40cf250906d89cf16b141ed5a0e0"
+    },
+    {
+      "id": "fluorite",
+      "sha256": "25321396e7d5224563831d8720438246fee8de49bb94a4972ac6c9e4d64cfbc3"
+    },
+    {
+      "id": "halite",
+      "sha256": "ac532908b58677f35127dd87eed711f4b243db7de640c567596d4df0ea430519"
+    },
+    {
+      "id": "magnesite",
+      "sha256": "12820878af44da3def6550cda02e65627f48eeea78be4f97ef68e6b6605c4967"
+    },
+    {
+      "id": "gibbsite",
+      "sha256": "a7ae38d49ff5f14f4298424e1e6d3888ac5a0938f3bdec138a4a5023e48bbc3f"
+    },
+    {
+      "id": "boehmite",
+      "sha256": "c04c62e98eaf31e8e5b39aba1acdf40594303318d4c714ab295444eb59b6ca44"
+    },
+    {
+      "id": "diaspore",
+      "sha256": "934bcea638decae58ffea12f66a7938d861aa8132676332716c848c2af36575e"
+    },
+    {
+      "id": "quartz",
+      "sha256": "e0e3326b83668f63da773226c0deab7ce240292e42b7fe4e540a491e473643dc"
+    },
+    {
+      "id": "apatite",
+      "sha256": "2ed5b59666be139ce0c70a92e9e0899c69d3c64e18bd612e4ee261bb7710bbf9"
+    },
+    {
+      "id": "sulfur",
+      "sha256": "b99dfd8ed301eeed75a86a9dc5c92e8588e4768432861a232c58f7d2841b1931"
+    },
+    {
+      "id": "sylvite",
+      "sha256": "7bafce8849905a8da242f6c2983866891fde6d5b064dc46f9b2974da521aa109"
+    },
+    {
+      "id": "calcite",
+      "sha256": "4e4f8d6d6b951bfaadbbc8ee9b2d1fe0a50ee3441f3ed9a18aabd874271a0e77"
+    },
+    {
+      "id": "thortveitite",
+      "sha256": "5a300e725216bf442f9628da272f2b23408cb201d133ca3bb4c071b8c0a60193"
+    },
+    {
+      "id": "rutile",
+      "sha256": "288d57f2b18f5f95851e6caea1cc6cd3738461771016d66c1bf1bb31e4698e79"
+    },
+    {
+      "id": "vanadinite",
+      "sha256": "2d44813befb9632e72f06c4c5d93c293c38cc25d6aadb0223a9a4851293c16fd"
+    },
+    {
+      "id": "chromite",
+      "sha256": "7cd7d10f0b18a7be5ad123802959ceb370cc48e6ae54d72d679a5bd47885fccd"
+    },
+    {
+      "id": "pyrolusite",
+      "sha256": "fc4efb7834f1baeca9cc18409265652a93071feb9fa1637083ce9ea0fc445d00"
+    },
+    {
+      "id": "hematite",
+      "sha256": "14271d716a19811ead139180a76477ee08d6e2952969f7cbd1ba3f61ec8166f7"
+    },
+    {
+      "id": "cobaltite",
+      "sha256": "0e74288a4ba3c4ede4121983f1ee892b2296b5b06f08c5fd93ee56f2dc562fcb"
+    },
+    {
+      "id": "pentlandite",
+      "sha256": "a35294632c9deea6b975667df5edcc5a3fc13a26662ddde02ca5c45448d6e6b4"
+    },
+    {
+      "id": "chalcopyrite",
+      "sha256": "17d717774a23c4c54224baa3bdcb31de29bead053665d2c37ec319105075560f"
+    },
+    {
+      "id": "sphalerite",
+      "sha256": "1f7ea1f2f525cafebfb7ae5bb2eb81ed446d91d32bc8fab25ad94c9a49a615af"
+    },
+    {
+      "id": "germanite",
+      "sha256": "b1b5ff291baa357887de4747fdc438414e08e1a46dff9259c819a0b00d91b723"
+    },
+    {
+      "id": "arsenopyrite",
+      "sha256": "ccb4a56e976fcfed1131939cb9414f2aa2fcd8399e8a349fec447a6d7c04ae5e"
+    },
+    {
+      "id": "clausthalite",
+      "sha256": "c151f233c11ef9e527dae05dec23559b5d9c5b1681f562f485cc52e07fbafc5d"
+    },
+    {
+      "id": "lepidolite",
+      "sha256": "f9ee2599a8aa8ebc01c2eedf6e407481119da178dadc31a4005bb300fb4b9902"
+    },
+    {
+      "id": "celestine",
+      "sha256": "3e8208673ab2a755f90ac5e7157f7c6c363a1a1a7ff0c2ba03f1f905ca0cfc4f"
+    },
+    {
+      "id": "xenotime",
+      "sha256": "f21b344b9599e3a0193207e17fd848453109691e5dcc48dc0539181a3f1c518b"
+    },
+    {
+      "id": "zircon",
+      "sha256": "0d902c762b70355d7985509c6c6793cdb9727e040cc53be215af124203a7d235"
+    },
+    {
+      "id": "columbite",
+      "sha256": "c2d2f827828056e18fcfcb2ab2ea0339d94837b10b571894286c4264a5dce7fe"
+    },
+    {
+      "id": "molybdenite",
+      "sha256": "eb378db2d07f9a0cfcf8248b500854b5807a5a258294711b56bee556b0ec7ebc"
+    },
+    {
+      "id": "laurite",
+      "sha256": "f99fa442363eff3682cfbb56a1c03f5b4e8d6ac5aaf7ef24c67e88b5691a9484"
+    },
+    {
+      "id": "native-platinum",
+      "sha256": "0d6073ae8402837530fe5a5787d3ce6e4a4842f03143e779169167cbfc89cca0"
+    },
+    {
+      "id": "acanthite",
+      "sha256": "3a63b2d5ba8e718886017fce6671de53b048e6dcc9d261c25c2868e9ed4e35af"
+    },
+    {
+      "id": "cassiterite",
+      "sha256": "4871de19a35657c1e0cfa3f670d4fdaeed274dcb1b83528a10d6ca6a8be82e10"
+    },
+    {
+      "id": "stibnite",
+      "sha256": "e9887dd567f7d67c29cb98a17bcb1271aee53406f7d5a1a800e9ccc73644c185"
+    },
+    {
+      "id": "calaverite",
+      "sha256": "c2bce5b3d369b44b0283036056bd4614de1ec43a26ca42b0fa56d8ca524978e6"
+    },
+    {
+      "id": "pollucite",
+      "sha256": "b71f785d7cbed1fdaf4bb42f9a7ab1a1cd5f78a8645c48b650dd35eb73edd56a"
+    },
+    {
+      "id": "barite",
+      "sha256": "aaa96ed85e17eead4f6f89b0253b90bd26e7a5b817812ff26705342682eca3f4"
+    },
+    {
+      "id": "monazite",
+      "sha256": "f392cc82305378c119cb57590e6b2fdd4f2176b862557383699fca2bd4c6b47b"
+    },
+    {
+      "id": "tantalite",
+      "sha256": "24a6b839ed793e4d48fe2af6ff756b1d08bc0f2ad6e5b2b2a8cb4f827dbab769"
+    },
+    {
+      "id": "scheelite",
+      "sha256": "62734fdf32c00f3b04266967b95e24b84fb59429837ad2ef8ca012f1d8fca555"
+    },
+    {
+      "id": "native-gold",
+      "sha256": "fd13d89c3f3b42faecbf29227ec0fd34d63dd1a762a9323b3782387c0b1e2d48"
+    },
+    {
+      "id": "cinnabar",
+      "sha256": "a2143bc8da12671c77ec6469c74edd51ea5fb68bf9d7c8996eb93d5df923a60a"
+    },
+    {
+      "id": "galena",
+      "sha256": "0021ac4caf9b8bd612faf131f159c9cf1efe29848d1eba9aa1c9f196aa0ee819"
+    },
+    {
+      "id": "bismuthinite",
+      "sha256": "36c890361644fa1003a46cd56a7a296791ba7ac254c4d70e31b6ea64d6363ab2"
+    },
+    {
+      "id": "uraninite",
+      "sha256": "8e6a622600787ab953f5e7639a0052fb5133bd6c8f82f7b6ee6ed59bbe6659ff"
+    },
+    {
+      "id": "thorite",
+      "sha256": "069ef000e11ace131b33d642efd49792c1b917bf03809cacb1e0fc63ece0bd55"
+    },
+    {
+      "id": "spodumene",
+      "sha256": "cee572c148ab8dcf0fd9c7cf52c3e012cfa90c421a83a650ed43802cd94acaff"
+    },
+    {
+      "id": "nguyen-to-li",
+      "sha256": "45315a773fce594b8afde2b47446c4fc7adb3fc8277623fe32db5dde23ae78b8"
+    },
+    {
+      "id": "nguyen-to-be",
+      "sha256": "dfe9d9f5a4ce795aa104254ffd88f9bd69af42dd5329e35ffab10e275707c0ef"
+    },
+    {
+      "id": "nguyen-to-b",
+      "sha256": "7f5ea40524497b6b8a6c4a4c16201df12dad97c14128a5fbafe59a6dbaf58125"
+    },
+    {
+      "id": "nguyen-to-c",
+      "sha256": "e46720ea29e9c803718176ed64732bceb095c3a17605df88f6a54d3aff7fb517"
+    },
+    {
+      "id": "nguyen-to-na",
+      "sha256": "ad21a2de5829a1c52b44fa0850847b9b60675d5e51060796186427101841147f"
+    },
+    {
+      "id": "nguyen-to-mg",
+      "sha256": "a1c285ace7cf830e4e55d7c05c26b3f8015104b3fc88d9be350c8c6992eb9610"
+    },
+    {
+      "id": "nguyen-to-al",
+      "sha256": "d531ecda836e58906f213332a13f3c5ed4a84568580680d8ba1fb8441101f5cf"
+    },
+    {
+      "id": "nguyen-to-si",
+      "sha256": "e81305ed8c19a142f52d7fc296a330064a038ab69cf4a0ac127dec658b2ecdf2"
+    },
+    {
+      "id": "nguyen-to-p",
+      "sha256": "e625c8ed020f034ba3c97d632f335506318848379b7bfc7d9b4eec13d7f8fba6"
+    },
+    {
+      "id": "nguyen-to-s",
+      "sha256": "e971c7b572bd6da16b88811a31f8637880f31a8f04b24ad5eb1e98d6620b11f1"
+    },
+    {
+      "id": "nguyen-to-k",
+      "sha256": "e2646deb93e035144bac1726ef863a1a83dab9f6a9f6c59018f885e68146bef5"
+    },
+    {
+      "id": "nguyen-to-ca",
+      "sha256": "aad75874b9111234d35cce969881dbaad5e85520233a27f9b90c993ebbf5525c"
+    },
+    {
+      "id": "nguyen-to-sc",
+      "sha256": "9f1b88465b3f6c667bab682f0e290bfe2204ef57aa77a92cc8034e61db6f8b6f"
+    },
+    {
+      "id": "nguyen-to-ti",
+      "sha256": "fe3bd0b0fe619ec9545ee6192f3064419a7b09effa8e5136f5d099a4d36acfd0"
+    },
+    {
+      "id": "nguyen-to-v",
+      "sha256": "b09b841b476e949a1d07a3f5277bf233a83c14bc1cda4e5b2aa30e840f7978d6"
+    },
+    {
+      "id": "nguyen-to-cr",
+      "sha256": "ce8da7b8c142d6a8a634da10e1b4d9e495b21c57d8b43c6af48bd7111cacd7cf"
+    },
+    {
+      "id": "nguyen-to-fe",
+      "sha256": "c3a4ed729b918bdfe0b97033dc378ddcd4942ff17cffc965d79448746cecd9f2"
+    },
+    {
+      "id": "nguyen-to-co",
+      "sha256": "6ab624d24db97a638ca0b76fa0035cc5dd1fa65aae583855b4c3aa7907e68158"
+    },
+    {
+      "id": "nguyen-to-ni",
+      "sha256": "d99ae59c01577f980cd060ff36a255a16609403c2e51abd2598cc1a8200b70d0"
+    },
+    {
+      "id": "nguyen-to-cu",
+      "sha256": "e9af7ae539cb16c119daa407a86b73e646da59154fbbac6213aae4343aaa4104"
+    },
+    {
+      "id": "nguyen-to-zn",
+      "sha256": "40d21d55b8f621b344d415d58088ef9807e8b6b92de339cfd045277e8e613f77"
+    },
+    {
+      "id": "nguyen-to-ga",
+      "sha256": "c5e91bd4cdb50e5869d8d9478ecc93a36d07b4cb912cb9cd5efebb98d18e59b3"
+    },
+    {
+      "id": "nguyen-to-ge",
+      "sha256": "7cccde831adc747f4b63d1597fe3e2a3aaa6e147e3102c52ea41aae3cfa9a47e"
+    },
+    {
+      "id": "nguyen-to-as",
+      "sha256": "0801638ea8f600375ec21cf80caa3071eecb33a28cc30d87f19081d28a651b13"
+    },
+    {
+      "id": "nguyen-to-se",
+      "sha256": "a50529eb4f7239b705f614436903ee0ef0e5f4f40bc6908baa7da7d864caa86b"
+    },
+    {
+      "id": "nguyen-to-rb",
+      "sha256": "145e0a8b48411844f2d8e9d2b644b7ff9cea101341a285b74195f4b10755c001"
+    },
+    {
+      "id": "nguyen-to-sr",
+      "sha256": "370eaf331eb20d6736da4cf6f7f081c9bdcff3634263f46b0fd64e59262ca7a2"
+    },
+    {
+      "id": "nguyen-to-y",
+      "sha256": "fa021d225d790247520902a861fcf19a05ffd7fff283aee271f1bbf95eff47d2"
+    },
+    {
+      "id": "nguyen-to-zr",
+      "sha256": "000805cf7aca0116525e6cbee8c253f85125ba24842f2af7ce039ab299b3ed3c"
+    },
+    {
+      "id": "nguyen-to-nb",
+      "sha256": "835daf811fb258436c9f09c2e7859c70bd4e5cc49872b57e2d79c3e9d6e77bef"
+    },
+    {
+      "id": "nguyen-to-mo",
+      "sha256": "4daa4088e7ecf39c2bddfb5c18a0a289bd70696ca6b96738b3f0f92c11ab6114"
+    },
+    {
+      "id": "nguyen-to-ru",
+      "sha256": "3a5127ca342f5aa74236ecfe39c9ced6c455cf97bc0ed92943b38ea910ed8959"
+    },
+    {
+      "id": "nguyen-to-rh",
+      "sha256": "e479e1b2418475745c1bfa0e3006090358663a26cf3b293733f96db6381a65a1"
+    },
+    {
+      "id": "nguyen-to-pd",
+      "sha256": "380f805fde922d2cacff2af6f9874fa5cc3d17fdb5ddea94804cf838fdda8eb0"
+    },
+    {
+      "id": "nguyen-to-ag",
+      "sha256": "fbce4ec5fdb03eb74d52310e5d6f9bc9fac888899e699b41c206370080007567"
+    },
+    {
+      "id": "nguyen-to-cd",
+      "sha256": "07d2a1c2e0841872a0a7dfadf3ecc513b695adc8bdaa315f2530834393c3b76c"
+    },
+    {
+      "id": "nguyen-to-in",
+      "sha256": "bf1ed20572d45b2efe1c8c260a19d95243c6495bd224dced60b33e4bb27112b1"
+    },
+    {
+      "id": "nguyen-to-sn",
+      "sha256": "591bbec5dfa485edda318ef8e3905a40e37f959ee8ceb0600a95a64c913e83e4"
+    },
+    {
+      "id": "nguyen-to-sb",
+      "sha256": "74284c677d7b05dd6586d5b1900e4665458ccaa6dec63856fd3190efd75ee114"
+    },
+    {
+      "id": "nguyen-to-te",
+      "sha256": "c83612441eeaed05f8ce24829386943d6071839a1562201aa1dc6de00ebffcaf"
+    },
+    {
+      "id": "nguyen-to-i",
+      "sha256": "3defd5aa38cfffd2d081df8f3e861eae66173b021bb4128b7461d24470644982"
+    },
+    {
+      "id": "nguyen-to-cs",
+      "sha256": "ef32a9942979e2a9c55051525027a602496c940de98f5a609da7b9fdb92ebbd3"
+    },
+    {
+      "id": "nguyen-to-ba",
+      "sha256": "b1eaf9cfadd603f0c4d93b5db418cfe6e281906936007317fec22c0535452ac5"
+    },
+    {
+      "id": "nguyen-to-la",
+      "sha256": "64b5fd2359071a72ffdb757ee7a408a3da4ca2e717046cc8b679393135b7fed6"
+    },
+    {
+      "id": "nguyen-to-ce",
+      "sha256": "528c5be8987bcd3e910fc5b9cb6d151be6d2a43917b6577799ac6d6b3cc89e51"
+    },
+    {
+      "id": "nguyen-to-pr",
+      "sha256": "512ac64d6317fb534e31bf36c488e28a7b911d4eb378840672d4e3fd3c01b97a"
+    },
+    {
+      "id": "nguyen-to-nd",
+      "sha256": "3a1a3157248a91616906bf80cc79c89c9b09b48be1185be96bd286d89f7769b5"
+    },
+    {
+      "id": "nguyen-to-sm",
+      "sha256": "0a02d7c2ac4d7cc2c75c4da451ff15aa9290a9292581527f9033a8cd0fac29cd"
+    },
+    {
+      "id": "nguyen-to-eu",
+      "sha256": "30c872220b4b093fabb05cd8519963377a803231551c9869d88bd438755d4550"
+    },
+    {
+      "id": "nguyen-to-gd",
+      "sha256": "a8ea0a22a289382b67b4dfec316d91fb2683b7a804b72912db4ca20623754375"
+    },
+    {
+      "id": "nguyen-to-tb",
+      "sha256": "a531dd5c9720f88b9c613e34257eefe0d8f03d24dea36978dc29bb8f2af87cd7"
+    },
+    {
+      "id": "nguyen-to-dy",
+      "sha256": "d5a45812b36be7dd11f3d22879e065973f2feeae53968e117e53e328203ce594"
+    },
+    {
+      "id": "nguyen-to-ho",
+      "sha256": "fec4f43077276c8d1dda10a8fa79f2b471947556781c25e0822569933c0928bc"
+    },
+    {
+      "id": "nguyen-to-er",
+      "sha256": "7e71350bbf973d7e739ee007106cd9105140e92e5f23284a96f04ec8d6b708b5"
+    },
+    {
+      "id": "nguyen-to-tm",
+      "sha256": "c61c26521bd6c25453b0f5a904a31f6c768b3c850a9d7cbe8dc0fac132eb1e5f"
+    },
+    {
+      "id": "nguyen-to-yb",
+      "sha256": "2a8bea013df6e2bceb263acb92227f5b8a161ac92fc846a21035e3e667086739"
+    },
+    {
+      "id": "nguyen-to-lu",
+      "sha256": "3ebd72a77a10919393952ac03c5e79c2f0c5f92c2b9a2422527d32c860bf26a9"
+    },
+    {
+      "id": "nguyen-to-hf",
+      "sha256": "7009586cf3d2a55ce645c9f5e159e3573889b2e3a77da39634a0de7db55c9ea0"
+    },
+    {
+      "id": "nguyen-to-ta",
+      "sha256": "afe61ba3723a8f0fe5f6abe52552ae8ead377df0093a79e914dca07de9e6adbc"
+    },
+    {
+      "id": "nguyen-to-w",
+      "sha256": "38806ef60d9a63491200ca2d71627c6e45579b7658637bf3f23b76457979b019"
+    },
+    {
+      "id": "nguyen-to-re",
+      "sha256": "34cf1cc7a9a9bf9eb01438ebe85b4313c5258665498095bb6637913b8bd2bb63"
+    },
+    {
+      "id": "nguyen-to-os",
+      "sha256": "c0e1b15642e69d527bf07484805663f0d696f2df83d37673793e9bd59d68b92f"
+    },
+    {
+      "id": "nguyen-to-ir",
+      "sha256": "f6067d3e0e2c8a355508f77ab9329bd024c83b5a09657e3a3cd618ee43a5f625"
+    },
+    {
+      "id": "nguyen-to-pt",
+      "sha256": "23eb3e7b59f31a36d7ef7539de45ddd48da0969c4bd24e24a41850fb57a9b182"
+    },
+    {
+      "id": "nguyen-to-au",
+      "sha256": "17dd64927a87210692513dcfa5d9a3f3ec9bbb739b2ea393eba97b3603970c40"
+    },
+    {
+      "id": "nguyen-to-tl",
+      "sha256": "e6b78db2107322c7c7022ff99564f8627680bc6ce078eee915d248dbd677c762"
+    },
+    {
+      "id": "nguyen-to-pb",
+      "sha256": "8462fcb6df8a3067259876fc9b8b3bed0858f3c379eba4b2fceccc8547ec2f67"
+    },
+    {
+      "id": "nguyen-to-bi",
+      "sha256": "68c4fbb30baae5f5098473ffc4ba4185f97b205978d3bec0864ca770d0db36ba"
+    },
+    {
+      "id": "nguyen-to-ac",
+      "sha256": "d1a4171c6272af38097a8377e551f77962f27dbf0ed38d9fb0fa3f17ff115116"
+    },
+    {
+      "id": "nguyen-to-th",
+      "sha256": "f3049572227c993c798d249c2d869dc2fe9e451329cf66ac1a094fb73300ae89"
+    },
+    {
+      "id": "nguyen-to-u",
+      "sha256": "5a5fcc349e6f07bace98a8f2e2152fe4d163087957a888dcdc827a9e940a4fa3"
+    },
+    {
+      "id": "nguyen-to-mn",
+      "sha256": "c89821ebaa1e40bdf9f767f388c0867a0eb5afb0e5680caf5a1028dc0975466d"
+    },
+    {
+      "id": "nguyen-to-np",
+      "sha256": "a0677311ac5390d4efcacb4183baa380ca014150b54a5b694d97893a9c67bed5"
+    },
+    {
+      "id": "nguyen-to-pu",
+      "sha256": "04bb7811772ead8bf2d8e10ed6bb45619e56abbffb38fa557fc7cf104de760f7"
+    },
+    {
+      "id": "nguyen-to-am",
+      "sha256": "0c5ba858efd6ce98ec5fdd615c9263faf4edca6ac2d490342aa9c22c047c1cc3"
+    },
+    {
+      "id": "nguyen-to-tc",
+      "sha256": "ca542d79570da51b061d07107ac5628059ea0588999fc39fe9efdbd39af38fba"
+    },
+    {
+      "id": "nguyen-to-pm",
+      "sha256": "78c0ec55dbabdb05ddb749d9c749ccf2222a3ba36361cbc4cc27ee81d6bf04f8"
+    },
+    {
+      "id": "nguyen-to-ra",
+      "sha256": "9524f8cb83f615cc6cebd4f60c772362abbea99d0fb951131f650d2a6c09a873"
+    },
+    {
+      "id": "nguyen-to-pa",
+      "sha256": "2eeee43181aa331240f3e5e910ebb7649bee118be6c4c2c563509046b32d5246"
+    },
+    {
+      "id": "nguyen-to-po",
+      "sha256": "3439bcfc7001642250ea020db8ac0fbee4214d45e81b54ba4321fae0afbac9b1"
+    },
+    {
+      "id": "nguyen-to-cm",
+      "sha256": "b1c39dd7245fc316dd6b49759eb01172a21007d6379058559fd10e7e92d624a6"
+    },
+    {
+      "id": "nguyen-to-bk",
+      "sha256": "dc77fe01426b3adc05726dbce3cbfdfe3ad59fae842c0b4d9e9b493d177fd9cf"
+    },
+    {
+      "id": "chat-cuprite",
+      "sha256": "bce3c9a66934260c1cf30ddc2763b535e564f846a5cca44808308ed9264000a4"
+    },
+    {
+      "id": "chat-tenorite",
+      "sha256": "b4efd8a6bdadd95080e60842cb37a2c80ff795e4bed8c360a4377320d7abdc4d"
+    },
+    {
+      "id": "chat-corundum",
+      "sha256": "41de41222846aa3225ffbaf40c8a62eeff97555ef250f9c4a406e9785d7b02f9"
+    },
+    {
+      "id": "chat-periclase",
+      "sha256": "f62173a36decb6a027d6b0242aa0f6f66ce57f71e56822f4ce5640d098dff00b"
+    },
+    {
+      "id": "chat-zincite",
+      "sha256": "83833814dd395b89dc2b1ae60ad4aff85c727b52950598adf01d033e02d15847"
+    },
+    {
+      "id": "chat-portlandite",
+      "sha256": "d576c81c265ff702258df892edd87927c4e49a2a463e89017cb2062ed997e7cc"
+    },
+    {
+      "id": "chat-nitratine",
+      "sha256": "39e6580787edd1f13f3ec9fe235cd78a5b061be20bf7acb1caa6023eca723047"
+    },
+    {
+      "id": "chat-niter",
+      "sha256": "d3b4c7ca2b5de025f1c75011554837f6d32b54b760384c023f33d18230f948f3"
+    },
+    {
+      "id": "chat-sassolite",
+      "sha256": "0a6b7d0a7af21704df431aa2ea648a6c5e51ba164eeca9a09a001e307a0539f4"
+    },
+    {
+      "id": "chat-chalcanthite",
+      "sha256": "9165681bcfd4f8fafab9bfb0fa325e6f97fa7922888ee5ae595d32317ba1c574"
+    },
+    {
+      "id": "chat-siderite",
+      "sha256": "0007aa819aa72016a8da7226bf284e8265c08d13c65c2805366783afdb2eb9bb"
+    },
+    {
+      "id": "chat-cerussite",
+      "sha256": "199fa342f729caf798d978d35b978e81dff700a5257b9ec9483753271a9be8e5"
+    },
+    {
+      "id": "chat-anglesite",
+      "sha256": "d959e74f4e3087c0bf778b8a3408d8970b72a47ace093e454b9cd5dd31570f81"
+    },
+    {
+      "id": "chat-witherite",
+      "sha256": "35274265c3fed4b6a966da0d8725961ca5aadfcdaf1d1b7fc80ad0bc3918ac0c"
+    },
+    {
+      "id": "chat-strontianite",
+      "sha256": "c2897ecbb26629557223c24b1f6fbe1303e517daae4383b5e47eaedc4de92225"
+    },
+    {
+      "id": "chat-massicot",
+      "sha256": "6260ae226de6d994f0600c5cd09ae6d23444b063606503dcbeffd9e0946ad748"
+    },
+    {
+      "id": "chat-bunsenite",
+      "sha256": "0c07d6d2a524d1ae80d774596b9edae3393ecc78d4a2ff532442b93bd0c463ef"
+    },
+    {
+      "id": "chat-otavite",
+      "sha256": "66ca8a149140775ea0392504cea8b1fe01447f8d305fc4ab0c3166b29fd6f1d7"
+    },
+    {
+      "id": "chat-greenockite",
+      "sha256": "1f72bf60c7166d07d719b0184a6565b724a0e25d67e516b3168da17ba7ec73f6"
+    },
+    {
+      "id": "chat-arcanite",
+      "sha256": "0afa3a59fb03b6c7b5588a6797fd41c0819b7cb1dae42b37f7b3448e360f0391"
+    },
+    {
+      "id": "chat-thenardite",
+      "sha256": "75f7125f74d3c7f6478741f8fb863968e0e9af5e79bb6f8d8101b7d9c292b80f"
+    },
+    {
+      "id": "chat-anhydrite",
+      "sha256": "9c9e47238ff628d2c70a8ab5139a861d11f1a157ef1f10300ffe7aecd1526a45"
+    },
+    {
+      "id": "chat-sellaite",
+      "sha256": "12c4e643e004be3641af18b4453e3dfad49989a3fb5b2e0839120f3c98f7c9a3"
+    },
+    {
+      "id": "chat-villiaumite",
+      "sha256": "4658873411544da0dfc4471ebe96947f8f99c54d650e1404c1c6bcad21e0a394"
+    },
+    {
+      "id": "chat-lime",
+      "sha256": "8eb09ca33c651a1e0f313744bf5739d33a6a7d6f39231111d2bcf4b83210ec9f"
+    },
+    {
+      "id": "chat-sodium-bromide",
+      "sha256": "52ca13df409d864fb8ff5a38e7d114d90f29deffe685cbd7d77fcd167601d255"
+    },
+    {
+      "id": "chat-potassium-bromide",
+      "sha256": "17ba8b37bd4152e9de1f7e08c5d52d5024c1fdf5d681e5a60ea54d1e9f65433f"
+    },
+    {
+      "id": "chat-lithium-chloride",
+      "sha256": "d2bd2f27005f64ab0c5393a2cb923067aebd090a75701b2f46cd7b83da444252"
+    },
+    {
+      "id": "chat-hydrophilite",
+      "sha256": "77bcda70d881311cf8001fa1f421dc1c8ef49578009fc16bcc8ba5167f323045"
+    },
+    {
+      "id": "chat-tolbachite",
+      "sha256": "66a280592c8a09972a2e2508c3958ad3674d5908675162a650f71c0089ab82d5"
+    },
+    {
+      "id": "chat-molysite",
+      "sha256": "422519e7e4167fa21d9d4fb3ad853216a7c0ec103a72166777a155290172257e"
+    },
+    {
+      "id": "chat-salammoniac",
+      "sha256": "6d3f72ec3df220aec0bb634042c44ab9ec721483766b2cfad49ab061d61a3b9b"
+    },
+    {
+      "id": "chat-lopezite",
+      "sha256": "74843b299622787f07116582e84af5c911c886ef2121b966497169eedba09239"
+    },
+    {
+      "id": "chat-lead-iodide",
+      "sha256": "a8919e9a9d0d56c5eba7a6b03ab38f8d9686eaae79ce50b9e46ca0047a953da1"
+    },
+    {
+      "id": "chat-chalcocyanite",
+      "sha256": "41b1b6543825050c504cfe376d4a39b62bddba18ad298579ed943e724423f179"
+    },
+    {
+      "id": "chat-silver-chloride",
+      "sha256": "d874dc3e55a2825d617398ebb3ddcc25c8189fb940a94818d48624cdc36a273a"
+    },
+    {
+      "id": "chat-silver-bromide",
+      "sha256": "e78d1703ab2ba496e16c47a06be51bf87fa01f09b1564dacf2051350ca66e8e0"
+    },
+    {
+      "id": "chat-silver-iodide",
+      "sha256": "040406ec0cfd4772c0ce4f7189fd40de402e4437c5215bfc42ab09720e1cb5e4"
+    },
+    {
+      "id": "chat-covellite",
+      "sha256": "3ea3150e8cf42ac7bd703e756ccf5b4b95f551b8746667d91f56e2ae6b055a32"
+    },
+    {
+      "id": "chat-rhodochrosite",
+      "sha256": "de6721c42f2833dbcaa686bb3560ef4bdd2773127e742defa53443684941a3e1"
+    },
+    {
+      "id": "chat-smithsonite",
+      "sha256": "9a3a626a148ca3f2aa43f5207af83280268cbd51f65f6ce9a7ba9250f37479a9"
+    },
+    {
+      "id": "chat-brucite",
+      "sha256": "704f3b5a9b485a46a2ce843885f0c4c5b06b760dd3f950c65dabc60c263d380b"
+    },
+    {
+      "id": "chat-troilite",
+      "sha256": "c96a0c54487cba63ded6942e219f6b3f0737c34787751f14aedad8eefe4a42ff"
+    },
+    {
+      "id": "chat-kalicinite",
+      "sha256": "5e48e195a4bd2670ffaecbf6daadd297f487761b5ad60f0363db710aec815d03"
+    },
+    {
+      "id": "chat-millerite",
+      "sha256": "63d5b30a1fc6d69b9bfbb7772dfa4b7cc5edc7791d14100758eb253f24ae1cfc"
+    },
+    {
+      "id": "chat-melanterite",
+      "sha256": "98097a083084a914e2bed631b416b59ec8e29fd095bb92bbdcde35a99016bfb1"
+    },
+    {
+      "id": "chat-tuite",
+      "sha256": "c39b7fd5c3d54986872dbe679a18a390c9f76f8da90777f078529387d2eed271"
+    },
+    {
+      "id": "chat-alabandite",
+      "sha256": "820517401720c86ffe3945234ac39316a9c97f3b41f76037a77f188d08a2cc66"
+    },
+    {
+      "id": "chat-manganosite",
+      "sha256": "3090651716693fb88577b23237400dbad83d8c45367d105621154152efa30cfb"
+    },
+    {
+      "id": "chat-monteponite",
+      "sha256": "98f51e03b2a4929f60a5813843c81eb9270f9a2fbfbbc902d9293c865f12ab11"
+    },
+    {
+      "id": "chat-solid-sulfur-dioxide",
+      "sha256": "8d54a12df15928bb36df061441d83252a680a350d1efc4b4328b6ed3814f4cd7"
+    },
+    {
+      "id": "chat-polymeric-sulfur-trioxide",
+      "sha256": "83fe911b974a2e892e7f7ce6ec7f20f471bd3ca67b2cd27227276d818ffc375f"
+    },
+    {
+      "id": "chat-zincosite",
+      "sha256": "d863c7752d6523898928ab5c3d76dcb1b2106be2ab928063fb88e4f75426c438"
+    },
+    {
+      "id": "chat-magnesium-sulfate",
+      "sha256": "ac955adf3c4287eea9d206c8f6785468c24fb4d0f63d98453a17599e9a077751"
+    },
+    {
+      "id": "chat-nahcolite",
+      "sha256": "2cd9c24fb62bb58890fb74b0754e889289a643f9550c8a2b37d7b9a846ed719b"
+    },
+    {
+      "id": "chat-crocoite",
+      "sha256": "8462f08b7ebb04c9accfde8fe427684c153c7b45a866698beb5967d97554377d"
+    },
+    {
+      "id": "chat-retgersite",
+      "sha256": "abbfecbfac88d2d438054451c4c8b882518c29934c9e248aec639c5ae3a8a4eb"
+    },
+    {
+      "id": "chat-acetamide",
+      "sha256": "72fccbe568e096988193a471afda1aa4d92c5ecb2d613802343484f54bba071e"
+    },
+    {
+      "id": "chat-tarapacaite",
+      "sha256": "64ab0f3a46bb539318c4d0d692854ded4c6a68c337103d5e4c79a1a55347c0ec"
+    },
+    {
+      "id": "chat-silver-carbonate",
+      "sha256": "8773cade41f2bb6575662649cff35efba61488a3d4f87281eabc6d30ce7007e7"
+    },
+    {
+      "id": "chat-dry-ice",
+      "sha256": "d890e1b8e5fec6ec7fc09db1c8b30c6a72e16d5822f075141275c4cea55a89b0"
+    },
+    {
+      "id": "chat-natrite",
+      "sha256": "a797c5d59c49e28f685ed774a0bfc2e09d27ee18932dcda04022f75bd3b9baf3"
+    },
+    {
+      "id": "chat-barium-nitrate",
+      "sha256": "51fdd6694c13abc05da19bcd9a6d44d05cd8b4ffcae039fe596ceb8660d95f2f"
+    },
+    {
+      "id": "chat-strontium-nitrate",
+      "sha256": "31439cd67a1aaadb86aee5e3811c411a4bab331b22fa64b1514bec573cb0acce"
+    },
+    {
+      "id": "chat-spertiniite",
+      "sha256": "949322ba859acc9756bd5a93cfef4e774da416f432edcac21a229fbae8b466d9"
+    },
+    {
+      "id": "chat-ferrous-sulfate-beta",
+      "sha256": "eb96acc0e014dc43eb7908051d05124444052418c3e2f9945e25de9cd55d55d8"
+    },
+    {
+      "id": "chat-nickel-bromide",
+      "sha256": "f20be921db9c499366a629a158783fa566ab7f859fce272c587667c1965c69fa"
+    },
+    {
+      "id": "chat-nickel-iodide",
+      "sha256": "e220988081e1407feac75a7d9bb030d46586ff51da3e9f6cd82d8de1ba330279"
+    },
+    {
+      "id": "chat-potassium-sulfide",
+      "sha256": "490bb2db324fa28659637ddafd5f15fce3344d183266a9948bea1373f34ab3a4"
+    },
+    {
+      "id": "chat-cobalt-chloride",
+      "sha256": "2b86f17a6dccf638eefa2e346d318ae19230c25c6b0254fe20553744b80e56b1"
+    },
+    {
+      "id": "chat-ammonium-nitrate-v",
+      "sha256": "69bf26ea7ef84a47cff8ea34923b41db7a117b82e88deeee15b31e08b3f5e6b8"
+    },
+    {
+      "id": "chat-eskolaite",
+      "sha256": "ed72d87c3445dc0e9ff4375674eecaaa6050d71be33741caaba287c9f8749350"
+    },
+    {
+      "id": "chat-tin-sulfate",
+      "sha256": "d3229a66dad3c5fe6d4190dfa637cf69cca87b0c325e157d3db5a4dd4e0ef974"
+    },
+    {
+      "id": "chat-strontium-iodide",
+      "sha256": "fb26b7424c60838a013bcd548a07c6eb4773c69e8567638799df1f5dcb0c0697"
+    },
+    {
+      "id": "chat-ferric-sulfate-monoclinic",
+      "sha256": "1d21f8a825fa81408fe6a2130fcbfd1728f96ddf7b8ac63317ef3484d7d82c30"
+    },
+    {
+      "id": "chat-ferric-sulfate-rhombohedral",
+      "sha256": "9e3186417ea6fb6c42ca3b9d381d3a7d69d760b6a66d48a0d335fde0a63cc582"
+    },
+    {
+      "id": "chat-silver-phosphate",
+      "sha256": "04b08da19252c53d02b01c34bf07e4ba4ccf87e373d34717388a6cf9a3b64ee0"
+    },
+    {
+      "id": "chat-zabuyelite",
+      "sha256": "f9ce31d5e20a0bf49abab04e18ff7d1e3479bc3eb377a1191dbd599ec5bd9d2f"
+    },
+    {
+      "id": "chat-urea",
+      "sha256": "4f316fe857a57df58e3cf288c09a5e88b9728e63ac77127839cd10cf96b01323"
+    },
+    {
+      "id": "chat-aluminium-sulfate",
+      "sha256": "1c2ab79ff833927fd655c5fedcfa87497431e974348b66fcbef72025c7abdb1b"
+    },
+    {
+      "id": "chat-chromium-sulfate",
+      "sha256": "fa980631a55bdd394e83f4ee6beb85d7f753297f267a48cb7f3bc613ab82f581"
+    },
+    {
+      "id": "chat-solid-argon",
+      "sha256": "3516c061ede17477f389df636f4ab88bb31efffed05dcf59a059ec861d76f2e4"
+    },
+    {
+      "id": "chat-solid-krypton",
+      "sha256": "6b64a01ad2e936dde6199894cf101ae1ca53ee3b67ecd1fd46b6f09d6277ff0f"
+    },
+    {
+      "id": "chat-solid-neon",
+      "sha256": "30f2353d015a5d97ab1f38cdce292eb914c5d934550c1f565b62e9517f14bec8"
+    },
+    {
+      "id": "chat-solid-xenon",
+      "sha256": "e46425df2036ab6ecffb753a947094f20fb29fed352239f052e604b9fac7dec0"
+    },
+    {
+      "id": "chat-solid-helium",
+      "sha256": "9859e0fd4c3eba9d2e46a5373661ed3d249ce9cd8923fada9e94551095d7dad8"
+    },
+    {
+      "id": "chat-solid-nitrogen-alpha",
+      "sha256": "31f79e1d2dd44bdbb7ff4af176503240d968c20f001ba2faa102df4b2f94f414"
+    },
+    {
+      "id": "chat-solid-chlorine",
+      "sha256": "608f50c8c0662fc42237a536cd5bcaa5599cc59e74bd7880f0b864500d61f2af"
+    },
+    {
+      "id": "chat-solid-bromine",
+      "sha256": "f27f5d8a04e45dea5599f365139e63ef246420c3d7ce3d3f59bca7b10472aac8"
+    },
+    {
+      "id": "chat-barium-oxide",
+      "sha256": "60e5294ac1b09fb926e3dc5bf88d65e5f33c0038a9730de8817db506efdee102"
+    },
+    {
+      "id": "chat-cobalt-oxide",
+      "sha256": "a5759c987f52484f5187220f9d0d3c5b0d79e633fb98dc3a2d4db66ec2ce5d0f"
+    },
+    {
+      "id": "chat-cesium-chloride",
+      "sha256": "c2f218cfff78b63ed89beae64354a9132d73be68f9344e38f778bafa778bdac0"
+    },
+    {
+      "id": "chat-wustite-reference",
+      "sha256": "2a7534e96165b859a2e1a36b8c174eb02dffbab5caa2ae2462cead743150407c"
+    },
+    {
+      "id": "chat-potassium-fluoride",
+      "sha256": "0e901a050afffb15107d0eebabbd396b09e7f1bd38a605f1338549208a579b68"
+    },
+    {
+      "id": "chat-potassium-iodide",
+      "sha256": "afdd290d2d45fe58140769b8da190b8dd7a2b5799e04f8707e840a8befa4bdc1"
+    },
+    {
+      "id": "chat-lithium-bromide",
+      "sha256": "f1ccce178a0959f6f904dbbb5c759362dca8251261085c5f6038b7e28cec279e"
+    },
+    {
+      "id": "chat-lithium-fluoride",
+      "sha256": "6d0565ca3804ba72983cf63e3ab1ced4072c80beec5b8eddf57598881e7c8028"
+    },
+    {
+      "id": "chat-lithium-iodide",
+      "sha256": "1e70e3514ca85dffc7754b31800c236899d5a4d980990cc8865389aa79c60fe0"
+    },
+    {
+      "id": "chat-sodium-iodide",
+      "sha256": "8e413d7343d0cd2bf8ad9a6263116d2f95d008169f8b14be1d55f0815767ae23"
+    },
+    {
+      "id": "chat-strontium-oxide",
+      "sha256": "feef08ee3a1676077b63c0ced68bafb807a1b1f122d32abbf1e36ebefec91fb2"
+    },
+    {
+      "id": "chat-cobalt-sulfide",
+      "sha256": "43b2c85a4eaa83f28bda183ce5f7c56f98eb32d85f8134d15183c314d9c624c6"
+    },
+    {
+      "id": "chat-lithium-hydroxide",
+      "sha256": "31802ebfc5e2a2f526d84db8681b56af6948b9f969a52ff63b065693430f5e7e"
+    },
+    {
+      "id": "chat-barium-chloride",
+      "sha256": "dea9cd39e81a16a6dbcb99aebc1a8b9b54255dc0a8a3d953d6317a943fb373c9"
+    },
+    {
+      "id": "chat-frankdicksonite",
+      "sha256": "d7d94008812c97773f5e3f761b7b84829de72c96c45e455c902d1d6dea74b52a"
+    },
+    {
+      "id": "chat-lead-fluoride-beta",
+      "sha256": "bf688c6b00a5635dcbcd17205340e1a4a757adbcc3508a3731e6d3ea1f76da9e"
+    },
+    {
+      "id": "chat-strontium-chloride",
+      "sha256": "7ee06164250bb91372d4d566aca74ec367f897b3258aeb5f9e42af1c769d1a7c"
+    },
+    {
+      "id": "chat-strontium-fluoride",
+      "sha256": "cdb8494a9398d6d7a3e41835e88671af8cd91ef6f117e8126ffc3faba2101354"
+    },
+    {
+      "id": "chat-potassium-oxide",
+      "sha256": "b843b64562df63b87739cc1669a910f37de7baaeb97e17d3f534ba462ef22fbd"
+    },
+    {
+      "id": "chat-lithium-oxide",
+      "sha256": "e5b408841d0079758fb7590a7166d78613070023e8307c3e45805b0749c35fe2"
+    },
+    {
+      "id": "chat-sodium-oxide",
+      "sha256": "00e5231a1375861b180e9c4ba8d52d86c8a23b679570ef8f8af7cf8838ff2395"
+    },
+    {
+      "id": "chat-sodium-sulfide",
+      "sha256": "2cb4cb09ea16fbe3d66296f45a64c66fbeb6d8d6436485196c657b80d839444c"
+    },
+    {
+      "id": "chat-calcium-iodide",
+      "sha256": "625125a4bae58f82df257b5918d7b77ed5c6b65cafa164ce7f7b8f2d50077f13"
+    },
+    {
+      "id": "chat-cobalt-bromide",
+      "sha256": "7439491423d61cbaa5b9eb5c3839f8c745ef720d1ee66f966f1e130f05f945eb"
+    },
+    {
+      "id": "chat-cobalt-iodide",
+      "sha256": "946b5765f473f8dc412ae16e5cfe2d62eab9adaa647fcd1c9f47501055a2884b"
+    },
+    {
+      "id": "chat-ferrous-bromide",
+      "sha256": "7688f2903e7c9f970ddea220057335d31f979d52154638d4158ef5332500901d"
+    },
+    {
+      "id": "chat-ferrous-iodide",
+      "sha256": "56c4aa192d0b48463026a6944cbfba0e5c829de4dd2f7184ace5de9730b2f10c"
+    },
+    {
+      "id": "chat-magnesium-bromide",
+      "sha256": "2b653d87e2b10a14b3165e99e8a3cb9ff3799ddc4fd0e91ff99a1780b7b9e349"
+    },
+    {
+      "id": "chat-magnesium-iodide",
+      "sha256": "12450af0dac05ba7bbbbf3eb579dcdc44548d091aba96da9419e34e5c8d5d461"
+    },
+    {
+      "id": "chat-manganese-bromide",
+      "sha256": "50014479450a8ca8ba1d46f26d8ed2cdd097682f5c88d39a06cb299c2473e6ac"
+    },
+    {
+      "id": "chat-manganese-iodide",
+      "sha256": "0026d9c0524187f4160bfa02283d1c1ebaef3e379e5ceeb3377f196ea2c1f693"
+    },
+    {
+      "id": "chat-zinc-iodide",
+      "sha256": "d6fa9ad438fd446ce6d77026fc2b3c4577b3eb6884d3a5c3fa98014887ab1b1f"
+    },
+    {
+      "id": "chat-cadmium-bromide",
+      "sha256": "e22ae9377a51865f2ecced825f130ba74316dd673c2397442b0fd30457c23324"
+    },
+    {
+      "id": "chat-cadmium-chloride",
+      "sha256": "1c3b53a0df6fc5f04b4b4bd131625a744f4f8962a11e2763ddca1a4964755087"
+    },
+    {
+      "id": "chat-ferrous-chloride",
+      "sha256": "66e00d39ba5b383a75d1e541e7bf90592a9adbbff3432942e6c178eb2251c187"
+    },
+    {
+      "id": "chat-magnesium-chloride",
+      "sha256": "09d9fce2a79edb9b8a0350465198ad461a54f7565e695a4f5b27b4fc33557c7a"
+    },
+    {
+      "id": "chat-manganese-chloride",
+      "sha256": "a3951a4bce1b21865c40813d8424a0971d43c09532c81d1aa10173e96fdcb807"
+    },
+    {
+      "id": "chat-nickel-chloride",
+      "sha256": "74a23472fe4642a0e44390ea4b0d41735f2ca10bc7130839ed18364a5ee0ba78"
+    },
+    {
+      "id": "chat-zinc-bromide",
+      "sha256": "5fc182a233cc5469b8ee7bd966e88fd00cc9dd938df144cf9a81ad99a6cc7868"
+    },
+    {
+      "id": "chat-zinc-chloride",
+      "sha256": "ce95a619c2265f520e3cc51517f0b14e776a47f358c15da9f56d26bc13a2823c"
+    },
+    {
+      "id": "chat-cadmium-iodide",
+      "sha256": "80baede9346b911fbf186574ee03c5125e54d263ffa3155e4c785ad7d54c7d69"
+    },
+    {
+      "id": "chat-cotunnite",
+      "sha256": "6d6a92e91e03f8bf6cf4c320b2f413df3f055e8e9e2d961cc0acb90481a1462b"
+    },
+    {
+      "id": "chat-lead-bromide",
+      "sha256": "3b4703549d893da3096284dbdfb47495f05367aac7f013c1295b1ef2ec72dcf3"
+    },
+    {
+      "id": "chat-strontium-bromide",
+      "sha256": "a5e68031c319514d9dde8a0d80d5f7ff0d38f0289606bc1c36ee76c1d416a6b4"
+    },
+    {
+      "id": "chat-solid-fluorine-alpha",
+      "sha256": "c0f3d7f403f7aa233e18dba0c8710e28600afdae35d2e7f290cd8a2172480fae"
+    },
+    {
+      "id": "chat-ammonium-sulfate",
+      "sha256": "6b120d933604c169a51c5695e0f346f6b50c194f76e314dfc8b10efc34188e4b"
+    },
+    {
+      "id": "chat-potassium-carbonate",
+      "sha256": "0f179606c579b47957ecc97aa73201810475cd918a4169534347227c5b805a71"
+    },
+    {
+      "id": "chat-disodium-hydrogen-phosphate",
+      "sha256": "a90eb663de06d3038f1bd622b1af65ea7b64b98587dfdc5b49e6450d95c5be66"
+    },
+    {
+      "id": "chat-sodium-chromate",
+      "sha256": "d7896143b4393fb707bb32e57480c46c5124ed8bc67fbcba0c3b07f98a5915d7"
+    },
+    {
+      "id": "chat-solid-nitrous-oxide",
+      "sha256": "fb4dcdf111804498fa603f761f99070bec91412ed628da01a5b65d539e6c46fc"
+    },
+    {
+      "id": "chat-chromium-bromide",
+      "sha256": "c02e8ef0e3c1f44a69b1d4c972a49b97d86d56de90dfdc10e351c65aaac0f136"
+    },
+    {
+      "id": "chat-solid-carbon-monoxide",
+      "sha256": "71437805167417092fcc4be2692fd9928547ae349a832520be8d964a80640f3d"
+    },
+    {
+      "id": "chat-solid-hydrogen-chloride",
+      "sha256": "40a9799ab4489f1b3e25cd49cb2002cdb72a1cd2869eb84b5c52e6ed64b948b2"
+    },
+    {
+      "id": "chat-lithium-sulfate",
+      "sha256": "7e7a1df080105476db6c440a87005e48fa95283ec71d2688893be12a4d3b8cb6"
+    },
+    {
+      "id": "chat-silver-oxide",
+      "sha256": "f74ea1a2ce5ddf00bb398b11e15cb1053691b9f37fdf028117cdce8a3703d2b0"
+    },
+    {
+      "id": "chat-sodium-sulfite",
+      "sha256": "4a1a028a6b883a06c1e22b8097df229532c452adac9aa70d1e99968167c69e20"
+    },
+    {
+      "id": "chat-sodium-nitrite",
+      "sha256": "85e9f62da2e4db4ed981fbbd2b5af76dd1491d92db50832d982e5eaa17e2b80d"
+    },
+    {
+      "id": "chat-potassium-thiocyanate",
+      "sha256": "da7d139044e8aedd1d0dda5e47a0f5f2f2ddf1a9e0ea5a4eb4bb16a04e368b26"
+    },
+    {
+      "id": "chat-lithium-nitrate",
+      "sha256": "60b24a9f3b7f6b93cf2278528d72b6f2f7334725b9bbb7919f3e485a35064cc6"
+    },
+    {
+      "id": "chat-zinc-hydroxide-epsilon",
+      "sha256": "d92804e590af5703772aa8bb455c8a938e5a6e48edd02db3a1216d8b0bf0ef55"
+    },
+    {
+      "id": "chat-solid-oxygen-beta",
+      "sha256": "541e88dbf2736345376e7c642d7bbbdddde93a54944d217c4209fd8640f4fc26"
+    },
+    {
+      "id": "chat-ice-ii",
+      "sha256": "dc7e6e1df705074009a09f2725794521105eaaed835ca3b719a68cec5e4fa59b"
+    },
+    {
+      "id": "cod-2105348",
+      "sha256": "1c114b7663291e18432d347ba463de16d027a3286556fff3acda94e53e5cf7ac"
+    },
+    {
+      "id": "cod-2310631",
+      "sha256": "9c52c813c6ec6a1ea35b713d9c3ac6a1e4ac64cbbea68367433577f94d146cff"
+    },
+    {
+      "id": "cod-8104275",
+      "sha256": "bf0f6a25f6fba6f1eb60a89c590c84d30a5ed4d915c8dc52904387d101c489ea"
+    },
+    {
+      "id": "cod-1548811",
+      "sha256": "78b0cab71ec513e78dca11bfe15d8d98c2a1ab76122f8089c024b9d909e6bd07"
+    },
+    {
+      "id": "cod-2020897",
+      "sha256": "a243eedfce48e0934b034715b5a269dedae1c442f1dc5c1a73286cadbe6fdd41"
+    },
+    {
+      "id": "cod-1542184",
+      "sha256": "5454008983a73eb40026d4b132488d255c8e2bc199ef35dcc36a7b1def1aa810"
+    },
+    {
+      "id": "cod-1535669",
+      "sha256": "1ec60162d21d421ef0e7d0a4923c1a66921e09d3247a232f5006e0d712b2bd50"
+    },
+    {
+      "id": "cod-1535698",
+      "sha256": "28dfd3550dec57842e5ba79b3b8bd15699f82909a34eed6eaaa032a6f1301852"
+    },
+    {
+      "id": "cod-8104000",
+      "sha256": "2f8e7ebe1b712f7e5d22187b3c8c25b7a19d8a8cf8989262c99fb90d4fb58183"
+    },
+    {
+      "id": "cod-2310480",
+      "sha256": "10777d90ff986583e6e70645695160b79ded2a90c11d96d5156082b5fa9edcad"
+    },
+    {
+      "id": "cod-1008189",
+      "sha256": "d7cf551bdf56e49fc89e2f61aa81cf5c00793e041c3586902b2793d163c07c26"
+    },
+    {
+      "id": "cod-7238223",
+      "sha256": "e338c5541c93f072e049a22f4c209f9d263718f737849f675a170899d730a8c1"
+    },
+    {
+      "id": "cod-5910115",
+      "sha256": "31a50b9c743ab588e053c72dd2b250520ac0ab3f2d88b8aac378d36ca31789c8"
+    },
+    {
+      "id": "cod-4503066",
+      "sha256": "e9fc8ad6a7d2d19bfa231f30d7ad090ee84305828ad0162a83d4a904313a50c7"
+    },
+    {
+      "id": "cod-7110463",
+      "sha256": "5d578c34cfac448f75f74a07fa84c3b7a98df4f0ca56d175e22222db180b93de"
+    },
+    {
+      "id": "cod-2008187",
+      "sha256": "1793f1e1ef90f9a24a384839836c32b10dece15765b36a5cdcf182ce8f1bfaf4"
+    },
+    {
+      "id": "cod-7050902",
+      "sha256": "2adc456e054006b213f29557a2ae7a14c2de4981a41a4a7c498bac41bcbef57b"
+    },
+    {
+      "id": "cod-4504310",
+      "sha256": "cb082a280a1d7d397777092cb64bc014e79d6f1d3b4635ec1ad6062684828b24"
+    },
+    {
+      "id": "cod-5000067",
+      "sha256": "1c7ba77f0796d8578d41123ba2955d27a02558d3ed2955d7bc54563d60399e0f"
+    },
+    {
+      "id": "cod-5000065",
+      "sha256": "2d158df8c8cf8e9b6b06d916c1fbec05d910783d486c8325fe3025603ff24502"
+    },
+    {
+      "id": "cod-1549467",
+      "sha256": "6e4d77685a47b22597467d3119e696ba81c072ed752b61d3e9f9b08045ce1c5a"
+    },
+    {
+      "id": "cod-2300557",
+      "sha256": "9906b063fe9c4af45b7c51475ae0865364e74e760f8250a54334fd57acf4f603"
+    }
+  ]
+}

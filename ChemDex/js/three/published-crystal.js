@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import {TrackballControls} from 'three/examples/jsm/controls/TrackballControls.js';
 import {specimenEnvironment} from './specimen-environment.js';
 import {crystalDisplayConnections,crystalDisplayHydrogenBonds} from '../../shared/chemistry/crystal-neighbors.mjs';
+import {crystalDisplayClusters} from '../../shared/chemistry/crystal-display-clusters.mjs';
 
 const COLORS={H:'#f4f7fa',Li:'#cc83ef',Be:'#a2d666',B:'#e9a590',C:'#667888',N:'#5383ec',O:'#e95354',F:'#90d873',Na:'#ac80ee',Mg:'#76cc92',Al:'#b8bcc7',Si:'#deb899',P:'#eda254',S:'#e4cc4e',Cl:'#75c75f',K:'#ad7cce',Ca:'#80b8ce',Fe:'#cf875c',Ni:'#81b887',Cu:'#c5875e',Zn:'#8bafc8',As:'#c095c1',Se:'#e7a157',Ag:'#d4d9e1',Cd:'#e6cb90',Sn:'#a6b5bf',Sb:'#b2a1c5',Te:'#c6a1a1',Cs:'#9a83da',Ba:'#87b590',W:'#91b0c1',Pt:'#c2c8db',Au:'#dfbb4f',Hg:'#a1afc5',Pb:'#929aae',U:'#8caf7b'};
 export const atomColor = element => COLORS[element] ?? new THREE.Color().setHSL(([...element].reduce((n,c)=>n+c.charCodeAt(0)*31,0)%360)/360,.40,.62).getStyle();
@@ -26,24 +27,32 @@ export function nearestPeriodicDistance(data){
 export function buildPublishedCrystal(data, repeat=1, options={}) {
   if (![1,2].includes(repeat)) throw Error('Crystal repeat must be 1 or 2');
   const group=new THREE.Group();group.name=data.mineralName;
-  const [segments,rings]=options.instanced&&data.atoms.length*repeat**3>1500?[10,8]:[16,10];
+  const clusterPlan=crystalDisplayClusters(data,repeat),completeClusters=options.completeClusters!==false&&clusterPlan.additions.length>0;
+  const [segments,rings]=options.instanced&&data.atoms.length*repeat**3+(completeClusters?clusterPlan.additions.length:0)>1500?[10,8]:[16,10];
   const geometries=new Map(),materials=new Map();
   const material=(element)=>{
     if(!materials.has(element))materials.set(element,element==='Vacancy' ? new THREE.LineBasicMaterial({color:'#536778'}) : new THREE.MeshStandardMaterial({color:atomColor(element),roughness:.40,metalness:.1,side:THREE.DoubleSide}));
     return materials.get(element);
   };
   const unique=[];
-  for (const atom of data.atoms) {
+  for (const [sourceAtomIndex,atom] of data.atoms.entries()) {
     let site=unique.find(s=>s.fractional.every((v,i)=>Math.abs(v-atom.fractional[i])<2e-5));
     if (!site) {site={fractional:atom.fractional,species:[]};unique.push(site);}
-    site.species.push(atom);
+    site.species.push({...atom,sourceAtomIndex});
   }
   let spheres=0,occupiedSpheres=0;
-  const batches=new Map();
+  const batches=new Map(),displaySites=[];
   for(const site of unique) {
     const offsets=site.fractional.map(v=>Array.from({length:repeat+(Math.abs(v)<2e-6?1:0)},(_,i)=>i));
     for(const x of offsets[0])for(const y of offsets[1])for(const z of offsets[2]) {
-      const position=fractionalPosition(data,site.fractional.map((v,i)=>v+[x,y,z][i]));
+      const shift=[x,y,z];displaySites.push({fractional:site.fractional.map((v,i)=>v+shift[i]),unitCellFractional:site.fractional,shift,species:site.species});
+    }
+  }
+  if(completeClusters)for(const image of clusterPlan.additions){
+    const atom=data.atoms[image.index];displaySites.push({fractional:image.fractional,unitCellFractional:atom.fractional,shift:image.shift,species:[{...atom,sourceAtomIndex:image.index}]});
+  }
+  for(const site of displaySites){
+      const position=fractionalPosition(data,site.fractional);
       let start=0;
       const species=[...site.species];
       const vacancy=1-species.reduce((sum,s)=>sum+s.occupancy,0);
@@ -59,7 +68,7 @@ export function buildPublishedCrystal(data, repeat=1, options={}) {
           if(vacancy)sphere.dispose();
         }
         const info={kind:'atom',label:atom.label,element:atom.element,occupancy:atom.occupancy,
-          fractional:site.fractional.map((v,i)=>v+[x,y,z][i]),unitCellFractional:site.fractional,position};
+          fractional:site.fractional,unitCellFractional:site.unitCellFractional,cellShift:site.shift,sourceAtomIndex:atom.sourceAtomIndex,position};
         if(options.instanced){
           const batchKey=`${key}:${atom.element}`;
           if(!batches.has(batchKey))batches.set(batchKey,{key,element:atom.element,atoms:[]});
@@ -71,7 +80,6 @@ export function buildPublishedCrystal(data, repeat=1, options={}) {
         if(vacancy)mesh.visible=options.showVacancies===true;
         mesh.scale.setScalar(options.radiusScale??1);group.add(mesh);spheres++;start+=portion;
       }
-    }
   }
   const matrix=new THREE.Matrix4(),scale=new THREE.Vector3().setScalar(options.radiusScale??1),rotation=new THREE.Quaternion();
   for(const batch of batches.values()){
@@ -92,7 +100,7 @@ export function buildPublishedCrystal(data, repeat=1, options={}) {
   }
   // Source coordinates and source bond orders are unchanged. These rods are
   // an explicitly labelled display layer and can be hidden independently.
-  const connections=crystalDisplayConnections(data,repeat),links=new THREE.Group();links.name='Đường nối lân cận';links.userData.kind='connections';
+  const connections=completeClusters?clusterPlan.connections:crystalDisplayConnections(data,repeat),links=new THREE.Group();links.name='Đường nối lân cận';links.userData.kind='connections';
   const linkGeometry=new THREE.CylinderGeometry(1,1,1,6),linkMaterial=new THREE.MeshStandardMaterial({color:'#627d89',roughness:.7});
   const connectionBatches=new Map();
   for(const edge of connections){const key=[...edge.elements].sort().join('-');if(!connectionBatches.has(key))connectionBatches.set(key,[]);connectionBatches.get(key).push(edge);}
@@ -106,7 +114,7 @@ export function buildPublishedCrystal(data, repeat=1, options={}) {
   links.visible=options.showConnections!==false;group.add(links);
   // Hydrogen contacts stay separate from solid coordination/covalent rods.
   // One instanced batch per participating element set keeps rotation cheap.
-  const hydrogenBonds=crystalDisplayHydrogenBonds(data,repeat),hydrogenLinks=new THREE.Group();
+  const hydrogenBonds=completeClusters?clusterPlan.hydrogenBonds:crystalDisplayHydrogenBonds(data,repeat),hydrogenLinks=new THREE.Group();
   const publishedHydrogen=data.hydrogenBondGeometry?.origin==='source-cif';
   const hydrogenBondEvidence=hydrogenBonds.length?(publishedHydrogen?'source-cif':'water-geometric'):null;
   hydrogenLinks.name=`Liên kết hydrogen · nét đứt · ${publishedHydrogen?'bảng CIF nguồn':'tiêu chí hình học'}`;hydrogenLinks.userData.kind='hydrogen-bonds';
@@ -144,7 +152,7 @@ export function buildPublishedCrystal(data, repeat=1, options={}) {
   frame.visible=options.showCell!==false;group.add(frame);
   group.position.set(...fractionalPosition(data,[-repeat/2,-repeat/2,-repeat/2]));
   group.userData={amcsdId:data.amcsdId,codId:data.codId,referenceId:data.referenceId??`amcsd:${data.amcsdId}`,evidence:data.evidence,source:data.source,formula:data.formula,cell:data.cell,spaceGroup:data.spaceGroup,reference:data.reference,repeat,
-    originalSiteCount:data.siteCount,displaySpheres:spheres,displayAtoms:occupiedSpheres,vacancySpheres:spheres-occupiedSpheres,displayConnections:connections.length,displayHydrogenBonds:hydrogenBonds.length,hydrogenBondEvidence,interpretation:'Published periodic atomic structure. Boundary sites repeated for viewing; sphere size/color illustrative. Rods are distance-based display neighbours, not assigned chemical bond orders. '+(publishedHydrogen?'Dashed hydrogen bonds reproduce the original CIF geom_hbond table and its space-group images.':'Dashed H···O contacts in fully occupied ordered pure-water crystals use geometric display criteria: O-H <= 1.2 A, O···O <= 3.0 A, O-H···O >= 150 degrees; not a universal hydrogen-bond classifier.')};
+    originalSiteCount:data.siteCount,displaySpheres:spheres,displayAtoms:occupiedSpheres,vacancySpheres:spheres-occupiedSpheres,displayConnections:connections.length,displayHydrogenBonds:hydrogenBonds.length,hydrogenBondEvidence,completeClusters,canCompleteClusters:clusterPlan.additions.length>0,boundaryCopies:completeClusters?clusterPlan.additions.length:0,interpretation:'Published periodic atomic structure. Boundary sites repeated for viewing; sphere size/color illustrative. '+(completeClusters?'Finite neighbour clusters are completed across cell faces by integer translations; one hydrogen-neighbour shell is included. Extra display atoms do not change unit-cell contents. ':'')+'Rods are distance-based display neighbours, not assigned chemical bond orders. '+(publishedHydrogen?'Dashed hydrogen bonds reproduce the original CIF geom_hbond table and its space-group images.':'Dashed H···O contacts in fully occupied ordered pure-water crystals use geometric display criteria: O-H <= 1.2 A, O···O <= 3.0 A, O-H···O >= 150 degrees; not a universal hydrogen-bond classifier.')};
   if(options.instanced)for(const [key,geometry]of geometries)if(key.startsWith('wire:'))geometry.dispose();
   return group;
 }
@@ -196,7 +204,7 @@ export function mountPublishedCrystal(container, meta) {
   const displayNotes = document.createElement('details'); displayNotes.className = 'crystal-display-notes';
   displayNotes.innerHTML = '<summary>Quy ước hiển thị</summary><p>Cầu và màu là ký hiệu. Phần cầu thể hiện độ chiếm chỗ; lưới tối là vị trí trống. Nguyên tử biên được lặp để khép ô. Cảnh trưng bày là minh họa; không thuộc dữ liệu cấu trúc. Không suy diễn liên kết hay mật độ electron.</p>';
   status.after(displayNotes);
-  let environment, showEnvironment = false, showAtoms = true, showConnections=true, showHydrogenBonds=true, showVacancies=false, autoRotate=false, renderNeeded=true;
+  let environment, showEnvironment = false, showAtoms = true, showConnections=true, showHydrogenBonds=true, showCompleteClusters=true, showVacancies=false, autoRotate=false, renderNeeded=true;
   const hiddenElements = new Set();
   let renderer,scene,camera,controls,current,data,resizeObserver,visibilityObserver,raf=0,destroyed=false,visible=true,repeat=1,showCell=false,packed=false,packingScale=1,pendingFit=true;
   const invalidate=()=>{renderNeeded=true;};
@@ -204,6 +212,7 @@ export function mountPublishedCrystal(container, meta) {
   container.querySelector('[data-crystal-environment]').textContent='Hiện cảnh trưng bày';container.querySelector('[data-crystal-environment]').setAttribute('aria-pressed','false');
   container.querySelector('.crystal-controls').insertAdjacentHTML('afterbegin','<button type="button" data-crystal-connections aria-pressed="true" disabled>Ẩn đường nối</button>');
   container.querySelector('.crystal-controls').insertAdjacentHTML('beforeend','<button type="button" data-crystal-hydrogen-bonds aria-pressed="true" disabled hidden>Ẩn liên kết hydrogen</button>');
+  container.querySelector('.crystal-controls').insertAdjacentHTML('beforeend','<button type="button" data-crystal-clusters aria-pressed="true" disabled hidden>Cắt tại biên ô</button>');
   container.querySelector('.crystal-controls').insertAdjacentHTML('beforeend','<button type="button" data-crystal-vacancies aria-pressed="false" disabled hidden>Hiện vị trí trống</button>');
   displayNotes.innerHTML='<summary>Quy ước hiển thị</summary><p>Đường nối giúp đọc các cặp lân cận trong mạng tuần hoàn; dùng ngưỡng bán kính cộng hóa trị cho phi kim và lớp lân cận gần cho ion/kim loại. Đây không phải phép xác định bậc liên kết. Đường qua mặt ô được cắt tại biên. Cầu, màu và cảnh trưng bày là quy ước; tọa độ và độ chiếm chỗ giữ theo nguồn.</p>';
   const rotating=container.querySelector('[data-crystal-rotate]');
@@ -218,12 +227,14 @@ export function mountPublishedCrystal(container, meta) {
   });invalidate();};
   const rebuild=()=>{
     if(current){scene.remove(current);disposeCrystal(current);}
-    current=buildPublishedCrystal(data,repeat,{instanced:true,showCell,showConnections,showHydrogenBonds,showVacancies,radiusScale:packed?packingScale:1});scene.add(current);fit();applyAtomVisibility();
+    current=buildPublishedCrystal(data,repeat,{instanced:true,showCell,showConnections,showHydrogenBonds,showVacancies,completeClusters:showCompleteClusters,radiusScale:packed?packingScale:1});scene.add(current);fit();applyAtomVisibility();
     if(environment){scene.remove(environment);disposeCrystal(environment);}
     environment=showEnvironment?specimenEnvironment(current,'z'):null;if(environment)scene.add(environment);invalidate();
     stage.dataset.displayAtoms=String(current.userData.displayAtoms);stage.dataset.displayConnections=String(current.userData.displayConnections);
     stage.dataset.displayHydrogenBonds=String(current.userData.displayHydrogenBonds);
     stage.dataset.hydrogenBondEvidence=current.userData.hydrogenBondEvidence??'none';
+    stage.dataset.boundaryCopies=String(current.userData.boundaryCopies);stage.dataset.completeClusters=String(current.userData.completeClusters);
+    container.querySelector('[data-crystal-clusters]').hidden=!current.userData.canCompleteClusters;
     container.querySelector('[data-crystal-hydrogen-bonds]').hidden=!current.userData.displayHydrogenBonds;
     container.querySelector('[data-crystal-vacancies]').hidden=!current.userData.vacancySpheres;
   };
@@ -254,6 +265,7 @@ export function mountPublishedCrystal(container, meta) {
       resizeObserver=new ResizeObserver(()=>{const r=stage.getBoundingClientRect();if(r.width<1||r.height<1)return;renderer.setSize(r.width,r.height,false);camera.aspect=r.width/r.height;camera.updateProjectionMatrix();controls.handleResize();if(pendingFit&&current)fit();invalidate();});resizeObserver.observe(stage);
       visibilityObserver=new IntersectionObserver(entries=>visible=entries[0].isIntersecting);visibilityObserver.observe(stage);
       rebuild();
+      if(current.userData.canCompleteClusters)displayNotes.insertAdjacentHTML('beforeend','<p>Chế độ trọn cụm bổ sung các bản sao tịnh tiến qua biên để tránh cắt ngang nhóm nguyên tử; dữ liệu hydrogen có thêm một lớp cụm cho/nhận lân cận. Các bản sao ngoài ô không làm tăng thành phần ô cơ sở. Chỉ khép cụm hữu hạn có vị trí đầy; mạng kéo dài vô hạn và dữ liệu bán phần giữ cách cắt tại mặt ô. Dùng “Cắt tại biên ô” để trở về hình ô mạng.</p>');
       if(current.userData.hydrogenBondEvidence==='source-cif')displayNotes.insertAdjacentHTML('beforeend','<p>Nét đứt xanh: liên kết hydrogen trong bảng geom_hbond của CIF nguồn, khai triển cùng các phép đối xứng và tịnh tiến của ô mạng. Không tự thêm những liên kết hydrogen khác chưa được bảng nguồn ghi nhận. Cách xác định vị trí H và điều kiện mẫu nằm trong phần nguồn bên dưới.</p>');
       else if(current.userData.displayHydrogenBonds)displayNotes.insertAdjacentHTML('beforeend','<p>Nét đứt xanh: H···O giữa các phân tử nước trong pha băng đang chọn; thanh liền: O–H trong phân tử. Lớp nét đứt áp dụng cho dữ liệu H₂O có đủ H, vị trí đầy và mỗi O gắn hai H: O–H ≤ 1,2 Å, O···O ≤ 3,0 Å, góc O–H···O ≥ 150°. Đây là quy ước hình học để đọc mạng, không phải tiêu chuẩn chứng minh mọi liên kết hydrogen. <a href="https://docs.mdanalysis.org/stable/documentation_pages/analysis/hydrogenbonds.html" target="_blank" rel="noopener noreferrer">Tiêu chí tham khảo ↗</a></p>');
       container.querySelectorAll('.crystal-controls button').forEach(b=>b.disabled=false);
@@ -277,6 +289,7 @@ export function mountPublishedCrystal(container, meta) {
   rotating.addEventListener('click',()=>{autoRotate=!autoRotate;rotating.textContent=autoRotate?'Tạm dừng xoay':'Tự động xoay';rotating.setAttribute('aria-pressed',String(autoRotate));invalidate();});
   container.querySelector('[data-crystal-connections]').addEventListener('click',event=>{showConnections=!showConnections;current.children.find(c=>c.userData.kind==='connections').visible=showConnections;event.currentTarget.textContent=showConnections?'Ẩn đường nối':'Hiện đường nối';event.currentTarget.setAttribute('aria-pressed',String(showConnections));invalidate();});
   container.querySelector('[data-crystal-hydrogen-bonds]').addEventListener('click',event=>{showHydrogenBonds=!showHydrogenBonds;current.children.find(c=>c.userData.kind==='hydrogen-bonds').visible=showHydrogenBonds;event.currentTarget.textContent=showHydrogenBonds?'Ẩn liên kết hydrogen':'Hiện liên kết hydrogen';event.currentTarget.setAttribute('aria-pressed',String(showHydrogenBonds));invalidate();});
+  container.querySelector('[data-crystal-clusters]').addEventListener('click',event=>{showCompleteClusters=!showCompleteClusters;rebuild();event.currentTarget.textContent=showCompleteClusters?'Cắt tại biên ô':'Hiện trọn cụm';event.currentTarget.setAttribute('aria-pressed',String(showCompleteClusters));});
   container.querySelector('[data-crystal-vacancies]').addEventListener('click',event=>{showVacancies=!showVacancies;applyAtomVisibility();event.currentTarget.textContent=showVacancies?'Ẩn vị trí trống':'Hiện vị trí trống';event.currentTarget.setAttribute('aria-pressed',String(showVacancies));});
   container.querySelector('[data-crystal-repeat]').addEventListener('click',event=>{repeat=repeat===1?2:1;rebuild();event.currentTarget.textContent=repeat===1?'Hiện 2 × 2 × 2 ô':'Hiện 1 ô mạng';});
   container.querySelector('[data-crystal-pack]').addEventListener('click',event=>{

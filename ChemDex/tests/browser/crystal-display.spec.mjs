@@ -25,13 +25,20 @@ test('the crystal opens bright with connections, no grid or furniture, and worki
  await widget.getByRole('button',{name:'Hiện đường nối',exact:true}).click();
  await expect.poll(async()=>Number(await stage.getAttribute('data-draw-calls'))).toBe(before);
  await expect(widget.locator('[data-crystal-hydrogen-bonds]')).toBeHidden();
+ await expect(widget.locator('[data-crystal-clusters]')).toBeHidden();
 });
 
 test('ice II shows a separate, batched hydrogen network with independent controls and element visibility',async({page},testInfo)=>{
  const widget=await openCrystal(page,'cid-962'),stage=widget.locator('.published-crystal-stage'),toggle=widget.locator('[data-crystal-hydrogen-bonds]');
  await expect(widget.locator('.crystal-heading')).toContainText('Băng II');
  await expect(widget.locator('.crystal-note')).toContainText('Không mô tả nước lỏng hay băng Ih');
+ await expect(stage).toHaveAttribute('data-display-hydrogen-bonds','48');
+ await expect(stage).toHaveAttribute('data-boundary-copies','90');
+ await widget.locator('[data-crystal-clusters]').click();
  await expect(stage).toHaveAttribute('data-display-hydrogen-bonds','42');
+ await expect(stage).toHaveAttribute('data-boundary-copies','0');
+ await widget.locator('[data-crystal-clusters]').click();
+ await expect(stage).toHaveAttribute('data-boundary-copies','90');
  await expect(stage).toHaveAttribute('data-hydrogen-bond-evidence','water-geometric');
  await expect(toggle).toHaveAttribute('aria-pressed','true');
  await stage.scrollIntoViewIfNeeded();await stage.screenshot({path:testInfo.outputPath('ice-ii-network.png')});
@@ -57,7 +64,13 @@ test('methanol uses the reported CIF hydrogen network and keeps its controls sep
  const widget=await openCrystal(page,'cid-887'),stage=widget.locator('.published-crystal-stage'),toggle=widget.locator('[data-crystal-hydrogen-bonds]');
  await expect(widget.locator('.crystal-heading')).toContainText('Methanol rắn · 122 K');
  await expect(stage).toHaveAttribute('data-hydrogen-bond-evidence','source-cif');
+ await expect(stage).toHaveAttribute('data-display-hydrogen-bonds','11');
+ await expect(stage).toHaveAttribute('data-boundary-copies','72');
+ await widget.locator('[data-crystal-clusters]').click();
  await expect(stage).toHaveAttribute('data-display-hydrogen-bonds','8');
+ await expect(stage).toHaveAttribute('data-boundary-copies','0');
+ await widget.locator('[data-crystal-clusters]').click();
+ await expect(stage).toHaveAttribute('data-complete-clusters','true');
  await widget.locator('.crystal-display-notes summary').click();
  await expect(widget.locator('.crystal-display-notes')).toContainText('bảng geom_hbond của CIF nguồn');
  await expect(widget.locator('.crystal-display-notes')).not.toContainText('O···O ≤ 3,0 Å');
@@ -65,9 +78,18 @@ test('methanol uses the reported CIF hydrogen network and keeps its controls sep
  const before=Number(await stage.getAttribute('data-draw-calls'));expect(before).toBeLessThan(12);
  await toggle.click();await expect.poll(async()=>Number(await stage.getAttribute('data-draw-calls'))).toBe(before-1);
  await widget.getByRole('button',{name:'Hiện 2 × 2 × 2 ô',exact:true}).click();
- await expect(stage).toHaveAttribute('data-display-hydrogen-bonds','48');
+ await expect.poll(async()=>Number(await stage.getAttribute('data-display-hydrogen-bonds'))).toBeGreaterThanOrEqual(48);
  await expect(toggle).toHaveAttribute('aria-pressed','false');
  await expect.poll(async()=>Number(await stage.getAttribute('data-draw-calls'))).toBe(before-1);
+ await widget.locator('[data-crystal-clusters]').click();
+ await expect(stage).toHaveAttribute('data-boundary-copies','0');
+ await expect(stage).toHaveAttribute('data-display-hydrogen-bonds','48');
+ await widget.getByRole('button',{name:'Hiện 1 ô mạng',exact:true}).click();
+ await expect(stage).toHaveAttribute('data-complete-clusters','false');
+ await expect(stage).toHaveAttribute('data-display-hydrogen-bonds','8');
+ await widget.locator('[data-crystal-clusters]').click();
+ await expect(stage).toHaveAttribute('data-boundary-copies','72');
+ await expect(toggle).toHaveAttribute('aria-pressed','false');
  await toggle.click();await expect.poll(async()=>Number(await stage.getAttribute('data-draw-calls'))).toBe(before);
  await widget.getByRole('button',{name:'Ẩn đường nối',exact:true}).click();
  await expect.poll(async()=>Number(await stage.getAttribute('data-draw-calls'))).toBe(4);
