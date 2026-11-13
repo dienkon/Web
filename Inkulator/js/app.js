@@ -151,6 +151,7 @@
     QuestionPages.init();
     RulerStudio.init();
     ViewTools.init();
+    LessonStudio.init();
     NativeCalculators.init();
     TeachingAI.init();
     ColorIcons.init();
@@ -545,7 +546,7 @@
     const groups=[
       ["Tài liệu",[["new","Sổ tay mới","Ctrl+N"],["library","Thư viện sổ tay"],["open","Mở tài liệu .ink / .smath.json","Ctrl+O"],["save","Lưu tài liệu","Ctrl+S"],...(root.InkulatorDesktop?.documents?[["save-as","Lưu thành…","Ctrl+Shift+S"],["local-documents","Tài liệu trên máy"]]:[]),["snapshot","Xuất bản snapshot .ink"],["backup-all","Sao lưu tất cả sổ tay"]]],
       ["Xuất / In",[["export-png","Trang → PNG"],["export-svg","Trang → SVG"],["export-pdf","Sổ tay → PDF"],["print","In sổ tay"]]],
-      ["Chèn",[["image","Ảnh từ máy"],["import-pdf","PDF từ máy"],["formula","Công thức đẹp"],["calculator","Máy tính & công cụ toán"],["random-name","Gọi tên ngẫu nhiên"],["paste-image","Dán ảnh từ bộ nhớ đệm"]]],
+      ["Chèn",[["image","Ảnh từ máy"],["import-pdf","PDF từ máy"],["formula","Công thức đẹp"],["calculator","Máy tính & công cụ toán"],["random-name","Gọi tên ngẫu nhiên"],["lesson-studio","Giảng Toán 12"],["paste-image","Dán ảnh từ bộ nhớ đệm"]]],
       ["Thao tác",[["copy","Sao chép đối tượng","Ctrl+C"],["paste","Dán ảnh / văn bản / đối tượng","Ctrl+V"],["select-all","Chọn tất cả đối tượng","Ctrl+A"],["fullscreen","Toàn màn hình"],["pen-options","Thao tác bằng bút…"],["pen-keyboard","Bàn phím trên màn hình"],["help","Hướng dẫn","?"]]]
     ];
     const pop=popover(anchor,'<div class="compact-file-menu"><input id="file-menu-search" type="search" placeholder="Tìm thao tác…" aria-label="Tìm thao tác"><div class="file-menu-tabs"></div><div class="file-menu-actions"></div></div>');
@@ -1354,6 +1355,8 @@
         return DocumentFiles.saveAs().catch(e=>toast(e.message));
       case "local-documents":
         return DocumentFiles.panel().catch(e=>toast(e.message));
+      case "lesson-studio":
+        return LessonStudio.open();
       case "random-name":
         return RandomNames.open();
       case "ai-region":

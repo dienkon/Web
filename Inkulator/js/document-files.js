@@ -19,7 +19,7 @@
   }
   function sync(){
     if(!ready||!native())return pending;
-    const books=Store.state.notebooks.map(book=>{const {assets,...content}=book;return {...Store.clone(content),assets:Object.fromEntries(Object.entries(assets||{}).map(([id,a])=>[id,{...a}]))};}),snapshot=Store.snapshot();
+    const books=Store.state.notebooks.filter(book=>!removed.has(book.id)).map(book=>{const {assets,...content}=book;return {...Store.clone(content),assets:Object.fromEntries(Object.entries(assets||{}).map(([id,a])=>[id,{...a}]))};}),snapshot=Store.snapshot();
     status="Đang lưu tệp trên máy…";root.App?.updateSaveState();
     pending=pending.catch(()=>{}).then(async()=>{
       for(const book of books){const data=await envelope(book,true),raw=JSON.stringify(data),previews={};let stamp,page;
