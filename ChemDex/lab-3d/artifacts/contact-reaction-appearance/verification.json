@@ -1,0 +1,22 @@
+{
+  "date": "2026-11-13",
+  "fullVitest": { "files": 231, "passed": 3086 },
+  "targetedAfterFinalOpticalChanges": { "files": 5, "passed": 356 },
+  "automaticChemistryCatalog": { "scenarios": 149, "passed": 149, "massConserved": true },
+  "typecheck": "passed",
+  "productionBuild": "passed",
+  "browser": "browser.json",
+  "productionBrowser": "production-browser.json",
+  "verified": [
+    "Incoming color starts at the actual contact point",
+    "Local bleaching precedes distant bulk appearance changes",
+    "Colored feed remains visible briefly at a colorless reaction endpoint",
+    "Appearance clocks and texture uploads freeze during pause",
+    "White aerosol begins inside the receiver and gradually spreads",
+    "The floor deposit grows after aerosol formation",
+    "Sealed unvented vessels retain smoke; explicit vent paths delay escape",
+    "Restart and next preserve the canvas; mobile controls fit the viewport"
+  ],
+  "modelNotes": "../../docs/science/contact-reaction-appearance.md",
+  "scope": "Qualitative optical transport and residence/deposition models, not calibrated CFD, spectral data or measured vent flow. Chemical inventory remains authoritative."
+}

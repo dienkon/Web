@@ -4,7 +4,7 @@ import type { VesselState, SubstanceContent } from '../../types/chemistry';
 import { createStudioSample } from '../../engine/studioProgram';
 import { applyProgramWithThermalSinks } from '../../engine/thermalLedger';
 import { measureGasFlux } from '../../engine/gasFlux';
-import { gasVisualState, gasVolumeRateMl_s } from '../gasVisualState';
+import { gasVisualState, gasVolumeRateMl_s, retainedGasVisuals } from '../gasVisualState';
 import { VesselSimulationManager } from '../../simulation/core/SimulationEngine';
 import { GasCloudRepository } from '../../simulation/effects/GasCloudRepository';
 import { getVesselProfile } from '../../pour/physics/profiles';
@@ -21,6 +21,10 @@ import { gasInlet, gasSourceHome, gasVolumeMl } from './gasDelivery';
 import { vesselLiquidSurfaceY } from '../../science/vesselGeometry';
 import { identifySpecies } from '../../science/speciesIdentity';
 import { AutoStockDynamics } from './AutoStockDynamics';
+import { LiquidAppearanceField } from '../../simulation/effects/LiquidAppearanceField';
+import { blendLiquidOptics, liquidOptics } from '../../pour/physics/mixing';
+import { supernatantColor } from '../../science/supernatantAppearance';
+import { pourContactRemaining } from '../../science/pourContactActivity';
 
 export type AutoPhase = 'prepare' | 'carry' | 'dose' | 'return' | 'condition' | 'react' | 'observe' | 'complete' | 'error';
 export type AutoCamera = 'wide' | 'transfer' | 'close' | 'surface';
@@ -57,6 +61,10 @@ export class AutoExperiment {
   readonly physics = new VesselSimulationManager('auto_receiver', 'medium');
   readonly clouds = new GasCloudRepository();
   readonly stocks = new AutoStockDynamics();
+  readonly appearance = new LiquidAppearanceField();
+  /** Optical residence/deposition partition; chemistry still owns every gram. */
+  aerosolSuspended_g = 0;
+  aerosolDeposited_g = 0;
   readonly donors: AutoDonor[];
   readonly steps: string[];
   sample: VesselState;
@@ -142,7 +150,7 @@ export class AutoExperiment {
     const order = (c: SubstanceContent) => c.formula === 'H2O' && c.phase === 'l' ? 0 : c.phase === 'g' ? 2 : 1;
     const rows = this.baseline.contents.filter(c => c.mass_g > 1e-12 && c.moles > 1e-12).sort((a, b) => order(a) - order(b));
     this.donors = rows.map(row => ({ row: { ...row },
-      color: this.program.chemistry.species.find(s => s.formula === row.formula && s.phase === row.phase)?.colorHex ?? '#dbeafe',
+      color: this.program.chemistry.species.find(s => s.formula === row.formula && s.phase === row.phase)?.colorHex ?? '#f8fafc',
       remaining: row.mass_g, fraction: 0 }));
     this.sample = { ...shell(),
       liquidColor: '#f1f5f9', isSealed: this.baseline.isSealed, studioProgramId: this.program.id };
@@ -197,6 +205,7 @@ export class AutoExperiment {
   private step(dt: number) {
     this.elapsed += dt; this.phaseTime += dt;
     const previous = this.sample;
+    const previousProgress = this.progress;
     let gasArrival: { formula: string; moles: number } | undefined;
     if (this.sample.recentPourContact) this.sample = { ...this.sample, recentPourContact: {
       ...this.sample.recentPourContact, remaining_s: Math.max(0, (this.sample.recentPourContact.remaining_s ?? 0) - dt),
@@ -216,7 +225,9 @@ export class AutoExperiment {
       const volume_ml = fluid / (this.baseline.density_g_ml ?? 1);
       this.sample = { ...this.sample, contents, substances: contents.map(c => c.formula),
         mass_g: contents.reduce((sum, c) => sum + c.mass_g, 0), volume_ml, volume: volume_ml / this.sample.capacity_ml,
-        liquidColor: donor.row.phase === 'aq' && portion > 0 ? donor.color : this.sample.liquidColor };
+        liquidColor: portion > 0 && ['aq', 'l'].includes(donor.row.phase) ? supernatantColor(contents, volume_ml)
+          ?? blendLiquidOptics(liquidOptics(this.sample.liquidColor ?? '#f8fafc'), this.sample.volume_ml,
+            liquidOptics(donor.color), donor.row.mass_g * portion / (this.baseline.density_g_ml ?? 1)).hex : this.sample.liquidColor };
       if (portion > 0) {
         const lip = this.donorLip, inlet = donor.row.phase === 'g' ? gasInlet(this, this.gasOrdinal(this.donorIndex)) : undefined;
         this.sample.recentPourContact = { point: inlet ? [inlet[0], inlet[1] - 1.04, inlet[2]]
@@ -307,17 +318,34 @@ export class AutoExperiment {
     if (!this.simulateEffects) return;
     const gas = gasVisualState(this.sample);
     const profile = getVesselProfile('beaker', 100);
-    const visible = [...gas.visible, ...solidAerosolVisuals(this.sample, previous, this.program.id, dt)];
+    const aerosols = solidAerosolVisuals(this.sample, previous, this.program.id, dt);
+    this.aerosolSuspended_g += aerosols.reduce((sum, a) => sum + a.mol_s * dt * computeMolarMass(a.formula), 0);
+    const deposited = this.aerosolSuspended_g * -Math.expm1(-dt / 12);
+    this.aerosolSuspended_g -= deposited; this.aerosolDeposited_g += deposited;
+    const visible = [...gas.visible.filter(g => g.mol_s > 0), ...retainedGasVisuals(this.sample), ...aerosols];
     this.clouds.advance(dt, visible.map(g => ({ vesselId: this.sample.id, revision: 1, receipt: this.sample.gasFlux!, seconds: dt,
       species: g.formula, input: { rate: g.rate, mol_s: g.mol_s, temperature_c: this.sample.temperature_c, ambient_c: 25,
         molarMass: g.molarMass, mouthY: profile.baseY + profile.H, mouthRadius: profile.mouthR,
-        floorY: 0.03, wind_m_s: 0.015, sourceToWorld: ([x, y, z]) => this.hasGasSupply
-          ? [x, y + 2.46 - (profile.baseY + profile.H), z - 0.35] : [x, y + 1.04, z] } })));
+        floorY: 0.03, wind_m_s: 0.015, sourceToWorld: ([x, y, z]) => [x, y + 1.04, z],
+        chamber: { profile, bottomY: vesselLiquidSurfaceY(this.sample), sealed: !!this.sample.isSealed,
+          inletJet: this.hasGasSupply && this.sample.volume_ml < 0.01,
+          sourcePoint: this.sample.recentPourContact?.point,
+          ...(this.hasGasSupply ? { vent: [0, 1.42, -0.35] as const } : {}) } } })));
     this.physics.step(this.sample, dt, { thermalStateAuthoritative: true,
       agitation: this.stirringDrive,
       bodyMatrixWorld: RECEIVER_BODY_MATRIX,
       reactionGasRate: gasVolumeRateMl_s(Object.values(this.sample.gasFlux.generated_mol_s).reduce((s, n) => s + n, 0), this.sample.temperature_c, 1) });
     this.stocks.advance(this.sample, dt, this.physics.vortex.surface);
+    if (this.sample.volume_ml > 0.01) this.appearance.advance(dt, {
+      color: supernatantColor(this.sample.contents, this.sample.volume_ml) ?? this.sample.liquidColor ?? '#f8fafc',
+      turbidity: this.physics.cloudiness, radius: profile.r(vesselLiquidSurfaceY(this.sample)),
+      baseY: profile.baseY, fillY: vesselLiquidSurfaceY(this.sample), agitation: this.stirringDrive,
+      vortex: this.physics.vortex.surface,
+      contact: this.sample.recentPourContact && pourContactRemaining(this.sample.recentPourContact) > 0
+        ? this.sample.recentPourContact.point : undefined,
+      contactColor: ['aq', 'l'].includes(this.donors[this.donorIndex]?.row.phase) ? this.sample.recentPourContact?.color : undefined,
+      reactionRate_s1: this.progress > previousProgress ? Math.LN2 / Math.max(0.05, this.program.chemistry.kinetics.halfTime_s || 1) : 0,
+    });
   }
   private advanceContact(dt: number) {
     const ref = this.contactReference;

@@ -1,0 +1,10 @@
+{
+  "production": true,
+  "finiteCloudRendered": true,
+  "pausedClockFrozen": true,
+  "restartCanvasPreserved": true,
+  "nextCanvasPreserved": true,
+  "mobileControls": true,
+  "noHorizontalOverflow": true,
+  "errors": []
+}

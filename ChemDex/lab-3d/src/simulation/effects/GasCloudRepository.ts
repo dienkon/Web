@@ -1,4 +1,4 @@
-import { GasPlumeSystem, type GasPlumeInput } from './GasPlumeSystem';
+import { GasPlumeSystem, validGasChamber, type GasPlumeInput } from './GasPlumeSystem';
 import { PRNG, seedForLabel } from '../../core/rng';
 import type { PhysicalEvaporationParticle } from '../core/SimulationTypes';
 
@@ -37,7 +37,7 @@ export class GasCloudRepository {
       if (![seconds, input.mol_s, input.rate, input.temperature_c, input.ambient_c, input.molarMass,
         input.mouthY, input.mouthRadius, input.floorY, input.wind_m_s].every(Number.isFinite)
         || !(seconds > 0) || input.mol_s < 0 || input.rate < 0 || !(input.molarMass > 0)
-        || input.temperature_c <= -273.15 || input.ambient_c <= -273.15 || input.mouthRadius < 0) continue;
+        || input.temperature_c <= -273.15 || input.ambient_c <= -273.15 || input.mouthRadius < 0 || !validGasChamber(input.chamber)) continue;
       const existing = this.clouds.get(key);
       if (existing) { existing.sourceLive = true; existing.lastInput = { ...source.input }; }
       if (this.seen.get(key) === source.receipt) continue;

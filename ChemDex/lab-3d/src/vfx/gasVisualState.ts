@@ -29,3 +29,17 @@ export function gasVisualState(v: VesselState) {
   const share = requested > 40 ? 40 / requested : 1;
   return { bubbleRate, visible: visible.map(gas => ({ ...gas, rate: gas.rate * share })) };
 }
+
+/** Retained colored gas is visible inside a closed vessel, independently of
+ * exhaust. Colorless gases never acquire an invented smoke appearance. */
+export function retainedGasVisuals(v: VesselState) {
+  if (!v.isSealed || v.isShattered) return [];
+  const env = { ...DEFAULT_LAB_ENVIRONMENT, ...v.environment, ...v.effectsEnvironment };
+  const visible = Object.entries(v.gasFlux?.generated_mol_s ?? {}).flatMap(([formula, mol_s]) => {
+    const info = GAS_FUME_TABLE[formula];
+    return info?.visible && formula !== 'H2O' && Number.isFinite(mol_s) && mol_s > 0
+      ? [{ formula, mol_s, molarMass: info.molarMass_g_mol, rate: gasPacketRate(mol_s, v.temperature_c, env.pressure_atm, 1, 40) }] : [];
+  });
+  const total = visible.reduce((sum, g) => sum + g.rate, 0), scale = total > 40 ? 40 / total : 1;
+  return visible.map(g => ({ ...g, rate: g.rate * scale }));
+}

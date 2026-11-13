@@ -170,8 +170,8 @@ export const ACID_BASE_PROGRAMS: ReactionProgram[] = [
       after: { liquidColor: '#ffffff', liquidOpacity: 0.9, turbidity: 0.5, gasesOffgassed: [] }
     },
     explain: {
-      observation_vi: 'Khói trắng dày đặc xuất hiện ngay tại miệng bình khi hai hơi khí gặp nhau.',
-      observation_en: 'Thick white smoke billows immediately where the two invisible vapors meet.',
+      observation_vi: 'Khói trắng NH4Cl hình thành tại nơi NH3 và HCl tiếp xúc, rồi lan dần trong khoảng khí của bình.',
+      observation_en: 'White NH4Cl aerosol forms where NH3 and HCl meet, then gradually disperses through the headspace.',
       why_vi: 'Khí NH3 và HCl phản ứng tạo tinh thể muối rắn NH4Cl lơ lửng như khói.',
       why_en: 'Gaseous NH3 and HCl react to form airborne solid ammonium chloride micro-crystals.'
     },

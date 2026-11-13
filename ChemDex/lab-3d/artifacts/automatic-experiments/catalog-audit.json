@@ -452,7 +452,7 @@
       "initialMass_g": 4.342048235294118,
       "finalMass_g": 4.342048235294115,
       "peakParticles": 0,
-      "peakCloudParticles": 161
+      "peakCloudParticles": 192
     },
     {
       "id": "cu_hno3_dil",
@@ -617,7 +617,7 @@
       "initialMass_g": 0.080608,
       "finalMass_g": 0.08060800000000004,
       "peakParticles": 0,
-      "peakCloudParticles": 154
+      "peakCloudParticles": 192
     },
     {
       "id": "na_h2o",
@@ -705,7 +705,7 @@
       "initialMass_g": 0.253808,
       "finalMass_g": 0.2538080000000001,
       "peakParticles": 0,
-      "peakCloudParticles": 15
+      "peakCloudParticles": 21
     },
     {
       "id": "water_into_h2so4",
@@ -1167,7 +1167,7 @@
       "initialMass_g": 30.316064,
       "finalMass_g": 30.31606399999999,
       "peakParticles": 0,
-      "peakCloudParticles": 101
+      "peakCloudParticles": 106
     },
     {
       "id": "nh4no3_dissolution",

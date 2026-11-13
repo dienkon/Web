@@ -31,6 +31,8 @@ import { LIQUID_SURFACE_GLSL } from './liquidSurfaceShader';
 import { VORTEX_GLSL } from '../../science/liquidVortex';
 import { FOAM_CELL_DIAMETER_M, shadeFoamCells } from './foamAppearance';
 import { metersPerModelUnit } from '../../science/sceneUnits';
+import { LiquidAppearanceField } from '../../simulation/effects/LiquidAppearanceField';
+import { createSpatialLiquidAppearance, shadeSpatialLiquid } from './spatialLiquidAppearance';
 
 interface LiquidProps {
   vesselId: string;
@@ -71,6 +73,9 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
   const liquidMeshRef = useRef<THREE.Mesh<THREE.LatheGeometry>>(null);
   const meniscusMeshRef = useRef<THREE.Mesh>(null);
   const causticMeshRef = useRef<THREE.Mesh>(null);
+  const appearanceField = useMemo(() => new LiquidAppearanceField(), [vesselId]);
+  const spatialAppearance = useMemo(() => createSpatialLiquidAppearance(appearanceField), [appearanceField]);
+  useEffect(() => () => spatialAppearance.texture.dispose(), [spatialAppearance]);
 
   // Slosh spring physics state stored in refs (no GC)
   const slosh = useRef({
@@ -93,7 +98,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
       }
     });
     const reset = vfxBus.on('vessel:sample-reset', e => {
-      if (e.vesselId === vesselId) dynamicRippleRef.current = 0;
+      if (e.vesselId === vesselId) { dynamicRippleRef.current = 0; appearanceField.reset(); }
     });
     return () => { unsub(); reset(); };
   }, [vesselId]);
@@ -170,7 +175,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
       depthWrite: false,
     });
 
-    mat.customProgramCacheKey = () => `chemlab_realistic_liquid_v6_vortex_${appearance}`;
+    mat.customProgramCacheKey = () => `chemlab_spatial_liquid_v7_${appearance}`;
 
     mat.onBeforeCompile = (shader) => {
       shader.uniforms.uTime = uniforms.uTime;
@@ -255,50 +260,16 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
         // A small reflected edge, never an opaque or emissive volume of water.
         gl_FragColor.a = min(0.98, gl_FragColor.a + rim * 0.08);
 
-        // Dynamic downward convective color dispersion front during chemical reactions
-        if (uHasActiveReaction > 0.01) {
-          float liquidHeight = max(0.02, uFillY - uBaseY);
-          float normH = clamp((vesselPosition.y - uBaseY) / liquidHeight, 0.0, 1.0);
-
-          // Front descends from 1.05 down to -0.15 as progress increases
-          float frontPos = 1.05 - uReactionProgress * 1.25;
-
-          // 3D procedural noise creates realistic Rayleigh-Taylor convective fingers / plumes
-          vec3 nPos = vec3(vWorldPosition.xz * 4.5, vWorldPosition.y * 3.0 - uTime * 0.35);
-          float fingering = snoise(nPos) * 0.16 + snoise(nPos * 2.1) * 0.08;
-
-          float plumeFront = smoothstep(frontPos - 0.18 + fingering, frontPos + 0.12 + fingering, normH);
-          float bulkDiffusion = pow(uReactionProgress, 1.7);
-          float reactionMixFactor = clamp(max(plumeFront, bulkDiffusion), 0.0, 1.0) * uHasActiveReaction;
-
-          vec3 frontColor = mix(uReactionInitialColor, uReactionTargetColor, reactionMixFactor);
-          gl_FragColor.rgb = mix(gl_FragColor.rgb, frontColor, uHasActiveReaction * 0.95);
-        }
-
-        // Local Inflow Mixing Plume (Dynamic non-uniform color diffusion)
-        if (uMixingStrength > 0.01 && uMixingRadius > 0.005) {
-          float distToPlume = length(vWorldPosition - uMixingPoint);
-          float plumeFactor = (1.0 - smoothstep(0.0, uMixingRadius, distToPlume)) * uMixingStrength;
-          gl_FragColor.rgb = mix(gl_FragColor.rgb, uMixingColor, plumeFactor * 0.85);
-        }
-
-        // Turbidity Tyndall scattering for precipitates (BaSO4, AgCl, Cu(OH)2, PbI2)
-        if (${appearance === 'foam' ? 'false' : 'uTurbidity > 0.01'}) {
-          vec3 milkyScattering = uSuspensionColor;
-          float depthFactor = clamp((uFillY - vesselPosition.y) * 1.5, 0.0, 1.0);
-          gl_FragColor.rgb = mix(gl_FragColor.rgb, milkyScattering, uTurbidity * 0.75 * depthFactor);
-          gl_FragColor.a = mix(gl_FragColor.a, 0.98, uTurbidity);
-        }
-
         // Three.js applies the display transform once, after all linear mixing.
         #include <tonemapping_fragment>
         `
       );
       if (appearance === 'foam') shadeFoamCells(shader, uniforms.uFoamCellScale, uniforms.uFoamCapRadius, false);
+      else shadeSpatialLiquid(shader, spatialAppearance.uniforms, '(uWorldToVessel * vec4(vWorldPosition, 1.0)).xyz', false);
     };
 
     return mat;
-  }, [clippingPlane, bottomPlane, uniforms, initialColor, appearance]);
+  }, [clippingPlane, bottomPlane, uniforms, initialColor, appearance, spatialAppearance]);
 
   // Meniscus Surface Disk Material
   const meniscusMaterial = useMemo(() => {
@@ -387,11 +358,12 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
         `
       );
       if (appearance === 'foam') shadeFoamCells(shader, uniforms.uFoamCellScale, uniforms.uFoamCapRadius, true);
+      else shadeSpatialLiquid(shader, spatialAppearance.uniforms, '(uWorldToVessel * vec4(vCapWorld, 1.0)).xyz', true);
     };
-    mat.customProgramCacheKey = () => `chemlab_meniscus_height_normal_v3_vortex_${appearance}`;
+    mat.customProgramCacheKey = () => `chemlab_meniscus_spatial_v4_${appearance}`;
 
     return mat;
-  }, [uniforms, initialColor, appearance]);
+  }, [uniforms, initialColor, appearance, spatialAppearance]);
 
   useEffect(() => () => { liquidMaterial.dispose(); meniscusMaterial.dispose(); },
     [liquidMaterial, meniscusMaterial]);
@@ -440,6 +412,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
 
     // Hide fluid when empty, shattered, or if vessel only contains dry solids without solvent
     if (vessel.isShattered || !(volume > 0) || (!hasLiquidSubstance && !vessel.liquidColor)) {
+      appearanceField.reset();
       if (liquidMeshRef.current) liquidMeshRef.current.visible = false;
       if (meniscusMeshRef.current) meniscusMeshRef.current.visible = false;
       if (causticMeshRef.current) causticMeshRef.current.visible = false;
@@ -466,6 +439,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     _scratchTargetColor.set(liquidColorHex);
     const replacedSample = colorSampleRevision.current !== (vessel.effectSampleRevision ?? 0);
     if (replacedSample) {
+      appearanceField.reset();
       colorSampleRevision.current = vessel.effectSampleRevision ?? 0;
       uniforms.uLiquidColor.value.copy(_scratchTargetColor);
       uniforms.uMixingStrength.value = 0;
@@ -495,6 +469,22 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
       }
     }
     if (appearance === 'foam') targetTurbidity = 0.85;
+    let appearanceContact: readonly number[] | undefined = vessel.recentPourContact && pourContactRemaining(vessel.recentPourContact) > 0
+      ? vessel.recentPourContact.point : undefined;
+    const activePour = PourController.getSession();
+    if (!appearanceContact && activePour?.targetId === vesselId && activePour.mixingZone?.active) {
+      _scratchPos.set(...activePour.mixingZone.point); meshGroupRef.current.worldToLocal(_scratchPos);
+      appearanceContact = _scratchPos.toArray();
+    }
+    if (appearance !== 'foam') {
+      const kinetics = useAppStore.getState().activeKinetics[vesselId];
+      appearanceField.advance(dt, { color: liquidColorHex, turbidity: targetTurbidity, radius: surfaceR,
+        baseY, fillY, contact: appearanceContact, contactColor: colorOverride ? undefined : vessel.recentPourContact?.color,
+        reactionRate_s1: kinetics && kinetics.progress > 0 && kinetics.progress < 1
+          ? Math.LN2 / Math.max(0.05, kinetics.program?.chemistry.kinetics.halfTime_s || 1) : 0,
+        vortex, agitation: Math.min(1, Math.abs(vortex?.angularSpeed_rad_s ?? 0) / 48) });
+      spatialAppearance.update(simMgr?.suspensionColor ?? liquidColorHex);
+    }
     uniforms.uTurbidity.value = isPaused || replacedSample || appearance === 'foam' ? targetTurbidity
       : THREE.MathUtils.lerp(uniforms.uTurbidity.value, targetTurbidity, 1 - Math.exp(-5 * dt));
     // Suspended solids scatter at the free surface too. Leaving its material
@@ -556,52 +546,6 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
       sl.lastWorldPos.copy(_scratchPos);
       sl.lastVelocity.set(0, 0, 0);
       uniforms.uSloshSpeed.value = THREE.MathUtils.lerp(uniforms.uSloshSpeed.value, 0.0, frameSmoothing(0.1, dt));
-    }
-
-    // 1. Mixing Plume from active pouring session
-    const session = PourController.getSession();
-    if (session && session.targetId === vesselId && session.mixingZone?.active) {
-      uniforms.uMixingPoint.value.set(...session.mixingZone.point);
-      uniforms.uMixingRadius.value = THREE.MathUtils.lerp(uniforms.uMixingRadius.value, session.mixingZone.radius, frameSmoothing(0.2, dt));
-      _scratchTargetColor.set(session.mixingZone.color);
-      uniforms.uMixingColor.value.lerp(_scratchTargetColor, frameSmoothing(0.2, dt));
-      uniforms.uMixingStrength.value = THREE.MathUtils.lerp(uniforms.uMixingStrength.value, session.mixingZone.intensity, frameSmoothing(0.25, dt));
-    } else if (vessel.recentPourContact?.color && pourContactRemaining(vessel.recentPourContact) > 0) {
-      const point = vessel.recentPourContact.point;
-      // Stored contact coordinates are vessel-local; the shader uses world coordinates.
-      _scratchPos.set(point[0], fillY, point[2]);
-      meshGroupRef.current.localToWorld(_scratchPos);
-      uniforms.uMixingPoint.value.copy(_scratchPos);
-      uniforms.uMixingRadius.value = Math.max(0.04, surfaceR * 0.45);
-      uniforms.uMixingColor.value.set(vessel.recentPourContact.color);
-      uniforms.uMixingStrength.value = 0.65 * Math.min(1, pourContactRemaining(vessel.recentPourContact) / 1.5);
-    } else {
-      uniforms.uMixingStrength.value = THREE.MathUtils.lerp(uniforms.uMixingStrength.value, 0.0, frameSmoothing(0.08, dt));
-    }
-
-    // 1b. Downward convective color dispersion from active reaction kinetics
-    const kinetics = useAppStore.getState().activeKinetics[vesselId];
-    uniforms.uBaseY.value = baseY;
-    if (kinetics && kinetics.progress < 1.0 && !colorOverride) {
-      const rxId = (kinetics.reactionId || '').toLowerCase();
-      let effectiveShaderProgress = kinetics.progress;
-      if (rxId.includes('iodine_clock') || rxId.includes('kio3+nahso3')) {
-        effectiveShaderProgress = kinetics.progress < 0.70 ? 0.0 : Math.min(1.0, (kinetics.progress - 0.70) / 0.06);
-      } else if (rxId.includes('kmno4_oxalic') || rxId.includes('kmno4+h2c2o4')) {
-        effectiveShaderProgress = 1.0 / (1.0 + Math.exp(-12.0 * (kinetics.progress - 0.52)));
-      }
-      uniforms.uHasActiveReaction.value = THREE.MathUtils.lerp(uniforms.uHasActiveReaction.value, 1.0, frameSmoothing(0.2, dt));
-      uniforms.uReactionProgress.value = effectiveShaderProgress;
-      if (kinetics.initialLiquidColor) {
-        _scratchTargetColor.set(kinetics.initialLiquidColor);
-        uniforms.uReactionInitialColor.value.copy(_scratchTargetColor);
-      }
-      if (kinetics.targetLiquidColor) {
-        _scratchTargetColor.set(kinetics.targetLiquidColor);
-        uniforms.uReactionTargetColor.value.copy(_scratchTargetColor);
-      }
-    } else {
-      uniforms.uHasActiveReaction.value = THREE.MathUtils.lerp(uniforms.uHasActiveReaction.value, 0.0, frameSmoothing(0.08, dt));
     }
 
     // 2. Gravity-aligned clipping plane and meniscus disk

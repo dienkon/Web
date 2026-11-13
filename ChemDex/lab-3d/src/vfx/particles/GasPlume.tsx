@@ -7,7 +7,7 @@ import { useAppStore } from '../../store/useAppStore';
 import { simulationFrameDt } from '../../core/clock';
 import { roomGasClouds, representativeGasOpacity, sampleGasCloudParticles, type GasCloudSource, type GasCloudRepository } from '../../simulation/effects/GasCloudRepository';
 import { createInstancedMistMaterial, mistParticleAppearance } from '../../simulation/render/mistAppearance';
-import { gasVisualState } from '../gasVisualState';
+import { gasVisualState, retainedGasVisuals } from '../gasVisualState';
 import { GAS_FUME_TABLE } from '../catalog/gasTable';
 import { getVesselProfile, getWorldVesselProfile } from '../../pour/physics/profiles';
 import { renderedVesselBody } from '../../simulation/render/vesselBodyFrames';
@@ -16,6 +16,7 @@ import { LAB_PHYSICS } from '../../engine/interactionEngine';
 import { FRAME_ORDER } from '../../simulation/core/frameOrder';
 import { solidAerosolVisuals } from '../solidAerosolVisuals';
 import type { VesselState } from '../../types/chemistry';
+import { vesselLiquidSurfaceY, vesselWorldLiquidSurfaceY } from '../../science/vesselGeometry';
 
 const visibleSpecies = [...Object.entries(GAS_FUME_TABLE).filter(([s, info]) => s !== 'H2O' && info.visible).map(([s]) => s), 'MgO'];
 
@@ -37,12 +38,23 @@ export function GasClouds() {
       const aerosol = old && old.receipt !== v.gasFlux
         ? solidAerosolVisuals(v, old.vessel, state.activeKinetics[v.id]?.program?.id, v.gasFlux.dt_s) : [];
       if (!old || old.receipt !== v.gasFlux) previous.current.set(v.id, { vessel: v, receipt: v.gasFlux });
-      for (const gas of [...gasVisualState(v).visible, ...aerosol]) sources.push({ vesselId: v.id, revision: v.effectSampleRevision ?? 0,
+      const visible = [...gasVisualState(v).visible.filter(g => g.mol_s > 0), ...retainedGasVisuals(v), ...aerosol];
+      // Interior smoke follows moving glass and a changed stopper even after
+      // production ends. Zero-rate updates refresh geometry without a source.
+      const liveSpecies = new Set(visible.map(g => g.formula));
+      for (const cloud of roomGasClouds.clouds.values()) if (cloud.vesselId === v.id
+        && cloud.revision === (v.effectSampleRevision ?? 0) && !liveSpecies.has(cloud.species)) {
+        visible.push({ formula: cloud.species, rate: 0, mol_s: 0, molarMass: cloud.lastInput.molarMass });
+      }
+      for (const gas of visible) sources.push({ vesselId: v.id, revision: v.effectSampleRevision ?? 0,
         receipt: v.gasFlux, seconds: v.gasFlux.dt_s, species: gas.formula,
         input: { rate: gas.rate, mol_s: gas.mol_s, temperature_c: v.temperature_c, ambient_c: env.temperature_c,
           molarMass: gas.molarMass, mouthY: shape.baseY + shape.H, mouthRadius: shape.mouthR,
           floorY: LAB_PHYSICS.TABLE_SURFACE_Y, wind_m_s: env.airSpeed_m_s,
-          sourceToWorld: point => new THREE.Vector3(...point).applyMatrix4(matrix).toArray() } });
+          sourceToWorld: point => new THREE.Vector3(...point).applyMatrix4(matrix).toArray(),
+          chamber: { profile: shape, sealed: !!v.isSealed,
+            bottomY: body ? vesselLiquidSurfaceY(v) : vesselWorldLiquidSurfaceY(v) - v.position[1],
+            sourcePoint: body ? v.recentPourContact?.point : undefined } } });
     }
     roomGasClouds.advance(dt, sources);
     for (const id of previous.current.keys()) if (!state.vessels[id]) previous.current.delete(id);
@@ -73,9 +85,13 @@ export function GasCloudLayer({ species, repository = roomGasClouds }: { species
     const structure = geometry.getAttribute('aMistStructure') as THREE.InstancedBufferAttribute;
     const count = sampleGasCloudParticles(repository.clouds, species, maximum, (p, i, weight) => {
       const appearance = mistParticleAppearance(p);
+      // Chamber packets already own a birth/deposition envelope. Applying
+      // another whole-life sine here hides their first seconds inside glass.
+      const confined = 'chamber' in p && !!p.chamber && !('released' in p && p.released);
+      const packetOpacity = confined ? p.opacity * Math.min(1, Math.max(0, p.life - p.age)) : appearance.opacity;
       scratch.position.set(p.x, p.y, p.z); scratch.quaternion.copy(frame.camera.quaternion);
       scratch.scale.setScalar(appearance.diameter); scratch.updateMatrix(); target.setMatrixAt(i, scratch.matrix);
-      opacity.setX(i, representativeGasOpacity(appearance.opacity, weight));
+      opacity.setX(i, representativeGasOpacity(packetOpacity, weight));
       structure.setXY(i, p.curlSeed, p.age);
     });
     target.count = count; target.visible = count > 0; if (!count) return;

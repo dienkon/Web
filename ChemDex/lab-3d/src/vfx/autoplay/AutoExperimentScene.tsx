@@ -126,6 +126,9 @@ function Particles({ experiment }: { experiment: AutoExperiment }) {
         bedThickness.current = s.thickness;
       }
       (bed.current.material as THREE.MeshStandardMaterial).color.set(s.color);
+      const material = bed.current.material as THREE.MeshStandardMaterial;
+      material.opacity = experiment.program.id === 'nh3_hcl' && experiment.sample.volume_ml < 0.01
+        ? -Math.expm1(-experiment.aerosolDeposited_g / 0.015) : 1;
     }
   });
   return <>
@@ -134,7 +137,7 @@ function Particles({ experiment }: { experiment: AutoExperiment }) {
     <instancedMesh ref={bubbles} args={[undefined, undefined, 100]} frustumCulled={false} renderOrder={6}>
       <sphereGeometry args={[1, 10, 8]} /><meshPhysicalMaterial color="#ccefff" transparent opacity={0.34} roughness={0.02} metalness={0.1} clearcoat={1} depthWrite={false} />
     </instancedMesh>
-    <mesh ref={bed} visible={false}><bufferGeometry /><meshStandardMaterial color="white" roughness={0.85} /></mesh>
+    <mesh ref={bed} name="auto_sediment_bed" visible={false}><bufferGeometry /><meshStandardMaterial color="white" roughness={0.85} transparent depthWrite={false} /></mesh>
   </>;
 }
 function Specimen({ experiment: e }: { experiment: AutoExperiment }) {
