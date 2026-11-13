@@ -469,6 +469,7 @@
     ctx.setTransform(2, 0, 0, 2, 0, 0);
     ctx.clearRect(0, 0, 300, 240);
     draw(ctx, draft, 300, 240);
+    root.CalculusLab?.refreshPreview();
   }
   function insert() {
     try {

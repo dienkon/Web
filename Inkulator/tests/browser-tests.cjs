@@ -91,7 +91,7 @@ const log = (name) => {
           ": partial eraser splits vectors; undo/redo restores exact stroke",
       );
       await page.keyboard.press("p");
-      await page.locator('[data-color="#d86560"]').click();
+      await page.locator('[data-color="#c00000"]').click();
       await draw([
         [400, 510],
         [440, 490],
@@ -100,7 +100,7 @@ const log = (name) => {
       ]);
       assert.equal(
         await page.evaluate(() => Store.current().objects.at(-1).style.color),
-        "#d86560",
+        "#c00000",
       );
       log(channel + ": color changes persist in actual ink");
       await page.keyboard.press("s");

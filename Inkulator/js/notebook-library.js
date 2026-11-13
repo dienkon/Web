@@ -1,6 +1,6 @@
 (function(root){
   'use strict';
-  let path='',query='',host,folders=[];
+  let path='',query='',host,folders=[],observer=null;
   const norm=s=>String(s||'').replace(/\\/g,'/').split('/').filter(Boolean).join('/');
   const esc=s=>App.escape(String(s));
   function load(){try{const value=JSON.parse(localStorage.getItem('inkulator-folders-v1')||'[]');folders=Array.isArray(value)?value.filter(s=>typeof s==='string').map(norm):[];}catch{folders=[];}}
@@ -17,6 +17,7 @@
     input.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();save.click();}};label.append(input);box.append(label,save,cancel);input.focus();
   }
   function name(value){const s=value.trim();if(!s||/[\\/<>:"|?*]/.test(s)||s==='.'||s==='..')throw Error('Nhập tên không chứa ký tự đường dẫn.');return s;}
+  async function preview(canvas,n){try{const p=n.pages[0],objects=p.layers.filter(l=>l.visible).flatMap(l=>p.objects.filter(o=>o.layer===l.id&&o.visible!==false).sort((a,b)=>a.zIndex-b.zIndex)).slice(0,150).map(o=>o.type==='pdf'?(o.data.preview?{...o,type:'image',data:{src:o.data.preview}}:null):o).filter(Boolean);await Renderer.awaitImages({objects},{pdf:false});if(!canvas.isConnected)return;const ctx=canvas.getContext('2d'),s=Math.min(220/p.width,235/p.height);ctx.fillStyle='#fff';ctx.fillRect(0,0,240,250);ctx.save();ctx.translate((240-p.width*s)/2,6);ctx.scale(s,s);ctx.beginPath();ctx.rect(0,0,p.width,p.height);ctx.clip();for(const o of objects)Renderer.drawObject(ctx,o);ctx.restore();}catch{/* A missing preview must not prevent opening the document. */}}
   async function remove(ids){
     if(!ids.length)return;
     if(!window.confirm('Dọn '+ids.length+' sổ tay? Các sổ trên máy sẽ được chuyển vào Thung rac trong thư viện.'))return;
@@ -25,7 +26,8 @@
     await root.DocumentFiles?.flush();render();App.toast('Đã dọn '+ids.length+' sổ tay.');
   }
   function render(){
-    if(!host?.isConnected)return;const dirs=allFolders(),books=Store.state.notebooks;
+    if(!host?.isConnected)return;observer?.disconnect();const dirs=allFolders(),books=Store.state.notebooks;
+    observer=new IntersectionObserver(entries=>{for(const entry of entries)if(entry.isIntersecting){observer.unobserve(entry.target);const n=books.find(n=>n.id===entry.target.dataset.bookId);if(n)preview(entry.target,n);}},{root:host.querySelector('.notebook-content'),rootMargin:'100px'});
     host.querySelector('.library-tree').innerHTML='<button type="button" data-folder="" class="'+(!path?'active':'')+'">▤ Tất cả tài liệu</button>'+dirs.map(p=>'<button type="button" data-folder="'+esc(p)+'" class="'+(p===path?'active':'')+'" style="padding-left:'+(14+p.split('/').length*12)+'px">▱ '+esc(p.split('/').at(-1))+'</button>').join('');
     const crumbs=host.querySelector('.library-breadcrumb');crumbs.innerHTML='<button type="button" data-folder="">Tài liệu</button>'+path.split('/').filter(Boolean).map((p,i)=>'<span>›</span><button type="button" data-folder="'+esc(path.split('/').slice(0,i+1).join('/'))+'">'+esc(p)+'</button>').join('');
     host.querySelectorAll('[data-folder]').forEach(b=>b.onclick=()=>{path=b.dataset.folder;query='';host.querySelector('#notebook-search').value='';render();});
@@ -38,7 +40,7 @@
     for(const n of books){if(query?!((n.title+' '+n.folder).toLocaleLowerCase().includes(query)):norm(n.folder)!==path)continue;
       const card=document.createElement('article');card.className='notebook-card'+(n.id===Store.book().id?' current':'');card.draggable=true;card.ondragstart=e=>e.dataTransfer.setData('application/x-inkulator-book',n.id);
       card.innerHTML='<button type="button" class="notebook-open"><canvas width="240" height="250"></canvas><strong>'+esc(n.title)+'</strong><small>'+n.pages.length+' trang'+(query&&n.folder?' · '+esc(n.folder):'')+'</small></button><div class="notebook-actions"><button type="button" data-do="rename" title="Đổi tên">Tên</button><button type="button" data-do="move" title="Chuyển thư mục">Chuyển</button><button type="button" data-do="delete" title="Xóa sổ tay">Xóa</button></div>';
-      const canvas=card.querySelector('canvas'),ctx=canvas.getContext('2d'),p=n.pages[0];ctx.fillStyle='#fff';ctx.fillRect(0,0,240,250);ctx.save();const s=Math.min(220/p.width,235/p.height);ctx.translate((240-p.width*s)/2,6);ctx.scale(s,s);ctx.beginPath();ctx.rect(0,0,p.width,p.height);ctx.clip();for(const o of p.objects.slice(0,100)){if(o.type==='pdf'){if(o.data.preview){const img=new Image();img.onload=()=>{if(canvas.isConnected){ctx.save();ctx.setTransform(s,0,0,s,(240-p.width*s)/2,6);if(o.clip){ctx.beginPath();ctx.rect(o.position.x+o.clip.x,o.position.y+o.clip.y,o.clip.w,o.clip.h);ctx.clip();}ctx.globalCompositeOperation='destination-over';ctx.drawImage(img,o.position.x,o.position.y,o.size.w,o.size.h);ctx.restore();}};img.src=o.data.preview;}continue;}Renderer.drawObject(ctx,o);}ctx.restore();
+      const canvas=card.querySelector('canvas');canvas.dataset.bookId=n.id;observer.observe(canvas);
       card.querySelector('.notebook-open').onclick=()=>{Store.save();Store.switchBook(books.indexOf(n));App.closePanel();document.getElementById('dialog').close('cancel');};
       card.querySelector('[data-do="rename"]').onclick=()=>edit('Tên sổ tay',n.title,v=>{n.title=name(v);n.modified=new Date().toISOString();changed();});
       card.querySelector('[data-do="move"]').onclick=()=>edit('Chuyển đến thư mục',norm(n.folder),v=>{n.folder=v;n.modified=new Date().toISOString();changed();},['',...dirs]);
@@ -56,7 +58,7 @@
     host.querySelector('#notebook-new').onclick=()=>edit('Tên sổ tay mới','Sổ tay mới',v=>{const n=Store.notebook(name(v));n.folder=path;Store.state.notebooks.push(n);Store.switchBook(Store.state.notebooks.length-1);changed();});
     host.querySelector('#notebook-import').onclick=()=>{d.close('cancel');DocumentFiles.open().catch(e=>App.toast(e.message));};
     host.querySelector('#notebook-clean').onclick=()=>remove(Store.state.notebooks.filter(n=>n.id!==Store.book().id).map(n=>n.id)).catch(e=>App.toast(e.message));
-    render();try{return await done;}finally{d.classList.remove('notebook-dialog');}
+    render();try{return await done;}finally{observer?.disconnect();d.classList.remove('notebook-dialog');}
   }
   root.NotebookLibrary={open,allFolders};
 })(window);

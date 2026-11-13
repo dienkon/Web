@@ -607,6 +607,8 @@
         )
           throw Error("Khối không hợp lệ.");
         root.Geometry.mesh(d.kind, d.params);
+        if(d.unfold!==undefined&&(!boundedNum(d.unfold,0,1)||(d.unfold>0&&(!root.Geometry.mesh(d.kind,d.params).faces.length||root.Geometry.mesh(d.kind,d.params).vertices.length>20))))throw Error('Mức trải phẳng không hợp lệ.');
+        if(d.sectionSplit&&(!d.sectionSplit||typeof d.sectionSplit.id!=='string'||d.sectionSplit.id.length>80||!boundedNum(d.sectionSplit.amount,0,1)||(d.sectionSplit.color!==undefined&&!colors.test(d.sectionSplit.color))))throw Error('Độ tách thiết diện không hợp lệ.');
       }
       if (
         ["geometry", "solid"].includes(o.type) &&
@@ -644,6 +646,9 @@
           throw Error("Trang PDF hoặc PDF gốc không hợp lệ.");
       }
       if (o.type === "graph") {
+        if(d.asymptotes!==undefined&&(!Array.isArray(d.asymptotes)||d.asymptotes.length>200||d.asymptotes.some(l=>!l||!['x','y','slant'].includes(l.axis)||!boundedNum(l.value,-1e12,1e12)||(l.axis==='slant'&&!boundedNum(l.intercept,-1e12,1e12)))))throw Error('Tiệm cận không hợp lệ.');
+        if(d.revolution&&!boundedNum(d.revolution.angle,0,2*Math.PI+1e-9))throw Error('Góc quay khối tròn xoay không hợp lệ.');
+        if(d.revolution?.combine!==undefined&&!['between','union','intersection'].includes(d.revolution.combine))throw Error('Cách ghép khối tròn xoay không hợp lệ.');
         if (
           !Array.isArray(d.expressions) ||
           d.expressions.length < 1 ||
@@ -889,6 +894,7 @@
           ? p.paper
           : "blank";
         cleanPage.showTitle = p.showTitle !== false;
+        if(p.inlineQuestions!==undefined){if(!Array.isArray(p.inlineQuestions)||p.inlineQuestions.length>300)throw Error('Danh sách câu hỏi không hợp lệ.');cleanPage.inlineQuestions=p.inlineQuestions.map(q=>{if(!q||typeof q.title!=='string'||!['x','y','w','h'].every(k=>boundedNum(q[k],-1e6,1e6))||q.w<=0||q.h<=0)throw Error('Vùng câu hỏi không hợp lệ.');return {id:preserveIds&&typeof q.id==='string'?q.id.slice(0,100):uid(),title:q.title.slice(0,150),x:q.x,y:q.y,w:q.w,h:q.h,buttonX:boundedNum(q.buttonX,0,20000)?q.buttonX:Math.max(0,q.x),buttonY:boundedNum(q.buttonY,0,20000)?q.buttonY:Math.max(8,q.y-60),ocrText:typeof q.ocrText==='string'?q.ocrText.slice(0,4000):'',ocrEngine:typeof q.ocrEngine==='string'?q.ocrEngine.slice(0,80):'',manualTitle:!!q.manualTitle};});}
         const q=p.questionSource;
         if(q && typeof q.pageId==="string" && ["x","y","w","h"].every(k=>boundedNum(q[k],-1e6,1e6)) && q.w>0 && q.h>0)
           cleanPage.questionSource={pageId:q.pageId.slice(0,100),...(typeof q.rootId==="string"?{rootId:q.rootId.slice(0,100)}:{}),x:q.x,y:q.y,w:q.w,h:q.h};

@@ -234,15 +234,15 @@
         .map(
           (p, i) =>
             '<div class="field-row"><span style="flex:0 0 16px">' +
-            String.fromCharCode(65 + i) +
+            Geometry.vertexLabel(i) +
             '</span><input aria-label="Hoành độ ' +
-            String.fromCharCode(65 + i) +
+            Geometry.vertexLabel(i) +
             '" type="number" step="any" data-vertex="' +
             i +
             '" data-axis="0" value="' +
             Number(p[0].toFixed(4)) +
             '"><input aria-label="Tung độ ' +
-            String.fromCharCode(65 + i) +
+            Geometry.vertexLabel(i) +
             '" type="number" step="any" data-vertex="' +
             i +
             '" data-axis="1" value="' +
@@ -320,7 +320,7 @@
     const vertices = solid ? G.mesh(d.kind, d.params).vertices : d.points;
     const labels = solid
       ? G.mesh(d.kind, d.params).labels
-      : d.points.map((_, i) => String.fromCharCode(65 + i));
+      : d.points.map((_, i) => Geometry.vertexLabel(i));
     for (const id of ["aux-a", "aux-b"]) {
       const select = document.getElementById(id);
       vertices
@@ -457,7 +457,7 @@
               '<option value="' +
               i +
               '">' +
-              String.fromCharCode(65 + i) +
+              Geometry.vertexLabel(i) +
               "</option>",
           )
           .join("") +

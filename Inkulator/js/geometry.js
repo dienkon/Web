@@ -677,6 +677,7 @@
     };
   }
   root.Geometry = {
+    vertexLabel:i=>String.fromCharCode(65+i%26)+(i>=26?Math.floor(i/26):''),
     flatCatalog,
     solidCatalog,
     flat,

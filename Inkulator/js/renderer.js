@@ -640,7 +640,7 @@
       ctx.arc(...a, 2.4, 0, Math.PI * 2);
       ctx.fill();
       if (d.labels) {
-        const vName = d.vertexLabels?.[i] || String.fromCharCode(65 + i);
+        const vName = d.vertexLabels?.[i] || Geometry.vertexLabel(i);
         if (root.TeacherGeometry)
           TeacherGeometry.drawLabel(
             ctx,

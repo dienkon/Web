@@ -100,7 +100,8 @@
       if (!layerEditable(o)) continue;
       if(o.clip&&(p.x<o.position.x+o.clip.x||p.x>o.position.x+o.clip.x+o.clip.w||p.y<o.position.y+o.clip.y||p.y>o.position.y+o.clip.y+o.clip.h))continue;
       const q = Renderer.localPoint(o, p),
-        pad = 7 / S().viewport.zoom;
+        pad = 7 / S().viewport.zoom,
+        box=o.type==='solid'?Renderer.selectionBounds(o):{x:0,y:0,w:o.size.w,h:o.size.h};
       if (o.type === "stroke") {
         const pts = o.data.points,
           sx = o.size.w / (o.data.baseSize?.w || o.size.w),
@@ -120,10 +121,10 @@
         )
           return o;
       } else if (
-        q.x >= -pad &&
-        q.y >= -pad &&
-        q.x <= o.size.w + pad &&
-        q.y <= o.size.h + pad
+        q.x >= box.x-pad &&
+        q.y >= box.y-pad &&
+        q.x <= box.x+box.w + pad &&
+        q.y <= box.y+box.h + pad
       )
         return o;
     }

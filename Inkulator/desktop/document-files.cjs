@@ -22,7 +22,7 @@ module.exports=function installDocuments(win){
   if(movedFrom){const source=await fs.realpath(movedFrom),destination=await fs.realpath(folder),base=await fs.realpath(path.join(index.root,'Tai lieu'));if(source.startsWith(base+path.sep)&&destination.startsWith(base+path.sep)&&source!==destination&&(await pkg.readManifest(movedFrom)).id===n.id)await fs.rm(source,{recursive:true,force:true});}
   return {...result,folder:index.root};
  }
- async function readFile(file){const stat=await fs.stat(file);if(stat.size>240e6)throw Error("Tệp quá lớn.");const bytes=await fs.readFile(file);
+ async function readFile(file){let stat;try{stat=await fs.stat(file);}catch(e){if(e.code!=="ENOENT")throw e;if(file.endsWith("book.ink")||file.endsWith("book.recovery.ink"))return pkg.read(path.dirname(file));throw Error("Tài liệu đã được di chuyển hoặc xóa. Mở lại từ thư viện hoặc chọn tệp mới.");}if(stat.size>240e6)throw Error("Tệp quá lớn.");const bytes=await fs.readFile(file);
   if(file.toLowerCase().endsWith(".json"))return pkg.parse(bytes.toString("utf8"));
   if(bytes[0]===0x50&&bytes[1]===0x4b){
    const {unzipSync}=require("./archive.cjs");let total=0,count=0;const files=unzipSync(new Uint8Array(bytes),{filter:f=>{if(++count>15000||(total+=f.originalSize)>240e6||f.name.includes("\\")||f.name.startsWith("/")||f.name.split("/").includes(".."))throw Error("Gói nhập quá lớn hoặc đường dẫn không an toàn.");return !f.name.endsWith("/");}});
@@ -32,10 +32,29 @@ module.exports=function installDocuments(win){
   return pkg.read(path.dirname(file));
  }
  handle("save",async arg=>{if(!arg||typeof arg!=="object")throw Error("Thiếu tài liệu.");pkg.parse(arg.raw);let parent;if(arg.saveAs){const d=await dialog.showOpenDialog(win,{title:"Chọn thư mục lưu bản sao sổ tay",defaultPath:index.root,properties:["openDirectory","createDirectory"]});if(d.canceled)return null;parent=d.filePaths[0];}return write(arg.raw,arg.previews||{},parent);});
- async function pruneMissing(){let changed=false;for(const [id,file] of Object.entries(index.files)){try{await fs.stat(file);}catch(e){if(e.code!=='ENOENT')throw e;delete index.files[id];changed=true;}}const count=index.recent.length;index.recent=index.recent.filter(i=>index.files[i.id]===i.file);if(changed||count!==index.recent.length)await persist();}
+ async function pruneMissing(){let changed=false;for(const [id,file] of Object.entries(index.files)){try{await fs.stat(file);}catch(e){if(e.code!=='ENOENT')throw e;if(file.endsWith('.ink')&&await pkg.readManifest(path.dirname(file)).catch(()=>null))continue;delete index.files[id];changed=true;}}const count=index.recent.length;index.recent=index.recent.filter(i=>index.files[i.id]===i.file);if(changed||count!==index.recent.length)await persist();}
  handle("list",async()=>{await pruneMissing();return {folder:index.root,items:index.recent,format:"inkulator-package-v2"};});
- // Remove registrations first. Recoverable trash stays outside the scanned library.
- handle("remove",async ids=>{if(!Array.isArray(ids)||ids.length>300||ids.some(id=>typeof id!=='string'))throw Error('Danh sách tài liệu không hợp lệ.');const files=ids.map(id=>({id,file:index.files[id]})).filter(i=>i.file);for(const {id} of files){delete index.files[id];index.recent=index.recent.filter(i=>i.id!==id);}await persist();let trashed=0;for(const {id,file} of files){try{const resolved=await fs.realpath(file),base=await fs.realpath(path.join(index.root,'Tai lieu'));if(!resolved.startsWith(base+path.sep))continue;if(path.basename(resolved)==='book.ink'){const folder=path.dirname(resolved);if(!folder.startsWith(base+path.sep)||(await pkg.readManifest(folder)).id!==id)continue;const target=path.join(index.root,'Thung rac',crypto.randomUUID());await fs.mkdir(path.dirname(target),{recursive:true});await fs.cp(folder,target,{recursive:true,errorOnExist:true});const checked=await pkg.readManifest(target);if(checked.id!==id)throw Error('Chưa kiểm tra được bản trong thùng rác.');await fs.rm(folder,{recursive:true,force:true});trashed++;}}catch(e){if(e.code!=='ENOENT')throw e;}}return {removed:files.length,trashed};});
+ // Verify recoverable copies before removing registrations or owned packages.
+ handle("remove",async ids=>{
+  if(!Array.isArray(ids)||ids.length>300||ids.some(id=>typeof id!=='string'))throw Error('Danh sách tài liệu không hợp lệ.');
+  const files=[...new Set(ids)].map(id=>({id,file:index.files[id]})).filter(i=>i.file),copies=[];
+  for(const {id,file} of files){
+   try{
+    const resolved=await fs.realpath(file),base=await fs.realpath(path.join(index.root,'Tai lieu')),folder=path.dirname(resolved);
+    if(!folder.startsWith(base+path.sep)||path.basename(resolved)!=='book.ink')continue;
+    if((await pkg.readManifest(folder)).id!==id)throw Error('Mã sổ tay trên ổ đĩa đã thay đổi.');
+    const target=path.join(index.root,'Thung rac',crypto.randomUUID());await fs.mkdir(path.dirname(target),{recursive:true});
+    await fs.cp(folder,target,{recursive:true,errorOnExist:true});
+    if((await pkg.read(target)).notebook.id!==id)throw Error('Chưa kiểm tra được bản trong thùng rác.');
+    copies.push({id,folder,base});
+   }catch(e){if(e.code!=='ENOENT')throw e;}
+  }
+  const previousFiles={...index.files},previousRecent=[...index.recent];
+  for(const {id} of files){delete index.files[id];index.recent=index.recent.filter(i=>i.id!==id);}
+  try{await persist();}catch(e){index.files=previousFiles;index.recent=previousRecent;throw e;}
+  for(const {id,folder,base} of copies){const source=await fs.realpath(folder);if(source.startsWith(base+path.sep)&&(await pkg.readManifest(source)).id===id)await fs.rm(source,{recursive:true,force:true});}
+  return {removed:files.length,trashed:copies.length};
+ });
  handle('backupCache',async raw=>{if(typeof raw!=='string'||raw.length>16e6)throw Error('Bản đệm quá lớn.');const file=path.join(profile,'LegacyCache',pkg.hash(Buffer.from(raw))+'.ink-cache');await fs.mkdir(path.dirname(file),{recursive:true});try{await fs.access(file);}catch{await pkg.flushed(file,await pkg.packed({format:'legacy-browser-cache',raw}));}return true;});
  handle("open",async id=>{let file=index.files[id];if(id===undefined||id===null){const d=await dialog.showOpenDialog(win,{title:"Mở sổ tay Inkulator",defaultPath:index.root,properties:["openFile"],filters:[{name:"Tài liệu Inkulator",extensions:["ink","json"]}]});if(d.canceled)return null;file=d.filePaths[0];}if(!file)throw Error("Không tìm thấy tài liệu.");const data=await readFile(file),token=crypto.randomUUID();pending.set(token,{data,file,created:Date.now()});for(const [k,v]of pending)if(Date.now()-v.created>600000)pending.delete(k);return {raw:JSON.stringify(data),file,token};});
  handle("accept",async token=>{const item=pending.get(token);if(!item)throw Error("Phiên mở đã hết hạn.");pending.delete(token);let file=item.file;if(!file.endsWith("book.ink")&&!file.endsWith("book.recovery.ink")){const saved=await write(JSON.stringify(item.data));file=saved.file;}index.files[item.data.notebook.id]=file;await persist();return true;});

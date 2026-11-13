@@ -144,8 +144,9 @@
     const overlap=(a,b)=>Math.max(0,Math.min(a.x+a.w,b.x+b.w)-Math.max(a.x,b.x))*Math.max(0,Math.min(a.y+a.h,b.y+b.h)-Math.max(a.y,b.y));
     const candidates=[{x:right+gap,y:midY},{x:left-size-gap,y:midY},{x:midX,y:bottom+gap},{x:midX,y:top-size-gap},{x:area.clientWidth-size-18,y:16},{x:68,y:16}].map(clamp);
     const dock=document.getElementById("pen-dock")?.getBoundingClientRect(),areaRect=area.getBoundingClientRect();
-    const obstruction=dock?{x:dock.left-areaRect.left,y:dock.top-areaRect.top,w:dock.width,h:dock.height}:null;
-    const score=p=>overlap({...p,w:size,h:size},avoid)*10+(obstruction?overlap({...p,w:size,h:size},obstruction)*20:0);
+    const panel=document.getElementById('panel'),panelRect=panel&&!panel.hidden?panel.getBoundingClientRect():null;
+    const obstructions=[dock,panelRect].filter(Boolean).map(r=>({x:r.left-areaRect.left,y:r.top-areaRect.top,w:r.width,h:r.height}));
+    const score=p=>overlap({...p,w:size,h:size},avoid)*10+obstructions.reduce((sum,r)=>sum+overlap({...p,w:size,h:size},r)*100,0);
     const chosen=manualPosition?clamp(manualPosition):candidates.reduce((best,p)=>score(p)<score(best)?p:best,candidates[0]);
     let x=chosen.x,y=chosen.y;
     const bubble=bar.querySelector(".geo-step-bubble");

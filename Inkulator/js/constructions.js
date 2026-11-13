@@ -138,7 +138,7 @@
       named(
         "v:" + i,
         d.vertexLabels?.[i] ||
-          (solid ? model.labels[i] || "P" + (i + 1) : String.fromCharCode(65 + i)),
+          (solid ? model.labels[i] || "P" + (i + 1) : Geometry.vertexLabel(i)),
         p,
         false,
       ),

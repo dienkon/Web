@@ -61,11 +61,11 @@
     const model = customModel || G.mesh(kind, params),
       faces = outwardFaces(model.vertices, model.faces),
       pr = G.project(
-        referenceVertices || model.vertices,
+        model.vertices,
         rotation,
         width,
         height,
-        model.vertices,
+        referenceVertices || model.vertices,
         projection,
       ),
       extent = Math.max(1, ...model.vertices.map((p) => G.norm(p))),

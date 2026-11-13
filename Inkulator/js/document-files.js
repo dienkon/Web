@@ -4,9 +4,10 @@
   const native=()=>root.InkulatorDesktop?.documents;
   const removed=new Set();
   function forget(ids){
+    ids=ids.filter(id=>!removed.has(id));if(!ids.length)return pending;
     ids.forEach(id=>{removed.add(id);last.delete(id);});
     if(!native())return Promise.resolve();
-    pending=pending.catch(()=>{}).then(()=>native().remove(ids)).catch(error=>{failure=error;status='Chưa dọn được tệp: '+error.message;App.toast(status,7000);throw error;});
+    pending=pending.catch(()=>{}).then(()=>native().remove(ids)).catch(error=>{ids.forEach(id=>removed.delete(id));failure=error;status='Chưa dọn được tệp: '+error.message;App.toast(status,7000);throw error;});
     // Keep errors observable through flush without an unhandled rejection.
     pending.catch(()=>{});return pending;
   }
@@ -59,7 +60,7 @@
     if(!native())return document.getElementById("open-file").click();
     await sync();if(failure)throw failure;
     const file=await native().open(id);if(!file)return;
-    const book=Store.validate(JSON.parse(file.raw),true);await native().accept(file.token);
+    const book=Store.validate(JSON.parse(file.raw),true);await native().accept(file.token);removed.delete(book.id);
     const at=Store.state.notebooks.findIndex(n=>n.id===book.id);
     if(at<0)Store.state.notebooks.push(book);else Store.state.notebooks[at]=book;
     Store.switchBook(at<0?Store.state.notebooks.length-1:at);Store.save();App.closePanel();App.toast("Đã mở tài liệu trên máy.");
@@ -92,5 +93,5 @@
       const presets={};for(const key of (root.InkBrush?.catalog.map(p=>p[0])||['ballpoint','fountain','pencil','marker'])){const p=v.settings?.penPresets?.[key];if(p&&/^#[a-f\d]{6}$/i.test(p.color)&&Number.isFinite(p.width)&&p.width>=.5&&p.width<=25&&Number.isFinite(p.opacity)&&p.opacity>=.1&&p.opacity<=1)presets[key]={color:p.color,width:p.width,opacity:p.opacity};}settings.penPresets=presets;const active=root.InkBrush?.catalog.some(p=>p[0]===settings.activePen)?settings.activePen:"ballpoint";Store.state.pen=active;if(presets[active])Object.assign(Store.state,presets[active]);
     }catch{}
   }
-  root.DocumentFiles={init,sync,forget,open,saveAs,panel,settings,exportPackage,location,loadPreferences,get initialized(){return ready;},get status(){return status;},flush:async()=>{if(native()&&!ready)throw Error("Thư viện tệp chưa sẵn sàng. Dùng Lưu bản snapshot để giữ bản sao.");await pending;if(failure)throw failure;await sync();await pending;if(failure)throw failure;if(native())await native().flush();}};
+  root.DocumentFiles={init,sync,forget,open,saveAs,panel,settings,exportPackage,location,loadPreferences,get initialized(){return ready;},get status(){return status;},flush:async()=>{if(native()&&!ready)throw Error("Thư viện tệp chưa sẵn sàng. Dùng Lưu bản snapshot để giữ bản sao.");await pending.catch(()=>{});await sync();await pending;if(failure)throw failure;if(native())await native().flush();}};
 })(window);

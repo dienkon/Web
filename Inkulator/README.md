@@ -1,10 +1,12 @@
-# Inkulator · 2.3.0
+# Inkulator · 2.4.0
 
 Sổ tay Toán học ngoại tuyến cho Windows, lấy cảm hứng bố cục từ ảnh Scrble Ink được cung cấp. Phần Casio tích hợp source của Tikz-Physics, ghi nguồn riêng bên dưới; không phải sản phẩm chính thức của Scrble, GeoGebra hay Casio.
 
 ## Mở ứng dụng
 
-**Windows 10/11 x64:** chạy `dist/desktop/Inkulator-Setup-2.3.0-x64.exe`, chọn thư mục cài và mở **Inkulator** từ Desktop hoặc Start Menu. Ứng dụng có cửa sổ riêng, chạy ngoại tuyến, không cần cài Node.js hoặc trình duyệt. Tài liệu tự lưu thành tệp trong **Documents / Inkulator**; bộ đệm cũ được sao lưu nén khi chuyển đổi, ứng dụng mở bản mới nhất trên ổ đĩa. Bộ cài cá nhân chưa ký số.
+**Windows 10/11 x64:** chạy `dist/desktop/Inkulator-Setup-2.4.0-x64.exe`, chọn thư mục cài và mở **Inkulator** từ Desktop hoặc Start Menu. Ứng dụng có cửa sổ riêng, chạy ngoại tuyến, không cần cài Node.js hoặc trình duyệt. Tài liệu tự lưu thành tệp trong **Documents / Inkulator**; bộ đệm cũ được sao lưu nén khi chuyển đổi, ứng dụng mở bản mới nhất trên ổ đĩa. Bộ cài cá nhân chưa ký số.
+
+**Mới trong 2.4:** shape chỉ tạo khi kéo; dọn thư viện cập nhật cả tệp trên máy và giữ bản trong thùng rác. Mở sổ có cây thư mục, thẻ xem trước và thư mục con. Chụp câu hỏi giữ đề tại chỗ, chuyển phần dưới sang trang thường kế tiếp. Thêm điểm tự do, đa giác 36 cạnh, vectơ/phép biến hình, tách và ghép thiết diện 3D, mặt phẳng có tên Hy Lạp, trải phẳng, miền nghiệm, bảng biến thiên gần đúng, khối tròn xoay, compa/thước parabol và gọi tên theo tổ. Xem [hướng dẫn và giới hạn bản 2.4](docs/RELEASE-2.4.md).
 
 **Mới trong 2.3:** mũi tên cạnh bút mở 10 nút chọn loại bút có nét mẫu, khôi phục đầy đủ lựa chọn sau khi mở lại bản Windows. PDF nhập theo nhóm, chỉ dựng vùng nhìn; sổ hỗ trợ tối đa 2.000 trang và mỗi PDF tối đa 160 MB. Đã kiểm tra nhập, tới trang cuối và lưu/mở lại PDF vector mẫu 420 trang. Xem [changelog 2.3](docs/RELEASE-2.3.md) và [hướng dẫn Word có hình cho 2.1, 2.2, 2.3](docs/Inkulator_Changelog_Huong_dan_2.1_2.2_2.3.docx).
 

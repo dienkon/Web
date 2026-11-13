@@ -1,6 +1,6 @@
 {
   "name": "scrble-math-studio",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "private": true,
   "description": "Offline mathematical notebook for Windows and pen tablets",
   "main": "desktop/main.cjs",
@@ -32,7 +32,8 @@
     "test:desktop-v2": "node tests/desktop-v2-tests.cjs",
     "test:workspace-v21": "node tests/history-media-tests.cjs && node tests/workspace-v21-tests.cjs && node tests/workspace-v21-desktop-tests.cjs",
     "test:workspace-v22": "node tests/smart-shapes-v22-tests.cjs && node tests/workspace-v22-tests.cjs && node tests/workspace-v22-desktop-tests.cjs",
-    "test:workspace-v23": "node tests/workspace-v23-tests.cjs"
+    "test:workspace-v23": "node tests/workspace-v23-tests.cjs",
+    "test:workspace-v24": "node tests/learning-v24-tests.cjs && node tests/learning-v24-browser-tests.cjs && node tests/learning-v24-desktop-tests.cjs"
   },
   "build": {
     "appId": "vn.inkulator.studio",
