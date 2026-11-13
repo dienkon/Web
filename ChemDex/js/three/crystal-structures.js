@@ -4,42 +4,88 @@ function v(x, y, z) {
   return new THREE.Vector3(x, y, z);
 }
 
-function addAtomMesh(group, position, color, radius = 0.22) {
-  const mat = new THREE.MeshPhysicalMaterial({
-    color,
-    roughness: 0.3,
-    metalness: 0.08,
-    clearcoat: 0.45,
-  });
-  const sphere = new THREE.Mesh(new THREE.SphereGeometry(radius, 28, 28), mat);
-  sphere.position.copy(position);
-  group.add(sphere);
+const _sharedUnitSphere = new THREE.SphereGeometry(1, 24, 20);
+const _sharedGlowSphere = new THREE.SphereGeometry(1, 16, 14);
+const _sharedBondCylinder = new THREE.CylinderGeometry(1, 1, 1, 8, 1);
+const _sharedAtomMatCache = new Map();
+const _sharedGlowMatCache = new Map();
+const _sharedBondMatCache = new Map();
+const _upAxis = new THREE.Vector3(0, 1, 0);
 
-  const glow = new THREE.Mesh(
-    new THREE.SphereGeometry(radius * 1.18, 18, 18),
-    new THREE.MeshBasicMaterial({
+function getSharedAtomMaterial(color) {
+  let mat = _sharedAtomMatCache.get(color);
+  if (!mat) {
+    mat = new THREE.MeshPhysicalMaterial({
+      color,
+      roughness: 0.28,
+      metalness: 0.12,
+      clearcoat: 0.48,
+    });
+    _sharedAtomMatCache.set(color, mat);
+  }
+  return mat;
+}
+
+function getSharedGlowMaterial(color) {
+  let mat = _sharedGlowMatCache.get(color);
+  if (!mat) {
+    mat = new THREE.MeshBasicMaterial({
       color,
       transparent: true,
-      opacity: 0.12,
-    }),
-  );
+      opacity: 0.14,
+      depthWrite: false,
+    });
+    _sharedGlowMatCache.set(color, mat);
+  }
+  return mat;
+}
+
+function getSharedBondMaterial(color, opacity) {
+  const key = `${color}_${opacity.toFixed(2)}`;
+  let mat = _sharedBondMatCache.get(key);
+  if (!mat) {
+    mat = new THREE.MeshStandardMaterial({
+      color,
+      transparent: opacity < 0.99,
+      opacity,
+      roughness: 0.42,
+      metalness: 0.12,
+    });
+    _sharedBondMatCache.set(key, mat);
+  }
+  return mat;
+}
+
+function addAtomMesh(group, position, color, radius = 0.22) {
+  const sphere = new THREE.Mesh(_sharedUnitSphere, getSharedAtomMaterial(color));
+  sphere.scale.setScalar(radius);
+  sphere.position.copy(position);
+  sphere.userData.sharedResource = true;
+  group.add(sphere);
+
+  const glow = new THREE.Mesh(_sharedGlowSphere, getSharedGlowMaterial(color));
+  glow.scale.setScalar(radius * 1.18);
   glow.position.copy(position);
+  glow.userData.sharedResource = true;
   group.add(glow);
   return sphere;
 }
 
 function addBond(group, from, to, color = 0x8cc7ff, opacity = 0.28) {
-  const lineGeo = new THREE.BufferGeometry().setFromPoints([from, to]);
-  const line = new THREE.Line(
-    lineGeo,
-    new THREE.LineBasicMaterial({
-      color,
-      transparent: true,
-      opacity,
-    }),
+  const delta = new THREE.Vector3().subVectors(to, from);
+  const length = delta.length();
+  if (length < 1e-5) return null;
+  const bondOpacity = Math.min(0.88, Math.max(0.32, opacity + 0.14));
+  const rod = new THREE.Mesh(
+    _sharedBondCylinder,
+    getSharedBondMaterial(color, bondOpacity),
   );
-  group.add(line);
-  return line;
+  rod.position.copy(from).add(to).multiplyScalar(0.5);
+  rod.scale.set(0.032, length, 0.032);
+  rod.quaternion.setFromUnitVectors(_upAxis, delta.normalize());
+  rod.userData.sharedResource = true;
+  group.add(rod);
+  return rod;
 }
 
 export function createCubeOutline(

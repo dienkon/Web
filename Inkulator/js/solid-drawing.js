@@ -1,6 +1,7 @@
 (function (root) {
   "use strict";
   function draw(ctx, o) {
+    if(root.GeometryLab?.drawSpecial(ctx,o))return;
     const d = o.data,
       v = SolidView.forObject(o),
       G = Geometry,

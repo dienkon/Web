@@ -123,7 +123,8 @@ const initialPlans = new WeakMap<BufferGeometry, GeometryPlans>();
  * during pouring. Initial volume keeps the count stable during dissolution.
  * A whole nail is never split. No successful or fallback path shrinks mass. */
 export function createStockSolidLayout(type: string, morphology: SolidMorphology, geometry: BufferGeometry,
-  materialVolume: number, initialVolume = materialVolume, floor?: number, openTop = true): StockSolidLayout {
+  materialVolume: number, initialVolume = materialVolume, floor?: number, openTop = true, fixedCount?: number): StockSolidLayout {
+  if (fixedCount !== undefined && (!Number.isSafeInteger(fixedCount) || fixedCount < 1)) throw new Error('Invalid stock piece count');
   let cache = initialPlans.get(geometry);
   const p = geometry.attributes.position;
   const positionVersion = (p as BufferAttribute).version ?? (p as InterleavedBufferAttribute).data?.version ?? 0;
@@ -135,7 +136,7 @@ export function createStockSolidLayout(type: string, morphology: SolidMorphology
   const unitVolume = cache.unitVolume;
   if (!(materialVolume > 0) || !(unitVolume > 0)) return { status: 'empty', pieces: [], materialVolume: 0, unitVolume };
   initialVolume = Math.max(materialVolume, initialVolume);
-  const key = `${type}:${morphology}:${initialVolume}:${floor}:${openTop}`, old = cache.plans.get(key);
+  const key = `${type}:${morphology}:${initialVolume}:${floor}:${openTop}:${fixedCount}`, old = cache.plans.get(key);
   const usePlan = (plan: InitialPlan): StockSolidLayout => {
     if (materialVolume === initialVolume) return { status: plan.status, pieces: plan.pieces, materialVolume, unitVolume };
     const scale = Math.cbrt(materialVolume / (plan.pieces.length * unitVolume));
@@ -153,7 +154,7 @@ export function createStockSolidLayout(type: string, morphology: SolidMorphology
     cache!.plans.set(key, plan); return usePlan(plan);
   };
   if (old) return usePlan(old);
-  const base = stockSolidChunkCount(morphology), limit = morphology === 'NAIL' ? 1 : 512;
+  const base = fixedCount ?? stockSolidChunkCount(morphology), limit = fixedCount ?? (morphology === 'NAIL' ? 1 : 512);
   const orientations = morphology === 'NAIL' ? [0, 1, 2] : morphology === 'RIBBON' ? [2, 0, 1] : [0, 1, 2];
   let firstMouthFit: { count: number; e: Envelope } | undefined;
   const mouth = vesselInterior(type).points.at(-1)![0];

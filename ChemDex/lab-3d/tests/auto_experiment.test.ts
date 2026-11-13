@@ -14,7 +14,7 @@ describe('Isolated automatic experiments for the system catalog', () => {
       if (e.phase === 'dose') {
         sawDose = true;
         expect(e.sample.mass_g + Object.values(e.sample.escapedGas_g ?? {}).reduce((sum, g) => sum + g, 0)
-          + (e.sample.evaporated_ml ?? 0) + e.donors.reduce((sum, d) => sum + d.remaining, 0), id).toBeCloseTo(initialMass, 7);
+          + (e.sample.evaporated_ml ?? 0) + e.inFlightMass_g + e.donors.reduce((sum, d) => sum + d.remaining, 0), id).toBeCloseTo(initialMass, 7);
       }
     }
     expect(e.error, id).toBeNull(); expect(e.phase, id).toBe('complete');

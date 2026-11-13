@@ -12,18 +12,15 @@ interface DocCardProps {
 
 export function DocCard({ doc, onClick, isBookmarked, onToggleBookmark, onTagClick }: DocCardProps) {
   const catConfig = getCategoryConfig(doc.category);
+  const isMoleculeRender = Boolean(doc.image && /\/assets\/library\/photos\/substances\/.+\.png$/i.test(doc.image));
 
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     const target = e.currentTarget;
-    if (target.src.includes('substances/default.svg')) {
-      target.src = '/assets/library/covalent-bonds.svg';
-      return;
-    }
-    if (target.src.includes('covalent-bonds.svg')) {
+    if (target.src.includes('topic-default')) {
       target.onerror = null;
       return;
     }
-    target.src = '/assets/library/substances/default.svg';
+    target.src = '/assets/library/photos/topic-default.jpg';
   };
   
   return (
@@ -32,12 +29,12 @@ export function DocCard({ doc, onClick, isBookmarked, onToggleBookmark, onTagCli
       onClick={onClick}
     >
       {/* High-prominence Image Container with Guaranteed Fallback */}
-      <div className="relative aspect-[16/9] w-full rounded-xl bg-slate-900/10 dark:bg-slate-800/50 overflow-hidden border border-sky-100 dark:border-slate-700/60 shadow-xs">
+      <div className={`relative aspect-[16/9] w-full rounded-xl overflow-hidden border border-sky-100 dark:border-slate-700/60 shadow-xs ${isMoleculeRender ? 'bg-slate-950/90' : 'bg-slate-900/10 dark:bg-slate-800/50'}`}>
         <img
-          src={doc.image || '/assets/library/substances/default.svg'} 
+          src={doc.image || '/assets/library/photos/topic-default.jpg'} 
           alt="" 
           onError={handleImageError}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          className={`w-full h-full transition-transform duration-500 ${isMoleculeRender ? 'object-contain p-2.5 group-hover:scale-105' : 'object-cover group-hover:scale-105'}`}
           loading="lazy"
         />
         {/* Subtle dark gradient overlay for crystal-clear readability */}
@@ -45,7 +42,7 @@ export function DocCard({ doc, onClick, isBookmarked, onToggleBookmark, onTagCli
         
         {catConfig && (
           <div className="absolute top-2.5 left-2.5 z-10">
-            <span className={`text-[10px] font-extrabold px-2.5 py-0.5 rounded-lg uppercase tracking-wider shadow-sm ${catConfig.badgeClass}`}>
+            <span className="inline-flex items-center text-[10px] font-extrabold px-2.5 py-0.5 rounded-lg uppercase tracking-wider bg-slate-900/80 text-white border border-white/15 shadow-sm backdrop-blur-md">
               {catConfig.label}
             </span>
           </div>

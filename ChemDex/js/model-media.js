@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { specimenEnvironment } from './three/specimen-environment.js';
 import {mountPublishedCrystal} from './three/published-crystal.js';
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { SmoothOrbitControls } from './three/smooth-controls.js';
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
@@ -69,8 +69,16 @@ function createModelViewerBlock(container, block, el) {
   const rotateButton = container.querySelector('[data-model-rotate]');
   const updateRotateButton = () => { rotateButton.textContent = autoRotate ? 'Tạm dừng xoay' : 'Tự động xoay'; rotateButton.setAttribute('aria-pressed', String(autoRotate)); };
   updateRotateButton();
-  rotateButton.addEventListener('click', () => { autoRotate = !autoRotate; updateRotateButton(); });
-  container.querySelector('[data-model-reset]').addEventListener('click', () => { if (current) { current.rotation.set(0,0,0); fit(current); } });
+  rotateButton.addEventListener('click', () => {
+    autoRotate = !autoRotate;
+    if (controls) controls.autoRotate = autoRotate;
+    updateRotateButton();
+  });
+  container.querySelector('[data-model-reset]').addEventListener('click', () => {
+    if (current) current.rotation.set(0, 0, 0);
+    if (controls) controls.reset(0.35);
+    else if (current) fit(current);
+  });
 
   function setStatus(msg) {
     if (status && !destroyed) {
@@ -127,7 +135,10 @@ function createModelViewerBlock(container, block, el) {
     camera.updateProjectionMatrix();
 
     controls.target.copy(center);
-    controls.update();
+    controls.minDistance = Math.max(0.25, maxDim * 0.45);
+    controls.maxDistance = Math.max(25, maxDim * 18);
+    controls.syncFromCamera();
+    controls.saveHome();
     grid.position.y = center.y - size.y / 2 - 0.02;
   }
 
@@ -201,12 +212,15 @@ function createModelViewerBlock(container, block, el) {
     renderer.setSize(width, height, false);
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
+    controls?.handleResize();
   };
 
-  const loop = () => {
+  let lastTime = performance.now();
+  const loop = (now = performance.now()) => {
+    const dt = Math.min(0.05, Math.max(0.001, (now - lastTime) / 1000));
+    lastTime = now;
     if (isIntersecting && isInitialized) {
-      if (current && autoRotate) current.rotation.y += 0.0025;
-      controls.update();
+      controls.update(dt);
       renderer.render(scene, camera);
     }
     raf = requestAnimationFrame(loop);
@@ -240,9 +254,24 @@ function createModelViewerBlock(container, block, el) {
     renderer.domElement.setAttribute('aria-label', block.title || 'Mô hình khoáng vật 3D');
     shell.appendChild(renderer.domElement);
 
-    controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
+    controls = new SmoothOrbitControls(camera, renderer.domElement, {
+      rotateSpeed: 1.05,
+      zoomSpeed: 1.08,
+      autoRotate,
+      autoRotateSpeed: 0.36,
+      pauseAutoRotateOnStart: true,
+    });
     controls.target.set(0, 1, 0);
+    controls.addEventListener("start", () => {
+      if (autoRotate) {
+        autoRotate = false;
+        controls.autoRotate = false;
+        updateRotateButton();
+      }
+    });
+    renderer.domElement.addEventListener("dblclick", () => {
+      controls?.reset(0.35);
+    });
 
     scene.add(new THREE.AmbientLight(0xffffff, 1.35));
     const dir1 = new THREE.DirectionalLight(0xffffff, 2.0);

@@ -39,6 +39,7 @@
     inkPerformanceV2: true,
     touchInk: false,
     smartShape: false,
+    freeGeometryPoints: true,
     animations: true,
     autoPages: true,
     handwritingOCR: false,
@@ -343,6 +344,7 @@
   function deleteBook(index) {
     if (index < 0 || index >= state.notebooks.length) return false;
     const removed = state.notebooks[index];
+    root.DocumentFiles?.forget([removed.id]);
     if (removed && removed.assets) {
       for (const id of Object.keys(removed.assets)) {
         AssetStorage.remove(id);
@@ -581,7 +583,7 @@
           !root.Geometry.flatCatalog.some(([k]) => k === d.kind) ||
           !Array.isArray(d.points) ||
           d.points.length < 2 ||
-          d.points.length > 16 ||
+          d.points.length > 36 ||
           d.points.some(
             (p) =>
               !Array.isArray(p) ||
@@ -652,6 +654,8 @@
         )
           throw Error("Đồ thị không hợp lệ.");
         d.expressions.forEach((e) => {
+          const inequality=e.text.replace(/≤/g,'<=').replace(/≥/g,'>=').match(/^(.+?)(<=|>=|<|>)(.+)$/);
+          if(inequality){root.MathEngine.parse('('+inequality[1]+')-('+inequality[3]+')');return;}
           const parts = e.text.split("=");
           if (parts.length > 2) throw Error("Phương trình không hợp lệ.");
           root.MathEngine.parse(
@@ -783,6 +787,7 @@
           throw Error("Công thức không hợp lệ.");
       }
       if (o.type === "graph") {
+        if(d.revolution&&(!['x','y'].includes(d.revolution.axis)||!['a','b','angle'].every(k=>boundedNum(d.revolution[k],-1e6,1e6))||d.revolution.b<=d.revolution.a||!Array.isArray(d.revolution.rotation)||d.revolution.rotation.length!==2||d.revolution.rotation.some(v=>!boundedNum(v,-1e5,1e5))))throw Error('Khối tròn xoay không hợp lệ.');
         if (
           d.markers &&
           (!Array.isArray(d.markers) ||
@@ -841,6 +846,7 @@
           : "annotation",
         data: clone(d),
       };
+      if(o.clip){if(!['x','y','w','h'].every(k=>boundedNum(o.clip[k],-1e6,1e6))||o.clip.w<=0||o.clip.h<=0)throw Error('Vùng cắt không hợp lệ.');result.clip={...o.clip};}
       return result;
     }
     const result = {

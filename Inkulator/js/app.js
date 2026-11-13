@@ -543,7 +543,7 @@
     const groups=[
       ["Tài liệu",[["new","Sổ tay mới","Ctrl+N"],["library","Thư viện sổ tay"],["open","Mở tài liệu .ink / .smath.json","Ctrl+O"],["save","Lưu tài liệu","Ctrl+S"],...(root.InkulatorDesktop?.documents?[["save-as","Lưu thành…","Ctrl+Shift+S"],["local-documents","Tài liệu trên máy"]]:[]),["snapshot","Xuất bản snapshot .ink"],["backup-all","Sao lưu tất cả sổ tay"]]],
       ["Xuất / In",[["export-png","Trang → PNG"],["export-svg","Trang → SVG"],["export-pdf","Sổ tay → PDF"],["print","In sổ tay"]]],
-      ["Chèn",[["image","Ảnh từ máy"],["import-pdf","PDF từ máy"],["formula","Công thức đẹp"],["calculator","Máy tính & công cụ toán"],["paste-image","Dán ảnh từ bộ nhớ đệm"]]],
+      ["Chèn",[["image","Ảnh từ máy"],["import-pdf","PDF từ máy"],["formula","Công thức đẹp"],["calculator","Máy tính & công cụ toán"],["random-name","Gọi tên ngẫu nhiên"],["paste-image","Dán ảnh từ bộ nhớ đệm"]]],
       ["Thao tác",[["copy","Sao chép đối tượng","Ctrl+C"],["paste","Dán ảnh / văn bản / đối tượng","Ctrl+V"],["select-all","Chọn tất cả đối tượng","Ctrl+A"],["fullscreen","Toàn màn hình"],["pen-options","Thao tác bằng bút…"],["pen-keyboard","Bàn phím trên màn hình"],["help","Hướng dẫn","?"]]]
     ];
     const pop=popover(anchor,'<div class="compact-file-menu"><input id="file-menu-search" type="search" placeholder="Tìm thao tác…" aria-label="Tìm thao tác"><div class="file-menu-tabs"></div><div class="file-menu-actions"></div></div>');
@@ -1129,6 +1129,7 @@
       .join("");
   }
   async function library() {
+    if(root.NotebookLibrary)return NotebookLibrary.open();
     const html =
       '<div style="display:flex;gap:8px;align-items:center;margin-bottom:12px;"><label class="field" style="flex:1;margin:0;"><span>Tìm theo tên / thư mục</span><input id="library-search" autocomplete="off"></label><button id="library-new" type="button" style="padding:8px 14px;font-size:13px;background:#308e74;color:#fff;border:none;border-radius:6px;cursor:pointer;align-self:flex-end;">+ Sổ tay mới</button><button id="library-cleanup" type="button" title="Xóa tất cả sổ tay cũ khác để giải phóng bộ nhớ" style="padding:8px 12px;font-size:13px;background:#fdf2f0;color:#c85550;border:1px solid #f2c8c5;border-radius:6px;cursor:pointer;align-self:flex-end;">🧹 Dọn dẹp</button></div><div id="notebook-library" style="max-height:55vh;overflow-y:auto;padding-right:4px;">' +
       renderLibraryCards() +
@@ -1342,6 +1343,7 @@
       case "new":
         return newNotebook();
       case "open":
+        if(root.NotebookLibrary)return NotebookLibrary.open().catch(e=>toast(e.message));
         if(root.InkulatorDesktop?.documents)return DocumentFiles.open().catch(e=>toast(e.message));
         return document.getElementById("open-file").click();
       case "save":
@@ -1350,6 +1352,8 @@
         return DocumentFiles.saveAs().catch(e=>toast(e.message));
       case "local-documents":
         return DocumentFiles.panel().catch(e=>toast(e.message));
+      case "random-name":
+        return RandomNames.open();
       case "ai-region":
         return TeachingAI.start();
       case "calculator-models":

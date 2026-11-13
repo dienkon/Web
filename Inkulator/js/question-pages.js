@@ -22,18 +22,19 @@
     CanvasEngine.finishActive();
     const image=new Image();image.src=region.src;await image.decode();
     if(Store.book().id!==region.bookId||Store.book().pages!==pages||!pages.includes(source)||pages.length>=2000)throw Error("Tài liệu nguồn vừa thay đổi.");
-    const p=Store.page("Câu hỏi "+(pages.filter(page=>page.questionSource?.pageId===source.id && (!page.questionSource.rootId || page.questionSource.rootId===page.id)).length+1));
-    p.showTitle=false;
-    const b=region.world;
-    const v=Store.state.viewport,anchor=region.anchor||{x:b.x,y:Math.max(8,b.y-42/v.zoom)};
-    p.questionSource={pageId:source.id,rootId:p.id,x:b.x,y:b.y,w:b.w,h:b.h,buttonX:Math.max(8,Math.min(source.width-100,anchor.x)),buttonY:Math.max(8,anchor.y)};
-    const w=Math.min(p.width-100,Math.max(900,image.naturalWidth)),h=w*image.naturalHeight/image.naturalWidth;
-    p.height=Math.max(p.height,Math.ceil(h+650));
-    p.objects.push(Store.object("image",{src:region.src},{position:{x:50,y:60},size:{w,h}}));
-    Store.transaction(()=>{pages.push(p);Store.state.pageIndex=pages.length-1;Store.state.selection=[];});
+    const b=region.world,cut=Math.max(0,Math.min(source.height,b.y+b.h+20)),top=[],bottom=[];
+    // Clip in page coordinates, retaining the original vector PDF and editable ink.
+    const slice=(o,y0,y1)=>{const c=o.clip||{x:-o.position.x,y:-o.position.y,w:source.width,h:source.height},lo=Math.max(y0,o.position.y+c.y),hi=Math.min(y1,o.position.y+c.y+c.h);if(hi<=lo)return null;const copy=Store.clone(o);copy.clip={x:c.x,y:lo-o.position.y,w:c.w,h:hi-lo};return copy;};
+    for(const o of source.objects){
+      const corners=[{x:0,y:0},{x:o.size.w,y:0},{x:o.size.w,y:o.size.h},{x:0,y:o.size.h}].map(p=>Renderer.worldPoint(o,p));
+      const lo=Math.max(0,Math.min(...corners.map(p=>p.y)),o.clip?o.position.y+o.clip.y:-Infinity),hi=Math.min(source.height,Math.max(...corners.map(p=>p.y)),o.clip?o.position.y+o.clip.y+o.clip.h:Infinity);
+      if(hi<=cut){top.push(o);continue;}if(lo>=cut){const copy=Store.clone(o);copy.position.y+=60-cut;bottom.push(copy);continue;}
+      const a=slice(o,0,cut),z=slice(o,cut,source.height);if(a)top.push(a);if(z){z.id=Store.uid();z.position.y+=60-cut;bottom.push(z);}
+    }
+    const continuation=Store.page(source.title?source.title+' · tiếp':'Nội dung tiếp theo');Object.assign(continuation,{width:source.width,height:source.height,paper:source.paper,showTitle:false,layers:Store.clone(source.layers),objects:bottom});
+    Store.transaction(()=>{source.objects=top;if(bottom.length)pages.splice(pages.indexOf(source)+1,0,continuation);Store.state.pageIndex=pages.indexOf(source);Store.state.selection=[];});
     PageFlow.invalidateLayout();PageFlow.fit("page");
-    App.toast("Trang câu hỏi đã sẵn sàng. Đang đọc số câu/ý…");
-    identify(region,p.id);
+    App.toast(bottom.length?'Đã giữ câu hỏi tại chỗ và chuyển phần bên dưới sang trang kế. Có thể Undo.':'Phía dưới câu hỏi đã có chỗ trống để giải.');
   }
   function open(id){
     const index=Store.book().pages.findIndex(p=>p.id===id);if(index<0)return;

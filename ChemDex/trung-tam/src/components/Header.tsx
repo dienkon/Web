@@ -37,10 +37,14 @@ export function Header({
   useEffect(() => {
     if (isLight) {
       document.body.classList.add('light-mode');
+      document.documentElement.classList.remove('dark');
+      document.documentElement.dataset.theme = 'light';
       localStorage.setItem('theme', 'light');
       localStorage.setItem('chemdex_doc_theme', 'light');
     } else {
       document.body.classList.remove('light-mode');
+      document.documentElement.classList.add('dark');
+      document.documentElement.dataset.theme = 'dark';
       localStorage.setItem('theme', 'dark');
       localStorage.setItem('chemdex_doc_theme', 'dark');
     }

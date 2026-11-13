@@ -57,7 +57,81 @@ function getGroupLabel(group) {
   return GROUP_LABELS[Number(group)] || group || "?";
 }
 
+let hasPlayedTableEntrance = false;
+let tableEntranceCleanupTimer = 0;
+
+/** Trigger a radial-wave entrance animation across visible periodic table cells on initial load. */
+function runTableEntranceAnimation() {
+  if (!tableContainer) return;
+  if (tableEntranceCleanupTimer) {
+    window.clearTimeout(tableEntranceCleanupTimer);
+    tableEntranceCleanupTimer = 0;
+  }
+
+  const cells = Array.from(tableContainer.querySelectorAll(".el-cell:not(.hidden-series)"));
+  const labels = Array.from(tableContainer.querySelectorAll(".grid-label"));
+  if (!cells.length) return;
+
+  const centerCol = 10.5;
+  const centerRow = 4.9;
+  tableContainer.classList.add("table-entering");
+
+  cells.forEach((cell) => {
+    const col = Number(cell.dataset.col || cell.style.gridColumn) || centerCol;
+    const row = Number(cell.dataset.row || cell.style.gridRow) || centerRow;
+    const dx = col - centerCol;
+    const dy = row - centerRow;
+    const dist = Math.hypot(dx * 0.74, dy * 1.15);
+    const nx = dist > 0.01 ? dx / dist : 0;
+    const ny = dist > 0.01 ? dy / dist : -1;
+
+    const enterX = Math.round(-dx * 13 - ny * 15);
+    const enterY = Math.round(-dy * 12 + nx * 10);
+    const enterRx = Math.round(Math.max(-20, Math.min(20, dy * 6)));
+    const enterRy = Math.round(Math.max(-24, Math.min(24, -dx * 2.4)));
+    const enterRz = Math.round(Math.max(-14, Math.min(14, dx * dy * 0.42)));
+    const delay = Math.min(410, Math.max(0, Math.round(dist * 48 + (col + row) * 3)));
+
+    cell.style.setProperty("--enter-x", `${enterX}px`);
+    cell.style.setProperty("--enter-y", `${enterY}px`);
+    cell.style.setProperty("--enter-rx", `${enterRx}deg`);
+    cell.style.setProperty("--enter-ry", `${enterRy}deg`);
+    cell.style.setProperty("--enter-rz", `${enterRz}deg`);
+    cell.style.setProperty("--enter-delay", `${delay}ms`);
+    cell.classList.add("el-entering");
+  });
+
+  labels.forEach((label, idx) => {
+    const delay = Math.min(420, 120 + idx * 12);
+    label.style.setProperty("--enter-delay", `${delay}ms`);
+    label.classList.add("el-label-entering");
+  });
+
+  tableEntranceCleanupTimer = window.setTimeout(() => {
+    tableEntranceCleanupTimer = 0;
+    tableContainer.classList.remove("table-entering");
+    cells.forEach((cell) => {
+      cell.classList.remove("el-entering");
+      cell.style.removeProperty("--enter-x");
+      cell.style.removeProperty("--enter-y");
+      cell.style.removeProperty("--enter-rx");
+      cell.style.removeProperty("--enter-ry");
+      cell.style.removeProperty("--enter-rz");
+      cell.style.removeProperty("--enter-delay");
+    });
+    labels.forEach((label) => {
+      label.classList.remove("el-label-entering");
+      label.style.removeProperty("--enter-delay");
+    });
+  }, 1060);
+}
+
 function renderPeriodicTable() {
+  if (tableEntranceCleanupTimer) {
+    window.clearTimeout(tableEntranceCleanupTimer);
+    tableEntranceCleanupTimer = 0;
+  }
+  tableContainer.classList.remove("table-entering");
   tableContainer.innerHTML = "";
 
   // 1. Render Column Labels (Cột 1->18 tương ứng grid-column 2->19, grid-row 1)
@@ -103,15 +177,69 @@ function renderPeriodicTable() {
     ph.style.gridRow = row;
     let color = categories[categoryKey]?.color || "#cbd5e1";
     ph.style.setProperty("--color", color);
-    ph.innerHTML = `<span class="text-center leading-tight">${text} <i class="fa-solid fa-chevron-down ml-1 text-[9px]"></i></span>`;
+    ph.classList.add("series-placeholder");
+    ph.innerHTML = `<span class="text-center leading-tight">${text} <i class="fa-solid fa-chevron-down ml-1 text-[9px] transition-transform duration-300"></i></span>`;
+
+    let collapseTimer = null;
+    let assembleTimer = null;
+    const vibrantHues = ["#38bdf8", "#a855f7", "#ec4899", "#f59e0b", "#10b981", "#22d3ee", "#fb7185"];
 
     ph.addEventListener("click", () => {
-        const els = document.querySelectorAll(`.${targetClass}`);
-        // Check state using first element that HAS data
-        const dataEls = [...els].filter(e => !e.classList.contains("no-data"));
+        const els = [...document.querySelectorAll(`.${targetClass}`)];
+        const dataEls = els.filter(e => !e.classList.contains("no-data"));
         const isHidden = dataEls[0]?.classList.contains("hidden-series") ?? true;
-        els.forEach(el => el.classList.toggle("hidden-series", !isHidden));
-        ph.querySelector("i").className = isHidden ? "fa-solid fa-chevron-up ml-1 text-[9px]" : "fa-solid fa-chevron-down ml-1 text-[9px]";
+        const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        if (collapseTimer) { clearTimeout(collapseTimer); collapseTimer = null; }
+        if (assembleTimer) { clearTimeout(assembleTimer); assembleTimer = null; }
+
+        ph.classList.remove("series-trigger-pulse");
+        void ph.offsetWidth;
+        ph.classList.add("series-trigger-pulse");
+        ph.classList.toggle("series-expanded", isHidden);
+        ph.querySelector("i").className = isHidden ? "fa-solid fa-chevron-up ml-1 text-[9px] transition-transform duration-300" : "fa-solid fa-chevron-down ml-1 text-[9px] transition-transform duration-300";
+
+        if (isHidden) {
+          const offset = targetClass === "el-actinide" ? 42 : 0;
+          dataEls.forEach((el, idx) => {
+            const angle = ((idx * 137.508 + offset) * Math.PI) / 180;
+            const radius = 170 + (idx % 4) * 55;
+            const fx = Math.round(Math.cos(angle) * radius);
+            const fy = Math.round(Math.sin(angle) * radius);
+            const rot = (idx % 2 === 0 ? 1 : -1) * (14 + (idx % 5) * 6);
+            el.style.setProperty("--fly-x", `${fx}px`);
+            el.style.setProperty("--fly-y", `${fy}px`);
+            el.style.setProperty("--fly-rot", `${rot}deg`);
+            el.style.setProperty("--fly-delay", `${idx * 28}ms`);
+            el.style.setProperty("--aura-color", vibrantHues[idx % vibrantHues.length]);
+          });
+          els.forEach(el => {
+            el.classList.remove("hidden-series", "series-collapsing", "series-assembling");
+          });
+          if (!reduceMotion) {
+            void ph.offsetWidth;
+            dataEls.forEach(el => el.classList.add("series-assembling"));
+            assembleTimer = setTimeout(() => {
+              dataEls.forEach(el => el.classList.remove("series-assembling"));
+            }, dataEls.length * 28 + 700);
+          }
+        } else {
+          if (reduceMotion) {
+            els.forEach(el => el.classList.add("hidden-series"));
+            return;
+          }
+          dataEls.forEach((el, idx) => {
+            el.style.setProperty("--fly-delay", `${(dataEls.length - 1 - idx) * 12}ms`);
+            el.classList.remove("series-assembling");
+            el.classList.add("series-collapsing");
+          });
+          collapseTimer = setTimeout(() => {
+            els.forEach(el => {
+              el.classList.remove("series-collapsing");
+              el.classList.add("hidden-series");
+            });
+          }, dataEls.length * 12 + 240);
+        }
     });
     tableContainer.appendChild(ph);
   };
@@ -154,6 +282,22 @@ function renderPeriodicTable() {
     });
     tableContainer.appendChild(div);
   });
+
+  const initialElement =
+    typeof window !== "undefined"
+      ? new URLSearchParams(window.location.search).get("element")
+      : null;
+  const prefersReducedMotion =
+    typeof window !== "undefined" &&
+    typeof window.matchMedia === "function" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!hasPlayedTableEntrance) {
+    hasPlayedTableEntrance = true;
+    if (!initialElement && !prefersReducedMotion) {
+      runTableEntranceAnimation();
+    }
+  }
 }
 
 // --- LOGIC HIGHLIGHT (Rê chuột Cột/Hàng/Nhóm) ---

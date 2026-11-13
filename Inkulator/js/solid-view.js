@@ -55,11 +55,13 @@
     width,
     height,
     projection = "orthographic",
+    customModel = null,
+    referenceVertices = null,
   ) {
-    const model = G.mesh(kind, params),
+    const model = customModel || G.mesh(kind, params),
       faces = outwardFaces(model.vertices, model.faces),
       pr = G.project(
-        model.vertices,
+        referenceVertices || model.vertices,
         rotation,
         width,
         height,

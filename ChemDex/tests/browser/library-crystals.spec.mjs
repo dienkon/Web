@@ -65,8 +65,8 @@ test('published mineral crystal controls preserve sources, metric and atom site 
   await expect(lattice.locator('canvas')).toBeVisible();
   await lattice.getByRole('button',{name:'Hiện 2 × 2 × 2 ô'}).click();
   await expect(lattice.getByRole('button',{name:'Hiện 1 ô mạng'})).toBeVisible();
-  await lattice.getByRole('button',{name:'Ẩn khung ô mạng'}).click();
-  await expect(lattice.getByRole('button',{name:'Hiện khung ô mạng'})).toHaveAttribute('aria-pressed','false');
+  await lattice.getByRole('button',{name:'Hiện khung ô mạng',exact:true}).click();
+  await expect(lattice.getByRole('button',{name:'Ẩn khung ô mạng',exact:true})).toHaveAttribute('aria-pressed','true');
   await lattice.locator('.crystal-evidence > summary').click();await expect(lattice.locator('.crystal-evidence tbody tr')).toHaveCount(1);
   await expect(lattice.getByRole('link',{name:'Tải CIF',exact:true})).toHaveAttribute('href',/nguyen-to-fe\.cif$/);
   const mineral=page.locator('[data-crystal-id="hematite"]');

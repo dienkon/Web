@@ -2,6 +2,14 @@
   "use strict";
   let pending=Promise.resolve(),ready=false,last=new Map(),status="",folder="",failure=null,previewMemo=new Map(),devicePreferences=null;
   const native=()=>root.InkulatorDesktop?.documents;
+  const removed=new Set();
+  function forget(ids){
+    ids.forEach(id=>{removed.add(id);last.delete(id);});
+    if(!native())return Promise.resolve();
+    pending=pending.catch(()=>{}).then(()=>native().remove(ids)).catch(error=>{failure=error;status='Chưa dọn được tệp: '+error.message;App.toast(status,7000);throw error;});
+    // Keep errors observable through flush without an unhandled rejection.
+    pending.catch(()=>{});return pending;
+  }
   async function envelope(book){
     const data=Store.envelope(book);
     function clean(o){for(const key of Object.keys(o))if(key.startsWith('_'))delete o[key];if(o.type==='group')o.data.children.forEach(clean);}data.notebook.pages.forEach(p=>p.objects.forEach(clean));
@@ -14,6 +22,7 @@
     status="Đang lưu tệp trên máy…";root.App?.updateSaveState();
     pending=pending.catch(()=>{}).then(async()=>{
       for(const book of books){const data=await envelope(book),raw=JSON.stringify(data),previews={};let stamp,page;
+        if(removed.has(book.id))continue;
         if(book.id===Store.book().id&&!CanvasEngine.interacting){page=data.notebook.pages.find(p=>p.id===Store.current().id);if(page){stamp=JSON.stringify(page);if(previewMemo.get(page.id)!==stamp){try{const image=await CaptureStudio.pageImage(page);if(image)previews[page.id]=image;}catch(error){console.warn('Page preview:',error.message);}}}}
         if(last.get(book.id)===raw&&!Object.keys(previews).length)continue;
         const result=await native().save({raw,previews});last.set(book.id,raw);if(page&&previews[page.id])previewMemo.set(page.id,stamp);folder=result.folder;
@@ -56,6 +65,7 @@
     Store.switchBook(at<0?Store.state.notebooks.length-1:at);Store.save();App.closePanel();App.toast("Đã mở tài liệu trên máy.");
   }
   async function panel(){
+    if(root.NotebookLibrary)return NotebookLibrary.open();
     const list=await native().list(),host=document.createElement("section");host.className="local-documents";
     const dialog=document.getElementById("dialog");
     const promise=App.dialog("Tài liệu trên máy",'<div id="local-file-list"></div>',"Đóng");
@@ -82,5 +92,5 @@
       const presets={};for(const key of (root.InkBrush?.catalog.map(p=>p[0])||['ballpoint','fountain','pencil','marker'])){const p=v.settings?.penPresets?.[key];if(p&&/^#[a-f\d]{6}$/i.test(p.color)&&Number.isFinite(p.width)&&p.width>=.5&&p.width<=25&&Number.isFinite(p.opacity)&&p.opacity>=.1&&p.opacity<=1)presets[key]={color:p.color,width:p.width,opacity:p.opacity};}settings.penPresets=presets;const active=root.InkBrush?.catalog.some(p=>p[0]===settings.activePen)?settings.activePen:"ballpoint";Store.state.pen=active;if(presets[active])Object.assign(Store.state,presets[active]);
     }catch{}
   }
-  root.DocumentFiles={init,sync,open,saveAs,panel,settings,exportPackage,location,loadPreferences,get initialized(){return ready;},get status(){return status;},flush:async()=>{if(native()&&!ready)throw Error("Thư viện tệp chưa sẵn sàng. Dùng Lưu bản snapshot để giữ bản sao.");await sync();await pending;if(failure)throw failure;if(native())await native().flush();}};
+  root.DocumentFiles={init,sync,forget,open,saveAs,panel,settings,exportPackage,location,loadPreferences,get initialized(){return ready;},get status(){return status;},flush:async()=>{if(native()&&!ready)throw Error("Thư viện tệp chưa sẵn sàng. Dùng Lưu bản snapshot để giữ bản sao.");await pending;if(failure)throw failure;await sync();await pending;if(failure)throw failure;if(native())await native().flush();}};
 })(window);

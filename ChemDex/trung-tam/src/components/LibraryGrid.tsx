@@ -23,15 +23,15 @@ export function LibraryGrid({ docs, onDocClick, bookmarkedIds, onToggleBookmark,
         <div className="w-16 h-16 bg-slate-800 rounded-full flex items-center justify-center mb-4">
           <span className="text-2xl text-slate-500">🔍</span>
         </div>
-        <h3 className="text-xl font-medium text-slate-300 mb-2">Không tìm thấy tài liệu</h3>
-        <p className="text-slate-500 max-w-md">Thử thay đổi từ khóa tìm kiếm hoặc chọn danh mục khác để xem thêm tài liệu.</p>
+        <h3 className="text-xl font-medium text-slate-700 dark:text-slate-200 mb-2">Không tìm thấy tài liệu</h3>
+        <p className="text-slate-500 dark:text-slate-400 max-w-md">Thử thay đổi từ khóa tìm kiếm hoặc chọn danh mục khác để xem thêm tài liệu.</p>
       </div>
     );
   }
 
   return (
     <section aria-label="Kết quả thư viện">
-    <p className="mb-4 text-sm font-semibold text-slate-600" role="status">{docs.length} tài liệu · Đang hiển thị {Math.min(visibleCount,docs.length)}</p>
+    <p className="mb-4 text-sm font-semibold text-slate-600 dark:text-slate-400" role="status">{docs.length} tài liệu · Đang hiển thị {Math.min(visibleCount,docs.length)}</p>
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-6">
       {docs.slice(0,visibleCount).map((doc, index) => (
         <motion.div

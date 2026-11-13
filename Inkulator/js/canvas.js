@@ -98,6 +98,7 @@
     for (let i = sorted.length - 1; i >= 0; i--) {
       const o = sorted[i];
       if (!layerEditable(o)) continue;
+      if(o.clip&&(p.x<o.position.x+o.clip.x||p.x>o.position.x+o.clip.x+o.clip.w||p.y<o.position.y+o.clip.y||p.y>o.position.y+o.clip.y+o.clip.h))continue;
       const q = Renderer.localPoint(o, p),
         pad = 7 / S().viewport.zoom;
       if (o.type === "stroke") {
@@ -213,6 +214,8 @@
       const selected = Store.selected();
       for (const o of selected) {
         if (!layerEditable(o)) continue;
+        const construction=root.GeometryLab?.draggable(o,p);
+        if(construction){gesture.mode='construction-point';gesture.object=o;gesture.construction=construction;return;}
         const q = Renderer.localPoint(o, p),
           tolerance = 12 / S().viewport.zoom;
         const handle = selectionHandles(o).find(
@@ -261,7 +264,9 @@
           if (already) gesture.toggleId = o.id;
           else S().selection.push(o.id);
         } else if (!already) S().selection = [o.id];
-        if (
+        if(o.type==='graph'&&o.data.revolution?.enabled&&already&&S().transformMode!=='move'){
+          gesture.mode='revolution3d';gesture.object=o;gesture.rotation=[...o.data.revolution.rotation];
+        }else if (
           o.type === "solid" &&
           (o.data.live || root.TeacherGeometry?.orbit) &&
           already &&
@@ -308,7 +313,8 @@
         gesture = null;
         return App.toast("Lớp Hình học đang khóa hoặc ẩn.");
       }
-      gesture.draft = shapeFrom(p, p, e.shiftKey);
+      // A tap only positions the pen. Shapes begin after an intentional drag.
+      gesture.draft = null;
     }
   }
   function pressure(e) {
@@ -454,11 +460,13 @@
           : v,
       );
     }
+    if(g.mode==='construction-point')root.GeometryLab?.dragPoint(g.object,g.construction,p);
     if (g.mode === "rotate3d")
       g.object.data.rotation = [
         g.rotation[0] + (e.clientY - g.client.y) * 0.009,
         g.rotation[1] + (e.clientX - g.client.x) * 0.009,
       ];
+    if(g.mode==='revolution3d')g.object.data.revolution.rotation=[g.rotation[0]+(e.clientY-g.client.y)*.009,g.rotation[1]+(e.clientX-g.client.x)*.009];
     if (g.mode === "lasso") g.points.push(p);
     if (g.mode === "eraser" && S().eraser !== "rectangle") {
       const steps = Math.max(1, Math.ceil(dist(g.prevErase || g.start, p) / 6)),
@@ -470,7 +478,8 @@
         });
       g.prevErase = p;
     }
-    if (g.mode === "shape") g.draft = shapeFrom(g.start, p, e.shiftKey);
+    if (g.mode === "shape" && Math.hypot(e.clientX-g.client.x,e.clientY-g.client.y)>=6)
+      g.draft = shapeFrom(g.start, p, e.shiftKey);
     if (isDrawing()) {
       Renderer.requestOverlay();
     } else {
@@ -483,6 +492,10 @@
       old = p[index],
       kind = d.kind;
     point = point.map((v) => Math.max(-10000, Math.min(10000, v)));
+    if(['regular-polygon','pentagon','hexagon'].includes(kind)){
+      const center=Geometry.scale(p.reduce((sum,v)=>Geometry.add(sum,v),[0,0]),1/p.length),radius=Geometry.norm(Geometry.sub(point,center)),angle=Math.atan2(point[1]-center[1],point[0]-center[0]);
+      if(radius<.01)return;d.points=p.map((_,i)=>[center[0]+radius*Math.cos(angle+(i-index)*2*Math.PI/p.length),center[1]+radius*Math.sin(angle+(i-index)*2*Math.PI/p.length)]);return;
+    }
     if (["square", "rectangle"].includes(kind)) {
       const opposite = p[(index + 2) % 4],
         x = point[0],
@@ -603,14 +616,7 @@
       }, 1200);
     }
     if (g.mode === "shape") {
-      const obj =
-        g.moved && g.draft
-          ? g.draft
-          : shapeFrom(
-              g.start,
-              { x: g.start.x + 120, y: g.start.y + 120 },
-              false,
-            );
+      const obj = g.draft && Math.hypot(e.clientX-g.client.x,e.clientY-g.client.y)>=6 ? g.draft : null;
       if (obj) {
         Store.current().objects.push(obj);
         S().selection = [obj.id];
@@ -665,7 +671,7 @@
       root.PageFlow?.settle({ extend: S().viewport.y < g.viewport.y });
     cursor();
     if (
-      ["vertex", "rotate3d", "resize", "move"].includes(g.mode) &&
+      ["vertex", "construction-point", "rotate3d", "resize", "move"].includes(g.mode) &&
       ["geometry", "solid"].includes(S().panel)
     )
       App.refreshGeometry();
@@ -964,6 +970,7 @@
     // Dots and short pen strokes generate native dblclick events too.
     // Editing is an explicit action in selection mode only.
     if (S().tool !== "select") { e.preventDefault(); return; }
+    if(root.GeometryLab?.renamePlaneAt(Renderer.clientPoint(e)))return;
     if (root.TeacherGeometry?.active) return;
     const o = hit(Renderer.clientPoint(e));
     if (!o) return;

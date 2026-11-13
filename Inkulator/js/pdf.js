@@ -595,6 +595,7 @@
         h = (r % 180 ? o.size.w : o.size.h) * s,
         cx = ox + (o.position.x + o.size.w / 2) * s,
         cy = oy + (p.height - o.position.y - o.size.h / 2) * s;
+      if(o.clip){const c=o.clip;page.pushOperators(PDFLib.pushGraphicsState(),PDFLib.rectangle(ox+(o.position.x+c.x)*s,oy+(p.height-o.position.y-c.y-c.h)*s,c.w*s,c.h*s),PDFLib.clip(),PDFLib.endPath());}
       page.drawPage(embedded, {
         x: cx - (w / 2) * Math.cos(rad) + (h / 2) * Math.sin(rad),
         y: cy - (w / 2) * Math.sin(rad) - (h / 2) * Math.cos(rad),
@@ -603,6 +604,7 @@
         rotate: PDFLib.degrees(angle),
         opacity: o.style.opacity,
       });
+      if(o.clip)page.pushOperators(PDFLib.popGraphicsState());
     }
     await rasterLayer(batch);
     if (p.showTitle && p.title) {

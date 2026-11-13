@@ -15,11 +15,27 @@ export class ChemStructureViewer extends HTMLElement {
     if (this.ready) return;
     this.ready = true;
     this.spinning = false;
-    this.innerHTML = `<div class="viewer-toolbar"><label><span class="sr-only">Kiểu mô hình</span><select data-style><option value="ball">Cầu–que (Ball & Stick)</option><option value="stick">Que liên kết (Stick)</option><option value="sphere">Cầu đặc (Van der Waals)</option></select></label><label class="muted"><input type="checkbox" data-hydrogen checked> Hydrogen</label><label class="muted"><input type="checkbox" data-light> Đồ họa nhẹ</label><label class="muted"><input type="checkbox" data-labels> Nhãn</label><button class="button" data-spin type="button">↻ Tự xoay</button><button class="button" data-reset type="button">Đặt lại</button><button class="button" data-fullscreen type="button">Toàn màn hình</button><button class="button" data-png type="button">PNG ↓</button><button class="button" data-file type="button">SDF / CIF ↓</button></div><div class="canvas-shell" role="img" aria-label="Mô hình cấu trúc có thể xoay và phóng to"></div><div class="viewer-bond-panel"></div><div class="viewer-status" role="status">Chọn một chất để xem cấu trúc.</div><div class="atom-readout">Chọn 2 nguyên tử để đo khoảng cách, 3 nguyên tử để đo góc (trên cấu dạng đang xem).</div><div class="viewer-source"></div>`;
+    this.innerHTML = `<div class="viewer-isomers" hidden></div><div class="viewer-toolbar"><div class="viewer-toolbar-group"><label class="viewer-select-wrap"><span class="sr-only">Kiểu mô hình</span><select data-style><option value="ball">Cầu–que (Ball & Stick)</option><option value="stick">Que liên kết (Stick)</option><option value="sphere">Cầu đặc (Van der Waals)</option></select></label><label class="viewer-check"><input type="checkbox" data-hydrogen checked><span>Hydrogen</span></label><label class="viewer-check"><input type="checkbox" data-light><span>Đồ họa nhẹ</span></label><label class="viewer-check"><input type="checkbox" data-labels><span>Nhãn</span></label></div><div class="viewer-toolbar-group viewer-toolbar-actions"><button class="button" data-spin type="button">↻ Tự xoay</button><button class="button" data-reset type="button">Đặt lại</button><button class="button" type="button" data-environment aria-pressed="true">Ẩn cảnh trưng bày</button><button class="button" data-fullscreen type="button">Toàn màn hình</button><button class="button" data-png type="button">PNG ↓</button><button class="button" data-file type="button">SDF / CIF ↓</button></div></div><div class="canvas-stage"><div class="canvas-shell" role="img" aria-label="Mô hình cấu trúc có thể xoay và phóng to"></div><div class="viewer-gesture-hud" aria-hidden="true">Kéo xoay 360° · Cuộn phóng · Nháy đúp đặt lại</div></div><div class="viewer-bond-panel"></div><div class="viewer-status" role="status">Chọn một chất để xem cấu trúc.</div><div class="atom-readout">Chọn 2 nguyên tử để đo khoảng cách, 3 nguyên tử để đo góc (trên cấu dạng đang xem).</div><div class="viewer-source"></div>`;
     this.environmentEnabled = true;
     this.environmentUserSet = false;
-    this.querySelector('.viewer-toolbar').insertAdjacentHTML('beforebegin','<div class="viewer-isomers" hidden></div>');
-    this.querySelector('.viewer-toolbar').insertAdjacentHTML('beforeend','<button class="button" type="button" data-environment aria-pressed="true">Ẩn cảnh trưng bày</button>');
+    const canvasStage = this.querySelector(".canvas-stage");
+    const canvasShell = this.querySelector(".canvas-shell");
+    canvasShell?.addEventListener("pointerdown", () => {
+      canvasStage?.classList.add("has-interacted");
+      if (this.spinning) {
+        this.spinning = false;
+        const spinBtn = this.querySelector("[data-spin]");
+        if (spinBtn) {
+          spinBtn.classList.remove("primary");
+          spinBtn.textContent = "↻ Tự xoay";
+        }
+        this.viewer?.spin(false);
+        this.fallback?.spin(false);
+      }
+    });
+    canvasShell?.addEventListener("dblclick", () => {
+      this.querySelector("[data-reset]")?.click();
+    });
     this.querySelector('[data-environment]').onclick = () => {
       this.environmentUserSet=true;
       this.environmentEnabled = !this.environmentEnabled;

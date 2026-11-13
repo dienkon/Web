@@ -733,6 +733,7 @@
   function drawObject(ctx, o, options = {}) {
     if (o.visible === false) return;
     ctx.save();
+    if(o.clip){ctx.beginPath();ctx.rect(o.position.x+o.clip.x,o.position.y+o.clip.y,o.clip.w,o.clip.h);ctx.clip();}
     transform(ctx, o);
     ctx.strokeStyle = o.style.color;
     ctx.fillStyle = o.style.color;

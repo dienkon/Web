@@ -5,6 +5,7 @@ import { useAppStore } from '../src/store/useAppStore';
 const before = useAppStore.getState(), results = [];
 for (const entry of AUTO_EXPERIMENTS) {
   const e = new AutoExperiment(entry.id);
+  await e.stocks.initialize();
   const initialMass_g = e.sample.mass_g + e.donors.reduce((sum, d) => sum + d.remaining, 0);
   let peakParticles = 0, peakCloudParticles = 0;
   for (let frame = 0; frame < 2600 && !['complete', 'error'].includes(e.phase); frame++) {
@@ -17,6 +18,7 @@ for (const entry of AUTO_EXPERIMENTS) {
     && peakParticles <= e.physics.maxPrecipitateParticles && useAppStore.getState() === before;
   results.push({ id: entry.id, ok, phase: e.phase, error: e.error, seconds: e.elapsed,
     initialMass_g, finalMass_g, peakParticles, peakCloudParticles });
+  e.stocks.dispose();
   if (results.length % 10 === 0) console.log(`Checked ${results.length}/${AUTO_EXPERIMENTS.length} native chemistry + physical effects pipelines`);
 }
 mkdirSync('artifacts/automatic-experiments', { recursive: true });

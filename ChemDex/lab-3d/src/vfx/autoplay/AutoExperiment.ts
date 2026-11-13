@@ -25,6 +25,11 @@ import { LiquidAppearanceField } from '../../simulation/effects/LiquidAppearance
 import { blendLiquidOptics, liquidOptics } from '../../pour/physics/mixing';
 import { supernatantColor } from '../../science/supernatantAppearance';
 import { pourContactRemaining } from '../../science/pourContactActivity';
+import { Quaternion, Vector3 } from 'three';
+import { autoSolid, autoSolidGravity, AUTO_DONOR_SCALE, createAutoSolidDose, solidFlightPosition, type AutoSolidDose } from './autoSolid';
+import { vesselLocalToWorld, vesselBodyTransform } from '../../science/vesselScale';
+import { scenePointToSI } from '../../science/sceneUnits';
+import type { StockContactBirth } from '../../physical/stockTypes';
 
 export type AutoPhase = 'prepare' | 'carry' | 'dose' | 'return' | 'condition' | 'react' | 'observe' | 'complete' | 'error';
 export type AutoCamera = 'wide' | 'transfer' | 'close' | 'surface';
@@ -36,7 +41,7 @@ export const AUTO_EXPERIMENTS = ALL_HANDCRAFTED_PROGRAMS.map(program => ({
   category: getLessonDefinition(program.id) ? 'Bài học' : program.visual.after.gasesOffgassed.length ? 'Tạo khí / khói'
     : program.visual.after.precipitate ? 'Kết tủa' : 'Đổi màu / cân bằng',
 }));
-export interface AutoDonor { row: SubstanceContent; color: string; remaining: number; fraction: number; doseStartedAt?: number }
+export interface AutoDonor { row: SubstanceContent; color: string; remaining: number; fraction: number; doseStartedAt?: number; solid?: AutoSolidDose }
 export const AUTO_TIMING = { prepare: 1.6, carry: 2, tilt: 0.55, flow: 2.4, flight: 0.28, upright: 0.55, return: 1.5 } as const;
 const RECEIVER_BODY_MATRIX = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1.04, 0, 1];
 export const donorHome = (i: number): [number, number, number] => [-3.9 + i % 3 * 0.95, 0.63, 1.2 + Math.floor(i / 3) * 1.15];
@@ -96,6 +101,7 @@ export class AutoExperiment {
   private contactProgress = 0;
   private replayProgress = 0;
   private conditioningStartTemp = 25;
+  private returnTilt = 0;
   private contactReference?: { formula: string; phase: string; initial: number; consumed: number };
   private contactCadence_s = 0;
   get lessonVisuals() { return this.lesson?.visuals; }
@@ -151,7 +157,7 @@ export class AutoExperiment {
     const rows = this.baseline.contents.filter(c => c.mass_g > 1e-12 && c.moles > 1e-12).sort((a, b) => order(a) - order(b));
     this.donors = rows.map(row => ({ row: { ...row },
       color: this.program.chemistry.species.find(s => s.formula === row.formula && s.phase === row.phase)?.colorHex ?? '#f8fafc',
-      remaining: row.mass_g, fraction: 0 }));
+      remaining: row.mass_g, fraction: 0, ...(row.phase === 's' ? { solid: createAutoSolidDose(row.formula, row.mass_g) } : {}) }));
     this.sample = { ...shell(),
       liquidColor: '#f1f5f9', isSealed: this.baseline.isSealed, studioProgramId: this.program.id };
     this.steps = ['Dọn bàn và dàn dụng cụ cần dùng', ...this.donors.map(d => `${d.row.phase === 'g' ? 'Dẫn' : d.row.phase === 's' ? 'Chuyển' : 'Rót'} ${d.row.formula} (${d.row.phase})`),
@@ -183,6 +189,7 @@ export class AutoExperiment {
       ...(definition?.conditions.filter(c => c.kind !== 'mixed').map(c => c.label_vi) ?? [])].filter(Boolean).join(' ');
   }
   private enter(phase: AutoPhase) {
+    if (phase === 'return') this.returnTilt = this.donorPose.tilt;
     this.phase = phase; this.phaseTime = 0;
     if (phase === 'dose') this.donors[this.donorIndex].doseStartedAt = this.elapsed;
     if (phase === 'condition') this.conditioningStartTemp = this.sample.temperature_c;
@@ -213,14 +220,17 @@ export class AutoExperiment {
     if (this.phase === 'prepare' && this.phaseTime >= AUTO_TIMING.prepare) this.enter(this.donors.length ? 'carry' : 'condition');
     else if (this.phase === 'carry' && this.phaseTime >= AUTO_TIMING.carry) this.enter('dose');
     else if (this.phase === 'dose') {
-      const donor = this.donors[this.donorIndex], fraction = this.transferFraction;
+      const donor = this.donors[this.donorIndex];
+      const solidContact = donor.solid ? this.advanceSolidDose(donor) : undefined;
+      const fraction = this.transferFraction;
       const portion = fraction - donor.fraction;
       if (donor.row.phase === 'g' && portion > 0) gasArrival = { formula: identifySpecies(donor.row.formula).formula, moles: donor.row.moles * portion };
       const contents = this.sample.contents.map(c => ({ ...c }));
       let row = contents.find(c => c.formula === donor.row.formula && c.phase === donor.row.phase);
       if (!row) { row = { ...donor.row, moles: 0, mass_g: 0 }; contents.push(row); }
       row.moles += donor.row.moles * portion; row.mass_g += donor.row.mass_g * portion;
-      donor.fraction = fraction; donor.remaining = donor.row.mass_g * (1 - fraction);
+      donor.fraction = fraction;
+      donor.remaining = donor.row.mass_g * (1 - (donor.solid ? donor.solid.released / donor.solid.pieces.length : fraction));
       const fluid = contents.filter(c => c.phase === 'aq' || c.phase === 'l').reduce((sum, c) => sum + c.mass_g, 0);
       const volume_ml = fluid / (this.baseline.density_g_ml ?? 1);
       this.sample = { ...this.sample, contents, substances: contents.map(c => c.formula),
@@ -231,7 +241,7 @@ export class AutoExperiment {
       if (portion > 0) {
         const lip = this.donorLip, inlet = donor.row.phase === 'g' ? gasInlet(this, this.gasOrdinal(this.donorIndex)) : undefined;
         this.sample.recentPourContact = { point: inlet ? [inlet[0], inlet[1] - 1.04, inlet[2]]
-          : [lip[0] + 0.12, vesselLiquidSurfaceY(this.sample), lip[2]], remaining_s: 0.25, expiresAt_ms: 0, color: donor.color };
+          : [solidContact?.[0] ?? lip[0] + 0.12, vesselLiquidSurfaceY(this.sample), solidContact?.[2] ?? lip[2]], remaining_s: 0.25, expiresAt_ms: 0, color: donor.color };
       }
       this.advanceContact(dt);
       if (fraction >= 1) this.enter('return');
@@ -347,6 +357,47 @@ export class AutoExperiment {
       reactionRate_s1: this.progress > previousProgress ? Math.LN2 / Math.max(0.05, this.program.chemistry.kinetics.halfTime_s || 1) : 0,
     });
   }
+  /** Mass in free flight belongs to neither the donor nor the receiving liquid. */
+  get inFlightMass_g() {
+    return this.donors.reduce((sum, d) => sum + (d.solid?.flights.reduce((mass, f) => mass + (f.arrived ? 0 : f.mass_g), 0) ?? 0), 0);
+  }
+  private advanceSolidDose(donor: AutoDonor) {
+    const dose = donor.solid!, count = dose.pieces.length, solid = autoSolid(donor.row.formula);
+    const births: StockContactBirth[] = [], position = new Vector3(), q = new Quaternion(), scale = new Vector3();
+    let contact: [number, number, number] | undefined;
+    for (let i = dose.released; i < count; i++) {
+      const releaseAt = AUTO_TIMING.tilt + AUTO_TIMING.flow * (i + 0.5) / count;
+      if (this.phaseTime < releaseAt) break;
+      const start = this.donorLipAt(releaseAt), mass_g = donor.row.mass_g / count;
+      dose.pieces[i].decompose(position, q, scale);
+      // Keep material volume when moving from donor-local to receiver units.
+      const size = scale.x * AUTO_DONOR_SCALE;
+      const radius = solid.geometry.boundingSphere!.radius * size;
+      const targetY = this.sample.position[1] + vesselLiquidSurfaceY(this.sample) + radius;
+      const vy = -0.2, distance = Math.max(0, start[1] - targetY);
+      const duration = (vy + Math.sqrt(vy * vy + 2 * autoSolidGravity * distance)) / autoSolidGravity;
+      const flightTime = Math.max(1 / 120, duration);
+      const targetX = Math.max(-0.35, Math.min(0.35, start[0] + 0.12));
+      const targetZ = Math.sin(i * 2.399963) * 0.2;
+      dose.flights.push({ mass_g, releaseAt, arrivalAt: releaseAt + flightTime, arrived: false,
+        position: start, velocity: [(targetX - start[0]) / flightTime, vy, (targetZ - start[2]) / flightTime], rotation: q.clone(), scale: size });
+      dose.released++;
+    }
+    for (const flight of dose.flights) {
+      if (flight.arrived || this.phaseTime < flight.arrivalAt) continue;
+      flight.arrived = true; dose.arrived++;
+      const p = solidFlightPosition(flight, flight.arrivalAt);
+      p.y -= this.sample.position[1];
+      contact = p.toArray();
+      const meters = vesselBodyTransform(this.sample).metersPerLocalUnit;
+      births.push({ mass_g: flight.mass_g, position_m: scenePointToSI(vesselLocalToWorld(this.sample, p.toArray())),
+        rotation: flight.rotation.toArray(), velocity_m_s: [flight.velocity[0] * meters,
+          (flight.velocity[1] - autoSolidGravity * (flight.arrivalAt - flight.releaseAt)) * meters, flight.velocity[2] * meters],
+        angularVelocity_rad_s: [0, 0, 0] });
+    }
+    if (this.simulateEffects) this.stocks.addContact(this.sample.id, donor.row.formula, births);
+    return contact;
+  }
   private advanceContact(dt: number) {
     const ref = this.contactReference;
     if (this.contactProgress >= 0.9999) return;
@@ -385,9 +436,11 @@ export class AutoExperiment {
     const remaining = this.phase === 'dose' ? 1 - smooth((time - AUTO_TIMING.tilt - AUTO_TIMING.flight) / AUTO_TIMING.flow) : 0;
     const pouringTilt = this.phase === 'dose' || this.phase === 'return' ? donorPouringTilt(remaining) : 0;
     return { position, tilt: this.phase === 'dose' ? -pouringTilt * smooth(time / AUTO_TIMING.tilt)
-      : this.phase === 'return' ? -pouringTilt * (1 - smooth(time / AUTO_TIMING.upright)) : 0 };
+      : this.phase === 'return' ? this.returnTilt * (1 - smooth(time / AUTO_TIMING.upright)) : 0 };
   }
   get transferFraction() {
+    const dose = this.donors[this.donorIndex]?.solid;
+    if (dose) return dose.arrived / dose.pieces.length;
     return smooth((this.phaseTime - AUTO_TIMING.tilt - AUTO_TIMING.flight) / AUTO_TIMING.flow);
   }
   get streamActive() {
@@ -396,7 +449,10 @@ export class AutoExperiment {
   }
   /** World-space pouring edge, shared by the vessel and all transfer effects. */
   get donorLip(): [number, number, number] {
-    const { position, tilt } = this.donorPose;
+    return this.donorLipAt(this.phaseTime);
+  }
+  donorLipAt(time: number): [number, number, number] {
+    const { position, tilt } = this.donorPoseAt(time);
     const x = 0.35 * 0.6, y = 1.48 * 0.6;
     return [position[0] + x * Math.cos(tilt) - y * Math.sin(tilt),
       position[1] + x * Math.sin(tilt) + y * Math.cos(tilt), position[2]];

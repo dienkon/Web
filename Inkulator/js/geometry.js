@@ -25,6 +25,7 @@
     ["right-trapezoid", "Hình thang vuông"],
     ["pentagon", "Ngũ giác đều"],
     ["hexagon", "Lục giác đều"],
+    ["regular-polygon", "Đa giác đều · 3–36 cạnh"],
     ["circle", "Đường tròn"],
     ["trig-circle", "Đường tròn lượng giác"],
     ["cartesian-oxy", "Hệ trục tọa độ Oxy"],
@@ -97,7 +98,8 @@
         ];
         break;
       case "pentagon":
-      case "hexagon": {
+      case "hexagon":
+      case "regular-polygon": {
         const n = kind === "pentagon" ? 5 : 6;
         points = Array.from({ length: n }, (_, i) => [
           3 + 3 * Math.cos((2 * Math.PI * i) / n),

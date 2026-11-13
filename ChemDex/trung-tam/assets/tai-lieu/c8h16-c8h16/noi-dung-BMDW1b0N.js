@@ -1,0 +1,57 @@
+const n="c8h16-c8h16",h="c8h16-c8h16",c="reference/c8h16-c8h16/index.json",t=["ho-so-896c6aa57d50"],i="C₈H₁₆: các đồng phân và cách đọc mô hình 3D",g="ChemDex · Học cấu trúc",o="hopchat",s="Phân biệt một số đồng phân C₈H₁₆ qua tên, cấu tạo, mô hình 3D và câu hỏi có lời giải.",e="/assets/library/photos/substances/c8h16-c8h16.png",a="C₈H₁₆",u=["Đồng phân & Cấu tạo","C8H16","Cháy hoàn toàn"],m=["C8H16"],C=["formula-C8H16"],r="reference",p="isomer-comparison",y=4,l={formula:"C8H16",representativeId:"formula-C8H16",counts:{C:8,H:16},mass:112.216,material:!1,reactionIds:[],exampleCids:[8125,9266]},d=`## C8H16: cùng công thức, khác cấu trúc
+
+![Mô hình 3D đồng phân tiêu biểu Oct-1-ene của C8H16](/assets/library/photos/substances/c8h16-c8h16.png)
+
+*Mô hình 3D Oct-1-ene (CH₂=CH–(CH₂)₅–CH₃) thuộc nhóm đồng phân C8H16.*
+
+**C8H16 chưa phải tên của một chất duy nhất.** Công thức cho biết một phân tử có 8 nguyên tử cacbon và 16 nguyên tử hydrogen, nhưng chưa cho biết chúng nối với nhau như thế nào. Các chất có cùng công thức phân tử nhưng khác cấu tạo hoặc cách sắp xếp trong không gian được gọi là **đồng phân**.
+
+Bài này giới thiệu một số ví dụ có mô hình 3D. Danh sách không nhằm liệt kê toàn bộ đồng phân. Muốn nhận diện đúng một chất, hãy đọc cả tên và công thức cấu tạo; không đoán tính chất hay sản phẩm phản ứng chỉ từ công thức phân tử.
+
+## So sánh các ví dụ
+
+| Tên chất | Cấu tạo để đọc nhanh | Điểm cần quan sát |
+| --- | --- | --- |
+| [Oct-1-ene](/tien-ich/cau-truc-3d/?compound=formula-C8H16&isomer=pubchem-8125) | CH₂=CH–(CH₂)₅–CH₃ | Mạch hở, có một liên kết đôi. |
+| [Cyclooctane](/tien-ich/cau-truc-3d/?compound=formula-C8H16&isomer=pubchem-9266) | Vòng (CH₂)₈ | Mạch vòng; không có liên kết đôi. |
+
+Ký hiệu **–, =, ≡** lần lượt chỉ liên kết đơn, đôi và ba. “Vòng” nghĩa là mạch cacbon khép kín. Một mạch không phân nhánh vẫn có thể gấp khúc trong không gian; đừng chỉ nhìn hình bóng tổng thể để kết luận có nhánh. Hãy đếm số nguyên tử cacbon nối trực tiếp với từng C.
+
+![Mô hình cấu trúc Oct-1-ene (C8H16)](/assets/library/photos/substances/isomers/cid-8125.png)
+
+*Cấu tạo Oct-1-ene (CH₂=CH–(CH₂)₅–CH₃) — Mô hình 3D PubChem CID 8125.*
+
+![Mô hình cấu trúc Cyclooctane (C8H16)](/assets/library/photos/substances/isomers/cid-9266.png)
+
+*Cấu tạo Cyclooctane (Vòng (CH₂)₈) — Mô hình 3D PubChem CID 9266.*
+
+## Tự quan sát trong mô hình 3D
+
+1. [Mở mô hình C8H16](/tien-ich/cau-truc-3d/?compound=formula-C8H16), đọc tên ở ô **Chọn đồng phân** rồi xoay mô hình để thấy bộ khung cacbon.
+2. Đổi từ **Oct-1-ene** sang **Cyclooctane**. Đếm lại C và H: thành phần không đổi, nhưng cách nối hoặc sắp xếp có thể khác.
+3. Bật/tắt hydrogen để nhìn bộ khung rõ hơn. Đối chiếu liên kết đơn, đôi và ba với bảng ở trên.
+4. Chọn nguyên tử để đo khoảng cách hoặc góc của cấu dạng đang xem. Có thể tải SDF để giữ đúng tọa độ và liên kết của chất đã chọn.
+
+Các mô hình là **cấu dạng được máy tính tính toán từ PubChem**, không phải ảnh phóng đại một phân tử đang chuyển động. Xoay toàn bộ mô hình chỉ đổi góc nhìn, không biến chất này thành đồng phân khác. Bệ và lọ mẫu là cảnh minh họa.
+
+## Tự kiểm tra
+
+**Câu 1.** Hai chất trong bảng có cùng số nguyên tử C và H. Chúng có nhất thiết là cùng một chất không?
+
+**Câu 2.** Một phân tử C8H16 có bao nhiêu nguyên tử tất cả? Đổi đồng phân có làm thay đổi khối lượng mol không?
+
+<details><summary>Xem lời giải</summary>
+
+**Câu 1:** Không. Công thức phân tử giống nhau chưa xác định duy nhất cách nối hoặc sắp xếp nguyên tử. Cần đối chiếu tên và cấu tạo của từng chất.
+
+**Câu 2:** Tổng là 8 + 16 = **24 nguyên tử**. Các đồng phân của cùng công thức có cùng khối lượng mol, ở đây xấp xỉ **112.22 g/mol** theo khối lượng nguyên tử của kho ChemDex. Chúng vẫn có thể khác tính chất và phản ứng. Đổi góc nhìn hay ẩn hydrogen không làm thay đổi thành phần phân tử.
+
+</details>
+
+## Nguồn từng cấu trúc
+
+- [PubChem · Oct-1-ene · CID 8125](https://pubchem.ncbi.nlm.nih.gov/compound/8125) · [Tọa độ SDF](/shared/structures/isomers/8125.sdf)
+- [PubChem · Cyclooctane · CID 9266](https://pubchem.ncbi.nlm.nih.gov/compound/9266) · [Tọa độ SDF](/shared/structures/isomers/9266.sdf)
+
+Tên, công thức và bộ tọa độ được đối chiếu riêng theo CID. Không dùng chung một ô mạng tinh thể cho các chất chỉ vì chúng có cùng công thức phân tử.
+- [Tư liệu hình ảnh · Wikipedia / Wikimedia Commons](https://en.wikipedia.org/wiki/1-Octene)`,b={id:n,slug:h,documentPath:c,legacyIds:t,title:i,author:g,category:o,summary:s,image:e,chemicalFormula:a,tags:u,aliases:m,substanceIds:C,documentKind:r,lessonKind:p,readingMinutes:4,chemicalEvidence:l,content:d};export{m as aliases,g as author,o as category,l as chemicalEvidence,a as chemicalFormula,d as content,b as default,r as documentKind,c as documentPath,n as id,e as image,t as legacyIds,p as lessonKind,y as readingMinutes,h as slug,C as substanceIds,s as summary,u as tags,i as title};

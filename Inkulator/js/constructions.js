@@ -3,6 +3,11 @@
   const G = root.Geometry,
     EPS = 1e-8;
   const operations = {
+    freePoint: 0,
+    vector: 2,
+    translate: 3,
+    rotate: 2,
+    reflectLine: 3,
     segment: 2,
     midpoint: 2,
     perpendicularBisector: 2,
@@ -157,7 +162,7 @@
     for (const c of d.constructions || []) {
       try {
         if (
-          !operations[c.type] ||
+          !Object.hasOwn(operations,c.type) ||
           !Array.isArray(c.refs) ||
           c.refs.length !== operations[c.type]
         )
@@ -169,6 +174,20 @@
           }),
           p = source.map((p) => p.coords),
           item = { ...c, source, coords: p };
+        if(c.type==='freePoint'){
+          if(!Array.isArray(c.point)||c.point.length!==(solid?3:2)||c.point.some(v=>!Number.isFinite(v)||Math.abs(v)>10000))throw Error('Tọa độ điểm không hợp lệ.');
+          item.point=c.point.slice();named('c:'+c.id,c.label||'P',item.point);
+        }
+        if(c.type==='vector')item.endpoints=p;
+        if(c.type==='translate'){item.point=G.add(p[0],G.sub(p[2],p[1]));named('c:'+c.id,c.label||'P′',item.point);}
+        if(c.type==='rotate'){
+          if(solid)throw Error('Phép quay quanh tâm áp dụng cho hình phẳng.');
+          const a=(c.rotationAngle??60)*Math.PI/180,u=G.sub(p[0],p[1]);item.point=G.add(p[1],[u[0]*Math.cos(a)-u[1]*Math.sin(a),u[0]*Math.sin(a)+u[1]*Math.cos(a)]);named('c:'+c.id,c.label||'P′',item.point);
+        }
+        if(c.type==='reflectLine'){
+          const u=G.sub(p[2],p[1]),den=G.dot(u,u);if(den<EPS)throw Error('Trục đối xứng cần hai điểm phân biệt.');
+          const foot=G.add(p[1],G.scale(u,G.dot(G.sub(p[0],p[1]),u)/den));item.point=G.sub(G.scale(foot,2),p[0]);named('c:'+c.id,c.label||'P′',item.point);
+        }
         if (c.type === "midpoint") {
           item.point = G.mid(p[0], p[1]);
           named("c:" + c.id, c.label || "M", item.point);
@@ -490,10 +509,13 @@
         ids.has(c.id) ||
         (c.lineMode !== undefined &&
           !["auto", "solid", "dashed"].includes(c.lineMode)) ||
-        !operations[c.type] ||
+        !Object.hasOwn(operations,c.type) ||
         !Array.isArray(c.refs) ||
         c.refs.length !== operations[c.type] ||
         c.refs.some((r) => typeof r !== "string" || r.length > 100) ||
+        (c.type==='freePoint'&&(!Array.isArray(c.point)||c.point.length!==(solid?3:2)||c.point.some(v=>!Number.isFinite(v)||Math.abs(v)>10000))) ||
+        (c.rotationAngle!==undefined&&(!Number.isFinite(c.rotationAngle)||Math.abs(c.rotationAngle)>36000)) ||
+        (c.planeLabel!==undefined&&(typeof c.planeLabel!=='string'||c.planeLabel.length>24)) ||
         (c.ratio !== undefined && (!Number.isFinite(c.ratio) || c.ratio <= 0 || c.ratio >= 1)) ||
         (c.secondLabel !== undefined && (typeof c.secondLabel !== "string" || c.secondLabel.length > 16)) ||
         (c.label !== undefined &&
@@ -526,6 +548,7 @@
         throw Error("Phép dựng có tham chiếu vòng hoặc điểm chưa tồn tại.");
       if (
         [
+          "freePoint","translate","rotate","reflectLine",
           "midpoint",
           "perpendicularBisector",
           "reflectPoint",

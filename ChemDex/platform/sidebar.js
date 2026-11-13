@@ -76,5 +76,47 @@ export function mountSidebar() {
     }
   });
   sync();
+  initInteractiveEffects();
+}
+
+function initInteractiveEffects() {
+  if (typeof window === 'undefined') return;
+  const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+  const finePointer = window.matchMedia?.('(hover: hover) and (pointer: fine)').matches;
+  if (reduce || !finePointer) return;
+
+  const SPOTLIGHT_SELECTOR =
+    '.element, .tool-card, .compound-card, .explore-card, .visual-card, .detail-media-block, .suggestion-card, .cd-nav-link, .doc-card, .reader-rec-card';
+  let activeEl = null;
+  let pendingX = 0;
+  let pendingY = 0;
+  let rafId = 0;
+
+  const flush = () => {
+    rafId = 0;
+    if (!activeEl || !activeEl.isConnected) return;
+    const rect = activeEl.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
+    const x = (((pendingX - rect.left) / rect.width) * 100).toFixed(1);
+    const y = (((pendingY - rect.top) / rect.height) * 100).toFixed(1);
+    activeEl.style.setProperty('--cd-mx', `${x}%`);
+    activeEl.style.setProperty('--cd-my', `${y}%`);
+  };
+
+  document.addEventListener(
+    'pointermove',
+    (event) => {
+      const target = event.target?.closest?.(SPOTLIGHT_SELECTOR);
+      if (!target) {
+        activeEl = null;
+        return;
+      }
+      activeEl = target;
+      pendingX = event.clientX;
+      pendingY = event.clientY;
+      if (!rafId) rafId = requestAnimationFrame(flush);
+    },
+    { passive: true },
+  );
 }
 mountSidebar();

@@ -99,7 +99,10 @@ export default function AutoLabWorkspace({ onExit }: { onExit: () => void }) {
     const paused = useAppStore.getState().isSimulationPaused;
     useAppStore.getState().setSimulationPaused(true);
     useAppStore.setState({ leftSidebarOpen: true, ...(window.innerWidth < 768 ? { rightSidebarOpen: false } : {}) });
-    return () => useAppStore.getState().setSimulationPaused(paused);
+    const narrow = window.matchMedia('(max-width: 767px)');
+    const resize = () => { if (narrow.matches) useAppStore.setState({ leftSidebarOpen: false, rightSidebarOpen: false }); };
+    narrow.addEventListener('change', resize);
+    return () => { narrow.removeEventListener('change', resize); useAppStore.getState().setSimulationPaused(paused); };
   }, []);
   const start = (id: string) => {
     try {

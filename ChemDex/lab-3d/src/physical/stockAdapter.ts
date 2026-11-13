@@ -33,7 +33,7 @@ export function stockGroup(formula: string, mass_g: number): StockGroupInput | n
   return { formula, mass_g, density_kg_m3: chemical.density * 1000, powder: getSolidMorphology(formula) === 'POWDER',
     vertices: points, unitVolume: 1, seed: [] };
 }
-export function stockContainer(v: VesselState, restore: boolean, vortex?: import('../science/liquidVortex').VortexSurface): StockContainerInput | null {
+export function stockContainer(v: VesselState, restore: boolean, vortex?: import('../science/liquidVortex').VortexSurface, includeGroups = true): StockContainerInput | null {
   if (v.isShattered || v.id.startsWith('lesson_vessel_') || !VESSEL_IDS.includes(v.type)) return null;
   const key = `${v.type}:${v.capacity_ml}:${!!v.isSealed}`;
   let definition = definitions.get(key); if (!definition) {
@@ -44,8 +44,8 @@ export function stockContainer(v: VesselState, restore: boolean, vortex?: import
   }
   const rotation = v.physicalMotion?.rotation ?? new Quaternion().setFromEuler(new Euler(0, v.rotationY ?? 0, v.rotationZ ?? 0, 'YXZ')).toArray() as Quat;
   const groups: StockGroupInput[] = [];
-  const rows = v.contents.filter(c => c.phase === 's' && c.mass_g > 1e-10 && c.location !== 'filter' && c.location !== 'foam'
-    && !(v.volume_ml > 0.05 && isSuspensionRow(c, v.contents, v.precipitateSubstance)) && c.solidOrigin !== 'precipitate');
+  const rows = includeGroups ? v.contents.filter(c => c.phase === 's' && c.mass_g > 1e-10 && c.location !== 'filter' && c.location !== 'foam'
+    && !(v.volume_ml > 0.05 && isSuspensionRow(c, v.contents, v.precipitateSubstance)) && c.solidOrigin !== 'precipitate') : [];
   for (const formula of new Set(rows.map(r => r.formula))) {
     const group = stockGroup(formula, rows.filter(r => r.formula === formula).reduce((m, r) => m + r.mass_g, 0)); if (!group) continue;
     const geometry = stockGeometry(formula), q = new Quaternion(), p = new Vector3(), scale = new Vector3();

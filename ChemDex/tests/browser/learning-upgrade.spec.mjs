@@ -41,7 +41,7 @@ test('library header stays on screen and sourced compound crystals retain contro
  const crystal=page.locator('[data-crystal-id="chat-chalcanthite"]');await expect(crystal).toContainText('CuSO₄·5H₂O');
  await crystal.getByRole('button',{name:'Xem mạng tinh thể 3D',exact:true}).click();
  await expect(crystal.locator('[role=status]')).toHaveAttribute('data-state','ready');
- await crystal.getByRole('button',{name:'Ẩn cảnh trưng bày',exact:true}).click();await expect(crystal.locator('[data-crystal-environment]')).toHaveAttribute('aria-pressed','false');
+ await crystal.getByRole('button',{name:'Hiện cảnh trưng bày',exact:true}).click();await expect(crystal.locator('[data-crystal-environment]')).toHaveAttribute('aria-pressed','true');await expect(crystal.getByRole('button',{name:'Ẩn cảnh trưng bày',exact:true})).toBeVisible();
  await crystal.getByRole('button',{name:'Ẩn nguyên tử',exact:true}).click();await expect(crystal.locator('[data-crystal-atoms]')).toHaveAttribute('aria-pressed','false');
  await page.locator('article').scrollIntoViewIfNeeded();expect((await page.locator('.reader-toolbar').boundingBox()).y).toBe(0);
 });

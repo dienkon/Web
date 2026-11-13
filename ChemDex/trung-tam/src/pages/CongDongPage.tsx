@@ -13,7 +13,7 @@ export default function CongDongPage() {
   const [isDesktopSidebarOpen, setIsDesktopSidebarOpen] = useState(true);
 
   return (
-    <div className="min-h-screen bg-[#1E293B] text-slate-200 font-sans selection:bg-blue-500/30">
+    <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-[#0f172a] dark:text-slate-200 font-sans selection:bg-blue-500/30 transition-colors duration-300">
       <DustBackground />
       <div className="flex">
         {/* Desktop Sidebar with Simplified Menu */}

@@ -760,8 +760,78 @@
 
 .hidden-series { display: none !important; }
 
-@keyframes slideDownRow { from { opacity: 0; transform: translateY(-15px); } to { opacity: 1; transform: translateY(0); } }
-.el-lanthanide:not(.hidden-series), .el-actinide:not(.hidden-series) { animation: slideDownRow 0.3s ease-out forwards; }
+@keyframes seriesTriggerPulse {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--color) 70%, transparent); transform: scale(1); }
+  45% { box-shadow: 0 0 26px 8px color-mix(in srgb, var(--color) 45%, transparent); transform: scale(1.06); }
+  100% { box-shadow: 0 0 0 0 transparent; transform: scale(1); }
+}
+
+@keyframes seriesAssembleIn {
+  0% {
+    opacity: 0;
+    transform: translate3d(var(--fly-x, 0px), var(--fly-y, -40px), 0) rotate(var(--fly-rot, 18deg)) scale(0.35);
+    filter: saturate(2) brightness(1.45) drop-shadow(0 0 18px var(--aura-color, #38bdf8));
+    box-shadow: 0 0 24px color-mix(in srgb, var(--aura-color, #38bdf8) 75%, transparent), inset 0 0 14px color-mix(in srgb, var(--aura-color, #38bdf8) 45%, transparent);
+    z-index: 30;
+  }
+  62% {
+    opacity: 1;
+    transform: translate3d(calc(var(--fly-x, 0px) * -0.05), calc(var(--fly-y, 0px) * -0.05), 0) rotate(calc(var(--fly-rot, 0deg) * -0.14)) scale(1.09);
+    filter: saturate(1.45) brightness(1.18) drop-shadow(0 0 12px var(--aura-color, #38bdf8));
+    box-shadow: 0 0 20px color-mix(in srgb, var(--aura-color, #38bdf8) 55%, transparent);
+    z-index: 20;
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+    filter: none;
+    z-index: 1;
+  }
+}
+
+@keyframes seriesScatterOut {
+  0% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(calc(var(--fly-x, 0px) * 0.45), calc(var(--fly-y, 24px) * 0.45), 0) rotate(calc(var(--fly-rot, 12deg) * 0.5)) scale(0.5);
+    filter: saturate(1.5) blur(1px);
+  }
+}
+
+.series-placeholder.series-trigger-pulse {
+  animation: seriesTriggerPulse 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.series-placeholder.series-expanded {
+  box-shadow: 0 0 18px color-mix(in srgb, var(--color) 40%, transparent);
+  border-color: color-mix(in srgb, var(--color) 85%, white) !important;
+}
+
+.el-lanthanide.series-assembling,
+.el-actinide.series-assembling {
+  animation: seriesAssembleIn 0.64s cubic-bezier(0.22, 1.24, 0.36, 1) var(--fly-delay, 0ms) both;
+  will-change: transform, opacity, filter;
+}
+
+.el-lanthanide.series-collapsing,
+.el-actinide.series-collapsing {
+  animation: seriesScatterOut 0.22s ease-in var(--fly-delay, 0ms) both;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .series-placeholder.series-trigger-pulse,
+  .el-lanthanide.series-assembling,
+  .el-actinide.series-assembling,
+  .el-lanthanide.series-collapsing,
+  .el-actinide.series-collapsing {
+    animation: none !important;
+  }
+}
 
 .el-lanthanide.no-data, .el-actinide.no-data { display: none !important; }
 /* Trợ lý: bảng màu xanh ngọc, bề mặt sáng và công thức cuộn độc lập. */
@@ -786,3 +856,223 @@
 .chat-panel .chat-math-fallback { overflow-wrap:anywhere; }
 .chat-panel .chat-scroll { overscroll-behavior:contain; }
 @media(max-width:480px) { .chat-panel { right:8px; bottom:80px; width:calc(100vw - 16px); height:min(620px,calc(100dvh - 96px)); } }
+
+/* === ChemDex Periodic Table & Element Detail Generative Effects === */
+#view-periodic > div:first-child {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  gap: 6px;
+}
+#view-periodic > div:first-child > span {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.58);
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  font-weight: 600;
+  transition: transform 0.18s ease, background-color 0.18s ease, border-color 0.18s ease;
+}
+#view-periodic > div:first-child > span:hover {
+  transform: translateY(-1px);
+  background: rgba(30, 41, 59, 0.92);
+  border-color: rgba(125, 211, 252, 0.4);
+}
+.element::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(95px circle at var(--cd-mx, 50%) var(--cd-my, 50%), rgba(255, 255, 255, 0.22), transparent 68%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+.element:hover::after {
+  opacity: 1;
+}
+.visual-card,
+.detail-media-block,
+.suggestion-card {
+  position: relative;
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.22s ease, box-shadow 0.22s ease;
+}
+.visual-card::after,
+.detail-media-block::after,
+.suggestion-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(320px circle at var(--cd-mx, 50%) var(--cd-my, 50%), rgba(56, 189, 248, 0.12), transparent 68%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  border-radius: inherit;
+}
+.visual-card:hover::after,
+.detail-media-block:hover::after,
+.suggestion-card:hover::after {
+  opacity: 1;
+}
+.visual-card:hover,
+.detail-media-block:hover {
+  border-color: rgba(56, 189, 248, 0.38);
+  box-shadow: 0 18px 40px -20px rgba(14, 165, 233, 0.28);
+}
+.electron-canvas-wrap canvas,
+.crystal-scene-wrap canvas {
+  touch-action: none;
+  cursor: grab;
+}
+.electron-canvas-wrap canvas:active,
+.crystal-scene-wrap canvas:active {
+  cursor: grabbing;
+}
+/* =====================================================
+   FULL PERIODIC TABLE INITIAL ENTRANCE ANIMATION
+   ===================================================== */
+.periodic-table.table-entering {
+  position: relative;
+}
+
+.periodic-table.table-entering::before,
+.periodic-table.table-entering::after {
+  content: "";
+  position: absolute;
+  left: 52%;
+  top: 48%;
+  border-radius: 9999px;
+  pointer-events: none;
+  z-index: 0;
+  transform: translate(-50%, -50%) scale(0.18);
+}
+
+.periodic-table.table-entering::before {
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(
+    circle,
+    rgba(56, 189, 248, 0.38) 0%,
+    rgba(129, 140, 248, 0.22) 45%,
+    rgba(16, 185, 129, 0.08) 72%,
+    transparent 100%
+  );
+  animation: tableCoreBurst 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.periodic-table.table-entering::after {
+  width: 180px;
+  height: 180px;
+  border: 1.5px solid rgba(56, 189, 248, 0.48);
+  box-shadow:
+    0 0 34px rgba(56, 189, 248, 0.26),
+    inset 0 0 22px rgba(167, 139, 250, 0.2);
+  animation: tableShockwaveRing 0.88s cubic-bezier(0.16, 1, 0.3, 1) 0.04s forwards;
+}
+
+.periodic-table.table-entering .el-cell,
+.periodic-table.table-entering .grid-label {
+  position: relative;
+  z-index: 1;
+}
+
+.el-cell.el-entering {
+  animation: tableCellMaterialize 0.58s cubic-bezier(0.22, 1.18, 0.36, 1) var(--enter-delay, 0ms) both;
+  will-change: transform, opacity, filter;
+}
+
+.grid-label.el-label-entering {
+  animation: tableLabelReveal 0.38s cubic-bezier(0.22, 1, 0.36, 1) var(--enter-delay, 0ms) both;
+  will-change: transform, opacity;
+}
+
+@keyframes tableCoreBurst {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.14);
+  }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(3.2);
+  }
+}
+
+@keyframes tableShockwaveRing {
+  0% {
+    opacity: 0.9;
+    transform: translate(-50%, -50%) scale(0.22);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(3.5);
+  }
+}
+
+@keyframes tableCellMaterialize {
+  0% {
+    opacity: 0;
+    transform: perspective(900px)
+      translate3d(var(--enter-x, 0px), var(--enter-y, 24px), 0)
+      rotateX(var(--enter-rx, 16deg))
+      rotateY(var(--enter-ry, 0deg))
+      rotateZ(var(--enter-rz, 0deg))
+      scale(0.26);
+    filter: brightness(2.05) saturate(1.48) blur(3px);
+    box-shadow:
+      0 0 26px color-mix(in srgb, var(--color, #38bdf8) 76%, transparent),
+      inset 0 0 16px color-mix(in srgb, var(--color, #38bdf8) 44%, transparent);
+  }
+  58% {
+    opacity: 1;
+    transform: perspective(900px)
+      translate3d(calc(var(--enter-x, 0px) * -0.04), calc(var(--enter-y, 0px) * -0.04), 0)
+      rotateX(0deg)
+      rotateY(0deg)
+      rotateZ(0deg)
+      scale(1.07);
+    filter: brightness(1.3) saturate(1.22) blur(0px);
+    box-shadow:
+      0 0 20px color-mix(in srgb, var(--color, #38bdf8) 64%, transparent),
+      inset 0 0 11px color-mix(in srgb, var(--color, #38bdf8) 30%, transparent);
+  }
+  82% {
+    transform: perspective(900px) translate3d(0, 0, 0) scale(0.985);
+    filter: brightness(1.07) saturate(1.05);
+    box-shadow: 0 0 9px color-mix(in srgb, var(--color, #38bdf8) 26%, transparent);
+  }
+  100% {
+    transform: perspective(900px) translate3d(0, 0, 0) scale(1);
+    filter: brightness(1) saturate(1);
+    box-shadow: 0 0 0 transparent;
+  }
+}
+
+@keyframes tableLabelReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.88);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .periodic-table.table-entering::before,
+  .periodic-table.table-entering::after {
+    display: none !important;
+    animation: none !important;
+  }
+  .element,
+  .element::after,
+  .el-cell.el-entering,
+  .grid-label.el-label-entering,
+  .visual-card,
+  .detail-media-block,
+  .suggestion-card,
+  .fade-in {
+    transition: none !important;
+    animation: none !important;
+  }
+}

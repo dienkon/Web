@@ -1,6 +1,11 @@
 (function (root) {
   "use strict";
   const titles = {
+    freePoint: "Điểm bất kỳ",
+    vector: "Vectơ AB",
+    translate: "Tịnh tiến điểm theo vectơ",
+    rotate: "Quay điểm quanh tâm",
+    reflectLine: "Đối xứng qua đường thẳng",
     segment: "Nối điểm",
     midpoint: "Trung điểm",
     perpendicularBisector: "Trung trực",
@@ -179,6 +184,11 @@
       picked = interaction.picked.map((k) => all.get(k)?.label || "?");
     const n = interaction.mode === "rename" ? 1 : Constructions.operations[interaction.mode];
     const stage = {
+      freePoint: 'Chạm để đặt điểm tự do; Xong để kéo điểm',
+      vector: 'Chọn điểm đầu → điểm cuối vectơ',
+      translate: 'Chọn điểm cần tịnh tiến → gốc vectơ → ngọn vectơ',
+      rotate: 'Chọn điểm cần quay → tâm; sửa góc trong thuộc tính',
+      reflectLine: 'Chọn điểm cần đối xứng → hai điểm của trục',
       linePlane: interaction.picked.length < 2 ? "Chọn 2 điểm của đường" : "Chọn 3 điểm của mặt phẳng",
       linePlaneAngle: interaction.picked.length < 2 ? "Chọn 2 điểm của đường" : "Chọn 3 điểm của mặt phẳng",
       planePlane: interaction.picked.length < 3 ? "Chọn 3 điểm của mặt thứ nhất" : "Chọn 3 điểm của mặt thứ hai",
@@ -188,7 +198,7 @@
       tangent: "Chọn tâm O → điểm trên đường tròn → điểm kẻ tiếp tuyến",
       commonPerpendicular: interaction.picked.length < 2 ? "Chọn 2 điểm đường thứ nhất" : "Chọn 2 điểm đường thứ hai",
     }[interaction.mode];
-    if(stage) return stage + " · " + interaction.picked.length + "/" + n;
+    if(stage) return stage + (interaction.mode==='freePoint'?'':" · " + interaction.picked.length + "/" + n);
     return (
       titles[interaction.mode] +
       " · " +
@@ -296,7 +306,7 @@
       );
       if (
         [
-          "midpoint",
+          "freePoint","translate","rotate","reflectLine","midpoint",
           "perpendicularBisector",
           "reflectPoint",
           "dividePoint",
@@ -384,6 +394,10 @@
     if (!o) {
       cancel();
       return false;
+    }
+    if(interaction.mode==='freePoint'){
+      if(Store.state.settings.freeGeometryPoints===false){App.toast('Bật Điểm bất kỳ trong thuộc tính hình.');return true;}
+      root.GeometryLab?.addPoint(o,p);return true;
     }
     if (interaction.mode === "intersection") {
       const line = nearestLine(o, p);
@@ -556,6 +570,7 @@
     ctx.restore();
   }
   function draw(ctx, o) {
+    if(o.type==='solid'&&(o.data.sectionSplit?.amount>0||o.data.unfold>0))return;
     if (o.type === "solid" && !o.data.constructions?.length) return;
     const result = Constructions.build(o),
       all = [...result.points.values()],
@@ -591,6 +606,7 @@
     ctx.lineWidth = Math.max(2, o.style.width);
     ctx.globalAlpha = o.style.opacity ?? 1;
     for (const item of result.items) {
+      if(item.type==='vector')root.GeometryLab?.drawVector(ctx,o,item);
       const q = item.refs.map((k) => map.get(k));
       if (["linePlane","planePlane","projectPlane","distancePlane","commonPerpendicular","linePlaneAngle","planeAngle"].includes(item.type)) {
         ctx.save();
@@ -863,6 +879,7 @@
         ctx.setLineDash([]);
       }
       if (item.type === "section") {
+        root.GeometryLab?.drawPlane(ctx,o,item);
         const pp = project(o, item.points);
         ctx.save();
         ctx.lineWidth = Math.max(3, o.style.width + 1);
@@ -1013,7 +1030,7 @@
               "median",
               "bisector",
               "highlightPlane",
-              "reflectPoint",
+              "reflectPoint","freePoint","vector","translate","rotate","reflectLine",
               "dividePoint",
               "rename",
               ...(solid ? ["section", "orbit", "linePlane","planePlane","projectPlane","distancePlane","linePlaneAngle","planeAngle","commonPerpendicular"] : ["incenter", "circumcircle", "perpendicularBisector", "circleCenter","tangent"]),
@@ -1199,6 +1216,7 @@
         : "") +
       "</details>";
     host.prepend(box);
+    root.GeometryLab?.mount(o,box);
     const renameBtn = box.querySelector("#geo-rename-btn");
     if (renameBtn) {
       renameBtn.onclick = () => {

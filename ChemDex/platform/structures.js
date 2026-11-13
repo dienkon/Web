@@ -248,13 +248,17 @@ async function open(record) {
           ${record.cid ? `<span class="meta-chip">CID ${record.cid}</span>` : ""}
         </div>
       </div>
-      <h2>${escape(record.name_vi ?? record.name_en)}</h2>
-      <div class="muted">${escape(record.formula)}${record.name_en && record.name_en !== record.name_vi ? ` · ${escape(record.name_en)}` : ""} ${record.molarMass ? `· ${record.molarMass.toFixed(3)} g/mol` : ""} ${record.cid ? `· CID ${record.cid}` : ""}</div>
-      <div class="viewer-toolbar viewer-actions-bar">
-        <button class="button" id="favorite" type="button">${favorites.includes(record.id) ? "★ Đã yêu thích" : "☆ Yêu thích"}</button>
-        <button class="button" id="compare" type="button">+ So sánh</button>
-        ${libraryLinks[record.id] ? `<a class="button" href="/trung-tam/tai-lieu-so/${encodeURIComponent(libraryRoutes[libraryLinks[record.id]] ?? libraryLinks[record.id])}/" target="${embedded ? "_top" : "_self"}">Đọc hồ sơ chất ↗</a>` : ""}
-        ${lab ? `<a class="button primary" href="/lab-2d/?chemical=${encodeURIComponent(lab.chemicalId)}" target="${embedded ? "_top" : "_self"}">Mở trong lab ↗</a>` : ""}
+      <div class="viewer-header-main">
+        <div class="viewer-title-stack">
+          <h2>${escape(record.name_vi ?? record.name_en)}</h2>
+          ${record.name_en && record.name_en !== record.name_vi ? `<span class="viewer-subtitle-en">${escape(record.name_en)}</span>` : ""}
+        </div>
+        <div class="viewer-toolbar viewer-actions-bar">
+          <button class="button" id="favorite" type="button">${favorites.includes(record.id) ? "★ Đã yêu thích" : "☆ Yêu thích"}</button>
+          <button class="button" id="compare" type="button">+ So sánh</button>
+          ${libraryLinks[record.id] ? `<a class="button" href="/trung-tam/tai-lieu-so/${encodeURIComponent(libraryRoutes[libraryLinks[record.id]] ?? libraryLinks[record.id])}/" target="${embedded ? "_top" : "_self"}">Đọc hồ sơ chất ↗</a>` : ""}
+          ${lab ? `<a class="button primary" href="/lab-2d/?chemical=${encodeURIComponent(lab.chemicalId)}" target="${embedded ? "_top" : "_self"}">Mở trong lab ↗</a>` : ""}
+        </div>
       </div>
     </div>
     ${!embedded && crystalLinks[record.id]?.length ? `<div class="structure-view-tabs" role="group" aria-label="Cách biểu diễn cấu trúc"><button class="button" type="button" data-model-view="molecule" aria-pressed="true">${record.kind==='molecule'?'Phân tử':record.kind==='atom'?'Nguyên tử':'Thành phần'}</button><button class="button" type="button" data-model-view="crystal" aria-pressed="false">Tinh thể</button></div>` : ''}

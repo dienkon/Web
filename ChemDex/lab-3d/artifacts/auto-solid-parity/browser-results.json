@@ -1,0 +1,234 @@
+{
+  "results": [
+    {
+      "id": "cu_hno3_conc",
+      "flight": {
+        "formula": "Cu",
+        "count": 1,
+        "visible": true,
+        "donorCount": 11,
+        "expectedDonorCount": 11,
+        "expectedCount": 1,
+        "sameGeometry": true,
+        "mass": 4.3420482352941185,
+        "initial": 4.342048235294118
+      },
+      "stock": {
+        "formula": "Cu",
+        "rowMass": 0.052955,
+        "posedMass": 0.052955,
+        "count": 1,
+        "drawn": true,
+        "metalness": 0.88
+      }
+    },
+    {
+      "id": "mg_o2_burn",
+      "flight": {
+        "formula": "Mg",
+        "count": 1,
+        "visible": true,
+        "donorCount": 2,
+        "expectedDonorCount": 2,
+        "expectedCount": 1,
+        "sameGeometry": true,
+        "mass": 0.080608,
+        "initial": 0.080608
+      },
+      "stock": {
+        "formula": "Mg",
+        "rowMass": 0.016203333333333333,
+        "posedMass": 0.016203333333333333,
+        "count": 1,
+        "drawn": true,
+        "metalness": 0.88
+      }
+    },
+    {
+      "id": "fe_cuso4",
+      "flight": {
+        "formula": "Fe",
+        "count": 1,
+        "visible": true,
+        "donorCount": 27,
+        "expectedDonorCount": 27,
+        "expectedCount": 1,
+        "sameGeometry": true,
+        "mass": 30.05584499999999,
+        "initial": 30.055845
+      },
+      "stock": {
+        "formula": "Fe",
+        "rowMass": 0.0019944642857142856,
+        "posedMass": 0.0019944642857142856,
+        "count": 1,
+        "drawn": true,
+        "metalness": 0.15
+      }
+    },
+    {
+      "id": "h2o2_mno2",
+      "flight": {
+        "formula": "MnO2",
+        "count": 1,
+        "visible": true,
+        "donorCount": 27,
+        "expectedDonorCount": 27,
+        "expectedCount": 1,
+        "sameGeometry": true,
+        "mass": 30.000869360000003,
+        "initial": 30.00086936
+      },
+      "stock": {
+        "formula": "MnO2",
+        "rowMass": 0.00003104857142857143,
+        "posedMass": 0.00003104857142857143,
+        "count": 1,
+        "drawn": true,
+        "metalness": 0
+      }
+    },
+    {
+      "id": "na_h2o",
+      "flight": {
+        "formula": "Na",
+        "count": 1,
+        "visible": true,
+        "donorCount": 0,
+        "expectedDonorCount": 0,
+        "expectedCount": 1,
+        "sameGeometry": true,
+        "mass": 30.045980000000004,
+        "initial": 30.04598
+      },
+      "stock": {
+        "formula": "Na",
+        "rowMass": 0.04510316543101671,
+        "posedMass": 0.04510316543101671,
+        "count": 1,
+        "drawn": true,
+        "metalness": 0.88
+      }
+    },
+    {
+      "id": "zn_hcl",
+      "flight": {
+        "formula": "Zn",
+        "count": 1,
+        "visible": true,
+        "donorCount": 21,
+        "expectedDonorCount": 21,
+        "expectedCount": 1,
+        "sameGeometry": true,
+        "mass": 30.065379999999994,
+        "initial": 30.06538
+      },
+      "stock": {
+        "formula": "Zn",
+        "rowMass": 0.002971818181818182,
+        "posedMass": 0.0029718181818181822,
+        "count": 1,
+        "drawn": true,
+        "metalness": 0.88
+      }
+    },
+    {
+      "id": "al_hcl",
+      "flight": {
+        "formula": "Al",
+        "count": 1,
+        "visible": true,
+        "donorCount": 1,
+        "expectedDonorCount": 1,
+        "expectedCount": 1,
+        "sameGeometry": true,
+        "mass": 30.05396399999999,
+        "initial": 30.053964
+      },
+      "stock": {
+        "formula": "Al",
+        "rowMass": 0.026982,
+        "posedMass": 0.026982,
+        "count": 1,
+        "drawn": true,
+        "metalness": 0.88
+      }
+    },
+    {
+      "id": "i2_sublimation",
+      "flight": {
+        "formula": "I2",
+        "count": 1,
+        "visible": true,
+        "donorCount": 21,
+        "expectedDonorCount": 21,
+        "expectedCount": 1,
+        "sameGeometry": true,
+        "mass": 0.253808,
+        "initial": 0.253808
+      },
+      "stock": {
+        "formula": "I2",
+        "rowMass": 0.011536727272727271,
+        "posedMass": 0.011536727272727271,
+        "count": 1,
+        "drawn": true,
+        "metalness": 0.35
+      }
+    },
+    {
+      "id": "kmno4_hcl",
+      "flight": {
+        "formula": "KMnO4",
+        "count": 1,
+        "visible": true,
+        "donorCount": 21,
+        "expectedDonorCount": 21,
+        "expectedCount": 1,
+        "sameGeometry": true,
+        "mass": 30.316064,
+        "initial": 30.316064
+      },
+      "stock": {
+        "formula": "KMnO4",
+        "rowMass": 0.014366545454545455,
+        "posedMass": 0.014366545454545455,
+        "count": 1,
+        "drawn": true,
+        "metalness": 0
+      }
+    },
+    {
+      "id": "cuoh2_decomp",
+      "flight": {
+        "formula": "Cu(OH)2",
+        "count": 1,
+        "visible": true,
+        "donorCount": 27,
+        "expectedDonorCount": 27,
+        "expectedCount": 1,
+        "sameGeometry": true,
+        "mass": 0.09756000000000001,
+        "initial": 0.09756000000000001
+      },
+      "stock": {
+        "formula": "Cu(OH)2",
+        "rowMass": 0.0034842857142857145,
+        "posedMass": 0.0034842857142857145,
+        "count": 1,
+        "drawn": true,
+        "metalness": 0
+      },
+      "dry": {
+        "product_g": 0.07954500000000003,
+        "sedimentVisible": true,
+        "color": "0f172a",
+        "transparent": false,
+        "duplicateStock": false
+      }
+    }
+  ],
+  "errors": [],
+  "workbenchUnchanged": true,
+  "disposedOnRestart": true
+}

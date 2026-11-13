@@ -33,13 +33,18 @@ describe('solid stock follows carrier drag, not a decorative orbit', () => {
       expect(paused.position_m).toEqual(result.position_m);
     } finally { world.free(); geometry.dispose(); }
   });
-  it('does not animate a dense dry stock around the floor and removes consumed stock', () => {
+  it('settles a dense dry stock through contacts and removes consumed stock', async () => {
     const motion = new AutoStockDynamics(), vessel = { id: 's', type: 'beaker', capacity_ml: 100, temperature_c: 25, volume_ml: 0,
-      contents: [{ formula: 'Fe', phase: 's', mass_g: 1, moles: 1 / 55.845 }] } as VesselState;
-    motion.advance(vessel, 1 / 60); const first = { ...motion.pieces.get('Fe')! };
-    for (let i = 0; i < 120; i++) motion.advance(vessel, 1 / 60);
-    expect(motion.pieces.get('Fe')!.x).toBe(first.x); expect(motion.pieces.get('Fe')!.z).toBe(first.z);
-    expect(motion.pieces.get('Fe')!.mass_g).toBe(1);
-    vessel.contents = []; motion.advance(vessel, 1 / 60); expect(motion.pieces.size).toBe(0);
+      position: [0, 1.04, 0], rotationY: 0, contents: [{ formula: 'Fe', phase: 's', mass_g: 1, moles: 1 / 55.845 }] } as VesselState;
+    await motion.initialize();
+    try {
+      for (let i = 0; i < 240; i++) motion.advance(vessel, 1 / 60);
+      const first = motion.grains.map(p => p.position_m);
+      for (let i = 0; i < 60; i++) motion.advance(vessel, 1 / 60);
+      expect(motion.grains.length).toBeGreaterThan(1);
+      expect(motion.grains.reduce((m, p) => m + p.mass_g, 0)).toBeCloseTo(1, 9);
+      motion.grains.forEach((p, i) => expect(Math.hypot(...p.position_m.map((x, j) => x - first[i][j]))).toBeLessThan(0.0001));
+      vessel.contents = []; motion.advance(vessel, 1 / 60); expect(motion.grains.length).toBe(0);
+    } finally { motion.dispose(); }
   });
 });

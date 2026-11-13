@@ -17,6 +17,7 @@
     "studio:atoms:audit": "tsx scripts/auditStudioAtomContexts.ts",
     "autoplay:audit": "tsx scripts/auditAutoExperiments.ts",
     "autoplay:browser": "node scripts/auditAutoWorkspaceBrowser.mjs",
+    "autoplay:solids:browser": "node scripts/auditAutoSolidsBrowser.mjs",
     "thermo:audit": "tsx scripts/auditThermochemistry.ts",
     "physics:audit": "tsx scripts/auditPhysicalCoverage.ts",
     "physics:benchmark": "tsx scripts/benchmarkPhysicalRuntime.ts",

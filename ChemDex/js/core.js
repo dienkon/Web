@@ -4,7 +4,28 @@ import videoCatalog from '../shared/video-catalog.json' with { type: 'json' };
 import substanceCrystals from '../data/substance-crystal-models.json' with { type: 'json' };
 import { resolveLabExperiment } from '../shared/chemistry/study-links.mjs';
 import {mountPublishedCrystal} from './three/published-crystal.js';
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { SmoothOrbitControls } from "./three/smooth-controls.js";
+
+let electronGlowTexture = null;
+function getElectronGlowTexture() {
+  if (electronGlowTexture) return electronGlowTexture;
+  const size = 64;
+  const canvas = document.createElement("canvas");
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext("2d");
+  if (ctx) {
+    const g = ctx.createRadialGradient(32, 32, 2, 32, 32, 32);
+    g.addColorStop(0, "rgba(255,255,255,1)");
+    g.addColorStop(0.28, "rgba(255,255,255,0.7)");
+    g.addColorStop(0.65, "rgba(125,211,252,0.18)");
+    g.addColorStop(1, "rgba(0,0,0,0)");
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, size, size);
+  }
+  electronGlowTexture = new THREE.CanvasTexture(canvas);
+  return electronGlowTexture;
+}
 import {
   buildCrystalGroup,
   createCubeOutline,
@@ -495,36 +516,87 @@ function formatIsotopeText(text = "") {
   return escapeHtml(text).replace(/\b([0-9]+)([A-Za-z]{1,2})\b/g, "<sup>$1</sup>$2");
 }
 
-function formatChemicalFormulaHtml(text = "", related = "") {
-  const raw = normalizeReactionText(text);
-  const tokens = /(?:\([A-Z][A-Za-z0-9]*\)\d*|[A-Z][a-z]?\d*)+(?:[·.]\d*(?:[A-Z][a-z]?\d*)+)?/g;
-  let cursor = 0, linked = '', found = false;
-  for (const match of raw.matchAll(tokens)) {
-    const slug = studyReferences.formulas[match[0]];
-    if (!slug) continue;
-    found = true;
-    linked += escapeHtml(raw.slice(cursor, match.index));
-    const label = escapeHtml(match[0]).replace(/([A-Za-z)\]])(\d+)/g, '$1<sub>$2</sub>');
-    linked += `<a href="/trung-tam/tai-lieu-so/${encodeURIComponent(slug)}/" class="chemical-reference" title="Tài liệu ${escapeHtml(match[0])}">${label}</a>`;
-    cursor = match.index + match[0].length;
-  }
-  if (found) return linked + escapeHtml(raw.slice(cursor));
-  let s = normalizeReactionText(text).replace(/^[\[\(]\s*|\s*[\]\)]$/g, "");
-  s = escapeHtml(s);
+/** Escape and apply subscript/superscript/phase formatting to a plain reaction text segment. */
+function formatChemicalSegmentHtml(segment = "", related = "") {
+  let s = escapeHtml(segment);
   s = s
     .replace(/_\{([^}]+)\}/g, "<sub>$1</sub>")
     .replace(/_([0-9]+)/g, "<sub>$1</sub>")
     .replace(/\^\{([^}]+)\}/g, "<sup>$1</sup>")
     .replace(/\^([0-9+-]+)/g, "<sup>$1</sup>")
-    .replace(/([A-Za-z\)])([0-9]+)/g, "$1<sub>$2</sub>")
+    .replace(/([A-Za-z)\]])([0-9]+)/g, "$1<sub>$2</sub>")
     .replace(/\((loãng|đặc|nóng|hơi|khí|rắn|lỏng|dd|khan|đặc,\s*nóng|đặc\s*nóng|loãng,\s*nóng)\)/gi, "<sub>($1)</sub>");
-    
+
   if (related) {
     const rel = escapeHtml(related);
-    const relRegex = new RegExp(`(^|[^a-zA-Z])(${rel})(?![a-z])(?![^<]*>)`, 'g');
-    s = s.replace(relRegex, `$1<button onclick="interlinkElement('${rel}')" class="inline-block font-bold text-sky-400 hover:text-sky-300 transition-colors underline decoration-sky-500/40 underline-offset-4 cursor-pointer">$2</button>`);
+    const relRegex = new RegExp(`(^|[^a-zA-Z])(${rel})(?![a-z])(?![^<]*>)`, "g");
+    s = s.replace(
+      relRegex,
+      `$1<button onclick="interlinkElement('${rel}')" class="inline-block font-bold text-sky-400 hover:text-sky-300 transition-colors underline decoration-sky-500/40 underline-offset-4 cursor-pointer">$2</button>`
+    );
   }
   return s;
+}
+
+/** Return the periodic-table symbol when a whole chemical token consists of exactly one known element. */
+function getSingleElementSymbol(formula = "") {
+  const atomMatches = formula.match(/[A-Z][a-z]?/g);
+  if (!atomMatches || !atomMatches.length) return null;
+  const unique = new Set(atomMatches);
+  if (unique.size !== 1) return null;
+  const [symbol] = unique;
+  return elementsMap.has(symbol) ? symbol : null;
+}
+
+/** Format reaction text on `/` so single-element species open inside the periodic table and compounds format cleanly inline. */
+function formatChemicalFormulaHtml(text = "", related = "") {
+  const raw = normalizeReactionText(text);
+  const subPattern = "(?:_\\{[^}]+\\}|_[0-9]+|[0-9\\u2080-\\u2089]+)";
+  const unitPattern =
+    `(?:\\[[A-Za-z0-9\\u2080-\\u2089()_]+\\]${subPattern}?|\\([A-Z][A-Za-z0-9\\u2080-\\u2089()_]*\\)${subPattern}?|[A-Z][a-z]?${subPattern}?)`;
+  const speciesRegex = new RegExp(
+    `${unitPattern}+(?:[·.][0-9\\u2080-\\u2089]*${unitPattern}+)*`,
+    "g"
+  );
+  const trailingLetterRegex = /^[a-z\u00c0-\u024f\u1e00-\u1eff]/;
+  const precedingLetterRegex = /[A-Za-z\u00c0-\u024f\u1e00-\u1eff]$/;
+  const trailingChargeRegex = /^(?:[\u2070\u00b9\u00b2\u00b3\u2074-\u2079]*[\u207a\u207b]|\^\{[^}]*[+-]\}|\^[0-9]*[+-])/;
+
+  let cursor = 0;
+  let out = "";
+
+  for (const match of raw.matchAll(speciesRegex)) {
+    const token = match[0];
+    const start = match.index ?? 0;
+    const end = start + token.length;
+    const before = raw.slice(0, start);
+    const after = raw.slice(end);
+
+    if (precedingLetterRegex.test(before) || trailingLetterRegex.test(after)) {
+      continue;
+    }
+
+    const elementSymbol = trailingChargeRegex.test(after) ? null : getSingleElementSymbol(token);
+    if (!elementSymbol) {
+      out += formatChemicalSegmentHtml(raw.slice(cursor, end), related);
+      cursor = end;
+      continue;
+    }
+
+    out += formatChemicalSegmentHtml(raw.slice(cursor, start), related);
+    const el = elementsMap.get(elementSymbol);
+    const title = el
+      ? `Xem nguyên tố ${el.nameVi} (${elementSymbol}) trong bảng tuần hoàn`
+      : `Xem nguyên tố ${elementSymbol} trong bảng tuần hoàn`;
+    const label = escapeHtml(token)
+      .replace(/_\{([^}]+)\}/g, "<sub>$1</sub>")
+      .replace(/_([0-9]+)/g, "<sub>$1</sub>")
+      .replace(/([A-Za-z)\]])([0-9]+)/g, "$1<sub>$2</sub>");
+    out += `<a href="?element=${encodeURIComponent(elementSymbol)}" onclick="event.preventDefault(); interlinkElement('${elementSymbol}')" class="chemical-reference" data-element-link="${escapeHtml(elementSymbol)}" title="${escapeHtml(title)}">${label}</a>`;
+    cursor = end;
+  }
+
+  return out + formatChemicalSegmentHtml(raw.slice(cursor), related);
 }
 
 function mediaToCards(source, options = {}) {
@@ -986,14 +1058,18 @@ function createElectronWidget(container, el) {
     threeRenderer.domElement.style.zIndex = "1";
     wrap.appendChild(threeRenderer.domElement);
 
-    if (OrbitControls) {
-      threeControls = new OrbitControls(threeCamera, threeRenderer.domElement);
-      threeControls.enableDamping = true;
-      threeControls.dampingFactor = 0.04;
-      threeControls.enablePan = false;
-      threeControls.autoRotate = true; // Auto-rotate camera slowly when idle
-      threeControls.autoRotateSpeed = 0.5;
-    }
+    threeControls = new SmoothOrbitControls(threeCamera, threeRenderer.domElement, {
+      rotateSpeed: 1.05,
+      zoomSpeed: 1.1,
+      minDistance: 28,
+      maxDistance: 520,
+      autoRotate: true,
+      autoRotateSpeed: 0.34,
+      pauseAutoRotateOnStart: false,
+    });
+    threeRenderer.domElement.addEventListener("dblclick", () => {
+      threeControls?.reset(0.35);
+    });
 
     // Cinematic Lighting
     const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444455, 0.6);
@@ -1116,6 +1192,16 @@ function createElectronWidget(container, el) {
     // Electron & Orbit Generation
     const ringStep = 20;
     const electronGeom = new THREE.SphereGeometry(0.8, 16, 16);
+    const glowTex = getElectronGlowTexture();
+    const sharedElectronMats = new Map();
+    const sharedGlowMats = new Map();
+    const getOrbitalColor = (orbital) => {
+      if (orbital === "s") return 0x4ade80;
+      if (orbital === "p") return 0x38bdf8;
+      if (orbital === "d") return 0xa78bfa;
+      if (orbital === "f") return 0xfbbf24;
+      return 0x4ade80;
+    };
     threeGroup.userData.orbits = [];
     threeGroup.userData.electrons = [];
     threeGroup.userData.time = 0;
@@ -1138,7 +1224,7 @@ function createElectronWidget(container, el) {
           baseRadius, baseRadius * (0.9 + Math.random()*0.2), // Random eccentricity
           0, 2 * Math.PI, false, 0
       );
-      const points = curve.getPoints(128);
+      const points = curve.getPoints(96);
       const lineGeom = new THREE.BufferGeometry().setFromPoints(points);
       const lineMat = new THREE.LineBasicMaterial({ color: 0x94a3b8, transparent: true, opacity: 0.35 });
       const orbitObj = new THREE.Line(lineGeom, lineMat);
@@ -1153,22 +1239,39 @@ function createElectronWidget(container, el) {
       // Store orbit info for animation
       threeGroup.userData.orbits.push({
           mesh: orbitObj,
-          rotSpeedX: (Math.random() - 0.5) * 0.001,
-          rotSpeedY: (Math.random() - 0.5) * 0.001,
-          rotSpeedZ: (Math.random() - 0.5) * 0.001,
+          rotSpeedX: (Math.random() - 0.5) * 0.06,
+          rotSpeedY: (Math.random() - 0.5) * 0.06,
+          rotSpeedZ: (Math.random() - 0.5) * 0.06,
       });
       
       // Uniform speed per shell, electrons evenly spaced
-      const shellSpeed = 0.003 / (idx + 1);
+      const shellSpeed = 0.18 / (idx + 1);
       const electronCount = expanded.length;
       for (let i = 0; i < electronCount; i++) {
-          const mat = new THREE.MeshBasicMaterial({ color: 0x4ade80 }); // Glowing green
+          const orbType = expanded[i]?.orbital || "s";
+          const colorHex = getOrbitalColor(orbType);
+          let mat = sharedElectronMats.get(colorHex);
+          if (!mat) {
+            mat = new THREE.MeshBasicMaterial({ color: colorHex });
+            sharedElectronMats.set(colorHex, mat);
+          }
+          let glowMat = sharedGlowMats.get(colorHex);
+          if (!glowMat) {
+            glowMat = new THREE.SpriteMaterial({
+              map: glowTex,
+              color: colorHex,
+              transparent: true,
+              opacity: 0.72,
+              blending: THREE.AdditiveBlending,
+              depthWrite: false,
+            });
+            sharedGlowMats.set(colorHex, glowMat);
+          }
           const elMesh = new THREE.Mesh(electronGeom, mat);
-          
-          // Subtle emissive glow point light per electron
-          const elLight = new THREE.PointLight(0x4ade80, 0.5, 10);
-          elMesh.add(elLight);
-          
+          const halo = new THREE.Sprite(glowMat);
+          halo.scale.set(3.4, 3.4, 1);
+          elMesh.add(halo);
+
           orbitObj.add(elMesh); // Child of orbit to inherit orientation
           
           threeGroup.userData.electrons.push({
@@ -1180,31 +1283,39 @@ function createElectronWidget(container, el) {
       }
     });
 
-    const animate3D = () => {
+    if (threeControls) {
+      threeControls.syncFromCamera();
+      threeControls.saveHome();
+    }
+
+    let lastThreeTime = performance.now();
+    const tmpPoint = new THREE.Vector2();
+    const animate3D = (now = performance.now()) => {
         threeRaf = requestAnimationFrame(animate3D);
+        const dt = Math.min(0.05, Math.max(0.001, (now - lastThreeTime) / 1000));
+        lastThreeTime = now;
         if (!isIntersecting) return;
         
-        threeGroup.userData.time += 0.016; // approx 60fps delta
-        const time = threeGroup.userData.time;
+        threeGroup.userData.time += dt;
 
-        if (threeControls) threeControls.update();
+        if (threeControls) threeControls.update(dt);
         
         if (threeGroup) {
-            // Slowly rotate orbits
+            // Slowly rotate orbits (frame-rate independent)
             if (threeGroup.userData.orbits) {
                 threeGroup.userData.orbits.forEach(orb => {
-                    orb.mesh.rotation.x += orb.rotSpeedX;
-                    orb.mesh.rotation.y += orb.rotSpeedY;
-                    orb.mesh.rotation.z += orb.rotSpeedZ;
+                    orb.mesh.rotation.x += orb.rotSpeedX * dt;
+                    orb.mesh.rotation.y += orb.rotSpeedY * dt;
+                    orb.mesh.rotation.z += orb.rotSpeedZ * dt;
                 });
             }
             
             // Uniform electron motion — evenly spaced, same speed per shell
             if (threeGroup.userData.electrons) {
                 threeGroup.userData.electrons.forEach(e => {
-                    e.t = (e.t + e.speed) % 1.0;
-                    const pos = e.curve.getPoint(e.t);
-                    e.mesh.position.set(pos.x, pos.y, 0);
+                    e.t = (e.t + e.speed * dt) % 1.0;
+                    e.curve.getPoint(e.t, tmpPoint);
+                    e.mesh.position.set(tmpPoint.x, tmpPoint.y, 0);
                 });
             }
         }
@@ -1216,8 +1327,24 @@ function createElectronWidget(container, el) {
   const destroy3D = () => {
     if (threeRaf) cancelAnimationFrame(threeRaf);
     threeRaf = null;
+    if (threeControls) {
+      threeControls.dispose();
+      threeControls = null;
+    }
+    if (threeScene) {
+      threeScene.traverse((obj) => {
+        if (obj.geometry) obj.geometry.dispose();
+        if (obj.material) {
+          if (Array.isArray(obj.material)) obj.material.forEach((m) => m.dispose?.());
+          else obj.material.dispose?.();
+        }
+      });
+      threeScene = null;
+    }
     if (threeRenderer) {
-      wrap.removeChild(threeRenderer.domElement);
+      if (threeRenderer.domElement.parentNode === wrap) {
+        wrap.removeChild(threeRenderer.domElement);
+      }
       threeRenderer.dispose();
       threeRenderer = null;
     }
@@ -1299,6 +1426,7 @@ function createElectronWidget(container, el) {
   };
 
   wheelHandler = (ev) => {
+    if (is3DMode) return;
     ev.preventDefault();
     applyZoom(ev.deltaY > 0 ? -0.06 : 0.06);
   };
@@ -1328,17 +1456,51 @@ function createElectronWidget(container, el) {
   };
 }
 
+/** Toggle visibility of the crystal card wrapper (and matching TOC anchor, if any). */
+function setCrystalCardVisibility(container, visible) {
+  const card = container?.closest?.(".visual-card");
+  if (!card) return;
+  card.classList.toggle("hidden", !visible);
+  card.hidden = !visible;
+  card.style.display = visible ? "" : "none";
+  card.setAttribute("aria-hidden", visible ? "false" : "true");
+  if (!card.id || typeof document === "undefined") return;
+  const escapedId =
+    typeof CSS !== "undefined" && typeof CSS.escape === "function"
+      ? CSS.escape(card.id)
+      : card.id;
+  const tocLink = document.querySelector(`#article-toc a[href="#${escapedId}"]`);
+  if (tocLink) {
+    tocLink.classList.toggle("hidden", !visible);
+    tocLink.hidden = !visible;
+    tocLink.style.display = visible ? "" : "none";
+  }
+}
+
 function createCrystalWidget(container, el) {
-  if (el.structure?.publishedCrystal) return mountPublishedCrystal(container, el.structure.publishedCrystal);
-  const coldPhase = substanceCrystals.elements?.[el.symbol];
-  if (coldPhase) return mountPublishedCrystal(container, coldPhase);
+  if (!container) return null;
+  if (el?.structure?.publishedCrystal) {
+    setCrystalCardVisibility(container, true);
+    return mountPublishedCrystal(container, el.structure.publishedCrystal);
+  }
+  const coldPhase = substanceCrystals.elements?.[el?.symbol];
+  if (coldPhase) {
+    setCrystalCardVisibility(container, true);
+    return mountPublishedCrystal(container, coldPhase);
+  }
   const latticeKey = inferLatticeKey(el);
   const title = inferLatticeTitle(el, latticeKey);
-  if (!latticeKey || el.review) {
-    const wiki=el.structure?.wikiCrystalReview;
-    container.innerHTML = `<div class="crystal-explanation"><span class="visual-badge">Pha và cấu trúc</span><p>${escapeHtml(title)}</p><small>${el.structure?.latticeEvidence === 'predicted' ? 'Cấu trúc dự đoán; chưa có mẫu tinh thể thực nghiệm.' : 'Chưa có mô hình tọa độ phù hợp với pha được mô tả.'}</small>${wiki?`<p class="element-fact-note">Wiki: ${escapeHtml(wiki.phases.map(p=>`${p.prefix} ${p.type} ${p.comment}`).join('; ')||'không có kiểu mạng trong trường đã đối chiếu')}. Thông tin tinh thể có thể thuộc pha rắn ở điều kiện khác; trạng thái đang mô tả: ${escapeHtml(el.general?.state||'chưa xác định')}.</p><a href="${escapeHtml(wiki.article)}" target="_blank" rel="noopener noreferrer">Đối chiếu Wiki ↗</a>`:''}</div>`;
-    return { destroy() { container.innerHTML = ''; } };
+  if (!latticeKey || el?.review) {
+    container.innerHTML = "";
+    setCrystalCardVisibility(container, false);
+    return {
+      hidden: true,
+      destroy() {
+        container.innerHTML = "";
+      },
+    };
   }
+  setCrystalCardVisibility(container, true);
 
   const wrap = container;
   wrap.innerHTML = "";
@@ -1397,14 +1559,53 @@ function createCrystalWidget(container, el) {
   renderer.domElement.style.zIndex = "0";
   wrap.appendChild(renderer.domElement);
 
-  const controls = new OrbitControls(camera, renderer.domElement);
-  controls.enablePan = false;
-  controls.enableZoom = true;
-  controls.enableDamping = true;
-  controls.dampingFactor = 0.08;
-  controls.autoRotate = true;
-  controls.autoRotateSpeed = 0.8;
+  const controls = new SmoothOrbitControls(camera, renderer.domElement, {
+    rotateSpeed: 1.05,
+    zoomSpeed: 1.08,
+    minDistance: 3.4,
+    maxDistance: 24,
+    autoRotate: true,
+    autoRotateSpeed: 0.48,
+    pauseAutoRotateOnStart: true,
+  });
   controls.target.set(0, 0, 0);
+  controls.syncFromCamera();
+  controls.saveHome();
+
+  const crystalQuickBar = document.createElement("div");
+  crystalQuickBar.className = "crystal-quick-bar";
+  const spinToggleBtn = document.createElement("button");
+  spinToggleBtn.type = "button";
+  spinToggleBtn.className = "crystal-quick-btn is-active";
+  spinToggleBtn.setAttribute("aria-pressed", "true");
+  spinToggleBtn.title = "Bật/tắt tự xoay";
+  spinToggleBtn.innerHTML = '<i class="fa-solid fa-rotate"></i><span>Tự xoay</span>';
+  const resetViewBtn = document.createElement("button");
+  resetViewBtn.type = "button";
+  resetViewBtn.className = "crystal-quick-btn";
+  resetViewBtn.title = "Đặt lại góc nhìn";
+  resetViewBtn.innerHTML = '<i class="fa-solid fa-compass"></i><span>Đặt lại</span>';
+  crystalQuickBar.appendChild(spinToggleBtn);
+  crystalQuickBar.appendChild(resetViewBtn);
+  wrap.appendChild(crystalQuickBar);
+
+  spinToggleBtn.addEventListener("click", (ev) => {
+    ev.stopPropagation();
+    controls.autoRotate = !controls.autoRotate;
+    spinToggleBtn.classList.toggle("is-active", controls.autoRotate);
+    spinToggleBtn.setAttribute("aria-pressed", String(controls.autoRotate));
+  });
+  resetViewBtn.addEventListener("click", (ev) => {
+    ev.stopPropagation();
+    controls.reset(0.35);
+  });
+  renderer.domElement.addEventListener("dblclick", () => {
+    controls.reset(0.35);
+  });
+  controls.addEventListener("start", () => {
+    spinToggleBtn.classList.toggle("is-active", controls.autoRotate);
+    spinToggleBtn.setAttribute("aria-pressed", String(controls.autoRotate));
+  });
 
   scene.add(new THREE.AmbientLight(0xffffff, 1.5));
   const hemi = new THREE.HemisphereLight(0xcfefff, 0x08111d, 1.2);
@@ -1419,9 +1620,12 @@ function createCrystalWidget(container, el) {
 
   const sizeFit = () => {
     const rect = wrap.getBoundingClientRect();
-    renderer.setSize(rect.width, rect.height, false);
-    camera.aspect = rect.width / Math.max(rect.height, 1);
+    const w = Math.max(240, rect.width || 320);
+    const h = Math.max(240, rect.height || 300);
+    renderer.setSize(w, h, false);
+    camera.aspect = w / Math.max(h, 1);
     camera.updateProjectionMatrix();
+    controls.handleResize();
   };
   const ro = new ResizeObserver(sizeFit);
   ro.observe(wrap);
@@ -1429,10 +1633,12 @@ function createCrystalWidget(container, el) {
 
   let raf = 0;
   let isIntersecting = false;
-  const loop = () => {
+  let lastLoopTime = performance.now();
+  const loop = (now = performance.now()) => {
+    const dt = Math.min(0.05, Math.max(0.001, (now - lastLoopTime) / 1000));
+    lastLoopTime = now;
     if (isIntersecting) {
-      root.rotation.y += 0.003;
-      controls.update();
+      controls.update(dt);
       renderer.render(scene, camera);
     }
     raf = requestAnimationFrame(loop);
@@ -1454,6 +1660,14 @@ function createCrystalWidget(container, el) {
       ro.disconnect();
       visibilityObserver.disconnect();
       controls.dispose();
+      scene.traverse((obj) => {
+        if (obj.userData?.sharedResource) return;
+        if (obj.geometry) obj.geometry.dispose?.();
+        if (obj.material) {
+          if (Array.isArray(obj.material)) obj.material.forEach((m) => m.dispose?.());
+          else obj.material.dispose?.();
+        }
+      });
       renderer.dispose();
       wrap.innerHTML = "";
     },
@@ -1474,8 +1688,13 @@ function mountDetailVisuals(el) {
   const crystalContainer = document.getElementById("crystal-widget");
   if (electronContainer)
     window.__electronWidget = createElectronWidget(electronContainer, el);
-  if (crystalContainer)
+  if (crystalContainer) {
     window.__crystalWidget = createCrystalWidget(crystalContainer, el);
+    setCrystalCardVisibility(
+      crystalContainer,
+      Boolean(window.__crystalWidget && !window.__crystalWidget.hidden),
+    );
+  }
 
   const article = document.getElementById("article-content");
   const typeset = () => {

@@ -132,6 +132,14 @@ export class StockWorld {
           : c.kind === 'box' ? Math.max(c.halfExtents_m[0], c.halfExtents_m[2]) : c.radius_m));
         old = { body, input: v, min: ys.length ? Math.min(...ys) : 0, max: ys.length ? Math.max(...ys) : 0, radius }; this.containers.set(v.id, old);
       }
+      // A changed fluid boundary can remove support from a sleeping floater.
+      // Dry, unchanged contacts keep their sleeping bodies and cost no work.
+      const beforeFluid = old.input.fluid, afterFluid = v.fluid;
+      const fluidChanged = !!beforeFluid !== !!afterFluid || beforeFluid && afterFluid
+        && (Math.abs(beforeFluid.offset_m - afterFluid.offset_m) > 1e-6
+          || beforeFluid.density_kg_m3 !== afterFluid.density_kg_m3
+          || beforeFluid.normal.some((x, i) => Math.abs(x - afterFluid.normal[i]) > 1e-6));
+      if (fluidChanged) for (const g of this.grains.values()) if (g.owner === v.id && !g.escaped) g.body.wakeUp();
       old.input = v;
       if (v.restore) {
         old.body.setTranslation(vec(solver(v.position_m)), true); old.body.setRotation(quat(v.rotation), true);
@@ -228,7 +236,7 @@ export class StockWorld {
         row.mass += mass; for (let i = 0; i < 3; i++) row.before[i] += mass * v[i]; momentum.set(g.owner, row);
       }
       for (const g of this.grains.values()) {
-        if (g.escaped || g.body.isSleeping()) continue;
+        if (g.escaped) continue;
         const fluid = this.containers.get(g.owner)?.input.fluid; g.body.resetForces(false);
         if (fluid) {
           const position = si(g.body.translation()), p = vec(position), radius = g.collider.shape instanceof RAPIER.Ball ? g.collider.shape.radius / S
@@ -236,11 +244,16 @@ export class StockWorld {
           const carrier = stockFluidAt(position, fluid), depth = carrier.depth_m;
           const h = Math.max(0, Math.min(2 * radius, depth + radius)), immersed = Math.PI * h * h * (radius - h / 3);
           const volume = g.pose.mass_g / 1000 / g.group.density_kg_m3, fraction = Math.min(1, immersed / Math.max(volume, 1e-20));
-          g.body.addForce({ x: 0, y: fluid.density_kg_m3 * volume * fraction * CONSTANTS.g * S, z: 0 }, false);
+          const buoyancy = fluid.density_kg_m3 * volume * fraction * CONSTANTS.g;
+          // Rapier's sleep threshold can stop a slowly rising, nearly neutral
+          // grain. An unresolved upward force or a driven carrier must wake it.
+          const driven = fraction > 0 && (Math.abs(carrier.spin_rad_s) > 1e-8 || Math.hypot(...carrier.velocity_m_s) > 1e-6);
+          const wake = driven || buoyancy - g.pose.mass_g / 1000 * CONSTANTS.g > g.pose.mass_g / 1000 * 0.01;
+          g.body.addForce({ x: 0, y: buoyancy * S, z: 0 }, wake);
+          if (g.body.isSleeping()) continue;
           const velocity = si(g.body.linvel()), slip = velocity.map((u, i) => u - carrier.velocity_m_s[i]), speed = Math.hypot(...slip);
           const k = (6 * Math.PI * fluid.viscosity_Pas * radius + 0.5 * fluid.density_kg_m3 * 0.8 * Math.PI * radius ** 2 * speed) * fraction;
           const attenuation = 1 - Math.exp(-k * DT / (g.pose.mass_g / 1000));
-          const driven = Math.abs(carrier.spin_rad_s) > 1e-8 && fraction > 0;
           g.body.applyImpulse(vec(solver(slip.map(x => -x * g.pose.mass_g / 1000 * attenuation))), driven);
           if (driven) {
             const inertia = 0.4 * g.pose.mass_g / 1000 * radius * radius;

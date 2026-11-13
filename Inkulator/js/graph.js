@@ -23,10 +23,12 @@
   }
   function expression(text) {
     if (compiled.has(text)) return compiled.get(text);
-    const raw = text.trim(),
+    const raw = text.trim().replace(/≤/g,'<=').replace(/≥/g,'>='),
       implicit = raw.includes("=") && !/^(y|[a-z]\(x\))\s*=/.test(raw);
     let result;
-    if (implicit) {
+    const inequality=raw.match(/^(.+?)(<=|>=|<|>)(.+)$/);
+    if(inequality){result={fn:MathEngine.compile('('+inequality[1]+')-('+inequality[3]+')'),implicit:true,inequality:inequality[2]};}
+    else if (implicit) {
       const parts = raw.split("=");
       if (parts.length !== 2) throw Error("Phương trình chỉ có một dấu =.");
       result = {
@@ -53,6 +55,7 @@
     return (r < 2 ? 1 : r < 5 ? 2 : 5) * p;
   }
   function draw(ctx, data, w, h) {
+    if(data.revolution?.enabled&&root.CalculusLab)return CalculusLab.drawRevolution(ctx,data,w,h);
     const v = data.view,
       map = mapping(v, w, h);
     ctx.save();
@@ -61,6 +64,7 @@
     ctx.clip();
     ctx.fillStyle = "#fff";
     if (!data.transparent) ctx.fillRect(0, 0, w, h);
+    root.CalculusLab?.drawInequalities(ctx,data,w,h);
     const gx = step(v.xmax - v.xmin),
       gy = step(v.ymax - v.ymin);
     ctx.strokeStyle = "#e9eeea";
@@ -122,6 +126,7 @@
       const fn = (x) => item.fn({ ...params, x });
       ctx.strokeStyle = e.color;
       ctx.lineWidth = 2.5;
+      ctx.setLineDash(item.inequality&& !item.inequality.includes('=')?[6,4]:[]);
       ctx.beginPath();
       if (item.implicit) {
         const n = 65,
@@ -196,6 +201,7 @@
         }
       }
       ctx.stroke();
+      ctx.setLineDash([]);
     }
     if (data.shade) {
       try {
@@ -241,6 +247,7 @@
         map.y(p.y) - 7,
       );
     }
+    root.CalculusLab?.drawAsymptotes(ctx,data,w,h);
     ctx.restore();
   }
   function drawObject(ctx, o) {
@@ -374,6 +381,7 @@
       };
       update();
     };
+    root.CalculusLab?.mount(el,draft,update);
     update();
   }
   function expressionsUI() {
