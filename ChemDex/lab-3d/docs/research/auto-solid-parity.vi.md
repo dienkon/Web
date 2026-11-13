@@ -18,3 +18,5 @@ Sửa thêm lỗi vật gần trung hòa lực nổi bị Rapier cho ngủ giữ
 - `npm run lint` và `npm run build`.
 - `npm run autoplay:audit`: 149 thí nghiệm với hóa học, hiệu ứng và bộ giải chất rắn được khởi tạo, kiểm tra trạng thái cuối và bảo toàn khối lượng.
 - `node scripts/auditAutoSolidsBrowser.mjs`: kiểm tra donor, mảnh rơi và chất trong bình, tính đồng nhất hình học, khối lượng, lỗi WebGL, giao diện điện thoại và giải phóng bộ vật lí khi phát lại. Kết quả ở `artifacts/auto-solid-parity/`.
+
+Kiểm chứng ngày 2026-11-13: 232 tệp / 3.104 kiểm thử đơn vị, 149/149 thí nghiệm đầy đủ, 10/10 tình huống trình duyệt, TypeScript và bản build đều qua. Cặn CuO giữ màu đen, không bị đáy kính trong suốt che thành màu trắng và không được vẽ lặp lại thành một đống chất rắn khác.

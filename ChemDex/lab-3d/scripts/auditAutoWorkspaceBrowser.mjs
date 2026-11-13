@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { mkdirSync, writeFileSync } from 'node:fs';
 
 const origin = process.env.LAB_AUDIT_ORIGIN ?? 'http://127.0.0.1:6767';
-const output = 'artifacts/automatic-experiments';
+const output = process.env.LAB_AUDIT_OUTPUT ?? 'artifacts/automatic-experiments';
 mkdirSync(output, { recursive: true });
 const browser = await chromium.launch({ headless: true, args: ['--use-angle=swiftshader', '--enable-webgl', '--enable-unsafe-swiftshader'] });
 const page = await browser.newPage({ viewport: { width: 1440, height: 960 } });
