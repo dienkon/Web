@@ -40,6 +40,32 @@ export function parseStudyEquation(value) {
   } catch { return null; }
 }
 
+// Display linking also accepts equilibrium and ionic equations. This must not
+// relax the stricter, irreversible preset matching used by the lab launcher.
+export function isLinkableStudyEquation(value) {
+  const raw=String(value??'').trim().replace(/[₀-₉]/g,c=>String('₀₁₂₃₄₅₆₇₈₉'.indexOf(c)));
+  if(!raw||raw.length>1200||/[\r\n]/.test(raw))return false;
+  const sides=raw.split(/\s*(?:<=>|->|→|⟶|⇌|⇋|↔)\s*/);
+  if(sides.length!==2)return false;
+  try{
+    const totals=sides.map(side=>{
+      const terms=side.includes(' + ')?side.split(/\s+\+\s+/):side.split(/\s*\+\s*/);
+      if(terms.length>30)throw Error('Too many terms');
+      return terms.reduce((out,term)=>{
+        let text=term.trim().replace(/\((?:aq|s|l|g)\)$/,'');
+        const match=text.match(/^(\d+(?:\.\d+)?)?(.+)$/);if(!match)throw Error('Empty species');
+        const amount=Number(match[1]??1);text=match[2];
+        if(!(amount>0&&amount<=10000))throw Error('Invalid coefficient');
+        const ion=text.match(/\^(\d*)([+-])$/),charge=ion?(Number(ion[1]||1)*(ion[2]==='+'?1:-1)):0;
+        if(ion)text=text.slice(0,-ion[0].length);
+        for(const [symbol,count]of Object.entries(parseFormula(text)))out.atoms[symbol]=(out.atoms[symbol]??0)+amount*count;
+        out.charge+=amount*charge;return out;
+      },{atoms:{},charge:0});
+    });
+    return Math.abs(totals[0].charge-totals[1].charge)<1e-8&&Object.keys({...totals[0].atoms,...totals[1].atoms}).every(s=>Math.abs((totals[0].atoms[s]??0)-(totals[1].atoms[s]??0))<1e-8);
+  }catch{return false;}
+}
+
 const signature = parsed => parsed.map(side => {
   const merged = new Map();
   side.forEach(t => merged.set(t.formula, (merged.get(t.formula) ?? 0) + t.coefficient));

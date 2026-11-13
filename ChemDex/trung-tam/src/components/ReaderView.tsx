@@ -431,7 +431,7 @@ export function ReaderView({ doc, onBack, isBookmarked, onToggleBookmark, onTagC
               </span>
             )}
             <span className="inline-block px-3 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-300">
-              {doc.lessonKind === 'isomer-comparison' ? 'Đọc cấu tạo · Quan sát · Tự kiểm tra' : 'Chuyên mục: Lịch sử & Sự ra đời của chất'}
+              {doc.lessonKind ? 'Đọc cấu tạo · Quan sát · Tự kiểm tra' : doc.documentKind === 'biography' ? 'Lịch sử khoa học · Đóng góp và nguồn' : 'Chuyên mục: Lịch sử & Sự ra đời của chất'}
             </span>
           </div>
           
@@ -464,7 +464,7 @@ export function ReaderView({ doc, onBack, isBookmarked, onToggleBookmark, onTagC
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div className="min-w-0 flex-1 w-full">
                 <p className="mb-1.5 text-xs font-extrabold uppercase tracking-widest reader-formula-title">
-                  {doc.lessonKind === 'isomer-comparison' ? 'Một công thức • Nhiều cấu trúc' : 'Kỳ báo Hóa học • Định danh & Khởi nguyên phân tử'}
+                  {doc.lessonKind === 'isomer-comparison' ? 'Một công thức • Nhiều cấu trúc' : doc.lessonKind === 'substance-guide' ? 'Định danh • Đọc mô hình • Phản ứng' : 'Kỳ báo Hóa học • Định danh & Khởi nguyên phân tử'}
                 </p>
                 <strong
                   data-chemical-formula
@@ -498,7 +498,7 @@ export function ReaderView({ doc, onBack, isBookmarked, onToggleBookmark, onTagC
 
         {sections.length > 0 && (
           <nav aria-label="Mục lục bài viết" className="mb-6 rounded-2xl reader-toc-card p-4 sm:p-5 shadow-xs no-print">
-            <h2 className="mb-2.5 text-xs sm:text-sm font-extrabold uppercase tracking-wider reader-toc-title">{doc.lessonKind === 'isomer-comparison' ? 'Nội dung bài học' : '✦ Mục lục kỳ báo khoa học'}</h2>
+            <h2 className="mb-2.5 text-xs sm:text-sm font-extrabold uppercase tracking-wider reader-toc-title">{doc.lessonKind ? 'Nội dung bài học' : doc.documentKind === 'biography' ? 'Nội dung tài liệu' : '✦ Mục lục kỳ báo khoa học'}</h2>
             <ol className="grid gap-1.5 sm:grid-cols-2">
               {sections.map((title, index) => (
                 <li key={title}>

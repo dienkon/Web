@@ -31,9 +31,10 @@ function registerSalt(c,a,phase){const g=gcd(c.charge,anions[a].charge);return r
 const topics={precipitation:'Kết tủa',neutralization:'Axit – bazơ',oxide_acid:'Oxit và axit',carbonate_acid:'Cacbonat và axit',sulfite_acid:'Sunfit và axit',sulfide_acid:'Sunfua và axit',ammonium_base:'Muối amoni và kiềm',metal_acid:'Kim loại và axit',displacement:'Kim loại đẩy kim loại',esterification:'Este hóa',saponification:'Thủy phân este trong kiềm',combustion:'Cháy hoàn toàn',synthesis:'Tổng hợp',thermal:'Nhiệt phân',redox:'Oxi hóa – khử',amphoteric:'Chất lưỡng tính',organic_conversion:'Chuyển hóa hữu cơ'};
 
 export function buildReactionCatalog(){
+  topics.catalytic_decomposition='Phân hủy có xúc tác';
   speciesRegistry.clear();
   const rows=[],seen=new Set();
-  function add({family,left,right,phases={},condition,explanation,observation,transfers,net,sourceIds,reversible=false,evidence='family-rule',caveats=[],conditions={},...extra}){
+  function add({family,left,right,phases={},condition,explanation,observation,transfers,net,sourceIds,reversible=false,evidence='family-rule',evidenceScope='family',caveats=[],conditions={},...extra}){
     const balanced=balanceEquation(left,right),key=equationKey(balanced.reactants,balanced.products);
     if(seen.has(key))return null;
     const attach=side=>side.map(row=>({...row,phase:phases[row.formula]??speciesRegistry.get(row.formula)?.defaultPhase??'s'}));
@@ -43,7 +44,7 @@ export function buildReactionCatalog(){
     const hazardous=[...new Set([...reactants,...products].flatMap(row=>Object.keys(parseFormula(row.formula))))].filter(s=>['Pb','Cd','Cr','Ba'].includes(s));
     const row={id,family,topic_vi:topics[family]??family,title_vi:`${topics[family]??family}: ${left.join(' + ')}`,equation:formatEquation(reactants,products,reversible),reactants,products,reversible,
       conditions:{description_vi:condition,...conditions},observation_vi:observation??'Hiện tượng phụ thuộc nồng độ, môi trường và trạng thái mẫu; không suy ra màu từ phương trình đơn thuần.',explanation_vi:explanation,
-      evidence:{type:evidence,sourceIds:sourceIds??['openstax-reaction-types'],scope:'family'},familySignature:net??key,transfers:transfers??[],
+      evidence:{type:evidence,sourceIds:sourceIds??['openstax-reaction-types'],scope:evidenceScope},familySignature:net??key,transfers:transfers??[],
       effects:{gases:products.filter(r=>r.phase==='g').map(r=>r.formula),solids:products.filter(r=>r.phase==='s').map(r=>r.formula),deltaH_kJ_per_mol:null,color:null,calibrated:false},
       safety_vi:hazardous.length?`Có chất chứa ${hazardous.join(', ')}; dữ liệu học tập, cần quy trình và xử lý chất thải chuyên biệt khi thực nghiệm.`:'Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành.',caveats,runtime:'reference_only',...extra};
     rows.push(row);seen.add(key);return row;

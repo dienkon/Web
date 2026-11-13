@@ -1,0 +1,40 @@
+{
+  "baseline": "bd314217",
+  "content": {
+    "substanceGuidesRewritten": 457,
+    "isomerLessonsRetained": 11,
+    "historicalProfiles": 93,
+    "documentChunksLoaded": 580,
+    "wordReductionPercent": 76.8,
+    "guidesWithObservationLinks": 29,
+    "implementedObservationPresetsCovered": 11,
+    "elementFormulaLinks": 118,
+    "previouslyMissingElementLinksRepaired": 115,
+    "allSubstanceIdsAndLegacyAliasesRetained": true
+  },
+  "nodeTests": {"platform": 49, "reactionCatalogAndApi": 17, "learningUpgrade": 9, "failed": 0},
+  "labTests": {"observation": 27, "failed": 0},
+  "browser": {
+    "project": "chromium",
+    "uniqueChecksPassed": 17,
+    "evidence": [
+      "14 library, guide, isomer and NIST cases passed in the complete browser run",
+      "the document-to-AgCl observation case passed after the measured-clock fix (44.1 seconds including loading)",
+      "pause, resume, product inspection, restart, stop and manual practice passed in a separate complete control flow",
+      "all 580 production document chunks imported with matching document identities"
+    ],
+    "observedAndResolved": [
+      "A legacy assertion expected ASCII CuSO4; the reader now displays CuSO₄.",
+      "A data test raced a generated-directory rewrite; checks were rerun after source generation completed.",
+      "The old observation timer counted callbacks instead of measured elapsed time; the runtime now uses a monotonic clock, requires actual conversion and preserves finite delivered quantities.",
+      "The multi-reset software-WebGL control test needed a fresh controlled run and a 150-second overall budget; its reaction-completion assertion remains bounded at 35 seconds."
+    ]
+  },
+  "typechecks": {"digitalLibrary": "passed", "lab3d": "passed"},
+  "builds": {"digitalLibrary": "passed", "reactionChainTool": "passed", "lab3d": "passed", "productionStatic": "passed"},
+  "screenshotsVisuallyInspected": ["methanol-equilibrium-links.png", "peroxide-mobile-latex.png", "lavoisier-source-profile.png"],
+  "mobileHorizontalOverflow": false,
+  "sdfOrCifCoordinatesChanged": false,
+  "preview": "http://127.0.0.1:4186",
+  "deployment": "not-requested"
+}

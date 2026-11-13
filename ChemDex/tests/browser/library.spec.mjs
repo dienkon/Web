@@ -25,7 +25,7 @@ test('the complete directory reveals batches and opens an ionic dossier from its
   await expect(page.locator('.published-crystal [role=status]')).toHaveAttribute('data-state','ready');
   await page.getByRole('link',{name:/Đọc (?:hồ sơ|tài liệu về) chất ↗/}).click();
   await expect(page).toHaveURL(new RegExp('(?:doc=' + subjectLinks['chem-cuso4'] + '|/tai-lieu-so/' + (libraryRoutes[subjectLinks['chem-cuso4']] ?? 'dong-ii-sulfate-cuso4') + '/)'));
-  await expect(page.locator('article')).toContainText('CuSO4');
+  await expect(page.locator('article')).toContainText('CuSO₄');
   await expect(page.locator('article')).toContainText('Từ công thức đến sơ đồ thành phần');
   await expect(page.locator('article details')).toBeVisible();
 });

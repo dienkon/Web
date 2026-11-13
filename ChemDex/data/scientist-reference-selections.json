@@ -1,0 +1,15 @@
+[
+  {
+    "slug": "nha-khoa-hoc-antoine-lavoisier",
+    "name": "Antoine Lavoisier",
+    "aliases": ["Antoine Lavoisier", "Antoine-Laurent Lavoisier", "Antoine Laurent Lavoisier", "Antoine-Laurent de Lavoisier"],
+    "title": "Antoine Lavoisier — hóa học của sự cháy",
+    "summary": "Vai trò trong cách giải thích sự cháy và thành phần của nước, theo American Chemical Society.",
+    "sections": [
+      {"heading": "Đóng góp được ghi nhận", "text": "Lavoisier giải thích sự cháy bằng phản ứng với oxygen, thay cho thuyết phlogiston. Ông dùng kết quả thực nghiệm và phép cân để phát triển cách nghiên cứu định lượng trong hóa học. Nghiên cứu về nước giúp xác lập rằng nước là hợp chất, thay vì một nguyên tố."},
+      {"heading": "Đọc đúng vai trò lịch sử", "text": "ACS phân biệt đóng góp của Lavoisier với việc Priestley thu được oxygen và công việc của Cavendish về nước. Không gán mọi phát hiện trong câu chuyện cho một người, hoặc xem Lavoisier là người đầu tiên biết carbon."}
+    ],
+    "relatedFormulas": ["C", "O", "H2O"],
+    "sources": [{"title": "ACS · The Chemical Revolution of Antoine-Laurent Lavoisier", "url": "https://www.acs.org/education/whatischemistry/landmarks/lavoisier.html"}]
+  }
+]

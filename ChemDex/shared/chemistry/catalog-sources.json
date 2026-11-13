@@ -1,4 +1,5 @@
 {
+  "uw-peroxide-mno2": {"title":"University of Washington — Decomposition of H₂O₂ with MnO₂","url":"https://chem.washington.edu/lecture-demos/decomposition-h2o2-mno2","scope":"Thí nghiệm phân hủy H2O2 với MnO2 làm xúc tác, khí O2 và sự tỏa nhiệt; không gán tốc độ hoặc enthalpy định lượng."},
   "openstax-reaction-types": {"title":"OpenStax Chemistry 2e, 4.2 — Classifying Chemical Reactions","url":"https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions","scope":"Quy tắc họ phản ứng trung hòa, kết tủa và oxi hóa khử; không phải xác nhận thực nghiệm riêng từng phương trình."},
   "purdue-solubility": {"title":"Purdue University — Solubility and Complex-Ion Equilibria","url":"https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch18/soluble.php","scope":"Quy tắc độ tan và ngoại lệ; cần Q > Ksp ở điều kiện mẫu để kết tủa thực sự xuất hiện."},
   "openstax-equilibria": {"title":"OpenStax Chemistry 2e, 15.1 — Precipitation and Dissolution","url":"https://openstax.org/books/chemistry-2e/pages/15-1-precipitation-and-dissolution","scope":"Tích số tan, ion chung, điều kiện tạo và hòa tan pha rắn."},

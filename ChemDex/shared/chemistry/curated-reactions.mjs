@@ -5,6 +5,13 @@ const make=(family,left,right,condition,carrier,from=left[0],to=right[0],extra={
   transfers:[{from,to,carrier,workup:'Tách hoặc xử lý sản phẩm và điều chỉnh môi trường trước bước tiếp theo.'}],
   sourceIds:['openstax-reaction-types'],...extra});
 export const curatedReactions=[
+  make('catalytic_decomposition',['H2O2'],['H2O','O2'],'Dung dịch H2O2, có MnO2 làm xúc tác; không đồng nhất với nhiệt phân MnO2.','O','H2O2','O2',{
+    phases:{H2O2:'aq',H2O:'l',O2:'g'},conditions:{activation:'catalyst',catalyst:'MnO2'},
+    observation:'Có bọt khí O2 thoát ra; quá trình giải phóng nhiệt.',
+    explanation:'H2O2 phân hủy thành nước và oxygen. MnO2 là chất xúc tác, không phải chất phản ứng bị tiêu hao theo phương trình tổng quát.',
+    sourceIds:['uw-peroxide-mno2'],evidenceScope:'specific',
+    caveats:['Nguồn mô tả một thí nghiệm có xúc tác. Tốc độ và mức tăng nhiệt phụ thuộc điều kiện mẫu; không suy một giá trị số từ phương trình.'],
+  }),
   ...['Li','Na','K'].map(m=>make('synthesis',[m,'H2O'],[`${m}OH`,'H2'],'Kim loại kiềm tiếp xúc nước; chỉ dùng mô tả học tập, không mặc định có lửa/nổ.',m,m,`${m}OH`,{phases:{[m]:'s',H2O:'l',[`${m}OH`]:'aq',H2:'g'},sourceIds:['uw-alkali-water']})),
   make('synthesis',['Ca','H2O'],['Ca(OH)2','H2'],'Kim loại calcium và nước; sản phẩm có thể là huyền phù khi vượt độ tan.','Ca','Ca','Ca(OH)2',{phases:{Ca:'s',H2O:'l','Ca(OH)2':'s',H2:'g'}}),
   make('synthesis',['CaO','H2O'],['Ca(OH)2'],'Hydrat hóa vôi sống; quá trình tỏa nhiệt, không suy ra nhiệt độ từ thời gian hiệu ứng.','Ca','CaO','Ca(OH)2',{phases:{CaO:'s',H2O:'l','Ca(OH)2':'s'}}),

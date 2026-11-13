@@ -1,0 +1,5869 @@
+{
+  "baseline": "bd314217",
+  "guidesChanged": 457,
+  "isomerLessonsRetained": 11,
+  "wordTotals": {
+    "before": 2181212,
+    "after": 507037
+  },
+  "wordReductionPercent": 76.8,
+  "guidesWithLabLinks": 29,
+  "labPresets": [
+    "catalytic_oxygen_prep",
+    "zn_hcl_hydrogen_production",
+    "alkali_metal_water_na",
+    "co2_gas_production",
+    "acid_base_titration",
+    "redox_gas_cu_hno3",
+    "agcl_curdy_precipitation",
+    "mass_conservation_bacl2_na2so4",
+    "single_displacement_copper",
+    "golden_rain_synthesis",
+    "thermal_decomp_cuoh2"
+  ],
+  "allSubstanceIdsPreserved": true,
+  "allLegacyIdsPreserved": true,
+  "changes": [
+    {
+      "id": "metanol-ch4o",
+      "slug": "metanol-ch4o",
+      "oldWords": 5592,
+      "newWords": 1412,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_fa567e762ef85ddf",
+        "rx_376b20da250bba24",
+        "rx_5a8e58fd18eaacc4",
+        "rx_106b2236d28d665b"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "axeton-c3h6o",
+      "slug": "axeton-c3h6o",
+      "oldWords": 4120,
+      "newWords": 793,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "axit-axetic-c2h4o2",
+      "slug": "axit-axetic-c2h4o2",
+      "oldWords": 5761,
+      "newWords": 1364,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_0b7d3f13fa5a0878",
+        "rx_cd5af20c9fcd4eb4",
+        "rx_915dd15cbe3f8170",
+        "rx_5f6915b35c044987"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "nito-n2",
+      "slug": "nito-n2",
+      "oldWords": 4202,
+      "newWords": 934,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_6d0308730dad50d8"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "oxi-o2",
+      "slug": "oxi-o2",
+      "oldWords": 5617,
+      "newWords": 1298,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_a446617e394c09e4",
+        "rx_34471203d45ae072",
+        "rx_653aea642b29cb86",
+        "rx_0b7d3f13fa5a0878"
+      ],
+      "labLinks": [
+        "catalytic_oxygen_prep"
+      ]
+    },
+    {
+      "id": "hidro-h2",
+      "slug": "hidro-h2",
+      "oldWords": 5444,
+      "newWords": 1212,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_3ace4be54eb484e3",
+        "rx_2d74dc37106ad06a",
+        "rx_a8caccb042566f4e",
+        "rx_da5695559c467db1"
+      ],
+      "labLinks": [
+        "zn_hcl_hydrogen_production",
+        "alkali_metal_water_na"
+      ]
+    },
+    {
+      "id": "cacbon-monoxit-co",
+      "slug": "cacbon-monoxit-co",
+      "oldWords": 4868,
+      "newWords": 1101,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_77a807df65214fb3",
+        "rx_a5b6b9ea4932d2df"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "etan-c2h6",
+      "slug": "etan-c2h6",
+      "oldWords": 4562,
+      "newWords": 1024,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_a90fd4c2ffd07546",
+        "rx_38fb96ba1f6f4421"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "eten-c2h4",
+      "slug": "eten-c2h4",
+      "oldWords": 5223,
+      "newWords": 1143,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_c78bd012e680a425",
+        "rx_c1810cad237b456d",
+        "rx_5d9ce6bf7d526f25"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "axetilen-c2h2",
+      "slug": "axetilen-c2h2",
+      "oldWords": 4613,
+      "newWords": 1037,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_a8caccb042566f4e",
+        "rx_653aea642b29cb86"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "propan-c3h8",
+      "slug": "propan-c3h8",
+      "oldWords": 4281,
+      "newWords": 876,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_8790ca98814b43dd"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "propen-c3h6",
+      "slug": "propen-c3h6",
+      "oldWords": 4238,
+      "newWords": 876,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_f48e6ebc0dd2e2ce"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "butan-c4h10",
+      "slug": "butan-c4h10",
+      "oldWords": 4187,
+      "newWords": 876,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_9f4170a2c844e964"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "isobutan-c4h10",
+      "slug": "isobutan-c4h10",
+      "oldWords": 4182,
+      "newWords": 876,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_9f4170a2c844e964"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "benzen-c6h6",
+      "slug": "benzen-c6h6",
+      "oldWords": 4292,
+      "newWords": 1028,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_78a55a5e636c999f"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "toluen-c7h8",
+      "slug": "toluen-c7h8",
+      "oldWords": 4163,
+      "newWords": 876,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_0359e69c56d6b89e"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "phenol-c6h6o",
+      "slug": "phenol-c6h6o",
+      "oldWords": 3925,
+      "newWords": 688,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "anilin-c6h7n",
+      "slug": "anilin-c6h7n",
+      "oldWords": 3933,
+      "newWords": 688,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "fomandehit-ch2o",
+      "slug": "fomandehit-ch2o",
+      "oldWords": 3897,
+      "newWords": 688,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "axetandehit-c2h4o",
+      "slug": "axetandehit-c2h4o",
+      "oldWords": 4789,
+      "newWords": 941,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_21c127de0631b561",
+        "rx_0b7d3f13fa5a0878"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "axit-fomic-ch2o2",
+      "slug": "axit-fomic-ch2o2",
+      "oldWords": 5535,
+      "newWords": 1261,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_0cc9edd44b5621a1",
+        "rx_f6ce0c5cc4748cb8",
+        "rx_c945e5283f8811b8",
+        "rx_02ed18b0a886f045"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "etyl-axetat-c4h8o2",
+      "slug": "etyl-axetat-c4h8o2",
+      "oldWords": 4612,
+      "newWords": 997,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_5f6915b35c044987",
+        "rx_79226f3a72cdde75"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "axetamit-c2h5no",
+      "slug": "axetamit-c2h5no",
+      "oldWords": 4058,
+      "newWords": 803,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "ure-ch4n2o",
+      "slug": "ure-ch4n2o",
+      "oldWords": 4211,
+      "newWords": 804,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "glucozo-c6h12o6",
+      "slug": "glucozo-c6h12o6",
+      "oldWords": 4433,
+      "newWords": 948,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_d01bc9854656b97f"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "fructozo-c6h12o6",
+      "slug": "fructozo-c6h12o6",
+      "oldWords": 4430,
+      "newWords": 946,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_d01bc9854656b97f"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "saccarozo-c12h22o11",
+      "slug": "saccarozo-c12h22o11",
+      "oldWords": 3872,
+      "newWords": 794,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "glixerol-c3h8o3",
+      "slug": "glixerol-c3h8o3",
+      "oldWords": 4013,
+      "newWords": 688,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "hidro-peoxit-h2o2",
+      "slug": "hidro-peoxit-h2o2",
+      "oldWords": 3770,
+      "newWords": 956,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_a446617e394c09e4"
+      ],
+      "labLinks": [
+        "catalytic_oxygen_prep"
+      ]
+    },
+    {
+      "id": "ozon-o3",
+      "slug": "ozon-o3",
+      "oldWords": 3701,
+      "newWords": 609,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "luu-huynh-dioxit-o2s",
+      "slug": "luu-huynh-dioxit-o2s",
+      "oldWords": 5008,
+      "newWords": 1183,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_d4a83cab8ac733d1",
+        "rx_23770ca3d04f7129",
+        "rx_1fe9ce3e62176495"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "luu-huynh-trioxit-o3s",
+      "slug": "luu-huynh-trioxit-o3s",
+      "oldWords": 4582,
+      "newWords": 1090,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_5705d2796da7eed3",
+        "rx_a1fb3aa04d6cfb9a"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "dinito-monoxit-n2o",
+      "slug": "dinito-monoxit-n2o",
+      "oldWords": 3998,
+      "newWords": 783,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "hidro-clorua-clh",
+      "slug": "hidro-clorua-clh",
+      "oldWords": 5937,
+      "newWords": 1489,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_d69226ed426580bd",
+        "rx_3ace4be54eb484e3",
+        "rx_25c68e5dc5f93aa0",
+        "rx_ae5ba76b99875e3f"
+      ],
+      "labLinks": [
+        "co2_gas_production",
+        "zn_hcl_hydrogen_production",
+        "acid_base_titration"
+      ]
+    },
+    {
+      "id": "hidro-florua-fh",
+      "slug": "hidro-florua-fh",
+      "oldWords": 3991,
+      "newWords": 682,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "hidro-sunfua-h2s",
+      "slug": "hidro-sunfua-h2s",
+      "oldWords": 4669,
+      "newWords": 943,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_9935207818d85497",
+        "rx_7a454d7350d0d94b"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "axit-nitric-hno3",
+      "slug": "axit-nitric-hno3",
+      "oldWords": 6032,
+      "newWords": 1399,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_90d831941c4f6bf1",
+        "rx_be6a3b24d8533286",
+        "rx_f6e85d3d17a75094",
+        "rx_dc661f241dfcd96b"
+      ],
+      "labLinks": [
+        "redox_gas_cu_hno3"
+      ]
+    },
+    {
+      "id": "axit-sulfuric-h2o4s",
+      "slug": "axit-sulfuric-h2o4s",
+      "oldWords": 5939,
+      "newWords": 1393,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_a1fb3aa04d6cfb9a",
+        "rx_1b335c7e3b1dd143",
+        "rx_5de6593367abb6d0",
+        "rx_f51df74a962e9d19"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "axit-phosphoric-h3o4p",
+      "slug": "axit-phosphoric-h3o4p",
+      "oldWords": 3912,
+      "newWords": 694,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "xiclohexan-c6h12",
+      "slug": "xiclohexan-c6h12",
+      "oldWords": 4352,
+      "newWords": 876,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_643f37978e8600c3"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "naphtalen-c10h8",
+      "slug": "naphtalen-c10h8",
+      "oldWords": 3757,
+      "newWords": 676,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "aspirin-c9h8o4",
+      "slug": "aspirin-c9h8o4",
+      "oldWords": 3815,
+      "newWords": 794,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "cafein-c8h10n4o2",
+      "slug": "cafein-c8h10n4o2",
+      "oldWords": 4089,
+      "newWords": 809,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "ion-hidrocacbonat-cho3",
+      "slug": "ion-hidrocacbonat-cho3",
+      "oldWords": 3855,
+      "newWords": 693,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "ion-cacbonat-co3",
+      "slug": "ion-cacbonat-co3",
+      "oldWords": 3820,
+      "newWords": 681,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "ion-sunfat-o4s",
+      "slug": "ion-sunfat-o4s",
+      "oldWords": 3686,
+      "newWords": 682,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "ion-amoni-h4n",
+      "slug": "ion-amoni-h4n",
+      "oldWords": 3690,
+      "newWords": 681,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "ion-hidroxit-ho",
+      "slug": "ion-hidroxit-ho",
+      "oldWords": 3897,
+      "newWords": 681,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "ion-nitrat-no3",
+      "slug": "ion-nitrat-no3",
+      "oldWords": 3984,
+      "newWords": 681,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "ion-nitrit-no2",
+      "slug": "ion-nitrit-no2",
+      "oldWords": 4948,
+      "newWords": 1067,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_90d831941c4f6bf1",
+        "rx_8e029bd266b58e00",
+        "rx_34471203d45ae072"
+      ],
+      "labLinks": [
+        "redox_gas_cu_hno3"
+      ]
+    },
+    {
+      "id": "tinh-the-xesi-clorua-cscl",
+      "slug": "tinh-the-xesi-clorua-cscl",
+      "oldWords": 3881,
+      "newWords": 807,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "tinh-the-canxi-florua-caf2",
+      "slug": "tinh-the-canxi-florua-caf2",
+      "oldWords": 4785,
+      "newWords": 1220,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_9a5c64f4bfc5c963",
+        "rx_cbea741e81ff2874"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "natri-hidroxit-xut-naoh",
+      "slug": "natri-hidroxit-xut-naoh",
+      "oldWords": 6060,
+      "newWords": 1475,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_25c68e5dc5f93aa0",
+        "rx_2d74dc37106ad06a",
+        "rx_b3ae6709d992f3e6",
+        "rx_8dddc119d107d1af"
+      ],
+      "labLinks": [
+        "acid_base_titration",
+        "alkali_metal_water_na"
+      ]
+    },
+    {
+      "id": "kali-hidroxit-koh",
+      "slug": "kali-hidroxit-koh",
+      "oldWords": 5879,
+      "newWords": 1358,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_f1bce9a28a6acf6c",
+        "rx_622faeb216deecc0",
+        "rx_4bcc60577eb968c8",
+        "rx_40bf7919f2ba3294"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "bari-hidroxit-ba-oh-2",
+      "slug": "bari-hidroxit-ba-oh-2",
+      "oldWords": 5475,
+      "newWords": 1220,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_b873e50902028d1c",
+        "rx_a6689d95b0cd6a97",
+        "rx_b554c3c27b30dcba"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "bac-nitrat-agno3",
+      "slug": "bac-nitrat-agno3",
+      "oldWords": 5634,
+      "newWords": 1508,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_55b04bd0c954b5f8",
+        "rx_be6a3b24d8533286",
+        "rx_dc661f241dfcd96b",
+        "rx_bd97e2b06123a76b"
+      ],
+      "labLinks": [
+        "agcl_curdy_precipitation"
+      ]
+    },
+    {
+      "id": "bari-clorua-bacl2",
+      "slug": "bari-clorua-bacl2",
+      "oldWords": 5778,
+      "newWords": 1435,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_84ab6ac506b4558c",
+        "rx_2f3f10d5abad5acb",
+        "rx_30cfdef4a14a1df8",
+        "rx_24dd8f6e1f95db04"
+      ],
+      "labLinks": [
+        "mass_conservation_bacl2_na2so4"
+      ]
+    },
+    {
+      "id": "natri-sunfat-na2so4",
+      "slug": "natri-sunfat-na2so4",
+      "oldWords": 5606,
+      "newWords": 1448,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_84ab6ac506b4558c",
+        "rx_b3ae6709d992f3e6",
+        "rx_ff1db34e785d032d",
+        "rx_ac0605d3a5d232cc"
+      ],
+      "labLinks": [
+        "mass_conservation_bacl2_na2so4"
+      ]
+    },
+    {
+      "id": "dong-ii-sunfat-cuso4",
+      "slug": "dong-ii-sunfat-cuso4",
+      "oldWords": 5588,
+      "newWords": 1566,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_01563418596df10a",
+        "rx_dd57e8834aa8e751",
+        "rx_d935fa7e75d732cc",
+        "rx_d4a83cab8ac733d1"
+      ],
+      "labLinks": [
+        "single_displacement_copper"
+      ]
+    },
+    {
+      "id": "sat-iii-clorua-fecl3",
+      "slug": "sat-iii-clorua-fecl3",
+      "oldWords": 5822,
+      "newWords": 1512,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_2e7f85bd19139051",
+        "rx_31323535edc6ead7",
+        "rx_76033727fc129a85",
+        "rx_3f43d3c25668fef2"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "sat-ii-sunfat-feso4",
+      "slug": "sat-ii-sunfat-feso4",
+      "oldWords": 5679,
+      "newWords": 1535,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_01563418596df10a",
+        "rx_44c7d6066de33cd7",
+        "rx_21cd4ec41d349928",
+        "rx_5714927063b08ff5"
+      ],
+      "labLinks": [
+        "single_displacement_copper"
+      ]
+    },
+    {
+      "id": "natri-hidrocacbonat-muoi-no-nahco3",
+      "slug": "natri-hidrocacbonat-muoi-no-nahco3",
+      "oldWords": 6150,
+      "newWords": 1423,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_39ebe23c2cf960d9",
+        "rx_b9a364bddea6f527",
+        "rx_ff1db34e785d032d",
+        "rx_638f895a2fe41af9"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "natri-cacbonat-soda-na2co3",
+      "slug": "natri-cacbonat-soda-na2co3",
+      "oldWords": 5971,
+      "newWords": 1436,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_07e6310132dfccf0",
+        "rx_638f895a2fe41af9",
+        "rx_4263082186d36a8f",
+        "rx_19f45c9cca70e3b1"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "canxi-clorua-cacl2",
+      "slug": "canxi-clorua-cacl2",
+      "oldWords": 5683,
+      "newWords": 1451,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_d69226ed426580bd",
+        "rx_51bd2157c1661b8f",
+        "rx_c4be10fe567129b5",
+        "rx_0e782b5b58d045dd"
+      ],
+      "labLinks": [
+        "co2_gas_production"
+      ]
+    },
+    {
+      "id": "thuoc-tim-kmno4",
+      "slug": "thuoc-tim-kmno4",
+      "oldWords": 3931,
+      "newWords": 799,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "kem-zn",
+      "slug": "kem-zn",
+      "oldWords": 5843,
+      "newWords": 1276,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_3ace4be54eb484e3",
+        "rx_795c29d8952bc7d4",
+        "rx_adabe1adc8a0de19"
+      ],
+      "labLinks": [
+        "zn_hcl_hydrogen_production"
+      ]
+    },
+    {
+      "id": "canxi-cacbonat-da-voi-caco3",
+      "slug": "canxi-cacbonat-da-voi-caco3",
+      "oldWords": 5856,
+      "newWords": 1457,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_d69226ed426580bd",
+        "rx_ae38880b468f096c",
+        "rx_f50cd1cde7cb4531",
+        "rx_0b5c4a7bcfd83c2d"
+      ],
+      "labLinks": [
+        "co2_gas_production"
+      ]
+    },
+    {
+      "id": "chi-thi-phenolphtalein-c20h14o4",
+      "slug": "chi-thi-phenolphtalein-c20h14o4",
+      "oldWords": 3884,
+      "newWords": 690,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "litmus",
+      "slug": "litmus",
+      "oldWords": 3962,
+      "newWords": 501,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "universalindicator",
+      "slug": "universalindicator",
+      "oldWords": 3960,
+      "newWords": 501,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "nuoc-voi-trong-canxi-hidroxit-ca-oh-2",
+      "slug": "nuoc-voi-trong-canxi-hidroxit-ca-oh-2",
+      "oldWords": 6082,
+      "newWords": 1453,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_b8138deb596b6a36",
+        "rx_0597fb89c9db2bfe",
+        "rx_edc7aa4d1a22805a",
+        "rx_1129f25591016980"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "sat-fe-composition",
+      "slug": "sat-fe-composition",
+      "oldWords": 5520,
+      "newWords": 1443,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_01563418596df10a",
+        "rx_3cddd70ae349f5b7",
+        "rx_a5b6b9ea4932d2df",
+        "rx_b64e79688b4d9f58"
+      ],
+      "labLinks": [
+        "single_displacement_copper"
+      ]
+    },
+    {
+      "id": "dong-cu-composition",
+      "slug": "dong-cu-composition",
+      "oldWords": 5481,
+      "newWords": 1368,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_01563418596df10a",
+        "rx_90d831941c4f6bf1",
+        "rx_21c127de0631b561",
+        "rx_7e95c6161ce3127e"
+      ],
+      "labLinks": [
+        "single_displacement_copper",
+        "redox_gas_cu_hno3"
+      ]
+    },
+    {
+      "id": "nhom-al",
+      "slug": "nhom-al",
+      "oldWords": 5336,
+      "newWords": 1250,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_5de6593367abb6d0",
+        "rx_c71697f1a1d9ff39",
+        "rx_cf3475b2358bc93b"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "magie-mg",
+      "slug": "magie-mg",
+      "oldWords": 5820,
+      "newWords": 1368,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_3b7ec587bc9dc466",
+        "rx_bb9ed5905380057a",
+        "rx_e107275e27e4e8c4",
+        "rx_382849b7ad494a07"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "natri-na-composition",
+      "slug": "natri-na-composition",
+      "oldWords": 4548,
+      "newWords": 965,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_2d74dc37106ad06a"
+      ],
+      "labLinks": [
+        "alkali_metal_water_na"
+      ]
+    },
+    {
+      "id": "natri-bromua-nabr",
+      "slug": "natri-bromua-nabr",
+      "oldWords": 5294,
+      "newWords": 1437,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_e8a54ffe9d6f006e",
+        "rx_c695055c9f46ebe7",
+        "rx_edc0f1160a122f65",
+        "rx_bd35696b3a9e0434"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "kali-iotua-ki",
+      "slug": "kali-iotua-ki",
+      "oldWords": 5369,
+      "newWords": 1429,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_1af8e80f3666897b",
+        "rx_b5991e6d2d993372",
+        "rx_b569ff0d97840b34",
+        "rx_53744a2c36c2b9d2"
+      ],
+      "labLinks": [
+        "golden_rain_synthesis"
+      ]
+    },
+    {
+      "id": "chi-ii-nitrat-pb-no3-2",
+      "slug": "chi-ii-nitrat-pb-no3-2",
+      "oldWords": 5768,
+      "newWords": 1484,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_1af8e80f3666897b",
+        "rx_27809d89140f3f5f",
+        "rx_b993925e4f0c3590",
+        "rx_cb042e6798b9b402"
+      ],
+      "labLinks": [
+        "golden_rain_synthesis"
+      ]
+    },
+    {
+      "id": "nhom-clorua-alcl3",
+      "slug": "nhom-clorua-alcl3",
+      "oldWords": 5803,
+      "newWords": 1566,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_d9114c4b211814b7",
+        "rx_ee5758df94aba041",
+        "rx_ee04cb085c577c05",
+        "rx_d50c287df8230c5d"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "kem-sunfat-znso4",
+      "slug": "kem-sunfat-znso4",
+      "oldWords": 5573,
+      "newWords": 1524,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_2ccb79079d78b1c2",
+        "rx_ea073b45303e1db6",
+        "rx_80a0ee15e1a6d1e9",
+        "rx_4e9298a8f495b7fe"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "natri-sunfua-na2s",
+      "slug": "natri-sunfua-na2s",
+      "oldWords": 5405,
+      "newWords": 1324,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_8ad46a141788e03e",
+        "rx_a7017ab5984449b1",
+        "rx_071333812290854d"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "natri-sunfit-na2so3",
+      "slug": "natri-sunfit-na2so3",
+      "oldWords": 5055,
+      "newWords": 1200,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_7c476c906c37c737",
+        "rx_2acf4ce845a42ff2"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "amoni-clorua-nh4cl",
+      "slug": "amoni-clorua-nh4cl",
+      "oldWords": 5380,
+      "newWords": 1315,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_869b494393f3cc14",
+        "rx_b615a9447dc81532",
+        "rx_2f3f10d5abad5acb"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "kali-thioxianat-kscn",
+      "slug": "kali-thioxianat-kscn",
+      "oldWords": 4094,
+      "newWords": 809,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "nuoc-brom-br2-br2",
+      "slug": "nuoc-brom-br2-br2",
+      "oldWords": 3918,
+      "newWords": 715,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "dung-dich-iot-i2",
+      "slug": "dung-dich-iot-i2",
+      "oldWords": 3587,
+      "newWords": 714,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "ho-tinh-bot-c6h10o5",
+      "slug": "ho-tinh-bot-c6h10o5",
+      "oldWords": 3908,
+      "newWords": 494,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "axit-sunfuro-h2so3",
+      "slug": "axit-sunfuro-h2so3",
+      "oldWords": 4147,
+      "newWords": 686,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "magie-hidroxit-mg-oh-2",
+      "slug": "magie-hidroxit-mg-oh-2",
+      "oldWords": 5902,
+      "newWords": 1515,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_4d6165c72946da34",
+        "rx_799b4e90ed9e60f1",
+        "rx_d84b3e42306a62ab",
+        "rx_a93bf55ef36e6882"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "nhom-hidroxit-al-oh-3",
+      "slug": "nhom-hidroxit-al-oh-3",
+      "oldWords": 5851,
+      "newWords": 1550,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_991062d0e70680a1",
+        "rx_86968baa82c55c05",
+        "rx_f51df74a962e9d19",
+        "rx_e1818c41aad647a7"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "kem-hidroxit-zn-oh-2",
+      "slug": "kem-hidroxit-zn-oh-2",
+      "oldWords": 5845,
+      "newWords": 1519,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_55e90724b361ff3b",
+        "rx_27de13a3a6b34f6e",
+        "rx_4c5db0566d75526f",
+        "rx_ccfd29fe5f35bb78"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "sat-ii-hidroxit-fe-oh-2",
+      "slug": "sat-ii-hidroxit-fe-oh-2",
+      "oldWords": 5809,
+      "newWords": 1438,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_6ba09fc201b84882",
+        "rx_8b85ddea5837dd1c",
+        "rx_e764503b65b7c53a",
+        "rx_c5488f87745285c4"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "sat-iii-hidroxit-fe-oh-3",
+      "slug": "sat-iii-hidroxit-fe-oh-3",
+      "oldWords": 5753,
+      "newWords": 1445,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_ae0c016529869be4",
+        "rx_00822da864ce0ee5",
+        "rx_c5488f87745285c4",
+        "rx_6a6c831b3093b11d"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "dong-ii-hidroxit-cu-oh-2",
+      "slug": "dong-ii-hidroxit-cu-oh-2",
+      "oldWords": 5796,
+      "newWords": 1376,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_207de4add3d0d9ee",
+        "rx_1a5332ec09c494a6",
+        "rx_febb09a2691e9b6a"
+      ],
+      "labLinks": [
+        "thermal_decomp_cuoh2"
+      ]
+    },
+    {
+      "id": "dung-dich-kali-clorua-kcl",
+      "slug": "dung-dich-kali-clorua-kcl",
+      "oldWords": 5835,
+      "newWords": 1444,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_cca5b0674dd8b558",
+        "rx_fe77eb6a899c6c33",
+        "rx_4307df01c99eb505",
+        "rx_b9cc03ec8a377478"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "kali-nitrat-diem-tieu-kno3",
+      "slug": "kali-nitrat-diem-tieu-kno3",
+      "oldWords": 5513,
+      "newWords": 1452,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_1af8e80f3666897b",
+        "rx_fe18631045faab21",
+        "rx_e6734181b5e3fe8d",
+        "rx_96334292a567e463"
+      ],
+      "labLinks": [
+        "golden_rain_synthesis"
+      ]
+    },
+    {
+      "id": "natri-nitrat-diem-tieu-chile-nano3",
+      "slug": "natri-nitrat-diem-tieu-chile-nano3",
+      "oldWords": 5574,
+      "newWords": 1453,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_55b04bd0c954b5f8",
+        "rx_97cae8cb47a41118",
+        "rx_c2b4c71666517c23",
+        "rx_b1c7c95f72a10a00"
+      ],
+      "labLinks": [
+        "agcl_curdy_precipitation"
+      ]
+    },
+    {
+      "id": "dung-dich-sat-ii-clorua-fecl2",
+      "slug": "dung-dich-sat-ii-clorua-fecl2",
+      "oldWords": 5829,
+      "newWords": 1499,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_a09b46c492fe7658",
+        "rx_9a9251bcf08a80f8",
+        "rx_0bb3505fce3d0def",
+        "rx_9fec892bede0273c"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "dung-dich-sat-iii-sunfat-fe2-so4-3",
+      "slug": "dung-dich-sat-iii-sunfat-fe2-so4-3",
+      "oldWords": 5160,
+      "newWords": 1465,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_6a6c831b3093b11d",
+        "rx_23fbf92d7199589b",
+        "rx_700b331694a70c83"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "dung-dich-dong-ii-clorua-cucl2",
+      "slug": "dung-dich-dong-ii-clorua-cucl2",
+      "oldWords": 5781,
+      "newWords": 1534,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_422d889f80fb90d7",
+        "rx_ac3af55ec2e3856c",
+        "rx_5052c6cb4ae5b177",
+        "rx_fc73ca2d1c4b6edd"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "dung-dich-dong-ii-nitrat-cu-no3-2",
+      "slug": "dung-dich-dong-ii-nitrat-cu-no3-2",
+      "oldWords": 5582,
+      "newWords": 1535,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_90d831941c4f6bf1",
+        "rx_30f9bda1636e9044",
+        "rx_7ea38551818b2282",
+        "rx_e4025736a16a6f0b"
+      ],
+      "labLinks": [
+        "redox_gas_cu_hno3"
+      ]
+    },
+    {
+      "id": "dung-dich-magie-sunfat-muoi-epsom-mgso4",
+      "slug": "dung-dich-magie-sunfat-muoi-epsom-mgso4",
+      "oldWords": 5656,
+      "newWords": 1540,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_066026955ddc3ebf",
+        "rx_cb31795e8bbea3b4",
+        "rx_faf841f1d25bfac9",
+        "rx_754f4aebaafe1183"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "dung-dich-magie-clorua-mgcl2",
+      "slug": "dung-dich-magie-clorua-mgcl2",
+      "oldWords": 5863,
+      "newWords": 1499,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_8fcd074150c75bd8",
+        "rx_40adce6cf21bcd06",
+        "rx_05a6ca1119e00ae0",
+        "rx_26e18ce5c28d4148"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "amoni-nitrat-nh4no3",
+      "slug": "amoni-nitrat-nh4no3",
+      "oldWords": 5133,
+      "newWords": 1317,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_db08f38e90645735",
+        "rx_1ba6cc598baee753",
+        "rx_14a081fa5354d7f8"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "amoni-sunfat-phan-dam-sa-nh4-2so4",
+      "slug": "amoni-sunfat-phan-dam-sa-nh4-2so4",
+      "oldWords": 5290,
+      "newWords": 1341,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_997db8154deec8db",
+        "rx_4bcc60577eb968c8",
+        "rx_ccabbadeda0a52b8"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "dung-dich-natri-thiosulfat-na2s2o3",
+      "slug": "dung-dich-natri-thiosulfat-na2s2o3",
+      "oldWords": 3961,
+      "newWords": 807,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "dung-dich-kali-dicromat-k2cr2o7",
+      "slug": "dung-dich-kali-dicromat-k2cr2o7",
+      "oldWords": 3984,
+      "newWords": 805,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "dung-dich-kali-cromat-k2cro4",
+      "slug": "dung-dich-kali-cromat-k2cro4",
+      "oldWords": 4846,
+      "newWords": 1237,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_5746e90f891903ef",
+        "rx_1f5e0825e4658246"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "sat-ii-sunfua-fes",
+      "slug": "sat-ii-sunfua-fes",
+      "oldWords": 5329,
+      "newWords": 1345,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_a6639e8da71e153a",
+        "rx_baa289f24a58e3e9",
+        "rx_9935207818d85497"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "bac-clorua-agcl",
+      "slug": "bac-clorua-agcl",
+      "oldWords": 4808,
+      "newWords": 1224,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_55b04bd0c954b5f8",
+        "rx_ccae1e4972ea0486"
+      ],
+      "labLinks": [
+        "agcl_curdy_precipitation"
+      ]
+    },
+    {
+      "id": "bac-bromua-agbr",
+      "slug": "bac-bromua-agbr",
+      "oldWords": 4425,
+      "newWords": 1216,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_16ee1a09a1804593",
+        "rx_1c28ef6a29611849"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "bac-iodua-agi",
+      "slug": "bac-iodua-agi",
+      "oldWords": 4588,
+      "newWords": 1216,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_c6c67e813441682c",
+        "rx_a34e2563e7247bb9"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "chi-ii-iodua-mua-vang-pbi2",
+      "slug": "chi-ii-iodua-mua-vang-pbi2",
+      "oldWords": 4737,
+      "newWords": 1234,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_1af8e80f3666897b",
+        "rx_d205b7c0b62320be"
+      ],
+      "labLinks": [
+        "golden_rain_synthesis"
+      ]
+    },
+    {
+      "id": "bari-sunfat-baso4",
+      "slug": "bari-sunfat-baso4",
+      "oldWords": 4581,
+      "newWords": 1234,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_84ab6ac506b4558c",
+        "rx_ccabbadeda0a52b8"
+      ],
+      "labLinks": [
+        "mass_conservation_bacl2_na2so4"
+      ]
+    },
+    {
+      "id": "dung-dich-kali-cacbonat-tro-bep-k2co3",
+      "slug": "dung-dich-kali-cacbonat-tro-bep-k2co3",
+      "oldWords": 5606,
+      "newWords": 1332,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_1be407160661f060",
+        "rx_f03457c60b37e115",
+        "rx_5326882bd42bfdc5"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "luu-huynh-s",
+      "slug": "luu-huynh-s",
+      "oldWords": 4460,
+      "newWords": 963,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_1fe9ce3e62176495"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "cacbon-c",
+      "slug": "cacbon-c",
+      "oldWords": 4664,
+      "newWords": 957,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_96d6a72bd28a4549"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "photpho-p",
+      "slug": "photpho-p",
+      "oldWords": 4062,
+      "newWords": 790,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "mangan-dioxit-bot-mno2",
+      "slug": "mangan-dioxit-bot-mno2",
+      "oldWords": 3959,
+      "newWords": 928,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "dong-ii-oxit-bot-cuo",
+      "slug": "dong-ii-oxit-bot-cuo",
+      "oldWords": 5710,
+      "newWords": 1436,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_207de4add3d0d9ee",
+        "rx_7e95c6161ce3127e",
+        "rx_21c127de0631b561",
+        "rx_63f2d0fe8bfe87f9"
+      ],
+      "labLinks": [
+        "thermal_decomp_cuoh2"
+      ]
+    },
+    {
+      "id": "sat-iii-oxit-gi-sat-fe2o3",
+      "slug": "sat-iii-oxit-gi-sat-fe2o3",
+      "oldWords": 5864,
+      "newWords": 1472,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_a2064e9b2ebe3219",
+        "rx_addfd0c674fa6db9",
+        "rx_23fbf92d7199589b",
+        "rx_a5b6b9ea4932d2df"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "canxi-oxit-voi-song-cao",
+      "slug": "canxi-oxit-voi-song-cao",
+      "oldWords": 5634,
+      "newWords": 1453,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_3c0a87bde14a0c37",
+        "rx_4128039d590683bc",
+        "rx_5901f2ab585ac6af",
+        "rx_0597fb89c9db2bfe"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "chi-thi-methyl-da-cam-c14h14n3nao3s",
+      "slug": "chi-thi-methyl-da-cam-c14h14n3nao3s",
+      "oldWords": 4668,
+      "newWords": 894,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "chi-thi-thymolphthalein-c28h30o4",
+      "slug": "chi-thi-thymolphthalein-c28h30o4",
+      "oldWords": 3860,
+      "newWords": 690,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "dung-dich-dinatri-hidrophotphat-0-1-m-na2hpo4",
+      "slug": "dung-dich-dinatri-hidrophotphat-0-1-m-na2hpo4",
+      "oldWords": 3882,
+      "newWords": 828,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "dung-dich-natri-florua-0-1-m-naf",
+      "slug": "dung-dich-natri-florua-0-1-m-naf",
+      "oldWords": 4963,
+      "newWords": 1235,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_9b391b9aabd2f1ad",
+        "rx_80d7e7eef832d7df"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "dung-dich-natri-axetat-0-1-m-ch3coona",
+      "slug": "dung-dich-natri-axetat-0-1-m-ch3coona",
+      "oldWords": 6128,
+      "newWords": 1491,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_2e2cb51f90fe4531",
+        "rx_4263082186d36a8f",
+        "rx_83b9aa2f3ced6fcc",
+        "rx_0b864dfc0227b88a"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "bac-ag-composition",
+      "slug": "bac-ag-composition",
+      "oldWords": 5073,
+      "newWords": 1235,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_bd97e2b06123a76b",
+        "rx_1a42701639b6f4eb",
+        "rx_34471203d45ae072"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "bac-cacbonat-ag2co3",
+      "slug": "bac-cacbonat-ag2co3",
+      "oldWords": 5391,
+      "newWords": 1329,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_5326882bd42bfdc5",
+        "rx_19f45c9cca70e3b1",
+        "rx_cd5af20c9fcd4eb4"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "bac-cromat-ag2cro4",
+      "slug": "bac-cromat-ag2cro4",
+      "oldWords": 4767,
+      "newWords": 1119,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_5746e90f891903ef",
+        "rx_711f6a5a0dd68c37"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "ag2o-ag2o",
+      "slug": "ag2o-ag2o",
+      "oldWords": 4971,
+      "newWords": 1304,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_3e986e3a9578cf64",
+        "rx_1d6fa3e2a1204c0b",
+        "rx_9a3ba67e0dc1f45a"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "bac-photphat-ag3po4",
+      "slug": "bac-photphat-ag3po4",
+      "oldWords": 4629,
+      "newWords": 1286,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_7b4e91b0992d367e",
+        "rx_2ee270faf7c01c38"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "nhom-nitrat-al-no3-3",
+      "slug": "nhom-nitrat-al-no3-3",
+      "oldWords": 5566,
+      "newWords": 1439,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_f6e85d3d17a75094",
+        "rx_2cead768617c19a5",
+        "rx_86968baa82c55c05",
+        "rx_515802cbcf896ea4"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "nhom-sunfat-al2-so4-3",
+      "slug": "nhom-sunfat-al2-so4-3",
+      "oldWords": 5639,
+      "newWords": 1610,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_5de6593367abb6d0",
+        "rx_f51df74a962e9d19",
+        "rx_61bdf3451d782a4a",
+        "rx_677c251b2b9e75a2"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "al2o3-al2o3",
+      "slug": "al2o3-al2o3",
+      "oldWords": 5332,
+      "newWords": 1336,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_cf3475b2358bc93b",
+        "rx_e1818c41aad647a7",
+        "rx_61bdf3451d782a4a"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "nhom-bromua-albr3",
+      "slug": "nhom-bromua-albr3",
+      "oldWords": 5300,
+      "newWords": 1561,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_c71697f1a1d9ff39",
+        "rx_f7c041fa35522104",
+        "rx_13a55278f89e97ca",
+        "rx_733ba37a67b4f43c"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "nhom-iodua-ali3",
+      "slug": "nhom-iodua-ali3",
+      "oldWords": 4701,
+      "newWords": 1239,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_7337bf5039e91092",
+        "rx_0597a11e3e833c82"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "bari-axetat-ba-ch3coo-2",
+      "slug": "bari-axetat-ba-ch3coo-2",
+      "oldWords": 6108,
+      "newWords": 1361,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_03a99ed0579fa325",
+        "rx_35a0b02a4d4e932f",
+        "rx_b554c3c27b30dcba",
+        "rx_311934c418e6f097"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "bari-fomat-ba-hcoo-2",
+      "slug": "bari-fomat-ba-hcoo-2",
+      "oldWords": 5566,
+      "newWords": 1262,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_0cc9edd44b5621a1",
+        "rx_7ef72aafaea62948",
+        "rx_3fc174a85cde42d7"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "bari-nitrat-ba-no3-2",
+      "slug": "bari-nitrat-ba-no3-2",
+      "oldWords": 5470,
+      "newWords": 1443,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_14a081fa5354d7f8",
+        "rx_2b1e4307249e35ca",
+        "rx_116090cb08c9a763",
+        "rx_cb552cae0b950948"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "bari-photphat-ba3-po4-2",
+      "slug": "bari-photphat-ba3-po4-2",
+      "oldWords": 4505,
+      "newWords": 1185,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_0b10b190ed85bdab",
+        "rx_660911cef8dd65f1"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "bari-bromua-babr2",
+      "slug": "bari-bromua-babr2",
+      "oldWords": 5308,
+      "newWords": 1331,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_a6689d95b0cd6a97",
+        "rx_9d3cfc0732753022",
+        "rx_d6c0e1746ff564cc",
+        "rx_cf3e852bb9252538"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "bari-oxalat-bac2o4",
+      "slug": "bari-oxalat-bac2o4",
+      "oldWords": 4908,
+      "newWords": 1167,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_4427cb04b6e6c4a3",
+        "rx_d012f22cf29bb630"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "bari-cacbonat-baco3",
+      "slug": "bari-cacbonat-baco3",
+      "oldWords": 5840,
+      "newWords": 1441,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_60d1680e545be27b",
+        "rx_f124bf4171083ec6",
+        "rx_35a0b02a4d4e932f",
+        "rx_1e0e56fd8f7e9298"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "bari-cromat-bacro4",
+      "slug": "bari-cromat-bacro4",
+      "oldWords": 4884,
+      "newWords": 1119,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_0a65d4e00d443a80",
+        "rx_d41e25c5043bd3e1"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "bari-florua-baf2",
+      "slug": "bari-florua-baf2",
+      "oldWords": 4893,
+      "newWords": 1210,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_fcd2b451fc4eb4ed",
+        "rx_c7bb7977ca56f73a"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "bari-iodua-bai2",
+      "slug": "bari-iodua-bai2",
+      "oldWords": 5434,
+      "newWords": 1331,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_5aa929a7b5b64ff4",
+        "rx_6a81a6dc2c653f9e",
+        "rx_e343f355b8ec050a",
+        "rx_e32520cb8fc4a8e6"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "bao-bao",
+      "slug": "bao-bao",
+      "oldWords": 5719,
+      "newWords": 1441,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_3a5ac74a00d8f345",
+        "rx_1e0e56fd8f7e9298",
+        "rx_311934c418e6f097",
+        "rx_b873e50902028d1c"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "bari-sunfit-baso3",
+      "slug": "bari-sunfit-baso3",
+      "oldWords": 5009,
+      "newWords": 1099,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_23770ca3d04f7129",
+        "rx_45ffd6c4f7616f05"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "c2h5cooc2h5-c2h5cooc2h5",
+      "slug": "c2h5cooc2h5-c2h5cooc2h5",
+      "oldWords": 4457,
+      "newWords": 975,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_3ace7416d49a3138",
+        "rx_7975b64b5098ffe9"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "c2h5cooc3h7-c2h5cooc3h7",
+      "slug": "c2h5cooc3h7-c2h5cooc3h7",
+      "oldWords": 4464,
+      "newWords": 975,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_9131f2ec44256ef8",
+        "rx_4b8c3f870157708f"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "c2h5cooc4h9-c2h5cooc4h9",
+      "slug": "c2h5cooc4h9-c2h5cooc4h9",
+      "oldWords": 4470,
+      "newWords": 975,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_f425cd4de7d07576",
+        "rx_9346c34d84147617"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "c2h5cooch3-c2h5cooch3",
+      "slug": "c2h5cooch3-c2h5cooch3",
+      "oldWords": 4470,
+      "newWords": 975,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_106b2236d28d665b",
+        "rx_fa567e762ef85ddf"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "c2h5cooh-c2h5cooh",
+      "slug": "c2h5cooh-c2h5cooh",
+      "oldWords": 4703,
+      "newWords": 1021,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_de4c35bedd963218",
+        "rx_3ace7416d49a3138"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "c2h5cook-c2h5cook",
+      "slug": "c2h5cook-c2h5cook",
+      "oldWords": 5045,
+      "newWords": 1103,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_7975b64b5098ffe9",
+        "rx_4b8c3f870157708f"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "c2h5cooli-c2h5cooli",
+      "slug": "c2h5cooli-c2h5cooli",
+      "oldWords": 4811,
+      "newWords": 1103,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_3970e0eba6b367c3",
+        "rx_f098e7ae76c103eb"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "c2h5coona-c2h5coona",
+      "slug": "c2h5coona-c2h5coona",
+      "oldWords": 5049,
+      "newWords": 1103,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_d8fd18d7bc759858",
+        "rx_733cf6bdab3e627c"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "c3h7cooc2h5-c3h7cooc2h5",
+      "slug": "c3h7cooc2h5-c3h7cooc2h5",
+      "oldWords": 4457,
+      "newWords": 975,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_c67b7ddf397c5e70",
+        "rx_55c02099b6bfb385"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "c3h7cooc3h7-c3h7cooc3h7",
+      "slug": "c3h7cooc3h7-c3h7cooc3h7",
+      "oldWords": 4465,
+      "newWords": 975,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_090a81d1d508b352",
+        "rx_8de86b1b73291c12"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "c3h7cooc4h9-c3h7cooc4h9",
+      "slug": "c3h7cooc4h9-c3h7cooc4h9",
+      "oldWords": 4465,
+      "newWords": 975,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_4906b2f19ba0eded",
+        "rx_b32a0d18d2f31cd8"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "c3h7cooch3-c3h7cooch3",
+      "slug": "c3h7cooch3-c3h7cooch3",
+      "oldWords": 4467,
+      "newWords": 975,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_3b1436ae90c0015b",
+        "rx_8c5eb2155b87bc58"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "c3h7cooh-c3h7cooh",
+      "slug": "c3h7cooh-c3h7cooh",
+      "oldWords": 4677,
+      "newWords": 1021,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_70b1866a3bcc6cec",
+        "rx_c67b7ddf397c5e70"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "c3h7cook-c3h7cook",
+      "slug": "c3h7cook-c3h7cook",
+      "oldWords": 5032,
+      "newWords": 1103,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_55c02099b6bfb385",
+        "rx_8de86b1b73291c12"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "c3h7cooli-c3h7cooli",
+      "slug": "c3h7cooli-c3h7cooli",
+      "oldWords": 4809,
+      "newWords": 1103,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_10f74dc2af4f5b23",
+        "rx_8a2db55af66274e4"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "c3h7coona-c3h7coona",
+      "slug": "c3h7coona-c3h7coona",
+      "oldWords": 5036,
+      "newWords": 1103,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_467085efbc1c6e1e",
+        "rx_d9b68fc1595b8a9d"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "canxi-ca",
+      "slug": "canxi-ca",
+      "oldWords": 4547,
+      "newWords": 931,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_b8138deb596b6a36"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "canxi-axetat-ca-ch3coo-2",
+      "slug": "canxi-axetat-ca-ch3coo-2",
+      "oldWords": 6182,
+      "newWords": 1365,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_d2981bfafa01d832",
+        "rx_8a846e840332ee10",
+        "rx_1129f25591016980",
+        "rx_5901f2ab585ac6af"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "canxi-fomat-ca-hcoo-2",
+      "slug": "canxi-fomat-ca-hcoo-2",
+      "oldWords": 5674,
+      "newWords": 1264,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_f6ce0c5cc4748cb8",
+        "rx_1323d57a3e3a14ac",
+        "rx_0470bb3d03faaadd"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "canxi-nitrat-ca-no3-2",
+      "slug": "canxi-nitrat-ca-no3-2",
+      "oldWords": 5523,
+      "newWords": 1347,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_345ca9c258d61d13",
+        "rx_62eb2fdd59a8a2c3",
+        "rx_19e7ecc6935721f9",
+        "rx_3e50c64407fa951d"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "canxi-photphat-ca3-po4-2",
+      "slug": "canxi-photphat-ca3-po4-2",
+      "oldWords": 4531,
+      "newWords": 1287,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_d35d1fd3cd1e79a6",
+        "rx_eb9e4fbb0f50c877"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "canxi-bromua-cabr2",
+      "slug": "canxi-bromua-cabr2",
+      "oldWords": 5389,
+      "newWords": 1335,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_edc7aa4d1a22805a",
+        "rx_b03aeef4795492fe",
+        "rx_668718d4b78f0733",
+        "rx_ec3b1d38d915356e"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "canxi-oxalat-cac2o4",
+      "slug": "canxi-oxalat-cac2o4",
+      "oldWords": 5018,
+      "newWords": 1167,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_cb51dcf2877f14b3",
+        "rx_e1ae3cd85348abdc"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "canxi-iodua-cai2",
+      "slug": "canxi-iodua-cai2",
+      "oldWords": 5556,
+      "newWords": 1437,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_60f1814aca5ae28c",
+        "rx_1a9fab3fc5261c70",
+        "rx_51689153a16afc37",
+        "rx_0d5f1c46f0bd87e1"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "canxi-sunfit-caso3",
+      "slug": "canxi-sunfit-caso3",
+      "oldWords": 5062,
+      "newWords": 1099,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_fbefa3e412a63ead",
+        "rx_f53645965165c18e"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "cadmium-cd",
+      "slug": "cadmium-cd",
+      "oldWords": 5197,
+      "newWords": 1262,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_3c867eca7b1becb5",
+        "rx_d51bd255a1b49c3a",
+        "rx_4a1aa4ed03dcb796"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "cadimi-axetat-cd-ch3coo-2",
+      "slug": "cadimi-axetat-cd-ch3coo-2",
+      "oldWords": 5921,
+      "newWords": 1406,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_fc9e17532d0d8a4d",
+        "rx_1a42701639b6f4eb",
+        "rx_6121a4ab2e76b566",
+        "rx_b33e9f984f57b6e2"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "cadimi-fomat-cd-hcoo-2",
+      "slug": "cadimi-fomat-cd-hcoo-2",
+      "oldWords": 5377,
+      "newWords": 1264,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_8e0f001c3c7147da",
+        "rx_8b3ac9fafd3188dc",
+        "rx_6f6f0e369d74ab2e"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "cadimi-nitrat-cd-no3-2",
+      "slug": "cadimi-nitrat-cd-no3-2",
+      "oldWords": 5539,
+      "newWords": 1388,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_0a1c9d600bc418ac",
+        "rx_bd97e2b06123a76b",
+        "rx_9865ca8885c98645",
+        "rx_13579e0275adb809"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "cadimi-hidroxit-cd-oh-2",
+      "slug": "cadimi-hidroxit-cd-oh-2",
+      "oldWords": 5275,
+      "newWords": 1298,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_3615963834a0f6c6",
+        "rx_3ec6fb7bca8a69b0",
+        "rx_6121a4ab2e76b566"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "cadimi-bromua-cdbr2",
+      "slug": "cadimi-bromua-cdbr2",
+      "oldWords": 5304,
+      "newWords": 1482,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_a0dcf63f59dc5620",
+        "rx_4a1aa4ed03dcb796",
+        "rx_efcc857942b43f06",
+        "rx_69d85392f0d571e6"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "cadimi-oxalat-cdc2o4",
+      "slug": "cadimi-oxalat-cdc2o4",
+      "oldWords": 4821,
+      "newWords": 1167,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_3984007aa24b7c0e",
+        "rx_a91f362a767d57e7"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "cadimi-clorua-cdcl2",
+      "slug": "cadimi-clorua-cdcl2",
+      "oldWords": 5769,
+      "newWords": 1485,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_663061abb1fa431b",
+        "rx_0cd471799f7df66a",
+        "rx_44ca3b1a4b47901b",
+        "rx_17ee4503fe0e9e33"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "cadimi-cacbonat-cdco3",
+      "slug": "cadimi-cacbonat-cdco3",
+      "oldWords": 5677,
+      "newWords": 1440,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_c9536fc1fee9653f",
+        "rx_b018355f1847d08d",
+        "rx_fc9e17532d0d8a4d",
+        "rx_499aa32660341cb3"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "cadimi-iodua-cdi2",
+      "slug": "cadimi-iodua-cdi2",
+      "oldWords": 5064,
+      "newWords": 1336,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_df1c111b56a26d4a",
+        "rx_85d6ae305fa9fd8c",
+        "rx_1c133db2f7891986"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "cdo-cdo",
+      "slug": "cdo-cdo",
+      "oldWords": 4642,
+      "newWords": 1209,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_499aa32660341cb3",
+        "rx_b33e9f984f57b6e2"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "cadimi-sunfua-cds",
+      "slug": "cadimi-sunfua-cds",
+      "oldWords": 4817,
+      "newWords": 1211,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_7dd7cf722c991768",
+        "rx_8ad46a141788e03e"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "cadimi-sunfat-cdso4",
+      "slug": "cadimi-sunfat-cdso4",
+      "oldWords": 5601,
+      "newWords": 1416,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_762ec795fb9c0192",
+        "rx_b8e16c121f5bdb60",
+        "rx_1ca8729ad25c2b85",
+        "rx_0d267720b92d543d"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "ch3ch2ch2ch2oh-ch3ch2ch2ch2oh",
+      "slug": "ch3ch2ch2ch2oh-ch3ch2ch2ch2oh",
+      "oldWords": 5436,
+      "newWords": 1244,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_9346c34d84147617",
+        "rx_3125a95f676cd163",
+        "rx_14876df58dd7402c",
+        "rx_f425cd4de7d07576"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "ch3ch2ch2oh-ch3ch2ch2oh",
+      "slug": "ch3ch2ch2oh-ch3ch2ch2oh",
+      "oldWords": 5391,
+      "newWords": 1244,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_4b8c3f870157708f",
+        "rx_f098e7ae76c103eb",
+        "rx_6e202a11602c2a3a",
+        "rx_9131f2ec44256ef8"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "bac-axetat-ch3cooag",
+      "slug": "bac-axetat-ch3cooag",
+      "oldWords": 5819,
+      "newWords": 1379,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_cd5af20c9fcd4eb4",
+        "rx_9a3ba67e0dc1f45a",
+        "rx_1a42701639b6f4eb",
+        "rx_aa2d0d9a8de8e1e9"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "ch3cooc3h7-ch3cooc3h7",
+      "slug": "ch3cooc3h7-ch3cooc3h7",
+      "oldWords": 4476,
+      "newWords": 975,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_77b6aebe49baa4b9",
+        "rx_25fce620cd07197d"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "ch3cooc4h9-ch3cooc4h9",
+      "slug": "ch3cooc4h9-ch3cooc4h9",
+      "oldWords": 4489,
+      "newWords": 975,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_40e42a8ffd800ce7",
+        "rx_35d4c7dfaa1278f4"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "ch3cooch3-ch3cooch3",
+      "slug": "ch3cooch3-ch3cooch3",
+      "oldWords": 4489,
+      "newWords": 975,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_98b7334557fa3cf3",
+        "rx_321b5b676d19cc6d"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "kali-axetat-ch3cook",
+      "slug": "kali-axetat-ch3cook",
+      "oldWords": 6020,
+      "newWords": 1359,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_79a0cef4e710b654",
+        "rx_1be407160661f060",
+        "rx_79b83863a268bfbd",
+        "rx_4003777a177e7a4d"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "liti-axetat-ch3cooli",
+      "slug": "liti-axetat-ch3cooli",
+      "oldWords": 5731,
+      "newWords": 1361,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_f4c3ffb463269b29",
+        "rx_2181b7854c2bbd6c",
+        "rx_f2730d148786c8da",
+        "rx_178e6855066b305c"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "cl2-cl2",
+      "slug": "cl2-cl2",
+      "oldWords": 4788,
+      "newWords": 981,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_76033727fc129a85",
+        "rx_ae5ba76b99875e3f"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "coban-co",
+      "slug": "coban-co",
+      "oldWords": 5385,
+      "newWords": 1266,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_b17e1b9862404629",
+        "rx_40ae18009ae1711d",
+        "rx_e6da096ad5dd9e7a"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "coban-ii-axetat-co-ch3coo-2",
+      "slug": "coban-ii-axetat-co-ch3coo-2",
+      "oldWords": 6009,
+      "newWords": 1439,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_e71fdb356e0f25dd",
+        "rx_77e276733d9f98be",
+        "rx_54e58e90f9725ce6",
+        "rx_8928365270972472"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "coban-ii-fomat-co-hcoo-2",
+      "slug": "coban-ii-fomat-co-hcoo-2",
+      "oldWords": 5091,
+      "newWords": 1155,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_a7c445838de9ad1f",
+        "rx_78b9bdc667cd95f1"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "coban-ii-nitrat-co-no3-2",
+      "slug": "coban-ii-nitrat-co-no3-2",
+      "oldWords": 5561,
+      "newWords": 1423,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_8654e13c7d318659",
+        "rx_c8fd3184ecde3201",
+        "rx_296127bf3e3ec819",
+        "rx_fd7e698ee7ba38b5"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "coban-ii-hidroxit-co-oh-2",
+      "slug": "coban-ii-hidroxit-co-oh-2",
+      "oldWords": 5252,
+      "newWords": 1298,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_332ed585254036f5",
+        "rx_cece009e623fd088",
+        "rx_54e58e90f9725ce6"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "coban-ii-bromua-cobr2",
+      "slug": "coban-ii-bromua-cobr2",
+      "oldWords": 5361,
+      "newWords": 1524,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_e6da096ad5dd9e7a",
+        "rx_edfd8abe9cce3d5d",
+        "rx_9ce1f41aadc0c48a",
+        "rx_c239faa7183cc13b"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "coban-ii-oxalat-coc2o4",
+      "slug": "coban-ii-oxalat-coc2o4",
+      "oldWords": 4853,
+      "newWords": 1167,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_1b5b3027d358230e",
+        "rx_f9d98f74d249090b"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "coban-ii-clorua-cocl2",
+      "slug": "coban-ii-clorua-cocl2",
+      "oldWords": 5818,
+      "newWords": 1517,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_cee48332825e5cad",
+        "rx_362ddb016af916ac",
+        "rx_6229744475b5e2bc",
+        "rx_1bb9dcf71e3d4fe0"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "coban-ii-iodua-coi2",
+      "slug": "coban-ii-iodua-coi2",
+      "oldWords": 4627,
+      "newWords": 1229,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_4768575d6350290a",
+        "rx_2c045f08b52edf13"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "coo-coo",
+      "slug": "coo-coo",
+      "oldWords": 4995,
+      "newWords": 1241,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_8928365270972472",
+        "rx_9ce1f41aadc0c48a"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "coban-ii-sunfua-cos",
+      "slug": "coban-ii-sunfua-cos",
+      "oldWords": 4672,
+      "newWords": 1212,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_c59d033116ec927b",
+        "rx_595dd52e1ae244df"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "coban-ii-sunfat-coso4",
+      "slug": "coban-ii-sunfat-coso4",
+      "oldWords": 5622,
+      "newWords": 1467,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_8cfd286ae8b7c883",
+        "rx_2608dbf57d0141ea",
+        "rx_018097dd1897ea53",
+        "rx_891763ff7b15b72b"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "crom-iii-nitrat-cr-no3-3",
+      "slug": "crom-iii-nitrat-cr-no3-3",
+      "oldWords": 4686,
+      "newWords": 1185,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_1c6e2c46a9c8113d",
+        "rx_648ab582da8088e6"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "crom-iii-hidroxit-cr-oh-3",
+      "slug": "crom-iii-hidroxit-cr-oh-3",
+      "oldWords": 5767,
+      "newWords": 1488,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_648ab582da8088e6",
+        "rx_254c3bd6ad49ed10",
+        "rx_344ff8229b6009e7",
+        "rx_94345dcfcee7a72e"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "crom-iii-sunfat-cr2-so4-3",
+      "slug": "crom-iii-sunfat-cr2-so4-3",
+      "oldWords": 4743,
+      "newWords": 1305,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_344ff8229b6009e7",
+        "rx_8bf600d7c1527fa4"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "cr2o3-cr2o3",
+      "slug": "cr2o3-cr2o3",
+      "oldWords": 4202,
+      "newWords": 1066,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_94345dcfcee7a72e"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "crom-iii-bromua-crbr3",
+      "slug": "crom-iii-bromua-crbr3",
+      "oldWords": 4534,
+      "newWords": 1273,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_f5a072d7f1f39cd1",
+        "rx_e6911bf4a7af684a"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "crom-iii-clorua-crcl3",
+      "slug": "crom-iii-clorua-crcl3",
+      "oldWords": 4878,
+      "newWords": 1173,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_cd02efe56a86da81",
+        "rx_917d96f139c0f4ba"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "crom-iii-iodua-cri3",
+      "slug": "crom-iii-iodua-cri3",
+      "oldWords": 4222,
+      "newWords": 998,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_01a68961e9cbe5e2"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "dong-ii-axetat-cu-ch3coo-2",
+      "slug": "dong-ii-axetat-cu-ch3coo-2",
+      "oldWords": 5990,
+      "newWords": 1445,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_6770b700fffbf97e",
+        "rx_febb09a2691e9b6a",
+        "rx_63f2d0fe8bfe87f9",
+        "rx_1a5332ec09c494a6"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "dong-ii-bromua-cubr2",
+      "slug": "dong-ii-bromua-cubr2",
+      "oldWords": 4985,
+      "newWords": 1275,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_f697bf83b870a81c",
+        "rx_d96a6e7fe8ddf11a",
+        "rx_9dbd7033ac8cbccc"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "dong-ii-oxalat-cuc2o4",
+      "slug": "dong-ii-oxalat-cuc2o4",
+      "oldWords": 4889,
+      "newWords": 1167,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_d6c69b8a78c6a23f",
+        "rx_038d1d502c17c2ec"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "dong-ii-sunfua-cus",
+      "slug": "dong-ii-sunfua-cus",
+      "oldWords": 4757,
+      "newWords": 1211,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_b982c214e733ce0d",
+        "rx_695703c57505b677"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "sat-ii-axetat-fe-ch3coo-2",
+      "slug": "sat-ii-axetat-fe-ch3coo-2",
+      "oldWords": 6018,
+      "newWords": 1406,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_8b1b0a09ec2282bb",
+        "rx_d66bdf80399ff55c",
+        "rx_e764503b65b7c53a",
+        "rx_f399f55d0b8078b3"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "sat-ii-fomat-fe-hcoo-2",
+      "slug": "sat-ii-fomat-fe-hcoo-2",
+      "oldWords": 5558,
+      "newWords": 1264,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_780b1f4814f7c888",
+        "rx_9fbbf3cff8300860",
+        "rx_f638c0f5cdc5ca1f"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "sat-ii-nitrat-fe-no3-2",
+      "slug": "sat-ii-nitrat-fe-no3-2",
+      "oldWords": 5063,
+      "newWords": 1313,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_af366780491866e9",
+        "rx_fb3d613c957bbef6",
+        "rx_60fcfd11bfc9d609"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "sat-iii-nitrat-fe-no3-3",
+      "slug": "sat-iii-nitrat-fe-no3-3",
+      "oldWords": 5620,
+      "newWords": 1412,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_9b4aca822d3719ae",
+        "rx_8d63386df91cda4b",
+        "rx_ae0c016529869be4",
+        "rx_addfd0c674fa6db9"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "sat-ii-bromua-febr2",
+      "slug": "sat-ii-bromua-febr2",
+      "oldWords": 5454,
+      "newWords": 1483,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_885e475c776c1b9f",
+        "rx_b64e79688b4d9f58",
+        "rx_aa97c7d649303e5f",
+        "rx_ce93a61ddc5af354"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "sat-iii-bromua-febr3",
+      "slug": "sat-iii-bromua-febr3",
+      "oldWords": 4984,
+      "newWords": 1285,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_5e5b00f74d951630",
+        "rx_a3b8acac4cf0d6eb",
+        "rx_ca859ace7446eb3a"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "sat-ii-oxalat-fec2o4",
+      "slug": "sat-ii-oxalat-fec2o4",
+      "oldWords": 4895,
+      "newWords": 1187,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_ad0be094e5512917",
+        "rx_bafd9afd8fd88c0d"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "sat-ii-cacbonat-feco3",
+      "slug": "sat-ii-cacbonat-feco3",
+      "oldWords": 5363,
+      "newWords": 1350,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_01220fb9cd458ac6",
+        "rx_7315268ef1b5dd26",
+        "rx_8b1b0a09ec2282bb"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "sat-ii-iodua-fei2",
+      "slug": "sat-ii-iodua-fei2",
+      "oldWords": 5060,
+      "newWords": 1336,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_4a605f1e2bf3916f",
+        "rx_69353f3cfb5d4b21",
+        "rx_cd885fd5badc9cd0"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "feo-feo",
+      "slug": "feo-feo",
+      "oldWords": 5004,
+      "newWords": 1243,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_f399f55d0b8078b3",
+        "rx_ce93a61ddc5af354"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "hbr-hbr",
+      "slug": "hbr-hbr",
+      "oldWords": 5466,
+      "newWords": 1346,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_9d3cfc0732753022",
+        "rx_b03aeef4795492fe",
+        "rx_c71697f1a1d9ff39",
+        "rx_f7c041fa35522104"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "hcooc2h5-hcooc2h5",
+      "slug": "hcooc2h5-hcooc2h5",
+      "oldWords": 4467,
+      "newWords": 975,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_02ed18b0a886f045",
+        "rx_b549276539a9c702"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "hcooc3h7-hcooc3h7",
+      "slug": "hcooc3h7-hcooc3h7",
+      "oldWords": 4464,
+      "newWords": 975,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_6ad69ac781620efc",
+        "rx_d5faabd2918abc84"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "hcooc4h9-hcooc4h9",
+      "slug": "hcooc4h9-hcooc4h9",
+      "oldWords": 4462,
+      "newWords": 975,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_5f075cf047e55fb1",
+        "rx_2840cb45f5777cc1"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "hcooch3-hcooch3",
+      "slug": "hcooch3-hcooch3",
+      "oldWords": 4574,
+      "newWords": 975,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_129bdb7216758779",
+        "rx_dfa0014792c7f94d"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "kali-fomat-hcook",
+      "slug": "kali-fomat-hcook",
+      "oldWords": 6044,
+      "newWords": 1352,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_3101d3644f590321",
+        "rx_020f5b8eb2581f97",
+        "rx_0f86880eb395533b",
+        "rx_a93a384b959a32d9"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "liti-fomat-hcooli",
+      "slug": "liti-fomat-hcooli",
+      "oldWords": 5719,
+      "newWords": 1374,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_ba801b384ff893b6",
+        "rx_d37640c201414ad5",
+        "rx_ad09822ba621829a",
+        "rx_252e048ad36a6312"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "natri-fomat-hcoona",
+      "slug": "natri-fomat-hcoona",
+      "oldWords": 6020,
+      "newWords": 1352,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_b8822850b9cfd276",
+        "rx_76a863384f257671",
+        "rx_a48529c2f8b25f28",
+        "rx_17f330d95a7b57f9"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "hi-hi",
+      "slug": "hi-hi",
+      "oldWords": 5834,
+      "newWords": 1338,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_6a81a6dc2c653f9e",
+        "rx_1a9fab3fc5261c70",
+        "rx_7337bf5039e91092",
+        "rx_0597a11e3e833c82"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "kali-k",
+      "slug": "kali-k",
+      "oldWords": 4520,
+      "newWords": 950,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_f1bce9a28a6acf6c"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "kali-oxalat-k2c2o4",
+      "slug": "kali-oxalat-k2c2o4",
+      "oldWords": 4811,
+      "newWords": 1168,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_4427cb04b6e6c4a3",
+        "rx_f69e3694affa06d2"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "k2o-k2o",
+      "slug": "k2o-k2o",
+      "oldWords": 5131,
+      "newWords": 1349,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_4003777a177e7a4d",
+        "rx_c39b1d41f54347c8",
+        "rx_622faeb216deecc0"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "kali-sunfua-k2s",
+      "slug": "kali-sunfua-k2s",
+      "oldWords": 5264,
+      "newWords": 1317,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_7dd7cf722c991768",
+        "rx_4a7788cfb82d441c",
+        "rx_cc792f41e2f4f94f"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "kali-sunfit-k2so3",
+      "slug": "kali-sunfit-k2so3",
+      "oldWords": 5024,
+      "newWords": 1095,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_d2bfef3b728ddfd6",
+        "rx_c54dcaa0972635b4"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "kali-sunfat-k2so4",
+      "slug": "kali-sunfat-k2so4",
+      "oldWords": 5423,
+      "newWords": 1468,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_4bcc60577eb968c8",
+        "rx_1b335c7e3b1dd143",
+        "rx_40bf7919f2ba3294",
+        "rx_54d7237c19d5fe07"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "kali-photphat-k3po4",
+      "slug": "kali-photphat-k3po4",
+      "oldWords": 4525,
+      "newWords": 1186,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_7b4e91b0992d367e",
+        "rx_0b10b190ed85bdab"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "kali-bromua-kbr",
+      "slug": "kali-bromua-kbr",
+      "oldWords": 5386,
+      "newWords": 1432,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_ee65fe89ae4939c7",
+        "rx_f03457c60b37e115",
+        "rx_d1936537de068840",
+        "rx_c39b1d41f54347c8"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "kali-florua-kf",
+      "slug": "kali-florua-kf",
+      "oldWords": 4784,
+      "newWords": 1209,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_fcd2b451fc4eb4ed",
+        "rx_ee97b8f6b493437a"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "kali-hidrocacbonat-khco3",
+      "slug": "kali-hidrocacbonat-khco3",
+      "oldWords": 5191,
+      "newWords": 1169,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_1b335c7e3b1dd143",
+        "rx_7b6d4ee118a63490"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "kno2-kno2",
+      "slug": "kno2-kno2",
+      "oldWords": 4185,
+      "newWords": 832,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_7d9be7e29b2db413"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "liti-li-composition",
+      "slug": "liti-li-composition",
+      "oldWords": 4808,
+      "newWords": 945,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_dd7f76e665e241c3"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "liti-cacbonat-li2co3",
+      "slug": "liti-cacbonat-li2co3",
+      "oldWords": 4982,
+      "newWords": 1191,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_2181b7854c2bbd6c",
+        "rx_7805a62e7ad249d8"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "li2o-li2o",
+      "slug": "li2o-li2o",
+      "oldWords": 4646,
+      "newWords": 1214,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_b70b17187ec1dc63",
+        "rx_178e6855066b305c"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "liti-sunfat-li2so4",
+      "slug": "liti-sunfat-li2so4",
+      "oldWords": 5465,
+      "newWords": 1484,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_691768be5a53e05b",
+        "rx_4cfdd0fd5158be37",
+        "rx_a5d1c8b697ba18a5",
+        "rx_52c962d66b835cc4"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "liti-bromua-libr",
+      "slug": "liti-bromua-libr",
+      "oldWords": 5307,
+      "newWords": 1432,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_20e82f5ed59d2f8a",
+        "rx_7805a62e7ad249d8",
+        "rx_d77f3c87a7870026",
+        "rx_93cc64ed3d1523bd"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "liti-clorua-licl",
+      "slug": "liti-clorua-licl",
+      "oldWords": 5744,
+      "newWords": 1434,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_c11a99dd28f97a39",
+        "rx_1f0efd37b46cc90e",
+        "rx_88ac6c62dc063bfc",
+        "rx_c10f285ff3ec7f18"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "liti-florua-lif",
+      "slug": "liti-florua-lif",
+      "oldWords": 4799,
+      "newWords": 1209,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_c7bb7977ca56f73a",
+        "rx_4b4fe62d5fe18215"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "liti-iodua-lii",
+      "slug": "liti-iodua-lii",
+      "oldWords": 5495,
+      "newWords": 1432,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_6335e95e54e69aac",
+        "rx_6f83d3054c25fa4e",
+        "rx_a53e4d21c5134c93",
+        "rx_e02801ec6ba7b8dc"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "liti-nitrat-lino3",
+      "slug": "liti-nitrat-lino3",
+      "oldWords": 5496,
+      "newWords": 1443,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_10c7042902e24bd7",
+        "rx_bd616079f0336af9",
+        "rx_766febc4b9aad219",
+        "rx_1f0a1882b6ad5c44"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "liti-hidroxit-lioh",
+      "slug": "liti-hidroxit-lioh",
+      "oldWords": 5743,
+      "newWords": 1449,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_dd7f76e665e241c3",
+        "rx_691768be5a53e05b",
+        "rx_a5d1c8b697ba18a5",
+        "rx_1d6fa3e2a1204c0b"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "magie-axetat-mg-ch3coo-2",
+      "slug": "magie-axetat-mg-ch3coo-2",
+      "oldWords": 6147,
+      "newWords": 1406,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_9f1409d1a6417ad8",
+        "rx_bb9ed5905380057a",
+        "rx_d84b3e42306a62ab",
+        "rx_6ea510fa4264c327"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "magie-fomat-mg-hcoo-2",
+      "slug": "magie-fomat-mg-hcoo-2",
+      "oldWords": 5686,
+      "newWords": 1264,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_490b750c7d6c9d61",
+        "rx_4762b4af5209c0f0",
+        "rx_ef85a97f96f16faf"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "magie-nitrat-mg-no3-2",
+      "slug": "magie-nitrat-mg-no3-2",
+      "oldWords": 5584,
+      "newWords": 1388,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_a6b8c4011b050d01",
+        "rx_3b7ec587bc9dc466",
+        "rx_65131f35449a3018",
+        "rx_aae9cf7ea6c904fc"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "magie-bromua-mgbr2",
+      "slug": "magie-bromua-mgbr2",
+      "oldWords": 5346,
+      "newWords": 1483,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_707466339c72ae9a",
+        "rx_e107275e27e4e8c4",
+        "rx_30693342f87382cd",
+        "rx_cbe4bbc7aaea3f8e"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "magie-oxalat-mgc2o4",
+      "slug": "magie-oxalat-mgc2o4",
+      "oldWords": 4926,
+      "newWords": 1167,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_ff9161e9e70f0c40",
+        "rx_86183443f962261d"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "magie-cacbonat-mgco3",
+      "slug": "magie-cacbonat-mgco3",
+      "oldWords": 5515,
+      "newWords": 1298,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_9f1409d1a6417ad8",
+        "rx_707466339c72ae9a",
+        "rx_50c566b57d1bba9c"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "magie-florua-mgf2",
+      "slug": "magie-florua-mgf2",
+      "oldWords": 4863,
+      "newWords": 1210,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_7ad96ce3f154c4ea",
+        "rx_d60e1e81037a082c"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "magie-iodua-mgi2",
+      "slug": "magie-iodua-mgi2",
+      "oldWords": 5040,
+      "newWords": 1336,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_c01e1d820f98f34f",
+        "rx_21fff8b9ceadd99a",
+        "rx_57ec0e881d352fbe"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "mgo-mgo",
+      "slug": "mgo-mgo",
+      "oldWords": 5322,
+      "newWords": 1322,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_382849b7ad494a07",
+        "rx_a6594bbc526730d0",
+        "rx_6ea510fa4264c327"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "magie-sunfit-mgso3",
+      "slug": "magie-sunfit-mgso3",
+      "oldWords": 5125,
+      "newWords": 1099,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_f0c10d81efb37128",
+        "rx_aff2b1820c8a4a2e"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "mangan-mn",
+      "slug": "mangan-mn",
+      "oldWords": 5366,
+      "newWords": 1259,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_cc9ae5cd83225b25",
+        "rx_b5de922fb227c2ff",
+        "rx_25a126a3c4211757"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "mangan-ii-axetat-mn-ch3coo-2",
+      "slug": "mangan-ii-axetat-mn-ch3coo-2",
+      "oldWords": 5918,
+      "newWords": 1406,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_dc9e2d8e2a37bda1",
+        "rx_cbc1df0a49a6a17e",
+        "rx_b2c4984302ac977d",
+        "rx_17da592fae04c71d"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "mangan-ii-fomat-mn-hcoo-2",
+      "slug": "mangan-ii-fomat-mn-hcoo-2",
+      "oldWords": 5370,
+      "newWords": 1264,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_693a1416296c6447",
+        "rx_b84ca39efeb79d37",
+        "rx_8f561bfa94bc9ad6"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "mangan-ii-nitrat-mn-no3-2",
+      "slug": "mangan-ii-nitrat-mn-no3-2",
+      "oldWords": 5637,
+      "newWords": 1388,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_1fa239c1574d3dd4",
+        "rx_0ae25d9f57adf3c7",
+        "rx_6b0679da09762084",
+        "rx_6001df14d951f898"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "mangan-ii-hidroxit-mn-oh-2",
+      "slug": "mangan-ii-hidroxit-mn-oh-2",
+      "oldWords": 5316,
+      "newWords": 1318,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_c48fe1d5a39bc8a1",
+        "rx_0888cbf5845d73b5",
+        "rx_b2c4984302ac977d"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "mangan-ii-bromua-mnbr2",
+      "slug": "mangan-ii-bromua-mnbr2",
+      "oldWords": 5404,
+      "newWords": 1483,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_6247319495d0ba75",
+        "rx_25a126a3c4211757",
+        "rx_28a9986de4349834",
+        "rx_f6a798867a0817c7"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "mangan-ii-oxalat-mnc2o4",
+      "slug": "mangan-ii-oxalat-mnc2o4",
+      "oldWords": 4879,
+      "newWords": 1187,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_a5e7a6ce3eea1b8b",
+        "rx_de097b9b13d6bb28"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "mangan-ii-clorua-mncl2",
+      "slug": "mangan-ii-clorua-mncl2",
+      "oldWords": 5723,
+      "newWords": 1485,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_9206e4efce737724",
+        "rx_dc70f38e76a6722f",
+        "rx_cb1a162265d327ab",
+        "rx_165f78f68c9693cd"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "mangan-ii-cacbonat-mnco3",
+      "slug": "mangan-ii-cacbonat-mnco3",
+      "oldWords": 5446,
+      "newWords": 1350,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_4740627cb12a4c89",
+        "rx_7de94b106c0e1596",
+        "rx_dc9e2d8e2a37bda1"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "mangan-ii-iodua-mni2",
+      "slug": "mangan-ii-iodua-mni2",
+      "oldWords": 5050,
+      "newWords": 1336,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_5be63a7763ce90aa",
+        "rx_79e6ca5f9046071d",
+        "rx_5c8a250324ca82cb"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "mno-mno",
+      "slug": "mno-mno",
+      "oldWords": 4731,
+      "newWords": 1239,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_17da592fae04c71d",
+        "rx_f6a798867a0817c7"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "mangan-ii-sunfua-mns",
+      "slug": "mangan-ii-sunfua-mns",
+      "oldWords": 5154,
+      "newWords": 1340,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_8cabc48739fa1fce",
+        "rx_e8c6816adaf78f8d",
+        "rx_dfd4f976d364c2f3"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "mangan-ii-sunfat-mnso4",
+      "slug": "mangan-ii-sunfat-mnso4",
+      "oldWords": 5530,
+      "newWords": 1416,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_4c6149d404b2a3f7",
+        "rx_e4188d32d55a9e3f",
+        "rx_caadef546c284ac7",
+        "rx_23d64df0399a5c02"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "natri-oxalat-na2c2o4",
+      "slug": "natri-oxalat-na2c2o4",
+      "oldWords": 4937,
+      "newWords": 1168,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_d012f22cf29bb630",
+        "rx_655d8d7358d67ade"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "natri-cromat-na2cro4",
+      "slug": "natri-cromat-na2cro4",
+      "oldWords": 4806,
+      "newWords": 1222,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_711f6a5a0dd68c37",
+        "rx_579afcca7ee8af08"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "na2o-na2o",
+      "slug": "na2o-na2o",
+      "oldWords": 5135,
+      "newWords": 1349,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_0b864dfc0227b88a",
+        "rx_bd35696b3a9e0434",
+        "rx_6e18c25654ad2cea"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "na2zn-oh-4-na2zn-oh-4",
+      "slug": "na2zn-oh-4-na2zn-oh-4",
+      "oldWords": 4789,
+      "newWords": 983,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_ba47b31627331ebb",
+        "rx_55e90724b361ff3b"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "natri-photphat-na3po4",
+      "slug": "natri-photphat-na3po4",
+      "oldWords": 4634,
+      "newWords": 1186,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_2ee270faf7c01c38",
+        "rx_660911cef8dd65f1"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "naal-oh-4-naal-oh-4",
+      "slug": "naal-oh-4-naal-oh-4",
+      "oldWords": 4787,
+      "newWords": 990,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_8dddc119d107d1af",
+        "rx_991062d0e70680a1"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "naalo2-naalo2",
+      "slug": "naalo2-naalo2",
+      "oldWords": 4187,
+      "newWords": 846,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_fa8a55de55a92fc8"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "natri-iodua-nai",
+      "slug": "natri-iodua-nai",
+      "oldWords": 5404,
+      "newWords": 1434,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_e768c83025e6e4b5",
+        "rx_c6cd2bd9cc62c967",
+        "rx_04d0f2914a2b9258",
+        "rx_1cdca86347450067"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "nano2-nano2",
+      "slug": "nano2-nano2",
+      "oldWords": 4404,
+      "newWords": 933,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_a33d3552cdde0aa9"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "amoni-bromua-nh4br",
+      "slug": "amoni-bromua-nh4br",
+      "oldWords": 5041,
+      "newWords": 1207,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_0a82bc470e14082d",
+        "rx_6fcc38dfb163600b",
+        "rx_a6689d95b0cd6a97"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "amoni-axetat-nh4ch3coo",
+      "slug": "amoni-axetat-nh4ch3coo",
+      "oldWords": 5400,
+      "newWords": 1221,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_e4f16dc565b146db",
+        "rx_ccabbadeda0a52b8",
+        "rx_03a99ed0579fa325"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "amoni-iodua-nh4i",
+      "slug": "amoni-iodua-nh4i",
+      "oldWords": 5139,
+      "newWords": 1207,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_f1613e8a04408e21",
+        "rx_5aa929a7b5b64ff4",
+        "rx_bcd60d1701e83f27"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "niken-ni",
+      "slug": "niken-ni",
+      "oldWords": 5322,
+      "newWords": 1256,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_f9a01db838ca09f5",
+        "rx_d34cfba9b19000e7",
+        "rx_4c28bc2cb6377126"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "niken-ii-axetat-ni-ch3coo-2",
+      "slug": "niken-ii-axetat-ni-ch3coo-2",
+      "oldWords": 5922,
+      "newWords": 1439,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_21d2c01a78fceaf6",
+        "rx_7f3599194698aef4",
+        "rx_36e743797f6d84c2",
+        "rx_6b29d79c359e6c7a"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "niken-ii-fomat-ni-hcoo-2",
+      "slug": "niken-ii-fomat-ni-hcoo-2",
+      "oldWords": 4949,
+      "newWords": 1155,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_1b48d5458c97775b",
+        "rx_4fefd996fd04d8bc"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "niken-ii-nitrat-ni-no3-2",
+      "slug": "niken-ii-nitrat-ni-no3-2",
+      "oldWords": 5574,
+      "newWords": 1423,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_17ecd4f75b8cbea9",
+        "rx_cc75b16f4d4a8afc",
+        "rx_2c07d2eed61a8d9f",
+        "rx_688c2ac0082a21d7"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "niken-ii-hidroxit-ni-oh-2",
+      "slug": "niken-ii-hidroxit-ni-oh-2",
+      "oldWords": 5753,
+      "newWords": 1511,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_eb48e0d400af3cde",
+        "rx_a791dc6169d35650",
+        "rx_36e743797f6d84c2",
+        "rx_040afb37af2308d3"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "niken-ii-bromua-nibr2",
+      "slug": "niken-ii-bromua-nibr2",
+      "oldWords": 5305,
+      "newWords": 1523,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_4c28bc2cb6377126",
+        "rx_9fa591c4e055bbe7",
+        "rx_2cd0db545b85c59d",
+        "rx_34e071b5b2906009"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "niken-ii-oxalat-nic2o4",
+      "slug": "niken-ii-oxalat-nic2o4",
+      "oldWords": 4747,
+      "newWords": 1167,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_6e6b3c0f3b655d52",
+        "rx_5443c53697d08fc4"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "niken-ii-clorua-nicl2",
+      "slug": "niken-ii-clorua-nicl2",
+      "oldWords": 5762,
+      "newWords": 1517,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_79122df5026cfee5",
+        "rx_a42c2bbac2561ba5",
+        "rx_ce0ac3abf5ffffaf",
+        "rx_d71cea1641c5d5e7"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "niken-ii-iodua-nii2",
+      "slug": "niken-ii-iodua-nii2",
+      "oldWords": 4641,
+      "newWords": 1228,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_e1dc5a90faffaa7c",
+        "rx_c49e89c49d0ef9ae"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "nio-nio",
+      "slug": "nio-nio",
+      "oldWords": 4675,
+      "newWords": 1208,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_040afb37af2308d3",
+        "rx_6b29d79c359e6c7a"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "niken-ii-sunfua-nis",
+      "slug": "niken-ii-sunfua-nis",
+      "oldWords": 4792,
+      "newWords": 1210,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_fea00dbdb2cdf7c8",
+        "rx_468a7d870f995f14"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "niken-ii-sunfat-niso4",
+      "slug": "niken-ii-sunfat-niso4",
+      "oldWords": 5629,
+      "newWords": 1467,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_ed1f3c304f99f9e0",
+        "rx_b60b632064cb2887",
+        "rx_1815a5a3c80ab5b7",
+        "rx_542ecaf013bc8dec"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "no-no",
+      "slug": "no-no",
+      "oldWords": 4508,
+      "newWords": 938,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_cf38b28eb9a783ea",
+        "rx_8e029bd266b58e00"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "chi-pb",
+      "slug": "chi-pb",
+      "oldWords": 4531,
+      "newWords": 1153,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_94cf330134119d61",
+        "rx_74f7b47cb2c7bf66"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "chi-ii-axetat-pb-ch3coo-2",
+      "slug": "chi-ii-axetat-pb-ch3coo-2",
+      "oldWords": 6066,
+      "newWords": 1406,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_6db1f720f9c81109",
+        "rx_1a40b5c3a7affa52",
+        "rx_db1fb01bc98621d9",
+        "rx_94cf330134119d61"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "chi-ii-fomat-pb-hcoo-2",
+      "slug": "chi-ii-fomat-pb-hcoo-2",
+      "oldWords": 4972,
+      "newWords": 1155,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_96985d4bf596d7c0",
+        "rx_92a528c9c2e3ea9e"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "chi-ii-hidroxit-pb-oh-2",
+      "slug": "chi-ii-hidroxit-pb-oh-2",
+      "oldWords": 5363,
+      "newWords": 1352,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_6cbf0f76ca1b9119",
+        "rx_477b57dc5bae0d14",
+        "rx_1a40b5c3a7affa52"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "chi-ii-photphat-pb3-po4-2",
+      "slug": "chi-ii-photphat-pb3-po4-2",
+      "oldWords": 4573,
+      "newWords": 1185,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_dd28d9b69a79e4a6",
+        "rx_d6431c69e31a0da7"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "chi-ii-bromua-pbbr2",
+      "slug": "chi-ii-bromua-pbbr2",
+      "oldWords": 4443,
+      "newWords": 1208,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_55f9bb00cf36c122",
+        "rx_331192360e8b4c77"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "chi-ii-oxalat-pbc2o4",
+      "slug": "chi-ii-oxalat-pbc2o4",
+      "oldWords": 4783,
+      "newWords": 1167,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_47fd2d9424ca0e53",
+        "rx_1f4fab8307266a53"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "chi-ii-clorua-pbcl2",
+      "slug": "chi-ii-clorua-pbcl2",
+      "oldWords": 4869,
+      "newWords": 1210,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_7e861633fcfacd67",
+        "rx_decf54bf291cdb35"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "chi-ii-cacbonat-pbco3",
+      "slug": "chi-ii-cacbonat-pbco3",
+      "oldWords": 5875,
+      "newWords": 1441,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_7cb709f2e8c34787",
+        "rx_5728b0f9a9ddb97d",
+        "rx_6db1f720f9c81109",
+        "rx_98eddb9c9040b207"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "chi-ii-cromat-pbcro4",
+      "slug": "chi-ii-cromat-pbcro4",
+      "oldWords": 4855,
+      "newWords": 1222,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_7af564fc9a58c2da",
+        "rx_4ebfcaf3af0d88ac"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "chi-ii-florua-pbf2",
+      "slug": "chi-ii-florua-pbf2",
+      "oldWords": 4847,
+      "newWords": 1210,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_0c9a4d4dace928e3",
+        "rx_e99534ec0cf0f5b5"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "pbo-pbo",
+      "slug": "pbo-pbo",
+      "oldWords": 5260,
+      "newWords": 1324,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_6f5d228f99b13c13",
+        "rx_98eddb9c9040b207",
+        "rx_db1fb01bc98621d9"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "chi-ii-sunfat-pbso4",
+      "slug": "chi-ii-sunfat-pbso4",
+      "oldWords": 4616,
+      "newWords": 1223,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_11ecf880bd864162",
+        "rx_4d6817910963342b"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "tin-sn",
+      "slug": "tin-sn",
+      "oldWords": 4511,
+      "newWords": 1135,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_dc19ec19ca975db1",
+        "rx_8f2978c9d2fdafdc"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "thiec-ii-bromua-snbr2",
+      "slug": "thiec-ii-bromua-snbr2",
+      "oldWords": 4112,
+      "newWords": 1006,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_dc19ec19ca975db1"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "thiec-ii-clorua-sncl2",
+      "slug": "thiec-ii-clorua-sncl2",
+      "oldWords": 4430,
+      "newWords": 1006,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_8f2978c9d2fdafdc"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "thiec-ii-sunfat-snso4",
+      "slug": "thiec-ii-sunfat-snso4",
+      "oldWords": 4242,
+      "newWords": 1121,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_131a26904023fcd4"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "stronti-axetat-sr-ch3coo-2",
+      "slug": "stronti-axetat-sr-ch3coo-2",
+      "oldWords": 5765,
+      "newWords": 1361,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_2d16b357b086170a",
+        "rx_b17d3a6196533247",
+        "rx_fa63b95faa5e4dd2",
+        "rx_7b2d094b9b7be641"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "stronti-fomat-sr-hcoo-2",
+      "slug": "stronti-fomat-sr-hcoo-2",
+      "oldWords": 5360,
+      "newWords": 1262,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_bde5db95829422eb",
+        "rx_c4a2a07175cbd607",
+        "rx_d3ee262c0f0719d1"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "stronti-nitrat-sr-no3-2",
+      "slug": "stronti-nitrat-sr-no3-2",
+      "oldWords": 5518,
+      "newWords": 1443,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_0ec885f773a389d4",
+        "rx_010c3faa28beb3f8",
+        "rx_eca8e155aea94d9e",
+        "rx_ddf7650ee6ac8d79"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "stronti-hidroxit-sr-oh-2",
+      "slug": "stronti-hidroxit-sr-oh-2",
+      "oldWords": 5308,
+      "newWords": 1199,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_ea99048b293c2e60",
+        "rx_2d16b357b086170a",
+        "rx_fa63b95faa5e4dd2"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "stronti-photphat-sr3-po4-2",
+      "slug": "stronti-photphat-sr3-po4-2",
+      "oldWords": 4411,
+      "newWords": 1185,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_d0eb201f73fad7b6",
+        "rx_6d80093a0ae1cc49"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "stronti-bromua-srbr2",
+      "slug": "stronti-bromua-srbr2",
+      "oldWords": 5261,
+      "newWords": 1433,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_ea99048b293c2e60",
+        "rx_277df7fbc3ff12fe",
+        "rx_736b9e95fd6f96fc",
+        "rx_caba551e0ac3536b"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "stronti-oxalat-src2o4",
+      "slug": "stronti-oxalat-src2o4",
+      "oldWords": 4677,
+      "newWords": 1167,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_2b06d29e6b744064",
+        "rx_75707b4701e9537a"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "stronti-clorua-srcl2",
+      "slug": "stronti-clorua-srcl2",
+      "oldWords": 5762,
+      "newWords": 1433,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_669ccad59dbab18d",
+        "rx_248e0ba5bdf0eed3",
+        "rx_8932c1141ff08d97",
+        "rx_ca3c5647983bd58c"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "stronti-cacbonat-srco3",
+      "slug": "stronti-cacbonat-srco3",
+      "oldWords": 5816,
+      "newWords": 1441,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_7d969a79b8501844",
+        "rx_849fe81a9fcaeb7f",
+        "rx_b17d3a6196533247",
+        "rx_2dc8e8c7532cd2bd"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "stronti-florua-srf2",
+      "slug": "stronti-florua-srf2",
+      "oldWords": 4740,
+      "newWords": 1210,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_a0381b5274118e76",
+        "rx_6929410381f28dd2"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "stronti-iodua-sri2",
+      "slug": "stronti-iodua-sri2",
+      "oldWords": 5475,
+      "newWords": 1433,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_5ff27bf7b5bdd3f2",
+        "rx_ff20693e3c918917",
+        "rx_002fa21bb8c00cda",
+        "rx_bdfeb630fb6ebe03"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "sro-sro",
+      "slug": "sro-sro",
+      "oldWords": 5140,
+      "newWords": 1322,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_99f90bbf20eb9956",
+        "rx_2dc8e8c7532cd2bd",
+        "rx_7b2d094b9b7be641"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "stronti-sunfit-srso3",
+      "slug": "stronti-sunfit-srso3",
+      "oldWords": 4820,
+      "newWords": 1099,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_29e3ed1689956f92",
+        "rx_c3b9aa57c85ed9df"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "stronti-sunfat-srso4",
+      "slug": "stronti-sunfat-srso4",
+      "oldWords": 4542,
+      "newWords": 1221,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_b7d52f482791c974",
+        "rx_18d4d2611849731e"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "kem-axetat-zn-ch3coo-2",
+      "slug": "kem-axetat-zn-ch3coo-2",
+      "oldWords": 5976,
+      "newWords": 1406,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_059cae38ae7f5f2f",
+        "rx_b2adc0e5ce8d952e",
+        "rx_4c5db0566d75526f",
+        "rx_40c63c4838d797b3"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "kem-fomat-zn-hcoo-2",
+      "slug": "kem-fomat-zn-hcoo-2",
+      "oldWords": 5369,
+      "newWords": 1264,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_78ee6a99d633d348",
+        "rx_75825042fa485aed",
+        "rx_001a21ee0f00cd98"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "kem-nitrat-zn-no3-2",
+      "slug": "kem-nitrat-zn-no3-2",
+      "oldWords": 5586,
+      "newWords": 1388,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_cb3a525b63a2caa2",
+        "rx_821a36a3f0838feb",
+        "rx_6448feef7aef16c9",
+        "rx_76e379ae33133634"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "kem-bromua-znbr2",
+      "slug": "kem-bromua-znbr2",
+      "oldWords": 5426,
+      "newWords": 1485,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_a0a2d70ba00ed387",
+        "rx_d557d626f3c2f066",
+        "rx_efd23273e8d1fe83",
+        "rx_eb2074761d785385"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "kem-oxalat-znc2o4",
+      "slug": "kem-oxalat-znc2o4",
+      "oldWords": 4701,
+      "newWords": 1167,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_41094dbb7a9078a2",
+        "rx_8ccbf004094cb973"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "kem-clorua-zncl2",
+      "slug": "kem-clorua-zncl2",
+      "oldWords": 5836,
+      "newWords": 1497,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_3ace4be54eb484e3",
+        "rx_7f35baa97b6c284b",
+        "rx_88cf96f60fd0c61a",
+        "rx_e6c5fe2c3cfc8c64"
+      ],
+      "labLinks": [
+        "zn_hcl_hydrogen_production"
+      ]
+    },
+    {
+      "id": "kem-cacbonat-znco3",
+      "slug": "kem-cacbonat-znco3",
+      "oldWords": 5495,
+      "newWords": 1300,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_059cae38ae7f5f2f",
+        "rx_a0a2d70ba00ed387",
+        "rx_19bd8ea69d5acba8"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "kem-iodua-zni2",
+      "slug": "kem-iodua-zni2",
+      "oldWords": 4961,
+      "newWords": 1340,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_c079c6224961c599",
+        "rx_2230ea41953533c4",
+        "rx_9c73a9d95c7018af"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "zno-zno",
+      "slug": "zno-zno",
+      "oldWords": 5108,
+      "newWords": 1313,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_adabe1adc8a0de19",
+        "rx_1d5e4eacea7f4c78",
+        "rx_40c63c4838d797b3"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "kem-sunfua-zns",
+      "slug": "kem-sunfua-zns",
+      "oldWords": 4757,
+      "newWords": 1209,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_4ee540b48ff6ad31",
+        "rx_c4759c63e45a1100"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "axit-oxalic-0-1m-h2c2o4",
+      "slug": "axit-oxalic-0-1m-h2c2o4",
+      "oldWords": 3886,
+      "newWords": 690,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "kali-iodat-0-05m-kio3",
+      "slug": "kali-iodat-0-05m-kio3",
+      "oldWords": 3750,
+      "newWords": 700,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "natri-bisunfit-0-05m-nahso3",
+      "slug": "natri-bisunfit-0-05m-nahso3",
+      "oldWords": 4249,
+      "newWords": 713,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "ho-tinh-bot-chi-thi-1-c6h10o5",
+      "slug": "ho-tinh-bot-chi-thi-1-c6h10o5",
+      "oldWords": 3990,
+      "newWords": 508,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "hexan-dung-moi-huu-co-c6h14-c6h14",
+      "slug": "hexan-dung-moi-huu-co-c6h14-c6h14",
+      "oldWords": 4183,
+      "newWords": 903,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [
+        "rx_1e4f5c2d38f764c0"
+      ],
+      "labLinks": []
+    },
+    {
+      "id": "dong-ii-sunfat-ngam-nuoc-tinh-the-lam-cuso4-5h2o",
+      "slug": "dong-ii-sunfat-ngam-nuoc-tinh-the-lam-cuso4-5h2o",
+      "oldWords": 4372,
+      "newWords": 978,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "coban-ii-clorua-ngam-6-nuoc-do-hong-cocl2-6h2o",
+      "slug": "coban-ii-clorua-ngam-6-nuoc-do-hong-cocl2-6h2o",
+      "oldWords": 4366,
+      "newWords": 875,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "niken-ii-sunfat-ngam-6-nuoc-luc-bao-niso4-6h2o",
+      "slug": "niken-ii-sunfat-ngam-6-nuoc-luc-bao-niso4-6h2o",
+      "oldWords": 4033,
+      "newWords": 982,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "sat-ii-sunfat-ngam-7-nuoc-thanh-phan-feso4-7h2o",
+      "slug": "sat-ii-sunfat-ngam-7-nuoc-thanh-phan-feso4-7h2o",
+      "oldWords": 4385,
+      "newWords": 982,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "chi-thi-bromothymol-xanh-0-0001-m-c27h28br2o5s",
+      "slug": "chi-thi-bromothymol-xanh-0-0001-m-c27h28br2o5s",
+      "oldWords": 4091,
+      "newWords": 730,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "heli-he-atom",
+      "slug": "heli-he-atom",
+      "oldWords": 4430,
+      "newWords": 865,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "beri-be",
+      "slug": "beri-be",
+      "oldWords": 3805,
+      "newWords": 781,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "bo-b",
+      "slug": "bo-b",
+      "oldWords": 4048,
+      "newWords": 793,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "nito-n-atom",
+      "slug": "nito-n-atom",
+      "oldWords": 4205,
+      "newWords": 815,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "oxi-o",
+      "slug": "oxi-o",
+      "oldWords": 4127,
+      "newWords": 817,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "flo-f",
+      "slug": "flo-f",
+      "oldWords": 4165,
+      "newWords": 807,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "neon-ne",
+      "slug": "neon-ne",
+      "oldWords": 4012,
+      "newWords": 805,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "silic-si",
+      "slug": "silic-si",
+      "oldWords": 4078,
+      "newWords": 789,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "clo-cl",
+      "slug": "clo-cl",
+      "oldWords": 4103,
+      "newWords": 797,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "argon-ar",
+      "slug": "argon-ar",
+      "oldWords": 3966,
+      "newWords": 811,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "scandi-sc",
+      "slug": "scandi-sc",
+      "oldWords": 4196,
+      "newWords": 825,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "titan-ti",
+      "slug": "titan-ti",
+      "oldWords": 3777,
+      "newWords": 797,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "vanadi-v",
+      "slug": "vanadi-v",
+      "oldWords": 4008,
+      "newWords": 831,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "crom-cr",
+      "slug": "crom-cr",
+      "oldWords": 4038,
+      "newWords": 800,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "gali-ga",
+      "slug": "gali-ga",
+      "oldWords": 4041,
+      "newWords": 796,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "gecmani-ge",
+      "slug": "gecmani-ge",
+      "oldWords": 3953,
+      "newWords": 778,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "asen-as",
+      "slug": "asen-as",
+      "oldWords": 3672,
+      "newWords": 791,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "selen-se",
+      "slug": "selen-se",
+      "oldWords": 4051,
+      "newWords": 808,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "brom-br",
+      "slug": "brom-br",
+      "oldWords": 3691,
+      "newWords": 800,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "kripton-kr",
+      "slug": "kripton-kr",
+      "oldWords": 3899,
+      "newWords": 798,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "rubidium-rb",
+      "slug": "rubidium-rb",
+      "oldWords": 3996,
+      "newWords": 800,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "strontium-sr",
+      "slug": "strontium-sr",
+      "oldWords": 3913,
+      "newWords": 791,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "yttrium-y",
+      "slug": "yttrium-y",
+      "oldWords": 3753,
+      "newWords": 796,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "zirconium-zr",
+      "slug": "zirconium-zr",
+      "oldWords": 3529,
+      "newWords": 782,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "niobium-nb",
+      "slug": "niobium-nb",
+      "oldWords": 3812,
+      "newWords": 787,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "molybdenum-mo",
+      "slug": "molybdenum-mo",
+      "oldWords": 3950,
+      "newWords": 789,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "technetium-tc",
+      "slug": "technetium-tc",
+      "oldWords": 3857,
+      "newWords": 828,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "ruthenium-ru",
+      "slug": "ruthenium-ru",
+      "oldWords": 3811,
+      "newWords": 772,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "rhodium-rh",
+      "slug": "rhodium-rh",
+      "oldWords": 3833,
+      "newWords": 801,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "palladium-pd",
+      "slug": "palladium-pd",
+      "oldWords": 3904,
+      "newWords": 777,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "indium-in",
+      "slug": "indium-in",
+      "oldWords": 4003,
+      "newWords": 796,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "antimony-sb",
+      "slug": "antimony-sb",
+      "oldWords": 3830,
+      "newWords": 805,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "tellurium-te",
+      "slug": "tellurium-te",
+      "oldWords": 3786,
+      "newWords": 793,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "iot-i",
+      "slug": "iot-i",
+      "oldWords": 4042,
+      "newWords": 806,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "xenon-xe",
+      "slug": "xenon-xe",
+      "oldWords": 3978,
+      "newWords": 797,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "cesium-cs",
+      "slug": "cesium-cs",
+      "oldWords": 4043,
+      "newWords": 805,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "bari-ba",
+      "slug": "bari-ba",
+      "oldWords": 4054,
+      "newWords": 784,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "lanthanum-la",
+      "slug": "lanthanum-la",
+      "oldWords": 4041,
+      "newWords": 801,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "cerium-ce",
+      "slug": "cerium-ce",
+      "oldWords": 3935,
+      "newWords": 836,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "praseodymium-pr",
+      "slug": "praseodymium-pr",
+      "oldWords": 4023,
+      "newWords": 829,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "neodymium-nd",
+      "slug": "neodymium-nd",
+      "oldWords": 3920,
+      "newWords": 804,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "promethium-pm",
+      "slug": "promethium-pm",
+      "oldWords": 4027,
+      "newWords": 873,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "samarium-sm",
+      "slug": "samarium-sm",
+      "oldWords": 3914,
+      "newWords": 818,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "europium-eu",
+      "slug": "europium-eu",
+      "oldWords": 3898,
+      "newWords": 797,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "gadolinium-gd",
+      "slug": "gadolinium-gd",
+      "oldWords": 3935,
+      "newWords": 826,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "terbium-tb",
+      "slug": "terbium-tb",
+      "oldWords": 3800,
+      "newWords": 835,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "dysprosium-dy",
+      "slug": "dysprosium-dy",
+      "oldWords": 3974,
+      "newWords": 822,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "holmium-ho",
+      "slug": "holmium-ho",
+      "oldWords": 4108,
+      "newWords": 828,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "erbium-er",
+      "slug": "erbium-er",
+      "oldWords": 4083,
+      "newWords": 826,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "thulium-tm",
+      "slug": "thulium-tm",
+      "oldWords": 3786,
+      "newWords": 806,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "ytterbium-yb",
+      "slug": "ytterbium-yb",
+      "oldWords": 3841,
+      "newWords": 830,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "lutetium-lu",
+      "slug": "lutetium-lu",
+      "oldWords": 3799,
+      "newWords": 824,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "hafnium-hf",
+      "slug": "hafnium-hf",
+      "oldWords": 3976,
+      "newWords": 792,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "tantalum-ta",
+      "slug": "tantalum-ta",
+      "oldWords": 3926,
+      "newWords": 788,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "tungsten-w",
+      "slug": "tungsten-w",
+      "oldWords": 4006,
+      "newWords": 789,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "rhenium-re",
+      "slug": "rhenium-re",
+      "oldWords": 3703,
+      "newWords": 799,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "osmium-os",
+      "slug": "osmium-os",
+      "oldWords": 3983,
+      "newWords": 797,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "iridium-ir",
+      "slug": "iridium-ir",
+      "oldWords": 3888,
+      "newWords": 797,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "bach-kim-pt",
+      "slug": "bach-kim-pt",
+      "oldWords": 4047,
+      "newWords": 826,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "vang-au",
+      "slug": "vang-au",
+      "oldWords": 3807,
+      "newWords": 831,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "thuy-ngan-hg",
+      "slug": "thuy-ngan-hg",
+      "oldWords": 3814,
+      "newWords": 746,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "thallium-tl",
+      "slug": "thallium-tl",
+      "oldWords": 3795,
+      "newWords": 799,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "bismuth-bi",
+      "slug": "bismuth-bi",
+      "oldWords": 3970,
+      "newWords": 820,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "polonium-po",
+      "slug": "polonium-po",
+      "oldWords": 4141,
+      "newWords": 846,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "astatine-at",
+      "slug": "astatine-at",
+      "oldWords": 4138,
+      "newWords": 736,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "radon-rn",
+      "slug": "radon-rn",
+      "oldWords": 4161,
+      "newWords": 727,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "francium-fr",
+      "slug": "francium-fr",
+      "oldWords": 4080,
+      "newWords": 727,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "radium-ra",
+      "slug": "radium-ra",
+      "oldWords": 4093,
+      "newWords": 848,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "actinium-ac",
+      "slug": "actinium-ac",
+      "oldWords": 3826,
+      "newWords": 893,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "thorium-th",
+      "slug": "thorium-th",
+      "oldWords": 3978,
+      "newWords": 826,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "protactinium-pa",
+      "slug": "protactinium-pa",
+      "oldWords": 3758,
+      "newWords": 848,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "uranium-u",
+      "slug": "uranium-u",
+      "oldWords": 3541,
+      "newWords": 817,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "neptunium-np",
+      "slug": "neptunium-np",
+      "oldWords": 3924,
+      "newWords": 865,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "plutonium-pu",
+      "slug": "plutonium-pu",
+      "oldWords": 3939,
+      "newWords": 852,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "americium-am",
+      "slug": "americium-am",
+      "oldWords": 3835,
+      "newWords": 856,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "curium-cm",
+      "slug": "curium-cm",
+      "oldWords": 3777,
+      "newWords": 846,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "berkelium-bk",
+      "slug": "berkelium-bk",
+      "oldWords": 3823,
+      "newWords": 841,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "californium-cf",
+      "slug": "californium-cf",
+      "oldWords": 3793,
+      "newWords": 733,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "einsteinium-es",
+      "slug": "einsteinium-es",
+      "oldWords": 3715,
+      "newWords": 780,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "fermium-fm",
+      "slug": "fermium-fm",
+      "oldWords": 3773,
+      "newWords": 765,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "mendelevium-md",
+      "slug": "mendelevium-md",
+      "oldWords": 3617,
+      "newWords": 760,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "nobelium-no",
+      "slug": "nobelium-no",
+      "oldWords": 3624,
+      "newWords": 745,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "lawrencium-lr",
+      "slug": "lawrencium-lr",
+      "oldWords": 3642,
+      "newWords": 744,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "rutherfordium-rf",
+      "slug": "rutherfordium-rf",
+      "oldWords": 3762,
+      "newWords": 766,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "dubnium-db",
+      "slug": "dubnium-db",
+      "oldWords": 3634,
+      "newWords": 759,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "seaborgium-sg",
+      "slug": "seaborgium-sg",
+      "oldWords": 3766,
+      "newWords": 768,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "bohrium-bh",
+      "slug": "bohrium-bh",
+      "oldWords": 3761,
+      "newWords": 754,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "hassium-hs",
+      "slug": "hassium-hs",
+      "oldWords": 3644,
+      "newWords": 729,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "meitnerium-mt",
+      "slug": "meitnerium-mt",
+      "oldWords": 3618,
+      "newWords": 739,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "darmstadtium-ds",
+      "slug": "darmstadtium-ds",
+      "oldWords": 3597,
+      "newWords": 728,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "roentgenium-rg",
+      "slug": "roentgenium-rg",
+      "oldWords": 3632,
+      "newWords": 731,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "copernicium-cn",
+      "slug": "copernicium-cn",
+      "oldWords": 3692,
+      "newWords": 730,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "nihonium-nh",
+      "slug": "nihonium-nh",
+      "oldWords": 3794,
+      "newWords": 745,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "flerovium-fl",
+      "slug": "flerovium-fl",
+      "oldWords": 3787,
+      "newWords": 743,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "moscovium-mc",
+      "slug": "moscovium-mc",
+      "oldWords": 3579,
+      "newWords": 733,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "livermorium-lv",
+      "slug": "livermorium-lv",
+      "oldWords": 3656,
+      "newWords": 741,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "tennessine-ts",
+      "slug": "tennessine-ts",
+      "oldWords": 3607,
+      "newWords": 771,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    },
+    {
+      "id": "oganesson-og",
+      "slug": "oganesson-og",
+      "oldWords": 3761,
+      "newWords": 743,
+      "substanceIdsPreserved": true,
+      "legacyIdsPreserved": true,
+      "reactions": [],
+      "labLinks": []
+    }
+  ]
+}

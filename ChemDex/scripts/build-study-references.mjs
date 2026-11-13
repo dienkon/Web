@@ -60,7 +60,11 @@ export function buildStudyReferences() {
       if (doc) result.formulas[compound.formula] = doc.slug ?? doc.id;
     }
   }
-  for (const element of elements) result.formulas[element.symbol] = authored.find(a => a.id === `${String(element.number).padStart(3, '0')}_${element.symbol}`)?.slug ?? links[`element-${element.symbol}`];
+  for (const element of elements) {
+    const editorial=authored.find(a=>a.chemicalFormula===element.symbol||a.id.endsWith('_'+element.symbol));
+    const slug=editorial?.slug??result.formulas[element.symbol]??links[`atom-${element.symbol}`]??links[`element-${element.symbol}`];
+    if(slug)result.formulas[element.symbol]=slug;
+  }
   const groups = new Map();
   for (const element of elements) {
     const history = element.history ?? {};
@@ -78,15 +82,31 @@ export function buildStudyReferences() {
     if (existing) { result.discoverers[name] = existing.slug ?? existing.id; continue; }
     result.discoverers[name] = slug;
     const sections = records.map(e => {
-      const href = `/trung-tam/tai-lieu-so/${result.formulas[e.symbol] ?? ''}/`;
+      if (!result.formulas[e.symbol]) throw new Error(`Missing element document for historical profile: ${e.symbol}`);
+      const href = `/trung-tam/tai-lieu-so/${result.formulas[e.symbol]}/`;
       const sources = (e.sources ?? []).filter(s => /periodic-table\.rsc\.org/.test(s.url));
       return `## ${e.nameVi} (${e.symbol})\n\n${e.history.description || 'Hồ sơ hiện chưa có mô tả chi tiết về quá trình phát hiện.'}\n\n**Mốc lịch sử:** ${e.history.year || 'Chưa xác định'}. **Địa điểm ghi trong hồ sơ:** ${e.history.discoveryLocation || 'Chưa xác định'}.\n\n[Đọc tài liệu về ${e.nameVi}](${href}).\n\n${sources.map(s => `[${s.title}](${s.url})`).join(' · ')}`;
     });
-    const meta = { id: slug, slug, documentPath: `docs/${slug}/index.json`, title: anonymous ? `Lịch sử phát hiện ${records[0].nameVi}` : `${name} — dấu mốc khám phá hóa học`, author: 'Ban biên tập ChemDex', category: anonymous ? 'nguyento' : 'tieusu', summary: `Hồ sơ lịch sử liên quan đến ${records.map(e => `${e.nameVi} (${e.symbol})`).join(', ')}; phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.`, image: '/assets/library/cosmic-origin.svg', tags: ['Lịch sử hóa học', ...records.map(e => e.symbol)], aliases: [name], documentKind: 'biography', readingMinutes: Math.max(1, Math.ceil(sections.join(' ').split(/\s+/).length / 180)) };
+    const meta = { id: slug, slug, documentPath: `docs/${slug}/index.json`, title: anonymous ? `Lịch sử phát hiện ${records[0].nameVi}` : `${name} — dấu mốc khám phá hóa học`, author: 'Ban biên tập ChemDex', category: anonymous ? 'nguyento' : 'tieusu', summary: `Hồ sơ lịch sử liên quan đến ${records.map(e => `${e.nameVi} (${e.symbol})`).join(', ')}; phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.`, image: '/assets/library/history-evidence.svg', tags: ['Lịch sử hóa học', ...records.map(e => e.symbol)], aliases: [name], documentKind: 'biography', readingMinutes: Math.max(1, Math.ceil(sections.join(' ').split(/\s+/).length / 180)) };
     const content = `# ${meta.title}\n\n${meta.summary}\n\n${sections.join('\n\n')}\n\n## Cách đọc các mốc lịch sử\n\nPhát hiện một nguyên tố, cô lập đơn chất và đặt tên có thể là những công việc khác nhau, diễn ra ở các thời điểm khác nhau. Một nhóm nghiên cứu hoặc cơ quan không được xem như một cá nhân. Với nguyên tố được biết từ cổ đại, hồ sơ không gán một người khám phá. Các ghi nhận trên dẫn về tài liệu của nguyên tố và nguồn tham khảo tương ứng; không bổ sung lời trích dẫn hay giai thoại đời tư chưa có căn cứ.`;
     const target = path.join('trung-tam/src/data', meta.documentPath);
     fs.mkdirSync(path.dirname(target), { recursive: true });
     fs.writeFileSync(target, JSON.stringify({ ...meta, content }, null, 2) + '\n');
+    metadata.push(meta);
+  }
+  // Referenced contributors need a profile too, even when they are not the
+  // person credited in an element's discoverer field. These entries are
+  // explicitly reviewed; their aliases do not imply discovery credit.
+  for (const selection of read('data/scientist-reference-selections.json')) {
+    const existing = [...authored, ...metadata].find(d => d.category === 'tieusu' && (d.slug === selection.slug || selection.aliases.some(name => d.aliases?.includes(name))));
+    const slug = existing?.slug ?? selection.slug;
+    for (const name of selection.aliases) result.scientistNames[name] = slug;
+    if (existing) continue;
+    const content = selection.sections.map(s => `## ${s.heading}\n\n${s.text}`).join('\n\n') +
+      `\n\n## Đọc tiếp\n\n${selection.relatedFormulas.filter(f => result.formulas[f]).map(f => `- [Tài liệu ${f}](/trung-tam/tai-lieu-so/${result.formulas[f]}/)`).join('\n')}\n\n## Nguồn\n\n${selection.sources.map(s => `- [${s.title}](${s.url})`).join('\n')}`;
+    const meta = {id:slug,slug,documentPath:`docs/${slug}/index.json`,title:selection.title,author:'Ban biên tập ChemDex',category:'tieusu',summary:selection.summary,image:'/assets/library/history-evidence.svg',tags:['Lịch sử hóa học'],aliases:selection.aliases,documentKind:'biography',readingMinutes:Math.max(1,Math.ceil(content.split(/\s+/).length/180))};
+    const target=path.join('trung-tam/src/data',meta.documentPath);
+    fs.mkdirSync(path.dirname(target),{recursive:true});fs.writeFileSync(target,JSON.stringify({...meta,content},null,2)+'\n');
     metadata.push(meta);
   }
   fs.writeFileSync('trung-tam/src/data/biography-index.generated.json', JSON.stringify(metadata, null, 2) + '\n');

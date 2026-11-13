@@ -14,17 +14,54 @@ const atoms=()=>{
   return result;
 };
 
-it.each(Object.keys(OBSERVATION_PLANS).filter(id=>id!=='thermal_decomp_cuoh2'))('observes %s through finite inventory transfers and conserves all atoms before projection',id=>{
+it.each(Object.keys(OBSERVATION_PLANS).filter(id=>id!=='thermal_decomp_cuoh2'))('observes %s through finite inventory transfers and conserves all atoms during transfer',id=>{
   useAppStore.setState({burners:{},burnerIds:[],isSimulationPaused:false,timeScale:1});
   const run=new ObservationSession(id), before=atoms();
   const mass=()=>Object.values(useAppStore.getState().vessels).reduce((n,v)=>n+v.contents.reduce((s,c)=>s+c.mass_g,0),0);
   const initialMass=mass();
   for(let i=0;i<80;i++)run.advance(.25);
-  expect(run.phase).toBe('complete');expect(run.moved).toBeCloseTo(run.total,8);
+  expect(['complete','observing']).toContain(run.phase);expect(run.moved).toBeCloseTo(run.total,8);
   const after=atoms();
   for(const [e,n]of Object.entries(before))expect(after[e]??0,e).toBeCloseTo(n,7);
   expect(mass()).toBeCloseTo(initialMass,6);
   expect(useAppStore.getState().vessels[run.plan.to].contents.length).toBeGreaterThan(0);
+});
+
+it.each(Object.keys(OBSERVATION_PLANS).filter(id=>id!=='thermal_decomp_cuoh2'))('requires real chemical conversion before completing %s',id=>{
+  useAppStore.setState({burners:{},burnerIds:[],isSimulationPaused:false,timeScale:1});
+  const run=new ObservationSession(id);
+  for(let i=0;i<600&&!['complete','error'].includes(run.phase);i++){
+    run.advance(.25);useAppStore.getState().tickSimulation(.25);
+  }
+  expect(run.phase).toBe('complete');expect(run.moved).toBeLessThanOrEqual(run.total);expect(run.moved).toBeGreaterThanOrEqual(run.total*.999);
+});
+
+it('delayed visible ticks preserve elapsed time and finite transfers',()=>{
+  const run=new ObservationSession('agcl_curdy_precipitation');
+  for(let i=0;i<20;i++)run.advance(1);
+  expect(run.elapsed).toBe(16);expect(run.moved).toBeCloseTo(run.total,8);expect(run.phase).toBe('complete');
+  expect(useAppStore.getState().vessels[run.plan.to].contents.some(c=>c.formula==='AgCl'&&c.moles>0)).toBe(true);
+});
+
+it('a missing reagent never becomes a completed reaction just because the observation timer expired',()=>{
+  const run=new ObservationSession('agcl_curdy_precipitation');
+  const state=useAppStore.getState(),receiver=state.vessels[run.plan.to];
+  useAppStore.setState({vessels:{...state.vessels,[receiver.id]:{...receiver,contents:[],substances:[],volume_ml:0,volume:0,mass_g:0}}});
+  for(let i=0;i<20;i++)run.advance(1);
+  expect(run.elapsed).toBe(20);expect(run.moved).toBeCloseTo(run.total,8);
+  expect(run.phase).toBe('observing');
+  for(let i=0;i<110;i++)run.advance(1);
+  expect(run.phase).toBe('error');
+});
+
+it('an interrupted stock cannot be replaced by an invented remaining transfer',()=>{
+  const run=new ObservationSession('agcl_curdy_precipitation');
+  for(let i=0;i<8;i++)run.advance(.25);
+  const delivered=run.moved;expect(delivered).toBeGreaterThan(0);expect(delivered).toBeLessThan(run.total/2);
+  const state=useAppStore.getState();if(run.plan.kind==='heat')throw Error('Wrong fixture');
+  const source=state.vessels[run.plan.from];
+  useAppStore.setState({vessels:{...state.vessels,[source.id]:{...source,contents:[],substances:[],volume_ml:0,volume:0,mass_g:0}}});
+  run.advance(1);expect(run.phase).toBe('error');expect(run.moved).toBe(delivered);
 });
 
 it('dry transfer rejects wet/closed samples and cannot create more than the existing amount',()=>{

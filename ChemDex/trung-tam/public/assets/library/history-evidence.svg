@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450" role="img" aria-labelledby="title desc">
+  <title id="title">Lịch sử khoa học và bằng chứng</title>
+  <desc id="desc">Minh họa hồ sơ nghiên cứu và chiếc cân, biểu tượng cho quan sát, đo lường và đối chiếu nguồn.</desc>
+  <rect width="800" height="450" rx="28" fill="#e7f4ef"/>
+  <rect x="444" y="55" width="306" height="340" rx="24" fill="#fff" stroke="#a2cbbd" stroke-width="2"/>
+  <g fill="#155e59" font-family="Arial, sans-serif">
+    <text x="42" y="67" font-size="21" font-weight="700">LỊCH SỬ KHOA HỌC</text>
+    <text x="42" y="153" font-size="43" font-weight="700">Con người.</text>
+    <text x="42" y="209" font-size="43" font-weight="700">Dấu mốc.</text>
+    <text x="42" y="265" font-size="43" font-weight="700">Bằng chứng.</text>
+    <text x="42" y="343" font-size="19">Quan sát · Đo lường</text>
+    <text x="42" y="373" font-size="19">Đối chiếu tài liệu gốc</text>
+  </g>
+  <g fill="none" stroke="#21766a" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M597 105v151m-61 19h122m-170-128h218m-184 0-30 64h60l-30-64m150 0-30 64h60l-30-64"/>
+    <path d="M491 211c4 19 55 19 60 0m91 0c4 19 55 19 60 0"/>
+  </g>
+  <circle cx="597" cy="147" r="10" fill="#dda754"/>
+  <rect x="495" y="309" width="204" height="43" rx="9" fill="#edf6f2"/>
+  <g stroke="#80b7a7" stroke-width="4" stroke-linecap="round"><path d="M515 324h164m-164 14h122"/></g>
+</svg>

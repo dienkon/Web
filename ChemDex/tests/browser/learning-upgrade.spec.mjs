@@ -108,10 +108,16 @@ test('cold noble gas crystals and molecular nitrogen expose the measured solid p
 });
 
 test('linked observation starts its real reaction, pauses and finishes with product visible',async({page})=>{
- test.setTimeout(90000);
+ // Includes initial software-WebGL startup and multiple preset resets. The
+ // reaction-completion assertion below keeps its independent 35-second bound.
+ test.setTimeout(150000);
  await page.goto('/lab-3d/?experiment=agcl_curdy_precipitation&observe=1');
  const observation=page.getByRole('region',{name:'Quan sát tự động'});
  await expect(observation).toBeVisible({timeout:60000});
+ // Navigation can finish after the automatic run has already progressed.
+ // Begin a fresh user-controlled run before checking pause/resume actions.
+ await observation.getByRole('button',{name:'Tự thực hành',exact:true}).click();
+ await observation.getByRole('button',{name:'Chạy quan sát',exact:true}).click();
  await observation.getByRole('button',{name:'Tạm dừng',exact:true}).click();
  await expect(observation.getByRole('status')).toContainText('tạm dừng');
  await observation.getByRole('button',{name:'Tiếp tục',exact:true}).click();

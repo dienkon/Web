@@ -2,14 +2,15 @@
   "schema": "chemdex.catalog/2",
   "version": 2,
   "reviewedOn": "2026-10-28",
-  "count": 1299,
+  "count": 1300,
   "counts": {
-    "molecularReactions": 1299,
-    "netTransformations": 378,
+    "molecularReactions": 1300,
+    "netTransformations": 379,
     "families": {
       "ammonium_base": 33,
       "amphoteric": 5,
       "carbonate_acid": 91,
+      "catalytic_decomposition": 1,
       "combustion": 29,
       "displacement": 132,
       "esterification": 16,
@@ -29,6 +30,11 @@
   },
   "evidencePolicy": "Các phương trình được kiểm tra cấu trúc và cân bằng; family-rule ghi nguồn quy tắc họ phản ứng, chưa xác nhận thực nghiệm riêng từng mẫu. Phương trình khác ion đối đếm riêng ở molecularReactions, gộp ở netTransformations. Không có bản sao chỉ đổi màu/thời lượng.",
   "sources": {
+    "uw-peroxide-mno2": {
+      "title": "University of Washington — Decomposition of H₂O₂ with MnO₂",
+      "url": "https://chem.washington.edu/lecture-demos/decomposition-h2o2-mno2",
+      "scope": "Thí nghiệm phân hủy H2O2 với MnO2 làm xúc tác, khí O2 và sự tỏa nhiệt; không gán tốc độ hoặc enthalpy định lượng."
+    },
     "openstax-reaction-types": {
       "title": "OpenStax Chemistry 2e, 4.2 — Classifying Chemical Reactions",
       "url": "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
@@ -2071,6 +2077,10 @@
     {
       "formula": "H2O",
       "defaultPhase": "l"
+    },
+    {
+      "formula": "H2O2",
+      "defaultPhase": "aq"
     },
     {
       "formula": "H2S",
@@ -18138,6 +18148,97 @@
         "equation": "ZnCO3(s) + 2H^+(aq) → Zn^2+(aq) + CO2(g) + H2O(l)"
       },
       "netTransformation": "1:ZnCO3^0:s+2:H^1:aq>1:CO2^0:g+1:H2O^0:l+1:Zn^2:aq"
+    },
+    {
+      "id": "rx_a446617e394c09e4",
+      "family": "catalytic_decomposition",
+      "topic_vi": "Phân hủy có xúc tác",
+      "title_vi": "Phân hủy có xúc tác: H2O2",
+      "equation": "2H2O2(aq) → 2H2O(l) + O2(g)",
+      "reactants": [
+        {
+          "formula": "H2O2",
+          "coefficient": 2,
+          "phase": "aq"
+        }
+      ],
+      "products": [
+        {
+          "formula": "H2O",
+          "coefficient": 2,
+          "phase": "l"
+        },
+        {
+          "formula": "O2",
+          "coefficient": 1,
+          "phase": "g"
+        }
+      ],
+      "reversible": false,
+      "conditions": {
+        "description_vi": "Dung dịch H2O2, có MnO2 làm xúc tác; không đồng nhất với nhiệt phân MnO2.",
+        "activation": "catalyst",
+        "catalyst": "MnO2"
+      },
+      "observation_vi": "Có bọt khí O2 thoát ra; quá trình giải phóng nhiệt.",
+      "explanation_vi": "H2O2 phân hủy thành nước và oxygen. MnO2 là chất xúc tác, không phải chất phản ứng bị tiêu hao theo phương trình tổng quát.",
+      "evidence": {
+        "type": "established-transformation",
+        "sourceIds": [
+          "uw-peroxide-mno2"
+        ],
+        "scope": "specific"
+      },
+      "familySignature": "2:H2O2>1:O2+2:H2O",
+      "transfers": [
+        {
+          "from": "H2O2",
+          "to": "O2",
+          "carrier": "O",
+          "workup": "Tách hoặc xử lý sản phẩm và điều chỉnh môi trường trước bước tiếp theo."
+        }
+      ],
+      "effects": {
+        "gases": [
+          "O2"
+        ],
+        "solids": [],
+        "deltaH_kJ_per_mol": null,
+        "color": null,
+        "calibrated": false
+      },
+      "safety_vi": "Dữ liệu học tập về phương trình và điều kiện; không thay thế quy trình thực hành.",
+      "caveats": [
+        "Nguồn mô tả một thí nghiệm có xúc tác. Tốc độ và mức tăng nhiệt phụ thuộc điều kiện mẫu; không suy một giá trị số từ phương trình."
+      ],
+      "runtime": "reference_only",
+      "ionic": {
+        "reactants": [
+          {
+            "formula": "H2O2",
+            "charge": 0,
+            "phase": "aq",
+            "coefficient": 2
+          }
+        ],
+        "products": [
+          {
+            "formula": "H2O",
+            "charge": 0,
+            "phase": "l",
+            "coefficient": 2
+          },
+          {
+            "formula": "O2",
+            "charge": 0,
+            "phase": "g",
+            "coefficient": 1
+          }
+        ],
+        "key": "2:H2O2^0:aq>1:O2^0:g+2:H2O^0:l",
+        "equation": "2H2O2(aq) → 2H2O(l) + O2(g)"
+      },
+      "netTransformation": "2:H2O2^0:aq>1:O2^0:g+2:H2O^0:l"
     },
     {
       "id": "rx_653aea642b29cb86",

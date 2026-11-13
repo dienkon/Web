@@ -2,7 +2,7 @@
   "schema": "chemdex.chains/1",
   "version": 1,
   "catalogVersion": 2,
-  "catalogDigest": "efdbd39114283eedf7926529972be909883dc408eaba83f3c028be44fe276cc6",
+  "catalogDigest": "e332012ce0ec53a1ffa4c3ff3f509702dfcd33f56de25b35bfb8cec87a5e2632",
   "count": 5740,
   "selectionPolicy": "Toàn bộ đường đi đơn giản 3 bước từ graph đã gộp các lựa chọn có cùng chất đầu/cuối ở mỗi cạnh. Mỗi bước tham chiếu một phương trình thật trong catalog; không lặp chất trung gian hoặc phản ứng để kéo dài chuỗi.",
   "workupPolicy": "Các bước là chuỗi chuyển hóa học tập; có thể cần tách, rửa, đổi môi trường, khí quyển hoặc năng lượng. Không phải công thức trộn một bình hoặc SOP đã hiệu chuẩn.",

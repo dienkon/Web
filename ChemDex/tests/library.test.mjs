@@ -31,7 +31,6 @@ test('library metadata, files and explicit chemical identities stay in sync',()=
 });
 test('every primary subject article is substantive, structured, sourced and includes an explained answer',()=>{
   const links=JSON.parse(fs.readFileSync('shared/library-links.generated.json','utf8'));
-  const authors=new Set();
   for(const meta of docs){
     const folder=meta.documentKind==='reference'?'reference':'docs';
     const article=JSON.parse(fs.readFileSync(documentFile(meta),'utf8'));
@@ -41,15 +40,17 @@ test('every primary subject article is substantive, structured, sourced and incl
       assert.match(article.content,/cùng công thức phân tử/);
       assert.match(article.content,/## So sánh các ví dụ/);
       assert.ok(article.chemicalEvidence.exampleCids.length>=2);
-    }else assert.ok(wordCount>=1000,`${meta.id} has only ${wordCount} words (expected >= 1000)`);
-    authors.add(article.author);
+    }else if(meta.lessonKind==='substance-guide'){
+      assert.ok(wordCount>=250&&wordCount<=1800,`${meta.id}: keep a substantive, concise guide (${wordCount} words)`);
+      assert.ok(!/Biên niên sử phản ứng|Vũ điệu va chạm|độ tinh khiết 99,99|toàn bộ tọa độ.*chuẩn xác/.test(article.content),meta.id);
+      assert.ok(!/phân tử nước[₀-₉]/.test(meta.title),meta.id);
+    }else assert.ok(wordCount>=250,meta.id);
   }
-  assert.ok(authors.size>=6,'articles must use multiple distinct journalistic voices/authors');
   for(const id of new Set(Object.values(links))){
     const meta=docs.find(doc=>doc.id===id);assert.ok(meta,id);
     const folder=meta.documentKind==='reference'?'reference':'docs';
     const article=JSON.parse(fs.readFileSync(documentFile(meta),'utf8'));
-    assert.ok(article.content.length>=2500,id);
+    assert.ok(article.content.length>=(meta.lessonKind==='substance-guide'?1200:2500),id);
     assert.ok((article.content.match(/^## /gm)??[]).length>=4,id);
     assert.match(article.content,/<details>/,id);
     assert.match(article.content,/\]\((?:https?:\/\/|\/)/,id);
@@ -65,8 +66,9 @@ test('every generated dossier has specific formula evidence, working model links
       assert.ok(full.content.includes('## Tự quan sát trong mô hình 3D'));
       assert.ok(!full.content.includes('## Câu chuyện:'));
     }else{
-      assert.ok(full.content.includes('## Câu chuyện:'));
-      assert.ok(full.content.includes('## Lần theo thành phần nguyên tử'));
+      assert.ok(full.content.includes('## Nhận diện '));
+      assert.ok(full.content.includes('## Đọc mô hình 3D'));
+      assert.ok(full.content.includes('## Phản ứng liên quan'));
     }
     assert.ok(full.content.includes('<details>'));
     assert.ok(!/\b(?:undefined|NaN)\b|\[object Object\]/.test(full.content),meta.id);

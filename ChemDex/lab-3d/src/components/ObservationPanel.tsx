@@ -5,13 +5,14 @@ import { useAppStore } from '../store/useAppStore';
 export function ObservationPanel({ experimentId, onModeChange }: { experimentId: string; onModeChange(active: boolean): void }) {
   const session = useRef<ObservationSession | null>(null);
   const automatic = useRef(false);
+  const previousTick = useRef(0);
   const [phase, setPhase] = useState('idle');
   const [error, setError] = useState('');
   const paused = useAppStore(s=>s.isSimulationPaused);
   const start = () => {
     session.current?.stop();
     session.current = null;
-    try { session.current = new ObservationSession(experimentId); onModeChange(true); setError(''); setPhase('preparing'); }
+    try { session.current = new ObservationSession(experimentId); previousTick.current=performance.now(); onModeChange(true); setError(''); setPhase('preparing'); }
     catch (e) { setError(e instanceof Error ? e.message : 'Không mở được thí nghiệm.'); setPhase('error'); }
   };
   useEffect(() => {
@@ -19,10 +20,13 @@ export function ObservationPanel({ experimentId, onModeChange }: { experimentId:
     if (!automatic.current && query.get('observe') === '1' && query.get('experiment') === experimentId && OBSERVATION_PLANS[experimentId]) {
       automatic.current = true; start();
     }
+    const resetClock=()=>{previousTick.current=performance.now();};
+    resetClock();document.addEventListener('visibilitychange',resetClock);
     const timer = setInterval(() => {
-      if (session.current) { session.current.advance(0.25); setPhase(session.current.phase); }
+      const now=performance.now(),elapsed=Math.max(0,(now-previousTick.current)/1000);previousTick.current=now;
+      if (session.current && !document.hidden) { session.current.advance(elapsed); setPhase(session.current.phase); }
     },250);
-    return () => { clearInterval(timer); session.current?.stop(); session.current = null; automatic.current = false; };
+    return () => { clearInterval(timer); document.removeEventListener('visibilitychange',resetClock); session.current?.stop(); session.current = null; automatic.current = false; };
   }, [experimentId]);
   if (!OBSERVATION_PLANS[experimentId]) return null;
   const running = ['preparing','transferring','observing'].includes(phase);

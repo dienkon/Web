@@ -78,11 +78,16 @@ test('selected link-only videos cover all 118 current elements and retain publis
 test('all automatic formula and discovery links target actual library documents', () => {
   const refs = read('shared/study-references.generated.json');
   const docs = [...read('trung-tam/src/data/index.json'), ...read('trung-tam/src/data/reference-index.generated.json'), ...read('trung-tam/src/data/biography-index.generated.json')];
-  for (const slug of [...Object.values(refs.formulas), ...Object.values(refs.discoverers)]) {
+  for (const slug of [...Object.values(refs.formulas), ...Object.values(refs.discoverers), ...Object.values(refs.scientistNames)]) {
     const doc=docs.find(d=>(d.slug??d.id)===slug);
     assert.ok(doc,slug); assert.ok(fs.existsSync(`trung-tam/src/data/${doc.documentPath}`),slug);
   }
   const anonymous = docs.filter(d=>d.id.startsWith('lich-su-phat-hien-'));
+  for(const element of read('shared/elements.json'))assert.ok(refs.formulas[element.symbol],`missing element link ${element.symbol}`);
+  for(const doc of docs.filter(d=>d.documentKind==='biography')){
+    const full=read(`trung-tam/src/data/${doc.documentPath}`);
+    assert.ok(!full.content.includes('/trung-tam/tai-lieu-so//'),doc.id);
+  }
   assert.ok(anonymous.every(d=>d.category==='nguyento'));
 });
 

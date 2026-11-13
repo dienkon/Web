@@ -52,7 +52,7 @@ test('all named document chunks, including discovery profiles, load with a match
   for(const doc of [...refs,...authored]){
     expect(byId.get(doc.id)?.slug).toBe(doc.slug);
     expect(byId.get(doc.id)?.documentPath).toBe(doc.documentPath);
-    expect(byId.get(doc.id)?.characters).toBeGreaterThan(2500);
+    expect(byId.get(doc.id)?.characters).toBeGreaterThan(doc.lessonKind === 'substance-guide' ? 1200 : 2500);
   }
 });
 

@@ -1,0 +1,22 @@
+{
+  "id": "nha-khoa-hoc-antoine-lavoisier",
+  "slug": "nha-khoa-hoc-antoine-lavoisier",
+  "documentPath": "docs/nha-khoa-hoc-antoine-lavoisier/index.json",
+  "title": "Antoine Lavoisier — hóa học của sự cháy",
+  "author": "Ban biên tập ChemDex",
+  "category": "tieusu",
+  "summary": "Vai trò trong cách giải thích sự cháy và thành phần của nước, theo American Chemical Society.",
+  "image": "/assets/library/history-evidence.svg",
+  "tags": [
+    "Lịch sử hóa học"
+  ],
+  "aliases": [
+    "Antoine Lavoisier",
+    "Antoine-Laurent Lavoisier",
+    "Antoine Laurent Lavoisier",
+    "Antoine-Laurent de Lavoisier"
+  ],
+  "documentKind": "biography",
+  "readingMinutes": 1,
+  "content": "## Đóng góp được ghi nhận\n\nLavoisier giải thích sự cháy bằng phản ứng với oxygen, thay cho thuyết phlogiston. Ông dùng kết quả thực nghiệm và phép cân để phát triển cách nghiên cứu định lượng trong hóa học. Nghiên cứu về nước giúp xác lập rằng nước là hợp chất, thay vì một nguyên tố.\n\n## Đọc đúng vai trò lịch sử\n\nACS phân biệt đóng góp của Lavoisier với việc Priestley thu được oxygen và công việc của Cavendish về nước. Không gán mọi phát hiện trong câu chuyện cho một người, hoặc xem Lavoisier là người đầu tiên biết carbon.\n\n## Đọc tiếp\n\n- [Tài liệu C](/trung-tam/tai-lieu-so/carbon-c/)\n- [Tài liệu O](/trung-tam/tai-lieu-so/oxy-o/)\n- [Tài liệu H2O](/trung-tam/tai-lieu-so/nuoc-h2o/)\n\n## Nguồn\n\n- [ACS · The Chemical Revolution of Antoine-Laurent Lavoisier](https://www.acs.org/education/whatischemistry/landmarks/lavoisier.html)"
+}

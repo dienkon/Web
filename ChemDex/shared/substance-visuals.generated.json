@@ -3551,14 +3551,6 @@
       }
     ]
   },
-  "ho-tinh-bot-c6h10o5": {
-    "formula": "C6H10O5",
-    "modelId": "chem-starch",
-    "kind": "composition",
-    "source": null,
-    "provenance": null,
-    "crystals": []
-  },
   "axit-sunfuro-h2so3": {
     "formula": "H2SO3",
     "modelId": "chem-h2so3",
@@ -11289,14 +11281,6 @@
   "natri-bisunfit-0-05m-nahso3": {
     "formula": "NaHSO3",
     "modelId": "lab3d-332",
-    "kind": "composition",
-    "source": null,
-    "provenance": null,
-    "crystals": []
-  },
-  "ho-tinh-bot-chi-thi-1-c6h10o5": {
-    "formula": "C6H10O5",
-    "modelId": "lab3d-333",
     "kind": "composition",
     "source": null,
     "provenance": null,
