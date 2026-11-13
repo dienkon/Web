@@ -13,12 +13,7 @@ export const BeakerSvg: React.FC<BeakerSvgProps> = ({ equipment, isSelected }) =
     volume_ml,
     capacity_ml = 250,
     liquidColorHex = '#f8fafc',
-    hasPrecipitate,
-    precipitateColorHex = '#ffffff',
-    precipitateMorphology = 'powder',
-    precipitateMass_g = 0.5,
-    hasGas,
-    effervescenceSpeed = 'vigorous',
+    liquidOpacity = 0.92,
     isBoiling,
     hasPhaseSeparation,
     organicLayerVolume_ml = 0,
@@ -27,12 +22,8 @@ export const BeakerSvg: React.FC<BeakerSvgProps> = ({ equipment, isSelected }) =
     fumeType = 'steam',
     fumeColorHex = '#cbd5e1',
     isBeingHeated,
-    absorbedPower_W = 0,
     hasTripod,
-    foamHead_mm = 0,
     hasSilverMirror,
-    turbidity = 0,
-    temperature_c = 25.0,
   } = equipment;
 
   const fillRatio = Math.min(1.0, Math.max(0, volume_ml / capacity_ml));
@@ -47,9 +38,6 @@ export const BeakerSvg: React.FC<BeakerSvgProps> = ({ equipment, isSelected }) =
   const organicHeight = organicRatio * totalLiquidHeight;
   const aqueousHeight = totalLiquidHeight - organicHeight;
   const aqueousY = 138 - aqueousHeight;
-
-  // Precipitate sediment thickness based on mass
-  const sedimentHeight = Math.min(18, Math.max(3, precipitateMass_g * 6));
 
   return (
     <svg
@@ -179,6 +167,7 @@ export const BeakerSvg: React.FC<BeakerSvgProps> = ({ equipment, isSelected }) =
               width="100"
               height={aqueousHeight + 10}
               fill={`url(#beakerLiquidGrad-${id})`}
+              fillOpacity={liquidOpacity}
             />
 
             {/* Aqueous Meniscus */}
@@ -188,7 +177,7 @@ export const BeakerSvg: React.FC<BeakerSvgProps> = ({ equipment, isSelected }) =
               rx="48"
               ry="4.5"
               fill={liquidColorHex}
-              fillOpacity="0.9"
+              fillOpacity={Math.min(0.95, liquidOpacity * 1.05)}
             />
             <path
               d={`M 22 ${aqueousY} Q 70 ${aqueousY + 3.5} 118 ${aqueousY}`}
@@ -236,117 +225,6 @@ export const BeakerSvg: React.FC<BeakerSvgProps> = ({ equipment, isSelected }) =
               </g>
             )}
 
-            {/* Precipitate Sediment at Bottom */}
-            {hasPrecipitate && (
-              <g>
-                {/* Dense Bed */}
-                <path
-                  d={`M 22 ${144 - sedimentHeight} Q 70 ${144 - sedimentHeight + 2} 118 ${144 - sedimentHeight} L 118 144 L 22 144 Z`}
-                  fill={precipitateColorHex}
-                  fillOpacity="0.95"
-                />
-                {/* Textured clumps / crystals depending on morphology */}
-                {precipitateMorphology === 'curdy' ? (
-                  // Chunky curdy flakes (AgCl)
-                  <g fill={precipitateColorHex}>
-                    <circle cx="34" cy={142 - sedimentHeight} r="4.5" />
-                    <circle cx="48" cy={140 - sedimentHeight} r="5" />
-                    <circle cx="65" cy={141 - sedimentHeight} r="5.5" />
-                    <circle cx="82" cy={139 - sedimentHeight} r="4.5" />
-                    <circle cx="98" cy={141 - sedimentHeight} r="5" />
-                    <circle cx="106" cy={143 - sedimentHeight} r="3.5" />
-                  </g>
-                ) : precipitateMorphology === 'crystalline' ? (
-                  // Sparkling crystalline spangles (PbI2 golden flakes)
-                  <g fill="#fef08a" stroke="#d97706" strokeWidth="0.5">
-                    <polygon points={`38,${142 - sedimentHeight} 41,${145 - sedimentHeight} 35,${145 - sedimentHeight}`} />
-                    <polygon points={`55,${140 - sedimentHeight} 58,${143 - sedimentHeight} 52,${143 - sedimentHeight}`} />
-                    <polygon points={`72,${141 - sedimentHeight} 76,${144 - sedimentHeight} 69,${144 - sedimentHeight}`} />
-                    <polygon points={`90,${139 - sedimentHeight} 94,${142 - sedimentHeight} 87,${142 - sedimentHeight}`} />
-                    <polygon points={`104,${141 - sedimentHeight} 107,${144 - sedimentHeight} 101,${144 - sedimentHeight}`} />
-                  </g>
-                ) : precipitateMorphology === 'gel' ? (
-                  // Soft billowy gelatinous mounds (Al(OH)3, Cu(OH)2)
-                  <g fill={precipitateColorHex} fillOpacity="0.85">
-                    <ellipse cx="42" cy={143 - sedimentHeight} rx="12" ry="5" />
-                    <ellipse cx="68" cy={141 - sedimentHeight} rx="15" ry="6" />
-                    <ellipse cx="95" cy={142 - sedimentHeight} rx="13" ry="5" />
-                  </g>
-                ) : (
-                  // Smooth powder/fine grains (CuO, BaSO4)
-                  <g fill={precipitateColorHex}>
-                    <ellipse cx="45" cy={143 - sedimentHeight} rx="8" ry="2.5" />
-                    <ellipse cx="70" cy={142 - sedimentHeight} rx="10" ry="3" />
-                    <ellipse cx="94" cy={143 - sedimentHeight} rx="8" ry="2.5" />
-                  </g>
-                )}
-
-                {/* Floating suspension particles drifting down */}
-                <g fill={precipitateColorHex} fillOpacity="0.75" className="animate-pulse">
-                  <circle cx="36" cy={liquidY + 25} r="2" />
-                  <circle cx="58" cy={liquidY + 45} r="2.5" />
-                  <circle cx="78" cy={liquidY + 30} r="2" />
-                  <circle cx="96" cy={liquidY + 55} r="2.5" />
-                  <circle cx="48" cy={liquidY + 68} r="1.8" />
-                  <circle cx="84" cy={liquidY + 75} r="2.2" />
-                </g>
-              </g>
-            )}
-
-            {/* Rising Gas Bubbles (Multi-column particle stream) */}
-            {hasGas && (
-              <g className="animate-pulse">
-                {/* Column 1 */}
-                <circle cx="35" cy={liquidY + 18} r="2" fill="#ffffff" fillOpacity="0.85" />
-                <circle cx="38" cy={liquidY + 42} r="2.5" fill="#ffffff" fillOpacity="0.8" />
-                <circle cx="33" cy={liquidY + 68} r="3" fill="#ffffff" fillOpacity="0.75" />
-                <circle cx="36" cy={liquidY + 92} r="2" fill="#ffffff" fillOpacity="0.7" />
-
-                {/* Column 2 */}
-                <circle cx="58" cy={liquidY + 12} r="2.8" fill="#ffffff" fillOpacity="0.9" />
-                <circle cx="54" cy={liquidY + 35} r="2.2" fill="#ffffff" fillOpacity="0.85" />
-                <circle cx="61" cy={liquidY + 58} r="3.2" fill="#ffffff" fillOpacity="0.8" />
-                <circle cx="56" cy={liquidY + 84} r="2.5" fill="#ffffff" fillOpacity="0.75" />
-
-                {/* Column 3 */}
-                <circle cx="82" cy={liquidY + 15} r="3.2" fill="#ffffff" fillOpacity="0.9" />
-                <circle cx="85" cy={liquidY + 38} r="2" fill="#ffffff" fillOpacity="0.85" />
-                <circle cx="79" cy={liquidY + 64} r="2.8" fill="#ffffff" fillOpacity="0.8" />
-                <circle cx="83" cy={liquidY + 88} r="3.5" fill="#ffffff" fillOpacity="0.75" />
-
-                {/* Column 4 */}
-                <circle cx="102" cy={liquidY + 22} r="2.5" fill="#ffffff" fillOpacity="0.85" />
-                <circle cx="98" cy={liquidY + 48} r="3" fill="#ffffff" fillOpacity="0.8" />
-                <circle cx="104" cy={liquidY + 72} r="2.2" fill="#ffffff" fillOpacity="0.75" />
-              </g>
-            )}
-
-            {/* Frothy Foam Head on Meniscus during vigorous gas evolution */}
-            {(hasGas || isBoiling || (foamHead_mm && foamHead_mm > 0)) && (
-              <g className="animate-pulse">
-                {/* Cluster of froth bubbles covering the meniscus */}
-                <ellipse cx="70" cy={liquidY - 1} rx="46" ry="4" fill="#ffffff" fillOpacity="0.85" />
-                <circle cx="30" cy={liquidY - 2} r="3.2" fill="#ffffff" fillOpacity="0.9" />
-                <circle cx="36" cy={liquidY - 4} r="2.8" fill="#ffffff" fillOpacity="0.85" />
-                <circle cx="45" cy={liquidY - 3} r="3.5" fill="#ffffff" fillOpacity="0.9" />
-                <circle cx="56" cy={liquidY - 4.5} r="3.8" fill="#ffffff" fillOpacity="0.95" />
-                <circle cx="68" cy={liquidY - 3} r="4.2" fill="#ffffff" fillOpacity="0.95" />
-                <circle cx="78" cy={liquidY - 4} r="3.6" fill="#ffffff" fillOpacity="0.9" />
-                <circle cx="89" cy={liquidY - 3} r="3.8" fill="#ffffff" fillOpacity="0.9" />
-                <circle cx="100" cy={liquidY - 2.5} r="3.2" fill="#ffffff" fillOpacity="0.85" />
-                <circle cx="108" cy={liquidY - 1} r="2.5" fill="#ffffff" fillOpacity="0.8" />
-              </g>
-            )}
-
-            {/* Boiling Turbulent Agitation */}
-            {isBoiling && (
-              <g className="animate-bounce" opacity="0.8">
-                <circle cx="45" cy={liquidY + 6} r="4" fill="#ffffff" fillOpacity="0.7" />
-                <circle cx="72" cy={liquidY + 4} r="5" fill="#ffffff" fillOpacity="0.7" />
-                <circle cx="95" cy={liquidY + 7} r="4.5" fill="#ffffff" fillOpacity="0.7" />
-              </g>
-            )}
-
             {/* Specular Silver Mirror Metallic Coating (Tollens test) */}
             {hasSilverMirror && (
               <path
@@ -354,20 +232,6 @@ export const BeakerSvg: React.FC<BeakerSvgProps> = ({ equipment, isSelected }) =
                 fill={`url(#silverMirrorGrad-${id})`}
                 className="drop-shadow-sm"
               />
-            )}
-
-            {/* Steam Condensation Water Droplets inside Upper Glass Walls */}
-            {temperature_c >= 50 && totalLiquidHeight < 90 && (
-              <g fill="#ffffff" fillOpacity="0.75" className="animate-pulse">
-                <circle cx="26" cy="38" r="1.5" />
-                <circle cx="28" cy="52" r="1.2" />
-                <circle cx="25" cy="68" r="1.8" />
-                <circle cx="29" cy="84" r="1.4" />
-                <circle cx="114" cy="42" r="1.6" />
-                <circle cx="112" cy="58" r="1.3" />
-                <circle cx="115" cy="74" r="1.7" />
-                <circle cx="111" cy="90" r="1.2" />
-              </g>
             )}
 
             {/* Magnetic Stirring Vortex & Flea */}
@@ -547,8 +411,7 @@ export const BeakerSvg: React.FC<BeakerSvgProps> = ({ equipment, isSelected }) =
       {(hasFumes || isBoiling) && (
         <g
           filter={`url(#fumeBlur-${id})`}
-          className="animate-pulse"
-          opacity={fumeType === 'no2' ? 0.85 : 0.65}
+          opacity={fumeType === 'no2' ? 0.72 : 0.45}
         >
           {fumeType === 'no2' ? (
             // Dense billowing reddish-brown NO2 gas clouds

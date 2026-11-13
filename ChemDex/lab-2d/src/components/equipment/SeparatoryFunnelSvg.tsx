@@ -1,5 +1,6 @@
 import React from 'react';
 import { EquipmentState } from '../../types/equipment';
+import { VesselPhysicsOverlay } from '../vfx/VesselPhysicsOverlay';
 
 interface SeparatoryFunnelSvgProps {
   equipment: EquipmentState;
@@ -162,6 +163,18 @@ export const SeparatoryFunnelSvg: React.FC<SeparatoryFunnelSvgProps> = ({
         )}
       </g>
 
+      {/* Pear 60 FPS Canvas Physics & Spatial Color Mixing Overlay */}
+      <VesselPhysicsOverlay
+        equipment={equipment}
+        innerX={20}
+        innerY={45}
+        innerWidth={90}
+        innerHeight={140}
+        liquidSurfaceY={liquidTopY}
+        liquidHeight={totalLiquidH}
+        clipPathId={`sepClip-${id}`}
+      />
+
       {/* Front Glass Shimmer Overlay */}
       <path
         d="M 50,45 L 80,45 L 84,80 C 112,105 106,145 76,178 L 72,185 L 58,185 L 54,178 C 24,145 18,105 46,80 Z"
@@ -175,10 +188,14 @@ export const SeparatoryFunnelSvg: React.FC<SeparatoryFunnelSvgProps> = ({
 
       {/* Interactive Stopcock Barrel & Handle */}
       <g
+        data-interactive-control="true"
+        onPointerDown={e => e.stopPropagation()}
         onClick={(e) => {
           e.stopPropagation();
           onToggleStopcock?.();
         }}
+        role="button"
+        tabIndex={0}
         className="cursor-pointer group"
       >
         <ellipse cx="65" cy="198" rx="10" ry="6" fill="#0284c7" stroke="#0369a1" strokeWidth="1" />

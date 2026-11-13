@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import { MoreHorizontal } from 'lucide-react';
 import { EquipmentState } from '../../types/equipment';
-import { useLabStore } from '../../store/useLabStore';
 import { BeakerSvg } from './BeakerSvg';
 import { FlaskSvg } from './FlaskSvg';
 import { TestTubeSvg } from './TestTubeSvg';
@@ -20,7 +20,6 @@ import { StirringRodSvg } from './StirringRodSvg';
 import { TestTubeRackSvg } from './TestTubeRackSvg';
 import { SeparatoryFunnelSvg } from './SeparatoryFunnelSvg';
 import { PhPaperSvg } from './PhPaperSvg';
-import { ArrowRightLeft, RotateCw, Droplet, Trash2, Lock, Unlock, Eraser, Sparkles } from 'lucide-react';
 
 interface EquipmentRendererProps {
   equipment: EquipmentState;
@@ -30,6 +29,7 @@ interface EquipmentRendererProps {
   onToggleHeat?: () => void;
   onTare?: () => void;
   onToggleBurette?: () => void;
+  onOpenRadialMenu?: (clientX: number, clientY: number) => void;
   targetVesselForBalance?: EquipmentState | null;
   language: 'vi' | 'en';
 }
@@ -42,9 +42,12 @@ export const EquipmentRenderer: React.FC<EquipmentRendererProps> = ({
   onToggleHeat,
   onTare,
   onToggleBurette,
+  onOpenRadialMenu,
   targetVesselForBalance,
   language,
 }) => {
+  const longPressRef = useRef<number | null>(null);
+
   const renderSvg = () => {
     switch (equipment.type) {
       case 'beaker':
@@ -125,8 +128,6 @@ export const EquipmentRenderer: React.FC<EquipmentRendererProps> = ({
             <circle cx="16" cy="22" r="2.2" fill="#ca8a04" opacity="0.65" />
             <circle cx="28" cy="26" r="2.8" fill="#ca8a04" opacity="0.65" />
             <circle cx="42" cy="21" r="2.0" fill="#ca8a04" opacity="0.65" />
-            <circle cx="35" cy="19" r="1.6" fill="#ca8a04" opacity="0.65" />
-            <circle cx="22" cy="28" r="1.8" fill="#ca8a04" opacity="0.65" />
           </svg>
         );
       default:
@@ -134,189 +135,126 @@ export const EquipmentRenderer: React.FC<EquipmentRendererProps> = ({
     }
   };
 
-  const {
-    openTransferModal,
-    emptyEquipment,
-    toggleStir,
-    addDistilledWater,
-    toggleSeal,
-    removeEquipment,
-  } = useLabStore();
-
   const name = language === 'vi' ? equipment.name_vi : equipment.name;
+  const shortName = name.replace(/\s*\([^)]*\)/g, '').slice(0, 18);
+  const phColor = equipment.ph < 6 ? '#dc2626' : equipment.ph > 8 ? '#2563eb' : '#059669';
+
+  const statusTags: string[] = [];
+  if (equipment.isShattered) statusTags.push('💥');
+  else {
+    if (equipment.isBoiling) statusTags.push('♨️');
+    else if (equipment.isBeingHeated) statusTags.push('🔥');
+    if (equipment.hasGas && !equipment.isBoiling) statusTags.push('🫧');
+    if (equipment.hasPrecipitate) statusTags.push('⬇');
+    if (equipment.isSealed) statusTags.push('🔒');
+    if (equipment.hasSilverMirror) statusTags.push('✨');
+  }
 
   return (
     <div
-      className="relative flex flex-col items-center cursor-grab active:cursor-grabbing transition-transform"
-      onClick={e => {
+      className="relative flex flex-col items-center cursor-grab active:cursor-grabbing"
+      onClick={(e) => {
         e.stopPropagation();
         onSelect();
       }}
+      onContextMenu={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        onSelect();
+        onOpenRadialMenu?.(e.clientX, e.clientY);
+      }}
+      onPointerDown={(e) => {
+        if (e.pointerType === 'touch' && onOpenRadialMenu) {
+          const cx = e.clientX;
+          const cy = e.clientY;
+          longPressRef.current = window.setTimeout(() => {
+            onSelect();
+            onOpenRadialMenu(cx, cy);
+          }, 520);
+        }
+      }}
+      onPointerMove={() => {
+        if (longPressRef.current) {
+          window.clearTimeout(longPressRef.current);
+          longPressRef.current = null;
+        }
+      }}
+      onPointerUp={() => {
+        if (longPressRef.current) {
+          window.clearTimeout(longPressRef.current);
+          longPressRef.current = null;
+        }
+      }}
     >
-      {/* Floating Interactive Quick Action Toolbar (When selected) */}
-      {isSelected && (
-        <div
-          className="absolute -top-11 flex items-center gap-1 bg-slate-900/90 backdrop-blur-md text-white p-1 rounded-xl shadow-lg z-30 pointer-events-auto border border-slate-700/60"
-          onClick={e => e.stopPropagation()}
-        >
-          {equipment.isContainer && (
-            <>
-              {equipment.volume_ml > 0 && (
-                <button
-                  onClick={() => openTransferModal(equipment.id)}
-                  className="p-1.5 hover:bg-blue-600 rounded-lg text-slate-200 hover:text-white transition-colors"
-                  title={language === 'vi' ? 'Rót / Chuyển chất' : 'Pour / Transfer'}
-                >
-                  <ArrowRightLeft className="w-3.5 h-3.5" />
-                </button>
-              )}
-              <button
-                onClick={() => toggleStir(equipment.id)}
-                className={`p-1.5 rounded-lg transition-colors ${
-                  equipment.isStirred
-                    ? 'bg-blue-600 text-white'
-                    : 'hover:bg-slate-800 text-slate-300 hover:text-white'
-                }`}
-                title={language === 'vi' ? 'Khuấy đều' : 'Stir'}
-              >
-                <RotateCw className={`w-3.5 h-3.5 ${equipment.isStirred ? 'animate-spin' : ''}`} />
-              </button>
-              <button
-                onClick={() => addDistilledWater(equipment.id, 25)}
-                className="p-1.5 hover:bg-slate-800 rounded-lg text-slate-300 hover:text-white transition-colors"
-                title={language === 'vi' ? 'Thêm 25mL nước cất' : 'Add 25mL H2O'}
-              >
-                <Droplet className="w-3.5 h-3.5 text-sky-400" />
-              </button>
-              {equipment.volume_ml > 0 && (
-                <button
-                  onClick={() => emptyEquipment(equipment.id)}
-                  className="p-1.5 hover:bg-amber-600 rounded-lg text-slate-300 hover:text-white transition-colors"
-                  title={language === 'vi' ? 'Đổ bỏ & Tráng rửa' : 'Empty & Rinse'}
-                >
-                  <Eraser className="w-3.5 h-3.5" />
-                </button>
-              )}
-              <button
-                onClick={() => toggleSeal(equipment.id)}
-                className={`p-1.5 rounded-lg transition-colors ${
-                  equipment.isSealed
-                    ? 'bg-amber-600 text-white'
-                    : 'hover:bg-slate-800 text-slate-300 hover:text-white'
-                }`}
-                title={
-                  equipment.isSealed
-                    ? (language === 'vi' ? 'Mở nút' : 'Unseal')
-                    : (language === 'vi' ? 'Đậy nút kín' : 'Seal')
-                }
-              >
-                {equipment.isSealed ? <Lock className="w-3.5 h-3.5" /> : <Unlock className="w-3.5 h-3.5" />}
-              </button>
-            </>
-          )}
-          <button
-            onClick={() => removeEquipment(equipment.id)}
-            className="p-1.5 hover:bg-red-600 rounded-lg text-slate-300 hover:text-white transition-colors"
-            title={language === 'vi' ? 'Xóa khỏi bàn' : 'Delete'}
-          >
-            <Trash2 className="w-3.5 h-3.5" />
-          </button>
-        </div>
-      )}
-
-      {/* Svg Graphics with tilting animation during pouring */}
+      {/* Glassware SVG with dynamic pour tilt */}
       <div
         className="relative pointer-events-auto transition-transform duration-300 ease-out"
         style={{
-          transform: isPouring ? 'rotate(32deg) translateY(-8px)' : 'none',
+          transform: isPouring || equipment.isPouring
+            ? `rotate(${equipment.tilt_deg || 32}deg) translateY(-6px)`
+            : 'none',
           transformOrigin: 'top right',
         }}
       >
         {renderSvg()}
       </div>
 
-      {/* Modern Compact Label & Telemetry Badge */}
-      <div className="mt-2 flex flex-col items-center select-none pointer-events-none">
-        <span
-          className={`text-xs font-semibold px-2.5 py-0.5 rounded-full border shadow-xs transition-colors ${
+      {/* Crisp Single-Line Vessel Caption + Quick Radial Trigger (lab-3d parity) */}
+      <div className="mt-2 flex items-center gap-1.5 select-none pointer-events-auto">
+        <div
+          className={`flex items-center gap-1.5 px-3 py-1 rounded-full border text-xs shadow-sm transition-colors whitespace-nowrap ${
             isSelected
-              ? 'bg-blue-600 text-white border-blue-600 ring-2 ring-blue-200'
-              : 'bg-white/95 text-slate-700 border-slate-200 backdrop-blur-xs'
+              ? 'bg-slate-900 text-white border-slate-700 ring-2 ring-blue-400/50'
+              : 'bg-white/95 text-slate-800 border-slate-200/90 backdrop-blur-xs'
           }`}
         >
-          {name}
-        </span>
+          <span className="font-bold">{shortName}</span>
 
-        {/* Real-time Readings (Volume, pH, Temp, Heating Status) */}
-        {equipment.isContainer && (
-          <div className="mt-1 flex flex-col items-center gap-1 select-none pointer-events-none">
-            {equipment.volume_ml > 0 && (
-              <div className="flex items-center gap-1.5 text-[11px] font-mono text-slate-600 bg-white/95 px-2.5 py-0.5 rounded-md border border-slate-200/90 shadow-2xs backdrop-blur-xs">
-                <span className="font-semibold text-blue-600">{equipment.volume_ml.toFixed(1)} mL</span>
-                <span className="text-slate-300">•</span>
-                <span
-                  className="font-medium"
-                  style={{
-                    color: equipment.ph < 6 ? '#ef4444' : equipment.ph > 8 ? '#3b82f6' : '#10b981',
-                  }}
-                >
-                  pH {equipment.ph.toFixed(1)}
-                </span>
-                <span className="text-slate-300">•</span>
-                <span className={`font-medium ${equipment.temperature_c > 50 ? 'text-orange-600 font-bold' : 'text-slate-600'}`}>
-                  {equipment.temperature_c.toFixed(1)}°C
-                </span>
-              </div>
-            )}
+          {equipment.isContainer && equipment.volume_ml > 0 && !equipment.isShattered && (
+            <>
+              <span className={isSelected ? 'text-slate-500' : 'text-slate-300'}>•</span>
+              <span className={`font-mono font-semibold ${isSelected ? 'text-sky-300' : 'text-blue-600'}`}>
+                {equipment.volume_ml.toFixed(0)}mL
+              </span>
+              <span className={isSelected ? 'text-slate-500' : 'text-slate-300'}>•</span>
+              <span className={`font-mono ${equipment.temperature_c > 50 ? 'text-orange-400 font-bold' : ''}`}>
+                {equipment.temperature_c.toFixed(0)}°C
+              </span>
+              <span className={isSelected ? 'text-slate-500' : 'text-slate-300'}>•</span>
+              <span
+                className="font-mono font-bold"
+                style={{ color: isSelected ? '#93c5fd' : phColor }}
+              >
+                pH {equipment.ph.toFixed(1)}
+              </span>
+            </>
+          )}
 
-            {/* Dynamic Status Badges */}
-            <div className="flex items-center gap-1 flex-wrap justify-center max-w-44">
-              {equipment.isBeingHeated && (
-                <span className="text-[10px] font-semibold px-2 py-0.2 rounded-full bg-orange-100 text-orange-700 border border-orange-200 animate-pulse flex items-center gap-1 shadow-2xs">
-                  <span>🔥</span>
-                  <span>{equipment.absorbedPower_W || 350}W</span>
-                  {equipment.heatingRate_c_s !== undefined && equipment.heatingRate_c_s > 0 && (
-                    <span className="text-[9px] opacity-80">(+{equipment.heatingRate_c_s}°/s)</span>
-                  )}
-                </span>
-              )}
-              {equipment.isBoiling && (
-                <span className="text-[10px] font-semibold px-2 py-0.2 rounded-full bg-red-100 text-red-700 border border-red-200 animate-bounce flex items-center gap-0.5 shadow-2xs">
-                  <span>♨️</span>
-                  <span>{language === 'vi' ? 'Đang sôi' : 'Boiling'}</span>
-                </span>
-              )}
-              {equipment.hasGas && !equipment.isBoiling && (
-                <span className="text-[10px] font-semibold px-2 py-0.2 rounded-full bg-sky-100 text-sky-700 border border-sky-200 flex items-center gap-0.5 shadow-2xs">
-                  <span>🫧</span>
-                  <span>{language === 'vi' ? 'Sủi bọt khí' : 'Effervescent'}</span>
-                </span>
-              )}
-              {equipment.hasPrecipitate && (
-                <span className="text-[10px] font-semibold px-2 py-0.2 rounded-full bg-amber-100 text-amber-800 border border-amber-200 flex items-center gap-0.5 shadow-2xs">
-                  <span>⬇️</span>
-                  <span>{equipment.precipitateSubstance || (language === 'vi' ? 'Kết tủa' : 'Precipitate')}</span>
-                </span>
-              )}
-              {equipment.isSealed && (
-                <span className="text-[10px] font-semibold px-1.5 py-0.2 rounded-full bg-slate-100 text-slate-700 border border-slate-200 flex items-center gap-0.5">
-                  <span>🔒</span>
-                  <span>
-                    {language === 'vi' ? 'Đậy kín' : 'Sealed'}{' '}
-                    {equipment.internalPressure_atm && equipment.internalPressure_atm > 1.02
-                      ? `(${equipment.internalPressure_atm.toFixed(2)} atm)`
-                      : ''}
-                  </span>
-                </span>
-              )}
-              {equipment.isShattered && (
-                <span className="text-[10px] font-bold px-2 py-0.2 rounded-full bg-rose-600 text-white border border-rose-400 animate-pulse flex items-center gap-0.5 shadow-xs">
-                  <span>💥</span>
-                  <span>{language === 'vi' ? 'Đã nổ vỡ!' : 'Shattered!'}</span>
-                </span>
-              )}
-            </div>
-          </div>
+          {statusTags.length > 0 && (
+            <span className="text-xs leading-none tracking-tight">{statusTags.join('')}</span>
+          )}
+        </div>
+
+        {onOpenRadialMenu && (
+          <button
+            type="button"
+            data-interactive-control="true"
+            onPointerDown={(e) => e.stopPropagation()}
+            onClick={(e) => {
+              e.stopPropagation();
+              onSelect();
+              onOpenRadialMenu(e.clientX, e.clientY);
+            }}
+            className={`p-1.5 rounded-full border shadow-sm transition-colors cursor-pointer ${
+              isSelected
+                ? 'bg-blue-600 text-white border-blue-500 hover:bg-blue-500'
+                : 'bg-white/95 text-slate-600 border-slate-200 hover:text-slate-900'
+            }`}
+            title={language === 'vi' ? 'Thao tác nhanh' : 'Quick actions'}
+            aria-label="Open radial quick menu"
+          >
+            <MoreHorizontal size={14} />
+          </button>
         )}
       </div>
     </div>

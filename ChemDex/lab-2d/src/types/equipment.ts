@@ -128,6 +128,14 @@ export interface EquipmentState {
   pourSpillFraction?: number; // fraction of stream missing target → puddle
   tilt_deg?: number; // Current vessel tilt angle during manual/continuous pour
 
+  // Physical solution & fluid mechanics telemetry (lab-3d parity)
+  viscosity_mPa_s?: number; // Temperature & composition dependent dynamic viscosity
+  surfaceTension_N_m?: number; // Surface tension governing meniscus curvature & bubbles
+  mixtureCp_J_kgK?: number; // Mixture specific heat capacity J/(kg*K)
+  density_g_ml?: number; // Bulk solution density g/mL
+  stirIntensity?: number; // 0..1 active stirring angular drive
+  pourContactX?: number; // -1..1 normalized horizontal contact site for diffusion field
+
   // Damage, headspace pressure & lab realism (lab-3d parity)
   isShattered?: boolean;
   isSealed?: boolean;
@@ -187,6 +195,7 @@ export interface ActivePour {
   sourceId: string;
   targetId: string;
   rate_ml_s: number;
+  remaining_ml?: number;
   startedAt: number;
   tilt_deg: number;
 }

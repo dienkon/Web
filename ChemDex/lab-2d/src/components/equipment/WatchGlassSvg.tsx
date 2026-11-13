@@ -1,5 +1,6 @@
 import React from 'react';
 import { EquipmentState } from '../../types/equipment';
+import { findChemicalByFormula } from '../../data/chemicals';
 
 interface WatchGlassSvgProps {
   equipment: EquipmentState;
@@ -9,6 +10,7 @@ interface WatchGlassSvgProps {
 export const WatchGlassSvg: React.FC<WatchGlassSvgProps> = ({ equipment, isSelected }) => {
   const { contents = [] } = equipment;
   const solidItem = contents.find(c => c.state === 's' && c.mass_g > 0.01);
+  const solidColor = (solidItem && findChemicalByFormula(solidItem.formula)?.colorHex) || '#e2e8f0';
 
   return (
     <svg
@@ -74,14 +76,15 @@ export const WatchGlassSvg: React.FC<WatchGlassSvgProps> = ({ equipment, isSelec
             cy="28"
             rx="18"
             ry="6"
-            fill="#e2e8f0"
-            stroke="#cbd5e1"
-            strokeWidth="0.5"
+            fill={solidColor}
+            fillOpacity={0.92}
+            stroke="#94a3b8"
+            strokeWidth="0.6"
           />
           {/* Micro Crystals Pile */}
-          <polygon points="48,26 52,22 56,26 51,28" fill="#ffffff" stroke="#94a3b8" strokeWidth="0.4" />
-          <polygon points="54,25 58,21 62,25 57,28" fill="#f8fafc" stroke="#94a3b8" strokeWidth="0.4" />
-          <polygon points="50,29 55,25 59,29 53,31" fill="#ffffff" stroke="#94a3b8" strokeWidth="0.4" />
+          <polygon points="48,26 52,22 56,26 51,28" fill={solidColor} stroke="#94a3b8" strokeWidth="0.4" />
+          <polygon points="54,25 58,21 62,25 57,28" fill={solidColor} stroke="#94a3b8" strokeWidth="0.4" />
+          <polygon points="50,29 55,25 59,29 53,31" fill={solidColor} stroke="#94a3b8" strokeWidth="0.4" />
           <text
             x="55"
             y="38"

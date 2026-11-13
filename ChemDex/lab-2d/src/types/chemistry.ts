@@ -51,6 +51,14 @@ export type SolidMorphology =
   | 'chip'
   | 'wire';
 
+export type IndicatorType =
+  | 'phenolphthalein'
+  | 'litmus'
+  | 'universal'
+  | 'bromothymol_blue'
+  | 'methyl_orange'
+  | 'thymolphthalein';
+
 export type ReactionArchetype =
   | 'acid_base_neutralization'
   | 'precipitation'
@@ -101,6 +109,36 @@ export interface PrecipitateLayerState {
   redissolveProgress?: number; // 0..1 when dissolving in excess NH3 or OH-
 }
 
+export interface AntoineParameters {
+  A: number;
+  B: number;
+  C: number;
+}
+
+export interface SolidAppearanceSpec {
+  color: string;
+  morphology: SolidMorphology | PrecipitateMorphology;
+  glossiness: number; // 0 (matte powder) .. 1 (crystalline/metallic)
+  metallic?: boolean;
+}
+
+export interface SubstancePhysicalProps {
+  Cp_J_kgK: number; // Specific heat capacity J/(kg*K)
+  meltingPoint_K?: number;
+  boilingPoint_K?: number;
+  antoine?: AntoineParameters;
+  latentHeatVap_J_kg?: number;
+  surfaceTension_N_m?: number; // Pure/standard surface tension N/m at 25C
+  viscosity_mPa_s?: number; // Dynamic viscosity mPa*s (cP) at 25C
+  Ksp?: number;
+  dH_sol_J_mol?: number; // Enthalpy of dissolution (+ = endothermic cooling)
+  absorptivity_RGB: [number, number, number]; // Linear Beer-Lambert spectral coefficients
+  scatter: number; // Tyndall / colloid scattering factor
+  solubility_g_100ml_cold?: number; // ~20C
+  solubility_g_100ml_hot?: number; // ~95-100C
+  solidAppearance?: SolidAppearanceSpec;
+}
+
 export interface ChemicalDefinition {
   id: string;
   formula: string;
@@ -120,6 +158,7 @@ export interface ChemicalDefinition {
   safetyNotes_vi?: string;
   description_en?: string;
   description_vi?: string;
+  physicalProps?: Partial<SubstancePhysicalProps>;
 }
 
 export interface SubstanceQuantity {
@@ -209,6 +248,11 @@ export interface SimulationResult {
   finalTemperature_c: number;
   finalPh: number;
   finalLiquidColorHex: string;
+  liquidOpacity?: number;
+  mixtureViscosity_mPa_s?: number;
+  surfaceTension_N_m?: number;
+  mixtureCp_J_kgK?: number;
+  density_g_ml?: number;
   hasPrecipitate: boolean;
   precipitateInfo?: {
     formula: string;

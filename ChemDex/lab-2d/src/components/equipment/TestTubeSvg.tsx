@@ -13,27 +13,19 @@ export const TestTubeSvg: React.FC<TestTubeSvgProps> = ({ equipment, isSelected 
     volume_ml,
     capacity_ml = 50,
     liquidColorHex = '#f8fafc',
-    hasPrecipitate,
-    precipitateColorHex = '#ffffff',
-    precipitateMorphology = 'powder',
-    precipitateMass_g = 0.3,
-    hasGas,
+    liquidOpacity = 0.92,
     isBoiling,
     hasFumes,
     fumeType = 'steam',
     fumeColorHex = '#cbd5e1',
     isBeingHeated,
     hasSilverMirror,
-    foamHead_mm = 0,
-    temperature_c = 25.0,
   } = equipment;
 
   const fillRatio = Math.min(1.0, Math.max(0, volume_ml / capacity_ml));
   const maxLiquidHeight = 135;
   const totalLiquidHeight = fillRatio * maxLiquidHeight;
   const liquidY = 162 - totalLiquidHeight;
-
-  const sedimentHeight = Math.min(14, Math.max(4, precipitateMass_g * 8));
 
   return (
     <svg
@@ -125,6 +117,7 @@ export const TestTubeSvg: React.FC<TestTubeSvgProps> = ({ equipment, isSelected 
               width="32"
               height={totalLiquidHeight + 20}
               fill={`url(#tubeLiquidGrad-${id})`}
+              fillOpacity={liquidOpacity}
             />
 
             {/* Meniscus */}
@@ -134,7 +127,7 @@ export const TestTubeSvg: React.FC<TestTubeSvgProps> = ({ equipment, isSelected 
               rx="14"
               ry="3"
               fill={liquidColorHex}
-              fillOpacity="0.9"
+              fillOpacity={Math.min(0.95, liquidOpacity * 1.05)}
             />
             <path
               d={`M 12 ${liquidY} Q 26 ${liquidY + 2.5} 40 ${liquidY}`}
@@ -144,61 +137,6 @@ export const TestTubeSvg: React.FC<TestTubeSvgProps> = ({ equipment, isSelected 
               strokeOpacity="0.6"
             />
 
-            {/* Precipitate in Rounded Hemispherical Bottom */}
-            {hasPrecipitate && (
-              <g>
-                <path
-                  d={`M 12 ${168 - sedimentHeight} Q 12 168 26 168 Q 40 168 40 ${168 - sedimentHeight} Z`}
-                  fill={precipitateColorHex}
-                  fillOpacity="0.95"
-                />
-                {precipitateMorphology === 'curdy' ? (
-                  <g fill={precipitateColorHex}>
-                    <circle cx="20" cy={164 - sedimentHeight} r="3" />
-                    <circle cx="28" cy={163 - sedimentHeight} r="3.5" />
-                    <circle cx="33" cy={165 - sedimentHeight} r="2.8" />
-                  </g>
-                ) : precipitateMorphology === 'crystalline' ? (
-                  <g fill="#fef08a" stroke="#d97706" strokeWidth="0.5">
-                    <polygon points={`22,${163 - sedimentHeight} 24,${165 - sedimentHeight} 20,${165 - sedimentHeight}`} />
-                    <polygon points={`30,${162 - sedimentHeight} 32,${164 - sedimentHeight} 28,${164 - sedimentHeight}`} />
-                  </g>
-                ) : (
-                  <ellipse cx="26" cy={165 - sedimentHeight} rx="8" ry="3" fill={precipitateColorHex} />
-                )}
-
-                {/* Floating suspension specks */}
-                <g fill={precipitateColorHex} fillOpacity="0.75" className="animate-pulse">
-                  <circle cx="20" cy={liquidY + 20} r="1.5" />
-                  <circle cx="31" cy={liquidY + 40} r="1.8" />
-                  <circle cx="23" cy={liquidY + 65} r="1.6" />
-                </g>
-              </g>
-            )}
-
-            {/* Bubbles in Narrow Tube */}
-            {hasGas && (
-              <g className="animate-pulse">
-                <circle cx="22" cy={liquidY + 15} r="2" fill="#ffffff" fillOpacity="0.85" />
-                <circle cx="29" cy={liquidY + 32} r="2.5" fill="#ffffff" fillOpacity="0.9" />
-                <circle cx="24" cy={liquidY + 54} r="2.2" fill="#ffffff" fillOpacity="0.8" />
-                <circle cx="28" cy={liquidY + 76} r="2.8" fill="#ffffff" fillOpacity="0.75" />
-                <circle cx="23" cy={liquidY + 98} r="2" fill="#ffffff" fillOpacity="0.75" />
-              </g>
-            )}
-
-            {/* Frothy Foam Head during gas generation */}
-            {(hasGas || isBoiling || (foamHead_mm && foamHead_mm > 0)) && (
-              <g className="animate-pulse">
-                <ellipse cx="26" cy={liquidY - 1} rx="13" ry="2.8" fill="#ffffff" fillOpacity="0.85" />
-                <circle cx="16" cy={liquidY - 2} r="2.2" fill="#ffffff" fillOpacity="0.9" />
-                <circle cx="21" cy={liquidY - 3} r="2.5" fill="#ffffff" fillOpacity="0.95" />
-                <circle cx="27" cy={liquidY - 3.2} r="2.8" fill="#ffffff" fillOpacity="0.95" />
-                <circle cx="33" cy={liquidY - 2.5} r="2.4" fill="#ffffff" fillOpacity="0.9" />
-                <circle cx="37" cy={liquidY - 1.5} r="1.8" fill="#ffffff" fillOpacity="0.85" />
-              </g>
-            )}
-
             {/* Specular Silver Mirror Coating (Tollens test inside tube) */}
             {hasSilverMirror && (
               <path
@@ -206,24 +144,6 @@ export const TestTubeSvg: React.FC<TestTubeSvgProps> = ({ equipment, isSelected 
                 fill={`url(#tubeSilverMirror-${id})`}
                 className="drop-shadow-xs"
               />
-            )}
-
-            {/* Steam Condensation Droplets */}
-            {temperature_c >= 50 && totalLiquidHeight < 100 && (
-              <g fill="#ffffff" fillOpacity="0.75" className="animate-pulse">
-                <circle cx="15" cy="35" r="1.2" />
-                <circle cx="37" cy="42" r="1.4" />
-                <circle cx="16" cy="58" r="1.5" />
-                <circle cx="36" cy="70" r="1.3" />
-              </g>
-            )}
-
-            {/* Boiling Agitation */}
-            {isBoiling && (
-              <g className="animate-bounce" opacity="0.8">
-                <circle cx="22" cy={liquidY + 4} r="3.5" fill="#ffffff" fillOpacity="0.7" />
-                <circle cx="30" cy={liquidY + 3} r="4" fill="#ffffff" fillOpacity="0.75" />
-              </g>
             )}
           </g>
         )}
@@ -306,8 +226,7 @@ export const TestTubeSvg: React.FC<TestTubeSvgProps> = ({ equipment, isSelected 
       {(hasFumes || isBoiling) && (
         <g
           filter={`url(#tubeFumeBlur-${id})`}
-          className="animate-pulse"
-          opacity={fumeType === 'no2' ? 0.85 : 0.65}
+          opacity={fumeType === 'no2' ? 0.72 : 0.45}
         >
           {fumeType === 'no2' ? (
             <g fill={fumeColorHex}>

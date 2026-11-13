@@ -3,7 +3,8 @@
  * Includes rigorous IUPAC molar masses, standard concentrations, colors, GHS hazards, and PPE.
  */
 
-import { ChemicalDefinition } from '../types/chemistry';
+import { ChemicalDefinition, SubstancePhysicalProps } from '../types/chemistry';
+import { getPhysicalSubstance } from '../chemistry/physical/substanceProps';
 
 export const CHEMICAL_CATALOG: ChemicalDefinition[] = [
   // --- ACIDS ---
@@ -1680,4 +1681,22 @@ export function findChemicalById(id: string): ChemicalDefinition | undefined {
 export function findChemicalByFormula(formula: string): ChemicalDefinition | undefined {
   const norm = formula.toUpperCase().replace(/\s+/g, '');
   return CHEMICAL_CATALOG.find(c => c.formula.toUpperCase().replace(/\s+/g, '') === norm);
+}
+
+export function getChemicalPhysicalProps(formulaOrChem: string | ChemicalDefinition): Partial<SubstancePhysicalProps> | undefined {
+  const formula = typeof formulaOrChem === 'string' ? formulaOrChem : formulaOrChem.formula;
+  const entry = getPhysicalSubstance(formula);
+  if (entry) return entry;
+  return typeof formulaOrChem === 'string' ? undefined : formulaOrChem.physicalProps;
+}
+
+// Hydrate physical constants (viscosity, Cp, Antoine constants, Ksp, dH_sol, optics) from PHYSICAL_SUBSTANCES
+for (const chem of CHEMICAL_CATALOG) {
+  const phys = getPhysicalSubstance(chem.formula);
+  if (phys) {
+    chem.physicalProps = phys;
+    if (!chem.density_g_ml && phys.density_g_ml) {
+      chem.density_g_ml = phys.density_g_ml;
+    }
+  }
 }

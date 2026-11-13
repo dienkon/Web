@@ -9,6 +9,7 @@
 
 import { parseChemicalFormula, computeMolarMass } from './formula';
 import { SubstanceQuantity, ReactionDefinition } from '../../types/chemistry';
+import { calculateMixtureOptics } from '../optics/liquidOptics';
 
 /** AI proposals must pass the same elemental conservation gate as catalog
  * reactions before they are allowed to modify physical inventories. */
@@ -122,45 +123,16 @@ export function calculateExcessVolumeContraction_ml(
 /**
  * Beer-Lambert Law color calculation for transmitted light through colored solutions:
  * T = 10^(-epsilon * c * l)
+/**
+ * Multi-species linear-sRGB Beer-Lambert spectral absorbance & Tyndall scatter calculation
+ * (ported from lab-3d optics.ts): computes A_lambda = sum(eps_i * c_i * L_cm),
+ * transmittance T = 10^(-A), forward scatter blending, and sRGB gamma encoding.
  */
 export function calculateBeerLambertColor(
   contents: SubstanceQuantity[],
   volume_ml: number,
-  defaultColorHex = '#f8fafc'
+  defaultColorHex = '#f8fafc',
+  pathLength_cm = 4.5
 ): string {
-  if (contents.length === 0 || volume_ml <= 0) return defaultColorHex;
-
-  // Key chromophores and their characteristic RGB absorption weights
-  const chromophores: Record<string, { r: number; g: number; b: number; extinction: number }> = {
-    'CUSO4': { r: 56, g: 189, b: 248, extinction: 50 },        // Sky blue
-    '[CU(NH3)4]SO4': { r: 29, g: 78, b: 216, extinction: 200 }, // Royal blue
-    'FECL3': { r: 202, g: 138, b: 4, extinction: 80 },         // Amber brown
-    'KMNO4': { r: 126, g: 34, b: 206, extinction: 800 },       // Intense purple
-    'K2CR2O7': { r: 234, g: 88, b: 12, extinction: 300 },      // Orange
-    'FESO4': { r: 187, g: 247, b: 208, extinction: 20 },       // Pale green
-    'NISO4': { r: 34, g: 197, b: 94, extinction: 60 },         // Emerald green
-    'COCL2': { r: 244, g: 63, b: 94, extinction: 70 },         // Pink/magenta
-    'I2': { r: 161, g: 98, b: 7, extinction: 250 },            // Iodine brown
-  };
-
-  let maxInfluence = 0;
-  let activeColor = defaultColorHex;
-
-  for (const item of contents) {
-    const norm = item.formula.toUpperCase().replace(/\s+/g, '');
-    const chrom = chromophores[norm];
-    if (chrom && item.concentration_M && item.concentration_M > 0) {
-      const absorbance = chrom.extinction * item.concentration_M;
-      if (absorbance > maxInfluence) {
-        maxInfluence = absorbance;
-        // Hex representation
-        const rHex = chrom.r.toString(16).padStart(2, '0');
-        const gHex = chrom.g.toString(16).padStart(2, '0');
-        const bHex = chrom.b.toString(16).padStart(2, '0');
-        activeColor = `#${rHex}${gHex}${bHex}`;
-      }
-    }
-  }
-
-  return activeColor;
+  return calculateMixtureOptics(contents, volume_ml, [0, 0, 0], pathLength_cm, defaultColorHex).colorHex;
 }

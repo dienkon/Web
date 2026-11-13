@@ -19,6 +19,12 @@
 import { EquipmentState } from '../types/equipment';
 import { PrecipitateMorphology } from '../types/chemistry';
 import { soundEngine } from '../services/soundEngine';
+import { LiquidAppearanceField2D } from './LiquidAppearanceField2D';
+import {
+  DEFAULT_LAB_ENVIRONMENT,
+  LabEnvironment,
+  computeVaporPlumeVisibility,
+} from '../chemistry/physical/environmentPhysics';
 
 export interface BubbleParticle2D {
   x: number; // Normalized 0..1 across vessel inner width
@@ -52,6 +58,19 @@ export interface SparkParticle2D {
   maxLife: number;
   colorHex: string;
   size_px: number;
+}
+
+export interface FumePuff2D {
+  x: number; // 0..1
+  yOffsetPx: number; // negative px distance above meniscus (-4 .. -95)
+  vx: number;
+  vy: number; // px/s (negative rises, positive dense cascades slightly downward before dispersing)
+  radius_px: number;
+  alpha: number;
+  life: number;
+  maxLife: number;
+  colorHex: string;
+  fumeType: 'steam' | 'no2' | 'nh4cl' | 'iodine';
 }
 
 export interface AlkaliWakePoint2D {
@@ -100,10 +119,12 @@ export interface ActiveControllerTimer2D {
   duration_s: number;
   progress: number; // 0..1 kinetic progress
   inductionDelay_s: number;
+  flashTriggered?: boolean;
 }
 
 export interface VesselRuntimeVisualState2D {
   vesselId: string;
+  colorField: LiquidAppearanceField2D;
   // Meniscus damped spring wave
   meniscusAngle_deg: number;
   meniscusAngularVel: number;
@@ -117,6 +138,7 @@ export interface VesselRuntimeVisualState2D {
   bubbles: BubbleParticle2D[];
   precipitates: PrecipitateParticle2D[];
   sparks: SparkParticle2D[];
+  fumes: FumePuff2D[];
   plumes: ColorPlume2D[];
   shards: GlassShard2D[];
   alkaliPellet: AlkaliPelletState2D | null;
@@ -129,6 +151,7 @@ export interface VesselRuntimeVisualState2D {
   iodineFrostProgress: number; // 0..1 on upper glass wall
   mgFlashIntensity: number; // 0..1 blinding white bloom
   thermalDecompProgress: number; // 0..1 bottom-up blackening for Cu(OH)2 -> CuO
+  schlierenIntensity: number; // 0..1 refractive thermal/mixing convection shimmer
   lastSizzleSoundAt: number;
   lastBubbleSoundAt: number;
 }
@@ -139,8 +162,13 @@ class ReactionRuntimeEngine2D {
   public getOrCreateState(eq: EquipmentState): VesselRuntimeVisualState2D {
     let st = this.states.get(eq.id);
     if (!st) {
+      const colorField = new LiquidAppearanceField2D();
+      if (eq.volume_ml > 0) {
+        colorField.reset(eq.liquidColorHex || '#f8fafc', eq.liquidOpacity ?? 0.65);
+      }
       st = {
         vesselId: eq.id,
+        colorField,
         meniscusAngle_deg: 0,
         meniscusAngularVel: 0,
         ripplePhase: 0,
@@ -151,6 +179,7 @@ class ReactionRuntimeEngine2D {
         bubbles: [],
         precipitates: [],
         sparks: [],
+        fumes: [],
         plumes: [],
         shards: [],
         alkaliPellet: null,
@@ -161,6 +190,7 @@ class ReactionRuntimeEngine2D {
         iodineFrostProgress: eq.sublimationFrostProgress ?? 0,
         mgFlashIntensity: 0,
         thermalDecompProgress: 0,
+        schlierenIntensity: 0,
         lastSizzleSoundAt: 0,
         lastBubbleSoundAt: 0,
       };
@@ -171,6 +201,29 @@ class ReactionRuntimeEngine2D {
 
   public resetAll(): void {
     this.states.clear();
+  }
+
+  /**
+   * Triggers spatial 2D diffusion + swirling color plume inside the vessel when pouring,
+   * pipetting, or adding a reagent ("loang màu" at exact entry coordinate).
+   */
+  public triggerColorMixing(
+    eq: EquipmentState,
+    prevHex: string,
+    targetHex: string,
+    contactXNorm = 0,
+    incomingHex?: string
+  ): void {
+    const st = this.getOrCreateState(eq);
+    st.colorField.seedMixingTransition(
+      prevHex || '#f8fafc',
+      targetHex || '#f8fafc',
+      eq.liquidOpacity ?? 0.72,
+      contactXNorm,
+      incomingHex
+    );
+    st.rippleAmplitude_px = Math.max(st.rippleAmplitude_px, 2.8);
+    st.schlierenIntensity = Math.max(st.schlierenIntensity, 0.45);
   }
 
   /**
@@ -207,14 +260,14 @@ class ReactionRuntimeEngine2D {
         metal: isK ? 'K' : 'Na',
         x: 0.5,
         vx: (Math.random() > 0.5 ? 1 : -1) * (isK ? 0.95 : 0.65),
-        radius_px: isK ? 6.5 : 5.5,
-        flameColorHex: isK ? '#c084fc' : '#facc15',
-        flameHeight_px: isK ? 22 : 14,
+        radius_px: isK ? 7.2 : 6.0,
+        flameColorHex: isK ? '#c084fc' : '#fb923c',
+        flameHeight_px: isK ? 32 : 22,
         progress: 0,
         hasPhenolphthalein: hasPhenol,
         wakeTrail: [],
       };
-      st.rippleAmplitude_px = Math.max(st.rippleAmplitude_px, 4.5);
+      st.rippleAmplitude_px = Math.max(st.rippleAmplitude_px, 5.2);
     } else if (controllerId === 'mg_blinding_flash') {
       duration_s = 3.5;
       st.mgFlashIntensity = 1.0;
@@ -343,7 +396,7 @@ class ReactionRuntimeEngine2D {
           : morph === 'curdy'
             ? 0.16 + Math.random() * 0.1
             : 0.04 + Math.random() * 0.06,
-        size_px: isGoldenRain ? 4.2 + Math.random() * 2.5 : morph === 'curdy' ? 4.5 + Math.random() * 2.5 : 3.2 + Math.random() * 2,
+        size_px: isGoldenRain ? 4.8 + Math.random() * 2.8 : morph === 'curdy' ? 5.0 + Math.random() * 2.6 : 3.5 + Math.random() * 2.2,
         rotation_rad: Math.random() * Math.PI * 2,
         spin_rad_s: isGoldenRain ? (Math.random() - 0.5) * 3.5 : (Math.random() - 0.5) * 0.8,
         shimmerPhase: Math.random() * Math.PI * 2,
@@ -357,13 +410,29 @@ class ReactionRuntimeEngine2D {
   /**
    * Step all vessels' 60Hz physical & reaction visual states by dt seconds
    */
-  public stepAll(equipmentList: EquipmentState[], dt: number): void {
+  public stepAll(
+    equipmentList: EquipmentState[],
+    dt: number,
+    env: LabEnvironment = DEFAULT_LAB_ENVIRONMENT
+  ): void {
     const clampedDt = Math.min(0.05, Math.max(0.001, dt));
     const now = performance.now();
 
     for (const eq of equipmentList) {
       if (!eq.isContainer) continue;
       const st = this.getOrCreateState(eq);
+
+      if (eq.volume_ml <= 0.05 && eq.contents.length === 0) {
+        st.bubbles.length = 0;
+        st.precipitates.length = 0;
+        st.fumes.length = 0;
+        st.plumes.length = 0;
+        st.alkaliPellet = null;
+        st.sedimentBedRatio = 0;
+        st.dynamicTurbidity = 0;
+        st.colorField.reset('#f8fafc', 0.18);
+        continue;
+      }
 
       // Sync newly triggered controller IDs from store/engine
       if (eq.activeControllerIds?.length) {
@@ -374,17 +443,21 @@ class ReactionRuntimeEngine2D {
         }
       }
 
+      // Synchronize Beer-Lambert target & advance 2D spatial color field
+      st.colorField.syncTarget(eq.liquidColorHex || '#f8fafc', eq.liquidOpacity ?? 0.7);
+      const visc = Math.max(0.35, eq.viscosity_mPa_s ?? 0.89);
+      const viscMobility = Math.max(0.18, Math.min(1.25, 0.89 / visc));
+
       // 1. Damped Spring Meniscus Wave Oscillator (responds to dragging, pouring, stirring, boiling)
       const dx = eq.x - st.lastVesselX;
       st.lastVesselX = eq.x;
       const dVol = eq.volume_ml - st.lastVolume_ml;
       st.lastVolume_ml = eq.volume_ml;
 
-      // External impulse from horizontal dragging or liquid pouring impact
       const dragImpulse = -dx * 1.8;
       const pourImpulse = Math.abs(dVol) > 0.05 ? (Math.random() - 0.5) * 18 : 0;
-      const omega0 = 14.0; // Natural slosh frequency rad/s
-      const zeta = 0.22; // Damping ratio
+      const omega0 = 14.0;
+      const zeta = 0.22 + Math.min(0.35, (visc - 0.89) * 0.04); // Higher viscosity damps slosh faster
       const accel =
         -2 * zeta * omega0 * st.meniscusAngularVel -
         omega0 * omega0 * st.meniscusAngle_deg +
@@ -393,7 +466,6 @@ class ReactionRuntimeEngine2D {
       st.meniscusAngularVel += accel * clampedDt;
       st.meniscusAngle_deg = Math.max(-18, Math.min(18, st.meniscusAngle_deg + st.meniscusAngularVel * clampedDt));
 
-      // Ripple amplitude & stirring vortex
       st.ripplePhase += clampedDt * (eq.isBoiling ? 18 : eq.hasGas ? 14 : 8);
       const targetRipple =
         (eq.isBoiling ? 3.5 * Math.max(0.3, eq.boilingIntensity ?? 0.6) : 0) +
@@ -402,10 +474,11 @@ class ReactionRuntimeEngine2D {
         (st.alkaliPellet ? 3.8 : 0);
       st.rippleAmplitude_px += (targetRipple - st.rippleAmplitude_px) * Math.min(1, clampedDt * 6);
 
-      const targetVortex = eq.isStirred ? 8.5 * Math.max(0.4, eq.stirringSpeed ?? 0.7) : 0;
+      const stirStrength = eq.isStirred ? Math.max(0.45, eq.stirringSpeed ?? 0.8) : Math.max(0, eq.stirIntensity ?? 0);
+      const targetVortex = stirStrength > 0.05 ? 8.5 * stirStrength : 0;
       st.vortexDepth_px += (targetVortex - st.vortexDepth_px) * Math.min(1, clampedDt * 8);
 
-      // 2. Step Active Reaction Controller Timers
+      // 2. Step Active Reaction Controller Timers & Spatial Field Kinetics
       for (const [cid, timer] of st.activeTimers.entries()) {
         timer.elapsed_s += clampedDt;
         if (timer.elapsed_s <= timer.inductionDelay_s) {
@@ -415,19 +488,34 @@ class ReactionRuntimeEngine2D {
           timer.progress = Math.min(1, (timer.elapsed_s - timer.inductionDelay_s) / activeWindow);
         }
 
-        // Colloidal Sulfur Tyndall opacity ramp after induction delay
         if (cid === 'colloidal_sulfur_clock') {
           st.dynamicTurbidity = timer.progress * 0.92;
         }
-        // Copper plating progress on Fe/Zn
+        if (cid === 'iodine_clock_flash' && timer.progress > 0 && !timer.flashTriggered) {
+          timer.flashTriggered = true;
+          st.colorField.injectPlume(0.5, 0.45, 0.55, '#1e1b4b', 0.98, 0.92);
+          st.plumes.push({
+            id: `clock_flash_${Date.now()}`,
+            originX: 0.5,
+            originY: 0.45,
+            radiusNorm: 0.08,
+            colorHex: '#1e1b4b',
+            alpha: 0.9,
+            isFlash: true,
+          });
+        }
+        if (cid === 'kmno4_autocatalytic') {
+          st.colorField.injectPlume(0.5, 0.5, 0.45, timer.progress > 0.65 ? '#f8fafc' : '#fde047', timer.progress * 0.45, 0.65);
+        }
+        if (cid === 'neutralization_thermal_schlieren') {
+          st.schlierenIntensity = Math.max(st.schlierenIntensity, (1 - timer.progress) * 0.75);
+        }
         if (cid === 'fe_cuso4_plating' || cid === 'zn_cuso4_plating') {
           st.copperPlatingProgress = Math.min(1, 0.15 + timer.progress * 0.85);
         }
-        // Iodine sublimation upper-wall frost buildup
         if (cid === 'iodine_sublimation') {
           st.iodineFrostProgress = Math.min(1, st.iodineFrostProgress + clampedDt * 0.18);
         }
-        // Thermal decomposition Cu(OH)2 -> CuO bottom-up blackening
         if (cid === 'cuoh2_thermal_decomp') {
           st.thermalDecompProgress = timer.progress;
         }
@@ -440,6 +528,19 @@ class ReactionRuntimeEngine2D {
       if (st.mgFlashIntensity > 0) {
         st.mgFlashIntensity = Math.max(0, st.mgFlashIntensity - clampedDt * 0.45);
       }
+      st.schlierenIntensity = Math.max(
+        eq.isBeingHeated ? 0.35 : 0,
+        st.schlierenIntensity - clampedDt * 0.18
+      );
+
+      // Step Eulerian 2D color diffusion field ("loang màu")
+      st.colorField.step(clampedDt, {
+        viscosity_mPa_s: visc,
+        temperature_c: eq.temperature_c,
+        stirIntensity: stirStrength,
+        isBoiling: Boolean(eq.isBoiling),
+        isHeated: Boolean(eq.isBeingHeated),
+      });
 
       // 3. Step Alkali Metal (Na / K) Skittering on Water Surface
       if (st.alkaliPellet && eq.volume_ml > 1) {
@@ -447,7 +548,6 @@ class ReactionRuntimeEngine2D {
         p.progress = Math.min(1, p.progress + clampedDt * (p.metal === 'K' ? 0.22 : 0.15));
         p.radius_px = Math.max(1.2, (p.metal === 'K' ? 6.5 : 5.5) * (1 - p.progress * 0.85));
 
-        // Chaotic H2 gas thrust jitter + wall bounce
         p.vx += (Math.random() - 0.5) * 4.5 * clampedDt;
         const maxSpeed = p.metal === 'K' ? 1.35 : 0.95;
         p.vx = Math.max(-maxSpeed, Math.min(maxSpeed, p.vx));
@@ -460,18 +560,20 @@ class ReactionRuntimeEngine2D {
           p.vx = -Math.abs(p.vx) * (0.85 + Math.random() * 0.3);
         }
 
-        // Leave pink phenolphthalein wake trail in the liquid underneath
+        // Inject swirling alkali ribbon directly into the 2D color field!
         if (Math.random() < 0.65) {
           p.wakeTrail.push({
             x: p.x,
             y: 0.04,
             radius_px: 4 + Math.random() * 3,
-            alpha: p.hasPhenolphthalein ? 0.78 : 0.32,
+            alpha: p.hasPhenolphthalein ? 0.82 : 0.35,
           });
           if (p.wakeTrail.length > 40) p.wakeTrail.shift();
+          if (p.hasPhenolphthalein) {
+            st.colorField.injectPlume(p.x, 0.1, 0.16, '#ec4899', 0.55, 0.85);
+          }
         }
 
-        // Emit sparks & H2 bubbles from pellet
         if (Math.random() < 0.55) {
           st.sparks.push({
             x: p.x,
@@ -497,7 +599,6 @@ class ReactionRuntimeEngine2D {
         st.alkaliPellet = null;
       }
 
-      // Diffuse alkali wake trail downward
       if (st.alkaliPellet) {
         for (const w of st.alkaliPellet.wakeTrail) {
           w.y = Math.min(0.92, w.y + clampedDt * 0.12);
@@ -506,7 +607,8 @@ class ReactionRuntimeEngine2D {
         }
       }
 
-      // 4. Nucleation & Buoyancy Bubble Physics
+      // 4. Nucleation & Buoyancy Bubble Physics (scaled by viscosity & surface tension)
+      const sigmaRatio = Math.max(0.6, Math.min(1.4, 0.0728 / Math.max(0.025, eq.surfaceTension_N_m ?? 0.0728)));
       const shouldSpawnBubbles = (eq.hasGas || eq.isBoiling || Boolean(st.alkaliPellet)) && eq.volume_ml > 0.5;
       if (shouldSpawnBubbles) {
         const spawnRate =
@@ -517,8 +619,6 @@ class ReactionRuntimeEngine2D {
               : 9;
         const expectedNew = spawnRate * clampedDt;
         const countToSpawn = Math.floor(expectedNew) + (Math.random() < expectedNew % 1 ? 1 : 0);
-
-        // Determine physical nucleation origin (solid chunk surface vs heated bottom)
         const solidChunks = eq.solidChunks?.filter(c => !c.isFloating) ?? [];
 
         for (let i = 0; i < countToSpawn; i++) {
@@ -532,11 +632,11 @@ class ReactionRuntimeEngine2D {
             originY = 0.86 + Math.random() * 0.08;
           }
 
-          const radius_px = eq.isBoiling ? 2.2 + Math.random() * 2.8 : 1.5 + Math.random() * 2.0;
+          const radius_px = (eq.isBoiling ? 2.2 + Math.random() * 2.8 : 1.5 + Math.random() * 2.0) / Math.sqrt(sigmaRatio);
           st.bubbles.push({
             x: Math.max(0.12, Math.min(0.88, originX)),
             y: originY,
-            vy: 0.45 + radius_px * 0.18 + Math.random() * 0.25,
+            vy: (0.42 + radius_px * 0.18 + Math.random() * 0.25) * viscMobility,
             radius_px,
             wobblePhase: Math.random() * Math.PI * 2,
             colorHex: eq.gasColorHex || '#ffffff',
@@ -544,7 +644,6 @@ class ReactionRuntimeEngine2D {
         }
       }
 
-      // Step existing bubbles upward & pop at meniscus (y <= 0.02)
       for (let i = st.bubbles.length - 1; i >= 0; i--) {
         const b = st.bubbles[i];
         b.wobblePhase += clampedDt * 10;
@@ -559,11 +658,48 @@ class ReactionRuntimeEngine2D {
         }
       }
 
-      // 5. Precipitate Stokes Sedimentation & Stirring Resuspension
+      // 4B. Dynamic Headspace & Plume Fumes (steam gap, dense NO2 cascade, NH4Cl smoke, I2 vapor + wind drift)
+      const steamVis = eq.isBoiling ? 1 : computeVaporPlumeVisibility(eq.temperature_c, env);
+      const wantFumes = eq.hasFumes || eq.isBoiling || steamVis > 0.12;
+      if (wantFumes && st.fumes.length < 36) {
+        const fType: FumePuff2D['fumeType'] = eq.fumeType || (eq.hasSublimation ? 'iodine' : 'steam');
+        const spawnChance = fType === 'steam' ? 14 * Math.max(0.25, steamVis) : 16;
+        const count = Math.floor(spawnChance * clampedDt) + (Math.random() < (spawnChance * clampedDt) % 1 ? 1 : 0);
+        for (let i = 0; i < count; i++) {
+          // Boiling steam exhibits realistic ~14px transparent unsaturated gap immediately above liquid surface
+          const startGap = fType === 'steam' ? -(14 + Math.random() * 8) : -(4 + Math.random() * 6);
+          const isDense = fType === 'no2';
+          st.fumes.push({
+            x: 0.28 + Math.random() * 0.44,
+            yOffsetPx: startGap,
+            vx: (Math.random() - 0.5) * 0.18 + (env.airSpeed_m_s ?? 0.1) * 0.28,
+            vy: isDense ? -(6 + Math.random() * 10) : -(24 + Math.random() * 18),
+            radius_px: fType === 'nh4cl' ? 10 + Math.random() * 8 : 7.5 + Math.random() * 6,
+            alpha: fType === 'steam' ? 0.52 * Math.max(0.4, steamVis) : 0.78,
+            life: 0,
+            maxLife: isDense ? 2.6 + Math.random() * 1.2 : 1.7 + Math.random() * 0.9,
+            colorHex: eq.fumeColorHex || (fType === 'no2' ? '#b45309' : fType === 'iodine' ? '#9333ea' : '#e2e8f0'),
+            fumeType: fType,
+          });
+        }
+      }
+      for (let i = st.fumes.length - 1; i >= 0; i--) {
+        const fm = st.fumes[i];
+        fm.life += clampedDt;
+        fm.x = Math.max(-0.15, Math.min(1.15, fm.x + (fm.vx + Math.sin(fm.life * 4) * 0.08) * clampedDt));
+        if (fm.fumeType === 'no2') {
+          // Dense nitrogen dioxide rises above neck then curls outward
+          fm.vy += 10 * clampedDt;
+        }
+        fm.yOffsetPx += fm.vy * clampedDt;
+        fm.radius_px += clampedDt * 6.5;
+        if (fm.life >= fm.maxLife) st.fumes.splice(i, 1);
+      }
+
+      // 5. Precipitate Stokes Sedimentation & Stirring Resuspension (viscosity coupled)
       if (eq.hasPrecipitate && st.precipitates.length < 25) {
         this.spawnPrecipitateBurst(eq, st, eq.precipitateMorphology === 'plates' ? 'pbi2_golden_rain' : 'baso4_milky');
       } else if (!eq.hasPrecipitate && st.precipitates.length > 0) {
-        // Amphoteric / complexation dissolution in excess reagent: swirl & shrink particles
         for (let i = st.precipitates.length - 1; i >= 0; i--) {
           const p = st.precipitates[i];
           p.size_px -= clampedDt * 2.5;
@@ -575,15 +711,14 @@ class ReactionRuntimeEngine2D {
       let settledCount = 0;
       for (const p of st.precipitates) {
         p.shimmerPhase += clampedDt * 5.0;
-        if (eq.isStirred) {
-          // Resuspend settled particles into swirling vortex
+        if (stirStrength > 0.15) {
           p.settled = false;
-          p.y = Math.max(0.08, p.y - (0.15 + Math.random() * 0.25) * clampedDt);
-          p.x = 0.5 + (p.x - 0.5) * Math.cos(clampedDt * 3) + Math.sin(p.shimmerPhase) * 0.05 * clampedDt;
+          p.y = Math.max(0.08, p.y - (0.15 + Math.random() * 0.25) * stirStrength * clampedDt);
+          p.x = 0.5 + (p.x - 0.5) * Math.cos(clampedDt * 3 * stirStrength) + Math.sin(p.shimmerPhase) * 0.05 * clampedDt;
         } else if (!p.settled) {
           p.rotation_rad += p.spin_rad_s * clampedDt;
           p.x = Math.max(0.12, Math.min(0.88, p.x + p.vx * clampedDt + Math.sin(p.shimmerPhase) * 0.01 * clampedDt));
-          p.y += p.vy * clampedDt;
+          p.y += p.vy * viscMobility * clampedDt;
           const bedTopY = 1.0 - Math.max(0.03, st.sedimentBedRatio);
           if (p.y >= bedTopY) {
             p.y = bedTopY + (Math.random() - 0.5) * 0.02;
@@ -594,7 +729,7 @@ class ReactionRuntimeEngine2D {
       }
 
       if (eq.hasPrecipitate) {
-        const targetBed = eq.isStirred
+        const targetBed = stirStrength > 0.25
           ? 0.02
           : Math.min(0.22, 0.03 + (settledCount / Math.max(1, st.precipitates.length)) * 0.12);
         st.sedimentBedRatio += (targetBed - st.sedimentBedRatio) * Math.min(1, clampedDt * 2.5);
@@ -603,7 +738,7 @@ class ReactionRuntimeEngine2D {
       // 6. Step Color Diffusion Plumes
       for (let i = st.plumes.length - 1; i >= 0; i--) {
         const pl = st.plumes[i];
-        pl.radiusNorm += clampedDt * (pl.isFlash ? 3.8 : 0.65);
+        pl.radiusNorm += clampedDt * (pl.isFlash ? 3.8 : 0.65 * viscMobility);
         pl.alpha -= clampedDt * (pl.isFlash ? 0.9 : 0.28);
         if (pl.alpha <= 0.01) st.plumes.splice(i, 1);
       }
@@ -612,7 +747,7 @@ class ReactionRuntimeEngine2D {
       for (let i = st.sparks.length - 1; i >= 0; i--) {
         const sp = st.sparks[i];
         sp.life += clampedDt;
-        sp.vy += 1.8 * clampedDt; // Gravity
+        sp.vy += 1.8 * clampedDt;
         sp.x += sp.vx * clampedDt;
         sp.y += sp.vy * clampedDt;
         if (sp.life >= sp.maxLife) st.sparks.splice(i, 1);

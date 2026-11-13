@@ -16,6 +16,15 @@ import { EquipmentState, ActivePour, SpillPuddle } from '../types/equipment';
 import { SubstanceQuantity } from '../types/chemistry';
 import { normalizeFormula, computeMolarMass } from '../chemistry/core/formula';
 import { runSimulationCycle } from '../chemistry/reactions/engine';
+import { calculateMixturePhysicalProperties, solubilityAtTemperature_g_100ml } from '../chemistry/physical/substanceProps';
+import {
+  DEFAULT_LAB_ENVIRONMENT,
+  LabEnvironment,
+  convectiveCoolingCoefW_K,
+  isOxygenSupportingAtmosphere,
+  waterBoilingPointAtPressure,
+  waterMassFluxG_M2_S,
+} from '../chemistry/physical/environmentPhysics';
 
 // ─── Physical Constants ────────────────────────────────────────────
 export const WATER_CP_J_G_K = 4.184;
@@ -42,8 +51,12 @@ export const DEFAULT_POUR_RATE_ML_S = 12;
 export const BURETTE_DROP_RATE_ML_S = 0.4; // ~8 drops/s ≈ 0.4 mL/s
 export const DROPPER_DROP_ML = 0.05;
 
-/** Boiling-point elevation via van't Hoff factor-weighted molality. */
-export function aqueousBoilingPoint(contents: SubstanceQuantity[], volume_ml: number): number {
+/** Boiling-point combining IAPWS saturation T_sat(P) with van't Hoff colligative elevation. */
+export function aqueousBoilingPoint(
+  contents: SubstanceQuantity[],
+  volume_ml: number,
+  pressure_atm = 1.0
+): number {
   const waterMass = contents
     .filter(c => normalizeFormula(c.formula) === 'H2O' && c.state !== 'g')
     .reduce((s, c) => s + Math.max(0, c.mass_g), 0);
@@ -58,7 +71,8 @@ export function aqueousBoilingPoint(contents: SubstanceQuantity[], volume_ml: nu
     if (item.state === 's' || item.state === 'g' || normalizeFormula(item.formula) === 'H2O') continue;
     osmoles += Math.max(0, item.moles) * (factors[item.formula.toUpperCase()] ?? 1);
   }
-  return 100 + Math.min(18, 0.512 * osmoles / solventKg);
+  const pureWaterBp = pressure_atm === 1.0 ? 100.0 : waterBoilingPointAtPressure(pressure_atm);
+  return pureWaterBp + Math.min(18, 0.512 * osmoles / solventKg);
 }
 
 export interface ThermalTickResult {
@@ -73,15 +87,17 @@ export interface ThermalTickResult {
 
 /**
  * Advance one vessel's thermal state by dt seconds given absorbed heating power.
- * Implements Newton cooling to ambient plus latent-heat boiling at the elevated
- * boiling point of the aqueous mixture.
+ * Couples pressure-dependent IAPWS boiling point, mixture heat capacity Cp,
+ * fume-hood airspeed convective cooling, and RH-driven surface evaporation.
  */
 export function stepVesselThermal(
   eq: EquipmentState,
   dt: number,
   absorbedPower_W = 0,
-  ambient_c = AMBIENT_TEMP_C,
+  ambient_c?: number,
+  env: LabEnvironment = DEFAULT_LAB_ENVIRONMENT
 ): ThermalTickResult {
+  const effectiveAmbient = ambient_c ?? env.temperature_c ?? AMBIENT_TEMP_C;
   const base: ThermalTickResult = {
     temperature_c: eq.temperature_c,
     volume_ml: eq.volume_ml,
@@ -97,13 +113,15 @@ export function stepVesselThermal(
     .filter(c => normalizeFormula(c.formula) === 'H2O' && c.state !== 'g')
     .reduce((s, c) => s + Math.max(0, c.mass_g), 0);
   const liquidMass = eq.volume_ml > 0.05 ? Math.max(0, eq.mass_g - (eq.tare_g ?? 0)) : 0;
-  const heatCap = GLASS_HEAT_CAPACITY_J_K + liquidMass * WATER_CP_J_G_K;
-  const coolingCoef = eq.volume_ml > 1 ? 0.35 : 0.18;
-  const steady = ambient_c + Math.max(0, absorbedPower_W) / coolingCoef;
+  const phys = calculateMixturePhysicalProperties(eq.contents, eq.volume_ml, eq.temperature_c);
+  const cp_J_gK = phys.cp_J_kgK / 1000;
+  const heatCap = GLASS_HEAT_CAPACITY_J_K + liquidMass * cp_J_gK;
+  const coolingCoef = convectiveCoolingCoefW_K(eq.volume_ml, env.airSpeed_m_s);
+  const steady = effectiveAmbient + Math.max(0, absorbedPower_W) / coolingCoef;
   const unconstrained = steady + (eq.temperature_c - steady) * Math.exp((-coolingCoef * dt) / heatCap);
   const netEnergy = (unconstrained - eq.temperature_c) * heatCap;
 
-  const boilingPoint = aqueousBoilingPoint(eq.contents, eq.volume_ml);
+  const boilingPoint = aqueousBoilingPoint(eq.contents, eq.volume_ml, env.pressure_atm);
   let temperature = unconstrained;
   let vaporized = 0;
   if (!eq.isSealed && waterMass > 0 && unconstrained > boilingPoint) {
@@ -111,8 +129,16 @@ export function stepVesselThermal(
     const latentAvailable = Math.max(0, netEnergy - sensibleToBoil);
     vaporized = Math.min(waterMass, eq.volume_ml, latentAvailable / WATER_LATENT_HEAT_J_G);
     temperature = boilingPoint;
+  } else if (!eq.isSealed && waterMass > 0 && unconstrained > effectiveAmbient + 12) {
+    // Sub-boiling convective surface evaporation (m^2 mouth area ~0.0028 m2 for beaker, narrower for tubes)
+    const mouthAreaM2 = eq.type === 'evaporating_dish' ? 0.0045 : eq.type === 'test_tube' ? 0.00035 : 0.0024;
+    const flux_g_m2_s = waterMassFluxG_M2_S(unconstrained, effectiveAmbient, env.relativeHumidity, env.airSpeed_m_s);
+    const subBoilEvap = Math.min(waterMass * 0.25, flux_g_m2_s * mouthAreaM2 * dt);
+    if (subBoilEvap > 1e-6) {
+      vaporized += subBoilEvap;
+    }
   }
-  const isBoiling = !eq.isSealed && vaporized > 1e-9;
+  const isBoiling = !eq.isSealed && unconstrained > boilingPoint && vaporized > 1e-9;
   const boilingIntensity = isBoiling ? Math.min(1, (vaporized / dt) / 0.15) : 0;
 
   let contents = eq.contents;
@@ -144,10 +170,14 @@ export function stepVesselThermal(
 }
 
 /** Compute the heating power delivered to `eq` by a Bunsen burner `burner`.
- * Coupling is based on the 2D scene geometry (y grows downward): the vessel's
- * bottom must hover in the flame cone above the burner's barrel top. */
-export function burnerHeatToVessel(burner: EquipmentState, eq: EquipmentState): number {
+ * Combustion extinguishes in inert atmospheres (oxygenFraction < 0.12). */
+export function burnerHeatToVessel(
+  burner: EquipmentState,
+  eq: EquipmentState,
+  env: LabEnvironment = DEFAULT_LAB_ENVIRONMENT
+): number {
   if (burner.type !== 'bunsen_burner' || !burner.isOn) return 0;
+  if (!isOxygenSupportingAtmosphere(env)) return 0;
   if ((burner.fuelLevel_ml ?? BURNER_FUEL_CAPACITY_ML) <= 0) return 0;
   const burnerTop = burner.y + 42; // barrel mouth in SVG coords
   const vesselBottom = eq.y + eq.height;
@@ -194,6 +224,7 @@ export function stepMixing(eq: EquipmentState, dt: number): Partial<EquipmentSta
 /**
  * Advance a continuous pour by dt seconds. Returns the actual volume moved,
  * the spill fraction (when target is misaligned), and whether the pour is done.
+ * High viscosity fluids (e.g. conc. H2SO4, glycerol) pour appreciably slower.
  */
 export function stepPour(
   source: EquipmentState,
@@ -207,13 +238,74 @@ export function stepPour(
   const tgtMouthLeft = target.x + target.width * 0.15;
   const tgtMouthRight = target.x + target.width * 0.85;
   const spillFrac = srcMouth < tgtMouthLeft || srcMouth > tgtMouthRight ? 0.15 : 0;
+  const visc = Math.max(0.35, source.viscosity_mPa_s ?? 0.9);
+  const viscFactor = Math.min(1.15, Math.max(0.28, Math.pow(0.9 / visc, 0.35)));
   const capSpace = Math.max(0, target.capacity_ml - target.volume_ml);
-  const requested = Math.min(source.volume_ml, rate_ml_s * dt);
+  const requested = Math.min(source.volume_ml, rate_ml_s * viscFactor * dt);
   const accepted = Math.min(requested, capSpace);
   const overflow = requested - accepted;
   const spill = overflow + spillFrac * accepted;
   const moved = accepted * (1 - spillFrac);
   return { moved_ml: moved, spill_ml: spill, done: source.volume_ml - requested <= 1e-6 };
+}
+
+/**
+ * Temperature-dependent dissolution / recrystallization equilibrium for sparingly
+ * or strongly temperature-sensitive salts (notably PbI2 "Golden Rain" needles).
+ */
+export function stepTemperatureSolubility(
+  contents: SubstanceQuantity[],
+  volume_ml: number,
+  temp_c: number,
+  dt: number
+): { contents: SubstanceQuantity[]; recrystallizedFormula?: string; redissolvedFormula?: string } {
+  if (volume_ml <= 0.5 || dt <= 0) return { contents };
+  let recrystallizedFormula: string | undefined;
+  let redissolvedFormula: string | undefined;
+  let changed = false;
+
+  const pbi2Solid = contents.find(c => normalizeFormula(c.formula) === 'PBI2' && c.state === 's');
+  const pbi2Dissolved = contents.find(c => normalizeFormula(c.formula) === 'PBI2' && c.state === 'aq');
+  const totalPbI2Mass = (pbi2Solid?.mass_g ?? 0) + (pbi2Dissolved?.mass_g ?? 0);
+
+  if (totalPbI2Mass > 0.005) {
+    const sol_g_100ml = solubilityAtTemperature_g_100ml('PbI2', temp_c) ?? 0.075;
+    const maxDissolvedMass = (sol_g_100ml * volume_ml) / 100;
+    const targetDissolved = Math.min(totalPbI2Mass, maxDissolvedMass);
+    const currentDissolved = pbi2Dissolved?.mass_g ?? 0;
+    const delta = (targetDissolved - currentDissolved) * Math.min(1, dt * 0.45);
+
+    if (Math.abs(delta) > 0.0005) {
+      changed = true;
+      const molarMass = computeMolarMass('PbI2');
+      const nextDissolved = Math.max(0, Math.min(totalPbI2Mass, currentDissolved + delta));
+      const nextSolid = Math.max(0, totalPbI2Mass - nextDissolved);
+
+      const filtered = contents.filter(c => normalizeFormula(c.formula) !== 'PBI2');
+      if (nextSolid > 1e-4) {
+        filtered.push({
+          formula: 'PbI2',
+          mass_g: Math.round(nextSolid * 10000) / 10000,
+          moles: Math.round((nextSolid / molarMass) * 1e6) / 1e6,
+          state: 's',
+        });
+      }
+      if (nextDissolved > 1e-4) {
+        filtered.push({
+          formula: 'PbI2',
+          mass_g: Math.round(nextDissolved * 10000) / 10000,
+          moles: Math.round((nextDissolved / molarMass) * 1e6) / 1e6,
+          concentration_M: Math.round(((nextDissolved / molarMass) / (volume_ml / 1000)) * 1e5) / 1e5,
+          state: 'aq',
+        });
+      }
+      if (delta < -0.001) recrystallizedFormula = 'PbI2';
+      else if (delta > 0.001) redissolvedFormula = 'PbI2';
+      return { contents: filtered, recrystallizedFormula, redissolvedFormula };
+    }
+  }
+
+  return changed ? { contents, recrystallizedFormula, redissolvedFormula } : { contents };
 }
 
 export interface ProbeDipResult {

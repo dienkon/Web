@@ -46,6 +46,8 @@ export const VesselPhysicsOverlay: React.FC<VesselPhysicsOverlayProps> = ({
   clipPathId,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const headspaceCanvasRef = useRef<HTMLCanvasElement | null>(null);
+  const headspaceDirtyRef = useRef(false);
   const equipmentRef = useRef<EquipmentState>(equipment);
   const geomRef = useRef({ innerX, innerY, innerWidth, innerHeight, liquidSurfaceY, liquidHeight });
 
@@ -64,7 +66,8 @@ export const VesselPhysicsOverlay: React.FC<VesselPhysicsOverlayProps> = ({
       if (canvas && w > 0 && h > 0) {
         const ctx = canvas.getContext('2d');
         if (ctx) {
-          const dpr = 2; // Sharp retina rendering inside SVG foreignObject
+          const isSmallScreen = typeof window !== 'undefined' && window.innerWidth < 768;
+          const dpr = typeof window !== 'undefined' ? Math.min(window.devicePixelRatio || 1.5, isSmallScreen ? 1.5 : 2) : 1.5;
           const targetW = Math.round(w * dpr);
           const targetH = Math.round(h * dpr);
           if (canvas.width !== targetW || canvas.height !== targetH) {
@@ -80,10 +83,24 @@ export const VesselPhysicsOverlay: React.FC<VesselPhysicsOverlayProps> = ({
           const localMeniscusY = Math.max(2, Math.min(h - 2, surfY - topY));
           const localBottomY = Math.min(h, localMeniscusY + Math.max(0, liqH));
 
-          // ── 1. Inner Wall Condensation Droplets (above meniscus when hot) ──
-          const cond = eq.wallCondensation ?? (eq.temperature_c > 58 ? Math.min(1, (eq.temperature_c - 55) / 45) : 0);
+          // ── 0. Silver Mirror Wall Plating (Tollens' aldehyde/glucose mirror band) ──
+          if (eq.hasSilverMirror && liqH > 4) {
+            const bandTop = Math.max(0, localMeniscusY - 6);
+            const bandH = Math.min(h - bandTop, liqH + 8);
+            const mirrorGrad = ctx.createLinearGradient(0, bandTop, w, bandTop + bandH);
+            mirrorGrad.addColorStop(0, 'rgba(248, 250, 252, 0.72)');
+            mirrorGrad.addColorStop(0.28, 'rgba(148, 163, 184, 0.58)');
+            mirrorGrad.addColorStop(0.55, 'rgba(255, 255, 255, 0.78)');
+            mirrorGrad.addColorStop(0.82, 'rgba(100, 116, 139, 0.52)');
+            mirrorGrad.addColorStop(1, 'rgba(226, 232, 240, 0.68)');
+            ctx.fillStyle = mirrorGrad;
+            ctx.fillRect(0, bandTop, w, bandH);
+          }
+
+          // ── 1. Inner Wall Condensation Droplets (above meniscus when hot/humid) ──
+          const cond = eq.wallCondensation ?? (eq.temperature_c > 55 ? Math.min(1, (eq.temperature_c - 52) / 45) : 0);
           if (cond > 0.05 && localMeniscusY > 10) {
-            ctx.fillStyle = `rgba(226, 232, 240, ${0.35 * cond})`;
+            ctx.fillStyle = `rgba(226, 232, 240, ${0.38 * cond})`;
             const dropCount = Math.floor(14 * cond);
             for (let i = 0; i < dropCount; i++) {
               const seed = (i * 97 + 31) % 100;
@@ -133,8 +150,29 @@ export const VesselPhysicsOverlay: React.FC<VesselPhysicsOverlayProps> = ({
             ctx.globalAlpha = 1.0;
           }
 
-          // ── 4. Liquid Interior Effects (Plumes, Colloidal Tyndall Haze, Wake Trail, Precipitates, Bubbles) ──
+          // ── 4. Liquid Interior Effects (2D Advection-Diffusion Color Field, Schlieren, Plumes, Tyndall Haze, Wake Trail, Precipitates) ──
           if (liqH > 1.5 && !eq.isShattered) {
+            // 4-Pre. 2D Eulerian Spatial Color Spreading Field ("loang màu")
+            st.colorField.drawToCanvas(ctx, 0, localMeniscusY, w, liqH);
+
+            // 4-Convection. Schlieren Refractive Thermal Plume Ribbons when exothermic / heated
+            if (st.schlierenIntensity > 0.05) {
+              ctx.save();
+              ctx.globalAlpha = Math.min(0.28, st.schlierenIntensity * 0.3);
+              ctx.strokeStyle = 'rgba(255, 255, 255, 0.72)';
+              ctx.lineWidth = 1.35;
+              for (let sIdx = 0; sIdx < 4; sIdx++) {
+                const bx = w * (0.22 + sIdx * 0.19);
+                ctx.beginPath();
+                ctx.moveTo(bx, localBottomY - 2);
+                const wave1 = Math.sin(st.ripplePhase * 0.45 + sIdx * 1.7) * 5;
+                const wave2 = Math.cos(st.ripplePhase * 0.55 + sIdx * 2.1) * 5;
+                ctx.bezierCurveTo(bx + wave1, localMeniscusY + liqH * 0.66, bx - wave2, localMeniscusY + liqH * 0.33, bx + wave1 * 0.6, localMeniscusY + 2);
+                ctx.stroke();
+              }
+              ctx.restore();
+            }
+
             // 4A. Color Diffusion Plumes / Flash Waves (e.g., Iodine Clock, Fe(SCN)3, Neutralization)
             for (const pl of st.plumes) {
               const px = pl.originX * w;
@@ -215,21 +253,26 @@ export const VesselPhysicsOverlay: React.FC<VesselPhysicsOverlayProps> = ({
               ctx.rotate(p.rotation_rad);
 
               if (p.morphology === 'plates' || (p.morphology === 'crystalline' && (p.colorHex === '#eab308' || p.colorHex === '#facc15'))) {
-                // PbI2 Golden Rain: Shimmering hexagonal golden platelets!
+                // PbI2 Golden Rain: Shimmering hexagonal golden platelets with metallic glint
                 const shimmer = 0.55 + 0.45 * Math.sin(p.shimmerPhase * 2.5);
-                ctx.fillStyle = shimmer > 0.82 ? '#fef08a' : '#eab308';
-                ctx.globalAlpha = 0.45 + 0.55 * shimmer;
-                const r = p.size_px * 0.75;
+                ctx.fillStyle = shimmer > 0.82 ? '#fef9c3' : shimmer > 0.58 ? '#facc15' : '#ca8a04';
+                ctx.globalAlpha = 0.65 + 0.35 * shimmer;
+                const r = Math.max(2.6, p.size_px * 0.92);
                 ctx.beginPath();
                 for (let k = 0; k < 6; k++) {
                   const ang = (Math.PI / 3) * k;
                   const hx = Math.cos(ang) * r;
-                  const hy = Math.sin(ang) * r * 0.65;
+                  const hy = Math.sin(ang) * r * 0.68;
                   if (k === 0) ctx.moveTo(hx, hy);
                   else ctx.lineTo(hx, hy);
                 }
                 ctx.closePath();
                 ctx.fill();
+                if (shimmer > 0.78) {
+                  ctx.strokeStyle = 'rgba(255, 255, 255, 0.9)';
+                  ctx.lineWidth = 0.85;
+                  ctx.stroke();
+                }
               } else if (p.morphology === 'curdy') {
                 // AgCl curdy white multi-lobe clumps
                 ctx.fillStyle = p.colorHex;
@@ -348,15 +391,32 @@ export const VesselPhysicsOverlay: React.FC<VesselPhysicsOverlayProps> = ({
             }
           }
 
-          // ── 7. Dynamic Meniscus Wave & Stirring Vortex Funnel ──
+          // ── 7. Dynamic Meniscus Wave, Stirring Vortex & Surface Foam Collar ──
           if (liqH > 1.5 && !eq.isShattered) {
             const tiltDy = Math.tan((st.meniscusAngle_deg * Math.PI) / 180) * (w * 0.45);
             const amp = st.rippleAmplitude_px;
             const vortex = st.vortexDepth_px;
 
+            if ((eq.foamHead_mm ?? 0) > 0.4) {
+              const foamH = Math.min(10, Math.max(2, (eq.foamHead_mm ?? 2) * 0.9));
+              ctx.save();
+              ctx.fillStyle = 'rgba(255, 255, 255, 0.65)';
+              ctx.beginPath();
+              for (let i = 0; i <= 10; i++) {
+                const u = i / 10;
+                const fx = u * w;
+                const tiltOffset = (u - 0.5) * 2 * tiltDy;
+                const wobble = Math.sin(u * 12 + st.ripplePhase * 1.4) * 1.2;
+                ctx.moveTo(fx, localMeniscusY + tiltOffset);
+                ctx.arc(fx, localMeniscusY + tiltOffset + wobble - foamH * 0.25, foamH * 0.55, 0, Math.PI * 2);
+              }
+              ctx.fill();
+              ctx.restore();
+            }
+
             ctx.save();
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.75)';
-            ctx.lineWidth = 1.6;
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.78)';
+            ctx.lineWidth = 1.7;
             ctx.beginPath();
             const steps = 16;
             for (let i = 0; i <= steps; i++) {
@@ -373,68 +433,11 @@ export const VesselPhysicsOverlay: React.FC<VesselPhysicsOverlayProps> = ({
             ctx.restore();
           }
 
-          // ── 8. Skittering Molten Alkali Pellet (Na / K) + Flame Tongue on Water Surface ──
-          if (st.alkaliPellet && liqH > 1.5 && !eq.isShattered) {
-            const p = st.alkaliPellet;
-            const px = p.x * w;
-            const py = localMeniscusY;
-
-            // Flame tongue above pellet
-            ctx.save();
-            const fh = p.flameHeight_px * (0.8 + 0.35 * Math.sin(st.ripplePhase * 3));
-            const fg = ctx.createRadialGradient(px, py - fh * 0.35, 1, px, py - fh * 0.35, fh);
-            fg.addColorStop(0, '#ffffff');
-            fg.addColorStop(0.45, p.flameColorHex);
-            fg.addColorStop(1, 'rgba(255, 170, 0, 0)');
-            ctx.fillStyle = fg;
-            ctx.beginPath();
-            ctx.ellipse(px, py - fh * 0.4, p.radius_px * 1.4, fh * 0.7, 0, 0, Math.PI * 2);
-            ctx.fill();
-
-            // Molten silvery sphere on meniscus
-            const sg = ctx.createRadialGradient(px - 1.5, py - 1.5, 0.5, px, py, p.radius_px);
-            sg.addColorStop(0, '#ffffff');
-            sg.addColorStop(0.6, '#e2e8f0');
-            sg.addColorStop(1, '#64748b');
-            ctx.fillStyle = sg;
-            ctx.beginPath();
-            ctx.arc(px, py, p.radius_px, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.restore();
-          }
-
-          // ── 9. Pyrotechnic Sparks & Acid Splatter Droplets ──
-          if (st.sparks.length > 0) {
-            for (const sp of st.sparks) {
-              const sx = sp.x * w;
-              const sy = localMeniscusY + sp.y * h * 0.5;
-              const alpha = Math.max(0, 1 - sp.life / sp.maxLife);
-              ctx.save();
-              ctx.fillStyle = sp.colorHex;
-              ctx.globalAlpha = alpha;
-              ctx.beginPath();
-              ctx.arc(sx, sy, sp.size_px, 0, Math.PI * 2);
-              ctx.fill();
-              ctx.restore();
-            }
-          }
-
-          // ── 10. Magnesium Combustion Blinding White Bloom Flash ──
-          if (st.mgFlashIntensity > 0.02) {
-            const bg = ctx.createRadialGradient(w * 0.5, h * 0.65, 2, w * 0.5, h * 0.65, Math.max(w, h) * 0.75);
-            bg.addColorStop(0, `rgba(255, 255, 255, ${Math.min(1, st.mgFlashIntensity * 1.2)})`);
-            bg.addColorStop(0.6, `rgba(224, 242, 254, ${st.mgFlashIntensity * 0.65})`);
-            bg.addColorStop(1, 'rgba(255, 255, 255, 0)');
-            ctx.fillStyle = bg;
-            ctx.fillRect(0, 0, w, h);
-          }
-
-          // ── 11. Shattered Glass Cracks & Flying Shards ──
+          // ── 11A. Fractured Glass Cracks (Clipped to vessel wall) ──
           if (eq.isShattered) {
             ctx.save();
             ctx.strokeStyle = 'rgba(226, 232, 240, 0.9)';
             ctx.lineWidth = 1.6;
-            // Jagged fracture lines across vessel body
             ctx.beginPath();
             ctx.moveTo(w * 0.2, h * 0.95);
             ctx.lineTo(w * 0.45, h * 0.62);
@@ -443,27 +446,145 @@ export const VesselPhysicsOverlay: React.FC<VesselPhysicsOverlayProps> = ({
             ctx.moveTo(w * 0.45, h * 0.62);
             ctx.lineTo(w * 0.78, h * 0.48);
             ctx.stroke();
-
-            for (const sh of st.shards) {
-              ctx.save();
-              ctx.translate(w * 0.5 + sh.x, h * 0.5 + sh.y);
-              ctx.rotate(sh.angle_rad);
-              ctx.fillStyle = `rgba(226, 232, 240, ${sh.alpha * 0.75})`;
-              ctx.strokeStyle = `rgba(255, 255, 255, ${sh.alpha})`;
-              ctx.lineWidth = 1;
-              ctx.beginPath();
-              ctx.moveTo(-sh.size_px, -sh.size_px * 0.5);
-              ctx.lineTo(sh.size_px, 0);
-              ctx.lineTo(0, sh.size_px * 0.8);
-              ctx.closePath();
-              ctx.fill();
-              ctx.stroke();
-              ctx.restore();
-            }
             ctx.restore();
           }
 
           ctx.restore();
+
+          // ── Unclipped Exterior / Headspace Canvas Pass (Fumes, Alkali Flame, Sparks, Bloom, Flying Shards) ──
+          const hsCanvas = headspaceCanvasRef.current;
+          const hasHeadspaceVfx =
+            st.fumes.length > 0 ||
+            Boolean(st.alkaliPellet && liqH > 1.5 && !eq.isShattered) ||
+            st.sparks.length > 0 ||
+            st.mgFlashIntensity > 0.02 ||
+            Boolean(eq.isShattered);
+
+          if (hsCanvas && (hasHeadspaceVfx || headspaceDirtyRef.current)) {
+            const padX = 36;
+            const padY = 88;
+            const padBottom = 22;
+            const hsW = w + padX * 2;
+            const hsH = h + padY + padBottom;
+            const targetHsW = Math.round(hsW * dpr);
+            const targetHsH = Math.round(hsH * dpr);
+            if (hsCanvas.width !== targetHsW || hsCanvas.height !== targetHsH) {
+              hsCanvas.width = targetHsW;
+              hsCanvas.height = targetHsH;
+            }
+            const ctx2 = hsCanvas.getContext('2d');
+            if (ctx2) {
+              ctx2.save();
+              ctx2.scale(dpr, dpr);
+              ctx2.clearRect(0, 0, hsW, hsH);
+
+              if (hasHeadspaceVfx) {
+                ctx2.translate(padX, padY);
+
+                // 7B. Unclipped Rising Headspace Fumes (NO2, NH4Cl smoke, I2 vapor, boiling steam)
+                if (st.fumes.length > 0 && !eq.isShattered) {
+                  for (const fm of st.fumes) {
+                    const fx = fm.x * w;
+                    const fy = localMeniscusY + fm.yOffsetPx;
+                    if (fy < -padY) continue;
+                    const lifeFade = Math.sin(Math.min(1, fm.life / Math.max(0.1, fm.maxLife)) * Math.PI);
+                    const a = Math.max(0, Math.min(0.88, fm.alpha * lifeFade));
+                    if (a <= 0.015) continue;
+                    const fg = ctx2.createRadialGradient(fx, fy, 1, fx, fy, fm.radius_px);
+                    fg.addColorStop(0, fm.colorHex);
+                    fg.addColorStop(1, 'rgba(255,255,255,0)');
+                    ctx2.save();
+                    ctx2.globalAlpha = a;
+                    ctx2.fillStyle = fg;
+                    ctx2.beginPath();
+                    ctx2.arc(fx, fy, fm.radius_px, 0, Math.PI * 2);
+                    ctx2.fill();
+                    ctx2.restore();
+                  }
+                }
+
+                // 8. Skittering Molten Alkali Pellet + Unclipped Flame Plume
+                if (st.alkaliPellet && liqH > 1.5 && !eq.isShattered) {
+                  const p = st.alkaliPellet;
+                  const px = p.x * w;
+                  const py = localMeniscusY;
+
+                  ctx2.save();
+                  const fh = p.flameHeight_px * (0.85 + 0.35 * Math.sin(st.ripplePhase * 3));
+                  const fg = ctx2.createRadialGradient(px, py - fh * 0.45, 1.5, px, py - fh * 0.45, fh * 1.15);
+                  fg.addColorStop(0, '#ffffff');
+                  fg.addColorStop(0.4, p.flameColorHex);
+                  fg.addColorStop(1, 'rgba(255, 170, 0, 0)');
+                  ctx2.fillStyle = fg;
+                  ctx2.beginPath();
+                  ctx2.ellipse(px, py - fh * 0.48, p.radius_px * 1.75, fh * 0.8, 0, 0, Math.PI * 2);
+                  ctx2.fill();
+
+                  const sg = ctx2.createRadialGradient(px - 1.5, py - 1.5, 0.5, px, py, p.radius_px);
+                  sg.addColorStop(0, '#ffffff');
+                  sg.addColorStop(0.6, '#e2e8f0');
+                  sg.addColorStop(1, '#64748b');
+                  ctx2.fillStyle = sg;
+                  ctx2.beginPath();
+                  ctx2.arc(px, py, p.radius_px, 0, Math.PI * 2);
+                  ctx2.fill();
+                  ctx2.restore();
+                }
+
+                // 9. Unclipped Pyrotechnic Sparks & Acid Splatter Droplets
+                if (st.sparks.length > 0) {
+                  for (const sp of st.sparks) {
+                    const sx = sp.x * w;
+                    const sy = localMeniscusY + sp.y * h * 0.6;
+                    const alpha = Math.max(0, 1 - sp.life / sp.maxLife);
+                    ctx2.save();
+                    ctx2.fillStyle = sp.colorHex;
+                    ctx2.globalAlpha = alpha;
+                    ctx2.beginPath();
+                    ctx2.arc(sx, sy, sp.size_px * 1.15, 0, Math.PI * 2);
+                    ctx2.fill();
+                    ctx2.restore();
+                  }
+                }
+
+                // 10. Magnesium Combustion Blinding White Bloom Flash
+                if (st.mgFlashIntensity > 0.02) {
+                  const bg = ctx2.createRadialGradient(w * 0.5, h * 0.55, 4, w * 0.5, h * 0.55, Math.max(w, h) * 0.95);
+                  bg.addColorStop(0, `rgba(255, 255, 255, ${Math.min(1, st.mgFlashIntensity * 1.2)})`);
+                  bg.addColorStop(0.55, `rgba(224, 242, 254, ${st.mgFlashIntensity * 0.65})`);
+                  bg.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                  ctx2.fillStyle = bg;
+                  ctx2.fillRect(-padX, -padY, hsW, hsH);
+                }
+
+                // 11B. Flying Outward Shattered Glass Shards
+                if (eq.isShattered && st.shards.length > 0) {
+                  for (const sh of st.shards) {
+                    ctx2.save();
+                    ctx2.translate(w * 0.5 + sh.x, h * 0.5 + sh.y);
+                    ctx2.rotate(sh.angle_rad);
+                    ctx2.fillStyle = `rgba(226, 232, 240, ${sh.alpha * 0.8})`;
+                    ctx2.strokeStyle = `rgba(255, 255, 255, ${sh.alpha})`;
+                    ctx2.lineWidth = 1.2;
+                    ctx2.beginPath();
+                    ctx2.moveTo(-sh.size_px, -sh.size_px * 0.5);
+                    ctx2.lineTo(sh.size_px, 0);
+                    ctx2.lineTo(0, sh.size_px * 0.8);
+                    ctx2.closePath();
+                    ctx2.fill();
+                    ctx2.stroke();
+                    ctx2.restore();
+                  }
+                }
+
+                headspaceDirtyRef.current = true;
+              } else {
+                headspaceDirtyRef.current = false;
+              }
+
+              ctx2.restore();
+            }
+          }
         }
       }
 
@@ -474,19 +595,42 @@ export const VesselPhysicsOverlay: React.FC<VesselPhysicsOverlayProps> = ({
     return () => cancelAnimationFrame(rafId);
   }, []);
 
+  const padX = 36;
+  const padY = 88;
+  const padBottom = 22;
+
   return (
-    <g clipPath={clipPathId ? `url(#${clipPathId})` : undefined} style={{ pointerEvents: 'none' }}>
-      <foreignObject x={innerX} y={innerY} width={innerWidth} height={innerHeight}>
+    <>
+      <g clipPath={clipPathId ? `url(#${clipPathId})` : undefined} style={{ pointerEvents: 'none' }}>
+        <foreignObject x={innerX} y={innerY} width={innerWidth} height={innerHeight}>
+          <canvas
+            ref={canvasRef}
+            style={{
+              width: `${innerWidth}px`,
+              height: `${innerHeight}px`,
+              display: 'block',
+              pointerEvents: 'none',
+            }}
+          />
+        </foreignObject>
+      </g>
+      <foreignObject
+        x={innerX - padX}
+        y={innerY - padY}
+        width={innerWidth + padX * 2}
+        height={innerHeight + padY + padBottom}
+        style={{ pointerEvents: 'none' }}
+      >
         <canvas
-          ref={canvasRef}
+          ref={headspaceCanvasRef}
           style={{
-            width: `${innerWidth}px`,
-            height: `${innerHeight}px`,
+            width: `${innerWidth + padX * 2}px`,
+            height: `${innerHeight + padY + padBottom}px`,
             display: 'block',
             pointerEvents: 'none',
           }}
         />
       </foreignObject>
-    </g>
+    </>
   );
 };

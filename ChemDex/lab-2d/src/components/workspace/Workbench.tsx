@@ -1,12 +1,21 @@
-import {useShallow} from 'zustand/react/shallow';
 import React, { useRef, useState, useEffect, useCallback } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 import { useLabStore } from '../../store/useLabStore';
+import { useLabEnvironment } from '../../store/useLabEnvironment';
+import { PointerDragPayload } from '../../store/usePointerDragStore';
 import { EquipmentRenderer } from '../equipment/EquipmentRenderer';
 import { PourStreamVfx } from '../vfx/PourStreamVfx';
 import { SafetyPpeBar } from './SafetyPpeBar';
-import { EquipmentType } from '../../types/equipment';
+import { MeasurementHUD } from './MeasurementHUD';
+import { RadialMenu2D } from './RadialMenu2D';
+import { LabEnvironmentBackdrop } from './LabEnvironmentBackdrop';
+import { EquipmentState, EquipmentType } from '../../types/equipment';
+import { findChemicalById } from '../../data/chemicals';
 import { soundEngine } from '../../services/soundEngine';
 import { reactionRuntime2D } from '../../vfx/ReactionRuntime2D';
+
+const BENCH_W = 720;
+const BENCH_H = 490;
 
 export const Workbench: React.FC = () => {
   const {
@@ -30,9 +39,157 @@ export const Workbench: React.FC = () => {
     spillPuddles,
     cleanSpill,
     neutralizeSpill,
-  } = useLabStore(useShallow(state => ({equipment: state.equipment,selectedEquipmentId: state.selectedEquipmentId,selectEquipment: state.selectEquipment,updatePosition: state.updatePosition,toggleHeat: state.toggleHeat,tareEquipment: state.tareEquipment,toggleBuretteStopcock: state.toggleBuretteStopcock,tickSimulation: state.tickSimulation,language: state.language,activePourVfx: state.activePourVfx,draggedChemicalId: state.draggedChemicalId,setDraggedChemicalId: state.setDraggedChemicalId,addChemicalToEquipment: state.addChemicalToEquipment,addEquipment: state.addEquipment,removeEquipment: state.removeEquipment,toggleStir: state.toggleStir,triggerDirectPour: state.triggerDirectPour,spillPuddles: state.spillPuddles,cleanSpill: state.cleanSpill,neutralizeSpill: state.neutralizeSpill})));
+    activeTool,
+    pipetteBuffer,
+    drawWithPipette,
+    dispenseFromPipette,
+    workbenchZoom,
+    setWorkbenchZoom,
+    fitTriggerCount,
+  } = useLabStore(
+    useShallow((s) => ({
+      equipment: s.equipment,
+      selectedEquipmentId: s.selectedEquipmentId,
+      selectEquipment: s.selectEquipment,
+      updatePosition: s.updatePosition,
+      toggleHeat: s.toggleHeat,
+      tareEquipment: s.tareEquipment,
+      toggleBuretteStopcock: s.toggleBuretteStopcock,
+      tickSimulation: s.tickSimulation,
+      language: s.language,
+      activePourVfx: s.activePourVfx,
+      draggedChemicalId: s.draggedChemicalId,
+      setDraggedChemicalId: s.setDraggedChemicalId,
+      addChemicalToEquipment: s.addChemicalToEquipment,
+      addEquipment: s.addEquipment,
+      removeEquipment: s.removeEquipment,
+      toggleStir: s.toggleStir,
+      triggerDirectPour: s.triggerDirectPour,
+      spillPuddles: s.spillPuddles,
+      cleanSpill: s.cleanSpill,
+      neutralizeSpill: s.neutralizeSpill,
+      activeTool: s.activeTool,
+      pipetteBuffer: s.pipetteBuffer,
+      drawWithPipette: s.drawWithPipette,
+      dispenseFromPipette: s.dispenseFromPipette,
+      workbenchZoom: s.workbenchZoom,
+      setWorkbenchZoom: s.setWorkbenchZoom,
+      fitTriggerCount: s.fitTriggerCount,
+    }))
+  );
 
-  // 60Hz Fixed-Timestep Physics & Reaction Visual Runtime + Store Simulation Loop
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const [pan, setPan] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+  const panDragRef = useRef<{ startX: number; startY: number; origX: number; origY: number } | null>(null);
+  const activeTouchesRef = useRef<Map<number, { x: number; y: number }>>(new Map());
+  const pinchStartRef = useRef<{ dist: number; zoom: number } | null>(null);
+
+  const [draggingId, setDraggingId] = useState<string | null>(null);
+  const [dragOffset, setDragOffset] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+  const dragPendingRef = useRef<{
+    id: string;
+    targetEl: HTMLElement;
+    pointerId: number;
+    startX: number;
+    startY: number;
+    offsetX: number;
+    offsetY: number;
+  } | null>(null);
+  const isStirDraggingRef = useRef(false);
+  const lastStirPlumeMsRef = useRef(0);
+  const lastViewportSizeRef = useRef<{ w: number; h: number }>({ w: 0, h: 0 });
+  const [hoverTargetId, setHoverTargetId] = useState<string | null>(null);
+  const [radialTarget, setRadialTarget] = useState<{ id: string; x: number; y: number } | null>(null);
+
+  const [activeSnapGuide, setActiveSnapGuide] = useState<{
+    type: 'burner' | 'burette' | 'balance';
+    targetX: number;
+    targetY: number;
+    label_vi: string;
+    label_en: string;
+  } | null>(null);
+
+  const fitToViewport = useCallback(() => {
+    const vp = viewportRef.current;
+    if (!vp) return;
+    const vw = vp.clientWidth;
+    const vh = vp.clientHeight;
+    if (vw < 40 || vh < 40) return;
+
+    const items = Object.values(useLabStore.getState().equipment);
+    const hudTopReserve = vw < 640 ? 64 : 52;
+    const usableH = Math.max(160, vh - hudTopReserve - 12);
+    const usableW = Math.max(160, vw - 20);
+
+    if (items.length > 0) {
+      let minX = Infinity;
+      let minY = Infinity;
+      let maxX = -Infinity;
+      let maxY = -Infinity;
+      for (const item of items) {
+        minX = Math.min(minX, item.x);
+        minY = Math.min(minY, item.y - 24);
+        maxX = Math.max(maxX, item.x + item.width);
+        maxY = Math.max(maxY, item.y + item.height + 34);
+      }
+
+      const contentW = Math.max(vw < 640 ? 320 : 420, maxX - minX + 56);
+      const contentH = Math.max(vw < 640 ? 250 : 300, maxY - minY + 48);
+      const rawZoom = Math.min(usableW / contentW, usableH / contentH);
+      const targetZoom =
+        vw >= 640
+          ? rawZoom >= 0.96
+            ? 1
+            : Math.max(0.65, rawZoom)
+          : Math.max(0.55, Math.min(1.05, rawZoom));
+      const roundedZoom = Math.round(targetZoom * 100) / 100;
+      const boxCenterX = (minX + maxX) / 2;
+      const boxCenterY = (minY + maxY) / 2;
+
+      setWorkbenchZoom(roundedZoom);
+      setPan({
+        x: Math.round(vw / 2 - boxCenterX * roundedZoom),
+        y: Math.round(hudTopReserve + usableH / 2 - boxCenterY * roundedZoom),
+      });
+      return;
+    }
+
+    const targetZoom =
+      vw >= BENCH_W && usableH >= BENCH_H
+        ? 1
+        : Math.max(0.54, Math.min(1, usableW / BENCH_W, usableH / BENCH_H));
+
+    const roundedZoom = Math.round(targetZoom * 100) / 100;
+    setWorkbenchZoom(roundedZoom);
+    const scaledW = BENCH_W * roundedZoom;
+    const scaledH = BENCH_H * roundedZoom;
+    setPan({
+      x: Math.round((vw - scaledW) / 2),
+      y: Math.round(hudTopReserve + Math.max(0, (usableH - scaledH) / 2)),
+    });
+  }, [setWorkbenchZoom]);
+
+  useEffect(() => {
+    fitToViewport();
+  }, [fitToViewport, fitTriggerCount]);
+
+  useEffect(() => {
+    const vp = viewportRef.current;
+    if (!vp || typeof ResizeObserver === 'undefined') return;
+    const observer = new ResizeObserver((entries) => {
+      const rect = entries[0]?.contentRect;
+      if (!rect) return;
+      const prev = lastViewportSizeRef.current;
+      if (Math.abs(rect.width - prev.w) > 24 || Math.abs(rect.height - prev.h) > 24) {
+        lastViewportSizeRef.current = { w: rect.width, h: rect.height };
+        fitToViewport();
+      }
+    });
+    observer.observe(vp);
+    return () => observer.disconnect();
+  }, [fitToViewport]);
+
+  // 60Hz Visual Particle + Diffusion Loop & 12.5Hz Simulation Tick
   useEffect(() => {
     let rafId = 0;
     let lastTime = performance.now();
@@ -42,11 +199,15 @@ export const Workbench: React.FC = () => {
       const dt = Math.min(0.05, Math.max(0.001, (now - lastTime) / 1000));
       lastTime = now;
 
-      if (!document.hidden && !useLabStore.getState().simulationPaused) {
-        // Step 60Hz particle & meniscus physics directly every animation frame
-        reactionRuntime2D.stepAll(Object.values(useLabStore.getState().equipment), dt);
+      const storeState = useLabStore.getState();
+      if (!document.hidden && !storeState.simulationPaused) {
+        const env = useLabEnvironment.getState().environment;
+        reactionRuntime2D.stepAll(
+          Object.values(storeState.equipment),
+          dt * storeState.simTimeScale,
+          env
+        );
 
-        // Step store thermodynamics, pressure, titration & spills at 12.5 Hz (every 80ms)
         storeAccum += dt;
         if (storeAccum >= 0.08) {
           tickSimulation(storeAccum);
@@ -60,33 +221,112 @@ export const Workbench: React.FC = () => {
     return () => cancelAnimationFrame(rafId);
   }, [tickSimulation]);
 
-  const workbenchRef = useRef<HTMLDivElement>(null);
-  const [draggingId, setDraggingId] = useState<string | null>(null);
-  const [dragOffset, setDragOffset] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
-  const [hoverTargetId, setHoverTargetId] = useState<string | null>(null);
+  // Helper: convert viewport screen coordinates to logical bench coordinates
+  const clientToBench = useCallback(
+    (clientX: number, clientY: number) => {
+      const vp = viewportRef.current;
+      if (!vp) return { x: 250, y: 200 };
+      const rect = vp.getBoundingClientRect();
+      return {
+        x: (clientX - rect.left - pan.x) / workbenchZoom,
+        y: (clientY - rect.top - pan.y) / workbenchZoom,
+      };
+    },
+    [pan.x, pan.y, workbenchZoom]
+  );
 
-  // Alignment guide states
-  const [activeSnapGuide, setActiveSnapGuide] = useState<{
-    type: 'burner' | 'burette' | 'balance';
-    targetX: number;
-    targetY: number;
-    label_vi: string;
-    label_en: string;
-  } | null>(null);
+  // Inject localized dye plume if user drops/adds chemical at horizontal site
+  const doseChemicalIntoVessel = useCallback(
+    (vessel: EquipmentState, chemId: string, benchX: number) => {
+      const chem = findChemicalById(chemId);
+      const isSolid = chem?.phase_STP === 'solid';
+      const prevColor = vessel.liquidColorHex || '#f8fafc';
+      addChemicalToEquipment(vessel.id, chemId, isSolid ? undefined : 25, isSolid ? 2 : undefined);
+
+      const relX = Math.max(-0.85, Math.min(0.85, ((benchX - vessel.x) / Math.max(20, vessel.width)) * 2 - 1));
+      const updated = useLabStore.getState().equipment[vessel.id];
+      if (updated) {
+        reactionRuntime2D.triggerColorMixing(
+          updated,
+          prevColor,
+          updated.liquidColorHex || '#f8fafc',
+          relX,
+          chem?.colorHex
+        );
+      }
+    },
+    [addChemicalToEquipment]
+  );
+
+  // Listen to unified cross-platform pointer drops from SidebarInventory (mouse + touch)
+  useEffect(() => {
+    const onPointerDrop = (event: Event) => {
+      const detail = (event as CustomEvent<{ payload: PointerDragPayload; clientX: number; clientY: number }>).detail;
+      const vp = viewportRef.current;
+      if (!vp || !detail) return;
+      const rect = vp.getBoundingClientRect();
+      if (
+        detail.clientX < rect.left ||
+        detail.clientX > rect.right ||
+        detail.clientY < rect.top ||
+        detail.clientY > rect.bottom
+      ) {
+        return;
+      }
+
+      const pt = clientToBench(detail.clientX, detail.clientY);
+      const dropX = Math.max(20, Math.min(BENCH_W - 150, pt.x - 60));
+      const dropY = Math.max(30, Math.min(BENCH_H - 180, pt.y - 70));
+
+      if (detail.payload.kind === 'equipment') {
+        addEquipment(detail.payload.type, dropX, dropY);
+        soundEngine.glassClink();
+        useLabStore.getState().setMobilePanel(null);
+        return;
+      }
+
+      if (detail.payload.kind === 'chemical') {
+        const allEq = Object.values(useLabStore.getState().equipment);
+        const hitVessel = allEq.find(
+          (v) =>
+            v.isContainer &&
+            pt.x >= v.x - 16 &&
+            pt.x <= v.x + v.width + 16 &&
+            pt.y >= v.y - 16 &&
+            pt.y <= v.y + v.height + 16
+        );
+
+        if (hitVessel) {
+          doseChemicalIntoVessel(hitVessel, detail.payload.chemicalId, pt.x);
+        } else {
+          const newId = addEquipment('beaker', dropX, dropY);
+          soundEngine.glassClink();
+          const newVessel = useLabStore.getState().equipment[newId];
+          if (newVessel) {
+            doseChemicalIntoVessel(newVessel, detail.payload.chemicalId, pt.x);
+          }
+        }
+        useLabStore.getState().setMobilePanel(null);
+      }
+    };
+
+    window.addEventListener('chemdex:pointer-drop', onPointerDrop);
+    return () => window.removeEventListener('chemdex:pointer-drop', onPointerDrop);
+  }, [addEquipment, clientToBench, doseChemicalIntoVessel]);
 
   // Keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
-
       if ((e.key === 'Delete' || e.key === 'Backspace') && selectedEquipmentId) {
         removeEquipment(selectedEquipmentId);
       } else if (e.key === 'Escape') {
         selectEquipment(null);
-      } else if (e.key === 'h' || e.key === 'H') {
-        if (selectedEquipmentId) toggleHeat(selectedEquipmentId);
-      } else if (e.key === 's' || e.key === 'S') {
-        if (selectedEquipmentId) toggleStir(selectedEquipmentId);
+        setRadialTarget(null);
+      } else if ((e.key === 'h' || e.key === 'H') && selectedEquipmentId) {
+        toggleHeat(selectedEquipmentId);
+      } else if ((e.key === 's' || e.key === 'S') && selectedEquipmentId) {
+        toggleStir(selectedEquipmentId);
       }
     };
 
@@ -94,34 +334,164 @@ export const Workbench: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [selectedEquipmentId, removeEquipment, selectEquipment, toggleHeat, toggleStir]);
 
-  const handlePointerDown = (id: string, e: React.PointerEvent) => {
-    e.stopPropagation();
-    selectEquipment(id);
-    (e.target as HTMLElement).setPointerCapture(e.pointerId);
-
-    const eq = equipment[id];
-    if (eq && workbenchRef.current) {
-      const rect = workbenchRef.current.getBoundingClientRect();
-      const pointerX = e.clientX - rect.left;
-      const pointerY = e.clientY - rect.top;
-      setDraggingId(id);
-      setDragOffset({
-        x: pointerX - eq.x,
-        y: pointerY - eq.y,
-      });
-      soundEngine.click();
+  const handleEquipmentPointerDown = (id: string, e: React.PointerEvent) => {
+    const targetEl = e.target as HTMLElement | null;
+    if (targetEl?.closest('button, [role="button"], [data-interactive-control="true"]')) {
+      e.stopPropagation();
+      selectEquipment(id);
+      return;
     }
+
+    e.stopPropagation();
+    const eq = equipment[id];
+    if (!eq) return;
+
+    selectEquipment(id);
+
+    // Handle active workbench tool before dragging
+    if (activeTool === 'stir_rod' && eq.isContainer) {
+      isStirDraggingRef.current = true;
+      if (!eq.isStirred) toggleStir(id);
+      const st = reactionRuntime2D.getOrCreateState(eq);
+      const pt = clientToBench(e.clientX, e.clientY);
+      const normX = Math.max(0.1, Math.min(0.9, (pt.x - eq.x) / Math.max(20, eq.width)));
+      const normY = Math.max(0.15, Math.min(0.85, (pt.y - eq.y) / Math.max(20, eq.height)));
+      st.colorField?.injectPlume(normX, normY, 0.3, eq.liquidColorHex || '#38bdf8', 0.35);
+      soundEngine.click();
+      return;
+    }
+
+    if (activeTool === 'pipette' && eq.isContainer) {
+      const pt = clientToBench(e.clientX, e.clientY);
+      const contactX = Math.max(-0.85, Math.min(0.85, ((pt.x - eq.x) / Math.max(20, eq.width)) * 2 - 1));
+      if (pipetteBuffer) {
+        dispenseFromPipette(id, Math.min(2, pipetteBuffer.volume_ml), contactX);
+      } else {
+        drawWithPipette(id, 5);
+      }
+      return;
+    }
+
+    if (activeTool === 'probe') {
+      soundEngine.click();
+      return;
+    }
+
+    // Normal Select / Drag mode (activate real drag only after 5px move so clicks never get swallowed)
+    const pt = clientToBench(e.clientX, e.clientY);
+    dragPendingRef.current = {
+      id,
+      targetEl: e.currentTarget as HTMLElement,
+      pointerId: e.pointerId,
+      startX: e.clientX,
+      startY: e.clientY,
+      offsetX: pt.x - eq.x,
+      offsetY: pt.y - eq.y,
+    };
   };
 
-  const handlePointerMove = (e: React.PointerEvent) => {
-    if (!draggingId || !workbenchRef.current) return;
+  const handleViewportPointerDown = (e: React.PointerEvent) => {
+    if (e.pointerType === 'touch') {
+      activeTouchesRef.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (activeTouchesRef.current.size === 2) {
+        const pts = Array.from(activeTouchesRef.current.values());
+        pinchStartRef.current = {
+          dist: Math.hypot(pts[1].x - pts[0].x, pts[1].y - pts[0].y),
+          zoom: workbenchZoom,
+        };
+        setDraggingId(null);
+        panDragRef.current = null;
+        return;
+      }
+    }
 
-    const rect = workbenchRef.current.getBoundingClientRect();
-    const currentPointerX = e.clientX - rect.left;
-    const currentPointerY = e.clientY - rect.top;
+    // Sponge tool wipes nearby spill puddles anywhere on bench
+    if (activeTool === 'sponge') {
+      const pt = clientToBench(e.clientX, e.clientY);
+      const hitSpill = spillPuddles.find((p) => Math.hypot(pt.x - p.x, pt.y - p.y) < 55);
+      if (hitSpill) {
+        cleanSpill(hitSpill.id);
+        soundEngine.playSpongeWipe();
+        return;
+      }
+    }
 
-    let newX = Math.max(20, Math.min(rect.width - 150, currentPointerX - dragOffset.x));
-    let newY = Math.max(20, Math.min(rect.height - 200, currentPointerY - dragOffset.y));
+    selectEquipment(null);
+    setRadialTarget(null);
+    panDragRef.current = {
+      startX: e.clientX,
+      startY: e.clientY,
+      origX: pan.x,
+      origY: pan.y,
+    };
+  };
+
+  const handleViewportPointerMove = (e: React.PointerEvent) => {
+    if (e.pointerType === 'touch' && activeTouchesRef.current.has(e.pointerId)) {
+      activeTouchesRef.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (activeTouchesRef.current.size === 2 && pinchStartRef.current) {
+        const pts = Array.from(activeTouchesRef.current.values());
+        const dist = Math.hypot(pts[1].x - pts[0].x, pts[1].y - pts[0].y);
+        if (pinchStartRef.current.dist > 10) {
+          setWorkbenchZoom(pinchStartRef.current.zoom * (dist / pinchStartRef.current.dist));
+        }
+        return;
+      }
+    }
+
+    if (activeTool === 'stir_rod' && isStirDraggingRef.current) {
+      const now = performance.now();
+      if (now - lastStirPlumeMsRef.current >= 45) {
+        lastStirPlumeMsRef.current = now;
+        const pt = clientToBench(e.clientX, e.clientY);
+        const hit = Object.values(equipment).find(
+          (eq) =>
+            eq.isContainer &&
+            pt.x >= eq.x &&
+            pt.x <= eq.x + eq.width &&
+            pt.y >= eq.y &&
+            pt.y <= eq.y + eq.height
+        );
+        if (hit) {
+          if (!hit.isStirred) toggleStir(hit.id);
+          const st = reactionRuntime2D.getOrCreateState(hit);
+          const normX = Math.max(0.1, Math.min(0.9, (pt.x - hit.x) / Math.max(20, hit.width)));
+          const normY = Math.max(0.15, Math.min(0.85, (pt.y - hit.y) / Math.max(20, hit.height)));
+          st.colorField?.injectPlume(normX, normY, 0.24, hit.liquidColorHex || '#38bdf8', 0.25);
+        }
+      }
+      return;
+    }
+
+    if (!draggingId && dragPendingRef.current) {
+      const pending = dragPendingRef.current;
+      if (Math.hypot(e.clientX - pending.startX, e.clientY - pending.startY) >= 5) {
+        try {
+          pending.targetEl.setPointerCapture?.(pending.pointerId);
+        } catch {
+          // Pointer capture unsupported
+        }
+        setDraggingId(pending.id);
+        setDragOffset({ x: pending.offsetX, y: pending.offsetY });
+        dragPendingRef.current = null;
+        soundEngine.click();
+      }
+      return;
+    }
+
+    if (!draggingId) {
+      if (panDragRef.current) {
+        setPan({
+          x: panDragRef.current.origX + (e.clientX - panDragRef.current.startX),
+          y: panDragRef.current.origY + (e.clientY - panDragRef.current.startY),
+        });
+      }
+      return;
+    }
+
+    const pt = clientToBench(e.clientX, e.clientY);
+    let newX = Math.max(-20, Math.min(BENCH_W - 80, pt.x - dragOffset.x));
+    let newY = Math.max(10, Math.min(BENCH_H - 90, pt.y - dragOffset.y));
 
     const draggingEq = equipment[draggingId];
     let detectedGuide: typeof activeSnapGuide = null;
@@ -130,7 +500,6 @@ export const Workbench: React.FC = () => {
       const draggingCenterX = newX + draggingEq.width / 2;
       const draggingBottom = newY + draggingEq.height;
 
-      // Check alignment with active Burners
       for (const other of Object.values(equipment)) {
         if (other.id === draggingId) continue;
 
@@ -141,7 +510,6 @@ export const Workbench: React.FC = () => {
           const gap = burnerMouthY - draggingBottom;
 
           if (dx < 35 && gap >= -30 && gap <= 120) {
-            // Magnetic snap alignment
             newX = burnerCenterX - draggingEq.width / 2;
             detectedGuide = {
               type: 'burner',
@@ -182,7 +550,7 @@ export const Workbench: React.FC = () => {
               targetX: balanceCenterX,
               targetY: balancePanY,
               label_vi: '⚖️ Cân khối lượng chính xác',
-              label_en: '⚖️ Precision Analytical Weighing',
+              label_en: '⚖️ Precision Weighing',
             };
             break;
           }
@@ -193,32 +561,37 @@ export const Workbench: React.FC = () => {
           const dy = Math.abs(draggingBottom - (other.y + other.height - 10));
 
           if (dx < other.width * 0.55 && dy < 60) {
-            // Find closest slot (0 to 5)
             const relX = draggingCenterX - (other.x + 25);
             const slotIdx = Math.max(0, Math.min(5, Math.round(relX / 28)));
             newX = other.x + 25 + slotIdx * 28 - draggingEq.width / 2;
-            newY = other.y - 45; // Tube stands upright in the rack
+            newY = other.y - 45;
             detectedGuide = {
               type: 'balance',
               targetX: newX + draggingEq.width / 2,
               targetY: rackTopY,
-              label_vi: `🪜 Giá cắm ống nghiệm (Lỗ ${slotIdx + 1})`,
-              label_en: `🪜 Test Tube Rack (Slot ${slotIdx + 1})`,
+              label_vi: `🪜 Giá ống nghiệm (Lỗ ${slotIdx + 1})`,
+              label_en: `🪜 Tube Rack (Slot ${slotIdx + 1})`,
             };
             break;
           }
         }
       }
 
-      // Check collision / hover over another vessel for pouring
       let foundTarget: string | null = null;
-      for (const [otherId, otherEq] of Object.entries(equipment)) {
-        if (otherId === draggingId) continue;
-        const dx = Math.abs(newX - otherEq.x);
-        const dy = Math.abs(newY - otherEq.y);
-        if (dx < 110 && dy < 110 && otherEq.isContainer) {
-          foundTarget = otherId;
-          break;
+      if (draggingEq.isContainer && draggingEq.contents.length > 0) {
+        const dragCx = newX + draggingEq.width / 2;
+        const dragCy = newY + draggingEq.height / 2;
+        for (const [otherId, otherEq] of Object.entries(equipment)) {
+          if (otherId === draggingId || !otherEq.isContainer) continue;
+          const otherCx = otherEq.x + otherEq.width / 2;
+          const otherCy = otherEq.y + otherEq.height / 2;
+          if (
+            Math.abs(dragCx - otherCx) < (draggingEq.width + otherEq.width) * 0.44 &&
+            Math.abs(dragCy - otherCy) < (draggingEq.height + otherEq.height) * 0.48
+          ) {
+            foundTarget = otherId;
+            break;
+          }
         }
       }
       setHoverTargetId(foundTarget);
@@ -228,10 +601,17 @@ export const Workbench: React.FC = () => {
     updatePosition(draggingId, newX, newY);
   };
 
-  const handlePointerUp = () => {
+  const handleViewportPointerUp = (e: React.PointerEvent) => {
+    activeTouchesRef.current.delete(e.pointerId);
+    if (activeTouchesRef.current.size < 2) {
+      pinchStartRef.current = null;
+    }
+    panDragRef.current = null;
+    dragPendingRef.current = null;
+    isStirDraggingRef.current = false;
+
     if (draggingId) {
       if (hoverTargetId && equipment[draggingId]?.contents.length > 0) {
-        // Trigger realistic direct pouring stream & sound effect
         triggerDirectPour(draggingId, hoverTargetId);
       } else {
         soundEngine.glassClink();
@@ -242,20 +622,29 @@ export const Workbench: React.FC = () => {
     }
   };
 
-  // HTML5 Drag and Drop handlers for dropping chemicals or apparatus onto workbench
-  const handleWorkbenchDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.dataTransfer.dropEffect = 'copy';
+  const handleWheel = (e: React.WheelEvent) => {
+    if (!viewportRef.current) return;
+    const rect = viewportRef.current.getBoundingClientRect();
+    const cursorX = e.clientX - rect.left;
+    const cursorY = e.clientY - rect.top;
+    const factor = e.deltaY > 0 ? 0.92 : 1.09;
+    const nextZoom = Math.max(0.32, Math.min(2.2, Math.round(workbenchZoom * factor * 100) / 100));
+    if (nextZoom === workbenchZoom) return;
+
+    const ratio = nextZoom / workbenchZoom;
+    setPan({
+      x: cursorX - (cursorX - pan.x) * ratio,
+      y: cursorY - (cursorY - pan.y) * ratio,
+    });
+    setWorkbenchZoom(nextZoom);
   };
 
   const handleWorkbenchDrop = (e: React.DragEvent) => {
     e.preventDefault();
-    if (!workbenchRef.current) return;
-    const rect = workbenchRef.current.getBoundingClientRect();
-    const dropX = Math.max(20, Math.min(rect.width - 160, e.clientX - rect.left - 70));
-    const dropY = Math.max(20, Math.min(rect.height - 200, e.clientY - rect.top - 80));
+    const pt = clientToBench(e.clientX, e.clientY);
+    const dropX = Math.max(20, Math.min(BENCH_W - 150, pt.x - 65));
+    const dropY = Math.max(30, Math.min(BENCH_H - 180, pt.y - 75));
 
-    // Handle dragged equipment from sidebar
     const eqType = e.dataTransfer.getData('application/equipment-type') as EquipmentType;
     if (eqType) {
       addEquipment(eqType, dropX, dropY);
@@ -263,14 +652,14 @@ export const Workbench: React.FC = () => {
       return;
     }
 
-    // Handle chemical dropped onto empty workbench: automatically spawn a beaker and fill it!
     const chemId = e.dataTransfer.getData('text/plain') || draggedChemicalId;
     if (chemId) {
       const newVesselId = addEquipment('beaker', dropX, dropY);
       soundEngine.glassClink();
-      setTimeout(() => {
-        addChemicalToEquipment(newVesselId, chemId, 25);
-      }, 50);
+      const newVessel = useLabStore.getState().equipment[newVesselId];
+      if (newVessel) {
+        doseChemicalIntoVessel(newVessel, chemId, pt.x);
+      }
       setDraggedChemicalId(null);
     }
   };
@@ -281,252 +670,257 @@ export const Workbench: React.FC = () => {
     const chemId = e.dataTransfer.getData('text/plain') || draggedChemicalId;
     const targetEq = equipment[vesselId];
     if (chemId && targetEq && targetEq.isContainer) {
-      addChemicalToEquipment(vesselId, chemId, 25);
+      const pt = clientToBench(e.clientX, e.clientY);
+      doseChemicalIntoVessel(targetEq, chemId, pt.x);
       setDraggedChemicalId(null);
     }
   };
 
   const allEquipmentList = Object.values(equipment);
-
-  useEffect(()=>{if(selectedEquipmentId)workbenchRef.current?.querySelector(`[data-equipment-id="${CSS.escape(selectedEquipmentId)}"]`)?.scrollIntoView({block:'nearest',inline:'nearest'});},[selectedEquipmentId]);
+  const radialEquipment = radialTarget ? equipment[radialTarget.id] ?? null : null;
 
   return (
-    <div className="workbench-scroll">
     <div
-      ref={workbenchRef}
-      className="lab-workbench relative w-full h-full bg-[#f8fafc] overflow-hidden select-none cursor-default"
+      ref={viewportRef}
+      className="lab-workbench relative flex-1 min-h-0 min-w-0 overflow-hidden select-none touch-none"
       style={{
-        minWidth:Math.max(900,...allEquipmentList.map(item=>item.x+item.width+40)),
-        minHeight:Math.max(600,...allEquipmentList.map(item=>item.y+item.height+40)),
-        backgroundImage: `
-          radial-gradient(#94a3b8 1.1px, transparent 1.1px),
-          linear-gradient(to right, rgba(226, 232, 240, 0.4) 1px, transparent 1px),
-          linear-gradient(to bottom, rgba(226, 232, 240, 0.4) 1px, transparent 1px)
-        `,
-        backgroundSize: '24px 24px, 120px 120px, 120px 120px',
+        cursor:
+          activeTool === 'stir_rod'
+            ? 'crosshair'
+            : activeTool === 'pipette'
+            ? 'cell'
+            : activeTool === 'sponge'
+            ? 'grab'
+            : 'default',
       }}
-      onPointerMove={handlePointerMove}
-      onPointerUp={handlePointerUp}
-      onDragOver={handleWorkbenchDragOver}
+      onPointerDown={handleViewportPointerDown}
+      onPointerMove={handleViewportPointerMove}
+      onPointerUp={handleViewportPointerUp}
+      onPointerCancel={handleViewportPointerUp}
+      onWheel={handleWheel}
+      onDragOver={(e) => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'copy';
+      }}
       onDrop={handleWorkbenchDrop}
-      onClick={() => selectEquipment(null)}
     >
-      {/* Tabletop Realistic Lighting & Shadow Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-transparent to-slate-300/25 pointer-events-none" />
+      {/* Atmospheric 2D Lab Scene Background (Sunbeams, Tiles, Phenolic Benchtop) */}
+      <LabEnvironmentBackdrop />
 
-      {/* Lab Benchtop Front Bevel Edge */}
-      <div className="absolute bottom-0 left-0 right-0 h-3 bg-gradient-to-t from-slate-300 to-slate-100 border-t border-slate-300 pointer-events-none" />
-
-      {/* Metric Bench Ruler Calibration Strip (Top edge) */}
-      <div className="absolute top-0 left-0 right-0 h-4 border-b border-slate-200/80 bg-slate-50/80 backdrop-blur-2xs flex items-center justify-between px-4 text-[9px] font-mono text-slate-400 pointer-events-none select-none">
-        <span>0 cm</span>
-        <span>20 cm</span>
-        <span>40 cm</span>
-        <span>60 cm</span>
-        <span>80 cm</span>
-        <span>100 cm</span>
-        <span>120 cm</span>
+      {/* Non-overlapping Top Floating HUD Layer (PPE Left + Measurement Tools Right) */}
+      <div className="absolute top-2.5 inset-x-2.5 z-20 flex flex-wrap items-start justify-between gap-2 pointer-events-none">
+        <SafetyPpeBar />
+        <MeasurementHUD />
       </div>
 
-      {/* Interactive Spatial Alignment Guides */}
-      {activeSnapGuide && (
-        <div
-          className="absolute pointer-events-none z-40 transition-all duration-100"
-          style={{
-            left: `${activeSnapGuide.targetX}px`,
-            top: `${activeSnapGuide.targetY - 50}px`,
-            transform: 'translateX(-50%)',
-          }}
-        >
-          {/* Vertical Alignment Beam */}
-          <div
-            className={`w-0.5 h-36 mx-auto ${
-              activeSnapGuide.type === 'burner'
-                ? 'bg-gradient-to-b from-orange-500 via-amber-400 to-transparent'
-                : activeSnapGuide.type === 'burette'
-                ? 'bg-gradient-to-b from-blue-500 via-sky-400 to-transparent'
-                : 'bg-gradient-to-b from-emerald-500 via-emerald-400 to-transparent'
-            }`}
-          />
-          {/* Badge */}
-          <div className="mt-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-slate-900/90 text-white shadow-md border border-slate-700 whitespace-nowrap animate-pulse text-center">
-            {language === 'vi' ? activeSnapGuide.label_vi : activeSnapGuide.label_en}
-          </div>
-        </div>
-      )}
-
-      {/* Hover Pouring Cue Overlay */}
-      {hoverTargetId && draggingId && (
-        <div
-          className="absolute pointer-events-none z-40 px-3 py-1 rounded-xl bg-blue-600/95 text-white text-xs font-semibold shadow-lg border border-blue-400 animate-pulse"
-          style={{
-            left: `${equipment[hoverTargetId]?.x + (equipment[hoverTargetId]?.width || 100) / 2}px`,
-            top: `${equipment[hoverTargetId]?.y - 32}px`,
-            transform: 'translateX(-50%)',
-          }}
-        >
-          {language === 'vi' ? '⚡ Thả chuột để rót chất lỏng' : '⚡ Release to Pour'}
-        </div>
-      )}
-
-      {/* Empty State Banner */}
+      {/* Empty Bench Intro Callout */}
       {allEquipmentList.length === 0 && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none text-slate-400">
-          <div className="w-16 h-16 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-center justify-center mb-4">
-            <svg className="w-8 h-8 text-blue-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
+        <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none px-4 z-10 text-center">
+          <div className="w-14 h-14 rounded-2xl bg-white/90 border border-slate-200/80 shadow-md flex items-center justify-center mb-3 backdrop-blur-xs">
+            <svg className="w-7 h-7 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
               <path d="M10 2v7.31L4.83 18.2A2 2 0 0 0 6.55 21h10.9a2 2 0 0 0 1.72-2.8L14 9.31V2" />
               <path d="M8.5 2h7" />
               <path d="M14 9.3a6.5 6.5 0 1 1-4 0" />
             </svg>
           </div>
-          <p className="text-base font-medium text-slate-600">
-            {language === 'vi' ? 'Bàn thí nghiệm ảo sẵn sàng' : 'Workbench is ready'}
+          <p className="text-sm sm:text-base font-bold text-slate-700 bg-white/70 backdrop-blur-xs px-3 py-1 rounded-full">
+            {language === 'vi' ? 'Bàn thí nghiệm ảo sẵn sàng' : 'Virtual Lab Workbench Ready'}
           </p>
-          <p className="text-sm text-slate-400 mt-1 max-w-sm text-center">
+          <p className="text-xs text-slate-500 mt-1.5 max-w-sm bg-white/60 backdrop-blur-xs px-3 py-1 rounded-full">
             {language === 'vi'
-              ? 'Kéo thả dụng cụ hoặc hóa chất từ bảng bên trái vào bàn để bắt đầu phản ứng hóa học.'
-              : 'Drag & drop apparatus or chemicals from the sidebar to begin chemical reactions.'}
+              ? 'Kéo hóa chất/dụng cụ vào bàn, bấm thanh dụng cụ dưới hoặc mở Trình diễn tự động.'
+              : 'Drag reagents & gear onto the bench, tap Quick Tray below, or open Auto Showcase.'}
           </p>
         </div>
       )}
 
-      {/* PPE & Safety Violation HUD Bar */}
-      <SafetyPpeBar />
-
-      {/* Active Pouring Fluid Arc VFX */}
-      {activePourVfx && (
-        <PourStreamVfx
-          startX={activePourVfx.startX}
-          startY={activePourVfx.startY}
-          endX={activePourVfx.endX}
-          endY={activePourVfx.endY}
-          liquidColorHex={activePourVfx.liquidColorHex}
-        />
-      )}
-
-      {/* Chemical Spill Puddles on Workbench Tabletop (with active chemistry & neutralization) */}
-      {spillPuddles.map(puddle => (
-        <div
-          key={puddle.id}
-          className="absolute pointer-events-auto cursor-pointer group transition-transform hover:scale-105 z-5"
-          style={{
-            left: `${puddle.x}px`,
-            top: `${puddle.y}px`,
-            transform: 'translate(-50%, -50%)',
-          }}
-          onClick={(e) => {
-            e.stopPropagation();
-            cleanSpill(puddle.id);
-            soundEngine.playSpongeWipe();
-          }}
-          title={
-            language === 'vi'
-              ? `Vết tràn ${puddle.formula} (${puddle.volume_ml.toFixed(1)} mL, pH ${(puddle.ph ?? 7).toFixed(1)}) - Bấm để lau dọn`
-              : `Spill ${puddle.formula} (${puddle.volume_ml.toFixed(1)} mL, pH ${(puddle.ph ?? 7).toFixed(1)}) - Click to clean`
-          }
-        >
-          <svg
-            width={puddle.radius_px ? puddle.radius_px * 2.2 : 60}
-            height={puddle.radius_px ? puddle.radius_px * 1.5 : 40}
-            viewBox="0 0 100 60"
-            className="overflow-visible drop-shadow-xs"
-          >
-            {/* Irregular fluid splat path */}
-            <path
-              d="M 25,30 C 15,20 30,10 50,12 C 70,14 85,22 80,35 C 75,48 55,52 35,48 C 15,44 18,35 25,30 Z"
-              fill={puddle.colorHex || '#94a3b8'}
-              fillOpacity="0.78"
-              stroke={puddle.isNeutralized ? '#10b981' : '#475569'}
-              strokeWidth="1"
-            />
-            {/* Glossy specular reflection */}
-            <path
-              d="M 32,24 C 40,18 55,18 64,22 C 55,24 42,26 32,24 Z"
-              fill="#ffffff"
-              fillOpacity="0.5"
-            />
-            {/* Active effervescence bubbles when spill is reacting or being neutralized */}
-            {puddle.isEffervescing && (
-              <g className="animate-bounce" fill="#ffffff" fillOpacity="0.85">
-                <circle cx="42" cy="28" r="3" />
-                <circle cx="55" cy="24" r="3.5" />
-                <circle cx="62" cy="32" r="2.5" />
-                <circle cx="48" cy="35" r="2.2" />
-              </g>
-            )}
-            {/* Broken glass shards inside puddle if caused by vessel shatter */}
-            {puddle.hasGlassShards && (
-              <g stroke="#e2e8f0" strokeWidth="1" fill="#f8fafc" fillOpacity="0.8">
-                <polygon points="36,34 44,30 41,39" />
-                <polygon points="58,28 66,32 60,37" />
-                <polygon points="48,22 53,26 46,27" />
-              </g>
-            )}
-          </svg>
-          <div className="absolute -top-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 bg-slate-900/95 text-white text-[9px] px-2 py-0.5 rounded-full whitespace-nowrap border border-slate-700 shadow-md z-30">
-            <span>🧽 {language === 'vi' ? 'Lau' : 'Wipe'}</span>
-            {puddle.ph !== undefined && (puddle.ph < 5.5 || puddle.ph > 8.5) && (
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  neutralizeSpill(puddle.id);
-                }}
-                className="ml-1 px-1.5 py-0.2 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-semibold cursor-pointer"
-              >
-                +NaHCO₃
-              </button>
-            )}
-          </div>
-        </div>
-      ))}
-
-      {/* Laboratory Equipment Items on Workbench */}
-      {allEquipmentList.map(item => {
-        const isDragging = draggingId === item.id;
-        const isHoverTarget = hoverTargetId === item.id;
-        const isPouring = activePourVfx?.sourceId === item.id;
-
-        const balanceVessel = item.type === 'analytical_balance'
-          ? allEquipmentList.find(
-              v => v.id !== item.id && v.isContainer && Math.abs((v.x + v.width / 2) - (item.x + item.width / 2)) < item.width * 0.45 && Math.abs((v.y + v.height) - (item.y + 40)) < 45
-            )
-          : null;
-
-        return (
+      {/* Transformed Logical Lab Stage Layer */}
+      <div
+        className="absolute left-0 top-0 origin-top-left pointer-events-none"
+        style={{
+          width: `${BENCH_W}px`,
+          height: `${BENCH_H}px`,
+          transform: `translate(${pan.x}px, ${pan.y}px) scale(${workbenchZoom})`,
+        }}
+      >
+        {/* Snap Alignment Guides */}
+        {activeSnapGuide && (
           <div
-            key={item.id}
-            data-equipment-id={item.id}
-            className={`workbench-equipment absolute transition-shadow ${
-              isDragging ? 'z-50 opacity-90 scale-105' : 'z-10'
-            } ${isHoverTarget ? 'ring-4 ring-emerald-400/80 rounded-2xl' : ''}`}
+            className="absolute pointer-events-none z-40"
             style={{
-              left: `${item.x}px`,
-              top: `${item.y}px`,
-              touchAction: 'none',
+              left: `${activeSnapGuide.targetX}px`,
+              top: `${activeSnapGuide.targetY - 50}px`,
+              transform: 'translateX(-50%)',
             }}
-            onPointerDown={e => handlePointerDown(item.id, e)}
-            onDragOver={e => {
-              e.preventDefault();
-              e.stopPropagation();
-              e.dataTransfer.dropEffect = 'copy';
-            }}
-            onDrop={e => handleVesselDrop(e, item.id)}
           >
-            <EquipmentRenderer
-              equipment={item}
-              isSelected={selectedEquipmentId === item.id}
-              isPouring={isPouring}
-              onSelect={() => selectEquipment(item.id)}
-              onToggleHeat={() => toggleHeat(item.id)}
-              onTare={() => tareEquipment(item.id)}
-              onToggleBurette={() => toggleBuretteStopcock(item.id)}
-              targetVesselForBalance={balanceVessel}
-              language={language}
+            <div
+              className={`w-0.5 h-36 mx-auto ${
+                activeSnapGuide.type === 'burner'
+                  ? 'bg-gradient-to-b from-orange-500 via-amber-400 to-transparent'
+                  : activeSnapGuide.type === 'burette'
+                  ? 'bg-gradient-to-b from-blue-500 via-sky-400 to-transparent'
+                  : 'bg-gradient-to-b from-emerald-500 via-emerald-400 to-transparent'
+              }`}
             />
+            <div className="mt-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-slate-900/90 text-white shadow-md whitespace-nowrap">
+              {language === 'vi' ? activeSnapGuide.label_vi : activeSnapGuide.label_en}
+            </div>
           </div>
-        );
-      })}
-    </div>
+        )}
+
+        {/* Pour Drop Target Highlight Pill */}
+        {hoverTargetId && draggingId && equipment[hoverTargetId] && (
+          <div
+            className="absolute pointer-events-none z-40 px-2.5 py-1 rounded-xl bg-blue-600/95 text-white text-[11px] font-semibold shadow-lg border border-blue-300"
+            style={{
+              left: `${equipment[hoverTargetId].x + equipment[hoverTargetId].width / 2}px`,
+              top: `${equipment[hoverTargetId].y - 30}px`,
+              transform: 'translateX(-50%)',
+            }}
+          >
+            {language === 'vi' ? '⚡ Thả để rót sang' : '⚡ Release to Pour'}
+          </div>
+        )}
+
+        {/* Active Pouring Stream VFX */}
+        {activePourVfx && (
+          <PourStreamVfx
+            startX={activePourVfx.startX}
+            startY={activePourVfx.startY}
+            endX={activePourVfx.endX}
+            endY={activePourVfx.endY}
+            liquidColorHex={activePourVfx.liquidColorHex}
+          />
+        )}
+
+        {/* Chemical Spill Puddles */}
+        {spillPuddles.map((puddle) => (
+          <div
+            key={puddle.id}
+            className="absolute pointer-events-auto cursor-pointer group z-10"
+            style={{
+              left: `${puddle.x}px`,
+              top: `${puddle.y}px`,
+              transform: 'translate(-50%, -50%)',
+            }}
+            onClick={(e) => {
+              e.stopPropagation();
+              cleanSpill(puddle.id);
+              soundEngine.playSpongeWipe();
+            }}
+            title={
+              language === 'vi'
+                ? `Vết tràn ${puddle.formula} (${puddle.volume_ml.toFixed(1)} mL, pH ${(puddle.ph ?? 7).toFixed(1)}) - Bấm để lau`
+                : `Spill ${puddle.formula} (${puddle.volume_ml.toFixed(1)} mL) - Click to clean`
+            }
+          >
+            <svg
+              width={puddle.radius_px ? puddle.radius_px * 2.2 : 60}
+              height={puddle.radius_px ? puddle.radius_px * 1.5 : 40}
+              viewBox="0 0 100 60"
+              className="overflow-visible drop-shadow-xs"
+            >
+              <path
+                d="M 25,30 C 15,20 30,10 50,12 C 70,14 85,22 80,35 C 75,48 55,52 35,48 C 15,44 18,35 25,30 Z"
+                fill={puddle.colorHex || '#94a3b8'}
+                fillOpacity="0.78"
+                stroke={puddle.isNeutralized ? '#10b981' : '#475569'}
+                strokeWidth="1"
+              />
+              <path d="M 32,24 C 40,18 55,18 64,22 C 55,24 42,26 32,24 Z" fill="#ffffff" fillOpacity="0.45" />
+              {puddle.isEffervescing && (
+                <g fill="#ffffff" fillOpacity="0.85">
+                  <circle cx="42" cy="28" r="2.8" />
+                  <circle cx="55" cy="24" r="3.2" />
+                  <circle cx="62" cy="32" r="2.4" />
+                </g>
+              )}
+              {puddle.hasGlassShards && (
+                <g stroke="#e2e8f0" strokeWidth="1" fill="#f8fafc" fillOpacity="0.8">
+                  <polygon points="36,34 44,30 41,39" />
+                  <polygon points="58,28 66,32 60,37" />
+                </g>
+              )}
+            </svg>
+            <div className="absolute -top-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 bg-slate-900/95 text-white text-[9px] px-2 py-0.5 rounded-full whitespace-nowrap border border-slate-700 shadow-md z-30">
+              <span>🧽 {language === 'vi' ? 'Lau' : 'Wipe'}</span>
+              {puddle.ph !== undefined && (puddle.ph < 5.5 || puddle.ph > 8.5) && (
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    neutralizeSpill(puddle.id);
+                  }}
+                  className="ml-1 px-1.5 py-0.2 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-semibold cursor-pointer"
+                >
+                  +NaHCO₃
+                </button>
+              )}
+            </div>
+          </div>
+        ))}
+
+        {/* Benchtop Equipment Objects */}
+        {allEquipmentList.map((item) => {
+          const isDragging = draggingId === item.id;
+          const isHoverTarget = hoverTargetId === item.id;
+          const isPouring = activePourVfx?.sourceId === item.id;
+
+          const balanceVessel =
+            item.type === 'analytical_balance'
+              ? allEquipmentList.find(
+                  (v) =>
+                    v.id !== item.id &&
+                    v.isContainer &&
+                    Math.abs(v.x + v.width / 2 - (item.x + item.width / 2)) < item.width * 0.45 &&
+                    Math.abs(v.y + v.height - (item.y + 40)) < 45
+                )
+              : null;
+
+          return (
+            <div
+              key={item.id}
+              data-equipment-id={item.id}
+              className={`workbench-equipment pointer-events-auto absolute transition-shadow ${
+                isDragging ? 'z-40 opacity-95 scale-[1.03]' : 'z-10'
+              } ${isHoverTarget ? 'ring-4 ring-emerald-400/80 rounded-2xl' : ''}`}
+              style={{
+                left: `${item.x}px`,
+                top: `${item.y}px`,
+                touchAction: 'none',
+              }}
+              onPointerDown={(e) => handleEquipmentPointerDown(item.id, e)}
+              onDragOver={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                e.dataTransfer.dropEffect = 'copy';
+              }}
+              onDrop={(e) => handleVesselDrop(e, item.id)}
+            >
+              <EquipmentRenderer
+                equipment={item}
+                isSelected={selectedEquipmentId === item.id}
+                isPouring={isPouring}
+                onSelect={() => selectEquipment(item.id)}
+                onToggleHeat={() => toggleHeat(item.id)}
+                onTare={() => tareEquipment(item.id)}
+                onToggleBurette={() => toggleBuretteStopcock(item.id)}
+                onOpenRadialMenu={(cx, cy) => setRadialTarget({ id: item.id, x: cx, y: cy })}
+                targetVesselForBalance={balanceVessel}
+                language={language}
+              />
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Floating Radial Quick Menu (Right-click, Long-press, or '⋯' icon) */}
+      <RadialMenu2D
+        equipment={radialEquipment}
+        anchorX={radialTarget?.x ?? 0}
+        anchorY={radialTarget?.y ?? 0}
+        onClose={() => setRadialTarget(null)}
+      />
     </div>
   );
 };

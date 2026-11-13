@@ -1809,6 +1809,33 @@ const REACTION_ENTRIES: ReactionDefinition[] = [
     observable_vi: 'Khi đun nóng nhẹ trong cốc nước nóng, lớp bạc kim loại sáng bóng như gương bám chắc vào thành ống nghiệm.',
   },
 
+  // 76B. C6H12O6 + 2AgNO3 + 3NH3 + H2O -> C6H11O7NH4 + 2Ag(s) + 2NH4NO3 (Glucose Silver Mirror Tollens test)
+  {
+    id: 'rx_silver_mirror_glucose',
+    name_en: 'Tollens Silver Mirror Reaction with Glucose',
+    name_vi: 'Phản ứng tráng gương của Glucozơ tạo lớp Bạc sáng bóng',
+    equation: 'HOCH₂[CHOH]₄CHO + 2AgNO₃ + 3NH₃ + H₂O → HOCH₂[CHOH]₄COONH₄ + 2Ag↓ + 2NH₄NO₃',
+    ionic_equation: 'C₆H₁₂O₆(aq) + 2[Ag(NH₃)₂]⁺(aq) + 3OH⁻(aq) → C₅H₁₁O₅COO⁻(aq) + 2Ag(s)↓ + 4NH₃(aq) + 2H₂O(l)',
+    reactants: [
+      { formula: 'C6H12O6', coefficient: 1, state: 'aq' },
+      { formula: 'AgNO3', coefficient: 2, state: 'aq' },
+      { formula: 'NH3', coefficient: 3, state: 'aq' },
+    ],
+    products: [
+      { formula: 'Ag', coefficient: 2, state: 's' },
+      { formula: 'NH4NO3', coefficient: 2, state: 'aq' },
+    ],
+    requiresHeating: true,
+    minTemp_c: 50.0,
+    deltaH_kJ_mol: -92.0,
+    visual: {
+      precipitate: { formula: 'Ag', colorHex: '#e2e8f0', morphology: 'plates' },
+      colorChange: { resultingColorHex: '#cbd5e1' },
+    },
+    observable_en: 'When gently warmed above 50°C, glucose reduces [Ag(NH3)2]+ into a gleaming metallic silver mirror on the glass walls.',
+    observable_vi: 'Khi đun ấm trên 50°C, glucozơ khử phức [Ag(NH₃)₂]⁺ tạo lớp bạc kim loại sáng bóng bám chặt vào thành bình.',
+  },
+
   // 77. Fe + CuSO4 -> FeSO4 + Cu(s) (Metal displacement)
   {
     id: 'rx_fe_cuso4_displacement',

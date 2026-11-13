@@ -5,8 +5,8 @@
  */
 
 import { create } from 'zustand';
-import { EquipmentState, EquipmentType, SpillPuddle } from '../types/equipment';
-import { SubstanceQuantity } from '../types/chemistry';
+import { ActivePour, EquipmentState, EquipmentType, SpillPuddle } from '../types/equipment';
+import { SimulationResult, SubstanceQuantity } from '../types/chemistry';
 import { GuidedExperiment, LabLogEntry } from '../types/experiment';
 import { findChemicalById } from '../data/chemicals';
 import { EXPERIMENTS_CATALOG } from '../data/experiments';
@@ -15,7 +15,20 @@ import { computeMolarMass } from '../chemistry/core/formula';
 import { soundEngine } from '../services/soundEngine';
 import { generateReactionFromGemini } from '../services/geminiService';
 import { REACTION_DATABASE } from '../chemistry/reactions/reactionDatabase';
-import { stepVesselThermal, burnerHeatToVessel, hotPlateHeatToVessel, probeDipCoupling, separatoryFunnelDrain, aqueousBoilingPoint } from '../engine/simulationTick';
+import {
+  stepVesselThermal,
+  burnerHeatToVessel,
+  hotPlateHeatToVessel,
+  probeDipCoupling,
+  separatoryFunnelDrain,
+  aqueousBoilingPoint,
+  stepPour,
+  stepTemperatureSolubility,
+  stepMixing,
+} from '../engine/simulationTick';
+import { useLabEnvironment } from './useLabEnvironment';
+import { isOxygenSupportingAtmosphere } from '../chemistry/physical/environmentPhysics';
+import { calculateMixturePhysicalProperties } from '../chemistry/physical/substanceProps';
 import { isElementBalancedReaction } from '../chemistry/core/ledger';
 import { getIndicatorColor } from '../chemistry/equilibrium/acidBase';
 import { reactionRuntime2D } from '../vfx/ReactionRuntime2D';
@@ -23,19 +36,49 @@ import { stepVesselPressureAndDamage } from '../engine/headspacePressure2D';
 import { stepSpillPuddles, neutralizeSpillWithNaHCO3 } from '../engine/spillChemistry2D';
 import { PPEState2D, DEFAULT_PPE_STATE, SafetyViolationAlert, checkAcidDilutionHazard, evaluateWorkbenchSafety } from '../engine/safetyEngine2D';
 
+export type WorkbenchTool = 'select' | 'stir_rod' | 'pipette' | 'probe' | 'sponge';
+export type SimTimeScale = 0.5 | 1 | 2 | 5;
+
+export interface PipetteBuffer {
+  volume_ml: number;
+  colorHex: string;
+  formula: string;
+  contents: SubstanceQuantity[];
+  sourceName?: string;
+}
+
 export type LabSnapshot = Pick<LabStoreState, 'equipment' | 'selectedEquipmentId' | 'activeMode' | 'activeExperiment' | 'currentStepIndex' | 'stepCompleted' | 'history' | 'spillPuddles' | 'studentNotes'>;
 
 export interface LabStoreState {
   simulationPaused: boolean;
+  simTimeScale: SimTimeScale;
+  activeTool: WorkbenchTool;
+  pipetteBuffer: PipetteBuffer | null;
+  activePour: ActivePour | null;
   studentNotes: string;
   setStudentNotes: (notes: string) => void;
   completedExperiments: Record<string, string>;
   completeExperiment: () => boolean;
   setSimulationPaused: (paused: boolean) => void;
+  setSimTimeScale: (scale: SimTimeScale) => void;
+  setActiveTool: (tool: WorkbenchTool) => void;
+  drawWithPipette: (vesselId: string, amount_ml?: number) => void;
+  dispenseFromPipette: (targetId: string, amount_ml?: number, contactX?: number) => void;
+  clearPipette: () => void;
   equipment: Record<string, EquipmentState>;
   selectedEquipmentId: string | null;
   language: 'vi' | 'en';
   activeMode: 'free' | 'guided';
+  isPresentationMode: boolean;
+  isShowcaseActive: boolean;
+  mobilePanel: 'inventory' | 'inspector' | null;
+  workbenchZoom: number;
+  fitTriggerCount: number;
+  setPresentationMode: (on?: boolean) => void;
+  setShowcaseActive: (active: boolean) => void;
+  setMobilePanel: (panel: 'inventory' | 'inspector' | null) => void;
+  setWorkbenchZoom: (zoom: number) => void;
+  requestFitWorkbench: () => void;
   activeExperiment: GuidedExperiment | null;
   currentStepIndex: number;
   stepCompleted: boolean;
@@ -169,17 +212,174 @@ function pushSnapshot(state: LabStoreState): {undoStack: LabSnapshot[]; redoStac
   return {undoStack: [...state.undoStack.slice(-49), captureSnapshot(state)], redoStack: []};
 }
 
+/**
+ * Shared projection mapping simulation output (Beer-Lambert optics, physical properties,
+ * precipitate morphology/layers, metal chunks, flames, fumes) uniformly onto EquipmentState.
+ */
+function applySimResultToEquipment(
+  base: EquipmentState,
+  volume_ml: number,
+  mass_g: number,
+  sim: SimulationResult,
+  extras?: Partial<EquipmentState>
+): EquipmentState {
+  return {
+    ...base,
+    volume_ml: Math.round(volume_ml * 10) / 10,
+    mass_g: Math.round(mass_g * 100) / 100,
+    contents: sim.updatedContents,
+    temperature_c: sim.finalTemperature_c,
+    ph: sim.finalPh,
+    liquidColorHex: sim.finalLiquidColorHex,
+    liquidOpacity: sim.liquidOpacity,
+    viscosity_mPa_s: sim.mixtureViscosity_mPa_s,
+    surfaceTension_N_m: sim.surfaceTension_N_m,
+    mixtureCp_J_kgK: sim.mixtureCp_J_kgK,
+    density_g_ml: sim.density_g_ml,
+    hasPrecipitate: sim.hasPrecipitate,
+    precipitateColorHex: sim.precipitateInfo?.colorHex,
+    precipitateSubstance: sim.precipitateInfo?.formula,
+    precipitateMass_g: sim.precipitateInfo?.mass_g,
+    precipitateMorphology: sim.precipitateInfo?.morphology,
+    precipitateLayers: sim.precipitateLayers,
+    solidChunks: sim.solidChunks,
+    hasGas: sim.hasGas,
+    gasColorHex: sim.gasInfo?.colorHex || '#ffffff',
+    effervescenceSpeed: sim.gasInfo?.effervescenceSpeed,
+    isBoiling: sim.isBoiling,
+    hasPhaseSeparation: sim.hasPhaseSeparation,
+    organicLayerVolume_ml: sim.organicLayerVolume_ml,
+    organicLayerColorHex: sim.organicLayerColorHex,
+    hasFumes: sim.hasFumes,
+    fumeType: sim.fumeType,
+    fumeColorHex: sim.fumeColorHex,
+    turbidity: sim.turbidity,
+    foamHead_mm: sim.foamHead_mm,
+    flameTestColorHex: sim.flameTestColorHex,
+    hasSilverMirror: sim.hasSilverMirror || base.hasSilverMirror,
+    hasSublimation: sim.hasSublimation || base.hasSublimation,
+    sublimationColorHex: sim.sublimationColorHex || base.sublimationColorHex,
+    activeControllerIds: sim.activeControllerIds,
+    ...extras,
+  };
+}
+
 export const useLabStore = create<LabStoreState>((set, get) => ({
   simulationPaused: false,
+  simTimeScale: 1,
+  activeTool: 'select',
+  pipetteBuffer: null,
+  activePour: null,
   studentNotes: '',
   completedExperiments: (()=>{try{return typeof window==='undefined'?{}:JSON.parse(localStorage.getItem('chemdex:completed-experiments')??'{}');}catch{return {};}})(),
   completeExperiment: () => {const state=get();if(!state.activeExperiment||state.currentStepIndex!==state.activeExperiment.steps.length-1||!state.checkStepProgress())return false;const completedExperiments={...state.completedExperiments,[state.activeExperiment.id]:new Date().toISOString()};try{localStorage.setItem('chemdex:completed-experiments',JSON.stringify(completedExperiments));}catch{}set({completedExperiments,isQuizModalOpen:true});return true;},
   setStudentNotes: (studentNotes) => set({studentNotes}),
   setSimulationPaused: (simulationPaused) => set({simulationPaused}),
+  setSimTimeScale: (simTimeScale) => set({ simTimeScale }),
+  setActiveTool: (activeTool) => set({ activeTool }),
+  clearPipette: () => set({ pipetteBuffer: null }),
+  drawWithPipette: (vesselId, amount_ml = 10) => {
+    const src = get().equipment[vesselId];
+    if (!src || !src.isContainer || src.volume_ml <= 0.1) return;
+    const drawVol = Math.min(amount_ml, src.volume_ml, 10);
+    const frac = drawVol / src.volume_ml;
+    const drawn: SubstanceQuantity[] = [];
+    const remaining: SubstanceQuantity[] = [];
+    for (const item of src.contents) {
+      if (item.state === 's' || item.state === 'g') {
+        remaining.push({ ...item });
+        continue;
+      }
+      const mMove = item.moles * frac;
+      const gMove = item.mass_g * frac;
+      if (mMove > 1e-9) drawn.push({ ...item, moles: mMove, mass_g: gMove });
+      const remM = item.moles - mMove;
+      if (remM > 1e-8 || item.formula === 'H2O') {
+        remaining.push({ ...item, moles: remM, mass_g: item.mass_g - gMove });
+      }
+    }
+    const newSrcVol = Math.max(0, src.volume_ml - drawVol);
+    const env = useLabEnvironment.getState().environment;
+    const srcSim = runSimulationCycle(remaining, newSrcVol, src.temperature_c, src.isOn || false, !src.isSealed, { oxygenFraction: env.oxygenFraction });
+    const srcMass = (src.tare_g || 0) + srcSim.updatedContents.reduce((s, c) => s + c.mass_g, 0);
+    const primaryFormula = drawn.find(d => d.formula !== 'H2O')?.formula || 'H2O';
+    soundEngine.drip();
+    set(s => ({
+      ...pushSnapshot(s),
+      pipetteBuffer: {
+        volume_ml: Math.round(drawVol * 10) / 10,
+        colorHex: src.liquidColorHex || '#38bdf8',
+        formula: primaryFormula,
+        contents: drawn,
+        sourceName: src.name_vi || src.name,
+      },
+      equipment: {
+        ...s.equipment,
+        [vesselId]: applySimResultToEquipment(src, newSrcVol, srcMass, srcSim),
+      },
+    }));
+  },
+  dispenseFromPipette: (targetId, amount_ml, contactX = 0) => {
+    const buf = get().pipetteBuffer;
+    const tgt = get().equipment[targetId];
+    if (!buf || buf.volume_ml <= 0 || !tgt || !tgt.isContainer) return;
+    const dispenseVol = Math.min(buf.volume_ml, amount_ml ?? buf.volume_ml, Math.max(0, tgt.capacity_ml - tgt.volume_ml));
+    if (dispenseVol <= 0.01) return;
+    const frac = dispenseVol / buf.volume_ml;
+    const mergedTgt = structuredClone(tgt.contents);
+    const remBuf: SubstanceQuantity[] = [];
+    for (const item of buf.contents) {
+      const mAdd = item.moles * frac;
+      const gAdd = item.mass_g * frac;
+      const ex = mergedTgt.find(c => c.formula.toUpperCase() === item.formula.toUpperCase());
+      if (ex) {
+        ex.moles += mAdd;
+        ex.mass_g += gAdd;
+      } else {
+        mergedTgt.push({ ...item, moles: mAdd, mass_g: gAdd });
+      }
+      if (item.moles - mAdd > 1e-8) {
+        remBuf.push({ ...item, moles: item.moles - mAdd, mass_g: item.mass_g - gAdd });
+      }
+    }
+    const newTgtVol = Math.min(tgt.capacity_ml, tgt.volume_ml + dispenseVol);
+    const env = useLabEnvironment.getState().environment;
+    const tgtSim = runSimulationCycle(mergedTgt, newTgtVol, tgt.temperature_c, tgt.isOn || false, !tgt.isSealed, { oxygenFraction: env.oxygenFraction });
+    const tgtMass = (tgt.tare_g || 0) + tgtSim.updatedContents.reduce((s, c) => s + c.mass_g, 0);
+    const prevColor = tgt.liquidColorHex || '#f8fafc';
+    const nextColor = tgtSim.finalLiquidColorHex;
+    const updatedTarget = applySimResultToEquipment(tgt, newTgtVol, tgtMass, tgtSim, {
+      pourContactX: Math.max(-0.85, Math.min(0.85, contactX)),
+      mixedness: Math.min(tgt.mixedness ?? 0.65, 0.35),
+    });
+    reactionRuntime2D.triggerColorMixing(updatedTarget, prevColor, nextColor, contactX, buf.colorHex);
+    if (tgtSim.activeControllerIds?.length) {
+      const hasPhenol = mergedTgt.some(c => c.formula.toLowerCase().includes('phenolphthalein'));
+      for (const cid of tgtSim.activeControllerIds) {
+        reactionRuntime2D.triggerController(updatedTarget, cid, { hasPhenolphthalein: hasPhenol, targetColorHex: nextColor });
+      }
+    }
+    soundEngine.drip();
+    const remVol = Math.max(0, buf.volume_ml - dispenseVol);
+    set(s => ({
+      ...pushSnapshot(s),
+      pipetteBuffer: remVol > 0.05 ? { ...buf, volume_ml: Math.round(remVol * 10) / 10, contents: remBuf } : null,
+      equipment: {
+        ...s.equipment,
+        [targetId]: updatedTarget,
+      },
+    }));
+    get().checkStepProgress();
+  },
   equipment: {},
   selectedEquipmentId: null,
   language: 'vi',
   activeMode: 'free',
+  isPresentationMode: false,
+  isShowcaseActive: false,
+  mobilePanel: null,
+  workbenchZoom: 1,
+  fitTriggerCount: 0,
   activeExperiment: null,
   currentStepIndex: 0,
   stepCompleted: false,
@@ -220,7 +420,12 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
     }));
   },
   setLanguage: (lang) => set({ language: lang }),
-  setActiveMode: (mode) => set({ activeMode: mode }),
+  setActiveMode: (mode) => set({ activeMode: mode, isShowcaseActive: false }),
+  setPresentationMode: (on) => set(s => ({ isPresentationMode: on !== undefined ? on : !s.isPresentationMode })),
+  setShowcaseActive: (active) => set({ isShowcaseActive: active }),
+  setMobilePanel: (panel) => set({ mobilePanel: panel }),
+  setWorkbenchZoom: (zoom) => set({ workbenchZoom: Math.max(0.32, Math.min(2.2, Math.round(zoom * 100) / 100)) }),
+  requestFitWorkbench: () => set(s => ({ fitTriggerCount: s.fitTriggerCount + 1 })),
   setActiveSidebarTab: (tab) => set({ activeSidebarTab: tab }),
   selectEquipment: (id) => set({ selectedEquipmentId: id }),
   
@@ -272,27 +477,30 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
   triggerDirectPour: (sourceId: string, targetId: string) => {
     const src = get().equipment[sourceId];
     const tgt = get().equipment[targetId];
-    if (!src || !tgt || src.volume_ml <= 0) return;
+    if (!src || !tgt || !tgt.isContainer || src.volume_ml <= 0) return;
 
     const pourAmount = Math.min(src.volume_ml, 25);
+    const contactX = Math.max(-0.75, Math.min(0.75, (src.x + src.width / 2 - (tgt.x + tgt.width / 2)) / Math.max(40, tgt.width * 0.5)));
     set({
+      activePour: {
+        sourceId,
+        targetId,
+        rate_ml_s: 36,
+        remaining_ml: pourAmount,
+        startedAt: Date.now(),
+        tilt_deg: 56,
+      },
       activePourVfx: {
         sourceId,
         targetId,
         startX: src.x + src.width / 2,
         startY: src.y + 15,
-        endX: tgt.x + tgt.width / 2,
-        endY: tgt.y + 35,
+        endX: tgt.x + tgt.width / 2 + contactX * tgt.width * 0.28,
+        endY: tgt.y + Math.max(24, tgt.height * 0.35),
         liquidColorHex: src.liquidColorHex || '#38bdf8',
       },
     });
     soundEngine.pour(0.7);
-
-    setTimeout(() => {
-      if(get().activePourVfx?.sourceId !== sourceId || get().activePourVfx?.targetId !== targetId) return;
-      get().transferMaterial(sourceId, targetId, pourAmount);
-      set({ activePourVfx: null });
-    }, 450);
   },
 
   triggerGeminiReactionCheck: async (vesselId: string) => {
@@ -376,8 +584,20 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
     const id = `eq_${Date.now()}_${Math.random().toString(36).substr(2, 4)}`;
     const spec = EQUIPMENT_SPECS[type];
     const existingCount = Object.keys(get().equipment).length;
-    const x = customX !== undefined ? customX : 100 + (existingCount % 5) * 160;
-    const y = customY !== undefined ? customY : 220 + Math.floor(existingCount / 5) * 40;
+    const isHeater = type === 'bunsen_burner' || type === 'hot_plate';
+    const slotsX = [290, 145, 435, 215];
+    const x =
+      customX !== undefined
+        ? customX
+        : isHeater
+          ? 305 + (existingCount % 3 === 0 ? 0 : existingCount % 3 === 1 ? -145 : 145)
+          : slotsX[existingCount % 4] + (Math.floor(existingCount / 4) % 2) * 35;
+    const y =
+      customY !== undefined
+        ? customY
+        : isHeater
+          ? 295
+          : 165 + Math.floor(existingCount / 4) * 40;
 
     const newEquipment: EquipmentState = {
       id,
@@ -518,17 +738,33 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
     }
 
     // Run deterministic chemistry calculation engine
-    const simResult = runSimulationCycle(newContents, newVolume, eq.temperature_c, eq.isOn || false, !eq.isSealed);
+    const env = useLabEnvironment.getState().environment;
+    const prevColor = eq.liquidColorHex || '#f8fafc';
+    const simResult = runSimulationCycle(newContents, newVolume, eq.temperature_c, eq.isOn || false, !eq.isSealed, {
+      oxygenFraction: env.oxygenFraction,
+    });
 
     // Compute updated total mass = vessel tare + liquid/solids
     const totalContentMass = simResult.updatedContents.reduce((sum, c) => sum + c.mass_g, 0);
     const newTotalMass = (eq.tare_g || 0) + totalContentMass;
 
-    // Trigger instant procedural audio feedback & dedicated 2D visual controllers
+    // Trigger instant procedural audio feedback & dedicated 2D visual controllers + spatial color spreading
+    const hasPhenol = newContents.some(c => c.formula.toLowerCase().includes('phenolphthalein'));
+    const isTransientBasicPlume =
+      hasPhenol &&
+      ['NAOH', 'KOH', 'NH3', 'BA(OH)2', 'CA(OH)2'].includes(chem.formula.toUpperCase()) &&
+      simResult.finalLiquidColorHex === '#f8fafc';
+    const dropColor = isTransientBasicPlume ? '#ec4899' : chem.colorHex || '#38bdf8';
+    const contactX = 0.0;
+    const updatedVessel = applySimResultToEquipment(eq, newVolume, newTotalMass, simResult, {
+      pourContactX: contactX,
+      mixedness: Math.min(eq.mixedness ?? 0.6, 0.35),
+    });
+    reactionRuntime2D.triggerColorMixing(updatedVessel, prevColor, simResult.finalLiquidColorHex, contactX, dropColor);
+
     if (simResult.activeControllerIds?.length) {
-      const hasPhenol = newContents.some(c => c.formula.toLowerCase().includes('phenolphthalein'));
       for (const cid of simResult.activeControllerIds) {
-        reactionRuntime2D.triggerController(eq, cid, {
+        reactionRuntime2D.triggerController(updatedVessel, cid, {
           hasPhenolphthalein: hasPhenol,
           targetColorHex: simResult.finalLiquidColorHex,
         });
@@ -568,38 +804,7 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
       ...pushSnapshot(state),
       equipment: {
         ...state.equipment,
-        [equipmentId]: {
-          ...eq,
-          volume_ml: Math.round(newVolume * 10) / 10,
-          mass_g: Math.round(newTotalMass * 100) / 100,
-          contents: simResult.updatedContents,
-          temperature_c: simResult.finalTemperature_c,
-          ph: simResult.finalPh,
-          liquidColorHex: simResult.finalLiquidColorHex,
-          hasPrecipitate: simResult.hasPrecipitate,
-          precipitateColorHex: simResult.precipitateInfo?.colorHex,
-          precipitateSubstance: simResult.precipitateInfo?.formula,
-          precipitateMass_g: simResult.precipitateInfo?.mass_g,
-          precipitateMorphology: simResult.precipitateInfo?.morphology,
-          precipitateLayers: simResult.precipitateLayers,
-          solidChunks: simResult.solidChunks,
-          hasGas: simResult.hasGas,
-          gasColorHex: simResult.gasInfo?.colorHex || '#ffffff',
-          effervescenceSpeed: simResult.gasInfo?.effervescenceSpeed,
-          isBoiling: simResult.isBoiling,
-          hasPhaseSeparation: simResult.hasPhaseSeparation,
-          organicLayerVolume_ml: simResult.organicLayerVolume_ml,
-          organicLayerColorHex: simResult.organicLayerColorHex,
-          hasFumes: simResult.hasFumes,
-          fumeType: simResult.fumeType,
-          fumeColorHex: simResult.fumeColorHex,
-          turbidity: simResult.turbidity,
-          foamHead_mm: simResult.foamHead_mm,
-          hasSilverMirror: simResult.hasSilverMirror || eq.hasSilverMirror,
-          hasSublimation: simResult.hasSublimation || eq.hasSublimation,
-          sublimationColorHex: simResult.sublimationColorHex || eq.sublimationColorHex,
-          activeControllerIds: simResult.activeControllerIds,
-        },
+        [equipmentId]: updatedVessel,
       },
       history: [
         ...state.history,
@@ -708,14 +913,25 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
     }
 
     // Run reaction engine on target vessel
-    const tgtSim = runSimulationCycle(mergedTgtContents, newTgtVol, tgt.temperature_c, tgt.isOn || false, !tgt.isSealed);
+    const env = useLabEnvironment.getState().environment;
+    const prevTgtColor = tgt.liquidColorHex || '#f8fafc';
+    const tgtSim = runSimulationCycle(mergedTgtContents, newTgtVol, tgt.temperature_c, tgt.isOn || false, !tgt.isSealed, {
+      oxygenFraction: env.oxygenFraction,
+    });
     const tgtMass = (tgt.tare_g || 0) + tgtSim.updatedContents.reduce((s, c) => s + c.mass_g, 0);
+    const contactX = Math.max(-0.85, Math.min(0.85, ((src.x + src.width / 2) - (tgt.x + tgt.width / 2)) / Math.max(40, tgt.width * 0.5)));
+    const updatedTargetEq = applySimResultToEquipment(tgt, newTgtVol, tgtMass, tgtSim, {
+      pourContactX: contactX,
+      mixedness: Math.min(tgt.mixedness ?? 0.65, 0.35),
+    });
+
+    reactionRuntime2D.triggerColorMixing(updatedTargetEq, prevTgtColor, tgtSim.finalLiquidColorHex, contactX, src.liquidColorHex || '#38bdf8');
 
     // Trigger dedicated 2D visual controllers
     if (tgtSim.activeControllerIds?.length) {
       const hasPhenol = mergedTgtContents.some(c => c.formula.toLowerCase().includes('phenolphthalein'));
       for (const cid of tgtSim.activeControllerIds) {
-        reactionRuntime2D.triggerController(tgt, cid, {
+        reactionRuntime2D.triggerController(updatedTargetEq, cid, {
           hasPhenolphthalein: hasPhenol,
           targetColorHex: tgtSim.finalLiquidColorHex,
         });
@@ -761,37 +977,7 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
           contents: remainingSrcItems,
           hasPrecipitate: remainingSrcItems.some(c => c.state === 's'),
         },
-        [targetId]: {
-          ...tgt,
-          volume_ml: Math.round(newTgtVol * 10) / 10,
-          mass_g: Math.round(tgtMass * 100) / 100,
-          contents: tgtSim.updatedContents,
-          temperature_c: tgtSim.finalTemperature_c,
-          ph: tgtSim.finalPh,
-          liquidColorHex: tgtSim.finalLiquidColorHex,
-          hasPrecipitate: tgtSim.hasPrecipitate,
-          precipitateColorHex: tgtSim.precipitateInfo?.colorHex,
-          precipitateSubstance: tgtSim.precipitateInfo?.formula,
-          precipitateMass_g: tgtSim.precipitateInfo?.mass_g,
-          precipitateMorphology: tgtSim.precipitateInfo?.morphology,
-          precipitateLayers: tgtSim.precipitateLayers,
-          solidChunks: tgtSim.solidChunks,
-          hasGas: tgtSim.hasGas,
-          effervescenceSpeed: tgtSim.gasInfo?.effervescenceSpeed,
-          isBoiling: tgtSim.isBoiling,
-          hasPhaseSeparation: tgtSim.hasPhaseSeparation,
-          organicLayerVolume_ml: tgtSim.organicLayerVolume_ml,
-          organicLayerColorHex: tgtSim.organicLayerColorHex,
-          hasFumes: tgtSim.hasFumes,
-          fumeType: tgtSim.fumeType,
-          fumeColorHex: tgtSim.fumeColorHex,
-          turbidity: tgtSim.turbidity,
-          foamHead_mm: tgtSim.foamHead_mm,
-          hasSilverMirror: tgtSim.hasSilverMirror || tgt.hasSilverMirror,
-          hasSublimation: tgtSim.hasSublimation || tgt.hasSublimation,
-          sublimationColorHex: tgtSim.sublimationColorHex || tgt.sublimationColorHex,
-          activeControllerIds: tgtSim.activeControllerIds,
-        },
+        [targetId]: updatedTargetEq,
       },
       isTransferModalOpen: false,
       history: [
@@ -1036,7 +1222,8 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
         [id]: {
           ...eq,
           isStirred: nextStirred,
-          stirringSpeed: nextStirred ? 0.8 : 0,
+          stirringSpeed: nextStirred ? 0.85 : 0,
+          stirIntensity: nextStirred ? 1.0 : 0,
         },
       },
     }));
@@ -1062,18 +1249,143 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
     }));
   },
 
-  tickSimulation: (dt: number) => {
+  tickSimulation: (rawDt: number) => {
     if (get().simulationPaused) return;
     const currentEquipment = get().equipment;
     if (Object.keys(currentEquipment).length === 0) return;
 
+    const dt = Math.max(0.001, rawDt * (get().simTimeScale || 1));
+    const env = useLabEnvironment.getState().environment;
+
     let hasChanged = false;
     const nextEquipment: Record<string, EquipmentState> = { ...currentEquipment };
+    let nextActivePour = get().activePour;
+    let nextActivePourVfx = get().activePourVfx;
 
     const allEqList = Object.values(currentEquipment);
     const activeBurners = allEqList.filter(e => e.type === 'bunsen_burner' && e.isOn);
     const activeHotPlates = allEqList.filter(e => e.type === 'hot_plate' && e.isOn);
     const openBurettes = allEqList.filter(e => e.type === 'burette' && e.stopcockOpen && e.volume_ml > 0);
+    const newlyCreatedSpills: SpillPuddle[] = [];
+
+    // Extinguish flames automatically under Inert (0% O2) atmosphere
+    if (!isOxygenSupportingAtmosphere(env)) {
+      for (const burner of activeBurners) {
+        nextEquipment[burner.id] = { ...burner, isOn: false, gasColorHex: undefined };
+        hasChanged = true;
+      }
+    }
+
+    // 0. Process Continuous Drag/Button Pour Stream
+    if (nextActivePour) {
+      const srcEq = nextEquipment[nextActivePour.sourceId];
+      const tgtEq = nextEquipment[nextActivePour.targetId];
+      if (!srcEq || !tgtEq || !tgtEq.isContainer || srcEq.volume_ml <= 0.05 || (nextActivePour.remaining_ml !== undefined && nextActivePour.remaining_ml <= 0.05)) {
+        nextActivePour = null;
+        nextActivePourVfx = null;
+        hasChanged = true;
+      } else {
+        const capRemaining = nextActivePour.remaining_ml ?? srcEq.volume_ml;
+        const maxStepRate = Math.min(nextActivePour.rate_ml_s, capRemaining / Math.max(0.005, dt));
+        const { moved_ml, spill_ml, done } = stepPour(srcEq, tgtEq, dt, maxStepRate);
+        const totalRemoved = moved_ml + spill_ml;
+        if (totalRemoved > 1e-4 && srcEq.volume_ml > 0) {
+          hasChanged = true;
+          const frac = Math.min(1, totalRemoved / srcEq.volume_ml);
+          const movedFrac = totalRemoved > 0 ? moved_ml / totalRemoved : 1;
+          const newSrcVol = Math.max(0, srcEq.volume_ml - totalRemoved);
+          const remSrcContents: SubstanceQuantity[] = [];
+          const transferred: SubstanceQuantity[] = [];
+
+          for (const item of srcEq.contents) {
+            if (item.state === 's') {
+              remSrcContents.push({ ...item });
+              continue;
+            }
+            const totalItemMove = item.moles * frac;
+            const totalMassMove = item.mass_g * frac;
+            const tgtMoles = totalItemMove * movedFrac;
+            const tgtMass = totalMassMove * movedFrac;
+            if (tgtMoles > 1e-9) transferred.push({ ...item, moles: tgtMoles, mass_g: tgtMass });
+            const remM = item.moles - totalItemMove;
+            if (remM > 1e-8 || item.formula === 'H2O') {
+              remSrcContents.push({ ...item, moles: remM, mass_g: item.mass_g - totalMassMove });
+            }
+          }
+
+          const srcProps = calculateMixturePhysicalProperties(remSrcContents, newSrcVol, srcEq.temperature_c);
+          const srcMass = (srcEq.tare_g || 0) + remSrcContents.reduce((s, c) => s + c.mass_g, 0);
+          nextEquipment[srcEq.id] = {
+            ...srcEq,
+            volume_ml: Math.round(newSrcVol * 10) / 10,
+            mass_g: Math.round(srcMass * 100) / 100,
+            contents: remSrcContents,
+            viscosity_mPa_s: srcProps.viscosity_mPa_s,
+            surfaceTension_N_m: srcProps.surfaceTension_N_m,
+            density_g_ml: srcProps.density_g_ml,
+          };
+
+          if (spill_ml > 0.15) {
+            newlyCreatedSpills.push({
+              id: `spill_pour_${Date.now()}_${Math.random().toString(36).slice(2, 5)}`,
+              x: srcEq.x + srcEq.width * 0.78,
+              y: tgtEq.y + tgtEq.height - 4,
+              volume_ml: spill_ml,
+              colorHex: srcEq.liquidColorHex || '#38bdf8',
+              formula: srcEq.contents[0]?.formula || 'H2O',
+              ph: srcEq.ph,
+              radius_px: Math.min(60, 14 + Math.sqrt(spill_ml) * 5),
+              timestamp: Date.now(),
+            });
+          }
+
+          if (moved_ml > 1e-4) {
+            const newTgtVol = Math.min(tgtEq.capacity_ml, tgtEq.volume_ml + moved_ml);
+            const mergedTgt = tgtEq.contents.map(c => ({ ...c }));
+            for (const item of transferred) {
+              const ex = mergedTgt.find(c => c.formula.toUpperCase() === item.formula.toUpperCase());
+              if (ex) { ex.moles += item.moles; ex.mass_g += item.mass_g; }
+              else mergedTgt.push({ ...item });
+            }
+            const prevTgtColor = tgtEq.liquidColorHex || '#f8fafc';
+            const tgtSim = runSimulationCycle(mergedTgt, newTgtVol, tgtEq.temperature_c, tgtEq.isOn || false, !tgtEq.isSealed, {
+              oxygenFraction: env.oxygenFraction,
+            });
+            const tgtMass = (tgtEq.tare_g || 0) + tgtSim.updatedContents.reduce((s, c) => s + c.mass_g, 0);
+            const contactX = Math.max(-0.85, Math.min(0.85, ((srcEq.x + srcEq.width / 2) - (tgtEq.x + tgtEq.width / 2)) / Math.max(40, tgtEq.width * 0.5)));
+            const updatedTgt = applySimResultToEquipment(tgtEq, newTgtVol, tgtMass, tgtSim, {
+              pourContactX: contactX,
+              mixedness: Math.min(tgtEq.mixedness ?? 0.65, 0.3),
+            });
+            nextEquipment[tgtEq.id] = updatedTgt;
+            reactionRuntime2D.triggerColorMixing(updatedTgt, prevTgtColor, tgtSim.finalLiquidColorHex, contactX, srcEq.liquidColorHex || '#38bdf8');
+            if (tgtSim.activeControllerIds?.length) {
+              const hasPhenol = mergedTgt.some(c => c.formula.toLowerCase().includes('phenolphthalein'));
+              for (const cid of tgtSim.activeControllerIds) {
+                reactionRuntime2D.triggerController(updatedTgt, cid, { hasPhenolphthalein: hasPhenol, targetColorHex: tgtSim.finalLiquidColorHex });
+              }
+            }
+          }
+
+          const remTarget = nextActivePour.remaining_ml !== undefined ? Math.max(0, nextActivePour.remaining_ml - totalRemoved) : undefined;
+          if (done || (remTarget !== undefined && remTarget <= 0.05) || newSrcVol <= 0.05) {
+            nextActivePour = null;
+            nextActivePourVfx = null;
+          } else {
+            nextActivePour = { ...nextActivePour, remaining_ml: remTarget };
+            nextActivePourVfx = {
+              sourceId: srcEq.id,
+              targetId: tgtEq.id,
+              startX: srcEq.x + srcEq.width / 2,
+              startY: srcEq.y + 15,
+              endX: tgtEq.x + tgtEq.width / 2,
+              endY: tgtEq.y + Math.max(24, tgtEq.height * 0.35),
+              liquidColorHex: srcEq.liquidColorHex || '#38bdf8',
+            };
+          }
+        }
+      }
+    }
 
     // 1. Process continuous Burette dropwise titration
     for (const burette of openBurettes) {
@@ -1091,7 +1403,7 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
           const gMove = item.mass_g * frac;
           if (mMove > 0) transferred.push({ ...item, moles: mMove, mass_g: gMove });
           const remMoles = item.moles - mMove;
-          if (remMoles > 1e-6) {
+          if (remMoles > 1e-7) {
             remBurContents.push({ ...item, moles: remMoles, mass_g: item.mass_g - gMove });
           }
         }
@@ -1124,32 +1436,29 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
             }
           }
 
-          const tgtSim = runSimulationCycle(mergedTgt, newTgtVol, tgtEq.temperature_c, tgtEq.isOn || false);
+          const prevTgtColor = tgtEq.liquidColorHex || '#f8fafc';
+          const tgtSim = runSimulationCycle(mergedTgt, newTgtVol, tgtEq.temperature_c, tgtEq.isOn || false, !tgtEq.isSealed, {
+            oxygenFraction: env.oxygenFraction,
+          });
           const tgtMass = (tgtEq.tare_g || 0) + tgtSim.updatedContents.reduce((s, c) => s + c.mass_g, 0);
-
-          nextEquipment[target.id] = {
-            ...tgtEq,
-            volume_ml: Math.round(newTgtVol * 10) / 10,
-            mass_g: Math.round(tgtMass * 100) / 100,
-            contents: tgtSim.updatedContents,
-            temperature_c: tgtSim.finalTemperature_c,
-            ph: tgtSim.finalPh,
-            liquidColorHex: tgtSim.finalLiquidColorHex,
-            hasPrecipitate: tgtSim.hasPrecipitate,
-            precipitateColorHex: tgtSim.precipitateInfo?.colorHex,
-            precipitateSubstance: tgtSim.precipitateInfo?.formula,
-            precipitateMass_g: tgtSim.precipitateInfo?.mass_g,
-            precipitateMorphology: tgtSim.precipitateInfo?.morphology,
-            hasGas: tgtSim.hasGas,
-            effervescenceSpeed: tgtSim.gasInfo?.effervescenceSpeed,
-            isBoiling: tgtSim.isBoiling,
-            hasPhaseSeparation: tgtSim.hasPhaseSeparation,
-            organicLayerVolume_ml: tgtSim.organicLayerVolume_ml,
-            organicLayerColorHex: tgtSim.organicLayerColorHex,
-            hasFumes: tgtSim.hasFumes,
-            fumeType: tgtSim.fumeType,
-            fumeColorHex: tgtSim.fumeColorHex,
-          };
+          const updatedTgt = applySimResultToEquipment(tgtEq, newTgtVol, tgtMass, tgtSim, {
+            pourContactX: 0,
+            mixedness: Math.min(tgtEq.mixedness ?? 0.65, 0.45),
+          });
+          nextEquipment[target.id] = updatedTgt;
+          const isBasicDrop =
+            mergedTgt.some(c => c.formula.toLowerCase().includes('phenolphthalein')) &&
+            burette.contents.some(c => ['NAOH', 'KOH', 'NH3'].includes(c.formula.toUpperCase())) &&
+            tgtSim.finalLiquidColorHex === '#f8fafc';
+          if (tgtSim.finalLiquidColorHex !== prevTgtColor || isBasicDrop) {
+            reactionRuntime2D.triggerColorMixing(
+              updatedTgt,
+              prevTgtColor,
+              tgtSim.finalLiquidColorHex,
+              0,
+              isBasicDrop ? '#ec4899' : burette.liquidColorHex || '#38bdf8'
+            );
+          }
         }
       }
     }
@@ -1166,7 +1475,7 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
       let heatingBurnerId: string | null = null;
 
       for (const burner of activeBurners) {
-        const power = burnerHeatToVessel(burner, currentEq);
+        const power = burnerHeatToVessel(burner, currentEq, env);
         if (power > 5) {
           heatPower_W += power;
           heatingBurnerId = burner.id;
@@ -1178,20 +1487,35 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
 
       const isBeingHeated = heatPower_W > 5;
       const heatingStateChanged = Boolean(currentEq.isBeingHeated) !== isBeingHeated;
+      const mixState = (currentEq.mixedness ?? 1) < 0.995 || (currentEq.stirIntensity ?? 0) > 0.02
+        ? stepMixing(currentEq, dt)
+        : null;
+      const nextStirIntensity = currentEq.isStirred
+        ? Math.min(1, Math.max(0.7, currentEq.stirIntensity ?? 0.85))
+        : Math.max(0, (currentEq.stirIntensity ?? 0) - dt * 0.45);
 
-      if (heatPower_W > 0 || Math.abs(currentEq.temperature_c - 25.0) > 0.2 || heatingStateChanged) {
-        const therm = stepVesselThermal(currentEq, dt, heatPower_W);
+      const tempAwayFromAmbient = Math.abs(currentEq.temperature_c - env.temperature_c) > 0.2;
+      const hasTempSensitiveSalt = currentEq.contents.some(c => c.formula.toUpperCase() === 'PBI2');
+
+      if (heatPower_W > 0 || tempAwayFromAmbient || heatingStateChanged || hasTempSensitiveSalt || mixState) {
+        const therm = stepVesselThermal(currentEq, dt, heatPower_W, env.temperature_c, env);
+        const solStep = hasTempSensitiveSalt
+          ? stepTemperatureSolubility(therm.contents, therm.volume_ml, therm.temperature_c, dt)
+          : { contents: therm.contents };
         const tempDiff = Math.abs(therm.temperature_c - currentEq.temperature_c);
         const boilChanged = therm.isBoiling !== currentEq.isBoiling;
         const evap = therm.evaporatedStep_g > 0;
+        const solChanged = solStep.contents !== therm.contents;
 
-        if (tempDiff > 0.05 || boilChanged || evap || heatingStateChanged) {
+        if (tempDiff > 0.05 || boilChanged || evap || heatingStateChanged || solChanged) {
           hasChanged = true;
           const sim = runSimulationCycle(
-            therm.contents,
+            solStep.contents,
             therm.volume_ml,
             therm.temperature_c,
-            currentEq.isOn || heatPower_W > 10
+            currentEq.isOn || heatPower_W > 10,
+            !currentEq.isSealed,
+            { oxygenFraction: env.oxygenFraction }
           );
 
           // Check if any thermal reactions occurred during this tick
@@ -1224,7 +1548,7 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
           const showTripod = isBeingHeated && (eq.type === 'beaker' || eq.type === 'erlenmeyer_flask' || eq.type === 'evaporating_dish');
 
           let corkPopped = false;
-          if (currentEq.isSealed && (therm.temperature_c >= 99.5 || therm.isBoiling || sim.gasInfo?.effervescenceSpeed === 'instant')) {
+          if (currentEq.isSealed && (therm.temperature_c >= aqueousBoilingPoint(solStep.contents, therm.volume_ml, env.pressure_atm) - 0.5 || therm.isBoiling || sim.gasInfo?.effervescenceSpeed === 'instant')) {
             corkPopped = true;
             soundEngine.ignite();
             newLogs.push({
@@ -1237,38 +1561,33 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
             });
           }
 
-          nextEquipment[eq.id] = {
-            ...currentEq,
-            temperature_c: Math.round(therm.temperature_c * 10) / 10,
-            volume_ml: Math.round(therm.volume_ml * 10) / 10,
-            mass_g: Math.round(therm.mass_g * 100) / 100,
-            contents: sim.updatedContents,
-            ph: sim.finalPh,
-            liquidColorHex: sim.finalLiquidColorHex,
+          const updatedThermalEq = applySimResultToEquipment(currentEq, therm.volume_ml, therm.mass_g, sim, {
             isBoiling: therm.isBoiling,
             boilingIntensity: therm.boilingIntensity,
-            hasPrecipitate: sim.hasPrecipitate,
-            precipitateColorHex: sim.precipitateInfo?.colorHex,
-            precipitateSubstance: sim.precipitateInfo?.formula,
-            precipitateMass_g: sim.precipitateInfo?.mass_g,
-            precipitateMorphology: sim.precipitateInfo?.morphology,
-            hasGas: sim.hasGas,
-            effervescenceSpeed: sim.gasInfo?.effervescenceSpeed,
-            hasPhaseSeparation: sim.hasPhaseSeparation,
-            organicLayerVolume_ml: sim.organicLayerVolume_ml,
-            organicLayerColorHex: sim.organicLayerColorHex,
-            hasFumes: sim.hasFumes || (therm.isBoiling ? true : false),
-            fumeType: sim.fumeType || (therm.isBoiling ? 'steam' : undefined),
+            hasFumes: sim.hasFumes || therm.isBoiling || therm.temperature_c > env.temperature_c + 28,
+            fumeType: sim.fumeType || (therm.isBoiling || therm.temperature_c > env.temperature_c + 28 ? 'steam' : undefined),
             fumeColorHex: sim.fumeColorHex || '#ffffff',
-            turbidity: sim.turbidity,
-            foamHead_mm: sim.foamHead_mm,
-            flameTestColorHex: sim.flameTestColorHex,
-            hasSilverMirror: sim.hasSilverMirror || currentEq.hasSilverMirror,
             isBeingHeated,
             absorbedPower_W: isBeingHeated ? Math.round(heatPower_W) : 0,
             heatingRate_c_s: heatingRate,
             hasTripod: showTripod,
             isSealed: corkPopped ? false : currentEq.isSealed,
+            totalEvaporated_ml: (currentEq.totalEvaporated_ml ?? 0) + therm.evaporatedStep_g,
+            mixedness: mixState?.mixedness ?? currentEq.mixedness,
+            dissolvingRate: mixState?.dissolvingRate ?? currentEq.dissolvingRate,
+            stirIntensity: nextStirIntensity,
+          });
+          if (solStep.recrystallizedFormula === 'PbI2') {
+            reactionRuntime2D.triggerController(updatedThermalEq, 'pbi2_golden_rain', { targetColorHex: sim.finalLiquidColorHex });
+          }
+          nextEquipment[eq.id] = updatedThermalEq;
+        } else if (mixState || Math.abs(nextStirIntensity - (currentEq.stirIntensity ?? 0)) > 0.02) {
+          hasChanged = true;
+          nextEquipment[eq.id] = {
+            ...currentEq,
+            mixedness: mixState?.mixedness ?? currentEq.mixedness,
+            dissolvingRate: mixState?.dissolvingRate ?? currentEq.dissolvingRate,
+            stirIntensity: nextStirIntensity,
           };
         }
       }
@@ -1501,12 +1820,11 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
     }
 
     // 7. Process Headspace Pressure (PV=nRT), Cork Pop, Thermal Shock Glass Shatter, Condensation & Bumping
-    const newlyCreatedSpills: SpillPuddle[] = [];
     for (const eq of Object.values(nextEquipment)) {
       if (!eq.isContainer) continue;
       const prevEq = currentEquipment[eq.id] || eq;
-      const bp = aqueousBoilingPoint(eq.contents, eq.volume_ml);
-      const phys = stepVesselPressureAndDamage(eq, dt, prevEq.temperature_c, bp);
+      const bp = aqueousBoilingPoint(eq.contents, eq.volume_ml, env.pressure_atm);
+      const phys = stepVesselPressureAndDamage(eq, dt, prevEq.temperature_c, bp, env);
 
       if (phys.corkPopped) {
         soundEngine.playCorkPop();
@@ -1522,7 +1840,7 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
       }
 
       if (
-        Math.abs((eq.internalPressure_atm ?? 1.0) - phys.internalPressure_atm) > 0.01 ||
+        Math.abs((eq.internalPressure_atm ?? env.pressure_atm) - phys.internalPressure_atm) > 0.01 ||
         eq.isSealed !== phys.isSealed ||
         eq.isShattered !== phys.isShattered ||
         Math.abs((eq.wallCondensation ?? 0) - phys.wallCondensation) > 0.02
@@ -1544,8 +1862,8 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
       }
     }
 
-    // 8. Step 60Hz Particle & Reaction Visual Controllers Runtime
-    reactionRuntime2D.stepAll(Object.values(nextEquipment), dt);
+    // 8. Step 60Hz Particle, 2D Color Spreading Field & Reaction Visual Controllers Runtime
+    reactionRuntime2D.stepAll(Object.values(nextEquipment), dt, env);
 
     // 9. Process Sponge Wiping & Active Spill Puddle Chemistry on Workbench
     let currentSpills = [...get().spillPuddles, ...newlyCreatedSpills];
@@ -1567,9 +1885,12 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
     // 10. Evaluate Workbench PPE & Safety Rules
     const activeSafetyAlerts = evaluateWorkbenchSafety(Object.values(nextEquipment), get().ppe);
 
-    if (hasChanged || newlyCreatedSpills.length > 0 || steppedSpills.length !== get().spillPuddles.length) {
+    const pourChanged = nextActivePour !== get().activePour || nextActivePourVfx !== get().activePourVfx;
+    if (hasChanged || pourChanged || newlyCreatedSpills.length > 0 || steppedSpills.length !== get().spillPuddles.length) {
       set({
         equipment: nextEquipment,
+        activePour: nextActivePour,
+        activePourVfx: nextActivePourVfx,
         spillPuddles: steppedSpills,
         safetyAlerts: activeSafetyAlerts.length > 0 ? activeSafetyAlerts : get().safetyAlerts,
       });
@@ -1672,6 +1993,8 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
     set(state => ({
       ...pushSnapshot(state),
       spillPuddles: [],
+      pipetteBuffer: null,
+      activePour: null,
       activePourVfx: null,
       equipment: {},
       selectedEquipmentId: null,

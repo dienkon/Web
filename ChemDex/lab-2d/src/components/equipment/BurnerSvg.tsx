@@ -220,7 +220,9 @@ export const BurnerSvg: React.FC<BurnerSvgProps> = ({
 
       {/* Clickable Piezo Ignition Control Button */}
       <g
+        data-interactive-control="true"
         className="cursor-pointer transition-transform hover:scale-110 active:scale-95"
+        onPointerDown={e => e.stopPropagation()}
         onClick={e => {
           e.stopPropagation();
           onToggleFlame?.();

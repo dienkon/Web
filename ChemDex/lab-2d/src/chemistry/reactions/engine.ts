@@ -13,7 +13,9 @@ import { getReactionCandidates, REACTION_DATABASE } from './reactionDatabase';
 import { normalizeFormula, computeMolarMass } from '../core/formula';
 import { calculateSolutionPh, getIndicatorColor } from '../equilibrium/acidBase';
 import { calculateReactionDeltaT } from '../thermodynamics/calorimetry';
-import { calculateBeerLambertColor } from '../core/ledger';
+import { calculateMixtureOptics, computeLiquidOpacity } from '../optics/liquidOptics';
+import { computeIndicatorAbsorbanceRGB } from '../optics/indicatorAppearance';
+import { calculateMixturePhysicalProperties } from '../physical/substanceProps';
 import {
   resolveInstantRulesAndEquilibria,
   buildPhysicalSolidAndPrecipitateStates,
@@ -25,7 +27,8 @@ export function runSimulationCycle(
   volume_ml: number,
   currentTemp_c = 25.0,
   isHeated = false,
-  isOpenVessel = true
+  isOpenVessel = true,
+  options?: { oxygenFraction?: number }
 ): SimulationResult {
   // Deep clone initial working contents
   const workingContents: SubstanceQuantity[] = initialContents.map(c => ({
@@ -39,6 +42,7 @@ export function runSimulationCycle(
   let isBoiling = false;
   let hasGasOccurred = false;
   let gasInfoFinal = undefined as SimulationResult['gasInfo'];
+  const supportsCombustion = (options?.oxygenFraction ?? 0.2095) >= 0.12;
 
   // Maximum passes to prevent infinite cycles while supporting multi-stage cascades
   // (e.g. CuSO4 + 2NH3 -> Cu(OH)2, then Cu(OH)2 + 4NH3 -> [Cu(NH3)4]2+)
@@ -55,6 +59,10 @@ export function runSimulationCycle(
     const candidateReactions = getReactionCandidates(candidateFormulas);
 
     for (const rx of candidateReactions) {
+      // Check atmospheric oxygen requirement for open-air combustion
+      if (!supportsCombustion && (rx.id.includes('combustion') || rx.id.includes('burn'))) {
+        continue;
+      }
       // Check temperature / heating prerequisites
       if (rx.requiresHeating && !isHeated && temp_c < (rx.minTemp_c || 60)) {
         continue;
@@ -267,16 +275,16 @@ export function runSimulationCycle(
     }
   }
 
-  // Filter out completely consumed species (except water solvent)
+  // Filter out completely consumed species (except water solvent & trace indicators)
   const updatedContents = workingContents
-    .filter(c => c.moles > 1e-6 || normalizeFormula(c.formula) === 'H2O')
+    .filter(c => c.moles > 1e-8 || normalizeFormula(c.formula) === 'H2O')
     .map(c => {
       const conc = volume_ml > 0 && c.state === 'aq' ? c.moles / (volume_ml / 1000.0) : c.concentration_M;
       return {
         ...c,
-        moles: Math.round(c.moles * 10000) / 10000,
-        mass_g: Math.round(c.mass_g * 1000) / 1000,
-        concentration_M: conc !== undefined ? Math.round(conc * 1000) / 1000 : undefined,
+        moles: Math.round(c.moles * 1e7) / 1e7,
+        mass_g: Math.round(c.mass_g * 1e5) / 1e5,
+        concentration_M: conc !== undefined ? Math.round(conc * 1e6) / 1e6 : undefined,
       };
     });
 
@@ -317,27 +325,23 @@ export function runSimulationCycle(
     precipitateInfo
   );
 
-  // Determine liquid color (taking indicators, complexes, redox, and thermochromism into account)
-  let finalLiquidColorHex = calculateBeerLambertColor(updatedContents, volume_ml, '#f8fafc');
+  // Compute spectral Beer-Lambert optics + continuous Henderson-Hasselbalch indicator equilibria
+  const baseOptics = calculateMixtureOptics(updatedContents, volume_ml, [0, 0, 0], 4.5, '#f8fafc');
+  const indicatorInfo = computeIndicatorAbsorbanceRGB(initialContents.length > 0 ? initialContents : updatedContents, finalPh);
+  let finalLiquidColorHex = baseOptics.colorHex;
+  let liquidOpacity = baseOptics.opacity;
 
-  const hasPhenol = initialContents.some(c => c.formula.toLowerCase().includes('phenolphthalein'));
-  const hasLitmus = initialContents.some(c => c.formula.toLowerCase().includes('litmus'));
-  const hasUniversal = initialContents.some(c => c.formula.toLowerCase().includes('universal'));
-  const hasMethylOrange = initialContents.some(
-    c => c.formula.toLowerCase().includes('methyl_orange') || c.formula.toLowerCase().includes('methyl')
-  );
-  const hasThymolphthalein = initialContents.some(c => c.formula.toLowerCase().includes('thymolphthalein'));
-
-  if (hasPhenol) {
-    finalLiquidColorHex = getIndicatorColor('phenolphthalein', finalPh);
-  } else if (hasLitmus) {
-    finalLiquidColorHex = getIndicatorColor('litmus', finalPh);
-  } else if (hasMethylOrange) {
-    finalLiquidColorHex = getIndicatorColor('methyl_orange', finalPh);
-  } else if (hasThymolphthalein) {
-    finalLiquidColorHex = getIndicatorColor('thymolphthalein', finalPh);
-  } else if (hasUniversal) {
-    finalLiquidColorHex = getIndicatorColor('universal', finalPh);
+  if (indicatorInfo.indicator) {
+    if (!baseOptics.hasActiveChromophore) {
+      // Pure colorless background electrolytes + indicator -> crisp continuous Henderson-Hasselbalch curve
+      finalLiquidColorHex = getIndicatorColor(indicatorInfo.indicator, finalPh);
+      liquidOpacity = computeLiquidOpacity(finalLiquidColorHex, baseOptics.turbidityScatter, volume_ml);
+    } else {
+      // Colored transition metal ions + pH indicator coexist -> true spectral Beer-Lambert additive absorbance
+      const combinedOptics = calculateMixtureOptics(updatedContents, volume_ml, indicatorInfo.absorbance_RGB, 4.5, '#f8fafc');
+      finalLiquidColorHex = combinedOptics.colorHex;
+      liquidOpacity = combinedOptics.opacity;
+    }
   }
 
   // Starch-Iodine complex thermochromism
@@ -351,6 +355,7 @@ export function runSimulationCycle(
     } else {
       finalLiquidColorHex = '#1e1b4b'; // Deep midnight blue-black complex
     }
+    liquidOpacity = computeLiquidOpacity(finalLiquidColorHex, baseOptics.turbidityScatter, volume_ml);
   }
 
   // Iron(III) thiocyanate deep blood red complex [Fe(SCN)]2+ / Fe(SCN)3
@@ -359,19 +364,29 @@ export function runSimulationCycle(
   );
   if (hasFeSCNComplex) {
     finalLiquidColorHex = '#7f1d1d'; // Blood red
+    liquidOpacity = computeLiquidOpacity(finalLiquidColorHex, baseOptics.turbidityScatter, volume_ml);
   }
 
   // Tetraamminecopper(II) complex [Cu(NH3)4]2+ royal azure blue
   const hasCuAmmonia = updatedContents.some(c => c.formula.toUpperCase().includes('CU(NH3)4') && c.moles > 1e-5);
   if (hasCuAmmonia) {
-    finalLiquidColorHex = '#1d4ed8'; // Royal azure blue
+    const cuConc = updatedContents
+      .filter(c => c.formula.toUpperCase().includes('CU(NH3)4'))
+      .reduce((s, c) => s + c.moles, 0) / Math.max(0.001, volume_ml / 1000);
+    if (cuConc >= 0.015) {
+      finalLiquidColorHex = '#1d4ed8'; // Royal azure blue
+    }
+    liquidOpacity = computeLiquidOpacity(finalLiquidColorHex, baseOptics.turbidityScatter, volume_ml);
   }
 
   // Copper-glycerol deep blue chelate complex
   const hasCuGlycerol = updatedContents.some(c => c.formula.toUpperCase().includes('CU(C3H7O3)2') && c.moles > 1e-5);
   if (hasCuGlycerol) {
     finalLiquidColorHex = '#2563eb'; // Deep blue
+    liquidOpacity = computeLiquidOpacity(finalLiquidColorHex, baseOptics.turbidityScatter, volume_ml);
   }
+
+  const physProps = calculateMixturePhysicalProperties(updatedContents, volume_ml, temp_c);
 
   // Emerald green solution when Cu reacts with conc. HNO3
   if (ruleOutput.reactionsOccurred.some(r => r.reactionId.includes('cu_hno3'))) {
@@ -444,14 +459,20 @@ export function runSimulationCycle(
     r => r.reactionId.includes('silver_mirror') || r.reactionId.includes('tollens')
   );
 
-  // Check for immiscible phase separation (e.g. ester layer floating on water)
-  const esterItem = updatedContents.find(
-    c => c.formula.toUpperCase().includes('CH3COOC2H5') || c.formula.toUpperCase().includes('EST')
-  );
-  const hasPhaseSeparation = Boolean(esterItem && esterItem.mass_g > 0.05 && volume_ml > 5);
+  // Check for immiscible phase separation (e.g. ethyl acetate, hexane, CCl4, benzene, toluene, diethyl ether)
+  const immiscibleOrganicItem = updatedContents.find(c => {
+    const f = c.formula.toUpperCase();
+    return f.includes('CH3COOC2H5') || f.includes('C6H14') || f.includes('CCL4') || f.includes('CHCL3') || f.includes('C6H6') || f.includes('C2H5OC2H5') || f.includes('EST');
+  });
+  const hasPhaseSeparation = Boolean(immiscibleOrganicItem && immiscibleOrganicItem.mass_g > 0.05 && volume_ml > 5);
   const organicLayerVolume_ml = hasPhaseSeparation
-    ? Math.max(3, Math.min(volume_ml * 0.45, esterItem!.mass_g / 0.9))
+    ? Math.max(3, Math.min(volume_ml * 0.45, immiscibleOrganicItem!.mass_g / 0.9))
     : undefined;
+  const organicLayerColorHex = hasPhaseSeparation && hasIodine && immiscibleOrganicItem!.formula.toUpperCase().includes('CCL4')
+    ? '#9333ea' // Iodine extracts purple into organic CCl4 / hexane phase!
+    : hasPhaseSeparation && hasIodine
+      ? '#a855f7'
+      : '#f8fafc';
 
   // Check for fumes / smoke effects
   let hasFumes = false;
@@ -492,6 +513,11 @@ export function runSimulationCycle(
     finalTemperature_c: temp_c,
     finalPh,
     finalLiquidColorHex,
+    liquidOpacity: computeLiquidOpacity(finalLiquidColorHex, turbidity, volume_ml) || liquidOpacity,
+    mixtureViscosity_mPa_s: physProps.viscosity_mPa_s,
+    surfaceTension_N_m: physProps.surfaceTension_N_m,
+    mixtureCp_J_kgK: physProps.cp_J_kgK,
+    density_g_ml: physProps.density_g_ml,
     hasPrecipitate,
     precipitateInfo,
     precipitateLayers,
@@ -505,7 +531,7 @@ export function runSimulationCycle(
     warning_vi: ruleOutput.warning_vi,
     hasPhaseSeparation,
     organicLayerVolume_ml,
-    organicLayerColorHex: '#f8fafc',
+    organicLayerColorHex,
     hasFumes,
     fumeType,
     fumeColorHex,

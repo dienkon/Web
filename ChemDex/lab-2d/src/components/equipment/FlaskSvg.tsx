@@ -13,11 +13,7 @@ export const FlaskSvg: React.FC<FlaskSvgProps> = ({ equipment, isSelected }) => 
     volume_ml,
     capacity_ml = 250,
     liquidColorHex = '#f8fafc',
-    hasPrecipitate,
-    precipitateColorHex = '#ffffff',
-    precipitateMorphology = 'powder',
-    precipitateMass_g = 0.5,
-    hasGas,
+    liquidOpacity = 0.92,
     isBoiling,
     hasPhaseSeparation,
     organicLayerVolume_ml = 0,
@@ -27,9 +23,7 @@ export const FlaskSvg: React.FC<FlaskSvgProps> = ({ equipment, isSelected }) => 
     fumeColorHex = '#cbd5e1',
     isBeingHeated,
     hasTripod,
-    foamHead_mm = 0,
     hasSilverMirror,
-    temperature_c = 25.0,
   } = equipment;
 
   const fillRatio = Math.min(1.0, Math.max(0, volume_ml / capacity_ml));
@@ -52,8 +46,6 @@ export const FlaskSvg: React.FC<FlaskSvgProps> = ({ equipment, isSelected }) => 
   const aqueousY = 162 - aqueousHeight;
   const tAqueous = Math.max(0, Math.min(1, (162 - aqueousY) / 98));
   const halfWidthAtAqueous = 54 - tAqueous * 40;
-
-  const sedimentHeight = Math.min(16, Math.max(3, precipitateMass_g * 5));
 
   return (
     <svg
@@ -158,6 +150,7 @@ export const FlaskSvg: React.FC<FlaskSvgProps> = ({ equipment, isSelected }) => 
               width="130"
               height={aqueousHeight + 15}
               fill={`url(#flaskLiquidGrad-${id})`}
+              fillOpacity={liquidOpacity}
             />
 
             {/* Aqueous Meniscus Ellipse */}
@@ -167,7 +160,7 @@ export const FlaskSvg: React.FC<FlaskSvgProps> = ({ equipment, isSelected }) => 
               rx={halfWidthAtAqueous}
               ry="4.5"
               fill={liquidColorHex}
-              fillOpacity="0.9"
+              fillOpacity={Math.min(0.95, liquidOpacity * 1.05)}
             />
             <path
               d={`M ${75 - halfWidthAtAqueous} ${aqueousY} Q 75 ${aqueousY + 3.5} ${75 + halfWidthAtAqueous} ${aqueousY}`}
@@ -206,69 +199,6 @@ export const FlaskSvg: React.FC<FlaskSvgProps> = ({ equipment, isSelected }) => 
               </g>
             )}
 
-            {/* Precipitate Bed at Flat Wide Base */}
-            {hasPrecipitate && (
-              <g>
-                <path
-                  d={`M 22 ${164 - sedimentHeight} Q 75 ${164 - sedimentHeight + 2} 128 ${164 - sedimentHeight} L 128 164 L 22 164 Z`}
-                  fill={precipitateColorHex}
-                  fillOpacity="0.95"
-                />
-                {precipitateMorphology === 'curdy' ? (
-                  <g fill={precipitateColorHex}>
-                    <circle cx="36" cy={162 - sedimentHeight} r="4.5" />
-                    <circle cx="52" cy={160 - sedimentHeight} r="5" />
-                    <circle cx="72" cy={161 - sedimentHeight} r="5.5" />
-                    <circle cx="92" cy={159 - sedimentHeight} r="5" />
-                    <circle cx="112" cy={161 - sedimentHeight} r="4.5" />
-                  </g>
-                ) : precipitateMorphology === 'gel' ? (
-                  <g fill={precipitateColorHex} fillOpacity="0.85">
-                    <ellipse cx="45" cy={162 - sedimentHeight} rx="14" ry="5.5" />
-                    <ellipse cx="75" cy={160 - sedimentHeight} rx="18" ry="6.5" />
-                    <ellipse cx="105" cy={161 - sedimentHeight} rx="15" ry="5.5" />
-                  </g>
-                ) : (
-                  <g fill={precipitateColorHex}>
-                    <ellipse cx="48" cy={162 - sedimentHeight} rx="10" ry="3" />
-                    <ellipse cx="75" cy={161 - sedimentHeight} rx="12" ry="3.5" />
-                    <ellipse cx="102" cy={162 - sedimentHeight} rx="10" ry="3" />
-                  </g>
-                )}
-
-                {/* Suspension Particles */}
-                <g fill={precipitateColorHex} fillOpacity="0.7" className="animate-pulse">
-                  <circle cx="42" cy={liquidY + 30} r="2" />
-                  <circle cx="68" cy={liquidY + 50} r="2.5" />
-                  <circle cx="86" cy={liquidY + 35} r="2.2" />
-                  <circle cx="104" cy={liquidY + 60} r="2.5" />
-                </g>
-              </g>
-            )}
-
-            {/* Bubbles */}
-            {hasGas && (
-              <g className="animate-pulse">
-                <circle cx="48" cy={liquidY + 25} r="2.5" fill="#ffffff" fillOpacity="0.85" />
-                <circle cx="75" cy={liquidY + 15} r="3" fill="#ffffff" fillOpacity="0.9" />
-                <circle cx="98" cy={liquidY + 32} r="2.8" fill="#ffffff" fillOpacity="0.8" />
-                <circle cx="60" cy={liquidY + 55} r="3.2" fill="#ffffff" fillOpacity="0.75" />
-                <circle cx="88" cy={liquidY + 65} r="2.5" fill="#ffffff" fillOpacity="0.8" />
-              </g>
-            )}
-
-            {/* Frothy Foam Head during Gas Evolution */}
-            {(hasGas || isBoiling || (foamHead_mm && foamHead_mm > 0)) && (
-              <g className="animate-pulse">
-                <ellipse cx="75" cy={liquidY - 1} rx={halfWidthAtMeniscus * 0.95} ry="3.8" fill="#ffffff" fillOpacity="0.85" />
-                <circle cx={75 - halfWidthAtMeniscus * 0.7} cy={liquidY - 2} r="2.8" fill="#ffffff" fillOpacity="0.9" />
-                <circle cx={75 - halfWidthAtMeniscus * 0.35} cy={liquidY - 3.5} r="3.2" fill="#ffffff" fillOpacity="0.9" />
-                <circle cx={75} cy={liquidY - 4} r="3.8" fill="#ffffff" fillOpacity="0.95" />
-                <circle cx={75 + halfWidthAtMeniscus * 0.35} cy={liquidY - 3.5} r="3.2" fill="#ffffff" fillOpacity="0.9" />
-                <circle cx={75 + halfWidthAtMeniscus * 0.7} cy={liquidY - 2} r="2.8" fill="#ffffff" fillOpacity="0.9" />
-              </g>
-            )}
-
             {/* Specular Silver Mirror Coating (Tollens test) */}
             {hasSilverMirror && (
               <path
@@ -276,27 +206,6 @@ export const FlaskSvg: React.FC<FlaskSvgProps> = ({ equipment, isSelected }) => 
                 fill={`url(#flaskSilverMirror-${id})`}
                 className="drop-shadow-xs"
               />
-            )}
-
-            {/* Steam Condensation Water Beads inside Conical Wall */}
-            {temperature_c >= 50 && totalLiquidHeight < 75 && (
-              <g fill="#ffffff" fillOpacity="0.75" className="animate-pulse">
-                <circle cx="68" cy="45" r="1.4" />
-                <circle cx="82" cy="52" r="1.3" />
-                <circle cx="58" cy="78" r="1.6" />
-                <circle cx="92" cy="85" r="1.5" />
-                <circle cx="48" cy="105" r="1.8" />
-                <circle cx="102" cy="112" r="1.6" />
-              </g>
-            )}
-
-            {/* Boiling Foam */}
-            {isBoiling && (
-              <g className="animate-bounce" opacity="0.8">
-                <circle cx="58" cy={liquidY + 5} r="4.5" fill="#ffffff" fillOpacity="0.7" />
-                <circle cx="75" cy={liquidY + 3} r="5.5" fill="#ffffff" fillOpacity="0.75" />
-                <circle cx="92" cy={liquidY + 5} r="4.5" fill="#ffffff" fillOpacity="0.7" />
-              </g>
             )}
 
             {/* Magnetic Stirring Vortex & Flea */}
@@ -449,8 +358,7 @@ export const FlaskSvg: React.FC<FlaskSvgProps> = ({ equipment, isSelected }) => 
       {(hasFumes || isBoiling) && (
         <g
           filter={`url(#flaskFumeBlur-${id})`}
-          className="animate-pulse"
-          opacity={fumeType === 'no2' ? 0.85 : 0.65}
+          opacity={fumeType === 'no2' ? 0.72 : 0.45}
         >
           {fumeType === 'no2' ? (
             <g fill={fumeColorHex}>

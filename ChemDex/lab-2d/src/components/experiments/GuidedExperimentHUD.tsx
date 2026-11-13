@@ -33,8 +33,9 @@ export const GuidedExperimentHUD: React.FC = () => {
   const theory = language === 'vi' ? step.theory_vi : step.theory_en;
 
   return (
-    <div className="absolute top-4 left-6 right-6 z-30 max-w-3xl mx-auto bg-white/95 backdrop-blur-md rounded-2xl border border-slate-200 shadow-lg p-4 select-none animate-in fade-in slide-in-from-top-4 duration-200">
-      <div className="flex items-center justify-between border-b border-slate-200 pb-2 mb-3">
+    <div className="relative z-20 shrink-0 px-2.5 sm:px-4 pt-2 pb-1.5 bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-xs select-none animate-in fade-in duration-200">
+      <div className="max-w-4xl mx-auto">
+      <div className="flex items-center justify-between border-b border-slate-200 pb-2 mb-2">
         <div className="flex items-center gap-2">
           <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse" />
           <h2 className="text-xs font-bold uppercase tracking-wider text-blue-600">
@@ -50,7 +51,7 @@ export const GuidedExperimentHUD: React.FC = () => {
           </span>
           <button
             onClick={() => selectExperiment(null)}
-            className="text-[11px] text-slate-400 hover:text-slate-600 font-medium px-2 py-0.5 rounded-md hover:bg-slate-100"
+            className="text-xs text-slate-500 hover:text-slate-700 font-semibold px-2.5 py-1 rounded-md hover:bg-slate-100 cursor-pointer"
           >
             {language === 'vi' ? 'Thoát' : 'Exit'}
           </button>
@@ -139,6 +140,7 @@ export const GuidedExperimentHUD: React.FC = () => {
             <ChevronRight className="w-4 h-4" />
           </button>
         </div>
+      </div>
       </div>
     </div>
   );

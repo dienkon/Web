@@ -7,15 +7,10 @@
  * - Multi-indicator spectral responses
  */
 
-import { SubstanceQuantity } from '../../types/chemistry';
+import { SubstanceQuantity, IndicatorType } from '../../types/chemistry';
+import { computeContinuousIndicatorColor } from '../optics/indicatorAppearance';
 
-export type IndicatorType =
-  | 'phenolphthalein'
-  | 'litmus'
-  | 'universal'
-  | 'bromothymol_blue'
-  | 'methyl_orange'
-  | 'thymolphthalein';
+export type { IndicatorType };
 
 export interface AcidBaseInventory {
   strongAcidH_moles: number;
@@ -153,42 +148,11 @@ export function calculateSolutionPh(contents: SubstanceQuantity[], volume_ml: nu
 
 /**
  * Returns color hex for given indicator at specified pH.
+/**
+ * Computes continuous Henderson-Hasselbalch indicator color hex for given pH.
+ * Smoothly blends across transition ranges around pKa while reaching crisp textbook
+ * acid/base endpoint colors at extremes.
  */
 export function getIndicatorColor(indicator: IndicatorType, ph: number): string {
-  switch (indicator) {
-    case 'phenolphthalein':
-      if (ph < 8.2) return '#f8fafc'; // Colorless in acid / neutral
-      if (ph < 9.0) return '#f472b6'; // Light pink transition
-      if (ph <= 12.5) return '#ec4899'; // Vivid magenta/pink
-      return '#fdf2f8'; // Colorless in extremely concentrated alkali (pH > 12.5)
-
-    case 'litmus':
-      if (ph < 4.5) return '#ef4444'; // Red in acid
-      if (ph <= 8.3) return '#a855f7'; // Purple (neutral)
-      return '#3b82f6'; // Blue in base
-
-    case 'methyl_orange':
-      if (ph < 3.1) return '#ef4444'; // Red in strong acid
-      if (ph <= 4.4) return '#f97316'; // Orange transition
-      return '#eab308'; // Yellow in weak acid / neutral / base
-
-    case 'thymolphthalein':
-      if (ph < 9.3) return '#f8fafc'; // Colorless
-      if (ph <= 10.5) return '#60a5fa'; // Light blue transition
-      return '#1d4ed8'; // Vivid royal blue
-
-    case 'universal':
-      if (ph <= 2.0) return '#dc2626'; // Deep red (pH 1-2)
-      if (ph <= 4.0) return '#ea580c'; // Orange (pH 3-4)
-      if (ph <= 6.0) return '#eab308'; // Yellow (pH 5-6)
-      if (ph <= 7.5) return '#22c55e'; // Green (pH 7)
-      if (ph <= 9.0) return '#06b6d4'; // Blue-green (pH 8-9)
-      if (ph <= 11.0) return '#2563eb'; // Deep blue (pH 10-11)
-      return '#7c3aed'; // Violet (pH 12-14)
-
-    case 'bromothymol_blue':
-      if (ph < 6.0) return '#eab308'; // Yellow
-      if (ph <= 7.6) return '#22c55e'; // Green
-      return '#2563eb'; // Blue
-  }
+  return computeContinuousIndicatorColor(indicator, ph);
 }

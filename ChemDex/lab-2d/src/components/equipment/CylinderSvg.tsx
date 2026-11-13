@@ -108,10 +108,7 @@ export const CylinderSvg: React.FC<CylinderSvgProps> = ({ equipment, isSelected 
               strokeOpacity="0.6"
             />
 
-            {/* Precipitate at Base */}
-            {hasPrecipitate && (
-              <rect x="20" y="186" width="30" height="7" fill={precipitateColorHex} rx="1" />
-            )}
+            {/* Precipitates, turbidity, and spatial mixing rendered by VesselPhysicsOverlay */}
           </g>
         )}
       </g>

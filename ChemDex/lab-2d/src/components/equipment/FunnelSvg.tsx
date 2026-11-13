@@ -7,7 +7,14 @@ interface FunnelSvgProps {
 }
 
 export const FunnelSvg: React.FC<FunnelSvgProps> = ({ equipment, isSelected }) => {
-  const { hasFilterPaper = true, filterResidueFormula, volume_ml = 0, precipitateColorHex } = equipment;
+  const {
+    hasFilterPaper = true,
+    filterResidueFormula,
+    volume_ml = 0,
+    precipitateColorHex,
+    liquidColorHex = '#38bdf8',
+    liquidOpacity = 0.78,
+  } = equipment;
   const isFiltering = volume_ml > 0;
 
   return (
@@ -147,10 +154,19 @@ export const FunnelSvg: React.FC<FunnelSvgProps> = ({ equipment, isSelected }) =
         strokeOpacity="0.7"
       />
 
+      {/* Active Liquid Level Pool inside Filter Cone */}
+      {isFiltering && (
+        <polygon
+          points="26,35 74,35 50,70"
+          fill={liquidColorHex}
+          fillOpacity={Math.min(0.85, liquidOpacity * 0.85)}
+        />
+      )}
+
       {/* Dripping Filtrate Droplet from Stem Tip */}
       {isFiltering && (
-        <g className="animate-bounce">
-          <ellipse cx="49" cy="142" rx="2" ry="3" fill="#38bdf8" fillOpacity="0.85" />
+        <g>
+          <ellipse cx="50" cy="142" rx="2.2" ry="3.2" fill={liquidColorHex} fillOpacity="0.88" />
         </g>
       )}
     </svg>

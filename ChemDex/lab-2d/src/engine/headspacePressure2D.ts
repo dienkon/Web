@@ -7,6 +7,7 @@
 
 import { EquipmentState, SpillPuddle } from '../types/equipment';
 import { normalizeFormula } from '../chemistry/core/formula';
+import { DEFAULT_LAB_ENVIRONMENT, LabEnvironment } from '../chemistry/physical/environmentPhysics';
 
 export const R_L_ATM_MOL_K = 0.082057;
 export const STANDARD_TEMP_K = 298.15;
@@ -38,9 +39,11 @@ export function stepVesselPressureAndDamage(
   eq: EquipmentState,
   dt: number,
   prevTemp_c: number,
-  boilingPoint_c = 100.0
+  boilingPoint_c = 100.0,
+  env: LabEnvironment = DEFAULT_LAB_ENVIRONMENT
 ): VesselPhysicsHazardResult {
   const clampedDt = Math.max(0.001, Math.min(0.5, dt));
+  const ambientP_atm = env.pressure_atm ?? 1.0;
   let isSealed = Boolean(eq.isSealed);
   let isShattered = Boolean(eq.isShattered);
   let corkPopped = false;
@@ -58,15 +61,15 @@ export function stepVesselPressureAndDamage(
   const headspace_L = headspace_ml / 1000.0;
   const temp_K = Math.max(273.15, eq.temperature_c + 273.15);
 
-  // Baseline air moles trapped at 1 atm, 298.15 K
-  const baselineAirMoles = (1.0 * headspace_L) / (R_L_ATM_MOL_K * STANDARD_TEMP_K);
+  // Baseline air moles trapped at ambient pressure, ambient temperature
+  const baselineAirMoles = (ambientP_atm * headspace_L) / (R_L_ATM_MOL_K * Math.max(273.15, env.temperature_c + 273.15));
 
-  // If sealed and boiling, water vapor contributes additional steam moles
-  if (isSealed && eq.temperature_c > 95 && eq.volume_ml > 0.5) {
-    freeGasMoles += clampedDt * 0.0008 * Math.max(0, (eq.temperature_c - 95) / 10);
+  // If sealed and near/above boiling, water vapor contributes additional steam moles
+  if (isSealed && eq.temperature_c > boilingPoint_c - 5 && eq.volume_ml > 0.5) {
+    freeGasMoles += clampedDt * 0.0008 * Math.max(0, (eq.temperature_c - (boilingPoint_c - 5)) / 10);
   }
 
-  let internalPressure_atm = 1.0;
+  let internalPressure_atm = ambientP_atm;
   if (isSealed && !isShattered) {
     internalPressure_atm = ((baselineAirMoles + freeGasMoles) * R_L_ATM_MOL_K * temp_K) / headspace_L;
     internalPressure_atm = Math.round(internalPressure_atm * 100) / 100;
@@ -75,7 +78,7 @@ export function stepVesselPressureAndDamage(
       isShattered = true;
       isSealed = false;
       freeGasMoles = 0;
-      internalPressure_atm = 1.0;
+      internalPressure_atm = ambientP_atm;
       shatterReason_vi = `Nổ vỡ bình thủy tinh do áp suất khí vượt ngưỡng bền (${GLASS_RUPTURE_PRESSURE_ATM} atm)!`;
       shatterReason_en = `Glass vessel shattered due to excessive internal gas pressure (> ${GLASS_RUPTURE_PRESSURE_ATM} atm)!`;
     } else if (internalPressure_atm >= CORK_POP_PRESSURE_ATM) {
@@ -84,12 +87,12 @@ export function stepVesselPressureAndDamage(
         corkPopped = true;
         isSealed = false;
         freeGasMoles = 0;
-        internalPressure_atm = 1.0;
+        internalPressure_atm = ambientP_atm;
       }
     }
   } else {
     freeGasMoles = 0;
-    internalPressure_atm = 1.0;
+    internalPressure_atm = ambientP_atm;
   }
 
   // 2. Thermal Shock Check (rapid ΔT > 120°C or dry heating past 260°C)
@@ -119,10 +122,12 @@ export function stepVesselPressureAndDamage(
     superheat_c = Math.max(0, superheat_c - clampedDt * 1.5);
   }
 
-  // 4. Inner Wall Condensation Droplets (forms when T > 55°C and liquid present)
+  // 4. Inner Wall Condensation Droplets (boosted by ambient RH & warm interior moisture)
   let wallCondensation = eq.wallCondensation ?? 0;
-  if (eq.volume_ml > 0.5 && eq.temperature_c >= 55) {
-    const targetCond = Math.min(1.0, (eq.temperature_c - 50) / 50);
+  const rhBoost = 0.75 + 0.5 * Math.max(0, Math.min(1, env.relativeHumidity ?? 0.5));
+  if (eq.volume_ml > 0.5 && eq.temperature_c >= Math.max(42, env.temperature_c + 22)) {
+    const excess = eq.temperature_c - Math.max(42, env.temperature_c + 18);
+    const targetCond = Math.min(1.0, (excess / 48) * rhBoost);
     wallCondensation = wallCondensation + (targetCond - wallCondensation) * Math.min(1, clampedDt * 0.6);
   } else {
     wallCondensation = Math.max(0, wallCondensation - clampedDt * 0.25);

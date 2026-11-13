@@ -22,16 +22,7 @@ export const HotPlateSvg: React.FC<HotPlateSvgProps> = ({
       viewBox="0 0 180 110"
       width={equipment.width}
       height={equipment.height}
-      className="overflow-visible select-none drop-shadow-md cursor-pointer"
-      onClick={e => {
-        // Allow clicking the power button area
-        const rect = e.currentTarget.getBoundingClientRect();
-        const clickX = e.clientX - rect.left;
-        const clickY = e.clientY - rect.top;
-        if (clickX > rect.width * 0.7 && clickY > rect.height * 0.6) {
-          onToggleHeat?.();
-        }
-      }}
+      className="overflow-visible select-none drop-shadow-md"
     >
       <defs>
         {/* Chassis Gradient */}
@@ -212,12 +203,24 @@ export const HotPlateSvg: React.FC<HotPlateSvgProps> = ({
 
       {/* Heat Power Rocker Switch */}
       <g
+        data-interactive-control="true"
+        role="button"
+        tabIndex={0}
+        onPointerDown={e => e.stopPropagation()}
         onClick={e => {
           e.stopPropagation();
           onToggleHeat?.();
         }}
         className="cursor-pointer hover:opacity-90 transition-opacity"
       >
+        <rect
+          x="136"
+          y="42"
+          width="36"
+          height="42"
+          rx="6"
+          fill="transparent"
+        />
         <rect
           x="146"
           y="50"

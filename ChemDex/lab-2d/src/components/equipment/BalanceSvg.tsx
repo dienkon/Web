@@ -146,7 +146,9 @@ export const BalanceSvg: React.FC<BalanceSvgProps> = ({
 
       {/* TARE Button */}
       <g
+        data-interactive-control="true"
         className="cursor-pointer transition-transform hover:scale-105 active:scale-95"
+        onPointerDown={e => e.stopPropagation()}
         onClick={e => {
           e.stopPropagation();
           onTare?.();
@@ -181,7 +183,9 @@ export const BalanceSvg: React.FC<BalanceSvgProps> = ({
 
       {/* ZERO Button */}
       <g
+        data-interactive-control="true"
         className="cursor-pointer transition-transform hover:scale-105 active:scale-95"
+        onPointerDown={e => e.stopPropagation()}
         onClick={e => {
           e.stopPropagation();
           onTare?.();

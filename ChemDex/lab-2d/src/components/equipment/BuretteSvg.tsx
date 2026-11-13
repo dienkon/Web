@@ -1,5 +1,6 @@
 import React from 'react';
 import { EquipmentState } from '../../types/equipment';
+import { VesselPhysicsOverlay } from '../vfx/VesselPhysicsOverlay';
 
 interface BuretteSvgProps {
   equipment: EquipmentState;
@@ -147,6 +148,18 @@ export const BuretteSvg: React.FC<BuretteSvgProps> = ({
         )}
       </g>
 
+      {/* Burette Liquid 60 FPS Diffusion & Meniscus Overlay */}
+      <VesselPhysicsOverlay
+        equipment={equipment}
+        innerX={47}
+        innerY={44}
+        innerWidth={16}
+        innerHeight={186}
+        liquidSurfaceY={liquidY}
+        liquidHeight={liquidHeight}
+        clipPathId={`buretteClip-${id}`}
+      />
+
       {/* Burette Glass Column Body */}
       <rect
         x="47"
@@ -210,7 +223,9 @@ export const BuretteSvg: React.FC<BuretteSvgProps> = ({
 
       {/* Rotating Stopcock Valve & Handle */}
       <g
+        data-interactive-control="true"
         className="cursor-pointer transition-transform hover:scale-105 active:scale-95"
+        onPointerDown={e => e.stopPropagation()}
         onClick={e => {
           e.stopPropagation();
           onToggleStopcock?.();
