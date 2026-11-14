@@ -24,6 +24,18 @@ Nếu vẫn thiếu quyền, kiểm tra lại tài khoản chạy `setup` có ph
 
 ## Chạy tại máy
 
+Trên Windows, nhấp đúp **`start-local.cmd`** trong thư mục dự án. File tự chuyển đến đúng thư mục, chạy Python và mở trang `http://localhost:8080/` trong trình duyệt. Giữ cửa sổ server đang mở trong lúc sử dụng. Nếu cổng đó đã có ứng dụng khác, launcher chọn một cổng trống và mở đúng địa chỉ mới.
+
+Không mở `index.html` trực tiếp bằng `file://`: trình duyệt chặn `fetch()` đọc các manifest/weights, nên nhận diện khuôn mặt không thể khởi động. Trang sẽ hiện hướng dẫn và chặn việc tải mô hình trong chế độ này. Không cần thay đổi cài đặt CORS của trình duyệt.
+
+Hoặc chạy lệnh sau để tự mở trình duyệt:
+
+```powershell
+python server.py --open
+```
+
+Để chỉ chạy server:
+
 ```powershell
 python server.py
 ```
@@ -74,6 +86,8 @@ python -m unittest discover -s tests -p "test_*.py"
 ```
 
 Sau khi triển khai cầu nối thật, thử tải một ảnh, một video, một tệp bất kỳ và tạo thư mục; mở trình duyệt khác để kiểm tra kho và lịch sử. Các bài kiểm tra tự động dùng Drive mô phỏng, không tạo tệp vào kho thật.
+
+`node tests/file-mode-ui.cjs` kiểm tra mở trực tiếp bằng `file://`: hiện hướng dẫn chạy localhost, khóa chọn ảnh và chặn cả kéo thả trước khi có request tải mô hình.
 
 Kiểm thử giao diện tùy chọn: cài `playwright`, chạy `python server.py` rồi `node tests/drive-ui.cjs`. Có thể đặt biến môi trường `PLAYWRIGHT_MODULE` trỏ tới package Playwright đã cài ở máy. Bài kiểm tra mô phỏng phân trang, mất phản hồi khi tải, tệp rỗng, chuyển thư mục giữa lúc tải, lịch sử dùng chung, xóa/đổi tên trên Drive và bố cục điện thoại.
 

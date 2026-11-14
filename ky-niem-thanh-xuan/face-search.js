@@ -23,6 +23,7 @@
   }
   window.FaceSearchMath = { distance, bestDistance };
   async function models() {
+    if (location.protocol === 'file:') throw new Error('Trình duyệt không cho tải mô hình từ tệp HTML mở trực tiếp. Nhấp đúp start-local.cmd trong thư mục dự án để mở web qua localhost.');
     if (state.model) return state.model;
     state.model = (async () => {
       status('Đang khởi động bộ tìm khuôn mặt trên thiết bị…');
@@ -135,7 +136,7 @@
     return results;
   }
   function setBusy(busy) {
-    state.busy = busy; el('face-reference').disabled = busy;
+    state.busy = busy; el('face-reference').disabled = busy || location.protocol === 'file:';
     el('face-search-button').disabled = busy || !state.reference;
     el('face-stop-button').hidden = !busy;
     el('face-clear-button').disabled = busy;
@@ -271,4 +272,12 @@
     } catch (error) { status(error.message); }
     finally { setBusy(false); }
   };
+  if (location.protocol === 'file:') {
+    el('face-reference').disabled = true;
+    zone.setAttribute('aria-disabled', 'true');
+    const help = document.createElement('div'); help.className = 'face-local-help'; help.setAttribute('role', 'note');
+    help.innerHTML = '<strong>Mở web qua localhost để tìm khuôn mặt</strong><p>Nhấp đúp <code>start-local.cmd</code> trong thư mục dự án. Trang web sẽ được mở tự động trong trình duyệt. Hoặc chạy <code>python server.py --open</code> từ Terminal.</p>';
+    zone.before(help);
+    status('Trang đang mở bằng file:// nên trình duyệt chặn đọc mô hình. Mở lại bằng start-local.cmd rồi chọn ảnh nhé.');
+  }
 })();

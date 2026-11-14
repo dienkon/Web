@@ -1,13 +1,17 @@
 """Local preview with fresh public Drive listings; writes use Apps Script."""
+import argparse
+import errno
 import html
 import http.server
 import json
 import os
 import re
 import ssl
+import threading
 import urllib.error
 import urllib.parse
 import urllib.request
+import webbrowser
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -93,7 +97,27 @@ class LiveDriveHandler(http.server.SimpleHTTPRequestHandler):
         return self.send_json({'ok': False, 'error': 'Kết nối Apps Script để tải tệp và tạo thư mục.'}, 503)
 
 
+def run_preview(open_browser=False):
+    try:
+        server = http.server.ThreadingHTTPServer(('127.0.0.1', PORT), LiveDriveHandler)
+    except OSError as error:
+        if not open_browser or error.errno not in (errno.EADDRINUSE, errno.EACCES, 10048, 10013):
+            raise
+        # The launcher can coexist with another local server without stopping it.
+        server = http.server.ThreadingHTTPServer(('127.0.0.1', 0), LiveDriveHandler)
+    with server:
+        url = f'http://localhost:{server.server_address[1]}/'
+        print(f'12A1 Nha Co Nhau: {url}', flush=True)
+        print('Keep this window open. Press Ctrl+C to stop.', flush=True)
+        if open_browser:
+            threading.Thread(target=webbrowser.open, args=(url,), daemon=True).start()
+        try:
+            server.serve_forever()
+        except KeyboardInterrupt:
+            pass
+
+
 if __name__ == '__main__':
-    with http.server.ThreadingHTTPServer(('127.0.0.1', PORT), LiveDriveHandler) as server:
-        print(f'12A1 Nha Co Nhau: http://localhost:{PORT}', flush=True)
-        server.serve_forever()
+    parser = argparse.ArgumentParser(description='Open the 12A1 archive through a local HTTP server.')
+    parser.add_argument('--open', action='store_true', dest='open_browser', help='Open the local website in your browser.')
+    run_preview(parser.parse_args().open_browser)

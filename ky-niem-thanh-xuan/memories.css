@@ -13,6 +13,10 @@ button:disabled { opacity: .5; cursor: not-allowed; }
 .face-text-link { font-size: 12px; font-weight: 700; color: #6558ac; text-underline-offset: 4px; }
 .face-text-link:hover { text-decoration: underline; }
 .face-controls { min-width: 0; }
+.face-local-help { border: 1px solid #f4d69a; border-radius: 12px; background: #fffbeb; color: #854d0e; padding: 1rem; margin-bottom: 1rem; font-size: 12px; line-height: 1.8; }
+.face-local-help strong { font-weight: 700; }
+.face-local-help code { font-family: monospace; background: #fef3c7; padding: .1rem .3rem; border-radius: 4px; }
+.face-drop[aria-disabled=true] { opacity: .6; cursor: default; }
 .face-drop { display: flex; flex-direction: column; align-items: center; text-align: center; gap: .5rem; padding: 1.25rem; border: 1.5px dashed #b6b0da; border-radius: 1.25rem; cursor: pointer; background: #ffffffa6; transition: border-color .2s, background .2s; }
 .face-drop:hover, .face-drop:focus-within, .face-drop.drag-over { border-color: var(--accent); background: #eeebff; }
 .face-drop strong { color: var(--ink); font-size: 14px; }
