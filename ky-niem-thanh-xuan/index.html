@@ -3,7 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kỷ Niệm Thanh Xuân - Kho Lưu Trữ Lớp Chúng Mình</title>
+    <title>12A1 · Nhà Có Nhau — Kho kỷ niệm của tụi mình</title>
+    <meta name="description" content="Nhà Có Nhau, đại gia đình 12A1. Gặp lại từng người, giữ từng kỷ niệm và tìm lại mình trong những tấm ảnh chung." />
+    <meta name="theme-color" content="#4338ca" />
+    <link rel="stylesheet" href="memories.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://lh3.googleusercontent.com" />
     <link rel="preconnect" href="https://drive.google.com" />
@@ -146,10 +149,10 @@
       <div class="max-w-7xl mx-auto px-4 md:px-8 h-16 flex items-center justify-between gap-4">
         <a href="#" class="flex items-center gap-2.5 group">
           <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-pink-500 flex items-center justify-center text-white font-bold shadow-md group-hover:scale-105 transition-transform">
-            12
+            12A1
           </div>
           <div>
-            <span class="font-cursive text-2xl text-indigo-950 font-bold block leading-none">Kỷ Niệm Thanh Xuân</span>
+            <span class="text-xl text-indigo-950 font-bold block leading-none">Nhà Có Nhau</span>
             <span class="text-[11px] font-semibold text-slate-500 tracking-wide" id="nav-stats-sub">Đang kết nối Google Drive...</span>
           </div>
         </a>
@@ -210,10 +213,10 @@
         <h1
           class="text-5xl md:text-7xl font-cursive text-indigo-950 mb-4 drop-shadow-sm"
         >
-          Thanh Xuân Của Chúng Ta
+          Nhà Có Nhau
         </h1>
         <p class="text-base md:text-xl text-indigo-900/80 mb-10 font-medium max-w-2xl mx-auto">
-          Toàn bộ ảnh gốc độ phân giải cao (kể cả ảnh HEIC/iPhone) và video Full HD từ Google Drive của lớp được lưu giữ trọn vẹn tại đây.
+          12A1 — một lớp học, cả một nhà.<br />Mai này mỗi đứa một nơi, ở đây vẫn luôn có nhau.
         </p>
 
         <!-- 4 Category / Year Buttons -->
@@ -281,6 +284,41 @@
     </header>
 
     <main class="max-w-7xl mx-auto px-4 md:px-8 -mt-10 relative z-20 pb-24 space-y-16">
+      <section id="section-face-search" class="face-panel" aria-labelledby="face-title">
+        <div class="face-intro">
+          <span class="eyebrow">12A1 / TÌM LẠI KỶ NIỆM</span>
+          <h2 id="face-title">Mình ở đâu trong những tấm ảnh?</h2>
+          <p>Chọn một ảnh có bạn. Tụi mình sẽ tìm những khuôn mặt giống bạn trong toàn bộ kho Drive của lớp.</p>
+          <p class="face-privacy">Ảnh mẫu và chỉ mục khuôn mặt chỉ xử lý trên thiết bị này. Lần đầu cần lập chỉ mục; lần sau dùng lại để tìm nhanh hơn.</p>
+          <a class="face-text-link" href="#section-class-map">Hoặc ghé thăm từng thành viên ↗</a>
+        </div>
+        <div class="face-controls">
+          <label for="face-reference" class="face-drop" id="face-dropzone">
+            <span class="face-icon" aria-hidden="true">⌕</span>
+            <strong>Chọn ảnh có khuôn mặt cần tìm</strong>
+            <span>Ảnh chân dung rõ mặt sẽ cho kết quả tốt hơn</span>
+            <span class="secondary-action">Chọn ảnh từ thiết bị</span>
+            <input id="face-reference" type="file" accept="image/*" />
+          </label>
+          <div id="face-candidates" class="face-candidates" aria-label="Chọn khuôn mặt trong ảnh mẫu"></div>
+          <label class="face-sensitivity" for="face-threshold">Mức tìm kiếm
+            <select id="face-threshold"><option value="0.45">Chặt chẽ</option><option value="0.5" selected>Cân bằng</option><option value="0.58">Mở rộng</option></select>
+          </label>
+          <div class="face-actions">
+            <button id="face-search-button" class="primary-action" disabled>Tìm trong toàn kho</button>
+            <button id="face-stop-button" class="secondary-action" hidden>Dừng quét</button>
+            <button id="face-clear-button" class="face-text-link">Xóa chỉ mục máy này</button>
+          </div>
+          <p id="face-status" role="status" aria-live="polite">Chưa chọn ảnh mẫu. Chỉ quét kho khi bạn bấm tìm.</p>
+          <progress id="face-progress" max="1" value="0" hidden aria-label="Tiến độ quét khuôn mặt"></progress>
+        </div>
+        <div class="face-result-area" id="face-result-area" hidden>
+          <h3 id="face-results-title">Những khoảnh khắc có thể có bạn</h3>
+          <p class="face-result-note">Kết quả là gợi ý tương đồng, có thể nhầm người. Video chỉ được tìm qua ảnh bìa, chưa quét các khung hình bên trong.</p>
+          <div id="face-results" class="memory-grid"></div>
+          <button id="face-more-button" class="secondary-action" hidden>Xem thêm kết quả</button>
+        </div>
+      </section>
       <!-- 1. Timeline & Year Albums Section -->
       <section
         id="section-timeline"
@@ -507,13 +545,13 @@
       <section id="section-class-map" class="mb-16">
         <div class="text-center mb-10 slide-up">
           <h2 class="text-4xl md:text-5xl font-cursive text-indigo-950 mb-2">
-            Đại Gia Đình Lớp Mình
+            Người Nhà 12A1
           </h2>
           <div
             class="w-32 h-1 bg-gradient-to-r from-purple-400 to-indigo-400 mx-auto rounded-full"
           ></div>
           <p class="text-slate-500 mt-3 max-w-xl mx-auto text-sm md:text-base">
-            Danh sách thành viên và thư mục cá nhân được cập nhật theo kho Google Drive của lớp.
+            Mỗi gương mặt là một câu chuyện. Chạm vào để ghé trang giới thiệu và xem những kỷ niệm của từng người.
           </p>
 
           <!-- Filter buttons for Class Members -->
@@ -570,7 +608,7 @@
 
     <!-- Footer -->
     <footer class="bg-indigo-950 text-indigo-200 text-center py-10">
-      <p class="font-cursive text-3xl text-white mb-2">Mãi Nhớ Thanh Xuân Của Chúng Mình</p>
+      <p class="font-cursive text-3xl text-white mb-2">12A1 · Đi đâu cũng có một nhà để nhớ</p>
       <p class="text-xs md:text-sm text-indigo-300/80 mb-4">
         Kho Google Drive Lớp • Ảnh, video và mọi loại tệp
       </p>
@@ -588,6 +626,7 @@
     <!-- Student / Folder Profile Modal -->
     <div
       id="student-modal"
+      role="dialog" aria-modal="true" aria-labelledby="modal-name"
       class="fixed inset-0 z-50 hidden flex items-center justify-center p-3 md:p-6"
     >
       <!-- Backdrop -->
@@ -626,7 +665,7 @@
           </div>
         </div>
 
-        <div class="px-6 pb-6 md:px-8 md:pb-8 overflow-y-auto flex-1">
+        <div id="profile-scroll" class="px-6 pb-6 md:px-8 md:pb-8 overflow-y-auto flex-1">
           <!-- Avatar & Basic Info -->
           <div
             class="relative flex flex-col sm:flex-row items-center sm:items-end -mt-14 md:-mt-16 mb-6 gap-4 text-center sm:text-left"
@@ -653,6 +692,9 @@
             </button>
           </div>
 
+          <section id="member-profile" class="member-profile" aria-label="Giới thiệu thành viên"></section>
+          <div class="profile-gallery-heading"><div><span class="eyebrow">GÓC KỶ NIỆM</span><h4>Những ngày mình có nhau</h4></div><button id="profile-upload" class="secondary-action">Góp ảnh / video</button></div>
+          <p id="profile-gallery-status" role="status" class="profile-note"></p>
           <!-- Gallery Section -->
           <div>
             <div class="flex items-center justify-between mb-4">
@@ -660,7 +702,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
                 </svg>
-                <span>Khoảnh khắc trong thư mục cá nhân</span>
+                <span>Kho lưu trữ cá nhân</span>
               </h4>
               <span class="text-xs text-slate-400">Click vào ảnh/video để xem nét gốc</span>
             </div>
@@ -670,6 +712,7 @@
             >
               <!-- Photos & Videos injected here -->
             </div>
+            <button id="profile-more" class="secondary-action" hidden>Xem thêm kỷ niệm</button>
           </div>
         </div>
       </div>
@@ -863,6 +906,12 @@
       function getDriveFolderUrl(folderId) {
         return `https://drive.google.com/drive/folders/${folderId}`;
       }
+      function getInitialsAvatar(name, color = "4F46E5") {
+        const parts = String(name).trim().split(/\s+/);
+        const initials = parts.slice(-2).map(part => part[0] || "").join("").toUpperCase();
+        const background = /^[\da-f]{6}$/i.test(color) ? color : "4F46E5";
+        return "data:image/svg+xml," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160"><rect width="160" height="160" rx="80" fill="#${background}"/><text x="80" y="84" text-anchor="middle" dominant-baseline="middle" font-family="Arial,sans-serif" font-size="54" font-weight="600" fill="white">${escapeHtml(initials)}</text></svg>`).replace(/'/g, "%27");
+      }
 
       // --- STATE QUẢN LÝ DỮ LIỆU ---
       const driveRoot = {
@@ -902,7 +951,7 @@
       }
 
       let folderChung, folderLuoi, folderLop10, folderLop11, folderLop12, folderGVCN;
-      let selectedYear = 11;
+      let selectedYear = 12;
       let selectedStudentFilter = "all";
 
       // Trạng thái trình duyệt Drive
@@ -917,6 +966,7 @@
       let lightboxList = [];
       let lightboxIndex = 0;
       let lightboxImageRequest = 0;
+      let lightboxOriginal = null;
       let lbZoom = 1;
       let lbRotate = 0;
       let lbPanX = 0;
@@ -1584,17 +1634,18 @@
             const totalMedia = sf.ti + sf.tv;
             const avatarUrl = sf.c
               ? getDriveThumbUrl(sf.c, 300)
-              : `https://ui-avatars.com/api/?name=${encodeURIComponent(item.cleanName).replace(/'/g, '%27')}&background=${colors[idx % colors.length]}&color=fff&size=160&bold=true`;
+              : getInitialsAvatar(item.cleanName, colors[idx % colors.length]);
 
             return `
-              <div
+              <button type="button"
+                data-drive-file-id="${sf.id}" data-drive-file-key="${escapeHtml(JSON.stringify([sf.n, sf.c, sf.ti, sf.tv, item.role]))}"
                 onclick="openStudentModal('${sf.id}')"
-                class="flex flex-col items-center justify-between p-3.5 rounded-2xl bg-slate-50/70 hover:bg-white border border-slate-200/70 hover:border-indigo-300 cursor-pointer desk-avatar group"
+                class="member-card flex flex-col items-center justify-between p-3.5 rounded-2xl bg-slate-50/70 hover:bg-white border border-slate-200/70 hover:border-indigo-300 cursor-pointer desk-avatar group"
               >
                 <div class="relative">
                   <img
                     src="${avatarUrl}"
-                    onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(item.cleanName).replace(/'/g, '%27')}&background=6366F1&color=fff&size=160'"
+                    onerror="this.onerror=null;this.src='${getInitialsAvatar(item.cleanName)}'"
                     alt="${escapeHtml(item.cleanName)}"
                     loading="lazy" decoding="async"
                     class="w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-white shadow-md object-cover bg-slate-200"
@@ -1612,14 +1663,14 @@
                 </div>
 
                 <div class="text-center mt-3 w-full">
-                  <p class="text-xs md:text-sm font-bold text-slate-800 group-hover:text-indigo-600 truncate">
+                  <p class="member-name text-xs md:text-sm font-bold text-slate-800 group-hover:text-indigo-600">
                     ${escapeHtml(item.cleanName)}
                   </p>
                   <p class="text-[11px] font-semibold ${totalMedia > 0 ? "text-emerald-600" : "text-slate-400"} mt-0.5">
                     ${item.role}
                   </p>
                 </div>
-              </div>
+              </button>
             `;
           })
           .join(""));
@@ -1628,84 +1679,7 @@
       // --- 4. MODAL HỒ SƠ THÀNH VIÊN ---
       let modalMediaList = [];
 
-      function openStudentModal(folderId) {
-        const sf = folderById.get(folderId);
-        if (!sf) return;
-
-        const parts = sf.n.split(".");
-        const hasNum = !isNaN(parseInt(parts[0], 10));
-        const numLabel = hasNum ? `Số thứ tự #${parts[0].trim()}` : "Thầy Cô / Tập Thể";
-        const cleanName = hasNum ? parts.slice(1).join(".").trim() : sf.n;
-
-        const avatarUrl = sf.c
-          ? getDriveThumbUrl(sf.c, 400)
-          : `https://ui-avatars.com/api/?name=${encodeURIComponent(cleanName).replace(/'/g, '%27')}&background=4F46E5&color=fff&size=200&bold=true`;
-
-        document.getElementById("modal-avatar").src = avatarUrl;
-        document.getElementById("modal-number").innerText = numLabel;
-        document.getElementById("modal-role").innerText =
-          sf.ti + sf.tv > 0 ? "Đã kết nối thư mục Drive" : "Thư mục Drive đang chờ thêm ảnh";
-        document.getElementById("modal-name").innerText = cleanName;
-        document.getElementById("modal-stats").innerText =
-          `${sf.ti} Ảnh gốc • ${sf.tv} Video HD trên Google Drive`;
-        document.getElementById("modal-drive-link").href = getDriveFolderUrl(sf.id);
-
-        document.getElementById("modal-open-in-explorer").onclick = () => {
-          closeModal();
-          openFolderInExplorer(sf.id, true);
-        };
-
-        modalMediaList = collectAllFilesUnderFolder(sf).filter(item => item[2] !== 2);
-        const galleryDiv = document.getElementById("modal-gallery");
-
-        if (modalMediaList.length > 0) {
-          galleryDiv.innerHTML = modalMediaList
-            .map((it, idx) => {
-              const [id, name, isVideo] = it;
-              return `
-                <div
-                  onclick="openLightboxFromModal(${idx})"
-                  class="group relative aspect-square rounded-2xl overflow-hidden bg-slate-200 border border-slate-200 shadow-sm hover:shadow-lg cursor-pointer img-skeleton"
-                >
-                  <img
-                    src="${getDriveThumbUrl(id, 500)}"
-                    onerror="this.onerror=null;this.src='${getDriveThumbFallbackUrl(id, 500)}'"
-                    alt="${escapeHtml(name)}"
-                    loading="lazy" decoding="async"
-                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  ${
-                    isVideo === 1
-                      ? `<div class="absolute inset-0 bg-black/30 flex items-center justify-center">
-                          <span class="px-2.5 py-1 rounded-full bg-rose-600 text-white text-xs font-bold shadow">▶ Video HD</span>
-                        </div>`
-                      : ""
-                  }
-                </div>
-              `;
-            })
-            .join("");
-        } else {
-          galleryDiv.innerHTML = `
-            <div class="col-span-full py-10 text-center bg-slate-50 rounded-2xl border border-dashed border-slate-200">
-              <p class="text-slate-500 text-sm font-semibold mb-3">Thư mục cá nhân của ${escapeHtml(cleanName)} hiện chưa có ảnh hoặc video.</p>
-              <a
-                href="${getDriveFolderUrl(sf.id)}"
-                target="_blank"
-                rel="noopener"
-                class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-bold hover:bg-indigo-700 transition-colors"
-              >
-                <span>Tải ảnh/video lên thư mục Google Drive của ${escapeHtml(cleanName)}</span>
-                <span>↗</span>
-              </a>
-            </div>
-          `;
-        }
-
-        const modal = document.getElementById("student-modal");
-        modal.classList.remove("hidden");
-        document.body.style.overflow = "hidden";
-      }
+      function openStudentModal(folderId) { openMemberProfile(folderId); }
 
       function closeModal() {
         const modal = document.getElementById("student-modal");
@@ -1742,6 +1716,7 @@
         if (!item) return;
         const [id, name, isVideo, modified, folderName] = item;
         const imageRequest = ++lightboxImageRequest;
+        if (lightboxOriginal) { lightboxOriginal.onload = lightboxOriginal.onerror = null; lightboxOriginal.src = ""; lightboxOriginal = null; }
 
         resetLightboxZoom();
 
@@ -1823,6 +1798,7 @@
           };
           imgEl.src = getDriveThumbUrl(id, 600);
           const original = new Image();
+          lightboxOriginal = original;
           let triedFallback = false;
           original.onload = () => {
             if (imageRequest !== lightboxImageRequest) return;
@@ -1841,8 +1817,8 @@
         }
 
         // Highlight active item in filmstrip
-        document.querySelectorAll(".lb-strip-thumb").forEach((el, idx) => {
-          if (idx === lightboxIndex) {
+        document.querySelectorAll(".lb-strip-thumb").forEach((el) => {
+          if (Number(el.dataset.lightboxIndex) === lightboxIndex) {
             el.classList.add("ring-2", "ring-white", "opacity-100", "scale-105");
             el.classList.remove("opacity-50");
             el.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
@@ -1870,6 +1846,7 @@
           const active = i === lightboxIndex;
           html += `
             <div
+              data-lightbox-index="${i}"
               onclick="openLightboxAt(${i})"
               class="lb-strip-thumb relative w-14 h-14 rounded-lg overflow-hidden shrink-0 cursor-pointer transition-all ${
                 active ? "ring-2 ring-white opacity-100 scale-105" : "opacity-50 hover:opacity-80"
@@ -1890,7 +1867,7 @@
             </div>
           `;
         }
-        strip.innerHTML = html;
+        setDriveMarkup(strip, html);
       }
 
       function stepLightbox(delta) {
@@ -1941,6 +1918,9 @@
       }
 
       function closeLightbox() {
+        if (lightboxOriginal) { lightboxOriginal.onload = lightboxOriginal.onerror = null; lightboxOriginal.src = ""; lightboxOriginal = null; }
+        const image = document.getElementById("lightbox-img");
+        image.onload = image.onerror = null; image.removeAttribute("src");
         lightboxImageRequest++;
         const lb = document.getElementById("drive-lightbox");
         const iframeEl = document.getElementById("lightbox-iframe");
@@ -2013,7 +1993,7 @@
       // Keep decoded images and existing DOM nodes when the visible content is unchanged.
       function setDriveMarkup(element, html) {
         if (element._driveMarkup === html) return;
-        if (element.id === "drive-files-grid" && html.includes('data-drive-file-id="')) {
+        if (["drive-files-grid", "modal-gallery", "class-map-grid"].includes(element.id) && html.includes('data-drive-file-id="')) {
           const template = document.createElement("template");
           template.innerHTML = html;
           const previous = new Map(Array.from(element.children).map(card => [card.dataset.driveFileId, card]));
@@ -2022,6 +2002,13 @@
           for (const next of Array.from(template.content.children)) {
             const old = previous.get(next.dataset.driveFileId);
             const card = old && old.dataset.driveFileKey === next.dataset.driveFileKey ? old : next;
+            if (old && card === next) {
+              const previousImage = old.querySelector("img"), nextImage = next.querySelector("img");
+              if (previousImage && nextImage && previousImage.getAttribute("src") === nextImage.getAttribute("src")) {
+                previousImage.alt = nextImage.alt;
+                nextImage.replaceWith(previousImage);
+              }
+            }
             // Its lightbox index can change while the decoded image remains the same.
             card.setAttribute("onclick", next.getAttribute("onclick"));
             keep.add(card);
@@ -2043,5 +2030,7 @@
       }
     </script>
     <script src="drive-live.js"></script>
+    <script src="member-profiles.js"></script>
+    <script src="face-search.js"></script>
   </body>
 </html>

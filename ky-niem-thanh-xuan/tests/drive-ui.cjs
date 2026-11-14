@@ -13,6 +13,8 @@ const folders = new Map([
 const events = [], uploads = new Map(), errors = [];
 let lostAck = true;
 let delayPing = false;
+let activeChunks = 0, maximumChunks = 0;
+let advertisedChunkBytes = 262144;
 const folderReads = new Map();
 
 async function routeDrive(route) {
@@ -48,12 +50,16 @@ async function routeDrive(route) {
       if (body.size === 0) finish(upload);
     }
     const upload = uploads.get(body.operationId);
-    response = { ok: true, offset: upload.offset, done: Boolean(upload.done), chunkBytes: 262144 };
+    response = { ok: true, offset: upload.offset, done: Boolean(upload.done), chunkBytes: advertisedChunkBytes };
   } else if (body.action === 'uploadChunk') {
+    activeChunks++; maximumChunks = Math.max(maximumChunks, activeChunks);
+    await new Promise(resolve => setTimeout(resolve, 60));
     const upload = uploads.get(body.operationId), buffer = Buffer.from(body.base64Data, 'base64');
+    assert.ok(buffer.length <= 2 * 1024 * 1024, 'each stream reads at most 2 MiB into the chunk buffer');
     assert.equal(body.offset, upload.offset, 'never send an already accepted chunk');
     upload.buffers.push(buffer); upload.offset += buffer.length;
     if (upload.offset === upload.size) finish(upload);
+    activeChunks--;
     if (lostAck) { lostAck = false; return route.abort('failed'); }
     response = { ok: true, offset: upload.offset, done: Boolean(upload.done) };
   } else if (body.action === 'uploadStatus') {
@@ -141,6 +147,26 @@ function finish(upload) {
     await other.locator('#tab-history').click();
     await other.waitForFunction(() => document.querySelector('#drive-history-list').children.length === 3);
     delayPing = false;
+    advertisedChunkBytes = 8 * 1024 * 1024;
+    const parallelStreams = await page.evaluate(() => {
+      switchDriveTab('drive');
+      openFolderInExplorer('photos');
+      enqueueDriveFiles(Array.from({ length: 3 }, (_, i) => new File([new Uint8Array(5 * 1024 * 1024 + 17).fill(i + 10)], `parallel-${i}.bin`, { type: 'application/octet-stream' })));
+      // A stopped, queued item should be retriable without starting a third worker.
+      const third = liveState.queue.at(-1); third.stop = true; third.status = 'paused'; renderUploadQueue();
+      return liveState.queue.filter(item => item.status === 'uploading').length;
+    });
+    assert.equal(parallelStreams, 2, 'two file workers run concurrently');
+    await page.waitForFunction(() => liveState.queue.filter(item => item.status === 'success').length === 4 && !liveState.uploading);
+    assert.ok(maximumChunks >= 1 && maximumChunks <= 2, 'network chunks never exceed the two-stream limit');
+    assert.equal(await page.evaluate(() => liveState.queue.filter(item => item.status === 'success').every(item => item.file === null)), true, 'completed source Files are released');
+    await page.locator('#drive-upload-queue button', { hasText: 'Tiếp tục tải' }).click();
+    await page.waitForFunction(() => liveState.queue.length === 5 && liveState.queue.every(item => item.status === 'success'));
+    for (let i = 0; i < 3; i++) {
+      const parallel = [...uploads.values()].find(item => item.fileName === `parallel-${i}.bin`);
+      assert.equal(parallel.folderId, 'photos');
+      assert.deepEqual(Buffer.concat(parallel.buffers), Buffer.alloc(5 * 1024 * 1024 + 17, i + 10));
+    }
     folders.get(ROOT).f = folders.get(ROOT).f.filter(item => item.id !== 'photos');
     folders.get('empty').n = 'Đã đổi tên';
     folders.get(ROOT).f.find(item => item.id === 'empty').n = 'Đã đổi tên';

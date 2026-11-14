@@ -6,4 +6,5 @@ window.DRIVE_CONFIG = {
   pollIntervalMs: 10 * 60 * 1000,
   treeRefreshIntervalMs: 6 * 60 * 60 * 1000,
   cacheMaxAgeMs: 10 * 60 * 60 * 1000,
+  uploadChunkBytes: 2 * 1024 * 1024,
 };

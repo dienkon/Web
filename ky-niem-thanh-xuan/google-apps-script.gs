@@ -23,7 +23,7 @@ function setup() {
   try {
     const props = PropertiesService.getScriptProperties();
     if (!props.getProperty('HISTORY_SHEET_ID')) {
-      const book = SpreadsheetApp.create('Kỷ Niệm Thanh Xuân - Lịch sử tải lên');
+      const book = SpreadsheetApp.create('12A1 Nhà Có Nhau - Lịch sử tải lên');
       book.getSheets()[0].appendRow(['event_json']);
       props.setProperty('HISTORY_SHEET_ID', book.getId());
     }
@@ -38,9 +38,11 @@ function doGet(e) {
     if (p.action === 'ping') {
       allowedFolder(ROOT_FOLDER_ID);
       historySheet();
-      return { ok: true, rootId: ROOT_FOLDER_ID, version: 2, writable: true, chunkBytes: CHUNK_BYTES };
+      return { ok: true, rootId: ROOT_FOLDER_ID, version: 2, writable: true, profiles: true, faceThumbnails: true, chunkBytes: CHUNK_BYTES };
     }
     if (p.action === 'history') return readHistory(p.before);
+    if (p.action === 'profile') return readMemberProfile(p.id);
+    if (p.action === 'faceThumbnail') return readFaceThumbnail(p.id);
     if (!p.action || p.action === 'folder') return readFolder(p.id || ROOT_FOLDER_ID, p.pageToken);
     throw new Error('Hành động không hợp lệ.');
   });
@@ -50,6 +52,7 @@ function doPost(e) {
   return respond(function () {
     const b = JSON.parse(e.postData.contents);
     if (b.action === 'createFolder') return createFolder(b);
+    if (b.action === 'saveProfile') return saveMemberProfile(b);
     if (b.action === 'uploadStart') return startUpload(b);
     if (b.action === 'uploadChunk') return uploadChunk(b);
     if (b.action === 'uploadStatus') return uploadStatus(b);
@@ -67,6 +70,48 @@ function respond(fn) {
   let data;
   try { data = fn(); } catch (err) { data = { ok: false, error: String(err.message || err) }; }
   return ContentService.createTextOutput(JSON.stringify(data)).setMimeType(ContentService.MimeType.JSON);
+}
+
+// Shared introductions contain only fields the member chooses to publish.
+function readMemberProfile(id) {
+  allowedFolder(id);
+  const raw = PropertiesService.getScriptProperties().getProperty('profile_' + id);
+  return { ok: true, profile: raw ? JSON.parse(raw) : { revision: 0 } };
+}
+
+function saveMemberProfile(b) {
+  allowedFolder(b.id);
+  if (!b.profile || typeof b.profile !== 'object') throw new Error('Giới thiệu không hợp lệ.');
+  const limits = { nickname: 60, birthday: 40, role: 80, hobbies: 240, quote: 500 }, profile = {};
+  Object.keys(limits).forEach(function (key) {
+    const value = b.profile[key] === undefined ? '' : b.profile[key];
+    if (typeof value !== 'string' || value.length > limits[key]) throw new Error('Thông tin quá dài hoặc không hợp lệ: ' + key);
+    profile[key] = value.trim();
+  });
+  const lock = LockService.getScriptLock(); lock.waitLock(30000);
+  try {
+    const current = readMemberProfile(b.id).profile;
+    if (b.revision !== current.revision) throw new Error('Giới thiệu vừa được cập nhật ở nơi khác. Đóng và mở lại hồ sơ để xem bản mới trước khi lưu.');
+    profile.revision = current.revision + 1; profile.updatedAt = new Date().toISOString();
+    PropertiesService.getScriptProperties().setProperty('profile_' + b.id, JSON.stringify(profile));
+    return { ok: true, profile: profile };
+  } finally { lock.releaseLock(); }
+}
+
+// CORS-safe thumbnail fallback. Validate the file's ancestry before reading bytes.
+function readFaceThumbnail(id) {
+  if (!/^[\w-]+$/.test(id || '')) throw new Error('ID tệp không hợp lệ.');
+  const file = JSON.parse(api(DRIVE_API + '/' + encodeURIComponent(id) + '?supportsAllDrives=true&fields=id,parents,trashed,thumbnailLink').getContentText());
+  if (file.trashed || !file.thumbnailLink || !(file.parents || []).some(function (parent) {
+    try { allowedFolder(parent); return true; } catch (_) { return false; }
+  })) throw new Error('Không có ảnh xem trước hợp lệ trong kho lớp.');
+  if (!/^https:\/\/(?:[\w-]+\.)*googleusercontent\.com\//.test(file.thumbnailLink)) throw new Error('Địa chỉ ảnh xem trước không hợp lệ.');
+  const url = file.thumbnailLink.replace(/=s\d+$/, '=s960');
+  const blob = api(url).getBlob(), bytes = blob.getBytes();
+  if (bytes.length > 3 * 1024 * 1024) throw new Error('Ảnh xem trước quá lớn.');
+  const mime = blob.getContentType();
+  if (!/^image\/(jpeg|png|webp)$/.test(mime)) throw new Error('Định dạng ảnh xem trước không hỗ trợ.');
+  return { ok: true, image: 'data:' + mime + ';base64,' + Utilities.base64Encode(bytes) };
 }
 
 function api(url, options) {
@@ -194,7 +239,7 @@ function startUpload(b) {
     }
     props.setProperty('upload_' + op, JSON.stringify(s));
     ensureUploadHistory(s);
-    return s.file ? completedUpload(s) : { ok: true, operationId: op, chunkBytes: CHUNK_BYTES };
+    return s.file ? completedUpload(s) : { ok: true, operationId: op, offset: 0, chunkBytes: CHUNK_BYTES };
   } finally { lock.releaseLock(); }
 }
 

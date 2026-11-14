@@ -7,6 +7,7 @@ const liveState = {
   writable: false, generation: 0, requests: new Map(), scanning: false,
   lastScan: 0, lastRead: 0, lastPoll: 0, tab: 'drive', historyBefore: null, historyBusy: false,
   queue: [], uploading: false, folderTarget: null, historyEvents: [],
+  supportsProfiles: false, faceThumbnails: false,
 };
 
 function storageGet(key) {
@@ -69,6 +70,7 @@ async function driveRequest(action, data = {}, write = false, options = {}) {
   if (!endpoint && action === 'history') throw new Error('Kết nối Google Drive để xem lịch sử dùng chung.');
   const url = new URL(endpoint || (action === 'folder' ? './api/live-folder' : './api/status'), location.href);
   const init = { cache: 'no-store', redirect: 'follow', credentials: 'omit', signal: AbortSignal.timeout(write ? 120000 : 45000) };
+  if (options.signal) init.signal = AbortSignal.any([init.signal, options.signal]);
   if (write) {
     // text/plain avoids an unsupported CORS preflight on Apps Script Web Apps.
     init.method = 'POST';
@@ -117,7 +119,11 @@ async function initLiveDrive() {
   await connectLiveDrive();
   setInterval(pollLiveDrive, drivePollInterval);
   document.addEventListener('visibilitychange', () => { if (!document.hidden) pollLiveDrive(); });
-  window.addEventListener('online', () => { pollLiveDrive(); });
+  window.addEventListener('online', () => {
+    pollLiveDrive();
+    liveState.queue.forEach(item => { if (item.status === 'error' && !item.stop) { item.status = 'queued'; item.error = ''; } });
+    renderUploadQueue(); runUploadQueue();
+  });
   window.addEventListener('beforeunload', event => {
     if (liveState.uploading) { event.preventDefault(); event.returnValue = ''; }
   });
@@ -129,6 +135,7 @@ async function connectLiveDrive() {
   clearTimeout(driveCacheTimer); driveCacheTimer = null;
   liveState.requests.clear();
   setWritable(false);
+  liveState.supportsProfiles = false; liveState.faceThumbnails = false;
   setDriveStatus(ROOT_VIRTUAL_NODE.loaded ? 'Đang hiển thị dữ liệu Drive đã lưu. Kiểm tra kết nối trong nền…' : 'Đang kết nối và đọc dữ liệu thực tế từ Drive…');
   try {
     const status = await driveRequest('ping');
@@ -136,6 +143,7 @@ async function connectLiveDrive() {
     if (status.rootId !== driveRoot.rootId) throw new Error('Cầu nối được cấu hình cho một thư mục Drive khác.');
     if (liveState.url && status.version !== 2) throw new Error('Cần triển khai phiên bản mới của google-apps-script.gs.');
     setWritable(Boolean(liveState.url && status.writable));
+    liveState.supportsProfiles = Boolean(status.profiles); liveState.faceThumbnails = Boolean(status.faceThumbnails);
     await ensureLiveFolder(driveRoot.rootId);
     if (generation !== liveState.generation) return;
     liveState.lastPoll = Date.now();
@@ -225,6 +233,7 @@ function rebuildDriveIndex() {
 function repaintLiveData() {
   initHeroStats(); initQuickShortcuts(); selectYear(selectedYear);
   renderDriveExplorer(); renderClassMap(selectedStudentFilter);
+  if (typeof renderMemberGallery === 'function') renderMemberGallery();
 }
 let driveRepaintTimer = null;
 function scheduleLiveRepaint() {
@@ -236,8 +245,13 @@ function showLiveTimestamp() {
   setDriveStatus(`Dữ liệu Drive lúc ${time} · Cập nhật nền mỗi ${Math.round(drivePollInterval / 60000)} phút, toàn kho mỗi ${Math.round(driveTreeInterval / 3600000)} giờ.${liveState.writable ? '' : ' Kết nối Apps Script để bật tải lên và lịch sử.'}`);
 }
 
-async function scanDriveTree(force = false) {
-  if (liveState.scanning) return;
+let driveScanPromise = null;
+function scanDriveTree(force = false) {
+  if (driveScanPromise) return force ? driveScanPromise.then(() => scanDriveTree(true)) : driveScanPromise;
+  driveScanPromise = performDriveTreeScan(force).finally(() => { driveScanPromise = null; });
+  return driveScanPromise;
+}
+async function performDriveTreeScan(force = false) {
   liveState.scanning = true;
   const generation = liveState.generation, queue = [driveRoot.rootId], seen = new Set(), failures = [];
   let read = 0;
@@ -262,7 +276,7 @@ async function scanDriveTree(force = false) {
     }
   } finally {
     liveState.scanning = false;
-    if (generation !== liveState.generation) scanDriveTree().catch(showDriveError);
+    if (generation !== liveState.generation) setTimeout(() => scanDriveTree().catch(showDriveError), 0);
   }
 }
 
@@ -388,21 +402,28 @@ function formatDriveBytes(bytes) {
 function enqueueDriveFiles(files) {
   if (!liveState.writable) return openDriveSettings();
   for (const file of Array.from(files)) {
-    // The file is kept as a File/Blob; only one chunk is read into memory.
+    // File objects are references; each worker reads one bounded chunk at a time.
     const resumeKey = 'kn-drive-resume:' + JSON.stringify([liveState.url, currentFolderId, file.name, file.size, file.lastModified]);
     if (liveState.queue.some(item => item.resumeKey === resumeKey && item.status !== 'success')) continue;
-    liveState.queue.push({ file, folderId: currentFolderId, folderName: folderById.get(currentFolderId).n,
+    liveState.queue.push({ file, name: file.name, size: file.size, folderId: currentFolderId, folderName: folderById.get(currentFolderId).n,
       operationId: storageGet(resumeKey) || newOperationId(), resumeKey, status: 'queued', offset: 0, stop: false });
   }
   renderUploadQueue(); runUploadQueue();
 }
 function renderUploadQueue() {
-  const wrap = document.getElementById('drive-upload-queue'); wrap.replaceChildren();
+  const wrap = document.getElementById('drive-upload-queue');
+  const retainedRows = new Set(liveState.queue.map(item => item.row));
+  for (const row of [...wrap.children]) if (!retainedRows.has(row)) row.remove();
   liveState.queue.forEach(item => {
-    const row = document.createElement('div'); row.className = 'border rounded-xl p-3 bg-slate-50';
+    const row = item.row || document.createElement('div'); row.className = 'border rounded-xl p-3 bg-slate-50';
+    const file = item.file || item;
     const labels = { queued: 'Đang chờ', uploading: 'Đang tải', success: 'Đã tải lên Drive', error: 'Gián đoạn', paused: 'Đã dừng' };
-    const percent = item.status === 'success' ? 100 : item.file.size ? Math.floor(item.offset / item.file.size * 100) : 0;
-    row.innerHTML = `<div class="flex gap-2 justify-between"><span class="text-sm font-bold break-all">${escapeHtml(item.file.name)}</span><span class="text-xs shrink-0">${percent}%</span></div><p class="text-xs text-slate-500 my-1">${escapeHtml(item.folderName)} · ${formatDriveBytes(item.file.size)} · ${labels[item.status]}</p><progress class="w-full h-2" max="100" value="${percent}" aria-label="Tiến độ tải lên"></progress>${item.error ? `<p class="text-xs text-red-600 break-all">${escapeHtml(item.error)}</p>` : ''}`;
+    const percent = item.status === 'success' ? 100 : file.size ? Math.floor(item.offset / file.size * 100) : 0;
+    const signature = JSON.stringify([item.status, item.offset, item.error]);
+    if (item.row && item.renderSignature === signature) return;
+    item.renderSignature = signature;
+    const speed = item.speed ? ` · ${formatDriveBytes(item.speed)}/s` : '';
+    row.innerHTML = `<div class="flex gap-2 justify-between"><span class="text-sm font-bold break-all">${escapeHtml(file.name)}</span><span class="text-xs shrink-0">${percent}%</span></div><p class="text-xs text-slate-500 my-1">${escapeHtml(item.folderName)} · ${formatDriveBytes(file.size)} · ${labels[item.status]}${speed}</p><progress class="w-full h-2" max="100" value="${percent}" aria-label="Tiến độ tải lên"></progress>${item.error ? `<p class="text-xs text-red-600 break-all">${escapeHtml(item.error)}</p>` : ''}`;
     if (item.status === 'error' || item.status === 'paused') {
       const button = document.createElement('button'); button.textContent = 'Tiếp tục tải'; button.className = 'text-sm font-bold text-indigo-700 mt-2';
       button.onclick = () => { item.status = 'queued'; item.stop = false; item.error = ''; renderUploadQueue(); runUploadQueue(); };
@@ -412,7 +433,7 @@ function renderUploadQueue() {
       button.onclick = () => { item.stop = true; if (item.status === 'queued') item.status = 'paused'; renderUploadQueue(); };
       row.append(button);
     }
-    wrap.append(row);
+    if (!item.row) { item.row = row; wrap.append(row); }
   });
 }
 function chunkBase64(blob) {
@@ -426,52 +447,75 @@ function chunkBase64(blob) {
 async function runUploadQueue() {
   if (liveState.uploading) return;
   liveState.uploading = true;
+  const changedFolders = new Set();
+  let refreshTimer = null, refreshPromise = Promise.resolve();
+  const flushUploadedFolders = () => {
+    const ids = [...changedFolders]; changedFolders.clear();
+    refreshPromise = refreshPromise.then(() => Promise.all(ids.map(id => refreshLiveFolder(id).catch(showDriveError))));
+    return refreshPromise;
+  };
   try {
-    for (const item of liveState.queue) {
-      if (item.status !== 'queued' || item.stop) continue;
-      item.status = 'uploading'; renderUploadQueue();
-      storageSet(item.resumeKey, item.operationId);
-      try {
-        let result = await driveRequest('uploadStart', { operationId: item.operationId, folderId: item.folderId,
-          fileName: item.file.name, mimeType: item.file.type || 'application/octet-stream', size: item.file.size }, true);
-        const chunkBytes = result.chunkBytes || 8 * 1024 * 1024;
-        if (!result.done) result = await driveRequest('uploadStatus', { operationId: item.operationId }, true);
-        item.offset = result.offset || 0;
-        let stalled = 0;
-        while (!result.done) {
-          if (item.stop) throw new Error('Đã dừng. Có thể tiếp tục từ phần đã tải.');
-          const offset = item.offset, blob = item.file.slice(offset, Math.min(item.file.size, offset + chunkBytes));
-          if (!blob.size) throw new Error('Drive chưa xác nhận hoàn tất tệp. Bấm tiếp tục để kiểm tra lại.');
-          const base64Data = await chunkBase64(blob);
-          let lastError;
-          for (let attempt = 0; attempt < 4; attempt++) {
-            try {
-              result = await driveRequest('uploadChunk', { operationId: item.operationId, offset, base64Data }, true);
-              lastError = null; break;
-            } catch (error) {
-              lastError = error;
-              if (item.stop) break;
-              await new Promise(resolve => setTimeout(resolve, 1000 * 2 ** attempt));
-              // Check Drive's accepted byte offset before retrying a lost request.
+    // Two files share bandwidth without loading an entire photo or video into RAM.
+    await Promise.all(Array.from({ length: navigator.connection?.saveData || navigator.deviceMemory <= 2 ? 1 : 2 }, async () => {
+      let item;
+      while ((item = liveState.queue.find(entry => entry.status === 'queued' && !entry.stop))) {
+        item.status = 'uploading'; renderUploadQueue();
+        storageSet(item.resumeKey, item.operationId);
+        try {
+          let result = await driveRequest('uploadStart', { operationId: item.operationId, folderId: item.folderId,
+            fileName: item.file.name, mimeType: item.file.type || 'application/octet-stream', size: item.file.size }, true);
+          const chunkBytes = Math.max(262144, Math.floor(Math.min(result.chunkBytes || 8 * 1024 * 1024,
+            liveConfig.uploadChunkBytes || 2 * 1024 * 1024) / 262144) * 262144);
+          if (!result.done && !Number.isSafeInteger(result.offset)) result = await driveRequest('uploadStatus', { operationId: item.operationId }, true);
+          item.offset = result.offset || 0;
+          if (!Number.isSafeInteger(item.offset) || item.offset < 0 || item.offset > item.file.size) throw new Error('Drive trả về tiến độ không hợp lệ.');
+          let stalled = 0;
+          while (!result.done) {
+            if (item.stop) throw new Error('Đã dừng. Có thể tiếp tục từ phần đã tải.');
+            const offset = item.offset, blob = item.file.slice(offset, Math.min(item.file.size, offset + chunkBytes));
+            if (!blob.size) throw new Error('Drive chưa xác nhận hoàn tất tệp. Bấm tiếp tục để kiểm tra lại.');
+            const base64Data = await chunkBase64(blob);
+            const started = performance.now();
+            let lastError;
+            for (let attempt = 0; attempt < 4; attempt++) {
               try {
-                result = await driveRequest('uploadStatus', { operationId: item.operationId }, true);
-                if (result.done || result.offset !== offset) { lastError = null; break; }
-              } catch (_) {}
+                result = await driveRequest('uploadChunk', { operationId: item.operationId, offset, base64Data }, true);
+                lastError = null; break;
+              } catch (error) {
+                lastError = error;
+                if (item.stop) break;
+                await new Promise(resolve => setTimeout(resolve, 1000 * 2 ** attempt + Math.random() * 250));
+                if (item.stop) break;
+                // Check Drive's accepted byte offset before retrying a lost request.
+                try {
+                  result = await driveRequest('uploadStatus', { operationId: item.operationId }, true);
+                  if (result.done || result.offset !== offset) { lastError = null; break; }
+                } catch (_) {}
+              }
             }
+            if (lastError) throw lastError;
+            if (!Number.isSafeInteger(result.offset) || result.offset < 0 || result.offset > item.file.size) throw new Error('Drive trả về tiến độ không hợp lệ.');
+            stalled = result.offset <= item.offset ? stalled + 1 : 0;
+            if (stalled >= 3) throw new Error('Drive chưa nhận thêm dữ liệu. Hãy tiếp tục sau khi kiểm tra kết nối.');
+            item.speed = (result.offset - offset) / Math.max(.001, (performance.now() - started) / 1000);
+            item.offset = result.offset; renderUploadQueue();
           }
-          if (lastError) throw lastError;
-          if (!Number.isSafeInteger(result.offset) || result.offset < 0 || result.offset > item.file.size) throw new Error('Drive trả về tiến độ không hợp lệ.');
-          stalled = result.offset <= item.offset ? stalled + 1 : 0;
-          if (stalled >= 3) throw new Error('Drive chưa nhận thêm dữ liệu. Hãy tiếp tục sau khi kiểm tra kết nối.');
-          item.offset = result.offset; renderUploadQueue();
+          item.status = 'success'; item.offset = item.file.size; storageSet(item.resumeKey, null);
+          changedFolders.add(item.folderId);
+          if (!refreshTimer) refreshTimer = setTimeout(() => { refreshTimer = null; flushUploadedFolders(); }, 1500);
+          item.file = null; // Release the source File after Drive confirms completion.
+        } catch (error) {
+          item.status = item.stop ? 'paused' : 'error'; item.error = error.message;
+          driveRequest('uploadFailed', { operationId: item.operationId, error: error.message }, true).catch(() => {});
         }
-        item.status = 'success'; item.offset = item.file.size; storageSet(item.resumeKey, null);
-        await refreshLiveFolder(item.folderId).catch(showDriveError);
-      } catch (error) {
-        item.status = item.stop ? 'paused' : 'error'; item.error = error.message;
-        driveRequest('uploadFailed', { operationId: item.operationId, error: error.message }, true).catch(() => {});
+        renderUploadQueue();
       }
-      renderUploadQueue();
-    }
-  } finally { liveState.uploading = false; }
+    }));
+    clearTimeout(refreshTimer); refreshTimer = null;
+    await flushUploadedFolders();
+  } finally {
+    clearTimeout(refreshTimer);
+    liveState.uploading = false;
+    if (liveState.queue.some(item => item.status === 'queued' && !item.stop)) runUploadQueue();
+  }
 }

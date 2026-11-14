@@ -95,5 +95,5 @@ class LiveDriveHandler(http.server.SimpleHTTPRequestHandler):
 
 if __name__ == '__main__':
     with http.server.ThreadingHTTPServer(('127.0.0.1', PORT), LiveDriveHandler) as server:
-        print(f'Ky Niem Thanh Xuan: http://localhost:{PORT}', flush=True)
+        print(f'12A1 Nha Co Nhau: http://localhost:{PORT}', flush=True)
         server.serve_forever()

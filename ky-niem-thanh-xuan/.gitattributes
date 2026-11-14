@@ -1,0 +1,2 @@
+# Quantized model weights must remain byte-for-byte identical on Windows checkouts.
+assets/face/*-shard* binary

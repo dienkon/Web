@@ -127,6 +127,57 @@ test('zero-byte files are created once and recorded as completed', () => {
   assert.equal(event.size, 0); assert.equal(event.status, 'success');
 });
 
+test('shared member profiles validate fields, root boundaries and concurrent revisions', () => {
+  const g = gas();
+  assert.equal(g.get({ action: 'profile', id: 'child' }).profile.revision, 0);
+  const body = { action: 'saveProfile', id: 'child', revision: 0,
+    profile: { nickname: '  Điền  ', birthday: '20/11', role: 'Thành viên 12A1', hobbies: 'Chụp ảnh', quote: '<b>Nhà có nhau</b>', injected: 'ignored' } };
+  const saved = g.post(body);
+  assert.equal(saved.ok, true); assert.equal(saved.profile.nickname, 'Điền');
+  assert.equal(saved.profile.injected, undefined);
+  assert.equal(saved.profile.revision, 1);
+  assert.equal(g.get({ action: 'profile', id: 'child' }).profile.quote, '<b>Nhà có nhau</b>');
+  assert.match(g.post(body).error, /vừa được cập nhật/);
+  assert.equal(g.post({ ...body, revision: 1, profile: { nickname: 'x'.repeat(61) } }).ok, false);
+  assert.equal(g.post({ ...body, revision: 1, profile: { nickname: ['wrong type'] } }).ok, false);
+  for (const id of ['outside', 'trash', 'deep', 'unknown']) {
+    assert.equal(g.get({ action: 'profile', id }).ok, false);
+    assert.equal(g.post({ ...body, id }).ok, false);
+  }
+  assert.equal(g.requests.length, 0, 'profile editing does not mutate Drive files or upload sessions');
+});
+
+test('face thumbnail fallback rejects files outside the root, trash and untrusted image hosts', () => {
+  const g = gas();
+  for (const file of [
+    { parents: ['outside'], thumbnailLink: 'https://lh3.googleusercontent.com/d/image=s220' },
+    { parents: ['child'], trashed: true, thumbnailLink: 'https://lh3.googleusercontent.com/d/image=s220' },
+    { parents: ['child'], thumbnailLink: 'https://example.com/steal-token' },
+    { parents: ['child'], thumbnailLink: 'https://googleusercontent.com.evil.com/image' },
+  ]) {
+    g.requests.length = 0; g.context.fetchResponse = () => g.res(200, file);
+    assert.equal(g.get({ action: 'faceThumbnail', id: 'photo' }).ok, false);
+    assert.equal(g.requests.length, 1, 'never fetch bytes before validating file ancestry and image host');
+  }
+  assert.equal(g.get({ action: 'faceThumbnail', id: "bad'id" }).ok, false);
+});
+
+test('face thumbnail fallback returns only bounded image bytes from permitted files', () => {
+  const g = gas();
+  g.context.Utilities.base64Encode = data => Buffer.from(data).toString('base64');
+  g.context.fetchResponse = url => url.startsWith('https://lh3.')
+    ? { getResponseCode: () => 200, getBlob: () => ({ getBytes: () => [1, 2, 3], getContentType: () => 'image/jpeg' }) }
+    : g.res(200, { parents: ['child'], thumbnailLink: 'https://lh3.googleusercontent.com/d/photo=s220' });
+  const result = g.get({ action: 'faceThumbnail', id: 'photo' });
+  assert.equal(result.ok, true); assert.equal(result.image, 'data:image/jpeg;base64,AQID');
+  assert.match(g.requests[1].url, /=s960$/);
+  assert.doesNotMatch(JSON.stringify(result), /server-only-token|thumbnailLink/);
+  g.context.fetchResponse = url => url.startsWith('https://lh3.')
+    ? { getResponseCode: () => 200, getBlob: () => ({ getBytes: () => Buffer.alloc(3 * 1024 * 1024 + 1), getContentType: () => 'image/jpeg' }) }
+    : g.res(200, { parents: ['child'], thumbnailLink: 'https://lh3.googleusercontent.com/d/photo=s220' });
+  assert.match(g.get({ action: 'faceThumbnail', id: 'photo' }).error, /quá lớn/);
+});
+
 test('history pagination never drops older events or exposes private session data', () => {
   const g = gas();
   g.context.setup();
