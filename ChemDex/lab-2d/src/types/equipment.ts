@@ -32,6 +32,7 @@ export type EquipmentType =
   | 'test_tube_rack'
   | 'separatory_funnel'
   | 'ph_paper'
+  | 'condenser'
   | 'sponge';
 
 export interface EvaporativeStainState {
@@ -94,7 +95,11 @@ export interface EquipmentState {
   turbidity?: number; // 0..1 suspension opacity
   foamHead_mm?: number; // height of froth layer on meniscus
   hasSilverMirror?: boolean; // silver mirror coat on glass walls
+  silverMirrorProgress?: number; // 0..1 progressive metallic silver wall buildup
   hasTripod?: boolean; // physical tripod wire gauze support underneath
+  hasOpenFlame?: boolean; // open Bunsen flame licking vessel sides (false when misaligned or hot-plate)
+  activeReactionLabel?: string; // active reaction stage label for telemetry pill
+  activeReactionProgress?: number; // 0..1 reaction completion ratio
 
   // Real-time heating telemetry from spatial burner/plate coupling
   isBeingHeated?: boolean;
@@ -168,6 +173,23 @@ export interface EquipmentState {
   isSubmerged?: boolean;
   paperColorHex?: string;
   isDrainingSeparatory?: boolean;
+
+  // Mass conservation, initial solid tracking & parity controls (lab-3d parity)
+  initialSolidMassByFormula?: Record<string, number>;
+  escapedGas_g?: Record<string, number>;
+  totalEscapedGas_g?: number;
+  condenserCooling?: {
+    coolingEnabled: boolean;
+    flowRate_ml_s: number;
+    coolantInletTemp_c: number;
+    conductance_W_K: number;
+  };
+  coolantOutletTemperature_c?: number;
+  condenserCoolingPower_W?: number;
+  coolantPassed_ml?: number;
+  coolantHeatReceived_J?: number;
+  washDose_ml?: number;
+  washTargetId?: string | null;
 }
 
 /** A spill puddle on the workbench surface with full chemical inventory. */
@@ -198,6 +220,36 @@ export interface ActivePour {
   remaining_ml?: number;
   startedAt: number;
   tilt_deg: number;
+}
+
+/** An animated external reagent delivery (bottle, dropper, or spatula) into a bench vessel. */
+export interface ActiveExternalPour2D {
+  id: string;
+  targetId: string;
+  chemicalId: string;
+  formula: string;
+  name_en: string;
+  name_vi: string;
+  colorHex: string;
+  deliveryMode: 'bottle' | 'dropper' | 'spatula';
+  totalAmount_ml: number;
+  totalAmount_g: number;
+  deliveredFraction: number;
+  approachProgress: number;
+  totalTime_s: number;
+  contactXNorm: number; // -0.85 .. 0.85 landing position on vessel mouth
+  startedAt: number;
+  hazardChecked?: boolean;
+  firstBurstTriggered?: boolean;
+}
+
+export interface SpatulaScoopState {
+  chemicalId: string;
+  formula: string;
+  name_vi: string;
+  name_en: string;
+  colorHex: string;
+  mass_g: number;
 }
 
 export interface PourOperation {

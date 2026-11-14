@@ -26,22 +26,22 @@ export const BottomTray: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
 
   return (
-    <div className="relative z-20 shrink-0 w-full flex justify-center px-2 sm:px-3 py-1.5 bg-slate-100/85 border-t border-slate-200/80 select-none">
+    <div className="relative z-20 shrink-0 w-full flex justify-center px-1.5 sm:px-3 py-1 bg-slate-100/85 border-t border-slate-200/80 select-none">
       {collapsed ? (
         <button
           type="button"
           onClick={() => setCollapsed(false)}
-          className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/95 border border-slate-200/90 shadow-xs text-xs font-bold text-slate-700 hover:bg-blue-50 cursor-pointer"
+          className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/95 border border-slate-200/90 shadow-xs text-[11px] sm:text-xs font-bold text-slate-700 hover:bg-blue-50 cursor-pointer"
         >
-          <ChevronUp size={14} />
-          <span>{language === 'vi' ? 'Dụng cụ nhanh' : 'Quick Tray'}</span>
+          <ChevronUp size={13} />
+          <span>{language === 'vi' ? 'Dụng cụ' : 'Tray'}</span>
         </button>
       ) : (
-        <div className="bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl shadow-sm px-2 py-1 flex items-center gap-1.5 max-w-full overflow-x-auto no-scrollbar">
+        <div className="bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl shadow-sm px-1.5 sm:px-2 py-0.5 sm:py-1 flex items-center gap-0.5 sm:gap-1.5 max-w-full overflow-x-auto no-scrollbar">
           <button
             type="button"
             onClick={() => setCollapsed(true)}
-            className="p-2 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-100 shrink-0 cursor-pointer"
+            className="p-1.5 sm:p-2 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-100 shrink-0 cursor-pointer"
             title={language === 'vi' ? 'Thu gọn thanh dụng cụ' : 'Minimize tray'}
             aria-label="Minimize quick tray"
           >
@@ -56,11 +56,11 @@ export const BottomTray: React.FC = () => {
                 addEquipment(item.type);
                 soundEngine.glassClink();
               }}
-              className="flex flex-col items-center justify-center py-1.5 px-2.5 rounded-xl hover:bg-blue-50 hover:text-blue-600 text-slate-700 transition-transform active:scale-95 shrink-0 group cursor-pointer"
+              className="flex flex-col items-center justify-center py-1 px-2 sm:px-2.5 rounded-xl hover:bg-blue-50 hover:text-blue-600 text-slate-700 transition-transform active:scale-95 shrink-0 group cursor-pointer"
               title={language === 'vi' ? `Thêm ${item.label_vi}` : `Add ${item.label_en}`}
             >
-              <span className="text-lg sm:text-xl leading-none">{item.icon}</span>
-              <span className="text-[11px] font-semibold mt-1 text-slate-600 group-hover:text-blue-600 whitespace-nowrap">
+              <span className="text-base sm:text-xl leading-none">{item.icon}</span>
+              <span className="text-[10.5px] sm:text-[11px] font-semibold mt-0.5 text-slate-600 group-hover:text-blue-600 whitespace-nowrap">
                 {language === 'vi' ? item.label_vi : item.label_en}
               </span>
             </button>

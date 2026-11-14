@@ -25,6 +25,7 @@ import {
   LabEnvironment,
   computeVaporPlumeVisibility,
 } from '../chemistry/physical/environmentPhysics';
+import { computeParticleBuoyancy, getPrecipitateProfile2D } from '../chemistry/physical/precipitateProfiles';
 
 export interface BubbleParticle2D {
   x: number; // Normalized 0..1 across vessel inner width
@@ -39,13 +40,15 @@ export interface PrecipitateParticle2D {
   x: number; // 0..1 across inner width
   y: number; // 0..1 within liquid column (0 = meniscus, 1 = bottom)
   vx: number;
-  vy: number; // Downward Stokes velocity
+  vy: number; // Signed Stokes velocity (+ downward, - upward float)
   size_px: number;
   rotation_rad: number;
   spin_rad_s: number;
   shimmerPhase: number;
   colorHex: string;
   morphology: PrecipitateMorphology;
+  buoyancy: 'sink' | 'suspend' | 'float';
+  formula?: string;
   settled: boolean;
 }
 
@@ -62,7 +65,7 @@ export interface SparkParticle2D {
 
 export interface FumePuff2D {
   x: number; // 0..1
-  yOffsetPx: number; // negative px distance above meniscus (-4 .. -95)
+  yOffsetPx: number; // negative px distance above meniscus
   vx: number;
   vy: number; // px/s (negative rises, positive dense cascades slightly downward before dispersing)
   radius_px: number;
@@ -71,6 +74,12 @@ export interface FumePuff2D {
   maxLife: number;
   colorHex: string;
   fumeType: 'steam' | 'no2' | 'nh4cl' | 'iodine';
+  seed: number;
+  rotation_rad: number;
+  spin_rad_s: number;
+  curlFreq: number;
+  scaleX: number;
+  scaleY: number;
 }
 
 export interface AlkaliWakePoint2D {
@@ -146,7 +155,10 @@ export interface VesselRuntimeVisualState2D {
   // Dynamic kinetic overrides (for induction clocks, colloidal sulfur, copper plating, sublimation)
   activeTimers: Map<string, ActiveControllerTimer2D>;
   dynamicTurbidity: number; // 0..1
-  sedimentBedRatio: number; // 0..0.35 of liquid height
+  sedimentBedRatio: number; // 0..0.35 of liquid height at bottom
+  floatingBedRatio: number; // 0..0.22 of liquid height at top meniscus
+  sedimentColorHex?: string;
+  floatingColorHex?: string;
   copperPlatingProgress: number; // 0..1
   iodineFrostProgress: number; // 0..1 on upper glass wall
   mgFlashIntensity: number; // 0..1 blinding white bloom
@@ -186,6 +198,7 @@ class ReactionRuntimeEngine2D {
         activeTimers: new Map(),
         dynamicTurbidity: eq.turbidity ?? 0,
         sedimentBedRatio: eq.hasPrecipitate ? 0.04 : 0,
+        floatingBedRatio: 0,
         copperPlatingProgress: 0,
         iodineFrostProgress: eq.sublimationFrostProgress ?? 0,
         mgFlashIntensity: 0,
@@ -201,6 +214,10 @@ class ReactionRuntimeEngine2D {
 
   public resetAll(): void {
     this.states.clear();
+  }
+
+  public clearVessel(vesselId: string): void {
+    this.states.delete(vesselId);
   }
 
   /**
@@ -301,9 +318,25 @@ class ReactionRuntimeEngine2D {
           size_px: 3.0,
         });
       }
-    } else if (controllerId === 'fe_cuso4_plating' || controllerId === 'zn_cuso4_plating') {
+    } else if (
+      controllerId === 'fe_cuso4_plating' ||
+      controllerId === 'zn_cuso4_plating' ||
+      controllerId === 'dendritic_metal_tree' ||
+      controllerId === 'cu_agno3_tree'
+    ) {
       duration_s = 6.0;
       st.copperPlatingProgress = Math.max(0.15, st.copperPlatingProgress);
+    } else if (
+      controllerId === 'benedict_brick_red_cu2o' ||
+      controllerId === 'feoh2_air_oxidation' ||
+      controllerId === 'fe_oh_air_oxidation'
+    ) {
+      duration_s = 5.0;
+    } else if (
+      controllerId === 'bromine_decolorization' ||
+      controllerId === 'blue_copper_polyol_complex'
+    ) {
+      duration_s = 2.8;
     }
 
     st.activeTimers.set(controllerId, {
@@ -334,7 +367,12 @@ class ReactionRuntimeEngine2D {
       controllerId === 'baso4_milky' ||
       controllerId === 'cuoh2_gel' ||
       controllerId === 'feoh3_floc' ||
-      controllerId === 'aloh3_amphoteric'
+      controllerId === 'aloh3_amphoteric' ||
+      controllerId === 'benedict_brick_red_cu2o' ||
+      controllerId === 'feoh2_air_oxidation' ||
+      controllerId === 'fe_oh_air_oxidation' ||
+      controllerId === 'dendritic_metal_tree' ||
+      controllerId === 'cu_agno3_tree'
     ) {
       this.spawnPrecipitateBurst(eq, st, controllerId);
     }
@@ -365,43 +403,92 @@ class ReactionRuntimeEngine2D {
     st: VesselRuntimeVisualState2D,
     controllerId: string
   ): void {
-    const isGoldenRain = controllerId === 'pbi2_golden_rain' || eq.precipitateMorphology === 'plates';
-    const count = isGoldenRain ? 55 : 42;
-    const morph: PrecipitateMorphology = isGoldenRain
+    const layers = eq.precipitateLayers && eq.precipitateLayers.length > 0 ? eq.precipitateLayers : null;
+    const isGoldenRain =
+      controllerId === 'pbi2_golden_rain' ||
+      eq.precipitateSubstance === 'PbI2' ||
+      eq.precipitateColorHex === '#facc15' ||
+      eq.precipitateColorHex === '#eab308';
+    const isSilverTollens =
+      controllerId === 'silver_mirror_tollens' ||
+      eq.precipitateSubstance === 'Ag';
+    const isBrickRedCu2O =
+      controllerId === 'benedict_brick_red_cu2o' ||
+      eq.precipitateSubstance === 'Cu2O';
+    const isDendriticTree =
+      controllerId === 'dendritic_metal_tree' ||
+      controllerId === 'cu_agno3_tree';
+    const isFeOxidation =
+      controllerId === 'feoh2_air_oxidation' ||
+      controllerId === 'fe_oh_air_oxidation';
+    const count = isGoldenRain ? 55 : isSilverTollens ? 24 : isBrickRedCu2O ? 46 : 42;
+    const fallbackMorph: PrecipitateMorphology = isGoldenRain
       ? 'plates'
-      : controllerId === 'agcl_curdy'
-        ? 'curdy'
-        : controllerId === 'feoh3_floc'
-          ? 'floc'
-          : controllerId === 'cuoh2_gel' || controllerId === 'aloh3_amphoteric'
-            ? 'gel'
-            : (eq.precipitateMorphology ?? 'milky');
+      : isSilverTollens || isBrickRedCu2O || isDendriticTree
+        ? 'crystalline'
+        : controllerId === 'agcl_curdy'
+          ? 'curdy'
+          : controllerId === 'feoh3_floc' || isFeOxidation
+            ? 'floc'
+            : controllerId === 'cuoh2_gel' || controllerId === 'aloh3_amphoteric'
+              ? 'gel'
+              : (eq.precipitateMorphology ?? 'milky');
 
-    const colorHex = isGoldenRain
+    const fallbackColorHex = isGoldenRain
       ? '#facc15'
-      : controllerId === 'feoh3_floc'
-        ? '#9a3412'
-        : controllerId === 'cuoh2_gel'
-          ? '#38bdf8'
-          : (eq.precipitateColorHex ?? '#ffffff');
+      : isSilverTollens
+        ? '#e2e8f0'
+        : isBrickRedCu2O
+          ? '#c2410c'
+          : isDendriticTree
+            ? '#cbd5e1'
+            : controllerId === 'feoh3_floc' || isFeOxidation
+              ? '#9a3412'
+              : controllerId === 'cuoh2_gel'
+                ? '#38bdf8'
+                : (eq.precipitateColorHex ?? '#ffffff');
+
+    const liquidDensity = eq.density_g_ml ?? 1.0;
 
     for (let i = 0; i < count; i++) {
       if (st.precipitates.length >= 140) break;
+      const layer = layers ? layers[i % layers.length] : null;
+      const formula = layer?.formula ?? eq.precipitateSubstance ?? '';
+      const profile = getPrecipitateProfile2D(formula);
+      const computedBuoy = computeParticleBuoyancy(formula, liquidDensity, Boolean(eq.hasGas));
+      const buoyancy = layer?.buoyancy ?? computedBuoy.buoyancy;
+      const morph = layer?.morphology ?? fallbackMorph;
+      const colorHex = layer?.colorHex ?? profile?.colorHex ?? fallbackColorHex;
+      const speedMag =
+        buoyancy === 'float'
+          ? 0.08 + Math.random() * 0.08
+          : buoyancy === 'suspend'
+            ? 0.008 + Math.random() * 0.015
+            : isGoldenRain
+              ? 0.06 + Math.random() * 0.06
+              : layer?.settlingVelocity_mm_s
+                ? Math.max(0.03, Math.min(0.28, layer.settlingVelocity_mm_s * 0.007))
+                : morph === 'curdy'
+                  ? 0.16 + Math.random() * 0.1
+                  : 0.04 + Math.random() * 0.06;
+
       st.precipitates.push({
         x: 0.15 + Math.random() * 0.7,
-        y: 0.05 + Math.random() * 0.55,
+        y: buoyancy === 'float' ? 0.22 + Math.random() * 0.58 : 0.05 + Math.random() * 0.55,
         vx: (Math.random() - 0.5) * 0.08,
-        vy: isGoldenRain
-          ? 0.06 + Math.random() * 0.06
-          : morph === 'curdy'
-            ? 0.16 + Math.random() * 0.1
-            : 0.04 + Math.random() * 0.06,
-        size_px: isGoldenRain ? 4.8 + Math.random() * 2.8 : morph === 'curdy' ? 5.0 + Math.random() * 2.6 : 3.5 + Math.random() * 2.2,
+        vy: buoyancy === 'float' ? -speedMag : speedMag,
+        size_px: isGoldenRain
+          ? 4.8 + Math.random() * 2.8
+          : morph === 'curdy' || morph === 'floc'
+            ? 4.8 + Math.random() * 2.6
+            : 3.5 + Math.random() * 2.2,
         rotation_rad: Math.random() * Math.PI * 2,
         spin_rad_s: isGoldenRain ? (Math.random() - 0.5) * 3.5 : (Math.random() - 0.5) * 0.8,
         shimmerPhase: Math.random() * Math.PI * 2,
         colorHex,
         morphology: morph,
+        buoyancy,
+        formula,
         settled: false,
       });
     }
@@ -429,6 +516,9 @@ class ReactionRuntimeEngine2D {
         st.plumes.length = 0;
         st.alkaliPellet = null;
         st.sedimentBedRatio = 0;
+        st.floatingBedRatio = 0;
+        st.sedimentColorHex = undefined;
+        st.floatingColorHex = undefined;
         st.dynamicTurbidity = 0;
         st.colorField.reset('#f8fafc', 0.18);
         continue;
@@ -510,7 +600,12 @@ class ReactionRuntimeEngine2D {
         if (cid === 'neutralization_thermal_schlieren') {
           st.schlierenIntensity = Math.max(st.schlierenIntensity, (1 - timer.progress) * 0.75);
         }
-        if (cid === 'fe_cuso4_plating' || cid === 'zn_cuso4_plating') {
+        if (
+          cid === 'fe_cuso4_plating' ||
+          cid === 'zn_cuso4_plating' ||
+          cid === 'dendritic_metal_tree' ||
+          cid === 'cu_agno3_tree'
+        ) {
           st.copperPlatingProgress = Math.min(1, 0.15 + timer.progress * 0.85);
         }
         if (cid === 'iodine_sublimation') {
@@ -542,11 +637,19 @@ class ReactionRuntimeEngine2D {
         isHeated: Boolean(eq.isBeingHeated),
       });
 
-      // 3. Step Alkali Metal (Na / K) Skittering on Water Surface
+      // Step Alkali Metal (Na / K) Skittering on Water Surface — strictly bound to remaining alkali chunk & liquid
+      const alkaliChunk = eq.solidChunks?.find(
+        c => (c.formula.toUpperCase() === 'NA' || c.formula.toUpperCase() === 'K') && c.mass_g > 0.0001
+      );
       if (st.alkaliPellet && eq.volume_ml > 1) {
         const p = st.alkaliPellet;
-        p.progress = Math.min(1, p.progress + clampedDt * (p.metal === 'K' ? 0.22 : 0.15));
-        p.radius_px = Math.max(1.2, (p.metal === 'K' ? 6.5 : 5.5) * (1 - p.progress * 0.85));
+        if (alkaliChunk) {
+          const remainingFrac = Math.max(0, Math.min(1, alkaliChunk.mass_g / Math.max(0.01, alkaliChunk.initialMass_g)));
+          p.progress = Math.max(p.progress, 1 - remainingFrac);
+        } else {
+          p.progress = Math.min(1, p.progress + clampedDt * (p.metal === 'K' ? 0.22 : 0.15));
+        }
+        p.radius_px = Math.max(0.6, (p.metal === 'K' ? 6.5 : 5.5) * (1 - p.progress * 0.92));
 
         p.vx += (Math.random() - 0.5) * 4.5 * clampedDt;
         const maxSpeed = p.metal === 'K' ? 1.35 : 0.95;
@@ -651,6 +754,25 @@ class ReactionRuntimeEngine2D {
         b.y -= b.vy * clampedDt;
         if (b.y <= 0.02) {
           st.bubbles.splice(i, 1);
+          // Micro-ejecta fizz mist when bubbles rupture violently at meniscus
+          if (
+            (eq.effervescenceSpeed === 'instant' ||
+              eq.effervescenceSpeed === 'vigorous' ||
+              (eq.isBoiling && (eq.boilingIntensity ?? 0) > 0.4)) &&
+            st.sparks.length < 44 &&
+            Math.random() < 0.24
+          ) {
+            st.sparks.push({
+              x: b.x,
+              y: 0.0,
+              vx: (Math.random() - 0.5) * 0.45,
+              vy: -(0.32 + Math.random() * 0.42),
+              life: 0,
+              maxLife: 0.2 + Math.random() * 0.16,
+              colorHex: eq.liquidColorHex && eq.liquidColorHex !== '#f8fafc' ? eq.liquidColorHex : '#e2e8f0',
+              size_px: 1.3 + Math.random() * 0.7,
+            });
+          }
           if (now - st.lastBubbleSoundAt > 180 && Math.random() < 0.25) {
             st.lastBubbleSoundAt = now;
             soundEngine.playMinnaertBubble(b.radius_px * 0.6);
@@ -658,47 +780,92 @@ class ReactionRuntimeEngine2D {
         }
       }
 
-      // 4B. Dynamic Headspace & Plume Fumes (steam gap, dense NO2 cascade, NH4Cl smoke, I2 vapor + wind drift)
+      // 4B. Dynamic Headspace & Plume Fumes (steam gap, dense NO2 cascade, NH4Cl smoke, I2 vapor + wind/hood draft)
       const steamVis = eq.isBoiling ? 1 : computeVaporPlumeVisibility(eq.temperature_c, env);
       const wantFumes = eq.hasFumes || eq.isBoiling || steamVis > 0.12;
-      if (wantFumes && st.fumes.length < 36) {
+      const hoodActive = (env.airSpeed_m_s ?? 0.1) > 0.35;
+      if (wantFumes && st.fumes.length < 56) {
         const fType: FumePuff2D['fumeType'] = eq.fumeType || (eq.hasSublimation ? 'iodine' : 'steam');
-        const spawnChance = fType === 'steam' ? 14 * Math.max(0.25, steamVis) : 16;
-        const count = Math.floor(spawnChance * clampedDt) + (Math.random() < (spawnChance * clampedDt) % 1 ? 1 : 0);
+        const spawnRate =
+          fType === 'steam'
+            ? (eq.isBoiling ? 22 : 13) * Math.max(0.3, steamVis)
+            : fType === 'no2' || fType === 'nh4cl'
+              ? 24
+              : 18;
+        const expectedFumes = spawnRate * clampedDt;
+        const count = Math.floor(expectedFumes) + (Math.random() < expectedFumes % 1 ? 1 : 0);
         for (let i = 0; i < count; i++) {
-          // Boiling steam exhibits realistic ~14px transparent unsaturated gap immediately above liquid surface
-          const startGap = fType === 'steam' ? -(14 + Math.random() * 8) : -(4 + Math.random() * 6);
-          const isDense = fType === 'no2';
+          const startGap = fType === 'steam' ? -(10 + Math.random() * 7) : -(2 + Math.random() * 5);
+          const isNo2 = fType === 'no2';
+          const upSpeed =
+            fType === 'steam'
+              ? 36 + Math.random() * 26
+              : fType === 'nh4cl'
+                ? 32 + Math.random() * 20
+                : isNo2
+                  ? 26 + Math.random() * 14
+                  : 22 + Math.random() * 16;
           st.fumes.push({
-            x: 0.28 + Math.random() * 0.44,
+            x: 0.26 + Math.random() * 0.48,
             yOffsetPx: startGap,
-            vx: (Math.random() - 0.5) * 0.18 + (env.airSpeed_m_s ?? 0.1) * 0.28,
-            vy: isDense ? -(6 + Math.random() * 10) : -(24 + Math.random() * 18),
-            radius_px: fType === 'nh4cl' ? 10 + Math.random() * 8 : 7.5 + Math.random() * 6,
-            alpha: fType === 'steam' ? 0.52 * Math.max(0.4, steamVis) : 0.78,
+            vx: (Math.random() - 0.5) * 0.16 + (env.airSpeed_m_s ?? 0.1) * 0.24,
+            vy: -(upSpeed + (hoodActive ? 20 : 0)),
+            radius_px:
+              fType === 'nh4cl'
+                ? 8.5 + Math.random() * 6.5
+                : isNo2
+                  ? 8.0 + Math.random() * 6.0
+                  : 6.5 + Math.random() * 5.0,
+            alpha:
+              fType === 'steam'
+                ? (eq.isBoiling ? 0.56 : 0.42) * Math.max(0.42, steamVis)
+                : isNo2
+                  ? 0.84
+                  : 0.78,
             life: 0,
-            maxLife: isDense ? 2.6 + Math.random() * 1.2 : 1.7 + Math.random() * 0.9,
-            colorHex: eq.fumeColorHex || (fType === 'no2' ? '#b45309' : fType === 'iodine' ? '#9333ea' : '#e2e8f0'),
+            maxLife: isNo2 ? 2.6 + Math.random() * 1.1 : 1.7 + Math.random() * 0.9,
+            colorHex:
+              eq.fumeColorHex ||
+              (isNo2 ? '#b45309' : fType === 'iodine' ? '#9333ea' : fType === 'nh4cl' ? '#ffffff' : '#e2e8f0'),
             fumeType: fType,
+            seed: Math.random() * Math.PI * 2,
+            rotation_rad: Math.random() * Math.PI * 2,
+            spin_rad_s: (Math.random() - 0.5) * 1.6,
+            curlFreq: 2.8 + Math.random() * 2.4,
+            scaleX: fType === 'steam' ? 0.85 + Math.random() * 0.45 : 1.0 + Math.random() * 0.45,
+            scaleY: fType === 'steam' ? 1.15 + Math.random() * 0.45 : 0.8 + Math.random() * 0.35,
           });
         }
       }
       for (let i = st.fumes.length - 1; i >= 0; i--) {
         const fm = st.fumes[i];
         fm.life += clampedDt;
-        fm.x = Math.max(-0.15, Math.min(1.15, fm.x + (fm.vx + Math.sin(fm.life * 4) * 0.08) * clampedDt));
+        const curlX =
+          Math.sin(fm.life * fm.curlFreq + fm.seed) * 0.19 +
+          Math.cos(fm.life * fm.curlFreq * 0.55 + fm.seed * 1.3) * 0.09;
+        fm.x = Math.max(-0.35, Math.min(1.35, fm.x + (fm.vx + curlX) * clampedDt));
         if (fm.fumeType === 'no2') {
-          // Dense nitrogen dioxide rises above neck then curls outward
-          fm.vy += 10 * clampedDt;
+          // Dense nitrogen dioxide rises warmly out of mouth then cools & spreads sideways
+          fm.vy = Math.min(hoodActive ? -14 : 9, fm.vy + 14 * clampedDt);
+          if (fm.vy > -4) {
+            fm.vx += (fm.x >= 0.5 ? 0.14 : -0.14) * clampedDt;
+          }
+        } else if (hoodActive) {
+          fm.vy -= 14 * clampedDt;
         }
         fm.yOffsetPx += fm.vy * clampedDt;
-        fm.radius_px += clampedDt * 6.5;
+        fm.rotation_rad += fm.spin_rad_s * clampedDt;
+        fm.radius_px += clampedDt * (fm.fumeType === 'steam' ? 9.5 : 8.5);
         if (fm.life >= fm.maxLife) st.fumes.splice(i, 1);
       }
 
-      // 5. Precipitate Stokes Sedimentation & Stirring Resuspension (viscosity coupled)
-      if (eq.hasPrecipitate && st.precipitates.length < 25) {
-        this.spawnPrecipitateBurst(eq, st, eq.precipitateMorphology === 'plates' ? 'pbi2_golden_rain' : 'baso4_milky');
+      // 5. Precipitate Stokes Sedimentation, Floating Raft/Scum & Stirring Resuspension (viscosity & Δρ coupled)
+      if (eq.hasPrecipitate && st.precipitates.length < 25 && eq.precipitateSubstance !== 'Ag') {
+        const controller =
+          eq.precipitateSubstance === 'PbI2' || eq.precipitateColorHex === '#facc15' || eq.precipitateColorHex === '#eab308'
+            ? 'pbi2_golden_rain'
+            : 'baso4_milky';
+        this.spawnPrecipitateBurst(eq, st, controller);
       } else if (!eq.hasPrecipitate && st.precipitates.length > 0) {
         for (let i = st.precipitates.length - 1; i >= 0; i--) {
           const p = st.precipitates[i];
@@ -706,33 +873,85 @@ class ReactionRuntimeEngine2D {
           if (p.size_px <= 0.4) st.precipitates.splice(i, 1);
         }
         st.sedimentBedRatio = Math.max(0, st.sedimentBedRatio - clampedDt * 0.08);
+        st.floatingBedRatio = Math.max(0, st.floatingBedRatio - clampedDt * 0.08);
       }
 
-      let settledCount = 0;
+      const liquidDensity = eq.density_g_ml ?? 1.0;
+      const layerMap = new Map(
+        (eq.precipitateLayers ?? []).map(l => [l.formula.toUpperCase(), l] as const)
+      );
+      let settledBottomCount = 0;
+      let floatedTopCount = 0;
+      let lastBottomColor = st.sedimentColorHex;
+      let lastFloatColor = st.floatingColorHex;
+
       for (const p of st.precipitates) {
         p.shimmerPhase += clampedDt * 5.0;
+        // Re-evaluate live buoyancy in case gas bubbles stopped or liquid density changed
+        const fKey = (p.formula || eq.precipitateSubstance || '').toUpperCase();
+        const layerMatch = fKey ? layerMap.get(fKey) : undefined;
+        const liveBuoy = layerMatch?.buoyancy ?? computeParticleBuoyancy(fKey, liquidDensity, Boolean(eq.hasGas)).buoyancy;
+        if (liveBuoy !== p.buoyancy) {
+          p.buoyancy = liveBuoy;
+          p.settled = false;
+          const speedMag = Math.max(0.035, Math.abs(p.vy));
+          p.vy = liveBuoy === 'float' ? -speedMag : liveBuoy === 'suspend' ? 0.012 : speedMag;
+        }
+
         if (stirStrength > 0.15) {
           p.settled = false;
-          p.y = Math.max(0.08, p.y - (0.15 + Math.random() * 0.25) * stirStrength * clampedDt);
+          const stirTargetDir = p.buoyancy === 'float' ? 1 : -1;
+          p.y = Math.max(0.08, Math.min(0.92, p.y + stirTargetDir * (0.14 + Math.random() * 0.22) * stirStrength * clampedDt));
           p.x = 0.5 + (p.x - 0.5) * Math.cos(clampedDt * 3 * stirStrength) + Math.sin(p.shimmerPhase) * 0.05 * clampedDt;
         } else if (!p.settled) {
           p.rotation_rad += p.spin_rad_s * clampedDt;
           p.x = Math.max(0.12, Math.min(0.88, p.x + p.vx * clampedDt + Math.sin(p.shimmerPhase) * 0.01 * clampedDt));
-          p.y += p.vy * viscMobility * clampedDt;
-          const bedTopY = 1.0 - Math.max(0.03, st.sedimentBedRatio);
-          if (p.y >= bedTopY) {
-            p.y = bedTopY + (Math.random() - 0.5) * 0.02;
-            p.settled = true;
+          if (p.buoyancy === 'float') {
+            p.y -= Math.abs(p.vy) * viscMobility * clampedDt;
+            const floatFloorY = 0.035 + st.floatingBedRatio * 0.65;
+            if (p.y <= floatFloorY) {
+              p.y = Math.max(0.02, floatFloorY + (Math.random() - 0.5) * 0.018);
+              p.settled = true;
+            }
+          } else if (p.buoyancy === 'suspend') {
+            p.y += Math.sin(p.shimmerPhase * 0.5) * 0.015 * clampedDt;
+            p.y = Math.max(0.12, Math.min(0.88, p.y));
+          } else {
+            p.y += Math.abs(p.vy) * viscMobility * clampedDt;
+            const bedTopY = 1.0 - Math.max(0.03, st.sedimentBedRatio);
+            if (p.y >= bedTopY) {
+              p.y = bedTopY + (Math.random() - 0.5) * 0.02;
+              p.settled = true;
+            }
           }
         }
-        if (p.settled) settledCount++;
+        if (p.settled) {
+          if (p.buoyancy === 'float') {
+            floatedTopCount++;
+            lastFloatColor = p.colorHex;
+          } else {
+            settledBottomCount++;
+            lastBottomColor = p.colorHex;
+          }
+        }
       }
 
       if (eq.hasPrecipitate) {
-        const targetBed = stirStrength > 0.25
-          ? 0.02
-          : Math.min(0.22, 0.03 + (settledCount / Math.max(1, st.precipitates.length)) * 0.12);
-        st.sedimentBedRatio += (targetBed - st.sedimentBedRatio) * Math.min(1, clampedDt * 2.5);
+        const bottomTotal = Math.max(1, st.precipitates.filter(p => p.buoyancy === 'sink').length);
+        const targetBottomBed =
+          stirStrength > 0.25 || settledBottomCount === 0
+            ? (settledBottomCount > 0 ? 0.02 : 0)
+            : Math.min(0.22, 0.03 + (settledBottomCount / bottomTotal) * 0.12);
+        st.sedimentBedRatio += (targetBottomBed - st.sedimentBedRatio) * Math.min(1, clampedDt * 2.5);
+
+        const floatTotal = Math.max(1, st.precipitates.filter(p => p.buoyancy === 'float').length);
+        const targetFloatBed =
+          stirStrength > 0.25 || floatedTopCount === 0
+            ? (floatedTopCount > 0 ? 0.015 : 0)
+            : Math.min(0.16, 0.025 + (floatedTopCount / floatTotal) * 0.09);
+        st.floatingBedRatio += (targetFloatBed - st.floatingBedRatio) * Math.min(1, clampedDt * 2.5);
+        st.sedimentColorHex = lastBottomColor || eq.precipitateColorHex;
+        st.floatingColorHex = lastFloatColor || eq.precipitateColorHex;
       }
 
       // 6. Step Color Diffusion Plumes

@@ -51,6 +51,7 @@ const EQUIPMENT_LIST: EquipmentPaletteItem[] = [
 
   { type: 'bunsen_burner', group: 'heating', name_en: 'Bunsen Burner', name_vi: 'Đèn Bunsen', desc_vi: 'Ngọn lửa khí đốt gia nhiệt trực tiếp.', desc_en: 'Adjustable open flame heat.', icon: '🔥' },
   { type: 'hot_plate', group: 'heating', name_en: 'Hot Plate & Stirrer', name_vi: 'Bếp điện & Khuấy từ', desc_vi: 'Gia nhiệt & khuấy từ đồng nhất.', desc_en: 'Controlled heating & magnetic stir.', icon: '♨️' },
+  { type: 'condenser', group: 'heating', name_en: 'Reflux Condenser (Liebig)', name_vi: 'Ống sinh hàn hồi lưu', desc_vi: 'Ngưng tụ hơi nóng hồi lưu khi đun sôi.', desc_en: 'Water-cooled reflux condensation.', icon: '❄️' },
   { type: 'stirring_rod', group: 'heating', name_en: 'Glass Stirring Rod', name_vi: 'Đũa thủy tinh', desc_vi: 'Khuấy đều & dẫn dòng rót.', desc_en: 'Manual mixing & decanting.', icon: '🥢' },
 
   { type: 'separatory_funnel', group: 'separation', name_en: 'Separatory Funnel (250 mL)', name_vi: 'Phễu chiết quả lê', desc_vi: 'Chiết tách hai pha không đồng tan.', desc_en: 'Immiscible phase separation.', icon: '🍷' },
@@ -75,6 +76,7 @@ export const SidebarInventory: React.FC = () => {
     activeExperiment,
     completedExperiments,
     setMobilePanel,
+    toggleReactionLibrary,
     language,
   } = useLabStore(
     useShallow((s) => ({
@@ -86,6 +88,7 @@ export const SidebarInventory: React.FC = () => {
       activeExperiment: s.activeExperiment,
       completedExperiments: s.completedExperiments,
       setMobilePanel: s.setMobilePanel,
+      toggleReactionLibrary: s.toggleReactionLibrary,
       language: s.language,
     }))
   );
@@ -298,22 +301,47 @@ export const SidebarInventory: React.FC = () => {
                   </button>
                 </div>
 
-                <button
-                  type="button"
-                  onClick={() => {
-                    if (suppressNextClickRef.current) return;
-                    window.dispatchEvent(new CustomEvent('chemdex:dose', { detail: chem.id }));
-                    setMobilePanel(null);
-                  }}
-                  className="mt-2 w-full flex items-center justify-center gap-1 py-1 px-2.5 rounded-lg bg-slate-50 hover:bg-blue-600 hover:text-white text-slate-700 text-[11px] font-semibold transition-colors"
-                >
-                  <Plus className="w-3 h-3" />
-                  <span>
-                    {selectedEquipmentId
-                      ? vi ? 'Thêm vào bình đã chọn' : 'Add to selected'
-                      : vi ? 'Tạo cốc với chất này' : 'Spawn beaker + chemical'}
-                  </span>
-                </button>
+                <div className="mt-2 flex items-center gap-1.5">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (suppressNextClickRef.current) return;
+                      window.dispatchEvent(new CustomEvent('chemdex:dose', { detail: chem.id }));
+                      setMobilePanel(null);
+                    }}
+                    className="flex-1 flex items-center justify-center gap-1 py-1 px-2.5 rounded-lg bg-slate-50 hover:bg-blue-600 hover:text-white text-slate-700 text-[11px] font-semibold transition-colors"
+                  >
+                    <Plus className="w-3 h-3" />
+                    <span>
+                      {selectedEquipmentId
+                        ? vi ? 'Thêm vào bình đã chọn' : 'Add to selected'
+                        : vi ? 'Tạo cốc với chất này' : 'Spawn beaker + chemical'}
+                    </span>
+                  </button>
+                  {chem.phase_STP === 'solid' && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (suppressNextClickRef.current) return;
+                        useLabStore.getState().setSpatulaScoop({
+                          chemicalId: chem.id,
+                          formula: chem.formula,
+                          name_vi: chem.name_vi,
+                          name_en: chem.name_en,
+                          mass_g: 2.0,
+                          colorHex: chem.colorHex || '#cbd5e1',
+                        });
+                        useLabStore.getState().setActiveTool('spatula');
+                        soundEngine.click();
+                        setMobilePanel(null);
+                      }}
+                      title={vi ? 'Xúc 2g chất rắn lên muỗng để rắc vào bình' : 'Scoop 2g solid onto spatula'}
+                      className="py-1 px-2 rounded-lg bg-indigo-50 hover:bg-indigo-600 hover:text-white text-indigo-700 text-[11px] font-semibold shrink-0 transition-colors"
+                    >
+                      🥄 {vi ? 'Xúc' : 'Scoop'}
+                    </button>
+                  )}
+                </div>
               </div>
             ))}
           </div>
@@ -393,6 +421,30 @@ export const SidebarInventory: React.FC = () => {
       {/* Tab 3: Guided Experiments */}
       {activeSidebarTab === 'experiments' && (
         <div className="flex-1 overflow-y-auto p-2.5 space-y-2">
+          <button
+            type="button"
+            onClick={() => {
+              toggleReactionLibrary(true);
+              setMobilePanel(null);
+            }}
+            className="w-full flex items-center justify-between gap-2 px-3 py-2 rounded-xl border border-emerald-200 bg-gradient-to-r from-emerald-50 to-teal-50 hover:from-emerald-100 hover:to-teal-100 text-emerald-900 shadow-xs transition-all cursor-pointer group"
+          >
+            <span className="flex items-center gap-2 min-w-0">
+              <BookOpen className="w-4 h-4 text-emerald-600 shrink-0" />
+              <span className="text-left min-w-0">
+                <span className="block text-[11.5px] font-bold leading-tight truncate">
+                  {vi ? 'Kho 131 Thí nghiệm & 1.300 PƯ' : '131+ Experiments & 1,300 Equations'}
+                </span>
+                <span className="block text-[10px] text-emerald-700/80 truncate">
+                  {vi ? 'Phân tích chuỗi, điều kiện & chạy trên bàn 2D' : 'Reaction chains, conditions & 2D bench runner'}
+                </span>
+              </span>
+            </span>
+            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-emerald-600 text-white shrink-0 group-hover:bg-emerald-700">
+              {vi ? 'Mở' : 'Open'}
+            </span>
+          </button>
+
           <div className="flex items-center justify-between mb-1">
             <span className="text-[11px] font-bold text-slate-700 uppercase tracking-wider">
               {vi ? 'Bài thực hành chuẩn SGK' : 'Guided Curriculum'}

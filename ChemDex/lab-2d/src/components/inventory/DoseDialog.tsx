@@ -63,11 +63,12 @@ export function DoseDialog({
             );
             return;
           }
-          state.addChemicalToEquipment(
+          state.triggerExternalChemicalPour(
             id!,
             chemicalId,
             liquid ? value : 0,
             liquid ? 0 : value,
+            0
           );
           onClose();
         }}

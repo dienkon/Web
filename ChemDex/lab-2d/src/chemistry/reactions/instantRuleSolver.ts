@@ -4,6 +4,7 @@
  */
 
 import {
+  PhysicalState,
   SubstanceQuantity,
   ReactionExecutionRecord,
   PrecipitateMorphology,
@@ -14,6 +15,7 @@ import {
 } from '../../types/chemistry';
 import { normalizeFormula, computeMolarMass } from '../core/formula';
 import { calculateReactionDeltaT } from '../thermodynamics/calorimetry';
+import { computeParticleBuoyancy, getPrecipitateProfile2D } from '../physical/precipitateProfiles';
 
 export interface InstantRuleResolutionOutput {
   reactionsOccurred: ReactionExecutionRecord[];
@@ -26,6 +28,8 @@ export interface InstantRuleResolutionOutput {
     effervescenceSpeed: 'slow' | 'vigorous' | 'instant';
     colorHex?: string;
   };
+  /** Gas mass that escaped from an open vessel during rule execution. */
+  escapedGas_g?: Record<string, number>;
   precipitateOverride?: {
     formula: string;
     colorHex: string;
@@ -110,6 +114,8 @@ const SALT_ION_TABLE: Record<string, DissociatedSalt> = {
   'NASCN': { cation: 'Na', cationCount: 1, cationCharge: 1, anion: 'SCN', anionCount: 1, anionCharge: 1 },
   'NH4SCN': { cation: 'NH4', cationCount: 1, cationCharge: 1, anion: 'SCN', anionCount: 1, anionCharge: 1 },
   'HCL': { cation: 'H', cationCount: 1, cationCharge: 1, anion: 'Cl', anionCount: 1, anionCharge: 1 },
+  'C17H35COONA': { cation: 'Na', cationCount: 1, cationCharge: 1, anion: 'Stearate', anionCount: 1, anionCharge: 1 },
+  'NAC17H35COO': { cation: 'Na', cationCount: 1, cationCharge: 1, anion: 'Stearate', anionCount: 1, anionCharge: 1 },
 };
 
 interface InsolublePrecipitateRule {
@@ -148,6 +154,8 @@ const INSOLUBLE_PRECIPITATE_RULES: InsolublePrecipitateRule[] = [
   { cation: 'Zn', anion: 'OH', formula: 'Zn(OH)2', catStoich: 1, anStoich: 2, colorHex: '#f1f5f9', morphology: 'gel', controllerId: 'aloh3_amphoteric', name_vi: 'Kết tủa keo trắng Kẽm hiđroxit', name_en: 'Gelatinous white Zinc Hydroxide precipitation' },
   { cation: 'Ni', anion: 'OH', formula: 'Ni(OH)2', catStoich: 1, anStoich: 2, colorHex: '#4ade80', morphology: 'gel', controllerId: 'cuoh2_gel', name_vi: 'Kết tủa xanh lục Niken(II) hiđroxit', name_en: 'Apple-green Nickel(II) Hydroxide precipitation' },
   { cation: 'Co', anion: 'OH', formula: 'Co(OH)2', catStoich: 1, anStoich: 2, colorHex: '#f472b6', morphology: 'gel', controllerId: 'cuoh2_gel', name_vi: 'Kết tủa hồng Coban(II) hiđroxit', name_en: 'Pink Cobalt(II) Hydroxide precipitation' },
+  { cation: 'Ca', anion: 'Stearate', formula: 'Ca(C17H35COO)2', catStoich: 1, anStoich: 2, colorHex: '#f8fafc', morphology: 'curdy', controllerId: 'agcl_curdy', name_vi: 'Váng kết tủa xà phòng Canxi stearat nổi trên mặt nước', name_en: 'Floating white Calcium Stearate soap curd precipitation' },
+  { cation: 'Mg', anion: 'Stearate', formula: 'Mg(C17H35COO)2', catStoich: 1, anStoich: 2, colorHex: '#f1f5f9', morphology: 'curdy', controllerId: 'agcl_curdy', name_vi: 'Váng kết tủa xà phòng Magie stearat nổi trên mặt nước', name_en: 'Floating white Magnesium Stearate soap curd precipitation' },
 ];
 
 // Electrochemical reactivity rank (higher = more reactive reducing metal)
@@ -217,6 +225,11 @@ export function resolveInstantRulesAndEquilibria(
   let isBoiling = false;
   let hasGas = false;
   let gasInfo: InstantRuleResolutionOutput['gasInfo'] = undefined;
+  const escapedGas_g: Record<string, number> = {};
+  const recordEscapedGas = (formula: string, moles: number) => {
+    if (!isOpenVessel || moles <= 1e-8) return;
+    escapedGas_g[formula] = (escapedGas_g[formula] ?? 0) + moles * computeMolarMass(formula);
+  };
   let precipitateOverride: InstantRuleResolutionOutput['precipitateOverride'] = undefined;
   let surfacePlating: InstantRuleResolutionOutput['surfacePlating'] = undefined;
   let isExplosion = false;
@@ -285,6 +298,7 @@ export function resolveInstantRulesAndEquilibria(
       h2oItem.mass_g = h2oItem.moles * 18.015;
       addOrUpdateSpecies('KOH', 2 * xi, 'aq');
       if (!isOpenVessel) addOrUpdateSpecies('H2', xi, 'g');
+      else recordEscapedGas('H2', xi);
 
       const thermal = calculateReactionDeltaT(xi, -392.0, Math.max(10, volume_ml), temp_c);
       temp_c = thermal.finalTemp_c;
@@ -451,6 +465,7 @@ export function resolveInstantRulesAndEquilibria(
         acidItem.mass_g = acidItem.moles * computeMolarMass(acidItem.formula);
         addOrUpdateSpecies('H2O', xi, 'l');
         if (!isOpenVessel) addOrUpdateSpecies(gasFormula, xi, 'g');
+        else recordEscapedGas(gasFormula, xi);
 
         const thermal = calculateReactionDeltaT(xi, -18.5, Math.max(10, volume_ml), temp_c);
         temp_c = thermal.finalTemp_c;
@@ -576,6 +591,7 @@ export function resolveInstantRulesAndEquilibria(
 
           if (cationKey === 'H') {
             if (!isOpenVessel) addOrUpdateSpecies('H2', xi, 'g');
+            else recordEscapedGas('H2', xi);
             hasGas = true;
             gasInfo = { formula: 'H2', molesReleased: xi, effervescenceSpeed: 'vigorous' };
             activeControllerIds.add('metal_acid_h2_bubbles');
@@ -641,6 +657,7 @@ export function resolveInstantRulesAndEquilibria(
     isBoiling,
     hasGas,
     gasInfo,
+    escapedGas_g: Object.keys(escapedGas_g).length > 0 ? escapedGas_g : undefined,
     precipitateOverride,
     surfacePlating,
     isExplosion,
@@ -656,40 +673,62 @@ export function resolveInstantRulesAndEquilibria(
 /**
  * Builds physical 2D solid chunk descriptors and precipitate layer states from the vessel contents
  * so that submerged metals (Fe nail, Zn granule, Mg ribbon, CaCO3 chips, Na/K floating pellet)
- * and Stokes-settling precipitates render with authentic laboratory morphology.
+ * and Stokes-settling / buoyant precipitates render with authentic laboratory morphology.
  */
 export function buildPhysicalSolidAndPrecipitateStates(
   contents: SubstanceQuantity[],
   surfacePlating?: InstantRuleResolutionOutput['surfacePlating'],
-  precipitateInfo?: { formula: string; colorHex: string; mass_g: number; morphology: PrecipitateMorphology }
+  precipitateInfo?: { formula: string; colorHex: string; mass_g: number; morphology: PrecipitateMorphology },
+  options?: {
+    fluidDensity_g_ml?: number;
+    hasGas?: boolean;
+    viscosity_mPa_s?: number;
+    initialSolidMassByFormula?: Record<string, number>;
+  }
 ): {
   solidChunks: SolidChunkItem[];
   precipitateLayers: PrecipitateLayerState[];
 } {
   const solidChunks: SolidChunkItem[] = [];
   const precipitateLayers: PrecipitateLayerState[] = [];
+  const fluidDensity = options?.fluidDensity_g_ml ?? 1.0;
+  const hasGas = Boolean(options?.hasGas);
+  const viscosity = options?.viscosity_mPa_s ?? 0.89;
+  const initialMap = options?.initialSolidMassByFormula;
 
   const PRECIPITATE_FORMULAS = new Set(
     INSOLUBLE_PRECIPITATE_RULES.map(r => r.formula.toUpperCase()).concat([
-      'AGCL', 'AGBR', 'AGI', 'BASO4', 'BACO3', 'PBI2', 'PBSO4', 'PBS',
-      'CU(OH)2', 'FE(OH)3', 'FE(OH)2', 'MG(OH)2', 'AL(OH)3', 'ZN(OH)2',
-      'S', 'MGO', 'CUO', 'FEPO4', 'CA(OH)2',
+      'AGCL', 'AGBR', 'AGI', 'BASO4', 'BACO3', 'PBI2', 'PBSO4', 'PBS', 'PBCL2',
+      'CU(OH)2', 'FE(OH)3', 'FE(OH)2', 'MG(OH)2', 'AL(OH)3', 'ZN(OH)2', 'MN(OH)2', 'CR(OH)3',
+      'NI(OH)2', 'CO(OH)2', 'S', 'MGO', 'CUO', 'CU2O', 'AG2O', 'AG2SO4', 'SRSO4', 'SRCO3',
+      'FEPO4', 'CA(OH)2', 'CA(C17H35COO)2', 'MG(C17H35COO)2', 'C', 'C6H2BR3OH', 'C6H2BR3NH2',
+      'CUS', 'AGS', 'CDS', 'MNS', 'KFE[FE(CN)6]', 'KFE(FE(CN)6)', 'CU2[FE(CN)6]', 'CU2(FE(CN)6)',
     ])
   );
 
   let chunkIdx = 0;
   for (const item of contents) {
-    if (item.state !== 's' || item.mass_g <= 0.0005) continue;
+    if (item.state !== 's' || item.mass_g <= 0.0001) continue;
     const norm = normalizeFormula(item.formula);
 
-    // Check if this solid is a plated metal product (e.g. Cu from Fe + CuSO4)
-    if (surfacePlating && normalizeFormula(surfacePlating.coatingFormula) === norm) {
-      // Represented as surface plating on the substrate chunk rather than loose bottom mud
+    // Check if this solid is a plated metal product while substrate still exists
+    const hasActiveSubstrate =
+      surfacePlating &&
+      contents.some(
+        c =>
+          c.state === 's' &&
+          c.mass_g > 0.0001 &&
+          normalizeFormula(c.formula) === normalizeFormula(surfacePlating.substrateFormula)
+      );
+    if (surfacePlating && hasActiveSubstrate && normalizeFormula(surfacePlating.coatingFormula) === norm) {
       continue;
     }
 
-    // Distinguish discrete laboratory reagent chunks (metals, marble chips, I2 crystals, MnO2) from precipitated clouds
-    const isDiscreteChunk = ['FE', 'ZN', 'MG', 'CU', 'AL', 'NA', 'K', 'CA', 'CACO3', 'I2', 'MNO2', 'FES', 'NA2SO3'].includes(norm);
+    // Distinguish discrete laboratory reagent chunks (metals, marble chips, I2 crystals, MnO2, CaO, NaHCO3, K, Ca, Fe2O3) from precipitated clouds
+    const isDiscreteChunk = [
+      'FE', 'ZN', 'MG', 'CU', 'AL', 'NA', 'K', 'CA', 'BA',
+      'CACO3', 'I2', 'MNO2', 'FES', 'NA2SO3', 'CAO', 'CUO', 'FE2O3', 'NAHCO3', 'AGNO3',
+    ].includes(norm);
 
     if (isDiscreteChunk) {
       let morphology: SolidMorphology = 'granule';
@@ -699,31 +738,38 @@ export function buildPhysicalSolidAndPrecipitateStates(
       if (norm === 'FE') {
         morphology = 'nail';
         colorHex = '#64748b';
-      } else if (norm === 'ZN' || norm === 'AL') {
+      } else if (norm === 'ZN' || norm === 'AL' || norm === 'CA' || norm === 'BA') {
         morphology = 'granule';
         colorHex = '#cbd5e1';
       } else if (norm === 'MG') {
         morphology = 'ribbon';
         colorHex = '#e2e8f0';
+        // Hydrogen bubbles buoy lightweight Mg ribbons slightly when violently reacting
+        isFloating = hasGas && fluidDensity >= 1.0 && item.mass_g < 0.8;
       } else if (norm === 'CU') {
         morphology = 'wire';
         colorHex = '#b85d3b';
       } else if (norm === 'NA' || norm === 'K') {
         morphology = 'pellet';
-        colorHex = '#f1f5f9';
+        colorHex = norm === 'K' ? '#e2e8f0' : '#f1f5f9';
         isFloating = true;
-      } else if (norm === 'CACO3') {
+      } else if (norm === 'CACO3' || norm === 'CAO') {
         morphology = 'chip';
         colorHex = '#f8fafc';
       } else if (norm === 'I2') {
         morphology = 'crystal';
         colorHex = '#4c1d95';
-      } else if (norm === 'MNO2') {
+      } else if (norm === 'MNO2' || norm === 'CUO' || norm === 'FE2O3') {
         morphology = 'powder';
-        colorHex = '#18181b';
+        colorHex = norm === 'FE2O3' ? '#9a3412' : '#18181b';
+      } else if (norm === 'NAHCO3' || norm === 'AGNO3') {
+        morphology = 'crystal';
+        colorHex = '#f8fafc';
       }
 
       const hasPlating = surfacePlating && normalizeFormula(surfacePlating.substrateFormula) === norm;
+      const recordedInitial = initialMap?.[norm] ?? initialMap?.[item.formula];
+      const initialMass_g = recordedInitial ? Math.max(recordedInitial, item.mass_g) : Math.max(item.mass_g, 0.05);
 
       solidChunks.push({
         id: `chunk_${norm}_${chunkIdx}`,
@@ -731,7 +777,7 @@ export function buildPhysicalSolidAndPrecipitateStates(
         morphology,
         colorHex,
         mass_g: item.mass_g,
-        initialMass_g: Math.max(item.mass_g, 1.0),
+        initialMass_g,
         xNormalized: 0.32 + (chunkIdx % 3) * 0.18,
         coatingColorHex: hasPlating ? surfacePlating!.coatingColorHex : undefined,
         coatingProgress: hasPlating ? surfacePlating!.progress : undefined,
@@ -740,27 +786,25 @@ export function buildPhysicalSolidAndPrecipitateStates(
       chunkIdx++;
     } else if (PRECIPITATE_FORMULAS.has(norm) || precipitateInfo) {
       const rule = INSOLUBLE_PRECIPITATE_RULES.find(r => r.formula.toUpperCase() === norm);
+      const prof = getPrecipitateProfile2D(item.formula);
       const morph: PrecipitateMorphology =
         rule?.morphology ||
-        (norm === 'PBI2' ? 'plates' : norm === 'S' ? 'colloidal' : precipitateInfo?.morphology || 'powder');
+        (norm === 'PBI2' ? 'plates' : norm === 'S' ? 'colloidal' : precipitateInfo?.morphology || prof.morphology || 'powder');
       const color =
         rule?.colorHex ||
-        (norm === 'PBI2' ? '#eab308' : norm === 'CUO' ? '#18181b' : norm === 'S' ? '#fef08a' : precipitateInfo?.colorHex || '#ffffff');
+        (norm === 'PBI2'
+          ? '#eab308'
+          : norm === 'CUO'
+            ? '#18181b'
+            : norm === 'S'
+              ? '#fef08a'
+              : precipitateInfo?.colorHex || prof.colorHex || '#ffffff');
 
-      // Stokes settling velocity in mm/s by morphology
-      const settlingMap: Record<PrecipitateMorphology, number> = {
-        curdy: 4.2,
-        crystalline: 3.8,
-        plates: 1.6, // Golden rain drifts slowly and shimmers
-        granular: 4.5,
-        powder: 2.5,
-        floc: 1.4,
-        flocculent: 1.4,
-        milky: 0.6,
-        gel: 0.35,
-        gelatinous: 0.35,
-        colloidal: 0.05, // Stays suspended via Brownian motion
-      };
+      const buoy = computeParticleBuoyancy(item.formula, fluidDensity, hasGas, viscosity, color, morph);
+      const settlingVelocity_mm_s =
+        buoy.buoyancy === 'float'
+          ? buoy.signedSettlingSpeed * 18
+          : buoy.signedSettlingSpeed * 20;
 
       precipitateLayers.push({
         formula: item.formula,
@@ -768,29 +812,182 @@ export function buildPhysicalSolidAndPrecipitateStates(
         mass_g: item.mass_g,
         morphology: morph,
         turbidity: morph === 'colloidal' || morph === 'milky' ? 0.9 : morph === 'gel' ? 0.75 : 0.55,
-        sedimentHeight_mm: Math.min(18, Math.max(2, item.mass_g * 3.2)),
-        settlingVelocity_mm_s: settlingMap[morph] ?? 1.5,
+        sedimentHeight_mm: buoy.buoyancy === 'float' ? 0 : Math.min(18, Math.max(2, item.mass_g * 3.2)),
+        floatingHeight_mm: buoy.buoyancy === 'float' ? Math.min(12, Math.max(2.5, item.mass_g * 2.8)) : 0,
+        settlingVelocity_mm_s,
+        density_g_cm3: buoy.density_g_cm3,
+        buoyancy: buoy.buoyancy,
       });
     }
   }
 
-  // Ensure if a surface plating occurred where the substrate was partially or fully consumed,
-  // we still show the copper-coated metal piece at the bottom!
-  if (surfacePlating && !solidChunks.some(c => normalizeFormula(c.formula) === normalizeFormula(surfacePlating.substrateFormula))) {
-    const subNorm = normalizeFormula(surfacePlating.substrateFormula);
-    solidChunks.push({
-      id: `chunk_plated_${subNorm}`,
-      formula: surfacePlating.substrateFormula,
-      morphology: subNorm === 'FE' ? 'nail' : 'granule',
-      colorHex: '#64748b',
-      mass_g: 0.6,
-      initialMass_g: 1.0,
-      xNormalized: 0.5,
-      coatingColorHex: surfacePlating.coatingColorHex,
-      coatingProgress: 1.0,
-      isFloating: false,
-    });
+  return { solidChunks, precipitateLayers };
+}
+
+/**
+ * Fallback rule solver covering general oxide+acid, ammonium salt+base, and thermal decomposition
+ * families when arbitrary reagent combinations are mixed outside fixed catalog pairs.
+ */
+export function resolveExtendedCatalogFamilies(
+  workingContents: SubstanceQuantity[],
+  reactionsOccurred: ReactionExecutionRecord[],
+  volume_ml: number,
+  initialTemp_c: number,
+  isHeated: boolean,
+  isOpenVessel: boolean
+): {
+  temperature_c: number;
+  hasGas: boolean;
+  gasInfo?: { formula: string; molesReleased: number; effervescenceSpeed: 'slow' | 'vigorous' | 'instant'; colorHex?: string };
+  escapedGas_g: Record<string, number>;
+  activeControllerIds: string[];
+} {
+  let temp_c = initialTemp_c;
+  let hasGas = false;
+  let gasInfo: { formula: string; molesReleased: number; effervescenceSpeed: 'slow' | 'vigorous' | 'instant'; colorHex?: string } | undefined;
+  const escapedGas_g: Record<string, number> = {};
+  const activeControllerIds: string[] = [];
+
+  if (reactionsOccurred.length > 0) {
+    return { temperature_c: temp_c, hasGas, gasInfo, escapedGas_g, activeControllerIds };
   }
 
-  return { solidChunks, precipitateLayers };
+  const addOrUpdate = (formula: string, moles: number, state: PhysicalState) => {
+    const key = normalizeFormula(formula);
+    const existing = workingContents.find(c => normalizeFormula(c.formula) === key);
+    const mm = computeMolarMass(formula);
+    if (existing) {
+      existing.moles += moles;
+      existing.mass_g = existing.moles * mm;
+      existing.state = state;
+    } else {
+      workingContents.push({
+        formula,
+        moles,
+        mass_g: moles * mm,
+        state,
+        concentration_M: state === 'aq' && volume_ml > 0 ? moles / (volume_ml / 1000) : undefined,
+      });
+    }
+  };
+
+  // 1. Ammonium salt + strong base -> salt + NH3(g) + H2O(l)
+  const AMMONIUM_SALTS: Record<string, { anion: string; nh4Count: number }> = {
+    NH4CL: { anion: 'Cl', nh4Count: 1 },
+    NH4NO3: { anion: 'NO3', nh4Count: 1 },
+    '(NH4)2SO4': { anion: 'SO4', nh4Count: 2 },
+    '(NH4)2CO3': { anion: 'CO3', nh4Count: 2 },
+  };
+  const STRONG_BASES: Record<string, number> = { NAOH: 1, KOH: 1, 'BA(OH)2': 2, 'CA(OH)2': 2 };
+
+  const nh4Item = workingContents.find(c => AMMONIUM_SALTS[normalizeFormula(c.formula)] && c.moles > 1e-6);
+  const baseItem = workingContents.find(c => STRONG_BASES[normalizeFormula(c.formula)] && c.moles > 1e-6);
+  if (nh4Item && baseItem) {
+    const saltSpec = AMMONIUM_SALTS[normalizeFormula(nh4Item.formula)];
+    const ohCount = STRONG_BASES[normalizeFormula(baseItem.formula)];
+    const availableNH4 = nh4Item.moles * saltSpec.nh4Count;
+    const availableOH = baseItem.moles * ohCount;
+    const xi = Math.min(availableNH4, availableOH);
+    if (xi > 1e-6) {
+      nh4Item.moles = Math.max(0, nh4Item.moles - xi / saltSpec.nh4Count);
+      nh4Item.mass_g = nh4Item.moles * computeMolarMass(nh4Item.formula);
+      baseItem.moles = Math.max(0, baseItem.moles - xi / ohCount);
+      baseItem.mass_g = baseItem.moles * computeMolarMass(baseItem.formula);
+      addOrUpdate('H2O', xi, 'l');
+      const nh3Mass = xi * computeMolarMass('NH3');
+      if (isOpenVessel) {
+        escapedGas_g.NH3 = (escapedGas_g.NH3 ?? 0) + nh3Mass;
+      } else {
+        addOrUpdate('NH3', xi, 'g');
+      }
+      hasGas = true;
+      gasInfo = { formula: 'NH3', molesReleased: xi, effervescenceSpeed: 'slow' };
+      const thermal = calculateReactionDeltaT(xi, -18.0, Math.max(10, volume_ml), temp_c);
+      temp_c = thermal.finalTemp_c;
+      activeControllerIds.push('carbonate_acid_effervescence');
+      reactionsOccurred.push({
+        reactionId: `rx_rule_ammonium_base_${normalizeFormula(nh4Item.formula)}`,
+        name_en: `Ammonium Salt and Base Reaction (${nh4Item.formula} + ${baseItem.formula})`,
+        name_vi: `Muối amoni tác dụng với kiềm giải phóng khí NH₃ mùi khai`,
+        equation: `${nh4Item.formula} + ${baseItem.formula} → Muối + NH₃↑ + H₂O`,
+        extent_moles: xi,
+        heatReleased_J: thermal.heatReleased_J,
+        limitingReactant: availableNH4 < availableOH ? nh4Item.formula : baseItem.formula,
+        excessReactants: { [nh4Item.formula]: nh4Item.moles, [baseItem.formula]: baseItem.moles },
+        observable_en: 'Pungent ammonia gas (NH3) evolves cleanly.',
+        observable_vi: 'Có khí không màu mùi khai (NH₃) bay ra làm xanh giấy quỳ ẩm.',
+        tier: 'rule-derived',
+        archetype: 'gas_evolution',
+        controllerId: 'carbonate_acid_effervescence',
+      });
+      return { temperature_c: temp_c, hasGas, gasInfo, escapedGas_g, activeControllerIds };
+    }
+  }
+
+  // 2. Basic/amphoteric oxide + acid -> salt + H2O
+  const OXIDE_PROTONS: Record<string, { saltPrefix: string; protons: number }> = {
+    CUO: { saltPrefix: 'Cu', protons: 2 },
+    MGO: { saltPrefix: 'Mg', protons: 2 },
+    ZNO: { saltPrefix: 'Zn', protons: 2 },
+    CAO: { saltPrefix: 'Ca', protons: 2 },
+    BAO: { saltPrefix: 'Ba', protons: 2 },
+    FEO: { saltPrefix: 'Fe', protons: 2 },
+    FE2O3: { saltPrefix: 'Fe', protons: 6 },
+    AL2O3: { saltPrefix: 'Al', protons: 6 },
+    NA2O: { saltPrefix: 'Na', protons: 2 },
+    K2O: { saltPrefix: 'K', protons: 2 },
+  };
+  const ACIDS: Record<string, number> = { HCL: 1, HNO3: 1, H2SO4: 2, HBR: 1, CH3COOH: 1 };
+  const oxideItem = workingContents.find(c => OXIDE_PROTONS[normalizeFormula(c.formula)] && c.moles > 1e-6);
+  const acidItem = workingContents.find(c => ACIDS[normalizeFormula(c.formula)] && c.moles > 1e-6);
+  if (oxideItem && acidItem) {
+    const oSpec = OXIDE_PROTONS[normalizeFormula(oxideItem.formula)];
+    const aH = ACIDS[normalizeFormula(acidItem.formula)];
+    const xi = Math.min(oxideItem.moles, (acidItem.moles * aH) / oSpec.protons);
+    if (xi > 1e-6) {
+      oxideItem.moles = Math.max(0, oxideItem.moles - xi);
+      oxideItem.mass_g = oxideItem.moles * computeMolarMass(oxideItem.formula);
+      acidItem.moles = Math.max(0, acidItem.moles - (xi * oSpec.protons) / aH);
+      acidItem.mass_g = acidItem.moles * computeMolarMass(acidItem.formula);
+      addOrUpdate('H2O', xi * (oSpec.protons / 2), 'l');
+      const normAcid = normalizeFormula(acidItem.formula);
+      const anion = normAcid === 'HCL' ? 'Cl' : normAcid === 'HNO3' ? 'NO3' : normAcid === 'H2SO4' ? 'SO4' : normAcid === 'HBR' ? 'Br' : 'CH3COO';
+      const val = oSpec.protons === 6 ? 3 : oSpec.saltPrefix === 'Na' || oSpec.saltPrefix === 'K' ? 1 : 2;
+      const saltFormula =
+        val === 2 && anion === 'SO4'
+          ? `${oSpec.saltPrefix}SO4`
+          : val === 3 && anion === 'SO4'
+            ? `${oSpec.saltPrefix}2(SO4)3`
+            : val === 1 && anion === 'SO4'
+              ? `${oSpec.saltPrefix}2SO4`
+              : anion === 'NO3' || anion === 'CH3COO'
+                ? val > 1
+                  ? `${oSpec.saltPrefix}(${anion})${val}`
+                  : `${oSpec.saltPrefix}${anion}`
+                : val > 1
+                  ? `${oSpec.saltPrefix}${anion}${val}`
+                  : `${oSpec.saltPrefix}${anion}`;
+      const saltCoeff = oSpec.protons === 6 && anion !== 'SO4' ? 2 : oSpec.saltPrefix === 'Na' || oSpec.saltPrefix === 'K' ? (anion === 'SO4' ? 1 : 2) : 1;
+      addOrUpdate(saltFormula, xi * saltCoeff, 'aq');
+      const thermal = calculateReactionDeltaT(xi, -62.0, Math.max(10, volume_ml), temp_c);
+      temp_c = thermal.finalTemp_c;
+      reactionsOccurred.push({
+        reactionId: `rx_rule_oxide_acid_${normalizeFormula(oxideItem.formula)}_${normAcid}`,
+        name_en: `Dissolution of ${oxideItem.formula} in ${acidItem.formula}`,
+        name_vi: `Oxit ${oxideItem.formula} tan trong axit ${acidItem.formula} tạo muối và nước`,
+        equation: `${oxideItem.formula} + ${acidItem.formula} → ${saltFormula} + H₂O`,
+        extent_moles: xi,
+        heatReleased_J: thermal.heatReleased_J,
+        limitingReactant: oxideItem.moles <= 1e-6 ? oxideItem.formula : acidItem.formula,
+        excessReactants: { [oxideItem.formula]: oxideItem.moles, [acidItem.formula]: acidItem.moles },
+        observable_en: `Solid oxide ${oxideItem.formula} dissolves cleanly in acid to form ${saltFormula}(aq).`,
+        observable_vi: `Oxit rắn ${oxideItem.formula} tan dần trong dung dịch axit tạo muối ${saltFormula}.`,
+        tier: 'rule-derived',
+        archetype: 'acid_base_neutralization',
+        controllerId: 'neutralization_thermal_schlieren',
+      });
+    }
+  }
+
+  return { temperature_c: temp_c, hasGas, gasInfo, escapedGas_g, activeControllerIds };
 }

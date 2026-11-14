@@ -14,17 +14,17 @@ export const BeakerSvg: React.FC<BeakerSvgProps> = ({ equipment, isSelected }) =
     capacity_ml = 250,
     liquidColorHex = '#f8fafc',
     liquidOpacity = 0.92,
-    isBoiling,
     hasPhaseSeparation,
     organicLayerVolume_ml = 0,
     organicLayerColorHex = '#f8fafc',
-    hasFumes,
-    fumeType = 'steam',
-    fumeColorHex = '#cbd5e1',
     isBeingHeated,
     hasTripod,
+    hasOpenFlame,
     hasSilverMirror,
+    silverMirrorProgress,
   } = equipment;
+  const showOpenFlame = hasOpenFlame ?? Boolean(isBeingHeated && hasTripod);
+  const mirrorOpacity = Math.max(0, Math.min(1, silverMirrorProgress ?? (hasSilverMirror ? 1 : 0)));
 
   const fillRatio = Math.min(1.0, Math.max(0, volume_ml / capacity_ml));
   const maxLiquidHeight = 112; // Max liquid height inside beaker
@@ -90,10 +90,6 @@ export const BeakerSvg: React.FC<BeakerSvgProps> = ({ equipment, isSelected }) =
           <stop offset="100%" stopColor="#64748b" stopOpacity="0.9" />
         </linearGradient>
 
-        {/* Steam / Fume Glow Filter */}
-        <filter id={`fumeBlur-${id}`} x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur stdDeviation="3" />
-        </filter>
       </defs>
 
       {/* Laboratory Tripod Stand with Wire Gauze (When supported over burner) */}
@@ -109,31 +105,35 @@ export const BeakerSvg: React.FC<BeakerSvgProps> = ({ equipment, isSelected }) =
         </g>
       )}
 
-      {/* Thermal Flame Licking & Heating Glow when positioned over active burner */}
+      {/* Thermal Flame Licking & Heating Glow when positioned over active burner / hot plate */}
       {isBeingHeated && (
-        <g className="animate-pulse">
+        <g className="flame-flicker">
           {/* Bottom Radiant Glass Heat Glow */}
           <ellipse cx="70" cy="144" rx="52" ry="14" fill={`url(#beakerThermalGlow-${id})`} />
-          {/* Left Flame Tongue licking beaker curve */}
-          <path
-            d="M 22 144 C 15 136, 14 122, 19 114 C 22 124, 25 134, 26 144 Z"
-            fill="#f59e0b"
-            fillOpacity="0.85"
-          />
-          <path
-            d="M 22 144 C 17 138, 16 128, 20 120 C 22 127, 24 135, 25 144 Z"
-            fill="#fef08a"
-          />
-          {/* Right Flame Tongue licking beaker curve */}
-          <path
-            d="M 118 144 C 125 136, 126 122, 121 114 C 118 124, 115 134, 114 144 Z"
-            fill="#f59e0b"
-            fillOpacity="0.85"
-          />
-          <path
-            d="M 118 144 C 123 138, 124 128, 120 120 C 118 127, 116 135, 115 144 Z"
-            fill="#fef08a"
-          />
+          {showOpenFlame && (
+            <>
+              {/* Left Flame Tongue licking beaker curve */}
+              <path
+                d="M 22 144 C 15 136, 14 122, 19 114 C 22 124, 25 134, 26 144 Z"
+                fill="#f59e0b"
+                fillOpacity="0.85"
+              />
+              <path
+                d="M 22 144 C 17 138, 16 128, 20 120 C 22 127, 24 135, 25 144 Z"
+                fill="#fef08a"
+              />
+              {/* Right Flame Tongue licking beaker curve */}
+              <path
+                d="M 118 144 C 125 136, 126 122, 121 114 C 118 124, 115 134, 114 144 Z"
+                fill="#f59e0b"
+                fillOpacity="0.85"
+              />
+              <path
+                d="M 118 144 C 123 138, 124 128, 120 120 C 118 127, 116 135, 115 144 Z"
+                fill="#fef08a"
+              />
+            </>
+          )}
         </g>
       )}
 
@@ -226,11 +226,12 @@ export const BeakerSvg: React.FC<BeakerSvgProps> = ({ equipment, isSelected }) =
             )}
 
             {/* Specular Silver Mirror Metallic Coating (Tollens test) */}
-            {hasSilverMirror && (
+            {(hasSilverMirror || mirrorOpacity > 0.04) && (
               <path
                 d="M 22 35 L 22 136 Q 22 144 32 144 L 108 144 Q 118 144 118 136 L 118 35 L 113 35 L 113 133 Q 113 139 105 139 L 35 139 Q 27 139 27 133 L 27 35 Z"
                 fill={`url(#silverMirrorGrad-${id})`}
-                className="drop-shadow-sm"
+                fillOpacity={mirrorOpacity}
+                className="drop-shadow-sm transition-opacity duration-300"
               />
             )}
 
@@ -407,39 +408,6 @@ export const BeakerSvg: React.FC<BeakerSvgProps> = ({ equipment, isSelected }) =
         strokeLinecap="round"
       />
 
-      {/* Curling Steam / Chemical Fumes Rising Above Vessel */}
-      {(hasFumes || isBoiling) && (
-        <g
-          filter={`url(#fumeBlur-${id})`}
-          opacity={fumeType === 'no2' ? 0.72 : 0.45}
-        >
-          {fumeType === 'no2' ? (
-            // Dense billowing reddish-brown NO2 gas clouds
-            <g fill={fumeColorHex}>
-              <ellipse cx="45" cy="5" rx="18" ry="10" />
-              <ellipse cx="70" cy="-2" rx="22" ry="12" />
-              <ellipse cx="95" cy="4" rx="19" ry="10" />
-              <ellipse cx="60" cy="-14" rx="20" ry="11" />
-              <ellipse cx="80" cy="-16" rx="22" ry="12" />
-            </g>
-          ) : fumeType === 'nh4cl' ? (
-            // Dense swirling white smoke
-            <g fill="#ffffff">
-              <ellipse cx="50" cy="8" rx="15" ry="8" />
-              <ellipse cx="72" cy="2" rx="18" ry="10" />
-              <ellipse cx="90" cy="7" rx="16" ry="8" />
-              <ellipse cx="65" cy="-8" rx="18" ry="9" />
-            </g>
-          ) : (
-            // Steam wisps
-            <g stroke={fumeColorHex} strokeWidth="3" fill="none" strokeLinecap="round">
-              <path d="M 45 14 Q 50 2 45 -12 Q 40 -26 50 -38" />
-              <path d="M 70 12 Q 78 -2 70 -16 Q 62 -30 72 -42" strokeWidth="4" />
-              <path d="M 95 14 Q 102 2 95 -12 Q 88 -26 96 -38" />
-            </g>
-          )}
-        </g>
-      )}
     </svg>
   );
 };

@@ -39,6 +39,9 @@ const StructureDialog = lazy(() =>
 const DoseDialog = lazy(() =>
   import('./components/inventory/DoseDialog').then((m) => ({ default: m.DoseDialog }))
 );
+const ReactionLibraryModal = lazy(() =>
+  import('./components/reactions/ReactionLibraryModal').then((m) => ({ default: m.ReactionLibraryModal }))
+);
 
 export const App: React.FC = () => {
   const [structure, setStructure] = useState<{ chemical?: string; formula?: string } | null>(null);
@@ -68,6 +71,8 @@ export const App: React.FC = () => {
     toggleApiKeyModal,
     isPeriodicTableOpen,
     togglePeriodicTable,
+    isReactionLibraryOpen,
+    toggleReactionLibrary,
     isTitrationCurveOpen,
     toggleTitrationCurve,
     isQuizModalOpen,
@@ -88,6 +93,8 @@ export const App: React.FC = () => {
       toggleApiKeyModal: s.toggleApiKeyModal,
       isPeriodicTableOpen: s.isPeriodicTableOpen,
       togglePeriodicTable: s.togglePeriodicTable,
+      isReactionLibraryOpen: s.isReactionLibraryOpen,
+      toggleReactionLibrary: s.toggleReactionLibrary,
       isTitrationCurveOpen: s.isTitrationCurveOpen,
       toggleTitrationCurve: s.toggleTitrationCurve,
       isQuizModalOpen: s.isQuizModalOpen,
@@ -235,6 +242,12 @@ export const App: React.FC = () => {
         )}
         {isPeriodicTableOpen && (
           <PeriodicTableModal isOpen={isPeriodicTableOpen} onClose={() => togglePeriodicTable(false)} />
+        )}
+        {isReactionLibraryOpen && (
+          <ReactionLibraryModal
+            isOpen={isReactionLibraryOpen}
+            onClose={() => toggleReactionLibrary(false)}
+          />
         )}
         {isTitrationCurveOpen && (
           <TitrationCurveModal isOpen={isTitrationCurveOpen} onClose={() => toggleTitrationCurve(false)} />

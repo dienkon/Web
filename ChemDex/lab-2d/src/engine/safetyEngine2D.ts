@@ -102,10 +102,10 @@ export function evaluateWorkbenchSafety(
         id: `violation_closed_heat_${eq.id}`,
         code: 'CLOSED_VESSEL_HEATING',
         severity: 'critical',
-        title_vi: 'CẢNH BÁO: Đun nóng bình đậy kín nút!',
-        title_en: 'DANGER: Heating a sealed vessel!',
-        message_vi: `${eq.name_vi} đang đậy kín nút cao su khi đun nóng (P = ${(eq.internalPressure_atm ?? 1).toFixed(2)} atm). Nguy cơ bung nút hoặc nổ vỡ bình thủy tinh!`,
-        message_en: `${eq.name} is stoppered while being heated (P = ${(eq.internalPressure_atm ?? 1).toFixed(2)} atm). Risk of stopper ejection or glass explosion!`,
+        title_vi: 'Đang đun bình đậy kín nút!',
+        title_en: 'Heating a sealed vessel!',
+        message_vi: `Áp suất tăng cao (${(eq.internalPressure_atm ?? 1).toFixed(2)} atm), dễ nổ bình.`,
+        message_en: `Pressure rising (${(eq.internalPressure_atm ?? 1).toFixed(2)} atm), shatter risk.`,
         timestamp: now,
       });
     }
@@ -116,10 +116,10 @@ export function evaluateWorkbenchSafety(
         id: `violation_fume_hood_${eq.id}`,
         code: 'TOXIC_GAS_NO_HOOD',
         severity: 'warning',
-        title_vi: 'Chưa bật Tủ hút khí độc (Fume Hood)!',
-        title_en: 'Fume Hood is OFF during toxic gas evolution!',
-        message_vi: `Phản ứng trong ${eq.name_vi} đang sinh hơi/khí độc (${eq.fumeType.toUpperCase()}). Hãy bật Tủ hút trên thanh PPE!`,
-        message_en: `Reaction in ${eq.name} is evolving hazardous fumes (${eq.fumeType.toUpperCase()}). Turn on the Fume Hood in the PPE bar!`,
+        title_vi: `Khí ${eq.fumeType.toUpperCase()} độc — nên bật hút gió`,
+        title_en: `${eq.fumeType.toUpperCase()} fumes — enable exhaust`,
+        message_vi: `${eq.name_vi} đang thoát hơi độc.`,
+        message_en: `${eq.name} is releasing hazardous vapor.`,
         timestamp: now,
       });
     }
@@ -134,10 +134,10 @@ export function evaluateWorkbenchSafety(
         id: `violation_ppe_${eq.id}`,
         code: 'MISSING_PPE_CORROSIVE',
         severity: 'warning',
-        title_vi: 'Thiếu trang bị bảo hộ cá nhân (PPE)!',
-        title_en: 'Missing Personal Protective Equipment (PPE)!',
-        message_vi: `Đang thao tác với hóa chất ăn mòn mạnh nhưng chưa đeo: ${missing.map(m => (m === 'goggles' ? 'Kính bảo hộ' : 'Găng tay')).join(', ')}.`,
-        message_en: `Handling corrosive reagents without: ${missing.join(', ')}.`,
+        title_vi: 'Thiếu kính / găng bảo hộ',
+        title_en: 'Missing protective gear',
+        message_vi: `Chất ăn mòn: cần ${missing.map(m => (m === 'goggles' ? 'kính' : 'găng')).join(', ')}.`,
+        message_en: `Corrosive reagent: need ${missing.join(', ')}.`,
         timestamp: now,
       });
     }

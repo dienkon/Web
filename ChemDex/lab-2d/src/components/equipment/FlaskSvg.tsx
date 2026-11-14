@@ -14,17 +14,17 @@ export const FlaskSvg: React.FC<FlaskSvgProps> = ({ equipment, isSelected }) => 
     capacity_ml = 250,
     liquidColorHex = '#f8fafc',
     liquidOpacity = 0.92,
-    isBoiling,
     hasPhaseSeparation,
     organicLayerVolume_ml = 0,
     organicLayerColorHex = '#f8fafc',
-    hasFumes,
-    fumeType = 'steam',
-    fumeColorHex = '#cbd5e1',
     isBeingHeated,
     hasTripod,
+    hasOpenFlame,
     hasSilverMirror,
+    silverMirrorProgress,
   } = equipment;
+  const showOpenFlame = hasOpenFlame ?? Boolean(isBeingHeated && hasTripod);
+  const mirrorOpacity = Math.max(0, Math.min(1, silverMirrorProgress ?? (hasSilverMirror ? 1 : 0)));
 
   const fillRatio = Math.min(1.0, Math.max(0, volume_ml / capacity_ml));
   // In conical flask, height increases as roughly fillRatio^0.7 for realistic liquid level
@@ -96,9 +96,6 @@ export const FlaskSvg: React.FC<FlaskSvgProps> = ({ equipment, isSelected }) => 
           <stop offset="100%" stopColor="#64748b" stopOpacity="0.9" />
         </linearGradient>
 
-        <filter id={`flaskFumeBlur-${id}`} x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur stdDeviation="3.2" />
-        </filter>
       </defs>
 
       {/* Laboratory Tripod Stand with Wire Gauze (When supported over burner) */}
@@ -112,15 +109,19 @@ export const FlaskSvg: React.FC<FlaskSvgProps> = ({ equipment, isSelected }) => 
         </g>
       )}
 
-      {/* Thermal Flame Licking & Heating Glow when positioned over active burner */}
+      {/* Thermal Flame Licking & Heating Glow when positioned over active burner / hot plate */}
       {isBeingHeated && (
-        <g className="animate-pulse">
+        <g className="flame-flicker">
           <ellipse cx="75" cy="164" rx="55" ry="14" fill={`url(#flaskThermalGlow-${id})`} />
-          {/* Flame tongues licking conical slope */}
-          <path d="M 22 164 C 15 155, 16 140, 24 132 C 26 142, 28 154, 28 164 Z" fill="#f59e0b" fillOpacity="0.85" />
-          <path d="M 22 164 C 17 156, 18 145, 23 138 C 25 145, 27 154, 27 164 Z" fill="#fef08a" />
-          <path d="M 128 164 C 135 155, 134 140, 126 132 C 124 142, 122 154, 122 164 Z" fill="#f59e0b" fillOpacity="0.85" />
-          <path d="M 128 164 C 133 156, 132 145, 127 138 C 125 145, 123 154, 123 164 Z" fill="#fef08a" />
+          {showOpenFlame && (
+            <>
+              {/* Flame tongues licking conical slope */}
+              <path d="M 22 164 C 15 155, 16 140, 24 132 C 26 142, 28 154, 28 164 Z" fill="#f59e0b" fillOpacity="0.85" />
+              <path d="M 22 164 C 17 156, 18 145, 23 138 C 25 145, 27 154, 27 164 Z" fill="#fef08a" />
+              <path d="M 128 164 C 135 155, 134 140, 126 132 C 124 142, 122 154, 122 164 Z" fill="#f59e0b" fillOpacity="0.85" />
+              <path d="M 128 164 C 133 156, 132 145, 127 138 C 125 145, 123 154, 123 164 Z" fill="#fef08a" />
+            </>
+          )}
         </g>
       )}
 
@@ -200,11 +201,12 @@ export const FlaskSvg: React.FC<FlaskSvgProps> = ({ equipment, isSelected }) => 
             )}
 
             {/* Specular Silver Mirror Coating (Tollens test) */}
-            {hasSilverMirror && (
+            {(hasSilverMirror || mirrorOpacity > 0.04) && (
               <path
                 d="M 61 40 L 61 64 L 18 156 Q 16 164 26 164 L 124 164 Q 134 164 132 156 L 89 64 L 89 40 L 84 40 L 84 62 L 125 154 Q 127 159 120 159 L 30 159 Q 23 159 25 154 L 66 62 L 66 40 Z"
                 fill={`url(#flaskSilverMirror-${id})`}
-                className="drop-shadow-xs"
+                fillOpacity={mirrorOpacity}
+                className="drop-shadow-xs transition-opacity duration-300"
               />
             )}
 
@@ -354,33 +356,6 @@ export const FlaskSvg: React.FC<FlaskSvgProps> = ({ equipment, isSelected }) => 
         strokeLinecap="round"
       />
 
-      {/* Curling Steam / Fumes from Neck Opening */}
-      {(hasFumes || isBoiling) && (
-        <g
-          filter={`url(#flaskFumeBlur-${id})`}
-          opacity={fumeType === 'no2' ? 0.72 : 0.45}
-        >
-          {fumeType === 'no2' ? (
-            <g fill={fumeColorHex}>
-              <ellipse cx="65" cy="10" rx="16" ry="9" />
-              <ellipse cx="85" cy="6" rx="18" ry="10" />
-              <ellipse cx="75" cy="-8" rx="20" ry="11" />
-              <ellipse cx="90" cy="-18" rx="22" ry="12" />
-            </g>
-          ) : fumeType === 'nh4cl' ? (
-            <g fill="#ffffff">
-              <ellipse cx="70" cy="12" rx="14" ry="8" />
-              <ellipse cx="82" cy="4" rx="16" ry="9" />
-              <ellipse cx="75" cy="-8" rx="18" ry="10" />
-            </g>
-          ) : (
-            <g stroke={fumeColorHex} strokeWidth="3" fill="none" strokeLinecap="round">
-              <path d="M 70 18 Q 65 6 72 -6 Q 78 -18 70 -30" />
-              <path d="M 80 16 Q 86 4 80 -8 Q 74 -20 82 -32" strokeWidth="3.5" />
-            </g>
-          )}
-        </g>
-      )}
     </svg>
   );
 };

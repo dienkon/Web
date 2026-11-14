@@ -105,7 +105,10 @@ export interface PrecipitateLayerState {
   morphology: PrecipitateMorphology;
   turbidity: number; // 0..1 suspended cloudiness
   sedimentHeight_mm: number; // settled bed thickness at bottom
-  settlingVelocity_mm_s: number; // Stokes settling speed
+  settlingVelocity_mm_s: number; // Stokes settling speed (>0 sinks, <0 rises)
+  density_g_cm3?: number; // Effective aggregate wet density
+  buoyancy?: 'sink' | 'suspend' | 'float';
+  floatingHeight_mm?: number; // Top meniscus floating scum/raft thickness
   redissolveProgress?: number; // 0..1 when dissolving in excess NH3 or OH-
 }
 
@@ -293,4 +296,6 @@ export interface SimulationResult {
   };
   hasSublimation?: boolean;
   sublimationColorHex?: string;
+  /** Gas mass that evolved and escaped from an open vessel during this step. */
+  escapedGas_g?: Record<string, number>;
 }

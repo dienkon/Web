@@ -13,13 +13,14 @@ export const EvaporatingDishSvg: React.FC<EvaporatingDishSvgProps> = ({ equipmen
     volume_ml = 0,
     capacity_ml = 80,
     liquidColorHex = '#38bdf8',
-    isBoiling = false,
     hasPrecipitate = false,
     precipitateColorHex = '#ffffff',
     contents = [],
     isBeingHeated = false,
     hasTripod = false,
+    hasOpenFlame,
   } = equipment;
+  const showOpenFlame = hasOpenFlame ?? Boolean(isBeingHeated && hasTripod);
 
   // Has dry crystals formed after evaporation?
   const isDriedCrystals = volume_ml <= 0.05 && contents.some(c => c.state === 's' && c.moles > 1e-5);
@@ -57,13 +58,6 @@ export const EvaporatingDishSvg: React.FC<EvaporatingDishSvgProps> = ({ equipmen
           <stop offset="100%" stopColor={liquidColorHex} stopOpacity="0.95" />
         </linearGradient>
 
-        {/* Steam Animation */}
-        {isBoiling && (
-          <filter id="steamFilter" x="-20%" y="-40%" width="140%" height="160%">
-            <feTurbulence type="fractalNoise" baseFrequency="0.04 0.08" numOctaves="2" result="noise" />
-            <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" xChannelSelector="R" yChannelSelector="G" />
-          </filter>
-        )}
       </defs>
 
       {/* Laboratory Tripod Stand with Wire Gauze (When supported over burner) */}
@@ -77,12 +71,16 @@ export const EvaporatingDishSvg: React.FC<EvaporatingDishSvgProps> = ({ equipmen
         </g>
       )}
 
-      {/* Thermal Flame Licking & Heating Glow when positioned over active burner */}
+      {/* Thermal Flame Licking & Heating Glow when positioned over active burner / hot plate */}
       {isBeingHeated && (
-        <g className="animate-pulse">
+        <g className="flame-flicker">
           <ellipse cx="65" cy="68" rx="46" ry="10" fill="#f97316" fillOpacity="0.45" />
-          <path d="M 16 66 C 10 58, 12 45, 18 38 C 20 48, 22 58, 22 66 Z" fill="#f59e0b" fillOpacity="0.85" />
-          <path d="M 114 66 C 120 58, 118 45, 112 38 C 110 48, 108 58, 108 66 Z" fill="#f59e0b" fillOpacity="0.85" />
+          {showOpenFlame && (
+            <>
+              <path d="M 16 66 C 10 58, 12 45, 18 38 C 20 48, 22 58, 22 66 Z" fill="#f59e0b" fillOpacity="0.85" />
+              <path d="M 114 66 C 120 58, 118 45, 112 38 C 110 48, 108 58, 108 66 Z" fill="#f59e0b" fillOpacity="0.85" />
+            </>
+          )}
         </g>
       )}
 
@@ -100,20 +98,6 @@ export const EvaporatingDishSvg: React.FC<EvaporatingDishSvgProps> = ({ equipmen
           strokeDasharray="5 3"
           className="animate-pulse"
         />
-      )}
-
-      {/* Rising Steam Wisps when boiling */}
-      {isBoiling && (
-        <g filter="url(#steamFilter)" className="animate-pulse">
-          <path
-            d="M40,20 Q35,8 45,0 M65,22 Q70,6 60,-2 M90,20 Q98,10 88,-1"
-            fill="none"
-            stroke="#ffffff"
-            strokeWidth="3.5"
-            strokeLinecap="round"
-            strokeOpacity="0.65"
-          />
-        </g>
       )}
 
       {/* Outer Basin Body (Spherical Cap with Pouring Spout on left) */}
@@ -161,14 +145,6 @@ export const EvaporatingDishSvg: React.FC<EvaporatingDishSvgProps> = ({ equipmen
             strokeWidth="0.75"
             strokeOpacity="0.5"
           />
-          {/* Boiling Bubbles */}
-          {isBoiling && (
-            <g fill="#ffffff" fillOpacity="0.8">
-              <circle cx="55" cy={liquidY + 4} r="2" />
-              <circle cx="72" cy={liquidY + 6} r="2.5" />
-              <circle cx="64" cy={liquidY + 2} r="1.5" />
-            </g>
-          )}
         </g>
       )}
 

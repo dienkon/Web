@@ -33,16 +33,16 @@ export const GuidedExperimentHUD: React.FC = () => {
   const theory = language === 'vi' ? step.theory_vi : step.theory_en;
 
   return (
-    <div className="relative z-20 shrink-0 px-2.5 sm:px-4 pt-2 pb-1.5 bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-xs select-none animate-in fade-in duration-200">
+    <div className="relative z-20 shrink-0 px-2.5 sm:px-4 pt-1.5 sm:pt-2 pb-1.5 bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-xs select-none animate-in fade-in duration-200">
       <div className="max-w-4xl mx-auto">
-      <div className="flex items-center justify-between border-b border-slate-200 pb-2 mb-2">
-        <div className="flex items-center gap-2">
-          <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse" />
-          <h2 className="text-xs font-bold uppercase tracking-wider text-blue-600">
-            {language === 'vi' ? 'Bài thực hành có hướng dẫn' : 'Guided Lab'}
+      <div className="flex items-center justify-between gap-2 border-b border-slate-200 pb-1.5 mb-1.5">
+        <div className="flex items-center gap-1.5 min-w-0">
+          <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse shrink-0" />
+          <h2 className="hidden sm:inline text-xs font-bold uppercase tracking-wider text-blue-600 shrink-0">
+            {language === 'vi' ? 'Bài thực hành' : 'Guided Lab'}
           </h2>
-          <span className="text-slate-300">•</span>
-          <span className="text-xs font-semibold text-slate-800">{title}</span>
+          <span className="hidden sm:inline text-slate-300">•</span>
+          <span className="text-xs font-bold sm:font-semibold text-slate-800 truncate">{title}</span>
         </div>
 
         <div className="flex items-center gap-2 text-xs">
@@ -59,23 +59,25 @@ export const GuidedExperimentHUD: React.FC = () => {
       </div>
 
       {/* Step Instruction & Status */}
-      <div className="flex items-start gap-3">
-        <div className="mt-0.5">
+      <div className="flex items-start gap-2 sm:gap-3">
+        <div className="mt-0.5 shrink-0">
           {stepCompleted ? (
-            <CheckCircle2 className="w-6 h-6 text-emerald-600 animate-bounce" />
+            <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600 animate-bounce" />
           ) : (
-            <Circle className="w-6 h-6 text-amber-500" />
+            <Circle className="w-5 h-5 sm:w-6 sm:h-6 text-amber-500" />
           )}
         </div>
 
-        <div className="flex-1">
-          <h3 className="text-sm font-bold text-slate-900">{stepTitle}</h3>
-          <p className="text-xs text-slate-600 mt-1 leading-relaxed">{instruction}</p>
+        <div className="flex-1 min-w-0">
+          <h3 className="text-xs sm:text-sm font-bold text-slate-900 truncate">{stepTitle}</h3>
+          <p className="text-[11px] sm:text-xs text-slate-600 mt-0.5 sm:mt-1 leading-snug sm:leading-relaxed line-clamp-2 sm:line-clamp-none">
+            {instruction}
+          </p>
 
           {/* Hint or Theory toggles */}
-          <div className="mt-2.5 flex items-center gap-3">
+          <div className="mt-1.5 sm:mt-2.5 flex flex-wrap items-center gap-1.5 sm:gap-3">
             {hint && (
-              <div className="flex items-center gap-1 text-[11px] text-amber-600 font-medium bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200">
+              <div className="hidden sm:flex items-center gap-1 text-[11px] text-amber-600 font-medium bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200">
                 <Lightbulb className="w-3.5 h-3.5" />
                 <span>{hint}</span>
               </div>

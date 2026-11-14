@@ -69,22 +69,87 @@ export function analyzeAcidBaseInventory(contents: SubstanceQuantity[]): AcidBas
     } else if (f.includes('BA(OH)2') || f.includes('CA(OH)2')) {
       strongBaseOH_moles += item.moles * 2;
     }
-    // Weak base NH3 / NH4OH
+    // Weak bases: amines and ammonia / NH4OH
     else if (f === 'NH3' || f === 'NH4OH') {
-      // NH3 + H2O <=> NH4+ + OH- (Kb = 1.8e-5, pKb = 4.75 -> effective basicity)
-      strongBaseOH_moles += item.moles * 0.15; // Weakly dissociated hydroxide
+      conjugateBaseA_moles += item.moles;
+      pKa = pKa ? Math.max(pKa, 9.25) : 9.25;
+    } else if (f === 'CH3NH2') {
+      conjugateBaseA_moles += item.moles;
+      pKa = pKa ? Math.max(pKa, 10.64) : 10.64;
+    } else if (f === 'C2H5NH2') {
+      conjugateBaseA_moles += item.moles;
+      pKa = pKa ? Math.max(pKa, 10.75) : 10.75;
+    } else if (f === 'C6H5NH2') {
+      conjugateBaseA_moles += item.moles;
+      pKa = pKa ? Math.max(pKa, 4.63) : 4.63;
     }
-    // Conjugate base salts (e.g. CH3COONa, NaHCO3)
+    // Conjugate base / hydrolyzing basic salts
     else if (f.includes('CH3COONA')) {
       conjugateBaseA_moles += item.moles;
-      pKa = 4.76;
+      pKa = pKa ? Math.max(pKa, 4.76) : 4.76;
+    } else if (f === 'C6H5ONA') {
+      conjugateBaseA_moles += item.moles;
+      pKa = pKa ? Math.max(pKa, 9.99) : 9.99;
+    } else if (f === 'C17H35COONA') {
+      conjugateBaseA_moles += item.moles;
+      pKa = pKa ? Math.max(pKa, 4.9) : 4.9;
     } else if (f.includes('NAHCO3')) {
       // Bicarbonate buffer
       weakAcidHA_moles += item.moles * 0.5;
       conjugateBaseA_moles += item.moles * 0.5;
       pKa = 6.35;
-    } else if (f.includes('NA2CO3')) {
-      strongBaseOH_moles += item.moles * 0.35; // Hydrolyzed carbonate pH ~11.5
+    } else if (f === 'NA2CO3' || f === 'K2CO3') {
+      conjugateBaseA_moles += item.moles;
+      pKa = pKa ? Math.max(pKa, 10.33) : 10.33;
+    } else if (f === 'NA2S' || f === 'K2S') {
+      conjugateBaseA_moles += item.moles;
+      pKa = pKa ? Math.max(pKa, 12.9) : 12.9;
+    } else if (f === 'NA3PO4') {
+      conjugateBaseA_moles += item.moles;
+      pKa = pKa ? Math.max(pKa, 12.35) : 12.35;
+    } else if (f === 'NA2SIO3') {
+      conjugateBaseA_moles += item.moles;
+      pKa = pKa ? Math.max(pKa, 12.6) : 12.6;
+    } else if (f === 'NA2C2O4') {
+      conjugateBaseA_moles += item.moles;
+      pKa = pKa ? Math.max(pKa, 4.27) : 4.27;
+    }
+    // Weak organic acids (phenol, oxalic acid, glycine)
+    else if (f === 'C6H5OH') {
+      weakAcidHA_moles += item.moles;
+      pKa = pKa ? Math.min(pKa, 9.99) : 9.99;
+    } else if (f === 'H2C2O4') {
+      weakAcidHA_moles += item.moles;
+      pKa = pKa ? Math.min(pKa, 1.25) : 1.25;
+    } else if (f === 'NH2CH2COOH') {
+      weakAcidHA_moles += item.moles;
+      pKa = pKa ? Math.min(pKa, 10.94) : 10.94;
+    }
+    // Acidic cation salt hydrolysis (Fe3+, Al3+, Cu2+, Zn2+, NH4+)
+    else if (f === 'FECL3' || f === 'FE(NO3)3') {
+      weakAcidHA_moles += item.moles;
+      pKa = pKa ? Math.min(pKa, 2.2) : 2.2;
+    } else if (f === 'FE2(SO4)3') {
+      weakAcidHA_moles += item.moles * 2;
+      pKa = pKa ? Math.min(pKa, 2.2) : 2.2;
+    } else if (f === 'ALCL3' || f === 'AL(NO3)3') {
+      weakAcidHA_moles += item.moles;
+      pKa = pKa ? Math.min(pKa, 4.95) : 4.95;
+    } else if (f === 'AL2(SO4)3') {
+      weakAcidHA_moles += item.moles * 2;
+      pKa = pKa ? Math.min(pKa, 4.95) : 4.95;
+    } else if (f === 'CUSO4' || f === 'CUCL2' || f === 'CU(NO3)2') {
+      weakAcidHA_moles += item.moles;
+      pKa = pKa ? Math.min(pKa, 7.53) : 7.53;
+    } else if (f === 'ZNSO4' || f === 'ZNCL2') {
+      weakAcidHA_moles += item.moles;
+      pKa = pKa ? Math.min(pKa, 8.96) : 8.96;
+    } else if (f === 'NH4CL' || f === 'NH4NO3') {
+      weakAcidHA_moles += item.moles;
+      pKa = pKa ? Math.min(pKa, 9.25) : 9.25;
+    } else if (f === '(NH4)2SO4') {
+      weakAcidHA_moles += item.moles * 2;
+      pKa = pKa ? Math.min(pKa, 9.25) : 9.25;
     }
   }
 
@@ -126,20 +191,28 @@ export function calculateSolutionPh(contents: SubstanceQuantity[], volume_ml: nu
     return Math.max(7.05, Math.min(14.0, Math.round(ph * 100) / 100));
   }
 
-  // 2. Weak Acid / Buffer system (e.g. Acetic acid / Acetate)
+  // 2. Weak Acid / Conjugate Base / Buffer system
   if (inv.weakAcidHA_moles > 1e-6 && inv.pKa) {
     const Ka = Math.pow(10, -inv.pKa);
     if (inv.conjugateBaseA_moles > 1e-6) {
       // Henderson-Hasselbalch equation
       const ph = inv.pKa + Math.log10(inv.conjugateBaseA_moles / inv.weakAcidHA_moles);
-      return Math.round(ph * 100) / 100;
+      return Math.round(Math.min(14, Math.max(0, ph)) * 100) / 100;
     } else {
-      // Weak acid alone in water: [H+] ≈ sqrt(Ka * Ca)
+      // Exact quadratic weak acid dissociation: [H+]^2 + Ka[H+] - Ka*Ca = 0
       const Ca = inv.weakAcidHA_moles / volL;
-      const concH = Math.sqrt(Ka * Ca);
-      const ph = -Math.log10(concH);
+      const concH = Math.max(1e-7, (-Ka + Math.sqrt(Ka * Ka + 4 * Ka * Ca)) / 2);
+      const ph = Math.min(7, -Math.log10(concH));
       return Math.round(ph * 100) / 100;
     }
+  } else if (inv.conjugateBaseA_moles > 1e-6 && inv.pKa) {
+    // Standalone basic anion / weak base hydrolysis: [OH-]^2 + Kb[OH-] - Kb*Cb = 0
+    const Ka = Math.pow(10, -inv.pKa);
+    const Kb = 1e-14 / Ka;
+    const Cb = inv.conjugateBaseA_moles / volL;
+    const concOH = Math.max(1e-7, (-Kb + Math.sqrt(Kb * Kb + 4 * Kb * Cb)) / 2);
+    const ph = Math.min(14, Math.max(7, 14 + Math.log10(concOH)));
+    return Math.round(ph * 100) / 100;
   }
 
   // Pure salt or water -> Neutral pH 7.00

@@ -174,9 +174,9 @@ export const BurnerSvg: React.FC<BurnerSvgProps> = ({
 
       {/* Flame Graphics when Lit */}
       {isOn && (
-        <g className="animate-pulse">
+        <g>
           {/* Convection Heat Waves Shimmer */}
-          <g filter={`url(#burnerShimmer-${id})`} stroke={flameEmissionColor} strokeWidth="1.2" opacity="0.35" fill="none">
+          <g filter={`url(#burnerShimmer-${id})`} stroke={flameEmissionColor} strokeWidth="1.2" fill="none" className="heat-shimmer">
             <path d="M 46 0 Q 42 -15 48 -30 Q 42 -45 46 -60" />
             <path d="M 55 -5 Q 59 -20 54 -35 Q 58 -50 55 -65" />
             <path d="M 64 0 Q 68 -15 62 -30 Q 68 -45 64 -60" />
@@ -187,6 +187,7 @@ export const BurnerSvg: React.FC<BurnerSvgProps> = ({
             d="M 55 46 C 26 26, 38 4, 55 -16 C 72 4, 84 26, 55 46 Z"
             fill={flameEmissionColor}
             fillOpacity={isFlameTestActive ? 0.92 : 0.82}
+            className="flame-flicker"
           />
 
           {/* Middle Bright Flame */}
@@ -194,6 +195,7 @@ export const BurnerSvg: React.FC<BurnerSvgProps> = ({
             d="M 55 46 C 36 30, 44 12, 55 -2 C 66 12, 74 30, 55 46 Z"
             fill={isFlameTestActive ? flameEmissionColor : '#fef08a'}
             fillOpacity="0.9"
+            className="flame-flicker"
           />
 
           {/* Inner Hot Reducing Blue Combustion Cone */}
@@ -201,19 +203,21 @@ export const BurnerSvg: React.FC<BurnerSvgProps> = ({
             d="M 55 46 C 45 36, 48 22, 55 16 C 62 22, 65 36, 55 46 Z"
             fill="#38bdf8"
             fillOpacity="0.95"
+            className="flame-core"
           />
 
           {/* High Heat Deep Cyan Core Tip */}
           <path
             d="M 55 46 C 49 40, 50 30, 55 24 C 60 30, 61 40, 55 46 Z"
             fill="#0284c7"
+            className="flame-core"
           />
 
           {/* Dancing Ember Sparks */}
-          <g fill={flameEmissionColor} className="animate-ping" opacity="0.85">
-            <circle cx="47" cy="8" r="1.6" />
-            <circle cx="64" cy="-6" r="2.0" />
-            <circle cx="53" cy="-22" r="1.4" />
+          <g fill={flameEmissionColor} opacity="0.9">
+            <circle cx="47" cy="8" r="1.5" className="ember-rise" />
+            <circle cx="64" cy="-2" r="1.9" className="ember-rise" style={{ animationDelay: '0.22s' }} />
+            <circle cx="53" cy="-10" r="1.4" className="ember-rise" style={{ animationDelay: '0.45s' }} />
           </g>
         </g>
       )}

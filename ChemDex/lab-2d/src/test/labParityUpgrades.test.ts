@@ -18,11 +18,17 @@ import {
 } from '../chemistry/physical/substanceProps';
 import {
   burnerHeatToVessel,
+  getBurnerMaxDx,
+  isVesselAlignedOverBurner,
   stepTemperatureSolubility,
   stepVesselThermal,
 } from '../engine/simulationTick';
+import { kineticRuntime2D } from '../chemistry/reactions/kineticsSolver';
+import { loadReactionHubBundle } from '../data/reactionCatalogLoader';
+import { runReactionOnWorkbench2D } from '../engine/workbenchReactionBridge';
 import { runSimulationCycle } from '../chemistry/reactions/engine';
 import { LiquidAppearanceField2D } from '../vfx/LiquidAppearanceField2D';
+import { reactionRuntime2D } from '../vfx/ReactionRuntime2D';
 import { useLabStore } from '../store/useLabStore';
 import { EquipmentState } from '../types/equipment';
 
@@ -333,5 +339,240 @@ describe('Lab-3D Optical, Indicator & Physical Chemistry Parity (lab-2d)', () =>
     expect(burner.y).toBe(295);
     expect(burner.x + burner.width).toBeLessThanOrEqual(720);
     expect(burner.y + burner.height).toBeLessThanOrEqual(490);
+  });
+});
+
+describe('Volumetric fume VFX & auto-clearing safety alerts', () => {
+  it('advances NO2 curl fumes smoothly across frames without stalling and lifts faster under fume hood', () => {
+    reactionRuntime2D.resetAll();
+    const calmEnv = { ...DEFAULT_LAB_ENVIRONMENT, airSpeed_m_s: 0.02 };
+    const hoodEnv = { ...DEFAULT_LAB_ENVIRONMENT, airSpeed_m_s: 0.9 };
+
+    const vesselA = makeBeaker({
+      id: 'vfx-fume-calm',
+      hasFumes: true,
+      fumeType: 'no2',
+      fumeColorHex: '#b45309',
+    });
+    for (let i = 0; i < 30; i += 1) {
+      reactionRuntime2D.stepAll([vesselA], 0.016, calmEnv);
+    }
+    const stateA = reactionRuntime2D.getOrCreateState(vesselA);
+    expect(stateA.fumes.length).toBeGreaterThan(0);
+
+    const tracked = stateA.fumes[0];
+    const startY = tracked.yOffsetPx;
+    const startRot = tracked.rotation_rad;
+    for (let i = 0; i < 15; i += 1) {
+      reactionRuntime2D.stepAll([vesselA], 0.016, calmEnv);
+    }
+    expect(tracked.yOffsetPx).not.toBe(startY);
+    expect(tracked.rotation_rad).not.toBe(startRot);
+    expect(stateA.fumes.every((f) => Math.abs(f.vy) + Math.abs(f.vx) > 0.5)).toBe(true);
+
+    reactionRuntime2D.resetAll();
+    const vesselB = makeBeaker({
+      id: 'vfx-fume-hood',
+      hasFumes: true,
+      fumeType: 'no2',
+      fumeColorHex: '#b45309',
+    });
+    for (let i = 0; i < 30; i += 1) {
+      reactionRuntime2D.stepAll([vesselB], 0.016, hoodEnv);
+    }
+    const stateB = reactionRuntime2D.getOrCreateState(vesselB);
+    const meanVyCalm = stateA.fumes.reduce((acc, f) => acc + f.vy, 0) / stateA.fumes.length;
+    const meanVyHood = stateB.fumes.reduce((acc, f) => acc + f.vy, 0) / stateB.fumes.length;
+    expect(meanVyHood).toBeLessThan(meanVyCalm);
+  });
+
+  it('auto-clears resolved TOXIC_GAS_NO_HOOD warning when fume hood is turned on', () => {
+    useLabStore.setState({
+      equipment: {},
+      selectedEquipmentId: null,
+      safetyAlerts: [],
+      ppe: { goggles: true, gloves: true, lab_coat: true, fume_hood: false },
+    });
+    const store = useLabStore.getState();
+    const beakerId = store.addEquipment('beaker');
+    useLabStore.setState((s) => ({
+      equipment: {
+        ...s.equipment,
+        [beakerId]: {
+          ...s.equipment[beakerId],
+          hasFumes: true,
+          fumeType: 'no2',
+        },
+      },
+    }));
+
+    store.tickSimulation(0.15);
+    const activeCodes = useLabStore.getState().safetyAlerts.map((a) => a.code);
+    expect(activeCodes).toContain('TOXIC_GAS_NO_HOOD');
+
+    store.togglePpe('fume_hood');
+    store.tickSimulation(0.15);
+    const clearedCodes = useLabStore.getState().safetyAlerts.map((a) => a.code);
+    expect(clearedCodes).not.toContain('TOXIC_GAS_NO_HOOD');
+  });
+});
+
+
+describe('Lab-3D Parity: Burner Alignment, Gradual Kinetics & Reaction Library', () => {
+  it('denies heat, tripod, and side flames when Bunsen burner is horizontally off-center (dx = 75px)', () => {
+    const store = useLabStore.getState();
+    store.resetWorkbench();
+    store.setRealtimeKinetics(false);
+
+    const beakerId = store.addEquipment('beaker', 200, 120);
+    store.addDistilledWater(beakerId, 100);
+    const beakerBefore = useLabStore.getState().equipment[beakerId];
+
+    // Place burner 75 px to the right of beaker center (matches bug screenshot offset)
+    const alignedX = beakerBefore.x + beakerBefore.width / 2 - 50;
+    const alignedY = beakerBefore.y + beakerBefore.height + 36 - 42;
+    const burnerId = store.addEquipment('bunsen_burner', alignedX + 75, alignedY);
+    store.toggleHeat(burnerId);
+
+    const offBurner = useLabStore.getState().equipment[burnerId];
+    expect(getBurnerMaxDx(beakerBefore)).toBeLessThanOrEqual(36);
+    expect(burnerHeatToVessel(offBurner, beakerBefore)).toBe(0);
+    expect(isVesselAlignedOverBurner(offBurner, beakerBefore)).toBe(false);
+
+    useLabStore.getState().tickSimulation(1.0);
+    const beakerOffTick = useLabStore.getState().equipment[beakerId];
+    expect(Boolean(beakerOffTick.isBeingHeated)).toBe(false);
+    expect(Boolean(beakerOffTick.hasTripod)).toBe(false);
+    expect(Boolean(beakerOffTick.hasOpenFlame)).toBe(false);
+    expect(beakerOffTick.temperature_c).toBeLessThanOrEqual(25.1);
+
+    // Now center the burner cleanly beneath the beaker (dx = 0)
+    useLabStore.getState().updatePosition(burnerId, alignedX, alignedY);
+    const centeredBurner = useLabStore.getState().equipment[burnerId];
+    const currentBeaker = useLabStore.getState().equipment[beakerId];
+    expect(burnerHeatToVessel(centeredBurner, currentBeaker)).toBeGreaterThan(25);
+    expect(isVesselAlignedOverBurner(centeredBurner, currentBeaker)).toBe(true);
+
+    useLabStore.getState().tickSimulation(1.0);
+    const heatedBeaker = useLabStore.getState().equipment[beakerId];
+    expect(heatedBeaker.isBeingHeated).toBe(true);
+    expect(heatedBeaker.hasTripod).toBe(true);
+    expect(heatedBeaker.hasOpenFlame).toBe(true);
+    expect(heatedBeaker.temperature_c).toBeGreaterThan(25.2);
+
+    // Drag burner off-center again -> tripod, open flame, and heating immediately shut off
+    useLabStore.getState().updatePosition(burnerId, alignedX + 75, alignedY);
+    useLabStore.getState().tickSimulation(0.5);
+    const pulledAway = useLabStore.getState().equipment[beakerId];
+    expect(pulledAway.isBeingHeated).toBe(false);
+    expect(pulledAway.hasTripod).toBe(false);
+    expect(pulledAway.hasOpenFlame).toBe(false);
+
+    useLabStore.getState().resetWorkbench();
+  });
+
+  it('progresses precipitation and Tollens silver mirror gradually when realtimeKinetics is active', () => {
+    const store = useLabStore.getState();
+    store.resetWorkbench();
+    store.setRealtimeKinetics(true);
+
+    const beakerId = store.addEquipment('beaker', 220, 140);
+    store.addChemicalToEquipment(beakerId, 'chem-pbno32', 25);
+    store.addChemicalToEquipment(beakerId, 'chem-ki', 25);
+
+    // At t = 0, reaction is queued rather than teleporting straight to 100% completion
+    const atZero = useLabStore.getState().equipment[beakerId];
+    expect(atZero.activeReactionProgress).toBe(0);
+    expect(atZero.activeReactionLabel).toBeTruthy();
+    expect(kineticRuntime2D.getJob(beakerId)).toBeDefined();
+
+    // After 1 second, reaction is in mid-flight (0 < progress < 1)
+    useLabStore.getState().tickSimulation(1.0);
+    const mid = useLabStore.getState().equipment[beakerId];
+    expect(mid.activeReactionProgress).toBeGreaterThan(0);
+    expect(mid.activeReactionProgress).toBeLessThan(1);
+
+    for (let i = 0; i < 12; i++) {
+      useLabStore.getState().tickSimulation(1.0);
+    }
+    const donePb = useLabStore.getState().equipment[beakerId];
+    expect(donePb.activeReactionProgress).toBeUndefined();
+    expect(kineticRuntime2D.getJob(beakerId)?.completed).toBe(true);
+    expect(donePb.hasPrecipitate).toBe(true);
+    expect(donePb.precipitateSubstance).toBe('PbI2');
+
+    // Now verify Tollens silver mirror: never golden yellow (#facc15), requires heating, smooth silverMirrorProgress
+    store.resetWorkbench();
+    store.setRealtimeKinetics(true);
+    const tubeId = store.addEquipment('test_tube', 300, 110);
+    store.addChemicalToEquipment(tubeId, 'chem-agno3', 15);
+    store.addChemicalToEquipment(tubeId, 'chem-nh3', 15);
+    store.addChemicalToEquipment(tubeId, 'chem-c6h12o6', 15);
+
+    useLabStore.getState().tickSimulation(1.0);
+    const coldTube = useLabStore.getState().equipment[tubeId];
+    expect(coldTube.hasSilverMirror).toBeFalsy();
+    expect(coldTube.precipitateColorHex).not.toBe('#facc15');
+    expect(coldTube.activeReactionLabel).toContain('Cần đun');
+
+    // Align heated burner underneath test tube
+    const burnerX = coldTube.x + coldTube.width / 2 - 50;
+    const burnerY = coldTube.y + coldTube.height + 36 - 42;
+    const burnerId = store.addEquipment('bunsen_burner', burnerX, burnerY);
+    store.toggleHeat(burnerId);
+
+    let sawPartialSilver = false;
+    for (let i = 0; i < 40; i++) {
+      useLabStore.getState().tickSimulation(1.0);
+      const cur = useLabStore.getState().equipment[tubeId];
+      const sm = cur.silverMirrorProgress ?? 0;
+      if (sm > 0.05 && sm < 0.95) {
+        sawPartialSilver = true;
+      }
+    }
+
+    const finishedTube = useLabStore.getState().equipment[tubeId];
+    expect(finishedTube.hasSilverMirror).toBe(true);
+    expect(finishedTube.silverMirrorProgress ?? 0).toBeGreaterThan(0.85);
+    expect(finishedTube.precipitateColorHex).not.toBe('#facc15');
+    expect(sawPartialSilver).toBe(true);
+
+    // resetWorkbench cleans kinetic & VFX runtime registries
+    useLabStore.getState().resetWorkbench();
+    expect(kineticRuntime2D.getJob(tubeId)).toBeUndefined();
+    useLabStore.getState().setRealtimeKinetics(false);
+  });
+
+  it('loads 131 curriculum + 1,300 shared reactions, analyzes chains, and runs reactions on 2D bench', async () => {
+    const bundle = await loadReactionHubBundle();
+    expect(bundle.curriculum.length).toBeGreaterThanOrEqual(131);
+    expect(bundle.catalog.entries.length).toBeGreaterThanOrEqual(1300);
+    expect(bundle.chains.length).toBeGreaterThan(0);
+
+    const hits = bundle.searchReactions(bundle.index, 'AgNO3');
+    expect(hits.entries.length).toBeGreaterThan(0);
+
+    const chainResult = bundle.analyzeChain(bundle.index, 'Cu -> CuSO4 -> Cu(OH)2 -> CuO -> Cu');
+    expect(chainResult.steps.length).toBeGreaterThanOrEqual(3);
+
+    const guide = bundle.reactionGuide(bundle.catalog.entries[0]);
+    expect(guide).toBeDefined();
+
+    const heatedCurriculum =
+      bundle.curriculum.find((entry) => entry.conditions?.heating) ?? bundle.curriculum[0];
+    const launched = runReactionOnWorkbench2D(heatedCurriculum);
+    expect(launched.vesselId).toBeTruthy();
+    expect(launched.equation).toBe(heatedCurriculum.equation);
+    expect(useLabStore.getState().realtimeKinetics).toBe(true);
+    if (heatedCurriculum.conditions?.heating) {
+      expect(launched.heated).toBe(true);
+      expect(launched.burnerId).toBeTruthy();
+      const vessel = useLabStore.getState().equipment[launched.vesselId];
+      const burner = useLabStore.getState().equipment[launched.burnerId!];
+      expect(isVesselAlignedOverBurner(burner, vessel)).toBe(true);
+    }
+
+    useLabStore.getState().resetWorkbench();
+    useLabStore.getState().setRealtimeKinetics(false);
   });
 });

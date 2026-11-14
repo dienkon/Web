@@ -560,11 +560,113 @@ export const PHYSICAL_SUBSTANCES: Record<string, SubstancePhysicalEntry> = {
     absorptivity_RGB: [0.001, 0.001, 0.001],
     scatter: 0,
   },
+  SDS: {
+    formula: 'SDS',
+    density_g_ml: 1.01,
+    Cp_J_kgK: 3900,
+    surfaceTension_N_m: 0.0285, // Strong surfactant lowering interfacial tension for foam stability
+    viscosity_mPa_s: 3.4,
+    absorptivity_RGB: [0.001, 0.001, 0.001],
+    scatter: 0.35,
+  },
+  C17H35COONa: {
+    formula: 'C17H35COONa',
+    density_g_ml: 1.01,
+    Cp_J_kgK: 3850,
+    surfaceTension_N_m: 0.032,
+    viscosity_mPa_s: 2.2,
+    absorptivity_RGB: [0.002, 0.002, 0.002],
+    scatter: 0.25,
+  },
+  CH3COOCH3: {
+    formula: 'CH3COOCH3',
+    density_g_ml: 0.932,
+    Cp_J_kgK: 1960,
+    boilingPoint_K: 330.1,
+    surfaceTension_N_m: 0.0246,
+    viscosity_mPa_s: 0.364,
+    absorptivity_RGB: [0.002, 0.001, 0.003],
+    scatter: 0,
+  },
+  CH3OH: {
+    formula: 'CH3OH',
+    density_g_ml: 0.792,
+    Cp_J_kgK: 2530,
+    boilingPoint_K: 337.8,
+    surfaceTension_N_m: 0.0226,
+    viscosity_mPa_s: 0.544,
+    absorptivity_RGB: [0, 0, 0],
+    scatter: 0,
+  },
+  Cu2O: {
+    formula: 'Cu2O',
+    density_g_ml: 6.0,
+    Cp_J_kgK: 490,
+    meltingPoint_K: 1508,
+    absorptivity_RGB: [0.1, 1.5, 1.9],
+    scatter: 2.8,
+    solidAppearance: { color: '#dc2626', morphology: 'powder', glossiness: 0.2 },
+  },
+  C6H2Br3OH: {
+    formula: 'C6H2Br3OH',
+    density_g_ml: 2.55,
+    Cp_J_kgK: 1100,
+    absorptivity_RGB: [0.02, 0.02, 0.02],
+    scatter: 2.4,
+    solidAppearance: { color: '#ffffff', morphology: 'crystalline', glossiness: 0.45 },
+  },
+  C6H2Br3NH2: {
+    formula: 'C6H2Br3NH2',
+    density_g_ml: 2.35,
+    Cp_J_kgK: 1150,
+    absorptivity_RGB: [0.02, 0.02, 0.02],
+    scatter: 2.4,
+    solidAppearance: { color: '#ffffff', morphology: 'crystalline', glossiness: 0.45 },
+  },
+  Fe2O3: {
+    formula: 'Fe2O3',
+    density_g_ml: 5.24,
+    Cp_J_kgK: 650,
+    absorptivity_RGB: [0.4, 1.6, 2.2],
+    scatter: 2.2,
+    solidAppearance: { color: '#9a3412', morphology: 'powder', glossiness: 0.15 },
+  },
+  CaO: {
+    formula: 'CaO',
+    density_g_ml: 3.34,
+    Cp_J_kgK: 750,
+    dH_sol_J_mol: -82000,
+    absorptivity_RGB: [0.02, 0.02, 0.02],
+    scatter: 1.8,
+    solidAppearance: { color: '#f8fafc', morphology: 'granular', glossiness: 0.1 },
+  },
+  'Ca(OH)2': {
+    formula: 'Ca(OH)2',
+    density_g_ml: 2.21,
+    Cp_J_kgK: 1180,
+    solubility_g_100ml_cold: 0.173,
+    solubility_g_100ml_hot: 0.077,
+    Ksp: 5.5e-6,
+    absorptivity_RGB: [0.01, 0.01, 0.01],
+    scatter: 1.9,
+    solidAppearance: { color: '#ffffff', morphology: 'powder', glossiness: 0.15 },
+  },
+  'Cu(C6H11O6)2': {
+    formula: 'Cu(C6H11O6)2',
+    density_g_ml: 1.09,
+    Cp_J_kgK: 3850,
+    viscosity_mPa_s: 1.25,
+    absorptivity_RGB: [2.8, 1.35, 0.1],
+    scatter: 0,
+  },
 };
 
 export function getPhysicalSubstance(formula: string): SubstancePhysicalEntry | undefined {
   const clean = normalizeFormula(formula);
   if (PHYSICAL_SUBSTANCES[clean]) return PHYSICAL_SUBSTANCES[clean];
+  if (clean === 'TINHBOT' || clean === 'C6H10O5') return PHYSICAL_SUBSTANCES.Starch;
+  if (clean === 'C3H8O3') return PHYSICAL_SUBSTANCES['C3H5(OH)3'];
+  if (clean === '[CU(NH3)4]SO4') return PHYSICAL_SUBSTANCES['Cu(NH3)4SO4'];
   // Match stripped hydrates / stripped states e.g. CuSO4.5H2O -> CuSO4, BaSO4(s) -> BaSO4
   const base = clean.replace(/(\(s\)|\(aq\)|\(l\)|\(g\))$/i, '').split('.')[0];
   if (PHYSICAL_SUBSTANCES[base]) return PHYSICAL_SUBSTANCES[base];

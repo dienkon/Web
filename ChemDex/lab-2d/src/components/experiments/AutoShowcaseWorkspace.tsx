@@ -224,11 +224,116 @@ const SCENARIOS: ShowcaseScenario[] = [
         },
       },
       {
-        delayMs: 1800,
-        caption_vi: 'Thêm Glucozo vào dung dịch ấm 58°C — bạc kim loại kết tủa bám đều thành lớp gương phản chiếu óng ánh.',
-        caption_en: 'Adding Glucose into 58°C warm bath — metallic Ag deposits onto inner vessel walls.',
+        delayMs: 3400,
+        caption_vi: 'Thêm Glucozo vào dung dịch ấm 58°C — bạc kim loại kết tủa từ từ, phủ dần thành lớp gương bạc óng ánh.',
+        caption_en: 'Adding Glucose into 58°C warm bath — metallic Ag gradually plates onto inner vessel walls.',
         run: (ctx) => {
           useLabStore.getState().addChemicalToEquipment(ctx.beaker, 'chem-c6h12o6', 25);
+        },
+      },
+    ],
+  },
+  {
+    id: 'iodine-clock',
+    title_vi: 'Đồng hồ Iot (Phản ứng dao động màu trễ)',
+    title_en: 'Landolt Iodine Clock Flash',
+    subtitle_vi: 'Pha KI + H₂SO₄ + Na₂S₂O₃ + Hồ tinh bột → Rót H₂O₂ → Trễ pha trong suốt rồi chuyển xanh đen đột ngột',
+    subtitle_en: 'KI + H₂SO₄ + Na₂S₂O₃ + Starch → Pour H₂O₂ → Clear induction delay then sudden blue-black flash',
+    steps: [
+      {
+        delayMs: 250,
+        caption_vi: 'Chuẩn bị dung dịch KI, H₂SO₄, Na₂S₂O₃ (chất trì hoãn) và hồ tinh bột trong cốc.',
+        caption_en: 'Preparing KI, H₂SO₄, thiosulfate scavenger, and starch indicator beaker alongside H₂O₂.',
+        run: (ctx) => {
+          const st = useLabStore.getState();
+          st.resetWorkbench();
+          ctx.beakerA = st.addEquipment('beaker', 180, 145);
+          ctx.beakerB = st.addEquipment('beaker', 395, 145);
+          const store = useLabStore.getState();
+          store.addChemicalToEquipment(ctx.beakerA, 'chem-ki', 30);
+          store.addChemicalToEquipment(ctx.beakerA, 'chem-h2so4', 25);
+          store.addChemicalToEquipment(ctx.beakerA, 'chem-na2s2o3', 8);
+          store.addChemicalToEquipment(ctx.beakerA, 'chem-starch', 15);
+          store.addChemicalToEquipment(ctx.beakerB, 'chem-h2o2', 25);
+        },
+      },
+      {
+        delayMs: 1400,
+        caption_vi: 'Rót H₂O₂ — Na₂S₂O₃ khử ngay I₂ mới sinh nên dung dịch giữ nguyên trong suốt trước khi bùng phát màu xanh đen!',
+        caption_en: 'Pouring H₂O₂ — thiosulfate scavenges nascent I₂ during induction, then excess I₂ + Starch flashes deep blue-black!',
+        run: (ctx) => {
+          useLabStore.getState().triggerDirectPour(ctx.beakerB, ctx.beakerA);
+        },
+      },
+    ],
+  },
+  {
+    id: 'elephant-foam',
+    title_vi: 'Voi phun kem đánh răng (Phân hủy H₂O₂ xúc tác KI + SDS)',
+    title_en: 'Elephant Toothpaste Exothermic Foam',
+    subtitle_vi: 'H₂O₂ + chất tạo bọt SDS → Xúc tác KI phân hủy sinh cột bọt O₂ trắng xóa kèm hơi nước tỏa nhiệt',
+    subtitle_en: 'H₂O₂ + SDS surfactant → KI catalyst triggers rapid O₂ foam column and exothermic steam',
+    steps: [
+      {
+        delayMs: 250,
+        caption_vi: 'Chuẩn bị bình tam giác chứa H₂O₂ đậm đặc và chất hoạt động bề mặt SDS.',
+        caption_en: 'Preparing Erlenmeyer flask with H₂O₂ + SDS surfactant and KI catalyst beaker.',
+        run: (ctx) => {
+          const st = useLabStore.getState();
+          st.resetWorkbench();
+          ctx.flask = st.addEquipment('erlenmeyer_flask', 190, 140);
+          ctx.beakerKI = st.addEquipment('beaker', 410, 155);
+          const store = useLabStore.getState();
+          store.addChemicalToEquipment(ctx.flask, 'chem-h2o2', 60);
+          store.addChemicalToEquipment(ctx.flask, 'chem-sds', 20);
+          store.addChemicalToEquipment(ctx.beakerKI, 'chem-ki', 25);
+        },
+      },
+      {
+        delayMs: 1500,
+        caption_vi: 'Rót KI xúc tác vào H₂O₂ + SDS — phản ứng phân hủy tỏa nhiệt giải phóng khí O₂ đẩy cột bọt xốp dâng cao!',
+        caption_en: 'Pouring KI catalyst into H₂O₂ + SDS — rapid exothermic decomposition raises tall cellular O₂ foam!',
+        run: (ctx) => {
+          useLabStore.getState().triggerDirectPour(ctx.beakerKI, ctx.flask);
+        },
+      },
+    ],
+  },
+  {
+    id: 'amphoteric-cascade',
+    title_vi: 'Hiđroxit lưỡng tính Al(OH)₃ (Kết tủa → Tan trong kiềm dư)',
+    title_en: 'Amphoteric Al(OH)₃ Cascade',
+    subtitle_vi: 'AlCl₃ + NaOH vừa đủ → Kết tủa keo trắng Al(OH)₃ → Thêm NaOH dư → Hòa tan tạo NaAlO₂ trong suốt',
+    subtitle_en: 'AlCl₃ + stoichiometric NaOH → White Al(OH)₃ gel → Excess NaOH dissolves into clear NaAlO₂',
+    steps: [
+      {
+        delayMs: 250,
+        caption_vi: 'Chuẩn bị cốc AlCl₃ và dung dịch NaOH.',
+        caption_en: 'Setting up AlCl₃ beaker and stoichiometric NaOH beaker.',
+        run: (ctx) => {
+          const st = useLabStore.getState();
+          st.resetWorkbench();
+          ctx.beakerAl = st.addEquipment('beaker', 180, 145);
+          ctx.beakerNaOH = st.addEquipment('beaker', 395, 145);
+          const store = useLabStore.getState();
+          store.addChemicalToEquipment(ctx.beakerAl, 'chem-alcl3', 20);
+          store.addChemicalToEquipment(ctx.beakerNaOH, 'chem-naoh', 55);
+        },
+      },
+      {
+        delayMs: 1500,
+        caption_vi: 'Rót NaOH vừa đủ — tạo kết tủa keo trắng Al(OH)₃ lơ lửng trong dung dịch.',
+        caption_en: 'Pouring stoichiometric NaOH — white gelatinous Al(OH)₃ precipitates cleanly.',
+        run: (ctx) => {
+          useLabStore.getState().triggerDirectPour(ctx.beakerNaOH, ctx.beakerAl);
+        },
+      },
+      {
+        delayMs: 2800,
+        caption_vi: 'Tiếp tục thêm NaOH dư — kết tủa Al(OH)₃ tan hết tạo dung dịch natri aluminat NaAlO₂ trong suốt!',
+        caption_en: 'Adding excess NaOH — amphoteric Al(OH)₃ redissolves completely into clear NaAlO₂!',
+        run: (ctx) => {
+          useLabStore.getState().addChemicalToEquipment(ctx.beakerAl, 'chem-naoh', 40);
         },
       },
     ],
@@ -289,12 +394,12 @@ export const AutoShowcaseWorkspace: React.FC = () => {
       <div className="max-w-4xl mx-auto">
       <div className="flex items-center justify-between gap-2 border-b border-slate-700/70 pb-2">
         <div className="flex items-center gap-2 min-w-0">
-          <Sparkles size={16} className="text-emerald-400 shrink-0" />
+          <Sparkles size={15} className="text-emerald-400 shrink-0" />
           <div className="min-w-0">
             <h3 className="text-xs sm:text-sm font-bold truncate">
               {vi ? scenario.title_vi : scenario.title_en}
             </h3>
-            <p className="text-[11px] text-slate-300 truncate">
+            <p className="hidden sm:block text-[11px] text-slate-300 truncate">
               {vi ? scenario.subtitle_vi : scenario.subtitle_en}
             </p>
           </div>

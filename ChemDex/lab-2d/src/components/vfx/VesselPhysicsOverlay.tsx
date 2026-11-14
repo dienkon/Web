@@ -84,15 +84,17 @@ export const VesselPhysicsOverlay: React.FC<VesselPhysicsOverlayProps> = ({
           const localBottomY = Math.min(h, localMeniscusY + Math.max(0, liqH));
 
           // ── 0. Silver Mirror Wall Plating (Tollens' aldehyde/glucose mirror band) ──
-          if (eq.hasSilverMirror && liqH > 4) {
+          const mirrorRatio = Math.max(0, Math.min(1, eq.silverMirrorProgress ?? (eq.hasSilverMirror ? 1 : 0)));
+          if ((eq.hasSilverMirror || mirrorRatio > 0.04) && liqH > 4) {
             const bandTop = Math.max(0, localMeniscusY - 6);
             const bandH = Math.min(h - bandTop, liqH + 8);
+            const alphaScale = 0.25 + 0.75 * mirrorRatio;
             const mirrorGrad = ctx.createLinearGradient(0, bandTop, w, bandTop + bandH);
-            mirrorGrad.addColorStop(0, 'rgba(248, 250, 252, 0.72)');
-            mirrorGrad.addColorStop(0.28, 'rgba(148, 163, 184, 0.58)');
-            mirrorGrad.addColorStop(0.55, 'rgba(255, 255, 255, 0.78)');
-            mirrorGrad.addColorStop(0.82, 'rgba(100, 116, 139, 0.52)');
-            mirrorGrad.addColorStop(1, 'rgba(226, 232, 240, 0.68)');
+            mirrorGrad.addColorStop(0, `rgba(248, 250, 252, ${(0.72 * alphaScale).toFixed(3)})`);
+            mirrorGrad.addColorStop(0.28, `rgba(148, 163, 184, ${(0.58 * alphaScale).toFixed(3)})`);
+            mirrorGrad.addColorStop(0.55, `rgba(255, 255, 255, ${(0.82 * alphaScale).toFixed(3)})`);
+            mirrorGrad.addColorStop(0.82, `rgba(100, 116, 139, ${(0.52 * alphaScale).toFixed(3)})`);
+            mirrorGrad.addColorStop(1, `rgba(226, 232, 240, ${(0.7 * alphaScale).toFixed(3)})`);
             ctx.fillStyle = mirrorGrad;
             ctx.fillRect(0, bandTop, w, bandH);
           }
@@ -219,7 +221,7 @@ export const VesselPhysicsOverlay: React.FC<VesselPhysicsOverlayProps> = ({
               }
             }
 
-            // 4D. Settled Precipitate Sediment Bed at Bottom (tilts with meniscus wave)
+            // 4D. Settled Precipitate Sediment Bed at Bottom & Floating Meniscus Raft/Scum Collar
             if (eq.hasPrecipitate && st.sedimentBedRatio > 0.005) {
               const bedH = Math.max(3, Math.min(20, liqH * st.sedimentBedRatio));
               const tiltOffset = Math.tan((st.meniscusAngle_deg * Math.PI) / 180) * (w * 0.35);
@@ -227,7 +229,7 @@ export const VesselPhysicsOverlay: React.FC<VesselPhysicsOverlayProps> = ({
               ctx.fillStyle =
                 st.thermalDecompProgress > 0.1
                   ? '#18181b' // Cu(OH)2 thermal decomposition turning black CuO at hot bottom
-                  : eq.precipitateColorHex || '#ffffff';
+                  : st.sedimentColorHex || eq.precipitateColorHex || '#ffffff';
               ctx.globalAlpha = 0.88;
               ctx.beginPath();
               ctx.moveTo(0, localBottomY - bedH - tiltOffset);
@@ -244,6 +246,32 @@ export const VesselPhysicsOverlay: React.FC<VesselPhysicsOverlayProps> = ({
               ctx.restore();
             }
 
+            if (eq.hasPrecipitate && st.floatingBedRatio > 0.005 && liqH > 8) {
+              const floatH = Math.max(2.5, Math.min(14, liqH * st.floatingBedRatio));
+              const tiltOffset = Math.tan((st.meniscusAngle_deg * Math.PI) / 180) * (w * 0.35);
+              ctx.save();
+              ctx.fillStyle = st.floatingColorHex || eq.precipitateColorHex || '#f8fafc';
+              ctx.globalAlpha = 0.86;
+              ctx.beginPath();
+              ctx.moveTo(0, localMeniscusY - tiltOffset - 0.5);
+              ctx.quadraticCurveTo(w * 0.5, localMeniscusY + floatH * 0.28, w, localMeniscusY + tiltOffset - 0.5);
+              ctx.lineTo(w, localMeniscusY + floatH + tiltOffset);
+              ctx.bezierCurveTo(
+                w * 0.72,
+                localMeniscusY + floatH * 1.32,
+                w * 0.28,
+                localMeniscusY + floatH * 0.82,
+                0,
+                localMeniscusY + floatH - tiltOffset
+              );
+              ctx.closePath();
+              ctx.fill();
+              ctx.strokeStyle = 'rgba(255,255,255,0.45)';
+              ctx.lineWidth = 0.8;
+              ctx.stroke();
+              ctx.restore();
+            }
+
             // 4E. Multi-Morphology Precipitate Particles (Golden Rain plates, curds, flocs, gel)
             for (const p of st.precipitates) {
               const px = p.x * w;
@@ -252,7 +280,13 @@ export const VesselPhysicsOverlay: React.FC<VesselPhysicsOverlayProps> = ({
               ctx.translate(px, py);
               ctx.rotate(p.rotation_rad);
 
-              if (p.morphology === 'plates' || (p.morphology === 'crystalline' && (p.colorHex === '#eab308' || p.colorHex === '#facc15'))) {
+              const isYellowGoldPlate =
+                (p.morphology === 'plates' || p.morphology === 'crystalline') &&
+                (p.colorHex === '#eab308' || p.colorHex === '#facc15' || p.colorHex === '#fde047');
+              const isSilverCrystal =
+                (p.morphology === 'plates' || p.morphology === 'crystalline') &&
+                (p.colorHex === '#e2e8f0' || p.colorHex === '#cbd5e1' || p.colorHex === '#f1f5f9' || p.colorHex === '#f8fafc');
+              if (isYellowGoldPlate) {
                 // PbI2 Golden Rain: Shimmering hexagonal golden platelets with metallic glint
                 const shimmer = 0.55 + 0.45 * Math.sin(p.shimmerPhase * 2.5);
                 ctx.fillStyle = shimmer > 0.82 ? '#fef9c3' : shimmer > 0.58 ? '#facc15' : '#ca8a04';
@@ -273,6 +307,33 @@ export const VesselPhysicsOverlay: React.FC<VesselPhysicsOverlayProps> = ({
                   ctx.lineWidth = 0.85;
                   ctx.stroke();
                 }
+              } else if (
+                p.formula === 'Cu2O' ||
+                p.colorHex === '#c2410c' ||
+                p.colorHex === '#b45309'
+              ) {
+                // Brick-red Cu2O crystalline octahedra / grains (Benedict / Fehling sugar test)
+                const shimmer = 0.55 + 0.45 * Math.sin(p.shimmerPhase * 2.0);
+                ctx.fillStyle = shimmer > 0.7 ? '#ea580c' : '#c2410c';
+                ctx.globalAlpha = 0.86;
+                const r = Math.max(2.3, p.size_px * 0.72);
+                ctx.beginPath();
+                ctx.moveTo(0, -r);
+                ctx.lineTo(r * 0.85, 0);
+                ctx.lineTo(0, r);
+                ctx.lineTo(-r * 0.85, 0);
+                ctx.closePath();
+                ctx.fill();
+                ctx.strokeStyle = 'rgba(254, 215, 170, 0.45)';
+                ctx.lineWidth = 0.7;
+                ctx.stroke();
+              } else if (isSilverCrystal) {
+                // Tollens metallic silver micro-nuclei: crisp bright silver-chrome shimmer (never gold)
+                const shimmer = 0.55 + 0.45 * Math.sin(p.shimmerPhase * 2.8);
+                ctx.fillStyle = shimmer > 0.78 ? '#ffffff' : shimmer > 0.5 ? '#e2e8f0' : '#94a3b8';
+                ctx.globalAlpha = 0.55 + 0.35 * shimmer;
+                const r = Math.max(2.0, p.size_px * 0.72);
+                ctx.fillRect(-r, -r * 0.4, r * 2, r * 0.8);
               } else if (p.morphology === 'curdy') {
                 // AgCl curdy white multi-lobe clumps
                 ctx.fillStyle = p.colorHex;
@@ -302,16 +363,23 @@ export const VesselPhysicsOverlay: React.FC<VesselPhysicsOverlayProps> = ({
             }
           }
 
-          // ── 5. Submerged 2D Solid Chunks & Copper Surface Plating (Fe nail, Zn granule, Mg ribbon, CaCO3) ──
+          // ── 5. Submerged & Floating 2D Solid Chunks & Copper Surface Plating (Fe nail, Zn granule, Mg ribbon, CaCO3, C, S) ──
           if (eq.solidChunks && eq.solidChunks.length > 0 && !eq.isShattered) {
             for (const chunk of eq.solidChunks) {
-              if (chunk.isFloating) continue; // Floating Na/K rendered at meniscus in step 7
+              const formulaUp = chunk.formula.toUpperCase();
+              if (formulaUp === 'NA' || formulaUp === 'K') continue; // Skittering molten Na/K rendered at meniscus in step 7
+              if (chunk.mass_g <= 0.0001) continue;
+              const massFrac = Math.max(0, Math.min(1.15, chunk.mass_g / Math.max(0.01, chunk.initialMass_g)));
+              const scale = Math.max(0.06, Math.min(1.15, Math.cbrt(massFrac)));
               const cx = chunk.xNormalized * w;
-              const cy = h - 6;
-              const scale = Math.max(0.35, Math.min(1.15, Math.sqrt(chunk.mass_g / Math.max(0.1, chunk.initialMass_g))));
+              const isSurfaceFloat = Boolean(chunk.isFloating) && liqH > 4;
+              const cy = isSurfaceFloat
+                ? localMeniscusY + Math.sin(st.ripplePhase + cx * 0.08) * 1.4 + 2.5
+                : h - Math.max(2.5, 6 * scale);
               const coatProg = Math.max(chunk.coatingProgress ?? 0, st.copperPlatingProgress);
 
               ctx.save();
+              ctx.globalAlpha = Math.max(0.28, Math.min(1, massFrac * 8));
               ctx.translate(cx, cy);
               ctx.scale(scale, scale);
 
@@ -367,6 +435,32 @@ export const VesselPhysicsOverlay: React.FC<VesselPhysicsOverlayProps> = ({
                   }
                 }
               }
+
+              // Dendritic metallic crystals radiating from submerged metal (Cu + AgNO3 Silver Tree / Zn + Pb)
+              const hasDendriticTree =
+                coatProg > 0.1 &&
+                (eq.activeControllerIds?.includes('dendritic_metal_tree') ||
+                  eq.activeControllerIds?.includes('cu_agno3_tree') ||
+                  eq.contents.some(c => c.formula === 'Ag' && c.state === 's'));
+              if (hasDendriticTree) {
+                const reach = Math.min(18, 5 + coatProg * 14);
+                ctx.strokeStyle = chunk.coatingColorHex || '#e2e8f0';
+                ctx.lineWidth = 1.1;
+                ctx.globalAlpha = Math.min(0.92, 0.35 + coatProg * 0.55);
+                for (let br = -2; br <= 2; br++) {
+                  const ang = br * 0.48 - Math.PI / 2;
+                  const bx = Math.cos(ang) * reach;
+                  const by = Math.sin(ang) * reach;
+                  ctx.beginPath();
+                  ctx.moveTo(0, 0);
+                  ctx.lineTo(bx, by);
+                  ctx.moveTo(bx * 0.55, by * 0.55);
+                  ctx.lineTo(bx * 0.55 + Math.cos(ang - 0.55) * (reach * 0.42), by * 0.55 + Math.sin(ang - 0.55) * (reach * 0.42));
+                  ctx.moveTo(bx * 0.68, by * 0.68);
+                  ctx.lineTo(bx * 0.68 + Math.cos(ang + 0.55) * (reach * 0.38), by * 0.68 + Math.sin(ang + 0.55) * (reach * 0.38));
+                  ctx.stroke();
+                }
+              }
               ctx.restore();
             }
           }
@@ -398,9 +492,9 @@ export const VesselPhysicsOverlay: React.FC<VesselPhysicsOverlayProps> = ({
             const vortex = st.vortexDepth_px;
 
             if ((eq.foamHead_mm ?? 0) > 0.4) {
-              const foamH = Math.min(10, Math.max(2, (eq.foamHead_mm ?? 2) * 0.9));
+              const foamH = Math.min(28, Math.max(2, (eq.foamHead_mm ?? 2) * 0.9));
               ctx.save();
-              ctx.fillStyle = 'rgba(255, 255, 255, 0.65)';
+              ctx.fillStyle = (eq.foamHead_mm ?? 0) > 10 ? 'rgba(255, 255, 255, 0.85)' : 'rgba(255, 255, 255, 0.65)';
               ctx.beginPath();
               for (let i = 0; i <= 10; i++) {
                 const u = i / 10;
@@ -411,6 +505,62 @@ export const VesselPhysicsOverlay: React.FC<VesselPhysicsOverlayProps> = ({
                 ctx.arc(fx, localMeniscusY + tiltOffset + wobble - foamH * 0.25, foamH * 0.55, 0, Math.PI * 2);
               }
               ctx.fill();
+              if ((eq.foamHead_mm ?? 0) > 10) {
+                const tiers = Math.min(4, Math.floor((eq.foamHead_mm ?? 12) / 6));
+                for (let t = 1; t <= tiers; t++) {
+                  const tierFrac = t / (tiers + 1);
+                  ctx.fillStyle = `rgba(255, 255, 255, ${0.78 - t * 0.12})`;
+                  ctx.strokeStyle = 'rgba(203, 213, 225, 0.65)';
+                  ctx.lineWidth = 0.8;
+                  for (let i = 0; i < 8; i++) {
+                    const u = (i + (t % 2) * 0.45 + 0.2) / 8.5;
+                    const fx = u * w;
+                    const tiltOffset = (u - 0.5) * 2 * tiltDy;
+                    const bubbleR = Math.max(2.6, Math.min(6.2, foamH * 0.24 * (1 - tierFrac * 0.35)));
+                    const fy = localMeniscusY + tiltOffset - foamH * tierFrac * 0.78 + Math.sin(st.ripplePhase + i) * 0.9;
+                    ctx.beginPath();
+                    ctx.arc(fx, fy, bubbleR, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.stroke();
+                  }
+                }
+              }
+              ctx.restore();
+            }
+
+            // Top-down rust-brown air oxidation band for Fe(OH)2(s) -> Fe(OH)3(s)
+            if (
+              eq.contents.some(c => c.formula === 'Fe(OH)2' && c.state === 's') ||
+              eq.activeControllerIds?.some(id => id.includes('feoh2') || id.includes('fe_oh_air'))
+            ) {
+              const bandH = Math.min(10, Math.max(3, liqH * 0.2));
+              const rustGrad = ctx.createLinearGradient(0, localMeniscusY, 0, localMeniscusY + bandH);
+              rustGrad.addColorStop(0, 'rgba(154, 52, 18, 0.65)');
+              rustGrad.addColorStop(1, 'rgba(154, 52, 18, 0)');
+              ctx.fillStyle = rustGrad;
+              ctx.fillRect(0, localMeniscusY, w, bandH);
+            }
+
+            // Floating translucent ice cubes (H2O(s)) bobbing at the meniscus
+            if (eq.contents.some(c => c.formula.toUpperCase() === 'H2O' && c.state === 's' && c.mass_g > 0.05)) {
+              ctx.save();
+              for (let cIdx = 0; cIdx < 3; cIdx++) {
+                const u = 0.24 + cIdx * 0.26;
+                const ix = u * w;
+                const tiltOffset = (u - 0.5) * 2 * tiltDy;
+                const bob = Math.sin(st.ripplePhase * 1.1 + cIdx * 2.1) * 1.3;
+                const iy = localMeniscusY + tiltOffset + bob;
+                const cubeSize = Math.min(11, Math.max(6, w * 0.11));
+                ctx.save();
+                ctx.translate(ix, iy);
+                ctx.rotate((cIdx - 1) * 0.18 + Math.sin(st.ripplePhase + cIdx) * 0.06);
+                ctx.fillStyle = 'rgba(224, 242, 254, 0.72)';
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.92)';
+                ctx.lineWidth = 1.1;
+                ctx.fillRect(-cubeSize * 0.5, -cubeSize * 0.38, cubeSize, cubeSize * 0.76);
+                ctx.strokeRect(-cubeSize * 0.5, -cubeSize * 0.38, cubeSize, cubeSize * 0.76);
+                ctx.restore();
+              }
               ctx.restore();
             }
 
@@ -451,19 +601,21 @@ export const VesselPhysicsOverlay: React.FC<VesselPhysicsOverlayProps> = ({
 
           ctx.restore();
 
-          // ── Unclipped Exterior / Headspace Canvas Pass (Fumes, Alkali Flame, Sparks, Bloom, Flying Shards) ──
+          // ── Unclipped Exterior / Headspace Canvas Pass (Fumes, Thermal Haze, Alkali Flame, Sparks, Bloom, Shards) ──
           const hsCanvas = headspaceCanvasRef.current;
+          const showThermalHaze = !eq.isShattered && (eq.isBeingHeated || eq.temperature_c > 52) && liqH > 1.5;
           const hasHeadspaceVfx =
             st.fumes.length > 0 ||
+            showThermalHaze ||
             Boolean(st.alkaliPellet && liqH > 1.5 && !eq.isShattered) ||
             st.sparks.length > 0 ||
             st.mgFlashIntensity > 0.02 ||
             Boolean(eq.isShattered);
 
           if (hsCanvas && (hasHeadspaceVfx || headspaceDirtyRef.current)) {
-            const padX = 36;
-            const padY = 88;
-            const padBottom = 22;
+            const padX = 56;
+            const padY = 135;
+            const padBottom = 24;
             const hsW = w + padX * 2;
             const hsH = h + padY + padBottom;
             const targetHsW = Math.round(hsW * dpr);
@@ -481,23 +633,77 @@ export const VesselPhysicsOverlay: React.FC<VesselPhysicsOverlayProps> = ({
               if (hasHeadspaceVfx) {
                 ctx2.translate(padX, padY);
 
-                // 7B. Unclipped Rising Headspace Fumes (NO2, NH4Cl smoke, I2 vapor, boiling steam)
+                // 7A. Convective Thermal Heat Haze Ribbons above warm/heated vessels
+                if (showThermalHaze && !eq.isBoiling) {
+                  const heatStrength = Math.min(1, Math.max(0.25, (eq.temperature_c - 48) / 52));
+                  ctx2.save();
+                  ctx2.globalAlpha = 0.14 * heatStrength;
+                  ctx2.strokeStyle = 'rgba(255, 255, 255, 0.85)';
+                  ctx2.lineWidth = 1.6;
+                  ctx2.lineCap = 'round';
+                  const tPhase = st.ripplePhase * 0.35;
+                  for (let r = 0; r < 3; r++) {
+                    const baseX = w * (0.3 + r * 0.2);
+                    const startY = Math.min(localMeniscusY - 6, 8);
+                    const s1 = Math.sin(tPhase + r * 2.1) * 5;
+                    const s2 = Math.cos(tPhase * 1.2 + r * 1.4) * 5;
+                    ctx2.beginPath();
+                    ctx2.moveTo(baseX, startY);
+                    ctx2.bezierCurveTo(baseX + s1, startY - 18, baseX - s2, startY - 36, baseX + s1 * 0.6, startY - 54);
+                    ctx2.stroke();
+                  }
+                  ctx2.restore();
+                }
+
+                // 7B. Unclipped Multi-Layered Volumetric Fumes (steam wisps, heavy NO2 cascade, NH4Cl clouds, I2 vapor)
                 if (st.fumes.length > 0 && !eq.isShattered) {
                   for (const fm of st.fumes) {
                     const fx = fm.x * w;
                     const fy = localMeniscusY + fm.yOffsetPx;
-                    if (fy < -padY) continue;
-                    const lifeFade = Math.sin(Math.min(1, fm.life / Math.max(0.1, fm.maxLife)) * Math.PI);
-                    const a = Math.max(0, Math.min(0.88, fm.alpha * lifeFade));
-                    if (a <= 0.015) continue;
-                    const fg = ctx2.createRadialGradient(fx, fy, 1, fx, fy, fm.radius_px);
-                    fg.addColorStop(0, fm.colorHex);
-                    fg.addColorStop(1, 'rgba(255,255,255,0)');
+                    if (fy < -padY - 12) continue;
+                    const normLife = Math.max(0, Math.min(1, fm.life / Math.max(0.1, fm.maxLife)));
+                    const easeIn = Math.min(1, normLife / 0.16);
+                    const easeOut = Math.pow(1 - normLife, 1.35);
+                    const a = Math.max(0, Math.min(0.86, fm.alpha * easeIn * easeOut));
+                    if (a <= 0.012) continue;
+
                     ctx2.save();
+                    ctx2.translate(fx, fy);
+                    ctx2.rotate(fm.rotation_rad);
+                    ctx2.scale(fm.scaleX, fm.scaleY);
+
+                    const r = fm.radius_px;
+                    const fg = ctx2.createRadialGradient(0, 0, Math.max(0.8, r * 0.1), 0, 0, r);
+                    if (fm.fumeType === 'no2') {
+                      fg.addColorStop(0, 'rgba(154, 52, 18, 0.92)');
+                      fg.addColorStop(0.5, fm.colorHex);
+                      fg.addColorStop(1, 'rgba(180, 83, 9, 0)');
+                    } else if (fm.fumeType === 'nh4cl') {
+                      fg.addColorStop(0, 'rgba(255, 255, 255, 0.95)');
+                      fg.addColorStop(0.55, 'rgba(241, 245, 249, 0.72)');
+                      fg.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                    } else if (fm.fumeType === 'iodine') {
+                      fg.addColorStop(0, 'rgba(126, 34, 206, 0.9)');
+                      fg.addColorStop(0.5, fm.colorHex);
+                      fg.addColorStop(1, 'rgba(147, 51, 234, 0)');
+                    } else {
+                      fg.addColorStop(0, 'rgba(255, 255, 255, 0.85)');
+                      fg.addColorStop(0.45, fm.colorHex);
+                      fg.addColorStop(1, 'rgba(226, 232, 240, 0)');
+                    }
+
                     ctx2.globalAlpha = a;
                     ctx2.fillStyle = fg;
                     ctx2.beginPath();
-                    ctx2.arc(fx, fy, fm.radius_px, 0, Math.PI * 2);
+                    ctx2.arc(0, 0, r, 0, Math.PI * 2);
+                    ctx2.fill();
+
+                    // Secondary turbulent eddy lobe for organic volumetric silhouette
+                    const lobeX = Math.cos(fm.seed) * r * 0.38;
+                    const lobeY = Math.sin(fm.seed) * r * 0.28;
+                    ctx2.globalAlpha = a * 0.58;
+                    ctx2.beginPath();
+                    ctx2.arc(lobeX, lobeY, r * 0.72, 0, Math.PI * 2);
                     ctx2.fill();
                     ctx2.restore();
                   }
@@ -595,9 +801,9 @@ export const VesselPhysicsOverlay: React.FC<VesselPhysicsOverlayProps> = ({
     return () => cancelAnimationFrame(rafId);
   }, []);
 
-  const padX = 36;
-  const padY = 88;
-  const padBottom = 22;
+  const padX = 56;
+  const padY = 135;
+  const padBottom = 24;
 
   return (
     <>

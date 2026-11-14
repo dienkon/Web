@@ -2,9 +2,11 @@ import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 import { useLabStore } from '../../store/useLabStore';
 import { useLabEnvironment } from '../../store/useLabEnvironment';
-import { PointerDragPayload } from '../../store/usePointerDragStore';
+import { PointerDragPayload, usePointerDragStore } from '../../store/usePointerDragStore';
 import { EquipmentRenderer } from '../equipment/EquipmentRenderer';
 import { PourStreamVfx } from '../vfx/PourStreamVfx';
+import { PouringBottle2D, ChemicalGhostCursor } from '../vfx/PouringBottle2D';
+import { LitmusTestModal2D } from '../modals/LitmusTestModal2D';
 import { SafetyPpeBar } from './SafetyPpeBar';
 import { MeasurementHUD } from './MeasurementHUD';
 import { RadialMenu2D } from './RadialMenu2D';
@@ -29,9 +31,14 @@ export const Workbench: React.FC = () => {
     tickSimulation,
     language,
     activePourVfx,
+    activeExternalDoses,
     draggedChemicalId,
     setDraggedChemicalId,
-    addChemicalToEquipment,
+    triggerExternalChemicalPour,
+    spatulaScoop,
+    dispenseSpatulaToVessel,
+    activeLitmusVesselId,
+    setActiveLitmusVesselId,
     addEquipment,
     removeEquipment,
     toggleStir,
@@ -58,9 +65,14 @@ export const Workbench: React.FC = () => {
       tickSimulation: s.tickSimulation,
       language: s.language,
       activePourVfx: s.activePourVfx,
+      activeExternalDoses: s.activeExternalDoses,
       draggedChemicalId: s.draggedChemicalId,
       setDraggedChemicalId: s.setDraggedChemicalId,
-      addChemicalToEquipment: s.addChemicalToEquipment,
+      triggerExternalChemicalPour: s.triggerExternalChemicalPour,
+      spatulaScoop: s.spatulaScoop,
+      dispenseSpatulaToVessel: s.dispenseSpatulaToVessel,
+      activeLitmusVesselId: s.activeLitmusVesselId,
+      setActiveLitmusVesselId: s.setActiveLitmusVesselId,
       addEquipment: s.addEquipment,
       removeEquipment: s.removeEquipment,
       toggleStir: s.toggleStir,
@@ -77,6 +89,11 @@ export const Workbench: React.FC = () => {
       fitTriggerCount: s.fitTriggerCount,
     }))
   );
+
+  const activeDrag = usePointerDragStore((s) => s.activeDrag);
+  const dragClientX = usePointerDragStore((s) => s.clientX);
+  const dragClientY = usePointerDragStore((s) => s.clientY);
+  const isDraggingMoved = usePointerDragStore((s) => s.isDraggingMoved);
 
   const viewportRef = useRef<HTMLDivElement>(null);
   const [pan, setPan] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
@@ -117,8 +134,9 @@ export const Workbench: React.FC = () => {
     if (vw < 40 || vh < 40) return;
 
     const items = Object.values(useLabStore.getState().equipment);
-    const hudTopReserve = vw < 640 ? 64 : 52;
-    const usableH = Math.max(160, vh - hudTopReserve - 12);
+    const hudTopReserve = vw < 640 ? 18 : 52;
+    const hudBottomReserve = vw < 640 ? 54 : 14;
+    const usableH = Math.max(160, vh - hudTopReserve - hudBottomReserve);
     const usableW = Math.max(160, vw - 20);
 
     if (items.length > 0) {
@@ -214,9 +232,11 @@ export const Workbench: React.FC = () => {
           storeAccum = 0;
         }
       }
-      rafId = requestAnimationFrame(frame);
+      useLabStore.getState().setRealtimeKinetics(true);
+    rafId = requestAnimationFrame(frame);
     };
 
+    useLabStore.getState().setRealtimeKinetics(true);
     rafId = requestAnimationFrame(frame);
     return () => cancelAnimationFrame(rafId);
   }, [tickSimulation]);
@@ -235,27 +255,21 @@ export const Workbench: React.FC = () => {
     [pan.x, pan.y, workbenchZoom]
   );
 
-  // Inject localized dye plume if user drops/adds chemical at horizontal site
+  // Trigger animated external reagent pouring / dropping / spatula dosing at horizontal site
   const doseChemicalIntoVessel = useCallback(
     (vessel: EquipmentState, chemId: string, benchX: number) => {
       const chem = findChemicalById(chemId);
       const isSolid = chem?.phase_STP === 'solid';
-      const prevColor = vessel.liquidColorHex || '#f8fafc';
-      addChemicalToEquipment(vessel.id, chemId, isSolid ? undefined : 25, isSolid ? 2 : undefined);
-
       const relX = Math.max(-0.85, Math.min(0.85, ((benchX - vessel.x) / Math.max(20, vessel.width)) * 2 - 1));
-      const updated = useLabStore.getState().equipment[vessel.id];
-      if (updated) {
-        reactionRuntime2D.triggerColorMixing(
-          updated,
-          prevColor,
-          updated.liquidColorHex || '#f8fafc',
-          relX,
-          chem?.colorHex
-        );
-      }
+      triggerExternalChemicalPour(
+        vessel.id,
+        chemId,
+        isSolid ? undefined : 25,
+        isSolid ? 2 : undefined,
+        relX
+      );
     },
-    [addChemicalToEquipment]
+    [triggerExternalChemicalPour]
   );
 
   // Listen to unified cross-platform pointer drops from SidebarInventory (mouse + touch)
@@ -369,6 +383,23 @@ export const Workbench: React.FC = () => {
       } else {
         drawWithPipette(id, 5);
       }
+      return;
+    }
+
+    if (activeTool === 'spatula' && eq.isContainer) {
+      const pt = clientToBench(e.clientX, e.clientY);
+      const contactX = Math.max(-0.85, Math.min(0.85, ((pt.x - eq.x) / Math.max(20, eq.width)) * 2 - 1));
+      if (spatulaScoop) {
+        dispenseSpatulaToVessel(id, spatulaScoop.mass_g, contactX);
+      } else {
+        soundEngine.click();
+      }
+      return;
+    }
+
+    if (activeTool === 'litmus' && eq.isContainer) {
+      soundEngine.click();
+      setActiveLitmusVesselId(id);
       return;
     }
 
@@ -509,7 +540,7 @@ export const Workbench: React.FC = () => {
           const dx = Math.abs(draggingCenterX - burnerCenterX);
           const gap = burnerMouthY - draggingBottom;
 
-          if (dx < 35 && gap >= -30 && gap <= 120) {
+          if (dx <= 34 && gap >= -8 && gap <= 100) {
             newX = burnerCenterX - draggingEq.width / 2;
             detectedGuide = {
               type: 'burner',
@@ -517,6 +548,29 @@ export const Workbench: React.FC = () => {
               targetY: burnerMouthY,
               label_vi: other.isOn ? '🔥 Đang đun nóng tối ưu' : 'Đèn Bunsen (Chưa bật)',
               label_en: other.isOn ? '🔥 Optimal Heating Alignment' : 'Bunsen Burner (Unlit)',
+            };
+            break;
+          }
+        } else if (
+          draggingEq.type === 'bunsen_burner' &&
+          other.isContainer &&
+          (other.type === 'beaker' || other.type === 'erlenmeyer_flask' || other.type === 'test_tube' || other.type === 'evaporating_dish')
+        ) {
+          const vesselCenterX = other.x + other.width / 2;
+          const burnerCenterX = newX + draggingEq.width / 2;
+          const burnerMouthY = newY + 42;
+          const vesselBottom = other.y + other.height;
+          const dx = Math.abs(vesselCenterX - burnerCenterX);
+          const gap = burnerMouthY - vesselBottom;
+
+          if (dx <= 26 && gap >= -8 && gap <= 100) {
+            newX = vesselCenterX - draggingEq.width / 2;
+            detectedGuide = {
+              type: 'burner',
+              targetX: vesselCenterX,
+              targetY: burnerMouthY,
+              label_vi: draggingEq.isOn ? '🔥 Đèn khớp chính tâm đáy bình' : 'Đặt đèn chính tâm đáy bình',
+              label_en: draggingEq.isOn ? '🔥 Flame Aligned Under Vessel' : 'Burner Centered Under Vessel',
             };
             break;
           }
@@ -678,6 +732,29 @@ export const Workbench: React.FC = () => {
 
   const allEquipmentList = Object.values(equipment);
   const radialEquipment = radialTarget ? equipment[radialTarget.id] ?? null : null;
+  const activeLitmusVessel = activeLitmusVesselId ? equipment[activeLitmusVesselId] ?? null : null;
+
+  let externalDragHoverVessel: EquipmentState | null = null;
+  if (isDraggingMoved && activeDrag?.kind === 'chemical' && viewportRef.current) {
+    const vpRect = viewportRef.current.getBoundingClientRect();
+    if (
+      dragClientX >= vpRect.left &&
+      dragClientX <= vpRect.right &&
+      dragClientY >= vpRect.top &&
+      dragClientY <= vpRect.bottom
+    ) {
+      const pt = clientToBench(dragClientX, dragClientY);
+      externalDragHoverVessel =
+        allEquipmentList.find(
+          (v) =>
+            v.isContainer &&
+            pt.x >= v.x - 16 &&
+            pt.x <= v.x + v.width + 16 &&
+            pt.y >= v.y - 16 &&
+            pt.y <= v.y + v.height + 16
+        ) ?? null;
+    }
+  }
 
   return (
     <div
@@ -685,10 +762,12 @@ export const Workbench: React.FC = () => {
       className="lab-workbench relative flex-1 min-h-0 min-w-0 overflow-hidden select-none touch-none"
       style={{
         cursor:
-          activeTool === 'stir_rod'
+          activeTool === 'stir_rod' || activeTool === 'spatula'
             ? 'crosshair'
             : activeTool === 'pipette'
             ? 'cell'
+            : activeTool === 'litmus'
+            ? 'pointer'
             : activeTool === 'sponge'
             ? 'grab'
             : 'default',
@@ -707,29 +786,31 @@ export const Workbench: React.FC = () => {
       {/* Atmospheric 2D Lab Scene Background (Sunbeams, Tiles, Phenolic Benchtop) */}
       <LabEnvironmentBackdrop />
 
-      {/* Non-overlapping Top Floating HUD Layer (PPE Left + Measurement Tools Right) */}
-      <div className="absolute top-2.5 inset-x-2.5 z-20 flex flex-wrap items-start justify-between gap-2 pointer-events-none">
+      {/* Top-Left Minimal Safety Chip + Responsive Tool Bar (Bottom-Center on Mobile, Top-Right on Desktop) */}
+      <div className="absolute top-2.5 left-2.5 z-20 pointer-events-none">
         <SafetyPpeBar />
+      </div>
+      <div className="absolute bottom-2 inset-x-2 flex justify-center sm:inset-x-auto sm:bottom-auto sm:top-2.5 sm:left-24 sm:right-2.5 sm:justify-end z-20 pointer-events-none">
         <MeasurementHUD />
       </div>
 
       {/* Empty Bench Intro Callout */}
       {allEquipmentList.length === 0 && (
         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none px-4 z-10 text-center">
-          <div className="w-14 h-14 rounded-2xl bg-white/90 border border-slate-200/80 shadow-md flex items-center justify-center mb-3 backdrop-blur-xs">
-            <svg className="w-7 h-7 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
+          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white/90 border border-slate-200/80 shadow-md flex items-center justify-center mb-2.5 backdrop-blur-xs">
+            <svg className="w-6 h-6 sm:w-7 sm:h-7 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
               <path d="M10 2v7.31L4.83 18.2A2 2 0 0 0 6.55 21h10.9a2 2 0 0 0 1.72-2.8L14 9.31V2" />
               <path d="M8.5 2h7" />
               <path d="M14 9.3a6.5 6.5 0 1 1-4 0" />
             </svg>
           </div>
-          <p className="text-sm sm:text-base font-bold text-slate-700 bg-white/70 backdrop-blur-xs px-3 py-1 rounded-full">
-            {language === 'vi' ? 'Bàn thí nghiệm ảo sẵn sàng' : 'Virtual Lab Workbench Ready'}
+          <p className="text-sm font-bold text-slate-700 bg-white/75 backdrop-blur-xs px-3 py-1 rounded-full">
+            {language === 'vi' ? 'Bàn thí nghiệm sẵn sàng' : 'Lab Workbench Ready'}
           </p>
-          <p className="text-xs text-slate-500 mt-1.5 max-w-sm bg-white/60 backdrop-blur-xs px-3 py-1 rounded-full">
+          <p className="text-[11px] sm:text-xs text-slate-500 mt-1.5 max-w-[260px] sm:max-w-sm bg-white/65 backdrop-blur-xs px-3 py-1 rounded-full">
             {language === 'vi'
-              ? 'Kéo hóa chất/dụng cụ vào bàn, bấm thanh dụng cụ dưới hoặc mở Trình diễn tự động.'
-              : 'Drag reagents & gear onto the bench, tap Quick Tray below, or open Auto Showcase.'}
+              ? 'Thêm dụng cụ từ Kho hoặc thanh dưới để bắt đầu.'
+              : 'Add gear from Shelf or Tray below to begin.'}
           </p>
         </div>
       )}
@@ -769,17 +850,43 @@ export const Workbench: React.FC = () => {
         )}
 
         {/* Pour Drop Target Highlight Pill */}
-        {hoverTargetId && draggingId && equipment[hoverTargetId] && (
-          <div
-            className="absolute pointer-events-none z-40 px-2.5 py-1 rounded-xl bg-blue-600/95 text-white text-[11px] font-semibold shadow-lg border border-blue-300"
-            style={{
-              left: `${equipment[hoverTargetId].x + equipment[hoverTargetId].width / 2}px`,
-              top: `${equipment[hoverTargetId].y - 30}px`,
-              transform: 'translateX(-50%)',
-            }}
+        {(hoverTargetId && draggingId && equipment[hoverTargetId] ? equipment[hoverTargetId] : externalDragHoverVessel) && (
+          (() => {
+            const target =
+              hoverTargetId && draggingId && equipment[hoverTargetId]
+                ? equipment[hoverTargetId]
+                : externalDragHoverVessel!;
+            return (
+              <div
+                className="absolute pointer-events-none z-40 px-2.5 py-1 rounded-xl bg-blue-600/95 text-white text-[11px] font-semibold shadow-lg border border-blue-300"
+                style={{
+                  left: `${target.x + target.width / 2}px`,
+                  top: `${target.y - 30}px`,
+                  transform: 'translateX(-50%)',
+                }}
+              >
+                {hoverTargetId
+                  ? language === 'vi' ? '⚡ Thả để rót sang' : '⚡ Release to Pour'
+                  : language === 'vi' ? '💧 Thả để thêm hóa chất' : '💧 Release to Dispense'}
+              </div>
+            );
+          })()
+        )}
+
+        {/* Animated External Reagent Pour / Dropper / Spatula SVG Overlay (Stage Coordinates) */}
+        {activeExternalDoses.length > 0 && (
+          <svg
+            className="absolute inset-0 pointer-events-none z-40 overflow-visible"
+            width={BENCH_W}
+            height={BENCH_H}
+            viewBox={`0 0 ${BENCH_W} ${BENCH_H}`}
           >
-            {language === 'vi' ? '⚡ Thả để rót sang' : '⚡ Release to Pour'}
-          </div>
+            {activeExternalDoses.map((dose) => {
+              const targetEq = equipment[dose.targetId];
+              if (!targetEq) return null;
+              return <PouringBottle2D key={dose.id} dose={dose} targetEq={targetEq} />;
+            })}
+          </svg>
         )}
 
         {/* Active Pouring Stream VFX */}
@@ -863,7 +970,7 @@ export const Workbench: React.FC = () => {
         {/* Benchtop Equipment Objects */}
         {allEquipmentList.map((item) => {
           const isDragging = draggingId === item.id;
-          const isHoverTarget = hoverTargetId === item.id;
+          const isHoverTarget = hoverTargetId === item.id || externalDragHoverVessel?.id === item.id;
           const isPouring = activePourVfx?.sourceId === item.id;
 
           const balanceVessel =
@@ -913,6 +1020,29 @@ export const Workbench: React.FC = () => {
           );
         })}
       </div>
+
+      {/* Pointer Drag Chemical Ghost Bottle / Dropper / Spatula Badge */}
+      {isDraggingMoved && activeDrag?.kind === 'chemical' && (
+        <ChemicalGhostCursor
+          chemicalId={activeDrag.chemicalId}
+          clientX={dragClientX}
+          clientY={dragClientY}
+          hoveredVesselName={
+            externalDragHoverVessel
+              ? language === 'vi'
+                ? externalDragHoverVessel.name_vi
+                : externalDragHoverVessel.name
+              : undefined
+          }
+        />
+      )}
+
+      {/* Interactive Animated Litmus Strip Dip Modal */}
+      <LitmusTestModal2D
+        vessel={activeLitmusVessel}
+        language={language}
+        onClose={() => setActiveLitmusVesselId(null)}
+      />
 
       {/* Floating Radial Quick Menu (Right-click, Long-press, or '⋯' icon) */}
       <RadialMenu2D

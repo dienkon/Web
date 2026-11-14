@@ -5,6 +5,7 @@
  */
 
 import { ReactionDefinition } from '../../types/chemistry';
+import { COMPILED_CURRICULUM_REACTIONS } from './curriculumAndCatalogCompiler';
 
 const REACTION_ENTRIES: ReactionDefinition[] = [
   // 1. HCl + NaOH -> NaCl + H2O (Acid-Base Neutralization)
@@ -1129,6 +1130,65 @@ const REACTION_ENTRIES: ReactionDefinition[] = [
     observable_vi: 'Xuất hiện mùi thơm hoa quả (táo/chuối chín) dễ chịu, chất lỏng etyl axetat nhẹ hơn nước nổi lên tạo thành lớp phân cách rõ rệt.',
   },
 
+  // 47b. Glucose + 2Cu(OH)2 + NaOH (Hot) -> C6H11O7Na + Cu2O↓ + 3H2O (Priority when heated)
+  {
+    id: 'glucose_cuoh2_hot',
+    name_en: 'Benedict / Fehling Hot Reduction of Glucose to Brick-Red Cu2O',
+    name_vi: 'Oxi hóa Glucozơ bằng Cu(OH)2 trong kiềm khi đun nóng tạo Cu2O đỏ gạch',
+    equation: 'C₆H₁₂O₆ + 2Cu(OH)₂ + NaOH → C₆H₁₁O₇Na + Cu₂O↓ + 3H₂O',
+    ionic_equation: 'CH₂OH-(CHOH)₄-CHO + 2Cu(OH)₂ + OH⁻ → R-COO⁻ + Cu₂O↓ + 3H₂O',
+    reactants: [
+      { formula: 'C6H12O6', coefficient: 1, state: 'aq' },
+      { formula: 'Cu(OH)2', coefficient: 2, state: 's' },
+      { formula: 'NaOH', coefficient: 1, state: 'aq' },
+    ],
+    products: [
+      { formula: 'C6H11O7Na', coefficient: 1, state: 'aq' },
+      { formula: 'Cu2O', coefficient: 1, state: 's' },
+      { formula: 'H2O', coefficient: 3, state: 'l' },
+    ],
+    requiresHeating: true,
+    minTemp_c: 55.0,
+    deltaH_kJ_mol: -42.0,
+    archetype: 'precipitation',
+    controllerId: 'benedict_brick_red_cu2o',
+    visual: {
+      precipitate: { formula: 'Cu2O', colorHex: '#dc2626', morphology: 'powder' },
+      colorChange: { resultingColorHex: '#fef08a' },
+    },
+    observable_en: 'Upon warming above 55°C in alkaline medium, a dense brick-red Cu2O precipitate forms.',
+    observable_vi: 'Đun nóng nhẹ trên 55°C trong môi trường kiềm xuất hiện kết tủa đỏ gạch Cu2O đặc trưng của nhóm anđehit.',
+  },
+
+  // 47c. Direct heated Glucose + 2Cu(OH)2 -> Cu2O reduction without separate excess NaOH
+  {
+    id: 'rx_glucose_cuoh2_hot_direct',
+    name_en: 'Hot Glucose Reduction of Cu(OH)2 Suspension to Cu2O',
+    name_vi: 'Đun nóng Glucozơ với Cu(OH)2 tạo kết tủa đỏ gạch Cu2O',
+    equation: 'C₆H₁₂O₆ + 2Cu(OH)₂ → C₆H₁₂O₇ + Cu₂O↓ + 2H₂O',
+    ionic_equation: 'C₆H₁₂O₆ + 2Cu(OH)₂ → C₆H₁₂O₇ + Cu₂O(s)↓ + 2H₂O',
+    reactants: [
+      { formula: 'C6H12O6', coefficient: 1, state: 'aq' },
+      { formula: 'Cu(OH)2', coefficient: 2, state: 's' },
+    ],
+    products: [
+      { formula: 'C6H12O7', coefficient: 1, state: 'aq' },
+      { formula: 'Cu2O', coefficient: 1, state: 's' },
+      { formula: 'H2O', coefficient: 2, state: 'l' },
+    ],
+    requiresHeating: true,
+    minTemp_c: 60.0,
+    deltaH_kJ_mol: -38.0,
+    archetype: 'precipitation',
+    controllerId: 'benedict_brick_red_cu2o',
+    visual: {
+      precipitate: { formula: 'Cu2O', colorHex: '#dc2626', morphology: 'powder' },
+      colorChange: { resultingColorHex: '#fef08a' },
+    },
+    observable_en: 'Heated Cu(OH)2 suspension is reduced by glucose to brick-red copper(I) oxide.',
+    observable_vi: 'Khi đun nóng, glucozơ khử Cu(OH)2 tạo kết tủa đỏ gạch Cu2O.',
+  },
+
   // 48. C6H12O6 + 2Cu(OH)2 -> [C6H11O6]2Cu (Deep blue glucose-copper complex at room temperature)
   {
     id: 'rx_glucose_cuoh2_complex',
@@ -1168,12 +1228,65 @@ const REACTION_ENTRIES: ReactionDefinition[] = [
     requiresHeating: true,
     minTemp_c: 65.0,
     deltaH_kJ_mol: 18.0,
+    archetype: 'precipitation',
+    controllerId: 'benedict_brick_red_cu2o',
     visual: {
       precipitate: { formula: 'Cu2O', colorHex: '#b91c1c', morphology: 'powder' },
       colorChange: { resultingColorHex: '#fef08a' },
     },
     observable_en: 'Upon heating above 65°C, the blue solution yields a dense brick-red precipitate of Cu2O.',
     observable_vi: 'Khi đun nóng trên 65°C, màu xanh lam biến mất và xuất hiện kết tủa màu đỏ gạch Cu2O lắng xuống đáy ống nghiệm.',
+  },
+
+  // 49b. Landolt Iodine Clock Step 1 & 2 (Oxidation + Thiosulfate Delay Scavenger before Starch)
+  {
+    id: 'rx_iodine_clock_oxidation',
+    name_en: 'Iodine Clock Reaction Oxidation Step',
+    name_vi: 'Phản ứng Oxi hóa tạo Iot trong thí nghiệm Đồng hồ Iot',
+    equation: 'H₂O₂ + 2KI + H₂SO₄ → I₂ + K₂SO₄ + 2H₂O',
+    ionic_equation: 'H₂O₂(aq) + 2I⁻(aq) + 2H⁺(aq) → I₂(aq) + 2H₂O(l)',
+    reactants: [
+      { formula: 'H2O2', coefficient: 1, state: 'aq' },
+      { formula: 'KI', coefficient: 2, state: 'aq' },
+      { formula: 'H2SO4', coefficient: 1, state: 'aq' },
+    ],
+    products: [
+      { formula: 'I2', coefficient: 1, state: 'aq' },
+      { formula: 'K2SO4', coefficient: 1, state: 'aq' },
+      { formula: 'H2O', coefficient: 2, state: 'l' },
+    ],
+    deltaH_kJ_mol: -180.0,
+    archetype: 'iodine_clock',
+    controllerId: 'iodine_clock_flash',
+    visual: {
+      colorChange: { resultingColorHex: '#1e1b4b' },
+    },
+    observable_en: 'Liberated molecular iodine complexes with starch indicator once thiosulfate is exhausted.',
+    observable_vi: 'Iot sinh ra kết hợp với hồ tinh bột khi hết thiosulfat, làm dung dịch đổi sang xanh tím đậm.',
+  },
+
+  {
+    id: 'rx_iodine_thiosulfate_scavenger',
+    name_en: 'Landolt Iodine Clock Delay Step (I2 + Na2S2O3 Scavenging)',
+    name_vi: 'Phản ứng khử I₂ bằng Na₂S₂O₃ (Giai đoạn trễ Đồng hồ Iot)',
+    equation: 'I₂ + 2Na₂S₂O₃ → 2NaI + Na₂S₄O₆',
+    ionic_equation: 'I₂(aq) + 2S₂O₃²⁻(aq) → 2I⁻(aq) + S₄O₆²⁻(aq)',
+    reactants: [
+      { formula: 'I2', coefficient: 1, state: 'aq' },
+      { formula: 'Na2S2O3', coefficient: 2, state: 'aq' },
+    ],
+    products: [
+      { formula: 'NaI', coefficient: 2, state: 'aq' },
+      { formula: 'Na2S4O6', coefficient: 1, state: 'aq' },
+    ],
+    deltaH_kJ_mol: -95.0,
+    archetype: 'iodine_clock',
+    controllerId: 'iodine_clock_flash',
+    visual: {
+      colorChange: { resultingColorHex: '#f8fafc' },
+    },
+    observable_en: 'Thiosulfate instantaneously reduces trace I2 back to colorless iodide, holding the solution clear until exhausted.',
+    observable_vi: 'Na₂S₂O₃ khử tức thì I₂ vừa sinh ra thành ion I⁻ không màu, giữ dung dịch trong suốt cho đến khi hết thiosulfat.',
   },
 
   // 50. TinhBot + I2 -> Blue-violet inclusion complex
@@ -2100,11 +2213,120 @@ const REACTION_ENTRIES: ReactionDefinition[] = [
     observable_en: 'Magnesium ignites with a dazzling, blinding white light and billows white smoke, leaving powdery white magnesium oxide ash.',
     observable_vi: 'Dây magie bốc cháy tạo ánh sáng trắng chói lòa phát sáng rực rỡ và khói trắng mịn, để lại tàn tro bột MgO màu trắng.',
   },
+  // 88. Two-stage Aluminium Sulfate + NaOH -> Al(OH)3↓ (before excess NaOH dissolves Al(OH)3)
+  {
+    id: 'rx_al2so43_naoh_precipitation',
+    name_en: 'Aluminium Sulfate and Sodium Hydroxide Amphoteric Precipitation',
+    name_vi: 'Phản ứng Nhôm sunfat và Natri hiđroxit tạo kết tủa keo trắng Al(OH)3',
+    equation: 'Al₂(SO₄)₃ + 6NaOH → 2Al(OH)₃↓ + 3Na₂SO₄',
+    ionic_equation: 'Al³⁺(aq) + 3OH⁻(aq) → Al(OH)₃(s)↓',
+    reactants: [
+      { formula: 'Al2(SO4)3', coefficient: 1, state: 'aq' },
+      { formula: 'NaOH', coefficient: 6, state: 'aq' },
+    ],
+    products: [
+      { formula: 'Al(OH)3', coefficient: 2, state: 's' },
+      { formula: 'Na2SO4', coefficient: 3, state: 'aq' },
+    ],
+    deltaH_kJ_mol: -42.0,
+    equilibrium: { Ksp: 1.3e-33 },
+    archetype: 'precipitation',
+    controllerId: 'amphoteric_aloh3_gel',
+    visual: {
+      precipitate: { formula: 'Al(OH)3', colorHex: '#f8fafc', morphology: 'gel' },
+    },
+    observable_en: 'White gelatinous Al(OH)3 precipitates first and dissolves again upon further addition of excess NaOH.',
+    observable_vi: 'Xuất hiện kết tủa keo trắng Al(OH)3, sau đó kết tủa tan dần nếu tiếp tục thêm dư NaOH.',
+  },
+
+  // 89. Amphoteric Zn(OH)2 + HCl / NH3
+  {
+    id: 'rx_znoh2_hcl_dissolution',
+    name_en: 'Dissolution of Zinc Hydroxide Precipitate in Hydrochloric Acid',
+    name_vi: 'Hòa tan kết tủa lưỡng tính Zn(OH)2 trong axit HCl',
+    equation: 'Zn(OH)₂ + 2HCl → ZnCl₂ + 2H₂O',
+    ionic_equation: 'Zn(OH)₂(s) + 2H⁺(aq) → Zn²⁺(aq) + 2H₂O(l)',
+    reactants: [
+      { formula: 'Zn(OH)2', coefficient: 1, state: 's' },
+      { formula: 'HCl', coefficient: 2, state: 'aq' },
+    ],
+    products: [
+      { formula: 'ZnCl2', coefficient: 1, state: 'aq' },
+      { formula: 'H2O', coefficient: 2, state: 'l' },
+    ],
+    deltaH_kJ_mol: -54.0,
+    archetype: 'acid_base_neutralization',
+    controllerId: 'amphoteric_znoh2_dissolve',
+    visual: {
+      colorChange: { resultingColorHex: '#f8fafc' },
+    },
+    observable_en: 'White Zn(OH)2 precipitate dissolves smoothly in dilute acid to give a clear solution.',
+    observable_vi: 'Kết tủa trắng Zn(OH)2 tan nhanh trong axit HCl tạo dung dịch trong suốt.',
+  },
+
+  {
+    id: 'rx_znoh2_nh3_complex',
+    name_en: 'Zinc Hydroxide Complexation in Excess Ammonia',
+    name_vi: 'Hòa tan kết tủa Zn(OH)2 trong dung dịch NH3 dư tạo phức amin',
+    equation: 'Zn(OH)₂ + 4NH₃ → [Zn(NH₃)₄](OH)₂',
+    ionic_equation: 'Zn(OH)₂(s) + 4NH₃(aq) → [Zn(NH₃)₄]²⁺(aq) + 2OH⁻(aq)',
+    reactants: [
+      { formula: 'Zn(OH)2', coefficient: 1, state: 's' },
+      { formula: 'NH3', coefficient: 4, state: 'aq' },
+    ],
+    products: [
+      { formula: 'Zn(NH3)4(OH)2', coefficient: 1, state: 'aq' },
+    ],
+    deltaH_kJ_mol: -36.0,
+    archetype: 'complexation',
+    controllerId: 'amphoteric_complexation',
+    visual: {
+      colorChange: { resultingColorHex: '#f8fafc' },
+    },
+    observable_en: 'White Zn(OH)2 dissolves completely in excess aqueous ammonia to form a clear zinc-ammine complex.',
+    observable_vi: 'Kết tủa trắng Zn(OH)2 tan hoàn toàn trong NH3 dư tạo dung dịch phức chất không màu.',
+  },
 ];
 
+function reactantSignature(reaction: ReactionDefinition): string {
+  return reaction.reactants
+    .map(r => r.formula.replace(/\[/g, '(').replace(/\]/g, ')').replace(/\s+/g, '').toUpperCase())
+    .sort()
+    .join('+');
+}
 
-// Keep the first authoritative entry for duplicate legacy IDs.
-export const REACTION_DATABASE: ReactionDefinition[] = REACTION_ENTRIES.filter((reaction, index, all) => all.findIndex(candidate => candidate.id === reaction.id) === index);
+// Keep curated handcrafted entries first. Include non-conflicting curriculum protocols
+// (plus explicit branch conditions like dilute/conc HNO3 & H2SO4), while deferring the
+// 1,300 general catalog reactions to Pass 3 fallback after Tier-1/Tier-2 rules.
+const CURATED_SIGNATURES = new Set(REACTION_ENTRIES.map(reactantSignature));
+const EXPLICIT_BRANCH_CURRICULUM_IDS = new Set([
+  'cu_hno3_dil',
+  'cu_hno3_conc',
+  'cu_conc_h2so4',
+  'glucose_cuoh2_hot',
+  'glucose_cuoh2_cold',
+]);
+const TIER1_RESERVED_SIGNATURES = new Set(['H2O+K', 'H2O+NA', 'AGNO3+NH3', 'AGNO3+H2O+NH3']);
+
+const NON_CONFLICTING_CURRICULUM = COMPILED_CURRICULUM_REACTIONS.filter(rx => {
+  const sig = reactantSignature(rx);
+  if (TIER1_RESERVED_SIGNATURES.has(sig)) return false;
+  if (EXPLICIT_BRANCH_CURRICULUM_IDS.has(rx.id)) return true;
+  return !CURATED_SIGNATURES.has(sig);
+});
+
+const ALL_RAW_REACTIONS: ReactionDefinition[] = [
+  ...REACTION_ENTRIES,
+  ...NON_CONFLICTING_CURRICULUM,
+];
+
+const seenReactionIds = new Set<string>();
+export const REACTION_DATABASE: ReactionDefinition[] = [];
+for (const reaction of ALL_RAW_REACTIONS) {
+  if (seenReactionIds.has(reaction.id)) continue;
+  seenReactionIds.add(reaction.id);
+  REACTION_DATABASE.push(reaction);
+}
 
 /**
  * Formula index used by the synchronous simulator. Reaction order remains the
@@ -2112,9 +2334,17 @@ export const REACTION_DATABASE: ReactionDefinition[] = REACTION_ENTRIES.filter((
  * at least one currently present species.
  */
 const REACTIONS_BY_SPECIES = new Map<string, ReactionDefinition[]>();
+const indexKey = (f: string) =>
+  f
+    .replace(/\s*\((?:s|l|g|aq|conc|dil)\)/gi, '')
+    .replace(/\[/g, '(')
+    .replace(/\]/g, ')')
+    .replace(/\s+/g, '')
+    .toUpperCase();
+
 for (const reaction of REACTION_DATABASE) {
   for (const species of reaction.reactants) {
-    const key = species.formula.replace(/\s*\((?:s|l|g|aq|conc|dil)\)/gi, '').replace(/\s+/g, '').toUpperCase();
+    const key = indexKey(species.formula);
     const bucket = REACTIONS_BY_SPECIES.get(key) ?? [];
     if (!bucket.includes(reaction)) bucket.push(reaction);
     REACTIONS_BY_SPECIES.set(key, bucket);
@@ -2124,7 +2354,7 @@ for (const reaction of REACTION_DATABASE) {
 export function getReactionCandidates(formulas: string[]): ReactionDefinition[] {
   const candidates = new Set<ReactionDefinition>();
   for (const formula of formulas) {
-    const key = formula.replace(/\s*\((?:s|l|g|aq|conc|dil)\)/gi, '').replace(/\s+/g, '').toUpperCase();
+    const key = indexKey(formula);
     for (const reaction of REACTIONS_BY_SPECIES.get(key) ?? []) candidates.add(reaction);
   }
   return REACTION_DATABASE.filter(reaction => candidates.has(reaction));

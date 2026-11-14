@@ -142,6 +142,7 @@ html[data-theme="dark"] .lab-app {
 }
 html[data-theme="dark"] .lab-app .bg-white,
 html[data-theme="dark"] .lab-app .bg-white\/98,
+html[data-theme="dark"] .lab-app .bg-white\/96,
 html[data-theme="dark"] .lab-app .bg-white\/95,
 html[data-theme="dark"] .lab-app .bg-white\/94,
 html[data-theme="dark"] .lab-app .bg-white\/92,
@@ -249,6 +250,87 @@ html[data-theme="dark"] .session-dialog input {
 
 .workbench-equipment {
   touch-action: none;
+}
+
+@keyframes flameFlicker {
+  0%, 100% {
+    transform: scaleY(1) scaleX(1) skewX(-1.5deg);
+  }
+  25% {
+    transform: scaleY(1.07) scaleX(0.96) skewX(2deg);
+  }
+  50% {
+    transform: scaleY(0.95) scaleX(1.04) skewX(-2.5deg);
+  }
+  75% {
+    transform: scaleY(1.05) scaleX(0.98) skewX(1.5deg);
+  }
+}
+
+@keyframes flameCore {
+  0%, 100% {
+    transform: scaleY(1) scaleX(1);
+    opacity: 0.96;
+  }
+  50% {
+    transform: scaleY(1.08) scaleX(0.93);
+    opacity: 0.84;
+  }
+}
+
+@keyframes heatShimmer {
+  0%, 100% {
+    transform: translateY(0px) scaleX(1);
+    opacity: 0.36;
+  }
+  50% {
+    transform: translateY(-4px) scaleX(1.08);
+    opacity: 0.18;
+  }
+}
+
+@keyframes emberRise {
+  0% {
+    transform: translateY(0px) scale(1);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(-22px) scale(0.35);
+    opacity: 0;
+  }
+}
+
+.flame-flicker {
+  transform-box: fill-box;
+  transform-origin: bottom center;
+  animation: flameFlicker 0.22s ease-in-out infinite;
+}
+
+.flame-core {
+  transform-box: fill-box;
+  transform-origin: bottom center;
+  animation: flameCore 0.16s ease-in-out infinite;
+}
+
+.heat-shimmer {
+  transform-box: fill-box;
+  transform-origin: bottom center;
+  animation: heatShimmer 0.75s ease-in-out infinite;
+}
+
+.ember-rise {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: emberRise 0.65s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flame-flicker,
+  .flame-core,
+  .heat-shimmer,
+  .ember-rise {
+    animation: none;
+  }
 }
 
 @media print {

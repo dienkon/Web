@@ -20,6 +20,7 @@ export const Header: React.FC = () => {
     toggleAIAssistant,
     toggleApiKeyModal,
     togglePeriodicTable,
+    toggleReactionLibrary,
     toggleTitrationCurve,
     isMuted,
     toggleMute,
@@ -34,6 +35,7 @@ export const Header: React.FC = () => {
       toggleAIAssistant: s.toggleAIAssistant,
       toggleApiKeyModal: s.toggleApiKeyModal,
       togglePeriodicTable: s.togglePeriodicTable,
+      toggleReactionLibrary: s.toggleReactionLibrary,
       toggleTitrationCurve: s.toggleTitrationCurve,
       isMuted: s.isMuted,
       toggleMute: s.toggleMute,
@@ -90,6 +92,17 @@ export const Header: React.FC = () => {
 
       {/* Scientific Reference Tools & Utilities */}
       <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
+        <button
+          type="button"
+          onClick={() => toggleReactionLibrary(true)}
+          className="flex items-center gap-1 px-2 py-1 rounded-lg border border-emerald-200/80 bg-white hover:bg-emerald-50 text-emerald-700 text-[11px] font-semibold transition-colors cursor-pointer"
+          title={vi ? 'Kho Phương trình & 131 Thí nghiệm SGK' : 'Reaction Library & 131+ Experiments'}
+        >
+          <BookOpen className="w-3.5 h-3.5 text-emerald-600" />
+          <span className="hidden sm:inline">{vi ? 'Kho PƯ' : 'Reactions'}</span>
+          <span className="sm:hidden text-[10px]">PƯ</span>
+        </button>
+
         <button
           type="button"
           onClick={() => togglePeriodicTable(true)}

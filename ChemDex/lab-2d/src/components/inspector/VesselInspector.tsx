@@ -24,6 +24,8 @@ import { useLabStore } from '../../store/useLabStore';
 import { CHEMICAL_CATALOG } from '../../data/chemicals';
 import { REACTION_DATABASE } from '../../chemistry/reactions/reactionDatabase';
 import { formatFormulaUnicode } from '../../chemistry/core/formula';
+import { CondenserCoolingControls } from './CondenserCoolingControls';
+import { WashBottleControls } from './WashBottleControls';
 
 type InspectorTab = 'vessel' | 'reaction' | 'titration';
 
@@ -34,7 +36,9 @@ export const VesselInspector: React.FC = () => {
     selectEquipment,
     removeEquipment,
     toggleHeat,
-    addChemicalToEquipment,
+    triggerExternalChemicalPour,
+    setActiveLitmusVesselId,
+    wasteMass_g,
     openTransferModal,
     triggerGeminiReactionCheck,
     toggleAIAssistant,
@@ -52,7 +56,9 @@ export const VesselInspector: React.FC = () => {
       selectEquipment: s.selectEquipment,
       removeEquipment: s.removeEquipment,
       toggleHeat: s.toggleHeat,
-      addChemicalToEquipment: s.addChemicalToEquipment,
+      triggerExternalChemicalPour: s.triggerExternalChemicalPour,
+      setActiveLitmusVesselId: s.setActiveLitmusVesselId,
+      wasteMass_g: s.wasteMass_g,
       openTransferModal: s.openTransferModal,
       triggerGeminiReactionCheck: s.triggerGeminiReactionCheck,
       toggleAIAssistant: s.toggleAIAssistant,
@@ -343,7 +349,7 @@ export const VesselInspector: React.FC = () => {
                   <span>{vi ? 'Rửa' : 'Rinse'}</span>
                 </button>
               </div>
-            ) : (selectedItem.type === 'bunsen_burner' || selectedItem.type === 'hot_plate') && (
+            ) : (selectedItem.type === 'bunsen_burner' || selectedItem.type === 'hot_plate') ? (
               <button
                 type="button"
                 onClick={() => toggleHeat(selectedItem.id)}
@@ -354,6 +360,43 @@ export const VesselInspector: React.FC = () => {
                 <Flame className="w-4 h-4" />
                 <span>{selectedItem.isOn ? (vi ? 'Tắt nguồn nhiệt' : 'Turn Off') : (vi ? 'Bật gia nhiệt' : 'Turn On')}</span>
               </button>
+            ) : null}
+
+            {/* Litmus Test, Escaped Gas & Waste Mass Parity Bar */}
+            {selectedItem.isContainer && (
+              <div className="flex items-center justify-between gap-1.5 flex-wrap text-[11px]">
+                <button
+                  type="button"
+                  onClick={() => setActiveLitmusVesselId(selectedItem.id)}
+                  className="px-2.5 py-1.5 rounded-lg bg-purple-50 hover:bg-purple-100 text-purple-800 border border-purple-200 font-semibold transition-colors cursor-pointer"
+                >
+                  🧪 {vi ? 'Thử giấy quỳ tím' : 'Litmus Paper Test'}
+                </button>
+                <div className="flex items-center gap-1.5 font-mono text-[10.5px]">
+                  {(selectedItem.totalEscapedGas_g ?? 0) > 0.0005 && (
+                    <span className="px-2 py-0.5 rounded-md bg-sky-50 border border-sky-200 text-sky-800 font-semibold">
+                      💨 -{selectedItem.totalEscapedGas_g!.toFixed(3)}g
+                    </span>
+                  )}
+                  {wasteMass_g > 0.05 && (
+                    <span className="px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 text-slate-600 font-semibold">
+                      ♻️ {wasteMass_g.toFixed(1)}g
+                    </span>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Specialized Equipment Controls (Wash Bottle & Liebig Condenser) */}
+            {selectedItem.type === 'wash_bottle' && (
+              <WashBottleControls
+                washBottle={selectedItem}
+                allContainers={allEquipment}
+                language={language}
+              />
+            )}
+            {selectedItem.type === 'condenser' && (
+              <CondenserCoolingControls condenser={selectedItem} language={language} />
             )}
 
             {/* Species Breakdown */}
@@ -369,39 +412,68 @@ export const VesselInspector: React.FC = () => {
                   </p>
                 ) : (
                   <div className="space-y-1.5">
-                    {selectedItem.contents.map((item, idx) => (
-                      <div
-                        key={idx}
-                        className="p-2 rounded-lg bg-slate-50 border border-slate-200/70 flex items-center justify-between text-xs font-mono"
-                      >
-                        <div className="min-w-0">
-                          <span className="font-bold text-slate-900">{formatFormulaUnicode(item.formula)}</span>
-                          <span className="ml-1 text-[10px] text-slate-500 font-sans uppercase">({item.state})</span>
-                          <button
-                            type="button"
-                            className="ml-2 text-[10px] text-teal-700 underline font-sans"
-                            onClick={() =>
-                              window.dispatchEvent(
-                                new CustomEvent('chemdex:structure', {
-                                  detail: {
-                                    chemical: CHEMICAL_CATALOG.find((c) => c.formula === item.formula)?.id,
-                                    formula: item.formula,
-                                  },
-                                })
-                              )
-                            }
-                          >
-                            3D ↗
-                          </button>
-                        </div>
-                        <div className="text-right shrink-0">
-                          <div className="text-slate-700 font-semibold">{item.moles.toFixed(4)} mol</div>
-                          {item.concentration_M !== undefined && (
-                            <div className="text-[10.5px] text-blue-600">{item.concentration_M.toFixed(3)} M</div>
+                    {selectedItem.contents.map((item, idx) => {
+                      const fUp = item.formula.toUpperCase();
+                      const matchingChunk = selectedItem.solidChunks?.find((c) => c.formula.toUpperCase() === fUp);
+                      const initialSolidG =
+                        selectedItem.initialSolidMassByFormula?.[fUp] ?? matchingChunk?.initialMass_g;
+                      const remainPct =
+                        item.state === 's' && initialSolidG && initialSolidG > 0.005
+                          ? Math.max(0, Math.min(100, Math.round((item.mass_g / initialSolidG) * 100)))
+                          : null;
+
+                      return (
+                        <div
+                          key={idx}
+                          className="p-2 rounded-lg bg-slate-50 border border-slate-200/70 space-y-1 text-xs font-mono"
+                        >
+                          <div className="flex items-center justify-between">
+                            <div className="min-w-0">
+                              <span className="font-bold text-slate-900">{formatFormulaUnicode(item.formula)}</span>
+                              <span className="ml-1 text-[10px] text-slate-500 font-sans uppercase">({item.state})</span>
+                              <button
+                                type="button"
+                                className="ml-2 text-[10px] text-teal-700 underline font-sans"
+                                onClick={() =>
+                                  window.dispatchEvent(
+                                    new CustomEvent('chemdex:structure', {
+                                      detail: {
+                                        chemical: CHEMICAL_CATALOG.find((c) => c.formula === item.formula)?.id,
+                                        formula: item.formula,
+                                      },
+                                    })
+                                  )
+                                }
+                              >
+                                3D ↗
+                              </button>
+                            </div>
+                            <div className="text-right shrink-0">
+                              <div className="text-slate-700 font-semibold">
+                                {item.moles.toFixed(4)} mol ({item.mass_g.toFixed(2)}g)
+                              </div>
+                              {item.concentration_M !== undefined && (
+                                <div className="text-[10.5px] text-blue-600">{item.concentration_M.toFixed(3)} M</div>
+                              )}
+                            </div>
+                          </div>
+                          {remainPct !== null && (
+                            <div className="space-y-0.5 pt-0.5">
+                              <div className="flex justify-between text-[10px] font-sans text-amber-800 font-semibold">
+                                <span>{vi ? 'Lượng rắn còn lại:' : 'Solid remaining:'}</span>
+                                <span className="font-mono">{remainPct}%</span>
+                              </div>
+                              <div className="h-1 w-full rounded-full bg-amber-100 overflow-hidden">
+                                <div
+                                  className="h-full bg-amber-500 rounded-full transition-all duration-150"
+                                  style={{ width: `${remainPct}%` }}
+                                />
+                              </div>
+                            </div>
                           )}
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 )}
               </div>
@@ -441,8 +513,8 @@ export const VesselInspector: React.FC = () => {
                     type="button"
                     onClick={() =>
                       selectedChemDef?.phase_STP === 'solid'
-                        ? addChemicalToEquipment(selectedItem.id, selectedChemicalId, undefined, addAmount)
-                        : addChemicalToEquipment(selectedItem.id, selectedChemicalId, addAmount)
+                        ? triggerExternalChemicalPour(selectedItem.id, selectedChemicalId, undefined, addAmount, 0)
+                        : triggerExternalChemicalPour(selectedItem.id, selectedChemicalId, addAmount, undefined, 0)
                     }
                     className="flex-1 flex items-center justify-center gap-1 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold py-2 px-3 rounded-lg"
                   >
@@ -463,11 +535,42 @@ export const VesselInspector: React.FC = () => {
                 {vi ? 'Hiện tượng quan sát được' : 'Observed Phenomena'}
               </h4>
               {selectedItem.hasPrecipitate && (
-                <div className="p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-xs">
-                  <span className="font-bold text-amber-800">{vi ? 'Kết tủa:' : 'Precipitate:'}</span>{' '}
-                  <span className="font-mono text-amber-900">
-                    {formatFormulaUnicode(selectedItem.precipitateSubstance || '')} ({selectedItem.precipitateMass_g?.toFixed(2)}g)
-                  </span>
+                <div className="p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-xs space-y-1.5">
+                  <div>
+                    <span className="font-bold text-amber-800">{vi ? 'Kết tủa / Cặn:' : 'Precipitate:'}</span>{' '}
+                    <span className="font-mono text-amber-900">
+                      {formatFormulaUnicode(selectedItem.precipitateSubstance || '')} ({selectedItem.precipitateMass_g?.toFixed(2)}g)
+                    </span>
+                  </div>
+                  {selectedItem.precipitateLayers && selectedItem.precipitateLayers.length > 0 && (
+                    <div className="flex flex-wrap gap-1">
+                      {selectedItem.precipitateLayers.map((layer, idx) => (
+                        <span
+                          key={idx}
+                          className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-white/85 border border-amber-200/80 text-[10.5px] font-semibold text-amber-900"
+                        >
+                          <span className="w-2 h-2 rounded-full border border-slate-300" style={{ backgroundColor: layer.colorHex }} />
+                          <span>{formatFormulaUnicode(layer.formula)}</span>
+                          <span>
+                            {layer.buoyancy === 'float'
+                              ? vi ? '⬆ Nổi trên mặt' : '⬆ Floating'
+                              : layer.buoyancy === 'suspend'
+                                ? vi ? '🫧 Lơ lửng' : '🫧 Suspended'
+                                : vi ? '⬇ Lắng đáy' : '⬇ Sinks'}
+                          </span>
+                          {layer.density_g_cm3 && (
+                            <span className="font-mono text-slate-500">({layer.density_g_cm3.toFixed(1)} g/cm³)</span>
+                          )}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+              {(selectedItem.totalEscapedGas_g ?? 0) > 0.0005 && (
+                <div className="p-2.5 rounded-xl bg-sky-50 border border-sky-200 text-xs text-sky-900 flex items-center justify-between gap-2">
+                  <span className="font-bold">{vi ? '💨 Khí đã bay hơi (hao hụt):' : '💨 Gas Evolved (Mass Loss):'}</span>
+                  <span className="font-mono font-bold">-{selectedItem.totalEscapedGas_g!.toFixed(3)} g</span>
                 </div>
               )}
               {selectedItem.hasGas && (
@@ -481,12 +584,37 @@ export const VesselInspector: React.FC = () => {
                   {selectedItem.fumeType?.toUpperCase()}
                 </div>
               )}
-              {selectedItem.hasSilverMirror && (
-                <div className="p-2.5 rounded-xl bg-slate-100 border border-slate-300 text-xs text-slate-800 font-semibold">
-                  {vi ? '✨ Lớp bạc kim loại tráng gương thành bình' : '✨ Metallic Ag Mirror Deposit'}
+              {selectedItem.activeReactionLabel && (
+                <div className="p-2.5 rounded-xl bg-amber-50/90 border border-amber-200/80 space-y-1.5">
+                  <div className="flex items-center justify-between gap-2 text-xs font-bold text-amber-900">
+                    <span className="leading-snug">{selectedItem.activeReactionLabel}</span>
+                    {selectedItem.activeReactionProgress !== undefined && (
+                      <span className="font-mono text-[11px] text-amber-700 shrink-0">
+                        {Math.round(selectedItem.activeReactionProgress * 100)}%
+                      </span>
+                    )}
+                  </div>
+                  {selectedItem.activeReactionProgress !== undefined && (
+                    <div className="h-1.5 w-full rounded-full bg-amber-100 overflow-hidden">
+                      <div
+                        className="h-full bg-amber-500 transition-all duration-150 rounded-full"
+                        style={{ width: `${Math.round(selectedItem.activeReactionProgress * 100)}%` }}
+                      />
+                    </div>
+                  )}
                 </div>
               )}
-              {!selectedItem.hasPrecipitate && !selectedItem.hasGas && !selectedItem.hasFumes && !selectedItem.hasSilverMirror && (
+              {selectedItem.hasSilverMirror && (
+                <div className="p-2.5 rounded-xl bg-slate-100 border border-slate-300 text-xs text-slate-800 font-semibold flex items-center justify-between">
+                  <span>{vi ? '✨ Lớp bạc kim loại tráng gương thành bình' : '✨ Metallic Ag Mirror Deposit'}</span>
+                  {selectedItem.silverMirrorProgress !== undefined && (
+                    <span className="font-mono text-[11px] text-slate-600">
+                      {Math.round(selectedItem.silverMirrorProgress * 100)}%
+                    </span>
+                  )}
+                </div>
+              )}
+              {!selectedItem.hasPrecipitate && !selectedItem.hasGas && !selectedItem.hasFumes && !selectedItem.hasSilverMirror && !selectedItem.activeReactionLabel && (
                 <p className="text-xs text-slate-400 italic">
                   {vi ? 'Dung dịch ổn định, chưa có khí hoặc kết tủa.' : 'Solution clear & quiescent.'}
                 </p>

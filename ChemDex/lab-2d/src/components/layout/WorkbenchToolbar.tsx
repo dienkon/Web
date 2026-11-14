@@ -92,15 +92,15 @@ export const WorkbenchToolbar: React.FC = () => {
   const speeds: SimTimeScale[] = [0.5, 1, 2, 5];
 
   return (
-    <div className="flex items-center justify-between gap-2 px-2.5 sm:px-3.5 py-2 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-2xs z-30 shrink-0 overflow-x-auto no-scrollbar">
+    <div className="flex items-center justify-between gap-1.5 sm:gap-2 px-2 sm:px-3.5 py-1.5 sm:py-2 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-2xs z-30 shrink-0 overflow-x-auto no-scrollbar">
       {/* Left: Mobile Drawer Toggles + Lab Mode Switcher */}
-      <div className="flex items-center gap-1.5 shrink-0">
+      <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
         {/* Mobile Only: Inventory / Inspector drawer buttons */}
-        <div className="flex lg:hidden items-center gap-1.5">
+        <div className="flex lg:hidden items-center gap-1">
           <button
             type="button"
             onClick={() => setMobilePanel(mobilePanel === 'inventory' ? null : 'inventory')}
-            className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold border transition-colors cursor-pointer ${
+            className={`flex items-center gap-1 px-2 py-1.5 rounded-lg text-xs font-semibold border transition-colors cursor-pointer ${
               mobilePanel === 'inventory'
                 ? 'bg-blue-600 text-white border-blue-600'
                 : 'bg-slate-100 text-slate-700 border-slate-200'
@@ -113,7 +113,7 @@ export const WorkbenchToolbar: React.FC = () => {
           <button
             type="button"
             onClick={() => setMobilePanel(mobilePanel === 'inspector' ? null : 'inspector')}
-            className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold border transition-colors cursor-pointer ${
+            className={`flex items-center gap-1 px-2 py-1.5 rounded-lg text-xs font-semibold border transition-colors cursor-pointer ${
               mobilePanel === 'inspector'
                 ? 'bg-blue-600 text-white border-blue-600'
                 : 'bg-slate-100 text-slate-700 border-slate-200'
@@ -121,7 +121,7 @@ export const WorkbenchToolbar: React.FC = () => {
             aria-label={t('Toggle Inspector Drawer', 'Mở Thông số')}
           >
             <Sliders size={14} />
-            <span>{t('Specs', 'Thông số')}</span>
+            <span>{t('Info', 'Xem')}</span>
           </button>
         </div>
 
@@ -236,12 +236,24 @@ export const WorkbenchToolbar: React.FC = () => {
           >
             {simulationPaused ? <Play size={14} /> : <Pause size={14} />}
           </button>
+          <button
+            type="button"
+            onClick={() => {
+              const idx = speeds.indexOf(simTimeScale);
+              setSimTimeScale(speeds[(idx + 1) % speeds.length]);
+            }}
+            className="sm:hidden px-2 py-1 text-[11px] font-bold font-mono rounded bg-white text-blue-600 shadow-xs cursor-pointer"
+            title={t('Cycle Simulation Speed', 'Đổi tốc độ mô phỏng')}
+            aria-label="Cycle simulation speed"
+          >
+            {simTimeScale}x
+          </button>
           {speeds.map((sp) => (
             <button
               key={sp}
               type="button"
               onClick={() => setSimTimeScale(sp)}
-              className={`px-2 py-1 text-[11px] font-bold font-mono rounded transition-colors cursor-pointer ${
+              className={`hidden sm:inline-flex px-2 py-1 text-[11px] font-bold font-mono rounded transition-colors cursor-pointer ${
                 simTimeScale === sp ? 'bg-white text-blue-600 shadow-xs' : 'text-slate-500 hover:text-slate-800'
               }`}
               title={`${sp}x`}

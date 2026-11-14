@@ -29,12 +29,17 @@ import {
 // ─── Physical Constants ────────────────────────────────────────────
 export const WATER_CP_J_G_K = 4.184;
 export const WATER_LATENT_HEAT_J_G = 2256; // J/g at 100 °C
+export const ICE_LATENT_HEAT_J_G = 334; // J/g at 0 °C (H2O(s) <-> H2O(l))
 export const GLASS_HEAT_CAPACITY_J_K = 33.2;
 export const AMBIENT_TEMP_C = 25;
 
 // Bunsen burner: ~600–900 W total flame output; ~35 % couples into a vessel held overhead
 export const BURNER_PEAK_POWER_W = 350;
-export const BURNER_HEAT_RADIUS_PX = 110; // px distance within which heat couples
+export const BURNER_HEAT_RADIUS_PX = 36; // max lateral px offset for flame plume coupling
+export const BURNER_MIN_GAP_PX = -12;
+export const BURNER_MAX_GAP_PX = 105;
+export const BURNER_OPTIMAL_GAP_PX = 36;
+export const BURNER_MIN_EFFECTIVE_W = 25;
 export const BURNER_FUEL_CAPACITY_ML = 120;
 export const BURNER_FUEL_RATE_ML_S = 0.012; // conservative wick consumption
 
@@ -109,14 +114,18 @@ export function stepVesselThermal(
   };
   if (dt <= 0 || !eq.isContainer) return base;
 
-  const waterMass = eq.contents
-    .filter(c => normalizeFormula(c.formula) === 'H2O' && c.state !== 'g')
+  const iceMass = eq.contents
+    .filter(c => normalizeFormula(c.formula) === 'H2O' && c.state === 's')
     .reduce((s, c) => s + Math.max(0, c.mass_g), 0);
+  const liquidWaterMass = eq.contents
+    .filter(c => normalizeFormula(c.formula) === 'H2O' && (c.state === 'l' || c.state === 'aq'))
+    .reduce((s, c) => s + Math.max(0, c.mass_g), 0);
+  const waterMass = liquidWaterMass;
   const liquidMass = eq.volume_ml > 0.05 ? Math.max(0, eq.mass_g - (eq.tare_g ?? 0)) : 0;
   const phys = calculateMixturePhysicalProperties(eq.contents, eq.volume_ml, eq.temperature_c);
   const cp_J_gK = phys.cp_J_kgK / 1000;
-  const heatCap = GLASS_HEAT_CAPACITY_J_K + liquidMass * cp_J_gK;
-  const coolingCoef = convectiveCoolingCoefW_K(eq.volume_ml, env.airSpeed_m_s);
+  const heatCap = GLASS_HEAT_CAPACITY_J_K + (liquidMass > 0 ? liquidMass * cp_J_gK : iceMass * 2.09);
+  const coolingCoef = convectiveCoolingCoefW_K(Math.max(eq.volume_ml, iceMass), env.airSpeed_m_s);
   const steady = effectiveAmbient + Math.max(0, absorbedPower_W) / coolingCoef;
   const unconstrained = steady + (eq.temperature_c - steady) * Math.exp((-coolingCoef * dt) / heatCap);
   const netEnergy = (unconstrained - eq.temperature_c) * heatCap;
@@ -124,43 +133,97 @@ export function stepVesselThermal(
   const boilingPoint = aqueousBoilingPoint(eq.contents, eq.volume_ml, env.pressure_atm);
   let temperature = unconstrained;
   let vaporized = 0;
-  if (!eq.isSealed && waterMass > 0 && unconstrained > boilingPoint) {
-    const sensibleToBoil = Math.max(0, boilingPoint - eq.temperature_c) * heatCap;
-    const latentAvailable = Math.max(0, netEnergy - sensibleToBoil);
-    vaporized = Math.min(waterMass, eq.volume_ml, latentAvailable / WATER_LATENT_HEAT_J_G);
+  let meltedIce = 0;
+  let frozeWater = 0;
+
+  if (iceMass > 1e-5 && unconstrained > 0) {
+    const sensibleToZero = Math.max(0, 0 - eq.temperature_c) * heatCap;
+    const meltEnergy = Math.max(0, netEnergy - sensibleToZero);
+    meltedIce = Math.min(iceMass, meltEnergy / ICE_LATENT_HEAT_J_G);
+    if (iceMass - meltedIce > 1e-5) {
+      temperature = 0;
+    } else {
+      const excessEnergy = Math.max(0, meltEnergy - meltedIce * ICE_LATENT_HEAT_J_G);
+      temperature = excessEnergy / heatCap;
+    }
+  } else if (liquidWaterMass > 1e-5 && unconstrained < 0) {
+    const sensibleToZero = Math.max(0, eq.temperature_c - 0) * heatCap;
+    const freezeEnergy = Math.max(0, -netEnergy - sensibleToZero);
+    frozeWater = Math.min(liquidWaterMass, freezeEnergy / ICE_LATENT_HEAT_J_G);
+    if (liquidWaterMass - frozeWater > 1e-5) {
+      temperature = 0;
+    } else {
+      const excessCooling = Math.max(0, freezeEnergy - frozeWater * ICE_LATENT_HEAT_J_G);
+      temperature = -excessCooling / heatCap;
+    }
+  }
+
+  const availLiquidWater = Math.max(0, waterMass + meltedIce - frozeWater);
+  const postPhaseTemp = temperature;
+  if (!eq.isSealed && availLiquidWater > 0 && postPhaseTemp > boilingPoint) {
+    const sensibleBase = meltedIce > 0 ? 0 : eq.temperature_c;
+    const sensibleToBoil = Math.max(0, boilingPoint - sensibleBase) * heatCap;
+    const availableHeat = meltedIce > 0
+      ? Math.max(0, netEnergy - Math.max(0, 0 - eq.temperature_c) * heatCap - meltedIce * ICE_LATENT_HEAT_J_G)
+      : netEnergy;
+    const latentAvailable = Math.max(0, availableHeat - sensibleToBoil);
+    vaporized = Math.min(availLiquidWater, Math.max(0, eq.volume_ml + meltedIce - frozeWater), latentAvailable / WATER_LATENT_HEAT_J_G);
     temperature = boilingPoint;
-  } else if (!eq.isSealed && waterMass > 0 && unconstrained > effectiveAmbient + 12) {
+  } else if (!eq.isSealed && availLiquidWater > 0 && postPhaseTemp > effectiveAmbient + 12) {
     // Sub-boiling convective surface evaporation (m^2 mouth area ~0.0028 m2 for beaker, narrower for tubes)
     const mouthAreaM2 = eq.type === 'evaporating_dish' ? 0.0045 : eq.type === 'test_tube' ? 0.00035 : 0.0024;
-    const flux_g_m2_s = waterMassFluxG_M2_S(unconstrained, effectiveAmbient, env.relativeHumidity, env.airSpeed_m_s);
-    const subBoilEvap = Math.min(waterMass * 0.25, flux_g_m2_s * mouthAreaM2 * dt);
+    const flux_g_m2_s = waterMassFluxG_M2_S(postPhaseTemp, effectiveAmbient, env.relativeHumidity, env.airSpeed_m_s);
+    const subBoilEvap = Math.min(availLiquidWater * 0.25, flux_g_m2_s * mouthAreaM2 * dt);
     if (subBoilEvap > 1e-6) {
       vaporized += subBoilEvap;
     }
   }
-  const isBoiling = !eq.isSealed && unconstrained > boilingPoint && vaporized > 1e-9;
+  const isBoiling = !eq.isSealed && postPhaseTemp > boilingPoint && vaporized > 1e-9;
   const boilingIntensity = isBoiling ? Math.min(1, (vaporized / dt) / 0.15) : 0;
 
+  const newVolume = Math.max(0, eq.volume_ml + meltedIce - frozeWater - vaporized);
   let contents = eq.contents;
-  if (vaporized > 0) {
-    const keep = Math.max(0, 1 - vaporized / waterMass);
-    const newVolume = Math.max(0, eq.volume_ml - vaporized);
-    contents = eq.contents.map(item => {
+  if (meltedIce > 1e-7 || frozeWater > 1e-7 || vaporized > 0) {
+    const mapped: SubstanceQuantity[] = [];
+    let liquidAdded = false;
+    let iceAdded = false;
+    const netLiquidWater = Math.max(0, liquidWaterMass + meltedIce - frozeWater - vaporized);
+    const netIce = Math.max(0, iceMass - meltedIce + frozeWater);
+
+    for (const item of eq.contents) {
       if (normalizeFormula(item.formula) === 'H2O' && item.state !== 'g') {
-        return { ...item, mass_g: item.mass_g * keep, moles: item.moles * keep };
-      }
-      if (item.state === 'aq') {
-        if (newVolume <= 0.05) {
-          return { ...item, state: 's' as const, concentration_M: undefined };
+        if (item.state === 's') {
+          if (!iceAdded && netIce > 1e-5) {
+            mapped.push({ ...item, mass_g: netIce, moles: netIce / 18.015 });
+            iceAdded = true;
+          }
+        } else {
+          if (!liquidAdded && netLiquidWater > 1e-5) {
+            mapped.push({ ...item, mass_g: netLiquidWater, moles: netLiquidWater / 18.015, state: 'l' });
+            liquidAdded = true;
+          }
         }
-        return { ...item, concentration_M: item.moles / (newVolume / 1000) };
+      } else if (item.state === 'aq') {
+        if (newVolume <= 0.05) {
+          mapped.push({ ...item, state: 's' as const, concentration_M: undefined });
+        } else {
+          mapped.push({ ...item, concentration_M: item.moles / (newVolume / 1000) });
+        }
+      } else {
+        mapped.push({ ...item });
       }
-      return { ...item };
-    });
+    }
+    if (!liquidAdded && netLiquidWater > 1e-5) {
+      mapped.push({ formula: 'H2O', moles: netLiquidWater / 18.015, mass_g: netLiquidWater, state: 'l' });
+    }
+    if (!iceAdded && netIce > 1e-5) {
+      mapped.push({ formula: 'H2O', moles: netIce / 18.015, mass_g: netIce, state: 's' });
+    }
+    contents = mapped;
   }
   return {
     temperature_c: temperature,
-    volume_ml: Math.max(0, eq.volume_ml - vaporized),
+    volume_ml: newVolume,
     mass_g: Math.max(0, eq.mass_g - vaporized),
     contents,
     isBoiling,
@@ -169,7 +232,21 @@ export function stepVesselThermal(
   };
 }
 
-/** Compute the heating power delivered to `eq` by a Bunsen burner `burner`.
+/** Effective lateral half-width (px) of the upright flame-plume overlap zone for a vessel */
+export function getBurnerMaxDx(eq: EquipmentState): number {
+  return Math.min(BURNER_HEAT_RADIUS_PX, Math.max(18, eq.width * 0.28));
+}
+
+/** True only when the burner flame column actually reaches the bottom of the vessel */
+export function isVesselAlignedOverBurner(
+  burner: EquipmentState,
+  eq: EquipmentState,
+  env: LabEnvironment = DEFAULT_LAB_ENVIRONMENT
+): boolean {
+  return burnerHeatToVessel(burner, eq, env) >= BURNER_MIN_EFFECTIVE_W;
+}
+
+/** Compute the heating power delivered to `eq` by a Bunsen burner `burner` using narrow upright flame plume.
  * Combustion extinguishes in inert atmospheres (oxygenFraction < 0.12). */
 export function burnerHeatToVessel(
   burner: EquipmentState,
@@ -181,17 +258,22 @@ export function burnerHeatToVessel(
   if ((burner.fuelLevel_ml ?? BURNER_FUEL_CAPACITY_ML) <= 0) return 0;
   const burnerTop = burner.y + 42; // barrel mouth in SVG coords
   const vesselBottom = eq.y + eq.height;
-  const gap = burnerTop - vesselBottom; // >0 means vessel hovers in/above flame
-  if (gap < -45 || gap > 180) return 0; // out of flame vertical reach
+  const gap = burnerTop - vesselBottom; // >0 means vessel hovers above flame nozzle
+  if (gap < BURNER_MIN_GAP_PX || gap > BURNER_MAX_GAP_PX) return 0;
 
-  const dx = (eq.x + eq.width / 2) - (burner.x + burner.width / 2);
-  // Optimal heating occurs around 20-55 px above the nozzle in the oxidizing flame zone
-  const optimalH = 35;
-  const vertDist = Math.max(0, Math.abs(gap - optimalH) - 15);
-  const dist = Math.hypot(dx * 1.1, vertDist);
+  const dx = Math.abs((eq.x + eq.width / 2) - (burner.x + burner.width / 2));
+  const maxDx = getBurnerMaxDx(eq);
+  if (dx > maxDx) return 0; // flame column completely misses the vessel bottom
 
-  if (dist > BURNER_HEAT_RADIUS_PX) return 0;
-  const falloff = Math.max(0, 1 - dist / BURNER_HEAT_RADIUS_PX);
+  const normDx = dx / maxDx;
+  const normDy =
+    gap < BURNER_OPTIMAL_GAP_PX
+      ? (BURNER_OPTIMAL_GAP_PX - gap) / (BURNER_OPTIMAL_GAP_PX - BURNER_MIN_GAP_PX)
+      : (gap - BURNER_OPTIMAL_GAP_PX) / (BURNER_MAX_GAP_PX - BURNER_OPTIMAL_GAP_PX);
+
+  const radial = Math.hypot(normDx, Math.max(0, normDy - 0.12));
+  if (radial >= 1) return 0;
+  const falloff = 1 - radial;
   const intensity = Math.max(0.2, Math.min(1, burner.heatIntensity ?? 0.8));
   return BURNER_PEAK_POWER_W * intensity * (falloff * falloff * (3 - 2 * falloff)); // smooth hermite falloff
 }
@@ -250,8 +332,8 @@ export function stepPour(
 }
 
 /**
- * Temperature-dependent dissolution / recrystallization equilibrium for sparingly
- * or strongly temperature-sensitive salts (notably PbI2 "Golden Rain" needles).
+ * Temperature-dependent dissolution / recrystallization equilibrium for all salts
+ * with temperature-solubility curves (PbI2 Golden Rain, KNO3, CuSO4, NH4Cl, Ca(OH)2, etc.).
  */
 export function stepTemperatureSolubility(
   contents: SubstanceQuantity[],
@@ -264,48 +346,75 @@ export function stepTemperatureSolubility(
   let redissolvedFormula: string | undefined;
   let changed = false;
 
-  const pbi2Solid = contents.find(c => normalizeFormula(c.formula) === 'PBI2' && c.state === 's');
-  const pbi2Dissolved = contents.find(c => normalizeFormula(c.formula) === 'PBI2' && c.state === 'aq');
-  const totalPbI2Mass = (pbi2Solid?.mass_g ?? 0) + (pbi2Dissolved?.mass_g ?? 0);
+  const saltGroups = new Map<string, { canonicalFormula: string; solidMass: number; dissolvedMass: number }>();
+  for (const item of contents) {
+    if (item.state !== 's' && item.state !== 'aq') continue;
+    const norm = normalizeFormula(item.formula);
+    if (norm === 'H2O') continue;
+    const entry = saltGroups.get(norm) ?? {
+      canonicalFormula: norm === 'PBI2' ? 'PbI2' : item.formula,
+      solidMass: 0,
+      dissolvedMass: 0,
+    };
+    if (item.state === 's') entry.solidMass += Math.max(0, item.mass_g);
+    else entry.dissolvedMass += Math.max(0, item.mass_g);
+    saltGroups.set(norm, entry);
+  }
 
-  if (totalPbI2Mass > 0.005) {
-    const sol_g_100ml = solubilityAtTemperature_g_100ml('PbI2', temp_c) ?? 0.075;
+  let working = contents;
+  const rate = Math.min(1, dt * 0.45);
+
+  for (const [normKey, entry] of saltGroups.entries()) {
+    const sol_g_100ml = solubilityAtTemperature_g_100ml(entry.canonicalFormula, temp_c);
+    if (sol_g_100ml === null) continue;
+
+    const totalMass = entry.solidMass + entry.dissolvedMass;
+    if (totalMass <= 0.005) continue;
+
     const maxDissolvedMass = (sol_g_100ml * volume_ml) / 100;
-    const targetDissolved = Math.min(totalPbI2Mass, maxDissolvedMass);
-    const currentDissolved = pbi2Dissolved?.mass_g ?? 0;
-    const delta = (targetDissolved - currentDissolved) * Math.min(1, dt * 0.45);
+    // Act when solid crystal coexists with solvent or when solution is supersaturated
+    if (entry.solidMass <= 1e-4 && entry.dissolvedMass <= maxDissolvedMass + 1e-4) continue;
 
-    if (Math.abs(delta) > 0.0005) {
-      changed = true;
-      const molarMass = computeMolarMass('PbI2');
-      const nextDissolved = Math.max(0, Math.min(totalPbI2Mass, currentDissolved + delta));
-      const nextSolid = Math.max(0, totalPbI2Mass - nextDissolved);
+    const targetDissolved = Math.min(totalMass, maxDissolvedMass);
+    const delta = (targetDissolved - entry.dissolvedMass) * rate;
+    if (Math.abs(delta) <= 0.0005) continue;
 
-      const filtered = contents.filter(c => normalizeFormula(c.formula) !== 'PBI2');
-      if (nextSolid > 1e-4) {
-        filtered.push({
-          formula: 'PbI2',
-          mass_g: Math.round(nextSolid * 10000) / 10000,
-          moles: Math.round((nextSolid / molarMass) * 1e6) / 1e6,
-          state: 's',
-        });
+    changed = true;
+    const molarMass = Math.max(1e-3, computeMolarMass(entry.canonicalFormula));
+    const nextDissolved = Math.max(0, Math.min(totalMass, entry.dissolvedMass + delta));
+    const nextSolid = Math.max(0, totalMass - nextDissolved);
+
+    working = working.filter(c => normalizeFormula(c.formula) !== normKey || (c.state !== 's' && c.state !== 'aq'));
+    if (nextSolid > 1e-4) {
+      working.push({
+        formula: entry.canonicalFormula,
+        mass_g: Math.round(nextSolid * 10000) / 10000,
+        moles: Math.round((nextSolid / molarMass) * 1e6) / 1e6,
+        state: 's',
+      });
+    }
+    if (nextDissolved > 1e-4) {
+      working.push({
+        formula: entry.canonicalFormula,
+        mass_g: Math.round(nextDissolved * 10000) / 10000,
+        moles: Math.round((nextDissolved / molarMass) * 1e6) / 1000000,
+        concentration_M: Math.round(((nextDissolved / molarMass) / (volume_ml / 1000)) * 1e5) / 1e5,
+        state: 'aq',
+      });
+    }
+
+    if (delta < -0.001) {
+      if (normKey === 'PBI2' || !recrystallizedFormula) {
+        recrystallizedFormula = entry.canonicalFormula;
       }
-      if (nextDissolved > 1e-4) {
-        filtered.push({
-          formula: 'PbI2',
-          mass_g: Math.round(nextDissolved * 10000) / 10000,
-          moles: Math.round((nextDissolved / molarMass) * 1e6) / 1e6,
-          concentration_M: Math.round(((nextDissolved / molarMass) / (volume_ml / 1000)) * 1e5) / 1e5,
-          state: 'aq',
-        });
+    } else if (delta > 0.001) {
+      if (normKey === 'PBI2' || !redissolvedFormula) {
+        redissolvedFormula = entry.canonicalFormula;
       }
-      if (delta < -0.001) recrystallizedFormula = 'PbI2';
-      else if (delta > 0.001) redissolvedFormula = 'PbI2';
-      return { contents: filtered, recrystallizedFormula, redissolvedFormula };
     }
   }
 
-  return changed ? { contents, recrystallizedFormula, redissolvedFormula } : { contents };
+  return changed ? { contents: working, recrystallizedFormula, redissolvedFormula } : { contents };
 }
 
 export interface ProbeDipResult {
