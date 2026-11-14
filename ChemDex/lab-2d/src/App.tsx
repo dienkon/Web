@@ -14,6 +14,7 @@ import { AutoShowcaseWorkspace } from './components/experiments/AutoShowcaseWork
 import { BottomTray } from './components/layout/BottomTray';
 import { TransferModal } from './components/workspace/TransferModal';
 import { SessionManager } from './components/layout/SessionManager';
+import { ErrorBoundary } from './components/layout/ErrorBoundary';
 
 const LabNotebookModal = lazy(() =>
   import('./components/reports/LabNotebookModal').then((m) => ({ default: m.LabNotebookModal }))
@@ -162,10 +163,12 @@ export const App: React.FC = () => {
 
         {/* Center: Interactive Workbench Canvas */}
         <main className="flex-1 relative flex flex-col h-full min-w-0 overflow-hidden">
-          <GuidedExperimentHUD />
-          <AutoShowcaseWorkspace />
-          <Workbench />
-          {!isPresentationMode && <BottomTray />}
+          <ErrorBoundary scope="workbench" language={language}>
+            <GuidedExperimentHUD />
+            <AutoShowcaseWorkspace />
+            <Workbench />
+            {!isPresentationMode && <BottomTray />}
+          </ErrorBoundary>
 
           {isPresentationMode && (
             <button
@@ -219,43 +222,52 @@ export const App: React.FC = () => {
       )}
 
       {/* Modals & Dialogs */}
-      <TransferModal />
-      <Suspense
-        fallback={
-          <div className="fixed bottom-4 right-4 bg-white p-3 rounded-lg shadow z-50" role="status">
-            Đang tải…
-          </div>
-        }
+      <ErrorBoundary
+        scope="modal"
+        language={language}
+        onRecover={() => {
+          setStructure(null);
+          setDose(null);
+        }}
       >
-        {isNotebookOpen && <LabNotebookModal />}
-        {structure && <StructureDialog {...structure} onClose={() => setStructure(null)} />}
-        {dose && <DoseDialog chemicalId={dose} onClose={() => setDose(null)} />}
-        {isAIAssistantOpen && (
-          <GeminiAssistantModal isOpen={isAIAssistantOpen} onClose={() => toggleAIAssistant(false)} />
-        )}
-        {isApiKeyModalOpen && (
-          <ApiKeyModal
-            isOpen={isApiKeyModalOpen}
-            onClose={() => toggleApiKeyModal(false)}
-            language={language}
-          />
-        )}
-        {isPeriodicTableOpen && (
-          <PeriodicTableModal isOpen={isPeriodicTableOpen} onClose={() => togglePeriodicTable(false)} />
-        )}
-        {isReactionLibraryOpen && (
-          <ReactionLibraryModal
-            isOpen={isReactionLibraryOpen}
-            onClose={() => toggleReactionLibrary(false)}
-          />
-        )}
-        {isTitrationCurveOpen && (
-          <TitrationCurveModal isOpen={isTitrationCurveOpen} onClose={() => toggleTitrationCurve(false)} />
-        )}
-        {isQuizModalOpen && (
-          <ExperimentQuizModal isOpen={isQuizModalOpen} onClose={() => toggleQuizModal(false)} />
-        )}
-      </Suspense>
+        <TransferModal />
+        <Suspense
+          fallback={
+            <div className="fixed bottom-4 right-4 bg-white p-3 rounded-lg shadow z-50" role="status">
+              Đang tải…
+            </div>
+          }
+        >
+          {isNotebookOpen && <LabNotebookModal />}
+          {structure && <StructureDialog {...structure} onClose={() => setStructure(null)} />}
+          {dose && <DoseDialog chemicalId={dose} onClose={() => setDose(null)} />}
+          {isAIAssistantOpen && (
+            <GeminiAssistantModal isOpen={isAIAssistantOpen} onClose={() => toggleAIAssistant(false)} />
+          )}
+          {isApiKeyModalOpen && (
+            <ApiKeyModal
+              isOpen={isApiKeyModalOpen}
+              onClose={() => toggleApiKeyModal(false)}
+              language={language}
+            />
+          )}
+          {isPeriodicTableOpen && (
+            <PeriodicTableModal isOpen={isPeriodicTableOpen} onClose={() => togglePeriodicTable(false)} />
+          )}
+          {isReactionLibraryOpen && (
+            <ReactionLibraryModal
+              isOpen={isReactionLibraryOpen}
+              onClose={() => toggleReactionLibrary(false)}
+            />
+          )}
+          {isTitrationCurveOpen && (
+            <TitrationCurveModal isOpen={isTitrationCurveOpen} onClose={() => toggleTitrationCurve(false)} />
+          )}
+          {isQuizModalOpen && (
+            <ExperimentQuizModal isOpen={isQuizModalOpen} onClose={() => toggleQuizModal(false)} />
+          )}
+        </Suspense>
+      </ErrorBoundary>
     </div>
   );
 };
