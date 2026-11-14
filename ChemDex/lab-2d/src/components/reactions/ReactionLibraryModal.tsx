@@ -14,7 +14,9 @@ import {
   Loader2,
   ArrowRight,
   Compass,
+  Scale,
 } from 'lucide-react';
+import { EquationBalancerTab } from './EquationBalancerTab';
 import { useLabStore } from '../../store/useLabStore';
 import { useLabEnvironment } from '../../store/useLabEnvironment';
 import { formatFormulaUnicode } from '../../chemistry/core/formula';
@@ -36,7 +38,7 @@ interface ReactionLibraryModalProps {
   onClose: () => void;
 }
 
-type HubTab = 'curriculum' | 'catalog' | 'chains';
+type HubTab = 'curriculum' | 'catalog' | 'chains' | 'balancer';
 
 const CHAIN_QUICK_EXAMPLES = [
   'Cu -> CuSO4 -> Cu(OH)2 -> CuO -> Cu',
@@ -56,8 +58,15 @@ export const ReactionLibraryModal: React.FC<ReactionLibraryModalProps> = ({ isOp
   const [bundle, setBundle] = useState<LoadedReactionHubBundle | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<HubTab>('curriculum');
+  const [balancerSeedEq, setBalancerSeedEq] = useState<string>('');
   const [vesselChoice, setVesselChoice] = useState<EquipmentType>('beaker');
   const [mobileShowDetail, setMobileShowDetail] = useState(false);
+
+  const openInBalancer = (equation: string) => {
+    setBalancerSeedEq(equation);
+    setActiveTab('balancer');
+    setMobileShowDetail(false);
+  };
 
   // Tab 1: 131 THPT curriculum
   const [currQuery, setCurrQuery] = useState('');
@@ -326,6 +335,11 @@ export const ReactionLibraryModal: React.FC<ReactionLibraryModalProps> = ({ isOp
               icon: <GitBranch className="w-3.5 h-3.5" />,
               label: vi ? 'Chuỗi phản ứng & Tìm chuỗi' : 'Reaction Chains',
             },
+            {
+              id: 'balancer' as const,
+              icon: <Scale className="w-3.5 h-3.5" />,
+              label: vi ? 'Cân bằng & Tính mol' : 'Balancer & Stoich',
+            },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -349,13 +363,13 @@ export const ReactionLibraryModal: React.FC<ReactionLibraryModalProps> = ({ isOp
         </div>
 
         {/* Main Content */}
-        {loadError && (
+        {loadError && activeTab !== 'balancer' && (
           <div className="m-4 p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-medium">
             {vi ? 'Không thể tải dữ liệu kho phản ứng:' : 'Failed to load reaction library:'} {loadError}
           </div>
         )}
 
-        {!bundle && !loadError && (
+        {!bundle && !loadError && activeTab !== 'balancer' && (
           <div className="flex-1 flex flex-col items-center justify-center gap-2 text-xs text-slate-500">
             <Loader2 className="w-6 h-6 animate-spin text-emerald-600" />
             <span>{vi ? 'Đang lập chỉ mục 1.300 phương trình & 131 thí nghiệm...' : 'Indexing 1,300 equations...'}</span>
@@ -497,14 +511,28 @@ export const ReactionLibraryModal: React.FC<ReactionLibraryModalProps> = ({ isOp
                       )}
                     </div>
 
-                    <button
-                      type="button"
-                      onClick={() => handleRunCurriculumOnBench(selectedCurr)}
-                      className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs sm:text-sm font-bold shadow-md cursor-pointer shrink-0"
-                    >
-                      <Play className="w-4 h-4 fill-current" />
-                      <span>{vi ? 'Thử trên bàn 2D' : 'Run on 2D Bench'}</span>
-                    </button>
+                    <div className="flex flex-wrap items-center gap-2 shrink-0">
+                      <button
+                        type="button"
+                        onClick={() => openInBalancer(selectedCurr.equation)}
+                        className={`flex items-center gap-1.5 px-3 py-2.5 rounded-xl border text-xs font-bold cursor-pointer ${
+                          isDark
+                            ? 'border-slate-700 bg-slate-800 hover:bg-slate-700 text-sky-300'
+                            : 'border-slate-200 bg-white hover:bg-slate-100 text-blue-700'
+                        }`}
+                      >
+                        <Scale className="w-3.5 h-3.5" />
+                        <span>{vi ? 'Cân bằng & mol' : 'Balance & Calc'}</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleRunCurriculumOnBench(selectedCurr)}
+                        className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs sm:text-sm font-bold shadow-md cursor-pointer"
+                      >
+                        <Play className="w-4 h-4 fill-current" />
+                        <span>{vi ? 'Thử trên bàn 2D' : 'Run on 2D Bench'}</span>
+                      </button>
+                    </div>
                   </div>
 
                   {/* Conditions + Phenomenon */}
@@ -726,14 +754,28 @@ export const ReactionLibraryModal: React.FC<ReactionLibraryModalProps> = ({ isOp
                       )}
                     </div>
 
-                    <button
-                      type="button"
-                      onClick={() => handleRunCatalogOnBench(selectedCatalogEntry)}
-                      className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs sm:text-sm font-bold shadow-md cursor-pointer shrink-0"
-                    >
-                      <Play className="w-4 h-4 fill-current" />
-                      <span>{vi ? 'Thử trên bàn 2D' : 'Run on 2D Bench'}</span>
-                    </button>
+                    <div className="flex flex-wrap items-center gap-2 shrink-0">
+                      <button
+                        type="button"
+                        onClick={() => openInBalancer(selectedCatalogEntry.equation)}
+                        className={`flex items-center gap-1.5 px-3 py-2.5 rounded-xl border text-xs font-bold cursor-pointer ${
+                          isDark
+                            ? 'border-slate-700 bg-slate-800 hover:bg-slate-700 text-sky-300'
+                            : 'border-slate-200 bg-white hover:bg-slate-100 text-blue-700'
+                        }`}
+                      >
+                        <Scale className="w-3.5 h-3.5" />
+                        <span>{vi ? 'Cân bằng & mol' : 'Balance & Calc'}</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleRunCatalogOnBench(selectedCatalogEntry)}
+                        className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs sm:text-sm font-bold shadow-md cursor-pointer"
+                      >
+                        <Play className="w-4 h-4 fill-current" />
+                        <span>{vi ? 'Thử trên bàn 2D' : 'Run on 2D Bench'}</span>
+                      </button>
+                    </div>
                   </div>
 
                   {selectedCatalogGuide && (
@@ -946,6 +988,11 @@ export const ReactionLibraryModal: React.FC<ReactionLibraryModalProps> = ({ isOp
               </div>
             )}
           </div>
+        )}
+
+        {/* TAB 4: Exact Equation Balancer & Stoichiometry Calculator */}
+        {activeTab === 'balancer' && (
+          <EquationBalancerTab initialEquation={balancerSeedEq} vi={vi} isDark={isDark} />
         )}
       </section>
     </div>
