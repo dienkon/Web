@@ -14,6 +14,7 @@ import { WashBottleControls } from './WashBottleControls';
 import { FunnelFlowControls } from './FunnelFlowControls';
 import { HotPlateControls } from './HotPlateControls';
 import { CondenserCoolingControls } from './CondenserCoolingControls';
+import { CopperAmmoniaReadout } from './CopperAmmoniaReadout';
 
 export function VesselInspector() {
   const { 
@@ -323,6 +324,7 @@ export function VesselInspector() {
       </div>
 
       {/* pH Indicator Pill */}
+      <CopperAmmoniaReadout vessel={vessel} language={language} />
       <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80 flex items-center justify-between">
         <span className="text-[11px] text-slate-500 font-medium flex items-center gap-1.5">
           <span className="w-2 h-2 rounded-full" style={{ backgroundColor: vessel.liquidColor || '#3b82f6' }} />

@@ -9,6 +9,24 @@ import { getReactionReview, SCIENCE_REFERENCES } from '../src/science/reviewCata
 import { deriveProgramFromRules } from '../src/vfx/programs/resolver';
 import { auditDisplayedEquation } from '../src/science/equationText';
 import { nativeReagentPhases } from '../src/science/nativeReagentPhases';
+import { HYDROXO_AMMINES } from '../src/science/copperAmmoniaEquilibrium';
+
+const mixedEquilibriumAudit = HYDROXO_AMMINES.map(term => ({ product: term.formula, ammoniaCoefficient: term.ammonia,
+  hydroxideCoefficient: term.hydroxide, productCharge: term.charge, logBeta25: term.logBeta25,
+  estimatedDeltaH_J_mol: term.estimatedDeltaH_J,
+  balance: auditEquation([{ formula: 'Cu(2+)', coefficient: 1 }, { formula: 'NH3', coefficient: term.ammonia },
+    { formula: 'OH(-)', coefficient: term.hydroxide }], [{ formula: term.formula, coefficient: 1 }]),
+}));
+
+function copperModelConditions(id: string) {
+  if (!['cuso4_nh3', 'cuso4_nh3_complex', 'cuso4_nh3_hydroxide', 'cuoh2_nh3_complex'].includes(id)) return {};
+  return { model: 'coupled_copper_ammonia', referenceEquationOnly: true, temperatureRange_c: [0, 90],
+    phaseAmounts: 'Charge and Cu/N/S/Na balances, ammines n=1..4, mixed hydroxo-ammines, hydrolysis, sulfate and Cu(OH)2 saturation.',
+    mixedEquilibria: mixedEquilibriumAudit,
+    mixedTemperatureBasis: 'Convert OH- association to H2O/H+ using Kw at 25 C, extrapolate estimated enthalpy with zero dCp on that basis, then convert back using Kw(T).',
+    limitations: 'Ideal concentrations; mixed-complex temperature enthalpies are source estimates. Dimer/other-ligand chemistry and real-time kinetics are not included.',
+  };
+}
 
 function reviewFields(id: string) {
   const review = getReactionReview(id);
@@ -51,7 +69,7 @@ const programs = ALL_HANDCRAFTED_PROGRAMS.map(program => {
     representation: program.chemistry.representation ?? (lesson ? 'conditional_lesson' : 'reaction'),
     classification: lesson ? [lesson.family] : [],
     balance, visualIssues,
-    conditions: lesson?.conditions ?? program.chemistry.conditions ?? {},
+    conditions: lesson?.conditions ?? { ...program.chemistry.conditions, ...copperModelConditions(program.id) },
     ...reviewFields(program.id),
     parameterLimits: ['Kinetic time and RGB values are illustrative.', 'Enthalpy and activities are not experimentally calibrated for every reagent concentration.'],
   };
@@ -74,11 +92,7 @@ const deterministic = DETERMINISTIC_REACTIONS.map(reaction => ({
   products: Object.entries(reaction.products).map(([formula, product]) => ({ formula, phase: product.state, coefficient: product.coeff })),
   conditions: {
     compartment: 'bulk', finitePositiveInventory: true, aqueousPhaseRequiresPositiveVolume: true,
-    ...(['cuso4_nh3_complex', 'cuso4_nh3_hydroxide', 'cuoh2_nh3_complex'].includes(reaction.id) ? {
-      model: 'coupled_copper_ammonia', referenceEquationOnly: true, temperatureRange_c: [0, 90],
-      phaseAmounts: 'Charge and Cu/N/S/Na balances with ammines n=1..4, hydrolysis, sulfate and Cu(OH)2 saturation.',
-      limitations: 'Ideal activities; mixed hydroxo-ammines, other ligands and real-time kinetic calibration are not included.',
-    } : {}),
+    ...copperModelConditions(reaction.id),
     oxidizingAcidBlocksHydrogenInference: Boolean(reaction.products.H2),
     reactantPhases: Object.fromEntries(reaction.reactants.map(formula => [formula, nativeReagentPhases(formula)])),
     heating: { required: reaction.requiresHeating ?? false, minimum_c: reaction.minTemp_c ?? null },
@@ -114,6 +128,7 @@ const dynamicRules = ['Na2CO3', 'K2CO3', 'NaHCO3', 'KHCO3', 'CaCO3', 'MgCO3']
     };
   }));
 const failures = [...programs, ...deterministic, ...lessons, ...dynamicRules].filter(record => record.balance && !record.balance.valid);
+const mixedFailures = mixedEquilibriumAudit.filter(record => !record.balance.valid);
 const visualIssues = programs.filter(program => program.visualIssues.length);
 const ionicFailures = [...programs, ...deterministic].filter(record => record.ionicBalance.some(result => !result.valid));
 const report = {
@@ -121,8 +136,8 @@ const report = {
   checkedAt: new Date().toISOString(),
   scope: `All ${programs.length} program definitions, every deterministic rule, and all ${lessons.length} lessons. Lesson programs are a subset of the programs, not additional unique experiments.`,
   claims: { balanceChecked: true, qualitativeLiteratureReview: true, experimentallyValidated: false, realTimeKineticsValidated: false, allSourcesDescribeExactExperiment: false },
-  counts: { programs: programs.length, deterministic: deterministic.length, equilibriumOnly: deterministic.filter(record => record.execution === 'finite_phase_equilibrium').length, lessons: lessons.length, dynamicRules: dynamicRules.length, ionicEquations: [...programs, ...deterministic].reduce((sum, record) => sum + record.ionicBalance.length, 0), ionicFailures: ionicFailures.length, nonStoichiometricObservations: programs.filter(row => row.balance === null).length, balanceFailures: failures.length, visualProductMismatches: visualIssues.length },
-  programs, deterministic, lessons, dynamicRules,
+  counts: { mixedEquilibriumChecks: mixedEquilibriumAudit.length, mixedEquilibriumFailures: mixedFailures.length, programs: programs.length, deterministic: deterministic.length, equilibriumOnly: deterministic.filter(record => record.execution === 'finite_phase_equilibrium').length, lessons: lessons.length, dynamicRules: dynamicRules.length, ionicEquations: [...programs, ...deterministic].reduce((sum, record) => sum + record.ionicBalance.length, 0), ionicFailures: ionicFailures.length, nonStoichiometricObservations: programs.filter(row => row.balance === null).length, balanceFailures: failures.length, visualProductMismatches: visualIssues.length },
+  programs, deterministic, lessons, dynamicRules, mixedEquilibriumAudit,
   referenceLabs: ['chemcollective', 'phet', 'rscLab'].map(key => SCIENCE_REFERENCES[key]),
 };
 mkdirSync('artifacts/science-audit', { recursive: true });
@@ -147,4 +162,4 @@ writeFileSync('artifacts/science-audit/catalog-review.vi.md', lines.join('\n') +
 console.log(JSON.stringify(report.counts, null, 2));
 for (const failure of failures) console.error(failure.id, failure.balance);
 for (const failure of ionicFailures) console.error(failure.id, failure.ionicBalance);
-if (failures.length || visualIssues.length || ionicFailures.length) process.exitCode = 1;
+if (failures.length || visualIssues.length || ionicFailures.length || mixedFailures.length) process.exitCode = 1;

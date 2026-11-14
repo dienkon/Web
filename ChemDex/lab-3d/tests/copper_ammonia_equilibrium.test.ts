@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from 'vitest';
-import { copperAmmineBetas, copperAmmoniaEquilibrium } from '../src/science/copperAmmoniaEquilibrium';
+import { copperAmmineBetas, copperAmmoniaEquilibrium, copperHydroxoAmmineBetas, HYDROXO_AMMINES } from '../src/science/copperAmmoniaEquilibrium';
 import { applyCopperAmmoniaLedger } from '../src/engine/copperAmmoniaLedger';
 import { readComposition } from '../src/science/balance';
 import { computeMolarMass, applyProgramToLedger } from '../src/engine/ledger';
@@ -13,13 +13,15 @@ import { continueReactionAfterOutflow } from '../src/engine/reactionContinuation
 import { AutoExperiment } from '../src/vfx/autoplay/AutoExperiment';
 import { useAppStore } from '../src/store/useAppStore';
 import type { SubstanceContent, VesselState } from '../src/types/chemistry';
+import { aqueousConstantsAtTemperature, waterDissociationEnthalpy_J_mol } from '../src/science/aqueousTemperature';
 
 const original = useAppStore.getState();
 afterEach(() => useAppStore.setState(original, true));
 const row = (formula: string, moles: number, phase = 'aq'): SubstanceContent => ({ formula, moles, phase, mass_g: moles * computeMolarMass(formula) });
 function sample(ratio = 4, volume_ml = 50): VesselState {
-  const contents = [row('CuSO4', 0.001), row('NH3', ratio * 0.001), row('H2O', 50 / 18.015, 'l')];
-  return { id: 'copper', name: 'Copper', type: 'beaker', capacity_ml: 250, volume_ml, volume: volume_ml / 250,
+  const contents = [row('CuSO4', 0.001), row('NH3', ratio * 0.001), row('H2O', volume_ml / 18.015, 'l')];
+  const capacity_ml = Math.max(250, volume_ml);
+  return { id: 'copper', name: 'Copper', type: 'beaker', capacity_ml, volume_ml, volume: volume_ml / capacity_ml,
     mass_g: contents.reduce((s, c) => s + c.mass_g, 0), contents, substances: contents.map(c => c.formula),
     temperature_c: 25, ph: 7, position: [0, 0, 0], rotationY: 0, isLocked: false,
     hasGas: false, hasPrecipitate: false, isBoiling: false };
@@ -43,6 +45,48 @@ describe('Coupled Cu(II), ammonia, sulfate and hydroxide equilibria', () => {
     expect(copperAmmineBetas(60)!.every((b, i) => b < beta[i])).toBe(true);
   });
 
+  it('uses the sourced mixed-complex constants with OH- and their correct ionic charges', () => {
+    expect(copperHydroxoAmmineBetas(25)!.map(Math.log10)).toEqual([11.3, 17, 15]);
+    const v = sample(5), s = copperAmmoniaEquilibrium(v.contents, v.volume_ml, 25)!.state;
+    HYDROXO_AMMINES.forEach((term, i) => {
+      const ion = readComposition(term.formula);
+      expect(ion.charge).toBe(2 - term.hydroxide);
+      expect(ion.atoms.N).toBe(term.ammonia);
+      const quotient = s.hydroxoAmmines_M[i]
+        / (s.freeCopper_M * s.freeAmmonia_M ** term.ammonia * s.hydroxide_M ** term.hydroxide);
+      expect(Math.log10(quotient)).toBeCloseTo(term.logBeta25, 10);
+    });
+  });
+
+  it.each([5, 60, 89])('preserves the source H2O/H+ enthalpy basis during extrapolation at %s C', temperature_c => {
+    const logK = (t: number, index: number) => Math.log(copperHydroxoAmmineBetas(t)![index])
+      + HYDROXO_AMMINES[index].hydroxide * Math.log(aqueousConstantsAtTemperature(t)!.waterKw);
+    HYDROXO_AMMINES.forEach((term, i) => {
+      const slope = (logK(temperature_c + 0.001, i) - logK(temperature_c - 0.001, i)) / 0.002;
+      const enthalpy = 8.314462618 * (temperature_c + 273.15) ** 2 * slope;
+      const reference = term.estimatedDeltaH_J + term.hydroxide * waterDissociationEnthalpy_J_mol(25)!;
+      expect(Math.abs(enthalpy - reference)).toBeLessThan(0.1);
+    });
+  });
+
+  it.each([0, 0.001, 0.01])('counts every mixed ligand in Cu/N conservation with %s mol added NaOH', base => {
+    const v = sample(20);
+    if (base) v.contents.push(row('NaOH', base));
+    v.mass_g = v.contents.reduce((s, c) => s + c.mass_g, 0);
+    const s = copperAmmoniaEquilibrium(v.contents, v.volume_ml, 25)!.state;
+    const mixedCu = s.hydroxoAmmines_M.reduce((sum, c) => sum + c, 0);
+    const mixedN = s.hydroxoAmmines_M.reduce((sum, c, i) => sum + c * HYDROXO_AMMINES[i].ammonia, 0);
+    expect(mixedCu).toBeGreaterThan(1e-5);
+    const copper = s.freeCopper_M + s.hydrolyzedCopper_M + s.copperSulfatePair_M
+      + s.ammines_M.reduce((sum, c) => sum + c, 0) + mixedCu + s.solid_mol / 0.05;
+    const nitrogen = s.freeAmmonia_M + s.ammonium_M
+      + s.ammines_M.reduce((sum, c, i) => sum + c * (i + 1), 0) + mixedN;
+    expect(copper).toBeCloseTo(0.02, 10);
+    expect(nitrogen).toBeCloseTo(0.4, 10);
+    expect(Math.abs(s.chargeResidual_M)).toBeLessThan(1e-10);
+    conserved(v, applyCopperAmmoniaLedger(v, 1)!);
+  });
+
   it.each([0.01, 0.5, 1, 2, 4, 5, 20, 100])('closes all aqueous balances and phase complementarity at NH3/Cu=%s', ratio => {
     const v = sample(ratio), q = copperAmmoniaEquilibrium(v.contents, v.volume_ml, 25)!;
     expect(q).not.toBeNull();
@@ -60,14 +104,17 @@ describe('Coupled Cu(II), ammonia, sulfate and hydroxide equilibria', () => {
     }
     const excess = sample(100), q = copperAmmoniaEquilibrium(excess.contents, excess.volume_ml, 25)!;
     expect(q.state.solid_mol).toBeLessThan(1e-12);
-    expect(q.state.ammines_M[3]).toBeGreaterThan(0.019);
+    const bound = q.state.ammines_M.reduce((sum, c) => sum + c, 0)
+      + q.state.hydroxoAmmines_M.reduce((sum, c) => sum + c, 0);
+    expect(bound).toBeGreaterThan(0.019);
+    expect(q.state.hydroxoAmmines_M[2]).toBeGreaterThan(0.001);
   });
 
   it('uses concentration rather than a universal ligand ratio', () => {
     const a = sample(5, 50), b = sample(5, 500);
     const first = copperAmmoniaEquilibrium(a.contents, a.volume_ml, 25)!, dilute = copperAmmoniaEquilibrium(b.contents, b.volume_ml, 25)!;
     expect(Math.abs(first.state.solid_mol - dilute.state.solid_mol)).toBeGreaterThan(1e-5);
-    const scaled = b.contents.map(c => ({ ...c, moles: c.moles * 10, mass_g: c.mass_g * 10 }));
+    const scaled = a.contents.map(c => ({ ...c, moles: c.moles * 10, mass_g: c.mass_g * 10 }));
     expect(copperAmmoniaEquilibrium(scaled, 500, 25)!.state.ph).toBeCloseTo(first.state.ph, 9);
   });
 
@@ -96,7 +143,7 @@ describe('Coupled Cu(II), ammonia, sulfate and hydroxide equilibria', () => {
 
   it('includes sodium/base left from preparing the precipitate and the hydroxide common-ion effect', () => {
     const base = sample(100);
-    base.contents = [row('Cu(OH)2', 0.0001, 's'), row('Na2SO4', 0.0001),
+    base.contents = [row('Cu(OH)2', 0.001, 's'), row('Na2SO4', 0.001),
       row('NH3', 0.1), row('H2O', 50 / 18.015, 'l')];
     base.mass_g = base.contents.reduce((s, c) => s + c.mass_g, 0);
     const clear = applyCopperAmmoniaLedger(base, 1)!;
@@ -108,6 +155,17 @@ describe('Coupled Cu(II), ammonia, sulfate and hydroxide equilibria', () => {
     conserved(alkaline, gel);
     expect(gel.hasPrecipitate).toBe(true);
     expect(gel.ph!).toBeGreaterThan(clear.ph!);
+  });
+
+  it('can retain dilute Cu in the neutral mixed complex even with substantial excess hydroxide', () => {
+    const v = sample(100);
+    v.contents = [row('Cu(OH)2', 0.0001, 's'), row('Na2SO4', 0.0001),
+      row('NaOH', 0.01), row('NH3', 0.1), row('H2O', 50 / 18.015, 'l')];
+    v.mass_g = v.contents.reduce((sum, c) => sum + c.mass_g, 0);
+    const solved = copperAmmoniaEquilibrium(v.contents, 50, 25)!;
+    expect(solved.state.solid_mol).toBeLessThan(1e-12);
+    expect(solved.state.hydroxoAmmines_M[1]).toBeGreaterThan(0.9 * 0.0001 / 0.05);
+    conserved(v, applyCopperAmmoniaLedger(v, 1)!);
   });
 
   it.each([0, 5, 25, 60, 90])('keeps balances finite at %s C and preserves atoms during fractional material replay', temperature_c => {

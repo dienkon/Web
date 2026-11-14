@@ -16,7 +16,7 @@ Chạy `npm run equations:audit` từ lab-3d để sinh lại toàn bộ Markdow
 |---|---|
 | Tiến độ phản ứng | `engine/advanceReaction.ts`, gọi bởi cả store thủ công và bộ chạy tự động; cùng điều kiện pha, khoang chứa, xúc tác, nhiệt độ, môi trường, khởi tạo cháy và cùng dispatch động học |
 | Chất thực sự tiếp xúc | `science/reagentAvailability.ts`: lượng hữu hạn, dương, trong bulk; chuẩn hóa pha/state cũ. Chất lọc/bọt không thỏa điều kiện, không bị tiêu thụ và không nhận sản phẩm mới của dung dịch |
-| Đồng–ammonia | [Bộ giải cân bằng chung](copper-ammonia.vi.md) xét phức 1–4 phối tử, proton hóa, độ tan và Na/kiềm dư. Auto tiếp tục tính khi NH3 mới đến; không coi mất CuSO4 là đã hoàn tất phản ứng thuận nghịch |
+| Đồng–ammonia | [Bộ giải cân bằng chung](copper-ammonia.vi.md) xét phức 1–4 phối tử và ba phức hydroxo–ammine, proton hóa, độ tan và Na/kiềm dư. Auto tiếp tục tính khi NH3 mới đến; không coi mất CuSO4 là đã hoàn tất phản ứng thuận nghịch |
 | Điều kiện bộ giải cũ | `science/nativeReagentPhases.ts`: miền pha cho mọi chất tham gia của 48 quy tắc; không dùng khí thay dung dịch, không cho muối khô tự kết tủa, không suy H2 trong axit oxi hóa |
 | Hệ số, chất giới hạn và nhiệt phản ứng | `planStudioProgram` và `applyProgramWithThermalSinks`; chỉ phần tiến độ mới được ghi vào kiểm kê |
 | Kim loại–axit và Na–nước khi đang thêm chất | Cùng các planner `planMetalAcid` / `planSodiumWater`, cùng bộ tiến độ; giữ đồng hồ cảm ứng giữa các phần liều thay vì khởi động lại mỗi frame |
@@ -44,8 +44,8 @@ Tự động là một workspace riêng. Lộ trình mang dụng cụ, góc came
 
 ## Kết quả kiểm tra phần mềm
 
-- Toàn bộ unit tests: **3.170/3.170**, gồm 237 tệp; bao gồm kiểm tra cân bằng đồng–ammonia, sai pha, chất đã lọc/bọt, lượng không hữu hạn, nhãn axit đặc/loãng và tắt nguồn giữa phép thử ngọn lửa.
-- Audit hóa học + hiệu ứng vật lý tại mốc `aa65cbb8`: **149/149 đạt**. Kết quả từng ID nằm trong `artifacts/reagent-conditions/automatic/catalog-audit.json`. Trường hợp đồng–ammonia sau thay đổi được kiểm tra lại bằng `artifacts/copper-ammonia/physical-audit.json`, kèm 96 tổ hợp và kiểm tra Chromium; không thay đổi store thủ công, bảo toàn khối lượng và không vượt ngân sách hạt.
+- Toàn bộ unit tests: **3.178/3.178**, gồm 237 tệp; bao gồm kiểm tra cân bằng đồng–ammonia, sai pha, chất đã lọc/bọt, lượng không hữu hạn, nhãn axit đặc/loãng và tắt nguồn giữa phép thử ngọn lửa.
+- Audit hóa học + hiệu ứng vật lý tại mốc `aa65cbb8`: **149/149 đạt**. Kết quả từng ID nằm trong `artifacts/reagent-conditions/automatic/catalog-audit.json`. Trường hợp đồng–ammonia sau thay đổi được kiểm tra lại bằng `artifacts/copper-ammonia/physical-audit.json`, kèm 288 tổ hợp và kiểm tra bảng phân bố trùng nhau ở cả hai chế độ bằng Chromium; không thay đổi store thủ công, bảo toàn khối lượng và không vượt ngân sách hạt.
 - Audit phương trình: 1.549 ID theo nguồn, 1.300 phương trình catalog khác nhau, không có lỗi cân bằng nguyên tố/điện tích hay lệch sản phẩm hiệu ứng trong bộ audit khoa học.
 - TypeScript và production build đạt. Cảnh báo chunk lớn của ứng dụng vẫn còn.
 - Chrome desktop/mobile: nhận mẫu rỗng trước khi rót, dòng rót và dụng cụ donor, Pause, khởi động lại, đổi phản ứng, khói, playlist, fullscreen và giữ nguyên bàn thủ công đều đạt; không có exception JavaScript.

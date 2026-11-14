@@ -7,6 +7,7 @@ import { ResizableSidebar } from '../../components/ResizableSidebar';
 import { ErrorBoundary } from '../../components/ErrorBoundary';
 import { useAppStore } from '../../store/useAppStore';
 import { getLessonDefinition } from '../../lesson/catalog';
+import { CopperAmmoniaReadout } from '../../components/CopperAmmoniaReadout';
 
 // Only the small readouts refresh. The catalog and canvas remain outside this clock.
 function useReadout() {
@@ -37,7 +38,8 @@ function Timeline({ experiment: e }: { experiment: AutoExperiment }) {
         [e.reactionReadout.label, e.reactionReadout.value], ['Thời gian', `${e.elapsed.toFixed(1)} s`]].map(([label, value]) =>
         <div key={label} className="rounded-lg border border-slate-200 p-2"><p className="font-sans text-[10px] text-slate-400">{label}</p><p className="mt-1 text-slate-800">{value}</p></div>)}
     </section>
-    <section><h3 className="mb-2 font-semibold">Chất đã tiếp xúc bình nhận</h3>
+    <CopperAmmoniaReadout vessel={e.sample} />
+    <section><h3 className="mb-2 font-semibold">{e.program.id === 'cuso4_nh3' ? 'Lượng thành phần quy đổi' : 'Chất đã tiếp xúc bình nhận'}</h3>
       <div className="space-y-1.5">{e.sample.contents.filter(c => c.mass_g > 1e-8).map((c, i) => <p key={i} className="flex justify-between gap-2 text-[11px]">
         <span>{c.formula} <span className="text-slate-400">({c.phase})</span></span><span className="font-mono">{c.mass_g.toPrecision(3)} g</span></p>)}
         {!e.sample.mass_g && <p className="text-slate-400">Bình nhận đang rỗng.</p>}</div>

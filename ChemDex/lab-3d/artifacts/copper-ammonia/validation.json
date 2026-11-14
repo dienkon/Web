@@ -1,14 +1,16 @@
 {
   "schema": "chemdex.copper-ammonia-validation/1",
-  "checkedAt": "2026-11-14T00:47:58.721221+00:00",
+  "checkedAt": "2026-11-14T01:22:43.884Z",
   "unitTests": {
-    "passed": 3170,
-    "total": 3170,
+    "passed": 3178,
+    "total": 3178,
     "files": 237
   },
   "typeScript": true,
   "productionBuild": true,
   "scienceAudit": {
+    "mixedEquilibriumChecks": 3,
+    "mixedEquilibriumFailures": 0,
     "programs": 149,
     "deterministic": 48,
     "equilibriumOnly": 4,
@@ -20,15 +22,18 @@
     "balanceFailures": 0,
     "visualProductMismatches": 0
   },
-  "gridPoints": 96,
+  "equationRecords": 1549,
+  "uniqueCatalogMolecularEquations": 1300,
+  "gridPoints": 288,
+  "maximumGridComponentResidual_M": 5.773159728050814e-15,
   "physical": {
     "phase": "complete",
     "error": null,
     "initialMass_g": 30,
-    "finalMass_g": 29.998701459430126,
-    "maximumMassError_g": 5.3290705182007514e-14,
+    "finalMass_g": 29.998701459430176,
+    "maximumMassError_g": 8.526512829121202e-14,
     "gelDuringDose": true,
-    "peakGel_g": 0.039925765922811295,
+    "peakGel_g": 0.03810802763027447,
     "finalGel_g": 0,
     "seconds": 40.999999999998956,
     "peakParticles": 550,
@@ -42,23 +47,29 @@
     "gelDuringDose": true,
     "clearAtEnd": true,
     "massReadoutInGrams": true,
+    "speciationRows": 9,
+    "manualAutoSpeciationMatches": true,
     "report": "browser/audit.json"
   },
   "headlessPerformance": {
-    "checkedAt": "2026-11-14T00:37:09.453Z",
+    "checkedAt": "2026-11-14T01:19:36.674Z",
     "scenario": "Three vessel logic/physics, high tier, 120 steps at dt=1/60",
     "webglRenderingIncluded": false,
     "browserFpsVerified": false,
-    "averageStep_ms": 3.1302108333333294,
-    "p95Step_ms": 4.924600000000055,
-    "maximumStep_ms": 20.191399999999987,
-    "heapDelta_MB": 2.234375
+    "averageStep_ms": 2.310070833333335,
+    "p95Step_ms": 3.4916999999999803,
+    "maximumStep_ms": 19.74539999999996,
+    "heapDelta_MB": 3.3176727294921875
   },
   "references": [
     "https://skb.com/publication/17527/TR-00-13.pdf",
     "https://github.com/phreeqc-dev/phreeqc3/blob/master/database/wateq4f.dat",
     "https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch18/combine.php"
   ],
+  "hydroxoAmminesIncluded": true,
+  "mixedComplexTemperatureEnthalpiesEstimated": true,
+  "mixedTemperatureBasis": "H2O/H+ extrapolation with zero dCp; converted to OH- association using Kw(T).",
+  "materialCalorimetryCalibrated": false,
   "realTimeKineticsValidated": false,
   "activityCorrectionsIncluded": false,
   "otherLigandsSupported": false,

@@ -123,7 +123,7 @@ review('fecl3_ki', ['transition'], 'Fe(III) oxi hóa iodide tạo iot; iot nâu 
 review('cl2_kbr', ['halides'], 'Cl2 oxi hóa Br− thành Br2; màu phụ thuộc nồng độ và dung môi.', 'family_context');
 review('iodine_clock', ['clock', 'iodineClock'], 'Có ít nhất hai bước redox; không tạo iot–tinh bột từ phương trình chỉ sinh iodide. Cần tinh bột để xanh đen.');
 review('fecl3_kscn', ['thiocyanate'], 'Cân bằng phối tử, thường biểu diễn FeSCN2+ trong dung dịch loãng; không phải chuyển hóa hoàn toàn.');
-review('cuso4_nh3', ['copperAmmoniaThermo', 'copperCoupled', 'copperAmmonia'], 'Bảo toàn Cu/N/sulfate/Na và điện tích, xét các phức 1–4 NH3, thủy phân, proton hóa và Cu(OH)2. Không dùng tỉ lệ 4:1 làm ngưỡng tan hết; mô hình nồng độ lý tưởng, chưa hiệu chuẩn màu, thời gian, hoạt độ hoặc phối tử cạnh tranh.', 'model_caveat');
+review('cuso4_nh3', ['copperAmmoniaThermo', 'copperCoupled', 'copperAmmonia'], 'Bảo toàn Cu/N/sulfate/Na và điện tích, xét phức 1–4 NH3 cùng ba phức hydroxo–ammine, thủy phân, proton hóa và Cu(OH)2. Không dùng tỉ lệ mol hay kiềm dư làm ngưỡng kết tủa bắt buộc; hoạt độ, màu, nhiệt và thời gian chưa hiệu chuẩn thực nghiệm.', 'model_caveat');
 review('k2cr2o7_naoh', ['chromate'], 'Kiềm chuyển dichromate cam sang chromate vàng; cation K/Na là ion khán.');
 review('k2cro4_h2so4', ['chromate'], 'Axit hóa dịch chuyển cân bằng chromate sang dichromate; không tạo khí.');
 review('aloh3_naoh', ['aluminumEquilibrium'], 'Al(OH)3 vô định hình tan trong OH− đến giới hạn thuốc thử hoặc bão hòa. Nhiệt theo cùng đường cân bằng, chưa hiệu chuẩn pha loãng/già hóa gel.', 'model_caveat');

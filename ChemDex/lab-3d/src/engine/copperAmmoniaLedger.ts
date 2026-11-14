@@ -2,7 +2,7 @@ import type { SubstanceContent, VesselState } from '../types/chemistry';
 import { computeMolarMass } from './ledger';
 import { identifySpecies } from '../science/speciesIdentity';
 import { reagentPhase } from '../science/reagentAvailability';
-import { AMMINE_FORMATION_DH_J, copperAmmineFormula, copperAmmoniaEquilibrium,
+import { AMMINE_FORMATION_DH_J, HYDROXO_AMMINES, copperAmmineFormula, copperAmmoniaEquilibrium,
   type CopperAmmoniaInventory, type CopperAmmoniaState } from '../science/copperAmmoniaEquilibrium';
 import { waterDissociationEnthalpy_J_mol } from '../science/aqueousTemperature';
 import { bulkPrecipitateMass } from '../science/precipitateInventory';
@@ -20,7 +20,10 @@ function equilibriumPools(t: CopperAmmoniaInventory, state: CopperAmmoniaState):
       ...(phase === 's' ? { solidOrigin: 'precipitate' as const, precipitateFormation: 'GEL' } : {}) });
   };
   const solid = Math.max(0, Math.min(t.copper_mol, state.solid_mol));
+  // These neutral component pools group Cu by bound ammonia count. Hydroxo
+  // substitution is resolved in the ionic state, not miscounted as free Cu.
   const complexes = state.ammines_M.map(c => c * t.liters);
+  state.hydroxoAmmines_M.forEach((c, i) => { complexes[HYDROXO_AMMINES[i].ammonia - 1] += c * t.liters; });
   const dissolved = t.copper_mol - solid;
   const sodiumSulfate = Math.min(t.sulfate_mol, t.sodium_mol / 2);
   const sodiumHydroxide = Math.max(0, t.sodium_mol - 2 * sodiumSulfate);
@@ -54,7 +57,8 @@ function equilibriumPools(t: CopperAmmoniaInventory, state: CopperAmmoniaState):
 
 /** Basis reaction enthalpies yield a state function, so reverse reaction,
  * repeated replay and closed composition cycles cannot create fresh heat.
- * Minor free-ion protonation/ion-pair heat is not calorimetrically calibrated. */
+ * This component-basis approximation does not resolve all ion-pair/protonation
+ * or hydroxo substitution heat; calorimetry is not experimentally calibrated. */
 function poolEnthalpy(contents: readonly SubstanceContent[], temperature_c: number): number {
   const t = temperature_c + 273.15;
   const ammoniumHeat = 8.314462618 * Math.LN10 * (-0.001225 * t * t + 2835.76);

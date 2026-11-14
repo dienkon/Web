@@ -49,6 +49,8 @@
       "netTransformations": 379
     },
     "runtime": {
+      "mixedEquilibriumChecks": 3,
+      "mixedEquilibriumFailures": 0,
       "programs": 149,
       "deterministic": 48,
       "equilibriumOnly": 4,
@@ -186014,8 +186016,62 @@
         "errors": []
       },
       "visualIssues": [],
-      "conditions": {},
-      "finding_vi": "Bảo toàn Cu/N/sulfate/Na và điện tích, xét các phức 1–4 NH3, thủy phân, proton hóa và Cu(OH)2. Không dùng tỉ lệ 4:1 làm ngưỡng tan hết; mô hình nồng độ lý tưởng, chưa hiệu chuẩn màu, thời gian, hoạt độ hoặc phối tử cạnh tranh.",
+      "conditions": {
+        "model": "coupled_copper_ammonia",
+        "referenceEquationOnly": true,
+        "temperatureRange_c": [
+          0,
+          90
+        ],
+        "phaseAmounts": "Charge and Cu/N/S/Na balances, ammines n=1..4, mixed hydroxo-ammines, hydrolysis, sulfate and Cu(OH)2 saturation.",
+        "mixedEquilibria": [
+          {
+            "product": "CuNH3OH(+)",
+            "ammoniaCoefficient": 1,
+            "hydroxideCoefficient": 1,
+            "productCharge": 1,
+            "logBeta25": 11.3,
+            "estimatedDeltaH_J_mol": -44000,
+            "balance": {
+              "valid": true,
+              "atomDifference": {},
+              "chargeDifference": 0,
+              "errors": []
+            }
+          },
+          {
+            "product": "Cu(NH3)2(OH)2",
+            "ammoniaCoefficient": 2,
+            "hydroxideCoefficient": 2,
+            "productCharge": 0,
+            "logBeta25": 17,
+            "estimatedDeltaH_J_mol": -69000,
+            "balance": {
+              "valid": true,
+              "atomDifference": {},
+              "chargeDifference": 0,
+              "errors": []
+            }
+          },
+          {
+            "product": "Cu(NH3)3OH(+)",
+            "ammoniaCoefficient": 3,
+            "hydroxideCoefficient": 1,
+            "productCharge": 1,
+            "logBeta25": 15,
+            "estimatedDeltaH_J_mol": -88000,
+            "balance": {
+              "valid": true,
+              "atomDifference": {},
+              "chargeDifference": 0,
+              "errors": []
+            }
+          }
+        ],
+        "mixedTemperatureBasis": "Convert OH- association to H2O/H+ using Kw at 25 C, extrapolate estimated enthalpy with zero dCp on that basis, then convert back using Kw(T).",
+        "limitations": "Ideal concentrations; mixed-complex temperature enthalpies are source estimates. Dimer/other-ligand chemistry and real-time kinetics are not included."
+      },
+      "finding_vi": "Bảo toàn Cu/N/sulfate/Na và điện tích, xét phức 1–4 NH3 cùng ba phức hydroxo–ammine, thủy phân, proton hóa và Cu(OH)2. Không dùng tỉ lệ mol hay kiềm dư làm ngưỡng kết tủa bắt buộc; hoạt độ, màu, nhiệt và thời gian chưa hiệu chuẩn thực nghiệm.",
       "sourceScope": "model_caveat",
       "quantitativeCalibration": "not_validated",
       "references": [
@@ -186075,7 +186131,7 @@
       "protocol": null,
       "runtime": "dedicated_program",
       "automatic": true,
-      "explanation": "Bộ giải xét đồng thời NH3/NH4+, các phức Cu(II) có 1–4 phối tử NH3, thủy phân, sulfate và độ tan Cu(OH)2. Phương trình tetraammine là một cân bằng trong hệ, không bảo đảm chuyển hóa hoàn toàn ở tỉ lệ 4:1.",
+      "explanation": "Bộ giải xét NH3/NH4+, phức Cu(II) có 1–4 NH3 và các phức chứa cả NH3/OH−, thủy phân, sulfate và độ tan Cu(OH)2. Phương trình tetraammine là một cân bằng trong hệ, không bảo đảm chuyển hóa hoàn toàn ở tỉ lệ 4:1.",
       "observation": "NH3 mới thêm có thể tạo keo Cu(OH)2 xanh nhạt. Thêm đủ NH3 làm tăng lượng phức xanh đậm và có thể hòa tan hết keo; lượng còn lại phụ thuộc nồng độ, pH và nhiệt độ."
     },
     {
@@ -196822,8 +196878,53 @@
           0,
           90
         ],
-        "phaseAmounts": "Charge and Cu/N/S/Na balances with ammines n=1..4, hydrolysis, sulfate and Cu(OH)2 saturation.",
-        "limitations": "Ideal activities; mixed hydroxo-ammines, other ligands and real-time kinetic calibration are not included.",
+        "phaseAmounts": "Charge and Cu/N/S/Na balances, ammines n=1..4, mixed hydroxo-ammines, hydrolysis, sulfate and Cu(OH)2 saturation.",
+        "mixedEquilibria": [
+          {
+            "product": "CuNH3OH(+)",
+            "ammoniaCoefficient": 1,
+            "hydroxideCoefficient": 1,
+            "productCharge": 1,
+            "logBeta25": 11.3,
+            "estimatedDeltaH_J_mol": -44000,
+            "balance": {
+              "valid": true,
+              "atomDifference": {},
+              "chargeDifference": 0,
+              "errors": []
+            }
+          },
+          {
+            "product": "Cu(NH3)2(OH)2",
+            "ammoniaCoefficient": 2,
+            "hydroxideCoefficient": 2,
+            "productCharge": 0,
+            "logBeta25": 17,
+            "estimatedDeltaH_J_mol": -69000,
+            "balance": {
+              "valid": true,
+              "atomDifference": {},
+              "chargeDifference": 0,
+              "errors": []
+            }
+          },
+          {
+            "product": "Cu(NH3)3OH(+)",
+            "ammoniaCoefficient": 3,
+            "hydroxideCoefficient": 1,
+            "productCharge": 1,
+            "logBeta25": 15,
+            "estimatedDeltaH_J_mol": -88000,
+            "balance": {
+              "valid": true,
+              "atomDifference": {},
+              "chargeDifference": 0,
+              "errors": []
+            }
+          }
+        ],
+        "mixedTemperatureBasis": "Convert OH- association to H2O/H+ using Kw at 25 C, extrapolate estimated enthalpy with zero dCp on that basis, then convert back using Kw(T).",
+        "limitations": "Ideal concentrations; mixed-complex temperature enthalpies are source estimates. Dimer/other-ligand chemistry and real-time kinetics are not included.",
         "oxidizingAcidBlocksHydrogenInference": false,
         "reactantPhases": {
           "CuSO4": [
@@ -196843,7 +196944,7 @@
         "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
         "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
-      "finding_vi": "Bảo toàn Cu/N/sulfate/Na và điện tích, xét các phức 1–4 NH3, thủy phân, proton hóa và Cu(OH)2. Không dùng tỉ lệ 4:1 làm ngưỡng tan hết; mô hình nồng độ lý tưởng, chưa hiệu chuẩn màu, thời gian, hoạt độ hoặc phối tử cạnh tranh.",
+      "finding_vi": "Bảo toàn Cu/N/sulfate/Na và điện tích, xét phức 1–4 NH3 cùng ba phức hydroxo–ammine, thủy phân, proton hóa và Cu(OH)2. Không dùng tỉ lệ mol hay kiềm dư làm ngưỡng kết tủa bắt buộc; hoạt độ, màu, nhiệt và thời gian chưa hiệu chuẩn thực nghiệm.",
       "sourceScope": "model_caveat",
       "quantitativeCalibration": "not_validated",
       "references": [
@@ -196869,7 +196970,7 @@
       "protocol": null,
       "runtime": "solver_rule",
       "automatic": false,
-      "explanation": "Bảo toàn Cu/N/sulfate/Na và điện tích, xét các phức 1–4 NH3, thủy phân, proton hóa và Cu(OH)2. Không dùng tỉ lệ 4:1 làm ngưỡng tan hết; mô hình nồng độ lý tưởng, chưa hiệu chuẩn màu, thời gian, hoạt độ hoặc phối tử cạnh tranh.",
+      "explanation": "Bảo toàn Cu/N/sulfate/Na và điện tích, xét phức 1–4 NH3 cùng ba phức hydroxo–ammine, thủy phân, proton hóa và Cu(OH)2. Không dùng tỉ lệ mol hay kiềm dư làm ngưỡng kết tủa bắt buộc; hoạt độ, màu, nhiệt và thời gian chưa hiệu chuẩn thực nghiệm.",
       "observation": "Có thể tạo keo xanh nhạt rồi giảm keo khi thêm NH3; lượng cuối phụ thuộc nồng độ, pH, nhiệt độ và kiềm còn dư."
     },
     {
@@ -196934,8 +197035,53 @@
           0,
           90
         ],
-        "phaseAmounts": "Charge and Cu/N/S/Na balances with ammines n=1..4, hydrolysis, sulfate and Cu(OH)2 saturation.",
-        "limitations": "Ideal activities; mixed hydroxo-ammines, other ligands and real-time kinetic calibration are not included.",
+        "phaseAmounts": "Charge and Cu/N/S/Na balances, ammines n=1..4, mixed hydroxo-ammines, hydrolysis, sulfate and Cu(OH)2 saturation.",
+        "mixedEquilibria": [
+          {
+            "product": "CuNH3OH(+)",
+            "ammoniaCoefficient": 1,
+            "hydroxideCoefficient": 1,
+            "productCharge": 1,
+            "logBeta25": 11.3,
+            "estimatedDeltaH_J_mol": -44000,
+            "balance": {
+              "valid": true,
+              "atomDifference": {},
+              "chargeDifference": 0,
+              "errors": []
+            }
+          },
+          {
+            "product": "Cu(NH3)2(OH)2",
+            "ammoniaCoefficient": 2,
+            "hydroxideCoefficient": 2,
+            "productCharge": 0,
+            "logBeta25": 17,
+            "estimatedDeltaH_J_mol": -69000,
+            "balance": {
+              "valid": true,
+              "atomDifference": {},
+              "chargeDifference": 0,
+              "errors": []
+            }
+          },
+          {
+            "product": "Cu(NH3)3OH(+)",
+            "ammoniaCoefficient": 3,
+            "hydroxideCoefficient": 1,
+            "productCharge": 1,
+            "logBeta25": 15,
+            "estimatedDeltaH_J_mol": -88000,
+            "balance": {
+              "valid": true,
+              "atomDifference": {},
+              "chargeDifference": 0,
+              "errors": []
+            }
+          }
+        ],
+        "mixedTemperatureBasis": "Convert OH- association to H2O/H+ using Kw at 25 C, extrapolate estimated enthalpy with zero dCp on that basis, then convert back using Kw(T).",
+        "limitations": "Ideal concentrations; mixed-complex temperature enthalpies are source estimates. Dimer/other-ligand chemistry and real-time kinetics are not included.",
         "oxidizingAcidBlocksHydrogenInference": false,
         "reactantPhases": {
           "CuSO4": [
@@ -196952,7 +197098,7 @@
         "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
         "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
-      "finding_vi": "Bảo toàn Cu/N/sulfate/Na và điện tích, xét các phức 1–4 NH3, thủy phân, proton hóa và Cu(OH)2. Không dùng tỉ lệ 4:1 làm ngưỡng tan hết; mô hình nồng độ lý tưởng, chưa hiệu chuẩn màu, thời gian, hoạt độ hoặc phối tử cạnh tranh.",
+      "finding_vi": "Bảo toàn Cu/N/sulfate/Na và điện tích, xét phức 1–4 NH3 cùng ba phức hydroxo–ammine, thủy phân, proton hóa và Cu(OH)2. Không dùng tỉ lệ mol hay kiềm dư làm ngưỡng kết tủa bắt buộc; hoạt độ, màu, nhiệt và thời gian chưa hiệu chuẩn thực nghiệm.",
       "sourceScope": "model_caveat",
       "quantitativeCalibration": "not_validated",
       "references": [
@@ -196978,7 +197124,7 @@
       "protocol": null,
       "runtime": "solver_rule",
       "automatic": false,
-      "explanation": "Bảo toàn Cu/N/sulfate/Na và điện tích, xét các phức 1–4 NH3, thủy phân, proton hóa và Cu(OH)2. Không dùng tỉ lệ 4:1 làm ngưỡng tan hết; mô hình nồng độ lý tưởng, chưa hiệu chuẩn màu, thời gian, hoạt độ hoặc phối tử cạnh tranh.",
+      "explanation": "Bảo toàn Cu/N/sulfate/Na và điện tích, xét phức 1–4 NH3 cùng ba phức hydroxo–ammine, thủy phân, proton hóa và Cu(OH)2. Không dùng tỉ lệ mol hay kiềm dư làm ngưỡng kết tủa bắt buộc; hoạt độ, màu, nhiệt và thời gian chưa hiệu chuẩn thực nghiệm.",
       "observation": "Có thể tạo keo xanh nhạt rồi giảm keo khi thêm NH3; lượng cuối phụ thuộc nồng độ, pH, nhiệt độ và kiềm còn dư."
     },
     {
@@ -197545,8 +197691,53 @@
           0,
           90
         ],
-        "phaseAmounts": "Charge and Cu/N/S/Na balances with ammines n=1..4, hydrolysis, sulfate and Cu(OH)2 saturation.",
-        "limitations": "Ideal activities; mixed hydroxo-ammines, other ligands and real-time kinetic calibration are not included.",
+        "phaseAmounts": "Charge and Cu/N/S/Na balances, ammines n=1..4, mixed hydroxo-ammines, hydrolysis, sulfate and Cu(OH)2 saturation.",
+        "mixedEquilibria": [
+          {
+            "product": "CuNH3OH(+)",
+            "ammoniaCoefficient": 1,
+            "hydroxideCoefficient": 1,
+            "productCharge": 1,
+            "logBeta25": 11.3,
+            "estimatedDeltaH_J_mol": -44000,
+            "balance": {
+              "valid": true,
+              "atomDifference": {},
+              "chargeDifference": 0,
+              "errors": []
+            }
+          },
+          {
+            "product": "Cu(NH3)2(OH)2",
+            "ammoniaCoefficient": 2,
+            "hydroxideCoefficient": 2,
+            "productCharge": 0,
+            "logBeta25": 17,
+            "estimatedDeltaH_J_mol": -69000,
+            "balance": {
+              "valid": true,
+              "atomDifference": {},
+              "chargeDifference": 0,
+              "errors": []
+            }
+          },
+          {
+            "product": "Cu(NH3)3OH(+)",
+            "ammoniaCoefficient": 3,
+            "hydroxideCoefficient": 1,
+            "productCharge": 1,
+            "logBeta25": 15,
+            "estimatedDeltaH_J_mol": -88000,
+            "balance": {
+              "valid": true,
+              "atomDifference": {},
+              "chargeDifference": 0,
+              "errors": []
+            }
+          }
+        ],
+        "mixedTemperatureBasis": "Convert OH- association to H2O/H+ using Kw at 25 C, extrapolate estimated enthalpy with zero dCp on that basis, then convert back using Kw(T).",
+        "limitations": "Ideal concentrations; mixed-complex temperature enthalpies are source estimates. Dimer/other-ligand chemistry and real-time kinetics are not included.",
         "oxidizingAcidBlocksHydrogenInference": false,
         "reactantPhases": {
           "Cu(OH)2": [
@@ -197563,7 +197754,7 @@
         "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
         "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
-      "finding_vi": "Bảo toàn Cu/N/sulfate/Na và điện tích, xét các phức 1–4 NH3, thủy phân, proton hóa và Cu(OH)2. Không dùng tỉ lệ 4:1 làm ngưỡng tan hết; mô hình nồng độ lý tưởng, chưa hiệu chuẩn màu, thời gian, hoạt độ hoặc phối tử cạnh tranh.",
+      "finding_vi": "Bảo toàn Cu/N/sulfate/Na và điện tích, xét phức 1–4 NH3 cùng ba phức hydroxo–ammine, thủy phân, proton hóa và Cu(OH)2. Không dùng tỉ lệ mol hay kiềm dư làm ngưỡng kết tủa bắt buộc; hoạt độ, màu, nhiệt và thời gian chưa hiệu chuẩn thực nghiệm.",
       "sourceScope": "model_caveat",
       "quantitativeCalibration": "not_validated",
       "references": [
@@ -197589,7 +197780,7 @@
       "protocol": null,
       "runtime": "solver_rule",
       "automatic": false,
-      "explanation": "Bảo toàn Cu/N/sulfate/Na và điện tích, xét các phức 1–4 NH3, thủy phân, proton hóa và Cu(OH)2. Không dùng tỉ lệ 4:1 làm ngưỡng tan hết; mô hình nồng độ lý tưởng, chưa hiệu chuẩn màu, thời gian, hoạt độ hoặc phối tử cạnh tranh.",
+      "explanation": "Bảo toàn Cu/N/sulfate/Na và điện tích, xét phức 1–4 NH3 cùng ba phức hydroxo–ammine, thủy phân, proton hóa và Cu(OH)2. Không dùng tỉ lệ mol hay kiềm dư làm ngưỡng kết tủa bắt buộc; hoạt độ, màu, nhiệt và thời gian chưa hiệu chuẩn thực nghiệm.",
       "observation": "Có thể tạo keo xanh nhạt rồi giảm keo khi thêm NH3; lượng cuối phụ thuộc nồng độ, pH, nhiệt độ và kiềm còn dư."
     },
     {

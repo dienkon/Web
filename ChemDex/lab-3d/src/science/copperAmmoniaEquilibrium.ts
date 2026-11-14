@@ -14,6 +14,25 @@ export const COPPER_AMMONIA_SOURCES = [
 // approximated as zero; concentrations approximate activities in this model.
 const LOG_BETA = [4.10, 7.51, 10.31, 12.35];
 export const AMMINE_FORMATION_DH_J = [-24e3, -45e3, -68e3, -90e3];
+/** SKB TR-00-13 pp.87–88, reactions (13)–(15), in this fixed order.
+ * These constants use Cu2+ + nNH3 + mOH- as reactants. The source labels
+ * the reaction enthalpies as rough estimates, not measured temperature fits. */
+export const HYDROXO_AMMINES = [
+  { formula: 'CuNH3OH(+)', ammonia: 1, hydroxide: 1, charge: 1, logBeta25: 11.3, estimatedDeltaH_J: -44e3 },
+  { formula: 'Cu(NH3)2(OH)2', ammonia: 2, hydroxide: 2, charge: 0, logBeta25: 17, estimatedDeltaH_J: -69e3 },
+  { formula: 'Cu(NH3)3OH(+)', ammonia: 3, hydroxide: 1, charge: 1, logBeta25: 15, estimatedDeltaH_J: -88e3 },
+] as const;
+const REFERENCE_WATER_HEAT_J = waterDissociationEnthalpy_J_mol(25)!;
+export function copperHydroxoAmmineBetas(temperature_c: number): number[] | null {
+  const aqueous = aqueousConstantsAtTemperature(temperature_c);
+  if (!aqueous) return null;
+  // The report's zero-dCp approximation applies to the H2O/H+ reactions,
+  // not the OH- association reactions. Convert via Kw before extrapolating,
+  // then convert back using the same temperature-dependent water curve.
+  return HYDROXO_AMMINES.map(s => 10 ** s.logBeta25 * (1e-14 / aqueous.waterKw) ** s.hydroxide
+    * Math.exp((s.estimatedDeltaH_J + s.hydroxide * REFERENCE_WATER_HEAT_J)
+      / 8.314462618 * (1 / 298.15 - 1 / (temperature_c + 273.15))));
+}
 export function copperAmmineBetas(temperature_c: number): number[] | null {
   if (!aqueousConstantsAtTemperature(temperature_c)) return null;
   return LOG_BETA.map((value, i) => 10 ** value * Math.exp(AMMINE_FORMATION_DH_J[i]
@@ -89,6 +108,8 @@ export interface CopperAmmoniaState {
   copperSulfatePair_M: number;
   hydrolyzedCopper_M: number;
   ammines_M: number[];
+  /** CuNH3OH+, Cu(NH3)2(OH)2(aq), Cu(NH3)3OH+; not extra tetraammine. */
+  hydroxoAmmines_M: number[];
   solid_mol: number;
   saturationRatio: number;
   chargeResidual_M: number;
@@ -106,8 +127,9 @@ export interface CopperAmmoniaState {
 export function solveCopperAmmonia(totals: CopperAmmoniaInventory, temperature_c: number,
   fixedSolid_mol?: number): CopperAmmoniaState | null {
   const constants = aqueousConstantsAtTemperature(temperature_c), beta = copperAmmineBetas(temperature_c);
+  const mixedBeta = copperHydroxoAmmineBetas(temperature_c);
   const ksp = copperHydroxideKsp(temperature_c);
-  if (!constants || !beta || !ksp) return null;
+  if (!constants || !beta || !mixedBeta || !ksp) return null;
   const { liters } = totals;
   const C = totals.copper_mol / liters, N = totals.nitrogen_mol / liters, S = totals.sulfate_mol / liters;
   if (![C, N, S].every(Number.isFinite) || C <= 0 || N <= 0 || S < 0) return null;
@@ -121,15 +143,18 @@ export function solveCopperAmmonia(totals: CopperAmmoniaInventory, temperature_c
     const sulfateFactor = 1 + h / constants.bisulfateKa;
     const speciesAt = (ammonia: number) => {
       const ratios = beta.map((b, i) => b * ammonia ** (i + 1));
-      const a = hydroSum + ratios.reduce((s, r) => s + r, 0);
+      const mixedRatios = HYDROXO_AMMINES.map((s, i) => mixedBeta[i] * ammonia ** s.ammonia * oh ** s.hydroxide);
+      const a = hydroSum + ratios.reduce((s, r) => s + r, 0) + mixedRatios.reduce((s, r) => s + r, 0);
       const A = a * pairBeta, B = a * sulfateFactor + pairBeta * (S - dissolved), D = dissolved * sulfateFactor;
       const root = Math.sqrt(B * B + 4 * A * D);
       const unsaturatedCopper = D === 0 ? 0 : B >= 0 ? 2 * D / (B + root) : (-B + root) / (2 * A);
       const cu = fixedSolid_mol === undefined ? Math.min(unsaturatedCopper, ksp / oh ** 2) : unsaturatedCopper;
       const sulfate = S / (sulfateFactor + pairBeta * cu), pair = pairBeta * cu * sulfate;
       const ammines = ratios.map(r => cu * r), ammonium = ammonia * h / constants.ammoniumKa;
-      return { cu, sulfate, pair, ammines, ammonium,
-        nitrogen: ammonia + ammonium + ammines.reduce((sum, c, i) => sum + (i + 1) * c, 0) };
+      const hydroxoAmmines = mixedRatios.map(r => cu * r);
+      return { cu, sulfate, pair, ammines, hydroxoAmmines, ammonium,
+        nitrogen: ammonia + ammonium + ammines.reduce((sum, c, i) => sum + (i + 1) * c, 0)
+          + hydroxoAmmines.reduce((sum, c, i) => sum + HYDROXO_AMMINES[i].ammonia * c, 0) };
     };
     let low = 0, high = N / (1 + h / constants.ammoniumKa);
     for (let i = 0; i < 48; i++) {
@@ -138,13 +163,15 @@ export function solveCopperAmmonia(totals: CopperAmmoniaInventory, temperature_c
     }
     const ammonia = (low + high) / 2, s = speciesAt(ammonia);
     const bisulfate = s.sulfate * h / constants.bisulfateKa;
-    const aqCopper = s.cu * hydroSum + s.pair + s.ammines.reduce((sum, c) => sum + c, 0);
+    const aqCopper = s.cu * hydroSum + s.pair + s.ammines.reduce((sum, c) => sum + c, 0)
+      + s.hydroxoAmmines.reduce((sum, c) => sum + c, 0);
     const solid = fixedSolid_mol ?? Math.max(0, (C - aqCopper) * liters);
     const charge = h + totals.sodium_mol / liters + s.ammonium + s.cu * (2 + hydrolysis[0] - hydrolysis[2] - 2 * hydrolysis[3])
-      + 2 * s.ammines.reduce((sum, c) => sum + c, 0) - oh - 2 * s.sulfate - bisulfate;
+      + 2 * s.ammines.reduce((sum, c) => sum + c, 0)
+      + s.hydroxoAmmines.reduce((sum, c, i) => sum + HYDROXO_AMMINES[i].charge * c, 0) - oh - 2 * s.sulfate - bisulfate;
     return { ph: -logH, freeCopper_M: s.cu, freeAmmonia_M: ammonia, ammonium_M: s.ammonium,
       hydroxide_M: oh, freeSulfate_M: s.sulfate, bisulfate_M: bisulfate, copperSulfatePair_M: s.pair,
-      hydrolyzedCopper_M: s.cu * (hydroSum - 1), ammines_M: s.ammines, solid_mol: solid,
+      hydrolyzedCopper_M: s.cu * (hydroSum - 1), ammines_M: s.ammines, hydroxoAmmines_M: s.hydroxoAmmines, solid_mol: solid,
       saturationRatio: s.cu * oh ** 2 / ksp, chargeResidual_M: charge,
       copperResidual_M: aqCopper + solid / liters - C, nitrogenResidual_M: s.nitrogen - N,
       sulfateResidual_M: s.sulfate + bisulfate + s.pair - S };
@@ -160,6 +187,9 @@ export function solveCopperAmmonia(totals: CopperAmmoniaInventory, temperature_c
   const ammoniumDissociationHeat = 8.314462618 * Math.LN10 * (-0.001225 * t * t + 2835.76);
   const bisulfateDissociationHeat = -8.314462618 * Math.LN10 * (0.006473 * t * t - 2307.9 + 19.8858 * t / Math.LN10);
   const relativeEnthalpy_J = liters * (state.ammines_M.reduce((s, c, i) => s + c * AMMINE_FORMATION_DH_J[i], 0)
+    // Convert the OH- association reference into the same H2O/H+ basis.
+    + state.hydroxoAmmines_M.reduce((s, c, i) => s + c * (HYDROXO_AMMINES[i].estimatedDeltaH_J
+      + HYDROXO_AMMINES[i].hydroxide * REFERENCE_WATER_HEAT_J), 0)
     - state.ammonium_M * ammoniumDissociationHeat - state.bisulfate_M * bisulfateDissociationHeat
     + state.hydroxide_M * waterHeat + state.copperSulfatePair_M * 1.22 * 4184)
     + state.solid_mol * 15.25 * 4184;
@@ -181,7 +211,7 @@ export function copperAmmoniaEquilibrium(contents: readonly SubstanceContent[], 
   const waterLeft = inventory.oxygenOutsideSulfate_mol - 2 * (inventory.copper_mol - Math.min(inventory.sulfate_mol - sodiumSulfate, dissolved))
     - (inventory.sodium_mol - 2 * sodiumSulfate);
   const result = state && (fixedSolid || waterLeft > 0) ? { inventory, state } : null;
-  if (result) { Object.freeze(state!.ammines_M); Object.freeze(state); Object.freeze(inventory); Object.freeze(result); }
+  if (result) { Object.freeze(state!.ammines_M); Object.freeze(state!.hydroxoAmmines_M); Object.freeze(state); Object.freeze(inventory); Object.freeze(result); }
   if (cache.size >= 64) cache.delete(cache.keys().next().value!);
   cache.set(key, result);
   return result;

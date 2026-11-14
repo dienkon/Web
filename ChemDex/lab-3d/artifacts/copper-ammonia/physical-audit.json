@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-11-14T00:42:21.724Z",
-  "gridPoints": 96,
+  "checkedAt": "2026-11-14T01:18:23.362Z",
+  "gridPoints": 288,
   "sources": [
     "https://skb.com/publication/17527/TR-00-13.pdf",
     "https://github.com/phreeqc-dev/phreeqc3/blob/master/database/wateq4f.dat",
@@ -10,10 +10,10 @@
     "phase": "complete",
     "error": null,
     "initialMass_g": 30,
-    "finalMass_g": 29.998701459430126,
-    "maximumMassError_g": 5.3290705182007514e-14,
+    "finalMass_g": 29.998701459430176,
+    "maximumMassError_g": 8.526512829121202e-14,
     "gelDuringDose": true,
-    "peakGel_g": 0.039925765922811295,
+    "peakGel_g": 0.03810802763027447,
     "finalGel_g": 0,
     "seconds": 40.999999999998956,
     "peakParticles": 550,
@@ -27,7 +27,8 @@
   "rgbCalibrated": false,
   "limitations": [
     "Ideal concentrations, not a full activity model.",
-    "Mixed hydroxo-ammine species, dimers and other ligands are excluded.",
+    "Dimer species and other ligands are excluded; mixed-complex temperature enthalpies are estimates.",
+    "Material heat uses the component-pool approximation; mixed-complex calorimetry is not calibrated.",
     "The finite material relaxation time is illustrative.",
     "Projection uses neutral analytical salt pools, not literal neutral dissolved molecules."
   ]

@@ -81,8 +81,8 @@ export const COMPLEXATION_EQUILIBRIA_PROGRAMS: ReactionProgram[] = [
     explain: {
       observation_vi: 'NH3 mới thêm có thể tạo keo Cu(OH)2 xanh nhạt. Thêm đủ NH3 làm tăng lượng phức xanh đậm và có thể hòa tan hết keo; lượng còn lại phụ thuộc nồng độ, pH và nhiệt độ.',
       observation_en: 'Initial ammonia can form pale blue Cu(OH)2 gel. Sufficient excess ammonia increases deep blue ammines and can clear the gel; the endpoint depends on concentration, pH and temperature.',
-      why_vi: 'Bộ giải xét đồng thời NH3/NH4+, các phức Cu(II) có 1–4 phối tử NH3, thủy phân, sulfate và độ tan Cu(OH)2. Phương trình tetraammine là một cân bằng trong hệ, không bảo đảm chuyển hóa hoàn toàn ở tỉ lệ 4:1.',
-      why_en: 'Coupled ammonia protonation, 1–4 ligand Cu(II) ammines, hydrolysis, sulfate and Cu(OH)2 solubility determine the partition. The tetraammine equation alone does not imply complete conversion at a 4:1 ratio.'
+      why_vi: 'Bộ giải xét NH3/NH4+, phức Cu(II) có 1–4 NH3 và các phức chứa cả NH3/OH−, thủy phân, sulfate và độ tan Cu(OH)2. Phương trình tetraammine là một cân bằng trong hệ, không bảo đảm chuyển hóa hoàn toàn ở tỉ lệ 4:1.',
+      why_en: 'Coupled ammonia protonation, Cu(II) ammines and mixed hydroxo-ammines, hydrolysis, sulfate and Cu(OH)2 solubility determine the partition. The tetraammine equation alone does not imply complete conversion at a 4:1 ratio.'
     },
     confidence: 1.0
   },

@@ -55,10 +55,46 @@ try {
   assert.ok(clear.contents.some(c => c.formula === '[Cu(NH3)4]SO4'));
   assert.notEqual(clear.color, gel.color);
   await page.waitForTimeout(600);
+  const autoModel = page.getByTestId('auto-timeline').locator('[data-copper-speciation]');
+  await autoModel.locator('summary').click();
+  await autoModel.locator('[data-copper-species="mixed-2"]').waitFor({ state: 'visible' });
+  const autoSpeciation = await autoModel.evaluate(el => ({ sum: Number(el.dataset.fractionSum),
+    fractions: Object.fromEntries([...el.querySelectorAll('[data-copper-species]')].map(r => [r.dataset.copperSpecies, Number(r.dataset.fraction)])) }));
+  assert.ok(Math.abs(autoSpeciation.sum - 1) < 1e-9);
+  assert.ok(autoSpeciation.fractions['mixed-3'] > 0.01);
   await page.screenshot({ path: `${output}/clear-after-excess-ammonia.png` });
+
+  // Inspect the same finite specimen in the independent manual workspace.
+  // This browser has an isolated store; restore it after the read-only check.
+  const manualSample = await page.evaluate(() => structuredClone(window.__copperAudit.sample));
+  await page.getByRole('tab', { name: 'Thao tác', exact: true }).click();
+  await page.locator('#manual-lab canvas').waitFor({ state: 'visible', timeout: 60000 });
+  await page.evaluate(async specimen => {
+    const url = performance.getEntriesByType('resource').map(r => r.name).find(n => /\/useAppStore\.ts(\?|$)/.test(n));
+    const { useAppStore } = await import(url);
+    window.__copperStore = useAppStore; window.__copperManualBefore = useAppStore.getState();
+    const sample = specimen; sample.id = 'manual_copper_probe';
+    useAppStore.setState({ vessels: { [sample.id]: sample }, vesselIds: [sample.id], selectedVesselId: sample.id,
+      activeKinetics: {}, pendingReactions: {}, lastMixResult: null, isSimulationPaused: true,
+      isPresentationMode: false, rightSidebarOpen: true });
+  }, manualSample);
+  const manualModel = page.locator('#manual-lab [data-copper-speciation]');
+  await manualModel.locator('summary').click({ timeout: 60000 });
+  await manualModel.locator('[data-copper-species="mixed-2"]').waitFor({ state: 'visible' });
+  const manualSpeciation = await manualModel.evaluate(el => ({ sum: Number(el.dataset.fractionSum),
+    fractions: Object.fromEntries([...el.querySelectorAll('[data-copper-species]')].map(r => [r.dataset.copperSpecies, Number(r.dataset.fraction)])) }));
+  for (const key of Object.keys(autoSpeciation.fractions))
+    assert.ok(Math.abs(autoSpeciation.fractions[key] - manualSpeciation.fractions[key]) < 1e-9, key);
+  await page.screenshot({ path: `${output}/manual-speciation.png` });
+  await page.evaluate(() => window.__copperStore.setState(window.__copperManualBefore, true));
   assert.deepEqual(errors, []);
-  const report = { gelDuringDose: gel, clearAfterExcessAmmonia: clear, errors, browser: 'Chromium + SwiftShader',
+  const report = { gelDuringDose: gel, clearAfterExcessAmmonia: clear, autoSpeciation, manualSpeciation,
+    errors, browser: 'Chromium + SwiftShader',
     renderingInspected: true, experimentalTimingValidated: false };
   writeFileSync(`${output}/audit.json`, JSON.stringify(report, null, 2) + '\n');
   console.log(report);
+} catch (error) {
+  await page.screenshot({ path: `${output}/failure.png` }).catch(() => {});
+  console.error({ url: page.url(), errors });
+  throw error;
 } finally { await browser.close(); }
