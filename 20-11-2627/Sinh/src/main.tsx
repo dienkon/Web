@@ -13,6 +13,7 @@ import "@fontsource/corinthia/latin-400.css";
 import App from "./App";
 import "./style.css";
 import "./experience.css";
+import "./illustrations.css";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <App />

@@ -40,7 +40,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { chapters, content, exhibits } from "./content";
 import BouquetArtwork, { bouquetUrl } from "./BouquetArtwork";
-const Scene = lazy(() => import("./Scene"));
+const Scene = lazy(() => import("./IllustrationScene"));
 gsap.registerPlugin(ScrollTrigger);
 
 class SceneBoundary extends Component<
@@ -118,6 +118,10 @@ export default function App() {
   const [studentName, setStudentName] = useState(""),
     [studentMessage, setStudentMessage] = useState("");
   const { reduced, setReduced, low, setLow } = usePreference();
+  useEffect(() => {
+    document.body.classList.toggle("reduce-motion", reduced);
+    return () => document.body.classList.remove("reduce-motion");
+  }, [reduced]);
   const input = useRef<HTMLInputElement>(null),
     scene = useRef<HTMLDivElement>(null),
     audio = useRef<HTMLAudioElement | null>(null);
@@ -155,6 +159,17 @@ export default function App() {
     const context = gsap.context(() => {
       const timeline = gsap.timeline();
       timeline
+        .to(
+          ".opening-curtain",
+          { scaleX: 0, duration: 1.6, stagger: 0.13, ease: "power4.inOut" },
+          0.25,
+        )
+        .fromTo(
+          ".opening-burst",
+          { scale: 0.08, opacity: 0.85 },
+          { scale: 2.2, opacity: 0, duration: 2.7, ease: "power2.out" },
+          0.4,
+        )
         .to(
           ".loader",
           {
@@ -417,7 +432,7 @@ export default function App() {
       <a className="skip-link" href="#main">
         Đến nội dung
       </a>
-      <div className="scene" ref={scene} aria-hidden="true">
+      <div className="scene" ref={scene}>
         <SceneBoundary onReady={readyCallback}>
           <Suspense fallback={null}>
             <Scene
@@ -447,6 +462,13 @@ export default function App() {
       </div>
       <BouquetArtwork chapter={active} sent={bloom} reduced={reduced} />
       <div className="grain" />
+      {!reduced && (
+        <div className="opening-theatre" aria-hidden="true">
+          <div className="opening-curtain curtain-left" />
+          <div className="opening-curtain curtain-right" />
+          <div className="opening-burst" />
+        </div>
+      )}
       {!entered && (
         <div
           className="loader"
@@ -454,6 +476,11 @@ export default function App() {
           aria-label="Đang mở hành trình tri ân"
         >
           <div className="loader-aura" />
+          <div className="loader-orbits" aria-hidden="true">
+            <i />
+            <i />
+            <i />
+          </div>
           <div className="loader-helix" aria-hidden="true">
             {Array.from({ length: 12 }, (_, i) => (
               <i key={i} style={{ "--rung": i } as React.CSSProperties} />
@@ -463,6 +490,9 @@ export default function App() {
           <span>GEN TRI ÂN</span>
           <i />
           <p>Chạm ánh sáng. Đánh thức một thế giới nhỏ…</p>
+          <small className="loader-story">
+            MỘT HẠT MẦM · MỘT HÀNH TRÌNH · NGÀN LỜI CẢM ƠN
+          </small>
         </div>
       )}
 
@@ -642,14 +672,14 @@ export default function App() {
             </div>
             <p className="model-explanation">
               {dnaMode === "normal"
-                ? "Hai mạch ngược chiều 5′–3′ và 3′–5′. Chạm vào một base trên mô hình để khám phá."
+                ? "Hai mạch ngược chiều 5′–3′ và 3′–5′. Chọn A, T, G hoặc C để xem nguyên tắc bổ sung. Tranh là minh họa nghệ thuật."
                 : dnaMode === "unwind"
-                  ? "Hai mạch tách nhau khi liên kết hydrogen giữa các base bị phá vỡ. Mô hình tách mạch được giản lược để quan sát."
-                  : "Màu hồng: mạch mới. Mỗi phân tử con chứa một mạch cũ và một mạch mới. ADN polymerase chỉ tổng hợp theo chiều 5′ → 3′; mạch chậm được tổng hợp thành các đoạn Okazaki. Mô hình minh họa sản phẩm bán bảo tồn, không mô phỏng đầy đủ enzyme."}
+                  ? "Hai mạch tách nhau khi liên kết hydrogen giữa các base bị phá vỡ. Hiệu ứng tách ảnh chỉ gợi ý chuyển động, không mô phỏng cấu trúc phân tử."
+                  : "Mỗi ADN con chứa một mạch cũ và một mạch mới: bán bảo tồn. ADN polymerase tổng hợp theo chiều 5′ → 3′; mạch chậm gồm các đoạn Okazaki. Tranh chỉ minh họa ý tưởng; màu và hình dạng không phải dữ liệu cấu trúc phân tử."}
             </p>
             <div className="interaction-hint">
               <RotateCcw size={14} />
-              Kéo để xoay trên máy tính <span>·</span>
+              Kéo để dịch chuyển tranh <span>·</span>
               <Expand size={14} />
               Nút + / − để thu phóng
             </div>
@@ -669,10 +699,10 @@ export default function App() {
               một <em>thế giới mới.</em>
             </h2>
             <p className="body-copy">
-              Những khái niệm trên trang sách, giờ có thể chạm đến. Chọn một mô
-              hình và để trí tò mò dẫn lối.
+              Những khái niệm trên trang sách, giờ có thể chạm đến. Chọn một chủ
+              đề và để trí tò mò dẫn lối.
             </p>
-            <div className="exhibit-picker" aria-label="Chọn mô hình">
+            <div className="exhibit-picker" aria-label="Chọn chủ đề minh họa">
               {exhibits.map((item, i) => (
                 <button
                   key={item.id}
@@ -837,9 +867,9 @@ export default function App() {
         </div>
       )}
       {(active === 1 || active === 2) && (
-        <div className="model-tools" aria-label="Điều khiển mô hình">
+        <div className="model-tools" aria-label="Điều khiển tranh">
           <button
-            aria-label="Thu nhỏ mô hình"
+            aria-label="Thu nhỏ tranh"
             disabled={zoom <= 0.6}
             onClick={() => setZoom((z) => Math.max(0.6, z - 0.2))}
           >
@@ -847,7 +877,7 @@ export default function App() {
           </button>
           <span>{Math.round(zoom * 100)}%</span>
           <button
-            aria-label="Phóng to mô hình"
+            aria-label="Phóng to tranh"
             disabled={zoom >= 1.6}
             onClick={() => setZoom((z) => Math.min(1.6, z + 0.2))}
           >
@@ -855,7 +885,7 @@ export default function App() {
           </button>
           <i />
           <button
-            aria-label="Đặt lại mô hình"
+            aria-label="Đặt lại tranh"
             onClick={() => {
               setZoom(1);
               setDnaMode("normal");

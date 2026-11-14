@@ -1,6 +1,6 @@
 # GEN TRI ÂN — Khi tri thức nở hoa
 
-Website tri ân thầy dạy Sinh học nhân ngày 20/11. React, TypeScript, Vite, Three.js, React Three Fiber, Drei và GSAP ScrollTrigger. ADN, tế bào, mô hình sinh học, phong thư và dải phim được dựng bằng hình học 3D tại runtime. Riêng bó hoa dùng **ảnh 2D nền trong suốt do ImageGen tạo**, theo lựa chọn mỹ thuật của người dùng.
+Website tri ân thầy dạy Sinh học nhân ngày 20/11. React, TypeScript, Vite và GSAP ScrollTrigger. **Toàn bộ hình minh họa đã chuyển sang ảnh 2D sắc nét tạo bằng ImageGen**, gồm ADN, tế bào, 9 chủ đề sinh học, phong thư, hoa và bướm. Không dùng Three.js, mô hình 3D hoặc WebGL.
 
 ## Chạy trên máy
 
@@ -20,7 +20,7 @@ npm run preview
 
 ## Cá nhân hóa
 
-Sửa `src/content.ts`, không cần sửa logic 3D:
+Sửa `src/content.ts`, không cần sửa logic hiệu ứng:
 
 | Trường            | Nội dung                                                           |
 | ----------------- | ------------------------------------------------------------------ |
@@ -44,19 +44,19 @@ Nhạc chỉ bắt đầu khi nhấn nút âm thanh. Nếu chưa cấu hình t�
 ## Trải nghiệm và kiến trúc
 
 - `src/App.tsx`: sáu chương, điều hướng, thư, lưu bút, thêm ảnh, âm thanh, tùy chọn trợ năng.
-- `src/Scene.tsx`: nucleosome, nhiễm sắc thể, mô hình phiên mã/dịch mã, phân li, Mendel, cây nhánh; bì thư; dải phim dùng BufferGeometry chạy dọc Catmull–Rom, UV và texture có lỗ đục thật bằng alpha.
-- `src/DNA.tsx`: B-DNA xoắn phải, 10,5 cặp base/vòng, hai mạch ngược chiều; backbone liên tục 640 đoạn và 16 mặt, base ExtrudeGeometry bo cạnh, vật liệu clearcoat/iridescence, liên kết hydrogen instanced 2/3 và lựa chọn base. Tháo xoắn tách mạch mượt; nhân đôi giữ màu mạch gốc, thêm mạch bổ sung màu hồng.
+- `src/IllustrationScene.tsx`: toàn bộ khung cảnh 2D. Các ảnh nền trong suốt được tách thành lớp, dịch chuyển theo con trỏ, trôi nhẹ và đổi theo chương. ADN có điểm chọn nucleotide, dịch chuyển tranh và phóng to/thu nhỏ. Triển lãm có 9 ảnh riêng cho các chủ đề, cộng ảnh ADN. Dải phim 2D uốn thành đường cong từ các khung HTML có góc và độ cao riêng; nhấn mở ảnh thật, giữ nguyên quyền riêng tư.
+- `src/illustrations.css`: bướm vỗ cánh bằng hai nửa ảnh quanh thân, bay theo motion path, quầng sáng, hạt bụi, cánh hoa rơi, hiệu ứng riêng ở các chương và chuyển cảnh đi vào tế bào rồi tới ADN.
 - `src/BouquetArtwork.tsx` và `public/assets/bouquet-roses.png`: một ảnh hoa 2D có alpha, dùng chung ở trang đầu và chương tặng hoa. Không có mô hình hoa 3D. Hiệu ứng tặng hoa dùng chuyển động của ảnh, ánh sáng và cánh hoa bay.
 - `src/content.ts`: toàn bộ thông tin cá nhân, danh sách chương và nội dung khoa học.
 - `src/style.css`, `src/tokens.css`: bố cục responsive, màu, typography. Font tiếng Việt được đóng gói cục bộ, không gọi Google Fonts.
-- Các hạt sáng dùng một instanced mesh và custom vertex/fragment shader. Tế bào dùng Fresnel shader; các vật liệu 3D còn lại dùng MeshStandardMaterial/MeshPhysicalMaterial. Ảnh hoa được lưu trong dự án, không phụ thuộc dịch vụ ảnh bên ngoài; prompt gốc nằm tại `public/assets/bouquet-roses.prompt.txt`.
-- Mở trang có loader ADN màu cyan/tím, nền aurora, hiệu ứng lấy nét và kéo cảnh ra chậm, rồi hiện tiêu đề và ảnh hoa lần lượt. Nội dung từng chương có hiệu ứng reveal theo cuộn. `Giảm chuyển động` bỏ các hoạt ảnh này; loader chờ cả cảnh và ảnh hoa sẵn sàng rồi mới mở trang.
+- Tất cả ảnh và prompt ImageGen được lưu trong `public/assets/`, không phụ thuộc dịch vụ ảnh bên ngoài. Bản PNG giữ nguyên làm nguồn; WebP là bản mã hóa nhẹ hơn, giữ alpha. Có thể tạo lại WebP bằng `node scripts/optimize-art.mjs` sau khi đổi PNG.
+- Mở trang có loader ADN và các vòng sáng quay, hai rèm tách ra, sóng sáng lan rộng, nền aurora, hiệu ứng lấy nét và kéo cảnh ra chậm, rồi hiện tiêu đề và ảnh hoa lần lượt. Các chương có reveal theo cuộn; kỷ niệm có dải phim trôi, hoa có vòng sáng và cánh hoa, thư có hiệu ứng tiến vào khung hình. `Giảm chuyển động` bỏ hoạt ảnh; loader chờ cả hình minh họa và ảnh hoa sẵn sàng rồi mới mở trang.
 
-Cuộn trang để đổi chương; nút bên phải và thanh điều hướng nhảy đến từng chương. Chương ADN và triển lãm cho phép kéo xoay. **Giảm chuyển động** và **Chế độ nhẹ** ở nút tùy chỉnh. Thiết bị nhỏ hoặc có ít luồng CPU tự dùng chế độ nhẹ: giảm số hạt, DPR và hiệu ứng. Khi WebGL không khả dụng, nội dung, thư, ảnh và lưu bút vẫn dùng được.
+Cuộn trang để đổi chương; nút bên phải và thanh điều hướng nhảy đến từng chương. Chương ADN và triển lãm cho phép kéo dịch chuyển ảnh và phóng to. **Giảm chuyển động** và **Chế độ nhẹ** ở nút tùy chỉnh. Thiết bị nhỏ hoặc có ít luồng CPU tự dùng chế độ nhẹ: giảm bướm và số hạt. Toàn bộ trang chạy được khi WebGL không khả dụng.
 
-Mô hình khoa học là **minh họa giản lược**, không dùng như mô phỏng cấu trúc nguyên tử hay tốc độ sinh hóa. Nhân đôi biểu diễn bán bảo tồn bằng mạch mới màu hồng; không mô phỏng đầy đủ enzyme và động học các đoạn Okazaki. Nhiễm sắc thể chữ X chỉ biểu diễn trạng thái kép co xoắn. Sơ đồ nguyên phân là kì sau; sơ đồ hệ sinh thái và cây nhánh là khái quát. Hoa và trái tim là chuyển cảnh nghệ thuật, không mô tả cơ chế sinh học.
+Ảnh khoa học là **minh họa nghệ thuật**, không phải dữ liệu cấu trúc nguyên tử hoặc mô phỏng cơ chế. Hình dạng, màu và tỉ lệ trong ảnh có thể được cách điệu. Nội dung kiến thức ở cột bên trái và sơ đồ chữ A–T / G–C mới là phần giải thích; nguyên tắc nhân đôi 5′→3′ và bán bảo tồn được nêu bằng chữ. Hiệu ứng tách hai nửa ảnh ADN chỉ gợi ý chuyển động, không mô phỏng tháo xoắn thật. Nhiễm sắc thể chữ X chỉ biểu diễn trạng thái kép co xoắn; tranh Mendel, cây và hệ sinh thái là hình tượng minh họa.
 
-Nguồn tham khảo: [NHGRI – DNA Replication](https://www.genome.gov/genetics-glossary/DNA-Replication), [NHGRI – Deoxyribonucleic Acid](https://www.genome.gov/about-genomics/fact-sheets/Deoxyribonucleic-Acid-Fact-Sheet), [React Three Fiber](https://r3f.docs.pmnd.rs/), [Three.js](https://threejs.org/docs/).
+Nguồn tham khảo nội dung: [NHGRI – DNA Replication](https://www.genome.gov/genetics-glossary/DNA-Replication), [NHGRI – Deoxyribonucleic Acid](https://www.genome.gov/about-genomics/fact-sheets/Deoxyribonucleic-Acid-Fact-Sheet).
 
 ## Kiểm thử trình duyệt
 

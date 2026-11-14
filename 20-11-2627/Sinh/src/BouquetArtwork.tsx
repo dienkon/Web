@@ -1,4 +1,4 @@
-export const bouquetUrl = "./assets/bouquet-roses.png";
+export const bouquetUrl = "./assets/bouquet-roses.webp";
 
 export default function BouquetArtwork({
   chapter,

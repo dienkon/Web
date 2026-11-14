@@ -26,13 +26,13 @@ test("desktop: chapters, models, letter, photos, music, and local guestbook", as
   );
   await page.getByRole("button", { name: "Nhân đôi", exact: true }).click();
   await expect(page.locator(".model-explanation")).toContainText("5′ → 3′");
-  await page.getByRole("button", { name: "Phóng to mô hình" }).click();
+  await page.getByRole("button", { name: "Phóng to tranh" }).click();
   await expect(page.locator(".model-tools")).toContainText("120%");
   await page.getByRole("button", { name: "Base G", exact: true }).click();
   await expect(page.locator(".science-note")).toContainText(
     "G–C · 3 liên kết hydrogen",
   );
-  await page.getByRole("button", { name: "Đặt lại mô hình" }).click();
+  await page.getByRole("button", { name: "Đặt lại tranh" }).click();
   await expect(page.locator(".model-tools")).toContainText("100%");
 
   await page.getByRole("button", { name: "Bước vào vũ trụ sinh học" }).click();
@@ -116,6 +116,72 @@ test("desktop: chapters, models, letter, photos, music, and local guestbook", as
   expect(errors).toEqual([]);
 });
 
+test("all generated chapter art is sharp and butterflies really animate", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("/");
+  await expect(page.locator("#main")).toHaveAttribute("aria-busy", "false", {
+    timeout: 45000,
+  });
+  await expect(page.locator(".loader")).toHaveCount(0, { timeout: 10000 });
+  await expect(page.locator("canvas")).toHaveCount(0);
+  const butterfly = page.locator(".butterfly-flight").first();
+  const before = await butterfly.evaluate(
+    (el) => getComputedStyle(el).offsetDistance,
+  );
+  await page.waitForTimeout(350);
+  expect(
+    await butterfly.evaluate((el) => getComputedStyle(el).offsetDistance),
+  ).not.toEqual(before);
+  expect(
+    await page
+      .locator(".wing-left")
+      .first()
+      .evaluate((el) => getComputedStyle(el).animationName),
+  ).toBe("wingFlapLeft");
+  await page.getByRole("button", { name: "Khám phá", exact: true }).click();
+  const dna = page.locator(".dna-illustration>img").first();
+  await expect(dna).toBeVisible();
+  expect(
+    await dna.evaluate(
+      (el: HTMLImageElement) => el.complete && el.naturalWidth >= 1000,
+    ),
+  ).toBe(true);
+  await page.getByRole("button", { name: "Bước vào vũ trụ sinh học" }).click();
+  for (const name of [
+    "Nucleosome",
+    "Nhiễm sắc thể",
+    "Nhân đôi ADN",
+    "Phiên mã",
+    "Dịch mã",
+    "Nguyên phân",
+    "Di truyền Mendel",
+    "Cây tiến hóa",
+    "Hệ sinh thái",
+  ]) {
+    await page
+      .locator(".exhibit-picker button")
+      .filter({ hasText: name })
+      .click();
+    const picture = page.locator(".interactive-art img.science-atlas");
+    await expect(picture).toBeVisible();
+    await expect
+      .poll(() =>
+        picture.evaluate(
+          (el: HTMLImageElement) => el.complete && el.naturalWidth >= 1000,
+        ),
+      )
+      .toBe(true);
+  }
+  await page.getByRole("button", { name: "Tùy chỉnh trải nghiệm" }).click();
+  await page.getByRole("button", { name: "Bỏ qua đến lời tri ân" }).click();
+  await expect(page.locator(".final-letter-art>img")).toBeVisible();
+  await page.getByRole("button", { name: "Mở lá thư gửi thầy" }).click();
+  await expect(page.getByRole("dialog")).toContainText("Thầy kính mến");
+});
+
 test("mobile and reduced motion: navigation, settings, modal focus", async ({
   page,
 }) => {
@@ -183,7 +249,8 @@ test("WebGL unavailable: content and letter remain usable", async ({
   await expect(page.locator("#main")).toHaveAttribute("aria-busy", "false", {
     timeout: 45000,
   });
-  await expect(page.locator(".webgl-fallback")).toBeVisible();
+  await expect(page.locator('[data-renderer="2d"]')).toBeVisible();
+  await expect(page.locator("canvas")).toHaveCount(0);
   await page.getByRole("button", { name: "Gửi thầy một lời" }).click();
   await expect(page.getByRole("dialog")).toContainText("Thầy kính mến");
 });
@@ -207,7 +274,7 @@ test("automatic arrival reveals the local 2D bouquet and preserves scrolling", a
       (image: HTMLImageElement) =>
         image.complete &&
         image.naturalWidth > 1000 &&
-        image.src.endsWith("/assets/bouquet-roses.png"),
+        image.src.endsWith("/assets/bouquet-roses.webp"),
     ),
   ).toBe(true);
   await page.getByRole("button", { name: "Tri ân", exact: true }).click();

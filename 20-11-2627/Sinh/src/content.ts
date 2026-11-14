@@ -34,14 +34,14 @@ export const exhibits = [
     title: "ADN xoắn kép",
     tag: "DI TRUYỀN HỌC",
     text: "Hai mạch ngược chiều, mang thông tin di truyền. Adenine bắt cặp thymine bằng 2 liên kết hydrogen; guanine bắt cặp cytosine bằng 3 liên kết.",
-    note: "Mô hình cấu trúc giản lược · B-DNA, khoảng 10,5 cặp base/vòng.",
+    note: "Tranh minh họa nghệ thuật · B-DNA được giải thích bằng phần nội dung.",
   },
   {
     id: "nucleosome",
     title: "Nucleosome",
     tag: "TỔ CHỨC VẬT CHẤT DI TRUYỀN",
     text: "ADN quấn quanh lõi gồm 8 protein histone. Các nucleosome giúp đóng gói ADN, tạo nên sợi chất nhiễm sắc trong nhân tế bào.",
-    note: "Hình học minh họa một đơn vị đóng gói ADN.",
+    note: "Tranh minh họa nghệ thuật một đơn vị đóng gói ADN.",
   },
   {
     id: "chromosome",
@@ -76,7 +76,7 @@ export const exhibits = [
     title: "Nguyên phân",
     tag: "TẾ BÀO HỌC",
     text: "ADN nhân đôi trước khi nguyên phân. Hai chromatid chị em phân li về hai cực, tạo hai tế bào con có bộ nhiễm sắc thể tương tự tế bào mẹ.",
-    note: "Mô hình giản lược kì sau, không biểu diễn giảm phân.",
+    note: "Tranh gợi ý kì sau của nguyên phân, không biểu diễn giảm phân.",
   },
   {
     id: "mendel",
