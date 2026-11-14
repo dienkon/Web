@@ -13,6 +13,8 @@
  */
 
 import { ReactionVisualController, ReactionContext, ReactionZone } from '../types';
+import { landoltInventory } from '../../../science/landoltClock';
+import { landoltColor } from '../../../engine/landoltClockLedger';
 
 /**
  * 07. Fe + CuSO4 -> Cu Plating
@@ -274,6 +276,16 @@ export class IodineClockController implements ReactionVisualController {
 
   public update(context: ReactionContext): void {
     const { runtime, dt } = context;
+    if (context.vessel.contents?.length) {
+      const inventory = landoltInventory(context.vessel.contents, context.vessel.volume_ml);
+      runtime.elapsed += dt;
+      runtime.progress = runtime.chemistryProgress ?? runtime.progress;
+      runtime.currentColor = inventory ? landoltColor(inventory) : context.vessel.liquidColor ?? '#f8fafc';
+      runtime.targetColor = runtime.currentColor;
+      runtime.reactionRate = runtime.chemistryRate_s ?? 0;
+      runtime.customData.hasFlipped = runtime.currentColor !== '#f8fafc';
+      return;
+    }
     runtime.elapsed += dt;
     runtime.progress = Math.min(1.0, runtime.elapsed / runtime.duration);
 
@@ -297,7 +309,8 @@ export class IodineClockController implements ReactionVisualController {
 
   public finalize(context: ReactionContext): void {
     const { runtime } = context;
-    runtime.currentColor = runtime.targetColor;
+    const inventory = context.vessel.contents?.length ? landoltInventory(context.vessel.contents, context.vessel.volume_ml) : null;
+    runtime.currentColor = inventory ? landoltColor(inventory) : runtime.targetColor;
     runtime.reactionRate = 0;
   }
 }

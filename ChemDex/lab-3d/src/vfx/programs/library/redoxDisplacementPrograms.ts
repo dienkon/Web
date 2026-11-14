@@ -3,6 +3,7 @@
  */
 
 import { ReactionProgram } from '../../../shared/programSchema';
+import { LANDOLT_EQUATION } from '../../../science/landoltClock';
 
 export const REDOX_DISPLACEMENT_PROGRAMS: ReactionProgram[] = [
   // 1. Fe + CuSO4 -> FeSO4 + Cu
@@ -295,7 +296,7 @@ export const REDOX_DISPLACEMENT_PROGRAMS: ReactionProgram[] = [
     provenance: 'handcrafted',
     controller: 'iodine_clock',
     chemistry: {
-      equation: 'IO3-(aq) + 3HSO3-(aq) -> I-(aq) + 3SO4(2-)(aq) + 3H+(aq)',
+      equation: LANDOLT_EQUATION,
       species: [
         { formula: 'KIO3', role: 'reactant', coeff: 1, phase: 'aq' },
         { formula: 'NaHSO3', role: 'reactant', coeff: 3, phase: 'aq' },
@@ -305,7 +306,7 @@ export const REDOX_DISPLACEMENT_PROGRAMS: ReactionProgram[] = [
         { formula: 'NaHSO4', role: 'product', coeff: 1, phase: 'aq' },
         { formula: 'H2SO4', role: 'product', coeff: 1, phase: 'aq' },
       ],
-      kinetics: { model: 'induction_then_fast', halfTime_s: 0.2, induction_s: 4.5 },
+      kinetics: { model: 'landolt', halfTime_s: 0 }, // Three coupled redox rates; no fixed delay or single half-time.
       hazards: []
     },
     visual: {
@@ -321,10 +322,10 @@ export const REDOX_DISPLACEMENT_PROGRAMS: ReactionProgram[] = [
       }
     },
     explain: {
-        observation_vi: 'Giai đoạn khử iodat tạo iodua chưa tạo xanh đen. Khi bisulfit hết và iodat còn dư, iot có thể tích tụ; cần tinh bột để xuất hiện xanh đen. Thời gian trễ chưa hiệu chuẩn.',
-        observation_en: 'The initial iodate reduction forms iodide. Excess iodate can then produce iodine after bisulfite exhaustion; a blue-black response requires starch. Delay is not calibrated.',
-      why_vi: 'Khi bisulfit bị tiêu thụ hết, iot tự do tích tụ lập tức tạo phức hợp màu xanh đen với tinh bột.',
-      why_en: 'Once bisulfite is exhausted, unconsumed iodine accumulates and binds into starch-iodine blue complex.'
+        observation_vi: 'Iodat, iodua và sulfite biến đổi ngay trong khoảng còn trong. Iốt tích tụ khi chất khử cạn; có tinh bột thì xanh đen, thiếu tinh bột thì nâu. Thời điểm đổi màu phụ thuộc nồng độ và pH, không phải một độ trễ cố định.',
+        observation_en: 'Iodate, iodide and sulfite react during the clear interval. Iodine accumulates as reductant is depleted: blue-black with starch, brown without it. Concentrations and pH determine the delay.',
+      why_vi: 'Ba bước redox dùng lượng chất hữu hạn, cân bằng axit–bazơ và I2/I3−. Hằng số tốc độ tham chiếu 25 °C theo Liu–Taylor (2022); chưa hiệu chỉnh nhiệt độ, trao đổi oxy hoặc sức chứa liên kết của tinh bột.',
+      why_en: 'Three redox steps use finite inventories with acid-base and I2/I3- equilibria. Rate constants reference 25 C (Liu–Taylor, 2022); temperature, oxygen transfer and finite starch binding are not calibrated.'
     },
     confidence: 1.0
   }

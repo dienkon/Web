@@ -40,6 +40,7 @@ export type KineticsModel =
   | 'first_order'
   | 'second_order'
   | 'autocatalytic'
+  | 'landolt'
   | 'induction_then_fast'
   | 'oscillatory'
   | 'diffusion_limited'
@@ -174,6 +175,7 @@ export const KineticsSchema = z.object({
     'first_order',
     'second_order',
     'autocatalytic',
+    'landolt',
     'induction_then_fast',
     'oscillatory',
     'diffusion_limited',

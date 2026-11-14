@@ -13,7 +13,7 @@
 | programs / k2cr2o7_feso4 | K2Cr2O7(aq) + 6FeSO4(aq) + 7H2SO4(aq) -> K2SO4(aq) + Cr2(SO4)3(aq) + 3Fe2(SO4)3(aq) + 7H2O(l) | Đạt cấu trúc | dedicated_program · tự động |
 | programs / fecl3_ki | 2FeCl3(aq) + 2KI(aq) -> 2FeCl2(aq) + 2KCl(aq) + I2(aq) | Đạt cấu trúc | dedicated_program · tự động |
 | programs / cl2_kbr | Cl2(aq) + 2KBr(aq) -> 2KCl(aq) + Br2(aq) | Đạt cấu trúc | dedicated_program · tự động |
-| programs / iodine_clock | IO3-(aq) + 3HSO3-(aq) -> I-(aq) + 3SO4(2-)(aq) + 3H+(aq) | Đạt cấu trúc | dedicated_program · tự động |
+| programs / iodine_clock | IO3-(aq) + 3HSO3-(aq) -> I-(aq) + 3SO4(2-)(aq) + 3H+(aq); IO3-(aq) + 5I-(aq) + 6H+(aq) -> 3I2(aq) + 3H2O(l); I2(aq) + HSO3-(aq) + H2O(l) -> 2I-(aq) + SO4(2-)(aq) + 3H+(aq) | Đạt cấu trúc | dedicated_program · tự động |
 | programs / fecl3_kscn | FeCl3(aq) + KSCN(aq) <-> [Fe(SCN)]Cl2(aq) + KCl(aq) | Đạt cấu trúc | dedicated_program · tự động |
 | programs / cuso4_nh3 | CuSO4(aq) + 4NH3(aq) ⇌ [Cu(NH3)4]SO4(aq) | Đạt cấu trúc | dedicated_program · tự động |
 | programs / k2cro4_h2so4 | 2K2CrO4(aq) + H2SO4(aq) <-> K2Cr2O7(aq) + K2SO4(aq) + H2O(l) | Đạt cấu trúc | dedicated_program · tự động |
@@ -272,13 +272,13 @@ Cl2(aq) + 2KBr(aq) -> 2KCl(aq) + Br2(aq)
 
 ## iodine_clock (programs)
 
-IO3-(aq) + 3HSO3-(aq) -> I-(aq) + 3SO4(2-)(aq) + 3H+(aq)
+IO3-(aq) + 3HSO3-(aq) -> I-(aq) + 3SO4(2-)(aq) + 3H+(aq); IO3-(aq) + 5I-(aq) + 6H+(aq) -> 3I2(aq) + 3H2O(l); I2(aq) + HSO3-(aq) + H2O(l) -> 2I-(aq) + SO4(2-)(aq) + 3H+(aq)
 
-- Điều kiện: {}
+- Điều kiện: {"model":"landolt_three_redox_rates","referenceEquationOnly":true,"referenceTemperature_c":25,"rateConstants":{"k1a":0.08,"k1b":4000,"k1c":300000,"k2a":2200000000,"k2b":25,"k3":2000000000,"sulfiteKa1":0.013,"sulfiteKa2":1e-7,"bisulfateKa":0.013,"kw":1e-14,"triiodideBeta":658.8235294117648},"source":"https://pmc.ncbi.nlm.nih.gov/articles/PMC9743209/","redoxSteps":[{"id":"R1","reactants":[{"formula":"IO3(-)","coefficient":1},{"formula":"HSO3(-)","coefficient":3}],"products":[{"formula":"I(-)","coefficient":1},{"formula":"SO4(2-)","coefficient":3},{"formula":"H(+)","coefficient":3}],"balance":{"valid":true,"atomDifference":{},"chargeDifference":0,"errors":[]}},{"id":"R2","reactants":[{"formula":"IO3(-)","coefficient":1},{"formula":"I(-)","coefficient":5},{"formula":"H(+)","coefficient":6}],"products":[{"formula":"I2","coefficient":3},{"formula":"H2O","coefficient":3}],"balance":{"valid":true,"atomDifference":{},"chargeDifference":0,"errors":[]}},{"id":"R3","reactants":[{"formula":"I2","coefficient":1},{"formula":"HSO3(-)","coefficient":1},{"formula":"H2O","coefficient":1}],"products":[{"formula":"I(-)","coefficient":2},{"formula":"SO4(2-)","coefficient":1},{"formula":"H(+)","coefficient":3}],"balance":{"valid":true,"atomDifference":{},"chargeDifference":0,"errors":[]}}],"execution":"Progressive shared material model for manual/auto; native rule is a terminal stoichiometric predictor.","limitations":"Homogeneous ideal concentrations. No fitted temperature correction, oxygen transfer, spatial fronts, calorimetry or finite starch binding."}
 - Phân loại: specialized, specialized_model
-- Giải thích: Khi bisulfit bị tiêu thụ hết, iot tự do tích tụ lập tức tạo phức hợp màu xanh đen với tinh bột.
-- Quan sát: Giai đoạn khử iodat tạo iodua chưa tạo xanh đen. Khi bisulfit hết và iodat còn dư, iot có thể tích tụ; cần tinh bột để xuất hiện xanh đen. Thời gian trễ chưa hiệu chuẩn.
-- Nguồn: [RSC: Chemical stop-clock, iodate/hydrogensulfite variant](https://edu.rsc.org/in-search-of-more-solutions/a-chemical-stop-clock-iodine-clock-reaction/598.article); [RSC: Iodine clock reaction demonstration](https://edu.rsc.org/experiments/iodine-clock-reaction-demonstration-method/744.article)
+- Giải thích: Ba bước redox dùng lượng chất hữu hạn, cân bằng axit–bazơ và I2/I3−. Hằng số tốc độ tham chiếu 25 °C theo Liu–Taylor (2022); chưa hiệu chỉnh nhiệt độ, trao đổi oxy hoặc sức chứa liên kết của tinh bột.
+- Quan sát: Iodat, iodua và sulfite biến đổi ngay trong khoảng còn trong. Iốt tích tụ khi chất khử cạn; có tinh bột thì xanh đen, thiếu tinh bột thì nâu. Thời điểm đổi màu phụ thuộc nồng độ và pH, không phải một độ trễ cố định.
+- Nguồn: [RSC: Chemical stop-clock, iodate/hydrogensulfite variant](https://edu.rsc.org/in-search-of-more-solutions/a-chemical-stop-clock-iodine-clock-reaction/598.article); [Liu & Taylor (2022): Influence of Oxygen on Chemoconvective Patterns in the Iodine Clock Reaction](https://pmc.ncbi.nlm.nih.gov/articles/PMC9743209/)
 - Giới hạn: Kinetic time and RGB values are illustrative. Enthalpy and activities are not experimentally calibrated for every reagent concentration.
 
 ## fecl3_kscn (programs)
@@ -1011,11 +1011,11 @@ Na₂S₂O₃ + 2HCl → 2NaCl + SO₂↑ + S↓ + H₂O
 
 IO₃⁻ + 3HSO₃⁻ → I⁻ + 3SO₄²⁻ + 3H⁺; IO₃⁻ + 5I⁻ + 6H⁺ → 3I₂ + 3H₂O
 
-- Điều kiện: {"compartment":"bulk","finitePositiveInventory":true,"aqueousPhaseRequiresPositiveVolume":true,"oxidizingAcidBlocksHydrogenInference":false,"reactantPhases":{"KIO3":["aq"],"NaHSO3":["aq"]},"heating":{"required":false,"minimum_c":null},"concentrationGrades":"Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.","compatibility":"Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."}
+- Điều kiện: {"compartment":"bulk","finitePositiveInventory":true,"aqueousPhaseRequiresPositiveVolume":true,"model":"landolt_three_redox_rates","referenceEquationOnly":true,"referenceTemperature_c":25,"rateConstants":{"k1a":0.08,"k1b":4000,"k1c":300000,"k2a":2200000000,"k2b":25,"k3":2000000000,"sulfiteKa1":0.013,"sulfiteKa2":1e-7,"bisulfateKa":0.013,"kw":1e-14,"triiodideBeta":658.8235294117648},"source":"https://pmc.ncbi.nlm.nih.gov/articles/PMC9743209/","redoxSteps":[{"id":"R1","reactants":[{"formula":"IO3(-)","coefficient":1},{"formula":"HSO3(-)","coefficient":3}],"products":[{"formula":"I(-)","coefficient":1},{"formula":"SO4(2-)","coefficient":3},{"formula":"H(+)","coefficient":3}],"balance":{"valid":true,"atomDifference":{},"chargeDifference":0,"errors":[]}},{"id":"R2","reactants":[{"formula":"IO3(-)","coefficient":1},{"formula":"I(-)","coefficient":5},{"formula":"H(+)","coefficient":6}],"products":[{"formula":"I2","coefficient":3},{"formula":"H2O","coefficient":3}],"balance":{"valid":true,"atomDifference":{},"chargeDifference":0,"errors":[]}},{"id":"R3","reactants":[{"formula":"I2","coefficient":1},{"formula":"HSO3(-)","coefficient":1},{"formula":"H2O","coefficient":1}],"products":[{"formula":"I(-)","coefficient":2},{"formula":"SO4(2-)","coefficient":1},{"formula":"H(+)","coefficient":3}],"balance":{"valid":true,"atomDifference":{},"chargeDifference":0,"errors":[]}}],"execution":"Progressive shared material model for manual/auto; native rule is a terminal stoichiometric predictor.","limitations":"Homogeneous ideal concentrations. No fitted temperature correction, oxygen transfer, spatial fronts, calorimetry or finite starch binding.","oxidizingAcidBlocksHydrogenInference":false,"reactantPhases":{"KIO3":["aq"],"NaHSO3":["aq"]},"heating":{"required":false,"minimum_c":null},"concentrationGrades":"Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.","compatibility":"Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."}
 - Phân loại: specialized, Landolt Iodine Clock Reaction, Phản ứng đồng hồ Iốt Landolt, stoichiometric_rule
-- Giải thích: Có ít nhất hai bước redox; không tạo iot–tinh bột từ phương trình chỉ sinh iodide. Cần tinh bột để xanh đen.
-- Quan sát: Chuyển màu kỳ diệu trong chớp mắt: Dung dịch đang trong suốt bỗng đen sẫm lại tức thì như mực chỉ trong một phần mười giây!
-- Nguồn: [RSC: Chemical stop-clock, iodate/hydrogensulfite variant](https://edu.rsc.org/in-search-of-more-solutions/a-chemical-stop-clock-iodine-clock-reaction/598.article); [RSC: Iodine clock reaction demonstration](https://edu.rsc.org/experiments/iodine-clock-reaction-demonstration-method/744.article)
+- Giải thích: Ba bước redox dùng chung lượng iodate/iodide/iodine/S(IV)/sulfate hữu hạn và cân bằng điện tích. Hằng số tham chiếu 25 °C, không có thời gian chờ cố định. Không hiệu chuẩn nhiệt, oxy, hoạt độ hoặc liên kết tinh bột; xanh đen cần tinh bột trong bulk.
+- Quan sát: Iốt tích tụ có màu nâu khi thiếu tinh bột, xanh đen khi có tinh bột trong dung dịch đang phản ứng.
+- Nguồn: [RSC: Chemical stop-clock, iodate/hydrogensulfite variant](https://edu.rsc.org/in-search-of-more-solutions/a-chemical-stop-clock-iodine-clock-reaction/598.article); [Liu & Taylor (2022): Influence of Oxygen on Chemoconvective Patterns in the Iodine Clock Reaction](https://pmc.ncbi.nlm.nih.gov/articles/PMC9743209/)
 - Giới hạn: Kiểm tra cấu trúc không xác nhận tốc độ, hiệu suất hoặc mọi tổ hợp môi trường.
 
 ## aloh3_naoh_dissolution (deterministic)
@@ -1123,9 +1123,9 @@ KIO3 + 5KI + 3H2SO4 -> 3I2 + 3K2SO4 + 3H2O
 
 - Điều kiện: {"compartment":"bulk","finitePositiveInventory":true,"aqueousPhaseRequiresPositiveVolume":true,"oxidizingAcidBlocksHydrogenInference":false,"reactantPhases":{"KIO3":["aq"],"KI":["aq"],"H2SO4":["aq"]},"heating":{"required":false,"minimum_c":null},"concentrationGrades":"Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.","compatibility":"Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."}
 - Phân loại: specialized, Redox with Oxidizing Acid (Brown NO2 Gas), Phản ứng oxi hóa khử tạo khí màu nâu đỏ, stoichiometric_rule
-- Giải thích: Có ít nhất hai bước redox; không tạo iot–tinh bột từ phương trình chỉ sinh iodide. Cần tinh bột để xanh đen.
+- Giải thích: Ba bước redox dùng chung lượng iodate/iodide/iodine/S(IV)/sulfate hữu hạn và cân bằng điện tích. Hằng số tham chiếu 25 °C, không có thời gian chờ cố định. Không hiệu chuẩn nhiệt, oxy, hoạt độ hoặc liên kết tinh bột; xanh đen cần tinh bột trong bulk.
 - Quan sát: Iot tích tụ có màu nâu; xanh đen chỉ khi có tinh bột.
-- Nguồn: [RSC: Chemical stop-clock, iodate/hydrogensulfite variant](https://edu.rsc.org/in-search-of-more-solutions/a-chemical-stop-clock-iodine-clock-reaction/598.article); [RSC: Iodine clock reaction demonstration](https://edu.rsc.org/experiments/iodine-clock-reaction-demonstration-method/744.article)
+- Nguồn: [RSC: Chemical stop-clock, iodate/hydrogensulfite variant](https://edu.rsc.org/in-search-of-more-solutions/a-chemical-stop-clock-iodine-clock-reaction/598.article); [Liu & Taylor (2022): Influence of Oxygen on Chemoconvective Patterns in the Iodine Clock Reaction](https://pmc.ncbi.nlm.nih.gov/articles/PMC9743209/)
 - Giới hạn: Kiểm tra cấu trúc không xác nhận tốc độ, hiệu suất hoặc mọi tổ hợp môi trường.
 
 ## ch3cooh_naoh_aqueous (deterministic)

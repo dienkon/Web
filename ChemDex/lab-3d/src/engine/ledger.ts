@@ -25,6 +25,7 @@ import { copperHydroxideExtent } from '../science/copperHydroxidePrecipitation';
 import { ferricHydroxideExtent, ferricHydroxideDissolutionExtent } from '../science/ferricHydroxidePrecipitation';
 import { withLegacyPrecipitateOrigins, bulkPrecipitateMass } from '../science/precipitateInventory';
 import { applyCopperAmmoniaLedger } from './copperAmmoniaLedger';
+import { previewLandoltLedger } from './landoltClockLedger';
 import { aluminumReactionExtent, aluminumReactionEnthalpy_J_mol } from '../science/aluminumHydroxideEquilibrium';
 
 // Standard Atomic Weights (IUPAC)
@@ -506,6 +507,8 @@ export function applyProgramToLedger(
     const heat = (patch.programHeatApplied_J ?? 0) - (vessel.programHeatApplied_J ?? 0);
     return { ...patch, ...(options.deferThermal ? {} : applyThermalEnergy({ ...vessel, ...patch }, heat)) };
   }
+  if (program.id === 'iodine_clock') return previewLandoltLedger(vessel, consumedExtent)
+    ?? { contents: vessel.contents.map(c => ({ ...c })), hasGas: false };
   const reactants = program.chemistry.species.filter(s => s.role === 'reactant');
   const products = program.chemistry.species.filter(s => s.role === 'product');
 

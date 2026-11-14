@@ -8,6 +8,7 @@ import { ErrorBoundary } from '../../components/ErrorBoundary';
 import { useAppStore } from '../../store/useAppStore';
 import { getLessonDefinition } from '../../lesson/catalog';
 import { CopperAmmoniaReadout } from '../../components/CopperAmmoniaReadout';
+import { LandoltClockReadout } from '../../components/LandoltClockReadout';
 
 // Only the small readouts refresh. The catalog and canvas remain outside this clock.
 function useReadout() {
@@ -39,6 +40,7 @@ function Timeline({ experiment: e }: { experiment: AutoExperiment }) {
         <div key={label} className="rounded-lg border border-slate-200 p-2"><p className="font-sans text-[10px] text-slate-400">{label}</p><p className="mt-1 text-slate-800">{value}</p></div>)}
     </section>
     <CopperAmmoniaReadout vessel={e.sample} />
+    <LandoltClockReadout vessel={e.sample} />
     <section><h3 className="mb-2 font-semibold">{e.program.id === 'cuso4_nh3' ? 'Lượng thành phần quy đổi' : 'Chất đã tiếp xúc bình nhận'}</h3>
       <div className="space-y-1.5">{e.sample.contents.filter(c => c.mass_g > 1e-8).map((c, i) => <p key={i} className="flex justify-between gap-2 text-[11px]">
         <span>{c.formula} <span className="text-slate-400">({c.phase})</span></span><span className="font-mono">{c.mass_g.toPrecision(3)} g</span></p>)}

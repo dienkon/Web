@@ -785,15 +785,15 @@ export const DETERMINISTIC_REACTIONS: DeterministicReaction[] = [
     equation: 'IO₃⁻ + 3HSO₃⁻ → I⁻ + 3SO₄²⁻ + 3H⁺; IO₃⁻ + 5I⁻ + 6H⁺ → 3I₂ + 3H₂O',
     reactionType_en: 'Landolt Iodine Clock Reaction',
     reactionType_vi: 'Phản ứng đồng hồ Iốt Landolt',
-    summary_en: 'Classic kinetic clock reaction: solution stays completely clear during bisulfite consumption, then flashes midnight blue-black instantly.',
-    summary_vi: 'Phản ứng đồng hồ kinh điển: Dung dịch trong suốt hoàn toàn trong giai đoạn trễ, sau đó chuyển sang màu xanh đen tức thì trong chớp mắt.',
-    observable_en: 'Dramatic instantaneous color switch: completely clear liquid flashes into deep midnight blue-black in less than 0.1 seconds!',
-    observable_vi: 'Chuyển màu kỳ diệu trong chớp mắt: Dung dịch đang trong suốt bỗng đen sẫm lại tức thì như mực chỉ trong một phần mười giây!',
+    summary_en: 'Landolt clock: iodine can accumulate after bisulfite consumption if iodate remains; timing depends on concentration and acidity.',
+    summary_vi: 'Đồng hồ Landolt: iốt có thể tích tụ khi bisulfite cạn nếu còn iodate; thời điểm phụ thuộc nồng độ và độ axit.',
+    observable_en: 'Accumulated iodine is brown without starch and blue-black with starch in the reacting solution.',
+    observable_vi: 'Iốt tích tụ có màu nâu khi thiếu tinh bột, xanh đen khi có tinh bột trong dung dịch đang phản ứng.',
     stoichiometry: { 'KIO3': 1, 'NaHSO3': 3 },
     products: { 'KI': { coeff: 1, state: 'aq' }, 'Na2SO4': { coeff: 1, state: 'aq' }, 'NaHSO4': { coeff: 1, state: 'aq' }, 'H2SO4': { coeff: 1, state: 'aq' } },
-    deltaH_kJ: -120.0,
+    deltaH_kJ: 0, // No calibrated calorimetry for this clock system.
     resultingPh: 4.0,
-    resultingLiquidColor: '#f8fafc', // Midnight blue-black
+    resultingLiquidColor: '#f8fafc', // Initial reduction produces iodide, not the blue starch response.
     hasPrecipitate: false,
     hasGas: false,
     isDangerous: false
@@ -1479,7 +1479,7 @@ export function executeMultiStepReactions(
   const copperState = copperAmmoniaEquilibrium(updatedContents, volume_ml, currentTemp, true);
   if (copperState) finalPh = copperState.state.ph;
 
-  const iodinePresent = updatedContents.some(item => sameMolecularFormula(item.formula, 'I2') && item.moles > moleThreshold);
+  const iodinePresent = updatedContents.some(item => availableReagent(item, 'I2', 'aq', moleThreshold));
   if (iodinePresent) {
     // Starch binding is an optical equilibrium, not a fabricated I_starch molecule.
   }
@@ -1531,7 +1531,10 @@ export function executeMultiStepReactions(
   let finalLiquidColor = '#f8fafc';
 
   if (iodinePresent) {
-    finalLiquidColor = initialSubstances.some(formula => /^(starch|tinh bột)$/i.test(formula)) ? '#0f172a' : '#99621d';
+    const starch = initialContents.length ? updatedContents.some(item => availableInBulk(item, moleThreshold)
+      && reagentPhase(item) === 'aq' && /^(starch|tinh bột)$/i.test(item.formula))
+      : initialSubstances.some(formula => /^(starch|tinh bột)$/i.test(formula));
+    finalLiquidColor = starch ? '#0f172a' : '#99621d';
   } else if (hasPhenol) {
     finalLiquidColor = finalPh >= 8.2 ? '#ec4899' : '#f8fafc';
   } else if (updatedContents.some(c => c.formula.includes('[Cu(NH3)4]') && c.moles > 1e-5)) {

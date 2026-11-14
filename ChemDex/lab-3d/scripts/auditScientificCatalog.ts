@@ -10,6 +10,9 @@ import { deriveProgramFromRules } from '../src/vfx/programs/resolver';
 import { auditDisplayedEquation } from '../src/science/equationText';
 import { nativeReagentPhases } from '../src/science/nativeReagentPhases';
 import { HYDROXO_AMMINES } from '../src/science/copperAmmoniaEquilibrium';
+import { LANDOLT_CONSTANTS, LANDOLT_SOURCE, LANDOLT_STEPS } from '../src/science/landoltClock';
+
+const landoltMechanismAudit = LANDOLT_STEPS.map(step => ({ ...step, balance: auditEquation(step.reactants, step.products) }));
 
 const mixedEquilibriumAudit = HYDROXO_AMMINES.map(term => ({ product: term.formula, ammoniaCoefficient: term.ammonia,
   hydroxideCoefficient: term.hydroxide, productCharge: term.charge, logBeta25: term.logBeta25,
@@ -19,6 +22,13 @@ const mixedEquilibriumAudit = HYDROXO_AMMINES.map(term => ({ product: term.formu
 }));
 
 function copperModelConditions(id: string) {
+  if (id === 'iodine_clock') return {
+    model: 'landolt_three_redox_rates', referenceEquationOnly: true, referenceTemperature_c: 25,
+    rateConstants: LANDOLT_CONSTANTS, source: LANDOLT_SOURCE,
+    redoxSteps: landoltMechanismAudit,
+    execution: 'Progressive shared material model for manual/auto; native rule is a terminal stoichiometric predictor.',
+    limitations: 'Homogeneous ideal concentrations. No fitted temperature correction, oxygen transfer, spatial fronts, calorimetry or finite starch binding.',
+  };
   if (!['cuso4_nh3', 'cuso4_nh3_complex', 'cuso4_nh3_hydroxide', 'cuoh2_nh3_complex'].includes(id)) return {};
   return { model: 'coupled_copper_ammonia', referenceEquationOnly: true, temperatureRange_c: [0, 90],
     phaseAmounts: 'Charge and Cu/N/S/Na balances, ammines n=1..4, mixed hydroxo-ammines, hydrolysis, sulfate and Cu(OH)2 saturation.',
@@ -129,6 +139,7 @@ const dynamicRules = ['Na2CO3', 'K2CO3', 'NaHCO3', 'KHCO3', 'CaCO3', 'MgCO3']
   }));
 const failures = [...programs, ...deterministic, ...lessons, ...dynamicRules].filter(record => record.balance && !record.balance.valid);
 const mixedFailures = mixedEquilibriumAudit.filter(record => !record.balance.valid);
+const landoltFailures = landoltMechanismAudit.filter(record => !record.balance.valid);
 const visualIssues = programs.filter(program => program.visualIssues.length);
 const ionicFailures = [...programs, ...deterministic].filter(record => record.ionicBalance.some(result => !result.valid));
 const report = {
@@ -137,7 +148,7 @@ const report = {
   scope: `All ${programs.length} program definitions, every deterministic rule, and all ${lessons.length} lessons. Lesson programs are a subset of the programs, not additional unique experiments.`,
   claims: { balanceChecked: true, qualitativeLiteratureReview: true, experimentallyValidated: false, realTimeKineticsValidated: false, allSourcesDescribeExactExperiment: false },
   counts: { mixedEquilibriumChecks: mixedEquilibriumAudit.length, mixedEquilibriumFailures: mixedFailures.length, programs: programs.length, deterministic: deterministic.length, equilibriumOnly: deterministic.filter(record => record.execution === 'finite_phase_equilibrium').length, lessons: lessons.length, dynamicRules: dynamicRules.length, ionicEquations: [...programs, ...deterministic].reduce((sum, record) => sum + record.ionicBalance.length, 0), ionicFailures: ionicFailures.length, nonStoichiometricObservations: programs.filter(row => row.balance === null).length, balanceFailures: failures.length, visualProductMismatches: visualIssues.length },
-  programs, deterministic, lessons, dynamicRules, mixedEquilibriumAudit,
+  programs, deterministic, lessons, dynamicRules, mixedEquilibriumAudit, landoltMechanismAudit,
   referenceLabs: ['chemcollective', 'phet', 'rscLab'].map(key => SCIENCE_REFERENCES[key]),
 };
 mkdirSync('artifacts/science-audit', { recursive: true });
@@ -162,4 +173,4 @@ writeFileSync('artifacts/science-audit/catalog-review.vi.md', lines.join('\n') +
 console.log(JSON.stringify(report.counts, null, 2));
 for (const failure of failures) console.error(failure.id, failure.balance);
 for (const failure of ionicFailures) console.error(failure.id, failure.ionicBalance);
-if (failures.length || visualIssues.length || ionicFailures.length || mixedFailures.length) process.exitCode = 1;
+if (failures.length || visualIssues.length || ionicFailures.length || mixedFailures.length || landoltFailures.length) process.exitCode = 1;

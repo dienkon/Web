@@ -6,11 +6,13 @@ import { applyThermalEnergy } from './thermalState';
 import { ensureHeadspaceReference, gasPressurePatch } from './headspacePressure';
 import { projectAqueousSolution } from './aqueousProjection';
 import { reconcileReplayGas } from './replayGasBoundary';
+import { stepLandoltLedger } from './landoltClockLedger';
 
 /** Replay composition from the reaction baseline, but add only heat not already
  * delivered. The current temperature includes external heating and cooling.
  * Historical solvent loss is removed before applying the new heat packet. */
 export function applyProgramWithThermalSinks(program: ReactionProgram, baseline: VesselState, current: VesselState, extent: number, elapsed_s = 0): Partial<VesselState> {
+  if (program.id === 'iodine_clock') return stepLandoltLedger(current, elapsed_s)?.patch ?? {};
   // Replay describes already accepted extent. The progress integrator gates
   // NEW extent by current temperature; cooling must not undo accepted matter.
   // A cold outflow baseline must also remain replayable after reheating.

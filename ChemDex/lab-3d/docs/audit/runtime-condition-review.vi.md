@@ -22,6 +22,7 @@ Bộ giải độ tan/cân bằng chỉ nhận kiểm kê bulk đã chuẩn hóa
 | Cu + HNO3 loãng | Phải tách đường tạo NO với đường NO2; không suy thành H2 như axit không oxi hóa | Nhánh được khai báo riêng; không chứng nhận toàn bộ động học oxi hóa NO ngoài bình |
 | Cu(II) + NH3 | Lượng keo và các phức 1–4 NH3 được giải cùng pH, hydrolysis, sulfate và Na/kiềm dư; axit có thể đảo chuyển cân bằng | Đã có [bộ giải thành phần và độ tan](copper-ammonia.vi.md); đã thêm ba phức hydroxo–ammine và bảng phân bố chung; còn giới hạn hoạt độ, nhiệt ước lượng, phối tử khác và động học |
 | Thử màu ngọn lửa | Cần nguồn kích thích đang cháy, còn nhiên liệu và tiếp xúc đúng mẫu | Auto kiểm tra liên tục; mất nguồn hủy lượt thử, không phát lại mẫu cũ khi bật lại |
+| Đồng hồ iốt Landolt | Iodate/iodide/S(IV)/sulfate và pH thay đổi trong khoảng còn trong; màu đọc lượng iốt và tinh bột thật | [Mạng ba bước chung](landolt-clock.vi.md), 24 mẫu và Chromium; hằng số tham chiếu 25 °C, chưa hiệu chỉnh nhiệt/oxy hoặc liên kết tinh bột |
 | Mg đã mồi cháy | Sự cháy của mẫu khác với lửa của đèn; có thể tiếp tục khi mẫu còn phản ứng | Không dùng trạng thái bật/tắt đèn để tự dập sự cháy của Mg đã mồi |
 | H2SO4 đặc + nước | Axit đặc là chất lỏng; tỏa nhiệt khi pha loãng, không tự đồng nhất với một vụ nổ hóa học | Nhãn nồng độ và pha phải được giữ đúng; nhiệt pha loãng còn mô hình đơn giản |
 
@@ -44,3 +45,5 @@ Việc dùng chung kiểm tra điều kiện và ledger giúp thủ công/auto t
 Mốc kiểm tra điều kiện: 3.145 kiểm thử trong 236 tệp đạt; audit hóa học kèm hiệu ứng vật lý đạt 149/149 chương trình, bảo toàn khối lượng và giữ nguyên bàn thủ công. [Báo cáo mốc cơ sở](../../artifacts/reagent-conditions/validation.json) dẫn các phép kiểm tra riêng.
 
 Sau nâng cấp đồng–ammonia: 3.178 kiểm thử trong 237 tệp đạt, gồm toàn bộ danh mục auto. [Audit chuyên biệt](copper-ammonia.vi.md) có 288 tổ hợp thành phần/nhiệt/kiềm dư, kiểm tra nguồn, phản ứng trong lúc rót và hiệu ứng vật lý của trường hợp thay đổi. Các số này xác nhận phần mềm trong các tình huống được thử, không xác nhận hiệu chuẩn thực nghiệm toàn bộ phản ứng.
+
+Sau nâng cấp Landolt: 3.198 kiểm thử trong 238 tệp đạt. [Audit đồng hồ iốt](landolt-clock.vi.md) xác nhận 24 mẫu và đối chiếu cùng mẫu trên auto/thủ công. Các mô hình Cu và các lượt audit cũ giữ nguyên mốc bằng chứng của chúng.

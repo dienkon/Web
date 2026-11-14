@@ -31,6 +31,7 @@ export const SCIENCE_REFERENCES: Record<string, ScienceReference> = {
   prussian: { title: 'Perls’ Prussian blue staining and chemistry of Prussian blue and Turnbull blue', url: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC12275683/', scope: 'research' },
   clock: { title: 'RSC: Chemical stop-clock, iodate/hydrogensulfite variant', url: 'https://edu.rsc.org/in-search-of-more-solutions/a-chemical-stop-clock-iodine-clock-reaction/598.article', scope: 'experiment' },
   iodineClock: { title: 'RSC: Iodine clock reaction demonstration', url: 'https://edu.rsc.org/experiments/iodine-clock-reaction-demonstration-method/744.article', scope: 'experiment' },
+  landoltKinetics: { title: 'Liu & Taylor (2022): Influence of Oxygen on Chemoconvective Patterns in the Iodine Clock Reaction', url: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC9743209/', scope: 'research' },
   lime: { title: 'Indiana University: Limewater as indicator of carbon dioxide', url: 'https://www.chem.indiana.edu/faculty-research/faculty-resources/chemistry-demos/demo/limewater-as-indicator-of-carbon-dioxide-gas/', scope: 'experiment' },
   carbonate: { title: 'RSC: Thermal decomposition of calcium carbonate', url: 'https://edu.rsc.org/experiments/thermal-decomposition-of-calcium-carbonate/704.article', scope: 'experiment' },
   weathering: { title: 'RSC: Limestone weathering', url: 'https://edu.rsc.org/resources/limestone-weathering/486.article', scope: 'experiment' },
@@ -121,7 +122,7 @@ review('kmno4_oxalic', ['transition'], 'Cần axit cho sản phẩm Mn(II); thi�
 review('k2cr2o7_feso4', ['chromate'], 'Cr(VI) nhận electron của Fe(II) trong axit; phương trình có H2SO4, không chỉ đổi màu cam sang lục.', 'family_context');
 review('fecl3_ki', ['transition'], 'Fe(III) oxi hóa iodide tạo iot; iot nâu trong nước và tạo triiodide khi iodide dư.', 'family_context');
 review('cl2_kbr', ['halides'], 'Cl2 oxi hóa Br− thành Br2; màu phụ thuộc nồng độ và dung môi.', 'family_context');
-review('iodine_clock', ['clock', 'iodineClock'], 'Có ít nhất hai bước redox; không tạo iot–tinh bột từ phương trình chỉ sinh iodide. Cần tinh bột để xanh đen.');
+review('iodine_clock', ['clock', 'landoltKinetics'], 'Ba bước redox dùng chung lượng iodate/iodide/iodine/S(IV)/sulfate hữu hạn và cân bằng điện tích. Hằng số tham chiếu 25 °C, không có thời gian chờ cố định. Không hiệu chuẩn nhiệt, oxy, hoạt độ hoặc liên kết tinh bột; xanh đen cần tinh bột trong bulk.');
 review('fecl3_kscn', ['thiocyanate'], 'Cân bằng phối tử, thường biểu diễn FeSCN2+ trong dung dịch loãng; không phải chuyển hóa hoàn toàn.');
 review('cuso4_nh3', ['copperAmmoniaThermo', 'copperCoupled', 'copperAmmonia'], 'Bảo toàn Cu/N/sulfate/Na và điện tích, xét phức 1–4 NH3 cùng ba phức hydroxo–ammine, thủy phân, proton hóa và Cu(OH)2. Không dùng tỉ lệ mol hay kiềm dư làm ngưỡng kết tủa bắt buộc; hoạt độ, màu, nhiệt và thời gian chưa hiệu chuẩn thực nghiệm.', 'model_caveat');
 review('k2cr2o7_naoh', ['chromate'], 'Kiềm chuyển dichromate cam sang chromate vàng; cation K/Na là ion khán.');

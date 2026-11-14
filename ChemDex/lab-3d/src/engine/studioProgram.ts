@@ -53,7 +53,8 @@ export function createStudioSample(program: ReactionProgram, shell: VesselState,
     const indicator = ['Phenolphthalein', 'Methyl_Orange', 'Bromothymol_Blue'].includes(species.formula);
     // The copper demonstration adds genuinely excess ammonia (2 M in the
     // authored 30 mL specimen), rather than assuming 4 equivalents clears gel.
-    const moles = program.id === 'cuso4_nh3' && species.formula === 'NH3' ? 0.06
+    const moles = program.id === 'iodine_clock' && species.formula === 'KIO3' ? 0.002
+      : program.id === 'cuso4_nh3' && species.formula === 'NH3' ? 0.06
       : indicator ? 1e-7 : species.role === 'reactant' || program.chemistry.representation === 'indicator' ? species.coeff * extent : 1e-5;
     if (!Number.isFinite(moles) || moles <= 0) throw new Error('Lượng mẫu không hợp lệ.');
     let formula = species.formula;

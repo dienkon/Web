@@ -8,10 +8,17 @@ import { aluminumAqueousState } from '../science/aluminumHydroxideEquilibrium';
 import { identifySpecies } from '../science/speciesIdentity';
 import { copperAmmoniaEquilibrium, copperAmmoniaInventory } from '../science/copperAmmoniaEquilibrium';
 import { copperAmmoniaColor } from './copperAmmoniaLedger';
+import { landoltInventory, landoltSpeciation } from '../science/landoltClock';
+import { landoltColor } from './landoltClockLedger';
 
 /** Derived state only; never consume or fabricate inventory to display pH. */
 export function projectAqueousSolution(vessel: VesselState): Partial<VesselState> | null {
   if (vessel.id.startsWith('lesson_vessel_')) return null;
+  const clock = landoltInventory(vessel.contents, vessel.volume_ml);
+  if (clock && vessel.temperature_c >= 0 && vessel.temperature_c <= 90) return {
+    ph: landoltSpeciation(clock).ph, liquidColor: landoltColor(clock),
+    phModel: 'ideal_aqueous_25c', phReferenceTemperature_c: 25,
+  };
   if (copperAmmoniaInventory(vessel.contents, vessel.volume_ml)) {
     const model = copperAmmoniaEquilibrium(vessel.contents, vessel.volume_ml, vessel.temperature_c, true);
     if (model) return { ph: model.state.ph, liquidColor: copperAmmoniaColor(vessel.contents, vessel.volume_ml),

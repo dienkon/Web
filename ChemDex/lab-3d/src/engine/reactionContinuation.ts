@@ -5,6 +5,7 @@ import { aluminumMaterialStages } from './aluminumMaterialProgress';
 import { sameMolecularFormula } from '../science/speciesIdentity';
 import { withLegacyPrecipitateOrigins } from '../science/precipitateInventory';
 import { copperAmmoniaInventory } from '../science/copperAmmoniaEquilibrium';
+import { landoltInventory } from '../science/landoltClock';
 
 export function continueReactionAfterOutflow(kinetics: ActiveKineticsState | undefined,
   remaining: VesselState, language: Language): ActiveKineticsState | null {
@@ -20,6 +21,8 @@ export function continueReactionAfterOutflow(kinetics: ActiveKineticsState | und
     if (!materialStages?.length) return null;
   } else if (kinetics.program?.id === 'cuso4_nh3') {
     if (!copperAmmoniaInventory(baseline.contents, baseline.volume_ml)) return null;
+  } else if (kinetics.program?.id === 'iodine_clock') {
+    if (!landoltInventory(baseline.contents, baseline.volume_ml)) return null;
   } else if (kinetics.program!.chemistry.species.filter(s => s.role === 'reactant').some(s =>
     !baseline.contents.some(c => sameMolecularFormula(c.formula, s.formula) && (!c.phase || c.phase === s.phase)
       && (!c.location || c.location === 'bulk') && c.moles > 1e-12))) return null;
@@ -27,6 +30,7 @@ export function continueReactionAfterOutflow(kinetics: ActiveKineticsState | und
   const originalSolid = metal && kinetics.initialVesselBaseline.contents.find(c =>
     sameMolecularFormula(c.formula, metal.formula) && c.phase === 's');
   return { ...kinetics, materialStages, initialVesselBaseline: baseline,
+    ...(kinetics.program?.id === 'iodine_clock' ? { progress: 0 } : {}),
     replayProgressBase: kinetics.progress, targetPrecipitateMass_g: undefined,
     surfaceReferenceMass_g: kinetics.surfaceReferenceMass_g ?? (originalSolid ? originalSolid.mass_g : undefined),
     surfaceReferenceMoles: kinetics.surfaceReferenceMoles ?? (originalSolid ? originalSolid.moles : undefined) };

@@ -1,0 +1,419 @@
+{
+  "checkedAt": "2026-11-14T01:40:42.413Z",
+  "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743209/",
+  "referenceTemperature_c": 25,
+  "steps": [
+    {
+      "id": "R1",
+      "reactants": [
+        {
+          "formula": "IO3(-)",
+          "coefficient": 1
+        },
+        {
+          "formula": "HSO3(-)",
+          "coefficient": 3
+        }
+      ],
+      "products": [
+        {
+          "formula": "I(-)",
+          "coefficient": 1
+        },
+        {
+          "formula": "SO4(2-)",
+          "coefficient": 3
+        },
+        {
+          "formula": "H(+)",
+          "coefficient": 3
+        }
+      ],
+      "balance": {
+        "valid": true,
+        "atomDifference": {},
+        "chargeDifference": 0,
+        "errors": []
+      }
+    },
+    {
+      "id": "R2",
+      "reactants": [
+        {
+          "formula": "IO3(-)",
+          "coefficient": 1
+        },
+        {
+          "formula": "I(-)",
+          "coefficient": 5
+        },
+        {
+          "formula": "H(+)",
+          "coefficient": 6
+        }
+      ],
+      "products": [
+        {
+          "formula": "I2",
+          "coefficient": 3
+        },
+        {
+          "formula": "H2O",
+          "coefficient": 3
+        }
+      ],
+      "balance": {
+        "valid": true,
+        "atomDifference": {},
+        "chargeDifference": 0,
+        "errors": []
+      }
+    },
+    {
+      "id": "R3",
+      "reactants": [
+        {
+          "formula": "I2",
+          "coefficient": 1
+        },
+        {
+          "formula": "HSO3(-)",
+          "coefficient": 1
+        },
+        {
+          "formula": "H2O",
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "formula": "I(-)",
+          "coefficient": 2
+        },
+        {
+          "formula": "SO4(2-)",
+          "coefficient": 1
+        },
+        {
+          "formula": "H(+)",
+          "coefficient": 3
+        }
+      ],
+      "balance": {
+        "valid": true,
+        "atomDifference": {},
+        "chargeDifference": 0,
+        "errors": []
+      }
+    }
+  ],
+  "gridPoints": 24,
+  "grid": [
+    {
+      "initialIodate_mol": 0.0002,
+      "sulfiteIodateRatio": 1.5,
+      "volume_ml": 30,
+      "colorThresholdTime_s": 12.75,
+      "finalSulfite_mol": 0,
+      "finalIodineEquivalent_mol": 0.000059217424777266264,
+      "finalPh": 2.420978563170229,
+      "maximumAtomError_mol": 4.440892098500626e-16,
+      "peakIodineWhileSulfite_M": 0,
+      "finalColor": "#0f172a"
+    },
+    {
+      "initialIodate_mol": 0.0002,
+      "sulfiteIodateRatio": 1.5,
+      "volume_ml": 60,
+      "colorThresholdTime_s": 44.5,
+      "finalSulfite_mol": 0,
+      "finalIodineEquivalent_mol": 0.00005612896492479104,
+      "finalPh": 2.626971821433605,
+      "maximumAtomError_mol": 8.881784197001252e-16,
+      "peakIodineWhileSulfite_M": 8.616464714094039e-25,
+      "finalColor": "#0f172a"
+    },
+    {
+      "initialIodate_mol": 0.0002,
+      "sulfiteIodateRatio": 2.7,
+      "volume_ml": 30,
+      "colorThresholdTime_s": 9.5,
+      "finalSulfite_mol": 0,
+      "finalIodineEquivalent_mol": 0.000059942699922350055,
+      "finalPh": 2.1279796995189484,
+      "maximumAtomError_mol": 4.440892098500626e-16,
+      "peakIodineWhileSulfite_M": 0,
+      "finalColor": "#0f172a"
+    },
+    {
+      "initialIodate_mol": 0.0002,
+      "sulfiteIodateRatio": 2.7,
+      "volume_ml": 60,
+      "colorThresholdTime_s": 31.75,
+      "finalSulfite_mol": 0,
+      "finalIodineEquivalent_mol": 0.00005994032935045742,
+      "finalPh": 2.3338466050865927,
+      "maximumAtomError_mol": 8.881784197001252e-16,
+      "peakIodineWhileSulfite_M": 1.0770580892617549e-25,
+      "finalColor": "#0f172a"
+    },
+    {
+      "initialIodate_mol": 0.0002,
+      "sulfiteIodateRatio": 3,
+      "volume_ml": 30,
+      "colorThresholdTime_s": null,
+      "finalSulfite_mol": 3.227187815286622e-8,
+      "finalIodineEquivalent_mol": 1.6425310681196831e-9,
+      "finalPh": 1.9631905393970088,
+      "maximumAtomError_mol": 2.4936649967166602e-18,
+      "peakIodineWhileSulfite_M": 5.637193453644166e-8,
+      "finalColor": "#f7f9fb"
+    },
+    {
+      "initialIodate_mol": 0.0002,
+      "sulfiteIodateRatio": 3,
+      "volume_ml": 60,
+      "colorThresholdTime_s": null,
+      "finalSulfite_mol": 5.9194762130442914e-8,
+      "finalIodineEquivalent_mol": 1.0947482896592243e-10,
+      "finalPh": 2.178901677256452,
+      "maximumAtomError_mol": 8.881784197001252e-16,
+      "peakIodineWhileSulfite_M": 6.273773263804402e-10,
+      "finalColor": "#f8fafc"
+    },
+    {
+      "initialIodate_mol": 0.0002,
+      "sulfiteIodateRatio": 4,
+      "volume_ml": 30,
+      "colorThresholdTime_s": null,
+      "finalSulfite_mol": 0.00020009184968343424,
+      "finalIodineEquivalent_mol": 0,
+      "finalPh": 2.0432904301477675,
+      "maximumAtomError_mol": 4.440892098500626e-16,
+      "peakIodineWhileSulfite_M": 2.692645223154387e-26,
+      "finalColor": "#f8fafc"
+    },
+    {
+      "initialIodate_mol": 0.0002,
+      "sulfiteIodateRatio": 4,
+      "volume_ml": 60,
+      "colorThresholdTime_s": null,
+      "finalSulfite_mol": 0.00020010590194705237,
+      "finalIodineEquivalent_mol": 0,
+      "finalPh": 2.2323276716303506,
+      "maximumAtomError_mol": 8.881784197001252e-16,
+      "peakIodineWhileSulfite_M": 0,
+      "finalColor": "#f8fafc"
+    },
+    {
+      "initialIodate_mol": 0.001,
+      "sulfiteIodateRatio": 1.5,
+      "volume_ml": 30,
+      "colorThresholdTime_s": 1.25,
+      "finalSulfite_mol": 0,
+      "finalIodineEquivalent_mol": 0.0002997003275760195,
+      "finalPh": 2.0341940537434304,
+      "maximumAtomError_mol": 4.440892098500626e-16,
+      "peakIodineWhileSulfite_M": 1.3463226115771936e-26,
+      "finalColor": "#0f172a"
+    },
+    {
+      "initialIodate_mol": 0.001,
+      "sulfiteIodateRatio": 1.5,
+      "volume_ml": 60,
+      "colorThresholdTime_s": 3,
+      "finalSulfite_mol": 0,
+      "finalIodineEquivalent_mol": 0.0002993047909282322,
+      "finalPh": 2.180284763784552,
+      "maximumAtomError_mol": 8.881784197001252e-16,
+      "peakIodineWhileSulfite_M": 0,
+      "finalColor": "#0f172a"
+    },
+    {
+      "initialIodate_mol": 0.001,
+      "sulfiteIodateRatio": 2.7,
+      "volume_ml": 30,
+      "colorThresholdTime_s": 1.25,
+      "finalSulfite_mol": 0,
+      "finalIodineEquivalent_mol": 0.00029987351356069937,
+      "finalPh": 1.7474467165129361,
+      "maximumAtomError_mol": 4.440892098500626e-16,
+      "peakIodineWhileSulfite_M": 0,
+      "finalColor": "#0f172a"
+    },
+    {
+      "initialIodate_mol": 0.001,
+      "sulfiteIodateRatio": 2.7,
+      "volume_ml": 60,
+      "colorThresholdTime_s": 2.5,
+      "finalSulfite_mol": 0,
+      "finalIodineEquivalent_mol": 0.00029979120111984283,
+      "finalPh": 1.8949349901660657,
+      "maximumAtomError_mol": 8.881784197001252e-16,
+      "peakIodineWhileSulfite_M": 0,
+      "finalColor": "#0f172a"
+    },
+    {
+      "initialIodate_mol": 0.001,
+      "sulfiteIodateRatio": 3,
+      "volume_ml": 30,
+      "colorThresholdTime_s": null,
+      "finalSulfite_mol": 1.759943923075695e-7,
+      "finalIodineEquivalent_mol": 1.759943923092914e-7,
+      "finalPh": 1.5210531902194027,
+      "maximumAtomError_mol": 4.440892098500626e-16,
+      "peakIodineWhileSulfite_M": 0,
+      "finalColor": "#b4b7be"
+    },
+    {
+      "initialIodate_mol": 0.001,
+      "sulfiteIodateRatio": 3,
+      "volume_ml": 60,
+      "colorThresholdTime_s": null,
+      "finalSulfite_mol": 1.2207685142650931e-8,
+      "finalIodineEquivalent_mol": 1.2207685153660111e-8,
+      "finalPh": 1.703109744570828,
+      "maximumAtomError_mol": 8.881784197001252e-16,
+      "peakIodineWhileSulfite_M": 0,
+      "finalColor": "#f6f8fa"
+    },
+    {
+      "initialIodate_mol": 0.001,
+      "sulfiteIodateRatio": 4,
+      "volume_ml": 30,
+      "colorThresholdTime_s": null,
+      "finalSulfite_mol": 0.0010000000000000015,
+      "finalIodineEquivalent_mol": 0,
+      "finalPh": 1.7057532306044898,
+      "maximumAtomError_mol": 4.440892098500626e-16,
+      "peakIodineWhileSulfite_M": 0,
+      "finalColor": "#f8fafc"
+    },
+    {
+      "initialIodate_mol": 0.001,
+      "sulfiteIodateRatio": 4,
+      "volume_ml": 60,
+      "colorThresholdTime_s": null,
+      "finalSulfite_mol": 0.0010000000000000002,
+      "finalIodineEquivalent_mol": 0,
+      "finalPh": 1.8337789936856188,
+      "maximumAtomError_mol": 8.881784197001252e-16,
+      "peakIodineWhileSulfite_M": 1.747810135011886e-15,
+      "finalColor": "#f8fafc"
+    },
+    {
+      "initialIodate_mol": 0.002,
+      "sulfiteIodateRatio": 1.5,
+      "volume_ml": 30,
+      "colorThresholdTime_s": 0.5,
+      "finalSulfite_mol": 0,
+      "finalIodineEquivalent_mol": 0.0005994006036797469,
+      "finalPh": 1.9203493004004386,
+      "maximumAtomError_mol": 4.440892098500626e-16,
+      "peakIodineWhileSulfite_M": 0,
+      "finalColor": "#0f172a"
+    },
+    {
+      "initialIodate_mol": 0.002,
+      "sulfiteIodateRatio": 1.5,
+      "volume_ml": 60,
+      "colorThresholdTime_s": 1.25,
+      "finalSulfite_mol": 0,
+      "finalIodineEquivalent_mol": 0.000599400655152039,
+      "finalPh": 2.0341940537434304,
+      "maximumAtomError_mol": 8.881784197001252e-16,
+      "peakIodineWhileSulfite_M": 1.3463226115771936e-26,
+      "finalColor": "#0f172a"
+    },
+    {
+      "initialIodate_mol": 0.002,
+      "sulfiteIodateRatio": 2.7,
+      "volume_ml": 30,
+      "colorThresholdTime_s": 0.5,
+      "finalSulfite_mol": 0,
+      "finalIodineEquivalent_mol": 0.0005999483100113884,
+      "finalPh": 1.6248255031960612,
+      "maximumAtomError_mol": 1.2576745200831851e-17,
+      "peakIodineWhileSulfite_M": 0,
+      "finalColor": "#0f172a"
+    },
+    {
+      "initialIodate_mol": 0.002,
+      "sulfiteIodateRatio": 2.7,
+      "volume_ml": 60,
+      "colorThresholdTime_s": 1.25,
+      "finalSulfite_mol": 0,
+      "finalIodineEquivalent_mol": 0.0005997470271213987,
+      "finalPh": 1.7474467165129361,
+      "maximumAtomError_mol": 8.881784197001252e-16,
+      "peakIodineWhileSulfite_M": 0,
+      "finalColor": "#0f172a"
+    },
+    {
+      "initialIodate_mol": 0.002,
+      "sulfiteIodateRatio": 3,
+      "volume_ml": 30,
+      "colorThresholdTime_s": null,
+      "finalSulfite_mol": 4.750183229394421e-8,
+      "finalIodineEquivalent_mol": 4.750183228679864e-8,
+      "finalPh": 1.3477522510530866,
+      "maximumAtomError_mol": 4.440892098500626e-16,
+      "peakIodineWhileSulfite_M": 0,
+      "finalColor": "#e6e8eb"
+    },
+    {
+      "initialIodate_mol": 0.002,
+      "sulfiteIodateRatio": 3,
+      "volume_ml": 60,
+      "colorThresholdTime_s": null,
+      "finalSulfite_mol": 3.51988784615139e-7,
+      "finalIodineEquivalent_mol": 3.519887846185828e-7,
+      "finalPh": 1.5210531902194027,
+      "maximumAtomError_mol": 8.881784197001252e-16,
+      "peakIodineWhileSulfite_M": 0,
+      "finalColor": "#b4b7be"
+    },
+    {
+      "initialIodate_mol": 0.002,
+      "sulfiteIodateRatio": 4,
+      "volume_ml": 30,
+      "colorThresholdTime_s": null,
+      "finalSulfite_mol": 0.0020000000000000152,
+      "finalIodineEquivalent_mol": 0,
+      "finalPh": 1.6043000779086616,
+      "maximumAtomError_mol": 4.336808689942018e-18,
+      "peakIodineWhileSulfite_M": 0,
+      "finalColor": "#f8fafc"
+    },
+    {
+      "initialIodate_mol": 0.002,
+      "sulfiteIodateRatio": 4,
+      "volume_ml": 60,
+      "colorThresholdTime_s": null,
+      "finalSulfite_mol": 0.002000000000000003,
+      "finalIodineEquivalent_mol": 0,
+      "finalPh": 1.7057532306044898,
+      "maximumAtomError_mol": 8.881784197001252e-16,
+      "peakIodineWhileSulfite_M": 0,
+      "finalColor": "#f8fafc"
+    }
+  ],
+  "automatic": {
+    "phase": "complete",
+    "error": null,
+    "elapsed_s": 146.1833333333418,
+    "firstIodineTime_s": 20.266666666666797,
+    "finalColor": "#0f172a",
+    "maximumMassError_g": 5.684341886080802e-14,
+    "workbenchUnchanged": true,
+    "finalCloudiness": 0
+  },
+  "experimentallyCalibrated": false,
+  "limitations": [
+    "Ideal concentrations and local fast equilibria.",
+    "No oxygen transfer or spatial fronts.",
+    "No fitted temperature correction or calorimetry.",
+    "Starch color is an authored total-iodine proxy, not finite binding-site speciation.",
+    "Run completion preserves trace material; it does not force exact stoichiometric exhaustion."
+  ]
+}

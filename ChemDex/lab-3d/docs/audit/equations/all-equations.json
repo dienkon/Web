@@ -185826,7 +185826,7 @@
     },
     {
       "id": "iodine_clock",
-      "equation": "IO3-(aq) + 3HSO3-(aq) -> I-(aq) + 3SO4(2-)(aq) + 3H+(aq)",
+      "equation": "IO3-(aq) + 3HSO3-(aq) -> I-(aq) + 3SO4(2-)(aq) + 3H+(aq); IO3-(aq) + 5I-(aq) + 6H+(aq) -> 3I2(aq) + 3H2O(l); I2(aq) + HSO3-(aq) + H2O(l) -> 2I-(aq) + SO4(2-)(aq) + 3H+(aq)",
       "ionicBalance": [],
       "representation": "reaction",
       "classification": [
@@ -185840,8 +185840,133 @@
         "errors": []
       },
       "visualIssues": [],
-      "conditions": {},
-      "finding_vi": "Có ít nhất hai bước redox; không tạo iot–tinh bột từ phương trình chỉ sinh iodide. Cần tinh bột để xanh đen.",
+      "conditions": {
+        "model": "landolt_three_redox_rates",
+        "referenceEquationOnly": true,
+        "referenceTemperature_c": 25,
+        "rateConstants": {
+          "k1a": 0.08,
+          "k1b": 4000,
+          "k1c": 300000,
+          "k2a": 2200000000,
+          "k2b": 25,
+          "k3": 2000000000,
+          "sulfiteKa1": 0.013,
+          "sulfiteKa2": 1e-7,
+          "bisulfateKa": 0.013,
+          "kw": 1e-14,
+          "triiodideBeta": 658.8235294117648
+        },
+        "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743209/",
+        "redoxSteps": [
+          {
+            "id": "R1",
+            "reactants": [
+              {
+                "formula": "IO3(-)",
+                "coefficient": 1
+              },
+              {
+                "formula": "HSO3(-)",
+                "coefficient": 3
+              }
+            ],
+            "products": [
+              {
+                "formula": "I(-)",
+                "coefficient": 1
+              },
+              {
+                "formula": "SO4(2-)",
+                "coefficient": 3
+              },
+              {
+                "formula": "H(+)",
+                "coefficient": 3
+              }
+            ],
+            "balance": {
+              "valid": true,
+              "atomDifference": {},
+              "chargeDifference": 0,
+              "errors": []
+            }
+          },
+          {
+            "id": "R2",
+            "reactants": [
+              {
+                "formula": "IO3(-)",
+                "coefficient": 1
+              },
+              {
+                "formula": "I(-)",
+                "coefficient": 5
+              },
+              {
+                "formula": "H(+)",
+                "coefficient": 6
+              }
+            ],
+            "products": [
+              {
+                "formula": "I2",
+                "coefficient": 3
+              },
+              {
+                "formula": "H2O",
+                "coefficient": 3
+              }
+            ],
+            "balance": {
+              "valid": true,
+              "atomDifference": {},
+              "chargeDifference": 0,
+              "errors": []
+            }
+          },
+          {
+            "id": "R3",
+            "reactants": [
+              {
+                "formula": "I2",
+                "coefficient": 1
+              },
+              {
+                "formula": "HSO3(-)",
+                "coefficient": 1
+              },
+              {
+                "formula": "H2O",
+                "coefficient": 1
+              }
+            ],
+            "products": [
+              {
+                "formula": "I(-)",
+                "coefficient": 2
+              },
+              {
+                "formula": "SO4(2-)",
+                "coefficient": 1
+              },
+              {
+                "formula": "H(+)",
+                "coefficient": 3
+              }
+            ],
+            "balance": {
+              "valid": true,
+              "atomDifference": {},
+              "chargeDifference": 0,
+              "errors": []
+            }
+          }
+        ],
+        "execution": "Progressive shared material model for manual/auto; native rule is a terminal stoichiometric predictor.",
+        "limitations": "Homogeneous ideal concentrations. No fitted temperature correction, oxygen transfer, spatial fronts, calorimetry or finite starch binding."
+      },
+      "finding_vi": "Ba bước redox dùng chung lượng iodate/iodide/iodine/S(IV)/sulfate hữu hạn và cân bằng điện tích. Hằng số tham chiếu 25 °C, không có thời gian chờ cố định. Không hiệu chuẩn nhiệt, oxy, hoạt độ hoặc liên kết tinh bột; xanh đen cần tinh bột trong bulk.",
       "sourceScope": "specific_observation",
       "quantitativeCalibration": "not_validated",
       "references": [
@@ -185851,9 +185976,9 @@
           "scope": "experiment"
         },
         {
-          "title": "RSC: Iodine clock reaction demonstration",
-          "url": "https://edu.rsc.org/experiments/iodine-clock-reaction-demonstration-method/744.article",
-          "scope": "experiment"
+          "title": "Liu & Taylor (2022): Influence of Oxygen on Chemoconvective Patterns in the Iodine Clock Reaction",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743209/",
+          "scope": "research"
         }
       ],
       "parameterLimits": [
@@ -185903,15 +186028,14 @@
         }
       ],
       "kinetics": {
-        "model": "induction_then_fast",
-        "halfTime_s": 0.2,
-        "induction_s": 4.5
+        "model": "landolt",
+        "halfTime_s": 0
       },
       "protocol": null,
       "runtime": "dedicated_program",
       "automatic": true,
-      "explanation": "Khi bisulfit bị tiêu thụ hết, iot tự do tích tụ lập tức tạo phức hợp màu xanh đen với tinh bột.",
-      "observation": "Giai đoạn khử iodat tạo iodua chưa tạo xanh đen. Khi bisulfit hết và iodat còn dư, iot có thể tích tụ; cần tinh bột để xuất hiện xanh đen. Thời gian trễ chưa hiệu chuẩn."
+      "explanation": "Ba bước redox dùng lượng chất hữu hạn, cân bằng axit–bazơ và I2/I3−. Hằng số tốc độ tham chiếu 25 °C theo Liu–Taylor (2022); chưa hiệu chỉnh nhiệt độ, trao đổi oxy hoặc sức chứa liên kết của tinh bột.",
+      "observation": "Iodat, iodua và sulfite biến đổi ngay trong khoảng còn trong. Iốt tích tụ khi chất khử cạn; có tinh bột thì xanh đen, thiếu tinh bột thì nâu. Thời điểm đổi màu phụ thuộc nồng độ và pH, không phải một độ trễ cố định."
     },
     {
       "id": "fecl3_kscn",
@@ -197437,7 +197561,7 @@
     {
       "id": "iodine_clock",
       "equation": "IO₃⁻ + 3HSO₃⁻ → I⁻ + 3SO₄²⁻ + 3H⁺; IO₃⁻ + 5I⁻ + 6H⁺ → 3I₂ + 3H₂O",
-      "observation_vi": "Chuyển màu kỳ diệu trong chớp mắt: Dung dịch đang trong suốt bỗng đen sẫm lại tức thì như mực chỉ trong một phần mười giây!",
+      "observation_vi": "Iốt tích tụ có màu nâu khi thiếu tinh bột, xanh đen khi có tinh bột trong dung dịch đang phản ứng.",
       "classification": [
         "specialized",
         "Landolt Iodine Clock Reaction",
@@ -197498,6 +197622,130 @@
         "compartment": "bulk",
         "finitePositiveInventory": true,
         "aqueousPhaseRequiresPositiveVolume": true,
+        "model": "landolt_three_redox_rates",
+        "referenceEquationOnly": true,
+        "referenceTemperature_c": 25,
+        "rateConstants": {
+          "k1a": 0.08,
+          "k1b": 4000,
+          "k1c": 300000,
+          "k2a": 2200000000,
+          "k2b": 25,
+          "k3": 2000000000,
+          "sulfiteKa1": 0.013,
+          "sulfiteKa2": 1e-7,
+          "bisulfateKa": 0.013,
+          "kw": 1e-14,
+          "triiodideBeta": 658.8235294117648
+        },
+        "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743209/",
+        "redoxSteps": [
+          {
+            "id": "R1",
+            "reactants": [
+              {
+                "formula": "IO3(-)",
+                "coefficient": 1
+              },
+              {
+                "formula": "HSO3(-)",
+                "coefficient": 3
+              }
+            ],
+            "products": [
+              {
+                "formula": "I(-)",
+                "coefficient": 1
+              },
+              {
+                "formula": "SO4(2-)",
+                "coefficient": 3
+              },
+              {
+                "formula": "H(+)",
+                "coefficient": 3
+              }
+            ],
+            "balance": {
+              "valid": true,
+              "atomDifference": {},
+              "chargeDifference": 0,
+              "errors": []
+            }
+          },
+          {
+            "id": "R2",
+            "reactants": [
+              {
+                "formula": "IO3(-)",
+                "coefficient": 1
+              },
+              {
+                "formula": "I(-)",
+                "coefficient": 5
+              },
+              {
+                "formula": "H(+)",
+                "coefficient": 6
+              }
+            ],
+            "products": [
+              {
+                "formula": "I2",
+                "coefficient": 3
+              },
+              {
+                "formula": "H2O",
+                "coefficient": 3
+              }
+            ],
+            "balance": {
+              "valid": true,
+              "atomDifference": {},
+              "chargeDifference": 0,
+              "errors": []
+            }
+          },
+          {
+            "id": "R3",
+            "reactants": [
+              {
+                "formula": "I2",
+                "coefficient": 1
+              },
+              {
+                "formula": "HSO3(-)",
+                "coefficient": 1
+              },
+              {
+                "formula": "H2O",
+                "coefficient": 1
+              }
+            ],
+            "products": [
+              {
+                "formula": "I(-)",
+                "coefficient": 2
+              },
+              {
+                "formula": "SO4(2-)",
+                "coefficient": 1
+              },
+              {
+                "formula": "H(+)",
+                "coefficient": 3
+              }
+            ],
+            "balance": {
+              "valid": true,
+              "atomDifference": {},
+              "chargeDifference": 0,
+              "errors": []
+            }
+          }
+        ],
+        "execution": "Progressive shared material model for manual/auto; native rule is a terminal stoichiometric predictor.",
+        "limitations": "Homogeneous ideal concentrations. No fitted temperature correction, oxygen transfer, spatial fronts, calorimetry or finite starch binding.",
         "oxidizingAcidBlocksHydrogenInference": false,
         "reactantPhases": {
           "KIO3": [
@@ -197514,7 +197762,7 @@
         "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
         "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
-      "finding_vi": "Có ít nhất hai bước redox; không tạo iot–tinh bột từ phương trình chỉ sinh iodide. Cần tinh bột để xanh đen.",
+      "finding_vi": "Ba bước redox dùng chung lượng iodate/iodide/iodine/S(IV)/sulfate hữu hạn và cân bằng điện tích. Hằng số tham chiếu 25 °C, không có thời gian chờ cố định. Không hiệu chuẩn nhiệt, oxy, hoạt độ hoặc liên kết tinh bột; xanh đen cần tinh bột trong bulk.",
       "sourceScope": "specific_observation",
       "quantitativeCalibration": "not_validated",
       "references": [
@@ -197524,9 +197772,9 @@
           "scope": "experiment"
         },
         {
-          "title": "RSC: Iodine clock reaction demonstration",
-          "url": "https://edu.rsc.org/experiments/iodine-clock-reaction-demonstration-method/744.article",
-          "scope": "experiment"
+          "title": "Liu & Taylor (2022): Influence of Oxygen on Chemoconvective Patterns in the Iodine Clock Reaction",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743209/",
+          "scope": "research"
         }
       ],
       "origin": "deterministic",
@@ -197535,8 +197783,8 @@
       "protocol": null,
       "runtime": "solver_rule",
       "automatic": false,
-      "explanation": "Có ít nhất hai bước redox; không tạo iot–tinh bột từ phương trình chỉ sinh iodide. Cần tinh bột để xanh đen.",
-      "observation": "Chuyển màu kỳ diệu trong chớp mắt: Dung dịch đang trong suốt bỗng đen sẫm lại tức thì như mực chỉ trong một phần mười giây!"
+      "explanation": "Ba bước redox dùng chung lượng iodate/iodide/iodine/S(IV)/sulfate hữu hạn và cân bằng điện tích. Hằng số tham chiếu 25 °C, không có thời gian chờ cố định. Không hiệu chuẩn nhiệt, oxy, hoạt độ hoặc liên kết tinh bột; xanh đen cần tinh bột trong bulk.",
+      "observation": "Iốt tích tụ có màu nâu khi thiếu tinh bột, xanh đen khi có tinh bột trong dung dịch đang phản ứng."
     },
     {
       "id": "aloh3_naoh_dissolution",
@@ -198538,7 +198786,7 @@
         "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
         "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
-      "finding_vi": "Có ít nhất hai bước redox; không tạo iot–tinh bột từ phương trình chỉ sinh iodide. Cần tinh bột để xanh đen.",
+      "finding_vi": "Ba bước redox dùng chung lượng iodate/iodide/iodine/S(IV)/sulfate hữu hạn và cân bằng điện tích. Hằng số tham chiếu 25 °C, không có thời gian chờ cố định. Không hiệu chuẩn nhiệt, oxy, hoạt độ hoặc liên kết tinh bột; xanh đen cần tinh bột trong bulk.",
       "sourceScope": "specific_observation",
       "quantitativeCalibration": "not_validated",
       "references": [
@@ -198548,9 +198796,9 @@
           "scope": "experiment"
         },
         {
-          "title": "RSC: Iodine clock reaction demonstration",
-          "url": "https://edu.rsc.org/experiments/iodine-clock-reaction-demonstration-method/744.article",
-          "scope": "experiment"
+          "title": "Liu & Taylor (2022): Influence of Oxygen on Chemoconvective Patterns in the Iodine Clock Reaction",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743209/",
+          "scope": "research"
         }
       ],
       "origin": "deterministic",
@@ -198559,7 +198807,7 @@
       "protocol": null,
       "runtime": "solver_rule",
       "automatic": false,
-      "explanation": "Có ít nhất hai bước redox; không tạo iot–tinh bột từ phương trình chỉ sinh iodide. Cần tinh bột để xanh đen.",
+      "explanation": "Ba bước redox dùng chung lượng iodate/iodide/iodine/S(IV)/sulfate hữu hạn và cân bằng điện tích. Hằng số tham chiếu 25 °C, không có thời gian chờ cố định. Không hiệu chuẩn nhiệt, oxy, hoạt độ hoặc liên kết tinh bột; xanh đen cần tinh bột trong bulk.",
       "observation": "Iot tích tụ có màu nâu; xanh đen chỉ khi có tinh bột."
     },
     {

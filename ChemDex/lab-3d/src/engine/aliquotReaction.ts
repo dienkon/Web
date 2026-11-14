@@ -8,6 +8,7 @@ import { planVerifiedContact, planConditionedContact } from './verifiedContactPl
 import { withLegacyPrecipitateOrigins } from '../science/precipitateInventory';
 import { planAluminumMaterialReaction } from './aluminumMaterialProgress';
 import { solutionIndicatorColor } from '../science/indicatorAppearance';
+import { isLandoltCandidate } from '../science/landoltClock';
 
 /** One chemistry path for already-metered liquid samples. Reagent molarity is
  * taken from the sample ledger, never reconstructed from a stock bottle. */
@@ -18,6 +19,7 @@ export function reactAliquotMixture(vessel: VesselState, language: Language, isH
   if (metalAcid) return metalAcid;
   const conditioned = planConditionedContact(vessel, language, isHeated);
   if (conditioned) return conditioned;
+  if (isLandoltCandidate(vessel.contents)) return { vessel, mixResult: null, kinetics: null as ActiveKineticsState | null };
   const chemistry = executeMultiStepReactions(withLegacyPrecipitateOrigins(vessel), vessel.substances,
     vessel.volume_ml, vessel.temperature_c, isHeated, language, { preserveQuantities: true });
   const reaction = chemistry.reactionsOccurred[0];

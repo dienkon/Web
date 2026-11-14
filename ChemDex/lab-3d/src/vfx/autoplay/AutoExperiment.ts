@@ -3,6 +3,7 @@ import type { ReactionProgram } from '../../shared/programSchema';
 import type { VesselState, SubstanceContent } from '../../types/chemistry';
 import { createStudioSample, planStudioProgram } from '../../engine/studioProgram';
 import { advanceReaction } from '../../engine/advanceReaction';
+import { landoltInventory } from '../../science/landoltClock';
 import type { ActiveKineticsState } from '../../store/useAppStore';
 import { stepAlcoholBurner, allocateBurnerHeat, burnerIsBurning } from '../../engine/burnerEnergy';
 import { pointInAlcoholFlame } from '../../science/flameGeometry';
@@ -210,6 +211,10 @@ export class AutoExperiment {
       : 'Đã hoàn tất trình tự. Có thể xem lại hoặc chọn thí nghiệm tiếp theo.');
   }
   get reactionReadout() {
+    if (this.program.id === 'iodine_clock') {
+      const t = landoltInventory(this.sample.contents, this.sample.volume_ml);
+      return { label: 'I₂ quy đổi', value: `${((t?.iodine ?? 0) * 1000).toPrecision(3)} mmol` };
+    }
     // Reversible phase changes do not have a monotone conversion percentage.
     return this.program.id === 'cuso4_nh3'
       ? { label: 'Kết tủa', value: `${(this.sample.precipitateAmount_g ?? 0).toPrecision(3)} g` }
@@ -375,7 +380,7 @@ export class AutoExperiment {
         this.replayProgress = advanceReaction(this.kinetics, this.sample, dt, this.stirringDrive > 0, burnerIsBurning(this.lamp));
         this.kinetics.progress = this.replayProgress;
         this.progress = this.contactProgress + (1 - this.contactProgress) * this.replayProgress;
-        const patch: Partial<VesselState> = this.replayProgress > previousReplay
+        const patch: Partial<VesselState> = this.replayProgress > previousReplay || this.program.id === 'iodine_clock'
           ? applyProgramWithThermalSinks(this.program, this.baseline, this.sample, this.replayProgress, dt) : { hasGas: false };
         if (patch.gasReplayBlocked) throw new Error('Mẫu đã chạm giới hạn mô hình pha khí.');
         this.sample = { ...this.sample, ...patch };
@@ -466,9 +471,9 @@ export class AutoExperiment {
     return contact;
   }
   private advanceContact(dt: number) {
-    if (this.program.id === 'cuso4_nh3') {
-      // A reversible partition cannot use monotone CuSO4 disappearance as
-      // completion: early precipitation must still redissolve in later NH3.
+    if (this.program.id === 'cuso4_nh3' || this.program.id === 'iodine_clock') {
+      // Coupled speciation changes analytical salt labels. Their disappearance
+      // is not completion, and later doses can still change the chemistry.
       this.contactCadence_s += dt;
       if (this.contactCadence_s < 0.05 - 1e-12) return;
       dt = this.contactCadence_s; this.contactCadence_s = 0;

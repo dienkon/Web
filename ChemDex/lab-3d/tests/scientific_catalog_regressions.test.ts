@@ -159,7 +159,8 @@ describe('Actual reagent phase, quantity and experimental conditions', () => {
     expect(solve(stoichiometric).finalLiquidColor).not.toBe('#0f172a');
     const excess = [amount('KIO3', 0.002), amount('NaHSO3', 0.003)];
     expect(solve(excess).finalLiquidColor).toBe('#99621d');
-    expect(solve(excess, 25, ['KIO3', 'NaHSO3', 'Starch']).finalLiquidColor).toBe('#0f172a');
+    expect(solve(excess, 25, ['KIO3', 'NaHSO3', 'Starch']).finalLiquidColor).toBe('#99621d');
+    expect(solve([...excess, amount('Starch', 1e-5)], 25, ['KIO3', 'NaHSO3', 'Starch']).finalLiquidColor).toBe('#0f172a');
   });
 
   it('creates copper hydroxide at low ammonia and dissolved complex in excess', () => {

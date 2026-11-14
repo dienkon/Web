@@ -1,4 +1,5 @@
 import { stepHydrogenExhaustCombustion, sodiumExternalIgnition } from '../engine/hydrogenExhaustCombustion';
+import { isLandoltCandidate } from '../science/landoltClock';
 import { acceptedFrameSeconds } from '../core/clock';
 import { create } from 'zustand';
 import { Vector3 } from 'three';
@@ -1898,7 +1899,7 @@ export const useAppStore = create<AppState>((set, get) => {
           kinetics.actualProgressRate_s = Math.max(0, newProgress - previousProgress) / effectiveDt;
         }
         kinetics.progress = newProgress;
-        if (newProgress === previousProgress) {
+        if (newProgress === previousProgress && kinetics.program?.id !== 'iodine_clock') {
           // An ineligible reaction must not replay its old baseline and restore
           // a removed catalyst/reagent. Thermal and gas sinks still step below.
           newVessels[vId] = { ...v, hasGas: false };
@@ -1944,13 +1945,9 @@ export const useAppStore = create<AppState>((set, get) => {
         // Continuous or multi-stage liquid color progression
         let blendedColor = interpolateColorHex(kinetics.initialLiquidColor, kinetics.targetLiquidColor, newProgress);
         if (rxId.includes('iodine_clock') || rxId.includes('kio3+nahso3')) {
-          // Landolt Iodine Clock: clear induction period until p = 0.70, then sudden flash to midnight blue-black
-          if (newProgress < 0.70) {
-            blendedColor = kinetics.initialLiquidColor || '#f8fafc';
-          } else {
-            const flashT = Math.min(1.0, (newProgress - 0.70) / 0.06);
-            blendedColor = interpolateColorHex(kinetics.initialLiquidColor || '#f8fafc', kinetics.targetLiquidColor || '#0f172a', flashT);
-          }
+          // Even a legacy saved effect follows the present material. A clip
+          // percentage cannot establish that iodine or starch exists.
+          blendedColor = projectAqueousSolution(v)?.liquidColor ?? v.liquidColor ?? '#f8fafc';
         } else if (rxId.includes('kmno4_oxalic') || rxId.includes('kmno4+h2c2o4')) {
           // Autocatalytic Mn2+ sigmoid curve: slow start then rapid decolorization through rose to clear
           const sigmoidT = 1.0 / (1.0 + Math.exp(-12.0 * (newProgress - 0.52)));
@@ -4051,6 +4048,12 @@ export const useAppStore = create<AppState>((set, get) => {
       };
       if (contactPlan) {
         publishContact(contactPlan);
+        return;
+      }
+      if (isLandoltCandidate(existingContents)) {
+        set(s => ({ vessels: { ...s.vessels, [targetId]: contactMixture },
+          globalWarning: get().language === 'vi' ? 'Mẫu đồng hồ iốt nằm ngoài miền mô hình nước/iodate/sulfite/sulfate Na/K; giữ nguyên lượng chất đã thêm.'
+            : 'This iodine-clock mixture is outside the supported aqueous Na/K iodate/sulfite/sulfate model; added matter is retained.' }));
         return;
       }
 

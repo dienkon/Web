@@ -1,0 +1,32 @@
+{
+  "checkedAt": "2026-11-14T01:47:45.051Z",
+  "early": {
+    "phase": "dose",
+    "elapsed_s": 10.966666666666791,
+    "color": "#f8fafc"
+  },
+  "final": {
+    "phase": "complete",
+    "error": null,
+    "color": "#0f172a",
+    "readout": {
+      "label": "I₂ quy đổi",
+      "value": "0.599 mmol"
+    }
+  },
+  "autoQuantities": {
+    "iodate": 0.0008001999744826679,
+    "sulfite": 0,
+    "iodide": 9.998724133564286e-7,
+    "iodine": 0.0005994000765519912
+  },
+  "manualQuantities": {
+    "iodate": 0.0008001999744826679,
+    "sulfite": 0,
+    "iodide": 9.998724133564286e-7,
+    "iodine": 0.0005994000765519912
+  },
+  "errors": [],
+  "browser": "Chromium + SwiftShader",
+  "experimentalClockTimesValidated": false
+}
