@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 import {
   ArrowRightLeft,
   RotateCw,
@@ -40,7 +41,22 @@ export const RadialMenu2D: React.FC<RadialMenu2DProps> = ({
     pipetteBuffer,
     toggleHeat,
     toggleBuretteStopcock,
-  } = useLabStore();
+  } = useLabStore(
+    useShallow((s) => ({
+      language: s.language,
+      openTransferModal: s.openTransferModal,
+      toggleStir: s.toggleStir,
+      addDistilledWater: s.addDistilledWater,
+      emptyEquipment: s.emptyEquipment,
+      toggleSeal: s.toggleSeal,
+      removeEquipment: s.removeEquipment,
+      drawWithPipette: s.drawWithPipette,
+      dispenseFromPipette: s.dispenseFromPipette,
+      pipetteBuffer: s.pipetteBuffer,
+      toggleHeat: s.toggleHeat,
+      toggleBuretteStopcock: s.toggleBuretteStopcock,
+    }))
+  );
 
   const vi = language === 'vi';
 

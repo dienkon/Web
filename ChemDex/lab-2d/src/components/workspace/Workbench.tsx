@@ -232,8 +232,7 @@ export const Workbench: React.FC = () => {
           storeAccum = 0;
         }
       }
-      useLabStore.getState().setRealtimeKinetics(true);
-    rafId = requestAnimationFrame(frame);
+      rafId = requestAnimationFrame(frame);
     };
 
     useLabStore.getState().setRealtimeKinetics(true);

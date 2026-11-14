@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 import { useLabStore } from '../../store/useLabStore';
 import { queryGeminiChemistryTutor } from '../../services/geminiService';
 import { Sparkles, Send, X, Bot, Beaker, MessageSquare, Flame, Key } from 'lucide-react';
@@ -9,7 +10,14 @@ interface GeminiAssistantModalProps {
 }
 
 export const GeminiAssistantModal: React.FC<GeminiAssistantModalProps> = ({ isOpen, onClose }) => {
-  const { equipment, selectedEquipmentId, language, toggleApiKeyModal } = useLabStore();
+  const { equipment, selectedEquipmentId, language, toggleApiKeyModal } = useLabStore(
+    useShallow((s) => ({
+      equipment: s.equipment,
+      selectedEquipmentId: s.selectedEquipmentId,
+      language: s.language,
+      toggleApiKeyModal: s.toggleApiKeyModal,
+    }))
+  );
   const [messages, setMessages] = useState<Array<{ sender: 'user' | 'ai'; text: string; time: string }>>([
     {
       sender: 'ai',

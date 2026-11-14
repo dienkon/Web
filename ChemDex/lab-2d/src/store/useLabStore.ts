@@ -480,10 +480,11 @@ function applyChemicalDoseDeltaOnVessel(
   const dropColor = isTransientBasicPlume ? '#ec4899' : chem.colorHex || '#38bdf8';
   const clampedX = Math.max(-0.85, Math.min(0.85, contactXNorm));
 
+  const wasEmpty = eq.volume_ml <= 0.01 && eq.contents.length === 0;
   const updatedVessel = applySimResultToEquipment(eq, newVolume, newTotalMass, simResult, {
     initialSolidMassByFormula: nextInitSolidMap,
     pourContactX: clampedX,
-    mixedness: Math.min(eq.mixedness ?? 0.6, 0.35),
+    mixedness: wasEmpty ? 1 : Math.min(eq.mixedness ?? 0.6, 0.35),
     activeReactionLabel: addPrep.activeReactionLabel,
     activeReactionProgress: addPrep.activeReactionProgress,
     silverMirrorProgress: addPrep.silverMirrorProgress,
@@ -530,7 +531,11 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
   setStudentNotes: (studentNotes) => set({studentNotes}),
   setSimulationPaused: (simulationPaused) => set({simulationPaused}),
   setSimTimeScale: (simTimeScale) => set({ simTimeScale }),
-  setRealtimeKinetics: (realtimeKinetics) => set({ realtimeKinetics }),
+  setRealtimeKinetics: (realtimeKinetics) => {
+    if (get().realtimeKinetics !== realtimeKinetics) {
+      set({ realtimeKinetics });
+    }
+  },
   setActiveTool: (activeTool) => set({ activeTool }),
   setSpatulaScoop: (spatulaScoop) => set({ spatulaScoop }),
   setActiveLitmusVesselId: (activeLitmusVesselId) => set({ activeLitmusVesselId }),
@@ -2750,7 +2755,8 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
     // (avoid double-stepping here during 12.5Hz store updates to prevent particle jitter).
 
     // 9. Process Sponge Wiping & Active Spill Puddle Chemistry on Workbench
-    let currentSpills = [...get().spillPuddles, ...newlyCreatedSpills];
+    const prevSpills = get().spillPuddles;
+    let currentSpills = newlyCreatedSpills.length > 0 ? [...prevSpills, ...newlyCreatedSpills] : prevSpills;
     const sponges = Object.values(nextEquipment).filter(e => e.type === 'sponge');
     if (sponges.length > 0 && currentSpills.length > 0) {
       const beforeCount = currentSpills.length;

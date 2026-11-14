@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 import { useLabStore } from '../../store/useLabStore';
 import { CheckCircle2, Circle, ChevronRight, ChevronLeft, HelpCircle, Lightbulb, BookOpen, Activity, Award } from 'lucide-react';
 
@@ -14,7 +15,20 @@ export const GuidedExperimentHUD: React.FC = () => {
     selectExperiment,
     toggleTitrationCurve,
     toggleQuizModal,
-  } = useLabStore();
+  } = useLabStore(
+    useShallow((s) => ({
+      activeExperiment: s.activeExperiment,
+      currentStepIndex: s.currentStepIndex,
+      stepCompleted: s.stepCompleted,
+      nextStep: s.nextStep,
+      completeExperiment: s.completeExperiment,
+      prevStep: s.prevStep,
+      language: s.language,
+      selectExperiment: s.selectExperiment,
+      toggleTitrationCurve: s.toggleTitrationCurve,
+      toggleQuizModal: s.toggleQuizModal,
+    }))
+  );
 
   const [showTheory, setShowTheory] = useState(false);
 

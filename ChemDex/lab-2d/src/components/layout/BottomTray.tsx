@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useLabStore } from '../../store/useLabStore';
 import { EquipmentType } from '../../types/equipment';
@@ -22,7 +23,12 @@ const QUICK_ITEMS: { type: EquipmentType; label_vi: string; label_en: string; ic
 ];
 
 export const BottomTray: React.FC = () => {
-  const { addEquipment, language } = useLabStore();
+  const { addEquipment, language } = useLabStore(
+    useShallow((s) => ({
+      addEquipment: s.addEquipment,
+      language: s.language,
+    }))
+  );
   const [collapsed, setCollapsed] = useState(false);
 
   return (

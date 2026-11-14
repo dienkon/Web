@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 import { Play, Pause, RotateCcw, SkipForward, Sparkles, X, Hand } from 'lucide-react';
 import { useLabStore } from '../../store/useLabStore';
 import { reactionRuntime2D } from '../../vfx/ReactionRuntime2D';
@@ -341,7 +342,13 @@ const SCENARIOS: ShowcaseScenario[] = [
 ];
 
 export const AutoShowcaseWorkspace: React.FC = () => {
-  const { isShowcaseActive, setShowcaseActive, language } = useLabStore();
+  const { isShowcaseActive, setShowcaseActive, language } = useLabStore(
+    useShallow((s) => ({
+      isShowcaseActive: s.isShowcaseActive,
+      setShowcaseActive: s.setShowcaseActive,
+      language: s.language,
+    }))
+  );
   const vi = language === 'vi';
   const [scenarioIndex, setScenarioIndex] = useState(0);
   const [stepIndex, setStepIndex] = useState(-1);

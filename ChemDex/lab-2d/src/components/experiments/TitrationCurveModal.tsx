@@ -1,4 +1,5 @@
 import React from 'react';
+import { useShallow } from 'zustand/react/shallow';
 import { useLabStore } from '../../store/useLabStore';
 import { X, Activity, Droplets, CheckCircle, Info } from 'lucide-react';
 
@@ -8,7 +9,12 @@ interface TitrationCurveModalProps {
 }
 
 export const TitrationCurveModal: React.FC<TitrationCurveModalProps> = ({ isOpen, onClose }) => {
-  const { equipment, language } = useLabStore();
+  const { equipment, language } = useLabStore(
+    useShallow((s) => ({
+      equipment: s.equipment,
+      language: s.language,
+    }))
+  );
 
   if (!isOpen) return null;
 

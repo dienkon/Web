@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 import { useLabStore } from '../../store/useLabStore';
 import { X, ArrowRight, Droplets, AlertTriangle } from 'lucide-react';
 
@@ -11,7 +12,17 @@ export const TransferModal: React.FC = () => {
     equipment,
     transferMaterial,
     language,
-  } = useLabStore();
+  } = useLabStore(
+    useShallow((s) => ({
+      isTransferModalOpen: s.isTransferModalOpen,
+      closeTransferModal: s.closeTransferModal,
+      transferSourceId: s.transferSourceId,
+      transferTargetId: s.transferTargetId,
+      equipment: s.equipment,
+      transferMaterial: s.transferMaterial,
+      language: s.language,
+    }))
+  );
 
   const [selectedTargetId, setSelectedTargetId] = useState<string>(transferTargetId || '');
   const [transferAmount, setTransferAmount] = useState<number>(25);

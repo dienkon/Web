@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 import { useLabStore } from '../../store/useLabStore';
 import { EXPERIMENT_QUIZZES } from '../../data/experimentQuizzes';
 import { X, Award, CheckCircle2, XCircle, HelpCircle, ArrowRight, RotateCcw } from 'lucide-react';
@@ -10,7 +11,12 @@ interface ExperimentQuizModalProps {
 }
 
 export const ExperimentQuizModal: React.FC<ExperimentQuizModalProps> = ({ isOpen, onClose }) => {
-  const { activeExperiment, language } = useLabStore();
+  const { activeExperiment, language } = useLabStore(
+    useShallow((s) => ({
+      activeExperiment: s.activeExperiment,
+      language: s.language,
+    }))
+  );
   const [selectedAnswers, setSelectedAnswers] = useState<Record<string, number>>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
 

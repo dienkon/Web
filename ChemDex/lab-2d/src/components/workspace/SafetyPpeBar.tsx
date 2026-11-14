@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 import { Shield, Eye, Hand, Wind, Sparkles, AlertTriangle, X } from 'lucide-react';
 import { useLabStore } from '../../store/useLabStore';
 
@@ -12,7 +13,18 @@ export const SafetyPpeBar: React.FC = () => {
     addEquipment,
     spillPuddles,
     cleanAllSpills,
-  } = useLabStore();
+  } = useLabStore(
+    useShallow((s) => ({
+      ppe: s.ppe,
+      togglePpe: s.togglePpe,
+      safetyAlerts: s.safetyAlerts,
+      dismissSafetyAlert: s.dismissSafetyAlert,
+      language: s.language,
+      addEquipment: s.addEquipment,
+      spillPuddles: s.spillPuddles,
+      cleanAllSpills: s.cleanAllSpills,
+    }))
+  );
   const isVi = language === 'vi';
   const [open, setOpen] = useState(false);
 

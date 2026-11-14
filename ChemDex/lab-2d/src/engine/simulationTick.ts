@@ -294,7 +294,8 @@ export function hotPlateHeatToVessel(plate: EquipmentState, eq: EquipmentState):
 export function stepMixing(eq: EquipmentState, dt: number): Partial<EquipmentState> {
   const speed = eq.stirringSpeed ?? 0;
   const rate = 0.08 + speed * 0.9; // s^-1 — stirring dramatically accelerates
-  const nextMixed = Math.min(1, (eq.mixedness ?? 1) + rate * dt * (1 - (eq.mixedness ?? 1)));
+  const rawMixed = Math.min(1, (eq.mixedness ?? 1) + rate * dt * (1 - (eq.mixedness ?? 1)));
+  const nextMixed = rawMixed >= 0.995 ? 1 : rawMixed;
   const solidPresent = eq.contents.some(c => c.state === 's' && c.moles > 1e-4);
   const dissolvingRate = solidPresent ? Math.min(1, rate * 0.5) : 0;
   return {
