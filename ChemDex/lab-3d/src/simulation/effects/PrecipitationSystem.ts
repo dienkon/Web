@@ -19,6 +19,7 @@ import { getFlocculationModel } from '../../science/flocculationModels';
 import { sameMolecularFormula } from '../../science/speciesIdentity';
 import { sedimentSupportPlane } from './sedimentPlane';
 import { settlingHindrance, supportsCompactHindrance, type SettlingHindrance } from '../../science/hinderedSettling';
+import { PRECIPITATE_TRANSPORT_CAPACITY, compactPrecipitateParcels, parcelNumberWeight } from '../../science/precipitateParcels';
 
 export interface PrecipitationSimulationParams extends ParticleBounds {
   carrierMode?: SuspensionCarrierMode;
@@ -51,6 +52,8 @@ export interface PrecipitationSimulationParams extends ParticleBounds {
 
 export class PrecipitationSystem {
   public particles: PhysicalPrecipitateParticle[] = [];
+  public readonly transportCapacity = PRECIPITATE_TRANSPORT_CAPACITY;
+  /** Rendering budget only; physical parcels are independent of this value. */
   public maxParticles: number;
   public profile: PrecipitateProfile;
   public sedimentBed: SedimentBedState;
@@ -64,11 +67,13 @@ export class PrecipitationSystem {
   public hindrance: SettlingHindrance | null = null;
   private hindranceCache?: { values: number[]; compact: boolean; result: SettlingHindrance };
 
-  private spawnTimer = 0;
   private nextId = 1;
   private trackedMass_g = 0;
   private pendingMass_g = 0;
   private pendingBedMass_g = 0;
+  private pendingNumberWeight = 0;
+  private pendingBedNumberWeight = 0;
+  private bedNumberWeight = 0;
   private suspendedPopulation: FlocculationPopulation;
   private settledPopulation: FlocculationPopulation;
   private populationInitialized = false;
@@ -107,16 +112,9 @@ export class PrecipitationSystem {
   public get emittedCount(): number {
     return this.nextId - 1;
   }
-  /** Change representative glyph count without changing physical particle
-   * size or total mass. Retained parcels absorb the removed parcel weights. */
+  /** Quality changes only the number of canonical parcels selected to draw. */
   public setParticleBudget(count: number): void {
     this.maxParticles = Number.isFinite(count) ? Math.max(0, Math.floor(count)) : 0;
-    if (this.particles.length <= this.maxParticles) return;
-    const removed = this.particles.splice(this.maxParticles);
-    const removedMass = removed.reduce((s, p) => s + p.mass_ug, 0);
-    const retainedMass = this.particles.reduce((s, p) => s + p.mass_ug, 0);
-    if (retainedMass > 0) for (const p of this.particles) p.mass_ug *= 1 + removedMass / retainedMass;
-    else this.pendingMass_g += removedMass / 1e6;
   }
   private rng: PRNG;
 
@@ -129,6 +127,8 @@ export class PrecipitationSystem {
     const removed = Math.min(mass_g, suspended), fraction = Math.max(0, 1 - removed / suspended);
     this.pendingMass_g *= fraction;
     this.pendingBedMass_g *= fraction;
+    this.pendingNumberWeight *= fraction;
+    this.pendingBedNumberWeight *= fraction;
     if (this.flocculationActive) this.suspendedPopulation.withdraw(removed);
     if (fraction === 0) this.particles = [];
     else for (const p of this.particles) p.mass_ug *= fraction;
@@ -221,7 +221,7 @@ export class PrecipitationSystem {
     this.trackedMass_g = 0;
     this.pendingMass_g = 0;
     this.pendingBedMass_g = 0;
-    this.spawnTimer = 0;
+    this.pendingNumberWeight = this.pendingBedNumberWeight = this.bedNumberWeight = 0;
     this.nextId = 1;
     this.lastInputMass_g = null;
     this.suspendedPopulation.reset(); this.settledPopulation.reset(); this.populationInitialized = false; this.appliedShear_s_1 = 0;
@@ -321,6 +321,7 @@ export class PrecipitationSystem {
     } else {
       const added = targetMass - this.trackedMass_g;
       this.pendingMass_g += added;
+      this.pendingNumberWeight += added / (this.profile.baseParticleRadius_mm * 1e-3) ** 3;
       if (flocculationModel) this.suspendedPopulation.addPrimarySolid(added, this.profile.baseParticleRadius_mm * 1e-3);
     }
     this.trackedMass_g = targetMass;
@@ -335,7 +336,10 @@ export class PrecipitationSystem {
       if (flocculationModel) this.settledPopulation.receive(this.suspendedPopulation.withdraw(this.suspendedPopulation.snapshot.solidMass_g));
       // Bulk dry-residue representation, not a simulated aerosol-deposition
       // trajectory. Transfer the EXISTING declared solid into its dry bed.
-      this.particles=[];this.pendingMass_g=this.pendingBedMass_g=this.spawnTimer=0;
+      this.bedNumberWeight += this.pendingNumberWeight + this.particles.reduce((sum, p) =>
+        sum + parcelNumberWeight(p, this.profile.baseParticleRadius_mm * 1e-3), 0);
+      this.particles=[];this.pendingMass_g=this.pendingBedMass_g=0;
+      this.pendingNumberWeight=this.pendingBedNumberWeight=0;
       this.sedimentBed.amount_g=targetMass;
       this.updateBedThickness(params);
       this.sedimentBed.resuspensionTurbidity=0;this.cloudiness=this.opticalDepth=0;
@@ -355,9 +359,14 @@ export class PrecipitationSystem {
     const stirring = Math.max(0, Math.min(1, agitation));
     const entrainmentRate = height > 1e-8 ? Math.max(0, stirring - 0.1) * 1.5 : 0;
     const entrainedMass = this.sedimentBed.amount_g * -Math.expm1(-entrainmentRate * dt);
+    const entrainedNumber = this.sedimentBed.amount_g > 0
+      ? this.bedNumberWeight * entrainedMass / this.sedimentBed.amount_g : 0;
+    this.bedNumberWeight -= entrainedNumber;
     this.sedimentBed.amount_g -= entrainedMass;
     this.pendingMass_g += entrainedMass;
     this.pendingBedMass_g += entrainedMass;
+    this.pendingNumberWeight += entrainedNumber;
+    this.pendingBedNumberWeight += entrainedNumber;
     if (flocculationModel) this.suspendedPopulation.receive(this.settledPopulation.withdraw(entrainedMass));
     const volume_ml = params.volume_ml ?? Math.PI * radius ** 2 * height * METERS_PER_SCENE_UNIT ** 3 * 1e6;
     const ownCompactVolume = supportsCompactHindrance(this.profile)
@@ -370,29 +379,33 @@ export class PrecipitationSystem {
     }
     const aggregate = flocculationModel ? this.suspendedPopulation.properties(flocculationModel, this.fluidDensity_kg_m3) : null;
     const crystalline = this.profile.morphology === 'crystalline';
-    const glyphMass = Math.max(1e-12, targetMass / this.maxParticles);
-    const newbornStart = this.particles.length;
-    const newbornAges_s: number[] = [];
-    // Only newly allocated mass may nucleate. Settled glyphs never respawn
-    // merely because a solid product still exists in the bottom of the vessel.
-    if (this.pendingMass_g > 1e-12 && this.particles.length < this.maxParticles) {
-      const glyphRate = crystalline ? 260 : 64, initialCredit = this.spawnTimer;
-      let birthIndex = 0;
-      this.spawnTimer = Math.min(this.maxParticles, this.spawnTimer + dt * glyphRate);
-      while (this.spawnTimer >= 1 - 32 * Number.EPSILON && this.pendingMass_g > 1e-12 && this.particles.length < this.maxParticles) {
-        this.spawnTimer = Math.max(0, this.spawnTimer - 1);
-        const bornAt_s = Math.max(0, Math.min(dt, (++birthIndex - initialCredit) / glyphRate));
+    // Chemistry supplies committed mass at the start of its held snapshot.
+    // Sample all of it immediately; a graphics emission rate cannot freeze an
+    // invisible reservoir or delay settling when display quality is increased.
+    if (this.pendingMass_g > 1e-12) {
+      const totalSuspended = this.pendingMass_g + this.particles.reduce((sum, p) => sum + p.mass_ug / 1e6, 0);
+      const sampleCount = Math.max(1, Math.ceil(this.transportCapacity * this.pendingMass_g / totalSuspended));
+      const parcelMass = this.pendingMass_g / sampleCount;
+      while (this.pendingMass_g > 1e-12) {
         const fromBed = this.pendingBedMass_g > 1e-12;
-        const representedMass = Math.min(glyphMass, this.pendingMass_g,
+        const poolMass = fromBed ? this.pendingBedMass_g : this.pendingMass_g - this.pendingBedMass_g;
+        const poolNumber = fromBed ? this.pendingBedNumberWeight : this.pendingNumberWeight - this.pendingBedNumberWeight;
+        const rPhys = poolNumber > 0 ? Math.cbrt(poolMass / poolNumber) : this.profile.baseParticleRadius_mm * 1e-3;
+        const representedMass = Math.min(parcelMass, this.pendingMass_g,
           fromBed ? this.pendingBedMass_g : Infinity);
         this.pendingMass_g -= representedMass;
-        if (fromBed) this.pendingBedMass_g = Math.max(0, this.pendingBedMass_g - representedMass);
-        const baseRad = this.profile.displayRadius_scene ?? (crystalline
+        const number = poolNumber > 0 ? representedMass / poolMass * poolNumber : representedMass / rPhys ** 3;
+        this.pendingNumberWeight = Math.max(0, this.pendingNumberWeight - number);
+        if (fromBed) {
+          this.pendingBedMass_g = Math.max(0, this.pendingBedMass_g - representedMass);
+          this.pendingBedNumberWeight = Math.max(0, this.pendingBedNumberWeight - number);
+        }
+        const baseRad = (this.profile.displayRadius_scene ?? (crystalline
           ? 0.003 + this.rng.next() * 0.003
-          : (this.profile.baseParticleRadius_mm * 1e-3) / METERS_PER_SCENE_UNIT);
+          : (this.profile.baseParticleRadius_mm * 1e-3) / METERS_PER_SCENE_UNIT))
+          * (flocculationModel ? 1 : rPhys / (this.profile.baseParticleRadius_mm * 1e-3));
         const rho_p = this.profile.particleDensity_g_cm3 * 1000; // kg/m3
         const rho_f = density_g_ml * 1000; // kg/m3
-        const rPhys = this.profile.baseParticleRadius_mm * 1e-3;
         const sceneSedSpeed = this.settlingSpeed(rPhys, rho_p, rho_f, viscosity_mPa_s * 0.001, METERS_PER_SCENE_UNIT)
           * this.hindranceFactor(rPhys, rho_p, rho_f, viscosity_mPa_s * 0.001, temp_c, compactVolume_ml, volume_ml);
 
@@ -407,7 +420,7 @@ export class PrecipitationSystem {
           // layer. Do not rely on an artificial long-lived particle impulse
           // to lift material: physical drag removes that impulse rapidly.
           const mixingLayer = Math.min(height * 0.25, 0.1) * stirring;
-          py = liquidBottomY + bedThickness + baseRad * 3 + 0.02 + mixingLayer;
+          py = liquidBottomY + bedThickness + rPhys / METERS_PER_SCENE_UNIT * 3 + 0.02 + mixingLayer;
           initVx = Math.cos(angle) * stirring * 0.05;
           initVz = Math.sin(angle) * stirring * 0.05;
           initVy = stirring * 0.15;
@@ -435,10 +448,10 @@ export class PrecipitationSystem {
           initVz = -up[2] * sceneSedSpeed;
         }
 
-        newbornAges_s.push(dt - bornAt_s);
         if (fromBed && bedPlane) {
           const mixingLayer = Math.min(height * 0.25, 0.1) * stirring;
-          const point = projectToLiquidPlane({ x: px, y: py, z: pz }, surfaceY, bedPlane, -baseRad * 3 - 0.02 - mixingLayer);
+          const point = projectToLiquidPlane({ x: px, y: py, z: pz }, surfaceY, bedPlane,
+            -rPhys / METERS_PER_SCENE_UNIT * 3 - 0.02 - mixingLayer);
           [px, py, pz] = [point.x, point.y, point.z];
         }
         const primaryGlyphRadius = baseRad * (0.8 + this.rng.next() * 0.4);
@@ -463,9 +476,11 @@ export class PrecipitationSystem {
           settled: false
         });
       }
-      // A depleted mass reservoir/full pool cannot bank old whole sampling
-      // attempts as a later burst. Retain only the fractional clock phase.
-      this.spawnTimer %= 1;
+      this.pendingNumberWeight = this.pendingBedNumberWeight = 0;
+      compactPrecipitateParcels(this.particles, this.transportCapacity, p => {
+        const point = { x: p.x, y: p.y, z: p.z, radius: p.physicalRadius_m! / METERS_PER_SCENE_UNIT };
+        if (containParticle(point, params)) { p.x = point.x; p.y = point.y; p.z = point.z; }
+      });
     }
 
     // 2. SIMULATE SUSPENDED PARTICLES (Brownian motion, aggregation, convection, sedimentation)
@@ -501,9 +516,9 @@ export class PrecipitationSystem {
         p.radius = p.primaryDisplayRadius_scene * aggregate.radius_m / (this.profile.baseParticleRadius_mm * 1e-3);
         p.aggregationLevel = Math.min(5, 1 + Math.log2(aggregate.meanPrimaryCount));
       }
-      // New glyphs only experience the remainder of their actual sampling
-      // step, not a full step of settling before they have been emitted.
-      const particleDt = i < newbornStart ? dt : newbornAges_s[i - newbornStart];
+      // The source snapshot owns this full substep; later queued material is
+      // not sampled until its own accepted interval reaches the integrator.
+      const particleDt = dt;
       p.age += particleDt;
       if (p.physicalRadius_m !== undefined) {
         p.sedimentationSpeed = this.settlingSpeed(p.physicalRadius_m, p.density,
@@ -516,6 +531,7 @@ export class PrecipitationSystem {
       if (p.sedimentationSpeed > 0 && (reachesBed(p, physicalExtent(p)) || reachesSupport(p, physicalExtent(p)))) {
         p.settled = true;
         newlySettledMass_g += p.mass_ug / 1e6;
+        this.bedNumberWeight += parcelNumberWeight(p, this.profile.baseParticleRadius_mm * 1e-3);
         continue;
       }
 
@@ -574,6 +590,7 @@ export class PrecipitationSystem {
         p.settled = true;
         // Transfer individual particle mass into the bottom sediment bed
         newlySettledMass_g += p.mass_ug / 1e6;
+        this.bedNumberWeight += parcelNumberWeight(p, this.profile.baseParticleRadius_mm * 1e-3);
         continue;
       }
 

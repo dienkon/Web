@@ -21,7 +21,7 @@ export function reactAliquotMixture(vessel: VesselState, language: Language, isH
   if (conditioned) return conditioned;
   if (isLandoltCandidate(vessel.contents)) return { vessel, mixResult: null, kinetics: null as ActiveKineticsState | null };
   const chemistry = executeMultiStepReactions(withLegacyPrecipitateOrigins(vessel), vessel.substances,
-    vessel.volume_ml, vessel.temperature_c, isHeated, language, { preserveQuantities: true });
+    vessel.volume_ml, vessel.temperature_c, isHeated, language, { preserveQuantities: true, vesselContact: vessel });
   const reaction = chemistry.reactionsOccurred[0];
   if (!reaction) {
     const verified = planVerifiedContact(vessel, language, isHeated);

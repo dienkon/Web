@@ -87,7 +87,7 @@ export function createStudioSample(program: ReactionProgram, shell: VesselState,
     addWater(acid.mass_g * (1 / fraction - 1));
   }
   else if (contents.some(item => item.phase === 'aq') || program.id.endsWith('_dissolution')
-    || program.id === 'na_h2o' || program.id === 'cac2_h2o') {
+    || program.id === 'na_h2o' || program.id === 'k_h2o' || program.id === 'cac2_h2o') {
     const fluidMass = contents.filter(item => item.phase === 'l' || item.phase === 'aq').reduce((sum, item) => sum + item.mass_g, 0);
     if (fluidMass >= 30) throw new Error('Mẫu vượt ngân sách dung môi của ví dụ.');
     addWater(30 - fluidMass);

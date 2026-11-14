@@ -4074,7 +4074,7 @@ export const useAppStore = create<AppState>((set, get) => {
         vessel.temperature_c,
         isHeated,
         get().language,
-        { preserveQuantities: true }
+        { preserveQuantities: true, vesselContact: contactMixture }
       );
 
       const aluminumPlan = planAluminumMaterialReaction(contactMixture, multiStep);

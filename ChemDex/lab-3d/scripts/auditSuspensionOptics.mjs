@@ -36,7 +36,7 @@ try {
     report.chords.push({ rayX, expected, measured: pixel[0] / 255 });
   }
   report.concentrated = [];
-  for (const opticalDepth of [20, 40]) {
+  for (const opticalDepth of [0, 20, 40]) {
     const pixel = await page.evaluate(opticalDepth => window.opticalReference({ scale: 0.025, opticalDepth }), opticalDepth);
     const expected = 1 - Math.exp(-opticalDepth * 0.05);
     assert(Math.abs(pixel[0] / 255 - expected) < 0.015, JSON.stringify({ opticalDepth, expected, pixel }));

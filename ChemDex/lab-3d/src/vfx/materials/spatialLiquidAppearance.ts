@@ -3,6 +3,7 @@ import { LiquidAppearanceField } from '../../simulation/effects/LiquidAppearance
 import type { ParticleBounds } from '../../simulation/effects/particleBounds';
 import { metersPerModelUnit } from '../../science/sceneUnits';
 import { SUSPENSION_REFERENCE_PATH_M } from '../../science/opticalDepth';
+import { SUSPENSION_RAY_GEOMETRY } from './suspensionRayGeometry';
 
 export function createSpatialLiquidAppearance(field: LiquidAppearanceField) {
   const texture = new THREE.DataTexture(field.pixels, field.size ** 2, field.size, THREE.RGBAFormat);
@@ -15,13 +16,17 @@ export function createSpatialLiquidAppearance(field: LiquidAppearanceField) {
   const uniforms = { uAppearanceAtlas: { value: texture }, uAppearanceMin: { value: new THREE.Vector3() },
     uAppearanceSize: { value: new THREE.Vector3(2, 1, 2) }, uAppearanceSuspension: { value: new THREE.Color('white') },
     uAppearanceWorldToLocal: { value: new THREE.Matrix4() },
-    uAppearanceRadii: { value: new Float32Array(32).fill(1) },
+    uAppearanceContour: { value: Array.from({ length: 32 }, () => new THREE.Vector2()) },
+    uAppearanceContourCount: { value: 0 },
     uAppearanceSurface: { value: new THREE.Vector4(0, 1, 0, 1e6) },
     uAppearanceVortex: { value: new THREE.Vector4(1, 0, 0, 0) },
     uSuspensionAtlas: { value: opticalTexture }, uHasSuspensionAtlas: { value: false },
+    uHasVisibleSuspension: { value: false },
     uOpticalPathScale: { value: 1 } };
   let revision = -1;
   let suspensionRevision = -1;
+  let spatialVisible = false, fallbackVisible = false;
+  let contourProfile: ParticleBounds['vesselProfile'];
   let contourKey: string | undefined;
   return { uniforms, texture, opticalTexture, dispose() { texture.dispose(); opticalTexture.dispose(); },
     update(suspension: string, matrixWorld?: THREE.Matrix4, bounds?: ParticleBounds) {
@@ -31,25 +36,40 @@ export function createSpatialLiquidAppearance(field: LiquidAppearanceField) {
     uniforms.uHasSuspensionAtlas.value = field.usesSpatialSuspension;
     uniforms.uOpticalPathScale.value = metersPerModelUnit(bounds?.vesselProfile) / SUSPENSION_REFERENCE_PATH_M;
     if (suspensionRevision !== field.suspensionRevision) {
+      spatialVisible = false;
       for (let i = 0; i < opticalPixels.length; i += 4) {
         // Preserve chromatic ratios even beyond half-float's depth range.
         const scale = Math.min(1, 65504 / Math.max(1, field.suspensionOptics[i + 3]));
+        spatialVisible ||= field.suspensionOptics[i + 3] > 0;
         for (let c = 0; c < 4; c++) opticalPixels[i + c] = THREE.DataUtils.toHalfFloat(field.suspensionOptics[i + c] * scale);
       }
       opticalTexture.needsUpdate = true; suspensionRevision = field.suspensionRevision;
     }
     if (matrixWorld) uniforms.uAppearanceWorldToLocal.value.copy(matrixWorld).invert();
     const key = `${bounds?.vesselProfile?.type}:${field.radius}:${field.baseY}:${field.depth}`;
-    if (key !== contourKey) {
-      for (let i = 0; i < 32; i++) uniforms.uAppearanceRadii.value[i] =
-        bounds?.vesselProfile?.r(field.baseY + field.depth * i / 31) ?? field.radius;
-      contourKey = key;
+    if (key !== contourKey || contourProfile !== bounds?.vesselProfile) {
+      const points = bounds?.vesselProfile?.contour ?? (bounds?.vesselProfile
+        ? Array.from({ length: 32 }, (_, i) => {
+          const y = field.baseY + field.depth * i / 31;
+          return [bounds.vesselProfile!.r(y), y];
+        }) : [[field.radius, field.baseY], [field.radius, field.baseY + field.depth]]);
+      // Catalog contours currently have at most 18 nodes. Do not resample away
+      // sharp shoulders/corners; the same polyline defines the glass geometry.
+      if (points.length > 32) throw new Error('Liquid optical contour exceeds 32 nodes');
+      points.forEach(([r, y], i) => uniforms.uAppearanceContour.value[i].set(r, y));
+      uniforms.uAppearanceContourCount.value = points.length;
+      contourKey = key; contourProfile = bounds?.vesselProfile;
     }
     const plane = bounds?.surfacePlane, vortex = plane?.vortex;
     uniforms.uAppearanceSurface.value.set(plane?.normal[0] ?? 0, plane?.normal[1] ?? 1, plane?.normal[2] ?? 0,
       plane?.offset ?? bounds?.surfaceY ?? field.baseY + field.depth);
     uniforms.uAppearanceVortex.value.set((vortex?.coreRadius ?? 1) ** 2, vortex?.amplitude ?? 0, vortex?.offset ?? 0, vortex ? 1 : 0);
-    if (revision !== field.revision) { texture.needsUpdate = true; revision = field.revision; }
+    if (revision !== field.revision) {
+      texture.needsUpdate = true; revision = field.revision;
+      fallbackVisible = false;
+      for (let i = 3; i < field.pixels.length && !fallbackVisible; i += 4) fallbackVisible = field.pixels[i] > 0;
+    }
+    uniforms.uHasVisibleSuspension.value = field.usesSpatialSuspension ? spatialVisible : fallbackVisible;
   } };
 }
 export function shadeSpatialLiquid(shader: THREE.WebGLProgramParametersWithUniforms,
@@ -57,11 +77,12 @@ export function shadeSpatialLiquid(shader: THREE.WebGLProgramParametersWithUnifo
   Object.assign(shader.uniforms, uniforms);
   shader.fragmentShader = `
     uniform sampler2D uAppearanceAtlas, uSuspensionAtlas;
-    uniform bool uHasSuspensionAtlas;
+    uniform bool uHasSuspensionAtlas, uHasVisibleSuspension;
     uniform float uOpticalPathScale;
     uniform vec3 uAppearanceMin, uAppearanceSize, uAppearanceSuspension;
     uniform mat4 uAppearanceWorldToLocal;
-    uniform float uAppearanceRadii[32];
+    uniform vec2 uAppearanceContour[32];
+    uniform int uAppearanceContourCount;
     uniform vec4 uAppearanceSurface, uAppearanceVortex;
     vec4 sampleAppearanceAtlas(sampler2D atlas, vec3 p) {
       vec3 g = clamp((p - uAppearanceMin) / uAppearanceSize, 0.0, 1.0) * 11.0;
@@ -71,7 +92,9 @@ export function shadeSpatialLiquid(shader: THREE.WebGLProgramParametersWithUnifo
       return mix(texture2D(atlas, a), texture2D(atlas, b), fract(g.z));
     }
     vec4 sampleLiquidAppearance(vec3 p) { return sampleAppearanceAtlas(uAppearanceAtlas, p); }
+    ${SUSPENSION_RAY_GEOMETRY}
     vec4 suspendedOptics(vec3 p) {
+      if (!uHasVisibleSuspension) return vec4(0.0);
       vec3 eye = (uAppearanceWorldToLocal * vec4(cameraPosition, 1.0)).xyz;
       // Orthographic rays are parallel; camera position is not their origin.
       vec3 cameraForward = -vec3(viewMatrix[0][2], viewMatrix[1][2], viewMatrix[2][2]);
@@ -82,54 +105,8 @@ export function shadeSpatialLiquid(shader: THREE.WebGLProgramParametersWithUnifo
       vec3 nearBox = min(a, b), farBox = max(a, b);
       float enter = max(0.0, max(nearBox.x, max(nearBox.y, nearBox.z)));
       float leave = min(farBox.x, min(farBox.y, farBox.z));
-      float stepLength = max(0.0, leave - enter) / 12.0;
-      float transmission = 1.0;
-      vec3 scattered = vec3(0.0);
-      // Integrate the coarse suspended-solid field through the vessel. Sampling
-      // only the glass wall would hide a plume in the middle and paint its cap.
-      for (int i = 0; i < 12; i++) {
-        float start = enter + float(i) * stepLength;
-        vec3 q = p + ray * (start + 0.5 * stepLength);
-        float height = clamp((q.y - uAppearanceMin.y) / uAppearanceSize.y, 0.0, 1.0) * 31.0;
-        int low = int(floor(height));
-        float wall = mix(uAppearanceRadii[low], uAppearanceRadii[min(31, low + 1)], fract(height));
-        // Fractional segment/chord overlap avoids binary edge aliasing. This
-        // is exact for a cylinder; a tapered wall is locally cylindrical over
-        // this height interval, consistent with the coarse density quadrature.
-        vec3 segment = p + ray * start;
-        float segmentNear = 0.0, segmentFar = stepLength;
-        float radialA = dot(ray.xz, ray.xz), radialB = dot(segment.xz, ray.xz);
-        float radialC = dot(segment.xz, segment.xz) - wall * wall;
-        if (radialA > 0.00000001) {
-          float discriminant = radialB * radialB - radialA * radialC;
-          if (discriminant <= 0.0) continue;
-          float root = sqrt(discriminant);
-          segmentNear = max(segmentNear, (-radialB - root) / radialA);
-          segmentFar = min(segmentFar, (-radialB + root) / radialA);
-        } else if (radialC > 0.0) continue;
-        if (uAppearanceVortex.w < 0.5) {
-          float planeDepth = uAppearanceSurface.w - dot(uAppearanceSurface.xyz, segment);
-          float planeSlope = dot(uAppearanceSurface.xyz, ray);
-          if (planeSlope > 0.00000001) segmentFar = min(segmentFar, planeDepth / planeSlope);
-          else if (planeSlope < -0.00000001) segmentNear = max(segmentNear, planeDepth / planeSlope);
-          else if (planeDepth < 0.0) continue;
-        }
-        float wetLength = max(0.0, segmentFar - segmentNear);
-        if (wetLength <= 0.0) continue;
-        q = segment + ray * (0.5 * (segmentNear + segmentFar));
-        float r2 = dot(q.xz, q.xz);
-        float surfaceDepth = uAppearanceSurface.w - dot(uAppearanceSurface.xyz, q);
-        if (uAppearanceVortex.w > 0.5) surfaceDepth = uAppearanceVortex.z
-          + uAppearanceVortex.y * r2 / (uAppearanceVortex.x + r2) - q.y;
-        if (surfaceDepth >= -0.000001) {
-          vec4 optics = uHasSuspensionAtlas ? sampleAppearanceAtlas(uSuspensionAtlas, q)
-            : vec4(uAppearanceSuspension, 1.0) * -log(max(0.0001, 1.0 - sampleLiquidAppearance(q).a));
-          float alpha = 1.0 - exp(-optics.a * wetLength * uOpticalPathScale);
-          scattered += transmission * alpha * optics.rgb / max(0.000001, optics.a);
-          transmission *= 1.0 - alpha;
-        }
-      }
-      return vec4(scattered / max(0.000001, 1.0 - transmission), 1.0 - transmission);
+      if (leave <= enter) return vec4(0.0);
+      return integrateVesselSuspension(p, ray, enter, leave);
     }
   ` + shader.fragmentShader;
   shader.fragmentShader = shader.fragmentShader.replace('#include <color_fragment>', `#include <color_fragment>

@@ -2,14 +2,15 @@ import * as THREE from 'three';
 import type { ReactionProgram } from '../shared/programSchema';
 import type { VesselState } from '../types/chemistry';
 import { findChemical, getSolidMorphology } from '../data/chemicals';
-import { createStockSolidGeometry } from '../components/three/stockSolidGeometry';
-import { createStockSolidLayout } from '../components/three/stockSolidLayout';
-import { createPowderPileGeometry } from '../components/three/powderPileGeometry';
+import { createStockSolidGeometry } from './stockSolidGeometry';
+import { createStockSolidLayout } from './stockSolidLayout';
+import { createPowderPileGeometry } from './powderPileGeometry';
 import { sameMolecularFormula } from './speciesIdentity';
 import { stockLocalMatrix } from '../physical/stockCoordinates';
 import { contourRadius, solidSceneVolume, vesselInterior } from './vesselDimensions';
 import { vesselLiquidSurfaceY } from './vesselGeometry';
 import { pourContactRemaining } from './pourContactActivity';
+import { sampleGeometrySurface, type StockSurfaceSample } from './stockSurfaceSamples';
 import { pointPlaneDepth, projectToLiquidPlane, type LiquidPlane } from '../simulation/effects/liquidParticleFrame';
 
 export interface ReactionGasSource {
@@ -21,35 +22,10 @@ export interface ReactionGasSource {
   weight: number;
   normal?: readonly [number, number, number];
 }
-interface SurfaceSample { point: THREE.Vector3; normal: THREE.Vector3; area: number }
+type SurfaceSample = StockSurfaceSample;
 const meshes = new Map<string, { geometry: THREE.BufferGeometry; samples: SurfaceSample[] }>();
 const powderSurfaces = new Map<string, SurfaceSample[]>();
-
-/** Bounded, deterministic area quadrature. Surface samples keep emissions on
- * the actual macro mesh instead of its bounding sphere or the heater floor. */
-function surfaceSamples(geometry: THREE.BufferGeometry, count = 32): SurfaceSample[] {
-  const positions = geometry.getAttribute('position'), index = geometry.index;
-  const triangles: SurfaceSample[] = [], a = new THREE.Vector3(), b = new THREE.Vector3(), c = new THREE.Vector3();
-  let totalArea = 0;
-  for (let i = 0; i < (index?.count ?? positions.count); i += 3) {
-    a.fromBufferAttribute(positions, index ? index.getX(i) : i);
-    b.fromBufferAttribute(positions, index ? index.getX(i + 1) : i + 1);
-    c.fromBufferAttribute(positions, index ? index.getX(i + 2) : i + 2);
-    const normal = b.clone().sub(a).cross(c.clone().sub(a)), area = normal.length() / 2;
-    if (!(area > 1e-12)) continue;
-    totalArea += area;
-    triangles.push({ point: a.clone().add(b).add(c).multiplyScalar(1 / 3), normal: normal.normalize(), area });
-  }
-  if (!triangles.length) return [];
-  const result: SurfaceSample[] = [];
-  let triangle = 0, area = triangles[0].area;
-  for (let i = 0; i < count; i++) {
-    const target = totalArea * (i + 0.5) / count;
-    while (area < target && triangle < triangles.length - 1) area += triangles[++triangle].area;
-    result.push({ ...triangles[triangle], area: totalArea / count });
-  }
-  return result;
-}
+const surfaceSamples = (geometry: THREE.BufferGeometry) => sampleGeometrySurface(geometry, 32);
 
 function stockMesh(formula: string, morphology: ReturnType<typeof getSolidMorphology>) {
   const key = `${morphology}:${formula}`;

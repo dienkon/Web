@@ -33,10 +33,14 @@ function ControlledCarrier({ id }: { id: string }) {
     agitationOverride={vessel.stirringIntensity} /></VesselEffectsFrame>;
 }
 let serial = 0;
+function specimenPosition(index: number): [number, number, number] {
+  return [(index % 3 - 1) * 4.9, 0, (Math.floor(index / 3) - 0.5) * 5.4];
+}
 function Labels({ labels, specimens, ids }: { labels: React.RefObject<HTMLDivElement | null>[]; specimens: Specimen[]; ids: string[] }) {
   const point = new THREE.Vector3();
   useFrame(({ camera, size }) => labels.forEach((ref, i) => {
-    point.set((i % 3 - 1) * 4.9, -0.8, (Math.floor(i / 3) - 0.5) * 5.4 + 1.75).project(camera);
+    const [x, , z] = specimenPosition(i);
+    point.set(x, -0.8, z + 1.75).project(camera);
     if (ref.current) {
       ref.current.style.left = `${(point.x + 1) * size.width / 2}px`;
       ref.current.style.top = `${(1 - point.y) * size.height / 2}px`;
@@ -64,6 +68,10 @@ function renderSpecimens(specimens: Specimen[]) {
   const vessels = Object.fromEntries(specimens.map((spec, i) => {
     const id = `appearance-${batch}-${i}`;
     let vessel = empty(id);
+    // Store pose and scene pose share the production world-coordinate contract.
+    // An offset wrapper with a zero store pose piles all caustics at the origin
+    // and gives world/local physical queries a different center from the glass.
+    vessel.position = specimenPosition(i);
     if (spec.mode === 'product') {
       const profile = getPrecipitateProfile(spec.formula, spec.formation), mass = spec.grams ?? 0.05;
       vessel.contents = [{ formula: 'H2O', phase: 'l', mass_g: 30, moles: 30 / 18.015 },
@@ -123,11 +131,11 @@ function renderSpecimens(specimens: Specimen[]) {
       </Environment>
       <Labels labels={labels} specimens={specimens} ids={Object.keys(vessels)} />
       {specimens.map((spec, i) => {
-        const x = (i % 3 - 1) * 4.9, z = (Math.floor(i / 3) - 0.5) * 5.4, id = `appearance-${batch}-${i}`;
-        return <group key={`${id}-${spec.formula}-${spec.formation}`} position={[x, 0, z]}>
-          <Beaker id={id} position={[0, 0, 0]} />
+        const [x, , z] = specimenPosition(i), id = `appearance-${batch}-${i}`;
+        return <group key={`${id}-${spec.formula}-${spec.formation}`}>
+          <Beaker id={id} position={vessels[id].position} />
           {(spec.mode === 'product' || spec.deposit) && <ControlledCarrier id={id} />}
-          <mesh position={[0, -1.02, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+          <mesh position={[x, -1.02, z]} rotation={[-Math.PI / 2, 0, 0]}>
             <planeGeometry args={[4.5, 4.6]} /><meshStandardMaterial color="#cbd3da" roughness={1} />
           </mesh>
         </group>;

@@ -69,6 +69,11 @@
   ],
   "concentrated": [
     {
+      "opticalDepth": 0,
+      "expected": 0,
+      "measured": 0
+    },
+    {
       "opticalDepth": 20,
       "expected": 0.6321205588285577,
       "measured": 0.6313725490196078

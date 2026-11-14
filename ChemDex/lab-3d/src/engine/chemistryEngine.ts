@@ -22,6 +22,7 @@ import { silverChlorideExtent } from '../science/silverChloridePrecipitation';
 import { copperHydroxideExtent } from '../science/copperHydroxidePrecipitation';
 import { ferricHydroxideExtent, ferricChlorideAqueousState, ferricHydroxideDissolutionExtent } from '../science/ferricHydroxidePrecipitation';
 import { aluminumReactionExtent, aluminumReactionEnthalpy_J_mol, aluminumAqueousState } from '../science/aluminumHydroxideEquilibrium';
+import { partitionDryStock } from '../physical/stockLiquidContact';
 
 export interface DeterministicReaction {
   equilibriumOnly?: boolean; // Inventory is handled by a finite phase/speciation solver.
@@ -1148,7 +1149,7 @@ export function executeMultiStepReactions(
   initialTemperature_c: number,
   isHeated: boolean,
   lang: 'en' | 'vi' = 'vi',
-  options: { preserveQuantities?: boolean } = {}
+  options: { preserveQuantities?: boolean; vesselContact?: import('../types/chemistry').VesselState } = {}
 ): MultiStepReactionResult {
   // Metered tools must retain sub-drop quantities. Legacy callers keep their
   // display-oriented rounding until separately migrated and verified.
@@ -1213,7 +1214,8 @@ export function executeMultiStepReactions(
     mass_g: workingContents.reduce((sum, c) => sum + c.mass_g, 0), temperature_c: currentTemp, ph: 7,
     position: [0, 0, 0], rotationY: 0, isLocked: false, contents: workingContents,
     substances: initialSubstances, hasGas: false, hasPrecipitate: false, isBoiling: false };
-  const copperPatch = applyCopperAmmoniaLedger(copperSource, 1);
+  const copperContact = options.vesselContact ? { ...options.vesselContact, contents: workingContents, volume_ml, temperature_c: currentTemp } : undefined;
+  const copperPatch = applyCopperAmmoniaLedger(copperContact ?? copperSource, 1);
   if (copperPatch?.contents) {
     const sameAmounts = (a: SubstanceContent[], b: SubstanceContent[]) => {
       const keys = new Set([...a, ...b].map(c => `${c.formula}|${c.phase}|${c.location ?? 'bulk'}`));
@@ -1222,7 +1224,7 @@ export function executeMultiStepReactions(
     };
     if (!sameAmounts(workingContents, copperPatch.contents)) {
       const model = DETERMINISTIC_REACTIONS.find(r => r.id === 'cuso4_nh3_complex')!;
-      const copper = copperAmmoniaEquilibrium(workingContents, volume_ml, currentTemp)!;
+      const copper = copperAmmoniaEquilibrium(copperContact ? partitionDryStock(copperContact).reactiveContents : workingContents, volume_ml, currentTemp)!;
       const heat = copperPatch.programHeatApplied_J ?? 0;
       reactionsOccurred.push({ reactionId: model.id, equation: COPPER_AMMONIA_EQUATION,
         summary: lang === 'vi' ? 'Cân bằng đồng–ammonia: lượng kết tủa và các phức phụ thuộc nồng độ, pH và nhiệt độ.'
@@ -1242,6 +1244,12 @@ export function executeMultiStepReactions(
     if (activeSubstances.length === 0) break;
 
     const reactionContents = bulkInventory(workingContents);
+    const dryRows = options.vesselContact ? new Set(partitionDryStock({ ...options.vesselContact,
+      contents: workingContents, volume_ml, temperature_c: currentTemp }).inertContents) : new Set<SubstanceContent>();
+    const requiresLiquidContact = (reaction: DeterministicReaction) => reaction.reactants.some(required => workingContents.some(item =>
+      ['aq', 'l'].includes(item.phase ?? '') && availableNativeReagent(item, required, reactionThreshold)));
+    const availableForReaction = (item: SubstanceContent, required: string, reaction: DeterministicReaction) =>
+      availableNativeReagent(item, required, reactionThreshold) && (!requiresLiquidContact(reaction) || !dryRows.has(item));
     // Find candidate deterministic reaction
     let aluminumLimitForCandidate: number | undefined;
     const candidate = DETERMINISTIC_REACTIONS.find(r => {
@@ -1249,9 +1257,9 @@ export function executeMultiStepReactions(
       if (r.products.H2 && hasOxidizingAcid(reactionContents)) return false;
       if (!matchesReactants(activeSubstances, r.reactants)) return false;
       if (r.id === 'h2o2_mno2_decomposition' && !workingContents.some(item =>
-        availableReagent(item, 'MnO2', 's', reactionThreshold))) return false;
+        availableReagent(item, 'MnO2', 's', reactionThreshold) && !dryRows.has(item))) return false;
 
-      if (!r.reactants.every(required => workingContents.some(item => availableNativeReagent(item, required, reactionThreshold)))) return false;
+      if (!r.reactants.every(required => workingContents.some(item => availableForReaction(item, required, r)))) return false;
       if (volume_ml <= 0 && r.reactants.some(required => workingContents.some(item =>
         item.phase === 'aq' && availableNativeReagent(item, required, reactionThreshold)))) return false;
       const aluminumLimit = aluminumReactionExtent(r.id, reactionContents, volume_ml, currentTemp);
@@ -1270,7 +1278,7 @@ export function executeMultiStepReactions(
     const reagentItem = (formula: string) => {
       const eligible = workingContents.filter(item => {
         const required = candidate.reactants.find(required => sameMolecularFormula(required, formula));
-        return availableNativeReagent(item, required ?? formula, reactionThreshold);
+        return availableForReaction(item, required ?? formula, candidate);
       });
       // Neutralize the dissolved carbonate pool before attacking more rock.
       return sameMolecularFormula(formula, 'CaCO3')
@@ -1479,7 +1487,9 @@ export function executeMultiStepReactions(
   const aluminumState = aqueousEquilibrium || ferricState ? null : aluminumAqueousState(updatedContents, volume_ml, currentTemp);
   if (aluminumState) finalPh = aluminumState.ph;
 
-  const copperState = copperAmmoniaEquilibrium(updatedContents, volume_ml, currentTemp, true);
+  const copperProjectionContents = options.vesselContact ? partitionDryStock({ ...options.vesselContact,
+    contents: updatedContents, volume_ml, temperature_c: currentTemp }).reactiveContents : updatedContents;
+  const copperState = copperAmmoniaEquilibrium(copperProjectionContents, volume_ml, currentTemp, true);
   if (copperState) finalPh = copperState.state.ph;
 
   const iodinePresent = updatedContents.some(item => availableReagent(item, 'I2', 'aq', moleThreshold));
@@ -1532,7 +1542,7 @@ export function executeMultiStepReactions(
 
   const indicatorTint = aqueousEquilibrium ? solutionIndicatorColor(updatedContents, finalPh) : null;
   if (indicatorTint) finalLiquidColor = indicatorTint;
-  if (copperState) finalLiquidColor = copperAmmoniaColor(updatedContents, volume_ml);
+  if (copperState) finalLiquidColor = copperAmmoniaColor(copperProjectionContents, volume_ml);
   const thermallyBoiling = volume_ml > 0.5 && currentTemp >= aqueousBoilingPoint({ contents: updatedContents, volume_ml });
 
   // 7. Combined MixResult for UI display and history

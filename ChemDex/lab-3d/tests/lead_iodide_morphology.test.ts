@@ -5,7 +5,8 @@ import { PrecipitationSystem } from '../src/simulation/effects/PrecipitationSyst
 import type { VesselState } from '../src/types/chemistry';
 
 const sample = (temperature_c = 25) => ({ type: 'flask', temperature_c,
-  volume_ml: 100, capacity_ml: 250, contents: [{ formula: 'PbI2', phase: 's', mass_g: 0.2, moles: 0.2 / 461.01 }],
+  volume_ml: 100, capacity_ml: 250, contents: [{ formula: 'PbI2', phase: 's', mass_g: 0.2, moles: 0.2 / 461.01 },
+    { formula: 'H2O', phase: 'l', mass_g: 100, moles: 100 / 18.015 }],
   precipitateAmount_g: 0.2, precipitateSubstance: 'PbI2' } as VesselState);
 const step = (v: VesselState) => ({ ...v, ...partitionLeadIodide(v, 0.1) });
 
@@ -27,7 +28,7 @@ describe('PbI2 direct precipitation and cooling crystallization', () => {
     expect(v.precipitateMorphology).toBe('CRYSTAL_PLATE');
     for (let i = 0; i < 20; i++) v = step(v);
     expect(v.precipitateMorphology).toBe('CRYSTAL_PLATE');
-    expect(v.contents.reduce((s, x) => s + x.mass_g, 0)).toBeCloseTo(0.2, 12);
+    expect(v.contents.reduce((s, x) => s + x.mass_g, 0)).toBeCloseTo(100.2, 12);
     const system = new PrecipitationSystem();
     system.update(0.1, { temp_c: 20, viscosity_mPa_s: 1, density_g_ml: 1, radius: 1,
       liquidBottomY: 0, surfaceY: 1, precipitateAmount_g: v.precipitateAmount_g!,

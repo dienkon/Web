@@ -7,16 +7,28 @@ import { ensureHeadspaceReference, gasPressurePatch } from './headspacePressure'
 import { projectAqueousSolution } from './aqueousProjection';
 import { reconcileReplayGas } from './replayGasBoundary';
 import { stepLandoltLedger } from './landoltClockLedger';
+import { partitionDryStock } from '../physical/stockLiquidContact';
+import { applyCopperAmmoniaLedger } from './copperAmmoniaLedger';
 
 /** Replay composition from the reaction baseline, but add only heat not already
  * delivered. The current temperature includes external heating and cooling.
  * Historical solvent loss is removed before applying the new heat packet. */
 export function applyProgramWithThermalSinks(program: ReactionProgram, baseline: VesselState, current: VesselState, extent: number, elapsed_s = 0): Partial<VesselState> {
   if (program.id === 'iodine_clock') return stepLandoltLedger(current, elapsed_s)?.patch ?? {};
+  if (program.id === 'cuso4_nh3' && partitionDryStock(current).inertContents.some(row => sameMolecularFormula(row.formula, 'Cu(OH)2'))) {
+    // Changing which stock is immersed changes the coupled equilibrium's
+    // participating Cu pool. Advance that present pool incrementally; replaying
+    // the old whole-pool endpoint could dissolve or resurrect a lifted solid.
+    if (!(elapsed_s > 0) || !(extent > 0)) return {};
+    const fraction = -Math.expm1(-Math.LN2 * elapsed_s / program.chemistry.kinetics.halfTime_s);
+    const result = applyCopperAmmoniaLedger(current, fraction);
+    return result ? applyLedgerWithThermalSinks(result, current, current, elapsed_s) : {};
+  }
   // Replay describes already accepted extent. The progress integrator gates
   // NEW extent by current temperature; cooling must not undo accepted matter.
   // A cold outflow baseline must also remain replayable after reheating.
   const result = applyProgramToLedger(program, baseline, extent, { deferThermal: true,
+    stockContactVessel: current,
     equilibriumTemperature_c: current.temperature_c,
     conditionTemperature_c: Math.max(baseline.temperature_c, current.temperature_c,
       program.chemistry.conditions?.minTemp_c ?? -Infinity) });

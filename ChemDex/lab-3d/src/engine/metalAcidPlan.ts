@@ -6,6 +6,7 @@ import { identifySpecies, sameMolecularFormula } from '../science/speciesIdentit
 import { availableInBulk, availableReagent } from '../science/reagentAvailability';
 import { planStudioProgram } from './studioProgram';
 import { reactionReplayProgress } from './reactionProgress';
+import { reactionStockContactFraction } from '../physical/stockLiquidContact';
 
 const PROGRAMS = ['mg_hcl', 'zn_hcl', 'fe_hcl'];
 
@@ -63,7 +64,7 @@ export function metalAcidMaximumExtent(kinetics: ActiveKineticsState): number {
  * https://openstax.org/books/chemistry-2e/pages/12-2-factors-affecting-reaction-rates
  */
 export function metalAcidProgressRate(kinetics: ActiveKineticsState, current: VesselState,
-  stirred = false, progress = kinetics.progress): number {
+  stirred = false, progress = kinetics.progress, contactFraction = reactionStockContactFraction(kinetics.program, current)): number {
   if (kinetics.rateModel !== 'metal_hcl' || !kinetics.program || !kinetics.initialVesselBaseline
     || !(kinetics.duration > 0) || !(current.volume_ml > 0) || !Number.isFinite(current.temperature_c)
     || !Number.isFinite(progress) || current.isShattered || progress >= 1) return 0;
@@ -84,18 +85,18 @@ export function metalAcidProgressRate(kinetics: ActiveKineticsState, current: Ve
   const temperatureFactor = Math.max(0.05, Math.min(16, 2 ** ((current.temperature_c - 25) / 10)));
   const grinding = current.isPulverized ? 5 : 1;
   const stirring = stirred ? 1 + (kinetics.program.chemistry.kinetics?.stirSensitivity ?? 0.5) : 1;
-  return (1 - (kinetics.replayProgressBase ?? 0)) * referenceMoles / extent / kinetics.duration * massFactor * areaFactor
+  return contactFraction * (1 - (kinetics.replayProgressBase ?? 0)) * referenceMoles / extent / kinetics.duration * massFactor * areaFactor
     * acidConcentration * temperatureFactor * grinding * stirring;
 }
 
 /** Integrate extent rather than a visual clock; the ledger enforces the exact
  * limiting yield. Completion snaps only the final 1e-8 fraction of that yield. */
 export function advanceMetalAcidProgress(kinetics: ActiveKineticsState, current: VesselState,
-  dt: number, stirred = false): number {
+  dt: number, stirred = false, contactFraction = reactionStockContactFraction(kinetics.program, current)): number {
   let p = Number.isFinite(kinetics.progress) ? Math.max(0, Math.min(1, kinetics.progress)) : 0;
   if (!Number.isFinite(dt) || dt <= 0) return p;
   const steps = Math.min(200, Math.max(1, Math.ceil(dt / 0.025))), h = dt / steps;
-  const rate = (value: number) => metalAcidProgressRate(kinetics, current, stirred, value);
+  const rate = (value: number) => metalAcidProgressRate(kinetics, current, stirred, value, contactFraction);
   for (let i = 0; i < steps && p < 1; i++) {
     const a = rate(p), b = rate(p + h * a / 2), c = rate(p + h * b / 2), d = rate(p + h * c);
     p = Math.min(1, p + h * (a + 2 * b + 2 * c + d) / 6);

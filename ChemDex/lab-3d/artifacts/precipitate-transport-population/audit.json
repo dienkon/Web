@@ -1,0 +1,53 @@
+{
+  "scope": "CPU precipitation transport only; no React, optics atlas, WebGL, chemistry or FPS claim",
+  "environment": {
+    "node": "v26.7.0",
+    "os": "win32 x64",
+    "cpu": "12th Gen Intel(R) Core(TM) i5-12450HX"
+  },
+  "vesselCount": 20,
+  "seconds": 4,
+  "dt": 0.016666666666666666,
+  "frames": 240,
+  "workload": "4 species, source growth2s, settling, stirring0.667s",
+  "cases": [
+    {
+      "displayBudgetPerSpecies": 0,
+      "stateHash": "45eb81aca9205248d51b86992ac5f4e7240584c6d0d4d3cf0d24d81f74083c6c",
+      "maxLivePerSpecies": 128,
+      "maxMassError_g": 7.632783294297951e-17,
+      "physicalCapacityPerSpecies": 128,
+      "finalBedMass_g": 0.16999999999999982,
+      "cpuBatchMean_ms": 6.651329583333321,
+      "cpuBatchP95_ms": 10.211999999999989,
+      "cpuTotal_ms": 1596.319099999997
+    },
+    {
+      "displayBudgetPerSpecies": 35,
+      "stateHash": "45eb81aca9205248d51b86992ac5f4e7240584c6d0d4d3cf0d24d81f74083c6c",
+      "maxLivePerSpecies": 128,
+      "maxMassError_g": 7.632783294297951e-17,
+      "physicalCapacityPerSpecies": 128,
+      "finalBedMass_g": 0.16999999999999982,
+      "cpuBatchMean_ms": 5.84831375,
+      "cpuBatchP95_ms": 8.17950000000019,
+      "cpuTotal_ms": 1403.5953
+    },
+    {
+      "displayBudgetPerSpecies": 900,
+      "stateHash": "45eb81aca9205248d51b86992ac5f4e7240584c6d0d4d3cf0d24d81f74083c6c",
+      "maxLivePerSpecies": 128,
+      "maxMassError_g": 7.632783294297951e-17,
+      "physicalCapacityPerSpecies": 128,
+      "finalBedMass_g": 0.16999999999999982,
+      "cpuBatchMean_ms": 5.5763625000000046,
+      "cpuBatchP95_ms": 7.802200000000084,
+      "cpuTotal_ms": 1338.3270000000011
+    }
+  ],
+  "invariants": {
+    "samePhysicalStateAcrossBudgets": true,
+    "boundedPopulation": true,
+    "conservedMass": true
+  }
+}

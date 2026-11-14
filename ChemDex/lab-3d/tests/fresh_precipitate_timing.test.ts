@@ -29,6 +29,20 @@ describe('Fresh precipitates form suspension before a sediment bed', () => {
     const speed = (p: typeof fine) => sphereSettlingSpeed(p.baseParticleRadius_mm * 1e-3, p.particleDensity_g_cm3 * 1000, 1000, 0.001);
     expect(speed(plates)).toBeGreaterThan(speed(fine) * 100);
   });
+  it('display enlargement does not change the entrainment height or trajectory of bed material', () => {
+    const systems = [0.001, 0.05].map(displayRadius_scene => {
+      const system = new PrecipitationSystem(40, 'BaSO4', new PRNG(6));
+      system.profile = { ...system.profile, displayRadius_scene };
+      system.update(0.1, { ...params, substance: undefined, volume_ml: 0 });
+      system.update(0.1, { ...params, substance: undefined, agitation: 1,
+        sharedSedimentPlane: { normal: [0, 1, 0], offset: system.sedimentBed.thickness } });
+      return system;
+    });
+    expect(systems[0].particles.length).toBeGreaterThan(0);
+    expect(systems[0].particles.map(p => [p.x, p.y, p.z, p.mass_ug, p.physicalRadius_m])).toEqual(
+      systems[1].particles.map(p => [p.x, p.y, p.z, p.mass_ug, p.physicalRadius_m]));
+    expect(systems[0].sedimentBed.amount_g).toBe(systems[1].sedimentBed.amount_g);
+  });
   it('dilution reduces cloudiness for the same suspended mass', () => {
     expect(suspensionCloudiness(0.01, 100, 0.9)).toBeLessThan(suspensionCloudiness(0.01, 10, 0.9));
   });

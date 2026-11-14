@@ -62,33 +62,35 @@ function solid(integrationHz = 120) {
   }(1, 'CuS', rng);
   const params = { ...base, agitation: 0, density_g_ml: 1, precipitateAmount_g: 0.1 };
   system.update(0.1, params);
-  expect(system.particles).toHaveLength(1);
+  expect(system.particles).toHaveLength(system.transportCapacity);
   const p = system.particles[0];
   p.x = p.z = 0; p.y = 1; p.vx = p.vy = p.vz = 0;
   return { system, p, params };
 }
 
 describe('Physical slip is independent of an imposed carrier velocity', () => {
-  it('ages newly sampled precipitate only after its birth at30/60/120Hz', () => {
+  it('ages all committed precipitate from its source snapshot at30/60/120Hz', () => {
     for (const hz of [30,60,120]) {
       const rng = new PRNG(2); vi.spyOn(rng,'gaussian').mockReturnValue(0);
       const system = new PrecipitationSystem(1000,'CuS',rng);
       for (let i=0;i<hz;i++) system.update(1/hz,{ ...base,agitation:0,density_g_ml:1,precipitateAmount_g:0.1 });
-      expect(system.emittedCount).toBe(64); expect(system.particles).toHaveLength(64);
-      for (const p of system.particles) expect(p.age).toBeCloseTo(1-p.id/64,12);
+      expect(system.emittedCount).toBe(system.transportCapacity); expect(system.particles).toHaveLength(system.transportCapacity);
+      for (const p of system.particles) expect(p.age).toBeCloseTo(1,12);
       expect(system.representedMass_g).toBeCloseTo(0.1,14);
     }
   });
-  it('does not replay unused whole birth attempts after a depleted source and quality increase', () => {
+  it('does not create transport parcels on a quality increase and samples only newly committed mass', () => {
     const system = new PrecipitationSystem(40,'CuS',new PRNG(2));
     const params = { ...base,agitation:0,density_g_ml:1,precipitateAmount_g:1 };
     for (let i=0;i<7;i++) system.update(0.1,params);
-    expect(system.emittedCount).toBe(40);
+    const emitted = system.emittedCount; expect(emitted).toBe(system.transportCapacity);
     system.setParticleBudget(80);
+    expect(system.emittedCount).toBe(emitted);
     system.update(0.001,{ ...params,precipitateAmount_g:1.025 });
-    expect(system.emittedCount).toBe(40);
+    expect(system.emittedCount).toBeGreaterThan(emitted);
+    const newlySampled = system.emittedCount;
     system.update(1/64,{ ...params,precipitateAmount_g:1.025 });
-    expect(system.emittedCount).toBe(41);
+    expect(system.emittedCount).toBe(newlySampled);
     expect(system.representedMass_g).toBeCloseTo(1.025,13);
   });
   it('recovers full fluid velocity plus settling in the short-response tracer limit', () => {

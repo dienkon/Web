@@ -65,9 +65,10 @@ describe('Precipitation retains accepted physical time',()=>{
   });
   it('applies a finite suspension withdrawal once, not once per substep',()=>{
     const system=make();system.update(1,params);
-    expect(system.particles).toHaveLength(20);
+    expect(system.particles).toHaveLength(system.transportCapacity);
+    const emitted = system.emittedCount;
     system.update(0.8,{...params,precipitateAmount_g:0.08,withdrawnSuspension_g:0.02});
-    expect(system.emittedCount).toBe(20);expect(system.representedMass_g).toBeCloseTo(0.08,13);
+    expect(system.emittedCount).toBe(emitted);expect(system.representedMass_g).toBeCloseTo(0.08,13);
     expect(system.particles.reduce((s,p)=>s+p.mass_ug/1e6,0)).toBeCloseTo(0.08,13);
   });
   it('counts elapsed time through a zero-mass interval without resetting its clock',()=>{

@@ -9,6 +9,7 @@ import { applyLedgerWithThermalSinks } from './thermalLedger';
 import { projectAqueousSolution } from './aqueousProjection';
 import { getReactionVfxRecipe } from '../vfx/recipes/reactionVfx';
 import type { ActiveKineticsState } from '../store/useAppStore';
+import { isContactSuspensionRow, partitionDryStock } from '../physical/stockLiquidContact';
 
 interface MaterialSpecies { formula: string; coeff: number; phase: string }
 /** Serializable finite native steps. Extents/enthalpies come from the actual
@@ -71,7 +72,15 @@ export function aluminumStageFractions(stages: readonly AluminumMaterialStage[],
 
 export function applyAluminumMaterialProgress(stages: readonly AluminumMaterialStage[], baseline: VesselState,
   current: VesselState, progress: number, elapsed_s = 0): Partial<VesselState> {
-  const contents = withLegacyPrecipitateOrigins(baseline);
+  const legacyStock = baseline.precipitateSubstance && baseline.stockMotion?.grains.some(pose => sameMolecularFormula(pose.formula, baseline.precipitateSubstance!));
+  const contents = withLegacyPrecipitateOrigins(legacyStock ? { ...baseline, precipitateSubstance: undefined } : baseline);
+  const dry = partitionDryStock(current).inertContents, minimumMoles = new Map<SubstanceContent, number>();
+  for (const formula of new Set(dry.map(row => row.formula))) {
+    let remaining = dry.filter(row => sameMolecularFormula(row.formula, formula)).reduce((sum, row) => sum + row.moles, 0);
+    for (const row of contents) if (row.phase === 's' && sameMolecularFormula(row.formula, formula) && !isContactSuspensionRow(baseline, row)) {
+      const reserved = Math.min(row.moles, remaining); minimumMoles.set(row, reserved); remaining -= reserved;
+    }
+  }
   const fractions = aluminumStageFractions(stages, progress);
   let heat_J = baseline.programHeatApplied_J ?? 0;
   const matching = (c: SubstanceContent, s: MaterialSpecies) => (!c.location || c.location === 'bulk')
@@ -79,7 +88,7 @@ export function applyAluminumMaterialProgress(stages: readonly AluminumMaterialS
   for (const [index, stage] of stages.entries()) {
     let extent = stage.extent_mol * fractions[index];
     for (const s of stage.reactants) {
-      const available = contents.filter(c => matching(c, s)).reduce((sum, c) => sum + c.moles, 0);
+      const available = contents.filter(c => matching(c, s)).reduce((sum, c) => sum + Math.max(0, c.moles - (minimumMoles.get(c) ?? 0)), 0);
       extent = Math.min(extent, available / s.coeff);
     }
     if (!(extent > 0)) continue;
@@ -87,7 +96,7 @@ export function applyAluminumMaterialProgress(stages: readonly AluminumMaterialS
       let needed = extent * s.coeff;
       for (const c of contents) {
         if (!matching(c, s) || !(c.moles > 0) || !(needed > 0)) continue;
-        const removed = Math.min(needed, c.moles), keep = (c.moles - removed) / c.moles;
+        const removed = Math.min(needed, Math.max(0, c.moles - (minimumMoles.get(c) ?? 0))), keep = (c.moles - removed) / c.moles;
         c.moles *= keep; c.mass_g *= keep; needed = Math.max(0, needed - removed);
       }
     }

@@ -59,7 +59,7 @@ describe('Finite reaction and particle lifetimes', () => {
     for (let index = 0; index < 60; index++) system.update(1 / 60, { ...params(), formation: 'CRYSTAL_PLATE' });
     // Some emitted platelets may already have settled; particle pool occupancy
     // must not prescribe an artificial minimum suspension lifetime.
-    expect(system.emittedCount).toBeGreaterThan(200);
+    expect(system.emittedCount).toBe(system.transportCapacity);
     expect(system.particles.length).toBeGreaterThan(0);
     expect(system.representedMass_g).toBeCloseTo(0.2, 10);
     expect(system.particles.length).toBeLessThanOrEqual(550);
@@ -94,18 +94,20 @@ describe('Golden rain thermal cycle', () => {
   it('dissolves a feasible amount in hot water and recrystallizes on cooling with conserved PbI2', () => {
     let vessel = sample({ temperature_c: 95 });
     const initialMoles = vessel.contents[0].moles;
+    vessel.contents.push({ formula: 'H2O', phase: 'l', mass_g: 100, moles: 100 / 18.015 });
     for (let step = 0; step < 600; step++) vessel = { ...vessel, ...partitionLeadIodide(vessel, 0.1) };
     expect(vessel.precipitateAmount_g).toBeLessThan(0.00001);
-    expect(vessel.contents.reduce((sum, item) => sum + item.mass_g, 0)).toBeCloseTo(0.2, 10);
+    expect(vessel.contents.reduce((sum, item) => sum + item.mass_g, 0)).toBeCloseTo(100.2, 10);
     vessel.temperature_c = 20;
     for (let step = 0; step < 1200; step++) vessel = { ...vessel, ...partitionLeadIodide(vessel, 0.1) };
     expect(vessel.precipitateAmount_g).toBeGreaterThan(0.1);
-    expect(vessel.contents.reduce((sum, item) => sum + item.moles, 0)).toBeCloseTo(initialMoles, 12);
+    expect(vessel.contents.filter(item => item.formula === 'PbI2').reduce((sum, item) => sum + item.moles, 0)).toBeCloseTo(initialMoles, 12);
     expect(vessel.mass_g).toBe(100.2);
   });
 
   it('retains undissolved solid when loading exceeds hot-water solubility', () => {
     let vessel = sample({ temperature_c: 95, contents: [{ formula: 'PbI2', phase: 's', mass_g: 2, moles: 2 / 461.01 }] });
+    vessel.contents.push({ formula: 'H2O', phase: 'l', mass_g: 100, moles: 100 / 18.015 });
     for (let step = 0; step < 600; step++) vessel = { ...vessel, ...partitionLeadIodide(vessel, 0.1) };
     expect(vessel.precipitateAmount_g).toBeGreaterThan(1.5);
     expect(vessel.hasPrecipitate).toBe(true);

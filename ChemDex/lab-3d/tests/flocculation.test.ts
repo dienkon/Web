@@ -144,13 +144,14 @@ describe('Flocculation participates in the live finite-mass simulation', () => {
     const manager = new VesselSimulationManager('quality-history');
     const system = manager.getPrecipitationSystem('Cu(OH)2');
     system.update(0.5, params);
-    const before = system.flocculation, clock = system.clock;
+    const before = system.flocculation, clock = system.clock, parcels = structuredClone(system.particles);
     manager.setPrecipitateBudget(3);
-    expect(system.particles.length).toBeLessThanOrEqual(3);
+    expect(system.maxParticles).toBe(3); expect(system.particles).toEqual(parcels);
     expect(system.representedMass_g).toBeCloseTo(0.1, 12);
     expect(system.flocculation).toEqual(before);
     expect(system.clock).toEqual(clock);
     manager.setPrecipitateBudget(0);
+    expect(system.maxParticles).toBe(0); expect(system.particles).toEqual(parcels);
     expect(system.representedMass_g).toBeCloseTo(0.1, 12);
     expect(system.flocculation).toEqual(before);
   });

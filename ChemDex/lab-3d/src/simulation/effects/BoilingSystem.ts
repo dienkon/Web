@@ -5,7 +5,7 @@ import { waterSurfaceTension } from '../../science/wallDropletGeometry';
 import { LiquidMotionSystem } from './LiquidMotionSystem';
 import { vfxBus } from '../../vfx/bus';
 import { labSound } from '../../utils/audio';
-import { containParticle, type ParticleBounds } from './particleBounds';
+import { containParticle, slideParticleAlongWall, type ParticleBounds } from './particleBounds';
 import { PRNG } from '../../core/rng';
 import { metersPerModelUnit } from '../../science/sceneUnits';
 import { bubbleMechanicalRadius, condenseBubbleVapor } from '../../science/bubblePhase';
@@ -19,6 +19,24 @@ function advanceGlyphCredit(credit: number, rate: number, dt: number) {
   const whole = Math.floor(total), fraction = total - whole;
   // A threshold rounded a few ulps below one is not a missing source pulse.
   return 1 - fraction <= 32 * Number.EPSILON ? { count: whole + 1, credit: 0 } : { count: whole, credit: fraction };
+}
+
+/** Frictionless geometric contact for the displayed envelope. Projecting only
+ * radially can pin a rising bubble forever under a tilted conical shoulder.
+ * Retain the wall-tangent displacement/velocity; no wetting-film or adhesion
+ * law is implied. Gas inventory and mechanical radius are never changed here. */
+function slideBubbleAlongWall(b: PhysicalBubble, bounds: ParticleBounds): boolean {
+  const envelope = { x: b.x, y: b.y, z: b.z, radius: b.radius * 1.6 };
+  slideParticleAlongWall(envelope, bounds);
+  const dx = envelope.x - b.x, dy = envelope.y - b.y, dz = envelope.z - b.z;
+  const distanceSquared = dx * dx + dy * dy + dz * dz;
+  if (!(distanceSquared > 0)) return false;
+  [b.x, b.y, b.z] = [envelope.x, envelope.y, envelope.z];
+  const penetrating = (b.vx * dx + b.vy * dy + b.vz * dz) / distanceSquared;
+  if (penetrating < 0) {
+    b.vx -= penetrating * dx; b.vy -= penetrating * dy; b.vz -= penetrating * dz;
+  }
+  return true;
 }
 
 export interface ReactionBubbleSource {
@@ -423,6 +441,14 @@ export class BoilingSystem {
 
     for (const b of movingBubbles) {
       if (b.merged) continue;
+      // Resolve glass contact before the radial containment fallback. A short
+      // pressure/radius correction keeps the conserved gas packet consistent
+      // with its new hydrostatic depth, including after coalescence.
+      for (let contact = 0; contact < 3 && slideBubbleAlongWall(b, params); contact++) {
+        const localPressure = (params.pressure_atm ?? 1) * 101325 + (params.liquidDensity_kg_m3 ?? 1000)
+          * 9.80665 * Math.max(0, pointPlaneDepth(b, surfaceY, params.surfacePlane)) * METERS_PER_SCENE_UNIT;
+        b.radius = bubbleMechanicalRadius(b.gasPV_scene3_Pa! * scale3, localPressure, sigma) / METERS_PER_SCENE_UNIT;
+      }
       b.physicalRadius_m = b.radius * METERS_PER_SCENE_UNIT;
 
       // 5. CHECK MENISCUS SURFACE IMPACT & BURST

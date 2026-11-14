@@ -125,16 +125,18 @@ describe('Independent precipitate species in a shared vessel', () => {
     expect(precipitateComponents(patch.contents!, 'Cu(OH)2')[0].mass_g).toBeCloseTo(rows.find(c => c.solidOrigin)!.mass_g, 12);
   });
 
-  it('reduces representative count to zero and restores it without losing inventory', () => {
+  it('hides and restores display parcels without changing transport or inventory', () => {
     const system = new PrecipitationSystem(20, 'CuS');
     const p = { temp_c: 25, viscosity_mPa_s: 1, density_g_ml: 1, radius: 1, surfaceY: 2, liquidBottomY: 0, precipitateAmount_g: 0.1 };
     for (let i = 0; i < 10; i++) system.update(0.1, p);
+    const before = structuredClone(system.particles);
     system.setParticleBudget(0);
-    expect(system.particles).toHaveLength(0);
+    expect(system.maxParticles).toBe(0); expect(system.particles).toEqual(before);
     expect(system.representedMass_g).toBeCloseTo(0.1, 12);
     system.setParticleBudget(5); system.update(0.1, p);
     expect(system.particles.length).toBeGreaterThan(0);
-    expect(system.particles.length).toBeLessThanOrEqual(5);
+    expect(system.maxParticles).toBe(5);
+    expect(system.particles.length).toBe(before.length);
     expect(system.representedMass_g).toBeCloseTo(0.1, 12);
   });
 });

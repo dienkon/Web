@@ -2,12 +2,15 @@ import type { ActiveKineticsState } from '../store/useAppStore';
 import type { VesselState } from '../types/chemistry';
 import { applyProgramWithThermalSinks } from './thermalLedger';
 import { reactionReplayProgress } from './reactionProgress';
+import { reactionStockContactFraction } from '../physical/stockLiquidContact';
 
 /** Honor the program's declared activation domain continuously, not just at
  * startup. No Arrhenius constants are inferred from a visual duration.
  * For an endothermic step, replay the actual heat ledger to limit progress to
  * the heat currently available above the declared lower temperature bound. */
-export function advanceHeatActivatedProgress(kinetics: ActiveKineticsState, current: VesselState, dt: number): number {
+export function advanceHeatActivatedProgress(kinetics: ActiveKineticsState, current: VesselState, dt: number,
+  contactFraction = reactionStockContactFraction(kinetics.program, current)): number {
+  dt *= contactFraction;
   const previous = Number.isFinite(kinetics.progress) ? Math.max(0, Math.min(1, kinetics.progress)) : 0;
   const program = kinetics.program, baseline = kinetics.initialVesselBaseline;
   const minimum = program?.chemistry.conditions?.minTemp_c;

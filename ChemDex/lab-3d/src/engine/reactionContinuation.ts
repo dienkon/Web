@@ -17,7 +17,7 @@ export function continueReactionAfterOutflow(kinetics: ActiveKineticsState | und
     // Native sequential extents were limited by the old sample. Predict only
     // the remaining steps; do not commit their endpoint at withdrawal time.
     materialStages = aluminumMaterialStages(executeMultiStepReactions(baseline.contents, baseline.substances,
-      baseline.volume_ml, baseline.temperature_c, baseline.temperature_c > 25, language, { preserveQuantities: true })) ?? undefined;
+      baseline.volume_ml, baseline.temperature_c, baseline.temperature_c > 25, language, { preserveQuantities: true, vesselContact: baseline })) ?? undefined;
     if (!materialStages?.length) return null;
   } else if (kinetics.program?.id === 'cuso4_nh3') {
     if (!copperAmmoniaInventory(baseline.contents, baseline.volume_ml)) return null;

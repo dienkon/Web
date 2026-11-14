@@ -53,8 +53,9 @@ it('transfers a particle contacting the tilted bed into existing bed inventory, 
   const params = { temp_c: 25, ambientTemp_c: 25, density_g_ml: 1, viscosity_mPa_s: 1,
     radius: 0.9, liquidBottomY: profile.baseY, surfaceY: 0.8, vesselProfile: profile, precipitateAmount_g: 1,
     volume_ml: 80, substance: 'PbI2', formation: 'CRYSTAL_PLATE', agitation: 0, heatPower_W: 0 };
-  system.update(0.01, params); expect(system.particles.length).toBe(1);
-  const p = system.particles[0]; p.x = -0.4; p.y = -0.2; p.z = 0;
+  system.update(0.01, params); expect(system.particles.length).toBe(system.transportCapacity);
+  for (const grain of system.particles) { grain.x = -0.4; grain.y = -0.2; grain.z = 0; }
+  const p = system.particles[0];
   expect(p.y).toBeGreaterThan(profile.baseY + 0.5);
   const plane = { normal: [0.6, 0.8, 0] as [number, number, number], offset: -0.3 };
   system.update(0.01, { ...params, sharedSedimentPlane: plane });

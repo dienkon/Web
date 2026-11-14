@@ -5,7 +5,7 @@
     {
       "id": "appearance-2-0",
       "formula": "AgCl",
-      "count": 210,
+      "count": 128,
       "mass": 0.05,
       "time": 3.9999999999999885,
       "bed": 0,
@@ -15,7 +15,7 @@
     {
       "id": "appearance-2-1",
       "formula": "Cu(OH)2",
-      "count": 210,
+      "count": 128,
       "mass": 0.05,
       "time": 3.9999999999999885,
       "bed": 0,
@@ -25,7 +25,7 @@
     {
       "id": "appearance-2-2",
       "formula": "Fe(OH)3",
-      "count": 210,
+      "count": 128,
       "mass": 0.05,
       "time": 3.9999999999999885,
       "bed": 0,
@@ -35,7 +35,7 @@
     {
       "id": "appearance-2-3",
       "formula": "BaSO4",
-      "count": 210,
+      "count": 128,
       "mass": 0.05,
       "time": 3.9999999999999885,
       "bed": 0,
@@ -45,7 +45,7 @@
     {
       "id": "appearance-2-4",
       "formula": "PbI2",
-      "count": 210,
+      "count": 128,
       "mass": 0.05,
       "time": 3.9999999999999885,
       "bed": 0,
@@ -55,7 +55,7 @@
     {
       "id": "appearance-2-5",
       "formula": "CaCO3",
-      "count": 210,
+      "count": 128,
       "mass": 0.05,
       "time": 3.9999999999999885,
       "bed": 0,

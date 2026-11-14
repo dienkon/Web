@@ -17,7 +17,7 @@ describe('Gravity contact follows tilted glass', () => {
     system.update(0.02, params);
     const p = system.particles[0]; expect(p).toBeDefined();
     const extent = p.physicalRadius_m! / metersPerModelUnit(profile);
-    p.x = -profile.r(0) + extent + 1e-5; p.y = 0; p.z = 0;
+    for (const grain of system.particles) { grain.x = -profile.r(0) + extent + 1e-5; grain.y = 0; grain.z = 0; }
     system.update(0.1, params);
     expect(system.particles).toHaveLength(0);
     expect(system.sedimentBed.amount_g).toBeCloseTo(0.01, 12);
@@ -52,7 +52,7 @@ describe('Gravity contact follows tilted glass', () => {
     manager.step(vessel, 0.02, { thermalStateAuthoritative: true });
     const system = manager.precipitationSystem, p = system.particles[0]; expect(p).toBeDefined();
     const profile = getVesselProfile('beaker', 100), extent = p.physicalRadius_m! / metersPerModelUnit(profile);
-    p.x = -profile.r(0) + extent + 1e-5; p.y = 0; p.z = 0;
+    for (const grain of system.particles) { grain.x = -profile.r(0) + extent + 1e-5; grain.y = 0; grain.z = 0; }
     manager.step(vessel, 0.1, { thermalStateAuthoritative: true });
     expect(manager.sedimentBed.amount_g).toBeCloseTo(0.01, 12);
     expect(manager.sedimentBed.surfacePlane!.normal[0]).toBeCloseTo(1, 12);
@@ -69,7 +69,9 @@ describe('Gravity contact follows tilted glass', () => {
     system.update(0.02, params);
     const p = system.particles[0]; expect(p).toBeDefined();
     const extent = p.physicalRadius_m! / metersPerModelUnit(profile);
-    p.y = profile.baseY + extent; p.x = -profile.r(p.y + extent) + extent + 1e-6; p.z = 0;
+    for (const grain of system.particles) {
+      grain.y = profile.baseY + extent; grain.x = -profile.r(grain.y + extent) + extent + 1e-6; grain.z = 0;
+    }
     system.update(0.1, params);
     expect(system.particles).toHaveLength(0);
     expect(system.representedMass_g).toBeCloseTo(0.01, 12);

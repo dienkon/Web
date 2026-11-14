@@ -1,8 +1,8 @@
 import { Matrix4, Vector3, type BufferGeometry } from 'three';
 import type { VesselState } from '../types/chemistry';
 import { findChemical, getSolidMorphology } from '../data/chemicals';
-import { createStockSolidGeometry } from '../components/three/stockSolidGeometry';
-import { createStockSolidLayout, type StockSolidPiece } from '../components/three/stockSolidLayout';
+import { createStockSolidGeometry } from './stockSolidGeometry';
+import { createStockSolidLayout, type StockSolidPiece } from './stockSolidLayout';
 import { solidSceneVolume, vesselInterior } from './vesselDimensions';
 import { isSuspensionRow } from './precipitateInventory';
 import { phaseVolumes, phaseDensities } from './liquidLayers';

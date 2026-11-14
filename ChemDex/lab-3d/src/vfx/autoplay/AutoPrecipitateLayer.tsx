@@ -5,6 +5,7 @@ import type { AutoExperiment } from './AutoExperiment';
 import { createPrecipitateGeometry } from '../../simulation/render/precipitateGeometry';
 import { immersedPrecipitateOpacity, precipitateFinish, withParticleOpacity } from '../../simulation/render/particleAppearance';
 import { readablePrecipitateRadius } from '../../simulation/render/precipitateReadability';
+import { precipitateDisplayIndex } from '../../science/precipitateParcels';
 
 /** Uses the same species morphology, hydrated-gel finish, containment and
  * physical population as the hands-on bench. No independent particle source. */
@@ -22,7 +23,8 @@ export function AutoPrecipitateLayer({ experiment: e, formula }: { experiment: A
     if (!target) return;
     target.visible = !!system?.particles.length;
     if (!system || !target.visible) { target.count = 0; uploaded.current = -1; return; }
-    if (e.paused && uploaded.current === system.integratedTime_s) return;
+    const count = Math.min(capacity, system.maxParticles, system.particles.length);
+    if (e.paused && uploaded.current === system.integratedTime_s && target.count === count) return;
     const profile = system.profile, key = `${profile.id}:${profile.morphology}`;
     let geometry = geometries.get(key);
     if (!geometry) {
@@ -34,9 +36,8 @@ export function AutoPrecipitateLayer({ experiment: e, formula }: { experiment: A
     Object.assign(material, precipitateFinish(profile)); material.color.set(profile.color);
     target.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
     const opacity = geometry.getAttribute('aParticleOpacity') as THREE.InstancedBufferAttribute;
-    const count = Math.min(capacity, system.particles.length);
     for (let i = 0; i < count; i++) {
-      const p = system.particles[i];
+      const p = system.particles[precipitateDisplayIndex(i, count, system.particles.length)];
       scratch.position.set(p.x, p.y, p.z);
       scratch.rotation.set(p.brownianSeed, p.age * 0.4, p.brownianSeed * 0.6);
       scratch.scale.setScalar(readablePrecipitateRadius(p, profile, system.renderBounds)); scratch.updateMatrix();

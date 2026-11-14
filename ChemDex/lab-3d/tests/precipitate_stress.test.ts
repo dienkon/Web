@@ -31,14 +31,15 @@ describe('Precipitate stress and stock form regressions', () => {
     expect(activePrecipitateVessels(vessels)).toBe(1);
     expect(activePrecipitateVessels({ ...vessels, second: { ...wet, id: 'second' } })).toBe(2);
   });
-  it('shrinks representative populations without changing mass, physical radius or instantaneous turbidity', () => {
+  it('reduces display budget without changing transport, mass, radius or instantaneous turbidity', () => {
     const system = new PrecipitationSystem(900, 'BaSO4');
     const params = { temp_c: 25, viscosity_mPa_s: 1, density_g_ml: 1, radius: 1, liquidBottomY: -1,
       surfaceY: 1, precipitateAmount_g: 1, volume_ml: 30, substance: 'BaSO4' };
     for (let i = 0; i < 90; i++) system.update(1 / 30, params);
-    const before = { mass: system.representedMass_g, radius: system.particles[0].physicalRadius_m, cloudiness: system.cloudiness };
+    const before = { mass: system.representedMass_g, radius: system.particles[0].physicalRadius_m, cloudiness: system.cloudiness,
+      particles: structuredClone(system.particles) };
     system.setParticleBudget(precipitateSceneBudget('medium', 20).physical);
-    expect(system.particles.length).toBeLessThanOrEqual(35);
+    expect(system.maxParticles).toBeLessThanOrEqual(35); expect(system.particles).toEqual(before.particles);
     expect(system.representedMass_g).toBeCloseTo(before.mass, 12);
     expect(system.particles[0].physicalRadius_m).toBe(before.radius);
     expect(system.cloudiness).toBe(before.cloudiness);

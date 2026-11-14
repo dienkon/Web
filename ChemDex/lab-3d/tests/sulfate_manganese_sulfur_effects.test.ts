@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { getPrecipitateProfile } from '../src/simulation/core/SimulationConfig';
 import { PrecipitationSystem } from '../src/simulation/effects/PrecipitationSystem';
+import { metersPerModelUnit } from '../src/science/sceneUnits';
+import { readablePrecipitateRadius } from '../src/simulation/render/precipitateReadability';
 
 describe('Lead sulfate, manganese oxide and sulfur suspensions', () => {
   it.each(['PbSO4', 'MnO2', 'S'])('%s preserves a finite suspension and clears after removal', substance => {
@@ -13,8 +15,16 @@ describe('Lead sulfate, manganese oxide and sulfur suspensions', () => {
     expect(s.representedMass_g).toBeCloseTo(0.1, 12);
     expect(s.particles.length).toBeGreaterThan(0);
     for (const particle of s.particles) {
-      expect(particle.y - 2.01 * particle.radius).toBeGreaterThanOrEqual(-1e-8);
-      expect(particle.y + 2.01 * particle.radius).toBeLessThanOrEqual(0.5 + 1e-8);
+      // Check the physical sphere and actual renderer bounds separately.
+      // Display enlargement must not change physical trajectories or contact.
+      const extents = [particle.physicalRadius_m! / metersPerModelUnit(),
+        ...[false, true].map(readable => readablePrecipitateRadius(particle, s.profile, s.renderBounds, readable))];
+      for (const extent of extents) {
+        expect(extent).toBeGreaterThan(0);
+        expect(particle.y - extent).toBeGreaterThanOrEqual(-1e-8);
+        expect(particle.y + extent).toBeLessThanOrEqual(0.5 + 1e-8);
+        expect(Math.hypot(particle.x, particle.z) + extent).toBeLessThanOrEqual(0.3 + 1e-8);
+      }
     }
     s.update(0.1, { ...p, precipitateAmount_g: 0.025 });
     expect(s.representedMass_g).toBeCloseTo(0.025, 12);

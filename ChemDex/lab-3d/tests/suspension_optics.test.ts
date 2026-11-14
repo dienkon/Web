@@ -69,4 +69,18 @@ describe('optical depth and ordered suspension colors', () => {
       expect(DataUtils.fromHalfFloat(pixels[index + i]) / tau).toBeCloseTo(channel, 3));
     appearance.dispose();
   });
+  it('preserves contour corners and refreshes a replacement profile with the same dimensions', () => {
+    const field = new LiquidAppearanceField();
+    field.advance(0, { color: '#ffffff', turbidity: 0, radius: 1, baseY: 0, fillY: 1 });
+    const appearance = createSpatialLiquidAppearance(field), profile = getVesselProfile('flask', 100);
+    const first = { ...profile, contour: [[1, 0], [1, 0.3], [0.2, 0.5], [0.2, 1]] as const };
+    const bounds = { radius: 1, liquidBottomY: 0, surfaceY: 1, vesselProfile: first };
+    appearance.update('#ffffff', new Matrix4(), bounds);
+    expect(appearance.uniforms.uAppearanceContourCount.value).toBe(4);
+    expect(appearance.uniforms.uAppearanceContour.value.slice(0, 4).map(p => p.toArray())).toEqual(first.contour);
+    const second = { ...first, contour: [[1, 0], [1, 0.7], [0.2, 0.8], [0.2, 1]] as const };
+    appearance.update('#ffffff', new Matrix4(), { ...bounds, vesselProfile: second });
+    expect(appearance.uniforms.uAppearanceContour.value[1].y).toBe(0.7);
+    appearance.dispose();
+  });
 });

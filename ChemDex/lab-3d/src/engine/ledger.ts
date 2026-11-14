@@ -28,6 +28,7 @@ import { getPrecipitateProfile } from '../simulation/core/SimulationConfig';
 import { applyCopperAmmoniaLedger } from './copperAmmoniaLedger';
 import { previewLandoltLedger } from './landoltClockLedger';
 import { aluminumReactionExtent, aluminumReactionEnthalpy_J_mol } from '../science/aluminumHydroxideEquilibrium';
+import { isContactSuspensionRow, partitionDryStock } from '../physical/stockLiquidContact';
 
 // Standard Atomic Weights (IUPAC)
 export const ATOMIC_WEIGHTS: Record<string, number> = {
@@ -494,7 +495,7 @@ export function applyProgramToLedger(
   program: ReactionProgram,
   vessel: VesselState,
   consumedExtent: number = 1.0, // 0.0 to 1.0 (fraction of limiting reagent reacted)
-  options: { deferThermal?: boolean; conditionTemperature_c?: number; equilibriumTemperature_c?: number } = {},
+  options: { deferThermal?: boolean; conditionTemperature_c?: number; equilibriumTemperature_c?: number; stockContactVessel?: VesselState } = {},
 ): Partial<VesselState> {
   vessel = ensureHeadspaceReference(vessel);
   const assessment = assessProgramConditions(program, vessel.contents ?? [], {
@@ -525,11 +526,29 @@ export function applyProgramToLedger(
   const products = program.chemistry.species.filter(s => s.role === 'product');
 
   // Identify available moles of reactants in vessel contents
-  const currentContents = vessel.contents ? withLegacyPrecipitateOrigins(vessel)
+  const liveLegacyStock = vessel.precipitateSubstance && vessel.stockMotion?.grains.some(pose => sameMolecularFormula(pose.formula, vessel.precipitateSubstance!));
+  const currentContents = vessel.contents ? withLegacyPrecipitateOrigins(liveLegacyStock ? { ...vessel, precipitateSubstance: undefined } : vessel)
     .map(item => ({ ...item, phase: reagentPhase(item) ?? undefined })) : [];
   // Empty quantitative inventory means no reactant amount. Do not manufacture
   // a 0.5 M solution from labels merely to make an animation run.
 
+  const liquidRoute = reactants.some(species => ['aq', 'l'].includes(species.phase)) || reactants.some(solid => solid.phase === 's'
+    && products.some(product => product.phase === 'aq' && sameMolecularFormula(product.formula, solid.formula)));
+  const protectedMoles = new Map<string, number>();
+  if (liquidRoute) for (const row of partitionDryStock(options.stockContactVessel ?? vessel).inertContents) {
+    const key = identifySpecies(row.formula).formula;
+    protectedMoles.set(key, (protectedMoles.get(key) ?? 0) + row.moles);
+  }
+  const minimumMoles = new Map<SubstanceContent, number>();
+  for (const row of currentContents) {
+    if (row.phase !== 's' || isContactSuspensionRow(vessel, row)) continue;
+    const key = identifySpecies(row.formula).formula, remaining = protectedMoles.get(key) ?? 0;
+    const reserved = Math.min(row.moles, remaining);
+    if (reserved > 0) { minimumMoles.set(row, reserved); protectedMoles.set(key, remaining - reserved); }
+  }
+  // Baseline equilibrium defines the cumulative replay scale. Current contact
+  // limits the amount spendable below; changing that scale here would apply
+  // progress twice and resurrect a solid when it is lifted after reacting.
   const reactionContents = bulkInventory(currentContents);
   // Find limiting reagent and maximal reaction extent (moles of reaction)
   let maxReactionMoles = Infinity;
@@ -572,7 +591,12 @@ export function applyProgramToLedger(
   }
   const aluminumLimit = aluminumReactionExtent(program.id, reactionContents, vessel.volume_ml, vessel.temperature_c);
   if (aluminumLimit !== undefined) maxReactionMoles = aluminumLimit === null ? 0 : Math.min(maxReactionMoles, aluminumLimit);
-  const molesOfReaction = maxReactionMoles * Math.max(0, Math.min(1.0, consumedExtent));
+  let molesOfReaction = maxReactionMoles * Math.max(0, Math.min(1.0, consumedExtent));
+  // A cumulative replay may repeat already accepted conversion, but must never
+  // consume the stock still present above the liquid in the current snapshot.
+  for (const r of reactants) molesOfReaction = Math.min(molesOfReaction, currentContents
+    .filter(row => availableReagent(row, r.formula, r.phase))
+    .reduce((sum, row) => sum + Math.max(0, row.moles - (minimumMoles.get(row) ?? 0)), 0) / r.coeff);
 
   // 1. Consume reactants (only if reaction produces products)
   if (molesOfReaction > 0) {
@@ -581,7 +605,7 @@ export function applyProgramToLedger(
       let remaining = consumeMoles;
       for (const found of currentContents) {
         if (!availableReagent(found, r.formula, r.phase)) continue;
-        const taken = Math.min(Math.max(0, found.moles), remaining);
+        const taken = Math.min(Math.max(0, found.moles - (minimumMoles.get(found) ?? 0)), remaining);
         found.moles = Math.max(0, found.moles - taken);
         found.mass_g = found.moles * computeMolarMass(found.formula);
         remaining -= taken;

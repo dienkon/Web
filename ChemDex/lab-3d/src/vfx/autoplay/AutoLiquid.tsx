@@ -28,7 +28,7 @@ export function AutoLiquid({ experiment: e }: { experiment: AutoExperiment }) {
       shader.fragmentShader = shader.fragmentShader.replace('#include <clipping_planes_fragment>', '#include <clipping_planes_fragment>\nif (vReservoir.y > vortexLevel(vReservoir.xz)) discard;');
       shadeSpatialLiquid(shader, appearance.uniforms, 'vReservoir', false);
     };
-    body.customProgramCacheKey = () => 'auto-spatial-liquid-volume-v3';
+    body.customProgramCacheKey = () => 'auto-spatial-liquid-volume-v4';
     const surface = new THREE.MeshPhysicalMaterial({ color: 'white', transparent: true, depthWrite: false, side: THREE.DoubleSide, roughness: 0.06, clearcoat: 1 });
     surface.onBeforeCompile = shader => {
       Object.assign(shader.uniforms, uniforms);
@@ -44,7 +44,7 @@ export function AutoLiquid({ experiment: e }: { experiment: AutoExperiment }) {
       shader.fragmentShader = 'varying vec3 vReservoir;\n' + shader.fragmentShader;
       shadeSpatialLiquid(shader, appearance.uniforms, 'vReservoir', true);
     };
-    surface.customProgramCacheKey = () => 'auto-spatial-liquid-surface-v3';
+    surface.customProgramCacheKey = () => 'auto-spatial-liquid-surface-v4';
     return { body, surface };
   }, [uniforms, appearance]);
   useEffect(() => () => { geometry.dispose(); materials.body.dispose(); materials.surface.dispose(); }, [geometry, materials]);

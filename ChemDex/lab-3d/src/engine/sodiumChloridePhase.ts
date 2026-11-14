@@ -1,5 +1,8 @@
 import type { VesselState } from '../types/chemistry';
 import { sodiumChlorideSolubilityRatio } from '../science/sodiumChlorideSolubility';
+import { partitionDryStock, stockLiquidContactFraction } from '../physical/stockLiquidContact';
+import { withLegacyPrecipitateOrigins } from '../science/precipitateInventory';
+import { transferSolidPhase } from './solidPhaseTransfer';
 
 /**
  * Binary NaCl/water only, using the IUPAC temperature-dependent saturation
@@ -14,13 +17,13 @@ export function partitionSodiumChloride(
   const solubility = sodiumChlorideSolubilityRatio(vessel.temperature_c);
   if (!Number.isFinite(dt) || dt <= 0 || solubility === undefined || vessel.volume_ml <= 0
     || vessel.isShattered || (vessel.immiscibleOrganicVolume_ml ?? 0) > 0) return null;
-  const entries = vessel.contents;
-  if (entries.some(item => !Number.isFinite(item.mass_g) || !Number.isFinite(item.moles)
-    || item.mass_g < 0 || item.moles < 0 || item.location === 'filter')) return null;
-  if (entries.some(item => item.mass_g > 1e-12 && !(
+  if (vessel.contents.some(item => !Number.isFinite(item.mass_g) || !Number.isFinite(item.moles)
+    || item.mass_g < 0 || item.moles < 0 || item.location && item.location !== 'bulk')) return null;
+  if (vessel.contents.some(item => item.mass_g > 1e-12 && !(
     item.formula === 'NaCl' && (item.phase === 's' || item.phase === 'aq')
     || item.formula === 'H2O' && item.phase === 'l'
   ))) return null;
+  const { reactiveContents: entries, inertContents } = partitionDryStock(vessel);
   const salt = entries.filter(item => item.formula === 'NaCl');
   const waterMass = entries.filter(item => item.formula === 'H2O' && item.phase === 'l')
     .reduce((sum, item) => sum + item.mass_g, 0);
@@ -32,14 +35,14 @@ export function partitionSodiumChloride(
   const difference = target - dissolved;
   if (Math.abs(difference) <= Math.max(1e-12, totalMass * 1e-10)) return null;
   // Stirring/grinding change approach speed, never the final saturation limit.
-  const rate = 0.25 * (stirred ? 3 : 1) * (vessel.isPulverized ? 2 : 1);
+  const contact = difference > 0 ? stockLiquidContactFraction({ ...vessel, contents: entries }, 'NaCl') : 1;
+  if (!(contact > 0)) return null;
+  const rate = 0.25 * (stirred ? 3 : 1) * (vessel.isPulverized ? 2 : 1) * contact;
   const next = Math.abs(difference) < totalMass * 1e-7 ? target
     : dissolved + difference * -Math.expm1(-rate * dt);
   const dissolvedMoles = totalMoles * next / totalMass;
-  const contents = entries.filter(item => item.formula !== 'NaCl');
-  if (next > 1e-12) contents.push({ formula: 'NaCl', phase: 'aq', mass_g: next,
-    moles: dissolvedMoles, concentration_M: dissolvedMoles / (vessel.volume_ml / 1000) });
-  if (totalMass - next > 1e-12) contents.push({ formula: 'NaCl', phase: 's',
-    mass_g: totalMass - next, moles: totalMoles - dissolvedMoles });
+  const normalized = withLegacyPrecipitateOrigins({ ...vessel, contents: entries,
+    hasPrecipitate: vessel.hasPrecipitate && !vessel.stockMotion?.grains.some(pose => pose.formula === 'NaCl') });
+  const contents = [...transferSolidPhase(normalized, 'NaCl', dissolvedMoles, vessel.volume_ml), ...inertContents];
   return { contents, substances: [...new Set(contents.filter(item => item.moles > 0).map(item => item.formula))] };
 }

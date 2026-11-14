@@ -8,14 +8,24 @@
 
 import { describe, it, expect } from 'vitest';
 import { mkdirSync, writeFileSync } from 'node:fs';
+import { Session } from 'node:inspector';
 import { getProgramById } from '../src/vfx/programs/library/index';
 import { VesselSimulationManager } from '../src/simulation/core/SimulationEngine';
 import { applyProgramToLedger, computeMolarMass } from '../src/engine/ledger';
 import { VesselState } from '../src/types/chemistry';
 import { QUALITY_CONFIGS } from '../src/vfx/quality';
 
+async function collectGarbage() {
+  const session = new Session();
+  session.connect();
+  try {
+    await new Promise<void>((resolve, reject) => session.post('HeapProfiler.collectGarbage',
+      error => error ? reject(error) : resolve()));
+  } finally { session.disconnect(); }
+}
+
 describe('Performance Smoke Benchmark (§11.1)', () => {
-  it('executes 3 simultaneous heavy reactions at high quality tier within frame time and particle budgets', () => {
+  it('executes 3 simultaneous heavy reactions at high quality tier within frame time and particle budgets', async () => {
     // 1. Resolve 3 heavy reaction programs
     const progGas = getProgramById('caco3_hcl') || getProgramById('caco3_hcl_gas');
     const progRedox = getProgramById('zn_cuso4') || getProgramById('zn_cuso4_displacement');
@@ -113,6 +123,11 @@ describe('Performance Smoke Benchmark (§11.1)', () => {
     const dt = 1.0 / 60.0; // 16.67 ms per frame
     const frameTimes: number[] = [];
 
+    // Measure live memory at both boundaries. Uncollected short-lived vectors
+    // are allocation pressure, not retained growth; V8 may collect those at
+    // different frames depending on the preceding test files and heap size.
+    // Collection stays outside every timed simulation frame.
+    await collectGarbage();
     const memStart = process.memoryUsage().heapUsed;
 
     for (let frame = 0; frame < totalFrames; frame++) {
@@ -156,6 +171,8 @@ describe('Performance Smoke Benchmark (§11.1)', () => {
       frameTimes.push(t1 - t0);
     }
 
+    const rawHeapDeltaMB = (process.memoryUsage().heapUsed - memStart) / (1024 * 1024);
+    await collectGarbage();
     const memEnd = process.memoryUsage().heapUsed;
     const memDeltaMB = (memEnd - memStart) / (1024 * 1024);
 
@@ -175,6 +192,8 @@ describe('Performance Smoke Benchmark (§11.1)', () => {
       p95Step_ms: p95FrameTime,
       maximumStep_ms: maxFrameTime,
       heapDelta_MB: memDeltaMB,
+      heapMeasurement: 'retained-after-full-gc',
+      rawHeapDelta_MB: rawHeapDeltaMB,
     }, null, 2) + '\n');
 
     // Headless logic budget: 60 FPS corresponds to 16.67ms total frame time.
@@ -182,7 +201,7 @@ describe('Performance Smoke Benchmark (§11.1)', () => {
     expect(avgFrameTime).toBeLessThan(5.0);
     expect(p95FrameTime).toBeLessThan(10.0);
 
-    // Memory growth over 120 frames should be negligible (< 25 MB)
+    // Retained memory, including newly populated caches, stays below 25 MB.
     expect(memDeltaMB).toBeLessThan(25.0);
 
     // Physical sanity: all 3 vessels progressed correctly

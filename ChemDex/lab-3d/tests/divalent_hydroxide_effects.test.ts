@@ -2,6 +2,8 @@ import { describe, expect, it } from 'vitest';
 import { PrecipitationSystem } from '../src/simulation/effects/PrecipitationSystem';
 import { getPrecipitateProfile } from '../src/simulation/core/SimulationConfig';
 import { getFlocculationModel } from '../src/science/flocculationModels';
+import { metersPerModelUnit } from '../src/science/sceneUnits';
+import { readablePrecipitateRadius } from '../src/simulation/render/precipitateReadability';
 
 describe('Distinct divalent hydroxide suspensions', () => {
   it.each(['Mg(OH)2', 'Ni(OH)2', 'Fe(OH)2'])('%s preserves identity and finite mass through stirring and dissolution', substance => {
@@ -19,8 +21,17 @@ describe('Distinct divalent hydroxide suspensions', () => {
       const primary = floc ? particle.physicalRadius_m!
         / system.flocculation.properties!.meanPrimaryCount ** (1 / floc.fractalDimension) : particle.physicalRadius_m;
       expect(primary).toBeCloseTo(1e-6, 12);
-      expect(particle.y + particle.radius * 2.01).toBeLessThanOrEqual(0.5 + 1e-8);
-      expect(Math.hypot(particle.x, particle.z) + particle.radius * 2.01).toBeLessThanOrEqual(0.3 + 1e-8);
+      // Physical grains and the two production display modes have independent
+      // envelopes. Current aggregate geometry fits the unit ball; the former
+      // raw radius * 2.01 was an old glyph bound, never a transport radius.
+      const extents = [particle.physicalRadius_m! / metersPerModelUnit(),
+        ...[false, true].map(readable => readablePrecipitateRadius(particle, system.profile, system.renderBounds, readable))];
+      for (const extent of extents) {
+        expect(extent).toBeGreaterThan(0);
+        expect(particle.y - extent).toBeGreaterThanOrEqual(-1e-8);
+        expect(particle.y + extent).toBeLessThanOrEqual(0.5 + 1e-8);
+        expect(Math.hypot(particle.x, particle.z) + extent).toBeLessThanOrEqual(0.3 + 1e-8);
+      }
     }
     system.update(0.1, { ...p, precipitateAmount_g: 0 });
     expect(system.representedMass_g).toBe(0);

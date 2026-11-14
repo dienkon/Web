@@ -6,6 +6,7 @@ import { AMMINE_FORMATION_DH_J, HYDROXO_AMMINES, copperAmmineFormula, copperAmmo
   type CopperAmmoniaInventory, type CopperAmmoniaState } from '../science/copperAmmoniaEquilibrium';
 import { waterDissociationEnthalpy_J_mol } from '../science/aqueousTemperature';
 import { bulkPrecipitateMass, clearedPrecipitateTurbidity } from '../science/precipitateInventory';
+import { isContactSuspensionRow, partitionDryStock } from '../physical/stockLiquidContact';
 
 export const COPPER_AMMONIA_EQUATION = 'Cu(2+)(aq) + nNH3(aq) ⇌ [Cu(NH3)n](2+)(aq), n=1–4; Cu(OH)2(s) ⇌ Cu(2+)(aq) + 2OH(-)(aq)';
 
@@ -98,6 +99,15 @@ export function copperAmmoniaColor(contents: readonly SubstanceContent[], volume
 
 export function applyCopperAmmoniaLedger(vessel: VesselState, progress: number, temperature_c = vessel.temperature_c): Partial<VesselState> | null {
   if (!Number.isFinite(progress)) return null;
+  const partition = partitionDryStock(vessel);
+  if (partition.inertContents.length) {
+    const inertMass = partition.inertContents.reduce((sum, row) => sum + row.mass_g, 0);
+    const patch = applyCopperAmmoniaLedger({ ...vessel, contents: partition.reactiveContents, mass_g: vessel.mass_g - inertMass }, progress, temperature_c);
+    if (!patch?.contents) return null;
+    const contents = [...patch.contents, ...partition.inertContents.map(row => ({ ...row }))];
+    return { ...patch, contents, mass_g: (patch.mass_g ?? vessel.mass_g - inertMass) + inertMass,
+      substances: [...new Set(contents.filter(row => row.moles > 1e-12).map(row => row.formula))] };
+  }
   const solved = copperAmmoniaEquilibrium(vessel.contents, vessel.volume_ml, temperature_c);
   if (!solved) return null;
   const endpoint = equilibriumPools(solved.inventory, solved.state);
@@ -115,6 +125,19 @@ export function applyCopperAmmoniaLedger(vessel: VesselState, progress: number, 
   };
   for (const c of vessel.contents) if (!c.location || c.location === 'bulk') add(c, 1 - p);
   for (const c of endpoint) add(c, p);
+  const macroStock = vessel.contents.filter(row => row.phase === 's' && identifySpecies(row.formula).formula === 'Cu(OH)2'
+    && (!row.location || row.location === 'bulk') && !isContactSuspensionRow(vessel, row));
+  if (macroStock.length) {
+    const solid = (row: SubstanceContent) => row.phase === 's' && identifySpecies(row.formula).formula === 'Cu(OH)2'
+      && (!row.location || row.location === 'bulk');
+    const total = contents.filter(solid).reduce((sum, row) => sum + row.moles, 0);
+    const initial = macroStock.reduce((sum, row) => sum + row.moles, 0), retained = Math.min(initial, total);
+    for (let i = contents.length - 1; i >= 0; i--) if (solid(contents[i])) contents.splice(i, 1);
+    for (const row of macroStock) if (retained > 0) contents.push({ ...row, moles: row.moles * retained / initial,
+      mass_g: row.mass_g * retained / initial });
+    if (total > retained) contents.push({ formula: 'Cu(OH)2', phase: 's', moles: total - retained,
+      mass_g: (total - retained) * computeMolarMass('Cu(OH)2'), solidOrigin: 'precipitate', precipitateFormation: 'GEL' });
+  }
   const precipitateAmount_g = bulkPrecipitateMass(contents, 'Cu(OH)2');
   const aqueous = copperAmmoniaEquilibrium(contents, vessel.volume_ml, temperature_c, true);
   if (!aqueous) return null;

@@ -11,6 +11,7 @@ import { immersedPrecipitateOpacity, precipitateFinish, withParticleOpacity } fr
 import { vesselInterior } from '../../science/vesselDimensions';
 import { readablePrecipitateRadius } from './precipitateReadability';
 import { SimulationEngine } from '../core/SimulationEngine';
+import { precipitateDisplayIndex } from '../../science/precipitateParcels';
 
 /** One material/geometry batch per species: a new reaction cannot recolor or
  * reshape the representative particles of an older product in the same cup. */
@@ -55,7 +56,7 @@ export function PrecipitateParticleLayer({ vesselId, formula, system, formation,
     // remounted quality tier or an externally prepared specimen still renders.
     const particles = liveSystem.particles;
     mesh.current.visible = particles.length > 0;
-    mesh.current.count = Math.min(capacity, particles.length);
+    mesh.current.count = Math.min(capacity, liveSystem.maxParticles, particles.length);
     if (!particles.length) return;
     const last = uploaded.current;
     if (app.isSimulationPaused && last?.mesh === mesh.current && last.geometry === geometry && last.particles === particles
@@ -66,7 +67,7 @@ export function PrecipitateParticleLayer({ vesselId, formula, system, formation,
     material.metalness = liveSystem.profile.metalness ?? 0;
     material.specularIntensity = liveSystem.profile.specularReflectivity;
     for (let i = 0; i < mesh.current.count; i++) {
-      const p = particles[i];
+      const p = particles[precipitateDisplayIndex(i, mesh.current.count, particles.length)];
       scratch.position.set(p.x, p.y, p.z);
       if (morphology === 'crystalline' || morphology === 'gel_like') {
         scratch.euler.set(p.age * 0.65 + p.brownianSeed, p.age * 0.85, Math.sin(p.age * 1.1 + p.brownianSeed) * 0.6);

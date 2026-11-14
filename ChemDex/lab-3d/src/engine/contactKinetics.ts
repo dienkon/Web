@@ -1,6 +1,7 @@
 import type { ActiveKineticsState } from '../store/useAppStore';
 import type { VesselState } from '../types/chemistry';
 import { assessProgramConditions } from '../science/conditions';
+import { reactionStockContactFraction } from '../physical/stockLiquidContact';
 
 /** Authored aqueous-contact relaxation, separate from the visual timeline.
  * halfTime_s is illustrative metadata, not a measured rate constant. Gas,
@@ -29,7 +30,9 @@ export function advanceAqueousContactProgress(kinetics: Pick<ActiveKineticsState
 /** Catalytic peroxide has one consumed reagent. Honor its authored first-order
  * half-time rather than the seven-second effect clip. This remains an
  * illustrative rate: no measured temperature/surface law is available. */
-export function advanceCatalyticProgress(kinetics: ActiveKineticsState, current: VesselState, dt: number): number {
+export function advanceCatalyticProgress(kinetics: ActiveKineticsState, current: VesselState, dt: number,
+  contactFraction = reactionStockContactFraction(kinetics.program, current)): number {
+  dt *= contactFraction;
   const program = kinetics.program;
   if (!program || !['first_order', 'induction_then_fast'].includes(program.chemistry.kinetics.model))
     return advanceAqueousContactProgress(kinetics, dt);

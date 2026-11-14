@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { stepVesselThermal, aqueousBoilingPoint } from '../../engine/thermalState';
+import { stepVesselThermal, aqueousBoilingPoint, sealedGasPressure } from '../../engine/thermalState';
 import { PRNG, seedForLabel } from '../../core/rng';
 import { sameMolecularFormula, identifySpecies } from '../../science/speciesIdentity';
 import { VesselState } from '../../types/chemistry';
@@ -378,18 +378,27 @@ export class VesselSimulationManager {
     this.hasPrecipitationSnapshot = true;
 
     // 7. BOILING / GAS BUBBLE SIMULATION STEP
+    // A submerged bubble feels the actual headspace pressure, plus its local
+    // hydrostatic/Laplace terms. Recompute from the current finite gas ledger;
+    // internalPressure_atm can lag a thermal/chemistry step or be legacy data.
+    // External mist still discharges into the room boundary used above.
+    const bubblePressure_atm = sealedGasPressure({ ...surfaceVessel, temperature_c: newTemp });
     const hasGasGeneration = reactionGasRate > 0;
     const reactionSources = hasGasGeneration ? reactionGasSources(vessel, options.reactionProgram,
       { surfaceY: fillY, surfacePlane, bodyMatrixWorld: elements ? this.bodyFrame?.matrix : undefined }) : undefined;
     if (fluid.carrierMode==='liquid' && Number.isFinite(transportBoilingPoint)
+      && Number.isFinite(bubblePressure_atm) && bubblePressure_atm > 0
       && (boilingStage !== 'COLD_STABLE' || hasGasGeneration || this.boilingSystem.bubbles.length > 0) && newVolume_ml > 0.5) {
       this.boilingSystem.update(dt, {
         localToWorld,
         interfaceMobility: vessel.bubbleInterfaceMobility ?? 'immobile',
         vesselId: vessel.id,
         worldPosition: vessel.position,
-        vaporRate_g_s: Number.isFinite(boilingPoint_c) ? thermal?.evaporationRate_g_s ?? vessel.evaporationRate_g_s ?? 0 : 0,
-        pressure_atm: environment.pressure_atm,
+        // Closed-vessel vapor equilibrium is not implemented by the bulk
+        // thermal solver. A stale pre-sealing outflow must not create steam.
+        vaporRate_g_s: !vessel.isSealed && Number.isFinite(boilingPoint_c)
+          ? thermal?.evaporationRate_g_s ?? vessel.evaporationRate_g_s ?? 0 : 0,
+        pressure_atm: bubblePressure_atm,
         liquidDensity_kg_m3: density_g_ml * 1000,
         temp_c: newTemp,
         ambientTemp_c,

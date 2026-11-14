@@ -6,6 +6,8 @@ import { advanceHeatActivatedProgress } from './heatActivatedProgress';
 import { advanceCatalyticProgress } from './contactKinetics';
 import { stepLandoltLedger } from './landoltClockLedger';
 import { landoltCapacity, landoltInventory } from '../science/landoltClock';
+import { reactionStockContactFraction, stockLiquidContactFraction } from '../physical/stockLiquidContact';
+import { aluminumStageFractions } from './aluminumMaterialProgress';
 
 /** Shared eligibility and material clock for manual and automatic operation. */
 export function advanceReaction(kinetics: ActiveKineticsState, vessel: VesselState, dt: number,
@@ -18,6 +20,15 @@ export function advanceReaction(kinetics: ActiveKineticsState, vessel: VesselSta
     ignitedProgramId: kinetics.initialVesselBaseline?.ignitedProgramId,
   }) : { ready: true, unmet: [] };
   kinetics.unmetConditions = assessment.unmet;
+  const stageFractions = kinetics.materialStages ? aluminumStageFractions(kinetics.materialStages, previous) : [];
+  const activeStage = kinetics.materialStages?.find((_, index) => stageFractions[index] < 1);
+  const contactFraction = activeStage ? activeStage.reactants.filter(species => species.phase === 's')
+    .reduce((fraction, species) => Math.min(fraction, stockLiquidContactFraction(vessel, species.formula)), 1)
+    : reactionStockContactFraction(kinetics.program, vessel);
+  if (!(contactFraction > 0)) {
+    kinetics.unmetConditions = [...assessment.unmet, 'Chất rắn chưa tiếp xúc pha lỏng tham gia phản ứng.'];
+    kinetics.actualProgressRate_s = 0; return previous;
+  }
   if (kinetics.program?.id === 'iodine_clock') {
     const step = assessment.ready ? stepLandoltLedger(vessel, dt) : null;
     if (!step) { kinetics.actualProgressRate_s = 0; return previous; }
@@ -32,8 +43,8 @@ export function advanceReaction(kinetics: ActiveKineticsState, vessel: VesselSta
   const limited = kinetics.program?.chemistry.kinetics.model === 'heat_activated'
     || kinetics.program?.chemistry.species.some(s => s.role === 'reactant' && s.phase === 'g');
   const candidate = !assessment.ready ? previous : kinetics.rateModel === 'metal_hcl'
-    ? advanceMetalAcidProgress(kinetics, vessel, dt, stirring)
-    : limited ? advanceHeatActivatedProgress(kinetics, vessel, dt) : advanceCatalyticProgress(kinetics, vessel, dt);
+    ? advanceMetalAcidProgress(kinetics, vessel, dt, stirring, contactFraction)
+    : limited ? advanceHeatActivatedProgress(kinetics, vessel, dt, contactFraction) : advanceCatalyticProgress(kinetics, vessel, dt, contactFraction);
   const progress = candidate >= 1 - 1e-12 ? 1 : candidate;
   kinetics.actualProgressRate_s = Math.max(0, progress - previous) / dt;
   return progress;
