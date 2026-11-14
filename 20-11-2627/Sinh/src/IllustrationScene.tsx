@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
-import { BookOpen, Film, Leaf } from "lucide-react";
+import { BookOpen, Film } from "lucide-react";
+import BouquetArtwork from "./BouquetArtwork";
+import DraggableEnvelope from "./DraggableEnvelope";
 
 export const art = {
   dna: "./assets/dna-art.webp",
@@ -34,6 +36,7 @@ type Props = {
   onPhoto: (index: number) => void;
   onBase: (base: string) => void;
   onReady: () => void;
+  onReadLetter: () => void;
 };
 
 function Atlas({ id }: { id: string }) {
@@ -64,6 +67,7 @@ export default function IllustrationScene({
   onPhoto,
   onBase,
   onReady,
+  onReadLetter,
 }: Props) {
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const drag = useRef<{ x: number; y: number; dx: number; dy: number } | null>(
@@ -129,6 +133,7 @@ export default function IllustrationScene({
       data-renderer="2d"
     >
       <div className="cosmic-background" />
+      <BouquetArtwork chapter={chapter} sent={bloom} reduced={reduced} />
       <div className="star-field" aria-hidden="true">
         {Array.from({ length: low ? 32 : 80 }, (_, i) => (
           <i
@@ -315,13 +320,8 @@ export default function IllustrationScene({
         </div>
       )}
       {chapter === 5 && (
-        <div className="final-letter-art art-float">
-          <div className="letter-aura" />
-          <img
-            src={art.letter}
-            alt="Phong thư tri ân với giấy mỹ thuật và dấu sáp vàng"
-          />
-          <Leaf className="letter-leaf" size={30} strokeWidth={0.6} />
+        <div className="interactive-envelope-stage">
+          <DraggableEnvelope onRead={onReadLetter} reduced={reduced} />
         </div>
       )}
       <div className="butterfly-garden" aria-hidden="true">

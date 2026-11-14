@@ -39,8 +39,9 @@ import {
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { chapters, content, exhibits } from "./content";
-import BouquetArtwork, { bouquetUrl } from "./BouquetArtwork";
-const Scene = lazy(() => import("./IllustrationScene"));
+import { bouquetUrl } from "./BouquetArtwork";
+import DraggableEnvelope from "./DraggableEnvelope";
+const Scene = lazy(() => import("./CinematicStage"));
 gsap.registerPlugin(ScrollTrigger);
 
 class SceneBoundary extends Component<
@@ -101,7 +102,9 @@ export default function App() {
     [artReady, setArtReady] = useState(false),
     [entered, setEntered] = useState(false);
   const [settings, setSettings] = useState(false),
-    [modal, setModal] = useState<"letter" | "guestbook" | "photo" | null>(null);
+    [modal, setModal] = useState<
+      "letter" | "envelope" | "guestbook" | "photo" | null
+    >(null);
   const [dnaMode, setDnaMode] = useState("normal"),
     [base, setBase] = useState("A"),
     [exhibit, setExhibit] = useState("dna");
@@ -307,18 +310,6 @@ export default function App() {
     };
   }, []);
   useEffect(() => {
-    if (!reduced && scene.current)
-      gsap.fromTo(
-        scene.current,
-        { filter: "blur(5px) saturate(.8)" },
-        {
-          filter: "blur(0px) saturate(1.12)",
-          duration: 1.1,
-          ease: "power2.out",
-        },
-      );
-  }, [active, reduced]);
-  useEffect(() => {
     if (!modal) return;
     const old = document.body.style.overflow,
       previous = document.activeElement as HTMLElement;
@@ -425,7 +416,8 @@ export default function App() {
     if (input.current) input.current.value = "";
   };
   const currentExhibit = exhibits.find((e) => e.id === exhibit)!;
-  const openLetter = () => setModal("letter");
+  const openLetter = () => setModal("envelope");
+  const readLetter = useCallback(() => setModal("letter"), []);
 
   return (
     <>
@@ -450,6 +442,7 @@ export default function App() {
               onPhoto={onPhoto}
               onBase={onBase}
               onReady={readyCallback}
+              onReadLetter={readLetter}
             />
           </Suspense>
         </SceneBoundary>
@@ -460,7 +453,6 @@ export default function App() {
         <i />
         <i />
       </div>
-      <BouquetArtwork chapter={active} sent={bloom} reduced={reduced} />
       <div className="grain" />
       {!reduced && (
         <div className="opening-theatre" aria-hidden="true">
@@ -819,7 +811,8 @@ export default function App() {
             <p className="body-copy">
               Có những lời, ngày thường chúng em ngại nói.
               <br />
-              Hôm nay, xin gửi trọn trong lá thư này.
+              Hôm nay, xin gửi trọn trong lá thư này. Giữ mép giấy và kéo lên để
+              mở phong bì.
             </p>
             <button className="button primary" onClick={openLetter}>
               <Mail size={17} />
@@ -1013,7 +1006,7 @@ export default function App() {
         >
           <div
             ref={modalRef}
-            className={`modal ${modal === "photo" ? "photo-modal" : ""} ${modal === "letter" ? "letter-modal" : ""}`}
+            className={`modal ${modal === "photo" ? "photo-modal" : ""} ${modal === "letter" ? "letter-modal" : ""} ${modal === "envelope" ? "envelope-modal" : ""}`}
             role="dialog"
             aria-modal="true"
             aria-labelledby="modal-title"
@@ -1025,6 +1018,18 @@ export default function App() {
             >
               <X size={20} />
             </button>
+            {modal === "envelope" && (
+              <>
+                <h2 id="modal-title">
+                  Một lá thư <em>chờ thầy mở.</em>
+                </h2>
+                <p className="envelope-modal-note">
+                  Giữ mép giấy, kéo lên rồi thả tay. Có thể dùng phím ↑ hoặc
+                  Enter.
+                </p>
+                <DraggableEnvelope onRead={readLetter} reduced={reduced} />
+              </>
+            )}
             {modal === "letter" && (
               <>
                 <div className="letter-flourish">

@@ -1,4 +1,126 @@
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
+
+test("paper follows a real mouse drag, springs back, then extracts on release", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("/");
+  await expect(page.locator("#main")).toHaveAttribute("aria-busy", "false", {
+    timeout: 45000,
+  });
+  await page.getByRole("button", { name: "Gửi thầy một lời" }).click();
+  const handle = page.getByRole("slider", { name: "Kéo lá thư lên để mở" });
+  const box = (await handle.boundingBox())!;
+  const x = box.x + box.width / 2,
+    y = box.y + 10;
+  await page.mouse.move(x, y);
+  await page.mouse.down();
+  await page.mouse.move(x, y - 35, { steps: 8 });
+  expect(Number(await handle.getAttribute("aria-valuenow"))).toBeGreaterThan(0);
+  await page.mouse.up();
+  await expect(handle).toHaveAttribute("aria-valuenow", "0");
+  await page.waitForTimeout(850);
+  await expect(page.locator(".letter-modal")).toHaveCount(0);
+  await page.mouse.move(x, y);
+  await page.mouse.down();
+  await page.mouse.move(x, y - 230, { steps: 20 });
+  expect(
+    Number(await handle.getAttribute("aria-valuenow")),
+  ).toBeGreaterThanOrEqual(70);
+  await page.screenshot({ path: "test-results/paper-drag.png" });
+  await expect(page.locator(".letter-modal")).toHaveCount(0);
+  await page.mouse.up();
+  await expect(page.locator(".letter-modal")).toBeVisible();
+});
+
+test("cinematic transitions retain both scenes and rapid navigation settles cleanly", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("/");
+  await expect(page.locator("#main")).toHaveAttribute("aria-busy", "false", {
+    timeout: 45000,
+  });
+  await page
+    .locator("#dna")
+    .evaluate((el) => el.scrollIntoView({ behavior: "instant" }));
+  await expect(page.locator(".cinematic-stage")).toHaveAttribute(
+    "data-transitioning",
+    "true",
+  );
+  await expect(page.locator(".scene-shot")).toHaveCount(2);
+  await expect(page.locator(".scene-shot[inert]")).toHaveCount(1);
+  await page.screenshot({ path: "test-results/scene-transition.png" });
+  await page
+    .locator("#memories")
+    .evaluate((el) => el.scrollIntoView({ behavior: "instant" }));
+  await page.waitForTimeout(120);
+  await page
+    .locator("#gratitude")
+    .evaluate((el) => el.scrollIntoView({ behavior: "instant" }));
+  await expect(page.locator(".cinematic-stage")).toHaveAttribute(
+    "data-current-chapter",
+    "5",
+  );
+  await expect(page.locator(".cinematic-stage")).toHaveAttribute(
+    "data-transitioning",
+    "false",
+  );
+  await expect(page.locator(".scene-shot")).toHaveCount(1);
+  await expect(page.locator(".scene-shot[inert]")).toHaveCount(0);
+  await expect(
+    page.getByRole("slider", { name: "Kéo lá thư lên để mở" }),
+  ).toBeVisible();
+});
+
+test("touch gesture can pull the letter from the envelope on mobile", async ({
+  browser,
+}) => {
+  const context = await browser.newContext({
+    viewport: { width: 390, height: 844 },
+    isMobile: true,
+    hasTouch: true,
+    reducedMotion: "reduce",
+  });
+  const page = await context.newPage();
+  await page.goto("http://127.0.0.1:5174/");
+  await expect(page.locator("#main")).toHaveAttribute("aria-busy", "false", {
+    timeout: 45000,
+  });
+  await page.getByRole("button", { name: "Tùy chỉnh trải nghiệm" }).tap();
+  await page.getByRole("button", { name: "Bỏ qua đến lời tri ân" }).tap();
+  const handle = page.getByRole("slider", { name: "Kéo lá thư lên để mở" });
+  await expect(handle).toBeVisible();
+  const box = (await handle.boundingBox())!,
+    x = box.x + box.width / 2,
+    y = box.y + 6;
+  const session = await context.newCDPSession(page);
+  await session.send("Input.dispatchTouchEvent", {
+    type: "touchStart",
+    touchPoints: [{ x, y }],
+  });
+  for (let i = 1; i <= 14; i++)
+    await session.send("Input.dispatchTouchEvent", {
+      type: "touchMove",
+      touchPoints: [{ x, y: y - i * 11 }],
+    });
+  await session.send("Input.dispatchTouchEvent", {
+    type: "touchEnd",
+    touchPoints: [],
+  });
+  await expect(page.locator(".letter-modal")).toBeVisible();
+  await context.close();
+});
+async function readEnvelope(page: Page) {
+  const handle = page
+    .getByRole("slider", { name: "Kéo lá thư lên để mở" })
+    .last();
+  await expect(handle).toBeVisible();
+  await handle.press("Enter");
+  await expect(page.locator(".letter-modal")).toBeVisible();
+}
 
 test("desktop: chapters, models, letter, photos, music, and local guestbook", async ({
   page,
@@ -36,6 +158,10 @@ test("desktop: chapters, models, letter, photos, music, and local guestbook", as
   await expect(page.locator(".model-tools")).toContainText("100%");
 
   await page.getByRole("button", { name: "Bước vào vũ trụ sinh học" }).click();
+  await expect(page.locator(".cinematic-stage")).toHaveAttribute(
+    "data-transitioning",
+    "false",
+  );
   await expect(page.locator(".chapter-label")).toContainText(
     "THE BIOLOGY UNIVERSE",
   );
@@ -92,6 +218,7 @@ test("desktop: chapters, models, letter, photos, music, and local guestbook", as
     page.getByRole("button", { name: "Bó hoa đã nở vì thầy" }),
   ).toBeVisible();
   await page.getByRole("button", { name: "Gửi thầy một lời" }).click();
+  await readEnvelope(page);
   await expect(page.getByRole("dialog")).toContainText("Thầy kính mến");
   await page.getByRole("button", { name: "Để lại một lời nhắn" }).click();
   await page.getByLabel("Tên của bạn").fill("Một học trò");
@@ -142,6 +269,10 @@ test("all generated chapter art is sharp and butterflies really animate", async 
       .evaluate((el) => getComputedStyle(el).animationName),
   ).toBe("wingFlapLeft");
   await page.getByRole("button", { name: "Khám phá", exact: true }).click();
+  await expect(page.locator(".cinematic-stage")).toHaveAttribute(
+    "data-transitioning",
+    "false",
+  );
   const dna = page.locator(".dna-illustration>img").first();
   await expect(dna).toBeVisible();
   expect(
@@ -150,6 +281,10 @@ test("all generated chapter art is sharp and butterflies really animate", async 
     ),
   ).toBe(true);
   await page.getByRole("button", { name: "Bước vào vũ trụ sinh học" }).click();
+  await expect(page.locator(".cinematic-stage")).toHaveAttribute(
+    "data-transitioning",
+    "false",
+  );
   for (const name of [
     "Nucleosome",
     "Nhiễm sắc thể",
@@ -177,8 +312,11 @@ test("all generated chapter art is sharp and butterflies really animate", async 
   }
   await page.getByRole("button", { name: "Tùy chỉnh trải nghiệm" }).click();
   await page.getByRole("button", { name: "Bỏ qua đến lời tri ân" }).click();
-  await expect(page.locator(".final-letter-art>img")).toBeVisible();
+  await expect(
+    page.locator(".interactive-envelope-stage .envelope-photo-front"),
+  ).toBeVisible();
   await page.getByRole("button", { name: "Mở lá thư gửi thầy" }).click();
+  await readEnvelope(page);
   await expect(page.getByRole("dialog")).toContainText("Thầy kính mến");
 });
 
@@ -207,6 +345,7 @@ test("mobile and reduced motion: navigation, settings, modal focus", async ({
   await page.getByRole("button", { name: "Bỏ qua đến lời tri ân" }).click();
   await expect(page.locator(".chapter-label")).toContainText("THE GRATITUDE");
   await page.getByRole("button", { name: "Mở lá thư gửi thầy" }).click();
+  await readEnvelope(page);
   await expect(page.getByRole("dialog")).toBeVisible();
   await page.keyboard.press("Shift+Tab");
   await expect(
@@ -252,6 +391,7 @@ test("WebGL unavailable: content and letter remain usable", async ({
   await expect(page.locator('[data-renderer="2d"]')).toBeVisible();
   await expect(page.locator("canvas")).toHaveCount(0);
   await page.getByRole("button", { name: "Gửi thầy một lời" }).click();
+  await readEnvelope(page);
   await expect(page.getByRole("dialog")).toContainText("Thầy kính mến");
 });
 
@@ -278,12 +418,21 @@ test("automatic arrival reveals the local 2D bouquet and preserves scrolling", a
     ),
   ).toBe(true);
   await page.getByRole("button", { name: "Tri ân", exact: true }).click();
+  await expect(page.locator(".chapter-label")).toContainText("THE BLOOM");
+  await expect(page.locator(".cinematic-stage")).toHaveAttribute(
+    "data-transitioning",
+    "false",
+  );
   await expect(page.locator(".bouquet-art")).toHaveClass(
     /bouquet-feature.*is-visible/,
   );
   await page.getByRole("button", { name: "Gửi thầy bó hoa này" }).click();
   await expect(page.locator(".bouquet-art")).toHaveClass(/is-sent/);
   await page.getByRole("button", { name: "Khám phá", exact: true }).click();
+  await expect(page.locator(".cinematic-stage")).toHaveAttribute(
+    "data-transitioning",
+    "false",
+  );
   await expect(page.locator(".chapter-label")).toContainText("THE DNA");
   await page.mouse.move(1100, 450);
   await page.mouse.wheel(0, 950);

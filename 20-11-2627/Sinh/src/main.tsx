@@ -14,6 +14,7 @@ import App from "./App";
 import "./style.css";
 import "./experience.css";
 import "./illustrations.css";
+import "./cinema.css";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <App />
