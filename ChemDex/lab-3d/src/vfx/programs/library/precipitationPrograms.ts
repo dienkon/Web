@@ -221,7 +221,7 @@ export const PRECIPITATION_PROGRAMS: ReactionProgram[] = [
     confidence: 1.0
   },
 
-  // 6. Pb(NO3)2 + 2KI -> PbI2 + 2KNO3 ("Golden Rain" sparkling hexagonal flakes)
+  // 6. Direct mixing gives fine yellow PbI2; golden rain needs recrystallization.
   {
     schema: 'chemdex.program/1',
     id: 'pbno32_ki',
@@ -255,10 +255,10 @@ export const PRECIPITATION_PROGRAMS: ReactionProgram[] = [
       }
     },
     explain: {
-      observation_vi: 'Kết tủa màu vàng lấp lánh như vảy vàng ("Mưa Vàng"), các tinh thể xoay tròn phản chiếu ánh sáng.',
-      observation_en: 'Glittering golden hexagonal flakes sparkle in liquid ("Golden Rain"), reflecting light as they tumble.',
-      why_vi: 'PbI2 kết tinh thành các phiến lục giác phẳng mỏng có độ phản xạ gương cao.',
-      why_en: 'PbI2 crystallizes into thin hexagonal platelets with highly reflective planar faces.'
+      observation_vi: 'Khi trộn ở nhiệt độ phòng, kết tủa PbI2 vàng mịn xuất hiện tại vùng tiếp xúc rồi phân tán trong dung dịch.',
+      observation_en: 'Mixing at room temperature forms a fine yellow PbI2 precipitate at the contact region, which disperses through the solution.',
+      why_vi: 'Pb2+ kết hợp I− tạo PbI2 ít tan. Phiến lục giác lớn lấp lánh (mưa vàng) cần hòa tan trong nước nóng rồi tái kết tinh khi nguội; trộn lạnh không tự tạo hiệu ứng đó.',
+      why_en: 'Pb2+ and I− form sparingly soluble PbI2. Large glittering hexagonal plates (golden rain) require hot-water dissolution followed by recrystallization on cooling; cold mixing does not establish that route.'
     },
     confidence: 1.0
   },

@@ -11,6 +11,7 @@ import { createPrecipitateGeometry } from '../src/simulation/render/precipitateG
 import { precipitatePackingFraction } from '../src/science/precipitatePacking';
 import { cylinderSedimentThickness } from '../src/simulation/effects/sedimentGeometry';
 import { METERS_PER_SCENE_UNIT } from '../src/science/sceneUnits';
+import { REACTION_VFX_RECIPES } from '../src/vfx/recipes/reactionVfx';
 import { identifySpecies, matchesReagent } from '../src/science/speciesIdentity';
 import { readComposition } from '../src/science/balance';
 import { computeMolarMass, LedgerEngine } from '../src/engine/ledger';
@@ -104,6 +105,11 @@ describe('Species-specific precipitate optics and packing', () => {
     geometry.dispose();
   });
   it('keeps cold lead iodide powder separate from plate crystallization', () => {
+    expect(PRECIPITATES_DATABASE.PbI2.morphology).toBe('fine_powder');
+    const coldRecipe = REACTION_VFX_RECIPES.golden_rain_pbi2;
+    expect(coldRecipe.precipitate?.morphology).toBe('powder');
+    expect(coldRecipe.layers.some(layer => layer.kind === 'light'
+      || (layer.kind === 'precipitate' && layer.style === 'flake-gold'))).toBe(false);
     expect(getPrecipitateProfile('PbI2').morphology).toBe('fine_powder');
     expect(getPrecipitateProfile('PbI2', 'CRYSTAL_PLATE').morphology).toBe('crystalline');
     expect(precipitatePackingFraction(getPrecipitateProfile('Fe(OH)3'))).toBeLessThan(precipitatePackingFraction(getPrecipitateProfile('BaSO4')));

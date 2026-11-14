@@ -116,6 +116,10 @@ export interface PhysicalEvaporationParticle {
   life: number;
   opacity: number;
   curlSeed: number;
+  /** Retained birth state; later vessel heating/motion cannot drive this puff. */
+  birthY?: number;
+  riseSpeed?: number;
+  metersPerUnit?: number;
 }
 
 export interface SedimentBedState {

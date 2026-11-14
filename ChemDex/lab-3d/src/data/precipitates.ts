@@ -84,13 +84,13 @@ export const PRECIPITATES_DATABASE: Record<string, PrecipitateProperty> = {
     name_vi: 'Chì(II) iotua (Mưa vàng)',
     ksp_25c: 9.8e-9,
     colorHex: '#eab308',
-    morphology: 'crystal_plate',
-    particleRadius_um_range: [20.0, 200.0],
+    morphology: 'fine_powder',
+    particleRadius_um_range: [0.5, 2.0], // Illustrative direct-mixing nuclei, not measured crystal sizes
     density_g_cm3: 6.16,
     packingFraction_phi: 0.30,
     reversibleHeat: true,
-    specialNotes_en: 'Glittering hexagonal golden plates ("golden rain"). Dissolves on heating and recrystallizes on cooling.',
-    specialNotes_vi: 'Vảy tinh thể lục giác lấp lánh như vàng. Tan khi đun nóng và kết tinh lại thành mưa vàng khi để nguội.'
+    specialNotes_en: 'Fine yellow precipitate on direct mixing. Larger glittering hexagonal plates ("golden rain") require dissolution in sufficient hot water followed by recrystallization on cooling.',
+    specialNotes_vi: 'Trộn trực tiếp tạo kết tủa vàng mịn. Phiến lục giác lớn lấp lánh (mưa vàng) cần hòa tan trong đủ nước nóng rồi tái kết tinh khi nguội.'
   },
   PbSO4: {
     formula: 'PbSO4',

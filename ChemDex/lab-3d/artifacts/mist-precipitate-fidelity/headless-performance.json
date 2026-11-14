@@ -1,0 +1,10 @@
+{
+  "checkedAt": "2026-11-14T13:54:41.562Z",
+  "scenario": "Three vessel logic/physics, high tier, 120 steps at dt=1/60",
+  "webglRenderingIncluded": false,
+  "browserFpsVerified": false,
+  "averageStep_ms": 2.145671666666668,
+  "p95Step_ms": 4.000300000000038,
+  "maximumStep_ms": 15.024099999999976,
+  "heapDelta_MB": 4.060600280761719
+}

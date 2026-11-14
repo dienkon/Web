@@ -116,19 +116,17 @@ export const REACTION_VFX_RECIPES: Record<string, ReactionVfxRecipe> = {
     precipitate: { substance: 'AgI', color: '#fef08a', morphology: 'curd', rate: 30, settleTime: 6.5 }
   },
 
-  // 5. 2KI + Pb(NO3)2 -> PbI2(s) + 2KNO3 ("Golden Rain")
+  // Legacy ID retained; direct mixing is fine PbI2, not a recrystallization route.
   'golden_rain_pbi2': {
     id: 'golden_rain_pbi2',
-    name: 'Golden Rain (Lead Iodide Hexagonal Flakes)',
+    name: 'Lead Iodide Yellow Precipitation',
     duration: 14.0,
     layers: [
-      { kind: 'precipitate', t: [0.02, 1.0], style: 'flake-gold', color: '#fbbf24', settleTime: 12.0, substance: 'PbI2' },
+      { kind: 'precipitate', t: [0.02, 1.0], style: 'milky', color: '#facc15', settleTime: 12.0, substance: 'PbI2' },
       { kind: 'turbidity', t: [0.15, 0.9], color: '#fef08a', peak: 0.70 },
-      { kind: 'colorFront', t: [0.25, 0.85], to: '#fef08a', origin: 'pourPoint', speed: 0.95 },
-      { kind: 'light', t: [0.1, 0.95], color: '#fde047', intensity: 1.8, flicker: 0.12 }
+      { kind: 'colorFront', t: [0.25, 0.85], to: '#fef08a', origin: 'pourPoint', speed: 0.95 }
     ],
-    precipitate: { substance: 'PbI2', color: '#fbbf24', morphology: 'flake', rate: 48, settleTime: 12.0 },
-    specialEffect: 'golden_rain'
+    precipitate: { substance: 'PbI2', color: '#facc15', morphology: 'powder', rate: 48, settleTime: 12.0 }
   },
 
   // 6. CuSO4 + 2NaOH -> Cu(OH)2(s) + Na2SO4 (Gelatinous Blue Gel)

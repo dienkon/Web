@@ -71,9 +71,11 @@ export class EvaporationSystem {
     if (![dt, rate, params.temp_c, params.radius, params.surfaceY, params.mouthY, params.mouthRadius,
       params.surfaceArea_cm2, params.ambient_c ?? 25, params.relativeHumidity ?? 0.5, params.pressure_atm ?? 1,
       params.sourceWaterPressure_Pa ?? 0, params.sourceWaterEnthalpy_J_g ?? 0,
+      params.metersPerLocalUnit ?? DEFAULT_METERS_PER_UNIT,
       ...(params.airflowVector ?? [0, 0, 0])].every(Number.isFinite) || dt <= 0 || rate < 0
       || (params.sourceWaterPressure_Pa ?? 0) < 0
       || params.radius < 0 || params.mouthRadius < 0 || params.surfaceArea_cm2 < 0 || (params.pressure_atm ?? 1) <= 0
+      || (params.metersPerLocalUnit ?? DEFAULT_METERS_PER_UNIT) <= 0
       || (params.relativeHumidity ?? 0.5) < 0 || (params.relativeHumidity ?? 0.5) > 1
       || (params.sourceWaterEnthalpy_J_g ?? 0) < 0
       || params.temp_c < 0 || (params.ambient_c ?? 25) < 0 || (params.ambient_c ?? 25) > 100) {
@@ -115,6 +117,9 @@ export class EvaporationSystem {
 
   private step(dt: number, params: EvaporationSimulationParams & { mistVisibility: number }): void {
     const METERS_PER_SCENE_UNIT = params.sourceToWorld ? DEFAULT_METERS_PER_UNIT : params.metersPerLocalUnit ?? DEFAULT_METERS_PER_UNIT;
+    // Display closure is authored at the common scene scale. A local vessel
+    // frame must express the same physical lengths and velocities.
+    const unitScale = DEFAULT_METERS_PER_UNIT / METERS_PER_SCENE_UNIT;
 
     const {
       temp_c,
@@ -172,15 +177,16 @@ export class EvaporationSystem {
         const pz = Math.sin(angle) * r;
         // Mist is drawn outside the mouth; the vapor travelling through the
         // headspace remains transparent and cannot clip the glass shoulders.
-        const py = Math.max(surfaceY, mouthY) + 0.015;
+        const sourceMetersPerUnit = params.metersPerLocalUnit ?? DEFAULT_METERS_PER_UNIT;
+        const py = Math.max(surfaceY, mouthY) + 0.015 * DEFAULT_METERS_PER_UNIT / sourceMetersPerUnit;
         const birth = params.sourceToWorld?.([px, py, pz]) ?? [px, py, pz];
 
-        const baseSize = baseParticleSize * (0.9 + this.rng.next() * 0.35);
-        const verticalSpeed = 0.42 + (temp_c / 100) * 0.65;
+        const baseSize = baseParticleSize * (0.9 + this.rng.next() * 0.35) * unitScale;
+        const verticalSpeed = (0.42 + (temp_c / 100) * 0.65) * unitScale;
         // Gentle outward radial drift
-        const outwardSpeed = 0.04 + this.rng.next() * 0.04;
-        const vx = Math.cos(angle) * outwardSpeed + (this.rng.next() - 0.5) * 0.03;
-        const vz = Math.sin(angle) * outwardSpeed + (this.rng.next() - 0.5) * 0.03;
+        const outwardSpeed = (0.04 + this.rng.next() * 0.04) * unitScale;
+        const vx = Math.cos(angle) * outwardSpeed + (this.rng.next() - 0.5) * 0.03 * unitScale;
+        const vz = Math.sin(angle) * outwardSpeed + (this.rng.next() - 0.5) * 0.03 * unitScale;
 
         this.particles.push({
           id: this.nextId++,
@@ -188,14 +194,17 @@ export class EvaporationSystem {
           y: birth[1],
           z: birth[2],
           vx,
-          vy: verticalSpeed + (this.rng.next() - 0.5) * 0.1,
+          vy: verticalSpeed + (this.rng.next() - 0.5) * 0.1 * unitScale,
           vz,
           size: baseSize,
           baseSize,
           age: 0,
           life: 1.2 + this.rng.next() * 0.8,
           opacity: 0.35 * Math.min(1.0, 0.2 + (temp_c / 100) * 0.8),
-          curlSeed: this.rng.next() * 20.0
+          curlSeed: this.rng.next() * 20.0,
+          birthY: birth[1],
+          riseSpeed: verticalSpeed,
+          metersPerUnit: METERS_PER_SCENE_UNIT,
         });
       }
     }
@@ -211,19 +220,29 @@ export class EvaporationSystem {
         continue;
       }
 
-      // Atmospheric draft curl with natural 3D curl turbulence
-      const curlX = Math.sin(p.y * 3.8 + p.curlSeed) * 0.06;
-      const curlZ = Math.cos(p.y * 3.2 + p.curlSeed) * 0.06;
+      // Retain packet units and source state. Noise is relative to birth height,
+      // so translating the source through uniform air cannot deform the plume.
+      const packetMetersPerUnit = p.metersPerUnit ?? METERS_PER_SCENE_UNIT;
+      const packetScale = DEFAULT_METERS_PER_UNIT / packetMetersPerUnit;
+      p.birthY ??= p.y;
+      p.riseSpeed ??= Math.max(0, p.vy);
+      p.metersPerUnit ??= packetMetersPerUnit;
+      const rise = (p.y - p.birthY) / packetScale;
+      const curlX = Math.sin(rise * 3.8 + p.curlSeed) * 0.06 * packetScale;
+      const curlZ = Math.cos(rise * 3.2 + p.curlSeed) * 0.06 * packetScale;
 
       // Influence by external airflow vector (e.g. ambient breeze / fume hood draft)
       // Input wind is m/s; particle coordinates use scene units. Entrainment
       // fraction is an illustrative plume closure, not a calibrated CFD model.
-      const airDriftX = airflowVector[0] * 0.6 / METERS_PER_SCENE_UNIT;
-      const airDriftY = airflowVector[1] * 0.6 / METERS_PER_SCENE_UNIT;
-      const airDriftZ = airflowVector[2] * 0.6 / METERS_PER_SCENE_UNIT;
+      const airDriftX = airflowVector[0] * 0.6 / packetMetersPerUnit;
+      const airDriftY = airflowVector[1] * 0.6 / packetMetersPerUnit;
+      const airDriftZ = airflowVector[2] * 0.6 / packetMetersPerUnit;
 
       p.vx = THREE.MathUtils.lerp(p.vx, curlX + airDriftX, 1 - Math.exp(-dt * 2.5));
-      p.vy = THREE.MathUtils.lerp(p.vy, 0.42 + (temp_c / 100) * 0.65 + airDriftY, 1 - Math.exp(-dt * 2.5));
+      // Illustrative entrainment/dilution on the existing 2.5/s response scale;
+      // this is not a solved puff temperature, buoyancy or droplet-size model.
+      const retainedLift = p.riseSpeed * Math.exp(-2.5 * p.age);
+      p.vy = THREE.MathUtils.lerp(p.vy, retainedLift + airDriftY, 1 - Math.exp(-dt * 2.5));
       p.vz = THREE.MathUtils.lerp(p.vz, curlZ + airDriftZ, 1 - Math.exp(-dt * 2.5));
 
       p.x += p.vx * dt;

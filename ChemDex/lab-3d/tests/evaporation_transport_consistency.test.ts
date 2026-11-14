@@ -94,6 +94,42 @@ describe('External water-mist transport uses accepted source history', () => {
     sim.update(1, source);
     expect(sim.particles).toEqual(snapshot);
   });
+  it('does not reheat or accelerate an emitted cloud when its source temperature changes', () => {
+    const a = system(), b = system();
+    a.update(0.5, source); b.update(0.5, source);
+    expect(a.particles.length).toBeGreaterThan(0);
+    a.update(0.25, { ...source, temp_c: 20, actualRate_g_s: 0 });
+    b.update(0.25, { ...source, temp_c: 500, actualRate_g_s: 0 });
+    expect(b.particles).toEqual(a.particles);
+    expect(a.integratedVapor_g).toBeCloseTo(0.05, 12);
+  });
+  it('translates a plume without changing its shape or trajectory in a uniform room', () => {
+    const a = system(), b = system();
+    const translate = (dy: number) => (p: [number, number, number]): [number, number, number] => [p[0] + 3, p[1] + dy, p[2] - 2];
+    a.update(0.8, { ...source, sourceToWorld: translate(0) });
+    b.update(0.8, { ...source, sourceToWorld: translate(7) });
+    expect(a.particles.length).toBeGreaterThan(0);
+    for (let i = 0; i < a.particles.length; i++) {
+      const p = a.particles[i], q = b.particles[i];
+      expect(q.y - p.y).toBeCloseTo(7, 11);
+      for (const key of ['x', 'z', 'vx', 'vy', 'vz', 'size', 'opacity'] as const) expect(q[key]).toBeCloseTo(p[key], 11);
+    }
+  });
+  it('preserves physical plume size and motion when local coordinate units change', () => {
+    const a = system(), b = system();
+    const scale = 2;
+    a.update(0.8, source);
+    b.update(0.8, { ...source, metersPerLocalUnit: METERS_PER_SCENE_UNIT / scale,
+      radius: source.radius * scale, mouthRadius: source.mouthRadius * scale,
+      surfaceY: source.surfaceY * scale, mouthY: source.mouthY * scale });
+    expect(a.particles.length).toBeGreaterThan(0);
+    expect(b.particles.length).toBe(a.particles.length);
+    for (let i = 0; i < a.particles.length; i++) {
+      for (const key of ['x', 'y', 'z', 'vx', 'vy', 'vz', 'size', 'baseSize'] as const) {
+        expect(b.particles[i][key] / scale).toBeCloseTo(a.particles[i][key], 11);
+      }
+    }
+  });
   it.each([NaN, Infinity, -1, 0])('rejects invalid time %s without changing state', dt => {
     const sim = system(); sim.update(1, source);
     const old = JSON.stringify(sim);
