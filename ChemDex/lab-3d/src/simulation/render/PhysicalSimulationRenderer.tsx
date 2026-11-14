@@ -15,6 +15,7 @@ import { createInstancedMistMaterial, mistParticleAppearance } from './mistAppea
 import { physicalEffectsRuntime } from '../core/PhysicalEffectsRuntime';
 import { bubbleOpacity, withParticleOpacity } from './particleAppearance';
 import { activePrecipitateVessels, precipitateSceneBudget } from './precipitateBudget';
+import { studioProgramForReaction } from '../../engine/studioProgram';
 
 export interface PhysicalSimulationRendererProps {
   vesselId: string;
@@ -102,6 +103,8 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
       heatPower_W: vessel.thermalHeatingPower_W ?? 0,
       agitation: f.agitationOverride === undefined ? vesselAgitation(vessel, app) : f.agitationOverride,
       reactionGasRate: f.reactionGasRate,
+      reactionProgram: app.activeKinetics[vesselId]?.program ?? studioProgramForReaction(
+        app.activeKinetics[vesselId]?.reactionId ?? vessel.lastReactionId ?? vessel.studioProgramId ?? ''),
       reactionPrecipitateActive: f.reactionPrecipitateActive,
       reactionPrecipitateSubstance: f.reactionPrecipitateSubstance,
     });

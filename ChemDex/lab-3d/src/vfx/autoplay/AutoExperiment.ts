@@ -416,7 +416,8 @@ export class AutoExperiment {
     this.physics.step(this.sample, dt, { thermalStateAuthoritative: true,
       agitation: this.stirringDrive,
       bodyMatrixWorld: RECEIVER_BODY_MATRIX,
-      reactionGasRate: gasVolumeRateMl_s(Object.values(this.sample.gasFlux.generated_mol_s).reduce((s, n) => s + n, 0), this.sample.temperature_c, 1) });
+      reactionProgram: this.program,
+      reactionGasRate: gas.bubbleRate });
     this.stocks.advance(this.sample, dt, this.physics.vortex.surface);
     if (this.sample.volume_ml > 0.01) this.appearance.advance(dt, {
       color: supernatantColor(this.sample.contents, this.sample.volume_ml) ?? this.sample.liquidColor ?? '#f8fafc',

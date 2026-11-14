@@ -32,6 +32,9 @@ import { DEFAULT_LAB_ENVIRONMENT, waterBoilingPointAtPressure } from '../../scie
 import { waterSaturationPressurePa } from '../../science/waterSaturation';
 import { WATER_CP_J_G_K } from '../../engine/waterProperties';
 import { LiquidVortex } from '../../science/liquidVortex';
+import { supportsCompactHindrance } from '../../science/hinderedSettling';
+import type { ReactionProgram } from '../../shared/programSchema';
+import { reactionGasSources } from '../../science/reactionGasSources';
 
 export interface SimulationStepResult extends Partial<VesselState> {
   /** Water lost during THIS step; evaporated_ml is the cumulative vessel counter. */
@@ -154,6 +157,7 @@ export class VesselSimulationManager {
       ambientTemp_c?: number;
       thermalStateAuthoritative?: boolean;
       reactionGasRate?: number;
+      reactionProgram?: ReactionProgram;
       reactionPrecipitateActive?: boolean;
       reactionPrecipitateSubstance?: string;
       /** Immutable model-to-world snapshot from the actual rendered glass. */
@@ -289,6 +293,13 @@ export class VesselSimulationManager {
       density_g_ml * 1000, viscosity_mPa_s * 0.001, support, fluid.carrierMode === 'liquid');
     const sharedSedimentPlane = this.bedPlane(profile, priorBedVolume)
       ?? sedimentSupportPlane(profile, this.bedSurface.normal);
+    const compactSuspendedVolume_ml = components.reduce((sum, component) => {
+      const system = this.getPrecipitationSystem(component.formula);
+      const material = getPrecipitateProfile(component.formula, component.formation
+        ?? (activeSubstance && sameMolecularFormula(component.formula, activeSubstance) ? vessel.precipitateMorphology : undefined));
+      return sum + (supportsCompactHindrance(material)
+        ? Math.max(0, component.mass_g - system.sedimentBed.amount_g) / material.particleDensity_g_cm3 : 0);
+    }, 0);
     for (let index = 0; index < components.length; index++) {
       const component = components[index];
       const system = this.getPrecipitationSystem(component.formula);
@@ -317,6 +328,7 @@ export class VesselSimulationManager {
       declaredColor: isActive ? vessel.precipitateColor : undefined,
       sharedSedimentThickness: this.sedimentBed.thickness,
       sharedSedimentPlane,
+      sharedCompactSuspendedVolume_ml: compactSuspendedVolume_ml,
       withdrawnSuspension_g: Math.max(0, outflow - previouslyApplied),
       entryPoint: vessel.recentPourContact && pourContactRemaining(vessel.recentPourContact) > 0
         && vessel.recentPourContact.point.every(Number.isFinite) ? vessel.recentPourContact.point : undefined,
@@ -367,6 +379,8 @@ export class VesselSimulationManager {
 
     // 7. BOILING / GAS BUBBLE SIMULATION STEP
     const hasGasGeneration = reactionGasRate > 0;
+    const reactionSources = hasGasGeneration ? reactionGasSources(vessel, options.reactionProgram,
+      { surfaceY: fillY, surfacePlane, bodyMatrixWorld: elements ? this.bodyFrame?.matrix : undefined }) : undefined;
     if (fluid.carrierMode==='liquid' && Number.isFinite(transportBoilingPoint)
       && (boilingStage !== 'COLD_STABLE' || hasGasGeneration || this.boilingSystem.bubbles.length > 0) && newVolume_ml > 0.5) {
       this.boilingSystem.update(dt, {
@@ -391,7 +405,8 @@ export class VesselSimulationManager {
         surfacePlane,
         boilingIntensity: hasGasGeneration ? Math.max(boilingIntensity, Math.min(1.0, reactionGasRate / 30)) : boilingIntensity,
         agitation,
-        reactionGasRate
+        reactionGasRate,
+        reactionSources,
       });
     } else {
       this.boilingSystem.reset();

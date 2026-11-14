@@ -1,9 +1,10 @@
-import { afterEach, expect, it } from 'vitest';
+import { afterEach, expect, it, vi } from 'vitest';
 import { AutoExperiment } from '../src/vfx/autoplay/AutoExperiment';
 import { planStudioProgram, createStudioSample } from '../src/engine/studioProgram';
 import { getProgramById } from '../src/vfx/programs/library';
 import { useAppStore, type ActiveKineticsState } from '../src/store/useAppStore';
 import type { VesselState } from '../src/types/chemistry';
+import { gasVisualState } from '../src/vfx/gasVisualState';
 
 const original = useAppStore.getState();
 afterEach(() => useAppStore.setState(original, true));
@@ -55,4 +56,20 @@ it('uses the manual missing-catalyst gate during automatic playback', () => {
   expect(e.progress).toBe(0);
   expect(useAppStore.getState().activeKinetics.parity.progress).toBe(0);
   expect(e.sample.contents.find(c => c.formula === 'H2O2')!.moles).toBe(v.contents.find(c => c.formula === 'H2O2')!.moles);
+});
+it('feeds automatic bubbles the same packet rate and pressure boundary as manual bubbles', () => {
+  const e = new AutoExperiment('na2co3_hcl', true), p = getProgramById('na2co3_hcl')!;
+  const v = createStudioSample(p, { ...e.sample, effectsEnvironment: { pressure_atm: 0.8 } });
+  const k = planStudioProgram(p, v, 'vi').kinetics!;
+  const internal = e as unknown as { lesson: unknown; kinetics: ActiveKineticsState; baseline: VesselState };
+  internal.lesson = undefined; internal.kinetics = structuredClone(k); internal.baseline = structuredClone(v);
+  e.sample = structuredClone(v); e.phase = 'react';
+  const step = vi.spyOn(e.physics, 'step');
+  for (let i = 0; i < 12; i++) e.tick(1 / 60);
+  expect(step.mock.calls.some(([sample]) => gasVisualState(sample).bubbleRate > 0)).toBe(true);
+  for (const [sample, , options] of step.mock.calls) {
+    expect(options!.reactionGasRate).toBeCloseTo(gasVisualState(sample).bubbleRate, 12);
+    expect(options!.reactionProgram?.id).toBe(p.id);
+  }
+  step.mockRestore();
 });

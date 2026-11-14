@@ -21,6 +21,14 @@ function advanceGlyphCredit(credit: number, rate: number, dt: number) {
   return 1 - fraction <= 32 * Number.EPSILON ? { count: whole + 1, credit: 0 } : { count: whole, credit: fraction };
 }
 
+export interface ReactionBubbleSource {
+  point: readonly [number, number, number];
+  radius: number;
+  weight: number;
+  /** Outward solid-surface normal; absent for a volume reaction/contact. */
+  normal?: readonly [number, number, number];
+}
+
 export interface BoilingSimulationParams extends ParticleBounds {
   localToWorld?: (point: [number, number, number]) => [number, number, number];
   interfaceMobility?: BubbleInterfaceMobility;
@@ -43,6 +51,8 @@ export interface BoilingSimulationParams extends ParticleBounds {
   boilingIntensity: number;
   agitation?: number;
   reactionGasRate?: number;
+  /** Undefined: homogeneous liquid source. Empty: no wetted reaction sites. */
+  reactionSources?: readonly ReactionBubbleSource[];
 }
 
 export class BoilingSystem {
@@ -102,6 +112,9 @@ export class BoilingSystem {
     this.pending.push({ seconds: dt, params: { ...params,
       surfacePlane: params.surfacePlane ? { offset: params.surfacePlane.offset, normal: [...params.surfacePlane.normal],
         vortex: params.surfacePlane.vortex ? { ...params.surfacePlane.vortex } : undefined } : undefined,
+      reactionSources: params.reactionSources?.filter(source => source.weight > 0 && source.radius >= 0
+        && [...source.point, source.radius, source.weight, ...(source.normal ?? [])].every(Number.isFinite))
+        .map(source => ({ ...source, point: [...source.point], normal: source.normal ? [...source.normal] : undefined })),
       worldPosition: params.worldPosition ? [...params.worldPosition] : undefined } });
     let steps = 0;
     while (this.accumulator + 1e-12 >= this.fixedDt && steps++ < 240) {
@@ -179,7 +192,7 @@ export class BoilingSystem {
 
     // Independent visual sampling channels. A fractional vapor pulse cannot
     // become noncondensable gas when a later reaction pulse crosses one glyph.
-    const reactionRate = params.reactionGasRate ?? 0;
+    const reactionRate = params.reactionSources?.length === 0 ? 0 : params.reactionGasRate ?? 0;
     const oldThermalCredit = this.thermalSpawnCredit, oldReactionCredit = this.reactionSpawnCredit;
     const thermalCredit = advanceGlyphCredit(oldThermalCredit, thermalRate, dt);
     const reactionCredit = advanceGlyphCredit(oldReactionCredit, reactionRate, dt);
@@ -189,6 +202,10 @@ export class BoilingSystem {
     // Discard only unsampled glyph attempts at the quality limit; gas mass is
     // owned by the vessel ledger. Work stays bounded even at extreme rates.
     const slots = Number.isSafeInteger(this.maxBubbles) ? Math.max(0, this.maxBubbles - this.bubbles.length) : 0;
+    const newbornExposure = new Map<number, number>();
+    const maxSourceWeight = params.reactionSources?.reduce((max, site) => Math.max(max, site.weight), 0) ?? 0;
+    const sourceWeights = params.reactionSources?.map(site => site.weight / maxSourceWeight);
+    const sourceWeightTotal = sourceWeights?.reduce((sum, weight) => sum + weight, 0) ?? 0;
     let thermalIndex = 0, reactionIndex = 0;
     for (let created = 0; created < slots && (thermalIndex < thermalCount || reactionIndex < reactionCount); created++) {
         const nextThermal = thermalIndex < thermalCount ? (thermalIndex + 1 - oldThermalCredit) / thermalRate : Infinity;
@@ -197,23 +214,48 @@ export class BoilingSystem {
         if (source === 'vapor') { thermalIndex++; this.vaporGlyphsBorn++; }
         else { reactionIndex++; this.reactionGlyphsBorn++; }
 
-        // Nucleate at bottom heated zone with controlled stochastic distribution
+        const bornAt = Math.max(0, Math.min(dt, Math.min(nextThermal, nextReaction)));
+        // Vapor nucleates at the heated floor. Chemical gas uses wetted solid
+        // surfaces/contact sites when available, otherwise the liquid volume.
         const angle = this.rng.next() * Math.PI * 2;
-        // Biased toward center where heat concentration is highest
-        const rRatio = Math.pow(this.rng.next(), 0.75) * 0.78;
+        const rRatio = source === 'vapor' ? Math.pow(this.rng.next(), 0.75) * 0.78 : Math.sqrt(this.rng.next()) * 0.9;
         const r = rRatio * radius;
 
-        const bx = Math.cos(angle) * r;
-        const bz = Math.sin(angle) * r;
-        const by = liquidBottomY + this.rng.next() * (height * 0.08); // Right at heated floor!
+        let bx = Math.cos(angle) * r;
+        let bz = Math.sin(angle) * r;
+        let by = liquidBottomY + this.rng.next() * height * (source === 'vapor' ? 0.08 : 1);
 
-        const baseRad = baseBubbleSize * (0.8 + this.rng.next() * 0.4);
+        const baseRad = (source === 'vapor' ? baseBubbleSize : 0.012) * (0.8 + this.rng.next() * 0.4);
+        if (source === 'reaction' && params.reactionSources?.length && sourceWeights) {
+          let choice = this.rng.next() * sourceWeightTotal, sourceIndex = 0;
+          while (sourceIndex < sourceWeights.length - 1 && choice >= sourceWeights[sourceIndex]) {
+            choice -= sourceWeights[sourceIndex++];
+          }
+          const site = params.reactionSources[sourceIndex];
+          const normal = new THREE.Vector3(...(site.normal ?? [0, 0, 0]));
+          const offset = new THREE.Vector3();
+          if (normal.lengthSq() > 1e-16) {
+            normal.normalize();
+            const tangent = new THREE.Vector3(Math.abs(normal.y) < 0.9 ? 0 : 1, Math.abs(normal.y) < 0.9 ? 1 : 0, 0)
+              .cross(normal).normalize();
+            const spread = site.radius * Math.sqrt(this.rng.next());
+            offset.addScaledVector(tangent, spread * Math.cos(angle))
+              .addScaledVector(new THREE.Vector3().crossVectors(normal, tangent), spread * Math.sin(angle))
+              .addScaledVector(normal, baseRad);
+          } else {
+            const vertical = 2 * this.rng.next() - 1, spread = site.radius * Math.cbrt(this.rng.next());
+            const planar = Math.sqrt(Math.max(0, 1 - vertical * vertical));
+            offset.set(planar * Math.cos(angle), vertical, planar * Math.sin(angle)).multiplyScalar(spread);
+          }
+          [bx, by, bz] = [site.point[0] + offset.x, site.point[1] + offset.y, site.point[2] + offset.z];
+        }
         const birth = { x: bx, y: by, z: bz, radius: baseRad };
-        if (params.surfacePlane && !containParticle(birth, params, 1.6)) continue;
+        if (!containParticle(birth, params, 1.6)) continue;
         const pressure = (params.pressure_atm ?? 1) * 101325
           + (params.liquidDensity_kg_m3 ?? 1000) * 9.80665 * Math.max(0, pointPlaneDepth(birth, surfaceY, params.surfacePlane)) * METERS_PER_SCENE_UNIT
           + 2 * sigma / (baseRad * METERS_PER_SCENE_UNIT);
 
+        newbornExposure.set(this.nextId, dt - bornAt);
         this.bubbles.push({
           id: this.nextId++,
           source,
@@ -258,7 +300,8 @@ export class BoilingSystem {
         const pressure = (params.pressure_atm ?? 1) * 101325 + (params.liquidDensity_kg_m3 ?? 1000)
           * 9.80665 * Math.max(0, pointPlaneDepth(b, surfaceY, params.surfacePlane)) * METERS_PER_SCENE_UNIT;
         const phase = condenseBubbleVapor({ vapor_Pa_m3: b.vaporPV_scene3_Pa! * scale3,
-          noncondensable_Pa_m3: b.noncondensablePV_scene3_Pa! * scale3, temperature_c: temp_c }, pressure, sigma, temp_c, dt);
+          noncondensable_Pa_m3: b.noncondensablePV_scene3_Pa! * scale3, temperature_c: temp_c }, pressure, sigma, temp_c,
+          newbornExposure.get(b.id) ?? dt);
         b.vaporPV_scene3_Pa = phase.vapor_Pa_m3 / scale3;
         updateBubbleSource(b);
       }
@@ -267,6 +310,7 @@ export class BoilingSystem {
     for (let i = 0; i < count; i++) {
       const b = this.bubbles[i];
       if (b.merged) continue;
+      const elapsed = newbornExposure.get(b.id) ?? dt;
 
       // 1. Handling surface arrival dome, thin-film drainage and burst
       if (b.isPopping) {
@@ -283,7 +327,7 @@ export class BoilingSystem {
         continue;
       }
 
-      b.life += dt;
+      b.life += elapsed;
       // No arbitrary underwater expiry. Gas leaves through surface arrival,
       // condensation or geometry removal; dissolution needs a separate model.
 
@@ -312,7 +356,7 @@ export class BoilingSystem {
       const motion = advanceBubbleMotion([b.x * METERS_PER_SCENE_UNIT, b.y * METERS_PER_SCENE_UNIT, b.z * METERS_PER_SCENE_UNIT],
         [b.vx * METERS_PER_SCENE_UNIT, b.vy * METERS_PER_SCENE_UNIT, b.vz * METERS_PER_SCENE_UNIT],
         [cvx * METERS_PER_SCENE_UNIT, cvy * METERS_PER_SCENE_UNIT, cvz * METERS_PER_SCENE_UNIT],
-        physicalRadius_m, rho, viscosity_mPa_s * 0.001, dt, params.interfaceMobility, params.surfacePlane?.normal);
+        physicalRadius_m, rho, viscosity_mPa_s * 0.001, elapsed, params.interfaceMobility, params.surfacePlane?.normal);
       [b.x, b.y, b.z] = motion.position.map(x => x / METERS_PER_SCENE_UNIT);
       [b.vx, b.vy, b.vz] = motion.velocity.map(u => u / METERS_PER_SCENE_UNIT);
       b.physicalRadius_m = physicalRadius_m;
@@ -325,7 +369,7 @@ export class BoilingSystem {
       const eo = sigma > 0 ? 9.80665 * rho * diameter_m ** 2 / sigma : 0;
       const oldPhase = b.wobblePhase;
       const angularRate = 2 * Math.PI * Math.min(30, 0.22 * motion.terminal_m_s / diameter_m);
-      b.wobblePhase += dt * angularRate;
+      b.wobblePhase += elapsed * angularRate;
       const amplitude = physicalRadius_m / METERS_PER_SCENE_UNIT * Math.min(0.12, 0.02 * eo);
       const wobbleX = amplitude * (Math.sin(b.wobblePhase) - Math.sin(oldPhase));
       const wobbleZ = amplitude * (Math.cos(b.wobblePhase * 0.85) - Math.cos(oldPhase * 0.85));
@@ -342,7 +386,7 @@ export class BoilingSystem {
       const speed_m_s = Math.hypot(b.vx - cvx, b.vy - cvy, b.vz - cvz) * METERS_PER_SCENE_UNIT;
       const we = sigma > 0 ? (rho * speed_m_s ** 2 * diameter_m) / sigma : 0;
       const targetAspect = Math.max(0.62, Math.min(1.0, 1.0 / (1.0 + 0.163 * Math.pow(Math.max(0.01, eo), 0.75) * Math.pow(we + 0.1, 0.1))));
-      b.aspectRatio = THREE.MathUtils.lerp(b.aspectRatio, targetAspect, 1 - Math.exp(-dt * 6.0));
+      b.aspectRatio = THREE.MathUtils.lerp(b.aspectRatio, targetAspect, 1 - Math.exp(-elapsed * 6.0));
 
       // Hydrostatic exterior plus the single-interface Laplace pressure.
       const atmosphericPressure = (params.pressure_atm ?? 1) * 101325;

@@ -31,7 +31,8 @@ describe('SI particle settling', () => {
     system.update(0.1, conditions);
     const particle = system.particles[0];
     const initial = particle.sedimentationSpeed;
-    expect(initial * METERS_PER_SCENE_UNIT).toBeCloseTo(sphereSettlingSpeed(particle.physicalRadius_m!, particle.density, 1000, 0.001), 12);
+    expect(initial * METERS_PER_SCENE_UNIT / system.hindrance!.factor)
+      .toBeCloseTo(sphereSettlingSpeed(particle.physicalRadius_m!, particle.density, 1000, 0.001), 12);
     system.update(0.001, { ...conditions, viscosity_mPa_s: 3 });
     expect(particle.sedimentationSpeed).toBeLessThan(initial);
   });

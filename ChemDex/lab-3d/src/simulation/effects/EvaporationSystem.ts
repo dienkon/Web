@@ -160,11 +160,15 @@ export class EvaporationSystem {
 
     const visibility = params.mistVisibility;
     const visualSpawnRate = radius > 0 && mouthRadius > 0 ? Math.min(32, sourceRate_g_s * 180) * visibility : 0;
+    const newbornExposure = new Map<number, number>();
     // 3. SPAWN PARTICLES AT MENISCUS SURFACE OR MOUTH
     if (visualSpawnRate > 0) {
+      const previousCredit = this.spawnTimer;
+      let birthIndex = 0;
       this.spawnTimer += dt * visualSpawnRate;
-      while (this.spawnTimer >= 1.0) {
-        this.spawnTimer -= 1.0;
+      while (this.spawnTimer >= 1 - 32 * Number.EPSILON) {
+        this.spawnTimer = Math.max(0, this.spawnTimer - 1.0);
+        const bornAt = Math.max(0, Math.min(dt, (++birthIndex - previousCredit) / visualSpawnRate));
         // Drop display packets when full; do not bank an artificial later burst.
         if (this.particles.length >= this.maxParticles) continue;
 
@@ -188,6 +192,7 @@ export class EvaporationSystem {
         const vx = Math.cos(angle) * outwardSpeed + (this.rng.next() - 0.5) * 0.03 * unitScale;
         const vz = Math.sin(angle) * outwardSpeed + (this.rng.next() - 0.5) * 0.03 * unitScale;
 
+        newbornExposure.set(this.nextId, dt - bornAt);
         this.particles.push({
           id: this.nextId++,
           x: birth[0],
@@ -214,7 +219,8 @@ export class EvaporationSystem {
 
     for (let i = 0; i < this.particles.length; i++) {
       const p = this.particles[i];
-      p.age += dt;
+      const elapsed = newbornExposure.get(p.id) ?? dt;
+      p.age += elapsed;
 
       if (p.age >= p.life) {
         continue;
@@ -238,21 +244,21 @@ export class EvaporationSystem {
       const airDriftY = airflowVector[1] * 0.6 / packetMetersPerUnit;
       const airDriftZ = airflowVector[2] * 0.6 / packetMetersPerUnit;
 
-      p.vx = THREE.MathUtils.lerp(p.vx, curlX + airDriftX, 1 - Math.exp(-dt * 2.5));
+      p.vx = THREE.MathUtils.lerp(p.vx, curlX + airDriftX, 1 - Math.exp(-elapsed * 2.5));
       // Illustrative entrainment/dilution on the existing 2.5/s response scale;
       // this is not a solved puff temperature, buoyancy or droplet-size model.
       const retainedLift = p.riseSpeed * Math.exp(-2.5 * p.age);
-      p.vy = THREE.MathUtils.lerp(p.vy, retainedLift + airDriftY, 1 - Math.exp(-dt * 2.5));
-      p.vz = THREE.MathUtils.lerp(p.vz, curlZ + airDriftZ, 1 - Math.exp(-dt * 2.5));
+      p.vy = THREE.MathUtils.lerp(p.vy, retainedLift + airDriftY, 1 - Math.exp(-elapsed * 2.5));
+      p.vz = THREE.MathUtils.lerp(p.vz, curlZ + airDriftZ, 1 - Math.exp(-elapsed * 2.5));
 
-      p.x += p.vx * dt;
-      p.y += p.vy * dt;
-      p.z += p.vz * dt;
+      p.x += p.vx * elapsed;
+      p.y += p.vy * elapsed;
+      p.z += p.vz * elapsed;
 
       // Expansion and soft opacity decay into air
       const progress = p.age / p.life;
       p.size = p.baseSize * (1.0 + progress * 2.6);
-      p.opacity *= Math.exp(-dt * 1.5);
+      p.opacity *= Math.exp(-elapsed * 1.5);
 
       activeParticles.push(p);
     }

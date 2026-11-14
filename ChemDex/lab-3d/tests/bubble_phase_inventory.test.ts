@@ -37,7 +37,7 @@ describe('Mechanical and thermal bubble equilibrium', () => {
   it('recovers the pure-vapor R-squared conduction law at constant exterior pressure', () => {
     const radius = 0.001, pressure = 101325, bulk = 90, dt = 1e-4;
     const gas = { vapor_Pa_m3: pressure * radius ** 3, noncondensable_Pa_m3: 0, temperature_c: 100 };
-    const next = condenseBubbleVapor(gas, pressure, 0, bulk, dt);
+    const next = condenseBubbleVapor(gas, pressure, 0, bulk, dt, 0.6);
     const density = pressure / (461.5 * 373.15), latent = waterLatentHeatJ_G(saturationTemperatureC(pressure)) * 1000;
     const predictedR2 = radius ** 2 - 2 * 0.6 * (saturationTemperatureC(pressure) - bulk) * dt / (density * latent);
     const actualR = bubbleMechanicalRadius(next.vapor_Pa_m3, pressure, 0);

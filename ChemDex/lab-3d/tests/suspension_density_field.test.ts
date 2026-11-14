@@ -3,6 +3,8 @@ import { SuspensionDensityField } from '../src/simulation/effects/SuspensionDens
 import { LiquidAppearanceField } from '../src/simulation/effects/LiquidAppearanceField';
 import { getVesselProfile } from '../src/pour/physics/profiles';
 import { liquidParticlePlane } from '../src/simulation/effects/liquidParticleFrame';
+import { suspensionCloudiness, suspensionOpticalDepth } from '../src/science/suspensionCloudiness';
+import { opacityFromOpticalDepth } from '../src/science/opticalDepth';
 
 const parcel = { x: -0.35, y: 0.75, z: 0, mass_ug: 100 };
 const sample = { cloudiness: 0.5, particles: [parcel] };
@@ -35,6 +37,24 @@ describe('suspended solid optical distribution', () => {
     expect(f.opacity[5 * 12 + 5]).toBeCloseTo(0.7, 6);
     f.update([{ cloudiness: 0.5, particles: [], representedMass_g: 1, sedimentBed: { amount_g: 1 } }], 1, 0, 1);
     expect(f.opacity.every(a => a === 0)).toBe(true);
+  });
+  it('retains concentrated mass depth on short paths after reference opacity saturates', () => {
+    const f = new SuspensionDensityField(12), depths: number[] = [];
+    for (const mass of [2, 4]) {
+      f.update([{ cloudiness: suspensionCloudiness(mass, 100, 1),
+        opticalDepth: suspensionOpticalDepth(mass, 100, 1), particles: [] }], 1, 0, 1);
+      depths.push(f.optical[(5 * 144 + 5 * 12 + 5) * 4 + 3]);
+    }
+    expect(depths).toEqual([20, 40]);
+    // A 0.5 mm path has only 5% of the reference 1 cm optical depth.
+    const alpha = depths.map(tau => opacityFromOpticalDepth(tau * 0.05));
+    expect(alpha[0]).toBeCloseTo(1 - Math.exp(-1), 14);
+    expect(alpha[1]).toBeCloseTo(1 - Math.exp(-2), 14);
+    expect(alpha[1]).toBeGreaterThan(alpha[0] + 0.2);
+    f.update([{ cloudiness: 1, opticalDepth: 0, particles: [] }], 1, 0, 1);
+    expect(f.optical.every(value => value === 0)).toBe(true);
+    f.update([{ cloudiness: 0.5, opticalDepth: NaN, particles: [] }], 1, 0, 1);
+    expect(f.opacity[5 * 12 + 5]).toBeCloseTo(0.5, 6);
   });
   it('updates the real liquid atlas while color is idle, obeys pause, and clears on dissolution', () => {
     const f = new LiquidAppearanceField();
@@ -70,5 +90,26 @@ describe('suspended solid optical distribution', () => {
       }
     }
     expect(occupied).toBeGreaterThan(20);
+  });
+  it('retains optical depth in a thin tilted liquid wedge that contains no grid nodes', () => {
+    const f = new SuspensionDensityField(12), profile = getVesselProfile('test_tube', 100);
+    const radius = Math.max(...profile.contour!.map(([r]) => r));
+    const plane = liquidParticlePlane(profile, 1, [0.6, 0.8, 0])!;
+    const bounds = { radius, liquidBottomY: profile.baseY, surfaceY: plane.offset,
+      vesselProfile: profile, surfacePlane: plane };
+    const red = { cloudiness: 0.5, opticalDepth: 2, profile: { color: '#ff0000' },
+      representedMass_g: 0.01, sedimentBed: { amount_g: 0 }, particles: [], renderBounds: bounds };
+    const blue = { ...red, opticalDepth: 1, profile: { color: '#0000ff' } };
+    f.update([red, blue], radius, profile.baseY, profile.H);
+    // No nodal opacity is claimed outside the physical liquid. The renderer
+    // samples padded coefficients only after clipping to its real wet volume.
+    expect(f.opacity.every(alpha => alpha === 0)).toBe(true);
+    for (let i = 0; i < f.optical.length; i += 4) {
+      expect([...f.optical.slice(i, i + 4)]).toEqual([2, 0, 1, 3]);
+    }
+    f.update([{ ...red, sedimentBed: { amount_g: 0.01 } }], radius, profile.baseY, profile.H);
+    expect(f.optical.every(value => value === 0)).toBe(true);
+    f.update([], radius, profile.baseY, profile.H);
+    expect(f.optical.every(value => value === 0)).toBe(true);
   });
 });

@@ -6,6 +6,9 @@ export interface GasFlux {
   dt_s: number;
   generated_mol_s: Record<string, number>;
   escaped_mol_s: Record<string, number>;
+  /** Pre-step solid sources for the receipt whose extent may exhaust them.
+   * Observation only: never merge these rows back into the material ledger. */
+  sourceSolids?: { contents: VesselState['contents']; stockMotion?: VesselState['stockMotion'] };
 }
 function escapedMass(v: VesselState) {
   const result: Record<string, number> = {};
@@ -47,6 +50,14 @@ export function measureGasFlux(current: VesselState, previous: VesselState, dt: 
     const netNew = (total[key] ?? 0) - (oldTotal[key] ?? 0) + trappedChange;
     result.generated_mol_s[key] = Math.max(0, netNew - Math.max(0, trappedChange)) / mm / dt;
     result.escaped_mol_s[key] = current.isSealed ? 0 : Math.max(0, (out[key] ?? 0) - (oldOut[key] ?? 0)) / mm / dt;
+  }
+  if (Object.values(result.generated_mol_s).some(rate => rate > 0)) {
+    const contents = previous.contents.filter(row => ['s', 'solid'].includes(row.phase ?? row.state ?? '')
+      && row.mass_g > 0 && row.location !== 'filter' && row.location !== 'foam').map(row => ({ ...row }));
+    if (contents.length) result.sourceSolids = { contents, stockMotion: previous.stockMotion
+      ? { ...previous.stockMotion, grains: previous.stockMotion.grains.map(grain => ({ ...grain,
+        position_m: [...grain.position_m], rotation: [...grain.rotation], velocity_m_s: [...grain.velocity_m_s],
+        angularVelocity_rad_s: [...grain.angularVelocity_rad_s] })) } : undefined };
   }
   return result;
 }

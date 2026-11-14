@@ -70,13 +70,13 @@ it('preserves the physical settling law for seeded grains in different capacity 
     const system = new PrecipitationSystem(12, 'CuS', new PRNG(73));
     system.update(0.2, { temp_c: 25, ambientTemp_c: 25, viscosity_mPa_s: 1, density_g_ml: 1,
       radius: 0.8, liquidBottomY: vesselProfile.baseY, surfaceY: 0.8, vesselProfile,
-      precipitateAmount_g: 0.1, volume_ml: capacity_ml * 0.8, substance: 'CuS',
+      precipitateAmount_g: capacity_ml * 0.001, volume_ml: capacity_ml * 0.8, substance: 'CuS',
       aggregationEnabled: false, agitation: 0, heatPower_W: 0 });
     expect(system.particles.length).toBeGreaterThan(0);
     for (const particle of system.particles) {
       expect(particle.physicalRadius_m).toBeGreaterThan(0);
       const expected = sphereSettlingSpeed(particle.physicalRadius_m!, particle.density, 1000, 0.001);
-      expect(particle.sedimentationSpeed * unit).toBeCloseTo(expected, 13);
+      expect(particle.sedimentationSpeed * unit / system.hindrance!.factor).toBeCloseTo(expected, 13);
     }
     return { system, unit };
   });

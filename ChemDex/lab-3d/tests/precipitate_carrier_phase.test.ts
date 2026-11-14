@@ -42,6 +42,7 @@ describe('A missing carrier cannot apply liquid Brownian/drag/entrainment',()=>{
     expect(flow).not.toHaveBeenCalled();expect(system.particles).toHaveLength(0);
     expect(system.sedimentBed.amount_g).toBe(0.1);expect(system.sedimentBed.thickness).toBeGreaterThan(0);
     expect(system.representedMass_g).toBe(0.1);expect(system.cloudiness).toBe(0);
+    expect(system.opticalDepth).toBe(0);
     expect(system.sedimentBed.resuspensionTurbidity).toBe(0);
     expect(system.integratedTime_s).toBeCloseTo(1.6,12);expect(system.pendingTime_s).toBe(0);
   });
@@ -69,6 +70,7 @@ describe('A missing carrier cannot apply liquid Brownian/drag/entrainment',()=>{
       expect([p.vx,p.vy,p.vz]).toEqual([0,0,0]);expect(p.age).toBeCloseTo(points[i].age+0.8,12);
     });
     expect(system.sedimentBed.amount_g).toBe(bed);expect(system.cloudiness).toBe(0);
+    expect(system.opticalDepth).toBe(0);
     expect(system.representedMass_g).toBeCloseTo(0.1,13);
     system.update(0.1,{...params,carrierMode:'liquid'});
     expect(flow.mock.calls.length).toBeGreaterThan(0);expect(system.carrierMode).toBe('liquid');

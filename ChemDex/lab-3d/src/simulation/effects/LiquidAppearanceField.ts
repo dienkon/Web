@@ -39,6 +39,9 @@ export class LiquidAppearanceField {
   private suspension = new SuspensionDensityField(N);
   private suspensionAccumulator = 0;
   private hasSpatialSuspension = false;
+  get suspensionOptics() { return this.suspension.optical; }
+  get usesSpatialSuspension() { return this.hasSpatialSuspension; }
+  suspensionRevision = 0;
   revision = 0;
   radius = 1;
   baseY = 0;
@@ -73,6 +76,7 @@ export class LiquidAppearanceField {
         this.suspensionAccumulator %= 1 / 15;
         this.suspension.update(input.suspensions?.values() ?? [], this.radius, this.baseY, this.depth);
         this.hasSpatialSuspension = !!input.suspensions?.size;
+        this.suspensionRevision++;
         let changed = false;
         for (let i = 0; i < this.suspension.opacity.length; i++) {
           const alpha = this.suspension.opacity[i], index = i * 4 + 3;

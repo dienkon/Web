@@ -1,0 +1,82 @@
+{
+  "errors": [],
+  "cases": [
+    {
+      "scale_cmPerModelUnit": 0.25,
+      "expected": 0.2254033307585166,
+      "measured": 0.2235294117647059
+    },
+    {
+      "scale_cmPerModelUnit": 0.5,
+      "expected": 0.4,
+      "measured": 0.4
+    },
+    {
+      "scale_cmPerModelUnit": 1,
+      "expected": 0.64,
+      "measured": 0.6392156862745098
+    },
+    {
+      "scale_cmPerModelUnit": 2,
+      "expected": 0.8704000000000001,
+      "measured": 0.8705882352941177
+    }
+  ],
+  "mixed": {
+    "redFront": [
+      253,
+      0,
+      2,
+      255
+    ],
+    "blueFront": [
+      2,
+      0,
+      253,
+      255
+    ]
+  },
+  "orthographic": {
+    "normal": [
+      102,
+      102,
+      102,
+      255
+    ],
+    "offset": [
+      102,
+      102,
+      102,
+      255
+    ]
+  },
+  "chords": [
+    {
+      "rayX": 0.5,
+      "expected": 0.3560020497248113,
+      "measured": 0.3568627450980392
+    },
+    {
+      "rayX": 0.9,
+      "expected": 0.19283579066176926,
+      "measured": 0.19215686274509805
+    },
+    {
+      "rayX": 0.98,
+      "expected": 0.07643052987468746,
+      "measured": 0.0784313725490196
+    }
+  ],
+  "concentrated": [
+    {
+      "opticalDepth": 20,
+      "expected": 0.6321205588285577,
+      "measured": 0.6313725490196078
+    },
+    {
+      "opticalDepth": 40,
+      "expected": 0.8646647167633873,
+      "measured": 0.8627450980392157
+    }
+  ]
+}

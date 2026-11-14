@@ -84,7 +84,10 @@ describe('Gas flux distinguishes production, holdup and exhaust', () => {
       const state = useAppStore.getState(), flux = state.vessels.g.gasFlux!;
       generated += (flux.generated_mol_s.H2 ?? 0) / 60;
       exhausted += (flux.escaped_mol_s.H2 ?? 0) / 60;
-      if (!state.activeKinetics.g && (flux.escaped_mol_s.H2 ?? 0) > 0) finalPulse = true;
+      if (!state.activeKinetics.g && (flux.escaped_mol_s.H2 ?? 0) > 0) {
+        finalPulse = true;
+        expect(state.vessels.g.lastReactionId).toBe(plan.kinetics.program!.id);
+      }
     }
     expect(generated).toBeCloseTo(0.1 / computeMolarMass('Na') / 2, 10);
     expect(exhausted).toBeCloseTo(generated, 12);

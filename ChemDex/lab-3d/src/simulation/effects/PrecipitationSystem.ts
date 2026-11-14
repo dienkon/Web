@@ -9,7 +9,8 @@ import { sedimentLevel, cylinderSedimentThickness } from './sedimentGeometry';
 import { precipitatePackingFraction } from '../../science/precipitatePacking';
 import { sphereSettlingSpeed, sphereDragResponseTime, particleResponseFactors } from '../../science/particleSettling';
 import { metersPerModelUnit } from '../../science/sceneUnits';
-import { suspensionCloudiness } from '../../science/suspensionCloudiness';
+import { suspensionOpticalDepth } from '../../science/suspensionCloudiness';
+import { opacityFromOpticalDepth } from '../../science/opticalDepth';
 import { brownianDiffusivity } from '../../science/brownianDiffusion';
 import type { ConvectionFluidModel } from '../../science/convectionForcing';
 import type { SuspensionCarrierMode } from '../../science/suspensionFluid';
@@ -17,6 +18,7 @@ import { FlocculationPopulation, stirringShear } from '../../science/flocculatio
 import { getFlocculationModel } from '../../science/flocculationModels';
 import { sameMolecularFormula } from '../../science/speciesIdentity';
 import { sedimentSupportPlane } from './sedimentPlane';
+import { settlingHindrance, supportsCompactHindrance, type SettlingHindrance } from '../../science/hinderedSettling';
 
 export interface PrecipitationSimulationParams extends ParticleBounds {
   carrierMode?: SuspensionCarrierMode;
@@ -42,6 +44,9 @@ export interface PrecipitationSimulationParams extends ParticleBounds {
   withdrawnSuspension_g?: number;
   aggregationEnabled?: boolean;
   velocityGradient_s_1?: number;
+  /** Compact suspended material across all species, excluding settled bed.
+   * Omitted standalone callers use this species' own suspended inventory. */
+  sharedCompactSuspendedVolume_ml?: number;
 }
 
 export class PrecipitationSystem {
@@ -50,10 +55,14 @@ export class PrecipitationSystem {
   public profile: PrecipitateProfile;
   public sedimentBed: SedimentBedState;
   public cloudiness = 0; // 0 (clear) to 1.0 (opaque)
+  /** Smoothed optical depth at the 1 cm reference path; never alpha-clamped. */
+  public opticalDepth = 0;
   public lastInputMass_g: number | null = null;
   public carrierMode: SuspensionCarrierMode | null = null;
   /** Read-only bounds for visual glyph enlargement; never a second solver. */
   public renderBounds?: ParticleBounds;
+  public hindrance: SettlingHindrance | null = null;
+  private hindranceCache?: { values: number[]; compact: boolean; result: SettlingHindrance };
 
   private spawnTimer = 0;
   private nextId = 1;
@@ -176,12 +185,29 @@ export class PrecipitationSystem {
     return speed;
   }
 
+  private hindranceFactor(radius: number, density: number, fluidDensity: number, viscosity: number,
+    temp_c: number, solidVolume: number, liquidVolume: number): number {
+    const compact = this.formulaMatchesProfile && supportsCompactHindrance(this.profile);
+    const old = this.hindranceCache;
+    if (old && old.compact === compact && old.values[0] === radius && old.values[1] === density
+      && old.values[2] === fluidDensity && old.values[3] === viscosity && old.values[4] === temp_c
+      && old.values[5] === solidVolume && old.values[6] === liquidVolume) {
+      this.hindrance = old.result;
+      return old.result.factor;
+    }
+    const result = settlingHindrance(radius, density, fluidDensity, viscosity, temp_c, solidVolume, liquidVolume, compact);
+    this.hindrance = result;
+    this.hindranceCache = { values: [radius, density, fluidDensity, viscosity, temp_c, solidVolume, liquidVolume], compact, result };
+    return result.factor;
+  }
+
   public reset(): void {
     this.clearParticles();
     this.pendingSteps = [];
     this.acceptedTime_s = this.integratedTime_s = 0;
     this.carrierMode = null;
     this.renderBounds = undefined;
+    this.hindrance = null; this.hindranceCache = undefined;
     this.rng.reset();
   }
 
@@ -190,6 +216,8 @@ export class PrecipitationSystem {
     this.sedimentBed.amount_g = 0;
     this.sedimentBed.thickness = 0;
     this.cloudiness = 0;
+    this.opticalDepth = 0;
+    this.hindrance = null;
     this.trackedMass_g = 0;
     this.pendingMass_g = 0;
     this.pendingBedMass_g = 0;
@@ -203,12 +231,13 @@ export class PrecipitationSystem {
     if (![dt,params.precipitateAmount_g,params.temp_c,params.viscosity_mPa_s,params.density_g_ml,
       params.radius,params.liquidBottomY,params.surfaceY,params.ambientTemp_c ?? 25,params.agitation ?? 0,
       params.heatPower_W ?? 0,params.withdrawnSuspension_g ?? 0,params.sharedSedimentThickness ?? 0,
-      params.volume_ml ?? 0, params.velocityGradient_s_1 ?? 0,...(params.entryPoint ?? [])].every(Number.isFinite)
+      params.volume_ml ?? 0, params.velocityGradient_s_1 ?? 0, params.sharedCompactSuspendedVolume_ml ?? 0,...(params.entryPoint ?? [])].every(Number.isFinite)
       || dt<=0 || params.precipitateAmount_g<0 || params.temp_c<=-273.15 || !(params.viscosity_mPa_s>0)
       || !(params.density_g_ml>0) || !(params.radius>0) || params.surfaceY<params.liquidBottomY
       || (params.agitation ?? 0)<0 || (params.agitation ?? 0)>1 || (params.heatPower_W ?? 0)<0
       || (params.withdrawnSuspension_g ?? 0)<0 || (params.sharedSedimentThickness ?? 0)<0 || (params.volume_ml ?? 0)<0
       || (params.velocityGradient_s_1 ?? 0)<0
+      || (params.sharedCompactSuspendedVolume_ml ?? 0)<0
       || params.carrierMode!==undefined && !['liquid','dry-residue','frozen-matrix'].includes(params.carrierMode)
       || !Number.isFinite(this.acceptedTime_s+dt)) return;
     const ratio=dt/this.fixedDt, nearest=Math.round(ratio);
@@ -302,21 +331,23 @@ export class PrecipitationSystem {
     }
     this.lastInputMass_g = targetMass;
     if(this.carrierMode==='dry-residue'){
+      this.hindrance = null;
       if (flocculationModel) this.settledPopulation.receive(this.suspendedPopulation.withdraw(this.suspendedPopulation.snapshot.solidMass_g));
       // Bulk dry-residue representation, not a simulated aerosol-deposition
       // trajectory. Transfer the EXISTING declared solid into its dry bed.
       this.particles=[];this.pendingMass_g=this.pendingBedMass_g=this.spawnTimer=0;
       this.sedimentBed.amount_g=targetMass;
       this.updateBedThickness(params);
-      this.sedimentBed.resuspensionTurbidity=0;this.cloudiness=0;
+      this.sedimentBed.resuspensionTurbidity=0;this.cloudiness=this.opticalDepth=0;
       return;
     }
     if(this.carrierMode==='frozen-matrix'){
+      this.hindrance = null;
       // No liquid Stokes/Brownian carrier. Hold positions/inventory pending a
       // resolved interface pushing/engulfment model; do not settle through ice.
       for(const p of this.particles){p.age+=dt;p.vx=p.vy=p.vz=0;}
       this.updateBedThickness(params);
-      this.sedimentBed.resuspensionTurbidity=0;this.cloudiness=0;
+      this.sedimentBed.resuspensionTurbidity=0;this.cloudiness=this.opticalDepth=0;
       return;
     }
     // Phenomenological entrainment, not a measured shear/erosion law. Transfer
@@ -329,6 +360,10 @@ export class PrecipitationSystem {
     this.pendingBedMass_g += entrainedMass;
     if (flocculationModel) this.suspendedPopulation.receive(this.settledPopulation.withdraw(entrainedMass));
     const volume_ml = params.volume_ml ?? Math.PI * radius ** 2 * height * METERS_PER_SCENE_UNIT ** 3 * 1e6;
+    const ownCompactVolume = supportsCompactHindrance(this.profile)
+      ? Math.max(0, targetMass - this.sedimentBed.amount_g) / this.profile.particleDensity_g_cm3 : 0;
+    const compactVolume_ml = params.sharedCompactSuspendedVolume_ml === undefined ? ownCompactVolume
+      : Math.max(ownCompactVolume, params.sharedCompactSuspendedVolume_ml);
     if (flocculationModel) {
       this.appliedShear_s_1 = params.velocityGradient_s_1 ?? stirringShear(agitation);
       this.suspendedPopulation.step(dt, volume_ml, temp_c, viscosity_mPa_s * 0.001, this.appliedShear_s_1, flocculationModel);
@@ -358,7 +393,8 @@ export class PrecipitationSystem {
         const rho_p = this.profile.particleDensity_g_cm3 * 1000; // kg/m3
         const rho_f = density_g_ml * 1000; // kg/m3
         const rPhys = this.profile.baseParticleRadius_mm * 1e-3;
-        const sceneSedSpeed = this.settlingSpeed(rPhys, rho_p, rho_f, viscosity_mPa_s * 0.001, METERS_PER_SCENE_UNIT);
+        const sceneSedSpeed = this.settlingSpeed(rPhys, rho_p, rho_f, viscosity_mPa_s * 0.001, METERS_PER_SCENE_UNIT)
+          * this.hindranceFactor(rPhys, rho_p, rho_f, viscosity_mPa_s * 0.001, temp_c, compactVolume_ml, volume_ml);
 
         // Mixing front nucleation: spawn at entryPoint or upper liquid mixing zone (P4.1-lite)
         let px: number, py: number, pz: number, initVx: number, initVy: number, initVz: number;
@@ -471,7 +507,9 @@ export class PrecipitationSystem {
       p.age += particleDt;
       if (p.physicalRadius_m !== undefined) {
         p.sedimentationSpeed = this.settlingSpeed(p.physicalRadius_m, p.density,
-          density_g_ml * 1000, viscosity_mPa_s * 0.001, METERS_PER_SCENE_UNIT);
+          density_g_ml * 1000, viscosity_mPa_s * 0.001, METERS_PER_SCENE_UNIT)
+          * this.hindranceFactor(p.physicalRadius_m, p.density, density_g_ml * 1000,
+            viscosity_mPa_s * 0.001, temp_c, compactVolume_ml, volume_ml);
       }
       // Contact is absorbing until explicit bed entrainment. Do not let the
       // next Brownian draw lift an already supported grain back off the glass.
@@ -554,15 +592,18 @@ export class PrecipitationSystem {
     this.updateBedThickness(params);
 
     // 4. DYNAMIC CLOUDINESS / SUPERNATANT CLARIFICATION
-    // When particles settle, cloudiness decreases proportionally as supernatant clears
+    // Settling removes optical depth in proportion to the suspended inventory.
     const suspendedMass = Math.max(0, targetMass - this.sedimentBed.amount_g);
     // A quality-tier glyph budget must not determine whether the same sample
     // appears cloudy. Pending mass is suspended too, even before glyph emission.
     // Runtime supplies actual post-thermal liquid volume. Standalone previews
     // without inventory use a cylinder estimate in the shared scene scale.
-    const targetCloudiness = suspensionCloudiness(suspendedMass, volume_ml, this.profile.cloudinessFactor);
-    this.sedimentBed.resuspensionTurbidity = entrainmentRate > 0 ? targetCloudiness : 0;
-    this.cloudiness = THREE.MathUtils.lerp(this.cloudiness, targetCloudiness, 1 - Math.exp(-dt * 1.5));
+    const targetDepth = suspensionOpticalDepth(suspendedMass, volume_ml, this.profile.cloudinessFactor);
+    this.sedimentBed.resuspensionTurbidity = entrainmentRate > 0 ? opacityFromOpticalDepth(targetDepth) : 0;
+    // Smooth the additive quantity. Alpha loses concentration information once
+    // it rounds to one, even though thin paths through that sample remain clear.
+    this.opticalDepth = THREE.MathUtils.lerp(this.opticalDepth, targetDepth, -Math.expm1(-dt * 1.5));
+    this.cloudiness = opacityFromOpticalDepth(this.opticalDepth);
   }
 
   private updateBedThickness(params:PrecipitationSimulationParams):void{

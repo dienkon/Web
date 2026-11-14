@@ -2,6 +2,7 @@ import { waterSaturationPressurePa } from './waterSaturation';
 export { waterSaturationTemperatureC as saturationTemperatureC } from './waterSaturation';
 import { waterSaturationTemperatureC as saturationTemperatureC } from './waterSaturation';
 import { waterLatentHeatJ_G } from './waterThermodynamics';
+import { waterThermalConductivity_W_m_K } from './waterThermalConductivity';
 
 /** A component stores K=P_component*R^3 in Pa m^3. K/T is proportional
  * to moles; the common 4pi/3 factor is restored when converting to mass. */
@@ -32,19 +33,29 @@ export function bubbleMechanicalRadius(gas_Pa_m3: number, externalPressure_Pa: n
  * thermal limit, not a solution of the transient heat/diffusion boundary layer. */
 export function condenseBubbleVapor(gas: BubbleGasInventory, externalPressure_Pa: number,
   surfaceTension_N_m: number, liquidTemperature_c: number, dt: number,
-  conductivity_W_m_K = 0.6, latentHeat_J_kg?: number) {
+  conductivity_W_m_K?: number, latentHeat_J_kg?: number) {
   const unchanged = { ...gas, condensedMass_kg: 0, latentHeat_J: 0 };
   if (![gas.vapor_Pa_m3, gas.noncondensable_Pa_m3, gas.temperature_c, externalPressure_Pa,
-    surfaceTension_N_m, liquidTemperature_c, dt, conductivity_W_m_K].every(Number.isFinite)
+    surfaceTension_N_m, liquidTemperature_c, dt, conductivity_W_m_K ?? 0.6].every(Number.isFinite)
     || gas.vapor_Pa_m3 <= 0 || gas.noncondensable_Pa_m3 < 0 || gas.temperature_c <= -273.15
     || externalPressure_Pa <= 0 || surfaceTension_N_m < 0 || liquidTemperature_c < 0 || liquidTemperature_c > 200
-    || dt <= 0 || conductivity_W_m_K <= 0) return unchanged;
+    || dt <= 0 || (conductivity_W_m_K ?? 0.6) <= 0) return unchanged;
   const radius = bubbleMechanicalRadius(gas.vapor_Pa_m3 + gas.noncondensable_Pa_m3, externalPressure_Pa, surfaceTension_N_m);
   const partialPressure = gas.vapor_Pa_m3 / radius ** 3;
   const saturation = waterSaturationPressurePa(liquidTemperature_c);
   if (partialPressure <= saturation) return unchanged;
   const interface_c = saturationTemperatureC(partialPressure);
   if (!Number.isFinite(interface_c) || interface_c <= liquidTemperature_c) return unchanged;
+  // Evaluate the liquid-side conductivity at the film temperature. Beyond
+  // SR6's temperature/pressure domain retain the explicit legacy reference
+  // coefficient; do not silently extrapolate its four-term correlation.
+  const filmTemperature_c = (interface_c + liquidTemperature_c) / 2;
+  // The published 0.1 MPa curve includes metastable liquid; its extension
+  // to other pressures is restricted to p_sat(T) <= p <= 0.3 MPa.
+  const pressureInRange = externalPressure_Pa === 100000
+    || (externalPressure_Pa >= waterSaturationPressurePa(filmTemperature_c) && externalPressure_Pa <= 300000);
+  conductivity_W_m_K ??= (pressureInRange
+    ? waterThermalConductivity_W_m_K(filmTemperature_c) : null) ?? 0.6;
   latentHeat_J_kg ??= waterLatentHeatJ_G(interface_c) * 1000;
   if (!Number.isFinite(latentHeat_J_kg) || latentHeat_J_kg <= 0) return unchanged;
   let equilibriumRadius = 0;

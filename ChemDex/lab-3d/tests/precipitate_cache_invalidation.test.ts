@@ -30,7 +30,7 @@ describe('Precipitate parameter changes after repeated fixed steps', () => {
       system.update(0.1, current);
       expect(system.particles.length).toBeGreaterThan(0);
       for (const p of system.particles) expect(p.sedimentationSpeed).toBe(sphereSettlingSpeed(
-        p.physicalRadius_m!, p.density, current.density_g_ml * 1000, current.viscosity_mPa_s * 0.001) / METERS_PER_SCENE_UNIT);
+        p.physicalRadius_m!, p.density, current.density_g_ml * 1000, current.viscosity_mPa_s * 0.001) / METERS_PER_SCENE_UNIT * system.hindrance!.factor);
       expect(system.representedMass_g).toBeCloseTo(current.precipitateAmount_g, 12);
     }
     system.reset(); system.update(0.1, params);

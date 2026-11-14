@@ -1977,6 +1977,7 @@ export const useAppStore = create<AppState>((set, get) => {
             continue;
           }
           programLedgerStep = ledgerStep;
+          if (newProgress > previousProgress) newVessels[vId] = { ...newVessels[vId], lastReactionId: kinetics.program?.id ?? rxId };
           const currentStepContents = ledgerStep.contents || kinetics.initialVesselBaseline.contents || [];
           const currentStepSubstances = Array.from(new Set(
             currentStepContents

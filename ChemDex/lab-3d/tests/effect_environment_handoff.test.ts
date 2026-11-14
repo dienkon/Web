@@ -123,15 +123,25 @@ describe('Particle environment snapshots', () => {
       const bubbles = new BoilingSystem(20, new PRNG(7));
       const solid = new PrecipitationSystem(20, 'BaSO4', new PRNG(7));
       for (let i = 0; i < 12; i++) {
-        bubbles.update(1 / 120, { ...base, ambientTemp_c: ambient });
+        // A single matched bubble born well underwater isolates transport.
+        // Volume-distributed births may reach the surface, where both rooms
+        // correctly project a popping bubble to the same meniscus height.
+        bubbles.update(1 / 120, { ...base, ambientTemp_c: ambient, reactionGasRate: i === 0 ? 120 : 0,
+          reactionSources: [{ point: [0.35, 0.5, 0.2], radius: 0, weight: 1 }] });
         solid.update(1 / 120, { ...base, ambientTemp_c: ambient, density_g_ml: 1, precipitateAmount_g: 0.1 });
       }
       return { bubbles, solid };
     };
     const warm = run(40), cool = run(15);
-    expect(warm.bubbles.bubbles.length).toBeGreaterThan(0); expect(warm.solid.particles.length).toBeGreaterThan(0);
+    expect(warm.bubbles.bubbles).toHaveLength(1); expect(cool.bubbles.bubbles).toHaveLength(1);
+    expect(warm.solid.particles.length).toBeGreaterThan(0);
     expect(warm.bubbles.sourceSampling.reactionGlyphsBorn).toBe(cool.bubbles.sourceSampling.reactionGlyphsBorn);
-    expect(warm.bubbles.bubbles[0].y).not.toBeCloseTo(cool.bubbles.bubbles[0].y, 9);
+    const warmBubble = warm.bubbles.bubbles[0], coolBubble = cool.bubbles.bubbles[0];
+    expect(warmBubble.id).toBe(coolBubble.id);
+    expect(warmBubble.life).toBeCloseTo(coolBubble.life, 14);
+    expect(warmBubble.noncondensablePV_scene3_Pa).toBe(coolBubble.noncondensablePV_scene3_Pa);
+    expect(warmBubble.isPopping).toBe(false); expect(coolBubble.isPopping).toBe(false);
+    expect(warmBubble.y).not.toBeCloseTo(coolBubble.y, 9);
     expect(warm.solid.particles[0].y).not.toBeCloseTo(cool.solid.particles[0].y, 9);
     expect(warm.solid.representedMass_g).toBeCloseTo(cool.solid.representedMass_g, 14);
   });

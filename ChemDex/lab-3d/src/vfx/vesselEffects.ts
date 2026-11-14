@@ -125,6 +125,8 @@ export const effects = {
           bubbleVisualSampling: SimulationEngine.findManager(vesselId)?.boilingSystem.sourceSampling ?? null,
           precipitationTiming: [...(SimulationEngine.findManager(vesselId)?.precipitationSystems ?? [])]
             .map(([formula,system]) => ({ formula,carrierMode:system.carrierMode,...system.clock })),
+          settlingHindrance: [...(SimulationEngine.findManager(vesselId)?.precipitationSystems ?? [])]
+            .map(([formula, system]) => ({ formula, ...system.hindrance })),
           flocculation: [...(SimulationEngine.findManager(vesselId)?.precipitationSystems ?? [])]
             .filter(([, system]) => system.flocculation.enabled)
             .map(([formula, system]) => ({ formula, ...system.flocculation })),

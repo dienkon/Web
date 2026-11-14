@@ -75,7 +75,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
   const causticMeshRef = useRef<THREE.Mesh>(null);
   const appearanceField = useMemo(() => new LiquidAppearanceField(), [vesselId]);
   const spatialAppearance = useMemo(() => createSpatialLiquidAppearance(appearanceField), [appearanceField]);
-  useEffect(() => () => spatialAppearance.texture.dispose(), [spatialAppearance]);
+  useEffect(() => () => spatialAppearance.dispose(), [spatialAppearance]);
 
   // Slosh spring physics state stored in refs (no GC)
   const slosh = useRef({
@@ -175,7 +175,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
       depthWrite: false,
     });
 
-    mat.customProgramCacheKey = () => `chemlab_spatial_liquid_v7_${appearance}`;
+    mat.customProgramCacheKey = () => `chemlab_spatial_liquid_v8_${appearance}`;
 
     mat.onBeforeCompile = (shader) => {
       shader.uniforms.uTime = uniforms.uTime;
@@ -360,7 +360,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
       if (appearance === 'foam') shadeFoamCells(shader, uniforms.uFoamCellScale, uniforms.uFoamCapRadius, true);
       else shadeSpatialLiquid(shader, spatialAppearance.uniforms, '(uWorldToVessel * vec4(vCapWorld, 1.0)).xyz', true);
     };
-    mat.customProgramCacheKey = () => `chemlab_meniscus_spatial_v4_${appearance}`;
+    mat.customProgramCacheKey = () => `chemlab_meniscus_spatial_v5_${appearance}`;
 
     return mat;
   }, [uniforms, initialColor, appearance, spatialAppearance]);
