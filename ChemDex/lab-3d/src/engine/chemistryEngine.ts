@@ -3,6 +3,9 @@ import { ChemicalDefinition, VesselState, SubstanceContent } from '../types/chem
 import { findChemical } from '../data/chemicals';
 import { chemistryCache, getCanonicalReactionKey } from './chemistryCache';
 import { identifySpecies, matchesReagent, sameMolecularFormula } from '../science/speciesIdentity';
+import { availableInBulk, availableReagent, reagentPhase, bulkInventory } from '../science/reagentAvailability';
+import { availableNativeReagent } from '../science/nativeReagentPhases';
+import { hasOxidizingAcid } from '../science/conditions';
 import { computeMolarMass } from './ledger';
 import { solveAqueousEquilibrium, aqueousModelFields } from '../science/aqueousEquilibrium';
 import { solutionIndicatorColor } from '../science/indicatorAppearance';
@@ -1088,14 +1091,7 @@ export interface MultiStepReactionResult {
     deltaH_kJ: number;
     match: DeterministicReaction;
   }[];
-    updatedContents: {
-    formula: string;
-    phase?: string;
-    moles: number;
-    mass_g: number;
-    concentration_M?: number;
-    volume_ml?: number;
-  }[];
+  updatedContents: SubstanceContent[];
   updatedSubstances: string[];
   finalTemperature_c: number;
   finalVolume_ml: number;
@@ -1142,8 +1138,7 @@ export function executeMultiStepReactions(
   const workingContents: import('../types/chemistry').SubstanceContent[] = [];
   
   for (const item of (initialContents || [])) {
-    const labeled = identifySpecies(item.formula);
-    workingContents.push({ ...item, phase: (item as import('../types/chemistry').SubstanceContent).phase ?? labeled.phase ?? (findChemical(item.formula).type === 'solid' ? 's' : 'aq') });
+    workingContents.push({ ...item, phase: reagentPhase(item) ?? (findChemical(item.formula).type === 'solid' ? 's' : 'aq') });
   }
 
   // Ensure any substance in initialSubstances exists in workingContents
@@ -1194,25 +1189,28 @@ export function executeMultiStepReactions(
 
   // Maximum 10 reaction iterations to allow multi-stage cascades without runaway loops
   for (let step = 0; step < 10; step++) {
-    const activeSubstances = workingContents.filter(c => c.moles > reactionThreshold).map(c => c.formula);
+    if (!Number.isFinite(currentTemp) || currentTemp <= -273.15 || !Number.isFinite(volume_ml) || volume_ml < 0) break;
+    const activeSubstances = workingContents.filter(c => availableInBulk(c, reactionThreshold)).map(c => c.formula);
     if (activeSubstances.length === 0) break;
 
+    const reactionContents = bulkInventory(workingContents);
     // Find candidate deterministic reaction
     let aluminumLimitForCandidate: number | undefined;
     const candidate = DETERMINISTIC_REACTIONS.find(r => {
       if (r.equilibriumOnly) return false;
+      if (r.products.H2 && hasOxidizingAcid(reactionContents)) return false;
       if (!matchesReactants(activeSubstances, r.reactants)) return false;
       if (r.id === 'h2o2_mno2_decomposition' && !workingContents.some(item =>
-        sameMolecularFormula(item.formula, 'MnO2') && item.moles > reactionThreshold
-        && (item.phase ?? identifySpecies(item.formula).phase) === 's'
-        && (!item.location || item.location === 'bulk'))) return false;
+        availableReagent(item, 'MnO2', 's', reactionThreshold))) return false;
       if (r.id === 'cuso4_nh3_hydroxide') {
-        const copper = workingContents.find(item => sameMolecularFormula(item.formula, 'CuSO4'))?.moles ?? 0;
-        const ammonia = workingContents.find(item => sameMolecularFormula(item.formula, 'NH3'))?.moles ?? 0;
+        const copper = workingContents.filter(item => availableReagent(item, 'CuSO4', 'aq', reactionThreshold)).reduce((sum, item) => sum + item.moles, 0);
+        const ammonia = workingContents.filter(item => availableReagent(item, 'NH3', 'aq', reactionThreshold)).reduce((sum, item) => sum + item.moles, 0);
         if (ammonia >= 4 * copper) return false;
       }
-      if (!r.reactants.every(required => workingContents.some(item => item.moles > reactionThreshold && matchesReagent(item.formula, required) && (!identifySpecies(required).phase || item.phase === identifySpecies(required).phase)))) return false;
-      const aluminumLimit = aluminumReactionExtent(r.id, workingContents, volume_ml, currentTemp);
+      if (!r.reactants.every(required => workingContents.some(item => availableNativeReagent(item, required, reactionThreshold)))) return false;
+      if (volume_ml <= 0 && r.reactants.some(required => workingContents.some(item =>
+        item.phase === 'aq' && availableNativeReagent(item, required, reactionThreshold)))) return false;
+      const aluminumLimit = aluminumReactionExtent(r.id, reactionContents, volume_ml, currentTemp);
       if (aluminumLimit !== undefined) {
         if (aluminumLimit === null || aluminumLimit <= moleThreshold) return false;
         aluminumLimitForCandidate = aluminumLimit;
@@ -1227,10 +1225,8 @@ export function executeMultiStepReactions(
     // consumption, even if a vessel contains both gas and aqueous forms.
     const reagentItem = (formula: string) => {
       const eligible = workingContents.filter(item => {
-        if (item.moles <= reactionThreshold || !matchesReagent(item.formula, formula)) return false;
         const required = candidate.reactants.find(required => sameMolecularFormula(required, formula));
-        const phase = required ? identifySpecies(required).phase : null;
-        return !phase || item.phase === phase;
+        return availableNativeReagent(item, required ?? formula, reactionThreshold);
       });
       // Neutralize the dissolved carbonate pool before attacking more rock.
       return sameMolecularFormula(formula, 'CaCO3')
@@ -1254,23 +1250,23 @@ export function executeMultiStepReactions(
     }
 
     if (candidate.id === 'bacl2_na2so4_conservation') {
-      const saturationLimit = baritePrecipitationExtent(workingContents, volume_ml, currentTemp);
+      const saturationLimit = baritePrecipitationExtent(reactionContents, volume_ml, currentTemp);
       if (saturationLimit !== null) minXi = Math.min(minXi, saturationLimit);
     }
     if (candidate.id === 'agno3_nacl_precipitate') {
-      const limit = silverChlorideExtent(workingContents, volume_ml, currentTemp);
+      const limit = silverChlorideExtent(reactionContents, volume_ml, currentTemp);
       if (limit !== null) minXi = Math.min(minXi, limit);
     }
     if (candidate.id === 'cuso4_naoh_precipitate') {
-      const limit = copperHydroxideExtent(workingContents, volume_ml, currentTemp);
+      const limit = copperHydroxideExtent(reactionContents, volume_ml, currentTemp);
       if (limit !== null) minXi = Math.min(minXi, limit);
     }
     if (candidate.id === 'fecl3_naoh_precipitate') {
-      const limit = ferricHydroxideExtent(workingContents, volume_ml, currentTemp);
+      const limit = ferricHydroxideExtent(reactionContents, volume_ml, currentTemp);
       if (limit !== null) minXi = Math.min(minXi, limit);
     }
     if (candidate.id === 'feoh3_hcl_dissolution') {
-      const limit = ferricHydroxideDissolutionExtent(workingContents, volume_ml, currentTemp);
+      const limit = ferricHydroxideDissolutionExtent(reactionContents, volume_ml, currentTemp);
       minXi = limit === null ? 0 : Math.min(minXi, limit);
     }
     if (aluminumLimitForCandidate !== undefined) minXi = Math.min(minXi, aluminumLimitForCandidate);
@@ -1315,7 +1311,7 @@ export function executeMultiStepReactions(
     for (const [productFormula, prodInfo] of Object.entries(candidate.products)) {
       const addedMoles = xi * prodInfo.coeff;
       const chem = findChemical(productFormula);
-      const existing = workingContents.find(c => matchesReagent(c.formula, productFormula) && c.phase === prodInfo.state
+      const existing = workingContents.find(c => (!c.location || c.location === 'bulk') && matchesReagent(c.formula, productFormula) && c.phase === prodInfo.state
         && (prodInfo.state !== 's' || c.solidOrigin === 'precipitate'));
       if (existing) {
         existing.moles += addedMoles;
@@ -1395,7 +1391,7 @@ export function executeMultiStepReactions(
   let strongBaseOH_moles = 0;
 
   for (const item of updatedContents) {
-    if (item.moles <= moleThreshold) continue;
+    if (!availableInBulk(item, moleThreshold) || item.phase !== 'aq') continue;
     const f = item.formula.toUpperCase();
     if (f === 'HCL' || f.includes('HNO3')) {
       strongAcidH_moles += item.moles;
@@ -1454,7 +1450,7 @@ export function executeMultiStepReactions(
   let precipitateAmount_g = 0;
 
   for (const ins of INSOLUBLE_FORMULAS) {
-    const found = updatedContents.find(c => chemicalFormulaMatches(c.formula, ins) && c.phase === 's' && c.moles > moleThreshold);
+    const found = updatedContents.find(c => chemicalFormulaMatches(c.formula, ins) && c.phase === 's' && availableInBulk(c, moleThreshold));
     if (found && found.mass_g > (precise ? 1e-9 : 0.005)) {
       hasPrecipitate = true;
       precipitateSubstance = found.formula;

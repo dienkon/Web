@@ -5,6 +5,7 @@ import { CHEMICAL_DATABASE } from '../data/chemicals';
 import { computeMolarMass, applyProgramToLedger } from './ledger';
 import { readComposition } from '../science/balance';
 import { sameMolecularFormula } from '../science/speciesIdentity';
+import { bulkInventory } from '../science/reagentAvailability';
 import { baritePrecipitationExtent } from '../science/baritePrecipitation';
 import { magnesiumHydroxideExtent } from '../science/magnesiumHydroxidePrecipitation';
 import { silverHalideProgramExtent } from '../science/silverChloridePrecipitation';
@@ -116,33 +117,34 @@ export function createStudioSample(program: ReactionProgram, shell: VesselState,
 }
 
 export function planStudioProgram(program: ReactionProgram, vessel: VesselState, language: Language) {
-  const aluminumLimit = aluminumReactionExtent(program.id, vessel.contents, vessel.volume_ml, vessel.temperature_c);
+  const reactionContents = bulkInventory(vessel.contents);
+  const aluminumLimit = aluminumReactionExtent(program.id, reactionContents, vessel.volume_ml, vessel.temperature_c);
   if (aluminumLimit !== undefined && !(aluminumLimit !== null && aluminumLimit > 1e-12)) {
     return { unmet: [language === 'vi' ? aluminumLimit === null ? 'Mô hình hiện tại chưa hỗ trợ hỗn hợp nhôm này.'
       : 'Không có lượng phản ứng nhôm mới ở điều kiện hiện tại.'
       : aluminumLimit === null ? 'The current aluminum model does not support this mixture.' : 'No new aluminum reaction extent is available under the current conditions.'], kinetics: null };
   }
-  if (program.id === 'feoh3_hcl' && !((ferricHydroxideDissolutionExtent(vessel.contents, vessel.volume_ml, vessel.temperature_c) ?? 0) > 0)) {
+  if (program.id === 'feoh3_hcl' && !((ferricHydroxideDissolutionExtent(reactionContents, vessel.volume_ml, vessel.temperature_c) ?? 0) > 0)) {
     return { unmet: [language === 'vi' ? 'Mẫu chưa có lượng hòa tan Fe(OH)₃ được hỗ trợ ở điều kiện hiện tại.'
       : 'No supported ferric hydroxide dissolution extent is available under the current conditions.'], kinetics: null };
   }
-  if (program.id === 'fecl3_naoh' && ferricHydroxideExtent(vessel.contents, vessel.volume_ml, vessel.temperature_c) === 0) {
+  if (program.id === 'fecl3_naoh' && ferricHydroxideExtent(reactionContents, vessel.volume_ml, vessel.temperature_c) === 0) {
     return { unmet: [language === 'vi' ? 'Dung dịch chưa quá bão hòa Fe(OH)₃ theo mô hình hiện tại.'
       : 'The solution is not supersaturated with Fe(OH)₃ in the current model.'], kinetics: null };
   }
-  if (program.id === 'cuso4_naoh' && copperHydroxideExtent(vessel.contents, vessel.volume_ml, vessel.temperature_c) === 0) {
+  if (program.id === 'cuso4_naoh' && copperHydroxideExtent(reactionContents, vessel.volume_ml, vessel.temperature_c) === 0) {
     return { unmet: [language === 'vi' ? 'Dung dịch chưa quá bão hòa Cu(OH)₂ theo mô hình hiện tại.'
       : 'The solution is not supersaturated with Cu(OH)₂ in the current model.'], kinetics: null };
   }
-  if (silverHalideProgramExtent(program.id, vessel.contents, vessel.volume_ml, vessel.temperature_c) === 0) {
+  if (silverHalideProgramExtent(program.id, reactionContents, vessel.volume_ml, vessel.temperature_c) === 0) {
     return { unmet: [language === 'vi' ? 'Dung dịch chưa quá bão hòa bạc halide theo mô hình hiện tại.'
       : 'The solution is not supersaturated with silver halide in the current model.'], kinetics: null };
   }
-  if (program.id === 'mgcl2_naoh' && magnesiumHydroxideExtent(vessel.contents, vessel.volume_ml, vessel.temperature_c) === 0) {
+  if (program.id === 'mgcl2_naoh' && magnesiumHydroxideExtent(reactionContents, vessel.volume_ml, vessel.temperature_c) === 0) {
     return { unmet: [language === 'vi' ? 'Dung dịch chưa quá bão hòa Mg(OH)₂ theo mô hình hiện tại.'
       : 'The solution is not supersaturated with Mg(OH)₂ in the current model.'], kinetics: null };
   }
-  if (program.id === 'bacl2_na2so4' && baritePrecipitationExtent(vessel.contents, vessel.volume_ml, vessel.temperature_c) === 0) {
+  if (program.id === 'bacl2_na2so4' && baritePrecipitationExtent(reactionContents, vessel.volume_ml, vessel.temperature_c) === 0) {
     return { unmet: [language === 'vi' ? 'Dung dịch chưa quá bão hòa BaSO₄ ở nhiệt độ hiện tại theo mô hình nồng độ lý tưởng.'
       : 'The solution is not supersaturated with BaSO₄ at its current temperature in the ideal concentration model.'], kinetics: null };
   }

@@ -8,6 +8,7 @@ import { sameMolecularFormula } from '../src/science/speciesIdentity';
 import { getReactionReview, SCIENCE_REFERENCES } from '../src/science/reviewCatalog';
 import { deriveProgramFromRules } from '../src/vfx/programs/resolver';
 import { auditDisplayedEquation } from '../src/science/equationText';
+import { nativeReagentPhases } from '../src/science/nativeReagentPhases';
 
 function reviewFields(id: string) {
   const review = getReactionReview(id);
@@ -48,6 +49,7 @@ const programs = ALL_HANDCRAFTED_PROGRAMS.map(program => {
     id: program.id, equation: program.chemistry.equation,
     ionicBalance: program.chemistry.ionic ? auditDisplayedEquation(program.chemistry.ionic) : [],
     representation: program.chemistry.representation ?? (lesson ? 'conditional_lesson' : 'reaction'),
+    classification: lesson ? [lesson.family] : [],
     balance, visualIssues,
     conditions: lesson?.conditions ?? program.chemistry.conditions ?? {},
     ...reviewFields(program.id),
@@ -57,6 +59,9 @@ const programs = ALL_HANDCRAFTED_PROGRAMS.map(program => {
 
 const deterministic = DETERMINISTIC_REACTIONS.map(reaction => ({
   id: reaction.id, equation: reaction.equation,
+  observation_vi: reaction.observable_vi,
+  classification: [reaction.reactionType_en, reaction.reactionType_vi,
+    ...(reaction.hasGas ? ['gas_evolution'] : []), ...(reaction.hasPrecipitate ? ['solid_formation'] : [])],
   execution: reaction.equilibriumOnly ? 'finite_phase_equilibrium' : 'stoichiometric_rule',
   ionicBalance: reaction.ionic_equation ? auditDisplayedEquation(reaction.ionic_equation) : [],
   balance: auditEquation(
@@ -64,11 +69,23 @@ const deterministic = DETERMINISTIC_REACTIONS.map(reaction => ({
     Object.entries(reaction.products).map(([formula, product]) => ({ formula, coefficient: product.coeff })),
   ),
   heating: { required: reaction.requiresHeating ?? false, minimum_c: reaction.minTemp_c ?? null },
+  reactants: reaction.reactants.map(formula => ({ formula, phases: nativeReagentPhases(formula),
+    coefficient: Object.entries(reaction.stoichiometry).find(([term]) => sameMolecularFormula(term, formula))?.[1] ?? 0 })),
+  products: Object.entries(reaction.products).map(([formula, product]) => ({ formula, phase: product.state, coefficient: product.coeff })),
+  conditions: {
+    compartment: 'bulk', finitePositiveInventory: true, aqueousPhaseRequiresPositiveVolume: true,
+    oxidizingAcidBlocksHydrogenInference: Boolean(reaction.products.H2),
+    reactantPhases: Object.fromEntries(reaction.reactants.map(formula => [formula, nativeReagentPhases(formula)])),
+    heating: { required: reaction.requiresHeating ?? false, minimum_c: reaction.minTemp_c ?? null },
+    concentrationGrades: 'Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.',
+    compatibility: 'Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked.',
+  },
   ...reviewFields(reaction.id),
 }));
 
 const lessons = LESSON_DEFINITIONS.map(lesson => ({
   id: lesson.id,
+  classification: [lesson.family],
   balance: auditEquation(
     lesson.reactants.map(term => ({ formula: getLessonSpecies(term.species).formula, coefficient: term.coefficient })),
     lesson.products.map(term => ({ formula: getLessonSpecies(term.species).formula, coefficient: term.coefficient })),
@@ -81,6 +98,12 @@ const dynamicRules = ['Na2CO3', 'K2CO3', 'NaHCO3', 'KHCO3', 'CaCO3', 'MgCO3']
     if (!program) throw new Error(`Missing derived equation: ${carbonate} + ${acid}`);
     return {
       id: program.id, equation: program.chemistry.equation,
+      classification: ['carbonate_acid', 'gas_evolution'],
+      reactants: program.chemistry.species.filter(item => item.role === 'reactant'),
+      products: program.chemistry.species.filter(item => item.role === 'product'),
+      conditions: program.chemistry.conditions ?? {},
+      finding_vi: program.explain.why_vi, observation_vi: program.explain.observation_vi,
+      references: [SCIENCE_REFERENCES.neutral], sourceScope: 'teaching_context',
       balance: auditEquation(program.chemistry.species.filter(item => item.role === 'reactant').map(item => ({ formula: item.formula, coefficient: item.coeff })),
         program.chemistry.species.filter(item => item.role === 'product').map(item => ({ formula: item.formula, coefficient: item.coeff }))),
     };

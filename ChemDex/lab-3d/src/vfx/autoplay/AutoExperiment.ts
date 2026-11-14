@@ -125,6 +125,7 @@ export class AutoExperiment {
     this.lamp = { ...this.lamp, position: ignition ? [mouth[0], mouth[1] - 1.1, mouth[2]] : [0, -0.21, 0],
       isOn: this.sourceEnabled && (this.heatTarget > 25 || ignition) && ['condition', 'react'].includes(this.phase) };
     const burn = stepAlcoholBurner(this.lamp, dt); this.lamp = burn.burner;
+    this.flame = burnerIsBurning(this.lamp);
     const energy = this.heatTarget > 25 ? allocateBurnerHeat(this.lamp, burn.capturableHeat_J, [this.sample]).energyByVessel_J.get(this.sample.id) ?? 0 : 0;
     this.sample = { ...this.sample, ...stepVesselThermal(this.sample, dt, energy / dt) };
   }
@@ -218,6 +219,7 @@ export class AutoExperiment {
   private enter(phase: AutoPhase) {
     if (phase === 'return') this.returnTilt = this.donorPose.tilt;
     this.phase = phase; this.phaseTime = 0;
+    if (['error', 'observe', 'complete'].includes(phase)) this.flame = false;
     if (phase === 'dose') {
       this.donors[this.donorIndex].doseStartedAt = this.elapsed;
       // A gas donor uses a connected inlet after the open liquid transfers.
@@ -356,18 +358,24 @@ export class AutoExperiment {
         if (this.lesson.status === 'complete') this.enter('observe');
         if (this.lesson.status === 'stopped') throw new Error(this.lesson.events.at(-1)?.message_vi ?? 'Bài học đã dừng.');
       } else if (this.emission) {
+        const mouth = vesselLocalToWorld(this.sample, [0, vesselInterior(this.sample.type).topY, 0]);
+        if (!burnerIsBurning(this.lamp) || !pointInAlcoholFlame(mouth, this.lamp.position))
+          throw new Error('Nguồn đốt đã tắt hoặc mất tiếp xúc với mẫu thử màu ngọn lửa; cần bắt đầu lại mẫu thử.');
         this.progress = Math.min(1, this.phaseTime / 8); this.flame = this.progress < 1;
         if (this.progress === 1) this.enter('observe');
       } else {
         if (!this.kinetics) throw new Error('Chưa lập kế hoạch phản ứng từ kiểm kê thực tế.');
         const previousReplay = this.replayProgress;
-        this.replayProgress = advanceReaction(this.kinetics, this.sample, dt, this.stirringDrive > 0, this.flame);
+        this.replayProgress = advanceReaction(this.kinetics, this.sample, dt, this.stirringDrive > 0, burnerIsBurning(this.lamp));
         this.kinetics.progress = this.replayProgress;
         this.progress = this.contactProgress + (1 - this.contactProgress) * this.replayProgress;
         const patch: Partial<VesselState> = this.replayProgress > previousReplay
           ? applyProgramWithThermalSinks(this.program, this.baseline, this.sample, this.replayProgress, dt) : { hasGas: false };
         if (patch.gasReplayBlocked) throw new Error('Mẫu đã chạm giới hạn mô hình pha khí.');
         this.sample = { ...this.sample, ...patch };
+        // An ignited specimen can sustain its own combustion while reactants
+        // remain; a switched-off lamp alone does not extinguish magnesium.
+        if (this.program.chemistry.conditions?.activation === 'ignition') this.flame = this.replayProgress > previousReplay;
         if (this.replayProgress === 1) { this.progress = 1; this.flame = false; this.enter('observe'); }
       }
       if (this.reactionTime > 180) throw new Error('Chưa đạt trạng thái cuối sau 180 giây mô phỏng. Kiểm tra điều kiện của bài.');

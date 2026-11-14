@@ -1,0 +1,54 @@
+{
+  "schema": "chemdex.reagent-condition-validation/1",
+  "checkedAt": "2026-11-14T00:05:42.112264+00:00",
+  "unitTests": {
+    "passed": 3145,
+    "total": 3145,
+    "files": 236
+  },
+  "typeScript": true,
+  "productionBuild": true,
+  "fullEquationCoverage": {
+    "records": 1549,
+    "groups": 25,
+    "allClassified": true,
+    "allExplained": true,
+    "allObserved": true,
+    "allNativeReactantsHavePhaseDomains": true,
+    "nativeRules": 48,
+    "catalogEquations": 1300,
+    "sourceRecordsCanOverlap": true,
+    "experimentallyCalibrated": false
+  },
+  "physicalAutomaticAudit": {
+    "passed": 149,
+    "total": 149,
+    "workbenchUnchanged": true,
+    "report": "automatic/catalog-audit.json"
+  },
+  "browser": {
+    "desktop": true,
+    "mobile": true,
+    "errors": [],
+    "report": "browser/workspace-browser.json"
+  },
+  "headlessPerformance": {
+    "checkedAt": "2026-11-13T23:57:53.302Z",
+    "scenario": "Three vessel logic/physics, high tier, 120 steps at dt=1/60",
+    "webglRenderingIncluded": false,
+    "browserFpsVerified": false,
+    "averageStep_ms": 3.753219166666669,
+    "p95Step_ms": 6.286200000000008,
+    "maximumStep_ms": 19.969100000000026,
+    "heapDelta_MB": 16.540237426757812
+  },
+  "additionalCheck": {
+    "ignitedMagnesiumContinuesAfterLampOff": true,
+    "progressBefore": 0.015384615384615384,
+    "progressAfter": 0.030769230769230774
+  },
+  "experimentallyValidated": false,
+  "allMixturesSupported": false,
+  "realTimeKineticsCalibrated": false,
+  "limits": "See docs/audit/runtime-condition-review.vi.md for coupled complexation, acid dilution grades, timing and native endpoint limitations."
+}

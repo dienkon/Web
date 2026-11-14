@@ -543,7 +543,7 @@ NaNO2(aq) + NH4Cl(aq) -> NaCl(aq) + 2H2O(l) + N2(g)
 C2H4 + H2 -> C2H6
 
 - Điều kiện: {"minTemp_c":100,"catalyst":"Ni"}
-- Phân loại: thermal, specialized_model
+- Phân loại: thermal, addition, specialized_model
 - Giải thích: Xúc tác cho phép phản ứng hiđro hóa diễn ra với điều kiện thích hợp.
 - Quan sát: Không có biến đổi màu đặc trưng; bảng số mol thể hiện sự cộng H2.
 - Nguồn: [Chemguide: Alkenes, addition of bromine, hydrogen and steam](https://www.chemguide.co.uk/14to16/organic/alkenes.html)
@@ -554,7 +554,7 @@ C2H4 + H2 -> C2H6
 C2H4 + H2O -> C2H5OH
 
 - Điều kiện: {"minTemp_c":280,"catalyst":"H3PO4","medium":"acidic"}
-- Phân loại: thermal, specialized_model
+- Phân loại: thermal, hydration, specialized_model
 - Giải thích: Nước cộng vào liên kết đôi khi có xúc tác và điều kiện thích hợp.
 - Quan sát: Hệ không đổi màu; mô hình theo dõi sự tạo etanol bằng lượng chất.
 - Nguồn: [Chemguide: Alkenes, addition of bromine, hydrogen and steam](https://www.chemguide.co.uk/14to16/organic/alkenes.html)
@@ -565,7 +565,7 @@ C2H4 + H2O -> C2H5OH
 C2H5OH + CuO -> CH3CHO + Cu + H2O
 
 - Điều kiện: {"minTemp_c":150}
-- Phân loại: thermal, specialized_model
+- Phân loại: thermal, oxidation, specialized_model
 - Giải thích: Etanol bị oxi hóa thành etanal; Cu(II) bị khử thành Cu.
 - Quan sát: Màu chất rắn chuyển từ đen sang đỏ đồng.
 - Nguồn: [RSC: A visible reduction](https://edu.rsc.org/exhibition-chemistry/a-visible-reduction/2000038.article)
@@ -576,7 +576,7 @@ C2H5OH + CuO -> CH3CHO + Cu + H2O
 C2H5OH -> C2H4 + H2O
 
 - Điều kiện: {"minTemp_c":165,"catalyst":"H2SO4 đặc"}
-- Phân loại: thermal, specialized_model
+- Phân loại: thermal, decomposition, specialized_model
 - Giải thích: Loại một phân tử nước khỏi etanol tạo liên kết đôi.
 - Quan sát: Khí etilen không màu hình thành, không có màu đặc trưng trong dung dịch.
 - Nguồn: [Chemguide: Alkenes, addition of bromine, hydrogen and steam](https://www.chemguide.co.uk/14to16/organic/alkenes.html)
@@ -587,7 +587,7 @@ C2H5OH -> C2H4 + H2O
 CH3COOH + C2H5OH <-> CH3COOC2H5 + H2O
 
 - Điều kiện: {"minTemp_c":55,"catalyst":"H2SO4","medium":"acidic"}
-- Phân loại: thermal, specialized_model
+- Phân loại: thermal, esterification, specialized_model
 - Giải thích: Axit cacboxylic phản ứng với alcohol tạo este và nước.
 - Quan sát: Không có màu đặc trưng; mô hình có thể hiện lớp este sau xử lý giản lược.
 - Nguồn: [RSC: Acid-catalysed esterification mechanism](https://edu.rsc.org/download?ac=12026)
@@ -598,7 +598,7 @@ CH3COOH + C2H5OH <-> CH3COOC2H5 + H2O
 CH3COOC2H5 + NaOH -> CH3COONa + C2H5OH
 
 - Điều kiện: {"minTemp_c":55,"medium":"alkaline"}
-- Phân loại: thermal, specialized_model
+- Phân loại: thermal, hydrolysis, specialized_model
 - Giải thích: Thủy phân trong kiềm tạo muối cacboxylat, kéo phản ứng về phía sản phẩm.
 - Quan sát: Lớp este giảm trong kịch bản; không tạo kết tủa màu đặc trưng.
 - Nguồn: [RSC: Acid-catalysed esterification mechanism](https://edu.rsc.org/download?ac=12026)
@@ -609,7 +609,7 @@ CH3COOC2H5 + NaOH -> CH3COONa + C2H5OH
 CH3COOCH3 + NaOH -> CH3COONa + CH3OH
 
 - Điều kiện: {"minTemp_c":50,"medium":"alkaline"}
-- Phân loại: thermal, specialized_model
+- Phân loại: thermal, hydrolysis, specialized_model
 - Giải thích: Nhóm metoxy của este cho metanol trong phản ứng thủy phân.
 - Quan sát: Không có biến đổi màu đặc trưng.
 - Nguồn: [RSC: Acid-catalysed esterification mechanism](https://edu.rsc.org/download?ac=12026)
@@ -620,7 +620,7 @@ CH3COOCH3 + NaOH -> CH3COONa + CH3OH
 C6H12O6 + 2Cu(OH)2 + NaOH -> C6H11O7Na + Cu2O + 3H2O
 
 - Điều kiện: {"minTemp_c":65,"medium":"alkaline"}
-- Phân loại: thermal, specialized_model
+- Phân loại: thermal, oxidation, specialized_model
 - Giải thích: Nhóm chức khử của glucose bị oxi hóa thành gluconat trong kiềm.
 - Quan sát: Kết tủa Cu2O đỏ gạch hình thành khi đủ điều kiện.
 - Nguồn: [Polish public education platform: Glucose and fructose](https://zpe.gov.pl/a/sugars---glucose-and-fructose/D19A4LKCS)
@@ -631,7 +631,7 @@ C6H12O6 + 2Cu(OH)2 + NaOH -> C6H11O7Na + Cu2O + 3H2O
 C12H22O11 + H2O -> C6H12O6 + C6H12O6
 
 - Điều kiện: {"minTemp_c":55,"medium":"acidic"}
-- Phân loại: thermal, specialized_model
+- Phân loại: thermal, hydrolysis, specialized_model
 - Giải thích: Một mol saccarozơ thủy phân tạo một mol glucose và một mol fructose.
 - Quan sát: Không có màu đặc trưng; tạo hai monosaccarit khác nhau.
 - Nguồn: [IIT Kanpur Virtual Labs: Hydrolysis of sucrose/starch](https://fc-iitk.vlabs.ac.in/exp/hydrolysis-of-sucrose/procedure.html)
@@ -642,7 +642,7 @@ C12H22O11 + H2O -> C6H12O6 + C6H12O6
 (C6H10O5)n + nH2O -> nC6H12O6
 
 - Điều kiện: {"minTemp_c":65,"medium":"acidic"}
-- Phân loại: thermal, specialized_model
+- Phân loại: thermal, hydrolysis, specialized_model
 - Giải thích: Mỗi mắt xích dùng một phân tử nước khi thủy phân hoàn toàn.
 - Quan sát: Mô hình tổng thể hiện chuyển mắt xích thành glucose, không tạo khí.
 - Nguồn: [IIT Kanpur Virtual Labs: Hydrolysis of sucrose/starch](https://fc-iitk.vlabs.ac.in/exp/hydrolysis-of-sucrose/procedure.html)
@@ -653,7 +653,7 @@ C12H22O11 + H2O -> C6H12O6 + C6H12O6
 CaCO3 -> CaO + CO2
 
 - Điều kiện: {"minTemp_c":850}
-- Phân loại: thermal, specialized_model
+- Phân loại: thermal, decomposition, specialized_model
 - Giải thích: CaCO3 phân hủy nhiệt tạo CaO và CO2.
 - Quan sát: CO2 không màu thoát ra, chất rắn trắng còn lại.
 - Nguồn: [RSC: Thermal decomposition of calcium carbonate](https://edu.rsc.org/experiments/thermal-decomposition-of-calcium-carbonate/704.article)

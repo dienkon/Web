@@ -121,8 +121,13 @@ try {
   assert.equal(manualPreserved, true, 'Automatic playback must not modify the manual bench');
   await page.getByRole('tab', { name: 'Thao tác', exact: true }).click();
   await page.getByRole('tabpanel', { name: 'Thao tác', exact: true }).waitFor();
-  await page.locator('[data-sidebar="right"]').waitFor({ state: 'visible', timeout: 60000 });
-  assert.ok((await page.locator('[data-sidebar="right"]').boundingBox()).width >= rightWidth - 1);
+  // The lazy manual scene can suspend again after its panel first appears.
+  // Wait for its canvas and scope the assertion to the manual workspace.
+  await page.locator('#manual-lab canvas').waitFor({ state: 'visible', timeout: 60000 });
+  await page.waitForFunction(minimum => {
+    const panel = document.querySelector('#manual-lab [data-sidebar="right"]');
+    return panel && panel.getBoundingClientRect().width >= minimum;
+  }, rightWidth - 1, { timeout: 60000 });
   await resize('left', 50); await resize('right', -45);
   await page.setViewportSize({ width: 390, height: 844 });
   await page.getByRole('tab', { name: 'Tự động', exact: true }).click();

@@ -329,7 +329,7 @@ KCl(s) + H2SO4(aq) -> KHSO4(aq) + HCl(g)
 C2H4 + 3O2 -> 2CO2 + 2H2O
 
 - Điều kiện: {}
-- Phân loại: gas_evolution, specialized_model
+- Phân loại: gas_evolution, combustion, specialized_model
 - Giải thích: Oxi hóa các nguyên tử C thành CO2 và H thành H2O.
 - Quan sát: Lửa sáng, không mặc định có khói muội trong mô hình cháy hoàn toàn.
 - Nguồn: [Chemguide: Alkenes, addition of bromine, hydrogen and steam](https://www.chemguide.co.uk/14to16/organic/alkenes.html)
@@ -340,7 +340,7 @@ C2H4 + 3O2 -> 2CO2 + 2H2O
 CH4 + 2O2 -> CO2 + 2H2O
 
 - Điều kiện: {}
-- Phân loại: gas_evolution, specialized_model
+- Phân loại: gas_evolution, combustion, specialized_model
 - Giải thích: Mỗi mol metan cần hai mol O2 và tạo một mol CO2.
 - Quan sát: Lửa xanh trong kịch bản cháy hoàn toàn, sản phẩm khí không tự có màu.
 - Nguồn: [Chemguide: Alkenes, addition of bromine, hydrogen and steam](https://www.chemguide.co.uk/14to16/organic/alkenes.html)
@@ -351,7 +351,7 @@ CH4 + 2O2 -> CO2 + 2H2O
 2C2H2 + 5O2 -> 4CO2 + 2H2O
 
 - Điều kiện: {}
-- Phân loại: gas_evolution, specialized_model
+- Phân loại: gas_evolution, combustion, specialized_model
 - Giải thích: Tỉ lệ số mol CO2:H2O bằng 2:1 cho axetilen.
 - Quan sát: Cháy sáng; mô hình không trộn sản phẩm cháy hoàn toàn với thiếu oxi.
 - Nguồn: [Chemguide: Alkenes, addition of bromine, hydrogen and steam](https://www.chemguide.co.uk/14to16/organic/alkenes.html)
@@ -362,7 +362,7 @@ CH4 + 2O2 -> CO2 + 2H2O
 C2H5OH + 3O2 -> 2CO2 + 3H2O
 
 - Điều kiện: {}
-- Phân loại: gas_evolution, specialized_model
+- Phân loại: gas_evolution, combustion, specialized_model
 - Giải thích: Oxi có sẵn trong phân tử etanol cũng tham gia cân bằng nguyên tố.
 - Quan sát: Lửa xanh nhạt; màu và kích thước chỉ là mô hình quan sát.
 - Nguồn: [RSC: Fermentation of glucose using yeast](https://edu.rsc.org/experiments/fermentation-of-glucose-using-yeast-14-16-years/470.article)
@@ -373,7 +373,7 @@ C2H5OH + 3O2 -> 2CO2 + 3H2O
 2C2H5OH + 2Na -> 2C2H5ONa + H2
 
 - Điều kiện: {}
-- Phân loại: gas_evolution, specialized_model
+- Phân loại: gas_evolution, substitution, specialized_model
 - Giải thích: H của nhóm OH được thay bằng Na, tạo natri etoxit.
 - Quan sát: Bọt khí không màu hình thành tại mặt kim loại, Na mòn dần.
 - Nguồn: [Chemguide: Alkenes, addition of bromine, hydrogen and steam](https://www.chemguide.co.uk/14to16/organic/alkenes.html)
@@ -384,7 +384,7 @@ C2H5OH + 3O2 -> 2CO2 + 3H2O
 2CH3COOH + Na2CO3 -> 2CH3COONa + CO2 + H2O
 
 - Điều kiện: {}
-- Phân loại: gas_evolution, specialized_model
+- Phân loại: gas_evolution, neutralization, specialized_model
 - Giải thích: Axit chuyển cacbonat thành CO2 và nước.
 - Quan sát: Sủi bọt CO2 không màu, không tự có lớp bọt xà phòng dày.
 - Nguồn: [RSC: Preparing salts by neutralisation of oxides and carbonates](https://edu.rsc.org/experiments/preparing-salts-by-neutralisation-of-oxides-and-carbonates/1762.article)
@@ -395,7 +395,7 @@ C2H5OH + 3O2 -> 2CO2 + 3H2O
 CH3COOH + NaHCO3 -> CH3COONa + CO2 + H2O
 
 - Điều kiện: {}
-- Phân loại: gas_evolution, specialized_model
+- Phân loại: gas_evolution, neutralization, specialized_model
 - Giải thích: HCO3− nhận proton rồi chuyển thành CO2 và nước.
 - Quan sát: Sủi khí CO2, bột muối nở tan và phản ứng dần.
 - Nguồn: [RSC: Preparing salts by neutralisation of oxides and carbonates](https://edu.rsc.org/experiments/preparing-salts-by-neutralisation-of-oxides-and-carbonates/1762.article)
@@ -406,7 +406,7 @@ CH3COOH + NaHCO3 -> CH3COONa + CO2 + H2O
 C6H12O6 -> 2C2H5OH + 2CO2
 
 - Điều kiện: {"minTemp_c":30}
-- Phân loại: gas_evolution, specialized_model
+- Phân loại: gas_evolution, fermentation, specialized_model
 - Giải thích: Enzym xúc tác phân giải glucose tạo etanol và CO2.
 - Quan sát: Khí CO2 xuất hiện; dung dịch không tự chuyển sang màu đặc trưng.
 - Nguồn: [RSC: Fermentation of glucose using yeast](https://edu.rsc.org/experiments/fermentation-of-glucose-using-yeast-14-16-years/470.article)

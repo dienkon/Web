@@ -35,6 +35,8 @@ for (const origin of ['programs', 'deterministic', 'lessons', 'dynamicRules']) f
   const c = p?.chemistry;
   const lesson = origin === 'lessons' ? LESSON_DEFINITIONS.find(l => l.id === record.id) : undefined;
   const lessonSide = terms => terms?.map(t => `${t.coefficient === 1 ? '' : t.coefficient}${getLessonSpecies(t.species).formula}(${getLessonSpecies(t.species).phase})`).join(' + ');
+  const lessonTerms = terms => terms?.map(t => ({ formula: getLessonSpecies(t.species).formula,
+    phase: getLessonSpecies(t.species).phase, coefficient: t.coefficient }));
   const family = c?.representation && c.representation !== 'reaction' ? c.representation
     : c?.conditions?.activation === 'ignition' ? 'combustion'
     : c?.kinetics.model === 'heat_activated' ? 'thermal'
@@ -42,14 +44,19 @@ for (const origin of ['programs', 'deterministic', 'lessons', 'dynamicRules']) f
     : c?.species.some(s => s.role === 'product' && s.phase === 'g') ? 'gas_evolution'
     : c?.species.some(s => s.role === 'product' && s.phase === 's') ? 'solid_formation'
     : 'specialized';
-  rows.push({ ...record, origin, family, classification: [family, record.execution ?? 'specialized_model'],
+  rows.push({ ...record, origin, family,
+    classification: [...new Set([family, ...(record.classification ?? []), record.execution ?? 'specialized_model'])],
     equation: c?.equation ?? record.equation ?? (lesson ? `${lessonSide(lesson.reactants)} → ${lessonSide(lesson.products)}` : record.id),
-    reactants: c?.species.filter(s => s.role === 'reactant'), products: c?.species.filter(s => s.role === 'product'),
-    conditions: c?.conditions ?? lesson?.conditions ?? record.conditions ?? record.heating ?? null, kinetics: c?.kinetics ?? null,
+    reactants: c?.species.filter(s => s.role === 'reactant') ?? lessonTerms(lesson?.reactants) ?? record.reactants,
+    products: c?.species.filter(s => s.role === 'product') ?? lessonTerms(lesson?.products) ?? record.products,
+    conditions: c?.conditions ?? lesson?.conditions ?? record.conditions ?? record.heating ?? null,
+    kinetics: c?.kinetics ?? (lesson ? { model: lesson.model, duration_s: lesson.duration_s, note: lesson.physicalTime_vi } : null),
     protocol: lesson ?? null,
     runtime: origin === 'programs' ? 'dedicated_program' : origin === 'lessons' ? 'lesson_model' : 'solver_rule',
     automatic: origin === 'programs' && autoIds.has(record.id),
-    explanation: p?.explain.why_vi ?? record.finding_vi ?? '', observation: p?.explain.observation_vi ?? '',
+    explanation: p?.explain.why_vi ?? lesson?.explanation_vi ?? record.finding_vi ?? '',
+    observation: p?.explain.observation_vi ?? lesson?.observation_vi ?? record.observation_vi ?? '',
+    sources: lesson?.sources.map(url => ({ url, title: 'Tài liệu nền được khai báo trong bài học' })) ?? record.sources,
   });
 }
 const counts = field => Object.fromEntries([...new Set(rows.map(r => r[field]))].sort().map(key => [key, rows.filter(r => r[field] === key).length]));

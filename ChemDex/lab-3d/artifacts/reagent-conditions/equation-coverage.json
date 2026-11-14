@@ -1,0 +1,12 @@
+{
+  "records": 1549,
+  "groups": 25,
+  "allClassified": true,
+  "allExplained": true,
+  "allObserved": true,
+  "allNativeReactantsHavePhaseDomains": true,
+  "nativeRules": 48,
+  "catalogEquations": 1300,
+  "sourceRecordsCanOverlap": true,
+  "experimentallyCalibrated": false
+}

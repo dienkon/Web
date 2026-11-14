@@ -468,7 +468,7 @@ Mg(s) + CuSO4(aq) -> MgSO4(aq) + Cu(s)
 C6H5OH + 3Br2 -> C6H2Br3OH + 3HBr
 
 - Điều kiện: {}
-- Phân loại: solid_formation, specialized_model
+- Phân loại: solid_formation, substitution, specialized_model
 - Giải thích: Nhóm OH hoạt hóa vòng thơm, ưu tiên các vị trí 2,4,6.
 - Quan sát: Nước brom mất màu và xuất hiện kết tủa trắng.
 - Nguồn: [University of Bristol: Tribromophenol](https://www.chm.bris.ac.uk/motm/tribromophenol/tbpv.htm)
@@ -479,7 +479,7 @@ C6H5OH + 3Br2 -> C6H2Br3OH + 3HBr
 C6H5NH2 + 3Br2 -> C6H2Br3NH2 + 3HBr
 
 - Điều kiện: {}
-- Phân loại: solid_formation, specialized_model
+- Phân loại: solid_formation, substitution, specialized_model
 - Giải thích: Nhóm NH2 hoạt hóa vòng thơm, phản ứng tạo 2,4,6-tribromoanilin.
 - Quan sát: Mất màu nước brom và xuất hiện kết tủa trắng.
 - Nguồn: [University of Bristol: Tribromophenol](https://www.chm.bris.ac.uk/motm/tribromophenol/tbpv.htm)
@@ -490,7 +490,7 @@ C6H5NH2 + 3Br2 -> C6H2Br3NH2 + 3HBr
 CaO + H2O -> Ca(OH)2
 
 - Điều kiện: {}
-- Phân loại: solid_formation, specialized_model
+- Phân loại: solid_formation, hydration, specialized_model
 - Giải thích: CaO hydrat hóa tạo Ca(OH)2.
 - Quan sát: Tạo sản phẩm trắng; có thể thấy huyền phù khi vượt độ tan.
 - Nguồn: [RSC: Thermal decomposition of calcium carbonate](https://edu.rsc.org/experiments/thermal-decomposition-of-calcium-carbonate/704.article)

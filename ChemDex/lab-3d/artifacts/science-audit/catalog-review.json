@@ -1,6 +1,6 @@
 {
   "schema": "chemdex.science-audit/1",
-  "checkedAt": "2026-11-13T16:21:44.503Z",
+  "checkedAt": "2026-11-13T23:58:52.399Z",
   "scope": "All 149 program definitions, every deterministic rule, and all 34 lessons. Lesson programs are a subset of the programs, not additional unique experiments.",
   "claims": {
     "balanceChecked": true,
@@ -34,6 +34,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -69,6 +70,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -104,6 +106,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -139,6 +142,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -172,6 +176,7 @@
       "equation": "NH3(g) + HCl(g) -> NH4Cl(s)",
       "ionicBalance": [],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -200,6 +205,7 @@
       "equation": "H2SO4(aq) + 2NH3(aq) -> (NH4)2SO4(aq)",
       "ionicBalance": [],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -228,6 +234,7 @@
       "equation": "H3PO4(aq) + 3NaOH(aq) -> Na3PO4(aq) + 3H2O(l)",
       "ionicBalance": [],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -256,6 +263,7 @@
       "equation": "2HCl(aq) + Ca(OH)2(aq) -> CaCl2(aq) + 2H2O(l)",
       "ionicBalance": [],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -291,6 +299,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -319,6 +328,7 @@
       "equation": "HNO3(aq) + NaOH(aq) -> NaNO3(aq) + H2O(l)",
       "ionicBalance": [],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -347,6 +357,7 @@
       "equation": "HIn(colorless) + OH-(aq) -> In-(magenta) + H2O(l)",
       "ionicBalance": [],
       "representation": "indicator",
+      "classification": [],
       "balance": null,
       "visualIssues": [],
       "conditions": {},
@@ -375,6 +386,7 @@
       "equation": "In-(yellow) + H+(aq) -> HIn(red)",
       "ionicBalance": [],
       "representation": "indicator",
+      "classification": [],
       "balance": null,
       "visualIssues": [],
       "conditions": {},
@@ -398,6 +410,7 @@
       "equation": "HIn(yellow/green) + OH-(aq) -> In-(deep blue) + H2O(l)",
       "ionicBalance": [],
       "representation": "indicator",
+      "classification": [],
       "balance": null,
       "visualIssues": [],
       "conditions": {},
@@ -428,6 +441,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -463,6 +477,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -498,6 +513,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -533,6 +549,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -568,6 +585,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -603,6 +621,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -643,6 +662,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -671,6 +691,7 @@
       "equation": "Ca(OH)2(aq) + CO2(g) -> CaCO3(s) + H2O(l)",
       "ionicBalance": [],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -711,6 +732,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -746,6 +768,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -781,6 +804,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -816,6 +840,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -851,6 +876,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -886,6 +912,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -921,6 +948,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -961,6 +989,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -989,6 +1018,7 @@
       "equation": "CaCO3(s) + 2HCl(aq) -> CaCl2(aq) + H2O(l) + CO2(g)",
       "ionicBalance": [],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -1022,6 +1052,7 @@
       "equation": "Na2CO3(aq) + 2HCl(aq) -> 2NaCl(aq) + H2O(l) + CO2(g)",
       "ionicBalance": [],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -1050,6 +1081,7 @@
       "equation": "NaHCO3(s) + HCl(aq) -> NaCl(aq) + H2O(l) + CO2(g)",
       "ionicBalance": [],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -1078,6 +1110,7 @@
       "equation": "Zn(s) + 2HCl(aq) -> ZnCl2(aq) + H2(g)",
       "ionicBalance": [],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -1106,6 +1139,7 @@
       "equation": "Mg(s) + 2HCl(aq) -> MgCl2(aq) + H2(g)",
       "ionicBalance": [],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -1137,6 +1171,7 @@
       "equation": "Fe(s) + 2HCl(aq) -> FeCl2(aq) + H2(g)",
       "ionicBalance": [],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -1165,6 +1200,7 @@
       "equation": "2Al(s) + 6HCl(aq) -> 2AlCl3(aq) + 3H2(g)",
       "ionicBalance": [],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -1193,6 +1229,7 @@
       "equation": "Na2SO3(aq) + 2HCl(aq) -> 2NaCl(aq) + H2O(l) + SO2(g)",
       "ionicBalance": [],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -1221,6 +1258,7 @@
       "equation": "FeS(s) + 2HCl(aq) -> FeCl2(aq) + H2S(g)",
       "ionicBalance": [],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -1249,6 +1287,7 @@
       "equation": "NH4Cl(aq) + NaOH(aq) -> NaCl(aq) + H2O(l) + NH3(g)",
       "ionicBalance": [],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -1277,6 +1316,7 @@
       "equation": "2H2O2(aq) -> 2H2O(l) + O2(g)",
       "ionicBalance": [],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -1309,6 +1349,7 @@
       "equation": "Cu(s) + 4HNO3(conc) -> Cu(NO3)2(aq) + 2NO2(g) + 2H2O(l)",
       "ionicBalance": [],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -1340,6 +1381,7 @@
       "equation": "3Cu(s) + 8HNO3(dil) -> 3Cu(NO3)2(aq) + 2NO(g) + 4H2O(l)",
       "ionicBalance": [],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -1375,6 +1417,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -1410,6 +1453,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -1445,6 +1489,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -1473,6 +1518,7 @@
       "equation": "2KMnO4(aq) + 5H2C2O4(aq) + 3H2SO4(aq) -> K2SO4(aq) + 2MnSO4(aq) + 10CO2(g) + 8H2O(l)",
       "ionicBalance": [],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -1501,6 +1547,7 @@
       "equation": "K2Cr2O7(aq) + 6FeSO4(aq) + 7H2SO4(aq) -> K2SO4(aq) + Cr2(SO4)3(aq) + 3Fe2(SO4)3(aq) + 7H2O(l)",
       "ionicBalance": [],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -1529,6 +1576,7 @@
       "equation": "2FeCl3(aq) + 2KI(aq) -> 2FeCl2(aq) + 2KCl(aq) + I2(aq)",
       "ionicBalance": [],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -1557,6 +1605,7 @@
       "equation": "Cl2(aq) + 2KBr(aq) -> 2KCl(aq) + Br2(aq)",
       "ionicBalance": [],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -1585,6 +1634,7 @@
       "equation": "IO3-(aq) + 3HSO3-(aq) -> I-(aq) + 3SO4(2-)(aq) + 3H+(aq)",
       "ionicBalance": [],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -1625,6 +1675,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -1660,6 +1711,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -1700,6 +1752,7 @@
         }
       ],
       "representation": "equilibrium",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -1735,6 +1788,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -1770,6 +1824,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -1798,6 +1853,7 @@
       "equation": "2Mg(s) + O2(g) -> 2MgO(s)",
       "ionicBalance": [],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -1829,6 +1885,7 @@
       "equation": "2Na(s) + 2H2O(l) -> 2NaOH(aq) + H2(g)",
       "ionicBalance": [],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -1875,6 +1932,7 @@
       "equation": "2K(s) + 2H2O(l) -> 2KOH(aq) + H2(g)",
       "ionicBalance": [],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -1906,6 +1964,7 @@
       "equation": "Cu(2+) + heat -> Cu* -> Cu(2+) + hv (510 nm)",
       "ionicBalance": [],
       "representation": "emission",
+      "classification": [],
       "balance": null,
       "visualIssues": [],
       "conditions": {},
@@ -1929,6 +1988,7 @@
       "equation": "Na+ + heat -> Na* -> Na+ + hv (589 nm)",
       "ionicBalance": [],
       "representation": "emission",
+      "classification": [],
       "balance": null,
       "visualIssues": [],
       "conditions": {},
@@ -1952,6 +2012,7 @@
       "equation": "K+ + heat -> K* -> K+ + hv (404 nm (visible); 766/770 nm (near infrared))",
       "ionicBalance": [],
       "representation": "emission",
+      "classification": [],
       "balance": null,
       "visualIssues": [],
       "conditions": {},
@@ -1975,6 +2036,7 @@
       "equation": "Cu(OH)2(s) -> CuO(s) + H2O(l)",
       "ionicBalance": [],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -2005,6 +2067,7 @@
       "equation": "2NaHCO3(s) -> Na2CO3(s) + H2O(g) + CO2(g)",
       "ionicBalance": [],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -2035,6 +2098,7 @@
       "equation": "I2(s) + heat -> I2(g)",
       "ionicBalance": [],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -2065,6 +2129,7 @@
       "equation": "H2SO4(conc) + H2O(l) -> H2SO4(aq) + H2O(l)",
       "ionicBalance": [],
       "representation": "dilution",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -2093,6 +2158,7 @@
       "equation": "NaClO(aq) + 2HCl(aq) -> NaCl(aq) + H2O(l) + Cl2(g)",
       "ionicBalance": [],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -2128,6 +2194,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -2163,6 +2230,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -2198,6 +2266,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -2233,6 +2302,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -2268,6 +2338,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -2303,6 +2374,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -2338,6 +2410,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -2373,6 +2446,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -2408,6 +2482,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -2443,6 +2518,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -2478,6 +2554,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -2513,6 +2590,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -2548,6 +2626,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -2583,6 +2662,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -2618,6 +2698,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -2653,6 +2734,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -2688,6 +2770,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -2728,6 +2811,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -2763,6 +2847,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -2798,6 +2883,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -2833,6 +2919,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -2868,6 +2955,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -2907,6 +2995,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -2945,6 +3034,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -2980,6 +3070,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -3015,6 +3106,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -3050,6 +3142,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -3085,6 +3178,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -3120,6 +3214,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -3155,6 +3250,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -3190,6 +3286,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -3225,6 +3322,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -3260,6 +3358,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -3297,6 +3396,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -3332,6 +3432,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -3370,6 +3471,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -3408,6 +3510,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -3446,6 +3549,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -3483,6 +3587,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -3518,6 +3623,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -3549,6 +3655,7 @@
       "equation": "NH4NO3(s) -> NH4NO3(aq)",
       "ionicBalance": [],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -3577,6 +3684,7 @@
       "equation": "NaOH(s) -> NaOH(aq)",
       "ionicBalance": [],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -3605,6 +3713,7 @@
       "equation": "CaCl2(s) -> CaCl2(aq)",
       "ionicBalance": [],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -3633,6 +3742,7 @@
       "equation": "H2SO4(l) + H2O(l) -> H2SO4(aq) + H2O(l)",
       "ionicBalance": [],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -3661,6 +3771,9 @@
       "equation": "C2H4 + Br2 -> C2H4Br2",
       "ionicBalance": [],
       "representation": "conditional_lesson",
+      "classification": [
+        "addition"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -3694,6 +3807,9 @@
       "equation": "C2H4 + H2 -> C2H6",
       "ionicBalance": [],
       "representation": "conditional_lesson",
+      "classification": [
+        "addition"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -3737,6 +3853,9 @@
       "equation": "C2H4 + H2O -> C2H5OH",
       "ionicBalance": [],
       "representation": "conditional_lesson",
+      "classification": [
+        "hydration"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -3796,6 +3915,9 @@
       "equation": "C2H2 + 2Br2 -> C2H2Br4",
       "ionicBalance": [],
       "representation": "conditional_lesson",
+      "classification": [
+        "addition"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -3829,6 +3951,9 @@
       "equation": "C2H4 + 3O2 -> 2CO2 + 2H2O",
       "ionicBalance": [],
       "representation": "conditional_lesson",
+      "classification": [
+        "combustion"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -3870,6 +3995,9 @@
       "equation": "CH4 + 2O2 -> CO2 + 2H2O",
       "ionicBalance": [],
       "representation": "conditional_lesson",
+      "classification": [
+        "combustion"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -3911,6 +4039,9 @@
       "equation": "2C2H2 + 5O2 -> 4CO2 + 2H2O",
       "ionicBalance": [],
       "representation": "conditional_lesson",
+      "classification": [
+        "combustion"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -3952,6 +4083,9 @@
       "equation": "C2H5OH + 3O2 -> 2CO2 + 3H2O",
       "ionicBalance": [],
       "representation": "conditional_lesson",
+      "classification": [
+        "combustion"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -3993,6 +4127,9 @@
       "equation": "2C2H5OH + 2Na -> 2C2H5ONa + H2",
       "ionicBalance": [],
       "representation": "conditional_lesson",
+      "classification": [
+        "substitution"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -4026,6 +4163,9 @@
       "equation": "C2H5OH + CuO -> CH3CHO + Cu + H2O",
       "ionicBalance": [],
       "representation": "conditional_lesson",
+      "classification": [
+        "oxidation"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -4064,6 +4204,9 @@
       "equation": "C2H5OH -> C2H4 + H2O",
       "ionicBalance": [],
       "representation": "conditional_lesson",
+      "classification": [
+        "decomposition"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -4108,6 +4251,9 @@
       "equation": "2C3H8O3 + Cu(OH)2 -> Cu(C3H7O3)2 + 2H2O",
       "ionicBalance": [],
       "representation": "conditional_lesson",
+      "classification": [
+        "complexation"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -4141,6 +4287,9 @@
       "equation": "C6H5OH + NaOH -> C6H5ONa + H2O",
       "ionicBalance": [],
       "representation": "conditional_lesson",
+      "classification": [
+        "neutralization"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -4174,6 +4323,9 @@
       "equation": "C6H5OH + 3Br2 -> C6H2Br3OH + 3HBr",
       "ionicBalance": [],
       "representation": "conditional_lesson",
+      "classification": [
+        "substitution"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -4207,6 +4359,9 @@
       "equation": "2CH3COOH + Na2CO3 -> 2CH3COONa + CO2 + H2O",
       "ionicBalance": [],
       "representation": "conditional_lesson",
+      "classification": [
+        "neutralization"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -4240,6 +4395,9 @@
       "equation": "CH3COOH + NaHCO3 -> CH3COONa + CO2 + H2O",
       "ionicBalance": [],
       "representation": "conditional_lesson",
+      "classification": [
+        "neutralization"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -4273,6 +4431,9 @@
       "equation": "CH3COOH + C2H5OH <-> CH3COOC2H5 + H2O",
       "ionicBalance": [],
       "representation": "conditional_lesson",
+      "classification": [
+        "esterification"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -4322,6 +4483,9 @@
       "equation": "CH3COOC2H5 + NaOH -> CH3COONa + C2H5OH",
       "ionicBalance": [],
       "representation": "conditional_lesson",
+      "classification": [
+        "hydrolysis"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -4366,6 +4530,9 @@
       "equation": "CH3COOCH3 + NaOH -> CH3COONa + CH3OH",
       "ionicBalance": [],
       "representation": "conditional_lesson",
+      "classification": [
+        "hydrolysis"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -4410,6 +4577,9 @@
       "equation": "2C6H12O6 + Cu(OH)2 -> Cu(C6H11O6)2 + 2H2O",
       "ionicBalance": [],
       "representation": "conditional_lesson",
+      "classification": [
+        "complexation"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -4448,6 +4618,9 @@
       "equation": "C6H12O6 + 2Cu(OH)2 + NaOH -> C6H11O7Na + Cu2O + 3H2O",
       "ionicBalance": [],
       "representation": "conditional_lesson",
+      "classification": [
+        "oxidation"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -4492,6 +4665,9 @@
       "equation": "C12H22O11 + H2O -> C6H12O6 + C6H12O6",
       "ionicBalance": [],
       "representation": "conditional_lesson",
+      "classification": [
+        "hydrolysis"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -4536,6 +4712,9 @@
       "equation": "(C6H10O5)n + nH2O -> nC6H12O6",
       "ionicBalance": [],
       "representation": "conditional_lesson",
+      "classification": [
+        "hydrolysis"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -4580,6 +4759,9 @@
       "equation": "C6H12O6 -> 2C2H5OH + 2CO2",
       "ionicBalance": [],
       "representation": "conditional_lesson",
+      "classification": [
+        "fermentation"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -4624,6 +4806,9 @@
       "equation": "CH3NH2 + HCl -> CH3NH3Cl",
       "ionicBalance": [],
       "representation": "conditional_lesson",
+      "classification": [
+        "neutralization"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -4657,6 +4842,9 @@
       "equation": "C6H5NH2 + 3Br2 -> C6H2Br3NH2 + 3HBr",
       "ionicBalance": [],
       "representation": "conditional_lesson",
+      "classification": [
+        "substitution"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -4690,6 +4878,9 @@
       "equation": "NH2CH2COOH + HCl -> ClH3NCH2COOH",
       "ionicBalance": [],
       "representation": "conditional_lesson",
+      "classification": [
+        "neutralization"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -4723,6 +4914,9 @@
       "equation": "NH2CH2COOH + NaOH -> NH2CH2COONa + H2O",
       "ionicBalance": [],
       "representation": "conditional_lesson",
+      "classification": [
+        "neutralization"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -4756,6 +4950,9 @@
       "equation": "CuO + 2HCl -> CuCl2 + H2O",
       "ionicBalance": [],
       "representation": "conditional_lesson",
+      "classification": [
+        "neutralization"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -4789,6 +4986,9 @@
       "equation": "Fe2O3 + 6HCl -> 2FeCl3 + 3H2O",
       "ionicBalance": [],
       "representation": "conditional_lesson",
+      "classification": [
+        "neutralization"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -4822,6 +5022,9 @@
       "equation": "CaO + H2O -> Ca(OH)2",
       "ionicBalance": [],
       "representation": "conditional_lesson",
+      "classification": [
+        "hydration"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -4855,6 +5058,9 @@
       "equation": "CaCO3 -> CaO + CO2",
       "ionicBalance": [],
       "representation": "conditional_lesson",
+      "classification": [
+        "decomposition"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -4893,6 +5099,9 @@
       "equation": "Cu(OH)2 + 2HCl -> CuCl2 + 2H2O",
       "ionicBalance": [],
       "representation": "conditional_lesson",
+      "classification": [
+        "neutralization"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -4926,6 +5135,9 @@
       "equation": "Al(OH)3 + 3HCl -> AlCl3 + 3H2O",
       "ionicBalance": [],
       "representation": "conditional_lesson",
+      "classification": [
+        "neutralization"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -4966,6 +5178,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -5001,6 +5214,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -5036,6 +5250,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -5071,6 +5286,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -5106,6 +5322,7 @@
         }
       ],
       "representation": "reaction",
+      "classification": [],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -5134,6 +5351,11 @@
     {
       "id": "hcl_naoh_neutralization",
       "equation": "HCl + NaOH → NaCl + H₂O",
+      "observation_vi": "Cốc nghiệm ấm lên rõ rệt do tỏa nhiệt. Nếu có phenolphtalein, màu hồng biến mất hoàn toàn trở lại không màu.",
+      "classification": [
+        "Acid-Base Neutralization (Exothermic)",
+        "Phản ứng trung hòa Axit - Bazơ (Tỏa nhiệt)"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
@@ -5152,6 +5374,54 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "HCl",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "NaOH",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "formula": "NaCl",
+          "phase": "aq",
+          "coefficient": 1
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 1
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "HCl": [
+            "aq"
+          ],
+          "NaOH": [
+            "aq"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "H+/OH− trung hòa trong nước; không khí, kết tủa hoặc khói trắng. pH cuối phụ thuộc lượng dư.",
       "sourceScope": "specific_observation",
@@ -5167,6 +5437,11 @@
     {
       "id": "h2so4_naoh_neutralization",
       "equation": "H₂SO₄ + 2NaOH → Na₂SO₄ + 2H₂O",
+      "observation_vi": "Tỏa nhiệt mạnh, nhiệt độ dung dịch tăng lên khoảng 45°C - 55°C.",
+      "classification": [
+        "Acid-Base Neutralization",
+        "Phản ứng trung hòa Axit - Bazơ"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
@@ -5185,6 +5460,54 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "H2SO4",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "NaOH",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 2
+        }
+      ],
+      "products": [
+        {
+          "formula": "Na2SO4",
+          "phase": "aq",
+          "coefficient": 1
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 2
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "H2SO4": [
+            "aq"
+          ],
+          "NaOH": [
+            "aq"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "Tỉ lệ 1:2 mô tả trung hòa cả hai proton; không thay cho cân bằng HSO4− khi mới thêm một phần kiềm.",
       "sourceScope": "family_context",
@@ -5200,6 +5523,12 @@
     {
       "id": "bacl2_h2so4_precipitate",
       "equation": "BaCl₂ + H₂SO₄ → BaSO₄↓ + 2HCl",
+      "observation_vi": "Xuất hiện ngay lập tức kết tủa màu trắng đục của BaSO4, lắng dần xuống đáy cốc.",
+      "classification": [
+        "Precipitation Reaction",
+        "Phản ứng tạo kết tủa",
+        "solid_formation"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
@@ -5218,6 +5547,54 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "BaCl2",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "H2SO4",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "formula": "BaSO4",
+          "phase": "s",
+          "coefficient": 1
+        },
+        {
+          "formula": "HCl",
+          "phase": "aq",
+          "coefficient": 2
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "BaCl2": [
+            "aq"
+          ],
+          "H2SO4": [
+            "aq"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "BaSO4 trắng trong môi trường axit thích hợp; HCl sinh ra ở pha dung dịch.",
       "sourceScope": "specific_observation",
@@ -5233,6 +5610,12 @@
     {
       "id": "bacl2_na2so4_conservation",
       "equation": "BaCl₂ + Na₂SO₄ → BaSO₄↓ + 2NaCl",
+      "observation_vi": "Xuất hiện tức thì kết tủa trắng đục BaSO4. Đồng hồ cân điện tử xác nhận tổng khối lượng không đổi (m1 = m2), kiểm chứng định luật bảo toàn khối lượng Lomonosov - Lavoisier.",
+      "classification": [
+        "Precipitation / Law of Conservation of Mass",
+        "Phản ứng tạo kết tủa / Kiểm chứng Định luật Bảo toàn Khối lượng",
+        "solid_formation"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
@@ -5251,6 +5634,54 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "BaCl2",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "Na2SO4",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "formula": "BaSO4",
+          "phase": "s",
+          "coefficient": 1
+        },
+        {
+          "formula": "NaCl",
+          "phase": "aq",
+          "coefficient": 2
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "BaCl2": [
+            "aq"
+          ],
+          "Na2SO4": [
+            "aq"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "BaSO4 trắng khi tích số ion vượt Ksp; không sinh khí.",
       "sourceScope": "specific_observation",
@@ -5266,6 +5697,12 @@
     {
       "id": "agno3_nacl_precipitate",
       "equation": "AgNO₃ + NaCl → AgCl↓ + NaNO₃",
+      "observation_vi": "Xuất hiện kết tủa trắng dạng vón (dạng nhũ tương) của AgCl.",
+      "classification": [
+        "Precipitation (Halide Test)",
+        "Phản ứng tạo kết tủa (Nhận biết ion Cl-)",
+        "solid_formation"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
@@ -5284,6 +5721,54 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "AgNO3",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "NaCl",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "formula": "AgCl",
+          "phase": "s",
+          "coefficient": 1
+        },
+        {
+          "formula": "NaNO3",
+          "phase": "aq",
+          "coefficient": 1
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "AgNO3": [
+            "aq"
+          ],
+          "NaCl": [
+            "aq"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "AgCl trắng, nhạy sáng; có thể tan trong NH3 loãng dư.",
       "sourceScope": "specific_observation",
@@ -5299,6 +5784,12 @@
     {
       "id": "golden_rain_pbi2",
       "equation": "2KI + Pb(NO₃)₂ → PbI₂↓ + 2KNO₃",
+      "observation_vi": "Trộn lạnh tạo kết tủa vàng mịn. Mưa phiến tinh thể nhỏ xuất hiện khi dung dịch nóng đủ bão hòa nguội dần.",
+      "classification": [
+        "Precipitation (\"Golden Rain\")",
+        "Phản ứng tạo kết tủa (\"Mưa Vàng\")",
+        "solid_formation"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
@@ -5317,6 +5808,54 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "KI",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 2
+        },
+        {
+          "formula": "Pb(NO3)2",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "formula": "PbI2",
+          "phase": "s",
+          "coefficient": 1
+        },
+        {
+          "formula": "KNO3",
+          "phase": "aq",
+          "coefficient": 2
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "KI": [
+            "aq"
+          ],
+          "Pb(NO3)2": [
+            "aq"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "Trộn lạnh tạo kết tủa vàng; mưa phiến lấp lánh là chu kỳ hòa tan nóng rồi tái kết tinh khi nguội.",
       "sourceScope": "specific_observation",
@@ -5337,6 +5876,12 @@
     {
       "id": "cuso4_naoh_precipitate",
       "equation": "CuSO₄ + 2NaOH → Cu(OH)₂↓ + Na₂SO₄",
+      "observation_vi": "Dung dịch màu xanh lam chuyển thành kết tủa màu xanh da trời dạng bông keo nhầy.",
+      "classification": [
+        "Precipitation Reaction",
+        "Phản ứng tạo kết tủa bazơ không tan",
+        "solid_formation"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
@@ -5355,6 +5900,54 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "CuSO4",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "NaOH",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 2
+        }
+      ],
+      "products": [
+        {
+          "formula": "Cu(OH)2",
+          "phase": "s",
+          "coefficient": 1
+        },
+        {
+          "formula": "Na2SO4",
+          "phase": "aq",
+          "coefficient": 1
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "CuSO4": [
+            "aq"
+          ],
+          "NaOH": [
+            "aq"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "Cu(OH)2 xanh dạng gel; đun nóng mới chuyển dần sang CuO đen.",
       "sourceScope": "specific_observation",
@@ -5370,6 +5963,12 @@
     {
       "id": "fe_cuso4_displacement",
       "equation": "Fe + CuSO₄ → FeSO₄ + Cu↓",
+      "observation_vi": "Lớp kim loại màu đỏ bám quanh bột sắt; màu xanh lam đậm của dung dịch nhạt dần sang màu xanh rêu nhạt của FeSO4.",
+      "classification": [
+        "Single Displacement (Redox)",
+        "Phản ứng thế kim loại (Oxi hóa - Khử)",
+        "solid_formation"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
@@ -5388,6 +5987,54 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "Fe",
+          "phases": [
+            "s"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "CuSO4",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "formula": "FeSO4",
+          "phase": "aq",
+          "coefficient": 1
+        },
+        {
+          "formula": "Cu",
+          "phase": "s",
+          "coefficient": 1
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "Fe": [
+            "s"
+          ],
+          "CuSO4": [
+            "aq"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "Cu đỏ nâu bám trên Fe; ion Fe(II) ở dung dịch, không phải mưa hạt đồng vô tận.",
       "sourceScope": "specific_observation",
@@ -5403,6 +6050,12 @@
     {
       "id": "caco3_hcl_gas",
       "equation": "CaCO₃ + 2HCl → CaCl₂ + CO₂↑ + H₂O",
+      "observation_vi": "Hiện tượng sủi bọt khí mãnh liệt, các bọt khí CO2 không màu bay lên liên tục, đá vôi tan dần.",
+      "classification": [
+        "Gas Evolution Reaction",
+        "Phản ứng sinh khí (Sủi bọt mạnh)",
+        "gas_evolution"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
@@ -5421,6 +6074,61 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "CaCO3",
+          "phases": [
+            "s",
+            "aq"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "HCl",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 2
+        }
+      ],
+      "products": [
+        {
+          "formula": "CaCl2",
+          "phase": "aq",
+          "coefficient": 1
+        },
+        {
+          "formula": "CO2",
+          "phase": "g",
+          "coefficient": 1
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 1
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "CaCO3": [
+            "s",
+            "aq"
+          ],
+          "HCl": [
+            "aq"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "Axit tiêu thụ carbonate tạo CO2; dừng phát khí khi chất giới hạn hết.",
       "sourceScope": "specific_observation",
@@ -5441,6 +6149,12 @@
     {
       "id": "zn_hcl_gas",
       "equation": "Zn + 2HCl → ZnCl₂ + H₂↑",
+      "observation_vi": "Bọt khí không màu (H2) thoát ra nhanh quanh bề mặt hạt kẽm, tỏa nhiệt làm ấm bình nghiệm.",
+      "classification": [
+        "Single Displacement / Hydrogen Gas Generation",
+        "Phản ứng điều chế khí Hiđro trong phòng thí nghiệm",
+        "gas_evolution"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
@@ -5459,6 +6173,54 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "Zn",
+          "phases": [
+            "s"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "HCl",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 2
+        }
+      ],
+      "products": [
+        {
+          "formula": "ZnCl2",
+          "phase": "aq",
+          "coefficient": 1
+        },
+        {
+          "formula": "H2",
+          "phase": "g",
+          "coefficient": 1
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": true,
+        "reactantPhases": {
+          "Zn": [
+            "s"
+          ],
+          "HCl": [
+            "aq"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "Zn và axit không oxi hóa giải phóng H2; tốc độ phụ thuộc bề mặt và nồng độ.",
       "sourceScope": "family_context",
@@ -5474,6 +6236,12 @@
     {
       "id": "mg_hcl_gas",
       "equation": "Mg + 2HCl → MgCl₂ + H₂↑",
+      "observation_vi": "Sủi bọt khí cực mạnh, tỏa nhiều nhiệt, dải magiê di chuyển nhanh trên mặt nước và tan biến trong vài giây.",
+      "classification": [
+        "Vigorous Displacement",
+        "Phản ứng thế tỏa nhiệt mãnh liệt",
+        "gas_evolution"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
@@ -5493,6 +6261,54 @@
         "required": false,
         "minimum_c": null
       },
+      "reactants": [
+        {
+          "formula": "Mg",
+          "phases": [
+            "s"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "HCl",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 2
+        }
+      ],
+      "products": [
+        {
+          "formula": "MgCl2",
+          "phase": "aq",
+          "coefficient": 1
+        },
+        {
+          "formula": "H2",
+          "phase": "g",
+          "coefficient": 1
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": true,
+        "reactantPhases": {
+          "Mg": [
+            "s"
+          ],
+          "HCl": [
+            "aq"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
+      },
       "finding_vi": "Mg tan tạo H2; không phải mọi mẫu nhỏ đều nổ hoặc tự cháy.",
       "sourceScope": "family_context",
       "quantitativeCalibration": "not_validated",
@@ -5507,6 +6323,12 @@
     {
       "id": "h2o2_mno2_decomposition",
       "equation": "2H₂O₂ ⎯⎯MnO₂⎯→ 2H₂O + O₂↑",
+      "observation_vi": "Sinh bọt khí O2 không màu và tỏa nhiệt. Bọt bền cần chất giữ bọt; mẫu không mặc định sôi hoặc bốc hơi trắng.",
+      "classification": [
+        "Catalytic Decomposition",
+        "Phản ứng phân hủy có xúc tác (Điều chế Oxi)",
+        "gas_evolution"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [],
       "balance": {
@@ -5518,6 +6340,54 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "H2O2",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 2
+        },
+        {
+          "formula": "MnO2",
+          "phases": [
+            "s"
+          ],
+          "coefficient": 0
+        }
+      ],
+      "products": [
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 2
+        },
+        {
+          "formula": "O2",
+          "phase": "g",
+          "coefficient": 1
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "H2O2": [
+            "aq"
+          ],
+          "MnO2": [
+            "s"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "MnO2 là xúc tác, không bị tiêu thụ như chất đầu. O2 không màu; bọt bền cần chất hoạt động bề mặt.",
       "sourceScope": "family_context",
@@ -5533,6 +6403,13 @@
     {
       "id": "nh3_hcl_fumes",
       "equation": "NH₃(g) + HCl(g) → NH₄Cl(s)",
+      "observation_vi": "Một luồng khói trắng đục cuồn cuộn bốc lên ngay miệng bình thí nghiệm.",
+      "classification": [
+        "Combination / Gas Fumes",
+        "Phản ứng hóa hợp tạo khói trắng",
+        "gas_evolution",
+        "solid_formation"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [],
       "balance": {
@@ -5544,6 +6421,49 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "NH3(g)",
+          "phases": [
+            "g"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "HCl(g)",
+          "phases": [
+            "g"
+          ],
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "formula": "NH4Cl",
+          "phase": "s",
+          "coefficient": 1
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "NH3(g)": [
+            "g"
+          ],
+          "HCl(g)": [
+            "g"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "Khói NH4Cl cần tiếp xúc hai pha khí; trộn hai dung dịch tạo NH4Cl tan.",
       "sourceScope": "family_context",
@@ -5559,6 +6479,12 @@
     {
       "id": "na2co3_hcl_gas",
       "equation": "Na₂CO₃ + 2HCl → 2NaCl + CO₂↑ + H₂O",
+      "observation_vi": "Sủi bọt khí mạnh mẽ, dung dịch trong suốt không màu.",
+      "classification": [
+        "Carbonate-Acid Reaction",
+        "Phản ứng muối cacbonat với axit",
+        "gas_evolution"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [],
       "balance": {
@@ -5570,6 +6496,61 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "Na2CO3",
+          "phases": [
+            "s",
+            "aq"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "HCl",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 2
+        }
+      ],
+      "products": [
+        {
+          "formula": "NaCl",
+          "phase": "aq",
+          "coefficient": 2
+        },
+        {
+          "formula": "CO2",
+          "phase": "g",
+          "coefficient": 1
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 1
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "Na2CO3": [
+            "s",
+            "aq"
+          ],
+          "HCl": [
+            "aq"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "Axit thêm từng phần có thể tạo bicarbonat trước khi CO2 thoát; phương trình tổng cần đủ 2H+.",
       "sourceScope": "family_context",
@@ -5585,6 +6566,12 @@
     {
       "id": "cuoh2_thermal_decomposition",
       "equation": "Cu(OH)₂ ⎯⎯t°⎯→ CuO↓ + H₂O",
+      "observation_vi": "Kết tủa màu xanh lam chuyển dần sang màu đen tuyền của đồng(II) oxit.",
+      "classification": [
+        "Thermal Decomposition",
+        "Phản ứng nhiệt phân bazơ không tan",
+        "solid_formation"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [],
       "balance": {
@@ -5596,6 +6583,44 @@
       "heating": {
         "required": true,
         "minimum_c": 60
+      },
+      "reactants": [
+        {
+          "formula": "Cu(OH)2",
+          "phases": [
+            "s"
+          ],
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "formula": "CuO",
+          "phase": "s",
+          "coefficient": 1
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 1
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "Cu(OH)2": [
+            "s"
+          ]
+        },
+        "heating": {
+          "required": true,
+          "minimum_c": 60
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "Gia nhiệt biến hydroxide xanh thành CuO đen; nước có thể ở lỏng/hơi tùy hệ.",
       "sourceScope": "family_context",
@@ -5611,6 +6636,12 @@
     {
       "id": "iodine_sublimation",
       "equation": "I₂(s) ⎯⎯t°⎯→ I₂(g) (Thăng hoa)",
+      "observation_vi": "Hơi màu tím thẫm bốc lên huyền ảo lấp lánh trong bình thí nghiệm.",
+      "classification": [
+        "Phase Transition (Sublimation)",
+        "Hiện tượng vật lý / Thăng hoa Iốt",
+        "gas_evolution"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [],
       "balance": {
@@ -5622,6 +6653,39 @@
       "heating": {
         "required": true,
         "minimum_c": 50
+      },
+      "reactants": [
+        {
+          "formula": "I2(s)",
+          "phases": [
+            "s"
+          ],
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "formula": "I2",
+          "phase": "g",
+          "coefficient": 1
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "I2(s)": [
+            "s"
+          ]
+        },
+        "heating": {
+          "required": true,
+          "minimum_c": 50
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "Thăng hoa là đổi pha, không phản ứng tiêu thụ rồi tái tạo liên tục cùng một lượng I2.",
       "sourceScope": "model_caveat",
@@ -5637,6 +6701,13 @@
     {
       "id": "cuso4_thermal_dehydration",
       "equation": "CuSO₄·5H₂O(s) ⎯⎯t°⎯→ CuSO₄(s) + 5H₂O↑",
+      "observation_vi": "Màu xanh lam chuyển dần sang màu trắng ngà của muối đồng sunfat khan khi hơi nước bay lên.",
+      "classification": [
+        "Thermal Dehydration",
+        "Phản ứng mất nước kết tinh muối ngậm nước",
+        "gas_evolution",
+        "solid_formation"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [],
       "balance": {
@@ -5648,6 +6719,44 @@
       "heating": {
         "required": true,
         "minimum_c": 200
+      },
+      "reactants": [
+        {
+          "formula": "CuSO4·5H2O(s)",
+          "phases": [
+            "s"
+          ],
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "formula": "CuSO4",
+          "phase": "s",
+          "coefficient": 1
+        },
+        {
+          "formula": "H2O",
+          "phase": "g",
+          "coefficient": 5
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "CuSO4·5H2O(s)": [
+            "s"
+          ]
+        },
+        "heating": {
+          "required": true,
+          "minimum_c": 200
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "Chỉ tinh thể CuSO4·5H2O mất năm nước kết tinh; CuSO4 khan hoặc dung dịch CuSO4 không phải cùng chất đầu. Mất nước diễn ra nhiều nấc.",
       "sourceScope": "family_context",
@@ -5663,6 +6772,11 @@
     {
       "id": "water_into_conc_h2so4_explosion",
       "equation": "H₂SO₄(conc) + H₂O → H₃O⁺ + HSO₄⁻ + Q (CựC KỲ NGUY HIỂM)",
+      "observation_vi": "Pha loãng tỏa nhiệt; sôi cục bộ và bắn tóe phụ thuộc lượng, thứ tự thêm và truyền nhiệt, không mặc định xảy ra. NGUYÊN TẮC VÀNG: Tuyệt đối chỉ được rót từ từ axit vào nước, KHÔNG BAO GIỜ làm ngược lại!",
+      "classification": [
+        "Exothermic Dilution / Mixing Hazard",
+        "Pha loãng tỏa nhiệt, có nguy cơ nóng cục bộ"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [],
       "balance": {
@@ -5674,6 +6788,56 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "H2SO4 (conc)",
+          "phases": [
+            "aq",
+            "l"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "H2O",
+          "phases": [
+            "l"
+          ],
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "formula": "H2SO4 (dil)",
+          "phase": "aq",
+          "coefficient": 1
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 1
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "H2SO4 (conc)": [
+            "aq",
+            "l"
+          ],
+          "H2O": [
+            "l"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "Pha loãng tỏa nhiệt; không phải tạo chất H2SO4·H2O(aq) duy nhất hoặc luôn nổ.",
       "sourceScope": "model_caveat",
@@ -5689,6 +6853,12 @@
     {
       "id": "sodium_water_reaction",
       "equation": "2Na + 2H₂O → 2NaOH + H₂↑ + Q",
+      "observation_vi": "Na nổi, chạy trên mặt nước, nóng chảy vo tròn và nhỏ dần. Dung dịch kiềm chỉ có màu hồng khi có chỉ thị phù hợp.",
+      "classification": [
+        "Alkali Metal Oxidation (Hazardous)",
+        "Kim loại kiềm tác dụng với nước (Tỏa nhiệt mạnh)",
+        "gas_evolution"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [],
       "balance": {
@@ -5700,6 +6870,54 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "Na",
+          "phases": [
+            "s"
+          ],
+          "coefficient": 2
+        },
+        {
+          "formula": "H2O",
+          "phases": [
+            "l"
+          ],
+          "coefficient": 2
+        }
+      ],
+      "products": [
+        {
+          "formula": "NaOH",
+          "phase": "aq",
+          "coefficient": 2
+        },
+        {
+          "formula": "H2",
+          "phase": "g",
+          "coefficient": 1
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": true,
+        "reactantPhases": {
+          "Na": [
+            "s"
+          ],
+          "H2O": [
+            "l"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "Na nổi, chạy và nóng chảy; NaOH không màu, chỉ hồng khi có chỉ thị. Cháy hoặc nổ phụ thuộc điều kiện. Lượng chất theo 2:2:2:1; chuyển động và truyền nhiệt cục bộ chỉ là xấp xỉ định tính.",
       "sourceScope": "specific_observation",
@@ -5730,6 +6948,12 @@
     {
       "id": "cu_hno3_conc",
       "equation": "Cu + 4HNO₃(đặc) → Cu(NO₃)₂ + 2NO₂↑ + 2H₂O",
+      "observation_vi": "Dung dịch sủi bọt mạnh, chuyển từ xanh ngọc sang xanh lam. Khí NO2 màu nâu đỏ đậm cuộn trào bốc lên, nặng hơn không khí tràn qua miệng cốc rồi chìm xuống mặt bàn.",
+      "classification": [
+        "Redox with Oxidizing Acid (Brown NO2 Gas)",
+        "Phản ứng oxi hóa khử tạo khí màu nâu đỏ",
+        "gas_evolution"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
@@ -5749,6 +6973,61 @@
         "required": false,
         "minimum_c": null
       },
+      "reactants": [
+        {
+          "formula": "Cu",
+          "phases": [
+            "s"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "HNO3 (conc)",
+          "phases": [
+            "aq",
+            "l"
+          ],
+          "coefficient": 4
+        }
+      ],
+      "products": [
+        {
+          "formula": "Cu(NO3)2",
+          "phase": "aq",
+          "coefficient": 1
+        },
+        {
+          "formula": "NO2",
+          "phase": "g",
+          "coefficient": 2
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 2
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "Cu": [
+            "s"
+          ],
+          "HNO3 (conc)": [
+            "aq",
+            "l"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
+      },
       "finding_vi": "HNO3 đặc tạo NO2 nâu; phải phân biệt thuốc thử loãng và đặc.",
       "sourceScope": "specific_observation",
       "quantitativeCalibration": "not_validated",
@@ -5763,6 +7042,12 @@
     {
       "id": "cu_conc_h2so4_heated",
       "equation": "Cu + 2H₂SO₄(đặc) —(t°)→ CuSO₄ + SO₂↑ + 2H₂O",
+      "observation_vi": "Khi đun nóng, mẩu đồng tan dần, dung dịch chuyển dần sang màu xanh lam và sủi bọt khí SO2 có mùi hắc đặc trưng.",
+      "classification": [
+        "Redox with Oxidizing Acid",
+        "Phản ứng oxi hóa - khử với axit có tính oxi hóa mạnh",
+        "gas_evolution"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
@@ -5782,6 +7067,61 @@
         "required": true,
         "minimum_c": 65
       },
+      "reactants": [
+        {
+          "formula": "Cu",
+          "phases": [
+            "s"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "H2SO4 (conc)",
+          "phases": [
+            "aq",
+            "l"
+          ],
+          "coefficient": 2
+        }
+      ],
+      "products": [
+        {
+          "formula": "CuSO4",
+          "phase": "aq",
+          "coefficient": 1
+        },
+        {
+          "formula": "SO2",
+          "phase": "g",
+          "coefficient": 1
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 2
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "Cu": [
+            "s"
+          ],
+          "H2SO4 (conc)": [
+            "aq",
+            "l"
+          ]
+        },
+        "heating": {
+          "required": true,
+          "minimum_c": 65
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
+      },
       "finding_vi": "Cần H2SO4 đặc nóng; đồng không tạo SO2 khi chỉ gặp H2SO4 loãng.",
       "sourceScope": "family_context",
       "quantitativeCalibration": "not_validated",
@@ -5796,6 +7136,12 @@
     {
       "id": "limewater_co2_milky",
       "equation": "Ca(OH)₂ + CO₂ → CaCO₃↓ + H₂O",
+      "observation_vi": "Dung dịch trong suốt vẩn đục dần rồi chuyển sang màu trắng đục như nước vo gạo.",
+      "classification": [
+        "Limewater Test for CO2 (Precipitation)",
+        "Nhận biết khí CO2 bằng nước vôi trong (Tạo kết tủa)",
+        "solid_formation"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
@@ -5814,6 +7160,56 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "Ca(OH)2",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "CO2",
+          "phases": [
+            "g",
+            "aq"
+          ],
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "formula": "CaCO3",
+          "phase": "s",
+          "coefficient": 1
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 1
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "Ca(OH)2": [
+            "aq"
+          ],
+          "CO2": [
+            "g",
+            "aq"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "CO2 làm đục nước vôi; CO2 tiếp tục dư trong nước có thể chuyển cặn sang bicarbonat tan.",
       "sourceScope": "specific_observation",
@@ -5834,6 +7230,11 @@
     {
       "id": "caco3_co2_excess_clearing",
       "equation": "CaCO₃ + CO₂ + H₂O → Ca(HCO₃)₂ (Tan trong nước)",
+      "observation_vi": "Hiện tượng kỳ thú: Nước vôi đang đục bỗng trong dần từ trên xuống dưới rồi trở lại trong veo hoàn toàn.",
+      "classification": [
+        "Precipitate Dissolution in Excess CO2",
+        "Hiện tượng kết tủa tan khi sục khí CO2 dư"
+      ],
       "execution": "finite_phase_equilibrium",
       "ionicBalance": [
         {
@@ -5853,6 +7254,63 @@
         "required": false,
         "minimum_c": null
       },
+      "reactants": [
+        {
+          "formula": "CaCO3",
+          "phases": [
+            "s",
+            "aq"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "CO2",
+          "phases": [
+            "g",
+            "aq"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "H2O",
+          "phases": [
+            "l"
+          ],
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "formula": "Ca(HCO3)2",
+          "phase": "aq",
+          "coefficient": 1
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "CaCO3": [
+            "s",
+            "aq"
+          ],
+          "CO2": [
+            "g",
+            "aq"
+          ],
+          "H2O": [
+            "l"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
+      },
       "finding_vi": "Chuyển sang cân bằng pha hữu hạn; CO2 khí vừa sinh không bị tiêu thụ tiếp như CO2 đã hòa tan. Độ trong phụ thuộc lượng cacbon hòa tan và bão hòa calcite; tốc độ, nhiệt và hiệu chỉnh nhiệt độ/hoạt độ chưa hiệu chuẩn.",
       "sourceScope": "family_context",
       "quantitativeCalibration": "not_validated",
@@ -5867,6 +7325,12 @@
     {
       "id": "alcl3_naoh_precipitate",
       "equation": "AlCl₃ + 3NaOH → Al(OH)₃ + 3NaCl",
+      "observation_vi": "Lượng keo trắng phụ thuộc pH; kiềm đủ dư có thể cho dung dịch aluminate trong.",
+      "classification": [
+        "Hydroxide precipitation",
+        "Tạo keo nhôm hiđroxit",
+        "solid_formation"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
@@ -5885,6 +7349,54 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "AlCl3",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "NaOH",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 3
+        }
+      ],
+      "products": [
+        {
+          "formula": "Al(OH)3",
+          "phase": "s",
+          "coefficient": 1
+        },
+        {
+          "formula": "NaCl",
+          "phase": "aq",
+          "coefficient": 3
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "AlCl3": [
+            "aq"
+          ],
+          "NaOH": [
+            "aq"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "Al(OH)3 vô định hình tạo keo khi quá bão hòa; lượng rắn phụ thuộc speciation và pH, không theo chiều cao lớp cặn cố định.",
       "sourceScope": "model_caveat",
@@ -5900,6 +7412,11 @@
     {
       "id": "alcl3_naoh_aluminate",
       "equation": "AlCl₃ + 4NaOH → Na[Al(OH)₄] + 3NaCl",
+      "observation_vi": "Không tự tạo keo hoặc khí trong mẫu chưa quá bão hòa.",
+      "classification": [
+        "Aluminate formation in excess base",
+        "Tạo aluminate trong kiềm dư"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
@@ -5918,6 +7435,54 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "AlCl3",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "NaOH",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 4
+        }
+      ],
+      "products": [
+        {
+          "formula": "Na[Al(OH)4]",
+          "phase": "aq",
+          "coefficient": 1
+        },
+        {
+          "formula": "NaCl",
+          "phase": "aq",
+          "coefficient": 3
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "AlCl3": [
+            "aq"
+          ],
+          "NaOH": [
+            "aq"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "Kiềm đủ dư ưu tiên aluminate hòa tan; không bắt buộc dựng một đợt keo trung gian khi mẫu dưới bão hòa.",
       "sourceScope": "model_caveat",
@@ -5933,6 +7498,11 @@
     {
       "id": "al2so43_naoh_aluminate",
       "equation": "Al₂(SO₄)₃ + 8NaOH → 2Na[Al(OH)₄] + 3Na₂SO₄",
+      "observation_vi": "Không tự tạo keo hoặc khí trong mẫu chưa quá bão hòa.",
+      "classification": [
+        "Aluminate formation in excess base",
+        "Tạo aluminate trong kiềm dư"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
@@ -5951,6 +7521,54 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "Al2(SO4)3",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "NaOH",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 8
+        }
+      ],
+      "products": [
+        {
+          "formula": "Na[Al(OH)4]",
+          "phase": "aq",
+          "coefficient": 2
+        },
+        {
+          "formula": "Na2SO4",
+          "phase": "aq",
+          "coefficient": 3
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "Al2(SO4)3": [
+            "aq"
+          ],
+          "NaOH": [
+            "aq"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "Nhánh aluminate của muối sulfate giữ cân bằng Al/Na/S và bị chặn nếu còn quá bão hòa hydroxide.",
       "sourceScope": "model_caveat",
@@ -5966,6 +7584,12 @@
     {
       "id": "al2so4_naoh_amphoteric",
       "equation": "Al₂(SO₄)₃ + 6NaOH → 2Al(OH)₃↓ + 3Na₂SO₄",
+      "observation_vi": "Có thể xuất hiện keo trắng; lượng keo phụ thuộc lượng chất và pH.",
+      "classification": [
+        "Hydroxide precipitation",
+        "Tạo keo nhôm hiđroxit",
+        "solid_formation"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
@@ -5984,6 +7608,54 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "Al2(SO4)3",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "NaOH",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 6
+        }
+      ],
+      "products": [
+        {
+          "formula": "Al(OH)3",
+          "phase": "s",
+          "coefficient": 2
+        },
+        {
+          "formula": "Na2SO4",
+          "phase": "aq",
+          "coefficient": 3
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "Al2(SO4)3": [
+            "aq"
+          ],
+          "NaOH": [
+            "aq"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "Giới hạn tạo keo nhôm xét sulfate tự do, bisulfate và phức Al–sulfate; 2 mol Al trên mỗi mol Al2(SO4)3.",
       "sourceScope": "model_caveat",
@@ -5999,6 +7671,12 @@
     {
       "id": "cuso4_nh3_hydroxide",
       "equation": "CuSO4 + 2NH3 + 2H2O -> Cu(OH)2 + (NH4)2SO4",
+      "observation_vi": "Hiện tượng tuyệt đẹp: Dung dịch chuyển sang màu xanh lam đậm huyền ảo rực rỡ đặc trưng của phức đồng.",
+      "classification": [
+        "Coordination Complex Formation",
+        "Phản ứng tạo phức chất tetraammin đồng(II)",
+        "solid_formation"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
@@ -6017,6 +7695,64 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "CuSO4",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "NH3",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 2
+        },
+        {
+          "formula": "H2O",
+          "phases": [
+            "l"
+          ],
+          "coefficient": 2
+        }
+      ],
+      "products": [
+        {
+          "formula": "Cu(OH)2",
+          "phase": "s",
+          "coefficient": 1
+        },
+        {
+          "formula": "(NH4)2SO4",
+          "phase": "aq",
+          "coefficient": 1
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "CuSO4": [
+            "aq"
+          ],
+          "NH3": [
+            "aq"
+          ],
+          "H2O": [
+            "l"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "NH3 ít tạo hydroxide xanh nhạt; NH3 dư đủ tạo dung dịch phức xanh đậm.",
       "sourceScope": "specific_observation",
@@ -6037,6 +7773,11 @@
     {
       "id": "cuso4_nh3_complex",
       "equation": "CuSO₄ + 4NH₃ → [Cu(NH₃)₄]SO₄ (Xanh thẫm)",
+      "observation_vi": "Hiện tượng tuyệt đẹp: Dung dịch chuyển sang màu xanh lam đậm huyền ảo rực rỡ đặc trưng của phức đồng.",
+      "classification": [
+        "Coordination Complex Formation",
+        "Phản ứng tạo phức chất tetraammin đồng(II)"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
@@ -6055,6 +7796,49 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "CuSO4",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "NH3",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 4
+        }
+      ],
+      "products": [
+        {
+          "formula": "[Cu(NH3)4]SO4",
+          "phase": "aq",
+          "coefficient": 1
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "CuSO4": [
+            "aq"
+          ],
+          "NH3": [
+            "aq"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "NH3 ít tạo hydroxide xanh nhạt; NH3 dư đủ tạo dung dịch phức xanh đậm.",
       "sourceScope": "specific_observation",
@@ -6075,6 +7859,11 @@
     {
       "id": "fecl3_kscn_complex",
       "equation": "FeCl₃ + KSCN ⇌ [Fe(SCN)]Cl₂ + KCl",
+      "observation_vi": "Vừa tiếp xúc, dung dịch màu vàng nâu lập tức bùng nổ chuyển sang màu đỏ máu thẫm tuyệt đẹp.",
+      "classification": [
+        "Complex Ion Equilibrium (Blood-Red Test)",
+        "Phản ứng tạo phức chất màu đỏ máu"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
@@ -6094,6 +7883,54 @@
         "required": false,
         "minimum_c": null
       },
+      "reactants": [
+        {
+          "formula": "FeCl3",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "KSCN",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "formula": "[Fe(SCN)]Cl2",
+          "phase": "aq",
+          "coefficient": 1
+        },
+        {
+          "formula": "KCl",
+          "phase": "aq",
+          "coefficient": 1
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "FeCl3": [
+            "aq"
+          ],
+          "KSCN": [
+            "aq"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
+      },
       "finding_vi": "Cân bằng phối tử, thường biểu diễn FeSCN2+ trong dung dịch loãng; không phải chuyển hóa hoàn toàn.",
       "sourceScope": "specific_observation",
       "quantitativeCalibration": "not_validated",
@@ -6108,6 +7945,12 @@
     {
       "id": "kmno4_oxalic_redox",
       "equation": "2KMnO₄ + 5H₂C₂O₄ + 3H₂SO₄ → K₂SO₄ + 2MnSO₄ + 10CO₂↑ + 8H₂O",
+      "observation_vi": "Màu tím đậm của thuốc tím ban đầu nhạt chậm, sau đó tăng tốc mất màu hoàn toàn trở nên không màu trong suốt.",
+      "classification": [
+        "Autocatalytic Redox Reaction",
+        "Phản ứng oxi hóa khử tự xúc tác",
+        "gas_evolution"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [],
       "balance": {
@@ -6119,6 +7962,74 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "KMnO4",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 2
+        },
+        {
+          "formula": "H2C2O4",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 5
+        },
+        {
+          "formula": "H2SO4",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 3
+        }
+      ],
+      "products": [
+        {
+          "formula": "K2SO4",
+          "phase": "aq",
+          "coefficient": 1
+        },
+        {
+          "formula": "MnSO4",
+          "phase": "aq",
+          "coefficient": 2
+        },
+        {
+          "formula": "CO2",
+          "phase": "g",
+          "coefficient": 10
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 8
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "KMnO4": [
+            "aq"
+          ],
+          "H2C2O4": [
+            "aq"
+          ],
+          "H2SO4": [
+            "aq"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "Cần axit cho sản phẩm Mn(II); thiếu axit có thể tạo MnO2. Tốc độ có cảm ứng và tự xúc tác.",
       "sourceScope": "family_context",
@@ -6134,6 +8045,13 @@
     {
       "id": "thiosulfate_acid_clock",
       "equation": "Na₂S₂O₃ + 2HCl → 2NaCl + SO₂↑ + S↓ + H₂O",
+      "observation_vi": "Dung dịch trong suốt vài giây đầu, sau đó chuyển sang màu trắng đục ánh vàng sữa che mờ dần đáy cốc.",
+      "classification": [
+        "Precipitation Clock (Disappearing Cross)",
+        "Phản ứng tạo lưu huỳnh keo (Thí nghiệm dấu nhân biến mất)",
+        "gas_evolution",
+        "solid_formation"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [],
       "balance": {
@@ -6145,6 +8063,64 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "Na2S2O3",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "HCl",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 2
+        }
+      ],
+      "products": [
+        {
+          "formula": "S",
+          "phase": "s",
+          "coefficient": 1
+        },
+        {
+          "formula": "SO2",
+          "phase": "g",
+          "coefficient": 1
+        },
+        {
+          "formula": "NaCl",
+          "phase": "aq",
+          "coefficient": 2
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 1
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "Na2S2O3": [
+            "aq"
+          ],
+          "HCl": [
+            "aq"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "Axit phân hủy thiosulfate tạo sulfur, SO2 và nước; đây không phải đồng hồ iot–tinh bột.",
       "sourceScope": "family_context",
@@ -6160,6 +8136,11 @@
     {
       "id": "iodine_clock",
       "equation": "IO₃⁻ + 3HSO₃⁻ → I⁻ + 3SO₄²⁻ + 3H⁺; IO₃⁻ + 5I⁻ + 6H⁺ → 3I₂ + 3H₂O",
+      "observation_vi": "Chuyển màu kỳ diệu trong chớp mắt: Dung dịch đang trong suốt bỗng đen sẫm lại tức thì như mực chỉ trong một phần mười giây!",
+      "classification": [
+        "Landolt Iodine Clock Reaction",
+        "Phản ứng đồng hồ Iốt Landolt"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [],
       "balance": {
@@ -6171,6 +8152,64 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "KIO3",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "NaHSO3",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 3
+        }
+      ],
+      "products": [
+        {
+          "formula": "KI",
+          "phase": "aq",
+          "coefficient": 1
+        },
+        {
+          "formula": "Na2SO4",
+          "phase": "aq",
+          "coefficient": 1
+        },
+        {
+          "formula": "NaHSO4",
+          "phase": "aq",
+          "coefficient": 1
+        },
+        {
+          "formula": "H2SO4",
+          "phase": "aq",
+          "coefficient": 1
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "KIO3": [
+            "aq"
+          ],
+          "NaHSO3": [
+            "aq"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "Có ít nhất hai bước redox; không tạo iot–tinh bột từ phương trình chỉ sinh iodide. Cần tinh bột để xanh đen.",
       "sourceScope": "specific_observation",
@@ -6191,6 +8230,11 @@
     {
       "id": "aloh3_naoh_dissolution",
       "equation": "Al(OH)₃ + NaOH → Na[Al(OH)₄]",
+      "observation_vi": "Keo trắng giảm dần; vẫn còn cặn nếu chưa đủ điều kiện hòa tan hết.",
+      "classification": [
+        "Amphoteric Hydroxide Dissolution",
+        "Hòa tan kết tủa nhôm hiđroxit bằng kiềm dư"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
@@ -6209,6 +8253,49 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "Al(OH)3",
+          "phases": [
+            "s"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "NaOH",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "formula": "Na[Al(OH)4]",
+          "phase": "aq",
+          "coefficient": 1
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "Al(OH)3": [
+            "s"
+          ],
+          "NaOH": [
+            "aq"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "Al(OH)3 vô định hình tan trong OH− đến giới hạn thuốc thử hoặc bão hòa. Nhiệt theo cùng đường cân bằng, chưa hiệu chuẩn pha loãng/già hóa gel.",
       "sourceScope": "model_caveat",
@@ -6224,6 +8311,11 @@
     {
       "id": "cuoh2_nh3_complex",
       "equation": "Cu(OH)₂ + 4NH₃ → [Cu(NH₃)₄](OH)₂ (Xanh thẫm)",
+      "observation_vi": "Kết tủa xanh tan dần tạo thành dung dịch màu xanh lam thẫm trong suốt rực rỡ.",
+      "classification": [
+        "Precipitate Dissolution via Complexation",
+        "Hòa tan kết tủa đồng hiđroxit tạo phức amoniac"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
@@ -6242,6 +8334,49 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "Cu(OH)2",
+          "phases": [
+            "s"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "NH3",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 4
+        }
+      ],
+      "products": [
+        {
+          "formula": "[Cu(NH3)4](OH)2",
+          "phase": "aq",
+          "coefficient": 1
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "Cu(OH)2": [
+            "s"
+          ],
+          "NH3": [
+            "aq"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "NH3 ít tạo hydroxide xanh nhạt; NH3 dư đủ tạo dung dịch phức xanh đậm.",
       "sourceScope": "specific_observation",
@@ -6262,6 +8397,11 @@
     {
       "id": "agcl_nh3_complex",
       "equation": "AgCl + 2NH₃ → [Ag(NH₃)₂]Cl (Tan trong suốt)",
+      "observation_vi": "Kết tủa trắng tan hết, dung dịch trở lại trong suốt hoàn toàn.",
+      "classification": [
+        "Complex Dissolution",
+        "Hòa tan kết tủa bạc clorua trong amoniac"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
@@ -6280,6 +8420,49 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "AgCl",
+          "phases": [
+            "s"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "NH3",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 2
+        }
+      ],
+      "products": [
+        {
+          "formula": "[Ag(NH3)2]Cl",
+          "phase": "aq",
+          "coefficient": 1
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "AgCl": [
+            "s"
+          ],
+          "NH3": [
+            "aq"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "AgCl trắng tan thành phức diamminesilver không màu khi đủ NH3.",
       "sourceScope": "specific_observation",
@@ -6295,6 +8478,11 @@
     {
       "id": "hno3_naoh_neutralization",
       "equation": "HNO₃ + NaOH → NaNO₃ + H₂O",
+      "observation_vi": "Dung dịch ấm lên do tỏa nhiệt, pH trở về trung tính.",
+      "classification": [
+        "Acid-Base Neutralization",
+        "Phản ứng trung hòa Axit - Bazơ"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
@@ -6313,6 +8501,54 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "HNO3",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "NaOH",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "formula": "NaNO3",
+          "phase": "aq",
+          "coefficient": 1
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 1
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "HNO3": [
+            "aq"
+          ],
+          "NaOH": [
+            "aq"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "Muối nitrat natri tan trong dung dịch loãng; nhiệt độ thay đổi không mặc định sôi.",
       "sourceScope": "family_context",
@@ -6328,6 +8564,12 @@
     {
       "id": "fecl3_naoh_precipitate",
       "equation": "FeCl₃ + 3NaOH → Fe(OH)₃↓ + 3NaCl",
+      "observation_vi": "Xuất hiện ngay lập tức kết tủa màu nâu đỏ đặc trưng của Fe(OH)3.",
+      "classification": [
+        "Precipitation Reaction",
+        "Phản ứng tạo kết tủa nâu đỏ sắt(III) hiđroxit",
+        "solid_formation"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
@@ -6346,6 +8588,54 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "FeCl3",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "NaOH",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 3
+        }
+      ],
+      "products": [
+        {
+          "formula": "Fe(OH)3",
+          "phase": "s",
+          "coefficient": 1
+        },
+        {
+          "formula": "NaCl",
+          "phase": "aq",
+          "coefficient": 3
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "FeCl3": [
+            "aq"
+          ],
+          "NaOH": [
+            "aq"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "Fe(OH)3 nâu đỏ dạng bông, không phải dung dịch đỏ trong.",
       "sourceScope": "specific_observation",
@@ -6361,6 +8651,11 @@
     {
       "id": "feoh3_hcl_dissolution",
       "equation": "Fe(OH)₃ + 3HCl → FeCl₃ + 3H₂O",
+      "observation_vi": "Bông nâu giảm dần; acid thiếu vẫn còn chất rắn. Không sinh khí.",
+      "classification": [
+        "Acid dissolution",
+        "Hòa tan kết tủa trong acid"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
@@ -6379,6 +8674,54 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "Fe(OH)3",
+          "phases": [
+            "s"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "HCl",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 3
+        }
+      ],
+      "products": [
+        {
+          "formula": "FeCl3",
+          "phase": "aq",
+          "coefficient": 1
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 3
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "Fe(OH)3": [
+            "s"
+          ],
+          "HCl": [
+            "aq"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "Acid hòa tan lượng Fe(OH)3 hữu hạn đến giới hạn thuốc thử hoặc bão hòa; có thể còn cặn, không sinh khí. Tốc độ và nhiệt pha vô định hình chưa hiệu chuẩn.",
       "sourceScope": "model_caveat",
@@ -6394,6 +8737,12 @@
     {
       "id": "agno3_hcl_precipitate",
       "equation": "AgNO₃ + HCl → AgCl↓ + HNO₃",
+      "observation_vi": "Xuất hiện kết tủa trắng vón của AgCl.",
+      "classification": [
+        "Precipitation Reaction",
+        "Phản ứng tạo kết tủa trắng AgCl",
+        "solid_formation"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
@@ -6412,6 +8761,54 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "AgNO3",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "HCl",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "formula": "AgCl",
+          "phase": "s",
+          "coefficient": 1
+        },
+        {
+          "formula": "HNO3",
+          "phase": "aq",
+          "coefficient": 1
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "AgNO3": [
+            "aq"
+          ],
+          "HCl": [
+            "aq"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "AgCl trắng, nhạy sáng; có thể tan trong NH3 loãng dư.",
       "sourceScope": "specific_observation",
@@ -6427,6 +8824,12 @@
     {
       "id": "cu_hno3_dilute",
       "equation": "3Cu + 8HNO3(dil) -> 3Cu(NO3)2 + 2NO + 4H2O",
+      "observation_vi": "Đồng tan, dung dịch chứa Cu(II); khí tại bề mặt ban đầu không màu.",
+      "classification": [
+        "Redox with Oxidizing Acid (Brown NO2 Gas)",
+        "Phản ứng oxi hóa khử tạo khí màu nâu đỏ",
+        "gas_evolution"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
@@ -6445,6 +8848,59 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "Cu",
+          "phases": [
+            "s"
+          ],
+          "coefficient": 3
+        },
+        {
+          "formula": "HNO3 (dil)",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 8
+        }
+      ],
+      "products": [
+        {
+          "formula": "Cu(NO3)2",
+          "phase": "aq",
+          "coefficient": 3
+        },
+        {
+          "formula": "NO",
+          "phase": "g",
+          "coefficient": 2
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 4
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "Cu": [
+            "s"
+          ],
+          "HNO3 (dil)": [
+            "aq"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "Cùng biến thể nitric loãng; NO không màu trước khi gặp O2.",
       "sourceScope": "family_context",
@@ -6460,6 +8916,11 @@
     {
       "id": "nh3_hcl_aqueous",
       "equation": "NH3(aq) + HCl(aq) -> NH4Cl(aq)",
+      "observation_vi": "Dung dịch không màu, không có khói muối hoặc kết tủa.",
+      "classification": [
+        "Aqueous proton transfer",
+        "Trung hòa trong dung dịch"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [],
       "balance": {
@@ -6471,6 +8932,49 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "NH3(aq)",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "HCl(aq)",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "formula": "NH4Cl",
+          "phase": "aq",
+          "coefficient": 1
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "NH3(aq)": [
+            "aq"
+          ],
+          "HCl(aq)": [
+            "aq"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "Khói NH4Cl cần tiếp xúc hai pha khí; trộn hai dung dịch tạo NH4Cl tan.",
       "sourceScope": "family_context",
@@ -6486,6 +8990,11 @@
     {
       "id": "iodate_iodide_acid",
       "equation": "KIO3 + 5KI + 3H2SO4 -> 3I2 + 3K2SO4 + 3H2O",
+      "observation_vi": "Iot tích tụ có màu nâu; xanh đen chỉ khi có tinh bột.",
+      "classification": [
+        "Redox with Oxidizing Acid (Brown NO2 Gas)",
+        "Phản ứng oxi hóa khử tạo khí màu nâu đỏ"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
@@ -6504,6 +9013,69 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "KIO3",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "KI",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 5
+        },
+        {
+          "formula": "H2SO4",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 3
+        }
+      ],
+      "products": [
+        {
+          "formula": "I2",
+          "phase": "aq",
+          "coefficient": 3
+        },
+        {
+          "formula": "K2SO4",
+          "phase": "aq",
+          "coefficient": 3
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 3
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "KIO3": [
+            "aq"
+          ],
+          "KI": [
+            "aq"
+          ],
+          "H2SO4": [
+            "aq"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "Có ít nhất hai bước redox; không tạo iot–tinh bột từ phương trình chỉ sinh iodide. Cần tinh bột để xanh đen.",
       "sourceScope": "specific_observation",
@@ -6524,6 +9096,11 @@
     {
       "id": "ch3cooh_naoh_aqueous",
       "equation": "CH3COOH + NaOH -> CH3COONa + H2O",
+      "observation_vi": "Dung dịch không có màu đặc trưng; chỉ thị đổi màu theo pH và lượng chất dư.",
+      "classification": [
+        "Aqueous Proton Transfer",
+        "Chuyển proton trong dung dịch"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
@@ -6542,6 +9119,54 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "CH3COOH(aq)",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "NaOH(aq)",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "formula": "CH3COONa",
+          "phase": "aq",
+          "coefficient": 1
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 1
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "CH3COOH(aq)": [
+            "aq"
+          ],
+          "NaOH(aq)": [
+            "aq"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "Trung hòa axit axetic bằng kiềm mạnh; bảo toàn tổng axetat và ion đối. pH từ cân bằng điện tích/Ka/Kw tại 25 °C; ΔH vẫn là thông số minh họa.",
       "sourceScope": "family_context",
@@ -6557,6 +9182,11 @@
     {
       "id": "ch3cooh_koh_aqueous",
       "equation": "CH3COOH + KOH -> CH3COOK + H2O",
+      "observation_vi": "Dung dịch không có màu đặc trưng; chỉ thị đổi màu theo pH và lượng chất dư.",
+      "classification": [
+        "Aqueous Proton Transfer",
+        "Chuyển proton trong dung dịch"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
@@ -6575,6 +9205,54 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "CH3COOH(aq)",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "KOH(aq)",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "formula": "CH3COOK",
+          "phase": "aq",
+          "coefficient": 1
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 1
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "CH3COOH(aq)": [
+            "aq"
+          ],
+          "KOH(aq)": [
+            "aq"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "Trung hòa axit axetic bằng kiềm mạnh; bảo toàn tổng axetat và ion đối. pH từ cân bằng điện tích/Ka/Kw tại 25 °C; ΔH vẫn là thông số minh họa.",
       "sourceScope": "family_context",
@@ -6590,6 +9268,11 @@
     {
       "id": "sodium_acetate_hcl",
       "equation": "CH3COONa + HCl -> CH3COOH + NaCl",
+      "observation_vi": "Dung dịch không có màu đặc trưng; chỉ thị đổi màu theo pH và lượng chất dư.",
+      "classification": [
+        "Aqueous Proton Transfer",
+        "Chuyển proton trong dung dịch"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
@@ -6608,6 +9291,54 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "CH3COONa(aq)",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "HCl(aq)",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "formula": "CH3COOH",
+          "phase": "aq",
+          "coefficient": 1
+        },
+        {
+          "formula": "NaCl",
+          "phase": "aq",
+          "coefficient": 1
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "CH3COONa(aq)": [
+            "aq"
+          ],
+          "HCl(aq)": [
+            "aq"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "H+ chuyển axetat thành axit axetic; vùng đệm tùy tỷ lệ. Chưa tham số hóa nhiệt của bước proton hóa này.",
       "sourceScope": "family_context",
@@ -6623,6 +9354,11 @@
     {
       "id": "potassium_acetate_hcl",
       "equation": "CH3COOK + HCl -> CH3COOH + KCl",
+      "observation_vi": "Dung dịch không có màu đặc trưng; chỉ thị đổi màu theo pH và lượng chất dư.",
+      "classification": [
+        "Aqueous Proton Transfer",
+        "Chuyển proton trong dung dịch"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
@@ -6641,6 +9377,54 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "CH3COOK(aq)",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "HCl(aq)",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "formula": "CH3COOH",
+          "phase": "aq",
+          "coefficient": 1
+        },
+        {
+          "formula": "KCl",
+          "phase": "aq",
+          "coefficient": 1
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "CH3COOK(aq)": [
+            "aq"
+          ],
+          "HCl(aq)": [
+            "aq"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "H+ chuyển axetat thành axit axetic; vùng đệm tùy tỷ lệ. Chưa tham số hóa nhiệt của bước proton hóa này.",
       "sourceScope": "family_context",
@@ -6656,6 +9440,11 @@
     {
       "id": "nh4cl_naoh_aqueous",
       "equation": "NH4Cl + NaOH -> NH3 + NaCl + H2O",
+      "observation_vi": "Dung dịch không có màu đặc trưng; chỉ thị đổi màu theo pH và lượng chất dư.",
+      "classification": [
+        "Aqueous Proton Transfer",
+        "Chuyển proton trong dung dịch"
+      ],
       "execution": "stoichiometric_rule",
       "ionicBalance": [
         {
@@ -6674,6 +9463,59 @@
       "heating": {
         "required": false,
         "minimum_c": null
+      },
+      "reactants": [
+        {
+          "formula": "NH4Cl(aq)",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        },
+        {
+          "formula": "NaOH(aq)",
+          "phases": [
+            "aq"
+          ],
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "formula": "NH3",
+          "phase": "aq",
+          "coefficient": 1
+        },
+        {
+          "formula": "NaCl",
+          "phase": "aq",
+          "coefficient": 1
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "coefficient": 1
+        }
+      ],
+      "conditions": {
+        "compartment": "bulk",
+        "finitePositiveInventory": true,
+        "aqueousPhaseRequiresPositiveVolume": true,
+        "oxidizingAcidBlocksHydrogenInference": false,
+        "reactantPhases": {
+          "NH4Cl(aq)": [
+            "aq"
+          ],
+          "NaOH(aq)": [
+            "aq"
+          ]
+        },
+        "heating": {
+          "required": false,
+          "minimum_c": null
+        },
+        "concentrationGrades": "Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.",
+        "compatibility": "Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."
       },
       "finding_vi": "NH4+ nhận OH− tạo NH3 hòa tan và nước; không mặc định toàn bộ NH3 đã thoát khí. pH từ cân bằng NH3/NH4+; trao đổi khí và nhiệt chưa tham số hóa đầy đủ.",
       "sourceScope": "family_context",
@@ -6690,6 +9532,9 @@
   "lessons": [
     {
       "id": "ethene_bromine",
+      "classification": [
+        "addition"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -6699,6 +9544,9 @@
     },
     {
       "id": "ethene_hydrogen",
+      "classification": [
+        "addition"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -6708,6 +9556,9 @@
     },
     {
       "id": "ethene_water",
+      "classification": [
+        "hydration"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -6717,6 +9568,9 @@
     },
     {
       "id": "ethyne_bromine",
+      "classification": [
+        "addition"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -6726,6 +9580,9 @@
     },
     {
       "id": "ethene_combustion",
+      "classification": [
+        "combustion"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -6735,6 +9592,9 @@
     },
     {
       "id": "methane_combustion",
+      "classification": [
+        "combustion"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -6744,6 +9604,9 @@
     },
     {
       "id": "ethyne_combustion",
+      "classification": [
+        "combustion"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -6753,6 +9616,9 @@
     },
     {
       "id": "ethanol_combustion",
+      "classification": [
+        "combustion"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -6762,6 +9628,9 @@
     },
     {
       "id": "ethanol_sodium",
+      "classification": [
+        "substitution"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -6771,6 +9640,9 @@
     },
     {
       "id": "ethanol_cuo",
+      "classification": [
+        "oxidation"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -6780,6 +9652,9 @@
     },
     {
       "id": "ethanol_dehydration",
+      "classification": [
+        "decomposition"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -6789,6 +9664,9 @@
     },
     {
       "id": "glycerol_cuoh2",
+      "classification": [
+        "complexation"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -6798,6 +9676,9 @@
     },
     {
       "id": "phenol_naoh",
+      "classification": [
+        "neutralization"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -6807,6 +9688,9 @@
     },
     {
       "id": "phenol_bromine",
+      "classification": [
+        "substitution"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -6816,6 +9700,9 @@
     },
     {
       "id": "acetic_carbonate",
+      "classification": [
+        "neutralization"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -6825,6 +9712,9 @@
     },
     {
       "id": "acetic_bicarbonate",
+      "classification": [
+        "neutralization"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -6834,6 +9724,9 @@
     },
     {
       "id": "ethyl_acetate_synthesis",
+      "classification": [
+        "esterification"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -6843,6 +9736,9 @@
     },
     {
       "id": "ethyl_acetate_saponification",
+      "classification": [
+        "hydrolysis"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -6852,6 +9748,9 @@
     },
     {
       "id": "methyl_acetate_saponification",
+      "classification": [
+        "hydrolysis"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -6861,6 +9760,9 @@
     },
     {
       "id": "glucose_cuoh2_cold",
+      "classification": [
+        "complexation"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -6870,6 +9772,9 @@
     },
     {
       "id": "glucose_cuoh2_hot",
+      "classification": [
+        "oxidation"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -6879,6 +9784,9 @@
     },
     {
       "id": "sucrose_hydrolysis",
+      "classification": [
+        "hydrolysis"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -6888,6 +9796,9 @@
     },
     {
       "id": "starch_hydrolysis",
+      "classification": [
+        "hydrolysis"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -6897,6 +9808,9 @@
     },
     {
       "id": "glucose_fermentation",
+      "classification": [
+        "fermentation"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -6906,6 +9820,9 @@
     },
     {
       "id": "methylamine_hcl",
+      "classification": [
+        "neutralization"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -6915,6 +9832,9 @@
     },
     {
       "id": "aniline_bromine",
+      "classification": [
+        "substitution"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -6924,6 +9844,9 @@
     },
     {
       "id": "glycine_hcl",
+      "classification": [
+        "neutralization"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -6933,6 +9856,9 @@
     },
     {
       "id": "glycine_naoh",
+      "classification": [
+        "neutralization"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -6942,6 +9868,9 @@
     },
     {
       "id": "cuo_hcl",
+      "classification": [
+        "neutralization"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -6951,6 +9880,9 @@
     },
     {
       "id": "fe2o3_hcl",
+      "classification": [
+        "neutralization"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -6960,6 +9892,9 @@
     },
     {
       "id": "cao_water",
+      "classification": [
+        "hydration"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -6969,6 +9904,9 @@
     },
     {
       "id": "caco3_heat",
+      "classification": [
+        "decomposition"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -6978,6 +9916,9 @@
     },
     {
       "id": "cuoh2_hcl",
+      "classification": [
+        "neutralization"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -6987,6 +9928,9 @@
     },
     {
       "id": "aloh3_hcl",
+      "classification": [
+        "neutralization"
+      ],
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -6999,6 +9943,55 @@
     {
       "id": "hcl+na2co3",
       "equation": "Na2CO3 + 2HCl -> 2NaCl + H2O + CO2(g)",
+      "classification": [
+        "carbonate_acid",
+        "gas_evolution"
+      ],
+      "reactants": [
+        {
+          "formula": "Na2CO3",
+          "role": "reactant",
+          "coeff": 1,
+          "phase": "aq"
+        },
+        {
+          "formula": "HCl",
+          "role": "reactant",
+          "coeff": 2,
+          "phase": "aq"
+        }
+      ],
+      "products": [
+        {
+          "formula": "NaCl",
+          "role": "product",
+          "coeff": 2,
+          "phase": "aq"
+        },
+        {
+          "formula": "H2O",
+          "role": "product",
+          "coeff": 1,
+          "phase": "l"
+        },
+        {
+          "formula": "CO2",
+          "role": "product",
+          "coeff": 1,
+          "phase": "g"
+        }
+      ],
+      "conditions": {},
+      "finding_vi": "Axit tiêu thụ cacbonat hoặc hiđrocacbonat; muối tan và nước được giữ trong sổ lượng chất.",
+      "observation_vi": "Sủi bọt CO2 không màu; lượng sinh ra theo chất giới hạn.",
+      "references": [
+        {
+          "title": "RSC: Preparing salts by neutralisation of oxides and carbonates",
+          "url": "https://edu.rsc.org/experiments/preparing-salts-by-neutralisation-of-oxides-and-carbonates/1762.article",
+          "scope": "experiment"
+        }
+      ],
+      "sourceScope": "teaching_context",
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -7009,6 +10002,55 @@
     {
       "id": "hno3+na2co3",
       "equation": "Na2CO3 + 2HNO3 -> 2NaNO3 + H2O + CO2(g)",
+      "classification": [
+        "carbonate_acid",
+        "gas_evolution"
+      ],
+      "reactants": [
+        {
+          "formula": "Na2CO3",
+          "role": "reactant",
+          "coeff": 1,
+          "phase": "aq"
+        },
+        {
+          "formula": "HNO3",
+          "role": "reactant",
+          "coeff": 2,
+          "phase": "aq"
+        }
+      ],
+      "products": [
+        {
+          "formula": "NaNO3",
+          "role": "product",
+          "coeff": 2,
+          "phase": "aq"
+        },
+        {
+          "formula": "H2O",
+          "role": "product",
+          "coeff": 1,
+          "phase": "l"
+        },
+        {
+          "formula": "CO2",
+          "role": "product",
+          "coeff": 1,
+          "phase": "g"
+        }
+      ],
+      "conditions": {},
+      "finding_vi": "Axit tiêu thụ cacbonat hoặc hiđrocacbonat; muối tan và nước được giữ trong sổ lượng chất.",
+      "observation_vi": "Sủi bọt CO2 không màu; lượng sinh ra theo chất giới hạn.",
+      "references": [
+        {
+          "title": "RSC: Preparing salts by neutralisation of oxides and carbonates",
+          "url": "https://edu.rsc.org/experiments/preparing-salts-by-neutralisation-of-oxides-and-carbonates/1762.article",
+          "scope": "experiment"
+        }
+      ],
+      "sourceScope": "teaching_context",
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -7019,6 +10061,55 @@
     {
       "id": "ch3cooh+na2co3",
       "equation": "Na2CO3 + 2CH3COOH -> 2CH3COONa + H2O + CO2(g)",
+      "classification": [
+        "carbonate_acid",
+        "gas_evolution"
+      ],
+      "reactants": [
+        {
+          "formula": "Na2CO3",
+          "role": "reactant",
+          "coeff": 1,
+          "phase": "aq"
+        },
+        {
+          "formula": "CH3COOH",
+          "role": "reactant",
+          "coeff": 2,
+          "phase": "aq"
+        }
+      ],
+      "products": [
+        {
+          "formula": "CH3COONa",
+          "role": "product",
+          "coeff": 2,
+          "phase": "aq"
+        },
+        {
+          "formula": "H2O",
+          "role": "product",
+          "coeff": 1,
+          "phase": "l"
+        },
+        {
+          "formula": "CO2",
+          "role": "product",
+          "coeff": 1,
+          "phase": "g"
+        }
+      ],
+      "conditions": {},
+      "finding_vi": "Axit tiêu thụ cacbonat hoặc hiđrocacbonat; muối tan và nước được giữ trong sổ lượng chất.",
+      "observation_vi": "Sủi bọt CO2 không màu; lượng sinh ra theo chất giới hạn.",
+      "references": [
+        {
+          "title": "RSC: Preparing salts by neutralisation of oxides and carbonates",
+          "url": "https://edu.rsc.org/experiments/preparing-salts-by-neutralisation-of-oxides-and-carbonates/1762.article",
+          "scope": "experiment"
+        }
+      ],
+      "sourceScope": "teaching_context",
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -7029,6 +10120,55 @@
     {
       "id": "hcl+k2co3",
       "equation": "K2CO3 + 2HCl -> 2KCl + H2O + CO2(g)",
+      "classification": [
+        "carbonate_acid",
+        "gas_evolution"
+      ],
+      "reactants": [
+        {
+          "formula": "K2CO3",
+          "role": "reactant",
+          "coeff": 1,
+          "phase": "aq"
+        },
+        {
+          "formula": "HCl",
+          "role": "reactant",
+          "coeff": 2,
+          "phase": "aq"
+        }
+      ],
+      "products": [
+        {
+          "formula": "KCl",
+          "role": "product",
+          "coeff": 2,
+          "phase": "aq"
+        },
+        {
+          "formula": "H2O",
+          "role": "product",
+          "coeff": 1,
+          "phase": "l"
+        },
+        {
+          "formula": "CO2",
+          "role": "product",
+          "coeff": 1,
+          "phase": "g"
+        }
+      ],
+      "conditions": {},
+      "finding_vi": "Axit tiêu thụ cacbonat hoặc hiđrocacbonat; muối tan và nước được giữ trong sổ lượng chất.",
+      "observation_vi": "Sủi bọt CO2 không màu; lượng sinh ra theo chất giới hạn.",
+      "references": [
+        {
+          "title": "RSC: Preparing salts by neutralisation of oxides and carbonates",
+          "url": "https://edu.rsc.org/experiments/preparing-salts-by-neutralisation-of-oxides-and-carbonates/1762.article",
+          "scope": "experiment"
+        }
+      ],
+      "sourceScope": "teaching_context",
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -7039,6 +10179,55 @@
     {
       "id": "hno3+k2co3",
       "equation": "K2CO3 + 2HNO3 -> 2KNO3 + H2O + CO2(g)",
+      "classification": [
+        "carbonate_acid",
+        "gas_evolution"
+      ],
+      "reactants": [
+        {
+          "formula": "K2CO3",
+          "role": "reactant",
+          "coeff": 1,
+          "phase": "aq"
+        },
+        {
+          "formula": "HNO3",
+          "role": "reactant",
+          "coeff": 2,
+          "phase": "aq"
+        }
+      ],
+      "products": [
+        {
+          "formula": "KNO3",
+          "role": "product",
+          "coeff": 2,
+          "phase": "aq"
+        },
+        {
+          "formula": "H2O",
+          "role": "product",
+          "coeff": 1,
+          "phase": "l"
+        },
+        {
+          "formula": "CO2",
+          "role": "product",
+          "coeff": 1,
+          "phase": "g"
+        }
+      ],
+      "conditions": {},
+      "finding_vi": "Axit tiêu thụ cacbonat hoặc hiđrocacbonat; muối tan và nước được giữ trong sổ lượng chất.",
+      "observation_vi": "Sủi bọt CO2 không màu; lượng sinh ra theo chất giới hạn.",
+      "references": [
+        {
+          "title": "RSC: Preparing salts by neutralisation of oxides and carbonates",
+          "url": "https://edu.rsc.org/experiments/preparing-salts-by-neutralisation-of-oxides-and-carbonates/1762.article",
+          "scope": "experiment"
+        }
+      ],
+      "sourceScope": "teaching_context",
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -7049,6 +10238,55 @@
     {
       "id": "ch3cooh+k2co3",
       "equation": "K2CO3 + 2CH3COOH -> 2CH3COOK + H2O + CO2(g)",
+      "classification": [
+        "carbonate_acid",
+        "gas_evolution"
+      ],
+      "reactants": [
+        {
+          "formula": "K2CO3",
+          "role": "reactant",
+          "coeff": 1,
+          "phase": "aq"
+        },
+        {
+          "formula": "CH3COOH",
+          "role": "reactant",
+          "coeff": 2,
+          "phase": "aq"
+        }
+      ],
+      "products": [
+        {
+          "formula": "CH3COOK",
+          "role": "product",
+          "coeff": 2,
+          "phase": "aq"
+        },
+        {
+          "formula": "H2O",
+          "role": "product",
+          "coeff": 1,
+          "phase": "l"
+        },
+        {
+          "formula": "CO2",
+          "role": "product",
+          "coeff": 1,
+          "phase": "g"
+        }
+      ],
+      "conditions": {},
+      "finding_vi": "Axit tiêu thụ cacbonat hoặc hiđrocacbonat; muối tan và nước được giữ trong sổ lượng chất.",
+      "observation_vi": "Sủi bọt CO2 không màu; lượng sinh ra theo chất giới hạn.",
+      "references": [
+        {
+          "title": "RSC: Preparing salts by neutralisation of oxides and carbonates",
+          "url": "https://edu.rsc.org/experiments/preparing-salts-by-neutralisation-of-oxides-and-carbonates/1762.article",
+          "scope": "experiment"
+        }
+      ],
+      "sourceScope": "teaching_context",
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -7059,6 +10297,55 @@
     {
       "id": "hcl+nahco3",
       "equation": "NaHCO3 + HCl -> NaCl + H2O + CO2(g)",
+      "classification": [
+        "carbonate_acid",
+        "gas_evolution"
+      ],
+      "reactants": [
+        {
+          "formula": "NaHCO3",
+          "role": "reactant",
+          "coeff": 1,
+          "phase": "aq"
+        },
+        {
+          "formula": "HCl",
+          "role": "reactant",
+          "coeff": 1,
+          "phase": "aq"
+        }
+      ],
+      "products": [
+        {
+          "formula": "NaCl",
+          "role": "product",
+          "coeff": 1,
+          "phase": "aq"
+        },
+        {
+          "formula": "H2O",
+          "role": "product",
+          "coeff": 1,
+          "phase": "l"
+        },
+        {
+          "formula": "CO2",
+          "role": "product",
+          "coeff": 1,
+          "phase": "g"
+        }
+      ],
+      "conditions": {},
+      "finding_vi": "Axit tiêu thụ cacbonat hoặc hiđrocacbonat; muối tan và nước được giữ trong sổ lượng chất.",
+      "observation_vi": "Sủi bọt CO2 không màu; lượng sinh ra theo chất giới hạn.",
+      "references": [
+        {
+          "title": "RSC: Preparing salts by neutralisation of oxides and carbonates",
+          "url": "https://edu.rsc.org/experiments/preparing-salts-by-neutralisation-of-oxides-and-carbonates/1762.article",
+          "scope": "experiment"
+        }
+      ],
+      "sourceScope": "teaching_context",
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -7069,6 +10356,55 @@
     {
       "id": "hno3+nahco3",
       "equation": "NaHCO3 + HNO3 -> NaNO3 + H2O + CO2(g)",
+      "classification": [
+        "carbonate_acid",
+        "gas_evolution"
+      ],
+      "reactants": [
+        {
+          "formula": "NaHCO3",
+          "role": "reactant",
+          "coeff": 1,
+          "phase": "aq"
+        },
+        {
+          "formula": "HNO3",
+          "role": "reactant",
+          "coeff": 1,
+          "phase": "aq"
+        }
+      ],
+      "products": [
+        {
+          "formula": "NaNO3",
+          "role": "product",
+          "coeff": 1,
+          "phase": "aq"
+        },
+        {
+          "formula": "H2O",
+          "role": "product",
+          "coeff": 1,
+          "phase": "l"
+        },
+        {
+          "formula": "CO2",
+          "role": "product",
+          "coeff": 1,
+          "phase": "g"
+        }
+      ],
+      "conditions": {},
+      "finding_vi": "Axit tiêu thụ cacbonat hoặc hiđrocacbonat; muối tan và nước được giữ trong sổ lượng chất.",
+      "observation_vi": "Sủi bọt CO2 không màu; lượng sinh ra theo chất giới hạn.",
+      "references": [
+        {
+          "title": "RSC: Preparing salts by neutralisation of oxides and carbonates",
+          "url": "https://edu.rsc.org/experiments/preparing-salts-by-neutralisation-of-oxides-and-carbonates/1762.article",
+          "scope": "experiment"
+        }
+      ],
+      "sourceScope": "teaching_context",
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -7079,6 +10415,55 @@
     {
       "id": "ch3cooh+nahco3",
       "equation": "NaHCO3 + CH3COOH -> CH3COONa + H2O + CO2(g)",
+      "classification": [
+        "carbonate_acid",
+        "gas_evolution"
+      ],
+      "reactants": [
+        {
+          "formula": "NaHCO3",
+          "role": "reactant",
+          "coeff": 1,
+          "phase": "aq"
+        },
+        {
+          "formula": "CH3COOH",
+          "role": "reactant",
+          "coeff": 1,
+          "phase": "aq"
+        }
+      ],
+      "products": [
+        {
+          "formula": "CH3COONa",
+          "role": "product",
+          "coeff": 1,
+          "phase": "aq"
+        },
+        {
+          "formula": "H2O",
+          "role": "product",
+          "coeff": 1,
+          "phase": "l"
+        },
+        {
+          "formula": "CO2",
+          "role": "product",
+          "coeff": 1,
+          "phase": "g"
+        }
+      ],
+      "conditions": {},
+      "finding_vi": "Axit tiêu thụ cacbonat hoặc hiđrocacbonat; muối tan và nước được giữ trong sổ lượng chất.",
+      "observation_vi": "Sủi bọt CO2 không màu; lượng sinh ra theo chất giới hạn.",
+      "references": [
+        {
+          "title": "RSC: Preparing salts by neutralisation of oxides and carbonates",
+          "url": "https://edu.rsc.org/experiments/preparing-salts-by-neutralisation-of-oxides-and-carbonates/1762.article",
+          "scope": "experiment"
+        }
+      ],
+      "sourceScope": "teaching_context",
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -7089,6 +10474,55 @@
     {
       "id": "hcl+khco3",
       "equation": "KHCO3 + HCl -> KCl + H2O + CO2(g)",
+      "classification": [
+        "carbonate_acid",
+        "gas_evolution"
+      ],
+      "reactants": [
+        {
+          "formula": "KHCO3",
+          "role": "reactant",
+          "coeff": 1,
+          "phase": "aq"
+        },
+        {
+          "formula": "HCl",
+          "role": "reactant",
+          "coeff": 1,
+          "phase": "aq"
+        }
+      ],
+      "products": [
+        {
+          "formula": "KCl",
+          "role": "product",
+          "coeff": 1,
+          "phase": "aq"
+        },
+        {
+          "formula": "H2O",
+          "role": "product",
+          "coeff": 1,
+          "phase": "l"
+        },
+        {
+          "formula": "CO2",
+          "role": "product",
+          "coeff": 1,
+          "phase": "g"
+        }
+      ],
+      "conditions": {},
+      "finding_vi": "Axit tiêu thụ cacbonat hoặc hiđrocacbonat; muối tan và nước được giữ trong sổ lượng chất.",
+      "observation_vi": "Sủi bọt CO2 không màu; lượng sinh ra theo chất giới hạn.",
+      "references": [
+        {
+          "title": "RSC: Preparing salts by neutralisation of oxides and carbonates",
+          "url": "https://edu.rsc.org/experiments/preparing-salts-by-neutralisation-of-oxides-and-carbonates/1762.article",
+          "scope": "experiment"
+        }
+      ],
+      "sourceScope": "teaching_context",
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -7099,6 +10533,55 @@
     {
       "id": "hno3+khco3",
       "equation": "KHCO3 + HNO3 -> KNO3 + H2O + CO2(g)",
+      "classification": [
+        "carbonate_acid",
+        "gas_evolution"
+      ],
+      "reactants": [
+        {
+          "formula": "KHCO3",
+          "role": "reactant",
+          "coeff": 1,
+          "phase": "aq"
+        },
+        {
+          "formula": "HNO3",
+          "role": "reactant",
+          "coeff": 1,
+          "phase": "aq"
+        }
+      ],
+      "products": [
+        {
+          "formula": "KNO3",
+          "role": "product",
+          "coeff": 1,
+          "phase": "aq"
+        },
+        {
+          "formula": "H2O",
+          "role": "product",
+          "coeff": 1,
+          "phase": "l"
+        },
+        {
+          "formula": "CO2",
+          "role": "product",
+          "coeff": 1,
+          "phase": "g"
+        }
+      ],
+      "conditions": {},
+      "finding_vi": "Axit tiêu thụ cacbonat hoặc hiđrocacbonat; muối tan và nước được giữ trong sổ lượng chất.",
+      "observation_vi": "Sủi bọt CO2 không màu; lượng sinh ra theo chất giới hạn.",
+      "references": [
+        {
+          "title": "RSC: Preparing salts by neutralisation of oxides and carbonates",
+          "url": "https://edu.rsc.org/experiments/preparing-salts-by-neutralisation-of-oxides-and-carbonates/1762.article",
+          "scope": "experiment"
+        }
+      ],
+      "sourceScope": "teaching_context",
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -7109,6 +10592,55 @@
     {
       "id": "ch3cooh+khco3",
       "equation": "KHCO3 + CH3COOH -> CH3COOK + H2O + CO2(g)",
+      "classification": [
+        "carbonate_acid",
+        "gas_evolution"
+      ],
+      "reactants": [
+        {
+          "formula": "KHCO3",
+          "role": "reactant",
+          "coeff": 1,
+          "phase": "aq"
+        },
+        {
+          "formula": "CH3COOH",
+          "role": "reactant",
+          "coeff": 1,
+          "phase": "aq"
+        }
+      ],
+      "products": [
+        {
+          "formula": "CH3COOK",
+          "role": "product",
+          "coeff": 1,
+          "phase": "aq"
+        },
+        {
+          "formula": "H2O",
+          "role": "product",
+          "coeff": 1,
+          "phase": "l"
+        },
+        {
+          "formula": "CO2",
+          "role": "product",
+          "coeff": 1,
+          "phase": "g"
+        }
+      ],
+      "conditions": {},
+      "finding_vi": "Axit tiêu thụ cacbonat hoặc hiđrocacbonat; muối tan và nước được giữ trong sổ lượng chất.",
+      "observation_vi": "Sủi bọt CO2 không màu; lượng sinh ra theo chất giới hạn.",
+      "references": [
+        {
+          "title": "RSC: Preparing salts by neutralisation of oxides and carbonates",
+          "url": "https://edu.rsc.org/experiments/preparing-salts-by-neutralisation-of-oxides-and-carbonates/1762.article",
+          "scope": "experiment"
+        }
+      ],
+      "sourceScope": "teaching_context",
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -7119,6 +10651,55 @@
     {
       "id": "caco3+hcl",
       "equation": "CaCO3 + 2HCl -> CaCl2 + H2O + CO2(g)",
+      "classification": [
+        "carbonate_acid",
+        "gas_evolution"
+      ],
+      "reactants": [
+        {
+          "formula": "CaCO3",
+          "role": "reactant",
+          "coeff": 1,
+          "phase": "s"
+        },
+        {
+          "formula": "HCl",
+          "role": "reactant",
+          "coeff": 2,
+          "phase": "aq"
+        }
+      ],
+      "products": [
+        {
+          "formula": "CaCl2",
+          "role": "product",
+          "coeff": 1,
+          "phase": "aq"
+        },
+        {
+          "formula": "H2O",
+          "role": "product",
+          "coeff": 1,
+          "phase": "l"
+        },
+        {
+          "formula": "CO2",
+          "role": "product",
+          "coeff": 1,
+          "phase": "g"
+        }
+      ],
+      "conditions": {},
+      "finding_vi": "Axit tiêu thụ cacbonat hoặc hiđrocacbonat; muối tan và nước được giữ trong sổ lượng chất.",
+      "observation_vi": "Sủi bọt CO2 không màu; lượng sinh ra theo chất giới hạn.",
+      "references": [
+        {
+          "title": "RSC: Preparing salts by neutralisation of oxides and carbonates",
+          "url": "https://edu.rsc.org/experiments/preparing-salts-by-neutralisation-of-oxides-and-carbonates/1762.article",
+          "scope": "experiment"
+        }
+      ],
+      "sourceScope": "teaching_context",
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -7129,6 +10710,55 @@
     {
       "id": "caco3+hno3",
       "equation": "CaCO3 + 2HNO3 -> Ca(NO3)2 + H2O + CO2(g)",
+      "classification": [
+        "carbonate_acid",
+        "gas_evolution"
+      ],
+      "reactants": [
+        {
+          "formula": "CaCO3",
+          "role": "reactant",
+          "coeff": 1,
+          "phase": "s"
+        },
+        {
+          "formula": "HNO3",
+          "role": "reactant",
+          "coeff": 2,
+          "phase": "aq"
+        }
+      ],
+      "products": [
+        {
+          "formula": "Ca(NO3)2",
+          "role": "product",
+          "coeff": 1,
+          "phase": "aq"
+        },
+        {
+          "formula": "H2O",
+          "role": "product",
+          "coeff": 1,
+          "phase": "l"
+        },
+        {
+          "formula": "CO2",
+          "role": "product",
+          "coeff": 1,
+          "phase": "g"
+        }
+      ],
+      "conditions": {},
+      "finding_vi": "Axit tiêu thụ cacbonat hoặc hiđrocacbonat; muối tan và nước được giữ trong sổ lượng chất.",
+      "observation_vi": "Sủi bọt CO2 không màu; lượng sinh ra theo chất giới hạn.",
+      "references": [
+        {
+          "title": "RSC: Preparing salts by neutralisation of oxides and carbonates",
+          "url": "https://edu.rsc.org/experiments/preparing-salts-by-neutralisation-of-oxides-and-carbonates/1762.article",
+          "scope": "experiment"
+        }
+      ],
+      "sourceScope": "teaching_context",
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -7139,6 +10769,55 @@
     {
       "id": "caco3+ch3cooh",
       "equation": "CaCO3 + 2CH3COOH -> Ca(CH3COO)2 + H2O + CO2(g)",
+      "classification": [
+        "carbonate_acid",
+        "gas_evolution"
+      ],
+      "reactants": [
+        {
+          "formula": "CaCO3",
+          "role": "reactant",
+          "coeff": 1,
+          "phase": "s"
+        },
+        {
+          "formula": "CH3COOH",
+          "role": "reactant",
+          "coeff": 2,
+          "phase": "aq"
+        }
+      ],
+      "products": [
+        {
+          "formula": "Ca(CH3COO)2",
+          "role": "product",
+          "coeff": 1,
+          "phase": "aq"
+        },
+        {
+          "formula": "H2O",
+          "role": "product",
+          "coeff": 1,
+          "phase": "l"
+        },
+        {
+          "formula": "CO2",
+          "role": "product",
+          "coeff": 1,
+          "phase": "g"
+        }
+      ],
+      "conditions": {},
+      "finding_vi": "Axit tiêu thụ cacbonat hoặc hiđrocacbonat; muối tan và nước được giữ trong sổ lượng chất.",
+      "observation_vi": "Sủi bọt CO2 không màu; lượng sinh ra theo chất giới hạn.",
+      "references": [
+        {
+          "title": "RSC: Preparing salts by neutralisation of oxides and carbonates",
+          "url": "https://edu.rsc.org/experiments/preparing-salts-by-neutralisation-of-oxides-and-carbonates/1762.article",
+          "scope": "experiment"
+        }
+      ],
+      "sourceScope": "teaching_context",
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -7149,6 +10828,55 @@
     {
       "id": "hcl+mgco3",
       "equation": "MgCO3 + 2HCl -> MgCl2 + H2O + CO2(g)",
+      "classification": [
+        "carbonate_acid",
+        "gas_evolution"
+      ],
+      "reactants": [
+        {
+          "formula": "MgCO3",
+          "role": "reactant",
+          "coeff": 1,
+          "phase": "s"
+        },
+        {
+          "formula": "HCl",
+          "role": "reactant",
+          "coeff": 2,
+          "phase": "aq"
+        }
+      ],
+      "products": [
+        {
+          "formula": "MgCl2",
+          "role": "product",
+          "coeff": 1,
+          "phase": "aq"
+        },
+        {
+          "formula": "H2O",
+          "role": "product",
+          "coeff": 1,
+          "phase": "l"
+        },
+        {
+          "formula": "CO2",
+          "role": "product",
+          "coeff": 1,
+          "phase": "g"
+        }
+      ],
+      "conditions": {},
+      "finding_vi": "Axit tiêu thụ cacbonat hoặc hiđrocacbonat; muối tan và nước được giữ trong sổ lượng chất.",
+      "observation_vi": "Sủi bọt CO2 không màu; lượng sinh ra theo chất giới hạn.",
+      "references": [
+        {
+          "title": "RSC: Preparing salts by neutralisation of oxides and carbonates",
+          "url": "https://edu.rsc.org/experiments/preparing-salts-by-neutralisation-of-oxides-and-carbonates/1762.article",
+          "scope": "experiment"
+        }
+      ],
+      "sourceScope": "teaching_context",
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -7159,6 +10887,55 @@
     {
       "id": "hno3+mgco3",
       "equation": "MgCO3 + 2HNO3 -> Mg(NO3)2 + H2O + CO2(g)",
+      "classification": [
+        "carbonate_acid",
+        "gas_evolution"
+      ],
+      "reactants": [
+        {
+          "formula": "MgCO3",
+          "role": "reactant",
+          "coeff": 1,
+          "phase": "s"
+        },
+        {
+          "formula": "HNO3",
+          "role": "reactant",
+          "coeff": 2,
+          "phase": "aq"
+        }
+      ],
+      "products": [
+        {
+          "formula": "Mg(NO3)2",
+          "role": "product",
+          "coeff": 1,
+          "phase": "aq"
+        },
+        {
+          "formula": "H2O",
+          "role": "product",
+          "coeff": 1,
+          "phase": "l"
+        },
+        {
+          "formula": "CO2",
+          "role": "product",
+          "coeff": 1,
+          "phase": "g"
+        }
+      ],
+      "conditions": {},
+      "finding_vi": "Axit tiêu thụ cacbonat hoặc hiđrocacbonat; muối tan và nước được giữ trong sổ lượng chất.",
+      "observation_vi": "Sủi bọt CO2 không màu; lượng sinh ra theo chất giới hạn.",
+      "references": [
+        {
+          "title": "RSC: Preparing salts by neutralisation of oxides and carbonates",
+          "url": "https://edu.rsc.org/experiments/preparing-salts-by-neutralisation-of-oxides-and-carbonates/1762.article",
+          "scope": "experiment"
+        }
+      ],
+      "sourceScope": "teaching_context",
       "balance": {
         "valid": true,
         "atomDifference": {},
@@ -7169,6 +10946,55 @@
     {
       "id": "ch3cooh+mgco3",
       "equation": "MgCO3 + 2CH3COOH -> Mg(CH3COO)2 + H2O + CO2(g)",
+      "classification": [
+        "carbonate_acid",
+        "gas_evolution"
+      ],
+      "reactants": [
+        {
+          "formula": "MgCO3",
+          "role": "reactant",
+          "coeff": 1,
+          "phase": "s"
+        },
+        {
+          "formula": "CH3COOH",
+          "role": "reactant",
+          "coeff": 2,
+          "phase": "aq"
+        }
+      ],
+      "products": [
+        {
+          "formula": "Mg(CH3COO)2",
+          "role": "product",
+          "coeff": 1,
+          "phase": "aq"
+        },
+        {
+          "formula": "H2O",
+          "role": "product",
+          "coeff": 1,
+          "phase": "l"
+        },
+        {
+          "formula": "CO2",
+          "role": "product",
+          "coeff": 1,
+          "phase": "g"
+        }
+      ],
+      "conditions": {},
+      "finding_vi": "Axit tiêu thụ cacbonat hoặc hiđrocacbonat; muối tan và nước được giữ trong sổ lượng chất.",
+      "observation_vi": "Sủi bọt CO2 không màu; lượng sinh ra theo chất giới hạn.",
+      "references": [
+        {
+          "title": "RSC: Preparing salts by neutralisation of oxides and carbonates",
+          "url": "https://edu.rsc.org/experiments/preparing-salts-by-neutralisation-of-oxides-and-carbonates/1762.article",
+          "scope": "experiment"
+        }
+      ],
+      "sourceScope": "teaching_context",
       "balance": {
         "valid": true,
         "atomDifference": {},

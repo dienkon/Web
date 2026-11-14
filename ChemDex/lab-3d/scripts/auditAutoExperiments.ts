@@ -25,9 +25,10 @@ for (const entry of AUTO_EXPERIMENTS) {
   e.stocks.dispose();
   if (results.length % 10 === 0) console.log(`Checked ${results.length}/${AUTO_EXPERIMENTS.length} native chemistry + physical effects pipelines`);
 }
-mkdirSync('artifacts/automatic-experiments', { recursive: true });
+const output = process.env.LAB_AUDIT_OUTPUT ?? 'artifacts/automatic-experiments';
+mkdirSync(output, { recursive: true });
 const failed = results.filter(r => !r.ok);
-writeFileSync('artifacts/automatic-experiments/catalog-audit.json', JSON.stringify({
+writeFileSync(`${output}/catalog-audit.json`, JSON.stringify({
   total: results.length, passed: results.length - failed.length, failed, results,
   workbenchUnchanged: useAppStore.getState() === before, measuredRealWorldKinetics: false,
 }, null, 2) + '\n');

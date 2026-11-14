@@ -12,6 +12,7 @@ import { ReactionProgram } from '../shared/programSchema';
 import { Phase, PrecipMorphology, GasSpecies, GAS_SPECIES_TABLE } from '../vfx/catalog/vocab';
 import { assessProgramConditions } from '../science/conditions';
 import { identifySpecies, sameMolecularFormula } from '../science/speciesIdentity';
+import { availableReagent, reagentPhase, bulkInventory } from '../science/reagentAvailability';
 import { solveAqueousEquilibrium, aqueousModelFields } from '../science/aqueousEquilibrium';
 import { projectAqueousSolution } from './aqueousProjection';
 import { applyThermalEnergy } from './thermalState';
@@ -22,7 +23,7 @@ import { magnesiumHydroxideExtent } from '../science/magnesiumHydroxidePrecipita
 import { silverHalideProgramExtent } from '../science/silverChloridePrecipitation';
 import { copperHydroxideExtent } from '../science/copperHydroxidePrecipitation';
 import { ferricHydroxideExtent, ferricHydroxideDissolutionExtent } from '../science/ferricHydroxidePrecipitation';
-import { withLegacyPrecipitateOrigins } from '../science/precipitateInventory';
+import { withLegacyPrecipitateOrigins, bulkPrecipitateMass } from '../science/precipitateInventory';
 import { aluminumReactionExtent, aluminumReactionEnthalpy_J_mol } from '../science/aluminumHydroxideEquilibrium';
 
 // Standard Atomic Weights (IUPAC)
@@ -502,15 +503,16 @@ export function applyProgramToLedger(
   const products = program.chemistry.species.filter(s => s.role === 'product');
 
   // Identify available moles of reactants in vessel contents
-  const currentContents = vessel.contents ? withLegacyPrecipitateOrigins(vessel) : [];
+  const currentContents = vessel.contents ? withLegacyPrecipitateOrigins(vessel)
+    .map(item => ({ ...item, phase: reagentPhase(item) ?? undefined })) : [];
   // Empty quantitative inventory means no reactant amount. Do not manufacture
   // a 0.5 M solution from labels merely to make an animation run.
 
+  const reactionContents = bulkInventory(currentContents);
   // Find limiting reagent and maximal reaction extent (moles of reaction)
   let maxReactionMoles = Infinity;
   for (const r of reactants) {
-    const available = currentContents.filter(c => sameMolecularFormula(c.formula, r.formula)
-      && (!c.phase || c.phase === r.phase) && (!c.location || c.location === 'bulk'))
+    const available = currentContents.filter(c => availableReagent(c, r.formula, r.phase))
       .reduce((sum, c) => sum + c.moles, 0);
     const possible = available / r.coeff;
     if (possible < maxReactionMoles) {
@@ -523,30 +525,30 @@ export function applyProgramToLedger(
   }
 
   if (program.id === 'bacl2_na2so4') {
-    const saturationLimit = baritePrecipitationExtent(currentContents, vessel.volume_ml, vessel.temperature_c);
+    const saturationLimit = baritePrecipitationExtent(reactionContents, vessel.volume_ml, vessel.temperature_c);
     if (saturationLimit !== null) maxReactionMoles = Math.min(maxReactionMoles, saturationLimit);
   }
   if (program.id === 'mgcl2_naoh') {
-    const limit = magnesiumHydroxideExtent(currentContents, vessel.volume_ml, vessel.temperature_c);
+    const limit = magnesiumHydroxideExtent(reactionContents, vessel.volume_ml, vessel.temperature_c);
     if (limit !== null) maxReactionMoles = Math.min(maxReactionMoles, limit);
   }
   if (['agno3_nacl', 'agno3_kbr', 'agno3_ki'].includes(program.id)) {
-    const limit = silverHalideProgramExtent(program.id, currentContents, vessel.volume_ml, vessel.temperature_c);
+    const limit = silverHalideProgramExtent(program.id, reactionContents, vessel.volume_ml, vessel.temperature_c);
     if (limit !== null) maxReactionMoles = Math.min(maxReactionMoles, limit);
   }
   if (program.id === 'cuso4_naoh') {
-    const limit = copperHydroxideExtent(currentContents, vessel.volume_ml, vessel.temperature_c);
+    const limit = copperHydroxideExtent(reactionContents, vessel.volume_ml, vessel.temperature_c);
     if (limit !== null) maxReactionMoles = Math.min(maxReactionMoles, limit);
   }
   if (program.id === 'fecl3_naoh') {
-    const limit = ferricHydroxideExtent(currentContents, vessel.volume_ml, vessel.temperature_c);
+    const limit = ferricHydroxideExtent(reactionContents, vessel.volume_ml, vessel.temperature_c);
     if (limit !== null) maxReactionMoles = Math.min(maxReactionMoles, limit);
   }
   if (program.id === 'feoh3_hcl') {
-    const limit = ferricHydroxideDissolutionExtent(currentContents, vessel.volume_ml, vessel.temperature_c);
+    const limit = ferricHydroxideDissolutionExtent(reactionContents, vessel.volume_ml, vessel.temperature_c);
     maxReactionMoles = limit === null ? 0 : Math.min(maxReactionMoles, limit);
   }
-  const aluminumLimit = aluminumReactionExtent(program.id, currentContents, vessel.volume_ml, vessel.temperature_c);
+  const aluminumLimit = aluminumReactionExtent(program.id, reactionContents, vessel.volume_ml, vessel.temperature_c);
   if (aluminumLimit !== undefined) maxReactionMoles = aluminumLimit === null ? 0 : Math.min(maxReactionMoles, aluminumLimit);
   const molesOfReaction = maxReactionMoles * Math.max(0, Math.min(1.0, consumedExtent));
 
@@ -556,8 +558,7 @@ export function applyProgramToLedger(
       const consumeMoles = molesOfReaction * r.coeff;
       let remaining = consumeMoles;
       for (const found of currentContents) {
-        if (!sameMolecularFormula(found.formula, r.formula) || (found.phase && found.phase !== r.phase)
-          || (found.location && found.location !== 'bulk')) continue;
+        if (!availableReagent(found, r.formula, r.phase)) continue;
         const taken = Math.min(Math.max(0, found.moles), remaining);
         found.moles = Math.max(0, found.moles - taken);
         found.mass_g = found.moles * computeMolarMass(found.formula);
@@ -605,7 +606,8 @@ export function applyProgramToLedger(
         }
       }
 
-      const existing = currentContents.find(c => sameMolecularFormula(c.formula, p.formula) && c.phase === p.phase
+      const existing = currentContents.find(c => (!c.location || c.location === 'bulk')
+        && sameMolecularFormula(c.formula, p.formula) && c.phase === p.phase
         && (p.phase !== 's' || c.solidOrigin === 'precipitate'));
       if (existing) {
         existing.moles += produceMoles;
@@ -649,15 +651,16 @@ export function applyProgramToLedger(
   const dyeColor = equilibrium ? solutionIndicatorColor(currentContents, ph) : null;
   const observedIndicator = program.chemistry.representation === 'indicator' ? indicatorColor(program.id, ph) : null;
   const newColor = dyeColor ?? observedIndicator ?? calculateBeerLambertColor(currentContents, vessel.volume_ml || 50, afterColor);
+  const precipitateMass = bulkPrecipitateMass(currentContents, precipitateSubstance);
 
   const state: Partial<VesselState> = {
     contents: currentContents,
     escapedGas_g: escapedByFormula,
-    hasPrecipitate: currentContents.some(item => item.phase === 's' && item.formula === precipitateSubstance && item.moles > 1e-12),
+    hasPrecipitate: precipitateMass > 1e-12,
     precipitateColor: precipitateColor || program.visual.after.precipitate?.color,
     precipitateSubstance: precipitateSubstance || program.visual.after.precipitate?.substance,
     precipitateMorphology: precipitateMorphology || (program.visual.after.precipitate?.morphology as any),
-    precipitateAmount_g: currentContents.filter(item => item.phase === 's' && item.formula === precipitateSubstance).reduce((sum, item) => sum + item.mass_g, 0),
+    precipitateAmount_g: precipitateMass,
     hasGas: hasGas || (molesOfReaction > 0 && products.some(p => p.phase === 'g')),
     gasColor: gasColor || (program.visual.after.gasesOffgassed[0] ? GAS_SPECIES_TABLE[program.visual.after.gasesOffgassed[0].species as GasSpecies]?.colorHex : undefined),
     liquidColor: newColor,

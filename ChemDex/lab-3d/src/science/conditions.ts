@@ -1,6 +1,7 @@
 import type { ReactionProgram } from '../shared/programSchema';
 import type { SubstanceContent } from '../types/chemistry';
-import { identifySpecies, matchesReagent, sameMolecularFormula } from './speciesIdentity';
+import { sameMolecularFormula } from './speciesIdentity';
+import { availableReagent, reagentPhase } from './reagentAvailability';
 
 export interface ExperimentalEnvironment {
   temperature_c?: number;
@@ -31,12 +32,12 @@ const DILUTE_ACID_CASES: Record<string, string> = {
 };
 
 function present(contents: SubstanceContent[], formula: string, expectedPhase?: string): boolean {
-  return contents.some(item => {
-    const phase = item.phase ?? item.state ?? identifySpecies(item.formula).phase;
-    return sameMolecularFormula(item.formula, formula) && item.moles > 1e-12
-      && Number.isFinite(item.moles) && (!item.location || item.location === 'bulk')
-      && (!expectedPhase || !phase || phase === expectedPhase || (phase === 'solid' && expectedPhase === 's'));
-  });
+  return contents.some(item => availableReagent(item, formula, expectedPhase));
+}
+
+export function hasOxidizingAcid(contents: SubstanceContent[]): boolean {
+  return contents.some(item => ['aq', 'l'].some(phase => availableReagent(item, 'HNO3', phase)
+    || availableReagent(item, 'H2SO4(conc)', phase)));
 }
 
 /** Conditions determine eligibility; they do not assert measured reaction rates. */
@@ -48,21 +49,24 @@ export function assessProgramConditions(
   const unmet: string[] = [];
   if (contents.length > 0 || env.requireInventory) {
     for (const reagent of program.chemistry.species.filter(item => item.role === 'reactant')) {
-      if (!contents.some(item => Number.isFinite(item.moles) && item.moles > 1e-12
-        && (!item.location || item.location === 'bulk') && matchesReagent(item.formula, reagent.formula)
-        && (!(item.phase ?? identifySpecies(item.formula).phase) || (item.phase ?? identifySpecies(item.formula).phase) === reagent.phase)))
+      if (!present(contents, reagent.formula, reagent.phase))
         unmet.push(`Thiếu lượng hoặc pha phù hợp của ${reagent.formula}.`);
     }
   }
   const producesHydrogen = program.chemistry.species.some(item => item.role === 'product' && item.formula === 'H2');
-  const oxidizingAcid = contents.some(item => item.moles > 1e-12 && (sameMolecularFormula(item.formula, 'HNO3')
-    || (sameMolecularFormula(item.formula, 'H2SO4') && identifySpecies(item.formula).concentration === 'concentrated')));
+  const oxidizingAcid = hasOxidizingAcid(contents);
   if (producesHydrogen && oxidizingAcid) unmet.push('Không suy diễn H2 cho axit oxi hóa; cần kịch bản riêng đã xác định điều kiện.');
   const conditions = program.chemistry.conditions;
   if (conditions?.activation === 'ignition' && env.ignitedProgramId !== program.id) unmet.push('Cần thao tác mồi cháy cho mẫu này; chỉ có chất phản ứng hoặc tăng nhiệt độ chung chưa xác nhận đã mồi.');
   const temperature = env.temperature_c ?? 25;
   if (!Number.isFinite(temperature) || temperature <= -273.15) unmet.push('Nhiệt độ mẫu không hợp lệ.');
   if (env.pressure_bar !== undefined && (!Number.isFinite(env.pressure_bar) || env.pressure_bar <= 0)) unmet.push('Áp suất mẫu không hợp lệ.');
+  if (env.pH !== undefined && !Number.isFinite(env.pH)) unmet.push('Giá trị pH không hợp lệ.');
+  if (env.volume_ml !== undefined) {
+    if (!Number.isFinite(env.volume_ml) || env.volume_ml < 0) unmet.push('Thể tích mẫu không hợp lệ.');
+    else if (env.volume_ml === 0 && program.chemistry.species.some(item => item.role === 'reactant' && item.phase === 'aq'))
+      unmet.push('Phản ứng dung dịch cần thể tích dung môi dương.');
+  }
   if (conditions?.sealed !== undefined && env.isSealed !== conditions.sealed)
     unmet.push(conditions.sealed ? 'Kịch bản cần bình kín.' : 'Kịch bản cần bình mở.');
   if (conditions?.minTemp_c !== undefined && temperature < conditions.minTemp_c) unmet.push(`Nhiệt độ mẫu chưa đạt ${conditions.minTemp_c} °C của kịch bản.`);
@@ -75,23 +79,22 @@ export function assessProgramConditions(
   }
   if (conditions?.light && !env.light) unmet.push('Chưa có điều kiện chiếu sáng.');
   if (program.chemistry.representation === 'emission' && !env.isHeated) unmet.push('Phép thử ngọn lửa cần nguồn kích thích nhiệt.');
-  const strongAcid = contents.filter(item => ['HCl', 'HNO3', 'H2SO4'].some(formula => sameMolecularFormula(item.formula, formula)))
+  const strongAcid = contents.filter(item => ['HCl', 'HNO3', 'H2SO4'].some(formula => availableReagent(item, formula, 'aq')))
     .reduce((sum, item) => sum + item.moles * (sameMolecularFormula(item.formula, 'H2SO4') ? 2 : 1), 0);
-  const strongBase = contents.filter(item => ['NaOH', 'KOH', 'Ca(OH)2', 'Ba(OH)2'].some(formula => sameMolecularFormula(item.formula, formula)))
-    .reduce((sum, item) => sum + item.moles * (/^(Ca|Ba)/.test(item.formula) ? 2 : 1), 0);
+  const strongBase = contents.filter(item => ['NaOH', 'KOH', 'Ca(OH)2', 'Ba(OH)2'].some(formula => availableReagent(item, formula, 'aq')))
+    .reduce((sum, item) => sum + item.moles * (['Ca(OH)2', 'Ba(OH)2'].some(formula => sameMolecularFormula(item.formula, formula)) ? 2 : 1), 0);
   if (conditions?.medium === 'acidic' && !(strongAcid > strongBase || (env.pH ?? 7) < 4)) unmet.push('Cần môi trường axit.');
   if (conditions?.medium === 'alkaline' && !(strongBase > strongAcid || (env.pH ?? 7) > 10)) unmet.push('Cần môi trường kiềm.');
   for (const [cases, grade] of [[CONCENTRATED_ACID_CASES, 'concentrated'], [DILUTE_ACID_CASES, 'dilute']] as const) {
     const acid = cases[program.id];
     if (!acid) continue;
-    const found = contents.find(item => sameMolecularFormula(item.formula, acid) && item.moles > 1e-12);
-    const declared = found ? identifySpecies(found.formula).concentration : null;
-    if (declared !== grade) unmet.push(`Cần xác định ${acid} ${grade === 'concentrated' ? 'đặc' : 'loãng'}, không suy ra chỉ từ công thức.`);
+    const phases = grade === 'concentrated' ? ['aq', 'l'] : ['aq'];
+    const found = contents.some(item => phases.some(phase => availableReagent(item, `${acid}(${grade})`, phase)));
+    if (!found) unmet.push(`Cần xác định ${acid} ${grade === 'concentrated' ? 'đặc' : 'loãng'}, không suy ra chỉ từ công thức.`);
   }
   if (program.id === 'nh3_hcl') {
     for (const formula of ['NH3', 'HCl']) {
-      const gas = contents.some(item => sameMolecularFormula(item.formula, formula)
-        && (item.phase === 'g' || identifySpecies(item.formula).phase === 'g') && item.moles > 1e-12);
+      const gas = contents.some(item => availableReagent(item, formula, 'g') && reagentPhase(item) === 'g');
       if (!gas) unmet.push(`Khói NH4Cl cần ${formula} ở pha khí.`);
     }
   }

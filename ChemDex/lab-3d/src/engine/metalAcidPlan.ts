@@ -3,6 +3,7 @@ import type { ActiveKineticsState, Language } from '../store/useAppStore';
 import type { MixResult } from '../shared/schemas';
 import { getProgramById } from '../vfx/programs/library';
 import { identifySpecies, sameMolecularFormula } from '../science/speciesIdentity';
+import { availableInBulk, availableReagent } from '../science/reagentAvailability';
 import { planStudioProgram } from './studioProgram';
 import { reactionReplayProgress } from './reactionProgress';
 
@@ -13,18 +14,16 @@ const PROGRAMS = ['mg_hcl', 'zn_hcl', 'fe_hcl'];
  * receiving this non-oxidizing-acid model. */
 export function planMetalAcid(vessel: VesselState, language: Language) {
   if (vessel.isShattered || !(vessel.volume_ml > 0)) return null;
-  const acid = vessel.contents.find(item => sameMolecularFormula(item.formula, 'HCl')
-    && item.phase === 'aq' && item.moles > 1e-12);
+  const acid = vessel.contents.find(item => availableReagent(item, 'HCl', 'aq'));
   if (!acid || identifySpecies(acid.formula).concentration === 'concentrated') return null;
   for (const id of PROGRAMS) {
     const program = getProgramById(id);
     if (!program) continue;
     const metal = program.chemistry.species.find(item => item.role === 'reactant' && item.phase === 's')!;
-    if (!vessel.contents.some(item => sameMolecularFormula(item.formula, metal.formula)
-      && item.phase === 's' && item.moles > 1e-12)) continue;
+    if (!vessel.contents.some(item => availableReagent(item, metal.formula, 's'))) continue;
     const allowed = [...program.chemistry.species.map(item => item.formula), 'H2O', 'NaCl', 'KCl',
       'Phenolphthalein', 'Methyl_Orange', 'Bromothymol_Blue'];
-    if (vessel.contents.some(item => item.moles > 1e-12
+    if (vessel.contents.some(item => availableInBulk(item)
       && !allowed.some(formula => sameMolecularFormula(item.formula, formula)))) continue;
     const baseline = { ...vessel, contents: vessel.contents.map(item => ({ ...item,
       initialMass_g: item.initialMass_g ?? item.mass_g, initialMoles: item.initialMoles ?? item.moles })) };
@@ -49,8 +48,8 @@ export function metalAcidMaximumExtent(kinetics: ActiveKineticsState): number {
   const metal = kinetics.program?.chemistry.species.find(item => item.role === 'reactant' && item.phase === 's');
   const contents = kinetics.initialVesselBaseline?.contents;
   if (!metal || !contents) return 0;
-  const solid = contents.find(item => sameMolecularFormula(item.formula, metal.formula) && item.phase === 's');
-  const acid = contents.find(item => sameMolecularFormula(item.formula, 'HCl') && item.phase === 'aq');
+  const solid = contents.find(item => availableReagent(item, metal.formula, 's'));
+  const acid = contents.find(item => availableReagent(item, 'HCl', 'aq'));
   return Math.max(0, Math.min(solid?.moles ?? 0, (acid?.moles ?? 0) / 2));
 }
 
@@ -70,8 +69,8 @@ export function metalAcidProgressRate(kinetics: ActiveKineticsState, current: Ve
     || !Number.isFinite(progress) || current.isShattered || progress >= 1) return 0;
   const metal = kinetics.program.chemistry.species.find(item => item.role === 'reactant' && item.phase === 's')!;
   const baseline = kinetics.initialVesselBaseline;
-  const solid = baseline.contents.find(item => sameMolecularFormula(item.formula, metal.formula) && item.phase === 's');
-  const acid = baseline.contents.find(item => sameMolecularFormula(item.formula, 'HCl') && item.phase === 'aq');
+  const solid = baseline.contents.find(item => availableReagent(item, metal.formula, 's'));
+  const acid = baseline.contents.find(item => availableReagent(item, 'HCl', 'aq'));
   if (!solid || !acid || !(solid.moles > 0)) return 0;
   const extent = Math.min(solid.moles, acid.moles / 2);
   if (!(extent > 0)) return 0;
