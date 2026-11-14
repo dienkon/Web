@@ -1,0 +1,132 @@
+body[data-intro="true"] .header,
+body[data-intro="true"] .chapter,
+body[data-intro="true"] .chapter-dots,
+body[data-intro="true"] .bottom-bar {
+  opacity: 0;
+  pointer-events: none;
+}
+body[data-intro="true"] .chapter button {
+  pointer-events: none;
+}
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 8% 10%;
+  background: linear-gradient(0deg, #06111fd9, transparent 60%);
+}
+.intro-overlay h2 {
+  font-size: 44px;
+}
+.intro-overlay > button {
+  pointer-events: auto;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  font-size: 10px;
+  border: 1px solid #ebcfa360;
+  padding: 13px 18px;
+  border-radius: 30px;
+}
+.intro-progress {
+  display: block;
+  width: 240px;
+  height: 1px;
+  background: #ebcfa330;
+  position: relative;
+  overflow: hidden;
+}
+.intro-progress:after {
+  content: "";
+  display: block;
+  height: 1px;
+  background: #ebcfa3;
+  animation: introProgress 9s linear forwards;
+  transform-origin: left;
+}
+.intro-caption {
+  font-size: 8px;
+  letter-spacing: 1px;
+  color: #aeb6bb;
+  margin-top: 14px;
+}
+.model-tools {
+  position: fixed;
+  right: 12%;
+  bottom: 110px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  border: 1px solid #ebcfa340;
+  background: #10202cc9;
+  backdrop-filter: blur(12px);
+  border-radius: 30px;
+  padding: 8px 12px;
+  font-size: 9px;
+  color: #d0c4ae;
+}
+.model-tools button {
+  display: flex;
+  padding: 4px;
+}
+.model-tools button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+.model-tools > i {
+  height: 15px;
+  width: 1px;
+  background: #ebcfa330;
+}
+@keyframes introProgress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@media (max-width: 760px) {
+  .model-tools {
+    right: 10%;
+    bottom: 78px;
+    padding: 6px 9px;
+  }
+  .intro-overlay {
+    padding: 0 8% 90px;
+    align-items: flex-end;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .intro-overlay h2 {
+    font-size: 37px;
+  }
+  .intro-overlay > button {
+    font-size: 9px;
+    padding: 10px 13px;
+  }
+}
+.base-picker {
+  display: flex;
+  gap: 7px;
+  margin: 12px 0 16px;
+  pointer-events: auto;
+}
+.base-picker button {
+  width: 29px;
+  height: 28px;
+  border: 1px solid #ebcfa32a;
+  border-radius: 4px;
+  font: 17px var(--serif);
+  color: #8fa5ab;
+}
+.base-picker button[aria-pressed="true"] {
+  border-color: #48e0ce80;
+  color: #48e0ce;
+  background: #48e0ce0a;
+}
