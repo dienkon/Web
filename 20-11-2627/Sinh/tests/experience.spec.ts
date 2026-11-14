@@ -187,3 +187,41 @@ test("WebGL unavailable: content and letter remain usable", async ({
   await page.getByRole("button", { name: "Gửi thầy một lời" }).click();
   await expect(page.getByRole("dialog")).toContainText("Thầy kính mến");
 });
+
+test("automatic arrival reveals the local 2D bouquet and preserves scrolling", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  const errors: string[] = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+  await page.goto("/");
+  await expect(page.locator("#main")).toHaveAttribute("aria-busy", "false", {
+    timeout: 45000,
+  });
+  await expect(page.locator(".loader")).toHaveCount(0, { timeout: 10000 });
+  const bouquet = page.locator(".bouquet-art img");
+  await expect(bouquet).toBeVisible();
+  expect(
+    await bouquet.evaluate(
+      (image: HTMLImageElement) =>
+        image.complete &&
+        image.naturalWidth > 1000 &&
+        image.src.endsWith("/assets/bouquet-roses.png"),
+    ),
+  ).toBe(true);
+  await page.getByRole("button", { name: "Tri ân", exact: true }).click();
+  await expect(page.locator(".bouquet-art")).toHaveClass(
+    /bouquet-feature.*is-visible/,
+  );
+  await page.getByRole("button", { name: "Gửi thầy bó hoa này" }).click();
+  await expect(page.locator(".bouquet-art")).toHaveClass(/is-sent/);
+  await page.getByRole("button", { name: "Khám phá", exact: true }).click();
+  await expect(page.locator(".chapter-label")).toContainText("THE DNA");
+  await page.mouse.move(1100, 450);
+  await page.mouse.wheel(0, 950);
+  await expect(page.locator(".chapter-label")).toContainText(
+    "THE BIOLOGY UNIVERSE",
+  );
+  expect(errors).toEqual([]);
+});

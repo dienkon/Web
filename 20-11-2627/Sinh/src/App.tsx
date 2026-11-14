@@ -39,6 +39,7 @@ import {
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { chapters, content, exhibits } from "./content";
+import BouquetArtwork, { bouquetUrl } from "./BouquetArtwork";
 const Scene = lazy(() => import("./Scene"));
 gsap.registerPlugin(ScrollTrigger);
 
@@ -96,6 +97,9 @@ export default function App() {
   const [active, setActive] = useState(0),
     [progress, setProgress] = useState(0),
     [ready, setReady] = useState(false);
+  const [sceneReady, setSceneReady] = useState(false),
+    [artReady, setArtReady] = useState(false),
+    [entered, setEntered] = useState(false);
   const [settings, setSettings] = useState(false),
     [modal, setModal] = useState<"letter" | "guestbook" | "photo" | null>(null);
   const [dnaMode, setDnaMode] = useState("normal"),
@@ -120,7 +124,120 @@ export default function App() {
   const audioContext = useRef<AudioContext | null>(null),
     uploaded = useRef<string[]>([]),
     modalRef = useRef<HTMLDivElement>(null);
-  const readyCallback = useCallback(() => setReady(true), []);
+  const readyCallback = useCallback(() => setSceneReady(true), []);
+  useEffect(() => {
+    const image = new Image();
+    let alive = true;
+    const finish = () => {
+      if (alive) setArtReady(true);
+    };
+    image.onload = () => {
+      image
+        .decode()
+        .catch(() => undefined)
+        .then(finish);
+    };
+    image.onerror = finish;
+    image.src = bouquetUrl;
+    return () => {
+      alive = false;
+    };
+  }, []);
+  useEffect(() => {
+    if (sceneReady && artReady) setReady(true);
+  }, [sceneReady, artReady]);
+  useEffect(() => {
+    if (!ready) return;
+    if (reduced) {
+      setEntered(true);
+      return;
+    }
+    const context = gsap.context(() => {
+      const timeline = gsap.timeline();
+      timeline
+        .to(
+          ".loader",
+          {
+            opacity: 0,
+            duration: 0.75,
+            ease: "power2.inOut",
+            onComplete: () => setEntered(true),
+          },
+          0.2,
+        )
+        .fromTo(
+          ".scene",
+          { opacity: 0.1, scale: 1.12, filter: "blur(14px) saturate(.3)" },
+          {
+            opacity: 1,
+            scale: 1,
+            filter: "blur(0px) saturate(1.12)",
+            duration: 2.6,
+            ease: "power3.out",
+          },
+          0.35,
+        )
+        .fromTo(
+          ".arrival-aurora",
+          { opacity: 0, scale: 1.3 },
+          { opacity: 1, scale: 1, duration: 3 },
+          0.3,
+        )
+        .fromTo(
+          ".hero-content > *",
+          { autoAlpha: 0, y: 30, filter: "blur(6px)" },
+          {
+            autoAlpha: 1,
+            y: 0,
+            filter: "blur(0px)",
+            duration: 1.35,
+            stagger: 0.16,
+            ease: "power3.out",
+          },
+          0.7,
+        )
+        .fromTo(
+          ".header",
+          { y: -28, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1.3, ease: "power3.out" },
+          0.95,
+        )
+        .fromTo(
+          ".bouquet-art",
+          { y: 75, rotate: 5, opacity: 0 },
+          {
+            y: 0,
+            rotate: 0,
+            opacity: 1,
+            duration: 2.2,
+            ease: "power3.out",
+            clearProps: "opacity,transform",
+          },
+          1.05,
+        );
+      document
+        .querySelectorAll<HTMLElement>(".chapter:not(.hero) .chapter-content")
+        .forEach((panel) => {
+          gsap.fromTo(
+            panel.children,
+            { autoAlpha: 0, y: 28 },
+            {
+              autoAlpha: 1,
+              y: 0,
+              duration: 1.15,
+              stagger: 0.075,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: panel.parentElement,
+                start: "top 64%",
+                toggleActions: "play none none reverse",
+              },
+            },
+          );
+        });
+    });
+    return () => context.revert();
+  }, [ready, reduced]);
   const onBase = useCallback((value: string) => {
     setBase(value);
   }, []);
@@ -178,8 +295,12 @@ export default function App() {
     if (!reduced && scene.current)
       gsap.fromTo(
         scene.current,
-        { opacity: 0.15 },
-        { opacity: 1, duration: 0.8, ease: "power2.out" },
+        { filter: "blur(5px) saturate(.8)" },
+        {
+          filter: "blur(0px) saturate(1.12)",
+          duration: 1.1,
+          ease: "power2.out",
+        },
       );
   }, [active, reduced]);
   useEffect(() => {
@@ -319,13 +440,29 @@ export default function App() {
         </SceneBoundary>
       </div>
       <div className="atmosphere" />
+      <div className="arrival-aurora" aria-hidden="true">
+        <i />
+        <i />
+        <i />
+      </div>
+      <BouquetArtwork chapter={active} sent={bloom} reduced={reduced} />
       <div className="grain" />
-      {!ready && (
-        <div className="loader" role="status">
+      {!entered && (
+        <div
+          className="loader"
+          role="status"
+          aria-label="Đang mở hành trình tri ân"
+        >
+          <div className="loader-aura" />
+          <div className="loader-helix" aria-hidden="true">
+            {Array.from({ length: 12 }, (_, i) => (
+              <i key={i} style={{ "--rung": i } as React.CSSProperties} />
+            ))}
+          </div>
           <Leaf size={42} strokeWidth={0.8} />
           <span>GEN TRI ÂN</span>
           <i />
-          <p>Đang đánh thức một thế giới nhỏ…</p>
+          <p>Chạm ánh sáng. Đánh thức một thế giới nhỏ…</p>
         </div>
       )}
 

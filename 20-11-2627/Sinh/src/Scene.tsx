@@ -3,6 +3,7 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Billboard, OrbitControls } from "@react-three/drei";
 import { Bloom, EffectComposer } from "@react-three/postprocessing";
 import gsap from "gsap";
+import DNA from "./DNA";
 import * as THREE from "three";
 
 type Vec = [number, number, number];
@@ -26,8 +27,6 @@ const gold = "#ebcfa3";
 const cyan = "#48e0ce";
 const purple = "#8972c9";
 const pink = "#f5b8c8";
-// Negative angle around +Y gives the right-handed B-DNA helix.
-const twist = (-2 * Math.PI) / (0.315 * 10.5);
 const v = (p: Vec) => new THREE.Vector3(...p);
 
 function Rod({
@@ -224,412 +223,6 @@ function Particles({
     >
       <icosahedronGeometry args={[1, 0]} />
     </instancedMesh>
-  );
-}
-
-function DNA({
-  mode,
-  reduced,
-  onBase,
-  miniature = false,
-}: {
-  mode: string;
-  reduced: boolean;
-  onBase: (base: string) => void;
-  miniature?: boolean;
-}) {
-  const group = useRef<THREE.Group>(null);
-  const strands = useMemo(
-    () =>
-      [0, Math.PI].map((phase) => {
-        const points = Array.from({ length: 200 }, (_, i) => {
-          const y = -4 + (i * 8) / 199,
-            a = y * twist;
-          return new THREE.Vector3(
-            Math.cos(a + phase) * 1.15,
-            y,
-            Math.sin(a + phase) * 1.15,
-          );
-        });
-        return new THREE.CatmullRomCurve3(points);
-      }),
-    [],
-  );
-  useFrame(({ clock }, delta) => {
-    if (group.current) {
-      group.current.rotation.y = THREE.MathUtils.damp(
-        group.current.rotation.y,
-        reduced ? 0.3 : clock.elapsedTime * 0.09,
-        2,
-        delta,
-      );
-      group.current.children.forEach((child) => {
-        if (child.userData.strand !== undefined)
-          child.position.x = THREE.MathUtils.damp(
-            child.position.x,
-            split ? (child.userData.strand ? 1 : -1) * 1.3 : 0,
-            reduced ? 100 : 3,
-            delta,
-          );
-      });
-    }
-  });
-  const split = mode === "unwind" || mode === "replicate";
-  return (
-    <group ref={group} scale={miniature ? 0.67 : 1}>
-      {[0, 1].map((s) => (
-        <group key={s} userData={{ strand: s }}>
-          <mesh>
-            <tubeGeometry args={[strands[s], 180, 0.075, 10, false]} />
-            <meshPhysicalMaterial
-              color={s ? purple : cyan}
-              metalness={0.5}
-              roughness={0.16}
-              clearcoat={1}
-              emissive={s ? purple : cyan}
-              emissiveIntensity={0.7}
-            />
-          </mesh>
-          {Array.from({ length: 25 }, (_, i) => {
-            const y = -3.8 + i * 0.315,
-              a = y * twist + s * Math.PI;
-            const base = i % 2 ? (s ? "C" : "G") : s ? "T" : "A";
-            return (
-              <group
-                key={i}
-                position={[Math.cos(a) * 1.15, y, Math.sin(a) * 1.15]}
-              >
-                <mesh>
-                  <sphereGeometry args={[0.12, 12, 8]} />
-                  <meshPhysicalMaterial
-                    color={i % 3 ? "#d8b6d4" : gold}
-                    metalness={0.65}
-                    roughness={0.15}
-                  />
-                </mesh>
-                <group
-                  rotation={[0, -a, 0]}
-                  position={[-Math.cos(a) * 0.48, 0, -Math.sin(a) * 0.48]}
-                >
-                  <mesh
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onBase(base);
-                    }}
-                    onPointerOver={() => {
-                      document.body.style.cursor = "pointer";
-                    }}
-                    onPointerOut={() => {
-                      document.body.style.cursor = "";
-                    }}
-                  >
-                    <boxGeometry args={[0.83, 0.15, 0.13]} />
-                    <meshStandardMaterial
-                      color={
-                        base === "A"
-                          ? cyan
-                          : base === "T"
-                            ? gold
-                            : base === "G"
-                              ? purple
-                              : "#66b8eb"
-                      }
-                      emissive={base === "A" ? cyan : purple}
-                      emissiveIntensity={0.3}
-                      metalness={0.45}
-                      roughness={0.25}
-                    />
-                  </mesh>
-                </group>
-                {i % 4 === 0 && (
-                  <Label
-                    text={base}
-                    position={[-Math.cos(a) * 0.43, 0.13, -Math.sin(a) * 0.43]}
-                    color={
-                      base === "A" ? cyan : base === "T" ? gold : "#c8b6ef"
-                    }
-                    scale={0.25}
-                  />
-                )}
-              </group>
-            );
-          })}
-        </group>
-      ))}
-      {!split &&
-        Array.from({ length: 25 }, (_, i) => {
-          const y = -3.8 + i * 0.315,
-            a = y * twist;
-          return (
-            <group key={i} position={[0, y, 0]} rotation={[0, -a, 0]}>
-              {Array.from({ length: i % 2 ? 3 : 2 }, (_, j) => (
-                <Rod
-                  key={j}
-                  a={[-0.2, (j - (i % 2 ? 1 : 0.5)) * 0.045, 0]}
-                  b={[0.2, (j - (i % 2 ? 1 : 0.5)) * 0.045, 0]}
-                  color={gold}
-                  radius={0.009}
-                />
-              ))}
-            </group>
-          );
-        })}
-      {mode === "replicate" &&
-        [-1, 1].map((side, s) => (
-          <group key={side} position={[side * 1.3, 0, 0]}>
-            <mesh>
-              <tubeGeometry args={[strands[s ? 0 : 1], 180, 0.05, 8, false]} />
-              <meshStandardMaterial
-                color={pink}
-                emissive={pink}
-                emissiveIntensity={0.4}
-                metalness={0.3}
-                roughness={0.3}
-              />
-            </mesh>
-            {Array.from({ length: 25 }, (_, i) => {
-              const y = -3.8 + i * 0.315,
-                a = y * twist + (s ? 0 : Math.PI);
-              return (
-                <group key={i}>
-                  <mesh position={[Math.cos(a) * 1.15, y, Math.sin(a) * 1.15]}>
-                    <sphereGeometry args={[0.09, 10, 8]} />
-                    <meshStandardMaterial
-                      color={pink}
-                      emissive={pink}
-                      emissiveIntensity={0.4}
-                    />
-                  </mesh>
-                  <Rod
-                    a={[Math.cos(a) * 1.15, y, Math.sin(a) * 1.15]}
-                    b={[0, y, 0]}
-                    color={pink}
-                    radius={0.035}
-                  />
-                </group>
-              );
-            })}
-            <Label text="5′ → 3′" position={[0, 3.4, 0]} color={pink} />
-          </group>
-        ))}
-      <Label text="5′" position={[1.5, 4, 0]} />
-      <Label text="3′" position={[-1.5, 4, 0]} />
-      <Label text="3′" position={[1.5, -4, 0]} />
-      <Label text="5′" position={[-1.5, -4, 0]} />
-    </group>
-  );
-}
-
-function petalGeometry(layer: number) {
-  const geometry = new THREE.BufferGeometry(),
-    positions: number[] = [],
-    uvs: number[] = [],
-    indices: number[] = [];
-  const seg = 20;
-  for (let y = 0; y <= seg; y++)
-    for (let x = 0; x <= seg; x++) {
-      const u = x / seg,
-        t = y / seg,
-        angle = (u - 0.5) * 1.9;
-      const radius = (0.06 + t * 0.54) * (1 + layer * 0.21);
-      positions.push(
-        Math.sin(angle) * radius,
-        t * (0.72 - 0.22 * Math.pow(Math.abs(u - 0.5) * 2, 2)) -
-          Math.pow(t, 3) * (0.15 + layer * 0.075) +
-          Math.sin(u * Math.PI * 3) * Math.pow(t, 4) * 0.045,
-        Math.cos(angle) * radius - 0.06 + Math.pow(t, 3) * 0.07,
-      );
-      uvs.push(u, t);
-      if (y < seg && x < seg) {
-        const a = y * (seg + 1) + x;
-        indices.push(a, a + 1, a + seg + 1, a + 1, a + seg + 2, a + seg + 1);
-      }
-    }
-  geometry.setAttribute(
-    "position",
-    new THREE.Float32BufferAttribute(positions, 3),
-  );
-  geometry.setAttribute("uv", new THREE.Float32BufferAttribute(uvs, 2));
-  geometry.setIndex(indices);
-  geometry.computeVertexNormals();
-  return geometry;
-}
-
-function Rose({
-  position,
-  size = 1,
-  reduced,
-  blooming,
-}: {
-  position: Vec;
-  size?: number;
-  reduced: boolean;
-  blooming: boolean;
-}) {
-  const ref = useRef<THREE.Group>(null);
-  const petals = useMemo(() => [0, 1, 2, 3, 4, 5].map(petalGeometry), []);
-  useEffect(() => () => petals.forEach((g) => g.dispose()), [petals]);
-  useFrame(({ clock }, delta) => {
-    if (ref.current) {
-      const target = blooming ? 1 : 0.76;
-      ref.current.scale.lerp(
-        new THREE.Vector3(target, target, target),
-        reduced ? 1 : Math.min(1, delta * 1.8),
-      );
-      if (!reduced)
-        ref.current.rotation.y = Math.sin(clock.elapsedTime * 0.2) * 0.08;
-      ref.current.children.forEach((child) => {
-        const layer = child.userData.petalLayer;
-        if (layer !== undefined)
-          child.rotation.x = THREE.MathUtils.damp(
-            child.rotation.x,
-            layer * 0.025 + ((blooming ? 0 : -0.5) * layer) / 5,
-            reduced ? 100 : 1.8,
-            delta,
-          );
-      });
-    }
-  });
-  return (
-    <group position={position} scale={size} rotation={[0.55, 0.2, -0.1]}>
-      <Rod
-        a={[0, -2.3, 0]}
-        b={[0, 0, 0]}
-        color="#467264"
-        radius={0.035}
-        glow={0}
-      />
-      <group ref={ref}>
-        <mesh position={[0, 0.28, 0]} scale={[0.15, 0.3, 0.15]}>
-          <sphereGeometry args={[1, 16, 12]} />
-          <meshStandardMaterial color="#d77c96" roughness={0.55} />
-        </mesh>
-        {petals.map((geometry, layer) =>
-          Array.from({ length: 4 + layer }, (_, i) => (
-            <mesh
-              key={`${layer}-${i}`}
-              userData={{ petalLayer: layer }}
-              geometry={geometry}
-              rotation={[
-                layer * 0.025,
-                (i * Math.PI * 2) / (4 + layer) + layer * 1.3,
-                Math.cos(i * 2) * 0.07,
-              ]}
-              position={[0, -0.035 * layer, 0]}
-              scale={[1, 0.95 + Math.cos(i * 2) * 0.12, 1]}
-            >
-              <meshPhysicalMaterial
-                color={
-                  layer < 2 ? "#d77c96" : layer < 4 ? "#eaa0b3" : "#f2b8c4"
-                }
-                roughness={0.44}
-                metalness={0.02}
-                side={THREE.DoubleSide}
-                clearcoat={0.2}
-              />
-            </mesh>
-          )),
-        )}
-      </group>
-      {[-1, 1].map((s) => (
-        <mesh
-          key={s}
-          position={[s * 0.4, -1.2, 0]}
-          rotation={[0.5, 0.2, s * -0.8]}
-          scale={[0.24, 0.65, 0.05]}
-        >
-          <sphereGeometry args={[1, 12, 8]} />
-          <meshStandardMaterial
-            color="#497a62"
-            metalness={0.2}
-            roughness={0.5}
-          />
-        </mesh>
-      ))}
-      <mesh position={[0.4, 0.2, 0.48]}>
-        <sphereGeometry args={[0.035, 10, 8]} />
-        <meshPhysicalMaterial
-          color="#fff"
-          transmission={0.9}
-          roughness={0.05}
-          thickness={0.1}
-        />
-      </mesh>
-    </group>
-  );
-}
-
-function Bouquet({ bloom, reduced }: { bloom: boolean; reduced: boolean }) {
-  return (
-    <group>
-      {[
-        [-0.8, 0.4, 0.1],
-        [0.55, 0.65, -0.15],
-        [0.1, -0.3, 0.65],
-        [-1, -0.7, 0.5],
-        [1, -0.5, 0.3],
-      ].map((p, i) => (
-        <Rose
-          key={i}
-          position={p as Vec}
-          size={i === 2 ? 1.05 : 0.8}
-          reduced={reduced}
-          blooming={bloom}
-        />
-      ))}
-      <mesh position={[0, -2.1, -0.1]} rotation={[0, 0, Math.PI]}>
-        <coneGeometry args={[1.55, 2.7, 7, 1, true]} />
-        <meshPhysicalMaterial
-          color="#b9808e"
-          roughness={0.6}
-          side={THREE.DoubleSide}
-          metalness={0.15}
-        />
-      </mesh>
-      {[-1, 1].map((s) => (
-        <mesh
-          key={s}
-          position={[s * 0.4, -2.4, 0.65]}
-          rotation={[0, s * 0.4, s * 0.5]}
-          scale={[0.65, 0.3, 0.15]}
-        >
-          <torusGeometry args={[0.55, 0.14, 8, 28]} />
-          <meshPhysicalMaterial color={pink} roughness={0.25} metalness={0.6} />
-        </mesh>
-      ))}
-      <mesh position={[0, -2.4, 0.7]} scale={[0.23, 0.18, 0.18]}>
-        <sphereGeometry args={[1, 12, 8]} />
-        <meshStandardMaterial color={pink} metalness={0.6} roughness={0.2} />
-      </mesh>
-      {Array.from({ length: 9 }, (_, i) => {
-        const x = Math.sin(i * 7) * 1.6,
-          y = Math.cos(i * 3) * 0.6;
-        return (
-          <group key={i}>
-            <Rod
-              a={[0, -2, -0.3]}
-              b={[x, y + 0.7, -0.3]}
-              color="#839373"
-              radius={0.015}
-              glow={0}
-            />
-            {Array.from({ length: 3 }, (_, j) => (
-              <mesh
-                key={j}
-                position={[
-                  x + Math.sin(j * 2) * 0.11,
-                  y + 0.7 + j * 0.08,
-                  -0.3,
-                ]}
-              >
-                <sphereGeometry args={[0.055, 7, 5]} />
-                <meshStandardMaterial color="#f3e6d6" />
-              </mesh>
-            ))}
-          </group>
-        );
-      })}
-    </group>
   );
 }
 
@@ -1392,9 +985,6 @@ function World(props: SceneProps) {
                 <group position={[3.1, -0.05, -1.1]} scale={0.85}>
                   <Letter />
                 </group>
-                <group position={[3.05, -1.85, 0.3]} scale={0.79}>
-                  <Bouquet bloom reduced={reduced} />
-                </group>
               </>
             )}
             <group
@@ -1423,7 +1013,9 @@ function World(props: SceneProps) {
           </>
         )}
         {chapter === 1 && (
-          <DNA mode={dnaMode} reduced={reduced} onBase={onBase} />
+          <group scale={0.82}>
+            <DNA mode={dnaMode} reduced={reduced} onBase={onBase} />
+          </group>
         )}
         {chapter === 2 && (
           <Exhibit id={exhibit} reduced={reduced} onBase={onBase} />
@@ -1438,11 +1030,7 @@ function World(props: SceneProps) {
             />
           </group>
         )}
-        {chapter === 4 && (
-          <group position={[0, 0.2, 0]} scale={1.25}>
-            <Bouquet bloom={bloom} reduced={reduced} />
-          </group>
-        )}
+
         {chapter === 5 && (
           <group position={[0, 0, 0]} scale={1.4}>
             <Letter animate reduced={reduced} />

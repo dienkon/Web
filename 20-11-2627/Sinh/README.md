@@ -1,6 +1,6 @@
 # GEN TRI ÂN — Khi tri thức nở hoa
 
-Website tri ân thầy dạy Sinh học nhân ngày 20/11. React, TypeScript, Vite, Three.js, React Three Fiber, Drei và GSAP ScrollTrigger. Toàn bộ cảnh là hình học thật được dựng tại runtime; không dùng ảnh tham chiếu làm ảnh nền giả 3D.
+Website tri ân thầy dạy Sinh học nhân ngày 20/11. React, TypeScript, Vite, Three.js, React Three Fiber, Drei và GSAP ScrollTrigger. ADN, tế bào, mô hình sinh học, phong thư và dải phim được dựng bằng hình học 3D tại runtime. Riêng bó hoa dùng **ảnh 2D nền trong suốt do ImageGen tạo**, theo lựa chọn mỹ thuật của người dùng.
 
 ## Chạy trên máy
 
@@ -44,10 +44,13 @@ Nhạc chỉ bắt đầu khi nhấn nút âm thanh. Nếu chưa cấu hình t�
 ## Trải nghiệm và kiến trúc
 
 - `src/App.tsx`: sáu chương, điều hướng, thư, lưu bút, thêm ảnh, âm thanh, tùy chọn trợ năng.
-- `src/Scene.tsx`: ADN hai mạch với base bổ sung; các liên kết hydrogen 2/3; nucleosome, nhiễm sắc thể, mô hình phiên mã/dịch mã, phân li, Mendel, cây nhánh; hoa nhiều lớp; bì thư; dải phim dùng BufferGeometry chạy dọc Catmull–Rom, UV và texture có lỗ đục thật bằng alpha.
+- `src/Scene.tsx`: nucleosome, nhiễm sắc thể, mô hình phiên mã/dịch mã, phân li, Mendel, cây nhánh; bì thư; dải phim dùng BufferGeometry chạy dọc Catmull–Rom, UV và texture có lỗ đục thật bằng alpha.
+- `src/DNA.tsx`: B-DNA xoắn phải, 10,5 cặp base/vòng, hai mạch ngược chiều; backbone liên tục 640 đoạn và 16 mặt, base ExtrudeGeometry bo cạnh, vật liệu clearcoat/iridescence, liên kết hydrogen instanced 2/3 và lựa chọn base. Tháo xoắn tách mạch mượt; nhân đôi giữ màu mạch gốc, thêm mạch bổ sung màu hồng.
+- `src/BouquetArtwork.tsx` và `public/assets/bouquet-roses.png`: một ảnh hoa 2D có alpha, dùng chung ở trang đầu và chương tặng hoa. Không có mô hình hoa 3D. Hiệu ứng tặng hoa dùng chuyển động của ảnh, ánh sáng và cánh hoa bay.
 - `src/content.ts`: toàn bộ thông tin cá nhân, danh sách chương và nội dung khoa học.
 - `src/style.css`, `src/tokens.css`: bố cục responsive, màu, typography. Font tiếng Việt được đóng gói cục bộ, không gọi Google Fonts.
-- Các hạt sáng dùng một instanced mesh và custom vertex/fragment shader. Tế bào dùng Fresnel shader. Hoa dùng UV geometry có normal tính toán; các vật liệu còn lại dùng MeshStandardMaterial/MeshPhysicalMaterial.
+- Các hạt sáng dùng một instanced mesh và custom vertex/fragment shader. Tế bào dùng Fresnel shader; các vật liệu 3D còn lại dùng MeshStandardMaterial/MeshPhysicalMaterial. Ảnh hoa được lưu trong dự án, không phụ thuộc dịch vụ ảnh bên ngoài; prompt gốc nằm tại `public/assets/bouquet-roses.prompt.txt`.
+- Mở trang có loader ADN màu cyan/tím, nền aurora, hiệu ứng lấy nét và kéo cảnh ra chậm, rồi hiện tiêu đề và ảnh hoa lần lượt. Nội dung từng chương có hiệu ứng reveal theo cuộn. `Giảm chuyển động` bỏ các hoạt ảnh này; loader chờ cả cảnh và ảnh hoa sẵn sàng rồi mới mở trang.
 
 Cuộn trang để đổi chương; nút bên phải và thanh điều hướng nhảy đến từng chương. Chương ADN và triển lãm cho phép kéo xoay. **Giảm chuyển động** và **Chế độ nhẹ** ở nút tùy chỉnh. Thiết bị nhỏ hoặc có ít luồng CPU tự dùng chế độ nhẹ: giảm số hạt, DPR và hiệu ứng. Khi WebGL không khả dụng, nội dung, thư, ảnh và lưu bút vẫn dùng được.
 
