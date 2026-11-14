@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 import { useLabStore } from '../../store/useLabStore';
 import { X, Download, Printer, FileText, CheckCircle } from 'lucide-react';
-import {REACTION_DATABASE} from '../../chemistry/reactions/reactionDatabase';
+import { resolveReactionEquationById } from '../../chemistry/reactions/reactionDatabase';
 
 export const LabNotebookModal: React.FC = () => {
   const { isNotebookOpen, toggleNotebook, history, equipment, activeExperiment, language, studentNotes, setStudentNotes } = useLabStore(
@@ -17,7 +17,14 @@ export const LabNotebookModal: React.FC = () => {
       setStudentNotes: s.setStudentNotes,
     }))
   );
-  const equations = [...new Set(history.filter(item => item.reactionId).map(item => REACTION_DATABASE.find(reaction => reaction.id === item.reactionId)?.equation).filter(Boolean))];
+  const equations = [
+    ...new Set(
+      history
+        .filter((item) => item.reactionId)
+        .map((item) => resolveReactionEquationById(item.reactionId!))
+        .filter(Boolean)
+    ),
+  ];
   const readings = history.filter(item => Number.isFinite(item.measurements?.ph)).slice(-200);
   const graph = readings.map((item, index) => `${40 + index / Math.max(1, readings.length - 1) * 520},${150 - Math.max(0, Math.min(14, item.measurements!.ph!)) / 14 * 120}`).join(' ');
 

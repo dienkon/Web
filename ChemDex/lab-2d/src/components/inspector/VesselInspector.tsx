@@ -25,7 +25,7 @@ import {
 } from 'lucide-react';
 import { useLabStore } from '../../store/useLabStore';
 import { CHEMICAL_CATALOG } from '../../data/chemicals';
-import { REACTION_DATABASE } from '../../chemistry/reactions/reactionDatabase';
+import { findMatchingVesselReactions } from '../../chemistry/reactions/reactionDatabase';
 import { formatFormulaUnicode } from '../../chemistry/core/formula';
 import {
   calculateSolutionConductivity,
@@ -63,6 +63,7 @@ export const VesselInspector: React.FC = () => {
     toggleSeal,
     setMobilePanel,
     language,
+    catalogReady,
   } = useLabStore(
     useShallow((s) => ({
       equipment: s.equipment,
@@ -84,6 +85,7 @@ export const VesselInspector: React.FC = () => {
       toggleSeal: s.toggleSeal,
       setMobilePanel: s.setMobilePanel,
       language: s.language,
+      catalogReady: s.catalogReady,
     }))
   );
 
@@ -103,14 +105,9 @@ export const VesselInspector: React.FC = () => {
 
   const matchingReactions = useMemo(() => {
     if (!selectedItem || selectedItem.contents.length === 0) return [];
-    const present = new Set(selectedItem.contents.map((c) => c.formula));
-    return REACTION_DATABASE.filter(
-      (rx) =>
-        rx.reactants.every((r) => present.has(r.formula)) ||
-        (rx.reactants.some((r) => present.has(r.formula)) &&
-          rx.products.some((p) => present.has(p.formula)))
-    ).slice(0, 4);
-  }, [selectedItem]);
+    void catalogReady;
+    return findMatchingVesselReactions(selectedItem.contents, 6);
+  }, [selectedItem, catalogReady]);
 
   const { burette, vessel: titratedVessel } = useMemo(
     () => findTitrationPair(allEquipment, selectedItem),

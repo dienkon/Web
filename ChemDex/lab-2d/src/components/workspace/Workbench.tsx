@@ -19,6 +19,7 @@ import {
   buildLiveAnnouncementText,
   formatEquipmentAriaLabel,
   handleEquipmentKeyboardAction,
+  shouldIgnoreWorkbenchGlobalKey,
 } from './equipmentA11y';
 
 const BENCH_W = 720;
@@ -339,7 +340,7 @@ export const Workbench: React.FC = () => {
   // Keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+      if (shouldIgnoreWorkbenchGlobalKey(e)) return;
       if ((e.key === 'Delete' || e.key === 'Backspace') && selectedEquipmentId) {
         removeEquipment(selectedEquipmentId);
       } else if (e.key === 'Escape') {

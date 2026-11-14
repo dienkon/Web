@@ -10,6 +10,9 @@
 - **Pure Scientific Chemistry Engine**:
   - Strict conservation of elements ($\le 10^{-9}\text{ mol}$) and mass ($\le 10^{-6}\text{ g}$) enforced across `REACTION_DATABASE`, 131 compiled THPT curriculum reactions, and 1,300 lazy-loaded shared catalog reactions (1,431 compiled entries total).
   - Iterative charge-balance aqueous equilibrium pH solver (`src/chemistry/equilibrium/aqueous/`) with Debye-Hückel activity corrections, temperature-dependent $K_w(T)$, carbonate/phosphate speciation, and salt hydrolysis.
+  - Dynamic charge-balance & conductometric titration engine (`src/chemistry/equilibrium/titrationEngine.ts`) with 5 one-click bench presets, live burette trace recording, `dpH/dV` equivalence peak detection (including polyprotic systems), interactive scrub cursor, and CSV export.
+  - Analytical telemetry (`src/chemistry/equilibrium/analyticalTelemetry.ts`): Kohlrausch-Falkenhagen ionic conductivity ($\text{mS/cm}$, ionic strength $I$, electrolyte classification) and virtual 380–720 nm Beer-Lambert UV-Vis spectrophotometer integrated into the Vessel Inspector.
+  - Exact-rational `BigInt` Gauss-Jordan RREF chemical equation balancer & stoichiometry calculator (`src/chemistry/core/equationBalancer.ts`, `EquationBalancerTab.tsx`) supporting molecular, hydrate, bracketed complex, and ionic equations with limiting-reagent and STP/`25 °C` gas-volume output.
   - Indicator color transitions (Phenolphthalein, Methyl Orange, Bromothymol Blue, Thymolphthalein, Litmus, Universal indicator).
   - Reaction thermodynamics & calorimetry ($\Delta H^\circ$, adiabatic temperature evolution, latent-heat ice melting, boiling cap).
   - Gas evolution ($\text{CO}_2$, $\text{H}_2$, $\text{SO}_2$, $\text{H}_2\text{S}$, $\text{NH}_3$, $\text{NO}_2$) with open-vessel mass accounting.
@@ -21,11 +24,11 @@
   - Bunsen burner & hot plate with alignment snap guides.
   - Filter funnel, pipette, stirring rod, spatula, litmus strip, pH meter, thermometer, and wash bottle.
 - **Two Experiment Modes**:
-  - **Free Laboratory Mode**: Open exploration with pointer drag-and-drop, keyboard navigation (`Arrow`/`Shift+Arrow`, `Enter`/`Space`, `Delete`, `Escape`), pouring, measuring, and heating.
+  - **Free Laboratory Mode**: Open exploration with pointer drag-and-drop, modal/input-safe keyboard navigation (`Arrow`/`Shift+Arrow`, `Enter`/`Space`, `Delete`, `Escape`), pouring, measuring, and heating.
   - **Guided Experiment Mode**: 20 step-by-step experiments (14 core + 6 advanced) validated by live simulation state.
 - **Resilience & Performance**:
   - React `ErrorBoundary` wrapping workbench and modals with IndexedDB autosave recovery, workspace reset, and page reload options.
-  - Lazy-loaded 1,300-reaction shared catalog, lazy modal code-splitting, vendor bundle splitting, and Zustand slice architecture with pure `stepLabWorld`.
+  - Slim startup `curriculumCore.json` projection (131 eager curriculum reactions), lazy-loaded pedagogical reaction metadata and 1,300-reaction shared catalog, lazy modal code-splitting, vendor bundle splitting, and Zustand slice architecture with pure `stepLabWorld`.
 - **Bilingual Support**: Full Vietnamese (default) and English localization throughout all controls, chemicals, and explanations.
 - **Laboratory Notebook & Export**: Automated activity log, observations, CSV measurement export, JSON state export, and print-ready PDF reporting.
 - **Full History**: 50-snapshot Undo / Redo with exact physical state restoration.

@@ -9,6 +9,28 @@ export const KEYBOARD_BENCH_BOUNDS = {
   maxY: 400, // BENCH_H (490) - 90
 } as const;
 
+/**
+ * Guards global workbench keyboard shortcuts so typing in inputs, selects,
+ * contentEditable regions, open modals, or already-consumed events never mutates the bench.
+ */
+export function shouldIgnoreWorkbenchGlobalKey(e: {
+  target: EventTarget | null;
+  defaultPrevented?: boolean;
+}): boolean {
+  if (e.defaultPrevented) return true;
+  const target = e.target as HTMLElement | null;
+  if (!target) return false;
+  const tag = target.tagName?.toUpperCase();
+  if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return true;
+  if (target.isContentEditable) return true;
+  if (typeof target.closest === 'function') {
+    if (target.closest('[contenteditable="true"], [role="dialog"], [aria-modal="true"]')) {
+      return true;
+    }
+  }
+  return false;
+}
+
 export interface EquipmentKeyHandlers {
   selectEquipment: (id: string | null) => void;
   updatePosition: (id: string, x: number, y: number) => void;

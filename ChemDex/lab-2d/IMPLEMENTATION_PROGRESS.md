@@ -25,6 +25,8 @@
 | **Phase 11** | Gemini Flash & Procedural Audio/VFX | **COMPLETED** | AI dynamic reactions, AI tutor dialog, parabolic stream VFX, Web Audio synthesis, fluid drag-and-drop |
 | **Phase 12** | Hardening, Store Slices & Lazy Catalog | **COMPLETED** | 8 Zustand slices + pure `stepLabWorld`, vendor chunking, idle-deferred 1,300-reaction catalog |
 | **Phase 13** | Scientific Rigor, Recovery & Accessibility | **COMPLETED** | Charge-balance pH solver, Gemini balance gate, strict conservation ledger, `ErrorBoundary`, keyboard/ARIA workbench controls |
+| **Phase 14 (Upgrade 8–10)** | Slim Bundle, Dynamic Titration & Analytical Telemetry | **COMPLETED** | `curriculumCore.json` projection + `recharts` removed; equilibrium/conductometric `titrationEngine` + live burette trace; Kohlrausch conductivity & 380–720 nm UV-Vis telemetry |
+| **Phase 15 (Upgrade 11–12)** | Exact-Rational Balancer, Normalized Lookups & Key Guards | **COMPLETED** | `BigInt` Gauss-Jordan RREF balancer + stoichiometry calculator; normalized catalog/curated reaction lookup in Inspector & Notebook; form/modal keyboard isolation |
 
 ---
 
@@ -33,24 +35,28 @@
    - Split monolithic `useLabStore` into 8 focused slices under `src/store/slices/` (`aiSlice`, `equipmentSlice`, `experimentSlice`, `historySlice`, `safetySlice`, `simulationSlice`, `transferSlice`, `uiSlice`) with shared helpers in `labStoreHelpers.ts`.
    - Extracted pure simulation tick stepping into `src/engine/labWorldStep.ts` (`stepLabWorld`).
    - Eliminated 60 Hz continuous store writes via `useShallow` selectors and pointer drag externalization (`usePointerDragStore`).
-2. **Code-Splitting & Lazy Shared Catalog**:
-   - Kept 131 curriculum reactions eager while lazy-loading `@shared/reaction-catalog.generated.json` (1,300 catalog entries) asynchronously after startup via `ensureCatalogCompiled()`, surfacing a non-blocking `CatalogLoadingBadge` while loading and re-evaluating idle vessels on completion.
-   - Added `vendor` chunking in `vite.config.ts` alongside lazy-loaded modals.
-3. **Scientific Solver & AI Validation Gate**:
+2. **Slim Startup Bundle & Lazy Shared Catalog**:
+   - Projected the 131 Vietnamese curriculum entries into slim `src/data/curriculum/curriculumCore.json` via `src/chemistry/reactions/curriculumProjection.ts` while deferring full pedagogical metadata (`reactions.vi.json`) and `@shared/reaction-catalog.generated.json` (1,300 catalog entries) asynchronously via `ensureCatalogCompiled()`, surfacing a non-blocking `CatalogLoadingBadge` and re-evaluating idle vessels on completion (`catalogReady`).
+   - Removed unused `recharts` dependency and kept `vendor` chunking in `vite.config.ts` alongside lazy-loaded modals.
+3. **Scientific Solver, Analytical Telemetry & Exact Equation Balancer**:
    - Integrated iterative charge-balance aqueous equilibrium pH solver (`src/chemistry/equilibrium/aqueous/`) verified within $\pm 0.05$ pH across 9 benchmark solutions.
+   - Added `src/chemistry/equilibrium/titrationEngine.ts` (charge-balance titration curves, `dpH/dV` equivalence detection, half-equivalence buffer telemetry, conductometric profiles, 5 interactive bench presets, and live `titrationTrace` recording).
+   - Added `src/chemistry/equilibrium/analyticalTelemetry.ts` (Kohlrausch + Falkenhagen ionic conductivity $\kappa$, ionic strength $I$, electrolyte classification, and 380–720 nm Beer-Lambert UV-Vis spectra) wired into `VesselInspector.tsx`.
+   - Added `src/chemistry/core/equationBalancer.ts` (`BigInt` RREF nullspace balancer + limiting-reagent/gas-volume stoichiometry calculator) surfaced in `EquationBalancerTab.tsx` inside `ReactionLibraryModal.tsx`.
    - Added strict pre-simulation `validateGeminiReactionPayload` gate checking parsed formulas, vessel reactant presence, and elemental balance before accepting AI reactions (tagged `ai-unverified`, missing $\Delta H$ defaults to `0`).
-   - Enforced strict elemental ($\le 10^{-9}\text{ mol}$) and mass ($\le 10^{-6}\text{ g}$) conservation across all 1,431 compiled reactions and 95 curated entries in `REACTION_DATABASE`.
-4. **Crash Recovery, UX Accessibility & Cleanup**:
+   - Enforced strict elemental ($\le 10^{-9}\text{ mol}$) and mass ($\le 10^{-6}\text{ g}$) conservation across all 1,431 compiled reactions and curated entries in `REACTION_DATABASE`.
+4. **Crash Recovery, Unified Lookups, UX Accessibility & Cleanup**:
    - Added scoped `ErrorBoundary` (`src/components/layout/ErrorBoundary.tsx`) wrapping workbench and modals with IndexedDB autosave recovery, workbench reset, and page reload.
-   - Added keyboard equipment navigation (`Arrow`/`Shift+Arrow`, `Enter`/`Space`, `Delete`/`Backspace`, `Escape`), informative `aria-label` descriptions, and an `aria-live="polite"` announcement region.
+   - Unified reaction lookup and notebook ID resolution (`findMatchingVesselReactions`, `resolveReactionEquationById`) with normalized formulas/phase tags across curated, curriculum, and lazy catalog sources.
+   - Added keyboard equipment navigation (`Arrow`/`Shift+Arrow`, `Enter`/`Space`, `Delete`/`Backspace`, `Escape`), informative `aria-label` descriptions, `aria-live="polite"` announcements, and `shouldIgnoreWorkbenchGlobalKey` guards preventing shortcut interception inside inputs, selects, and open modals.
    - Removed redundant legacy HTML copies (`index.legacy.html`, `thi-nghiem.html`, `thi-nghiem.legacy.html`), added `.env.example`, and added `npm run check`.
 
 ---
 
 ## Automated Verification Suite
 Verified via `npm run check` (`tsc --noEmit && vitest run && vite build`):
-- **15 test files** covering core stoichiometry, charge-balance pH benchmarks, Gemini validation gate, strict 1,431-reaction elemental/mass conservation, pure `stepLabWorld`, store slices, lazy catalog evaluation, 20 guided experiments (14 core + 6 advanced), 115 chemicals, `ErrorBoundary` crash recovery, and workbench accessibility helpers.
-- See the phase verification summary after building for exact bundle chunk outputs.
+- **20 test files (169 tests)** covering core stoichiometry, charge-balance pH benchmarks, Kohlrausch conductivity & 380–720 nm UV-Vis spectra, equilibrium/polyprotic titration & live burette tracing, exact-rational equation balancing & stoichiometry, Gemini validation gate, strict 1,431-reaction elemental/mass conservation, slim curriculum projection, pure `stepLabWorld`, store slices, lazy catalog evaluation, 20 guided experiments (14 core + 6 advanced), 115 chemicals, `ErrorBoundary` crash recovery, unified reaction lookups, and workbench accessibility/keyboard guards.
+- Run `npm run check` to inspect live Vitest timings and Vite production chunk sizes.
 
 ---
 

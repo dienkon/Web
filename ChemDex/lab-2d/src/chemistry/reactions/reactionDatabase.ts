@@ -5,7 +5,12 @@
  */
 
 import { ReactionDefinition } from '../../types/chemistry';
-import { COMPILED_CURRICULUM_REACTIONS } from './curriculumAndCatalogCompiler';
+import { normalizeFormula } from '../core/formula';
+import {
+  COMPILED_CURRICULUM_REACTIONS,
+  getCompiledReactionById,
+  getCompiledReactionCandidates,
+} from './curriculumAndCatalogCompiler';
 
 const REACTION_ENTRIES: ReactionDefinition[] = [
   // 1. HCl + NaOH -> NaCl + H2O (Acid-Base Neutralization)
@@ -2372,4 +2377,62 @@ export function getReactionCandidates(formulas: string[]): ReactionDefinition[] 
 
 export function getReactionIndexStats() {
   return { reactions: REACTION_DATABASE.length, speciesKeys: REACTIONS_BY_SPECIES.size };
+}
+
+function reactionSignatureKey(rx: ReactionDefinition): string {
+  const lhs = rx.reactants.map((r) => normalizeFormula(r.formula)).sort().join('+');
+  const rhs = rx.products.map((p) => normalizeFormula(p.formula)).sort().join('+');
+  return `${lhs}->${rhs}`;
+}
+
+/**
+ * Matches curated, curriculum, and lazy-loaded catalog reactions relevant to the vessel's
+ * current contents (case- and phase-tag normalized, prioritizing full reactant availability).
+ */
+export function findMatchingVesselReactions(
+  contents: ReadonlyArray<{ formula: string; moles?: number }>,
+  limit = 6
+): ReactionDefinition[] {
+  const activeFormulas = contents
+    .filter((c) => (c.moles ?? 1) > 1e-8)
+    .map((c) => c.formula);
+  if (activeFormulas.length === 0) return [];
+
+  const present = new Set(activeFormulas.map(normalizeFormula));
+  const pool: ReactionDefinition[] = [];
+  const seenSig = new Set<string>();
+
+  for (const rx of [
+    ...getReactionCandidates(activeFormulas),
+    ...getCompiledReactionCandidates(activeFormulas),
+  ]) {
+    const sig = reactionSignatureKey(rx);
+    if (seenSig.has(sig)) continue;
+    const allReactantsPresent = rx.reactants.every((r) => present.has(normalizeFormula(r.formula)));
+    const partialProductMatch =
+      rx.reactants.some((r) => present.has(normalizeFormula(r.formula))) &&
+      rx.products.some((p) => present.has(normalizeFormula(p.formula)));
+    if (allReactantsPresent || partialProductMatch) {
+      seenSig.add(sig);
+      pool.push(rx);
+    }
+  }
+
+  pool.sort((a, b) => {
+    const aFull = a.reactants.every((r) => present.has(normalizeFormula(r.formula))) ? 1 : 0;
+    const bFull = b.reactants.every((r) => present.has(normalizeFormula(r.formula))) ? 1 : 0;
+    return bFull - aFull;
+  });
+
+  return pool.slice(0, limit);
+}
+
+/**
+ * Resolves any reaction equation by ID across curated, curriculum, and compiled catalog databases.
+ */
+export function resolveReactionEquationById(reactionId: string): string | undefined {
+  return (
+    REACTION_DATABASE.find((r) => r.id === reactionId)?.equation ??
+    getCompiledReactionById(reactionId)?.equation
+  );
 }
