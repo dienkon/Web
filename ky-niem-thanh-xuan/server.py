@@ -79,6 +79,20 @@ class LiveDriveHandler(http.server.SimpleHTTPRequestHandler):
 
     def do_GET(self):
         parsed = urllib.parse.urlparse(self.path)
+        if parsed.path == '/.well-known/appspecific/com.chrome.devtools.json':
+            self.send_response(204)
+            self.send_header('Cache-Control', 'no-store')
+            self.end_headers()
+            return
+        if parsed.path == '/favicon.ico':
+            raw = (BASE_DIR / 'favicon.svg').read_bytes()
+            self.send_response(200)
+            self.send_header('Content-Type', 'image/svg+xml')
+            self.send_header('Cache-Control', 'public, max-age=86400')
+            self.send_header('Content-Length', str(len(raw)))
+            self.end_headers()
+            self.wfile.write(raw)
+            return
         if parsed.path.endswith('/api/status'):
             return self.send_json({'ok': True, 'mode': 'public-live-read', 'rootId': ROOT_FOLDER_ID,
                                    'writable': False, 'time': datetime.now(timezone.utc).isoformat()})

@@ -130,7 +130,12 @@ async function initLiveDrive() {
   document.addEventListener('visibilitychange', () => { if (document.hidden) saveDriveCache(); });
 }
 
-async function connectLiveDrive() {
+let driveConnectionPromise = null;
+function connectLiveDrive() {
+  driveConnectionPromise = performLiveDriveConnection();
+  return driveConnectionPromise;
+}
+async function performLiveDriveConnection() {
   const generation = ++liveState.generation;
   clearTimeout(driveCacheTimer); driveCacheTimer = null;
   liveState.requests.clear();

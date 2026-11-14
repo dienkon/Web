@@ -3,6 +3,7 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const assert = require('node:assert/strict');
 const { mkdirSync } = require('node:fs');
 const path = require('node:path');
+const BASE = process.env.PREVIEW_URL || 'http://localhost:8080';
 const ROOT = '1MmsTXHQZ4QoSsbi5XixRHzwE8lrGBVxa';
 const URL = 'https://script.google.com/macros/s/test-live-drive/exec';
 const folders = new Map([
@@ -80,16 +81,16 @@ function finish(upload) {
   const browser = await chromium.launch({ headless: true });
   try {
     const context = await browser.newContext({ viewport: { width: 1280, height: 1000 } });
-    await context.addInitScript(url => {
-      if (location.origin === 'http://localhost:8080') localStorage.setItem('kn-drive-script-url', url);
-    }, URL);
+    await context.addInitScript(({ url, origin }) => {
+      if (location.origin === origin) localStorage.setItem('kn-drive-script-url', url);
+    }, { url: URL, origin: new global.URL(BASE).origin });
     await context.route('https://script.google.com/**', routeDrive);
     await context.route(/https:\/\/(lh3\.googleusercontent|drive\.google|ui-avatars\.com)/, route => route.abort());
     const page = await context.newPage();
     page.on('pageerror', error => errors.push(error.message));
     const dataRequests = [];
     page.on('request', request => { if (request.url().includes('drive-data.js')) dataRequests.push(request.url()); });
-    await page.goto('http://localhost:8080', { waitUntil: 'domcontentloaded' });
+    await page.goto(BASE, { waitUntil: 'domcontentloaded' });
     await page.waitForFunction(() => folderById.get('photos')?.loaded);
     assert.equal(await page.locator('#drive-upload-button').isEnabled(), true);
     assert.equal(await page.evaluate(() => driveRoot.totalImages), 1);
@@ -110,8 +111,8 @@ function finish(upload) {
     folders.get('photos').items.push(['extra', 'Ảnh thêm.jpg', 0, '2026-11-11']);
     await page.evaluate(() => refreshLiveFolder('photos'));
     assert.equal(await page.evaluate(() => window.testLoadedThumbnail === document.querySelector('#drive-files-grid img')), true, 'new Drive items do not reload existing images');
-    await page.evaluate(() => openLightboxFromExplorer(0));
-    assert.match(await page.locator('#lightbox-img').getAttribute('src'), /w600|sz=w600/, 'preview appears while original loads');
+    const firstPreview = await page.evaluate(() => { openLightboxFromExplorer(0); return document.getElementById('lightbox-img').getAttribute('src'); });
+    assert.match(firstPreview, /w600|sz=w600/, 'preview appears while original loads');
     await page.evaluate(() => closeLightbox());
     const videoPreview = await page.evaluate(() => {
       openLightboxFromExplorer(1);
@@ -142,7 +143,7 @@ function finish(upload) {
     await page.evaluate(() => saveDriveCache());
     delayPing = true;
     const other = await context.newPage();
-    await other.goto('http://localhost:8080', { waitUntil: 'domcontentloaded' });
+    await other.goto(BASE, { waitUntil: 'domcontentloaded' });
     assert.equal(await other.evaluate(() => folderById.get('photos')?.loaded), true, 'reload restores real Drive data before slow connection checks');
     await other.locator('#tab-history').click();
     await other.waitForFunction(() => document.querySelector('#drive-history-list').children.length === 3);

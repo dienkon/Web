@@ -6,6 +6,7 @@
     <title>12A1 · Nhà Có Nhau — Kho kỷ niệm của tụi mình</title>
     <meta name="description" content="Nhà Có Nhau, đại gia đình 12A1. Gặp lại từng người, giữ từng kỷ niệm và tìm lại mình trong những tấm ảnh chung." />
     <meta name="theme-color" content="#4338ca" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="stylesheet" href="memories.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://lh3.googleusercontent.com" />
@@ -1119,7 +1120,7 @@
                     coverId
                       ? `<img
                           src="${getDriveThumbUrl(coverId, 600)}"
-                          onerror="this.onerror=null;this.src='${getDriveThumbFallbackUrl(coverId, 600)}'"
+                          onerror="recoverDriveImage(this)" referrerpolicy="no-referrer"
                           alt="${escapeHtml(alb.n)}"
                           loading="lazy" decoding="async"
                           class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
@@ -1154,7 +1155,7 @@
                         <div class="relative aspect-square rounded-lg overflow-hidden bg-slate-200">
                           <img
                             src="${getDriveThumbUrl(it[0], 240)}"
-                            onerror="this.onerror=null;this.src='${getDriveThumbFallbackUrl(it[0], 240)}'"
+                            onerror="recoverDriveImage(this)" referrerpolicy="no-referrer"
                             loading="lazy" decoding="async"
                             class="w-full h-full object-cover"
                             alt=""
@@ -1413,7 +1414,7 @@
                       coverId
                         ? `<img
                             src="${getDriveThumbUrl(coverId, 240)}"
-                            onerror="this.onerror=null;this.src='${getDriveThumbFallbackUrl(coverId, 240)}'"
+                            onerror="recoverDriveImage(this)" referrerpolicy="no-referrer"
                             loading="lazy" decoding="async"
                             class="w-full h-full object-cover group-hover:scale-110 transition-transform"
                             alt=""
@@ -1511,7 +1512,7 @@
               >
                 <img
                   src="${getDriveThumbUrl(id, 600)}"
-                  onerror="this.onerror=null;this.src='${getDriveThumbFallbackUrl(id, 600)}'"
+                  onerror="recoverDriveImage(this)" referrerpolicy="no-referrer"
                   alt="${escapeHtml(name)}"
                   loading="${idx < 8 ? "eager" : "lazy"}" decoding="async"
                   fetchpriority="${idx < 4 ? "high" : "auto"}"
@@ -1645,7 +1646,7 @@
                 <div class="relative">
                   <img
                     src="${avatarUrl}"
-                    onerror="this.onerror=null;this.src='${getInitialsAvatar(item.cleanName)}'"
+                    onerror="recoverDriveImage(this)" referrerpolicy="no-referrer"
                     alt="${escapeHtml(item.cleanName)}"
                     loading="lazy" decoding="async"
                     class="w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-white shadow-md object-cover bg-slate-200"
@@ -1754,6 +1755,8 @@
           loadingText.innerText = "Đang khởi tạo trình phát Video HD chuẩn Google Drive...";
           iframeWrap.classList.remove("hidden");
           videoPoster.src = getDriveThumbUrl(id, 600);
+          videoPoster.referrerPolicy = 'no-referrer';
+          videoPoster.onerror = () => recoverDriveImage(videoPoster);
           iframeEl.src = getDrivePreviewEmbedUrl(id);
           iframeEl.onload = () => {
             if (imageRequest !== lightboxImageRequest) return;
@@ -1792,12 +1795,11 @@
           // Show the already loaded grid preview immediately; replace it after the original loads.
           imgEl.alt = name;
           imgEl.onload = () => spinner.classList.add("hidden");
-          imgEl.onerror = () => {
-            imgEl.onerror = null;
-            imgEl.src = getDriveThumbFallbackUrl(id, 600);
-          };
+          imgEl.referrerPolicy = 'no-referrer';
+          imgEl.onerror = () => recoverDriveImage(imgEl);
           imgEl.src = getDriveThumbUrl(id, 600);
           const original = new Image();
+          original.referrerPolicy = 'no-referrer';
           lightboxOriginal = original;
           let triedFallback = false;
           original.onload = () => {
@@ -1854,7 +1856,7 @@
             >
               <img
                 src="${getDriveThumbUrl(id, 200)}"
-                onerror="this.onerror=null;this.src='${getDriveThumbFallbackUrl(id, 200)}'"
+                onerror="recoverDriveImage(this)" referrerpolicy="no-referrer"
                 loading="lazy" decoding="async"
                 class="w-full h-full object-cover"
                 alt=""
@@ -2029,6 +2031,7 @@
           .replace(/'/g, "&#39;");
       }
     </script>
+    <script src="drive-images.js"></script>
     <script src="drive-live.js"></script>
     <script src="member-profiles.js"></script>
     <script src="face-search.js"></script>

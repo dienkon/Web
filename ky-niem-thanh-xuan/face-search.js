@@ -184,7 +184,7 @@
       const button = previous.get(id) || document.createElement('button'); button.className = 'memory-card'; button.type = 'button'; button.dataset.faceId = id;
       button.title = `Khoảng cách khuôn mặt: ${score.toFixed(3)} (càng thấp càng giống)`;
       if (!previous.has(id)) {
-        const image = document.createElement('img'); image.src = getDriveThumbUrl(id, 480); image.alt = name; image.loading = 'lazy'; image.decoding = 'async'; image.width = image.height = 480;
+        const image = document.createElement('img'); image.referrerPolicy = 'no-referrer'; image.onerror = () => recoverDriveImage(image); image.src = getDriveThumbUrl(id, 480); image.alt = name; image.loading = 'lazy'; image.decoding = 'async'; image.width = image.height = 480;
         const label = document.createElement('span'); label.textContent = `${kind === 1 ? '▶ Bìa video · ' : ''}${folder || name}`;
         button.append(image, label);
       }

@@ -3,6 +3,7 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
+const BASE = process.env.PREVIEW_URL || 'http://localhost:8080';
 const ROOT = '1MmsTXHQZ4QoSsbi5XixRHzwE8lrGBVxa';
 const URL = 'https://script.google.com/macros/s/memories-ui/exec';
 const folders = new Map([
@@ -17,7 +18,7 @@ const errors = [];
   const browser = await chromium.launch({ headless: true });
   try {
     const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
-    await context.addInitScript(url => localStorage.setItem('kn-drive-script-url', url), URL);
+    await context.addInitScript(({ url, origin }) => { if (location.origin === origin) localStorage.setItem('kn-drive-script-url', url); }, { url: URL, origin: new global.URL(BASE).origin });
     const fixture = process.env.FACE_FIXTURE ? fs.readFileSync(process.env.FACE_FIXTURE) : null;
     await context.route('https://script.google.com/**', async route => {
       const req = route.request(), p = req.method() === 'POST' ? req.postDataJSON() : Object.fromEntries(new global.URL(req.url()).searchParams);
@@ -35,11 +36,14 @@ const errors = [];
       else throw new Error('Unexpected request: ' + p.action);
       await route.fulfill({ json: response, headers: { 'Access-Control-Allow-Origin': '*' } }).catch(error => { if (browser.isConnected() && !req.failure()) throw error; });
     });
-    // Force the CORS-safe thumbnail path for analysis, while display images use a tiny placeholder.
-    await context.route(/https:\/\/(lh3\.googleusercontent|drive\.google|ui-avatars\.com)/, route => route.abort());
+    // Block CORS analysis requests, but let display thumbnails load independently of indexing.
+    await context.route(/https:\/\/(lh3\.googleusercontent|drive\.google|ui-avatars\.com)/, route => {
+      if (route.request().resourceType() === 'image' && !route.request().headers().origin) return route.fulfill({ contentType: 'image/svg+xml', body: '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><rect width="32" height="32" fill="#e0e7ff"/></svg>' });
+      return route.abort();
+    });
     const page = await context.newPage(); page.on('pageerror', error => errors.push(error.message));
     const network = []; page.on('request', request => network.push(request.url()));
-    await page.goto('http://localhost:8080', { waitUntil: 'domcontentloaded' });
+    await page.goto(BASE, { waitUntil: 'domcontentloaded' });
     await page.waitForFunction(() => !liveState.scanning && folderById.get('nested')?.loaded);
     assert.equal(network.some(url => url.includes('face-api.min.js')), false, 'face models must not affect initial load');
     await page.locator('[onclick="openStudentModal(\'person\')"]').click();

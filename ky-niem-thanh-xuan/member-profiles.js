@@ -42,7 +42,7 @@ function renderMemberGallery() {
   document.getElementById('modal-stats').textContent = `${sf.ti} ảnh · ${sf.tv} video · Kỷ niệm của một người nhà`;
   const gallery = document.getElementById('modal-gallery');
   const slice = modalMediaList.slice(0, memberState.limit);
-  setDriveMarkup(gallery, slice.length ? slice.map(([id, name, kind], i) => `<button type="button" class="memory-card" data-drive-file-id="${id}" data-drive-file-key="${escapeHtml(JSON.stringify([name, kind]))}" onclick="openLightboxFromModal(${i})" aria-label="${escapeHtml(name)}"><img src="${getDriveThumbUrl(id, 480)}" onerror="this.onerror=null;this.src='${getDriveThumbFallbackUrl(id, 480)}'" alt="${escapeHtml(name)}" loading="lazy" decoding="async" width="480" height="480" />${kind === 1 ? '<b class="video-badge">▶ Video</b>' : ''}</button>`).join('') : '<p class="col-span-full profile-note">Góc nhỏ này đang chờ những kỷ niệm đầu tiên. Góp một tấm ảnh cho người nhà nhé!</p>');
+  setDriveMarkup(gallery, slice.length ? slice.map(([id, name, kind], i) => `<button type="button" class="memory-card" data-drive-file-id="${id}" data-drive-file-key="${escapeHtml(JSON.stringify([name, kind]))}" onclick="openLightboxFromModal(${i})" aria-label="${escapeHtml(name)}"><img src="${getDriveThumbUrl(id, 480)}" onerror="recoverDriveImage(this)" referrerpolicy="no-referrer" alt="${escapeHtml(name)}" loading="lazy" decoding="async" width="480" height="480" />${kind === 1 ? '<b class="video-badge">▶ Video</b>' : ''}</button>`).join('') : '<p class="col-span-full profile-note">Góc nhỏ này đang chờ những kỷ niệm đầu tiên. Góp một tấm ảnh cho người nhà nhé!</p>');
   const more = document.getElementById('profile-more');
   more.hidden = modalMediaList.length <= memberState.limit;
   more.onclick = () => { memberState.limit += 24; renderMemberGallery(); };
@@ -66,9 +66,10 @@ function openMemberProfile(id) {
   try { memberState.profile = JSON.parse(storageGet(profileCacheKey(id))) || {}; } catch (_) { memberState.profile = {}; }
   const numbered = /^\d+\./.test(sf.n), name = numbered ? sf.n.replace(/^\d+\.\s*/, '') : sf.n;
   const avatar = document.getElementById('modal-avatar');
+  avatar.referrerPolicy = 'no-referrer';
   avatar.src = sf.c ? getDriveThumbUrl(sf.c, 320) : getInitialsAvatar(name);
   avatar.alt = name;
-  avatar.onerror = () => { avatar.onerror = null; avatar.src = getInitialsAvatar(name); };
+  avatar.onerror = () => recoverDriveImage(avatar);
   document.getElementById('modal-number').textContent = numbered ? `Người nhà #${parseInt(sf.n, 10)}` : 'Người dẫn đường';
   document.getElementById('modal-role').textContent = numbered ? 'ĐẠI GIA ĐÌNH 12A1' : 'GIÁO VIÊN CHỦ NHIỆM';
   document.getElementById('modal-name').textContent = name;

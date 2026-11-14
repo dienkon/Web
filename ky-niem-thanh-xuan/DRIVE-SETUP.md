@@ -57,6 +57,14 @@ Máy chủ này đọc trực tiếp danh sách công khai từ Drive ngay cả 
 
 Tài liệu: [Drive resumable uploads](https://developers.google.com/workspace/drive/api/guides/manage-uploads), [Apps Script quotas](https://developers.google.com/apps-script/guides/services/quotas).
 
+## Tải ảnh khi trình duyệt chặn link Google
+
+Ảnh ở kho, album, hồ sơ và dải xem nhanh dùng `referrerpolicy="no-referrer"`. Nếu cả hai đường ảnh trực tiếp đều thất bại, `drive-images.js` gọi cầu nối `faceThumbnail` đã được triển khai để nhận ảnh dạng data URL. Cầu nối vẫn kiểm tra tệp thuộc kho lớp trước khi đọc; không chuyển OAuth token sang trình duyệt. Lưới được khôi phục từ cache sẽ chờ kiểm tra kết nối xong rồi mới dùng cầu nối ảnh.
+
+Đường dự phòng chạy tối đa ba ảnh cùng lúc, gộp yêu cầu trùng tệp và lưu trong RAM tối đa 48 ảnh / 16 MiB / 5 phút. Không ghi ảnh vào localStorage. Request thất bại hoặc ảnh hỏng không được cache thành công. Kết quả đến muộn không ghi đè ảnh mới; khi cả cầu nối cũng không đọc được, ô ảnh hiện thông báo rõ và khung xem có thể chuyển sang Drive Preview. Các ô đã tải xong dừng hiệu ứng skeleton.
+
+Nếu đã triển khai phiên bản có `faceThumbnails: true`, sửa này chỉ cần tải lại web. Nếu còn dùng cầu nối cũ, cập nhật Apps Script theo hướng dẫn phía trên. Máy chủ local phục vụ favicon của lớp và trả 204 cho truy vấn DevTools tùy chọn, thay vì 404.
+
 ## Hồ sơ người nhà
 
 Bấm thành viên để hiện giới thiệu trước, kho kỷ niệm ở dưới. Tên lấy từ thư mục Drive, lớp là **12A1**; các mục chưa biết hiển thị “Chưa chia sẻ”. Có thể bổ sung tên thân thương, sinh nhật, vai trò, sở thích và lời nhắn. Kho cá nhân đọc cả album con, ban đầu dựng 24 ảnh/video, bấm xem thêm theo từng 24 mục. Ảnh đã giải mã được giữ lại khi thêm mục hoặc cập nhật nền.
@@ -88,6 +96,8 @@ python -m unittest discover -s tests -p "test_*.py"
 Sau khi triển khai cầu nối thật, thử tải một ảnh, một video, một tệp bất kỳ và tạo thư mục; mở trình duyệt khác để kiểm tra kho và lịch sử. Các bài kiểm tra tự động dùng Drive mô phỏng, không tạo tệp vào kho thật.
 
 `node tests/file-mode-ui.cjs` kiểm tra mở trực tiếp bằng `file://`: hiện hướng dẫn chạy localhost, khóa chọn ảnh và chặn cả kéo thả trước khi có request tải mô hình.
+
+`node tests/images-ui.cjs` kiểm tra đường dự phòng khi chặn hai host ảnh Google: chờ handshake, tải ảnh thật vào DOM, giới hạn ba luồng, dùng cache/gộp request, thử lại khi lỗi, không lặp vô hạn với ảnh hỏng và không ghi đè ảnh mới bằng phản hồi cũ. Mặc định dùng server tại `http://localhost:8091`; có thể đặt `PREVIEW_URL`. Đặt `LIVE_DRIVE_THUMBNAIL_ID` là ID một ảnh trong kho lớp để thử cầu nối thật (chỉ đọc, không sửa tệp).
 
 Kiểm thử giao diện tùy chọn: cài `playwright`, chạy `python server.py` rồi `node tests/drive-ui.cjs`. Có thể đặt biến môi trường `PLAYWRIGHT_MODULE` trỏ tới package Playwright đã cài ở máy. Bài kiểm tra mô phỏng phân trang, mất phản hồi khi tải, tệp rỗng, chuyển thư mục giữa lúc tải, lịch sử dùng chung, xóa/đổi tên trên Drive và bố cục điện thoại.
 
