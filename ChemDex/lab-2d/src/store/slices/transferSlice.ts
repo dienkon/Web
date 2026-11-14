@@ -3,6 +3,7 @@ import { SubstanceQuantity } from '../../types/chemistry';
 import { LabLogEntry } from '../../types/experiment';
 import { findChemicalByFormula, findChemicalById } from '../../data/chemicals';
 import { computeMolarMass } from '../../chemistry/core/formula';
+import { appendBuretteTrace } from '../../chemistry/equilibrium/titrationEngine';
 import { prepareVesselSimulation } from '../../chemistry/reactions/kineticsSolver';
 import { checkAcidDilutionHazard } from '../../engine/safetyEngine2D';
 import { soundEngine } from '../../services/soundEngine';
@@ -633,38 +634,47 @@ export const createTransferSlice: LabSliceCreator<TransferSlice> = (set, get) =>
       },
     }));
 
-    set(state => ({
-      ...pushSnapshot(state),
-      equipment: {
-        ...state.equipment,
-        [sourceId]: {
-          ...src,
-          volume_ml: Math.round(newSrcVol * 10) / 10,
-          mass_g: Math.round(srcMass * 100) / 100,
-          contents: remainingSrcItems,
-          hasPrecipitate: remainingSrcItems.some(c => c.state === 's'),
-        },
-        [targetId]: updatedTargetEq,
-      },
-      isTransferModalOpen: false,
-      history: [
-        ...state.history,
-        ...rxLogs,
-        {
-          id: `log_${Date.now()}`,
-          timestamp: Date.now(),
-          actionType: 'TRANSFER',
-          details_en: `Poured ${transferVol.toFixed(1)} mL from ${src.name} to ${tgt.name}`,
-          details_vi: `Đã rót ${transferVol.toFixed(1)} mL từ ${src.name_vi} sang ${tgt.name_vi}`,
-          vesselId: targetId,
-          measurements: {
-            volume_ml: newTgtVol,
-            temperature_c: tgtSim.finalTemperature_c,
-            ph: tgtSim.finalPh,
+    set(state => {
+      const buretteTraceUpdate =
+        src.type === 'burette' && transferVol > 0
+          ? appendBuretteTrace(state.titrationTrace, src, tgt, updatedTargetEq, transferVol)
+          : null;
+
+      return {
+        ...pushSnapshot(state),
+        equipment: {
+          ...state.equipment,
+          [sourceId]: {
+            ...src,
+            volume_ml: Math.round(newSrcVol * 1000) / 1000,
+            mass_g: Math.round(srcMass * 100) / 100,
+            contents: remainingSrcItems,
+            hasPrecipitate: remainingSrcItems.some(c => c.state === 's'),
+            ...(buretteTraceUpdate ? { cumulativeTitrated_ml: buretteTraceUpdate.nextCumulative_ml } : {}),
           },
+          [targetId]: updatedTargetEq,
         },
-      ],
-    }));
+        ...(buretteTraceUpdate ? { titrationTrace: buretteTraceUpdate.nextTrace } : {}),
+        isTransferModalOpen: false,
+        history: [
+          ...state.history,
+          ...rxLogs,
+          {
+            id: `log_${Date.now()}`,
+            timestamp: Date.now(),
+            actionType: 'TRANSFER',
+            details_en: `Poured ${transferVol.toFixed(1)} mL from ${src.name} to ${tgt.name}`,
+            details_vi: `Đã rót ${transferVol.toFixed(1)} mL từ ${src.name_vi} sang ${tgt.name_vi}`,
+            vesselId: targetId,
+            measurements: {
+              volume_ml: newTgtVol,
+              temperature_c: tgtSim.finalTemperature_c,
+              ph: tgtSim.finalPh,
+            },
+          },
+        ],
+      };
+    });
 
     get().checkStepProgress();
 

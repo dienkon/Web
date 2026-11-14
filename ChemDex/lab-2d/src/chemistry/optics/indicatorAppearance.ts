@@ -171,6 +171,24 @@ export function computeContinuousIndicatorColor(indicator: IndicatorType, ph: nu
   return blendHexLinear(spec.acidHex, spec.baseHex, alpha);
 }
 
+const INDICATOR_FORMULA_RULES: ReadonlyArray<readonly [IndicatorType, (f: string) => boolean]> = [
+  ['phenolphthalein', (f) => f.includes('phenolphthalein')],
+  ['litmus', (f) => f.includes('litmus')],
+  ['methyl_orange', (f) => f.includes('methyl_orange') || f.includes('methyl')],
+  ['thymolphthalein', (f) => f.includes('thymolphthalein')],
+  ['bromothymol_blue', (f) => f.includes('bromothymol')],
+  ['universal', (f) => f.includes('universal')],
+];
+
+/** Identifies an acid-base indicator family from a chemical formula/name token. */
+export function detectIndicatorType(formula: string): IndicatorType | null {
+  const f = (formula || '').toLowerCase();
+  for (const [ind, matcher] of INDICATOR_FORMULA_RULES) {
+    if (matcher(f)) return ind;
+  }
+  return null;
+}
+
 /**
  * Computes additive spectral absorbance [R, G, B] contributed by indicators in solution
  * so indicators naturally blend optically with colored salts (e.g. Cu2+, Fe3+)!
@@ -207,12 +225,9 @@ export function computeIndicatorAbsorbanceRGB(
     }
   };
 
-  detect(f => f.includes('phenolphthalein'), 'phenolphthalein');
-  detect(f => f.includes('litmus'), 'litmus');
-  detect(f => f.includes('methyl_orange') || f.includes('methyl'), 'methyl_orange');
-  detect(f => f.includes('thymolphthalein'), 'thymolphthalein');
-  detect(f => f.includes('bromothymol'), 'bromothymol_blue');
-  detect(f => f.includes('universal'), 'universal');
+  for (const [ind, matcher] of INDICATOR_FORMULA_RULES) {
+    detect(matcher, ind);
+  }
 
   return { indicator: activeIndicator, absorbance_RGB: abs };
 }

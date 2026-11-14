@@ -19,11 +19,24 @@ import {
   Activity,
   FlaskConical,
   X,
+  Zap,
+  ChevronDown,
+  ChevronUp,
 } from 'lucide-react';
 import { useLabStore } from '../../store/useLabStore';
 import { CHEMICAL_CATALOG } from '../../data/chemicals';
 import { REACTION_DATABASE } from '../../chemistry/reactions/reactionDatabase';
 import { formatFormulaUnicode } from '../../chemistry/core/formula';
+import {
+  calculateSolutionConductivity,
+  calculateUvVisSpectrum,
+} from '../../chemistry/equilibrium/analyticalTelemetry';
+import {
+  buildPresetSimulationInput,
+  findTitrationPair,
+  simulateEquilibriumTitration,
+  TITRATION_PRESETS,
+} from '../../chemistry/equilibrium/titrationEngine';
 import { CondenserCoolingControls } from './CondenserCoolingControls';
 import { WashBottleControls } from './WashBottleControls';
 
@@ -39,6 +52,7 @@ export const VesselInspector: React.FC = () => {
     triggerExternalChemicalPour,
     setActiveLitmusVesselId,
     wasteMass_g,
+    titrationTrace,
     openTransferModal,
     triggerGeminiReactionCheck,
     toggleAIAssistant,
@@ -59,6 +73,7 @@ export const VesselInspector: React.FC = () => {
       triggerExternalChemicalPour: s.triggerExternalChemicalPour,
       setActiveLitmusVesselId: s.setActiveLitmusVesselId,
       wasteMass_g: s.wasteMass_g,
+      titrationTrace: s.titrationTrace,
       openTransferModal: s.openTransferModal,
       triggerGeminiReactionCheck: s.triggerGeminiReactionCheck,
       toggleAIAssistant: s.toggleAIAssistant,
@@ -77,6 +92,7 @@ export const VesselInspector: React.FC = () => {
   const [selectedChemicalId, setSelectedChemicalId] = useState<string>('chem-hcl');
   const [addAmount, setAddAmount] = useState<number>(25);
   const [isAiAnalyzing, setIsAiAnalyzing] = useState<boolean>(false);
+  const [showUvVis, setShowUvVis] = useState<boolean>(false);
 
   const allEquipment = Object.values(equipment);
   const selectedItem = selectedEquipmentId ? equipment[selectedEquipmentId] : null;
@@ -96,10 +112,54 @@ export const VesselInspector: React.FC = () => {
     ).slice(0, 4);
   }, [selectedItem]);
 
-  const burette = allEquipment.find((e) => e.type === 'burette');
-  const titratedVessel =
-    (selectedItem?.isContainer ? selectedItem : null) ??
-    allEquipment.find((e) => e.type === 'erlenmeyer_flask' || e.type === 'beaker');
+  const { burette, vessel: titratedVessel } = useMemo(
+    () => findTitrationPair(allEquipment, selectedItem),
+    [allEquipment, selectedItem]
+  );
+
+  const conductivityTelemetry = useMemo(() => {
+    if (!selectedItem || !selectedItem.isContainer || selectedItem.volume_ml <= 0.05) return null;
+    return calculateSolutionConductivity(
+      selectedItem.contents,
+      selectedItem.volume_ml,
+      selectedItem.temperature_c
+    );
+  }, [selectedItem]);
+
+  const uvVisSpectrum = useMemo(() => {
+    if (!showUvVis || !selectedItem || !selectedItem.isContainer || selectedItem.volume_ml <= 0.05) {
+      return null;
+    }
+    return calculateUvVisSpectrum(
+      selectedItem.contents,
+      selectedItem.volume_ml,
+      selectedItem.ph,
+      selectedItem.turbidity ?? 0
+    );
+  }, [showUvVis, selectedItem]);
+
+  const titrationPreview = useMemo(() => {
+    if (activeTab !== 'titration') return null;
+    if (burette && titratedVessel && burette.contents.length > 0 && titratedVessel.volume_ml > 0.1) {
+      return simulateEquilibriumTitration({
+        analyteContents: titratedVessel.contents,
+        analyteVolume_ml: titratedVessel.volume_ml,
+        titrantContents: burette.contents,
+        titrantBatchVolume_ml: Math.max(0.1, burette.volume_ml),
+        temperature_c: titratedVessel.temperature_c,
+      });
+    }
+    return simulateEquilibriumTitration(buildPresetSimulationInput(TITRATION_PRESETS[0]));
+  }, [activeTab, burette, titratedVessel]);
+
+  const vesselConductivity = useMemo(() => {
+    if (activeTab !== 'titration' || !titratedVessel || titratedVessel.volume_ml <= 0.05) return null;
+    return calculateSolutionConductivity(
+      titratedVessel.contents,
+      titratedVessel.volume_ml,
+      titratedVessel.temperature_c
+    );
+  }, [activeTab, titratedVessel]);
 
   if (!selectedItem) {
     return (
@@ -479,6 +539,109 @@ export const VesselInspector: React.FC = () => {
               </div>
             )}
 
+            {/* Analytical Telemetry: Electrical Conductivity & Virtual UV-Vis Spectrum */}
+            {selectedItem.isContainer && conductivityTelemetry && (
+              <div className="pt-2 border-t border-slate-200 space-y-2">
+                <div className="p-2.5 rounded-xl bg-teal-50/60 border border-teal-200/80 space-y-1.5 text-xs">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="inline-flex items-center gap-1 font-bold text-teal-800 text-[11px]">
+                      <Zap className="w-3.5 h-3.5 text-teal-600" />
+                      {vi ? 'Độ dẫn điện & Lực ion' : 'Conductivity & Ionic Strength'}
+                    </span>
+                    <span className="font-mono font-bold text-teal-900">
+                      {conductivityTelemetry.conductivity_mS_cm >= 1
+                        ? `${conductivityTelemetry.conductivity_mS_cm.toFixed(2)} mS/cm`
+                        : `${conductivityTelemetry.conductivity_uS_cm.toFixed(1)} µS/cm`}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between gap-2 text-[10.5px] text-slate-600">
+                    <span className="truncate font-medium">
+                      {vi ? conductivityTelemetry.label_vi : conductivityTelemetry.label_en}
+                    </span>
+                    <span className="font-mono shrink-0">
+                      I = {conductivityTelemetry.ionicStrength_M.toFixed(3)} M
+                    </span>
+                  </div>
+                  {conductivityTelemetry.topIons.length > 0 && (
+                    <div className="flex flex-wrap gap-1 pt-0.5">
+                      {conductivityTelemetry.topIons.map((ion) => (
+                        <span
+                          key={ion.id}
+                          className="px-1.5 py-0.5 rounded bg-white/90 border border-teal-200 text-[10px] font-mono text-teal-900"
+                        >
+                          {ion.symbol}: {ion.concentration_M >= 0.01 ? ion.concentration_M.toFixed(2) : ion.concentration_M.toExponential(1)}M
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Collapsible Virtual UV-Vis Absorption Spectrum (380-720 nm) */}
+                <button
+                  type="button"
+                  onClick={() => setShowUvVis((v) => !v)}
+                  className="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-slate-50 hover:bg-slate-100 border border-slate-200 text-[11px] font-semibold text-slate-700 transition-colors"
+                >
+                  <span>{vi ? 'Phổ hấp thụ UV-Vis (380–720 nm)' : 'Virtual UV-Vis Spectrum (380–720 nm)'}</span>
+                  {showUvVis ? <ChevronUp className="w-3.5 h-3.5 text-slate-400" /> : <ChevronDown className="w-3.5 h-3.5 text-slate-400" />}
+                </button>
+
+                {showUvVis && uvVisSpectrum && (
+                  <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
+                    <div className="flex items-center justify-between text-[10.5px]">
+                      <span className="font-semibold text-slate-600">
+                        {uvVisSpectrum.lambdaMax_nm
+                          ? `λmax = ${uvVisSpectrum.lambdaMax_nm} nm · Amax = ${uvVisSpectrum.peakAbsorbance.toFixed(2)}`
+                          : vi ? 'Dung dịch trong suốt (không hấp thụ khả kiến)' : 'Optically clear in 380–720 nm'}
+                      </span>
+                      <span className="font-mono text-slate-400">l = 1.0 cm</span>
+                    </div>
+                    <svg viewBox="0 0 220 74" className="w-full h-20 bg-white rounded-lg border border-slate-200">
+                      <defs>
+                        <linearGradient id="uvVisRainbow" x1="0%" y1="0%" x2="100%" y2="0%">
+                          <stop offset="0%" stopColor="#7c3aed" />
+                          <stop offset="22%" stopColor="#2563eb" />
+                          <stop offset="44%" stopColor="#10b981" />
+                          <stop offset="65%" stopColor="#eab308" />
+                          <stop offset="82%" stopColor="#f97316" />
+                          <stop offset="100%" stopColor="#dc2626" />
+                        </linearGradient>
+                      </defs>
+                      {(() => {
+                        const maxA = Math.max(0.5, uvVisSpectrum.peakAbsorbance * 1.15);
+                        const d = uvVisSpectrum.points
+                          .map((pt, idx) => {
+                            const x = 14 + ((pt.wavelength_nm - 380) / 340) * 196;
+                            const y = 56 - (Math.min(maxA, pt.absorbance) / maxA) * 46;
+                            return `${idx === 0 ? 'M' : 'L'}${x.toFixed(1)},${y.toFixed(1)}`;
+                          })
+                          .join(' ');
+                        const fillD = `${d} L210,56 L14,56 Z`;
+                        return (
+                          <>
+                            <path d={fillD} fill="url(#uvVisRainbow)" fillOpacity="0.18" />
+                            <path d={d} fill="none" stroke="#0f172a" strokeWidth="1.5" strokeLinejoin="round" />
+                            {uvVisSpectrum.lambdaMax_nm && (
+                              <circle
+                                cx={14 + ((uvVisSpectrum.lambdaMax_nm - 380) / 340) * 196}
+                                cy={56 - (uvVisSpectrum.peakAbsorbance / maxA) * 46}
+                                r="2.8"
+                                fill="#e11d48"
+                              />
+                            )}
+                          </>
+                        );
+                      })()}
+                      <rect x="14" y="58" width="196" height="3" rx="1.5" fill="url(#uvVisRainbow)" />
+                      <text x="14" y="70" fontSize="7" fill="#64748b" fontFamily="monospace">380</text>
+                      <text x="104" y="70" fontSize="7" fill="#64748b" fontFamily="monospace">550</text>
+                      <text x="194" y="70" fontSize="7" fill="#64748b" fontFamily="monospace">720nm</text>
+                    </svg>
+                  </div>
+                )}
+              </div>
+            )}
+
             {/* Quick Add Chemical */}
             {selectedItem.isContainer && (
               <div className="pt-2.5 border-t border-slate-200 space-y-2">
@@ -690,6 +853,12 @@ export const VesselInspector: React.FC = () => {
                 </span>
               </div>
               <div className="flex justify-between">
+                <span className="text-slate-600 font-medium">{vi ? 'Độ dẫn dung dịch κ:' : 'Conductivity κ:'}</span>
+                <span className="font-mono font-bold text-teal-800">
+                  {vesselConductivity ? `${vesselConductivity.conductivity_mS_cm.toFixed(2)} mS/cm` : '—'}
+                </span>
+              </div>
+              <div className="flex justify-between">
                 <span className="text-slate-600 font-medium">{vi ? 'Màu dung dịch:' : 'Solution color:'}</span>
                 <span className="flex items-center gap-1.5 font-mono text-[11px]">
                   <span
@@ -701,25 +870,44 @@ export const VesselInspector: React.FC = () => {
               </div>
             </div>
 
-            {/* Compact S-curve Preview SVG */}
+            {/* Dynamic Equilibrium S-curve Preview SVG */}
             <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
-              <div className="text-[10.5px] font-bold text-slate-500 mb-1.5">
-                {vi ? 'Đường cong chuẩn độ Axit–Bazơ (pH vs V)' : 'Acid–Base Titration Curve (pH vs V)'}
+              <div className="text-[10.5px] font-bold text-slate-500 mb-1.5 truncate">
+                {titrationPreview
+                  ? `${titrationPreview.analyteLabel} + ${titrationPreview.titrantLabel}`
+                  : vi ? 'Đường cong chuẩn độ Axit–Bazơ (pH vs V)' : 'Acid–Base Titration Curve (pH vs V)'}
               </div>
               <svg viewBox="0 0 220 110" className="w-full h-24 bg-white rounded-lg border border-slate-200/70">
-                <line x1="22" y1="55" x2="210" y2="55" stroke="#cbd5e1" strokeDasharray="3 3" strokeWidth="1" />
-                <line x1="115" y1="10" x2="115" y2="95" stroke="#10b981" strokeDasharray="3 2" strokeWidth="1" />
-                <path
-                  d="M 22 92 Q 95 88 112 72 T 118 32 Q 130 16 210 14"
-                  fill="none"
-                  stroke="#2563eb"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
-                />
-                <circle cx="115" cy="55" r="4" fill="#10b981" />
+                <line x1="22" y1="53" x2="210" y2="53" stroke="#cbd5e1" strokeDasharray="3 3" strokeWidth="1" />
+                {titrationPreview && (() => {
+                  const maxV = Math.max(10, titrationPreview.maxVolume_ml);
+                  const px = (v: number) => 22 + (Math.min(maxV, Math.max(0, v)) / maxV) * 188;
+                  const py = (p: number) => 96 - (Math.min(14, Math.max(0, p)) / 14) * 82;
+                  const d = titrationPreview.points
+                    .map((pt, idx) => `${idx === 0 ? 'M' : 'L'}${px(pt.volumeAdded_ml).toFixed(1)},${py(pt.ph).toFixed(1)}`)
+                    .join(' ');
+                  const vesselTrace = titratedVessel
+                    ? titrationTrace.filter((t) => t.vesselId === titratedVessel.id)
+                    : titrationTrace;
+                  const traceD = vesselTrace
+                    .map((t, idx) => `${idx === 0 ? 'M' : 'L'}${px(t.volumeAdded_ml).toFixed(1)},${py(t.ph).toFixed(1)}`)
+                    .join(' ');
+                  return (
+                    <>
+                      {titrationPreview.equivalencePoints.map((eq, i) => (
+                        <g key={i}>
+                          <line x1={px(eq.volume_ml)} y1="12" x2={px(eq.volume_ml)} y2="96" stroke="#10b981" strokeDasharray="3 2" strokeWidth="1" />
+                          <circle cx={px(eq.volume_ml)} cy={py(eq.ph)} r="3.2" fill="#10b981" />
+                        </g>
+                      ))}
+                      <path d={d} fill="none" stroke="#2563eb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      {traceD && <path d={traceD} fill="none" stroke="#f97316" strokeWidth="2" />}
+                    </>
+                  );
+                })()}
                 <text x="6" y="18" fontSize="8" fill="#64748b" fontFamily="monospace">14</text>
-                <text x="8" y="57" fontSize="8" fill="#64748b" fontFamily="monospace">7</text>
-                <text x="10" y="96" fontSize="8" fill="#64748b" fontFamily="monospace">1</text>
+                <text x="8" y="56" fontSize="8" fill="#64748b" fontFamily="monospace">7</text>
+                <text x="10" y="96" fontSize="8" fill="#64748b" fontFamily="monospace">0</text>
               </svg>
             </div>
 

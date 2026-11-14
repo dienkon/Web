@@ -120,6 +120,7 @@ export interface EquipmentState {
   setPoint_c?: number; // For hot plate temperature setpoint
   stopcockOpen?: boolean; // For burette
   dispenseRate_ml_s?: number; // For burette/dropper
+  cumulativeTitrated_ml?: number; // Cumulative volume dispensed for titration curve trace
   hasFilterPaper?: boolean; // For funnel
   filtrate_ml?: number;
   filterResidue_g?: number;

@@ -12,6 +12,10 @@ import { runSimulationCycle } from '../chemistry/reactions/engine';
 import { prepareVesselSimulation, stepVesselKineticTick } from '../chemistry/reactions/kineticsSolver';
 import { getIndicatorColor } from '../chemistry/equilibrium/acidBase';
 import {
+  appendBuretteTrace,
+  type TitrationTraceSample,
+} from '../chemistry/equilibrium/titrationEngine';
+import {
   DEFAULT_LAB_ENVIRONMENT,
   isOxygenSupportingAtmosphere,
   LabEnvironment,
@@ -84,6 +88,7 @@ export interface LabWorldStepInput {
   spillPuddles: SpillPuddle[];
   safetyAlerts: SafetyViolationAlert[];
   ppe: PPEState2D;
+  titrationTrace?: TitrationTraceSample[];
 }
 
 export interface LabWorldStepResult {
@@ -97,6 +102,7 @@ export interface LabWorldStepResult {
     workbenchEscapedGas_g: Record<string, number>;
     spillPuddles: SpillPuddle[];
     safetyAlerts: SafetyViolationAlert[];
+    titrationTrace?: TitrationTraceSample[];
   };
   newLogs: LabLogEntry[];
   geminiCheckVesselIds: string[];
@@ -124,6 +130,8 @@ export function stepLabWorld(
   const remainingExternalDoses: ActiveExternalPour2D[] = [];
   let externalDoseChanged = false;
   let nextWorkbenchEscapedGas = state.workbenchEscapedGas_g;
+  let nextTitrationTrace = state.titrationTrace ?? [];
+  let titrationTraceChanged = false;
   const newLogs: LabLogEntry[] = [];
   const newlyTriggeredAlerts: SafetyViolationAlert[] = [];
   const geminiCheckVesselIds = new Set<string>();
@@ -450,7 +458,7 @@ export function stepLabWorld(
       const burMass = (burette.tare_g || 0) + remBurContents.reduce((s, c) => s + c.mass_g, 0);
       nextEquipment[burette.id] = {
         ...burette,
-        volume_ml: Math.round(newBurVol * 10) / 10,
+        volume_ml: Math.round(newBurVol * 1000) / 1000,
         mass_g: Math.round(burMass * 100) / 100,
         contents: remBurContents,
       };
@@ -496,6 +504,23 @@ export function stepLabWorld(
           silverMirrorProgress: tgtPrep.silverMirrorProgress,
         });
         nextEquipment[target.id] = updatedTgt;
+
+        const traceUpdate = appendBuretteTrace(
+          nextTitrationTrace,
+          burette,
+          tgtEq,
+          updatedTgt,
+          dropAmount
+        );
+        if (traceUpdate.nextTrace.length !== nextTitrationTrace.length ||
+            traceUpdate.nextTrace[traceUpdate.nextTrace.length - 1] !== nextTitrationTrace[nextTitrationTrace.length - 1]) {
+          nextTitrationTrace = traceUpdate.nextTrace;
+          titrationTraceChanged = true;
+        }
+        nextEquipment[burette.id] = {
+          ...nextEquipment[burette.id],
+          cumulativeTitrated_ml: traceUpdate.nextCumulative_ml,
+        };
         const isBasicDrop =
           mergedTgt.some(c => c.formula.toLowerCase().includes('phenolphthalein')) &&
           burette.contents.some(c => ['NAOH', 'KOH', 'NH3'].includes(c.formula.toUpperCase())) &&
@@ -1174,6 +1199,7 @@ export function stepLabWorld(
       workbenchEscapedGas_g: nextWorkbenchEscapedGas,
       spillPuddles: steppedSpills,
       safetyAlerts: nextSafetyAlerts,
+      ...(titrationTraceChanged ? { titrationTrace: nextTitrationTrace } : {}),
     },
     newLogs,
     geminiCheckVesselIds: [...geminiCheckVesselIds],

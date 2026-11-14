@@ -327,6 +327,7 @@ export const createEquipmentSlice: LabSliceCreator<EquipmentSlice> = (set, get) 
           precipitateColorHex: undefined,
           precipitateMorphology: undefined,
           precipitateLayers: [],
+          cumulativeTitrated_ml: 0,
           solidChunks: [],
           initialSolidMassByFormula: undefined,
           escapedGas_g: undefined,

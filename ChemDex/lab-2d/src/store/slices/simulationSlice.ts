@@ -1,5 +1,7 @@
 import { isCatalogReady } from '../../chemistry/reactions/curriculumAndCatalogCompiler';
 import { prepareVesselSimulation } from '../../chemistry/reactions/kineticsSolver';
+import { TITRATION_PRESETS } from '../../chemistry/equilibrium/titrationEngine';
+import { findChemicalById } from '../../data/chemicals';
 import { stepLabWorld } from '../../engine/labWorldStep';
 import { soundEngine } from '../../services/soundEngine';
 import type { EquipmentState } from '../../types/equipment';
@@ -14,10 +16,13 @@ export type SimulationSlice = Pick<
   | 'simTimeScale'
   | 'realtimeKinetics'
   | 'catalogReady'
+  | 'titrationTrace'
   | 'setSimulationPaused'
   | 'setSimTimeScale'
   | 'setRealtimeKinetics'
   | 'setCatalogReady'
+  | 'clearTitrationTrace'
+  | 'setupTitrationPreset'
   | 'reevaluateIdleVessels'
   | 'tickSimulation'
 >;
@@ -27,6 +32,7 @@ export const createSimulationSlice: LabSliceCreator<SimulationSlice> = (set, get
   simTimeScale: 1,
   realtimeKinetics: false,
   catalogReady: isCatalogReady(),
+  titrationTrace: [],
 
   setSimulationPaused: (simulationPaused) => set({ simulationPaused }),
   setSimTimeScale: (simTimeScale) => set({ simTimeScale }),
@@ -39,6 +45,59 @@ export const createSimulationSlice: LabSliceCreator<SimulationSlice> = (set, get
     if (get().catalogReady !== catalogReady) {
       set({ catalogReady });
     }
+  },
+  clearTitrationTrace: () => set({ titrationTrace: [] }),
+
+  setupTitrationPreset: (presetId) => {
+    const preset = TITRATION_PRESETS.find((p) => p.id === presetId);
+    if (!preset) return;
+
+    get().resetWorkbench();
+    const buretteId = get().addEquipment('burette', 310, 30);
+    const flaskId = get().addEquipment('erlenmeyer_flask', 290, 270);
+
+    const doseAtTargetMolarity = (
+      vesselId: string,
+      chemicalId: string,
+      targetVol_ml: number,
+      targetMolarity_M: number
+    ) => {
+      const chem = findChemicalById(chemicalId);
+      const stockM = chem?.defaultConcentration_M;
+      if (stockM && stockM > targetMolarity_M + 1e-6) {
+        const stockVol = Math.round(targetVol_ml * (targetMolarity_M / stockM) * 10) / 10;
+        const diluentVol = Math.max(0, Math.round((targetVol_ml - stockVol) * 10) / 10);
+        if (stockVol > 0) get().addChemicalToEquipment(vesselId, chemicalId, stockVol);
+        if (diluentVol > 0) get().addChemicalToEquipment(vesselId, 'chem-h2o', diluentVol);
+      } else {
+        get().addChemicalToEquipment(vesselId, chemicalId, targetVol_ml);
+      }
+    };
+
+    doseAtTargetMolarity(
+      flaskId,
+      preset.analyteChemicalId,
+      preset.analyteVolume_ml,
+      preset.analyteMolarity_M
+    );
+    get().addChemicalToEquipment(flaskId, preset.indicatorChemicalId, 1.5);
+    doseAtTargetMolarity(
+      buretteId,
+      preset.titrantChemicalId,
+      Math.min(50, preset.titrantVolume_ml),
+      preset.titrantMolarity_M
+    );
+
+    set((curr) => ({
+      titrationTrace: [],
+      selectedEquipmentId: flaskId,
+      equipment: curr.equipment[buretteId]
+        ? {
+            ...curr.equipment,
+            [buretteId]: { ...curr.equipment[buretteId], cumulativeTitrated_ml: 0 },
+          }
+        : curr.equipment,
+    }));
   },
 
   reevaluateIdleVessels: () => {
@@ -130,6 +189,7 @@ export const createSimulationSlice: LabSliceCreator<SimulationSlice> = (set, get
     if (result.shouldApplyPatch) {
       set(curr => ({
         ...result.patch,
+        titrationTrace: result.patch.titrationTrace ?? curr.titrationTrace,
         ...(result.newLogs.length > 0 ? { history: [...curr.history, ...result.newLogs] } : {}),
       }));
       get().checkStepProgress();

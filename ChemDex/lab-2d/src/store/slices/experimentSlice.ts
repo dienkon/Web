@@ -70,6 +70,7 @@ export const createExperimentSlice: LabSliceCreator<ExperimentSlice> = (set, get
       ...pushSnapshot(get()),
       spillPuddles: [],
       studentNotes: '',
+      titrationTrace: [],
       activeExperiment: exp,
       activeMode: 'guided',
       currentStepIndex: 0,

@@ -10,9 +10,11 @@ import type {
 import type { SubstanceQuantity } from '../types/chemistry';
 import type { GuidedExperiment, LabLogEntry } from '../types/experiment';
 import type { PPEState2D, SafetyViolationAlert } from '../engine/safetyEngine2D';
+import type { TitrationTraceSample } from '../chemistry/equilibrium/titrationEngine';
 
 export type WorkbenchTool = 'select' | 'stir_rod' | 'pipette' | 'spatula' | 'litmus' | 'probe' | 'sponge';
 export type SimTimeScale = 0.5 | 1 | 2 | 5;
+export type TitrationTracePoint = TitrationTraceSample;
 
 export interface PipetteBuffer {
   volume_ml: number;
@@ -58,6 +60,7 @@ export interface LabStoreState {
   workbenchEscapedGas_g: Record<string, number>;
   wasteMass_g: number;
   studentNotes: string;
+  titrationTrace: TitrationTracePoint[];
   setStudentNotes: (notes: string) => void;
   completedExperiments: Record<string, string>;
   completeExperiment: () => boolean;
@@ -146,6 +149,8 @@ export interface LabStoreState {
   triggerDirectPour: (sourceId: string, targetId: string) => void;
   triggerGeminiReactionCheck: (vesselId: string) => Promise<boolean>;
   tickSimulation: (dt: number) => void;
+  clearTitrationTrace: () => void;
+  setupTitrationPreset: (presetId: string) => void;
 
   addEquipment: (type: EquipmentType, x?: number, y?: number) => string;
   removeEquipment: (id: string) => void;

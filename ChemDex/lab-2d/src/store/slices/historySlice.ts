@@ -27,6 +27,7 @@ export const createHistorySlice: LabSliceCreator<HistorySlice> = (set, get) => (
       activeLitmusVesselId: null,
       workbenchEscapedGas_g: {},
       wasteMass_g: 0,
+      titrationTrace: [],
       equipment: {},
       selectedEquipmentId: null,
       history: [
