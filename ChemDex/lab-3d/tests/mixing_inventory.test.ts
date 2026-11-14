@@ -5,6 +5,7 @@ import { sodiumChlorideSolubilityRatio } from '../src/science/sodiumChlorideSolu
 import { solidInventoryFraction } from '../src/engine/solidInventory';
 import { computeMolarMass } from '../src/engine/ledger';
 import type { SubstanceContent, VesselState } from '../src/types/chemistry';
+import { FLASK_INVERSION_DURATION_S, vesselAgitation } from '../src/science/stirring';
 
 const amount = (formula: string, mass_g: number, phase: string): SubstanceContent => ({
   formula, mass_g, moles: mass_g / computeMolarMass(formula), phase,
@@ -101,13 +102,25 @@ describe('Finite mixing and dissolution inventory', () => {
     expect(useAppStore.getState().stirringVesselId).toBeNull();
   });
   it('inverting a stoppered flask preserves all solid and precipitate inventory', () => {
-    vi.useFakeTimers();
     const vessel = sample({ type: 'volumetric_flask', isSealed: true, hasPrecipitate: true });
-    useAppStore.setState({ vessels: { [vessel.id]: vessel } });
+    useAppStore.setState({ vessels: { [vessel.id]: vessel }, stirringVesselId: null,
+      activeTool: 'none', isSimulationPaused: false, timeScale: 1 });
     useAppStore.getState().invertVolumetricFlask(vessel.id);
-    expect(useAppStore.getState().vessels[vessel.id]).toEqual(vessel);
-    expect(useAppStore.getState().stirringVesselId).toBe(vessel.id);
-    vi.runAllTimers();
+    const mixed = useAppStore.getState().vessels[vessel.id];
+    expect(mixed).toEqual({ ...vessel, inversionRemaining_s: FLASK_INVERSION_DURATION_S });
+    expect(useAppStore.getState().stirringVesselId).toBeNull();
+    expect(vesselAgitation(mixed, useAppStore.getState())).toBeGreaterThan(0);
+    useAppStore.setState({ isSimulationPaused: true });
+    useAppStore.getState().tickSimulation(1);
+    expect(useAppStore.getState().vessels[vessel.id].inversionRemaining_s).toBe(FLASK_INVERSION_DURATION_S);
+    useAppStore.setState({ isSimulationPaused: false });
+    for (let i = 0; i < 15; i++) useAppStore.getState().tickSimulation(0.1);
+    const after = useAppStore.getState().vessels[vessel.id];
+    expect(after.inversionRemaining_s).toBe(0);
+    expect(vesselAgitation(after, useAppStore.getState())).toBe(0);
+    expect(mass(after, 'aq')).toBeGreaterThan(0);
+    expect(mass(after, 'aq') + mass(after, 's')).toBeCloseTo(50, 10);
+    expect(after.mass_g).toBeCloseTo(vessel.mass_g, 8);
   });
   it('grinds only actual solid in a mortar and conserves quantities', () => {
     const vessel = sample({ type: 'mortar_pestle' });

@@ -98,6 +98,7 @@ export interface VesselState {
   liquidOptics?: import('../pour/physics/mixing').LiquidOptics;
   stirringIntensity?: number; // 0..1 operational control; not a measured shear rate
   stirringDirection?: 1 | -1;
+  inversionRemaining_s?: number; // stoppered-flask mixing, independent of the glass rod
   bubbleInterfaceMobility?: import('../science/bubbleRise').BubbleInterfaceMobility;
   gasFlux?: import('../engine/gasFlux').GasFlux;
   hydrogenCombustion?: import('../engine/hydrogenExhaustCombustion').HydrogenExhaustCombustion;

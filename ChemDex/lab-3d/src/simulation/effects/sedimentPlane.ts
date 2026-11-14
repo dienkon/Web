@@ -3,6 +3,16 @@ import { liquidLevelForVolume } from '../../science/vesselDimensions';
 import type { LiquidPlane, Point3 } from './liquidParticleFrame';
 import { createPolygonBedVolume } from './polygonBedVolume';
 
+/** First contact for a new bed, including a glass wall that becomes the floor
+ * when the vessel lies on its side. The support of a linear lathe contour is
+ * attained at a contour endpoint. No positive sediment mass is invented. */
+export function sedimentSupportPlane(profile: VesselProfile, normal: Point3): LiquidPlane {
+  const horizontal = Math.hypot(normal[0], normal[2]);
+  const offset = Math.min(...(profile.contour ?? [[profile.r(profile.baseY), profile.baseY],
+    [profile.mouthR, profile.baseY + profile.H]]).map(([r, y]) => normal[1] * y - horizontal * r));
+  return { normal: [...normal], offset };
+}
+
 export function sedimentPlane(profile: VesselProfile, volume_ml: number, normal: Point3): LiquidPlane {
   const tilt = Math.atan2(Math.hypot(normal[0], normal[2]), normal[1]);
   const factor = 48 * Math.sin(2 * Math.PI / 48) / (2 * Math.PI);

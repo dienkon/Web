@@ -23,7 +23,8 @@ import { magnesiumHydroxideExtent } from '../science/magnesiumHydroxidePrecipita
 import { silverHalideProgramExtent } from '../science/silverChloridePrecipitation';
 import { copperHydroxideExtent } from '../science/copperHydroxidePrecipitation';
 import { ferricHydroxideExtent, ferricHydroxideDissolutionExtent } from '../science/ferricHydroxidePrecipitation';
-import { withLegacyPrecipitateOrigins, bulkPrecipitateMass } from '../science/precipitateInventory';
+import { withLegacyPrecipitateOrigins, precipitateComponents, clearedPrecipitateTurbidity } from '../science/precipitateInventory';
+import { getPrecipitateProfile } from '../simulation/core/SimulationConfig';
 import { applyCopperAmmoniaLedger } from './copperAmmoniaLedger';
 import { previewLandoltLedger } from './landoltClockLedger';
 import { aluminumReactionExtent, aluminumReactionEnthalpy_J_mol } from '../science/aluminumHydroxideEquilibrium';
@@ -293,6 +294,14 @@ export const SPECIES_ABSORBANCE_TABLE: Record<string, SpeciesAbsorbance> = {
   'Phenolphthalein_basic': { epsR: 0.5, epsG: 28.0, epsB: 4.0 }, // Vivid magenta
 };
 
+// Reuse the existing qualitative ion model for its common dissolved salts.
+// These coefficients are illustrative RGB absorption, not measured spectra.
+const ABSORBANCE_ALIASES: Record<string, string> = {
+  'Cu(NO3)2': 'Cu2+', CuCl2: 'Cu2+',
+  NiSO4: 'Ni2+', NiCl2: 'Ni2+', 'Ni(NO3)2': 'Ni2+',
+  CoCl2: 'Co2+', CoSO4: 'Co2+', 'Co(NO3)2': 'Co2+',
+};
+
 export function calculateBeerLambertColor(
   contents: SubstanceContent[],
   volume_ml: number,
@@ -306,13 +315,16 @@ export function calculateBeerLambertColor(
   let optDensityB = 0;
 
   for (const item of contents) {
-    if ((item.location && item.location !== 'bulk') || item.phase === 's' || item.phase === 'g') continue;
+    const phase = reagentPhase(item);
+    if ((item.location && item.location !== 'bulk') || phase === 's' || phase === 'g'
+      || item.liquidLayer === 'organic') continue;
     // Inventory is authoritative; concentration_M may predate a dilution.
     const conc_M = item.moles / (volume_ml / 1000);
     if (!Number.isFinite(conc_M)) continue;
     if (conc_M <= 1e-5) continue;
 
-    const abs = SPECIES_ABSORBANCE_TABLE[item.formula];
+    const formula = identifySpecies(item.formula).formula;
+    const abs = SPECIES_ABSORBANCE_TABLE[ABSORBANCE_ALIASES[formula] ?? formula];
     if (abs) {
       optDensityR += abs.epsR * conc_M * pathLength_cm;
       optDensityG += abs.epsG * conc_M * pathLength_cm;
@@ -579,7 +591,6 @@ export function applyProgramToLedger(
   }
 
   // 2. Generate products
-  let totalPrecipitateG = vessel.precipitateAmount_g || 0;
   let hasGas = vessel.hasGas || false;
   let gasColor = vessel.gasColor;
   let precipitateColor = vessel.precipitateColor;
@@ -596,7 +607,6 @@ export function applyProgramToLedger(
       const produceMass = produceMoles * mm;
 
       if (p.phase === 's') {
-        totalPrecipitateG += produceMass;
         precipitateSubstance = p.formula;
         if (p.colorHex) precipitateColor = p.colorHex;
         if (program.visual.after.precipitate?.morphology) {
@@ -655,22 +665,36 @@ export function applyProgramToLedger(
   const newMass_g = Math.max(0, vessel.mass_g - escapedGas_g);
 
   // 5. Update liquid color via Beer-Lambert
-  const afterColor = program.visual.after.liquidColor;
+  // Authored suspension colors often describe the solid cloud (black CuS,
+  // yellow AgI), not the carrier liquid. Only dissolved species may tint it.
+  const formsSolid = products.some(p => p.phase === 's');
+  const dissolvedColor = formsSolid ? program.chemistry.species.find(term => term.phase === 'aq'
+    && term.colorHex && currentContents.some(c => availableReagent(c, term.formula, 'aq')))?.colorHex : undefined;
+  const afterColor = molesOfReaction <= 0 ? vessel.liquidColor ?? '#f8fafc'
+    : formsSolid ? dissolvedColor ?? '#f8fafc' : program.visual.after.liquidColor;
   const equilibrium = solveAqueousEquilibrium(currentContents, vessel.volume_ml, vessel.temperature_c);
   const ph = equilibrium?.ph ?? vessel.ph;
   const dyeColor = equilibrium ? solutionIndicatorColor(currentContents, ph) : null;
   const observedIndicator = program.chemistry.representation === 'indicator' ? indicatorColor(program.id, ph) : null;
   const newColor = dyeColor ?? observedIndicator ?? calculateBeerLambertColor(currentContents, vessel.volume_ml || 50, afterColor);
-  const precipitateMass = bulkPrecipitateMass(currentContents, precipitateSubstance);
+  const components = precipitateComponents(currentContents, precipitateSubstance);
+  const primary = components.find(c => sameMolecularFormula(c.formula, precipitateSubstance ?? ''))
+    ?? components.reduce<(typeof components)[number] | undefined>((largest, c) => !largest || c.mass_g > largest.mass_g ? c : largest, undefined);
+  const precipitateMass = components.reduce((sum, c) => sum + c.mass_g, 0);
+  if (primary && !sameMolecularFormula(primary.formula, precipitateSubstance ?? '')) {
+    precipitateColor = getPrecipitateProfile(primary.formula).color;
+    precipitateMorphology = primary.formation as VesselState['precipitateMorphology'];
+  }
 
   const state: Partial<VesselState> = {
     contents: currentContents,
     escapedGas_g: escapedByFormula,
     hasPrecipitate: precipitateMass > 1e-12,
     precipitateColor: precipitateColor || program.visual.after.precipitate?.color,
-    precipitateSubstance: precipitateSubstance || program.visual.after.precipitate?.substance,
+    precipitateSubstance: primary?.formula,
     precipitateMorphology: precipitateMorphology || (program.visual.after.precipitate?.morphology as any),
     precipitateAmount_g: precipitateMass,
+    ...(clearedPrecipitateTurbidity(vessel, currentContents) === 0 ? { turbidity: 0 } : {}),
     hasGas: hasGas || (molesOfReaction > 0 && products.some(p => p.phase === 'g')),
     gasColor: gasColor || (program.visual.after.gasesOffgassed[0] ? GAS_SPECIES_TABLE[program.visual.after.gasesOffgassed[0].species as GasSpecies]?.colorHex : undefined),
     liquidColor: newColor,

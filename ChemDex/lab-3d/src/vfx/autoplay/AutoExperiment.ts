@@ -421,7 +421,10 @@ export class AutoExperiment {
     if (this.sample.volume_ml > 0.01) this.appearance.advance(dt, {
       color: supernatantColor(this.sample.contents, this.sample.volume_ml) ?? this.sample.liquidColor ?? '#f8fafc',
       turbidity: this.physics.cloudiness, radius: profile.r(vesselLiquidSurfaceY(this.sample)),
-      baseY: profile.baseY, fillY: vesselLiquidSurfaceY(this.sample), agitation: this.stirringDrive,
+      suspensions: this.physics.precipitationSystems,
+      baseY: profile.baseY, fillY: this.physics.vortex.surface
+        ? Math.min(profile.baseY + profile.H, this.physics.vortex.surface.offset + this.physics.vortex.surface.amplitude)
+        : vesselLiquidSurfaceY(this.sample), agitation: this.stirringDrive,
       vortex: this.physics.vortex.surface,
       contact: this.sample.recentPourContact && pourContactRemaining(this.sample.recentPourContact) > 0
         ? this.sample.recentPourContact.point : undefined,

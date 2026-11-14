@@ -1,4 +1,5 @@
 import { solutionAcidity } from '../science/aqueousTemperature';
+import { canStirVessel } from '../science/stirring';
 import { readSample } from '../handling/instrumentReadings';
 import React, { useState } from 'react';
 import { useAppStore, getChemical } from '../store/useAppStore';
@@ -759,7 +760,7 @@ export function VesselInspector() {
 
           <button
             onClick={() => useAppStore.getState().stirVessel(vessel.id)}
-            disabled={vessel.volume_ml <= 0}
+            disabled={!canStirVessel(vessel)}
             className="flex-1 flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 text-xs font-bold transition-all disabled:opacity-40 disabled:pointer-events-none shadow-2xs"
             title={t('Stir with glass rod', 'Khuấy đều bằng đũa thủy tinh')}
           >

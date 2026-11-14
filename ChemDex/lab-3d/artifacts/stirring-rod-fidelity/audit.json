@@ -1,0 +1,62 @@
+{
+  "errors": [],
+  "shaderErrors": [],
+  "phases": [
+    {
+      "name": "narrow-tube-immersion",
+      "tip": [
+        0.1320109787266031,
+        -0.40489296150524473,
+        0.11082180716945374
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        "XYZ"
+      ],
+      "surface": 0.8349298525776614,
+      "floor": -0.8870462780930416,
+      "radius": 0.035,
+      "orbit": 0.1723611657208759,
+      "wall": 0.33976860953479315,
+      "mouth": 0.33976860953479315,
+      "agitation": 0.3,
+      "omega": 7.52295714642139,
+      "activeTool": "stirring_rod",
+      "paused": false
+    },
+    {
+      "name": "moved-tube-follows-tip",
+      "tip": [
+        0.7799114062546026,
+        0.1301068572912939,
+        -0.3288134939605588
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        "XYZ"
+      ],
+      "surface": 1.3699292054224421,
+      "floor": -0.35204627809304156,
+      "radius": 0.035,
+      "orbit": 0.17236116572087593,
+      "wall": 0.33976860953479315,
+      "mouth": 0.33976860953479315,
+      "agitation": 0.3,
+      "omega": 10.459181933495314,
+      "activeTool": "stirring_rod",
+      "paused": false
+    },
+    {
+      "name": "paused-rod",
+      "frozen": true
+    },
+    {
+      "name": "inspector-pulse",
+      "stopped": true
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 import { Color } from 'three';
 import type { VortexSurface } from '../../science/liquidVortex';
+import { SuspensionDensityField, type SuspensionParcels } from './SuspensionDensityField';
 
 export interface LiquidAppearanceInput {
   color: string;
@@ -12,6 +13,7 @@ export interface LiquidAppearanceInput {
   reactionRate_s1?: number;
   agitation?: number;
   vortex?: VortexSurface;
+  suspensions?: ReadonlyMap<string, SuspensionParcels>;
 }
 const N = 12, CHANNELS = 4;
 const clamp = (x: number, lo = 0, hi = 1) => Math.max(lo, Math.min(hi, x));
@@ -34,11 +36,14 @@ export class LiquidAppearanceField {
   private age_s = 0;
   private endpointKey = '';
   private settled = true;
+  private suspension = new SuspensionDensityField(N);
+  private suspensionAccumulator = 0;
+  private hasSpatialSuspension = false;
   revision = 0;
   radius = 1;
   baseY = 0;
   depth = 1;
-  reset() { this.ready = false; this.accumulator = this.age_s = this.idle_s = 0; this.lastContact = undefined; this.settled = true; this.endpointKey = ''; }
+  reset() { this.ready = false; this.accumulator = this.age_s = this.idle_s = this.suspensionAccumulator = 0; this.lastContact = undefined; this.settled = true; this.endpointKey = ''; this.hasSpatialSuspension = false; }
   advance(dt: number, input: LiquidAppearanceInput) {
     if (![dt, input.radius, input.baseY, input.fillY, input.turbidity].every(Number.isFinite)
       || dt < 0 || input.radius <= 0 || input.fillY <= input.baseY) return;
@@ -56,10 +61,26 @@ export class LiquidAppearanceField {
       this.lastContact = [...input.contact]; this.idle_s = 0;
     } else this.idle_s += dt;
     if (key !== this.endpointKey) { if (this.settled) this.age_s = 0; this.settled = false; this.endpointKey = key; }
-    if (this.settled) return;
-    this.accumulator += dt;
-    while (this.accumulator >= 1 / 30 - 1e-10) {
-      this.step(1 / 30, input); this.accumulator = Math.max(0, this.accumulator - 1 / 30);
+    if (!this.settled) {
+      this.accumulator += dt;
+      while (this.accumulator >= 1 / 30 - 1e-10) {
+        this.step(1 / 30, input); this.accumulator = Math.max(0, this.accumulator - 1 / 30);
+      }
+    }
+    if (input.suspensions?.size || this.hasSpatialSuspension) {
+      this.suspensionAccumulator += dt;
+      if (this.suspensionAccumulator >= 1 / 15 - 1e-10) {
+        this.suspensionAccumulator %= 1 / 15;
+        this.suspension.update(input.suspensions?.values() ?? [], this.radius, this.baseY, this.depth);
+        this.hasSpatialSuspension = !!input.suspensions?.size;
+        let changed = false;
+        for (let i = 0; i < this.suspension.opacity.length; i++) {
+          const alpha = this.suspension.opacity[i], index = i * 4 + 3;
+          changed ||= Math.round(alpha * 255) !== this.pixels[index];
+          this.values[index] = alpha;
+        }
+        if (changed) this.publish();
+      }
     }
   }
   /** Normalized coordinates, also used by the shader atlas sampler. */
@@ -104,6 +125,10 @@ export class LiquidAppearanceField {
       const blend = -Math.expm1(-(sourceRate + recirculation) * dt);
       const i = (y * N * N + z * N + x) * 4;
       for (let c = 0; c < 4; c++) {
+        if (c === 3 && input.suspensions?.size) {
+          this.next[i + c] = this.values[i + c];
+          continue;
+        }
         const carried = this.sample(bx, ny, bz, c);
         const neighbors = (this.values[i + c + (x < N - 1 ? 4 : 0)] + this.values[i + c - (x > 0 ? 4 : 0)]
           + this.values[i + c + (y < N - 1 ? N * N * 4 : 0)] + this.values[i + c - (y > 0 ? N * N * 4 : 0)]

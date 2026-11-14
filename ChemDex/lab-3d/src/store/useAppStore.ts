@@ -1,5 +1,6 @@
 import { stepHydrogenExhaustCombustion, sodiumExternalIgnition } from '../engine/hydrogenExhaustCombustion';
 import { isLandoltCandidate } from '../science/landoltClock';
+import { canStirVessel, vesselAgitation, FLASK_INVERSION_DURATION_S } from '../science/stirring';
 import { acceptedFrameSeconds } from '../core/clock';
 import { create } from 'zustand';
 import { Vector3 } from 'three';
@@ -1648,8 +1649,8 @@ export const useAppStore = create<AppState>((set, get) => {
           || (v.wallCondensation?.inner_g ?? 0) + (v.wallCondensation?.outer_g ?? 0) > 0));
       const anyPhaseChange = Object.values(state.vessels).some(v => !state.activeKinetics[v.id]
         && !v.id.startsWith('lesson_vessel_') && (partitionLeadIodide(v, 1 / 60) !== null
-          || partitionSodiumChloride(v, 1 / 60, state.stirringVesselId === v.id) !== null
-          || partitionCalcite(v, 1 / 60, state.stirringVesselId === v.id) !== null
+          || partitionSodiumChloride(v, 1 / 60, vesselAgitation(v, state) > 0) !== null
+          || partitionCalcite(v, 1 / 60, vesselAgitation(v, state) > 0) !== null
           || partitionBarite(v, 1 / 60) !== null || partitionCalciumHydroxide(v, 1 / 60) !== null
           || partitionSilverHalide(v, 1 / 60) !== null || partitionMagnesiumHydroxide(v, 1 / 60) !== null));
       const anyAqueousChange = Object.values(state.vessels).some(v => projectAqueousSolution(v) !== null);
@@ -1658,6 +1659,7 @@ export const useAppStore = create<AppState>((set, get) => {
       if (
         !hasActiveKinetics && !hasAliquotReaction && !Object.keys(state.spills).length
         && !Object.values(state.vessels).some(v => pourContactRemaining(v.recentPourContact) > 0) &&
+        !Object.values(state.vessels).some(v => (v.inversionRemaining_s ?? 0) > 0) &&
         !hasPendingReactions && 
         !anyBurnerOn && !anyHotPlateOn && !anyFlameEmission &&
         !anyVesselHot && 
@@ -1893,7 +1895,7 @@ export const useAppStore = create<AppState>((set, get) => {
         const previousProgress = kinetics.progress;
         const replayLimited = kinetics.program?.chemistry.kinetics?.model === 'heat_activated'
           || kinetics.program?.chemistry.species.some(s => s.role === 'reactant' && s.phase === 'g');
-        const newProgress = advanceReaction(kinetics, v, effectiveDt, state.stirringVesselId === vId,
+        const newProgress = advanceReaction(kinetics, v, effectiveDt, vesselAgitation(v, state) > 0,
           (heatByVessel_J.get(vId) ?? 0) > 0);
         if (kinetics.program || replayLimited) {
           kinetics.actualProgressRate_s = Math.max(0, newProgress - previousProgress) / effectiveDt;
@@ -2015,7 +2017,7 @@ export const useAppStore = create<AppState>((set, get) => {
             temperature_c: ledgerStep.temperature_c ?? newVessels[vId].temperature_c,
             internalPressure_atm: ledgerStep.internalPressure_atm ?? newVessels[vId].internalPressure_atm,
             liquidColor: ledgerStep.liquidColor ?? blendedColor,
-            turbidity: currentTurbidity,
+            turbidity: ledgerStep.turbidity ?? currentTurbidity,
             hasGas: (ledgerStep.hasGas ?? false) && (kinetics.rateModel === 'metal_hcl' || kinetics.actualProgressRate_s !== undefined
               ? newProgress > previousProgress && newProgress < 1 : newProgress < 0.95),
             gasColor: ledgerStep.gasColor || kinetics.gasColor,
@@ -2068,7 +2070,7 @@ export const useAppStore = create<AppState>((set, get) => {
               precipitateSubstance: finalLedger.precipitateSubstance || activePrecipSubstance,
               precipitateMorphology: (finalLedger.precipitateMorphology as any) || activePrecipMorphology,
               precipitateAmount_g: finalLedger.precipitateAmount_g,
-              turbidity: kinetics.program?.visual?.after?.turbidity ?? 0,
+              turbidity: finalLedger.turbidity ?? kinetics.program?.visual?.after?.turbidity ?? 0,
               hasGas: false,
               foam_ml: 0
             };
@@ -2123,13 +2125,13 @@ export const useAppStore = create<AppState>((set, get) => {
           vesselsUpdated = true;
         }
         const saltPhase = !newKinetics[id] && !id.startsWith('lesson_vessel_')
-          ? partitionSodiumChloride(vessel, effectiveDt, state.stirringVesselId === id) : null;
+          ? partitionSodiumChloride(vessel, effectiveDt, vesselAgitation(vessel, state) > 0) : null;
         if (saltPhase) {
           vessel = newVessels[id] = { ...vessel, ...saltPhase };
           vesselsUpdated = true;
         }
         const calcitePhase = !newKinetics[id] && !id.startsWith('lesson_vessel_')
-          ? partitionCalcite(vessel, effectiveDt, state.stirringVesselId === id) : null;
+          ? partitionCalcite(vessel, effectiveDt, vesselAgitation(vessel, state) > 0) : null;
         if (calcitePhase) {
           vessel = newVessels[id] = { ...vessel, ...calcitePhase };
           vesselsUpdated = true;
@@ -2212,8 +2214,13 @@ export const useAppStore = create<AppState>((set, get) => {
       }
       const kineticsCountChanged = Object.keys(newKinetics).length !== Object.keys(state.activeKinetics).length;
       for (const [id, vessel] of Object.entries(newVessels)) {
+        if ((vessel.inversionRemaining_s ?? 0) > 0) {
+          newVessels[id] = { ...vessel, inversionRemaining_s: vessel.isSealed && !vessel.isShattered
+            ? Math.max(0, vessel.inversionRemaining_s! - effectiveDt) : 0 };
+          vesselsUpdated = true;
+        }
         if (vessel.recentPourContact?.remaining_s !== undefined && vessel.recentPourContact.remaining_s > 0) {
-          newVessels[id] = { ...vessel, recentPourContact: { ...vessel.recentPourContact,
+          newVessels[id] = { ...newVessels[id], recentPourContact: { ...vessel.recentPourContact,
             remaining_s: Math.max(0, vessel.recentPourContact.remaining_s - effectiveDt) } };
           vesselsUpdated = true;
         }
@@ -2909,11 +2916,12 @@ export const useAppStore = create<AppState>((set, get) => {
     },
 
     invertVolumetricFlask: (id) => {
-      const v = get().vessels[id];
+      const state = get(), v = state.vessels[id];
       // Inversion mixes a stoppered flask; it does not grind crystals or remove residue.
-      if (!v || v.type !== 'volumetric_flask' || !v.isSealed || v.isShattered || v.volume_ml <= 0) return;
+      if (!v || v.type !== 'volumetric_flask' || !v.isSealed || v.isShattered || v.volume_ml <= 0
+        || state.isSimulationPaused || state.moveMode || state.draggingVesselId === id) return;
       labSound.playGlassClink();
-      get().stirVessel(id);
+      set({ vessels: { ...state.vessels, [id]: { ...v, inversionRemaining_s: FLASK_INVERSION_DURATION_S } } });
     },
 
     placeTestTubeInRack: (rackId, tubeId) => {
@@ -3383,7 +3391,7 @@ export const useAppStore = create<AppState>((set, get) => {
 
     stirVessel: (id) => {
       const v = get().vessels[id];
-      if (!v || v.isShattered || v.volume_ml <= 0 || v.contents.length === 0) return;
+      if (!v || !canStirVessel(v) || v.contents.length === 0 || get().isSimulationPaused || get().moveMode) return;
       labSound.playStir();
       // Trigger 3D stirring rod visual effect
       const sequence = ++stirringSequence;
@@ -4125,6 +4133,7 @@ export const useAppStore = create<AppState>((set, get) => {
           density_g_ml: newDensity,
           volume: Math.min(1.0, multiStep.finalVolume_ml / vessel.capacity_ml),
           liquidColor: multiStep.finalLiquidColor || newLiquidColor,
+          turbidity: multiStep.finalTurbidity ?? vessel.turbidity,
           hasPrecipitate: multiStep.hasPrecipitate,
           precipitateColor: multiStep.precipitateColor,
           precipitateSubstance: multiStep.precipitateSubstance || vfxRecipe?.precipitate?.substance,

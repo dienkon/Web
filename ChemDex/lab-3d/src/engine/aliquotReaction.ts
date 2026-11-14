@@ -5,7 +5,7 @@ import { getReactionVfxRecipe } from '../vfx/recipes/reactionVfx';
 import { planSodiumWater } from './sodiumWaterPlan';
 import { planMetalAcid } from './metalAcidPlan';
 import { planVerifiedContact, planConditionedContact } from './verifiedContactPlan';
-import { withLegacyPrecipitateOrigins } from '../science/precipitateInventory';
+import { withLegacyPrecipitateOrigins, clearedPrecipitateTurbidity } from '../science/precipitateInventory';
 import { planAluminumMaterialReaction } from './aluminumMaterialProgress';
 import { solutionIndicatorColor } from '../science/indicatorAppearance';
 import { isLandoltCandidate } from '../science/landoltClock';
@@ -49,6 +49,7 @@ export function reactAliquotMixture(vessel: VesselState, language: Language, isH
     substances: chemistry.updatedSubstances, ph: chemistry.finalPh, phModel: chemistry.phModel,
     phReferenceTemperature_c: chemistry.phReferenceTemperature_c,
     liquidColor: chemistry.finalLiquidColor, temperature_c: chemistry.finalTemperature_c,
+    turbidity: clearedPrecipitateTurbidity(vessel, chemistry.updatedContents) ?? vessel.turbidity,
     hasGas: chemistry.hasGas, gasColor: chemistry.gasColor, hasPrecipitate: chemistry.hasPrecipitate,
     precipitateColor: chemistry.precipitateColor, precipitateSubstance: chemistry.precipitateSubstance,
     precipitateAmount_g: chemistry.precipitateAmount_g, isBoiling: chemistry.isBoiling, isExplosion: chemistry.isExplosion },

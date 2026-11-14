@@ -33,7 +33,7 @@ export const INORGANIC_ANALYSIS_PROGRAMS: ReactionProgram[] = [
         { id: 'turb', atom: 'turbidityShift', anchor: 'bulk', window: [0, 0.5], intensity: 1.0, params: { maxTurbidity: 0.92, hazeColor: '#86efac' } }
       ],
       after: {
-        liquidColor: '#86efac',
+        liquidColor: '#f8fafc',
         liquidOpacity: 0.95,
         turbidity: 0.85,
         precipitate: { substance: 'Ni(OH)2', morphology: 'gel', color: '#4ade80', mass_g: 'fromLedger' },
@@ -73,7 +73,7 @@ export const INORGANIC_ANALYSIS_PROGRAMS: ReactionProgram[] = [
         { id: 'precip', atom: 'precipitateNucleation', anchor: 'bulk', window: [0, 0.35], intensity: 1.2, params: { morphology: 'gel', color: '#d68ca9', nucleationRate: 80 } }
       ],
       after: {
-        liquidColor: '#fbcfe8',
+        liquidColor: '#f8fafc',
         liquidOpacity: 0.95,
         turbidity: 0.8,
         precipitate: { substance: 'Co(OH)2', morphology: 'gel', color: '#d68ca9', mass_g: 'fromLedger' },
@@ -236,7 +236,7 @@ export const INORGANIC_ANALYSIS_PROGRAMS: ReactionProgram[] = [
         { id: 'turb', atom: 'turbidityShift', anchor: 'bulk', window: [0, 0.5], intensity: 1.0, params: { maxTurbidity: 0.96, hazeColor: '#3f3f46' } }
       ],
       after: {
-        liquidColor: '#27272a',
+        liquidColor: '#f8fafc',
         liquidOpacity: 0.98,
         turbidity: 0.9,
         precipitate: { substance: 'BiI3', morphology: 'fine_powder', color: '#18181b', mass_g: 'fromLedger' },
@@ -319,7 +319,7 @@ export const INORGANIC_ANALYSIS_PROGRAMS: ReactionProgram[] = [
         { id: 'turb', atom: 'turbidityShift', anchor: 'bulk', window: [0, 0.45], intensity: 1.0, params: { maxTurbidity: 0.95, hazeColor: '#b91c1c' } }
       ],
       after: {
-        liquidColor: '#991b1b',
+        liquidColor: '#f8fafc',
         liquidOpacity: 0.96,
         turbidity: 0.8,
         precipitate: { substance: 'Ag2CrO4', morphology: 'crystal_plate', color: '#991b1b', mass_g: 'fromLedger' },
@@ -360,7 +360,7 @@ export const INORGANIC_ANALYSIS_PROGRAMS: ReactionProgram[] = [
         { id: 'turb', atom: 'turbidityShift', anchor: 'bulk', window: [0, 0.5], intensity: 1.0, params: { maxTurbidity: 0.92, hazeColor: '#fde047' } }
       ],
       after: {
-        liquidColor: '#facc15',
+        liquidColor: '#f8fafc',
         liquidOpacity: 0.95,
         turbidity: 0.75,
         precipitate: { substance: 'BaCrO4', morphology: 'fine_powder', color: '#facc15', mass_g: 'fromLedger' },
@@ -401,7 +401,7 @@ export const INORGANIC_ANALYSIS_PROGRAMS: ReactionProgram[] = [
         { id: 'turb', atom: 'turbidityShift', anchor: 'bulk', window: [0, 0.5], intensity: 1.0, params: { maxTurbidity: 0.95, hazeColor: '#facc15' } }
       ],
       after: {
-        liquidColor: '#eab308',
+        liquidColor: '#f8fafc',
         liquidOpacity: 0.96,
         turbidity: 0.8,
         precipitate: { substance: 'PbCrO4', morphology: 'fine_powder', color: '#eab308', mass_g: 'fromLedger' },

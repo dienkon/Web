@@ -13,7 +13,7 @@ import { getReactionVfxRecipe, sampleRecipeProgress, ReactionVfxRecipe } from '.
 import { getGenericVfxRecipe } from './recipes/generic';
 import { GasClouds, Sparks, Foam, Splash, AcidSplatter } from './particles';
 import { PhysicalSimulationRenderer } from '../simulation/render/PhysicalSimulationRenderer';
-import { vesselAgitation } from '../science/stirring';
+import { canStirVessel, inversionAgitation, stirringTarget } from '../science/stirring';
 import { labSound } from '../utils/audio';
 import { reactionSimulationEngine } from './reactions/ReactionSimulationEngine';
 import { programPlayer } from './programs/player/ProgramPlayer';
@@ -25,6 +25,7 @@ import { waterVisualState } from './waterVisualState';
 import { SimulationEngine } from '../simulation/core/SimulationEngine';
 import { gasVisualState } from './gasVisualState';
 import { LAB_PHYSICS } from '../engine/interactionEngine';
+import { precipitateComponents } from '../science/precipitateInventory';
 
 // Expanding shockwave ripple on table surface
 interface ShockwaveSlot {
@@ -283,9 +284,11 @@ export const VfxDirector = React.memo(function VfxDirector() {
         const kinetics = activeKinetics[vesselId];
         const emission = resolveReactionEmission(vessel, kinetics, useAppStore.getState().isSimulationPaused);
         const hasLiquid = (vessel.volume_ml ?? 0) > 0.5;
+        const hasSolidInventory = vessel.volume_ml > 0.2
+          && precipitateComponents(vessel.contents, vessel.precipitateSubstance).length > 0;
         const measuredGas = gasVisualState(vessel);
         const isHotOrActive = (hasLiquid && vessel.isBoiling) || (hasLiquid && vessel.hasGas)
-          || (hasLiquid && (vessel.hasPrecipitate || (vessel.foam_ml ?? 0) > 0.05)) || vessel.isExplosion || waterVisualState(vessel).mistRate > 0;
+          || hasSolidInventory || (hasLiquid && (vessel.foam_ml ?? 0) > 0.05) || vessel.isExplosion || waterVisualState(vessel).mistRate > 0;
         const rawRecipe: ReactionVfxRecipe | null = kinetics?.reactionId 
           ? getReactionVfxRecipe(kinetics.reactionId)
           : (kinetics ? getGenericVfxRecipe(null, vessel) : (isHotOrActive ? getGenericVfxRecipe(null, vessel) : null));
@@ -293,9 +296,16 @@ export const VfxDirector = React.memo(function VfxDirector() {
         const manager = SimulationEngine.findManager(vesselId), plume = manager?.evaporationSystem;
         const hasAirborneTail = !!plume && (plume.particles.length > 0 || plume.pendingSeconds > 1e-12)
           || (manager?.boilingSystem.bubbles.length ?? 0) > 0;
-        const hasStirringFlow = hasLiquid && (vesselAgitation(vessel, { stirringVesselId, activeTool, selectedVesselId }) > 0
+        // Keep one cleanup step when dissolution removes the final product.
+        // A stale summary flag cannot leave a dormant particle population.
+        const hasSolidTail = (manager?.precipitationSystems.size ?? 0) > 0;
+        // Keep the carrier mounted during rod insertion; immersion gates its
+        // forcing inside PhysicalSimulationRenderer, not its lifecycle here.
+        const hasStirringFlow = hasLiquid && (canStirVessel(vessel)
+          && stirringTarget({ stirringVesselId, activeTool, selectedVesselId }) === vessel.id
+          || inversionAgitation(vessel) > 0
           || (manager?.vortex.angularSpeed_rad_s ?? 0) !== 0);
-        if (!rawRecipe && !isHotOrActive && !hasAirborneTail && !hasStirringFlow && measuredGas.visible.length === 0 && measuredGas.bubbleRate === 0) {
+        if (!rawRecipe && !isHotOrActive && !hasAirborneTail && !hasSolidTail && !hasStirringFlow && measuredGas.visible.length === 0 && measuredGas.bubbleRate === 0) {
           return null;
         }
 

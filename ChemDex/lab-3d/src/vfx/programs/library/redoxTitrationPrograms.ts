@@ -409,7 +409,7 @@ export const REDOX_TITRATION_PROGRAMS: ReactionProgram[] = [
         { id: 'sound', atom: 'proceduralAcoustics', anchor: 'bulk', window: [0, 0.7], intensity: 0.9, params: { soundProfile: 'fizz_effervescence', volume: 0.85 } }
       ],
       after: {
-        liquidColor: '#27272a',
+        liquidColor: '#f8fafc',
         liquidOpacity: 0.98,
         turbidity: 0.9,
         precipitate: { substance: 'MnO2', morphology: 'fine_powder', color: '#18181b', mass_g: 'fromLedger' },

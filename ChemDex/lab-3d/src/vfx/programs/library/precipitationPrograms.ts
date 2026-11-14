@@ -164,7 +164,7 @@ export const PRECIPITATION_PROGRAMS: ReactionProgram[] = [
         { id: 'stokes', atom: 'stokesSedimentation', anchor: 'bottom', window: [0.35, 1.0], intensity: 1.1, params: { stokesRadius_um: 4.0, sedimentColor: '#fef3c7', bedHeight_mm: 6.5 } }
       ],
       after: {
-        liquidColor: '#fef3c7',
+        liquidColor: '#f8fafc',
         liquidOpacity: 0.95,
         turbidity: 0.4,
         precipitate: { substance: 'AgBr', morphology: 'curd', color: '#fef3c7', mass_g: 'fromLedger' },
@@ -205,7 +205,7 @@ export const PRECIPITATION_PROGRAMS: ReactionProgram[] = [
         { id: 'stokes', atom: 'stokesSedimentation', anchor: 'bottom', window: [0.35, 1.0], intensity: 1.2, params: { stokesRadius_um: 5.0, sedimentColor: '#fde047', bedHeight_mm: 7.0 } }
       ],
       after: {
-        liquidColor: '#fef08a',
+        liquidColor: '#f8fafc',
         liquidOpacity: 0.95,
         turbidity: 0.45,
         precipitate: { substance: 'AgI', morphology: 'curd', color: '#fef08a', mass_g: 'fromLedger' },
@@ -370,7 +370,7 @@ export const PRECIPITATION_PROGRAMS: ReactionProgram[] = [
         { id: 'stokes', atom: 'stokesSedimentation', anchor: 'bottom', window: [0.35, 1.0], intensity: 1.0, params: { stokesRadius_um: 6.0, sedimentColor: '#0284c7', bedHeight_mm: 8.5 } }
       ],
       after: {
-        liquidColor: '#e0f2fe',
+        liquidColor: '#f8fafc',
         liquidOpacity: 0.92,
         turbidity: 0.55,
         precipitate: { substance: 'Cu(OH)2', morphology: 'gel', color: '#38bdf8', mass_g: 'fromLedger' },
@@ -411,7 +411,7 @@ export const PRECIPITATION_PROGRAMS: ReactionProgram[] = [
         { id: 'stokes', atom: 'stokesSedimentation', anchor: 'bottom', window: [0.35, 1.0], intensity: 1.1, params: { stokesRadius_um: 3.5, sedimentColor: '#7c2d12', bedHeight_mm: 7.5 } }
       ],
       after: {
-        liquidColor: '#fef3c7',
+        liquidColor: '#f8fafc',
         liquidOpacity: 0.95,
         turbidity: 0.60,
         precipitate: { substance: 'Fe(OH)3', morphology: 'floc', color: '#9a3412', mass_g: 'fromLedger' },
@@ -451,7 +451,7 @@ export const PRECIPITATION_PROGRAMS: ReactionProgram[] = [
         { id: 'stokes', atom: 'stokesSedimentation', anchor: 'bottom', window: [0.35, 1.0], intensity: 1.0, params: { stokesRadius_um: 4.5, sedimentColor: '#65826a', bedHeight_mm: 6.5 } }
       ],
       after: {
-        liquidColor: '#d1fae5',
+        liquidColor: '#f8fafc',
         liquidOpacity: 0.95,
         turbidity: 0.55,
         precipitate: { substance: 'Fe(OH)2', morphology: 'gel', color: '#65826a', mass_g: 'fromLedger' },
@@ -531,7 +531,7 @@ export const PRECIPITATION_PROGRAMS: ReactionProgram[] = [
         { id: 'stokes', atom: 'stokesSedimentation', anchor: 'bottom', window: [0.3, 1.0], intensity: 1.2, params: { stokesRadius_um: 5.0, sedimentColor: '#18181b', bedHeight_mm: 6.5 } }
       ],
       after: {
-        liquidColor: '#27272a',
+        liquidColor: '#f8fafc',
         liquidOpacity: 0.98,
         turbidity: 0.9,
         precipitate: { substance: 'CuS', morphology: 'amorphous_black', color: '#18181b', mass_g: 'fromLedger' },
@@ -571,7 +571,7 @@ export const PRECIPITATION_PROGRAMS: ReactionProgram[] = [
         { id: 'stokes', atom: 'stokesSedimentation', anchor: 'bottom', window: [0.3, 1.0], intensity: 1.2, params: { stokesRadius_um: 6.0, sedimentColor: '#18181b', bedHeight_mm: 7.0 } }
       ],
       after: {
-        liquidColor: '#27272a',
+        liquidColor: '#f8fafc',
         liquidOpacity: 0.98,
         turbidity: 0.85,
         precipitate: { substance: 'PbS', morphology: 'amorphous_black', color: '#18181b', mass_g: 'fromLedger' },
@@ -611,7 +611,7 @@ export const PRECIPITATION_PROGRAMS: ReactionProgram[] = [
         { id: 'stokes', atom: 'stokesSedimentation', anchor: 'bottom', window: [0.35, 1.0], intensity: 1.0, params: { stokesRadius_um: 2.0, sedimentColor: '#facc15', bedHeight_mm: 5.5 } }
       ],
       after: {
-        liquidColor: '#fef9c3',
+        liquidColor: '#f8fafc',
         liquidOpacity: 0.95,
         turbidity: 0.65,
         precipitate: { substance: 'BaCrO4', morphology: 'fine_powder', color: '#fef08a', mass_g: 'fromLedger' },
@@ -651,7 +651,7 @@ export const PRECIPITATION_PROGRAMS: ReactionProgram[] = [
         { id: 'stokes', atom: 'stokesSedimentation', anchor: 'bottom', window: [0.35, 1.0], intensity: 1.1, params: { stokesRadius_um: 3.5, sedimentColor: '#7f1d1d', bedHeight_mm: 6.0 } }
       ],
       after: {
-        liquidColor: '#fef08a',
+        liquidColor: '#f8fafc',
         liquidOpacity: 0.95,
         turbidity: 0.70,
         precipitate: { substance: 'Ag2CrO4', morphology: 'fine_powder', color: '#991b1b', mass_g: 'fromLedger' },

@@ -42,6 +42,19 @@ export function isSuspensionRow(item: SubstanceContent, contents: readonly Subst
     && !contents.some(c => c.solidOrigin === 'precipitate' && sameMolecularFormula(c.formula, item.formula));
 }
 
+/** Clear only haze previously attributable to an actual suspended solid.
+ * Other cloudy samples retain their own optical model. In particular an
+ * organic dispersed phase or active foam is not made clear by acid dissolution.
+ * Undefined means this transition does not own the vessel's turbidity. */
+export function clearedPrecipitateTurbidity(previous: Pick<VesselState, 'contents' | 'precipitateSubstance' | 'foam_ml'>,
+  contents: readonly SubstanceContent[]): 0 | undefined {
+  if ((previous.foam_ml ?? 0) > 0.05
+    || contents.some(c => c.liquidLayer === 'organic' && c.moles > 0 && (!c.location || c.location === 'bulk'))
+    || !precipitateComponents(previous.contents, previous.precipitateSubstance).length
+    || precipitateComponents(contents, previous.precipitateSubstance).length) return undefined;
+  return 0;
+}
+
 /** Migrate the amount explicitly recorded by an older vessel before another
  * reaction replaces its legacy species label. Splitting rows changes no mass
  * or moles; any independently added remainder retains its chunk identity. */

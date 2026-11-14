@@ -5,7 +5,7 @@ import { reagentPhase } from '../science/reagentAvailability';
 import { AMMINE_FORMATION_DH_J, HYDROXO_AMMINES, copperAmmineFormula, copperAmmoniaEquilibrium,
   type CopperAmmoniaInventory, type CopperAmmoniaState } from '../science/copperAmmoniaEquilibrium';
 import { waterDissociationEnthalpy_J_mol } from '../science/aqueousTemperature';
-import { bulkPrecipitateMass } from '../science/precipitateInventory';
+import { bulkPrecipitateMass, clearedPrecipitateTurbidity } from '../science/precipitateInventory';
 
 export const COPPER_AMMONIA_EQUATION = 'Cu(2+)(aq) + nNH3(aq) ⇌ [Cu(NH3)n](2+)(aq), n=1–4; Cu(OH)2(s) ⇌ Cu(2+)(aq) + 2OH(-)(aq)';
 
@@ -122,6 +122,7 @@ export function applyCopperAmmoniaLedger(vessel: VesselState, progress: number, 
   return { contents, substances: [...new Set(contents.filter(c => c.moles > 1e-12).map(c => c.formula))],
     mass_g: contents.reduce((s, c) => s + c.mass_g, 0), hasGas: false,
     hasPrecipitate: precipitateAmount_g > 1e-10, precipitateAmount_g,
+    ...(clearedPrecipitateTurbidity(vessel, contents) === 0 ? { turbidity: 0 } : {}),
     precipitateSubstance: 'Cu(OH)2', precipitateColor: '#7dd3fc', precipitateMorphology: 'GEL',
     liquidColor: copperAmmoniaColor(contents, vessel.volume_ml), ph: aqueous.state.ph,
     phModel: temperature_c === 25 ? 'ideal_aqueous_25c' : 'ideal_aqueous_temperature',

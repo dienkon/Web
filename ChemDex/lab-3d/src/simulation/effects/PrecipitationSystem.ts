@@ -3,7 +3,7 @@ import { PhysicalPrecipitateParticle, PrecipitateProfile, SedimentBedState } fro
 import { getPrecipitateProfile } from '../core/SimulationConfig';
 import { LiquidMotionSystem } from './LiquidMotionSystem';
 import { PRNG } from '../../core/rng';
-import { containParticle, type ParticleBounds } from './particleBounds';
+import { containParticle, slideParticleAlongWall, particleSupportOffset, PARTICLE_WALL_CLEARANCE, type ParticleBounds } from './particleBounds';
 import { pointPlaneDepth, projectToLiquidPlane, type LiquidPlane } from './liquidParticleFrame';
 import { sedimentLevel, cylinderSedimentThickness } from './sedimentGeometry';
 import { precipitatePackingFraction } from '../../science/precipitatePacking';
@@ -16,6 +16,7 @@ import type { SuspensionCarrierMode } from '../../science/suspensionFluid';
 import { FlocculationPopulation, stirringShear } from '../../science/flocculation';
 import { getFlocculationModel } from '../../science/flocculationModels';
 import { sameMolecularFormula } from '../../science/speciesIdentity';
+import { sedimentSupportPlane } from './sedimentPlane';
 
 export interface PrecipitationSimulationParams extends ParticleBounds {
   carrierMode?: SuspensionCarrierMode;
@@ -268,6 +269,8 @@ export class PrecipitationSystem {
 
     const height = Math.max(0, surfaceY - liquidBottomY);
     const bedThickness = params.sharedSedimentThickness ?? this.sedimentBed.thickness;
+    const bedPlane = params.sharedSedimentPlane ?? (params.surfacePlane && params.vesselProfile
+      ? sedimentSupportPlane(params.vesselProfile, up) : undefined);
     const targetMass = Math.max(0, precipitateAmount_g);
     this.withdrawSuspension(params.withdrawnSuspension_g ?? 0);
     if (targetMass < this.trackedMass_g && this.trackedMass_g > 0) {
@@ -397,8 +400,9 @@ export class PrecipitationSystem {
         }
 
         newbornAges_s.push(dt - bornAt_s);
-        if (fromBed && params.sharedSedimentPlane) {
-          const point = projectToLiquidPlane({ x: px, y: py, z: pz }, surfaceY, params.sharedSedimentPlane, -baseRad * 3 - 0.02);
+        if (fromBed && bedPlane) {
+          const mixingLayer = Math.min(height * 0.25, 0.1) * stirring;
+          const point = projectToLiquidPlane({ x: px, y: py, z: pz }, surfaceY, bedPlane, -baseRad * 3 - 0.02 - mixingLayer);
           [px, py, pz] = [point.x, point.y, point.z];
         }
         const primaryGlyphRadius = baseRad * (0.8 + this.rng.next() * 0.4);
@@ -438,9 +442,19 @@ export class PrecipitationSystem {
     };
     const physicalExtent = (p: PhysicalPrecipitateParticle) =>
       (p.physicalRadius_m ?? this.profile.baseParticleRadius_mm * 1e-3) / METERS_PER_SCENE_UNIT;
-    const reachesBed = (p: { x: number; y: number; z: number }, extent: number) => params.sharedSedimentPlane
-      ? pointPlaneDepth(p, surfaceY, params.sharedSedimentPlane) >= -extent
+    const reachesBed = (p: { x: number; y: number; z: number }, extent: number) => bedPlane
+      ? pointPlaneDepth(p, surfaceY, bedPlane) >= -extent - PARTICLE_WALL_CLEARANCE - 1e-10
       : p.y <= liquidBottomY + extent + bedThickness;
+    let supportExtent = -1, supportOffset = -Infinity;
+    const reachesSupport = (p: { x: number; y: number; z: number }, extent: number) => {
+      if (!params.surfacePlane || !params.vesselProfile) return false;
+      if (extent !== supportExtent) {
+        supportExtent = extent;
+        supportOffset = particleSupportOffset(params, up, extent);
+      }
+      return Number.isFinite(supportOffset)
+        && up[0] * p.x + up[1] * p.y + up[2] * p.z <= supportOffset + PARTICLE_WALL_CLEARANCE;
+    };
 
     for (let i = 0; i < this.particles.length; i++) {
       const p = this.particles[i];
@@ -458,6 +472,13 @@ export class PrecipitationSystem {
       if (p.physicalRadius_m !== undefined) {
         p.sedimentationSpeed = this.settlingSpeed(p.physicalRadius_m, p.density,
           density_g_ml * 1000, viscosity_mPa_s * 0.001, METERS_PER_SCENE_UNIT);
+      }
+      // Contact is absorbing until explicit bed entrainment. Do not let the
+      // next Brownian draw lift an already supported grain back off the glass.
+      if (p.sedimentationSpeed > 0 && (reachesBed(p, physicalExtent(p)) || reachesSupport(p, physicalExtent(p)))) {
+        p.settled = true;
+        newlySettledMass_g += p.mass_ug / 1e6;
+        continue;
       }
 
       // Sample fluid convection current
@@ -508,9 +529,10 @@ export class PrecipitationSystem {
       // Contact and transport use the physical grain. Magnified glyphs are
       // clipped by the renderer; their size cannot turn suspension into a bed.
       const contact = { x: p.x, y: p.y, z: p.z, radius: physicalExtent(p) };
+      slideParticleAlongWall(contact, params);
       const contained = containParticle(contact, params);
       if (reachesBed(p, physicalExtent(p)) || !contained
-        || params.sharedSedimentPlane && reachesBed(contact, physicalExtent(p))) {
+        || reachesBed(contact, physicalExtent(p)) || reachesSupport(contact, physicalExtent(p))) {
         p.settled = true;
         // Transfer individual particle mass into the bottom sediment bed
         newlySettledMass_g += p.mass_ug / 1e6;

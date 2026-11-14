@@ -19,7 +19,14 @@ export class SedimentSurface {
   advance(dt: number, up: Point3, diameter_m: number, density_kg_m3: number, viscosity_Pa_s: number,
     components: readonly BedComponent[], liquidCarrier = true) {
     const mass = components.reduce((n, c) => n + c.mass_g, 0);
-    if (!(mass > 1e-12)) { this.reset(); return; }
+    if (!(mass > 1e-12)) {
+      this.reset();
+      // A newly forming bed follows current gravity. Retaining the original
+      // local floor here leaves fresh side-wall deposits suspended above it.
+      const length = Math.hypot(...up);
+      if (length > 0 && Number.isFinite(length)) this.normal = up.map(v => v / length) as [number, number, number];
+      return;
+    }
     if (!(dt > 0) || !Number.isFinite(dt)) return;
     this.relaxationTime_s = Infinity;
     if (!liquidCarrier || ![...up, diameter_m, density_kg_m3, viscosity_Pa_s].every(Number.isFinite)

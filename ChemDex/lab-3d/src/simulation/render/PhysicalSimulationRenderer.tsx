@@ -248,9 +248,10 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
         visible={false}
       />
 
-      {components.map(([formula, formation]) => <PrecipitateParticleLayer key={formula} vesselId={vesselId}
+      {components.map(([formula, formation], index) => <PrecipitateParticleLayer key={formula} vesselId={vesselId} formula={formula}
         system={mgr.getPrecipitationSystem(formula)} formation={formation ?? undefined}
-        capacity={Math.ceil(budget.visible / Math.max(1, components.length))} />)}
+        capacity={Math.floor(budget.visible / Math.max(1, components.length))
+          + (index < budget.visible % Math.max(1, components.length) ? 1 : 0)} />)}
 
       {/* 3. Bottom Sediment Bed Mesh */}
       <SedimentMesh

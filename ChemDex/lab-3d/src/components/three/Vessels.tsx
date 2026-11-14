@@ -1,5 +1,6 @@
 import { FRAME_ORDER } from '../../simulation/core/frameOrder';
 import { simulationFrameDt } from '../../core/clock';
+import { FLASK_INVERSION_DURATION_S } from '../../science/stirring';
 import React, { useRef, useMemo, useState, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { MeshPhysicalMaterial, MeshStandardMaterial, DoubleSide } from 'three';
@@ -1998,7 +1999,6 @@ export const VolumetricFlask = React.memo(function VolumetricFlask({ position, i
   const invertVolumetricFlask = useAppStore(state => state.invertVolumetricFlask);
 
   const [tiltAngle, setTiltAngle] = useState(0);
-  const [invertTimer, setInvertTimer] = useState(0);
   const groupRef = useRef<THREE.Group>(null);
 
   const effectiveTier = useQualityStore(state => state.effectiveTier);
@@ -2006,11 +2006,11 @@ export const VolumetricFlask = React.memo(function VolumetricFlask({ position, i
   const latheGeom = useMemo(() => createVesselLatheGeometry('volumetric_flask', 36), []);
 
   useFrame((_, delta) => {
+    const state = useAppStore.getState();
+    const invertTimer = state.vessels[id]?.inversionRemaining_s ?? 0;
+    if (state.isSimulationPaused) return;
     if (tiltAngle > 0 && !isSelected && !isHovered) {
       setTiltAngle(prev => Math.max(0, prev - delta * 2.5));
-    }
-    if (invertTimer > 0) {
-      setInvertTimer(prev => Math.max(0, prev - delta));
     }
 
     if (groupRef.current) {
@@ -2025,7 +2025,7 @@ export const VolumetricFlask = React.memo(function VolumetricFlask({ position, i
         let animY = renderPos[1];
         if (invertTimer > 0) {
           // Smooth 180° flip animation up, upside down, gentle shake, and return upright
-          const t = 1 - (invertTimer / 1.4);
+          const t = 1 - (invertTimer / FLASK_INVERSION_DURATION_S);
           const flip = Math.sin(t * Math.PI); // 0 -> 1 -> 0
           rotZ = flip * Math.PI;
           rotX = Math.sin(t * Math.PI * 4) * 0.12 * flip; // gentle mixing oscillation
@@ -2085,7 +2085,6 @@ export const VolumetricFlask = React.memo(function VolumetricFlask({ position, i
                 return;
               }
               if (vessel.isShattered || vessel.volume_ml <= 0) return;
-              setInvertTimer(1.4);
               invertVolumetricFlask(id); 
             }}
             onPointerOver={(e) => { 

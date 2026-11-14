@@ -13,7 +13,7 @@ import { stockImmersion } from '../../science/stockImmersion';
 import { solveStockLiquidSurface } from '../../science/stockLiquidSurface';
 import { liquidParticlePlane, type LiquidPlane } from '../effects/liquidParticleFrame';
 import { SedimentSurface } from '../../science/sedimentSurface';
-import { sedimentPlane } from '../effects/sedimentPlane';
+import { sedimentPlane, sedimentSupportPlane } from '../effects/sedimentPlane';
 import { vesselInterior } from '../../science/vesselDimensions';
 import { metersPerModelUnit } from '../../science/sceneUnits';
 import { precipitateComponents } from '../../science/precipitateInventory';
@@ -287,7 +287,8 @@ export class VesselSimulationManager {
     const priorBedVolume = support.reduce((sum, c) => sum + c.mass_g / (c.profile.particleDensity_g_cm3 * precipitatePackingFraction(c.profile)), 0);
     this.bedSurface.advance(dt, localUp.toArray(), 2 * vesselInterior(vessel.type).maximumRadius * metersPerModelUnit(profile),
       density_g_ml * 1000, viscosity_mPa_s * 0.001, support, fluid.carrierMode === 'liquid');
-    const sharedSedimentPlane = this.bedPlane(profile, priorBedVolume);
+    const sharedSedimentPlane = this.bedPlane(profile, priorBedVolume)
+      ?? sedimentSupportPlane(profile, this.bedSurface.normal);
     for (let index = 0; index < components.length; index++) {
       const component = components[index];
       const system = this.getPrecipitationSystem(component.formula);

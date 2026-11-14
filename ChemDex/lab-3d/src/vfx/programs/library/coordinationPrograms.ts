@@ -153,7 +153,7 @@ export const COORDINATION_PROGRAMS: ReactionProgram[] = [
         { id: 'sed', atom: 'stokesSedimentation', anchor: 'bottom', window: [0.3, 1.0], intensity: 0.9, params: { stokesRadius_um: 0.8, sedimentColor: '#075985', bedHeight_mm: 6.0 } }
       ],
       after: {
-        liquidColor: '#0c4a6e',
+        liquidColor: '#f8fafc',
         liquidOpacity: 0.98,
         turbidity: 0.85,
         precipitate: { substance: 'KFe[Fe(CN)6]', morphology: 'colloid', color: '#0c4a6e', mass_g: 'fromLedger' },
@@ -194,7 +194,7 @@ export const COORDINATION_PROGRAMS: ReactionProgram[] = [
         { id: 'turb', atom: 'turbidityShift', anchor: 'bulk', window: [0, 0.5], intensity: 1.0, params: { maxTurbidity: 0.95, hazeColor: '#0284c7' } }
       ],
       after: {
-        liquidColor: '#0369a1',
+        liquidColor: '#f8fafc',
         liquidOpacity: 0.98,
         turbidity: 0.8,
         precipitate: { substance: 'KFe[Fe(CN)6]', morphology: 'colloid', color: '#0369a1', mass_g: 'fromLedger' },
@@ -236,7 +236,7 @@ export const COORDINATION_PROGRAMS: ReactionProgram[] = [
         { id: 'sed', atom: 'stokesSedimentation', anchor: 'bottom', window: [0.35, 1.0], intensity: 1.0, params: { stokesRadius_um: 1.2, sedimentColor: '#451a03', bedHeight_mm: 5.0 } }
       ],
       after: {
-        liquidColor: '#78350f',
+        liquidColor: '#f8fafc',
         liquidOpacity: 0.95,
         turbidity: 0.8,
         precipitate: { substance: 'Cu2[Fe(CN)6]', morphology: 'curd', color: '#451a03', mass_g: 'fromLedger' },

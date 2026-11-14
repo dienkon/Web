@@ -55,7 +55,9 @@ export function AutoLiquid({ experiment: e }: { experiment: AutoExperiment }) {
     cap.current.position.y = fillY;
     uniforms.uFillY.value = fillY; uniforms.uPhase.value = e.physics.vortex.phase_rad;
     uniforms.uVortex.value.set((vortex?.coreRadius ?? 1) ** 2, vortex?.amplitude ?? 0, vortex?.offset ?? fillY, e.physics.vortex.angularSpeed_rad_s);
-    appearance.update(e.physics.suspensionColor);
+    root.current.updateWorldMatrix(true, false);
+    appearance.update(e.physics.suspensionColor, root.current.matrixWorld,
+      e.physics.precipitationSystems.values().next().value?.renderBounds);
     for (const material of [materials.body, materials.surface]) material.roughness = 0.06 + e.physics.cloudiness * 0.35;
   });
   return <group ref={root} name="auto_liquid">

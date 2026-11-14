@@ -478,12 +478,19 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     }
     if (appearance !== 'foam') {
       const kinetics = useAppStore.getState().activeKinetics[vesselId];
-      appearanceField.advance(dt, { color: liquidColorHex, turbidity: targetTurbidity, radius: surfaceR,
-        baseY, fillY, contact: appearanceContact, contactColor: colorOverride ? undefined : vessel.recentPourContact?.color,
+      const suspensionBounds = suspensionTurbidity !== null
+        ? simMgr!.precipitationSystems.values().next().value?.renderBounds : undefined;
+      const fieldInterior = vesselInterior(vesselType);
+      const fieldTop = suspensionBounds?.surfacePlane ? fieldInterior.topY : fillY;
+      appearanceField.advance(dt, { color: liquidColorHex, turbidity: targetTurbidity,
+        radius: suspensionBounds ? fieldInterior.maximumRadius : surfaceR,
+        suspensions: suspensionTurbidity !== null ? simMgr!.precipitationSystems : undefined,
+        baseY, fillY: fieldTop, contact: appearanceContact, contactColor: colorOverride ? undefined : vessel.recentPourContact?.color,
         reactionRate_s1: kinetics && kinetics.progress > 0 && kinetics.progress < 1
           ? Math.LN2 / Math.max(0.05, kinetics.program?.chemistry.kinetics.halfTime_s || 1) : 0,
         vortex, agitation: Math.min(1, Math.abs(vortex?.angularSpeed_rad_s ?? 0) / 48) });
-      spatialAppearance.update(simMgr?.suspensionColor ?? liquidColorHex);
+      meshGroupRef.current.updateWorldMatrix(true, false);
+      spatialAppearance.update(simMgr?.suspensionColor ?? liquidColorHex, meshGroupRef.current.matrixWorld, suspensionBounds);
     }
     uniforms.uTurbidity.value = isPaused || replacedSample || appearance === 'foam' ? targetTurbidity
       : THREE.MathUtils.lerp(uniforms.uTurbidity.value, targetTurbidity, 1 - Math.exp(-5 * dt));

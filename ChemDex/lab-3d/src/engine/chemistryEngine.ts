@@ -10,6 +10,8 @@ import { applyCopperAmmoniaLedger, COPPER_AMMONIA_EQUATION, copperAmmoniaColor }
 import { copperAmmoniaEquilibrium } from '../science/copperAmmoniaEquilibrium';
 import { applyThermalEnergy } from './thermalState';
 import { computeMolarMass } from './ledger';
+import { precipitateComponents, clearedPrecipitateTurbidity } from '../science/precipitateInventory';
+import { getPrecipitateProfile } from '../simulation/core/SimulationConfig';
 import { solveAqueousEquilibrium, aqueousModelFields } from '../science/aqueousEquilibrium';
 import { solutionIndicatorColor } from '../science/indicatorAppearance';
 import { aqueousBoilingPoint, relaxGeneratedWater, sampleHeatCapacity } from './thermalState';
@@ -259,7 +261,7 @@ export const DETERMINISTIC_REACTIONS: DeterministicReaction[] = [
     hasPrecipitate: true,
     precipitateColor: '#38bdf8',
     precipitateFormula: 'Cu(OH)2',
-    resultingLiquidColor: '#bae6fd',
+    resultingLiquidColor: '#f8fafc',
     hasGas: false,
     isDangerous: false
   },
@@ -905,7 +907,7 @@ export const DETERMINISTIC_REACTIONS: DeterministicReaction[] = [
     hasPrecipitate: true,
     precipitateColor: '#78350f',
     precipitateFormula: 'Fe(OH)3',
-    resultingLiquidColor: '#fef3c7',
+    resultingLiquidColor: '#f8fafc',
     hasGas: false,
     isDangerous: false
   },
@@ -1117,6 +1119,7 @@ export interface MultiStepReactionResult {
   phModel?: VesselState['phModel'];
   phReferenceTemperature_c?: number;
   finalLiquidColor: string;
+  finalTurbidity?: number;
   hasPrecipitate: boolean;
   precipitateColor?: string;
   precipitateSubstance?: string;
@@ -1483,50 +1486,22 @@ export function executeMultiStepReactions(
   if (iodinePresent) {
     // Starch binding is an optical equilibrium, not a fabricated I_starch molecule.
   }
-  // 5. Check precipitate presence from insoluble products currently present
-  const INSOLUBLE_FORMULAS = [
-    'BaSO4', 'AgCl', 'PbI2', 'Cu(OH)2', 'Fe(OH)3', 'Fe(OH)2', 'CaCO3', 'Al(OH)3', 'Cu', 'S', 'CuO'
-  ];
+  // Every bulk reaction product participates; added chunks and retained filter
+  // cake are not suspended precipitate. Do not gate appearance on a short list
+  // of familiar formulas or lose a second solid when the UI label changes.
+  const components = precipitateComponents(updatedContents);
+  const primary = components.reduce<(typeof components)[number] | undefined>(
+    (largest, c) => !largest || c.mass_g > largest.mass_g ? c : largest, undefined);
+  const precipitateAmount_g = components.reduce((sum, c) => sum + c.mass_g, 0);
+  const hasPrecipitate = precipitateAmount_g > (precise ? 1e-12 : 0.005);
+  const precipitateSubstance = primary?.formula;
+  const precipitateColor = primary ? getPrecipitateProfile(primary.formula).color : undefined;
 
-  let hasPrecipitate = false;
-  let precipitateSubstance: string | undefined = undefined;
-  let precipitateColor: string | undefined = undefined;
-  let precipitateAmount_g = 0;
-
-  for (const ins of INSOLUBLE_FORMULAS) {
-    const found = updatedContents.find(c => chemicalFormulaMatches(c.formula, ins) && c.phase === 's' && availableInBulk(c, moleThreshold));
-    if (found && found.mass_g > (precise ? 1e-9 : 0.005)) {
-      hasPrecipitate = true;
-      precipitateSubstance = found.formula;
-      precipitateAmount_g += found.mass_g;
-
-      // Color lookup
-      const chem = findChemical(found.formula);
-      if (ins === 'BaSO4' || ins === 'AgCl' || ins === 'CaCO3' || ins === 'Al(OH)3') {
-        precipitateColor = '#ffffff';
-      } else if (ins === 'PbI2') {
-        precipitateColor = '#facc15';
-      } else if (ins === 'Cu(OH)2') {
-        precipitateColor = '#38bdf8';
-      } else if (ins === 'Fe(OH)3') {
-        precipitateColor = '#78350f';
-      } else if (ins === 'Fe(OH)2') {
-        precipitateColor = '#15803d';
-      } else if (ins === 'Cu') {
-        precipitateColor = '#b45309';
-      } else if (ins === 'S') {
-        precipitateColor = '#fef08a';
-      } else if (ins === 'CuO') {
-        precipitateColor = '#18181b';
-      } else {
-        precipitateColor = chem.color || '#ffffff';
-      }
-    }
-  }
-
-  // 6. Liquid color
+  // 6. Liquid color comes from the dissolved bulk inventory only.
+  const liquidContents = updatedContents.filter(c => availableInBulk(c, moleThreshold)
+    && reagentPhase(c) === 'aq' && c.liquidLayer !== 'organic');
   const hasPhenol = initialContents.length
-    ? updatedContents.some(item => item.moles > 0 && item.formula.toLowerCase().includes('phenolphthalein'))
+    ? liquidContents.some(item => item.formula.toLowerCase().includes('phenolphthalein'))
     : initialSubstances.some(s => s.toLowerCase().includes('phenolphthalein'));
   let finalLiquidColor = '#f8fafc';
 
@@ -1537,21 +1512,22 @@ export function executeMultiStepReactions(
     finalLiquidColor = starch ? '#0f172a' : '#99621d';
   } else if (hasPhenol) {
     finalLiquidColor = finalPh >= 8.2 ? '#ec4899' : '#f8fafc';
-  } else if (updatedContents.some(c => c.formula.includes('[Cu(NH3)4]') && c.moles > 1e-5)) {
+  } else if (liquidContents.some(c => c.formula.includes('[Cu(NH3)4]') && c.moles > 1e-5)) {
     finalLiquidColor = '#1d4ed8'; // Royal blue
-  } else if (updatedContents.some(c => (c.formula.includes('Fe(SCN)3') || c.formula.includes('[Fe(SCN)]Cl2')) && c.moles > 1e-5)) {
+  } else if (liquidContents.some(c => (c.formula.includes('Fe(SCN)3') || c.formula.includes('[Fe(SCN)]Cl2')) && c.moles > 1e-5)) {
     finalLiquidColor = '#881337'; // Blood red
-  } else if (updatedContents.some(c => chemicalFormulaMatches(c.formula, 'CuSO4') && c.moles > 1e-5)) {
+  } else if (liquidContents.some(c => chemicalFormulaMatches(c.formula, 'CuSO4') && c.moles > 1e-5)) {
     finalLiquidColor = '#38bdf8'; // Blue
-  } else if (updatedContents.some(c => chemicalFormulaMatches(c.formula, 'KMnO4') && c.moles > 1e-5)) {
+  } else if (liquidContents.some(c => chemicalFormulaMatches(c.formula, 'KMnO4') && c.moles > 1e-5)) {
     finalLiquidColor = '#7e22ce'; // Purple
-  } else if (updatedContents.some(c => chemicalFormulaMatches(c.formula, 'FeCl3') && c.moles > 1e-5)) {
+  } else if (liquidContents.some(c => chemicalFormulaMatches(c.formula, 'FeCl3') && c.moles > 1e-5)) {
     finalLiquidColor = '#ca8a04'; // Amber
-  } else if (updatedContents.some(c => chemicalFormulaMatches(c.formula, 'FeSO4') && c.moles > 1e-5)) {
+  } else if (liquidContents.some(c => chemicalFormulaMatches(c.formula, 'FeSO4') && c.moles > 1e-5)) {
     finalLiquidColor = '#bbf7d0'; // Pale green
   } else if (reactionsOccurred.length > 0) {
     const lastRx = reactionsOccurred[reactionsOccurred.length - 1].match;
-    finalLiquidColor = lastRx.resultingLiquidColor || '#f8fafc';
+    finalLiquidColor = Object.values(lastRx.products).some(product => product.state === 's')
+      ? '#f8fafc' : lastRx.resultingLiquidColor || '#f8fafc';
   }
 
   const indicatorTint = aqueousEquilibrium ? solutionIndicatorColor(updatedContents, finalPh) : null;
@@ -1619,6 +1595,7 @@ export function executeMultiStepReactions(
       phReferenceTemperature_c: currentTemp } : {}),
     ...(copperState ? { phModel: currentTemp === 25 ? 'ideal_aqueous_25c' as const : 'ideal_aqueous_temperature' as const, phReferenceTemperature_c: currentTemp } : {}),
     finalLiquidColor,
+    finalTurbidity: clearedPrecipitateTurbidity({ contents: initialContents }, updatedContents),
     hasPrecipitate,
     precipitateColor,
     precipitateSubstance,

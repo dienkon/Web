@@ -17,6 +17,7 @@ import { findChemical } from '../src/data/chemicals';
 import { evaluateLocalChemistry } from '../src/engine/chemistryEngine';
 import { computeMolarMass } from '../src/engine/ledger';
 import { SimulationEngine } from '../src/simulation/core/SimulationEngine';
+import { getPrecipitateProfile } from '../src/simulation/core/SimulationConfig';
 import { VesselState } from '../src/types/chemistry';
 
 describe('Realism Engine: Physical & Chemical Invariants', () => {
@@ -301,7 +302,10 @@ describe('Realism Engine: Physical & Chemical Invariants', () => {
     expect(stage1!.reaction_id).toBe('limewater_co2_milky');
     expect(stage1!.new_vessel_state.has_precipitate).toBe(true);
     expect(stage1!.new_vessel_state.precipitate_substance).toBe('CaCO3');
-    expect(stage1!.new_vessel_state.precipitate_color).toBe('#ffffff');
+    // The solid summary and the renderer share the same white-chalk profile;
+    // an RGB lighting tint is not a distinct chemical product or liquid dye.
+    expect(stage1!.new_vessel_state.precipitate_color).toBe(getPrecipitateProfile('CaCO3').color);
+    expect(stage1!.new_vessel_state.liquid_color).toBe('#f8fafc');
 
     // Labels alone cannot establish a dissolved CO2 amount or equilibrium.
     // Finite clearing and partial dissolution are tested in carbonate_equilibrium.test.ts.
