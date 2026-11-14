@@ -19,14 +19,14 @@ graph TD
         Parser["Formula Parser & Molar Mass"]
         Ledger["Conservation Ledger (Atoms & Mass Invariants)"]
         Stoich["Reaction Stoichiometry & Limiting Reagents"]
-        Eq["Acid-Base & Henderson-Hasselbalch Equilibrium"]
+        Eq["Aqueous Charge-Balance pH Solver"]
         Thermo["Adiabatic Calorimetry & Heat Balance"]
         Optics["Beer-Lambert Optical Transmittance"]
     end
 
-    subgraph LayerC["Layer C — State Management"]
-        Store["Zustand Lab Store (Vessels, Apparatus, Snapshots)"]
-        UndoRedo["Immutable Undo / Redo History"]
+    subgraph LayerC["Layer C — State & Step Engine"]
+        Store["Zustand Store (8 Slices + Shallow Selectors)"]
+        WorldStep["Pure stepLabWorld Tick Engine"]
         Guided["Guided Experiment Step Validator"]
     end
 
@@ -36,15 +36,15 @@ graph TD
         Burette["Burette & Stand SVG (Dropwise Valve)"]
         Balance["Digital Analytical Balance SVG"]
         Burner["Bunsen Burner SVG (Lively Flame)"]
-        OtherSVG["Cylinder, Funnel, Pipette, Wash Bottle"]
+        OtherSVG["Cylinder, Funnel, Pipette, Condenser, Wash Bottle"]
     end
 
-    subgraph LayerE["Layer E — User Interface"]
-        Header["Top Navigation (Mode, Undo, Lang, Export)"]
-        Sidebar["Inventory (Chemicals, Apparatus, 10 Labs, Safety)"]
-        Workbench["Interactive Workbench Canvas (Pointer Drag)"]
+    subgraph LayerE["Layer E — User Interface & Resilience"]
+        Header["Top Navigation & Toolbar (Catalog Status, Theme, Lang)"]
+        Sidebar["Inventory (115 Chemicals, Apparatus, 20 Labs, Safety)"]
+        Workbench["Interactive Workbench Canvas (Pointer & Keyboard/ARIA)"]
         Inspector["Vessel Inspector (Telemetry, Contents, Controls)"]
-        Modals["Precision Transfer Modal & Lab Notebook"]
+        Modals["Lazy Modals & Scoped ErrorBoundary Recovery"]
     end
 
     Catalog --> Stoich
@@ -55,8 +55,9 @@ graph TD
     Stoich --> Thermo
     Eq --> Optics
     Stoich --> Store
+    Store --> WorldStep
+    WorldStep --> Store
     Store --> Guided
-    Store --> UndoRedo
     Store --> Beaker
     Store --> Flask
     Store --> Burette
@@ -75,21 +76,23 @@ graph TD
 ## 2. Layered Breakdown
 
 ### Layer A — Chemical Data
-- `src/data/chemicals.ts`: Canonical definitions of chemical compounds with IUPAC standard molar masses, densities, categories, GHS hazards, PPE items, and bilingual descriptions.
-- `src/chemistry/reactions/reactionDatabase.ts`: Balanced stoichiometric equations, enthalpy values ($\Delta_r H^\circ$), equilibrium constants ($K_{sp}$), and visual outcome definitions.
-- `src/data/experiments.ts`: 10 core curriculum experiments with state-based validation criteria.
+- `src/data/chemicals.ts`: Canonical catalog of **115 chemical compounds** with IUPAC standard molar masses, densities, categories, GHS hazards, PPE items, and bilingual descriptions.
+- `src/chemistry/reactions/reactionDatabase.ts`: 95 curated handcrafted reactions plus non-conflicting compiled curriculum reactions, enthalpy values ($\Delta_r H^\circ$), and visual outcomes.
+- `src/chemistry/reactions/curriculumAndCatalogCompiler.ts`: Compiles **131 curriculum reactions** eagerly and lazy-loads `@shared/reaction-catalog.generated.json` (**1,300 shared catalog reactions** across 18 families) asynchronously via `ensureCatalogCompiled()`.
+- `src/data/experiments.ts` & `src/data/advancedExperiments.ts`: **20 guided experiments** (14 core + 6 advanced) with state-based validation criteria.
 
 ### Layer B — Pure Scientific Computation
 - **No dependencies on React, DOM, or animation frames.**
 - `src/chemistry/core/elements.ts` & `formula.ts`: Parses nested chemical formulas (`Ca(OH)2`, `[Cu(NH3)4]SO4`, `CuSO4·5H2O`) and computes exact IUPAC molecular weights.
 - `src/chemistry/core/ledger.ts`: Verifies element atom conservation and total mass balance before and after reactions.
-- `src/chemistry/reactions/engine.ts`: Calculates reaction extent ($\xi$), limiting and excess reagents, precipitation mass, gas generation, and thermal changes.
-- `src/chemistry/equilibrium/acidBase.ts`: Evaluates solution pH for strong acid/base mixtures, weak acids, and buffer solutions. Maps indicator colors (Phenolphthalein, Litmus, Universal indicator).
-- `src/chemistry/thermodynamics/calorimetry.ts`: Lumped capacitance calorimeter model calculating $\Delta T$.
+- `src/chemistry/reactions/engine.ts`: Executes stoichiometric conversions across PASS 1 (curated/curriculum), Tier 1 multi-stage equilibria (`instantRuleSolver.ts`), PASS 3 (1,300+ compiled catalog reactions), and Tier 2 fallback heuristics, maintaining strict element and mass conservation.
+- `src/chemistry/equilibrium/aqueous/`: Iterative charge-balance pH solver with Davies/Debye-Hückel ionic strength activity corrections, temperature-dependent $K_w(T)$, carbonate/phosphate speciation, and salt hydrolysis; wrapped by `src/chemistry/equilibrium/acidBase.ts`.
+- `src/chemistry/thermodynamics/calorimetry.ts`: Lumped capacitance calorimeter model calculating $\Delta T$ and latent-heat ice melting.
 
-### Layer C — Laboratory State & History
-- `src/store/useLabStore.ts`: Central Zustand store maintaining equipment positions, contents, tare weights, active selections, and immutable undo/redo snapshots.
-- Step-by-step progress tracking for guided experiments against actual simulated apparatus state.
+### Layer C — Laboratory State, Slices & Pure Tick Engine
+- `src/store/useLabStore.ts`: Composes 8 focused slices under `src/store/slices/` (`aiSlice`, `equipmentSlice`, `experimentSlice`, `historySlice`, `safetySlice`, `simulationSlice`, `transferSlice`, `uiSlice`) with helpers in `labStoreHelpers.ts`.
+- `src/engine/labWorldStep.ts`: Pure world simulation step (`stepLabWorld`) driving apparatus heating/cooling, burette/condenser flow, kinetics progression, and environment exchange without tying UI components to 60 Hz store re-renders.
+- `src/store/usePointerDragStore.ts`: Externalized ephemeral drag state isolating pointer moves from React tree rerenders.
 
 ### Layer D — 2D SVG Glassware Rendering
 - Scalable, lightweight vector graphics featuring:
@@ -100,10 +103,9 @@ graph TD
   - Dynamic Bunsen burner flame with inner blue cone and outer yellow flame.
   - Digital analytical balance with LCD readout, tare calculation, and stainless steel pan.
 
-### Layer E — Modern User Interface
-- Predominantly white, clean scientific workspace layout.
-- Direct pointer manipulation (drag apparatus on workbench; hover over compatible vessel to pour).
-- Precision Transfer Modal for numeric volume/mass inputs.
-- Vessel Inspector displaying real-time chemical composition, concentrations, and physical properties.
-- Bilingual Vietnamese (default) and English support.
-- Printable laboratory notebook and report with CSV / JSON export.
+### Layer E — Modern User Interface, Accessibility & Resilience
+- Predominantly white, clean scientific workspace layout with daylight/night lighting themes.
+- Direct pointer manipulation plus full keyboard accessibility (`Tab`, `Arrow`/`Shift+Arrow` positioning, `Enter`/`Space` quick radial menu, `Delete`/`Backspace` removal, `Escape` deselect, informative `aria-label`, and `aria-live="polite"` event announcements).
+- Scoped `ErrorBoundary` wrapping the workbench canvas and modal dialogs with IndexedDB autosave recovery, workbench reset, and page reload.
+- Non-blocking `CatalogLoadingBadge` while the shared 1,300-reaction catalog compiles in the background, plus lazy-loaded secondary modals (`Suspense`).
+- Bilingual Vietnamese (default) and English support across UI, IndexedDB sessions, and CSV/JSON/print laboratory reports.

@@ -15,11 +15,12 @@ The engine was evaluated against standard chemical benchmarks and authoritative 
 ## 2. Core Scientific Equations & Models
 
 ### 2.1 Conservation of Mass & Elements (Ledger Invariants)
-For any reaction network within a tracked system:
+For any reaction network within a closed system boundary (or with escaped gases tracked):
 $$\sum_{\text{initial}} m_i = \sum_{\text{vessel contents}} m_j + \sum_{\text{escaped gas}} m_{\text{gas}}$$
 $$\forall \text{ element } E: \quad \sum_{\text{initial}} n_i \cdot \text{count}(E, i) = \sum_{\text{final}} n_j \cdot \text{count}(E, j)$$
-- Mass error tolerance: $\le 0.05\text{ g}$ (accounting for IEEE 754 float precision).
-- Element atom tolerance: $\le 10^{-4}\text{ mol}$.
+- Verified invariant in `src/chemistry/__tests__/conservationAndAiGate.test.ts` across all simulatable entries in the **1,431 compiled curriculum/catalog reactions** and **95 curated `REACTION_DATABASE` entries**:
+  - Element discrepancy tolerance: $\le 10^{-9}\text{ mol}$ per element.
+  - Mass discrepancy tolerance: $\le 10^{-6}\text{ g}$.
 
 ### 2.2 Stoichiometry & Limiting Reagent Extent
 For general reaction $\sum_r \nu_r R_r \rightarrow \sum_p \nu_p P_p$:
@@ -27,16 +28,18 @@ $$\xi = \min_r \left( \frac{n_r}{\nu_r} \right)$$
 $$n_r(\text{final}) = n_r(\text{initial}) - \nu_r \cdot \xi$$
 $$n_p(\text{final}) = n_p(\text{initial}) + \nu_p \cdot \xi$$
 
-### 2.3 Dilute Solution Acid-Base Equilibria & pH
-Under the dilute aqueous assumption at $298.15\text{ K}$ ($K_w = 1.0 \times 10^{-14}$):
-- **Excess strong acid** ($n_{\text{H}^+} > n_{\text{OH}^-}$):
-  $$[\text{H}^+] = \frac{n_{\text{H}^+} - n_{\text{OH}^-}}{V_{\text{liters}}}$$
-  $$\text{pH} = -\log_{10}[\text{H}^+]$$
-- **Excess strong base** ($n_{\text{OH}^-} > n_{\text{H}^+}$):
-  $$[\text{OH}^-] = \frac{n_{\text{OH}^-} - n_{\text{H}^+}}{V_{\text{liters}}}$$
-  $$\text{pOH} = -\log_{10}[\text{OH}^-], \quad \text{pH} = 14.0 - \text{pOH}$$
-- **Weak acid buffer (Henderson-Hasselbalch)**:
-  $$\text{pH} = \text{pK}_a + \log_{10}\left( \frac{[\text{A}^-]}{[\text{HA}]} \right)$$
+### 2.3 Aqueous Charge-Balance Equilibrium & pH
+Under aqueous speciation (`src/chemistry/equilibrium/aqueous/`), $[\text{H}^+]$ is solved via monotonic charge-balance bisection:
+$$[\text{H}^+] + \sum_c z_c [\text{C}^{z_c+}] = [\text{OH}^-] + \sum_a z_a [\text{A}^{z_a-}]$$
+incorporating Davies/Debye-Hückel activity coefficients, temperature-dependent autoionization $K_w(T)$ ($pK_w = 14.00$ at $25^\circ\text{C}$, decreasing to $\approx 13.26$ at $50^\circ\text{C}$), weak monoprotic/diprotic/triprotic acid-base ionization ($\text{CH}_3\text{COOH}$, $\text{NH}_3$, $\text{H}_2\text{CO}_3$, $\text{H}_3\text{PO}_4$), and transition-metal / conjugate hydrolysis. A fallback heuristic is retained in `src/chemistry/equilibrium/acidBase.ts` only for unrecognized custom species or $T > 90^\circ\text{C}$.
+
+Verified pH benchmarks in `src/chemistry/__tests__/aqueousBenchmarks.test.ts` (all passing within $\pm 0.05\text{ pH}$):
+- Pure $\text{H}_2\text{O}$ at $25^\circ\text{C}$ ($7.00$) and $50^\circ\text{C}$ ($K_w$-adjusted $\approx 6.63$)
+- $10^{-8}\text{ M HCl}$ (charge balance with water autoionization, $\approx 6.98$ vs naive $8.00$)
+- $0.1\text{ M CH}_3\text{COOH}$ ($pK_a = 4.76 \rightarrow 2.88$)
+- $0.1\text{ M CH}_3\text{COOH} + 0.1\text{ M CH}_3\text{COONa}$ half-equivalence buffer ($4.76$)
+- $0.1\text{ M NH}_4\text{Cl}$ hydrolysis ($\approx 5.13$) and $0.1\text{ M Na}_2\text{CO}_3$ basicity ($\approx 11.6$)
+- $0.1\text{ M NaH}_2\text{PO}_4 / \text{Na}_2\text{HPO}_4$ phosphate buffer ($7.21$) and $0.1\text{ M NH}_4\text{CH}_3\text{COO}$ ampholyte ($\approx 7.00$)
 
 ### 2.4 Reaction Thermodynamics & Calorimetry
 Lumped adiabatic capacitance model:
@@ -63,6 +66,6 @@ where $c_p = 4.184\text{ J/(g}\cdot\text{K)}$ and $C_{\text{calorimeter}} \appro
 
 ## 4. Documented Educational Approximations & Limitations
 
-1. **Dilute Aqueous Assumption**: Solution density is assumed $\approx 1.00 - 1.05\text{ g/mL}$ across standard school-level concentrations ($0.01\text{ M} - 1.0\text{ M}$).
+1. **Ionic Activity & Temperature**: Activity coefficients use Debye-Hückel/Davies approximations suitable for $\le 0.5\text{ M}$ aqueous media; highly concentrated acids trigger dilution hazard checks instead of Pitzer activity modeling.
 2. **Ideal Liquid Volume Additivity**: Except for marked binary systems with documented excess volume contraction (e.g. ethanol-water), aqueous solution mixing volumes are treated as additive ($V_{\text{total}} \approx V_1 + V_2$).
-3. **Calorimetric Losses**: The thermal simulation employs an adiabatic approximation with a standard glass vessel thermal capacitance of $32.0\text{ J/K}$. Radiative heat loss to the surrounding atmosphere is modeled for cooling phases but omitted during rapid neutralization intervals.
+3. **Calorimetric Losses**: The thermal simulation employs an adiabatic approximation with a standard glass vessel thermal capacitance of $32.0\text{ J/K}$. Radiative/convective heat exchange with ambient air is applied during world stepping (`stepLabWorld`).

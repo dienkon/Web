@@ -8,22 +8,24 @@
 
 - **Pristine White Scientific Workspace**: Clean, modern, minimalist laboratory interface optimized for student usability and intuitive manipulation.
 - **Pure Scientific Chemistry Engine**:
-  - Conservation of mass and elements across system boundaries.
-  - Balanced stoichiometry with limiting and excess reagent calculation.
-  - Aqueous solution equilibria (dilute strong acids/bases, weak acid buffers via Henderson-Hasselbalch).
-  - Indicator color transitions (Phenolphthalein, Litmus, Universal indicator).
-  - Reaction thermodynamics & calorimetry ($\Delta H^\circ$, adiabatic temperature evolution, boiling cap).
-  - Gas evolution ($\text{CO}_2$, $\text{H}_2$) with open-vessel mass accounting.
-  - Precipitation reactions with realistic particle sediment layers and colors.
+  - Strict conservation of elements ($\le 10^{-9}\text{ mol}$) and mass ($\le 10^{-6}\text{ g}$) enforced across `REACTION_DATABASE`, 131 compiled THPT curriculum reactions, and 1,300 lazy-loaded shared catalog reactions (1,431 compiled entries total).
+  - Iterative charge-balance aqueous equilibrium pH solver (`src/chemistry/equilibrium/aqueous/`) with Debye-Hückel activity corrections, temperature-dependent $K_w(T)$, carbonate/phosphate speciation, and salt hydrolysis.
+  - Indicator color transitions (Phenolphthalein, Methyl Orange, Bromothymol Blue, Thymolphthalein, Litmus, Universal indicator).
+  - Reaction thermodynamics & calorimetry ($\Delta H^\circ$, adiabatic temperature evolution, latent-heat ice melting, boiling cap).
+  - Gas evolution ($\text{CO}_2$, $\text{H}_2$, $\text{SO}_2$, $\text{H}_2\text{S}$, $\text{NH}_3$, $\text{NO}_2$) with open-vessel mass accounting.
+  - Precipitation reactions with realistic particle sediment morphology, Stokes settling, and buoyancy.
+  - Safety-gated optional Gemini AI reaction helper: rejects unbalanced/malformed proposals or hallucinated reactants absent from the vessel, defaults missing enthalpy to $0\text{ kJ/mol}$, and labels accepted reactions as unverified (`ai-unverified`).
 - **Interactive SVG Glassware & Apparatus**:
-  - Beakers, Erlenmeyer flasks, test tubes, graduated cylinders, burette on stand with dropwise dispensing.
+  - Beakers, Erlenmeyer flasks, test tubes, graduated cylinders, burette on stand with dropwise dispensing, condenser, and separatory funnel.
   - Analytical balance with digital LCD display and tare functionality.
-  - Bunsen burner with lively combustion flame.
-  - Filter funnel with filter paper, pipette, and wash bottle.
-  - Liquid level geometry matching real glassware profiles with meniscus curves.
+  - Bunsen burner & hot plate with alignment snap guides.
+  - Filter funnel, pipette, stirring rod, spatula, litmus strip, pH meter, thermometer, and wash bottle.
 - **Two Experiment Modes**:
-  - **Free Laboratory Mode**: Open exploration with direct dragging, pouring, measuring, and heating.
-  - **Guided Experiment Mode**: 20 step-by-step curriculum experiments validated by actual simulation state.
+  - **Free Laboratory Mode**: Open exploration with pointer drag-and-drop, keyboard navigation (`Arrow`/`Shift+Arrow`, `Enter`/`Space`, `Delete`, `Escape`), pouring, measuring, and heating.
+  - **Guided Experiment Mode**: 20 step-by-step experiments (14 core + 6 advanced) validated by live simulation state.
+- **Resilience & Performance**:
+  - React `ErrorBoundary` wrapping workbench and modals with IndexedDB autosave recovery, workspace reset, and page reload options.
+  - Lazy-loaded 1,300-reaction shared catalog, lazy modal code-splitting, vendor bundle splitting, and Zustand slice architecture with pure `stepLabWorld`.
 - **Bilingual Support**: Full Vietnamese (default) and English localization throughout all controls, chemicals, and explanations.
 - **Laboratory Notebook & Export**: Automated activity log, observations, CSV measurement export, JSON state export, and print-ready PDF reporting.
 - **Full History**: 50-snapshot Undo / Redo with exact physical state restoration.
@@ -71,10 +73,17 @@ npm run lint
 npm run build
 ```
 
+### Full Verification Check (`tsc` + `vitest` + `vite build`)
+```bash
+npm run check
+```
+
 ### Local Development Server
 ```bash
 npm run dev
 ```
+
+Copy `.env.example` to `.env` if configuring `VITE_GEMINI_MODEL`; keep API keys out of `VITE_*` variables in production builds (enter temporary keys per session via the UI modal or use a server-side proxy).
 
 ---
 
@@ -88,4 +97,4 @@ npm run dev
 
 ## Platform upgrade
 
-The React lab now ships at `/lab-2d/` through the main ChemDex pipeline. It includes 20 guided experiments, 95 chemical entries, a shared 118-element table, structure lookup, IndexedDB sessions, paused restoration, print reports and local study progress. New advanced lesson content is currently Vietnamese; the existing core UI retains VI/EN controls. See [platform documentation](../docs/PLATFORM_UPGRADE.md).
+The React lab ships at `/lab-2d/` through the main ChemDex pipeline. It includes 20 guided experiments (14 core + 6 advanced), 115 chemical catalog entries, a shared 118-element periodic table, structure lookup, IndexedDB sessions, paused restoration, print reports, and local study progress. New advanced lesson content is currently Vietnamese; the core UI retains VI/EN controls. See [platform documentation](../docs/PLATFORM_UPGRADE.md).

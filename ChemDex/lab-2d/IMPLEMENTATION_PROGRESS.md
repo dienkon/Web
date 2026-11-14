@@ -22,44 +22,35 @@
 | **Phase 8** | Measurement Instruments & Safety System | **COMPLETED** | Analytical balance with Tare, pH meter, Thermometer, GHS hazard alerts |
 | **Phase 9** | Notebook, Reports & Export | **COMPLETED** | Automated experiment log, student conclusions, CSV/JSON export, print PDF layout |
 | **Phase 10** | Persistence, Undo/Redo & Smoke Tests | **COMPLETED** | Full snapshot undo/redo, 26/26 tests passing, zero-error production build |
-| **Phase 11** | Gemini 3.5 Flash Lite & Procedural Audio/VFX | **COMPLETED** | AI dynamic reactions, AI tutor dialog, parabolic stream VFX, Web Audio synthesis, fluid drag-and-drop |
+| **Phase 11** | Gemini Flash & Procedural Audio/VFX | **COMPLETED** | AI dynamic reactions, AI tutor dialog, parabolic stream VFX, Web Audio synthesis, fluid drag-and-drop |
+| **Phase 12** | Hardening, Store Slices & Lazy Catalog | **COMPLETED** | 8 Zustand slices + pure `stepLabWorld`, vendor chunking, idle-deferred 1,300-reaction catalog |
+| **Phase 13** | Scientific Rigor, Recovery & Accessibility | **COMPLETED** | Charge-balance pH solver, Gemini balance gate, strict conservation ledger, `ErrorBoundary`, keyboard/ARIA workbench controls |
 
 ---
 
-## Phase 11 Details — Gemini 3.5 Flash Lite & Realistic 2D VFX
-1. **Gemini 3.5 Flash Lite Integration**:
-   - Model: `gemini-3.5-flash-lite` via Google Generative AI REST API (`src/services/geminiService.ts`).
-   - Dynamic Reaction Synthesis: When arbitrary chemicals are mixed that are not in the predefined catalog, Gemini generates a scientifically balanced chemical equation, enthalpy $\Delta H$, precipitate information, gas evolution, and indicator color shifts, automatically registering it in the live reaction database.
-   - Interactive AI Chemistry Tutor: Accessible via Header ("Trợ lý AI 3.5") or Vessel Inspector ("Hỏi AI Gemini về bình này"), providing instant context-aware molecular insights.
-2. **Interactive Drag & Drop**:
-   - HTML5 & Pointer Events drag-and-drop: Drag chemicals directly from the sidebar onto glassware vessels, or drop onto empty space on the workbench to automatically spawn a filled beaker.
-   - Vessel-to-Vessel Pouring: Dragging a container over another container triggers an automatic direct pour with realistic glassware tilting (`rotate(32deg)`), animated parabolic stream, and droplet splashing.
-3. **Realistic Procedural Audio & VFX**:
-   - Zero-asset Web Audio API synthesis (`src/services/soundEngine.ts`) with zero latency and full offline support: liquid pouring noise, fizzing effervescence, bubbling boiling, flame ignition, and success chimes.
-   - Visual Effects (`src/components/vfx/PourStreamVfx.tsx`): Parabolic SVG liquid stream with gradient coloring, falling droplets, and destination splash ripples.
+## Recent Engineering Hardening Summary
+1. **State Architecture & Render Isolation**:
+   - Split monolithic `useLabStore` into 8 focused slices under `src/store/slices/` (`aiSlice`, `equipmentSlice`, `experimentSlice`, `historySlice`, `safetySlice`, `simulationSlice`, `transferSlice`, `uiSlice`) with shared helpers in `labStoreHelpers.ts`.
+   - Extracted pure simulation tick stepping into `src/engine/labWorldStep.ts` (`stepLabWorld`).
+   - Eliminated 60 Hz continuous store writes via `useShallow` selectors and pointer drag externalization (`usePointerDragStore`).
+2. **Code-Splitting & Lazy Shared Catalog**:
+   - Kept 131 curriculum reactions eager while lazy-loading `@shared/reaction-catalog.generated.json` (1,300 catalog entries) asynchronously after startup via `ensureCatalogCompiled()`, surfacing a non-blocking `CatalogLoadingBadge` while loading and re-evaluating idle vessels on completion.
+   - Added `vendor` chunking in `vite.config.ts` alongside lazy-loaded modals.
+3. **Scientific Solver & AI Validation Gate**:
+   - Integrated iterative charge-balance aqueous equilibrium pH solver (`src/chemistry/equilibrium/aqueous/`) verified within $\pm 0.05$ pH across 9 benchmark solutions.
+   - Added strict pre-simulation `validateGeminiReactionPayload` gate checking parsed formulas, vessel reactant presence, and elemental balance before accepting AI reactions (tagged `ai-unverified`, missing $\Delta H$ defaults to `0`).
+   - Enforced strict elemental ($\le 10^{-9}\text{ mol}$) and mass ($\le 10^{-6}\text{ g}$) conservation across all 1,431 compiled reactions and 95 curated entries in `REACTION_DATABASE`.
+4. **Crash Recovery, UX Accessibility & Cleanup**:
+   - Added scoped `ErrorBoundary` (`src/components/layout/ErrorBoundary.tsx`) wrapping workbench and modals with IndexedDB autosave recovery, workbench reset, and page reload.
+   - Added keyboard equipment navigation (`Arrow`/`Shift+Arrow`, `Enter`/`Space`, `Delete`/`Backspace`, `Escape`), informative `aria-label` descriptions, and an `aria-live="polite"` announcement region.
+   - Removed redundant legacy HTML copies (`index.legacy.html`, `thi-nghiem.html`, `thi-nghiem.legacy.html`), added `.env.example`, and added `npm run check`.
 
 ---
 
-## Automated Verification Test Results
-```
- RUN  v5.0.4 D:/VsCode/Web/MyWeb/ChemDex/lab-2d
-
- ✓ src/chemistry/__tests__/chemistryEngine.test.ts (13 tests)
- ✓ src/__tests__/experimentsIntegration.test.ts (13 tests)
-
- Test Files  2 passed (2)
-      Tests  26 passed (26)
-   Duration  434ms
-```
-
-### Production Build Verification
-```
-✓ 1709 modules transformed.
-dist/index.html                   1.24 kB │ gzip:   0.73 kB
-dist/assets/index-Duh0AR6j.css   50.49 kB │ gzip:   8.74 kB
-dist/assets/index-DCSAny8x.js   392.34 kB │ gzip: 114.08 kB
-✓ built in 2.24s
-```
+## Automated Verification Suite
+Verified via `npm run check` (`tsc --noEmit && vitest run && vite build`):
+- **15 test files** covering core stoichiometry, charge-balance pH benchmarks, Gemini validation gate, strict 1,431-reaction elemental/mass conservation, pure `stepLabWorld`, store slices, lazy catalog evaluation, 20 guided experiments (14 core + 6 advanced), 115 chemicals, `ErrorBoundary` crash recovery, and workbench accessibility helpers.
+- See the phase verification summary after building for exact bundle chunk outputs.
 
 ---
 

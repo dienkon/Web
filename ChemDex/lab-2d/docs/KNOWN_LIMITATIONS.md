@@ -15,15 +15,15 @@ In accordance with scientific integrity principles, the ChemDex 2D virtual labor
 ---
 
 ## 2. Solution Chemistry & Equilibria Assumptions
-1. **Dilute Aqueous Medium Approximation**:
-   - Ion activity coefficients ($\gamma_i$) are approximated as unity ($\gamma_i \approx 1.0$), valid for dilute educational solutions ($\le 0.1\text{ M} - 0.5\text{ M}$).
-   - Very concentrated or fuming acids (e.g. $18\text{ M } \text{H}_2\text{SO}_4$) are handled with safety warnings rather than non-ideal activity models (such as Pitzer or Debye-Hückel extended models).
+1. **Aqueous Speciation & Temperature Bounds**:
+   - The iterative charge-balance pH solver (`src/chemistry/equilibrium/aqueous/`) applies Debye-Hückel / Davies activity corrections and temperature-dependent water autoionization $K_w(T)$ across $0^\circ\text{C} - 90^\circ\text{C}$.
+   - For unrecognized chemical formulas or superheated regimes ($T > 90^\circ\text{C}$), `acidBase.ts` falls back to a simplified strong/weak heuristic model; concentrated non-ideal electrolyte solutions (e.g. $18\text{ M }\text{H}_2\text{SO}_4$) are guarded with dilution safety warnings rather than Pitzer ion-interaction equations.
 2. **Liquid Volume Additivity**:
    - Except for documented non-ideal binary systems (such as ethanol-water mixtures which exhibit $\approx 3.5\%$ volume contraction), aqueous solutions are treated as volume-additive:
      $$V_{\text{total}} \approx V_1 + V_2$$
 3. **Equilibrium Kinetics**:
-   - Fast inorganic ionic reactions (precipitation, proton-transfer neutralizations) are modeled as proceeding to thermodynamic stoichiometric completion within the calculation cycle.
-   - Solid phase thermal decompositions (e.g. $\text{Cu(OH)}_2 \rightarrow \text{CuO}$) require active thermal initiation ($\ge 65^\circ\text{C}$).
+   - Fast inorganic ionic reactions (precipitation, proton-transfer neutralizations) proceed to stoichiometric completion unless realtime kinetics mode (`realtimeKinetics`) is enabled.
+   - Solid phase thermal decompositions (e.g. $\text{Cu(OH)}_2 \rightarrow \text{CuO}$) require active thermal initiation.
 
 ---
 
@@ -34,7 +34,8 @@ In accordance with scientific integrity principles, the ChemDex 2D virtual labor
 
 ---
 
-## 4. Unsupported Chemical Mixtures
+## 4. Unsupported Mixtures & AI Reaction Proposals
 - If an unsupported combination of substances is mixed in a vessel:
-  - The simulator preserves the material inventory without inventing fictitious reactions or arbitrary outcomes.
-  - The mixture remains fully accessible for subsequent dilution, heating, or separation.
+  - The deterministic engine preserves the material inventory without inventing fictitious outcomes.
+  - The optional Gemini AI reaction helper (`validateGeminiReactionPayload`) strictly rejects unbalanced equations, malformed formulas, or hallucinated reactants not present in the vessel, defaults omitted $\Delta H^\circ$ values to $0\text{ kJ/mol}$, and marks accepted proposals with `provenance: 'ai-unverified'` (`AI – chưa kiểm chứng`).
+- **BYOK Client Key Storage**: Users entering their own Gemini API key in `ApiKeyModal` store it only in `sessionStorage`; production deployments requiring private keys should route calls through a server-side proxy instead of `VITE_*` build variables.

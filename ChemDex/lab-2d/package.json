@@ -8,7 +8,8 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "check": "tsc --noEmit && vitest run && vite build"
   },
   "dependencies": {
     "clsx": "^2.1.1",
