@@ -6,6 +6,9 @@ import { identifySpecies, matchesReagent, sameMolecularFormula } from '../scienc
 import { availableInBulk, availableReagent, reagentPhase, bulkInventory } from '../science/reagentAvailability';
 import { availableNativeReagent } from '../science/nativeReagentPhases';
 import { hasOxidizingAcid } from '../science/conditions';
+import { applyCopperAmmoniaLedger, COPPER_AMMONIA_EQUATION, copperAmmoniaColor } from './copperAmmoniaLedger';
+import { copperAmmoniaEquilibrium } from '../science/copperAmmoniaEquilibrium';
+import { applyThermalEnergy } from './thermalState';
 import { computeMolarMass } from './ledger';
 import { solveAqueousEquilibrium, aqueousModelFields } from '../science/aqueousEquilibrium';
 import { solutionIndicatorColor } from '../science/indicatorAppearance';
@@ -1052,6 +1055,21 @@ for (const transfer of aqueousTransfers) {
   });
 }
 
+// These reference equations are resolved by a coupled phase/speciation model.
+for (const reaction of DETERMINISTIC_REACTIONS) {
+  if (['cuso4_nh3_complex', 'cuso4_nh3_hydroxide', 'cuoh2_nh3_complex'].includes(reaction.id)) {
+    reaction.equilibriumOnly = true;
+    reaction.equation = reaction.equation.replace('→', '⇌');
+    reaction.ionic_equation = reaction.ionic_equation?.replace('→', '⇌');
+    reaction.reactionType_en = 'Coupled solubility and complexation equilibria';
+    reaction.reactionType_vi = 'Cân bằng tạo phức và độ tan';
+    reaction.summary_vi = 'Bộ giải đồng–ammonia tính phân bố phức 1–4 phối tử và Cu(OH)2; phương trình riêng là cân bằng tham chiếu.';
+    reaction.summary_en = 'The copper-ammonia solver partitions 1–4 ligand ammines and Cu(OH)2; the individual equation is a reference equilibrium.';
+    reaction.observable_vi = 'Có thể tạo keo xanh nhạt rồi giảm keo khi thêm NH3; lượng cuối phụ thuộc nồng độ, pH, nhiệt độ và kiềm còn dư.';
+    reaction.observable_en = 'Pale blue gel can form and diminish as ammonia is added; the endpoint depends on concentration, pH, temperature and excess base.';
+  }
+}
+
 export function findPendingReaction(
   substances: string[],
   temperature_c: number,
@@ -1187,8 +1205,35 @@ export function executeMultiStepReactions(
   let gasColorFinal: string | undefined = undefined;
   let gasFormulaFinal: string | undefined = undefined;
 
+  const copperSource: VesselState = { id: 'native_copper_prediction', name: 'Copper', type: 'beaker',
+    capacity_ml: Math.max(250, volume_ml), volume_ml, volume: volume_ml / Math.max(250, volume_ml),
+    mass_g: workingContents.reduce((sum, c) => sum + c.mass_g, 0), temperature_c: currentTemp, ph: 7,
+    position: [0, 0, 0], rotationY: 0, isLocked: false, contents: workingContents,
+    substances: initialSubstances, hasGas: false, hasPrecipitate: false, isBoiling: false };
+  const copperPatch = applyCopperAmmoniaLedger(copperSource, 1);
+  if (copperPatch?.contents) {
+    const sameAmounts = (a: SubstanceContent[], b: SubstanceContent[]) => {
+      const keys = new Set([...a, ...b].map(c => `${c.formula}|${c.phase}|${c.location ?? 'bulk'}`));
+      return [...keys].every(key => Math.abs(a.filter(c => `${c.formula}|${c.phase}|${c.location ?? 'bulk'}` === key).reduce((s, c) => s + c.moles, 0)
+        - b.filter(c => `${c.formula}|${c.phase}|${c.location ?? 'bulk'}` === key).reduce((s, c) => s + c.moles, 0)) < 1e-12);
+    };
+    if (!sameAmounts(workingContents, copperPatch.contents)) {
+      const model = DETERMINISTIC_REACTIONS.find(r => r.id === 'cuso4_nh3_complex')!;
+      const copper = copperAmmoniaEquilibrium(workingContents, volume_ml, currentTemp)!;
+      const heat = copperPatch.programHeatApplied_J ?? 0;
+      reactionsOccurred.push({ reactionId: model.id, equation: COPPER_AMMONIA_EQUATION,
+        summary: lang === 'vi' ? 'Cân bằng đồng–ammonia: lượng kết tủa và các phức phụ thuộc nồng độ, pH và nhiệt độ.'
+          : 'Coupled copper-ammonia equilibrium: solid and ammine amounts depend on concentration, pH and temperature.',
+        xi: copper.inventory.copper_mol, deltaH_kJ: -heat / 1000 / copper.inventory.copper_mol, match: model });
+      const thermal = applyThermalEnergy({ ...copperSource, ...copperPatch }, heat);
+      currentTemp = thermal.temperature_c ?? currentTemp;
+      workingContents.splice(0, workingContents.length, ...copperPatch.contents);
+    }
+  }
+
   // Maximum 10 reaction iterations to allow multi-stage cascades without runaway loops
   for (let step = 0; step < 10; step++) {
+    if (copperPatch) break;
     if (!Number.isFinite(currentTemp) || currentTemp <= -273.15 || !Number.isFinite(volume_ml) || volume_ml < 0) break;
     const activeSubstances = workingContents.filter(c => availableInBulk(c, reactionThreshold)).map(c => c.formula);
     if (activeSubstances.length === 0) break;
@@ -1202,11 +1247,7 @@ export function executeMultiStepReactions(
       if (!matchesReactants(activeSubstances, r.reactants)) return false;
       if (r.id === 'h2o2_mno2_decomposition' && !workingContents.some(item =>
         availableReagent(item, 'MnO2', 's', reactionThreshold))) return false;
-      if (r.id === 'cuso4_nh3_hydroxide') {
-        const copper = workingContents.filter(item => availableReagent(item, 'CuSO4', 'aq', reactionThreshold)).reduce((sum, item) => sum + item.moles, 0);
-        const ammonia = workingContents.filter(item => availableReagent(item, 'NH3', 'aq', reactionThreshold)).reduce((sum, item) => sum + item.moles, 0);
-        if (ammonia >= 4 * copper) return false;
-      }
+
       if (!r.reactants.every(required => workingContents.some(item => availableNativeReagent(item, required, reactionThreshold)))) return false;
       if (volume_ml <= 0 && r.reactants.some(required => workingContents.some(item =>
         item.phase === 'aq' && availableNativeReagent(item, required, reactionThreshold)))) return false;
@@ -1435,6 +1476,9 @@ export function executeMultiStepReactions(
   const aluminumState = aqueousEquilibrium || ferricState ? null : aluminumAqueousState(updatedContents, volume_ml, currentTemp);
   if (aluminumState) finalPh = aluminumState.ph;
 
+  const copperState = copperAmmoniaEquilibrium(updatedContents, volume_ml, currentTemp, true);
+  if (copperState) finalPh = copperState.state.ph;
+
   const iodinePresent = updatedContents.some(item => sameMolecularFormula(item.formula, 'I2') && item.moles > moleThreshold);
   if (iodinePresent) {
     // Starch binding is an optical equilibrium, not a fabricated I_starch molecule.
@@ -1509,6 +1553,7 @@ export function executeMultiStepReactions(
 
   const indicatorTint = aqueousEquilibrium ? solutionIndicatorColor(updatedContents, finalPh) : null;
   if (indicatorTint) finalLiquidColor = indicatorTint;
+  if (copperState) finalLiquidColor = copperAmmoniaColor(updatedContents, volume_ml);
   const thermallyBoiling = volume_ml > 0.5 && currentTemp >= aqueousBoilingPoint({ contents: updatedContents, volume_ml });
 
   // 7. Combined MixResult for UI display and history
@@ -1569,6 +1614,7 @@ export function executeMultiStepReactions(
       phReferenceTemperature_c: currentTemp } : {}),
     ...(aluminumState ? { phModel: currentTemp === 25 ? 'ideal_aqueous_25c' as const : 'ideal_aqueous_temperature' as const,
       phReferenceTemperature_c: currentTemp } : {}),
+    ...(copperState ? { phModel: currentTemp === 25 ? 'ideal_aqueous_25c' as const : 'ideal_aqueous_temperature' as const, phReferenceTemperature_c: currentTemp } : {}),
     finalLiquidColor,
     hasPrecipitate,
     precipitateColor,

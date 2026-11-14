@@ -15,6 +15,7 @@ export function applyProgramWithThermalSinks(program: ReactionProgram, baseline:
   // NEW extent by current temperature; cooling must not undo accepted matter.
   // A cold outflow baseline must also remain replayable after reheating.
   const result = applyProgramToLedger(program, baseline, extent, { deferThermal: true,
+    equilibriumTemperature_c: current.temperature_c,
     conditionTemperature_c: Math.max(baseline.temperature_c, current.temperature_c,
       program.chemistry.conditions?.minTemp_c ?? -Infinity) });
   return applyLedgerWithThermalSinks(result, baseline, current, elapsed_s);

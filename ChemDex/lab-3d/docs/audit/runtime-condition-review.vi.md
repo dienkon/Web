@@ -20,7 +20,7 @@ Bộ giải độ tan/cân bằng chỉ nhận kiểm kê bulk đã chuẩn hóa
 | Kim loại + HCl | Kim loại rắn tiếp xúc axit dung dịch; lượng khí theo chất giới hạn | Có planner tiến độ chung, ảnh hưởng diện tích/nhiệt/khuấy còn minh họa |
 | Cu + HNO3 đặc | Đường riêng tạo NO2 nâu đỏ, dung dịch chứa Cu(II) | Nhận diện nhãn axit đặc; chưa hiệu chuẩn đường chuyển sản phẩm theo nồng độ liên tục |
 | Cu + HNO3 loãng | Phải tách đường tạo NO với đường NO2; không suy thành H2 như axit không oxi hóa | Nhánh được khai báo riêng; không chứng nhận toàn bộ động học oxi hóa NO ngoài bình |
-| Cu(II) + NH3 | Có kết tủa xanh nhạt ở giai đoạn đầu và phức xanh đậm khi NH3 dư; axit có thể đảo chuyển cân bằng | Hiện còn quy tắc tỉ lượng/định tính, chưa có bộ phân bố loài đồng–ammonia đầy đủ |
+| Cu(II) + NH3 | Lượng keo và các phức 1–4 NH3 được giải cùng pH, hydrolysis, sulfate và Na/kiềm dư; axit có thể đảo chuyển cân bằng | Đã có [bộ giải thành phần và độ tan](copper-ammonia.vi.md); còn giới hạn hoạt độ, phức hydroxo–ammine hỗn hợp, phối tử khác và động học |
 | Thử màu ngọn lửa | Cần nguồn kích thích đang cháy, còn nhiên liệu và tiếp xúc đúng mẫu | Auto kiểm tra liên tục; mất nguồn hủy lượt thử, không phát lại mẫu cũ khi bật lại |
 | Mg đã mồi cháy | Sự cháy của mẫu khác với lửa của đèn; có thể tiếp tục khi mẫu còn phản ứng | Không dùng trạng thái bật/tắt đèn để tự dập sự cháy của Mg đã mồi |
 | H2SO4 đặc + nước | Axit đặc là chất lỏng; tỏa nhiệt khi pha loãng, không tự đồng nhất với một vụ nổ hóa học | Nhãn nồng độ và pha phải được giữ đúng; nhiệt pha loãng còn mô hình đơn giản |
@@ -41,4 +41,6 @@ Việc dùng chung kiểm tra điều kiện và ledger giúp thủ công/auto t
 
 ## Xác nhận bản cập nhật
 
-3.145 kiểm thử trong 236 tệp đạt; audit hóa học kèm hiệu ứng vật lý đạt 149/149 chương trình, bảo toàn khối lượng và giữ nguyên bàn thủ công. TypeScript, production build và kiểm tra trình duyệt desktop/mobile đều đạt. [Báo cáo tổng hợp](../../artifacts/reagent-conditions/validation.json) dẫn các phép kiểm tra riêng; các số này xác nhận phần mềm trong các tình huống được thử, không xác nhận hiệu chuẩn thực nghiệm toàn bộ phản ứng.
+Mốc kiểm tra điều kiện: 3.145 kiểm thử trong 236 tệp đạt; audit hóa học kèm hiệu ứng vật lý đạt 149/149 chương trình, bảo toàn khối lượng và giữ nguyên bàn thủ công. [Báo cáo mốc cơ sở](../../artifacts/reagent-conditions/validation.json) dẫn các phép kiểm tra riêng.
+
+Sau nâng cấp đồng–ammonia: 3.170 kiểm thử trong 237 tệp đạt, gồm toàn bộ danh mục auto. [Audit chuyên biệt](copper-ammonia.vi.md) có 96 tổ hợp thành phần/nhiệt, kiểm tra nguồn, phản ứng trong lúc rót và hiệu ứng vật lý của trường hợp thay đổi. Các số này xác nhận phần mềm trong các tình huống được thử, không xác nhận hiệu chuẩn thực nghiệm toàn bộ phản ứng.

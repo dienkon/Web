@@ -12,6 +12,7 @@
  */
 
 import { ReactionVisualController, ReactionContext, ReactionZone } from '../types';
+import { bulkPrecipitateMass } from '../../../science/precipitateInventory';
 
 /**
  * 03. BaCl2 + H2SO4 -> BaSO4
@@ -231,21 +232,27 @@ export class CuSo4Nh3MultiStageController implements ReactionVisualController {
     runtime.currentColor = '#38bdf8';
     runtime.targetColor = '#1d4ed8'; // Deep royal blue
     runtime.turbidity = 0.0;
-    const copper = runtime.reactantAvailability.CuSO4;
-    const ammonia = runtime.reactantAvailability.NH3;
-    runtime.customData = { stage: 1,
-      // Missing amounts are permitted for the development gallery. With a
-      // quantitative ledger, time alone must never invent excess reagent.
-      excessAmmonia: copper === undefined || ammonia === undefined || copper <= 1e-12 ? null : ammonia >= 4 * copper,
-    };
+    runtime.customData = { stage: 1, quantitative: (context.vessel.contents?.length ?? 0) > 0,
+      lastPrecipitate_g: bulkPrecipitateMass(context.vessel.contents ?? [], 'Cu(OH)2') };
+    if (runtime.customData.quantitative) runtime.currentColor = runtime.targetColor = context.vessel.liquidColor ?? '#f8fafc';
   }
 
   public update(context: ReactionContext): void {
     const { runtime, dt } = context;
     runtime.elapsed += dt;
     runtime.progress = Math.min(1.0, runtime.elapsed / runtime.duration);
+    if (runtime.customData.quantitative || runtime.chemistryProgress !== undefined) {
+      const mass = bulkPrecipitateMass(context.vessel.contents ?? [], 'Cu(OH)2');
+      runtime.precipitateRate = dt > 0 ? Math.max(0, mass - (runtime.customData.lastPrecipitate_g ?? mass)) / dt : 0;
+      runtime.customData.lastPrecipitate_g = mass;
+      runtime.customData.stage = mass > 1e-10 ? 1 : 2;
+      runtime.currentColor = runtime.targetColor = context.vessel.liquidColor ?? '#f8fafc';
+      runtime.turbidity = context.vessel.turbidity ?? 0;
+      return;
+    }
 
-    if (runtime.progress < 0.4 || runtime.customData.excessAmmonia === false) {
+    // A time-authored example is allowed only in the empty development gallery.
+    if (runtime.progress < 0.4) {
       // STAGE 1: Pale blue Cu(OH)2 gel precipitates
       runtime.customData.stage = 1;
       runtime.precipitateRate = 2.0;
@@ -268,8 +275,8 @@ export class CuSo4Nh3MultiStageController implements ReactionVisualController {
   public finalize(context: ReactionContext): void {
     const { runtime } = context;
     runtime.precipitateRate = 0;
-    runtime.turbidity = runtime.customData.excessAmmonia === false ? 0.75 : 0;
-    runtime.currentColor = runtime.customData.excessAmmonia === false ? '#bae6fd' : '#1d4ed8';
+    runtime.turbidity = runtime.customData.quantitative ? context.vessel.turbidity ?? 0 : 0;
+    runtime.currentColor = runtime.customData.quantitative ? context.vessel.liquidColor ?? '#f8fafc' : '#1d4ed8';
   }
 }
 

@@ -24,6 +24,7 @@ import { silverHalideProgramExtent } from '../science/silverChloridePrecipitatio
 import { copperHydroxideExtent } from '../science/copperHydroxidePrecipitation';
 import { ferricHydroxideExtent, ferricHydroxideDissolutionExtent } from '../science/ferricHydroxidePrecipitation';
 import { withLegacyPrecipitateOrigins, bulkPrecipitateMass } from '../science/precipitateInventory';
+import { applyCopperAmmoniaLedger } from './copperAmmoniaLedger';
 import { aluminumReactionExtent, aluminumReactionEnthalpy_J_mol } from '../science/aluminumHydroxideEquilibrium';
 
 // Standard Atomic Weights (IUPAC)
@@ -480,7 +481,7 @@ export function applyProgramToLedger(
   program: ReactionProgram,
   vessel: VesselState,
   consumedExtent: number = 1.0, // 0.0 to 1.0 (fraction of limiting reagent reacted)
-  options: { deferThermal?: boolean; conditionTemperature_c?: number } = {},
+  options: { deferThermal?: boolean; conditionTemperature_c?: number; equilibriumTemperature_c?: number } = {},
 ): Partial<VesselState> {
   vessel = ensureHeadspaceReference(vessel);
   const assessment = assessProgramConditions(program, vessel.contents ?? [], {
@@ -499,6 +500,12 @@ export function applyProgramToLedger(
     temperature_c: vessel.temperature_c,
     mass_g: vessel.mass_g,
   };
+  if (program.id === 'cuso4_nh3') {
+    const patch = applyCopperAmmoniaLedger(vessel, consumedExtent, options.equilibriumTemperature_c ?? vessel.temperature_c);
+    if (!patch) return { contents: vessel.contents.map(c => ({ ...c })), hasGas: false };
+    const heat = (patch.programHeatApplied_J ?? 0) - (vessel.programHeatApplied_J ?? 0);
+    return { ...patch, ...(options.deferThermal ? {} : applyThermalEnergy({ ...vessel, ...patch }, heat)) };
+  }
   const reactants = program.chemistry.species.filter(s => s.role === 'reactant');
   const products = program.chemistry.species.filter(s => s.role === 'product');
 

@@ -34,7 +34,7 @@ function Timeline({ experiment: e }: { experiment: AutoExperiment }) {
     </section>
     <section className="grid grid-cols-2 gap-2 font-mono">
       {[['Thể tích', `${e.sample.volume_ml.toFixed(1)} mL`], ['Nhiệt độ', `${e.sample.temperature_c.toFixed(1)} °C`],
-        ['Phản ứng', `${(e.progress * 100).toFixed(1)}%`], ['Thời gian', `${e.elapsed.toFixed(1)} s`]].map(([label, value]) =>
+        [e.reactionReadout.label, e.reactionReadout.value], ['Thời gian', `${e.elapsed.toFixed(1)} s`]].map(([label, value]) =>
         <div key={label} className="rounded-lg border border-slate-200 p-2"><p className="font-sans text-[10px] text-slate-400">{label}</p><p className="mt-1 text-slate-800">{value}</p></div>)}
     </section>
     <section><h3 className="mb-2 font-semibold">Chất đã tiếp xúc bình nhận</h3>

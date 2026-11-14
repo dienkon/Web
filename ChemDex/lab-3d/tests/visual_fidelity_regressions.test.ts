@@ -3,6 +3,8 @@ import { getProgramById } from '../src/vfx/programs/library';
 import { CuSo4Nh3MultiStageController, Al2So43NaOhAmphotericController } from '../src/vfx/reactions/controllers/PrecipitationControllers';
 import type { ReactionContext, ReactionRuntime } from '../src/vfx/reactions/types';
 import { summarizeFrames } from '../src/render/FrameTelemetry';
+import { applyCopperAmmoniaLedger } from '../src/engine/copperAmmoniaLedger';
+import { computeMolarMass } from '../src/engine/ledger';
 
 function context(amounts: Record<string, number>): ReactionContext {
   return {
@@ -22,14 +24,22 @@ describe('Observable chemistry regressions', () => {
   });
 
   it('retains copper hydroxide when ammonia is insufficient, even after the full timeline', () => {
-    for (const [ammonia, dissolves] of [[0.001, false], [0.005, true]] as const) {
+    for (const [ammonia, dissolves] of [[0.001, false], [0.005, false], [0.1, true]] as const) {
       const controller = new CuSo4Nh3MultiStageController();
       const ctx = context({ CuSO4: 0.001, NH3: ammonia });
+      const contents = [{ formula: 'CuSO4', moles: 0.001, phase: 'aq' },
+        { formula: 'NH3', moles: ammonia, phase: 'aq' }, { formula: 'H2O', moles: 50 / 18.015, phase: 'l' }]
+        .map(c => ({ ...c, mass_g: c.moles * computeMolarMass(c.formula) }));
+      ctx.vessel = { ...ctx.vessel, contents, volume_ml: 50, temperature_c: 25,
+        mass_g: contents.reduce((s, c) => s + c.mass_g, 0), ph: 7 };
+      const end = applyCopperAmmoniaLedger(ctx.vessel, 1)!;
+      ctx.vessel = { ...ctx.vessel, ...end, turbidity: end.hasPrecipitate ? 0.5 : 0 };
       controller.initialize(ctx);
       for (let i = 0; i < 600; i++) controller.update(ctx);
       controller.finalize(ctx);
       expect(ctx.runtime.turbidity > 0).toBe(!dissolves);
       expect(ctx.runtime.precipitateRate).toBe(0);
+      expect(ctx.runtime.currentColor).toBe(ctx.vessel.liquidColor);
     }
   });
 

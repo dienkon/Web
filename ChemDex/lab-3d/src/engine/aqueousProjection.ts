@@ -6,10 +6,18 @@ import { copperSulfateAqueousState } from '../science/copperHydroxidePrecipitati
 import { ferricChlorideAqueousState } from '../science/ferricHydroxidePrecipitation';
 import { aluminumAqueousState } from '../science/aluminumHydroxideEquilibrium';
 import { identifySpecies } from '../science/speciesIdentity';
+import { copperAmmoniaEquilibrium, copperAmmoniaInventory } from '../science/copperAmmoniaEquilibrium';
+import { copperAmmoniaColor } from './copperAmmoniaLedger';
 
 /** Derived state only; never consume or fabricate inventory to display pH. */
 export function projectAqueousSolution(vessel: VesselState): Partial<VesselState> | null {
   if (vessel.id.startsWith('lesson_vessel_')) return null;
+  if (copperAmmoniaInventory(vessel.contents, vessel.volume_ml)) {
+    const model = copperAmmoniaEquilibrium(vessel.contents, vessel.volume_ml, vessel.temperature_c, true);
+    if (model) return { ph: model.state.ph, liquidColor: copperAmmoniaColor(vessel.contents, vessel.volume_ml),
+      phModel: vessel.temperature_c === 25 ? 'ideal_aqueous_25c' : 'ideal_aqueous_temperature',
+      phReferenceTemperature_c: vessel.temperature_c };
+  }
   const equilibrium = cachedAqueousEquilibrium(vessel.contents, vessel.volume_ml, vessel.temperature_c);
   if (!equilibrium) {
     const copper = vessel.contents.some(c => c.moles > 0 && c.formula === 'CuSO4')

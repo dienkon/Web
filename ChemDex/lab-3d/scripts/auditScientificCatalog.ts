@@ -74,6 +74,11 @@ const deterministic = DETERMINISTIC_REACTIONS.map(reaction => ({
   products: Object.entries(reaction.products).map(([formula, product]) => ({ formula, phase: product.state, coefficient: product.coeff })),
   conditions: {
     compartment: 'bulk', finitePositiveInventory: true, aqueousPhaseRequiresPositiveVolume: true,
+    ...(['cuso4_nh3_complex', 'cuso4_nh3_hydroxide', 'cuoh2_nh3_complex'].includes(reaction.id) ? {
+      model: 'coupled_copper_ammonia', referenceEquationOnly: true, temperatureRange_c: [0, 90],
+      phaseAmounts: 'Charge and Cu/N/S/Na balances with ammines n=1..4, hydrolysis, sulfate and Cu(OH)2 saturation.',
+      limitations: 'Ideal activities; mixed hydroxo-ammines, other ligands and real-time kinetic calibration are not included.',
+    } : {}),
     oxidizingAcidBlocksHydrogenInference: Boolean(reaction.products.H2),
     reactantPhases: Object.fromEntries(reaction.reactants.map(formula => [formula, nativeReagentPhases(formula)])),
     heating: { required: reaction.requiresHeating ?? false, minimum_c: reaction.minTemp_c ?? null },

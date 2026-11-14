@@ -123,7 +123,7 @@ function Theater({ initial, ownsFullscreen, returnFocus, onClose }: { initial: A
     <aside className="absolute right-4 top-28 rounded-xl border border-white/10 bg-slate-950/65 p-3 text-xs backdrop-blur-md" aria-label="Thông số mẫu tự động">
       <p className="text-[10px] uppercase tracking-widest text-slate-400">Bình phản ứng</p>
       <p className="mt-2 font-mono text-cyan-100">{e.sample.volume_ml.toFixed(1)} mL · {e.sample.temperature_c.toFixed(1)} °C</p>
-      <p className="mt-1 font-mono text-slate-300">{(e.progress * 100).toFixed(1)}% · {e.elapsed.toFixed(1)} s</p>
+      <p className="mt-1 font-mono text-slate-300">{e.reactionReadout.label}: {e.reactionReadout.value} · {e.elapsed.toFixed(1)} s</p>
       <p className="mt-2 text-[10px] text-slate-400">{e.phase === 'dose' ? 'Đang thêm chất' : e.paused ? 'Đã tạm dừng' : 'Đồng hồ mô phỏng'}</p>
       <details className="mt-2 max-w-56 border-t border-white/10 pt-2"><summary className="cursor-pointer text-[10px] text-cyan-200">Thành phần mẫu</summary>
         <div className="mt-2 max-h-40 space-y-1 overflow-y-auto text-[10px]">{e.sample.contents.filter(c => c.mass_g > 1e-8).map((c, i) => <p key={i} className="flex justify-between gap-4"><span>{c.formula} ({c.phase})</span><span className="font-mono">{c.mass_g.toPrecision(3)} g</span></p>)}</div>

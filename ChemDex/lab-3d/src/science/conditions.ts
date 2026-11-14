@@ -2,6 +2,7 @@ import type { ReactionProgram } from '../shared/programSchema';
 import type { SubstanceContent } from '../types/chemistry';
 import { sameMolecularFormula } from './speciesIdentity';
 import { availableReagent, reagentPhase } from './reagentAvailability';
+import { copperAmmoniaEquilibrium } from './copperAmmoniaEquilibrium';
 
 export interface ExperimentalEnvironment {
   temperature_c?: number;
@@ -47,8 +48,11 @@ export function assessProgramConditions(
   env: ExperimentalEnvironment,
 ): ConditionAssessment {
   const unmet: string[] = [];
+  const copperAmmonia = program.id === 'cuso4_nh3';
   if (contents.length > 0 || env.requireInventory) {
-    for (const reagent of program.chemistry.species.filter(item => item.role === 'reactant')) {
+    if (copperAmmonia && !copperAmmoniaEquilibrium(contents, env.volume_ml ?? 0, env.temperature_c ?? 25))
+      unmet.push('Cân bằng đồng–ammonia cần nước và kiểm kê Cu(II)/NH3/NH4 trong hệ sulfate hoặc hydroxide được hỗ trợ; hỗn hợp có phối tử khác cần mô hình riêng.');
+    for (const reagent of program.chemistry.species.filter(item => item.role === 'reactant' && !copperAmmonia)) {
       if (!present(contents, reagent.formula, reagent.phase))
         unmet.push(`Thiếu lượng hoặc pha phù hợp của ${reagent.formula}.`);
     }
@@ -59,6 +63,7 @@ export function assessProgramConditions(
   const conditions = program.chemistry.conditions;
   if (conditions?.activation === 'ignition' && env.ignitedProgramId !== program.id) unmet.push('Cần thao tác mồi cháy cho mẫu này; chỉ có chất phản ứng hoặc tăng nhiệt độ chung chưa xác nhận đã mồi.');
   const temperature = env.temperature_c ?? 25;
+  if (copperAmmonia && (temperature < 0 || temperature > 90)) unmet.push('Mô hình cân bằng đồng–ammonia hỗ trợ nước lỏng trong khoảng 0–90 °C.');
   if (!Number.isFinite(temperature) || temperature <= -273.15) unmet.push('Nhiệt độ mẫu không hợp lệ.');
   if (env.pressure_bar !== undefined && (!Number.isFinite(env.pressure_bar) || env.pressure_bar <= 0)) unmet.push('Áp suất mẫu không hợp lệ.');
   if (env.pH !== undefined && !Number.isFinite(env.pH)) unmet.push('Giá trị pH không hợp lệ.');

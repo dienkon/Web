@@ -1,0 +1,66 @@
+{
+  "schema": "chemdex.copper-ammonia-validation/1",
+  "checkedAt": "2026-11-14T00:47:58.721221+00:00",
+  "unitTests": {
+    "passed": 3170,
+    "total": 3170,
+    "files": 237
+  },
+  "typeScript": true,
+  "productionBuild": true,
+  "scienceAudit": {
+    "programs": 149,
+    "deterministic": 48,
+    "equilibriumOnly": 4,
+    "lessons": 34,
+    "dynamicRules": 18,
+    "ionicEquations": 109,
+    "ionicFailures": 0,
+    "nonStoichiometricObservations": 6,
+    "balanceFailures": 0,
+    "visualProductMismatches": 0
+  },
+  "gridPoints": 96,
+  "physical": {
+    "phase": "complete",
+    "error": null,
+    "initialMass_g": 30,
+    "finalMass_g": 29.998701459430126,
+    "maximumMassError_g": 5.3290705182007514e-14,
+    "gelDuringDose": true,
+    "peakGel_g": 0.039925765922811295,
+    "finalGel_g": 0,
+    "seconds": 40.999999999998956,
+    "peakParticles": 550,
+    "finalParticles": 0,
+    "finalCloudiness": 0,
+    "particleBudget": 550,
+    "workbenchUnchanged": true
+  },
+  "browser": {
+    "errors": [],
+    "gelDuringDose": true,
+    "clearAtEnd": true,
+    "massReadoutInGrams": true,
+    "report": "browser/audit.json"
+  },
+  "headlessPerformance": {
+    "checkedAt": "2026-11-14T00:37:09.453Z",
+    "scenario": "Three vessel logic/physics, high tier, 120 steps at dt=1/60",
+    "webglRenderingIncluded": false,
+    "browserFpsVerified": false,
+    "averageStep_ms": 3.1302108333333294,
+    "p95Step_ms": 4.924600000000055,
+    "maximumStep_ms": 20.191399999999987,
+    "heapDelta_MB": 2.234375
+  },
+  "references": [
+    "https://skb.com/publication/17527/TR-00-13.pdf",
+    "https://github.com/phreeqc-dev/phreeqc3/blob/master/database/wateq4f.dat",
+    "https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch18/combine.php"
+  ],
+  "realTimeKineticsValidated": false,
+  "activityCorrectionsIncluded": false,
+  "otherLigandsSupported": false,
+  "scope": "Coupled Cu(II)-NH3-NH4-sulfate-hydroxide-sodium model. Other reaction families retain their prior models and audits."
+}

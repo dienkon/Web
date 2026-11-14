@@ -165,7 +165,9 @@ describe('Actual reagent phase, quantity and experimental conditions', () => {
   it('creates copper hydroxide at low ammonia and dissolved complex in excess', () => {
     const low = solve([amount('CuSO4', 0.01), amount('NH3', 0.02), amount('H2O', 5, 'l')]);
     expect(low.updatedContents.some(item => item.formula === 'Cu(OH)2' && item.phase === 's')).toBe(true);
-    const high = solve([amount('CuSO4', 0.01), amount('NH3', 0.05), amount('H2O', 5, 'l')]);
+    // Five equivalents are not a universal solubility threshold. This specimen
+    // uses genuinely excess ligand; the coupled solver still checks Ksp/pH.
+    const high = solve([amount('CuSO4', 0.0001), amount('NH3', 0.1), amount('H2O', 5, 'l')]);
     expect(high.updatedContents.some(item => item.formula === '[Cu(NH3)4]SO4' && item.phase === 'aq')).toBe(true);
     expect(high.hasPrecipitate).toBe(false);
   });

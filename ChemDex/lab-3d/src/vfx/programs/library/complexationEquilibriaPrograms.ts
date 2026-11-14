@@ -54,8 +54,8 @@ export const COMPLEXATION_EQUILIBRIA_PROGRAMS: ReactionProgram[] = [
     provenance: 'handcrafted',
     controller: 'copper_ammonia_complex',
     chemistry: {
-      equation: 'CuSO4(aq) + 4NH3(aq) -> [Cu(NH3)4]SO4(aq)',
-      ionic: 'Cu(2+)(aq) + 4NH3(aq) -> [Cu(NH3)4](2+)(aq)',
+      equation: 'CuSO4(aq) + 4NH3(aq) ⇌ [Cu(NH3)4]SO4(aq)',
+      ionic: 'Cu(2+)(aq) + 4NH3(aq) ⇌ [Cu(NH3)4](2+)(aq)',
       species: [
         { formula: 'CuSO4', role: 'reactant', coeff: 1, phase: 'aq', colorHex: '#0284c7' },
         { formula: 'NH3', role: 'reactant', coeff: 4, phase: 'aq', hazards: ['GHS05_corrosive'] },
@@ -79,10 +79,10 @@ export const COMPLEXATION_EQUILIBRIA_PROGRAMS: ReactionProgram[] = [
       }
     },
     explain: {
-      observation_vi: 'Ban đầu tạo kết tủa Cu(OH)2 xanh nhạt, sau đó kết tủa tan biến hoàn toàn thành dung dịch màu xanh lam thẫm (xanh hoàng gia / nước Schweizer) trong suốt.',
-      observation_en: 'Initial pale blue gel dissolves completely into a deep, intense royal azure blue solution.',
-      why_vi: 'Phân tử amoniac đóng vai trò phối tử thay thế nước tạo phức chất bền [Cu(NH3)4]2+.',
-      why_en: 'NH3 ligands displace water in the copper coordination sphere, splitting d-orbitals to absorb in deep royal blue.'
+      observation_vi: 'NH3 mới thêm có thể tạo keo Cu(OH)2 xanh nhạt. Thêm đủ NH3 làm tăng lượng phức xanh đậm và có thể hòa tan hết keo; lượng còn lại phụ thuộc nồng độ, pH và nhiệt độ.',
+      observation_en: 'Initial ammonia can form pale blue Cu(OH)2 gel. Sufficient excess ammonia increases deep blue ammines and can clear the gel; the endpoint depends on concentration, pH and temperature.',
+      why_vi: 'Bộ giải xét đồng thời NH3/NH4+, các phức Cu(II) có 1–4 phối tử NH3, thủy phân, sulfate và độ tan Cu(OH)2. Phương trình tetraammine là một cân bằng trong hệ, không bảo đảm chuyển hóa hoàn toàn ở tỉ lệ 4:1.',
+      why_en: 'Coupled ammonia protonation, 1–4 ligand Cu(II) ammines, hydrolysis, sulfate and Cu(OH)2 solubility determine the partition. The tetraammine equation alone does not imply complete conversion at a 4:1 ratio.'
     },
     confidence: 1.0
   },

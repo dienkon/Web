@@ -1,0 +1,55 @@
+{
+  "gelDuringDose": {
+    "phase": "dose",
+    "gel_g": 0.017999142770859795,
+    "color": "#8cd8fa",
+    "mass_g": 29.012730300289522
+  },
+  "clearAfterExcessAmmonia": {
+    "phase": "complete",
+    "error": null,
+    "gel_g": 0,
+    "color": "#1e3a8a",
+    "contents": [
+      {
+        "formula": "CuSO4",
+        "phase": "aq",
+        "moles": 2.644957720339229e-7
+      },
+      {
+        "formula": "[Cu(NH3)]SO4",
+        "phase": "aq",
+        "moles": 9.097630476889556e-13
+      },
+      {
+        "formula": "[Cu(NH3)2]SO4",
+        "phase": "aq",
+        "moles": 4.287185702947937e-9
+      },
+      {
+        "formula": "[Cu(NH3)3]SO4",
+        "phase": "aq",
+        "moles": 0.000004952150739156332
+      },
+      {
+        "formula": "[Cu(NH3)4]SO4",
+        "phase": "aq",
+        "moles": 0.0009947790653932805
+      },
+      {
+        "formula": "NH3",
+        "phase": "aq",
+        "moles": 0.05600601871092803
+      },
+      {
+        "formula": "H2O",
+        "phase": "l",
+        "moles": 1.5996247271401687
+      }
+    ]
+  },
+  "errors": [],
+  "browser": "Chromium + SwiftShader",
+  "renderingInspected": true,
+  "experimentalTimingValidated": false
+}

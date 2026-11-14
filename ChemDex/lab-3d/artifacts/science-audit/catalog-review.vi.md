@@ -57,7 +57,7 @@ Cân bằng nguyên tố/điện tích là kiểm tra bắt buộc, không chứ
 | cl2_kbr | Cl2(aq) + 2KBr(aq) -> 2KCl(aq) + Br2(aq) | Đạt | Cl2 oxi hóa Br− thành Br2; màu phụ thuộc nồng độ và dung môi. | family_context: [RSC: Silver and lead halides](https://edu.rsc.org/experiments/silver-and-lead-halides/1770.article) |
 | iodine_clock | IO3-(aq) + 3HSO3-(aq) -> I-(aq) + 3SO4(2-)(aq) + 3H+(aq) | Đạt | Có ít nhất hai bước redox; không tạo iot–tinh bột từ phương trình chỉ sinh iodide. Cần tinh bột để xanh đen. | specific_observation: [RSC: Chemical stop-clock, iodate/hydrogensulfite variant](https://edu.rsc.org/in-search-of-more-solutions/a-chemical-stop-clock-iodine-clock-reaction/598.article), [RSC: Iodine clock reaction demonstration](https://edu.rsc.org/experiments/iodine-clock-reaction-demonstration-method/744.article) |
 | fecl3_kscn | FeCl3(aq) + KSCN(aq) <-> [Fe(SCN)]Cl2(aq) + KCl(aq) | Đạt | Cân bằng phối tử, thường biểu diễn FeSCN2+ trong dung dịch loãng; không phải chuyển hóa hoàn toàn. | specific_observation: [Harvard: Equilibrium of iron(III) thiocyanate](https://sciencedemonstrations.fas.harvard.edu/presentations/equilibrium-iron-iii-thiocyanate) |
-| cuso4_nh3 | CuSO4(aq) + 4NH3(aq) -> [Cu(NH3)4]SO4(aq) | Đạt | NH3 ít tạo hydroxide xanh nhạt; NH3 dư đủ tạo dung dịch phức xanh đậm. | specific_observation: [RSC: Transition elements and complex compounds](https://edu.rsc.org/experiments/transition-elements-and-complex-compounds-microscale-experiment-16-18-years/518.article), [RSC: Testing salts for anions and cations](https://edu.rsc.org/experiments/testing-salts-for-anions-and-cations/464.article) |
+| cuso4_nh3 | CuSO4(aq) + 4NH3(aq) ⇌ [Cu(NH3)4]SO4(aq) | Đạt | Bảo toàn Cu/N/sulfate/Na và điện tích, xét các phức 1–4 NH3, thủy phân, proton hóa và Cu(OH)2. Không dùng tỉ lệ 4:1 làm ngưỡng tan hết; mô hình nồng độ lý tưởng, chưa hiệu chuẩn màu, thời gian, hoạt độ hoặc phối tử cạnh tranh. | model_caveat: [SKB TR-00-13: selected Cu(II)-ammine constants and reaction enthalpies, section 7.7.1.2](https://skb.com/publication/17527/TR-00-13.pdf), [Purdue: Combined solubility and complex-ion equilibria](https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch18/combine.php), [RSC: Transition elements and complex compounds](https://edu.rsc.org/experiments/transition-elements-and-complex-compounds-microscale-experiment-16-18-years/518.article) |
 | k2cr2o7_naoh | K2Cr2O7(aq) + 2NaOH(aq) <-> K2CrO4(aq) + Na2CrO4(aq) + H2O(l) | Đạt | Kiềm chuyển dichromate cam sang chromate vàng; cation K/Na là ion khán. | specific_observation: [University of Washington: Chromate–dichromate equilibrium](https://chem.washington.edu/lecture-demos/chromate-dichromate-equilibrium) |
 | k2cro4_h2so4 | 2K2CrO4(aq) + H2SO4(aq) <-> K2Cr2O7(aq) + K2SO4(aq) + H2O(l) | Đạt | Axit hóa dịch chuyển cân bằng chromate sang dichromate; không tạo khí. | specific_observation: [University of Washington: Chromate–dichromate equilibrium](https://chem.washington.edu/lecture-demos/chromate-dichromate-equilibrium) |
 | aloh3_naoh | Al(OH)3(s) + NaOH(aq) -> Na[Al(OH)4](aq) | Đạt | Al(OH)3 vô định hình tan trong OH− đến giới hạn thuốc thử hoặc bão hòa. Nhiệt theo cùng đường cân bằng, chưa hiệu chuẩn pha loãng/già hóa gel. | model_caveat: [PHREEQC WATEQ4F: amorphous aluminum hydroxide, hydrolysis and sulfate complexes](https://github.com/phreeqc-dev/phreeqc3/blob/master/database/wateq4f.dat) |
@@ -187,14 +187,14 @@ Cân bằng nguyên tố/điện tích là kiểm tra bắt buộc, không chứ
 | alcl3_naoh_aluminate | AlCl₃ + 4NaOH → Na[Al(OH)₄] + 3NaCl | Đạt | stoichiometric_rule |
 | al2so43_naoh_aluminate | Al₂(SO₄)₃ + 8NaOH → 2Na[Al(OH)₄] + 3Na₂SO₄ | Đạt | stoichiometric_rule |
 | al2so4_naoh_amphoteric | Al₂(SO₄)₃ + 6NaOH → 2Al(OH)₃↓ + 3Na₂SO₄ | Đạt | stoichiometric_rule |
-| cuso4_nh3_hydroxide | CuSO4 + 2NH3 + 2H2O -> Cu(OH)2 + (NH4)2SO4 | Đạt | stoichiometric_rule |
-| cuso4_nh3_complex | CuSO₄ + 4NH₃ → [Cu(NH₃)₄]SO₄ (Xanh thẫm) | Đạt | stoichiometric_rule |
+| cuso4_nh3_hydroxide | CuSO4 + 2NH3 + 2H2O -> Cu(OH)2 + (NH4)2SO4 | Đạt | finite_phase_equilibrium |
+| cuso4_nh3_complex | CuSO₄ + 4NH₃ ⇌ [Cu(NH₃)₄]SO₄ (Xanh thẫm) | Đạt | finite_phase_equilibrium |
 | fecl3_kscn_complex | FeCl₃ + KSCN ⇌ [Fe(SCN)]Cl₂ + KCl | Đạt | stoichiometric_rule |
 | kmno4_oxalic_redox | 2KMnO₄ + 5H₂C₂O₄ + 3H₂SO₄ → K₂SO₄ + 2MnSO₄ + 10CO₂↑ + 8H₂O | Đạt | stoichiometric_rule |
 | thiosulfate_acid_clock | Na₂S₂O₃ + 2HCl → 2NaCl + SO₂↑ + S↓ + H₂O | Đạt | stoichiometric_rule |
 | iodine_clock | IO₃⁻ + 3HSO₃⁻ → I⁻ + 3SO₄²⁻ + 3H⁺; IO₃⁻ + 5I⁻ + 6H⁺ → 3I₂ + 3H₂O | Đạt | stoichiometric_rule |
 | aloh3_naoh_dissolution | Al(OH)₃ + NaOH → Na[Al(OH)₄] | Đạt | stoichiometric_rule |
-| cuoh2_nh3_complex | Cu(OH)₂ + 4NH₃ → [Cu(NH₃)₄](OH)₂ (Xanh thẫm) | Đạt | stoichiometric_rule |
+| cuoh2_nh3_complex | Cu(OH)₂ + 4NH₃ ⇌ [Cu(NH₃)₄](OH)₂ (Xanh thẫm) | Đạt | finite_phase_equilibrium |
 | agcl_nh3_complex | AgCl + 2NH₃ → [Ag(NH₃)₂]Cl (Tan trong suốt) | Đạt | stoichiometric_rule |
 | hno3_naoh_neutralization | HNO₃ + NaOH → NaNO₃ + H₂O | Đạt | stoichiometric_rule |
 | fecl3_naoh_precipitate | FeCl₃ + 3NaOH → Fe(OH)₃↓ + 3NaCl | Đạt | stoichiometric_rule |

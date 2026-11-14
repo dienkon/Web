@@ -51,7 +51,10 @@ export function createStudioSample(program: ReactionProgram, shell: VesselState,
   for (const species of program.chemistry.species.filter(item => item.role !== 'product')) {
     if (program.chemistry.representation === 'indicator' && ['In_basic', 'HIn_acidic', 'In_blue'].includes(species.formula)) continue;
     const indicator = ['Phenolphthalein', 'Methyl_Orange', 'Bromothymol_Blue'].includes(species.formula);
-    const moles = indicator ? 1e-7 : species.role === 'reactant' || program.chemistry.representation === 'indicator' ? species.coeff * extent : 1e-5;
+    // The copper demonstration adds genuinely excess ammonia (2 M in the
+    // authored 30 mL specimen), rather than assuming 4 equivalents clears gel.
+    const moles = program.id === 'cuso4_nh3' && species.formula === 'NH3' ? 0.06
+      : indicator ? 1e-7 : species.role === 'reactant' || program.chemistry.representation === 'indicator' ? species.coeff * extent : 1e-5;
     if (!Number.isFinite(moles) || moles <= 0) throw new Error('Lượng mẫu không hợp lệ.');
     let formula = species.formula;
     if (concentrated && ['HNO3', 'H2SO4'].some(acid => sameMolecularFormula(acid, formula))) formula += ' (conc)';

@@ -5,6 +5,8 @@ export interface ScienceReference {
 }
 
 export const SCIENCE_REFERENCES: Record<string, ScienceReference> = {
+  copperAmmoniaThermo: { title: 'SKB TR-00-13: selected Cu(II)-ammine constants and reaction enthalpies, section 7.7.1.2', url: 'https://skb.com/publication/17527/TR-00-13.pdf', scope: 'research' },
+  copperCoupled: { title: 'Purdue: Combined solubility and complex-ion equilibria', url: 'https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch18/combine.php', scope: 'teaching_text' },
   aluminumEquilibrium: { title: 'PHREEQC WATEQ4F: amorphous aluminum hydroxide, hydrolysis and sulfate complexes', url: 'https://github.com/phreeqc-dev/phreeqc3/blob/master/database/wateq4f.dat', scope: 'research' },
   ferricEquilibrium: { title: 'PHREEQC WATEQ4F: amorphous ferric hydroxide, hydrolysis and chloride species', url: 'https://github.com/phreeqc-dev/phreeqc3/blob/master/database/wateq4f.dat', scope: 'research' },
   calciteEquilibrium: { title: 'USGS: Calcite, CO2 and aqueous equilibrium (Plummer & Busenberg 1982)', url: 'https://www.usgs.gov/publications/solubilities-calcite-aragonite-and-vaterite-co2-h2o-solutions-between-0-and-90degc-and', scope: 'research' },
@@ -121,7 +123,7 @@ review('fecl3_ki', ['transition'], 'Fe(III) oxi hóa iodide tạo iot; iot nâu 
 review('cl2_kbr', ['halides'], 'Cl2 oxi hóa Br− thành Br2; màu phụ thuộc nồng độ và dung môi.', 'family_context');
 review('iodine_clock', ['clock', 'iodineClock'], 'Có ít nhất hai bước redox; không tạo iot–tinh bột từ phương trình chỉ sinh iodide. Cần tinh bột để xanh đen.');
 review('fecl3_kscn', ['thiocyanate'], 'Cân bằng phối tử, thường biểu diễn FeSCN2+ trong dung dịch loãng; không phải chuyển hóa hoàn toàn.');
-review('cuso4_nh3', ['copperAmmonia', 'salts'], 'NH3 ít tạo hydroxide xanh nhạt; NH3 dư đủ tạo dung dịch phức xanh đậm.');
+review('cuso4_nh3', ['copperAmmoniaThermo', 'copperCoupled', 'copperAmmonia'], 'Bảo toàn Cu/N/sulfate/Na và điện tích, xét các phức 1–4 NH3, thủy phân, proton hóa và Cu(OH)2. Không dùng tỉ lệ 4:1 làm ngưỡng tan hết; mô hình nồng độ lý tưởng, chưa hiệu chuẩn màu, thời gian, hoạt độ hoặc phối tử cạnh tranh.', 'model_caveat');
 review('k2cr2o7_naoh', ['chromate'], 'Kiềm chuyển dichromate cam sang chromate vàng; cation K/Na là ion khán.');
 review('k2cro4_h2so4', ['chromate'], 'Axit hóa dịch chuyển cân bằng chromate sang dichromate; không tạo khí.');
 review('aloh3_naoh', ['aluminumEquilibrium'], 'Al(OH)3 vô định hình tan trong OH− đến giới hạn thuốc thử hoặc bão hòa. Nhiệt theo cùng đường cân bằng, chưa hiệu chuẩn pha loãng/già hóa gel.', 'model_caveat');

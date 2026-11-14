@@ -4,6 +4,7 @@ import { executeMultiStepReactions } from './chemistryEngine';
 import { aluminumMaterialStages } from './aluminumMaterialProgress';
 import { sameMolecularFormula } from '../science/speciesIdentity';
 import { withLegacyPrecipitateOrigins } from '../science/precipitateInventory';
+import { copperAmmoniaInventory } from '../science/copperAmmoniaEquilibrium';
 
 export function continueReactionAfterOutflow(kinetics: ActiveKineticsState | undefined,
   remaining: VesselState, language: Language): ActiveKineticsState | null {
@@ -17,6 +18,8 @@ export function continueReactionAfterOutflow(kinetics: ActiveKineticsState | und
     materialStages = aluminumMaterialStages(executeMultiStepReactions(baseline.contents, baseline.substances,
       baseline.volume_ml, baseline.temperature_c, baseline.temperature_c > 25, language, { preserveQuantities: true })) ?? undefined;
     if (!materialStages?.length) return null;
+  } else if (kinetics.program?.id === 'cuso4_nh3') {
+    if (!copperAmmoniaInventory(baseline.contents, baseline.volume_ml)) return null;
   } else if (kinetics.program!.chemistry.species.filter(s => s.role === 'reactant').some(s =>
     !baseline.contents.some(c => sameMolecularFormula(c.formula, s.formula) && (!c.phase || c.phase === s.phase)
       && (!c.location || c.location === 'bulk') && c.moles > 1e-12))) return null;

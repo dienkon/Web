@@ -15,7 +15,7 @@
 | programs / cl2_kbr | Cl2(aq) + 2KBr(aq) -> 2KCl(aq) + Br2(aq) | Đạt cấu trúc | dedicated_program · tự động |
 | programs / iodine_clock | IO3-(aq) + 3HSO3-(aq) -> I-(aq) + 3SO4(2-)(aq) + 3H+(aq) | Đạt cấu trúc | dedicated_program · tự động |
 | programs / fecl3_kscn | FeCl3(aq) + KSCN(aq) <-> [Fe(SCN)]Cl2(aq) + KCl(aq) | Đạt cấu trúc | dedicated_program · tự động |
-| programs / cuso4_nh3 | CuSO4(aq) + 4NH3(aq) -> [Cu(NH3)4]SO4(aq) | Đạt cấu trúc | dedicated_program · tự động |
+| programs / cuso4_nh3 | CuSO4(aq) + 4NH3(aq) ⇌ [Cu(NH3)4]SO4(aq) | Đạt cấu trúc | dedicated_program · tự động |
 | programs / k2cro4_h2so4 | 2K2CrO4(aq) + H2SO4(aq) <-> K2Cr2O7(aq) + K2SO4(aq) + H2O(l) | Đạt cấu trúc | dedicated_program · tự động |
 | programs / aloh3_naoh | Al(OH)3(s) + NaOH(aq) -> Na[Al(OH)4](aq) | Đạt cấu trúc | dedicated_program · tự động |
 | programs / cocl2_hcl | [Co(H2O)6]2+(aq) + 4Cl-(aq) <-> [CoCl4]2-(aq) + 6H2O(l) | Đạt cấu trúc | dedicated_program · tự động |
@@ -76,13 +76,13 @@
 | deterministic / al2so43_naoh_aluminate | Al₂(SO₄)₃ + 8NaOH → 2Na[Al(OH)₄] + 3Na₂SO₄ | Đạt cấu trúc | solver_rule |
 | deterministic / al2so4_naoh_amphoteric | Al₂(SO₄)₃ + 6NaOH → 2Al(OH)₃↓ + 3Na₂SO₄ | Đạt cấu trúc | solver_rule |
 | deterministic / cuso4_nh3_hydroxide | CuSO4 + 2NH3 + 2H2O -> Cu(OH)2 + (NH4)2SO4 | Đạt cấu trúc | solver_rule |
-| deterministic / cuso4_nh3_complex | CuSO₄ + 4NH₃ → [Cu(NH₃)₄]SO₄ (Xanh thẫm) | Đạt cấu trúc | solver_rule |
+| deterministic / cuso4_nh3_complex | CuSO₄ + 4NH₃ ⇌ [Cu(NH₃)₄]SO₄ (Xanh thẫm) | Đạt cấu trúc | solver_rule |
 | deterministic / fecl3_kscn_complex | FeCl₃ + KSCN ⇌ [Fe(SCN)]Cl₂ + KCl | Đạt cấu trúc | solver_rule |
 | deterministic / kmno4_oxalic_redox | 2KMnO₄ + 5H₂C₂O₄ + 3H₂SO₄ → K₂SO₄ + 2MnSO₄ + 10CO₂↑ + 8H₂O | Đạt cấu trúc | solver_rule |
 | deterministic / thiosulfate_acid_clock | Na₂S₂O₃ + 2HCl → 2NaCl + SO₂↑ + S↓ + H₂O | Đạt cấu trúc | solver_rule |
 | deterministic / iodine_clock | IO₃⁻ + 3HSO₃⁻ → I⁻ + 3SO₄²⁻ + 3H⁺; IO₃⁻ + 5I⁻ + 6H⁺ → 3I₂ + 3H₂O | Đạt cấu trúc | solver_rule |
 | deterministic / aloh3_naoh_dissolution | Al(OH)₃ + NaOH → Na[Al(OH)₄] | Đạt cấu trúc | solver_rule |
-| deterministic / cuoh2_nh3_complex | Cu(OH)₂ + 4NH₃ → [Cu(NH₃)₄](OH)₂ (Xanh thẫm) | Đạt cấu trúc | solver_rule |
+| deterministic / cuoh2_nh3_complex | Cu(OH)₂ + 4NH₃ ⇌ [Cu(NH₃)₄](OH)₂ (Xanh thẫm) | Đạt cấu trúc | solver_rule |
 | deterministic / agcl_nh3_complex | AgCl + 2NH₃ → [Ag(NH₃)₂]Cl (Tan trong suốt) | Đạt cấu trúc | solver_rule |
 | deterministic / hno3_naoh_neutralization | HNO₃ + NaOH → NaNO₃ + H₂O | Đạt cấu trúc | solver_rule |
 | deterministic / fecl3_naoh_precipitate | FeCl₃ + 3NaOH → Fe(OH)₃↓ + 3NaCl | Đạt cấu trúc | solver_rule |
@@ -294,13 +294,13 @@ FeCl3(aq) + KSCN(aq) <-> [Fe(SCN)]Cl2(aq) + KCl(aq)
 
 ## cuso4_nh3 (programs)
 
-CuSO4(aq) + 4NH3(aq) -> [Cu(NH3)4]SO4(aq)
+CuSO4(aq) + 4NH3(aq) ⇌ [Cu(NH3)4]SO4(aq)
 
 - Điều kiện: {}
 - Phân loại: specialized, specialized_model
-- Giải thích: Phân tử amoniac đóng vai trò phối tử thay thế nước tạo phức chất bền [Cu(NH3)4]2+.
-- Quan sát: Ban đầu tạo kết tủa Cu(OH)2 xanh nhạt, sau đó kết tủa tan biến hoàn toàn thành dung dịch màu xanh lam thẫm (xanh hoàng gia / nước Schweizer) trong suốt.
-- Nguồn: [RSC: Transition elements and complex compounds](https://edu.rsc.org/experiments/transition-elements-and-complex-compounds-microscale-experiment-16-18-years/518.article); [RSC: Testing salts for anions and cations](https://edu.rsc.org/experiments/testing-salts-for-anions-and-cations/464.article)
+- Giải thích: Bộ giải xét đồng thời NH3/NH4+, các phức Cu(II) có 1–4 phối tử NH3, thủy phân, sulfate và độ tan Cu(OH)2. Phương trình tetraammine là một cân bằng trong hệ, không bảo đảm chuyển hóa hoàn toàn ở tỉ lệ 4:1.
+- Quan sát: NH3 mới thêm có thể tạo keo Cu(OH)2 xanh nhạt. Thêm đủ NH3 làm tăng lượng phức xanh đậm và có thể hòa tan hết keo; lượng còn lại phụ thuộc nồng độ, pH và nhiệt độ.
+- Nguồn: [SKB TR-00-13: selected Cu(II)-ammine constants and reaction enthalpies, section 7.7.1.2](https://skb.com/publication/17527/TR-00-13.pdf); [Purdue: Combined solubility and complex-ion equilibria](https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch18/combine.php); [RSC: Transition elements and complex compounds](https://edu.rsc.org/experiments/transition-elements-and-complex-compounds-microscale-experiment-16-18-years/518.article)
 - Giới hạn: Kinetic time and RGB values are illustrative. Enthalpy and activities are not experimentally calibrated for every reagent concentration.
 
 ## k2cro4_h2so4 (programs)
@@ -956,22 +956,22 @@ Al₂(SO₄)₃ + 6NaOH → 2Al(OH)₃↓ + 3Na₂SO₄
 
 CuSO4 + 2NH3 + 2H2O -> Cu(OH)2 + (NH4)2SO4
 
-- Điều kiện: {"compartment":"bulk","finitePositiveInventory":true,"aqueousPhaseRequiresPositiveVolume":true,"oxidizingAcidBlocksHydrogenInference":false,"reactantPhases":{"CuSO4":["aq"],"NH3":["aq"],"H2O":["l"]},"heating":{"required":false,"minimum_c":null},"concentrationGrades":"Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.","compatibility":"Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."}
-- Phân loại: specialized, Coordination Complex Formation, Phản ứng tạo phức chất tetraammin đồng(II), solid_formation, stoichiometric_rule
-- Giải thích: NH3 ít tạo hydroxide xanh nhạt; NH3 dư đủ tạo dung dịch phức xanh đậm.
-- Quan sát: Hiện tượng tuyệt đẹp: Dung dịch chuyển sang màu xanh lam đậm huyền ảo rực rỡ đặc trưng của phức đồng.
-- Nguồn: [RSC: Transition elements and complex compounds](https://edu.rsc.org/experiments/transition-elements-and-complex-compounds-microscale-experiment-16-18-years/518.article); [RSC: Testing salts for anions and cations](https://edu.rsc.org/experiments/testing-salts-for-anions-and-cations/464.article)
+- Điều kiện: {"compartment":"bulk","finitePositiveInventory":true,"aqueousPhaseRequiresPositiveVolume":true,"model":"coupled_copper_ammonia","referenceEquationOnly":true,"temperatureRange_c":[0,90],"phaseAmounts":"Charge and Cu/N/S/Na balances with ammines n=1..4, hydrolysis, sulfate and Cu(OH)2 saturation.","limitations":"Ideal activities; mixed hydroxo-ammines, other ligands and real-time kinetic calibration are not included.","oxidizingAcidBlocksHydrogenInference":false,"reactantPhases":{"CuSO4":["aq"],"NH3":["aq"],"H2O":["l"]},"heating":{"required":false,"minimum_c":null},"concentrationGrades":"Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.","compatibility":"Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."}
+- Phân loại: specialized, Coupled solubility and complexation equilibria, Cân bằng tạo phức và độ tan, solid_formation, finite_phase_equilibrium
+- Giải thích: Bảo toàn Cu/N/sulfate/Na và điện tích, xét các phức 1–4 NH3, thủy phân, proton hóa và Cu(OH)2. Không dùng tỉ lệ 4:1 làm ngưỡng tan hết; mô hình nồng độ lý tưởng, chưa hiệu chuẩn màu, thời gian, hoạt độ hoặc phối tử cạnh tranh.
+- Quan sát: Có thể tạo keo xanh nhạt rồi giảm keo khi thêm NH3; lượng cuối phụ thuộc nồng độ, pH, nhiệt độ và kiềm còn dư.
+- Nguồn: [SKB TR-00-13: selected Cu(II)-ammine constants and reaction enthalpies, section 7.7.1.2](https://skb.com/publication/17527/TR-00-13.pdf); [Purdue: Combined solubility and complex-ion equilibria](https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch18/combine.php); [RSC: Transition elements and complex compounds](https://edu.rsc.org/experiments/transition-elements-and-complex-compounds-microscale-experiment-16-18-years/518.article)
 - Giới hạn: Kiểm tra cấu trúc không xác nhận tốc độ, hiệu suất hoặc mọi tổ hợp môi trường.
 
 ## cuso4_nh3_complex (deterministic)
 
-CuSO₄ + 4NH₃ → [Cu(NH₃)₄]SO₄ (Xanh thẫm)
+CuSO₄ + 4NH₃ ⇌ [Cu(NH₃)₄]SO₄ (Xanh thẫm)
 
-- Điều kiện: {"compartment":"bulk","finitePositiveInventory":true,"aqueousPhaseRequiresPositiveVolume":true,"oxidizingAcidBlocksHydrogenInference":false,"reactantPhases":{"CuSO4":["aq"],"NH3":["aq"]},"heating":{"required":false,"minimum_c":null},"concentrationGrades":"Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.","compatibility":"Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."}
-- Phân loại: specialized, Coordination Complex Formation, Phản ứng tạo phức chất tetraammin đồng(II), stoichiometric_rule
-- Giải thích: NH3 ít tạo hydroxide xanh nhạt; NH3 dư đủ tạo dung dịch phức xanh đậm.
-- Quan sát: Hiện tượng tuyệt đẹp: Dung dịch chuyển sang màu xanh lam đậm huyền ảo rực rỡ đặc trưng của phức đồng.
-- Nguồn: [RSC: Transition elements and complex compounds](https://edu.rsc.org/experiments/transition-elements-and-complex-compounds-microscale-experiment-16-18-years/518.article); [RSC: Testing salts for anions and cations](https://edu.rsc.org/experiments/testing-salts-for-anions-and-cations/464.article)
+- Điều kiện: {"compartment":"bulk","finitePositiveInventory":true,"aqueousPhaseRequiresPositiveVolume":true,"model":"coupled_copper_ammonia","referenceEquationOnly":true,"temperatureRange_c":[0,90],"phaseAmounts":"Charge and Cu/N/S/Na balances with ammines n=1..4, hydrolysis, sulfate and Cu(OH)2 saturation.","limitations":"Ideal activities; mixed hydroxo-ammines, other ligands and real-time kinetic calibration are not included.","oxidizingAcidBlocksHydrogenInference":false,"reactantPhases":{"CuSO4":["aq"],"NH3":["aq"]},"heating":{"required":false,"minimum_c":null},"concentrationGrades":"Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.","compatibility":"Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."}
+- Phân loại: specialized, Coupled solubility and complexation equilibria, Cân bằng tạo phức và độ tan, finite_phase_equilibrium
+- Giải thích: Bảo toàn Cu/N/sulfate/Na và điện tích, xét các phức 1–4 NH3, thủy phân, proton hóa và Cu(OH)2. Không dùng tỉ lệ 4:1 làm ngưỡng tan hết; mô hình nồng độ lý tưởng, chưa hiệu chuẩn màu, thời gian, hoạt độ hoặc phối tử cạnh tranh.
+- Quan sát: Có thể tạo keo xanh nhạt rồi giảm keo khi thêm NH3; lượng cuối phụ thuộc nồng độ, pH, nhiệt độ và kiềm còn dư.
+- Nguồn: [SKB TR-00-13: selected Cu(II)-ammine constants and reaction enthalpies, section 7.7.1.2](https://skb.com/publication/17527/TR-00-13.pdf); [Purdue: Combined solubility and complex-ion equilibria](https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch18/combine.php); [RSC: Transition elements and complex compounds](https://edu.rsc.org/experiments/transition-elements-and-complex-compounds-microscale-experiment-16-18-years/518.article)
 - Giới hạn: Kiểm tra cấu trúc không xác nhận tốc độ, hiệu suất hoặc mọi tổ hợp môi trường.
 
 ## fecl3_kscn_complex (deterministic)
@@ -1031,13 +1031,13 @@ Al(OH)₃ + NaOH → Na[Al(OH)₄]
 
 ## cuoh2_nh3_complex (deterministic)
 
-Cu(OH)₂ + 4NH₃ → [Cu(NH₃)₄](OH)₂ (Xanh thẫm)
+Cu(OH)₂ + 4NH₃ ⇌ [Cu(NH₃)₄](OH)₂ (Xanh thẫm)
 
-- Điều kiện: {"compartment":"bulk","finitePositiveInventory":true,"aqueousPhaseRequiresPositiveVolume":true,"oxidizingAcidBlocksHydrogenInference":false,"reactantPhases":{"Cu(OH)2":["s"],"NH3":["aq"]},"heating":{"required":false,"minimum_c":null},"concentrationGrades":"Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.","compatibility":"Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."}
-- Phân loại: specialized, Precipitate Dissolution via Complexation, Hòa tan kết tủa đồng hiđroxit tạo phức amoniac, stoichiometric_rule
-- Giải thích: NH3 ít tạo hydroxide xanh nhạt; NH3 dư đủ tạo dung dịch phức xanh đậm.
-- Quan sát: Kết tủa xanh tan dần tạo thành dung dịch màu xanh lam thẫm trong suốt rực rỡ.
-- Nguồn: [RSC: Transition elements and complex compounds](https://edu.rsc.org/experiments/transition-elements-and-complex-compounds-microscale-experiment-16-18-years/518.article); [RSC: Testing salts for anions and cations](https://edu.rsc.org/experiments/testing-salts-for-anions-and-cations/464.article)
+- Điều kiện: {"compartment":"bulk","finitePositiveInventory":true,"aqueousPhaseRequiresPositiveVolume":true,"model":"coupled_copper_ammonia","referenceEquationOnly":true,"temperatureRange_c":[0,90],"phaseAmounts":"Charge and Cu/N/S/Na balances with ammines n=1..4, hydrolysis, sulfate and Cu(OH)2 saturation.","limitations":"Ideal activities; mixed hydroxo-ammines, other ligands and real-time kinetic calibration are not included.","oxidizingAcidBlocksHydrogenInference":false,"reactantPhases":{"Cu(OH)2":["s"],"NH3":["aq"]},"heating":{"required":false,"minimum_c":null},"concentrationGrades":"Explicit concentrated/dilute stock labels are matched; dilution-dependent activity is not calibrated.","compatibility":"Historical unlabelled inventory retains phase inference; explicit phase/state metadata is checked."}
+- Phân loại: specialized, Coupled solubility and complexation equilibria, Cân bằng tạo phức và độ tan, finite_phase_equilibrium
+- Giải thích: Bảo toàn Cu/N/sulfate/Na và điện tích, xét các phức 1–4 NH3, thủy phân, proton hóa và Cu(OH)2. Không dùng tỉ lệ 4:1 làm ngưỡng tan hết; mô hình nồng độ lý tưởng, chưa hiệu chuẩn màu, thời gian, hoạt độ hoặc phối tử cạnh tranh.
+- Quan sát: Có thể tạo keo xanh nhạt rồi giảm keo khi thêm NH3; lượng cuối phụ thuộc nồng độ, pH, nhiệt độ và kiềm còn dư.
+- Nguồn: [SKB TR-00-13: selected Cu(II)-ammine constants and reaction enthalpies, section 7.7.1.2](https://skb.com/publication/17527/TR-00-13.pdf); [Purdue: Combined solubility and complex-ion equilibria](https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch18/combine.php); [RSC: Transition elements and complex compounds](https://edu.rsc.org/experiments/transition-elements-and-complex-compounds-microscale-experiment-16-18-years/518.article)
 - Giới hạn: Kiểm tra cấu trúc không xác nhận tốc độ, hiệu suất hoặc mọi tổ hợp môi trường.
 
 ## agcl_nh3_complex (deterministic)

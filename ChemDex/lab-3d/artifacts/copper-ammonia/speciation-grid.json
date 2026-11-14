@@ -1,0 +1,2028 @@
+{
+  "count": 96,
+  "sources": [
+    "https://skb.com/publication/17527/TR-00-13.pdf",
+    "https://github.com/phreeqc-dev/phreeqc3/blob/master/database/wateq4f.dat",
+    "https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch18/combine.php"
+  ],
+  "activityModel": "ideal_concentration",
+  "kineticCalibration": false,
+  "results": [
+    {
+      "temperature_c": 5,
+      "volume_ml": 30,
+      "ammoniaCopperRatio": 0.1,
+      "ph": 5.717567396231685,
+      "solidFraction": 0.04669844853542479,
+      "ammineFractions": [
+        0.0016097978423747763,
+        0.0000015849032405319125,
+        4.059084706410022e-10,
+        1.754916677203112e-14
+      ],
+      "freeAmmonia_M": 2.0830272516082738e-7,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        -2.168404344971009e-18,
+        0,
+        -2.704139978615145e-16
+      ]
+    },
+    {
+      "temperature_c": 5,
+      "volume_ml": 30,
+      "ammoniaCopperRatio": 0.5,
+      "ph": 5.806991069726859,
+      "solidFraction": 0.24430791148813658,
+      "ammineFractions": [
+        0.006569900967069717,
+        0.00003984970078192823,
+        6.287605063355236e-8,
+        1.6747441557340706e-11
+      ],
+      "freeAmmonia_M": 0.0000012833046884232055,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        1.3877787807814457e-17,
+        -6.938893903907228e-18,
+        -1.5041886363049723e-16
+      ]
+    },
+    {
+      "temperature_c": 5,
+      "volume_ml": 30,
+      "ammoniaCopperRatio": 1,
+      "ph": 5.944486046392672,
+      "solidFraction": 0.4928038719634254,
+      "ammineFractions": [
+        0.009606430237599667,
+        0.00016048019309315616,
+        6.973885165689922e-7,
+        5.116007484673671e-10
+      ],
+      "freeAmmonia_M": 0.0000035344589685631884,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        -1.3877787807814457e-17,
+        0,
+        -9.037418030729757e-18
+      ]
+    },
+    {
+      "temperature_c": 5,
+      "volume_ml": 30,
+      "ammoniaCopperRatio": 2,
+      "ph": 7.256495562842835,
+      "solidFraction": 0.9947440909000419,
+      "ammineFractions": [
+        0.0009428510654480823,
+        0.0006504330445431574,
+        0.00011672289390912096,
+        0.0000035360021599577236
+      ],
+      "freeAmmonia_M": 0.00014595636543696382,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        -9.71445146547012e-17,
+        6.938893903907228e-18,
+        -1.8059576233519137e-17
+      ]
+    },
+    {
+      "temperature_c": 5,
+      "volume_ml": 30,
+      "ammoniaCopperRatio": 4,
+      "ph": 9.921098690667963,
+      "solidFraction": 0.7415822556356616,
+      "ammineFractions": [
+        0.0000015229058009722396,
+        0.00036213353348716145,
+        0.022400535067393697,
+        0.23391122737980374
+      ],
+      "freeAmmonia_M": 0.05031057033059825,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        1.6653345369377348e-16,
+        0,
+        6.428832221465403e-17
+      ]
+    },
+    {
+      "temperature_c": 5,
+      "volume_ml": 30,
+      "ammoniaCopperRatio": 5,
+      "ph": 10.176633495750934,
+      "solidFraction": 0.6149451182870911,
+      "ammineFractions": [
+        7.01751138322918e-7,
+        0.0002494356488271816,
+        0.023063640871509593,
+        0.35999812393820735
+      ],
+      "freeAmmonia_M": 0.07520365277900834,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        2.498001805406602e-16,
+        0,
+        -5.5414085670579004e-17
+      ]
+    },
+    {
+      "temperature_c": 5,
+      "volume_ml": 30,
+      "ammoniaCopperRatio": 20,
+      "ph": 11.697798230831914,
+      "solidFraction": 0.11801812804669949,
+      "ammineFractions": [
+        4.576563754876048e-9,
+        0.000011695014758464101,
+        0.007774204853048131,
+        0.8723970975102893
+      ],
+      "freeAmmonia_M": 0.5406606930025657,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        1.2212453270876722e-15,
+        -6.938893903907228e-18,
+        4.910939419577586e-16
+      ]
+    },
+    {
+      "temperature_c": 5,
+      "volume_ml": 30,
+      "ammoniaCopperRatio": 100,
+      "ph": 12.576523403108464,
+      "solidFraction": 0,
+      "ammineFractions": [
+        2.5424091117169605e-11,
+        3.837037338508879e-7,
+        0.0015064008881118755,
+        0.9983621931580451
+      ],
+      "freeAmmonia_M": 3.193111826902661,
+      "saturationRatio": 0.05381048823060799,
+      "componentResiduals_M": [
+        1.3877787807814457e-17,
+        3.9968028886505635e-15,
+        6.938893903907228e-18,
+        2.023047267182835e-17
+      ]
+    },
+    {
+      "temperature_c": 5,
+      "volume_ml": 50,
+      "ammoniaCopperRatio": 0.1,
+      "ph": 5.782933279787537,
+      "solidFraction": 0.045315274219921535,
+      "ammineFractions": [
+        0.0013879842605582816,
+        9.552392778503244e-7,
+        1.7101482114878428e-10,
+        5.1684266256965035e-15
+      ],
+      "freeAmmonia_M": 1.456099891789416e-7,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        2.6020852139652106e-18,
+        -3.469446951953614e-18,
+        8.28449044391541e-17
+      ]
+    },
+    {
+      "temperature_c": 5,
+      "volume_ml": 50,
+      "ammoniaCopperRatio": 0.5,
+      "ph": 5.860420380432483,
+      "solidFraction": 0.2432393011740799,
+      "ammineFractions": [
+        0.005818539393323909,
+        0.000023985305154558152,
+        2.571997049310231e-8,
+        4.655847100782989e-12
+      ],
+      "freeAmmonia_M": 8.721572765239301e-7,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        -1.734723475976807e-18,
+        3.469446951953614e-18,
+        1.9221538677540546e-16
+      ]
+    },
+    {
+      "temperature_c": 5,
+      "volume_ml": 50,
+      "ammoniaCopperRatio": 1,
+      "ph": 5.9837443725840895,
+      "solidFraction": 0.4918744567479255,
+      "ammineFractions": [
+        0.00878448616058936,
+        0.00009647127102584928,
+        2.755964294044816e-7,
+        1.3290832917804876e-10
+      ],
+      "freeAmmonia_M": 0.0000023235133751882037,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        -3.469446951953614e-18,
+        0,
+        -6.747485633651438e-17
+      ]
+    },
+    {
+      "temperature_c": 5,
+      "volume_ml": 50,
+      "ammoniaCopperRatio": 2,
+      "ph": 7.271640947579245,
+      "solidFraction": 0.9938819357156231,
+      "ammineFractions": [
+        0.0009108229800837952,
+        0.00039050480602649155,
+        0.00004355246452719347,
+        8.199778365952137e-7
+      ],
+      "freeAmmonia_M": 0.00009071016213043666,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        -3.469446951953614e-18,
+        1.3877787807814457e-17,
+        0,
+        1.3651881473803775e-17
+      ]
+    },
+    {
+      "temperature_c": 5,
+      "volume_ml": 50,
+      "ammoniaCopperRatio": 4,
+      "ph": 9.917748354085239,
+      "solidFraction": 0.8828720596440677,
+      "ammineFractions": [
+        0.000001829030809471795,
+        0.0003086137556709299,
+        0.013545763442268332,
+        0.10036787283366602
+      ],
+      "freeAmmonia_M": 0.03569914361329493,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        -1.8041124150158794e-16,
+        0,
+        6.78221673744934e-17
+      ]
+    },
+    {
+      "temperature_c": 5,
+      "volume_ml": 50,
+      "ammoniaCopperRatio": 5,
+      "ph": 10.126893201917806,
+      "solidFraction": 0.801403367102567,
+      "ammineFractions": [
+        0.0000010264105241971978,
+        0.0002546273944185847,
+        0.01643172296398875,
+        0.17900456562819933
+      ],
+      "freeAmmonia_M": 0.05248649463144309,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        3.469446951953614e-18,
+        9.71445146547012e-17,
+        3.469446951953614e-18,
+        -1.0111120868201021e-16
+      ]
+    },
+    {
+      "temperature_c": 5,
+      "volume_ml": 50,
+      "ammoniaCopperRatio": 20,
+      "ph": 11.414663293992243,
+      "solidFraction": 0.24570073731174932,
+      "ammineFractions": [
+        1.7132917423508048e-8,
+        0.000026697202812504115,
+        0.0108216665651843,
+        0.7405008506903377
+      ],
+      "freeAmmonia_M": 0.3296840816743627,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        5.551115123125783e-16,
+        0,
+        2.7670303750877744e-16
+      ]
+    },
+    {
+      "temperature_c": 5,
+      "volume_ml": 50,
+      "ammoniaCopperRatio": 100,
+      "ph": 12.464770260944936,
+      "solidFraction": 0,
+      "ammineFractions": [
+        1.1775132431585586e-10,
+        0.0000010656212447776205,
+        0.00250861427291221,
+        0.9969375019348045
+      ],
+      "freeAmmonia_M": 1.914699435893275,
+      "saturationRatio": 0.14905473661082255,
+      "componentResiduals_M": [
+        0,
+        -2.4424906541753444e-15,
+        -6.938893903907228e-18,
+        -3.553579862172249e-17
+      ]
+    },
+    {
+      "temperature_c": 5,
+      "volume_ml": 500,
+      "ammoniaCopperRatio": 0.1,
+      "ph": 6.13729797211945,
+      "solidFraction": 0.015794838898184605,
+      "ammineFractions": [
+        0.0006185325286833225,
+        9.700576879451703e-8,
+        3.957551073618854e-12,
+        2.725577405561989e-17
+      ],
+      "freeAmmonia_M": 3.318169423749513e-8,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        -1.3552527156068805e-19,
+        0,
+        -4.128891218148649e-17
+      ]
+    },
+    {
+      "temperature_c": 5,
+      "volume_ml": 500,
+      "ammoniaCopperRatio": 0.5,
+      "ph": 6.191335096949937,
+      "solidFraction": 0.2152664217525571,
+      "ammineFractions": [
+        0.0027327310190103198,
+        0.00000242851335545633,
+        5.614072987991234e-10,
+        2.1908802410619064e-14
+      ],
+      "freeAmmonia_M": 1.880213423958799e-7,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        2.168404344971009e-19,
+        4.336808689942018e-19,
+        -2.3753781691215772e-17
+      ]
+    },
+    {
+      "temperature_c": 5,
+      "volume_ml": 500,
+      "ammoniaCopperRatio": 1,
+      "ph": 6.283220932723081,
+      "solidFraction": 0.46516193701094327,
+      "ammineFractions": [
+        0.004427620752922774,
+        0.00000973328014670853,
+        5.565984356597073e-9,
+        5.373135155324174e-13
+      ],
+      "freeAmmonia_M": 4.651064352730171e-7,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        1.3010426069826053e-18,
+        0,
+        -9.072900770285832e-18
+      ]
+    },
+    {
+      "temperature_c": 5,
+      "volume_ml": 500,
+      "ammoniaCopperRatio": 2,
+      "ph": 7.425213955117766,
+      "solidFraction": 0.967126844564468,
+      "ammineFractions": [
+        0.0006392687124915552,
+        0.00003901856907074484,
+        6.195169256559786e-7,
+        1.6604967865040016e-9
+      ],
+      "freeAmmonia_M": 0.000012913721864489536,
+      "saturationRatio": 1.0000000000000002,
+      "componentResiduals_M": [
+        0,
+        2.6020852139652106e-18,
+        4.336808689942018e-19,
+        1.295243243707996e-18
+      ]
+    },
+    {
+      "temperature_c": 5,
+      "volume_ml": 500,
+      "ammoniaCopperRatio": 4,
+      "ph": 9.911454391201914,
+      "solidFraction": 0.9705659182811601,
+      "ammineFractions": [
+        0.000002101179147439303,
+        0.000039565027871735096,
+        0.00019380002044255655,
+        0.0001602504237985757
+      ],
+      "freeAmmonia_M": 0.003983932148341541,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        -8.673617379884035e-18,
+        4.336808689942018e-19,
+        -1.432703978153771e-17
+      ]
+    },
+    {
+      "temperature_c": 5,
+      "volume_ml": 500,
+      "ammoniaCopperRatio": 5,
+      "ph": 10.086832010489514,
+      "solidFraction": 0.9702607671287545,
+      "ammineFractions": [
+        0.0000014052899232346202,
+        0.00003968920635105117,
+        0.0002915901475709837,
+        0.00036163986834173773
+      ],
+      "freeAmmonia_M": 0.0059754418136904915,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        -8.673617379884035e-18,
+        -4.336808689942018e-19,
+        4.191766233682464e-18
+      ]
+    },
+    {
+      "temperature_c": 5,
+      "volume_ml": 500,
+      "ammoniaCopperRatio": 20,
+      "ph": 10.858788659839353,
+      "solidFraction": 0.9556827603395217,
+      "ammineFractions": [
+        2.4070461626002667e-7,
+        0.00004074015600021637,
+        0.001793721049362223,
+        0.013331841669526936
+      ],
+      "freeAmmonia_M": 0.035809792760830385,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        2.7755575615628914e-17,
+        -4.336808689942018e-19,
+        -1.3564434749758488e-17
+      ]
+    },
+    {
+      "temperature_c": 5,
+      "volume_ml": 500,
+      "ammoniaCopperRatio": 100,
+      "ph": 11.648316337678049,
+      "solidFraction": 0.6601576391979862,
+      "ammineFractions": [
+        3.436577098022176e-8,
+        0.00003150368728069536,
+        0.00751260634495462,
+        0.3024286308331729
+      ],
+      "freeAmmonia_M": 0.193954042385854,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        -8.326672684688674e-17,
+        0,
+        -1.435241803482786e-17
+      ]
+    },
+    {
+      "temperature_c": 25,
+      "volume_ml": 30,
+      "ammoniaCopperRatio": 0.1,
+      "ph": 5.329384292352776,
+      "solidFraction": 0.04884387082814252,
+      "ammineFractions": [
+        0.0014096575586704625,
+        0.0000014121296725302181,
+        3.4724462591969116e-10,
+        1.4838721625901127e-14
+      ],
+      "freeAmmonia_M": 3.8972741274725026e-7,
+      "saturationRatio": 1.0000000000000002,
+      "componentResiduals_M": [
+        0,
+        2.6020852139652106e-18,
+        -6.938893903907228e-18,
+        3.412162113730806e-16
+      ]
+    },
+    {
+      "temperature_c": 25,
+      "volume_ml": 30,
+      "ammoniaCopperRatio": 0.5,
+      "ph": 5.422690450182495,
+      "solidFraction": 0.2466828361529248,
+      "ammineFractions": [
+        0.005700343118545725,
+        0.00003548637529320975,
+        5.422783733269945e-8,
+        1.4400677615543477e-11
+      ],
+      "freeAmmonia_M": 0.000002421924739293656,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        3.469446951953614e-18,
+        0,
+        -2.2528704704712077e-16
+      ]
+    },
+    {
+      "temperature_c": 25,
+      "volume_ml": 30,
+      "ammoniaCopperRatio": 1,
+      "ph": 5.56446930120063,
+      "solidFraction": 0.49528742094920286,
+      "ammineFractions": [
+        0.008249850765964808,
+        0.0001427938597250315,
+        6.066985723331336e-7,
+        4.4795708840786146e-10
+      ],
+      "freeAmmonia_M": 0.000006733850034015852,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        2.7755575615628914e-17,
+        0,
+        -7.18148414000086e-17
+      ]
+    },
+    {
+      "temperature_c": 25,
+      "volume_ml": 30,
+      "ammoniaCopperRatio": 2,
+      "ph": 6.77810038185115,
+      "solidFraction": 0.9951990260317591,
+      "ammineFractions": [
+        0.001013182017575661,
+        0.000576042405425853,
+        0.00008039359272116212,
+        0.000001949792607478629
+      ],
+      "freeAmmonia_M": 0.00022119076064732813,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        8.326672684688674e-17,
+        0,
+        1.983857041587978e-18
+      ]
+    },
+    {
+      "temperature_c": 25,
+      "volume_ml": 30,
+      "ammoniaCopperRatio": 4,
+      "ph": 9.259319355555174,
+      "solidFraction": 0.8754548580915232,
+      "ammineFractions": [
+        0.0000029440335588564143,
+        0.00044606995130990607,
+        0.016590641591950048,
+        0.1072317500710807
+      ],
+      "freeAmmonia_M": 0.05894679711204269,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        0,
+        6.938893903907228e-18,
+        2.1079990278579386e-16
+      ]
+    },
+    {
+      "temperature_c": 25,
+      "volume_ml": 30,
+      "ammoniaCopperRatio": 5,
+      "ph": 9.471174501790598,
+      "solidFraction": 0.7903174096088463,
+      "ammineFractions": [
+        0.0000016322199115497878,
+        0.0003637349994653155,
+        0.019897179245127527,
+        0.1891463359333824
+      ],
+      "freeAmmonia_M": 0.08669746925958985,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        4.996003610813204e-16,
+        6.938893903907228e-18,
+        1.2525036486379937e-18
+      ]
+    },
+    {
+      "temperature_c": 25,
+      "volume_ml": 30,
+      "ammoniaCopperRatio": 20,
+      "ph": 10.775904482933097,
+      "solidFraction": 0.23915471090996998,
+      "ammineFractions": [
+        2.5408295363799486e-8,
+        0.0000358623520671323,
+        0.01242516058240837,
+        0.7481096394833693
+      ],
+      "freeAmmonia_M": 0.5491149154252852,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        -1.3322676295501878e-15,
+        0,
+        -6.773747162585236e-16
+      ]
+    },
+    {
+      "temperature_c": 25,
+      "volume_ml": 30,
+      "ammoniaCopperRatio": 100,
+      "ph": 11.879596710659577,
+      "solidFraction": 0,
+      "ammineFractions": [
+        1.723201942743974e-10,
+        0.000001414066315538403,
+        0.002848415750457692,
+        0.997096013832049
+      ],
+      "freeAmmonia_M": 3.1925198150841614,
+      "saturationRatio": 0.1880506074718136,
+      "componentResiduals_M": [
+        0,
+        5.329070518200751e-15,
+        6.938893903907228e-18,
+        3.6285848321806105e-17
+      ]
+    },
+    {
+      "temperature_c": 25,
+      "volume_ml": 50,
+      "ammoniaCopperRatio": 0.1,
+      "ph": 5.393609762421022,
+      "solidFraction": 0.048655858212577445,
+      "ammineFractions": [
+        0.001218224593708329,
+        8.505586120153853e-7,
+        1.457743553660263e-10,
+        4.3416820191847994e-15
+      ],
+      "freeAmmonia_M": 2.716294682004146e-7,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        3.469446951953614e-18,
+        -3.469446951953614e-18,
+        3.1671408930785544e-17
+      ]
+    },
+    {
+      "temperature_c": 25,
+      "volume_ml": 50,
+      "ammoniaCopperRatio": 0.5,
+      "ph": 5.474050672793247,
+      "solidFraction": 0.24673335441572197,
+      "ammineFractions": [
+        0.005071193279522626,
+        0.000021347728346860265,
+        2.2059373405234256e-8,
+        3.96127211381195e-12
+      ],
+      "freeAmmonia_M": 0.0000016377269830237217,
+      "saturationRatio": 1.0000000000000002,
+      "componentResiduals_M": [
+        0,
+        -3.469446951953614e-18,
+        3.469446951953614e-18,
+        2.1340148073124843e-16
+      ]
+    },
+    {
+      "temperature_c": 25,
+      "volume_ml": 50,
+      "ammoniaCopperRatio": 1,
+      "ph": 5.600996090807836,
+      "solidFraction": 0.49540879702557317,
+      "ammineFractions": [
+        0.007590157420866043,
+        0.00008580720262685551,
+        2.381204554227949e-7,
+        1.1483378113698275e-10
+      ],
+      "freeAmmonia_M": 0.000004398179607677966,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        2.42861286636753e-17,
+        3.469446951953614e-18,
+        -1.4224520744773005e-16
+      ]
+    },
+    {
+      "temperature_c": 25,
+      "volume_ml": 50,
+      "ammoniaCopperRatio": 2,
+      "ph": 6.790294552396066,
+      "solidFraction": 0.9952383998291048,
+      "ammineFractions": [
+        0.0009853549134920623,
+        0.0003457836653380584,
+        0.00002978627951066229,
+        4.458903234558474e-7
+      ],
+      "freeAmmonia_M": 0.00013652487482032776,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        0,
+        0,
+        -2.971709216323306e-18
+      ]
+    },
+    {
+      "temperature_c": 25,
+      "volume_ml": 50,
+      "ammoniaCopperRatio": 4,
+      "ph": 9.256774147102744,
+      "solidFraction": 0.9584848225120367,
+      "ammineFractions": [
+        0.000003243244240628457,
+        0.00032102407328192447,
+        0.0078000169483471915,
+        0.03293468331057151
+      ],
+      "freeAmmonia_M": 0.03850861910801384,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        2.7755575615628914e-17,
+        0,
+        -2.794427774383122e-17
+      ]
+    },
+    {
+      "temperature_c": 25,
+      "volume_ml": 50,
+      "ammoniaCopperRatio": 5,
+      "ph": 9.444612775534145,
+      "solidFraction": 0.9216070695035535,
+      "ammineFractions": [
+        0.0000020241050976973974,
+        0.00029697621240989177,
+        0.01069572601555528,
+        0.06694202948889323
+      ],
+      "freeAmmonia_M": 0.05708060996847078,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        -1.1102230246251565e-16,
+        3.469446951953614e-18,
+        1.1288397748300404e-17
+      ]
+    },
+    {
+      "temperature_c": 25,
+      "volume_ml": 50,
+      "ammoniaCopperRatio": 20,
+      "ph": 10.53182331862835,
+      "solidFraction": 0.43733316717987347,
+      "ammineFractions": [
+        8.00863429944772e-8,
+        0.0000694694016943764,
+        0.014792059812580301,
+        0.5473482702814109
+      ],
+      "freeAmmonia_M": 0.337469941119903,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        -2.7755575615628914e-16,
+        -3.469446951953614e-18,
+        1.735882176555575e-16
+      ]
+    },
+    {
+      "temperature_c": 25,
+      "volume_ml": 50,
+      "ammoniaCopperRatio": 100,
+      "ph": 11.768260846760786,
+      "solidFraction": 0,
+      "ammineFractions": [
+        7.976964960030435e-10,
+        0.000003924948967186494,
+        0.004740567604353096,
+        0.9950082332333514
+      ],
+      "freeAmmonia_M": 1.9142397486830571,
+      "saturationRatio": 0.5216666142705023,
+      "componentResiduals_M": [
+        0,
+        -1.1102230246251565e-15,
+        0,
+        6.068826530634637e-17
+      ]
+    },
+    {
+      "temperature_c": 25,
+      "volume_ml": 500,
+      "ammoniaCopperRatio": 0.1,
+      "ph": 5.740803191195203,
+      "solidFraction": 0.04367803846426878,
+      "ammineFractions": [
+        0.0005513023397512577,
+        8.618189699675014e-8,
+        3.3070614366162882e-12,
+        2.20530405868969e-17
+      ],
+      "freeAmmonia_M": 6.081717089775205e-8,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        3.2526065174565133e-19,
+        0,
+        -2.636453575800054e-17
+      ]
+    },
+    {
+      "temperature_c": 25,
+      "volume_ml": 500,
+      "ammoniaCopperRatio": 0.5,
+      "ph": 5.795216241527834,
+      "solidFraction": 0.2428395276678683,
+      "ammineFractions": [
+        0.0024333702382873506,
+        0.0000021571426362452107,
+        4.694069695966298e-10,
+        1.7750892926253995e-14
+      ],
+      "freeAmmonia_M": 3.44882113081988e-7,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        8.673617379884035e-19,
+        0,
+        -6.3976398506117305e-18
+      ]
+    },
+    {
+      "temperature_c": 25,
+      "volume_ml": 500,
+      "ammoniaCopperRatio": 1,
+      "ph": 5.887540027278442,
+      "solidFraction": 0.49220388485595473,
+      "ammineFractions": [
+        0.0039380396828223975,
+        0.000008643113705760387,
+        4.6565081220615425e-9,
+        4.3596387405376294e-13
+      ],
+      "freeAmmonia_M": 8.538668209787185e-7,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        8.673617379884035e-19,
+        0,
+        1.4500648191621986e-17
+      ]
+    },
+    {
+      "temperature_c": 25,
+      "volume_ml": 500,
+      "ammoniaCopperRatio": 2,
+      "ph": 6.931108967174929,
+      "solidFraction": 0.990217379127399,
+      "ammineFractions": [
+        0.0007119093111830135,
+        0.00003452210557583582,
+        4.109319221537365e-7,
+        8.500461070839938e-10
+      ],
+      "freeAmmonia_M": 0.000018865686061811077,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        -6.071532165918825e-18,
+        0,
+        -1.3462099771504508e-17
+      ]
+    },
+    {
+      "temperature_c": 25,
+      "volume_ml": 500,
+      "ammoniaCopperRatio": 4,
+      "ph": 9.251434993902567,
+      "solidFraction": 0.9952725552288127,
+      "ammineFractions": [
+        0.0000034370310348136543,
+        0.00003517765544005438,
+        0.00008837925327457139,
+        0.000038586355834338164
+      ],
+      "freeAmmonia_M": 0.003981836626615387,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        -8.673617379884035e-18,
+        0,
+        -9.940313651300546e-18
+      ]
+    },
+    {
+      "temperature_c": 25,
+      "volume_ml": 500,
+      "ammoniaCopperRatio": 5,
+      "ph": 9.426603584558025,
+      "solidFraction": 0.9951804099939836,
+      "ammineFractions": [
+        0.0000023010837435239092,
+        0.00003532661402671802,
+        0.00013312867278618038,
+        0.00008718488347080993
+      ],
+      "freeAmmonia_M": 0.005972684703397322,
+      "saturationRatio": 0.9999999999999999,
+      "componentResiduals_M": [
+        0,
+        1.734723475976807e-18,
+        4.336808689942018e-19,
+        -4.2952909181849386e-18
+      ]
+    },
+    {
+      "temperature_c": 25,
+      "volume_ml": 500,
+      "ammoniaCopperRatio": 20,
+      "ph": 10.19261135060891,
+      "solidFraction": 0.9912369044833531,
+      "ammineFractions": [
+        4.0549423030729027e-7,
+        0.000037344104967773894,
+        0.0008442273760851673,
+        0.0033166283375714906
+      ],
+      "freeAmmonia_M": 0.035829221838395216,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        -5.551115123125783e-17,
+        4.336808689942018e-19,
+        -9.368251537202672e-18
+      ]
+    },
+    {
+      "temperature_c": 25,
+      "volume_ml": 500,
+      "ammoniaCopperRatio": 100,
+      "ph": 10.90608119093021,
+      "solidFraction": 0.8819788880202845,
+      "ammineFractions": [
+        8.246834508781968e-8,
+        0.000041282590025165074,
+        0.005072786608790084,
+        0.10832438967760499
+      ],
+      "freeAmmonia_M": 0.19475098239181127,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        -2.498001805406602e-16,
+        0,
+        -1.2251244267658538e-18
+      ]
+    },
+    {
+      "temperature_c": 60,
+      "volume_ml": 30,
+      "ammoniaCopperRatio": 0.1,
+      "ph": 4.7629223632492295,
+      "solidFraction": 0.05010686640448992,
+      "ammineFractions": [
+        0.0011400915292976836,
+        0.0000011539558403862144,
+        2.6340742087949473e-10,
+        1.0901145832436474e-14
+      ],
+      "freeAmmonia_M": 9.588735498629257e-7,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        -1.3010426069826053e-18,
+        0,
+        -2.914132151733695e-16
+      ]
+    },
+    {
+      "temperature_c": 60,
+      "volume_ml": 30,
+      "ammoniaCopperRatio": 0.5,
+      "ph": 4.862458399141008,
+      "solidFraction": 0.24829786226567685,
+      "ammineFractions": [
+        0.004542724232404019,
+        0.000028974407959082315,
+        4.167754351485753e-8,
+        1.0869135016913071e-11
+      ],
+      "freeAmmonia_M": 0.000006042408260639689,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        -1.3877787807814457e-17,
+        -6.938893903907228e-18,
+        1.7856132154478455e-16
+      ]
+    },
+    {
+      "temperature_c": 60,
+      "volume_ml": 30,
+      "ammoniaCopperRatio": 1,
+      "ph": 5.010823742168009,
+      "solidFraction": 0.49703724033918384,
+      "ammineFractions": [
+        0.006471558572770741,
+        0.00011644753025204025,
+        4.725426620790841e-7,
+        3.4766189435468573e-10
+      ],
+      "freeAmmonia_M": 0.000017046423118079164,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        2.7755575615628914e-17,
+        0,
+        1.0916560624213423e-16
+      ]
+    },
+    {
+      "temperature_c": 60,
+      "volume_ml": 30,
+      "ammoniaCopperRatio": 2,
+      "ph": 6.08803201823272,
+      "solidFraction": 0.992882297755801,
+      "ammineFractions": [
+        0.0010835383286012256,
+        0.000465819450304525,
+        0.00004516274229224137,
+        7.938680387626853e-7
+      ],
+      "freeAmmonia_M": 0.00040727261436913047,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        2.7755575615628914e-17,
+        0,
+        -1.3828659896873707e-17
+      ]
+    },
+    {
+      "temperature_c": 60,
+      "volume_ml": 30,
+      "ammoniaCopperRatio": 4,
+      "ph": 8.300419134181995,
+      "solidFraction": 0.9730794708696552,
+      "ammineFractions": [
+        0.000006514379053226862,
+        0.00044776417587719423,
+        0.0069408875577151394,
+        0.01950679862712857
+      ],
+      "freeAmmonia_M": 0.06511607087556212,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        -5.551115123125783e-17,
+        6.938893903907228e-18,
+        -8.766998130107392e-17
+      ]
+    },
+    {
+      "temperature_c": 60,
+      "volume_ml": 30,
+      "ammoniaCopperRatio": 5,
+      "ph": 8.484046026480538,
+      "solidFraction": 0.9486565412772473,
+      "ammineFractions": [
+        0.000004161780923596552,
+        0.00042571162380724783,
+        0.009820670674048074,
+        0.041074483774783614
+      ],
+      "freeAmmonia_M": 0.09690544085959295,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        -5.551115123125783e-17,
+        0,
+        -2.3108699927432618e-17
+      ]
+    },
+    {
+      "temperature_c": 60,
+      "volume_ml": 30,
+      "ammoniaCopperRatio": 20,
+      "ph": 9.501493127799531,
+      "solidFraction": 0.5308253566597608,
+      "ammineFractions": [
+        2.2551756901437245e-7,
+        0.00013546030324848915,
+        0.018349872521429608,
+        0.45067076526965033
+      ],
+      "freeAmmonia_M": 0.5690409627785582,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        1.1102230246251565e-16,
+        -6.938893903907228e-18,
+        3.1621128012788957e-16
+      ]
+    },
+    {
+      "temperature_c": 60,
+      "volume_ml": 30,
+      "ammoniaCopperRatio": 100,
+      "ph": 10.837897501196663,
+      "solidFraction": 0.040078088470099915,
+      "ammineFractions": [
+        2.6907952768764795e-9,
+        0.000009078651409847613,
+        0.006907984764576508,
+        0.952986455639406
+      ],
+      "freeAmmonia_M": 3.1963369300658266,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        8.881784197001252e-16,
+        0,
+        -5.675432869378533e-16
+      ]
+    },
+    {
+      "temperature_c": 60,
+      "volume_ml": 50,
+      "ammoniaCopperRatio": 0.1,
+      "ph": 4.825633540032197,
+      "solidFraction": 0.05027410215826828,
+      "ammineFractions": [
+        0.000988278545264646,
+        6.944517716035355e-7,
+        1.1005104199313716e-10,
+        3.1619249299444616e-15
+      ],
+      "freeAmmonia_M": 6.656939212673923e-7,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        2.6020852139652106e-18,
+        0,
+        -1.266924119867202e-16
+      ]
+    },
+    {
+      "temperature_c": 60,
+      "volume_ml": 50,
+      "ammoniaCopperRatio": 0.5,
+      "ph": 4.910883693946895,
+      "solidFraction": 0.24860253281820097,
+      "ammineFractions": [
+        0.004067328035443155,
+        0.00001741815151128434,
+        1.6822257383892235e-8,
+        2.945586699151191e-12
+      ],
+      "freeAmmonia_M": 0.000004056997424842326,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        1.3877787807814457e-17,
+        -3.469446951953614e-18,
+        -2.015193025471651e-16
+      ]
+    },
+    {
+      "temperature_c": 60,
+      "volume_ml": 50,
+      "ammoniaCopperRatio": 1,
+      "ph": 5.0435675648226095,
+      "solidFraction": 0.4973328331652553,
+      "ammineFractions": [
+        0.00600471841227429,
+        0.00006994178271478303,
+        1.8372577793012492e-7,
+        8.750015438601123e-11
+      ],
+      "freeAmmonia_M": 0.00001103458284953727,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        -2.42861286636753e-17,
+        0,
+        -8.995828713019571e-17
+      ]
+    },
+    {
+      "temperature_c": 60,
+      "volume_ml": 50,
+      "ammoniaCopperRatio": 2,
+      "ph": 6.097846546562355,
+      "solidFraction": 0.9929746169447442,
+      "ammineFractions": [
+        0.0010594351964859862,
+        0.00027954914129248,
+        0.000016635324388709554,
+        1.794773764735103e-7
+      ],
+      "freeAmmonia_M": 0.00024997445716927686,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        0,
+        -3.469446951953614e-18,
+        -1.757169849079046e-17
+      ]
+    },
+    {
+      "temperature_c": 60,
+      "volume_ml": 50,
+      "ammoniaCopperRatio": 4,
+      "ph": 8.29921386238828,
+      "solidFraction": 0.9924990315870387,
+      "ammineFractions": [
+        0.000006664161281762571,
+        0.00027959860380707876,
+        0.002645537022899201,
+        0.004538350314162827
+      ],
+      "freeAmmonia_M": 0.03974672661925334,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        -1.3877787807814457e-17,
+        0,
+        -1.971438744487842e-17
+      ]
+    },
+    {
+      "temperature_c": 60,
+      "volume_ml": 50,
+      "ammoniaCopperRatio": 5,
+      "ph": 8.477227992999975,
+      "solidFraction": 0.9857464518075228,
+      "ammineFractions": [
+        0.000004394141557327792,
+        0.0002759436145515553,
+        0.003908013000536055,
+        0.010034528664005987
+      ],
+      "freeAmmonia_M": 0.05949194578693323,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        0,
+        3.469446951953614e-18,
+        -2.444206048094767e-17
+      ]
+    },
+    {
+      "temperature_c": 60,
+      "volume_ml": 50,
+      "ammoniaCopperRatio": 20,
+      "ph": 9.352523565607731,
+      "solidFraction": 0.7699418086060911,
+      "ammineFractions": [
+        4.602333057692682e-7,
+        0.00017045882678263157,
+        0.014238042722596097,
+        0.21561869616546483
+      ],
+      "freeAmmonia_M": 0.3508757219498917,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        3.469446951953614e-18,
+        -1.6653345369377348e-16,
+        0,
+        1.0113973518158153e-16
+      ]
+    },
+    {
+      "temperature_c": 60,
+      "volume_ml": 50,
+      "ammoniaCopperRatio": 100,
+      "ph": 10.545687101837721,
+      "solidFraction": 0.18876259670123385,
+      "ammineFractions": [
+        1.0370311543845277e-8,
+        0.000021065612273573275,
+        0.00965040889580569,
+        0.8015353318698814
+      ],
+      "freeAmmonia_M": 1.9243946957984392,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        3.1086244689504383e-15,
+        3.469446951953614e-18,
+        -1.94338770846186e-16
+      ]
+    },
+    {
+      "temperature_c": 60,
+      "volume_ml": 500,
+      "ammoniaCopperRatio": 0.1,
+      "ph": 5.163318948797123,
+      "solidFraction": 0.051140370821726594,
+      "ammineFractions": [
+        0.00045640926464687355,
+        7.01395663227648e-8,
+        2.430866154367932e-12,
+        1.5274406505181886e-17
+      ],
+      "freeAmmonia_M": 1.4558629472315144e-7,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        -2.981555974335137e-19,
+        0,
+        2.7318930131319322e-17
+      ]
+    },
+    {
+      "temperature_c": 60,
+      "volume_ml": 500,
+      "ammoniaCopperRatio": 0.5,
+      "ph": 5.218547791150188,
+      "solidFraction": 0.2500133361595304,
+      "ammineFractions": [
+        0.0020104211562638635,
+        0.0000017550356773757625,
+        3.4552080193230684e-10,
+        1.2332972854786869e-14
+      ],
+      "freeAmmonia_M": 8.270100210442146e-7,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        -1.3010426069826053e-18,
+        0,
+        -5.14784273693801e-18
+      ]
+    },
+    {
+      "temperature_c": 60,
+      "volume_ml": 500,
+      "ammoniaCopperRatio": 1,
+      "ph": 5.311935816801068,
+      "solidFraction": 0.49881678701441023,
+      "ammineFractions": [
+        0.003244723817223589,
+        0.000007028188199607907,
+        3.433194231171563e-9,
+        3.040595810913809e-13
+      ],
+      "freeAmmonia_M": 0.0000020520007451581665,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        -1.3010426069826053e-18,
+        0,
+        1.928694020898042e-17
+      ]
+    },
+    {
+      "temperature_c": 60,
+      "volume_ml": 500,
+      "ammoniaCopperRatio": 2,
+      "ph": 6.225851764456751,
+      "solidFraction": 0.9910190129190676,
+      "ammineFractions": [
+        0.0007876229472336536,
+        0.000027858422841262367,
+        2.2222045729702886e-7,
+        3.2137854121535997e-10
+      ],
+      "freeAmmonia_M": 0.00003350811779828691,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        -2.6020852139652106e-18,
+        0,
+        -6.686001629592616e-19
+      ]
+    },
+    {
+      "temperature_c": 60,
+      "volume_ml": 500,
+      "ammoniaCopperRatio": 4,
+      "ph": 8.294864297438611,
+      "solidFraction": 0.9996262669922414,
+      "ammineFractions": [
+        0.000006810062955482762,
+        0.000028618516926900908,
+        0.000027122671687474133,
+        0.000004660399393734102
+      ],
+      "freeAmmonia_M": 0.003981143807599331,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        3.469446951953614e-18,
+        0,
+        7.699616344505908e-18
+      ]
+    },
+    {
+      "temperature_c": 60,
+      "volume_ml": 500,
+      "ammoniaCopperRatio": 5,
+      "ph": 8.469956679765543,
+      "solidFraction": 0.9996093176684775,
+      "ammineFractions": [
+        0.000004560996758782084,
+        0.000028750748940931676,
+        0.000040872189840215424,
+        0.000010534452724238057
+      ],
+      "freeAmmonia_M": 0.005971745171057372,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        1.5612511283791264e-17,
+        4.336808689942018e-19,
+        -1.1308117320513362e-18
+      ]
+    },
+    {
+      "temperature_c": 60,
+      "volume_ml": 500,
+      "ammoniaCopperRatio": 20,
+      "ph": 9.234055514084886,
+      "solidFraction": 0.9989966921361437,
+      "ammineFractions": [
+        8.110739193994968e-7,
+        0.00003067949290183373,
+        0.00026171298032334116,
+        0.00040476940312608587
+      ],
+      "freeAmmonia_M": 0.03583435639256321,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        0,
+        4.336808689942018e-19,
+        7.936201993814956e-18
+      ]
+    },
+    {
+      "temperature_c": 60,
+      "volume_ml": 500,
+      "ammoniaCopperRatio": 100,
+      "ph": 9.915685163889716,
+      "solidFraction": 0.9823989906580677,
+      "ammineFractions": [
+        1.913674735726899e-7,
+        0.00003942056549795858,
+        0.0018313313187325886,
+        0.015424685657564833
+      ],
+      "freeAmmonia_M": 0.19514911901864052,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        1.942890293094024e-16,
+        -4.336808689942018e-19,
+        3.6862236844962605e-17
+      ]
+    },
+    {
+      "temperature_c": 90,
+      "volume_ml": 30,
+      "ammoniaCopperRatio": 0.1,
+      "ph": 4.364409803228279,
+      "solidFraction": 0.05298815824924293,
+      "ammineFractions": [
+        0.0009666045961343298,
+        9.706685250890858e-7,
+        2.070989357713035e-10,
+        8.253580145879379e-15
+      ],
+      "freeAmmonia_M": 0.0000017796368733628053,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        -4.7704895589362195e-18,
+        6.938893903907228e-18,
+        -2.1960515003693892e-16
+      ]
+    },
+    {
+      "temperature_c": 90,
+      "volume_ml": 30,
+      "ammoniaCopperRatio": 0.5,
+      "ph": 4.4688669379585715,
+      "solidFraction": 0.2514875129165745,
+      "ammineFractions": [
+        0.0038068254997938515,
+        0.000024356419455309047,
+        3.310920461499812e-8,
+        8.407011409344296e-12
+      ],
+      "freeAmmonia_M": 0.000011338608988803334,
+      "saturationRatio": 1.0000000000000002,
+      "componentResiduals_M": [
+        0,
+        -6.938893903907228e-18,
+        0,
+        -1.901148509453332e-16
+      ]
+    },
+    {
+      "temperature_c": 90,
+      "volume_ml": 30,
+      "ammoniaCopperRatio": 1,
+      "ph": 4.622430927105851,
+      "solidFraction": 0.5002007983345048,
+      "ammineFractions": [
+        0.005356071531042762,
+        0.0000977931015887041,
+        3.7936293834100725e-7,
+        2.748901425315446e-10
+      ],
+      "freeAmmonia_M": 0.000032357216586698136,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        6.938893903907228e-18,
+        0,
+        -2.3879552848993235e-17
+      ]
+    },
+    {
+      "temperature_c": 90,
+      "volume_ml": 30,
+      "ammoniaCopperRatio": 2,
+      "ph": 5.613153066266541,
+      "solidFraction": 0.9901385849708968,
+      "ammineFractions": [
+        0.001090028055331022,
+        0.00038809237838358866,
+        0.000029357385781282662,
+        4.148176547517804e-7
+      ],
+      "freeAmmonia_M": 0.0006309671393210038,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        -5.551115123125783e-17,
+        6.938893903907228e-18,
+        -1.7706376729403894e-17
+      ]
+    },
+    {
+      "temperature_c": 90,
+      "volume_ml": 30,
+      "ammoniaCopperRatio": 4,
+      "ph": 7.633137506550357,
+      "solidFraction": 0.9919018005675551,
+      "ammineFractions": [
+        0.000010437328446492965,
+        0.00039012819902488924,
+        0.0030982050941341186,
+        0.004595899998773092
+      ],
+      "freeAmmonia_M": 0.06624106353049375,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        1.942890293094024e-16,
+        6.938893903907228e-18,
+        -1.0774370262149027e-16
+      ]
+    },
+    {
+      "temperature_c": 90,
+      "volume_ml": 30,
+      "ammoniaCopperRatio": 5,
+      "ph": 7.811313512290125,
+      "solidFraction": 0.9848789400113196,
+      "ammineFractions": [
+        0.000006876780834967055,
+        0.0003847255425565853,
+        0.004573005105930547,
+        0.010153363572024003
+      ],
+      "freeAmmonia_M": 0.09914598717933341,
+      "saturationRatio": 0.9999999999999999,
+      "componentResiduals_M": [
+        0,
+        -1.1102230246251565e-16,
+        0,
+        1.3643352910816108e-16
+      ]
+    },
+    {
+      "temperature_c": 90,
+      "volume_ml": 30,
+      "ammoniaCopperRatio": 20,
+      "ph": 8.689034519799824,
+      "solidFraction": 0.7673562108735044,
+      "ammineFractions": [
+        7.124005615109607e-7,
+        0.0002351100398317424,
+        0.01648553042534309,
+        0.2159196965893298
+      ],
+      "freeAmmonia_M": 0.5848657989460961,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        -2.220446049250313e-16,
+        0,
+        1.0987015236579259e-16
+      ]
+    },
+    {
+      "temperature_c": 90,
+      "volume_ml": 30,
+      "ammoniaCopperRatio": 100,
+      "ph": 9.892368152393628,
+      "solidFraction": 0.21929928649095928,
+      "ammineFractions": [
+        1.5337994052116206e-8,
+        0.000027798864975832056,
+        0.010704598712106871,
+        0.769965568133041
+      ],
+      "freeAmmonia_M": 3.211942804100036,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        3.1086244689504383e-15,
+        0,
+        1.1335013098130523e-18
+      ]
+    },
+    {
+      "temperature_c": 90,
+      "volume_ml": 50,
+      "ammoniaCopperRatio": 0.1,
+      "ph": 4.426291687801584,
+      "solidFraction": 0.0534689727619813,
+      "ammineFractions": [
+        0.0008392524959028941,
+        5.838127000552028e-7,
+        8.62857867192757e-11,
+        2.382114178255472e-15
+      ],
+      "freeAmmonia_M": 0.0000012327931164810926,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        2.6020852139652106e-18,
+        -3.469446951953614e-18,
+        -1.7541035898099855e-16
+      ]
+    },
+    {
+      "temperature_c": 90,
+      "volume_ml": 50,
+      "ammoniaCopperRatio": 0.5,
+      "ph": 4.5154087525432445,
+      "solidFraction": 0.2519579773934282,
+      "ammineFractions": [
+        0.003422479334858164,
+        0.000014635381705949873,
+        1.3296952005779535e-8,
+        2.256616371398001e-12
+      ],
+      "freeAmmonia_M": 0.000007578312732869165,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        -1.214306433183765e-17,
+        0,
+        3.515525544284248e-17
+      ]
+    },
+    {
+      "temperature_c": 90,
+      "volume_ml": 50,
+      "ammoniaCopperRatio": 1,
+      "ph": 4.6527340253210365,
+      "solidFraction": 0.5005316278308108,
+      "ammineFractions": [
+        0.004996936928792621,
+        0.00005871927245530291,
+        1.466028091708712e-7,
+        6.836935841393172e-11
+      ],
+      "freeAmmonia_M": 0.000020825052365052698,
+      "saturationRatio": 0.9999999999999999,
+      "componentResiduals_M": [
+        -3.469446951953614e-18,
+        -3.122502256758253e-17,
+        3.469446951953614e-18,
+        -1.2007539060276962e-17
+      ]
+    },
+    {
+      "temperature_c": 90,
+      "volume_ml": 50,
+      "ammoniaCopperRatio": 2,
+      "ph": 5.621706502366328,
+      "solidFraction": 0.9901527397023985,
+      "ammineFractions": [
+        0.0010687765086290822,
+        0.00023285827909278966,
+        0.000010779070084921756,
+        9.320270001803824e-8
+      ],
+      "freeAmmonia_M": 0.0003861127011726203,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        -1.3877787807814457e-17,
+        3.469446951953614e-18,
+        9.317362419797304e-19
+      ]
+    },
+    {
+      "temperature_c": 90,
+      "volume_ml": 50,
+      "ammoniaCopperRatio": 4,
+      "ph": 7.632495435488904,
+      "solidFraction": 0.9976002315919569,
+      "ammineFractions": [
+        0.000010514577453052058,
+        0.00023685327796333413,
+        0.0011335790288188507,
+        0.0010134020817159795
+      ],
+      "freeAmmonia_M": 0.039920583369342746,
+      "saturationRatio": 0.9999999999999999,
+      "componentResiduals_M": [
+        0,
+        -1.249000902703301e-16,
+        3.469446951953614e-18,
+        -2.358060315817167e-17
+      ]
+    },
+    {
+      "temperature_c": 90,
+      "volume_ml": 50,
+      "ammoniaCopperRatio": 5,
+      "ph": 7.809064197937007,
+      "solidFraction": 0.9957873699691528,
+      "ammineFractions": [
+        0.000006990778701350371,
+        0.0002360936923685234,
+        0.001694057091667455,
+        0.0022705406756805087
+      ],
+      "freeAmmonia_M": 0.059850548374827214,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        -3.469446951953614e-18,
+        -1.1102230246251565e-16,
+        3.469446951953614e-18,
+        -5.4214343789011493e-17
+      ]
+    },
+    {
+      "temperature_c": 90,
+      "volume_ml": 50,
+      "ammoniaCopperRatio": 20,
+      "ph": 8.616599246743407,
+      "solidFraction": 0.921434710760252,
+      "ammineFractions": [
+        0.0000010113664649289631,
+        0.00020366690858136357,
+        0.008713993302833681,
+        0.0696420518509062
+      ],
+      "freeAmmonia_M": 0.3568791914282693,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        1.6653345369377348e-16,
+        -3.469446951953614e-18,
+        -1.0129668008830913e-16
+      ]
+    },
+    {
+      "temperature_c": 90,
+      "volume_ml": 50,
+      "ammoniaCopperRatio": 100,
+      "ph": 9.636656406816568,
+      "solidFraction": 0.43727240446416366,
+      "ammineFractions": [
+        5.002559530025697e-8,
+        0.00005465151733057905,
+        0.012685191006474894,
+        0.5499831495745875
+      ],
+      "freeAmmonia_M": 1.9360620078270965,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        2.220446049250313e-15,
+        3.469446951953614e-18,
+        -2.0358153288384095e-16
+      ]
+    },
+    {
+      "temperature_c": 90,
+      "volume_ml": 500,
+      "ammoniaCopperRatio": 0.1,
+      "ph": 4.758380524615166,
+      "solidFraction": 0.0567014480525711,
+      "ammineFractions": [
+        0.0003921500699060693,
+        5.8826163057377697e-8,
+        1.8748804313350048e-12,
+        1.1161799473877042e-17
+      ],
+      "freeAmmonia_M": 2.6584440814104915e-7,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        -8.131516293641283e-20,
+        0,
+        2.291901748680686e-17
+      ]
+    },
+    {
+      "temperature_c": 90,
+      "volume_ml": 500,
+      "ammoniaCopperRatio": 0.5,
+      "ph": 4.814450790406669,
+      "solidFraction": 0.25504390957186795,
+      "ammineFractions": [
+        0.0017237597289092486,
+        0.0000014714988301318265,
+        2.6688731970355253e-10,
+        9.041771865406174e-15
+      ],
+      "freeAmmonia_M": 0.0000015128382441394074,
+      "saturationRatio": 0.9999999999999999,
+      "componentResiduals_M": [
+        0,
+        1.0842021724855044e-18,
+        0,
+        1.151287181908045e-17
+      ]
+    },
+    {
+      "temperature_c": 90,
+      "volume_ml": 500,
+      "ammoniaCopperRatio": 1,
+      "ph": 4.909026266567318,
+      "solidFraction": 0.5029036713399087,
+      "ammineFractions": [
+        0.0027737150896868057,
+        0.000005889536412242379,
+        2.6569611323373748e-9,
+        2.2389627973785953e-13
+      ],
+      "freeAmmonia_M": 0.0000037629510249316698,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        2.6020852139652106e-18,
+        0,
+        1.2790197503539935e-17
+      ]
+    },
+    {
+      "temperature_c": 90,
+      "volume_ml": 500,
+      "ammoniaCopperRatio": 2,
+      "ph": 5.740590144876423,
+      "solidFraction": 0.9876611037077079,
+      "ammineFractions": [
+        0.0008106594574596468,
+        0.000023161254399712024,
+        1.4059521108679885e-7,
+        1.5941770964568237e-10
+      ],
+      "freeAmmonia_M": 0.000050632914549991286,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        6.071532165918825e-18,
+        4.336808689942018e-19,
+        9.228423960335602e-19
+      ]
+    },
+    {
+      "temperature_c": 90,
+      "volume_ml": 500,
+      "ammoniaCopperRatio": 4,
+      "ph": 7.6289331288611635,
+      "solidFraction": 0.999904948088344,
+      "ammineFractions": [
+        0.000010665565055643716,
+        0.00002397391027031538,
+        0.00001144929406933243,
+        0.0000010213536157010551
+      ],
+      "freeAmmonia_M": 0.00398349531248283,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        6.938893903907228e-18,
+        0,
+        -7.784259255046622e-18
+      ]
+    },
+    {
+      "temperature_c": 90,
+      "volume_ml": 500,
+      "ammoniaCopperRatio": 5,
+      "ph": 7.804134132497122,
+      "solidFraction": 0.9999025239155563,
+      "ammineFractions": [
+        0.000007139567877619124,
+        0.00002407226736881926,
+        0.00001724435274894316,
+        0.0000023074610762296965
+      ],
+      "freeAmmonia_M": 0.00597522654163639,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        -6.938893903907228e-18,
+        0,
+        -1.8163711655194662e-18
+      ]
+    },
+    {
+      "temperature_c": 90,
+      "volume_ml": 500,
+      "ammoniaCopperRatio": 20,
+      "ph": 8.569677548615076,
+      "solidFraction": 0.9997298657451589,
+      "ammineFractions": [
+        0.0000012611905373624348,
+        0.00002551651647751979,
+        0.00010968491240492566,
+        0.0000880704037501872
+      ],
+      "freeAmmonia_M": 0.03585502127158211,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        4.163336342344337e-17,
+        -4.336808689942018e-19,
+        2.1484491090015346e-17
+      ]
+    },
+    {
+      "temperature_c": 90,
+      "volume_ml": 500,
+      "ammoniaCopperRatio": 100,
+      "ph": 9.25293608268909,
+      "solidFraction": 0.995826625135015,
+      "ammineFractions": [
+        2.953866236477727e-7,
+        0.00003255057723288938,
+        0.0007620990012053929,
+        0.003332895341530314
+      ],
+      "freeAmmonia_M": 0.19528872669230168,
+      "saturationRatio": 1,
+      "componentResiduals_M": [
+        0,
+        1.942890293094024e-16,
+        -4.336808689942018e-19,
+        -8.828619756340627e-18
+      ]
+    }
+  ]
+}

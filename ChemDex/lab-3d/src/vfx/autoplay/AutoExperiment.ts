@@ -209,6 +209,12 @@ export class AutoExperiment {
       : this.phase === 'observe' ? 'Theo dõi phần đuôi khói, bọt và hạt sau khi nguồn phản ứng giảm.'
       : 'Đã hoàn tất trình tự. Có thể xem lại hoặc chọn thí nghiệm tiếp theo.');
   }
+  get reactionReadout() {
+    // Reversible phase changes do not have a monotone conversion percentage.
+    return this.program.id === 'cuso4_nh3'
+      ? { label: 'Kết tủa', value: `${(this.sample.precipitateAmount_g ?? 0).toPrecision(3)} g` }
+      : { label: 'Phản ứng', value: `${(this.progress * 100).toFixed(1)}%` };
+  }
   get conditionText() {
     const definition = getLessonDefinition(this.program.id);
     return [this.heatTarget > 25 ? `Gia nhiệt ảo đến ${this.heatTarget} °C.` : 'Mẫu ở nhiệt độ thường.',
@@ -460,6 +466,19 @@ export class AutoExperiment {
     return contact;
   }
   private advanceContact(dt: number) {
+    if (this.program.id === 'cuso4_nh3') {
+      // A reversible partition cannot use monotone CuSO4 disappearance as
+      // completion: early precipitation must still redissolve in later NH3.
+      this.contactCadence_s += dt;
+      if (this.contactCadence_s < 0.05 - 1e-12) return;
+      dt = this.contactCadence_s; this.contactCadence_s = 0;
+      const before = this.sample, plan = planStudioProgram(this.program, before, 'vi');
+      if (!plan.kinetics) return;
+      const fraction = advanceReaction(plan.kinetics, before, dt, this.stirringDrive > 0, this.flame);
+      this.sample = { ...before, ...applyProgramWithThermalSinks(this.program, before, before, fraction, dt) };
+      this.contactProgress = 0;
+      return;
+    }
     const ref = this.contactReference;
     if (this.contactProgress >= 0.9999) return;
     if (!ref || !assessProgramConditions(this.program, this.sample.contents, {

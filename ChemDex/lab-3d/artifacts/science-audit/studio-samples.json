@@ -1,6 +1,6 @@
 {
   "schema": "chemdex.studio-sample-audit/1",
-  "checkedAt": "2026-11-06T14:37:52.900Z",
+  "checkedAt": "2026-11-14T00:47:16.873Z",
   "scope": "Mass/formula/phase audit only; model eligibility is not experimental validation.",
   "sampleCount": 112,
   "samples": [
@@ -1909,7 +1909,7 @@
     },
     {
       "programId": "cuso4_nh3",
-      "equation": "CuSO4(aq) + 4NH3(aq) -> [Cu(NH3)4]SO4(aq)",
+      "equation": "CuSO4(aq) + 4NH3(aq) ⇌ [Cu(NH3)4]SO4(aq)",
       "quantityPolicy": "authored_virtual_sample_not_real_lab_protocol",
       "volume_ml": 30,
       "mass_g": 30,
@@ -1927,16 +1927,16 @@
         {
           "formula": "NH3",
           "phase": "aq",
-          "moles": 0.004,
-          "initialMoles": 0.004,
-          "mass_g": 0.06812399999999999,
-          "concentration_M": 0.13333333333333333
+          "moles": 0.06,
+          "initialMoles": 0.06,
+          "mass_g": 1.02186,
+          "concentration_M": 2
         },
         {
           "formula": "H2O",
           "phase": "l",
-          "mass_g": 29.772274,
-          "moles": 1.652638023868998
+          "mass_g": 28.818538,
+          "moles": 1.599696808215376
         }
       ],
       "readyUnderDeclaredModelConditions": true,
@@ -3580,8 +3580,8 @@
       "programId": "cac2_h2o",
       "equation": "CaC2(s) + 2H2O(l) -> Ca(OH)2(s) + C2H2(g)",
       "quantityPolicy": "authored_virtual_sample_not_real_lab_protocol",
-      "volume_ml": 0.03603,
-      "mass_g": 0.10013,
+      "volume_ml": 30,
+      "mass_g": 30.0641,
       "temperature_c": 25,
       "isSealed": false,
       "contents": [
@@ -3595,9 +3595,9 @@
         {
           "formula": "H2O",
           "phase": "l",
-          "moles": 0.002,
-          "initialMoles": 0.002,
-          "mass_g": 0.03603
+          "moles": 1.665278934221482,
+          "initialMoles": 1.665278934221482,
+          "mass_g": 30
         }
       ],
       "readyUnderDeclaredModelConditions": true,
