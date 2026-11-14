@@ -9,233 +9,284 @@
   "articles": [
     {
       "id": "001_H",
-      "title": "Hydrogen (H) — Biên niên sử nguyên tố đầu tiên thắp sáng các vì sao",
+      "title": "Hydrogen (H) — Từ khí cháy đến câu hỏi water được tạo nên từ gì?",
       "subjectIds": [
         "atom-H"
       ],
-      "sections": 6,
-      "characters": 6757,
+      "sections": 4,
+      "characters": 3261,
       "externalSources": [
-        "https://pubchem.ncbi.nlm.nih.gov/compound/783",
-        "https://ciaaw.org/abridged-atomic-weights.htm"
+        "https://periodic-table.rsc.org/element/1/hydrogen",
+        "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
+        "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds"
       ]
     },
     {
       "id": "002_He",
-      "title": "Heli (He) — Từ vạch quang phổ thần Mặt Trời đến ngọn gió lượng tử siêu lỏng",
+      "title": "Helium (He) — Nhìn thấy dấu vết trên Mặt Trời trước khi tìm ra trên Trái Đất",
       "subjectIds": [
         "atom-He"
       ],
-      "sections": 6,
-      "characters": 7917,
+      "sections": 4,
+      "characters": 3266,
       "externalSources": [
-        "https://vi.wikipedia.org/wiki/Heli"
+        "https://periodic-table.rsc.org/element/2/helium",
+        "https://www.acs.org/education/whatischemistry/landmarks/heliumnaturalgas.html",
+        "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
+        "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds"
       ]
     },
     {
       "id": "003_Li",
-      "title": "Liti (Li) — Viên đá quý trên đảo Utö và trái tim của cuộc cách mạng pin năng lượng",
+      "title": "Lithium (Li) — Từ khoáng vật petalite đến pin sạc",
       "subjectIds": [
         "formula-Li"
       ],
-      "sections": 6,
-      "characters": 7059,
+      "sections": 4,
+      "characters": 3229,
       "externalSources": [
-        "https://vi.wikipedia.org/wiki/Liti"
+        "https://periodic-table.rsc.org/element/3/lithium",
+        "https://www.nobelprize.org/prizes/chemistry/2019/summary/",
+        "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
+        "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds"
       ]
     },
     {
       "id": "004_C",
-      "title": "Carbon (C) — Từ mẩu than hang động nguyên thủy, giấc mơ Kekulé đến kỷ nguyên vật liệu Graphene",
+      "title": "Carbon (C) — Vì sao diamond và graphite lại là cùng một nguyên tố?",
       "subjectIds": [
         "chem-c"
       ],
-      "sections": 6,
-      "characters": 7226,
+      "sections": 4,
+      "characters": 3288,
       "externalSources": [
-        "https://vi.wikipedia.org/wiki/Carbon"
+        "https://periodic-table.rsc.org/element/6/carbon",
+        "https://www.nobelprize.org/prizes/physics/2010/summary/",
+        "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
+        "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds"
       ]
     },
     {
       "id": "005_N",
-      "title": "Nitơ (N) — Từ \"chất khí cướp sự sống\" của Lavoisier đến nguồn đạm nuôi sống nhân loại",
+      "title": "Nitrogen (N) — Phần không khí còn lại sau thí nghiệm",
       "subjectIds": [
         "atom-N"
       ],
-      "sections": 6,
-      "characters": 7016,
+      "sections": 4,
+      "characters": 3331,
       "externalSources": [
-        "https://vi.wikipedia.org/wiki/Nit%C6%A1"
+        "https://periodic-table.rsc.org/element/7/nitrogen",
+        "https://www.sciencehistory.org/education/scientific-biographies/fritz-haber/",
+        "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
+        "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds"
       ]
     },
     {
       "id": "006_O",
-      "title": "Oxy (O) — Cuộc tranh hùng giữa Scheele, Priestley và ngọn đuốc cách mạng của Lavoisier",
+      "title": "Oxygen (O) — Scheele, Priestley và một cách giải thích mới về sự cháy",
       "subjectIds": [
         "atom-O"
       ],
-      "sections": 6,
-      "characters": 7465,
+      "sections": 4,
+      "characters": 3252,
       "externalSources": [
-        "https://vi.wikipedia.org/wiki/Oxy"
+        "https://www.acs.org/education/whatischemistry/landmarks/josephpriestleyoxygen.html",
+        "https://periodic-table.rsc.org/element/8/oxygen",
+        "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
+        "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds"
       ]
     },
     {
       "id": "007_Na",
-      "title": "Natri (Na) — Điệu nhảy bốc lửa trong phòng lab của Humphry Davy và giọt kim loại cắt được bằng dao",
+      "title": "Sodium (Na) — Humphry Davy dùng điện để tách một kim loại mới",
       "subjectIds": [
         "chem-na"
       ],
-      "sections": 6,
-      "characters": 7065,
+      "sections": 4,
+      "characters": 3213,
       "externalSources": [
-        "https://vi.wikipedia.org/wiki/Natri"
+        "https://www.rigb.org/about-us/our-history",
+        "https://periodic-table.rsc.org/element/11/sodium",
+        "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
+        "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds"
       ]
     },
     {
       "id": "008_Fe",
-      "title": "Sắt (Fe) — Từ thanh đoản kiếm thiên thạch của Pharaon Tutankhamun đến dòng máu đỏ trong tim",
+      "title": "Iron (Fe) — Trước lò luyện, con người đã dùng iron từ thiên thạch",
       "subjectIds": [
         "chem-fe"
       ],
-      "sections": 6,
-      "characters": 6561,
+      "sections": 4,
+      "characters": 3190,
       "externalSources": [
-        "https://vi.wikipedia.org/wiki/S%E1%BA%AFt"
+        "https://periodic-table.rsc.org/element/26/iron",
+        "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
+        "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds"
       ]
     },
     {
       "id": "009_Cu",
-      "title": "Đồng (Cu) — Ngọn lửa đảo Cyprus, bình ắc quy Daniell và mạch máu dẫn truyền điện năng",
+      "title": "Copper (Cu) — Từ kim loại bản địa đến những mạch điện",
       "subjectIds": [
         "chem-cu"
       ],
-      "sections": 6,
-      "characters": 7655,
+      "sections": 4,
+      "characters": 3213,
       "externalSources": [
-        "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%93ng"
+        "https://periodic-table.rsc.org/element/29/copper",
+        "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
+        "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds"
       ]
     },
     {
       "id": "010_Ag",
-      "title": "Bạc (Ag) — Ánh trăng kim loại, chiến thuyền Salamis và khoảnh khắc bắt giữ ánh sáng trong nhiếp ảnh",
+      "title": "Silver (Ag) — Khi hợp chất của kim loại trở thành công cụ giữ hình ảnh",
       "subjectIds": [
         "formula-Ag"
       ],
-      "sections": 6,
-      "characters": 7942,
+      "sections": 4,
+      "characters": 3117,
       "externalSources": [
-        "https://vi.wikipedia.org/wiki/B%E1%BA%A1c"
+        "https://periodic-table.rsc.org/element/47/silver",
+        "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
+        "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds"
       ]
     },
     {
       "id": "011_HistoryPT",
-      "title": "Biên niên sử Bảng tuần hoàn — Cuộc chơi bài solitaire huyền thoại của Dmitri Mendeleev",
+      "title": "Bảng tuần hoàn — Những ô trống trở thành dự đoán có thể kiểm tra",
       "subjectIds": [],
-      "sections": 6,
-      "characters": 6435,
-      "externalSources": []
+      "sections": 4,
+      "characters": 2045,
+      "externalSources": [
+        "https://periodic-table.rsc.org/history/about"
+      ]
     },
     {
       "id": "012_SafetyRules",
-      "title": "Bài học xương máu trong phòng thí nghiệm — Từ bi kịch của Scheele đến chuẩn an toàn GHS hiện đại",
+      "title": "An toàn phòng thí nghiệm — Chuẩn bị và xử lý tình huống",
       "subjectIds": [],
-      "sections": 7,
-      "characters": 6728,
+      "sections": 4,
+      "characters": 2428,
       "externalSources": []
     },
     {
       "id": "013_HTML_Sample",
-      "title": "Nghệ thuật trực quan hóa phân tử — Từ khối cầu gỗ Dalton đến không gian mô phỏng 3D tương tác",
+      "title": "Đọc mô hình phân tử — Từ công thức đến hình dạng",
       "subjectIds": [],
-      "sections": 9,
-      "characters": 7880,
+      "sections": 7,
+      "characters": 3067,
       "externalSources": [
-        "https://chem-dex.vercel.app/",
-        "https://www.youtube.com/embed/dQw4w9WgXcQ"
+        "https://openstax.org/books/chemistry-2e/pages/7-6-molecular-structure-and-polarity",
+        "https://cccbdb.nist.gov/"
       ]
     },
     {
       "id": "chat-nuoc",
-      "title": "Nước (H₂O) — Cội nguồn từ bụi băng vũ trụ, thí nghiệm Cavendish đến vũ điệu liên kết của sự sống",
+      "title": "Water (H₂O) — Thí nghiệm khiến một “nguyên tố” trở thành hợp chất",
       "subjectIds": [
         "cid-962",
         "chem-h2o"
       ],
-      "sections": 7,
-      "characters": 11384,
+      "sections": 4,
+      "characters": 3968,
       "externalSources": [
-        "https://vi.wikipedia.org/wiki/N%C6%B0%E1%BB%9Bc",
-        "https://pubchem.ncbi.nlm.nih.gov/compound/962"
+        "https://periodic-table.rsc.org/element/1/hydrogen",
+        "https://periodic-table.rsc.org/element/8/oxygen",
+        "https://chem.washington.edu/lecture-demos/activity-series-alkali-metals-water",
+        "https://pubchem.ncbi.nlm.nih.gov/compound/962",
+        "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
+        "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds"
       ]
     },
     {
       "id": "chat-amoniac",
-      "title": "Amoniac (NH₃) — Từ muối đền thờ thần Ammon cổ đại đến kỳ tích Haber–Bosch làm thay đổi nhân khẩu học toàn cầu",
+      "title": "Ammonia (NH₃) — Từ bài toán phân bón đến công nghiệp áp suất cao",
       "subjectIds": [
         "cid-222",
         "chem-nh3"
       ],
-      "sections": 6,
-      "characters": 10606,
+      "sections": 4,
+      "characters": 4246,
       "externalSources": [
-        "https://vi.wikipedia.org/wiki/Amoniac",
-        "https://pubchem.ncbi.nlm.nih.gov/compound/222"
+        "https://www.sciencehistory.org/education/scientific-biographies/fritz-haber/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC5554788/",
+        "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
+        "https://openstax.org/books/chemistry-2e/pages/14-7-acid-base-titrations",
+        "https://pubchem.ncbi.nlm.nih.gov/compound/222",
+        "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
+        "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds"
       ]
     },
     {
       "id": "chat-natri-clorua",
-      "title": "Natri clorua (NaCl) — Ký sự từ những con đường muối cổ đại đến phép nhiễu xạ tia X tinh thể đầu tiên của loài người",
+      "title": "Sodium chloride (NaCl) — Hạt muối giúp mở ra cách nhìn vào tinh thể",
       "subjectIds": [
         "crystal-nacl",
         "chem-nacl"
       ],
-      "sections": 7,
-      "characters": 9991,
+      "sections": 4,
+      "characters": 4170,
       "externalSources": [
-        "https://vi.wikipedia.org/wiki/Natri_chloride",
-        "https://pubchem.ncbi.nlm.nih.gov/compound/5234"
+        "https://www.nobelprize.org/prizes/physics/1915/ceremony-speech/",
+        "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
+        "https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch18/soluble.php",
+        "https://openstax.org/books/chemistry-2e/pages/15-1-precipitation-and-dissolution",
+        "https://pubchem.ncbi.nlm.nih.gov/compound/5234",
+        "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
+        "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds"
       ]
     },
     {
       "id": "chat-etanol",
-      "title": "Etanol (C₂H₅OH) — Hành trình 9.000 năm từ bình gốm lên men cổ đại đến cuộc cách mạng Hóa học Lập thể",
+      "title": "Ethanol (C₂H₅OH) — Lần theo dấu đồ uống lên men trong gốm cổ",
       "subjectIds": [
         "cid-702",
         "chem-c2h5oh"
       ],
-      "sections": 6,
-      "characters": 8961,
+      "sections": 4,
+      "characters": 4212,
       "externalSources": [
-        "https://vi.wikipedia.org/wiki/Ethanol",
-        "https://pubchem.ncbi.nlm.nih.gov/compound/702"
+        "https://pmc.ncbi.nlm.nih.gov/articles/539767/",
+        "https://openstax.org/books/chemistry-2e/pages/4-1-writing-and-balancing-chemical-equations",
+        "https://pubchem.ncbi.nlm.nih.gov/compound/702",
+        "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
+        "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds"
       ]
     },
     {
       "id": "chat-carbon-dioxide",
-      "title": "Carbon dioxide (CO₂) — Từ chất khí \"sylvestre\" của Van Helmont đến nhịp thở của khí quyển và đại dương",
+      "title": "Carbon dioxide (CO₂) — Joseph Black và chất khí ẩn trong chất rắn",
       "subjectIds": [
         "cid-280",
         "chem-co2"
       ],
-      "sections": 6,
-      "characters": 9489,
+      "sections": 4,
+      "characters": 3925,
       "externalSources": [
-        "https://vi.wikipedia.org/wiki/Carbon_dioxide",
-        "https://pubchem.ncbi.nlm.nih.gov/compound/280"
+        "https://journals.physiology.org/doi/10.1152/ajplung.00020.2014",
+        "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
+        "https://pubchem.ncbi.nlm.nih.gov/compound/280",
+        "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
+        "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds"
       ]
     },
     {
       "id": "chat-metan",
-      "title": "Metan (CH₄) — Từ những bọt khí đầm lầy hồ Maggiore của Volta đến cuộc cách mạng Hóa học Lập thể 3 chiều",
+      "title": "Methane (CH₄) — Từ khí đầm lầy của Volta đến câu hỏi về khí thiên nhiên",
       "subjectIds": [
         "cid-297"
       ],
-      "sections": 6,
-      "characters": 9823,
+      "sections": 4,
+      "characters": 4183,
       "externalSources": [
-        "https://vi.wikipedia.org/wiki/M%C3%AAtan",
-        "https://pubchem.ncbi.nlm.nih.gov/compound/297"
+        "https://books.rsc.org/books/monograph/2257/chapter/8249235/Introducing-Methane",
+        "https://esdac.jrc.ec.europa.eu/content/il-metano-compie-250-anni",
+        "https://openstax.org/books/chemistry-2e/pages/4-1-writing-and-balancing-chemical-equations",
+        "https://pubchem.ncbi.nlm.nih.gov/compound/297",
+        "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
+        "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds"
       ]
     },
     {
@@ -246,7 +297,7 @@
         "formula-CH3OH"
       ],
       "sections": 7,
-      "characters": 8114,
+      "characters": 8221,
       "externalSources": [
         "https://www.crystallography.net/cod/4503066.html",
         "https://openstax.org/books/organic-chemistry/pages/21-6-chemistry-of-esters",
@@ -288,7 +339,7 @@
         "chem-ch3cooh"
       ],
       "sections": 7,
-      "characters": 7907,
+      "characters": 7992,
       "externalSources": [
         "https://www.crystallography.net/cod/2008187.html",
         "https://openstax.org/books/organic-chemistry/pages/17-6-reactions-of-alcohols",
@@ -311,7 +362,7 @@
         "cid-947"
       ],
       "sections": 7,
-      "characters": 5189,
+      "characters": 5162,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
@@ -330,7 +381,7 @@
         "cid-977"
       ],
       "sections": 7,
-      "characters": 7390,
+      "characters": 7455,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://chem.washington.edu/lecture-demos/decomposition-h2o2-mno2",
@@ -352,7 +403,7 @@
         "cid-783"
       ],
       "sections": 6,
-      "characters": 7079,
+      "characters": 7056,
       "externalSources": [
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials",
@@ -372,7 +423,7 @@
         "cid-281"
       ],
       "sections": 7,
-      "characters": 6245,
+      "characters": 6128,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
@@ -392,7 +443,7 @@
         "cid-6324"
       ],
       "sections": 6,
-      "characters": 5883,
+      "characters": 5931,
       "externalSources": [
         "https://openstax.org/books/organic-chemistry/pages/17-6-reactions-of-alcohols",
         "https://openstax.org/books/chemistry-2e/pages/4-1-writing-and-balancing-chemical-equations",
@@ -412,7 +463,7 @@
         "cid-6325"
       ],
       "sections": 6,
-      "characters": 6574,
+      "characters": 6697,
       "externalSources": [
         "https://openstax.org/books/organic-chemistry/pages/17-6-reactions-of-alcohols",
         "https://openstax.org/books/chemistry-2e/pages/4-1-writing-and-balancing-chemical-equations",
@@ -432,7 +483,7 @@
         "cid-6326"
       ],
       "sections": 6,
-      "characters": 6005,
+      "characters": 6071,
       "externalSources": [
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/4-1-writing-and-balancing-chemical-equations",
@@ -452,7 +503,7 @@
         "cid-6334"
       ],
       "sections": 6,
-      "characters": 5144,
+      "characters": 5185,
       "externalSources": [
         "https://openstax.org/books/chemistry-2e/pages/4-1-writing-and-balancing-chemical-equations",
         "https://pubchem.ncbi.nlm.nih.gov/compound/6334",
@@ -471,7 +522,7 @@
         "cid-8252"
       ],
       "sections": 6,
-      "characters": 5152,
+      "characters": 5193,
       "externalSources": [
         "https://openstax.org/books/chemistry-2e/pages/4-1-writing-and-balancing-chemical-equations",
         "https://pubchem.ncbi.nlm.nih.gov/compound/8252",
@@ -490,7 +541,7 @@
         "cid-7843"
       ],
       "sections": 6,
-      "characters": 5147,
+      "characters": 5188,
       "externalSources": [
         "https://openstax.org/books/chemistry-2e/pages/4-1-writing-and-balancing-chemical-equations",
         "https://pubchem.ncbi.nlm.nih.gov/compound/7843",
@@ -509,7 +560,7 @@
         "cid-6360"
       ],
       "sections": 6,
-      "characters": 5180,
+      "characters": 5221,
       "externalSources": [
         "https://openstax.org/books/chemistry-2e/pages/4-1-writing-and-balancing-chemical-equations",
         "https://pubchem.ncbi.nlm.nih.gov/compound/6360",
@@ -528,7 +579,7 @@
         "cid-241"
       ],
       "sections": 7,
-      "characters": 5808,
+      "characters": 5849,
       "externalSources": [
         "https://www.crystallography.net/cod/7238223.html",
         "https://openstax.org/books/chemistry-2e/pages/4-1-writing-and-balancing-chemical-equations",
@@ -548,7 +599,7 @@
         "cid-1140"
       ],
       "sections": 6,
-      "characters": 5143,
+      "characters": 5184,
       "externalSources": [
         "https://openstax.org/books/chemistry-2e/pages/4-1-writing-and-balancing-chemical-equations",
         "https://pubchem.ncbi.nlm.nih.gov/compound/1140",
@@ -623,7 +674,7 @@
         "chem-ch3cho"
       ],
       "sections": 6,
-      "characters": 5570,
+      "characters": 5627,
       "externalSources": [
         "https://openstax.org/books/organic-chemistry/pages/17-6-reactions-of-alcohols",
         "https://pubchem.ncbi.nlm.nih.gov/compound/177",
@@ -643,7 +694,7 @@
         "chem-hcooh"
       ],
       "sections": 6,
-      "characters": 7427,
+      "characters": 7490,
       "externalSources": [
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/4-1-writing-and-balancing-chemical-equations",
@@ -665,7 +716,7 @@
         "chem-ch3cooc2h5"
       ],
       "sections": 6,
-      "characters": 5892,
+      "characters": 5936,
       "externalSources": [
         "https://openstax.org/books/organic-chemistry/pages/21-6-chemistry-of-esters",
         "https://pubchem.ncbi.nlm.nih.gov/compound/885",
@@ -723,7 +774,7 @@
         "chem-c6h12o6"
       ],
       "sections": 7,
-      "characters": 5474,
+      "characters": 5447,
       "externalSources": [
         "https://www.crystallography.net/cod/5000067.html",
         "https://openstax.org/books/organic-chemistry/pages/17-6-reactions-of-alcohols",
@@ -743,7 +794,7 @@
         "cid-5984"
       ],
       "sections": 7,
-      "characters": 5464,
+      "characters": 5437,
       "externalSources": [
         "https://www.crystallography.net/cod/5000065.html",
         "https://openstax.org/books/organic-chemistry/pages/17-6-reactions-of-alcohols",
@@ -840,7 +891,7 @@
         "formula-SO2"
       ],
       "sections": 7,
-      "characters": 6862,
+      "characters": 6808,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
@@ -861,7 +912,7 @@
         "formula-SO3"
       ],
       "sections": 7,
-      "characters": 6321,
+      "characters": 6349,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
@@ -901,7 +952,7 @@
         "chem-hcl"
       ],
       "sections": 8,
-      "characters": 8718,
+      "characters": 8724,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
@@ -963,7 +1014,7 @@
         "chem-hno3"
       ],
       "sections": 7,
-      "characters": 8206,
+      "characters": 8213,
       "externalSources": [
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/14-7-acid-base-titrations",
@@ -984,7 +1035,7 @@
         "chem-h2so4"
       ],
       "sections": 7,
-      "characters": 8181,
+      "characters": 8203,
       "externalSources": [
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials",
@@ -1024,7 +1075,7 @@
         "cid-8078"
       ],
       "sections": 6,
-      "characters": 5192,
+      "characters": 5233,
       "externalSources": [
         "https://openstax.org/books/chemistry-2e/pages/4-1-writing-and-balancing-chemical-equations",
         "https://pubchem.ncbi.nlm.nih.gov/compound/8078",
@@ -1207,7 +1258,7 @@
         "cid-946"
       ],
       "sections": 6,
-      "characters": 6314,
+      "characters": 6330,
       "externalSources": [
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/18-9-occurrence-preparation-and-compounds-of-oxygen",
@@ -1266,7 +1317,7 @@
         "chem-naoh"
       ],
       "sections": 8,
-      "characters": 8380,
+      "characters": 8374,
       "externalSources": [
         "https://www.crystallography.net/cod/8104275.html",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
@@ -1286,7 +1337,7 @@
         "chem-koh"
       ],
       "sections": 7,
-      "characters": 7663,
+      "characters": 7657,
       "externalSources": [
         "https://chem.washington.edu/lecture-demos/activity-series-alkali-metals-water",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
@@ -1305,7 +1356,7 @@
         "chem-baoh2"
       ],
       "sections": 7,
-      "characters": 6944,
+      "characters": 6966,
       "externalSources": [
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/14-7-acid-base-titrations",
@@ -1387,7 +1438,7 @@
         "chem-cuso4"
       ],
       "sections": 8,
-      "characters": 8854,
+      "characters": 8827,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials",
@@ -1407,7 +1458,7 @@
         "chem-fecl3"
       ],
       "sections": 8,
-      "characters": 8732,
+      "characters": 8754,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
@@ -1448,7 +1499,7 @@
         "chem-nahco3"
       ],
       "sections": 8,
-      "characters": 8007,
+      "characters": 8075,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
@@ -1467,7 +1518,7 @@
         "chem-na2co3"
       ],
       "sections": 8,
-      "characters": 8249,
+      "characters": 8295,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
@@ -1524,7 +1575,7 @@
         "chem-zn"
       ],
       "sections": 8,
-      "characters": 7128,
+      "characters": 7130,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://periodic-table.rsc.org/element/30/zinc",
@@ -1543,7 +1594,7 @@
         "chem-caco3"
       ],
       "sections": 8,
-      "characters": 8371,
+      "characters": 8305,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
@@ -1609,7 +1660,7 @@
         "chem-caoh2"
       ],
       "sections": 8,
-      "characters": 8209,
+      "characters": 8171,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
@@ -1628,7 +1679,7 @@
         "chem-fe"
       ],
       "sections": 8,
-      "characters": 8059,
+      "characters": 8011,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://periodic-table.rsc.org/element/26/iron",
@@ -1647,7 +1698,7 @@
         "chem-cu"
       ],
       "sections": 8,
-      "characters": 7678,
+      "characters": 7697,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://periodic-table.rsc.org/element/29/copper",
@@ -1667,7 +1718,7 @@
         "chem-al"
       ],
       "sections": 8,
-      "characters": 7118,
+      "characters": 7122,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://periodic-table.rsc.org/element/13/aluminium",
@@ -1686,7 +1737,7 @@
         "chem-mg"
       ],
       "sections": 8,
-      "characters": 7745,
+      "characters": 7724,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://periodic-table.rsc.org/element/12/magnesium",
@@ -1705,7 +1756,7 @@
         "chem-na"
       ],
       "sections": 8,
-      "characters": 5347,
+      "characters": 5319,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://periodic-table.rsc.org/element/11/sodium",
@@ -1864,7 +1915,7 @@
         "chem-nh4cl"
       ],
       "sections": 8,
-      "characters": 7547,
+      "characters": 7569,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
@@ -1965,7 +2016,7 @@
         "chem-mgoh2"
       ],
       "sections": 8,
-      "characters": 8916,
+      "characters": 8895,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
@@ -1987,7 +2038,7 @@
         "chem-aloh3"
       ],
       "sections": 8,
-      "characters": 8854,
+      "characters": 8850,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
@@ -2009,7 +2060,7 @@
         "chem-znoh2"
       ],
       "sections": 8,
-      "characters": 8705,
+      "characters": 8713,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
@@ -2031,7 +2082,7 @@
         "chem-feoh2"
       ],
       "sections": 7,
-      "characters": 8534,
+      "characters": 8518,
       "externalSources": [
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch18/soluble.php",
@@ -2051,7 +2102,7 @@
         "chem-feoh3"
       ],
       "sections": 7,
-      "characters": 8553,
+      "characters": 8537,
       "externalSources": [
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch18/soluble.php",
@@ -2071,7 +2122,7 @@
         "chem-cuoh2"
       ],
       "sections": 8,
-      "characters": 7978,
+      "characters": 7955,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/18-9-occurrence-preparation-and-compounds-of-oxygen",
@@ -2217,7 +2268,7 @@
         "chem-cuno32"
       ],
       "sections": 8,
-      "characters": 8761,
+      "characters": 8768,
       "externalSources": [
         "https://www.crystallography.net/cod/1542184.html",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
@@ -2277,7 +2328,7 @@
         "chem-nh4no3"
       ],
       "sections": 8,
-      "characters": 7552,
+      "characters": 7574,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
@@ -2298,7 +2349,7 @@
         "chem-nh42so4"
       ],
       "sections": 8,
-      "characters": 7734,
+      "characters": 7756,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
@@ -2513,7 +2564,7 @@
         "chem-s"
       ],
       "sections": 8,
-      "characters": 5234,
+      "characters": 5207,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://periodic-table.rsc.org/element/16/sulfur",
@@ -2531,7 +2582,7 @@
         "chem-c"
       ],
       "sections": 8,
-      "characters": 5244,
+      "characters": 5217,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://periodic-table.rsc.org/element/6/carbon",
@@ -2583,7 +2634,7 @@
         "chem-cuo"
       ],
       "sections": 8,
-      "characters": 8086,
+      "characters": 8075,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/18-9-occurrence-preparation-and-compounds-of-oxygen",
@@ -2604,7 +2655,7 @@
         "chem-fe2o3"
       ],
       "sections": 8,
-      "characters": 8260,
+      "characters": 8223,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/18-9-occurrence-preparation-and-compounds-of-oxygen",
@@ -2624,7 +2675,7 @@
         "chem-cao"
       ],
       "sections": 8,
-      "characters": 8156,
+      "characters": 8169,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/18-9-occurrence-preparation-and-compounds-of-oxygen",
@@ -2733,7 +2784,7 @@
         "formula-Ag"
       ],
       "sections": 8,
-      "characters": 6819,
+      "characters": 6821,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://periodic-table.rsc.org/element/47/silver",
@@ -2831,7 +2882,7 @@
         "formula-Al(NO3)3"
       ],
       "sections": 7,
-      "characters": 8398,
+      "characters": 8405,
       "externalSources": [
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/14-7-acid-base-titrations",
@@ -2874,7 +2925,7 @@
         "formula-Al2O3"
       ],
       "sections": 8,
-      "characters": 7410,
+      "characters": 7418,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
@@ -3046,7 +3097,7 @@
         "formula-BaCO3"
       ],
       "sections": 8,
-      "characters": 8427,
+      "characters": 8380,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
@@ -3124,7 +3175,7 @@
         "formula-BaO"
       ],
       "sections": 8,
-      "characters": 8048,
+      "characters": 8028,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/18-9-occurrence-preparation-and-compounds-of-oxygen",
@@ -3162,7 +3213,7 @@
         "formula-C2H5COOC2H5"
       ],
       "sections": 6,
-      "characters": 5647,
+      "characters": 5691,
       "externalSources": [
         "https://openstax.org/books/organic-chemistry/pages/21-6-chemistry-of-esters",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -3179,7 +3230,7 @@
         "formula-C2H5COOC3H7"
       ],
       "sections": 6,
-      "characters": 5635,
+      "characters": 5679,
       "externalSources": [
         "https://openstax.org/books/organic-chemistry/pages/21-6-chemistry-of-esters",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -3196,7 +3247,7 @@
         "formula-C2H5COOC4H9"
       ],
       "sections": 6,
-      "characters": 5649,
+      "characters": 5693,
       "externalSources": [
         "https://openstax.org/books/organic-chemistry/pages/21-6-chemistry-of-esters",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -3213,7 +3264,7 @@
         "formula-C2H5COOCH3"
       ],
       "sections": 6,
-      "characters": 5600,
+      "characters": 5644,
       "externalSources": [
         "https://openstax.org/books/organic-chemistry/pages/21-6-chemistry-of-esters",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -3230,7 +3281,7 @@
         "formula-C2H5COOH"
       ],
       "sections": 6,
-      "characters": 5815,
+      "characters": 5878,
       "externalSources": [
         "https://openstax.org/books/chemistry-2e/pages/4-1-writing-and-balancing-chemical-equations",
         "https://openstax.org/books/organic-chemistry/pages/21-6-chemistry-of-esters",
@@ -3248,7 +3299,7 @@
         "formula-C2H5COOK"
       ],
       "sections": 7,
-      "characters": 6177,
+      "characters": 6221,
       "externalSources": [
         "https://openstax.org/books/organic-chemistry/pages/21-6-chemistry-of-esters",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -3265,7 +3316,7 @@
         "formula-C2H5COOLi"
       ],
       "sections": 7,
-      "characters": 6206,
+      "characters": 6250,
       "externalSources": [
         "https://openstax.org/books/organic-chemistry/pages/21-6-chemistry-of-esters",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -3282,7 +3333,7 @@
         "formula-C2H5COONa"
       ],
       "sections": 7,
-      "characters": 6203,
+      "characters": 6247,
       "externalSources": [
         "https://openstax.org/books/organic-chemistry/pages/21-6-chemistry-of-esters",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -3313,7 +3364,7 @@
         "formula-C3H7COOC2H5"
       ],
       "sections": 6,
-      "characters": 5618,
+      "characters": 5662,
       "externalSources": [
         "https://openstax.org/books/organic-chemistry/pages/21-6-chemistry-of-esters",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -3330,7 +3381,7 @@
         "formula-C3H7COOC3H7"
       ],
       "sections": 6,
-      "characters": 5637,
+      "characters": 5681,
       "externalSources": [
         "https://openstax.org/books/organic-chemistry/pages/21-6-chemistry-of-esters",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -3347,7 +3398,7 @@
         "formula-C3H7COOC4H9"
       ],
       "sections": 6,
-      "characters": 5658,
+      "characters": 5702,
       "externalSources": [
         "https://openstax.org/books/organic-chemistry/pages/21-6-chemistry-of-esters",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -3364,7 +3415,7 @@
         "formula-C3H7COOCH3"
       ],
       "sections": 6,
-      "characters": 5616,
+      "characters": 5660,
       "externalSources": [
         "https://openstax.org/books/organic-chemistry/pages/21-6-chemistry-of-esters",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -3381,7 +3432,7 @@
         "formula-C3H7COOH"
       ],
       "sections": 6,
-      "characters": 5804,
+      "characters": 5867,
       "externalSources": [
         "https://openstax.org/books/chemistry-2e/pages/4-1-writing-and-balancing-chemical-equations",
         "https://openstax.org/books/organic-chemistry/pages/21-6-chemistry-of-esters",
@@ -3399,7 +3450,7 @@
         "formula-C3H7COOK"
       ],
       "sections": 7,
-      "characters": 6189,
+      "characters": 6233,
       "externalSources": [
         "https://openstax.org/books/organic-chemistry/pages/21-6-chemistry-of-esters",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -3416,7 +3467,7 @@
         "formula-C3H7COOLi"
       ],
       "sections": 7,
-      "characters": 6200,
+      "characters": 6244,
       "externalSources": [
         "https://openstax.org/books/organic-chemistry/pages/21-6-chemistry-of-esters",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -3433,7 +3484,7 @@
         "formula-C3H7COONa"
       ],
       "sections": 7,
-      "characters": 6205,
+      "characters": 6249,
       "externalSources": [
         "https://openstax.org/books/organic-chemistry/pages/21-6-chemistry-of-esters",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -3596,7 +3647,7 @@
         "formula-Ca"
       ],
       "sections": 8,
-      "characters": 5132,
+      "characters": 5088,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://periodic-table.rsc.org/element/20/calcium",
@@ -3915,7 +3966,7 @@
         "formula-CdCO3"
       ],
       "sections": 8,
-      "characters": 8434,
+      "characters": 8387,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
@@ -3955,7 +4006,7 @@
         "formula-CdO"
       ],
       "sections": 8,
-      "characters": 6662,
+      "characters": 6615,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/18-6-occurrence-preparation-and-properties-of-carbonates",
@@ -4014,7 +4065,7 @@
         "formula-CH3CH2CH2CH2OH"
       ],
       "sections": 6,
-      "characters": 7330,
+      "characters": 7437,
       "externalSources": [
         "https://openstax.org/books/organic-chemistry/pages/21-6-chemistry-of-esters",
         "https://openstax.org/books/chemistry-2e/pages/4-1-writing-and-balancing-chemical-equations",
@@ -4032,7 +4083,7 @@
         "formula-CH3CH2CH2OH"
       ],
       "sections": 6,
-      "characters": 7273,
+      "characters": 7380,
       "externalSources": [
         "https://openstax.org/books/organic-chemistry/pages/21-6-chemistry-of-esters",
         "https://openstax.org/books/chemistry-2e/pages/4-1-writing-and-balancing-chemical-equations",
@@ -4070,7 +4121,7 @@
         "formula-CH3COOC3H7"
       ],
       "sections": 6,
-      "characters": 5630,
+      "characters": 5674,
       "externalSources": [
         "https://openstax.org/books/organic-chemistry/pages/21-6-chemistry-of-esters",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -4087,7 +4138,7 @@
         "formula-CH3COOC4H9"
       ],
       "sections": 6,
-      "characters": 5636,
+      "characters": 5680,
       "externalSources": [
         "https://openstax.org/books/organic-chemistry/pages/21-6-chemistry-of-esters",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -4104,7 +4155,7 @@
         "formula-CH3COOCH3"
       ],
       "sections": 6,
-      "characters": 5592,
+      "characters": 5636,
       "externalSources": [
         "https://openstax.org/books/organic-chemistry/pages/21-6-chemistry-of-esters",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -4157,7 +4208,7 @@
         "formula-Cl2"
       ],
       "sections": 7,
-      "characters": 5394,
+      "characters": 5422,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
@@ -4427,7 +4478,7 @@
         "formula-Cr(OH)3"
       ],
       "sections": 7,
-      "characters": 8789,
+      "characters": 8793,
       "externalSources": [
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch18/soluble.php",
@@ -4469,7 +4520,7 @@
         "formula-Cr2O3"
       ],
       "sections": 8,
-      "characters": 5785,
+      "characters": 5789,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/18-9-occurrence-preparation-and-compounds-of-oxygen",
@@ -4683,7 +4734,7 @@
         "formula-Fe(NO3)3"
       ],
       "sections": 7,
-      "characters": 8299,
+      "characters": 8306,
       "externalSources": [
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/14-7-acid-base-titrations",
@@ -4840,7 +4891,7 @@
         "formula-HCOOC2H5"
       ],
       "sections": 6,
-      "characters": 5578,
+      "characters": 5622,
       "externalSources": [
         "https://openstax.org/books/organic-chemistry/pages/21-6-chemistry-of-esters",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -4857,7 +4908,7 @@
         "formula-HCOOC3H7"
       ],
       "sections": 6,
-      "characters": 5574,
+      "characters": 5618,
       "externalSources": [
         "https://openstax.org/books/organic-chemistry/pages/21-6-chemistry-of-esters",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -4874,7 +4925,7 @@
         "formula-HCOOC4H9"
       ],
       "sections": 6,
-      "characters": 5592,
+      "characters": 5636,
       "externalSources": [
         "https://openstax.org/books/organic-chemistry/pages/21-6-chemistry-of-esters",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -4891,7 +4942,7 @@
         "formula-HCOOCH3"
       ],
       "sections": 6,
-      "characters": 5557,
+      "characters": 5601,
       "externalSources": [
         "https://openstax.org/books/organic-chemistry/pages/21-6-chemistry-of-esters",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -4926,7 +4977,7 @@
         "formula-HCOOLi"
       ],
       "sections": 7,
-      "characters": 7865,
+      "characters": 7887,
       "externalSources": [
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/14-7-acid-base-titrations",
@@ -4981,7 +5032,7 @@
         "formula-K"
       ],
       "sections": 8,
-      "characters": 5211,
+      "characters": 5183,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://periodic-table.rsc.org/element/19/potassium",
@@ -5018,7 +5069,7 @@
         "formula-K2O"
       ],
       "sections": 8,
-      "characters": 7519,
+      "characters": 7541,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
@@ -5169,7 +5220,7 @@
         "formula-KNO2"
       ],
       "sections": 6,
-      "characters": 4660,
+      "characters": 4613,
       "externalSources": [
         "https://openstax.org/books/chemistry-2e/pages/18-9-occurrence-preparation-and-compounds-of-oxygen",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -5186,7 +5237,7 @@
         "formula-Li"
       ],
       "sections": 8,
-      "characters": 5183,
+      "characters": 5155,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://periodic-table.rsc.org/element/3/lithium",
@@ -5222,7 +5273,7 @@
         "formula-Li2O"
       ],
       "sections": 8,
-      "characters": 6697,
+      "characters": 6703,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/18-9-occurrence-preparation-and-compounds-of-oxygen",
@@ -5357,7 +5408,7 @@
         "formula-LiOH"
       ],
       "sections": 8,
-      "characters": 8196,
+      "characters": 8168,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://chem.washington.edu/lecture-demos/activity-series-alkali-metals-water",
@@ -5473,7 +5524,7 @@
         "formula-MgCO3"
       ],
       "sections": 8,
-      "characters": 7222,
+      "characters": 7152,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
@@ -5531,7 +5582,7 @@
         "formula-MgO"
       ],
       "sections": 8,
-      "characters": 7320,
+      "characters": 7281,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
@@ -5858,7 +5909,7 @@
         "formula-Na2O"
       ],
       "sections": 8,
-      "characters": 7551,
+      "characters": 7573,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
@@ -5877,7 +5928,7 @@
         "formula-Na2Zn(OH)4"
       ],
       "sections": 6,
-      "characters": 5638,
+      "characters": 5666,
       "externalSources": [
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -5913,7 +5964,7 @@
         "formula-NaAl(OH)4"
       ],
       "sections": 6,
-      "characters": 5684,
+      "characters": 5698,
       "externalSources": [
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -5930,7 +5981,7 @@
         "formula-NaAlO2"
       ],
       "sections": 6,
-      "characters": 4767,
+      "characters": 4772,
       "externalSources": [
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -5966,7 +6017,7 @@
         "formula-NaNO2"
       ],
       "sections": 7,
-      "characters": 5146,
+      "characters": 5100,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/18-9-occurrence-preparation-and-compounds-of-oxygen",
@@ -5984,7 +6035,7 @@
         "formula-NH4Br"
       ],
       "sections": 7,
-      "characters": 7036,
+      "characters": 7058,
       "externalSources": [
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/14-7-acid-base-titrations",
@@ -6004,7 +6055,7 @@
         "formula-NH4CH3COO"
       ],
       "sections": 7,
-      "characters": 7161,
+      "characters": 7183,
       "externalSources": [
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/14-7-acid-base-titrations",
@@ -6024,7 +6075,7 @@
         "formula-NH4I"
       ],
       "sections": 7,
-      "characters": 6993,
+      "characters": 7015,
       "externalSources": [
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/14-7-acid-base-titrations",
@@ -6119,7 +6170,7 @@
         "formula-Ni(OH)2"
       ],
       "sections": 8,
-      "characters": 8928,
+      "characters": 8930,
       "externalSources": [
         "https://www.crystallography.net/cod/1548811.html",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
@@ -6221,7 +6272,7 @@
         "formula-NiO"
       ],
       "sections": 8,
-      "characters": 6651,
+      "characters": 6653,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/18-9-occurrence-preparation-and-compounds-of-oxygen",
@@ -6280,7 +6331,7 @@
         "formula-NO"
       ],
       "sections": 6,
-      "characters": 5262,
+      "characters": 5287,
       "externalSources": [
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -6450,7 +6501,7 @@
         "formula-PbCO3"
       ],
       "sections": 8,
-      "characters": 8445,
+      "characters": 8398,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
@@ -6511,7 +6562,7 @@
         "formula-PbO"
       ],
       "sections": 8,
-      "characters": 7349,
+      "characters": 7307,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/18-9-occurrence-preparation-and-compounds-of-oxygen",
@@ -6775,7 +6826,7 @@
         "formula-SrCO3"
       ],
       "sections": 8,
-      "characters": 8456,
+      "characters": 8409,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
@@ -6835,7 +6886,7 @@
         "formula-SrO"
       ],
       "sections": 8,
-      "characters": 7344,
+      "characters": 7302,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/18-9-occurrence-preparation-and-compounds-of-oxygen",
@@ -7008,7 +7059,7 @@
         "formula-ZnCO3"
       ],
       "sections": 8,
-      "characters": 7199,
+      "characters": 7152,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
@@ -7046,7 +7097,7 @@
         "formula-ZnO"
       ],
       "sections": 8,
-      "characters": 7263,
+      "characters": 7270,
       "externalSources": [
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
@@ -7149,7 +7200,7 @@
         "lab3d-335"
       ],
       "sections": 6,
-      "characters": 5160,
+      "characters": 5201,
       "externalSources": [
         "https://openstax.org/books/chemistry-2e/pages/4-1-writing-and-balancing-chemical-equations",
         "https://pubchem.ncbi.nlm.nih.gov/compound/8058",

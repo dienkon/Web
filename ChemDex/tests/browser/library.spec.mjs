@@ -6,10 +6,12 @@ test('chemical stories restore from share URLs and expose structured sections',a
  for(const id of ['chat-nuoc','chat-amoniac','chat-natri-clorua','chat-etanol','chat-carbon-dioxide','chat-metan']){
   await page.goto('/trung-tam/tai-lieu-so/?doc='+id);
   await expect(page.locator('article')).toBeVisible();
+  await page.locator('summary').filter({hasText:'Mục lục bài viết'}).click();
   await expect(page.getByRole('navigation',{name:'Mục lục bài viết'})).toBeVisible();
   await expect(page.locator('article table')).toHaveCount(1);
-  await expect(page.locator('article details')).toHaveCount(1);
-  await expect(page.locator('article a[href*="pubchem"]').first()).toBeVisible();
+  await page.locator('article summary').filter({hasText:'Tra cứu công thức'}).click();
+  expect(await page.locator('article details').count()).toBeGreaterThanOrEqual(1);
+  await expect(page.locator('article a[href^="https://"]').first()).toBeVisible();
   await page.reload();
   await expect(page.locator('article')).toBeVisible();
  }
@@ -36,7 +38,8 @@ test('representative generated dossiers restore and remain usable on a narrow sc
   for(const id of ids){
     await page.goto('/trung-tam/tai-lieu-so/?doc='+subjectLinks[id]);
     await expect(page.locator('article')).toBeVisible();
-    await expect(page.getByRole('navigation',{name:'Mục lục bài viết'})).toBeVisible();
+    await page.locator('summary').filter({hasText:'Mục lục bài viết'}).click();
+  await expect(page.getByRole('navigation',{name:'Mục lục bài viết'})).toBeVisible();
     expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
     expect(await page.locator('[data-chemical-formula]').evaluate(el=>el.scrollWidth<=el.clientWidth+1)).toBe(true);
   }
@@ -48,14 +51,15 @@ test('library finds chemical stories by accent-free names, aliases and subscript
   const results=page.getByRole('region',{name:'Kết quả thư viện'});
   await search.fill('ethanol');
   await expect(results.locator('h3')).toHaveCount(1);
-  await expect(results).toContainText('Etanol');
+  await expect(results).toContainText(/ethanol/i);
   await search.fill('H₂O');
   await expect(results.locator('h3')).toHaveCount(1);
-  await expect(results).toContainText('Nước');
+  await expect(results).toContainText(/water/i);
   await search.fill('khong co chat nay 56789');
   await expect(page.getByRole('heading',{name:'Không tìm thấy tài liệu'})).toBeVisible();
   await search.fill('metan');
   await results.getByRole('heading').click();
   await expect(page).toHaveURL(/(?:doc=chat-metan|\/tai-lieu-so\/metan-ch4\/)/);
-  await expect(page.locator('article')).toContainText('CH₄ + 2O₂');
+  await page.locator('article summary').filter({hasText:'Tra cứu công thức'}).click();
+  await expect(page.locator('article pre')).toContainText(/CH4[(]g[)] [+] 2O2[(]g[)]/);
 });

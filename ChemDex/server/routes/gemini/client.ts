@@ -1,3 +1,4 @@
+import {CHEMICAL_NAMING_INSTRUCTION} from '../chemistry/naming.js';
 import { GoogleGenAI } from "@google/genai";
 
 const BACKUP_GEMINI_KEY = '';
@@ -115,6 +116,7 @@ export async function generateContentWithModelFallback(
   for (const model of modelsToTry) {
     try {
       const params = paramsFactory(model);
+      params.config = {...params.config, systemInstruction: [params.config?.systemInstruction, CHEMICAL_NAMING_INSTRUCTION].filter(Boolean).join('\n')};
       return await ai.models.generateContent({
         ...params,
         model,

@@ -121,7 +121,7 @@ export const WorkbenchToolbar: React.FC = () => {
       {/* Left: Mobile Drawer Toggles + Lab Mode Switcher */}
       <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
         {/* Mobile Only: Inventory / Inspector drawer buttons */}
-        <div className="flex lg:hidden items-center gap-1">
+        <div className="flex items-center gap-1">
           <button
             type="button"
             onClick={() => setMobilePanel(mobilePanel === 'inventory' ? null : 'inventory')}
@@ -130,7 +130,7 @@ export const WorkbenchToolbar: React.FC = () => {
                 ? 'bg-blue-600 text-white border-blue-600'
                 : 'bg-slate-100 text-slate-700 border-slate-200'
             }`}
-            aria-label={t('Toggle Inventory Drawer', 'Mở Kho hóa chất & dụng cụ')}
+            aria-label={t('Inventory', 'Kho dụng cụ')} aria-expanded={mobilePanel==='inventory'}
           >
             <Package size={14} />
             <span>{t('Shelf', 'Kho')}</span>
@@ -143,7 +143,7 @@ export const WorkbenchToolbar: React.FC = () => {
                 ? 'bg-blue-600 text-white border-blue-600'
                 : 'bg-slate-100 text-slate-700 border-slate-200'
             }`}
-            aria-label={t('Toggle Inspector Drawer', 'Mở Thông số')}
+            aria-label={t('Inspector', 'Thông số')} aria-expanded={mobilePanel==='inspector'}
           >
             <Sliders size={14} />
             <span>{t('Info', 'Xem')}</span>

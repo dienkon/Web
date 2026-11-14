@@ -150,7 +150,7 @@ export const SidebarInventory: React.FC = () => {
   const filteredChemicals = CHEMICAL_CATALOG.filter((c) => {
     const q = searchQuery.toLowerCase();
     const matchesSearch =
-      c.name_vi.toLowerCase().includes(q) ||
+      (c.name_search??'').toLowerCase().includes(q) || c.name_vi.toLowerCase().includes(q) ||
       c.name_en.toLowerCase().includes(q) ||
       c.formula.toLowerCase().includes(q);
     const matchesCat = selectedCategory === 'all' || c.category === selectedCategory;
@@ -160,7 +160,7 @@ export const SidebarInventory: React.FC = () => {
   return (
     <div className="w-full h-full bg-white border-r border-slate-200 flex flex-col select-none">
       {/* Mobile Close Header */}
-      <div className="lg:hidden flex items-center justify-between px-3 py-2 border-b border-slate-200 bg-slate-50">
+      <div className="flex items-center justify-between px-3 py-2 border-b border-slate-200 bg-slate-50">
         <span className="text-xs font-bold text-slate-700">
           {vi ? 'Kho Hóa Chất & Dụng Cụ' : 'Lab Shelf'}
         </span>
@@ -168,7 +168,7 @@ export const SidebarInventory: React.FC = () => {
           type="button"
           onClick={() => setMobilePanel(null)}
           className="p-1 rounded-lg text-slate-500 hover:bg-slate-200"
-          aria-label="Close shelf"
+          aria-label="Đóng kho"
         >
           <X size={15} />
         </button>

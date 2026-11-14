@@ -18,12 +18,14 @@ test('quick search opens on the original home and follows exact element identiti
 
 test('sidebar collapses, persists across routes and expands the laboratory group',async({page})=>{
   await page.goto('/');
-  await expect(page.locator('#chemdex-sidebar')).toHaveCSS('width','256px');
-  await page.getByRole('button',{name:'Thu gọn sidebar',exact:true}).click();
+  await expect(page.locator('#chemdex-sidebar')).toHaveCSS('width','64px');
+  await page.getByRole('button',{name:'Mở rộng menu',exact:true}).click();
+  await expect(page.locator('#chemdex-sidebar')).toHaveCSS('width','232px');
+  await page.getByRole('button',{name:'Thu gọn menu',exact:true}).click();
   await expect(page.locator('#chemdex-sidebar')).toHaveCSS('width','64px');
   await page.locator('#chemdex-sidebar a[href="/tien-ich/"]').click();
   await expect(page.locator('#chemdex-sidebar')).toHaveCSS('width','64px');
-  await page.getByRole('button',{name:'Mở rộng sidebar',exact:true}).click();
+  await page.getByRole('button',{name:'Mở rộng menu',exact:true}).click();
   await page.locator('#chemdex-sidebar summary').click();
   await expect(page.locator('#chemdex-sidebar a[href="/lab-3d/"]')).toBeVisible();
   await expect(page.locator('#chemdex-sidebar [aria-current="page"]')).toHaveText('Tiện Ích Học Tập');
@@ -123,7 +125,7 @@ test('restricted local storage preserves the original home and shared search',as
   await expect(page.locator('#periodic-table .el-symbol')).toHaveCount(118);
   await page.locator('#open-search').click();
   await page.getByRole('dialog').getByRole('searchbox').fill('H2O');
-  await expect(page.locator('.search-result').first()).toContainText('Nước');
+  await expect(page.locator('.search-result').first()).toContainText(/water/i);
 });
 
 test('standalone utilities receive the same sidebar and slate palette',async({page})=>{
@@ -132,7 +134,7 @@ test('standalone utilities receive the same sidebar and slate palette',async({pa
   await expect(page.locator('body')).toHaveCSS('background-color','rgb(30, 41, 59)');
   await page.locator('#open-search').click();
   await page.getByRole('dialog').getByRole('searchbox').fill('H2O');
-  await expect(page.locator('.search-result').first()).toContainText('Nước');
+  await expect(page.locator('.search-result').first()).toContainText(/water/i);
 });
 
 test('wheel up zooms in and wheel down zooms out without scrolling the page',async({page})=>{

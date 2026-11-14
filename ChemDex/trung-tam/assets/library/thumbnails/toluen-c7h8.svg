@@ -17,7 +17,7 @@
   <!-- Left Identity Column -->
   <g transform="translate(48, 90)">
     <rect x="0" y="0" width="auto" height="24" rx="6" fill="#ffffff" fill-opacity="0.15"/>
-    <text x="8" y="16" fill="#7dd3fc" font-family="system-ui, sans-serif" font-weight="800" font-size="10.5" letter-spacing="0.8">HỢP CHẤT THƠM · VÒNG BENZEN</text>
+    <text x="8" y="16" fill="#7dd3fc" font-family="system-ui, sans-serif" font-weight="800" font-size="10.5" letter-spacing="0.8">HỢP CHẤT THƠM · VÒNG benzene</text>
     
     <!-- Big Chemical Formula -->
     <text x="0" y="75" fill="#ffffff" font-family="system-ui, sans-serif" font-weight="900" font-size="42" letter-spacing="1">
@@ -26,7 +26,7 @@
     
     <!-- Substance Name -->
     <text x="0" y="118" fill="#f8fafc" font-family="system-ui, sans-serif" font-weight="800" font-size="22">
-      Toluen
+      toluene
     </text>
     
     <!-- Specs and reading badge -->

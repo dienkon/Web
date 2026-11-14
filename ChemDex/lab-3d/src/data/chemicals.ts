@@ -932,7 +932,7 @@ export const CHEMICAL_DATABASE: ChemicalDefinition[] = [
   },
   {
     formula: 'CH3COCH3',
-    name_en: 'Acetone (Dung môi Axeton)',
+    name_en: 'Propan-2-one',
     name_vi: 'Axeton Tinh Khiết',
     type: 'liquid',
     category: 'organic',
@@ -1376,7 +1376,7 @@ export function findChemical(formula: string): ChemicalDefinition {
   if (chem) return chem;
 
   // 3. Name match
-  chem = CHEMICAL_DATABASE.find(c => c.name_en.toLowerCase() === norm || c.name_vi.toLowerCase() === norm);
+  chem = CHEMICAL_DATABASE.find(c => c.name_en.toLowerCase() === norm || c.name_vi.toLowerCase() === norm || c.name_search?.toLowerCase() === norm);
   if (chem) return chem;
 
   return {

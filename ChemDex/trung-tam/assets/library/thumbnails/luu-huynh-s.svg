@@ -26,7 +26,7 @@
     
     <!-- Substance Name -->
     <text x="0" y="118" fill="#f8fafc" font-family="system-ui, sans-serif" font-weight="800" font-size="22">
-      Lưu huỳnh
+      Sulfur
     </text>
     
     <!-- Specs and reading badge -->
@@ -58,7 +58,7 @@
         <rect x="-65" y="-75" width="130" height="150" rx="16" fill="#0f172a" fill-opacity="0.85" stroke="#67e8f9" stroke-width="2.5"/>
         <text x="-48" y="-45" fill="#67e8f9" font-family="sans-serif" font-weight="900" font-size="16">16</text>
         <text x="0" y="15" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-weight="900" font-size="48">S</text>
-        <text x="0" y="42" text-anchor="middle" fill="#cbd5e1" font-family="sans-serif" font-weight="700" font-size="12">Lưu huỳnh</text>
+        <text x="0" y="42" text-anchor="middle" fill="#cbd5e1" font-family="sans-serif" font-weight="700" font-size="12">Sulfur</text>
         <text x="0" y="60" text-anchor="middle" fill="#67e8f9" font-family="sans-serif" font-weight="800" font-size="11">32.06</text>
       </g>
     

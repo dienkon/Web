@@ -35,6 +35,12 @@ export function PanelDrawer({
     };
   }, [isOpen]);
 
+  useEffect(() => {
+    if (!isOpen) return;
+    const close = (event: KeyboardEvent) => { if (event.key==='Escape') onClose(); };
+    window.addEventListener('keydown',close);
+    return () => window.removeEventListener('keydown',close);
+  },[isOpen,onClose]);
   if (!isOpen) return null;
 
   const isLeft = position === 'left';
@@ -43,13 +49,13 @@ export function PanelDrawer({
     <>
       {/* Mobile Overlay */}
       <div 
-        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
+        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[6019]"
         onClick={onClose}
       />
       
       {/* Drawer Panel */}
-      <div className={`
-        fixed top-0 h-full w-[280px] sm:w-[400px] z-50 
+      <div role="dialog" aria-modal="true" aria-label={title || "Tài liệu"} className={`
+        fixed top-[var(--cd-mobile-header-height,0px)] bottom-0 w-[min(400px,calc(100vw-24px))] z-[6020]
         bg-slate-900/95 backdrop-blur-2xl 
         ${isLeft ? 'left-0 border-r sm:rounded-r-3xl' : 'right-0 border-l sm:rounded-l-3xl'} border-slate-700/50 
         shadow-2xl flex flex-col transform transition-transform duration-300
@@ -60,7 +66,7 @@ export function PanelDrawer({
             <h2 className="text-xl font-bold text-white">{title}</h2>
             <button 
               onClick={onClose}
-              className="p-2 rounded-full hover:bg-slate-800 text-slate-400 hover:text-white transition-colors"
+              aria-label="Đóng bảng" className="p-2 rounded-full hover:bg-slate-800 text-slate-400 hover:text-white transition-colors"
             >
               <X size={20} />
             </button>

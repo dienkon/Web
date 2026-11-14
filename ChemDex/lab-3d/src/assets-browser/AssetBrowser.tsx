@@ -17,7 +17,7 @@ export default function AssetBrowser() {
   const [background, setBackground] = useState(backgrounds[0].color), [lighting, setLighting] = useState(1);
   const [quality, setQuality] = useState<'smooth' | 'detail'>('smooth');
   const [command, setCommand] = useState<CameraCommand>({ view: 'perspective', serial: 0 });
-  const [stats, setStats] = useState<ModelStats>({ meshes: 0, triangles: 0 });
+  const [, setStats] = useState<ModelStats>({ meshes: 0, triangles: 0 });
   const [catalogOpen, setCatalogOpen] = useState(false), [detailsOpen, setDetailsOpen] = useState(false);
   const [help, setHelp] = useState(false), [notice, setNotice] = useState('');
   const canvas = useRef<HTMLCanvasElement | null>(null), stage = useRef<HTMLDivElement>(null);
@@ -38,7 +38,7 @@ export default function AssetBrowser() {
     select(filtered[(Math.max(0, index) + offset + filtered.length) % filtered.length]);
   }, [filtered, index, select]);
   useEffect(() => {
-    const previous = document.title; document.title = 'Thư viện Asset 3D · ChemDex';
+    const previous = document.title; document.title = 'Thư viện mô hình 3D · ChemDex';
     return () => { document.title = previous; };
   }, []);
   useEffect(() => {
@@ -74,7 +74,7 @@ export default function AssetBrowser() {
 
   return <div className="asset-browser">
     <header className="ab-header">
-      <a className="ab-brand" href={labUrl.pathname + labUrl.search}><span className="ab-logo"><Beaker size={21} /></span><span>Chem<span>Dex</span><small>LABORATORY / 3D COLLECTION</small></span></a>
+      <a className="ab-brand" href={labUrl.pathname + labUrl.search}><span className="ab-logo"><Beaker size={21} /></span><span>Chem<span>Dex</span><small>THƯ VIỆN MÔ HÌNH</small></span></a>
       <div className="ab-header-center"><span className="ab-live" /> Không gian khám phá <span className="ab-version">3D</span></div>
       <a className="ab-back" href={labUrl.pathname + labUrl.search}><ArrowLeft size={15} /><span>Về phòng lab</span></a>
     </header>
@@ -87,23 +87,23 @@ export default function AssetBrowser() {
     <div className="ab-layout">
       <aside className={`ab-catalog ${catalogOpen ? 'is-open' : ''}`} aria-label="Thư viện mô hình">
         <div className="ab-catalog-heading"><span className="ab-eyebrow">KHÁM PHÁ PHÒNG LAB</span><h1>Thư viện <span>3D.</span></h1><p>Mỗi góc nhìn, một chi tiết mới.</p></div>
-        <label className="ab-search"><Search size={16} /><input aria-label="Tìm asset" placeholder="Tìm tên, công thức…" value={query} onChange={e => setQuery(e.target.value)} />{query && <button aria-label="Xóa tìm kiếm" onClick={() => setQuery('')}><X size={14} /></button>}</label>
-        <div className="ab-categories" aria-label="Nhóm asset">{categories.map(([id, label]) => <button key={id} aria-pressed={category === id} onClick={() => setCategory(id)} className={category === id ? 'active' : ''}>{label}<span>{id === 'all' ? assets.length : assets.filter(a => a.category === id).length}</span></button>)}</div>
+        <label className="ab-search"><Search size={16} /><input aria-label="Tìm mô hình" placeholder="Tìm tên, công thức…" value={query} onChange={e => setQuery(e.target.value)} />{query && <button aria-label="Xóa tìm kiếm" onClick={() => setQuery('')}><X size={14} /></button>}</label>
+        <div className="ab-categories" aria-label="Nhóm mô hình">{categories.map(([id, label]) => <button key={id} aria-pressed={category === id} onClick={() => setCategory(id)} className={category === id ? 'active' : ''}>{label}<span>{id === 'all' ? assets.length : assets.filter(a => a.category === id).length}</span></button>)}</div>
         <div className="ab-list-heading"><span>{filtered.length} MÔ HÌNH</span><Layers3 size={13} /></div>
         <div className="ab-asset-list">
           {filtered.map((item, i) => <button key={item.id} data-asset-id={item.id} className={`ab-asset-item ${item.id === asset.id ? 'selected' : ''}`} onClick={() => select(item)} aria-pressed={item.id === asset.id}>
             <span className={`ab-item-icon ${item.category}`} style={item.chemical ? { color: item.chemical.color } : undefined}>{item.chemical ? <span className="ab-formula">{item.chemical.formula}</span> : <Box size={22} strokeWidth={1.3} />}</span>
             <span className="ab-item-text"><strong>{item.name}</strong><small>{item.chemical?.formula ?? item.english}</small></span><span className="ab-item-number">{String(i + 1).padStart(2, '0')}</span>
           </button>)}
-          {!filtered.length && <div className="ab-empty"><Search size={25} /><strong>Chưa tìm thấy mô hình</strong><p>Thử tên khác hoặc đổi nhóm asset.</p><button onClick={() => { setQuery(''); setCategory('all'); }}>Hiện tất cả</button></div>}
+          {!filtered.length && <div className="ab-empty"><Search size={25} /><strong>Chưa tìm thấy mô hình</strong><p>Thử tên khác hoặc đổi nhóm mô hình.</p><button onClick={() => { setQuery(''); setCategory('all'); }}>Hiện tất cả</button></div>}
         </div>
         <div className="ab-catalog-footer"><span className="ab-live" /><span>{equipmentAssets.length} dụng cụ · {assets.length - equipmentAssets.length} mẫu hóa chất</span></div>
       </aside>
 
       <main className="ab-stage" ref={stage} aria-label={`Xem 3D: ${asset.name}`}>
-        <div className="ab-stage-heading"><div><span className="ab-eyebrow">BỘ SƯU TẬP / {categoryName?.toLocaleUpperCase('vi')}</span><h2>{asset.name}</h2><p>{asset.english}</p></div><span className="ab-3d-badge"><Box size={14} /> 3D INTERACTIVE</span></div>
+        <div className="ab-stage-heading"><div><span className="ab-eyebrow">BỘ SƯU TẬP / {categoryName?.toLocaleUpperCase('vi')}</span><h2>{asset.name}</h2>{asset.english.toLowerCase()!==asset.name.toLowerCase() && <p>{asset.english}</p>}</div><span className="ab-3d-badge"><Box size={14} /> XOAY ĐỂ XEM</span></div>
         <div className="ab-canvas">
-          <ErrorBoundary fallbackTitle="Không thể hiển thị asset này">
+          <ErrorBoundary fallbackTitle="Chưa hiển thị được mô hình này">
             <AssetViewport asset={asset} wireframe={wireframe} rotate={rotate} grid={grid} background={background} lighting={lighting} quality={quality} command={command} onStats={setStats} onCanvas={onCanvas} />
           </ErrorBoundary>
         </div>
@@ -114,17 +114,17 @@ export default function AssetBrowser() {
           <div className="ab-controls"><button onClick={() => view('out')} aria-label="Thu nhỏ" title="Thu nhỏ (−)"><Minus size={18} /></button><button onClick={() => view('in')} aria-label="Phóng to" title="Phóng to (+)"><Plus size={18} /></button><i /><button onClick={() => view('perspective')} aria-label="Đặt lại góc nhìn" title="Đặt lại góc nhìn (R)"><RotateCcw size={17} /></button><i /><button aria-pressed={rotate} onClick={() => setRotate(r => !r)} className={rotate ? 'active' : ''} title="Tự xoay (Space)">{rotate ? <Pause size={16} /> : <Play size={16} />}<span>Tự xoay</span></button></div>
           <span className="ab-gesture-hint">Kéo để xoay <b>·</b> Cuộn để zoom <b>·</b> Chuột phải để di chuyển</span>
         </div>
-        <div className="ab-stage-status"><span><span className="ab-live" /> Mô hình gốc Lab 3D</span><div><button aria-label="Asset trước" onClick={() => adjacent(-1)} disabled={filtered.length < 2}><ChevronLeft size={16} /></button><span>{index >= 0 ? String(index + 1).padStart(2, '0') : '—'} / {filtered.length}</span><button aria-label="Asset tiếp theo" onClick={() => adjacent(1)} disabled={filtered.length < 2}><ChevronRight size={16} /></button></div></div>
+        <div className="ab-stage-status"><span><span className="ab-live" /> Mô hình gốc Lab 3D</span><div><button aria-label="Mô hình trước" onClick={() => adjacent(-1)} disabled={filtered.length < 2}><ChevronLeft size={16} /></button><span>{index >= 0 ? String(index + 1).padStart(2, '0') : '—'} / {filtered.length}</span><button aria-label="Mô hình tiếp theo" onClick={() => adjacent(1)} disabled={filtered.length < 2}><ChevronRight size={16} /></button></div></div>
         {notice && <div className="ab-notice" role="status"><Check size={15} />{notice}</div>}
         {help && <HelpDialog onClose={() => setHelp(false)} />}
       </main>
 
       <aside className={`ab-details ${detailsOpen ? 'is-open' : ''}`} aria-label="Thông tin và tùy chỉnh">
         <div className="ab-detail-title"><SlidersHorizontal size={16} /><span>THÔNG TIN MÔ HÌNH</span></div>
-        <section className="ab-description"><span className="ab-tag">{categoryName}</span><h3>{asset.name}</h3><p>{asset.description}</p><dl><div><dt>Vật liệu / mẫu</dt><dd>{asset.material}</dd></div>{!!asset.capacity && <div><dt>Dung tích mẫu</dt><dd>{asset.capacity} mL</dd></div>}{asset.chemical && <><div><dt>Công thức</dt><dd>{asset.chemical.formula}</dd></div><div><dt>Khối lượng mol</dt><dd>{asset.chemical.molarMass} g/mol</dd></div>{asset.chemical.solidMorphology && <div><dt>Hình thái</dt><dd>{asset.chemical.solidMorphology}</dd></div>}</>}<div><dt>Số mesh</dt><dd>{stats.meshes || '…'}</dd></div><div><dt>Tam giác</dt><dd>{stats.triangles ? stats.triangles.toLocaleString('vi-VN') : '…'}</dd></div></dl></section>
+        <section className="ab-description"><span className="ab-tag">{categoryName}</span><h3>{asset.name}</h3><p>{asset.description}</p><dl><div><dt>Vật liệu / mẫu</dt><dd>{asset.material}</dd></div>{!!asset.capacity && <div><dt>Dung tích mẫu</dt><dd>{asset.capacity} mL</dd></div>}{asset.chemical && <><div><dt>Công thức</dt><dd>{asset.chemical.formula}</dd></div><div><dt>Khối lượng mol</dt><dd>{asset.chemical.molarMass} g/mol</dd></div>{asset.chemical.solidMorphology && <div><dt>Hình thái</dt><dd>{asset.chemical.solidMorphology}</dd></div>}</>}</dl></section>
         <section><h4><span>01</span> Chi tiết cần quan sát</h4><ol className="ab-detail-points">{asset.details.map((detail, i) => <li key={detail}><span>{i + 1}</span>{detail}</li>)}</ol><button className="ab-closeup" onClick={() => view('detail')}>Khám phá cận cảnh <ArrowRight size={15} /></button></section>
         <section><h4><span>02</span> Không gian hiển thị</h4><label className="ab-field-title">Phông nền</label><div className="ab-backgrounds">{backgrounds.map(bg => <button key={bg.name} aria-pressed={background === bg.color} title={bg.name} onClick={() => setBackground(bg.color)} className={background === bg.color ? 'active' : ''}><i style={{ background: bg.color }} />{bg.name}</button>)}</div><label className="ab-range-label" htmlFor="asset-light"><span>Cường độ sáng</span><b>{Math.round(lighting * 100)}%</b></label><input id="asset-light" className="ab-range" type="range" min="0.35" max="2" step="0.05" value={lighting} onChange={e => setLighting(Number(e.target.value))} /><div className="ab-toggle-row"><label htmlFor="asset-grid">Lưới không gian</label><input id="asset-grid" type="checkbox" checked={grid} onChange={e => setGrid(e.target.checked)} /></div><div className="ab-toggle-row"><label htmlFor="asset-wireframe">Khung lưới mô hình</label><input id="asset-wireframe" type="checkbox" checked={wireframe} onChange={e => setWireframe(e.target.checked)} /></div></section>
-        <section><h4><span>03</span> Chất lượng hiển thị</h4><div className="ab-quality"><button aria-pressed={quality === 'smooth'} className={quality === 'smooth' ? 'active' : ''} onClick={() => setQuality('smooth')}>Mượt mà</button><button aria-pressed={quality === 'detail'} className={quality === 'detail' ? 'active' : ''} onClick={() => setQuality('detail')}>Chi tiết cao</button></div><p className="ab-small">Tăng độ phân giải khi cần xem kỹ bề mặt. Tắt tự xoay để giảm hoạt động GPU.</p></section>
+        <section><h4><span>03</span> Chất lượng hiển thị</h4><div className="ab-quality"><button aria-pressed={quality === 'smooth'} className={quality === 'smooth' ? 'active' : ''} onClick={() => setQuality('smooth')}>Mượt mà</button><button aria-pressed={quality === 'detail'} className={quality === 'detail' ? 'active' : ''} onClick={() => setQuality('detail')}>Chi tiết cao</button></div><p className="ab-small">Tăng độ phân giải khi cần xem kỹ bề mặt. Tắt tự xoay để tiết kiệm pin.</p></section>
       </aside>
     </div>
   </div>;
@@ -133,5 +133,5 @@ export default function AssetBrowser() {
 function HelpDialog({ onClose }: { onClose: () => void }) {
   const close = useRef<HTMLButtonElement>(null);
   useEffect(() => { const previous = document.activeElement as HTMLElement; close.current?.focus(); return () => previous?.focus(); }, []);
-  return <div className="ab-modal-backdrop" onClick={onClose}><div className="ab-help" role="dialog" aria-modal="true" aria-labelledby="ab-help-title" onClick={e => e.stopPropagation()} onKeyDown={e => { if (e.key === 'Escape') onClose(); if (e.key === 'Tab') { e.preventDefault(); close.current?.focus(); } }}><button ref={close} className="ab-help-close" aria-label="Đóng hướng dẫn" onClick={onClose}><X size={20} /></button><Box size={32} /><h2 id="ab-help-title">Khám phá từ mọi góc.</h2><p>Chuột và bàn phím</p><dl><div><dt>Xoay mô hình</dt><dd>Kéo chuột trái</dd></div><div><dt>Phóng to / thu nhỏ</dt><dd>Cuộn chuột · + / −</dd></div><div><dt>Di chuyển khung nhìn</dt><dd>Kéo chuột phải</dd></div><div><dt>Đặt lại camera</dt><dd>R</dd></div><div><dt>Bật / tắt tự xoay</dt><dd>Space</dd></div><div><dt>Chuyển asset</dt><dd>← / →</dd></div></dl><p>Trên điện thoại: kéo một ngón để xoay; chụm hoặc kéo hai ngón để zoom và di chuyển.</p></div></div>;
+  return <div className="ab-modal-backdrop" onClick={onClose}><div className="ab-help" role="dialog" aria-modal="true" aria-labelledby="ab-help-title" onClick={e => e.stopPropagation()} onKeyDown={e => { if (e.key === 'Escape') onClose(); if (e.key === 'Tab') { e.preventDefault(); close.current?.focus(); } }}><button ref={close} className="ab-help-close" aria-label="Đóng hướng dẫn" onClick={onClose}><X size={20} /></button><Box size={32} /><h2 id="ab-help-title">Khám phá từ mọi góc.</h2><p>Chuột và bàn phím</p><dl><div><dt>Xoay mô hình</dt><dd>Kéo chuột trái</dd></div><div><dt>Phóng to / thu nhỏ</dt><dd>Cuộn chuột · + / −</dd></div><div><dt>Di chuyển khung nhìn</dt><dd>Kéo chuột phải</dd></div><div><dt>Đặt lại camera</dt><dd>R</dd></div><div><dt>Bật / tắt tự xoay</dt><dd>Space</dd></div><div><dt>Chuyển mô hình</dt><dd>← / →</dd></div></dl><p>Trên điện thoại: kéo một ngón để xoay; chụm hoặc kéo hai ngón để zoom và di chuyển.</p></div></div>;
 }

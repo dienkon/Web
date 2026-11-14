@@ -30,7 +30,7 @@
     ],
     "documentKind": "reference",
     "lessonKind": "substance-guide",
-    "readingMinutes": 8
+    "readingMinutes": 9
   },
   {
     "id": "axeton-c3h6o",
@@ -54,7 +54,7 @@
       "acetone",
       "C3H6O",
       "Axeton Tinh Khiết",
-      "Acetone (Dung môi Axeton)",
+      "Propan-2-one",
       "CH3COCH3"
     ],
     "substanceIds": [
@@ -505,7 +505,7 @@
     ],
     "documentKind": "reference",
     "lessonKind": "substance-guide",
-    "readingMinutes": 5
+    "readingMinutes": 6
   },
   {
     "id": "phenol-c6h6o",
@@ -1290,7 +1290,7 @@
     ],
     "documentKind": "reference",
     "lessonKind": "substance-guide",
-    "readingMinutes": 5
+    "readingMinutes": 6
   },
   {
     "id": "naphtalen-c10h8",
@@ -7266,7 +7266,7 @@
     ],
     "documentKind": "reference",
     "lessonKind": "substance-guide",
-    "readingMinutes": 9
+    "readingMinutes": 8
   },
   {
     "id": "sat-ii-bromua-febr2",

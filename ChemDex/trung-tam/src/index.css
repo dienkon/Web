@@ -22,6 +22,9 @@ body.light-mode {
   background-color: #f8fafc;
   color: #0f172a;
 }
+/* The document scrolls at the viewport. A second body scroll container adds
+   another mobile-header offset and prevents the library header from sticking. */
+body { overflow:visible !important; }
 
 /* Custom Scrollbar for dark theme */
 ::-webkit-scrollbar {

@@ -3,6 +3,7 @@ import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { build } from "esbuild";
 import { viewerLifecyclePlugin } from "./3dmol-lifecycle.mjs";
+import { chemicalSource, chemicalData, chemicalText, chemicalHtml, chemicalNamesEsbuildPlugin } from './chemical-names.mjs';
 const root = path.resolve(import.meta.dirname, "..");
 process.chdir(root);
 const projects = [
@@ -64,6 +65,19 @@ for (const folder of ["assets", "css", "js", "data", "shared"]) {
       filter: (p) => !/\.(?:ts|tsx|map)$/.test(p),
     });
 }
+// Normalize copied data and unbundled modules too, using the same rules as all
+// React builds. Source IDs, URLs, document routes and search aliases stay stable.
+function normalizeStatic(directory) {
+  for (const entry of fs.readdirSync(directory, {withFileTypes:true})) {
+    const file = path.join(directory,entry.name);
+    if (entry.isDirectory()) { normalizeStatic(file); continue; }
+    if (!/\.(?:json|m?js)$/.test(file)) continue;
+    const text = fs.readFileSync(file,'utf8');
+    const next = file.endsWith('.json') ? JSON.stringify(chemicalData(JSON.parse(text)),null,2)+'\n' : chemicalSource(text,file);
+    if (next!==text) fs.writeFileSync(file,next);
+  }
+}
+for (const folder of ['js','data','shared']) normalizeStatic(path.join(output,folder));
 fs.mkdirSync(path.join(output, 'vendor/katex'), { recursive: true });
 fs.copyFileSync('node_modules/katex/dist/katex.min.css', path.join(output, 'vendor/katex/katex.min.css'));
 fs.cpSync('node_modules/katex/dist/fonts', path.join(output, 'vendor/katex/fonts'), { recursive: true });
@@ -105,7 +119,8 @@ function copyStatic(directory, relative = "") {
         relative === "tien-ich" ||
         rel === "tien-ich" ||
         relative.startsWith("tien-ich/") ||
-        rel === "on-tap"
+        rel === "on-tap" ||
+        rel === "ket-qua-khao-sat"
       )
         copyStatic(full, rel);
     } else if (
@@ -140,8 +155,9 @@ await build({
   minify: true,
   chunkNames: "chunks/[name]-[hash]",
   target: "es2022",
-  plugins: [viewerLifecyclePlugin],
+  plugins: [viewerLifecyclePlugin,chemicalNamesEsbuildPlugin],
   loader: { ".frag": "text", ".vert": "text" },
+  // Transform source before bundling so content hashes reflect the final names.
 });
 fs.copyFileSync(
   "platform/styles.css",
@@ -174,8 +190,9 @@ run("node", [
 function cleanHtml(dir) {
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
     const p = path.join(dir, e.name);
-    if (e.isDirectory()) cleanHtml(p);
-    else if (e.name.endsWith(".html")) {
+    if (e.isDirectory()) {
+      if (e.name !== "ket-qua-khao-sat") cleanHtml(p);
+    } else if (e.name.endsWith(".html")) {
       let s = fs.readFileSync(p, "utf8");
       s = s
         .replace(
@@ -191,7 +208,10 @@ function cleanHtml(dir) {
         if (!s.includes('src="/platform/sidebar.js"'))
           s = s.replace('</body>', '<script type="module" src="/platform/sidebar.js"></script></body>');
       }
-      fs.writeFileSync(p, s);
+      fs.writeFileSync(p, chemicalHtml(s));
+    } else if (e.name.endsWith('.svg')) {
+      const original=fs.readFileSync(p,'utf8'), normalized=chemicalText(original);
+      if (normalized!==original) fs.writeFileSync(p,normalized);
     }
   }
 }

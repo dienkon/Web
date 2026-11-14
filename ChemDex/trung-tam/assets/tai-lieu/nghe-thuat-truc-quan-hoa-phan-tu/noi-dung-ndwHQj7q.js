@@ -1,0 +1,43 @@
+const n="013_HTML_Sample",h="Đọc mô hình phân tử — Từ công thức đến hình dạng",t="Ban biên tập ChemDex",c="khainiem",u="Dùng mô hình để quan sát liên kết, phân biệt hình minh họa với dữ liệu cấu trúc và đặt câu hỏi về hình dạng phân tử.",i="/assets/library/photos/docs/nghe-thuat-truc-quan-hoa-phan-tu/cover.jpg",g=["HTML","Template","Mẫu"],a=`## Một công thức chưa kể hết câu chuyện
+
+Hai chất có thể có cùng công thức phân tử nhưng cách nối nguyên tử khác nhau. Khi đọc mô hình, hãy bắt đầu bằng tên chất, công thức và nguồn cấu trúc. Điều này giúp biết mình đang quan sát chất nào, thay vì chỉ đoán qua màu của các quả cầu.
+
+## Quả cầu và thanh nối có ý nghĩa gì?
+
+Trong kiểu cầu–que, quả cầu biểu diễn nguyên tử, thanh nối giúp nhìn liên kết. Kích thước quả cầu và độ dày thanh là lựa chọn biểu diễn. Chúng không phải ảnh chụp trực tiếp của một phân tử. Màu sắc cũng là quy ước; đọc bảng chú giải để nhận ra nguyên tố.
+
+Kiểu cầu đặc giúp hình dung phần không gian mà các nguyên tử chiếm chỗ, còn kiểu que làm rõ bộ khung. Đổi kiểu vẽ không tạo ra chất mới. Nếu một nguyên tử bị che, xoay toàn bộ mô hình để quan sát từ góc khác trước khi kết luận nó không có mặt.
+
+## Hình học đã được xác định bằng cách nào?
+
+Một cấu trúc có thể dựa trên phép đo thực nghiệm hoặc tính toán. Phân tử ở pha khí và phân tử trong tinh thể không nhất thiết có mọi khoảng cách và góc giống nhau. Đọc nguồn và điều kiện của bản ghi trước khi dùng số đo trên mô hình trong một bài giải.
+
+Với sơ đồ thành phần được tạo từ công thức, vị trí các nhóm có thể chỉ nhằm giúp đếm nguyên tử và điện tích. Khoảng trống giữa các nhóm trên sơ đồ không tự trở thành khoảng cách thực của một mẫu chất.
+
+## Thử quan sát water
+
+Mở mô hình water (H₂O). Tìm một nguyên tử oxygen và hai nguyên tử hydrogen. Xoay mô hình để nhìn thấy cả hai liên kết O–H. Ba nguyên tử không nằm trên một đường thẳng. Thử đổi từ cầu–que sang cầu đặc rồi xem phần nào của hình trở nên dễ nhận biết hơn.
+
+Sau đó mở một tinh thể sodium chloride. Quan sát sự lặp lại của mạng thay vì tìm một phân tử NaCl độc lập. Cùng một kiểu quả cầu trên màn hình có thể đang biểu diễn những loại cấu trúc rất khác nhau.
+
+## Dùng mô hình để đặt câu hỏi
+
+Hãy chọn một câu hỏi cụ thể: có bao nhiêu nguyên tử, nguyên tử nào nối với nguyên tử nào, hay góc giữa hai liên kết là bao nhiêu? Mỗi câu hỏi cần loại thông tin khác nhau. Công thức giúp đếm thành phần; cấu tạo giúp đọc cách nối; tọa độ có nguồn mới cho phép bàn về số đo của bộ cấu trúc đang xem.
+
+Đừng suy ra màu thật, mùi, độ độc hay nhiệt độ sôi chỉ từ màu quả cầu hoặc chuyển động xoay. Những tính chất đó cần nguồn dữ liệu và điều kiện riêng. Mô hình là một cách quan sát có mục đích, hữu ích nhất khi biết nó trả lời được câu hỏi nào.
+
+## Tự kiểm tra
+
+Đổi góc nhìn có làm số nguyên tử thay đổi không? Có thể lấy một sơ đồ đếm thành phần để kết luận khoảng cách giữa hai ion trong dung dịch không?
+
+<details><summary>Xem lời giải</summary>
+
+Không. Xoay toàn bộ mô hình chỉ thay đổi góc quan sát. Khoảng cách trên sơ đồ thành phần không phải số đo thực nghiệm của dung dịch. Muốn so sánh hình học cần chọn đúng cấu trúc, pha và nguồn dữ liệu.
+
+</details>
+
+## Nguồn và thực hành
+
+- [Mở kho mô hình tương tác](/tien-ich/cau-truc-3d/)
+- [OpenStax · Cấu trúc và cực tính phân tử](https://openstax.org/books/chemistry-2e/pages/7-6-molecular-structure-and-polarity)
+- [NIST CCCBDB · Dữ liệu hình học phân tử](https://cccbdb.nist.gov/)`,r=7,o="nghe-thuat-truc-quan-hoa-phan-tu",m="docs/nghe-thuat-truc-quan-hoa-phan-tu/index.json",s="guide",e={id:n,title:h,author:t,category:c,summary:u,image:i,tags:g,content:a,readingMinutes:7,slug:o,documentPath:m,documentKind:s};export{t as author,c as category,a as content,e as default,s as documentKind,m as documentPath,n as id,i as image,r as readingMinutes,o as slug,u as summary,g as tags,h as title};

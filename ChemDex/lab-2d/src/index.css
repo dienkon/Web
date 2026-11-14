@@ -104,7 +104,10 @@
 .lab-inventory,
 .lab-inspector {
   flex-shrink: 0;
+  display:none;
 }
+.lab-app[data-mobile-panel="inventory"] .lab-inventory,
+.lab-app[data-mobile-panel="inspector"] .lab-inspector { display:flex; }
 
 .lab-app button:focus-visible,
 .lab-app a:focus-visible {

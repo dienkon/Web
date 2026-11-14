@@ -16,7 +16,7 @@
   <!-- Left Identity Column -->
   <g transform="translate(48, 80)">
     <rect x="0" y="0" width="auto" height="24" rx="6" fill="#ffffff" fill-opacity="0.15"/>
-    <text x="10" y="16" fill="#38bdf8" font-family="system-ui, sans-serif" font-weight="800" font-size="11" letter-spacing="0.8">VẬT LIỆU KỶ NGUYÊN CỦA CACBON · KIM CƯƠNG &amp; THAN CHÌ</text>
+    <text x="10" y="16" fill="#38bdf8" font-family="system-ui, sans-serif" font-weight="800" font-size="11" letter-spacing="0.8">VẬT LIỆU KỶ NGUYÊN CỦA Carbon · KIM CƯƠNG &amp; THAN lead</text>
     
     <text x="0" y="70" fill="#ffffff" font-family="system-ui, sans-serif" font-weight="900" font-size="44" letter-spacing="1">
       Hỗn hợp
@@ -27,7 +27,7 @@
     </text>
     
     <text x="0" y="145" fill="#38bdf8" font-family="system-ui, sans-serif" font-weight="600" font-size="14">
-      Kim cương giác cắt lấp lánh &amp; Tấm than chì đen mờ
+      Kim cương giác cắt lấp lánh &amp; Tấm than lead đen mờ
     </text>
     
     <g transform="translate(0, 175)">

@@ -13,7 +13,7 @@ export const properties = {
 };
 export function matchesElement(e, filters, elements) {
   const q = normalize(filters.q), exact = elements.find((a) => normalize(a.symbol) === q);
-  const text = normalize([e.name_vi, e.name_en, categories[e.category]?.[0]].join(" "));
+  const text = normalize([e.name_vi, e.name_en, ...(e.aliases??[]), categories[e.category]?.[0]].join(" "));
   return (!q || (exact ? e.symbol === exact.symbol : /^\d+$/.test(q) ? e.z === Number(q) : q.split(/\s+/).every((word) => text.includes(word)))) &&
     (!filters.category || e.category === filters.category) && (!filters.period || e.period === Number(filters.period)) &&
     (!filters.group || e.group === Number(filters.group)) && (!filters.block || e.block === filters.block) &&

@@ -1,3 +1,4 @@
+import { chemicalNamesPlugin } from '../../../scripts/chemical-names.mjs';
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
@@ -6,7 +7,7 @@ import { defineConfig } from "vite";
 export default defineConfig({
   base: "/tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh/",
 
-  plugins: [react(), tailwindcss()],
+  plugins: [chemicalNamesPlugin(),react(), tailwindcss()],
 
   resolve: {
     alias: {

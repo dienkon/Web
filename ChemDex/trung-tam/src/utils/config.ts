@@ -7,7 +7,7 @@ import { CategoryConfig, DocMeta, DocFull } from '../types';
 export type { CategoryConfig, DocMeta, DocFull };
 
 export const categories: CategoryConfig[] = configData.categories;
-export const libraryDocs: DocMeta[] = [...indexData.filter(doc=>doc.id.startsWith('chat-')),...referenceIndex,...biographyIndex,...indexData.filter(doc=>!doc.id.startsWith('chat-'))];
+export const libraryDocs: DocMeta[] = [...indexData,...biographyIndex,...referenceIndex];
 
 export function getCategoryConfig(categoryId: string): CategoryConfig | undefined {
   return categories.find(c => c.id === categoryId);

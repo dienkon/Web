@@ -47,7 +47,7 @@ function LeftSidebar() {
   const filteredChemicals = React.useMemo(() => {
     return CHEMICALS.filter(c => {
       const matchesSearch = c.formula.toLowerCase().includes(search.toLowerCase()) || 
-        (language === 'en' ? c.name_en : c.name_vi).toLowerCase().includes(search.toLowerCase());
+        [c.name_en,c.name_vi,c.name_search??''].some(name=>name.toLowerCase().includes(search.toLowerCase()));
       if (!matchesSearch) return false;
       if (filterType === 'all') return true;
       if (filterType === 'indicator') return c.category === 'indicator';
@@ -692,7 +692,7 @@ export default function App() {
           
           <div className="flex items-center gap-1.5">
             <a href="?view=assets" className="p-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 text-emerald-700 bg-emerald-50 hover:bg-emerald-100" title="Khám phá toàn bộ mô hình 3D cận cảnh">
-              <Layers size={16} /><span className="hidden sm:inline">Asset 3D</span>
+              <Layers size={16} /><span className="hidden sm:inline">Mô hình 3D</span>
             </a>
             <button 
               onClick={toggleLeftSidebar} 

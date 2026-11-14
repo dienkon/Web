@@ -1,0 +1,2204 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kết quả Minigame Khảo Sát · ChemDex</title>
+    <meta
+      name="description"
+      content="Thể lệ và công bố trực tuyến 2 con số may mắn Minigame Khảo Sát Thực Nghiệm dự án KHKT ChemDex vào lúc 18:00 ngày 20/11/2026."
+    />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="icon" type="image/png" href="/assets/icon/logo.png" />
+    <link
+      rel="preload"
+      href="/assets/fonts/manrope-vietnamese.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/assets/fonts/manrope-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="/assets/fonts/fonts.css" />
+    <style>
+      :root {
+        --bg: #ffffff;
+        --bg-soft: #f8fafc;
+        --surface: #ffffff;
+        --ink: #0f172a;
+        --ink-muted: #475569;
+        --ink-subtle: #64748b;
+        --border: #e2e8f0;
+        --border-strong: #cbd5e1;
+        --accent: #2563eb;
+        --accent-soft: #eff6ff;
+        --cyan: #0ea5e9;
+        --gold: #d97706;
+        --gold-bright: #f59e0b;
+        --gold-soft: #fffbeb;
+        --emerald: #059669;
+        --emerald-soft: #ecfdf5;
+        --shadow-card: 0 1px 2px rgba(15, 23, 42, 0.03), 0 12px 32px -16px rgba(15, 23, 42, 0.08);
+        --shadow-elevated: 0 18px 40px -18px rgba(37, 99, 235, 0.18);
+        --slot-h: 82px;
+        --font-sans: 'Manrope', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html {
+        color-scheme: light;
+        background: var(--bg);
+        -webkit-text-size-adjust: 100%;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100dvh;
+        background:
+          radial-gradient(960px 420px at 50% -8%, rgba(14, 165, 233, 0.07), transparent 68%),
+          radial-gradient(640px 360px at 85% 12%, rgba(37, 99, 235, 0.045), transparent 70%),
+          var(--bg);
+        color: var(--ink);
+        font-family: var(--font-sans);
+        line-height: 1.55;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button {
+        font: inherit;
+        color: inherit;
+        cursor: pointer;
+      }
+
+      button:focus-visible,
+      a:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+
+      #confetti-canvas {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 60;
+      }
+
+      /* Top Header */
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        background: rgba(255, 255, 255, 0.88);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .topbar-inner {
+        max-width: 920px;
+        margin: 0 auto;
+        padding: 12px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 800;
+        font-size: 15px;
+        letter-spacing: -0.01em;
+      }
+
+      .brand img {
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
+        object-fit: cover;
+        border: 1px solid var(--border);
+      }
+
+      .brand-tag {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--accent);
+        background: var(--accent-soft);
+        border: 1px solid #dbeafe;
+        padding: 2px 8px;
+        border-radius: 999px;
+      }
+
+      .topbar-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .btn-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 7px 12px;
+        border-radius: 999px;
+        font-size: 12.5px;
+        font-weight: 700;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--ink-muted);
+        transition: border-color 0.18s ease, background-color 0.18s ease, color 0.18s ease, transform 0.15s ease;
+      }
+
+      .btn-pill:hover {
+        border-color: var(--border-strong);
+        background: var(--bg-soft);
+        color: var(--ink);
+      }
+
+      .btn-pill:active {
+        transform: scale(0.98);
+      }
+
+      .btn-pill svg {
+        width: 15px;
+        height: 15px;
+        flex-shrink: 0;
+      }
+
+      .btn-pill--demo {
+        color: var(--accent);
+        background: var(--accent-soft);
+        border-color: #bfdbfe;
+      }
+
+      .btn-pill--demo:hover {
+        background: #dbeafe;
+        border-color: #93c5fd;
+        color: #1d4ed8;
+      }
+
+      .btn-pill--demo[aria-pressed='true'] {
+        color: #ffffff;
+        background: var(--accent);
+        border-color: var(--accent);
+      }
+
+      .btn-pill--sound[aria-pressed='true'] {
+        color: var(--emerald);
+        background: var(--emerald-soft);
+        border-color: #a7f3d0;
+      }
+
+      /* Main Container */
+      .container {
+        max-width: 920px;
+        margin: 0 auto;
+        padding: 28px 20px 84px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      /* Hero Heading */
+      .hero-head {
+        text-align: center;
+        padding: 4px 0 2px;
+      }
+
+      .status-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 14px;
+        border-radius: 999px;
+        font-size: 12.5px;
+        font-weight: 700;
+        background: var(--accent-soft);
+        color: #1d4ed8;
+        border: 1px solid #dbeafe;
+        transition: all 0.3s ease;
+      }
+
+      .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.45);
+        animation: dotPulse 2s infinite;
+      }
+
+      @keyframes dotPulse {
+        0%, 100% {
+          box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.45);
+        }
+        50% {
+          box-shadow: 0 0 0 6px rgba(37, 99, 235, 0);
+        }
+      }
+
+      .hero-head h1 {
+        margin: 14px 0 8px;
+        font-size: clamp(24px, 4vw, 34px);
+        font-weight: 800;
+        letter-spacing: -0.025em;
+        line-height: 1.2;
+        color: var(--ink);
+      }
+
+      .hero-sub {
+        margin: 0 auto;
+        max-width: 620px;
+        font-size: 14.5px;
+        font-weight: 500;
+        color: var(--ink-muted);
+      }
+
+      .hero-sub strong {
+        color: var(--ink);
+        font-weight: 700;
+      }
+
+      /* Countdown Stage Card */
+      .countdown-card {
+        position: relative;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 22px;
+        padding: 22px 24px 24px;
+        box-shadow: var(--shadow-card);
+        overflow: hidden;
+        transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+      }
+
+      .countdown-aura {
+        position: absolute;
+        inset: -35% -15%;
+        pointer-events: none;
+        opacity: 0;
+        background:
+          radial-gradient(circle at 30% 40%, rgba(14, 165, 233, 0.12), transparent 55%),
+          radial-gradient(circle at 75% 60%, rgba(37, 99, 235, 0.1), transparent 55%);
+        transition: opacity 0.6s ease;
+      }
+
+      .countdown-sheen {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0;
+        background: linear-gradient(
+          115deg,
+          transparent 25%,
+          rgba(255, 255, 255, 0.75) 45%,
+          rgba(224, 242, 254, 0.55) 50%,
+          rgba(255, 255, 255, 0.75) 55%,
+          transparent 75%
+        );
+        transform: translateX(-120%);
+      }
+
+      /* Phase Escalation States */
+      body[data-phase='warm'] .status-pill {
+        background: #f0f9ff;
+        color: #0369a1;
+        border-color: #bae6fd;
+      }
+
+      body[data-phase='warm'] .status-dot {
+        background: var(--cyan);
+      }
+
+      body[data-phase='warm'] .countdown-card {
+        border-color: #bae6fd;
+        box-shadow: 0 18px 44px -20px rgba(14, 165, 233, 0.25);
+      }
+
+      body[data-phase='warm'] .countdown-aura {
+        opacity: 0.75;
+        animation: auraBreath 4s ease-in-out infinite;
+      }
+
+      body[data-phase='final-minute'] .status-pill {
+        background: #fffbeb;
+        color: #b45309;
+        border-color: #fde68a;
+      }
+
+      body[data-phase='final-minute'] .status-dot {
+        background: var(--gold-bright);
+        animation-duration: 1s;
+      }
+
+      body[data-phase='final-minute'] .countdown-card {
+        border-color: #7dd3fc;
+        box-shadow: 0 20px 50px -20px rgba(14, 165, 233, 0.34);
+      }
+
+      body[data-phase='final-minute'] .countdown-aura {
+        opacity: 1;
+        background:
+          radial-gradient(circle at 25% 35%, rgba(14, 165, 233, 0.16), transparent 52%),
+          radial-gradient(circle at 75% 65%, rgba(245, 158, 11, 0.11), transparent 52%);
+        animation: auraBreath 2.4s ease-in-out infinite;
+      }
+
+      body[data-phase='crescendo'] .status-pill {
+        background: #fef3c7;
+        color: #92400e;
+        border-color: #fcd34d;
+      }
+
+      body[data-phase='crescendo'] .status-dot {
+        background: #f59e0b;
+        animation-duration: 0.6s;
+      }
+
+      body[data-phase='crescendo'] .countdown-card {
+        border-color: #fbbf24;
+        box-shadow:
+          0 0 0 3px rgba(245, 158, 11, 0.12),
+          0 24px 56px -18px rgba(245, 158, 11, 0.28);
+      }
+
+      body[data-phase='crescendo'] .countdown-aura {
+        opacity: 1;
+        background:
+          radial-gradient(circle at 50% 45%, rgba(251, 191, 36, 0.16), transparent 60%),
+          radial-gradient(circle at 20% 50%, rgba(14, 165, 233, 0.12), transparent 55%);
+        animation: auraBreath 1.2s ease-in-out infinite;
+      }
+
+      body[data-phase='crescendo'] .countdown-sheen {
+        opacity: 1;
+        animation: sheenSweep 2.4s ease-in-out infinite;
+      }
+
+      body[data-phase='completed'] .status-pill {
+        background: var(--emerald-soft);
+        color: #047857;
+        border-color: #a7f3d0;
+      }
+
+      body[data-phase='completed'] .status-dot {
+        background: var(--emerald);
+        animation: none;
+      }
+
+      body[data-phase='completed'] .countdown-card {
+        border-color: #a7f3d0;
+      }
+
+      @keyframes auraBreath {
+        0%, 100% {
+          transform: scale(1);
+          opacity: 0.72;
+        }
+        50% {
+          transform: scale(1.04);
+          opacity: 1;
+        }
+      }
+
+      @keyframes sheenSweep {
+        0% {
+          transform: translateX(-120%);
+        }
+        55%, 100% {
+          transform: translateX(130%);
+        }
+      }
+
+      /* Mini Schedule Timeline */
+      .schedule-bar {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding-bottom: 16px;
+        margin-bottom: 18px;
+        border-bottom: 1px solid #f1f5f9;
+        flex-wrap: wrap;
+      }
+
+      .timeline-steps {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .t-step {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--ink-subtle);
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: var(--bg-soft);
+        border: 1px solid var(--border);
+        transition: all 0.25s ease;
+      }
+
+      .t-step .t-num {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        font-size: 10px;
+        background: #e2e8f0;
+        color: var(--ink-muted);
+      }
+
+      .t-step.is-active {
+        color: var(--accent);
+        background: var(--accent-soft);
+        border-color: #bfdbfe;
+      }
+
+      .t-step.is-active .t-num {
+        background: var(--accent);
+        color: #ffffff;
+      }
+
+      .t-step.is-done {
+        color: var(--emerald);
+        background: var(--emerald-soft);
+        border-color: #a7f3d0;
+      }
+
+      .t-step.is-done .t-num {
+        background: var(--emerald);
+        color: #ffffff;
+      }
+
+      .target-label {
+        font-size: 12.5px;
+        font-weight: 700;
+        color: var(--ink-muted);
+        font-variant-numeric: tabular-nums;
+      }
+
+      /* Countdown Grid + Precision Ring */
+      .countdown-body {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+
+      .digits-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(74px, 112px));
+        gap: 12px;
+        flex: 1 1 auto;
+        justify-content: center;
+      }
+
+      .time-tile {
+        position: relative;
+        background: #ffffff;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 14px 8px 12px;
+        text-align: center;
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+        transition: border-color 0.25s ease, transform 0.25s ease, opacity 0.35s ease, box-shadow 0.25s ease;
+      }
+
+      .time-tile::before {
+        content: '';
+        position: absolute;
+        inset: 0 0 50% 0;
+        background: linear-gradient(to bottom, rgba(248, 250, 252, 0.9), transparent);
+        border-radius: 16px 16px 0 0;
+        pointer-events: none;
+      }
+
+      .time-value {
+        position: relative;
+        font-size: clamp(30px, 5vw, 44px);
+        font-weight: 800;
+        line-height: 1.05;
+        letter-spacing: -0.03em;
+        color: var(--ink);
+        font-variant-numeric: tabular-nums;
+        display: inline-block;
+      }
+
+      .time-value.is-tick {
+        animation: digitPop 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      @keyframes digitPop {
+        0% {
+          transform: translateY(-4px) scale(0.95);
+          opacity: 0.6;
+        }
+        100% {
+          transform: translateY(0) scale(1);
+          opacity: 1;
+        }
+      }
+
+      .time-label {
+        position: relative;
+        margin-top: 6px;
+        font-size: 11.5px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--ink-subtle);
+      }
+
+      /* Focus seconds tile in final minutes */
+      .time-tile--seconds {
+        overflow: visible;
+      }
+
+      .tick-ripple {
+        position: absolute;
+        inset: -2px;
+        border-radius: 17px;
+        border: 2px solid var(--cyan);
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .tick-ripple.is-ringing {
+        animation: rippleOut 0.88s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      @keyframes rippleOut {
+        0% {
+          transform: scale(0.98);
+          opacity: 0.65;
+        }
+        100% {
+          transform: scale(1.13);
+          opacity: 0;
+        }
+      }
+
+      body[data-phase='warm'] .time-tile--seconds,
+      body[data-phase='final-minute'] .time-tile--seconds {
+        border-color: #7dd3fc;
+        box-shadow: 0 8px 20px -10px rgba(14, 165, 233, 0.4);
+      }
+
+      body[data-phase='final-minute'] .time-tile--dimmable.is-zero,
+      body[data-phase='crescendo'] .time-tile--dimmable.is-zero {
+        opacity: 0.42;
+      }
+
+      body[data-phase='crescendo'] .time-tile--seconds {
+        border-color: #f59e0b;
+        background: linear-gradient(180deg, #fffbeb 0%, #ffffff 100%);
+        box-shadow: 0 10px 26px -10px rgba(245, 158, 11, 0.48);
+      }
+
+      body[data-phase='crescendo'] .time-tile--seconds .time-value {
+        color: #b45309;
+      }
+
+      body[data-phase='crescendo'] .tick-ripple {
+        border-color: #f59e0b;
+      }
+
+      /* Precision Circular Ring (shown smoothly in final <= 5 minutes or 1-min gap) */
+      .precision-ring-wrap {
+        display: none;
+        align-items: center;
+        gap: 14px;
+        padding: 10px 14px;
+        border-radius: 16px;
+        background: var(--bg-soft);
+        border: 1px solid var(--border);
+      }
+
+      .precision-ring-wrap.is-visible {
+        display: flex;
+      }
+
+      .ring-svg-box {
+        position: relative;
+        width: 72px;
+        height: 72px;
+        flex-shrink: 0;
+      }
+
+      .ring-svg {
+        width: 72px;
+        height: 72px;
+        transform: rotate(-90deg);
+      }
+
+      .ring-track {
+        fill: none;
+        stroke: #e2e8f0;
+        stroke-width: 6;
+      }
+
+      .ring-progress {
+        fill: none;
+        stroke: url(#ringGrad);
+        stroke-width: 6;
+        stroke-linecap: round;
+        stroke-dasharray: 188.496;
+        stroke-dashoffset: 0;
+      }
+
+      .ring-center {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        font-size: 16px;
+        font-weight: 800;
+        color: var(--ink);
+        font-variant-numeric: tabular-nums;
+      }
+
+      .ring-meta {
+        text-align: left;
+      }
+
+      .ring-meta-title {
+        font-size: 12.5px;
+        font-weight: 800;
+        color: var(--ink);
+      }
+
+      .ring-meta-sub {
+        font-size: 12px;
+        color: var(--ink-muted);
+        margin-top: 2px;
+      }
+
+      .countdown-foot-bar {
+        position: relative;
+        z-index: 1;
+        margin-top: 18px;
+        height: 5px;
+        border-radius: 999px;
+        background: #f1f5f9;
+        overflow: hidden;
+      }
+
+      .countdown-foot-fill {
+        height: 100%;
+        width: 0%;
+        border-radius: 999px;
+        background: linear-gradient(90deg, #38bdf8, #2563eb);
+        transition: width 0.25s linear, background 0.35s ease;
+      }
+
+      body[data-phase='crescendo'] .countdown-foot-fill {
+        background: linear-gradient(90deg, #0ea5e9, #f59e0b);
+      }
+
+      body[data-phase='completed'] .countdown-foot-fill {
+        background: linear-gradient(90deg, #10b981, #059669);
+      }
+
+      /* Lucky Number Reveal Cards */
+      .results-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .prize-card {
+        position: relative;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 20px;
+        box-shadow: var(--shadow-card);
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        overflow: hidden;
+        transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.3s ease;
+      }
+
+      .prize-card.is-next {
+        border-color: #93c5fd;
+        box-shadow: 0 14px 32px -18px rgba(37, 99, 235, 0.26);
+      }
+
+      .prize-card.is-imminent {
+        border-color: #fbbf24;
+        box-shadow: 0 16px 36px -16px rgba(245, 158, 11, 0.28);
+      }
+
+      .prize-card.is-revealed {
+        border-color: #fcd34d;
+        background: linear-gradient(180deg, #fffdf5 0%, #ffffff 42%);
+        box-shadow: 0 18px 40px -18px rgba(217, 119, 6, 0.22);
+      }
+
+      .prize-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+      }
+
+      .prize-badge {
+        font-size: 11.5px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--accent);
+        background: var(--accent-soft);
+        padding: 4px 10px;
+        border-radius: 999px;
+      }
+
+      .prize-card.is-revealed .prize-badge {
+        color: #b45309;
+        background: #fef3c7;
+      }
+
+      .prize-time {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--ink-subtle);
+        font-variant-numeric: tabular-nums;
+      }
+
+      .prize-name {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--ink-muted);
+      }
+
+      /* 3-Digit Slot Reel */
+      .reel-group {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .digit-box {
+        position: relative;
+        height: var(--slot-h);
+        border-radius: 14px;
+        background: var(--bg-soft);
+        border: 1.5px solid var(--border);
+        overflow: hidden;
+        transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .digit-box::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        box-shadow: inset 0 6px 10px -8px rgba(15, 23, 42, 0.14), inset 0 -6px 10px -8px rgba(15, 23, 42, 0.1);
+      }
+
+      .digit-veil {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        font-size: 30px;
+        font-weight: 800;
+        color: #94a3b8;
+        transition: opacity 0.2s ease;
+      }
+
+      .prize-card.is-imminent .digit-box {
+        border-color: #fde68a;
+        background: #fffbeb;
+      }
+
+      .prize-card.is-imminent .digit-veil {
+        color: #d97706;
+        animation: veilPulse 0.8s ease-in-out infinite;
+      }
+
+      @keyframes veilPulse {
+        0%, 100% {
+          transform: scale(1);
+          opacity: 0.7;
+        }
+        50% {
+          transform: scale(1.08);
+          opacity: 1;
+        }
+      }
+
+      .digit-reel {
+        position: relative;
+        opacity: 0;
+        will-change: transform;
+      }
+
+      .digit-box.is-spinning .digit-veil,
+      .digit-box.is-locked .digit-veil {
+        opacity: 0;
+      }
+
+      .digit-box.is-spinning .digit-reel,
+      .digit-box.is-locked .digit-reel {
+        opacity: 1;
+      }
+
+      .digit-box.is-spinning {
+        border-color: var(--accent);
+        background: #ffffff;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+      }
+
+      .digit-box.is-locked {
+        border-color: #f59e0b;
+        background: #ffffff;
+        box-shadow: 0 8px 18px -10px rgba(217, 119, 6, 0.35);
+        animation: digitLockPop 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      @keyframes digitLockPop {
+        0% {
+          transform: scale(1);
+        }
+        45% {
+          transform: scale(1.06);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .digit-item {
+        height: var(--slot-h);
+        display: grid;
+        place-items: center;
+        font-size: 40px;
+        font-weight: 800;
+        color: var(--ink);
+        font-variant-numeric: tabular-nums;
+      }
+
+      .digit-box.is-locked .digit-item {
+        color: #0f172a;
+      }
+
+      .prize-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        font-size: 12.5px;
+        font-weight: 600;
+        color: var(--ink-subtle);
+      }
+
+      .prize-card.is-revealed .prize-footer {
+        color: var(--emerald);
+        font-weight: 700;
+      }
+
+      .gap-progress {
+        display: none;
+        height: 4px;
+        border-radius: 999px;
+        background: #f1f5f9;
+        overflow: hidden;
+      }
+
+      .prize-card.is-counting .gap-progress {
+        display: block;
+      }
+
+      .gap-progress-fill {
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(90deg, #0ea5e9, #f59e0b);
+        transition: width 0.2s linear;
+      }
+
+      /* Concise Rules Card */
+      .rules-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 22px 24px;
+        box-shadow: var(--shadow-card);
+      }
+
+      .rules-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 14px;
+        flex-wrap: wrap;
+      }
+
+      .rules-header h2 {
+        margin: 0;
+        font-size: 16.5px;
+        font-weight: 800;
+        color: var(--ink);
+        letter-spacing: -0.015em;
+      }
+
+      .rules-chip {
+        font-size: 11.5px;
+        font-weight: 700;
+        color: var(--ink-subtle);
+        background: var(--bg-soft);
+        border: 1px solid var(--border);
+        padding: 3px 10px;
+        border-radius: 999px;
+      }
+
+      .rules-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px 16px;
+      }
+
+      .rule-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        font-size: 13.5px;
+        color: var(--ink-muted);
+        padding: 10px 12px;
+        border-radius: 12px;
+        background: var(--bg-soft);
+        border: 1px solid #f1f5f9;
+      }
+
+      .rule-num {
+        width: 22px;
+        height: 22px;
+        border-radius: 7px;
+        background: #ffffff;
+        border: 1px solid var(--border);
+        color: var(--accent);
+        font-size: 12px;
+        font-weight: 800;
+        display: grid;
+        place-items: center;
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+
+      .rule-item strong {
+        color: var(--ink);
+        font-weight: 700;
+      }
+
+      .notice-strip {
+        margin-top: 14px;
+        padding: 10px 14px;
+        border-radius: 12px;
+        background: var(--gold-soft);
+        border: 1px solid #fde68a;
+        color: #92400e;
+        font-size: 13px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 9px;
+      }
+
+      .notice-strip svg {
+        width: 17px;
+        height: 17px;
+        flex-shrink: 0;
+        color: var(--gold);
+      }
+
+      .contact-bar {
+        margin-top: 14px;
+        padding-top: 14px;
+        border-top: 1px solid #f1f5f9;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+        font-size: 13px;
+        color: var(--ink-muted);
+      }
+
+      .contact-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .zalo-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        font-weight: 700;
+        font-size: 12.5px;
+        color: #0369a1;
+        background: #f0f9ff;
+        border: 1px solid #bae6fd;
+        transition: background-color 0.15s ease;
+      }
+
+      .zalo-link:hover {
+        background: #e0f2fe;
+      }
+
+      .copy-btn {
+        padding: 6px 11px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        color: var(--ink-muted);
+      }
+
+      .copy-btn:hover {
+        border-color: var(--border-strong);
+        color: var(--ink);
+      }
+
+      /* Footer */
+      .page-foot {
+        text-align: center;
+        font-size: 12px;
+        color: var(--ink-subtle);
+        padding-top: 4px;
+      }
+
+      /* Inline Collapsible Demo Preview Bar (never obscures content) */
+      .demo-dock {
+        display: none;
+        background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+        border: 1px solid #bfdbfe;
+        border-radius: 16px;
+        padding: 12px 16px;
+        box-shadow: 0 10px 26px -16px rgba(37, 99, 235, 0.25);
+      }
+
+      .demo-dock.is-open {
+        display: block;
+        animation: dockSlideIn 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      @keyframes dockSlideIn {
+        from {
+          opacity: 0;
+          transform: translateY(-6px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .demo-dock-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 10px;
+        flex-wrap: wrap;
+      }
+
+      .demo-dock-title {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12.5px;
+        font-weight: 800;
+        color: #1d4ed8;
+      }
+
+      .demo-clock {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--ink-muted);
+        background: var(--bg-soft);
+        border: 1px solid var(--border);
+        padding: 2px 9px;
+        border-radius: 999px;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .demo-controls {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        flex-wrap: wrap;
+      }
+
+      .demo-btn {
+        padding: 6px 11px;
+        border-radius: 10px;
+        font-size: 12px;
+        font-weight: 700;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--ink-muted);
+        transition: all 0.15s ease;
+      }
+
+      .demo-btn:hover {
+        border-color: #93c5fd;
+        color: var(--accent);
+        background: var(--accent-soft);
+      }
+
+      .demo-btn.is-active {
+        background: var(--accent);
+        color: #ffffff;
+        border-color: var(--accent);
+      }
+
+      .demo-btn--exit {
+        margin-left: auto;
+        color: #b91c1c;
+        background: #fef2f2;
+        border-color: #fecaca;
+      }
+
+      .demo-btn--exit:hover {
+        background: #fee2e2;
+        border-color: #fca5a5;
+        color: #991b1b;
+      }
+
+      @media (max-width: 680px) {
+        :root {
+          --slot-h: 68px;
+        }
+        .topbar-inner {
+          padding: 10px 14px;
+          gap: 8px;
+        }
+        .topbar-actions {
+          width: 100%;
+          gap: 6px;
+        }
+        .btn-pill {
+          padding: 6px 10px;
+          font-size: 12px;
+        }
+        .container {
+          padding: 18px 14px 48px;
+          gap: 16px;
+        }
+        .countdown-card,
+        .rules-card {
+          padding: 18px 16px;
+        }
+        .digits-grid {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+          gap: 8px;
+          width: 100%;
+        }
+        .time-tile {
+          padding: 12px 4px 10px;
+          border-radius: 13px;
+        }
+        .results-grid,
+        .rules-list {
+          grid-template-columns: 1fr;
+        }
+        .digit-item {
+          font-size: 34px;
+        }
+        .precision-ring-wrap {
+          width: 100%;
+          justify-content: center;
+        }
+        .demo-btn--exit {
+          margin-left: 0;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .status-dot,
+        .countdown-aura,
+        .countdown-sheen,
+        .tick-ripple.is-ringing,
+        .time-value.is-tick,
+        .prize-card.is-imminent .digit-veil,
+        .digit-box.is-locked {
+          animation: none !important;
+        }
+        .digit-reel {
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body data-phase="normal">
+    <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+
+    <header class="topbar">
+      <div class="topbar-inner">
+        <a class="brand" href="/">
+          <img src="/assets/icon/logo.png" alt="Logo ChemDex" width="28" height="28" />
+          <span>ChemDex</span>
+          <span class="brand-tag">Minigame KHKT</span>
+        </a>
+        <div class="topbar-actions">
+          <button
+            type="button"
+            class="btn-pill btn-pill--demo"
+            id="demo-toggle-btn"
+            aria-pressed="false"
+            hidden
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polygon points="6 4 20 12 6 20 6 4" />
+            </svg>
+            <span>Xem mẫu thử</span>
+          </button>
+          <button
+            type="button"
+            class="btn-pill btn-pill--sound"
+            id="sound-toggle-btn"
+            aria-pressed="false"
+            title="Bật hoặc tắt âm thanh đếm giây"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+              <path id="sound-wave-1" d="M15.5 8.5a5 5 0 0 1 0 7" opacity="0.35" />
+            </svg>
+            <span id="sound-label">Âm thanh: Tắt</span>
+          </button>
+          <a class="btn-pill" href="/">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="m15 18-6-6 6-6" />
+            </svg>
+            <span>Trang chủ</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <!-- Thanh điều khiển mẫu thử tạm thời -->
+      <aside class="demo-dock" id="demo-dock" aria-label="Bảng điều khiển mẫu thử hiệu ứng">
+        <div class="demo-dock-head">
+          <div class="demo-dock-title">
+            <span>Chế độ mẫu thử hiệu ứng</span>
+          </div>
+          <span class="demo-clock" id="demo-clock-label">17:59:48 · 20/11/2026</span>
+        </div>
+        <div class="demo-controls">
+          <button type="button" class="demo-btn" data-preset="five-min">Mốc 5 phút cuối</button>
+          <button type="button" class="demo-btn" data-preset="one-min">Mốc 65s cuối</button>
+          <button type="button" class="demo-btn" data-preset="twelve-sec">12s cuối → Mở 2 số</button>
+          <button type="button" class="demo-btn" data-preset="second-gap">Tua tới 8s Giải #2</button>
+          <button type="button" class="demo-btn" id="demo-speed-btn">Tốc độ: 1x</button>
+          <button type="button" class="demo-btn demo-btn--exit" id="demo-exit-btn">Về giờ thật</button>
+        </div>
+      </aside>
+
+      <section class="hero-head">
+        <div class="status-pill" id="status-pill" role="status" aria-live="polite">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span id="status-text">Đang đếm ngược đến 18:00 · 20/11/2026</span>
+        </div>
+        <h1>KẾT QUẢ MINIGAME KHẢO SÁT CHEMDEX</h1>
+        <p class="hero-sub">
+          Điền form tâm huyết — Nhận ngay <strong>2 tài khoản Google AI Pro (Add Family)</strong>. Công bố trực tuyến lúc <strong>18:00 ngày 20/11/2026</strong>.
+        </p>
+      </section>
+
+      <section class="countdown-card" aria-label="Đồng hồ đếm ngược công bố kết quả">
+        <div class="countdown-aura" aria-hidden="true"></div>
+        <div class="countdown-sheen" aria-hidden="true"></div>
+
+        <div class="schedule-bar">
+          <div class="timeline-steps">
+            <span class="t-step is-active" id="step-wait">
+              <span class="t-num">1</span>
+              <span>Đếm ngược</span>
+            </span>
+            <span class="t-step" id="step-1">
+              <span class="t-num">2</span>
+              <span>18:00 · Số #1</span>
+            </span>
+            <span class="t-step" id="step-2">
+              <span class="t-num">3</span>
+              <span>18:01 · Số #2</span>
+            </span>
+          </div>
+          <div class="target-label" id="target-label">Mốc mở số #1: 18:00 · 20/11/2026 (GMT+7)</div>
+        </div>
+
+        <div class="countdown-body">
+          <div class="digits-grid" role="timer" aria-live="off">
+            <div class="time-tile time-tile--dimmable" id="tile-days">
+              <span class="time-value" id="val-days">00</span>
+              <div class="time-label">Ngày</div>
+            </div>
+            <div class="time-tile time-tile--dimmable" id="tile-hours">
+              <span class="time-value" id="val-hours">00</span>
+              <div class="time-label">Giờ</div>
+            </div>
+            <div class="time-tile" id="tile-mins">
+              <span class="time-value" id="val-mins">00</span>
+              <div class="time-label">Phút</div>
+            </div>
+            <div class="time-tile time-tile--seconds" id="tile-secs">
+              <span class="tick-ripple" id="tick-ripple" aria-hidden="true"></span>
+              <span class="time-value" id="val-secs">00</span>
+              <div class="time-label">Giây</div>
+            </div>
+          </div>
+
+          <div class="precision-ring-wrap" id="precision-ring-wrap">
+            <div class="ring-svg-box">
+              <svg class="ring-svg" viewBox="0 0 72 72" aria-hidden="true">
+                <defs>
+                  <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#0ea5e9" />
+                    <stop offset="100%" stop-color="#f59e0b" />
+                  </linearGradient>
+                </defs>
+                <circle class="ring-track" cx="36" cy="36" r="30" />
+                <circle class="ring-progress" id="ring-progress" cx="36" cy="36" r="30" />
+              </svg>
+              <div class="ring-center" id="ring-center">00s</div>
+            </div>
+            <div class="ring-meta">
+              <div class="ring-meta-title" id="ring-meta-title">Phút gần cuối</div>
+              <div class="ring-meta-sub" id="ring-meta-sub">Chuẩn bị quay số tự động</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="countdown-foot-bar" aria-hidden="true">
+          <div class="countdown-foot-fill" id="countdown-foot-fill"></div>
+        </div>
+      </section>
+
+      <section class="results-grid" aria-label="Hai con số may mắn">
+        <article class="prize-card" id="card-1">
+          <div class="prize-top">
+            <span class="prize-badge">Con số may mắn #1</span>
+            <span class="prize-time">18:00:00 · 20/11</span>
+          </div>
+          <div class="prize-name">01 Tài khoản Google AI Pro (Add Family)</div>
+          <div class="reel-group" id="reel-group-1" aria-label="Con số may mắn thứ nhất"></div>
+          <div class="prize-footer" id="footer-1">Chờ công bố lúc 18:00:00</div>
+        </article>
+
+        <article class="prize-card" id="card-2">
+          <div class="prize-top">
+            <span class="prize-badge">Con số may mắn #2</span>
+            <span class="prize-time">18:01:00 · 20/11</span>
+          </div>
+          <div class="prize-name">01 Tài khoản Google AI Pro (Add Family)</div>
+          <div class="reel-group" id="reel-group-2" aria-label="Con số may mắn thứ hai"></div>
+          <div class="gap-progress" aria-hidden="true">
+            <div class="gap-progress-fill" id="gap-progress-fill"></div>
+          </div>
+          <div class="prize-footer" id="footer-2">Công bố sau giải #1 đúng 1 phút</div>
+        </article>
+      </section>
+
+      <section class="rules-card" aria-label="Thể lệ minigame">
+        <div class="rules-header">
+          <h2>Thể lệ Minigame (Tóm gọn)</h2>
+          <span class="rules-chip">Khảo sát KHKT · ChemDex</span>
+        </div>
+
+        <ol class="rules-list">
+          <li class="rule-item">
+            <span class="rule-num">1</span>
+            <span>Nhập chính xác <strong>địa chỉ Gmail</strong> ở Câu 1 để nhận thông báo và trao thưởng.</span>
+          </li>
+          <li class="rule-item">
+            <span class="rule-num">2</span>
+            <span>Trải nghiệm nhanh <strong>nền tảng ChemDex</strong> và hoàn thành đầy đủ khảo sát đến cuối form.</span>
+          </li>
+          <li class="rule-item">
+            <span class="rule-num">3</span>
+            <span>Chọn <strong>Con số may mắn (1 – 999)</strong> ở cuối form; nhóm quay số và trao giải trực tiếp qua Gmail.</span>
+          </li>
+          <li class="rule-item">
+            <span class="rule-num">4</span>
+            <span><strong>2 giải thưởng:</strong> Tài khoản <strong>Google AI Pro (Add Family)</strong> công bố cách nhau 1 phút.</span>
+          </li>
+        </ol>
+
+        <div class="notice-strip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="8" x2="12" y2="12" />
+            <line x1="12" y1="16" x2="12.01" y2="16" />
+          </svg>
+          <span>Lưu ý: Mỗi người chỉ điền form 1 lần. Sẽ hủy kết quả những Gmail có dấu hiệu spam hoặc ảo.</span>
+        </div>
+
+        <div class="contact-bar">
+          <span>Thắc mắc dự án hoặc nhận thưởng, liên hệ: <strong>Dương Thanh Điền</strong></span>
+          <div class="contact-actions">
+            <a class="zalo-link" href="https://zalo.me/0971431683" target="_blank" rel="noopener noreferrer">
+              Zalo: 0971431683
+            </a>
+            <button type="button" class="copy-btn" id="copy-phone-btn">Sao chép SĐT</button>
+          </div>
+        </div>
+      </section>
+
+      <footer class="page-foot">
+        ChemDex · Báo cáo Khoa học Kỹ thuật (KHKT) · Công bố trực tuyến tại chem-dex.vercel.app/ket-qua-khao-sat
+      </footer>
+    </main>
+
+    <script>
+      (() => {
+        // Đặt false trước khi công bố chính thức nếu muốn ẩn nút mẫu thử khỏi giao diện
+        const SHOW_DEMO_CONTROLS = true;
+
+        // Mốc công bố: 18:00:00 và 18:01:00 ngày 20/11/2026 (Giờ Việt Nam UTC+7)
+        const REVEAL_1_TIME = Date.parse('2026-11-20T18:00:00+07:00');
+        const GAP_MS = 60 * 1000;
+        const REVEAL_2_TIME = REVEAL_1_TIME + GAP_MS;
+
+        // Hai con số may mắn (lưu dạng Base64 để tránh lộ trực tiếp khi xem nhanh mã nguồn)
+        const LUCKY_CODES = ['NTY0', 'NjM4'];
+        const decodeLucky = (code) => atob(code).padStart(3, '0').slice(-3);
+
+        const el = {
+          body: document.body,
+          statusText: document.getElementById('status-text'),
+          targetLabel: document.getElementById('target-label'),
+          stepWait: document.getElementById('step-wait'),
+          step1: document.getElementById('step-1'),
+          step2: document.getElementById('step-2'),
+          tileDays: document.getElementById('tile-days'),
+          tileHours: document.getElementById('tile-hours'),
+          valDays: document.getElementById('val-days'),
+          valHours: document.getElementById('val-hours'),
+          valMins: document.getElementById('val-mins'),
+          valSecs: document.getElementById('val-secs'),
+          tickRipple: document.getElementById('tick-ripple'),
+          ringWrap: document.getElementById('precision-ring-wrap'),
+          ringProgress: document.getElementById('ring-progress'),
+          ringCenter: document.getElementById('ring-center'),
+          ringTitle: document.getElementById('ring-meta-title'),
+          ringSub: document.getElementById('ring-meta-sub'),
+          footFill: document.getElementById('countdown-foot-fill'),
+          card1: document.getElementById('card-1'),
+          card2: document.getElementById('card-2'),
+          reelGroup1: document.getElementById('reel-group-1'),
+          reelGroup2: document.getElementById('reel-group-2'),
+          footer1: document.getElementById('footer-1'),
+          footer2: document.getElementById('footer-2'),
+          gapFill: document.getElementById('gap-progress-fill'),
+          demoToggle: document.getElementById('demo-toggle-btn'),
+          demoDock: document.getElementById('demo-dock'),
+          demoClockLabel: document.getElementById('demo-clock-label'),
+          demoSpeedBtn: document.getElementById('demo-speed-btn'),
+          demoExitBtn: document.getElementById('demo-exit-btn'),
+          soundBtn: document.getElementById('sound-toggle-btn'),
+          soundLabel: document.getElementById('sound-label'),
+          soundWave: document.getElementById('sound-wave-1'),
+          copyBtn: document.getElementById('copy-phone-btn'),
+          confettiCanvas: document.getElementById('confetti-canvas'),
+        };
+
+        const RING_CIRCUMFERENCE = 2 * Math.PI * 30;
+        el.ringProgress.style.strokeDasharray = String(RING_CIRCUMFERENCE);
+
+        // Khởi tạo 3 ô quay số cho mỗi giải
+        function buildReels(container) {
+          container.innerHTML = '';
+          const cells = [];
+          for (let i = 0; i < 3; i++) {
+            const box = document.createElement('div');
+            box.className = 'digit-box';
+
+            const veil = document.createElement('div');
+            veil.className = 'digit-veil';
+            veil.textContent = '?';
+
+            const reel = document.createElement('div');
+            reel.className = 'digit-reel';
+            for (let cycle = 0; cycle < 3; cycle++) {
+              for (let d = 0; d < 10; d++) {
+                const item = document.createElement('div');
+                item.className = 'digit-item';
+                item.textContent = String(d);
+                reel.appendChild(item);
+              }
+            }
+
+            box.append(veil, reel);
+            container.appendChild(box);
+            cells.push({ box, reel, veil });
+          }
+          return cells;
+        }
+
+        const reels1 = buildReels(el.reelGroup1);
+        const reels2 = buildReels(el.reelGroup2);
+
+        // Web Audio tổng hợp tiếng tick và chuông chúc mừng nhẹ
+        let audioCtx = null;
+        let soundEnabled = false;
+
+        function ensureAudio() {
+          if (!soundEnabled) return null;
+          if (!audioCtx) {
+            const Ctx = window.AudioContext || window.webkitAudioContext;
+            if (Ctx) audioCtx = new Ctx();
+          }
+          if (audioCtx && audioCtx.state === 'suspended') {
+            audioCtx.resume().catch(() => {});
+          }
+          return audioCtx;
+        }
+
+        function playTick(isCrescendo) {
+          const ctx = ensureAudio();
+          if (!ctx) return;
+          const now = ctx.currentTime;
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(isCrescendo ? 920 : 660, now);
+          osc.frequency.exponentialRampToValueAtTime(isCrescendo ? 580 : 420, now + 0.045);
+          gain.gain.setValueAtTime(isCrescendo ? 0.08 : 0.04, now);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.055);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.06);
+        }
+
+        function playChime() {
+          const ctx = ensureAudio();
+          if (!ctx) return;
+          const notes = [523.25, 659.25, 783.99, 1046.5];
+          notes.forEach((freq, idx) => {
+            const start = ctx.currentTime + idx * 0.09;
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(freq, start);
+            gain.gain.setValueAtTime(0.0001, start);
+            gain.gain.linearRampToValueAtTime(0.09, start + 0.02);
+            gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.45);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(start);
+            osc.stop(start + 0.48);
+          });
+        }
+
+        el.soundBtn.addEventListener('click', () => {
+          soundEnabled = !soundEnabled;
+          el.soundBtn.setAttribute('aria-pressed', String(soundEnabled));
+          el.soundLabel.textContent = soundEnabled ? 'Âm thanh: Bật' : 'Âm thanh: Tắt';
+          el.soundWave.setAttribute('opacity', soundEnabled ? '1' : '0.35');
+          if (soundEnabled) playTick(false);
+        });
+
+        // Pháo giấy canvas nhẹ nhàng trên nền trắng
+        const confetti = (() => {
+          const canvas = el.confettiCanvas;
+          const ctx = canvas.getContext('2d');
+          let particles = [];
+          let rafId = 0;
+          const palette = ['#2563eb', '#0ea5e9', '#f59e0b', '#10b981', '#ec4899'];
+
+          function resize() {
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
+            canvas.width = Math.floor(window.innerWidth * dpr);
+            canvas.height = Math.floor(window.innerHeight * dpr);
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+          }
+
+          function step() {
+            ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+            particles = particles.filter((p) => {
+              p.vy += 0.16;
+              p.vx *= 0.992;
+              p.x += p.vx;
+              p.y += p.vy;
+              p.rot += p.vrot;
+              p.life -= 1;
+              if (p.life <= 0 || p.y > window.innerHeight + 30) return false;
+              const alpha = Math.min(1, p.life / 35);
+              ctx.save();
+              ctx.globalAlpha = alpha;
+              ctx.translate(p.x, p.y);
+              ctx.rotate(p.rot);
+              ctx.fillStyle = p.color;
+              ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+              ctx.restore();
+              return true;
+            });
+            if (particles.length > 0) {
+              rafId = requestAnimationFrame(step);
+            } else {
+              rafId = 0;
+              ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+            }
+          }
+
+          window.addEventListener('resize', resize);
+          resize();
+
+          return {
+            burst(count = 70) {
+              if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+              resize();
+              const w = window.innerWidth;
+              const origins = [w * 0.28, w * 0.72];
+              origins.forEach((ox) => {
+                for (let i = 0; i < Math.floor(count / 2); i++) {
+                  const angle = -Math.PI / 2 + (Math.random() - 0.5) * 1.4;
+                  const speed = 5 + Math.random() * 8.5;
+                  particles.push({
+                    x: ox,
+                    y: Math.min(window.innerHeight * 0.56, 360),
+                    vx: Math.cos(angle) * speed,
+                    vy: Math.sin(angle) * speed - 2,
+                    w: 6 + Math.random() * 5,
+                    h: 4 + Math.random() * 4,
+                    rot: Math.random() * Math.PI * 2,
+                    vrot: (Math.random() - 0.5) * 0.24,
+                    color: palette[Math.floor(Math.random() * palette.length)],
+                    life: 110 + Math.random() * 70,
+                  });
+                }
+              });
+              if (!rafId) rafId = requestAnimationFrame(step);
+            },
+            clear() {
+              particles = [];
+              if (rafId) {
+                cancelAnimationFrame(rafId);
+                rafId = 0;
+              }
+              ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+            },
+          };
+        })();
+
+        // Trạng thái hệ thống và đồng bộ giờ
+        let clockOffsetMs = 0;
+        let isDemo = false;
+        let demoAnchorTime = REVEAL_1_TIME - 12_000;
+        let demoStartPerf = performance.now();
+        let demoSpeed = 1;
+        let revealEpoch = 0;
+        let revealed1 = false;
+        let revealed2 = false;
+        let prevTickTime = null;
+        let lastKey = { days: '', hours: '', mins: '', secs: '' };
+        let lastPhase = '';
+
+        function getVirtualNow() {
+          if (isDemo) {
+            return demoAnchorTime + (performance.now() - demoStartPerf) * demoSpeed;
+          }
+          return Date.now() + clockOffsetMs;
+        }
+
+        function resetSlotGroup(cells, card, footerEl, defaultFooter) {
+          card.classList.remove('is-revealed', 'is-next', 'is-imminent', 'is-counting');
+          footerEl.textContent = defaultFooter;
+          cells.forEach(({ box, reel }) => {
+            box.classList.remove('is-spinning', 'is-locked');
+            reel.style.transition = 'none';
+            reel.style.transform = 'translateY(0)';
+          });
+        }
+
+        function lockSlotGroupImmediate(cells, card, footerEl, digitsStr, revealedFooter) {
+          card.classList.remove('is-next', 'is-imminent', 'is-counting');
+          card.classList.add('is-revealed');
+          footerEl.textContent = revealedFooter;
+          cells.forEach(({ box, reel }, idx) => {
+            const d = Number(digitsStr[idx]);
+            box.classList.remove('is-spinning');
+            box.classList.add('is-locked');
+            reel.style.transition = 'none';
+            reel.style.transform = `translateY(calc(-1 * ${20 + d} * var(--slot-h)))`;
+          });
+        }
+
+        function animateSlotGroup(cells, card, footerEl, digitsStr, revealedFooter, confettiCount) {
+          const epoch = revealEpoch;
+          card.classList.remove('is-next', 'is-imminent', 'is-counting');
+          footerEl.textContent = 'Đang quay số công bố...';
+
+          const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          if (reduceMotion) {
+            lockSlotGroupImmediate(cells, card, footerEl, digitsStr, revealedFooter);
+            playChime();
+            return;
+          }
+
+          let lockedCount = 0;
+          cells.forEach(({ box, reel }, idx) => {
+            const targetDigit = Number(digitsStr[idx]);
+            const startDigit = (targetDigit + 3 + idx * 2) % 10;
+            const duration = 1050 + idx * 550;
+            const delay = idx * 120;
+
+            box.classList.remove('is-locked');
+            box.classList.add('is-spinning');
+            reel.style.transition = 'none';
+            reel.style.transform = `translateY(calc(-1 * ${startDigit} * var(--slot-h)))`;
+            void reel.offsetHeight;
+
+            reel.style.transition = `transform ${duration}ms cubic-bezier(0.11, 0.88, 0.22, 1) ${delay}ms`;
+            reel.style.transform = `translateY(calc(-1 * ${20 + targetDigit} * var(--slot-h)))`;
+
+            setTimeout(() => {
+              if (epoch !== revealEpoch) return;
+              box.classList.remove('is-spinning');
+              box.classList.add('is-locked');
+              lockedCount++;
+              if (lockedCount === 3) {
+                card.classList.add('is-revealed');
+                footerEl.textContent = revealedFooter;
+                confetti.burst(confettiCount);
+                playChime();
+              }
+            }, duration + delay + 30);
+          });
+        }
+
+        const pad2 = (n) => String(Math.max(0, n)).padStart(2, '0');
+
+        function setDigitTile(elVal, key, nextVal, triggerRipple = false, isCrescendo = false) {
+          if (lastKey[key] === nextVal) return;
+          lastKey[key] = nextVal;
+          elVal.textContent = nextVal;
+          elVal.classList.remove('is-tick');
+          void elVal.offsetWidth;
+          elVal.classList.add('is-tick');
+          if (triggerRipple) {
+            el.tickRipple.classList.remove('is-ringing');
+            void el.tickRipple.offsetWidth;
+            el.tickRipple.classList.add('is-ringing');
+            if (isCrescendo) playTick(true);
+            else if (lastPhase === 'final-minute') playTick(false);
+          }
+        }
+
+        function formatVnTime(ms) {
+          return new Intl.DateTimeFormat('vi-VN', {
+            timeZone: 'Asia/Ho_Chi_Minh',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour12: false,
+          }).format(new Date(ms));
+        }
+
+        function updateTick() {
+          const now = getVirtualNow();
+          const isInitial = prevTickTime === null;
+
+          if (isDemo) {
+            el.demoClockLabel.textContent = formatVnTime(now);
+          }
+
+          // Kiểm tra kích hoạt công bố Giải #1 và Giải #2
+          if (!revealed1 && now >= REVEAL_1_TIME) {
+            revealed1 = true;
+            const num1 = decodeLucky(LUCKY_CODES[0]);
+            if (isInitial) {
+              lockSlotGroupImmediate(
+                reels1,
+                el.card1,
+                el.footer1,
+                num1,
+                'Đã công bố lúc 18:00:00 · Trao giải qua Gmail',
+              );
+            } else {
+              animateSlotGroup(
+                reels1,
+                el.card1,
+                el.footer1,
+                num1,
+                'Đã công bố lúc 18:00:00 · Trao giải qua Gmail',
+                72,
+              );
+            }
+          }
+
+          if (!revealed2 && now >= REVEAL_2_TIME) {
+            revealed2 = true;
+            const num2 = decodeLucky(LUCKY_CODES[1]);
+            if (isInitial) {
+              lockSlotGroupImmediate(
+                reels2,
+                el.card2,
+                el.footer2,
+                num2,
+                'Đã công bố lúc 18:01:00 · Trao giải qua Gmail',
+              );
+            } else {
+              animateSlotGroup(
+                reels2,
+                el.card2,
+                el.footer2,
+                num2,
+                'Đã công bố lúc 18:01:00 · Trao giải qua Gmail',
+                96,
+              );
+            }
+          }
+
+          // Xác định mục tiêu đếm ngược hiện tại
+          let remainingMs = 0;
+          let activeTarget = 'done';
+          if (now < REVEAL_1_TIME) {
+            remainingMs = REVEAL_1_TIME - now;
+            activeTarget = 'first';
+          } else if (now < REVEAL_2_TIME) {
+            remainingMs = REVEAL_2_TIME - now;
+            activeTarget = 'second';
+          }
+
+          const totalSeconds = Math.ceil(Math.max(0, remainingMs) / 1000);
+          const days = Math.floor(totalSeconds / 86400);
+          const hours = Math.floor((totalSeconds % 86400) / 3600);
+          const mins = Math.floor((totalSeconds % 3600) / 60);
+          const secs = totalSeconds % 60;
+
+          // Xác định giai đoạn hiệu ứng
+          let phase = 'normal';
+          if (activeTarget === 'done') {
+            phase = 'completed';
+          } else if (totalSeconds <= 10) {
+            phase = 'crescendo';
+          } else if (totalSeconds <= 60) {
+            phase = 'final-minute';
+          } else if (totalSeconds <= 300) {
+            phase = 'warm';
+          }
+
+          if (phase !== lastPhase) {
+            lastPhase = phase;
+            el.body.dataset.phase = phase;
+          }
+
+          // Cập nhật thanh tiến trình & trạng thái
+          el.tileDays.classList.toggle('is-zero', days === 0);
+          el.tileHours.classList.toggle('is-zero', days === 0 && hours === 0);
+
+          if (activeTarget === 'first') {
+            el.stepWait.className = 't-step is-active';
+            el.step1.className = 't-step';
+            el.step2.className = 't-step';
+            el.targetLabel.textContent = 'Mốc mở số #1: 18:00:00 · 20/11/2026 (GMT+7)';
+            el.card1.classList.toggle('is-next', totalSeconds <= 300);
+            el.card1.classList.toggle('is-imminent', totalSeconds <= 10);
+            el.card2.classList.remove('is-next', 'is-imminent', 'is-counting');
+
+            if (phase === 'crescendo') {
+              el.statusText.textContent = `Những giây cuối cùng! Mở Con số #1 sau ${totalSeconds} giây`;
+            } else if (phase === 'final-minute') {
+              el.statusText.textContent = '60 giây cuối trước giờ công bố Con số may mắn #1';
+            } else if (phase === 'warm') {
+              el.statusText.textContent = 'Sắp đến giờ công bố · Những phút cuối';
+            } else {
+              el.statusText.textContent = 'Đang đếm ngược đến 18:00 · 20/11/2026';
+            }
+          } else if (activeTarget === 'second') {
+            el.stepWait.className = 't-step is-done';
+            el.step1.className = 't-step is-done';
+            el.step2.className = 't-step is-active';
+            el.targetLabel.textContent = 'Mốc mở số #2: 18:01:00 (cách số #1 đúng 1 phút)';
+            el.card2.classList.add('is-next', 'is-counting');
+            el.card2.classList.toggle('is-imminent', totalSeconds <= 10);
+            const gapRatio = Math.min(100, Math.max(0, ((GAP_MS - remainingMs) / GAP_MS) * 100));
+            el.gapFill.style.width = `${gapRatio.toFixed(1)}%`;
+            if (!revealed2) {
+              el.footer2.textContent = `Công bố sau ${pad2(mins)}:${pad2(secs)}…`;
+            }
+
+            if (phase === 'crescendo') {
+              el.statusText.textContent = `Những giây cuối cùng! Mở Con số #2 sau ${totalSeconds} giây`;
+            } else {
+              el.statusText.textContent = 'Đã mở Con số #1 · Đếm ngược 1 phút công bố Con số #2';
+            }
+          } else {
+            el.stepWait.className = 't-step is-done';
+            el.step1.className = 't-step is-done';
+            el.step2.className = 't-step is-done';
+            el.targetLabel.textContent = 'Hoàn tất công bố · 18:00 & 18:01 · 20/11/2026';
+            el.statusText.textContent = 'Đã công bố đủ 2 Con số may mắn · Chúc mừng các bạn trúng thưởng!';
+            el.card1.classList.remove('is-next', 'is-imminent');
+            el.card2.classList.remove('is-next', 'is-imminent', 'is-counting');
+          }
+
+          // Cập nhật 4 ô đồng hồ
+          const shouldRipple =
+            activeTarget !== 'done' && (phase === 'final-minute' || phase === 'crescendo' || phase === 'warm');
+          setDigitTile(el.valDays, 'days', pad2(days));
+          setDigitTile(el.valHours, 'hours', pad2(hours));
+          setDigitTile(el.valMins, 'mins', pad2(mins));
+          setDigitTile(el.valSecs, 'secs', pad2(secs), shouldRipple, phase === 'crescendo');
+
+          // Cập nhật vòng tròn tiến trình ở những phút cuối (<= 5 phút hoặc khoảng chờ 1 phút)
+          const showRing = activeTarget !== 'done' && remainingMs <= 300_000;
+          el.ringWrap.classList.toggle('is-visible', showRing);
+          if (showRing) {
+            const windowMs = activeTarget === 'second' || remainingMs <= 60_000 ? 60_000 : 300_000;
+            const ratio = Math.min(1, Math.max(0, remainingMs / windowMs));
+            el.ringProgress.style.strokeDashoffset = String(RING_CIRCUMFERENCE * (1 - ratio));
+            el.ringCenter.textContent = totalSeconds > 60 ? `${mins}p${pad2(secs)}` : `${totalSeconds}s`;
+            if (activeTarget === 'second') {
+              el.ringTitle.textContent = 'Khoảng cách 1 phút';
+              el.ringSub.textContent = 'Đếm ngược đến Con số #2';
+            } else if (totalSeconds <= 10) {
+              el.ringTitle.textContent = 'Khoảnh khắc mở số';
+              el.ringSub.textContent = 'Sẵn sàng công bố Giải #1';
+            } else if (totalSeconds <= 60) {
+              el.ringTitle.textContent = '60 giây cuối';
+              el.ringSub.textContent = 'Chuẩn bị quay Con số #1';
+            } else {
+              el.ringTitle.textContent = '5 phút cuối';
+              el.ringSub.textContent = 'Sắp đến giờ công bố';
+            }
+          }
+
+          // Thanh tiến trình đáy thẻ đồng hồ
+          if (activeTarget === 'done') {
+            el.footFill.style.width = '100%';
+          } else if (activeTarget === 'second') {
+            el.footFill.style.width = `${(((GAP_MS - remainingMs) / GAP_MS) * 100).toFixed(1)}%`;
+          } else if (remainingMs <= 300_000) {
+            el.footFill.style.width = `${(((300_000 - remainingMs) / 300_000) * 100).toFixed(1)}%`;
+          } else {
+            el.footFill.style.width = '12%';
+          }
+
+          prevTickTime = now;
+        }
+
+        // Khởi động chế độ mẫu thử
+        function startDemoPreset(presetName) {
+          revealEpoch++;
+          isDemo = true;
+          confetti.clear();
+          prevTickTime = null;
+          lastKey = { days: '', hours: '', mins: '', secs: '' };
+
+          document.querySelectorAll('.demo-btn[data-preset]').forEach((btn) => {
+            btn.classList.toggle('is-active', btn.dataset.preset === presetName);
+          });
+
+          if (presetName === 'five-min') {
+            revealed1 = false;
+            revealed2 = false;
+            resetSlotGroup(reels1, el.card1, el.footer1, 'Chờ công bố lúc 18:00:00');
+            resetSlotGroup(reels2, el.card2, el.footer2, 'Công bố sau giải #1 đúng 1 phút');
+            demoAnchorTime = REVEAL_1_TIME - 299_500;
+          } else if (presetName === 'one-min') {
+            revealed1 = false;
+            revealed2 = false;
+            resetSlotGroup(reels1, el.card1, el.footer1, 'Chờ công bố lúc 18:00:00');
+            resetSlotGroup(reels2, el.card2, el.footer2, 'Công bố sau giải #1 đúng 1 phút');
+            demoAnchorTime = REVEAL_1_TIME - 65_000;
+          } else if (presetName === 'second-gap') {
+            revealed1 = true;
+            revealed2 = false;
+            lockSlotGroupImmediate(
+              reels1,
+              el.card1,
+              el.footer1,
+              decodeLucky(LUCKY_CODES[0]),
+              'Đã công bố lúc 18:00:00 · Trao giải qua Gmail',
+            );
+            resetSlotGroup(reels2, el.card2, el.footer2, 'Công bố sau giải #1 đúng 1 phút');
+            demoAnchorTime = REVEAL_2_TIME - 8_200;
+          } else {
+            // Mặc định: 12 giây cuối trước Giải #1 -> mở #1 -> đếm 1 phút -> mở #2
+            revealed1 = false;
+            revealed2 = false;
+            resetSlotGroup(reels1, el.card1, el.footer1, 'Chờ công bố lúc 18:00:00');
+            resetSlotGroup(reels2, el.card2, el.footer2, 'Công bố sau giải #1 đúng 1 phút');
+            demoAnchorTime = REVEAL_1_TIME - 12_200;
+          }
+
+          demoStartPerf = performance.now();
+          el.demoDock.classList.add('is-open');
+          el.demoToggle.setAttribute('aria-pressed', 'true');
+          updateTick();
+        }
+
+        function exitDemo() {
+          revealEpoch++;
+          isDemo = false;
+          demoSpeed = 1;
+          el.demoSpeedBtn.textContent = 'Tốc độ: 1x';
+          confetti.clear();
+          prevTickTime = null;
+          lastKey = { days: '', hours: '', mins: '', secs: '' };
+          el.demoDock.classList.remove('is-open');
+          el.demoToggle.setAttribute('aria-pressed', 'false');
+          document.querySelectorAll('.demo-btn[data-preset]').forEach((btn) => {
+            btn.classList.remove('is-active');
+          });
+
+          const realNow = Date.now() + clockOffsetMs;
+          revealed1 = realNow >= REVEAL_1_TIME;
+          revealed2 = realNow >= REVEAL_2_TIME;
+
+          if (revealed1) {
+            lockSlotGroupImmediate(
+              reels1,
+              el.card1,
+              el.footer1,
+              decodeLucky(LUCKY_CODES[0]),
+              'Đã công bố lúc 18:00:00 · Trao giải qua Gmail',
+            );
+          } else {
+            resetSlotGroup(reels1, el.card1, el.footer1, 'Chờ công bố lúc 18:00:00');
+          }
+
+          if (revealed2) {
+            lockSlotGroupImmediate(
+              reels2,
+              el.card2,
+              el.footer2,
+              decodeLucky(LUCKY_CODES[1]),
+              'Đã công bố lúc 18:01:00 · Trao giải qua Gmail',
+            );
+          } else {
+            resetSlotGroup(reels2, el.card2, el.footer2, 'Công bố sau giải #1 đúng 1 phút');
+          }
+
+          updateTick();
+        }
+
+        if (SHOW_DEMO_CONTROLS || new URLSearchParams(location.search).get('demo') === '1') {
+          el.demoToggle.hidden = false;
+          el.demoToggle.addEventListener('click', () => {
+            if (el.demoDock.classList.contains('is-open')) {
+              exitDemo();
+            } else {
+              demoSpeed = 1;
+              el.demoSpeedBtn.textContent = 'Tốc độ: 1x';
+              startDemoPreset('twelve-sec');
+            }
+          });
+
+          document.querySelectorAll('.demo-btn[data-preset]').forEach((btn) => {
+            btn.addEventListener('click', () => startDemoPreset(btn.dataset.preset));
+          });
+
+          el.demoSpeedBtn.addEventListener('click', () => {
+            const currentNow = getVirtualNow();
+            const speeds = [1, 5, 15];
+            demoSpeed = speeds[(speeds.indexOf(demoSpeed) + 1) % speeds.length];
+            demoAnchorTime = currentNow;
+            demoStartPerf = performance.now();
+            el.demoSpeedBtn.textContent = `Tốc độ: ${demoSpeed}x`;
+          });
+
+          el.demoExitBtn.addEventListener('click', exitDemo);
+        }
+
+        // Nút sao chép SĐT Zalo
+        el.copyBtn.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText('0971431683');
+            el.copyBtn.textContent = 'Đã chép!';
+            setTimeout(() => {
+              el.copyBtn.textContent = 'Sao chép SĐT';
+            }, 1800);
+          } catch {
+            el.copyBtn.textContent = '0971431683';
+          }
+        });
+
+        // Đồng bộ nhẹ giờ máy chủ (nếu khả dụng), dự phòng mượt bằng giờ thiết bị
+        async function syncServerClock() {
+          try {
+            const controller = new AbortController();
+            const timer = setTimeout(() => controller.abort(), 2500);
+            const t0 = Date.now();
+            const res = await fetch('/api/health', { cache: 'no-store', signal: controller.signal });
+            clearTimeout(timer);
+            const t1 = Date.now();
+            if (!res.ok) return;
+            const data = await res.json();
+            const serverMs = Date.parse(data?.time);
+            if (Number.isFinite(serverMs)) {
+              const clientMid = (t0 + t1) / 2;
+              const diff = serverMs - clientMid;
+              // Chỉ áp dụng hiệu chỉnh nếu chênh lệch > 1.5 giây để tránh jitter mạng nhỏ
+              if (Math.abs(diff) > 1500) {
+                clockOffsetMs = diff;
+              }
+            }
+          } catch {
+            // Bỏ qua lặng lẽ nếu chạy tĩnh không có API
+          }
+        }
+
+        // Vòng lặp mượt ~20fps khi có đồng hồ chạy để vòng SVG lướt êm, tiết kiệm CPU khi rảnh
+        function loop() {
+          updateTick();
+          const now = getVirtualNow();
+          const inActiveWindow = isDemo || (now >= REVEAL_1_TIME - 310_000 && now <= REVEAL_2_TIME + 5_000);
+          setTimeout(() => requestAnimationFrame(loop), inActiveWindow ? 48 : 250);
+        }
+
+        syncServerClock();
+        updateTick();
+        requestAnimationFrame(loop);
+      })();
+    </script>
+  </body>
+</html>

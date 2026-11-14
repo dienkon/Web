@@ -29,6 +29,7 @@ export type SolidMorphology =
   | 'LUSTROUS_PLATES';
 
 export interface ChemicalDefinition {
+  name_search?: string;
   formula: string;
   name_en: string;
   name_vi: string;

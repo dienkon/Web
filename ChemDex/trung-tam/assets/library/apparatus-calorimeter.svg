@@ -13,13 +13,13 @@
   <circle cx="710" cy="65" r="170" fill="#ffffff" opacity="0.06"/>
   <circle cx="120" cy="390" r="190" fill="#ffffff" opacity="0.05"/>
   <g transform="translate(48, 108)">
-    <text x="0" y="0" fill="#bae6fd" font-family="system-ui, sans-serif" font-weight="800" font-size="11" letter-spacing="1">DI SẢN THỰC NGHIỆM · NHIỆT LƯỢNG KẾ NƯỚC ĐÁ (CALORIMETER)</text>
+    <text x="0" y="0" fill="#bae6fd" font-family="system-ui, sans-serif" font-weight="800" font-size="11" letter-spacing="1">DI SẢN THỰC NGHIỆM · NHIỆT LƯỢNG KẾ water ĐÁ (CALORIMETER)</text>
     <text x="0" y="38" fill="#ffffff" font-family="system-ui, sans-serif" font-weight="800" font-size="24">
       <tspan x="0" dy="0">Cân Đo Lượng Nhiệt Phản Ứng &amp;</tspan>
       <tspan x="0" dy="32">Bình Minh Của Nhiệt Động Học</tspan>
     </text>
     <text x="0" y="140" fill="#e0f2fe" font-family="system-ui, sans-serif" font-weight="500" font-size="13.5" opacity="0.95">
-      <tspan x="0" dy="0">Antoine Lavoisier và Pierre-Simon Laplace (1780) chế tạo</tspan><tspan x="0" dy="21">nhiệt lượng kế vỏ băng kép: khối lượng nước đá tan chảy</tspan><tspan x="0" dy="21">đo lường chính xác enthalpy phản ứng và hô hấp tế bào.</tspan>
+      <tspan x="0" dy="0">Antoine Lavoisier và Pierre-Simon Laplace (1780) chế tạo</tspan><tspan x="0" dy="21">nhiệt lượng kế vỏ băng kép: khối lượng water đá tan chảy</tspan><tspan x="0" dy="21">đo lường chính xác enthalpy phản ứng và hô hấp tế bào.</tspan>
     </text>
   </g>
   <rect x="435" y="54" width="320" height="342" rx="22" fill="#0f172a" fill-opacity="0.32" stroke="#ffffff" stroke-opacity="0.22" stroke-width="1.5"/>
@@ -38,7 +38,7 @@
       <rect x="205" y="150" width="10" height="10" fill="#e0f2fe"/>
       <!-- Water drainage tube -->
       <line x1="160" y1="220" x2="160" y2="250" stroke="#38bdf8" stroke-width="4"/>
-      <text x="160" y="265" text-anchor="middle" fill="#e0f2fe" font-family="sans-serif" font-weight="800" font-size="14">Nước đá tan chảy: Q = m · Lf</text>
+      <text x="160" y="265" text-anchor="middle" fill="#e0f2fe" font-family="sans-serif" font-weight="800" font-size="14">water đá tan chảy: Q = m · Lf</text>
     
     <text x="160" y="318" text-anchor="middle" fill="#f8fafc" opacity="0.85" font-family="sans-serif" font-weight="600" font-size="11.5">Định luật Hess · Enthalpy tạo thành ΔfH° · Lavoisier &amp; Laplace 1780</text>
   </g>

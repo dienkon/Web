@@ -1,3 +1,4 @@
+import {CHEMICAL_NAMING_INSTRUCTION} from '../chemistry/naming.js';
 import { GoogleGenAI } from "@google/genai";
 const windows = new Map<string, { count: number; until: number }>();
 export default async function handler(req: any, res: any) {
@@ -60,6 +61,7 @@ export default async function handler(req: any, res: any) {
           : process.env.GEMINI_MODEL || "gemini-2.5-flash",
       contents: body.contents,
       config: {
+        systemInstruction: CHEMICAL_NAMING_INSTRUCTION,
         temperature: 0.2,
         maxOutputTokens: Math.max(
           32,

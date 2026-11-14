@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, Bookmark, Clock, Sun, Moon, PanelLeftClose, PanelLeftOpen, Bell, Check, X, Trash2 } from 'lucide-react';
+import { SlidersHorizontal, Menu, Bookmark, Clock, Sun, Moon, PanelLeftClose, PanelLeftOpen, Bell, Check, X, Trash2 } from 'lucide-react';
 import { SearchBar } from './SearchBar';
 import { auth, db } from '../lib/firebase';
 import { collection, query, where, orderBy, limit, onSnapshot, doc, updateDoc, deleteDoc, writeBatch } from 'firebase/firestore';
@@ -114,7 +114,7 @@ export function Header({
   };
 
   return (
-    <header className={`sticky top-0 z-30 backdrop-blur-md border-b border-slate-700/50 no-print flex flex-col justify-center ${isCommunity ? 'bg-slate-900/90' : 'bg-[#1E293B]/90'}`}>
+    <header className={`sticky top-[var(--cd-mobile-header-height,0px)] z-30 backdrop-blur-md border-b border-slate-700/50 no-print flex flex-col justify-center ${isCommunity ? 'bg-slate-900/90' : 'bg-[#1E293B]/90'}`}>
       <div className="h-16 flex items-center justify-between px-4 sm:px-6 lg:px-8 w-full">
         <div className="flex items-center gap-3 sm:gap-4 flex-1">
           {/* Desktop Sidebar Toggle Button */}
@@ -122,7 +122,7 @@ export function Header({
             <button
               onClick={onToggleDesktopSidebar}
               className="hidden lg:flex p-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors border border-slate-700/60"
-              title={isDesktopSidebarOpen ? "Ẩn thanh menu bên (PC)" : "Hiện thanh menu bên (PC)"}
+              title="Đóng hoặc mở menu"
             >
               {isDesktopSidebarOpen ? <PanelLeftClose size={20} /> : <PanelLeftOpen size={20} />}
             </button>
@@ -146,11 +146,11 @@ export function Header({
               <div className="flex items-center gap-4 lg:hidden">
                 <button 
                   onClick={onOpenMobileMenu}
-                  className="p-2 -ml-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+                  aria-label="Lọc tài liệu" title="Lọc tài liệu" className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
                 >
-                  <Menu size={24} />
+                  <SlidersHorizontal size={20} />
                 </button>
-                <h1 className="text-lg font-bold tracking-tight text-white">ChemDex</h1>
+                <h1 className="text-base font-bold tracking-tight text-white">Tài liệu</h1>
               </div>
             )}
           </div>
@@ -160,7 +160,7 @@ export function Header({
             <SearchBar 
               value={searchQuery} 
               onChange={onSearchChange} 
-              placeholder={isCommunity ? "Tìm bài viết, câu hỏi Hóa học (AI Phân tích)..." : "Tìm kiếm tài liệu Hóa học..."}
+              placeholder={isCommunity ? "Tìm bài viết, câu hỏi..." : "Tìm kiếm tài liệu Hóa học..."}
             />
           </div>
         </div>
@@ -256,7 +256,7 @@ export function Header({
                 onClick={onOpenBookmarks}
                 className="flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full bg-slate-800 text-sm font-medium hover:bg-slate-700 transition-colors border border-slate-700 text-white"
               >
-                <Bookmark size={16} className="text-yellow-500 fill-yellow-500" />
+                <Bookmark aria-label="Đã đánh dấu" size={16} className="text-yellow-500 fill-yellow-500" />
                 <span className="hidden lg:block">Đã đánh dấu</span>
               </button>
 
@@ -264,7 +264,7 @@ export function Header({
                 onClick={onOpenHistory}
                 className="flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full bg-slate-800 text-sm font-medium hover:bg-slate-700 transition-colors border border-slate-700 text-white"
               >
-                <Clock size={16} className="text-blue-400" />
+                <Clock aria-label="Lịch sử" size={16} className="text-blue-400" />
                 <span className="hidden lg:block">Lịch sử</span>
               </button>
             </>
@@ -277,7 +277,7 @@ export function Header({
         <SearchBar 
           value={searchQuery} 
           onChange={onSearchChange} 
-          placeholder={isCommunity ? "Tìm bài viết, câu hỏi (AI)..." : "Tìm kiếm..."}
+          placeholder={isCommunity ? "Tìm bài viết, câu hỏi..." : "Tìm kiếm..."}
         />
       </div>
     </header>

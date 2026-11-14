@@ -18,22 +18,25 @@ export const icon = (name) => `<svg viewBox="0 0 24 24" fill="none" stroke="curr
 export function mountSidebar() {
   if (typeof document === 'undefined') return;
   if (new URLSearchParams(location.search).get('embed') === '1' || document.getElementById('chemdex-sidebar')) return;
-  document.documentElement.dataset.theme = 'dark';
-  document.documentElement.classList.add('dark');
+  if (!document.documentElement.dataset.theme) {
+    document.documentElement.dataset.theme = 'dark';
+    document.documentElement.classList.add('dark');
+  }
   document.documentElement.classList.add('chemdex-shell');
-  try { document.documentElement.classList.toggle('sidebar-collapsed', localStorage.getItem('chemdex:sidebar-collapsed') === 'true'); } catch {}
+  document.documentElement.classList.add('sidebar-collapsed');
+  try { document.documentElement.classList.toggle('sidebar-collapsed', localStorage.getItem('chemdex:sidebar-collapsed') !== 'false'); } catch {}
   const path = location.pathname;
   const active = path.includes('cau-truc-3d') ? 'structures' : path.startsWith('/tien-ich') ? 'tools' : path.includes('tai-lieu-so') ? 'library' : path.includes('cong-dong') ? 'community' : path.includes('lab-safety') ? 'safety' : path.includes('lab-2d') ? 'lab2d' : path.includes('lab-3d') ? 'lab3d' : path.includes('on-tap') ? 'study' : path.includes('dau-truong') ? 'arena' : 'elements';
   const link = (href, label, key, symbol, color) => `<a href="${href}" class="cd-nav-link" ${key === active ? 'aria-current="page"' : ''} title="${label}" style="--nav-color:${color}">${icon(symbol)}<span class="cd-nav-label">${label}</span>${key === active ? '<span class="cd-active-dot"></span>' : ''}</a>`;
   const sidebar = document.createElement('aside');
   sidebar.id = 'chemdex-sidebar';
   sidebar.setAttribute('aria-label', 'Điều hướng ChemDex');
-  sidebar.innerHTML = `<a class="cd-brand" href="/" aria-label="ChemDex trang chủ"><span class="cd-logo">${icon('atom')}</span><span class="cd-nav-label">Chem<span>Dex</span></span></a><button class="cd-quick-search" id="open-search" aria-label="Tìm kiếm nhanh toàn web" title="Tìm kiếm nhanh (Ctrl+K)">${icon('search')}<span class="cd-nav-label">Tìm nhanh…</span><kbd class="cd-nav-label">Ctrl K</kbd></button><nav aria-label="Điều hướng chính">${link('/', 'Bảng Tuần Hoàn', 'elements', 'table', '#60a5fa')}${link('/trung-tam/tai-lieu-so/', 'Tài Liệu Số', 'library', 'book', '#34d399')}${link('/trung-tam/cong-dong/', 'Cộng đồng', 'community', 'users', '#38bdf8')}${link('/tien-ich/', 'Tiện Ích Học Tập', 'tools', 'tools', '#60a5fa')}${link('/tien-ich/cau-truc-3d/', 'Cấu Trúc 3D', 'structures', 'cube', '#34d399')}<details class="cd-lab-menu" ${['safety', 'lab2d', 'lab3d', 'study'].includes(active) ? 'open' : ''}><summary title="Thí Nghiệm" style="--nav-color:#c084fc">${icon('flask')}<span class="cd-nav-label">Thí Nghiệm</span><span class="cd-chevron">${icon('chevron')}</span></summary><div class="cd-submenu">${link('/lab-safety/', 'An Toàn Phòng Lab', 'safety', 'shield', '#34d399')}${link('/lab-2d/', 'Lab 2D', 'lab2d', 'flask', '#38bdf8')}${link('/lab-3d/', 'Lab 3D', 'lab3d', 'flask', '#22d3ee')}${link('/on-tap/', 'Ôn Tập Trắc Nghiệm', 'study', 'quiz', '#c084fc')}</div></details>${link('/dau-truong/', 'Đấu Trường Hóa Học', 'arena', 'trophy', '#facc15')}</nav><div class="cd-sidebar-bottom"><button id="cd-collapse" aria-label="Thu gọn sidebar" aria-expanded="true" title="Thu gọn sidebar">${icon('chevron')}<span class="cd-nav-label">Thu gọn thanh bên</span></button><div class="cd-user"><span class="cd-avatar">${icon('atom')}</span><span class="cd-nav-label"><strong>Không gian học tập</strong><small>Khám phá cùng ChemDex</small></span></div></div>`;
+  sidebar.innerHTML = `<button class="cd-menu-close" aria-label="Đóng menu điều hướng">×</button><a class="cd-brand" href="/" aria-label="ChemDex trang chủ"><span class="cd-logo">${icon('atom')}</span><span class="cd-nav-label">Chem<span>Dex</span></span></a><button class="cd-quick-search" id="open-search" aria-label="Tìm kiếm nhanh toàn web" title="Tìm kiếm nhanh (Ctrl+K)">${icon('search')}<span class="cd-nav-label">Tìm nhanh…</span><kbd class="cd-nav-label">Ctrl K</kbd></button><nav aria-label="Điều hướng chính">${link('/', 'Bảng Tuần Hoàn', 'elements', 'table', '#60a5fa')}${link('/trung-tam/tai-lieu-so/', 'Tài Liệu Số', 'library', 'book', '#34d399')}${link('/trung-tam/cong-dong/', 'Cộng đồng', 'community', 'users', '#38bdf8')}${link('/tien-ich/', 'Tiện Ích Học Tập', 'tools', 'tools', '#60a5fa')}${link('/tien-ich/cau-truc-3d/', 'Cấu Trúc 3D', 'structures', 'cube', '#34d399')}<details class="cd-lab-menu" ${['safety', 'lab2d', 'lab3d', 'study'].includes(active) ? 'open' : ''}><summary title="Thí Nghiệm" style="--nav-color:#c084fc">${icon('flask')}<span class="cd-nav-label">Thí Nghiệm</span><span class="cd-chevron">${icon('chevron')}</span></summary><div class="cd-submenu">${link('/lab-safety/', 'An Toàn Phòng Lab', 'safety', 'shield', '#34d399')}${link('/lab-2d/', 'Lab 2D', 'lab2d', 'flask', '#38bdf8')}${link('/lab-3d/', 'Lab 3D', 'lab3d', 'flask', '#22d3ee')}${link('/on-tap/', 'Ôn Tập Trắc Nghiệm', 'study', 'quiz', '#c084fc')}</div></details>${link('/dau-truong/', 'Đấu Trường Hóa Học', 'arena', 'trophy', '#facc15')}</nav><div class="cd-sidebar-bottom"><button id="cd-collapse" aria-label="Thu gọn menu" aria-expanded="true" title="Thu gọn menu">${icon('chevron')}<span class="cd-nav-label">Thu gọn thanh bên</span></button></div>`;
   document.body.prepend(sidebar);
   const overlay = document.createElement('button');
   overlay.className = 'cd-mobile-overlay'; overlay.setAttribute('aria-label', 'Đóng menu điều hướng'); overlay.tabIndex = -1;
   const mobile = document.createElement('button');
-  mobile.className = 'cd-mobile-toggle'; mobile.innerHTML = icon('menu'); mobile.setAttribute('aria-label', 'Mở menu điều hướng'); mobile.setAttribute('aria-expanded', 'false');
+  mobile.className = 'cd-mobile-toggle'; mobile.innerHTML = icon('menu') + '<span>ChemDex</span>'; mobile.setAttribute('aria-controls', 'chemdex-sidebar'); mobile.setAttribute('aria-label', 'Mở menu điều hướng'); mobile.setAttribute('aria-expanded', 'false');
   document.body.append(overlay, mobile);
   const toggleMobile = (force) => {
     const open = force ?? !document.documentElement.classList.contains('cd-menu-open');
@@ -41,13 +44,15 @@ export function mountSidebar() {
     mobile.setAttribute('aria-expanded', String(open));
     if (open) sidebar.querySelector('a').focus(); else mobile.focus();
   };
-  mobile.onclick = () => toggleMobile(); overlay.onclick = () => toggleMobile(false);
+  mobile.onclick = () => toggleMobile(); overlay.onclick = () => toggleMobile(false); sidebar.querySelector('.cd-menu-close').onclick = () => toggleMobile(false);
+  sidebar.querySelectorAll('a').forEach(link => link.addEventListener('click', () => { if (matchMedia('(max-width: 767px)').matches) toggleMobile(false); }));
+  matchMedia('(max-width: 767px)').addEventListener('change', () => { document.documentElement.classList.remove('cd-menu-open'); mobile.setAttribute('aria-expanded','false'); });
   window.addEventListener('chemdex:toggle-menu', () => matchMedia('(max-width: 767px)').matches ? toggleMobile() : sidebar.querySelector('#cd-collapse').click());
   const collapse = sidebar.querySelector('#cd-collapse');
   const sync = () => {
     const collapsed = document.documentElement.classList.contains('sidebar-collapsed');
     collapse.setAttribute('aria-expanded', String(!collapsed));
-    collapse.setAttribute('aria-label', collapsed ? 'Mở rộng sidebar' : 'Thu gọn sidebar');
+    collapse.setAttribute('aria-label', collapsed ? 'Mở rộng menu' : 'Thu gọn menu');
     collapse.title = collapse.getAttribute('aria-label');
     window.dispatchEvent(new Event('resize'));
   };

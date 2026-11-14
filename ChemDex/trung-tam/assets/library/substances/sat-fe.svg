@@ -16,14 +16,14 @@
   <!-- Left Identity Column -->
   <g transform="translate(48, 80)">
     <rect x="0" y="0" width="auto" height="24" rx="6" fill="#ffffff" fill-opacity="0.15"/>
-    <text x="10" y="16" fill="#fca5a5" font-family="system-ui, sans-serif" font-weight="800" font-size="11" letter-spacing="0.8">TRỤ CỘT NỀN LUYỆN KIM · SẮT &amp; QUẶNG HEMATIT</text>
+    <text x="10" y="16" fill="#fca5a5" font-family="system-ui, sans-serif" font-weight="800" font-size="11" letter-spacing="0.8">TRỤ CỘT NỀN LUYỆN KIM · iron &amp; QUẶNG HEMATIT</text>
     
     <text x="0" y="70" fill="#ffffff" font-family="system-ui, sans-serif" font-weight="900" font-size="44" letter-spacing="1">
       Hỗn hợp
     </text>
     
     <text x="0" y="112" fill="#f8fafc" font-family="system-ui, sans-serif" font-weight="800" font-size="22">
-      Sắt
+      iron
     </text>
     
     <text x="0" y="145" fill="#fca5a5" font-family="system-ui, sans-serif" font-weight="600" font-size="14">

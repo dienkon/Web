@@ -1,4 +1,22 @@
 #article-content { min-width: 0; overflow-wrap: anywhere; }
+#content-container, #view-details, #view-details > div, #detail-hero .flex-1 { min-width:0; max-width:100%; }
+#content-container { overscroll-behavior-x:contain; }
+#article-content img, #article-content video, #article-content iframe { max-width:100%; }
+#article-content pre, #article-content table { max-width:100%; }
+#article-content .katex-display { max-width:100%; overflow-x:auto; overflow-y:hidden; }
+#article-content .isotope-table-wrap { position:relative; max-width:100%; }
+#article-content .equation-latex, #article-content .method-equation { overflow-x:auto; overflow-y:hidden; }
+#element-contents summary { min-height:28px; }
+#nav-buttons-container { gap:12px; flex-wrap:wrap; }
+#nav-buttons-container button { min-width:0; max-width:100%; overflow-wrap:anywhere; }
+@media(max-width:767px) {
+  #detail-hero { padding:24px 16px; }
+  #view-details > .max-w-7xl { gap:16px; margin-top:16px; }
+  #article-content section { scroll-margin-top:64px; }
+  .element-contents-wrap { width:100%; }
+  #element-contents { position:static; }
+  #nav-buttons-container button { flex:1 1 120px; justify-content:center; padding:12px; }
+}
 #article-content section, #article-content .glass, #article-content .structure-visual-grid > * { min-width: 0; }
 #article-content .structure-visual-grid { grid-template-columns:minmax(0,1fr); gap:24px; }
 .structure-visual-grid > .visual-card > div:first-child { flex-wrap:wrap; }

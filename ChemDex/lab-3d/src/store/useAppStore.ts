@@ -3370,8 +3370,8 @@ export const useAppStore = create<AppState>((set, get) => {
     titrationHistory: [],
     clearTitrationHistory: () => set({ titrationHistory: [] }),
 
-    leftSidebarOpen: true,
-    rightSidebarOpen: true,
+    leftSidebarOpen: false,
+    rightSidebarOpen: false,
     toggleLeftSidebar: () => set(s => ({ leftSidebarOpen: !s.leftSidebarOpen })),
     toggleRightSidebar: () => set(s => ({ rightSidebarOpen: !s.rightSidebarOpen })),
     setRightSidebarOpen: (open) => set({ rightSidebarOpen: open }),

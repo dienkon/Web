@@ -16,18 +16,18 @@
   <!-- Left Identity Column -->
   <g transform="translate(48, 80)">
     <rect x="0" y="0" width="auto" height="24" rx="6" fill="#ffffff" fill-opacity="0.15"/>
-    <text x="10" y="16" fill="#2dd4bf" font-family="system-ui, sans-serif" font-weight="800" font-size="11" letter-spacing="0.8">HỢP CHẤT CỒN QUEN THUỘC · RƯỢU ETYLIC</text>
+    <text x="10" y="16" fill="#2dd4bf" font-family="system-ui, sans-serif" font-weight="800" font-size="11" letter-spacing="0.8">HỢP CHẤT CỒN QUEN THUỘC · ethanol</text>
     
     <text x="0" y="70" fill="#ffffff" font-family="system-ui, sans-serif" font-weight="900" font-size="44" letter-spacing="1">
       C₂H₅OH
     </text>
     
     <text x="0" y="112" fill="#f8fafc" font-family="system-ui, sans-serif" font-weight="800" font-size="22">
-      Etanol
+      ethanol
     </text>
     
     <text x="0" y="145" fill="#2dd4bf" font-family="system-ui, sans-serif" font-weight="600" font-size="14">
-      Nước cồn chưng cất trong suốt &amp; Ngọn lửa xanh lam nhạt
+      water cồn chưng cất trong suốt &amp; Ngọn lửa xanh lam nhạt
     </text>
     
     <g transform="translate(0, 175)">

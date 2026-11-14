@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-14T01:40:42.413Z",
+  "checkedAt": "2026-11-14T13:26:18.356Z",
   "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743209/",
   "referenceTemperature_c": 25,
   "steps": [
@@ -396,6 +396,20 @@
       "maximumAtomError_mol": 8.881784197001252e-16,
       "peakIodineWhileSulfite_M": 0,
       "finalColor": "#f8fafc"
+    }
+  ],
+  "transferEvidence": [
+    {
+      "mode": "pipette",
+      "interval_s": 0.25,
+      "materialBalance": "mass and Landolt inventories conserved",
+      "matchesBulkLedger": true
+    },
+    {
+      "mode": "airborne_drop",
+      "interval_s": 0.25,
+      "materialBalance": "mass and Landolt inventories conserved",
+      "matchesBulkLedger": true
     }
   ],
   "automatic": {

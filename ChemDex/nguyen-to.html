@@ -71,7 +71,7 @@
 </head>
   <body class="flex h-screen text-slate-200 overflow-hidden">
     <!-- MAIN CONTENT -->
-    <main class="flex-1 flex flex-col h-full overflow-hidden relative w-full">
+    <main class="flex-1 min-w-0 flex flex-col h-full overflow-hidden relative w-full">
       <!-- TOPBAR -->
       <header
         class="h-16 glass border-b border-slate-700/50 flex items-center justify-between px-4 md:px-6 z-10 shrink-0"
@@ -338,16 +338,12 @@
             class="max-w-7xl mx-auto px-4 md:px-6 mt-8 flex flex-col lg:flex-row gap-8 relative"
           >
             <!-- TOC Sidebar (Mục lục) -->
-            <div class="lg:w-1/4 shrink-0">
-              <div
-                class="glass p-5 rounded-2xl sticky top-6 border border-slate-700/80"
-              >
-                <h3
-                  class="text-lg font-bold text-white mb-4 flex items-center gap-2"
-                >
-                  <i class="fa-solid fa-list text-blue-400"></i> Mục lục
-                </h3>
-                <ul class="space-y-1 text-sm text-slate-400" id="article-toc">
+            <div class="element-contents-wrap lg:w-1/4 shrink-0 min-w-0">
+              <details id="element-contents" class="glass p-4 rounded-2xl sticky top-6 border border-slate-700/80">
+                <summary class="text-base font-bold text-white cursor-pointer">
+                  <i class="fa-solid fa-list text-blue-400"></i> Mục lục bài viết
+                </summary>
+                <ul class="space-y-1 text-sm text-slate-400" id="article-toc" style="margin-top:12px">
                   <li>
                     <a
                       href="#sec-general"
@@ -427,11 +423,11 @@
                 >
                   <i class="fa-solid fa-table-cells"></i> Về bảng tuần hoàn
                 </button>
-              </div>
+              </details>
             </div>
 
             <!-- Main Content (Bài viết) -->
-            <div class="lg:w-3/4 flex flex-col">
+            <div class="flex-1 min-w-0 flex flex-col">
               <div class="space-y-12" id="article-content">
                 <!-- Injected by JS -->
               </div>

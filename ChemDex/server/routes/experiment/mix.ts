@@ -1,3 +1,4 @@
+import {CHEMICAL_NAMING_INSTRUCTION} from '../chemistry/naming.js';
 import { GoogleGenAI } from "@google/genai";
 
 const BACKUP_GEMINI_KEY = '';
@@ -296,7 +297,7 @@ export default async function handler(req: any, res: any) {
         model: preferredModel,
         contents: [{ role: "user", parts: [{ text: input }] }],
         config: {
-          systemInstruction: SYSTEM_PROMPT,
+          systemInstruction: SYSTEM_PROMPT + '\n' + CHEMICAL_NAMING_INSTRUCTION,
           responseMimeType: "application/json",
         },
       });
@@ -305,7 +306,7 @@ export default async function handler(req: any, res: any) {
         model: "gemini-2.5-flash",
         contents: [{ role: "user", parts: [{ text: input }] }],
         config: {
-          systemInstruction: SYSTEM_PROMPT,
+          systemInstruction: SYSTEM_PROMPT + '\n' + CHEMICAL_NAMING_INSTRUCTION,
           responseMimeType: "application/json",
         },
       });

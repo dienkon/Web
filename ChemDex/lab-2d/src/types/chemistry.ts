@@ -143,6 +143,7 @@ export interface SubstancePhysicalProps {
 }
 
 export interface ChemicalDefinition {
+  name_search?: string;
   id: string;
   formula: string;
   name_en: string;

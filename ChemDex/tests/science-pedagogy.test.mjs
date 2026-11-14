@@ -187,74 +187,17 @@ test('curriculum-concepts.mjs helper functions work reliably', () => {
   assert.ok(leChatelierSearch.some((c) => c.id === 'chemical-equilibrium-le-chatelier'));
 });
 
-test('equation-chronicles.mjs generates dramatic reaction chronicles and guaranteed pioneers', () => {
-  const sampleReaction = {
-    id: 'rx_test',
-    family: 'ammonium_base',
-    equation: '(NH4)2SO4(aq) + 2KOH(aq) -> K2SO4(aq) + 2NH3(g) + 2H2O(l)',
-    reactants: [
-      { formula: '(NH4)2SO4', coefficient: 1, phase: 'aq' },
-      { formula: 'KOH', coefficient: 2, phase: 'aq' },
-    ],
-    products: [
-      { formula: 'K2SO4', coefficient: 1, phase: 'aq' },
-      { formula: 'NH3', coefficient: 2, phase: 'g' },
-      { formula: 'H2O', coefficient: 2, phase: 'l' },
-    ],
-    conditions: { description_vi: 'Kiềm đủ; làm ấm để NH3 thoát khỏi dung dịch.' },
-    observation_vi: 'Khí NH3 không màu mùi khai thoát ra làm xanh quỳ tím ẩm.',
-    explanation_vi: 'Ion NH4+ nhường proton cho OH-, tạo NH3 và nước.',
-    effects: { deltaH_kJ_per_mol: -44.5 },
-  };
-
-  const story = generateReactionStory(
-    sampleReaction,
-    'Con đường hình thành & điều chế #1',
-    'Amoniac',
-    'NH₃',
-    true,
-  );
-
-  assert.ok(story.includes('### Con đường hình thành & điều chế #1'));
-  assert.ok(story.includes('Bối cảnh lịch sử & Dấu ấn khám phá'));
-  assert.ok(story.includes('Vũ điệu va chạm phân tử & Cơ chế vi mô'));
-  assert.ok(story.includes('Kịch tính phòng thí nghiệm & Hiện tượng quan sát thực tế'));
-  assert.ok(story.includes('Giá trị ứng dụng & Dấu ấn văn minh'));
-  assert.ok(story.includes('Priestley'));
-
-  // Test guaranteed pioneers for various chemical types
-  const elemPioneers = getGuaranteedPioneers({
-    subject: { formula: 'Au' },
-    element: { symbol: 'Au', z: 79 },
-    formula: 'Au',
-    counts: { Au: 1 },
-  });
-  assert.ok(elemPioneers.length >= 1);
-  assert.ok(elemPioneers.some((p) => p.id === 'jabir-ibn-hayyan' || p.id === 'antoine-lavoisier'));
-
-  const sulfatePioneers = getGuaranteedPioneers({
-    subject: { formula: 'CuSO4' },
-    element: null,
-    formula: 'CuSO4',
-    counts: { Cu: 1, S: 1, O: 4 },
-  });
-  assert.ok(sulfatePioneers.length >= 1);
-  assert.ok(sulfatePioneers.some((p) => p.id === 'jabir-ibn-hayyan' || p.id === 'carl-wilhelm-scheele'));
-
-  const organicPioneers = getGuaranteedPioneers({
-    subject: { formula: 'C6H6', family: 'organic' },
-    element: null,
-    formula: 'C6H6',
-    counts: { C: 6, H: 6 },
-  });
-  assert.ok(organicPioneers.length >= 1);
-  assert.ok(organicPioneers.some((p) => p.id === 'august-kekule' || p.id === 'friedrich-wohler'));
-
-  // Test pioneer chapter formatting
-  const chapter = formatPioneerChapter(organicPioneers[0], 'Benzen', 'C₆H₆');
-  assert.ok(chapter.includes('Dấu ấn nhà khoa học tiên phong'));
-  assert.ok(chapter.includes('Nghị lực sống & Thăng trầm khoa học'));
-  assert.ok(chapter.includes('Giai thoại phòng thí nghiệm'));
-  assert.ok(chapter.includes('Đột phá thực nghiệm'));
+test('reaction chronicles use evidence instead of assigning generic histories and discoverers', () => {
+  const plain=generateReactionStory({equation:'(NH4)2SO4 + 2KOH -> K2SO4 + 2NH3 + 2H2O',family:'ammonium_base',reactants:[{formula:'(NH4)2SO4'},{formula:'KOH'}],products:[{formula:'K2SO4'},{formula:'NH3'},{formula:'H2O'}]},'Phản ứng','Ammonia','NH₃',true);
+  assert.ok(!plain.includes('Priestley'));
+  assert.ok(!plain.includes('Vũ điệu'));
+  assert.ok(!plain.includes('ΔrH'));
+  const haber=generateReactionStory({equation:'N2 + 3H2 ⇌ 2NH3',reactants:[{formula:'N2'},{formula:'H2'}],products:[{formula:'NH3'}]},'Tổng hợp','Ammonia','NH₃',true);
+  assert.match(haber,/Le Rossignol/);assert.match(haber,/sciencehistory.org/);
+  assert.deepEqual(getGuaranteedPioneers({subject:{formula:'XeF8'},formula:'XeF8',element:null}),[]);
+  assert.deepEqual(getGuaranteedPioneers({subject:{formula:'CuSO4'},formula:'CuSO4',element:null}),[]);
+  const benzene=getGuaranteedPioneers({subject:{formula:'C6H6'},formula:'C6H6',element:null});
+  assert.ok(benzene.some(p=>p.id==='august-kekule'));
+  const chapter=formatPioneerChapter(benzene[0],'Benzene','C₆H₆');
+  assert.ok(!chapter.includes('Giai thoại'));assert.match(chapter,/Nhà khoa học/);
 });
-

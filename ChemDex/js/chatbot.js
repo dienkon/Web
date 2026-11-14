@@ -558,7 +558,7 @@ async function sendChatMessage() {
     conversation.push({ role: 'user', text: userMsg }, { role: 'model', text: answer });
     if (conversation.length > 16) conversation.splice(0, conversation.length - 16);
   } catch (err) {
-    answer = err.name === 'TimeoutError' ? 'AI phản hồi quá lâu. Bạn có thể gửi lại câu hỏi.' : `Chưa kết nối được AI: ${err.message}. Các câu hỏi gợi ý vẫn dùng được với dữ liệu có sẵn.`;
+    answer = err.name === 'TimeoutError' ? 'AI phản hồi quá lâu. Bạn có thể gửi lại câu hỏi.' : 'Chưa kết nối được trợ lý. Bạn có thể thử lại sau; các câu hỏi gợi ý vẫn dùng được với dữ liệu có sẵn.';
   }
 
   const loading = document.getElementById("chat-loading");

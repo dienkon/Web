@@ -7,6 +7,8 @@ import { readComposition, auditEquation } from '../src/science/balance';
 import { AutoExperiment } from '../src/vfx/autoplay/AutoExperiment';
 import { useAppStore } from '../src/store/useAppStore';
 import type { SubstanceContent, VesselState } from '../src/types/chemistry';
+import { evolveAliquotContact, prepareAliquotContact } from '../src/engine/aliquotContactChemistry';
+import type { LiquidAliquot } from '../src/handling/aliquot';
 
 const output = 'artifacts/landolt-clock'; mkdirSync(output, { recursive: true });
 const row = (formula: string, moles: number, phase = 'aq'): SubstanceContent => ({ formula, moles, mass_g: moles * computeMolarMass(formula), phase });
@@ -47,6 +49,26 @@ for (const iodate of [0.0002, 0.001, 0.002]) for (const ratio of [1.5, 2.7, 3, 4
     maximumAtomError_mol, peakIodineWhileSulfite_M, finalColor: v.liquidColor });
 }
 
+const transferSample = sample(0.001, 2.7, 30);
+const transferAliquot: LiquidAliquot = { volume_ml: transferSample.volume_ml, mass_g: transferSample.mass_g,
+  temperature_c: transferSample.temperature_c, color: transferSample.liquidColor, contents: transferSample.contents,
+  substances: transferSample.substances };
+const transferEvidence = [];
+for (const mode of ['pipette', 'airborne_drop'] as const) {
+  const held = prepareAliquotContact(transferAliquot, 'iodine_clock');
+  assert.equal(held.reactionProgramId, 'iodine_clock');
+  const actual = evolveAliquotContact(held, 0.25);
+  const referenceStep = stepLandoltLedger(transferSample, 0.25)!;
+  const expected = { ...transferSample, ...referenceStep.patch };
+  const actualInventory = landoltInventory(actual.contents, actual.volume_ml)!;
+  const expectedInventory = landoltInventory(expected.contents, expected.volume_ml)!;
+  for (const key of ['iodate', 'iodide', 'iodine', 'sulfite', 'sulfate'] as const)
+    assert.ok(Math.abs(actualInventory[key] - expectedInventory[key]) < 1e-14, `${mode}: ${key} diverged from bulk`);
+  assert.ok(Math.abs(actual.mass_g - transferSample.mass_g) < 1e-10, `${mode}: sample mass changed`);
+  transferEvidence.push({ mode, interval_s: 0.25, materialBalance: 'mass and Landolt inventories conserved',
+    matchesBulkLedger: true });
+}
+
 await new Promise(resolve => setTimeout(resolve, 200));
 const e = new AutoExperiment('iodine_clock', true); await e.stocks.initialize();
 const before = useAppStore.getState(), initialMass = e.donors.reduce((sum, d) => sum + d.row.mass_g, 0);
@@ -69,7 +91,7 @@ assert.ok(automatic.workbenchUnchanged);
 const steps = LANDOLT_STEPS.map(s => ({ ...s, balance: auditEquation(s.reactants, s.products) }));
 assert.ok(steps.every(s => s.balance.valid));
 const report = { checkedAt: new Date().toISOString(), source: LANDOLT_SOURCE, referenceTemperature_c: 25,
-  steps, gridPoints: grid.length, grid, automatic, experimentallyCalibrated: false,
+  steps, gridPoints: grid.length, grid, transferEvidence, automatic, experimentallyCalibrated: false,
   limitations: ['Ideal concentrations and local fast equilibria.', 'No oxygen transfer or spatial fronts.',
     'No fitted temperature correction or calorimetry.', 'Starch color is an authored total-iodine proxy, not finite binding-site speciation.',
     'Run completion preserves trace material; it does not force exact stoichiometric exhaustion.'] };

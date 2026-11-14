@@ -45,12 +45,13 @@ Lượt chạy kết thúc khi khả năng phản ứng và lượng I₂/S(IV) 
 - [Audit vật chất và mạng phản ứng](../../artifacts/landolt-clock/audit.json): 24 mẫu, thay lượng iodate, tỉ lệ S(IV)/iodate và thể tích. Ba bước redox cân bằng; không có xanh ở các mẫu dư sulfite trong miền không trao đổi oxy. Tất cả kiểm tra nguyên tố, khối lượng và điện tích đạt.
 - Trong lượt auto được audit, iốt vượt ngưỡng hiển thị lúc khoảng 20,27 giây kể từ bắt đầu trình tự; lượt hoàn thành khoảng 146,18 giây. Đây là thời gian của mô hình, không phải số đo. Sai số khối lượng lớn nhất khoảng 5,7×10⁻¹⁴ g, bàn thủ công không thay đổi.
 - [Chromium](../../artifacts/landolt-clock/browser/audit.json): trong trước khi tiếp xúc chất khử, xanh đen ở cuối lượt; bốn lượng hiển thị trùng nhau khi đưa cùng mẫu sang bàn thủ công; không có lỗi JavaScript.
+- Aliquot hỗn hợp Landolt tiếp tục mạng ba bước trong **pipet đang giữ mẫu** và **giọt lỏng tự do trên quỹ đạo không khí**. Audit chạy mỗi trường hợp thêm 0,25 s qua cùng `stepLandoltLedger` như bulk; tổng iodate, iodide, I₂ quy đổi, S(IV), sulfate và khối lượng khớp mẫu bulk trong sai số số học. Chỉ hỗ trợ mẫu nước lỏng đủ điều kiện của `landoltInventory`, ở 0–90 °C; bằng chứng không mở rộng sang giọt trên tường, màng phễu, dòng liên tục, aerosol, bay hơi hay trao đổi oxy.
 - Toàn bộ 3.198 kiểm thử trong 238 tệp đạt; các kiểm thử liên quan được chạy lại sau chỉnh sửa cuối. TypeScript và production build đạt. [Báo cáo xác nhận](../../artifacts/landolt-clock/validation.json).
 
 ## Giới hạn còn lại
 
 Hằng số hiện tham chiếu 25 °C, chưa có luật Arrhenius cho cả mạng. Khoảng 0–90 °C chỉ là miền vận hành nước lỏng mà engine chấp nhận, **không xác nhận tốc độ hay pH định lượng trên toàn khoảng này**. Chưa xét truyền oxy, phản ứng gốc tự do, chuyển động đối lưu/phản ứng khuếch tán, hoạt độ, cân bằng HIO₃/HOI hoặc động học liên kết tinh bột. Nhiệt phản ứng và tự gia nhiệt chưa được tính cho mạng này; không tự dùng một enthalpy ước lượng cũ để làm mẫu nóng lên.
 
-Phản ứng của mẫu hỗn hợp khi đang nằm trong pipette/giọt đang bay cần được mở rộng riêng; mô hình truyền aliquot hiện chỉ tích phân các nhánh tiếp xúc đơn giản đã hỗ trợ. Vì vậy bản cập nhật này chưa chứng nhận mọi thao tác vận chuyển hoặc mọi điều kiện của toàn lab là tương đương thực nghiệm.
+Mạng Landolt được tiếp tục trong mẫu hỗn hợp ở pipet và giọt lỏng tự do đang bay như nêu trong bằng chứng. Giới hạn hỗ trợ là mẫu vẫn thuộc miền nước lỏng đủ điều kiện; không suy rộng sang dòng liên tục, màng ướt, bề mặt, aerosol hoặc trao đổi khối với không khí. Sự trùng khớp với bulk là nhất quán nội bộ mô hình, không phải xác nhận thực nghiệm cho mọi thao tác vận chuyển hoặc điều kiện toàn lab.
 
 Tái tạo bằng `npx tsx scripts/auditLandoltClock.ts`, `node scripts/auditLandoltClockBrowser.mjs` khi Vite ở cổng 6779, và `npm run equations:audit`.

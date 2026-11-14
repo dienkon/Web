@@ -19,7 +19,7 @@
       <tspan x="0" dy="32">Dung Môi Công Nghiệp Đa Năng</tspan>
     </text>
     <text x="0" y="140" fill="#e0f2fe" font-family="system-ui, sans-serif" font-weight="500" font-size="13.5" opacity="0.95">
-      <tspan x="0" dy="0">Nằm kẹp giữa hai gốc hiđrocacbon, nhóm C=O của xeton</tspan><tspan x="0" dy="21">mang moment lưỡng cực lớn nhưng không bị oxi hóa</tspan><tspan x="0" dy="21">bởi thuốc thử thông thường, tạo độ ổn định tuyệt vời.</tspan>
+      <tspan x="0" dy="0">Nằm kẹp giữa hai gốc hiđrocacbon, nhóm C=O của xeton</tspan><tspan x="0" dy="21">mang moment lưỡng cực lớn nhưng không bị oxygen hóa</tspan><tspan x="0" dy="21">bởi thuốc thử thông thường, tạo độ ổn định tuyệt vời.</tspan>
     </text>
   </g>
   <rect x="435" y="54" width="320" height="342" rx="22" fill="#0f172a" fill-opacity="0.32" stroke="#ffffff" stroke-opacity="0.22" stroke-width="1.5"/>
@@ -40,8 +40,8 @@
       <line x1="184" y1="165" x2="235" y2="195" stroke="#ffffff" stroke-width="5"/>
       <circle cx="245" cy="200" r="16" fill="#3b82f6" stroke="#ffffff" stroke-width="2"/>
       <text x="245" y="205" text-anchor="middle" fill="#ffffff" font-family="sans-serif" font-weight="800" font-size="14">R'</text>
-      <text x="160" y="252" text-anchor="middle" fill="#f0abfc" font-family="sans-serif" font-weight="800" font-size="15">R—CO—R' (Axeton)</text>
+      <text x="160" y="252" text-anchor="middle" fill="#f0abfc" font-family="sans-serif" font-weight="800" font-size="15">R—CO—R' (propan-2-one)</text>
     
-    <text x="160" y="318" text-anchor="middle" fill="#f8fafc" opacity="0.85" font-family="sans-serif" font-weight="600" font-size="11.5">Lưỡng cực C⁺=O⁻ · Bền với tác nhân oxi hóa yếu · Phản ứng iodoform</text>
+    <text x="160" y="318" text-anchor="middle" fill="#f8fafc" opacity="0.85" font-family="sans-serif" font-weight="600" font-size="11.5">Lưỡng cực C⁺=O⁻ · Bền với tác nhân oxygen hóa yếu · Phản ứng iodoform</text>
   </g>
 </svg>

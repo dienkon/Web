@@ -13,13 +13,13 @@
   <circle cx="710" cy="65" r="170" fill="#ffffff" opacity="0.06"/>
   <circle cx="120" cy="390" r="190" fill="#ffffff" opacity="0.05"/>
   <g transform="translate(48, 108)">
-    <text x="0" y="0" fill="#a5b4fc" font-family="system-ui, sans-serif" font-weight="800" font-size="11" letter-spacing="1">HÓA HỌC HỮU CƠ · AMIN &amp; DẪN XUẤT CHỨA NITƠ</text>
+    <text x="0" y="0" fill="#a5b4fc" font-family="system-ui, sans-serif" font-weight="800" font-size="11" letter-spacing="1">HÓA HỌC HỮU CƠ · AMIN &amp; DẪN XUẤT CHỨA nitrogen</text>
     <text x="0" y="38" fill="#ffffff" font-family="system-ui, sans-serif" font-weight="800" font-size="24">
-      <tspan x="0" dy="0">Đôi Điện Tử Tự Do Trên Nitơ &amp;</tspan>
+      <tspan x="0" dy="0">Đôi Điện Tử Tự Do Trên nitrogen &amp;</tspan>
       <tspan x="0" dy="32">Tính Bazơ Hữu Cơ Cơ Bản</tspan>
     </text>
     <text x="0" y="140" fill="#e0f2fe" font-family="system-ui, sans-serif" font-weight="500" font-size="13.5" opacity="0.95">
-      <tspan x="0" dy="0">Cặp electron tự do chưa liên kết của nguyên tử nitơ</tspan><tspan x="0" dy="21">dễ dàng nhận proton H⁺ hoặc tạo phức phối trí với kim</tspan><tspan x="0" dy="21">loại, làm nền tảng cho axit amin và protein sự sống.</tspan>
+      <tspan x="0" dy="0">Cặp electron tự do chưa liên kết của nguyên tử nitrogen</tspan><tspan x="0" dy="21">dễ dàng nhận proton H⁺ hoặc tạo phức phối trí với kim</tspan><tspan x="0" dy="21">loại, làm nền tảng cho axit amin và protein sự sống.</tspan>
     </text>
   </g>
   <rect x="435" y="54" width="320" height="342" rx="22" fill="#0f172a" fill-opacity="0.32" stroke="#ffffff" stroke-opacity="0.22" stroke-width="1.5"/>
@@ -44,6 +44,6 @@
       <text x="225" y="204" text-anchor="middle" fill="#ffffff" font-family="sans-serif" font-weight="800" font-size="11">H</text>
       <text x="160" y="260" text-anchor="middle" fill="#e0e7ff" font-family="sans-serif" font-weight="800" font-size="15">R—NH₂ · Tính Bazơ</text>
     
-    <text x="160" y="318" text-anchor="middle" fill="#f8fafc" opacity="0.85" font-family="sans-serif" font-weight="600" font-size="11.5">Nhận proton H⁺ · Quỳ tím hóa xanh · Phản ứng tạo muối amoni &amp; peptit</text>
+    <text x="160" y="318" text-anchor="middle" fill="#f8fafc" opacity="0.85" font-family="sans-serif" font-weight="600" font-size="11.5">Nhận proton H⁺ · Quỳ tím hóa xanh · Phản ứng tạo muối ammonium &amp; peptit</text>
   </g>
 </svg>

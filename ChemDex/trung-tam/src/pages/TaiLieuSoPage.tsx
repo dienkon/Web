@@ -20,11 +20,12 @@ export default function App() {
   
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [readingKind, setReadingKind] = useState('all');
   
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [historyOpen, setHistoryOpen] = useState(false);
   const [bookmarksOpen, setBookmarksOpen] = useState(false);
-  const [isDesktopSidebarOpen, setIsDesktopSidebarOpen] = useState(true);
+  const [isDesktopSidebarOpen, setIsDesktopSidebarOpen] = useState(false);
   
   const [bookmarkedIds, setBookmarkedIds] = useLocalStorage<string[]>('bookmarks', []);
   const [historyIds, setHistoryIds] = useLocalStorage<string[]>('history', []);
@@ -115,8 +116,9 @@ export default function App() {
 
   // Filter docs
   const filteredDocs = useMemo(() => {
-    return filterLibraryDocs(libraryDocs.filter(doc=>!activeCategory||doc.category===activeCategory),searchQuery);
-  }, [activeCategory, searchQuery]);
+    return filterLibraryDocs(libraryDocs.filter(doc=>(!activeCategory||doc.category===activeCategory)
+      && (readingKind==='all' || doc.documentKind===readingKind)),searchQuery);
+  }, [activeCategory, searchQuery, readingKind]);
 
   const handleTagClick = (tag: string) => {
     setSearchQuery(tag);
@@ -163,7 +165,7 @@ export default function App() {
             onOpenHistory={() => { setHistoryOpen(true); setMobileMenuOpen(false); }}
             onOpenBookmarks={() => { setBookmarksOpen(true); setMobileMenuOpen(false); }}
           />
-          <main className={`flex-1 transition-all duration-300 min-h-screen `}>
+          <main className={`flex-1 min-w-0 transition-all duration-300 min-h-screen `}>
             <Header 
               searchQuery={searchQuery}
               onSearchChange={setSearchQuery}
@@ -178,7 +180,7 @@ export default function App() {
                 {/* Hero Section */}
                   {!searchQuery && !activeCategory && (
                     <div className="relative w-full rounded-3xl overflow-hidden shadow-xl group border border-sky-200/80 dark:border-slate-700/80 mb-10 flex flex-col lg:flex-row bg-gradient-to-br from-sky-50 via-white to-amber-50/70 dark:from-slate-900 dark:via-slate-900 dark:to-slate-800/90">
-                      <div className="p-7 sm:p-10 lg:p-12 flex-1 relative z-20 flex flex-col justify-center">
+                      <div className="p-5 sm:p-8 lg:p-10 flex-1 min-w-0 relative z-20 flex flex-col justify-center">
                         <div className="flex flex-wrap items-center gap-2 mb-4">
                           <span className="inline-flex items-center gap-1.5 px-3.5 py-1 bg-gradient-to-r from-sky-500 to-teal-500 text-white text-xs font-extrabold uppercase tracking-wider rounded-full shadow-sm">
                             ✦ Tạp Chí Hóa Học Số
@@ -188,19 +190,19 @@ export default function App() {
                           </span>
                         </div>
                         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-slate-100 mb-4 leading-tight tracking-tight">
-                          Biên Niên Sử &amp; Câu Chuyện <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-600 via-teal-600 to-emerald-600 dark:from-sky-400 dark:via-teal-400 dark:to-emerald-400">Khởi Nguyên Hóa Học</span>
+                          Những câu chuyện <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-600 via-teal-600 to-emerald-600 dark:from-sky-400 dark:via-teal-400 dark:to-emerald-400">có thật trong hóa học</span>
                         </h2>
                         <p className="text-slate-600 dark:text-slate-300 max-w-2xl mb-6 leading-relaxed text-base sm:text-lg">
-                          Mỗi nguyên tố và hợp chất đều ẩn chứa một câu chuyện kỳ vĩ — từ lò phản ứng hạt nhân trong lòng các vì sao, những vỉa khoáng vật cổ xưa, đến khoảnh khắc lóe sáng trong phòng thí nghiệm. Khám phá hơn 480 bài báo khoa học giàu hình ảnh minh họa.
+                          Theo chân những người đã tìm ra các chất, những thí nghiệm làm thay đổi cách hiểu về tự nhiên và ảnh hưởng của chúng đến đời sống. Đọc câu chuyện có nguồn tư liệu, hoặc tra cứu hồ sơ chất khi cần tìm công thức và tính chất.
                         </p>
                         <div className="flex flex-wrap items-center gap-2">
                           <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mr-1">Kỳ báo tiêu điểm:</span>
                           {[
-                            { id: 'chat-nuoc', label: '💧 Nước (H₂O)' },
-                            { id: 'chat-natri-clorua', label: '🧂 Muối ăn (NaCl)' },
-                            { id: 'chat-amoniac', label: '🌾 Amoniac (NH₃)' },
-                            { id: 'chat-etanol', label: '🍷 Etanol (C₂H₅OH)' },
-                            { id: '001_H', label: '☀️ Hiđro (H)' },
+                            { id: 'chat-nuoc', label: '💧 Water (H₂O)' },
+                            { id: 'chat-natri-clorua', label: '🧂 Sodium chloride (NaCl)' },
+                            { id: 'chat-amoniac', label: '🌾 Ammonia (NH₃)' },
+                            { id: 'chat-etanol', label: '🍷 Ethanol (C₂H₅OH)' },
+                            { id: '001_H', label: '☀️ Hydrogen (H)' },
                           ].map((featured) => (
                             <button
                               key={featured.id}
@@ -241,6 +243,9 @@ export default function App() {
                     <button onClick={() => setActiveCategory(null)} aria-pressed={!activeCategory} className={`px-4 py-2 rounded-xl border text-sm font-bold transition-all cursor-pointer ${!activeCategory ? 'border-sky-500 bg-sky-600 text-white shadow-sm' : 'border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800/80 text-slate-700 dark:text-slate-200 hover:border-sky-300 dark:hover:border-sky-500/60 hover:bg-sky-50 dark:hover:bg-slate-800'}`}>Tất cả</button>
                     {categories.map(cat => <button key={cat.id} onClick={() => setActiveCategory(cat.id)} aria-pressed={activeCategory===cat.id} className={`px-4 py-2 rounded-xl border text-sm font-bold transition-all cursor-pointer ${activeCategory===cat.id ? 'border-sky-500 bg-sky-600 text-white shadow-sm' : 'border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800/80 text-slate-700 dark:text-slate-200 hover:border-sky-300 dark:hover:border-sky-500/60 hover:bg-sky-50 dark:hover:bg-slate-800'}`}>{cat.label}</button>)}
                   </div>
+                  <div className="flex flex-wrap gap-2 mb-5" aria-label="Loại bài đọc">
+                    {[['all','Mọi bài đọc'],['story','Câu chuyện'],['biography','Nhà khoa học'],['reference','Hồ sơ chất']].map(([kind,label])=><button key={kind} type="button" aria-pressed={readingKind===kind} onClick={()=>setReadingKind(kind)} className={`px-3 py-2 rounded-lg border text-sm cursor-pointer ${readingKind===kind?'bg-sky-600 border-sky-600 text-white':'border-slate-400 text-slate-600 dark:text-slate-200'}`}>{label}</button>)}
+                  </div>
                   <LibraryGrid docs={filteredDocs} onDocClick={(id) => void handleDocClick(id)} bookmarkedIds={bookmarkedIds} onToggleBookmark={toggleBookmark} onTagClick={handleTagClick} />
 
               
@@ -279,6 +284,7 @@ export default function App() {
       {/* Drawers */}
       <PanelDrawer 
         isOpen={mobileMenuOpen}
+        title="Lọc tài liệu"
         onClose={() => setMobileMenuOpen(false)}
         position="left"
       >

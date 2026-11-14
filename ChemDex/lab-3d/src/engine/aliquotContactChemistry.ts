@@ -9,11 +9,14 @@ import { aqueousWaterBoundary } from '../science/aqueousWaterBoundary';
 import { WATER_CP_J_G_K } from './waterProperties';
 import { sameMolecularFormula } from '../science/speciesIdentity';
 import { projectAqueousSolution } from './aqueousProjection';
+import { isLandoltCandidate } from '../science/landoltClock';
+import { stepLandoltLedger } from './landoltClockLedger';
 
 /** Existing authored aqueous relaxation, carried with a finite liquid sample.
  * Gas evolution, non-aqueous media, activation/surface kinetics and phase
  * crossings need their own boundaries; this model does not guess those sinks. */
 export function aliquotContactProgramSupported(program: ReactionProgram): boolean {
+  if (program.id === 'iodine_clock') return true;
   const reactants = program.chemistry.species.filter(s => s.role === 'reactant');
   const products = program.chemistry.species.filter(s => s.role === 'product');
   const changesMolecules = [...reactants, ...products].some(species =>
@@ -41,7 +44,9 @@ export function prepareAliquotContact(sample: LiquidAliquot, preferredProgramId?
     || !sample.contents.some(c => sameMolecularFormula(c.formula, 'H2O') && c.phase === 'l' && c.mass_g > 0))
     return { ...sample, reactionProgramId: null };
   const preferred = preferredProgramId ? getProgramById(preferredProgramId) : undefined;
-  const candidate = preferred && aliquotContactProgramSupported(preferred) ? preferred : findHandcraftedProgram(sample.substances, sample.contents,
+  const candidate = preferred && aliquotContactProgramSupported(preferred) ? preferred
+    : isLandoltCandidate(sample.contents) ? getProgramById('iodine_clock')
+      : findHandcraftedProgram(sample.substances, sample.contents,
     { temperature_c: sample.temperature_c, volume_ml: sample.volume_ml, isHeated: false, isSealed: false });
   return { ...sample, reactionProgramId: candidate && aliquotContactProgramSupported(candidate) ? candidate.id : null };
 }
@@ -59,6 +64,15 @@ export function evolveAliquotContact(input: LiquidAliquot, from_s: number, to_s 
   if (![from_s, to_s].every(Number.isFinite) || from_s < 0 || to_s < from_s || to_s === 0) return input;
   const sample = prepareAliquotContact(input), program = sample.reactionProgramId ? getProgramById(sample.reactionProgramId) : undefined;
   if (!program || !aliquotContactProgramSupported(program) || !(sample.mass_g > 0)) return sample;
+  if (program.id === 'iodine_clock') {
+    const interval_s = to_s > from_s ? to_s - from_s : from_s;
+    const vessel = referenceVessel(sample), step = stepLandoltLedger(vessel, interval_s);
+    if (!step) return sample;
+    const projected = { ...vessel, ...step.patch };
+    return { ...sample, contents: projected.contents, substances: projected.substances,
+      mass_g: projected.mass_g, color: projected.liquidColor ?? sample.color,
+      reactionProgramId: program.id, contactChemistryLimit: undefined };
+  }
   const halfTime = aqueousContactHalfTime({ program })!;
   const reference = referenceVessel(sample);
   const next = applyProgramToLedger(program, reference, meanContactConversion(halfTime, from_s, to_s), { deferThermal: true });

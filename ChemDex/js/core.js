@@ -2967,6 +2967,7 @@ function createVideoQuizBlock(container, block, el) {
     output.textContent = 'Đang phân tích các cảnh…';
     try {
       const res = await fetch('/api/gemini/video-quiz', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ url: src }), signal: AbortSignal.any([analysisAbort.signal, AbortSignal.timeout(95000)]) });
+      if (!res.ok || !res.headers.get('content-type')?.includes('application/json')) throw Error('Video questions unavailable');
       const data = await res.json();
       if (!res.ok) throw Error(data.error || 'Chưa phân tích được video.');
       if (destroyed) return;
@@ -2976,7 +2977,7 @@ function createVideoQuizBlock(container, block, el) {
       }
       cues.sort((a,b) => a.seconds-b.seconds);
       output.textContent = `${data.cues.length} câu hỏi AI theo cảnh · có thể tắt`;
-    } catch (error) { if (!destroyed) { output.textContent = error.message; retry.hidden = false; } }
+    } catch (error) { if (!destroyed) { output.textContent = 'Chưa tải được câu hỏi cho video. Bạn vẫn có thể xem video hoặc thử lại sau.'; retry.hidden = false; } }
   }
   container.querySelector('[data-ai-quiz-retry]')?.addEventListener('click', analyzeVideo);
   showControls();

@@ -62,7 +62,7 @@ export const StartScreen: React.FC = () => {
             </span>
             <span>
               <strong className="block text-sm font-black tracking-[0.16em] text-slate-800">CHEMDEX</strong>
-              <span className="block text-[9px] font-bold uppercase tracking-[0.22em] text-cyan-700">Simulation Lab</span>
+              <span className="block text-[9px] font-bold uppercase tracking-[0.22em] text-cyan-700">An toàn thí nghiệm</span>
             </span>
           </a>
           <div className="flex items-center gap-2">
@@ -83,12 +83,12 @@ export const StartScreen: React.FC = () => {
           >
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.18em] text-cyan-800 backdrop-blur-none">
               <span className="relative flex h-2 w-2"><span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-300 opacity-60" /><span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-300" /></span>
-              Phòng mô phỏng sẵn sàng
+              Thực hành xử lý tình huống
             </div>
 
             <div className="mb-5">
               <p className="mb-2 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.22em] text-cyan-700"><Atom className="h-4 w-4" />Huấn luyện an toàn tương tác</p>
-              <h1 className="max-w-[520px] text-[clamp(2.35rem,6vw,4.85rem)] font-black leading-[0.94] tracking-[-0.055em] text-slate-800">LAB SAFETY<span className="text-cyan-600">.</span></h1>
+              <h1 className="max-w-[520px] text-[clamp(2.35rem,6vw,4.85rem)] font-black leading-[0.94] tracking-[-0.055em] text-slate-800">AN TOÀN PHÒNG LAB<span className="text-cyan-600">.</span></h1>
               <p className="mt-4 max-w-[470px] text-sm font-medium leading-6 text-slate-600 sm:text-base">Bước vào phòng thí nghiệm 3D, nhận diện nguy cơ và xử lý sự cố bằng chính thao tác của bạn.</p>
             </div>
 

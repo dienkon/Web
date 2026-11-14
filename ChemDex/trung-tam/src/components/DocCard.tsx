@@ -66,7 +66,7 @@ export function DocCard({ doc, onClick, isBookmarked, onToggleBookmark, onTagCli
               {doc.chemicalFormula}
             </span>
             <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-amber-400 text-slate-950 shadow-xs whitespace-nowrap">
-              Bài báo 1.000+ chữ ↗
+              Đọc bài ↗
             </span>
           </div>
         )}

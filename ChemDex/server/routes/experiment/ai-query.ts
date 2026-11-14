@@ -1,3 +1,4 @@
+import {CHEMICAL_NAMING_INSTRUCTION} from '../chemistry/naming.js';
 import { GoogleGenAI } from "@google/genai";
 
 const BACKUP_GEMINI_KEY = '';
@@ -208,7 +209,7 @@ Language: ${lang === "en" ? "English" : "Vietnamese"}.`;
         model: preferredModel,
         contents: [{ role: "user", parts: [{ text: prompt }] }],
         config: {
-          systemInstruction: QUERY_SYSTEM_PROMPT,
+          systemInstruction: QUERY_SYSTEM_PROMPT + '\n' + CHEMICAL_NAMING_INSTRUCTION,
           responseMimeType: "application/json",
         },
       });
@@ -217,7 +218,7 @@ Language: ${lang === "en" ? "English" : "Vietnamese"}.`;
         model: "gemini-2.5-flash",
         contents: [{ role: "user", parts: [{ text: prompt }] }],
         config: {
-          systemInstruction: QUERY_SYSTEM_PROMPT,
+          systemInstruction: QUERY_SYSTEM_PROMPT + '\n' + CHEMICAL_NAMING_INSTRUCTION,
           responseMimeType: "application/json",
         },
       });

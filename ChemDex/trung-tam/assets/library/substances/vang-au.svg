@@ -16,18 +16,18 @@
   <!-- Left Identity Column -->
   <g transform="translate(48, 80)">
     <rect x="0" y="0" width="auto" height="24" rx="6" fill="#ffffff" fill-opacity="0.15"/>
-    <text x="10" y="16" fill="#fef08a" font-family="system-ui, sans-serif" font-weight="800" font-size="11" letter-spacing="0.8">KIM LOẠI QUÝ HIẾM BẬC NHẤT · VÀNG NGUYÊN CHẤT</text>
+    <text x="10" y="16" fill="#fef08a" font-family="system-ui, sans-serif" font-weight="800" font-size="11" letter-spacing="0.8">KIM LOẠI QUÝ HIẾM BẬC NHẤT · Gold NGUYÊN CHẤT</text>
     
     <text x="0" y="70" fill="#ffffff" font-family="system-ui, sans-serif" font-weight="900" font-size="44" letter-spacing="1">
       Au
     </text>
     
     <text x="0" y="112" fill="#f8fafc" font-family="system-ui, sans-serif" font-weight="800" font-size="22">
-      Vàng
+      Gold
     </text>
     
     <text x="0" y="145" fill="#fef08a" font-family="system-ui, sans-serif" font-weight="600" font-size="14">
-      Thỏi vàng ròng 999.9 lấp lánh &amp; Vỉa vàng sa khoáng
+      Thỏi Gold ròng 999.9 lấp lánh &amp; Vỉa Gold sa khoáng
     </text>
     
     <g transform="translate(0, 175)">

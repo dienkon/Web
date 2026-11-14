@@ -337,7 +337,7 @@ export function mountPublishedCrystal(container, meta) {
           if(renderNeeded){renderer.render(scene,camera);stage.dataset.drawCalls=String(renderer.info.render.calls);renderNeeded=false;}
         }raf=requestAnimationFrame(loop);
       };raf=requestAnimationFrame(loop);
-    }catch(error){if(!destroyed){status.textContent=`Không tải được mạng tinh thể: ${error.message}. Có thể tải CIF ở phần nguồn.`;container.querySelector('[data-crystal-start]')?.removeAttribute('disabled');renderer?.dispose();}}
+    }catch(error){if(!destroyed){status.textContent='Chưa tải được mạng tinh thể. Bạn có thể thử lại hoặc tải tệp CIF ở phần nguồn.';container.querySelector('[data-crystal-start]')?.removeAttribute('disabled');renderer?.dispose();}}
   });
   rotating.addEventListener('click',()=>{autoRotate=!autoRotate;if(controls)controls.autoRotate=autoRotate;rotating.textContent=autoRotate?'Tạm dừng xoay':'Tự động xoay';rotating.setAttribute('aria-pressed',String(autoRotate));invalidate();});
   container.querySelector('[data-crystal-connections]').addEventListener('click',event=>{showConnections=!showConnections;current.children.find(c=>c.userData.kind==='connections').visible=showConnections;event.currentTarget.textContent=showConnections?'Ẩn đường nối':'Hiện đường nối';event.currentTarget.setAttribute('aria-pressed',String(showConnections));invalidate();});

@@ -431,7 +431,7 @@ export function ReaderView({ doc, onBack, isBookmarked, onToggleBookmark, onTagC
               </span>
             )}
             <span className="inline-block px-3 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-300">
-              {doc.lessonKind ? 'Đọc cấu tạo · Quan sát · Tự kiểm tra' : doc.documentKind === 'biography' ? 'Lịch sử khoa học · Đóng góp và nguồn' : 'Chuyên mục: Lịch sử & Sự ra đời của chất'}
+              {doc.lessonKind ? 'Đọc cấu tạo · Quan sát · Tự kiểm tra' : doc.documentKind === 'biography' ? 'Lịch sử khoa học · Đóng góp và nguồn' : 'Câu chuyện và khám phá'}
             </span>
           </div>
           
@@ -464,7 +464,7 @@ export function ReaderView({ doc, onBack, isBookmarked, onToggleBookmark, onTagC
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div className="min-w-0 flex-1 w-full">
                 <p className="mb-1.5 text-xs font-extrabold uppercase tracking-widest reader-formula-title">
-                  {doc.lessonKind === 'isomer-comparison' ? 'Một công thức • Nhiều cấu trúc' : doc.lessonKind === 'substance-guide' ? 'Định danh • Đọc mô hình • Phản ứng' : 'Kỳ báo Hóa học • Định danh & Khởi nguyên phân tử'}
+                  {doc.lessonKind === 'isomer-comparison' ? 'Một công thức • Nhiều cấu trúc' : doc.lessonKind === 'substance-guide' ? 'Định danh • Đọc mô hình • Phản ứng' : 'Câu chuyện hóa học'}
                 </p>
                 <strong
                   data-chemical-formula
@@ -497,8 +497,8 @@ export function ReaderView({ doc, onBack, isBookmarked, onToggleBookmark, onTagC
         <React.Suspense fallback={null}><SubstanceVisuals key={doc.id} slug={doc.slug ?? doc.id} /></React.Suspense>
 
         {sections.length > 0 && (
-          <nav aria-label="Mục lục bài viết" className="mb-6 rounded-2xl reader-toc-card p-4 sm:p-5 shadow-xs no-print">
-            <h2 className="mb-2.5 text-xs sm:text-sm font-extrabold uppercase tracking-wider reader-toc-title">{doc.lessonKind ? 'Nội dung bài học' : doc.documentKind === 'biography' ? 'Nội dung tài liệu' : '✦ Mục lục kỳ báo khoa học'}</h2>
+          <details className="mb-6 rounded-2xl reader-toc-card p-4 sm:p-5 shadow-xs no-print"><summary className="cursor-pointer font-bold reader-toc-title">Mục lục bài viết</summary><nav aria-label="Mục lục bài viết" className="mt-3">
+            <h2 className="mb-2.5 text-xs sm:text-sm font-extrabold uppercase tracking-wider reader-toc-title">{doc.lessonKind ? 'Nội dung bài học' : doc.documentKind === 'biography' ? 'Nội dung tài liệu' : 'Nội dung câu chuyện'}</h2>
             <ol className="grid gap-1.5 sm:grid-cols-2">
               {sections.map((title, index) => (
                 <li key={title}>
@@ -508,13 +508,7 @@ export function ReaderView({ doc, onBack, isBookmarked, onToggleBookmark, onTagC
                 </li>
               ))}
             </ol>
-          </nav>
-        )}
-
-        {doc.documentKind === 'reference' && (
-          <p className="mb-6 rounded-2xl border border-amber-200/90 bg-amber-50/80 p-3.5 text-xs sm:text-sm leading-relaxed text-amber-950 font-medium">
-            <strong>Tạp chí Hóa Học Số ChemDex:</strong> Bài báo tái hiện chi tiết lịch sử phát hiện, nguồn gốc tự nhiên, con đường điều chế và bản chất liên kết không gian 3D của chất dựa trên dữ liệu thực nghiệm đã kiểm chứng.
-          </p>
+          </nav></details>
         )}
 
         <article className={`reader-article-card markdown-body rounded-3xl p-5 sm:p-9 shadow-sm ${fontClasses[fontSize]}`}>
@@ -555,7 +549,7 @@ export function ReaderView({ doc, onBack, isBookmarked, onToggleBookmark, onTagC
                   <h3 className="text-lg sm:text-xl font-extrabold tracking-tight">Tài liệu gợi ý &amp; Mạng lưới liên kết</h3>
                 </div>
                 <p className="text-xs text-slate-400 font-medium">
-                  Gợi ý thông minh dựa trên vị trí Bảng tuần hoàn, phản ứng hóa học thực nghiệm và lịch sử phát hiện.
+                  Đọc tiếp về những chất và khám phá liên quan.
                 </p>
               </div>
             </div>

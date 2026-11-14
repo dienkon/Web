@@ -27,10 +27,10 @@ import {
 import { mountMediaBlocks } from "./model-media.js";
 
 const tableContainer = document.getElementById("periodic-table");
-// Reviewed profiles use Vietnamese labels; search accepts Vietnamese and English names.
+// Keep Vietnamese search aliases alongside the English display names.
 const elementSearchNames = await fetch(new URL('../shared/elements.json', import.meta.url))
   .then(response => response.ok ? response.json() : [])
-  .then(rows => new Map(rows.map(row => [row.symbol, row.name_vi])))
+  .then(rows => new Map(rows.map(row => [row.symbol, [row.name_vi,...(row.aliases??[])].join(' ')])))
   .catch(() => new Map());
 const GROUP_LABELS = {
   1: "IA",
@@ -455,7 +455,7 @@ function renderPreparation(prepSource) {
       </div>
       <div>
         <h4 class="text-white font-bold mb-3">b. Trong công nghiệp</h4>
-        <p class="text-slate-500 italic">Có thể bổ sung vào <code>preparation.industry</code> trong JSON.</p>
+        <p class="text-slate-500 italic">Chưa có thông tin điều chế công nghiệp.</p>
       </div>
     </div>`;
   }
@@ -485,7 +485,7 @@ function renderRecognition(el = {}) {
   const source =
     el.recognition || el.identification || el.tests || el.qualitative || null;
   if (!source) {
-    return '<p class="text-slate-500 italic">Đang cập nhật dữ liệu nhận biết. Có thể thêm trường <code>recognition</code> trong JSON.</p>';
+    return '<p class="text-slate-500 italic">Đang cập nhật dữ liệu nhận biết. </p>';
   }
   if (typeof source === "string") {
     return `<div class="text-slate-300 leading-relaxed">${source}</div>`;
@@ -536,7 +536,7 @@ function showElementDetails(el) {
                 ${categories[el.category]?.name.toUpperCase() || "CHƯA XÁC ĐỊNH"}
               </span>
               <h2 class="text-5xl font-bold text-white mb-2">${el.nameVi}</h2>
-              <p class="text-xl text-slate-300">${el.nameEn} • ${el.massKind === 'reference-isotope-mass-number' ? `Số khối tham chiếu: [${escapeHtml(el.mass)}]` : `Nguyên tử khối: ${escapeHtml(el.massStandardText ?? el.mass ?? "Chưa có dữ liệu")}`}</p>
+              <p class="text-xl text-slate-300">${el.massKind === 'reference-isotope-mass-number' ? `Số khối tham chiếu: [${escapeHtml(el.mass)}]` : `Nguyên tử khối: ${escapeHtml(el.massStandardText ?? el.mass ?? "Chưa có dữ liệu")}`}</p>
               ${el.massKind === 'reference-isotope-mass-number' ? '<p class="element-fact-note">Không có nguyên tử khối chuẩn; số trong ngoặc là số khối một đồng vị tham chiếu.</p>' : ''}
               ${el.massStandardSource ? `<a class="text-sm text-cyan-300" href="${escapeHtml(el.massStandardSource)}" target="_blank" rel="noreferrer">${el.massKind === 'reference-isotope-mass-number' ? 'Nguồn đồng vị tham chiếu' : 'Nguồn: CIAAW 2024'} ↗</a>` : ""}
               ${el.review ? `<p class="element-review-date">Đối chiếu dữ liệu · 11/11/2026</p>` : ""}
@@ -862,14 +862,14 @@ function showElementDetails(el) {
   html += `
           <section id="sec-notes" class="scroll-mt-24 animate-fade-up">
             <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3"><span class="w-8 h-8 rounded bg-yellow-500/20 text-yellow-400 flex items-center justify-center text-sm"><i class="fa-solid fa-pen"></i></span> 10. Ghi chú cá nhân</h3>
-            <textarea id="personal-note" onkeyup="saveNote('${escapeHtml(el.symbol)}')" class="w-full h-40 bg-slate-900 border border-slate-700 rounded-2xl p-5 text-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all resize-none" placeholder="Nhập ghi chú của bạn về ${escapeHtml(el.nameVi)} tại đây. Dữ liệu sẽ tự động lưu vào trình duyệt...">${escapeHtml(savedNote)}</textarea>
+            <textarea id="personal-note" onkeyup="saveNote('${escapeHtml(el.symbol)}')" class="w-full h-40 bg-slate-900 border border-slate-700 rounded-2xl p-5 text-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all resize-none" placeholder="Nhập ghi chú của bạn về ${escapeHtml(el.nameVi)} tại đây. Ghi chú được lưu trên thiết bị này.">${escapeHtml(savedNote)}</textarea>
             <p class="text-xs text-slate-500 mt-2 text-right"><i class="fa-solid fa-cloud-arrow-up"></i> Đã đồng bộ</p>
             ${sectionMedia("notes")}
           </section>
         `;
 
   if (Array.isArray(el.sources) && el.sources.length) {
-    html += `<section id="sec-sources" class="element-sources"><h3>Nguồn và phạm vi dữ liệu</h3><p>Hồ sơ được biên tập từ ${escapeHtml(el.review?.sourceFile || 'tài liệu nguyên tố')}, đối chiếu dữ liệu tham chiếu. Phương trình tổng quát và mô hình minh họa không thay thế quy trình thực nghiệm.</p><ul>${el.sources.filter(source=>source.url).map(source=>`<li><a href="${escapeHtml(source.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(source.title)} ↗</a></li>`).join('')}</ul></section>`;
+    html += `<section id="sec-sources" class="element-sources"><h3>Nguồn và phạm vi dữ liệu</h3><p>Hồ sơ được biên tập từ tài liệu nguyên tố, đối chiếu dữ liệu tham chiếu. Phương trình tổng quát và mô hình minh họa không thay thế quy trình thực nghiệm.</p><ul>${el.sources.filter(source=>source.url).map(source=>`<li><a href="${escapeHtml(source.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(source.title)} ↗</a></li>`).join('')}</ul></section>`;
   }
   document.getElementById("article-content").innerHTML = html;
   mountDetailVisuals(el);
@@ -1322,7 +1322,7 @@ function renderSearchResults(matches) {
                 </div>
                 <div class="min-w-0">
                   <p class="font-bold text-slate-200">${m.nameVi}</p>
-                  <p class="text-xs text-slate-400">${m.general?.englishName || m.nameEn || ""}</p>
+                  <p class="text-xs text-slate-400">Số hiệu: ${m.number} · ${m.symbol}</p>
                 </div>
               </div>
             `,

@@ -79,7 +79,7 @@ export function createCatalogIndex(catalog){
 
 export function searchReactions(index,query='',{family='all',limit=100,offset=0}={}){
   const q=fold(normalizeFormula(query));
-  const matched=index.catalog.entries.filter(r=>(family==='all'||r.family===family)&&(!q||fold(`${r.equation} ${r.title_vi} ${r.topic_vi} ${r.observation_vi} ${r.conditions.description_vi} ${[...r.reactants,...r.products].map(s=>index.speciesByFormula.get(s.formula)?.name_vi??'').join(' ')}`).replace(/\s+/g,'').includes(q.replace(/\s+/g,''))));
+  const matched=index.catalog.entries.filter(r=>(family==='all'||r.family===family)&&(!q||fold(`${r.equation} ${r.title_vi} ${r.topic_vi} ${r.observation_vi} ${r.conditions.description_vi} ${[...r.reactants,...r.products].map(s=>[index.speciesByFormula.get(s.formula)?.name_vi,...(index.speciesByFormula.get(s.formula)?.aliases??[])].join(' ')).join(' ')}`).replace(/\s+/g,'').includes(q.replace(/\s+/g,''))));
   return {total:matched.length,entries:matched.slice(offset,offset+Math.max(1,Math.min(limit,200)))};
 }
 
