@@ -7,7 +7,7 @@ function renderMemberDetails() {
   const p = memberState.profile;
   const restoreFocus = document.activeElement?.id === 'profile-edit';
   const facts = [['Lớp', '12A1 · Nhà Có Nhau'], ...Object.entries(profileFields).filter(([key]) => key !== 'quote').map(([key, [label]]) => [label, p[key] || 'Chưa chia sẻ'])];
-  document.getElementById('member-profile').innerHTML = `<div class="profile-topline"><h4>Một chút về mình</h4><button type="button" id="profile-edit" class="face-text-link">Bổ sung giới thiệu ✎</button></div><dl class="profile-facts">${facts.map(([key, value]) => `<div><dt>${escapeHtml(key)}</dt><dd>${escapeHtml(value)}</dd></div>`).join('')}</dl><p class="profile-quote">${escapeHtml(p.quote || 'Chưa có lời nhắn. Để lại vài dòng cho những lần cả nhà ghé thăm nhé.')}</p>`;
+  document.getElementById('member-profile').innerHTML = `<div class="profile-topline"><h4>Một chút về mình</h4><button type="button" id="profile-edit" class="text-action">Bổ sung giới thiệu ✎</button></div><dl class="profile-facts">${facts.map(([key, value]) => `<div><dt>${escapeHtml(key)}</dt><dd>${escapeHtml(value)}</dd></div>`).join('')}</dl><p class="profile-quote">${escapeHtml(p.quote || 'Chưa có lời nhắn. Để lại vài dòng cho những lần cả nhà ghé thăm nhé.')}</p>`;
   document.getElementById('profile-edit').onclick = editMemberDetails;
   if (restoreFocus) document.getElementById('profile-edit').focus({ preventScroll: true });
 }
@@ -18,7 +18,7 @@ function editMemberDetails() {
   }
   memberState.editing = true;
   const wrap = document.getElementById('member-profile');
-  wrap.innerHTML = `<form id="profile-form" class="profile-form">${Object.entries(profileFields).map(([key, [label, max]]) => `<label class="${key === 'quote' || key === 'hobbies' ? 'full-width' : ''}">${label}${key === 'quote' ? `<textarea name="${key}" maxlength="${max}" rows="3">${escapeHtml(memberState.profile[key] || '')}</textarea>` : `<input name="${key}" maxlength="${max}" value="${escapeHtml(memberState.profile[key] || '')}" placeholder="${key === 'birthday' ? 'Ví dụ: 20/11' : 'Tự giới thiệu một chút nhé'}" />`}</label>`).join('')}<p class="profile-note full-width">Thông tin được chia sẻ với mọi người ghé kho lớp. Chỉ điền những gì bạn muốn chia sẻ.</p><div class="face-actions full-width"><button class="primary-action" type="submit">Lưu giới thiệu</button><button class="secondary-action" type="button" id="profile-cancel">Để sau</button></div></form>`;
+  wrap.innerHTML = `<form id="profile-form" class="profile-form">${Object.entries(profileFields).map(([key, [label, max]]) => `<label class="${key === 'quote' || key === 'hobbies' ? 'full-width' : ''}">${label}${key === 'quote' ? `<textarea name="${key}" maxlength="${max}" rows="3">${escapeHtml(memberState.profile[key] || '')}</textarea>` : `<input name="${key}" maxlength="${max}" value="${escapeHtml(memberState.profile[key] || '')}" placeholder="${key === 'birthday' ? 'Ví dụ: 20/11' : 'Tự giới thiệu một chút nhé'}" />`}</label>`).join('')}<p class="profile-note full-width">Thông tin được chia sẻ với mọi người ghé kho lớp. Chỉ điền những gì bạn muốn chia sẻ.</p><div class="action-row full-width"><button class="primary-action" type="submit">Lưu giới thiệu</button><button class="secondary-action" type="button" id="profile-cancel">Để sau</button></div></form>`;
   document.getElementById('profile-cancel').onclick = () => { memberState.editing = false; renderMemberDetails(); };
   const form = document.getElementById('profile-form');
   form.elements.nickname.focus();

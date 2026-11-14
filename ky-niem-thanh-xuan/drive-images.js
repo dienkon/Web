@@ -28,8 +28,8 @@ function pumpDriveImages() {
 
 async function getDriveThumbnailData(fileId) {
   // Restored galleries may render before the initial Apps Script handshake finishes.
-  if (!liveState.faceThumbnails && typeof driveConnectionPromise !== 'undefined' && driveConnectionPromise) await driveConnectionPromise;
-  if (!/^[\w-]+$/.test(fileId) || !liveState.faceThumbnails) return Promise.reject(new Error('Cầu nối ảnh chưa sẵn sàng.'));
+  if (!liveState.thumbnailBridge && typeof driveConnectionPromise !== 'undefined' && driveConnectionPromise) await driveConnectionPromise;
+  if (!/^[\w-]+$/.test(fileId) || !liveState.thumbnailBridge) return Promise.reject(new Error('Cầu nối ảnh chưa sẵn sàng.'));
   const scope = driveImageScope(), key = JSON.stringify([scope, fileId]), cached = driveImageStore.ready.get(key);
   if (cached && Date.now() - cached.savedAt < 5 * 60 * 1000) {
     driveImageStore.ready.delete(key); driveImageStore.ready.set(key, cached);
@@ -40,7 +40,7 @@ async function getDriveThumbnailData(fileId) {
   const promise = new Promise((resolve, reject) => {
     driveImageStore.queue.push({ resolve, reject, run: async () => {
       if (scope !== driveImageScope()) throw new Error('Kết nối Drive đã thay đổi.');
-      const result = await driveRequest('faceThumbnail', { id: fileId });
+      const result = await driveRequest(liveState.thumbnailAction, { id: fileId });
       const data = result.image;
       if (typeof data !== 'string' || data.length > 4.1 * 1024 * 1024 || !/^data:image\/(?:jpeg|png|webp);base64,[A-Za-z0-9+/]+={0,2}$/.test(data)) throw new Error('Ảnh xem trước không hợp lệ.');
       // Reject invalid image bytes before caching; a failed thumbnail must remain retryable.

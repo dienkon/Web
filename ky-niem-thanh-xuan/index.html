@@ -4,11 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>12A1 · Nhà Có Nhau — Kho kỷ niệm của tụi mình</title>
-    <meta name="description" content="Nhà Có Nhau, đại gia đình 12A1. Gặp lại từng người, giữ từng kỷ niệm và tìm lại mình trong những tấm ảnh chung." />
+    <meta name="description" content="Nhà Có Nhau, đại gia đình 12A1. Gặp lại từng người và giữ lại những kỷ niệm, ảnh, video của cả lớp." />
     <meta name="theme-color" content="#4338ca" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="stylesheet" href="memories.css" />
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/site.css" />
     <link rel="preconnect" href="https://lh3.googleusercontent.com" />
     <link rel="preconnect" href="https://drive.google.com" />
     <link
@@ -285,41 +285,6 @@
     </header>
 
     <main class="max-w-7xl mx-auto px-4 md:px-8 -mt-10 relative z-20 pb-24 space-y-16">
-      <section id="section-face-search" class="face-panel" aria-labelledby="face-title">
-        <div class="face-intro">
-          <span class="eyebrow">12A1 / TÌM LẠI KỶ NIỆM</span>
-          <h2 id="face-title">Mình ở đâu trong những tấm ảnh?</h2>
-          <p>Chọn một ảnh có bạn. Tụi mình sẽ tìm những khuôn mặt giống bạn trong toàn bộ kho Drive của lớp.</p>
-          <p class="face-privacy">Ảnh mẫu và chỉ mục khuôn mặt chỉ xử lý trên thiết bị này. Lần đầu cần lập chỉ mục; lần sau dùng lại để tìm nhanh hơn.</p>
-          <a class="face-text-link" href="#section-class-map">Hoặc ghé thăm từng thành viên ↗</a>
-        </div>
-        <div class="face-controls">
-          <label for="face-reference" class="face-drop" id="face-dropzone">
-            <span class="face-icon" aria-hidden="true">⌕</span>
-            <strong>Chọn ảnh có khuôn mặt cần tìm</strong>
-            <span>Ảnh chân dung rõ mặt sẽ cho kết quả tốt hơn</span>
-            <span class="secondary-action">Chọn ảnh từ thiết bị</span>
-            <input id="face-reference" type="file" accept="image/*" />
-          </label>
-          <div id="face-candidates" class="face-candidates" aria-label="Chọn khuôn mặt trong ảnh mẫu"></div>
-          <label class="face-sensitivity" for="face-threshold">Mức tìm kiếm
-            <select id="face-threshold"><option value="0.45">Chặt chẽ</option><option value="0.5" selected>Cân bằng</option><option value="0.58">Mở rộng</option></select>
-          </label>
-          <div class="face-actions">
-            <button id="face-search-button" class="primary-action" disabled>Tìm trong toàn kho</button>
-            <button id="face-stop-button" class="secondary-action" hidden>Dừng quét</button>
-            <button id="face-clear-button" class="face-text-link">Xóa chỉ mục máy này</button>
-          </div>
-          <p id="face-status" role="status" aria-live="polite">Chưa chọn ảnh mẫu. Chỉ quét kho khi bạn bấm tìm.</p>
-          <progress id="face-progress" max="1" value="0" hidden aria-label="Tiến độ quét khuôn mặt"></progress>
-        </div>
-        <div class="face-result-area" id="face-result-area" hidden>
-          <h3 id="face-results-title">Những khoảnh khắc có thể có bạn</h3>
-          <p class="face-result-note">Kết quả là gợi ý tương đồng, có thể nhầm người. Video chỉ được tìm qua ảnh bìa, chưa quét các khung hình bên trong.</p>
-          <div id="face-results" class="memory-grid"></div>
-          <button id="face-more-button" class="secondary-action" hidden>Xem thêm kết quả</button>
-        </div>
-      </section>
       <!-- 1. Timeline & Year Albums Section -->
       <section
         id="section-timeline"
@@ -2034,6 +1999,5 @@
     <script src="drive-images.js"></script>
     <script src="drive-live.js"></script>
     <script src="member-profiles.js"></script>
-    <script src="face-search.js"></script>
   </body>
 </html>

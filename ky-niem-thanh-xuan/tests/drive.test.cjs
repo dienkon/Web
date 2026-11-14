@@ -204,6 +204,12 @@ function frontend(storage = new Map()) {
   return context;
 }
 
+test('static hosting reports a missing bridge without requesting a local API', async () => {
+  const c = frontend();
+  for (const action of ['ping', 'folder', 'history']) await assert.rejects(c.driveRequest(action), /appsScriptUrl/);
+  await assert.rejects(c.driveRequest('uploadStart', {}, true), /appsScriptUrl/);
+});
+
 test('frontend replaces real listings, prunes deleted descendants and recomputes counts', async () => {
   const c = frontend();
   c.driveRequest = async () => ({ ok: true, folder: { id: ROOT, n: 'Live root', f: [{ id: 'child', n: 'Album' }], items: [['file', 'Other.zip', 2, '']] } });

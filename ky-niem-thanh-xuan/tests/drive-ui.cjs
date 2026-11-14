@@ -3,7 +3,7 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const assert = require('node:assert/strict');
 const { mkdirSync } = require('node:fs');
 const path = require('node:path');
-const BASE = process.env.PREVIEW_URL || 'http://localhost:8080';
+const BASE = process.env.PREVIEW_URL || 'https://pages.test/Web/ky-niem-thanh-xuan/';
 const ROOT = '1MmsTXHQZ4QoSsbi5XixRHzwE8lrGBVxa';
 const URL = 'https://script.google.com/macros/s/test-live-drive/exec';
 const folders = new Map([
@@ -81,6 +81,7 @@ function finish(upload) {
   const browser = await chromium.launch({ headless: true });
   try {
     const context = await browser.newContext({ viewport: { width: 1280, height: 1000 } });
+    if (!process.env.PREVIEW_URL) await require('./static-host.cjs')(context, BASE);
     await context.addInitScript(({ url, origin }) => {
       if (location.origin === origin) localStorage.setItem('kn-drive-script-url', url);
     }, { url: URL, origin: new global.URL(BASE).origin });

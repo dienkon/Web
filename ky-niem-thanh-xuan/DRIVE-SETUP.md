@@ -22,27 +22,9 @@ Sau khi sửa Apps Script, vào **Deploy → Manage deployments → Edit → New
 
 Nếu vẫn thiếu quyền, kiểm tra lại tài khoản chạy `setup` có phải tài khoản triển khai và manifest của chính dự án đang cung cấp URL `/exec` hay không. Hướng dẫn chính thức: [Apps Script authorization troubleshooting](https://developers.google.com/apps-script/guides/support/troubleshooting#authorization-is).
 
-## Chạy tại máy
+## Host web tĩnh
 
-Trên Windows, nhấp đúp **`start-local.cmd`** trong thư mục dự án. File tự chuyển đến đúng thư mục, chạy Python và mở trang `http://localhost:8080/` trong trình duyệt. Giữ cửa sổ server đang mở trong lúc sử dụng. Nếu cổng đó đã có ứng dụng khác, launcher chọn một cổng trống và mở đúng địa chỉ mới.
-
-Không mở `index.html` trực tiếp bằng `file://`: trình duyệt chặn `fetch()` đọc các manifest/weights, nên nhận diện khuôn mặt không thể khởi động. Trang sẽ hiện hướng dẫn và chặn việc tải mô hình trong chế độ này. Không cần thay đổi cài đặt CORS của trình duyệt.
-
-Hoặc chạy lệnh sau để tự mở trình duyệt:
-
-```powershell
-python server.py --open
-```
-
-Để chỉ chạy server:
-
-```powershell
-python server.py
-```
-
-Mở [localhost:8080](http://localhost:8080). Nếu Python thiếu chứng chỉ HTTPS, cài `certifi` (`python -m pip install certifi`). Không tắt xác minh TLS.
-
-Máy chủ này đọc trực tiếp danh sách công khai từ Drive ngay cả khi chưa kết nối Apps Script. Đọc thư mục riêng tư, tải lên, tạo thư mục và lịch sử cần cầu nối đã triển khai. Khi host chỉ phục vụ file tĩnh, phải điền `appsScriptUrl` để đọc Drive; không có fallback sang danh sách đóng gói.
+Xem [README.md](README.md) để host trên GitHub Pages. HTML/CSS/JavaScript gọi trực tiếp URL Apps Script trong `drive-config.js`. Không có API local và không cần chạy Python hoặc localhost.
 
 ## Tải tệp và lịch sử
 
@@ -63,7 +45,7 @@ Tài liệu: [Drive resumable uploads](https://developers.google.com/workspace/d
 
 Đường dự phòng chạy tối đa ba ảnh cùng lúc, gộp yêu cầu trùng tệp và lưu trong RAM tối đa 48 ảnh / 16 MiB / 5 phút. Không ghi ảnh vào localStorage. Request thất bại hoặc ảnh hỏng không được cache thành công. Kết quả đến muộn không ghi đè ảnh mới; khi cả cầu nối cũng không đọc được, ô ảnh hiện thông báo rõ và khung xem có thể chuyển sang Drive Preview. Các ô đã tải xong dừng hiệu ứng skeleton.
 
-Nếu đã triển khai phiên bản có `faceThumbnails: true`, sửa này chỉ cần tải lại web. Nếu còn dùng cầu nối cũ, cập nhật Apps Script theo hướng dẫn phía trên. Máy chủ local phục vụ favicon của lớp và trả 204 cho truy vấn DevTools tùy chọn, thay vì 404.
+Nếu đã triển khai phiên bản có `faceThumbnails: true`, sửa này chỉ cần tải lại web. Nếu còn dùng cầu nối cũ, cập nhật Apps Script theo hướng dẫn phía trên. Favicon dùng đường dẫn tương đối để tương thích GitHub Pages.
 
 ## Hồ sơ người nhà
 
@@ -73,32 +55,6 @@ Giới thiệu dùng chung lưu trong Script Properties, tách khỏi lịch s�
 
 **Cần cập nhật `google-apps-script.gs` và tạo New version cho deployment hiện tại** để bật `profile`, `saveProfile`, `faceThumbnail`. Giữ nguyên URL `/exec`. Trước khi cập nhật, đọc kho và upload cũ vẫn hoạt động; nút bổ sung hồ sơ sẽ giải thích rằng cầu nối cần cập nhật.
 
-## Tìm khuôn mặt trong toàn kho lớp
-
-1. Chọn/kéo ảnh mẫu vào **Mình ở đâu trong những tấm ảnh?**. Nếu có nhiều khuôn mặt, chọn đúng người trong các ảnh cắt ra.
-2. Chọn mức Chặt chẽ / Cân bằng / Mở rộng rồi bấm **Tìm trong toàn kho**. Chỉ duyệt thư mục gốc được cấu hình và toàn bộ thư mục con mà kết nối hiện tại đọc được, không tìm trong Drive riêng ngoài kho lớp.
-3. Lần đầu lập chỉ mục bằng [face-api.js](https://github.com/justadudewhohacks/face-api.js): Tiny Face Detector + tiny landmarks 68 điểm + descriptor 128 chiều, so khoảng cách Euclid, xếp gợi ý gần nhất trước. Ba mức dùng ngưỡng 0.45 / 0.50 / 0.58; đây không phải xác suất đúng danh tính.
-4. Lần sau dùng chỉ mục IndexedDB trên thiết bị, không tải lại ảnh đã lập chỉ mục. Khóa gồm phiên bản mô hình, kho/cầu nối, ID tệp và thời gian sửa; tệp mới/sửa được xử lý lại, chỉ mục của tệp bị xóa được dọn. Ảnh không đọc được không bị đánh dấu thành công và sẽ thử lại lần sau.
-
-Mã và weights được đóng gói tại `assets/face/`, tải trễ khi chọn ảnh mẫu, không ảnh hưởng lần mở trang. Ảnh mẫu và descriptors không gửi lên server. Ảnh kho được đọc qua thumbnail 960px; khi CORS chặn, cầu nối mới xác minh tệp thuộc kho lớp rồi trả ảnh xem trước, không lộ OAuth token. Mỗi lượt chỉ xử lý một ảnh, giải phóng canvas sau lượt; nhường thời gian cho giao diện và upload, tạm nghỉ khi tab bị ẩn, có nút Dừng và Xóa chỉ mục máy này. Trình duyệt không hỗ trợ/chặn IndexedDB sẽ dùng RAM trong lần mở trang, có thông báo khi không lưu được chỉ mục.
-
-Tiến độ phân biệt tệp đã xét, tệp chưa đọc được và mục dùng lại chỉ mục; lỗi đọc thư mục báo rằng danh sách chưa đầy đủ. Kết quả chỉ là gợi ý tương đồng, không tự xác định tên hay cập nhật hồ sơ. Video **chỉ tìm qua ảnh bìa**, chưa phân tích các khung hình bên trong. Ảnh nhóm có mặt quá nhỏ, thiếu sáng, nghiêng hoặc bị che có thể bỏ sót; lần đầu chưa thể tìm tức thì trên một kho lớn.
-
-Đổi kết nối Drive khi đang tìm sẽ hủy kết quả của lượt cũ. Lưu ý cache khuôn mặt nằm riêng trên từng trình duyệt/thiết bị; xóa dữ liệu trang hoặc bấm Xóa chỉ mục sẽ phải lập lại.
-
 ## Kiểm tra
 
-```powershell
-node --test tests/drive.test.cjs
-python -m unittest discover -s tests -p "test_*.py"
-```
-
-Sau khi triển khai cầu nối thật, thử tải một ảnh, một video, một tệp bất kỳ và tạo thư mục; mở trình duyệt khác để kiểm tra kho và lịch sử. Các bài kiểm tra tự động dùng Drive mô phỏng, không tạo tệp vào kho thật.
-
-`node tests/file-mode-ui.cjs` kiểm tra mở trực tiếp bằng `file://`: hiện hướng dẫn chạy localhost, khóa chọn ảnh và chặn cả kéo thả trước khi có request tải mô hình.
-
-`node tests/images-ui.cjs` kiểm tra đường dự phòng khi chặn hai host ảnh Google: chờ handshake, tải ảnh thật vào DOM, giới hạn ba luồng, dùng cache/gộp request, thử lại khi lỗi, không lặp vô hạn với ảnh hỏng và không ghi đè ảnh mới bằng phản hồi cũ. Mặc định dùng server tại `http://localhost:8091`; có thể đặt `PREVIEW_URL`. Đặt `LIVE_DRIVE_THUMBNAIL_ID` là ID một ảnh trong kho lớp để thử cầu nối thật (chỉ đọc, không sửa tệp).
-
-Kiểm thử giao diện tùy chọn: cài `playwright`, chạy `python server.py` rồi `node tests/drive-ui.cjs`. Có thể đặt biến môi trường `PLAYWRIGHT_MODULE` trỏ tới package Playwright đã cài ở máy. Bài kiểm tra mô phỏng phân trang, mất phản hồi khi tải, tệp rỗng, chuyển thư mục giữa lúc tải, lịch sử dùng chung, xóa/đổi tên trên Drive và bố cục điện thoại.
-
-`node tests/memories-ui.cjs` kiểm tra hồ sơ, album con, phân trang, lưu giới thiệu và xử lý chuỗi HTML. Để kiểm tra mô hình nhận diện thật, đặt `FACE_FIXTURE` là đường dẫn tới ảnh JPG có mặt rõ rồi chạy bài đó. Bài kiểm tra dùng weights thật trên trình duyệt, mô phỏng dữ liệu Drive, kiểm tra tải mô hình trễ, chọn mặt, kết quả tương đồng, tái sử dụng IndexedDB sau reload, lập lại chỉ mục khi sửa tệp và giải phóng tensors. Mẫu thử có thể lấy từ [ảnh ví dụ upstream](https://raw.githubusercontent.com/justadudewhohacks/face-api.js/8609b25a15f417398a4d2b95dc91985cd1e0c0c3/examples/images/bbt1.jpg), không ghi ảnh thành viên thật vào Git.
+Xem các lệnh kiểm tra trong [README.md](README.md). Kiểm thử giao diện mặc định chạy với bộ file tĩnh trong `dist/` qua HTTPS mô phỏng; không cần server local. Các thao tác ghi dùng Drive mô phỏng, không tạo tệp thật.

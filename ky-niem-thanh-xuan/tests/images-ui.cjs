@@ -4,7 +4,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
-const BASE = process.env.PREVIEW_URL || 'http://localhost:8091';
+const BASE = process.env.PREVIEW_URL || 'https://pages.test/Web/ky-niem-thanh-xuan/';
 const ROOT = '1MmsTXHQZ4QoSsbi5XixRHzwE8lrGBVxa';
 const config = { window: {} }; vm.runInNewContext(fs.readFileSync(path.join(__dirname, '..', 'drive-config.js'), 'utf8'), config);
 const LIVE_ID = process.env.LIVE_DRIVE_THUMBNAIL_ID;
@@ -15,6 +15,7 @@ const root = { id: ROOT, n: 'Kho ảnh kiểm thử', f: [], loaded: true, items
   const browser = await chromium.launch({ headless: true });
   try {
     const context = await browser.newContext({ viewport: { width: 1280, height: 1000 } });
+    if (!process.env.PREVIEW_URL) await require('./static-host.cjs')(context, BASE);
     await context.addInitScript(({ root, url, ROOT, origin }) => {
       if (location.origin !== origin) return;
       localStorage.setItem('kn-drive-script-url', url);
@@ -82,11 +83,9 @@ const root = { id: ROOT, n: 'Kho ảnh kiểm thử', f: [], loaded: true, items
       assert.equal(calls.get(LIVE_ID), 1, 'live display uses the deployed bridge successfully');
       assert.ok(await page.locator('#drive-files-grid img').evaluate(img => img.naturalWidth) > 100);
     }
-    for (const endpoint of ['/favicon.svg', '/favicon.ico']) {
-      const response = await page.request.get(BASE + endpoint); assert.equal(response.status(), 200); assert.match(response.headers()['content-type'], /image\/svg\+xml/);
-    }
-    assert.equal((await page.request.get(BASE + '/.well-known/appspecific/com.chrome.devtools.json')).status(), 204);
+    const icon = await page.evaluate(async () => { const r = await fetch(new URL('favicon.svg', location.href)); return { status: r.status, type: r.headers.get('content-type') }; });
+    assert.equal(icon.status, 200); assert.match(icon.type, /image\/svg\+xml/);
     assert.deepEqual(errors, []);
-    console.log(`Image recovery passed (${LIVE_ID ? 'deployed bridge and real Drive image' : 'mock bridge'}): blocked direct hosts, startup handshake, decoded images${LIVE_ID ? '' : ', cache/deduplication, concurrency, failed/corrupt bytes, stale requests'}, favicon and DevTools routes.`);
+    console.log(`Static image recovery passed (${LIVE_ID ? 'deployed bridge and real Drive image' : 'mock bridge'}): blocked direct hosts, startup handshake, decoded images${LIVE_ID ? '' : ', cache/deduplication, concurrency, failed/corrupt bytes, stale requests'}, project-relative favicon.`);
   } finally { await browser.close(); }
 })().catch(error => { console.error(error); process.exitCode = 1; });

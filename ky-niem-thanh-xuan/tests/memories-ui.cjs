@@ -1,9 +1,9 @@
-// Real browser + real face-api models. Set FACE_FIXTURE to an image with a clear face.
+// Static browser verification for shared profiles and member archives.
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const BASE = process.env.PREVIEW_URL || 'http://localhost:8080';
+const BASE = process.env.PREVIEW_URL || 'https://pages.test/Web/ky-niem-thanh-xuan/';
 const ROOT = '1MmsTXHQZ4QoSsbi5XixRHzwE8lrGBVxa';
 const URL = 'https://script.google.com/macros/s/memories-ui/exec';
 const folders = new Map([
@@ -12,14 +12,14 @@ const folders = new Map([
   ['nested', { id: 'nested', n: 'Album nhỏ', f: [], items: [['nested-photo', 'Ảnh trong album.jpg', 0, '2026-11-14']] }],
   ['other', { id: 'other', n: '1. Người nhà', f: [], items: [] }],
 ]);
-let profile = { revision: 0 }, thumbnailRequests = 0, thumbnailFailure = false, delayThumbnail = false, thumbnailStarted = false, blankImage = null;
+let profile = { revision: 0 };
 const errors = [];
 (async () => {
   const browser = await chromium.launch({ headless: true });
   try {
     const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
+    if (!process.env.PREVIEW_URL) await require('./static-host.cjs')(context, BASE);
     await context.addInitScript(({ url, origin }) => { if (location.origin === origin) localStorage.setItem('kn-drive-script-url', url); }, { url: URL, origin: new global.URL(BASE).origin });
-    const fixture = process.env.FACE_FIXTURE ? fs.readFileSync(process.env.FACE_FIXTURE) : null;
     await context.route('https://script.google.com/**', async route => {
       const req = route.request(), p = req.method() === 'POST' ? req.postDataJSON() : Object.fromEntries(new global.URL(req.url()).searchParams);
       let response;
@@ -27,16 +27,10 @@ const errors = [];
       else if (p.action === 'folder') response = { ok: true, folder: folders.get(p.id) };
       else if (p.action === 'profile') response = { ok: true, profile };
       else if (p.action === 'saveProfile') { assert.equal(p.revision, profile.revision); profile = { ...p.profile, revision: profile.revision + 1 }; response = { ok: true, profile }; }
-      else if (p.action === 'faceThumbnail') {
-        thumbnailRequests++; thumbnailStarted = true;
-        if (delayThumbnail) await new Promise(resolve => setTimeout(resolve, 3000));
-        response = thumbnailFailure ? { ok: false, error: 'Thumbnail temporarily unavailable' }
-          : { ok: true, image: blankImage || `data:image/jpeg;base64,${fixture.toString('base64')}` };
-      }
       else throw new Error('Unexpected request: ' + p.action);
       await route.fulfill({ json: response, headers: { 'Access-Control-Allow-Origin': '*' } }).catch(error => { if (browser.isConnected() && !req.failure()) throw error; });
     });
-    // Block CORS analysis requests, but let display thumbnails load independently of indexing.
+    // Provide lightweight display thumbnails without calling external storage.
     await context.route(/https:\/\/(lh3\.googleusercontent|drive\.google|ui-avatars\.com)/, route => {
       if (route.request().resourceType() === 'image' && !route.request().headers().origin) return route.fulfill({ contentType: 'image/svg+xml', body: '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><rect width="32" height="32" fill="#e0e7ff"/></svg>' });
       return route.abort();
@@ -45,7 +39,10 @@ const errors = [];
     const network = []; page.on('request', request => network.push(request.url()));
     await page.goto(BASE, { waitUntil: 'domcontentloaded' });
     await page.waitForFunction(() => !liveState.scanning && folderById.get('nested')?.loaded);
-    assert.equal(network.some(url => url.includes('face-api.min.js')), false, 'face models must not affect initial load');
+    assert.equal(network.some(url => /face-search|assets\/face|cdn.tailwindcss/.test(url)), false, 'removed models and runtime CSS are never requested');
+    assert.equal(network.some(url => new global.URL(url).pathname.includes('/api/')), false, 'static pages never call local API endpoints');
+    assert.equal(await page.locator('#section-face-search').count(), 0);
+    assert.equal(await page.locator('#class-map-grid').evaluate(el => getComputedStyle(el).display), 'grid', 'compiled local CSS is applied');
     await page.locator('[onclick="openStudentModal(\'person\')"]').click();
     assert.match(await page.locator('#member-profile').innerText(), /12A1/);
     assert.equal(await page.locator('#modal-name').innerText(), 'Dương Thanh Điền');
@@ -63,90 +60,15 @@ const errors = [];
     await page.evaluate(() => openStudentModal('other'));
     assert.match(await page.locator('#member-profile').innerText(), /12A1/);
     await page.evaluate(() => closeModal());
-    if (fixture) {
-      // Keep real inference bounded while still covering nested folders and cache invalidation.
-      folders.get('person').items = folders.get('person').items.slice(0, 1);
-      await page.evaluate(() => refreshDriveNow());
-      await page.locator('#face-reference').setInputFiles({ name: 'reference.jpg', mimeType: 'image/jpeg', buffer: fixture });
-      await page.waitForFunction(() => !document.querySelector('#face-search-button').disabled, null, { timeout: 120000 });
-      assert.ok(await page.locator('#face-candidates button').count() >= 1, 'real models detect faces');
-      if (await page.locator('#face-candidates button').count() > 1) {
-        await page.locator('#face-candidates button').nth(1).click();
-        assert.equal(await page.locator('#face-candidates button[aria-pressed=true]').count(), 1);
-      }
-      const baselineTensors = await page.evaluate(() => faceapi.tf.memory().numTensors);
-      const coldStart = Date.now();
-      await page.locator('#face-search-button').click();
-      await page.waitForFunction(() => !document.querySelector('#face-search-button').disabled, null, { timeout: 120000 });
-      const coldMs = Date.now() - coldStart;
-      assert.ok(await page.evaluate(() => faceapi.tf.memory().numTensors) <= baselineTensors + 8, 'inference tensors are disposed after indexing');
-      assert.match(await page.locator('#face-status').innerText(), /Đã tìm: 2\/2/);
-      assert.equal(await page.locator('#face-results button').count(), 2);
-      const reads = thumbnailRequests;
-      assert.equal(reads, 2);
-      const warmStart = Date.now();
-      await page.locator('#face-search-button').click();
-      await page.waitForFunction(() => !document.querySelector('#face-search-button').disabled);
-      assert.equal(thumbnailRequests, reads, 'second search uses descriptors, not thumbnails');
-      assert.match(await page.locator('#face-status').innerText(), /2 dùng lại chỉ mục/);
-      console.log(`Real-model sample (2 files): first index ${coldMs}ms, cached search ${Date.now() - warmStart}ms.`);
-      await page.reload({ waitUntil: 'domcontentloaded' });
-      await page.waitForFunction(() => liveState.faceThumbnails);
-      await page.locator('#face-reference').setInputFiles({ name: 'reference.jpg', mimeType: 'image/jpeg', buffer: fixture });
-      await page.waitForFunction(() => !document.querySelector('#face-search-button').disabled, null, { timeout: 120000 });
-      await page.locator('#face-search-button').click();
-      await page.waitForFunction(() => !document.querySelector('#face-search-button').disabled);
-      assert.equal(thumbnailRequests, reads, 'IndexedDB survives reload');
-      folders.get('person').items[0][3] = '2026-11-15';
-      await page.evaluate(() => refreshDriveNow());
-      await page.locator('#face-search-button').click();
-      await page.waitForFunction(() => !document.querySelector('#face-search-button').disabled, null, { timeout: 120000 });
-      assert.equal(thumbnailRequests, reads + 1, 'modified file is reindexed');
-      // A failed thumbnail is retried next time rather than cached as a no-face result.
-      folders.get('person').items[0][3] = '2026-11-16';
-      await page.evaluate(() => refreshDriveNow());
-      thumbnailFailure = true;
-      await page.locator('#face-search-button').click();
-      await page.waitForFunction(() => !document.querySelector('#face-search-button').disabled);
-      assert.match(await page.locator('#face-status').innerText(), /1 tệp chưa đọc được/);
-      const failedReads = thumbnailRequests;
-      thumbnailFailure = false;
-      await page.locator('#face-search-button').click();
-      await page.waitForFunction(() => !document.querySelector('#face-search-button').disabled);
-      assert.equal(thumbnailRequests, failedReads + 1);
-      // An image with no face is a successful, cacheable index entry with no match.
-      blankImage = await page.evaluate(() => { const canvas = document.createElement('canvas'); canvas.width = canvas.height = 160; canvas.getContext('2d').fillRect(0, 0, 160, 160); return canvas.toDataURL('image/png'); });
-      folders.get('person').items[0][3] = '2026-11-17';
-      await page.evaluate(() => refreshDriveNow());
-      await page.locator('#face-search-button').click();
-      await page.waitForFunction(() => !document.querySelector('#face-search-button').disabled);
-      assert.equal(await page.locator('#face-results button').count(), 1, 'blank images cannot produce face matches');
-      blankImage = null;
-      // Stopping aborts an in-flight thumbnail without waiting for the upstream timeout.
-      folders.get('person').items[0][3] = '2026-11-18';
-      await page.evaluate(() => refreshDriveNow());
-      delayThumbnail = true; thumbnailStarted = false;
-      await page.locator('#face-search-button').click();
-      const thumbnailDeadline = Date.now() + 10000;
-      while (!thumbnailStarted && Date.now() < thumbnailDeadline) await new Promise(resolve => setTimeout(resolve, 20));
-      assert.equal(thumbnailStarted, true, 'thumbnail request starts before cancellation');
-      await page.locator('#face-stop-button').click();
-      await page.waitForFunction(() => !document.querySelector('#face-search-button').disabled, null, { timeout: 2500 });
-      assert.match(await page.locator('#face-status').innerText(), /Đã dừng/);
-      delayThumbnail = false;
-      await page.locator('#face-clear-button').click();
-      await page.waitForFunction(() => document.querySelector('#face-status').textContent.includes('Đã xóa'));
-      assert.equal(await page.locator('#face-search-button').isDisabled(), true);
-    } else console.log('Real recognition checks skipped: set FACE_FIXTURE to enable.');
     fs.mkdirSync(path.join(__dirname, '..', 'test-results'), { recursive: true });
-    await page.locator('#section-face-search').screenshot({ path: path.join(__dirname, '..', 'test-results', 'memories-desktop.png') });
+    await page.locator('#section-class-map').screenshot({ path: path.join(__dirname, '..', 'test-results', 'memories-desktop.png') });
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.locator('#section-face-search').screenshot({ path: path.join(__dirname, '..', 'test-results', 'memories-mobile.png') });
+    await page.locator('#section-class-map').screenshot({ path: path.join(__dirname, '..', 'test-results', 'memories-mobile.png') });
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
     await page.evaluate(() => openStudentModal('person'));
     await page.waitForTimeout(400);
     await page.locator('#student-modal').screenshot({ path: path.join(__dirname, '..', 'test-results', 'profile-mobile.png') });
     assert.deepEqual(errors, []);
-    console.log('Memories checks passed: profile, nested/paged archive, shared save, escaped fields, lazy models, real recognition/cache when enabled, mobile.');
+    console.log('Memories checks passed: static CSS, profile, nested/paged archive, shared save, escaped fields, mobile.');
   } finally { await browser.close(); }
 })().catch(error => { console.error(error); process.exitCode = 1; });

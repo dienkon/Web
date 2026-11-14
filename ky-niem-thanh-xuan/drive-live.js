@@ -7,7 +7,7 @@ const liveState = {
   writable: false, generation: 0, requests: new Map(), scanning: false,
   lastScan: 0, lastRead: 0, lastPoll: 0, tab: 'drive', historyBefore: null, historyBusy: false,
   queue: [], uploading: false, folderTarget: null, historyEvents: [],
-  supportsProfiles: false, faceThumbnails: false,
+  supportsProfiles: false, thumbnailBridge: false, thumbnailAction: 'faceThumbnail',
 };
 
 function storageGet(key) {
@@ -66,9 +66,8 @@ function validScriptUrl(value) {
 
 async function driveRequest(action, data = {}, write = false, options = {}) {
   const endpoint = options.url === undefined ? liveState.url : options.url;
-  if (write && !endpoint) throw new Error('Cần kết nối Google Drive trước khi tải tệp hoặc tạo thư mục.');
-  if (!endpoint && action === 'history') throw new Error('Kết nối Google Drive để xem lịch sử dùng chung.');
-  const url = new URL(endpoint || (action === 'folder' ? './api/live-folder' : './api/status'), location.href);
+  if (!endpoint) throw new Error('Chưa cấu hình kết nối Google Drive. Điền appsScriptUrl trong drive-config.js hoặc mở “Kết nối Drive”.');
+  const url = new URL(endpoint);
   const init = { cache: 'no-store', redirect: 'follow', credentials: 'omit', signal: AbortSignal.timeout(write ? 120000 : 45000) };
   if (options.signal) init.signal = AbortSignal.any([init.signal, options.signal]);
   if (write) {
@@ -140,7 +139,7 @@ async function performLiveDriveConnection() {
   clearTimeout(driveCacheTimer); driveCacheTimer = null;
   liveState.requests.clear();
   setWritable(false);
-  liveState.supportsProfiles = false; liveState.faceThumbnails = false;
+  liveState.supportsProfiles = false; liveState.thumbnailBridge = false;
   setDriveStatus(ROOT_VIRTUAL_NODE.loaded ? 'Đang hiển thị dữ liệu Drive đã lưu. Kiểm tra kết nối trong nền…' : 'Đang kết nối và đọc dữ liệu thực tế từ Drive…');
   try {
     const status = await driveRequest('ping');
@@ -148,7 +147,10 @@ async function performLiveDriveConnection() {
     if (status.rootId !== driveRoot.rootId) throw new Error('Cầu nối được cấu hình cho một thư mục Drive khác.');
     if (liveState.url && status.version !== 2) throw new Error('Cần triển khai phiên bản mới của google-apps-script.gs.');
     setWritable(Boolean(liveState.url && status.writable));
-    liveState.supportsProfiles = Boolean(status.profiles); liveState.faceThumbnails = Boolean(status.faceThumbnails);
+    liveState.supportsProfiles = Boolean(status.profiles);
+    // Accept the existing thumbnail API so static hosting needs no bridge redeployment.
+    liveState.thumbnailBridge = Boolean(status.thumbnails || status.faceThumbnails);
+    liveState.thumbnailAction = status.thumbnails ? 'thumbnail' : 'faceThumbnail';
     await ensureLiveFolder(driveRoot.rootId);
     if (generation !== liveState.generation) return;
     liveState.lastPoll = Date.now();
@@ -320,7 +322,7 @@ async function saveDriveSettings(event) {
   button.disabled = true;
   try {
     if (liveState.uploading) throw new Error('Chờ hàng đợi tải lên hoàn tất trước khi đổi kết nối.');
-    if (url && !validScriptUrl(url)) throw new Error('URL cần có dạng https://script.google.com/macros/s/…/exec');
+    if (!validScriptUrl(url)) throw new Error('URL cần có dạng https://script.google.com/macros/s/…/exec');
     const status = await driveRequest('ping', {}, false, { url });
     if (status.rootId !== driveRoot.rootId || (url && status.version !== 2)) throw new Error('Cần triển khai đúng phiên bản Apps Script và thư mục Drive của lớp.');
     saveDriveCache();
