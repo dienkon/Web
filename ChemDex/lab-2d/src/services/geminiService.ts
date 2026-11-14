@@ -4,7 +4,9 @@
  * Supports local storage configuration, multiple API key fallbacks, model failover, and local verification.
  */
 
-import { ReactionDefinition } from '../types/chemistry';
+import { PhysicalState, ReactionDefinition, StoichiometricSpecies } from '../types/chemistry';
+import { normalizeFormula, parseChemicalFormula } from '../chemistry/core/formula';
+import { isElementBalancedReaction } from '../chemistry/core/ledger';
 
 export const LOCAL_STORAGE_API_KEY_NAME = 'chemdex_gemini_api_key';
 export const LOCAL_STORAGE_MODEL_NAME = 'chemdex_gemini_model';
@@ -113,6 +115,91 @@ export async function testGeminiApiKey(
   return { ok: false, model: '', error: lastError };
 }
 
+const VALID_PHYSICAL_STATES = new Set<PhysicalState>(['aq', 's', 'l', 'g']);
+
+function validateSpeciesList(rawList: unknown): StoichiometricSpecies[] | null {
+  if (!Array.isArray(rawList) || rawList.length === 0) return null;
+  const out: StoichiometricSpecies[] = [];
+  for (const item of rawList) {
+    if (!item || typeof item !== 'object') return null;
+    const rec = item as Record<string, unknown>;
+    const formula = typeof rec.formula === 'string' ? rec.formula.trim() : '';
+    const coefficient = Number(rec.coefficient);
+    if (!formula || !Number.isFinite(coefficient) || coefficient <= 0) return null;
+    const atoms = parseChemicalFormula(formula);
+    if (Object.keys(atoms).length === 0) return null;
+    const rawState = typeof rec.state === 'string' ? rec.state.trim().toLowerCase() : 'aq';
+    const state: PhysicalState = VALID_PHYSICAL_STATES.has(rawState as PhysicalState)
+      ? (rawState as PhysicalState)
+      : 'aq';
+    out.push({ formula, coefficient, state });
+  }
+  return out;
+}
+
+/**
+ * Validates raw Gemini JSON output before entering the runtime reaction table:
+ * rejects malformed formulas, missing vessel reactants, or non-conserving stoichiometry,
+ * does not fabricate exothermic enthalpy, and tags provenance as 'ai-unverified'.
+ */
+export function validateGeminiReactionPayload(
+  parsed: unknown,
+  vesselFormulas?: readonly string[]
+): ReactionDefinition | null {
+  if (!parsed || typeof parsed !== 'object') return null;
+  const root = parsed as Record<string, unknown>;
+  if (!root.isReaction || !root.reaction || typeof root.reaction !== 'object') return null;
+
+  const rawRx = root.reaction as Record<string, unknown>;
+  const reactants = validateSpeciesList(rawRx.reactants);
+  const products = validateSpeciesList(rawRx.products);
+  if (!reactants || !products) return null;
+
+  if (vesselFormulas && vesselFormulas.length > 0) {
+    const present = new Set(vesselFormulas.map((f) => normalizeFormula(f)));
+    const allReactantsPresent = reactants.every((r) => {
+      const norm = normalizeFormula(r.formula);
+      return norm === 'H2O' || present.has(norm);
+    });
+    if (!allReactantsPresent) return null;
+  }
+
+  const rawDeltaH = rawRx.deltaH_kJ_mol;
+  const deltaH = typeof rawDeltaH === 'number' && Number.isFinite(rawDeltaH) ? rawDeltaH : 0;
+
+  const rawVisual = (rawRx.visual && typeof rawRx.visual === 'object'
+    ? rawRx.visual
+    : {}) as Record<string, unknown>;
+
+  const rx: ReactionDefinition = {
+    id: typeof rawRx.id === 'string' && rawRx.id.trim() ? rawRx.id.trim() : `rx_ai_${Date.now()}`,
+    provenance: 'ai-unverified',
+    name_en: typeof rawRx.name_en === 'string' && rawRx.name_en.trim() ? rawRx.name_en : 'Chemical Reaction',
+    name_vi: typeof rawRx.name_vi === 'string' && rawRx.name_vi.trim() ? rawRx.name_vi : 'Phản ứng Hóa học',
+    equation: typeof rawRx.equation === 'string' ? rawRx.equation : '',
+    ionic_equation: typeof rawRx.ionic_equation === 'string' ? rawRx.ionic_equation : undefined,
+    reactants,
+    products,
+    deltaH_kJ_mol: deltaH,
+    visual: {
+      precipitate: rawVisual.precipitate as ReactionDefinition['visual']['precipitate'],
+      gas: rawVisual.gas as ReactionDefinition['visual']['gas'],
+      colorChange:
+        typeof rawVisual.resultingColorHex === 'string' && rawVisual.resultingColorHex
+          ? { resultingColorHex: rawVisual.resultingColorHex }
+          : undefined,
+    },
+    observable_vi: typeof rawRx.observable_vi === 'string' ? rawRx.observable_vi : '',
+    observable_en: typeof rawRx.observable_en === 'string' ? rawRx.observable_en : '',
+    safetyNotes_vi: typeof rawRx.safetyNotes_vi === 'string' ? rawRx.safetyNotes_vi : undefined,
+    safetyNotes_en: typeof rawRx.safetyNotes_en === 'string' ? rawRx.safetyNotes_en : undefined,
+    isDangerous: Boolean(rawRx.isDangerous),
+  };
+
+  if (!isElementBalancedReaction(rx)) return null;
+  return rx;
+}
+
 /**
  * Predicts and synthesizes chemical reactions dynamically using Gemini
  */
@@ -214,35 +301,23 @@ Output ONLY raw valid JSON, no markdown codeblocks, no extra prose.`;
 
       let result: AIDynamicReactionResult;
       if (parsed.isReaction && parsed.reaction) {
-        const rx: ReactionDefinition = {
-          id: parsed.reaction.id || `rx_ai_${Date.now()}`,
-          name_en: parsed.reaction.name_en || 'Chemical Reaction',
-          name_vi: parsed.reaction.name_vi || 'Phản ứng Hóa học',
-          equation: parsed.reaction.equation || '',
-          ionic_equation: parsed.reaction.ionic_equation,
-          reactants: parsed.reaction.reactants || [],
-          products: parsed.reaction.products || [],
-          deltaH_kJ_mol: parsed.reaction.deltaH_kJ_mol ?? -25.0,
-          visual: {
-            precipitate: parsed.reaction.visual?.precipitate,
-            gas: parsed.reaction.visual?.gas,
-            colorChange: parsed.reaction.visual?.resultingColorHex
-              ? { resultingColorHex: parsed.reaction.visual.resultingColorHex }
-              : undefined,
-          },
-          observable_vi: parsed.reaction.observable_vi || '',
-          observable_en: parsed.reaction.observable_en || '',
-          safetyNotes_vi: parsed.reaction.safetyNotes_vi,
-          safetyNotes_en: parsed.reaction.safetyNotes_en,
-          isDangerous: parsed.reaction.isDangerous || false,
-        };
-
-        result = {
-          isReaction: true,
-          reactionDefinition: rx,
-          explanation_vi: parsed.explanation_vi || rx.observable_vi,
-          explanation_en: parsed.explanation_en || rx.observable_en,
-        };
+        const validated = validateGeminiReactionPayload(parsed, reactantFormulas);
+        if (validated) {
+          result = {
+            isReaction: true,
+            reactionDefinition: validated,
+            explanation_vi: parsed.explanation_vi || validated.observable_vi,
+            explanation_en: parsed.explanation_en || validated.observable_en,
+          };
+        } else {
+          result = {
+            isReaction: false,
+            explanation_vi:
+              'Đề xuất từ AI không đạt kiểm tra cân bằng nguyên tố hoặc công thức hợp lệ nên đã bị từ chối.',
+            explanation_en:
+              'AI reaction proposal failed formula or element conservation validation and was rejected.',
+          };
+        }
       } else {
         result = {
           isReaction: false,

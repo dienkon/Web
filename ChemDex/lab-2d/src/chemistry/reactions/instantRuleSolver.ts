@@ -219,6 +219,7 @@ export function resolveInstantRulesAndEquilibria(
   currentTemp_c: number,
   isHeated: boolean,
   isOpenVessel: boolean,
+  options?: { includeTier2Fallback?: boolean; tier2Only?: boolean },
 ): InstantRuleResolutionOutput {
   const reactionsOccurred: ReactionExecutionRecord[] = [...existingReactions];
   let temp_c = currentTemp_c;
@@ -289,6 +290,7 @@ export function resolveInstantRulesAndEquilibria(
   // ─── 1. Potassium (K) + Water Pyrotechnic Skittering & Lilac Flame ─────────
   const kSolid = findItem('K');
   const h2oItem = findItem('H2O');
+  if (!options?.tier2Only) {
   if (kSolid && kSolid.state === 's' && h2oItem) {
     const xi = Math.min(kSolid.moles / 2, h2oItem.moles / 2);
     if (xi > 1e-6) {
@@ -340,7 +342,8 @@ export function resolveInstantRulesAndEquilibria(
       aloh3Solid.mass_g = aloh3Solid.moles * computeMolarMass('Al(OH)3');
       strongBase.moles = Math.max(0, strongBase.moles - xi);
       strongBase.mass_g = strongBase.moles * computeMolarMass(strongBase.formula);
-      addOrUpdateSpecies('Na[Al(OH)4]', xi, 'aq');
+      const aluminateFormula = normalizeFormula(strongBase.formula) === 'KOH' ? 'K[Al(OH)4]' : 'Na[Al(OH)4]';
+      addOrUpdateSpecies(aluminateFormula, xi, 'aq');
 
       const thermal = calculateReactionDeltaT(xi, -28.0, Math.max(10, volume_ml), temp_c);
       temp_c = thermal.finalTemp_c;
@@ -350,7 +353,7 @@ export function resolveInstantRulesAndEquilibria(
         reactionId: 'rx_aloh3_amphoteric_dissolution',
         name_en: 'Amphoteric Dissolution of Aluminium Hydroxide in Excess Alkali',
         name_vi: 'Hòa tan kết tủa keo trắng Al(OH)₃ trong kiềm dư tạo phức Aluminat',
-        equation: 'Al(OH)₃↓ + NaOH → Na[Al(OH)₄]',
+        equation: `Al(OH)₃↓ + ${strongBase.formula} → ${aluminateFormula}`,
         ionic_equation: 'Al(OH)₃(s) + OH⁻(aq) → [Al(OH)₄]⁻(aq)',
         extent_moles: Math.round(xi * 100000) / 100000,
         heatReleased_J: thermal.heatReleased_J,
@@ -375,7 +378,7 @@ export function resolveInstantRulesAndEquilibria(
       cuoh2Solid.mass_g = cuoh2Solid.moles * computeMolarMass('Cu(OH)2');
       nh3Item.moles = Math.max(0, nh3Item.moles - 4 * xi);
       nh3Item.mass_g = nh3Item.moles * computeMolarMass(nh3Item.formula);
-      addOrUpdateSpecies('[Cu(NH3)4]SO4', xi, 'aq');
+      addOrUpdateSpecies('[Cu(NH3)4](OH)2', xi, 'aq');
 
       const thermal = calculateReactionDeltaT(xi, -42.0, Math.max(10, volume_ml), temp_c);
       temp_c = thermal.finalTemp_c;
@@ -440,10 +443,11 @@ export function resolveInstantRulesAndEquilibria(
       activeControllerIds.add('water_into_conc_h2so4_explosion');
     }
   }
+  }
 
   // ─── 6. TIER 2 DETERMINISTIC RULE-DERIVED INSTANT SOLVER ───────────────────
   // If no catalog reaction fired this pass, check general ionic precipitation & single-displacement
-  if (reactionsOccurred.length === 0 && workingContents.length >= 2) {
+  if ((options?.includeTier2Fallback ?? true) && reactionsOccurred.length === 0 && workingContents.length >= 2) {
     // 6A. Carbonate / Bicarbonate / Sulfite / Sulfide + Any Acid -> Gas Evolution
     const acidItem = workingContents.find(c => {
       const f = normalizeFormula(c.formula);
@@ -463,7 +467,9 @@ export function resolveInstantRulesAndEquilibria(
         gasSaltItem.mass_g = gasSaltItem.moles * computeMolarMass(gasSaltItem.formula);
         acidItem.moles = Math.max(0, acidItem.moles - 2 * xi);
         acidItem.mass_g = acidItem.moles * computeMolarMass(acidItem.formula);
-        addOrUpdateSpecies('H2O', xi, 'l');
+        if (gasFormula !== 'H2S') {
+          addOrUpdateSpecies('H2O', xi, 'l');
+        }
         if (!isOpenVessel) addOrUpdateSpecies(gasFormula, xi, 'g');
         else recordEscapedGas(gasFormula, xi);
 

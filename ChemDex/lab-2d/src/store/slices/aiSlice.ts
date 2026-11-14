@@ -1,3 +1,4 @@
+import { normalizeFormula } from '../../chemistry/core/formula';
 import { isElementBalancedReaction } from '../../chemistry/core/ledger';
 import { runSimulationCycle } from '../../chemistry/reactions/engine';
 import { REACTION_DATABASE } from '../../chemistry/reactions/reactionDatabase';
@@ -24,8 +25,19 @@ export const createAiSlice: LabSliceCreator<AiSlice> = (set, get) => ({
 
       if (get().equipment[vesselId] !== eq || get().simulationPaused) return false;
       if (aiRes && aiRes.isReaction && aiRes.reactionDefinition) {
-        const rx = aiRes.reactionDefinition;
+        const rx = {
+          ...aiRes.reactionDefinition,
+          provenance: aiRes.reactionDefinition.provenance ?? ('ai-unverified' as const),
+        };
         if (!isElementBalancedReaction(rx)) return false;
+
+        const vesselFormulas = new Set(eq.contents.map(c => normalizeFormula(c.formula)));
+        const hasRequiredReactants = rx.reactants.every((r) => {
+          const norm = normalizeFormula(r.formula);
+          return norm === 'H2O' || vesselFormulas.has(norm);
+        });
+        if (!hasRequiredReactants) return false;
+
         const exists = REACTION_DATABASE.some(r => r.id === rx.id);
         if (!exists) {
           REACTION_DATABASE.push(rx);
@@ -57,6 +69,8 @@ export const createAiSlice: LabSliceCreator<AiSlice> = (set, get) => ({
               hasGas: sim.hasGas,
               effervescenceSpeed: sim.gasInfo?.effervescenceSpeed,
               isBoiling: sim.isBoiling,
+              isAiUnverifiedReaction: true,
+              activeReactionLabel: `${rx.equation || rx.name_vi} (AI – chưa kiểm chứng)`,
             },
           },
           history: [
@@ -65,8 +79,8 @@ export const createAiSlice: LabSliceCreator<AiSlice> = (set, get) => ({
               id: `log_${Date.now()}`,
               timestamp: Date.now(),
               actionType: 'REACTION',
-              details_en: `[AI proposal] Predicted Reaction: ${rx.name_en} (${rx.equation})`,
-              details_vi: `[Đề xuất AI] Phản ứng dự đoán: ${rx.name_vi} (${rx.equation})`,
+              details_en: `[AI – unverified] Predicted Reaction: ${rx.name_en} (${rx.equation})`,
+              details_vi: `[AI – chưa kiểm chứng] Phản ứng dự đoán: ${rx.name_vi} (${rx.equation})`,
               vesselId,
               measurements: {
                 volume_ml: eq.volume_ml,

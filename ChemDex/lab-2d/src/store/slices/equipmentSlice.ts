@@ -343,6 +343,7 @@ export const createEquipmentSlice: LabSliceCreator<EquipmentSlice> = (set, get) 
           activeControllerIds: undefined,
           activeReactionLabel: undefined,
           activeReactionProgress: undefined,
+          isAiUnverifiedReaction: false,
           isStirred: false,
         },
       },

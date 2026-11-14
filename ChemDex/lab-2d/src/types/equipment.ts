@@ -100,6 +100,7 @@ export interface EquipmentState {
   hasOpenFlame?: boolean; // open Bunsen flame licking vessel sides (false when misaligned or hot-plate)
   activeReactionLabel?: string; // active reaction stage label for telemetry pill
   activeReactionProgress?: number; // 0..1 reaction completion ratio
+  isAiUnverifiedReaction?: boolean; // true when last reaction came from unverified AI fallback
 
   // Real-time heating telemetry from spatial burner/plate coupling
   isBeingHeated?: boolean;

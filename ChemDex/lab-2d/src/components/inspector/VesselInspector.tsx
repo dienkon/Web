@@ -584,6 +584,11 @@ export const VesselInspector: React.FC = () => {
                   {selectedItem.fumeType?.toUpperCase()}
                 </div>
               )}
+              {selectedItem.isAiUnverifiedReaction && (
+                <div className="px-2.5 py-1.5 rounded-lg bg-amber-100/90 border border-amber-300 text-[11px] font-bold text-amber-900">
+                  {vi ? 'AI – chưa kiểm chứng' : 'AI – unverified'}
+                </div>
+              )}
               {selectedItem.activeReactionLabel && (
                 <div className="p-2.5 rounded-xl bg-amber-50/90 border border-amber-200/80 space-y-1.5">
                   <div className="flex items-center justify-between gap-2 text-xs font-bold text-amber-900">

@@ -667,6 +667,7 @@ const REACTION_ENTRIES: ReactionDefinition[] = [
     reactants: [
       { formula: 'CuSO4', coefficient: 1, state: 'aq' },
       { formula: 'NH3', coefficient: 2, state: 'aq' },
+      { formula: 'H2O', coefficient: 2, state: 'l' },
     ],
     products: [
       { formula: 'Cu(OH)2', coefficient: 1, state: 's' },
@@ -1194,11 +1195,11 @@ const REACTION_ENTRIES: ReactionDefinition[] = [
     id: 'rx_glucose_cuoh2_complex',
     name_en: 'Glucose Polyalcohol Reaction with Copper(II) Hydroxide',
     name_vi: 'Phản ứng của Glucozơ với Cu(OH)2 ở nhiệt độ thường tạo phức xanh lam thẫm',
-    equation: 'C₆H₁₂O₆ + 2Cu(OH)₂ → [C₆H₁₁O₆]₂Cu + 2H₂O',
-    ionic_equation: 'C₆H₁₂O₆ + Cu(OH)₂(s) → Phức đồng-glucozơ(aq)',
+    equation: '2C₆H₁₂O₆ + Cu(OH)₂ → [C₆H₁₁O₆]₂Cu + 2H₂O',
+    ionic_equation: '2C₆H₁₂O₆ + Cu(OH)₂(s) → [C₆H₁₁O₆]₂Cu(aq) + 2H₂O(l)',
     reactants: [
-      { formula: 'C6H12O6', coefficient: 1, state: 'aq' },
-      { formula: 'Cu(OH)2', coefficient: 2, state: 's' },
+      { formula: 'C6H12O6', coefficient: 2, state: 'aq' },
+      { formula: 'Cu(OH)2', coefficient: 1, state: 's' },
     ],
     products: [
       { formula: '[C6H11O6]2Cu', coefficient: 1, state: 'aq' },
@@ -1217,13 +1218,16 @@ const REACTION_ENTRIES: ReactionDefinition[] = [
     id: 'rx_glucose_cu2o_heating',
     name_en: 'Thermal Reduction of Glucose-Copper Complex to Brick-Red Copper(I) Oxide',
     name_vi: 'Nhiệt phân phức Glucozơ tạo kết tủa Đồng(I) oxit màu đỏ gạch',
-    equation: '[C₆H₁₁O₆]₂Cu → Cu₂O↓ + sản phẩm oxi hóa',
-    ionic_equation: 'Phức Cu²⁺ + đun nóng → Cu₂O(s)↓',
+    equation: '2[C₆H₁₁O₆]₂Cu + 2H₂O → Cu₂O↓ + C₆H₁₂O₇ + 3C₆H₁₂O₆',
+    ionic_equation: '2[C₆H₁₁O₆]₂Cu(aq) + 2H₂O(l) → Cu₂O(s)↓ + C₆H₁₂O₇(aq) + 3C₆H₁₂O₆(aq)',
     reactants: [
-      { formula: '[C6H11O6]2Cu', coefficient: 1, state: 'aq' },
+      { formula: '[C6H11O6]2Cu', coefficient: 2, state: 'aq' },
+      { formula: 'H2O', coefficient: 2, state: 'l' },
     ],
     products: [
       { formula: 'Cu2O', coefficient: 1, state: 's' },
+      { formula: 'C6H12O7', coefficient: 1, state: 'aq' },
+      { formula: 'C6H12O6', coefficient: 3, state: 'aq' },
     ],
     requiresHeating: true,
     minTemp_c: 65.0,
@@ -1477,11 +1481,11 @@ const REACTION_ENTRIES: ReactionDefinition[] = [
     id: 'rx_cuoh2_glycerol_complex',
     name_en: 'Reaction of Copper(II) Hydroxide with Glycerol',
     name_vi: 'Phản ứng của Cu(OH)2 với Glixerol tạo dung dịch phức xanh lam',
-    equation: '2Cu(OH)₂ + C₃H₅(OH)₃ → Cu(C₃H₇O₃)₂ + 2H₂O',
+    equation: 'Cu(OH)₂ + 2C₃H₅(OH)₃ → Cu(C₃H₇O₃)₂ + 2H₂O',
     ionic_equation: 'Cu(OH)₂(s) + 2C₃H₈O₃(aq) → [Cu(C₃H₇O₃)₂](aq) + 2H₂O(l)',
     reactants: [
-      { formula: 'Cu(OH)2', coefficient: 2, state: 's' },
-      { formula: 'C3H5(OH)3', coefficient: 1, state: 'l' },
+      { formula: 'Cu(OH)2', coefficient: 1, state: 's' },
+      { formula: 'C3H5(OH)3', coefficient: 2, state: 'l' },
     ],
     products: [
       { formula: 'Cu(C3H7O3)2', coefficient: 1, state: 'aq' },
@@ -1548,6 +1552,7 @@ const REACTION_ENTRIES: ReactionDefinition[] = [
     equation: '4Fe(OH)₂ + O₂ + 2H₂O → 4Fe(OH)₃↓',
     reactants: [
       { formula: 'Fe(OH)2', coefficient: 4, state: 's' },
+      { formula: 'O2', coefficient: 1, state: 'g' },
       { formula: 'H2O', coefficient: 2, state: 'l' },
     ],
     products: [
@@ -1906,8 +1911,10 @@ const REACTION_ENTRIES: ReactionDefinition[] = [
       { formula: 'CH3CHO', coefficient: 1, state: 'aq' },
       { formula: 'AgNO3', coefficient: 2, state: 'aq' },
       { formula: 'NH3', coefficient: 3, state: 'aq' },
+      { formula: 'H2O', coefficient: 1, state: 'l' },
     ],
     products: [
+      { formula: 'CH3COONH4', coefficient: 1, state: 'aq' },
       { formula: 'Ag', coefficient: 2, state: 's' },
       { formula: 'NH4NO3', coefficient: 2, state: 'aq' },
     ],
@@ -1933,8 +1940,10 @@ const REACTION_ENTRIES: ReactionDefinition[] = [
       { formula: 'C6H12O6', coefficient: 1, state: 'aq' },
       { formula: 'AgNO3', coefficient: 2, state: 'aq' },
       { formula: 'NH3', coefficient: 3, state: 'aq' },
+      { formula: 'H2O', coefficient: 1, state: 'l' },
     ],
     products: [
+      { formula: 'C6H11O7NH4', coefficient: 1, state: 'aq' },
       { formula: 'Ag', coefficient: 2, state: 's' },
       { formula: 'NH4NO3', coefficient: 2, state: 'aq' },
     ],
@@ -2153,6 +2162,7 @@ const REACTION_ENTRIES: ReactionDefinition[] = [
     products: [
       { formula: 'FePO4', coefficient: 1, state: 's' },
       { formula: 'NaSCN', coefficient: 2, state: 'aq' },
+      { formula: 'HSCN', coefficient: 1, state: 'aq' },
     ],
     deltaH_kJ_mol: -18.0,
     visual: {

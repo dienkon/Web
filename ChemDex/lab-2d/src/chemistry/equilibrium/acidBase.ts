@@ -9,8 +9,16 @@
 
 import { SubstanceQuantity, IndicatorType } from '../../types/chemistry';
 import { computeContinuousIndicatorColor } from '../optics/indicatorAppearance';
+import { cachedAqueousEquilibrium, solveAqueousEquilibrium, AqueousEquilibrium } from './aqueous/aqueousEquilibrium';
 
-export type { IndicatorType };
+export type { IndicatorType, AqueousEquilibrium };
+export { cachedAqueousEquilibrium, solveAqueousEquilibrium };
+
+export interface SolutionPhResult {
+  ph: number;
+  model: 'charge_balance_ideal' | 'legacy_heuristic';
+  referenceTemperature_c: number;
+}
 
 export interface AcidBaseInventory {
   strongAcidH_moles: number;
@@ -163,12 +171,25 @@ export function analyzeAcidBaseInventory(contents: SubstanceQuantity[]): AcidBas
 }
 
 /**
- * Calculates theoretical equilibrium pH for the current solution mixture.
- * Assumes dilute aqueous medium (volume in mL, minimum 1 mL).
+ * Calculates equilibrium pH and reports whether analytical charge balance or legacy
+ * species-inventory fallback was used (fallback is reserved for unrecognized solutes/T > 90 °C).
  */
-export function calculateSolutionPh(contents: SubstanceQuantity[], volume_ml: number): number {
+export function calculateSolutionPhWithModel(
+  contents: SubstanceQuantity[],
+  volume_ml: number,
+  temperature_c = 25
+): SolutionPhResult {
   if (volume_ml <= 0 || contents.length === 0) {
-    return 7.0; // Standard ambient neutral baseline
+    return { ph: 7.0, model: 'charge_balance_ideal', referenceTemperature_c: 25 };
+  }
+
+  const eq = cachedAqueousEquilibrium(contents, volume_ml, temperature_c);
+  if (eq) {
+    return {
+      ph: Math.round(eq.ph * 1000) / 1000,
+      model: 'charge_balance_ideal',
+      referenceTemperature_c: eq.referenceTemperature_c,
+    };
   }
 
   const volL = Math.max(0.001, volume_ml / 1000.0);
@@ -181,14 +202,22 @@ export function calculateSolutionPh(contents: SubstanceQuantity[], volume_ml: nu
   if (netH > 1e-6) {
     const concH = netH / volL;
     const ph = -Math.log10(concH);
-    return Math.max(0.1, Math.min(6.95, Math.round(ph * 100) / 100));
+    return {
+      ph: Math.max(0.1, Math.min(6.95, Math.round(ph * 100) / 100)),
+      model: 'legacy_heuristic',
+      referenceTemperature_c: 25,
+    };
   }
 
   if (netOH > 1e-6) {
     const concOH = netOH / volL;
     const pOH = -Math.log10(concOH);
     const ph = 14.0 - pOH;
-    return Math.max(7.05, Math.min(14.0, Math.round(ph * 100) / 100));
+    return {
+      ph: Math.max(7.05, Math.min(14.0, Math.round(ph * 100) / 100)),
+      model: 'legacy_heuristic',
+      referenceTemperature_c: 25,
+    };
   }
 
   // 2. Weak Acid / Conjugate Base / Buffer system
@@ -197,13 +226,21 @@ export function calculateSolutionPh(contents: SubstanceQuantity[], volume_ml: nu
     if (inv.conjugateBaseA_moles > 1e-6) {
       // Henderson-Hasselbalch equation
       const ph = inv.pKa + Math.log10(inv.conjugateBaseA_moles / inv.weakAcidHA_moles);
-      return Math.round(Math.min(14, Math.max(0, ph)) * 100) / 100;
+      return {
+        ph: Math.round(Math.min(14, Math.max(0, ph)) * 100) / 100,
+        model: 'legacy_heuristic',
+        referenceTemperature_c: 25,
+      };
     } else {
       // Exact quadratic weak acid dissociation: [H+]^2 + Ka[H+] - Ka*Ca = 0
       const Ca = inv.weakAcidHA_moles / volL;
       const concH = Math.max(1e-7, (-Ka + Math.sqrt(Ka * Ka + 4 * Ka * Ca)) / 2);
       const ph = Math.min(7, -Math.log10(concH));
-      return Math.round(ph * 100) / 100;
+      return {
+        ph: Math.round(ph * 100) / 100,
+        model: 'legacy_heuristic',
+        referenceTemperature_c: 25,
+      };
     }
   } else if (inv.conjugateBaseA_moles > 1e-6 && inv.pKa) {
     // Standalone basic anion / weak base hydrolysis: [OH-]^2 + Kb[OH-] - Kb*Cb = 0
@@ -212,11 +249,26 @@ export function calculateSolutionPh(contents: SubstanceQuantity[], volume_ml: nu
     const Cb = inv.conjugateBaseA_moles / volL;
     const concOH = Math.max(1e-7, (-Kb + Math.sqrt(Kb * Kb + 4 * Kb * Cb)) / 2);
     const ph = Math.min(14, Math.max(7, 14 + Math.log10(concOH)));
-    return Math.round(ph * 100) / 100;
+    return {
+      ph: Math.round(ph * 100) / 100,
+      model: 'legacy_heuristic',
+      referenceTemperature_c: 25,
+    };
   }
 
   // Pure salt or water -> Neutral pH 7.00
-  return 7.0;
+  return { ph: 7.0, model: 'legacy_heuristic', referenceTemperature_c: 25 };
+}
+
+/**
+ * Calculates theoretical equilibrium pH for the current solution mixture.
+ */
+export function calculateSolutionPh(
+  contents: SubstanceQuantity[],
+  volume_ml: number,
+  temperature_c = 25
+): number {
+  return calculateSolutionPhWithModel(contents, volume_ml, temperature_c).ph;
 }
 
 /**

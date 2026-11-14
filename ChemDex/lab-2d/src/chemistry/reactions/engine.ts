@@ -98,6 +98,9 @@ function getEffectiveAcidMolarity(item: SubstanceQuantity, currentVolume_ml: num
       const candidateReactions = fetchCandidates(candidateFormulas);
 
       for (const rx of candidateReactions) {
+        if (reactionsOccurred.some(executed => executed.reactionId === rx.id)) {
+          continue;
+        }
         if (ignoreSignatures) {
           const sig = rx.reactants
             .map(r => canonicalFormulaKey(r.formula))
@@ -204,17 +207,25 @@ function getEffectiveAcidMolarity(item: SubstanceQuantity, currentVolume_ml: num
         // Execute stoichiometric conversion by extent xi = minExtent
         const xi = minExtent;
 
-        // Deduct reactants
+        // Deduct reactants from active non-depleted entries matching each formula
         const excessReactants: Record<string, number> = {};
         for (const r of rx.reactants) {
           const normR = canonicalFormulaKey(r.formula);
-          const item = workingContents.find(c => canonicalFormulaKey(c.formula) === normR);
-          if (!item) continue; // Atmospheric O2 came from open ambient air
-          const molesConsumed = xi * r.coefficient;
-          item.moles = Math.max(0, item.moles - molesConsumed);
-          const molarMass = computeMolarMass(item.formula);
-          item.mass_g = Math.max(0, item.moles * molarMass);
-          excessReactants[item.formula] = item.moles;
+          let remainingToConsume = xi * r.coefficient;
+          let lastConsumedItem: SubstanceQuantity | undefined;
+          for (const item of workingContents) {
+            if (remainingToConsume <= 1e-12) break;
+            if (canonicalFormulaKey(item.formula) !== normR || item.moles <= 1e-12) continue;
+            const consumed = Math.min(item.moles, remainingToConsume);
+            item.moles = Math.max(0, item.moles - consumed);
+            const molarMass = computeMolarMass(item.formula);
+            item.mass_g = Math.max(0, item.moles * molarMass);
+            remainingToConsume -= consumed;
+            lastConsumedItem = item;
+          }
+          if (lastConsumedItem) {
+            excessReactants[lastConsumedItem.formula] = lastConsumedItem.moles;
+          }
         }
 
         // Add products (record open-headspace evolved gases without clobbering existing liquid H2O)
@@ -301,14 +312,15 @@ function getEffectiveAcidMolarity(item: SubstanceQuantity, currentVolume_ml: num
   // PASS 1: Authoritative Database (Handcrafted + Non-conflicting Curriculum)
   tryExecuteReactionPass(getReactionCandidates);
 
-  // PASS 2: TIER 1 MULTI-STAGE EQUILIBRIA & TIER 2 INSTANT RULE-DERIVED SOLVER
+  // PASS 2: TIER 1 MULTI-STAGE EQUILIBRIA & HAZARD CHECKS
   const ruleOutput = resolveInstantRulesAndEquilibria(
     workingContents,
     reactionsOccurred,
     volume_ml,
     temp_c,
     isHeated,
-    isOpenVessel
+    isOpenVessel,
+    { includeTier2Fallback: false }
   );
   temp_c = ruleOutput.temperature_c;
   if (ruleOutput.isBoiling) isBoiling = true;
@@ -322,12 +334,13 @@ function getEffectiveAcidMolarity(item: SubstanceQuantity, currentVolume_ml: num
     }
   }
 
-  // PASS 3: Full 1,300+ Shared Catalog & Curriculum Fallback (skip if waiting on a cold heated reaction like Tollens)
+  // PASS 3: Full 1,300+ Shared Catalog & Curriculum (before Tier 2 heuristic rules)
   const presentKeys = new Set(workingContents.filter(c => c.moles > 1e-6).map(c => canonicalFormulaKey(c.formula)));
   const hasWaitingHeatedReaction =
     !isHeated &&
     getReactionCandidates(Array.from(presentKeys)).some(
       rx =>
+        rx.reactants.length >= 2 &&
         rx.requiresHeating &&
         temp_c < (rx.minTemp_c || 60) &&
         rx.reactants.every(r => presentKeys.has(canonicalFormulaKey(r.formula)))
@@ -348,15 +361,57 @@ function getEffectiveAcidMolarity(item: SubstanceQuantity, currentVolume_ml: num
     }
   }
 
+  // PASS 4: Tier 2 rule-derived fallback when neither catalog nor curriculum reactions matched
+  if (ruleOutput.reactionsOccurred.length === 0 && !hasWaitingHeatedReaction) {
+    const tier2Output = resolveInstantRulesAndEquilibria(
+      workingContents,
+      ruleOutput.reactionsOccurred,
+      volume_ml,
+      temp_c,
+      isHeated,
+      isOpenVessel,
+      { includeTier2Fallback: true, tier2Only: true }
+    );
+    temp_c = tier2Output.temperature_c;
+    if (tier2Output.isBoiling) isBoiling = true;
+    if (tier2Output.hasGas && tier2Output.gasInfo) {
+      hasGasOccurred = true;
+      gasInfoFinal = tier2Output.gasInfo;
+    }
+    if (tier2Output.escapedGas_g) {
+      for (const [formula, grams] of Object.entries(tier2Output.escapedGas_g)) {
+        escapedGas_g[formula] = (escapedGas_g[formula] ?? 0) + grams;
+      }
+    }
+    if (tier2Output.precipitateOverride && !ruleOutput.precipitateOverride) {
+      ruleOutput.precipitateOverride = tier2Output.precipitateOverride;
+    }
+    if (tier2Output.surfacePlating && !ruleOutput.surfacePlating) {
+      ruleOutput.surfacePlating = tier2Output.surfacePlating;
+    }
+    for (const rx of tier2Output.reactionsOccurred) {
+      if (!ruleOutput.reactionsOccurred.includes(rx)) {
+        ruleOutput.reactionsOccurred.push(rx);
+      }
+    }
+    for (const cid of tier2Output.activeControllerIds) {
+      if (!ruleOutput.activeControllerIds.includes(cid)) {
+        ruleOutput.activeControllerIds.push(cid);
+      }
+    }
+  }
+
   // Fallback rules for general oxide+acid & ammonium+base families when no catalog entry ran
-  const extendedOutput = resolveExtendedCatalogFamilies(
-    workingContents,
-    ruleOutput.reactionsOccurred,
-    volume_ml,
-    temp_c,
-    isHeated,
-    isOpenVessel
-  );
+  const extendedOutput = hasWaitingHeatedReaction
+    ? { temperature_c: temp_c, hasGas: false, gasInfo: undefined, escapedGas_g: {}, activeControllerIds: [] }
+    : resolveExtendedCatalogFamilies(
+        workingContents,
+        ruleOutput.reactionsOccurred,
+        volume_ml,
+        temp_c,
+        isHeated,
+        isOpenVessel
+      );
   temp_c = extendedOutput.temperature_c;
   if (extendedOutput.hasGas && extendedOutput.gasInfo) {
     hasGasOccurred = true;
@@ -440,16 +495,14 @@ function getEffectiveAcidMolarity(item: SubstanceQuantity, currentVolume_ml: num
     }
   }
 
-  // Filter out completely consumed species (except water solvent & trace indicators)
+  // Filter out completely consumed species (except water solvent) without truncating dilute molar or mass precision
   const updatedContents = workingContents
-    .filter(c => c.moles > 1e-8 || normalizeFormula(c.formula) === 'H2O')
+    .filter(c => c.moles > 1e-12 || normalizeFormula(c.formula) === 'H2O')
     .map(c => {
       const conc = volume_ml > 0 && c.state === 'aq' ? c.moles / (volume_ml / 1000.0) : c.concentration_M;
       return {
         ...c,
-        moles: Math.round(c.moles * 1e7) / 1e7,
-        mass_g: Math.round(c.mass_g * 1e5) / 1e5,
-        concentration_M: conc !== undefined ? Math.round(conc * 1e6) / 1e6 : undefined,
+        concentration_M: conc,
       };
     });
 

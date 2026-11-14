@@ -267,6 +267,7 @@ describe('Scientific Chemistry Simulation Engine', () => {
         { formula: 'CH3CHO', moles: 0.002, mass_g: 0.088, state: 'aq', volume_ml: 10 },
         { formula: 'AgNO3', moles: 0.004, mass_g: 0.680, state: 'aq', volume_ml: 20 },
         { formula: 'NH3', moles: 0.006, mass_g: 0.102, state: 'aq', volume_ml: 15 },
+        { formula: 'H2O', moles: 2.0, mass_g: 36.03, state: 'l', volume_ml: 36 },
       ];
 
       // Below reaction temperature 50°C

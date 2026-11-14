@@ -181,6 +181,7 @@ export interface StoichiometricSpecies {
 
 export interface ReactionDefinition {
   id: string;
+  provenance?: 'curated' | 'curriculum' | 'catalog' | 'ai-unverified';
   name_en: string;
   name_vi: string;
   equation: string;
@@ -241,6 +242,7 @@ export interface ReactionExecutionRecord {
   observable_en: string;
   observable_vi: string;
   tier?: ResolutionTier;
+  provenance?: ReactionDefinition['provenance'];
   archetype?: ReactionArchetype;
   controllerId?: string;
 }
