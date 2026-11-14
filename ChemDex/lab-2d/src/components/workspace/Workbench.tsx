@@ -15,6 +15,11 @@ import { EquipmentState, EquipmentType } from '../../types/equipment';
 import { findChemicalById } from '../../data/chemicals';
 import { soundEngine } from '../../services/soundEngine';
 import { reactionRuntime2D } from '../../vfx/ReactionRuntime2D';
+import {
+  buildLiveAnnouncementText,
+  formatEquipmentAriaLabel,
+  handleEquipmentKeyboardAction,
+} from './equipmentA11y';
 
 const BENCH_W = 720;
 const BENCH_H = 490;
@@ -53,6 +58,8 @@ export const Workbench: React.FC = () => {
     workbenchZoom,
     setWorkbenchZoom,
     fitTriggerCount,
+    history,
+    safetyAlerts,
   } = useLabStore(
     useShallow((s) => ({
       equipment: s.equipment,
@@ -87,6 +94,8 @@ export const Workbench: React.FC = () => {
       workbenchZoom: s.workbenchZoom,
       setWorkbenchZoom: s.setWorkbenchZoom,
       fitTriggerCount: s.fitTriggerCount,
+      history: s.history,
+      safetyAlerts: s.safetyAlerts,
     }))
   );
 
@@ -732,6 +741,7 @@ export const Workbench: React.FC = () => {
   const allEquipmentList = Object.values(equipment);
   const radialEquipment = radialTarget ? equipment[radialTarget.id] ?? null : null;
   const activeLitmusVessel = activeLitmusVesselId ? equipment[activeLitmusVesselId] ?? null : null;
+  const liveAnnouncement = buildLiveAnnouncementText(history, safetyAlerts, language);
 
   let externalDragHoverVessel: EquipmentState | null = null;
   if (isDraggingMoved && activeDrag?.kind === 'chemical' && viewportRef.current) {
@@ -784,6 +794,11 @@ export const Workbench: React.FC = () => {
     >
       {/* Atmospheric 2D Lab Scene Background (Sunbeams, Tiles, Phenolic Benchtop) */}
       <LabEnvironmentBackdrop />
+
+      {/* Live region announcing reactions and safety alerts for assistive tech */}
+      <div className="sr-only" aria-live="polite" aria-atomic="true" role="status">
+        {liveAnnouncement}
+      </div>
 
       {/* Top-Left Minimal Safety Chip + Responsive Tool Bar (Bottom-Center on Mobile, Top-Right on Desktop) */}
       <div className="absolute top-2.5 left-2.5 z-20 pointer-events-none">
@@ -987,13 +1002,50 @@ export const Workbench: React.FC = () => {
             <div
               key={item.id}
               data-equipment-id={item.id}
-              className={`workbench-equipment pointer-events-auto absolute transition-shadow ${
+              tabIndex={0}
+              role="button"
+              aria-label={formatEquipmentAriaLabel(item, language)}
+              aria-pressed={selectedEquipmentId === item.id}
+              className={`workbench-equipment pointer-events-auto absolute transition-shadow focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 rounded-2xl ${
                 isDragging ? 'z-40 opacity-95 scale-[1.03]' : 'z-10'
               } ${isHoverTarget ? 'ring-4 ring-emerald-400/80 rounded-2xl' : ''}`}
               style={{
                 left: `${item.x}px`,
                 top: `${item.y}px`,
                 touchAction: 'none',
+              }}
+              onKeyDown={(e) => {
+                if (
+                  e.target !== e.currentTarget &&
+                  (e.target instanceof HTMLButtonElement || e.target instanceof HTMLInputElement)
+                ) {
+                  return;
+                }
+                const rect = e.currentTarget.getBoundingClientRect();
+                const handled = handleEquipmentKeyboardAction(
+                  e.key,
+                  e.shiftKey,
+                  item,
+                  selectedEquipmentId === item.id,
+                  {
+                    selectEquipment,
+                    updatePosition,
+                    removeEquipment,
+                    openRadialMenu: (id) =>
+                      setRadialTarget({
+                        id,
+                        x: rect.left + rect.width / 2,
+                        y: rect.top + rect.height / 2,
+                      }),
+                  }
+                );
+                if (handled) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  if (e.key === 'Escape') {
+                    setRadialTarget(null);
+                  }
+                }
               }}
               onPointerDown={(e) => handleEquipmentPointerDown(item.id, e)}
               onDragOver={(e) => {

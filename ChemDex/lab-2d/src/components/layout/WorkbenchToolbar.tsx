@@ -17,11 +17,34 @@ import {
   ZoomOut,
   Package,
   Sliders,
+  Loader2,
 } from 'lucide-react';
 import { useShallow } from 'zustand/react/shallow';
 import { useLabStore, SimTimeScale } from '../../store/useLabStore';
 import { useLabEnvironment } from '../../store/useLabEnvironment';
 import { LabEnvironmentControls } from '../workspace/LabEnvironmentControls';
+
+export interface CatalogLoadingBadgeProps {
+  loading: boolean;
+  language: 'vi' | 'en';
+}
+
+export const CatalogLoadingBadge: React.FC<CatalogLoadingBadgeProps> = ({ loading, language }) => {
+  if (!loading) return null;
+  const vi = language === 'vi';
+  return (
+    <span
+      role="status"
+      aria-live="polite"
+      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-200 text-[11px] font-medium whitespace-nowrap"
+    >
+      <Loader2 size={12} className="animate-spin shrink-0" aria-hidden="true" />
+      <span>
+        {vi ? 'Đang tải thư viện 1 300 phản ứng…' : 'Loading 1,300-reaction library…'}
+      </span>
+    </span>
+  );
+};
 
 export const WorkbenchToolbar: React.FC = () => {
   const {
@@ -47,6 +70,7 @@ export const WorkbenchToolbar: React.FC = () => {
     resetWorkbench,
     mobilePanel,
     setMobilePanel,
+    catalogReady,
   } = useLabStore(
     useShallow((s) => ({
       language: s.language,
@@ -71,6 +95,7 @@ export const WorkbenchToolbar: React.FC = () => {
       resetWorkbench: s.resetWorkbench,
       mobilePanel: s.mobilePanel,
       setMobilePanel: s.setMobilePanel,
+      catalogReady: s.catalogReady,
     }))
   );
 
@@ -298,8 +323,9 @@ export const WorkbenchToolbar: React.FC = () => {
         </div>
       </div>
 
-      {/* Right: Atmosphere Controls, Theme, Language & Reset */}
+      {/* Right: Catalog Status, Atmosphere Controls, Theme, Language & Reset */}
       <div className="flex items-center gap-1.5 shrink-0">
+        <CatalogLoadingBadge loading={!catalogReady} language={language} />
         <LabEnvironmentControls />
 
         <button
