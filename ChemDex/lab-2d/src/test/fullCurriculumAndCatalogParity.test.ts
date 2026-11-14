@@ -1,7 +1,8 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeAll, beforeEach } from 'vitest';
 import {
   COMPILED_CURRICULUM_REACTIONS,
   COMPILED_CATALOG_REACTIONS,
+  ensureCatalogCompiled,
 } from '../chemistry/reactions/curriculumAndCatalogCompiler';
 import { runSimulationCycle } from '../chemistry/reactions/engine';
 import { computeMolarMass, parseChemicalFormula } from '../chemistry/core/formula';
@@ -111,6 +112,10 @@ function makeContainer(overrides: Partial<EquipmentState>): EquipmentState {
 }
 
 describe('ChemDex 2D — Full 131 Curriculum + 1,300 Catalog & Lab-3D Realism Parity', () => {
+  beforeAll(async () => {
+    await ensureCatalogCompiled();
+  });
+
   beforeEach(() => {
     useLabStore.getState().resetWorkbench();
   });

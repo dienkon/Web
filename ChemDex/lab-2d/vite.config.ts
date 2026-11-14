@@ -23,6 +23,15 @@ export default defineConfig(({ mode }) => {
         allow: ['..'],
       },
     },
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks(id: string) {
+            if (id.includes('node_modules')) return 'vendor';
+          },
+        },
+      },
+    },
     test: {
       globals: true,
       environment: 'node',

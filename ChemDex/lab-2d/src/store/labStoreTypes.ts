@@ -64,6 +64,9 @@ export interface LabStoreState {
   setSimulationPaused: (paused: boolean) => void;
   setSimTimeScale: (scale: SimTimeScale) => void;
   setRealtimeKinetics: (enabled: boolean) => void;
+  catalogReady: boolean;
+  setCatalogReady: (ready: boolean) => void;
+  reevaluateIdleVessels: () => void;
   setActiveTool: (tool: WorkbenchTool) => void;
   setSpatulaScoop: (scoop: SpatulaScoopState | null) => void;
   setActiveLitmusVesselId: (id: string | null) => void;

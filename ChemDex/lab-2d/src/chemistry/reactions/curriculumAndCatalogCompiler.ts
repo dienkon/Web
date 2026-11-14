@@ -5,7 +5,6 @@
  */
 
 import curriculumData from '../../data/curriculum/reactions.vi.json';
-import catalogData from '@shared/reaction-catalog.generated.json';
 import {
   PhysicalState,
   PrecipitateMorphology,
@@ -512,8 +511,7 @@ function compileCurriculumReactions(): CompiledReactionEntry[] {
   return compiled;
 }
 
-function compileCatalogReactions(): CompiledReactionEntry[] {
-  const entries = (catalogData as unknown as { entries: RawCatalogEntry[] }).entries ?? [];
+function compileCatalogReactions(entries: RawCatalogEntry[]): CompiledReactionEntry[] {
   const compiled: CompiledReactionEntry[] = [];
 
   for (const raw of entries) {
@@ -589,25 +587,87 @@ function compileCatalogReactions(): CompiledReactionEntry[] {
 }
 
 export const COMPILED_CURRICULUM_REACTIONS: CompiledReactionEntry[] = compileCurriculumReactions();
-export const COMPILED_CATALOG_REACTIONS: CompiledReactionEntry[] = compileCatalogReactions();
-export const ALL_COMPILED_REACTIONS: CompiledReactionEntry[] = [
-  ...COMPILED_CURRICULUM_REACTIONS,
-  ...COMPILED_CATALOG_REACTIONS,
-];
+export const COMPILED_CATALOG_REACTIONS: CompiledReactionEntry[] = [];
+export const ALL_COMPILED_REACTIONS: CompiledReactionEntry[] = [...COMPILED_CURRICULUM_REACTIONS];
 
 const COMPILED_BY_ID = new Map<string, CompiledReactionEntry>();
 const COMPILED_BY_SPECIES = new Map<string, CompiledReactionEntry[]>();
 
-for (const rx of ALL_COMPILED_REACTIONS) {
-  if (!COMPILED_BY_ID.has(rx.id)) {
-    COMPILED_BY_ID.set(rx.id, rx);
+function registerCompiledReactions(entries: readonly CompiledReactionEntry[]): void {
+  for (const rx of entries) {
+    if (!COMPILED_BY_ID.has(rx.id)) {
+      COMPILED_BY_ID.set(rx.id, rx);
+    }
+    for (const r of rx.reactants) {
+      const key = normalizeFormula(r.formula);
+      const bucket = COMPILED_BY_SPECIES.get(key) ?? [];
+      if (!bucket.includes(rx)) bucket.push(rx);
+      COMPILED_BY_SPECIES.set(key, bucket);
+    }
   }
-  for (const r of rx.reactants) {
-    const key = normalizeFormula(r.formula);
-    const bucket = COMPILED_BY_SPECIES.get(key) ?? [];
-    if (!bucket.includes(rx)) bucket.push(rx);
-    COMPILED_BY_SPECIES.set(key, bucket);
+}
+
+registerCompiledReactions(COMPILED_CURRICULUM_REACTIONS);
+
+let catalogReady = false;
+let catalogLoadPromise: Promise<void> | null = null;
+const catalogReadyListeners = new Set<() => void>();
+
+export function isCatalogReady(): boolean {
+  return catalogReady;
+}
+
+export function onCatalogReady(listener: () => void): () => void {
+  if (catalogReady) {
+    listener();
+    return () => {};
   }
+  catalogReadyListeners.add(listener);
+  return () => {
+    catalogReadyListeners.delete(listener);
+  };
+}
+
+/**
+ * Dynamically imports the 1,300-entry shared reaction catalog JSON on idle/demand,
+ * keeping initial bundle size fast while preserving all compiled lookups once ready.
+ */
+export function ensureCatalogCompiled(): Promise<void> {
+  if (catalogReady) return Promise.resolve();
+  if (catalogLoadPromise) return catalogLoadPromise;
+
+  catalogLoadPromise = import('@shared/reaction-catalog.generated.json')
+    .then((mod) => {
+      const data = mod as unknown as {
+        default?: { entries?: RawCatalogEntry[] };
+        entries?: RawCatalogEntry[];
+      };
+      const entries = data.default?.entries ?? data.entries ?? [];
+      const compiled = compileCatalogReactions(entries);
+
+      if (!catalogReady) {
+        COMPILED_CATALOG_REACTIONS.push(...compiled);
+        ALL_COMPILED_REACTIONS.push(...compiled);
+        registerCompiledReactions(compiled);
+        catalogReady = true;
+
+        const listeners = Array.from(catalogReadyListeners);
+        catalogReadyListeners.clear();
+        for (const listener of listeners) {
+          try {
+            listener();
+          } catch {
+            // Isolate listener errors so every subscriber runs.
+          }
+        }
+      }
+    })
+    .catch((err) => {
+      catalogLoadPromise = null;
+      throw err;
+    });
+
+  return catalogLoadPromise;
 }
 
 export function getCompiledReactionById(id: string): CompiledReactionEntry | undefined {

@@ -7,6 +7,7 @@
 
 import type { ReactionCatalog, ReactionEntry, CatalogIndex, ChainResult } from '../../../shared/chemistry/reaction-catalog.d.mts';
 import type { ReactionGuide } from '../../../shared/chemistry/reaction-guide.d.mts';
+import { ensureCatalogCompiled } from '../chemistry/reactions/curriculumAndCatalogCompiler';
 
 export type { ReactionCatalog, ReactionEntry, CatalogIndex, ChainResult, ReactionGuide };
 
@@ -93,6 +94,7 @@ let cachedBundlePromise: Promise<LoadedReactionHubBundle> | null = null;
 export function loadReactionHubBundle(): Promise<LoadedReactionHubBundle> {
   if (cachedBundlePromise) return cachedBundlePromise;
 
+  void ensureCatalogCompiled();
   cachedBundlePromise = Promise.all([
     import('./curriculum/reactions.vi.json'),
     import('@shared/reaction-catalog.generated.json'),

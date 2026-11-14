@@ -4,6 +4,7 @@
  */
 
 import { create } from 'zustand';
+import { onCatalogReady } from '../chemistry/reactions/curriculumAndCatalogCompiler';
 import type { LabStoreState } from './labStoreTypes';
 import { createEquipmentSlice } from './slices/equipmentSlice';
 import { createTransferSlice } from './slices/transferSlice';
@@ -34,3 +35,9 @@ export const useLabStore = create<LabStoreState>()((...a) => ({
   ...createAiSlice(...a),
   ...createUiSlice(...a),
 }));
+
+onCatalogReady(() => {
+  const store = useLabStore.getState();
+  store.setCatalogReady(true);
+  store.reevaluateIdleVessels();
+});
