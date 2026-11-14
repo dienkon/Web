@@ -4,7 +4,7 @@
  * conditions, and attaches 2D/3D visual + VFX controller descriptors.
  */
 
-import curriculumData from '../../data/curriculum/reactions.vi.json';
+import curriculumData from '../../data/curriculum/curriculumCore.json';
 import {
   PhysicalState,
   PrecipitateMorphology,
@@ -420,8 +420,10 @@ function buildVisualProfile(
   return { visual, archetype, controllerId };
 }
 
-function compileCurriculumReactions(): CompiledReactionEntry[] {
-  const entries = (curriculumData as unknown as { reactions: RawCurriculumEntry[] }).reactions ?? [];
+export function compileCurriculumReactions(
+  rawDataset: { reactions?: RawCurriculumEntry[] } = curriculumData as unknown as { reactions?: RawCurriculumEntry[] }
+): CompiledReactionEntry[] {
+  const entries = rawDataset.reactions ?? [];
   const compiled: CompiledReactionEntry[] = [];
 
   for (const raw of entries) {
