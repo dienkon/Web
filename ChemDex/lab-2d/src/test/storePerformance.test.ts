@@ -46,4 +46,19 @@ describe('Store Performance & Subscription Hygiene', () => {
       unsubscribe();
     }
   });
+
+  it('shares immutable history references in undoStack while isolating equipment mutations', () => {
+    const store = useLabStore.getState();
+    const id = store.addEquipment('beaker');
+    const historyRefAfterAdd = useLabStore.getState().history;
+
+    useLabStore.getState().addChemicalToEquipment(id, 'chem-hcl', 20);
+    const undoSnap = useLabStore.getState().undoStack.at(-1)!;
+
+    // Lightweight snapshot shares the immutable history array reference instead of cloning O(N) logs
+    expect(undoSnap.history).toBe(historyRefAfterAdd);
+    // Equipment objects remain deeply isolated
+    expect(undoSnap.equipment[id].volume_ml).toBe(0);
+    expect(useLabStore.getState().equipment[id].volume_ml).toBe(20);
+  });
 });
