@@ -1,9 +1,9 @@
 import { Quaternion, Vector3 } from 'three';
 import type { VesselState } from '../../types/chemistry';
-import { isSuspensionRow } from '../../science/precipitateInventory';
+import { isContactSuspensionRow } from '../../physical/stockLiquidContact';
 import type { VortexSurface } from '../../science/liquidVortex';
 import type { StockWorld } from '../../physical/StockWorld';
-import { stockContainer } from '../../physical/stockAdapter';
+import { stockContainer, stockCarrierCoatings } from '../../physical/stockAdapter';
 import { createStockSolidLayout } from '../../components/three/stockSolidLayout';
 import { solidSceneVolume } from '../../science/vesselDimensions';
 import { vesselLocalToWorld } from '../../science/vesselScale';
@@ -39,8 +39,7 @@ export class AutoStockDynamics {
     if (!this.world || !(dt > 0) || !Number.isFinite(dt)) return;
     const masses = new Map<string, number>();
     for (const row of vessel.contents) if (row.phase === 's' && row.mass_g > 1e-10
-      && (!row.location || row.location === 'bulk') && row.solidOrigin !== 'precipitate'
-      && !(vessel.volume_ml > 0.05 && isSuspensionRow(row, vessel.contents, vessel.precipitateSubstance))) {
+      && (!row.location || row.location === 'bulk') && !isContactSuspensionRow(vessel, row)) {
       masses.set(row.formula, (masses.get(row.formula) ?? 0) + row.mass_g);
     }
     // Empty vessels and suspended reaction products have no rigid stock to step.
@@ -54,13 +53,14 @@ export class AutoStockDynamics {
         const layout = createStockSolidLayout(vessel.type, solid.morphology, solid.geometry,
           solidSceneVolume(vessel, mass_g / solid.density), undefined, undefined, true, solid.fixedCount);
         group = { formula, mass_g, density_kg_m3: solid.density * 1000, powder: solid.morphology === 'POWDER', unitVolume: 1,
-          vertices: Array.from(solid.geometry.getAttribute('position').array), seed: layout.pieces.map(piece => {
+          vertices: Array.from(solid.geometry.getAttribute('position').array), wire: solid.geometry.userData.stockWire,
+          seed: layout.pieces.map(piece => {
             piece.matrix.decompose(p, q, scale);
             return { position_m: scenePointToSI(vesselLocalToWorld(vessel, p.toArray())), rotation: q.toArray() as Quat };
           }) };
         this.groups.set(formula, group);
       }
-      container.groups.push({ ...group, mass_g });
+      container.groups.push({ ...group, mass_g, carrierCoatings: stockCarrierCoatings(vessel, formula) });
     }
     this.world.sync({ containers: [container], contacts: this.contacts, spills: [] });
     this.contacts = [];

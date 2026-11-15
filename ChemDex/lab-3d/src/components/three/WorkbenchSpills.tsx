@@ -26,7 +26,8 @@ import { SpillPrecipitateBed, weightedSpillColor } from './SpillPrecipitateBed';
 
 export const WorkbenchSpills = React.memo(function WorkbenchSpills() {
   const spills = useAppStore(state => state.spills);
-  return <group>{Object.values(spills || {}).map(spill => spill.stockMotion ? <StockSpillGrain key={spill.id} spill={spill} /> : <SpillPuddle key={spill.id} spill={spill} />)}</group>;
+  return <group>{Object.values(spills || {}).map(spill => spill.stockMotion && spill.stockMotion.mass_g > 0
+    ? <StockSpillGrain key={spill.id} spill={spill} /> : <SpillPuddle key={spill.id} spill={spill} />)}</group>;
 });
 
 function SpillPuddle({ spill }: { spill: SpillState }) {

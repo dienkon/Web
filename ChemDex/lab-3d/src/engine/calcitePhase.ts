@@ -5,6 +5,7 @@ import { carbonateConstantsAtTemperature } from '../science/carbonateEquilibrium
 import { partitionDryStock, stockLiquidContactFraction } from '../physical/stockLiquidContact';
 import { precipitateComponents, withLegacyPrecipitateOrigins } from '../science/precipitateInventory';
 import { transferSolidPhase } from './solidPhaseTransfer';
+import { allocateStockConsumption } from '../physical/stockConsumption';
 
 const calcite = (item: SubstanceContent) => sameMolecularFormula(item.formula, 'CaCO3')
   && (item.phase === 's' || item.phase === 'aq');
@@ -66,7 +67,7 @@ export function calciteEquilibriumTarget(contents: readonly SubstanceContent[], 
  * enthalpy for this coupled carbonate speciation is not yet parameterized. */
 export function partitionCalcite(vessel: VesselState, dt: number, stirred = false): Partial<VesselState> | null {
   if (!(dt > 0) || !Number.isFinite(dt) || vessel.isShattered || (vessel.immiscibleOrganicVolume_ml ?? 0) > 0) return null;
-  const { reactiveContents: reactive, inertContents } = partitionDryStock(vessel);
+  const { reactiveContents: reactive, inertContents, reactiveVessel } = partitionDryStock(vessel);
   // Retain the equilibrium cache key when the contact partition excludes no
   // material. The immutable contents array already identifies composition.
   const reactiveContents = inertContents.length ? reactive : vessel.contents;
@@ -76,7 +77,7 @@ export function partitionCalcite(vessel: VesselState, dt: number, stirred = fals
   const difference = target.dissolvedMoles - dissolved;
   const tolerance = Math.max(1e-14, target.totalMoles * 1e-9);
   if (Math.abs(difference) < tolerance) return null;
-  const contact = difference > 0 ? stockLiquidContactFraction({ ...vessel, contents: reactiveContents }, 'CaCO3') : 1;
+  const contact = difference > 0 ? stockLiquidContactFraction(reactiveVessel, 'CaCO3') : 1;
   if (!(contact > 0)) return null;
   const response = -Math.expm1(-0.3 * (stirred ? 3 : 1) * (vessel.isPulverized ? 2 : 1) * contact * dt);
   const next = Math.abs(difference) < target.totalMoles * 1e-7 ? target.dissolvedMoles : dissolved + difference * response;
@@ -87,7 +88,8 @@ export function partitionCalcite(vessel: VesselState, dt: number, stirred = fals
     .reduce((sum, component) => sum + component.mass_g, 0);
   const equilibrium = solveAqueousEquilibrium(contents, vessel.volume_ml, vessel.temperature_c) as AqueousEquilibrium;
   const suspended = /powder|colloid|fine/i.test(vessel.precipitateMorphology ?? '') || (vessel.turbidity ?? 0) > 0;
-  return { contents, substances: [...new Set(contents.filter(item => item.moles > 0).map(item => item.formula))],
+  return { contents, stockMotion: allocateStockConsumption(vessel, contents),
+    substances: [...new Set(contents.filter(item => item.moles > 0).map(item => item.formula))],
     ph: equilibrium.ph, ...aqueousModelFields(equilibrium),
     hasPrecipitate: solidMass > 1e-9, precipitateAmount_g: solidMass,
     precipitateSubstance: solidMass > 1e-9 ? 'CaCO3' : undefined, precipitateColor: solidMass > 1e-9 ? '#ffffff' : undefined,

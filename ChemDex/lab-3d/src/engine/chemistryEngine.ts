@@ -10,7 +10,8 @@ import { applyCopperAmmoniaLedger, COPPER_AMMONIA_EQUATION, copperAmmoniaColor }
 import { copperAmmoniaEquilibrium } from '../science/copperAmmoniaEquilibrium';
 import { applyThermalEnergy } from './thermalState';
 import { computeMolarMass } from './ledger';
-import { precipitateComponents, clearedPrecipitateTurbidity } from '../science/precipitateInventory';
+import { precipitateComponents, clearedPrecipitateTurbidity, canonicalPrecipitateFormation,
+  explicitPrecipitateFormation, withPrecipitateFormationOrigins, withLegacyPrecipitateOrigins } from '../science/precipitateInventory';
 import { getPrecipitateProfile } from '../simulation/core/SimulationConfig';
 import { solveAqueousEquilibrium, aqueousModelFields } from '../science/aqueousEquilibrium';
 import { solutionIndicatorColor } from '../science/indicatorAppearance';
@@ -23,6 +24,9 @@ import { copperHydroxideExtent } from '../science/copperHydroxidePrecipitation';
 import { ferricHydroxideExtent, ferricChlorideAqueousState, ferricHydroxideDissolutionExtent } from '../science/ferricHydroxidePrecipitation';
 import { aluminumReactionExtent, aluminumReactionEnthalpy_J_mol, aluminumAqueousState } from '../science/aluminumHydroxideEquilibrium';
 import { partitionDryStock } from '../physical/stockLiquidContact';
+import { appendMetalDeposit } from '../science/metalDeposition';
+import { releaseUnsupportedMetalDeposits } from '../science/metalSurfaceAppearance';
+import { allocateStockConsumption } from '../physical/stockConsumption';
 
 export interface DeterministicReaction {
   equilibriumOnly?: boolean; // Inventory is handled by a finite phase/speciation solver.
@@ -1104,6 +1108,7 @@ export function getCacheKey(substances: string[], isHeated: boolean, temp_c: num
 }
 
 export interface MultiStepReactionResult {
+  stockMotion?: VesselState['stockMotion'];
   reactionsOccurred: {
     reactionId: string;
     equation: string;
@@ -1158,8 +1163,11 @@ export function executeMultiStepReactions(
   const reactionThreshold = precise ? 1e-12 : 1e-5;
   // 1. Create working copy of contents with reliable moles
   const workingContents: import('../types/chemistry').SubstanceContent[] = [];
+  const legacy = options.vesselContact;
+  const initialMaterial = legacy ? withLegacyPrecipitateOrigins({ ...legacy, contents: initialContents || [] })
+    : withPrecipitateFormationOrigins(initialContents || []);
   
-  for (const item of (initialContents || [])) {
+  for (const item of initialMaterial) {
     workingContents.push({ ...item, phase: reagentPhase(item) ?? (findChemical(item.formula).type === 'solid' ? 's' : 'aq') });
   }
 
@@ -1195,6 +1203,7 @@ export function executeMultiStepReactions(
   }
 
   let currentTemp = initialTemperature_c;
+  let contactMotion = options.vesselContact?.stockMotion;
   const reactionsOccurred: {
     reactionId: string;
     equation: string;
@@ -1232,6 +1241,7 @@ export function executeMultiStepReactions(
         xi: copper.inventory.copper_mol, deltaH_kJ: -heat / 1000 / copper.inventory.copper_mol, match: model });
       const thermal = applyThermalEnergy({ ...copperSource, ...copperPatch }, heat);
       currentTemp = thermal.temperature_c ?? currentTemp;
+      contactMotion = copperPatch.stockMotion ?? contactMotion;
       workingContents.splice(0, workingContents.length, ...copperPatch.contents);
     }
   }
@@ -1244,12 +1254,15 @@ export function executeMultiStepReactions(
     if (activeSubstances.length === 0) break;
 
     const reactionContents = bulkInventory(workingContents);
-    const dryRows = options.vesselContact ? new Set(partitionDryStock({ ...options.vesselContact,
-      contents: workingContents, volume_ml, temperature_c: currentTemp }).inertContents) : new Set<SubstanceContent>();
+    const contactView = options.vesselContact ? { ...options.vesselContact, stockMotion: contactMotion,
+      contents: workingContents, volume_ml, temperature_c: currentTemp } : undefined;
+    const protectedMoles = contactView ? partitionDryStock(contactView).protectedMolesByRow : new Map<SubstanceContent, number>();
+    const stepContact = contactView ? { ...contactView, contents: workingContents.map(row => ({ ...row })) } : undefined;
     const requiresLiquidContact = (reaction: DeterministicReaction) => reaction.reactants.some(required => workingContents.some(item =>
       ['aq', 'l'].includes(item.phase ?? '') && availableNativeReagent(item, required, reactionThreshold)));
     const availableForReaction = (item: SubstanceContent, required: string, reaction: DeterministicReaction) =>
-      availableNativeReagent(item, required, reactionThreshold) && (!requiresLiquidContact(reaction) || !dryRows.has(item));
+      availableNativeReagent(item, required, reactionThreshold)
+      && item.moles - (requiresLiquidContact(reaction) ? protectedMoles.get(item) ?? 0 : 0) > reactionThreshold;
     // Find candidate deterministic reaction
     let aluminumLimitForCandidate: number | undefined;
     const candidate = DETERMINISTIC_REACTIONS.find(r => {
@@ -1257,7 +1270,7 @@ export function executeMultiStepReactions(
       if (r.products.H2 && hasOxidizingAcid(reactionContents)) return false;
       if (!matchesReactants(activeSubstances, r.reactants)) return false;
       if (r.id === 'h2o2_mno2_decomposition' && !workingContents.some(item =>
-        availableReagent(item, 'MnO2', 's', reactionThreshold) && !dryRows.has(item))) return false;
+        availableReagent(item, 'MnO2', 's', reactionThreshold) && item.moles - (protectedMoles.get(item) ?? 0) > reactionThreshold)) return false;
 
       if (!r.reactants.every(required => workingContents.some(item => availableForReaction(item, required, r)))) return false;
       if (volume_ml <= 0 && r.reactants.some(required => workingContents.some(item =>
@@ -1272,6 +1285,7 @@ export function executeMultiStepReactions(
     });
 
     if (!candidate) break;
+    const liquidContact = requiresLiquidContact(candidate);
 
     // Use the same physical reagent for eligibility, limiting extent and
     // consumption, even if a vessel contains both gas and aqueous forms.
@@ -1295,7 +1309,7 @@ export function executeMultiStepReactions(
         minXi = 0;
         break;
       }
-      const rXi = found.moles / coeff;
+      const rXi = Math.max(0, found.moles - (requiresLiquidContact(candidate) ? protectedMoles.get(found) ?? 0 : 0)) / coeff;
       if (rXi < minXi) {
         minXi = rXi;
       }
@@ -1363,8 +1377,12 @@ export function executeMultiStepReactions(
     for (const [productFormula, prodInfo] of Object.entries(candidate.products)) {
       const addedMoles = xi * prodInfo.coeff;
       const chem = findChemical(productFormula);
+      if (appendMetalDeposit(workingContents, { formula: productFormula, phase: prodInfo.state,
+        moles: addedMoles, mass_g: addedMoles * computeMolarMass(productFormula), solidOrigin: 'precipitate' }, candidate.id,
+        { ...(options.vesselContact ?? copperSource), contents: workingContents, volume_ml, temperature_c: currentTemp }, stepContact)) continue;
       const existing = workingContents.find(c => (!c.location || c.location === 'bulk') && matchesReagent(c.formula, productFormula) && c.phase === prodInfo.state
-        && (prodInfo.state !== 's' || c.solidOrigin === 'precipitate'));
+        && (prodInfo.state !== 's' || c.solidOrigin === 'precipitate' && !c.depositSubstrate
+          && canonicalPrecipitateFormation(c.formula, c.precipitateFormation) === undefined));
       if (existing) {
         existing.moles += addedMoles;
         existing.mass_g = existing.moles * computeMolarMass(productFormula);
@@ -1374,11 +1392,15 @@ export function executeMultiStepReactions(
           moles: addedMoles,
           mass_g: addedMoles * computeMolarMass(productFormula),
           phase: prodInfo.state,
-          ...(prodInfo.state === 's' ? { solidOrigin: 'precipitate' as const } : {}),
+          ...(prodInfo.state === 's' ? { solidOrigin: 'precipitate' as const,
+            precipitateFormation: explicitPrecipitateFormation(productFormula) } : {}),
           concentration_M: prodInfo.state === 'aq' && volume_ml > 0 ? addedMoles / (volume_ml / 1000.0) : undefined
         });
       }
     }
+
+    if (stepContact) contactMotion = allocateStockConsumption(stepContact, workingContents,
+      { requireLiquidContact: liquidContact });
 
     // Thermal rise from reaction enthalpy
     const solnMass_g = workingContents.filter(item => item.phase !== 'g').reduce((sum, item) => sum + item.mass_g, 0);
@@ -1407,7 +1429,7 @@ export function executeMultiStepReactions(
   }
 
   // 3. Finalize updated contents and concentrations
-  let updatedContents: import('../types/chemistry').SubstanceContent[] = workingContents
+  let updatedContents: import('../types/chemistry').SubstanceContent[] = releaseUnsupportedMetalDeposits(workingContents, contactMotion)
     .filter(c => c.moles > moleThreshold || normalizeFormulaToken(c.formula) === 'h2o')
     .map(c => {
       const concentration_M = volume_ml > 0 ? (c.moles / (volume_ml / 1000.0)) : c.concentration_M;
@@ -1593,6 +1615,7 @@ export function executeMultiStepReactions(
 
   return {
     reactionsOccurred,
+    stockMotion: contactMotion,
     updatedContents,
     updatedSubstances,
     finalTemperature_c: precise ? currentTemp : Math.round(currentTemp * 10) / 10,

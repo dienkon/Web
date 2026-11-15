@@ -14,6 +14,10 @@ export interface StockContactReceipt { id: number; vesselId: string; formula: st
 export interface StockGroupInput {
   formula: string; mass_g: number; density_kg_m3: number; powder: boolean;
   vertices: number[]; unitVolume: number; seed: { position_m: Vec3; rotation: Quat }[];
+  /** Unit-material-volume wire centerline matching the rendered stock mesh. */
+  wire?: { points: Vec3[]; radius: number };
+  /** Derived coating load; core mass/scale and chemical rows remain separate. */
+  carrierCoatings?: Record<string, { mass_g: number; volume_ml: number }>;
 }
 export interface StockContainerInput {
   id: string; shapeKey: string; colliders: ColliderShape[]; position_m: Vec3; rotation: Quat;

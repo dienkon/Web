@@ -1,7 +1,9 @@
 import type { SubstanceContent, VesselState } from '../types/chemistry';
 import { availableLiquidVolume, occupiedLiquidVolume } from './solidOccupancy';
 import type { MobileSolidInventory } from '../science/suspensionTransport';
-import { precipitateComponents, isSuspensionRow, withLegacyPrecipitateOrigins } from '../science/precipitateInventory';
+import { precipitateComponents, precipitateCohorts, precipitateCohortKey, rowPrecipitateFormation,
+  precipitateCohortOutflow, isSuspensionRow, withLegacyPrecipitateOrigins } from '../science/precipitateInventory';
+import { attachedMetalMassForRow } from '../science/metalSurfaceAppearance';
 import { identifySpecies, sameMolecularFormula } from '../science/speciesIdentity';
 import { blendLiquidOptics, liquidOptics, type LiquidOptics } from '../pour/physics/mixing';
 import { liquidContactFailure } from './liquidContact';
@@ -35,36 +37,53 @@ export function withdrawAliquot(vessel: VesselState, requested_ml: number, mobil
   const fraction = vessel.volume_ml > 0 ? volume / vessel.volume_ml : 0;
   const input = Object.keys(mobileSolids).length ? withLegacyPrecipitateOrigins(vessel) : vessel.contents;
   const solidFractions = new Map<string, number>();
-  for (const c of precipitateComponents(input, vessel.precipitateSubstance)) {
-    const mobile = mobileSolids[c.formula], previousOutflow = vessel.precipitateOutflow_g?.[c.formula] ?? 0;
+  const cohorts = precipitateCohorts(input, vessel.precipitateSubstance, vessel.precipitateMorphology);
+  const keyOf = (row: SubstanceContent) => precipitateCohortKey(row.formula,
+    rowPrecipitateFormation(row, input, vessel.precipitateSubstance, vessel.precipitateMorphology));
+  const material = input === vessel.contents ? vessel : { ...vessel, contents: input };
+  const freeFraction = (row: SubstanceContent) => row.mass_g > 0
+    ? Math.max(0, 1 - attachedMetalMassForRow(material, row) / row.mass_g) : 0;
+  for (const c of cohorts) {
+    const total = mobileSolids[c.formula];
+    // Legacy formula-only callers are valid only for one formation. Splitting
+    // one mobile total between a bed and a suspension would invent erosion.
+    const mobile = total?.cohorts?.[c.key] ?? (cohorts.filter(k => k.formula === c.formula).length === 1 ? total : undefined);
+    const previousOutflow = precipitateCohortOutflow(vessel, c.key, c.formula);
     if (!mobile || ![mobile.inventoryMass_g, mobile.suspendedMass_g, previousOutflow].every(Number.isFinite)
       || !(mobile.inventoryMass_g > 0) || mobile.suspendedMass_g < 0 || previousOutflow < 0
       || mobile.suspendedMass_g > c.mass_g + Math.max(1e-10, c.mass_g * 1e-8)
       || Math.abs(c.mass_g - mobile.inventoryMass_g) > Math.max(1e-10, c.mass_g * 1e-8)) continue;
-    solidFractions.set(c.formula, fraction * Math.min(c.mass_g, mobile.suspendedMass_g) / c.mass_g);
+    const freeMass = input.filter(row => isSuspensionRow(row, input, vessel.precipitateSubstance) && keyOf(row) === c.key)
+      .reduce((sum, row) => sum + row.mass_g * freeFraction(row), 0);
+    if (mobile.suspendedMass_g > freeMass + Math.max(1e-10, freeMass * 1e-8)) continue;
+    solidFractions.set(c.key, freeMass > 0 ? fraction * Math.min(freeMass, mobile.suspendedMass_g) / freeMass : 0);
   }
   const retained = (c: SubstanceContent) => gas(c) || (c.location && c.location !== 'bulk');
   const outgoingFraction = (c: SubstanceContent) => retained(c) ? 0 : !solid(c) ? fraction
-    : isSuspensionRow(c, input, vessel.precipitateSubstance) ? solidFractions.get(identifySpecies(c.formula).formula) ?? 0 : 0;
+    : isSuspensionRow(c, input, vessel.precipitateSubstance) ? (solidFractions.get(keyOf(c)) ?? 0) * freeFraction(c) : 0;
   const scale = (content: SubstanceContent, ratio: number): SubstanceContent => ({
     ...content, moles: content.moles * ratio, mass_g: content.mass_g * ratio,
     ...(content.volume_ml !== undefined ? { volume_ml: content.volume_ml * ratio } : {}),
   });
   const contents = input.filter(c => outgoingFraction(c) > 0).map(c => ({ ...scale(c, outgoingFraction(c)),
     ...(solid(c) ? { phase: 's', solidOrigin: 'precipitate' as const,
-      precipitateFormation: c.precipitateFormation ?? vessel.precipitateMorphology } : {}) }));
+      precipitateFormation: c.precipitateFormation ?? rowPrecipitateFormation(c, input, vessel.precipitateSubstance, vessel.precipitateMorphology) } : {}) }));
   const remaining = input.map(c => scale(c, 1 - outgoingFraction(c)));
   const movedSolidMass = contents.filter(solid).reduce((s, c) => s + c.mass_g, 0);
   const nonLiquidMass = input.filter(c => solid(c) || retained(c)).reduce((s, c) => s + c.mass_g, 0);
   const mass = Math.max(0, vessel.mass_g - nonLiquidMass) * fraction + movedSolidMass;
   const outflow = { ...vessel.precipitateOutflow_g };
+  const cohortOutflow = { ...vessel.precipitateCohortOutflow_g };
+  for (const c of cohorts) cohortOutflow[c.key] ??= precipitateCohortOutflow(vessel, c.key, c.formula);
   for (const c of contents.filter(solid)) {
     const formula = identifySpecies(c.formula).formula;
     outflow[formula] = (outflow[formula] ?? 0) + c.mass_g;
+    const key = keyOf(c);
+    cohortOutflow[key] = (cohortOutflow[key] ?? 0) + c.mass_g;
   }
   const source: VesselState = { ...vessel, volume_ml: vessel.volume_ml - volume,
     ...(vessel.immiscibleOrganicVolume_ml !== undefined ? { immiscibleOrganicVolume_ml: vessel.immiscibleOrganicVolume_ml * (1 - fraction) } : {}),
-    ...(movedSolidMass > 0 ? { precipitateOutflow_g: outflow } : {}),
+    ...(movedSolidMass > 0 ? { precipitateOutflow_g: outflow, precipitateCohortOutflow_g: cohortOutflow } : {}),
     volume: (vessel.volume_ml - volume) / vessel.capacity_ml, mass_g: vessel.mass_g - mass,
     contents: remaining, substances: volume === vessel.volume_ml ? remaining.filter(c => c.moles > 1e-12).map(c => c.formula) : vessel.substances };
   return {
@@ -77,12 +96,14 @@ export function withdrawAliquot(vessel: VesselState, requested_ml: number, mobil
 }
 
 function mergeContents(vessel: VesselState, sample: LiquidAliquot, fraction: number) {
-  const contents = vessel.contents.map(content => ({ ...content }));
+  const contents = withLegacyPrecipitateOrigins(vessel);
   for (const entry of sample.contents) {
     const source = { ...entry, phase: entry.phase ?? identifySpecies(entry.formula).phase ?? undefined };
     const target = contents.find(content => content.formula === source.formula && content.phase === source.phase
       && content.liquidLayer === source.liquidLayer && content.location === source.location
-      && content.solidOrigin === source.solidOrigin && content.precipitateFormation === source.precipitateFormation);
+      && content.solidOrigin === source.solidOrigin && content.precipitateFormation === source.precipitateFormation
+      && content.depositSubstrate === source.depositSubstrate && content.depositionReactionId === source.depositionReactionId
+      && content.depositCarrierId === source.depositCarrierId && content.depositReleased === source.depositReleased);
     if (target) {
       target.moles += source.moles * fraction;
       target.mass_g += source.mass_g * fraction;

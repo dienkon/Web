@@ -8,8 +8,7 @@ import { escapeStockGrain } from './stockEscape';
 import type { StockBoundaryFrame, StockWorldSnapshot, StockSpillPose } from './stockTypes';
 import { siPointToScene, scenePointToSI } from '../science/sceneUnits';
 import { continueReactionAfterOutflow } from '../engine/reactionContinuation';
-import { prepareStockAddition } from '../engine/stockAddition';
-import { findChemical } from '../data/chemicals';
+import { captureStockCarrier } from './stockCapture';
 import { reactAliquotMixture } from '../engine/aliquotReaction';
 import { mergeWorkbenchSpill } from '../engine/spillInventory';
 import { PourController } from '../pour/controller/PourController';
@@ -17,7 +16,10 @@ import { usePhysicsStore } from './usePhysicsStore';
 import { capturePhysicalLab } from './usePhysicsStore';
 import { debounceSaveLocalState } from '../store/persistence';
 import { shardManager } from '../damage/Shards';
-import { isSuspensionRow } from '../science/precipitateInventory';
+import { isContactSuspensionRow } from './stockLiquidContact';
+import { sameStockKinematics, reconcileStockReplyPoses, type StockReplyRequest } from './stockMassSync';
+import { attachedMetalForCarrier } from '../science/metalSurfaceAppearance';
+import type { VesselState } from '../types/chemistry';
 import { SimulationEngine } from '../simulation/core/SimulationEngine';
 import { renderedVesselBody } from '../simulation/render/vesselBodyFrames';
 import { Euler, Quaternion, Vector3 } from 'three';
@@ -30,8 +32,8 @@ export function StockMechanicsScene() {
   const runtime = useRef<{ worker: Worker; busy: boolean; pending: number; path: StockBoundaryFrame[]; id: number; escaped: string[]; signature: string; sentAt: number } | null>(null);
   const failure = useRef({ count: 0, retryAt: 0 }), dirty = useRef(false);
   const previousTick = useRef(0);
-  const last = useRef(new Map<string, object>()), revisions = useRef(new Map<string, number>());
-  const request = useRef(new Map<string, { motion: unknown; revision: number }>());
+  const last = useRef(new Map<string, VesselState['stockMotion']>()), revisions = useRef(new Map<string, number>());
+  const request = useRef(new Map<string, StockReplyRequest & { revision: number }>());
   const lastSpills = useRef(new Map<string, StockSpillPose>()), requestedSpills = useRef(new Map<string, StockSpillPose>());
   const sameTrajectory = (a: StockSpillPose | undefined, b: StockSpillPose | undefined) => a === b
     || !!a && !!b && a.position_m === b.position_m && a.rotation === b.rotation
@@ -52,7 +54,7 @@ export function StockMechanicsScene() {
     const app = useAppStore.getState();
     const hasStock = Object.values(app.vessels).some(v => !v.isShattered && v.contents.some(c => c.phase === 's'
       && !['Na', 'K', 'H2O'].includes(c.formula) && c.mass_g > 1e-10 && c.location !== 'filter' && c.location !== 'foam'
-      && c.solidOrigin !== 'precipitate' && !(v.volume_ml > 0.05 && isSuspensionRow(c, v.contents, v.precipitateSubstance))))
+      && !isContactSuspensionRow(v, c)))
       || Object.values(app.spills).some(s => s.stockMotion);
     if (!hasStock) {
       if (runtime.current && !runtime.current.busy) { runtime.current.worker.terminate(); runtime.current = null; }
@@ -82,9 +84,13 @@ export function StockMechanicsScene() {
         let changed = false;
         for (const [id, v] of Object.entries(vessels)) {
           const expected = request.current.get(id);
-          if (!expected || expected.motion !== v.stockMotion || expected.revision !== (v.effectSampleRevision ?? 0)) continue;
+          if (!expected || !sameStockKinematics(expected.motion, v.stockMotion) || expected.revision !== (v.effectSampleRevision ?? 0)) continue;
           valid.add(id);
-          const grains = snapshot.grains.filter(g => g.vesselId === id && !spills[`stock_spill_${g.pose.id}`]).map(g => g.pose);
+          // snapshot.grains includes escape candidates. Account for them here
+          // before any finite stock leaves the vessel; existing spills already
+          // belong to their separate inventory and must not spend this budget.
+          const grains = reconcileStockReplyPoses(snapshot.grains
+            .filter(g => g.vesselId === id && !spills[`stock_spill_${g.pose.id}`]).map(g => g.pose), expected, v);
           if (!grains.length && !v.stockMotion) continue;
           const motion = { tick: snapshot.tick, grains }; last.current.set(id, motion);
           vessels[id] = { ...v, stockMotion: motion }; changed = true;
@@ -92,7 +98,9 @@ export function StockMechanicsScene() {
         for (const escaped of snapshot.escapes) {
           const v = vessels[escaped.vesselId], expected = request.current.get(escaped.vesselId);
           if (!v || !expected || !valid.has(v.id) || expected.revision !== (v.effectSampleRevision ?? 0)) continue;
-          const transfer = escapeStockGrain(v, spills, escaped.pose);
+          const pose = v.stockMotion?.grains.find(grain => grain.id === escaped.pose.id);
+          if (!pose) continue;
+          const transfer = escapeStockGrain(v, spills, pose);
           if (transfer) { vessels[v.id] = transfer.vessel; if (transfer.vessel.stockMotion) last.current.set(v.id, transfer.vessel.stockMotion);
             const continued = continueReactionAfterOutflow(activeKinetics[v.id], transfer.vessel, live.language);
             if (continued) activeKinetics[v.id] = continued; else delete activeKinetics[v.id];
@@ -102,17 +110,19 @@ export function StockMechanicsScene() {
         for (const grain of snapshot.grains) {
           const id = `stock_spill_${grain.pose.id}`, spill = spills[id];
           if (spill?.stockMotion && validSpills.has(grain.pose.id)) {
-            const mass = (spill.contents ?? []).filter(c => c.formula === grain.pose.formula && c.phase === 's').reduce((s, c) => s + c.mass_g, 0);
-            spills[id] = { ...spill, position: siPointToScene(grain.pose.position_m), stockMotion: { ...grain.pose, mass_g: mass,
-              scale_m: grain.pose.scale_m * Math.cbrt(mass / grain.pose.mass_g), vesselId: grain.vesselId } };
-            lastSpills.current.set(grain.pose.id, spills[id].stockMotion!); changed = true;
+            const mass = (spill.contents ?? []).filter(c => c.formula === grain.pose.formula && c.phase === 's'
+              && !c.solidOrigin && !c.depositSubstrate).reduce((s, c) => s + c.mass_g, 0);
+            spills[id] = { ...spill, position: siPointToScene(grain.pose.position_m), stockMotion: mass > 1e-12 ? { ...grain.pose, mass_g: mass,
+              scale_m: grain.pose.scale_m * Math.cbrt(mass / grain.pose.mass_g), vesselId: grain.vesselId } : undefined };
+            if (spills[id].stockMotion) lastSpills.current.set(grain.pose.id, spills[id].stockMotion!);
+            else lastSpills.current.delete(grain.pose.id);
+            changed = true;
           }
         }
         for (const capture of snapshot.captures) {
           const key = `stock_spill_${capture.pose.id}`, sample = spills[key], receiver = vessels[capture.vesselId];
           if (!sample?.stockMotion || !validSpills.has(capture.pose.id) || !receiver || !valid.has(receiver.id) || receiver.isSealed || receiver.isShattered) continue;
-          const motion = { tick: snapshot.tick, grains: [...(receiver.stockMotion?.grains ?? []).filter(p => p.id !== capture.pose.id), { ...capture.pose, mass_g: sample.mass_g }] };
-          const prepared = prepareStockAddition({ ...receiver, stockMotion: motion }, findChemical(capture.pose.formula), capture.pose.formula, sample.mass_g, sample.temperature_c ?? 25);
+          const prepared = captureStockCarrier(receiver, sample, capture.pose);
           if (!prepared) continue;
           const reacted = reactAliquotMixture(prepared.vessel, live.language, false);
           vessels[receiver.id] = reacted.vessel; if (reacted.vessel.stockMotion) last.current.set(receiver.id, reacted.vessel.stockMotion);
@@ -168,18 +178,23 @@ export function StockMechanicsScene() {
     if (app.isSimulationPaused && signature === state.signature) return;
     state.signature = signature;
     const containers = posedVessels.map(v => {
-      const restore = v.stockMotion !== undefined && v.stockMotion !== last.current.get(v.id)
+      const restore = v.stockMotion !== undefined && !sameStockKinematics(v.stockMotion, last.current.get(v.id))
         || revisions.current.has(v.id) && revisions.current.get(v.id) !== (v.effectSampleRevision ?? 0);
       revisions.current.set(v.id, v.effectSampleRevision ?? 0);
-      request.current.set(v.id, { motion: v.stockMotion, revision: v.effectSampleRevision ?? 0 });
-      return stockContainer(v, restore, SimulationEngine.findManager(v.id)?.vortex.surface);
+      const container = stockContainer(v, restore, SimulationEngine.findManager(v.id)?.vortex.surface);
+      request.current.set(v.id, { motion: v.stockMotion, revision: v.effectSampleRevision ?? 0,
+        masses: new Map(container?.groups.map(group => [group.formula, group.mass_g]) ?? []) });
+      return container;
     }).filter(v => v !== null);
     requestedSpills.current.clear();
     const spills = Object.values(app.spills).flatMap(s => {
       if (!s.stockMotion) return [];
       const p = s.stockMotion;
       requestedSpills.current.set(p.id, p);
-      return [{ ...p, restore: !sameTrajectory(p, lastSpills.current.get(p.id)), group: stockGroup(p.formula, p.mass_g) ?? undefined }];
+      const group = stockGroup(p.formula, p.mass_g);
+      if (group) group.carrierCoatings = { [p.id]: attachedMetalForCarrier({ contents: s.contents ?? [],
+        stockMotion: { tick: 0, grains: [p] } } as unknown as VesselState, p.id) };
+      return [{ ...p, restore: !sameTrajectory(p, lastSpills.current.get(p.id)), group: group ?? undefined }];
     });
     // A slow drawing frame may represent >1/30 s of accepted simulation time.
     // Advance those fixed steps together; otherwise gestures outrun the grains

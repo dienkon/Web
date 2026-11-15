@@ -16,9 +16,9 @@ import { SedimentSurface } from '../../science/sedimentSurface';
 import { sedimentPlane, sedimentSupportPlane } from '../effects/sedimentPlane';
 import { vesselInterior } from '../../science/vesselDimensions';
 import { metersPerModelUnit } from '../../science/sceneUnits';
-import { precipitateComponents } from '../../science/precipitateInventory';
+import { precipitateCohortKey, precipitateCohortOutflow } from '../../science/precipitateInventory';
+import { freePrecipitateCohorts } from '../../science/freePrecipitateCohorts';
 import { suspensionFluidProperties } from '../../science/suspensionFluid';
-import { metalSurfaceAppearance } from '../../science/metalSurfaceAppearance';
 import { BoilingSystem } from '../effects/BoilingSystem';
 import { EvaporationSystem } from '../effects/EvaporationSystem';
 import { PrecipitationSystem } from '../effects/PrecipitationSystem';
@@ -106,13 +106,13 @@ export class VesselSimulationManager {
     this.sedimentBed = { ...this.precipitationSystem.sedimentBed };
   }
 
-  public getPrecipitationSystem(formula: string): PrecipitationSystem {
-    const key = identifySpecies(formula).formula;
+  public getPrecipitationSystem(formula: string, formation?: string): PrecipitationSystem {
+    const identity = identifySpecies(formula).formula, key = precipitateCohortKey(identity, formation);
     let system = this.precipitationSystems.get(key);
     if (!system) {
-      system = !this.initialSystemAssigned ? this.precipitationSystem : new PrecipitationSystem(this.maxPrecipitateParticles, key);
+      system = !this.initialSystemAssigned ? this.precipitationSystem : new PrecipitationSystem(this.maxPrecipitateParticles, identity);
       this.initialSystemAssigned = true;
-      system.setSubstance(key);
+      system.setSubstance(identity, formation);
       this.precipitationSystems.set(key, system);
     }
     return system;
@@ -267,16 +267,14 @@ export class VesselSimulationManager {
     // authorize extra production, and KI/Pb salts are not assumed to be PbI2.
     const activeSubstance = reactionPrecipitateSubstance || vessel.precipitateSubstance;
     const inventory = thermal?.contents ?? vessel.contents;
-    const coating = metalSurfaceAppearance({ ...vessel, contents: inventory });
-    const components = precipitateComponents(inventory, activeSubstance).map(c => ({ ...c,
-      mass_g: Math.max(0, c.mass_g - (coating && sameMolecularFormula(coating.product, c.formula) ? coating.attachedMass_g : 0)) }));
+    const components = freePrecipitateCohorts({ ...vessel, contents: inventory }, activeSubstance);
     const totalPrecipitate_g = components.reduce((s, c) => s + c.mass_g, 0);
     const hasPrecipitate = totalPrecipitate_g > 1e-12;
     const precipitateColor = activeSubstance
       ? getPrecipitateProfile(activeSubstance, vessel.precipitateMorphology, vessel.precipitateColor).color : vessel.precipitateColor || '#ffffff';
     // Always step, including zero mass, so dissolution clears suspended and
     // settled geometry instead of leaving the previous frame frozen in place.
-    const present = new Set(components.map(c => c.formula));
+    const present = new Set(components.map(c => c.key));
     for (const [formula, system] of this.precipitationSystems) if (!present.has(formula)) {
       system.reset();
       this.precipitationSystems.delete(formula);
@@ -285,7 +283,7 @@ export class VesselSimulationManager {
     let sr = 0, sg = 0, sb = 0, br = 0, bg = 0, bb = 0, roughness = 0, metalness = 0;
     const sampleColor = new THREE.Color();
     const support = components.map(c => {
-      const system = this.getPrecipitationSystem(c.formula);
+      const system = this.getPrecipitationSystem(c.formula, c.formation);
       return { mass_g: Math.min(c.mass_g, system.sedimentBed.amount_g), profile: system.profile };
     });
     const priorBedVolume = support.reduce((sum, c) => sum + c.mass_g / (c.profile.particleDensity_g_cm3 * precipitatePackingFraction(c.profile)), 0);
@@ -294,18 +292,17 @@ export class VesselSimulationManager {
     const sharedSedimentPlane = this.bedPlane(profile, priorBedVolume)
       ?? sedimentSupportPlane(profile, this.bedSurface.normal);
     const compactSuspendedVolume_ml = components.reduce((sum, component) => {
-      const system = this.getPrecipitationSystem(component.formula);
-      const material = getPrecipitateProfile(component.formula, component.formation
-        ?? (activeSubstance && sameMolecularFormula(component.formula, activeSubstance) ? vessel.precipitateMorphology : undefined));
+      const system = this.getPrecipitationSystem(component.formula, component.formation);
+      const material = getPrecipitateProfile(component.formula, component.formation);
       return sum + (supportsCompactHindrance(material)
         ? Math.max(0, component.mass_g - system.sedimentBed.amount_g) / material.particleDensity_g_cm3 : 0);
     }, 0);
     for (let index = 0; index < components.length; index++) {
       const component = components[index];
-      const system = this.getPrecipitationSystem(component.formula);
-      const rawOutflow = vessel.precipitateOutflow_g?.[component.formula] ?? 0;
+      const system = this.getPrecipitationSystem(component.formula, component.formation);
+      const rawOutflow = precipitateCohortOutflow(vessel, component.key, component.formula);
       const outflow = Number.isFinite(rawOutflow) ? Math.max(0, rawOutflow) : 0;
-      const previouslyApplied = this.suspensionOutflowApplied_g.get(component.formula) ?? outflow;
+      const previouslyApplied = this.suspensionOutflowApplied_g.get(component.key) ?? outflow;
       const isActive = !!activeSubstance && sameMolecularFormula(component.formula, activeSubstance);
       system.setParticleBudget(Math.floor(this.maxPrecipitateParticles / components.length)
         + (index < this.maxPrecipitateParticles % components.length ? 1 : 0));
@@ -324,7 +321,7 @@ export class VesselSimulationManager {
       vesselProfile: profile,
       surfacePlane,
       substance: component.formula,
-      formation: component.formation ?? (isActive ? vessel.precipitateMorphology : undefined),
+      formation: component.formation,
       declaredColor: isActive ? vessel.precipitateColor : undefined,
       sharedSedimentThickness: this.sedimentBed.thickness,
       sharedSedimentPlane,
@@ -336,7 +333,7 @@ export class VesselSimulationManager {
       // The same surface bounds and angular flow drive suspended solids.
       heatPower_W,
       });
-      this.suspensionOutflowApplied_g.set(component.formula, outflow);
+      this.suspensionOutflowApplied_g.set(component.key, outflow);
       transmission *= 1 - system.cloudiness;
       const suspended = Math.max(0, component.mass_g - system.sedimentBed.amount_g);
       sampleColor.set(system.profile.color);
@@ -369,6 +366,7 @@ export class VesselSimulationManager {
       this.sedimentBed.metalness = metalness / bedMass;
     }
     this.precipitationSystem = (activeSubstance ? this.precipitationSystems.get(identifySpecies(activeSubstance).formula) : undefined)
+      ?? (activeSubstance ? [...this.precipitationSystems.values()].find(s => sameMolecularFormula(s.profile.id, activeSubstance)) : undefined)
       ?? this.precipitationSystems.values().next().value ?? this.precipitationSystem;
     if (!components.length) {
       this.precipitationSystem.reset();

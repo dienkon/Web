@@ -51,6 +51,12 @@ export interface SubstanceContent {
   /** Solid formed by chemistry, distinct from a separately added solid chunk. */
   solidOrigin?: 'precipitate';
   precipitateFormation?: string;
+  /** Durable metal-deposit provenance, independent of the latest reaction label. */
+  depositSubstrate?: string;
+  depositionReactionId?: string;
+  depositCarrierId?: string;
+  /** Released metal cannot attach to a later stock addition. */
+  depositReleased?: boolean;
   liquidLayer?: 'aqueous' | 'organic';
   location?: 'bulk' | 'filter' | 'foam';
   formula: string;
@@ -173,6 +179,8 @@ export interface VesselState {
   /** Cumulative suspended-solid outflow by canonical formula, g. A transport
    * transaction updates this with inventory; physics consumes only the delta. */
   precipitateOutflow_g?: Record<string, number>;
+  /** Committed suspended-solid withdrawal by stable formula/formation key. */
+  precipitateCohortOutflow_g?: Record<string, number>;
   /** Observation used to distinguish cooling crystallization from direct mixing. */
   leadIodidePhaseHistory?: { temperature_c: number; totalMass_g: number };
   

@@ -6,11 +6,20 @@ import { createPrecipitateGeometry } from '../../simulation/render/precipitateGe
 import { immersedPrecipitateOpacity, precipitateFinish, withParticleOpacity } from '../../simulation/render/particleAppearance';
 import { readablePrecipitateRadius } from '../../simulation/render/precipitateReadability';
 import { precipitateDisplayIndex } from '../../science/precipitateParcels';
+import { precipitateCohortKey } from '../../science/precipitateInventory';
+import { sameMolecularFormula } from '../../science/speciesIdentity';
 
 /** Uses the same species morphology, hydrated-gel finish, containment and
  * physical population as the hands-on bench. No independent particle source. */
 export function AutoPrecipitateLayer({ experiment: e, formula }: { experiment: AutoExperiment; formula: string }) {
-  const mesh = useRef<THREE.InstancedMesh>(null), uploaded = useRef(-1);
+  const formations = sameMolecularFormula(formula, 'PbI2') ? [undefined, 'CRYSTAL_PLATE']
+    : sameMolecularFormula(formula, 'PbCl2') ? [undefined, 'CRYSTAL_NEEDLE'] : [undefined];
+  return <>{formations.map(formation => <AutoPrecipitateCohort key={formation ?? ''}
+    experiment={e} cohortKey={precipitateCohortKey(formula, formation)} />)}</>;
+}
+
+function AutoPrecipitateCohort({ experiment: e, cohortKey }: { experiment: AutoExperiment; cohortKey: string }) {
+  const mesh = useRef<THREE.InstancedMesh>(null), uploaded = useRef<{ system: unknown; time: number } | undefined>(undefined);
   const capacity = e.physics.maxPrecipitateParticles;
   const geometries = useMemo(() => new Map<string, THREE.BufferGeometry>(), []);
   const material = useMemo(() => withParticleOpacity(new THREE.MeshPhysicalMaterial({
@@ -19,12 +28,12 @@ export function AutoPrecipitateLayer({ experiment: e, formula }: { experiment: A
   const scratch = useMemo(() => new THREE.Object3D(), []);
   useEffect(() => () => { geometries.forEach(g => g.dispose()); material.dispose(); }, [geometries, material]);
   useFrame(() => {
-    const target = mesh.current, system = e.physics.precipitationSystems.get(formula);
+    const target = mesh.current, system = e.physics.precipitationSystems.get(cohortKey);
     if (!target) return;
     target.visible = !!system?.particles.length;
-    if (!system || !target.visible) { target.count = 0; uploaded.current = -1; return; }
+    if (!system || !target.visible) { target.count = 0; uploaded.current = undefined; return; }
     const count = Math.min(capacity, system.maxParticles, system.particles.length);
-    if (e.paused && uploaded.current === system.integratedTime_s && target.count === count) return;
+    if (e.paused && uploaded.current?.system === system && uploaded.current.time === system.integratedTime_s && target.count === count) return;
     const profile = system.profile, key = `${profile.id}:${profile.morphology}`;
     let geometry = geometries.get(key);
     if (!geometry) {
@@ -47,8 +56,8 @@ export function AutoPrecipitateLayer({ experiment: e, formula }: { experiment: A
     target.count = count;
     target.instanceMatrix.clearUpdateRanges(); target.instanceMatrix.addUpdateRange(0, count * 16); target.instanceMatrix.needsUpdate = true;
     opacity.clearUpdateRanges(); opacity.addUpdateRange(0, count); opacity.needsUpdate = true;
-    uploaded.current = system.integratedTime_s;
+    uploaded.current = { system, time: system.integratedTime_s };
   });
-  return <instancedMesh ref={mesh} name={`auto_precipitate_${formula}`} args={[undefined, undefined, capacity]}
+  return <instancedMesh ref={mesh} name={`auto_precipitate_${cohortKey}`} args={[undefined, undefined, capacity]}
     material={material} visible={false} frustumCulled={false} renderOrder={4} dispose={null} />;
 }

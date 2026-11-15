@@ -7,7 +7,8 @@ import { advanceCatalyticProgress } from './contactKinetics';
 import { stepLandoltLedger } from './landoltClockLedger';
 import { landoltCapacity, landoltInventory } from '../science/landoltClock';
 import { reactionStockContactFraction, stockLiquidContactFraction } from '../physical/stockLiquidContact';
-import { aluminumStageFractions } from './aluminumMaterialProgress';
+import { aluminumStageFractions, aluminumStockProgressLimit } from './aluminumMaterialProgress';
+import { programStockProgressLimit } from './ledger';
 
 /** Shared eligibility and material clock for manual and automatic operation. */
 export function advanceReaction(kinetics: ActiveKineticsState, vessel: VesselState, dt: number,
@@ -45,7 +46,11 @@ export function advanceReaction(kinetics: ActiveKineticsState, vessel: VesselSta
   const candidate = !assessment.ready ? previous : kinetics.rateModel === 'metal_hcl'
     ? advanceMetalAcidProgress(kinetics, vessel, dt, stirring, contactFraction)
     : limited ? advanceHeatActivatedProgress(kinetics, vessel, dt, contactFraction) : advanceCatalyticProgress(kinetics, vessel, dt, contactFraction);
-  const progress = candidate >= 1 - 1e-12 ? 1 : candidate;
+  const baseline = kinetics.initialVesselBaseline, replayBase = kinetics.replayProgressBase ?? 0;
+  const materialLimit = baseline && kinetics.materialStages ? aluminumStockProgressLimit(kinetics.materialStages, baseline, vessel)
+    : baseline && kinetics.program ? programStockProgressLimit(kinetics.program, baseline, vessel) : 1;
+  const accepted = Math.max(previous, Math.min(candidate, replayBase + (1 - replayBase) * materialLimit));
+  const progress = accepted >= 1 - 1e-12 ? 1 : accepted;
   kinetics.actualProgressRate_s = Math.max(0, progress - previous) / dt;
   return progress;
 }

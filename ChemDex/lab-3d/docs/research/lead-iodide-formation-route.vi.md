@@ -13,6 +13,6 @@
 
 ## Giới hạn còn lại
 
-Đây là nhận diện đường hình thành, chưa giải số lượng mầm và tăng trưởng mặt tinh thể. Quan sát một bước nhiệt không phân biệt được mọi trường hợp vừa thay đổi thuốc thử vừa làm nguội. Một morphology đại diện cho cả quần thể; các hạt mịn cũ và phiến mới chưa được dựng thành hai quần thể riêng. Lịch sử không tự đi theo aliquot khi rót qua bình khác. Cần tiếp tục xây dựng vận chuyển provenance, động học quá bão hòa và mô hình kích thước phụ thuộc tốc độ làm nguội.
+Đây là nhận diện đường hình thành, chưa giải số lượng mầm và tăng trưởng mặt tinh thể. Quan sát một bước nhiệt không phân biệt được mọi trường hợp vừa thay đổi thuốc thử vừa làm nguội. Từ 15/11/2026, bột cũ và phiến mới có cohort vật lý/renderer riêng, formation đi theo aliquot; xem [audit cohort](precipitate-formation-cohorts-2026-11-15.vi.md). Lịch sử nhiệt và toàn bộ phân bố kích thước runtime chưa tự đi theo aliquot. Cần tiếp tục xây dựng động học quá bão hòa và mô hình kích thước phụ thuộc tốc độ làm nguội.
 
 Đường cong độ tan và hệ số thư giãn pha đang có vẫn là xấp xỉ, không được nâng thành dữ liệu thực nghiệm bởi thay đổi hình ảnh này. Chưa mô phỏng đầy đủ hoạt độ ion, ion chung hoặc phức iodide. Chưa kiểm chứng GPU.

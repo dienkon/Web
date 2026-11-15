@@ -27,7 +27,8 @@ import { ppeService } from '../safety/Ppe';
 import { shardManager } from '../damage/Shards';
 import { condenserCoolingSettings, validCondenserCooling, type CondenserCoolingSettings } from '../science/condenserHeatExchange';
 import { isSodiumWaterReaction, sodiumMetalMass, sodiumContactRegime } from '../science/sodiumWater';
-import { applyProgramToLedger } from '../engine/ledger';
+import { applyProgramToLedger, programStockProgressLimit } from '../engine/ledger';
+import { reactionStockContactFraction } from '../physical/stockLiquidContact';
 import { resolveReactionProgram } from '../vfx/programs/resolver';
 import { ReactionProgram } from '../shared/programSchema';
 import { decantLiquid, EMPTY_LIQUID_TRANSFER, type LiquidTransferReceipt } from '../engine/decantTransfer';
@@ -1997,6 +1998,7 @@ export const useAppStore = create<AppState>((set, get) => {
           newVessels[vId] = {
             ...newVessels[vId],
             contents: currentStepContents,
+            stockMotion: ledgerStep.stockMotion ?? newVessels[vId].stockMotion,
             substances: currentStepSubstances.length > 0 ? currentStepSubstances : newVessels[vId].substances,
             mass_g: ledgerStep.mass_g ?? newVessels[vId].mass_g,
             programHeatApplied_J: ledgerStep.programHeatApplied_J,
@@ -2059,6 +2061,7 @@ export const useAppStore = create<AppState>((set, get) => {
             newVessels[vId] = {
               ...newVessels[vId],
               contents: finalContents,
+              stockMotion: finalLedger.stockMotion ?? newVessels[vId].stockMotion,
               substances: finalSubstances.length > 0 ? finalSubstances : newVessels[vId].substances,
               mass_g: finalLedger.mass_g ?? newVessels[vId].mass_g,
               escapedGas_g: finalLedger.escapedGas_g,
@@ -3238,6 +3241,12 @@ export const useAppStore = create<AppState>((set, get) => {
         return false;
       }
       if (progress > kinetics.progress) {
+        const replayBase = kinetics.replayProgressBase ?? 0;
+        const limit = replayBase + (1 - replayBase) * programStockProgressLimit(kinetics.program, kinetics.initialVesselBaseline, vessel);
+        if (reactionStockContactFraction(kinetics.program, vessel) <= 0 || progress > limit + 1e-12) {
+          set({ globalWarning: 'Lượng chất rắn đang tiếp xúc dung dịch không đủ cho mức chuyển hóa này.' });
+          return false;
+        }
         const assessment = assessProgramConditions(kinetics.program, vessel.contents, {
           temperature_c: vessel.temperature_c, volume_ml: vessel.volume_ml, pH: vessel.ph,
           isSealed: vessel.isSealed ?? false, requireInventory: true,
@@ -4127,6 +4136,7 @@ export const useAppStore = create<AppState>((set, get) => {
           ...vessel,
           substances: multiStep.updatedSubstances,
           contents: multiStep.updatedContents,
+          stockMotion: multiStep.stockMotion ?? vessel.stockMotion,
           volume_ml: multiStep.finalVolume_ml,
           immiscibleOrganicVolume_ml: newImmOrganicVol,
           immiscibleOrganicColor: newImmOrganicColor,
@@ -4176,6 +4186,7 @@ export const useAppStore = create<AppState>((set, get) => {
       if (multiStep.phModel && multiStep.reactionsOccurred.length === 0) {
         const mixed: VesselState = {
           ...vessel, contents: multiStep.updatedContents, substances: multiStep.updatedSubstances,
+          stockMotion: multiStep.stockMotion ?? vessel.stockMotion,
           volume_ml: newTotalVolume_ml, volume: Math.min(1, newTotalVolume_ml / vessel.capacity_ml),
           mass_g: newTotalMass_g, density_g_ml: newDensity,
           immiscibleOrganicVolume_ml: newImmOrganicVol, immiscibleOrganicColor: newImmOrganicColor,

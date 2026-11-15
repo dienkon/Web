@@ -88,18 +88,29 @@ function staticStockImmersion(vessel: StockImmersionVessel, liquidDensity = 1): 
     const pose = JSON.stringify([vessel.position, vessel.rotationY, vessel.rotationZ, vessel.physicalMotion?.rotation]);
     const cached = movingModels.get(vessel.stockMotion);
     if (cached?.contents === vessel.contents && cached.pose === pose) return cached.result;
-    const pieces: ImmersedPiece[] = [], top = vesselInterior(vessel.type).topY;
+    const pieces: ImmersedPiece[] = [], looseModels: StockImmersion[] = [], top = vesselInterior(vessel.type).topY;
     let complete = true;
     for (const formula of new Set(rows.map(r => r.formula))) {
-      const poses = vessel.stockMotion.grains.filter(p => p.formula === formula && !p.powder), represented = poses.reduce((s, p) => s + p.mass_g, 0);
+      const poses = vessel.stockMotion.grains.filter(p => p.formula === formula && !p.powder && p.mass_g > 0), represented = poses.reduce((s, p) => s + p.mass_g, 0);
       const mass = rows.filter(r => r.formula === formula).reduce((s, r) => s + r.mass_g, 0);
       if (!(represented > 0)) { complete = false; break; }
+      if (mass > represented + 1e-12) {
+        // A dose awaiting its first worker pose has its own spawn envelope.
+        // Its volume must never enlarge an older, possibly dry carrier.
+        const fraction = (mass - represented) / mass;
+        const loose = staticStockImmersion({ ...vessel, stockMotion: undefined,
+          contents: rows.filter(row => row.formula === formula).map(row => ({ ...row,
+            mass_g: row.mass_g * fraction, moles: row.moles * fraction,
+            initialMass_g: row.mass_g * fraction, initialMoles: row.moles * fraction })) }, liquidDensity);
+        if (!loose) { complete = false; break; }
+        looseModels.push(loose);
+      }
       const geometryKey = `${getSolidMorphology(formula)}:${formula}`;
       let data = geometries.get(geometryKey);
       if (!data) { const geometry = createStockSolidGeometry(getSolidMorphology(formula), formula);
         data = { geometry, compiled: compileSolid(geometry) }; geometries.set(geometryKey, data); }
       for (const p of poses) {
-        const matrix = stockLocalMatrix(vessel as Parameters<typeof stockLocalMatrix>[0], { ...p, scale_m: p.scale_m * Math.cbrt(mass / represented) });
+        const matrix = stockLocalMatrix(vessel as Parameters<typeof stockLocalMatrix>[0], { ...p, scale_m: p.scale_m * Math.cbrt(Math.min(1, mass / represented)) });
         const center = new Vector3().setFromMatrixPosition(matrix), radius = data.geometry.boundingSphere!.radius * new Vector3().setFromMatrixScale(matrix).x;
         const piece: ImmersedPiece = { matrix, inverse: matrix.clone().invert(), factor: matrix.determinant(), mesh: data.compiled,
           x: center.x, z: center.z, radius, bottom: center.y - radius, top: center.y + radius, inside: 0 };
@@ -109,8 +120,9 @@ function staticStockImmersion(vessel: StockImmersionVessel, liquidDensity = 1): 
     }
     if (complete) {
       const unit = solidSceneVolume(vessel, 1), result: StockImmersion = { basis: 'dynamic-solid-reference',
-        insideVolume_ml: pieces.reduce((s, p) => s + p.inside, 0) / unit,
-        displacementMl: (n, c) => pieces.reduce((s, p) => s + wetPiece(p, n, c, top), 0) / unit };
+        insideVolume_ml: pieces.reduce((s, p) => s + p.inside, 0) / unit + looseModels.reduce((sum, model) => sum + model.insideVolume_ml, 0),
+        displacementMl: (n, c) => pieces.reduce((s, p) => s + wetPiece(p, n, c, top), 0) / unit
+          + looseModels.reduce((sum, model) => sum + model.displacementMl(n, c), 0) };
       movingModels.set(vessel.stockMotion, { contents: vessel.contents, pose, result }); return result;
     }
     movingModels.set(vessel.stockMotion, { contents: vessel.contents, pose, result: null });

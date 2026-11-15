@@ -18,7 +18,34 @@ const tuple = (v: { x: number; y: number; z: number }): Vec3 => [v.x, v.y, v.z];
 const solver = (v: readonly number[]): Vec3 => [v[0] * S, v[1] * S, v[2] * S];
 const si = (v: { x: number; y: number; z: number }): Vec3 => [v.x / S, v.y / S, v.z / S];
 const quat = (q: Quat) => ({ x: q[0], y: q[1], z: q[2], w: q[3] });
-type Grain = { body: RAPIER.RigidBody; collider: RAPIER.Collider; owner: string; pose: StockGrainPose; group: StockGroupInput; escaped: boolean };
+type GrainShape = { desc: RAPIER.ColliderDesc; weight: number };
+const coatedWireRadius = (coreRadius: number, length: number, coatingVolume_m3: number) => {
+  if (!(coatingVolume_m3 > 0)) return coreRadius;
+  const volume = (radius: number) => Math.PI * radius * radius * length + 4 * Math.PI * radius ** 3 / 3;
+  const target = volume(coreRadius) + coatingVolume_m3;
+  // The two end caps keep the envelope finite when the consumed core's
+  // centerline tends to zero length. The same bare capsule is our baseline.
+  let low = coreRadius, high = Math.cbrt(target * 3 / (4 * Math.PI));
+  for (let i = 0; i < 32; i++) {
+    const middle = (low + high) / 2;
+    if (volume(middle) < target) low = middle; else high = middle;
+  }
+  return (low + high) / 2;
+};
+// A capsule is a segment swept by a ball. Moving its two endpoints by at
+// most d and changing its radius by r bounds every surface change by d+r.
+const capsuleChange = (before: RAPIER.ColliderDesc, after: RAPIER.ColliderDesc) => {
+  if (!(before.shape instanceof RAPIER.Capsule) || !(after.shape instanceof RAPIER.Capsule)) return Infinity;
+  const endpoints = (desc: RAPIER.ColliderDesc, shape: RAPIER.Capsule) => {
+    const center = new Vector3(desc.translation.x, desc.translation.y, desc.translation.z);
+    const q = desc.rotation, axis = new Vector3(0, shape.halfHeight, 0).applyQuaternion(new Quaternion(q.x, q.y, q.z, q.w));
+    return [center.clone().add(axis), center.sub(axis)];
+  };
+  const a = endpoints(before, before.shape), b = endpoints(after, after.shape);
+  return (Math.max(a[0].distanceTo(b[0]), a[1].distanceTo(b[1])) + Math.abs(before.shape.radius - after.shape.radius)) / S;
+};
+type Grain = { body: RAPIER.RigidBody; colliders: RAPIER.Collider[]; owner: string; pose: StockGrainPose; group: StockGroupInput; escaped: boolean;
+  coating: { mass_g: number; volume_ml: number }; volume_m3: number; collisionShapes: GrainShape[] };
 let initialized: Promise<void> | undefined;
 
 /** Actual SI rigid contacts for finite, mass-bearing stock pieces. Powder
@@ -38,12 +65,19 @@ export class StockWorld {
   private constructor() {
     this.world = new RAPIER.World({ x: 0, y: -CONSTANTS.g * S, z: 0 }); this.world.timestep = DT;
     this.world.integrationParameters.numSolverIterations = 10;
-    this.world.integrationParameters.lengthUnit = S;
+    // Rapier uses lengthUnit for broad-phase fat AABBs and resting thresholds,
+    // not only for converting tolerances. Stock pieces are millimetres wide:
+    // use a centimetre characteristic size in our centimetre solver space.
+    // Setting this to S (one metre) makes every nearby wire segment a pair.
+    this.world.integrationParameters.lengthUnit = 1;
     // Resolve the thin glass support at tens of micrometres; the default
     // compliant contact frequency permits ~0.3 mm static gravitational sag.
     this.world.integrationParameters.contact_natural_frequency = 240;
-    this.world.integrationParameters.normalizedAllowedLinearError = 1e-5;
-    this.world.integrationParameters.normalizedPredictionDistance = 0.0005;
+    this.world.integrationParameters.normalizedAllowedLinearError = 0.001;
+    // Hard CCD handles arrival speed; predictive contacts only need to span
+    // twice the 10 micrometre penetration allowance near the glass, not an
+    // entire thin wire cross-section.
+    this.world.integrationParameters.normalizedPredictionDistance = 0.002;
     this.world.integrationParameters.maxCcdSubsteps = 4;
     this.world.createCollider(RAPIER.ColliderDesc.cuboid(sceneToMeters(LAB_GEOMETRY.tableHalfWidth_scene) * S,
       sceneToMeters(LAB_GEOMETRY.tableThickness_scene / 2) * S, sceneToMeters(LAB_GEOMETRY.tableHalfDepth_scene) * S)
@@ -85,21 +119,95 @@ export class StockWorld {
     return radius > 0 ? RAPIER.ColliderDesc.cylinder(halfHeight * S, radius * S)
       .setTranslation(0, (high - halfHeight) * S, 0) : null;
   }
+  private wireShapes(group: StockGroupInput, coreScale: number, coatingVolume_m3: number) {
+    const wire = group.wire;
+    if (!wire || wire.points.length < 2 || !(wire.radius > 0)) return null;
+    const points = wire.points.map(point => new Vector3(...point).multiplyScalar(coreScale));
+    const segments: { a: Vector3; b: Vector3; direction: Vector3; materialLength: number; deviation: number }[] = [];
+    for (let i = 0; i < points.length - 1;) {
+      let end = i + 1, deviation = 0;
+      if (i + 2 < points.length) {
+        const direction = points[i + 2].clone().sub(points[i]), lengthSquared = direction.lengthSq();
+        if (lengthSquared > 1e-20) {
+          const t = Math.max(0, Math.min(1, points[i + 1].clone().sub(points[i]).dot(direction) / lengthSquared));
+          const error = points[i + 1].distanceTo(points[i].clone().addScaledVector(direction, t));
+          // Enclose the original two straight stations in one capsule. The
+          // radius grows by their measured chord error (at most 50 um and
+          // one fifth of the wire radius); larger bends retain both contacts.
+          if (error <= Math.min(0.00005, wire.radius * coreScale * 0.2)) { end = i + 2; deviation = error; }
+        }
+      }
+      const a = points[i], b = points[end], direction = b.clone().sub(a);
+      let materialLength = 0;
+      for (let j = i; j < end; j++) materialLength += points[j].distanceTo(points[j + 1]);
+      if (direction.lengthSq() > 1e-20) segments.push({ a, b, direction, materialLength, deviation });
+      i = end;
+    }
+    const length = segments.reduce((sum, segment) => sum + segment.materialLength, 0);
+    // Add the equivalent compact coating volume radially around the same wire.
+    // Capsule overlap/end caps are a contact-envelope approximation; chemical
+    // mass and buoyancy always use the separate material-volume ledger.
+    const radius = coatedWireRadius(wire.radius * coreScale, length, coatingVolume_m3);
+    if (!segments.length || !(radius > 0)) return null;
+    return segments.map(segment => {
+      const segmentLength = segment.direction.length();
+      const center = segment.a.clone().add(segment.b).multiplyScalar(S / 2);
+      const rotation = new Quaternion().setFromUnitVectors(new Vector3(0, 1, 0), segment.direction.normalize());
+      // Separate convex contacts preserve the wire's hole and support arcs.
+      // Splitting the material mass by arc length keeps body mass/inertia
+      // finite; overlapping capsule caps never add chemical material.
+      return { desc: RAPIER.ColliderDesc.capsule(segmentLength * S / 2, (radius + segment.deviation) * S)
+        .setTranslation(center.x, center.y, center.z).setRotation(rotation), weight: segment.materialLength / length };
+    });
+  }
   private create(owner: string, group: StockGroupInput, mass_g: number, position_m: Vec3, rotation: Quat,
     velocity_m_s: Vec3 = [0, 0, 0], angularVelocity_rad_s: Vec3 = [0, 0, 0], restored?: StockGrainPose) {
     const id = restored?.id ?? `stock:${++this.sequence}`;
     const scale = Math.cbrt(mass_g / 1000 / group.density_kg_m3 / group.unitVolume);
+    const coating = group.carrierCoatings?.[id] ?? { mass_g: 0, volume_ml: 0 };
+    const coreVolume = mass_g / 1000 / group.density_kg_m3, volume_m3 = coreVolume + coating.volume_ml * 1e-6;
+    // Equivalent-volume collision envelope, not resolved dendrite contacts.
+    // The published pose retains CORE scale; the renderer adds its own coating.
+    const collisionScale = scale * Math.cbrt(volume_m3 / coreVolume);
     const body = this.world.createRigidBody(RAPIER.RigidBodyDesc.dynamic().setTranslation(...solver(position_m)).setRotation(quat(rotation))
-      .setLinvel(...solver(velocity_m_s)).setAngvel(vec(angularVelocity_rad_s)).setCcdEnabled(true).setSoftCcdPrediction(0.005 * S).setUserData({ stockId: id }));
-    const desc = group.powder ? RAPIER.ColliderDesc.ball(Math.cbrt(mass_g / 1000 / group.density_kg_m3 * 3 / (4 * Math.PI)) * S)
-      : RAPIER.ColliderDesc.convexHull(new Float32Array(group.vertices.map(x => x * scale * S)));
-    if (!desc) { this.world.removeRigidBody(body); throw new Error(`Degenerate stock grain ${group.formula}`); }
-    const collider = this.world.createCollider(desc.setMass(mass_g / 1000).setFriction(group.powder ? 0.55 : 0.42)
-      .setRestitution(group.powder ? 0.06 : 0.22), body);
+      .setLinvel(...solver(velocity_m_s)).setAngvel(vec(angularVelocity_rad_s)).setCcdEnabled(true)
+      .setSoftCcdPrediction(group.wire ? 0 : 0.005 * S).setUserData({ stockId: id }));
+    const wire = !group.powder ? this.wireShapes(group, scale, coating.volume_ml * 1e-6) : null;
+    const descriptors = wire ?? [{ desc: group.powder ? RAPIER.ColliderDesc.ball(Math.cbrt(volume_m3 * 3 / (4 * Math.PI)) * S)
+      : RAPIER.ColliderDesc.convexHull(new Float32Array(group.vertices.map(x => x * collisionScale * S))), weight: 1 }];
+    if (descriptors.some(item => !item.desc)) { this.world.removeRigidBody(body); throw new Error(`Degenerate stock grain ${group.formula}`); }
+    const totalMass_kg = (mass_g + coating.mass_g) / 1000;
+    const colliders = descriptors.map(item => this.world.createCollider(item.desc.setMass(totalMass_kg * item.weight)
+      .setFriction(group.powder ? 0.55 : 0.42).setRestitution(group.powder ? 0.06 : 0.22), body));
     const pose: StockGrainPose = { id, formula: group.formula, mass_g, scale_m: scale, position_m, rotation,
       velocity_m_s, angularVelocity_rad_s, sleeping: false, powder: group.powder };
-    this.grains.set(id, { body, collider, owner, group, pose, escaped: false });
+    this.grains.set(id, { body, colliders, owner, group, pose, escaped: false, coating, volume_m3, collisionShapes: descriptors });
     const suffix = Number(id.split(':').at(-1)); if (Number.isSafeInteger(suffix)) this.sequence = Math.max(this.sequence, suffix);
+  }
+  private resize(g: Grain, group: StockGroupInput, mass_g: number) {
+    if (group.wire && !group.powder && mass_g > 1e-12) {
+      const scale = Math.cbrt(mass_g / 1000 / group.density_kg_m3 / group.unitVolume);
+      const coating = group.carrierCoatings?.[g.pose.id] ?? { mass_g: 0, volume_ml: 0 };
+      const next = this.wireShapes(group, scale, coating.volume_ml * 1e-6);
+      if (next?.length === g.collisionShapes.length
+        && next.every((shape, i) => capsuleChange(g.collisionShapes[i].desc, shape.desc) <= 0.000005)) {
+        // Preserve contacts until the accumulated surface change reaches
+        // 5 um, below the solver's 10 um allowance. The reference descriptors
+        // remain the LAST BUILT geometry, so repeated tiny changes cannot
+        // accumulate unbounded shape lag. Material and buoyancy stay exact.
+        const mass_kg = (mass_g + coating.mass_g) / 1000;
+        g.colliders.forEach((collider, i) => collider.setMass(mass_kg * next[i].weight));
+        g.body.recomputeMassPropertiesFromColliders();
+        g.pose = { ...g.pose, mass_g, scale_m: scale };
+        g.coating = coating; g.group = group;
+        g.volume_m3 = mass_g / 1000 / group.density_kg_m3 + coating.volume_ml * 1e-6;
+        return;
+      }
+    }
+    const p = this.pose(g);
+    this.world.removeRigidBody(g.body); this.grains.delete(p.id);
+    if (mass_g > 1e-12) this.create(g.owner, group, mass_g, p.position_m, p.rotation,
+      p.velocity_m_s, p.angularVelocity_rad_s, { ...p, mass_g });
   }
   sync(input: StockWorldInput) {
     this.input = input; this.appliedContacts = [];
@@ -154,8 +262,21 @@ export class StockWorld {
         let bodies = [...this.grains.values()].filter(g => g.owner === v.id && g.pose.formula === group.formula && !g.escaped);
         const contacts = input.contacts.filter(c => c.vesselId === v.id && c.formula === group.formula);
         if (!bodies.length && v.saved?.some(p => p.formula === group.formula)) {
-          const saved = v.saved.filter(p => p.formula === group.formula), mass = saved.reduce((s, p) => s + p.mass_g, 0);
+          const saved = v.saved.filter(p => p.formula === group.formula && p.mass_g > 1e-12), mass = saved.reduce((s, p) => s + p.mass_g, 0);
           for (const p of saved) this.create(v.id, group, p.mass_g * Math.min(1, group.mass_g / mass), p.position_m, p.rotation, p.velocity_m_s, p.angularVelocity_rad_s, p);
+          bodies = [...this.grains.values()].filter(g => g.owner === v.id && g.pose.formula === group.formula && !g.escaped);
+        }
+        // The chemical contact ledger can consume one wet carrier while its
+        // dry siblings retain their full mass. Apply those IDs at the worker's
+        // current pose, including zero-mass acknowledgements. A legacy snapshot
+        // exceeding the actual inventory still uses the aggregate fallback.
+        const targets = (v.saved ?? []).filter(p => p.formula === group.formula && Number.isFinite(p.mass_g) && p.mass_g >= 0);
+        if (targets.reduce((sum, p) => sum + p.mass_g, 0) <= group.mass_g + Math.max(1e-12, group.mass_g * 1e-9)) {
+          const byId = new Map(targets.map(p => [p.id, p.mass_g]));
+          for (const g of bodies) {
+            const mass = byId.get(g.pose.id);
+            if (mass !== undefined && Math.abs(mass - g.pose.mass_g) > Math.max(1e-12, g.pose.mass_g * 1e-9)) this.resize(g, group, mass);
+          }
           bodies = [...this.grains.values()].filter(g => g.owner === v.id && g.pose.formula === group.formula && !g.escaped);
         }
         const current = bodies.reduce((s, g) => s + g.pose.mass_g, 0), delta = group.mass_g - current;
@@ -167,11 +288,11 @@ export class StockWorld {
         } else if (delta < -Math.max(1e-9, group.mass_g * 1e-7)) {
           // Dissolution/reaction changes mass and shape together, retaining pose
           // and momentum per surviving mass, never shifting to a new grid.
-          for (const g of bodies) {
-            const p = this.pose(g), mass = p.mass_g * group.mass_g / current;
-            this.world.removeRigidBody(g.body); this.grains.delete(p.id);
-            if (mass > 1e-12) this.create(v.id, group, mass, p.position_m, p.rotation, p.velocity_m_s, p.angularVelocity_rad_s, { ...p, mass_g: mass });
-          }
+          for (const g of bodies) this.resize(g, group, g.pose.mass_g * group.mass_g / current);
+        }
+        for (const g of [...this.grains.values()]) if (g.owner === v.id && g.pose.formula === group.formula && !g.escaped) {
+          const coating = group.carrierCoatings?.[g.pose.id];
+          if (g.coating.mass_g !== (coating?.mass_g ?? 0) || g.coating.volume_ml !== (coating?.volume_ml ?? 0)) this.resize(g, group, g.pose.mass_g);
         }
         for (const c of contacts) if (c.resolved) this.appliedContacts.push(c.id);
       }
@@ -183,7 +304,9 @@ export class StockWorld {
       // Chemistry can reduce mass while this Worker advances old boundary
       // samples. Rebuild at the CURRENT pose, unless explicitly restoring a save.
       let current = p;
-      if (g && (p.restore || Math.abs(g.pose.mass_g - p.mass_g) > 1e-10)) {
+      const coating = p.group?.carrierCoatings?.[p.id];
+      if (g && (p.restore || Math.abs(g.pose.mass_g - p.mass_g) > 1e-10
+        || g.coating.mass_g !== (coating?.mass_g ?? 0) || g.coating.volume_ml !== (coating?.volume_ml ?? 0))) {
         if (!p.restore) current = { ...p, ...this.pose(g), mass_g: p.mass_g };
         this.world.removeRigidBody(g.body); this.grains.delete(p.id); g = undefined;
       }
@@ -198,11 +321,19 @@ export class StockWorld {
   private pose(g: Grain): StockGrainPose {
     const q = g.body.rotation();
     let contacting = false;
-    this.world.contactPairsWith(g.collider, other => this.world.contactPair(g.collider, other, m => {
-      if (m.numSolverContacts() > 0) for (let i = 0; i < m.numContacts(); i++) {
-        if (m.contactDist(i) / S <= 2e-5) contacting = true;
-      }
-    }));
+    for (const collider of g.colliders) {
+      if (contacting) break;
+      this.world.contactPairsWith(collider, other => {
+        if (contacting) return;
+        this.world.contactPair(collider, other, m => {
+          // Sleeping bodies retain geometric manifolds but need no active
+          // solver contacts. Their close support is still a resting contact.
+          if (m.numSolverContacts() > 0 || g.body.isSleeping()) for (let i = 0; i < m.numContacts(); i++) {
+            if (m.contactDist(i) / S <= 2e-5) contacting = true;
+          }
+        });
+      });
+    }
     return { ...g.pose, position_m: si(g.body.translation()), rotation: [q.x, q.y, q.z, q.w],
       velocity_m_s: si(g.body.linvel()), angularVelocity_rad_s: tuple(g.body.angvel()), sleeping: g.body.isSleeping(), contacting };
   }
@@ -239,24 +370,24 @@ export class StockWorld {
         if (g.escaped) continue;
         const fluid = this.containers.get(g.owner)?.input.fluid; g.body.resetForces(false);
         if (fluid) {
-          const position = si(g.body.translation()), p = vec(position), radius = g.collider.shape instanceof RAPIER.Ball ? g.collider.shape.radius / S
-            : Math.cbrt(g.pose.mass_g / 1000 / g.group.density_kg_m3 * 3 / (4 * Math.PI));
+          const position = si(g.body.translation()), p = vec(position), radius = g.colliders[0].shape instanceof RAPIER.Ball ? g.colliders[0].shape.radius / S
+            : Math.cbrt(g.volume_m3 * 3 / (4 * Math.PI));
           const carrier = stockFluidAt(position, fluid), depth = carrier.depth_m;
           const h = Math.max(0, Math.min(2 * radius, depth + radius)), immersed = Math.PI * h * h * (radius - h / 3);
-          const volume = g.pose.mass_g / 1000 / g.group.density_kg_m3, fraction = Math.min(1, immersed / Math.max(volume, 1e-20));
+          const volume = g.volume_m3, mass = g.body.mass(), fraction = Math.min(1, immersed / Math.max(volume, 1e-20));
           const buoyancy = fluid.density_kg_m3 * volume * fraction * CONSTANTS.g;
           // Rapier's sleep threshold can stop a slowly rising, nearly neutral
           // grain. An unresolved upward force or a driven carrier must wake it.
           const driven = fraction > 0 && (Math.abs(carrier.spin_rad_s) > 1e-8 || Math.hypot(...carrier.velocity_m_s) > 1e-6);
-          const wake = driven || buoyancy - g.pose.mass_g / 1000 * CONSTANTS.g > g.pose.mass_g / 1000 * 0.01;
+          const wake = driven || buoyancy - mass * CONSTANTS.g > mass * 0.01;
           g.body.addForce({ x: 0, y: buoyancy * S, z: 0 }, wake);
           if (g.body.isSleeping()) continue;
           const velocity = si(g.body.linvel()), slip = velocity.map((u, i) => u - carrier.velocity_m_s[i]), speed = Math.hypot(...slip);
           const k = (6 * Math.PI * fluid.viscosity_Pas * radius + 0.5 * fluid.density_kg_m3 * 0.8 * Math.PI * radius ** 2 * speed) * fraction;
-          const attenuation = 1 - Math.exp(-k * DT / (g.pose.mass_g / 1000));
-          g.body.applyImpulse(vec(solver(slip.map(x => -x * g.pose.mass_g / 1000 * attenuation))), driven);
+          const attenuation = 1 - Math.exp(-k * DT / mass);
+          g.body.applyImpulse(vec(solver(slip.map(x => -x * mass * attenuation))), driven);
           if (driven) {
-            const inertia = 0.4 * g.pose.mass_g / 1000 * radius * radius;
+            const inertia = 0.4 * mass * radius * radius;
             const relax = -Math.expm1(-8 * Math.PI * fluid.viscosity_Pas * radius ** 3 * fraction * DT / Math.max(1e-20, inertia));
             g.body.applyTorqueImpulse({ x: 0, y: (carrier.spin_rad_s - g.body.angvel().y) * inertia * relax * S * S, z: 0 }, true);
           }
@@ -319,13 +450,13 @@ export class StockWorld {
         if (Math.hypot(local.x, local.z) > radius) continue;
         const fluid = target.input.fluid;
         let contact = fluid && pose.position_m.reduce((s, x, i) => s + x * fluid.normal[i], 0) - fluid.offset_m
-          <= Math.cbrt(g.pose.mass_g / 1000 / g.group.density_kg_m3 * 3 / (4 * Math.PI));
-        if (!fluid) this.world.contactPairsWith(g.collider, other => {
+          <= Math.cbrt(g.volume_m3 * 3 / (4 * Math.PI));
+        if (!fluid) for (const collider of g.colliders) this.world.contactPairsWith(collider, other => {
           const id = (other.parent()?.userData as { stockId?: string } | undefined)?.stockId;
           const support = id ? this.grains.get(id) : undefined;
           if (this.colliderContainer.get(other.handle) === target.input.id || support?.owner === target.input.id && !support.escaped) {
-            this.world.contactPair(g.collider, other, m => {
-              if (m.numSolverContacts() > 0) for (let i = 0; i < m.numContacts(); i++) if (m.contactDist(i) / S <= 2e-5) contact = true;
+            this.world.contactPair(collider, other, m => {
+              if (m.numSolverContacts() > 0 || g.body.isSleeping()) for (let i = 0; i < m.numContacts(); i++) if (m.contactDist(i) / S <= 2e-5) contact = true;
             });
           }
         });

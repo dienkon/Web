@@ -1,5 +1,5 @@
 import type { SpillState, SubstanceContent } from '../types/chemistry';
-import { precipitateComponents } from './precipitateInventory';
+import { precipitateCohorts, precipitateCohortKey } from './precipitateInventory';
 import { solveSessileDrop, type SessileDropShape } from './sessileDrop';
 import { getPrecipitateProfile } from '../simulation/core/SimulationConfig';
 import { sphereSettlingSpeed } from './particleSettling';
@@ -22,7 +22,7 @@ function components(contents: readonly SubstanceContent[] = []) {
   // the projection only; do not rewrite the quantitative material ledger.
   const rows = contents.some(c => !c.phase && (c.state === 's' || c.state === 'solid'))
     ? contents.map(c => !c.phase && (c.state === 's' || c.state === 'solid') ? { ...c, phase: 's' } : c) : contents;
-  return precipitateComponents(rows);
+  return precipitateCohorts(rows).map(({ key: _key, ...component }) => component);
 }
 export function spillPrecipitateProfile(formula: string, formation?: string) {
   const key = `${formula}:${formation ?? ''}`;
@@ -76,7 +76,8 @@ export function reconcileSpillSuspension(spill: Pick<SpillState, 'contents' | 's
   const inventory = components(spill.contents);
   if (!inventory.length) return undefined;
   const species = inventory.map(c => {
-    const old = spill.suspension?.version === 1 ? spill.suspension.species.find(s => s.formula === c.formula) : undefined;
+    const key = precipitateCohortKey(c.formula, c.formation);
+    const old = spill.suspension?.version === 1 ? spill.suspension.species.find(s => precipitateCohortKey(s.formula, s.formation) === key) : undefined;
     const valid = old && Number.isFinite(old.mass_g) && old.mass_g > 0 && old.cohorts.every(k => Number.isFinite(k.mass_g + k.travel)
       && k.mass_g >= 0 && k.travel >= 0 && k.travel <= 1);
     if (!valid) return { ...c, cohorts: fresh ? [{ mass_g: c.mass_g, travel: 0 }] : [],
@@ -100,11 +101,11 @@ export function reconcileSpillSuspension(spill: Pick<SpillState, 'contents' | 's
 export function mergeSpillSuspensions(samples: { contents?: SubstanceContent[]; suspension?: SpillSuspensionState; fresh?: boolean }[]): SpillSuspensionState | undefined {
   const species = new Map<string, SpillSuspensionSpecies>();
   for (const sample of samples) for (const s of reconcileSpillSuspension(sample, sample.fresh)?.species ?? []) {
-    const old = species.get(s.formula);
-    species.set(s.formula, old ? { ...old, mass_g: old.mass_g + s.mass_g, cohorts: bounded([...old.cohorts, ...s.cohorts]),
+    const key = precipitateCohortKey(s.formula, s.formation), old = species.get(key);
+    species.set(key, old ? { ...old, mass_g: old.mass_g + s.mass_g, cohorts: bounded([...old.cohorts, ...s.cohorts]),
       initialization: old.initialization === 'arrival-or-reaction' || s.initialization === 'arrival-or-reaction' ? 'arrival-or-reaction' : 'legacy-settled-estimate' } : s);
   }
-  return species.size ? { version: 1, species: [...species.values()].sort((a, b) => a.formula.localeCompare(b.formula)) } : undefined;
+  return species.size ? { version: 1, species: [...species.values()].sort((a, b) => precipitateCohortKey(a.formula, a.formation).localeCompare(precipitateCohortKey(b.formula, b.formation))) } : undefined;
 }
 
 export function scaleSpillSuspension(state: SpillSuspensionState | undefined, fraction: number): SpillSuspensionState | undefined {
@@ -146,7 +147,7 @@ export function stepSpillSuspension(before: SpillState, after: SpillState, dt: n
   // do not integrate it over time before the material existed.
   state = reconcileSpillSuspension({ contents: after.contents, suspension: state });
   if (state) {
-    const births = state.species.map(s => base?.species.some(p => p.formula === s.formula) ? s
+    const births = state.species.map(s => base?.species.some(p => precipitateCohortKey(p.formula, p.formation) === precipitateCohortKey(s.formula, s.formation)) ? s
       : { ...s, initialization: 'arrival-or-reaction' as const, cohorts: [{ mass_g: s.mass_g, travel: 0 }] });
     if (births.some((s, i) => s !== state!.species[i])) state = { ...state, species: births };
   }

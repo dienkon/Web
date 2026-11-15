@@ -70,6 +70,46 @@ export function aluminumStageFractions(stages: readonly AluminumMaterialStage[],
   });
 }
 
+/** Largest cumulative clock position that leaves today's dry carriers intact.
+ * Invert the same staged conversion curve used by material replay; clipping
+ * only the ledger would otherwise let the clock skip protected inventory. */
+export function aluminumStockProgressLimit(stages: readonly AluminumMaterialStage[], baseline: VesselState, current: VesselState): number {
+  const inert = partitionDryStock(current).inertContents;
+  if (!inert.length) return 1;
+  const contents = baseline.contents.map(row => ({ ...row, reserved: 0 }));
+  for (const formula of new Set(inert.map(row => row.formula))) {
+    let remaining = inert.filter(row => sameMolecularFormula(row.formula, formula)).reduce((sum, row) => sum + row.moles, 0);
+    for (const row of contents) if (row.phase === 's' && sameMolecularFormula(row.formula, formula) && !isContactSuspensionRow(baseline, row)) {
+      row.reserved = Math.min(row.moles, remaining); remaining -= row.reserved;
+    }
+  }
+  const total = stages.reduce((sum, stage) => sum + stage.weight_molAl, 0);
+  if (!(total > 0)) return 1;
+  let preceding = 0;
+  const matches = (row: SubstanceContent, species: MaterialSpecies) => (!row.location || row.location === 'bulk')
+    && sameMolecularFormula(row.formula, species.formula) && (row.phase ?? row.state) === species.phase;
+  for (const stage of stages) {
+    let extent = stage.extent_mol;
+    for (const species of stage.reactants) extent = Math.min(extent,
+      contents.filter(row => matches(row, species)).reduce((sum, row) => sum + Math.max(0, row.moles - row.reserved), 0) / species.coeff);
+    if (extent < stage.extent_mol - 1e-14) {
+      const fraction = Math.max(0, extent / stage.extent_mol);
+      const local = -Math.log1p(-fraction * -Math.expm1(-4)) / 4;
+      return (preceding + stage.weight_molAl * local) / total;
+    }
+    for (const species of stage.reactants) {
+      let needed = extent * species.coeff;
+      for (const row of contents) if (matches(row, species)) {
+        const taken = Math.min(needed, Math.max(0, row.moles - row.reserved)); row.moles -= taken; needed -= taken;
+      }
+    }
+    for (const species of stage.products) contents.push({ formula: species.formula, phase: species.phase,
+      moles: extent * species.coeff, mass_g: 0, reserved: 0 });
+    preceding += stage.weight_molAl;
+  }
+  return 1;
+}
+
 export function applyAluminumMaterialProgress(stages: readonly AluminumMaterialStage[], baseline: VesselState,
   current: VesselState, progress: number, elapsed_s = 0): Partial<VesselState> {
   const legacyStock = baseline.precipitateSubstance && baseline.stockMotion?.grains.some(pose => sameMolecularFormula(pose.formula, baseline.precipitateSubstance!));

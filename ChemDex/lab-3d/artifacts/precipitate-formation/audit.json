@@ -1,0 +1,198 @@
+{
+  "errors": [],
+  "shaderErrors": [],
+  "specimens": [
+    {
+      "id": "appearance-2-0",
+      "systems": [
+        {
+          "key": "PbI2",
+          "morphology": "fine_powder",
+          "mass_g": 0.05,
+          "suspended": 128,
+          "bed_g": 0,
+          "minRadius_m": 0.000001,
+          "maxRadius_m": 0.000001000000000000002
+        }
+      ]
+    },
+    {
+      "id": "appearance-2-1",
+      "systems": [
+        {
+          "key": "PbI2|CRYSTAL_PLATE",
+          "morphology": "crystalline",
+          "mass_g": 0.05000000000000005,
+          "suspended": 93,
+          "bed_g": 0.013671875000000002,
+          "minRadius_m": 0.00005,
+          "maxRadius_m": 0.0000500000000000001
+        }
+      ]
+    },
+    {
+      "id": "appearance-2-2",
+      "systems": [
+        {
+          "key": "PbI2",
+          "morphology": "fine_powder",
+          "mass_g": 0.025,
+          "suspended": 128,
+          "bed_g": 0,
+          "minRadius_m": 0.000001,
+          "maxRadius_m": 0.000001000000000000002
+        },
+        {
+          "key": "PbI2|CRYSTAL_PLATE",
+          "morphology": "crystalline",
+          "mass_g": 0.025000000000000026,
+          "suspended": 93,
+          "bed_g": 0.006835937500000001,
+          "minRadius_m": 0.00005,
+          "maxRadius_m": 0.0000500000000000001
+        }
+      ]
+    },
+    {
+      "id": "appearance-2-3",
+      "systems": [
+        {
+          "key": "PbCl2",
+          "morphology": "fine_powder",
+          "mass_g": 0.05,
+          "suspended": 128,
+          "bed_g": 0,
+          "minRadius_m": 0.000001,
+          "maxRadius_m": 0.000001000000000000002
+        }
+      ]
+    },
+    {
+      "id": "appearance-2-4",
+      "systems": [
+        {
+          "key": "PbCl2|CRYSTAL_NEEDLE",
+          "morphology": "crystalline",
+          "mass_g": 0.05,
+          "suspended": 128,
+          "bed_g": 0,
+          "minRadius_m": 0.000001,
+          "maxRadius_m": 0.000001000000000000002
+        }
+      ]
+    },
+    {
+      "id": "appearance-2-5",
+      "systems": [
+        {
+          "key": "PbCl2",
+          "morphology": "fine_powder",
+          "mass_g": 0.025,
+          "suspended": 128,
+          "bed_g": 0,
+          "minRadius_m": 0.000001,
+          "maxRadius_m": 0.000001000000000000002
+        },
+        {
+          "key": "PbCl2|CRYSTAL_NEEDLE",
+          "morphology": "crystalline",
+          "mass_g": 0.025,
+          "suspended": 128,
+          "bed_g": 0,
+          "minRadius_m": 0.000001,
+          "maxRadius_m": 0.000001000000000000002
+        }
+      ]
+    }
+  ],
+  "meshes": [
+    {
+      "id": "appearance-2-0",
+      "meshes": [
+        {
+          "name": "physical_precipitate_appearance-2-0_PbI2",
+          "visible": true,
+          "count": 128,
+          "vertices": 60,
+          "roughness": 0.85
+        }
+      ]
+    },
+    {
+      "id": "appearance-2-1",
+      "meshes": [
+        {
+          "name": "physical_precipitate_appearance-2-1_PbI2|CRYSTAL_PLATE",
+          "visible": true,
+          "count": 93,
+          "vertices": 40,
+          "roughness": 0.18
+        }
+      ]
+    },
+    {
+      "id": "appearance-2-2",
+      "meshes": [
+        {
+          "name": "physical_precipitate_appearance-2-2_PbI2|CRYSTAL_PLATE",
+          "visible": true,
+          "count": 93,
+          "vertices": 40,
+          "roughness": 0.18
+        },
+        {
+          "name": "physical_precipitate_appearance-2-2_PbI2",
+          "visible": true,
+          "count": 105,
+          "vertices": 60,
+          "roughness": 0.85
+        }
+      ]
+    },
+    {
+      "id": "appearance-2-3",
+      "meshes": [
+        {
+          "name": "physical_precipitate_appearance-2-3_PbCl2",
+          "visible": true,
+          "count": 128,
+          "vertices": 60,
+          "roughness": 0.9
+        }
+      ]
+    },
+    {
+      "id": "appearance-2-4",
+      "meshes": [
+        {
+          "name": "physical_precipitate_appearance-2-4_PbCl2|CRYSTAL_NEEDLE",
+          "visible": true,
+          "count": 128,
+          "vertices": 28,
+          "roughness": 0.25
+        }
+      ]
+    },
+    {
+      "id": "appearance-2-5",
+      "meshes": [
+        {
+          "name": "physical_precipitate_appearance-2-5_PbCl2|CRYSTAL_NEEDLE",
+          "visible": true,
+          "count": 105,
+          "vertices": 28,
+          "roughness": 0.25
+        },
+        {
+          "name": "physical_precipitate_appearance-2-5_PbCl2",
+          "visible": true,
+          "count": 105,
+          "vertices": 60,
+          "roughness": 0.9
+        }
+      ]
+    }
+  ],
+  "paused": true,
+  "qualityKeepsPhysics": true
+}

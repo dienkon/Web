@@ -3,6 +3,7 @@ import { sodiumChlorideSolubilityRatio } from '../science/sodiumChlorideSolubili
 import { partitionDryStock, stockLiquidContactFraction } from '../physical/stockLiquidContact';
 import { withLegacyPrecipitateOrigins } from '../science/precipitateInventory';
 import { transferSolidPhase } from './solidPhaseTransfer';
+import { allocateStockConsumption } from '../physical/stockConsumption';
 
 /**
  * Binary NaCl/water only, using the IUPAC temperature-dependent saturation
@@ -23,7 +24,7 @@ export function partitionSodiumChloride(
     item.formula === 'NaCl' && (item.phase === 's' || item.phase === 'aq')
     || item.formula === 'H2O' && item.phase === 'l'
   ))) return null;
-  const { reactiveContents: entries, inertContents } = partitionDryStock(vessel);
+  const { reactiveContents: entries, inertContents, reactiveVessel } = partitionDryStock(vessel);
   const salt = entries.filter(item => item.formula === 'NaCl');
   const waterMass = entries.filter(item => item.formula === 'H2O' && item.phase === 'l')
     .reduce((sum, item) => sum + item.mass_g, 0);
@@ -35,7 +36,7 @@ export function partitionSodiumChloride(
   const difference = target - dissolved;
   if (Math.abs(difference) <= Math.max(1e-12, totalMass * 1e-10)) return null;
   // Stirring/grinding change approach speed, never the final saturation limit.
-  const contact = difference > 0 ? stockLiquidContactFraction({ ...vessel, contents: entries }, 'NaCl') : 1;
+  const contact = difference > 0 ? stockLiquidContactFraction(reactiveVessel, 'NaCl') : 1;
   if (!(contact > 0)) return null;
   const rate = 0.25 * (stirred ? 3 : 1) * (vessel.isPulverized ? 2 : 1) * contact;
   const next = Math.abs(difference) < totalMass * 1e-7 ? target
@@ -44,5 +45,6 @@ export function partitionSodiumChloride(
   const normalized = withLegacyPrecipitateOrigins({ ...vessel, contents: entries,
     hasPrecipitate: vessel.hasPrecipitate && !vessel.stockMotion?.grains.some(pose => pose.formula === 'NaCl') });
   const contents = [...transferSolidPhase(normalized, 'NaCl', dissolvedMoles, vessel.volume_ml), ...inertContents];
-  return { contents, substances: [...new Set(contents.filter(item => item.moles > 0).map(item => item.formula))] };
+  return { contents, stockMotion: allocateStockConsumption(vessel, contents),
+    substances: [...new Set(contents.filter(item => item.moles > 0).map(item => item.formula))] };
 }

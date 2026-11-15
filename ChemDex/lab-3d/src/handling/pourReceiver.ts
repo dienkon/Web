@@ -3,7 +3,7 @@ import { dispenseAliquot, mergeLiquidDose, withdrawAliquot, refreshPrecipitateSu
 import { solidDisplacementAtSurface } from './solidOccupancy';
 import { solidContent, gasContent, organicContent, phaseVolumes, separatedLayers } from '../science/liquidLayers';
 import { liquidContactFailure } from './liquidContact';
-import { precipitateComponents } from '../science/precipitateInventory';
+import { precipitateComponents, precipitateCohorts } from '../science/precipitateInventory';
 import type { MobileSolidInventory } from '../science/suspensionTransport';
 
 function scale(sample: LiquidAliquot, fraction: number): LiquidAliquot {
@@ -113,10 +113,13 @@ export function receivePourAliquot(vessel: VesselState, sample: LiquidAliquot) {
     // Solids already carried by a liquid aliquot are mobile arrivals, unlike
     // an unmeasured resident bed. Only this incoming fraction can leave again.
     const mobile: MobileSolidInventory = {};
-    const incomingSolids = precipitateComponents(sample.contents);
+    const incomingSolids = precipitateCohorts(sample.contents);
+    const receiverCohorts = precipitateCohorts(receiver.contents, receiver.precipitateSubstance, receiver.precipitateMorphology);
     for (const c of precipitateComponents(receiver.contents, receiver.precipitateSubstance)) {
-      const incoming = incomingSolids.find(s => s.formula === c.formula)?.mass_g ?? 0;
-      if (incoming > 0) mobile[c.formula] = { inventoryMass_g: c.mass_g, suspendedMass_g: incoming };
+      const incoming = incomingSolids.filter(s => s.formula === c.formula).reduce((sum, s) => sum + s.mass_g, 0);
+      if (incoming > 0) mobile[c.formula] = { inventoryMass_g: c.mass_g, suspendedMass_g: incoming,
+        cohorts: Object.fromEntries(receiverCohorts.filter(k => k.formula === c.formula).map(k => [k.key,
+          { inventoryMass_g: k.mass_g, suspendedMass_g: incomingSolids.find(s => s.key === k.key)?.mass_g ?? 0 }])) };
     }
     const drained = drainVesselOverflow(receiver, mobile);
     receiver = drained.vessel; spill = drained.spill;

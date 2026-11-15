@@ -22,6 +22,20 @@ describe('Independent precipitate species in a shared vessel', () => {
     manager.step(v, 0.1, { thermalStateAuthoritative: true });
     expect(currentMixedPrecipitateTurbidity(v, manager)).toBeNull();
   });
+  it('does not invent white suspension for a paused specimen containing only attached metal', () => {
+    const v = vessel([{ ...row('Fe', 0.5, false) }, { ...row('Cu', 0.1),
+      depositSubstrate: 'Fe', depositionReactionId: 'fe_cuso4' }]);
+    v.precipitateSubstance = 'Cu';
+    const manager = new VesselSimulationManager(v.id);
+    expect(manager.hasPrecipitationSnapshot).toBe(false);
+    expect(currentMixedPrecipitateTurbidity(v, manager)).toBe(0);
+    expect(currentMixedPrecipitateTurbidity({ ...v, hasPrecipitate: false, turbidity: 0.7,
+      immiscibleOrganicVolume_ml: 1 }, manager)).toBeNull();
+    expect(currentMixedPrecipitateTurbidity({ ...v, turbidity: 0.7, immiscibleOrganicVolume_ml: 1 },
+      { hasPrecipitationSnapshot: true, precipitationSystems: new Map(), cloudiness: 0 })).toBeNull();
+    v.contents.push(row('AgCl', 0.01));
+    expect(currentMixedPrecipitateTurbidity(v, manager)).toBeNull();
+  });
   it('keeps both species and their histories when the active UI label changes', () => {
     const v = vessel([row('Cu(OH)2', 0.1), row('Fe(OH)3', 0.2)]);
     const manager = new VesselSimulationManager(v.id, 'low');

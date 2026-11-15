@@ -39,6 +39,7 @@ function ribbonGeometry() {
  * representative crystal habits, not a unit-cell or molecular structure. */
 export function createStockSolidGeometry(morphology: SolidMorphology, formula = ''): THREE.BufferGeometry {
   let g: THREE.BufferGeometry;
+  let wire: { points: THREE.Vector3[]; radius: number } | undefined;
   switch (morphology) {
     case 'NAIL':
       g = new THREE.LatheGeometry([
@@ -62,7 +63,13 @@ export function createStockSolidGeometry(morphology: SolidMorphology, formula = 
         return new THREE.Vector3(Math.cos(angle) * 0.7, i / 32 * 0.25, Math.sin(angle) * 0.7);
       }));
       g = new THREE.ExtrudeGeometry(wire, { extrudePath: path, steps: 32, curveSegments: 8, bevelEnabled: false });
-      g.center(); break;
+      g.computeBoundingBox();
+      const center = g.boundingBox!.getCenter(new THREE.Vector3());
+      g.translate(-center.x, -center.y, -center.z);
+      // Same spaced stations and center transform used by ExtrudeGeometry.
+      // The contact model keeps the coil's hole instead of convex-filling it.
+      g.userData.stockWire = { points: path.getSpacedPoints(32).map(point => point.sub(center)), radius: 0.06 };
+      break;
     }
     case 'FILINGS': g = new THREE.BoxGeometry(0.14, 0.23, 0.065); break;
     case 'PELLET': g = new THREE.SphereGeometry(0.55, 12, 8); break;
@@ -87,7 +94,11 @@ export function createStockSolidGeometry(morphology: SolidMorphology, formula = 
   }
   const volume = geometryVolume(g);
   if (!(volume > 0)) { g.dispose(); throw new Error(`Invalid closed stock geometry: ${morphology}`); }
-  g.scale(...Array(3).fill(Math.cbrt(1 / volume)) as [number, number, number]);
+  const normalization = Math.cbrt(1 / volume);
+  g.scale(normalization, normalization, normalization);
+  wire = g.userData.stockWire;
+  if (wire) g.userData.stockWire = { points: wire.points.map(point => point.multiplyScalar(normalization).toArray()),
+    radius: wire.radius * normalization };
   g.computeVertexNormals(); g.computeBoundingSphere();
   return g;
 }

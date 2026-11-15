@@ -27,7 +27,7 @@ Mục tiêu người dùng: tự lập kế hoạch, nghiên cứu những thi�
 | Phản ứng khi rót/thủ công/tự động | Đã nối kiểm tra tiếp xúc và bảo vệ replay | Hồi quy native/progressive/autoplay, dry→wet→dry và hỗn hợp stock/kết tủa cùng công thức |
 | Quang học bình có vai/đáy cong/vortex | 2.160 trường hợp GPU đã qua | So pixel với quang lộ tham chiếu, nhiều góc nhìn và lớp nước mỏng |
 | Hiệu năng và ngân sách | Đã đo transport và shader riêng | 20 hệ: trung bình 5,58–6,65 ms; shader quad 512²: median 1,9–3,0 ms gồm readback; không suy FPS toàn ứng dụng |
-| Tái kết tinh PbI₂ và kim loại bám mặt | Cần rà lại độ phủ hiện tại | Chu kỳ pha hữu hạn và khối lượng bám/rời khớp hiện tượng |
+| Tái kết tinh PbI₂ và kim loại bám mặt | Đã tách lịch sử quần thể và lượng chất theo carrier trong vòng 15/11 | Còn thiếu hiệu chuẩn nucleation/growth, độ xốp và luật bong bám; xem các tài liệu vòng tiếp theo |
 | Toàn danh mục và giới hạn dữ liệu | Cần đối chiếu audit hiện tại | Không gắn nhãn chính xác thực nghiệm cho profile/hằng số minh họa |
 
 Mỗi phát hiện sẽ được cập nhật bằng tình huống, cách sửa, kết quả và giới hạn còn lại. Mục tiêu tiếp tục hoạt động khi còn hạng mục bắt buộc chưa được chứng minh.
@@ -66,3 +66,18 @@ Lượt tổng đầu có 3.369/3.372 test qua. Hai assertion về Fe(OH)₂/S v
 - Tiếp tục đối chiếu chu kỳ tăng trưởng PbI₂, kim loại bám mặt, các nhóm phản ứng chưa có nguồn dữ liệu phù hợp và tải toàn ứng dụng trên phần cứng mục tiêu. Các phép đo CPU/quad hiện tại không thay thế kiểm tra FPS và thao tác đồng thời.
 
 Mục tiêu rộng tiếp tục hoạt động; vòng này giải quyết các lỗi tái hiện nêu trên, không chứng nhận toàn danh mục chính xác thực nghiệm.
+
+## Vòng tiếp theo — 15/11/2026
+
+Đã thực hiện các mục còn thiếu và sửa lỗi phát hiện khi tích hợp:
+
+1. **Lượng chất theo carrier**: hạt khô không bị tiêu hao cùng hạt ướt; đồng bộ mass giữ chuyển động hiện tại, xử lý phản hồi cũ và liều mới chưa có ID. Timeline, native, pha, chế độ tay/tự động dùng cùng giới hạn tiếp xúc. Xem [lượng chất theo hạt](wetted-stock-grain-budget-2026-11-15.vi.md) và [đồng bộ cơ học](carrier-mass-synchronization-2026-11-15.vi.md).
+2. **Lịch sử hình thành kết tủa**: PbI₂ bột mịn và tấm tinh thể, PbCl₂ bột và kim được vận chuyển riêng. Tăng trưởng hoặc phản ứng tạo sản phẩm mới không đổi toàn bộ phần cũ sang hình thái mới. Rót lấy đúng phần huyền phù của từng dạng. Xem [cohort kết tủa](precipitate-formation-cohorts-2026-11-15.vi.md).
+3. **Kim loại bám**: lưu nền/ID/route cùng lượng chất, giữ qua phản ứng khác và replay. Mesh tay/tự động/vũng biểu diễn thể tích kim loại; lực đỡ, tràn, thu lại và phản ứng trong vũng giữ riêng lõi/lớp bám. Xem [kiểm chứng lớp bám](metal-surface-deposition.vi.md).
+4. **Phoi đồng và đáy bình**: thay hull lấp khoảng trống của dây bằng các capsule có sai lệch hình học được giới hạn; sửa kích thước đặc trưng của solver. Kiểm cả xuyên đáy, khoảng hở, tải trọng lớp bạc và phản ứng Cu/Ag sau chuyển liều thật. Xem [tiếp xúc phoi đồng](copper-wire-contact-2026-11-15.vi.md).
+
+Rà soát chéo còn sửa việc thu hạt vào bình đầy rút lẫn nước/hexane và việc dữ liệu lưu cũ mất hình thái tinh thể khi sinh thêm bột. Các hồi quy giữ nguyên lớp nước dưới, khối lượng từng chất, hạt macrostock cùng công thức và quần thể tinh thể cũ.
+
+Kết quả tổng của vòng này sẽ được bổ sung sau khi test, build và kiểm tra trình duyệt trên mã tích hợp hoàn tất.
+
+Ưu tiên kế tiếp vẫn là thiếu sót có thể tái hiện: lịch sử lớp bám nhiều tầng và điểm bám khi tải lại, kim loại sinh trong vũng, tiếp xúc ngoài mặt thủy tĩnh, rồi độ phủ dữ liệu khoa học và tải thao tác toàn ứng dụng. Không coi kết quả test logic là chứng nhận động học, màu hay cơ chế bong bám đã khớp thực nghiệm. Mục tiêu tiếp tục hoạt động.

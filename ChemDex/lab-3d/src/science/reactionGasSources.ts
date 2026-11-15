@@ -92,23 +92,29 @@ export function reactionGasSources(vessel: VesselState, program?: ReactionProgra
     const density = chemical?.type === 'solid' ? chemical.density : declared?.density_g_ml;
     if (!(density! > 0)) continue;
     const morphology = vessel.isPulverized ? 'POWDER' : getSolidMorphology(formula);
-    const poses = sourceVessel.stockMotion?.grains.filter(p => sameMolecularFormula(p.formula, formula)) ?? [];
+    const poses = sourceVessel.stockMotion?.grains.filter(p => p.mass_g > 0 && sameMolecularFormula(p.formula, formula)) ?? [];
     const represented = poses.reduce((sum, p) => sum + p.mass_g, 0);
     if (represented > 0) {
       const mesh = stockMesh(formula, morphology === 'POWDER' ? 'PELLET' : morphology);
       for (const pose of poses) {
-        const matrix = stockLocalMatrix(vessel, { ...pose, scale_m: pose.scale_m * Math.cbrt(mass / represented) }, frame.bodyMatrixWorld);
+        const ratio = Math.min(1, mass / represented);
+        const matrix = stockLocalMatrix(vessel, { ...pose, scale_m: pose.scale_m * Math.cbrt(ratio) }, frame.bodyMatrixWorld);
         // Powder is a coarse contact carrier; this emission envelope follows
         // its measured location, without claiming resolved microscopic sites.
         if (morphology === 'POWDER') {
           const position = new THREE.Vector3().setFromMatrixPosition(matrix);
-          const factor = Math.cbrt(solidSceneVolume(vessel, pose.mass_g * mass / represented / density!));
+          const factor = Math.cbrt(solidSceneVolume(vessel, pose.mass_g * ratio / density!));
           matrix.makeScale(factor, factor, factor).setPosition(position);
         }
         append(mesh.samples, matrix);
       }
-    } else if (morphology === 'POWDER') {
-      const volume = solidSceneVolume(vessel, mass / density!) / 0.55, key = `${vessel.type}:${volume}`;
+    }
+    // An added dose awaiting worker poses has a separate spawn envelope, just
+    // as in the chemical contact query; it cannot enlarge older dry surfaces.
+    const unposedMass = Math.max(0, mass - represented);
+    if (!(unposedMass > 1e-12)) continue;
+    if (morphology === 'POWDER') {
+      const volume = solidSceneVolume(vessel, unposedMass / density!) / 0.55, key = `${vessel.type}:${volume}`;
       let samples = powderSurfaces.get(key);
       if (!samples) {
         const geometry = createPowderPileGeometry(vessel.type, volume, interior.maximumRadius * 0.85);
@@ -119,9 +125,9 @@ export function reactionGasSources(vessel: VesselState, program?: ReactionProgra
       append(samples, new THREE.Matrix4());
     } else {
       const mesh = stockMesh(formula, morphology);
-      const initial = rows.reduce((sum, row) => sum + Math.max(row.mass_g, row.initialMass_g
+      const initial = represented > 0 ? unposedMass : rows.reduce((sum, row) => sum + Math.max(row.mass_g, row.initialMass_g
         ?? (row.initialMoles !== undefined && chemical ? row.initialMoles * chemical.molarMass : row.mass_g)), 0);
-      const layout = createStockSolidLayout(vessel.type, morphology, mesh.geometry, solidSceneVolume(vessel, mass / density!),
+      const layout = createStockSolidLayout(vessel.type, morphology, mesh.geometry, solidSceneVolume(vessel, unposedMass / density!),
         solidSceneVolume(vessel, initial / density!), interior.floorY, !vessel.isSealed);
       for (const piece of layout.pieces) append(mesh.samples, piece.matrix);
     }

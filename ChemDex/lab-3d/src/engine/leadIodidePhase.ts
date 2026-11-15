@@ -3,6 +3,8 @@ import { checkSaturation } from '../simulation/chemistry/SolubilityEngine';
 import { identifySpecies, sameMolecularFormula } from '../science/speciesIdentity';
 import { partitionDryStock, isContactSuspensionRow } from '../physical/stockLiquidContact';
 import { transferSolidPhase } from './solidPhaseTransfer';
+import { allocateStockConsumption } from '../physical/stockConsumption';
+import { rowPrecipitateFormation } from '../science/precipitateInventory';
 
 /** Formula-unit partition in a liquid-water carrier. Aqueous solutes remain
  * a water-curve proxy (no Pb/I complexation/activity model); organic/mixed
@@ -26,13 +28,13 @@ export function partitionLeadIodide(vessel: VesselState, dt: number): Partial<Ve
     || allEntries.some(item => phase(item) !== 's' && phase(item) !== 'aq')) return null;
   // A dry macrostock cannot supply the water-phase pool. Keep its row/pose
   // while dissolved inventory and tagged bulk suspension continue to evolve.
-  const { reactiveContents, inertContents } = partitionDryStock(vessel);
+  const { reactiveContents, reactiveVessel, inertContents } = partitionDryStock(vessel);
   const entries = reactiveContents.filter(isLeadIodide);
   const totalMass = entries.reduce((sum, item) => sum + item.mass_g, 0);
   const totalMoles = entries.reduce((sum, item) => sum + item.moles, 0);
   if (totalMass <= 0 || totalMoles <= 0) return null;
   const currentSolid = entries.filter(item => phase(item) === 's').reduce((sum, item) => sum + item.mass_g, 0);
-  const stocks = entries.filter(item => phase(item) === 's' && !isContactSuspensionRow(vessel, item));
+  const stocks = entries.filter(item => phase(item) === 's' && !isContactSuspensionRow(reactiveVessel, item));
   const currentPrecipitate = currentSolid - stocks.reduce((sum, item) => sum + item.mass_g, 0);
   const saturation = checkSaturation('PbI2', totalMass, vessel.volume_ml, vessel.temperature_c);
   const targetSolid = saturation.excessPrecipitate_g;
@@ -60,14 +62,17 @@ export function partitionLeadIodide(vessel: VesselState, dt: number): Partial<Ve
   // Wet dissolution shrinks an existing stock; it does not turn its remainder
   // into a precipitate and thereby erase the next frame's contact constraint.
   const normalized = reactiveContents.map(item => !isLeadIodide(item) ? item : {
-    ...item, phase: phase(item), ...(phase(item) === 's' && isContactSuspensionRow(vessel, item)
-      ? { solidOrigin: 'precipitate' as const, precipitateFormation: morphology } : {}),
+    ...item, phase: phase(item), ...(phase(item) === 's' && isContactSuspensionRow(reactiveVessel, item)
+      ? { solidOrigin: 'precipitate' as const, precipitateFormation: item.precipitateFormation
+        ?? rowPrecipitateFormation(item, reactiveContents, vessel.precipitateSubstance, vessel.precipitateMorphology)
+        ?? 'FINE_POWDER' } : {}),
   });
   const contents = [...transferSolidPhase(normalized, 'PbI2', totalMoles - solidMoles, vessel.volume_ml, morphology), ...inertContents];
   const precipitateMass = contents.filter(item => isLeadIodide(item) && item.solidOrigin === 'precipitate' && item.phase === 's')
     .reduce((sum, item) => sum + item.mass_g, 0);
   return {
     contents,
+    ...(vessel.stockMotion ? { stockMotion: allocateStockConsumption(vessel, contents) } : {}),
     hasPrecipitate: precipitateMass > 1e-9,
     precipitateAmount_g: precipitateMass,
     precipitateColor: '#f5c518',

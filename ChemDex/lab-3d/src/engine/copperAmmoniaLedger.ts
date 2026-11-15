@@ -7,6 +7,7 @@ import { AMMINE_FORMATION_DH_J, HYDROXO_AMMINES, copperAmmineFormula, copperAmmo
 import { waterDissociationEnthalpy_J_mol } from '../science/aqueousTemperature';
 import { bulkPrecipitateMass, clearedPrecipitateTurbidity } from '../science/precipitateInventory';
 import { isContactSuspensionRow, partitionDryStock } from '../physical/stockLiquidContact';
+import { allocateStockConsumption } from '../physical/stockConsumption';
 
 export const COPPER_AMMONIA_EQUATION = 'Cu(2+)(aq) + nNH3(aq) ⇌ [Cu(NH3)n](2+)(aq), n=1–4; Cu(OH)2(s) ⇌ Cu(2+)(aq) + 2OH(-)(aq)';
 
@@ -102,10 +103,10 @@ export function applyCopperAmmoniaLedger(vessel: VesselState, progress: number, 
   const partition = partitionDryStock(vessel);
   if (partition.inertContents.length) {
     const inertMass = partition.inertContents.reduce((sum, row) => sum + row.mass_g, 0);
-    const patch = applyCopperAmmoniaLedger({ ...vessel, contents: partition.reactiveContents, mass_g: vessel.mass_g - inertMass }, progress, temperature_c);
+    const patch = applyCopperAmmoniaLedger(partition.reactiveVessel, progress, temperature_c);
     if (!patch?.contents) return null;
     const contents = [...patch.contents, ...partition.inertContents.map(row => ({ ...row }))];
-    return { ...patch, contents, mass_g: (patch.mass_g ?? vessel.mass_g - inertMass) + inertMass,
+    return { ...patch, contents, stockMotion: allocateStockConsumption(vessel, contents), mass_g: (patch.mass_g ?? vessel.mass_g - inertMass) + inertMass,
       substances: [...new Set(contents.filter(row => row.moles > 1e-12).map(row => row.formula))] };
   }
   const solved = copperAmmoniaEquilibrium(vessel.contents, vessel.volume_ml, temperature_c);
@@ -142,7 +143,7 @@ export function applyCopperAmmoniaLedger(vessel: VesselState, progress: number, 
   const aqueous = copperAmmoniaEquilibrium(contents, vessel.volume_ml, temperature_c, true);
   if (!aqueous) return null;
   const heat = p * (poolEnthalpy(vessel.contents, vessel.temperature_c) - poolEnthalpy(endpoint, vessel.temperature_c));
-  return { contents, substances: [...new Set(contents.filter(c => c.moles > 1e-12).map(c => c.formula))],
+  return { contents, stockMotion: allocateStockConsumption(vessel, contents), substances: [...new Set(contents.filter(c => c.moles > 1e-12).map(c => c.formula))],
     mass_g: contents.reduce((s, c) => s + c.mass_g, 0), hasGas: false,
     hasPrecipitate: precipitateAmount_g > 1e-10, precipitateAmount_g,
     ...(clearedPrecipitateTurbidity(vessel, contents) === 0 ? { turbidity: 0 } : {}),

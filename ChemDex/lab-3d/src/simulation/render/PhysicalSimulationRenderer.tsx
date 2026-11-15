@@ -3,8 +3,7 @@ import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { SimulationEngine } from '../core/SimulationEngine';
 import { FRAME_ORDER } from '../core/frameOrder';
-import { precipitateComponents } from '../../science/precipitateInventory';
-import { sameMolecularFormula } from '../../science/speciesIdentity';
+import { freePrecipitateCohorts } from '../../science/freePrecipitateCohorts';
 import { SedimentMesh } from './SedimentMesh';
 import { getBubbleSpriteTexture, getSoftParticleTexture } from '../../vfx/textures';
 import { useQualityStore } from '../../vfx/quality';
@@ -46,10 +45,9 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
     const vessel = state.vessels[vesselId];
     if (!vessel) return '[]';
     const active = reactionPrecipitateSubstance || vessel.precipitateSubstance;
-    return JSON.stringify(precipitateComponents(vessel.contents, active).map(c => [c.formula,
-      c.formation ?? (active && sameMolecularFormula(active, c.formula) ? vessel.precipitateMorphology : undefined)]));
+    return JSON.stringify(freePrecipitateCohorts(vessel, active).map(c => [c.key, c.formula, c.formation]));
   });
-  const components = useMemo(() => JSON.parse(componentSignature) as [string, string | null][], [componentSignature]);
+  const components = useMemo(() => JSON.parse(componentSignature) as [string, string, string | null][], [componentSignature]);
   const effectiveTier = useQualityStore((state) => state.effectiveTier);
   const mgr = useMemo(() => SimulationEngine.getManager(vesselId, effectiveTier), [vesselId, effectiveTier]);
   const activePrecipitates = useAppStore(state => activePrecipitateVessels(state.vessels));
@@ -251,8 +249,8 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
         visible={false}
       />
 
-      {components.map(([formula, formation], index) => <PrecipitateParticleLayer key={formula} vesselId={vesselId} formula={formula}
-        system={mgr.getPrecipitationSystem(formula)} formation={formation ?? undefined}
+      {components.map(([cohortKey, formula, formation], index) => <PrecipitateParticleLayer key={cohortKey} vesselId={vesselId} formula={formula} cohortKey={cohortKey}
+        system={mgr.getPrecipitationSystem(formula, formation ?? undefined)} formation={formation ?? undefined}
         capacity={Math.floor(budget.visible / Math.max(1, components.length))
           + (index < budget.visible % Math.max(1, components.length) ? 1 : 0)} />)}
 

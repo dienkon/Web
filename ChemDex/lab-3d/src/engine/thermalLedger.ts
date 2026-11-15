@@ -9,6 +9,7 @@ import { reconcileReplayGas } from './replayGasBoundary';
 import { stepLandoltLedger } from './landoltClockLedger';
 import { partitionDryStock } from '../physical/stockLiquidContact';
 import { applyCopperAmmoniaLedger } from './copperAmmoniaLedger';
+import { allocateStockConsumption } from '../physical/stockConsumption';
 
 /** Replay composition from the reaction baseline, but add only heat not already
  * delivered. The current temperature includes external heating and cooling.
@@ -65,13 +66,14 @@ export function applyLedgerWithThermalSinks(result: Partial<VesselState>, baseli
   const targetHeat = result.programHeatApplied_J ?? current.programHeatApplied_J ?? baseline.programHeatApplied_J ?? 0;
   const previousHeat = current.programHeatApplied_J ?? baseline.programHeatApplied_J ?? 0;
   const inventory = { ...current, ...result, contents,
+    stockMotion: result.stockMotion ?? allocateStockConsumption(current, contents),
     temperature_c: current.temperature_c, volume_ml: current.volume_ml, evaporated_ml: current.evaporated_ml,
     thermalVaporEnthalpy_J: current.thermalVaporEnthalpy_J,
     thermalVaporSensibleEnthalpy_J: current.thermalVaporSensibleEnthalpy_J,
     mass_g: Math.max(0, (result.mass_g ?? baseline.mass_g) - removed + suppliedWater) };
   const thermal = applyThermalEnergy(inventory, targetHeat - previousHeat, elapsed_s);
   const projected = { ...inventory, ...thermal, sealedHeadspace: current.sealedHeadspace ?? baseline.sealedHeadspace };
-  return { ...result, ...thermal, ph: projected.ph, phModel: projected.phModel,
+  return { ...result, ...thermal, stockMotion: inventory.stockMotion, ph: projected.ph, phModel: projected.phModel,
     phReferenceTemperature_c: projected.phReferenceTemperature_c,
     ...projectAqueousSolution(projected), programHeatApplied_J: targetHeat,
     gasReplayBlocked: false,

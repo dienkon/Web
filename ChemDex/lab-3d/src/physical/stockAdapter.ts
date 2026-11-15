@@ -5,7 +5,7 @@ import { vesselDefinition, VESSEL_IDS } from './catalog';
 import { createStockSolidGeometry } from '../components/three/stockSolidGeometry';
 import { createStockSolidLayout } from '../components/three/stockSolidLayout';
 import { solidSceneVolume, vesselInterior } from '../science/vesselDimensions';
-import { isSuspensionRow } from '../science/precipitateInventory';
+import { isContactSuspensionRow } from './stockLiquidContact';
 import { METERS_PER_SCENE_UNIT as U, scenePointToSI } from '../science/sceneUnits';
 import { vesselBodyTransform, vesselLocalToWorld } from '../science/vesselScale';
 import { vesselLiquidSurfaceY } from '../science/vesselGeometry';
@@ -15,10 +15,15 @@ import { getVesselProfile } from '../pour/physics/profiles';
 import { liquidInventoryMass } from '../handling/solidOccupancy';
 import type { StockContainerInput, StockGroupInput } from './stockTypes';
 import type { Quat } from './types';
+import { attachedMetalForCarrier } from '../science/metalSurfaceAppearance';
 
 const geometries = new Map<string, BufferGeometry>();
 const vertices = new Map<string, number[]>();
 const definitions = new Map<string, ReturnType<typeof vesselDefinition>>();
+export function stockCarrierCoatings(vessel: VesselState, formula: string) {
+  return Object.fromEntries((vessel.stockMotion?.grains ?? []).filter(p => p.formula === formula && p.mass_g > 0)
+    .map(pose => [pose.id, attachedMetalForCarrier(vessel, pose.id)]));
+}
 export function stockGeometry(formula: string) {
   let g = geometries.get(formula); if (!g) { g = createStockSolidGeometry(getSolidMorphology(formula), formula); geometries.set(formula, g); }
   return g;
@@ -31,7 +36,7 @@ export function stockGroup(formula: string, mass_g: number): StockGroupInput | n
   let points = vertices.get(formula);
   if (!points) { points = Array.from(geometry.getAttribute('position').array); vertices.set(formula, points); }
   return { formula, mass_g, density_kg_m3: chemical.density * 1000, powder: getSolidMorphology(formula) === 'POWDER',
-    vertices: points, unitVolume: 1, seed: [] };
+    vertices: points, unitVolume: 1, seed: [], wire: geometry.userData.stockWire };
 }
 export function stockContainer(v: VesselState, restore: boolean, vortex?: import('../science/liquidVortex').VortexSurface, includeGroups = true): StockContainerInput | null {
   if (v.isShattered || v.id.startsWith('lesson_vessel_') || !VESSEL_IDS.includes(v.type)) return null;
@@ -45,9 +50,10 @@ export function stockContainer(v: VesselState, restore: boolean, vortex?: import
   const rotation = v.physicalMotion?.rotation ?? new Quaternion().setFromEuler(new Euler(0, v.rotationY ?? 0, v.rotationZ ?? 0, 'YXZ')).toArray() as Quat;
   const groups: StockGroupInput[] = [];
   const rows = includeGroups ? v.contents.filter(c => c.phase === 's' && c.mass_g > 1e-10 && c.location !== 'filter' && c.location !== 'foam'
-    && !(v.volume_ml > 0.05 && isSuspensionRow(c, v.contents, v.precipitateSubstance)) && c.solidOrigin !== 'precipitate') : [];
+    && !isContactSuspensionRow(v, c)) : [];
   for (const formula of new Set(rows.map(r => r.formula))) {
     const group = stockGroup(formula, rows.filter(r => r.formula === formula).reduce((m, r) => m + r.mass_g, 0)); if (!group) continue;
+    group.carrierCoatings = stockCarrierCoatings(v, formula);
     const geometry = stockGeometry(formula), q = new Quaternion(), p = new Vector3(), scale = new Vector3();
     const layout = createStockSolidLayout(v.type, getSolidMorphology(formula), geometry,
       solidSceneVolume(v, group.mass_g / (group.density_kg_m3 / 1000)), undefined, vesselInterior(v.type).floorY, !v.isSealed);

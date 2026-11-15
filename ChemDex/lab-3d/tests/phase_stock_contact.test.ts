@@ -39,6 +39,24 @@ function conserved(before: VesselState, after: VesselState, formula: string) {
 }
 
 describe.each(phaseCases)('$formula phase partition obeys stock contact', ({ formula, partition, supersaturated_g }) => {
+  it('shrinks only the wet carrier when wet and dry chunks share one inventory row', () => {
+    const before = sample(formula, -0.75), wet = before.stockMotion!.grains[0];
+    before.contents[1] = { ...before.contents[1], mass_g: 0.2, moles: 0.2 / computeMolarMass(formula), initialMass_g: 0.2 };
+    before.mass_g += 0.1;
+    const dry = { ...wet, id: 'dry-stock', position_m: vesselLocalToWorld(before, [0.25, 0.7, 0])
+      .map(x => x * 0.035) as [number, number, number] };
+    before.stockMotion = { tick: 1, grains: [wet, dry] };
+    const after = { ...before, ...partition(before, 30) };
+    expect(after.stockMotion!.grains.find(p => p.id === dry.id)).toEqual(dry);
+    expect(after.stockMotion!.grains.find(p => p.id === wet.id)!.mass_g).toBeLessThan(0.1);
+    expect(after.stockMotion!.grains.reduce((sum, p) => sum + p.mass_g, 0)).toBeCloseTo(total(after, formula, 'mass_g', 's'), 12);
+    conserved(before, after, formula);
+    const later = { ...after, ...partition(after, 30) };
+    expect(later.stockMotion!.grains.find(p => p.id === dry.id)).toEqual(dry);
+    expect(total(later, formula, 'mass_g', 's')).toBeGreaterThanOrEqual(0.1 - 1e-12);
+    conserved(before, later, formula);
+  });
+
   it('leaves airborne stock unchanged even with a stale precipitate display label', () => {
     const dry = { ...sample(formula, 0.7), hasPrecipitate: true,
       precipitateSubstance: formula, precipitateAmount_g: 0.1 };

@@ -124,4 +124,62 @@ describe('Mechanical stock contacts actual wet surfaces', () => {
     expect(split.pool.contents!.some(c => c.formula === 'Cu' && c.solidOrigin === 'precipitate')).toBe(true);
     expect(split.pool.mass_g + split.grains[0].mass_g).toBeCloseTo(reacted.mass_g, 12);
   });
+
+  it('reacts a coated core at a puddle while keeping its coating mass separate from mechanical core mass', () => {
+    const p = puddle(), g = grain();
+    g.contents!.push({ ...row('Cu', 0.01, 's'), solidOrigin: 'precipitate', depositSubstrate: 'Zn',
+      depositCarrierId: g.stockMotion!.id, depositionReactionId: 'zn_cuso4' });
+    g.mass_g += 0.01; g.substances.push('Cu');
+    const before = { pool: p, zinc: g }, initial = totals(before);
+    expect(assignWetStock(before).get('pool')).toHaveLength(1);
+    const out = stepWorkbenchSpills(before, 0.1), core = out.spills.zinc.contents!.find(c => c.formula === 'Zn')!;
+    const coating = out.spills.zinc.contents!.find(c => c.formula === 'Cu')!;
+    expect(core.mass_g).toBeLessThan(0.1);
+    expect(coating.mass_g).toBe(0.01);
+    expect(coating.depositCarrierId).toBe(g.stockMotion!.id);
+    expect(coating.depositReleased).not.toBe(true);
+    expect(out.spills.zinc.stockMotion!.mass_g).toBe(core.mass_g);
+    expect(out.spills.zinc.mass_g).toBeCloseTo(core.mass_g + coating.mass_g, 12);
+    expect(out.spills.zinc.stockMotion!.scale_m / g.stockMotion!.scale_m).toBeCloseTo(Math.cbrt(core.mass_g / 0.1), 12);
+    expect(out.spills.pool.contents!.some(c => c.formula === 'Cu')).toBe(false);
+    expect(out.escapedGas_g.H2).toBeGreaterThan(0);
+    const after = totals(out.spills, out.escapedGas_g);
+    expect(after.mass).toBeCloseTo(initial.mass, 11);
+    for (const [atom, n] of Object.entries(initial.atoms)) expect(after.atoms[atom], atom).toBeCloseTo(n, 11);
+  });
+
+  it('releases the coating into the puddle and removes the physical carrier after its core is consumed', () => {
+    const p = puddle(), g = grain('tiny-zinc', 'Zn', 0.001);
+    g.contents!.push({ ...row('Cu', 0.0002, 's'), solidOrigin: 'precipitate', depositSubstrate: 'Zn',
+      depositCarrierId: g.stockMotion!.id, depositionReactionId: 'zn_cuso4' });
+    g.mass_g += 0.0002; g.substances.push('Cu');
+    const before = { pool: p, [g.id]: g }, initial = totals(before), out = stepWorkbenchSpills(before, 1000);
+    expect(out.spills[g.id]).toBeUndefined();
+    const coating = out.spills.pool.contents!.find(c => c.formula === 'Cu')!;
+    expect(coating.mass_g).toBe(0.0002);
+    expect(coating.depositReleased).toBe(true);
+    expect(out.spills.pool.stockMotion).toBeUndefined();
+    expect(out.spills.pool.solidContactSites![0].grainId).toBe(g.id);
+    expect(out.escapedGas_g.H2).toBeCloseTo(0.001 / computeMolarMass('Zn') * computeMolarMass('H2'), 12);
+    const after = totals(out.spills, out.escapedGas_g);
+    expect(after.mass).toBeCloseTo(initial.mass, 11);
+    for (const [atom, n] of Object.entries(initial.atoms)) expect(after.atoms[atom], atom).toBeCloseTo(n, 11);
+  });
+
+  it('keeps a second coated carrier when only the first substrate is exhausted', () => {
+    const p = { ...puddle(), reactionProgramId: 'zn_hcl' }, zinc = grain('small-zinc', 'Zn', 0.001), iron = grain('iron', 'Fe', 0.1);
+    for (const g of [zinc, iron]) {
+      g.contents!.push({ ...row('Cu', 0.0002, 's'), solidOrigin: 'precipitate', depositSubstrate: g.stockMotion!.formula,
+        depositCarrierId: g.id, depositionReactionId: `${g.stockMotion!.formula.toLowerCase()}_cuso4` });
+      g.mass_g += 0.0002; g.substances.push('Cu');
+    }
+    const before = { pool: p, [zinc.id]: zinc, [iron.id]: iron }, initial = totals(before), out = stepWorkbenchSpills(before, 1000);
+    expect(out.spills[zinc.id]).toBeUndefined();
+    expect(out.spills[iron.id].stockMotion!.mass_g).toBe(0.1);
+    expect(out.spills[iron.id].contents!.find(c => c.depositCarrierId === iron.id)!.depositReleased).not.toBe(true);
+    expect(out.spills.pool.contents!.find(c => c.depositCarrierId === zinc.id)!.depositReleased).toBe(true);
+    const after = totals(out.spills, out.escapedGas_g);
+    expect(after.mass).toBeCloseTo(initial.mass, 11);
+    for (const [atom, n] of Object.entries(initial.atoms)) expect(after.atoms[atom], atom).toBeCloseTo(n, 11);
+  });
 });

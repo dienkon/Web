@@ -1,0 +1,109 @@
+{
+  "generatedAt": "2026-11-15T02:38:42.593Z",
+  "settings": {
+    "lengthUnit": 1,
+    "allowedPenetration_m": 0.000010000000474974514,
+    "predictionDistance_m": 0.000020000000949949027,
+    "segmentsPerBody": [
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16
+    ]
+  },
+  "dry": [
+    {
+      "simulated_s": 0.2,
+      "wall_ms": 366.23149999999987,
+      "cpu_ms": 875,
+      "candidatePairs": 672,
+      "sleeping": 0,
+      "contacting": 12
+    },
+    {
+      "simulated_s": 0.4,
+      "wall_ms": 229.6685,
+      "cpu_ms": 422,
+      "candidatePairs": 672,
+      "sleeping": 0,
+      "contacting": 12
+    },
+    {
+      "simulated_s": 0.6000000000000001,
+      "wall_ms": 198.7079000000001,
+      "cpu_ms": 234,
+      "candidatePairs": 672,
+      "sleeping": 0,
+      "contacting": 12
+    },
+    {
+      "simulated_s": 0.8,
+      "wall_ms": 56.46529999999984,
+      "cpu_ms": 47,
+      "candidatePairs": 672,
+      "sleeping": 12,
+      "contacting": 12
+    },
+    {
+      "simulated_s": 1,
+      "wall_ms": 2.6135000000001583,
+      "cpu_ms": 15,
+      "candidatePairs": 672,
+      "sleeping": 12,
+      "contacting": 12
+    }
+  ],
+  "natural": {
+    "frames": 1288,
+    "simulated_s": 21.46666666666673,
+    "progress": 0.15009505467463,
+    "error": null,
+    "wetCarriers": 12,
+    "carriers": 12,
+    "attachedSilver_g": 0.03238090671528595,
+    "wall_ms": 13208.747599999999,
+    "cpu_ms": 14047,
+    "history": [
+      {
+        "frames": 300,
+        "simulated_s": 4.999999999999988,
+        "progress": 0,
+        "wetCarriers": 0,
+        "wall_ms": 34.28320000000008,
+        "cpu_ms": 47
+      },
+      {
+        "frames": 600,
+        "simulated_s": 10.000000000000076,
+        "progress": 0,
+        "wetCarriers": 0,
+        "wall_ms": 109.10059999999999,
+        "cpu_ms": 141
+      },
+      {
+        "frames": 900,
+        "simulated_s": 15.000000000000325,
+        "progress": 0,
+        "wetCarriers": 12,
+        "wall_ms": 2174.7245000000003,
+        "cpu_ms": 2344
+      },
+      {
+        "frames": 1200,
+        "simulated_s": 20.000000000000146,
+        "progress": 0.023892160538660133,
+        "wetCarriers": 12,
+        "wall_ms": 7306.639099999999,
+        "cpu_ms": 7593
+      }
+    ]
+  }
+}

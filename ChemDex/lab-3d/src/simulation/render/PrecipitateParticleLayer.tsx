@@ -15,8 +15,8 @@ import { precipitateDisplayIndex } from '../../science/precipitateParcels';
 
 /** One material/geometry batch per species: a new reaction cannot recolor or
  * reshape the representative particles of an older product in the same cup. */
-export function PrecipitateParticleLayer({ vesselId, formula, system, formation, capacity }: {
-  vesselId: string; formula: string; system: PrecipitationSystem; formation?: string; capacity: number;
+export function PrecipitateParticleLayer({ vesselId, formula, cohortKey = formula, system, formation, capacity }: {
+  vesselId: string; formula: string; cohortKey?: string; system: PrecipitationSystem; formation?: string; capacity: number;
 }) {
   const mesh = useRef<THREE.InstancedMesh>(null);
   const uploaded = useRef<{ mesh: THREE.InstancedMesh; geometry: THREE.BufferGeometry; particles: unknown; count: number; time: number; profile: unknown; readable: boolean } | undefined>(undefined);
@@ -50,7 +50,7 @@ export function PrecipitateParticleLayer({ vesselId, formula, system, formation,
     if (!vessel || vessel.isShattered || vessel.volume_ml <= 0.2) { mesh.current.visible = false; return; }
     // A species may dissolve and reappear between React commits. Always read
     // the live population; a retained prop must never animate an orphan system.
-    const liveSystem = SimulationEngine.findManager(vesselId)?.precipitationSystems.get(formula);
+    const liveSystem = SimulationEngine.findManager(vesselId)?.precipitationSystems.get(cohortKey);
     if (!liveSystem) { mesh.current.visible = false; mesh.current.count = 0; return; }
     // Upload the retained snapshot while paused too: a moved vessel, a
     // remounted quality tier or an externally prepared specimen still renders.
@@ -92,6 +92,6 @@ export function PrecipitateParticleLayer({ vesselId, formula, system, formation,
     uploaded.current = { mesh: mesh.current, geometry, particles, count: mesh.current.count, time: liveSystem.integratedTime_s, profile: liveSystem.profile, readable };
   }, FRAME_ORDER.particles);
 
-  return <instancedMesh ref={mesh} name={`physical_precipitate_${vesselId}_${system.profile.id}`} args={[undefined, undefined, capacity]}
+  return <instancedMesh ref={mesh} name={`physical_precipitate_${vesselId}_${cohortKey}`} args={[undefined, undefined, capacity]}
     geometry={geometry} material={material} renderOrder={4} visible={false} />;
 }

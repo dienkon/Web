@@ -1,0 +1,119 @@
+{
+  "id": "auto_receiver",
+  "type": "beaker",
+  "name": "Bình phản ứng",
+  "capacity_ml": 100,
+  "position": [
+    0,
+    1.04,
+    0
+  ],
+  "rotationY": 0,
+  "isLocked": false,
+  "contents": [
+    {
+      "formula": "H2O",
+      "phase": "l",
+      "mass_g": 29.659613070955245,
+      "moles": 1.6463842948073948,
+      "concentration_M": 55.50929780738269
+    },
+    {
+      "formula": "Cu",
+      "phase": "s",
+      "moles": 0.00008333333333333333,
+      "initialMoles": 0.001,
+      "mass_g": 0.0052955
+    }
+  ],
+  "substances": [
+    "H2O",
+    "Cu"
+  ],
+  "mass_g": 29.664908570955244,
+  "volume_ml": 29.659613070955245,
+  "volume": 0.29659613070955243,
+  "temperature_c": 24.991118905652254,
+  "ph": 7,
+  "hasGas": false,
+  "hasPrecipitate": false,
+  "isBoiling": false,
+  "liquidColor": "#f8fafc",
+  "isSealed": false,
+  "studioProgramId": "cu_agno3",
+  "boilingPoint_c": 99.9742958054025,
+  "evaporatedStep_g": 0.0000014805849118592398,
+  "sensibleEnergy_J": -0.00356378862604245,
+  "latentEnergy_J": 0.003615461887987428,
+  "vaporSensibleEnergy_J": 0.00015481423666158407,
+  "storedSensibleEnergyChange_J": -0.0037186028630458168,
+  "evaporated_ml": 0.0006429290447585581,
+  "thermalVaporEnthalpy_J": 1.637209785666991,
+  "thermalVaporSensibleEnthalpy_J": 0.06723914740905673,
+  "evaporationRate_g_s": 0.0000888350947115544,
+  "boilingIntensity": 0,
+  "iceVolume_ml": 0,
+  "thermalEnergyOutsideModel_J": 0,
+  "thermalHeatingPower_W": 0,
+  "thermalHeatingEnergy_J": 0,
+  "wallThermalEligible": false,
+  "wallThermalDryCredit_J": 0,
+  "gasFlux": {
+    "dt_s": 0.016666666666666666,
+    "generated_mol_s": {},
+    "escaped_mol_s": {}
+  },
+  "liquidOptics": {
+    "hex": "#f8fafc",
+    "absorbance": [
+      0.06327454327251565,
+      0.045025239489402624,
+      0.026913654620785606
+    ]
+  },
+  "recentPourContact": {
+    "point": [
+      0.006143805548915152,
+      -0.38459204072034314,
+      0
+    ],
+    "remaining_s": 0.25,
+    "expiresAt_ms": 0,
+    "color": "#b45309"
+  },
+  "stockMotion": {
+    "tick": 2,
+    "grains": [
+      {
+        "id": "stock:1",
+        "formula": "Cu",
+        "mass_g": 0.0052955,
+        "scale_m": 0.0008392016342078915,
+        "position_m": [
+          0.000570850819349289,
+          0.005514619946479797,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "velocity_m_s": [
+          0.017688387632369997,
+          -0.6626471710205079,
+          0
+        ],
+        "angularVelocity_rad_s": [
+          0,
+          0,
+          0
+        ],
+        "sleeping": false,
+        "powder": false,
+        "contacting": false
+      }
+    ]
+  }
+}

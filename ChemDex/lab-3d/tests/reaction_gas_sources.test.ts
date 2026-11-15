@@ -57,6 +57,13 @@ describe('reaction gas nucleation source placement', () => {
     const sources = reactionGasSources(sample, getProgramById('zn_hcl'))!;
     expect(sources.length).toBeGreaterThan(0);
     expect(sources.every(source => Math.abs(source.point[0] - local.x) < 0.15)).toBe(true);
+    const extraDose = { ...sample, contents: sample.contents.map(row => row.formula === 'Zn'
+      ? { ...row, mass_g: row.mass_g * 2, moles: row.moles * 2 } : row) };
+    const additional = reactionGasSources(extraDose, getProgramById('zn_hcl'))!;
+    const onOldSurface = (source: typeof sources[number]) => sources.some(old =>
+      source.point.every((coordinate, axis) => Math.abs(coordinate - old.point[axis]) < 1e-12));
+    expect(additional.some(onOldSurface)).toBe(true);
+    expect(additional.some(source => !onOldSurface(source))).toBe(true);
     const matrix = new Matrix4().makeTranslation(0.2, body.offsetY, 0).scale(new Vector3(body.scale, body.scale, body.scale));
     const shifted = reactionGasSources(sample, getProgramById('zn_hcl'), { bodyMatrixWorld: matrix })!;
     expect(shifted[0].point[0] - sources[0].point[0]).toBeCloseTo(-0.2 / body.scale);

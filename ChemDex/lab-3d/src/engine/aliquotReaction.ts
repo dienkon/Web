@@ -44,7 +44,7 @@ export function reactAliquotMixture(vessel: VesselState, language: Language, isH
     precipitateColor: chemistry.precipitateColor, precipitateSubstance: chemistry.precipitateSubstance,
     dissolvingReactants: [], targetTemp: chemistry.finalTemperature_c,
   };
-  return { vessel: { ...vessel, contents: chemistry.updatedContents,
+  return { vessel: { ...vessel, contents: chemistry.updatedContents, stockMotion: chemistry.stockMotion ?? vessel.stockMotion,
     volume_ml: chemistry.finalVolume_ml, volume: vessel.capacity_ml > 0 ? chemistry.finalVolume_ml / vessel.capacity_ml : 0,
     substances: chemistry.updatedSubstances, ph: chemistry.finalPh, phModel: chemistry.phModel,
     phReferenceTemperature_c: chemistry.phReferenceTemperature_c,

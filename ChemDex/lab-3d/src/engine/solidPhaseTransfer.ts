@@ -1,11 +1,13 @@
 import type { SubstanceContent } from '../types/chemistry';
 import { sameMolecularFormula } from '../science/speciesIdentity';
+import { explicitPrecipitateFormation } from '../science/precipitateInventory';
 
 /** Transfer only the changed phase amount. Surviving stock keeps its origin,
  * layout reference and other metadata; crystallization creates a separate
  * precipitate pool. Callers supply only material eligible for liquid contact. */
 export function transferSolidPhase(contents: readonly SubstanceContent[], formula: string,
   nextDissolved_mol: number, volume_ml: number, formation?: string): SubstanceContent[] {
+  formation = explicitPrecipitateFormation(formula, formation);
   const matching = (row: SubstanceContent) => sameMolecularFormula(row.formula, formula)
     && (!row.location || row.location === 'bulk') && (row.phase === 's' || row.phase === 'aq');
   const solids = contents.filter(row => matching(row) && row.phase === 's');
@@ -27,7 +29,9 @@ export function transferSolidPhase(contents: readonly SubstanceContent[], formul
     if (delta < 0) {
       const newMass = dissolvedMass * (-delta / dissolved);
       nextMass -= newMass;
-      const existing = remaining.find(row => row.solidOrigin === 'precipitate');
+      const existing = remaining.find(row => row.solidOrigin === 'precipitate'
+        && row.precipitateFormation === formation && !row.depositSubstrate && !row.depositionReactionId
+        && !row.depositCarrierId && !row.depositReleased);
       if (existing) { existing.moles -= delta; existing.mass_g += newMass; }
       else remaining.push({ formula, phase: 's', moles: -delta, mass_g: newMass,
         solidOrigin: 'precipitate', ...(formation ? { precipitateFormation: formation } : {}) });

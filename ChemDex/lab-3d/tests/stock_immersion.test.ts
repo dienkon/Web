@@ -12,6 +12,7 @@ import { stockImmersion } from '../src/science/stockImmersion';
 import { createStockSolidGeometry } from '../src/components/three/stockSolidGeometry';
 import { createStockSolidLayout } from '../src/components/three/stockSolidLayout';
 import { solidSceneVolume, vesselInterior } from '../src/science/vesselDimensions';
+import { vesselLocalToWorld } from '../src/science/vesselScale';
 
 function doubleGeometry(g: BufferGeometry) {
   const result = g.clone(), p = g.attributes.position;
@@ -112,4 +113,19 @@ it('keeps unsupported or overlapping groups on an explicit reference path', () =
   expect(stockImmersion({ ...base, isPulverized: true, contents: [row] })).toBeNull();
   expect(stockImmersion({ ...base, type: 'filter_funnel', contents: [row] })).toBeNull();
   expect(stockImmersion({ ...base, contents: [row, { ...row, formula: 'Zn' }] })).toBeNull();
+});
+
+it('places an unposed new dose in its own envelope without enlarging an existing dry carrier', () => {
+  const sample = { id: 'new-dose', type: 'beaker', capacity_ml: 100, volume_ml: 30, position: [0, 0, 0],
+    contents: [{ formula: 'Cu', phase: 's', mass_g: 0.1, moles: 0.1 / 63.546 }] } as VesselState;
+  sample.stockMotion = { tick: 1, grains: [{ id: 'dry', formula: 'Cu', mass_g: 0.1,
+    scale_m: Math.cbrt(0.1 / 8.96 * 1e-6),
+    position_m: vesselLocalToWorld(sample, [0, 0.6, 0]).map(value => value * 0.035) as [number, number, number],
+    rotation: [0, 0, 0, 1], velocity_m_s: [0, 0, 0], angularVelocity_rad_s: [0, 0, 0], sleeping: true, powder: false }] };
+  const old = stockImmersion(sample)!;
+  expect(old.displacementMl([0, 1, 0], -0.2)).toBe(0);
+  const added = stockImmersion({ ...sample, contents: [{ ...sample.contents[0], mass_g: 0.2, moles: 0.2 / 63.546 }] })!;
+  expect(added.insideVolume_ml).toBeCloseTo(0.2 / 8.96, 9);
+  expect(added.displacementMl([0, 1, 0], -0.2)).toBeCloseTo(0.1 / 8.96, 9);
+  expect(added.insideVolume_ml - added.displacementMl([0, 1, 0], -0.2)).toBeCloseTo(old.insideVolume_ml, 9);
 });

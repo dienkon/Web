@@ -23,12 +23,16 @@ import { magnesiumHydroxideExtent } from '../science/magnesiumHydroxidePrecipita
 import { silverHalideProgramExtent } from '../science/silverChloridePrecipitation';
 import { copperHydroxideExtent } from '../science/copperHydroxidePrecipitation';
 import { ferricHydroxideExtent, ferricHydroxideDissolutionExtent } from '../science/ferricHydroxidePrecipitation';
-import { withLegacyPrecipitateOrigins, precipitateComponents, clearedPrecipitateTurbidity } from '../science/precipitateInventory';
+import { withLegacyPrecipitateOrigins, precipitateComponents, clearedPrecipitateTurbidity, canonicalPrecipitateFormation,
+  explicitPrecipitateFormation } from '../science/precipitateInventory';
 import { getPrecipitateProfile } from '../simulation/core/SimulationConfig';
 import { applyCopperAmmoniaLedger } from './copperAmmoniaLedger';
 import { previewLandoltLedger } from './landoltClockLedger';
 import { aluminumReactionExtent, aluminumReactionEnthalpy_J_mol } from '../science/aluminumHydroxideEquilibrium';
-import { isContactSuspensionRow, partitionDryStock } from '../physical/stockLiquidContact';
+import { isContactSuspensionRow, partitionDryStock, stockProtectionKey } from '../physical/stockLiquidContact';
+import { appendMetalDeposit } from '../science/metalDeposition';
+import { releaseUnsupportedMetalDeposits } from '../science/metalSurfaceAppearance';
+import { allocateStockConsumption } from '../physical/stockConsumption';
 
 // Standard Atomic Weights (IUPAC)
 export const ATOMIC_WEIGHTS: Record<string, number> = {
@@ -486,69 +490,12 @@ export class LedgerEngine {
   }
 }
 
-/**
- * Applies a ReactionProgram to a vessel's state and ledger.
- * Truthfully consumes reactants according to limiting reagent stoichiometry,
- * computes exact product yields, precipitate mass, gas volume, and energy release.
- */
-export function applyProgramToLedger(
-  program: ReactionProgram,
-  vessel: VesselState,
-  consumedExtent: number = 1.0, // 0.0 to 1.0 (fraction of limiting reagent reacted)
-  options: { deferThermal?: boolean; conditionTemperature_c?: number; equilibriumTemperature_c?: number; stockContactVessel?: VesselState } = {},
-): Partial<VesselState> {
-  vessel = ensureHeadspaceReference(vessel);
-  const assessment = assessProgramConditions(program, vessel.contents ?? [], {
-    ignitedProgramId: vessel.ignitedProgramId,
-    isSealed: vessel.isSealed ?? false,
-    requireInventory: true,
-    temperature_c: options.conditionTemperature_c ?? vessel.temperature_c, pH: vessel.ph, volume_ml: vessel.volume_ml,
-    isHeated: (options.conditionTemperature_c ?? vessel.temperature_c) > 100,
-  });
-  if (!assessment.ready) return {
-    contents: vessel.contents.map(item => ({ ...item })),
-    hasGas: false,
-    hasPrecipitate: vessel.hasPrecipitate,
-    precipitateAmount_g: vessel.precipitateAmount_g ?? 0,
-    liquidColor: vessel.liquidColor,
-    temperature_c: vessel.temperature_c,
-    mass_g: vessel.mass_g,
-  };
-  if (program.id === 'cuso4_nh3') {
-    const patch = applyCopperAmmoniaLedger(vessel, consumedExtent, options.equilibriumTemperature_c ?? vessel.temperature_c);
-    if (!patch) return { contents: vessel.contents.map(c => ({ ...c })), hasGas: false };
-    const heat = (patch.programHeatApplied_J ?? 0) - (vessel.programHeatApplied_J ?? 0);
-    return { ...patch, ...(options.deferThermal ? {} : applyThermalEnergy({ ...vessel, ...patch }, heat)) };
-  }
-  if (program.id === 'iodine_clock') return previewLandoltLedger(vessel, consumedExtent)
-    ?? { contents: vessel.contents.map(c => ({ ...c })), hasGas: false };
+/** Baseline chemical extent, before geometric contact caps. Shared by the
+ * material ledger and accepted kinetics clock so gas/heat cannot run ahead. */
+export function programMaximumReactionMoles(program: ReactionProgram, vessel: VesselState,
+  currentContents = vessel.contents): number {
   const reactants = program.chemistry.species.filter(s => s.role === 'reactant');
   const products = program.chemistry.species.filter(s => s.role === 'product');
-
-  // Identify available moles of reactants in vessel contents
-  const liveLegacyStock = vessel.precipitateSubstance && vessel.stockMotion?.grains.some(pose => sameMolecularFormula(pose.formula, vessel.precipitateSubstance!));
-  const currentContents = vessel.contents ? withLegacyPrecipitateOrigins(liveLegacyStock ? { ...vessel, precipitateSubstance: undefined } : vessel)
-    .map(item => ({ ...item, phase: reagentPhase(item) ?? undefined })) : [];
-  // Empty quantitative inventory means no reactant amount. Do not manufacture
-  // a 0.5 M solution from labels merely to make an animation run.
-
-  const liquidRoute = reactants.some(species => ['aq', 'l'].includes(species.phase)) || reactants.some(solid => solid.phase === 's'
-    && products.some(product => product.phase === 'aq' && sameMolecularFormula(product.formula, solid.formula)));
-  const protectedMoles = new Map<string, number>();
-  if (liquidRoute) for (const row of partitionDryStock(options.stockContactVessel ?? vessel).inertContents) {
-    const key = identifySpecies(row.formula).formula;
-    protectedMoles.set(key, (protectedMoles.get(key) ?? 0) + row.moles);
-  }
-  const minimumMoles = new Map<SubstanceContent, number>();
-  for (const row of currentContents) {
-    if (row.phase !== 's' || isContactSuspensionRow(vessel, row)) continue;
-    const key = identifySpecies(row.formula).formula, remaining = protectedMoles.get(key) ?? 0;
-    const reserved = Math.min(row.moles, remaining);
-    if (reserved > 0) { minimumMoles.set(row, reserved); protectedMoles.set(key, remaining - reserved); }
-  }
-  // Baseline equilibrium defines the cumulative replay scale. Current contact
-  // limits the amount spendable below; changing that scale here would apply
-  // progress twice and resurrect a solid when it is lifted after reacting.
   const reactionContents = bulkInventory(currentContents);
   // Find limiting reagent and maximal reaction extent (moles of reaction)
   let maxReactionMoles = Infinity;
@@ -591,6 +538,92 @@ export function applyProgramToLedger(
   }
   const aluminumLimit = aluminumReactionExtent(program.id, reactionContents, vessel.volume_ml, vessel.temperature_c);
   if (aluminumLimit !== undefined) maxReactionMoles = aluminumLimit === null ? 0 : Math.min(maxReactionMoles, aluminumLimit);
+  return maxReactionMoles;
+}
+
+export function programStockProgressLimit(program: ReactionProgram, baseline: VesselState, current: VesselState): number {
+  const reactants = program.chemistry.species.filter(s => s.role === 'reactant');
+  const liquidRoute = reactants.some(species => ['aq', 'l'].includes(species.phase))
+    || reactants.some(solid => solid.phase === 's' && program.chemistry.species.some(product =>
+      product.role === 'product' && product.phase === 'aq' && sameMolecularFormula(product.formula, solid.formula)));
+  if (!liquidRoute) return 1;
+  const inert = partitionDryStock(current).inertContents;
+  if (!inert.length) return 1;
+  const maximum = programMaximumReactionMoles(program, baseline);
+  if (!(maximum > 0)) return 1;
+  let limit = 1;
+  for (const reagent of reactants.filter(reagent => reagent.phase === 's')) {
+    const original = baseline.contents.filter(row => availableReagent(row, reagent.formula, reagent.phase))
+      .reduce((sum, row) => sum + row.moles, 0);
+    const protectedMoles = inert.filter(row => sameMolecularFormula(row.formula, reagent.formula)).reduce((sum, row) => sum + row.moles, 0);
+    limit = Math.min(limit, Math.max(0, original - protectedMoles) / reagent.coeff / maximum);
+  }
+  return Math.max(0, Math.min(1, limit));
+}
+
+/**
+ * Applies a ReactionProgram to a vessel's state and ledger.
+ * Truthfully consumes reactants according to limiting reagent stoichiometry,
+ * computes exact product yields, precipitate mass, gas volume, and energy release.
+ */
+export function applyProgramToLedger(
+  program: ReactionProgram,
+  vessel: VesselState,
+  consumedExtent: number = 1.0, // 0.0 to 1.0 (fraction of limiting reagent reacted)
+  options: { deferThermal?: boolean; conditionTemperature_c?: number; equilibriumTemperature_c?: number; stockContactVessel?: VesselState } = {},
+): Partial<VesselState> {
+  vessel = ensureHeadspaceReference(vessel);
+  const assessment = assessProgramConditions(program, vessel.contents ?? [], {
+    ignitedProgramId: vessel.ignitedProgramId,
+    isSealed: vessel.isSealed ?? false,
+    requireInventory: true,
+    temperature_c: options.conditionTemperature_c ?? vessel.temperature_c, pH: vessel.ph, volume_ml: vessel.volume_ml,
+    isHeated: (options.conditionTemperature_c ?? vessel.temperature_c) > 100,
+  });
+  if (!assessment.ready) return {
+    contents: vessel.contents.map(item => ({ ...item })),
+    hasGas: false,
+    hasPrecipitate: vessel.hasPrecipitate,
+    precipitateAmount_g: vessel.precipitateAmount_g ?? 0,
+    liquidColor: vessel.liquidColor,
+    temperature_c: vessel.temperature_c,
+    mass_g: vessel.mass_g,
+  };
+  if (program.id === 'cuso4_nh3') {
+    const patch = applyCopperAmmoniaLedger(vessel, consumedExtent, options.equilibriumTemperature_c ?? vessel.temperature_c);
+    if (!patch) return { contents: vessel.contents.map(c => ({ ...c })), hasGas: false };
+    const heat = (patch.programHeatApplied_J ?? 0) - (vessel.programHeatApplied_J ?? 0);
+    return { ...patch, ...(options.deferThermal ? {} : applyThermalEnergy({ ...vessel, ...patch }, heat)) };
+  }
+  if (program.id === 'iodine_clock') return previewLandoltLedger(vessel, consumedExtent)
+    ?? { contents: vessel.contents.map(c => ({ ...c })), hasGas: false };
+  const reactants = program.chemistry.species.filter(s => s.role === 'reactant');
+  const products = program.chemistry.species.filter(s => s.role === 'product');
+
+  // Identify available moles of reactants in vessel contents
+  const currentContents = vessel.contents ? withLegacyPrecipitateOrigins(vessel)
+    .map(item => ({ ...item, phase: reagentPhase(item) ?? undefined })) : [];
+  // Empty quantitative inventory means no reactant amount. Do not manufacture
+  // a 0.5 M solution from labels merely to make an animation run.
+
+  const liquidRoute = reactants.some(species => ['aq', 'l'].includes(species.phase)) || reactants.some(solid => solid.phase === 's'
+    && products.some(product => product.phase === 'aq' && sameMolecularFormula(product.formula, solid.formula)));
+  const protectedMoles = new Map<string, number>();
+  if (liquidRoute) for (const row of partitionDryStock(options.stockContactVessel ?? vessel).inertContents) {
+    const key = stockProtectionKey(row);
+    protectedMoles.set(key, (protectedMoles.get(key) ?? 0) + row.moles);
+  }
+  const minimumMoles = new Map<SubstanceContent, number>();
+  for (const row of currentContents) {
+    if (row.phase !== 's' || isContactSuspensionRow(vessel, row) && !(row.depositSubstrate && !row.depositReleased)) continue;
+    const key = stockProtectionKey(row), remaining = protectedMoles.get(key) ?? 0;
+    const reserved = Math.min(row.moles, remaining);
+    if (reserved > 0) { minimumMoles.set(row, reserved); protectedMoles.set(key, remaining - reserved); }
+  }
+  // Baseline equilibrium defines the cumulative replay scale. Current contact
+  // limits the amount spendable below; changing that scale here would apply
+  // progress twice and resurrect a solid when it is lifted after reacting.
+  const maxReactionMoles = programMaximumReactionMoles(program, vessel, currentContents);
   let molesOfReaction = maxReactionMoles * Math.max(0, Math.min(1.0, consumedExtent));
   // A cumulative replay may repeat already accepted conversion, but must never
   // consume the stock still present above the liquid in the current snapshot.
@@ -650,9 +683,14 @@ export function applyProgramToLedger(
         }
       }
 
+      if (appendMetalDeposit(currentContents, { formula: p.formula, phase: p.phase, state: p.phase,
+        moles: produceMoles, mass_g: produceMass, solidOrigin: 'precipitate',
+        precipitateFormation: explicitPrecipitateFormation(p.formula, program.visual.after.precipitate?.morphology) }, program.id, options.stockContactVessel ?? vessel)) continue;
       const existing = currentContents.find(c => (!c.location || c.location === 'bulk')
         && sameMolecularFormula(c.formula, p.formula) && c.phase === p.phase
-        && (p.phase !== 's' || c.solidOrigin === 'precipitate'));
+        && (p.phase !== 's' || c.solidOrigin === 'precipitate' && !c.depositSubstrate
+          && canonicalPrecipitateFormation(c.formula, c.precipitateFormation)
+            === canonicalPrecipitateFormation(p.formula, program.visual.after.precipitate?.morphology)));
       if (existing) {
         existing.moles += produceMoles;
         existing.mass_g = existing.moles * mm;
@@ -666,7 +704,7 @@ export function applyProgramToLedger(
           state: p.phase,
           phase: p.phase,
           ...(p.phase === 's' ? { solidOrigin: 'precipitate' as const,
-            precipitateFormation: program.visual.after.precipitate?.morphology } : {})
+            precipitateFormation: explicitPrecipitateFormation(p.formula, program.visual.after.precipitate?.morphology) } : {})
         });
       }
     }
@@ -710,8 +748,10 @@ export function applyProgramToLedger(
     precipitateMorphology = primary.formation as VesselState['precipitateMorphology'];
   }
 
+  const stockMotion = allocateStockConsumption(options.stockContactVessel ?? vessel, currentContents, { requireLiquidContact: liquidRoute });
   const state: Partial<VesselState> = {
-    contents: currentContents,
+    contents: releaseUnsupportedMetalDeposits(currentContents, stockMotion),
+    stockMotion,
     escapedGas_g: escapedByFormula,
     hasPrecipitate: precipitateMass > 1e-12,
     precipitateColor: precipitateColor || program.visual.after.precipitate?.color,
