@@ -20,7 +20,7 @@ try{
  await ev(`useStore.getState().startGame();useStore.setState(s=>({view:'game',runState:'RUNNING',cinematic:null,currentPhase:4,tasks:s.tasks.map(t=>({...t,completed:t.id!=='task_evacuation'})),settings:{...s.settings,graphicsQuality:'low',reduceMotion:true},player:{...s.player,equipment:{hasGoggles:true,hasLabCoat:true,hasGloves:true,hasMask:true,hairTied:true,hasClosedShoes:true},inventory:{...s.player.inventory,hasSweeper:true}}}));return true;`);
  await wait('window.__LAB_INSPECT_BATCHES__','batch inspector');await delay(1600);
  snapshots.batching=await evaluate('window.__LAB_INSPECT_BATCHES__()');
- check(snapshots.batching.batches.length===3,'architecture, benches and decor all build their render batches');
+ check(['architecture','benches','decor'].every(id=>snapshots.batching.batches.some(batch=>batch.id===id)),'architecture, benches and decor all build their render batches');
  check(snapshots.batching.batches.every(b=>b.sourceMeshes>b.drawBatches),'each batch retains named interaction proxies while reducing draws');
  const all=()=>ev(`const {inputManager}=await import('/src/systems/input/InputManager.ts');inputManager.resetAll();playerCoords.position=[-.8,0,5.2];return true;`);
  await all();await delay(800);

@@ -116,15 +116,15 @@ export const FPSHands: React.FC = () => {
 
     // 4. Action Recoil & Aim lerp
     if (squeezing) {
-      recoilZ.current = THREE.MathUtils.lerp(recoilZ.current, 0.035, delta * 25);
+      recoilZ.current = THREE.MathUtils.damp(recoilZ.current, 0.035, 25, delta);
     } else {
-      recoilZ.current = THREE.MathUtils.lerp(recoilZ.current, 0, delta * 15);
+      recoilZ.current = THREE.MathUtils.damp(recoilZ.current, 0, 15, delta);
     }
 
     if (isRightDown.current && activeTool) {
-      aimLerp.current = THREE.MathUtils.lerp(aimLerp.current, 1, delta * 12);
+      aimLerp.current = THREE.MathUtils.damp(aimLerp.current, 1, 12, delta);
     } else {
-      aimLerp.current = THREE.MathUtils.lerp(aimLerp.current, 0, delta * 12);
+      aimLerp.current = THREE.MathUtils.damp(aimLerp.current, 0, 12, delta);
     }
 
     // Apply combined transform to arms container
@@ -171,10 +171,10 @@ export const FPSHands: React.FC = () => {
       {activeTool === 'extinguisher' && player.inventory.hasFireExtinguisher && <HeldHose meshRef={hoseMesh}/>}
       {/* ================= 1. RIGHT ARM (PRIMARY ACTION ARM) ================= */}
       <group ref={rightArmRef}>
-        <group position={[.04,.027,.19]} rotation={[Math.PI,0,-.12]}><SleeveCuffAsset coat={hasLabCoat} gloved={hasGloves} skin={character.skinTone} shirt={character.shirtColor} length={.36} radius={.045}/></group>
+        <group name="held-right-sleeve" position={[.02,.01,.238]} rotation={[Math.PI-.55,0,-.12]}><SleeveCuffAsset coat={hasLabCoat} gloved={hasGloves} skin={character.skinTone} shirt={character.shirtColor} length={.36} radius={.045}/></group>
         {/* Right Hand (Gloved Nitrile or Skin) */}
         <group name="held-right-palm" position={[0.02, 0.04, 0.22]}>
-          <GripHandAsset color={handColor} gloved={hasGloves} pose={activeTool?'grip':'relaxed'} centered/>
+          <group rotation={[-.55,0,Math.PI]}><GripHandAsset color={handColor} gloved={hasGloves} pose={activeTool?'grip':'relaxed'} centered/></group>
 
           {/* ---------------- ITEM 1: FIRE EXTINGUISHER ---------------- */}
           {activeTool === 'extinguisher' && player.inventory.hasFireExtinguisher && (
@@ -199,9 +199,9 @@ export const FPSHands: React.FC = () => {
 
       {/* ================= 2. LEFT ARM (SUPPORT / STEADYING ARM) ================= */}
       <group ref={leftArmRef}>
-        <group position={[-.04,.027,.19]} rotation={[Math.PI,0,.12]}><SleeveCuffAsset coat={hasLabCoat} gloved={hasGloves} skin={character.skinTone} shirt={character.shirtColor} length={.36} radius={.045}/></group>
+        <group name="held-left-sleeve" position={[-.02,.01,.238]} rotation={[Math.PI-.55,0,.12]}><SleeveCuffAsset coat={hasLabCoat} gloved={hasGloves} skin={character.skinTone} shirt={character.shirtColor} length={.36} radius={.045}/></group>
         <group name="held-left-palm" position={[-.02,.04,.22]}>
-          <GripHandAsset color={handColor} gloved={hasGloves} pose={activeTool?'grip':'relaxed'} left centered/>
+          <group rotation={[-.55,0,Math.PI]}><GripHandAsset color={handColor} gloved={hasGloves} pose={activeTool==='extinguisher'||activeTool==='spillKit'?'grip':'relaxed'} left centered/></group>
           {activeTool==='spillKit'&&player.inventory.hasSweeper&&<group name="held-brush" position={[0,-.17,-.04]} rotation={[Math.PI/2,0,0]}><BrushAsset/><object3D name="held-brush-grip" position={[0,.065,-.16]}/></group>}
           {activeTool==='extinguisher'&&player.inventory.hasFireExtinguisher&&<group ref={nozzleAimRef} name="held-nozzle" position={[0,.01,-.06]}>
            <object3D name="held-nozzle-port" ref={nozzleAnchor} position={[0,0,.06]}/>

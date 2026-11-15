@@ -13,6 +13,7 @@ import { FlowGame } from '../games/FlowGame';
 import { ResultScreen } from './ResultScreen';
 import { GAME_KIND_NAMES } from '../core/catalog';
 import { hashText } from '../core/random';
+import { usePlatformNavigationOpen } from '../../components/ui/PlatformNavigationBridge';
 
 const GAME_COMPONENTS = {
   sort: SortingGame,
@@ -24,14 +25,16 @@ const GAME_COMPONENTS = {
   flow: FlowGame,
 };
 
-export function GamePlayer({ definition, onBack, onNext, exitRequested, onCancelExit }: {
+export function GamePlayer({ definition, onBack, onNext, exitRequested, onCancelExit, navigationOpen = false }: {
   definition: GameDefinition;
   onBack: () => void;
   onNext?: () => void;
   exitRequested: boolean;
   onCancelExit: () => void;
+  navigationOpen?: boolean;
 }) {
   const preferences = useAcademy(state => state.profile.preferences);
+  const platformNavigationOpen = usePlatformNavigationOpen();
   const [difficulty, setDifficulty] = useState<Difficulty>(preferences.difficulty);
   const [started, setStarted] = useState(false);
   const [paused, setPaused] = useState(false);
@@ -107,7 +110,7 @@ export function GamePlayer({ definition, onBack, onNext, exitRequested, onCancel
           definition={definition}
           difficulty={difficulty}
           seed={seed}
-          paused={paused || exitRequested}
+          paused={paused || exitRequested || navigationOpen || platformNavigationOpen}
           reducedMotion={preferences.reducedMotion}
           showTimer={preferences.showTimer}
           showCoach={showCoach}

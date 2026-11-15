@@ -1,3 +1,4 @@
+import { WALL_HAZARD_SYMBOLS } from '../../../data/hazardSymbols';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { useTexture } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
@@ -127,12 +128,12 @@ export function BoardFrame({width,height,children}:{width:number;height:number;c
  </group>;
 }
 
-const GHS=[['Độc tính cấp','chat-doc-cap-tinh'],['Dễ cháy','de-chay'],['Ăn mòn','chat-an-mon'],['Dễ nổ','chat-no'],['Oxy hóa','chat-oxy-hoa'],['Môi trường','chat-nguy-hiem-moi-truong'],['Sức khỏe','nguy-hiem-suc-khoe-lau-dai'],['Kích ứng','nguy-hai'],['Khí nén','khi-nen']];
+
 export function GHSBoardAsset(){
- const textures=useTexture(GHS.map(g=>publicAsset('SYMBOLS-IMG/bien-bao-'+g[1]+'.png')));
+ const textures=useTexture(WALL_HAZARD_SYMBOLS.map(symbol=>publicAsset(symbol.image)));
  return <group name="asset-ghs-board" userData={{assetId:'ghs-board'}}><BoardFrame width={2.8} height={1.6}>
   <AssetLabel lines={['BIỂU TƯỢNG CẢNH BÁO GHS']} size={[2.55,.13]} at={[0,1.48,.027]} paper={null}/>
-  {GHS.map(([label],i)=><group key={label} position={[(i%3-1)*.82,1.17-Math.floor(i/3)*.42,.027]}>
+  {WALL_HAZARD_SYMBOLS.map(({name:label},i)=><group key={label} position={[(i%3-1)*.82,1.17-Math.floor(i/3)*.42,.027]}>
    <mesh><planeGeometry args={[.29,.29]}/><meshStandardMaterial map={textures[i]} transparent roughness={.9}/></mesh>
    <AssetLabel lines={[label]} size={[.70,.06]} at={[0,-.18,.001]} paper={null}/>
   </group>)}

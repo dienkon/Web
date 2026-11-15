@@ -32,9 +32,10 @@ export default defineConfig(() => {
       },
     ],
     resolve: {
-      alias: {
-        '@': path.resolve(__dirname, '.'),
-      },
+      alias: [
+        { find: /^three$/, replacement: path.resolve(__dirname, 'src/compat/three.ts') },
+        { find: '@', replacement: path.resolve(__dirname, '.') },
+      ],
     },
     build: {
       rollupOptions: {
@@ -43,6 +44,7 @@ export default defineConfig(() => {
         },
         output: {
           manualChunks(id) {
+            if (id.includes('/src/compat/')) return 'vendor-three';
             if (!id.includes('node_modules')) return undefined;
             if (id.includes('/node_modules/three/')) return 'vendor-three';
             if (id.includes('@react-three/fiber')) return 'vendor-r3f-core';

@@ -38,19 +38,19 @@
           "id": "architecture",
           "sourceMeshes": 139,
           "drawBatches": 21,
-          "buildMs": 60.6000000089407
+          "buildMs": 33.40000003576279
         },
         {
           "id": "benches",
           "sourceMeshes": 236,
           "drawBatches": 47,
-          "buildMs": 46.400000005960464
+          "buildMs": 33.10000002384186
         },
         {
           "id": "decor",
           "sourceMeshes": 139,
           "drawBatches": 14,
-          "buildMs": 13.700000002980232
+          "buildMs": 9.5
         }
       ],
       "mirror": {
@@ -66,19 +66,19 @@
           "id": "architecture",
           "sourceMeshes": 139,
           "drawBatches": 21,
-          "buildMs": 60.6000000089407
+          "buildMs": 33.40000003576279
         },
         {
           "id": "benches",
           "sourceMeshes": 236,
           "drawBatches": 47,
-          "buildMs": 46.400000005960464
+          "buildMs": 33.10000002384186
         },
         {
           "id": "decor",
           "sourceMeshes": 139,
           "drawBatches": 14,
-          "buildMs": 13.700000002980232
+          "buildMs": 9.5
         }
       ],
       "mirror": {

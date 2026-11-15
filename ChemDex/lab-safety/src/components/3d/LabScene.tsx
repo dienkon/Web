@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera, useProgress } from '@react-three/drei';
 import { AdaptivePerformance, initialDpr } from '../../systems/performance/AdaptivePerformance';
@@ -46,6 +46,9 @@ export const LabScene: React.FC = () => {
   const view = useStore((state) => state.view);
   const cinematic = useStore(s => s.cinematic);
   const settings = useStore((state) => state.settings);
+  // R3F reapplies Canvas props on render. Keep this prop in sync with the
+  // adaptive resolution so opening a tool/menu cannot reset a learned budget.
+  const [dpr, setDpr] = useState(() => initialDpr(settings.graphicsQuality, coarse));
   const showRendererInfo = import.meta.env.DEV
     && typeof window !== 'undefined'
     && new URLSearchParams(window.location.search).get('debug') === '1';
@@ -63,9 +66,9 @@ export const LabScene: React.FC = () => {
       <Canvas
         frameloop="demand"
         shadows={settings.graphicsQuality === 'ultra'}
-        dpr={initialDpr(settings.graphicsQuality,coarse)}
+        dpr={dpr}
         gl={{
-          antialias: !['potato', 'low'].includes(settings.graphicsQuality)&&!(coarse&&settings.graphicsQuality==='auto'),
+          antialias: !['potato', 'low'].includes(settings.graphicsQuality),
           powerPreference: 'high-performance',
           toneMapping: THREE.ACESFilmicToneMapping,
           toneMappingExposure: 1.05,
@@ -73,7 +76,7 @@ export const LabScene: React.FC = () => {
         }}
       >
         {showRendererInfo && <RendererInfoProbe />}
-        <AdaptivePerformance />
+        <AdaptivePerformance onDprChange={setDpr} />
         <FrameScheduler />
         <PerspectiveCamera makeDefault position={[-0.2, 2.2, 5.4]} fov={68} />
         

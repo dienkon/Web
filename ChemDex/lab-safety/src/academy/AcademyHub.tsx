@@ -1,5 +1,6 @@
 import { StudyPlanScreen } from './screens/StudyPlanScreen';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Menu, X } from 'lucide-react';
 import { useAcademy } from './core/store';
 import { ACADEMY_GAMES } from './data/games';
 import { CHAPTERS } from './data/chapters';
@@ -36,12 +37,14 @@ export default function AcademyHub() {
   const [plan, setPlan] = useState<string[]>([]);
   const [playerKey, setPlayerKey] = useState(0);
   const [exitRequested, setExitRequested] = useState(false);
+  const [navigationOpen, setNavigationOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [skill, setSkill] = useState('all');
   const [kind, setKind] = useState('all');
   const [onlyBookmarks, setOnlyBookmarks] = useState(false);
   const [sort, setSort] = useState('chapter');
   const root = useRef<HTMLDivElement>(null);
+  const menuButton = useRef<HTMLButtonElement>(null);
   const scroll = useRef<HTMLElement>(null);
   const level = levelForXP(profile.xp);
   const recommended = useMemo(() => recommendedGames(profile), [profile]);
@@ -61,6 +64,7 @@ export default function AcademyHub() {
   const play = (id: string) => {
     const definition = GAME_MAP.get(id);
     if (!definition) return;
+    setNavigationOpen(false);
     setGame(definition);
     setPlayerKey(value => value + 1);
     setExitRequested(false);
@@ -79,6 +83,7 @@ export default function AcademyHub() {
   }, [page, game?.id]);
 
   const close = useCallback(() => {
+    setNavigationOpen(false);
     if (game) setExitRequested(true);
     else useAcademy.getState().closeHub();
   }, [game]);
@@ -101,12 +106,18 @@ export default function AcademyHub() {
   const plannedNext = game && plan.includes(game.id) ? plan[plan.indexOf(game.id)+1] : null;
   const nextGame = plannedNext ? GAME_MAP.get(plannedNext)! : game && plan.length ? null : game ? ACADEMY_GAMES[(ACADEMY_GAMES.findIndex(item => item.id === game.id) + 1) % ACADEMY_GAMES.length] : null;
   const navigate = (next: Page) => {
+    setNavigationOpen(false);
     if (game) {
       setExitRequested(true);
       return;
     }
     setPage(next);
   };
+  const closeNavigation = useCallback(() => {
+    setNavigationOpen(false);
+    // The drawer restores focus after the main panel is no longer inert.
+    requestAnimationFrame(() => menuButton.current?.focus());
+  }, []);
 
   return (
     <div
@@ -118,22 +129,22 @@ export default function AcademyHub() {
       data-academy
       className={`academy-shell ${profile.preferences.highContrast ? 'academy-high-contrast' : ''} ${profile.preferences.largeText ? 'academy-large-text' : ''} ${profile.preferences.reducedMotion ? 'academy-reduce-motion' : ''}`}
     >
-      <aside className="academy-sidebar">
+      {navigationOpen && <NavigationDrawer onClose={closeNavigation}>
         <div className="academy-brand"><span aria-hidden="true">⚗</span><div><strong>ChemDex</strong><small>ACADEMY</small></div></div>
         <nav aria-label="Học viện">
           {NAV.map(item => <button type="button" key={item.id} className={page === item.id && !game ? 'is-active' : ''} aria-current={page === item.id && !game ? 'page' : undefined} onClick={() => navigate(item.id)}><span aria-hidden="true">{item.icon}</span><strong>{item.title}</strong></button>)}
         </nav>
         <div className="academy-sidebar-progress"><span>Cấp {level.level}</span><strong>{level.title}</strong><div className="academy-meter"><i style={{ width: `${level.progress * 100}%` }} /></div><small>{profile.xp} XP · {completed}/{ACADEMY_GAMES.length} bài</small></div>
         <button type="button" className="academy-return" onClick={close}>← Trở lại phòng lab</button>
-      </aside>
-      <div className="academy-main">
+      </NavigationDrawer>}
+      <div className="academy-main" inert={navigationOpen || undefined} aria-hidden={navigationOpen || undefined}>
         <header className="academy-header">
-          <div><p className="academy-eyebrow">Thực hành • Quan sát • Hiểu nguyên tắc</p><h1 id="academy-title">{game ? 'Thử thách thực hành' : NAV.find(item => item.id === page)?.title}</h1></div>
+          <div className="academy-header-leading"><button ref={menuButton} type="button" className="academy-menu-toggle" aria-label="Mở menu học viện" aria-expanded={navigationOpen} aria-controls="academy-navigation" onClick={() => setNavigationOpen(true)}><Menu size={22} aria-hidden="true" /></button><div><p className="academy-eyebrow">Thực hành • Quan sát • Hiểu nguyên tắc</p><h1 id="academy-title">{game ? 'Thử thách thực hành' : NAV.find(item => item.id === page)?.title}</h1></div></div>
           <div className="academy-header-actions"><span className="academy-pill">🔥 {profile.streak} ngày</span><button type="button" className="academy-close" aria-label="Đóng học viện" onClick={close}>✕</button></div>
         </header>
         <main ref={scroll} className="academy-content">
           {game ? (
-            <GamePlayer key={`${game.id}-${playerKey}`} definition={game} exitRequested={exitRequested} onCancelExit={() => setExitRequested(false)} onBack={() => { setGame(null); setExitRequested(false); }} onNext={nextGame ? () => play(nextGame.id) : undefined} />
+            <GamePlayer key={`${game.id}-${playerKey}`} definition={game} navigationOpen={navigationOpen} exitRequested={exitRequested} onCancelExit={() => setExitRequested(false)} onBack={() => { setGame(null); setExitRequested(false); }} onNext={nextGame ? () => play(nextGame.id) : undefined} />
           ) : page === 'home' ? (
             <div className="academy-home">
               <section className="academy-hero">
@@ -160,6 +171,18 @@ export default function AcademyHub() {
       </div>
     </div>
   );
+}
+
+function NavigationDrawer({ children, onClose }: { children: React.ReactNode; onClose: () => void }) {
+  const panel = useRef<HTMLElement>(null);
+  useDialogFocus(panel, onClose);
+  return <>
+    <div className="academy-navigation-backdrop" aria-hidden="true" onClick={onClose} />
+    <aside ref={panel} id="academy-navigation" className="academy-sidebar" role="dialog" aria-modal="true" aria-label="Menu học viện" tabIndex={-1}>
+      <button type="button" className="academy-navigation-close" aria-label="Đóng menu học viện" onClick={onClose}><X size={21} aria-hidden="true" /></button>
+      {children}
+    </aside>
+  </>;
 }
 
 function GameCard({ game, onPlay }: { game: GameDefinition; onPlay: (id: string) => void }) {

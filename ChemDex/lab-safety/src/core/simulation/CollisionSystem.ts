@@ -95,28 +95,32 @@ export function resolveCapsuleMovement(
     collided = true;
   }
 
-  // 2. Axis-Separated Box Sliding:
-  // Step A: Test X movement alone while keeping old Z
-  let canMoveX = true;
+  // Sweep each axis to the contact plane instead of rejecting the whole step.
+  // Rejection leaves a frame-size gap, then repeatedly accelerates into it.
+  let resolvedX = testX;
   for (const box of boxColliders) {
-    if (testBoxCollision(testX, startZ, radius, box)) {
-      canMoveX = false;
-      collided = true;
-      break;
+    if (startZ <= box.minZ - radius || startZ >= box.maxZ + radius) continue;
+    if (startX <= box.minX - radius && resolvedX > box.minX - radius) {
+      resolvedX = box.minX - radius; collided = true;
+    } else if (startX >= box.maxX + radius && resolvedX < box.maxX + radius) {
+      resolvedX = box.maxX + radius; collided = true;
+    } else if (testBoxCollision(resolvedX, startZ, radius, box)) {
+      resolvedX = startX; collided = true;
     }
   }
-  let resolvedX = canMoveX ? testX : startX;
 
   // Step B: Test Z movement alone while keeping newly resolved X
-  let canMoveZ = true;
+  let resolvedZ = testZ;
   for (const box of boxColliders) {
-    if (testBoxCollision(resolvedX, testZ, radius, box)) {
-      canMoveZ = false;
-      collided = true;
-      break;
+    if (resolvedX <= box.minX - radius || resolvedX >= box.maxX + radius) continue;
+    if (startZ <= box.minZ - radius && resolvedZ > box.minZ - radius) {
+      resolvedZ = box.minZ - radius; collided = true;
+    } else if (startZ >= box.maxZ + radius && resolvedZ < box.maxZ + radius) {
+      resolvedZ = box.maxZ + radius; collided = true;
+    } else if (testBoxCollision(resolvedX, resolvedZ, radius, box)) {
+      resolvedZ = startZ; collided = true;
     }
   }
-  let resolvedZ = canMoveZ ? testZ : startZ;
 
   // 3. Cylinder Colliders Resolution (smooth radial push)
   for (const cyl of cylinderColliders) {
@@ -135,5 +139,8 @@ export function resolveCapsuleMovement(
     }
   }
 
-  return { x: resolvedX, z: resolvedZ, collided };
+  // A radial correction near a wall must not push the capsule outside the lab.
+  const boundedX = Math.max(LAB_BOUNDS.minX + radius, Math.min(LAB_BOUNDS.maxX - radius, resolvedX));
+  const boundedZ = Math.max(LAB_BOUNDS.minZ + radius, Math.min(LAB_BOUNDS.maxZ - radius, resolvedZ));
+  return { x: boundedX, z: boundedZ, collided: collided || boundedX !== resolvedX || boundedZ !== resolvedZ };
 }

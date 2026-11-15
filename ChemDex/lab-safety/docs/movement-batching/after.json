@@ -1,0 +1,382 @@
+{
+  "passed": true,
+  "checks": [
+    "fewer main-scene draw calls at the same camera and resolution",
+    "draw-call comparison keeps the same pixel ratio",
+    "all 16 stools keep their geometry with fewer draws",
+    "all 20 drawers render as one local batch each",
+    "finite colored buffers preserve hidden named picking proxies",
+    "same-frame A/B confirms reduced draws with original geometry, camera and lighting",
+    "actual stool rotation and drawer opening move local batches without rebuilding buffers",
+    "colored batch renders in one draw and original hidden meshes remain raycastable",
+    "repeated cleanup releases owned geometry/materials once and restores source meshes without proxy leaks",
+    "skinned, morph and instance-colored meshes remain separate; differing material render flags never merge",
+    "no runtime exceptions while batching the room"
+  ],
+  "errors": [],
+  "snapshots": {
+    "room": {
+      "direct": {
+        "frame": 96,
+        "calls": 454,
+        "triangles": 330064,
+        "points": 40,
+        "lines": 0
+      },
+      "models": {
+        "asset-stool": {
+          "count": 16,
+          "visible": 128,
+          "source": 224
+        },
+        "asset-drawer": {
+          "count": 20,
+          "visible": 20,
+          "source": 220
+        }
+      },
+      "batches": {
+        "batches": [
+          {
+            "id": "architecture",
+            "sourceMeshes": 145,
+            "drawBatches": 8,
+            "buildMs": 60.80000001192093
+          },
+          {
+            "id": "benches",
+            "sourceMeshes": 255,
+            "drawBatches": 20,
+            "buildMs": 67.69999998807907
+          },
+          {
+            "id": "drawer",
+            "sourceMeshes": 10,
+            "drawBatches": 1,
+            "buildMs": 4
+          },
+          {
+            "id": "drawer",
+            "sourceMeshes": 10,
+            "drawBatches": 1,
+            "buildMs": 3.5
+          },
+          {
+            "id": "drawer",
+            "sourceMeshes": 10,
+            "drawBatches": 1,
+            "buildMs": 3.399999976158142
+          },
+          {
+            "id": "drawer",
+            "sourceMeshes": 10,
+            "drawBatches": 1,
+            "buildMs": 3.199999988079071
+          },
+          {
+            "id": "stool",
+            "sourceMeshes": 6,
+            "drawBatches": 3,
+            "buildMs": 5.100000023841858
+          },
+          {
+            "id": "stool",
+            "sourceMeshes": 6,
+            "drawBatches": 3,
+            "buildMs": 5.099999964237213
+          },
+          {
+            "id": "stool",
+            "sourceMeshes": 6,
+            "drawBatches": 3,
+            "buildMs": 5.100000023841858
+          },
+          {
+            "id": "stool",
+            "sourceMeshes": 6,
+            "drawBatches": 3,
+            "buildMs": 6
+          },
+          {
+            "id": "drawer",
+            "sourceMeshes": 10,
+            "drawBatches": 1,
+            "buildMs": 5.199999988079071
+          },
+          {
+            "id": "drawer",
+            "sourceMeshes": 10,
+            "drawBatches": 1,
+            "buildMs": 4.099999964237213
+          },
+          {
+            "id": "drawer",
+            "sourceMeshes": 10,
+            "drawBatches": 1,
+            "buildMs": 4
+          },
+          {
+            "id": "drawer",
+            "sourceMeshes": 10,
+            "drawBatches": 1,
+            "buildMs": 4
+          },
+          {
+            "id": "stool",
+            "sourceMeshes": 6,
+            "drawBatches": 3,
+            "buildMs": 6.200000047683716
+          },
+          {
+            "id": "stool",
+            "sourceMeshes": 6,
+            "drawBatches": 3,
+            "buildMs": 5.299999952316284
+          },
+          {
+            "id": "stool",
+            "sourceMeshes": 6,
+            "drawBatches": 3,
+            "buildMs": 6.199999988079071
+          },
+          {
+            "id": "stool",
+            "sourceMeshes": 6,
+            "drawBatches": 3,
+            "buildMs": 4.5
+          },
+          {
+            "id": "drawer",
+            "sourceMeshes": 10,
+            "drawBatches": 1,
+            "buildMs": 2.899999976158142
+          },
+          {
+            "id": "drawer",
+            "sourceMeshes": 10,
+            "drawBatches": 1,
+            "buildMs": 4.399999976158142
+          },
+          {
+            "id": "drawer",
+            "sourceMeshes": 10,
+            "drawBatches": 1,
+            "buildMs": 3.699999988079071
+          },
+          {
+            "id": "drawer",
+            "sourceMeshes": 10,
+            "drawBatches": 1,
+            "buildMs": 3.800000011920929
+          },
+          {
+            "id": "stool",
+            "sourceMeshes": 6,
+            "drawBatches": 3,
+            "buildMs": 6.199999988079071
+          },
+          {
+            "id": "stool",
+            "sourceMeshes": 6,
+            "drawBatches": 3,
+            "buildMs": 6.399999976158142
+          },
+          {
+            "id": "stool",
+            "sourceMeshes": 6,
+            "drawBatches": 3,
+            "buildMs": 6.100000023841858
+          },
+          {
+            "id": "stool",
+            "sourceMeshes": 6,
+            "drawBatches": 3,
+            "buildMs": 5.299999952316284
+          },
+          {
+            "id": "drawer",
+            "sourceMeshes": 10,
+            "drawBatches": 1,
+            "buildMs": 3.5
+          },
+          {
+            "id": "drawer",
+            "sourceMeshes": 10,
+            "drawBatches": 1,
+            "buildMs": 3.400000035762787
+          },
+          {
+            "id": "drawer",
+            "sourceMeshes": 10,
+            "drawBatches": 1,
+            "buildMs": 2.899999976158142
+          },
+          {
+            "id": "drawer",
+            "sourceMeshes": 10,
+            "drawBatches": 1,
+            "buildMs": 3.699999988079071
+          },
+          {
+            "id": "stool",
+            "sourceMeshes": 6,
+            "drawBatches": 3,
+            "buildMs": 4.800000011920929
+          },
+          {
+            "id": "stool",
+            "sourceMeshes": 6,
+            "drawBatches": 3,
+            "buildMs": 4.600000023841858
+          },
+          {
+            "id": "stool",
+            "sourceMeshes": 6,
+            "drawBatches": 3,
+            "buildMs": 5.399999976158142
+          },
+          {
+            "id": "stool",
+            "sourceMeshes": 6,
+            "drawBatches": 3,
+            "buildMs": 4.900000035762787
+          },
+          {
+            "id": "decor",
+            "sourceMeshes": 156,
+            "drawBatches": 7,
+            "buildMs": 18.19999998807907
+          },
+          {
+            "id": "drawer",
+            "sourceMeshes": 10,
+            "drawBatches": 1,
+            "buildMs": 7.400000035762787
+          },
+          {
+            "id": "drawer",
+            "sourceMeshes": 10,
+            "drawBatches": 1,
+            "buildMs": 9.399999976158142
+          },
+          {
+            "id": "drawer",
+            "sourceMeshes": 10,
+            "drawBatches": 1,
+            "buildMs": 3.199999988079071
+          },
+          {
+            "id": "drawer",
+            "sourceMeshes": 10,
+            "drawBatches": 1,
+            "buildMs": 2.400000035762787
+          }
+        ],
+        "mirror": {
+          "width": 256,
+          "height": 384,
+          "rate": 20,
+          "frameSpacing": 3
+        }
+      },
+      "renderer": {
+        "timestamp": 17602.400000035763,
+        "render": {
+          "calls": 454,
+          "triangles": 330064,
+          "points": 40,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1030,
+          "textures": 126
+        },
+        "mirrorUpdates": 2,
+        "shadowEnabled": false,
+        "pixelRatio": 0.85,
+        "visibleFlames": 0,
+        "heldTool": null
+      },
+      "camera": [
+        0,
+        1.62,
+        4.5
+      ]
+    },
+    "geometry": {
+      "batches": 103,
+      "invalid": 0,
+      "proxies": 852,
+      "unhidden": 0
+    },
+    "control": {
+      "original": {
+        "frame": 99,
+        "calls": 963,
+        "triangles": 272036,
+        "points": 40,
+        "lines": 0
+      },
+      "batched": {
+        "frame": 100,
+        "calls": 454,
+        "triangles": 330064,
+        "points": 40,
+        "lines": 0
+      },
+      "camera": [
+        0,
+        1.62,
+        4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        "XYZ"
+      ]
+    },
+    "motion": {
+      "seat": "f254cda8-3186-4f97-8481-d46456eafcf1",
+      "drawer": "bench_nw-drawer-0-0",
+      "seatRotated": true,
+      "drawerOpened": true,
+      "seatBatchMoved": true,
+      "drawerBatchMoved": true,
+      "geometryRetained": true
+    },
+    "lifecycle": {
+      "cycles": [
+        {
+          "calls": 1,
+          "picking": true,
+          "palette": 2,
+          "disposedGeometry": 1,
+          "disposedMaterial": 1,
+          "sourceDisposals": 0,
+          "restored": true
+        },
+        {
+          "calls": 1,
+          "picking": true,
+          "palette": 2,
+          "disposedGeometry": 1,
+          "disposedMaterial": 1,
+          "sourceDisposals": 0,
+          "restored": true
+        },
+        {
+          "calls": 1,
+          "picking": true,
+          "palette": 2,
+          "disposedGeometry": 1,
+          "disposedMaterial": 1,
+          "sourceDisposals": 0,
+          "restored": true
+        }
+      ],
+      "exclusions": true,
+      "distinctFlags": true
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useStore } from '../../store/useStore';
 import { isSceneInputBlocked } from '../input/sceneInput';
@@ -13,18 +13,19 @@ export const PRESET_DPR = {
   ultra: 1.5,
   auto: 1,
 };
-export const initialDpr=(quality:SettingsState['graphicsQuality'],coarse:boolean)=>Math.min(typeof window==='undefined'?1:window.devicePixelRatio||1,quality==='auto'&&coarse?.85:PRESET_DPR[quality]);
+export const initialDpr=(quality:SettingsState['graphicsQuality'],_coarse:boolean)=>Math.min(typeof window==='undefined'?1:window.devicePixelRatio||1,PRESET_DPR[quality]);
 
-export function AdaptivePerformance() {
+export function AdaptivePerformance({ onDprChange }: { onDprChange: (dpr: number) => void }) {
   const { setDpr } = useThree();
   const quality = useStore(state => state.settings.graphicsQuality);
   const coarse=useCoarsePointer();
   const sample = useRef({ elapsed: 0, frames: 0, dpr: 1, slow: 0, fast: 0, warmup: 3 });
-  useEffect(() => {
+  useLayoutEffect(() => {
     const dpr = initialDpr(quality,coarse);
     sample.current = { elapsed: 0, frames: 0, dpr, slow: 0, fast: 0, warmup: 3 };
     setDpr(dpr);
-  }, [quality, coarse, setDpr]);
+    onDprChange(dpr);
+  }, [quality, coarse, setDpr, onDprChange]);
   useFrame((_, delta) => {
     const state = useStore.getState();
     const current = sample.current;
@@ -52,10 +53,12 @@ export function AdaptivePerformance() {
       current.slow = 0;
       current.fast = 0;
       setDpr(current.dpr);
-    } else if (current.fast >= 4 && current.dpr < Math.min(coarse?1:1.25, window.devicePixelRatio || 1)) {
-      current.dpr = Math.min(coarse?1:1.25, window.devicePixelRatio || 1, current.dpr + .1);
+      onDprChange(current.dpr);
+    } else if (current.fast >= 4 && current.dpr < Math.min(1.25, window.devicePixelRatio || 1)) {
+      current.dpr = Math.min(1.25, window.devicePixelRatio || 1, current.dpr + .1);
       current.fast = 0;
       setDpr(current.dpr);
+      onDprChange(current.dpr);
     }
     current.elapsed = 0;
     current.frames = 0;

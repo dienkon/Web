@@ -10,6 +10,8 @@
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit",
     "test": "node scripts/test-academy-core.mjs",
+    "test:runtime": "node scripts/test-runtime-core.mjs && node scripts/test-player-motion.mjs",
+    "test:navigation:browser": "node scripts/test-navigation-browser.mjs",
     "test:practical": "node scripts/test-practical-core.mjs",
     "test:practical:browser": "node scripts/test-practical-browser.mjs",
     "test:assets:browser": "node scripts/test-public-assets-browser.mjs",

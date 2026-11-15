@@ -3,29 +3,42 @@ import * as THREE from 'three';
 import {WARDROBE as W} from './wardrobe';
 import {useBakedGeometry,spherePart,capsulePart,tubePart,type BakedPart} from './BakedParts';
 
+/** Local +Y is the wrist, -Y the fingers and +Z the back of the hand.
+ * Mirror the anatomy in the geometry, never with a negative object scale. */
 export function GripHandAsset({color=W.glove,left=false,centered=false,gloved=true,pose='grip'}:{color?:string;left?:boolean;centered?:boolean;gloved?:boolean;pose?:'grip'|'relaxed'}){
  const side=left?-1:1;
  const geometry=useBakedGeometry(()=>{
-  const parts:BakedPart[]=[spherePart([0,0,0],[.032,.039,.0234],color,20)];
-  [-.025,-.008,.009,.025].forEach((x,i)=>{
-   const shortened=Math.abs(i-1.5)*.003;
+  const parts:BakedPart[]=[
+   spherePart([0,0,0],[.032,.035,.021],color,20),
+   spherePart([0,.029,0],[.022,.023,.018],color,16),
+  ];
+  // Index to little finger: keep the shorter little finger opposite the thumb.
+  [.003,0,.002,.01].forEach((shortened,i)=>{
+   const x=side*(.022-i*.0145);
    if(pose==='grip'){
-    parts.push(capsulePart([x,.019-shortened,-.016],.008,.025,color,[1.1,0,0]));
-    parts.push(capsulePart([x,.006-shortened,-.038],.0075,.02,color,[.1,0,0]));
+    parts.push(capsulePart([x,-.029+shortened,-.009],.0075,.02,color,[.75,0,0]));
+    parts.push(capsulePart([x,-.039+shortened,-.026],.007,.015,color,[1.65,0,0]));
+    parts.push(capsulePart([x,-.031+shortened,-.041],.0065,.012,color,[2.6,0,0]));
    }else{
-    parts.push(capsulePart([x,-.029+shortened,-.004],.008,.027,color,[.1,0,(i-1.5)*-.025]));
-    parts.push(capsulePart([x,-.056+shortened,-.006],.0075,.019,color,[.05,0,(i-1.5)*-.035]));
+    parts.push(capsulePart([x,-.034+shortened,-.002],.0075,.027,color,[.1,0,side*(i-1.5)*.025]));
+    parts.push(capsulePart([x,-.060+shortened,-.005],.007,.019,color,[.05,0,side*(i-1.5)*.035]));
     if(!gloved)parts.push(spherePart([x,-.062+shortened,.0005],[.0046,.008,.0018],'#d9b9a4',8));
    }
   });
-  parts.push(capsulePart([-side*.03,-.005,pose==='grip'?-.025:-.006],.011,.029,color,[pose==='grip'?.7:.1,0,side*.55]));
+  parts.push(spherePart([side*.025,.005,-.006],[.013,.022,.015],color,12));
+  parts.push(capsulePart([side*(pose==='grip'?.028:.036),-.01,pose==='grip'?-.027:-.004],.009,.026,color,[pose==='grip'?.7:.1,0,side*(pose==='grip'?-.7:.5)]));
   if(gloved){
    parts.push(tubePart([[-.022,.023,.012],[0,.028,.021],[.022,.023,.012]],.0008,W.gloveFold));
    parts.push(tubePart([[-.02,.017,.016],[0,.022,.023],[.02,.017,.016]],.0006,W.gloveFold));
-  }else parts.push(tubePart([[-.021,-.004,.019],[0,-.009,.024],[.021,-.004,.019]],.0006,'#bb8f79'));
+  }else parts.push(tubePart([[-.021,-.004,-.019],[0,-.009,-.022],[.021,-.004,-.019]],.0006,'#bb8f79'));
   return parts;
  },[color,side,pose,gloved]);
- return <group name="asset-grip-hand" userData={{assetId:'grip-hand',wardrobe:{gloved,color,pose}}} position={[0,centered?0:.042,0]}><mesh geometry={geometry}><meshStandardMaterial vertexColors roughness={gloved?.76:.84}/></mesh></group>;
+ return <group name="asset-grip-hand" userData={{assetId:'grip-hand',wardrobe:{gloved,color,pose,left}}} position={[0,centered?0:.042,0]}>
+  <mesh geometry={geometry}><meshStandardMaterial vertexColors roughness={gloved?.76:.84}/></mesh>
+  <object3D name="hand-wrist" position={[0,.035,0]}/>
+  <object3D name="hand-thumb" position={[side*(pose==='grip'?.028:.036),-.01,pose==='grip'?-.027:-.004]}/>
+  <object3D name="hand-fingers" position={[side*.0075,pose==='grip'?-.039:-.069,pose==='grip'?-.026:-.005]}/>
+ </group>;
 }
 
 function coatRadius(y:number){return y<.8?.207:y<1.17?.202:y<1.3?THREE.MathUtils.lerp(.202,.189,(y-1.17)/.13):THREE.MathUtils.lerp(.189,.065,Math.min(1,(y-1.3)/.08));}

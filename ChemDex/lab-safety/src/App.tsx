@@ -24,6 +24,7 @@ import { QuizInteractionGuard } from './systems/input/QuizInteractionGuard';
 import { CinematicOverlay } from './components/ui/CinematicOverlay';
 import { NoticePopup } from './components/ui/NoticePopup';
 import { AdvancedPracticeLibrary } from './components/ui/AdvancedPracticeLibrary';
+import { PlatformNavigationBridge } from './components/ui/PlatformNavigationBridge';
 const AssetReview = import.meta.env.DEV ? lazy(()=>import('./components/3d/assets/AssetReview')) : null;
 
 export default function App() {
@@ -52,6 +53,7 @@ export default function App() {
       }}
     >
       <AudioLifecycle />
+      <PlatformNavigationBridge />
       {!cinematic && <AcademyGate />}
       {/* Live 3D Scene */}
       <LabScene />

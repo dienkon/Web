@@ -52,7 +52,7 @@ export const PlayerModel: React.FC<Props> = ({position, rotationY, isMoving, pla
     }
     if (followCameraLook && heldTool) {
       if (rightArm.current) rightArm.current.rotation.x = -0.7;
-      if (leftArm.current && heldTool === 'extinguisher') leftArm.current.rotation.x = -0.5;
+      if (leftArm.current && (heldTool === 'extinguisher' || heldTool === 'spillKit')) leftArm.current.rotation.x = -0.5;
     }
     if(followCameraLook&&heldTool==='extinguisher'){
       carriedState.current.pinPulled=!!fireSimulation.currentExtinguisher?.pinPulled;
@@ -70,21 +70,24 @@ export const PlayerModel: React.FC<Props> = ({position, rotationY, isMoving, pla
     if(body.current)body.current.position.y=0;
   });
   return <group name="asset-character" ref={root} position={position ?? [0,0,0]} rotation={[0,rotationY??0,0]}><group ref={body}>
-    {([-1,1] as const).map(side=><group key={side} ref={side===-1?leftLeg:rightLeg} position={[side*0.105,.7945,0]}>
+    {([-1,1] as const).map(side=><group key={side} ref={side===1?leftLeg:rightLeg} position={[side*0.105,.7945,0]}>
       <TrouserLegAsset/>
       <group position={[0,-.7945,0]}><ShoeAsset closed={player.equipment.hasClosedShoes} skin={skin}/></group>
     </group>)}
     {!coat&&<Capsule position={[0,1.08,0]} radius={.18} length={.24} color={clothes} scale={[1.18,1,.68]}/> }
     {!coat&&<mesh name="asset-trouser-waist" position={[0,.82,0]} scale={[.18,.12,.11]}><sphereGeometry args={[1,24,16]}/><meshStandardMaterial color={WARDROBE.trousers} roughness={.95}/></mesh>}
     {coat&&<WornCoatAsset shirt={character.shirtColor}/>}
-    {([-1,1] as const).map(side=><group key={side} ref={side===-1?leftArm:rightArm} position={[side*WORN_FIT.shoulderX,WORN_FIT.shoulderY,0]} rotation={[0,0,-side*.08]}>
+    {([-1,1] as const).map(side=><group key={side} ref={side===1?leftArm:rightArm} position={[side*WORN_FIT.shoulderX,WORN_FIT.shoulderY,0]} rotation={[0,0,-side*.08]}>
       <group position={[0,-.44,0]}><SleeveCuffAsset coat={coat} gloved={player.equipment.hasGloves} skin={skin} shirt={character.shirtColor} length={.44} radius={.057}/></group>
-      <group name={side===-1?'avatar-left-palm':'avatar-right-palm'} position={[0,-.44,.01]}>
-       <GripHandAsset color={gloves} gloved={player.equipment.hasGloves} pose={followCameraLook&&heldTool?'grip':'relaxed'} left={side===-1} centered/>
-       {followCameraLook&&side===1&&heldTool==='extinguisher'&&player.inventory.hasFireExtinguisher&&<group name="held-mirror-extinguisher" position={[-.03,-.327,0]} scale={.65}><ExtinguisherAsset name="asset-mirror-extinguisher" type={fireSimulation.currentExtinguisher?.agent==='abc_powder'?'powder':'co2'} carried squeezeState={carriedState}/><object3D name="held-mirror-valve-port" ref={valve} position={[.02,.458,0]}/><object3D name="held-mirror-extinguisher-grip" position={[.047,.503,0]}/></group>}
-       {followCameraLook&&side===1&&heldTool==='waste'&&player.inventory.isHoldingTrash&&<group name="held-mirror-waste" position={[0,-.20,player.inventory.heldTrashType==='sharps'?.027:-.025]} rotation={[.12,0,-.08]}><WasteCarrierAsset kind={player.inventory.heldTrashType??'chemical'}/><object3D name="held-mirror-waste-grip" position={player.inventory.heldTrashType==='sharps'?[0,.196,-.051]:[0,.2,0]}/></group>}
-       {followCameraLook&&heldTool==='spillKit'&&player.inventory.hasSweeper&&(side===1?<group name="held-mirror-pan" position={[0,-.215,-.03]} rotation={[Math.PI/2,0,0]}><HeldPanAsset/><object3D name="held-mirror-pan-grip" position={[0,.055,-.205]}/></group>:<group name="held-mirror-brush" position={[0,-.17,-.04]} rotation={[Math.PI/2,0,0]}><BrushAsset/><object3D name="held-mirror-brush-grip" position={[0,.065,-.16]}/></group>)}
-       {followCameraLook&&side===-1&&heldTool==='extinguisher'&&player.inventory.hasFireExtinguisher&&<group name="held-mirror-nozzle" ref={nozzle} position={[0,.01,.025]}><object3D name="held-mirror-nozzle-port" ref={nozzlePort}/><object3D name="held-mirror-muzzle" position={[0,0,.12]}/><group rotation={[Math.PI/2,0,0]}><NozzleAsset/></group></group>}
+      <group name={side===1?'avatar-left-palm':'avatar-right-palm'} position={[0,-.44,.01]}>
+       <group rotation={[0,followCameraLook&&heldTool?0:side*Math.PI/2,0]}>
+        {/* The avatar faces +Z, so its anatomical left is on local +X. */}
+        <GripHandAsset color={gloves} gloved={player.equipment.hasGloves} pose={followCameraLook&&heldTool&&(side===-1||heldTool==='extinguisher'||heldTool==='spillKit')?'grip':'relaxed'} left={side===1} centered/>
+       </group>
+       {followCameraLook&&side===-1&&heldTool==='extinguisher'&&player.inventory.hasFireExtinguisher&&<group name="held-mirror-extinguisher" position={[-.03,-.327,0]} scale={.65}><ExtinguisherAsset name="asset-mirror-extinguisher" type={fireSimulation.currentExtinguisher?.agent==='abc_powder'?'powder':'co2'} carried squeezeState={carriedState}/><object3D name="held-mirror-valve-port" ref={valve} position={[.02,.458,0]}/><object3D name="held-mirror-extinguisher-grip" position={[.047,.503,0]}/></group>}
+       {followCameraLook&&side===-1&&heldTool==='waste'&&player.inventory.isHoldingTrash&&<group name="held-mirror-waste" position={[0,-.20,player.inventory.heldTrashType==='sharps'?.027:-.025]} rotation={[.12,0,-.08]}><WasteCarrierAsset kind={player.inventory.heldTrashType??'chemical'}/><object3D name="held-mirror-waste-grip" position={player.inventory.heldTrashType==='sharps'?[0,.196,-.051]:[0,.2,0]}/></group>}
+       {followCameraLook&&heldTool==='spillKit'&&player.inventory.hasSweeper&&(side===-1?<group name="held-mirror-pan" position={[0,-.215,-.03]} rotation={[Math.PI/2,0,0]}><HeldPanAsset/><object3D name="held-mirror-pan-grip" position={[0,.055,-.205]}/></group>:<group name="held-mirror-brush" position={[0,-.17,-.04]} rotation={[Math.PI/2,0,0]}><BrushAsset/><object3D name="held-mirror-brush-grip" position={[0,.065,-.16]}/></group>)}
+       {followCameraLook&&side===1&&heldTool==='extinguisher'&&player.inventory.hasFireExtinguisher&&<group name="held-mirror-nozzle" ref={nozzle} position={[0,.01,.025]}><object3D name="held-mirror-nozzle-port" ref={nozzlePort}/><object3D name="held-mirror-muzzle" position={[0,0,.12]}/><group rotation={[Math.PI/2,0,0]}><NozzleAsset/></group></group>}
       </group>
     </group>)}
     {followCameraLook&&heldTool==='extinguisher'&&player.inventory.hasFireExtinguisher&&<mesh name="held-mirror-hose" ref={hose} geometry={hoseGeometry}><meshStandardMaterial color="#17202d" roughness={.8}/></mesh>}

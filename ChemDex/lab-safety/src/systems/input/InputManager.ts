@@ -150,7 +150,10 @@ export class InputManager {
     const curvedMagnitude = Math.pow(normalizedMagnitude, 1.3);
 
     this.setJoystick(directionX * curvedMagnitude, -directionY * curvedMagnitude);
-    this.joystickSprint = this.joystickMove.y > 0 && rawMagnitude >= 0.9;
+    // A small hysteresis prevents alternating walk/run speeds when a thumb
+    // jitters near the sprint ring.
+    this.joystickSprint = this.joystickMove.y > 0
+      && rawMagnitude >= (this.joystickSprint ? 0.82 : 0.9);
     this.updateRun();
 
     return {

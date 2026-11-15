@@ -33,6 +33,11 @@ try {
     const page = await browser.newPage({ viewport: { width: 1366, height: 900 } });
     const errors = [], failures = [], images = new Set();
     page.on('pageerror', error => errors.push(error.message));
+    page.on('console', message => {
+      if (message.type() === 'error' || (message.type() === 'warning' && /THREE\.Clock|deprecated.*Clock/i.test(message.text()))) errors.push(message.text());
+    });
+    // External font availability is unrelated to local asset/runtime validation.
+    await page.route('https://fonts.googleapis.com/**', route => route.fulfill({ body: '', contentType: 'text/css' }));
     page.on('response', response => {
       if (!response.url().startsWith(origin)) return;
       if (response.status() >= 400) failures.push(`${response.status()} ${response.url()}`);

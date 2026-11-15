@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useStore, playerCoords } from '../../../store/useStore';
-import { resolveCapsuleMovement, LAB_BOUNDS } from '../../../core/simulation/CollisionSystem';
+import { advancePlayerMotion } from '../../../core/simulation/PlayerMotion';
 import { spatialSound } from '../../../audio/SpatialSoundEngine';
 import { inputManager } from '../../../systems/input/InputManager';
 import { dispatchInteractionInput } from '../../../systems/input/InteractionBus';
@@ -57,14 +57,13 @@ export const FirstPersonController: React.FC = () => {
   const pitch = useRef<number>(0);
   const isLocked = useRef<boolean>(false);
 
-  // Velocity smoothing for zero stutter / butter-smooth movement
-  const currentVelX = useRef<number>(0);
-  const currentVelZ = useRef<number>(0);
+  const velocity = useRef({ x: 0, z: 0 });
 
   // Crouch state & head height lerping (standing = 1.62m, crouched = 1.05m)
   const isCrouched = useRef(false);
   const currentEyeHeight = useRef<number>(1.62);
   const headBobTimer = useRef<number>(0);
+  const headBobOffset = useRef(0);
 
   // FPS Flashlight (Key F)
   const spotLightRef = useRef<THREE.SpotLight>(null);
@@ -114,7 +113,9 @@ export const FirstPersonController: React.FC = () => {
       const locked = document.pointerLockElement === canvas;
       isLocked.current = locked;
       canvas.style.cursor = locked ? 'none' : 'default';
-      inputManager.resetAll();
+      // Acquiring mouse look must preserve a movement key already held down.
+      if (locked) inputManager.resetPointers();
+      else inputManager.resetAll();
     };
 
     const onClick = (event: PointerEvent) => {
@@ -213,7 +214,7 @@ export const FirstPersonController: React.FC = () => {
     const handleKeyUp = (event: KeyboardEvent) => inputManager.handleKeyUp(event.code);
     const resetInput = () => {
       inputManager.resetAll();
-      currentVelX.current=0;currentVelZ.current=0;
+      velocity.current.x=0;velocity.current.z=0;
       if(document.pointerLockElement===gl.domElement)document.exitPointerLock();
     };
     const handleVisibility = () => {
@@ -242,19 +243,23 @@ export const FirstPersonController: React.FC = () => {
   useFrame((_, delta) => {
     if (useStore.getState().cinematic) {
       playerCoords.isMoving = false;
-      currentVelX.current = 0; currentVelZ.current = 0;
+      velocity.current.x = 0; velocity.current.z = 0;
+      headBobOffset.current = 0;
       return;
     }
-    const frameDelta = Math.min(delta, 1 / 20);
+    const frameDelta = Math.max(0, Math.min(delta, .1));
     if (view !== 'game' || runState !== 'RUNNING') {
+      velocity.current.x = 0; velocity.current.z = 0;
+      headBobOffset.current = 0;
       playerCoords.isMoving = false;
       return;
     }
 
     if (isModalOrQuestActive) {
       playerCoords.isMoving = false;
-      currentVelX.current = 0;
-      currentVelZ.current = 0;
+      velocity.current.x = 0;
+      velocity.current.z = 0;
+      headBobOffset.current = 0;
       // Keep camera oriented towards current pitch/yaw
       const euler = cameraEuler.current.set(pitch.current,yaw.current,0,'YXZ');
       camera.quaternion.setFromEuler(euler);
@@ -281,7 +286,6 @@ export const FirstPersonController: React.FC = () => {
     const move = inputManager.move;
     const shift = inputManager.buttons.run;
     const crouch = isCrouched.current;
-    const hasInput = Math.abs(move.x) > 0.001 || Math.abs(move.y) > 0.001;
 
     // Speeds: Crouch = 0.9 m/s, Walk = 1.6 m/s, Run = 3.2 m/s
     const targetEyeH = crouch ? 1.05 : 1.62;
@@ -298,98 +302,20 @@ export const FirstPersonController: React.FC = () => {
       moveSpeed = 3.2;
     }
 
-    // Camera forward and right vectors (horizontal plane)
-    const forwardX = Math.sin(yaw.current);
-    const forwardZ = Math.cos(yaw.current);
-    const rightX = Math.cos(yaw.current);
-    const rightZ = -Math.sin(yaw.current);
-
-    let inputX = 0;
-    let inputZ = 0;
-
-    inputX = -forwardX * move.y + rightX * move.x;
-    inputZ = -forwardZ * move.y + rightZ * move.x;
-
-    const inputLenSq = inputX * inputX + inputZ * inputZ;
-
-    // Target velocity in world space
-    let targetVelX = 0;
-    let targetVelZ = 0;
-    if (inputLenSq > 0.001) {
-      const invLen = 1 / Math.sqrt(inputLenSq);
-      targetVelX = inputX * invLen * moveSpeed;
-      targetVelZ = inputZ * invLen * moveSpeed;
+    const distance = advancePlayerMotion(
+      playerCoords.position, velocity.current, move, yaw.current, moveSpeed, frameDelta,
+    );
+    playerCoords.isMoving = distance > .00001;
+    // Drive the stride by actual distance, including analog walking and wall
+    // contact. Ease its offset to zero on release instead of snapping the head.
+    if (!reduced && playerCoords.isMoving) {
+      headBobTimer.current += distance * (shift ? 14 / 3.2 : 9 / 1.6);
     }
-
-    // Damped acceleration & deceleration for silky-smooth response (eliminates all stutter)
-    const dampSpeed = hasInput ? 18 : 22;
-    currentVelX.current = THREE.MathUtils.damp(
-      currentVelX.current,
-      targetVelX,
-      dampSpeed,frameDelta
-    );
-    currentVelZ.current = THREE.MathUtils.damp(
-      currentVelZ.current,
-      targetVelZ,
-      dampSpeed,frameDelta
-    );
-
-    const currentSpeedSq =
-      currentVelX.current * currentVelX.current + currentVelZ.current * currentVelZ.current;
-
-    if (currentSpeedSq > 0.0001) {
-      const deltaX = currentVelX.current * frameDelta;
-      const deltaZ = currentVelZ.current * frameDelta;
-
-      const targetX = playerCoords.position[0] + deltaX;
-      const targetZ = playerCoords.position[2] + deltaZ;
-
-      // Solve collision and smooth wall slide
-      const resolved = resolveCapsuleMovement(
-        playerCoords.position,
-        targetX,
-        targetZ,
-        0.28 // Capsule radius
-      );
-
-      // Damp velocity component if stopped against obstacle to avoid stick/jerk
-      if (Math.abs(resolved.x - targetX) > 0.0001) {
-        currentVelX.current = 0;
-      }
-      if (Math.abs(resolved.z - targetZ) > 0.0001) {
-        currentVelZ.current = 0;
-      }
-
-      const actuallyMoved = Math.hypot(resolved.x - playerCoords.position[0], resolved.z - playerCoords.position[2]) > 0.0001;
-      playerCoords.position[0] = resolved.x;
-      playerCoords.position[2] = resolved.z;
-      playerCoords.rotationY = yaw.current;
-      playerCoords.isMoving = actuallyMoved;
-
-      // Head bobbing (disabled if reduceMotion is on)
-      if (!reduced) {
-        headBobTimer.current += frameDelta * (shift ? 14 : 9)*Math.min(1,Math.sqrt(currentSpeedSq)/moveSpeed);
-      }
-    } else {
-      playerCoords.isMoving = false;
-      headBobTimer.current = 0;
-    }
-
-    // Clamp coordinates within room boundary safeguards
-    playerCoords.position[0] = Math.max(
-      LAB_BOUNDS.minX + 0.28,
-      Math.min(LAB_BOUNDS.maxX - 0.28, playerCoords.position[0])
-    );
-    playerCoords.position[2] = Math.max(
-      LAB_BOUNDS.minZ + 0.28,
-      Math.min(LAB_BOUNDS.maxZ - 0.28, playerCoords.position[2])
-    );
-
-    // Compute head-bob offset
-    let bobY = 0;
-    if (playerCoords.isMoving && !reduced) {
-      bobY = Math.sin(headBobTimer.current) * (coarse?(shift?.015:.008):(shift?.035:.02));
-    }
+    const amplitude = coarse ? (shift ? .015 : .008) : (shift ? .035 : .02);
+    const bobTarget = playerCoords.isMoving && !reduced
+      ? Math.sin(headBobTimer.current) * amplitude
+      : 0;
+    headBobOffset.current = THREE.MathUtils.damp(headBobOffset.current, bobTarget, 20, frameDelta);
 
     // Apply orientation and position to Camera
     const euler = cameraEuler.current.set(pitch.current, yaw.current, 0, 'YXZ');
@@ -398,7 +324,7 @@ export const FirstPersonController: React.FC = () => {
 
     camera.position.set(
       playerCoords.position[0],
-      playerCoords.position[1] + currentEyeHeight.current + bobY,
+      playerCoords.position[1] + currentEyeHeight.current + headBobOffset.current,
       playerCoords.position[2]
     );
 

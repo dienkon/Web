@@ -7,6 +7,7 @@ import { GasTapAsset } from './CombustionAssets';
 import { BENCH_SINK_LAYOUT } from '../../../data/scene/fixtureLayout';
 import { useLabEquipment } from '../../../store/useLabEquipment';
 import { useReducedLabMotion } from '../../../systems/device/useReducedLabMotion';
+import { StaticRoomBatch } from '../lab/StaticRoomBatch';
 
 export function StoolAsset(){
  const spokes=useMemo(()=>Array.from({length:5},(_,i)=>i/5*Math.PI*2),[]);
@@ -21,6 +22,7 @@ export function StoolAsset(){
   for(const mesh of [legs.current!,feet.current!]){mesh.instanceMatrix.needsUpdate=true;mesh.computeBoundingBox();mesh.computeBoundingSphere();}
  },[spokes]);
  return <group name="asset-stool" userData={{assetId:'stool'}}>
+  <StaticRoomBatch id="stool">
   <instancedMesh ref={legs} args={[undefined,undefined,5]} castShadow><tubeGeometry args={[legCurve,32,.011,8,false]}/><meshStandardMaterial color="#8da7b3" metalness={.5} roughness={.3}/></instancedMesh>
   <instancedMesh ref={feet} args={[undefined,undefined,5]}><cylinderGeometry args={[.016,.017,.024,16]}/><meshStandardMaterial color="#58717c" roughness={.85}/></instancedMesh>
   <mesh position={[0,.185,0]}><cylinderGeometry args={[.032,.038,.25,24]}/><meshStandardMaterial color="#718e9c" metalness={.5} roughness={.4}/></mesh>
@@ -32,17 +34,20 @@ export function StoolAsset(){
   <Ring radius={.168} tube={.002} at={[0,.606,0]} color="#6d8995"/>
   <Pipe points={[[.035,.555,0],[.12,.55,0],[.15,.565,0]]} radius={.005}/>
   <Solid size={[.045,.014,.025]} at={[.15,.565,0]} color="#455f6b" rounded/>
+  </StaticRoomBatch>
  </group>;
 }
 
 export function DrawerAsset({open=false}:{open?:boolean}){
  return <group name="asset-drawer" userData={{assetId:'drawer',open}} position={[0,0,open?.22:0]}>
+  <StaticRoomBatch id="drawer">
   <Solid size={[.91,.018,1.07]} at={[0,.009,0]} color="#bacbd0"/>
   <Solid size={[.91,.26,.018]} at={[0,.14,-.526]} color="#a4bbc5"/>
   {[-.45,.45].map(x=><group key={x}><Solid size={[.018,.26,1.07]} at={[x,.14,0]} color="#b1c4cc"/><Solid size={[.006,.025,.95]} at={[x+Math.sign(x)*.012,.08,0]} color="#7895a3"/></group>)}
   <Solid size={[.96,.32,.026]} at={[0,.16,.55]} color="#c1d0d4" rounded/>
   {[-.13,.13].map(x=><Solid key={x} size={[.018,.018,.032]} at={[x,.205,.579]} color="#829eaa" rounded/>)}
   <Solid size={[.278,.022,.021]} at={[0,.205,.602]} color="#8ca7b2" rounded/>
+  </StaticRoomBatch>
  </group>;
 }
 
