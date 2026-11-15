@@ -3,13 +3,10 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {editorialArticles} from '../scripts/data/editorial-articles.mjs';
-import {editorialBiographies} from '../scripts/data/editorial-biographies.mjs';
-import {editorialApplications} from '../scripts/data/editorial-applications.mjs';
+import {editorialManuscripts as manuscripts} from '../scripts/data/editorial-manuscripts.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const read = file => JSON.parse(fs.readFileSync(path.join(root, file), 'utf8'));
-const manuscripts = [...editorialArticles, ...editorialBiographies, ...editorialApplications];
 const index = read('trung-tam/src/data/editorial-index.generated.json');
 const metadata = new Map(index.map(doc => [doc.id, doc]));
 const photoRecords = read('scripts/data/story-photo-sources.json').photos;

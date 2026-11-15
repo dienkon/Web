@@ -1,0 +1,44 @@
+{
+  "id": "mang-pem-duong-di-cua-proton",
+  "slug": "mang-pem-duong-di-cua-proton",
+  "documentPath": "docs/mang-pem-duong-di-cua-proton/index.json",
+  "title": "Một tấm màng mỏng và hai con đường tạo dòng điện",
+  "summary": "Xe buýt pin nhiên liệu cho thấy một phản ứng quen thuộc có thể tạo điện khi proton và electron được buộc đi theo hai đường khác nhau. Màng PEM là một phần quyết định của thiết kế đó.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/stories/fuel-cell.jpg",
+  "tags": [
+    "PEM",
+    "Pin nhiên liệu",
+    "Proton",
+    "Điện hóa"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Một tấm màng mỏng và hai con đường tạo dòng điện",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Phản ứng rời phòng thí nghiệm lên tuyến xe buýt",
+      "sources": [
+        "https://www.energy.gov/eere/fuelcells/types-fuel-cells",
+        "https://www.energy.gov/eere/fuelcells/fuel-cells",
+        "https://www.actransit.org/sites/default/files/2026-10/2026%20Zero%20Emission%20Program%20Annual%20Progress%20Report.pdf"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: đánh giá từ nguồn hydrogen đến chuyến xe",
+      "sources": [
+        "https://www.energy.gov/eere/fuelcells/types-fuel-cells",
+        "https://www.energy.gov/eere/fuelcells/fuel-cells",
+        "https://www.actransit.org/sites/default/files/2026-10/2026%20Zero%20Emission%20Program%20Annual%20Progress%20Report.pdf"
+      ]
+    }
+  },
+  "content": "## Phản ứng rời phòng thí nghiệm lên tuyến xe buýt\n\nAC Transit tại California vận hành xe buýt điện dùng pin nhiên liệu trong chương trình phương tiện không phát thải tại ống xả. Báo cáo chương trình năm 2026 bàn cả đội xe, trạm nhiên liệu, bảo trì và đào tạo. Một phản ứng hóa học có thể tạo điện chưa đủ để một xe buýt hoàn thành lịch chạy mỗi ngày.\n\nẢnh trong bài là xe buýt pin nhiên liệu tại Tokyo, dùng để minh họa loại ứng dụng, không phải ảnh đội xe California. Điểm chung giúp đọc câu chuyện là hệ thống điện hóa: năng lượng của nhiên liệu được chuyển thành dòng điện để phục vụ tải, với các bộ phận phụ trợ cùng tham gia.\n\n![Xe buýt pin nhiên liệu ở Tokyo](/assets/library/photos/stories/fuel-cell.jpg)\n\n*Xe buýt chạy pin nhiên liệu hydrogen tại khu Daiba, Tokyo, Nhật Bản. — Syced; [CC0](https://creativecommons.org/publicdomain/zero/1.0/deed.en). [Nguồn ảnh](https://commons.wikimedia.org/wiki/File:Hydrogen_fuel_cell_bus_in_Daiba_2.jpg).*\n\n## Electron đi đường ngoài, proton qua màng\n\nTrong pin nhiên liệu PEM dùng hydrogen, phản ứng ở điện cực làm hydrogen cung cấp proton và electron. Màng điện ly polymer cho phép vận chuyển proton trong điều kiện vận hành thích hợp, còn electron đi qua mạch ngoài. Khi mạch được nối với tải, chuyển động electron đó là dòng điện có thể sử dụng.\n\nỞ phía còn lại, oxygen, proton và electron tham gia tạo nước. Phương trình tổng thể quen thuộc không cho thấy hai đường đi đã được tách ra thế nào. Cấu trúc cell biến một phản ứng giải phóng năng lượng thành quá trình có thể lấy điện qua mạch ngoài.\n\nMàng không nên được hình dung như một tấm lưới chỉ lọc theo kích thước hạt. Tính dẫn proton, độ ẩm, cấu trúc polymer và các vùng tiếp xúc điện cực cùng ảnh hưởng đến hoạt động.\n\n## Nước vừa là sản phẩm vừa là bài toán vận hành\n\nMôi trường nước trong màng có vai trò đối với vận chuyển proton. Nếu điều kiện quá khô, điện trở có thể tăng; nếu nước cản trở đường khí ở những vùng khác, chất phản ứng có thể khó tới vị trí cần thiết. Quản lý nước vì vậy là công việc cân bằng, không phải đơn giản thêm nước càng nhiều càng tốt.\n\nChất lượng hydrogen và không khí cũng quan trọng. DOE lưu ý xúc tác của PEM nhạy với một số tạp chất, trong đó carbon monoxide có thể làm giảm hiệu quả của hệ chứa platinum. Điều này liên kết bộ phản ứng với quá trình cung cấp và xử lý nhiên liệu.\n\nNgoài stack pin còn có nén khí, điều khiển nhiệt, van, cảm biến và những thiết bị hỗ trợ. Chúng tiêu thụ năng lượng và cần bảo trì; hiệu suất của riêng cell không tự bằng hiệu suất của cả phương tiện.\n\n## Ứng dụng hôm nay: đánh giá từ nguồn hydrogen đến chuyến xe\n\nPEM được sử dụng trong một số hệ giao thông và phát điện cố định. Khả năng đáp ứng công suất và khối lượng của hệ là những lý do nó được quan tâm. Dù vậy, chọn công nghệ cho một tuyến vận tải còn cần xét nơi tiếp nhiên liệu, độ tin cậy, thời gian phục vụ và điều kiện bảo dưỡng.\n\nNước ở phía sản phẩm không có nghĩa toàn bộ chuỗi năng lượng không có phát thải. Cần biết hydrogen được sản xuất, nén, vận chuyển và lưu trữ bằng cách nào. Cách nhìn này giúp phân biệt phát thải tại xe với tác động của cả nguồn năng lượng.\n\nTấm màng mỏng vì vậy kể một câu chuyện lớn hơn vật liệu. Nó tạo điều kiện cho proton đi qua, giữ electron trên một đường hữu ích và buộc cả hệ thống phải quản lý nước, khí và nhiệt. Một nguyên lý đẹp trở thành phương tiện vận hành được khi các việc nhỏ ấy cùng được giải quyết.\n\n## Nguồn và đọc thêm\n\n- [DOE · Các loại pin nhiên liệu và đặc điểm PEM](https://www.energy.gov/eere/fuelcells/types-fuel-cells)\n- [DOE · Cấu tạo và đường đi proton–electron trong pin nhiên liệu](https://www.energy.gov/eere/fuelcells/fuel-cells)\n- [AC Transit · Báo cáo chương trình xe buýt năm 2026](https://www.actransit.org/sites/default/files/2026-10/2026%20Zero%20Emission%20Program%20Annual%20Progress%20Report.pdf)"
+}

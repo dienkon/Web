@@ -478,7 +478,7 @@ export function ReaderView({ doc, onBack, isBookmarked, onToggleBookmark, onTagC
                   src={doc.image || '/assets/library/substances/default.svg'}
                   alt=""
                   onError={handleImageError}
-                  className="w-full h-full object-cover"
+                  className={`w-full h-full ${!doc.image || /\.svg(?:[?#]|$)/i.test(doc.image) ? 'object-contain' : 'object-cover'}`}
                 />
               </div>
             </div>
@@ -489,7 +489,7 @@ export function ReaderView({ doc, onBack, isBookmarked, onToggleBookmark, onTagC
               src={doc.image || '/assets/library/substances/default.svg'}
               alt=""
               onError={handleImageError}
-              className="w-full h-full object-cover"
+              className={`w-full h-full ${!doc.image || /\.svg(?:[?#]|$)/i.test(doc.image) ? 'object-contain' : 'object-cover'}`}
             />
           </div>
         )}

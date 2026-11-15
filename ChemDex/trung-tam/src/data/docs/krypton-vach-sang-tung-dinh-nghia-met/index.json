@@ -1,0 +1,46 @@
+{
+  "id": "krypton-vach-sang-tung-dinh-nghia-met",
+  "slug": "krypton-vach-sang-tung-dinh-nghia-met",
+  "documentPath": "docs/krypton-vach-sang-tung-dinh-nghia-met/index.json",
+  "title": "Vạch sáng từng thay chiếc thước chuẩn: krypton và chiều dài một mét",
+  "summary": "Năm 1960, một chuyển mức của krypton-86 trở thành cơ sở định nghĩa mét. Câu chuyện cho thấy vì sao đo lường muốn rời khỏi một vật mẫu duy nhất và vì sao chuẩn ấy lại tiếp tục được thay đổi.",
+  "category": "nguyento",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/elements/Kr.jpg",
+  "tags": [
+    "Krypton",
+    "Mét",
+    "Quang phổ",
+    "Giao thoa"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "element",
+    "contextLabel": "Vạch sáng từng thay chiếc thước chuẩn: krypton và chiều dài một mét",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một đơn vị không còn phụ thuộc một thanh kim loại",
+      "sources": [
+        "https://www.bipm.org/en/committees/cg/cgpm/11-1960/resolution-6",
+        "https://www.bipm.org/en/committees/cg/cgpm/17-1983/resolution-1",
+        "https://www.nist.gov/si-redefinition/meter",
+        "https://www.nist.gov/pml/owm/si-units-length"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: phân biệt lịch sử với định nghĩa đang dùng",
+      "sources": [
+        "https://www.bipm.org/en/committees/cg/cgpm/11-1960/resolution-6",
+        "https://www.bipm.org/en/committees/cg/cgpm/17-1983/resolution-1",
+        "https://www.nist.gov/si-redefinition/meter",
+        "https://www.nist.gov/pml/owm/si-units-length"
+      ]
+    }
+  },
+  "content": "## Một đơn vị không còn phụ thuộc một thanh kim loại\n\nNghị quyết năm 1960 của Hội nghị Cân đo Quốc tế thay định nghĩa mét dựa trên mẫu platinum–iridium bằng định nghĩa dựa trên bức xạ của krypton-86. Một mét được gắn với 1.650.763,73 bước sóng trong chân không của chuyển mức được chỉ rõ. Đây là một thay đổi về nền tảng đo, không phải quyết định làm mọi cây thước dài thêm hay ngắn đi thấy rõ.\n\nMột mẫu vật duy nhất có bất lợi: không thể hiện diện cùng lúc ở mọi phòng thí nghiệm, còn việc so sánh bản sao luôn có độ không đảm bảo. Chuẩn dựa trên hiện tượng nguyên tử hướng tới khả năng tái tạo bằng thiết bị phù hợp ở nhiều nơi. Nguyên tố trong một chiếc đèn trở thành điểm nối giữa các phép đo chiều dài.\n\n![Ảnh minh họa krypton trong kho; không phải ảnh đèn chuẩn krypton-86 năm 1960](/assets/library/photos/elements/Kr.jpg)\n\n## Đo bước sóng bằng cách cho ánh sáng gặp nhau\n\nGiao thoa cho phép khai thác sự chồng lấp của các sóng ánh sáng. Khi hiệu đường đi thay đổi, các vùng sáng tối thay đổi theo. Từ đó có thể liên hệ một khoảng dịch chuyển với bước sóng. Kỹ thuật này giúp đưa những chuyển mức nguyên tử vào phép đo chiều dài chính xác.\n\nĐiều cần xác định không phải “ánh sáng krypton” nói chung. Một nguyên tử có thể cho nhiều vạch phổ, các đồng vị cũng cần được phân biệt. Định nghĩa năm 1960 nêu rõ krypton-86 và chuyển mức tương ứng. Chính mức độ cụ thể ấy giúp biến một màu ánh sáng thành chuẩn đo lường, thay vì chỉ là một hình ảnh đẹp của khí phát sáng.\n\n## Chuẩn tốt vẫn có thể được thay bằng chuẩn tốt hơn\n\nNăm 1983, CGPM chuyển sang định nghĩa mét thông qua quãng đường ánh sáng đi trong chân không trong một khoảng thời gian xác định. Nghị quyết đồng thời bãi bỏ định nghĩa dựa vào krypton. Điều đó không có nghĩa các phép đo trước kia trở nên vô nghĩa: quá trình thay đổi được thiết kế để giữ sự liên tục của đơn vị trong giới hạn đánh giá.\n\nTài liệu lịch sử của NIST kể cách các kỹ thuật quang học và khả năng đo tốc độ ánh sáng tạo điều kiện cho bước chuyển ấy. Câu chuyện khoa học ở đây không có một chuẩn bất bại. Khi thiết bị và hiểu biết tiến lên, cách hiện thực đơn vị cũng có thể tốt hơn, trong khi hệ đo vẫn phải giữ được khả năng so sánh với dữ liệu cũ.\n\n## Ứng dụng hôm nay: phân biệt lịch sử với định nghĩa đang dùng\n\nKrypton-86 hiện không còn là cơ sở định nghĩa mét. Trong hệ SI hiện hành, độ dài gắn với giá trị cố định của tốc độ ánh sáng và đơn vị giây. Giao thoa và các kỹ thuật quang học vẫn là những công cụ quan trọng để hiện thực, truyền và kiểm tra chuẩn chiều dài.\n\nBài học gần gũi nằm trong mọi phép đo cần độ chính xác: phải biết thước được so với chuẩn nào, trong điều kiện nào và với độ không đảm bảo bao nhiêu. Một con số nhiều chữ số không tự chứng minh độ tin cậy. Vạch sáng krypton từng giúp đo lường rời xa sự phụ thuộc vào một thanh kim loại; ngày nay nó còn giúp người học hiểu một nguyên tắc lâu dài hơn: chuẩn đo phải đủ rõ để người khác có thể tái tạo và kiểm tra.\n\n## Nguồn và đọc thêm\n\n- [BIPM · Nghị quyết 6 năm 1960 về mét và krypton-86](https://www.bipm.org/en/committees/cg/cgpm/11-1960/resolution-6)\n- [BIPM · Nghị quyết 1 năm 1983 thay định nghĩa krypton](https://www.bipm.org/en/committees/cg/cgpm/17-1983/resolution-1)\n- [NIST · Lịch sử và hiện thực đơn vị mét](https://www.nist.gov/si-redefinition/meter)\n- [NIST · Đơn vị độ dài SI hiện hành](https://www.nist.gov/pml/owm/si-units-length)"
+}

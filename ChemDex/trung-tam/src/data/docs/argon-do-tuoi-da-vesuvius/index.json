@@ -1,0 +1,44 @@
+{
+  "id": "argon-do-tuoi-da-vesuvius",
+  "slug": "argon-do-tuoi-da-vesuvius",
+  "documentPath": "docs/argon-do-tuoi-da-vesuvius/index.json",
+  "title": "Đồng hồ trong đá kiểm tra một vụ phun trào có sử chép",
+  "summary": "Năm 1997, nhóm nghiên cứu đo tuổi khoáng từ vụ phun trào Vesuvius năm 79. Đặt phép đo đồng vị cạnh niên đại lịch sử là cách kiểm tra một chiếc đồng hồ địa chất.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/element-noble-gas.svg",
+  "tags": [
+    "Đồng vị",
+    "Argon",
+    "Định tuổi",
+    "Núi lửa"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 5,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Đồng hồ trong đá kiểm tra một vụ phun trào có sử chép",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một mẫu đá có ngày tháng để đối chiếu",
+      "sources": [
+        "https://doi.org/10.1126/science.277.5330.1279",
+        "https://pubs.usgs.gov/gip/geotime/radiometric.html",
+        "https://openstax.org/books/chemistry-2e/pages/21-3-radioactive-decay"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: đặt các sự kiện vào trật tự thời gian",
+      "sources": [
+        "https://doi.org/10.1126/science.277.5330.1279",
+        "https://pubs.usgs.gov/gip/geotime/radiometric.html",
+        "https://openstax.org/books/chemistry-2e/pages/21-3-radioactive-decay"
+      ]
+    }
+  },
+  "content": "## Một mẫu đá có ngày tháng để đối chiếu\n\nNăm 1997, Paul Renne và cộng sự công bố phép định tuổi argon trên sanidine trong đá bọt của vụ phun trào Vesuvius năm 79 sau Công nguyên. Đây là cơ hội đặc biệt: phương pháp địa chất được đối chiếu với một sự kiện thuộc thời kỳ có ghi chép lịch sử.\n\nBài báo báo cáo tuổi 1.925 ± 94 năm trước thời điểm nghiên cứu, phù hợp với khoảng 1.918 năm tính theo lịch được dùng trong phép so sánh. Hai con số không nên được đọc như tuổi tính đến ngày người đọc mở bài này. Chúng là kết quả và mốc tham chiếu của công bố năm 1997. Giá trị của thí nghiệm nằm ở sự đối chiếu, cùng việc nhận ra nguồn sai số có thể làm kết quả lệch.\n\n![Minh họa nhóm khí hiếm, trong đó có argon; không phải ảnh mẫu đá Vesuvius](/assets/library/element-noble-gas.svg)\n\n## Từ potassium đến dấu vết argon\n\nPotassium có một đồng vị phóng xạ là potassium-40, trong đó một nhánh phân rã tạo argon-40. Khi một khoáng vật chứa potassium giữ được sản phẩm phân rã trong những điều kiện phù hợp, tỷ lệ các đồng vị có thể cung cấp thông tin về thời gian đã trôi qua.\n\nPhương pháp argon–argon phát triển từ nền tảng potassium–argon nhưng dùng xử lý mẫu và phép đo đồng vị thích hợp để hỗ trợ việc xác định tỷ lệ cần thiết. Trong nghiên cứu Vesuvius, gia nhiệt tăng dần bằng laser giúp giải phóng khí từ mẫu để phân tích.\n\nTừ “đồng hồ” là một phép ví von hữu ích, nhưng không có bánh răng nào nằm trong tinh thể. Tín hiệu là số lượng tương đối của các đồng vị, được chuyển thành tuổi dựa trên mô hình phân rã và những giả định về lịch sử của mẫu.\n\n## Nếu mẫu mang sẵn argon thì sao?\n\nBài báo Vesuvius ghi nhận argon-40 dư trong sanidine. Nếu coi toàn bộ lượng argon ấy đều tích lũy từ phân rã sau sự kiện đang định tuổi, kết quả có thể sai đáng kể. Đây là lý do việc phân tích không chỉ dừng ở một con số tỷ lệ rồi đưa vào công thức.\n\nMẫu có thể trải qua nóng lên, mất khí hoặc nhận thành phần từ môi trường khác. Một tuổi đo được cần gắn với sự kiện mà khoáng vật ghi lại: kết tinh, nguội qua điều kiện giữ khí hay một biến cố nhiệt sau đó. Chọn đúng sự kiện là một phần của diễn giải địa chất.\n\nUSGS nhấn mạnh rằng phép định tuổi đơn giản về nguyên tắc nhưng phức tạp trong phòng thí nghiệm, và các phương pháp độc lập được dùng để kiểm tra chéo khi có thể. Sai số được công bố không phải dấu hiệu của phép đo yếu; đó là thông tin cần thiết để đánh giá điều nó chứng minh.\n\n## Ứng dụng hôm nay: đặt các sự kiện vào trật tự thời gian\n\nĐịnh tuổi đồng vị giúp nghiên cứu lịch sử núi lửa, sự hình thành đá và tương quan giữa các tầng địa chất. Một lớp tro được định tuổi có thể cung cấp mốc cho những câu hỏi khác về môi trường hoặc sự sống trong quá khứ, miễn là mối liên hệ địa tầng được xác định đúng.\n\nKhi đọc một tuổi đá trên báo, nên tìm thêm loại mẫu, phương pháp, sự kiện mà tuổi đại diện và khoảng bất định. Cùng một khối đá có thể chứa những thành phần ghi lại lịch sử khác nhau. Không phải mọi con số xuất phát từ cùng nơi đều đo cùng một thời điểm.\n\nVesuvius cung cấp một cuộc kiểm tra đáng nhớ: lịch sử viết bằng chữ và lịch sử giữ trong khoáng vật được đặt cạnh nhau. Sự phù hợp có ý nghĩa hơn khi nhóm nghiên cứu đồng thời chỉ ra argon dư và cách nó có thể đánh lừa một phép tính quá đơn giản.\n\n## Nguồn và đọc thêm\n\n- [Renne và cộng sự · Định tuổi Vesuvius đối chiếu lịch sử, Science 1997](https://doi.org/10.1126/science.277.5330.1279)\n- [USGS · Các đồng hồ đồng vị và phép định tuổi đá](https://pubs.usgs.gov/gip/geotime/radiometric.html)\n- [OpenStax · Phân rã phóng xạ, chu kỳ bán rã và định tuổi](https://openstax.org/books/chemistry-2e/pages/21-3-radioactive-decay)"
+}

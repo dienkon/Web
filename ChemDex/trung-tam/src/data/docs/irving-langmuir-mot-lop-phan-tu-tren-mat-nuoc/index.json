@@ -1,0 +1,46 @@
+{
+  "id": "irving-langmuir-mot-lop-phan-tu-tren-mat-nuoc",
+  "slug": "irving-langmuir-mot-lop-phan-tu-tren-mat-nuoc",
+  "documentPath": "docs/irving-langmuir-mot-lop-phan-tu-tren-mat-nuoc/index.json",
+  "title": "Irving Langmuir: cả một thế giới trong lớp chỉ dày một phân tử",
+  "summary": "Nghiên cứu bề mặt ở General Electric đưa Langmuir đến những màng cực mỏng. Cùng công việc của Katharine Blodgett, các lớp phân tử trở thành vật liệu có thể xây dựng từng tầng.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/covalent-bonds.svg",
+  "tags": [
+    "Irving Langmuir",
+    "Katharine Blodgett",
+    "Bề mặt",
+    "Màng mỏng"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 5,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Irving Langmuir: cả một thế giới trong lớp chỉ dày một phân tử",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Bề mặt không chỉ là ranh giới bao quanh vật",
+      "sources": [
+        "https://www.nobelprize.org/uploads/2018/06/langmuir-lecture.pdf",
+        "https://lemelson.mit.edu/resources/katherine-blodgett",
+        "https://www.aps.org/apsnews/2007/03/this-month-in-physics-history",
+        "https://arxiv.org/abs/0704.0113"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: tổ chức vật chất theo từng lớp",
+      "sources": [
+        "https://www.nobelprize.org/uploads/2018/06/langmuir-lecture.pdf",
+        "https://lemelson.mit.edu/resources/katherine-blodgett",
+        "https://www.aps.org/apsnews/2007/03/this-month-in-physics-history",
+        "https://arxiv.org/abs/0704.0113"
+      ]
+    }
+  },
+  "content": "## Bề mặt không chỉ là ranh giới bao quanh vật\n\nTại phòng nghiên cứu của General Electric, Irving Langmuir khảo sát những hiện tượng xảy ra trên bề mặt và giữa các pha. Một lớp phân tử rất mỏng có thể làm thay đổi hành vi của bề mặt dù lượng vật chất nhỏ đến mức khó nhận ra bằng mắt. Độ lớn của mẫu không quyết định tầm quan trọng của hiện tượng.\n\nCác nghiên cứu màng trên nước giúp tìm hiểu diện tích mà phân tử chiếm và cách chúng sắp xếp. Một chất có phần tương tác thuận lợi với nước và phần khác ít thuận lợi hơn có thể tạo tổ chức đặc biệt ở mặt phân cách. Muốn hiểu tổ chức ấy phải đo, thay vì chỉ nhìn một vệt dầu nổi.\n\nNobel Hóa học năm 1932 ghi nhận công trình hóa học bề mặt của Langmuir. Tuy nhiên, câu chuyện về các màng mang tên Langmuir–Blodgett cần nói rõ đóng góp của Katharine Blodgett: bà phát triển khả năng chuyển và xếp các lớp lên nền rắn, mở rộng từ nghiên cứu một mặt nước tới chế tạo màng.\n\n![Minh họa cấu trúc ở cấp phân tử, không phải ảnh màng Langmuir–Blodgett](/assets/library/covalent-bonds.svg)\n\n## Một lớp, nhiều lớp và các giả thiết cần phân biệt\n\nHấp phụ là sự tập trung chất trên bề mặt, khác với việc chất đi vào toàn bộ thể tích của một pha. Mô hình một lớp có thể hữu ích trong những điều kiện phù hợp, nhưng không có nghĩa mọi bề mặt thật chỉ giữ được đúng một lớp hoặc mọi vị trí đều giống nhau.\n\nVới các màng được tổ chức trên nước, việc chuyển chúng lên nền rắn có thể tạo một lớp mỏng được kiểm soát. Lặp lại quá trình mở đường xây nhiều lớp. MIT mô tả công việc của Blodgett về lớp phủ giảm phản xạ như một ứng dụng nổi bật của hướng nghiên cứu này.\n\nTính chất của màng phụ thuộc không chỉ số lớp mà còn thành phần, độ đồng đều và tương tác với nền. Một màng có chiều dày mong muốn nhưng nhiều khuyết tật có thể làm việc khác với dự đoán. Vì vậy, sự kiểm soát ở cấp phân tử phải đi cùng phép đo ở cấp vật liệu hoàn chỉnh.\n\nỞ đây, hóa học và quang học gặp nhau. Thay đổi lớp phủ có thể thay đổi cách ánh sáng phản xạ, nhưng không thể suy ra hiệu quả chỉ từ tên phân tử. Cần biết cấu trúc của toàn bộ hệ lớp phủ và nền dưới nó.\n\n## Ứng dụng hôm nay: tổ chức vật chất theo từng lớp\n\nKỹ thuật Langmuir–Blodgett tiếp tục xuất hiện trong nghiên cứu màng và các hệ vật liệu có tổ chức. Một công trình về ống nano carbon đã dùng quá trình nén và chuyển màng để tạo các lớp có mức sắp hàng cao, rồi khảo sát bằng hiển vi và phổ. Đây là một ví dụ nghiên cứu cụ thể, không đồng nghĩa mọi thiết bị điện tử đều được sản xuất theo cách ấy.\n\nĐiểm nối với công việc ban đầu là kiểm soát vị trí và hướng của những cấu phần rất nhỏ trên diện tích lớn hơn. Đó là bài toán khác với chỉ tổng hợp được một phân tử hoặc một hạt nano riêng lẻ. Muốn đưa vật liệu vào thiết bị, cách chúng được lắp ráp cũng quan trọng.\n\nCâu chuyện còn cho thấy cần thận trọng với tên gọi ghép. Langmuir đóng góp nền tảng về bề mặt; Blodgett phát triển những thao tác và ứng dụng không thể xem như phần phụ vô danh. Ghi nhận đúng từng người giúp hiểu công nghệ thực sự đã tiến lên ở đâu.\n\nMột lớp chỉ dày một phân tử có vẻ nhỏ đến mức không đáng kể. Nhưng khi được tổ chức và đo chính xác, nó có thể thay đổi điều xảy ra ở cả bề mặt. Đó là lý do hóa học bề mặt có thể bắt đầu bằng một lượng vật chất rất ít mà mở ra một không gian thiết kế lớn.\n\n## Nguồn và đọc thêm\n\n- [Irving Langmuir · Bài giảng Nobel về hóa học bề mặt](https://www.nobelprize.org/uploads/2018/06/langmuir-lecture.pdf)\n- [MIT Lemelson · Katharine Blodgett và lớp phủ không phản xạ](https://lemelson.mit.edu/resources/katherine-blodgett)\n- [American Physical Society · Phương pháp chế tạo màng của Blodgett](https://www.aps.org/apsnews/2007/03/this-month-in-physics-history)\n- [Li và cộng sự · Lắp ráp màng ống nano bằng phương pháp Langmuir–Blodgett](https://arxiv.org/abs/0704.0113)"
+}

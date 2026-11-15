@@ -1,0 +1,46 @@
+{
+  "id": "elias-corey-di-nguoc-de-tong-hop",
+  "slug": "elias-corey-di-nguoc-de-tong-hop",
+  "documentPath": "docs/elias-corey-di-nguoc-de-tong-hop/index.json",
+  "title": "E. J. Corey: đi ngược từ phân tử đích để tìm đường tiến",
+  "summary": "Phân tích hồi tổng hợp biến việc lập kế hoạch thành một chuỗi lựa chọn có thể giải thích. Corey dùng cách nghĩ ấy cùng những phản ứng mới để xây các phân tử phức tạp.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/lab-synthesis.svg",
+  "tags": [
+    "Elias James Corey",
+    "Hồi tổng hợp",
+    "Hóa hữu cơ",
+    "Thiết kế phản ứng"
+  ],
+  "aliases": [
+    "E. J. Corey"
+  ],
+  "documentKind": "story",
+  "readingMinutes": 5,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "E. J. Corey: đi ngược từ phân tử đích để tìm đường tiến",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Bắt đầu bằng thứ chưa nằm trong bình",
+      "sources": [
+        "https://www.nobelprize.org/prizes/chemistry/1990/press-release/",
+        "https://www.nobelprize.org/uploads/2018/06/corey-lecture.pdf",
+        "https://cen.acs.org/articles/82/i13/IMPOSSIBLE-DREAMS.html"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: biết vì sao lựa chọn một con đường",
+      "sources": [
+        "https://www.nobelprize.org/prizes/chemistry/1990/press-release/",
+        "https://www.nobelprize.org/uploads/2018/06/corey-lecture.pdf",
+        "https://cen.acs.org/articles/82/i13/IMPOSSIBLE-DREAMS.html"
+      ]
+    }
+  },
+  "content": "## Bắt đầu bằng thứ chưa nằm trong bình\n\nKhi muốn tạo một phân tử phức tạp, người ta có thể bắt đầu từ nguyên liệu sẵn có và hỏi nó biến thành gì. E. J. Corey phát triển có hệ thống một cách đặt câu hỏi theo chiều ngược: nhìn cấu trúc đích, chọn những liên kết chiến lược để phân tích nó thành các phần đơn giản hơn, rồi tiếp tục cho tới những chất có thể tiếp cận.\n\nThông cáo Nobel Hóa học năm 1990 mô tả phương pháp này như một nền tảng của lập kế hoạch tổng hợp. Nó được Corey phát triển từ cuối những năm 1950 và thập niên 1960, gắn với việc thực hiện nhiều tổng hợp sản phẩm tự nhiên. Kế hoạch không đứng riêng như bài tập hình học; các bước mới được phát triển khi tuyến phản ứng đòi hỏi.\n\nĐiều đáng chú ý là phương pháp làm rõ các lựa chọn. Thay vì chỉ đưa ra một chuỗi mũi tên đã thành công, người nghiên cứu có thể giải thích vì sao nên tạo một vòng ở thời điểm này hoặc giữ lại một nhóm chức tới giai đoạn sau.\n\n![Minh họa thiết kế tổng hợp hóa học](/assets/library/lab-synthesis.svg)\n\n## Mũi tên phân tích không phải phản ứng chạy ngược\n\nTrong hồi tổng hợp, việc cắt một liên kết trên giấy tạo ra những ý tưởng về tiền chất. Nó không khẳng định phân tử đích sẽ tự phân hủy theo đúng cách đó. Để biến kế hoạch thành tổng hợp, phải tìm được phản ứng thực theo chiều tiến, với độ chọn lọc và điều kiện phù hợp.\n\nMột cấu trúc có thể được phân tích theo nhiều cách. Có tuyến dẫn tới mảnh dễ mua nhưng khó ghép; có tuyến cần tạo một mảnh phức tạp hơn nhưng giúp kiểm soát cấu hình tốt hơn. Vì vậy, số nét cắt ít không tự đồng nghĩa tuyến tốt nhất.\n\nTrong bài giảng Nobel, Corey trình bày việc liên kết chiến lược tổng hợp với phương pháp tạo liên kết. Đây là quan hệ hai chiều: kiến thức phản ứng giúp đề xuất kế hoạch, còn một kế hoạch hữu ích có thể chỉ ra phản ứng nào chưa có và cần được phát triển.\n\nTính hệ thống cũng tạo điều kiện đưa lập kế hoạch vào chương trình máy tính. Nhưng cây phương án có thể rất lớn; đánh giá khả năng thực hiện vẫn cần dữ liệu phản ứng và hiểu biết về những phần khác của phân tử. Một đề xuất hợp lệ trên sơ đồ chưa đủ chứng minh nó làm việc trong phòng thí nghiệm.\n\n## Ứng dụng hôm nay: biết vì sao lựa chọn một con đường\n\nHồi tổng hợp hiện là cách tư duy quen thuộc trong đào tạo và nghiên cứu hóa hữu cơ. Nó giúp người làm tổng hợp so sánh các tuyến tới cùng một đích, nhận ra chặng khó và chọn thí nghiệm có giá trị kiểm tra cao. Các công cụ tính toán hỗ trợ tìm phương án, nhưng cần phân biệt gợi ý với tuyến đã được xác nhận.\n\nKhi chuyển tới sản xuất, bài toán còn có quy mô, độ ổn định của chất trung gian, công đoạn tinh chế và dòng chất thải. Một tuyến tạo được mẫu tinh khiết đủ cho nghiên cứu có thể cần thay đổi đáng kể trước khi cung cấp lượng lớn.\n\nCách kể về Corey cũng cần giữ chỗ cho sự sáng tạo của nhiều thế hệ nhà tổng hợp. Ông hệ thống hóa và mở rộng một phương pháp có ảnh hưởng lớn; điều đó không có nghĩa trước ông chưa ai từng suy nghĩ ngược từ sản phẩm.\n\nDi sản hữu ích nhất với người học là thói quen làm cho lựa chọn trở nên có thể giải thích. Trước một tuyến phản ứng, hãy hỏi liên kết nào được xem là chiến lược, nguyên liệu nào đã có, và giả định nào còn cần thử. Những câu hỏi ấy biến sơ đồ từ một đáp án để nhớ thành một kế hoạch có thể kiểm chứng.\n\n## Nguồn và đọc thêm\n\n- [Viện Hàn lâm Khoa học Hoàng gia Thụy Điển · Nobel Hóa học 1990](https://www.nobelprize.org/prizes/chemistry/1990/press-release/)\n- [E. J. Corey · Bài giảng Nobel về logic tổng hợp](https://www.nobelprize.org/uploads/2018/06/corey-lecture.pdf)\n- [E. J. Corey · Tự thuật về công việc tổng hợp tại ACS](https://cen.acs.org/articles/82/i13/IMPOSSIBLE-DREAMS.html)"
+}

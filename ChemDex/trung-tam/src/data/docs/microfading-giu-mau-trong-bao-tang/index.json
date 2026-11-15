@@ -1,0 +1,46 @@
+{
+  "id": "microfading-giu-mau-trong-bao-tang",
+  "slug": "microfading-giu-mau-trong-bao-tang",
+  "documentPath": "docs/microfading-giu-mau-trong-bao-tang/index.json",
+  "title": "Chiếu sáng một chấm nhỏ để giữ màu cho cả tác phẩm",
+  "summary": "Bảo tàng cần ánh sáng để người xem nhìn thấy hiện vật, nhưng ánh sáng cũng có thể làm màu thay đổi. Microfading thử phản ứng của một vùng rất nhỏ để hỗ trợ quyết định trưng bày.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/apparatus-spectroscope.svg",
+  "tags": [
+    "Quang hóa",
+    "Bảo tồn",
+    "Màu sắc",
+    "Microfading"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 5,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Chiếu sáng một chấm nhỏ để giữ màu cho cả tác phẩm",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một quyết định trưng bày có thể bắt đầu trên đầu kim",
+      "sources": [
+        "https://www.getty.edu/projects/advancing-microfading-tester-practice",
+        "https://www.getty.edu/conservation/publications_resources/pdf_publications/microfading_tester.html",
+        "https://www.getty.edu/news/microfading-tester-getty-conservation-institute-video",
+        "https://www.getty.edu/projects/managing-collection-environments-initiative/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: cho hiện vật được nhìn thấy lâu hơn",
+      "sources": [
+        "https://www.getty.edu/projects/advancing-microfading-tester-practice",
+        "https://www.getty.edu/conservation/publications_resources/pdf_publications/microfading_tester.html",
+        "https://www.getty.edu/news/microfading-tester-getty-conservation-institute-video",
+        "https://www.getty.edu/projects/managing-collection-environments-initiative/"
+      ]
+    }
+  },
+  "content": "## Một quyết định trưng bày có thể bắt đầu trên đầu kim\n\nTừ năm 2018, Getty Conservation Institute triển khai chương trình hỗ trợ thực hành microfading tester. Thiết bị tập trung ánh sáng lên một vùng rất nhỏ trên vật liệu và theo dõi sự thay đổi màu trong quá trình chiếu. Mục tiêu là có thêm bằng chứng về độ nhạy sáng trước khi quyết định điều kiện trưng bày.\n\nCâu hỏi không chỉ là một bức tranh đang có màu gì. Người bảo tồn cần biết màu ấy có thể thay đổi nhanh đến đâu khi tiếp xúc với ánh sáng. Hai vùng nhìn gần giống nhau vẫn có thể chứa vật liệu khác nhau, từng được xử lý khác nhau và phản ứng khác nhau. Một quy tắc duy nhất áp cho mọi hiện vật có thể bỏ qua những khác biệt ấy.\n\n![Sơ đồ thiết bị quang học minh họa nguyên lý đo ánh sáng; không phải ảnh microfading tester của Getty](/assets/library/apparatus-spectroscope.svg)\n\n## Ánh sáng nhìn thấy cũng có thể tham gia hóa học\n\nMột phân tử hấp thụ photon có thể đi vào trạng thái kích thích. Từ đó, nhiều con đường có thể xảy ra: giải phóng năng lượng, phản ứng với môi trường hoặc thay đổi cấu trúc. Khi các cấu trúc hấp thụ ánh sáng trong chất màu bị biến đổi, màu nhìn thấy cũng có thể đổi.\n\nKhông phải mọi photon chiếu lên tác phẩm đều gây cùng tác động. Phổ của đèn, cách vật liệu hấp thụ và các thành phần xung quanh cùng quyết định nguy cơ. Loại bỏ một phần tia tử ngoại là một biện pháp có ích trong những trường hợp phù hợp, nhưng không biến ánh sáng nhìn thấy thành hoàn toàn vô hại với mọi chất màu.\n\nMicrofading đọc tín hiệu phản xạ trong lúc chiếu để theo dõi màu thay đổi. Nó biến một hiện tượng có thể rất chậm trong phòng trưng bày thành phép thử tập trung trên một diện tích nhỏ.\n\n## Phép thử nhỏ vẫn phải được quản lý như một can thiệp\n\nĐây không phải phép đo hoàn toàn không gây biến đổi. Kỹ thuật chủ động thử độ bền sáng tại một điểm, nên vị trí đo, mức thay đổi chấp nhận và cách dừng phép thử đều cần chuyên môn bảo tồn. Việc vùng đo nhỏ khó nhìn thấy bằng mắt không xóa bỏ trách nhiệm ấy.\n\nHướng dẫn do Getty công bố bàn cả cách sử dụng dữ liệu trong chính sách chiếu sáng. Kết quả giúp so sánh độ nhạy của vật liệu, nhưng không nên tự động chuyển thành một lời hứa rằng tác phẩm sẽ giữ nguyên màu trong một số năm chính xác. Điều kiện thử tăng tốc và điều kiện trưng bày không giống hoàn toàn nhau.\n\nLịch sử vật liệu cũng quan trọng. Một vùng đã phai trước đó có thể không phản ứng giống phần màu ban đầu. Lấy một điểm đo rồi đại diện cho cả hiện vật cần được cân nhắc cùng cấu trúc và những phần khác của tác phẩm.\n\n## Ứng dụng hôm nay: cho hiện vật được nhìn thấy lâu hơn\n\nBằng chứng về độ nhạy sáng có thể giúp bảo tàng lựa chọn mức chiếu sáng, thời gian trưng bày, luân phiên hiện vật hoặc phương án dùng bản sao. Đây là bài toán dung hòa việc cho công chúng tiếp cận với việc giữ vật liệu cho những người xem sau này.\n\nGetty phát triển tài liệu, trao đổi chuyên môn và đào tạo vì số liệu chỉ hữu ích khi người sử dụng hiểu giới hạn của nó. Một thiết bị đắt tiền không thay thế được câu hỏi bảo tồn đúng; ngược lại, phép đo phù hợp có thể giúp tránh những hạn chế quá rộng hoặc những quyết định quá mạo hiểm.\n\nNhìn tác phẩm trong phòng trưng bày, người xem hiếm khi thấy quá trình đánh giá ấy. Nhưng đằng sau ánh đèn là câu chuyện quang hóa rất cụ thể: phân tử hấp thụ năng lượng, màu có thể thay đổi, và quyết định hôm nay ảnh hưởng hình ảnh mà công chúng sẽ thấy trong tương lai.\n\n## Nguồn và đọc thêm\n\n- [Getty · Chương trình Advancing Microfading Tester Practice](https://www.getty.edu/projects/advancing-microfading-tester-practice)\n- [Getty · Microfading Tester: Light Sensitivity Assessment and Role in Lighting Policy](https://www.getty.edu/conservation/publications_resources/pdf_publications/microfading_tester.html)\n- [Getty · Giới thiệu thực hành bảo tồn bằng microfading, 2025](https://www.getty.edu/news/microfading-tester-getty-conservation-institute-video)\n- [Getty · Quản lý môi trường bộ sưu tập](https://www.getty.edu/projects/managing-collection-environments-initiative/)"
+}

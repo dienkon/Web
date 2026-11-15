@@ -1,0 +1,46 @@
+{
+  "id": "van-t-hoff-tu-mang-ngan-den-ap-suat",
+  "slug": "van-t-hoff-tu-mang-ngan-den-ap-suat",
+  "documentPath": "docs/van-t-hoff-tu-mang-ngan-den-ap-suat/index.json",
+  "title": "Van ’t Hoff: điều một màng ngăn mỏng tiết lộ về dung dịch",
+  "summary": "Từ các phép đo của Wilhelm Pfeffer, van ’t Hoff tìm mối liên hệ giữa áp suất thẩm thấu và nồng độ. Một hiện tượng qua màng trở thành cửa sổ nhìn vào cân bằng hóa học.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/stories/desalination.jpg",
+  "tags": [
+    "Jacobus van ’t Hoff",
+    "Thẩm thấu",
+    "Dung dịch",
+    "Cân bằng"
+  ],
+  "aliases": [
+    "Jacobus Henricus van 't Hoff"
+  ],
+  "documentKind": "story",
+  "readingMinutes": 5,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Van ’t Hoff: điều một màng ngăn mỏng tiết lộ về dung dịch",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Bắt đầu từ phép đo của một người khác",
+      "sources": [
+        "https://www.nobelprize.org/uploads/2018/06/hoff-lecture.pdf",
+        "https://openstax.org/books/chemistry-atoms-first-2e/pages/11-4-colligative-properties",
+        "https://arxiv.org/abs/2308.14233"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: công nghệ phải làm việc với áp suất thật",
+      "sources": [
+        "https://www.nobelprize.org/uploads/2018/06/hoff-lecture.pdf",
+        "https://openstax.org/books/chemistry-atoms-first-2e/pages/11-4-colligative-properties",
+        "https://arxiv.org/abs/2308.14233"
+      ]
+    }
+  },
+  "content": "## Bắt đầu từ phép đo của một người khác\n\nTrong bài giảng Nobel năm 1901, Jacobus van ’t Hoff mở đầu bằng các nghiên cứu trước đó về áp suất thẩm thấu. Ông nhắc đến Wilhelm Pfeffer, người đo áp suất bằng màng cho nước đi qua nhưng giữ đường lại. Một lý thuyết mới được xây trên khả năng tạo ra phép đo đủ tin cậy.\n\nKhi dung dịch đường và nước được ngăn bằng màng phù hợp, sự chuyển dịch nước làm xuất hiện chênh lệch áp suất. Màng phải vừa có tính chọn lọc vừa chịu được áp lực. Nếu nó rò rỉ chất tan hoặc hỏng trước khi cân bằng được xác lập, con số đọc được sẽ không còn trả lời đúng câu hỏi.\n\nVan ’t Hoff nhận ra mối liên hệ giữa tính chất của dung dịch loãng với những quy luật quen thuộc của chất khí. Câu chuyện đáng chú ý không phải mọi dung dịch đều là khí theo nghĩa vật chất, mà là một dạng quan hệ toán học có thể mô tả các hệ khác nhau trong những điều kiện xác định.\n\n![Thiết bị thẩm thấu ngược ở El Prat](/assets/library/photos/stories/desalination.jpg)\n\n*Hệ thống thẩm thấu ngược tại nhà máy khử mặn El Prat gần Barcelona, Tây Ban Nha. — James Grellier; [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0). [Nguồn ảnh](https://commons.wikimedia.org/wiki/File:Reverse_osmosis_desalination_plant.JPG).*\n\n## Một công thức hữu ích phải đi cùng miền áp dụng\n\nVới dung dịch loãng lý tưởng, áp suất thẩm thấu liên hệ với nồng độ hạt chất tan và nhiệt độ tuyệt đối. Điều quan trọng là số hạt trong dung dịch, không chỉ khối lượng chất đã cân. Nếu một chất phân li thành ion, số loài đóng góp vào hành vi dung dịch khác với trường hợp phân tử không phân li.\n\nNhưng dung dịch thực có tương tác giữa các thành phần. Ở nồng độ cao hơn, dùng nguyên xi mô hình loãng lý tưởng có thể tạo sai lệch đáng kể. Một công thức không trở nên vô dụng vì có giới hạn; ngược lại, biết giới hạn giúp chọn đúng mức mô tả.\n\nÁp suất thẩm thấu cũng cần được phân biệt với việc “chất tan hút nước” như một lực bí ẩn. Nó là kết quả của trạng thái hệ, tính chọn lọc của màng và điều kiện cân bằng. Khi áp suất ngoài thay đổi, chiều chuyển dịch ròng của dung môi có thể đổi.\n\nTừ đây, người nghiên cứu có thể nối phép đo qua màng với các câu hỏi về dung dịch, cân bằng và khối lượng phân tử. Một thiết bị nhỏ đã tạo ra dữ liệu cho những khái niệm rộng hơn nhiều so với hình dạng của chính thiết bị ấy.\n\n## Ứng dụng hôm nay: công nghệ phải làm việc với áp suất thật\n\nThẩm thấu ngược sử dụng áp suất đặt lên phía dung dịch để thúc đẩy dung môi đi qua màng theo chiều phục vụ phân tách. OpenStax trình bày nguyên lý này trong xử lý nước và khử mặn. Nhìn từ câu chuyện van ’t Hoff, áp suất thẩm thấu là một phần của bài toán mà hệ thống phải vượt qua, không phải chi tiết chỉ dành cho sách giáo khoa.\n\nMột thiết bị thực còn chịu ảnh hưởng của chất bám màng, tổn thất dòng chảy và thành phần nước đầu vào. Nồng độ gần bề mặt có thể khác giá trị trung bình của dòng. Vì vậy, biết nguyên lý cân bằng chưa đủ để dự đoán năng suất hay năng lượng của cả nhà máy.\n\nĐiều cần giữ khi kể tiểu sử này là vai trò của phép đo trước lý thuyết. Màng của Pfeffer và cách phân tích của van ’t Hoff thuộc những đóng góp khác nhau nhưng bổ sung cho nhau. Không có một người đơn lẻ làm ra toàn bộ hiểu biết về thẩm thấu.\n\nNgày nay, mỗi khi một mô hình đơn giản được dùng để giải thích công nghệ, câu chuyện ấy gợi một câu hỏi hữu ích: những điều kiện nào đã làm mô hình đúng? Trả lời được câu hỏi đó giúp biến công thức thành công cụ, thay vì biến nó thành lời hứa áp dụng cho mọi hệ.\n\n## Nguồn và đọc thêm\n\n- [Jacobus van ’t Hoff · Bài giảng Nobel 1901](https://www.nobelprize.org/uploads/2018/06/hoff-lecture.pdf)\n- [OpenStax · Tính chất tập hợp và thẩm thấu ngược](https://openstax.org/books/chemistry-atoms-first-2e/pages/11-4-colligative-properties)\n- [Biesheuvel và cộng sự · Nghiên cứu phân cực nồng độ trong thẩm thấu ngược](https://arxiv.org/abs/2308.14233)"
+}

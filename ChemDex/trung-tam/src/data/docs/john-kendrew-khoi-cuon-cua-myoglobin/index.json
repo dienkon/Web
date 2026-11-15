@@ -1,0 +1,44 @@
+{
+  "id": "john-kendrew-khoi-cuon-cua-myoglobin",
+  "slug": "john-kendrew-khoi-cuon-cua-myoglobin",
+  "documentPath": "docs/john-kendrew-khoi-cuon-cua-myoglobin/index.json",
+  "title": "John Kendrew: protein đầu tiên hiện ra như một khối cuộn khó đoán",
+  "summary": "Myoglobin nhỏ hơn hemoglobin nhưng vẫn là một thử thách lớn. Kendrew và cộng sự cho thấy hình dạng thật của protein phải được đọc từ dữ liệu, không thể suy bằng một sơ đồ quá gọn.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/covalent-bonds.svg",
+  "tags": [
+    "John Kendrew",
+    "Myoglobin",
+    "Cấu trúc protein",
+    "Tinh thể học"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 5,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "John Kendrew: protein đầu tiên hiện ra như một khối cuộn khó đoán",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Chọn một protein nhỏ hơn để mở cánh cửa lớn",
+      "sources": [
+        "https://www.nature.com/articles/181662a0",
+        "https://www.nobelprize.org/uploads/2025/08/kendrew-lecture-2.pdf",
+        "https://mrclmb.ac.uk/achievements/awards-and-prizes/nobel-prizes/1962-john-kendrew-max-perutz/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: cấu trúc để kiểm tra các dự đoán",
+      "sources": [
+        "https://www.nature.com/articles/181662a0",
+        "https://www.nobelprize.org/uploads/2025/08/kendrew-lecture-2.pdf",
+        "https://mrclmb.ac.uk/achievements/awards-and-prizes/nobel-prizes/1962-john-kendrew-max-perutz/"
+      ]
+    }
+  },
+  "content": "## Chọn một protein nhỏ hơn để mở cánh cửa lớn\n\nTrong nhóm nghiên cứu tại Cambridge, John Kendrew chuyển sang myoglobin, protein giữ oxy trong cơ. Nó có một chuỗi, nhỏ hơn hemoglobin gồm nhiều chuỗi. Lựa chọn ấy không làm bài toán trở nên dễ, nhưng tạo một đối tượng phù hợp hơn để thử sức các phương pháp xác định cấu trúc đang phát triển.\n\nNhóm sử dụng nguồn myoglobin từ các loài động vật có cơ giàu protein này, trong đó có động vật lặn. Bài báo năm 1958 của Kendrew và các cộng sự mô tả mô hình ba chiều thu được bằng phân tích tia X. Câu chuyện bắt đầu từ một chức năng sinh học cụ thể: giữ một lượng oxy tạm thời trong tế bào cơ.\n\nCấu trúc ban đầu cho thấy sự cuộn gấp phức tạp mà những cách hình dung quá đều đặn khó đoán trước. Đó là một lời nhắc quan trọng: phân tử có thể được tạo từ các đơn vị lặp, nhưng hình dạng toàn bộ không nhất thiết là một mẫu hình đơn giản lặp mãi.\n\n![Minh họa cấu trúc phân tử, không phải ảnh myoglobin thực nghiệm](/assets/library/covalent-bonds.svg)\n\n## Trật tự của chuỗi và hình dạng của khối là hai bài toán\n\nTrình tự amino acid mô tả thứ tự trên mạch. Cấu trúc ba chiều cho biết các đoạn mạch nằm gần nhau ra sao khi protein cuộn gấp. Hai đoạn xa nhau trên trình tự có thể tiếp xúc trong không gian; vì vậy, đọc một hàng chữ chưa đủ để biết tất cả tương tác của phân tử.\n\nMyoglobin còn chứa nhóm heme, một cấu phần có sắt liên quan trực tiếp đến việc gắn oxy. Protein không chỉ là lớp vỏ giữ một ion kim loại. Môi trường xung quanh nhóm heme góp phần tạo nên hành vi của toàn hệ. Muốn hiểu chức năng phải xét cả cấu trúc và các phép đo tương tác với oxy.\n\nKendrew dùng những phương pháp dựa trên sự khác biệt giữa các tinh thể có nguyên tử nặng, được phát triển cùng dòng nghiên cứu của Perutz. Kết quả mở đường cho các bản đồ chi tiết hơn, nhưng mỗi mức phân giải chỉ hỗ trợ một mức kết luận nhất định. Hình mô hình hoàn chỉnh trong sách thường là điểm cuối của nhiều vòng đo và chỉnh sửa.\n\nVì thế, “nhìn thấy protein” là cách nói ngắn cho một quá trình suy luận từ nhiễu xạ, tính toán và mô hình hóa. Những phần đó cần được giữ cùng nhau khi kể lịch sử phát hiện.\n\n## Ứng dụng hôm nay: cấu trúc để kiểm tra các dự đoán\n\nMyoglobin trở thành một hệ được nghiên cứu sâu về cấu trúc và chức năng. Việc biết một cấu trúc thực nghiệm cho phép đặt câu hỏi về vị trí gắn, chuyển động hoặc ảnh hưởng khi thay một amino acid. Tuy vậy, mô hình tĩnh không tự giải thích mọi tốc độ phản ứng hay mọi trạng thái trong tế bào.\n\nCác công cụ tính toán hiện nay có thể đưa ra những dự đoán rất chi tiết về protein. Bài học từ Kendrew vẫn cần thiết: độ đẹp của hình dựng phải được phân biệt với mức hỗ trợ của bằng chứng. Dự đoán trở nên hữu ích hơn khi được so sánh với phép đo độc lập và điều kiện mẫu được mô tả rõ.\n\nMRC LMB ghi nhận công trình của Kendrew và Perutz như nền tảng của tinh thể học protein. Ảnh hưởng của họ không chỉ nằm trong hai cấu trúc nổi tiếng, mà ở khả năng biến cấu trúc phân tử lớn thành một đối tượng có thể nghiên cứu có hệ thống.\n\nTừ cơ của một con vật lặn tới bản đồ trong phòng thí nghiệm, myoglobin cho thấy câu hỏi hóa học có thể xuất phát từ đời sống rất cụ thể. Một phân tử giúp giữ oxy đã giúp khoa học hiểu rằng chuỗi dài không chỉ cần đúng thành phần: nó còn phải được sắp xếp trong không gian để làm việc.\n\n## Nguồn và đọc thêm\n\n- [Kendrew và cộng sự · Mô hình myoglobin, Nature 1958](https://www.nature.com/articles/181662a0)\n- [John Kendrew · Bài giảng Nobel 1962](https://www.nobelprize.org/uploads/2025/08/kendrew-lecture-2.pdf)\n- [MRC LMB · Công trình cấu trúc protein của Kendrew và Perutz](https://mrclmb.ac.uk/achievements/awards-and-prizes/nobel-prizes/1962-john-kendrew-max-perutz/)"
+}

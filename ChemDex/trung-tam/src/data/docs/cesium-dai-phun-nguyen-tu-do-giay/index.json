@@ -1,0 +1,44 @@
+{
+  "id": "cesium-dai-phun-nguyen-tu-do-giay",
+  "slug": "cesium-dai-phun-nguyen-tu-do-giay",
+  "documentPath": "docs/cesium-dai-phun-nguyen-tu-do-giay/index.json",
+  "title": "Một đài phun nguyên tử để đo giây: cesium trong đồng hồ chuẩn",
+  "summary": "Trong đồng hồ phun nguyên tử, đám mây cesium được làm lạnh rồi tung lên. Chuyến đi ngắn giúp nhà đo lường quan sát chuyển mức lâu hơn và kiểm tra tần số dùng để định nghĩa giây.",
+  "category": "nguyento",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/elements/Cs.jpg",
+  "tags": [
+    "Cesium",
+    "Đồng hồ nguyên tử",
+    "Đo lường",
+    "Thời gian"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "element",
+    "contextLabel": "Một đài phun nguyên tử để đo giây: cesium trong đồng hồ chuẩn",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Tung nguyên tử lên để có thêm thời gian quan sát",
+      "sources": [
+        "https://www.nist.gov/pml/time-and-frequency-division/time-realization/cesium-fountain-atomic-clocks",
+        "https://www.nist.gov/pml/owm/si-units-time",
+        "https://www.nist.gov/si-redefinition/second-introduction"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: chiếc đồng hồ của cả mạng lưới",
+      "sources": [
+        "https://www.nist.gov/pml/time-and-frequency-division/time-realization/cesium-fountain-atomic-clocks",
+        "https://www.nist.gov/pml/owm/si-units-time",
+        "https://www.nist.gov/si-redefinition/second-introduction"
+      ]
+    }
+  },
+  "content": "## Tung nguyên tử lên để có thêm thời gian quan sát\n\nTrong thiết kế đồng hồ phun nguyên tử của NIST, một đám mây cesium được làm lạnh bằng laser rồi đưa lên qua vùng vi sóng. Dưới tác dụng của trọng lực, các nguyên tử quay xuống và đi qua vùng đó lần nữa. Hình ảnh giống một đài phun, nhưng những thứ chuyển động là nguyên tử trong buồng chân không.\n\nMục đích không phải làm đồng hồ có hình dáng lạ. Các nguyên tử lạnh chuyển động chậm hơn, cho phép tương tác với tín hiệu trong khoảng thời gian dài hơn so với chùm nguyên tử nóng bay nhanh. Thiết kế cơ học, quang học và điều khiển cùng phục vụ một phép đo tần số rất cụ thể.\n\n![Mẫu cesium minh họa nguyên tố; đồng hồ chuẩn làm việc với các nguyên tử trong buồng chân không](/assets/library/photos/elements/Cs.jpg)\n\n## Vì sao lại là 9.192.631.770?\n\nGiây trong hệ SI được xác định bằng cách cố định tần số chuyển mức siêu tinh tế ở trạng thái cơ bản không nhiễu loạn của nguyên tử cesium-133 bằng 9.192.631.770 Hz. Con số này gắn một đơn vị thời gian với một hiện tượng nguyên tử xác định, thay vì chỉ dựa vào chuyển động của một vật thể lớn.\n\nĐồng hồ không đếm những nguyên tử đi qua như đếm hạt cát. Nó dùng đáp ứng của nguyên tử để kiểm tra và điều chỉnh tần số của tín hiệu điện từ. Khi thay tần số vi sóng, số nguyên tử chuyển trạng thái thay đổi. Đo sự thay đổi đó giúp xác định vùng cộng hưởng và hiệu chỉnh bộ dao động của hệ thống.\n\n## Chuẩn lý tưởng và thiết bị thật luôn cần được đối chiếu\n\nTrong định nghĩa có điều kiện “không nhiễu loạn”, còn thiết bị thật chịu nhiều ảnh hưởng của môi trường và phép đo. Từ trường, chuyển động của nguyên tử và các đặc điểm của vùng tương tác đều cần được kiểm soát hoặc hiệu chỉnh. Vì thế, một đồng hồ chuẩn đi kèm đánh giá độ không đảm bảo, không chỉ một màn hình có nhiều chữ số.\n\nNIST phân biệt nhiệm vụ của các hệ phun nguyên tử: có hệ hướng tới thực hiện định nghĩa giây với độ chính xác cao, có hệ ưu tiên cung cấp tham chiếu ổn định trong thời gian dài. Độ chính xác và thời gian hoạt động liên tục là các yêu cầu có liên quan nhưng không đồng nhất. Thiết kế phải phù hợp nhiệm vụ của từng thiết bị.\n\n## Ứng dụng hôm nay: chiếc đồng hồ của cả mạng lưới\n\nCác chuẩn tần số góp phần hiệu chuẩn thang thời gian quốc tế và các hiện thực quốc gia của nó. Người dùng cuối có thể nhận tín hiệu qua vô tuyến, điện thoại hoặc internet, nhưng đường truyền lại tạo thêm sai lệch và độ trễ cần được tính. Độ chính xác tại phòng đo không tự động trở thành độ chính xác giống hệt trên mọi thiết bị nhận.\n\nĐó là lý do hạ tầng thời gian gồm cả đồng hồ, so sánh giữa các cơ sở và phương pháp phân phối tín hiệu. Cesium giữ một vai trò nền tảng trong định nghĩa hiện hành, đồng thời những đồng hồ quang học khác đang được nghiên cứu để nâng khả năng đo. Đài phun nguyên tử nhắc rằng một giây rất quen thuộc được duy trì bằng công việc ít nhìn thấy: làm lạnh, quan sát, đối chiếu và liên tục kiểm tra những sai lệch nhỏ.\n\n## Nguồn và đọc thêm\n\n- [NIST · Thiết kế và nhiệm vụ các đồng hồ phun cesium](https://www.nist.gov/pml/time-and-frequency-division/time-realization/cesium-fountain-atomic-clocks)\n- [NIST · Định nghĩa SI và phân phối thời gian](https://www.nist.gov/pml/owm/si-units-time)\n- [NIST · Từ đo khoảng thời gian đến đồng hồ nguyên tử](https://www.nist.gov/si-redefinition/second-introduction)"
+}

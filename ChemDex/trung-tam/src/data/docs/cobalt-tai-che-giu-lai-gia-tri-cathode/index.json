@@ -1,0 +1,44 @@
+{
+  "id": "cobalt-tai-che-giu-lai-gia-tri-cathode",
+  "slug": "cobalt-tai-che-giu-lai-gia-tri-cathode",
+  "documentPath": "docs/cobalt-tai-che-giu-lai-gia-tri-cathode/index.json",
+  "title": "Cobalt trong pin cũ: thu hồi nguyên tử hay giữ lại cả vật liệu?",
+  "summary": "ReCell đặt một câu hỏi khó cho tái chế pin: nếu lượng cobalt trong cathode giảm, quy trình còn hiệu quả không? Câu trả lời dẫn tới việc phục hồi cấu trúc vật liệu, thay vì chỉ tính lượng kim loại thu được.",
+  "category": "nguyento",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/stories/lithium-battery-inside.jpg",
+  "tags": [
+    "Cobalt",
+    "Tái chế pin",
+    "Cathode",
+    "ReCell"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 5,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "element",
+    "contextLabel": "Cobalt trong pin cũ: thu hồi nguyên tử hay giữ lại cả vật liệu?",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một chương trình bắt đầu từ chiếc pin đã hết lượt dùng",
+      "sources": [
+        "https://www.osti.gov/biblio/1782951",
+        "https://www.osti.gov/biblio/1669599",
+        "https://www.osti.gov/biblio/3014959"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: tính giá trị vượt ra ngoài khối lượng cobalt",
+      "sources": [
+        "https://www.osti.gov/biblio/1782951",
+        "https://www.osti.gov/biblio/1669599",
+        "https://www.osti.gov/biblio/3014959"
+      ]
+    }
+  },
+  "content": "## Một chương trình bắt đầu từ chiếc pin đã hết lượt dùng\n\nĐầu năm 2019, Bộ Năng lượng Hoa Kỳ thành lập ReCell để phát triển công nghệ tái chế pin lithium-ion. Trong bài tổng kết hai năm đầu, nhóm nghiên cứu nêu một khó khăn: lợi ích kinh tế của nhiều quy trình phụ thuộc việc thu hồi cobalt, trong khi một số hóa học cathode mới sử dụng ít cobalt hơn hoặc không dùng nó.\n\nBài toán vì vậy không thể giải bằng cách đợi pin cũ chứa nhiều kim loại quý hơn. Nhóm hướng tới công nghệ có thể giữ lại giá trị của vật liệu cathode và thu hồi thêm những thành phần khác. Câu hỏi chuyển từ “có bao nhiêu cobalt trong đống pin” sang “đã bỏ bao nhiêu công sức để làm ra những vật liệu đang nằm trong đó”.\n\n![Cấu tạo bên trong cell lithium-ion](/assets/library/photos/stories/lithium-battery-inside.jpg)\n\n*Một cell lithium-ion 18650 trước khi đóng vỏ, cho thấy phần điện cực cuộn bên trong. — RudolfSimon; [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0). [Nguồn ảnh](https://commons.wikimedia.org/wiki/File:Lithium-Ion_Cell_cylindric.JPG).*\n\n## Cobalt không nằm trong pin như một thỏi kim loại\n\nTrong cathode NMC, cobalt cùng nickel và manganese thuộc một vật liệu oxide chứa lithium. Chức năng điện hóa gắn với cấu trúc và trạng thái của vật liệu. Một mẫu đã suy giảm hiệu năng không nhất thiết chỉ thiếu một nguyên tố; cấu trúc, bề mặt và các đường vận chuyển ion cũng có thể thay đổi.\n\nTái chế trực tiếp tìm cách phục hồi vật liệu hữu ích mà giữ được nhiều phần cấu trúc ban đầu. Điều đó khác với việc phân giải toàn bộ về các thành phần rồi tổng hợp lại từ đầu. Không có tuyến nào tự động tốt trong mọi hoàn cảnh: chất lượng đầu vào, mức trộn lẫn và yêu cầu sản phẩm cuối quyết định lựa chọn. Một lô cathode đồng nhất dễ xử lý theo cách khác với hỗn hợp nhiều loại pin chưa phân loại.\n\n## Phục hồi phải được chứng minh bằng chiếc pin làm việc\n\nCác nghiên cứu về bổ sung lithium trở lại và xử lý nhiệt cho cathode đã sử dụng cho thấy quy trình cần kiểm tra cả thành phần lẫn cấu trúc. Công trình về ảnh hưởng của ủ nhiệt trên NMC622 sử dụng nhiễu xạ và những phép đo khác để theo dõi vật liệu. Có lại lượng lithium mong muốn chưa đủ nếu cấu trúc vẫn không phục hồi phù hợp.\n\nĐến bước đánh giá, vật liệu tái chế phải được đưa vào phép thử điện hóa. Dung lượng ban đầu, khả năng giữ dung lượng và độ ổn định qua các chu kỳ đều quan trọng. Một bột thu được với hiệu suất cao nhưng làm việc kém không có cùng giá trị với cathode đạt yêu cầu. Ảnh cell pin mở trong bài minh họa sự phức tạp của thiết bị; nó không xác định hóa học của một mẫu nghiên cứu ReCell cụ thể.\n\n## Ứng dụng hôm nay: tính giá trị vượt ra ngoài khối lượng cobalt\n\nReCell cho thấy một hướng nghiên cứu thực tế để giảm việc mất đi giá trị đã tạo trong sản xuất pin. Phân loại, làm sạch và phục hồi có thể quan trọng không kém công đoạn tách kim loại. Những nghiên cứu này đang được đánh giá ở các mức quy mô khác nhau; kết quả phòng thí nghiệm không nên được mô tả thành một quy trình đã áp dụng cho mọi pin thương mại.\n\nVới người đọc, cobalt trở thành cửa vào của một câu chuyện rộng hơn về vật liệu. Giá trị của pin không chỉ nằm ở danh sách nguyên tố mà còn ở cách chúng được sắp xếp. Khi xem một tuyên bố tái chế, cần hỏi sản phẩm thu hồi là muối, kim loại hay cathode dùng lại được, và đã kiểm tra chất lượng ra sao. Giữ được một nguyên tử là điều cần; giữ được công năng của vật liệu có thể là bước tiến tiếp theo.\n\n## Nguồn và đọc thêm\n\n- [Nhóm ReCell · Nghiên cứu tái chế trực tiếp trong hai năm đầu](https://www.osti.gov/biblio/1782951)\n- [ReCell · Công việc liên ngành năm tài khóa 2019](https://www.osti.gov/biblio/1669599)\n- [Nghiên cứu gốc · Ảnh hưởng của ủ nhiệt lên cathode NMC tái chế trực tiếp](https://www.osti.gov/biblio/3014959)"
+}

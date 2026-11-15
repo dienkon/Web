@@ -1,9 +1,14 @@
 import {substanceStories} from './data/substance-stories.mjs';
 import {applicationStories} from './data/substance-stories-applications.mjs';
+import {substanceFeaturesWave2} from './data/substance-features-wave2.mjs';
 import storyPhotos from './data/story-photo-sources.json' with {type: 'json'};
 
 const photos = new Map(storyPhotos.photos.map(photo => [photo.id, photo]));
 const substancePhotos = {
+  'nito-n2': 'cryopreservation-dewar',
+  'glixerol-c3h8o3': 'cryopreservation-dewar',
+  'benzen-c6h6': 'benzene-historical-stills',
+  'dung-dich-natri-axetat-0-1-m-ch3coona': 'sodium-acetate-crystals',
   'hidro-h2': 'fuel-cell',
   'oxi-o2': 'fuel-cell',
   'ozon-o3': 'ozone',
@@ -34,6 +39,7 @@ function compose({story, scope, contextLabel, reviewBasis = 'source-read-2026-11
   ];
   return {
     title: story.headline,
+    image: photo?.id && image && imageSource ? image : undefined,
     summary: extraLead || story.lead,
     sections,
     editorialEvidence: {
@@ -68,7 +74,7 @@ function forElement({name, element, detail}) {
 }
 
 export function substanceNarrative({id, subject, name, element, detail}) {
-  const exact = [...substanceStories, ...applicationStories].find(story => story.ids.includes(id));
+  const exact = [...substanceFeaturesWave2, ...substanceStories, ...applicationStories].find(story => story.ids.includes(id));
   if (exact) return compose({story: exact, scope: 'substance', applicationScope: exact.applicationScope ?? 'substance', contextLabel: name, photo: photos.get(substancePhotos[id])});
   if (element) {
     const narrative = forElement({name, element, detail});

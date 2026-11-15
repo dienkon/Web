@@ -1,0 +1,46 @@
+{
+  "id": "robert-woodward-ban-thiet-ke-vitamin-b12",
+  "slug": "robert-woodward-ban-thiet-ke-vitamin-b12",
+  "documentPath": "docs/robert-woodward-ban-thiet-ke-vitamin-b12/index.json",
+  "title": "Robert Woodward: dựng vitamin B₁₂ từ một bản thiết kế nhiều ngả",
+  "summary": "Cuộc hợp tác Harvard–ETH về vitamin B₁₂ cho thấy tổng hợp phân tử phức tạp cần cả chiến lược, nhận diện cấu trúc và khả năng thay đổi đường đi khi phản ứng không theo dự kiến.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/stories/chromatography.jpg",
+  "tags": [
+    "Robert Woodward",
+    "Albert Eschenmoser",
+    "Vitamin B12",
+    "Tổng hợp hữu cơ"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 5,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Robert Woodward: dựng vitamin B₁₂ từ một bản thiết kế nhiều ngả",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một mục tiêu lớn đến mức phải chia thành nhiều bài toán",
+      "sources": [
+        "https://old.iupac.org/publications/pac/1973/pdf/3301x0145.pdf",
+        "https://www.nobelprize.org/uploads/2018/06/woodward-lecture.pdf",
+        "https://hoye.chem.umn.edu/RBW_Lectures",
+        "https://chab.ethz.ch/en/outreach/scientific-communications/d-chab-enzo.html"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: tổng hợp để học, rồi mới hỏi đến sản xuất",
+      "sources": [
+        "https://old.iupac.org/publications/pac/1973/pdf/3301x0145.pdf",
+        "https://www.nobelprize.org/uploads/2018/06/woodward-lecture.pdf",
+        "https://hoye.chem.umn.edu/RBW_Lectures",
+        "https://chab.ethz.ch/en/outreach/scientific-communications/d-chab-enzo.html"
+      ]
+    }
+  },
+  "content": "## Một mục tiêu lớn đến mức phải chia thành nhiều bài toán\n\nNăm 1972, các nhóm của Robert Burns Woodward tại Harvard và Albert Eschenmoser tại ETH Zürich hoàn thành những tuyến đường được ghi nhận là dấu mốc tổng hợp vitamin B₁₂. Báo cáo của Woodward năm 1973 trình bày các giai đoạn cuối của công việc. Đó là thành quả hợp tác, không phải một phản ứng đơn lẻ hay công việc của một người.\n\nVitamin B₁₂ có kiến trúc phức tạp, nhiều nhóm chức và những yêu cầu về cách sắp xếp trong không gian. Muốn xây nó, các nhóm phải tạo những mảnh phù hợp rồi ghép chúng trong một thứ tự có thể thực hiện. Một lựa chọn ở chặng đầu có thể quyết định bước cuối còn khả thi hay không.\n\nMốc tổng hợp được hiểu cùng những chuyển hóa đã biết dẫn từ các chất trung gian tới đích. Vì vậy, kể câu chuyện cần phân biệt chứng minh được một con đường hóa học với tự tay thực hiện lại mọi bước trong lịch sử của phân tử.\n\n![Thiết bị sắc ký lỏng HPLC](/assets/library/photos/stories/chromatography.jpg)\n\n*Một hệ thống sắc ký lỏng hiệu năng cao (HPLC) trong phòng thí nghiệm. — Cyberwork 95; [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0). [Nguồn ảnh](https://commons.wikimedia.org/wiki/File:HPLC_Instrument.jpg).*\n\n## Bản thiết kế phải sống sót trong bình phản ứng\n\nTrên giấy, một liên kết cần tạo có thể được đánh dấu bằng một nét bút. Trong bình, những nhóm khác của phân tử cũng có thể phản ứng, tạo sản phẩm phụ hoặc khiến tác chất đi tới vị trí không mong muốn. Bài toán vì thế không chỉ là có một phản ứng tạo liên kết, mà là nó có chọn đúng vị trí và đúng hướng hay không.\n\nTổng hợp phức tạp thường đòi hỏi thay đổi tạm thời mức hoạt động của các nhóm chức, lựa chọn thời điểm tạo vòng và kiểm tra cấu trúc sau những bước khó. Mỗi quyết định có chi phí về số bước và công đoạn tinh chế. Một tuyến ngắn trên sơ đồ chưa chắc dễ hơn tuyến dài nhưng kiểm soát tốt hơn.\n\nWoodward nổi tiếng với khả năng dùng hiểu biết cấu trúc để thiết kế đường tổng hợp. Bài giảng Nobel năm 1965 của ông đặt những thành tựu tổng hợp trong mối liên hệ với sự phát triển phương pháp. Đích đến là một chất cụ thể, nhưng hành trình có thể tạo ra tri thức dùng được cho nhiều phân tử khác.\n\nCác tư liệu về hợp tác B₁₂ cũng nhắc tới vai trò của phân tích và phân tách. Sản phẩm chỉ trở thành bằng chứng khi có thể nhận diện đủ chắc; một hỗn hợp phức tạp không tự chứng minh rằng bản thiết kế đã thành công.\n\n## Ứng dụng hôm nay: tổng hợp để học, rồi mới hỏi đến sản xuất\n\nTổng hợp toàn phần vẫn là cách kiểm tra những chiến lược xây dựng phân tử và phát triển phản ứng. Tuy nhiên, chứng minh một phân tử có thể được làm ra trong phòng thí nghiệm không có nghĩa tuyến ấy sẽ được chọn để cung cấp sản phẩm trên quy mô công nghiệp. Hiệu suất tổng, vật tư, năng lượng và khả năng tinh chế đều phải được xét riêng.\n\nĐó là giới hạn cần giữ rõ khi kể chuyện vitamin B₁₂. Giá trị lịch sử của công trình nằm ở việc vượt qua bài toán cấu trúc và phương pháp, chứ không phải lời khẳng định mọi vitamin trong sản phẩm thương mại đều đi qua đúng chuỗi thao tác của hai nhóm.\n\nTrong công việc thiết kế hóa học hôm nay, tư duy chia mục tiêu thành các mảnh, kiểm tra khả năng ghép và dự liệu phản ứng cạnh tranh vẫn rất hữu ích. Những công cụ tính toán hỗ trợ lựa chọn đường đi, nhưng phương án được đề xuất vẫn cần thực nghiệm xác nhận.\n\nCâu chuyện Woodward vì thế không phải huyền thoại về người luôn biết trước mọi phản ứng. Nó cho thấy sức mạnh của một bản thiết kế được sửa bằng dữ liệu. Phân tử càng phức tạp, việc giữ mối liên hệ giữa sơ đồ, mẫu vật và bằng chứng càng quyết định thành công.\n\n## Nguồn và đọc thêm\n\n- [Woodward · Báo cáo tổng hợp vitamin B₁₂, 1973](https://old.iupac.org/publications/pac/1973/pdf/3301x0145.pdf)\n- [Robert Woodward · Bài giảng Nobel 1965](https://www.nobelprize.org/uploads/2018/06/woodward-lecture.pdf)\n- [Đại học Minnesota · Tư liệu bài giảng Woodward và hợp tác với ETH](https://hoye.chem.umn.edu/RBW_Lectures)\n- [ETH Zürich · Vitamin B₁₂ trong lịch sử tổng hợp](https://chab.ethz.ch/en/outreach/scientific-communications/d-chab-enzo.html)"
+}

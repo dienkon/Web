@@ -111,7 +111,7 @@ for (const [key,group] of groups) {
     title:narrative.title?safeMeta(`${name}${material?'':` (${pFormula})`} — ${narrative.title}`):isomers?`${display}: các đồng phân và cách đọc mô hình 3D`:safeMeta(`${name}${material?'':` (${pFormula})`}: thành phần, mô hình và phản ứng`),
     author:'ChemDex · Học cấu trúc',category:element?'nguyento':'hopchat',
     summary:narrative.summary?safeMeta(narrative.summary):isomers?`Phân biệt một số đồng phân ${display} qua tên, cấu tạo, mô hình 3D và câu hỏi có lời giải.`:safeMeta(`${name}: ${lesson.label.toLowerCase()}, cách đọc mô hình và nguồn dữ liệu. Phản ứng đi kèm điều kiện; câu hỏi có lời giải.`),
-    image:media.image,chemicalFormula:material?'Hỗn hợp':pFormula,
+    image:narrative.image??media.image,chemicalFormula:material?'Hỗn hợp':pFormula,
     tags:[isomers?'Đồng phân & Cấu tạo':material?'Vật liệu & Hỗn hợp':element?'Nguyên tố':ions?'Thành phần ion':'Cấu trúc & Phản ứng',safeMeta(s.material?s.materialLabel:formula),...selected.slice(0,2).map(r=>safeMeta(r.topic_vi))],
     aliases:[...new Set(group.flatMap(r=>[r.name_vi,r.name_en,r.material?r.materialLabel:r.formula,...(r.aliases??[])]).filter(Boolean).map(a=>s.material&&/^H2O$/i.test(a)?s.materialLabel:a))],
     substanceIds:group.map(r=>r.id),documentKind:'reference',lessonKind:isomers?'isomer-comparison':'substance-guide',readingMinutes:Math.max(2,Math.ceil(wordCount/180)),editorialEvidence:narrative.editorialEvidence,

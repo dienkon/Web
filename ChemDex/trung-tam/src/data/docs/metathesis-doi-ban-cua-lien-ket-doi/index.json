@@ -1,0 +1,44 @@
+{
+  "id": "metathesis-doi-ban-cua-lien-ket-doi",
+  "slug": "metathesis-doi-ban-cua-lien-ket-doi",
+  "documentPath": "docs/metathesis-doi-ban-cua-lien-ket-doi/index.json",
+  "title": "Đổi bạn ở một liên kết đôi: từ bí ẩn nhà máy đến phản ứng metathesis",
+  "summary": "Một phản ứng đã được dùng trong công nghiệp trước khi cơ chế của nó được hiểu. Metathesis cho thấy vì sao giải thích đúng một hiện tượng có thể mở đường cho nhiều phân tử mới.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-alkene.svg",
+  "tags": [
+    "Metathesis",
+    "Xúc tác",
+    "Liên kết đôi",
+    "Tổng hợp hữu cơ"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 5,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Đổi bạn ở một liên kết đôi: từ bí ẩn nhà máy đến phản ứng metathesis",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Phản ứng làm được việc trước khi được giải thích",
+      "sources": [
+        "https://www.nobelprize.org/uploads/2018/06/popular-chemistryprize2005.pdf",
+        "https://www.nobelprize.org/uploads/2018/06/advanced-chemistryprize2005.pdf",
+        "https://www.kva.se/en/news/nobelpriset-i-kemi-2005-2/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: một công cụ thiết kế phân tử",
+      "sources": [
+        "https://www.nobelprize.org/uploads/2018/06/popular-chemistryprize2005.pdf",
+        "https://www.nobelprize.org/uploads/2018/06/advanced-chemistryprize2005.pdf",
+        "https://www.kva.se/en/news/nobelpriset-i-kemi-2005-2/"
+      ]
+    }
+  },
+  "content": "## Phản ứng làm được việc trước khi được giải thích\n\nTrong công nghiệp polymer những năm 1950, các nhà hóa học gặp những biến đổi khiến các đoạn mạch carbon được ghép lại theo cách bất ngờ. Phản ứng tạo ra sản phẩm hữu ích, nhưng việc chất xúc tác thực hiện công việc ấy như thế nào vẫn chưa rõ. Tài liệu Nobel Hóa học 2005 đặt nghịch lý này ở đầu lịch sử metathesis: có thể vận hành một hiện tượng trước khi nắm được cơ chế của nó.\n\nYves Chauvin cùng Jean-Louis Hérisson đưa ra lời giải liên quan đến những trung gian chứa kim loại và carbon. Về sau, Richard Schrock và Robert Grubbs phát triển các hệ xúc tác có thể được thiết kế và sử dụng chủ động hơn. Những đóng góp nối tiếp nhau biến một phản ứng công nghiệp thành công cụ tổng hợp có phạm vi rộng.\n\n![Sơ đồ minh họa liên kết đôi trong alkene; không phải sơ đồ đầy đủ của chu trình metathesis](/assets/library/organic-alkene.svg)\n\n## Đổi cách ghép, không đổi sổ kiểm kê nguyên tử\n\nTrong metathesis của alkene, các nhóm nằm hai phía liên kết đôi được ghép lại thành những liên kết đôi mới. Hình ảnh “đổi bạn” giúp hình dung kết quả tổng quát, nhưng không có nghĩa hai phân tử tự chạm nhau rồi lập tức đổi nửa thân. Chất xúc tác tham gia một chu trình gồm nhiều bước, qua các trung gian có cấu trúc riêng.\n\nMột ví dụ trong tài liệu Nobel là hai phân tử propene có thể tạo ethene và butene. Tổng số nguyên tử carbon và hydrogen vẫn được bảo toàn. Phản ứng thay đổi cách tổ chức vật chất đã có; nó không sinh thêm carbon. Khi kiểm tra một sơ đồ tổng hợp, phép đếm nguyên tử đơn giản ấy vẫn cần thiết dù xúc tác có phức tạp đến đâu.\n\nCơ chế còn giải thích vì sao thay đổi kim loại hoặc các nhóm bao quanh kim loại có thể đổi độ hoạt động, độ chọn lọc và khả năng chịu môi trường phản ứng.\n\n## Khép một vòng phân tử cần nhiều hơn một mũi tên\n\nNếu hai liên kết đôi nằm ở hai đầu của cùng một phân tử, metathesis có thể giúp nối các đầu ấy để tạo vòng. Cách làm này mở ra các cấu trúc trước đây khó tiếp cận. Nó cũng tạo một bài toán cạnh tranh: phân tử có thể phản ứng trong chính nó hoặc với phân tử khác, dẫn tới sản phẩm khác nhau.\n\nĐó là lý do một phản ứng nổi tiếng không thể được coi như nút bấm dùng cho mọi cấu trúc. Nhóm chức có sẵn trong nguyên liệu, độ bền của xúc tác, vị trí liên kết đôi và điều kiện tách sản phẩm đều ảnh hưởng kết quả. Hiệu suất thu được phải đi cùng thông tin về sản phẩm phụ và chất xúc tác còn lại.\n\nHiểu cơ chế cho phép nhà nghiên cứu đặt những câu hỏi ấy trước khi mở rộng quy mô. Một lời giải ở cấp phân tử nhờ vậy có thể tiết kiệm nhiều thử nghiệm ở cấp thiết bị.\n\n## Ứng dụng hôm nay: một công cụ thiết kế phân tử\n\nMetathesis hiện là một phương pháp của tổng hợp hữu cơ và hóa học polymer, dùng để xây dựng những khung carbon trong nghiên cứu vật liệu và các phân tử có hoạt tính sinh học. Giá trị của nó nằm ở khả năng mở thêm đường đi đến cấu trúc cần tạo, chứ không phải bảo đảm mọi sản phẩm đều “xanh” chỉ nhờ tên phản ứng.\n\nĐánh giá một quy trình vẫn cần tính lượng dung môi, nguyên liệu, năng lượng, kim loại và các bước tinh chế. Ít bước phản ứng hơn có thể là lợi thế, nhưng cần đối chiếu toàn bộ chuỗi. Nếu một phương pháp giảm phản ứng phụ mà lại đòi hỏi phân tách rất tốn kém, lợi ích thực tế cần được đo lại.\n\nCâu chuyện metathesis cho thấy nghiên cứu cơ bản và nhà máy không đứng ở hai đầu xa lạ. Nhà máy cung cấp hiện tượng khó hiểu; cơ chế tốt đưa lại công cụ để nhà máy và phòng nghiên cứu làm những việc trước đó chưa thuận lợi.\n\n## Nguồn và đọc thêm\n\n- [Viện Hàn lâm Khoa học Hoàng gia Thụy Điển · Metathesis, Nobel 2005](https://www.nobelprize.org/uploads/2018/06/popular-chemistryprize2005.pdf)\n- [Nobel · Thông tin chuyên sâu về cơ chế và xúc tác metathesis](https://www.nobelprize.org/uploads/2018/06/advanced-chemistryprize2005.pdf)\n- [KVA · Công bố giải Hóa học 2005 và phạm vi ứng dụng](https://www.kva.se/en/news/nobelpriset-i-kemi-2005-2/)"
+}

@@ -1,0 +1,44 @@
+{
+  "id": "wilhelm-ostwald-nhip-do-cua-phan-ung",
+  "slug": "wilhelm-ostwald-nhip-do-cua-phan-ung",
+  "documentPath": "docs/wilhelm-ostwald-nhip-do-cua-phan-ung/index.json",
+  "title": "Wilhelm Ostwald: điều khiển nhịp độ của phản ứng để làm ra acid nitric",
+  "summary": "Một phản ứng đã biết trong phòng thí nghiệm chưa tự trở thành quy trình sản xuất. Ostwald tìm cách tổ chức tiếp xúc, nhiệt và dòng khí để hóa học xúc tác có thể làm việc ở quy mô khác.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/industrial-reactor.svg",
+  "tags": [
+    "Wilhelm Ostwald",
+    "Xúc tác",
+    "Acid nitric",
+    "Hóa lý"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 5,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Wilhelm Ostwald: điều khiển nhịp độ của phản ứng để làm ra acid nitric",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Bản sáng chế bắt đầu từ một phản ứng đã biết",
+      "sources": [
+        "https://patents.google.com/patent/US858904A/en",
+        "https://www.nobelprize.org/prizes/chemistry/1909/ostwald/lecture/",
+        "https://www.epa.gov/sites/production/files/2020-09/documents/final_background_document_for_nitric_acid_section_8.8.pdf"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: đọc cả chuỗi sản xuất và phát thải",
+      "sources": [
+        "https://patents.google.com/patent/US858904A/en",
+        "https://www.nobelprize.org/prizes/chemistry/1909/ostwald/lecture/",
+        "https://www.epa.gov/sites/production/files/2020-09/documents/final_background_document_for_nitric_acid_section_8.8.pdf"
+      ]
+    }
+  },
+  "content": "## Bản sáng chế bắt đầu từ một phản ứng đã biết\n\nBản sáng chế Hoa Kỳ số 858904 của Wilhelm Ostwald, được cấp năm 1907 từ đơn nộp năm 1902, mô tả cải tiến trong sản xuất acid nitric từ ammonia và oxygen. Ngay phần đầu, tài liệu ghi nhận tác dụng của chất xúc tác lên hỗn hợp khí đã được biết như một phản ứng phòng thí nghiệm.\n\nChi tiết ấy làm rõ bản chất của đóng góp kỹ thuật. Một hiện tượng có thể xảy ra không đồng nghĩa nó đã vận hành hữu ích trong thiết bị. Cần tổ chức nơi các chất tiếp xúc, đường đi của khí và cách quản lý nhiệt. Bản vẽ thiết bị là một phần của lời giải hóa học.\n\nNobel Hóa học năm 1909 của Ostwald ghi nhận công trình về xúc tác, cân bằng và tốc độ phản ứng. Những chủ đề ấy đi cùng nhau: muốn thiết kế một quá trình, cần biết nó có thể đi tới đâu và mất bao lâu để đi theo một con đường cụ thể.\n\n![Sơ đồ minh họa thiết bị phản ứng công nghiệp, không phải bản vẽ gốc của Ostwald](/assets/library/industrial-reactor.svg)\n\n## Xúc tác không thay thế mọi giới hạn của hệ\n\nChất xúc tác mở một con đường phản ứng khác, nhưng không tạo ra vật chất hoặc năng lượng miễn phí. Nó ảnh hưởng tốc độ và có thể ảnh hưởng việc các con đường cạnh tranh được ưu tiên ra sao. Trong một quá trình thực, sản phẩm mong muốn chỉ là một khả năng trong mạng biến đổi có thể xảy ra.\n\nSản xuất acid nitric bằng oxi hóa ammonia thường được mô tả qua ba công đoạn: tạo nitric oxide, oxi hóa tiếp rồi hấp thụ để hình thành acid. Tên quy trình ngắn gọn không có nghĩa toàn bộ nhà máy chỉ thực hiện một mũi tên. Những bước trung gian và việc xử lý dòng ra quyết định hiệu quả chung.\n\nTài liệu EPA mô tả vai trò của lưới xúc tác chứa platinum và rhodium trong công đoạn oxi hóa ammonia. Điều kiện vận hành ảnh hưởng mức tạo các sản phẩm khác nhau, bao gồm những khí phải được kiểm soát. Vì vậy, đánh giá một chất xúc tác cần nhìn cả chọn lọc và sự ổn định, không chỉ tốc độ ban đầu.\n\nĐây là điểm nối giữa bài học tốc độ phản ứng và công nghiệp: một phản ứng chạy nhanh nhưng tạo nhiều dòng phụ khó xử lý có thể chưa phải một giải pháp tốt.\n\n## Ứng dụng hôm nay: đọc cả chuỗi sản xuất và phát thải\n\nAcid nitric vẫn là một hóa chất cơ bản trong nhiều chuỗi sản xuất. Phương pháp oxi hóa ammonia tiếp tục được trình bày trong các tài liệu kỹ thuật về ngành này, đồng thời gắn với yêu cầu quản lý khí thải và hiệu suất năng lượng. Công nghệ không đứng yên chỉ vì nguyên lý đã mang tên một nhà khoa học từ lâu.\n\nKhi đọc tin về cải tiến xúc tác, có thể dùng cách đặt câu hỏi mà câu chuyện Ostwald gợi ra: thay đổi xảy ra ở tốc độ, chọn lọc hay tuổi thọ? Kết quả được đo trên mẫu nhỏ hay trong dòng vận hành lâu dài? Các sản phẩm phụ có được đưa vào đánh giá không?\n\nBản thân tiểu sử Ostwald còn có những quan điểm khoa học đã thay đổi hoặc không được giữ lại. Một đóng góp lớn không làm mọi ý kiến của một người trở thành đúng. Tập trung vào thiết bị, dữ liệu và giới hạn của phản ứng giúp câu chuyện giữ được tính kiểm chứng.\n\nTừ phản ứng trên bàn thí nghiệm tới nhà máy, khoảng cách không chỉ là phóng to cái bình. Nó là công việc nối kiến thức động học với dòng vật chất và nhiệt. Chính khoảng cách ấy khiến câu chuyện về một nhà hóa lý vẫn có mặt trong cách thiết kế công nghệ hôm nay.\n\n## Nguồn và đọc thêm\n\n- [Wilhelm Ostwald · Bản sáng chế quy trình acid nitric](https://patents.google.com/patent/US858904A/en)\n- [Wilhelm Ostwald · Bài giảng Nobel 1909 về xúc tác](https://www.nobelprize.org/prizes/chemistry/1909/ostwald/lecture/)\n- [U.S. EPA · Cơ sở kỹ thuật quy trình sản xuất acid nitric](https://www.epa.gov/sites/production/files/2020-09/documents/final_background_document_for_nitric_acid_section_8.8.pdf)"
+}

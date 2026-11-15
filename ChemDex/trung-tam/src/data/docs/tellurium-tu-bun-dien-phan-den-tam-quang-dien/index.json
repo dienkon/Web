@@ -1,0 +1,44 @@
+{
+  "id": "tellurium-tu-bun-dien-phan-den-tam-quang-dien",
+  "slug": "tellurium-tu-bun-dien-phan-den-tam-quang-dien",
+  "documentPath": "docs/tellurium-tu-bun-dien-phan-den-tam-quang-dien/index.json",
+  "title": "Từ bùn điện phân đến tấm quang điện: một hành trình của tellurium",
+  "summary": "Tellurium có thể được thu hồi từ chuỗi luyện đồng rồi đi vào hợp chất hấp thụ ánh sáng CdTe. Vật liệu ít hiện diện trong đời sống bằng tên riêng lại tham gia một công nghệ phát điện đã được sản xuất thương mại.",
+  "category": "nguyento",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/elements/Te.jpg",
+  "tags": [
+    "Tellurium",
+    "CdTe",
+    "Quang điện",
+    "Chuỗi vật liệu"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "element",
+    "contextLabel": "Từ bùn điện phân đến tấm quang điện: một hành trình của tellurium",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một sản phẩm phụ được giao nhiệm vụ hấp thụ ánh sáng",
+      "sources": [
+        "https://www.energy.gov/eere/solar/cadmium-telluride",
+        "https://www.firstsolar.com/Technology/CadTel",
+        "https://periodic-table.rsc.org/element/52/tellurium"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: khép vòng vật liệu cũng là phần của công nghệ",
+      "sources": [
+        "https://www.energy.gov/eere/solar/cadmium-telluride",
+        "https://www.firstsolar.com/Technology/CadTel",
+        "https://periodic-table.rsc.org/element/52/tellurium"
+      ]
+    }
+  },
+  "content": "## Một sản phẩm phụ được giao nhiệm vụ hấp thụ ánh sáng\n\nTrong tinh luyện đồng bằng điện phân, phần bùn anode có thể chứa những nguyên tố có giá trị khác. Royal Society of Chemistry mô tả đó là một nguồn thu hồi tellurium thương mại. Hành trình của Te vì vậy có thể bắt đầu bên trong một ngành sản xuất có sản phẩm chính mang tên khác.\n\nỞ đầu kia của chuỗi, First Solar sản xuất module quang điện sử dụng cadmium telluride. Đây là một công nghệ thương mại, không chỉ là ý tưởng từ việc nhìn vị trí hai nguyên tố trên bảng tuần hoàn. Nhưng tellurium nguyên chất và CdTe vẫn cần được phân biệt: lớp hấp thụ ánh sáng là một hợp chất bán dẫn được chế tạo trong cấu trúc nhiều lớp.\n\n![Mẫu tellurium; lớp hấp thụ ánh sáng trong pin CdTe là hợp chất với cadmium](/assets/library/photos/elements/Te.jpg)\n\n## Màng mỏng cần làm được nhiều việc\n\nBộ Năng lượng Hoa Kỳ giải thích CdTe hấp thụ ánh sáng để tạo các hạt mang điện có thể tham gia dòng điện. Vì khả năng hấp thụ của vật liệu, lớp hoạt tính có thể được làm mỏng hơn so với một số công nghệ khác. Mỏng ở đây là đặc điểm thiết kế, không có nghĩa tấm pin chỉ gồm một lớp CdTe lộ ra ngoài.\n\nThiết bị còn cần các lớp tiếp xúc, đường thu dòng và phần bảo vệ môi trường. Nếu ánh sáng được hấp thụ nhưng điện tích không được thu hiệu quả, năng lượng hữu ích vẫn bị mất. Một công thức bán dẫn phù hợp mới là điểm khởi đầu cho bài toán giao diện, chất lượng tinh thể và cấu trúc module.\n\n## Từ lớp phủ trên kính đến sản phẩm ngoài trời\n\nTrong mô tả quy trình của DOE, vật liệu được lắng đọng trên kính dẫn điện, trải qua các bước tạo cấu trúc và xử lý, rồi hoàn thiện bằng tiếp xúc điện và những lớp đóng gói. Việc chia vùng làm việc và nối các phần bên trong giúp tạo một module có thể kết nối với hệ thống phát điện.\n\nNgoài trời, sản phẩm chịu thay đổi nhiệt độ, độ ẩm và ánh sáng theo thời gian. Vì thế, hiệu suất của một cell thử nghiệm không phải toàn bộ câu chuyện về lượng điện một module tạo ra trong nhiều năm. Tài liệu của nhà sản xuất cần được đọc cùng điều kiện đo và phạm vi bảo hành; không nên biến một ưu điểm trong điều kiện cụ thể thành kết luận luôn vượt trội ở mọi nơi.\n\n## Ứng dụng hôm nay: khép vòng vật liệu cũng là phần của công nghệ\n\nTellurium trong CdTe nối ngành luyện kim với ngành năng lượng. DOE và nhà sản xuất đều đặt nghiên cứu nguồn vật liệu, nâng hiệu năng và thu hồi sau sử dụng trong chương trình phát triển công nghệ. Khả năng tái chế được mô tả cho module và quy trình cụ thể, không có nghĩa mọi tấm pin cũ tự quay về thành nguyên liệu mới.\n\nThu gom, phân loại và xử lý thực tế quyết định bao nhiêu vật liệu đi được một vòng tiếp theo. Cũng cần phân biệt độc tính của nguyên tố, hợp chất và dạng sản phẩm khi đánh giá vòng đời. Câu chuyện Te không chỉ là một nguyên tố hiếm giúp hấp thụ ánh sáng. Nó cho thấy một công nghệ hoàn chỉnh phải theo dõi vật chất từ công đoạn thu hồi ban đầu, qua quá trình tạo linh kiện, tới lúc sản phẩm thôi phát điện.\n\n## Nguồn và đọc thêm\n\n- [U.S. DOE · Cấu tạo và sản xuất module cadmium telluride](https://www.energy.gov/eere/solar/cadmium-telluride)\n- [First Solar · Công nghệ CdTe đang được sản xuất](https://www.firstsolar.com/Technology/CadTel)\n- [Royal Society of Chemistry · Tellurium và nguồn thu hồi](https://periodic-table.rsc.org/element/52/tellurium)"
+}

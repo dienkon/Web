@@ -1,9 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {editorialArticles} from './data/editorial-articles.mjs';
-import {editorialBiographies} from './data/editorial-biographies.mjs';
-import {editorialApplications} from './data/editorial-applications.mjs';
+import {editorialManuscripts} from './data/editorial-manuscripts.mjs';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const read=relative=>JSON.parse(fs.readFileSync(path.join(root,relative),'utf8'));
@@ -26,7 +24,7 @@ export function buildEditorialLibrary() {
   const routes=read('shared/library-routes.generated.json');
   const categories=new Set(read('trung-tam/src/data/config.json').categories.map(cat=>cat.id));
   const index=[];
-  for(const article of [...editorialArticles,...editorialBiographies,...editorialApplications]) {
+  for(const article of editorialManuscripts) {
     if(!/^[a-z0-9-]+$/.test(article.id)||usedIds.has(article.id))throw Error('Duplicate or invalid editorial ID: '+article.id);
     if(titles.has(article.title)||!categories.has(article.category))throw Error('Duplicate title or unknown category: '+article.id);
     if(article.sections.length<3||article.sources.length<2)throw Error('Incomplete manuscript: '+article.id);

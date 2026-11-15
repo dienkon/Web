@@ -1,0 +1,44 @@
+{
+  "id": "neodymium-nam-cham-giu-thi-nghiem-yen",
+  "slug": "neodymium-nam-cham-giu-thi-nghiem-yen",
+  "documentPath": "docs/neodymium-nam-cham-giu-thi-nghiem-yen/index.json",
+  "title": "Một nam châm để giữ thí nghiệm yên: neodymium và bài toán rung động",
+  "summary": "Trong thiết kế cách ly rung cho thí nghiệm vi trọng lực, nam châm Nd–Fe–B tạo từ trường để cuộn dây sinh lực điều khiển. Câu chuyện đi xa hơn lời giới thiệu “nam châm rất mạnh”.",
+  "category": "nguyento",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/elements/Nd.jpg",
+  "tags": [
+    "Neodymium",
+    "Nam châm",
+    "Vi trọng lực",
+    "Điều khiển rung"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "element",
+    "contextLabel": "Một nam châm để giữ thí nghiệm yên: neodymium và bài toán rung động",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Giữ yên cũng cần tạo ra lực",
+      "sources": [
+        "https://ntrs.nasa.gov/citations/19960052932",
+        "https://ntrs.nasa.gov/citations/20050214758",
+        "https://periodic-table.rsc.org/element/60/neodymium"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: thu nhỏ thiết bị nhưng vẫn phải tính cả hệ",
+      "sources": [
+        "https://ntrs.nasa.gov/citations/19960052932",
+        "https://ntrs.nasa.gov/citations/20050214758",
+        "https://periodic-table.rsc.org/element/60/neodymium"
+      ]
+    }
+  },
+  "content": "## Giữ yên cũng cần tạo ra lực\n\nMột thiết kế cơ cấu điện từ được NASA công bố trong hồ sơ năm 1996 nhắm tới việc cách ly rung cho thí nghiệm vi trọng lực. Nhóm chế tạo một bộ truyền động có hành trình dài, sử dụng vật liệu nam châm neodymium–iron–boron để cung cấp từ trường. Cuộn dây chuyển động trong trường ấy tạo lực có thể điều khiển bằng dòng điện.\n\nĐiểm thú vị là để giữ một thí nghiệm ít rung hơn, hệ thống không thể chỉ đứng yên thụ động. Nó cần phản ứng với nhiễu và tạo lực bù phù hợp. Nam châm là một phần của vòng điều khiển, cùng với cơ cấu, cảm biến và phần điện tử. Một vật liệu mạnh hơn chỉ có giá trị khi cả thiết kế biết dùng lực đó đúng lúc.\n\n![Mẫu neodymium; nam châm kỹ thuật là hợp kim chứa neodymium, sắt và boron](/assets/library/photos/elements/Nd.jpg)\n\n## Ba nguyên tố làm nên một vật liệu khác\n\nTên gọi tắt “nam châm neodymium” dễ khiến người đọc hình dung một khối Nd nguyên chất. Nam châm kỹ thuật ở đây là vật liệu chứa neodymium, sắt và boron, có cấu trúc và cách chế tạo riêng. Khả năng duy trì từ hóa và tạo trường không được suy ra bằng cách cộng giản đơn tính chất của ba mẫu nguyên tố.\n\nTrong cơ cấu cuộn dây, lực liên quan đến dòng điện, từ trường và hình học. Thay đường kính lõi, chiều dài vùng cực hoặc số lớp dây đều có thể làm lực thay đổi theo vị trí. Nhóm nghiên cứu vì thế dùng tính toán trường ba chiều rồi thử nghiệm phần cứng để kiểm tra độ tuyến tính. Đó là bước chuyển từ câu “nam châm mạnh” sang câu hỏi đo được: mạnh ở đâu và ổn định đến mức nào?\n\n## Nhiệt có thể thay đổi câu trả lời\n\nMột chương trình khác tại NASA Glenn nghiên cứu máy phát tuyến tính trong bộ chuyển đổi Stirling. Mô hình của máy phát phải xét cả trường khử từ tác động lên nam châm Nd–Fe–B khi bộ phận chuyển động ở các vị trí khác nhau. Dữ liệu dự đoán điện áp và dòng điện được so với thí nghiệm trước khi dùng mô hình để đánh giá nguy cơ.\n\nCông việc ấy nhắc rằng nam châm vĩnh cửu không có nghĩa từ tính bất biến trước mọi điều kiện. Nhiệt độ và trường ngoài có thể làm thay đổi khả năng làm việc. Giới hạn của một cấu hình cụ thể không được áp thành con số chung cho mọi loại nam châm. Lựa chọn cấp vật liệu, bố trí làm mát và khoảng an toàn cần đi cùng nhau.\n\n## Ứng dụng hôm nay: thu nhỏ thiết bị nhưng vẫn phải tính cả hệ\n\nNd–Fe–B được dùng trong nhiều thiết bị có yêu cầu từ trường mạnh trong thể tích nhỏ, từ loa đến các hệ truyền động. Hai câu chuyện nghiên cứu cho thấy cùng một họ vật liệu có thể phục vụ nhiệm vụ rất khác: tạo lực để giảm rung hoặc hỗ trợ biến chuyển động thành điện.\n\nKhi một sản phẩm được quảng bá nhờ đất hiếm, thông tin hữu ích không chỉ là có chứa neodymium. Cần biết vật liệu đã được chế tạo như thế nào và làm việc trong điều kiện nào. Khối nam châm không tạo ra năng lượng cho hệ; nó cung cấp từ trường để tương tác với dòng điện và chuyển động. Điều làm ứng dụng thành công là phối hợp đúng các thành phần. Từ một mẫu nguyên tố tới một thiết bị giữ thí nghiệm yên là cả khoảng cách của thiết kế, kiểm chứng và hiểu vật liệu.\n\n## Nguồn và đọc thêm\n\n- [NASA · Cơ cấu điện từ hành trình dài cho cách ly rung](https://ntrs.nasa.gov/citations/19960052932)\n- [NASA Glenn · Phân tích nam châm trong máy phát tuyến tính Stirling](https://ntrs.nasa.gov/citations/20050214758)\n- [Royal Society of Chemistry · Neodymium và Nd–Fe–B](https://periodic-table.rsc.org/element/60/neodymium)"
+}
